@@ -15,10 +15,10 @@ declare(strict_types=1);
 namespace phpOMS\tests\Algorithm\PathFinding;
 
 use phpOMS\Algorithm\PathFinding\Grid;
-use phpOMS\Algorithm\PathFinding\MovementType;
 use phpOMS\Algorithm\PathFinding\HeuristicType;
 use phpOMS\Algorithm\PathFinding\JumpPointNode;
 use phpOMS\Algorithm\PathFinding\JumpPointSearch;
+use phpOMS\Algorithm\PathFinding\MovementType;
 
 require_once __DIR__ . '/../../Autoloader.php';
 

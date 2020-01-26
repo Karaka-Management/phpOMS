@@ -35,7 +35,7 @@ class GridTest extends \PHPUnit\Framework\TestCase
     public function testDefault() : void
     {
         $grid = new Grid();
-        self::assertEquals(null, $grid->getNode(0, 0));
+        self::assertNull($grid->getNode(0, 0));
     }
 
     /**
@@ -95,10 +95,10 @@ class GridTest extends \PHPUnit\Framework\TestCase
             [0, 9, 0],
         ], Node::class);
 
-        self::assertEquals(null, $grid->getNode(-1, 0));
-        self::assertEquals(null, $grid->getNode(0, -1));
-        self::assertEquals(null, $grid->getNode(3, 0));
-        self::assertEquals(null, $grid->getNode(0, 3));
+        self::assertNull($grid->getNode(-1, 0));
+        self::assertNull($grid->getNode(0, -1));
+        self::assertNull($grid->getNode(3, 0));
+        self::assertNull($grid->getNode(0, 3));
     }
 
     /**

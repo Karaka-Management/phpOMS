@@ -14,8 +14,8 @@ declare(strict_types=1);
 
 namespace phpOMS\Math\Statistic\Forecast\Regression;
 
-use phpOMS\Math\Statistic\Average;
 use phpOMS\Math\Matrix\Exception\InvalidDimensionException;
+use phpOMS\Math\Statistic\Average;
 
 /**
  * Regression class.

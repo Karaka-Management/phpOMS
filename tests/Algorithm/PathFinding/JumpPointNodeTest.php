@@ -43,7 +43,7 @@ class JumpPointNodeTest extends \PHPUnit\Framework\TestCase
         self::assertFalse($this->node->isOpened());
         self::assertFalse($this->node->isTested());
         self::assertEquals(0.0, $this->node->getG());
-        self::assertEquals(null, $this->node->getH());
+        self::assertNull($this->node->getH());
         self::assertEquals(0.0, $this->node->getF());
     }
 

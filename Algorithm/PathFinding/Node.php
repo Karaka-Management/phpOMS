@@ -27,7 +27,7 @@ class Node
     /**
      * X-Coordinate.
      *
-     * @var   int
+     * @var int
      * @since 1.0.0
      */
     private int $x = 0;
@@ -35,7 +35,7 @@ class Node
     /**
      * Y-Coordinate.
      *
-     * @var   int
+     * @var int
      * @since 1.0.0
      */
     private int $y = 0;
@@ -43,7 +43,7 @@ class Node
     /**
      * Cost of the node.
      *
-     * @var   float
+     * @var float
      * @since 1.0.0
      */
     private float $weight = 1.0;
@@ -51,7 +51,7 @@ class Node
     /**
      * Can be walked?
      *
-     * @var   bool
+     * @var bool
      * @since 1.0.0
      */
     private bool $isWalkable = true;
@@ -59,7 +59,7 @@ class Node
     /**
      * Parent node.
      *
-     * @var   null|Node
+     * @var null|Node
      * @since 1.0.0
      */
     private ?Node $parent = null;
@@ -139,7 +139,7 @@ class Node
      *
      * @since 1.0.0
      */
-    public function setParent(?Node $node) : void
+    public function setParent(?self $node) : void
     {
         $this->parent = $node;
     }
@@ -151,7 +151,7 @@ class Node
      *
      * @since 1.0.0
      */
-    public function getParent() : ?Node
+    public function getParent() : ?self
     {
         return $this->parent;
     }
@@ -165,7 +165,7 @@ class Node
      *
      * @since 1.0.0
      */
-    public function isEqual(Node $node) : bool
+    public function isEqual(self $node) : bool
     {
         return $this->x === $node->getX() && $this->y === $node->getY();
     }

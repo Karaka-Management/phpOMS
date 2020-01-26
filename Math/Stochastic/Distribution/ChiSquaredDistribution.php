@@ -27,7 +27,7 @@ final class ChiSquaredDistribution
     /**
      * Chi square table.
      *
-     * @var   array<int, array<string, float>>
+     * @var array<int, array<string, float>>
      * @since 1.0.0
      */
     public const TABLE = [

@@ -32,7 +32,7 @@ final class Dispatcher implements DispatcherInterface
     /**
      * Application.
      *
-     * @var   null|ApplicationAbstract
+     * @var null|ApplicationAbstract
      * @since 1.0.0
      */
     private ?ApplicationAbstract $app;
@@ -42,7 +42,7 @@ final class Dispatcher implements DispatcherInterface
      *
      * Set in the module manager on module initialization.
      *
-     * @var   array
+     * @var array
      * @since 1.0.0
      */
     private array $controllers = [];

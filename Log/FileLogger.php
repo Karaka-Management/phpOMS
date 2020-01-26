@@ -39,7 +39,7 @@ final class FileLogger implements LoggerInterface
      * Potential values are null or an array filled with log timings.
      * This is used in order to profile code sections by ID.
      *
-     * @var   array
+     * @var array
      * @since 1.0.0
      */
     private static array $timings = [];
@@ -47,7 +47,7 @@ final class FileLogger implements LoggerInterface
     /**
      * Instance.
      *
-     * @var   FileLogger
+     * @var FileLogger
      * @since 1.0.0
      */
     protected static FileLogger $instance;
@@ -55,7 +55,7 @@ final class FileLogger implements LoggerInterface
     /**
      * Verbose.
      *
-     * @var   bool
+     * @var bool
      * @since 1.0.0
      */
     protected bool $verbose = false;
@@ -65,7 +65,7 @@ final class FileLogger implements LoggerInterface
      *
      * Potential values are null or a valid file pointer
      *
-     * @var   false|resource
+     * @var false|resource
      * @since 1.0.0
      */
     private $fp = false;
@@ -73,7 +73,7 @@ final class FileLogger implements LoggerInterface
     /**
      * Logging path
      *
-     * @var   string
+     * @var string
      * @since 1.0.0
      */
     private string $path;
@@ -81,7 +81,7 @@ final class FileLogger implements LoggerInterface
     /**
      * Is the logging file created
      *
-     * @var   bool
+     * @var bool
      * @since 1.0.0
      */
     private bool $created = false;

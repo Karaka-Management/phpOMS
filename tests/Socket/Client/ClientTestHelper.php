@@ -14,20 +14,20 @@ declare(strict_types=1);
 
 namespace phpOMS\tests\Socket\Client;
 
-use phpOMS\Socket\Server\Server;
 use Model\CoreSettings;
 use phpOMS\Account\AccountManager;
 use phpOMS\ApplicationAbstract;
 use phpOMS\DataStorage\Cache\CachePool;
+use phpOMS\DataStorage\Database\DatabasePool;
+use phpOMS\DataStorage\Database\DataMapperAbstract;
+use phpOMS\DataStorage\Session\HttpSession;
 use phpOMS\Dispatcher\Dispatcher;
 use phpOMS\Event\EventManager;
 use phpOMS\Localization\L11nManager;
 use phpOMS\Log\FileLogger;
 use phpOMS\Module\ModuleManager;
 use phpOMS\Router\SocketRouter;
-use phpOMS\DataStorage\Database\DatabasePool;
-use phpOMS\DataStorage\Database\DataMapperAbstract;
-use phpOMS\DataStorage\Session\HttpSession;
+use phpOMS\Socket\Server\Server;
 
 require_once __DIR__ . '/../../../Autoloader.php';
 $config = require_once __DIR__ . '/../../../../config.php';
@@ -66,6 +66,6 @@ $socket = new Server($app);
 $socket->create('127.0.0.1', $config['socket']['master']['port']);
 $socket->setLimit(1);
 
-$app->router->add('^shutdown$', function($app, $request) use ($socket) { $socket->shutdown($request); });
+$app->router->add('^shutdown$', function($app, $request) use ($socket): void { $socket->shutdown($request); });
 
 $socket->run();

@@ -31,7 +31,7 @@ final class LUDecomposition
     /**
      * LU matrix.
      *
-     * @var   array
+     * @var array
      * @since 1.0.0
      */
     private array $LU = [];
@@ -39,7 +39,7 @@ final class LUDecomposition
     /**
      * Dimension m
      *
-     * @var   int
+     * @var int
      * @since 1.0.0
      */
     private int $m = 0;
@@ -47,7 +47,7 @@ final class LUDecomposition
     /**
      * Dimension n
      *
-     * @var   int
+     * @var int
      * @since 1.0.0
      */
     private int $n = 0;
@@ -55,7 +55,7 @@ final class LUDecomposition
     /**
      * Pivot sign
      *
-     * @var   int
+     * @var int
      * @since 1.0.0
      */
     private int $pivSign = 1;
@@ -63,7 +63,7 @@ final class LUDecomposition
     /**
      * Pivot
      *
-     * @var   array
+     * @var array
      * @since 1.0.0
      */
     private array $piv = [];

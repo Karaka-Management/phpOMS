@@ -35,7 +35,7 @@ class Account implements ArrayableInterface, \JsonSerializable
     /**
      * Id.
      *
-     * @var   int
+     * @var int
      * @since 1.0.0
      */
     protected int $id = 0;
@@ -43,7 +43,7 @@ class Account implements ArrayableInterface, \JsonSerializable
     /**
      * Names.
      *
-     * @var   string
+     * @var string
      * @since 1.0.0
      */
     protected string $name1 = '';
@@ -51,7 +51,7 @@ class Account implements ArrayableInterface, \JsonSerializable
     /**
      * Names.
      *
-     * @var   string
+     * @var string
      * @since 1.0.0
      */
     protected string $name2 = '';
@@ -59,7 +59,7 @@ class Account implements ArrayableInterface, \JsonSerializable
     /**
      * Names.
      *
-     * @var   string
+     * @var string
      * @since 1.0.0
      */
     protected string $name3 = '';
@@ -67,7 +67,7 @@ class Account implements ArrayableInterface, \JsonSerializable
     /**
      * Email.
      *
-     * @var   string
+     * @var string
      * @since 1.0.0
      */
     protected string $email = '';
@@ -77,7 +77,7 @@ class Account implements ArrayableInterface, \JsonSerializable
      *
      * Used in order to make sure ips don't change
      *
-     * @var   string
+     * @var string
      * @since 1.0.0
      */
     protected string $origin = '';
@@ -85,7 +85,7 @@ class Account implements ArrayableInterface, \JsonSerializable
     /**
      * Login.
      *
-     * @var   null|string
+     * @var null|string
      * @since 1.0.0
      */
     protected ?string $login = null;
@@ -93,7 +93,7 @@ class Account implements ArrayableInterface, \JsonSerializable
     /**
      * Last activity.
      *
-     * @var   \DateTime
+     * @var \DateTime
      * @since 1.0.0
      */
     protected \DateTime $lastActive;
@@ -101,7 +101,7 @@ class Account implements ArrayableInterface, \JsonSerializable
     /**
      * Last activity.
      *
-     * @var   \DateTime
+     * @var \DateTime
      * @since 1.0.0
      */
     protected \DateTime $createdAt;
@@ -109,7 +109,7 @@ class Account implements ArrayableInterface, \JsonSerializable
     /**
      * Groups.
      *
-     * @var   int[]
+     * @var int[]
      * @since 1.0.0
      */
     protected array $groups = [];
@@ -117,7 +117,7 @@ class Account implements ArrayableInterface, \JsonSerializable
     /**
      * Password.
      *
-     * @var   string
+     * @var string
      * @since 1.0.0
      */
     protected string $password = '';
@@ -125,7 +125,7 @@ class Account implements ArrayableInterface, \JsonSerializable
     /**
      * Account type.
      *
-     * @var   int
+     * @var int
      * @since 1.0.0
      */
     protected int $type = AccountType::USER;
@@ -133,7 +133,7 @@ class Account implements ArrayableInterface, \JsonSerializable
     /**
      * Account status.
      *
-     * @var   int
+     * @var int
      * @since 1.0.0
      */
     protected int $status = AccountStatus::INACTIVE;
@@ -141,7 +141,7 @@ class Account implements ArrayableInterface, \JsonSerializable
     /**
      * Localization.
      *
-     * @var   Localization
+     * @var Localization
      * @since 1.0.0
      */
     protected Localization $l11n;

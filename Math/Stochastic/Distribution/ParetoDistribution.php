@@ -191,7 +191,7 @@ final class ParetoDistribution
     {
         return [
             [$alpha / $xm ** 2, -1 / $xm],
-            [-1 / $xm, 1 / ($alpha ** 2)]
+            [-1 / $xm, 1 / ($alpha ** 2)],
         ];
     }
 }

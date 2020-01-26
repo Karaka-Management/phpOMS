@@ -17,6 +17,7 @@ namespace phpOMS\tests\Socket\Client;
 use Model\CoreSettings;
 use phpOMS\Account\AccountManager;
 use phpOMS\ApplicationAbstract;
+use phpOMS\Autoloader;
 use phpOMS\DataStorage\Cache\CachePool;
 use phpOMS\Dispatcher\Dispatcher;
 use phpOMS\Event\EventManager;
@@ -25,7 +26,6 @@ use phpOMS\Log\FileLogger;
 use phpOMS\Module\ModuleManager;
 use phpOMS\Router\SocketRouter;
 use phpOMS\Socket\Client\Client;
-use phpOMS\Autoloader;
 
 /**
  * @internal
@@ -92,7 +92,7 @@ class ClientTest extends \PHPUnit\Framework\TestCase
         $socket->addPacket('help' . "\r");
         $socket->addPacket('shutdown' . "\r");
 
-        $this->app->router->add('^shutdown$', function() use ($socket) { $socket->shutdown(); });
+        $this->app->router->add('^shutdown$', function() use ($socket): void { $socket->shutdown(); });
 
         $socket->run();
 

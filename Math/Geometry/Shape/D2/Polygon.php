@@ -27,7 +27,7 @@ final class Polygon implements D2ShapeInterface
     /**
      * Epsilon for float comparison.
      *
-     * @var   float
+     * @var float
      * @since 1.0.0
      */
     public const EPSILON = 0.00001;
@@ -37,7 +37,7 @@ final class Polygon implements D2ShapeInterface
      *
      * These coordinates define the polygon
      *
-     * @var   array[]
+     * @var array[]
      * @since 1.0.0
      */
     private array $coord = [];

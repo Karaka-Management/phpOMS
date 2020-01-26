@@ -14,10 +14,10 @@ declare(strict_types=1);
 
 namespace phpOMS\Socket\Client;
 
-use phpOMS\Socket\SocketAbstract;
 use phpOMS\ApplicationAbstract;
-use phpOMS\Socket\Server\ClientManager;
 use phpOMS\Message\Socket\PacketManager;
+use phpOMS\Socket\Server\ClientManager;
+use phpOMS\Socket\SocketAbstract;
 
 /**
  * Client socket class.
@@ -32,7 +32,7 @@ class Client extends SocketAbstract
     /**
      * Packet manager.
      *
-     * @var   PacketManager
+     * @var PacketManager
      * @since 1.0.0
      */
     private $packetManager = null;
@@ -40,7 +40,7 @@ class Client extends SocketAbstract
     /**
      * Socket application.
      *
-     * @var   SocketApplication
+     * @var SocketApplication
      * @since 1.0.0
      */
     private $app = null;
@@ -107,7 +107,7 @@ class Client extends SocketAbstract
                 if (\count($read) > 0) {
                     $data = \socket_read($this->sock, 1024);
 
-                    var_dump($data);
+                    \var_dump($data);
 
                     /* Server no data */
                     if ($data === false) {

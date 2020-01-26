@@ -30,7 +30,7 @@ class Git
     /**
      * Git path.
      *
-     * @var   string
+     * @var string
      * @since 1.0.0
      */
     protected static string $bin = '/usr/bin/git';

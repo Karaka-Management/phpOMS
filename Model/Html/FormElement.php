@@ -27,7 +27,7 @@ class FormElement
     /**
      * Element id.
      *
-     * @var   string
+     * @var string
      * @since 1.0.0
      */
     public string $id;
@@ -35,7 +35,7 @@ class FormElement
     /**
      * Form id.
      *
-     * @var   string
+     * @var string
      * @since 1.0.0
      */
     public string $form;
@@ -43,7 +43,7 @@ class FormElement
     /**
      * Element name.
      *
-     * @var   string
+     * @var string
      * @since 1.0.0
      */
     public string $name;
@@ -51,7 +51,7 @@ class FormElement
     /**
      * Value is required.
      *
-     * @var   bool
+     * @var bool
      * @since 1.0.0
      */
     public bool $required;
@@ -59,7 +59,7 @@ class FormElement
     /**
      * Default value.
      *
-     * @var   string
+     * @var string
      * @since 1.0.0
      */
     public string $defaultValue;
@@ -67,7 +67,7 @@ class FormElement
     /**
      * Required values which cannot be changed/removed.
      *
-     * @var   string
+     * @var string
      * @since 1.0.0
      */
     public string $requiredValue;
@@ -75,7 +75,7 @@ class FormElement
     /**
      * Autosave on change.
      *
-     * @var   bool
+     * @var bool
      * @since 1.0.0
      */
     public bool $autosave;

@@ -27,7 +27,7 @@ final class Numeric
     /**
      * Romans association.
      *
-     * @var   array
+     * @var array
      * @since 1.0.0
      */
     public const ROMANS = [

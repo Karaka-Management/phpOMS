@@ -21,6 +21,8 @@ namespace phpOMS\Math\Stochastic\Distribution;
  * @license OMS License 1.0
  * @link    https://orange-management.org
  * @since   1.0.0
+ *
+ * @internal
  */
 final class ZTest
 {

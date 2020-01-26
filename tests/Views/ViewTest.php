@@ -246,7 +246,7 @@ class ViewTest extends \PHPUnit\Framework\TestCase
     {
         $view = new View($this->app, $request = new Request(new Http('')), $response = new Response());
 
-        self::assertEquals(false, $view->getView('test'));
+        self::assertFalse($view->getView('test'));
     }
 
     /**

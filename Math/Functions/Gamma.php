@@ -37,7 +37,7 @@ final class Gamma
     /**
      * approximation values.
      *
-     * @var   float[]
+     * @var float[]
      * @since 1.0.0
      */
     private const LANCZOSAPPROXIMATION = [

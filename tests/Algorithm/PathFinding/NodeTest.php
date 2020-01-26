@@ -38,7 +38,7 @@ class NodeTest extends \PHPUnit\Framework\TestCase
         self::assertEquals(2, $node->getY());
         self::assertEquals(['x' => 1, 'y' => 2], $node->getCoordinates());
         self::assertEquals(3.0, $node->getWeight());
-        self::assertEquals(null, $node->getParent());
+        self::assertNull($node->getParent());
         self::assertFalse($node->isWalkable());
     }
 

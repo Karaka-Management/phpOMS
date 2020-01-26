@@ -29,7 +29,7 @@ class Matrix implements \ArrayAccess, \Iterator
     /**
      * Matrix.
      *
-     * @var   array
+     * @var array
      * @since 1.0.0
      */
     protected array $matrix = [];
@@ -37,7 +37,7 @@ class Matrix implements \ArrayAccess, \Iterator
     /**
      * Columns.
      *
-     * @var   int
+     * @var int
      * @since 1.0.0
      */
     protected int $n = 0;
@@ -45,7 +45,7 @@ class Matrix implements \ArrayAccess, \Iterator
     /**
      * Rows.
      *
-     * @var   int
+     * @var int
      * @since 1.0.0
      */
     protected int $m = 0;
@@ -53,7 +53,7 @@ class Matrix implements \ArrayAccess, \Iterator
     /**
      * Iterator position.
      *
-     * @var   int
+     * @var int
      * @since 1.0.0
      */
     protected int $position = 0;

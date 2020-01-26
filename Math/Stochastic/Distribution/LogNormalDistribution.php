@@ -154,7 +154,7 @@ final class LogNormalDistribution
      */
     public static function getEntrpoy(float $mu, float $sigma) : float
     {
-        return \log($sigma * \exp($mu + 1 / 2) * \sqrt(2 * M_1_PI), 2);
+        return \log($sigma * \exp($mu + 1 / 2) * \sqrt(2 * \M_1_PI), 2);
     }
 
     /**

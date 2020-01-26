@@ -30,7 +30,7 @@ trait OptionsTrait
     /**
      * Options.
      *
-     * @var   array
+     * @var array
      * @since 1.0.0
      */
     private array $options = [];

@@ -35,7 +35,7 @@ class Grammar extends QueryGrammar
     /**
      * Drop components.
      *
-     * @var   string[]
+     * @var string[]
      * @since 1.0.0
      */
     protected array $dropDatabaseComponents = [
@@ -45,7 +45,7 @@ class Grammar extends QueryGrammar
     /**
      * Drop components.
      *
-     * @var   string[]
+     * @var string[]
      * @since 1.0.0
      */
     protected array $dropTableComponents = [
@@ -55,7 +55,7 @@ class Grammar extends QueryGrammar
     /**
      * Select tables components.
      *
-     * @var   string[]
+     * @var string[]
      * @since 1.0.0
      */
     protected array $createTablesComponents = [
@@ -67,7 +67,7 @@ class Grammar extends QueryGrammar
     /**
      * Select tables components.
      *
-     * @var   string[]
+     * @var string[]
      * @since 1.0.0
      */
     protected array $tablesComponents = [
@@ -77,7 +77,7 @@ class Grammar extends QueryGrammar
     /**
      * Select field components.
      *
-     * @var   string[]
+     * @var string[]
      * @since 1.0.0
      */
     protected array $fieldsComponents = [

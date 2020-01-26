@@ -27,7 +27,7 @@ class Interval implements \Serializable
     /**
      * Start of the task.
      *
-     * @var   \DateTime
+     * @var \DateTime
      * @since 1.0.0
      */
     private \DateTime $start;
@@ -35,7 +35,7 @@ class Interval implements \Serializable
     /**
      * End of the task.
      *
-     * @var   null|\DateTime
+     * @var null|\DateTime
      * @since 1.0.0
      */
     private ?\DateTime $end = null;
@@ -47,7 +47,7 @@ class Interval implements \Serializable
      *
      * 0 = infinite
      *
-     * @var   int
+     * @var int
      * @since 1.0.0
      */
     private int $maxDuration = 0;
@@ -55,7 +55,7 @@ class Interval implements \Serializable
     /**
      * Minute.
      *
-     * @var   array
+     * @var array
      * @since 1.0.0
      */
     private $minute = [];
@@ -63,7 +63,7 @@ class Interval implements \Serializable
     /**
      * Hour.
      *
-     * @var   array
+     * @var array
      * @since 1.0.0
      */
     private $hour = [];
@@ -71,7 +71,7 @@ class Interval implements \Serializable
     /**
      * Day of month.
      *
-     * @var   array
+     * @var array
      * @since 1.0.0
      */
     private $dayOfMonth = [];
@@ -79,7 +79,7 @@ class Interval implements \Serializable
     /**
      * Month.
      *
-     * @var   array
+     * @var array
      * @since 1.0.0
      */
     private $month = [];
@@ -87,7 +87,7 @@ class Interval implements \Serializable
     /**
      * Day of week.
      *
-     * @var   array
+     * @var array
      * @since 1.0.0
      */
     private $dayOfWeek = [];
@@ -95,7 +95,7 @@ class Interval implements \Serializable
     /**
      * Year.
      *
-     * @var   array
+     * @var array
      * @since 1.0.0
      */
     private $year = [];
@@ -534,7 +534,7 @@ class Interval implements \Serializable
             'hour'        => $this->hour,
             'dayOfMonth'  => $this->dayOfMonth,
             'dayOfWeek'   => $this->dayOfWeek,
-            'year'        => $this->year
+            'year'        => $this->year,
         ]);
     }
 
@@ -547,7 +547,7 @@ class Interval implements \Serializable
      *
      * @since 1.0.0
      */
-    public function unserialize($serialized)
+    public function unserialize($serialized): void
     {
         $data = \json_decode($serialized, true);
 

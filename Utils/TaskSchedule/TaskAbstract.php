@@ -27,7 +27,7 @@ abstract class TaskAbstract
     /**
      * Id.
      *
-     * @var   string
+     * @var string
      * @since 1.0.0
      */
     protected string $id = '';
@@ -35,7 +35,7 @@ abstract class TaskAbstract
     /**
      * Command used for creating the task
      *
-     * @var   string
+     * @var string
      * @since 1.0.0
      */
     protected string $command = '';
@@ -43,7 +43,7 @@ abstract class TaskAbstract
     /**
      * Run interval
      *
-     * @var   string
+     * @var string
      * @since 1.0.0
      */
     protected string $interval = '';
@@ -51,7 +51,7 @@ abstract class TaskAbstract
     /**
      * Status of the task
      *
-     * @var   string
+     * @var string
      * @since 1.0.0
      */
     protected string $status = '';
@@ -59,7 +59,7 @@ abstract class TaskAbstract
     /**
      * Next runtime
      *
-     * @var   \DateTime
+     * @var \DateTime
      * @since 1.0.0
      */
     protected \DateTime $nextRunTime;
@@ -67,7 +67,7 @@ abstract class TaskAbstract
     /**
      * Last runtime
      *
-     * @var   \DateTime
+     * @var \DateTime
      * @since 1.0.0
      */
     protected \DateTime $lastRunTime;
@@ -75,7 +75,7 @@ abstract class TaskAbstract
     /**
      * Comment
      *
-     * @var   string
+     * @var string
      * @since 1.0.0
      */
     protected string $comment = '';

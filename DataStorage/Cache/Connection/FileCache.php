@@ -58,7 +58,7 @@ final class FileCache extends ConnectionAbstract
     /**
      * Delimiter for cache meta data
      *
-     * @var   string
+     * @var string
      * @since 1.0.0
      */
     private const DELIM = '$';
@@ -66,7 +66,7 @@ final class FileCache extends ConnectionAbstract
     /**
      * File path sanitizer
      *
-     * @var   string
+     * @var string
      * @since 1.0.0
      */
     private const SANITIZE = '~';
@@ -74,7 +74,7 @@ final class FileCache extends ConnectionAbstract
     /**
      * Only cache if data is larger than threshold (0-100).
      *
-     * @var   int
+     * @var int
      * @since 1.0.0
      */
     private int $threshold = 50;

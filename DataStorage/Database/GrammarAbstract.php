@@ -29,7 +29,7 @@ abstract class GrammarAbstract
     /**
      * Comment style.
      *
-     * @var   string
+     * @var string
      * @since 1.0.0
      */
     protected string $comment = '--';
@@ -37,7 +37,7 @@ abstract class GrammarAbstract
     /**
      * String quotes style.
      *
-     * @var   string
+     * @var string
      * @since 1.0.0
      */
     protected string $valueQuotes = '\'';
@@ -45,7 +45,7 @@ abstract class GrammarAbstract
     /**
      * System identifier.
      *
-     * @var   string
+     * @var string
      * @since 1.0.0
      */
     protected string $systemIdentifier = '"';
@@ -53,7 +53,7 @@ abstract class GrammarAbstract
     /**
      * And operator.
      *
-     * @var   string
+     * @var string
      * @since 1.0.0
      */
     protected string $and = 'AND';
@@ -61,7 +61,7 @@ abstract class GrammarAbstract
     /**
      * Or operator.
      *
-     * @var   string
+     * @var string
      * @since 1.0.0
      */
     protected string $or = 'OR';
@@ -69,7 +69,7 @@ abstract class GrammarAbstract
     /**
      * Table prefix.
      *
-     * @var   string
+     * @var string
      * @since 1.0.0
      */
     protected string $tablePrefix = '';
@@ -77,7 +77,7 @@ abstract class GrammarAbstract
     /**
      * Special keywords.
      *
-     * @var   array
+     * @var array
      * @since 1.0.0
      */
     protected array $specialKeywords = [

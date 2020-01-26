@@ -40,7 +40,7 @@ class Builder extends BuilderAbstract
     /**
      * Is read only.
      *
-     * @var   bool
+     * @var bool
      * @since 1.0.0
      */
     protected bool $isReadOnly = false;
@@ -48,7 +48,7 @@ class Builder extends BuilderAbstract
     /**
      * Columns.
      *
-     * @var   array
+     * @var array
      * @since 1.0.0
      */
     public array $selects = [];
@@ -56,7 +56,7 @@ class Builder extends BuilderAbstract
     /**
      * Columns.
      *
-     * @var   array
+     * @var array
      * @since 1.0.0
      */
     public array $random;
@@ -64,7 +64,7 @@ class Builder extends BuilderAbstract
     /**
      * Columns.
      *
-     * @var   array
+     * @var array
      * @since 1.0.0
      */
     public array $updates = [];
@@ -72,7 +72,7 @@ class Builder extends BuilderAbstract
     /**
      * Stupid work around because value needs to be not null for it to work in Grammar.
      *
-     * @var   array
+     * @var array
      * @since 1.0.0
      */
     public array $deletes = [1];
@@ -80,7 +80,7 @@ class Builder extends BuilderAbstract
     /**
      * Into.
      *
-     * @var   string
+     * @var string
      * @since 1.0.0
      */
     public string $into = '';
@@ -88,7 +88,7 @@ class Builder extends BuilderAbstract
     /**
      * Into columns.
      *
-     * @var   array
+     * @var array
      * @since 1.0.0
      */
     public array $inserts = [];
@@ -96,7 +96,7 @@ class Builder extends BuilderAbstract
     /**
      * Into columns.
      *
-     * @var   array
+     * @var array
      * @since 1.0.0
      */
     public array $values = [];
@@ -104,7 +104,7 @@ class Builder extends BuilderAbstract
     /**
      * Into columns.
      *
-     * @var   array
+     * @var array
      * @since 1.0.0
      */
     public array $sets = [];
@@ -112,7 +112,7 @@ class Builder extends BuilderAbstract
     /**
      * Distinct.
      *
-     * @var   bool
+     * @var bool
      * @since 1.0.0
      */
     public bool $distinct = false;
@@ -120,7 +120,7 @@ class Builder extends BuilderAbstract
     /**
      * From.
      *
-     * @var   array
+     * @var array
      * @since 1.0.0
      */
     public array $from = [];
@@ -128,7 +128,7 @@ class Builder extends BuilderAbstract
     /**
      * Joins.
      *
-     * @var   array
+     * @var array
      * @since 1.0.0
      */
     public array $joins = [];
@@ -136,7 +136,7 @@ class Builder extends BuilderAbstract
     /**
      * Ons of joins.
      *
-     * @var   array
+     * @var array
      * @since 1.0.0
      */
     public array $ons = [];
@@ -144,7 +144,7 @@ class Builder extends BuilderAbstract
     /**
      * Where.
      *
-     * @var   array
+     * @var array
      * @since 1.0.0
      */
     public array $wheres = [];
@@ -152,7 +152,7 @@ class Builder extends BuilderAbstract
     /**
      * Group.
      *
-     * @var   array
+     * @var array
      * @since 1.0.0
      */
     public array $groups = [];
@@ -160,7 +160,7 @@ class Builder extends BuilderAbstract
     /**
      * Order.
      *
-     * @var   array
+     * @var array
      * @since 1.0.0
      */
     public array $orders = [];
@@ -168,7 +168,7 @@ class Builder extends BuilderAbstract
     /**
      * Limit.
      *
-     * @var   null|int
+     * @var null|int
      * @since 1.0.0
      */
     public ?int $limit = null;
@@ -176,7 +176,7 @@ class Builder extends BuilderAbstract
     /**
      * Offset.
      *
-     * @var   null|int
+     * @var null|int
      * @since 1.0.0
      */
     public ?int $offset = null;
@@ -184,7 +184,7 @@ class Builder extends BuilderAbstract
     /**
      * Binds.
      *
-     * @var   array
+     * @var array
      * @since 1.0.0
      */
     private array $binds = [];
@@ -192,7 +192,7 @@ class Builder extends BuilderAbstract
     /**
      * Union.
      *
-     * @var   array
+     * @var array
      * @since 1.0.0
      */
     public array $unions = [];
@@ -200,7 +200,7 @@ class Builder extends BuilderAbstract
     /**
      * Lock.
      *
-     * @var   bool
+     * @var bool
      * @since 1.0.0
      */
     public bool $lock = false;
@@ -208,7 +208,7 @@ class Builder extends BuilderAbstract
     /**
      * Comparison OPERATORS.
      *
-     * @var   string[]
+     * @var string[]
      * @since 1.0.0
      */
     public const OPERATORS = [

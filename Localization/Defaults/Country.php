@@ -27,7 +27,7 @@ final class Country
     /**
      * Country id.
      *
-     * @var   int
+     * @var int
      * @since 1.0.0
      */
     private $id = 0;
@@ -35,7 +35,7 @@ final class Country
     /**
      * Country name.
      *
-     * @var   string
+     * @var string
      * @since 1.0.0
      */
     private $name = '';
@@ -43,7 +43,7 @@ final class Country
     /**
      * Country code.
      *
-     * @var   string
+     * @var string
      * @since 1.0.0
      */
     private $code2 = '';
@@ -51,7 +51,7 @@ final class Country
     /**
      * Country code.
      *
-     * @var   string
+     * @var string
      * @since 1.0.0
      */
     private $code3 = '';
@@ -59,7 +59,7 @@ final class Country
     /**
      * Country code.
      *
-     * @var   int
+     * @var int
      * @since 1.0.0
      */
     private $numeric = 0;
@@ -67,7 +67,7 @@ final class Country
     /**
      * Country subdevision.
      *
-     * @var   string
+     * @var string
      * @since 1.0.0
      */
     private $subdevision = '';

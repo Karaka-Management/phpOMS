@@ -35,7 +35,7 @@ final class Response extends ResponseAbstract implements RenderableInterface
     /**
      * Response status.
      *
-     * @var   int
+     * @var int
      * @since 1.0.0
      */
     protected int $status = RequestStatusCode::R_200;

@@ -29,7 +29,7 @@ final class UriFactory
     /**
      * Dynamic query elements.
      *
-     * @var   string[]
+     * @var string[]
      * @since 1.0.0
      */
     private static array $uri = [];

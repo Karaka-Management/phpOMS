@@ -29,7 +29,7 @@ final class Storage
     /**
      * Registered storage.
      *
-     * @var   array
+     * @var array
      * @since 1.0.0
      */
     private static array $registered = [];
@@ -59,7 +59,7 @@ final class Storage
     {
         if (isset(self::$registered[$env])) {
             if (\is_string(self::$registered[$env])) {
-                $instance               = new self::$registered[$env];
+                $instance               = new self::$registered[$env]();
                 self::$registered[$env] = $instance;
             } elseif (self::$registered[$env] instanceof StorageAbstract || self::$registered[$env] instanceof ContainerInterface) {
                 $instance = self::$registered[$env];

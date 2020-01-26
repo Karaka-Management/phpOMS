@@ -18,7 +18,6 @@ use phpOMS\DataStorage\Cache\CacheStatus;
 use phpOMS\DataStorage\Cache\CacheType;
 use phpOMS\DataStorage\Cache\Exception\InvalidConnectionConfigException;
 use phpOMS\Stdlib\Base\Exception\InvalidEnumValue;
-use phpOMS\DataStorage\Cache\Connection\CacheValueType;
 
 /**
  * RedisCache class.
@@ -38,7 +37,7 @@ final class RedisCache extends ConnectionAbstract
     /**
      * Delimiter for cache meta data
      *
-     * @var   string
+     * @var string
      * @since 1.0.0
      */
     private const DELIM = '$';

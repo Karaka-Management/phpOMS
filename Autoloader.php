@@ -29,7 +29,7 @@ final class Autoloader
     /**
      * Base paths for autoloading
      *
-     * @var   string[]
+     * @var string[]
      * @since 1.0.0
      */
     private static $paths = [

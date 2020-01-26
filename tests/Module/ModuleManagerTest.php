@@ -16,9 +16,9 @@ namespace phpOMS\tests\Module;
 
 use phpOMS\ApplicationAbstract;
 use phpOMS\Dispatcher\Dispatcher;
+use phpOMS\Message\Http\Request;
 use phpOMS\Module\ModuleManager;
 use phpOMS\Router\WebRouter;
-use phpOMS\Message\Http\Request;
 use phpOMS\Uri\Http;
 
 require_once __DIR__ . '/../Autoloader.php';
@@ -145,9 +145,9 @@ class ModuleManagerTest extends \PHPUnit\Framework\TestCase
 
     /**
      * @testdox A module can be installed and its status can be changed
+     * @covers phpOMS\Module\InstallerAbstract
      * @covers phpOMS\Module\ModuleManager
      * @covers phpOMS\Module\StatusAbstract
-     * @covers phpOMS\Module\InstallerAbstract
      * @group framework
      */
     public function testStatus() : void

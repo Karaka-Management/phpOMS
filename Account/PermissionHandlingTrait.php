@@ -31,7 +31,7 @@ trait PermissionHandlingTrait
     /**
      * Permissions.
      *
-     * @var   PermissionAbstract[]
+     * @var PermissionAbstract[]
      * @since 1.0.0
      */
     protected array $permissions = [];
@@ -39,7 +39,7 @@ trait PermissionHandlingTrait
     /**
      * Amount of permissions.
      *
-     * @var   int
+     * @var int
      * @since 1.0.0
      */
     private int $pLength = 0;

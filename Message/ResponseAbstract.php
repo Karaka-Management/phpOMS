@@ -27,7 +27,7 @@ abstract class ResponseAbstract implements MessageInterface, \JsonSerializable
     /**
      * Responses.
      *
-     * @var   array
+     * @var array
      * @since 1.0.0
      */
     protected array $response = [];
@@ -35,7 +35,7 @@ abstract class ResponseAbstract implements MessageInterface, \JsonSerializable
     /**
      * Header.
      *
-     * @var   HeaderAbstract
+     * @var HeaderAbstract
      * @since 1.0.0
      */
     protected HeaderAbstract $header;

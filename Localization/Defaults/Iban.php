@@ -27,7 +27,7 @@ final class Iban
     /**
      * Iban id.
      *
-     * @var   int
+     * @var int
      * @since 1.0.0
      */
     private $id = 0;
@@ -35,7 +35,7 @@ final class Iban
     /**
      * Iban country.
      *
-     * @var   string
+     * @var string
      * @since 1.0.0
      */
     private $country = '';
@@ -43,7 +43,7 @@ final class Iban
     /**
      * Iban chars.
      *
-     * @var   int
+     * @var int
      * @since 1.0.0
      */
     private $chars = 2;
@@ -51,7 +51,7 @@ final class Iban
     /**
      * Iban bban.
      *
-     * @var   string
+     * @var string
      * @since 1.0.0
      */
     private $bban = '';
@@ -59,7 +59,7 @@ final class Iban
     /**
      * Iban fields.
      *
-     * @var   string
+     * @var string
      * @since 1.0.0
      */
     private $fields = '';

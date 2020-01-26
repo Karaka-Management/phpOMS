@@ -27,7 +27,7 @@ final class Huffman
     /**
      * Huffman dictionary.
      *
-     * @var   null|Dictionary
+     * @var null|Dictionary
      * @since 1.0.0
      */
     private ?Dictionary $dictionary = null;

@@ -32,7 +32,7 @@ final class InfoManager
     /**
      * File path.
      *
-     * @var   string
+     * @var string
      * @since 1.0.0
      */
     private string $path = '';
@@ -40,7 +40,7 @@ final class InfoManager
     /**
      * Info data.
      *
-     * @var   array
+     * @var array
      * @since 1.0.0
      */
     private array $info = [];

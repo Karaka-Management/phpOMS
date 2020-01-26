@@ -137,7 +137,7 @@ class DataMapperAbstract implements DataMapperInterface
     /**
      * Database connection.
      *
-     * @var   ConnectionAbstract
+     * @var ConnectionAbstract
      * @since 1.0.0
      */
     protected static ConnectionAbstract $db;
@@ -145,7 +145,7 @@ class DataMapperAbstract implements DataMapperInterface
     /**
      * Overwriting extended values.
      *
-     * @var   bool
+     * @var bool
      * @since 1.0.0
      */
     protected static bool $overwrite = true;
@@ -153,7 +153,7 @@ class DataMapperAbstract implements DataMapperInterface
     /**
      * Primary field name.
      *
-     * @var   string
+     * @var string
      * @since 1.0.0
      */
     protected static string $primaryField = '';
@@ -161,7 +161,7 @@ class DataMapperAbstract implements DataMapperInterface
     /**
      * Primary field name.
      *
-     * @var   string
+     * @var string
      * @since 1.0.0
      */
     protected static string $createdAt = '';
@@ -169,7 +169,7 @@ class DataMapperAbstract implements DataMapperInterface
     /**
      * Language
      *
-     * @var   string
+     * @var string
      * @since 1.0.0
      */
     protected static string $languageField = '';
@@ -177,7 +177,7 @@ class DataMapperAbstract implements DataMapperInterface
     /**
      * Columns.
      *
-     * @var   array<string, array<string, string>>
+     * @var array<string, array<string, string>>
      * @since 1.0.0
      */
     protected static array $columns = [];
@@ -187,7 +187,7 @@ class DataMapperAbstract implements DataMapperInterface
      *
      * Most often used for localizations
      *
-     * @var   array<string, array<string, string>>
+     * @var array<string, array<string, string>>
      * @since 1.0.0
      */
     protected static array $conditionals = [];
@@ -195,7 +195,7 @@ class DataMapperAbstract implements DataMapperInterface
     /**
      * Has many relation.
      *
-     * @var   array<string, array>
+     * @var array<string, array>
      * @since 1.0.0
      */
     protected static array $hasMany = [];
@@ -205,7 +205,7 @@ class DataMapperAbstract implements DataMapperInterface
      *
      * Relation is defined in current mapper
      *
-     * @var   array<string, array>
+     * @var array<string, array>
      * @since 1.0.0
      */
     protected static array $ownsOne = [];
@@ -215,12 +215,12 @@ class DataMapperAbstract implements DataMapperInterface
      *
      * Relation is defined in current mapper
      *
-     * @var   string[]
+     * @var string[]
      * @since 1.0.0
      */    /**
      * Belongs to.
      *
-     * @var   array<string, array<string, string>>
+     * @var array<string, array<string, string>>
      * @since 1.0.0
      */
     protected static array $belongsTo = [];
@@ -228,7 +228,7 @@ class DataMapperAbstract implements DataMapperInterface
     /**
      * Table.
      *
-     * @var   string
+     * @var string
      * @since 1.0.0
      */
     protected static string $table = '';
@@ -236,7 +236,7 @@ class DataMapperAbstract implements DataMapperInterface
     /**
      * Fields to load.
      *
-     * @var   array[]
+     * @var array[]
      * @since 1.0.0
      */
     protected static array $fields = [];
@@ -244,7 +244,7 @@ class DataMapperAbstract implements DataMapperInterface
     /**
      * Initialized objects for cross reference to reduce initialization costs
      *
-     * @var   array[]
+     * @var array[]
      * @since 1.0.0
      */
     protected static array $initObjects = [];
@@ -252,7 +252,7 @@ class DataMapperAbstract implements DataMapperInterface
     /**
      * Initialized arrays for cross reference to reduce initialization costs
      *
-     * @var   array[]
+     * @var array[]
      * @since 1.0.0
      */
     protected static array $initArrays = [];
@@ -260,7 +260,7 @@ class DataMapperAbstract implements DataMapperInterface
     /**
      * Highest mapper to know when to clear initialized objects
      *
-     * @var   null|string
+     * @var null|string
      * @since 1.0.0
      */
     protected static ?string $parentMapper = null;
@@ -268,7 +268,7 @@ class DataMapperAbstract implements DataMapperInterface
     /**
      * Extended value collection.
      *
-     * @var   array
+     * @var array
      * @since 1.0.0
      */
     protected static array $collection = [
@@ -1030,8 +1030,8 @@ class DataMapperAbstract implements DataMapperInterface
             try {
                 self::$db->con->prepare($relQuery->toSql())->execute();
             } catch (\Throwable $e) {
-                var_dump($e->getMessage());
-                var_dump($relQuery->toSql());
+                \var_dump($e->getMessage());
+                \var_dump($relQuery->toSql());
             }
         }
     }

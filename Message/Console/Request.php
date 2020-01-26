@@ -36,7 +36,7 @@ final class Request extends RequestAbstract
     /**
      * Uri.
      *
-     * @var   UriInterface
+     * @var UriInterface
      * @since 1.0.0
      */
     protected UriInterface $uri;
@@ -44,7 +44,7 @@ final class Request extends RequestAbstract
     /**
      * Request method.
      *
-     * @var   string
+     * @var string
      * @since 1.0.0
      */
     protected string $method;
@@ -52,7 +52,7 @@ final class Request extends RequestAbstract
     /**
      * Request hash.
      *
-     * @var   array
+     * @var array
      * @since 1.0.0
      */
     protected array $hash = [];
@@ -60,7 +60,7 @@ final class Request extends RequestAbstract
     /**
      * OS type.
      *
-     * @var   string
+     * @var string
      * @since 1.0.0
      */
     private string $os;

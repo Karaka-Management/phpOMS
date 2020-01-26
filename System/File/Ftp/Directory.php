@@ -36,7 +36,7 @@ class Directory extends FileAbstract implements FtpContainerInterface, Directory
     /**
      * Directory nodes (files and directories).
      *
-     * @var   FileAbstract[]
+     * @var FileAbstract[]
      * @since 1.0.0
      */
     private array $nodes = [];

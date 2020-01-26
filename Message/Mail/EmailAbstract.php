@@ -30,7 +30,7 @@ class EmailAbstract
     /**
      * Host.
      *
-     * @var   string
+     * @var string
      * @since 1.0.0
      */
     protected $host = '';
@@ -38,7 +38,7 @@ class EmailAbstract
     /**
      * Port.
      *
-     * @var   int
+     * @var int
      * @since 1.0.0
      */
     protected $port = 25;
@@ -46,7 +46,7 @@ class EmailAbstract
     /**
      * Use ssl.
      *
-     * @var   bool
+     * @var bool
      * @since 1.0.0
      */
     protected $ssl = false;
@@ -54,7 +54,7 @@ class EmailAbstract
     /**
      * Mailbox base.
      *
-     * @var   string
+     * @var string
      * @since 1.0.0
      */
     protected $mailbox = '';
@@ -62,7 +62,7 @@ class EmailAbstract
     /**
      * Timeout.
      *
-     * @var   int
+     * @var int
      * @since 1.0.0
      */
     protected $timeout = 30;
@@ -70,7 +70,7 @@ class EmailAbstract
     /**
      * Connection.
      *
-     * @var   mixed
+     * @var mixed
      * @since 1.0.0
      */
     protected $con = null;

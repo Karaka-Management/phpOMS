@@ -19,11 +19,11 @@ use Modules\Admin\Models\PermissionState;
 use phpOMS\Account\Account;
 use phpOMS\Account\PermissionAbstract;
 use phpOMS\Account\PermissionType;
-use phpOMS\Message\Http\Request;
-use phpOMS\Router\WebRouter;
-use phpOMS\Router\RouteVerb;
-use phpOMS\Uri\Http;
 use phpOMS\Autoloader;
+use phpOMS\Message\Http\Request;
+use phpOMS\Router\RouteVerb;
+use phpOMS\Router\WebRouter;
+use phpOMS\Uri\Http;
 
 require_once __DIR__ . '/../Autoloader.php';
 

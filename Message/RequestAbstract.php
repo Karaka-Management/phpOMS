@@ -29,7 +29,7 @@ abstract class RequestAbstract implements MessageInterface
     /**
      * Uri.
      *
-     * @var   UriInterface
+     * @var UriInterface
      * @since 1.0.0
      */
     protected UriInterface $uri;
@@ -37,7 +37,7 @@ abstract class RequestAbstract implements MessageInterface
     /**
      * Request data.
      *
-     * @var   array
+     * @var array
      * @since 1.0.0
      */
     protected array $data = [];
@@ -45,7 +45,7 @@ abstract class RequestAbstract implements MessageInterface
     /**
      * Request lock.
      *
-     * @var   bool
+     * @var bool
      * @since 1.0.0
      */
     protected bool $lock = false;
@@ -53,7 +53,7 @@ abstract class RequestAbstract implements MessageInterface
     /**
      * Request header.
      *
-     * @var   HeaderAbstract
+     * @var HeaderAbstract
      * @since 1.0.0
      */
     protected HeaderAbstract $header;

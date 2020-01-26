@@ -35,7 +35,7 @@ abstract class ModuleAbstract
     /**
      * Module name.
      *
-     * @var   string
+     * @var string
      * @since 1.0.0
      */
     public const MODULE_NAME = '';
@@ -43,7 +43,7 @@ abstract class ModuleAbstract
     /**
      * Module path.
      *
-     * @var   string
+     * @var string
      * @since 1.0.0
      */
     public const MODULE_PATH = __DIR__ . '/../../Modules';
@@ -51,7 +51,7 @@ abstract class ModuleAbstract
     /**
      * Module version.
      *
-     * @var   string
+     * @var string
      * @since 1.0.0
      */
     public const MODULE_VERSION = '1.0.0';
@@ -59,7 +59,7 @@ abstract class ModuleAbstract
     /**
      * Module id.
      *
-     * @var   string
+     * @var string
      * @since 1.0.0
      */
     public const MODULE_ID = 0;
@@ -67,7 +67,7 @@ abstract class ModuleAbstract
     /**
      * Receiving modules from?
      *
-     * @var   string[]
+     * @var string[]
      * @since 1.0.0
      */
     protected static array $providing = [];
@@ -75,7 +75,7 @@ abstract class ModuleAbstract
     /**
      * Dependencies.
      *
-     * @var   string[]
+     * @var string[]
      * @since 1.0.0
      */
     protected static array $dependencies = [];
@@ -83,7 +83,7 @@ abstract class ModuleAbstract
     /**
      * Receiving modules from?
      *
-     * @var   string[]
+     * @var string[]
      * @since 1.0.0
      */
     protected array $receiving = [];
@@ -91,7 +91,7 @@ abstract class ModuleAbstract
     /**
      * Application instance.
      *
-     * @var   ApplicationAbstract
+     * @var ApplicationAbstract
      * @since 1.0.0
      */
     protected ApplicationAbstract $app;
@@ -105,7 +105,7 @@ abstract class ModuleAbstract
      */
     public function __construct(ApplicationAbstract $app = null)
     {
-        $this->app = $app ?? new class extends ApplicationAbstract {};
+        $this->app = $app ?? new class() extends ApplicationAbstract {};
     }
 
     /**

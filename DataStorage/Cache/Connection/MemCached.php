@@ -36,7 +36,7 @@ final class MemCached extends ConnectionAbstract
     /**
      * Only cache if data is larger than threshold (0-100).
      *
-     * @var   int
+     * @var int
      * @since 1.0.0
      */
     private int $threshold = 0;

@@ -29,7 +29,7 @@ abstract class EnumArray
     /**
      * Constants.
      *
-     * @var   array
+     * @var array
      * @since 1.0.0
      */
     protected static array $constants = [];

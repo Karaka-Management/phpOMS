@@ -27,7 +27,7 @@ class Text
     /**
      * Vocabulary.
      *
-     * @var   string[]
+     * @var string[]
      * @since 1.0.0
      */
     private static $wordsWest = [
@@ -52,7 +52,7 @@ class Text
     /**
      * Text has random formatting.
      *
-     * @var   bool
+     * @var bool
      * @since 1.0.0
      */
     private $hasFormatting = false;
@@ -60,7 +60,7 @@ class Text
     /**
      * Text has paragraphs.
      *
-     * @var   bool
+     * @var bool
      * @since 1.0.0
      */
     private $hasParagraphs = false;
@@ -68,7 +68,7 @@ class Text
     /**
      * Amount of sentences of the last generated text.
      *
-     * @var   int
+     * @var int
      * @since 1.0.0
      */
     private $sentences = 0;

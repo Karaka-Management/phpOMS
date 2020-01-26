@@ -40,7 +40,7 @@ class Graph
     /**
      * Nodes.
      *
-     * @var   Node[]
+     * @var Node[]
      * @since 1.0.0
      */
     protected $nodes = [];
@@ -48,7 +48,7 @@ class Graph
     /**
      * Directed
      *
-     * @var   bool
+     * @var bool
      * @since 1.0.0
      */
     protected $isDirected = false;

@@ -14,8 +14,8 @@ declare(strict_types=1);
 
 namespace phpOMS\Message\Socket;
 
-use phpOMS\Message\ResponseAbstract;
 use phpOMS\Contract\RenderableInterface;
+use phpOMS\Message\ResponseAbstract;
 
 /**
  * Response class.

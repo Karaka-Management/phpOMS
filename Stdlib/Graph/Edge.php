@@ -29,7 +29,7 @@ class Edge
      *
      * In case of directed edges this is the from node/starting node.
      *
-     * @var   Node
+     * @var Node
      * @since 1.0.0
      */
     private $node1 = null;
@@ -39,7 +39,7 @@ class Edge
      *
      * In case of directed edges this is the to node/end node.
      *
-     * @var   Node
+     * @var Node
      * @since 1.0.0
      */
     private $node2 = null;
@@ -47,7 +47,7 @@ class Edge
     /**
      * Is graph/edge directed
      *
-     * @var   bool
+     * @var bool
      * @since 1.0.0
      */
     private $isDirected = false;
@@ -55,7 +55,7 @@ class Edge
     /**
      * Edge weight
      *
-     * @var   float
+     * @var float
      * @since 1.0.0
      */
     private $weight = 0.0;
@@ -65,7 +65,7 @@ class Edge
      *
      * @param Node  $node1      Graph node (start node in case of directed edge)
      * @param Node  $node2      Graph node (end node in case of directed edge)
-     * @param float $weight     Weight/cost of the edge.
+     * @param float $weight     weight/cost of the edge
      * @param bool  $isDirected Is directed edge
      *
      * @since 1.0.0
@@ -148,7 +148,7 @@ class Edge
      *
      * @since 1.0.0
      */
-    public static function compare(Edge $e1, Edge $e2) : int
+    public static function compare(self $e1, self $e2) : int
     {
         return $e1->getWeight() <=> $e2->getWeight();
     }

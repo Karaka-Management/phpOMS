@@ -15,8 +15,8 @@ declare(strict_types=1);
 namespace phpOMS\Module;
 
 use phpOMS\DataStorage\Database\DatabasePool;
-use phpOMS\DataStorage\Database\Schema\Builder as SchemaBuilder;
 use phpOMS\DataStorage\Database\Query\Builder;
+use phpOMS\DataStorage\Database\Schema\Builder as SchemaBuilder;
 
 /**
  * Uninstaller abstract class.

@@ -31,7 +31,7 @@ class Markdown
     /**
      * Blocktypes.
      *
-     * @var   string[][]
+     * @var string[][]
      * @since 1.0.0
      */
     protected static $blockTypes = [
@@ -62,7 +62,7 @@ class Markdown
     /**
      * Blocktypes.
      *
-     * @var   string[]
+     * @var string[]
      * @since 1.0.0
      */
     protected static $unmarkedBlockTypes = [
@@ -72,7 +72,7 @@ class Markdown
     /**
      * Special reserved characters.
      *
-     * @var   string[]
+     * @var string[]
      * @since 1.0.0
      */
     protected static $specialCharacters = [
@@ -82,7 +82,7 @@ class Markdown
     /**
      * Regex for strong.
      *
-     * @var   string[]
+     * @var string[]
      * @since 1.0.0
      */
     protected static $strongRegex = [
@@ -92,7 +92,7 @@ class Markdown
     /**
      * Regex for underline.
      *
-     * @var   string[]
+     * @var string[]
      * @since 1.0.0
      */
     protected static $underlineRegex = [
@@ -102,7 +102,7 @@ class Markdown
     /**
      * Regex for em.
      *
-     * @var   string[]
+     * @var string[]
      * @since 1.0.0
      */
     protected static $emRegex = [
@@ -113,7 +113,7 @@ class Markdown
     /**
      * Regex for identifying html attributes.
      *
-     * @var   string
+     * @var string
      * @since 1.0.0
      */
     protected static $regexHtmlAttribute = '[a-zA-Z_:][\w:.-]*(?:\s*=\s*(?:[^"\'=<>`\s]+|"[^"]*"|\'[^\']*\'))?';
@@ -121,7 +121,7 @@ class Markdown
     /**
      * Void elements.
      *
-     * @var   string[]
+     * @var string[]
      * @since 1.0.0
      */
     protected static $voidElements = [
@@ -131,7 +131,7 @@ class Markdown
     /**
      * Text elements.
      *
-     * @var   string[]
+     * @var string[]
      * @since 1.0.0
      */
     protected static $textLevelElements = [
@@ -149,7 +149,7 @@ class Markdown
     /**
      * Inline identifiers.
      *
-     * @var   string[][]
+     * @var string[][]
      * @since 1.0.0
      */
     protected static $inlineTypes = [
@@ -170,7 +170,7 @@ class Markdown
     /**
      * List of inline start markers.
      *
-     * @var   string
+     * @var string
      * @since 1.0.0
      */
     protected static $inlineMarkerList = '!"*_&[:<>`~\\';
@@ -178,7 +178,7 @@ class Markdown
     /**
      * Continuable elements.
      *
-     * @var   string[]
+     * @var string[]
      * @since 1.0.0
      */
     private static $continuable = [
@@ -188,7 +188,7 @@ class Markdown
     /**
      * Completable elments.
      *
-     * @var   string[]
+     * @var string[]
      * @since 1.0.0
      */
     private static $completable = [
@@ -198,7 +198,7 @@ class Markdown
     /**
      * Safe link types whitelist.
      *
-     * @var   string[]
+     * @var string[]
      * @since 1.0.0
      */
     protected static $safeLinksWhitelist = [
@@ -210,7 +210,7 @@ class Markdown
     /**
      * Some definition data for elements
      *
-     * @var   string[]
+     * @var string[]
      * @since 1.0.0
      */
     private static $definitionData = [];

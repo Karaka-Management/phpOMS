@@ -39,7 +39,7 @@ class File extends FileAbstract implements FileInterface
     /**
      * Ftp connection
      *
-     * @var   resource
+     * @var resource
      * @since 1.0.0
      */
     private $con;
@@ -47,7 +47,7 @@ class File extends FileAbstract implements FileInterface
     /**
      * Ftp connection uri.
      *
-     * @var   Http
+     * @var Http
      * @since 1.0.0
      */
     private Http $uri;

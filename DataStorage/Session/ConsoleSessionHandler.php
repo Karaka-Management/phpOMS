@@ -29,7 +29,7 @@ final class ConsoleSessionHandler implements \SessionHandlerInterface, \SessionI
     /**
      * File path for session
      *
-     * @var   string
+     * @var string
      * @since 1.0.0
      */
     private string $savePath;
@@ -136,7 +136,7 @@ final class ConsoleSessionHandler implements \SessionHandlerInterface, \SessionI
     {
         $file = $this->savePath . '/sess_' . $id;
         if (\file_exists($file)) {
-            unlink($file);
+            \unlink($file);
         }
 
         return true;
@@ -153,7 +153,7 @@ final class ConsoleSessionHandler implements \SessionHandlerInterface, \SessionI
      */
     public function gc($maxlifetime)
     {
-        $files = \glob("$this->savePath/sess_*");
+        $files = \glob("{$this->savePath}/sess_*");
 
         if ($files === false) {
             return false;
@@ -161,7 +161,7 @@ final class ConsoleSessionHandler implements \SessionHandlerInterface, \SessionI
 
         foreach ($files as $file) {
             if (\filemtime($file) + $maxlifetime < \time() && \file_exists($file)) {
-                unlink($file);
+                \unlink($file);
             }
         }
 

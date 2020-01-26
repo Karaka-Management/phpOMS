@@ -42,7 +42,7 @@ abstract class ConnectionAbstract implements ConnectionInterface
      *
      * This can be used externally to define queries and execute them.
      *
-     * @var   \PDO
+     * @var \PDO
      * @since 1.0.0
      */
     public \PDO $con;
@@ -52,7 +52,7 @@ abstract class ConnectionAbstract implements ConnectionInterface
      *
      * The database prefix name for unique table names
      *
-     * @var   string
+     * @var string
      * @since 1.0.0
      */
     public string $prefix = '';
@@ -60,7 +60,7 @@ abstract class ConnectionAbstract implements ConnectionInterface
     /**
      * Database data.
      *
-     * @var   array
+     * @var array
      * @since 1.0.0
      */
     protected array $dbdata = [];
@@ -68,7 +68,7 @@ abstract class ConnectionAbstract implements ConnectionInterface
     /**
      * Database type.
      *
-     * @var   string
+     * @var string
      * @since 1.0.0
      */
     protected string $type = DatabaseType::UNDEFINED;
@@ -76,7 +76,7 @@ abstract class ConnectionAbstract implements ConnectionInterface
     /**
      * Database status.
      *
-     * @var   int
+     * @var int
      * @since 1.0.0
      */
     protected int $status = DatabaseStatus::CLOSED;
@@ -84,7 +84,7 @@ abstract class ConnectionAbstract implements ConnectionInterface
     /**
      * Database grammar.
      *
-     * @var   Grammar
+     * @var Grammar
      * @since 1.0.0
      */
     protected Grammar $grammar;
@@ -92,7 +92,7 @@ abstract class ConnectionAbstract implements ConnectionInterface
     /**
      * Database grammar.
      *
-     * @var   SchemaGrammar
+     * @var SchemaGrammar
      * @since 1.0.0
      */
     protected SchemaGrammar $schemaGrammar;

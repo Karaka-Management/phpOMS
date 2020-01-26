@@ -27,7 +27,7 @@ final class LagrangeInterpolation implements InterpolationInterface
     /**
      * Points for spline interpolation
      *
-     * @var   array
+     * @var array
      * @since 1.0.0
      */
     private array $points = [];

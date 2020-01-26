@@ -17,15 +17,15 @@ namespace phpOMS\tests\Socket\Server;
 use Model\CoreSettings;
 use phpOMS\Account\AccountManager;
 use phpOMS\ApplicationAbstract;
+use phpOMS\Autoloader;
 use phpOMS\DataStorage\Cache\CachePool;
 use phpOMS\Dispatcher\Dispatcher;
 use phpOMS\Event\EventManager;
 use phpOMS\Localization\L11nManager;
 use phpOMS\Log\FileLogger;
 use phpOMS\Module\ModuleManager;
-use phpOMS\Socket\Server\Server;
 use phpOMS\Router\SocketRouter;
-use phpOMS\Autoloader;
+use phpOMS\Socket\Server\Server;
 
 /**
  * @internal
@@ -85,7 +85,7 @@ class ServerTest extends \PHPUnit\Framework\TestCase
         $socket->create('127.0.0.1', $GLOBALS['CONFIG']['socket']['master']['port']);
         $socket->setLimit(1);
 
-        $this->app->router->add('^shutdown$', function($app, $request) use ($socket) { $socket->shutdown($request); });
+        $this->app->router->add('^shutdown$', function($app, $request) use ($socket): void { $socket->shutdown($request); });
 
         $socket->run();
 

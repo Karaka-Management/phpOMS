@@ -29,7 +29,7 @@ final class Dom implements \Serializable, ArrayableInterface
     /**
      * Message type.
      *
-     * @var   string
+     * @var string
      * @since 1.0.0
      */
     public const TYPE = 'dom';
@@ -37,7 +37,7 @@ final class Dom implements \Serializable, ArrayableInterface
     /**
      * Selector string.
      *
-     * @var   string
+     * @var string
      * @since 1.0.0
      */
     private string $selector = '';
@@ -45,7 +45,7 @@ final class Dom implements \Serializable, ArrayableInterface
     /**
      * Dom content.
      *
-     * @var   string
+     * @var string
      * @since 1.0.0
      */
     private string $content = '';
@@ -53,7 +53,7 @@ final class Dom implements \Serializable, ArrayableInterface
     /**
      * Dom action.
      *
-     * @var   int
+     * @var int
      * @since 1.0.0
      */
     private int $action = DomAction::MODIFY;
@@ -61,7 +61,7 @@ final class Dom implements \Serializable, ArrayableInterface
     /**
      * Delay in ms.
      *
-     * @var   int
+     * @var int
      * @since 1.0.0
      */
     private int $delay = 0;

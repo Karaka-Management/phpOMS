@@ -15,11 +15,10 @@ declare(strict_types=1);
 namespace phpOMS\Socket\Server;
 
 use phpOMS\Account\Account;
+use phpOMS\ApplicationAbstract;
+use phpOMS\Message\Socket\PacketManager;
 use phpOMS\Socket\Client\ClientConnection;
 use phpOMS\Socket\SocketAbstract;
-use phpOMS\Message\Socket\PacketManager;
-use Socket\SocketApplication;
-use phpOMS\ApplicationAbstract;
 
 /**
  * Server class.
@@ -34,7 +33,7 @@ class Server extends SocketAbstract
     /**
      * Socket connection limit.
      *
-     * @var   int
+     * @var int
      * @since 1.0.0
      */
     private $limit = 10;
@@ -42,7 +41,7 @@ class Server extends SocketAbstract
     /**
      * Client connections.
      *
-     * @var   array
+     * @var array
      * @since 1.0.0
      */
     private $conn = [];
@@ -50,7 +49,7 @@ class Server extends SocketAbstract
     /**
      * Packet manager.
      *
-     * @var   PacketManager
+     * @var PacketManager
      * @since 1.0.0
      */
     private $packetManager = null;
@@ -62,7 +61,7 @@ class Server extends SocketAbstract
     /**
      * Socket application.
      *
-     * @var   ApplicationAbstract
+     * @var ApplicationAbstract
      * @since 1.0.0
      */
     private $app = null;

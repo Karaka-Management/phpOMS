@@ -14,11 +14,11 @@ declare(strict_types=1);
 
 namespace phpOMS\DataStorage\Database;
 
+use phpOMS\DataStorage\Database\Connection\ConnectionAbstract;
 use phpOMS\DataStorage\Database\Connection\ConnectionFactory;
 use phpOMS\DataStorage\Database\Connection\NullConnection;
 use phpOMS\DataStorage\DataStorageConnectionInterface;
 use phpOMS\DataStorage\DataStoragePoolInterface;
-use phpOMS\DataStorage\Database\Connection\ConnectionAbstract;
 
 /**
  * Database pool handler.
@@ -33,7 +33,7 @@ final class DatabasePool implements DataStoragePoolInterface
     /**
      * Databases.
      *
-     * @var   ConnectionAbstract[]
+     * @var ConnectionAbstract[]
      * @since 1.0.0
      */
     private array $pool = [];

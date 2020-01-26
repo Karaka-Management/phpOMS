@@ -31,7 +31,7 @@ abstract class FileAbstract implements ContainerInterface
     /**
      * Path.
      *
-     * @var   string
+     * @var string
      * @since 1.0.0
      */
     protected string $path = '';
@@ -39,7 +39,7 @@ abstract class FileAbstract implements ContainerInterface
     /**
      * Name.
      *
-     * @var   string
+     * @var string
      * @since 1.0.0
      */
     protected string $name = 'new_directory';
@@ -47,7 +47,7 @@ abstract class FileAbstract implements ContainerInterface
     /**
      * Directory/File count.
      *
-     * @var   int
+     * @var int
      * @since 1.0.0
      */
     protected int $count = 0;
@@ -55,7 +55,7 @@ abstract class FileAbstract implements ContainerInterface
     /**
      * Directory/Filesize in bytes.
      *
-     * @var   int
+     * @var int
      * @since 1.0.0
      */
     protected int $size = 0;
@@ -63,7 +63,7 @@ abstract class FileAbstract implements ContainerInterface
     /**
      * Created at.
      *
-     * @var   null|\DateTime
+     * @var null|\DateTime
      * @since 1.0.0
      */
     protected ?\DateTime $createdAt = null;
@@ -71,7 +71,7 @@ abstract class FileAbstract implements ContainerInterface
     /**
      * Last changed at.
      *
-     * @var   null|\DateTime
+     * @var null|\DateTime
      * @since 1.0.0
      */
     protected ?\DateTime $changedAt = null;
@@ -79,7 +79,7 @@ abstract class FileAbstract implements ContainerInterface
     /**
      * Owner.
      *
-     * @var   int
+     * @var int
      * @since 1.0.0
      */
     protected int $owner = 0;
@@ -87,7 +87,7 @@ abstract class FileAbstract implements ContainerInterface
     /**
      * Permission.
      *
-     * @var   int
+     * @var int
      * @since 1.0.0
      */
     protected int $permission = 0755;

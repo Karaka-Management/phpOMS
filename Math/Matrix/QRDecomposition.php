@@ -32,7 +32,7 @@ final class QRDecomposition
     /**
      * QR matrix.
      *
-     * @var   array[]
+     * @var array[]
      * @since 1.0.0
      */
     private array $QR = [];
@@ -40,7 +40,7 @@ final class QRDecomposition
     /**
      * Dimension m
      *
-     * @var   int
+     * @var int
      * @since 1.0.0
      */
     private int $m = 0;
@@ -48,7 +48,7 @@ final class QRDecomposition
     /**
      * Dimension n
      *
-     * @var   int
+     * @var int
      * @since 1.0.0
      */
     private int $n = 0;
@@ -56,7 +56,7 @@ final class QRDecomposition
     /**
      * R diagonal
      *
-     * @var   array
+     * @var array
      * @since 1.0.0
      */
     private array $Rdiag = [];

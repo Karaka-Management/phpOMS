@@ -14,8 +14,8 @@ declare(strict_types=1);
 
 namespace phpOMS\tests\Algorithm\JobScheduling;
 
-use phpOMS\Algorithm\JobScheduling\Weighted;
 use phpOMS\Algorithm\JobScheduling\Job;
+use phpOMS\Algorithm\JobScheduling\Weighted;
 
 /**
  * @testdox phpOMS\tests\Algorithm\JobScheduling\WeightedTest: Job scheduling based on values/profit
@@ -64,7 +64,7 @@ class WeightedTest extends \PHPUnit\Framework\TestCase
     public function testSmallList() : void
     {
         $jobs = [
-            new Job(20, new \DateTime('2003-01-01'), new \DateTime('2010-01-01'), 'A')
+            new Job(20, new \DateTime('2003-01-01'), new \DateTime('2010-01-01'), 'A'),
         ];
 
         $filtered = WeighteD::solve($jobs);

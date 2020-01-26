@@ -27,7 +27,7 @@ final class Currency
     /**
      * Currency id.
      *
-     * @var   int
+     * @var int
      * @since 1.0.0
      */
     private int $id = 0;
@@ -35,7 +35,7 @@ final class Currency
     /**
      * Currency name.
      *
-     * @var   string
+     * @var string
      * @since 1.0.0
      */
     private string $name = '';
@@ -43,7 +43,7 @@ final class Currency
     /**
      * Currency code.
      *
-     * @var   string
+     * @var string
      * @since 1.0.0
      */
     private string $code = '';
@@ -51,7 +51,7 @@ final class Currency
     /**
      * Currency code.
      *
-     * @var   int
+     * @var int
      * @since 1.0.0
      */
     private int $number = 0;
@@ -59,7 +59,7 @@ final class Currency
     /**
      * Currency decimals.
      *
-     * @var   int
+     * @var int
      * @since 1.0.0
      */
     private int $decimals = 0;
@@ -67,7 +67,7 @@ final class Currency
     /**
      * Currency countries.
      *
-     * @var   string
+     * @var string
      * @since 1.0.0
      */
     private string $countries = '';

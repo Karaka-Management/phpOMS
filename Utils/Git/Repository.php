@@ -31,7 +31,7 @@ class Repository
     /**
      * Repository path.
      *
-     * @var   string
+     * @var string
      * @since 1.0.0
      */
     private string $path = '';
@@ -39,7 +39,7 @@ class Repository
     /**
      * Repository name.
      *
-     * @var   string
+     * @var string
      * @since 1.0.0
      */
     private string $name = '';
@@ -47,7 +47,7 @@ class Repository
     /**
      * Bare repository.
      *
-     * @var   bool
+     * @var bool
      * @since 1.0.0
      */
     private bool $bare = false;
@@ -55,7 +55,7 @@ class Repository
     /**
      * Current branch.
      *
-     * @var   Branch
+     * @var Branch
      * @since 1.0.0
      */
     private Branch $branch;

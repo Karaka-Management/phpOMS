@@ -40,7 +40,7 @@ final class ModuleManager
     /**
      * All modules that are running on this uri.
      *
-     * @var   \phpOMS\Module\ModuleAbstract[]
+     * @var \phpOMS\Module\ModuleAbstract[]
      * @since 1.0.0
      */
     private array $running = [];
@@ -50,7 +50,7 @@ final class ModuleManager
      *
      * This is important to inform other modules what kind of information they can receive from other modules.
      *
-     * @var   array<string, string[]>
+     * @var array<string, string[]>
      * @since 1.0.0
      */
     private array $providing = [];
@@ -58,7 +58,7 @@ final class ModuleManager
     /**
      * Application instance.
      *
-     * @var   ApplicationAbstract
+     * @var ApplicationAbstract
      * @since 1.0.0
      */
     private ApplicationAbstract $app;
@@ -66,7 +66,7 @@ final class ModuleManager
     /**
      * Installed modules.
      *
-     * @var   array
+     * @var array
      * @since 1.0.0
      */
     private array $installed = [];
@@ -74,7 +74,7 @@ final class ModuleManager
     /**
      * All active modules (on all pages not just the ones that are running now).
      *
-     * @var   array
+     * @var array
      * @since 1.0.0
      */
     private array $active = [];
@@ -82,7 +82,7 @@ final class ModuleManager
     /**
      * Module path.
      *
-     * @var   string
+     * @var string
      * @since 1.0.0
      */
     private string $modulePath;
@@ -90,7 +90,7 @@ final class ModuleManager
     /**
      * All modules in the module directory.
      *
-     * @var   array
+     * @var array
      * @since 1.0.0
      */
     private array $all = [];
@@ -98,7 +98,7 @@ final class ModuleManager
     /**
      * To load based on request uri.
      *
-     * @var   array
+     * @var array
      * @since 1.0.0
      */
     private array $uriLoad = [];

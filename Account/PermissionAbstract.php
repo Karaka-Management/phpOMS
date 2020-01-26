@@ -30,7 +30,7 @@ class PermissionAbstract implements \JsonSerializable
     /**
      * Permission id.
      *
-     * @var   int
+     * @var int
      * @since 1.0.0
      */
     protected int $id = 0;
@@ -38,7 +38,7 @@ class PermissionAbstract implements \JsonSerializable
     /**
      * Unit id.
      *
-     * @var   null|int
+     * @var null|int
      * @since 1.0.0
      */
     protected ?int $unit = null;
@@ -46,7 +46,7 @@ class PermissionAbstract implements \JsonSerializable
     /**
      * App name.
      *
-     * @var   null|string
+     * @var null|string
      * @since 1.0.0
      */
     protected ?string $app = null;
@@ -54,7 +54,7 @@ class PermissionAbstract implements \JsonSerializable
     /**
      * Module id.
      *
-     * @var   null|string
+     * @var null|string
      * @since 1.0.0
      */
     protected ?string $module = null;
@@ -62,7 +62,7 @@ class PermissionAbstract implements \JsonSerializable
     /**
      * Providing module id.
      *
-     * @var   int
+     * @var int
      * @since 1.0.0
      */
     protected int $from = 0;
@@ -70,7 +70,7 @@ class PermissionAbstract implements \JsonSerializable
     /**
      * Type.
      *
-     * @var   null|int
+     * @var null|int
      * @since 1.0.0
      */
     protected ?int $type = null;
@@ -78,7 +78,7 @@ class PermissionAbstract implements \JsonSerializable
     /**
      * Element id.
      *
-     * @var   null|int
+     * @var null|int
      * @since 1.0.0
      */
     protected ?int $element = null;
@@ -86,7 +86,7 @@ class PermissionAbstract implements \JsonSerializable
     /**
      * Component id.
      *
-     * @var   null|int
+     * @var null|int
      * @since 1.0.0
      */
     protected ?int $component = null;
@@ -94,7 +94,7 @@ class PermissionAbstract implements \JsonSerializable
     /**
      * Permission.
      *
-     * @var   int
+     * @var int
      * @since 1.0.0
      */
     protected int $permission = PermissionType::NONE;

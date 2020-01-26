@@ -29,7 +29,7 @@ final class StringCompare
     /**
      * Dictionary.
      *
-     * @var   array
+     * @var array
      * @since 1.0.0
      */
     private array $dictionary = [];

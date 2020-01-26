@@ -30,7 +30,7 @@ final class CubicSplineInterpolation implements InterpolationInterface
     /**
      * Points for spline interpolation
      *
-     * @var   array
+     * @var array
      * @since 1.0.0
      */
     private array $points = [];
@@ -38,7 +38,7 @@ final class CubicSplineInterpolation implements InterpolationInterface
     /**
      * Parameter a of cubic spline
      *
-     * @var   Vector
+     * @var Vector
      * @since 1.0.0
      */
     private Vector $solveA;
@@ -46,7 +46,7 @@ final class CubicSplineInterpolation implements InterpolationInterface
     /**
      * Parameter b of cubic spline
      *
-     * @var   Matrix
+     * @var Matrix
      * @since 1.0.0
      */
     private Matrix $solveB;
@@ -54,7 +54,7 @@ final class CubicSplineInterpolation implements InterpolationInterface
     /**
      * Parameter c of cubic spline
      *
-     * @var   Vector
+     * @var Vector
      * @since 1.0.0
      */
     private Vector $solveC;

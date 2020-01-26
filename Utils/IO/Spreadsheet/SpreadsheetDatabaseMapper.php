@@ -32,7 +32,7 @@ class SpreadsheetDatabaseMapper implements IODatabaseMapper
     /**
      * Database connection
      *
-     * @var   ConnectionAbstract
+     * @var ConnectionAbstract
      * @since 1.0.0
      */
     private ConnectionAbstract $con;
@@ -40,7 +40,7 @@ class SpreadsheetDatabaseMapper implements IODatabaseMapper
     /**
      * Path to source or destination
      *
-     * @var   string
+     * @var string
      * @since 1.0.0
      */
     private string $path = '';

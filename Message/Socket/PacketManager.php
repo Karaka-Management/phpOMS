@@ -14,11 +14,8 @@ declare(strict_types=1);
 
 namespace phpOMS\Message\Socket;
 
-use phpOMS\Socket\Server\ClientManager;
 use phpOMS\Dispatcher\Dispatcher;
 use phpOMS\Router\SocketRouter;
-use phpOMS\Message\Socket\Request;
-use phpOMS\Message\Socket\Response;
 
 /**
  * Server class.
@@ -35,7 +32,7 @@ class PacketManager
     /**
      * Socket router.
      *
-     * @var   SocketRouter
+     * @var SocketRouter
      * @since 1.0.0
      */
     private SocketRouter $router;
@@ -43,7 +40,7 @@ class PacketManager
     /**
      * Dispatcher.
      *
-     * @var   Dispatcher
+     * @var Dispatcher
      * @since 1.0.0
      */
     private Dispatcher $dispatcher;

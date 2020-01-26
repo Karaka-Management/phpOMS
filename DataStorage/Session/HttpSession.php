@@ -32,7 +32,7 @@ final class HttpSession implements SessionInterface
     /**
      * Is session locked/already set.
      *
-     * @var   bool
+     * @var bool
      * @since 1.0.0
      */
     private bool $isLocked = false;
@@ -40,7 +40,7 @@ final class HttpSession implements SessionInterface
     /**
      * Raw session data.
      *
-     * @var   array
+     * @var array
      * @since 1.0.0
      */
     private array $sessionData = [];
@@ -48,7 +48,7 @@ final class HttpSession implements SessionInterface
     /**
      * Session ID.
      *
-     * @var   string
+     * @var string
      * @since 1.0.0
      */
     private string $sid;
@@ -56,7 +56,7 @@ final class HttpSession implements SessionInterface
     /**
      * Inactivity Interval.
      *
-     * @var   int
+     * @var int
      * @since 1.0.0
      */
     private int $inactivityInterval = 0;

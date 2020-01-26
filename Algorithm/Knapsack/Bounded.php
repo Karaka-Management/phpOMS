@@ -63,7 +63,7 @@ final class Bounded
             for ($j = 0; $j <= $maxCost; ++$j) {
                 $m[$i][$j] = $m[$i - 1][$j];
 
-                for ($k = 1; $k <= $items[$i - 1]['quantity']; $k++) {
+                for ($k = 1; $k <= $items[$i - 1]['quantity']; ++$k) {
                     if ($k * ((int) $items[$i - 1]['item']->getCost()) > $j) {
                         break;
                     }
@@ -85,7 +85,7 @@ final class Bounded
             $value = (int) $items[$i - 1]['item']->getValue();
 
             for ($k = 0; $v !== $m[$i - 1][$j] + $k * $value; ++$k) {
-                $s++;
+                ++$s;
                 $j -= (int) $items[$i - 1]['item']->getCost();
             }
 

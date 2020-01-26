@@ -31,7 +31,7 @@ final class Header extends HeaderAbstract
     /**
      * Protocol version.
      *
-     * @var   string
+     * @var string
      * @since 1.0.0
      */
     private const VERSION = '1.0';
@@ -39,7 +39,7 @@ final class Header extends HeaderAbstract
     /**
      * Header.
      *
-     * @var   string[][]
+     * @var string[][]
      * @since 1.0.0
      */
     private array $header = [];

@@ -48,7 +48,7 @@ class PrismTest extends \PHPUnit\Framework\TestCase
      * @covers phpOMS\Math\Geometry\Shape\D3\Prism
      * @group framework
      */
-    public function testSurface()
+    public function testSurface(): void
     {
         self::assertEqualsWithDelta(3 * 3 * 2 + 3 * 12 * 4, Prism::getSurfaceRegularLength(3, 4, 12), 0.01);
     }

@@ -32,7 +32,7 @@ final class EigenvalueDecomposition
     /**
      * Dimension m
      *
-     * @var   int
+     * @var int
      * @since 1.0.0
      */
     private int $m = 0;
@@ -40,7 +40,7 @@ final class EigenvalueDecomposition
     /**
      * Is symmetric
      *
-     * @var   bool
+     * @var bool
      * @since 1.0.0
      */
     private bool $isSymmetric = true;
@@ -48,7 +48,7 @@ final class EigenvalueDecomposition
     /**
      * A square matrix.
      *
-     * @var   array
+     * @var array
      * @since 1.0.0
      */
     private array $A = [];
@@ -56,7 +56,7 @@ final class EigenvalueDecomposition
     /**
      * Eigenvectors
      *
-     * @var   array
+     * @var array
      * @since 1.0.0
      */
     private array $V = [];
@@ -64,7 +64,7 @@ final class EigenvalueDecomposition
     /**
      * Eigenvalues
      *
-     * @var   array
+     * @var array
      * @since 1.0.0
      */
     private array $D = [];
@@ -72,7 +72,7 @@ final class EigenvalueDecomposition
     /**
      * Eigenvalues
      *
-     * @var   array
+     * @var array
      * @since 1.0.0
      */
     private array $E = [];
@@ -80,7 +80,7 @@ final class EigenvalueDecomposition
     /**
      * Hessenberg form
      *
-     * @var   array
+     * @var array
      * @since 1.0.0
      */
     private array $H = [];
@@ -88,7 +88,7 @@ final class EigenvalueDecomposition
     /**
      * Non-symmetric storage
      *
-     * @var   array
+     * @var array
      * @since 1.0.0
      */
     private array $ort = [];
@@ -96,7 +96,7 @@ final class EigenvalueDecomposition
     /**
      * Complex scalar division
      *
-     * @var   float
+     * @var float
      * @since 1.0.0
      */
     private float $cdivr = 0.0;
@@ -104,7 +104,7 @@ final class EigenvalueDecomposition
     /**
      * Complex scalar division
      *
-     * @var   float
+     * @var float
      * @since 1.0.0
      */
     private float $cdivi = 0.0;

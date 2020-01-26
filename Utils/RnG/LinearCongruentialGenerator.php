@@ -27,7 +27,7 @@ class LinearCongruentialGenerator
     /**
      * BSD seed value.
      *
-     * @var   int
+     * @var int
      * @since 1.0.0
      */
     private static $bsdSeed = 0;
@@ -35,7 +35,7 @@ class LinearCongruentialGenerator
     /**
      * MSVCRT seed value.
      *
-     * @var   int
+     * @var int
      * @since 1.0.0
      */
     private static $msvcrtSeed = 0;

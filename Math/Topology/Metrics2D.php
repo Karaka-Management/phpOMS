@@ -121,7 +121,7 @@ final class Metrics2D
      *
      * @param array<string, int|float> $a      2-D array with x and y coordinate
      * @param array<string, int|float> $b      2-D array with x and y coordinate
-     * @param int   $lambda Lambda
+     * @param int                      $lambda Lambda
      *
      * @return float
      *

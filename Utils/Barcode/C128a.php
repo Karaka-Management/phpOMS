@@ -30,7 +30,7 @@ class C128a extends C128Abstract
     /**
      * Checksum.
      *
-     * @var   int
+     * @var int
      * @since 1.0.0
      */
     protected static int $CHECKSUM = 103;
@@ -38,7 +38,7 @@ class C128a extends C128Abstract
     /**
      * Char weighted array.
      *
-     * @var   string[]
+     * @var string[]
      * @since 1.0.0
      */
     protected static array $CODEARRAY = [
@@ -67,7 +67,7 @@ class C128a extends C128Abstract
     /**
      * Code start.
      *
-     * @var   string
+     * @var string
      * @since 1.0.0
      */
     protected static string $CODE_START = '211412';
@@ -75,7 +75,7 @@ class C128a extends C128Abstract
     /**
      * Code end.
      *
-     * @var   string
+     * @var string
      * @since 1.0.0
      */
     protected static string $CODE_END = '2331112';

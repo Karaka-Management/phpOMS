@@ -27,7 +27,7 @@ class Item implements ItemInterface
     /**
      * Value of the item
      *
-     * @var   float
+     * @var float
      * @since 1.0.0
      */
     private float $value = 0.0;
@@ -35,7 +35,7 @@ class Item implements ItemInterface
     /**
      * Cost of the item
      *
-     * @var   float
+     * @var float
      * @since 1.0.0
      */
     private float $cost = 0.0;
@@ -43,7 +43,7 @@ class Item implements ItemInterface
     /**
      * Name of the item
      *
-     * @var   string
+     * @var string
      * @since 1.0.0
      */
     private string $name = '';

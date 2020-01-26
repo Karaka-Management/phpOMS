@@ -15,7 +15,6 @@ declare(strict_types=1);
 namespace phpOMS\tests\Utils\Encoding;
 
 use phpOMS\Utils\Encoding\XorEncoding;
-use phpOMS\Utils\RnG\StringUtils;
 
 /**
  * @testdox phpOMS\tests\Utils\Encoding\XorEncodingTest: XOR text encoding/decoding

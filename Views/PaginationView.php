@@ -27,7 +27,7 @@ class PaginationView extends View
     /**
      * Maximum amount of pages.
      *
-     * @var   int
+     * @var int
      * @since 1.0.0
      */
     protected int $maxPages = 7;
@@ -35,7 +35,7 @@ class PaginationView extends View
     /**
      * Current page id.
      *
-     * @var   int
+     * @var int
      * @since 1.0.0
      */
     protected int $page = 1;
@@ -43,7 +43,7 @@ class PaginationView extends View
     /**
      * How many pages exist?
      *
-     * @var   int
+     * @var int
      * @since 1.0.0
      */
     protected int $pages = 1;
@@ -51,7 +51,7 @@ class PaginationView extends View
     /**
      * How many results exist?
      *
-     * @var   int
+     * @var int
      * @since 1.0.0
      */
     protected int $results = 0;

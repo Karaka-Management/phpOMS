@@ -47,7 +47,7 @@ final class Continuous
      */
     public static function solve(array $items, BackpackInterface $backpack) : BackpackInterface
     {
-        usort($items, function($a, $b) {
+        \usort($items, function($a, $b) {
             return $a['item']->getValue() / $a['item']->getCost() < $b['item']->getValue() / $b['item']->getCost();
         });
 

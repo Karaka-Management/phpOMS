@@ -31,7 +31,7 @@ class Localization
     /**
      * Country ID.
      *
-     * @var   string
+     * @var string
      * @since 1.0.0
      */
     private string $country = ISO3166TwoEnum::_USA;
@@ -39,7 +39,7 @@ class Localization
     /**
      * Timezone.
      *
-     * @var   string
+     * @var string
      * @since 1.0.0
      */
     private string $timezone = 'America/New_York';
@@ -47,7 +47,7 @@ class Localization
     /**
      * Language ISO code.
      *
-     * @var   string
+     * @var string
      * @since 1.0.0
      */
     private string $language = ISO639x1Enum::_EN;
@@ -55,7 +55,7 @@ class Localization
     /**
      * Currency.
      *
-     * @var   string
+     * @var string
      * @since 1.0.0
      */
     private string $currency = ISO4217Enum::_USD;
@@ -63,7 +63,7 @@ class Localization
     /**
      * Number format.
      *
-     * @var   string
+     * @var string
      * @since 1.0.0
      */
     private string $decimal = '.';
@@ -71,7 +71,7 @@ class Localization
     /**
      * Number format.
      *
-     * @var   string
+     * @var string
      * @since 1.0.0
      */
     private string $thousands = ',';
@@ -79,7 +79,7 @@ class Localization
     /**
      * Angle type.
      *
-     * @var   string
+     * @var string
      * @since 1.0.0
      */
     private string $angle = AngleType::DEGREE;
@@ -87,7 +87,7 @@ class Localization
     /**
      * Temperature type.
      *
-     * @var   string
+     * @var string
      * @since 1.0.0
      */
     private string $temperature = TemperatureType::CELSIUS;
@@ -95,7 +95,7 @@ class Localization
     /**
      * Time format.
      *
-     * @var   array
+     * @var array
      * @since 1.0.0
      */
     private array $datetime = [];
@@ -103,7 +103,7 @@ class Localization
     /**
      * Weight.
      *
-     * @var   array
+     * @var array
      * @since 1.0.0
      */
     private array $weight = [];
@@ -111,7 +111,7 @@ class Localization
     /**
      * Speed.
      *
-     * @var   array
+     * @var array
      * @since 1.0.0
      */
     private array $speed = [];
@@ -119,7 +119,7 @@ class Localization
     /**
      * Length.
      *
-     * @var   array
+     * @var array
      * @since 1.0.0
      */
     private array $length = [];
@@ -127,7 +127,7 @@ class Localization
     /**
      * Area.
      *
-     * @var   array
+     * @var array
      * @since 1.0.0
      */
     private array $area = [];
@@ -135,7 +135,7 @@ class Localization
     /**
      * Volume.
      *
-     * @var   array
+     * @var array
      * @since 1.0.0
      */
     private array $volume = [];

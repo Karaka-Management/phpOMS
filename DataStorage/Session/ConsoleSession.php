@@ -31,7 +31,7 @@ class ConsoleSession implements SessionInterface
     /**
      * Is session locked/already set.
      *
-     * @var   bool
+     * @var bool
      * @since 1.0.0
      */
     private bool $isLocked = false;
@@ -39,7 +39,7 @@ class ConsoleSession implements SessionInterface
     /**
      * Raw session data.
      *
-     * @var   array
+     * @var array
      * @since 1.0.0
      */
     private array $sessionData = [];
@@ -47,7 +47,7 @@ class ConsoleSession implements SessionInterface
     /**
      * Session ID.
      *
-     * @var   string
+     * @var string
      * @since 1.0.0
      */
     private string $sid;
@@ -55,7 +55,7 @@ class ConsoleSession implements SessionInterface
     /**
      * Inactivity Interval.
      *
-     * @var   int
+     * @var int
      * @since 1.0.0
      */
     private int $inactivityInterval = 0;

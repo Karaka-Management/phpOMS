@@ -27,7 +27,7 @@ class Heap
     /**
      * Comparison function
      *
-     * @var   \Closure
+     * @var \Closure
      * @since 1.0.0
      */
     private \Closure $compare;
@@ -35,7 +35,7 @@ class Heap
     /**
      * Heap items
      *
-     * @var   array<int, mixed>
+     * @var array<int, mixed>
      * @since 1.0.0
      */
     private array $nodes = [];

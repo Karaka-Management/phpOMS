@@ -29,7 +29,7 @@ final class Reload implements \Serializable, ArrayableInterface, \JsonSerializab
     /**
      * Message type.
      *
-     * @var   string
+     * @var string
      * @since 1.0.0
      */
     public const TYPE = 'reload';
@@ -37,7 +37,7 @@ final class Reload implements \Serializable, ArrayableInterface, \JsonSerializab
     /**
      * Delay in ms.
      *
-     * @var   int
+     * @var int
      * @since 1.0.0
      */
     private int $delay = 0;

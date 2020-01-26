@@ -30,7 +30,7 @@ class Codebar extends C128Abstract
     /**
      * Char array.
      *
-     * @var   string[]
+     * @var string[]
      * @since 1.0.0
      */
     protected static array $CODEARRAY = ['1', '2', '3', '4', '5', '6', '7', '8', '9', '0', '-', '$', ':', '/', '.', '+', 'A', 'B', 'C', 'D'];
@@ -38,7 +38,7 @@ class Codebar extends C128Abstract
     /**
      * Char weighted array.
      *
-     * @var   string[]
+     * @var string[]
      * @since 1.0.0
      */
     protected static array $CODEARRAY2 = [
@@ -49,7 +49,7 @@ class Codebar extends C128Abstract
     /**
      * Code start.
      *
-     * @var   string
+     * @var string
      * @since 1.0.0
      */
     protected static string $CODE_START = '11221211';
@@ -57,7 +57,7 @@ class Codebar extends C128Abstract
     /**
      * Code end.
      *
-     * @var   string
+     * @var string
      * @since 1.0.0
      */
     protected static string $CODE_END = '1122121';

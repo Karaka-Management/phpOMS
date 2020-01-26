@@ -33,7 +33,7 @@ final class Http implements UriInterface
     /**
      * Root path.
      *
-     * @var   string
+     * @var string
      * @since 1.0.0
      */
     private string $rootPath = '';
@@ -41,7 +41,7 @@ final class Http implements UriInterface
     /**
      * Path offset.
      *
-     * @var   int
+     * @var int
      * @since 1.0.0
      */
     private int $pathOffset = 0;
@@ -49,7 +49,7 @@ final class Http implements UriInterface
     /**
      * Path elements.
      *
-     * @var   string[]
+     * @var string[]
      * @since 1.0.0
      */
     private array $pathElements;
@@ -57,7 +57,7 @@ final class Http implements UriInterface
     /**
      * Uri.
      *
-     * @var   string
+     * @var string
      * @since 1.0.0
      */
     private string $uri;
@@ -65,7 +65,7 @@ final class Http implements UriInterface
     /**
      * Uri scheme.
      *
-     * @var   string
+     * @var string
      * @since 1.0.0
      */
     private string $scheme;
@@ -73,7 +73,7 @@ final class Http implements UriInterface
     /**
      * Uri host.
      *
-     * @var   string
+     * @var string
      * @since 1.0.0
      */
     private string $host;
@@ -81,7 +81,7 @@ final class Http implements UriInterface
     /**
      * Uri port.
      *
-     * @var   int
+     * @var int
      * @since 1.0.0
      */
     private int $port;
@@ -89,7 +89,7 @@ final class Http implements UriInterface
     /**
      * Uri user.
      *
-     * @var   string
+     * @var string
      * @since 1.0.0
      */
     private string $user;
@@ -97,7 +97,7 @@ final class Http implements UriInterface
     /**
      * Uri password.
      *
-     * @var   string
+     * @var string
      * @since 1.0.0
      */
     private string $pass;
@@ -105,7 +105,7 @@ final class Http implements UriInterface
     /**
      * Uri path.
      *
-     * @var   string
+     * @var string
      * @since 1.0.0
      */
     private string $path;
@@ -113,7 +113,7 @@ final class Http implements UriInterface
     /**
      * Uri query.
      *
-     * @var   array<string, string>
+     * @var array<string, string>
      * @since 1.0.0
      */
     private array $query = [];
@@ -121,7 +121,7 @@ final class Http implements UriInterface
     /**
      * Uri query.
      *
-     * @var   string
+     * @var string
      * @since 1.0.0
      */
     private string $queryString;
@@ -129,7 +129,7 @@ final class Http implements UriInterface
     /**
      * Uri fragment.
      *
-     * @var   string
+     * @var string
      * @since 1.0.0
      */
     private string $fragment;
@@ -137,7 +137,7 @@ final class Http implements UriInterface
     /**
      * Uri base.
      *
-     * @var   string
+     * @var string
      * @since 1.0.0
      */
     private string $base;

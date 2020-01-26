@@ -28,7 +28,7 @@ class Backpack implements BackpackInterface
     /**
      * Maximum amount of cost this backpack can hold
      *
-     * @var   float
+     * @var float
      * @since 1.0.0
      */
     private float $maxCost = 0.0;
@@ -36,7 +36,7 @@ class Backpack implements BackpackInterface
     /**
      * Current value
      *
-     * @var   float
+     * @var float
      * @since 1.0.0
      */
     private float $value = 0.0;
@@ -44,7 +44,7 @@ class Backpack implements BackpackInterface
     /**
      * Current cost
      *
-     * @var  float
+     * @var float
      * @since 1.0.0
      */
     private float $cost = 0.0;
@@ -52,7 +52,7 @@ class Backpack implements BackpackInterface
     /**
      * Items inside the backpack
      *
-     * @var   ItemInterface[]
+     * @var ItemInterface[]
      * @since 1.0.0
      */
     private array $items = [];

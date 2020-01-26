@@ -30,7 +30,7 @@ class C39 extends C128Abstract
     /**
      * Char weighted array.
      *
-     * @var   string[]
+     * @var string[]
      * @since 1.0.0
      */
     protected static array $CODEARRAY = [
@@ -48,7 +48,7 @@ class C39 extends C128Abstract
     /**
      * Code start.
      *
-     * @var   string
+     * @var string
      * @since 1.0.0
      */
     protected static string $CODE_START = '1211212111';
@@ -56,7 +56,7 @@ class C39 extends C128Abstract
     /**
      * Code end.
      *
-     * @var   string
+     * @var string
      * @since 1.0.0
      */
     protected static string $CODE_END = '121121211';

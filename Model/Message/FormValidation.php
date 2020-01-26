@@ -29,7 +29,7 @@ final class FormValidation implements \Serializable, ArrayableInterface, \JsonSe
     /**
      * Message type.
      *
-     * @var   string
+     * @var string
      * @since 1.0.0
      */
     public const TYPE = 'validation';
@@ -37,7 +37,7 @@ final class FormValidation implements \Serializable, ArrayableInterface, \JsonSe
     /**
      * Form validation result.
      *
-     * @var   array
+     * @var array
      * @since 1.0.0
      */
     private array $validation = [];

@@ -31,7 +31,7 @@ final class CholeskyDecomposition
     /**
      * L matrix.
      *
-     * @var   array
+     * @var array
      * @since 1.0.0
      */
     private array $L = [];
@@ -39,7 +39,7 @@ final class CholeskyDecomposition
     /**
      * Dimension of L
      *
-     * @var   int
+     * @var int
      * @since 1.0.0
      */
     private int $m = 0;
@@ -47,7 +47,7 @@ final class CholeskyDecomposition
     /**
      * Is symmetric positiv definite
      *
-     * @var   bool
+     * @var bool
      * @since 1.0.0
      */
     private bool $isSpd = true;

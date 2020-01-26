@@ -14,8 +14,8 @@ declare(strict_types=1);
 
 namespace phpOMS\tests\Algorithm\Knapsack;
 
-use phpOMS\Algorithm\Knapsack\Continuous;
 use phpOMS\Algorithm\Knapsack\Backpack;
+use phpOMS\Algorithm\Knapsack\Continuous;
 use phpOMS\Algorithm\Knapsack\Item;
 
 /**

@@ -27,7 +27,7 @@ class Parameter
     /**
      * Parameter name
      *
-     * @var   string
+     * @var string
      * @since 1.0.0
      */
     private string $name = '';

@@ -27,7 +27,7 @@ final class Money implements \Serializable
     /**
      * Max amount of decimals.
      *
-     * @var   int
+     * @var int
      * @since 1.0.0
      */
     public const MAX_DECIMALS = 4;
@@ -35,7 +35,7 @@ final class Money implements \Serializable
     /**
      * Thousands separator.
      *
-     * @var   string
+     * @var string
      * @since 1.0.0
      */
     private string $thousands = ',';
@@ -43,7 +43,7 @@ final class Money implements \Serializable
     /**
      * Decimal separator.
      *
-     * @var   string
+     * @var string
      * @since 1.0.0
      */
     private string $decimal = '.';
@@ -51,7 +51,7 @@ final class Money implements \Serializable
     /**
      * Currency symbol position
      *
-     * @var   int
+     * @var int
      * @since 1.0.0
      */
     private int $position = 1;
@@ -59,7 +59,7 @@ final class Money implements \Serializable
     /**
      * Currency symbol.
      *
-     * @var   string
+     * @var string
      * @since 1.0.0
      */
     private string $symbol = ISO4217SymbolEnum::_USD;
@@ -67,7 +67,7 @@ final class Money implements \Serializable
     /**
      * Value.
      *
-     * @var   int
+     * @var int
      * @since 1.0.0
      */
     private int $value = 0;

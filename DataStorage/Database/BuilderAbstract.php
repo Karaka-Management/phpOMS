@@ -14,8 +14,8 @@ declare(strict_types=1);
 
 namespace phpOMS\DataStorage\Database;
 
-use phpOMS\DataStorage\Database\Query\QueryType;
 use phpOMS\DataStorage\Database\Connection\ConnectionAbstract;
+use phpOMS\DataStorage\Database\Query\QueryType;
 
 /**
  * Database query builder.
@@ -30,7 +30,7 @@ abstract class BuilderAbstract
     /**
      * Grammar.
      *
-     * @var   GrammarAbstract
+     * @var GrammarAbstract
      * @since 1.0.0
      */
     protected GrammarAbstract $grammar;
@@ -38,7 +38,7 @@ abstract class BuilderAbstract
     /**
      * Database connection.
      *
-     * @var   ConnectionAbstract
+     * @var ConnectionAbstract
      * @since 1.0.0
      */
     protected ConnectionAbstract $connection;
@@ -46,7 +46,7 @@ abstract class BuilderAbstract
     /**
      * Query type.
      *
-     * @var   int
+     * @var int
      * @since 1.0.0
      */
     protected int $type = QueryType::NONE;
@@ -54,7 +54,7 @@ abstract class BuilderAbstract
     /**
      * Prefix.
      *
-     * @var   string
+     * @var string
      * @since 1.0.0
      */
     protected string $prefix = '';
@@ -62,7 +62,7 @@ abstract class BuilderAbstract
     /**
      * Raw.
      *
-     * @var   string
+     * @var string
      * @since 1.0.0
      */
     public string $raw = '';

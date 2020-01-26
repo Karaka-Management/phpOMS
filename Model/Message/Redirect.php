@@ -29,7 +29,7 @@ final class Redirect implements \Serializable, ArrayableInterface, \JsonSerializ
     /**
      * Message type.
      *
-     * @var   string
+     * @var string
      * @since 1.0.0
      */
     public const TYPE = 'redirect';
@@ -37,7 +37,7 @@ final class Redirect implements \Serializable, ArrayableInterface, \JsonSerializ
     /**
      * Redirect uri.
      *
-     * @var   string
+     * @var string
      * @since 1.0.0
      */
     private string $uri = '';
@@ -45,7 +45,7 @@ final class Redirect implements \Serializable, ArrayableInterface, \JsonSerializ
     /**
      * Delay.
      *
-     * @var   int
+     * @var int
      * @since 1.0.0
      */
     private int $delay = 0;
@@ -53,7 +53,7 @@ final class Redirect implements \Serializable, ArrayableInterface, \JsonSerializ
     /**
      * Window.
      *
-     * @var   bool
+     * @var bool
      * @since 1.0.0
      */
     private bool $new = false;

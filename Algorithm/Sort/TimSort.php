@@ -27,7 +27,7 @@ final class TimSort implements SortInterface
     /**
      * Blocks the sorting is divided into
      *
-     * @var   int
+     * @var int
      * @since 1.0.0
      */
     private const BLOCKS = 32;

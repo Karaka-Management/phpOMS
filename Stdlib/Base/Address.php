@@ -27,7 +27,7 @@ class Address implements \JsonSerializable
     /**
      * Name of the receiver.
      *
-     * @var   string
+     * @var string
      * @since 1.0.0
      */
     private string $recipient = '';
@@ -35,7 +35,7 @@ class Address implements \JsonSerializable
     /**
      * Sub of the address.
      *
-     * @var   string
+     * @var string
      * @since 1.0.0
      */
     private string $fao = '';
@@ -43,7 +43,7 @@ class Address implements \JsonSerializable
     /**
      * Location.
      *
-     * @var   Location
+     * @var Location
      * @since 1.0.0
      */
     private Location $location;
@@ -152,7 +152,7 @@ class Address implements \JsonSerializable
         return [
             'recipient' => $this->recipient,
             'fao'       => $this->fao,
-            'location'  => $this->location->toArray()
+            'location'  => $this->location->toArray(),
         ];
     }
 }

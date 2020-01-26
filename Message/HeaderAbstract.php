@@ -29,7 +29,7 @@ abstract class HeaderAbstract
     /**
      * Responses.
      *
-     * @var   bool
+     * @var bool
      * @since 1.0.0
      */
     protected bool $isLocked = false;
@@ -37,7 +37,7 @@ abstract class HeaderAbstract
     /**
      * Localization.
      *
-     * @var   Localization
+     * @var Localization
      * @since 1.0.0
      */
     protected Localization $l11n;
@@ -45,7 +45,7 @@ abstract class HeaderAbstract
     /**
      * Account.
      *
-     * @var   int
+     * @var int
      * @since 1.0.0
      */
     protected int $account = 0;
@@ -53,7 +53,7 @@ abstract class HeaderAbstract
     /**
      * Response status.
      *
-     * @var   int
+     * @var int
      * @since 1.0.0
      */
     protected int $status = 0;

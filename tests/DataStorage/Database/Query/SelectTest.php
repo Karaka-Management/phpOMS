@@ -26,4 +26,3 @@ class SelectTest extends \PHPUnit\Framework\TestCase
         self::assertInstanceOf('\phpOMS\DataStorage\Database\Query\Builder', new Select($GLOBALS['dbpool']->get()));
     }
 }
-

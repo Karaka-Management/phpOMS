@@ -27,7 +27,7 @@ class AStarNode extends Node
     /**
      * The g score is cost of the path
      *
-     * @var   float
+     * @var float
      * @since 1.0.0
      */
     private float $g = 0.0;
@@ -35,7 +35,7 @@ class AStarNode extends Node
     /**
      * The heuristic distance is the cost to the end node
      *
-     * @var   float
+     * @var float
      * @since 1.0.0
      */
     private ?float $h = null;
@@ -43,7 +43,7 @@ class AStarNode extends Node
     /**
      * The f score is defined as f(n) = g(n) + h(n)
      *
-     * @var   float
+     * @var float
      * @since 1.0.0
      */
     private float $f = 0.0;
@@ -51,7 +51,7 @@ class AStarNode extends Node
     /**
      * Define as checked node
      *
-     * @var   bool
+     * @var bool
      * @since 1.0.0
      */
     private bool $isClosed = false;
@@ -59,7 +59,7 @@ class AStarNode extends Node
     /**
      * Define as potential candidate
      *
-     * @var   bool
+     * @var bool
      * @since 1.0.0
      */
     private bool $isOpened = false;

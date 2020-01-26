@@ -14,8 +14,8 @@ declare(strict_types=1);
 
 namespace phpOMS\tests\Algorithm\Sort;
 
-use phpOMS\Algorithm\Sort\StoogeSort;
 use phpOMS\Algorithm\Sort\SortOrder;
+use phpOMS\Algorithm\Sort\StoogeSort;
 
 require_once __DIR__ . '/../../Autoloader.php';
 

@@ -81,7 +81,7 @@ class IntroSortTest extends \PHPUnit\Framework\TestCase
             new NumericElement(35), new NumericElement(11), new NumericElement(35), new NumericElement(4), new NumericElement(25), new NumericElement(11), new NumericElement(80),
             new NumericElement(22), new NumericElement(94), new NumericElement(4), new NumericElement(30), new NumericElement(6), new NumericElement(66), new NumericElement(11),
             new NumericElement(4), new NumericElement(80), new NumericElement(2), new NumericElement(80), new NumericElement(25), new NumericElement(0), new NumericElement(45),
-            new NumericElement(55), new NumericElement(25)
+            new NumericElement(55), new NumericElement(25),
         ];
 
         $newList = IntroSort::sort($list);

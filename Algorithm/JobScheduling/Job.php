@@ -27,7 +27,7 @@ class Job implements JobInterface
     /**
      * Value of the job
      *
-     * @var   float
+     * @var float
      * @since 1.0.0
      */
     private float $value = 0.0;
@@ -35,7 +35,7 @@ class Job implements JobInterface
     /**
      * Start time of the job
      *
-     * @var   \DateTime
+     * @var \DateTime
      * @since 1.0.0
      */
     private \DateTime $start;
@@ -43,7 +43,7 @@ class Job implements JobInterface
     /**
      * End time of the job
      *
-     * @var   \DateTime
+     * @var \DateTime
      * @since 1.0.0
      */
     private ?\DateTime $end = null;
@@ -51,7 +51,7 @@ class Job implements JobInterface
     /**
      * Name of the job
      *
-     * @var   string
+     * @var string
      * @since 1.0.0
      */
     private string $name = '';

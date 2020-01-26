@@ -14,11 +14,11 @@ declare(strict_types=1);
 
 namespace phpOMS\tests\Utils\IO\Spreadsheet;
 
+use phpOMS\Autoloader;
 use phpOMS\DataStorage\Database\Connection\SQLiteConnection;
 use phpOMS\DataStorage\Database\Query\Builder;
 use phpOMS\Utils\IO\Spreadsheet\SpreadsheetDatabaseMapper;
 use phpOMS\Utils\StringUtils;
-use phpOMS\Autoloader;
 
 /**
  * @testdox phpOMS\tests\Utils\IO\Spreadsheet\SpreadsheetDatabaseMapperTest: Spreadsheet database mapper

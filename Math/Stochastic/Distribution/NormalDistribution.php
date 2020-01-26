@@ -29,7 +29,7 @@ final class NormalDistribution
      *
      * Z-Score.
      *
-     * @var   array<string, float>
+     * @var array<string, float>
      * @since 1.0.0
      */
     public const TABLE = [

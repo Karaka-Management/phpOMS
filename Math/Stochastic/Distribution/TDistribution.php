@@ -29,7 +29,7 @@ final class TDistribution
      *
      * [degrees of freedom = df]
      *
-     * @var   array<int, array<string, float>>
+     * @var array<int, array<string, float>>
      * @since 1.0.0
      */
     public const TABLE = [

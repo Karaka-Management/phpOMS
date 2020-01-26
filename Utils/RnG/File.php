@@ -27,7 +27,7 @@ class File
     /**
      * Extensions.
      *
-     * @var   array[]
+     * @var array[]
      * @since 1.0.0
      */
     private static $extensions = [

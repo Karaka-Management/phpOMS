@@ -30,7 +30,7 @@ abstract class SchedulerAbstract
     /**
      * Bin path.
      *
-     * @var   string
+     * @var string
      * @since 1.0.0
      */
     private static string $bin = '';

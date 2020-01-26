@@ -27,7 +27,7 @@ final class Complex
     /**
      * Real part.
      *
-     * @var   int|float
+     * @var int|float
      * @since 1.0.0
      */
     private $re;
@@ -35,7 +35,7 @@ final class Complex
     /**
      * Imaginary part.
      *
-     * @var   int|float
+     * @var int|float
      * @since 1.0.0
      */
     private $im;

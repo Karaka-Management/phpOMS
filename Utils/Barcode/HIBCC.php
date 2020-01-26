@@ -27,7 +27,7 @@ class HIBCC
     /**
      * Identifier code (3-characters)
      *
-     * @var   string
+     * @var string
      * @since 1.0.0
      */
     private string $identifier = '';
@@ -35,7 +35,7 @@ class HIBCC
     /**
      * Product id.
      *
-     * @var   string
+     * @var string
      * @since 1.0.0
      */
     private string $productId = '';
@@ -43,7 +43,7 @@ class HIBCC
     /**
      * Meassure of unit (0-9).
      *
-     * @var   int
+     * @var int
      * @since 1.0.0
      */
     private int $measureOfUnit = 0;
@@ -51,7 +51,7 @@ class HIBCC
     /**
      * Date format for the shelf life.
      *
-     * @var   string
+     * @var string
      * @since 1.0.0
      */
     private string $dateFormat = 'Y-m-d';
@@ -59,7 +59,7 @@ class HIBCC
     /**
      * Date of the expiration.
      *
-     * @var   null|\DateTime
+     * @var null|\DateTime
      * @since 1.0.0
      */
     private ?\DateTime $expirationDate = null;
@@ -67,7 +67,7 @@ class HIBCC
     /**
      * Date of the production.
      *
-     * @var   null|\DateTime
+     * @var null|\DateTime
      * @since 1.0.0
      */
     private ?\DateTime $productionDate = null;
@@ -75,7 +75,7 @@ class HIBCC
     /**
      * Lot number.
      *
-     * @var   string
+     * @var string
      * @since 1.0.0
      */
     private string $lot = '';
@@ -83,7 +83,7 @@ class HIBCC
     /**
      * Check value.
      *
-     * @var   int
+     * @var int
      * @since 1.0.0
      */
     private int $checkValue = 0;

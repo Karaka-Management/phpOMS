@@ -30,7 +30,7 @@ final class NetPromoterScore
     /**
      * Score values
      *
-     * @var   int[]
+     * @var int[]
      * @since 1.0.0
      */
     private array $scores = [];

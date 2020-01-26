@@ -27,7 +27,7 @@ class Point implements PointInterface
     /**
      * Coordinates of the point
      *
-     * @var   array<int, int|float>
+     * @var array<int, int|float>
      * @sicne 1.0.0
      */
     private array $coordinates = [];
@@ -35,7 +35,7 @@ class Point implements PointInterface
     /**
      * Group or cluster this point belongs to
      *
-     * @var   int
+     * @var int
      * @since 1.0.0
      */
     private int $group = 0;
@@ -43,7 +43,7 @@ class Point implements PointInterface
     /**
      * Name of the point
      *
-     * @var   string
+     * @var string
      * @since 1.0.0
      */
     private string $name = '';

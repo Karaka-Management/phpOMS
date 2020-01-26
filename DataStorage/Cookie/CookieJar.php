@@ -29,14 +29,14 @@ final class CookieJar
     /**
      * Locked.
      *
-     * @var   bool
+     * @var bool
      * @since 1.0.0
      */
     private static bool $isLocked = false;
     /**
      * Cookie values.
      *
-     * @var   array
+     * @var array
      * @since 1.0.0
      */
     private array $cookies = [];

@@ -27,7 +27,7 @@ final class Kmeans
     /**
      * Metric to calculate the distance between two points
      *
-     * @var   \Closure
+     * @var \Closure
      * @since 1.0.0
      */
     private \Closure $metric;
@@ -35,7 +35,7 @@ final class Kmeans
     /**
      * Amount of different clusters
      *
-     * @var   int
+     * @var int
      * @since 1.0.0
      */
     private int $clusters = 1;
@@ -43,7 +43,7 @@ final class Kmeans
     /**
      * Points of the cluster centers
      *
-     * @var   PointInterface[]
+     * @var PointInterface[]
      * @since 1.0.0
      */
     private $clusterCenters = [];
@@ -51,7 +51,7 @@ final class Kmeans
     /**
      * Points to clusterize
      *
-     * @var   PointInterface[]
+     * @var PointInterface[]
      * @since 1.0.0
      */
     private array $points = [];
@@ -61,7 +61,7 @@ final class Kmeans
      *
      * @param PointInterface[] $points   Points to cluster
      * @param int              $clusters Amount of clusters
-     * @param null|\Closure    $metric   Metric to use for the distance between two points.
+     * @param null|\Closure    $metric   metric to use for the distance between two points
      *
      * @since 1.0.0
      */

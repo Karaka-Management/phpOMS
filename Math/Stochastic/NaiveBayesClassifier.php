@@ -29,7 +29,7 @@ final class NaiveBayesClassifier
     /**
      * Dictionary of different criterias.
      *
-     * @var   array
+     * @var array
      * @since 1.0.0
      */
     private array $dict = [];
@@ -37,7 +37,7 @@ final class NaiveBayesClassifier
     /**
      * Dictionary changed.
      *
-     * @var   bool
+     * @var bool
      * @since 1.0.0
      */
     private bool $changed = true;
@@ -45,7 +45,7 @@ final class NaiveBayesClassifier
     /**
      * Cached probabilities.
      *
-     * @var   array
+     * @var array
      * @since 1.0.0
      */
     private array $probabilities = [
@@ -193,7 +193,7 @@ final class NaiveBayesClassifier
                             * \exp(-($toMatch[$attr] - $this->probabilities['criteria'][$criteria]['attr'][$attr]['mean']) ** 2 / (2 * $this->probabilities['criteria'][$criteria]['attr'][$attr]['variance'])))
                         * ($this->probabilities['criteria'][$criteria]['count'] / $this->probabilities['count']);
                 } else {
-                    if (!isset( $this->probabilities['attr'][$attr])) {
+                    if (!isset($this->probabilities['attr'][$attr])) {
                         $this->probabilities['attr'][$attr] = ['data' => []];
                     }
 

@@ -27,7 +27,7 @@ class Node
     /**
      * Node id.
      *
-     * @var   string
+     * @var string
      * @since 1.0.0
      */
     private string $id;
@@ -35,7 +35,7 @@ class Node
     /**
      * Node data.
      *
-     * @var   mixed
+     * @var mixed
      * @since 1.0.0
      */
     private $data = null;
@@ -43,7 +43,7 @@ class Node
     /**
      * Edges.
      *
-     * @var   Edge[]
+     * @var Edge[]
      * @since 1.0.0
      */
     protected array $edges = [];
@@ -109,7 +109,7 @@ class Node
      *
      * @since 1.0.0
      */
-    public function isEqual(Node $node) : bool
+    public function isEqual(self $node) : bool
     {
         return $this->id === $node->getId() && $this->data === $node->getData();
     }
@@ -124,7 +124,7 @@ class Node
      *
      * @since 1.0.0
      */
-    public function setNodeRelative(Node $node, int $key = null) : Edge
+    public function setNodeRelative(self $node, int $key = null) : Edge
     {
         $edge = new Edge($this, $node);
         $this->setEdge($edge, $key);

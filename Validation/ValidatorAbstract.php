@@ -27,7 +27,7 @@ abstract class ValidatorAbstract implements ValidatorInterface
     /**
      * Error code.
      *
-     * @var   int
+     * @var int
      * @since 1.0.0
      */
     protected static int $error = 0;
@@ -35,7 +35,7 @@ abstract class ValidatorAbstract implements ValidatorInterface
     /**
      * Message string.
      *
-     * @var   string
+     * @var string
      * @since 1.0.0
      */
     protected static string $msg = '';

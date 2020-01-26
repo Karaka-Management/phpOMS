@@ -27,7 +27,7 @@ class Tag
     /**
      * Name.
      *
-     * @var   string
+     * @var string
      * @since 1.0.0
      */
     private string $name = '';
@@ -35,7 +35,7 @@ class Tag
     /**
      * Message.
      *
-     * @var   string
+     * @var string
      * @since 1.0.0
      */
     private string $message = '';

@@ -34,7 +34,7 @@ final class CachePool implements DataStoragePoolInterface
     /**
      * MemCache instance.
      *
-     * @var   DataStorageConnectionInterface[]
+     * @var DataStorageConnectionInterface[]
      * @since 1.0.0
      */
     private array $pool = [];

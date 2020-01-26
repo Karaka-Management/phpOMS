@@ -36,7 +36,7 @@ final class Request extends RequestAbstract
     /**
      * Request method.
      *
-     * @var   string
+     * @var string
      * @since 1.0.0
      */
     protected string $method;
@@ -44,7 +44,7 @@ final class Request extends RequestAbstract
     /**
      * Browser type.
      *
-     * @var   string
+     * @var string
      * @since 1.0.0
      */
     private string $browser;
@@ -52,7 +52,7 @@ final class Request extends RequestAbstract
     /**
      * OS type.
      *
-     * @var   string
+     * @var string
      * @since 1.0.0
      */
     private string $os;
@@ -60,7 +60,7 @@ final class Request extends RequestAbstract
     /**
      * Request information.
      *
-     * @var   string[]
+     * @var string[]
      * @since 1.0.0
      */
     private array $info;
@@ -68,7 +68,7 @@ final class Request extends RequestAbstract
     /**
      * Request hash.
      *
-     * @var   array
+     * @var array
      * @since 1.0.0
      */
     protected array $hash = [];
@@ -76,7 +76,7 @@ final class Request extends RequestAbstract
     /**
      * Uploaded files.
      *
-     * @var   array
+     * @var array
      * @since 1.0.0
      */
     protected array $files;

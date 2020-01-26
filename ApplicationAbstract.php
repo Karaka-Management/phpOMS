@@ -14,19 +14,19 @@ declare(strict_types=1);
 
 namespace phpOMS;
 
-use phpOMS\Router\RouterInterface;
-use phpOMS\Log\FileLogger;
-use phpOMS\Event\EventManager;
-use phpOMS\Module\ModuleManager;
-use phpOMS\Dispatcher\Dispatcher;
 use phpOMS\Account\AccountManager;
-use phpOMS\Localization\L11nManager;
-use phpOMS\Localization\Localization;
+use phpOMS\Config\SettingsAbstract;
 use phpOMS\DataStorage\Cache\CachePool;
 use phpOMS\DataStorage\Cookie\CookieJar;
 use phpOMS\DataStorage\Database\DatabasePool;
 use phpOMS\DataStorage\Session\SessionInterface;
-use phpOMS\Config\SettingsAbstract;
+use phpOMS\Dispatcher\Dispatcher;
+use phpOMS\Event\EventManager;
+use phpOMS\Localization\L11nManager;
+use phpOMS\Localization\Localization;
+use phpOMS\Log\FileLogger;
+use phpOMS\Module\ModuleManager;
+use phpOMS\Router\RouterInterface;
 
 /**
  * Application class.
@@ -60,7 +60,7 @@ class ApplicationAbstract
     /**
      * App name.
      *
-     * @var   string
+     * @var string
      * @since 1.0.0
      */
     protected string $appName = '';
@@ -68,7 +68,7 @@ class ApplicationAbstract
     /**
      * Organization id.
      *
-     * @var   int
+     * @var int
      * @since 1.0.0
      */
     protected int $orgId = 0;
@@ -76,7 +76,7 @@ class ApplicationAbstract
     /**
      * App theme.
      *
-     * @var   string
+     * @var string
      * @since 1.0.0
      */
     protected string $theme = '';
@@ -84,7 +84,7 @@ class ApplicationAbstract
     /**
      * Database object.
      *
-     * @var   DatabasePool
+     * @var DatabasePool
      * @since 1.0.0
      */
     protected DatabasePool $dbPool;
@@ -92,7 +92,7 @@ class ApplicationAbstract
     /**
      * Application settings object.
      *
-     * @var   SettingsAbstract
+     * @var SettingsAbstract
      * @since 1.0.0
      */
     protected SettingsAbstract $appSettings;
@@ -100,7 +100,7 @@ class ApplicationAbstract
     /**
      * Account manager instance.
      *
-     * @var   AccountManager
+     * @var AccountManager
      * @since 1.0.0
      */
     protected AccountManager $accountManager;
@@ -108,7 +108,7 @@ class ApplicationAbstract
     /**
      * Cache instance.
      *
-     * @var   CachePool
+     * @var CachePool
      * @since 1.0.0
      */
     protected CachePool $cachePool;
@@ -116,7 +116,7 @@ class ApplicationAbstract
     /**
      * ModuleManager instance.
      *
-     * @var   ModuleManager
+     * @var ModuleManager
      * @since 1.0.0
      */
     protected ModuleManager $moduleManager;
@@ -124,7 +124,7 @@ class ApplicationAbstract
     /**
      * Router instance.
      *
-     * @var   RouterInterface
+     * @var RouterInterface
      * @since 1.0.0
      */
     protected RouterInterface $router;
@@ -132,7 +132,7 @@ class ApplicationAbstract
     /**
      * Dispatcher instance.
      *
-     * @var   Dispatcher
+     * @var Dispatcher
      * @since 1.0.0
      */
     protected Dispatcher $dispatcher;
@@ -140,7 +140,7 @@ class ApplicationAbstract
     /**
      * Session instance.
      *
-     * @var   SessionInterface
+     * @var SessionInterface
      * @since 1.0.0
      */
     protected SessionInterface $sessionManager;
@@ -148,7 +148,7 @@ class ApplicationAbstract
     /**
      * Cookie instance.
      *
-     * @var   CookieJar
+     * @var CookieJar
      * @since 1.0.0
      */
     protected CookieJar $cookieJar;
@@ -156,7 +156,7 @@ class ApplicationAbstract
     /**
      * Server localization.
      *
-     * @var   Localization
+     * @var Localization
      * @since 1.0.0
      */
     protected Localization $l11nServer;
@@ -164,7 +164,7 @@ class ApplicationAbstract
     /**
      * Server localization.
      *
-     * @var   FileLogger
+     * @var FileLogger
      * @since 1.0.0
      */
     protected FileLogger $logger;
@@ -172,7 +172,7 @@ class ApplicationAbstract
     /**
      * L11n manager.
      *
-     * @var   L11nManager
+     * @var L11nManager
      * @since 1.0.0
      */
     protected L11nManager $l11nManager;
@@ -180,7 +180,7 @@ class ApplicationAbstract
     /**
      * Event manager.
      *
-     * @var   EventManager
+     * @var EventManager
      * @since 1.0.0
      */
     protected EventManager $eventManager;

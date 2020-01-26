@@ -34,7 +34,7 @@ class IntervalTest extends \PHPUnit\Framework\TestCase
 
         $interval = new Interval($dt);
         self::assertEquals($dt->format('Y-m-d'), $interval->getStart()->format('Y-m-d'));
-        self::assertEquals(null, $interval->getEnd());
+        self::assertNull($interval->getEnd());
         self::assertEquals(0, $interval->getMaxDuration());
         self::assertEquals([], $interval->getMinute());
         self::assertEquals([], $interval->getHour());

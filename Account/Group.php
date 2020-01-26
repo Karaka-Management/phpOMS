@@ -30,7 +30,7 @@ class Group implements ArrayableInterface, \JsonSerializable
     /**
      * Group id.
      *
-     * @var   int
+     * @var int
      * @since 1.0.0
      */
     protected int $id = 0;
@@ -38,7 +38,7 @@ class Group implements ArrayableInterface, \JsonSerializable
     /**
      * Group name.
      *
-     * @var   string
+     * @var string
      * @since 1.0.0
      */
     protected string $name = '';
@@ -46,7 +46,7 @@ class Group implements ArrayableInterface, \JsonSerializable
     /**
      * Group name.
      *
-     * @var   string
+     * @var string
      * @since 1.0.0
      */
     protected string $description = '';
@@ -54,7 +54,7 @@ class Group implements ArrayableInterface, \JsonSerializable
     /**
      * Group members.
      *
-     * @var   array
+     * @var array
      * @since 1.0.0
      */
     protected array $members = [];
@@ -62,7 +62,7 @@ class Group implements ArrayableInterface, \JsonSerializable
     /**
      * Parents.
      *
-     * @var   int[]
+     * @var int[]
      * @since 1.0.0
      */
     protected array $parents = [];
@@ -70,7 +70,7 @@ class Group implements ArrayableInterface, \JsonSerializable
     /**
      * Group status.
      *
-     * @var   int
+     * @var int
      * @since 1.0.0
      */
     protected int $status = GroupStatus::INACTIVE;

@@ -27,7 +27,7 @@ class Path
     /**
      * Nodes in the path
      *
-     * @var   Node[]
+     * @var Node[]
      * @since 1.0.0
      */
     public array $nodes = [];
@@ -35,7 +35,7 @@ class Path
     /**
      * Grid this path belongs to
      *
-     * @var   Grid
+     * @var Grid
      * @since 1.0.0
      */
     private Grid $grid;
@@ -43,7 +43,7 @@ class Path
     /**
      * Nodes in the path
      *
-     * @var   Node[]
+     * @var Node[]
      * @since 1.0.0
      */
     private array $expandedNodes = [];
@@ -51,7 +51,7 @@ class Path
     /**
      * Path length
      *
-     * @var   float
+     * @var float
      * @since 1.0.0
      */
     private float $length = 0.0;

@@ -27,7 +27,7 @@ class Author
     /**
      * Name.
      *
-     * @var   string
+     * @var string
      * @since 1.0.0
      */
     private string $name = '';
@@ -35,7 +35,7 @@ class Author
     /**
      * Email.
      *
-     * @var   string
+     * @var string
      * @since 1.0.0
      */
     private string $email = '';
@@ -43,7 +43,7 @@ class Author
     /**
      * Commit count.
      *
-     * @var   int
+     * @var int
      * @since 1.0.0
      */
     private int $commitCount = 0;
@@ -51,7 +51,7 @@ class Author
     /**
      * Additions count.
      *
-     * @var   int
+     * @var int
      * @since 1.0.0
      */
     private int $additionsCount = 0;
@@ -59,7 +59,7 @@ class Author
     /**
      * Removals count.
      *
-     * @var   int
+     * @var int
      * @since 1.0.0
      */
     private int $removalsCount = 0;

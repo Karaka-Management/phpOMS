@@ -20,7 +20,7 @@ class BaseModelMapper extends DataMapperAbstract
     /**
      * Columns.
      *
-     * @var   array<string, array<string, bool|string>>
+     * @var array<string, array<string, bool|string>>
      * @since 1.0.0
      */
     protected static array $columns = [
@@ -41,7 +41,7 @@ class BaseModelMapper extends DataMapperAbstract
     /**
      * Belongs to.
      *
-     * @var   array<string, array<string, string>>
+     * @var array<string, array<string, string>>
      * @since 1.0.0
      */
     protected static array $belongsTo = [
@@ -61,7 +61,7 @@ class BaseModelMapper extends DataMapperAbstract
     /**
      * Has many relation.
      *
-     * @var   array<string, array<string, null|string>>
+     * @var array<string, array<string, null|string>>
      * @since 1.0.0
      */
     protected static array $hasMany = [

@@ -27,7 +27,7 @@ final class Dictionary
     /**
      * Huffman dictionary.
      *
-     * @var   array
+     * @var array
      * @since 1.0.0
      */
     private array $dictionary = [];
@@ -35,7 +35,7 @@ final class Dictionary
     /**
      * Minimum length.
      *
-     * @var   int
+     * @var int
      * @since 1.0.0
      */
     private int $min = -1;
@@ -43,7 +43,7 @@ final class Dictionary
     /**
      * Maximum length.
      *
-     * @var   int
+     * @var int
      * @since 1.0.0
      */
     private int $max = -1;

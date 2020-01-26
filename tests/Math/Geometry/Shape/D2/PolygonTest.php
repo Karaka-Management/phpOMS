@@ -151,7 +151,7 @@ class PolygonTest extends \PHPUnit\Framework\TestCase
      * @covers phpOMS\Math\Geometry\Shape\D2\Polygon
      * @group framework
      */
-    public function testRegularAreaByLength()
+    public function testRegularAreaByLength(): void
     {
         self::assertEqualsWithDelta(3 * 3, Polygon::getRegularAreaByLength(3.0, 4), 0.01);
     }
@@ -161,7 +161,7 @@ class PolygonTest extends \PHPUnit\Framework\TestCase
      * @covers phpOMS\Math\Geometry\Shape\D2\Polygon
      * @group framework
      */
-    public function testRegularAreaByRadius()
+    public function testRegularAreaByRadius(): void
     {
         self::assertEqualsWithDelta(3 * 3 , Polygon::getRegularAreaByRadius(1.5, 4), 0.01);
     }

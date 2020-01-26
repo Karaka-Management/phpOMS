@@ -30,7 +30,7 @@ abstract class ViewAbstract implements RenderableInterface
     /**
      * Template.
      *
-     * @var   string
+     * @var string
      * @since 1.0.0
      */
     protected string $template = '';
@@ -38,7 +38,7 @@ abstract class ViewAbstract implements RenderableInterface
     /**
      * Views.
      *
-     * @var   \phpOMS\Views\View[]
+     * @var \phpOMS\Views\View[]
      * @since 1.0.0
      */
     protected array $views = [];

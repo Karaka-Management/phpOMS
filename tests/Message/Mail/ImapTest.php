@@ -25,7 +25,7 @@ class ImapTest extends \PHPUnit\Framework\TestCase
     {
         self::markTestIncomplete();
         return;
-            
+
         $email = new Imap(
             $GLOBALS['CONFIG']['mail']['imap']['host'],
             $GLOBALS['CONFIG']['mail']['imap']['port'],

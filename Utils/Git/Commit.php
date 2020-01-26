@@ -27,7 +27,7 @@ class Commit
     /**
      * Hash.
      *
-     * @var   string
+     * @var string
      * @since 1.0.0
      */
     private string $id = '';
@@ -35,7 +35,7 @@ class Commit
     /**
      * Author.
      *
-     * @var   Author
+     * @var Author
      * @since 1.0.0
      */
     private Author $author;
@@ -43,7 +43,7 @@ class Commit
     /**
      * Branch.
      *
-     * @var   Branch
+     * @var Branch
      * @since 1.0.0
      */
     private Branch $branch;
@@ -51,7 +51,7 @@ class Commit
     /**
      * Tag.
      *
-     * @var   Tag
+     * @var Tag
      * @since 1.0.0
      */
     private Tag $tag;
@@ -59,7 +59,7 @@ class Commit
     /**
      * Commit date.
      *
-     * @var   null|\DateTime
+     * @var null|\DateTime
      * @since 1.0.0
      */
     private ?\DateTime $date = null;
@@ -67,7 +67,7 @@ class Commit
     /**
      * Repository.
      *
-     * @var   Repository
+     * @var Repository
      * @since 1.0.0
      */
     private Repository $repository;
@@ -75,7 +75,7 @@ class Commit
     /**
      * Commit message.
      *
-     * @var   string
+     * @var string
      * @since 1.0.0
      */
     private string $message = '';
@@ -83,7 +83,7 @@ class Commit
     /**
      * Files.
      *
-     * @var   array
+     * @var array
      * @since 1.0.0
      */
     private array $files = [];

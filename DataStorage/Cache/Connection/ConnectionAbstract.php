@@ -16,7 +16,6 @@ namespace phpOMS\DataStorage\Cache\Connection;
 
 use phpOMS\DataStorage\Cache\CacheStatus;
 use phpOMS\DataStorage\Cache\CacheType;
-use phpOMS\DataStorage\Cache\Connection\CacheValueType;
 
 /**
  * Cache handler.
@@ -36,7 +35,7 @@ abstract class ConnectionAbstract implements ConnectionInterface
      *
      * This can be used externally to define queries and execute them.
      *
-     * @var   mixed
+     * @var mixed
      * @since 1.0.0
      */
     protected $con = null;
@@ -46,7 +45,7 @@ abstract class ConnectionAbstract implements ConnectionInterface
      *
      * The database prefix name for unique table names
      *
-     * @var   string
+     * @var string
      * @since 1.0.0
      */
     public string $prefix = '';
@@ -54,7 +53,7 @@ abstract class ConnectionAbstract implements ConnectionInterface
     /**
      * Database data.
      *
-     * @var   null|string[]
+     * @var null|string[]
      * @since 1.0.0
      */
     protected ?array $dbdata = null;
@@ -62,7 +61,7 @@ abstract class ConnectionAbstract implements ConnectionInterface
     /**
      * Database type.
      *
-     * @var   string
+     * @var string
      * @since 1.0.0
      */
     protected string $type = CacheType::UNDEFINED;
@@ -70,7 +69,7 @@ abstract class ConnectionAbstract implements ConnectionInterface
     /**
      * Database status.
      *
-     * @var   int
+     * @var int
      * @since 1.0.0
      */
     protected int $status = CacheStatus::CLOSED;

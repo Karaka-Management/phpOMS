@@ -29,7 +29,7 @@ class PriorityQueue implements \Countable, \Serializable
     /**
      * Queue type.
      *
-     * @var   int
+     * @var int
      * @since 1.0.0
      */
     private int $type = PriorityMode::FIFO;
@@ -37,7 +37,7 @@ class PriorityQueue implements \Countable, \Serializable
     /**
      * Queue.
      *
-     * @var   array
+     * @var array
      * @since 1.0.0
      */
     private array $queue = [];

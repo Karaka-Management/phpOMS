@@ -38,7 +38,7 @@ class Grammar extends GrammarAbstract
     /**
      * Select components.
      *
-     * @var   string[]
+     * @var string[]
      * @since 1.0.0
      */
     protected array $selectComponents = [
@@ -59,7 +59,7 @@ class Grammar extends GrammarAbstract
     /**
      * Insert components.
      *
-     * @var   string[]
+     * @var string[]
      * @since 1.0.0
      */
     protected array $insertComponents = [
@@ -71,7 +71,7 @@ class Grammar extends GrammarAbstract
     /**
      * Update components.
      *
-     * @var   string[]
+     * @var string[]
      * @since 1.0.0
      */
     protected array $updateComponents = [
@@ -83,7 +83,7 @@ class Grammar extends GrammarAbstract
     /**
      * Update components.
      *
-     * @var   string[]
+     * @var string[]
      * @since 1.0.0
      */
     protected array $deleteComponents = [
@@ -95,7 +95,7 @@ class Grammar extends GrammarAbstract
     /**
      * Random components.
      *
-     * @var   string[]
+     * @var string[]
      * @since 1.0.0
      */
     protected array $randomComponents = [

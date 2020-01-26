@@ -29,7 +29,7 @@ final class Notify implements \Serializable, ArrayableInterface, \JsonSerializab
     /**
      * Message type.
      *
-     * @var   string
+     * @var string
      * @since 1.0.0
      */
     public const TYPE = 'notify';
@@ -37,7 +37,7 @@ final class Notify implements \Serializable, ArrayableInterface, \JsonSerializab
     /**
      * Notification title.
      *
-     * @var   string
+     * @var string
      * @since 1.0.0
      */
     private string $title = '';
@@ -45,7 +45,7 @@ final class Notify implements \Serializable, ArrayableInterface, \JsonSerializab
     /**
      * Message.
      *
-     * @var   string
+     * @var string
      * @since 1.0.0
      */
     private string $message = '';
@@ -53,7 +53,7 @@ final class Notify implements \Serializable, ArrayableInterface, \JsonSerializab
     /**
      * Delay in ms.
      *
-     * @var   int
+     * @var int
      * @since 1.0.0
      */
     private int $delay = 0;
@@ -61,7 +61,7 @@ final class Notify implements \Serializable, ArrayableInterface, \JsonSerializab
     /**
      * Stay in ms.
      *
-     * @var   int
+     * @var int
      * @since 1.0.0
      */
     private int $stay = 0;
@@ -69,7 +69,7 @@ final class Notify implements \Serializable, ArrayableInterface, \JsonSerializab
     /**
      * Level or type.
      *
-     * @var   int
+     * @var int
      * @since 1.0.0
      */
     private int $level = NotifyType::INFO;

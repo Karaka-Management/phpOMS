@@ -14,8 +14,8 @@ declare(strict_types=1);
 
 namespace phpOMS\tests\Math\Statistic\Forecast\Regression;
 
-use phpOMS\Math\Statistic\Forecast\Regression\LevelLevelRegression;
 use phpOMS\Math\Statistic\Forecast\Error;
+use phpOMS\Math\Statistic\Forecast\Regression\LevelLevelRegression;
 use phpOMS\Math\Stochastic\Distribution\TDistribution;
 
 /**

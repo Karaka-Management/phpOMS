@@ -14,7 +14,6 @@ declare(strict_types=1);
 
 namespace phpOMS\tests\Math\Statistic\Forecast;
 
-use phpOMS\Math\Statistic\Correlation;
 use phpOMS\Math\Statistic\Forecast\Error;
 use phpOMS\Math\Statistic\MeasureOfDispersion;
 

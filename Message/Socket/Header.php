@@ -35,7 +35,7 @@ class Header extends HeaderAbstract implements \Serializable
     /**
      * Packet size.
      *
-     * @var   int
+     * @var int
      * @since 1.0.0
      */
     private $length = 0;
@@ -43,7 +43,7 @@ class Header extends HeaderAbstract implements \Serializable
     /**
      * Packet type.
      *
-     * @var   int
+     * @var int
      * @since 1.0.0
      */
     private $type = 0;
@@ -51,7 +51,7 @@ class Header extends HeaderAbstract implements \Serializable
     /**
      * Packet subtype.
      *
-     * @var   int
+     * @var int
      * @since 1.0.0
      */
     private $subtype = 0;
@@ -59,7 +59,7 @@ class Header extends HeaderAbstract implements \Serializable
     /**
      * Header.
      *
-     * @var   string[][]
+     * @var string[][]
      * @since 1.0.0
      */
     private array $header = [];

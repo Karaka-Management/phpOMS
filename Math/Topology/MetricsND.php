@@ -122,7 +122,7 @@ final class MetricsND
      *
      * @param array<int|string, int|float> $a      n-D array
      * @param array<int|string, int|float> $b      n-D array
-     * @param int   $lambda Lambda
+     * @param int                          $lambda Lambda
      *
      * @return float
      *

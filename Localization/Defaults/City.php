@@ -27,7 +27,7 @@ final class City
     /**
      * City id.
      *
-     * @var   int
+     * @var int
      * @since 1.0.0
      */
     private int $id = 0;
@@ -35,7 +35,7 @@ final class City
     /**
      * Country code.
      *
-     * @var   string
+     * @var string
      * @since 1.0.0
      */
     private string $countryCode = '';
@@ -43,7 +43,7 @@ final class City
     /**
      * State code.
      *
-     * @var   string
+     * @var string
      * @since 1.0.0
      */
     private string $state = '';
@@ -51,7 +51,7 @@ final class City
     /**
      * City name.
      *
-     * @var   string
+     * @var string
      * @since 1.0.0
      */
     private string $name = '';
@@ -59,7 +59,7 @@ final class City
     /**
      * Postal code.
      *
-     * @var   int
+     * @var int
      * @since 1.0.0
      */
     private int $postal = 0;
@@ -67,7 +67,7 @@ final class City
     /**
      * Latitude.
      *
-     * @var   float
+     * @var float
      * @since 1.0.0
      */
     private float $lat = 0.0;
@@ -75,7 +75,7 @@ final class City
     /**
      * Longitude.
      *
-     * @var   float
+     * @var float
      * @since 1.0.0
      */
     private float $long = 0.0;

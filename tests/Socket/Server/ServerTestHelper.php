@@ -14,8 +14,6 @@ declare(strict_types=1);
 
 namespace phpOMS\tests\Socket\Server;
 
-use phpOMS\Socket\Client\Client;
-
 require_once __DIR__ . '/../../../Autoloader.php';
 $config = require_once __DIR__ . '/../../../../config.php';
 

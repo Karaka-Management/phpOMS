@@ -32,7 +32,7 @@ final class AccountManager implements \Countable
     /**
      * Accounts.
      *
-     * @var   Account[]
+     * @var Account[]
      * @since 1.0.0
      */
     private array $accounts = [];
@@ -40,7 +40,7 @@ final class AccountManager implements \Countable
     /**
      * Session.
      *
-     * @var   SessionInterface
+     * @var SessionInterface
      * @since 1.0.0
      */
     private SessionInterface $session;

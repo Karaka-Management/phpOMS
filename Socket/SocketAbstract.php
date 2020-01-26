@@ -27,7 +27,7 @@ abstract class SocketAbstract implements SocketInterface
     /**
      * Socket ip.
      *
-     * @var   string
+     * @var string
      * @since 1.0.0
      */
     protected $ip = null;
@@ -35,7 +35,7 @@ abstract class SocketAbstract implements SocketInterface
     /**
      * Socket port.
      *
-     * @var   int
+     * @var int
      * @since 1.0.0
      */
     protected $port = null;
@@ -43,7 +43,7 @@ abstract class SocketAbstract implements SocketInterface
     /**
      * Socket running?
      *
-     * @var   bool
+     * @var bool
      * @since 1.0.0
      */
     protected $run = true;
@@ -51,7 +51,7 @@ abstract class SocketAbstract implements SocketInterface
     /**
      * Socket.
      *
-     * @var   resource
+     * @var resource
      * @since 1.0.0
      */
     protected $sock = null;

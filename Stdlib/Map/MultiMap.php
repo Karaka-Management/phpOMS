@@ -29,7 +29,7 @@ final class MultiMap implements \Countable
     /**
      * Stored values.
      *
-     * @var   array
+     * @var array
      * @since 1.0.0
      */
     private array $values = [];
@@ -37,7 +37,7 @@ final class MultiMap implements \Countable
     /**
      * Associated keys for values.
      *
-     * @var   array
+     * @var array
      * @since 1.0.0
      */
     private array $keys = [];
@@ -45,7 +45,7 @@ final class MultiMap implements \Countable
     /**
      * Key type.
      *
-     * @var   int
+     * @var int
      * @since 1.0.0
      */
     private int $keyType = KeyType::SINGLE;
@@ -53,7 +53,7 @@ final class MultiMap implements \Countable
     /**
      * Order type.
      *
-     * @var   int
+     * @var int
      * @since 1.0.0
      */
     private int $orderType = OrderType::LOOSE;
