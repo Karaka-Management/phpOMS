@@ -194,7 +194,7 @@ final class CookieJar
 
         // @codeCoverageIgnoreStart
         foreach ($this->cookies as $key => $cookie) {
-            \setcookie($key, $cookie['value'], $cookie['expiry'], $cookie['path'], $cookie['domain'], $cookie['secure'], $cookie['httponly']);
+            \setcookie($key, $cookie['value'], $cookie['expiry'], $cookie['path'], $cookie['domain'], $cookie['secure'], $cookie['httponly'], ['samesite'=>'Strict']);
         }
         // @codeCoverageIgnoreEnd
     }
