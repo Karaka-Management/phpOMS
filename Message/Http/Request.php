@@ -150,30 +150,165 @@ final class Request extends RequestAbstract
      */
     private function initNonGetData() : void
     {
-        if (isset($_SERVER['CONTENT_TYPE'])) {
-            if (\stripos($_SERVER['CONTENT_TYPE'], 'application/json') !== false) {
-                $input = \file_get_contents('php://input');
+        if (!isset($_SERVER['CONTENT_TYPE'])) {
+            return;
+        }
 
-                if ($input === false || empty($input)) {
-                    return;
-                }
+        if (\stripos($_SERVER['CONTENT_TYPE'], 'application/json') !== false) {
+            $input = \file_get_contents('php://input');
 
-                $json = \json_decode($input, true);
-                if ($json === false || $json === null) {
-                    throw new \Exception('Is not valid json ' . $input);
-                }
-
-                $this->data = $json + $this->data;
-            } elseif (\stripos($_SERVER['CONTENT_TYPE'], 'application/x-www-form-urlencoded') !== false) {
-                $content = \file_get_contents('php://input');
-
-                if ($content === false || empty($content)) {
-                    return;
-                }
-
-                \parse_str($content, $temp);
-                $this->data += $temp;
+            if ($input === false || empty($input)) {
+                return;
             }
+
+            $json = \json_decode($input, true);
+            if ($json === false || $json === null) {
+                throw new \Exception('Is not valid json ' . $input);
+            }
+
+            $this->data = $json + $this->data;
+        } elseif (\stripos($_SERVER['CONTENT_TYPE'], 'application/x-www-form-urlencoded') !== false) {
+            $content = \file_get_contents('php://input');
+
+            if ($content === false || empty($content)) {
+                return;
+            }
+
+            \parse_str($content, $temp);
+            $this->data += $temp;
+        } elseif (\stripos($_SERVER['CONTENT_TYPE'], 'multipart/form-data') !== false) {
+            $stream   = \fopen('php://input', 'r');
+            $partInfo = null;
+            $boundary = null;
+
+            if ($stream === false) {
+                return;
+            }
+
+            while (($lineRaw = \fgets($stream)) !== false) {
+                if (\strpos($lineRaw, '--') === 0) {
+                    if ($boundary === null) {
+                        $boundary = \rtrim($lineRaw);
+                    }
+
+                    continue;
+                }
+
+                $line = \rtrim($lineRaw);
+                if ($line === '') {
+                    if (!empty($partInfo['Content-Disposition']['filename'])) { /* Is file */
+                        $tempdir                    = \sys_get_temp_dir();
+                        $name                       = $partInfo['Content-Disposition']['name'];
+                        $this->files[$name]         = [];
+                        $this->files[$name]['name'] = $partInfo['Content-Disposition']['filename'];
+                        $this->files[$name]['type'] = $partInfo['Content-Type']['value'] ?? null;
+
+                        $tempname = \tempnam($tempdir, 'oms_upl_');
+
+                        if ($tempname === false) {
+                            $this->files[$name]['error'] = \UPLOAD_ERR_NO_TMP_DIR;
+                            return;
+                        }
+
+                        $outFP = \fopen($tempname, 'wb');
+
+                        if ($outFP === false) {
+                            $this->files[$name]['error'] = \UPLOAD_ERR_CANT_WRITE;
+                            return;
+                        }
+
+                        $lastLine = null;
+                        while (($lineRaw = \fgets($stream, 4096)) !== false) {
+                            if ($lastLine !== null) {
+                                if ($boundary === null || \strpos($lineRaw, $boundary) === 0) {
+                                    break;
+                                }
+
+                                if (\fwrite($outFP, $lastLine) === false) {
+                                    $this->files[$name] = \UPLOAD_ERR_CANT_WRITE;
+                                    return;
+                                }
+                            }
+
+                            $lastLine = $lineRaw;
+                        }
+
+                        if ($lastLine !== null) {
+                            if (\fwrite($outFP, \rtrim($lastLine, "\r\n")) === false) {
+                                $this->files[$name]['error'] = \UPLOAD_ERR_CANT_WRITE;
+                                return;
+                            }
+                        }
+
+                        \fclose($outFP);
+
+                        $this->files[$name]['error']    = \UPLOAD_ERR_OK;
+                        $this->files[$name]['size']     = \filesize($tempname);
+                        $this->files[$name]['tmp_name'] = $tempname;
+                    } elseif ($partInfo !== null) { /* Is variable */
+                        $fullValue = '';
+                        $lastLine  = null;
+
+                        while (($lineRaw = \fgets($stream)) !== false && $boundary !== null && \strpos($lineRaw, $boundary) !== 0) {
+                            if ($lastLine !== null) {
+                                $fullValue .= $lastLine;
+                            }
+
+                            $lastLine = $lineRaw;
+                        }
+
+                        if ($lastLine !== null) {
+                            $fullValue .= \rtrim($lastLine, "\r\n");
+                        }
+
+                        $this->data[$partInfo['Content-Disposition']['name']] = $fullValue;
+                    }
+
+                    $partInfo = null;
+
+                    continue;
+                }
+
+                $delim = \strpos($line, ':');
+
+                if ($delim === false) {
+                    continue;
+                }
+
+                $headerKey = \substr($line, 0, $delim);
+                $headerVal = \substr($line, $delim + 1);
+
+                $header  = [];
+                $regex   = '/(^|;)\s*(?P<name>[^=:,;\s"]*):?(=("(?P<quotedValue>[^"]*(\\.[^"]*)*)")|(\s*(?P<value>[^=,;\s"]*)))?/mx';
+                $matches = null;
+
+                \preg_match_all($regex, $headerVal, $matches, \PREG_SET_ORDER);
+
+                for ($i = 0; $i < \count($matches); ++$i) {
+                    $match       = $matches[$i];
+                    $name        = $match['name'];
+                    $quotedValue = $match['quotedValue'];
+
+                    if (empty($quotedValue)) {
+                        $value = $match['value'];
+                    } else {
+                        $value = \stripcslashes($quotedValue);
+                    }
+
+                    if ($name === $headerKey && $i === 0) {
+                        $name = 'value';
+                    } elseif ($value === '') {
+                        $value = $name;
+                        $name  = 'value';
+                    }
+
+                    $header[$name] = $value;
+                }
+
+                $partInfo[$headerKey] = $header;
+            }
+
+            \fclose($stream);
         }
     }
 
@@ -472,7 +607,7 @@ final class Request extends RequestAbstract
         return (!empty($_SERVER['HTTPS'] ?? '') && ($_SERVER['HTTPS'] ?? '') !== 'off')
             || (($_SERVER['HTTP_X_FORWARDED_PROTO'] ?? '') === 'https')
             || (($_SERVER['HTTP_X_FORWARDED_SSL'] ?? '') === 'on')
-            || ($_SERVER['SERVER_PORT'] ?? '') == $port;
+            || ($_SERVER['SERVER_PORT'] ?? '') === $port;
     }
 
     /**
