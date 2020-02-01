@@ -85,7 +85,14 @@ final class HttpSession implements SessionInterface
         $this->inactivityInterval = $inactivityInterval;
 
         if (\session_status() !== \PHP_SESSION_ACTIVE && !\headers_sent()) {
-            \session_set_cookie_params($liftetime, '/', '', false, true, ['samesite'=>'Strict']); // @codeCoverageIgnore
+            \session_set_cookie_params([
+                'lifetime' => $liftetime,
+                'path'     => '/',
+                'domain'   => '',
+                'secure'   => false,
+                'httponly' => true,
+                'samesite' => 'Strict',
+            ]); // @codeCoverageIgnore
             \session_start(); // @codeCoverageIgnore
         }
 
