@@ -43,6 +43,14 @@ abstract class RequestAbstract implements MessageInterface
     protected array $data = [];
 
     /**
+     * Files data.
+     *
+     * @var array
+     * @since 1.0.0
+     */
+    protected array $files = [];
+
+    /**
      * Request lock.
      *
      * @var bool

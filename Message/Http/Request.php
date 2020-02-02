@@ -74,14 +74,6 @@ final class Request extends RequestAbstract
     protected array $hash = [];
 
     /**
-     * Uploaded files.
-     *
-     * @var array
-     * @since 1.0.0
-     */
-    protected array $files;
-
-    /**
      * Constructor.
      *
      * @param UriInterface $uri  Uri
@@ -177,6 +169,7 @@ final class Request extends RequestAbstract
             \parse_str($content, $temp);
             $this->data += $temp;
         } elseif (\stripos($_SERVER['CONTENT_TYPE'], 'multipart/form-data') !== false) {
+            $content = file_get_contents('php://input');
             $stream   = \fopen('php://input', 'r');
             $partInfo = null;
             $boundary = null;
