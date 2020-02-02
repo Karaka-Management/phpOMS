@@ -678,7 +678,7 @@ class DataMapperAbstract implements DataMapperInterface
      *
      * @since 1.0.0
      */
-    private static function getObjectId(object $obj, \ReflectionClass $refClass = null)
+    public static function getObjectId(object $obj, \ReflectionClass $refClass = null)
     {
         $refClass = $refClass ?? new \ReflectionClass($obj);
         $refProp  = $refClass->getProperty(static::$columns[static::$primaryField]['internal']);
@@ -1007,7 +1007,7 @@ class DataMapperAbstract implements DataMapperInterface
      * In case of a many to many relation the relation has to be stored in a relation table
      *
      * @param string $propertyName Property name to initialize
-     * @param array  $objsIds      Object ids to insert
+     * @param array  $objsIds      Object ids to insert (can also be the object itself)
      * @param mixed  $objId        Model to reference
      *
      * @return void
@@ -1024,6 +1024,11 @@ class DataMapperAbstract implements DataMapperInterface
                 ->insert(static::$hasMany[$propertyName]['src'], static::$hasMany[$propertyName]['dst']);
 
             foreach ($objsIds as $key => $src) {
+                if (\is_object($src)) {
+                    $mapper = \get_class($src) . 'Mapper';
+                    $src    = $mapper::getObjectId($src);
+                }
+
                 $relQuery->values($src, $objId);
             }
 
