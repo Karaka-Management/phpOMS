@@ -36,7 +36,7 @@ class CurrencyMapper extends DataMapperAbstract
         'currency_id'        => ['name' => 'currency_id',        'type' => 'int',    'internal' => 'id'],
         'currency_name'      => ['name' => 'currency_name',      'type' => 'string', 'internal' => 'name'],
         'currency_char'      => ['name' => 'currency_char',      'type' => 'string', 'internal' => 'code'],
-        'currency_number'    => ['name' => 'currency_num',       'type' => 'string', 'internal' => 'number'],
+        'currency_number'    => ['name' => 'currency_number',    'type' => 'int',    'internal' => 'number'],
         'currency_symbol'    => ['name' => 'currency_symbol',    'type' => 'string', 'internal' => 'symbol'],
         'currency_subunits'  => ['name' => 'currency_subunits',  'type' => 'int',    'internal' => 'subunits'],
         'currency_decimals'  => ['name' => 'currency_decimals',  'type' => 'int',    'internal' => 'decimals'],
