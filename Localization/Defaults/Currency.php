@@ -59,10 +59,10 @@ final class Currency
     /**
      * Currency number.
      *
-     * @var int
+     * @var string
      * @since 1.0.0
      */
-    private int $number = 0;
+    private string $number = 0;
 
     /**
      * Currency subunits.
@@ -75,10 +75,10 @@ final class Currency
     /**
      * Currency decimals.
      *
-     * @var int
+     * @var string
      * @since 1.0.0
      */
-    private int $decimals = 0;
+    private string $decimals = 0;
 
     /**
      * Currency countries.
@@ -127,11 +127,11 @@ final class Currency
     /**
      * Get currency number
      *
-     * @return int
+     * @return string
      *
      * @since 1.0.0
      */
-    public function getNumber() : int
+    public function getNumber() : string
     {
         return $this->number;
     }
@@ -151,11 +151,11 @@ final class Currency
     /**
      * Get currency decimals
      *
-     * @return int
+     * @return string
      *
      * @since 1.0.0
      */
-    public function getDecimals() : int
+    public function getDecimals() : string
     {
         return $this->decimals;
     }
