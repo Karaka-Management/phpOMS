@@ -49,12 +49,28 @@ final class Currency
     private string $code = '';
 
     /**
-     * Currency code.
+     * Currency symbol.
+     *
+     * @var string
+     * @since 1.0.0
+     */
+    private string $symbol = '';
+
+    /**
+     * Currency number.
      *
      * @var int
      * @since 1.0.0
      */
     private int $number = 0;
+
+    /**
+     * Currency subunits.
+     *
+     * @var int
+     * @since 1.0.0
+     */
+    private int $subunits = 0;
 
     /**
      * Currency decimals.
@@ -97,7 +113,19 @@ final class Currency
     }
 
     /**
-     * Get currency code
+     * Get currency symbol
+     *
+     * @return string
+     *
+     * @since 1.0.0
+     */
+    public function getSymbol() : string
+    {
+        return $this->symbol;
+    }
+
+    /**
+     * Get currency number
      *
      * @return int
      *
@@ -106,6 +134,18 @@ final class Currency
     public function getNumber() : int
     {
         return $this->number;
+    }
+
+    /**
+     * Get currency subunits
+     *
+     * @return int
+     *
+     * @since 1.0.0
+     */
+    public function getSubunits() : int
+    {
+        return $this->subunits;
     }
 
     /**
