@@ -24,7 +24,7 @@ use phpOMS\DataStorage\Database\DataMapperAbstract;
  * @link    https://orange-management.org
  * @since   1.0.0
  */
-class CurrencyMapper extends DataMapperAbstract
+final class CurrencyMapper extends DataMapperAbstract
 {
     /**
      * Columns.
