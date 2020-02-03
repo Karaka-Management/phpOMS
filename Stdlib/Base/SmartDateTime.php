@@ -14,6 +14,7 @@ declare(strict_types=1);
 
 namespace phpOMS\Stdlib\Base;
 
+use DateTimeZone;
 use phpOMS\Math\Functions\Functions;
 
 /**
@@ -43,6 +44,25 @@ class SmartDateTime extends \DateTime
      * @since 1.0.0
      */
     public const TIMEZONE = 'UTC';
+
+    /**
+     * Constructor.
+     *
+     * @param string            $datetime DateTime string
+     * @param null|DateTimeZone $timezone Timezone
+     *
+     * @since 1.0.0
+     */
+    public function __construct(string $datetime = 'now', DateTimeZone $timezone = null)
+    {
+        $parsed = \str_replace(
+            ['Y', 'm'],
+            [\date('Y'), \date('m')],
+            $datetime
+        );
+
+        parent::__construct($parsed, $timezone);
+    }
 
     /**
      * Create object from DateTime
