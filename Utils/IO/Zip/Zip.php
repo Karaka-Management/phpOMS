@@ -44,7 +44,7 @@ class Zip implements ArchiveInterface
             return false;
         }
 
-        /** @var array $sources */
+        /** @var array $sources<string, string> */
         foreach ($sources as $source => $relative) {
             if (\is_numeric($source) && \realpath($relative) !== false) {
                 $source   = $relative;

@@ -152,7 +152,7 @@ class Builder extends BuilderAbstract
     /**
      * Group.
      *
-     * @var array
+     * @var string[]
      * @since 1.0.0
      */
     public array $groups = [];

@@ -60,7 +60,7 @@ final class Request extends RequestAbstract
     /**
      * Request information.
      *
-     * @var string[]
+     * @var array{browser:string, os:string}
      * @since 1.0.0
      */
     private array $info;
@@ -68,7 +68,7 @@ final class Request extends RequestAbstract
     /**
      * Request hash.
      *
-     * @var array
+     * @var string[]
      * @since 1.0.0
      */
     protected array $hash = [];

@@ -30,7 +30,7 @@ final class PhpCode
     /**
      * Disabled functions
      *
-     * @var array
+     * @var string[]
      * @since 1.0.0
      */
     public static array $disabledFunctions = [
@@ -45,7 +45,7 @@ final class PhpCode
     /**
      * Deprecated functions
      *
-     * @var array
+     * @var string[]
      * @since 1.0.0
      */
     public static array $deprecatedFunctions = [

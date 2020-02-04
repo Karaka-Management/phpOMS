@@ -27,7 +27,7 @@ final class Preloader
     /**
      * Files and paths
      *
-     * @var array
+     * @var string[]
      * @since 1.0.0
      */
     private array $includes = [];
@@ -35,7 +35,7 @@ final class Preloader
     /**
      * Ignored files and paths
      *
-     * @var array
+     * @var string[]
      * @since 1.0.0
      */
     private array $ignores = [];

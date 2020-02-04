@@ -130,8 +130,8 @@ class Text
     /**
      * Get a random string.
      *
-     * @param int   $length Text length
-     * @param array $words  Vocabulary
+     * @param int      $length Text length
+     * @param string[] $words  Vocabulary
      *
      * @return string
      *

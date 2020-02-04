@@ -39,7 +39,7 @@ class ConsoleSession implements SessionInterface
     /**
      * Raw session data.
      *
-     * @var array
+     * @var array<string, mixed>
      * @since 1.0.0
      */
     private array $sessionData = [];

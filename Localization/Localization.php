@@ -95,7 +95,7 @@ class Localization
     /**
      * Time format.
      *
-     * @var array
+     * @var array<string, string>
      * @since 1.0.0
      */
     private array $datetime = [];
@@ -103,7 +103,7 @@ class Localization
     /**
      * Weight.
      *
-     * @var array
+     * @var array<string, string>
      * @since 1.0.0
      */
     private array $weight = [];
@@ -111,7 +111,7 @@ class Localization
     /**
      * Speed.
      *
-     * @var array
+     * @var array<string, string>
      * @since 1.0.0
      */
     private array $speed = [];
@@ -119,7 +119,7 @@ class Localization
     /**
      * Length.
      *
-     * @var array
+     * @var array<string, string>
      * @since 1.0.0
      */
     private array $length = [];
@@ -127,7 +127,7 @@ class Localization
     /**
      * Area.
      *
-     * @var array
+     * @var array<string, string>
      * @since 1.0.0
      */
     private array $area = [];
@@ -135,7 +135,7 @@ class Localization
     /**
      * Volume.
      *
-     * @var array
+     * @var array<string, string>
      * @since 1.0.0
      */
     private array $volume = [];

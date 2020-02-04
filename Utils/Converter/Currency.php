@@ -33,7 +33,7 @@ final class Currency
     /**
      * ECB currency rates.
      *
-     * @var array
+     * @var array<string, float>
      * @since 1.0.0
      */
     private static array $ecbCurrencies = [];

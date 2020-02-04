@@ -34,7 +34,7 @@ class View extends ViewAbstract
     /**
      * View data.
      *
-     * @var array
+     * @var array<string, mixed>
      * @since 1.0.0
      */
     protected array $data = [];

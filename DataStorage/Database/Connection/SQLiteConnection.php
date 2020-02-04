@@ -38,7 +38,7 @@ final class SQLiteConnection extends ConnectionAbstract
      *
      * Creates the database object and overwrites all default values.
      *
-     * @param string[] $dbdata the basic database information for establishing a connection
+     * @param array{db:string, host:string, port:int, login:string, password:string, database:string, prefix:string} $dbdata the basic database information for establishing a connection
      *
      * @since 1.0.0
      */

@@ -52,7 +52,7 @@ final class Request extends RequestAbstract
     /**
      * Request hash.
      *
-     * @var array
+     * @var string[]
      * @since 1.0.0
      */
     protected array $hash = [];

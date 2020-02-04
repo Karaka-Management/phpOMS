@@ -29,7 +29,7 @@ final class StringCompare
     /**
      * Dictionary.
      *
-     * @var array
+     * @var string[]
      * @since 1.0.0
      */
     private array $dictionary = [];
@@ -37,7 +37,7 @@ final class StringCompare
     /**
      * Constructor.
      *
-     * @param array $dictionary Dictionary
+     * @param string[] $dictionary Dictionary
      *
      * @since 1.0.0
      */

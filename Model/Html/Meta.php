@@ -62,7 +62,7 @@ final class Meta implements RenderableInterface
     /**
      * Itemprop.
      *
-     * @var array
+     * @var array<string, string>
      * @since 1.0.0
      */
     private array $itemprops = [];
@@ -70,7 +70,7 @@ final class Meta implements RenderableInterface
     /**
      * Property.
      *
-     * @var array
+     * @var array<string, string>
      * @since 1.0.0
      */
     private array $properties = [];
@@ -78,7 +78,7 @@ final class Meta implements RenderableInterface
     /**
      * Name.
      *
-     * @var array
+     * @var array<string, string>
      * @since 1.0.0
      */
     private array $names = [];

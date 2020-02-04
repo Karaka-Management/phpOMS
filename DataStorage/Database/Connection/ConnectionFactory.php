@@ -41,7 +41,7 @@ final class ConnectionFactory
      *
      * Overwrites current connection if existing
      *
-     * @param string[] $dbdata the basic database information for establishing a connection
+     * @param array{db:string, host:string, port:int, login:string, password:string, database:string, prefix:string} $dbdata the basic database information for establishing a connection
      *
      * @return ConnectionAbstract
      *

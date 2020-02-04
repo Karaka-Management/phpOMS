@@ -37,7 +37,7 @@ class PriorityQueue implements \Countable, \Serializable
     /**
      * Queue.
      *
-     * @var array
+     * @var array<int, array{data:mixed, priority:float}>
      * @since 1.0.0
      */
     private array $queue = [];

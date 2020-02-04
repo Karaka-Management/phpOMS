@@ -37,7 +37,7 @@ final class Polygon implements D2ShapeInterface
      *
      * These coordinates define the polygon
      *
-     * @var array[]
+     * @var array<int, array{x:int|float, y:int|float}>
      * @since 1.0.0
      */
     private array $coord = [];

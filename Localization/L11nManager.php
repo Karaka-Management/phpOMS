@@ -30,7 +30,7 @@ final class L11nManager
     /**
      * Language.
      *
-     * @var array
+     * @var array<string, string>
      * @since 1.0.0
      */
     private array $language = [];

@@ -27,7 +27,7 @@ final class Dictionary
     /**
      * Huffman dictionary.
      *
-     * @var array
+     * @var array<string, string>
      * @since 1.0.0
      */
     private array $dictionary = [];
@@ -98,8 +98,8 @@ final class Dictionary
     /**
      * Fill dictionary.
      *
-     * @param array  $entry Source data to generate dictionary from
-     * @param string $value Dictionary value
+     * @param array<int, array<int, string>> $entry Source data to generate dictionary from
+     * @param string                         $value Dictionary value
      *
      * @return void
      *

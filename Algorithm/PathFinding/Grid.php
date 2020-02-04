@@ -27,7 +27,7 @@ class Grid
     /**
      * Grid system containing all nodes
      *
-     * @var array
+     * @var array<int, array<int, Node>>
      * @since 1.0.0
      */
     private array $nodes = [[]];

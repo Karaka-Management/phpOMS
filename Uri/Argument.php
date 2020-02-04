@@ -49,7 +49,7 @@ final class Argument implements UriInterface
     /**
      * Path elements.
      *
-     * @var array
+     * @var string[]
      * @since 1.0.0
      */
     private array $pathElements = [];
@@ -113,7 +113,7 @@ final class Argument implements UriInterface
     /**
      * Uri query.
      *
-     * @var array
+     * @var array<string, mixed>
      * @since 1.0.0
      */
     private array $query = [];

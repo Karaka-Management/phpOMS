@@ -77,7 +77,7 @@ abstract class GrammarAbstract
     /**
      * Special keywords.
      *
-     * @var array
+     * @var string[]
      * @since 1.0.0
      */
     protected array $specialKeywords = [

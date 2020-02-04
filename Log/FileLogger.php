@@ -39,7 +39,7 @@ final class FileLogger implements LoggerInterface
      * Potential values are null or an array filled with log timings.
      * This is used in order to profile code sections by ID.
      *
-     * @var array
+     * @var array<string, array{start:float, end:float, time:float}>
      * @since 1.0.0
      */
     private static array $timings = [];
@@ -180,7 +180,7 @@ final class FileLogger implements LoggerInterface
      *
      * @since 1.0.0
      */
-    public static function startTimeLog($id = '')  : bool
+    public static function startTimeLog(string $id = '')  : bool
     {
         if (isset(self::$timings[$id])) {
             return false;
@@ -203,7 +203,7 @@ final class FileLogger implements LoggerInterface
      *
      * @since 1.0.0
      */
-    public static function endTimeLog($id = '') : float
+    public static function endTimeLog(string $id = '') : float
     {
         $temp  = \explode(' ', \microtime());
         $mtime = ((float) $temp[1]) + ((float) $temp[0]);

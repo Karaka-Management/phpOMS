@@ -42,7 +42,7 @@ class Builder extends QueryBuilder
     /**
      * Fields.
      *
-     * @var array
+     * @var array<string, array{name:string, type:string, default:mixed, null:bool, primary:bool, autoincrement:bool, foreignTable:?string, foreignKey:?string}>
      * @since 1.0.0
      */
     public array $createFields = [];
@@ -66,7 +66,7 @@ class Builder extends QueryBuilder
     /**
      * Tables.
      *
-     * @var array
+     * @var string[]
      * @since 1.0.0
      */
     public array $selectTables = ['*'];

@@ -60,7 +60,7 @@ abstract class ConnectionAbstract implements ConnectionInterface
     /**
      * Database data.
      *
-     * @var array
+     * @var array{db:string, host:string, port:int, login:string, password:string, database:string, prefix:string}
      * @since 1.0.0
      */
     protected array $dbdata = [];
@@ -176,6 +176,11 @@ abstract class ConnectionAbstract implements ConnectionInterface
     {
         return $this->schemaGrammar;
     }
+
+    /**
+     * array{db:string, host:string, port:int, login:string, password:string, database:string, prefix:string} $dbdata the basic database information for establishing a connection
+     */
+    abstract public function connect(array $dbdata = null) : void;
 
     /**
      * Object destructor.

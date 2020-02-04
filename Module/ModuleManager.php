@@ -66,7 +66,7 @@ final class ModuleManager
     /**
      * Installed modules.
      *
-     * @var array
+     * @var array<string, array>
      * @since 1.0.0
      */
     private array $installed = [];
@@ -74,7 +74,7 @@ final class ModuleManager
     /**
      * All active modules (on all pages not just the ones that are running now).
      *
-     * @var array
+     * @var array<string, array>
      * @since 1.0.0
      */
     private array $active = [];
@@ -90,7 +90,7 @@ final class ModuleManager
     /**
      * All modules in the module directory.
      *
-     * @var array
+     * @var array<string, array>
      * @since 1.0.0
      */
     private array $all = [];
@@ -98,7 +98,7 @@ final class ModuleManager
     /**
      * To load based on request uri.
      *
-     * @var array
+     * @var array<string, array>
      * @since 1.0.0
      */
     private array $uriLoad = [];

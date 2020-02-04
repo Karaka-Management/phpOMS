@@ -36,7 +36,7 @@ final class EventManager implements \Countable
     /**
      * Events.
      *
-     * @var array
+     * @var array<string, array<string, bool>>
      * @since 1.0.0
      */
     private array $groups = [];
@@ -44,7 +44,7 @@ final class EventManager implements \Countable
     /**
      * Callbacks.
      *
-     * @var array
+     * @var array<string, array{remove:bool, reset:bool, callbacks:array}>
      * @since 1.0.0
      */
     private array $callbacks = [];
