@@ -73,7 +73,7 @@ class Point implements PointInterface
     /**
      * {@inheritdoc}
      */
-    public function getCoordinate($index)
+    public function getCoordinate(int $index)
     {
         return $this->coordinates[$index];
     }
@@ -81,7 +81,7 @@ class Point implements PointInterface
     /**
      * {@inheritdoc}
      */
-    public function setCoordinate($index, $value) : void
+    public function setCoordinate(int $index, $value) : void
     {
         $this->coordinates[$index] = $value;
     }
