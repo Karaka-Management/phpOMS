@@ -39,7 +39,7 @@ final class ColorUtils
      *
      * @param int $rgbInt Value to convert
      *
-     * @return array<string, int>
+     * @return array{r:int, g:int, b:int}
      *
      * @since 1.0.0
      */
@@ -57,7 +57,7 @@ final class ColorUtils
     /**
      * Convert rgb to int
      *
-     * @param array<string, int> $rgb Int rgb array
+     * @param array{r:int, g:int, b:int} $rgb Int rgb array
      *
      * @return int
      *
