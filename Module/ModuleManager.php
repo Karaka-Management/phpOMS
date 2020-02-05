@@ -66,7 +66,7 @@ final class ModuleManager
     /**
      * Installed modules.
      *
-     * @var array<string, array>
+     * @var array<string, InfoManager>
      * @since 1.0.0
      */
     private array $installed = [];
@@ -264,7 +264,7 @@ final class ModuleManager
                 $content = \file_get_contents($path);
                 $json    = \json_decode($content === false ? '[]' : $content, true);
 
-                $this->all[$json['name']['internal']] = $json === false ? [] : $json;
+                $this->all[(string) ($json['name']['internal'] ?? '?')] = $json === false ? [] : $json;
             }
         }
 
@@ -288,7 +288,7 @@ final class ModuleManager
      *
      * @param bool $useCache Use Cache
      *
-     * @return array<string, array>
+     * @return array<string, InfoManager>
      *
      * @since 1.0.0
      */
@@ -311,10 +311,7 @@ final class ModuleManager
                     // throw new PathException($path);
                 }
 
-                $content = \file_get_contents($path);
-                $json    = \json_decode($content === false ? '[]' : $content, true);
-
-                $this->installed[$json['name']['internal']] = $json === false ? [] : $json;
+                $this->installed[$module] = $this->loadInfo($module);
             }
         }
 

@@ -45,7 +45,7 @@ final class Polygon implements D2ShapeInterface
     /**
      * Constructor.
      *
-     * @param array[] $coord 2 Dimensional coordinate array where the indices are x and y
+     * @param array<int, array{x:int|float, y:int|float}> $coord 2 Dimensional coordinate array where the indices are x and y
      *
      * @example Polygon([['x' => 1, 'y' => 2], ['x' => ...], ...])
      *
@@ -59,7 +59,7 @@ final class Polygon implements D2ShapeInterface
     /**
      * Point polygon relative position
      *
-     * @param array<string, float|int> $point Point location
+     * @param array{x:int|float, y:int|float} $point Point location
      *
      * @return int
      *
@@ -76,8 +76,8 @@ final class Polygon implements D2ShapeInterface
     /**
      * Point polygon relative position
      *
-     * @param array<string, float|int>             $point   Point location
-     * @param array<int, array<string, float|int>> $polygon Polygon definition
+     * @param array{x:int|float, y:int|float}             $point   Point location
+     * @param array<int, array{x:int|float, y:int|float}> $polygon Polygon definition
      *
      * @return int -1 inside polygon 0 on vertice 1 outside
      *
@@ -141,8 +141,8 @@ final class Polygon implements D2ShapeInterface
     /**
      * Is point on vertex?
      *
-     * @param array<string, float|int>             $point   Point location
-     * @param array<int, array<string, float|int>> $polygon Polygon definition
+     * @param array{x:int|float, y:int|float}             $point   Point location
+     * @param array<int, array{x:int|float, y:int|float}> $polygon Polygon definition
      *
      * @return bool
      *
@@ -239,7 +239,7 @@ final class Polygon implements D2ShapeInterface
     /**
      * Get barycenter
      *
-     * @return array<string, float|int>
+     * @return array{x:int|float, y:int|float}
      *
      * @since 1.0.0
      */

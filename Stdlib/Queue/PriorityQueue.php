@@ -231,13 +231,13 @@ class PriorityQueue implements \Countable, \Serializable
     /**
      * Delete element.
      *
-     * @param mixed $id Element to delete
+     * @param int $id Element to delete
      *
      * @return bool
      *
      * @since 1.0.0
      */
-    public function delete($id) : bool
+    public function delete(int $id) : bool
     {
         if (isset($this->queue[$id])) {
             unset($this->queue[$id]);
@@ -251,14 +251,14 @@ class PriorityQueue implements \Countable, \Serializable
     /**
      * Set element priority.
      *
-     * @param mixed $id       Element ID
+     * @param int   $id       Element ID
      * @param float $priority Element priority
      *
      * @return void
      *
      * @since 1.0.0
      */
-    public function setPriority($id, float $priority) : void
+    public function setPriority(int $id, float $priority) : void
     {
         if ($this->type === PriorityMode::FIFO || $this->type === PriorityMode::LIFO) {
             $this->queue[$id]['priority'] = $priority;
@@ -279,13 +279,13 @@ class PriorityQueue implements \Countable, \Serializable
     /**
      * Get element
      *
-     * @param mixed $id Element ID
+     * @param int $id Element ID
      *
      * @return array
      *
      * @since 1.0.0
      */
-    public function get($id) : array
+    public function get(int $id) : array
     {
         return $this->queue[$id] ?? [];
     }
@@ -293,7 +293,7 @@ class PriorityQueue implements \Countable, \Serializable
     /**
      * Get element
      *
-     * @return array<array>
+     * @return array<int, array{data:mixed, priority:float}>
      *
      * @since 1.0.0
      */

@@ -30,7 +30,7 @@ final class L11nManager
     /**
      * Language.
      *
-     * @var array<string, string>
+     * @var array<string, array<int|string, array<string, string>>>
      * @since 1.0.0
      */
     private array $language = [];
@@ -128,7 +128,7 @@ final class L11nManager
      * @param string $language Language iso code
      * @param string $module   Module name
      *
-     * @return array<string, string>|array<string, array<string, string>>
+     * @return array<int|string, array<string, string>>|array<string, string>
      *
      * @since 1.0.0
      */

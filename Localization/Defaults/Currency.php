@@ -62,7 +62,7 @@ final class Currency
      * @var string
      * @since 1.0.0
      */
-    private string $number = 0;
+    private string $number = '';
 
     /**
      * Currency subunits.
@@ -78,7 +78,7 @@ final class Currency
      * @var string
      * @since 1.0.0
      */
-    private string $decimals = 0;
+    private string $decimals = '';
 
     /**
      * Currency countries.

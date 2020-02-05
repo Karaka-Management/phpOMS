@@ -49,7 +49,7 @@ final class Head implements RenderableInterface
     /**
      * Assets bound to this page instance.
      *
-     * @var array<string, array<type:int, attributes:array>>
+     * @var array|array<string, array{type:int, attributes:array}>
      * @since 1.0.0
      */
     private array $assets = [];

@@ -29,7 +29,7 @@ final class Storage
     /**
      * Registered storage.
      *
-     * @var array<string, StorageAbstract|string>
+     * @var array<string, StorageAbstract|string|ContainerInterface>
      * @since 1.0.0
      */
     private static array $registered = [];
@@ -87,8 +87,8 @@ final class Storage
     /**
      * Register storage environment.
      *
-     * @param string                 $name  Name of the environment
-     * @param StorageAbstract|string $class Class to register. This can be either a namespace path, a anonymous class or storage implementation.
+     * @param string                                    $name  Name of the environment
+     * @param ContainerInterface|StorageAbstract|string $class Class to register. This can be either a namespace path, a anonymous class or storage implementation.
      *
      * @return bool
      *

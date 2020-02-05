@@ -60,10 +60,10 @@ abstract class ConnectionAbstract implements ConnectionInterface
     /**
      * Database data.
      *
-     * @var array{db:string, host:string, port:int, login:string, password:string, database:string, prefix:string}
+     * @var array{db:string, database:string, prefix:string}|array{db:string, host:string, port:int, login:string, password:string, database:string, prefix:string}
      * @since 1.0.0
      */
-    protected array $dbdata = [];
+    protected array $dbdata;
 
     /**
      * Database type.
@@ -146,7 +146,7 @@ abstract class ConnectionAbstract implements ConnectionInterface
      */
     public function getPort() : int
     {
-        return (int) $this->dbdata['port'] ?? 0;
+        return (int) ($this->dbdata['port'] ?? 0);
     }
 
     /**
@@ -178,7 +178,9 @@ abstract class ConnectionAbstract implements ConnectionInterface
     }
 
     /**
-     * array{db:string, host:string, port:int, login:string, password:string, database:string, prefix:string} $dbdata the basic database information for establishing a connection
+     * Connect to database
+     *
+     * @param null|array{db:string, database:string, prefix:string}|array{db:string, host:string, port:int, login:string, password:string, database:string, prefix:string} $dbdata the basic database information for establishing a connection
      *
      * @return void
      *

@@ -189,7 +189,7 @@ final class FileLogger implements LoggerInterface
         $temp  = \explode(' ', \microtime());
         $mtime = ((float) $temp[1]) + ((float) $temp[0]);
 
-        self::$timings[$id] = ['start' => $mtime];
+        self::$timings[$id] = ['start' => $mtime, 'end' => 0.0, 'time' => 0.0];
 
         return true;
     }

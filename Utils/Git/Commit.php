@@ -83,7 +83,7 @@ class Commit
     /**
      * Files.
      *
-     * @var array<string, array{old:string, new:string}>
+     * @var array<string, array<int, array{old:string, new:string}>>
      * @since 1.0.0
      */
     private array $files = [];
@@ -165,7 +165,7 @@ class Commit
     /**
      * Get files of this commit.
      *
-     * @return string[]
+     * @return array<string, array<int, array{old:string, new:string}>>
      *
      * @since 1.0.0
      */

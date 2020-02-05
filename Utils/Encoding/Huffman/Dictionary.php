@@ -77,6 +77,7 @@ final class Dictionary
         $this->min        = -1;
         $this->max        = -1;
 
+        /** @var array<int, array<int, string|array>> $count */
         $count = [];
         while (isset($source[0])) {
             $count[] = [\substr_count($source, $source[0]), $source[0]];
@@ -98,8 +99,8 @@ final class Dictionary
     /**
      * Fill dictionary.
      *
-     * @param array<int, array<int, string>> $entry Source data to generate dictionary from
-     * @param string                         $value Dictionary value
+     * @param array<int, array<int, string|array>> $entry Source data to generate dictionary from
+     * @param string                               $value Dictionary value
      *
      * @return void
      *
