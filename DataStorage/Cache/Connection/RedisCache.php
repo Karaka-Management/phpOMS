@@ -45,7 +45,7 @@ final class RedisCache extends ConnectionAbstract
     /**
      * Constructor
      *
-     * @param array $data Cache data
+     * @param array{db:int, host:string, port:int} $data Cache data
      *
      * @since 1.0.0
      */
@@ -56,7 +56,13 @@ final class RedisCache extends ConnectionAbstract
     }
 
     /**
-     * {@inheritdoc}
+     * Connect to cache
+     *
+     * @param array{db:int, host:string, port:int} $data Cache data
+     *
+     * @return void
+     *
+     * @since 1.0.0
      */
     public function connect(array $data) : void
     {
