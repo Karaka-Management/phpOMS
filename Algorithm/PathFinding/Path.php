@@ -163,7 +163,7 @@ class Path
      * @param Node $node1 Node
      * @param Node $node2 Node
      *
-     * @return array
+     * @return Node[]
      *
      * @since 1.0.0
      */
