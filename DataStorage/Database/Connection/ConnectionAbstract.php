@@ -179,6 +179,10 @@ abstract class ConnectionAbstract implements ConnectionInterface
 
     /**
      * array{db:string, host:string, port:int, login:string, password:string, database:string, prefix:string} $dbdata the basic database information for establishing a connection
+     *
+     * @return void
+     *
+     * @since 1.0.0
      */
     abstract public function connect(array $dbdata = null) : void;
 
