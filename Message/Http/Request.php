@@ -308,7 +308,7 @@ final class Request extends RequestAbstract
     /**
      * Get request hash.
      *
-     * @return array
+     * @return string[]
      *
      * @since 1.0.0
      */
