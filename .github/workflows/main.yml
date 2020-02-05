@@ -40,6 +40,7 @@ jobs:
           git push
   code-tests:
     runs-on: ubuntu-latest
+    if: "!contains(github.event.head_commit.message, 'NO_CI')"
     services:
       mysql:
         image: mysql:5.7
@@ -114,6 +115,7 @@ jobs:
       run: vendor/bin/phpunit --coverage-text -v --configuration tests/phpunit_no_coverage.xml
   static-tests:
     runs-on: ubuntu-latest
+    if: "!contains(github.event.head_commit.message, 'NO_CI')"
     strategy:
       fail-fast: false
       max-parallel: 3
@@ -155,6 +157,7 @@ jobs:
       run: vendor/bin/phpstan analyse -a Autoloader.php --no-progress -l 7 -c Build/Config/phpstan.neon ./
   codestyle-tests:
     runs-on: ubuntu-latest
+    if: "!contains(github.event.head_commit.message, 'NO_CI')"
     strategy:
       fail-fast: false
       max-parallel: 3
@@ -193,6 +196,7 @@ jobs:
       run: vendor/bin/phpcs ./ --standard="Build/Config/phpcs.xml" -s --report=full
   custom:
     runs-on: ubuntu-latest
+    if: "!contains(github.event.head_commit.message, 'NO_CI')"
     strategy:
       fail-fast: false
       max-parallel: 3
