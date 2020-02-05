@@ -29,8 +29,8 @@ final class FormElementGenerator
     /**
      * Generate a form element from a json object
      *
-     * @param array $json Json object representing the form element
-     * @param array $lang Language array
+     * @param array    $json Json object representing the form element
+     * @param string[] $lang Language array
      *
      * @return string
      *
@@ -54,8 +54,8 @@ final class FormElementGenerator
     /**
      * Generate a form element from a json object
      *
-     * @param array $json Json object representing the form element
-     * @param array $lang Language array
+     * @param array    $json Json object representing the form element
+     * @param string[] $lang Language array
      *
      * @return string
      *
@@ -80,8 +80,8 @@ final class FormElementGenerator
     /**
      * Generate a form element from a json object
      *
-     * @param array $json Json object representing the form element
-     * @param array $lang Language array
+     * @param array    $json Json object representing the form element
+     * @param string[] $lang Language array
      *
      * @return string
      *
@@ -131,8 +131,8 @@ final class FormElementGenerator
     /**
      * Generate a form element from a json object
      *
-     * @param array $json Json object representing the form element
-     * @param array $lang Language array
+     * @param array    $json Json object representing the form element
+     * @param string[] $lang Language array
      *
      * @return string
      *
