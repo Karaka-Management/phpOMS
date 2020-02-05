@@ -27,7 +27,7 @@ final class LagrangeInterpolation implements InterpolationInterface
     /**
      * Points for spline interpolation
      *
-     * @var array
+     * @var array<int, array{x:int|float, y:int|float}>
      * @since 1.0.0
      */
     private array $points = [];
@@ -35,7 +35,7 @@ final class LagrangeInterpolation implements InterpolationInterface
     /**
      * Constructor.
      *
-     * @param array<int, array<string, int|float>> $points Points to create the interpolation with
+     * @param array<int, array{x:int|float, y:int|float}> $points Points to create the interpolation with
      *
      * @since 1.0.0
      */
