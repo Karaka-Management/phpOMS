@@ -92,7 +92,9 @@ final class FileCache extends ConnectionAbstract
     }
 
     /**
-     * {@inheritdoc}
+     * Connect to cache
+     *
+     * @param array{0:string} $data Cache data (path to cache directory)
      */
     public function connect(array $data) : void
     {
