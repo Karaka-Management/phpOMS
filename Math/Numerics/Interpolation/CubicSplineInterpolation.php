@@ -30,7 +30,7 @@ final class CubicSplineInterpolation implements InterpolationInterface
     /**
      * Points for spline interpolation
      *
-     * @var array
+     * @var array<array{x:int|float, y:int|float}>
      * @since 1.0.0
      */
     private array $points = [];
@@ -62,11 +62,11 @@ final class CubicSplineInterpolation implements InterpolationInterface
     /**
      * Constructor.
      *
-     * @param array $points              Points to create the interpolation with
-     * @param float $leftCurvature       Left point curvature
-     * @param float $leftDerivativeType  Derivative type for the left point
-     * @param float $rightCurvature      Right point curvature
-     * @param float $rightDerivativeType Derivative type for the right point
+     * @param array<array{x:int|float, y:int|float}> $points              Points to create the interpolation with
+     * @param float                                  $leftCurvature       Left point curvature
+     * @param float                                  $leftDerivativeType  Derivative type for the left point
+     * @param float                                  $rightCurvature      Right point curvature
+     * @param float                                  $rightDerivativeType Derivative type for the right point
      *
      * @since 1.0.0
      */
