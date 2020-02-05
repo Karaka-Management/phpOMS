@@ -20,7 +20,6 @@ use phpOMS\DataStorage\Database\Query\Builder;
 use phpOMS\DataStorage\Database\Query\QueryType;
 use phpOMS\DataStorage\DataMapperInterface;
 use phpOMS\Utils\ArrayUtils;
-use Throwable;
 
 /**
  * Datamapper for databases.
@@ -593,7 +592,7 @@ class DataMapperAbstract implements DataMapperInterface
 
         try {
             self::$db->con->prepare($query->toSql())->execute();
-        } catch (Throwable $t) {
+        } catch (\Throwable $t) {
             // only for debugging
             //var_dump($t->getMessage());
             //var_dump($query->toSql());
