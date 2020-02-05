@@ -223,7 +223,7 @@ class Text
      *
      * @param int $length Text length
      *
-     * @return array
+     * @return array<int, array<int, int|string>>
      *
      * @since 1.0.0
      */
@@ -289,7 +289,7 @@ class Text
      *
      * @param int $length Amount of sentences
      *
-     * @return array
+     * @return int[]
      *
      * @since 1.0.0
      */
