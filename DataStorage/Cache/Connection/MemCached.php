@@ -44,7 +44,7 @@ final class MemCached extends ConnectionAbstract
     /**
      * Constructor.
      *
-     * @param array $data Cache data
+     * @param array{host:string, port:int} $data Cache data
      *
      * @since 1.0.0
      */
@@ -55,7 +55,13 @@ final class MemCached extends ConnectionAbstract
     }
 
     /**
-     * {@inheritdoc}
+     * Connect to cache
+     *
+     * @param array{host:string, port:int} $data Cache data
+     *
+     * @return void
+     *
+     * @since 1.0.0
      */
     public function connect(array $data) : void
     {
