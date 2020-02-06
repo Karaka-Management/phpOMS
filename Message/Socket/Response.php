@@ -16,6 +16,7 @@ namespace phpOMS\Message\Socket;
 
 use phpOMS\Contract\RenderableInterface;
 use phpOMS\Message\ResponseAbstract;
+use phpOMS\System\MimeType;
 
 /**
  * Response class.

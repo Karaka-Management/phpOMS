@@ -952,7 +952,7 @@ final class FinanceFormulas
      *
      * Also known as compounded annual growth rate.
      *
-     * @param array<float|int> $r Rate of return
+     * @param array<int|float> $r Rate of return
      *
      * @return float
      *
@@ -1080,7 +1080,7 @@ final class FinanceFormulas
     /**
      * Net Present Value
      *
-     * @param array<float|int> $C Cash flow ($C[0] = initial investment)
+     * @param array<int|float> $C Cash flow ($C[0] = initial investment)
      * @param float            $r Discount rate
      *
      * @return float

@@ -142,9 +142,9 @@ final class Validator extends ValidatorAbstract
     /**
      * Validate variable by interval.
      *
-     * @param float|int $var Variable to validate
-     * @param float|int $min Min. value
-     * @param float|int $max Max. value
+     * @param int|float $var Variable to validate
+     * @param int|float $min Min. value
+     * @param int|float $max Max. value
      *
      * @return bool
      *

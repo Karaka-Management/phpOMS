@@ -32,8 +32,8 @@ abstract class RegressionAbstract
      *
      * @latex y = b_{0} + b_{1} \cdot x
      *
-     * @param array<float|int> $x Obersved x values
-     * @param array<float|int> $y Observed y values
+     * @param array<int|float> $x Obersved x values
+     * @param array<int|float> $y Observed y values
      *
      * @return array [b0 => ?, b1 => ?]
      *
@@ -59,7 +59,7 @@ abstract class RegressionAbstract
      *
      * @latex s_{e} = \sqrt{\frac{1}{N - 2}\sum_{i = 1}^{N} e_{i}^{2}}
      *
-     * @param array<float|int> $errors Errors (e = y - y_forecasted)
+     * @param array<int|float> $errors Errors (e = y - y_forecasted)
      *
      * @return float
      *
@@ -84,7 +84,7 @@ abstract class RegressionAbstract
      *
      * @latex s_{e} = \sqrt{\frac{1}{N - 2}\sum_{i = 1}^{N} e_{i}^{2}}
      *
-     * @param array<float|int> $errors Errors (e = y - y_forecasted)
+     * @param array<int|float> $errors Errors (e = y - y_forecasted)
      *
      * @return float
      *
@@ -109,11 +109,11 @@ abstract class RegressionAbstract
      *
      * @param float            $fX         Forecasted at x value
      * @param float            $fY         Forecasted y value
-     * @param array<float|int> $x          observex x values
+     * @param array<int|float> $x          observex x values
      * @param float            $mse        Errors for y values (y - y_forecasted)
      * @param float            $multiplier Multiplier for interval
      *
-     * @return array<float|int>
+     * @return array<int|float>
      *
      * @since 1.0.0
      */
@@ -137,8 +137,8 @@ abstract class RegressionAbstract
      *
      * @latex \beta_{1} = \frac{\sum_{i=1}^{N} \left(y_{i} - \bar{y}\right)\left(x_{i} - \bar{x}\right)}{\sum_{i=1}^{N} \left(x_{i} - \bar{x}\right)^{2}}
      *
-     * @param array<float|int> $x Obersved x values
-     * @param array<float|int> $y Observed y values
+     * @param array<int|float> $x Obersved x values
+     * @param array<int|float> $y Observed y values
      *
      * @return float
      *
@@ -166,8 +166,8 @@ abstract class RegressionAbstract
      *
      * @latex \beta_{0} = \bar{x} - b_{1} \cdot \bar{x}
      *
-     * @param array<float|int> $x  Obersved x values
-     * @param array<float|int> $y  Observed y values
+     * @param array<int|float> $x  Obersved x values
+     * @param array<int|float> $y  Observed y values
      * @param float            $b1 Beta 1
      *
      * @return float

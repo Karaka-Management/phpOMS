@@ -30,8 +30,8 @@ final class PolynomialRegression
     /**
      * Get linear regression based on scatter plot.
      *
-     * @param array<float|int> $x Obersved x values
-     * @param array<float|int> $y Observed y values
+     * @param array<int|float> $x Obersved x values
+     * @param array<int|float> $y Observed y values
      *
      * @return array [a => ?, b => ?, c => ?]
      *

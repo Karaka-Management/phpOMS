@@ -27,7 +27,7 @@ interface InterpolationInterface
     /**
      * Interpolation at a given point
      *
-     * @param float|int $x X-Coordinate to interpolate at
+     * @param int|float $x X-Coordinate to interpolate at
      *
      * @return float
      *

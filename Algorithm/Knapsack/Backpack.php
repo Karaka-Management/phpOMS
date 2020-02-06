@@ -52,7 +52,7 @@ class Backpack implements BackpackInterface
     /**
      * Items inside the backpack
      *
-     * @var ItemInterface[]
+     * @var array<int, array{item:ItemInterface, quantity:int|float}>
      * @since 1.0.0
      */
     private array $items = [];

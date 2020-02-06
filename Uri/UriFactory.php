@@ -225,7 +225,7 @@ final class UriFactory
      * $ = Other data
      *
      * @param string                               $uri     Path data
-     * @param array<string, bool|float|int|string> $toMatch Optional special replacements
+     * @param array<string, bool|int|float|string> $toMatch Optional special replacements
      *
      * @return string
      *

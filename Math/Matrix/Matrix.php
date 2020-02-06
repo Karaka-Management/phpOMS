@@ -79,9 +79,9 @@ class Matrix implements \ArrayAccess, \Iterator
     /**
      * Set value.
      *
-     * @param int $m     Row
-     * @param int $n     Column
-     * @param int $value Value
+     * @param int       $m     Row
+     * @param int       $n     Column
+     * @param int|float $value Value
      *
      * @return void
      *
@@ -336,7 +336,7 @@ class Matrix implements \ArrayAccess, \Iterator
     /**
      * Set matrix array.
      *
-     * @param array<int, array<float|int>> $matrix Matrix
+     * @param array<int, array<int|float>> $matrix Matrix
      *
      * @return Matrix
      *
@@ -591,7 +591,7 @@ class Matrix implements \ArrayAccess, \Iterator
     /**
      * Trianglize matrix.
      *
-     * @param array<int, array<float|int>> $arr Matrix to trianglize
+     * @param array<int, array<int|float>> $arr Matrix to trianglize
      *
      * @return int Det sign
      *

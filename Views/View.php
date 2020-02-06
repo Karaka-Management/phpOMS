@@ -14,7 +14,7 @@ declare(strict_types=1);
 
 namespace phpOMS\Views;
 
-use phpOMS\ApplicationAbstract;
+use phpOMS\Localization\L11nManager;
 use phpOMS\Localization\Localization;
 use phpOMS\Message\RequestAbstract;
 use phpOMS\Message\ResponseAbstract;
@@ -50,10 +50,10 @@ class View extends ViewAbstract
     /**
      * Application.
      *
-     * @var null|ApplicationAbstract
+     * @var null|L11nManager
      * @since 1.0.0
      */
-    protected ?ApplicationAbstract $app;
+    protected ?L11nManager $l11nManager;
 
     /**
      * Request.
@@ -90,18 +90,18 @@ class View extends ViewAbstract
     /**
      * Constructor.
      *
-     * @param ApplicationAbstract $app      Application
-     * @param RequestAbstract     $request  Request
-     * @param ResponseAbstract    $response Request
+     * @param L11nManager      $l11n     Application
+     * @param RequestAbstract  $request  Request
+     * @param ResponseAbstract $response Request
      *
      * @since 1.0.0
      */
-    public function __construct(ApplicationAbstract $app = null, RequestAbstract $request = null, ResponseAbstract $response = null)
+    public function __construct(L11nManager $l11n = null, RequestAbstract $request = null, ResponseAbstract $response = null)
     {
-        $this->app      = $app;
-        $this->request  = $request;
-        $this->response = $response;
-        $this->l11n     = $response !== null ? $response->getHeader()->getL11n() : new Localization();
+        $this->l11nManager = $l11n;
+        $this->request     = $request;
+        $this->response    = $response;
+        $this->l11n        = $response !== null ? $response->getHeader()->getL11n() : new Localization();
     }
 
     /**
@@ -187,6 +187,10 @@ class View extends ViewAbstract
      */
     public function getText($translation, string $module = null, string $theme = null) : string
     {
+        if ($this->l11nManager === null) {
+            return 'ERROR';
+        }
+
         if ($module === null && $this->module === null) {
             $this->setModuleDynamically();
         }
@@ -200,7 +204,7 @@ class View extends ViewAbstract
         /** @var string $theme */
         $theme = $theme ?? $this->theme;
 
-        return $this->app->l11nManager->getText($this->l11n->getLanguage() ?? 'en', $module, $theme, $translation);
+        return $this->l11nManager->getText($this->l11n->getLanguage() ?? 'en', $module, $theme, $translation);
     }
 
     /**

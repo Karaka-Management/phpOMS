@@ -78,7 +78,7 @@ class LZW implements CompressionInterface
         }
 
         $w      = \chr((int) $compressed[0]);
-        $result = $dictionary[(int) ($compressed[0])] ?? 0;
+        $result = $dictionary[(int) ($compressed[0])] ?? '';
         $count  = \count($compressed);
 
         for ($i = 1; $i < $count; ++$i) {
@@ -97,6 +97,7 @@ class LZW implements CompressionInterface
             $w                       = $entry;
         }
 
+        /** @var string $result */
         return $result;
     }
 }

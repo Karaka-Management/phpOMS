@@ -39,9 +39,9 @@ final class Basic
      *
      * Example: ([4, 5, 9, 1, 3])
      *
-     * @param array<array|float|int> $values Values
+     * @param array<array|int|float> $values Values
      *
-     * @return array<array|float|int>
+     * @return array<array|int|float>
      *
      * @since 1.0.0
      */

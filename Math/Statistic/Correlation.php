@@ -39,8 +39,8 @@ final class Correlation
      *
      * Example: ([4, 5, 9, 1, 3], [4, 5, 9, 1, 3])
      *
-     * @param array<float|int> $x Values
-     * @param array<float|int> $y Values
+     * @param array<int|float> $x Values
+     * @param array<int|float> $y Values
      *
      * @return float
      *
@@ -54,7 +54,7 @@ final class Correlation
     /**
      * Get the autocorrelation coefficient (ACF).
      *
-     * @param array<float|int> $x Dataset
+     * @param array<int|float> $x Dataset
      * @param int              $k k-th coefficient
      *
      * @return float

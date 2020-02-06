@@ -42,7 +42,7 @@ final class MeasureOfDispersion
      *
      * Example: ([4, 5, 9, 1, 3])
      *
-     * @param array<int, float|int> $values Values
+     * @param array<int, int|float> $values Values
      *
      * @return float
      *
@@ -62,7 +62,7 @@ final class MeasureOfDispersion
      *
      * Example: ([4, 5, 9, 1, 3])
      *
-     * @param array<int, float|int> $values Values
+     * @param array<int, int|float> $values Values
      * @param float                 $mean   Mean
      *
      * @return float
@@ -89,7 +89,7 @@ final class MeasureOfDispersion
      *
      * @latex \sigma = \sqrt{\sigma^{2}} = \sqrt{Var(X)}
      *
-     * @param array<int, float|int> $values Values
+     * @param array<int, int|float> $values Values
      * @param float                 $mean   Mean
      *
      * @return float
@@ -117,7 +117,7 @@ final class MeasureOfDispersion
      *
      * @latex \sigma^{2} = Var(X) = \frac{1}{N - 1} \sum_{i = 1}^{N}\left(x_{i} - \bar{X}\right)^{2}
      *
-     * @param array<int, float|int> $values Values
+     * @param array<int, int|float> $values Values
      * @param float                 $mean   Mean
      *
      * @return float
@@ -146,8 +146,8 @@ final class MeasureOfDispersion
      *
      * @latex \sigma^{2} = Var(X) = \frac{1}{N} \sum_{i = 1}^{N}\left(x_{i} - \bar{X}\right)^{2}
      *
-     * @param array<int, float|int> $values        Values
-     * @param array<int, float|int> $probabilities Probabilities
+     * @param array<int, int|float> $values        Values
+     * @param array<int, int|float> $probabilities Probabilities
      * @param float                 $mean          Mean
      *
      * @return float
@@ -182,8 +182,8 @@ final class MeasureOfDispersion
      *
      * @latex \sigma_{XY} = cov(X, Y) = \sum_{i = 1}^{N}\frac{\left(x_{i} - \bar{X}\right) \left(y_{i} - \bar{Y}\right)}{N - 1}
      *
-     * @param array<int, float|int> $x     Values
-     * @param array<int, float|int> $y     Values
+     * @param array<int, int|float> $x     Values
+     * @param array<int, int|float> $y     Values
      * @param float                 $meanX Mean
      * @param float                 $meanY Mean
      *
@@ -221,7 +221,7 @@ final class MeasureOfDispersion
     /**
      * Get interquartile range.
      *
-     * @param array<int, float|int> $x Dataset
+     * @param array<int, int|float> $x Dataset
      *
      * @return float
      *
@@ -249,7 +249,7 @@ final class MeasureOfDispersion
     /**
      * Get mean deviation.
      *
-     * @param array<int, float|int> $x      Values
+     * @param array<int, int|float> $x      Values
      * @param float                 $mean   Mean
      * @param int                   $offset Population/Size offset
      *
@@ -272,7 +272,7 @@ final class MeasureOfDispersion
     /**
      * Get the deviation to the mean
      *
-     * @param array<int, float|int> $x Values
+     * @param array<int, int|float> $x Values
      *
      * @return array
      *
@@ -292,7 +292,7 @@ final class MeasureOfDispersion
     /**
      * Get mean absolute deviation.
      *
-     * @param array<int, float|int> $x      Values
+     * @param array<int, int|float> $x      Values
      * @param float                 $mean   Mean
      * @param int                   $offset Population/Size offset
      *
@@ -315,7 +315,7 @@ final class MeasureOfDispersion
     /**
      * Get the deviation to the mean
      *
-     * @param array<int, float|int> $x Values
+     * @param array<int, int|float> $x Values
      *
      * @return array
      *
@@ -335,7 +335,7 @@ final class MeasureOfDispersion
     /**
      * Get squared mean deviation.
      *
-     * @param array<int, float|int> $x      Values
+     * @param array<int, int|float> $x      Values
      * @param float                 $mean   Mean
      * @param int                   $offset Population/Size offset
      *
@@ -358,7 +358,7 @@ final class MeasureOfDispersion
     /**
      * Get the deviation to the mean squared
      *
-     * @param array<int, float|int> $x Values
+     * @param array<int, int|float> $x Values
      *
      * @return array
      *

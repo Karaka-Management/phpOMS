@@ -332,7 +332,7 @@ final class ArrayUtils
      * @param int   $start Start index
      * @param int   $count Amount of elements to sum
      *
-     * @return float|int
+     * @return int|float
      *
      * @since 1.0.0
      */
@@ -366,9 +366,9 @@ final class ArrayUtils
     /**
      * Applying abs to every array value
      *
-     * @param array<float|int> $values Numeric values
+     * @param array<int|float> $values Numeric values
      *
-     * @return array<float|int>
+     * @return array<int|float>
      *
      * @since 1.0.0
      */
@@ -386,7 +386,7 @@ final class ArrayUtils
     /**
      * Power all values in array.
      *
-     * @param array<float|int> $values Values to square
+     * @param array<int|float> $values Values to square
      * @param float            $exp    Exponent
      *
      * @return float[]
@@ -410,10 +410,10 @@ final class ArrayUtils
     /**
      * Power all values in array.
      *
-     * @param array<float|int> $values Values to square
+     * @param array<int|float> $values Values to square
      * @param int              $exp    Exponent
      *
-     * @return array<float|int>
+     * @return array<int|float>
      *
      * @todo Orange-Management/phpOMS#223
      *  In the ArrayUtils class the power* functions should be combined once union types become available.
@@ -434,9 +434,9 @@ final class ArrayUtils
     /**
      * Sqrt all values in array.
      *
-     * @param array<float|int> $values Values to sqrt
+     * @param array<int|float> $values Values to sqrt
      *
-     * @return array<float|int>
+     * @return array<int|float>
      *
      * @since 1.0.0
      */

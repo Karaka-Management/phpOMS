@@ -31,7 +31,7 @@ final class Forecasts
      * @param float $standardDeviation Standard Deviation of forecast
      * @param float $interval          Forecast multiplier for prediction intervals
      *
-     * @return array<float|int>
+     * @return array<int|float>
      *
      * @since 1.0.0
      */

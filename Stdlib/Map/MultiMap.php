@@ -37,7 +37,7 @@ final class MultiMap implements \Countable
     /**
      * Associated keys for values.
      *
-     * @var array<int|string, int|string> 
+     * @var array<int|string, int|string>
      * @since 1.0.0
      */
     private array $keys = [];
@@ -75,7 +75,7 @@ final class MultiMap implements \Countable
     /**
      * Add data.
      *
-     * @param array<float|int|string> $keys      Keys for value
+     * @param array<int|float|string> $keys      Keys for value
      * @param mixed                   $value     Value to store
      * @param bool                    $overwrite Add value if key exists
      *

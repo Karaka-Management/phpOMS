@@ -75,7 +75,7 @@ final class Money implements \Serializable
     /**
      * Constructor.
      *
-     * @param float|int|string $value     Value
+     * @param int|float|string $value     Value
      * @param string           $thousands Thousands separator
      * @param string           $decimal   Decimal separator
      * @param string           $symbol    Currency symbol
@@ -208,7 +208,7 @@ final class Money implements \Serializable
     /**
      * Add money.
      *
-     * @param float|int|Money|string $value Value to add
+     * @param int|float|Money|string $value Value to add
      *
      * @return Money
      *
@@ -242,7 +242,7 @@ final class Money implements \Serializable
     /**
      * Sub money.
      *
-     * @param float|int|Money|string $value Value to subtract
+     * @param int|float|Money|string $value Value to subtract
      *
      * @return Money
      *
@@ -264,7 +264,7 @@ final class Money implements \Serializable
     /**
      * Mult.
      *
-     * @param float|int $value Value to multiply with
+     * @param int|float $value Value to multiply with
      *
      * @return Money
      *
@@ -282,7 +282,7 @@ final class Money implements \Serializable
     /**
      * Div.
      *
-     * @param float|int $value Value to divide by
+     * @param int|float $value Value to divide by
      *
      * @return Money
      *
@@ -314,7 +314,7 @@ final class Money implements \Serializable
     /**
      * Power.
      *
-     * @param float|int $value Value to power
+     * @param int|float $value Value to power
      *
      * @return Money
      *

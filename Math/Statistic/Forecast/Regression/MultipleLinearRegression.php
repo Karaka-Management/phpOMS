@@ -30,8 +30,8 @@ final class MultipleLinearRegression extends RegressionAbstract
      *
      * @latex y = b_{0} + b_{1} \cdot x
      *
-     * @param array<array<float|int>> $x Obersved x values
-     * @param array<array<float|int>> $y Observed y values
+     * @param array<array<int|float>> $x Obersved x values
+     * @param array<array<int|float>> $y Observed y values
      *
      * @return array [b0 => ?, b1 => ?]
      *
