@@ -47,8 +47,10 @@ class CurrencyMapperTest extends \PHPUnit\Framework\TestCase
         $obj = CurrencyMapper::get(50);
         self::assertEquals('Euro', $obj->getName());
         self::assertEquals('EUR', $obj->getCode());
-        self::assertEquals(978, $obj->getNumber());
-        self::assertEquals(2, $obj->getDecimals());
+        self::assertEquals('978', $obj->getNumber());
+        self::assertEquals('€', $obj->getSymbol());
+        self::assertEquals(100, $obj->getSubunits());
+        self::assertEquals('2', $obj->getDecimals());
         self::assertStringContainsString('Germany', $obj->getCountries());
     }
 

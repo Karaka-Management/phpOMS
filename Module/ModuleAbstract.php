@@ -185,7 +185,7 @@ abstract class ModuleAbstract
     /**
      * Get module dependencies
      *
-     * @return array
+     * @return string[]
      *
      * @since 1.0.0
      */

@@ -198,7 +198,7 @@ final class PackageManager
     /**
      * Download files
      *
-     * @param array $components Component data
+     * @param array<string, string> $components Component data
      *
      * @return void
      *
@@ -228,7 +228,7 @@ final class PackageManager
     /**
      * Move files
      *
-     * @param array $components Component data
+     * @param array<string, string> $components Component data
      *
      * @return void
      *
@@ -247,7 +247,7 @@ final class PackageManager
     /**
      * Copy files
      *
-     * @param array $components Component data
+     * @param array<string, array<int, string>> $components Component data
      *
      * @return void
      *
@@ -269,7 +269,7 @@ final class PackageManager
     /**
      * Delete files
      *
-     * @param array $components Component data
+     * @param string[] $components Component data
      *
      * @return void
      *
@@ -286,7 +286,7 @@ final class PackageManager
     /**
      * Execute commands
      *
-     * @param array $components Component data
+     * @param string[] $components Component data
      *
      * @return void
      *

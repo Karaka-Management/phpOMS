@@ -48,7 +48,7 @@ interface PointInterface
     /**
      * Set the coordinate of the point
      *
-     * @param int $index Index of the coordinate (e.g. 0 = x);
+     * @param int   $index Index of the coordinate (e.g. 0 = x);
      * @param mixed $value Value of the coordinate
      *
      * @return void

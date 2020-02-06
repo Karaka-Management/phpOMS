@@ -49,7 +49,6 @@ class CountryMapperTest extends \PHPUnit\Framework\TestCase
         self::assertEquals('DE', $obj->getCode2());
         self::assertEquals('DEU', $obj->getCode3());
         self::assertEquals(276, $obj->getNumeric());
-        self::assertEquals('ISO 3166-2:DE', $obj->getSubdevision());
     }
 
     public static function tearDownAfterClass() : void

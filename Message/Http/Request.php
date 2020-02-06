@@ -169,7 +169,6 @@ final class Request extends RequestAbstract
             \parse_str($content, $temp);
             $this->data += $temp;
         } elseif (\stripos($_SERVER['CONTENT_TYPE'], 'multipart/form-data') !== false) {
-            $content = \file_get_contents('php://input');
             $stream   = \fopen('php://input', 'r');
             $partInfo = null;
             $boundary = null;
@@ -277,16 +276,13 @@ final class Request extends RequestAbstract
 
                 \preg_match_all($regex, $headerVal, $matches, \PREG_SET_ORDER);
 
-                for ($i = 0; $i < \count($matches); ++$i) {
+                $length = \count($matches);
+                for ($i = 0; $i < $length; ++$i) {
                     $match       = $matches[$i];
                     $name        = $match['name'];
                     $quotedValue = $match['quotedValue'];
 
-                    if (empty($quotedValue)) {
-                        $value = $match['value'];
-                    } else {
-                        $value = \stripcslashes($quotedValue);
-                    }
+                    $value = empty($quotedValue) ? $value = $match['value'] : \stripcslashes($quotedValue);
 
                     if ($name === $headerKey && $i === 0) {
                         $name = 'value';

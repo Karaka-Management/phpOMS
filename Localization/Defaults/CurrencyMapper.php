@@ -35,11 +35,11 @@ final class CurrencyMapper extends DataMapperAbstract
     protected static array $columns = [
         'currency_id'        => ['name' => 'currency_id',        'type' => 'int',    'internal' => 'id'],
         'currency_name'      => ['name' => 'currency_name',      'type' => 'string', 'internal' => 'name'],
-        'currency_char'      => ['name' => 'currency_char',      'type' => 'string', 'internal' => 'code'],
+        'currency_code'      => ['name' => 'currency_code',      'type' => 'string', 'internal' => 'code'],
         'currency_number'    => ['name' => 'currency_number',    'type' => 'string', 'internal' => 'number'],
         'currency_symbol'    => ['name' => 'currency_symbol',    'type' => 'string', 'internal' => 'symbol'],
         'currency_subunits'  => ['name' => 'currency_subunits',  'type' => 'int',    'internal' => 'subunits'],
-        'currency_decimals'  => ['name' => 'currency_decimals',  'type' => 'string', 'internal' => 'decimals'],
+        'currency_decimal'   => ['name' => 'currency_decimal',   'type' => 'string', 'internal' => 'decimals'],
         'currency_countries' => ['name' => 'currency_countries', 'type' => 'string', 'internal' => 'countries'],
     ];
 

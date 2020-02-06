@@ -58,7 +58,7 @@ class Localization
      * @var string
      * @since 1.0.0
      */
-    private string $currency = ISO4217Enum::_USD;
+    private string $currency = ISO4217CharEnum::_USD;
 
     /**
      * Number format.
