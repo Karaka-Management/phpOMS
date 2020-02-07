@@ -123,6 +123,7 @@ final class WebRouter implements RouterInterface
      * @param string $app     Application name
      * @param int    $orgId   Organization id
      * @param mixed  $account Account
+     * @param array  $data    Data
      *
      * @return array[]
      *
@@ -134,7 +135,8 @@ final class WebRouter implements RouterInterface
         int $verb = RouteVerb::GET,
         string $app = null,
         int $orgId = null,
-        $account = null
+        $account = null,
+        array $data = null
     ) : array
     {
         $bound = [];
@@ -162,6 +164,15 @@ final class WebRouter implements RouterInterface
                         )
                     ) {
                         return $app !== null ? $this->route('/' . \strtolower($app) . '/e403', $csrf, $verb) : $this->route('/e403', $csrf, $verb);
+                    }
+
+                    // if data check is invalid
+                    if (isset($d['data'])) {
+                        foreach ($d['data'] as $name => $pattern) {
+                            if (!isset($data[$name]) || \preg_match($pattern, $data[$name]) !== 1) {
+                                return $app !== null ? $this->route('/' . \strtolower($app) . '/e403', $csrf, $verb) : $this->route('/e403', $csrf, $verb);
+                            }
+                        }
                     }
 
                     $bound[] = ['dest' => $d['dest']];
