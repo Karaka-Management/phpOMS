@@ -111,7 +111,7 @@ trait PermissionHandlingTrait
     {
         foreach ($this->permissions as $key => $p) {
             if ($p->isEqual($permission)) {
-                unset($this->permission[$key]);
+                unset($this->permissions[$key]);
             }
         }
     }
