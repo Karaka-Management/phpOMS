@@ -417,6 +417,26 @@ class PermissionAbstract implements \JsonSerializable
     }
 
     /**
+     * Is equals.
+     *
+     * @param self $permission Permission
+     *
+     * @return bool Returns true if the permission is the same
+     *
+     * @since 1.0.0
+     */
+    public function isEqual(self $permission) : bool
+    {
+        return $this->unit === $permission->getUnit()
+            && $this->app === $permission->getApp()
+            && $this->module === $permission->getModule()
+            && $this->type === $permission->getType()
+            && $this->element === $permission->getElement()
+            && $this->component === $permission->getComponent()
+            && $this->permission === $permission->getPermission();
+    }
+
+    /**
      * {@inheritdoc}
      */
     public function jsonSerialize()

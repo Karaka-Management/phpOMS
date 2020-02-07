@@ -103,6 +103,24 @@ trait PermissionHandlingTrait
     }
 
     /**
+     * Remove permission.
+     *
+     * @param PermissionAbstract $permission Permission to remove
+     *
+     * @return void
+     *
+     * @since 1.0.0
+     */
+    public function removePermission(PermissionAbstract $permission) : void
+    {
+        foreach ($this->permissions as $key => $p) {
+            if ($p->isEqual($permission)) {
+                unset($this->permission[$key]);
+            }
+        }
+    }
+
+    /**
      * Get permissions.
      *
      * @return PermissionAbstract[]
@@ -142,8 +160,8 @@ trait PermissionHandlingTrait
     ) : bool {
         $app = $app !== null ? \strtolower($app) : $app;
 
-        for ($i = 0; $i < $this->pLength; ++$i) {
-            if ($this->permissions[$i]->hasPermission($permission, $unit, $app, $module, $type, $element, $component)) {
+        foreach ($this->permissions as $p) {
+            if ($p->hasPermission($permission, $unit, $app, $module, $type, $element, $component)) {
                 return true;
             }
         }
