@@ -113,12 +113,6 @@ use phpOMS\Utils\ArrayUtils;
  *  One example where this could be useful is the Address/Localization model.
  *  In here the country is stored by ID but you probably don't want to load an entire object and only the country name from the country table.
  *
- * @todo Orange-Management/phpOMS#214
- *  Allow to define the model class
- *  Currently the DataMapper uses the mapper name to find the correct model class.
- *  This can remain but there should be a member variable or const which allows to define the model::class manually in case the model is different.
- *  One example could be the Address/Location model in the Address module and phpOMS Localization directory.
- *
  * @todo Orange-Management/Modules#99
  *  Use binds
  *  Currently databinds are not used. Currently injections are possible.
@@ -236,6 +230,14 @@ class DataMapperAbstract implements DataMapperInterface
      * @since 1.0.0
      */
     protected static string $table = '';
+
+    /**
+     * Model to use by the mapper.
+     *
+     * @var string
+     * @since 1.0.0
+     */
+    protected static string $model = '';
 
     /**
      * Fields to load.
@@ -2018,7 +2020,7 @@ class DataMapperAbstract implements DataMapperInterface
     public static function populate(array $result, $obj = null)
     {
         $class = static::class;
-        $class = \str_replace('Mapper', '', $class);
+        $class = empty(static::$model) ? \str_replace('Mapper', '', $class) : static::$model; // @todo: replace str_replace with substr!!!
 
         if (empty($result)) {
             $parts     = \explode('\\', $class);
@@ -2450,7 +2452,7 @@ class DataMapperAbstract implements DataMapperInterface
     private static function getNullModelObj()
     {
         $class     = static::class;
-        $class     = \str_replace('Mapper', '', $class);
+        $class     = empty(static::$model) ? \str_replace('Mapper', '', $class) : static::$model; // @todo replace str_replace with substr!!!
         $parts     = \explode('\\', $class);
         $name      = $parts[$c = (\count($parts) - 1)];
         $parts[$c] = 'Null' . $name;

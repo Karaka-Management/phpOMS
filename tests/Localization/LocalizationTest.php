@@ -65,7 +65,7 @@ class LocalizationTest extends \PHPUnit\Framework\TestCase
         self::assertTrue(ISO3166TwoEnum::isValidValue($this->localization->getCountry()));
         self::assertTrue(TimeZoneEnumArray::isValidValue($this->localization->getTimezone()));
         self::assertTrue(ISO639x1Enum::isValidValue($this->localization->getLanguage()));
-        self::assertTrue(ISO4217Enum::isValidValue($this->localization->getCurrency()));
+        self::assertTrue(ISO4217CharEnum::isValidValue($this->localization->getCurrency()));
         self::assertEquals('.', $this->localization->getDecimal());
         self::assertEquals(',', $this->localization->getThousands());
         self::assertEquals([], $this->localization->getDatetime());

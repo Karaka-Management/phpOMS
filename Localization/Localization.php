@@ -141,6 +141,26 @@ class Localization
     private array $volume = [];
 
     /**
+     * Country id.
+     *
+     * @var int
+     * @since 1.0.0
+     */
+    private $id = 0;
+
+    /**
+     * Get id
+     *
+     * @return int
+     *
+     * @since 1.0.0
+     */
+    public function getId() : int
+    {
+        return $this->id;
+    }
+
+    /**
      * Load localization from language code
      *
      * @param string $langCode    Language code
