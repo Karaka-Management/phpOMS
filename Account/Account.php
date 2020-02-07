@@ -144,7 +144,7 @@ class Account implements ArrayableInterface, \JsonSerializable
      * @var Localization
      * @since 1.0.0
      */
-    protected Localization $l11n;
+    protected Localization $localization;
 
     use PermissionHandlingTrait;
 
@@ -159,10 +159,10 @@ class Account implements ArrayableInterface, \JsonSerializable
      */
     public function __construct(int $id = 0)
     {
-        $this->createdAt  = new \DateTime('now');
-        $this->lastActive = new \DateTime('now');
-        $this->id         = $id;
-        $this->l11n       = new Localization();
+        $this->createdAt     = new \DateTime('now');
+        $this->lastActive    = new \DateTime('now');
+        $this->id            = $id;
+        $this->localization  = new Localization();
     }
 
     /**
@@ -188,7 +188,7 @@ class Account implements ArrayableInterface, \JsonSerializable
      */
     public function getL11n() : Localization
     {
-        return $this->l11n;
+        return $this->localization;
     }
 
     /**
@@ -231,7 +231,7 @@ class Account implements ArrayableInterface, \JsonSerializable
      */
     public function setL11n(Localization $l11n) : void
     {
-        $this->l11n = $l11n;
+        $this->localization = $l11n;
     }
 
     /**

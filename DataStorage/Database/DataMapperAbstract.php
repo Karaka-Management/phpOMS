@@ -2066,7 +2066,12 @@ class DataMapperAbstract implements DataMapperInterface
                     $refProp->setAccessible(true);
                 }
 
-                $objects = $mapper::get($values, RelationType::ALL, null, $depth);
+                if (!isset(static::$hasMany[$member]['by'])) {
+                    $objects = $mapper::get($values, RelationType::ALL, null, $depth);
+                } else {
+                    $objects = $mapper::getBy($values, static::$hasMany[$member]['by'], RelationType::ALL, null, $depth);
+                }
+
                 $refProp->setValue($obj, !\is_array($objects) ? [$objects->getId() => $objects] : $objects);
 
                 if (!$accessible) {
@@ -2129,8 +2134,13 @@ class DataMapperAbstract implements DataMapperInterface
                 continue;
             }
 
-            $id    = \is_object($id) ? self::getObjectId($id) : $id;
-            $value = self::getInitialized($mapper, $id) ?? $mapper::get($id, RelationType::ALL, null, $depth);
+            $id = \is_object($id) ? self::getObjectId($id) : $id;
+
+            if (!isset(static::$ownsOne[$member]['by'])) {
+                $value = self::getInitialized($mapper, $id) ?? $mapper::get($id, RelationType::ALL, null, $depth);
+            } else {
+                $value = $mapper::getBy($id, static::$ownsOne[$member]['by'], RelationType::ALL, null, $depth);
+            }
 
             $refProp->setValue($obj, $value);
 
@@ -2507,8 +2517,8 @@ class DataMapperAbstract implements DataMapperInterface
     /**
      * Get object.
      *
-     * @param mixed  $refKey    Key
-     * @param string $ref       The field that defines the for
+     * @param mixed  $forKey    Key
+     * @param string $for       The field that defines the for
      * @param int    $relations Load relations
      * @param mixed  $fill      Object to fill
      * @param int    $depth     Relation depth
@@ -2517,10 +2527,10 @@ class DataMapperAbstract implements DataMapperInterface
      *
      * @since 1.0.0
      */
-    public static function getFor($refKey, string $ref, int $relations = RelationType::ALL, $fill = null, int $depth = 3)
+    public static function getFor($forKey, string $for, int $relations = RelationType::ALL, $fill = null, int $depth = 3)
     {
         if ($depth < 1) {
-            return $refKey;
+            return $forKey;
         }
 
         if (!isset(self::$parentMapper)) {
@@ -2529,16 +2539,68 @@ class DataMapperAbstract implements DataMapperInterface
 
         self::extend(__CLASS__);
 
-        $refKey = (array) $refKey;
+        $forKey = (array) $forKey;
         $obj    = [];
 
-        foreach ($refKey as $key => $value) {
+        foreach ($forKey as $key => $value) {
             $toLoad = [];
 
-            if (isset(static::$hasMany[$ref]) && static::$hasMany[$ref]['src'] !== null) {
-                $toLoad = self::getHasManyPrimaryKeys($value, $ref);
+            if (isset(static::$hasMany[$for]) && static::$hasMany[$for]['src'] !== null) {
+                $toLoad = self::getHasManyPrimaryKeys($value, $for);
             } else {
-                $toLoad = self::getPrimaryKeysBy($value, self::getColumnByMember($ref));
+                $toLoad = self::getPrimaryKeysBy($value, self::getColumnByMember($for));
+            }
+
+            $obj[$value] = self::get($toLoad, $relations, $fill, $depth);
+        }
+
+        $countResulsts = \count($obj);
+
+        if ($countResulsts === 0) {
+            return self::getNullModelObj();
+        } elseif ($countResulsts === 1) {
+            return \reset($obj);
+        }
+
+        return $obj;
+    }
+
+    /**
+     * Get object.
+     *
+     * @param mixed  $byKey     Key
+     * @param string $by        The field that defines the for
+     * @param int    $relations Load relations
+     * @param mixed  $fill      Object to fill
+     * @param int    $depth     Relation depth
+     *
+     * @return mixed
+     *
+     * @since 1.0.0
+     */
+    public static function getBy($byKey, string $by, int $relations = RelationType::ALL, $fill = null, int $depth = 3)
+    {
+        if ($depth < 1) {
+            return $byKey;
+        }
+
+        if (!isset(self::$parentMapper)) {
+            self::$parentMapper = static::class;
+        }
+
+        self::extend(__CLASS__);
+
+        $byKey = (array) $byKey;
+        $obj   = [];
+
+        foreach ($byKey as $key => $value) {
+            $toLoad = [];
+
+            if (isset(static::$hasMany[$by]) && static::$hasMany[$by]['src'] !== null) {
+                // todo: maybe wrong?!
+                $toLoad = self::getHasManyPrimaryKeys($value, $by);
+            } elseif (isset(static::$ownsOne[$by])) {
+                $toLoad = self::getPrimaryKeysBy($value, self::getColumnByMember($by));
             }
 
             $obj[$value] = self::get($toLoad, $relations, $fill, $depth);

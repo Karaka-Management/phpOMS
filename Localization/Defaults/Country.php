@@ -22,7 +22,7 @@ namespace phpOMS\Localization\Defaults;
  * @link    https://orange-management.org
  * @since   1.0.0
  */
-final class Country
+class Country
 {
     /**
      * Country id.

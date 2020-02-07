@@ -63,7 +63,7 @@ class AccountTest extends \PHPUnit\Framework\TestCase
         self::assertObjectHasAttribute('groups', $account);
         self::assertObjectHasAttribute('type', $account);
         self::assertObjectHasAttribute('status', $account);
-        self::assertObjectHasAttribute('l11n', $account);
+        self::assertObjectHasAttribute('localization', $account);
     }
 
     /**
