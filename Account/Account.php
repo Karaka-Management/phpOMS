@@ -159,10 +159,10 @@ class Account implements ArrayableInterface, \JsonSerializable
      */
     public function __construct(int $id = 0)
     {
-        $this->createdAt     = new \DateTime('now');
-        $this->lastActive    = new \DateTime('now');
-        $this->id            = $id;
-        $this->localization  = new Localization();
+        $this->createdAt    = new \DateTime('now');
+        $this->lastActive   = new \DateTime('now');
+        $this->id           = $id;
+        $this->localization = new Localization();
     }
 
     /**
