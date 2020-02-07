@@ -125,10 +125,6 @@ use phpOMS\Utils\ArrayUtils;
  *  As a result the datamapper has to be rewritten for the select and insert/update.
  *  The select needs to set the null model as value and the insert/update needs to extract the id from the null and ignore all other empty values from the null model which obviously are the default values.
  *
- * @todo Orange-Management/phpOMS#235
- *  The relationship keywords `dst` and `src` are difficult to understand and should be renamed.
- *  E.g. `self` and `ext`
- *
  * @todo Orange-Management/phpOMS#236
  *  Consider unifing hasMany and ownsOwn
  *  Maybe unify these relations and handle them based on their definition of src and dst.
