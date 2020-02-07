@@ -127,16 +127,30 @@ final class SocketRouter implements RouterInterface
                     return $app !== null ? $this->route('/' . \strtolower($app) . '/e403') : $this->route('/e403');
                 }
 
-                // if data check is invalid
-                if (isset($d['data'])) {
-                    foreach ($d['data'] as $name => $pattern) {
+                // if validation check is invalid
+                if (isset($d['validation'])) {
+                    foreach ($d['validation'] as $name => $pattern) {
                         if (!isset($data[$name]) || \preg_match($pattern, $data[$name]) !== 1) {
                             return $app !== null ? $this->route('/' . \strtolower($app) . '/e403') : $this->route('/e403');
                         }
                     }
                 }
 
-                $bound[] = ['dest' => $d['dest']];
+                $temp = ['dest' => $d['dest']];
+
+                // fill data
+                if (isset($d['data'])) {
+                    $data = [];
+                    foreach ($d['data'] as $name => $destination) {
+                        if (isset($data[$name])) {
+                            $data[$destination] = $data[$name];
+                        }
+                    }
+
+                    $temp['data'] = $data;
+                }
+
+                $bound[] = $temp;
             }
         }
 

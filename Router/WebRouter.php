@@ -123,7 +123,7 @@ final class WebRouter implements RouterInterface
      * @param string $app     Application name
      * @param int    $orgId   Organization id
      * @param mixed  $account Account
-     * @param array  $data    Data
+     * @param array  $data    Validation
      *
      * @return array[]
      *
@@ -166,16 +166,25 @@ final class WebRouter implements RouterInterface
                         return $app !== null ? $this->route('/' . \strtolower($app) . '/e403', $csrf, $verb) : $this->route('/e403', $csrf, $verb);
                     }
 
-                    // if data check is invalid
-                    if (isset($d['data'])) {
-                        foreach ($d['data'] as $name => $pattern) {
+                    // if validation check is invalid
+                    if (isset($d['validation'])) {
+                        foreach ($d['validation'] as $name => $pattern) {
                             if (!isset($data[$name]) || \preg_match($pattern, $data[$name]) !== 1) {
                                 return $app !== null ? $this->route('/' . \strtolower($app) . '/e403', $csrf, $verb) : $this->route('/e403', $csrf, $verb);
                             }
                         }
                     }
 
-                    $bound[] = ['dest' => $d['dest']];
+                    $temp = ['dest' => $d['dest']];
+
+                    // fill data
+                    if (isset($d['pattern'])) {
+                        \preg_match($d['pattern'], $route, $matches);
+
+                        $temp['data'] = $matches;
+                    }
+
+                    $bound[] = $temp;
                 }
             }
         }
