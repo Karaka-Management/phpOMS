@@ -16,7 +16,6 @@ namespace phpOMS\tests\Localization;
 
 use phpOMS\Localization\ISO3166TwoEnum;
 use phpOMS\Localization\ISO4217CharEnum;
-use phpOMS\Localization\ISO4217Enum;
 use phpOMS\Localization\ISO639x1Enum;
 use phpOMS\Localization\Localization;
 use phpOMS\Localization\TimeZoneEnumArray;
