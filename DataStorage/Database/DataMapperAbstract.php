@@ -2008,7 +2008,7 @@ class DataMapperAbstract implements DataMapperInterface
     public static function populate(array $result, $obj = null)
     {
         $class = static::class;
-        $class = empty(static::$model) ? \str_replace('Mapper', '', $class) : static::$model; // @todo: replace str_replace with substr!!!
+        $class = empty(static::$model) ? \substr($class, 0, -6) : static::$model;
 
         if (empty($result)) {
             $parts     = \explode('\\', $class);
@@ -2450,7 +2450,7 @@ class DataMapperAbstract implements DataMapperInterface
     private static function getNullModelObj()
     {
         $class     = static::class;
-        $class     = empty(static::$model) ? \str_replace('Mapper', '', $class) : static::$model; // @todo replace str_replace with substr!!!
+        $class     = empty(static::$model) ? \substr($class, 0, -6) : static::$model;
         $parts     = \explode('\\', $class);
         $name      = $parts[$c = (\count($parts) - 1)];
         $parts[$c] = 'Null' . $name;
