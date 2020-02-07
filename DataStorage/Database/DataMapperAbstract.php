@@ -124,14 +124,6 @@ use phpOMS\Utils\ArrayUtils;
  *  Instead of using int the NullModel should be used which has a constructor that allows to define the int.
  *  As a result the datamapper has to be rewritten for the select and insert/update.
  *  The select needs to set the null model as value and the insert/update needs to extract the id from the null and ignore all other empty values from the null model which obviously are the default values.
- *
- * @todo Orange-Management/phpOMS#236
- *  Consider unifing hasMany and ownsOwn
- *  Maybe unify these relations and handle them based on their definition of src and dst.
- *      1. `src` and `dst` are defined = relation is defined in relation table
- *      2. `dst` is defined = relation is defined in own table
- *      3. `src` is defined = relation is defined in external table
- *  Disclaimer: I may have mixed up the meaning of dst and src (the names are bad)
  */
 class DataMapperAbstract implements DataMapperInterface
 {

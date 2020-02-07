@@ -21,26 +21,6 @@ namespace phpOMS\Router;
  * @license OMS License 1.0
  * @link    https://orange-management.org
  * @since   1.0.0
- *
- * @todo Orange-Management/phpOMS#191
- *  Implement routing parameters
- *  Most routing implementations have parameters in their route e.g.
- *      'route' => '/your/url/{@id}/something'
- *  This is very easy to read but slows down performance.
- *      'route' => [
- *           'match' => '/your/url/.*?/something',
- *           'parameters'=> [
- *               'id' => ['type' => 'path', 'index' => 2]
- *           ]
- *       ]
- *  The parameters should then be passed to the method in the $data = [] variable.
- *
- * @todo Orange-Management/phpOMS#192
- *  Implement form/api data validation
- *  Similar to permission validation it could be possible to add data constraints which are expected for certain routes which then could be checked during routing and dispatching.
- *  For example it would be possible to define required data fields, their type, their pattern etc.
- *  This would make the routing definitions much bigger but also dramatically reduce the work which needs to be done in the controllers.
- *  It could even be written in a way which hardly effects performance.
  */
 final class WebRouter implements RouterInterface
 {

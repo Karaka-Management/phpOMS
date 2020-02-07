@@ -21,10 +21,6 @@ namespace phpOMS\Account;
  * @license OMS License 1.0
  * @link    https://orange-management.org
  * @since   1.0.0
- *
- * @todo Orange-Management/phpOMS#200
- *  Implement remove permission functionality
- *  Currently only adding permissions is possible but it should also be possible to remove permissions from an account.
  */
 trait PermissionHandlingTrait
 {
