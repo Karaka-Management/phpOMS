@@ -68,14 +68,14 @@ class BaseModelMapper extends DataMapperAbstract
         'hasManyDirect' => [
             'mapper'         => ManyToManyDirectModelMapper::class,
             'table'          => 'test_has_many_direct',
-            'dst'            => 'test_has_many_direct_to',
-            'src'            => null,
+            'external'            => 'test_has_many_direct_to',
+            'self'            => null,
         ],
         'hasManyRelations' => [
             'mapper'         => ManyToManyRelModelMapper::class,
             'table'          => 'test_has_many_rel_relations',
-            'dst'            => 'test_has_many_rel_relations_dest',
-            'src'            => 'test_has_many_rel_relations_src',
+            'external'            => 'test_has_many_rel_relations_dest',
+            'self'            => 'test_has_many_rel_relations_src',
         ],
     ];
 
