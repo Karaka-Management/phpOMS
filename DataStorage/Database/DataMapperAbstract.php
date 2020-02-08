@@ -571,9 +571,8 @@ class DataMapperAbstract implements DataMapperInterface
         try {
             self::$db->con->prepare($query->toSql())->execute();
         } catch (\Throwable $t) {
-            // only for debugging
-            //var_dump($t->getMessage());
-            //var_dump($query->toSql());
+            var_dump($t->getMessage());
+            var_dump($query->toSql());
             return -1;
         }
 

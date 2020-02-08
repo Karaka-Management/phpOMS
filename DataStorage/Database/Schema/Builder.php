@@ -135,7 +135,7 @@ class Builder extends QueryBuilder
         foreach ($definition['fields'] as $name => $def) {
             $builder->field(
                 $name, $def['type'], $def['default'] ?? null,
-                $def['null'] ?? true, $def['primary'] ?? false, $def['autoincrement'] ?? false,
+                $def['null'] ?? true, $def['primary'] ?? false, $def['unique'] ?? false, $def['autoincrement'] ?? false,
                 $def['foreignTable'] ?? null, $def['foreignKey'] ?? null
             );
         }
@@ -233,6 +233,7 @@ class Builder extends QueryBuilder
      * @param mixed  $default       Default value
      * @param bool   $isNullable    Can be null
      * @param bool   $isPrimary     Is a primary field
+     * @param bool   $isUnique      Is a unique field
      * @param bool   $autoincrement Autoincrements
      * @param string $foreignTable  Foreign table (in case of foreign key)
      * @param string $foreignKey    Foreign key
@@ -243,7 +244,7 @@ class Builder extends QueryBuilder
      */
     public function field(
         string $name, string $type, $default = null,
-        bool $isNullable = true, bool $isPrimary = false, bool $autoincrement = false,
+        bool $isNullable = true, bool $isPrimary = false, $isUnique = false, bool $autoincrement = false,
         string $foreignTable = null, string $foreignKey = null
     ) : self {
         $this->createFields[$name] = [
@@ -252,6 +253,7 @@ class Builder extends QueryBuilder
             'default'       => $default,
             'null'          => $isNullable,
             'primary'       => $isPrimary,
+            'unique'        => $isUnique,
             'autoincrement' => $autoincrement,
             'foreignTable'  => $foreignTable,
             'foreignKey'    => $foreignKey,
