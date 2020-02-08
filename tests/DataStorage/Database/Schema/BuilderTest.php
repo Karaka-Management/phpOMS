@@ -75,8 +75,8 @@ class BuilderTest extends \PHPUnit\Framework\TestCase
         self::assertEquals(
             $sql,
             $query->createTable('user_roles')
-                ->field('user_id', 'INT', null, false, true, true, 'users', 'ext1_id')
-                ->field('role_id', 'VARCHAR(10)', '1', true, false, false, 'roles', 'ext2_id')
+                ->field('user_id', 'INT', null, false, true, false, true, 'users', 'ext1_id')
+                ->field('role_id', 'VARCHAR(10)', '1', true, false, false, false, 'roles', 'ext2_id')
             ->toSql()
         );
     }

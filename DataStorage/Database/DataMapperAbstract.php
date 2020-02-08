@@ -549,8 +549,9 @@ class DataMapperAbstract implements DataMapperInterface
                 $query->insert($column['name'])->value($value);
             } elseif ($column['name'] !== static::$primaryField || !empty($property->getValue($obj))) {
                 $tValue = $property->getValue($obj);
-                if (\stripos($column['internal'], '/') === 0) {
-                    $tValue = ArrayUtils::getArray($column['internal'], $tValue, '/');
+                if (\stripos($column['internal'], '/') !== false) {
+                    $path   = \substr($column['internal'], \stripos($column['internal'], '/') + 1);
+                    $tValue = ArrayUtils::getArray($path, $tValue, '/');
                 }
 
                 $value = self::parseValue($column['type'], $tValue);
@@ -1280,7 +1281,7 @@ class DataMapperAbstract implements DataMapperInterface
      * The reference is stored in the main model
      *
      * @param string $propertyName Property name to initialize
-     * @param object $obj          Object to update
+     * @param mixed  $obj          Object to update
      * @param int    $relations    Create all relations as well
      * @param int    $depth        Depth of relations to update (default = 1 = none)
      *
@@ -1288,8 +1289,12 @@ class DataMapperAbstract implements DataMapperInterface
      *
      * @since 1.0.0
      */
-    private static function updateOwnsOne(string $propertyName, object $obj, int $relations = RelationType::ALL, int $depth = 1)
+    private static function updateOwnsOne(string $propertyName, $obj, int $relations = RelationType::ALL, int $depth = 1)
     {
+        if (!\is_object($obj)) {
+            return $obj;
+        }
+
         /** @var string $mapper */
         $mapper = static::$ownsOne[$propertyName]['mapper'];
 
@@ -1336,14 +1341,14 @@ class DataMapperAbstract implements DataMapperInterface
      */
     private static function updateBelongsTo(string $propertyName, $obj, int $relations = RelationType::ALL, int $depth = 1)
     {
-        if (\is_object($obj)) {
-            /** @var string $mapper */
-            $mapper = static::$belongsTo[$propertyName]['mapper'];
-
-            return $mapper::update($obj, $relations, $depth);
+        if (!\is_object($obj)) {
+            return $obj;
         }
 
-        return $obj;
+        /** @var string $mapper */
+        $mapper = static::$belongsTo[$propertyName]['mapper'];
+
+        return $mapper::update($obj, $relations, $depth);
     }
 
     /**
@@ -1431,8 +1436,9 @@ class DataMapperAbstract implements DataMapperInterface
                 $query->set([static::$table . '.' . $column['name'] => $value]);
             } elseif ($column['name'] !== static::$primaryField) {
                 $tValue = $property->getValue($obj);
-                if (\stripos($column['internal'], '/') === 0) {
-                    $tValue = ArrayUtils::getArray($column['internal'], $tValue, '/');
+                if (\stripos($column['internal'], '/') !== false) {
+                    $path   = \substr($column['internal'], \stripos($column['internal'], '/') + 1);
+                    $tValue = ArrayUtils::getArray($path, $tValue, '/');
                 }
 
                 $value = self::parseValue($column['type'], $tValue);
@@ -1481,8 +1487,9 @@ class DataMapperAbstract implements DataMapperInterface
 
                 if ($column['name'] !== $conditional['external']) {
                     $tValue = $property->getValue($obj);
-                    if (\stripos($column['internal'], '/') === 0) {
-                        $tValue = ArrayUtils::getArray($column['internal'], $tValue, '/');
+                    if (\stripos($column['internal'], '/') !== false) {
+                        $path   = \substr($column['internal'], \stripos($column['internal'], '/') + 1);
+                        $tValue = ArrayUtils::getArray($path, $tValue, '/');
                     }
 
                     $value = self::parseValue($column['type'], $tValue);
@@ -1524,8 +1531,9 @@ class DataMapperAbstract implements DataMapperInterface
             }
 
             $path = $column['internal'];
-            if (\stripos($column['internal'], '/') === 0) {
-                $path = \ltrim($column['internal'], '/');
+            if (\stripos($column['internal'], '/') !== false) {
+                $path = \substr($column['internal'], \stripos($column['internal'], '/') + 1);
+                //$path = \ltrim($column['internal'], '/');
             }
 
             $property = ArrayUtils::getArray($column['internal'], $obj, '/');

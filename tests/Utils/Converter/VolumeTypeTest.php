@@ -56,9 +56,9 @@ class VolumeTypeTest extends \PHPUnit\Framework\TestCase
         self::assertEquals('UK qt dry', VolumeType::UK_QUARTS);
         self::assertEquals('US gi', VolumeType::US_GILL);
         self::assertEquals('UK gi', VolumeType::UK_GILL);
-        self::assertEquals('L', VolumeType::LITER);
+        self::assertEquals('l', VolumeType::LITER);
         self::assertEquals('mul', VolumeType::MICROLITER);
-        self::assertEquals('mL', VolumeType::MILLILITER);
+        self::assertEquals('ml', VolumeType::MILLILITER);
         self::assertEquals('cl', VolumeType::CENTILITER);
         self::assertEquals('kl', VolumeType::KILOLITER);
         self::assertEquals('UK bbl', VolumeType::UK_BARREL);

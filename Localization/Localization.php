@@ -26,7 +26,7 @@ use phpOMS\Utils\Converter\TemperatureType;
  * @link    https://orange-management.org
  * @since   1.0.0
  */
-class Localization
+class Localization implements \JsonSerializable
 {
     /**
      * Country ID.
@@ -59,6 +59,14 @@ class Localization
      * @since 1.0.0
      */
     protected string $currency = ISO4217CharEnum::_USD;
+
+    /**
+     * Currency format.
+     *
+     * @var string
+     * @since 1.0.0
+     */
+    protected string $currencyFormat = '%s1 %s2';
 
     /**
      * Number format.
@@ -99,6 +107,22 @@ class Localization
      * @since 1.0.0
      */
     protected array $datetime = [];
+
+    /**
+     * Datetime delim.
+     *
+     * @var string
+     * @since 1.0.0
+     */
+    protected string $dateDelim = '.';
+
+    /**
+     * Datetime delim.
+     *
+     * @var string
+     * @since 1.0.0
+     */
+    protected string $timeDelim = ':';
 
     /**
      * Weight.
@@ -174,6 +198,39 @@ class Localization
     {
         $l11n = new self();
         $l11n->loadFromLanguage($langCode, $countryCode);
+
+        return $l11n;
+    }
+
+    /**
+     * Create localization from json
+     *
+     * @param array $json Json serialization
+     *
+     * @return Localization
+     *
+     * @since 1.0.0
+     */
+    public static function fromJson(array $json) : self
+    {
+        $l11n = new self();
+        $l11n->setCountry($json['country']);
+        $l11n->setTimezone($json['timezone']);
+        $l11n->setLanguage($json['language']);
+        $l11n->setCurrency($json['currency']);
+        $l11n->setCurrencyFormat($json['currencyformat']);
+        $l11n->setDecimal($json['decimal']);
+        $l11n->setThousands($json['thousands']);
+        $l11n->setAngle($json['angle']);
+        $l11n->setTemperature($json['temperature']);
+        $l11n->setDatetime($json['datetime']);
+        $l11n->setDateDelim($json['datedelim']);
+        $l11n->setTimeDelim($json['timedelim']);
+        $l11n->setWeight($json['weight']);
+        $l11n->setSpeed($json['speed']);
+        $l11n->setLength($json['length']);
+        $l11n->setArea($json['area']);
+        $l11n->setVolume($json['volume']);
 
         return $l11n;
     }
@@ -389,6 +446,32 @@ class Localization
     }
 
     /**
+     * Get currency format
+     *
+     * @return string
+     *
+     * @since 1.0.0
+     */
+    public function getCurrencyFormat() : string
+    {
+        return $this->currencyFormat;
+    }
+
+    /**
+     * Set currency format
+     *
+     * @param string $format Currency format
+     *
+     * @return void
+     *
+     * @since 1.0.0
+     */
+    public function setCurrencyFormat(string $format) : void
+    {
+        $this->currencyFormat = $format;
+    }
+
+    /**
      * get datetime format
      *
      * @return array<string, string>
@@ -412,6 +495,58 @@ class Localization
     public function setDatetime(array $datetime) : void
     {
         $this->datetime = $datetime;
+    }
+
+    /**
+     * Set dateDelim char
+     *
+     * @return string
+     *
+     * @since 1.0.0
+     */
+    public function getDateDelim() : string
+    {
+        return $this->dateDelim;
+    }
+
+    /**
+     * Get dateDelim char
+     *
+     * @param string $dateDelim Date delim char
+     *
+     * @return void
+     *
+     * @since 1.0.0
+     */
+    public function setDateDelim(string $dateDelim) : void
+    {
+        $this->dateDelim = $dateDelim;
+    }
+
+    /**
+     * Get timeDelim char
+     *
+     * @return string
+     *
+     * @since 1.0.0
+     */
+    public function getTimeDelim() : string
+    {
+        return $this->timeDelim;
+    }
+
+    /**
+     * Set timeDelim char
+     *
+     * @param string $timeDelim Time delim char
+     *
+     * @return void
+     *
+     * @since 1.0.0
+     */
+    public function setTimeDelim(string $timeDelim) : void
+    {
+        $this->timeDelim = $timeDelim;
     }
 
     /**
@@ -656,5 +791,40 @@ class Localization
     public function setVolume(array $volume) : void
     {
         $this->volume = $volume;
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function toArray() : array
+    {
+        return [
+            'id'             => $this->id,
+            'country'        => $this->country,
+            'timezone'       => $this->timezone,
+            'language'       => $this->language,
+            'currency'       => $this->currency,
+            'currencyformat' => $this->currencyFormat,
+            'decimal'        => $this->decimal,
+            'thousands'      => $this->thousands,
+            'angle'          => $this->angle,
+            'temperature'    => $this->temperature,
+            'datetime'       => $this->datetime,
+            'datedelim'      => $this->dateDelim,
+            'timedelim'      => $this->timeDelim,
+            'weight'         => $this->weight,
+            'speed'          => $this->speed,
+            'length'         => $this->length,
+            'area'           => $this->area,
+            'volume'         => $this->volume,
+        ];
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function jsonSerialize()
+    {
+        return $this->toArray();
     }
 }

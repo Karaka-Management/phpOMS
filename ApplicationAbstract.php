@@ -39,6 +39,7 @@ use phpOMS\Router\RouterInterface;
  * @property int $orgId
  * @property \phpOMS\DataStorage\Database\DatabasePool $dbPool
  * @property \phpOMS\Localization\L11nManager $l11nManager
+ * @property \phpOMS\Localization\Localization $l11nServer
  * @property \phpOMS\Router\RouterInterface $router
  * @property \phpOMS\DataStorage\Session\SessionInterface $sessionManager
  * @property \phpOMS\DataStorage\Cookie\CookieJar $cookieJar

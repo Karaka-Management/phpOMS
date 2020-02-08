@@ -27,7 +27,7 @@ class LengthTypeTest extends \PHPUnit\Framework\TestCase
      */
     public function testEnumCount() : void
     {
-        self::assertCount(21, LengthType::getConstants());
+        self::assertCount(22, LengthType::getConstants());
     }
 
     /**
@@ -48,6 +48,7 @@ class LengthTypeTest extends \PHPUnit\Framework\TestCase
         self::assertEquals('mi', LengthType::MILES);
         self::assertEquals('m', LengthType::METERS);
         self::assertEquals('micron', LengthType::MICROMETER);
+        self::assertEquals('nm', LengthType::NANOMETER);
         self::assertEquals('cm', LengthType::CENTIMETERS);
         self::assertEquals('mm', LengthType::MILLIMETERS);
         self::assertEquals('km', LengthType::KILOMETERS);

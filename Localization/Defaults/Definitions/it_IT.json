@@ -3,7 +3,8 @@
     "country": "US",
     "currency": {
         "code": "USD",
-        "position": 0
+        "position": 0,
+        "format": "%s1 %s2"
     },
     "thousand": ",",
     "decimal": ".",
@@ -17,7 +18,7 @@
         "very_heavy": "t"
     },
     "speed": {
-        "very_slow": "ns",
+        "very_slow": "mps",
         "slow": "ms",
         "medium": "kph",
         "fast": "kph",
@@ -25,7 +26,7 @@
         "sea": "knot"
     },
     "length": {
-        "very_short": "nm",
+        "very_short": "micron",
         "short": "mm",
         "medium": "cm",
         "long": "m",
@@ -33,21 +34,21 @@
         "sea": "mile"
     },
     "area": {
-        "very_small": "nm",
+        "very_small": "micron",
         "small": "mm",
         "medium": "cm",
         "large": "m",
         "very_large": "km"
     },
     "volume": {
-        "very_small": "ml",
+        "very_small": "mul",
         "small": "ml",
         "medium": "l",
-        "large": "m",
-        "very_large": "km",
-        "teaspoon": "metric teaspoon",
-        "tablespoon": "metric tablespoon",
-        "glass": "metric glass"
+        "large": "cm",
+        "very_large": "m",
+        "teaspoon": "Metric tsp",
+        "tablespoon": "Metric tblsp",
+        "glass": "Metric cup"
     },
     "datetime": {
         "delim_date": ".",

@@ -144,7 +144,7 @@ class Account implements ArrayableInterface, \JsonSerializable
      * @var Localization
      * @since 1.0.0
      */
-    protected Localization $localization;
+    protected $localization;
 
     use PermissionHandlingTrait;
 
@@ -186,7 +186,7 @@ class Account implements ArrayableInterface, \JsonSerializable
      *
      * @since 1.0.0
      */
-    public function getL11n() : Localization
+    public function getL11n()
     {
         return $this->localization;
     }

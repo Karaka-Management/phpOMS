@@ -37,9 +37,9 @@ abstract class VolumeType extends Enum
     public const UK_QUARTS         = 'UK qt dry';
     public const US_GILL           = 'US gi';
     public const UK_GILL           = 'UK gi';
-    public const LITER             = 'L';
+    public const LITER             = 'l';
     public const MICROLITER        = 'mul';
-    public const MILLILITER        = 'mL';
+    public const MILLILITER        = 'ml';
     public const CENTILITER        = 'cl';
     public const KILOLITER         = 'kl';
     public const UK_BARREL         = 'UK bbl';

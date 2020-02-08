@@ -28,6 +28,7 @@ abstract class LengthType extends Enum
 {
     public const MILES               = 'mi';
     public const METERS              = 'm';
+    public const NANOMETER           = 'nm';
     public const MICROMETER          = 'micron';
     public const CENTIMETERS         = 'cm';
     public const MILLIMETERS         = 'mm';

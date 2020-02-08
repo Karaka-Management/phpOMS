@@ -296,6 +296,9 @@ final class Measurement
             case LengthType::MICROINCH:
                 $value *= 39370000;
                 break;
+            case LengthType::NANOMETER:
+                $value *= 1000000000;
+                break;
             case LengthType::INCHES:
                 $value *= 39.370;
                 break;
@@ -356,6 +359,9 @@ final class Measurement
                 break;
             case LengthType::MICROMETER:
                 $value /= 1000000;
+                break;
+            case LengthType::NANOMETER:
+                $value /= 1000000000;
                 break;
             case LengthType::CENTIMETERS:
                 $value /= 100;
