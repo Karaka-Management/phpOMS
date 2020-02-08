@@ -80,16 +80,6 @@ use phpOMS\Utils\ArrayUtils;
  *  Relations by other than primary key
  *  Currently relations are always defined by the primary key. It would be very helpful to also define relations by other values.
  *
- * @todo Orange-Management/phpOMS#189
- *  Allow model creation with ids
- *  The datamapper checks if the model has an non-empty id before it creates the mode.
- *  Some models however can have custom primary keys.
- *  In this case this check should not be done and therefore a $force flag got implemented in order to force the creation of the mode.
- *  This should be changed by checking if the primary key is autoincrement or not.
- *  If it isn't autoincrement the model should be created without an additional flag.
- *  The problem that arises is that now you need to check if the model is already in the database.
- *  This could be done based on the database response (error).
- *
  * @todo Orange-Management/phpOMS#212
  *  Replace nested models which are represented as scalar/id with NullModel
  *  Currently there is a default limit on dependency nesting when you request a model from the database.
@@ -150,6 +140,14 @@ class DataMapperAbstract implements DataMapperInterface
      * @since 1.0.0
      */
     protected static string $primaryField = '';
+
+    /**
+     * Autoincrement primary field.
+     *
+     * @var bool
+     * @since 1.0.0
+     */
+    protected static bool $autoincrement = true;
 
     /**
      * Primary field name.
@@ -437,13 +435,12 @@ class DataMapperAbstract implements DataMapperInterface
      *
      * @param mixed $obj       Object reference (gets filled with insert id)
      * @param int   $relations Create all relations as well
-     * @param bool  $force     Force creation even if id is set in model
      *
      * @return mixed
      *
      * @since 1.0.0
      */
-    public static function create($obj, int $relations = RelationType::ALL, bool $force = false)
+    public static function create($obj, int $relations = RelationType::ALL)
     {
         self::extend(__CLASS__);
 
@@ -453,16 +450,7 @@ class DataMapperAbstract implements DataMapperInterface
 
         $refClass = new \ReflectionClass($obj);
 
-        /**
-         * @todo Orange-Management/phpOMS#234
-         *  Add forced IDs to the mappers
-         *  Currently it is required to manually create a model with forced ids.
-         *  This should be defined in the mappers in the ID column definition.
-         *  ```
-         *      'force_id' => true,
-         *  ```
-         */
-        if (!empty($id = self::getObjectId($obj, $refClass)) && !$force) {
+        if (!empty($id = self::getObjectId($obj, $refClass)) && static::$autoincrement) {
             $objId = $id;
         } else {
             $objId = self::createModel($obj, $refClass);
