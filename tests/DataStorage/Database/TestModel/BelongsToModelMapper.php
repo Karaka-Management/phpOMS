@@ -20,7 +20,7 @@ class BelongsToModelMapper extends DataMapperAbstract
     /**
      * Columns.
      *
-     * @var array<string, array<string, bool|string>>
+     * @var array<string, array{name:string, type:string, internal:string, autocomplete?:bool, annotations?:array}>
      * @since 1.0.0
      */
     protected static array $columns = [
