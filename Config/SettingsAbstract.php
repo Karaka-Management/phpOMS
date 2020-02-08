@@ -75,46 +75,94 @@ abstract class SettingsAbstract implements OptionsInterface
     protected string $valueField = 'option';
 
     /**
-     * Get option by key.
+     * Get option.
      *
-     * @param int|int[]|string|string[] $columns Column values for filtering
+     * Possible usage:
+     *      - Use column key
+     *      - Use combination of module, group, account and name without column key
+     *
+     * @param null|int|int[]|string|string[] $columns Column values for filtering
+     * @param null|string                    $name    Setting name @todo consider to make this an integer?!
+     * @param null|string                    $module  Module name
+     * @param null|int                       $group   Group id
+     * @param null|int                       $account Account id
      *
      * @return mixed Option value
      *
      * @since 1.0.0
      */
-    public function get($columns)
-    {
+    public function get(
+        $columns = null,
+        string $name = null,
+        string $module = null,
+        int $group = null,
+        int $account = null
+    ) {
         $options = [];
-        if (!\is_array($columns)) {
-            $keys = [$columns];
-        } else {
-            $keys = [];
-            foreach ($columns as $key) {
-                $keys[] = \is_string($key) ? (int) \preg_replace('/[^0-9.]/', '', $key) : $key;
-            }
-        }
+        $keys    = [];
 
-        foreach ($keys as $key) {
+        if ($columns === null) {
+            $key = ($name ?? '') . ':' . ($module ?? '') . ':' . ($group ?? '') . ':' . ($account ?? '');
             if ($this->exists($key)) {
                 $options[$key] = $this->getOption($key);
-                unset($keys[$key]);
+
+                return \count($options) > 1 ? $options : \reset($options);
+            }
+        } else {
+            if (!\is_array($columns)) {
+                $keys = [$columns];
+            } else {
+                $keys = [];
+                foreach ($columns as $key) {
+                    $keys[] = \is_string($key) ? (int) \preg_replace('/[^0-9.]/', '', $key) : $key;
+                }
+            }
+
+            foreach ($keys as $key) {
+                if ($this->exists($key)) {
+                    $options[$key] = $this->getOption($key);
+                    unset($keys[$key]);
+                }
+            }
+
+            if (empty($keys)) {
+                return \count($options) > 1 ? $options : \reset($options);
             }
         }
 
         try {
             $dbOptions = [];
             $query     = new Builder($this->connection);
-            $sql       = $query->select(...static::$columns)
-                ->from($this->connection->prefix . static::$table)
-                ->where(static::$columns[0], 'in', $keys)
-                ->toSql();
+            $query->select(...static::$columns)
+                ->from($this->connection->prefix . static::$table);
+
+            if (!empty($columns)) {
+                $query->where(static::$columns[0], 'in', $keys);
+            } else {
+                if ($name !== null) {
+                    $query->where(static::$columns['name'], '=', $name);
+                }
+
+                if ($module !== null) {
+                    $query->andWhere(static::$columns['module'], '=', $module);
+                }
+
+                if ($group !== null) {
+                    $query->andWhere(static::$columns['group'], '=', $group);
+                }
+
+                if ($account !== null) {
+                    $query->andWhere(static::$columns['account'], '=', $account);
+                }
+            }
+
+            $sql = $query->toSql();
 
             $sth = $this->connection->con->prepare($sql);
             $sth->execute();
 
             $dbOptions = $sth->fetchAll(\PDO::FETCH_KEY_PAIR);
-            $options  += $dbOptions;
+            $options  += $dbOptions === false ? [] : $dbOptions;
 
             if ($dbOptions === false) {
                 return \count($options) > 1 ? $options : \reset($options); // @codeCoverageIgnore
