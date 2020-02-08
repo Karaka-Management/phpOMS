@@ -161,6 +161,24 @@ class Localization
     }
 
     /**
+     * Create localization from language code
+     *
+     * @param string $langCode    Language code
+     * @param string $countryCode Country code
+     *
+     * @return Localization
+     *
+     * @since 1.0.0
+     */
+    public static function fromLanguage(string $langCode, string $countryCode = '*') : self
+    {
+        $l11n = new self();
+        $l11n->loadFromLanguage($langCode, $countryCode);
+
+        return $l11n;
+    }
+
+    /**
      * Load localization from language code
      *
      * @param string $langCode    Language code
