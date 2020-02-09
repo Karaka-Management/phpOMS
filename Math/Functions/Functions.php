@@ -179,7 +179,7 @@ final class Functions
      *
      * @since 1.0.0
      */
-    public static function mod($a, $b) : int
+    public static function mod(int $a, int $b) : int
     {
         if ($a < 0) {
             return ($a + $b) % $b;
@@ -197,7 +197,7 @@ final class Functions
      *
      * @since 1.0.0
      */
-    public static function isOdd($a) : bool
+    public static function isOdd(int $a) : bool
     {
         return (bool) ($a & 1);
     }
@@ -211,7 +211,7 @@ final class Functions
      *
      * @since 1.0.0
      */
-    public static function isEven($a) : bool
+    public static function isEven(int $a) : bool
     {
         return !((bool) ($a & 1));
     }
