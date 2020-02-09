@@ -25,7 +25,7 @@ namespace phpOMS\System\File;
 final class FileUtils
 {
     public const CODE_EXTENSION         = ['cpp', 'c', 'h', 'hpp', 'cs', 'css', 'scss', 'htm', 'html', 'js', 'java', 'sh', 'vb', 'php', 'rb', 'rs', 'ts', 'swift', 'class', 'htaccess', 'sql', 'py', 'bat', 'xml'];
-    public const TEXT_EXTENSION         = ['log', 'txt', 'md', 'csv', 'tex', 'latex', 'cfg', 'config', 'conf', 'ini'];
+    public const TEXT_EXTENSION         = ['log', 'txt', 'md', 'csv', 'tex', 'latex', 'cfg', 'json', 'config', 'conf', 'ini', 'yaml', 'yml'];
     public const WORD_EXTENSION         = ['doc', 'docx', 'rtf', 'odt'];
     public const PRESENTATION_EXTENSION = ['ppt', 'pptx', 'pps', 'odp', 'key'];
     public const PDF_EXTENSION          = ['pdf'];
