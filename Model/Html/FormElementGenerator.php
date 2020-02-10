@@ -29,23 +29,24 @@ final class FormElementGenerator
     /**
      * Generate a form element from a json object
      *
-     * @param array    $json Json object representing the form element
-     * @param string[] $lang Language array
+     * @param array    $json  Json object representing the form element
+     * @param mixed    $value Null means the default value in the json array will be used
+     * @param string[] $lang  Language array
      *
      * @return string
      *
      * @since 1.0.0
      */
-    public static function generate(array $json, array $lang = []) : string
+    public static function generate(array $json, $value = null, array $lang = []) : string
     {
         if ($json['type'] === 'select') {
-            return self::generateSelect($json, $lang);
+            return self::generateSelect($json, $value, $lang);
         } elseif ($json['type'] === 'input') {
-            return self::generateInput($json, $lang);
+            return self::generateInput($json, $value, $lang);
         } elseif ($json['type'] === 'label') {
             return self::generateLabel($json, $lang);
         } elseif ($json['type'] === 'textarea') {
-            return self::generateTextarea($json);
+            return self::generateTextarea($json, $value);
         }
 
         return 'INVALID';
@@ -54,21 +55,24 @@ final class FormElementGenerator
     /**
      * Generate a form element from a json object
      *
-     * @param array    $json Json object representing the form element
-     * @param string[] $lang Language array
+     * @param array    $json  Json object representing the form element
+     * @param mixed    $value Null means the default value in the json array will be used
+     * @param string[] $lang  Language array
      *
      * @return string
      *
      * @since 1.0.0
      */
-    private static function generateInput(array $json, array $lang = []) : string
+    private static function generateInput(array $json, $value = null, array $lang = []) : string
     {
         $element = '<input';
-        foreach ($json['attributes'] as $attribute => $value) {
-            $element .= ' ' . $attribute . '="' . $value .  '"';
+        foreach ($json['attributes'] as $attribute => $val) {
+            $element .= ' ' . $attribute . '="' . $val .  '"';
         }
 
-        $element .= (isset($json['default']) ? ' value="' . ($json['subtype'] === 'datetime' ? (new SmartDateTime($json['default']['value']))->format($json['default']['format']) : $json['default']['value']) .  '"' : '');
+        $value = $value ?? $json['default']['value'];
+
+        $element .= (isset($json['default']) || $value !== null ? ' value="' . ($json['subtype'] === 'datetime' ? (new SmartDateTime($value))->format($json['default']['format']) : $value) .  '"' : '');
 
         $element .= ($json['subtype'] === 'checkbox' || $json['subtype'] === 'radio') && $json['default']['checked'] ? ' checked' : '';
         $element .= '>';
@@ -80,24 +84,27 @@ final class FormElementGenerator
     /**
      * Generate a form element from a json object
      *
-     * @param array    $json Json object representing the form element
-     * @param string[] $lang Language array
+     * @param array    $json  Json object representing the form element
+     * @param mixed    $value Null means the default value in the json array will be used
+     * @param string[] $lang  Language array
      *
      * @return string
      *
      * @since 1.0.0
      */
-    private static function generateSelect(array $json, array $lang = []) : string
+    private static function generateSelect(array $json, $value = null, array $lang = []) : string
     {
         $element = '<select';
-        foreach ($json['attributes'] as $attribute => $value) {
-            $element .= ' ' . $attribute . '="' . $value .  '"';
+        foreach ($json['attributes'] as $attribute => $val) {
+            $element .= ' ' . $attribute . '="' . $val .  '"';
         }
 
         $element .= '>';
 
-        foreach ($json['options'] as $value => $text) {
-            $element .= '<option value="' . $value . '"' . (isset($json['default']) && $value === $json['default']['value'] ? ' selected' : '') . '>' . ($lang[$text] ?? $text) .  '</option>';
+        $value = $value ?? $json['default']['value'];
+
+        foreach ($json['options'] as $val => $text) {
+            $element .= '<option value="' . $val . '"' . (isset($json['default']) && $val === $value ? ' selected' : '') . '>' . ($lang[$text] ?? $text) .  '</option>';
         }
 
         $element .= '</select>';
@@ -108,21 +115,24 @@ final class FormElementGenerator
     /**
      * Generate a form element from a json object
      *
-     * @param array $json Json object representing the form element
+     * @param array $json  Json object representing the form element
+     * @param mixed $value Null means the default value in the json array will be used
      *
      * @return string
      *
      * @since 1.0.0
      */
-    private static function generateTextarea(array $json) : string
+    private static function generateTextarea(array $json, $value = null) : string
     {
         $element = '<textarea';
-        foreach ($json['attributes'] as $attribute => $value) {
-            $element .= ' ' . $attribute . '="' . $value .  '"';
+        foreach ($json['attributes'] as $attribute => $val) {
+            $element .= ' ' . $attribute . '="' . $val .  '"';
         }
 
+        $value = $value ?? $json['default']['value'];
+
         $element .= '>';
-        $element .= isset($json['default']) ? ' value="' . $json['default']['value'] .  '"' : '';
+        $element .= isset($json['default']) ? ' value="' . $value .  '"' : '';
         $element .= '</textarea>';
 
         return $element;
@@ -141,12 +151,12 @@ final class FormElementGenerator
     private static function generateLabel(array $json, array $lang = []) : string
     {
         $element = '<label';
-        foreach ($json['attributes'] as $attribute => $value) {
-            $element .= ' ' . $attribute . '="' . $value .  '"';
+        foreach ($json['attributes'] as $attribute => $val) {
+            $element .= ' ' . $attribute . '="' . $val .  '"';
         }
 
         $element .= '>';
-        $element .= isset($json['default']) ? ' value="' . ($lang[$json['default']['value']] ?? $json['default']['value']) .  '"' : '';
+        $element .= $lang[$json['default']['value']] ?? $json['default']['value'];
         $element .= '</label>';
 
         return $element;
