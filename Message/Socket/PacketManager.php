@@ -16,8 +16,6 @@ namespace phpOMS\Message\Socket;
 
 use phpOMS\Dispatcher\Dispatcher;
 use phpOMS\Router\SocketRouter;
-use phpOMS\Message\Socket\SocketRequest;
-use phpOMS\Message\Socket\SocketResponse;
 
 /**
  * Server class.

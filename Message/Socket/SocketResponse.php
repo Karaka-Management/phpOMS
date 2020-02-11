@@ -15,10 +15,10 @@ declare(strict_types=1);
 namespace phpOMS\Message\Socket;
 
 use phpOMS\Contract\RenderableInterface;
+use phpOMS\Log\FileLogger;
 use phpOMS\Message\ResponseAbstract;
 use phpOMS\System\MimeType;
 use phpOMS\Utils\StringUtils;
-use phpOMS\Log\FileLogger;
 use phpOMS\Views\View;
 
 /**

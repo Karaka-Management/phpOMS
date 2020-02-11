@@ -16,8 +16,8 @@ namespace phpOMS\tests\Message\Http;
 
 use phpOMS\Localization\Localization;
 use phpOMS\Message\Http\BrowserType;
-use phpOMS\Message\Http\OSType;
 use phpOMS\Message\Http\HttpRequest;
+use phpOMS\Message\Http\OSType;
 use phpOMS\Message\Http\RequestMethod;
 use phpOMS\Router\RouteVerb;
 use phpOMS\Uri\Http;
