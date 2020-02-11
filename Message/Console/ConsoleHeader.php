@@ -26,7 +26,7 @@ use phpOMS\Message\HeaderAbstract;
  *
  * @SuppressWarnings(PHPMD.Superglobals)
  */
-final class Header extends HeaderAbstract
+final class ConsoleHeader extends HeaderAbstract
 {
     /**
      * Protocol version.

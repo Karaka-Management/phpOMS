@@ -15,7 +15,7 @@ declare(strict_types=1);
 namespace phpOMS\tests\Message\Console;
 
 use phpOMS\Localization\Localization;
-use phpOMS\Message\Console\Request;
+use phpOMS\Message\Console\ConsoleRequest;
 use phpOMS\Message\Http\OSType;
 use phpOMS\Message\Http\RequestMethod;
 use phpOMS\Router\RouteVerb;
@@ -24,11 +24,11 @@ use phpOMS\Uri\Argument;
 /**
  * @internal
  */
-class RequestTest extends \PHPUnit\Framework\TestCase
+class ConsoleRequestTest extends \PHPUnit\Framework\TestCase
 {
     public function testDefault() : void
     {
-        $request = new Request();
+        $request = new ConsoleRequest();
 
         self::assertEquals('en', $request->getHeader()->getL11n()->getLanguage());
         self::assertEquals(OSType::LINUX, $request->getOS());
@@ -36,7 +36,7 @@ class RequestTest extends \PHPUnit\Framework\TestCase
         self::assertEmpty($request->getBody());
         self::assertEquals(RouteVerb::GET, $request->getRouteVerb());
         self::assertEquals(RequestMethod::GET, $request->getMethod());
-        self::assertInstanceOf('\phpOMS\Message\Console\Header', $request->getHeader());
+        self::assertInstanceOf('\phpOMS\Message\Console\ConsoleHeader', $request->getHeader());
         self::assertEquals('', $request->__toString());
         self::assertFalse($request->hasData('key'));
         self::assertNull($request->getData('key'));
@@ -44,7 +44,7 @@ class RequestTest extends \PHPUnit\Framework\TestCase
 
     public function testSetGet() : void
     {
-        $request = new Request(new Argument('get:some/test/path'), $l11n = new Localization());
+        $request = new ConsoleRequest(new Argument('get:some/test/path'), $l11n = new Localization());
 
         $request->setOS(OSType::WINDOWS_XP);
         self::assertEquals(OSType::WINDOWS_XP, $request->getOS());
@@ -74,14 +74,14 @@ class RequestTest extends \PHPUnit\Framework\TestCase
 
     public function testToString() : void
     {
-        $request = new Request(new Argument('get:some/test/path'));
+        $request = new ConsoleRequest(new Argument('get:some/test/path'));
         self::assertEquals('get:some/test/path', $request->__toString());
 
         $request->setData('test', 'data');
         $request->setData('test2', 3);
         self::assertEquals('get:some/test/path', $request->__toString());
 
-        $request = new Request(new Argument('get:some/test/path?test=var'));
+        $request = new ConsoleRequest(new Argument('get:some/test/path?test=var'));
         self::assertEquals('get:some/test/path?test=var', $request->__toString());
     }
 
@@ -89,7 +89,7 @@ class RequestTest extends \PHPUnit\Framework\TestCase
     {
         self::expectException(\Exception::class);
 
-        $request = new Request(new Argument('get:some/test/path'));
+        $request = new ConsoleRequest(new Argument('get:some/test/path'));
         $request->setMethod('failure');
         $request->getRouteVerb();
     }

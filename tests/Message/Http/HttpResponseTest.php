@@ -14,26 +14,26 @@ declare(strict_types=1);
 
 namespace phpOMS\tests\Message\Http;
 
-use phpOMS\Message\Http\Response;
+use phpOMS\Message\Http\HttpResponse;
 use phpOMS\System\MimeType;
 
 /**
- * @testdox phpOMS\tests\Message\Http\ResponseTest: Response wrapper for http responses
+ * @testdox phpOMS\tests\Message\Http\ResponseTest: HttpResponse wrapper for http responses
  *
  * @internal
  */
 class ResponseTest extends \PHPUnit\Framework\TestCase
 {
-    protected Response $response;
+    protected HttpResponse $response;
 
     protected function setUp() : void
     {
-        $this->response = new Response();
+        $this->response = new HttpResponse();
     }
 
     /**
      * @testdox The response has the expected default values after initialization
-     * @covers phpOMS\Message\Http\Response<extended>
+     * @covers phpOMS\Message\Http\HttpResponse<extended>
      * @group framework
      */
     public function testDefault() : void
@@ -42,12 +42,12 @@ class ResponseTest extends \PHPUnit\Framework\TestCase
         self::assertEquals('', $this->response->render());
         self::assertEquals([], $this->response->toArray());
         self::assertInstanceOf('\phpOMS\Localization\Localization', $this->response->getHeader()->getL11n());
-        self::assertInstanceOf('\phpOMS\Message\Http\Header', $this->response->getHeader());
+        self::assertInstanceOf('\phpOMS\Message\Http\HttpHeader', $this->response->getHeader());
     }
 
     /**
      * @testdox Response data can be set and returned
-     * @covers phpOMS\Message\Http\Response<extended>
+     * @covers phpOMS\Message\Http\HttpResponse<extended>
      * @group framework
      */
     public function testResponseInputOutput() : void
@@ -58,7 +58,7 @@ class ResponseTest extends \PHPUnit\Framework\TestCase
 
     /**
      * @testdox Response data can be removed
-     * @covers phpOMS\Message\Http\Response<extended>
+     * @covers phpOMS\Message\Http\HttpResponse<extended>
      * @group framework
      */
     public function testRemove() : void
@@ -69,7 +69,7 @@ class ResponseTest extends \PHPUnit\Framework\TestCase
 
     /**
      * @testdox None-existing response data cannot be removed
-     * @covers phpOMS\Message\Http\Response<extended>
+     * @covers phpOMS\Message\Http\HttpResponse<extended>
      * @group framework
      */
     public function testInvalidRemove() : void
@@ -82,7 +82,7 @@ class ResponseTest extends \PHPUnit\Framework\TestCase
 
     /**
      * @testdox Response data can be turned into an array
-     * @covers phpOMS\Message\Http\Response<extended>
+     * @covers phpOMS\Message\Http\HttpResponse<extended>
      * @group framework
      */
     public function testToArray() : void
@@ -121,7 +121,7 @@ class ResponseTest extends \PHPUnit\Framework\TestCase
 
     /**
      * @testdox A response with json as content-type is automatically rendered as json data
-     * @covers phpOMS\Message\Http\Response<extended>
+     * @covers phpOMS\Message\Http\HttpResponse<extended>
      * @group framework
      */
     public function testJsonRender() : void
@@ -161,7 +161,7 @@ class ResponseTest extends \PHPUnit\Framework\TestCase
 
     /**
      * @testdox Json data can be decoded from the response data
-     * @covers phpOMS\Message\Http\Response<extended>
+     * @covers phpOMS\Message\Http\HttpResponse<extended>
      * @group framework
      */
     public function testJsonDataDecode() : void
@@ -174,7 +174,7 @@ class ResponseTest extends \PHPUnit\Framework\TestCase
 
     /**
      * @testdox A html response can be forced to minimize the content by removing newlines and whitespaces
-     * @covers phpOMS\Message\Http\Response<extended>
+     * @covers phpOMS\Message\Http\HttpResponse<extended>
      * @group framework
      */
     public function testMinimizedRender() : void
@@ -192,7 +192,7 @@ class ResponseTest extends \PHPUnit\Framework\TestCase
 
     /**
      * @testdox None-html responses cannot be forced to minimize the content by removing newlines and whitespaces
-     * @covers phpOMS\Message\Http\Response<extended>
+     * @covers phpOMS\Message\Http\HttpResponse<extended>
      * @group framework
      */
     public function testInvalidMinimizedRender() : void
@@ -210,7 +210,7 @@ class ResponseTest extends \PHPUnit\Framework\TestCase
 
     /**
      * @testdox Invalid response data results in an empty array
-     * @covers phpOMS\Message\Http\Response<extended>
+     * @covers phpOMS\Message\Http\HttpResponse<extended>
      * @group framework
      */
     public function testInvalidResponseDataToArray() : void
@@ -221,7 +221,7 @@ class ResponseTest extends \PHPUnit\Framework\TestCase
 
     /**
      * @testdox Invalid response data results in an empty render
-     * @covers phpOMS\Message\Http\Response<extended>
+     * @covers phpOMS\Message\Http\HttpResponse<extended>
      * @group framework
      */
     public function testInvalidResponseDataRender() : void

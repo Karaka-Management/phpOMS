@@ -16,6 +16,8 @@ namespace phpOMS\Message\Socket;
 
 use phpOMS\Dispatcher\Dispatcher;
 use phpOMS\Router\SocketRouter;
+use phpOMS\Message\Socket\SocketRequest;
+use phpOMS\Message\Socket\SocketResponse;
 
 /**
  * Server class.
@@ -70,10 +72,10 @@ class PacketManager
      */
     public function handle(string $data, $client) : void
     {
-        $request = new Request($data);
+        $request = new SocketRequest();
         $request->getHeader()->setAccount($client->getAccount()->getId());
 
-        $response = new Response();
+        $response = new SocketResponse();
 
         $this->dispatcher->dispatch(
             $this->router->route($data, 'Socket', 1, $client->getAccount()),

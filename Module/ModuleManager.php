@@ -17,7 +17,7 @@ namespace phpOMS\Module;
 use phpOMS\ApplicationAbstract;
 use phpOMS\Autoloader;
 use phpOMS\DataStorage\Database\Query\Builder;
-use phpOMS\Message\Http\Request;
+use phpOMS\Message\Http\HttpRequest;
 use phpOMS\Message\RequestAbstract;
 use phpOMS\Module\Exception\InvalidModuleException;
 use phpOMS\System\File\PathException;
@@ -795,13 +795,13 @@ final class ModuleManager
     /**
      * Initialize all modules for a request.
      *
-     * @param Request $request Request
+     * @param HttpRequest $request Request
      *
      * @return void
      *
      * @since 1.0.0
      */
-    public function initRequestModules(Request $request) : void
+    public function initRequestModules(HttpRequest $request) : void
     {
         $toInit = $this->getRoutedModules($request);
 
@@ -813,13 +813,13 @@ final class ModuleManager
     /**
      * Get modules that run on this page.
      *
-     * @param Request $request Request
+     * @param HttpRequest $request Request
      *
      * @return string[]
      *
      * @since 1.0.0
      */
-    public function getRoutedModules(Request $request) : array
+    public function getRoutedModules(HttpRequest $request) : array
     {
         $files   = $this->getUriLoad($request);
         $modules = [];

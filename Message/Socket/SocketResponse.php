@@ -17,6 +17,9 @@ namespace phpOMS\Message\Socket;
 use phpOMS\Contract\RenderableInterface;
 use phpOMS\Message\ResponseAbstract;
 use phpOMS\System\MimeType;
+use phpOMS\Utils\StringUtils;
+use phpOMS\Log\FileLogger;
+use phpOMS\Views\View;
 
 /**
  * Response class.
@@ -26,7 +29,7 @@ use phpOMS\System\MimeType;
  * @link    https://orange-management.org
  * @since   1.0.0
  */
-final class Response extends ResponseAbstract implements RenderableInterface
+final class SocketResponse extends ResponseAbstract implements RenderableInterface
 {
    /**
     * Set response.

@@ -16,7 +16,7 @@ namespace phpOMS\tests\Module;
 
 use phpOMS\ApplicationAbstract;
 use phpOMS\Dispatcher\Dispatcher;
-use phpOMS\Message\Http\Request;
+use phpOMS\Message\Http\HttpRequest;
 use phpOMS\Module\ModuleManager;
 use phpOMS\Router\WebRouter;
 use phpOMS\Uri\Http;
@@ -179,7 +179,7 @@ class ModuleManagerTest extends \PHPUnit\Framework\TestCase
      */
     public function testRequestLoad() : void
     {
-        $request = new Request(new Http('http://127.0.0.1/en/backend/testmodule'));
+        $request = new HttpRequest(new Http('http://127.0.0.1/en/backend/testmodule'));
         $request->createRequestHashs(2);
 
         $loaded = $this->moduleManager->getUriLoad($request);

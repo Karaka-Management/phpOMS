@@ -15,16 +15,16 @@ declare(strict_types=1);
 namespace phpOMS\tests\Message\Console;
 
 use phpOMS\Localization\Localization;
-use phpOMS\Message\Console\Header;
+use phpOMS\Message\Console\ConsoleHeader;
 
 /**
  * @internal
  */
-class HeaderTest extends \PHPUnit\Framework\TestCase
+class ConsoleHeaderTest extends \PHPUnit\Framework\TestCase
 {
     public function testDefaults() : void
     {
-        $header = new Header();
+        $header = new ConsoleHeader();
         self::assertFalse($header->isLocked());
         self::assertEquals(0, $header->getStatusCode());
         self::assertEquals('1.0', $header->getProtocolVersion());
@@ -37,7 +37,7 @@ class HeaderTest extends \PHPUnit\Framework\TestCase
 
     public function testGetSet() : void
     {
-        $header = new Header();
+        $header = new ConsoleHeader();
 
         self::assertTrue($header->set('key', 'header'));
         self::assertEquals(['header'], $header->get('key'));
@@ -59,7 +59,7 @@ class HeaderTest extends \PHPUnit\Framework\TestCase
 
     public function testLockedHeaderSet() : void
     {
-        $header = new Header();
+        $header = new ConsoleHeader();
         $header->lock();
         self::assertTrue($header->isLocked());
         self::assertFalse($header->set('key', 'value'));
@@ -67,7 +67,7 @@ class HeaderTest extends \PHPUnit\Framework\TestCase
 
     public function testLockedHeaderRemove() : void
     {
-        $header = new Header();
+        $header = new ConsoleHeader();
         $header->lock();
         self::assertTrue($header->isLocked());
         self::assertFalse($header->remove('key'));

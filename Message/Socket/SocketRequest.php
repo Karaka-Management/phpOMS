@@ -24,7 +24,7 @@ use phpOMS\Message\RequestAbstract;
  * @link    https://orange-management.org
  * @since   1.0.0
  */
-final class Request extends RequestAbstract
+final class SocketRequest extends RequestAbstract
 {
     /**
      * Constructor
@@ -33,7 +33,7 @@ final class Request extends RequestAbstract
      */
     public function __construct()
     {
-        $this->header = new Header();
+        $this->header = new SocketHeader();
     }
 
     /**

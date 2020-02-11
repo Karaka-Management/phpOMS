@@ -31,7 +31,7 @@ use phpOMS\Uri\UriInterface;
  *
  * @SuppressWarnings(PHPMD.Superglobals)
  */
-final class Request extends RequestAbstract
+final class HttpRequest extends RequestAbstract
 {
     /**
      * Request method.
@@ -83,7 +83,7 @@ final class Request extends RequestAbstract
      */
     public function __construct(UriInterface $uri = null, Localization $l11n = null)
     {
-        $this->header = new Header();
+        $this->header = new HttpHeader();
         $this->header->setL11n($l11n ?? new Localization());
 
         if ($uri !== null) {
@@ -405,7 +405,7 @@ final class Request extends RequestAbstract
     /**
      * Create request from superglobals.
      *
-     * @return Request
+     * @return HttpRequest
      *
      * @since 1.0.0
      */
@@ -650,11 +650,11 @@ final class Request extends RequestAbstract
     /**
      * Perform rest request
      *
-     * @return Response
+     * @return HttpResponse
      *
      * @since 1.0.0
      */
-    public function rest() : Response
+    public function rest() : HttpResponse
     {
         return Rest::request($this);
     }

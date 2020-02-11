@@ -27,15 +27,15 @@ final class Rest
     /**
      * Make request.
      *
-     * @param Request $request Request
+     * @param HttpRequest $request Request
      *
-     * @return Response Returns the request result
+     * @return HttpResponse Returns the request result
      *
      * @throws \Exception this exception is thrown if an internal curl_init error occurs
      *
      * @since 1.0.0
      */
-    public static function request(Request $request) : Response
+    public static function request(HttpRequest $request) : HttpResponse
     {
         $curl = \curl_init();
 
@@ -79,7 +79,7 @@ final class Rest
         }
 
         $cHeaderString = '';
-        $response      = new Response();
+        $response      = new HttpResponse();
 
         \curl_setopt($curl, \CURLOPT_HEADERFUNCTION,
             function($curl, $header) use ($response, &$cHeaderString) {

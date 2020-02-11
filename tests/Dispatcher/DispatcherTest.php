@@ -17,8 +17,8 @@ namespace phpOMS\tests\Dispatcher;
 use phpOMS\ApplicationAbstract;
 use phpOMS\Dispatcher\Dispatcher;
 use phpOMS\Localization\Localization;
-use phpOMS\Message\Http\Request;
-use phpOMS\Message\Http\Response;
+use phpOMS\Message\Http\HttpRequest;
+use phpOMS\Message\Http\HttpResponse;
 use phpOMS\Router\WebRouter;
 use phpOMS\Uri\Http;
 
@@ -63,8 +63,8 @@ class DispatcherTest extends \PHPUnit\Framework\TestCase
             !empty(
                 $this->app->dispatcher->dispatch(
                     function($req, $resp, $data = null) { return true; },
-                    new Request(new Http(''), $localization),
-                    new Response($localization)
+                    new HttpRequest(new Http(''), $localization),
+                    new HttpResponse($localization)
                 )
             )
         );
@@ -91,8 +91,8 @@ class DispatcherTest extends \PHPUnit\Framework\TestCase
             !empty(
                 $this->app->dispatcher->dispatch(
                     'phpOMS\tests\Dispatcher\TestController:testFunction',
-                    new Request(new Http(''), $localization),
-                    new Response($localization)
+                    new HttpRequest(new Http(''), $localization),
+                    new HttpResponse($localization)
                 )
             )
         );
@@ -111,8 +111,8 @@ class DispatcherTest extends \PHPUnit\Framework\TestCase
             !empty(
                 $this->app->dispatcher->dispatch(
                     ['dest' => 'phpOMS\tests\Dispatcher\TestController:testFunction'],
-                    new Request(new Http(''), $localization),
-                    new Response($localization)
+                    new HttpRequest(new Http(''), $localization),
+                    new HttpResponse($localization)
                 )
             )
         );
@@ -139,8 +139,8 @@ class DispatcherTest extends \PHPUnit\Framework\TestCase
             !empty(
                 $this->app->dispatcher->dispatch(
                     'phpOMS\tests\Dispatcher\TestController::testFunctionStatic',
-                    new Request(new Http(''), $localization),
-                    new Response($localization)
+                    new HttpRequest(new Http(''), $localization),
+                    new HttpResponse($localization)
                 )
             )
         );
@@ -163,8 +163,8 @@ class DispatcherTest extends \PHPUnit\Framework\TestCase
                         'phpOMS\tests\Dispatcher\TestController:testFunction',
                         'phpOMS\tests\Dispatcher\TestController::testFunctionStatic',
                     ],
-                    new Request(new Http(''), $localization),
-                    new Response($localization)
+                    new HttpRequest(new Http(''), $localization),
+                    new HttpResponse($localization)
                 )
             )
         );

@@ -27,7 +27,7 @@ use phpOMS\System\MimeType;
  *
  * @SuppressWarnings(PHPMD.Superglobals)
  */
-final class Header extends HeaderAbstract
+final class HttpHeader extends HeaderAbstract
 {
     /**
      * Header.

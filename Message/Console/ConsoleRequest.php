@@ -31,7 +31,7 @@ use phpOMS\Uri\UriInterface;
  *
  * @SuppressWarnings(PHPMD.Superglobals)
  */
-final class Request extends RequestAbstract
+final class ConsoleRequest extends RequestAbstract
 {
     /**
      * Uri.
@@ -75,7 +75,7 @@ final class Request extends RequestAbstract
      */
     public function __construct(UriInterface $uri = null, Localization $l11n = null)
     {
-        $this->header = new Header();
+        $this->header = new ConsoleHeader();
         $this->header->setL11n($l11n ?? new Localization());
 
         $this->uri = $uri ?? new Argument();

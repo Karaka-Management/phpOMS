@@ -16,8 +16,8 @@ namespace phpOMS\tests\Module;
 
 require_once __DIR__ . '/../Autoloader.php';
 
-use phpOMS\Message\Http\Request;
-use phpOMS\Message\Http\Response;
+use phpOMS\Message\Http\HttpRequest;
+use phpOMS\Message\Http\HttpResponse;
 use phpOMS\Module\ModuleAbstract;
 use phpOMS\Uri\Http;
 
@@ -38,12 +38,12 @@ class ModuleAbstractTest extends \PHPUnit\Framework\TestCase
             const MODULE_ID                = 2;
             protected static array $dependencies = [1, 2];
 
-            public function fillJson(Request $request, Response $response, string $status, string $title, string $message, array $data) : void
+            public function fillJson(HttpRequest $request, HttpResponse $response, string $status, string $title, string $message, array $data) : void
             {
                 $this->fillJsonResponse($request, $response, $status, $title, $message, $data);
             }
 
-            public function fillJsonRaw(Request $request, Response $response, array $data) : void
+            public function fillJsonRaw(HttpRequest $request, HttpResponse $response, array $data) : void
             {
                 $this->fillJsonRawResponse($request, $response, $data);
             }
@@ -119,8 +119,8 @@ class ModuleAbstractTest extends \PHPUnit\Framework\TestCase
      */
     public function testFillJson() : void
     {
-        $request  = new Request(new Http(''));
-        $response = new Response();
+        $request  = new HttpRequest(new Http(''));
+        $response = new HttpResponse();
 
         $this->module->fillJson($request, $response, 'OK', 'Test Title', 'Test Message!', [1, 'test string', 'bool' => true]);
 
@@ -142,8 +142,8 @@ class ModuleAbstractTest extends \PHPUnit\Framework\TestCase
      */
     public function testFillJsonRaw() : void
     {
-        $request  = new Request(new Http(''));
-        $response = new Response();
+        $request  = new HttpRequest(new Http(''));
+        $response = new HttpResponse();
 
         $this->module->fillJsonRaw($request, $response, [1, 'test string', 'bool' => true]);
 

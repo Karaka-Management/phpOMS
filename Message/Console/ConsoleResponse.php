@@ -30,7 +30,7 @@ use phpOMS\Views\View;
  * @link    https://orange-management.org
  * @since   1.0.0
  */
-final class Response extends ResponseAbstract implements RenderableInterface
+final class ConsoleResponse extends ResponseAbstract implements RenderableInterface
 {
     /**
      * Response status.
@@ -49,7 +49,7 @@ final class Response extends ResponseAbstract implements RenderableInterface
      */
     public function __construct(Localization $l11n = null)
     {
-        $this->header = new Header();
+        $this->header = new ConsoleHeader();
         $this->header->setL11n($l11n ?? new Localization());
     }
 

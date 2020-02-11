@@ -26,7 +26,7 @@ use phpOMS\Message\HeaderAbstract;
  * @link    https://orange-management.org
  * @since   1.0.0
  */
-class Header extends HeaderAbstract implements \Serializable
+class SocketHeader extends HeaderAbstract implements \Serializable
 {
     private $sendFrom = null;
 
