@@ -70,7 +70,7 @@ final class FormElementGenerator
             $element .= ' ' . $attribute . '="' . $val .  '"';
         }
 
-        $value = $value ?? $json['default']['value'];
+        $value ??= $json['default']['value'];
 
         $element .= (isset($json['default']) || $value !== null ? ' value="' . ($json['subtype'] === 'datetime' ? (new SmartDateTime($value))->format($json['default']['format']) : $value) .  '"' : '');
 
@@ -101,7 +101,7 @@ final class FormElementGenerator
 
         $element .= '>';
 
-        $value = $value ?? $json['default']['value'];
+        $value ??= $json['default']['value'];
 
         foreach ($json['options'] as $val => $text) {
             $element .= '<option value="' . $val . '"' . (isset($json['default']) && $val === $value ? ' selected' : '') . '>' . ($lang[$text] ?? $text) .  '</option>';
@@ -129,7 +129,7 @@ final class FormElementGenerator
             $element .= ' ' . $attribute . '="' . $val .  '"';
         }
 
-        $value = $value ?? $json['default']['value'];
+        $value ??= $json['default']['value'];
 
         $element .= '>';
         $element .= isset($json['default']) ? ' value="' . $value .  '"' : '';
