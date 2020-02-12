@@ -19,7 +19,7 @@ use phpOMS\System\File\DirectoryInterface;
 use phpOMS\System\File\FileUtils;
 use phpOMS\System\File\Local\Directory as LocalDirectory;
 use phpOMS\System\File\PathException;
-use phpOMS\Uri\Http;
+use phpOMS\Uri\HttpUri;
 
 /**
  * Filesystem class.
@@ -44,13 +44,13 @@ class Directory extends FileAbstract implements FtpContainerInterface, Directory
     /**
      * Create ftp connection.
      *
-     * @param HTTP $http Uri
+     * @param HttpUri $http Uri
      *
      * @return mixed
      *
      * @since 1.0.0
      */
-    public static function ftpConnect(Http $http)
+    public static function ftpConnect(HttpUri $http)
     {
         $con = \ftp_connect($http->getHost(), $http->getPort());
 

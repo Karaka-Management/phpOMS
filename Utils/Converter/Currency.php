@@ -18,7 +18,7 @@ use phpOMS\Localization\ISO4217CharEnum;
 use phpOMS\Message\Http\HttpRequest;
 use phpOMS\Message\Http\RequestMethod;
 use phpOMS\Message\Http\Rest;
-use phpOMS\Uri\Http;
+use phpOMS\Uri\HttpUri;
 
 /**
  * Currency converter.
@@ -98,7 +98,7 @@ final class Currency
     public static function getEcbEuroRates() : array
     {
         if (empty(self::$ecbCurrencies)) {
-            $request = new HttpRequest(new Http('https://www.ecb.europa.eu/stats/eurofxref/eurofxref-daily.xml'));
+            $request = new HttpRequest(new HttpUri('https://www.ecb.europa.eu/stats/eurofxref/eurofxref-daily.xml'));
             $request->setMethod(RequestMethod::GET);
 
             try {

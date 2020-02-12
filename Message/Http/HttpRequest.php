@@ -17,7 +17,7 @@ namespace phpOMS\Message\Http;
 use phpOMS\Localization\Localization;
 use phpOMS\Message\RequestAbstract;
 use phpOMS\Router\RouteVerb;
-use phpOMS\Uri\Http;
+use phpOMS\Uri\HttpUri;
 use phpOMS\Uri\UriFactory;
 use phpOMS\Uri\UriInterface;
 
@@ -123,7 +123,7 @@ final class HttpRequest extends RequestAbstract
      */
     private function initCurrentRequest() : void
     {
-        $this->uri   = Http::fromCurrent();
+        $this->uri   = HttpUri::fromCurrent();
         $this->data  = $_GET ?? [];
         $this->files = $_FILES ?? [];
         $this->header->getL11n()->setLanguage($this->getRequestLanguage());

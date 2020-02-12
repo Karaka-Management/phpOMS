@@ -19,7 +19,7 @@ use phpOMS\Dispatcher\Dispatcher;
 use phpOMS\Message\Http\HttpRequest;
 use phpOMS\Module\ModuleManager;
 use phpOMS\Router\WebRouter;
-use phpOMS\Uri\Http;
+use phpOMS\Uri\HttpUri;
 
 require_once __DIR__ . '/../Autoloader.php';
 
@@ -179,7 +179,7 @@ class ModuleManagerTest extends \PHPUnit\Framework\TestCase
      */
     public function testRequestLoad() : void
     {
-        $request = new HttpRequest(new Http('http://127.0.0.1/en/backend/testmodule'));
+        $request = new HttpRequest(new HttpUri('http://127.0.0.1/en/backend/testmodule'));
         $request->createRequestHashs(2);
 
         $loaded = $this->moduleManager->getUriLoad($request);

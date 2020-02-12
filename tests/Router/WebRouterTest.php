@@ -23,7 +23,7 @@ use phpOMS\Autoloader;
 use phpOMS\Message\Http\HttpRequest;
 use phpOMS\Router\RouteVerb;
 use phpOMS\Router\WebRouter;
-use phpOMS\Uri\Http;
+use phpOMS\Uri\HttpUri;
 
 require_once __DIR__ . '/../Autoloader.php';
 
@@ -50,7 +50,7 @@ class WebRouterTest extends \PHPUnit\Framework\TestCase
     {
         self::assertEmpty(
             $this->router->route(
-                (new HttpRequest(new Http('')))->getUri()->getRoute()
+                (new HttpRequest(new HttpUri('')))->getUri()->getRoute()
             )
         );
     }
@@ -88,7 +88,7 @@ class WebRouterTest extends \PHPUnit\Framework\TestCase
             [['dest' => '\Modules\Admin\Controller:viewSettingsGeneral']],
             $this->router->route(
                 (new HttpRequest(
-                    new Http('http://test.com/backend/admin/settings/general/something?test')
+                    new HttpUri('http://test.com/backend/admin/settings/general/something?test')
                 ))->getUri()->getRoute()
             )
         );
@@ -107,7 +107,7 @@ class WebRouterTest extends \PHPUnit\Framework\TestCase
             [['dest' => '\Modules\Admin\Controller:viewSettingsGeneral']],
             $this->router->route(
                 (new HttpRequest(
-                    new Http('http://test.com/backend/admin/settings/general/something?test')
+                    new HttpUri('http://test.com/backend/admin/settings/general/something?test')
                 ))->getUri()->getRoute(), null, RouteVerb::PUT)
         );
     }
@@ -123,7 +123,7 @@ class WebRouterTest extends \PHPUnit\Framework\TestCase
             [['dest' => '\Modules\Admin\Controller:viewSettingsGeneral']],
             $this->router->route(
                 (new HttpRequest(
-                    new Http('http://test.com/backends/admin/settings/general/something?test')
+                    new HttpUri('http://test.com/backends/admin/settings/general/something?test')
                 ))->getUri()->getRoute()
             )
         );
@@ -133,7 +133,7 @@ class WebRouterTest extends \PHPUnit\Framework\TestCase
             [['dest' => 'Controller:test']],
             $this->router->route(
                 (new HttpRequest(
-                    new Http('http://test.com/backends/admin/settings/general/something?test')
+                    new HttpUri('http://test.com/backends/admin/settings/general/something?test')
                 ))->getUri()->getRoute(), null, RouteVerb::ANY)
         );
 
@@ -141,7 +141,7 @@ class WebRouterTest extends \PHPUnit\Framework\TestCase
             [['dest' => 'Controller:test']],
             $this->router->route(
                 (new HttpRequest(
-                    new Http('http://test.com/backends/admin/settings/general/something?test')
+                    new HttpUri('http://test.com/backends/admin/settings/general/something?test')
                 ))->getUri()->getRoute(), null, RouteVerb::SET)
         );
 
@@ -149,7 +149,7 @@ class WebRouterTest extends \PHPUnit\Framework\TestCase
             [['dest' => 'Controller:test']],
             $this->router->route(
                 (new HttpRequest(
-                    new Http('http://test.com/backends/admin/settings/general/something?test')))->getUri()->getRoute(), null, RouteVerb::GET)
+                    new HttpUri('http://test.com/backends/admin/settings/general/something?test')))->getUri()->getRoute(), null, RouteVerb::GET)
         );
     }
 
@@ -166,7 +166,7 @@ class WebRouterTest extends \PHPUnit\Framework\TestCase
             [['dest' => '\Modules\Admin\Controller:viewCsrf']],
             $this->router->route(
                 (new HttpRequest(
-                    new Http('http://test.com/backend/admin/settings/csrf/something?test')
+                    new HttpUri('http://test.com/backend/admin/settings/csrf/something?test')
                 ))->getUri()->getRoute(),
                 'csrf_string'
             )
@@ -186,7 +186,7 @@ class WebRouterTest extends \PHPUnit\Framework\TestCase
             [],
             $this->router->route(
                 (new HttpRequest(
-                    new Http('http://test.com/backend/admin/settings/csrf/something?test')
+                    new HttpUri('http://test.com/backend/admin/settings/csrf/something?test')
                 ))->getUri()->getRoute()
             )
         );
@@ -222,7 +222,7 @@ class WebRouterTest extends \PHPUnit\Framework\TestCase
         self::assertEquals(
             [['dest' => '\Modules\Admin\Controller:viewSettingsGeneral']],
             $this->router->route(
-                (new HttpRequest(new Http('http://test.com/backend/admin/settings/general/something?test')))->getUri()->getRoute(),
+                (new HttpRequest(new HttpUri('http://test.com/backend/admin/settings/general/something?test')))->getUri()->getRoute(),
                 null,
                 RouteVerb::GET,
                 null,
@@ -286,7 +286,7 @@ class WebRouterTest extends \PHPUnit\Framework\TestCase
         self::assertNotEquals(
             [['dest' => '\Modules\Admin\Controller:viewSettingsGeneral']],
             $this->router->route(
-                (new HttpRequest(new Http('http://test.com/backend/admin/settings/general/something?test')))->getUri()->getRoute(),
+                (new HttpRequest(new HttpUri('http://test.com/backend/admin/settings/general/something?test')))->getUri()->getRoute(),
                 null,
                 RouteVerb::GET,
                 null,

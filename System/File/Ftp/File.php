@@ -20,7 +20,7 @@ use phpOMS\System\File\FileInterface;
 use phpOMS\System\File\Local\Directory as LocalDirectory;
 use phpOMS\System\File\Local\File as LocalFile;
 use phpOMS\System\File\PathException;
-use phpOMS\Uri\Http;
+use phpOMS\Uri\HttpUri;
 
 /**
  * Filesystem class.
@@ -47,10 +47,10 @@ class File extends FileAbstract implements FileInterface
     /**
      * Ftp connection uri.
      *
-     * @var Http
+     * @var HttpUri
      * @since 1.0.0
      */
-    private Http $uri;
+    private HttpUri $uri;
 
     /**
      * Create ftp connection
@@ -61,20 +61,20 @@ class File extends FileAbstract implements FileInterface
      */
     public function __construct(string $path)
     {
-        $this->uri = new Http($path);
+        $this->uri = new HttpUri($path);
         $this->con = self::ftpConnect($this->uri);
     }
 
     /**
      * Create ftp connection.
      *
-     * @param HTTP $http Uri
+     * @param HttpUri $http Uri
      *
      * @return mixed
      *
      * @since 1.0.0
      */
-    public static function ftpConnect(Http $http)
+    public static function ftpConnect(HttpUri $http)
     {
         $con = \ftp_connect($http->getHost(), $http->getPort());
 

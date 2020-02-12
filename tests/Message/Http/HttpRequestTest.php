@@ -20,7 +20,7 @@ use phpOMS\Message\Http\HttpRequest;
 use phpOMS\Message\Http\OSType;
 use phpOMS\Message\Http\RequestMethod;
 use phpOMS\Router\RouteVerb;
-use phpOMS\Uri\Http;
+use phpOMS\Uri\HttpUri;
 
 /**
  * @testdox phpOMS\tests\Message\Http\RequestTest: HttpRequest wrapper for http requests
@@ -67,7 +67,7 @@ class HttpRequestTest extends \PHPUnit\Framework\TestCase
      */
     public function testOSInputOutput() : void
     {
-        $request = new HttpRequest(new Http('http://www.google.com/test/path'), $l11n = new Localization());
+        $request = new HttpRequest(new HttpUri('http://www.google.com/test/path'), $l11n = new Localization());
 
         $request->setOS(OSType::WINDOWS_XP);
         self::assertEquals(OSType::WINDOWS_XP, $request->getOS());
@@ -80,7 +80,7 @@ class HttpRequestTest extends \PHPUnit\Framework\TestCase
      */
     public function testBrowserTypeInputOutput() : void
     {
-        $request = new HttpRequest(new Http('http://www.google.com/test/path'), $l11n = new Localization());
+        $request = new HttpRequest(new HttpUri('http://www.google.com/test/path'), $l11n = new Localization());
 
         $request->setOS(OSType::WINDOWS_XP);
         self::assertEquals(OSType::WINDOWS_XP, $request->getOS());
@@ -97,7 +97,7 @@ class HttpRequestTest extends \PHPUnit\Framework\TestCase
      */
     public function testRequestMethodInputOutput() : void
     {
-        $request = new HttpRequest(new Http('http://www.google.com/test/path'), $l11n = new Localization());
+        $request = new HttpRequest(new HttpUri('http://www.google.com/test/path'), $l11n = new Localization());
 
         $request->setMethod(RequestMethod::PUT);
         self::assertEquals(RequestMethod::PUT, $request->getMethod());
@@ -111,7 +111,7 @@ class HttpRequestTest extends \PHPUnit\Framework\TestCase
      */
     public function testRequestMethodToRouteVerb() : void
     {
-        $request = new HttpRequest(new Http('http://www.google.com/test/path'), $l11n = new Localization());
+        $request = new HttpRequest(new HttpUri('http://www.google.com/test/path'), $l11n = new Localization());
 
         $request->setMethod(RequestMethod::PUT);
         self::assertEquals(RouteVerb::PUT, $request->getRouteVerb());
@@ -130,7 +130,7 @@ class HttpRequestTest extends \PHPUnit\Framework\TestCase
      */
     public function testConstructInputOutput() : void
     {
-        $request = new HttpRequest(new Http('http://www.google.com/test/path'), $l11n = new Localization());
+        $request = new HttpRequest(new HttpUri('http://www.google.com/test/path'), $l11n = new Localization());
 
         self::assertEquals('http://www.google.com/test/path', $request->__toString());
     }
@@ -142,7 +142,7 @@ class HttpRequestTest extends \PHPUnit\Framework\TestCase
      */
     public function testHashingInputOutput() : void
     {
-        $request = new HttpRequest(new Http('http://www.google.com/test/path'), $l11n = new Localization());
+        $request = new HttpRequest(new HttpUri('http://www.google.com/test/path'), $l11n = new Localization());
 
         $request->createRequestHashs(0);
         self::assertEquals([
@@ -160,7 +160,7 @@ class HttpRequestTest extends \PHPUnit\Framework\TestCase
      */
     public function testDataInputOutput() : void
     {
-        $request = new HttpRequest(new Http('http://www.google.com/test/path'), $l11n = new Localization());
+        $request = new HttpRequest(new HttpUri('http://www.google.com/test/path'), $l11n = new Localization());
 
         self::assertTrue($request->setData('key', 'value'));
         self::assertEquals('value', $request->getData('key'));
@@ -175,7 +175,7 @@ class HttpRequestTest extends \PHPUnit\Framework\TestCase
      */
     public function testOverwrite() : void
     {
-        $request = new HttpRequest(new Http('http://www.google.com/test/path'), $l11n = new Localization());
+        $request = new HttpRequest(new HttpUri('http://www.google.com/test/path'), $l11n = new Localization());
 
         self::assertTrue($request->setData('key', 'value'));
         self::assertTrue($request->setData('key', 'value2', true));
@@ -189,7 +189,7 @@ class HttpRequestTest extends \PHPUnit\Framework\TestCase
      */
     public function testInvalidOverwrite() : void
     {
-        $request = new HttpRequest(new Http('http://www.google.com/test/path'), $l11n = new Localization());
+        $request = new HttpRequest(new HttpUri('http://www.google.com/test/path'), $l11n = new Localization());
 
         self::assertTrue($request->setData('key', 'value'));
         self::assertFalse($request->setData('key', 'value2'));
@@ -203,9 +203,9 @@ class HttpRequestTest extends \PHPUnit\Framework\TestCase
      */
     public function testUriInputOutput() : void
     {
-        $request = new HttpRequest(new Http('http://www.google.com/test/path'), $l11n = new Localization());
+        $request = new HttpRequest(new HttpUri('http://www.google.com/test/path'), $l11n = new Localization());
 
-        $request->setUri(new Http('http://www.google.com/test/path2'));
+        $request->setUri(new HttpUri('http://www.google.com/test/path2'));
         self::assertEquals('http://www.google.com/test/path2', $request->__toString());
     }
 
@@ -216,7 +216,7 @@ class HttpRequestTest extends \PHPUnit\Framework\TestCase
      */
     public function testDataJsonRead() : void
     {
-        $request = new HttpRequest(new Http(''));
+        $request = new HttpRequest(new HttpUri(''));
 
         $data = [
             1, 2, 3,
@@ -235,7 +235,7 @@ class HttpRequestTest extends \PHPUnit\Framework\TestCase
      */
     public function testEmptyDataJsonRead() : void
     {
-        $request = new HttpRequest(new Http(''));
+        $request = new HttpRequest(new HttpUri(''));
 
         self::assertEquals([], $request->getDataJson('def'));
     }
@@ -247,7 +247,7 @@ class HttpRequestTest extends \PHPUnit\Framework\TestCase
      */
     public function testInvalidDataJsonRead() : void
     {
-        $request = new HttpRequest(new Http(''));
+        $request = new HttpRequest(new HttpUri(''));
 
         $data = [
             1, 2, 3,
@@ -266,7 +266,7 @@ class HttpRequestTest extends \PHPUnit\Framework\TestCase
      */
     public function testDataList() : void
     {
-        $request = new HttpRequest(new Http(''));
+        $request = new HttpRequest(new HttpUri(''));
 
         $data = [
             1, 2, 3,
@@ -284,7 +284,7 @@ class HttpRequestTest extends \PHPUnit\Framework\TestCase
      */
     public function testEmptyDataList() : void
     {
-        $request = new HttpRequest(new Http(''));
+        $request = new HttpRequest(new HttpUri(''));
 
         self::assertEquals([], $request->getDataList('def'));
     }
@@ -296,7 +296,7 @@ class HttpRequestTest extends \PHPUnit\Framework\TestCase
      */
     public function testDataLike() : void
     {
-        $request = new HttpRequest(new Http(''));
+        $request = new HttpRequest(new HttpUri(''));
 
         $data = 'this is a test';
 
@@ -312,7 +312,7 @@ class HttpRequestTest extends \PHPUnit\Framework\TestCase
      */
     public function testInvalidDataLikeMatch() : void
     {
-        $request = new HttpRequest(new Http(''));
+        $request = new HttpRequest(new HttpUri(''));
 
         $data = 'this is a test';
 
@@ -328,7 +328,7 @@ class HttpRequestTest extends \PHPUnit\Framework\TestCase
      */
     public function testToString() : void
     {
-        $request = new HttpRequest(new Http('http://www.google.com/test/path'));
+        $request = new HttpRequest(new HttpUri('http://www.google.com/test/path'));
         self::assertEquals('http://www.google.com/test/path', $request->__toString());
     }
 
@@ -339,7 +339,7 @@ class HttpRequestTest extends \PHPUnit\Framework\TestCase
      */
     public function testToStringData() : void
     {
-        $request = new HttpRequest(new Http('http://www.google.com/test/path'));
+        $request = new HttpRequest(new HttpUri('http://www.google.com/test/path'));
 
         $request->setData('test', 'data');
         $request->setData('test2', 3);
@@ -353,7 +353,7 @@ class HttpRequestTest extends \PHPUnit\Framework\TestCase
      */
     public function testToStringGetData() : void
     {
-        $request = new HttpRequest(new Http('http://www.google.com/test/path?test=var'));
+        $request = new HttpRequest(new HttpUri('http://www.google.com/test/path?test=var'));
         self::assertEquals('http://www.google.com/test/path?test=var', $request->__toString());
 
         $request->setData('test', 'data');
@@ -368,7 +368,7 @@ class HttpRequestTest extends \PHPUnit\Framework\TestCase
      */
     public function testRestRequest() : void
     {
-        $request = new HttpRequest(new Http('https://raw.githubusercontent.com/Orange-Management/Orange-Management/develop/LICENSE.txt'));
+        $request = new HttpRequest(new HttpUri('https://raw.githubusercontent.com/Orange-Management/Orange-Management/develop/LICENSE.txt'));
         $request->setMethod(RequestMethod::GET);
 
         self::assertEquals(
@@ -386,7 +386,7 @@ class HttpRequestTest extends \PHPUnit\Framework\TestCase
     {
         self::expectException(\OutOfRangeException::class);
 
-        $request = new HttpRequest(new Http('http://www.google.com/test/path'));
+        $request = new HttpRequest(new HttpUri('http://www.google.com/test/path'));
         $request->isHttps(-1);
     }
 
@@ -399,7 +399,7 @@ class HttpRequestTest extends \PHPUnit\Framework\TestCase
     {
         self::expectException(\Exception::class);
 
-        $request = new HttpRequest(new Http('http://www.google.com/test/path'));
+        $request = new HttpRequest(new HttpUri('http://www.google.com/test/path'));
         $request->setMethod('failure');
         $request->getRouteVerb();
     }

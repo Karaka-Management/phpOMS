@@ -14,7 +14,7 @@ declare(strict_types=1);
 
 namespace phpOMS\tests\Uri;
 
-use phpOMS\Uri\Http;
+use phpOMS\Uri\HttpUri;
 use phpOMS\Uri\UriFactory;
 
 require_once __DIR__ . '/../Autoloader.php';
@@ -186,7 +186,7 @@ class UriFactoryTest extends \PHPUnit\Framework\TestCase
     {
         $uri = 'http://www.test-uri.com/path/here?id=123&ab=c#fragi';
 
-        UriFactory::setupUriBuilder(new Http($uri));
+        UriFactory::setupUriBuilder(new HttpUri($uri));
 
         self::assertEquals($uri, UriFactory::build('{/base}{/rootPath}{/}?id={?id}&ab={?ab}#{#}'));
         self::assertEquals($uri, UriFactory::build('{/scheme}://{/host}{/rootPath}{/}?id={?id}&ab={?ab}#{#}'));

@@ -19,7 +19,7 @@ require_once __DIR__ . '/../Autoloader.php';
 use phpOMS\Message\Http\HttpRequest;
 use phpOMS\Message\Http\HttpResponse;
 use phpOMS\Module\ModuleAbstract;
-use phpOMS\Uri\Http;
+use phpOMS\Uri\HttpUri;
 
 /**
  * @testdox phpOMS\tests\Module\ModuleAbstractTest: Abstract module
@@ -119,7 +119,7 @@ class ModuleAbstractTest extends \PHPUnit\Framework\TestCase
      */
     public function testFillJson() : void
     {
-        $request  = new HttpRequest(new Http(''));
+        $request  = new HttpRequest(new HttpUri(''));
         $response = new HttpResponse();
 
         $this->module->fillJson($request, $response, 'OK', 'Test Title', 'Test Message!', [1, 'test string', 'bool' => true]);
@@ -142,7 +142,7 @@ class ModuleAbstractTest extends \PHPUnit\Framework\TestCase
      */
     public function testFillJsonRaw() : void
     {
-        $request  = new HttpRequest(new Http(''));
+        $request  = new HttpRequest(new HttpUri(''));
         $response = new HttpResponse();
 
         $this->module->fillJsonRaw($request, $response, [1, 'test string', 'bool' => true]);

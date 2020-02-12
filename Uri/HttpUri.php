@@ -28,7 +28,7 @@ use phpOMS\Utils\StringUtils;
  *
  * @SuppressWarnings(PHPMD.Superglobals)
  */
-final class Http implements UriInterface
+final class HttpUri implements UriInterface
 {
     /**
      * Root path.
@@ -227,7 +227,7 @@ final class Http implements UriInterface
     /**
      * Create uri from current url
      *
-     * @return Http Returns the current uri
+     * @return HttpUri Returns the current uri
      *
      * @since 1.0.0
      */

@@ -15,7 +15,7 @@ declare(strict_types=1);
 namespace phpOMS\tests\System\File\Ftp;
 
 use phpOMS\System\File\Ftp\Directory;
-use phpOMS\Uri\Http;
+use phpOMS\Uri\HttpUri;
 
 /**
  * @testdox phpOMS\tests\System\File\Ftp\DirectoryTest: Directory handler for a ftp server
@@ -31,7 +31,7 @@ class DirectoryTest extends \PHPUnit\Framework\TestCase
     protected function setUp() : void
     {
         if ($this->con === null) {
-            $this->con = Directory::ftpConnect(new Http(self::BASE));
+            $this->con = Directory::ftpConnect(new HttpUri(self::BASE));
         }
 
         if ($this->con === false) {

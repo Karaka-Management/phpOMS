@@ -17,7 +17,7 @@ namespace phpOMS\tests\System\File\Ftp;
 use phpOMS\System\File\ContentPutMode;
 use phpOMS\System\File\Ftp\Directory;
 use phpOMS\System\File\Ftp\File;
-use phpOMS\Uri\Http;
+use phpOMS\Uri\HttpUri;
 
 /**
  * @testdox phpOMS\tests\System\File\Ftp\FileTest: File handler for a ftp server
@@ -33,7 +33,7 @@ class FileTest extends \PHPUnit\Framework\TestCase
     protected function setUp() : void
     {
         if ($this->con === null) {
-            $this->con = File::ftpConnect(new Http(self::BASE));
+            $this->con = File::ftpConnect(new HttpUri(self::BASE));
         }
 
         if ($this->con === false) {

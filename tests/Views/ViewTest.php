@@ -22,7 +22,7 @@ use phpOMS\Localization\L11nManager;
 use phpOMS\Localization\Localization;
 use phpOMS\Message\Http\HttpRequest;
 use phpOMS\Message\Http\HttpResponse;
-use phpOMS\Uri\Http;
+use phpOMS\Uri\HttpUri;
 use phpOMS\Views\View;
 use phpOMS\Views\ViewAbstract;
 
@@ -59,7 +59,7 @@ class ViewTest extends \PHPUnit\Framework\TestCase
      */
     public function testDefault() : void
     {
-        $view = new View($this->app->l11nManager, new HttpRequest(new Http('')), new HttpResponse(new Localization()));
+        $view = new View($this->app->l11nManager, new HttpRequest(new HttpUri('')), new HttpResponse(new Localization()));
 
         self::assertEmpty($view->getTemplate());
         self::assertEmpty($view->getViews());
@@ -78,7 +78,7 @@ class ViewTest extends \PHPUnit\Framework\TestCase
      */
     public function testGetText() : void
     {
-        $view = new View($this->app->l11nManager, $request = new HttpRequest(new Http('')), $response = new HttpResponse());
+        $view = new View($this->app->l11nManager, $request = new HttpRequest(new HttpUri('')), $response = new HttpResponse());
         $view->setTemplate('/Modules/Admin/Theme/Backend/accounts-list');
 
         $expected = [
@@ -102,7 +102,7 @@ class ViewTest extends \PHPUnit\Framework\TestCase
      */
     public function testGetHtml() : void
     {
-        $view = new View($this->app->l11nManager, $request = new HttpRequest(new Http('')), $response = new HttpResponse());
+        $view = new View($this->app->l11nManager, $request = new HttpRequest(new HttpUri('')), $response = new HttpResponse());
         $view->setTemplate('/Modules/Admin/Theme/Backend/accounts-list');
 
         $expected = [
@@ -126,7 +126,7 @@ class ViewTest extends \PHPUnit\Framework\TestCase
      */
     public function testDataInputOutput() : void
     {
-        $view = new View($this->app->l11nManager, $request = new HttpRequest(new Http('')), $response = new HttpResponse());
+        $view = new View($this->app->l11nManager, $request = new HttpRequest(new HttpUri('')), $response = new HttpResponse());
 
         $view->setData('key', 'value');
         self::assertEquals('value', $view->getData('key'));
@@ -139,7 +139,7 @@ class ViewTest extends \PHPUnit\Framework\TestCase
      */
     public function testDataAdd() : void
     {
-        $view = new View($this->app->l11nManager, $request = new HttpRequest(new Http('')), $response = new HttpResponse());
+        $view = new View($this->app->l11nManager, $request = new HttpRequest(new HttpUri('')), $response = new HttpResponse());
 
         self::assertTrue($view->addData('key2', 'valu2'));
         self::assertEquals('valu2', $view->getData('key2'));
@@ -152,7 +152,7 @@ class ViewTest extends \PHPUnit\Framework\TestCase
      */
     public function testInvalidDataOverwrite() : void
     {
-        $view = new View($this->app->l11nManager, $request = new HttpRequest(new Http('')), $response = new HttpResponse());
+        $view = new View($this->app->l11nManager, $request = new HttpRequest(new HttpUri('')), $response = new HttpResponse());
 
         $view->addData('key2', 'valu2');
         self::assertFalse($view->addData('key2', 'valu3'));
@@ -166,7 +166,7 @@ class ViewTest extends \PHPUnit\Framework\TestCase
      */
     public function testRemove() : void
     {
-        $view = new View($this->app->l11nManager, $request = new HttpRequest(new Http('')), $response = new HttpResponse());
+        $view = new View($this->app->l11nManager, $request = new HttpRequest(new HttpUri('')), $response = new HttpResponse());
 
         $view->addData('key2', 'valu2');
         self::assertTrue($view->removeData('key2'));
@@ -179,7 +179,7 @@ class ViewTest extends \PHPUnit\Framework\TestCase
      */
     public function testInvalidDataRemove() : void
     {
-        $view = new View($this->app->l11nManager, $request = new HttpRequest(new Http('')), $response = new HttpResponse());
+        $view = new View($this->app->l11nManager, $request = new HttpRequest(new HttpUri('')), $response = new HttpResponse());
 
         self::assertFalse($view->removeData('key3'));
     }
@@ -191,7 +191,7 @@ class ViewTest extends \PHPUnit\Framework\TestCase
      */
     public function testGetRequest() : void
     {
-        $view = new View($this->app->l11nManager, $request = new HttpRequest(new Http('')), $response = new HttpResponse());
+        $view = new View($this->app->l11nManager, $request = new HttpRequest(new HttpUri('')), $response = new HttpResponse());
 
         self::assertEquals($request, $view->getRequest());
         self::assertEquals($response, $view->getResponse());
@@ -204,7 +204,7 @@ class ViewTest extends \PHPUnit\Framework\TestCase
      */
     public function testGetResponse() : void
     {
-        $view = new View($this->app->l11nManager, $request = new HttpRequest(new Http('')), $response = new HttpResponse());
+        $view = new View($this->app->l11nManager, $request = new HttpRequest(new HttpUri('')), $response = new HttpResponse());
 
         self::assertEquals($response, $view->getResponse());
     }
@@ -216,7 +216,7 @@ class ViewTest extends \PHPUnit\Framework\TestCase
      */
     public function testPrintHtml() : void
     {
-        $view = new View($this->app->l11nManager, $request = new HttpRequest(new Http('')), $response = new HttpResponse());
+        $view = new View($this->app->l11nManager, $request = new HttpRequest(new HttpUri('')), $response = new HttpResponse());
 
         self::assertEquals('&lt;a href=&quot;test&quot;&gt;Test&lt;/a&gt;', $view->printHtml('<a href="test">Test</a>'));
         self::assertEquals('&lt;a href=&quot;test&quot;&gt;Test&lt;/a&gt;', ViewAbstract::html('<a href="test">Test</a>'));
@@ -229,7 +229,7 @@ class ViewTest extends \PHPUnit\Framework\TestCase
      */
     public function testViewInputOutput() : void
     {
-        $view = new View($this->app->l11nManager, $request = new HttpRequest(new Http('')), $response = new HttpResponse());
+        $view = new View($this->app->l11nManager, $request = new HttpRequest(new HttpUri('')), $response = new HttpResponse());
 
         $tView = new View($this->app->l11nManager, $request, $response);
         self::assertTrue($view->addView('test', $tView));
@@ -244,7 +244,7 @@ class ViewTest extends \PHPUnit\Framework\TestCase
      */
     public function testInvalidViewGet() : void
     {
-        $view = new View($this->app->l11nManager, $request = new HttpRequest(new Http('')), $response = new HttpResponse());
+        $view = new View($this->app->l11nManager, $request = new HttpRequest(new HttpUri('')), $response = new HttpResponse());
 
         self::assertFalse($view->getView('test'));
     }
@@ -256,7 +256,7 @@ class ViewTest extends \PHPUnit\Framework\TestCase
      */
     public function testViewRemove() : void
     {
-        $view = new View($this->app->l11nManager, $request = new HttpRequest(new Http('')), $response = new HttpResponse());
+        $view = new View($this->app->l11nManager, $request = new HttpRequest(new HttpUri('')), $response = new HttpResponse());
 
         $tView = new View($this->app->l11nManager, $request, $response);
         $view->addView('test', $tView);
@@ -270,7 +270,7 @@ class ViewTest extends \PHPUnit\Framework\TestCase
      */
     public function testInvalidViewRemove() : void
     {
-        $view = new View($this->app->l11nManager, $request = new HttpRequest(new Http('')), $response = new HttpResponse());
+        $view = new View($this->app->l11nManager, $request = new HttpRequest(new HttpUri('')), $response = new HttpResponse());
 
         self::assertFalse($view->removeView('test'));
     }
