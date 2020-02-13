@@ -73,10 +73,6 @@ final class Numeric
         $numberLen = \strlen($numberInput);
         $newOutput = '';
 
-        if ($fromBase === false || $toBase === false || $number === false) {
-            throw new \Exception();
-        }
-
         if ($toBaseInput === '0123456789') {
             $newOutput = '0';
 

@@ -112,10 +112,6 @@ final class Permutation
      */
     public static function permutate($toPermute, array $key)
     {
-        if (!\is_array($toPermute) && !\is_string($toPermute)) {
-            throw new \InvalidArgumentException('Parameter has to be array or string');
-        }
-
         $length = \is_array($toPermute) ? \count($toPermute) : \strlen($toPermute);
 
         if (\count($key) > $length) {

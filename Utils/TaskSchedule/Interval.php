@@ -526,7 +526,7 @@ class Interval implements \Serializable
      */
     public function serialize() : string
     {
-        return \json_encode([
+        $serialized = \json_encode([
             'start'       => $this->start->format('Y-m-d H:i:s'),
             'end'         => $this->end === null ? null : $this->end->format('Y-m-d H:i:s'),
             'maxDuration' => $this->maxDuration,
@@ -536,6 +536,8 @@ class Interval implements \Serializable
             'dayOfWeek'   => $this->dayOfWeek,
             'year'        => $this->year,
         ]);
+
+        return $serialized === false ? '{}' : $serialized;
     }
 
     /**

@@ -552,7 +552,7 @@ final class FileLogger implements LoggerInterface
         while (($line = \fgetcsv($this->fp, 0, ';')) !== false && $current <= $id) {
             ++$current;
 
-            if ($current < $id) {
+            if ($current < $id || $line === null) {
                 continue;
             }
 

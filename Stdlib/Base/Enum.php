@@ -98,7 +98,7 @@ abstract class Enum
      *
      * @param string $value Enum value
      *
-     * @return mixed
+     * @return false|int|string
      *
      * @since 1.0.0
      */

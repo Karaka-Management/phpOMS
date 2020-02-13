@@ -36,7 +36,7 @@ interface IODatabaseMapper
     /**
      * Select data from database and store in excel sheet
      *
-     * @param Builder[] $queries Queries to execute
+     * @param \phpOMS\DataStorage\Database\Query\Builder[] $queries Queries to execute
      *
      * @return void
      *

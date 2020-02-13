@@ -16,6 +16,7 @@ namespace phpOMS\Socket\Server;
 
 use phpOMS\Socket\Client\ClientConnection;
 use phpOMS\Socket\Client\NullClientConnection;
+use phpOMS\Account\NullAccount;
 
 /**
  * Client manager class.
@@ -72,7 +73,7 @@ class ClientManager
             }
         }
 
-        return new NullClientConnection($id, null);
+        return new NullClientConnection(new NullAccount(), null);
     }
 
     /**

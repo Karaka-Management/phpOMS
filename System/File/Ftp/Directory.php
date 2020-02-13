@@ -292,7 +292,7 @@ class Directory extends FileAbstract implements FtpContainerInterface, Directory
      * @param resource $con  FTP connection
      * @param string   $path Path of the resource
      *
-     * @return array
+     * @return array<string, array{permission:int, number:string, user:string, group:string, size:string, month:string, day:string, time:string, type:string}>
      *
      * @since 1.0.0
      */
@@ -302,8 +302,17 @@ class Directory extends FileAbstract implements FtpContainerInterface, Directory
         $names    = \ftp_nlist($con, $path);
         $data     = [];
 
+        if ($names === false || $listData === false) {
+            return [];
+        }
+
         foreach ($listData as $key => $item) {
             $chunks = \preg_split("/\s+/", $item);
+
+            if ($chunks === false) {
+                continue;
+            }
+
             list(
                 $e['permission'],
                 $e['number'],
@@ -313,7 +322,7 @@ class Directory extends FileAbstract implements FtpContainerInterface, Directory
                 $e['month'],
                 $e['day'],
                 $e['time']
-            )       = $chunks;
+            ) = $chunks;
 
             $e['permission'] = FileUtils::permissionToOctal(\substr($e['permission'], 1));
             $e['type']       = $chunks[0][0] === 'd' ? 'dir' : 'file';

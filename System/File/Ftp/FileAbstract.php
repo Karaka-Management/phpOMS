@@ -63,18 +63,18 @@ abstract class FileAbstract implements ContainerInterface
     /**
      * Created at.
      *
-     * @var null|\DateTime
+     * @var \DateTime
      * @since 1.0.0
      */
-    protected ?\DateTime $createdAt = null;
+    protected \DateTime $createdAt;
 
     /**
      * Last changed at.
      *
-     * @var null|\DateTime
+     * @var \DateTime
      * @since 1.0.0
      */
-    protected ?\DateTime $changedAt = null;
+    protected \DateTime $changedAt;
 
     /**
      * Owner.

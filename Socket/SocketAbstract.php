@@ -54,7 +54,7 @@ abstract class SocketAbstract implements SocketInterface
      * @var resource
      * @since 1.0.0
      */
-    protected $sock = null;
+    protected $sock;
 
     /**
      * {@inheritdoc}
@@ -81,10 +81,10 @@ abstract class SocketAbstract implements SocketInterface
      */
     public function close() : void
     {
-        if ($this->sock !== null) {
+        if (isset($this->sock)) {
             \socket_shutdown($this->sock, 2);
             \socket_close($this->sock);
-            $this->sock = null;
+            unset($this->sock);
         }
     }
 }

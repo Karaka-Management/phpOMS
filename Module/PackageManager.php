@@ -314,7 +314,9 @@ final class PackageManager
                     \fclose($pipe);
                 }
 
-                \proc_close($resource);
+                if ($resource !== false) {
+                    \proc_close($resource);
+                }
             }
         }
     }

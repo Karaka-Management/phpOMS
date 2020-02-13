@@ -272,9 +272,7 @@ final class Money implements \Serializable
      */
     public function mult($value) : self
     {
-        if (\is_float($value) || \is_int($value)) {
-            $this->value = (int) ($this->value * $value);
-        }
+        $this->value = (int) ($this->value * $value);
 
         return $this;
     }
@@ -290,9 +288,7 @@ final class Money implements \Serializable
      */
     public function div($value) : self
     {
-        if (\is_float($value) || \is_int($value)) {
-            $this->value = (int) ($this->value / $value);
-        }
+        $this->value = (int) ($this->value / $value);
 
         return $this;
     }
@@ -322,9 +318,7 @@ final class Money implements \Serializable
      */
     public function pow($value) : self
     {
-        if (\is_float($value) || \is_int($value)) {
-            $this->value = (int) ($this->value ** $value);
-        }
+        $this->value = (int) ($this->value ** $value);
 
         return $this;
     }

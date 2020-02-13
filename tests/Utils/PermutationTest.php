@@ -74,18 +74,6 @@ class PermutationTest extends \PHPUnit\Framework\TestCase
     }
 
     /**
-     * @testdox A invalid permutation type throws a InvalidArgumentException
-     * @covers phpOMS\Utils\Permutation
-     * @group framework
-     */
-    public function testWrongPermuteParameterType() : void
-    {
-        self::expectException(\InvalidArgumentException::class);
-
-        Permutation::permutate(4, [2, 1, 1]);
-    }
-
-    /**
      * @testdox A none-existing permutation key throws a OutOfBoundsException
      * @covers phpOMS\Utils\Permutation
      * @group framework
