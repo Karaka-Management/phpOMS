@@ -76,10 +76,6 @@ use phpOMS\Utils\ArrayUtils;
  *  Now all mappers are split. The overhead is one additional function call and the setup() function.
  *  Alternatively, think about using traits in the beginning.
  *
- * @todo Orange-Management/phpOMS#162
- *  Relations by other than primary key
- *  Currently relations are always defined by the primary key. It would be very helpful to also define relations by other values.
- *
  * @todo Orange-Management/phpOMS#212
  *  Replace nested models which are represented as scalar/id with NullModel
  *  Currently there is a default limit on dependency nesting when you request a model from the database.
