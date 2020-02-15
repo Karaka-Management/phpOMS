@@ -4,7 +4,7 @@
     "currency": {
         "code": "USD",
         "position": 0,
-        "format": "%s1 %s2"
+        "format": "1"
     },
     "thousand": ",",
     "decimal": ".",
@@ -51,8 +51,6 @@
         "glass": "Metric cup"
     },
     "datetime": {
-        "delim_date": ".",
-        "delim_time": ":",
         "very_short": "d.m",
         "short": "m.y",
         "medium": "Y.m.d",

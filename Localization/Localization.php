@@ -66,7 +66,7 @@ class Localization implements \JsonSerializable
      * @var string
      * @since 1.0.0
      */
-    protected string $currencyFormat = '%s1 %s2';
+    protected string $currencyFormat = '0';
 
     /**
      * Number format.
@@ -101,28 +101,20 @@ class Localization implements \JsonSerializable
     protected string $temperature = TemperatureType::CELSIUS;
 
     /**
+     * Precision.
+     *
+     * @var array<string, int>
+     * @since 1.0.0
+     */
+    protected array $precision = [];
+
+    /**
      * Time format.
      *
      * @var array<string, string>
      * @since 1.0.0
      */
     protected array $datetime = [];
-
-    /**
-     * Datetime delim.
-     *
-     * @var string
-     * @since 1.0.0
-     */
-    protected string $dateDelim = '.';
-
-    /**
-     * Datetime delim.
-     *
-     * @var string
-     * @since 1.0.0
-     */
-    protected string $timeDelim = ':';
 
     /**
      * Weight.
@@ -224,13 +216,12 @@ class Localization implements \JsonSerializable
         $l11n->setAngle($json['angle']);
         $l11n->setTemperature($json['temperature']);
         $l11n->setDatetime($json['datetime']);
-        $l11n->setDateDelim($json['datedelim']);
-        $l11n->setTimeDelim($json['timedelim']);
         $l11n->setWeight($json['weight']);
         $l11n->setSpeed($json['speed']);
         $l11n->setLength($json['length']);
         $l11n->setArea($json['area']);
         $l11n->setVolume($json['volume']);
+        $l11n->setPrecision($json['precision']);
 
         return $l11n;
     }
@@ -312,6 +303,7 @@ class Localization implements \JsonSerializable
         $this->setLength($locale['length'] ?? []);
         $this->setArea($locale['area'] ?? []);
         $this->setVolume($locale['volume'] ?? []);
+        $this->setPrecision($locale['precision'] ?? []);
         $this->setDatetime($locale['datetime'] ?? []);
     }
 
@@ -495,58 +487,6 @@ class Localization implements \JsonSerializable
     public function setDatetime(array $datetime) : void
     {
         $this->datetime = $datetime;
-    }
-
-    /**
-     * Set dateDelim char
-     *
-     * @return string
-     *
-     * @since 1.0.0
-     */
-    public function getDateDelim() : string
-    {
-        return $this->dateDelim;
-    }
-
-    /**
-     * Get dateDelim char
-     *
-     * @param string $dateDelim Date delim char
-     *
-     * @return void
-     *
-     * @since 1.0.0
-     */
-    public function setDateDelim(string $dateDelim) : void
-    {
-        $this->dateDelim = $dateDelim;
-    }
-
-    /**
-     * Get timeDelim char
-     *
-     * @return string
-     *
-     * @since 1.0.0
-     */
-    public function getTimeDelim() : string
-    {
-        return $this->timeDelim;
-    }
-
-    /**
-     * Set timeDelim char
-     *
-     * @param string $timeDelim Time delim char
-     *
-     * @return void
-     *
-     * @since 1.0.0
-     */
-    public function setTimeDelim(string $timeDelim) : void
-    {
-        $this->timeDelim = $timeDelim;
     }
 
     /**
@@ -780,6 +720,32 @@ class Localization implements \JsonSerializable
     }
 
     /**
+     * Get precision type
+     *
+     * @return array<string, int>
+     *
+     * @since 1.0.0
+     */
+    public function getPrecision() : array
+    {
+        return $this->precision;
+    }
+
+    /**
+     * Set precision type
+     *
+     * @param array<string, int> $precision Precision type
+     *
+     * @return void
+     *
+     * @since 1.0.0
+     */
+    public function setPrecision(array $precision) : void
+    {
+        $this->precision = $precision;
+    }
+
+    /**
      * Set volume type
      *
      * @param array<string, string> $volume Volume type
@@ -810,13 +776,12 @@ class Localization implements \JsonSerializable
             'angle'          => $this->angle,
             'temperature'    => $this->temperature,
             'datetime'       => $this->datetime,
-            'datedelim'      => $this->dateDelim,
-            'timedelim'      => $this->timeDelim,
             'weight'         => $this->weight,
             'speed'          => $this->speed,
             'length'         => $this->length,
             'area'           => $this->area,
             'volume'         => $this->volume,
+            'precision'      => $this->precision,
         ];
     }
 

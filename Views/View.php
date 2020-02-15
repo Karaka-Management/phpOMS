@@ -50,10 +50,10 @@ class View extends ViewAbstract
     /**
      * Application.
      *
-     * @var null|L11nManager
+     * @var L11nManager
      * @since 1.0.0
      */
-    protected ?L11nManager $l11nManager;
+    protected L11nManager $l11nManager;
 
     /**
      * Request.
@@ -90,7 +90,7 @@ class View extends ViewAbstract
     /**
      * Constructor.
      *
-     * @param L11nManager      $l11n     Application
+     * @param L11nManager      $l11n     Localization manager
      * @param RequestAbstract  $request  Request
      * @param ResponseAbstract $response Request
      *
@@ -98,7 +98,7 @@ class View extends ViewAbstract
      */
     public function __construct(L11nManager $l11n = null, RequestAbstract $request = null, ResponseAbstract $response = null)
     {
-        $this->l11nManager = $l11n;
+        $this->l11nManager = $l11n ?? new L11nManager('Error');
         $this->request     = $request;
         $this->response    = $response;
         $this->l11n        = $response !== null ? $response->getHeader()->getL11n() : new Localization();
@@ -277,6 +277,68 @@ class View extends ViewAbstract
     public function getHtml($translation, string $module = null, string $theme = null) : string
     {
         return \htmlspecialchars($this->getText($translation, $module, $theme));
+    }
+
+    /**
+     * Print a numeric value
+     *
+     * @param int|float   $numeric Numeric value to print
+     * @param null|string $format  Format type to use
+     *
+     * @return string
+     *
+     * @since 1.0.0
+     */
+    public function getNumeric($numeric, string $format = null) : string
+    {
+        return $this->l11nManager->getNumeric($this->l11n, $numeric, $format);
+    }
+
+    /**
+     * Print a percentage value
+     *
+     * @param float       $percentage Percentage value to print
+     * @param null|string $format     Format type to use
+     *
+     * @return string
+     *
+     * @since 1.0.0
+     */
+    public function getPercentage(float $percentage, string $format = null) : string
+    {
+        return $this->l11nManager->getPercentage($this->l11n, $percentage, $format);
+    }
+
+    /**
+     * Print a currency
+     *
+     * @param int|float   $currency Currency value to print
+     * @param null|string $format   Format type to use
+     * @param null|string $symbol   Currency name/symbol
+     * @param int         $divide   Divide currency by divisor
+     *
+     * @return string
+     *
+     * @since 1.0.0
+     */
+    public function getCurrency($currency, string $format = null, string $symbol = null, int $divide = 1) : string
+    {
+        return $this->l11nManager->getCurrency($this->l11n, $currency, $format, $symbol, $divide);
+    }
+
+    /**
+     * Print a datetime
+     *
+     * @param null|\DateTime $datetime DateTime to print
+     * @param string         $format   Format type to use
+     *
+     * @return string
+     *
+     * @since 1.0.0
+     */
+    public function getDateTime(\DateTime $datetime = null, string $format = null) : string
+    {
+        return $this->l11nManager->getDateTime($this->l11n, $datetime, $format);
     }
 
     /**

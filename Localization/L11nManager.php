@@ -146,7 +146,7 @@ final class L11nManager
     /**
      * Get translation.
      *
-     * @param string $code        Country code
+     * @param string $code        Language code
      * @param string $module      Module name
      * @param string $theme       Theme
      * @param mixed  $translation Text
@@ -183,7 +183,7 @@ final class L11nManager
     /**
      * Get translation html escaped.
      *
-     * @param string $code        Country code
+     * @param string $code        Language code
      * @param string $module      Module name
      * @param string $theme       Theme
      * @param mixed  $translation Text
@@ -195,5 +195,93 @@ final class L11nManager
     public function getHtml(string $code, string $module, string $theme, $translation) : string
     {
         return \htmlspecialchars($this->getText($code, $module, $theme, $translation));
+    }
+
+    /**
+     * Print a numeric value
+     *
+     * @param Localization $l11n    Localization
+     * @param int|float    $numeric Numeric value to print
+     * @param null|string  $format  Format type to use
+     *
+     * @return string
+     *
+     * @since 1.0.0
+     */
+    public function getNumeric(Localization $l11n, $numeric, string $format = null) : string
+    {
+        return \number_format(
+            $numeric,
+            $l11n->getPrecision()[$format ?? 'medium'],
+            $l11n->getDecimal(),
+            $l11n->getThousands()
+        );
+    }
+
+    /**
+     * Print a percentage value
+     *
+     * @param Localization $l11n       Localization
+     * @param float        $percentage Percentage value to print
+     * @param null|string  $format     Format type to use
+     *
+     * @return string
+     *
+     * @since 1.0.0
+     */
+    public function getPercentage(Localization $l11n, float $percentage, string $format = null) : string
+    {
+        return \number_format(
+            $percentage, $l11n->getPrecision()[$format ?? 'medium'],
+            $l11n->getDecimal(),
+            $l11n->getThousands()
+        ) . '%';
+    }
+
+    /**
+     * Print a currency
+     *
+     * @param Localization $l11n     Localization
+     * @param int|float    $currency Currency value to print
+     * @param null|string  $format   Format type to use
+     * @param null|string  $symbol   Currency name/symbol
+     * @param int          $divide   Divide currency by divisor
+     *
+     * @return string
+     *
+     * @since 1.0.0
+     */
+    public function getCurrency(Localization $l11n, $currency, string $format = null, string $symbol = null, int $divide = 1) : string
+    {
+        $language = $l11n->getLanguage() ?? 'en';
+        $symbol ??= $l11n->getCurrency();
+
+        if ($divide === 1000) {
+            $symbol = $this->getHtml($language, '0', '0', 'CurrencyK') . $symbol;
+        } elseif ($divide === 1000000) {
+            $symbol = $this->getHtml($language, '0', '0', 'CurrencyM') . $symbol;
+        } elseif ($divide === 1000000000) {
+            $symbol = $this->getHtml($language, '0', '0', 'CurrencyB') . $symbol;
+        }
+
+        $money = new Money($currency / $divide, $l11n->getThousands(), $l11n->getDecimal(), $symbol ?? $l11n->getCurrency(), (int) $l11n->getCurrencyFormat());
+
+        return $money->getCurrency($l11n->getPrecision()[$format ?? 'medium']);
+    }
+
+    /**
+     * Print a datetime
+     *
+     * @param Localization   $l11n     Localization
+     * @param null|\DateTime $datetime DateTime to print
+     * @param string         $format   Format type to use
+     *
+     * @return string
+     *
+     * @since 1.0.0
+     */
+    public function getDateTime(Localization $l11n, \DateTime $datetime = null, string $format = null) : string
+    {
+        return $datetime === null ? '' : $datetime->format($l11n->getDateTime()[$format ?? 'medium']);
     }
 }

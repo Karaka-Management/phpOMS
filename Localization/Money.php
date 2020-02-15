@@ -178,7 +178,7 @@ final class Money implements \Serializable
      */
     public function getCurrency(int $decimals = 2) : string
     {
-        return ($this->position === 0 ? $this->symbol : '') . $this->getAmount($decimals) . ($this->position === 1 ? $this->symbol : '');
+        return ($this->position === 0 ? $this->symbol . ' ' : '') . $this->getAmount($decimals) . ($this->position === 1 ? ' ' . $this->symbol : '');
     }
 
     /**
@@ -196,13 +196,17 @@ final class Money implements \Serializable
     {
         $value = (string) \round($this->value, -self::MAX_DECIMALS + $decimals);
 
-        $left  = \substr($value, 0, -self::MAX_DECIMALS);
+        $left = \substr($value, 0, -self::MAX_DECIMALS);
+
+        /** @var string $left */
+        $left  = $left === false ? '0' : $left;
         $right = \substr($value, -self::MAX_DECIMALS);
-        if ($left === false || $right === false) {
+
+        if ($right === false) {
             throw new \Exception();
         }
 
-        return ($decimals > 0) ? \number_format((float) $left, 0, $this->decimal, $this->thousands) . $this->decimal . \substr($right, 0, $decimals) : $left;
+        return ($decimals > 0) ? \number_format((float) $left, 0, $this->decimal, $this->thousands) . $this->decimal . \substr($right, 0, $decimals) : \str_pad($left, 1, '0');
     }
 
     /**
