@@ -96,7 +96,7 @@ class Builder extends BuilderAbstract
     /**
      * Into columns.
      *
-     * @var array
+     * @var array<int, mixed>
      * @since 1.0.0
      */
     public array $values = [];
@@ -888,7 +888,7 @@ class Builder extends BuilderAbstract
 
         $this->type = QueryType::INSERT;
 
-        foreach ($columns as $key => $column) {
+        foreach ($columns as $column) {
             $this->inserts[] = $column;
         }
 
@@ -951,10 +951,12 @@ class Builder extends BuilderAbstract
     public function value($value) : self
     {
         \end($this->values);
-        $key = \key($this->values);
+
+        $key   = \key($this->values);
+        $key ??= 0;
 
         if (\is_array($value)) {
-            $this->values[$key] = $value;
+            $this->values[$key + 1] = $value;
         } else {
             $this->values[$key][] = $value;
         }
