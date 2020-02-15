@@ -189,43 +189,8 @@ final class ConsoleRequest extends RequestAbstract
     /**
      * {@inheritdoc}
      */
-    public function getMethod() : string
-    {
-        if (!isset($this->method)) {
-            $temp   = $this->uri->__toString();
-            $found  = \stripos($temp, ':');
-            $method = $found !== false && $found > 3 && $found < 8 ? \substr($temp, 0, $found) : RequestMethod::GET;
-
-            $this->method = $method === false ? RequestMethod::GET : $method;
-        }
-
-        return $this->method;
-    }
-
-    /**
-     * {@inheritdoc}
-     */
     public function getBody() : string
     {
         return '';
-    }
-
-    /**
-     * {@inheritdoc}
-     */
-    public function getRouteVerb() : int
-    {
-        switch ($this->getMethod()) {
-            case RequestMethod::GET:
-                return RouteVerb::GET;
-            case RequestMethod::PUT:
-                return RouteVerb::PUT;
-            case RequestMethod::POST:
-                return RouteVerb::SET;
-            case RequestMethod::DELETE:
-                return RouteVerb::DELETE;
-            default:
-                throw new \Exception();
-        }
     }
 }
