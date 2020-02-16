@@ -20,6 +20,7 @@ use phpOMS\DataStorage\Database\Query\Builder;
 use phpOMS\DataStorage\Database\Query\QueryType;
 use phpOMS\DataStorage\DataMapperInterface;
 use phpOMS\Utils\ArrayUtils;
+use phpOMS\Algorithm\Sort\SortOrder;
 
 /**
  * Datamapper for databases.
@@ -2360,6 +2361,123 @@ class DataMapperAbstract implements DataMapperInterface
         }
 
         return $obj;
+    }
+
+    /**
+     * Count the number of elements before a pivot element
+     *
+     * @param mixed       $pivot  Pivet id
+     * @param null|string $column Name of the field in the model
+     *
+     * @return int
+     *
+     * @since 1.0.0
+     */
+    public static function countBeforePivot($pivot, string $column = null) : int
+    {
+        $query = new Builder(self::$db);
+        $query->where(static::$table . '.' . ($column !== null ? self::getColumnByMember($column) : static::$primaryField), '<', $pivot);
+
+        return self::count($query);
+    }
+
+    /**
+     * Count the number of elements after a pivot element
+     *
+     * @param mixed       $pivot  Pivet id
+     * @param null|string $column Name of the field in the model
+     *
+     * @return int
+     *
+     * @since 1.0.0
+     */
+    public static function countAfterPivot($pivot, string $column = null) : int
+    {
+        $query = new Builder(self::$db);
+        $query->where(static::$table . '.' . ($column !== null ? self::getColumnByMember($column) : static::$primaryField), '>', $pivot);
+
+        return self::count($query);
+    }
+
+    /**
+     * Count the number of elements
+     *
+     * @param null|Builder $query Builder
+     *
+     * @return int
+     *
+     * @since 1.0.0
+     */
+    public static function count(Builder $query = null) : int
+    {
+        $query = $query ?? new Builder(self::$db);
+        $query->prefix(self::$db->getPrefix())
+            ->select('COUNT(*)')
+            ->from(static::$table);
+
+        return (int) $query->execute()->fetchColumn();;
+    }
+
+    /**
+     * Get objects for pagination
+     *
+     * @param mixed  $pivot     Pivot
+     * @param string $column    Sort column/pivot column
+     * @param int    $limit     Result limit
+     * @param string $order     Order of the elements
+     * @param int    $relations Load relations
+     * @param mixed  $fill      Object to fill
+     * @param int    $depth     Relation depth
+     *
+     * @return mixed
+     *
+     * @since 1.0.0
+     */
+    public static function getAfterPivot(
+        $pivot,
+        string $column = null,
+        int $limit = 50,
+        string $order = 'ASC',
+        int $relations = RelationType::ALL,
+        $fill = null, int $depth = 3)
+    {
+        $query = self::getQuery();
+        $query->where(static::$table . '.' . ($column !== null ? self::getColumnByMember($column) : static::$primaryField), '>', $pivot)
+            ->orderBy(static::$table . '.' . ($column !== null ? self::getColumnByMember($column) : static::$primaryField), $order)
+            ->limit($limit);
+
+        return self::getAllByQuery($query, $relations, $depth);
+    }
+
+    /**
+     * Get objects for pagination
+     *
+     * @param mixed  $pivot     Pivot
+     * @param string $column    Sort column/pivot column
+     * @param int    $limit     Result limit
+     * @param string $order     Order of the elements
+     * @param int    $relations Load relations
+     * @param mixed  $fill      Object to fill
+     * @param int    $depth     Relation depth
+     *
+     * @return mixed
+     *
+     * @since 1.0.0
+     */
+    public static function getBeforePivot(
+        $pivot,
+        string $column = null,
+        int $limit = 50,
+        string $order = 'ASC',
+        int $relations = RelationType::ALL,
+        $fill = null, int $depth = 3)
+    {
+        $query = self::getQuery();
+        $query->where(static::$table . '.' . ($column !== null ? self::getColumnByMember($column) : static::$primaryField), '<', $pivot)
+            ->orderBy(static::$table . '.' . ($column !== null ? self::getColumnByMember($column) : static::$primaryField), $order)
+            ->limit($limit);
+
+        return self::getAllByQuery($query, $relations, $depth);
     }
 
     /**
