@@ -20,7 +20,6 @@ use phpOMS\DataStorage\Database\Query\Builder;
 use phpOMS\DataStorage\Database\Query\QueryType;
 use phpOMS\DataStorage\DataMapperInterface;
 use phpOMS\Utils\ArrayUtils;
-use phpOMS\Algorithm\Sort\SortOrder;
 
 /**
  * Datamapper for databases.
@@ -2415,7 +2414,7 @@ class DataMapperAbstract implements DataMapperInterface
             ->select('COUNT(*)')
             ->from(static::$table);
 
-        return (int) $query->execute()->fetchColumn();;
+        return (int) $query->execute()->fetchColumn();
     }
 
     /**
