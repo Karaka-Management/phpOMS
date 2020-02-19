@@ -39,6 +39,10 @@ final class FormElementGenerator
      */
     public static function generate(array $json, $value = null, array $lang = []) : string
     {
+        if (!isset($json['type'])) {
+            return 'INVALID';
+        }
+
         if ($json['type'] === 'select') {
             return self::generateSelect($json, $value, $lang);
         } elseif ($json['type'] === 'input') {
@@ -132,7 +136,7 @@ final class FormElementGenerator
         $value ??= $json['default']['value'];
 
         $element .= '>';
-        $element .= isset($json['default']) ? ' value="' . $value .  '"' : '';
+        $element .= isset($json['default']) ? $value : '';
         $element .= '</textarea>';
 
         return $element;

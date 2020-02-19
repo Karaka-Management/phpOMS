@@ -77,7 +77,7 @@ class Heap
             }
         }
 
-        $this->nodes = \array_splice($this->nodes, $lo, 0, $x);
+        \array_splice($this->nodes, $lo, 0, [$x]);
     }
 
     /**
@@ -224,12 +224,7 @@ class Heap
     {
         $pos = null;
         foreach ($this->nodes as $key => $node) {
-            if (\is_scalar($item)) {
-                if ($node === $item) {
-                    $pos = $key;
-                    break;
-                }
-            } elseif ($item->isEqual($node)) {
+            if ($item->isEqual($node)) {
                 $pos = $key;
                 break;
             }

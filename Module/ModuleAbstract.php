@@ -297,7 +297,7 @@ abstract class ModuleAbstract
     /**
      * Update a model
      *
-     * @param RequestAbstract $request Request
+     * @param int             $account Account id
      * @param mixed           $old     Response object old
      * @param mixed           $new     Response object new
      * @param \Closure|string $mapper  Object mapper
@@ -307,7 +307,7 @@ abstract class ModuleAbstract
      *
      * @since 1.0.0
      */
-    protected function updateModel(RequestAbstract $request, $old, $new, $mapper, string $trigger) : void
+    protected function updateModel(int $account, $old, $new, $mapper, string $trigger) : void
     {
         $this->app->eventManager->trigger('PRE:Module:' . static::MODULE_NAME . '-' . $trigger . '-update', '', $old);
         if (\is_string($mapper)) {
@@ -316,7 +316,7 @@ abstract class ModuleAbstract
             $mapper();
         }
         $this->app->eventManager->trigger('POST:Module:' . static::MODULE_NAME . '-' . $trigger . '-update', '', [
-            $request->getHeader()->getAccount(),
+            $account,
             $old, $new,
             0, 0,
             static::MODULE_NAME,
@@ -326,21 +326,21 @@ abstract class ModuleAbstract
     /**
      * Delete a model
      *
-     * @param RequestAbstract $request Request
-     * @param mixed           $obj     Response object
-     * @param string          $mapper  Object mapper
-     * @param string          $trigger Trigger for the event manager
+     * @param int    $account Account id
+     * @param mixed  $obj     Response object
+     * @param string $mapper  Object mapper
+     * @param string $trigger Trigger for the event manager
      *
      * @return void
      *
      * @since 1.0.0
      */
-    protected function deleteModel(RequestAbstract $request, $obj, string $mapper, string $trigger) : void
+    protected function deleteModel(int $account, $obj, string $mapper, string $trigger) : void
     {
         $this->app->eventManager->trigger('PRE:Module:' . static::MODULE_NAME . '-' . $trigger . '-delete', '', $obj);
         $mapper::delete($obj);
         $this->app->eventManager->trigger('POST:Module:' . static::MODULE_NAME . '-' . $trigger . '-delete', '', [
-            $request->getHeader()->getAccount(),
+            $account,
             $obj,  null,
             0, 0,
             static::MODULE_NAME,
@@ -350,23 +350,23 @@ abstract class ModuleAbstract
     /**
      * Create a model relation
      *
-     * @param RequestAbstract $request Request
-     * @param mixed           $rel1    Response object relation1
-     * @param mixed           $rel2    Response object relation2
-     * @param string          $mapper  Object mapper
-     * @param string          $field   Relation field
-     * @param string          $trigger Trigger for the event manager
+     * @param int    $account Account id
+     * @param mixed  $rel1    Object relation1
+     * @param mixed  $rel2    Object relation2
+     * @param string $mapper  Object mapper
+     * @param string $field   Relation field
+     * @param string $trigger Trigger for the event manager
      *
      * @return void
      *
      * @since 1.0.0
      */
-    protected function createModelRelation(RequestAbstract $request, $rel1, $rel2, string $mapper, string $field, string $trigger) : void
+    protected function createModelRelation(int $account, $rel1, $rel2, string $mapper, string $field, string $trigger) : void
     {
         $this->app->eventManager->trigger('PRE:Module:' . static::MODULE_NAME . '-' . $trigger . '-relation', '', $rel1);
         $mapper::createRelation($field, $rel1, $rel2);
         $this->app->eventManager->trigger('POST:Module:' . static::MODULE_NAME . '-' . $trigger . '-relation', '', [
-            $request->getHeader()->getAccount(),
+            $account,
             $rel1, $rel2,
             0, 0,
             static::MODULE_NAME,

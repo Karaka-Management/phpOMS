@@ -170,6 +170,26 @@ class PermissionAbstractTest extends \PHPUnit\Framework\TestCase
     }
 
     /**
+     * @testdox Two permissions can be checked for equality
+     * @covers phpOMS\Account\PermissionAbstract
+     * @group framework
+     */
+    public function testEqualPermissions() : void
+    {
+        $perm1 = new class() extends PermissionAbstract {};
+        $perm1->setUnit(1);
+        $perm1->setPermission(PermissionType::READ);
+
+        self::assertTrue($perm1->isEqual($perm1));
+
+        $perm2 = new class() extends PermissionAbstract {};
+        $perm2->setUnit(1);
+        $perm2->setPermission(PermissionType::CREATE);
+
+        self::assertFalse($perm1->isEqual($perm2));
+    }
+
+    /**
      * @testdox Correct permissions are validated
      * @covers phpOMS\Account\PermissionAbstract
      * @group framework

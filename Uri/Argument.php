@@ -329,7 +329,7 @@ final class Argument implements UriInterface
      */
     public function getPathOffset() : int
     {
-        return \substr_count($this->rootPath, '/') - 1;
+        return $this->pathOffset;
     }
 
     /**

@@ -169,6 +169,26 @@ class ArrayUtilsTest extends \PHPUnit\Framework\TestCase
     }
 
     /**
+     * @testdox An array can be turned into a csv string
+     * @covers phpOMS\Utils\ArrayUtils
+     * @group framework
+     */
+    public function testArrayToCsv() : void
+    {
+        $csvArr = [
+            ['Title1', 'Title2', 'Title3', 'Title4'],
+            [1, 1.2, true, 'test'],
+            [2, 3.2, false, 'test2'],
+        ];
+
+        self::assertEquals(
+            "Title1;Title2;Title3;Title4\n"
+            . "1;1.2;1;test\n"
+            . "2;3.2;;test2\n",
+            ArrayUtils::arrayToCsv($csvArr));
+    }
+
+    /**
      * @testdox An array can be checked if it has an element and returns its index
      * @covers phpOMS\Utils\ArrayUtils
      * @group framework

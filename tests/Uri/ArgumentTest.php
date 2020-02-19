@@ -71,6 +71,23 @@ class ArgumentTest extends \PHPUnit\Framework\TestCase
 
         self::assertEquals('modules/admin/test/path', $obj->getPath());
         self::assertEquals('modules', $obj->getPathElement(0));
+        self::assertEquals(
+            ['modules', 'admin', 'test', 'path'],
+            $obj->getPathElements()
+        );
+    }
+
+    /**
+     * @testdox The path offset can be set and returned
+     * @covers phpOMS\Uri\Argument
+     * @group framework
+     */
+    public function testPathOffsetInputOutput() : void
+    {
+        $obj = new Argument();
+        $obj->setPathOffset(2);
+
+        self::assertEquals(2, $obj->getPathOffset());
     }
 
     /**

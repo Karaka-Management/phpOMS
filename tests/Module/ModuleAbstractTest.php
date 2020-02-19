@@ -16,10 +16,16 @@ namespace phpOMS\tests\Module;
 
 require_once __DIR__ . '/../Autoloader.php';
 
+use phpOMS\ApplicationAbstract;
+use phpOMS\Event\EventManager;
 use phpOMS\Message\Http\HttpRequest;
 use phpOMS\Message\Http\HttpResponse;
 use phpOMS\Module\ModuleAbstract;
 use phpOMS\Uri\HttpUri;
+use phpOMS\tests\DataStorage\Database\TestModel\BaseModel;
+use phpOMS\tests\DataStorage\Database\TestModel\BaseModelMapper;
+use phpOMS\tests\DataStorage\Database\TestModel\ManyToManyRelModelMapper;
+use phpOMS\tests\DataStorage\Database\TestModel\ManyToManyRelModel;
 
 /**
  * @testdox phpOMS\tests\Module\ModuleAbstractTest: Abstract module
@@ -32,11 +38,17 @@ class ModuleAbstractTest extends \PHPUnit\Framework\TestCase
 
     protected function setUp() : void
     {
-        $this->module = new class(null) extends ModuleAbstract {
+        $this->module = new class() extends ModuleAbstract {
             const MODULE_VERSION           = '1.2.3';
             const MODULE_NAME              = 'Test';
             const MODULE_ID                = 2;
             protected static array $dependencies = [1, 2];
+
+            public function __construct()
+            {
+                $this->app = new class() extends ApplicationAbstract {};
+                $this->app->eventManager = new EventManager();
+            }
 
             public function fillJson(HttpRequest $request, HttpResponse $response, string $status, string $title, string $message, array $data) : void
             {
@@ -46,6 +58,51 @@ class ModuleAbstractTest extends \PHPUnit\Framework\TestCase
             public function fillJsonRaw(HttpRequest $request, HttpResponse $response, array $data) : void
             {
                 $this->fillJsonRawResponse($request, $response, $data);
+            }
+
+            public function create() : void
+            {
+                $model = new BaseModel();
+                $model->hasManyRelations = [];
+                $this->createModel(1, $model, BaseModelMapper::class, '');
+            }
+
+            public function createRelationModel() : void
+            {
+                $model = new ManyToManyRelModel();
+                ManyToManyRelModelMapper::create($model);
+            }
+
+            public function createRelationDB() : void
+            {
+                $model1 = BaseModelMapper::get(1);
+                $model2 = ManyToManyRelModelMapper::get(1);
+
+                $this->createModelRelation(1, $model1->id, $model2->id, BaseModelMapper::class, 'hasManyRelations', '');
+            }
+
+            public function creates() : void
+            {
+                $model1 = new BaseModel();
+                $model2 = new BaseModel();
+                $this->createModel(1, [$model1, $model2], BaseModelMapper::class, '');
+            }
+
+            public function update() : void
+            {
+                $old = new BaseModel();
+                BaseModelMapper::create($old);
+
+                $new = clone $old;
+                $new->string = 'Updated';
+
+                $this->updateModel(1, $old, $new, BaseModelMapper::class, '');
+            }
+
+            public function delete() : void
+            {
+                $model = BaseModelMapper::get(1);
+                $this->deleteModel(1, $model, BaseModelMapper::class, '');
             }
         };
     }
@@ -151,5 +208,162 @@ class ModuleAbstractTest extends \PHPUnit\Framework\TestCase
             [1, 'test string', 'bool' => true],
             $response->get('')
         );
+    }
+
+    private function dbSetup() : void
+    {
+        $GLOBALS['dbpool']->get()->con->prepare(
+            'CREATE TABLE `oms_test_base` (
+                `test_base_id` int(11) NOT NULL AUTO_INCREMENT,
+                `test_base_string` varchar(254) NOT NULL,
+                `test_base_int` int(11) NOT NULL,
+                `test_base_bool` tinyint(1) DEFAULT NULL,
+                `test_base_null` int(11) DEFAULT NULL,
+                `test_base_float` decimal(5, 4) DEFAULT NULL,
+                `test_base_belongs_to_one` int(11) DEFAULT NULL,
+                `test_base_owns_one_self` int(11) DEFAULT NULL,
+                `test_base_json` varchar(254) DEFAULT NULL,
+                `test_base_json_serializable` varchar(254) DEFAULT NULL,
+                `test_base_datetime` datetime DEFAULT NULL,
+                `test_base_datetime_null` datetime DEFAULT NULL, /* There was a bug where it returned the current date because new \DateTime(null) === current date which is wrong, we want null as value! */
+                PRIMARY KEY (`test_base_id`)
+            )ENGINE=InnoDB  DEFAULT CHARSET=utf8mb4 AUTO_INCREMENT=1;'
+        )->execute();
+
+        $GLOBALS['dbpool']->get()->con->prepare(
+            'CREATE TABLE `oms_test_belongs_to_one` (
+                `test_belongs_to_one_id` int(11) NOT NULL AUTO_INCREMENT,
+                `test_belongs_to_one_string` varchar(254) NOT NULL,
+                PRIMARY KEY (`test_belongs_to_one_id`)
+            )ENGINE=InnoDB  DEFAULT CHARSET=utf8mb4 AUTO_INCREMENT=1;'
+        )->execute();
+
+        $GLOBALS['dbpool']->get()->con->prepare(
+            'CREATE TABLE `oms_test_owns_one` (
+                `test_owns_one_id` int(11) NOT NULL AUTO_INCREMENT,
+                `test_owns_one_string` varchar(254) NOT NULL,
+                PRIMARY KEY (`test_owns_one_id`)
+            )ENGINE=InnoDB  DEFAULT CHARSET=utf8mb4 AUTO_INCREMENT=1;'
+        )->execute();
+
+        $GLOBALS['dbpool']->get()->con->prepare(
+            'CREATE TABLE `oms_test_has_many_direct` (
+                `test_has_many_direct_id` int(11) NOT NULL AUTO_INCREMENT,
+                `test_has_many_direct_string` varchar(254) NOT NULL,
+                `test_has_many_direct_to` int(11) NOT NULL,
+                PRIMARY KEY (`test_has_many_direct_id`)
+            )ENGINE=InnoDB  DEFAULT CHARSET=utf8mb4 AUTO_INCREMENT=1;'
+        )->execute();
+
+        $GLOBALS['dbpool']->get()->con->prepare(
+            'CREATE TABLE `oms_test_has_many_rel` (
+                `test_has_many_rel_id` int(11) NOT NULL AUTO_INCREMENT,
+                `test_has_many_rel_string` varchar(254) NOT NULL,
+                PRIMARY KEY (`test_has_many_rel_id`)
+            )ENGINE=InnoDB  DEFAULT CHARSET=utf8mb4 AUTO_INCREMENT=1;'
+        )->execute();
+
+        $GLOBALS['dbpool']->get()->con->prepare(
+            'CREATE TABLE `oms_test_has_many_rel_relations` (
+                `test_has_many_rel_relations_id` int(11) NOT NULL AUTO_INCREMENT,
+                `test_has_many_rel_relations_src` int(11) NOT NULL,
+                `test_has_many_rel_relations_dest` int(11) NOT NULL,
+                PRIMARY KEY (`test_has_many_rel_relations_id`)
+            )ENGINE=InnoDB  DEFAULT CHARSET=utf8mb4 AUTO_INCREMENT=1;'
+        )->execute();
+    }
+
+    private function dbTeardown() : void
+    {
+        $GLOBALS['dbpool']->get()->con->prepare('DROP TABLE oms_test_base')->execute();
+        $GLOBALS['dbpool']->get()->con->prepare('DROP TABLE oms_test_belongs_to_one')->execute();
+        $GLOBALS['dbpool']->get()->con->prepare('DROP TABLE oms_test_owns_one')->execute();
+        $GLOBALS['dbpool']->get()->con->prepare('DROP TABLE oms_test_has_many_direct')->execute();
+        $GLOBALS['dbpool']->get()->con->prepare('DROP TABLE oms_test_has_many_rel')->execute();
+        $GLOBALS['dbpool']->get()->con->prepare('DROP TABLE oms_test_has_many_rel_relations')->execute();
+    }
+
+    /**
+     * @testdox A model can be created
+     * @covers phpOMS\Module\ModuleAbstract<extended>
+     * @group framework
+     */
+    public function testModelCreate() : void
+    {
+        $this->dbSetup();
+
+        $this->module->create();
+        self::assertCount(1, BaseModelMapper::getAll());
+
+        $this->dbTeardown();
+    }
+
+    /**
+     * @testdox Multiple models can be generated
+     * @covers phpOMS\Module\ModuleAbstract<extended>
+     * @group framework
+     */
+    public function testModelsCreate() : void
+    {
+        $this->dbSetup();
+
+        $this->module->create();
+        $this->module->create();
+        self::assertCount(2, BaseModelMapper::getAll());
+
+        $this->dbTeardown();
+    }
+
+    /**
+     * @testdox A model can be updated
+     * @covers phpOMS\Module\ModuleAbstract<extended>
+     * @group framework
+     */
+    public function testModelUpdate() : void
+    {
+        $this->dbSetup();
+
+        $this->module->update();
+        $updated = BaseModelMapper::get(1);
+
+        self::assertEquals('Updated', $updated->string);
+
+        $this->dbTeardown();
+    }
+
+    /**
+     * @testdox A model can be deleted
+     * @covers phpOMS\Module\ModuleAbstract<extended>
+     * @group framework
+     */
+    public function testModelDelete() : void
+    {
+        $this->dbSetup();
+
+        $this->module->create();
+        self::assertCount(1, BaseModelMapper::getAll());
+        $this->module->delete();
+        self::assertCount(0, BaseModelMapper::getAll());
+
+        $this->dbTeardown();
+    }
+
+    /**
+     * @testdox A model relation can be created
+     * @covers phpOMS\Module\ModuleAbstract<extended>
+     * @group framework
+     */
+    public function testModelRelation() : void
+    {
+        $this->dbSetup();
+
+        $this->module->create();
+        $this->module->createRelationModel();
+        $this->module->createRelationDB();
+
+        $model = BaseModelMapper::get(1);
+        self::assertCount(1, $model->hasManyRelations);
+
+        $this->dbTeardown();
     }
 }

@@ -15,6 +15,7 @@ declare(strict_types=1);
 namespace phpOMS\tests\Localization;
 
 use phpOMS\Localization\L11nManager;
+use phpOMS\Localization\Localization;
 
 require_once __DIR__ . '/../Autoloader.php';
 
@@ -54,26 +55,6 @@ class L11nManagerTest extends \PHPUnit\Framework\TestCase
         self::assertEquals([], $this->l11nManager->getModuleLanguage('en', 'Admin'));
         self::assertEquals('ERROR', $this->l11nManager->getHtml('en', 'Admin', 'Backend', 'Test2'));
         self::assertEquals('ERROR', $this->l11nManager->getText('en', 'Admin', 'Backend', 'Test2'));
-    }
-
-    /**
-     * @testdox Loading language for an invalid module throws Exception
-     * @covers phpOMS\Localization\L11nManager
-     * @group framework
-     */
-    public function testInvalidModule() : void
-    {
-        self::expectException(\Exception::class);
-
-        $expected = [
-            'en' => [
-                'Admin' => [
-                    'Test' => 'Test string',
-                ],
-            ],
-        ];
-
-        $this->l11nManager->loadLanguage('en', 'doesNotExist', $expected);
     }
 
     /**
@@ -120,5 +101,80 @@ class L11nManagerTest extends \PHPUnit\Framework\TestCase
 
         self::assertEquals(['Test' => ['key' => 'value']], $this->l11nManager2->getModuleLanguage('en'));
         self::assertEquals(['key' => 'value'], $this->l11nManager2->getModuleLanguage('en', 'Test'));
+    }
+
+    /**
+     * @testdox The numeric value can be printed based on the localization
+     * @covers phpOMS\Localization\L11nManager
+     * @group framework
+     */
+    public function testGetNumeric() : void
+    {
+        $l11n = Localization::fromLanguage('en');
+        self::assertEquals('1.23', $this->l11nManager->getNumeric($l11n, 1.2345, 'medium'));
+        self::assertEquals('1.235', $this->l11nManager->getNumeric($l11n, 1.2345, 'long'));
+        self::assertEquals('1,234.235', $this->l11nManager->getNumeric($l11n, 1234.2345, 'long'));
+    }
+
+    /**
+     * @testdox The percentage value can be printed based on the localization
+     * @covers phpOMS\Localization\L11nManager
+     * @group framework
+     */
+    public function testGetPercentage() : void
+    {
+        $l11n = Localization::fromLanguage('en');
+        self::assertEquals('1.23%', $this->l11nManager->getPercentage($l11n, 1.2345, 'medium'));
+        self::assertEquals('1.235%', $this->l11nManager->getPercentage($l11n, 1.2345, 'long'));
+    }
+
+    /**
+     * @testdox The currency value can be printed based on the localization
+     * @covers phpOMS\Localization\L11nManager
+     * @group framework
+     */
+    public function testGetCurrency() : void
+    {
+        $l11n = Localization::fromLanguage('en');
+        self::assertEquals('USD 1.23', $this->l11nManager->getCurrency($l11n, 1.2345, 'medium'));
+        self::assertEquals('USD 1.235', $this->l11nManager->getCurrency($l11n, 1.2345, 'long'));
+
+        $this->l11nManager->loadLanguage('en', '0', ['0' => ['CurrencyK' => 'K']]);
+        self::assertEquals('K$ 12.345', $this->l11nManager->getCurrency($l11n, 12345.0, 'long', '$', 1000));
+        self::assertEquals('KUSD 12.345', $this->l11nManager->getCurrency($l11n, 12345.0, 'long', null, 1000));
+    }
+
+    /**
+     * @testdox The datetime value can be printed based on the localization
+     * @covers phpOMS\Localization\L11nManager
+     * @group framework
+     */
+    public function testGetDateTime() : void
+    {
+        $l11n = Localization::fromLanguage('en');
+
+        $date = new \DateTime('2020-01-01 13:45:22');
+        self::assertEquals('2020.01.01', $this->l11nManager->getDateTime($l11n, $date, 'medium'));
+        self::assertEquals('2020.01.01 01:45', $this->l11nManager->getDateTime($l11n, $date, 'long'));
+    }
+
+    /**
+     * @testdox Loading language for an invalid module throws Exception
+     * @covers phpOMS\Localization\L11nManager
+     * @group framework
+     */
+    public function testInvalidModule() : void
+    {
+        self::expectException(\Exception::class);
+
+        $expected = [
+            'en' => [
+                'Admin' => [
+                    'Test' => 'Test string',
+                ],
+            ],
+        ];
+
+        $this->l11nManager->loadLanguage('en', 'doesNotExist', $expected);
     }
 }

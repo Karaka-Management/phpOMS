@@ -198,11 +198,11 @@ class AccountTest extends \PHPUnit\Framework\TestCase
     }
 
     /**
-     * @testdox Account permissions can be added and checked for existence
+     * @testdox Account permissions can be added
      * @covers phpOMS\Account\Account<extended>
      * @group framework
      */
-    public function testPermissionHandling() : void
+    public function testPermissionAdd() : void
     {
         $account = new Account();
         $account->generatePassword('abcd');
@@ -221,15 +221,43 @@ class AccountTest extends \PHPUnit\Framework\TestCase
             new class() extends PermissionAbstract {},
         ]);
         self::assertCount(4, $account->getPermissions());
+    }
 
-        $account->addPermissions([[
-            new class() extends PermissionAbstract {},
-            new class() extends PermissionAbstract {},
-        ]]);
-        self::assertCount(6, $account->getPermissions());
+    /**
+     * @testdox Account permissions can be checked for existence
+     * @covers phpOMS\Account\Account<extended>
+     * @group framework
+     */
+    public function testPermissionExists() : void
+    {
+        $account = new Account();
+        $account->generatePassword('abcd');
+
+        $account->addPermission(new class() extends PermissionAbstract {});
+        self::assertCount(1, $account->getPermissions());
 
         self::assertFalse($account->hasPermission(PermissionType::READ, 1, 'a', 'a', 1, 1, 1));
         self::assertTrue($account->hasPermission(PermissionType::NONE));
+    }
+
+    /**
+     * @testdox Account permissions can be removed
+     * @covers phpOMS\Account\Account<extended>
+     * @group framework
+     */
+    public function testPermissionRemove() : void
+    {
+        $account = new Account();
+        $account->generatePassword('abcd');
+
+        $perm = new class() extends PermissionAbstract {};
+        $perm->setPermission(PermissionType::READ);
+
+        $account->addPermission($perm);
+        self::assertCount(1, $account->getPermissions());
+
+        $account->removePermission($perm);
+        self::assertCount(0, $account->getPermissions());
     }
 
     /**

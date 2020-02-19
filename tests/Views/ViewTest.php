@@ -25,6 +25,7 @@ use phpOMS\Message\Http\HttpResponse;
 use phpOMS\Uri\HttpUri;
 use phpOMS\Views\View;
 use phpOMS\Views\ViewAbstract;
+use phpOMS\Localization\Money;
 
 /**
  * @testdox phpOMS\tests\Views\ViewTest: View for response rendering
@@ -59,7 +60,7 @@ class ViewTest extends \PHPUnit\Framework\TestCase
      */
     public function testDefault() : void
     {
-        $view = new View($this->app->l11nManager, new HttpRequest(new HttpUri('')), new HttpResponse(new Localization()));
+        $view = new View($this->app->l11nManager);
 
         self::assertEmpty($view->getTemplate());
         self::assertEmpty($view->getViews());
@@ -78,7 +79,7 @@ class ViewTest extends \PHPUnit\Framework\TestCase
      */
     public function testGetText() : void
     {
-        $view = new View($this->app->l11nManager, $request = new HttpRequest(new HttpUri('')), $response = new HttpResponse());
+        $view = new View($this->app->l11nManager);
         $view->setTemplate('/Modules/Admin/Theme/Backend/accounts-list');
 
         $expected = [
@@ -102,7 +103,7 @@ class ViewTest extends \PHPUnit\Framework\TestCase
      */
     public function testGetHtml() : void
     {
-        $view = new View($this->app->l11nManager, $request = new HttpRequest(new HttpUri('')), $response = new HttpResponse());
+        $view = new View($this->app->l11nManager);
         $view->setTemplate('/Modules/Admin/Theme/Backend/accounts-list');
 
         $expected = [
@@ -120,13 +121,68 @@ class ViewTest extends \PHPUnit\Framework\TestCase
     }
 
     /**
+     * @testdox The numeric value can be printed based on the localization
+     * @covers phpOMS\Views\View<extended>
+     * @group framework
+     */
+    public function testGetNumeric() : void
+    {
+        $view = new View($this->app->l11nManager, null, new HttpResponse(Localization::fromLanguage('en')));
+        self::assertEquals('1.23', $view->getNumeric(1.2345, 'medium'));
+        self::assertEquals('1.235', $view->getNumeric(1.2345, 'long'));
+        self::assertEquals('1,234.235', $view->getNumeric(1234.2345, 'long'));
+    }
+
+    /**
+     * @testdox The percentage value can be printed based on the localization
+     * @covers phpOMS\Views\View<extended>
+     * @group framework
+     */
+    public function testGetPercentage() : void
+    {
+        $view = new View($this->app->l11nManager, null, new HttpResponse(Localization::fromLanguage('en')));
+        self::assertEquals('1.23%', $view->getPercentage(1.2345, 'medium'));
+        self::assertEquals('1.235%', $view->getPercentage(1.2345, 'long'));
+    }
+
+    /**
+     * @testdox The currency value can be printed based on the localization
+     * @covers phpOMS\Views\View<extended>
+     * @group framework
+     */
+    public function testGetCurrency() : void
+    {
+        $view = new View($this->app->l11nManager, null, new HttpResponse(Localization::fromLanguage('en')));
+        self::assertEquals('USD 1.23', $view->getCurrency(1.2345, 'medium'));
+        self::assertEquals('USD 1.235', $view->getCurrency(1.2345, 'long'));
+
+        $this->app->l11nManager->loadLanguage('en', '0', ['0' => ['CurrencyK' => 'K']]);
+        self::assertEquals('K$ 12.345', $view->getCurrency(12345.0, 'long', '$', 1000));
+        self::assertEquals('KUSD 12.345', $view->getCurrency(12345.0, 'long', null, 1000));
+    }
+
+    /**
+     * @testdox The datetime value can be printed based on the localization
+     * @covers phpOMS\Views\View<extended>
+     * @group framework
+     */
+    public function testGetDateTime() : void
+    {
+        $view = new View($this->app->l11nManager, null, new HttpResponse(Localization::fromLanguage('en')));
+
+        $date = new \DateTime('2020-01-01 13:45:22');
+        self::assertEquals('2020.01.01', $view->getDateTime($date, 'medium'));
+        self::assertEquals('2020.01.01 01:45', $view->getDateTime($date, 'long'));
+    }
+
+    /**
      * @testdox View data can be set and returned
      * @covers phpOMS\Views\View<extended>
      * @group framework
      */
     public function testDataInputOutput() : void
     {
-        $view = new View($this->app->l11nManager, $request = new HttpRequest(new HttpUri('')), $response = new HttpResponse());
+        $view = new View($this->app->l11nManager);
 
         $view->setData('key', 'value');
         self::assertEquals('value', $view->getData('key'));
@@ -139,7 +195,7 @@ class ViewTest extends \PHPUnit\Framework\TestCase
      */
     public function testDataAdd() : void
     {
-        $view = new View($this->app->l11nManager, $request = new HttpRequest(new HttpUri('')), $response = new HttpResponse());
+        $view = new View($this->app->l11nManager);
 
         self::assertTrue($view->addData('key2', 'valu2'));
         self::assertEquals('valu2', $view->getData('key2'));
@@ -152,7 +208,7 @@ class ViewTest extends \PHPUnit\Framework\TestCase
      */
     public function testInvalidDataOverwrite() : void
     {
-        $view = new View($this->app->l11nManager, $request = new HttpRequest(new HttpUri('')), $response = new HttpResponse());
+        $view = new View($this->app->l11nManager);
 
         $view->addData('key2', 'valu2');
         self::assertFalse($view->addData('key2', 'valu3'));
@@ -166,7 +222,7 @@ class ViewTest extends \PHPUnit\Framework\TestCase
      */
     public function testRemove() : void
     {
-        $view = new View($this->app->l11nManager, $request = new HttpRequest(new HttpUri('')), $response = new HttpResponse());
+        $view = new View($this->app->l11nManager);
 
         $view->addData('key2', 'valu2');
         self::assertTrue($view->removeData('key2'));
@@ -179,7 +235,7 @@ class ViewTest extends \PHPUnit\Framework\TestCase
      */
     public function testInvalidDataRemove() : void
     {
-        $view = new View($this->app->l11nManager, $request = new HttpRequest(new HttpUri('')), $response = new HttpResponse());
+        $view = new View($this->app->l11nManager);
 
         self::assertFalse($view->removeData('key3'));
     }
@@ -204,7 +260,7 @@ class ViewTest extends \PHPUnit\Framework\TestCase
      */
     public function testGetResponse() : void
     {
-        $view = new View($this->app->l11nManager, $request = new HttpRequest(new HttpUri('')), $response = new HttpResponse());
+        $view = new View($this->app->l11nManager, new HttpRequest(new HttpUri('')), $response = new HttpResponse());
 
         self::assertEquals($response, $view->getResponse());
     }
@@ -229,9 +285,9 @@ class ViewTest extends \PHPUnit\Framework\TestCase
      */
     public function testViewInputOutput() : void
     {
-        $view = new View($this->app->l11nManager, $request = new HttpRequest(new HttpUri('')), $response = new HttpResponse());
+        $view = new View($this->app->l11nManager);
 
-        $tView = new View($this->app->l11nManager, $request, $response);
+        $tView = new View($this->app->l11nManager);
         self::assertTrue($view->addView('test', $tView));
         self::assertEquals($tView, $view->getView('test'));
         self::assertCount(1, $view->getViews());
@@ -244,7 +300,7 @@ class ViewTest extends \PHPUnit\Framework\TestCase
      */
     public function testInvalidViewGet() : void
     {
-        $view = new View($this->app->l11nManager, $request = new HttpRequest(new HttpUri('')), $response = new HttpResponse());
+        $view = new View($this->app->l11nManager);
 
         self::assertFalse($view->getView('test'));
     }
@@ -256,9 +312,9 @@ class ViewTest extends \PHPUnit\Framework\TestCase
      */
     public function testViewRemove() : void
     {
-        $view = new View($this->app->l11nManager, $request = new HttpRequest(new HttpUri('')), $response = new HttpResponse());
+        $view = new View($this->app->l11nManager);
 
-        $tView = new View($this->app->l11nManager, $request, $response);
+        $tView = new View($this->app->l11nManager);
         $view->addView('test', $tView);
         self::assertTrue($view->removeView('test'));
     }
@@ -270,7 +326,7 @@ class ViewTest extends \PHPUnit\Framework\TestCase
      */
     public function testInvalidViewRemove() : void
     {
-        $view = new View($this->app->l11nManager, $request = new HttpRequest(new HttpUri('')), $response = new HttpResponse());
+        $view = new View($this->app->l11nManager);
 
         self::assertFalse($view->removeView('test'));
     }
@@ -382,5 +438,45 @@ class ViewTest extends \PHPUnit\Framework\TestCase
         $view->setTemplate('something.txt');
 
         $view->serialize();
+    }
+
+    /**
+     * @testdox Getting the text without defining a module throws a InvalidModuleException exception
+     * @covers phpOMS\Views\View<extended>
+     * @group framework
+     */
+    public function testTextWithoutModuleAndTemplate() : void
+    {
+        self::expectException(\phpOMS\Module\Exception\InvalidModuleException::class);
+
+        $view = new View($this->app->l11nManager);
+        $view->getText('InvalidText');
+    }
+
+    /**
+     * @testdox Getting the text with an invalid template path throws a InvalidModuleException exception
+     * @covers phpOMS\Views\View<extended>
+     * @group framework
+     */
+    public function testTextFromInvalidTemplatePath() : void
+    {
+        self::expectException(\phpOMS\Module\Exception\InvalidModuleException::class);
+
+        $view = new View($this->app->l11nManager);
+        $view->setTemplate('/Modules/ABC');
+        $view->getText('InvalidText');
+    }
+
+    /**
+     * @testdox Getting the text without defining a template throws a InvalidThemeException exception
+     * @covers phpOMS\Views\View<extended>
+     * @group framework
+     */
+    public function testTextInvalidTemplate() : void
+    {
+        self::expectException(\phpOMS\Module\Exception\InvalidThemeException::class);
+
+        $view = new View($this->app->l11nManager);
+        $view->getText('InvalidText', 'Admin');
     }
 }

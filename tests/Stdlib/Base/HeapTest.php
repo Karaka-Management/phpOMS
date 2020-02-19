@@ -57,6 +57,25 @@ class HeapTest extends \PHPUnit\Framework\TestCase
     }
 
     /**
+     * @testdox A element can be added to a heap at the correct position
+     * @covers phpOMS\Stdlib\Base\Heap
+     * @group framework
+     */
+    public function testInsort() : void
+    {
+        $heap = new Heap();
+        $heap->heapify([3, 6, 1, 5, 4]);
+        $heap->insort(2);
+
+        self::assertEquals(1, $heap->pop());
+        self::assertEquals(2, $heap->pop());
+        self::assertEquals(3, $heap->pop());
+        self::assertEquals(4, $heap->pop());
+        self::assertEquals(5, $heap->pop());
+        self::assertEquals(6, $heap->pop());
+    }
+
+    /**
      * @testdox Heap elements get returned in the correct order
      * @covers phpOMS\Stdlib\Base\Heap
      * @group framework
@@ -171,6 +190,56 @@ class HeapTest extends \PHPUnit\Framework\TestCase
         self::assertTrue($heap->contains(5));
         self::assertFalse($heap->contains(0));
         self::assertFalse($heap->contains(6));
+    }
+
+    /**
+     * @testdox The heap can be checked if it contains certain custom elements
+     * @covers phpOMS\Stdlib\Base\Heap
+     * @group framework
+     */
+    public function testContainsItem(): void
+    {
+        $heap = new Heap();
+        for ($i = 1; $i < 6; ++$i) {
+            $heap->push(new HeapItem($i));
+        }
+
+        self::assertTrue($heap->contains(new HeapItem(1)));
+        self::assertTrue($heap->contains(new HeapItem(2)));
+        self::assertTrue($heap->contains(new HeapItem(3)));
+        self::assertTrue($heap->contains(new HeapItem(4)));
+        self::assertTrue($heap->contains(new HeapItem(5)));
+        self::assertFalse($heap->contains(new HeapItem(0)));
+        self::assertFalse($heap->contains(new HeapItem(6)));
+    }
+
+     /**
+     * @testdox A heap item can be updated if it exists while maintaining the correct order
+     * @covers phpOMS\Stdlib\Base\Heap
+     * @group framework
+     */
+    public function testUpdate(): void
+    {
+        $heap  = new Heap();
+        $items = [];
+
+        for ($i = 1; $i < 7; ++$i) {
+            $items[$i] = new HeapItem($i);
+        }
+
+        $heap->heapify([$items[3], $items[2], $items[6], $items[1], $items[5], $items[4]]);
+
+        $items[4]->setValue(8);
+        self::assertTrue($heap->update($items[4]));
+
+        self::assertEquals(1, $heap->pop()->getValue());
+        self::assertEquals(2, $heap->pop()->getValue());
+        self::assertEquals(3, $heap->pop()->getValue());
+        self::assertEquals(5, $heap->pop()->getValue());
+        self::assertEquals(6, $heap->pop()->getValue());
+        self::assertEquals(8, $heap->pop()->getValue());
+
+        self::assertFalse($heap->update(new HeapItem(999)));
     }
 
     /**

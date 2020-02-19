@@ -32,6 +32,7 @@ class CountryTest extends \PHPUnit\Framework\TestCase
     public function testDefaults() : void
     {
         $obj = new Country();
+        self::assertEquals(0, $obj->getId());
         self::assertEquals('', $obj->getName());
         self::assertEquals('', $obj->getCode2());
         self::assertEquals('', $obj->getCode3());

@@ -94,36 +94,63 @@ class GroupTest extends \PHPUnit\Framework\TestCase
     }
 
     /**
-     * @testdox Group permissions can be added and checked for existence
+     * @testdox Group permissions can be added
      * @covers phpOMS\Account\Group<extended>
      * @group framework
      */
-    public function testPermissionHandling() : void
+    public function testPermissionAdd() : void
     {
-        $group = new Group();
-        $group->addPermission(new class() extends PermissionAbstract {});
-        self::assertCount(1, $group->getPermissions());
+        $account = new Group();
 
-        $group->setPermissions([
+        $account->addPermission(new class() extends PermissionAbstract {});
+        self::assertCount(1, $account->getPermissions());
+
+        $account->setPermissions([
             new class() extends PermissionAbstract {},
             new class() extends PermissionAbstract {},
         ]);
-        self::assertCount(2, $group->getPermissions());
+        self::assertCount(2, $account->getPermissions());
 
-        $group->addPermissions([
+        $account->addPermissions([
             new class() extends PermissionAbstract {},
             new class() extends PermissionAbstract {},
         ]);
-        self::assertCount(4, $group->getPermissions());
+        self::assertCount(4, $account->getPermissions());
+    }
 
-        $group->addPermissions([[
-            new class() extends PermissionAbstract {},
-            new class() extends PermissionAbstract {},
-        ]]);
-        self::assertCount(6, $group->getPermissions());
+    /**
+     * @testdox Group permissions can be checked for existence
+     * @covers phpOMS\Account\Group<extended>
+     * @group framework
+     */
+    public function testPermissionExists() : void
+    {
+        $account = new Group();
 
-        self::assertFalse($group->hasPermission(PermissionType::READ, 1, 'a', 'a', 1, 1, 1));
-        self::assertTrue($group->hasPermission(PermissionType::NONE));
+        $account->addPermission(new class() extends PermissionAbstract {});
+        self::assertCount(1, $account->getPermissions());
+
+        self::assertFalse($account->hasPermission(PermissionType::READ, 1, 'a', 'a', 1, 1, 1));
+        self::assertTrue($account->hasPermission(PermissionType::NONE));
+    }
+
+    /**
+     * @testdox Group permissions can be removed
+     * @covers phpOMS\Account\Group<extended>
+     * @group framework
+     */
+    public function testPermissionRemove() : void
+    {
+        $account = new Group();
+
+        $perm = new class() extends PermissionAbstract {};
+        $perm->setPermission(PermissionType::READ);
+
+        $account->addPermission($perm);
+        self::assertCount(1, $account->getPermissions());
+
+        $account->removePermission($perm);
+        self::assertCount(0, $account->getPermissions());
     }
 
     /**

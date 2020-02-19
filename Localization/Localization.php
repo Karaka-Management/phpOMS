@@ -207,12 +207,12 @@ class Localization implements \JsonSerializable
     {
         $l11n = new self();
         $l11n->setCountry($json['country']);
-        $l11n->setTimezone($json['timezone']);
+        $l11n->setTimezone($json['timezone'] ?? 'America/New_York');
         $l11n->setLanguage($json['language']);
-        $l11n->setCurrency($json['currency']);
-        $l11n->setCurrencyFormat($json['currencyformat']);
+        $l11n->setCurrency(\is_string($json['currency']) ? $json['currency'] : ($json['currency']['code'] ?? ISO4217Enum::_USD));
+        $l11n->setCurrencyFormat(isset($json['currencyformat']) && \is_string($json['currencyformat']) ? $json['currencyformat'] : ($json['currency']['format'] ?? '1'));
         $l11n->setDecimal($json['decimal']);
-        $l11n->setThousands($json['thousands']);
+        $l11n->setThousands($json['thousand']);
         $l11n->setAngle($json['angle']);
         $l11n->setTemperature($json['temperature']);
         $l11n->setDatetime($json['datetime']);
@@ -772,7 +772,7 @@ class Localization implements \JsonSerializable
             'currency'       => $this->currency,
             'currencyformat' => $this->currencyFormat,
             'decimal'        => $this->decimal,
-            'thousands'      => $this->thousands,
+            'thousand'       => $this->thousands,
             'angle'          => $this->angle,
             'temperature'    => $this->temperature,
             'datetime'       => $this->datetime,

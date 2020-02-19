@@ -61,14 +61,17 @@ class LocalizationTest extends \PHPUnit\Framework\TestCase
      */
     public function testDefault() : void
     {
+        self::assertEquals(0, $this->localization->getId());
         self::assertTrue(ISO3166TwoEnum::isValidValue($this->localization->getCountry()));
         self::assertTrue(TimeZoneEnumArray::isValidValue($this->localization->getTimezone()));
         self::assertTrue(ISO639x1Enum::isValidValue($this->localization->getLanguage()));
         self::assertTrue(ISO4217CharEnum::isValidValue($this->localization->getCurrency()));
+        self::assertEquals('0', $this->localization->getCurrencyFormat());
         self::assertEquals('.', $this->localization->getDecimal());
         self::assertEquals(',', $this->localization->getThousands());
         self::assertEquals([], $this->localization->getDatetime());
 
+        self::assertEquals([], $this->localization->getPrecision());
         self::assertEquals([], $this->localization->getSpeed());
         self::assertEquals([], $this->localization->getWeight());
         self::assertEquals([], $this->localization->getLength());
@@ -259,6 +262,28 @@ class LocalizationTest extends \PHPUnit\Framework\TestCase
     }
 
     /**
+     * @testdox The currency format can be set and returned
+     * @covers phpOMS\Localization\Localization
+     * @group framework
+     */
+    public function testCurrencyFormatInputOutput() : void
+    {
+        $this->localization->setCurrencyFormat('1');
+        self::assertEquals('1', $this->localization->getCurrencyFormat());
+    }
+
+    /**
+     * @testdox The precision can be set and returned
+     * @covers phpOMS\Localization\Localization
+     * @group framework
+     */
+    public function testPrecisionInputOutput() : void
+    {
+        $this->localization->setPrecision([1]);
+        self::assertEquals([1], $this->localization->getPrecision());
+    }
+
+    /**
      * @testdox The length can be set and returned
      * @covers phpOMS\Localization\Localization
      * @group framework
@@ -311,6 +336,22 @@ class LocalizationTest extends \PHPUnit\Framework\TestCase
     {
         $this->localization->loadFromLanguage(ISO639x1Enum::_EN);
         self::assertEquals(ISO4217CharEnum::_USD, $this->localization->getCurrency());
+    }
+
+    /**
+     * @testdox Localization data can be serialized and unserialized
+     * @covers phpOMS\Localization\Localization
+     * @group framework
+     */
+    public function testLocalizationSerialize() : void
+    {
+        $this->localization->loadFromLanguage(ISO639x1Enum::_EN);
+        $l11n1 = $this->localization->jsonSerialize();
+
+        $l11nObj = Localization::fromJson($l11n1);
+        $l11n2   = $l11nObj->jsonSerialize();
+
+        self::assertEquals($l11n1, $l11n2);
     }
 
     /**

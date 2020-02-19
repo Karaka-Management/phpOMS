@@ -2051,7 +2051,7 @@ class DataMapperAbstract implements DataMapperInterface
                     $objects = $mapper::getBy($values, static::$hasMany[$member]['by'], RelationType::ALL, null, $depth);
                 }
 
-                $refProp->setValue($obj, !\is_array($objects) ? [$objects->getId() => $objects] : $objects);
+                $refProp->setValue($obj, !\is_array($objects) ? [$mapper::getObjectId($objects) => $objects] : $objects);
 
                 if (!$accessible) {
                     $refProp->setAccessible(false);

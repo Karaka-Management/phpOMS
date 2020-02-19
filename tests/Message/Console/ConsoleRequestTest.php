@@ -34,8 +34,6 @@ class ConsoleRequestTest extends \PHPUnit\Framework\TestCase
         self::assertEquals(OSType::LINUX, $request->getOS());
         self::assertEquals('127.0.0.1', $request->getOrigin());
         self::assertEmpty($request->getBody());
-        self::assertEquals(RouteVerb::GET, $request->getRouteVerb());
-        self::assertEquals(RequestMethod::GET, $request->getMethod());
         self::assertInstanceOf('\phpOMS\Message\Console\ConsoleHeader', $request->getHeader());
         self::assertEquals('', $request->__toString());
         self::assertFalse($request->hasData('key'));
@@ -50,16 +48,10 @@ class ConsoleRequestTest extends \PHPUnit\Framework\TestCase
         self::assertEquals(OSType::WINDOWS_XP, $request->getOS());
 
         $request->setMethod(RequestMethod::PUT);
-        self::assertEquals(RequestMethod::PUT, $request->getMethod());
-        self::assertEquals(RouteVerb::PUT, $request->getRouteVerb());
 
         $request->setMethod(RequestMethod::DELETE);
-        self::assertEquals(RequestMethod::DELETE, $request->getMethod());
-        self::assertEquals(RouteVerb::DELETE, $request->getRouteVerb());
 
         $request->setMethod(RequestMethod::POST);
-        self::assertEquals(RequestMethod::POST, $request->getMethod());
-        self::assertEquals(RouteVerb::SET, $request->getRouteVerb());
 
         self::assertEquals('get:some/test/path', $request->getUri()->__toString());
 
@@ -83,14 +75,5 @@ class ConsoleRequestTest extends \PHPUnit\Framework\TestCase
 
         $request = new ConsoleRequest(new Argument('get:some/test/path?test=var'));
         self::assertEquals('get:some/test/path?test=var', $request->__toString());
-    }
-
-    public function testInvalidRouteVerb() : void
-    {
-        self::expectException(\Exception::class);
-
-        $request = new ConsoleRequest(new Argument('get:some/test/path'));
-        $request->setMethod('failure');
-        $request->getRouteVerb();
     }
 }

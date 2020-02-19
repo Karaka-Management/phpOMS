@@ -246,10 +246,13 @@ final class ArrayUtils
             throw new \Exception(); // @codeCoverageIgnore
         }
 
-        /** @noinspection PhpMethodParametersCountMismatchInspection */
-        \fputcsv($outstream, $data, $delimiter, $enclosure, $escape);
+        foreach ($data as $line) {
+            /** @noinspection PhpMethodParametersCountMismatchInspection */
+            \fputcsv($outstream, $line, $delimiter, $enclosure, $escape);
+        }
+
         \rewind($outstream);
-        $csv = \fgets($outstream);
+        $csv = \stream_get_contents($outstream);
         \fclose($outstream);
 
         return $csv === false ? '' : $csv;

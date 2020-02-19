@@ -187,10 +187,6 @@ class View extends ViewAbstract
      */
     public function getText($translation, string $module = null, string $theme = null) : string
     {
-        if ($this->l11nManager === null) {
-            return 'ERROR';
-        }
-
         if ($module === null && $this->module === null) {
             $this->setModuleDynamically();
         }
@@ -226,8 +222,13 @@ class View extends ViewAbstract
             throw new InvalidModuleException($this->template);
         }
 
-        $start        = $start + \strlen($match);
-        $end          = \strpos($this->template, '/', $start);
+        $start = $start + \strlen($match);
+        $end   = \strpos($this->template, '/', $start);
+
+        if ($end === false) {
+            throw new InvalidModuleException($this->template);
+        }
+
         $this->module = \substr($this->template, $start, $end - $start);
 
         if ($this->module === false) {
