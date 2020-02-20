@@ -19,10 +19,10 @@ use phpOMS\Message\Http\BrowserType;
 use phpOMS\Message\Http\HttpRequest;
 use phpOMS\Message\Http\OSType;
 use phpOMS\Message\Http\RequestMethod;
-use phpOMS\Router\RouteVerb;
-use phpOMS\Uri\HttpUri;
 use phpOMS\Message\Http\Rest;
+use phpOMS\Router\RouteVerb;
 use phpOMS\System\MimeType;
+use phpOMS\Uri\HttpUri;
 
 /**
  * @testdox phpOMS\tests\Message\Http\RequestTest: HttpRequest wrapper for http requests
