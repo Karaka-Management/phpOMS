@@ -92,7 +92,7 @@ class FormElementGeneratorTest extends \PHPUnit\Framework\TestCase
             ],
             'default' => [
                 "value" => "2019-02-03 01:23",
-                "format" => "Y-m-d"
+                "format" => "Y-m-d",
             ],
         ];
 
@@ -120,7 +120,7 @@ class FormElementGeneratorTest extends \PHPUnit\Framework\TestCase
             'default' => [
                 'value' => 'testValue',
                 'checked' => true,
-                'content' => 'testContent'
+                'content' => 'testContent',
             ],
         ];
 
@@ -148,7 +148,7 @@ class FormElementGeneratorTest extends \PHPUnit\Framework\TestCase
             'default' => [
                 'value' => 'testValue',
                 'checked' => false,
-                'content' => 'testContent'
+                'content' => 'testContent',
             ],
         ];
 
@@ -176,7 +176,7 @@ class FormElementGeneratorTest extends \PHPUnit\Framework\TestCase
             'default' => [
                 'value' => 'testValue',
                 'checked' => true,
-                'content' => 'testContent'
+                'content' => 'testContent',
             ],
         ];
 
@@ -204,7 +204,7 @@ class FormElementGeneratorTest extends \PHPUnit\Framework\TestCase
             'default' => [
                 'value' => 'testValue',
                 'checked' => false,
-                'content' => 'testContent'
+                'content' => 'testContent',
             ],
         ];
 

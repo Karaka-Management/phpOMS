@@ -21,11 +21,11 @@ use phpOMS\Event\EventManager;
 use phpOMS\Message\Http\HttpRequest;
 use phpOMS\Message\Http\HttpResponse;
 use phpOMS\Module\ModuleAbstract;
-use phpOMS\Uri\HttpUri;
 use phpOMS\tests\DataStorage\Database\TestModel\BaseModel;
 use phpOMS\tests\DataStorage\Database\TestModel\BaseModelMapper;
-use phpOMS\tests\DataStorage\Database\TestModel\ManyToManyRelModelMapper;
 use phpOMS\tests\DataStorage\Database\TestModel\ManyToManyRelModel;
+use phpOMS\tests\DataStorage\Database\TestModel\ManyToManyRelModelMapper;
+use phpOMS\Uri\HttpUri;
 
 /**
  * @testdox phpOMS\tests\Module\ModuleAbstractTest: Abstract module

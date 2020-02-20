@@ -25,7 +25,6 @@ use phpOMS\Message\Http\HttpResponse;
 use phpOMS\Uri\HttpUri;
 use phpOMS\Views\View;
 use phpOMS\Views\ViewAbstract;
-use phpOMS\Localization\Money;
 
 /**
  * @testdox phpOMS\tests\Views\ViewTest: View for response rendering

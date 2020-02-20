@@ -18,7 +18,6 @@ use phpOMS\Localization\Localization;
 use phpOMS\Message\Console\ConsoleRequest;
 use phpOMS\Message\Http\OSType;
 use phpOMS\Message\Http\RequestMethod;
-use phpOMS\Router\RouteVerb;
 use phpOMS\Uri\Argument;
 
 /**
