@@ -1076,6 +1076,10 @@ class DataMapperAbstract implements DataMapperInterface
         $objsIds = [];
 
         foreach (static::$hasMany as $propertyName => $rel) {
+            if ($rel['readonly'] ?? false === true) {
+                continue;
+            }
+
             $property = $refClass->getProperty($propertyName);
 
             if (!($isPublic = $property->isPublic())) {
@@ -1165,6 +1169,10 @@ class DataMapperAbstract implements DataMapperInterface
         $objsIds = [];
 
         foreach (static::$hasMany as $propertyName => $rel) {
+            if ($rel['readonly'] ?? false === true) {
+                continue;
+            }
+
             $values = $obj[$propertyName];
 
             if (!isset(static::$hasMany[$propertyName]['mapper'])) {
@@ -1397,6 +1405,7 @@ class DataMapperAbstract implements DataMapperInterface
             $propertyName = \stripos($column['internal'], '/') !== false ? \explode('/', $column['internal'])[0] : $column['internal'];
             if (isset(static::$hasMany[$propertyName])
                 || $column['internal'] === static::$primaryField
+                || ($column['readonly'] ?? false === true)
             ) {
                 continue;
             }
@@ -1522,7 +1531,9 @@ class DataMapperAbstract implements DataMapperInterface
             ->where(static::$table . '.' . static::$primaryField, '=', $objId);
 
         foreach (static::$columns as $key => $column) {
-            if (isset(static::$hasMany[$key])) {
+            if (isset(static::$hasMany[$key])
+                || ($column['readonly'] ?? false === true)
+            ) {
                 continue;
             }
 
@@ -1621,7 +1632,6 @@ class DataMapperAbstract implements DataMapperInterface
 
         $refClass = new \ReflectionClass($obj);
         $objId    = self::getObjectId($obj, $refClass);
-        $update   = true;
 
         if ($depth < 1) {
             return $objId;
