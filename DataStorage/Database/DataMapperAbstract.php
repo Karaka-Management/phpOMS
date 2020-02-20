@@ -3176,6 +3176,10 @@ class DataMapperAbstract implements DataMapperInterface
         $result = [];
 
         foreach (static::$hasMany as $member => $value) {
+            if ($value['writeonly'] ?? false === true) {
+                continue;
+            }
+
             $query = new Builder(self::$db);
             $query->prefix(self::$db->getPrefix());
 
