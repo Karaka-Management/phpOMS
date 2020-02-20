@@ -513,6 +513,7 @@ abstract class MimeType extends Enum
     public const M_MSI       = 'application/x-msdownload';
     public const M_MSL       = 'application/vnd.mobius.msl';
     public const M_MSTY      = 'application/vnd.muvee.style';
+    public const M_MULT      = 'multipart/form-data';
     public const M_MTS       = 'model/vnd.mts';
     public const M_MUS       = 'application/vnd.musician';
     public const M_MUSICXML  = 'application/vnd.recordare.musicxml+xml';
@@ -629,6 +630,7 @@ abstract class MimeType extends Enum
     public const M_PNG       = 'image/png';
     public const M_PNM       = 'image/x-portable-anymap';
     public const M_PORTPKG   = 'application/vnd.macports.portpkg';
+    public const M_POST      = 'application/x-www-form-urlencoded';
     public const M_POT       = 'application/vnd.ms-powerpoint';
     public const M_POTM      = 'application/vnd.ms-powerpoint.template.macroenabled.12';
     public const M_POTX      = 'application/vnd.openxmlformats-officedocument.presentationml.template';

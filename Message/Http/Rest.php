@@ -14,6 +14,8 @@ declare(strict_types=1);
 
 namespace phpOMS\Message\Http;
 
+use phpOMS\System\MimeType;
+
 /**
  * Rest request class.
  *
@@ -45,8 +47,11 @@ final class Rest
 
         \curl_setopt($curl, \CURLOPT_NOBODY, true);
 
-        $headers = $request->getHeader()->get();
-        foreach ($headers as $key => $header) {
+        // handle header
+        $requestHeaders = $request->getHeader()->get();
+        $headers        = [];
+
+        foreach ($requestHeaders as $key => $header) {
             $headers[$key] = $key . ': ' . \implode('', $header);
         }
 
@@ -57,6 +62,9 @@ final class Rest
             case RequestMethod::GET:
                 \curl_setopt($curl, \CURLOPT_HTTPGET, true);
                 break;
+            case RequestMethod::POST:
+                \curl_setopt($curl, \CURLOPT_CUSTOMREQUEST, 'POST');
+                break;
             case RequestMethod::PUT:
                 \curl_setopt($curl, \CURLOPT_CUSTOMREQUEST, 'PUT');
                 break;
@@ -65,14 +73,39 @@ final class Rest
                 break;
         }
 
+        // handle none-get
         if ($request->getMethod() !== RequestMethod::GET) {
             \curl_setopt($curl, \CURLOPT_POST, 1);
 
-            if ($request->getData() !== null) {
-                \curl_setopt($curl, \CURLOPT_POSTFIELDS, $request->getData());
+            // handle different content types
+            $contentType = $requestHeaders['content-type'] ?? [];
+            if ($request->getData() !== null && (empty($contentType) || \in_array(MimeType::M_POST, $contentType))) {
+                \curl_setopt($curl, \CURLOPT_POSTFIELDS, \http_build_query($request->getData()));
+            } elseif ($request->getData() !== null && \in_array(MimeType::M_JSON, $contentType)) {
+                \curl_setopt($curl, \CURLOPT_POSTFIELDS, \json_encode($request->getData()));
+            } elseif ($request->getData() !== null && \in_array(MimeType::M_MULT, $contentType)) {
+                $boundary = '----' . \uniqid();
+                $data     = self::createMultipartData($boundary, $request->getData());
+
+                /**
+                 * @todo:
+                 * there is a very weird bug where boundary= fails to create the correct request
+                 * while removing the = or putting it at a different location works (e.g. bound=ary).
+                 * Maybe boundary= is a reserved keyword?
+                 *
+                 * according to the verbose output of curl the request is correct. this means the server must have a problem with it
+                 *
+                 * the php webserver and apache2 both seem to be unable to populate the php://input correctly -> not a server isue but a php issue?
+                 */
+                $headers['content-type']   = 'Content-Type: multipart/form-data; boundary/' . $boundary;
+                $headers['content-length'] = 'Content-Length: ' . \strlen($data);
+
+                \curl_setopt($curl, \CURLOPT_HTTPHEADER, $headers);
+                \curl_setopt($curl, \CURLOPT_POSTFIELDS, $data);
             }
         }
 
+        // handle user auth
         if ($request->getUri()->getUser() !== '') {
             \curl_setopt($curl, \CURLOPT_HTTPAUTH, \CURLAUTH_BASIC);
             \curl_setopt($curl, \CURLOPT_USERPWD, $request->getUri()->getUserInfo());
@@ -110,5 +143,39 @@ final class Rest
         $response->set('', \substr(\is_bool($result) ? '' : $result, $len === false ? 0 : $len));
 
         return $response;
+    }
+
+    /**
+     * Create multipart data
+     *
+     * @param string $boundary Unique boundary id
+     * @param array  $fields   Data array (key value pair)
+     * @param array  $files    Files to upload
+     *
+     * @return string
+     *
+     * @since 1.0.0
+     */
+    private static function createMultipartData(string $boundary, array $fields = [], array $files = []) : string
+    {
+        $data  = '';
+        $delim = $boundary;
+
+        foreach ($fields as $name => $content) {
+            $data .= '--' . $delim . "\r\n"
+                . 'Content-Disposition: form-data; name="' . $name . "\"\r\n\r\n"
+                . $content . "\r\n";
+        }
+
+        foreach ($files as $name => $content) {
+            $data .= '--' . $delim . "\r\n"
+                . 'Content-Disposition: form-data; name="' . $name . '"; filename="' . $name . "\"\r\n\r\n"
+                . 'Content-Transfer-Encoding: binary' . "\r\n"
+                . $content . "\r\n";
+        }
+
+        $data .= '--' . $delim . "--\r\n";
+
+        return $data;
     }
 }

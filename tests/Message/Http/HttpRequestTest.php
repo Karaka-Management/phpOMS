@@ -21,6 +21,8 @@ use phpOMS\Message\Http\OSType;
 use phpOMS\Message\Http\RequestMethod;
 use phpOMS\Router\RouteVerb;
 use phpOMS\Uri\HttpUri;
+use phpOMS\Message\Http\Rest;
+use phpOMS\System\MimeType;
 
 /**
  * @testdox phpOMS\tests\Message\Http\RequestTest: HttpRequest wrapper for http requests
@@ -374,6 +376,140 @@ class HttpRequestTest extends \PHPUnit\Framework\TestCase
         self::assertEquals(
             "The OMS License 1.0\n\nCopyright (c) <Dennis Eichhorn> All Rights Reserved\n\nTHE SOFTWARE IS PROVIDED \"AS IS\", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR\nIMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,\nFITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE\nAUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER\nLIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,\nOUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN\nTHE SOFTWARE.",
            $request->rest()->getBody()
+        );
+    }
+
+    /**
+     * @testdox A request can be made with post data
+     * @covers phpOMS\Message\Http\HttpRequest<extended>
+     * @group framework
+     */
+    public function testPostData() : void
+    {
+        $request = new HttpRequest(new HttpUri('http://localhost:1234/phpOMS/tests/Message/Http/HttpRequestPost.php'));
+        $request->setMethod(RequestMethod::POST);
+        $request->getHeader()->set('Content-Type', MimeType::M_POST);
+        $request->setData('testKey', 'testValue');
+
+        self::assertEquals(
+            \json_encode($request->getData()),
+            Rest::request($request)->getBody()
+        );
+    }
+
+    /**
+     * @testdox A request can be made with json data
+     * @covers phpOMS\Message\Http\HttpRequest<extended>
+     * @group framework
+     */
+    public function testJsonData() : void
+    {
+        $request = new HttpRequest(new HttpUri('http://localhost:1234/phpOMS/tests/Message/Http/HttpRequestPost.php'));
+        $request->setMethod(RequestMethod::POST);
+        $request->getHeader()->set('Content-Type', MimeType::M_JSON);
+        $request->setData('testKey', 'testValue');
+
+        self::assertEquals(
+            \json_encode($request->getData()),
+            Rest::request($request)->getBody()
+        );
+    }
+
+    /**
+     * @testdox A request can be made with multipart data
+     * @covers phpOMS\Message\Http\HttpRequest<extended>
+     * @group framework
+     */
+    public function testMultipartData() : void
+    {
+        $request = new HttpRequest(new HttpUri('http://localhost:1234/phpOMS/tests/Message/Http/HttpRequestPost.php'));
+        $request->setMethod(RequestMethod::POST);
+        $request->getHeader()->set('Content-Type', MimeType::M_MULT);
+        $request->setData('testKey', 'testValue');
+
+        self::assertEquals(
+            \json_encode($request->getData()),
+            Rest::request($request)->getBody()
+        );
+    }
+
+    /**
+     * @testdox If no language can be identified en is returned
+     * @covers phpOMS\Message\Http\HttpRequest<extended>
+     * @group framework
+     */
+    public function testLanguage() : void
+    {
+        $request = new HttpRequest(new HttpUri('http://localhost:1234/phpOMS/tests/Message/Http/HttpRequestLanguage.php'));
+        $request->setMethod(RequestMethod::GET);
+
+        self::assertEquals(
+            'en',
+            Rest::request($request)->getBody()
+        );
+    }
+
+    /**
+     * @testdox If no locale can be identified en_US is returned
+     * @covers phpOMS\Message\Http\HttpRequest<extended>
+     * @group framework
+     */
+    public function testLocale() : void
+    {
+        $request = new HttpRequest(new HttpUri('http://localhost:1234/phpOMS/tests/Message/Http/HttpRequestLocale.php'));
+        $request->setMethod(RequestMethod::GET);
+
+        self::assertEquals(
+            'en_US',
+            Rest::request($request)->getBody()
+        );
+    }
+
+    /**
+     * @testdox A none-mobile request is recognized as none-mobile
+     * @covers phpOMS\Message\Http\HttpRequest<extended>
+     * @group framework
+     */
+    public function testMobile() : void
+    {
+        $request = new HttpRequest(new HttpUri('http://localhost:1234/phpOMS/tests/Message/Http/HttpRequestMobile.php'));
+        $request->setMethod(RequestMethod::GET);
+
+        self::assertEquals(
+            (string) false,
+            Rest::request($request)->getBody()
+        );
+    }
+
+    /**
+     * @testdox If the OS type is unknown a unknwon OS type is returned
+     * @covers phpOMS\Message\Http\HttpRequest<extended>
+     * @group framework
+     */
+    public function testOS() : void
+    {
+        $request = new HttpRequest(new HttpUri('http://localhost:1234/phpOMS/tests/Message/Http/HttpRequestOS.php'));
+        $request->setMethod(RequestMethod::GET);
+
+        self::assertEquals(
+            OSType::UNKNOWN,
+            Rest::request($request)->getBody()
+        );
+    }
+
+    /**
+     * @testdox If the browser type is unknown a unknwon browser type is returned
+     * @covers phpOMS\Message\Http\HttpRequest<extended>
+     * @group framework
+     */
+    public function testBrowser() : void
+    {
+        $request = new HttpRequest(new HttpUri('http://localhost:1234/phpOMS/tests/Message/Http/HttpRequestBrowser.php'));
+        $request->setMethod(RequestMethod::GET);
+
+        self::assertEquals(
+            BrowserType::UNKNOWN,
+            Rest::request($request)->getBody()
         );
     }
 
