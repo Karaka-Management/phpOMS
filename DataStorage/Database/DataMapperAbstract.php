@@ -164,7 +164,7 @@ class DataMapperAbstract implements DataMapperInterface
     /**
      * Columns.
      *
-     * @var array<string, array{name:string, type:string, internal:string, autocomplete?:bool, readonly?:bool, annotations?:array}>
+     * @var array<string, array{name:string, type:string, internal:string, autocomplete?:bool, readonly?:bool, writeonly?:bool, annotations?:array}>
      * @since 1.0.0
      */
     protected static array $columns = [];
@@ -3222,9 +3222,16 @@ class DataMapperAbstract implements DataMapperInterface
      */
     public static function getQuery(Builder $query = null) : Builder
     {
+        $columns = [];
+        foreach (static::$columns as $key => $values) {
+            if ($values['writeonly'] ?? false === false) {
+                $columns[] = $key;
+            }
+        }
+
         $query = $query ?? new Builder(self::$db);
         $query->prefix(self::$db->getPrefix())
-            ->select('*')
+            ->select(...$columns)
             ->from(static::$table);
 
         return $query;
