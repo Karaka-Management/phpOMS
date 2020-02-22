@@ -170,9 +170,9 @@ abstract class InstallerAbstract
     {
         $directories = new Directory(\dirname($info->getPath()) . '/Admin/Routes');
 
-        foreach ($directories as $key => $child) {
+        foreach ($directories as $child) {
             if ($child instanceof Directory) {
-                foreach ($child as $key2 => $file) {
+                foreach ($child as $file) {
                     self::installRoutes(__DIR__ . '/../../' . $child->getName() . '/' . \basename($file->getName(), '.php') . '/Routes.php', $file->getPath());
                 }
             } elseif ($child instanceof File) {
