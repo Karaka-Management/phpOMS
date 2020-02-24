@@ -133,7 +133,7 @@ abstract class InstallerAbstract
      *
      * @since 1.0.0
      */
-    private static function createTables(DatabasePool $dbPool, ModuleInfo $info) : void
+    protected static function createTables(DatabasePool $dbPool, ModuleInfo $info) : void
     {
         $path = \dirname($info->getPath()) . '/Admin/Install/db.json';
 
@@ -162,7 +162,7 @@ abstract class InstallerAbstract
      *
      * @since 1.0.0
      */
-    private static function activate(DatabasePool $dbPool, ModuleInfo $info) : void
+    protected static function activate(DatabasePool $dbPool, ModuleInfo $info) : void
     {
         /** @var StatusAbstract $class */
         $class = '\Modules\\' . $info->getDirectory() . '\Admin\Status';
@@ -197,7 +197,7 @@ abstract class InstallerAbstract
      *
      * @since 1.0.0
      */
-    private static function initRoutes(ModuleInfo $info, ApplicationInfo $appInfo = null) : void
+    protected static function initRoutes(ModuleInfo $info, ApplicationInfo $appInfo = null) : void
     {
         $directories = new Directory(\dirname($info->getPath()) . '/Admin/Routes');
 
@@ -224,7 +224,7 @@ abstract class InstallerAbstract
      *
      * @since 1.0.0
      */
-    private static function installRoutes(string $destRoutePath, string $srcRoutePath) : void
+    protected static function installRoutes(string $destRoutePath, string $srcRoutePath) : void
     {
         if (!\file_exists($destRoutePath)) {
             \file_put_contents($destRoutePath, '<?php return [];');
@@ -264,7 +264,7 @@ abstract class InstallerAbstract
      *
      * @since 1.0.0
      */
-    private static function initHooks(ModuleInfo $info, ApplicationInfo $appInfo = null) : void
+    protected static function initHooks(ModuleInfo $info, ApplicationInfo $appInfo = null) : void
     {
         $directories = new Directory(\dirname($info->getPath()) . '/Admin/Hooks');
 
@@ -292,7 +292,7 @@ abstract class InstallerAbstract
      *
      * @since 1.0.0
      */
-    private static function installHooks(string $destHookPath, string $srcHookPath) : void
+    protected static function installHooks(string $destHookPath, string $srcHookPath) : void
     {
         if (!\file_exists($destHookPath)) {
             \file_put_contents($destHookPath, '<?php return [];');
