@@ -1,0 +1,21 @@
+{
+    "name": {
+        "id": "^[1-9]\\d*",
+        "internal": "[a-zA-Z0-9]+",
+        "external": "[a-zA-Z0-9]+"
+    },
+    "category": "[a-zA-Z0-9]+",
+    "version": "([0-9]+\\.){2}[0-9]+",
+    "requirements": {
+        ".*": ".*"
+    },
+    "creator": {
+        "name": ".+",
+        "website": ".*"
+    },
+    "description": ".+",
+    "directory": "[a-zA-Z0-9]+",
+    "dependencies": {
+        ".*": ".*"
+    }
+}

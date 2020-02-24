@@ -12,7 +12,7 @@
  */
 declare(strict_types=1);
 
-namespace phpOMS;
+namespace phpOMS\Application;
 
 use phpOMS\Account\AccountManager;
 use phpOMS\Config\SettingsInterface;

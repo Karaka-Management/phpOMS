@@ -14,7 +14,7 @@ declare(strict_types=1);
 
 namespace phpOMS\Module;
 
-use phpOMS\ApplicationAbstract;
+use phpOMS\Application\ApplicationAbstract;
 use phpOMS\Autoloader;
 use phpOMS\DataStorage\Database\Query\Builder;
 use phpOMS\Message\Http\HttpRequest;
@@ -23,7 +23,7 @@ use phpOMS\Module\Exception\InvalidModuleException;
 use phpOMS\System\File\PathException;
 
 /**
- * Modules class.
+ * Module manager class.
  *
  * General module functionality such as listings and initialization.
  *
@@ -66,7 +66,7 @@ final class ModuleManager
     /**
      * Installed modules.
      *
-     * @var array<string, InfoManager>
+     * @var array<string, ModuleInfo>
      * @since 1.0.0
      */
     private array $installed = [];
@@ -288,7 +288,7 @@ final class ModuleManager
      *
      * @param bool $useCache Use Cache
      *
-     * @return array<string, InfoManager>
+     * @return array<string, ModuleInfo>
      *
      * @since 1.0.0
      */
@@ -323,11 +323,11 @@ final class ModuleManager
      *
      * @param string $module Module name
      *
-     * @return InfoManager
+     * @return ModuleInfo
      *
      * @since 1.0.0
      */
-    private function loadInfo(string $module) : InfoManager
+    private function loadInfo(string $module) : ModuleInfo
     {
         $path = \realpath($oldPath = $this->modulePath . '/' . $module . '/info.json');
 
@@ -335,7 +335,7 @@ final class ModuleManager
             throw new PathException($oldPath);
         }
 
-        $info = new InfoManager($path);
+        $info = new ModuleInfo($path);
         $info->load();
 
         return $info;
@@ -372,7 +372,7 @@ final class ModuleManager
     /**
      * Deactivate module.
      *
-     * @param InfoManager $info Module info
+     * @param ModuleInfo $info Module info
      *
      * @return void
      *
@@ -380,7 +380,7 @@ final class ModuleManager
      *
      * @since 1.0.0
      */
-    private function deactivateModule(InfoManager $info) : void
+    private function deactivateModule(ModuleInfo $info) : void
     {
         $class = '\\Modules\\' . $info->getDirectory() . '\\Admin\\Status';
 
@@ -423,7 +423,7 @@ final class ModuleManager
     /**
      * Activate module.
      *
-     * @param InfoManager $info Module info
+     * @param ModuleInfo $info Module info
      *
      * @return void
      *
@@ -431,7 +431,7 @@ final class ModuleManager
      *
      * @since 1.0.0
      */
-    private function activateModule(InfoManager $info) : void
+    private function activateModule(ModuleInfo $info) : void
     {
         $class = '\\Modules\\' . $info->getDirectory() . '\\Admin\\Status';
 
@@ -598,7 +598,7 @@ final class ModuleManager
     /**
      * Install module itself.
      *
-     * @param InfoManager $info Module info
+     * @param ModuleInfo $info Module info
      *
      * @return void
      *
@@ -606,7 +606,7 @@ final class ModuleManager
      *
      * @since 1.0.0
      */
-    private function installModule(InfoManager $info) : void
+    private function installModule(ModuleInfo $info) : void
     {
         $class = '\\Modules\\' . $info->getDirectory() . '\\Admin\\Installer';
 

@@ -14,7 +14,7 @@ declare(strict_types=1);
 
 namespace phpOMS\Dispatcher;
 
-use phpOMS\ApplicationAbstract;
+use phpOMS\Application\ApplicationAbstract;
 use phpOMS\Autoloader;
 use phpOMS\Module\ModuleAbstract;
 use phpOMS\System\File\PathException;

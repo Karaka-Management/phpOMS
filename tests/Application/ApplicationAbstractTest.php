@@ -12,12 +12,12 @@
  */
 declare(strict_types=1);
 
-namespace phpOMS\tests;
+namespace phpOMS\tests\Application;
 
-use phpOMS\ApplicationAbstract;
+use phpOMS\Application\ApplicationAbstract;
 
 /**
- * @testdox phpOMS\tests\ApplicationAbstractTest: Application abstraction
+ * @testdox phpOMS\tests\Application\ApplicationAbstractTest: Application abstraction
  *
  * @internal
  */
@@ -25,7 +25,7 @@ class ApplicationAbstractTest extends \PHPUnit\Framework\TestCase
 {
     /**
      * @testdox Application values can be set and returned
-     * @covers phpOMS\ApplicationAbstract<extended>
+     * @covers phpOMS\Application\ApplicationAbstract<extended>
      * @group framework
      */
     public function testInputOutput() : void
@@ -38,7 +38,7 @@ class ApplicationAbstractTest extends \PHPUnit\Framework\TestCase
 
     /**
      * @testdox Application values cannot be overwritten
-     * @covers phpOMS\ApplicationAbstract<extended>
+     * @covers phpOMS\Application\ApplicationAbstract<extended>
      * @group framework
      */
     public function testInvalidInputOutput() : void

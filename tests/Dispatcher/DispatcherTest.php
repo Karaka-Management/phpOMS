@@ -14,7 +14,7 @@ declare(strict_types=1);
 
 namespace phpOMS\tests\Dispatcher;
 
-use phpOMS\ApplicationAbstract;
+use phpOMS\Application\ApplicationAbstract;
 use phpOMS\Dispatcher\Dispatcher;
 use phpOMS\Localization\Localization;
 use phpOMS\Message\Http\HttpRequest;

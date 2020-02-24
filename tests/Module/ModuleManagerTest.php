@@ -14,7 +14,7 @@ declare(strict_types=1);
 
 namespace phpOMS\tests\Module;
 
-use phpOMS\ApplicationAbstract;
+use phpOMS\Application\ApplicationAbstract;
 use phpOMS\Dispatcher\Dispatcher;
 use phpOMS\Message\Http\HttpRequest;
 use phpOMS\Module\ModuleManager;

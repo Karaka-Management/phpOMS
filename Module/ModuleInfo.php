@@ -18,7 +18,7 @@ use phpOMS\System\File\PathException;
 use phpOMS\Utils\ArrayUtils;
 
 /**
- * InfoManager class.
+ * ModuleInfo class.
  *
  * Handling the info files for modules
  *
@@ -27,7 +27,7 @@ use phpOMS\Utils\ArrayUtils;
  * @link    https://orange-management.org
  * @since   1.0.0
  */
-final class InfoManager
+final class ModuleInfo
 {
     /**
      * File path.

@@ -16,7 +16,7 @@ namespace phpOMS\tests\Module;
 
 require_once __DIR__ . '/../Autoloader.php';
 
-use phpOMS\ApplicationAbstract;
+use phpOMS\Application\ApplicationAbstract;
 use phpOMS\Module\NullModule;
 
 /**

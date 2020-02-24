@@ -33,13 +33,13 @@ abstract class StatusAbstract
      * Deactivate module.
      *
      * @param DatabasePool $dbPool Database instance
-     * @param InfoManager  $info   Module info
+     * @param ModuleInfo  $info   Module info
      *
      * @return void
      *
      * @since 1.0.0
      */
-    public static function activate(DatabasePool $dbPool, InfoManager $info) : void
+    public static function activate(DatabasePool $dbPool, ModuleInfo $info) : void
     {
         self::activateRoutes(__DIR__ . '/../../Web/Routes.php', __DIR__ . '/../../Modules/' . $info->getDirectory() . '/Admin/Routes/');
         self::activateInDatabase($dbPool, $info);
@@ -67,13 +67,13 @@ abstract class StatusAbstract
      * Deactivate module in database.
      *
      * @param DatabasePool $dbPool Database instance
-     * @param InfoManager  $info   Module info
+     * @param ModuleInfo  $info   Module info
      *
      * @return void
      *
      * @since 1.0.0
      */
-    public static function activateInDatabase(DatabasePool $dbPool, InfoManager $info) : void
+    public static function activateInDatabase(DatabasePool $dbPool, ModuleInfo $info) : void
     {
         $query = new Builder($dbPool->get('update'));
         $query->prefix($dbPool->get('update')->prefix);
@@ -87,13 +87,13 @@ abstract class StatusAbstract
      * Deactivate module.
      *
      * @param DatabasePool $dbPool Database instance
-     * @param InfoManager  $info   Module info
+     * @param ModuleInfo  $info   Module info
      *
      * @return void
      *
      * @since 1.0.0
      */
-    public static function deactivate(DatabasePool $dbPool, InfoManager $info) : void
+    public static function deactivate(DatabasePool $dbPool, ModuleInfo $info) : void
     {
         self::deactivateRoutes(__DIR__ . '/../../Web/Routes.php', __DIR__ . '/../../Modules/' . $info->getDirectory() . '/Admin/Routes/');
         self::deactivateInDatabase($dbPool, $info);
@@ -121,13 +121,13 @@ abstract class StatusAbstract
      * Deactivate module in database.
      *
      * @param DatabasePool $dbPool Database instance
-     * @param InfoManager  $info   Module info
+     * @param ModuleInfo  $info   Module info
      *
      * @return void
      *
      * @since 1.0.0
      */
-    public static function deactivateInDatabase(DatabasePool $dbPool, InfoManager $info) : void
+    public static function deactivateInDatabase(DatabasePool $dbPool, ModuleInfo $info) : void
     {
         $query = new Builder($dbPool->get('update'));
         $query->prefix($dbPool->get('update')->prefix);

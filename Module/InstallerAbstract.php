@@ -37,13 +37,13 @@ abstract class InstallerAbstract
      * Register module in database.
      *
      * @param DatabasePool $dbPool Database instance
-     * @param InfoManager  $info   Module info
+     * @param ModuleInfo  $info   Module info
      *
      * @return void
      *
      * @since 1.0.0
      */
-    public static function registerInDatabase(DatabasePool $dbPool, InfoManager $info) : void
+    public static function registerInDatabase(DatabasePool $dbPool, ModuleInfo $info) : void
     {
         $queryModule = new Builder($dbPool->get('insert'));
         $queryModule->prefix($dbPool->get('insert')->prefix);
@@ -79,13 +79,13 @@ abstract class InstallerAbstract
      * Install module.
      *
      * @param DatabasePool $dbPool Database instance
-     * @param InfoManager  $info   Module info
+     * @param ModuleInfo  $info   Module info
      *
      * @return void
      *
      * @since 1.0.0
      */
-    public static function install(DatabasePool $dbPool, InfoManager $info) : void
+    public static function install(DatabasePool $dbPool, ModuleInfo $info) : void
     {
         self::createTables($dbPool, $info);
         self::registerInDatabase($dbPool, $info);
@@ -98,13 +98,13 @@ abstract class InstallerAbstract
      * Create tables for module.
      *
      * @param DatabasePool $dbPool Database instance
-     * @param InfoManager  $info   Module info
+     * @param ModuleInfo  $info   Module info
      *
      * @return void
      *
      * @since 1.0.0
      */
-    private static function createTables(DatabasePool $dbPool, InfoManager $info) : void
+    private static function createTables(DatabasePool $dbPool, ModuleInfo $info) : void
     {
         $path = \dirname($info->getPath()) . '/Admin/Install/db.json';
 
@@ -127,13 +127,13 @@ abstract class InstallerAbstract
      * Activate after install.
      *
      * @param DatabasePool $dbPool Database instance
-     * @param InfoManager  $info   Module info
+     * @param ModuleInfo  $info   Module info
      *
      * @return void
      *
      * @since 1.0.0
      */
-    private static function activate(DatabasePool $dbPool, InfoManager $info) : void
+    private static function activate(DatabasePool $dbPool, ModuleInfo $info) : void
     {
         /** @var StatusAbstract $class */
         $class = '\Modules\\' . $info->getDirectory() . '\Admin\Status';
@@ -143,13 +143,13 @@ abstract class InstallerAbstract
     /**
      * Re-init module.
      *
-     * @param InfoManager $info Module info
+     * @param ModuleInfo $info Module info
      *
      * @return void
      *
      * @since 1.0.0
      */
-    public static function reInit(InfoManager $info) : void
+    public static function reInit(ModuleInfo $info) : void
     {
         self::initRoutes($info);
         self::initHooks($info);
@@ -158,7 +158,7 @@ abstract class InstallerAbstract
     /**
      * Init routes.
      *
-     * @param InfoManager $info Module info
+     * @param ModuleInfo $info Module info
      *
      * @return void
      *
@@ -166,7 +166,7 @@ abstract class InstallerAbstract
      *
      * @since 1.0.0
      */
-    private static function initRoutes(InfoManager $info) : void
+    private static function initRoutes(ModuleInfo $info) : void
     {
         $directories = new Directory(\dirname($info->getPath()) . '/Admin/Routes');
 
@@ -224,7 +224,7 @@ abstract class InstallerAbstract
     /**
      * Init hooks.
      *
-     * @param InfoManager $info Module info
+     * @param ModuleInfo $info Module info
      *
      * @return void
      *
@@ -232,7 +232,7 @@ abstract class InstallerAbstract
      *
      * @since 1.0.0
      */
-    private static function initHooks(InfoManager $info) : void
+    private static function initHooks(ModuleInfo $info) : void
     {
         $directories = new Directory(\dirname($info->getPath()) . '/Admin/Hooks');
 

@@ -32,7 +32,7 @@ abstract class UninstallerAbstract
      * Install module.
      *
      * @param DatabasePool $dbPool Database instance
-     * @param InfoManager  $info   Module info
+     * @param ModuleInfo  $info   Module info
      *
      * @return void
      *
@@ -42,7 +42,7 @@ abstract class UninstallerAbstract
      *
      * @since 1.0.0
      */
-    public static function uninstall(DatabasePool $dbPool, InfoManager $info) : void
+    public static function uninstall(DatabasePool $dbPool, ModuleInfo $info) : void
     {
         self::dropTables($dbPool, $info);
         self::unregisterFromDatabase($dbPool, $info);
@@ -52,13 +52,13 @@ abstract class UninstallerAbstract
      * Drop tables of module.
      *
      * @param DatabasePool $dbPool Database instance
-     * @param InfoManager  $info   Module info
+     * @param ModuleInfo  $info   Module info
      *
      * @return void
      *
      * @since 1.0.0
      */
-    public static function dropTables(DatabasePool $dbPool, InfoManager $info) : void
+    public static function dropTables(DatabasePool $dbPool, ModuleInfo $info) : void
     {
         $path = \dirname($info->getPath()) . '/Admin/Install/db.json';
 
@@ -87,13 +87,13 @@ abstract class UninstallerAbstract
      * Unregister module from database.
      *
      * @param DatabasePool $dbPool Database instance
-     * @param InfoManager  $info   Module info
+     * @param ModuleInfo  $info   Module info
      *
      * @return void
      *
      * @since 1.0.0
      */
-    public static function unregisterFromDatabase(DatabasePool $dbPool, InfoManager $info) : void
+    public static function unregisterFromDatabase(DatabasePool $dbPool, ModuleInfo $info) : void
     {
         $queryLoad = new Builder($dbPool->get('delete'));
         $queryLoad->prefix($dbPool->get('delete')->prefix);

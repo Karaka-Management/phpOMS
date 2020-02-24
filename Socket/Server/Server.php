@@ -15,7 +15,7 @@ declare(strict_types=1);
 namespace phpOMS\Socket\Server;
 
 use phpOMS\Account\Account;
-use phpOMS\ApplicationAbstract;
+use phpOMS\Application\ApplicationAbstract;
 use phpOMS\Message\Socket\PacketManager;
 use phpOMS\Socket\Client\ClientConnection;
 use phpOMS\Socket\SocketAbstract;

@@ -16,7 +16,7 @@ namespace phpOMS\tests\Socket\Client;
 
 use Model\CoreSettings;
 use phpOMS\Account\AccountManager;
-use phpOMS\ApplicationAbstract;
+use phpOMS\Application\ApplicationAbstract;
 use phpOMS\Autoloader;
 use phpOMS\DataStorage\Cache\CachePool;
 use phpOMS\Dispatcher\Dispatcher;

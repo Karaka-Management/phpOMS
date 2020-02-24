@@ -16,23 +16,23 @@ namespace phpOMS\tests\Module;
 
 require_once __DIR__ . '/../Autoloader.php';
 
-use phpOMS\Module\InfoManager;
+use phpOMS\Module\ModuleInfo;
 
 /**
- * @testdox phpOMS\tests\Module\InfoManagerTest: Module info file manager
+ * @testdox phpOMS\tests\Module\ModuleInfoTest: Module info file manager
  *
  * @internal
  */
-class InfoManagerTest extends \PHPUnit\Framework\TestCase
+class ModuleInfoTest extends \PHPUnit\Framework\TestCase
 {
     /**
      * @testdox A info file can be correctly loaded
-     * @covers phpOMS\Module\InfoManager
+     * @covers phpOMS\Module\ModuleInfo
      * @group framework
      */
     public function testLoad() : void
     {
-        $info = new InfoManager(__DIR__ . '/info-test.json');
+        $info = new ModuleInfo(__DIR__ . '/info-test.json');
         $info->load();
 
         $jarray = \json_decode(\file_get_contents(__DIR__ . '/info-test.json'), true);
@@ -52,21 +52,21 @@ class InfoManagerTest extends \PHPUnit\Framework\TestCase
 
     /**
      * @testdox A info file can be modified
-     * @covers phpOMS\Module\InfoManager
+     * @covers phpOMS\Module\ModuleInfo
      * @group framework
      */
     public function testChange() : void
     {
         $jarray = \json_decode(\file_get_contents(__DIR__ . '/info-test.json'), true);
 
-        $info = new InfoManager(__DIR__ . '/info-test.json');
+        $info = new ModuleInfo(__DIR__ . '/info-test.json');
         $info->load();
 
         $info->set('/name/internal', 'ABC');
         self::assertEquals('ABC', $info->getInternalName());
         $info->update();
 
-        $info2 = new InfoManager(__DIR__ . '/info-test.json');
+        $info2 = new ModuleInfo(__DIR__ . '/info-test.json');
         $info2->load();
         self::assertEquals($info->getInternalName(), $info2->getInternalName());
 
@@ -76,40 +76,40 @@ class InfoManagerTest extends \PHPUnit\Framework\TestCase
 
     /**
      * @testdox A invalid info file path load throws a PathException
-     * @covers phpOMS\Module\InfoManager
+     * @covers phpOMS\Module\ModuleInfo
      * @group framework
      */
     public function testInvalidPathLoad() : void
     {
         self::expectException(\phpOMS\System\File\PathException::class);
 
-        $info = new InfoManager(__DIR__ . '/invalid.json');
+        $info = new ModuleInfo(__DIR__ . '/invalid.json');
         $info->load();
     }
 
     /**
      * @testdox A invalid info file path update throws a PathException
-     * @covers phpOMS\Module\InfoManager
+     * @covers phpOMS\Module\ModuleInfo
      * @group framework
      */
     public function testInvalidPathUpdate() : void
     {
         self::expectException(\phpOMS\System\File\PathException::class);
 
-        $info = new InfoManager(__DIR__ . '/invalid.json');
+        $info = new ModuleInfo(__DIR__ . '/invalid.json');
         $info->update();
     }
 
     /**
      * @testdox A invalid change data throws a InvalidArgumentException
-     * @covers phpOMS\Module\InfoManager
+     * @covers phpOMS\Module\ModuleInfo
      * @group framework
      */
     public function testInvalidDataSet() : void
     {
         self::expectException(\InvalidArgumentException::class);
 
-        $info = new InfoManager(__DIR__ . '/info-test.json');
+        $info = new ModuleInfo(__DIR__ . '/info-test.json');
         $info->load();
 
         $testObj = new class() {

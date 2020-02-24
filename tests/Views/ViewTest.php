@@ -16,7 +16,7 @@ namespace phpOMS\tests\Views;
 
 require_once __DIR__ . '/../Autoloader.php';
 
-use phpOMS\ApplicationAbstract;
+use phpOMS\Application\ApplicationAbstract;
 use phpOMS\DataStorage\Database\DatabasePool;
 use phpOMS\Localization\L11nManager;
 use phpOMS\Localization\Localization;

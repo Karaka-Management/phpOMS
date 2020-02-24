@@ -14,7 +14,7 @@ declare(strict_types=1);
 
 namespace phpOMS\Module;
 
-use phpOMS\ApplicationAbstract;
+use phpOMS\Application\ApplicationAbstract;
 use phpOMS\Message\RequestAbstract;
 use phpOMS\Message\ResponseAbstract;
 use phpOMS\System\MimeType;
