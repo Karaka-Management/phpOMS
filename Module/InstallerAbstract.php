@@ -22,6 +22,8 @@ use phpOMS\System\File\Local\File;
 use phpOMS\System\File\PathException;
 use phpOMS\System\File\PermissionException;
 use phpOMS\Utils\Parser\Php\ArrayParser;
+use phpOMS\Application\ApplicationInfo;
+use Model\CoreSettings;
 
 /**
  * Installer abstract class.
@@ -37,7 +39,7 @@ abstract class InstallerAbstract
      * Register module in database.
      *
      * @param DatabasePool $dbPool Database instance
-     * @param ModuleInfo  $info   Module info
+     * @param ModuleInfo   $info   Module info
      *
      * @return void
      *
@@ -79,7 +81,7 @@ abstract class InstallerAbstract
      * Install module.
      *
      * @param DatabasePool $dbPool Database instance
-     * @param ModuleInfo  $info   Module info
+     * @param ModuleInfo   $info   Module info
      *
      * @return void
      *
@@ -89,16 +91,43 @@ abstract class InstallerAbstract
     {
         self::createTables($dbPool, $info);
         self::registerInDatabase($dbPool, $info);
+        self::installSettings($dbPool, $info);
         self::initRoutes($info);
         self::initHooks($info);
         self::activate($dbPool, $info);
     }
 
     /**
+     * Install module settings.
+     *
+     * @param DatabasePool $dbPool Database instance
+     * @param ModuleInfo   $info   Module info
+     *
+     * @return void
+     *
+     * @since 1.0.0
+     */
+    public static function installSettings(DatabasePool $dbPool, ModuleInfo $info) : void
+    {
+        $path = \dirname($info->getPath()) . '/Admin/Install/Settings.install.php';
+
+        if (!\file_exists($path)) {
+            return;
+        }
+
+        $settings = include $path;
+
+        foreach ($settings as $setting) {
+            $settings = new CoreSettings($dbPool->get('insert'));
+            $settings->create($setting);
+        }
+    }
+
+    /**
      * Create tables for module.
      *
      * @param DatabasePool $dbPool Database instance
-     * @param ModuleInfo  $info   Module info
+     * @param ModuleInfo   $info   Module info
      *
      * @return void
      *
@@ -127,7 +156,7 @@ abstract class InstallerAbstract
      * Activate after install.
      *
      * @param DatabasePool $dbPool Database instance
-     * @param ModuleInfo  $info   Module info
+     * @param ModuleInfo   $info   Module info
      *
      * @return void
      *
@@ -143,22 +172,24 @@ abstract class InstallerAbstract
     /**
      * Re-init module.
      *
-     * @param ModuleInfo $info Module info
+     * @param ModuleInfo           $info    Module info
+     * @param null|ApplicationInfo $appInfo Application info
      *
      * @return void
      *
      * @since 1.0.0
      */
-    public static function reInit(ModuleInfo $info) : void
+    public static function reInit(ModuleInfo $info, ApplicationInfo $appInfo = null) : void
     {
-        self::initRoutes($info);
-        self::initHooks($info);
+        self::initRoutes($info, $appInfo);
+        self::initHooks($info, $appInfo);
     }
 
     /**
      * Init routes.
      *
-     * @param ModuleInfo $info Module info
+     * @param ModuleInfo           $info    Module info
+     * @param null|ApplicationInfo $appInfo Application info
      *
      * @return void
      *
@@ -166,7 +197,7 @@ abstract class InstallerAbstract
      *
      * @since 1.0.0
      */
-    private static function initRoutes(ModuleInfo $info) : void
+    private static function initRoutes(ModuleInfo $info, ApplicationInfo $appInfo = null) : void
     {
         $directories = new Directory(\dirname($info->getPath()) . '/Admin/Routes');
 
@@ -224,7 +255,8 @@ abstract class InstallerAbstract
     /**
      * Init hooks.
      *
-     * @param ModuleInfo $info Module info
+     * @param ModuleInfo           $info    Module info
+     * @param null|ApplicationInfo $appInfo Application info
      *
      * @return void
      *
@@ -232,7 +264,7 @@ abstract class InstallerAbstract
      *
      * @since 1.0.0
      */
-    private static function initHooks(ModuleInfo $info) : void
+    private static function initHooks(ModuleInfo $info, ApplicationInfo $appInfo = null) : void
     {
         $directories = new Directory(\dirname($info->getPath()) . '/Admin/Hooks');
 
