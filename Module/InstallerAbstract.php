@@ -14,6 +14,8 @@ declare(strict_types=1);
 
 namespace phpOMS\Module;
 
+use Model\CoreSettings;
+use phpOMS\Application\ApplicationInfo;
 use phpOMS\DataStorage\Database\DatabasePool;
 use phpOMS\DataStorage\Database\Query\Builder;
 use phpOMS\DataStorage\Database\Schema\Builder as SchemaBuilder;
@@ -22,8 +24,6 @@ use phpOMS\System\File\Local\File;
 use phpOMS\System\File\PathException;
 use phpOMS\System\File\PermissionException;
 use phpOMS\Utils\Parser\Php\ArrayParser;
-use phpOMS\Application\ApplicationInfo;
-use Model\CoreSettings;
 
 /**
  * Installer abstract class.
