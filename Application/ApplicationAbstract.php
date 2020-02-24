@@ -4,7 +4,7 @@
  *
  * PHP Version 7.4
  *
- * @package   phpOMS
+ * @package   phpOMS\Application
  * @copyright Dennis Eichhorn
  * @license   OMS License 1.0
  * @version   1.0.0
@@ -51,7 +51,7 @@ use phpOMS\Router\RouterInterface;
  * @property \phpOMS\Account\AccountManager $accountManager
  * @property \phpOMS\Log\FileLogger $logger
  *
- * @package phpOMS
+ * @package phpOMS\Application
  * @license OMS License 1.0
  * @link    https://orange-management.org
  * @since   1.0.0
