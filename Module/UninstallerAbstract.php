@@ -32,7 +32,7 @@ abstract class UninstallerAbstract
      * Install module.
      *
      * @param DatabasePool $dbPool Database instance
-     * @param ModuleInfo  $info   Module info
+     * @param ModuleInfo   $info   Module info
      *
      * @return void
      *
@@ -52,7 +52,7 @@ abstract class UninstallerAbstract
      * Drop tables of module.
      *
      * @param DatabasePool $dbPool Database instance
-     * @param ModuleInfo  $info   Module info
+     * @param ModuleInfo   $info   Module info
      *
      * @return void
      *
@@ -87,7 +87,7 @@ abstract class UninstallerAbstract
      * Unregister module from database.
      *
      * @param DatabasePool $dbPool Database instance
-     * @param ModuleInfo  $info   Module info
+     * @param ModuleInfo   $info   Module info
      *
      * @return void
      *

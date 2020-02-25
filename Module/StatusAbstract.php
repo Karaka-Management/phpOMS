@@ -33,7 +33,7 @@ abstract class StatusAbstract
      * Deactivate module.
      *
      * @param DatabasePool $dbPool Database instance
-     * @param ModuleInfo  $info   Module info
+     * @param ModuleInfo   $info   Module info
      *
      * @return void
      *
@@ -67,7 +67,7 @@ abstract class StatusAbstract
      * Deactivate module in database.
      *
      * @param DatabasePool $dbPool Database instance
-     * @param ModuleInfo  $info   Module info
+     * @param ModuleInfo   $info   Module info
      *
      * @return void
      *
@@ -87,7 +87,7 @@ abstract class StatusAbstract
      * Deactivate module.
      *
      * @param DatabasePool $dbPool Database instance
-     * @param ModuleInfo  $info   Module info
+     * @param ModuleInfo   $info   Module info
      *
      * @return void
      *
@@ -121,7 +121,7 @@ abstract class StatusAbstract
      * Deactivate module in database.
      *
      * @param DatabasePool $dbPool Database instance
-     * @param ModuleInfo  $info   Module info
+     * @param ModuleInfo   $info   Module info
      *
      * @return void
      *

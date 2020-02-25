@@ -30,7 +30,7 @@ abstract class UpdaterAbstract
      * Install module.
      *
      * @param DatabasePool $dbPool Database instance
-     * @param ModuleInfo  $info   Module info
+     * @param ModuleInfo   $info   Module info
      *
      * @return void
      *
