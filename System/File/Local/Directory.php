@@ -66,12 +66,12 @@ final class Directory extends FileAbstract implements LocalContainerInterface, D
     }
 
     /**
-     * List all files in directory.
+     * List all files in directory recursively.
      *
      * @param string $path   Path
      * @param string $filter Filter
      *
-     * @return string[]
+     * @return string[] Array of files and directory with relative path to $path
      *
      * @since 1.0.0
      */
