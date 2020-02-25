@@ -41,7 +41,10 @@ class Tar implements ArchiveInterface
 
         $tar = new \PharData($destination);
 
-        /** @var array $sources */
+        /**
+         * @var string $source
+         * @var string $relative
+         */
         foreach ($sources as $source => $relative) {
             if (\is_numeric($source) && \realpath($relative) !== false) {
                 $source   = $relative;

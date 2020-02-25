@@ -24,7 +24,7 @@ namespace phpOMS\Utils\RnG;
  */
 class Name
 {
-    private static $names = [
+    private static array $names = [
         'western' => [
             'female' => [
                 'Aaliyah', 'Cece', 'Heidi', 'Lilly', 'Rebekah', 'Aarushi', 'Cecelia', 'Helen', 'Lily', 'Reese',

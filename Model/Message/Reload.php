@@ -118,13 +118,6 @@ final class Reload implements \Serializable, ArrayableInterface, \JsonSerializab
     }
 
     /**
-     * Generate message json.
-     *
-     * @return array<string, mixed>
-     *
-     * @since 1.0.0
-     */
-    /**
      * {@inheritdoc}
      */
     public function jsonSerialize()

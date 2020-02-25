@@ -113,13 +113,6 @@ final class Redirect implements \Serializable, ArrayableInterface, \JsonSerializ
     }
 
     /**
-     * Render message.
-     *
-     * @return array<string, mixed>
-     *
-     * @since 1.0.0
-     */
-    /**
      * {@inheritdoc}
      */
     public function jsonSerialize()

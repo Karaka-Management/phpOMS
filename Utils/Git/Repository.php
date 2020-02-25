@@ -100,7 +100,7 @@ class Repository
         } elseif (\is_file($this->path . '/config')) { // Is this a bare repo?
             $parseIni = \parse_ini_file($this->path . '/config');
 
-            if ($parseIni['bare']) {
+            if ($parseIni !== false && $parseIni['bare']) {
                 $this->bare = true;
             }
         }

@@ -171,13 +171,6 @@ final class Notify implements \Serializable, ArrayableInterface, \JsonSerializab
     }
 
     /**
-     * Render message.
-     *
-     * @return array<string, mixed>
-     *
-     * @since 1.0.0
-     */
-    /**
      * {@inheritdoc}
      */
     public function jsonSerialize()

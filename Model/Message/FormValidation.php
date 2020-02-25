@@ -67,13 +67,6 @@ final class FormValidation implements \Serializable, ArrayableInterface, \JsonSe
     }
 
     /**
-     * Render message.
-     *
-     * @return array<string, mixed>
-     *
-     * @since 1.0.0
-     */
-    /**
      * {@inheritdoc}
      */
     public function jsonSerialize()
