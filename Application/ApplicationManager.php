@@ -95,11 +95,11 @@ final class ApplicationManager
      */
     public function install(string $source, string $destination) : void
     {
-        if (\file_exists($destination) || !\file_exists($source)) {
+        if (!\file_exists($source) || \file_exists($destination)) {
             return;
         }
 
-        $app                                         = $this->loadInfo(\rtrim('/\\', $source) . '/info.json');
+        $app                                         = $this->loadInfo(\rtrim($source, '/\\') . '/info.json');
         $this->applications[$app->getInternalName()] = $app;
 
         $this->installFiles($source, $destination);
