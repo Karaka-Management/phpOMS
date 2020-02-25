@@ -15,6 +15,7 @@ declare(strict_types=1);
 namespace phpOMS\Module;
 
 use phpOMS\Application\ApplicationAbstract;
+use phpOMS\Application\ApplicationInfo;
 use phpOMS\Autoloader;
 use phpOMS\DataStorage\Database\Query\Builder;
 use phpOMS\Message\Http\HttpRequest;
@@ -446,7 +447,8 @@ final class ModuleManager
     /**
      * Re-init module.
      *
-     * @param string $module Module name
+     * @param string          $module  Module name
+     * @param ApplicationInfo $appInfo Application info
      *
      * @return void
      *
@@ -454,7 +456,7 @@ final class ModuleManager
      *
      * @since 1.0.0
      */
-    public function reInit(string $module) : void
+    public function reInit(string $module, ApplicationInfo $appInfo = null) : void
     {
         $info  = $this->loadInfo($module);
         $class = '\\Modules\\' . $info->getDirectory() . '\\Admin\\Installer';
@@ -464,7 +466,7 @@ final class ModuleManager
         }
 
         /** @var $class InstallerAbstract */
-        $class::reInit($info);
+        $class::reInit($info, $appInfo);
     }
 
     /**

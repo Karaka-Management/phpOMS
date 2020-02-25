@@ -204,9 +204,21 @@ abstract class InstallerAbstract
         foreach ($directories as $child) {
             if ($child instanceof Directory) {
                 foreach ($child as $file) {
+                    if (!\file_exists(__DIR__ . '/../../' . $child->getName() . '/' . \basename($file->getName(), '.php'))
+                        || ($appInfo !== null && \basename($file->getName(), '.php') !== $appInfo->getInternalName())
+                    ) {
+                        continue;
+                    }
+
                     self::installRoutes(__DIR__ . '/../../' . $child->getName() . '/' . \basename($file->getName(), '.php') . '/Routes.php', $file->getPath());
                 }
             } elseif ($child instanceof File) {
+                if (!\file_exists(__DIR__ . '/../../' . $child->getName())
+                    || ($appInfo !== null && \basename($child->getName(), '.php') !== $appInfo->getInternalName())
+                ) {
+                    continue;
+                }
+
                 self::installRoutes(__DIR__ . '/../../' . $child->getName() . '/Routes.php', $child->getPath());
             }
         }
@@ -271,9 +283,21 @@ abstract class InstallerAbstract
         foreach ($directories as $key => $child) {
             if ($child instanceof Directory) {
                 foreach ($child as $key2 => $file) {
+                    if (!\file_exists(__DIR__ . '/../../' . $child->getName() . '/' . \basename($file->getName(), '.php'))
+                        || ($appInfo !== null && \basename($file->getName(), '.php') !== $appInfo->getInternalName())
+                    ) {
+                        continue;
+                    }
+
                     self::installHooks(__DIR__ . '/../../' . $child->getName() . '/' . \basename($file->getName(), '.php') . '/Hooks.php', $file->getPath());
                 }
             } elseif ($child instanceof File) {
+                if (!\file_exists(__DIR__ . '/../../' . $child->getName())
+                    || ($appInfo !== null && \basename($child->getName(), '.php') !== $appInfo->getInternalName())
+                ) {
+                    continue;
+                }
+
                 self::installHooks(__DIR__ . '/../../' . $child->getName() . '/Hooks.php', $child->getPath());
             }
         }
