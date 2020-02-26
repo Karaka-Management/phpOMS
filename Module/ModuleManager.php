@@ -16,6 +16,7 @@ namespace phpOMS\Module;
 
 use phpOMS\Application\ApplicationAbstract;
 use phpOMS\Application\ApplicationInfo;
+use phpOMS\Application\ApplicationManager;
 use phpOMS\Autoloader;
 use phpOMS\DataStorage\Database\Query\Builder;
 use phpOMS\Message\Http\HttpRequest;
@@ -63,6 +64,14 @@ final class ModuleManager
      * @since 1.0.0
      */
     private ApplicationAbstract $app;
+
+    /**
+     * Application manager.
+     *
+     * @var ApplicationManager
+     * @since 1.0.0
+     */
+    private ApplicationManager $appManager;
 
     /**
      * Installed modules.
@@ -494,6 +503,8 @@ final class ModuleManager
             return false;
         }
 
+        $this->appManager = new ApplicationManager($this);
+
         try {
             $info = $this->loadInfo($module);
 
@@ -509,9 +520,10 @@ final class ModuleManager
                 }
             }
 
-            /* Install receiving */
+            /* Install receiving and applications */
             foreach ($this->installed as $key => $value) {
                 $this->installProviding($key, $module);
+                $this->installApplications($key);
             }
 
             return true;
@@ -637,6 +649,29 @@ final class ModuleManager
         if (\file_exists($this->modulePath . '/' . $from . '/Admin/Install/' . $for . '.php')) {
             $class = '\\Modules\\' . $from . '\\Admin\\Install\\' . $for;
             $class::install($this->modulePath, $this->app->dbPool);
+        }
+    }
+
+    /**
+     * Install applications.
+     *
+     * Installing additional functionality for another module
+     *
+     * @param string $from From module
+     *
+     * @return void
+     *
+     * @since 1.0.0
+     */
+    public function installApplications(string $from) : void
+    {
+        $dirs = \scandir($this->modulePath . '/' . $from . '/Application');
+        foreach ($dirs as $dir) {
+            if ($dir === '.' || $dir === '..') {
+                continue;
+            }
+
+            $this->appManager->install($dir, __DIR__ . '/../../Web/' . \basename($dir));
         }
     }
 

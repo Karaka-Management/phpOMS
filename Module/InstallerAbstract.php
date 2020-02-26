@@ -24,6 +24,7 @@ use phpOMS\System\File\Local\File;
 use phpOMS\System\File\PathException;
 use phpOMS\System\File\PermissionException;
 use phpOMS\Utils\Parser\Php\ArrayParser;
+use phpOMS\Application\ApplicationManager;
 
 /**
  * Installer abstract class.
