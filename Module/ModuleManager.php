@@ -503,8 +503,6 @@ final class ModuleManager
             return false;
         }
 
-        $this->appManager = new ApplicationManager($this);
-
         try {
             $info = $this->loadInfo($module);
 
@@ -523,8 +521,10 @@ final class ModuleManager
             /* Install receiving and applications */
             foreach ($this->installed as $key => $value) {
                 $this->installProviding($key, $module);
-                $this->installApplications($key);
             }
+
+            $this->appManager = new ApplicationManager($this);
+            $this->installApplications($module);
 
             return true;
         } catch (PathException $e) {
