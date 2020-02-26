@@ -103,6 +103,7 @@ final class ApplicationManager
         $this->applications[$app->getInternalName()] = $app;
 
         $this->installFiles($source, $destination);
+        $this->installTheme($destination, 'Akebi');
         $this->installFromModules($app);
     }
 
@@ -119,6 +120,31 @@ final class ApplicationManager
     private function installFiles(string $source, string $destination) : void
     {
         Directory::copy($source, $destination);
+    }
+
+    /**
+     * Install the theme
+     *
+     * @param string $destination Destination of the application
+     * @param string $theme       Theme name
+     *
+     * @return void
+     *
+     * @since 1.0.0
+     */
+    private function installTheme(string $destination, string $theme) : void
+    {
+        if (\file_exists($destination . '/css')) {
+            Directory::delete($destination . '/css');
+        }
+
+        if (\file_exists($destination . '/Themes/' . $theme . '/css')) {
+            Directory::copy(
+                $destination . '/Themes/' . $theme . '/css',
+                $destination . '/css',
+                true
+            );
+        }
     }
 
     /**
