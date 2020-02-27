@@ -23,6 +23,9 @@ namespace phpOMS\System\File;
  * @license OMS License 1.0
  * @link    https://orange-management.org
  * @since   1.0.0
+ *
+ * @phpstan-extends \ArrayAccess<string, mixed>
+ * @phpstan-extends \Iterator<string, mixed>
  */
 interface DirectoryInterface extends ContainerInterface, \Iterator, \ArrayAccess
 {

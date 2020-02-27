@@ -23,13 +23,16 @@ use phpOMS\Math\Matrix\Exception\InvalidDimensionException;
  * @license OMS License 1.0
  * @link    https://orange-management.org
  * @since   1.0.0
+ *
+ * @phpstan-implements \ArrayAccess<string, mixed>
+ * @phpstan-implements \Iterator<string, mixed>
  */
 class Matrix implements \ArrayAccess, \Iterator
 {
     /**
      * Matrix.
      *
-     * @var array
+     * @var array<int, array<int, int|float>>
      * @since 1.0.0
      */
     protected array $matrix = [];

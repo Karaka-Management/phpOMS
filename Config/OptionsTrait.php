@@ -36,7 +36,13 @@ trait OptionsTrait
     private array $options = [];
 
     /**
-     * {@inheritdoc}
+     * Is this key set.
+     *
+     * @param mixed $key Key to check for existence
+     *
+     * @return bool
+     *
+     * @since 1.0.0
      */
     public function exists($key) : bool
     {
@@ -44,7 +50,13 @@ trait OptionsTrait
     }
 
     /**
-     * {@inheritdoc}
+     * Get option by key.
+     *
+     * @param mixed $key Unique option key
+     *
+     * @return mixed Option value
+     *
+     * @since 1.0.0
      */
     public function getOption($key)
     {
@@ -52,7 +64,13 @@ trait OptionsTrait
     }
 
     /**
-     * {@inheritdoc}
+     * Get options by keys.
+     *
+     * @param mixed $key Unique option key
+     *
+     * @return array Option values
+     *
+     * @since 1.0.0
      */
     public function getOptions(array $key)
     {
@@ -68,7 +86,15 @@ trait OptionsTrait
     }
 
     /**
-     * {@inheritdoc}
+     * Updating or adding settings.
+     *
+     * @param mixed $key       Unique option key
+     * @param mixed $value     Option value
+     * @param bool  $overwrite Overwrite existing value
+     *
+     * @return bool
+     *
+     * @since 1.0.0
      */
     public function setOption($key, $value, bool $overwrite = true) : bool
     {
@@ -82,7 +108,14 @@ trait OptionsTrait
     }
 
     /**
-     * {@inheritdoc}
+     * Updating or adding settings.
+     *
+     * @param array $pair      Key value pair
+     * @param bool  $overwrite Overwrite existing value
+     *
+     * @return bool
+     *
+     * @since 1.0.0
      */
     public function setOptions(array $pair, bool $overwrite = true) : bool
     {

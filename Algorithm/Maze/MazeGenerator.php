@@ -98,6 +98,7 @@ class MazeGenerator
 
                 if ($pos === null) {
                     $n = 0;
+                    break;
                 }
             }
         }

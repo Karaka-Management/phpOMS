@@ -665,6 +665,10 @@ final class ModuleManager
      */
     public function installApplications(string $from) : void
     {
+        if (!\file_exists($this->modulePath . '/' . $from . '/Application')) {
+            return;
+        }
+
         $dirs = \scandir($this->modulePath . '/' . $from . '/Application');
         foreach ($dirs as $dir) {
             if ($dir === '.' || $dir === '..') {

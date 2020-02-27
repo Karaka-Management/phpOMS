@@ -63,8 +63,8 @@ class Phone
             $numberString = \str_replace(
                 '$' . $i,
                 StringUtils::generateString(
-                    $size[$i - 1][0],
-                    $size[$i - 1][1],
+                    $size[$i - 1][0] ?? 0,
+                    $size[$i - 1][1] ?? 0,
                     '0123456789'
                 ),
                 $numberString
