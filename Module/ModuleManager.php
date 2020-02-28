@@ -714,7 +714,6 @@ final class ModuleManager
     public function initModule($modules) : void
     {
         $modules = (array) $modules;
-
         foreach ($modules as $module) {
             $this->initModuleController($module);
         }
@@ -845,7 +844,6 @@ final class ModuleManager
     public function initRequestModules(HttpRequest $request) : void
     {
         $toInit = $this->getRoutedModules($request);
-
         foreach ($toInit as $module) {
             $this->initModuleController($module);
         }
