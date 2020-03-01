@@ -143,7 +143,7 @@ final class NaiveBayesClassifier
             if (\is_array($value)) {
                 /**
                  * @var string[] $value
-                 * @var string $word
+                 * @var string   $word
                  */
                 foreach ($value as $word) {
                     if (isset($this->dict[$criteria][$attr]['data'][$word])
