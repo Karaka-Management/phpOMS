@@ -218,7 +218,7 @@ interface StreamInterface
     /**
      * Read data from the stream
      *
-     * @param int $length Up to length number of bytes read.
+     * @param int $length up to length number of bytes read
      *
      * @return string Returns the data read from the stream or FALSE on failure or EOF
      *
@@ -229,9 +229,9 @@ interface StreamInterface
     /**
      * Write data to the stream
      *
-     * @param string $string The string that is to be written.
+     * @param string $string the string that is to be written
      *
-     * @return int Returns the number of bytes written to the stream on success or FALSE on failure.
+     * @return int returns the number of bytes written to the stream on success or FALSE on failure
      *
      * @since 1.0.0
      */
