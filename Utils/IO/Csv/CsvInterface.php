@@ -17,7 +17,7 @@ namespace phpOMS\Utils\IO\Csv;
 /**
  * Cvs interface.
  *
- * @package    phpOMS\Utils\IO\Csv
+ * @package phpOMS\Utils\IO\Csv
  * @license OMS License 1.0
  * @link    https://orange-management.org
  * @since   1.0.0
@@ -29,10 +29,11 @@ interface CsvInterface
      *
      * @param string $path Path to export
      *
+     * @return void
+     *
      * @since  1.0.0
-     * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
-    public function exportCsv($path);
+    public function exportCsv($path) : void;
 
     /**
      * Import Csv.
@@ -42,7 +43,6 @@ interface CsvInterface
      * @return void
      *
      * @since  1.0.0
-     * @author Dennis Eichhorn <d.eichhorn@oms.com>
      */
     public function importCsv($path) : void;
 }

@@ -263,7 +263,7 @@ class Matrix implements \ArrayAccess, \Iterator
     /**
      * Get matrix array.
      *
-     * @return array<int, array<int, mixed>>
+     * @return array<int, array<int, int|float>>
      *
      * @since 1.0.0
      */

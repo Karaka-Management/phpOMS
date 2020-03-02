@@ -142,7 +142,6 @@ final class NaiveBayesClassifier
 
             if (\is_array($value)) {
                 /**
-                 * @var string[] $value
                  * @var string $word
                  */
                 foreach ($value as $word) {

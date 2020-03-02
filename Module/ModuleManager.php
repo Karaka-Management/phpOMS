@@ -261,8 +261,12 @@ final class ModuleManager
         if (empty($this->all)) {
             \chdir($this->modulePath);
             $files = \glob('*', \GLOB_ONLYDIR);
-            $c     = $files === false ? 0 : \count($files);
 
+            if ($files === false) {
+                return [];
+            }
+
+            $c = $files === false ? 0 : \count($files);
             for ($i = 0; $i < $c; ++$i) {
                 $path = $this->modulePath . '/' . $files[$i] . '/info.json';
 
@@ -670,6 +674,11 @@ final class ModuleManager
         }
 
         $dirs = \scandir($this->modulePath . '/' . $from . '/Application');
+
+        if ($dirs === false) {
+            return;
+        }
+
         foreach ($dirs as $dir) {
             if ($dir === '.' || $dir === '..') {
                 continue;

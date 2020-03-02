@@ -907,18 +907,14 @@ class DataMapperAbstract implements DataMapperInterface
      */
     private static function createOwnsOneArray(string $propertyName, array &$obj)
     {
-        if (\is_array($obj)) {
-            $mapper     = static::$ownsOne[$propertyName]['mapper'];
-            $primaryKey = $obj[static::$columns[static::$primaryField]['internal']];
+        $mapper     = static::$ownsOne[$propertyName]['mapper'];
+        $primaryKey = $obj[static::$columns[static::$primaryField]['internal']];
 
-            if (empty($primaryKey)) {
-                return $mapper::createArray($obj);
-            }
-
-            return $primaryKey;
+        if (empty($primaryKey)) {
+            return $mapper::createArray($obj);
         }
 
-        return $obj;
+        return $primaryKey;
     }
 
     /**
@@ -964,19 +960,15 @@ class DataMapperAbstract implements DataMapperInterface
      */
     private static function createBelongsToArray(string $propertyName, array $obj)
     {
-        if (\is_array($obj)) {
-            /** @var string $mapper */
-            $mapper     = static::$belongsTo[$propertyName]['mapper'];
-            $primaryKey = $obj[static::$columns[static::$primaryField]['internal']];
+        /** @var string $mapper */
+        $mapper     = static::$belongsTo[$propertyName]['mapper'];
+        $primaryKey = $obj[static::$columns[static::$primaryField]['internal']];
 
-            if (empty($primaryKey)) {
-                return $mapper::createArray($obj);
-            }
-
-            return $primaryKey;
+        if (empty($primaryKey)) {
+            return $mapper::createArray($obj);
         }
 
-        return $obj;
+        return $primaryKey;
     }
 
     /**

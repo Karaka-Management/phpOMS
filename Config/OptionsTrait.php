@@ -66,7 +66,7 @@ trait OptionsTrait
     /**
      * Get options by keys.
      *
-     * @param mixed $key Unique option key
+     * @param array $key Unique option key
      *
      * @return array Option values
      *

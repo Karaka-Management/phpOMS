@@ -362,7 +362,7 @@ class Builder extends BuilderAbstract
      */
     public function newQuery() : self
     {
-        return new static($this->connection, $this->isReadOnly);
+        return new self($this->connection, $this->isReadOnly);
     }
 
     /**
@@ -1274,6 +1274,11 @@ class Builder extends BuilderAbstract
     /**
      * On.
      *
+     * @param string|array      $columns  Columns to join on
+     * @param null|string|array $operator Comparison operator
+     * @param null|string|array $values   Values to compare with
+     * @param string|array      $boolean  Concatonator
+     *
      * @return Builder
      *
      * @since 1.0.0
@@ -1317,6 +1322,10 @@ class Builder extends BuilderAbstract
     /**
      * On.
      *
+     * @param string|array      $columns  Columns to join on
+     * @param null|string|array $operator Comparison operator
+     * @param null|string|array $values   Values to compare with
+     *
      * @return Builder
      *
      * @since 1.0.0
@@ -1328,6 +1337,10 @@ class Builder extends BuilderAbstract
 
     /**
      * On.
+     *
+     * @param string|array      $columns  Columns to join on
+     * @param null|string|array $operator Comparison operator
+     * @param null|string|array $values   Values to compare with
      *
      * @return Builder
      *

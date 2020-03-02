@@ -14,6 +14,8 @@ declare(strict_types=1);
 
 namespace phpOMS\Message;
 
+use phpOMS\Contract\StreamInterface;
+
 /**
  * Upload interface.
  *
@@ -30,7 +32,7 @@ interface UploadedFileInterface
      *
      * @since 1.0.0
      */
-    public function getStream();
+    public function getStream() : StreamInterface;
 
     /**
      * Move the uploaded file to a new location.
