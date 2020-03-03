@@ -18,10 +18,17 @@ use phpOMS\DataStorage\Database\Connection\NullConnection;
 use phpOMS\DataStorage\Database\DatabaseType;
 
 /**
+ * @testdox phpOMS\tests\DataStorage\Database\Connection\NullConnectionTest: Null connection
+ *
  * @internal
  */
 class NullConnectionTest extends \PHPUnit\Framework\TestCase
 {
+    /**
+     * @testdox A null connection can be created as placeholder
+     * @covers phpOMS\DataStorage\Database\Connection\PostgresConnection
+     * @group framework
+     */
     public function testConnect() : void
     {
         $null = new NullConnection([]);

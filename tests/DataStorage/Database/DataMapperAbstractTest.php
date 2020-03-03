@@ -18,7 +18,7 @@ use phpOMS\tests\DataStorage\Database\TestModel\BaseModelMapper;
 use phpOMS\tests\DataStorage\Database\TestModel\ManyToManyDirectModelMapper;
 
 /**
- * @testdox phpOMS\tests\DataStorage\Database\DataMapperAbstract: Datamapper for database models
+ * @testdox phpOMS\tests\DataStorage\Database\DataMapperAbstractTest: Datamapper for database models
  *
  * @internal
  */
@@ -29,6 +29,7 @@ class DataMapperAbstractTest extends \PHPUnit\Framework\TestCase
 
     protected function setUp() : void
     {
+        var_dump(1);
         $this->model      = new BaseModel();
         $this->modelArray = [
             'id' => 0,

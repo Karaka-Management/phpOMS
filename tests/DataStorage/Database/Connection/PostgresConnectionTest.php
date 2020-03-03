@@ -17,7 +17,7 @@ use phpOMS\DataStorage\Database\Connection\PostgresConnection;
 use phpOMS\DataStorage\Database\DatabaseStatus;
 
 /**
- * @testdox phpOMS\tests\DataStorage\Database\Connection\PostgresConnection: Postgresql connection
+ * @testdox phpOMS\tests\DataStorage\Database\Connection\PostgresConnectionTest: Postgresql connection
  *
  * @internal
  */
