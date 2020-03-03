@@ -29,7 +29,7 @@ class DataMapperAbstractTest extends \PHPUnit\Framework\TestCase
 
     protected function setUp() : void
     {
-        var_dump(1);
+        \var_dump(1);
         $this->model      = new BaseModel();
         $this->modelArray = [
             'id' => 0,
