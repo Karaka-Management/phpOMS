@@ -85,28 +85,6 @@ interface DataMapperInterface
     public static function listResults(Builder $query);
 
     /**
-     * Populate data.
-     *
-     * @param array $result Result set
-     *
-     * @return mixed
-     *
-     * @since 1.0.0
-     */
-    public static function populate(array $result);
-
-    /**
-     * Populate data.
-     *
-     * @param array $result Result set
-     *
-     * @return array
-     *
-     * @since 1.0.0
-     */
-    public static function populateIterable(array $result) : array;
-
-    /**
      * Load.
      *
      * @param array ...$objects Objects to load
