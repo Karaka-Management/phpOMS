@@ -440,7 +440,7 @@ class DataMapperAbstract implements DataMapperInterface
     {
         self::extend(__CLASS__);
 
-        if (!isset($obj) || self::isNullObject($obj)) {
+        if (!isset($obj) || self::isNullModel($obj)) {
             return null;
         }
 
@@ -1618,7 +1618,7 @@ class DataMapperAbstract implements DataMapperInterface
     {
         self::extend(__CLASS__);
 
-        if (!isset($obj) || self::isNullObject($obj)) {
+        if (!isset($obj) || self::isNullModel($obj)) {
             return null;
         }
 
@@ -1954,7 +1954,7 @@ class DataMapperAbstract implements DataMapperInterface
         $row = [];
 
         foreach ($result as $element) {
-            $toFill = self::createBaseModel(empty($element));
+            $toFill = empty($element) ? self::createNullModel() : self::createBaseModel();
 
             if (isset($element[static::$primaryField])) {
                 $row[$element[static::$primaryField]] = self::populateAbstract($element, $toFill, static::$columns);
@@ -2439,7 +2439,7 @@ class DataMapperAbstract implements DataMapperInterface
     public static function get($primaryKey, int $relations = RelationType::ALL, $fill = null, int $depth = 3)
     {
         if ($depth < 1) {
-            return $primaryKey;
+            return self::createNullModel($primaryKey);
         }
 
         if (!isset(self::$parentMapper)) {
@@ -2466,7 +2466,7 @@ class DataMapperAbstract implements DataMapperInterface
                 $toFill = \current($fill);
                 \next($fill);
             } else {
-                $toFill = self::createBaseModel(empty($dbData));
+                $toFill = empty($dbData) ? self::createNullModel() : self::createBaseModel();
             }
 
             $obj[$value] = $toFill;
@@ -2485,31 +2485,12 @@ class DataMapperAbstract implements DataMapperInterface
         $countResulsts = \count($obj);
 
         if ($countResulsts === 0) {
-            return self::getNullModelObj();
+            return self::createNullModel();
         } elseif ($countResulsts === 1) {
             return \reset($obj);
         }
 
         return $obj;
-    }
-
-    /**
-     * Creates the current null object
-     *
-     * @return mixed
-     *
-     * @since 1.0.0
-     */
-    private static function getNullModelObj()
-    {
-        $class     = static::class;
-        $class     = empty(static::$model) ? \substr($class, 0, -6) : static::$model;
-        $parts     = \explode('\\', $class);
-        $name      = $parts[$c = (\count($parts) - 1)];
-        $parts[$c] = 'Null' . $name;
-        $class     = \implode('\\', $parts);
-
-        return new $class();
     }
 
     /**
@@ -2571,7 +2552,9 @@ class DataMapperAbstract implements DataMapperInterface
     public static function getFor($forKey, string $for, int $relations = RelationType::ALL, $fill = null, int $depth = 3)
     {
         if ($depth < 1) {
-            return $forKey;
+            // @todo maybe wrong? because for !== this model
+            // @todo maybe fill for value. this should be the correct column/member
+            return self::createNullModel($forKey);
         }
 
         if (!isset(self::$parentMapper)) {
@@ -2584,13 +2567,9 @@ class DataMapperAbstract implements DataMapperInterface
         $obj    = [];
 
         foreach ($forKey as $key => $value) {
-            $toLoad = [];
-
-            if (isset(static::$hasMany[$for]) && static::$hasMany[$for]['self'] !== null) {
-                $toLoad = self::getHasManyPrimaryKeys($value, $for);
-            } else {
-                $toLoad = self::getPrimaryKeysBy($value, self::getColumnByMember($for));
-            }
+            $toLoad = isset(static::$hasMany[$for]) && static::$hasMany[$for]['self'] !== null
+                ? self::getHasManyPrimaryKeys($value, $for)
+                : self::getPrimaryKeysBy($value, self::getColumnByMember($for));
 
             $obj[$value] = self::get($toLoad, $relations, $fill, $depth);
         }
@@ -2598,7 +2577,7 @@ class DataMapperAbstract implements DataMapperInterface
         $countResulsts = \count($obj);
 
         if ($countResulsts === 0) {
-            return self::getNullModelObj();
+            return self::createNullModel();
         } elseif ($countResulsts === 1) {
             return \reset($obj);
         }
@@ -2622,7 +2601,8 @@ class DataMapperAbstract implements DataMapperInterface
     public static function getBy($byKey, string $by, int $relations = RelationType::ALL, $fill = null, int $depth = 3)
     {
         if ($depth < 1) {
-            return $byKey;
+            // @todo: maybe fill null model with byValue
+            return self::createNullModel();
         }
 
         if (!isset(self::$parentMapper)) {
@@ -2650,7 +2630,7 @@ class DataMapperAbstract implements DataMapperInterface
         $countResulsts = \count($obj);
 
         if ($countResulsts === 0) {
-            return self::getNullModelObj();
+            return self::createNullModel();
         } elseif ($countResulsts === 1) {
             return \reset($obj);
         }
@@ -3224,7 +3204,7 @@ class DataMapperAbstract implements DataMapperInterface
      */
     private static function isInitialized(string $mapper, $id) : bool
     {
-        return isset(self::$initObjects[$mapper], self::$initObjects[$mapper][$id]);
+        return !empty($id) && isset(self::$initObjects[$mapper], self::$initObjects[$mapper][$id]);
     }
 
     /**
@@ -3239,7 +3219,7 @@ class DataMapperAbstract implements DataMapperInterface
      */
     private static function isInitializedArray(string $mapper, $id) : bool
     {
-        return isset(self::$initArrays[$mapper], self::$initArrays[$mapper][$id]);
+        return !empty($id) && isset(self::$initArrays[$mapper], self::$initArrays[$mapper][$id]);
     }
 
     /**
@@ -3324,31 +3304,50 @@ class DataMapperAbstract implements DataMapperInterface
      *
      * @since 1.0.0
      */
-    private static function isNullObject($obj) : bool
+    private static function isNullModel($obj) : bool
     {
         return \is_object($obj) && \strpos(\get_class($obj), '\Null') !== false;
     }
 
     /**
-     * Create the empty base model
+     * Creates the current null object
      *
-     * @param bool $isNull Model should be null model
+     * @param mixed $id Model id
      *
      * @return mixed
      *
      * @since 1.0.0
      */
-    private static function createBaseModel(bool $isNull = false)
+    private static function createNullModel($id = null)
+    {
+        $class     = static::class;
+        $class     = empty(static::$model) ? \substr($class, 0, -6) : static::$model;
+        $parts     = \explode('\\', $class);
+        $name      = $parts[$c = (\count($parts) - 1)];
+        $parts[$c] = 'Null' . $name;
+        $class     = \implode('\\', $parts);
+
+        $obj = new $class();
+
+        if ($id !== null) {
+            $refClass = new \ReflectionClass($obj);
+            self::setObjectId($refClass, $obj, $id);
+        }
+
+        return $obj;
+    }
+
+    /**
+     * Create the empty base model
+     *
+     * @return mixed
+     *
+     * @since 1.0.0
+     */
+    private static function createBaseModel()
     {
         $class = static::class;
         $class = empty(static::$model) ? \substr($class, 0, -6) : static::$model;
-
-        if ($isNull) {
-            $parts     = \explode('\\', $class);
-            $name      = $parts[$c = (\count($parts) - 1)];
-            $parts[$c] = 'Null' . $name;
-            $class     = \implode('\\', $parts);
-        }
 
         /**
          * @todo Orange-Management/phpOMS#67
