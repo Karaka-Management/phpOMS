@@ -1936,7 +1936,7 @@ class DataMapperAbstract implements DataMapperInterface
             if (isset($element[static::$primaryField])) {
                 $row[$element[static::$primaryField]] = self::populateAbstract($element, $toFill, static::$columns);
             } else {
-                $row[]  = self::populateAbstract($element, $toFill, static::$columns);
+                $row[] = self::populateAbstract($element, $toFill, static::$columns);
             }
         }
 
