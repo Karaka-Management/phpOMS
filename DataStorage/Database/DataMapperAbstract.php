@@ -76,29 +76,6 @@ use phpOMS\Utils\ArrayUtils;
  *  Now all mappers are split. The overhead is one additional function call and the setup() function.
  *  Alternatively, think about using traits in the beginning.
  *
- * @todo Orange-Management/phpOMS#212
- *  Replace nested models which are represented as scalar/id with NullModel
- *  Currently there is a default limit on dependency nesting when you request a model from the database.
- *  This means a model may have a model as member and that model in return also has some model as member and so on.
- *  In order to prevent very deep nesting either the default nesting level is used to limit the amount of nesting or the user can specify a nesting depth.
- *  Once the lowest nesting level is reached the mapper only stores the id in the member variable and NOT the model.
- *  As a result the member variable can be of type null, int (= primary key of the model), or the model type.
- *  This results in many special cases which a coder may has to consider.
- *  It might make sense to only store null and the model in the member variable.
- *  In order to still restrict the nesting the mapper could create a null model and only populate the id.
- *  This could reduce the complexity for the user and simplify the use cases.
- *  Additionally, it would now be possible to type hint the return value of many getter functions ?NullModelName.
- *  If this gets implemented we also need to adjust some setter functions.
- *  Many setter functions allow to only specify a id of the model.
- *  Either this needs to be prevented and a Null model needs to be provided (all null models must have a __construct(int $id = 0) function which allows to pass the id) or the setter function needs to create the null model based on the id.
- *  Implementing the above mentioned things will take some time but could improve the simplicity and overall code quality by a lot (at least from my personal opinion).
- *
- * @todo Orange-Management/phpOMS#213 & Orange-Management/phpOMS#224
- *  Implement composite models
- *  All references such as ownsOne, hasMany etc. are based on the mappers for these objects. It should be possible to define single columns only.
- *  One example where this could be useful is the Address/Localization model.
- *  In here the country is stored by ID but you probably don't want to load an entire object and only the country name from the country table.
- *
  * @todo Orange-Management/Modules#99
  *  Use binds
  *  Currently databinds are not used. Currently injections are possible.
