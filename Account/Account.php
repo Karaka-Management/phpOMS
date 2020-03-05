@@ -441,7 +441,7 @@ class Account implements ArrayableInterface, \JsonSerializable
      */
     public function getCreatedAt() : \DateTime
     {
-        return $this->createdAt ?? new \DateTime('NOW');
+        return $this->createdAt;
     }
 
     /**
@@ -489,7 +489,7 @@ class Account implements ArrayableInterface, \JsonSerializable
      */
     public function updateLastActive() : void
     {
-        $this->lastActive = new \DateTime('NOW');
+        $this->lastActive = new \DateTime('now');
     }
 
     /**

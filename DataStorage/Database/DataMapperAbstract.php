@@ -2071,13 +2071,19 @@ class DataMapperAbstract implements DataMapperInterface
     {
         $mapper = static::$ownsOne[$member]['mapper'];
 
-        if (!isset(static::$ownsOne[$member]['by'])) {
-            $value = self::getInitialized($mapper, $id) ?? $mapper::get($id, RelationType::ALL, null, $depth);
-        } else {
-            $value = $mapper::getBy($id, static::$ownsOne[$member]['by'], RelationType::ALL, null, $depth);
+        if (isset(static::$ownsOne[$member]['column'])) {
+            if (!isset(static::$ownsOne[$member]['by'])) {
+                return $mapper::getColumn($id, static::$ownsOne[$member]['column']);
+            }
+
+            return $mapper::getByColumn($id, static::$ownsOne[$member]['by'], static::$ownsOne[$member]['column']);
         }
 
-        return $value;
+        if (!isset(static::$ownsOne[$member]['by'])) {
+            return self::getInitialized($mapper, $id) ?? $mapper::get($id, RelationType::ALL, null, $depth);
+        }
+
+        return $mapper::getBy($id, static::$ownsOne[$member]['by'], RelationType::ALL, null, $depth);
     }
 
     /**
@@ -2144,6 +2150,10 @@ class DataMapperAbstract implements DataMapperInterface
     public static function populateBelongsTo(string $member, $id, int $depth = 3)
     {
         $mapper = static::$belongsTo[$member]['mapper'];
+
+        if (isset(static::$belongsTo[$member]['column'])) {
+            return $mapper::getColumn($id, static::$belongsTo[$member]['column']);
+        }
 
         return self::getInitialized($mapper, $id) ?? $mapper::get($id, RelationType::ALL, null, $depth);
     }
@@ -2496,6 +2506,45 @@ class DataMapperAbstract implements DataMapperInterface
     /**
      * Get object.
      *
+     * @param mixed  $primaryKey Key
+     * @param string $member     Member to load
+     *
+     * @return mixed
+     *
+     * @since 1.0.0
+     */
+    public static function getColumn($primaryKey, string $member)
+    {
+        if (!isset(self::$parentMapper)) {
+            self::$parentMapper = static::class;
+        }
+
+        self::extend(__CLASS__);
+
+        $primaryKey  = (array) $primaryKey;
+        $columnValue = [];
+
+        foreach ($primaryKey as $key => $value) {
+            $dbData        = self::getRaw($value);
+            $columnValue[] = $dbData[self::getColumnByMember($member)];
+        }
+
+        self::clear();
+
+        $countResulsts = \count($columnValue);
+
+        if ($countResulsts === 0) {
+            return self::createNullModel();
+        } elseif ($countResulsts === 1) {
+            return \reset($columnValue);
+        }
+
+        return $columnValue;
+    }
+
+    /**
+     * Get object.
+     *
      * @param mixed $primaryKey Key
      * @param int   $relations  Load relations
      * @param int   $depth      Relation depth
@@ -2620,7 +2669,7 @@ class DataMapperAbstract implements DataMapperInterface
             if (isset(static::$hasMany[$by]) && static::$hasMany[$by]['self'] !== null) {
                 // todo: maybe wrong?!
                 $toLoad = self::getHasManyPrimaryKeys($value, $by);
-            } elseif (isset(static::$ownsOne[$by])) {
+            } else {
                 $toLoad = self::getPrimaryKeysBy($value, self::getColumnByMember($by));
             }
 
@@ -2637,6 +2686,53 @@ class DataMapperAbstract implements DataMapperInterface
 
         return $obj;
     }
+
+     /**
+     * Get column.
+     *
+     * @param mixed  $byKey  Key
+     * @param string $by     The field that defines the for
+     * @param string $member Member to load
+     *
+     * @return mixed
+     *
+     * @since 1.0.0
+     */
+    public static function getByColumn($byKey, string $by, string $member)
+    {
+        if (!isset(self::$parentMapper)) {
+            self::$parentMapper = static::class;
+        }
+
+        self::extend(__CLASS__);
+
+        $byKey       = (array) $byKey;
+        $columnValue = [];
+
+        foreach ($byKey as $key => $value) {
+            $toLoad = [];
+
+            if (isset(static::$hasMany[$by]) && static::$hasMany[$by]['self'] !== null) {
+                // todo: maybe wrong?!
+                $toLoad = self::getHasManyPrimaryKeys($value, $by);
+            } else {
+                $toLoad = self::getPrimaryKeysBy($value, self::getColumnByMember($by));
+            }
+
+            $columnValue[$value] = self::getColumn($toLoad, $member);
+        }
+
+        $countResulsts = \count($columnValue);
+
+        if ($countResulsts === 0) {
+            return self::createNullModel();
+        } elseif ($countResulsts === 1) {
+            return \reset($columnValue);
+        }
+
+        return $columnValue;
+    }
+
 
     /**
      * Get object.
