@@ -41,18 +41,6 @@ use phpOMS\Utils\ArrayUtils;
  *      * belongs to one
  *      * conditionals
  *
- * @todo Orange-Management/phpOMS#222
- *  Implement conditionals.
- *  Conditionals are hardcoded or dynamically passed parameters based on which a model is found.
- *  The best example is the language of a model (e.g. news article), which is stored as foreign key in the model.
- *  With conditionals it's possible to reference other tables and also return elements based on the value in these tables/columns.
- *  Possible solution:
- *      1. join tables/columns which have conditionals
- *      2. perform the select based on the match
- *  ```php
- *  TestMapper::getByConditional(['l11n' => 'en']);
- *  ```
- *
  * @todo Orange-Management/phpOMS#73
  *  Implement extending
  *  Allow a data mapper to extend another data mapper.
@@ -419,6 +407,7 @@ class DataMapperAbstract implements DataMapperInterface
                 $query->where(static::$table . '.' . $col['name'], 'LIKE', '%' . $search . '%', 'OR');
             }
 
+            // @todo 222
             // $mapper::findOwnsOne($query, $search);
             // $mapper::findHasMany($query, $search);
         }
