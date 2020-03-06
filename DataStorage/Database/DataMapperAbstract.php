@@ -1904,13 +1904,15 @@ class DataMapperAbstract implements DataMapperInterface
     public static function populateManyToManyArray(array $result, array &$obj, int $depth = 3) : void
     {
         foreach ($result as $member => $values) {
-            if (!empty($values)) {
-                /** @var string $mapper */
-                $mapper = static::$hasMany[$member]['mapper'];
-
-                $objects      = $mapper::getArray($values, RelationType::ALL, $depth);
-                $obj[$member] = $objects;
+            if (empty($values)) {
+                continue;
             }
+
+            /** @var string $mapper */
+            $mapper = static::$hasMany[$member]['mapper'];
+
+            $objects      = $mapper::getArray($values, RelationType::ALL, $depth);
+            $obj[$member] = $objects;
         }
     }
 

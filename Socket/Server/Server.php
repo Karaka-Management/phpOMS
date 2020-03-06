@@ -14,7 +14,7 @@ declare(strict_types=1);
 
 namespace phpOMS\Socket\Server;
 
-use phpOMS\Account\Account;
+use Modules\Admin\Models\NullAccount;
 use phpOMS\Application\ApplicationAbstract;
 use phpOMS\Message\Socket\PacketManager;
 use phpOMS\Socket\Client\ClientConnection;
@@ -270,8 +270,8 @@ class Server extends SocketAbstract
     public function connectClient($socket) : void
     {
         $this->app->logger->debug('Connecting client...');
-        $this->app->accountManager->add(new Account(1));
-        $this->clientManager->add($client = new ClientConnection(new Account(1), $socket));
+        $this->app->accountManager->add(new NullAccount(1));
+        $this->clientManager->add($client = new ClientConnection(new NullAccount(1), $socket));
         $this->conn[$client->getId()] = $socket;
         $this->app->logger->debug('Connected client.');
     }

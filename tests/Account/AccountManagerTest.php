@@ -14,8 +14,8 @@ declare(strict_types=1);
 
 namespace phpOMS\tests\Account;
 
-use phpOMS\Account\Account;
 use phpOMS\Account\AccountManager;
+use phpOMS\Account\NullAccount;
 
 require_once __DIR__ . '/../Autoloader.php';
 
@@ -33,7 +33,7 @@ class AccountManagerTest extends \PHPUnit\Framework\TestCase
     {
         $this->manager = new AccountManager($GLOBALS['httpSession']);
 
-        $this->account = new Account(3);
+        $this->account = new NullAccount(3);
         $this->account->generatePassword('abcd');
     }
 
