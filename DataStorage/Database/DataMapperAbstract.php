@@ -346,6 +346,22 @@ class DataMapperAbstract implements DataMapperInterface
     }
 
     /**
+     * Create a conditional value
+     *
+     * @param string $id    Id of the conditional
+     * @param string $value Value of the conditional
+     *
+     * @return static
+     *
+     * @since 1.0.0
+     */
+    public static function withConditional(string $id, string $value) /** @todo: return : static */
+    {
+        self::$conditionals[$id] = $value;
+        return static::class;
+    }
+
+    /**
      * Resets all loaded mapper variables.
      *
      * This is used after one action is performed otherwise other models would use wrong settings.
@@ -376,31 +392,38 @@ class DataMapperAbstract implements DataMapperInterface
         // clear parent and objects
         if (static::class === self::$parentMapper) {
             self::$parentMapper = null;
+            self::$conditionals = [];
         }
     }
 
     /**
      * Find data.
      *
-     * @param string $search Search for
+     * @param string $search      Search for
+     * @param int    $searchDepth Depth of the search
+     * @param int    $popDepth    Population depth
      *
      * @return array
      *
      * @since 1.0.0
      */
-    public static function find(string $search) : array
+    public static function find(string $search, int $searchDepth = 2, int $popDepth = 3) : array
     {
         self::extend(__CLASS__);
 
         $query = static::getQuery();
 
         foreach (static::$columns as $col) {
+            // @todo also handle conditionals!!! e.g. localization
             if (isset($col['autocomplete']) && $col['autocomplete']) {
                 $query->where(static::$table . '.' . $col['name'], 'LIKE', '%' . $search . '%', 'OR');
             }
+
+            // $mapper::findOwnsOne($query, $search);
+            // $mapper::findHasMany($query, $search);
         }
 
-        return static::getAllByQuery($query);
+        return static::getAllByQuery($query, RelationType::ALL, $popDepth);
     }
 
     /**
@@ -432,25 +455,9 @@ class DataMapperAbstract implements DataMapperInterface
 
         if ($relations === RelationType::ALL) {
             self::createHasMany($refClass, $obj, $objId);
-            self::createConditionals($refClass, $obj, $objId);
         }
 
         return $objId;
-    }
-
-    /**
-     * Create conditionals
-     *
-     * @param \ReflectionClass $refClass Reflection class
-     * @param object           $obj      Object to create
-     * @param mixed            $objId    Id to set
-     *
-     * @return void
-     *
-     * @since 1.0.0
-     */
-    private static function createConditionals(\ReflectionClass $refClass, object $obj, $objId): void
-    {
     }
 
     /**
@@ -477,7 +484,6 @@ class DataMapperAbstract implements DataMapperInterface
 
         if ($relations === RelationType::ALL) {
             self::createHasManyArray($obj, $objId);
-            self::createConditionalsArray($obj, $objId);
         }
 
         return $objId;
@@ -554,20 +560,6 @@ class DataMapperAbstract implements DataMapperInterface
         \settype($objId, static::$columns[static::$primaryField]['type']);
 
         return $objId;
-    }
-
-    /**
-     * Create conditionals
-     *
-     * @param array $obj   Object to create
-     * @param mixed $objId Id to set
-     *
-     * @return void
-     *
-     * @since 1.0.0
-     */
-    private static function createConditionalsArray(array &$obj, $objId): void
-    {
     }
 
     /**
@@ -725,6 +717,11 @@ class DataMapperAbstract implements DataMapperInterface
             }
 
             $values = $property->getValue($obj);
+
+            if (!\is_array($values)) {
+                // conditionals
+                continue;
+            }
 
             if (!$isPublic) {
                 $property->setAccessible(false);
@@ -1429,58 +1426,6 @@ class DataMapperAbstract implements DataMapperInterface
     }
 
     /**
-     * Update conditional values
-     *
-     * @param object           $obj       Object to update
-     * @param mixed            $objId     Object id
-     * @param \ReflectionClass $refClass  Reflection of the object
-     * @param int              $relations Relations to update
-     * @param int              $depth     Depths to update
-     *
-     * @return void
-     *
-     * @since 1.0.0
-     */
-    private static function updateConditionals(object $obj, $objId, \ReflectionClass $refClass = null, int $relations = RelationType::ALL, int $depth = 1) : void
-    {
-        foreach (static::$conditionals as $table => $conditional) {
-            $query = new Builder(self::$db);
-            $query->prefix(self::$db->getPrefix())
-                ->update($table)
-                ->where($table . '.' . $conditional['external'], '=', $objId);
-
-            foreach ($conditional['columns'] as $key => $column) {
-                $propertyName = \stripos($column['internal'], '/') !== false ? \explode('/', $column['internal'])[0] : $column['internal'];
-
-                $refClass = $refClass ?? new \ReflectionClass($obj);
-                $property = $refClass->getProperty($propertyName);
-
-                if (!($isPublic = $property->isPublic())) {
-                    $property->setAccessible(true);
-                }
-
-                if ($column['name'] !== $conditional['external']) {
-                    $tValue = $property->getValue($obj);
-                    if (\stripos($column['internal'], '/') !== false) {
-                        $path   = \substr($column['internal'], \stripos($column['internal'], '/') + 1);
-                        $tValue = ArrayUtils::getArray($path, $tValue, '/');
-                    }
-
-                    $value = self::parseValue($column['type'], $tValue);
-
-                    $query->set([$table . '.' . $column['name'] => $value]);
-                }
-
-                if (!$isPublic) {
-                    $property->setAccessible(false);
-                }
-            }
-
-            self::$db->con->prepare($query->toSql())->execute();
-        }
-    }
-
-    /**
      * Update object in db.
      *
      * @param array $obj       Model to update
@@ -1549,40 +1494,6 @@ class DataMapperAbstract implements DataMapperInterface
     /**
      * Update object in db.
      *
-     * @param array $obj       Model to update
-     * @param mixed $objId     Model id
-     * @param int   $relations Create all relations as well
-     * @param int   $depth     Depth of relations to update (default = 1 = none)
-     *
-     * @return void
-     *
-     * @since 1.0.0
-     */
-    private static function updateConditionalsArray(array $obj, $objId, int $relations = RelationType::ALL, int $depth = 1) : void
-    {
-        foreach (static::$conditionals as $table => $conditional) {
-            $query = new Builder(self::$db);
-            $query->prefix(self::$db->getPrefix())
-                ->update($table)
-                ->where($table . '.' . $conditional['external'], '=', $objId);
-
-            foreach ($conditional['columns'] as $key => $column) {
-                $property = ArrayUtils::getArray($column['internal'], $obj, '/');
-
-                if ($column['name'] !== $conditional['external']) {
-                    $value = self::parseValue($column['type'], $property);
-
-                    $query->set([$table . '.' . $column['name'] => $value]);
-                }
-            }
-
-            self::$db->con->prepare($query->toSql())->execute();
-        }
-    }
-
-    /**
-     * Update object in db.
-     *
      * @param mixed $obj       Object reference (gets filled with insert id)
      * @param int   $relations Create all relations as well
      * @param int   $depth     Depth of relations to update (default = 1 = none)
@@ -1610,7 +1521,6 @@ class DataMapperAbstract implements DataMapperInterface
 
         if ($relations === RelationType::ALL) {
             self::updateHasMany($refClass, $obj, $objId, --$depth);
-            self::updateConditionals($obj, $objId, $refClass);
         }
 
         if (empty($objId)) {
@@ -1657,7 +1567,6 @@ class DataMapperAbstract implements DataMapperInterface
 
         if ($relations === RelationType::ALL) {
             self::updateHasManyArray($obj, $objId, --$depth);
-            self::updateConditionalsArray($obj, $objId);
         }
 
         if ($update) {
@@ -1791,32 +1700,6 @@ class DataMapperAbstract implements DataMapperInterface
     }
 
     /**
-     * Delete conditional values
-     *
-     * @param mixed $key Key to delete
-     *
-     * @since 1.0.0
-     */
-    private static function deleteConditionals($key) : void
-    {
-        foreach (static::$conditionals as $table => $conditional) {
-            $query = new Builder(self::$db);
-            $query->prefix(self::$db->getPrefix())
-                ->delete()
-                ->from($table)
-                ->where(static::$conditionals[$table]['external'], '=', $key);
-
-            foreach (static::$conditionals[$table]['filter'] as $column => $filter) {
-                if ($filter !== null) {
-                    $query->where($column, '=', $filter);
-                }
-            }
-
-            self::$db->con->prepare($query->toSql())->execute();
-        }
-    }
-
-    /**
      * Delete object in db.
      *
      * @param object           $obj       Model to delete
@@ -1904,7 +1787,6 @@ class DataMapperAbstract implements DataMapperInterface
 
         if ($relations !== RelationType::NONE) {
             self::deleteHasMany($refClass, $obj, $objId, $relations);
-            self::deleteConditionals($objId);
         }
 
         self::deleteModel($obj, $objId, $relations, $refClass);
@@ -1983,15 +1865,27 @@ class DataMapperAbstract implements DataMapperInterface
         $refClass = new \ReflectionClass($obj);
 
         foreach ($result as $member => $values) {
-            if (!empty($values) && $refClass->hasProperty($member)) {
-                /** @var string $mapper */
-                $mapper  = static::$hasMany[$member]['mapper'];
-                $refProp = $refClass->getProperty($member);
+            if (empty($values) || !$refClass->hasProperty($member)) {
+                continue;
+            }
 
-                if (!($accessible = $refProp->isPublic())) {
-                    $refProp->setAccessible(true);
+            /** @var string $mapper */
+            $mapper  = static::$hasMany[$member]['mapper'];
+            $refProp = $refClass->getProperty($member);
+
+            if (!($accessible = $refProp->isPublic())) {
+                $refProp->setAccessible(true);
+            }
+
+            if (isset(static::$hasMany[$member]['column'])) {
+                if (!isset(static::$hasMany[$member]['by'])) {
+                    $objects = $mapper::getColumn($values, static::$hasMany[$member]['column']);
+                } else {
+                    $objects = $mapper::getByColumn($values, static::$hasMany[$member]['by'], static::$hasMany[$member]['column']);
                 }
 
+                $refProp->setValue($obj, $objects);
+            } else {
                 if (!isset(static::$hasMany[$member]['by'])) {
                     $objects = $mapper::get($values, RelationType::ALL, null, $depth);
                 } else {
@@ -1999,10 +1893,10 @@ class DataMapperAbstract implements DataMapperInterface
                 }
 
                 $refProp->setValue($obj, !\is_array($objects) ? [$mapper::getObjectId($objects) => $objects] : $objects);
+            }
 
-                if (!$accessible) {
-                    $refProp->setAccessible(false);
-                }
+            if (!$accessible) {
+                $refProp->setAccessible(false);
             }
         }
     }
@@ -2061,36 +1955,6 @@ class DataMapperAbstract implements DataMapperInterface
         }
 
         return $mapper::getBy($id, static::$ownsOne[$member]['by'], RelationType::ALL, null, $depth);
-    }
-
-    /**
-     *
-     * @return void
-     *
-     * @todo   do this in the getRaw() part as a join. check if has conditionals and then join the data an then everything can be done in the getModel function.
-     *
-     * @since 1.0.0
-     */
-    public static function getConditionals($key, string $table) : array
-    {
-        $query = new Builder(self::$db);
-        $query->prefix(self::$db->getPrefix())
-            ->select(...static::$conditionals[$table]['columns'])
-            ->from($table)
-            ->where(static::$conditionals[$table]['external'], '=', $key);
-
-        foreach (static::$conditionals[$table]['filter'] as $column => $filter) {
-            if ($filter !== null) {
-                $query->where($column, '=', $filter);
-            }
-        }
-
-        $sth = self::$db->con->prepare($query->toSql());
-        $sth->execute();
-
-        $results = $sth->fetch(\PDO::FETCH_ASSOC);
-
-        return $results === false ? [] : $results;
     }
 
     /**
@@ -2506,9 +2370,8 @@ class DataMapperAbstract implements DataMapperInterface
             $columnValue[] = $dbData[self::getColumnByMember($member)];
         }
 
-        self::clear();
-
         $countResulsts = \count($columnValue);
+        self::clear();
 
         if ($countResulsts === 0) {
             return self::createNullModel();
@@ -2601,6 +2464,7 @@ class DataMapperAbstract implements DataMapperInterface
         }
 
         $countResulsts = \count($obj);
+        self::clear();
 
         if ($countResulsts === 0) {
             return self::createNullModel();
@@ -2654,6 +2518,7 @@ class DataMapperAbstract implements DataMapperInterface
         }
 
         $countResulsts = \count($obj);
+        self::clear();
 
         if ($countResulsts === 0) {
             return self::createNullModel();
@@ -2700,6 +2565,7 @@ class DataMapperAbstract implements DataMapperInterface
         }
 
         $countResulsts = \count($columnValue);
+        self::clear();
 
         if ($countResulsts === 0) {
             return self::createNullModel();
@@ -2745,6 +2611,8 @@ class DataMapperAbstract implements DataMapperInterface
 
             $obj[$value] = self::getArray($toLoad, $relations, $depth);
         }
+
+        self::clear();
 
         return \count($obj) === 1 ? \reset($obj) : $obj;
     }
@@ -2850,6 +2718,10 @@ class DataMapperAbstract implements DataMapperInterface
         }
 
         self::extend(__CLASS__);
+
+        if (!isset(self::$parentMapper)) {
+            self::$parentMapper = static::class;
+        }
 
         $query = $query ?? new Builder(self::$db);
         $query = self::getQuery($query);
@@ -2957,10 +2829,9 @@ class DataMapperAbstract implements DataMapperInterface
             return;
         }
 
-        $hasMany         = !empty(static::$hasMany);
-        $hasConditionals = !empty(static::$conditionals);
+        $hasMany = !empty(static::$hasMany);
 
-        if (!($hasMany || $hasConditionals)) {
+        if (!$hasMany) {
             return;
         }
 
@@ -2968,12 +2839,6 @@ class DataMapperAbstract implements DataMapperInterface
             /* loading relations from relations table and populating them and then adding them to the object */
             if ($hasMany) {
                 self::populateManyToMany(self::getHasManyRaw($key, $relations), $obj[$key], $depth);
-            }
-
-            if ($hasConditionals) {
-                foreach (static::$conditionals as $table => $conditional) {
-                    $obj[$key] = self::populateAbstract(self::getConditionals($key, $table), $obj[$key], $conditional['columns']);
-                }
             }
         }
     }
@@ -2999,27 +2864,16 @@ class DataMapperAbstract implements DataMapperInterface
             return;
         }
 
-        $hasMany         = !empty(static::$hasMany);
-        $hasConditionals = !empty(static::$conditionals);
+        $hasMany = !empty(static::$hasMany);
 
-        if (!($hasMany || $hasConditionals)) {
+        if (!$hasMany) {
             return;
-        }
-
-        if ($hasConditionals) {
-            self::populateConditionalsArray();
         }
 
         foreach ($obj as $key => $value) {
             /* loading relations from relations table and populating them and then adding them to the object */
             if ($hasMany) {
                 self::populateManyToManyArray(self::getHasManyRaw($key, $relations), $obj[$key], $depth);
-            }
-
-            if ($hasConditionals) {
-                foreach (static::$conditionals as $table => $conditional) {
-                    $obj[$key] = self::populateAbstractArray(self::getConditionals($key, $table), $obj[$key], $conditional['columns']);
-                }
             }
         }
     }
@@ -3046,6 +2900,8 @@ class DataMapperAbstract implements DataMapperInterface
         $sth->execute();
 
         $results = $sth->fetch(\PDO::FETCH_ASSOC);
+
+
 
         return $results === false ? [] : $results;
     }
@@ -3128,6 +2984,8 @@ class DataMapperAbstract implements DataMapperInterface
         $sth = self::$db->con->prepare($query->toSql());
         $sth->execute();
 
+
+
         $results = $sth->fetchAll(\PDO::FETCH_ASSOC);
 
         return $results === false ? [] : $results;
@@ -3145,43 +3003,57 @@ class DataMapperAbstract implements DataMapperInterface
      */
     public static function getHasManyRaw($primaryKey, int $relations = RelationType::ALL) : array
     {
-        $result = [];
+        $result       = [];
+        $cachedTables = []; // used by conditionals
 
         foreach (static::$hasMany as $member => $value) {
             if ($value['writeonly'] ?? false === true) {
                 continue;
             }
 
-            $query = new Builder(self::$db);
-            $query->prefix(self::$db->getPrefix());
+            if (!isset($cachedTables[$value['table']])) {
+                $query = new Builder(self::$db);
+                $query->prefix(self::$db->getPrefix());
 
-            if ($relations === RelationType::ALL) {
-                /** @var string $primaryField */
-                $src = $value['self'] ?? $value['mapper']::$primaryField;
+                if ($relations === RelationType::ALL) {
+                    /** @var string $primaryField */
+                    $src = $value['self'] ?? $value['mapper']::$primaryField;
 
-                $query->select($value['table'] . '.' . $src)
-                    ->from($value['table'])
-                    ->where($value['table'] . '.' . $value['external'], '=', $primaryKey);
-            } /*elseif ($relations === RelationType::NEWEST) {
-                SELECT c.*, p1.*
-                FROM customer c
-                JOIN purchase p1 ON (c.id = p1.customer_id)
-                LEFT OUTER JOIN purchase p2 ON (c.id = p2.customer_id AND
+                    $query->select($value['table'] . '.' . $src)
+                        ->from($value['table'])
+                        ->where($value['table'] . '.' . $value['external'], '=', $primaryKey);
+
+                    foreach (self::$conditionals as $condKey => $condValue) {
+                        if (($column = $value['mapper']::getColumnByMember($condKey)) === null) {
+                            continue;
+                        }
+
+                        $query->andWhere($value['table'] . '.' . $column, '=', $condValue);
+                    }
+                } /*elseif ($relations === RelationType::NEWEST) {
+                    SELECT c.*, p1.*
+                    FROM customer c
+                    JOIN purchase p1 ON (c.id = p1.customer_id)
+                    LEFT OUTER JOIN purchase p2 ON (c.id = p2.customer_id AND
                     (p1.date < p2.date OR p1.date = p2.date AND p1.id < p2.id))
-                WHERE p2.id IS NULL;
-                                    $query->select(static::$table . '.' . static::$primaryField, $value['table'] . '.' . $value['self'])
-                                          ->from(static::$table)
-                                          ->join($value['table'])
-                                          ->on(static::$table . '.' . static::$primaryField, '=', $value['table'] . '.' . $value['external'])
-                                          ->leftOuterJoin($value['table'])
-                                          ->on(new And('1', new And(new Or('d1', 'd2'), 'id')))
-                                          ->where($value['table'] . '.' . $value['external'], '=', 'NULL');
+                    WHERE p2.id IS NULL;
+                    $query->select(static::$table . '.' . static::$primaryField, $value['table'] . '.' . $value['self'])
+                    ->from(static::$table)
+                    ->join($value['table'])
+                    ->on(static::$table . '.' . static::$primaryField, '=', $value['table'] . '.' . $value['external'])
+                    ->leftOuterJoin($value['table'])
+                    ->on(new And('1', new And(new Or('d1', 'd2'), 'id')))
+                    ->where($value['table'] . '.' . $value['external'], '=', 'NULL');
 
-            }*/
+                }*/
 
-            $sth = self::$db->con->prepare($query->toSql());
-            $sth->execute();
-            $result[$member] = $sth->fetchAll(\PDO::FETCH_COLUMN);
+                $sth = self::$db->con->prepare($query->toSql());
+                $sth->execute();
+
+                $cachedTables[$value['table']] = $sth->fetchAll(\PDO::FETCH_COLUMN);
+            }
+
+            $result[$member] = $cachedTables[$value['table']];
         }
 
         return $result;
@@ -3190,13 +3062,15 @@ class DataMapperAbstract implements DataMapperInterface
     /**
      * Get mapper specific builder
      *
-     * @param Builder $query Query to fill
+     * @param Builder $query     Query to fill
+     * @param int     $relations Which relations should be considered in the query
+     * @param int     $depth     Depths of the relations to be considered
      *
      * @return Builder
      *
      * @since 1.0.0
      */
-    public static function getQuery(Builder $query = null) : Builder
+    public static function getQuery(Builder $query = null, int $relations = RelationType::ALL, int $depth = 3) : Builder
     {
         $columns = [];
         foreach (static::$columns as $key => $values) {
@@ -3204,6 +3078,14 @@ class DataMapperAbstract implements DataMapperInterface
                 $columns[] = $key;
             }
         }
+
+        /**
+         * @todo here we want to build the joins for belongsTo and ownsOne and then just pass the date to the populators,
+         *  instead of letting the populators each select their own data.
+         *  Here is where #220 should be solved!!!
+         *  probably this query needs to be passed to the other mappers for extension e.g. $mapper::expandOwnsOne($query);
+         *  this should be done depending on the relationstype and depth!!!
+         */
 
         $query = $query ?? new Builder(self::$db);
         $query->prefix(self::$db->getPrefix())
@@ -3351,13 +3233,11 @@ class DataMapperAbstract implements DataMapperInterface
      *
      * @param string $name member name
      *
-     * @return string
-     *
-     * @throws \Exception Throws this exception if the member couldn't be found
+     * @return null|string
      *
      * @since 1.0.0
      */
-    private static function getColumnByMember(string $name) : string
+    private static function getColumnByMember(string $name) : ?string
     {
         foreach (static::$columns as $cName => $column) {
             if ($column['internal'] === $name) {
@@ -3365,7 +3245,7 @@ class DataMapperAbstract implements DataMapperInterface
             }
         }
 
-        throw new \Exception('Invalid member name');
+        return null;
     }
 
     /**
