@@ -723,7 +723,7 @@ class DataMapperAbstract implements DataMapperInterface
             /** @var string $mapper */
             $mapper             = static::$hasMany[$propertyName]['mapper'];
             $objsIds            = [];
-            $relReflectionClass = !empty($values) ? new \ReflectionClass(reset($values)) : null;;
+            $relReflectionClass = !empty($values) ? new \ReflectionClass(\reset($values)) : null;
 
             foreach ($values as $key => $value) {
                 if (!\is_object($value)) {
@@ -1051,7 +1051,7 @@ class DataMapperAbstract implements DataMapperInterface
 
             /** @var string $mapper */
             $mapper                 = static::$hasMany[$propertyName]['mapper'];
-            $relReflectionClass     = !empty($values) ? new \ReflectionClass(reset($values)) : null;
+            $relReflectionClass     = !empty($values) ? new \ReflectionClass(\reset($values)) : null;
             $objsIds[$propertyName] = [];
 
             foreach ($values as $key => &$value) {
@@ -1597,7 +1597,7 @@ class DataMapperAbstract implements DataMapperInterface
             /** @var string $mapper */
             $mapper             = static::$hasMany[$propertyName]['mapper'];
             $objsIds            = [];
-            $relReflectionClass = !empty($values) ? new \ReflectionClass(reset($values)) : null;;
+            $relReflectionClass = !empty($values) ? new \ReflectionClass(\reset($values)) : null;
 
             foreach ($values as $key => &$value) {
                 if (!\is_object($value)) {
