@@ -403,6 +403,11 @@ class Builder extends BuilderAbstract
             }
         }
 
+        // add from to existing dependencies
+        foreach ($this->from as $table => $from) {
+            $dependencies[$table] = [];
+        }
+
         $resolved = DependencyResolver::resolve($dependencies);
 
         // cyclomatic dependencies
@@ -413,7 +418,9 @@ class Builder extends BuilderAbstract
         $temp        = $this->joins;
         $this->joins = [];
         foreach ($resolved as $table) {
-            $this->joins[$table] = $temp[$table];
+            if (isset($temp[$table])) {
+                $this->joins[$table] = $temp[$table];
+            }
         }
     }
 

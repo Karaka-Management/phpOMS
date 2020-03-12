@@ -52,14 +52,6 @@ abstract class BuilderAbstract
     protected int $type = QueryType::NONE;
 
     /**
-     * Prefix.
-     *
-     * @var string
-     * @since 1.0.0
-     */
-    protected string $prefix = '';
-
-    /**
      * Raw.
      *
      * @var string
@@ -80,22 +72,6 @@ abstract class BuilderAbstract
     }
 
     /**
-     * Set table name prefix prefix
-     *
-     * @param string $prefix Table name prefix
-     *
-     * @return static
-     *
-     * @since 1.0.0
-     */
-    public function prefix(string $prefix) : self
-    {
-        $this->prefix = $prefix;
-
-        return $this;
-    }
-
-    /**
      * Escape string value
      *
      * @param string $value Value to escape
@@ -107,18 +83,6 @@ abstract class BuilderAbstract
     public function quote(string $value) : string
     {
         return $this->connection->con->quote($value);
-    }
-
-    /**
-     * Get prefix.
-     *
-     * @return string
-     *
-     * @since 1.0.0
-     */
-    public function getPrefix() : string
-    {
-        return $this->prefix;
     }
 
     /**
