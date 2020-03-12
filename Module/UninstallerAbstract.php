@@ -74,7 +74,6 @@ abstract class UninstallerAbstract
         $definitions = \json_decode($content, true);
 
         $builder = new SchemaBuilder($dbPool->get('schema'));
-        $builder->prefix($dbPool->get('schema')->prefix);
 
         foreach ($definitions as $definition) {
             $builder->dropTable($definition['table'] ?? '');
@@ -96,14 +95,12 @@ abstract class UninstallerAbstract
     public static function unregisterFromDatabase(DatabasePool $dbPool, ModuleInfo $info) : void
     {
         $queryLoad = new Builder($dbPool->get('delete'));
-        $queryLoad->prefix($dbPool->get('delete')->prefix);
         $queryLoad->delete()
             ->from('module_load')
             ->where('module_load_from', '=', $info->getInternalName())
             ->execute();
 
         $queryModule = new Builder($dbPool->get('delete'));
-        $queryModule->prefix($dbPool->get('delete')->prefix);
         $queryModule->delete()
             ->from('module')
             ->where('module_id', '=', $info->getInternalName())

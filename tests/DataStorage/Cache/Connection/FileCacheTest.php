@@ -53,7 +53,6 @@ class FileCacheTest extends \PHPUnit\Framework\TestCase
      */
     public function testDefault() : void
     {
-        self::assertEquals('', $this->cache->getPrefix());
         self::assertEquals(CacheType::FILE, $this->cache->getType());
         self::assertTrue(\is_dir(__DIR__ . '/Cache'));
         self::assertTrue($this->cache->flushAll());

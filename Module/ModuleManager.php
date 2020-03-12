@@ -165,7 +165,6 @@ final class ModuleManager
             $uriHash = $request->getHash();
 
             $query = new Builder($this->app->dbPool->get('select'));
-            $query->prefix($this->app->dbPool->get('select')->prefix);
             $sth = $query->select('module_load.module_load_type', 'module_load.*')
                 ->from('module_load')
                 ->innerJoin('module')->on('module_load.module_load_from', '=', 'module.module_id')->orOn('module_load.module_load_for', '=', 'module.module_id')
@@ -192,7 +191,6 @@ final class ModuleManager
     {
         if (empty($this->active) || !$useCache) {
             $query = new Builder($this->app->dbPool->get('select'));
-            $query->prefix($this->app->dbPool->get('select')->prefix);
             $sth = $query->select('module.module_path')
                 ->from('module')
                 ->where('module.module_active', '=', 1)
@@ -310,7 +308,6 @@ final class ModuleManager
     {
         if (empty($this->installed) || !$useCache) {
             $query = new Builder($this->app->dbPool->get('select'));
-            $query->prefix($this->app->dbPool->get('select')->prefix);
             $sth = $query->select('module.module_path')
                 ->from('module')
                 ->execute();

@@ -213,7 +213,7 @@ class ModuleAbstractTest extends \PHPUnit\Framework\TestCase
     private function dbSetup() : void
     {
         $GLOBALS['dbpool']->get()->con->prepare(
-            'CREATE TABLE `oms_test_base` (
+            'CREATE TABLE `test_base` (
                 `test_base_id` int(11) NOT NULL AUTO_INCREMENT,
                 `test_base_string` varchar(254) NOT NULL,
                 `test_base_int` int(11) NOT NULL,
@@ -231,7 +231,7 @@ class ModuleAbstractTest extends \PHPUnit\Framework\TestCase
         )->execute();
 
         $GLOBALS['dbpool']->get()->con->prepare(
-            'CREATE TABLE `oms_test_belongs_to_one` (
+            'CREATE TABLE `test_belongs_to_one` (
                 `test_belongs_to_one_id` int(11) NOT NULL AUTO_INCREMENT,
                 `test_belongs_to_one_string` varchar(254) NOT NULL,
                 PRIMARY KEY (`test_belongs_to_one_id`)
@@ -239,7 +239,7 @@ class ModuleAbstractTest extends \PHPUnit\Framework\TestCase
         )->execute();
 
         $GLOBALS['dbpool']->get()->con->prepare(
-            'CREATE TABLE `oms_test_owns_one` (
+            'CREATE TABLE `test_owns_one` (
                 `test_owns_one_id` int(11) NOT NULL AUTO_INCREMENT,
                 `test_owns_one_string` varchar(254) NOT NULL,
                 PRIMARY KEY (`test_owns_one_id`)
@@ -247,7 +247,7 @@ class ModuleAbstractTest extends \PHPUnit\Framework\TestCase
         )->execute();
 
         $GLOBALS['dbpool']->get()->con->prepare(
-            'CREATE TABLE `oms_test_has_many_direct` (
+            'CREATE TABLE `test_has_many_direct` (
                 `test_has_many_direct_id` int(11) NOT NULL AUTO_INCREMENT,
                 `test_has_many_direct_string` varchar(254) NOT NULL,
                 `test_has_many_direct_to` int(11) NOT NULL,
@@ -256,7 +256,7 @@ class ModuleAbstractTest extends \PHPUnit\Framework\TestCase
         )->execute();
 
         $GLOBALS['dbpool']->get()->con->prepare(
-            'CREATE TABLE `oms_test_has_many_rel` (
+            'CREATE TABLE `test_has_many_rel` (
                 `test_has_many_rel_id` int(11) NOT NULL AUTO_INCREMENT,
                 `test_has_many_rel_string` varchar(254) NOT NULL,
                 PRIMARY KEY (`test_has_many_rel_id`)
@@ -264,7 +264,7 @@ class ModuleAbstractTest extends \PHPUnit\Framework\TestCase
         )->execute();
 
         $GLOBALS['dbpool']->get()->con->prepare(
-            'CREATE TABLE `oms_test_has_many_rel_relations` (
+            'CREATE TABLE `test_has_many_rel_relations` (
                 `test_has_many_rel_relations_id` int(11) NOT NULL AUTO_INCREMENT,
                 `test_has_many_rel_relations_src` int(11) NOT NULL,
                 `test_has_many_rel_relations_dest` int(11) NOT NULL,
@@ -275,12 +275,12 @@ class ModuleAbstractTest extends \PHPUnit\Framework\TestCase
 
     private function dbTeardown() : void
     {
-        $GLOBALS['dbpool']->get()->con->prepare('DROP TABLE oms_test_base')->execute();
-        $GLOBALS['dbpool']->get()->con->prepare('DROP TABLE oms_test_belongs_to_one')->execute();
-        $GLOBALS['dbpool']->get()->con->prepare('DROP TABLE oms_test_owns_one')->execute();
-        $GLOBALS['dbpool']->get()->con->prepare('DROP TABLE oms_test_has_many_direct')->execute();
-        $GLOBALS['dbpool']->get()->con->prepare('DROP TABLE oms_test_has_many_rel')->execute();
-        $GLOBALS['dbpool']->get()->con->prepare('DROP TABLE oms_test_has_many_rel_relations')->execute();
+        $GLOBALS['dbpool']->get()->con->prepare('DROP TABLE test_base')->execute();
+        $GLOBALS['dbpool']->get()->con->prepare('DROP TABLE test_belongs_to_one')->execute();
+        $GLOBALS['dbpool']->get()->con->prepare('DROP TABLE test_owns_one')->execute();
+        $GLOBALS['dbpool']->get()->con->prepare('DROP TABLE test_has_many_direct')->execute();
+        $GLOBALS['dbpool']->get()->con->prepare('DROP TABLE test_has_many_rel')->execute();
+        $GLOBALS['dbpool']->get()->con->prepare('DROP TABLE test_has_many_rel_relations')->execute();
     }
 
     /**

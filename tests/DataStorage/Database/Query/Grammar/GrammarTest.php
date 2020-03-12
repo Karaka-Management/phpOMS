@@ -31,17 +31,5 @@ class GrammarTest extends \PHPUnit\Framework\TestCase
     {
         $grammar = new Grammar();
         self::assertEquals('Y-m-d H:i:s', $grammar->getDateFormat());
-        self::assertEquals('', $grammar->getTablePrefix());
-    }
-
-    /**
-     * @testdox The grammar can define a default table prefix and return this value
-     * @group framework
-     */
-    public function testPrefixInputOutput() : void
-    {
-        $grammar = new Grammar();
-        $grammar->setTablePrefix('oms_');
-        self::assertEquals('oms_', $grammar->getTablePrefix());
     }
 }

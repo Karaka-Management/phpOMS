@@ -48,14 +48,12 @@ abstract class InstallerAbstract
     public static function registerInDatabase(DatabasePool $dbPool, ModuleInfo $info) : void
     {
         $queryModule = new Builder($dbPool->get('insert'));
-        $queryModule->prefix($dbPool->get('insert')->prefix);
         $queryModule->insert('module_id', 'module_theme', 'module_path', 'module_active', 'module_version')
             ->into('module')
             ->values($info->getInternalName(), 'Default', $info->getDirectory(), 0, $info->getVersion())
             ->execute();
 
         $queryLoad = new Builder($dbPool->get('insert'));
-        $queryLoad->prefix($dbPool->get('insert')->prefix);
         $queryLoad->insert('module_load_pid', 'module_load_type', 'module_load_from', 'module_load_for', 'module_load_file')
             ->into('module_load');
 

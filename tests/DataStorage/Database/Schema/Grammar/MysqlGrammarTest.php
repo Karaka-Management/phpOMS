@@ -58,12 +58,12 @@ class MysqlGrammarTest extends \PHPUnit\Framework\TestCase
         }
 
         $table  = new SchemaBuilder($this->con);
-        $tables = $table->prefix($this->con->prefix)->selectTables()->execute()->fetchAll(\PDO::FETCH_COLUMN);
-        self::assertContains($this->con->prefix . 'test', $tables);
-        self::assertContains($this->con->prefix . 'test_foreign', $tables);
+        $tables = $table->selectTables()->execute()->fetchAll(\PDO::FETCH_COLUMN);
+        self::assertContains('test', $tables);
+        self::assertContains('test_foreign', $tables);
 
         $field  = new SchemaBuilder($this->con);
-        $fields = $field->prefix($this->con->prefix)->selectFields('test')->execute()->fetchAll();
+        $fields = $field->selectFields('test')->execute()->fetchAll();
 
         foreach ($definitions['test']['fields'] as $key => $field) {
             self::assertTrue(
@@ -81,14 +81,14 @@ class MysqlGrammarTest extends \PHPUnit\Framework\TestCase
     public function testDelete() : void
     {
         $table  = new SchemaBuilder($this->con);
-        $tables = $table->prefix($this->con->prefix)->selectTables()->execute()->fetchAll(\PDO::FETCH_COLUMN);
+        $tables = $table->selectTables()->execute()->fetchAll(\PDO::FETCH_COLUMN);
 
         $delete  = new SchemaBuilder($this->con);
-        $delete->prefix($this->con->prefix)->dropTable('test')->execute();
-        $delete->prefix($this->con->prefix)->dropTable('test_foreign')->execute();
+        $delete->dropTable('test')->execute();
+        $delete->dropTable('test_foreign')->execute();
 
-        $tables = $table->prefix($this->con->prefix)->selectTables()->execute()->fetchAll();
-        self::assertNotContains($this->con->prefix . 'test', $tables);
-        self::assertNotContains($this->con->prefix . 'test_foreign', $tables);
+        $tables = $table->selectTables()->execute()->fetchAll();
+        self::assertNotContains('test', $tables);
+        self::assertNotContains('test_foreign', $tables);
     }
 }

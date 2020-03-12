@@ -76,7 +76,6 @@ abstract class StatusAbstract
     public static function activateInDatabase(DatabasePool $dbPool, ModuleInfo $info) : void
     {
         $query = new Builder($dbPool->get('update'));
-        $query->prefix($dbPool->get('update')->prefix);
         $query->update('module')
             ->sets('module.module_active', 1)
             ->where('module.module_id', '=', $info->getInternalName())
@@ -130,7 +129,6 @@ abstract class StatusAbstract
     public static function deactivateInDatabase(DatabasePool $dbPool, ModuleInfo $info) : void
     {
         $query = new Builder($dbPool->get('update'));
-        $query->prefix($dbPool->get('update')->prefix);
         $query->update('module')
             ->sets('module.module_active', 0)
             ->where('module.module_id', '=', $info->getInternalName())

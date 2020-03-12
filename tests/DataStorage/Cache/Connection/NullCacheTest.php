@@ -34,7 +34,6 @@ class NullCacheTest extends \PHPUnit\Framework\TestCase
         $cache = new NullCache();
         $cache->connect([]);
 
-        self::assertEquals('', $cache->getPrefix());
         self::assertEquals(CacheType::UNDEFINED, $cache->getType());
         self::assertTrue($cache->add(1, 1));
 

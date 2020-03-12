@@ -25,7 +25,7 @@ class SchemaMapperTest extends \PHPUnit\Framework\TestCase
     protected function setUp() : void
     {
         $GLOBALS['dbpool']->get()->con->prepare(
-            'CREATE TABLE `oms_test_base` (
+            'CREATE TABLE `test_base` (
                 `test_base_id` int(11) NOT NULL AUTO_INCREMENT,
                 `test_base_string` varchar(254) NOT NULL,
                 `test_base_int` int(11) NOT NULL,
@@ -43,7 +43,7 @@ class SchemaMapperTest extends \PHPUnit\Framework\TestCase
         )->execute();
 
         $GLOBALS['dbpool']->get()->con->prepare(
-            'CREATE TABLE `oms_test_belongs_to_one` (
+            'CREATE TABLE `test_belongs_to_one` (
                 `test_belongs_to_one_id` int(11) NOT NULL AUTO_INCREMENT,
                 `test_belongs_to_one_string` varchar(254) NOT NULL,
                 PRIMARY KEY (`test_belongs_to_one_id`)
@@ -53,8 +53,8 @@ class SchemaMapperTest extends \PHPUnit\Framework\TestCase
 
     protected function tearDown() : void
     {
-        $GLOBALS['dbpool']->get()->con->prepare('DROP TABLE oms_test_base')->execute();
-        $GLOBALS['dbpool']->get()->con->prepare('DROP TABLE oms_test_belongs_to_one')->execute();
+        $GLOBALS['dbpool']->get()->con->prepare('DROP TABLE test_base')->execute();
+        $GLOBALS['dbpool']->get()->con->prepare('DROP TABLE test_belongs_to_one')->execute();
     }
 
     /**
@@ -66,8 +66,8 @@ class SchemaMapperTest extends \PHPUnit\Framework\TestCase
     {
         $schema = new SchemaMapper($GLOBALS['dbpool']->get());
 
-        self::assertTrue(\in_array('oms_test_base', $schema->getTables()));
-        self::assertTrue(\in_array('oms_test_belongs_to_one', $schema->getTables()));
+        self::assertTrue(\in_array('test_base', $schema->getTables()));
+        self::assertTrue(\in_array('test_belongs_to_one', $schema->getTables()));
     }
 
     /**
@@ -81,7 +81,7 @@ class SchemaMapperTest extends \PHPUnit\Framework\TestCase
 
         self::assertEquals(
             12,
-            \count($schema->getFields('oms_test_base'))
+            \count($schema->getFields('test_base'))
         );
     }
 }
