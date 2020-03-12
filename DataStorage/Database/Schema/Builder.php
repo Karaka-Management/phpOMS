@@ -129,7 +129,6 @@ class Builder extends QueryBuilder
     public static function createFromSchema(array $definition, ConnectionAbstract $connection) : self
     {
         $builder = new self($connection);
-        $builder->prefix($connection->prefix);
         $builder->createTable($definition['name'] ?? '');
 
         foreach ($definition['fields'] as $name => $def) {

@@ -135,7 +135,7 @@ class Grammar extends GrammarAbstract
      */
     protected function compileSelects(Builder $query, array $columns) : string
     {
-        $expression = $this->expressionizeTableColumn($columns, $query->getPrefix(), false);
+        $expression = $this->expressionizeTableColumn($columns, false);
 
         if ($expression === '') {
             $expression = '*';
@@ -156,7 +156,7 @@ class Grammar extends GrammarAbstract
      */
     protected function compileUpdates(Builder $query, array $table) : string
     {
-        $expression = $this->expressionizeTableColumn($table, $query->getPrefix());
+        $expression = $this->expressionizeTableColumn($table);
 
         if ($expression === '') {
             return '';
@@ -192,7 +192,7 @@ class Grammar extends GrammarAbstract
      */
     protected function compileFrom(Builder $query, array $table) : string
     {
-        $expression = $this->expressionizeTableColumn($table, $query->getPrefix());
+        $expression = $this->expressionizeTableColumn($table);
 
         if ($expression === '') {
             return '';
@@ -250,10 +250,7 @@ class Grammar extends GrammarAbstract
         }
 
         if (\is_string($element['column'])) {
-            // No prefix if it is ONLY a field
-            $prefix = \stripos($element['column'], '.') === false ? '' : $query->getPrefix();
-
-            $expression .= $this->compileSystem($element['column'], $prefix);
+            $expression .= $this->compileSystem($element['column']);
         } elseif ($element['column'] instanceof \Closure) {
             $expression .= $element['column']();
         } elseif ($element['column'] instanceof Builder) {
@@ -263,10 +260,10 @@ class Grammar extends GrammarAbstract
         }
 
         if (isset($element['value'])) {
-            $expression .= ' ' . \strtoupper($element['operator']) . ' ' . $this->compileValue($query, $element['value'], $query->getPrefix());
+            $expression .= ' ' . \strtoupper($element['operator']) . ' ' . $this->compileValue($query, $element['value']);
         } else {
             $operator    = $element['operator'] === '=' ? 'IS' : 'IS NOT';
-            $expression .= ' ' . $operator . ' ' . $this->compileValue($query, $element['value'], $query->getPrefix());
+            $expression .= ' ' . $operator . ' ' . $this->compileValue($query, $element['value']);
         }
 
         return $expression;
@@ -317,9 +314,8 @@ class Grammar extends GrammarAbstract
     /**
      * Compile value.
      *
-     * @param Builder $query  Query builder
-     * @param mixed   $value  Value
-     * @param string  $prefix Prefix in case value is a table
+     * @param Builder $query Query builder
+     * @param mixed   $value Value
      *
      * @return string returns a string representation of the value
      *
@@ -327,7 +323,7 @@ class Grammar extends GrammarAbstract
      *
      * @since 1.0.0
      */
-    protected function compileValue(Builder $query, $value, string $prefix = '') : string
+    protected function compileValue(Builder $query, $value) : string
     {
         if (\is_string($value)) {
             return $query->quote($value);
@@ -337,7 +333,7 @@ class Grammar extends GrammarAbstract
             $values = '';
 
             foreach ($value as $val) {
-                $values .= $this->compileValue($query, $val, $prefix) . ', ';
+                $values .= $this->compileValue($query, $val) . ', ';
             }
 
             return '(' . \rtrim($values, ', ') . ')';
@@ -410,18 +406,18 @@ class Grammar extends GrammarAbstract
     {
         $expression = '';
 
-        foreach ($joins as $key => $join) {
+        foreach ($joins as $table => $join) {
             $expression .= $join['type'] . ' ';
 
             if (\is_string($join['table'])) {
-                $expression .= $this->compileSystem($join['table'], $query->getPrefix()) . (\is_string($key) ? ' as ' . $query->getPrefix() . $key : '');
+                $expression .= $this->compileSystem($join['table']) . (\is_string($join['alias']) ? ' as ' . $join['alias'] : '');
             } elseif ($join['table'] instanceof \Closure) {
-                $expression .= $join['table']() . (\is_string($key) ? ' as ' . $query->getPrefix() . $key : '');
+                $expression .= $join['table']() . (\is_string($join['alias']) ? ' as ' . $join['alias'] : '');
             } elseif ($join['table'] instanceof Builder) {
-                $expression .= '(' . \rtrim($join['table']->toSql(), ';') . ')' . (\is_string($key) ? ' as ' . $query->getPrefix() . $key : '');
+                $expression .= '(' . \rtrim($join['table']->toSql(), ';') . ')' . (\is_string($join['alias']) ? ' as ' . $join['alias'] : '');
             }
 
-            $expression .= $this->compileOn($query, $query->ons[$key]) . ' ';
+            $expression .= $this->compileOn($query, $query->ons[$join['alias'] ?? $table]) . ' ';
         }
 
         $expression = \rtrim($expression, ', ');
@@ -481,7 +477,7 @@ class Grammar extends GrammarAbstract
                 $element['column'] = $query->from[0] . '.' . $element['column'];
             }
 
-            $expression .= $this->compileSystem($element['column'], $query->getPrefix());
+            $expression .= $this->compileSystem($element['column']);
         } elseif ($element['column'] instanceof \Closure) {
             $expression .= $element['column']();
         } elseif ($element['column'] instanceof Builder) {
@@ -491,7 +487,10 @@ class Grammar extends GrammarAbstract
         }
 
         if (isset($element['value'])) {
-            $expression .= ' ' . \strtoupper($element['operator']) . ' ' . $this->compileSystem($element['value'], $query->getPrefix());
+            $expression .= ' ' . \strtoupper($element['operator']) . ' ' . $this->compileSystem($element['value']);
+        } else {
+            $operator    = $element['operator'] === '=' ? 'IS' : 'IS NOT';
+            $expression .=  ' ' . $operator . ' ' . $this->compileValue($query, $element['value']);
         }
 
         return $expression;
@@ -512,7 +511,7 @@ class Grammar extends GrammarAbstract
         $expression = '';
 
         foreach ($groups as $group) {
-            $expression .= $this->compileSystem($group, $query->getPrefix()) . ', ';
+            $expression .= $this->compileSystem($group) . ', ';
         }
 
         $expression = \rtrim($expression, ', ');
@@ -536,7 +535,7 @@ class Grammar extends GrammarAbstract
 
         foreach ($orders as $key => $order) {
             foreach ($order as $column) {
-                $expression .= $this->compileSystem($column, $query->getPrefix()) . ', ';
+                $expression .= $this->compileSystem($column) . ', ';
             }
 
             $expression  = \rtrim($expression, ', ');
@@ -588,7 +587,7 @@ class Grammar extends GrammarAbstract
      */
     protected function compileInto(Builder $query, $table) : string
     {
-        return 'INSERT INTO ' . $this->compileSystem($table, $query->getPrefix());
+        return 'INSERT INTO ' . $this->compileSystem($table);
     }
 
     /**
@@ -656,7 +655,7 @@ class Grammar extends GrammarAbstract
         $vals = '';
 
         foreach ($values as $column => $value) {
-            $expression = $this->expressionizeTableColumn([$column], $query->getPrefix(), false);
+            $expression = $this->expressionizeTableColumn([$column], false);
 
             $vals .= $expression . ' = ' . $this->compileValue($query, $value) . ', ';
         }

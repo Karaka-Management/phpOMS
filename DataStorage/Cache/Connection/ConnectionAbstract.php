@@ -41,16 +41,6 @@ abstract class ConnectionAbstract implements ConnectionInterface
     protected $con = null;
 
     /**
-     * Database prefix.
-     *
-     * The database prefix name for unique table names
-     *
-     * @var string
-     * @since 1.0.0
-     */
-    public string $prefix = '';
-
-    /**
      * Database data.
      *
      * @var null|string[]
@@ -124,18 +114,6 @@ abstract class ConnectionAbstract implements ConnectionInterface
     public function getPort() : int
     {
         return (int) $this->dbdata['port'] ?? 0;
-    }
-
-    /**
-     * Get table prefix.
-     *
-     * @return string
-     *
-     * @since 1.0.0
-     */
-    public function getPrefix() : string
-    {
-        return $this->prefix;
     }
 
     /**

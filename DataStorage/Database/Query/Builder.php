@@ -16,6 +16,7 @@ namespace phpOMS\DataStorage\Database\Query;
 
 use phpOMS\DataStorage\Database\BuilderAbstract;
 use phpOMS\DataStorage\Database\Connection\ConnectionAbstract;
+use phpOMS\Algorithm\Graph\DependencyResolver;
 
 /**
  * Database query builder.
@@ -28,12 +29,6 @@ use phpOMS\DataStorage\Database\Connection\ConnectionAbstract;
  * @todo Orange-Management/phpOMS#33
  *  Implement missing grammar & builder functions
  *  Missing elements are e.g. sum, merge etc.
- *
- * @todo Orange-Management/phpOMS#194
- *  Automatically set prefix during construction
- *  When constructing the QueryBuilder or SchemaBuilder the connection is passed.
- *  The connection holds information about the table prefix, yet I force developers to pass a prefix after the builder initialization.
- *  This should be done automatically!
  */
 class Builder extends BuilderAbstract
 {
@@ -374,7 +369,52 @@ class Builder extends BuilderAbstract
      */
     public function toSql() : string
     {
+        if (!empty($this->joins)) {
+            $this->resolveJoinDependencies();
+        }
+
         return $this->grammar->compileQuery($this);
+    }
+
+
+
+    /**
+     * Resolves join dependencies
+     *
+     * @return void
+     *
+     * @since 1.0.0
+     */
+    private function resolveJoinDependencies() : void
+    {
+        // create dependencies
+        $dependencies = [];
+        foreach ($this->joins as $table => $join) {
+            $dependencies[$table] = [];
+
+            foreach ($this->ons[$table] as $on) {
+                if (\stripos($on['column'], '.')) {
+                    $dependencies[$table][] = \explode('.', $on['column'])[0];
+                }
+
+                if (\stripos($on['value'], '.')) {
+                    $dependencies[$table][] = \explode('.', $on['value'])[0];
+                }
+            }
+        }
+
+        $resolved = DependencyResolver::resolve($dependencies);
+
+        // cyclomatic dependencies
+        if ($resolved === null) {
+            return;
+        }
+
+        $temp        = $this->joins;
+        $this->joins = [];
+        foreach ($resolved as $table) {
+            $this->joins[$table] = $temp[$table];
+        }
     }
 
     /**
@@ -1085,11 +1125,7 @@ class Builder extends BuilderAbstract
             throw new \InvalidArgumentException();
         }
 
-        if ($alias === null) {
-            $this->joins[] = ['type' => $type, 'table' => $table];
-        } else {
-            $this->joins[$alias] = ['type' => $type, 'table' => $table];
-        }
+        $this->joins[$alias ?? $table] = ['type' => $type, 'table' => $table, 'alias' => $alias];
 
         return $this;
     }
@@ -1278,12 +1314,13 @@ class Builder extends BuilderAbstract
      * @param null|string|array $operator Comparison operator
      * @param null|string|array $values   Values to compare with
      * @param string|array      $boolean  Concatonator
+     * @param null|string       $table    Table this belongs to
      *
      * @return Builder
      *
      * @since 1.0.0
      */
-    public function on($columns, $operator = null, $values = null, $boolean = 'and') : self
+    public function on($columns, $operator = null, $values = null, $boolean = 'and', string $table = null) : self
     {
         if ($operator !== null && !\is_array($operator) && !\in_array(\strtolower($operator), self::OPERATORS)) {
             throw new \InvalidArgumentException('Unknown operator.');
@@ -1298,15 +1335,14 @@ class Builder extends BuilderAbstract
 
         $joinCount = \count($this->joins) - 1;
         $i         = 0;
+        $table   ??= \array_keys($this->joins)[$joinCount];
 
-        foreach ($columns as $key => $column) {
+        foreach ($columns as $column) {
             if (isset($operator[$i]) && !\in_array(\strtolower($operator[$i]), self::OPERATORS)) {
                 throw new \InvalidArgumentException('Unknown operator.');
             }
 
-            // ons needs to have the same key as the join for the grammar to work
-            // since alias are possible this is necessary
-            $this->ons[\array_keys($this->joins)[$joinCount]][] = [
+            $this->ons[$table][] = [
                 'column'   => $column,
                 'operator' => $operator[$i],
                 'value'    => $values[$i],

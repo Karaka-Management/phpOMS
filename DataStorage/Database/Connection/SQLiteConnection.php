@@ -38,7 +38,7 @@ final class SQLiteConnection extends ConnectionAbstract
      *
      * Creates the database object and overwrites all default values.
      *
-     * @param array{db:string, database:string, prefix:string} $dbdata the basic database information for establishing a connection
+     * @param array{db:string, database:string} $dbdata the basic database information for establishing a connection
      *
      * @since 1.0.0
      */
@@ -60,7 +60,7 @@ final class SQLiteConnection extends ConnectionAbstract
     /**
      * Connect to database
      *
-     * @param null|array{db:string, database:string, prefix:string} $dbdata the basic database information for establishing a connection
+     * @param null|array{db:string, database:string} $dbdata the basic database information for establishing a connection
      *
      * @return void
      *

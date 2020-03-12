@@ -75,7 +75,7 @@ class MysqlGrammar extends Grammar
         $builder->select('*')
             ->from('information_schema.columns')
             ->where('table_schema', '=', $query->getConnection()->getDatabase())
-            ->andWhere('table_name', '=', $query->getPrefix() . $table);
+            ->andWhere('table_name', '=' . $table);
 
         return \rtrim($builder->toSql(), ';');
     }
@@ -96,7 +96,7 @@ class MysqlGrammar extends Grammar
         $keys       = '';
 
         foreach ($fields as $name => $field) {
-            $fieldQuery .= ' ' . $this->expressionizeTableColumn([$name], '') . ' ' . $field['type'];
+            $fieldQuery .= ' ' . $this->expressionizeTableColumn([$name]) . ' ' . $field['type'];
 
             if (isset($field['default']) || ($field['default'] === null && isset($field['null']) && $field['null'])) {
                 $fieldQuery .= ' DEFAULT ' . $this->compileValue($query, $field['default']);
@@ -113,19 +113,19 @@ class MysqlGrammar extends Grammar
             $fieldQuery .= ',';
 
             if (isset($field['primary']) && $field['primary']) {
-                $keys .= ' PRIMARY KEY (' .  $this->expressionizeTableColumn([$name], '') . '),';
+                $keys .= ' PRIMARY KEY (' .  $this->expressionizeTableColumn([$name]) . '),';
             }
 
             if (isset($field['unique']) && $field['unique']) {
-                $keys .= ' UNIQUE KEY (' .  $this->expressionizeTableColumn([$name], '') . '),';
+                $keys .= ' UNIQUE KEY (' .  $this->expressionizeTableColumn([$name]) . '),';
             }
 
             if (isset($field['foreignTable'], $field['foreignKey'])
                 && !empty($field['foreignTable']) && !empty($field['foreignKey'])
             ) {
-                $keys .= ' FOREIGN KEY (' .  $this->expressionizeTableColumn([$name], '') . ') REFERENCES '
-                    . $this->expressionizeTableColumn([$field['foreignTable']], $query->getPrefix())
-                    . ' (' . $this->expressionizeTableColumn([$field['foreignKey']], '') . '),';
+                $keys .= ' FOREIGN KEY (' .  $this->expressionizeTableColumn([$name]) . ') REFERENCES '
+                    . $this->expressionizeTableColumn([$field['foreignTable']])
+                    . ' (' . $this->expressionizeTableColumn([$field['foreignKey']]) . '),';
             }
         }
 

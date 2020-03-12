@@ -46,7 +46,7 @@ class SQLiteGrammar extends Grammar
      */
     protected function compileRandom(Builder $query, array $columns) : string
     {
-        $expression = $this->expressionizeTableColumn($columns, $query->getPrefix());
+        $expression = $this->expressionizeTableColumn($columns);
 
         if ($expression === '') {
             $expression = '*';

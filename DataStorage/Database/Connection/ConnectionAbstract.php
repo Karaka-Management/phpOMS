@@ -48,19 +48,9 @@ abstract class ConnectionAbstract implements ConnectionInterface
     public \PDO $con;
 
     /**
-     * Database prefix.
-     *
-     * The database prefix name for unique table names
-     *
-     * @var string
-     * @since 1.0.0
-     */
-    public string $prefix = '';
-
-    /**
      * Database data.
      *
-     * @var array{db:string, database:string, prefix:string}|array{db:string, host:string, port:int, login:string, password:string, database:string, prefix:string}
+     * @var array{db:string, database:string}|array{db:string, host:string, port:int, login:string, password:string, database:string}
      * @since 1.0.0
      */
     protected array $dbdata;
@@ -150,18 +140,6 @@ abstract class ConnectionAbstract implements ConnectionInterface
     }
 
     /**
-     * Get table prefix.
-     *
-     * @return string
-     *
-     * @since 1.0.0
-     */
-    public function getPrefix() : string
-    {
-        return $this->prefix;
-    }
-
-    /**
      * {@inheritdoc}
      */
     public function getGrammar() : Grammar
@@ -180,7 +158,7 @@ abstract class ConnectionAbstract implements ConnectionInterface
     /**
      * Connect to database
      *
-     * @param null|array{db:string, database:string, prefix:string}|array{db:string, host:string, port:int, login:string, password:string, database:string, prefix:string} $dbdata the basic database information for establishing a connection
+     * @param null|array{db:string, database:string}|array{db:string, host:string, port:int, login:string, password:string, database:string} $dbdata the basic database information for establishing a connection
      *
      * @return void
      *

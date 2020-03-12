@@ -117,7 +117,7 @@ class Grammar extends QueryGrammar
      */
     protected function compileCreateTable(BuilderAbstract $query, string $table) : string
     {
-        return 'CREATE TABLE ' . $this->expressionizeTableColumn([$table], $query->getPrefix());
+        return 'CREATE TABLE ' . $this->expressionizeTableColumn([$table]);
     }
 
     /**
@@ -147,7 +147,7 @@ class Grammar extends QueryGrammar
      */
     protected function compileDropDatabase(BuilderAbstract $query, string $table) : string
     {
-        $expression = $this->expressionizeTableColumn([$table], $query->getPrefix());
+        $expression = $this->expressionizeTableColumn([$table]);
 
         if ($expression === '') {
             $expression = '*';
@@ -168,7 +168,7 @@ class Grammar extends QueryGrammar
      */
     protected function compileDropTable(BuilderAbstract $query, string $table) : string
     {
-        $expression = $this->expressionizeTableColumn([$table], $query->getPrefix());
+        $expression = $this->expressionizeTableColumn([$table]);
 
         if ($expression === '') {
             $expression = '*';
