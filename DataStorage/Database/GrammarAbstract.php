@@ -67,14 +67,6 @@ abstract class GrammarAbstract
     protected string $or = 'OR';
 
     /**
-     * Table prefix.
-     *
-     * @var string
-     * @since 1.0.0
-     */
-    protected string $tablePrefix = '';
-
-    /**
      * Special keywords.
      *
      * @var string[]
@@ -166,56 +158,28 @@ abstract class GrammarAbstract
     }
 
     /**
-     * Get table prefix.
-     *
-     * @return string
-     *
-     * @since 1.0.0
-     */
-    public function getTablePrefix() : string
-    {
-        return $this->tablePrefix;
-    }
-
-    /**
-     * Set table prefix.
-     *
-     * @param string $prefix Table prefix
-     *
-     * @return void
-     *
-     * @since 1.0.0
-     */
-    public function setTablePrefix(string $prefix) : void
-    {
-        $this->tablePrefix = $prefix;
-    }
-
-    /**
      * Expressionize elements.
      *
-     * @param array  $elements Elements
-     * @param string $prefix   Prefix for table
-     * @param bool   $column   Is column?
+     * @param array $elements Elements
+     * @param bool  $column   Is column?
      *
      * @return string
      *
      * @since 1.0.0
      */
-    protected function expressionizeTableColumn(array $elements, string $prefix = '', bool $column = true) : string
+    protected function expressionizeTableColumn(array $elements, bool $column = true) : string
     {
         $expression = '';
 
         foreach ($elements as $key => $element) {
             if (\is_string($element) && $element !== '*') {
-                $prefix      = \stripos($element, '.') !== false || $column ? $prefix : '';
-                $expression .= $this->compileSystem($element, $prefix) . (\is_string($key) ? ' as ' . $prefix . $key : '') . ', ';
+                $expression .= $this->compileSystem($element) . (\is_string($key) ? ' as ' . $key : '') . ', ';
             } elseif (\is_string($element) && $element === '*') {
                 $expression .= '*, ';
             } elseif ($element instanceof \Closure) {
-                $expression .= $element() . (\is_string($key) ? ' as ' . $prefix . $key : '') . ', ';
+                $expression .= $element() . (\is_string($key) ? ' as ' . $key : '') . ', ';
             } elseif ($element instanceof BuilderAbstract) {
-                $expression .= $element->toSql() . (\is_string($key) ? ' as ' . $prefix . $key : '') . ', ';
+                $expression .= $element->toSql() . (\is_string($key) ? ' as ' . $key : '') . ', ';
             } else {
                 throw new \InvalidArgumentException();
             }
@@ -230,20 +194,17 @@ abstract class GrammarAbstract
      * A system is a table, a sub query or special keyword.
      *
      * @param string $system System
-     * @param string $prefix Prefix for table
      *
      * @return string
      *
      * @since 1.0.0
      */
-    protected function compileSystem(string $system, string $prefix = '') : string
+    protected function compileSystem(string $system) : string
     {
         $identifier = $this->systemIdentifier;
 
-        // don't prefix special keywords e.g. COUNT(*)
         foreach ($this->specialKeywords as $keyword) {
             if (\strrpos($system, $keyword, -\strlen($system)) !== false) {
-                $prefix     = '';
                 $identifier = '';
 
                 break;
@@ -256,7 +217,6 @@ abstract class GrammarAbstract
         foreach ($split as $key => $system) {
             $fullSystem .= '.'
                 . ($system !== '*' ? $identifier : '')
-                . ($key === 0 && $system !== '*' ? $prefix : '')
                 . $system
                 . ($system !== '*' ? $identifier : '');
         }

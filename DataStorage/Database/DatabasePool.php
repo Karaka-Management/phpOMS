@@ -105,7 +105,7 @@ final class DatabasePool implements DataStoragePoolInterface
      * Create database.
      *
      * @param string                                                                                                                                                  $key    Database key
-     * @param array{db:string, database:string, prefix:string}|array{db:string, host:string, port:int, login:string, password:string, database:string, prefix:string} $config Database config data
+     * @param array{db:string, database:string}|array{db:string, host:string, port:int, login:string, password:string, database:string} $config Database config data
      *
      * @return bool
      *

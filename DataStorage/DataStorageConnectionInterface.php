@@ -26,15 +26,6 @@ interface DataStorageConnectionInterface
 {
 
     /**
-     * Get prefix.
-     *
-     * @return string
-     *
-     * @since 1.0.0
-     */
-    public function getPrefix() : string;
-
-    /**
      * Connect to datastorage.
      *
      * Overwrites current connection if existing
