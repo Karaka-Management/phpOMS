@@ -14,9 +14,9 @@ declare(strict_types=1);
 
 namespace phpOMS\DataStorage\Database\Query;
 
+use phpOMS\Algorithm\Graph\DependencyResolver;
 use phpOMS\DataStorage\Database\BuilderAbstract;
 use phpOMS\DataStorage\Database\Connection\ConnectionAbstract;
-use phpOMS\Algorithm\Graph\DependencyResolver;
 
 /**
  * Database query builder.
