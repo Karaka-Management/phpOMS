@@ -376,8 +376,6 @@ class Builder extends BuilderAbstract
         return $this->grammar->compileQuery($this);
     }
 
-
-
     /**
      * Resolves join dependencies
      *

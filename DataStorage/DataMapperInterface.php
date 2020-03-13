@@ -74,17 +74,6 @@ interface DataMapperInterface
     public static function find(string $search) : array;
 
     /**
-     * List data.
-     *
-     * @param Builder $query Query
-     *
-     * @return mixed
-     *
-     * @since 1.0.0
-     */
-    public static function listResults(Builder $query);
-
-    /**
      * Load.
      *
      * @param array ...$objects Objects to load

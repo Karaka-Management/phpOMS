@@ -31,27 +31,11 @@ use phpOMS\Utils\ArrayUtils;
  * @link    https://orange-management.org
  * @since   1.0.0
  *
- * @todo Orange-Management/phpOMS#220
- *  Use joins.
- *  The datamapper is not using any joins currently which could significantly improve the performance of the queries.
- *  Joins should be used for:
- *      * composite models (models built from multiple tables)
- *      * owns one
- *      * has one
- *      * belongs to one
- *      * conditionals
- *
  * @todo Orange-Management/phpOMS#73
  *  Implement extending
  *  Allow a data mapper to extend another data mapper.
  *  This way the object will be inserted first with one data mapper and the remaining fields will be filled by the extended data mapper.
  *  How can wen solve a mapper extending a mapper ... extending a mapper?
- *
- * @todo Orange-Management/phpOMS#102
- *  Solve N+1 problem
- *  Currently the datamapper generates separate queries for objects that have relationships defined.
- *  Most of these relationships could be defined MUCH smarter and reduce the amout of sub-queries e.g. selecting a task and all its comments.
- *  The get method accepts an array of keys but doesn't select them in bulk but one at a time.
  *
  * @todo Orange-Management/phpOMS#122
  *  Split/Refactor.
@@ -67,14 +51,6 @@ use phpOMS\Utils\ArrayUtils;
  * @todo Orange-Management/Modules#99
  *  Use binds
  *  Currently databinds are not used. Currently injections are possible.
- *
- * @todo Orange-Management/Modules#179
- *  Replace int models with NullModels
- *  In many cases int is allowed to represent another model if not the whole model is supposed to be loaded.
- *  This means we have to check for null, int and model type.
- *  Instead of using int the NullModel should be used which has a constructor that allows to define the int.
- *  As a result the datamapper has to be rewritten for the select and insert/update.
- *  The select needs to set the null model as value and the insert/update needs to extract the id from the null and ignore all other empty values from the null model which obviously are the default values.
  */
 class DataMapperAbstract implements DataMapperInterface
 {
@@ -491,7 +467,7 @@ class DataMapperAbstract implements DataMapperInterface
     private static function createModel(object $obj, \ReflectionClass $refClass)
     {
         $query = new Builder(self::$db);
-        $query->prefix(self::$db->getPrefix())->into(static::$table);
+        $query->into(static::$table);
 
         foreach (static::$columns as $key => $column) {
             $propertyName = \stripos($column['internal'], '/') !== false ? \explode('/', $column['internal'])[0] : $column['internal'];
@@ -563,7 +539,7 @@ class DataMapperAbstract implements DataMapperInterface
     private static function createModelArray(array &$obj)
     {
         $query = new Builder(self::$db);
-        $query->prefix(self::$db->getPrefix())->into(static::$table);
+        $query->into(static::$table);
 
         foreach (static::$columns as $key => $column) {
             if (isset(static::$hasMany[$key])) {
@@ -720,7 +696,7 @@ class DataMapperAbstract implements DataMapperInterface
                 $property->setAccessible(false);
             }
 
-            /** @var string $mapper */
+            /** @var self $mapper */
             $mapper             = static::$hasMany[$propertyName]['mapper'];
             $objsIds            = [];
             $relReflectionClass = !empty($values) ? new \ReflectionClass(\reset($values)) : null;
@@ -787,7 +763,7 @@ class DataMapperAbstract implements DataMapperInterface
 
             $values = $obj[$propertyName];
 
-            /** @var string $mapper */
+            /** @var self $mapper */
             $mapper  = static::$hasMany[$propertyName]['mapper'];
             $objsIds = [];
 
@@ -842,6 +818,7 @@ class DataMapperAbstract implements DataMapperInterface
             return $obj;
         }
 
+        /** @var self $mapper */
         $mapper     = static::$ownsOne[$propertyName]['mapper'];
         $primaryKey = $mapper::getObjectId($obj);
 
@@ -866,6 +843,7 @@ class DataMapperAbstract implements DataMapperInterface
      */
     private static function createOwnsOneArray(string $propertyName, array &$obj)
     {
+        /** @var self $mapper */
         $mapper     = static::$ownsOne[$propertyName]['mapper'];
         $primaryKey = $obj[static::$columns[static::$primaryField]['internal']];
 
@@ -894,7 +872,7 @@ class DataMapperAbstract implements DataMapperInterface
             return $obj;
         }
 
-        /** @var string $mapper */
+        /** @var self $mapper */
         $mapper     = static::$belongsTo[$propertyName]['mapper'];
         $primaryKey = $mapper::getObjectId($obj);
 
@@ -919,7 +897,7 @@ class DataMapperAbstract implements DataMapperInterface
      */
     private static function createBelongsToArray(string $propertyName, array $obj)
     {
-        /** @var string $mapper */
+        /** @var self $mapper */
         $mapper     = static::$belongsTo[$propertyName]['mapper'];
         $primaryKey = $obj[static::$columns[static::$primaryField]['internal']];
 
@@ -951,8 +929,7 @@ class DataMapperAbstract implements DataMapperInterface
         }
 
         $relQuery = new Builder(self::$db);
-        $relQuery->prefix(self::$db->getPrefix())
-            ->into(static::$hasMany[$propertyName]['table'])
+        $relQuery->into(static::$hasMany[$propertyName]['table'])
             ->insert(static::$hasMany[$propertyName]['self'], static::$hasMany[$propertyName]['external']);
 
         foreach ($objsIds as $key => $src) {
@@ -1049,7 +1026,7 @@ class DataMapperAbstract implements DataMapperInterface
                 $property->setAccessible(false);
             }
 
-            /** @var string $mapper */
+            /** @var self $mapper */
             $mapper                 = static::$hasMany[$propertyName]['mapper'];
             $relReflectionClass     = !empty($values) ? new \ReflectionClass(\reset($values)) : null;
             $objsIds[$propertyName] = [];
@@ -1128,7 +1105,7 @@ class DataMapperAbstract implements DataMapperInterface
 
             $values = $obj[$propertyName];
 
-            /** @var string $mapper */
+            /** @var self $mapper */
             $mapper                 = static::$hasMany[$propertyName]['mapper'];
             $objsIds[$propertyName] = [];
 
@@ -1220,8 +1197,7 @@ class DataMapperAbstract implements DataMapperInterface
 
         foreach ($objsIds as $key => $src) {
             $relQuery = new Builder(self::$db);
-            $relQuery->prefix(self::$db->getPrefix())
-                ->delete()
+            $relQuery->delete()
                 ->from(static::$hasMany[$propertyName]['table'])
                 ->where(static::$hasMany[$propertyName]['table'] . '.' . static::$hasMany[$propertyName]['self'], '=', $src)
                 ->where(static::$hasMany[$propertyName]['table'] . '.' . static::$hasMany[$propertyName]['external'], '=', $objId, 'and');
@@ -1250,7 +1226,7 @@ class DataMapperAbstract implements DataMapperInterface
             return $obj;
         }
 
-        /** @var string $mapper */
+        /** @var self $mapper */
         $mapper = static::$ownsOne[$propertyName]['mapper'];
 
         return $mapper::update($obj, $relations, $depth);
@@ -1272,7 +1248,7 @@ class DataMapperAbstract implements DataMapperInterface
      */
     private static function updateOwnsOneArray(string $propertyName, array $obj, int $relations = RelationType::ALL, int $depth = 1)
     {
-        /** @var string $mapper */
+        /** @var self $mapper */
         $mapper = static::$ownsOne[$propertyName]['mapper'];
 
         // todo: delete owned one object is not recommended since it can be owned by by something else? or does owns one mean that nothing else can have a relation to this one?
@@ -1300,7 +1276,7 @@ class DataMapperAbstract implements DataMapperInterface
             return $obj;
         }
 
-        /** @var string $mapper */
+        /** @var self $mapper */
         $mapper = static::$belongsTo[$propertyName]['mapper'];
 
         return $mapper::update($obj, $relations, $depth);
@@ -1326,7 +1302,7 @@ class DataMapperAbstract implements DataMapperInterface
             return $obj;
         }
 
-        /** @var string $mapper */
+        /** @var self $mapper */
         $mapper = static::$belongsTo[$propertyName]['mapper'];
 
         return $mapper::updateArray($obj, $relations, $depth);
@@ -1348,8 +1324,7 @@ class DataMapperAbstract implements DataMapperInterface
     private static function updateModel(object $obj, $objId, \ReflectionClass $refClass = null, int $relations = RelationType::ALL, int $depth = 1) : void
     {
         $query = new Builder(self::$db);
-        $query->prefix(self::$db->getPrefix())
-            ->update(static::$table)
+        $query->update(static::$table)
             ->where(static::$table . '.' . static::$primaryField, '=', $objId);
 
         foreach (static::$columns as $key => $column) {
@@ -1425,8 +1400,7 @@ class DataMapperAbstract implements DataMapperInterface
     private static function updateModelArray(array $obj, $objId, int $relations = RelationType::ALL, int $depth = 1) : void
     {
         $query = new Builder(self::$db);
-        $query->prefix(self::$db->getPrefix())
-            ->update(static::$table)
+        $query->update(static::$table)
             ->where(static::$table . '.' . static::$primaryField, '=', $objId);
 
         foreach (static::$columns as $key => $column) {
@@ -1594,7 +1568,7 @@ class DataMapperAbstract implements DataMapperInterface
                 $property->setAccessible(false);
             }
 
-            /** @var string $mapper */
+            /** @var self $mapper */
             $mapper             = static::$hasMany[$propertyName]['mapper'];
             $objsIds            = [];
             $relReflectionClass = !empty($values) ? new \ReflectionClass(\reset($values)) : null;
@@ -1645,7 +1619,7 @@ class DataMapperAbstract implements DataMapperInterface
             return $obj;
         }
 
-        /** @var string $mapper */
+        /** @var self $mapper */
         $mapper = static::$ownsOne[$propertyName]['mapper'];
 
         // todo: delete owned one object is not recommended since it can be owned by by something else? or does owns one mean that nothing else can have a relation to this one?
@@ -1671,7 +1645,7 @@ class DataMapperAbstract implements DataMapperInterface
             return $obj;
         }
 
-        /** @var string $mapper */
+        /** @var self $mapper */
         $mapper = static::$belongsTo[$propertyName]['mapper'];
 
         return $mapper::delete($obj);
@@ -1693,8 +1667,7 @@ class DataMapperAbstract implements DataMapperInterface
     private static function deleteModel(object $obj, $objId, int $relations = RelationType::REFERENCE, \ReflectionClass $refClass = null) : void
     {
         $query = new Builder(self::$db);
-        $query->prefix(self::$db->getPrefix())
-            ->delete()
+        $query->delete()
             ->from(static::$table)
             ->where(static::$table . '.' . static::$primaryField, '=', $objId);
 
@@ -1782,50 +1755,66 @@ class DataMapperAbstract implements DataMapperInterface
      * Populate data.
      *
      * @param array $result Result set
+     * @param int   $depth  Relation depth
      *
      * @return array
      *
      * @since 1.0.0
      */
-    public static function populateIterable(array $result) : array
+    public static function populateIterable(array $result, int $depth = 3) : array
     {
-        $row = [];
+        $obj = [];
 
         foreach ($result as $element) {
-            $toFill = empty($element) ? self::createNullModel() : self::createBaseModel();
+            if (isset($element[static::$primaryField . '_' . $depth]) && self::isInitialized(static::class, $element[static::$primaryField . '_' . $depth])) {
+                $obj[$element[static::$primaryField . '_' . $depth]] = self::$initObjects[static::class][$element[static::$primaryField . '_' . $depth]];
 
-            if (isset($element[static::$primaryField])) {
-                $row[$element[static::$primaryField]] = self::populateAbstract($element, $toFill, static::$columns);
+                continue;
+            }
+
+            $toFill = self::createBaseModel();
+
+            if (isset($element[static::$primaryField . '_' . $depth])) {
+                $obj[$element[static::$primaryField . '_' . $depth]] = self::populateAbstract($element, $toFill, $depth);
+                self::addInitialized(static::class, $element[static::$primaryField . '_' . $depth], $obj[$element[static::$primaryField . '_' . $depth]]);
             } else {
-                $row[] = self::populateAbstract($element, $toFill, static::$columns);
+                throw new \Exception();
             }
         }
 
-        return $row;
+        return $obj;
     }
 
     /**
      * Populate data.
      *
      * @param array $result Result set
+     * @param int   $depth  Relation depth
      *
      * @return array
      *
      * @since 1.0.0
      */
-    public static function populateIterableArray(array $result) : array
+    public static function populateIterableArray(array $result, int $depth = 3) : array
     {
-        $row = [];
+        $obj = [];
 
         foreach ($result as $element) {
+            if (isset($element[static::$primaryField]) && self::isInitializedArray(static::class, $element[static::$primaryField])) {
+                $obj[$element[static::$primaryField]] = self::$initArrays[static::class][$element[static::$primaryField]];
+
+                continue;
+            }
+
             if (isset($element[static::$primaryField])) {
-                $row[$element[static::$primaryField]] = self::populateAbstractArray($element, [], static::$columns);
+                $obj[$element[static::$primaryField]] = self::populateAbstractArray($element, [], $depth);
+                self::addInitializedArray(static::class, $element[static::$primaryField], $obj[$element[static::$primaryField]]);
             } else {
-                $row[] = self::populateAbstractArray($element, [], static::$columns);
+                throw new \Exception();
             }
         }
 
-        return $row;
+        return $obj;
     }
 
     /**
@@ -1844,11 +1833,14 @@ class DataMapperAbstract implements DataMapperInterface
         $refClass = new \ReflectionClass($obj);
 
         foreach ($result as $member => $values) {
-            if (empty($values) || !$refClass->hasProperty($member)) {
+            if (empty($values)
+                || !$refClass->hasProperty($member)
+                || isset(static::$hasMany[$member]['column']) // handled in getQuery()
+            ) {
                 continue;
             }
 
-            /** @var string $mapper */
+            /** @var self $mapper */
             $mapper  = static::$hasMany[$member]['mapper'];
             $refProp = $refClass->getProperty($member);
 
@@ -1856,23 +1848,11 @@ class DataMapperAbstract implements DataMapperInterface
                 $refProp->setAccessible(true);
             }
 
-            if (isset(static::$hasMany[$member]['column'])) {
-                if (!isset(static::$hasMany[$member]['by'])) {
-                    $objects = $mapper::getColumn($values, static::$hasMany[$member]['column']);
-                } else {
-                    $objects = $mapper::getByColumn($values, static::$hasMany[$member]['by'], static::$hasMany[$member]['column']);
-                }
+            $objects = !isset(static::$hasMany[$member]['by'])
+                ? $mapper::get($values, RelationType::ALL, $depth)
+                : $mapper::get($values, RelationType::ALL, $depth, static::$hasMany[$member]['by']);
 
-                $refProp->setValue($obj, $objects);
-            } else {
-                if (!isset(static::$hasMany[$member]['by'])) {
-                    $objects = $mapper::get($values, RelationType::ALL, null, $depth);
-                } else {
-                    $objects = $mapper::getBy($values, static::$hasMany[$member]['by'], RelationType::ALL, null, $depth);
-                }
-
-                $refProp->setValue($obj, !\is_array($objects) ? [$mapper::getObjectId($objects) => $objects] : $objects);
-            }
+            $refProp->setValue($obj, !\is_array($objects) ? [$mapper::getObjectId($objects) => $objects] : $objects);
 
             if (!$accessible) {
                 $refProp->setAccessible(false);
@@ -1894,11 +1874,13 @@ class DataMapperAbstract implements DataMapperInterface
     public static function populateManyToManyArray(array $result, array &$obj, int $depth = 3) : void
     {
         foreach ($result as $member => $values) {
-            if (empty($values)) {
+            if (empty($values)
+                || isset(static::$hasMany[$member]['column']) // handled in getQuery()
+            ) {
                 continue;
             }
 
-            /** @var string $mapper */
+            /** @var self $mapper */
             $mapper = static::$hasMany[$member]['mapper'];
 
             $objects      = $mapper::getArray($values, RelationType::ALL, $depth);
@@ -1910,57 +1892,68 @@ class DataMapperAbstract implements DataMapperInterface
      * Populate data.
      *
      * @param string $member Member name
-     * @param mixed  $id     Reference Id for the owned model
+     * @param array  $result Result data
      * @param int    $depth  Relation depth
      *
      * @return mixed
      *
      * @todo: in the future we could pass not only the $id ref but all of the data as a join!!! and save an additional select!!!
+     * @todo: parent and child elements however must be loaded because they are not loaded
      *
      * @since 1.0.0
      */
-    public static function populateOwnsOne(string $member, $id, int $depth = 3)
+    public static function populateOwnsOne(string $member, array $result, int $depth = 3)
     {
+        /** @var self $mapper */
         $mapper = static::$ownsOne[$member]['mapper'];
 
         if (isset(static::$ownsOne[$member]['column'])) {
-            if (!isset(static::$ownsOne[$member]['by'])) {
-                return $mapper::getColumn($id, static::$ownsOne[$member]['column']);
-            }
-
-            return $mapper::getByColumn($id, static::$ownsOne[$member]['by'], static::$ownsOne[$member]['column']);
+            return $result[$mapper::getColumnByMember(static::$ownsOne[$member]['column']) . '_' . $depth];
         }
 
-        if (!isset(static::$ownsOne[$member]['by'])) {
-            return self::getInitialized($mapper, $id) ?? $mapper::get($id, RelationType::ALL, null, $depth);
+        if (!isset($result[$mapper::$primaryField . '_' . $depth])) {
+            return $mapper::createNullModel();
         }
 
-        return $mapper::getBy($id, static::$ownsOne[$member]['by'], RelationType::ALL, null, $depth);
+        $obj = $mapper::getInitialized($mapper, $result[$mapper::$primaryField . '_' . $depth]);
+
+        return $obj ?? $mapper::populateAbstract($result, $mapper::createBaseModel(), $depth);
     }
 
     /**
      * Populate data.
      *
      * @param string $member Member name
-     * @param mixed  $id     Reference Id for the owned model
+     * @param array  $result Result data
      * @param int    $depth  Relation depth
      *
      * @return void
      *
      * @since 1.0.0
      */
-    public static function populateOwnsOneArray(string $member, $id, int $depth = 3) : array
+    public static function populateOwnsOneArray(string $member, array $result, int $depth = 3) : array
     {
+        /** @var self $mapper */
         $mapper = static::$ownsOne[$member]['mapper'];
 
-        return self::getInitializedArray($mapper, $id) ?? $mapper::getArray($id, RelationType::ALL, $depth);
+        if (isset(static::$ownsOne[$member]['column'])) {
+            return $result[$mapper::getColumnByMember(static::$ownsOne[$member]['column']) . '_' . $depth];
+        }
+
+        if (!isset($result[$mapper::$primaryField . '_' . $depth])) {
+            return [];
+        }
+
+        $obj = $mapper::getInitialized($mapper, $result[$mapper::$primaryField . '_' . $depth]);
+
+        return $obj ?? $mapper::populateAbstractArray($result, [], $depth);
     }
 
     /**
      * Populate data.
      *
      * @param string $member Member name
-     * @param mixed  $id     Reference Id for the owned model
+     * @param array  $result Result data
      * @param int    $depth  Relation depth
      *
      * @return mixed
@@ -1969,42 +1962,59 @@ class DataMapperAbstract implements DataMapperInterface
      *
      * @since 1.0.0
      */
-    public static function populateBelongsTo(string $member, $id, int $depth = 3)
+    public static function populateBelongsTo(string $member, array $result, int $depth = 3)
     {
+        /** @var self $mapper */
         $mapper = static::$belongsTo[$member]['mapper'];
 
         if (isset(static::$belongsTo[$member]['column'])) {
-            return $mapper::getColumn($id, static::$belongsTo[$member]['column']);
+            return $result[$mapper::getColumnByMember(static::$belongsTo[$member]['column']) . '_' . $depth];
         }
 
-        return self::getInitialized($mapper, $id) ?? $mapper::get($id, RelationType::ALL, null, $depth);
+        if (!isset($result[$mapper::$primaryField . '_' . $depth])) {
+            return $mapper::createNullModel();
+        }
+
+        $obj = $mapper::getInitializedArray($mapper, $result[$mapper::$primaryField . '_' . $depth]);
+
+        return $obj ?? $mapper::populateAbstract($result, $mapper::createBaseModel(), $depth);
     }
 
     /**
      * Populate data.
      *
      * @param string $member Member name
-     * @param mixed  $id     Reference Id for the owned model
+     *  @param array  $result Result data
      * @param int    $depth  Relation depth
      *
      * @return void
      *
      * @since 1.0.0
      */
-    public static function populateBelongsToArray(string $member, $id, int $depth = 3) : array
+    public static function populateBelongsToArray(string $member, array $result, int $depth = 3) : array
     {
+        /** @var self $mapper */
         $mapper = static::$belongsTo[$member]['mapper'];
 
-        return self::getInitializedArray($mapper, $id) ?? $mapper::getArray($id, RelationType::ALL, $depth);
+        if (isset(static::$belongsTo[$member]['column'])) {
+            return $result[$mapper::getColumnByMember(static::$belongsTo[$member]['column']) . '_' . $depth];
+        }
+
+        if (!isset($result[$mapper::$primaryField . '_' . $depth])) {
+            return [];
+        }
+
+        $obj = $mapper::getInitializedArray($mapper, $result[$mapper::$primaryField . '_' . $depth]);
+
+        return $obj ?? $mapper::populateAbstractArray($result, [], $depth);
     }
 
     /**
      * Populate data.
      *
-     * @param array $result  Query result set
-     * @param mixed $obj     Object to populate
-     * @param array $columns Mapper columns (@todo: maybe remove because $columns === static::$columns)
-     * @param int   $depth   Relation depth
+     * @param array $result Query result set
+     * @param mixed $obj    Object to populate
+     * @param int   $depth  Relation depth
      *
      * @return mixed
      *
@@ -2012,22 +2022,26 @@ class DataMapperAbstract implements DataMapperInterface
      *
      * @since 1.0.0
      */
-    public static function populateAbstract(array $result, $obj, array $columns, int $depth = 3)
+    public static function populateAbstract(array $result, $obj, int $depth = 3)
     {
         $refClass = new \ReflectionClass($obj);
 
-        foreach ($result as $column => $value) {
-            if (!isset($columns[$column]['internal'])) {
+        foreach (static::$columns as $column => $def) {
+            $alias = $column . '_' . $depth;
+
+            if (!isset($result[$alias])) {
                 continue;
             }
+
+            $value = $result[$alias];
 
             $hasPath   = false;
             $aValue    = [];
             $arrayPath = '';
 
-            if (\stripos($columns[$column]['internal'], '/') !== false) {
+            if (\stripos($def['internal'], '/') !== false) {
                 $hasPath = true;
-                $path    = \explode('/', $columns[$column]['internal']);
+                $path    = \explode('/', $def['internal']);
                 $refProp = $refClass->getProperty($path[0]);
 
                 if (!($accessible = $refProp->isPublic())) {
@@ -2038,24 +2052,32 @@ class DataMapperAbstract implements DataMapperInterface
                 $arrayPath = \implode('/', $path);
                 $aValue    = $refProp->getValue($obj);
             } else {
-                $refProp = $refClass->getProperty($columns[$column]['internal']);
+                $refProp = $refClass->getProperty($def['internal']);
 
                 if (!($accessible = $refProp->isPublic())) {
                     $refProp->setAccessible(true);
                 }
             }
 
-            if (isset(static::$ownsOne[$columns[$column]['internal']])) {
-                $value = self::populateOwnsOne($columns[$column]['internal'], $value, $depth - 1);
+            if (isset(static::$ownsOne[$def['internal']])) {
+                if ($depth - 1 < 1) {
+                    continue;
+                }
+
+                $value = self::populateOwnsOne($def['internal'], $result, $depth - 1);
 
                 $refProp->setValue($obj, $value);
-            } elseif (isset(static::$belongsTo[$columns[$column]['internal']])) {
-                $value = self::populateBelongsTo($columns[$column]['internal'], $value, $depth - 1);
+            } elseif (isset(static::$belongsTo[$def['internal']])) {
+                if ($depth - 1 < 1) {
+                    continue;
+                }
+
+                $value = self::populateBelongsTo($def['internal'], $result, $depth - 1);
 
                 $refProp->setValue($obj, $value);
-            } elseif (\in_array($columns[$column]['type'], ['string', 'int', 'float', 'bool'])) {
+            } elseif (\in_array($def['type'], ['string', 'int', 'float', 'bool'])) {
                 if ($value !== null || $refProp->getValue($obj) !== null) {
-                    \settype($value, $columns[$column]['type']);
+                    \settype($value, $def['type']);
                 }
 
                 if ($hasPath) {
@@ -2063,24 +2085,85 @@ class DataMapperAbstract implements DataMapperInterface
                 }
 
                 $refProp->setValue($obj, $value);
-            } elseif ($columns[$column]['type'] === 'DateTime') {
+            } elseif ($def['type'] === 'DateTime') {
                 $value = $value === null ? null : new \DateTime($value);
                 if ($hasPath) {
                     $value = ArrayUtils::setArray($arrayPath, $aValue, $value, '/', true);
                 }
 
                 $refProp->setValue($obj, $value);
-            } elseif ($columns[$column]['type'] === 'Json') {
+            } elseif ($def['type'] === 'Json') {
                 if ($hasPath) {
                     $value = ArrayUtils::setArray($arrayPath, $aValue, $value, '/', true);
                 }
 
                 $refProp->setValue($obj, \json_decode($value, true));
-            } elseif ($columns[$column]['type'] === 'Serializable') {
+            } elseif ($def['type'] === 'Serializable') {
                 $member = $refProp->getValue($obj);
                 $member->unserialize($value);
+            }
+
+            if (!$accessible) {
+                $refProp->setAccessible(false);
+            }
+        }
+
+        foreach (static::$hasMany as $member => $def) {
+            $column = $def['mapper']::getColumnByMember($member);
+            $alias  = $column . '_' . ($depth - 1);
+
+            if (!isset($result[$alias]) || !isset($def['column'])) {
+                continue;
+            }
+
+            $value = $result[$alias];
+
+            if (\stripos($member, '/') !== false) {
+                $hasPath = true;
+                $path    = \explode('/', $member);
+                $refProp = $refClass->getProperty($path[0]);
+
+                if (!($accessible = $refProp->isPublic())) {
+                    $refProp->setAccessible(true);
+                }
+
+                \array_shift($path);
+                $arrayPath = \implode('/', $path);
+                $aValue    = $refProp->getValue($obj);
             } else {
-                throw new \UnexpectedValueException('Value "' . $columns[$column]['type'] . '" is not supported.');
+                $refProp = $refClass->getProperty($member);
+
+                if (!($accessible = $refProp->isPublic())) {
+                    $refProp->setAccessible(true);
+                }
+            }
+
+            if (\in_array($def['mapper']::$columns[$column]['type'], ['string', 'int', 'float', 'bool'])) {
+                if ($value !== null || $refProp->getValue($obj) !== null) {
+                    \settype($value, $def['mapper']::$columns[$column]['type']);
+                }
+
+                if ($hasPath) {
+                    $value = ArrayUtils::setArray($arrayPath, $aValue, $value, '/', true);
+                }
+
+                $refProp->setValue($obj, $value);
+            } elseif ($def['mapper']::$columns[$column]['type'] === 'DateTime') {
+                $value = $value === null ? null : new \DateTime($value);
+                if ($hasPath) {
+                    $value = ArrayUtils::setArray($arrayPath, $aValue, $value, '/', true);
+                }
+
+                $refProp->setValue($obj, $value);
+            } elseif ($def['mapper']::$columns[$column]['type'] === 'Json') {
+                if ($hasPath) {
+                    $value = ArrayUtils::setArray($arrayPath, $aValue, $value, '/', true);
+                }
+
+                $refProp->setValue($obj, \json_decode($value, true));
+            } elseif ($def['mapper']::$columns[$column]['type'] === 'Serializable') {
+                $member = $refProp->getValue($obj);
+                $member->unserialize($value);
             }
 
             if (!$accessible) {
@@ -2094,23 +2177,22 @@ class DataMapperAbstract implements DataMapperInterface
     /**
      * Populate data.
      *
-     * @param array $result  Query result set
-     * @param array $obj     Object to populate
-     * @param array $columns Mapper columns (@todo: maybe remove because $columns === static::$columns)
-     * @param int   $depth   Relation depth
+     * @param array $result Query result set
+     * @param array $obj    Object to populate
+     * @param int   $depth  Relation depth
      *
      * @return array
      *
      * @since 1.0.0
      */
-    public static function populateAbstractArray(array $result, array $obj, array $columns, int $depth = 3) : array
+    public static function populateAbstractArray(array $result, array $obj = [], int $depth = 3) : array
     {
         foreach ($result as $column => $value) {
-            if (!isset($columns[$column]['internal'])) {
+            if (!isset(static::$columns[$column]['internal'])) {
                 continue;
             }
 
-            $path = $columns[$column]['internal'];
+            $path = static::$columns[$column]['internal'];
             if (\stripos($path, '/') !== false) {
                 $path = \explode('/', $path);
 
@@ -2118,15 +2200,15 @@ class DataMapperAbstract implements DataMapperInterface
                 $path = \implode('/', $path);
             }
 
-            if (isset(static::$ownsOne[$columns[$column]['internal']])) {
-                $value = self::populateOwnsOneArray($columns[$column]['internal'], $value, $depth - 1);
-            } elseif (isset(static::$belongsTo[$columns[$column]['internal']])) {
-                $value = self::populateBelongsToArray($columns[$column]['internal'], $value, $depth - 1);
-            } elseif (\in_array($columns[$column]['type'], ['string', 'int', 'float', 'bool'])) {
-                \settype($value, $columns[$column]['type']);
-            } elseif ($columns[$column]['type'] === 'DateTime') {
+            if (isset(static::$ownsOne[static::$columns[$column]['internal']])) {
+                $value = self::populateOwnsOneArray(static::$columns[$column]['internal'], $result, $depth - 1);
+            } elseif (isset(static::$belongsTo[static::$columns[$column]['internal']])) {
+                $value = self::populateBelongsToArray(static::$columns[$column]['internal'], $result, $depth - 1);
+            } elseif (\in_array(static::$columns[$column]['type'], ['string', 'int', 'float', 'bool'])) {
+                \settype($value, static::$columns[$column]['type']);
+            } elseif (static::$columns[$column]['type'] === 'DateTime') {
                 $value = $value === null ? null : new \DateTime($value);
-            } elseif ($columns[$column]['type'] === 'Json') {
+            } elseif (static::$columns[$column]['type'] === 'Json') {
                 $value = \json_decode($value, true);
             }
 
@@ -2183,9 +2265,8 @@ class DataMapperAbstract implements DataMapperInterface
      */
     public static function count(Builder $query = null) : int
     {
-        $query = $query ?? new Builder(self::$db);
-        $query->prefix(self::$db->getPrefix())
-            ->select('COUNT(*)')
+        $query ??= new Builder(self::$db);
+        $query->select('COUNT(*)')
             ->from(static::$table);
 
         return (int) $query->execute()->fetchColumn();
@@ -2199,7 +2280,6 @@ class DataMapperAbstract implements DataMapperInterface
      * @param int    $limit     Result limit
      * @param string $order     Order of the elements
      * @param int    $relations Load relations
-     * @param mixed  $fill      Object to fill
      * @param int    $depth     Relation depth
      *
      * @return mixed
@@ -2212,11 +2292,11 @@ class DataMapperAbstract implements DataMapperInterface
         int $limit = 50,
         string $order = 'ASC',
         int $relations = RelationType::ALL,
-        $fill = null, int $depth = 3)
+        int $depth = 3)
     {
         $query = self::getQuery();
-        $query->where(static::$table . '.' . ($column !== null ? self::getColumnByMember($column) : static::$primaryField), '>', $pivot)
-            ->orderBy(static::$table . '.' . ($column !== null ? self::getColumnByMember($column) : static::$primaryField), $order)
+        $query->where(static::$table . '_' . $depth . '.' . ($column !== null ? self::getColumnByMember($column) : static::$primaryField), '>', $pivot)
+            ->orderBy(static::$table . '_' . $depth . '.' . ($column !== null ? self::getColumnByMember($column) : static::$primaryField), $order)
             ->limit($limit);
 
         return self::getAllByQuery($query, $relations, $depth);
@@ -2230,7 +2310,6 @@ class DataMapperAbstract implements DataMapperInterface
      * @param int    $limit     Result limit
      * @param string $order     Order of the elements
      * @param int    $relations Load relations
-     * @param mixed  $fill      Object to fill
      * @param int    $depth     Relation depth
      *
      * @return mixed
@@ -2243,11 +2322,11 @@ class DataMapperAbstract implements DataMapperInterface
         int $limit = 50,
         string $order = 'ASC',
         int $relations = RelationType::ALL,
-        $fill = null, int $depth = 3)
+        int $depth = 3)
     {
         $query = self::getQuery();
-        $query->where(static::$table . '.' . ($column !== null ? self::getColumnByMember($column) : static::$primaryField), '<', $pivot)
-            ->orderBy(static::$table . '.' . ($column !== null ? self::getColumnByMember($column) : static::$primaryField), $order)
+        $query->where(static::$table . '_' . $depth . '.' . ($column !== null ? self::getColumnByMember($column) : static::$primaryField), '<', $pivot)
+            ->orderBy(static::$table . '_' . $depth . '.' . ($column !== null ? self::getColumnByMember($column) : static::$primaryField), $order)
             ->limit($limit);
 
         return self::getAllByQuery($query, $relations, $depth);
@@ -2256,10 +2335,11 @@ class DataMapperAbstract implements DataMapperInterface
     /**
      * Get object.
      *
-     * @param mixed $primaryKey Key
-     * @param int   $relations  Load relations
-     * @param mixed $fill       Object to fill
-     * @param int   $depth      Relation depth
+     * @param mixed   $primaryKey Key
+     * @param int     $relations  Load relations
+     * @param int     $depth      Relation depth
+     * @param string  $ref        Ref (for getBy and getFor)
+     * @param Builder $query      Query
      *
      * @return mixed
      *
@@ -2270,7 +2350,7 @@ class DataMapperAbstract implements DataMapperInterface
      *
      * @since 1.0.0
      */
-    public static function get($primaryKey, int $relations = RelationType::ALL, $fill = null, int $depth = 3)
+    public static function get($primaryKey, int $relations = RelationType::ALL, int $depth = 3, string $ref = null, Builder $query = null)
     {
         if ($depth < 1) {
             return self::createNullModel($primaryKey);
@@ -2282,35 +2362,37 @@ class DataMapperAbstract implements DataMapperInterface
 
         self::extend(__CLASS__);
 
-        $primaryKey = (array) $primaryKey;
-        $fill       = (array) $fill;
-        $obj        = [];
-        $fCount     = empty($fill);
-        $toFill     = null;
+        $keys = (array) $primaryKey;
+        $obj  = [];
 
-        foreach ($primaryKey as $key => $value) {
-            if (self::isInitialized(static::class, $value)) {
-                $obj[$value] = self::$initObjects[static::class][$value];
+        foreach ($keys as $key => $value) {
+            if (!self::isInitialized(static::class, $value)) {
                 continue;
             }
 
-            $dbData = self::getRaw($value);
+            $obj[$value] = self::$initObjects[static::class][$value];
+            unset($keys[$key]);
+        }
 
-            if (!$fCount) {
-                $toFill = \current($fill);
-                \next($fill);
-            } else {
-                $toFill = empty($dbData) ? self::createNullModel() : self::createBaseModel();
+        if (empty($keys) && $primaryKey !== null) {
+            $countResulsts = \count($obj);
+
+            if ($countResulsts === 0) {
+                return self::createNullModel();
+            } elseif ($countResulsts === 1) {
+                return \reset($obj);
             }
 
-            $obj[$value] = $toFill;
+            return $obj;
+        }
+
+        $dbData = self::getRaw($keys, $relations, $depth, $ref, $query);
+        foreach ($dbData as $row) {
+            $value       = $row[static::$primaryField . '_' . $depth];
+            $obj[$value] = self::createBaseModel();
             self::addInitialized(static::class, $value, $obj[$value]);
 
-            $obj[$value] = self::populateAbstract($dbData, $toFill, static::$columns, $depth);
-
-            if (\method_exists($obj[$value], 'initialize')) {
-                $obj[$value]->initialize();
-            }
+            $obj[$value] = self::populateAbstract($row, $obj[$value], $depth);
         }
 
         self::fillRelations($obj, $relations, $depth - 1);
@@ -2325,44 +2407,6 @@ class DataMapperAbstract implements DataMapperInterface
         }
 
         return $obj;
-    }
-
-    /**
-     * Get object.
-     *
-     * @param mixed  $primaryKey Key
-     * @param string $member     Member to load
-     *
-     * @return mixed
-     *
-     * @since 1.0.0
-     */
-    public static function getColumn($primaryKey, string $member)
-    {
-        if (!isset(self::$parentMapper)) {
-            self::$parentMapper = static::class;
-        }
-
-        self::extend(__CLASS__);
-
-        $primaryKey  = (array) $primaryKey;
-        $columnValue = [];
-
-        foreach ($primaryKey as $key => $value) {
-            $dbData        = self::getRaw($value);
-            $columnValue[] = $dbData[self::getColumnByMember($member)];
-        }
-
-        $countResulsts = \count($columnValue);
-        self::clear();
-
-        if ($countResulsts === 0) {
-            return self::createNullModel();
-        } elseif ($countResulsts === 1) {
-            return \reset($columnValue);
-        }
-
-        return $columnValue;
     }
 
     /**
@@ -2392,12 +2436,30 @@ class DataMapperAbstract implements DataMapperInterface
         $obj        = [];
 
         foreach ($primaryKey as $key => $value) {
-            if (self::isInitializedArray(static::class, $value)) {
-                $obj[$value] = self::$initArrays[static::class][$value];
+            if (!self::isInitializedArray(static::class, $value)) {
                 continue;
             }
 
-            $obj[$value] = self::populateAbstractArray(self::getRaw($value), [], static::$columns, $depth);
+            $obj[$value] = self::$initArrays[static::class][$value];
+            unset($primaryKey[$key]);
+        }
+
+        $dbData = self::getRaw($primaryKey, $relations, $depth);
+        if (empty($dbData)) {
+            $countResulsts = \count($obj);
+
+            if ($countResulsts === 0) {
+                return [];
+            } elseif ($countResulsts === 1) {
+                return \reset($obj);
+            }
+
+            return $obj;
+        }
+
+        foreach ($dbData as $row) {
+            $value       = $row[static::$primaryField . '_' . $depth];
+            $obj[$value] = self::populateAbstractArray($row, [], $depth);
 
             self::addInitializedArray(static::class, $value, $obj[$value]);
         }
@@ -2414,48 +2476,15 @@ class DataMapperAbstract implements DataMapperInterface
      * @param mixed  $forKey    Key
      * @param string $for       The field that defines the for
      * @param int    $relations Load relations
-     * @param mixed  $fill      Object to fill
      * @param int    $depth     Relation depth
      *
      * @return mixed
      *
      * @since 1.0.0
      */
-    public static function getFor($forKey, string $for, int $relations = RelationType::ALL, $fill = null, int $depth = 3)
+    public static function getFor($forKey, string $for, int $relations = RelationType::ALL, int $depth = 3)
     {
-        if ($depth < 1) {
-            // @todo maybe wrong? because for !== this model
-            // @todo maybe fill for value. this should be the correct column/member
-            return self::createNullModel($forKey);
-        }
-
-        if (!isset(self::$parentMapper)) {
-            self::$parentMapper = static::class;
-        }
-
-        self::extend(__CLASS__);
-
-        $forKey = (array) $forKey;
-        $obj    = [];
-
-        foreach ($forKey as $key => $value) {
-            $toLoad = isset(static::$hasMany[$for]) && static::$hasMany[$for]['self'] !== null
-                ? self::getHasManyPrimaryKeys($value, $for)
-                : self::getPrimaryKeysBy($value, self::getColumnByMember($for));
-
-            $obj[$value] = self::get($toLoad, $relations, $fill, $depth);
-        }
-
-        $countResulsts = \count($obj);
-        self::clear();
-
-        if ($countResulsts === 0) {
-            return self::createNullModel();
-        } elseif ($countResulsts === 1) {
-            return \reset($obj);
-        }
-
-        return $obj;
+        return self::get($forKey, $relations, $depth, $for);
     }
 
     /**
@@ -2464,91 +2493,16 @@ class DataMapperAbstract implements DataMapperInterface
      * @param mixed  $byKey     Key
      * @param string $by        The field that defines the for
      * @param int    $relations Load relations
-     * @param mixed  $fill      Object to fill
      * @param int    $depth     Relation depth
      *
      * @return mixed
      *
      * @since 1.0.0
      */
-    public static function getBy($byKey, string $by, int $relations = RelationType::ALL, $fill = null, int $depth = 3)
+    public static function getBy($byKey, string $by, int $relations = RelationType::ALL, int $depth = 3)
     {
-        if ($depth < 1) {
-            // @todo: maybe fill null model with byValue
-            return self::createNullModel();
-        }
-
-        if (!isset(self::$parentMapper)) {
-            self::$parentMapper = static::class;
-        }
-
-        self::extend(__CLASS__);
-
-        $byKey = (array) $byKey;
-        $obj   = [];
-
-        foreach ($byKey as $key => $value) {
-            $toLoad = isset(static::$hasMany[$by]) && static::$hasMany[$by]['self'] !== null
-                ? self::getHasManyPrimaryKeys($value, $by) // todo maybe wrong
-                : self::getPrimaryKeysBy($value, self::getColumnByMember($by));
-
-            $obj[$value] = self::get($toLoad, $relations, $fill, $depth);
-        }
-
-        $countResulsts = \count($obj);
-        self::clear();
-
-        if ($countResulsts === 0) {
-            return self::createNullModel();
-        } elseif ($countResulsts === 1) {
-            return \reset($obj);
-        }
-
-        return $obj;
+        return self::get($byKey, $relations, $depth, $by);
     }
-
-     /**
-     * Get column.
-     *
-     * @param mixed  $byKey  Key
-     * @param string $by     The field that defines the for
-     * @param string $member Member to load
-     *
-     * @return mixed
-     *
-     * @since 1.0.0
-     */
-    public static function getByColumn($byKey, string $by, string $member)
-    {
-        if (!isset(self::$parentMapper)) {
-            self::$parentMapper = static::class;
-        }
-
-        self::extend(__CLASS__);
-
-        $byKey       = (array) $byKey;
-        $columnValue = [];
-
-        foreach ($byKey as $key => $value) {
-            $toLoad = isset(static::$hasMany[$by]) && static::$hasMany[$by]['self'] !== null
-                ? self::getHasManyPrimaryKeys($value, $by) // @todo: maybe wrong
-                : self::getPrimaryKeysBy($value, self::getColumnByMember($by));
-
-            $columnValue[$value] = self::getColumn($toLoad, $member);
-        }
-
-        $countResulsts = \count($columnValue);
-        self::clear();
-
-        if ($countResulsts === 0) {
-            return self::createNullModel();
-        } elseif ($countResulsts === 1) {
-            return \reset($columnValue);
-        }
-
-        return $columnValue;
-    }
-
 
     /**
      * Get object.
@@ -2564,101 +2518,58 @@ class DataMapperAbstract implements DataMapperInterface
      */
     public static function getForArray($refKey, string $ref, int $relations = RelationType::ALL, int $depth = 3)
     {
-        if (!isset(self::$parentMapper)) {
-            self::$parentMapper = static::class;
-        }
-
-        self::extend(__CLASS__);
-
-        $refKey = (array) $refKey;
-        $obj    = [];
-
-        foreach ($refKey as $key => $value) {
-            $toLoad = isset(static::$hasMany[$ref]) && static::$hasMany[$ref]['self'] !== null
-                ? self::getHasManyPrimaryKeys($value, $ref)
-                : self::getPrimaryKeysBy($value, self::getColumnByMember($ref));
-
-            $obj[$value] = self::getArray($toLoad, $relations, $depth);
-        }
-
-        self::clear();
-
-        return \count($obj) === 1 ? \reset($obj) : $obj;
+        return self::getArray($refKey, $relations, $depth, $ref);
     }
 
     /**
      * Get object.
      *
+     * @param mixed  $byKey     Key
+     * @param string $by        The field that defines the for
      * @param int    $relations Load relations
      * @param int    $depth     Relation depth
-     * @param string $lang      Language
      *
-     * @return array
+     * @return mixed
      *
      * @since 1.0.0
      */
-    public static function getAll(int $relations = RelationType::ALL, int $depth = 3, string $lang = '') : array
+    public static function getByArray($byKey, string $by, int $relations = RelationType::ALL, int $depth = 3)
     {
-        if ($depth < 1) {
-            return [];
-        }
-
-        if (!isset(self::$parentMapper)) {
-            self::$parentMapper = static::class;
-        }
-
-        $obj = self::populateIterable(self::getAllRaw($lang));
-        self::fillRelations($obj, $relations, --$depth);
-        self::clear();
-
-        return $obj;
+        return self::get($byKey, $relations, $depth, $by);
     }
 
     /**
      * Get object.
      *
-     * @param int    $relations Load relations
-     * @param int    $depth     Relation depth
-     * @param string $lang      Language
+     * @param int $relations Load relations
+     * @param int $depth     Relation depth
      *
      * @return array
      *
      * @since 1.0.0
      */
-    public static function getAllArray(int $relations = RelationType::ALL, int $depth = 3, string $lang = '') : array
+    public static function getAll(int $relations = RelationType::ALL, int $depth = 3) : array
     {
-        if ($depth < 1) {
-            return [];
-        }
+        $result = self::get(null, $relations, $depth);
 
-        if (!isset(self::$parentMapper)) {
-            self::$parentMapper = static::class;
-        }
-
-        $obj = self::populateIterableArray(self::getAllRaw($lang));
-        self::fillRelationsArray($obj, $relations, --$depth);
-        self::clear();
-
-        return $obj;
+        return !\is_array($result) ? [$result] : $result;
     }
 
     /**
-     * Find data.
+     * Get object.
      *
-     * @param Builder $query Query
+     * @param int $relations Load relations
+     * @param int $depth     Relation depth
      *
      * @return array
      *
      * @since 1.0.0
      */
-    public static function listResults(Builder $query) : array
+    public static function getAllArray(int $relations = RelationType::ALL, int $depth = 3) : array
     {
-        $sth = self::$db->con->prepare($query->toSql());
-        $sth->execute();
+        $result = self::getArray(null, $relations, $depth);
 
-        $result = $sth->fetchAll(\PDO::FETCH_ASSOC);
-
-        return $result === false ? [] : self::populateIterable($result);
+        return !\is_array($result) ? [$result] : $result;
     }
 
     /**
@@ -2670,48 +2581,23 @@ class DataMapperAbstract implements DataMapperInterface
      * @param Builder $query     Pre-defined query
      * @param int     $relations Load relations
      * @param int     $depth     Relation depth
-     * @param string  $lang      Language
      *
      * @return array
      *
      * @since 1.0.0
      */
-    public static function getNewest(int $limit = 1, Builder $query = null, int $relations = RelationType::ALL, int $depth = 3, string $lang = '') : array
+    public static function getNewest(int $limit = 1, Builder $query = null, int $relations = RelationType::ALL, int $depth = 3) : array
     {
-        if ($depth < 1) {
-            return [];
-        }
-
-        self::extend(__CLASS__);
-
-        if (!isset(self::$parentMapper)) {
-            self::$parentMapper = static::class;
-        }
-
-        $query = $query ?? new Builder(self::$db);
-        $query = self::getQuery($query);
+        $query ??= self::getQuery(null, [], $relations, $depth);
         $query->limit($limit);
 
         if (!empty(static::$createdAt)) {
-            $query->orderBy(static::$table . '.' . static::$columns[static::$createdAt]['name'], 'DESC');
+            $query->orderBy(static::$table  . '_' . $depth . '.' . static::$columns[static::$createdAt]['name'], 'DESC');
         } else {
-            $query->orderBy(static::$table . '.' . static::$columns[static::$primaryField]['name'], 'DESC');
+            $query->orderBy(static::$table  . '_' . $depth . '.' . static::$columns[static::$primaryField]['name'], 'DESC');
         }
 
-        if (!empty(self::$languageField) && !empty($lang)) {
-            $query->where(static::$table . '.' . static::$languageField, '=', $lang, 'AND');
-        }
-
-        $sth = self::$db->con->prepare($query->toSql());
-        $sth->execute();
-
-        $results = $sth->fetchAll(\PDO::FETCH_ASSOC);
-        $obj     = self::populateIterable($results === false ? [] : $results);
-
-        self::fillRelations($obj, $relations, --$depth);
-        self::clear();
-
-        return $obj;
+        return self::getAllByQuery($query, $relations, $depth);
     }
 
     /**
@@ -2727,21 +2613,9 @@ class DataMapperAbstract implements DataMapperInterface
      */
     public static function getAllByQuery(Builder $query, int $relations = RelationType::ALL, int $depth = 3) : array
     {
-        if ($depth < 1) {
-            return [];
-        }
+        $result = self::get(null, $relations, $depth, null, $query);
 
-        $sth = self::$db->con->prepare($query->toSql());
-        $sth->execute();
-
-        $results = $sth->fetchAll(\PDO::FETCH_ASSOC);
-        $results = $results === false ? [] : $results;
-
-        $obj = self::populateIterable($results);
-        self::fillRelations($obj, $relations, --$depth);
-        self::clear();
-
-        return $obj;
+        return !\is_array($result) ? [$result] : $result;
     }
 
     /**
@@ -2762,15 +2636,10 @@ class DataMapperAbstract implements DataMapperInterface
         }
 
         $query = new Builder(self::$db);
-        $query->prefix(self::$db->getPrefix())
-            ->random(static::$primaryField)
-            ->from(static::$table)
+        $query->random(static::$primaryField)
             ->limit($amount);
 
-        $sth = self::$db->con->prepare($query->toSql());
-        $sth->execute();
-
-        return self::get($sth->fetchAll(), $relations, null, $depth);
+        return self::getAllByQuery($query, $relations, $depth, null, $query);
     }
 
     /**
@@ -2803,6 +2672,8 @@ class DataMapperAbstract implements DataMapperInterface
         foreach ($obj as $key => $value) {
             /* loading relations from relations table and populating them and then adding them to the object */
             if ($hasMany) {
+                // todo: let hasmanyraw return the full data already and let populatemanytomany just fill it!
+                // todo: create a get has many raw id function because sometimes we need this (see update function)
                 self::populateManyToMany(self::getHasManyRaw($key, $relations), $obj[$key], $depth);
             }
         }
@@ -2846,53 +2717,80 @@ class DataMapperAbstract implements DataMapperInterface
     /**
      * Get object.
      *
-     * @param mixed $primaryKey Key
+     * @param mixed        $keys      Key
+     * @param int          $relations Relations type
+     * @param int          $depth     Relation depth
+     * @param null|string  $ref       Ref (for getBy and getFor)
+     * @param null|Builder $query     Query
      *
      * @return array
      *
      * @since 1.0.0
      */
-    public static function getRaw($primaryKey) : array
+    public static function getRaw($keys, int $relations = RelationType::ALL, int $depth = 3, string $ref = null, Builder $query = null) : array
     {
-        if ($primaryKey === null) {
-            return [];
+        $comparison = \is_array($keys) && \count($keys) > 1 ? 'in' : '=';
+        $keys       = $comparison === 'in' ? $keys : \reset($keys);
+
+        $query ??= self::getQuery(null, [], $relations, $depth);
+
+        if ($ref === null || ($hasBy = isset(static::$columns[self::getColumnByMember($ref)]))) {
+            $ref = $ref === null || !$hasBy ? static::$primaryField : static::$columns[self::getColumnByMember($ref)]['name'];
+
+            if ($keys !== null && $keys !== false) {
+                $query->where(static::$table . '_' . $depth . '.' . $ref, $comparison, $keys);
+            }
+        } else {
+            if (isset(static::$hasMany[$ref])) {
+                if ($keys !== null && $keys !== false) {
+                    $query->where(static::$hasMany[$ref]['table'] . '_' . $depth . '.' . static::$hasMany[$ref]['self'], $comparison, $keys);
+                }
+
+                $query->leftJoin(static::$hasMany[$ref]['table'], static::$hasMany[$ref]['table'] . '_' . $depth);
+                if (static::$hasMany[$ref]['self'] !== null) {
+                    $query->on(
+                        static::$table . '_' . $depth . '.' . static::$hasMany[$ref][static::$primaryField], '=',
+                        static::$hasMany[$ref]['table'] . '_' . $depth . '.' . static::$hasMany[$ref]['external'], 'and',
+                        static::$hasMany[$ref]['table'] . '_' . $depth
+                    );
+                } else {
+                    $query->on(
+                        static::$table . '_' . $depth . '.' . static::$primaryField, '=',
+                        static::$hasMany[$ref]['table'] . '_' . $depth . '.' . static::$hasMany[$ref]['external'], 'and',
+                        static::$hasMany[$ref]['table'] . '_' . $depth
+                    );
+                }
+            } elseif (isset(static::$belongsTo[$ref]) && static::$belongsTo[$ref]['self'] !== null) {
+                if ($keys !== null && $keys !== false) {
+                    $query->where(static::$table . '_' . $depth . '.' . $ref, $comparison, $keys);
+                }
+
+                $query->leftJoin(static::$belongsTo[$ref]['mapper']::getTable(), static::$belongsTo[$ref]['mapper']::getTable() . '_' . $depth)
+                    ->on(
+                        static::$table . '_' . $depth . '.' . static::$belongsTo[$ref]['self'], '=',
+                        static::$belongsTo[$ref]['mapper']::getTable() . '_' . $depth . '.' . static::$belongsTo[$ref]['mapper']::getPrimaryField() , 'and',
+                        static::$belongsTo[$ref]['mapper']::getTable() . '_' . $depth
+                    );
+            } elseif (isset(static::$ownsOne[$ref]) && static::$ownsOne[$ref]['self'] !== null) {
+                if ($keys !== null && $keys !== false) {
+                    $query->where(static::$table . '_' . $depth . '.' . $ref, $comparison, $keys);
+                }
+
+                $query->leftJoin(static::$ownsOne[$ref]['mapper']::getTable(), static::$ownsOne[$ref]['mapper']::getTable() . '_' . $depth)
+                    ->on(
+                        static::$table . '_' . $depth . '.' . static::$ownsOne[$ref]['self'], '=',
+                        static::$ownsOne[$ref]['mapper']::getTable() . '_' . $depth . '.' . static::$ownsOne[$ref]['mapper']::getPrimaryField() , 'and',
+                        static::$ownsOne[$ref]['mapper']::getTable() . '_' . $depth
+                    );
+            }
         }
 
-        $query = self::getQuery();
-        $query->where(static::$table . '.' . static::$primaryField, '=', $primaryKey);
-
         $sth = self::$db->con->prepare($query->toSql());
         $sth->execute();
 
-        $results = $sth->fetch(\PDO::FETCH_ASSOC);
+        $results = $sth->fetchAll(\PDO::FETCH_ASSOC);
 
         return $results === false ? [] : $results;
-    }
-
-    /**
-     * Get object.
-     *
-     * @param mixed  $refKey Key
-     * @param string $ref    Ref
-     *
-     * @return array
-     *
-     * @since 1.0.0
-     */
-    public static function getPrimaryKeysBy($refKey, string $ref) : array
-    {
-        $query = new Builder(self::$db);
-        $query->prefix(self::$db->getPrefix())
-            ->select(static::$table . '.' . static::$primaryField)
-            ->from(static::$table)
-            ->where(static::$table . '.' . $ref, '=', $refKey);
-
-        $sth = self::$db->con->prepare($query->toSql());
-        $sth->execute();
-
-        $result = $sth->fetchAll(\PDO::FETCH_NUM);
-
-        return $result === false ? [] : \array_column($result, 0);
     }
 
     /**
@@ -2908,8 +2806,7 @@ class DataMapperAbstract implements DataMapperInterface
     public static function getHasManyPrimaryKeys($refKey, string $ref) : array
     {
         $query = new Builder(self::$db);
-        $query->prefix(self::$db->getPrefix())
-            ->select(static::$hasMany[$ref]['table'] . '.' . static::$hasMany[$ref]['external'])
+        $query->select(static::$hasMany[$ref]['table'] . '.' . static::$hasMany[$ref]['external'])
             ->from(static::$hasMany[$ref]['table'])
             ->where(static::$hasMany[$ref]['table'] . '.' . static::$hasMany[$ref]['self'], '=', $refKey);
 
@@ -2919,31 +2816,6 @@ class DataMapperAbstract implements DataMapperInterface
         $result = $sth->fetchAll(\PDO::FETCH_NUM);
 
         return $result === false ? [] : \array_column($result, 0);
-    }
-
-    /**
-     * Get all in raw output.
-     *
-     * @param string $lang Language
-     *
-     * @return array
-     *
-     * @since 1.0.0
-     */
-    public static function getAllRaw(string $lang = '') : array
-    {
-        $query = self::getQuery();
-
-        if (!empty(self::$languageField) && !empty($lang)) {
-            $query->where(static::$table . '.' . static::$languageField, '=', $lang, 'AND');
-        }
-
-        $sth = self::$db->con->prepare($query->toSql());
-        $sth->execute();
-
-        $results = $sth->fetchAll(\PDO::FETCH_ASSOC);
-
-        return $results === false ? [] : $results;
     }
 
     /**
@@ -2968,7 +2840,6 @@ class DataMapperAbstract implements DataMapperInterface
 
             if (!isset($cachedTables[$value['table']])) {
                 $query = new Builder(self::$db);
-                $query->prefix(self::$db->getPrefix());
 
                 if ($relations === RelationType::ALL) {
                     /** @var string $primaryField */
@@ -3001,6 +2872,7 @@ class DataMapperAbstract implements DataMapperInterface
      * Get mapper specific builder
      *
      * @param Builder $query     Query to fill
+     * @param array   $columns   Columns to use
      * @param int     $relations Which relations should be considered in the query
      * @param int     $depth     Depths of the relations to be considered
      *
@@ -3008,27 +2880,91 @@ class DataMapperAbstract implements DataMapperInterface
      *
      * @since 1.0.0
      */
-    public static function getQuery(Builder $query = null, int $relations = RelationType::ALL, int $depth = 3) : Builder
+    public static function getQuery(Builder $query = null, array $columns = [], int $relations = RelationType::ALL, int $depth = 3) : Builder
     {
-        $columns = [];
-        foreach (static::$columns as $key => $values) {
+        $query ??= new Builder(self::$db);
+
+        if (empty($columns)) {
+            $columns = static::$columns;
+        }
+
+        foreach ($columns as $key => $values) {
             if ($values['writeonly'] ?? false === false) {
-                $columns[] = $key;
+                $query->selectAs(static::$table . '_' . $depth . '.' . $key, $key . '_' . $depth);
             }
         }
 
-        /**
-         * @todo here we want to build the joins for belongsTo and ownsOne and then just pass the date to the populators,
-         *  instead of letting the populators each select their own data.
-         *  Here is where #220 should be solved!!!
-         *  probably this query needs to be passed to the other mappers for extension e.g. $mapper::expandOwnsOne($query);
-         *  this should be done depending on the relationstype and depth!!!
-         */
+        if (empty($query->from)) {
+            $query->fromAs(static::$table, static::$table . '_' . $depth);
+        }
 
-        $query = $query ?? new Builder(self::$db);
-        $query->prefix(self::$db->getPrefix())
-            ->select(...$columns)
-            ->from(static::$table);
+        // get OwnsOneQuery
+        if ($depth > 1 && $relations === RelationType::ALL) {
+            foreach (static::$ownsOne as $member => $rel) {
+                $query->leftJoin($rel['mapper']::getTable(), $rel['mapper']::getTable() . '_' . ($depth - 1))
+                    ->on(
+                        static::$table . '_' . $depth . '.' . $rel['self'], '=',
+                        $rel['mapper']::getTable() . '_' . ($depth - 1) . '.' . (
+                            isset($rel['by']) ? $rel['mapper']::getColumnByMember($rel['by']) : $rel['mapper']::getPrimaryField()
+                        ), 'and',
+                        $rel['mapper']::getTable() . '_' . ($depth - 1)
+                    );
+
+                $query = $rel['mapper']::getQuery(
+                    $query,
+                    isset($rel['column']) ? [$rel['mapper']::getColumnByMember($rel['column']) => []] : [],
+                    $relations,
+                    $depth - 1
+                );
+            }
+        }
+
+        // get BelognsToQuery
+        if ($depth > 1 && $relations === RelationType::ALL) {
+            foreach (static::$belongsTo as $member => $rel) {
+                $query->leftJoin($rel['mapper']::getTable(), $rel['mapper']::getTable() . '_' . ($depth - 1))
+                    ->on(
+                        static::$table . '_' . $depth . '.' . $rel['self'], '=',
+                        $rel['mapper']::getTable() . '_' . ($depth - 1) . '.' . (
+                            isset($rel['by']) ? $rel['mapper']::getColumnByMember($rel['by']) : $rel['mapper']::getPrimaryField()
+                        ), 'and',
+                        $rel['mapper']::getTable() . '_' . ($depth - 1)
+                    );
+
+                $query = $rel['mapper']::getQuery(
+                    $query,
+                    isset($rel['column']) ? [$rel['mapper']::getColumnByMember($rel['column']) => []] : [],
+                    $relations,
+                    $depth - 1
+                );
+            }
+        }
+
+        // get HasManyQuery (but only for elements which have a 'column' defined)
+        if ($depth > 1 && $relations === RelationType::ALL) {
+            foreach (static::$hasMany as $member => $rel) {
+                if (isset($rel['self']) || !isset($rel['column'])) {
+                    continue;
+                }
+
+                // todo: handle self and self === null
+                $query->leftJoin($rel['mapper']::getTable(), $rel['mapper']::getTable() . '_' . ($depth - 1))
+                    ->on(
+                        static::$table . '_' . $depth . '.' . ($rel['self'] ?? static::$primaryField), '=',
+                        $rel['mapper']::getTable() . '_' . ($depth - 1) . '.' . (
+                            isset($rel['by']) ? $rel['mapper']::getColumnByMember($rel['by']) : $rel['external']
+                        ), 'and',
+                        $rel['mapper']::getTable() . '_' . ($depth - 1)
+                    );
+
+                $query = $rel['mapper']::getQuery(
+                    $query,
+                    isset($rel['column']) ? [$rel['mapper']::getColumnByMember($rel['column']) => []] : [],
+                    $relations,
+                    $depth - 1
+                );
+            }
+        }
 
         return $query;
     }
@@ -3175,7 +3111,7 @@ class DataMapperAbstract implements DataMapperInterface
      *
      * @since 1.0.0
      */
-    private static function getColumnByMember(string $name) : ?string
+    public static function getColumnByMember(string $name) : ?string
     {
         foreach (static::$columns as $cName => $column) {
             if ($column['internal'] === $name) {
