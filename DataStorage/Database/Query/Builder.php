@@ -278,7 +278,7 @@ class Builder extends BuilderAbstract
     {
         $this->type = QueryType::SELECT;
 
-        foreach ($columns as $key => $column) {
+        foreach ($columns as $column) {
             if (\is_string($column) || $column instanceof self) {
                 $this->selects[] = $column;
             } else {
@@ -682,7 +682,7 @@ class Builder extends BuilderAbstract
      */
     public function groupBy(...$columns) : self
     {
-        foreach ($columns as $key => $column) {
+        foreach ($columns as$column) {
             if (\is_string($column) || $column instanceof self) {
                 $this->groups[] = $column;
             } else {
@@ -1062,7 +1062,7 @@ class Builder extends BuilderAbstract
 
         $this->type = QueryType::UPDATE;
 
-        foreach ($tables as $key => $table) {
+        foreach ($tables as $table) {
             if (\is_string($table) || $table instanceof self) {
                 $this->updates[] = $table;
             } else {
