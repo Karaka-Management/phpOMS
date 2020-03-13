@@ -32,12 +32,6 @@ use phpOMS\DataStorage\Database\Query\Where;
  * @link    https://orange-management.org
  * @since   1.0.0
  *
- * @todo Orange-Management/phpOMS#73
- *  Implement extending
- *  Allow a data mapper to extend another data mapper.
- *  This way the object will be inserted first with one data mapper and the remaining fields will be filled by the extended data mapper.
- *  How can wen solve a mapper extending a mapper ... extending a mapper?
- *
  * @todo Orange-Management/phpOMS#122
  *  Split/Refactor.
  *  Child extends parent. Parent creates GetMapper, CreateMapper etc.
@@ -196,21 +190,6 @@ class DataMapperAbstract implements DataMapperInterface
     protected static ?string $parentMapper = null;
 
     /**
-     * Extended value collection.
-     *
-     * @var array
-     * @since 1.0.0
-     */
-    protected static array $collection = [
-        'primaryField' => [],
-        'createdAt'    => [],
-        'columns'      => [],
-        'hasMany'      => [],
-        'ownsOne'      => [],
-        'table'        => [],
-    ];
-
-    /**
      * Constructor.
      *
      * @since 1.0.0
@@ -271,30 +250,6 @@ class DataMapperAbstract implements DataMapperInterface
     }
 
     /**
-     * Collect values from extension.
-     *
-     * @param mixed $class Current extended mapper
-     *
-     * @return void
-     *
-     * @since 1.0.0
-     */
-    private static function extend($class) : void
-    {
-        /* todo: have to implement this in the queries, so far not used */
-        self::$collection['primaryField'][] = $class::$primaryField;
-        self::$collection['createdAt'][]    = $class::$createdAt;
-        self::$collection['columns'][]      = $class::$columns;
-        self::$collection['hasMany'][]      = $class::$hasMany;
-        self::$collection['ownsOne'][]      = $class::$ownsOne;
-        self::$collection['table'][]        = $class::$table;
-
-        if (($parent = \get_parent_class($class)) !== false && !$class::$overwrite) {
-            self::extend($parent);
-        }
-    }
-
-    /**
      * Load.
      *
      * @param array ...$objects Objects to load
@@ -337,23 +292,6 @@ class DataMapperAbstract implements DataMapperInterface
      */
     public static function clear() : void
     {
-        self::$overwrite    = true;
-        self::$primaryField = '';
-        self::$createdAt    = '';
-        self::$columns      = [];
-        self::$hasMany      = [];
-        self::$ownsOne      = [];
-        self::$table        = '';
-        self::$fields       = [];
-        self::$collection   = [
-            'primaryField' => [],
-            'createdAt'    => [],
-            'columns'      => [],
-            'ownsMany'     => [],
-            'ownsOne'      => [],
-            'table'        => [],
-        ];
-
         // clear parent and objects
         if (static::class === self::$parentMapper) {
             self::$parentMapper = null;
@@ -374,7 +312,6 @@ class DataMapperAbstract implements DataMapperInterface
      */
     public static function find(string $search, int $searchDepth = 2, Builder $query = null) : array
     {
-        self::extend(__CLASS__);
         $query = self::findQuery($search, $searchDepth, $query);
 
         return static::getAllByQuery($query, RelationType::ALL, $searchDepth);
@@ -442,8 +379,6 @@ class DataMapperAbstract implements DataMapperInterface
      */
     public static function create($obj, int $relations = RelationType::ALL)
     {
-        self::extend(__CLASS__);
-
         if (!isset($obj) || self::isNullModel($obj)) {
             return null;
         }
@@ -476,8 +411,6 @@ class DataMapperAbstract implements DataMapperInterface
      */
     public static function createArray(array &$obj, int $relations = RelationType::ALL)
     {
-        self::extend(__CLASS__);
-
         if (!empty($id = $obj[static::$columns[static::$primaryField]['internal']])) {
             $objId = $id;
         } else {
@@ -1502,8 +1435,6 @@ class DataMapperAbstract implements DataMapperInterface
      */
     public static function update($obj, int $relations = RelationType::ALL, int $depth = 1)
     {
-        self::extend(__CLASS__);
-
         if (!isset($obj) || self::isNullModel($obj)) {
             return null;
         }
@@ -1543,8 +1474,6 @@ class DataMapperAbstract implements DataMapperInterface
      */
     public static function updateArray(array &$obj, int $relations = RelationType::ALL, int $depth = 1)
     {
-        self::extend(__CLASS__);
-
         if (empty($obj)) {
             return null;
         }
@@ -1761,8 +1690,6 @@ class DataMapperAbstract implements DataMapperInterface
      */
     public static function delete($obj, int $relations = RelationType::REFERENCE)
     {
-        self::extend(__CLASS__);
-
         if (\is_scalar($obj)) {
             $obj = static::get($obj);
         }
@@ -2399,8 +2326,6 @@ class DataMapperAbstract implements DataMapperInterface
             self::$parentMapper = static::class;
         }
 
-        self::extend(__CLASS__);
-
         $keys = (array) $primaryKey;
         $obj  = [];
 
@@ -2468,8 +2393,6 @@ class DataMapperAbstract implements DataMapperInterface
         if (!isset(self::$parentMapper)) {
             self::$parentMapper = static::class;
         }
-
-        self::extend(__CLASS__);
 
         $primaryKey = (array) $primaryKey;
         $obj        = [];
