@@ -216,8 +216,8 @@ class Grammar extends GrammarAbstract
     {
         $expression = '';
 
-        foreach ($wheres as $key => $where) {
-            foreach ($where as $key2 => $element) {
+        foreach ($wheres as $where) {
+            foreach ($where as $element) {
                 $expression .= $this->compileWhereElement($element, $query, $first);
                 $first       = false;
             }
@@ -440,7 +440,7 @@ class Grammar extends GrammarAbstract
     {
         $expression = '';
 
-        foreach ($ons as $key => $on) {
+        foreach ($ons as $on) {
             $expression .= $this->compileOnElement($on, $query, $first);
             $first       = false;
         }

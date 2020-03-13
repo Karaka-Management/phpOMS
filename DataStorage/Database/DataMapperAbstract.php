@@ -20,6 +20,7 @@ use phpOMS\DataStorage\Database\Query\Builder;
 use phpOMS\DataStorage\Database\Query\QueryType;
 use phpOMS\DataStorage\DataMapperInterface;
 use phpOMS\Utils\ArrayUtils;
+use phpOMS\DataStorage\Database\Query\Where;
 
 /**
  * Datamapper for databases.
@@ -394,17 +395,23 @@ class DataMapperAbstract implements DataMapperInterface
     {
         $query ??= static::getQuery(null, [], RelationType::ALL, $searchDepth);
 
+        $where1 = new Where(self::$db);
+        $where2 = new Where(self::$db);
+
         foreach (self::$conditionals as $condKey => $condValue) {
             if (($column = self::getColumnByMember($condKey)) !== null) {
-                $query->andWhere(static::$table . '_' . $searchDepth . '.' . $column, '=', $condValue);
+                $where1->andWhere(static::$table . '_' . $searchDepth . '.' . $column, '=', $condValue);
             }
         }
 
         foreach (static::$columns as $col) {
             if (isset($col['autocomplete']) && $col['autocomplete']) {
-                $query->where(static::$table . '_' . $searchDepth . '.' . $col['name'], 'LIKE', '%' . $search . '%', 'OR');
+                $where2->where(static::$table . '_' . $searchDepth . '.' . $col['name'], 'LIKE', '%' . $search . '%', 'OR');
             }
         }
+
+        $query->andWhere($where1);
+        $query->andWhere($where2);
 
         if ($searchDepth > 2) {
             foreach (static::$ownsOne as $one) {

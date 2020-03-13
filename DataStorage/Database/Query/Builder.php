@@ -553,7 +553,7 @@ class Builder extends BuilderAbstract
         }
 
         $i = 0;
-        foreach ($columns as $key => $column) {
+        foreach ($columns as $column) {
             if (isset($operator[$i]) && !\in_array(\strtolower($operator[$i]), self::OPERATORS)) {
                 throw new \InvalidArgumentException('Unknown operator.');
             }
