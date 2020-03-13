@@ -14,8 +14,6 @@ declare(strict_types=1);
 
 namespace phpOMS\DataStorage;
 
-use phpOMS\DataStorage\Database\Query\Builder;
-
 /**
  * Datamapper interface.
  *

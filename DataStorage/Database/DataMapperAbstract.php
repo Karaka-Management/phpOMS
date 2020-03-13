@@ -1984,7 +1984,7 @@ class DataMapperAbstract implements DataMapperInterface
      * Populate data.
      *
      * @param string $member Member name
-     *  @param array  $result Result data
+     * @param array  $result Result data
      * @param int    $depth  Relation depth
      *
      * @return void
