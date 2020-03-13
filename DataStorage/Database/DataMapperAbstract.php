@@ -18,9 +18,9 @@ use phpOMS\DataStorage\Database\Connection\ConnectionAbstract;
 use phpOMS\DataStorage\Database\Exception\InvalidMapperException;
 use phpOMS\DataStorage\Database\Query\Builder;
 use phpOMS\DataStorage\Database\Query\QueryType;
+use phpOMS\DataStorage\Database\Query\Where;
 use phpOMS\DataStorage\DataMapperInterface;
 use phpOMS\Utils\ArrayUtils;
-use phpOMS\DataStorage\Database\Query\Where;
 
 /**
  * Datamapper for databases.
