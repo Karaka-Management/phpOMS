@@ -363,32 +363,64 @@ class DataMapperAbstract implements DataMapperInterface
     /**
      * Find data.
      *
-     * @param string $search      Search for
-     * @param int    $searchDepth Depth of the search
-     * @param int    $popDepth    Population depth
+     * @param string  $search      Search for
+     * @param int     $searchDepth Depth of the search
+     * @param Builder $query       Query
      *
      * @return array
      *
      * @since 1.0.0
      */
-    public static function find(string $search, int $searchDepth = 2, int $popDepth = 3) : array
+    public static function find(string $search, int $searchDepth = 2, Builder $query = null) : array
     {
         self::extend(__CLASS__);
+        $query = self::findQuery($search, $searchDepth, $query);
 
-        $query = static::getQuery();
+        return static::getAllByQuery($query, RelationType::ALL, $searchDepth);
+    }
 
-        foreach (static::$columns as $col) {
-            // @todo also handle conditionals!!! e.g. localization
-            if (isset($col['autocomplete']) && $col['autocomplete']) {
-                $query->where(static::$table . '.' . $col['name'], 'LIKE', '%' . $search . '%', 'OR');
+    /**
+     * Find data query.
+     *
+     * @param string  $search      Search for
+     * @param int     $searchDepth Depth of the search
+     * @param Builder $query       Query
+     *
+     * @return Builder
+     *
+     * @since 1.0.0
+     */
+    public static function findQuery(string $search, int $searchDepth = 2, Builder $query = null) : Builder
+    {
+        $query ??= static::getQuery(null, [], RelationType::ALL, $searchDepth);
+
+        foreach (self::$conditionals as $condKey => $condValue) {
+            if (($column = self::getColumnByMember($condKey)) !== null) {
+                $query->andWhere(static::$table . '_' . $searchDepth . '.' . $column, '=', $condValue);
             }
-
-            // @todo 222
-            // $mapper::findOwnsOne($query, $search);
-            // $mapper::findHasMany($query, $search);
         }
 
-        return static::getAllByQuery($query, RelationType::ALL, $popDepth);
+        foreach (static::$columns as $col) {
+            if (isset($col['autocomplete']) && $col['autocomplete']) {
+                $query->where(static::$table . '_' . $searchDepth . '.' . $col['name'], 'LIKE', '%' . $search . '%', 'OR');
+            }
+        }
+
+        if ($searchDepth > 2) {
+            foreach (static::$ownsOne as $one) {
+                $one['mapper']::findQuery($search, $searchDepth - 1, $query);
+            }
+
+            foreach (static::$belongsTo as $belongs) {
+                $belongs['mapper']::findQuery($search, $searchDepth - 1, $query);
+            }
+
+            foreach (static::$hasMany as $many) {
+                $many['mapper']::findQuery($search, $searchDepth - 1, $query);
+            }
+        }
+
+        return $query;
     }
 
     /**
@@ -2896,6 +2928,12 @@ class DataMapperAbstract implements DataMapperInterface
 
         if (empty($query->from)) {
             $query->fromAs(static::$table, static::$table . '_' . $depth);
+        }
+
+        foreach (self::$conditionals as $condKey => $condValue) {
+            if (($column = self::getColumnByMember($condKey)) !== null) {
+                $query->andWhere(static::$table . '_' . $depth . '.' . $column, '=', $condValue);
+            }
         }
 
         // get OwnsOneQuery
