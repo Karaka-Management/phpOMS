@@ -72,7 +72,6 @@ final class PostgresConnection extends ConnectionAbstract
         }
 
         $this->close();
-        $this->prefix = $dbdata['prefix'] ?? '';
 
         try {
             $this->con = new \PDO($this->dbdata['db'] . ':host=' . $this->dbdata['host'] . ';port=' . $this->dbdata['port'] . ';dbname=' . $this->dbdata['database'], $this->dbdata['login'], $this->dbdata['password']);

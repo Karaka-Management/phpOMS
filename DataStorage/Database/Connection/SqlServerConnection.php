@@ -62,8 +62,6 @@ final class SqlServerConnection extends ConnectionAbstract
      */
     public function connect(array $dbdata = null) : void
     {
-        $this->close();
-
         $this->dbdata = $dbdata ?? $this->dbdata;
 
         if (!isset($this->dbdata['db'], $this->dbdata['host'], $this->dbdata['port'], $this->dbdata['database'], $this->dbdata['login'], $this->dbdata['password'])
@@ -74,7 +72,6 @@ final class SqlServerConnection extends ConnectionAbstract
         }
 
         $this->close();
-        $this->prefix = $dbdata['prefix'] ?? '';
 
         try {
             $this->con = new \PDO('sqlsrv:Server=' . $this->dbdata['host'] . ',' . $this->dbdata['port'] . ';Database=' . $this->dbdata['database'] . ';ConnectionPooling=0', $this->dbdata['login'], $this->dbdata['password']);

@@ -78,7 +78,6 @@ final class SQLiteConnection extends ConnectionAbstract
         }
 
         $this->close();
-        $this->prefix = $dbdata['prefix'] ?? '';
 
         try {
             $this->con = new \PDO($this->dbdata['db'] . ':' . $this->dbdata['database']);
