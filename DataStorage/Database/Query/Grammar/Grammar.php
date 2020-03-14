@@ -491,7 +491,7 @@ class Grammar extends GrammarAbstract
             $expression .= ' ' . \strtoupper($element['operator']) . ' ' . $this->compileSystem($element['value']);
         } else {
             $operator    = $element['operator'] === '=' ? 'IS' : 'IS NOT';
-            $expression .=  ' ' . $operator . ' ' . $this->compileValue($query, $element['value']);
+            $expression .= ' ' . $operator . ' ' . $this->compileValue($query, $element['value']);
         }
 
         return $expression;

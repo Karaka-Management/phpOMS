@@ -1562,7 +1562,7 @@ class DataMapperAbstract implements DataMapperInterface
 
                 // already in db
                 if (!empty($primaryKey)) {
-                    $objsIds[$key] = $relations === RelationType::ALL ?  $mapper::delete($value) : $primaryKey;
+                    $objsIds[$key] = $relations === RelationType::ALL ? $mapper::delete($value) : $primaryKey;
 
                     continue;
                 }
