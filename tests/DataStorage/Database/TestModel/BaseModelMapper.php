@@ -46,15 +46,15 @@ class BaseModelMapper extends DataMapperAbstract
      */
     protected static array $belongsTo = [
         'belongsToOne' => [
-            'mapper'         => BelongsToModelMapper::class,
-            'dest'            => 'test_base_belongs_to_one',
+            'mapper' => BelongsToModelMapper::class,
+            'self'   => 'test_base_belongs_to_one',
         ],
     ];
 
     protected static array $ownsOne = [
         'ownsOneSelf' => [
-            'mapper'         => OwnsOneModelMapper::class,
-            'dest'            => 'test_base_owns_one_self',
+            'mapper' => OwnsOneModelMapper::class,
+            'self'   => 'test_base_owns_one_self',
         ],
     ];
 

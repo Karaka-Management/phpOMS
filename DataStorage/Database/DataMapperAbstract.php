@@ -1910,7 +1910,7 @@ class DataMapperAbstract implements DataMapperInterface
             return [];
         }
 
-        $obj = $mapper::getInitialized($mapper, $result[$mapper::$primaryField . '_' . $depth]);
+        $obj = $mapper::getInitializedArray($mapper, $result[$mapper::$primaryField . '_' . $depth]);
 
         return $obj ?? $mapper::populateAbstractArray($result, [], $depth);
     }
@@ -1941,7 +1941,7 @@ class DataMapperAbstract implements DataMapperInterface
             return $mapper::createNullModel();
         }
 
-        $obj = $mapper::getInitializedArray($mapper, $result[$mapper::$primaryField . '_' . $depth]);
+        $obj = $mapper::getInitialized($mapper, $result[$mapper::$primaryField . '_' . $depth]);
 
         return $obj ?? $mapper::populateAbstract($result, $mapper::createBaseModel(), $depth);
     }
@@ -1995,7 +1995,7 @@ class DataMapperAbstract implements DataMapperInterface
         foreach (static::$columns as $column => $def) {
             $alias = $column . '_' . $depth;
 
-            if (!isset($result[$alias])) {
+            if (!\array_key_exists($alias, $result)) {
                 continue;
             }
 
@@ -2078,7 +2078,7 @@ class DataMapperAbstract implements DataMapperInterface
             $column = $def['mapper']::getColumnByMember($member);
             $alias  = $column . '_' . ($depth - 1);
 
-            if (!isset($result[$alias]) || !isset($def['column'])) {
+            if (!\array_key_exists($alias, $result) || !isset($def['column'])) {
                 continue;
             }
 
@@ -2153,10 +2153,14 @@ class DataMapperAbstract implements DataMapperInterface
      */
     public static function populateAbstractArray(array $result, array $obj = [], int $depth = 3) : array
     {
-        foreach ($result as $column => $value) {
-            if (!isset(static::$columns[$column]['internal'])) {
+        foreach (static::$columns as $column => $def) {
+            $alias = $column . '_' . $depth;
+
+            if (!\array_key_exists($alias, $result)) {
                 continue;
             }
+
+            $value = $result[$alias];
 
             $path = static::$columns[$column]['internal'];
             if (\stripos($path, '/') !== false) {
@@ -2166,15 +2170,45 @@ class DataMapperAbstract implements DataMapperInterface
                 $path = \implode('/', $path);
             }
 
-            if (isset(static::$ownsOne[static::$columns[$column]['internal']])) {
+            if (isset(static::$ownsOne[$def['internal']])) {
+                if ($depth - 1 < 1) {
+                    continue;
+                }
+
                 $value = self::populateOwnsOneArray(static::$columns[$column]['internal'], $result, $depth - 1);
-            } elseif (isset(static::$belongsTo[static::$columns[$column]['internal']])) {
+            } elseif (isset(static::$belongsTo[$def['internal']])) {
+                if ($depth - 1 < 1) {
+                    continue;
+                }
+
                 $value = self::populateBelongsToArray(static::$columns[$column]['internal'], $result, $depth - 1);
             } elseif (\in_array(static::$columns[$column]['type'], ['string', 'int', 'float', 'bool'])) {
                 \settype($value, static::$columns[$column]['type']);
             } elseif (static::$columns[$column]['type'] === 'DateTime') {
                 $value = $value === null ? null : new \DateTime($value);
             } elseif (static::$columns[$column]['type'] === 'Json') {
+                $value = \json_decode($value, true);
+            }
+
+            $obj = ArrayUtils::setArray($path, $obj, $value, '/', true);
+        }
+
+        foreach (static::$hasMany as $member => $def) {
+            $column = $def['mapper']::getColumnByMember($member);
+            $alias  = $column . '_' . ($depth - 1);
+
+            if (!\array_key_exists($alias, $result) || !isset($def['column'])) {
+                continue;
+            }
+
+            $value = $result[$alias];
+
+            $path = $member;
+            if (\in_array($def['mapper']::$columns[$column]['type'], ['string', 'int', 'float', 'bool'])) {
+                \settype($value, $def['mapper']::$columns[$column]['type']);
+            } elseif ($def['mapper']::$columns[$column]['type'] === 'DateTime') {
+                $value = $value === null ? null : new \DateTime($value);
+            } elseif ($def['mapper']::$columns[$column]['type'] === 'Json') {
                 $value = \json_decode($value, true);
             }
 
@@ -2338,25 +2372,15 @@ class DataMapperAbstract implements DataMapperInterface
             unset($keys[$key]);
         }
 
-        if (empty($keys) && $primaryKey !== null) {
-            $countResulsts = \count($obj);
+        if (!empty($keys) || $primaryKey === null) {
+            $dbData = self::getRaw($keys, $relations, $depth, $ref, $query);
+            foreach ($dbData as $row) {
+                $value       = $row[static::$primaryField . '_' . $depth];
+                $obj[$value] = self::createBaseModel();
+                self::addInitialized(static::class, $value, $obj[$value]);
 
-            if ($countResulsts === 0) {
-                return self::createNullModel();
-            } elseif ($countResulsts === 1) {
-                return \reset($obj);
+                $obj[$value] = self::populateAbstract($row, $obj[$value], $depth);
             }
-
-            return $obj;
-        }
-
-        $dbData = self::getRaw($keys, $relations, $depth, $ref, $query);
-        foreach ($dbData as $row) {
-            $value       = $row[static::$primaryField . '_' . $depth];
-            $obj[$value] = self::createBaseModel();
-            self::addInitialized(static::class, $value, $obj[$value]);
-
-            $obj[$value] = self::populateAbstract($row, $obj[$value], $depth);
         }
 
         self::fillRelations($obj, $relations, $depth - 1);
@@ -2514,6 +2538,12 @@ class DataMapperAbstract implements DataMapperInterface
     {
         $result = self::get(null, $relations, $depth);
 
+        if (\is_object($result)) {
+            if (\stripos(\get_class($result), '\Null') !== false) {
+                return [];
+            }
+        }
+
         return !\is_array($result) ? [$result] : $result;
     }
 
@@ -2531,7 +2561,7 @@ class DataMapperAbstract implements DataMapperInterface
     {
         $result = self::getArray(null, $relations, $depth);
 
-        return !\is_array($result) ? [$result] : $result;
+        return !\is_array(\reset($result)) ? [$result] : $result;
     }
 
     /**
@@ -2576,6 +2606,12 @@ class DataMapperAbstract implements DataMapperInterface
     public static function getAllByQuery(Builder $query, int $relations = RelationType::ALL, int $depth = 3) : array
     {
         $result = self::get(null, $relations, $depth, null, $query);
+
+        if (\is_object($result)) {
+            if (\stripos(\get_class($result), '\Null') !== false) {
+                return [];
+            }
+        }
 
         return !\is_array($result) ? [$result] : $result;
     }
@@ -3068,6 +3104,19 @@ class DataMapperAbstract implements DataMapperInterface
         if (self::isInitializedArray($mapper, $id)) {
             unset(self::$initArrays[$mapper][$id]);
         }
+    }
+
+    /**
+     * Clear cache
+     *
+     * @return mixed
+     *
+     * @since 1.0.0
+     */
+    public static function clearCache()
+    {
+        self::$initObjects = [];
+        self::$initArrays  = [];
     }
 
     /**

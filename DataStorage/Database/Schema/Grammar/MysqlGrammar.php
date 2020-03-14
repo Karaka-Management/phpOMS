@@ -75,7 +75,7 @@ class MysqlGrammar extends Grammar
         $builder->select('*')
             ->from('information_schema.columns')
             ->where('table_schema', '=', $query->getConnection()->getDatabase())
-            ->andWhere('table_name', '=' . $table);
+            ->andWhere('table_name', '=', $table);
 
         return \rtrim($builder->toSql(), ';');
     }

@@ -218,7 +218,11 @@ class DataMapperAbstractTest extends \PHPUnit\Framework\TestCase
         self::assertEquals($this->model->belongsToOne->string, $modelR->belongsToOne->string);
 
         $for = ManyToManyDirectModelMapper::getFor($id, 'to');
-        self::assertEquals(\reset($this->model->hasManyDirect)->string, \reset($for)->string);
+
+        self::assertEquals(
+            \reset($this->model->hasManyDirect)->string,
+            $for->string
+        );
 
         self::assertCount(1, BaseModelMapper::getAll());
     }
@@ -250,7 +254,10 @@ class DataMapperAbstractTest extends \PHPUnit\Framework\TestCase
         self::assertEquals($this->modelArray['belongsToOne']['string'], $modelR['belongsToOne']['string']);
 
         $for = ManyToManyDirectModelMapper::getForArray($id, 'to');
-        self::assertEquals(\reset($this->modelArray['hasManyDirect'])['string'], \reset($for)['string']);
+        self::assertEquals(
+            \reset($this->modelArray['hasManyDirect'])['string'],
+            \reset($for)['string']
+        );
 
         self::assertCount(1, BaseModelMapper::getAllArray());
     }
