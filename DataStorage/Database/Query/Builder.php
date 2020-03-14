@@ -682,7 +682,7 @@ class Builder extends BuilderAbstract
      */
     public function groupBy(...$columns) : self
     {
-        foreach ($columns as$column) {
+        foreach ($columns as $column) {
             if (\is_string($column) || $column instanceof self) {
                 $this->groups[] = $column;
             } else {
