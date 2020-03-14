@@ -1471,6 +1471,8 @@ class Builder extends BuilderAbstract
             return $column->getColumn();
         } elseif ($column instanceof \Serializable) {
             return $column->serialize();
+        } elseif ($column instanceof self) {
+            return \md5($column->toSql());
         }
 
         throw new \Exception();

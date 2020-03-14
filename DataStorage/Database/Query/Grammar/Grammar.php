@@ -253,15 +253,16 @@ class Grammar extends GrammarAbstract
             $expression .= $this->compileSystem($element['column']);
         } elseif ($element['column'] instanceof \Closure) {
             $expression .= $element['column']();
+        } elseif ($element['column'] instanceof Where) {
+            $where       = \rtrim($this->compileWhereQuery($element['column']), ';');
+            $expression .= '(' . (\stripos($where, 'WHERE ') === 0 ? \substr($where, 6) : $where) . ')';
         } elseif ($element['column'] instanceof Builder) {
             $expression .= '(' . \rtrim($element['column']->toSql(), ';') . ')';
-        } elseif ($element['column'] instanceof Where) {
-            $expression .= '(' . \rtrim($this->compileWhereQuery($element['column']), ';') . ')';
         }
 
         if (isset($element['value'])) {
             $expression .= ' ' . \strtoupper($element['operator']) . ' ' . $this->compileValue($query, $element['value']);
-        } else {
+        } elseif (isset($element['value']) && !($element['column'] instanceof Where)) {
             $operator    = $element['operator'] === '=' ? 'IS' : 'IS NOT';
             $expression .= ' ' . $operator . ' ' . $this->compileValue($query, $element['value']);
         }

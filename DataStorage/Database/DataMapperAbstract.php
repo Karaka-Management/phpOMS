@@ -335,22 +335,31 @@ class DataMapperAbstract implements DataMapperInterface
         $where1 = new Where(self::$db);
         $where2 = new Where(self::$db);
 
+        $hasConditionals = false;
         foreach (self::$conditionals as $condKey => $condValue) {
             if (($column = self::getColumnByMember($condKey)) !== null) {
                 $where1->andWhere(static::$table . '_' . $searchDepth . '.' . $column, '=', $condValue);
+                $hasConditionals = true;
             }
         }
 
+        $hasAutocompletes = false;
         foreach (static::$columns as $col) {
             if (isset($col['autocomplete']) && $col['autocomplete']) {
                 $where2->where(static::$table . '_' . $searchDepth . '.' . $col['name'], 'LIKE', '%' . $search . '%', 'OR');
+                $hasAutocompletes = true;
             }
         }
 
-        $query->andWhere($where1);
-        $query->andWhere($where2);
+        if ($hasConditionals) {
+            $query->andWhere($where1);
+        }
 
-        if ($searchDepth > 2) {
+        if ($hasAutocompletes) {
+            $query->andWhere($where2);
+        }
+
+        if ($searchDepth > 1) {
             foreach (static::$ownsOne as $one) {
                 $one['mapper']::findQuery($search, $searchDepth - 1, $query);
             }
