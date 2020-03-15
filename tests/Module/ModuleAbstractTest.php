@@ -17,7 +17,6 @@ namespace phpOMS\tests\Module;
 require_once __DIR__ . '/../Autoloader.php';
 
 use phpOMS\Application\ApplicationAbstract;
-use phpOMS\DataStorage\Database\RelationType;
 use phpOMS\Event\EventManager;
 use phpOMS\Message\Http\HttpRequest;
 use phpOMS\Message\Http\HttpResponse;
