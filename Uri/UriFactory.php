@@ -212,7 +212,10 @@ final class UriFactory
 
                 if (isset($spl[1]) && !\in_array($spl[0], $keys)) {
                     $keys[] = $spl[0];
-                    $query  = $spl[0] . '=' . $spl[1] . '&' . $query;
+
+                    if (!empty($spl[1])) {
+                        $query  = $spl[0] . '=' . $spl[1] . '&' . $query;
+                    }
                 }
             }
         }
