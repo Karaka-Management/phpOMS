@@ -3173,8 +3173,7 @@ class DataMapperAbstract implements DataMapperInterface
      */
     private static function createNullModel($id = null)
     {
-        $class     = static::class;
-        $class     = empty(static::$model) ? \substr($class, 0, -6) : static::$model;
+        $class     = empty(static::$model) ? \substr(static::class, 0, -6) : static::$model;
         $parts     = \explode('\\', $class);
         $name      = $parts[$c = (\count($parts) - 1)];
         $parts[$c] = 'Null' . $name;
@@ -3199,8 +3198,7 @@ class DataMapperAbstract implements DataMapperInterface
      */
     private static function createBaseModel()
     {
-        $class = static::class;
-        $class = empty(static::$model) ? \substr($class, 0, -6) : static::$model;
+        $class = empty(static::$model) ? \substr(static::class, 0, -6) : static::$model;
 
         /**
          * @todo Orange-Management/phpOMS#67
