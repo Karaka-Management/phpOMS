@@ -250,10 +250,10 @@ class Localization implements \JsonSerializable
         if ($countryCode !== '*'
             && !\file_exists(__DIR__ . '/../Localization/Defaults/Definitions/' . $langCode . '_' . $countryCode . '.json')
         ) {
-            $countryCode = '*';
+            $countryCode = '';
         }
 
-        $files = \glob(__DIR__ . '/../Localization/Defaults/Definitions/' . $langCode . '_' . $countryCode);
+        $files = \glob(__DIR__ . '/../Localization/Defaults/Definitions/' . $langCode . '_' . $countryCode . '*');
 
         if ($files === false) {
             $files = [];
