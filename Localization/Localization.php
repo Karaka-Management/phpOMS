@@ -304,6 +304,7 @@ class Localization implements \JsonSerializable
         $this->setArea($locale['area'] ?? []);
         $this->setVolume($locale['volume'] ?? []);
         $this->setPrecision($locale['precision'] ?? []);
+        $this->setTimezone($locale['timezone'] ?? 'America/New_York');
         $this->setDatetime($locale['datetime'] ?? []);
     }
 

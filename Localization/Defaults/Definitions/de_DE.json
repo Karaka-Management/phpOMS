@@ -50,11 +50,19 @@
         "tablespoon": "Metric tblsp",
         "glass": "Metric cup"
     },
+    "timezone": "Europe/Berlin",
     "datetime": {
         "very_short": "d.m",
         "short": "m.y",
         "medium": "Y.m.d",
         "long": "Y.m.d h:i",
         "very_long": "Y.m.d h:i:s"
+    },
+    "precision": {
+        "very_short": 0,
+        "short": 1,
+        "medium": 2,
+        "long": 3,
+        "very_long": 5
     }
 }

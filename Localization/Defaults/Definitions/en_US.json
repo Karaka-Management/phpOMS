@@ -50,6 +50,7 @@
         "tablespoon": "Metric tblsp",
         "glass": "Metric cup"
     },
+    "timezone": "America/New_York",
     "datetime": {
         "very_short": "d.m",
         "short": "m.y",
