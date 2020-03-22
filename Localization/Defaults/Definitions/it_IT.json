@@ -1,8 +1,8 @@
 {
-    "language": "en",
-    "country": "US",
+    "language": "it",
+    "country": "IT",
     "currency": {
-        "code": "USD",
+        "code": "EUR",
         "position": 0,
         "format": "1"
     },
