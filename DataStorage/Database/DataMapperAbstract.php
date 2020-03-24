@@ -269,13 +269,13 @@ class DataMapperAbstract implements DataMapperInterface
      * Create a conditional value
      *
      * @param string $id    Id of the conditional
-     * @param string $value Value of the conditional
+     * @param mixed  $value Value of the conditional
      *
      * @return static
      *
      * @since 1.0.0
      */
-    public static function withConditional(string $id, string $value) /** @todo: return : static */
+    public static function withConditional(string $id, $value) /** @todo: return : static */
     {
         self::$conditionals[$id] = $value;
         return static::class;
