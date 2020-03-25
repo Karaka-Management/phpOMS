@@ -17,6 +17,7 @@ namespace phpOMS\DataStorage\Database\Query\Grammar;
 use phpOMS\DataStorage\Database\GrammarAbstract;
 use phpOMS\DataStorage\Database\Query\Builder;
 use phpOMS\DataStorage\Database\Query\Column;
+use phpOMS\DataStorage\Database\Query\From;
 use phpOMS\DataStorage\Database\Query\Parameter;
 use phpOMS\DataStorage\Database\Query\QueryType;
 use phpOMS\DataStorage\Database\Query\Where;
@@ -262,7 +263,7 @@ class Grammar extends GrammarAbstract
 
         if (isset($element['value'])) {
             $expression .= ' ' . \strtoupper($element['operator']) . ' ' . $this->compileValue($query, $element['value']);
-        } elseif (isset($element['value']) && !($element['column'] instanceof Where)) {
+        } elseif ($element['value'] === null && !($element['column'] instanceof Where)) {
             $operator    = $element['operator'] === '=' ? 'IS' : 'IS NOT';
             $expression .= ' ' . $operator . ' ' . $this->compileValue($query, $element['value']);
         }

@@ -304,6 +304,8 @@ $GLOBALS['dbpool']->create('schema', $CONFIG['db']['core']['masters']['schema'])
 
 DataMapperAbstract::setConnection($GLOBALS['dbpool']->get());
 
+$GLOBALS['frameworkpath'] = '/';
+
 function phpServe(): void
 {
     // OS detection

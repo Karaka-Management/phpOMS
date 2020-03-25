@@ -386,7 +386,7 @@ class HttpRequestTest extends \PHPUnit\Framework\TestCase
      */
     public function testPostData() : void
     {
-        $request = new HttpRequest(new HttpUri('http://localhost:1234/phpOMS/tests/Message/Http/HttpRequestPost.php'));
+        $request = new HttpRequest(new HttpUri('http://localhost:1234' . $GLOBALS['frameworkpath'] . 'tests/Message/Http/HttpRequestPost.php'));
         $request->setMethod(RequestMethod::POST);
         $request->getHeader()->set('Content-Type', MimeType::M_POST);
         $request->setData('testKey', 'testValue');
@@ -404,7 +404,7 @@ class HttpRequestTest extends \PHPUnit\Framework\TestCase
      */
     public function testJsonData() : void
     {
-        $request = new HttpRequest(new HttpUri('http://localhost:1234/phpOMS/tests/Message/Http/HttpRequestPost.php'));
+        $request = new HttpRequest(new HttpUri('http://localhost:1234' . $GLOBALS['frameworkpath'] . 'tests/Message/Http/HttpRequestPost.php'));
         $request->setMethod(RequestMethod::POST);
         $request->getHeader()->set('Content-Type', MimeType::M_JSON);
         $request->setData('testKey', 'testValue');
@@ -422,7 +422,7 @@ class HttpRequestTest extends \PHPUnit\Framework\TestCase
      */
     public function testMultipartData() : void
     {
-        $request = new HttpRequest(new HttpUri('http://localhost:1234/phpOMS/tests/Message/Http/HttpRequestPost.php'));
+        $request = new HttpRequest(new HttpUri('http://localhost:1234' . $GLOBALS['frameworkpath'] . 'tests/Message/Http/HttpRequestPost.php'));
         $request->setMethod(RequestMethod::POST);
         $request->getHeader()->set('Content-Type', MimeType::M_MULT);
         $request->setData('testKey', 'testValue');
@@ -440,7 +440,7 @@ class HttpRequestTest extends \PHPUnit\Framework\TestCase
      */
     public function testLanguage() : void
     {
-        $request = new HttpRequest(new HttpUri('http://localhost:1234/phpOMS/tests/Message/Http/HttpRequestLanguage.php'));
+        $request = new HttpRequest(new HttpUri('http://localhost:1234' . $GLOBALS['frameworkpath'] . 'tests/Message/Http/HttpRequestLanguage.php'));
         $request->setMethod(RequestMethod::GET);
 
         self::assertEquals(
@@ -456,7 +456,7 @@ class HttpRequestTest extends \PHPUnit\Framework\TestCase
      */
     public function testLocale() : void
     {
-        $request = new HttpRequest(new HttpUri('http://localhost:1234/phpOMS/tests/Message/Http/HttpRequestLocale.php'));
+        $request = new HttpRequest(new HttpUri('http://localhost:1234' . $GLOBALS['frameworkpath'] . 'tests/Message/Http/HttpRequestLocale.php'));
         $request->setMethod(RequestMethod::GET);
 
         self::assertEquals(
@@ -472,7 +472,7 @@ class HttpRequestTest extends \PHPUnit\Framework\TestCase
      */
     public function testMobile() : void
     {
-        $request = new HttpRequest(new HttpUri('http://localhost:1234/phpOMS/tests/Message/Http/HttpRequestMobile.php'));
+        $request = new HttpRequest(new HttpUri('http://localhost:1234' . $GLOBALS['frameworkpath'] . 'tests/Message/Http/HttpRequestMobile.php'));
         $request->setMethod(RequestMethod::GET);
 
         self::assertEquals(
@@ -488,7 +488,7 @@ class HttpRequestTest extends \PHPUnit\Framework\TestCase
      */
     public function testOS() : void
     {
-        $request = new HttpRequest(new HttpUri('http://localhost:1234/phpOMS/tests/Message/Http/HttpRequestOS.php'));
+        $request = new HttpRequest(new HttpUri('http://localhost:1234' . $GLOBALS['frameworkpath'] . 'tests/Message/Http/HttpRequestOS.php'));
         $request->setMethod(RequestMethod::GET);
 
         self::assertEquals(
@@ -504,7 +504,7 @@ class HttpRequestTest extends \PHPUnit\Framework\TestCase
      */
     public function testBrowser() : void
     {
-        $request = new HttpRequest(new HttpUri('http://localhost:1234/phpOMS/tests/Message/Http/HttpRequestBrowser.php'));
+        $request = new HttpRequest(new HttpUri('http://localhost:1234' . $GLOBALS['frameworkpath'] . 'tests/Message/Http/HttpRequestBrowser.php'));
         $request->setMethod(RequestMethod::GET);
 
         self::assertEquals(
