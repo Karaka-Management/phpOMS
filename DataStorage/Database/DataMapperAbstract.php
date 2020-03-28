@@ -2076,7 +2076,7 @@ class DataMapperAbstract implements DataMapperInterface
 
             if (isset(static::$ownsOne[$def['internal']])) {
                 $default = null;
-                if ($depth - 1 < 1) {
+                if ($depth - 1 < 1 && $refProp->isInitialized($obj)) {
                     $default = $refProp->getValue($obj);
                 }
 
@@ -2085,7 +2085,7 @@ class DataMapperAbstract implements DataMapperInterface
                 $refProp->setValue($obj, $value);
             } elseif (isset(static::$belongsTo[$def['internal']])) {
                 $default = null;
-                if ($depth - 1 < 1) {
+                if ($depth - 1 < 1 && $refProp->isInitialized($obj)) {
                     $default = $refProp->getValue($obj);
                 }
 
