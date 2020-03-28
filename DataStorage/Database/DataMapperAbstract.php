@@ -1885,7 +1885,9 @@ class DataMapperAbstract implements DataMapperInterface
 
         if ($depth < 1) {
             if (\array_key_exists(static::$ownsOne[$member]['self'] . '_' . ($depth + 1), $result)) {
-                return $mapper::createNullModel($result[static::$ownsOne[$member]['self'] . '_' . ($depth + 1)]);
+                return isset(static::$ownsOne[$member]['column'])
+                    ? $result[static::$ownsOne[$member]['self'] . '_' . ($depth + 1)]
+                    : $mapper::createNullModel($result[static::$ownsOne[$member]['self'] . '_' . ($depth + 1)]);
             } else {
                 return $default;
             }
@@ -1963,7 +1965,9 @@ class DataMapperAbstract implements DataMapperInterface
 
         if ($depth < 1) {
             if (\array_key_exists(static::$belongsTo[$member]['self'] . '_' . ($depth + 1), $result)) {
-                return $mapper::createNullModel($result[static::$belongsTo[$member]['self'] . '_' . ($depth + 1)]);
+                return isset(static::$belongsTo[$member]['column'])
+                    ? $result[static::$belongsTo[$member]['self'] . '_' . ($depth + 1)]
+                    : $mapper::createNullModel($result[static::$belongsTo[$member]['self'] . '_' . ($depth + 1)]);
             } else {
                 return $default;
             }

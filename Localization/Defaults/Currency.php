@@ -30,7 +30,7 @@ class Currency
      * @var int
      * @since 1.0.0
      */
-    private int $id = 0;
+    protected int $id = 0;
 
     /**
      * Currency name.
@@ -38,7 +38,7 @@ class Currency
      * @var string
      * @since 1.0.0
      */
-    private string $name = '';
+    protected string $name = '';
 
     /**
      * Currency code.
@@ -46,7 +46,7 @@ class Currency
      * @var string
      * @since 1.0.0
      */
-    private string $code = '';
+    protected string $code = '';
 
     /**
      * Currency symbol.
@@ -54,7 +54,7 @@ class Currency
      * @var string
      * @since 1.0.0
      */
-    private string $symbol = '';
+    protected string $symbol = '';
 
     /**
      * Currency number.
@@ -62,7 +62,7 @@ class Currency
      * @var string
      * @since 1.0.0
      */
-    private string $number = '';
+    protected string $number = '';
 
     /**
      * Currency subunits.
@@ -70,7 +70,7 @@ class Currency
      * @var int
      * @since 1.0.0
      */
-    private int $subunits = 0;
+    protected int $subunits = 0;
 
     /**
      * Currency decimals.
@@ -78,7 +78,7 @@ class Currency
      * @var string
      * @since 1.0.0
      */
-    private string $decimals = '';
+    protected string $decimals = '';
 
     /**
      * Currency countries.
@@ -86,7 +86,7 @@ class Currency
      * @var string
      * @since 1.0.0
      */
-    private string $countries = '';
+    protected string $countries = '';
 
     /**
      * Get currency name
