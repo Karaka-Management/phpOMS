@@ -356,10 +356,10 @@ class DataMapperAbstract implements DataMapperInterface
         }
 
         if ($hasAutocompletes) {
-            $query->andWhere($where2);
+            $query->orWhere($where2);
         }
 
-        if ($searchDepth > 1) {
+        if ($searchDepth > 2) {
             foreach (static::$ownsOne as $one) {
                 $one['mapper']::findQuery($search, $searchDepth - 1, $query);
             }
@@ -1866,9 +1866,10 @@ class DataMapperAbstract implements DataMapperInterface
     /**
      * Populate data.
      *
-     * @param string $member Member name
-     * @param array  $result Result data
-     * @param int    $depth  Relation depth
+     * @param string $member  Member name
+     * @param array  $result  Result data
+     * @param int    $depth   Relation depth
+     * @param mixed  $default Default value
      *
      * @return mixed
      *
@@ -1877,10 +1878,18 @@ class DataMapperAbstract implements DataMapperInterface
      *
      * @since 1.0.0
      */
-    public static function populateOwnsOne(string $member, array $result, int $depth = 3)
+    public static function populateOwnsOne(string $member, array $result, int $depth = 3, $default = null)
     {
         /** @var self $mapper */
         $mapper = static::$ownsOne[$member]['mapper'];
+
+        if ($depth < 1) {
+            if (\array_key_exists(static::$ownsOne[$member]['self'] . '_' . ($depth + 1), $result)) {
+                return $mapper::createNullModel($result[static::$ownsOne[$member]['self'] . '_' . ($depth + 1)]);
+            } else {
+                return $default;
+            }
+        }
 
         if (isset(static::$ownsOne[$member]['column'])) {
             return $result[$mapper::getColumnByMember(static::$ownsOne[$member]['column']) . '_' . $depth];
@@ -1898,18 +1907,27 @@ class DataMapperAbstract implements DataMapperInterface
     /**
      * Populate data.
      *
-     * @param string $member Member name
-     * @param array  $result Result data
-     * @param int    $depth  Relation depth
+     * @param string $member  Member name
+     * @param array  $result  Result data
+     * @param int    $depth   Relation depth
+     * @param mixed  $default Default value
      *
      * @return void
      *
      * @since 1.0.0
      */
-    public static function populateOwnsOneArray(string $member, array $result, int $depth = 3) : array
+    public static function populateOwnsOneArray(string $member, array $result, int $depth = 3, $default = null) : array
     {
         /** @var self $mapper */
         $mapper = static::$ownsOne[$member]['mapper'];
+
+        if ($depth < 1) {
+            if (\array_key_exists(static::$ownsOne[$member]['self'] . '_' . ($depth + 1), $result)) {
+                return $result[static::$ownsOne[$member]['self'] . '_' . ($depth + 1)];
+            } else {
+                return $default;
+            }
+        }
 
         if (isset(static::$ownsOne[$member]['column'])) {
             return $result[$mapper::getColumnByMember(static::$ownsOne[$member]['column']) . '_' . $depth];
@@ -1927,9 +1945,10 @@ class DataMapperAbstract implements DataMapperInterface
     /**
      * Populate data.
      *
-     * @param string $member Member name
-     * @param array  $result Result data
-     * @param int    $depth  Relation depth
+     * @param string $member  Member name
+     * @param array  $result  Result data
+     * @param int    $depth   Relation depth
+     * @param mixed  $default Default value
      *
      * @return mixed
      *
@@ -1937,10 +1956,18 @@ class DataMapperAbstract implements DataMapperInterface
      *
      * @since 1.0.0
      */
-    public static function populateBelongsTo(string $member, array $result, int $depth = 3)
+    public static function populateBelongsTo(string $member, array $result, int $depth = 3, $default = null)
     {
         /** @var self $mapper */
         $mapper = static::$belongsTo[$member]['mapper'];
+
+        if ($depth < 1) {
+            if (\array_key_exists(static::$belongsTo[$member]['self'] . '_' . ($depth + 1), $result)) {
+                return $mapper::createNullModel($result[static::$belongsTo[$member]['self'] . '_' . ($depth + 1)]);
+            } else {
+                return $default;
+            }
+        }
 
         if (isset(static::$belongsTo[$member]['column'])) {
             return $result[$mapper::getColumnByMember(static::$belongsTo[$member]['column']) . '_' . $depth];
@@ -1958,18 +1985,27 @@ class DataMapperAbstract implements DataMapperInterface
     /**
      * Populate data.
      *
-     * @param string $member Member name
-     * @param array  $result Result data
-     * @param int    $depth  Relation depth
+     * @param string $member  Member name
+     * @param array  $result  Result data
+     * @param int    $depth   Relation depth
+     * @param mixed  $default Default value
      *
      * @return void
      *
      * @since 1.0.0
      */
-    public static function populateBelongsToArray(string $member, array $result, int $depth = 3) : array
+    public static function populateBelongsToArray(string $member, array $result, int $depth = 3, $default = null) : array
     {
         /** @var self $mapper */
         $mapper = static::$belongsTo[$member]['mapper'];
+
+        if ($depth < 1) {
+            if (\array_key_exists(static::$belongsTo[$member]['self'] . '_' . ($depth + 1), $result)) {
+                return $result[static::$belongsTo[$member]['self'] . '_' . ($depth + 1)];
+            } else {
+                return $default;
+            }
+        }
 
         if (isset(static::$belongsTo[$member]['column'])) {
             return $result[$mapper::getColumnByMember(static::$belongsTo[$member]['column']) . '_' . $depth];
@@ -2035,19 +2071,21 @@ class DataMapperAbstract implements DataMapperInterface
             }
 
             if (isset(static::$ownsOne[$def['internal']])) {
+                $default = null;
                 if ($depth - 1 < 1) {
-                    continue;
+                    $default = $refProp->getValue($obj);
                 }
 
-                $value = self::populateOwnsOne($def['internal'], $result, $depth - 1);
+                $value = self::populateOwnsOne($def['internal'], $result, $depth - 1, $default);
 
                 $refProp->setValue($obj, $value);
             } elseif (isset(static::$belongsTo[$def['internal']])) {
+                $default = null;
                 if ($depth - 1 < 1) {
-                    continue;
+                    $default = $refProp->getValue($obj);
                 }
 
-                $value = self::populateBelongsTo($def['internal'], $result, $depth - 1);
+                $value = self::populateBelongsTo($def['internal'], $result, $depth - 1, $default);
 
                 $refProp->setValue($obj, $value);
             } elseif (\in_array($def['type'], ['string', 'int', 'float', 'bool'])) {
@@ -2180,16 +2218,8 @@ class DataMapperAbstract implements DataMapperInterface
             }
 
             if (isset(static::$ownsOne[$def['internal']])) {
-                if ($depth - 1 < 1) {
-                    continue;
-                }
-
                 $value = self::populateOwnsOneArray(static::$columns[$column]['internal'], $result, $depth - 1);
             } elseif (isset(static::$belongsTo[$def['internal']])) {
-                if ($depth - 1 < 1) {
-                    continue;
-                }
-
                 $value = self::populateBelongsToArray(static::$columns[$column]['internal'], $result, $depth - 1);
             } elseif (\in_array(static::$columns[$column]['type'], ['string', 'int', 'float', 'bool'])) {
                 \settype($value, static::$columns[$column]['type']);
@@ -2373,7 +2403,7 @@ class DataMapperAbstract implements DataMapperInterface
         $obj  = [];
 
         foreach ($keys as $key => $value) {
-            if (!self::isInitialized(static::class, $value)) {
+            if (!self::isInitialized(static::class, $value) || $ref !== null) {
                 continue;
             }
 
@@ -2792,10 +2822,15 @@ class DataMapperAbstract implements DataMapperInterface
             }
         }
 
-        $sth = self::$db->con->prepare($query->toSql());
-        $sth->execute();
-
-        $results = $sth->fetchAll(\PDO::FETCH_ASSOC);
+        try {
+            $sth = self::$db->con->prepare($query->toSql());
+            $sth->execute();
+            $results = $sth->fetchAll(\PDO::FETCH_ASSOC);
+        } catch (\Throwable $t) {
+            $results = false;
+            \var_dump($query->toSql());
+            \var_dump($t->getMessage());
+        }
 
         return $results === false ? [] : $results;
     }

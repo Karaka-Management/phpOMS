@@ -221,7 +221,7 @@ class DataMapperAbstractTest extends \PHPUnit\Framework\TestCase
 
         self::assertEquals(
             \reset($this->model->hasManyDirect)->string,
-            $for->string
+            $for[1]->string
         );
 
         self::assertCount(1, BaseModelMapper::getAll());
