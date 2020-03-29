@@ -39,7 +39,7 @@ class MemCachedTest extends \PHPUnit\Framework\TestCase
         $this->cache = new MemCached($GLOBALS['CONFIG']['cache']['memcached']);
     }
 
-    protected function tearDown(): void
+    protected function tearDown() : void
     {
         $this->cache->flushAll();
     }

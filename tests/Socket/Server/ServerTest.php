@@ -85,7 +85,7 @@ class ServerTest extends \PHPUnit\Framework\TestCase
         $socket->create('127.0.0.1', $GLOBALS['CONFIG']['socket']['master']['port']);
         $socket->setLimit(1);
 
-        $this->app->router->add('^shutdown$', function($app, $request) use ($socket): void { $socket->shutdown($request); });
+        $this->app->router->add('^shutdown$', function($app, $request) use ($socket) : void { $socket->shutdown($request); });
 
         $socket->run();
 

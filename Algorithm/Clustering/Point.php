@@ -65,7 +65,7 @@ class Point implements PointInterface
     /**
      * {@inheritdoc}
      */
-    public function getCoordinates(): array
+    public function getCoordinates() : array
     {
         return $this->coordinates;
     }

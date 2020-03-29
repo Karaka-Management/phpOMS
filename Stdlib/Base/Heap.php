@@ -266,7 +266,7 @@ class Heap
      *
      * @since 1.0.0
      */
-    public function getNSmallest(int $n): array
+    public function getNSmallest(int $n) : array
     {
         $nodes = $this->nodes;
         \uasort($nodes, $this->compare);

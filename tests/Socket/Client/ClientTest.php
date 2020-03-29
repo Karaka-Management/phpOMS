@@ -92,7 +92,7 @@ class ClientTest extends \PHPUnit\Framework\TestCase
         $socket->addPacket('help' . "\r");
         $socket->addPacket('shutdown' . "\r");
 
-        $this->app->router->add('^shutdown$', function() use ($socket): void { $socket->shutdown(); });
+        $this->app->router->add('^shutdown$', function() use ($socket) : void { $socket->shutdown(); });
 
         $socket->run();
 

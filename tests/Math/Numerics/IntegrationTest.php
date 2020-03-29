@@ -32,7 +32,7 @@ class IntegrationTest extends \PHPUnit\Framework\TestCase
      * @covers phpOMS\Math\Numerics\Integration
      * @group framework
      */
-    public function testLRect(): void
+    public function testLRect() : void
     {
         self::assertEqualsWithDelta(0.235322, Integration::intLeftRect(0.0, 1.0, 100.0, function($x) { return $x**3; }), 0.001);
         self::assertEqualsWithDelta(4.654000, Integration::intLeftRect(1.0, 100.0, 1000.0, function($x) { return 1 / $x; }), 0.001);
@@ -45,7 +45,7 @@ class IntegrationTest extends \PHPUnit\Framework\TestCase
      * @covers phpOMS\Math\Numerics\Integration
      * @group framework
      */
-    public function testRRect(): void
+    public function testRRect() : void
     {
         self::assertEqualsWithDelta(0.245025, Integration::intRightRect(0.0, 1.0, 100.0, function($x) { return $x**3; }), 0.001);
         self::assertEqualsWithDelta(4.555991, Integration::intRightRect(1.0, 100.0, 1000.0, function($x) { return 1 / $x; }), 0.001);
@@ -58,7 +58,7 @@ class IntegrationTest extends \PHPUnit\Framework\TestCase
      * @covers phpOMS\Math\Numerics\Integration
      * @group framework
      */
-    public function testMRect(): void
+    public function testMRect() : void
     {
         self::assertEqualsWithDelta(0.240137, Integration::intMiddleRect(0.0, 1.0, 100.0, function($x) { return $x**3; }), 0.001);
         self::assertEqualsWithDelta(4.603772, Integration::intMiddleRect(1.0, 100.0, 1000.0, function($x) { return 1 / $x; }), 0.001);
@@ -71,7 +71,7 @@ class IntegrationTest extends \PHPUnit\Framework\TestCase
      * @covers phpOMS\Math\Numerics\Integration
      * @group framework
      */
-    public function testTrapeze(): void
+    public function testTrapeze() : void
     {
         self::assertEqualsWithDelta(0.250025, Integration::intTrapezium(0.0, 1.0, 100.0, function($x) { return $x**3; }), 0.001);
         self::assertEqualsWithDelta(4.605986, Integration::intTrapezium(1.0, 100.0, 1000.0, function($x) { return 1 / $x; }), 0.001);
@@ -84,7 +84,7 @@ class IntegrationTest extends \PHPUnit\Framework\TestCase
      * @covers phpOMS\Math\Numerics\Integration
      * @group framework
      */
-    public function testSimpson(): void
+    public function testSimpson() : void
     {
         self::assertEqualsWithDelta(0.25, Integration::intSimpson(0.0, 1.0, 100.0, function ($x) { return $x ** 3; }), 0.001);
         self::assertEqualsWithDelta(4.605170, Integration::intSimpson(1.0, 100.0, 1000.0, function ($x) { return 1 / $x; }), 0.001);

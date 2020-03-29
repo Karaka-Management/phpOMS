@@ -549,7 +549,7 @@ class Interval implements \Serializable
      *
      * @since 1.0.0
      */
-    public function unserialize($serialized): void
+    public function unserialize($serialized) : void
     {
         $data = \json_decode($serialized, true);
 

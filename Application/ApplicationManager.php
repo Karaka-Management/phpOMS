@@ -69,7 +69,7 @@ final class ApplicationManager
      *
      * @since 1.0.0
      */
-    private function loadInfo(string $appPath): ApplicationInfo
+    private function loadInfo(string $appPath) : ApplicationInfo
     {
         $path = \realpath($appPath);
 

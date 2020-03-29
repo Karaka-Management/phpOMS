@@ -54,7 +54,7 @@ class SpreadsheetDatabaseMapperTest extends \PHPUnit\Framework\TestCase
         $this->sqlite = new SQLiteConnection(['db' => 'sqlite', 'database' => __DIR__ . '/spreadsheet.db']);
     }
 
-    protected function tearDown(): void
+    protected function tearDown() : void
     {
         if (\file_exists(__DIR__ . '/spreadsheet.db')) {
             \unlink(__DIR__ . '/spreadsheet.db');

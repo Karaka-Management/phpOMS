@@ -28,7 +28,7 @@ class FileLoggerTest extends \PHPUnit\Framework\TestCase
 {
     protected FileLogger $log;
 
-    protected function setUp(): void
+    protected function setUp() : void
     {
         if (\file_exists(__DIR__ . '/' . \date('Y-m-d') . '.log')) {
             \unlink(__DIR__ . '/' . \date('Y-m-d') . '.log');

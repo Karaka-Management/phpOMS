@@ -60,7 +60,7 @@ final class MultipleLinearRegression extends RegressionAbstract
     /**
      * {@inheritdoc}
      */
-    public static function getElasticity(float $b1, float $y, float $x): float
+    public static function getElasticity(float $b1, float $y, float $x) : float
     {
         return 0.0;
     }

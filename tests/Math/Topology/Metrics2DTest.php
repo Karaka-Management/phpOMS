@@ -151,7 +151,7 @@ class Metrics2DTest extends \PHPUnit\Framework\TestCase
      * @covers phpOMS\Math\Topology\Metrics2D
      * @group framework
      */
-    public function testUlam(): void
+    public function testUlam() : void
     {
         self::assertEquals(
             2,

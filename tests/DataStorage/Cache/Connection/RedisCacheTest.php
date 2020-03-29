@@ -39,7 +39,7 @@ class RedisCacheTest extends \PHPUnit\Framework\TestCase
         $this->cache = new RedisCache($GLOBALS['CONFIG']['cache']['redis']);
     }
 
-    protected function tearDown(): void
+    protected function tearDown() : void
     {
         $this->cache->flushAll();
     }

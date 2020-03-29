@@ -176,7 +176,7 @@ class HeapTest extends \PHPUnit\Framework\TestCase
      * @covers phpOMS\Stdlib\Base\Heap
      * @group framework
      */
-    public function testContains(): void
+    public function testContains() : void
     {
         $heap = new Heap();
         for ($i = 1; $i < 6; ++$i) {
@@ -197,7 +197,7 @@ class HeapTest extends \PHPUnit\Framework\TestCase
      * @covers phpOMS\Stdlib\Base\Heap
      * @group framework
      */
-    public function testContainsItem(): void
+    public function testContainsItem() : void
     {
         $heap = new Heap();
         for ($i = 1; $i < 6; ++$i) {
@@ -218,7 +218,7 @@ class HeapTest extends \PHPUnit\Framework\TestCase
      * @covers phpOMS\Stdlib\Base\Heap
      * @group framework
      */
-    public function testUpdate(): void
+    public function testUpdate() : void
     {
         $heap  = new Heap();
         $items = [];
@@ -282,7 +282,7 @@ class HeapTest extends \PHPUnit\Framework\TestCase
      * @covers phpOMS\Stdlib\Base\Heap
      * @group framework
      */
-    public function testNLargest(): void
+    public function testNLargest() : void
     {
         $heap = new Heap();
         $heap->push(1);
@@ -299,7 +299,7 @@ class HeapTest extends \PHPUnit\Framework\TestCase
      * @covers phpOMS\Stdlib\Base\Heap
      * @group framework
      */
-    public function testClear(): void
+    public function testClear() : void
     {
         $heap = new Heap();
         for ($i = 1; $i < 6; ++$i) {
@@ -315,7 +315,7 @@ class HeapTest extends \PHPUnit\Framework\TestCase
      * @covers phpOMS\Stdlib\Base\Heap
      * @group framework
      */
-    public function testEmpty(): void
+    public function testEmpty() : void
     {
         $heap = new Heap();
         self::assertTrue($heap->isEmpty());

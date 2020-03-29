@@ -66,6 +66,6 @@ $socket = new Server($app);
 $socket->create('127.0.0.1', $config['socket']['master']['port']);
 $socket->setLimit(1);
 
-$app->router->add('^shutdown$', function($app, $request) use ($socket): void { $socket->shutdown($request); });
+$app->router->add('^shutdown$', function($app, $request) use ($socket) : void { $socket->shutdown($request); });
 
 $socket->run();

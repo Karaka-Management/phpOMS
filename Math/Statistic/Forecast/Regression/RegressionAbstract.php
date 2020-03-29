@@ -203,5 +203,5 @@ abstract class RegressionAbstract
      *
      * @since 1.0.0
      */
-    abstract public static function getElasticity(float $b1, float $x, float $y): float;
+    abstract public static function getElasticity(float $b1, float $x, float $y) : float;
 }
