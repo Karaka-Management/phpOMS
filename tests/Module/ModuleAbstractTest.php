@@ -283,6 +283,7 @@ class ModuleAbstractTest extends \PHPUnit\Framework\TestCase
         $GLOBALS['dbpool']->get()->con->prepare('DROP TABLE test_has_many_direct')->execute();
         $GLOBALS['dbpool']->get()->con->prepare('DROP TABLE test_has_many_rel')->execute();
         $GLOBALS['dbpool']->get()->con->prepare('DROP TABLE test_has_many_rel_relations')->execute();
+        BaseModelMapper::clearCache();
     }
 
     /**

@@ -636,6 +636,7 @@ class DataMapperAbstract implements DataMapperInterface
         }
 
         self::createRelationTable($member, \is_array($id2) ? $id2 : [$id2], $id1);
+        self::removeInitialized(static::class, $id1);
 
         return true;
     }
@@ -2439,10 +2440,7 @@ class DataMapperAbstract implements DataMapperInterface
                 self::addInitialized(static::class, $value, $obj[$value]);
 
                 $obj[$value] = self::populateAbstract($row, $obj[$value], $depth);
-
-                foreach (static::$hasMany as $many) {
-                    self::fillRelations($obj[$value], $relations, $depth - 1);
-                }
+                self::fillRelations($obj[$value], $relations, $depth - 1);
             }
         }
 
@@ -2510,10 +2508,7 @@ class DataMapperAbstract implements DataMapperInterface
             $obj[$value] = self::populateAbstractArray($row, [], $depth);
 
             self::addInitializedArray(static::class, $value, $obj[$value]);
-
-            foreach (static::$hasMany as $many) {
-                self::fillRelationsArray(${$obj}[$value], $relations, $depth - 1);
-            }
+            self::fillRelationsArray($obj[$value], $relations, $depth - 1);
         }
 
         self::clear();
@@ -2766,14 +2761,14 @@ class DataMapperAbstract implements DataMapperInterface
             return;
         }
 
-        $key = $obj[$mapper::$columns[$mapper::$primaryField]['internal']];
+        $key = $obj[static::$columns[static::$primaryField]['internal']];
 
         if (empty($key)) {
             return;
         }
 
         /* loading relations from relations table and populating them and then adding them to the object */
-        self::populateManyToManyArray(self::getHasManyRaw($key, $mapper, $relations), $obj[$key], $depth);
+        self::populateManyToManyArray(self::getHasManyRaw($key, $relations), $obj, $depth);
     }
 
     /**
