@@ -46,6 +46,14 @@ use phpOMS\Utils\ArrayUtils;
  * @todo Orange-Management/Modules#99
  *  Use binds
  *  Currently databinds are not used. Currently injections are possible.
+ *
+ * @todo Orange-Management/phpOMS#241
+ *      [DataMapper] Consider global conditionals
+ *      In some cases conditionals in the mapper are typed again and again
+ *          e.g. language conditional for localization purposes
+ *      This is very annoying and maybe could be defined once in a `$conditionalsGlobal = [];` array.
+ *      This array then populates the `$conditionals` array in the mapper.
+ *      Overwriting the global conditionals could be possible by defining a conditional as `null`.
  */
 class DataMapperAbstract implements DataMapperInterface
 {
