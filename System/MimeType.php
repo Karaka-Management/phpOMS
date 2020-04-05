@@ -514,6 +514,9 @@ abstract class MimeType extends Enum
     public const M_MSL       = 'application/vnd.mobius.msl';
     public const M_MSTY      = 'application/vnd.muvee.style';
     public const M_MULT      = 'multipart/form-data';
+    public const M_ALT       = 'multipart/alternative';
+    public const M_MIXED     = 'multipart/mixed';
+    public const M_RELATED   = 'multipart/related';
     public const M_MTS       = 'model/vnd.mts';
     public const M_MUS       = 'application/vnd.musician';
     public const M_MUSICXML  = 'application/vnd.recordare.musicxml+xml';

@@ -285,6 +285,28 @@ final class File extends FileAbstract implements LocalContainerInterface, FileIn
     }
 
     /**
+     * Multi-byte path info
+     *
+     * @param string $path Path
+     *
+     * @return array
+     *
+     * @since 1.0.0
+     */
+    public static function pathInfo(string $path) : array
+    {
+        $info = [];
+        \preg_match('#^(.*?)[\\\\/]*(([^/\\\\]*?)(\.([^.\\\\/]+?)|))[\\\\/.]*$#m', $path, $info);
+
+        $info['dirname']   = $info[1] ?? '';
+        $info['basename']  = $info[2] ?? '';
+        $info['filename']  = $info[3] ?? '';
+        $info['extension'] = $info[5] ?? '';
+
+        return $info;
+    }
+
+    /**
      * Gets the directory name of a file.
      *
      * @param string $path path of the file to get the directory name for
