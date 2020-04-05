@@ -48,12 +48,24 @@ use phpOMS\Utils\ArrayUtils;
  *  Currently databinds are not used. Currently injections are possible.
  *
  * @todo Orange-Management/phpOMS#241
- *      [DataMapper] Consider global conditionals
- *      In some cases conditionals in the mapper are typed again and again
- *          e.g. language conditional for localization purposes
- *      This is very annoying and maybe could be defined once in a `$conditionalsGlobal = [];` array.
- *      This array then populates the `$conditionals` array in the mapper.
- *      Overwriting the global conditionals could be possible by defining a conditional as `null`.
+ *  [DataMapper] Consider global conditionals
+ *  In some cases conditionals in the mapper are typed again and again
+ *      e.g. language conditional for localization purposes
+ *  This is very annoying and maybe could be defined once in a `$conditionalsGlobal = [];` array.
+ *  This array then populates the `$conditionals` array in the mapper.
+ *  Overwriting the global conditionals could be possible by defining a conditional as `null`.
+ *
+ * @todo Orange-Management/phpOMS#242
+ *  [DataMapper] Conditional queries bugs/problems
+ *  Corrupted conditional relations are not shown and therefor cannot be fixed by the user e.g.
+ *      * Tag is created
+ *      * No l11n is created
+ *  -> The tags without l11n are not shown in the list and therefor the user doesn't know about them and cannot fix them.
+ *  If the defined conditional doesn't exist (e.g. language) the element is not shown at all.
+ *  This can be a problem if the user wants the conditional as preferred result
+ *  but also accepts alternatives if nothing exists for this conditional but for other conditionals. E.g.
+ *      * News article doesn't exist in the defined l11n
+ *      * However if the article exists in english language it should at least show in that language.
  */
 class DataMapperAbstract implements DataMapperInterface
 {
