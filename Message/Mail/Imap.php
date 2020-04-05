@@ -40,4 +40,12 @@ class Imap extends EmailAbstract
 
         return parent::connect($user, $pass);
     }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function send() : bool
+    {
+
+    }
 }

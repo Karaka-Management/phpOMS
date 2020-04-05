@@ -25,7 +25,7 @@ namespace phpOMS\Message\Mail;
  * @todo Orange-Management/phpOMS#34
  *  Implement!!!
  */
-class EmailAbstract
+abstract class EmailAbstract
 {
     /**
      * Host.
@@ -33,7 +33,7 @@ class EmailAbstract
      * @var string
      * @since 1.0.0
      */
-    protected $host = '';
+    protected string $host = '';
 
     /**
      * Port.
@@ -41,7 +41,7 @@ class EmailAbstract
      * @var int
      * @since 1.0.0
      */
-    protected $port = 25;
+    protected int $port = 25;
 
     /**
      * Use ssl.
@@ -49,7 +49,7 @@ class EmailAbstract
      * @var bool
      * @since 1.0.0
      */
-    protected $ssl = false;
+    protected bool $ssl = false;
 
     /**
      * Mailbox base.
@@ -57,7 +57,7 @@ class EmailAbstract
      * @var string
      * @since 1.0.0
      */
-    protected $mailbox = '';
+    protected string $mailbox = '';
 
     /**
      * Timeout.
@@ -65,7 +65,7 @@ class EmailAbstract
      * @var int
      * @since 1.0.0
      */
-    protected $timeout = 30;
+    protected int $timeout = 30;
 
     /**
      * Connection.
@@ -74,6 +74,30 @@ class EmailAbstract
      * @since 1.0.0
      */
     protected $con = null;
+
+    /**
+     * Submit type/software
+     *
+     * @var string
+     * @since 1.0.0
+     */
+    protected string $submitType = SubmitType::SMTP;
+
+    /**
+     * Sendmail path if submit type is not smtp or mail
+     *
+     * @var string
+     * @since 1.0.0
+     */
+    protected string $sendmailPath = '';
+
+    /**
+     * End of line
+     *
+     * @var string
+     * @since 1.0.0
+     */
+    protected string $endOfLine = "\r\n";
 
     /**
      * Construct
@@ -179,6 +203,52 @@ class EmailAbstract
     public function isConnected() : bool
     {
         return $this->con === null ? false : \imap_ping($this->con);
+    }
+
+    /**
+     * Set submit type/software
+     *
+     * @param string $submitType Submit type/software
+     *
+     * @return void
+     *
+     * @since 1.0.0
+     */
+    public function setSubmitType(string $submitType) : void
+    {
+        $this->submitType = $submitType;
+
+        if ($this->submitType === SubmitType::SMTP || $this->submitType === SubmitType::MAIL) {
+            $this->endOfLine = $this->submitType === SubmitType::SMTP || !\stripos(\PHP_OS, 'WIN') === 0 ? \PHP_EOL : "\r\n";
+
+            return;
+        } elseif ($this->submitType === SubmitType::SENDMAIL) {
+            $this->endOfLine = \PHP_EOL;
+            $path            = \ini_get('sendmail_path');
+
+            $this->sendmailPath = \stripos($path, 'sendmail') === false ? '/usr/sbin/sendmail' : $path;
+        } elseif ($this->submitType === SubmitType::QMAIL) {
+            $this->endOfLine = \PHP_EOL;
+            $path            = \ini_get('sendmail_path');
+
+            $this->sendmailPath = \stripos($path, 'qmail') === false ? '/var/qmail/bin/qmail-inject' : $path;
+        }
+    }
+
+    /**
+     * Send a Mail
+     *
+     * @param Mail $mail Mail to send
+     *
+     * @return bool
+     *
+     * @since 1.0.0
+     */
+    public function send(Mail $mail) : bool
+    {
+        if (empty($mail->getTo())) {
+            return false;
+        }
     }
 
     /**

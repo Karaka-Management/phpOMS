@@ -40,4 +40,12 @@ class Pop3 extends EmailAbstract
 
         return parent::connect();
     }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function send() : bool
+    {
+
+    }
 }
