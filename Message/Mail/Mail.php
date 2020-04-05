@@ -641,23 +641,23 @@ class Mail
 
         switch ($this->messageType) {
             case DispositionType::INLINE:
-                $mime .= 'Content-Type:' . MimeType::M_RELATED . ';' . $this->endOfLine;;
+                $mime .= 'Content-Type:' . MimeType::M_RELATED . ';' . $this->endOfLine;
                 $mime .= ' boundary="' . $this->boundary[0] . '"' . $this->endOfLine;
                 break;
             case DispositionType::ATTACHMENT:
             case DispositionType::INLINE . '_' . DispositionType::ATTACHMENT:
             case DispositionType::ALT . '_' . DispositionType::ATTACHMENT:
             case DispositionType::ALT . '_' . DispositionType::INLINE . '_' . DispositionType::ATTACHMENT:
-                $mime .= 'Content-Type:' . MimeType::M_MIXED . ';' . $this->endOfLine;;
+                $mime .= 'Content-Type:' . MimeType::M_MIXED . ';' . $this->endOfLine;
                 $mime .= ' boundary="' . $this->boundary[0] . '"' . $this->endOfLine;
                 break;
             case DispositionType::ALT:
             case DispositionType::ALT . '_' . DispositionType::INLINE:
-                $mime .= 'Content-Type:' . MimeType::M_ALT . ';' . $this->endOfLine;;
+                $mime .= 'Content-Type:' . MimeType::M_ALT . ';' . $this->endOfLine;
                 $mime .= ' boundary="' . $this->boundary[0] . '"' . $this->endOfLine;
                 break;
             default:
-                $mime .= 'Content-Type:' . $this->contentType . '; charset=' . CharsetType::UTF_8 . ';' . $this->endOfLine;;
+                $mime .= 'Content-Type:' . $this->contentType . '; charset=' . CharsetType::UTF_8 . ';' . $this->endOfLine;
 
                 $isMultipart = false;
         }
