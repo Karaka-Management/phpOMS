@@ -15,7 +15,6 @@ declare(strict_types=1);
 namespace phpOMS\Utils;
 
 use phpOMS\Contract\RenderableInterface;
-use phpOMS\System\CharsetType;
 
 /**
  * String utils class.
