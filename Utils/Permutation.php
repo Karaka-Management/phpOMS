@@ -114,7 +114,7 @@ final class Permutation
         $length = \is_array($toPermute) ? \count($toPermute) : \strlen($toPermute);
 
         if (\count($key) > $length) {
-            throw new \OutOfBoundsException('There mustn not be more keys than permutation elements.');
+            throw new \OutOfBoundsException('There must not be more keys than permutation elements.');
         }
 
         $i = 0;
