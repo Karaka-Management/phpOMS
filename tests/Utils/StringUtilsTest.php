@@ -33,7 +33,7 @@ class StringUtilsTest extends \PHPUnit\Framework\TestCase
      */
     public function testEntropy() : void
     {
-        self::assertTrue(\abs(2.5 - StringUtils::getEntropy('akj@!0aj')) < 0.1);
+        self::assertEqualsWithDelta(2.5, StringUtils::entropy('akj@!0aj'), 0.1);
     }
 
     /**
@@ -61,89 +61,6 @@ class StringUtilsTest extends \PHPUnit\Framework\TestCase
     }
 
     /**
-     * @testdox A multi-byte string can be checked if it starts with a defined string
-     * @covers phpOMS\Utils\StringUtils
-     * @group framework
-     */
-    public function testStartsMb() : void
-    {
-        $string = 'This is a test string.';
-        self::assertTrue(StringUtils::mb_startsWith($string, 'This '));
-        self::assertFalse(StringUtils::mb_startsWith($string, 'Thss '));
-    }
-
-    /**
-     * @testdox A multi-byte string can be checked if it ends with a defined string
-     * @covers phpOMS\Utils\StringUtils
-     * @group framework
-     */
-    public function testEndsMb() : void
-    {
-        $string = 'This is a test string.';
-        self::assertTrue(StringUtils::mb_endsWith($string, 'string.'));
-        self::assertFalse(StringUtils::mb_endsWith($string, 'strng.'));
-    }
-
-    /**
-     * @testdox The first character of a multi-byte string can be turned into upper case
-     * @covers phpOMS\Utils\StringUtils
-     * @group framework
-     */
-    public function testTransformUpperCase() : void
-    {
-        self::assertEquals('This ', StringUtils::mb_ucfirst('this '));
-        self::assertNotEquals('this ', StringUtils::mb_ucfirst('this '));
-    }
-
-    /**
-     * @testdox The first character of a multi-byte string can be turned into lower case
-     * @covers phpOMS\Utils\StringUtils
-     * @group framework
-     */
-    public function testTransformLowerCase() : void
-    {
-        self::assertEquals('thss', StringUtils::mb_lcfirst('Thss'));
-        self::assertNotEquals('Thss', StringUtils::mb_lcfirst('Thss'));
-    }
-
-    /**
-     * @testdox A multi-byte string can be trimmed
-     * @covers phpOMS\Utils\StringUtils
-     * @group framework
-     */
-    public function testTrim() : void
-    {
-        $string = 'This is a test string.';
-
-        self::assertEquals($string, StringUtils::mb_trim($string, ' '));
-        self::assertEquals('This is a test string', StringUtils::mb_trim($string, '.'));
-        self::assertEquals('asdf', StringUtils::mb_trim(' asdf ', ' '));
-        self::assertEquals('asdf', StringUtils::mb_trim('%asdf%', '%'));
-    }
-
-    /**
-     * @testdox A multi-byte string can be right-trimmed
-     * @covers phpOMS\Utils\StringUtils
-     * @group framework
-     */
-    public function testRTrim() : void
-    {
-        self::assertEquals(' asdf', StringUtils::mb_rtrim(' asdf   '));
-        self::assertEquals('%asdf', StringUtils::mb_rtrim('%asdf%', '%'));
-    }
-
-    /**
-     * @testdox A multi-byte string can be left-trimmed
-     * @covers phpOMS\Utils\StringUtils
-     * @group framework
-     */
-    public function testLTrim() : void
-    {
-        self::assertEquals('asdf  ', StringUtils::mb_ltrim(' asdf  '));
-        self::assertEquals('asdf%', StringUtils::mb_ltrim('%asdf%', '%'));
-    }
-
-    /**
      * @testdox A string can be checked if it contains at least one defined string element
      * @covers phpOMS\Utils\StringUtils
      * @group framework
@@ -154,29 +71,6 @@ class StringUtilsTest extends \PHPUnit\Framework\TestCase
 
         self::assertTrue(StringUtils::contains($string, ['is', 'nothing', 'string']));
         self::assertFalse(StringUtils::contains($string, ['iss', 'nothing', 'false']));
-    }
-
-    /**
-     * @testdox A multi-byte string can be checked if it contains at least one defined string element
-     * @covers phpOMS\Utils\StringUtils
-     * @group framework
-     */
-    public function testContainsMb() : void
-    {
-        $string = 'This is a test string.';
-
-        self::assertTrue(StringUtils::mb_contains($string, ['is', 'nothing', 'string']));
-        self::assertFalse(StringUtils::mb_contains($string, ['iss', 'nothing', 'false']));
-    }
-
-    /**
-     * @testdox The characters of a multi-byte string can be counted
-     * @covers phpOMS\Utils\StringUtils
-     * @group framework
-     */
-    public function testCountMb() : void
-    {
-        self::assertEquals(5, StringUtils::mb_count_chars('αααααΕεΙιΜμΨψ')['α']);
     }
 
     /**
