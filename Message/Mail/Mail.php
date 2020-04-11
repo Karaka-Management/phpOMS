@@ -595,12 +595,12 @@ class Mail
         $bodyEncoding = $this->encoding;
         $bodyCharset  = $this->charset;
 
-        if ($bodyEncoding === EncodingType::E_8BIT && !((bool) preg_match('/[\x80-\xFF]/', $body))) {
+        if ($bodyEncoding === EncodingType::E_8BIT && !((bool) \preg_match('/[\x80-\xFF]/', $body))) {
             $bodyEncoding = EncodingType::E_7BIT;
             $bodyCharset  = CharsetType::ASCII;
         }
 
-        if ($this->encoding !== EncodingType::E_BASE64 && ((bool) preg_match('/^(.{' . (63 + strlen($this->endOfLine)) . ',})/m', $body))) {
+        if ($this->encoding !== EncodingType::E_BASE64 && ((bool) \preg_match('/^(.{' . (63 + \strlen($this->endOfLine)) . ',})/m', $body))) {
             $bodyEncoding = EncodingType::E_QUOTED;
         }
 
@@ -609,12 +609,12 @@ class Mail
         $bodyAltCharset  = $this->charset;
 
         if ($bodyAlt !== '') {
-            if ($bodyAltEncoding === EncodingType::E_8BIT && !((bool) preg_match('/[\x80-\xFF]/', $bodyAlt))) {
+            if ($bodyAltEncoding === EncodingType::E_8BIT && !((bool) \preg_match('/[\x80-\xFF]/', $bodyAlt))) {
                 $bodyAltEncoding = EncodingType::E_7BIT;
                 $bodyAltCharset  = CharsetType::ASCII;
             }
 
-            if ($this->encoding !== EncodingType::E_BASE64 && ((bool) preg_match('/^(.{' . (63 + strlen($this->endOfLine)) . ',})/m', $bodyAlt))) {
+            if ($this->encoding !== EncodingType::E_BASE64 && ((bool) \preg_match('/^(.{' . (63 + \strlen($this->endOfLine)) . ',})/m', $bodyAlt))) {
                 $bodyAltEncoding = EncodingType::E_QUOTED;
             }
         }
@@ -1038,12 +1038,12 @@ class Mail
         return \implode('', $mime);
     }
 
-    private function encodeQuoted()
+    private function encodeQuoted(): void
     {
 
     }
 
-    private function encodeHeader()
+    private function encodeHeader(): void
     {
 
     }
