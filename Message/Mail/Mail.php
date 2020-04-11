@@ -434,8 +434,9 @@ class Mail
             'name'        => $name,
             'encoding'    => $encoding,
             'type'        => $type,
+            'string'      => false,
             'disposition' => $disposition,
-            '???'         => $name,
+            'id'          => $name,
         ];
 
         $this->setMessageType();
@@ -997,7 +998,39 @@ class Mail
         $incl = [];
 
         foreach ($this->attachment as $attach) {
+            if ($attach['disposition'] === $disposition) {
+                $text = '';
+                $path = '';
+                $isString = $attach['string'];
 
+                if (!empty($isString)) {
+                    $text = $attach['path'];
+                } else {
+                    $path = $attach['path'];
+                }
+
+                $hash = \hash('sha256', \serialize($attach));
+                if (\in_array($hash, $incl, true)) {
+                    continue;
+                }
+
+                $incl[] = $hash;
+
+                if ($attach['disposition'] && isset($cid[$attach['id']])) {
+                    continue;
+                }
+
+                $cid[$attach['id']] = true;
+                $mime[] = '--' . $boundary . $this->endOfLine;
+                $mime[] = !empty($attach['name'])
+                    ? 'Content-Type: ' . $attach['type'] . '; name="' . $this->encodeHeader($this->secureHeader($attach['name'])) . '"' . $this->endOfLine
+                    : 'Content-Type: ' . $attach['type'] . $this->endOfLine;
+
+                if ($attach['encoding'] !== EncodingType::E_7BIT) {
+                    $mime[] = 'Content-Transfer-Encoding: ' . $attach['encoding'] . $this->endOfLine;
+                }
+
+            }
         }
 
         $mime[] = '--' . $boundary . '--' . $this->endOfLine;
