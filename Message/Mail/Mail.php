@@ -16,7 +16,7 @@ namespace phpOMS\Message\Mail;
 
 use phpOMS\System\CharsetType;
 use phpOMS\System\MimeType;
-use phpOMS\Utils\StringUtils;
+use phpOMS\Utils\MbStringUtils;
 
 /**
  * Mail class.
@@ -873,7 +873,7 @@ class Mail
                         if ($spaces > 20) {
                             $len = $spaces;
                             if ($isUTF8) {
-                                $len = StringUtils::utf8CharBoundary($word, $len);
+                                $len = MbStringUtils::utf8CharBoundary($word, $len);
                             } elseif ('=' === \substr($word, $len - 1, 1)) {
                                 --$len;
                             } elseif ('=' === \substr($word, $len - 2, 1)) {
@@ -899,7 +899,7 @@ class Mail
                         $len = $length;
 
                         if ($isUTF8) {
-                            $len = StringUtils::utf8CharBoundary($word, $len);
+                            $len = MbStringUtils::utf8CharBoundary($word, $len);
                         } elseif ('=' === \substr($word, $len - 1, 1)) {
                             --$len;
                         } elseif ('=' === \substr($word, $len - 2, 1)) {
