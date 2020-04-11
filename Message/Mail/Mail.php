@@ -16,6 +16,7 @@ namespace phpOMS\Message\Mail;
 
 use phpOMS\System\CharsetType;
 use phpOMS\System\MimeType;
+use phpOMS\Utils\StringUtils;
 
 /**
  * Mail class.
@@ -124,6 +125,14 @@ class Mail
     protected string $bodyMime = '';
 
     /**
+     * Mail body.
+     *
+     * @var string
+     * @since 1.0.0
+     */
+    protected string $icalBody = '';
+
+    /**
      * Mail header.
      *
      * @var string
@@ -142,10 +151,10 @@ class Mail
     /**
      * Encoding.
      *
-     * @var int
+     * @var string
      * @since 1.0.0
      */
-    protected int $encoding = EncodingType::E_8BIT;
+    protected string $encoding = EncodingType::E_8BIT;
 
     /**
      * Mail content type.
@@ -154,14 +163,6 @@ class Mail
      * @since 1.0.0
      */
     protected string $contentType = MimeType::M_TXT;
-
-    /**
-     * Boundaries
-     *
-     * @var array
-     * @since 1.0.0
-     */
-    protected array $boundary = [];
 
     /**
      * Mail message type.
@@ -581,15 +582,176 @@ class Mail
         $this->id = empty($this->id) ? $this->generatedId() : $this->id;
 
         $output = '';
-        $this->boundary[0] = 'b0_' . $this->id;
-        $this->boundary[1] = 'b1_' . $this->id;
-        $this->boundary[2] = 'b2_' . $this->id;
-        $this->boundary[3] = 'b3_' . $this->id;
+        $boundary    = [];
+        $boundary[0] = 'b0_' . $this->id;
+        $boundary[1] = 'b1_' . $this->id;
+        $boundary[2] = 'b2_' . $this->id;
+        $boundary[3] = 'b3_' . $this->id;
 
-        $output .= !empty($this->signKeyFile) ? $this->generateMimeHeader() . $this->endOfLine : '';
+        $output .= !empty($this->signKeyFile) ? $this->generateMimeHeader($boundary) . $this->endOfLine : '';
 
         $body = $this->wrapText($this->body, $this->wordWrap, false);
+        $bodyEncoding = $this->encoding;
+        $bodyCharset  = $this->charset;
 
+        if ($bodyEncoding === EncodingType::E_8BIT && !((bool) preg_match('/[\x80-\xFF]/', $body))) {
+            $bodyEncoding = EncodingType::E_7BIT;
+            $bodyCharset  = CharsetType::ASCII;
+        }
+
+        if ($this->encoding !== EncodingType::E_BASE64 && ((bool) preg_match('/^(.{' . (63 + strlen($this->endOfLine)) . ',})/m', $body))) {
+            $bodyEncoding = EncodingType::E_QUOTED;
+        }
+
+        $bodyAlt = $this->wrapText($this->bodyAlt, $this->wordWrap, false);
+        $bodyAltEncoding = $this->encoding;
+        $bodyAltCharset  = $this->charset;
+
+        if ($bodyAlt !== '') {
+            if ($bodyAltEncoding === EncodingType::E_8BIT && !((bool) preg_match('/[\x80-\xFF]/', $bodyAlt))) {
+                $bodyAltEncoding = EncodingType::E_7BIT;
+                $bodyAltCharset  = CharsetType::ASCII;
+            }
+
+            if ($this->encoding !== EncodingType::E_BASE64 && ((bool) preg_match('/^(.{' . (63 + strlen($this->endOfLine)) . ',})/m', $bodyAlt))) {
+                $bodyAltEncoding = EncodingType::E_QUOTED;
+            }
+        }
+
+        $mimeBody = 'This is a multi-part message in MIME format.' . $this->endOfLine . $this->endOfLine;
+
+        switch ($this->messageType) {
+            case DispositionType::INLINE:
+            case DispositionType::ATTACHMENT:
+                $body .= $mimeBody;
+                $body .= $this->getBoundary($boundary[0], $bodyCharset, $this->contentType, $bodyEncoding);
+                $body .= $this->encodeString($this->body, $bodyEncoding);
+                $body .= $this->endOfLine;
+                $body .= $this->attachAll($this->messageType, $boundary[0]);
+                break;
+            case DispositionType::INLINE . '_' . DispositionType::ATTACHMENT:
+                $body .= $mimeBody;
+                $body .= '--' . $boundary[0] . $this->endOfLine;
+                $body .= 'Content-Type: ' . MimeType::M_RELATED . ';' . $this->endOfLine;
+                $body .= ' boundary ="' . $boundary[1] . '";' . $this->endOfLine;
+                $body .= ' type ="' . MimeType::M_HTML . '";' . $this->endOfLine;
+                $body .= $this->endOfLine;
+                $body .= $this->getBoundary($boundary[1], $bodyCharset, $this->contentType, $bodyEncoding);
+                $body .= $this->encodeString($this->body, $bodyEncoding);
+                $body .= $this->endOfLine;
+                $body .= $this->attachAll(DispositionType::INLINE, $boundary[1]);
+                $body .= $this->endOfLine;
+                $body .= $this->attachAll(DispositionType::ATTACHMENT, $boundary[1]);
+                break;
+            case DispositionType::ALT:
+                $body .= $mimeBody;
+                $body .= $this->getBoundary($boundary[0], $bodyAltCharset, MimeType::M_TEXT, $bodyAltEncoding);
+                $body .= $this->encodeString($this->bodyAlt, $bodyAltEncoding);
+                $body .= $this->endOfLine;
+                $body .= $this->getBoundary($boundary[0], $bodyCharset, MimeType::M_HTML, $bodyEncoding);
+                $body .= $this->encodeString($this->body, $bodyEncoding);
+                $body .= $this->endOfLine;
+
+                if (!empty($this->icalBody)) {
+                    $method    = ICALMethodType::REQUEST;
+                    $constants = ICALMethodType::getConstants();
+
+                    foreach ($constants as $enum) {
+                        if (\stripos($this->icalBody, 'METHOD:' . $enum) !== false
+                            || \stripos($this->icalBody, 'METHOD: ' . $enum) !== false
+                        ) {
+                            $method = $enum;
+                            break;
+                        }
+                    }
+
+                    $body .= $this->getBoundary($boundary[0], $this->charset, MimeType::M_ICS . '; method=' . $method, $this->encoding);
+                    $body .= $this->encodeString($this->icalBody, $this->encoding);
+                    $body .= $this->endOfLine;
+                }
+
+                $body .= $this->endOfLine . '--' . $boundary[0] . '--' . $this->endOfLine;
+            break;
+            case DispositionType::ALT . '_' . DispositionType::INLINE:
+                $body .= $mimeBody;
+                $body .= $this->getBoundary($boundary[0], $bodyAltCharset, MimeType::M_TEXT, $bodyAltEncoding);
+                $body .= $this->encodeString($this->bodyAlt, $bodyAltEncoding);
+                $body .= $this->endOfLine;
+                $body .= '--' . $boundary[0] . $this->endOfLine;
+                $body .= 'Content-Type: ' . MimeType::M_RELATED . ';' . $this->endOfLine;
+                $body .= ' boundary="' . $boundary[1] . '";' . $this->endOfLine;
+                $body .= ' type="' . MimeType::M_HTML . '";' . $this->endOfLine;
+                $body .= $this->endOfLine;
+                $body .= $this->getBoundary($boundary[1], $bodyCharset, MimeType::M_HTML, $bodyEncoding);
+                $body .= $this->encodeString($this->body, $bodyEncoding);
+                $body .= $this->endOfLine;
+                $body .= $this->attachAll(DispositionType::INLINE, $boundary[1]);
+                $body .= $this->endOfLine;
+                $body .= $this->endOfLine . '--' . $boundary[0] . '--' . $this->endOfLine;
+                break;
+            case DispositionType::ALT . '_' . DispositionType::ATTACHMENT:
+                $body .= $mimeBody;
+                $body .= '--' . $boundary[0] . $this->endOfLine;
+                $body .= 'Content-Type: ' . MimeType::M_ALT . ';' . $this->endOfLine;
+                $body .= ' boundary="' . $boundary[1] . '"' . $this->endOfLine;
+                $body .= $this->endOfLine;
+                $body .= $this->getBoundary($boundary[1], $bodyAltCharset, MimeType::M_TEXT, $bodyAltEncoding);
+                $body .= $this->encodeString($this->bodyAlt, $bodyAltEncoding);
+                $body .= $this->endOfLine;
+                $body .= $this->getBoundary($boundary[1], $bodyCharset, MimeType::M_HTML, $bodyEncoding);
+                $body .= $this->encodeString($this->body, $bodyEncoding);
+                $body .= $this->endOfLine;
+
+                if (!empty($this->icalBody)) {
+                    $method    = ICALMethodType::REQUEST;
+                    $constants = ICALMethodType::getConstants();
+
+                    foreach ($constants as $enum) {
+                        if (\stripos($this->icalBody, 'METHOD:' . $enum) !== false
+                            || \stripos($this->icalBody, 'METHOD: ' . $enum) !== false
+                        ) {
+                            $method = $enum;
+                            break;
+                        }
+                    }
+
+                    $body .= $this->getBoundary($boundary[1], $this->charset, MimeType::M_ICS . '; method=' . $method, $this->encoding);
+                    $body .= $this->encodeString($this->icalBody, $this->encoding);
+                }
+
+                $body .= $this->endOfLine . '--' . $boundary[1] . '--' . $this->endOfLine;
+                $body .= $this->endOfLine;
+                $body .= $this->attachAll(DispositionType::ATTACHMENT, $boundary[0]);
+            break;
+            case DispositionType::ALT . '_' . DispositionType::INLINE . '_' . DispositionType::ATTACHMENT:
+                $body .= $mimeBody;
+                $body .= '--' . $boundary[0] . $this->endOfLine;
+                $body .= 'Content-Type: ' . MimeType::M_ALT . $this->endOfLine;
+                $body .= ' boundary="' . $boundary[1] . '"' . $this->endOfLine;
+                $body .= $this->endOfLine;
+                $body .= $this->getBoundary($boundary[1], $bodyAltCharset, MimeType::M_TEXT, $bodyAltEncoding);
+                $body .= $this->encodeString($this->bodyAlt, $bodyAltEncoding);
+                $body .= $this->endOfLine;
+                $body .= '--' . $boundary[1] . $this->endOfLine;
+                $body .= 'Content-Type: ' . MimeType::M_RELATED . ';' . $this->endOfLine;
+                $body .= ' boundary="' . $boundary[2] . '"' . $this->endOfLine;
+                $body .= ' type="' . MimeType::M_HTML . '"' . $this->endOfLine;
+                $body .= $this->endOfLine;
+                $body .= $this->getBoundary($boundary[2], $bodyCharset, MimeType::M_HTML, $bodyEncoding);
+                $body .= $this->encodeString($this->body, $bodyEncoding);
+                $body .= $this->endOfLine;
+                $body .= $this->attachAll(DispositionType::INLINE, $boundary[2]);
+                $body .= $this->endOfLine;
+                $body .= $this->endOfLine . '--' . $boundary[2] . '--' . $this->endOfLine;
+                $body .= $this->attachAll(DispositionType::ATTACHMENT, $boundary[1]);
+                break;
+            default:
+                $body .= $this->encodeString($this->body, $bodyEncoding);
+        }
+
+        if ($this->signKeyFile !== '') {
+            // @todo implement
+        }
 
         return $output;
     }
@@ -630,11 +792,13 @@ class Mail
     /**
      * Generate the mime header
      *
+     * @param array $boundary Message boundary
+     *
      * @return string
      *
      * @since 1.0.0
      */
-    private function generateMimeHeader() : string
+    private function generateMimeHeader(array $boundary) : string
     {
         $mime        = '';
         $isMultipart = true;
@@ -642,19 +806,19 @@ class Mail
         switch ($this->messageType) {
             case DispositionType::INLINE:
                 $mime .= 'Content-Type:' . MimeType::M_RELATED . ';' . $this->endOfLine;
-                $mime .= ' boundary="' . $this->boundary[0] . '"' . $this->endOfLine;
+                $mime .= ' boundary="' . $boundary[0] . '"' . $this->endOfLine;
                 break;
             case DispositionType::ATTACHMENT:
             case DispositionType::INLINE . '_' . DispositionType::ATTACHMENT:
             case DispositionType::ALT . '_' . DispositionType::ATTACHMENT:
             case DispositionType::ALT . '_' . DispositionType::INLINE . '_' . DispositionType::ATTACHMENT:
                 $mime .= 'Content-Type:' . MimeType::M_MIXED . ';' . $this->endOfLine;
-                $mime .= ' boundary="' . $this->boundary[0] . '"' . $this->endOfLine;
+                $mime .= ' boundary="' . $boundary[0] . '"' . $this->endOfLine;
                 break;
             case DispositionType::ALT:
             case DispositionType::ALT . '_' . DispositionType::INLINE:
                 $mime .= 'Content-Type:' . MimeType::M_ALT . ';' . $this->endOfLine;
-                $mime .= ' boundary="' . $this->boundary[0] . '"' . $this->endOfLine;
+                $mime .= ' boundary="' . $boundary[0] . '"' . $this->endOfLine;
                 break;
             default:
                 $mime .= 'Content-Type:' . $this->contentType . '; charset=' . CharsetType::UTF_8 . ';' . $this->endOfLine;
@@ -667,9 +831,20 @@ class Mail
             : $mime;
     }
 
+    /**
+     * Wrap text
+     *
+     * @param string $text   Text to wrap
+     * @param int    $length Line length
+     * @param bool   $quoted Is quoted
+     *
+     * @return string
+     *
+     * @since 1.0.0
+     */
     private function wrapText(string $text, int $length, bool $quoted = false) : string
     {
-        if ($length < 1) {
+        if ($length < 1 || $text === '') {
             return $text;
         }
 
@@ -682,12 +857,63 @@ class Mail
 
         $buffer = '';
         $output = '';
+        $crlfLength = \strlen($this->endOfLine);
+        $first = true;
+        $isUTF8 = $this->charset === CharsetType::UTF_8;
+
         foreach ($lines as $line) {
             $words = \explode(' ', $line);
 
             foreach ($words as $word) {
                 if ($quoted && \strlen($word) > $length) {
+                    $spaces = $length - \strlen($buffer) - $crlfLength;
 
+                    if ($first) {
+                        if ($spaces > 20) {
+                            $len = $spaces;
+                            if ($isUTF8) {
+                                $len = StringUtils::utf8CharBoundary($word, $len);
+                            } elseif ('=' === \substr($word, $len - 1, 1)) {
+                                --$len;
+                            } elseif ('=' === \substr($word, $len - 2, 1)) {
+                                $len -= 2;
+                            }
+
+                            $part = \substr($word, 0, $len);
+                            $word = \substr($word, $len);
+                            $buffer .= ' ' . $part;
+                            $output .= $buffer . '=' . $this->endOfLine;
+                        } else {
+                            $output .= $buffer . $softEndOfLine;
+                        }
+
+                        $buffer = '';
+                    }
+
+                    while ($word !== '') {
+                        if ($length < 1) {
+                            break;
+                        }
+
+                        $len = $length;
+
+                        if ($isUTF8) {
+                            $len = StringUtils::utf8CharBoundary($word, $len);
+                        } elseif ('=' === \substr($word, $len - 1, 1)) {
+                            --$len;
+                        } elseif ('=' === \substr($word, $len - 2, 1)) {
+                            $len -= 2;
+                        }
+
+                        $part = \substr($word, 0, $len);
+                        $word = \substr($word, $len);
+
+                        if ($word !== '') {
+                            $output .= $part . '=' . $this->endOfLine;
+                        } else {
+                            $buffer = $part;
+                        }
+                    }
                 } else {
                     $oldBuf  = $buffer;
                     $buffer .= $word . ' ';
@@ -703,5 +929,89 @@ class Mail
         }
 
         return $output;
+    }
+
+    /**
+     * Render the boundary
+     *
+     * @param string $boundary    Boundary identifier
+     * @param string $charset     Charset
+     * @param string $contentType ContentType
+     * @param string $encoding    Encoding
+     *
+     * @return string
+     *
+     * @since 1.0.0
+     */
+    private function getBoundary(string $boundary, string $charset = null, string $contentType = null, string $encoding = null) : string
+    {
+        $boundary    = '';
+        $charset     = empty($charset) ? $this->charset : $charset;
+        $contentType = empty($contentType) ? $this->contentType : $contentType;
+        $encoding    = empty($encoding) ? $this->encoding : $encoding;
+
+        $boundary .= '--' . $boundary . $this->endOfLine;
+        $boundary .= 'Content-Type: ' . $contentType . '; charset=' . $charset . $this->endOfLine;
+
+        if ($encoding !== EncodingType::E_7BIT) {
+            $boundary .= 'Content-Transfer-Encoding: ' . $encoding . $this->endOfLine;
+        }
+
+        return $boundary . $this->endOfLine;
+    }
+
+    /**
+     * Encode a string
+     *
+     * @param string $text     Text to encode
+     * @param string $encoding Encoding to use
+     *
+     * @return string
+     *
+     * @since 1.0.0
+     */
+    private function encodeString(string $text, string $encoding = EncodingType::E_BASE64) : string
+    {
+        $encoded = '';
+        if ($encoding === EncodingType::E_BASE64) {
+            $encoded = \chunk_split(\base64_encode($text), 76, $this->endOfLine);
+        } elseif ($encoding === EncodingType::E_7BIT || $encoding === EncodingType::E_8BIT) {
+            $encoded = $this->normalizeText($text, $this->endOfLine);
+
+            if (\substr($encoded, -\strlen($this->endOfLine)) !== $this->endOfLine) {
+                $encoded .= $this->endOfLine;
+            }
+        } elseif ($encoding === EncodingType::E_BINARY) {
+            $encoded = $text;
+        } elseif ($encoded === EncodingType::E_QUOTED) {
+            $encoded = $this->encodeQuoted($text);
+        }
+
+        return $encoded;
+    }
+
+    private function attachAll(string $disposition, string $boundary) : string
+    {
+        $mime = [];
+        $cid  = [];
+        $incl = [];
+
+        foreach ($this->attachment as $attach) {
+
+        }
+
+        $mime[] = '--' . $boundary . '--' . $this->endOfLine;
+
+        return \implode('', $mime);
+    }
+
+    private function encodeQuoted()
+    {
+
+    }
+
+    private function encodeHeader()
+    {
+
     }
 }

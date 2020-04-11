@@ -218,7 +218,9 @@ abstract class EmailAbstract
     {
         $this->submitType = $submitType;
 
-        if ($this->submitType === SubmitType::SMTP || $this->submitType === SubmitType::MAIL) {
+        if ($this->submitType === SubmitType::SMTP
+            || $this->submitType === SubmitType::MAIL
+        ) {
             $this->endOfLine = $this->submitType === SubmitType::SMTP || !\stripos(\PHP_OS, 'WIN') === 0 ? \PHP_EOL : "\r\n";
 
             return;

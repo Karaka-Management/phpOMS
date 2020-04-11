@@ -15,6 +15,7 @@ declare(strict_types=1);
 namespace phpOMS\Utils;
 
 use phpOMS\Contract\RenderableInterface;
+use phpOMS\System\CharsetType;
 
 /**
  * String utils class.
@@ -587,5 +588,63 @@ final class StringUtils
         $diffMask   = \array_reverse($diffMask);
 
         return ['values' => $diffValues, 'mask' => $diffMask];
+    }
+
+    /**
+     * Get the utf-8 boundary of a string
+     *
+     * @param string $text   To search for utf-8 boundary
+     * @param int    $offset Search offset
+     *
+     * @return int
+     *
+     * @since 1.0.0
+     */
+    public static function utf8CharBoundary(string $text, int $offset = 0) : int
+    {
+        $reset = 3;
+        $pos   = $offset;
+
+        do {
+            $lastChunk  = \substr($text, $pos - $reset, $reset);
+            $encodedPos = \strpos($lastChunk, '=');
+
+            if ($encodedPos === false) {
+                break;
+            }
+
+            $hex = \substr($text, $pos - $reset + $encodedPos + 1, 2);
+            $dec = \hexdec($hex);
+
+            if ($dec < 128) {
+                if ($encodedPos > 0) {
+                    $pos -= $reset - $encodedPos;
+                }
+
+                break;
+            } elseif ($dec >= 192) {
+                $pos -= $reset - $encodedPos;
+                break;
+            } elseif ($dec < 192) {
+                $reset +=3;
+            }
+        } while(true);
+
+        return $pos;
+    }
+
+    /**
+     * Test if a string has multibytes
+     *
+     * @param string $text    Text to check
+     * @param string $charset Charset to check
+     *
+     * @return bool
+     *
+     * @since 1.0.0
+     */
+    public static function hasMultiBytes(string $text, string $charset = CharsetType::UTF_8) : bool
+    {
+        return \strlen($text) > \mb_strlen($text, $charset);
     }
 }
