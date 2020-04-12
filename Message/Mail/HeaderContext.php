@@ -17,18 +17,16 @@ namespace phpOMS\Message\Mail;
 use phpOMS\Stdlib\Base\Enum;
 
 /**
- * OS type enum.
+ * Submit enum.
  *
- * OS Types which could be useful in order to create statistics or deliver OS specific content.
- *
- * @package phpOMS\Message\Mail
+ * @package  phpOMS\Message\Mail
  * @license OMS License 1.0
  * @link    https://orange-management.org
  * @since   1.0.0
  */
-abstract class ContentEncoding extends Enum
+abstract class HeaderContext extends Enum
 {
-    public const BASE64   = 1;
-    public const EIGHTBIT = 2;
-    public const QPRINT   = 3;
+    public const TEXT    = 1;
+    public const PHRASE  = 2;
+    public const COMMENT = 3;
 }

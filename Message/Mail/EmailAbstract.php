@@ -132,11 +132,11 @@ abstract class EmailAbstract
      *
      * @since 1.0.0
      */
-    public static function decode(string $content, int $encoding)
+    public static function decode(string $content, string $encoding)
     {
-        if ($encoding === ContentEncoding::BASE64) {
+        if ($encoding === EncodingType::E_BASE64) {
             return \imap_base64($content);
-        } elseif ($encoding === ContentEncoding::EIGHTBIT) {
+        } elseif ($encoding === EncodingType::E_8BIT) {
             return \imap_8bit($content);
         }
 

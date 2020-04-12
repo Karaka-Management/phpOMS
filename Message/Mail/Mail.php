@@ -985,7 +985,7 @@ class Mail
         } elseif ($encoding === EncodingType::E_BINARY) {
             $encoded = $text;
         } elseif ($encoded === EncodingType::E_QUOTED) {
-            $encoded = $this->encodeQuoted($text);
+            $encoded = $this->normalizeText(\quoted_printable_decode($text));
         }
 
         return $encoded;
@@ -999,16 +999,6 @@ class Mail
 
         foreach ($this->attachment as $attach) {
             if ($attach['disposition'] === $disposition) {
-                $text = '';
-                $path = '';
-                $isString = $attach['string'];
-
-                if (!empty($isString)) {
-                    $text = $attach['path'];
-                } else {
-                    $path = $attach['path'];
-                }
-
                 $hash = \hash('sha256', \serialize($attach));
                 if (\in_array($hash, $incl, true)) {
                     continue;
@@ -1023,13 +1013,29 @@ class Mail
                 $cid[$attach['id']] = true;
                 $mime[] = '--' . $boundary . $this->endOfLine;
                 $mime[] = !empty($attach['name'])
-                    ? 'Content-Type: ' . $attach['type'] . '; name="' . $this->encodeHeader($this->secureHeader($attach['name'])) . '"' . $this->endOfLine
+                    ? 'Content-Type: ' . $attach['type'] . '; name="' . $this->encodeHeader(\trim(\str_replace(["\r", "\n"], '', $attach['name']))) . '"' . $this->endOfLine
                     : 'Content-Type: ' . $attach['type'] . $this->endOfLine;
 
                 if ($attach['encoding'] !== EncodingType::E_7BIT) {
                     $mime[] = 'Content-Transfer-Encoding: ' . $attach['encoding'] . $this->endOfLine;
                 }
 
+                if (((string) $attach['cid']) !== '' && $attach['disposition'] === DispositionType::INLINE) {
+                    $mime[] = 'Content-ID: <' . $this->encodeHeader(\trim(\str_replace(["\r", "\n"], '', $attach['cid']))) . '>' . $this->endOfLine;
+                }
+
+                if (!empty($attach['disposition'])) {
+                    $encodedName = $this->encodeHeader(\trim(\str_replace(["\r", "\n"], '', $attach['name'])));
+
+                    // @todo: "" might be wrong for || condition
+                    $mime[] = \preg_match('/[ ()<>@,;:"\/\[\]?=]/', $encodedName) || !empty($encodedName)
+                        ? 'Content-Disposition: ' . $attach['disposition'] . '; filename="' . $encodedName . '"' . $this->endOfLine
+                        : 'Content-Disposition: ' . $attach['disposition'] . $this->endOfLine;
+                }
+
+                $mime[] = $this->endOfLine;
+                $mime[] = $attach['string'] ? $this->encodeString($attach['path'], $attach['encoding']) : $this->encodeFile($attach['path'], $attach['encoding']);
+                $mime[] = $this->endOfLine;
             }
         }
 
@@ -1038,13 +1044,93 @@ class Mail
         return \implode('', $mime);
     }
 
-    private function encodeQuoted(): void
+    private function encodeHeader(string $value, int $context = HeaderContext::TEXT) : string
     {
+        $matches = 0;
+        switch ($context) {
+            case HeaderContext::PHRASE:
+                if (!\preg_match('/[\200-\377]/', $value)) {
+                    $encoded = \addslashes($value, "\0..\37\177\\\"");
 
+                    return ($encoded === $value) && !\preg_match('/[^A-Za-z0-9!#$%&\'*+\/=?^_`{|}~ -]/', $value) ? $encoded : '"' . $encoded . '"';
+                }
+
+                $matches = \preg_match_all('/[^\040\041\043-\133\135-\176]/', $value, $matched);
+                break;
+            case HeaderContext::COMMENT:
+                $matches = \preg_match_all('/[()"]/', $value, $matched);
+            default:
+                $matches += \preg_match_all('/[\000-\010\013\014\016-\037\177-\377]/', $value, $matched);
+        }
+
+        $charset   = ((bool) preg_match('/[\x80-\xFF]/', $value)) ? $this->charset : CharsetType::ASCII;
+        $overhead  = \strlen($charset) + 8;
+        $maxlength = $this->submitType === SubmitType::MAIL ? 63 - $overhead : 998 - $overhead;
+
+        $valueLength = \strlen($value);
+        $encoded     = '';
+
+        if ($matches > $valueLength / 3) {
+            $encoded = MbStringUtils::hasMultiBytes($value)
+                ? $this->base64EncodeWrapMb($value, "\n")
+                : \trim(\chunk_split(\base64_encode($value), $maxlength - $maxlength % 4, "\n"));
+
+            $encoded = \preg_replace('/^(.*)$/m', ' =?' . $charset . '?B?\\1?=', $encoded);
+        } elseif ($matches > 0 || $valueLength > $maxlength) {
+            $encoded = $this->encodeQ($value, $context);
+            $encoded = $this->wrapText($encoded, $maxlength, true);
+            $encoded = \str_replace('=' . $this->endOfLine, "\n", \trim($encoded));
+            $encoded = \preg_replace('/^(.*)$/m', ' =?' . $charset . '?Q?\\1?=', $encoded);
+        } else {
+            return $value;
+        }
+
+        return \trim($this->normalizeText($encoded));
     }
 
-    private function encodeHeader(): void
+    private function encodeFile(string $path, string $encoding = EncodingType::E_BASE64) : string
     {
+        if (!\is_readable($path)) {
+            return '';
+        }
 
+        $content = \file_get_contents($path);
+
+        if ($content === false) {
+            return '';
+        }
+
+        return $this->encodeString($content, $encoding);
+    }
+
+    private function base64EncodeWrapMb(string $text, string $lb = "\n") : string
+    {
+        $start = '=?' . $this->charset . '?B?';
+        $end   = '?=';
+        $encoded = '';
+
+        $mbLength  = \mb_strlen($text, $this->charset);
+        $length    = 75 - \strlen($start) - \strlen($end);
+        $ratio     = $mbLength / \strlen($text);
+        $avgLength = \floor($length * $ratio * 0.75);
+
+        $offset = 0;
+        $chunk  = '';
+
+        for ($i = 0; $i < $mbLength; $i += $offset) {
+            $lookBack = 0;
+
+            do {
+                $offset = $avgLength - $lookBack;
+                $chunk  = \mb_substr($text, $i, $offset, $this->charset);
+                $chunk  = \base64_encode($chunk);
+
+                ++$lookBack;
+            } while (\strlen($chunk) > $length);
+
+            $encoded .= $chunk . $lb;
+        }
+
+        return \substr($encoded, 0, -\strlen($lb));
     }
 }
