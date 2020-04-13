@@ -188,10 +188,10 @@ class Mail
      */
     protected bool $confirmReading = false;
 
-    private string $signKeyFile = '';
-    private string $signCertFile = '';
+    private string $signKeyFile   = '';
+    private string $signCertFile  = '';
     private string $signExtraFile = '';
-    private string $signKeyPass = '';
+    private string $signKeyPass   = '';
 
     /**
      * Constructor.
@@ -444,6 +444,23 @@ class Mail
         return true;
     }
 
+    public function addStringAttachment() : bool
+    {
+
+    }
+
+    public function addEmbeddedImage() : bool
+    {
+
+    }
+
+    public function addStringEmbeddedImage() : bool
+    {
+
+    }
+
+
+
     /**
      * The email should be confirmed by the receivers
      *
@@ -582,7 +599,7 @@ class Mail
     {
         $this->id = empty($this->id) ? $this->generatedId() : $this->id;
 
-        $output = '';
+        $output      = '';
         $boundary    = [];
         $boundary[0] = 'b0_' . $this->id;
         $boundary[1] = 'b1_' . $this->id;
@@ -591,7 +608,7 @@ class Mail
 
         $output .= !empty($this->signKeyFile) ? $this->generateMimeHeader($boundary) . $this->endOfLine : '';
 
-        $body = $this->wrapText($this->body, $this->wordWrap, false);
+        $body         = $this->wrapText($this->body, $this->wordWrap, false);
         $bodyEncoding = $this->encoding;
         $bodyCharset  = $this->charset;
 
@@ -604,7 +621,7 @@ class Mail
             $bodyEncoding = EncodingType::E_QUOTED;
         }
 
-        $bodyAlt = $this->wrapText($this->bodyAlt, $this->wordWrap, false);
+        $bodyAlt         = $this->wrapText($this->bodyAlt, $this->wordWrap, false);
         $bodyAltEncoding = $this->encoding;
         $bodyAltCharset  = $this->charset;
 
@@ -672,7 +689,7 @@ class Mail
                 }
 
                 $body .= $this->endOfLine . '--' . $boundary[0] . '--' . $this->endOfLine;
-            break;
+                break;
             case DispositionType::ALT . '_' . DispositionType::INLINE:
                 $body .= $mimeBody;
                 $body .= $this->getBoundary($boundary[0], $bodyAltCharset, MimeType::M_TEXT, $bodyAltEncoding);
@@ -723,7 +740,7 @@ class Mail
                 $body .= $this->endOfLine . '--' . $boundary[1] . '--' . $this->endOfLine;
                 $body .= $this->endOfLine;
                 $body .= $this->attachAll(DispositionType::ATTACHMENT, $boundary[0]);
-            break;
+                break;
             case DispositionType::ALT . '_' . DispositionType::INLINE . '_' . DispositionType::ATTACHMENT:
                 $body .= $mimeBody;
                 $body .= '--' . $boundary[0] . $this->endOfLine;
@@ -752,10 +769,23 @@ class Mail
 
         if ($this->signKeyFile !== '') {
             // @todo implement
+            $output .= '';
         }
 
         return $output;
     }
+
+    public function createHtmlMsg() : void
+    {
+
+    }
+
+    private function htmlToText() : string
+    {
+
+    }
+
+
 
     /**
      * Normalize text
@@ -856,34 +886,33 @@ class Mail
 
         $lines = \explode($this->endOfLine, $text);
 
-        $buffer = '';
-        $output = '';
+        $buffer     = '';
+        $output     = '';
         $crlfLength = \strlen($this->endOfLine);
-        $first = true;
-        $isUTF8 = $this->charset === CharsetType::UTF_8;
+        $first      = true;
+        $isUTF8     = $this->charset === CharsetType::UTF_8;
 
         foreach ($lines as $line) {
             $words = \explode(' ', $line);
 
             foreach ($words as $word) {
                 if ($quoted && \strlen($word) > $length) {
-                    $spaces = $length - \strlen($buffer) - $crlfLength;
-
                     if ($first) {
+                        $spaces = $length - \strlen($buffer) - $crlfLength;
+
                         if ($spaces > 20) {
                             $len = $spaces;
                             if ($isUTF8) {
                                 $len = MbStringUtils::utf8CharBoundary($word, $len);
-                            } elseif ('=' === \substr($word, $len - 1, 1)) {
+                            } elseif ($word[$len - 1] === '=') {
                                 --$len;
-                            } elseif ('=' === \substr($word, $len - 2, 1)) {
+                            } elseif ($word[$len - 2] === '=') {
                                 $len -= 2;
                             }
 
-                            $part = \substr($word, 0, $len);
-                            $word = \substr($word, $len);
-                            $buffer .= ' ' . $part;
-                            $output .= $buffer . '=' . $this->endOfLine;
+                            $part    = \substr($word, 0, $len);
+                            $word    = \substr($word, $len);
+                            $output .= $buffer . ' ' . $part . '=' . $this->endOfLine;
                         } else {
                             $output .= $buffer . $softEndOfLine;
                         }
@@ -900,9 +929,9 @@ class Mail
 
                         if ($isUTF8) {
                             $len = MbStringUtils::utf8CharBoundary($word, $len);
-                        } elseif ('=' === \substr($word, $len - 1, 1)) {
+                        } elseif ($word[$len - 1] === '=') {
                             --$len;
-                        } elseif ('=' === \substr($word, $len - 2, 1)) {
+                        } elseif ($word[$len - 2] === '=') {
                             $len -= 2;
                         }
 
@@ -991,6 +1020,16 @@ class Mail
         return $encoded;
     }
 
+    /**
+     * Attach all attachments
+     *
+     * @param string $disposition Disposition type
+     * @param string $boundary    Boundary identifier
+     *
+     * @return string
+     *
+     * @since 1.0.0
+     */
     private function attachAll(string $disposition, string $boundary) : string
     {
         $mime = [];
@@ -1011,6 +1050,7 @@ class Mail
                 }
 
                 $cid[$attach['id']] = true;
+
                 $mime[] = '--' . $boundary . $this->endOfLine;
                 $mime[] = !empty($attach['name'])
                     ? 'Content-Type: ' . $attach['type'] . '; name="' . $this->encodeHeader(\trim(\str_replace(["\r", "\n"], '', $attach['name']))) . '"' . $this->endOfLine
@@ -1044,6 +1084,16 @@ class Mail
         return \implode('', $mime);
     }
 
+    /**
+     * Encode header value
+     *
+     * @param string $value   Value to encode
+     * @param int    $context Value context
+     *
+     * @return string
+     *
+     * @since 1.0.0
+     */
     private function encodeHeader(string $value, int $context = HeaderContext::TEXT) : string
     {
         $matches = 0;
@@ -1059,6 +1109,7 @@ class Mail
                 break;
             case HeaderContext::COMMENT:
                 $matches = \preg_match_all('/[()"]/', $value, $matched);
+                /* fallthrough */
             default:
                 $matches += \preg_match_all('/[\000-\010\013\014\016-\037\177-\377]/', $value, $matched);
         }
@@ -1088,6 +1139,16 @@ class Mail
         return \trim($this->normalizeText($encoded));
     }
 
+    /**
+     * Encode a file
+     *
+     * @param string $path     Path to a file
+     * @param string $encoding Encoding of the file
+     *
+     * @return string
+     *
+     * @since 1.0.0
+     */
     private function encodeFile(string $path, string $encoding = EncodingType::E_BASE64) : string
     {
         if (!\is_readable($path)) {
@@ -1103,10 +1164,20 @@ class Mail
         return $this->encodeString($content, $encoding);
     }
 
+    /**
+     * Encode text as base64 multibye
+     *
+     * @param string $text Text to encode
+     * @param string $lb   Linebreak
+     *
+     * @return string
+     *
+     * @since 1.0.0
+     */
     private function base64EncodeWrapMb(string $text, string $lb = "\n") : string
     {
-        $start = '=?' . $this->charset . '?B?';
-        $end   = '?=';
+        $start   = '=?' . $this->charset . '?B?';
+        $end     = '?=';
         $encoded = '';
 
         $mbLength  = \mb_strlen($text, $this->charset);
@@ -1132,5 +1203,10 @@ class Mail
         }
 
         return \substr($encoded, 0, -\strlen($lb));
+    }
+
+    private function encodeQ(string $text, int $context = HeaderContext::TEXT) : string
+    {
+
     }
 }
