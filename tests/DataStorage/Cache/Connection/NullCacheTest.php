@@ -22,7 +22,7 @@ use phpOMS\DataStorage\Cache\Connection\NullCache;
  *
  * @internal
  */
-class NullCacheTest extends \PHPUnit\Framework\TestCase
+final class NullCacheTest extends \PHPUnit\Framework\TestCase
 {
     /**
      * @testdox The default cache has the expected default values after initialization

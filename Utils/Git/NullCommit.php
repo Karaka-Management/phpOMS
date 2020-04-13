@@ -22,6 +22,6 @@ namespace phpOMS\Utils\Git;
  * @link    https://orange-management.org
  * @since   1.0.0
  */
-class NullCommit extends Commit
+final class NullCommit extends Commit
 {
 }

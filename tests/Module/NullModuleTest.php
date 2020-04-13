@@ -22,7 +22,7 @@ use phpOMS\Module\NullModule;
 /**
  * @internal
  */
-class NullModuleTest extends \PHPUnit\Framework\TestCase
+final class NullModuleTest extends \PHPUnit\Framework\TestCase
 {
     public function testModule() : void
     {

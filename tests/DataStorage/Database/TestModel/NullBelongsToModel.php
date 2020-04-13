@@ -14,6 +14,6 @@ declare(strict_types=1);
 
 namespace phpOMS\tests\DataStorage\Database\TestModel;
 
-class NullBelongsToModel extends BelongsToModel
+final class NullBelongsToModel extends BelongsToModel
 {
 }

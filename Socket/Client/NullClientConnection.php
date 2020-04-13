@@ -22,6 +22,6 @@ namespace phpOMS\Socket\Client;
  * @link    https://orange-management.org
  * @since   1.0.0
  */
-class NullClientConnection extends ClientConnection
+final class NullClientConnection extends ClientConnection
 {
 }

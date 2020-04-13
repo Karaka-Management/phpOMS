@@ -21,7 +21,7 @@ use phpOMS\Account\NullGroup;
 /**
  * @internal
  */
-class NullGroupTest extends \PHPUnit\Framework\TestCase
+final class NullGroupTest extends \PHPUnit\Framework\TestCase
 {
     public function testNull() : void
     {

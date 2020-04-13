@@ -22,6 +22,6 @@ namespace phpOMS\Utils\TaskSchedule;
  * @link    https://orange-management.org
  * @since   1.0.0
  */
-class NullCronJob extends CronJob
+final class NullCronJob extends CronJob
 {
 }

@@ -22,6 +22,6 @@ namespace phpOMS\Stdlib\Base;
  * @link    https://orange-management.org
  * @since   1.0.0
  */
-class NullLocation extends Location
+final class NullLocation extends Location
 {
 }

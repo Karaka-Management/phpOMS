@@ -17,7 +17,7 @@ namespace phpOMS\tests\Socket\Client;
 /**
  * @internal
  */
-class NullClientConnectionTest extends \PHPUnit\Framework\TestCase
+final class NullClientConnectionTest extends \PHPUnit\Framework\TestCase
 {
     public function testPlaceholder() : void
     {

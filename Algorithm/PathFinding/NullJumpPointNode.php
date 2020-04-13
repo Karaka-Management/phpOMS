@@ -22,6 +22,6 @@ namespace phpOMS\Algorithm\PathFinding;
  * @link    https://orange-management.org
  * @since   1.0.0
  */
-class NullJumpPointNode extends JumpPointNode
+final class NullJumpPointNode extends JumpPointNode
 {
 }

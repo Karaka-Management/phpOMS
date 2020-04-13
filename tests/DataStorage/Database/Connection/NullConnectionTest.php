@@ -22,7 +22,7 @@ use phpOMS\DataStorage\Database\DatabaseType;
  *
  * @internal
  */
-class NullConnectionTest extends \PHPUnit\Framework\TestCase
+final class NullConnectionTest extends \PHPUnit\Framework\TestCase
 {
     /**
      * @testdox A null connection can be created as placeholder

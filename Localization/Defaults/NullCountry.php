@@ -22,6 +22,6 @@ namespace phpOMS\Localization\Defaults;
  * @link    https://orange-management.org
  * @since   1.0.0
  */
-class NullCountry extends Country
+final class NullCountry extends Country
 {
 }

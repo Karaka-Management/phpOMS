@@ -22,6 +22,6 @@ namespace phpOMS\Algorithm\PathFinding;
  * @link    https://orange-management.org
  * @since   1.0.0
  */
-class NullNode extends Node
+final class NullNode extends Node
 {
 }

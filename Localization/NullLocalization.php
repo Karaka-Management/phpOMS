@@ -22,6 +22,6 @@ namespace phpOMS\Localization;
  * @link    https://orange-management.org
  * @since   1.0.0
  */
-class NullLocalization extends Localization
+final class NullLocalization extends Localization
 {
 }

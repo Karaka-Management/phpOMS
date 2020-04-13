@@ -19,7 +19,7 @@ use phpOMS\Stdlib\Base\NullLocation;
 /**
  * @internal
  */
-class NullLocationTest extends \PHPUnit\Framework\TestCase
+final class NullLocationTest extends \PHPUnit\Framework\TestCase
 {
     public function testNullLocation() : void
     {
