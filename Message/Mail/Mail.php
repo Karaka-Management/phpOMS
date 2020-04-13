@@ -1114,7 +1114,7 @@ class Mail
                 $matches += \preg_match_all('/[\000-\010\013\014\016-\037\177-\377]/', $value, $matched);
         }
 
-        $charset   = ((bool) preg_match('/[\x80-\xFF]/', $value)) ? $this->charset : CharsetType::ASCII;
+        $charset   = ((bool) \preg_match('/[\x80-\xFF]/', $value)) ? $this->charset : CharsetType::ASCII;
         $overhead  = \strlen($charset) + 8;
         $maxlength = $this->submitType === SubmitType::MAIL ? 63 - $overhead : 998 - $overhead;
 
