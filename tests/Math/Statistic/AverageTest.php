@@ -96,7 +96,7 @@ class AverageTest extends \PHPUnit\Framework\TestCase
         ];
 
         $average = [
-            66.626, 66.302, 66.328, 66.352, 66.19, 66.152, 65.764, 65.264, 64.852, 64.288, 63.452, 63.164, 62.626, 61.752, 61.452, 61.352
+            66.626, 66.302, 66.328, 66.352, 66.19, 66.152, 65.764, 65.264, 64.852, 64.288, 63.452, 63.164, 62.626, 61.752, 61.452, 61.352,
         ];
 
         self::assertEqualsWithDelta($average, Average::totalMovingAverage($data, 5), 0.1);

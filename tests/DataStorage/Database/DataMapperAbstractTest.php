@@ -257,8 +257,8 @@ class DataMapperAbstractTest extends \PHPUnit\Framework\TestCase
 
         $found = BaseModelMapper::find('sir');
         self::assertCount(2, $found);
-        self::assertEquals($model2->string, reset($found)->string);
-        self::assertEquals($model3->string, end($found)->string);
+        self::assertEquals($model2->string, \reset($found)->string);
+        self::assertEquals($model3->string, \end($found)->string);
     }
 
     public function testWithConditional() : void
@@ -295,10 +295,10 @@ class DataMapperAbstractTest extends \PHPUnit\Framework\TestCase
 
         $found = BaseModelMapper::withConditional('language', 'de')::getAll();
         self::assertCount(2, $found);
-        self::assertEquals($model1->string, reset($found)->string);
-        self::assertEquals($model2->string, end($found)->string);
-        self::assertEquals('cond1_de', reset($found)->conditional);
-        self::assertEquals('cond2_de', end($found)->conditional);
+        self::assertEquals($model1->string, \reset($found)->string);
+        self::assertEquals($model2->string, \end($found)->string);
+        self::assertEquals('cond1_de', \reset($found)->conditional);
+        self::assertEquals('cond2_de', \end($found)->conditional);
     }
 
     /**
