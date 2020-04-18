@@ -173,12 +173,12 @@ final class StringUtils
      */
     public static function entropy(string $value) : float
     {
-        $entropy     = 0.0;
+        $entropy    = 0.0;
         $size       = \strlen($value);
         $countChars = \count_chars($value, 1);
 
         foreach ($countChars as $v) {
-            $p       = $v / $size;
+            $p        = $v / $size;
             $entropy -= $p * \log($p) / \log(2);
         }
 
