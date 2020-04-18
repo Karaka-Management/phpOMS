@@ -134,6 +134,90 @@ class MetricsNDTest extends \PHPUnit\Framework\TestCase
     }
 
     /**
+     * @testdox Different dimension sizes for the coordinates in the manhattan metric throw a InvalidDimensionException
+     * @covers phpOMS\Math\Topology\MetricsND
+     * @group framework
+     */
+    public function testInvalidManhattanDimension() : void
+    {
+        self::expectException(\phpOMS\Math\Matrix\Exception\InvalidDimensionException::class);
+
+        MetricsND::manhattan([3, 6, 4], [4, 6, 8, 3]);
+    }
+
+    /**
+     * @testdox Different dimension sizes for the coordinates in the euclidean metric throw a InvalidDimensionException
+     * @covers phpOMS\Math\Topology\MetricsND
+     * @group framework
+     */
+    public function testInvalidEuclideanDimension() : void
+    {
+        self::expectException(\phpOMS\Math\Matrix\Exception\InvalidDimensionException::class);
+
+        MetricsND::euclidean([3, 6, 4], [4, 6, 8, 3]);
+    }
+
+    /**
+     * @testdox Different dimension sizes for the coordinates in the chebyshev metric throw a InvalidDimensionException
+     * @covers phpOMS\Math\Topology\MetricsND
+     * @group framework
+     */
+    public function testInvalidChebyshevDimension() : void
+    {
+        self::expectException(\phpOMS\Math\Matrix\Exception\InvalidDimensionException::class);
+
+        MetricsND::chebyshev([3, 6, 4], [4, 6, 8, 3]);
+    }
+
+    /**
+     * @testdox Different dimension sizes for the coordinates in the minkowski metric throw a InvalidDimensionException
+     * @covers phpOMS\Math\Topology\MetricsND
+     * @group framework
+     */
+    public function testInvalidMinkowskiDimension() : void
+    {
+        self::expectException(\phpOMS\Math\Matrix\Exception\InvalidDimensionException::class);
+
+        MetricsND::minkowski([3, 6, 4], [4, 6, 8, 3], 2);
+    }
+
+    /**
+     * @testdox Different dimension sizes for the coordinates in the canberra metric throw a InvalidDimensionException
+     * @covers phpOMS\Math\Topology\MetricsND
+     * @group framework
+     */
+    public function testInvalidCanberraDimension() : void
+    {
+        self::expectException(\phpOMS\Math\Matrix\Exception\InvalidDimensionException::class);
+
+        MetricsND::canberra([3, 6, 4], [4, 6, 8, 3]);
+    }
+
+    /**
+     * @testdox Different dimension sizes for the coordinates in the Bray Curtis metric throw a InvalidDimensionException
+     * @covers phpOMS\Math\Topology\MetricsND
+     * @group framework
+     */
+    public function testInvalidBrayCurtisDimension() : void
+    {
+        self::expectException(\phpOMS\Math\Matrix\Exception\InvalidDimensionException::class);
+
+        MetricsND::brayCurtis([3, 6, 4], [4, 6, 8, 3]);
+    }
+
+    /**
+     * @testdox Different dimension sizes for the coordinates in the angular separation metric throw a InvalidDimensionException
+     * @covers phpOMS\Math\Topology\MetricsND
+     * @group framework
+     */
+    public function testInvalidAngularSeparationDimension() : void
+    {
+        self::expectException(\phpOMS\Math\Matrix\Exception\InvalidDimensionException::class);
+
+        MetricsND::angularSeparation([3, 6, 4], [4, 6, 8, 3]);
+    }
+
+    /**
      * @testdox Different dimension sizes for the coordinates in the hamming metric throw a InvalidDimensionException
      * @covers phpOMS\Math\Topology\MetricsND
      * @group framework
@@ -142,6 +226,6 @@ class MetricsNDTest extends \PHPUnit\Framework\TestCase
     {
         self::expectException(\phpOMS\Math\Matrix\Exception\InvalidDimensionException::class);
 
-        Metrics2D::ulam([3, 6, 4], [4, 6, 8, 3]);
+        MetricsND::hamming([3, 6, 4], [4, 6, 8, 3]);
     }
 }

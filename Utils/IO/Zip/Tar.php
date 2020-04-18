@@ -30,6 +30,10 @@ class Tar implements ArchiveInterface
 {
     /**
      * {@inheritdoc}
+     *
+     * @todo Orange-Management/phpOMS#250
+     *  [Tar] Create tar test without destination path/name
+     *  Simply call `Tar::pack([src1, src2, ...], 'output.tar')`
      */
     public static function pack($sources, string $destination, bool $overwrite = false) : bool
     {

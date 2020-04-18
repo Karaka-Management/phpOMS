@@ -249,6 +249,9 @@ final class L11nManager
      *
      * @return string
      *
+     * @todo Orange-Management/phpOMS#247
+     *  [L11nManager] Create currency rendering test for million and billion dividers
+     *
      * @since 1.0.0
      */
     public function getCurrency(Localization $l11n, $currency, string $format = null, string $symbol = null, int $divide = 1) : string

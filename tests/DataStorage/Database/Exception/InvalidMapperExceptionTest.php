@@ -24,5 +24,8 @@ class InvalidMapperExceptionTest extends \PHPUnit\Framework\TestCase
     public function testException() : void
     {
         self::assertInstanceOf(\RuntimeException::class, new InvalidMapperException(''));
+
+        $e = new InvalidMapperException('TestMapper');
+        self::assertStringContainsString('TestMapper', $e->getMessage());
     }
 }

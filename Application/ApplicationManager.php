@@ -91,6 +91,9 @@ final class ApplicationManager
      *
      * @return void
      *
+     * @todo Orange-Management/phpOMS#245
+     *  [ApplicationManager] Implement test for invalid source and invalid destination
+     *
      * @since 1.0.0
      */
     public function install(string $source, string $destination) : void

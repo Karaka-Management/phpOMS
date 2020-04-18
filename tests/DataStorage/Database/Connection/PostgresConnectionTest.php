@@ -15,6 +15,7 @@ namespace phpOMS\tests\DataStorage\Database\Connection;
 
 use phpOMS\DataStorage\Database\Connection\PostgresConnection;
 use phpOMS\DataStorage\Database\DatabaseStatus;
+use phpOMS\DataStorage\Database\DatabaseType;
 
 /**
  * @testdox phpOMS\tests\DataStorage\Database\Connection\PostgresConnectionTest: Postgresql connection
@@ -34,7 +35,7 @@ class PostgresConnectionTest extends \PHPUnit\Framework\TestCase
 
     /**
      * @testdox Valid postgresql connection data result in a valid database connection
-     * @covers phpOMS\DataStorage\Database\Connection\PostgresConnection
+     * @covers phpOMS\DataStorage\Database\Connection\PostgresConnection<extended>
      * @group framework
      */
     public function testConnect() : void
@@ -45,6 +46,7 @@ class PostgresConnectionTest extends \PHPUnit\Framework\TestCase
         self::assertEquals($GLOBALS['CONFIG']['db']['core']['postgresql']['admin']['host'], $psql->getHost());
         self::assertEquals((int) $GLOBALS['CONFIG']['db']['core']['postgresql']['admin']['port'], $psql->getPort());
         self::assertInstanceOf('\phpOMS\DataStorage\Database\Query\Grammar\PostgresGrammar', $psql->getGrammar());
+        self::assertEquals(DatabaseType::PGSQL, $psql->getType());
     }
 
     /**

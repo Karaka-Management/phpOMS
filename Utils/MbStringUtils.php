@@ -241,16 +241,16 @@ final class MbStringUtils
      */
     public static function mb_entropy(string $value) : float
     {
-        $entroy     = 0.0;
+        $entropy     = 0.0;
         $size       = \mb_strlen($value);
         $countChars = self::mb_count_chars($value);
 
         foreach ($countChars as $v) {
             $p       = $v / $size;
-            $entroy -= $p * \log($p) / \log(2);
+            $entropy -= $p * \log($p) / \log(2);
         }
 
-        return $entroy;
+        return $entropy;
     }
 
     /**

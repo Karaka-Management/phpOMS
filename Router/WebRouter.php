@@ -147,6 +147,10 @@ final class WebRouter implements RouterInterface
                     }
 
                     // if validation check is invalid
+                    /**
+                     * @todo Orange-Management/phpOMS#251
+                     *  [WebRouter] Implement test to validate the provided data
+                     */
                     if (isset($d['validation'])) {
                         foreach ($d['validation'] as $name => $pattern) {
                             if (!isset($data[$name]) || \preg_match($pattern, $data[$name]) !== 1) {
@@ -158,6 +162,10 @@ final class WebRouter implements RouterInterface
                     $temp = ['dest' => $d['dest']];
 
                     // fill data
+                    /**
+                     * @todo Orange-Management/phpOMS#252
+                     *  [WebRouter] Implement test for defining data from route
+                     */
                     if (isset($d['pattern'])) {
                         \preg_match($d['pattern'], $route, $matches);
 

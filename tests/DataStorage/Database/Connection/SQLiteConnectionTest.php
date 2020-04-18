@@ -15,6 +15,7 @@ namespace phpOMS\tests\DataStorage\Database\Connection;
 
 use phpOMS\DataStorage\Database\Connection\SQLiteConnection;
 use phpOMS\DataStorage\Database\DatabaseStatus;
+use phpOMS\DataStorage\Database\DatabaseType;
 
 /**
  * @testdox phpOMS\tests\DataStorage\Database\Connection\SQLiteConnectionTest: SQLite connection
@@ -34,7 +35,7 @@ class SQLiteConnectionTest extends \PHPUnit\Framework\TestCase
 
     /**
      * @testdox Valid sqlite connection data result in a valid database connection
-     * @covers phpOMS\DataStorage\Database\Connection\SQLiteConnection
+     * @covers phpOMS\DataStorage\Database\Connection\SQLiteConnection<extended>
      * @group framework
      */
     public function testConnect() : void
@@ -43,6 +44,7 @@ class SQLiteConnectionTest extends \PHPUnit\Framework\TestCase
         self::assertEquals(DatabaseStatus::OK, $sqlite->getStatus());
         self::assertEquals($GLOBALS['CONFIG']['db']['core']['sqlite']['admin']['database'], $sqlite->getDatabase());
         self::assertInstanceOf('\phpOMS\DataStorage\Database\Query\Grammar\SQLiteGrammar', $sqlite->getGrammar());
+        self::assertEquals(DatabaseType::SQLITE, $sqlite->getType());
     }
 
     /**

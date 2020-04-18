@@ -353,15 +353,61 @@ class BuilderTest extends \PHPUnit\Framework\TestCase
     }
 
     /**
+     * @testdox Read only queries allow selects
+     * @group framework
+     */
+    public function testReadOnlyRawSelect() : void
+    {
+        $query = new Builder($this->con, true);
+        self::assertInstanceOf(Builder::class, $query->raw('SELECT * from oms;'));
+    }
+
+    /**
      * @testdox Read only queries don't allow drops
      * @group framework
      */
-    public function testReadOnlyRaw() : void
+    public function testReadOnlyRawDrop() : void
     {
         self::expectException(\Exception::class);
 
         $query = new Builder($this->con, true);
         $query->raw('DROP DATABASE oms;');
+    }
+
+    /**
+     * @testdox Read only queries don't allow deletes
+     * @group framework
+     */
+    public function testReadOnlyRawDelete() : void
+    {
+        self::expectException(\Exception::class);
+
+        $query = new Builder($this->con, true);
+        $query->raw('DELETE oms;');
+    }
+
+    /**
+     * @testdox Read only queries don't allow creates
+     * @group framework
+     */
+    public function testReadOnlyRawCreate() : void
+    {
+        self::expectException(\Exception::class);
+
+        $query = new Builder($this->con, true);
+        $query->raw('CREATE oms;');
+    }
+
+    /**
+     * @testdox Read only queries don't allow modifications
+     * @group framework
+     */
+    public function testReadOnlyRawAlter() : void
+    {
+        self::expectException(\Exception::class);
+
+        $query = new Builder($this->con, true);
+        $query->raw('ALTER oms;');
     }
 
     /**

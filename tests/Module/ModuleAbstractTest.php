@@ -233,6 +233,16 @@ class ModuleAbstractTest extends \PHPUnit\Framework\TestCase
         )->execute();
 
         $GLOBALS['dbpool']->get()->con->prepare(
+            'CREATE TABLE `test_conditional` (
+                `test_conditional_id` int(11) NOT NULL AUTO_INCREMENT,
+                `test_conditional_title` varchar(254) NOT NULL,
+                `test_conditional_base` int(11) NOT NULL,
+                `test_conditional_language` varchar(254) NOT NULL,
+                PRIMARY KEY (`test_conditional_id`)
+            )ENGINE=InnoDB  DEFAULT CHARSET=utf8mb4 AUTO_INCREMENT=1;'
+        )->execute();
+
+        $GLOBALS['dbpool']->get()->con->prepare(
             'CREATE TABLE `test_belongs_to_one` (
                 `test_belongs_to_one_id` int(11) NOT NULL AUTO_INCREMENT,
                 `test_belongs_to_one_string` varchar(254) NOT NULL,
@@ -277,6 +287,7 @@ class ModuleAbstractTest extends \PHPUnit\Framework\TestCase
 
     private function dbTeardown() : void
     {
+        $GLOBALS['dbpool']->get()->con->prepare('DROP TABLE test_conditional')->execute();
         $GLOBALS['dbpool']->get()->con->prepare('DROP TABLE test_base')->execute();
         $GLOBALS['dbpool']->get()->con->prepare('DROP TABLE test_belongs_to_one')->execute();
         $GLOBALS['dbpool']->get()->con->prepare('DROP TABLE test_owns_one')->execute();

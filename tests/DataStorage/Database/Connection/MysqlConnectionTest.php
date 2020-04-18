@@ -16,6 +16,7 @@ namespace phpOMS\tests\DataStorage\Database\Connection;
 
 use phpOMS\DataStorage\Database\Connection\MysqlConnection;
 use phpOMS\DataStorage\Database\DatabaseStatus;
+use phpOMS\DataStorage\Database\DatabaseType;
 
 /**
  * @testdox phpOMS\tests\DataStorage\Database\Connection\MysqlConnectionTest: Mysql connection
@@ -35,7 +36,7 @@ class MysqlConnectionTest extends \PHPUnit\Framework\TestCase
 
     /**
      * @testdox Valid mysql connection data result in a valid database connection
-     * @covers phpOMS\DataStorage\Database\Connection\MysqlConnection
+     * @covers phpOMS\DataStorage\Database\Connection\MysqlConnection<extended>
      * @group framework
      */
     public function testConnect() : void
@@ -47,6 +48,7 @@ class MysqlConnectionTest extends \PHPUnit\Framework\TestCase
         self::assertEquals($GLOBALS['CONFIG']['db']['core']['masters']['admin']['host'], $mysql->getHost());
         self::assertEquals((int) $GLOBALS['CONFIG']['db']['core']['masters']['admin']['port'], $mysql->getPort());
         self::assertInstanceOf('\phpOMS\DataStorage\Database\Query\Grammar\MysqlGrammar', $mysql->getGrammar());
+        self::assertEquals(DatabaseType::MYSQL, $mysql->getType());
     }
 
     /**

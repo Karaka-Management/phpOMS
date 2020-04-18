@@ -15,6 +15,8 @@ namespace phpOMS\tests\DataStorage\Database;
 
 use phpOMS\tests\DataStorage\Database\TestModel\BaseModel;
 use phpOMS\tests\DataStorage\Database\TestModel\BaseModelMapper;
+use phpOMS\tests\DataStorage\Database\TestModel\Conditional;
+use phpOMS\tests\DataStorage\Database\TestModel\ConditionalMapper;
 use phpOMS\tests\DataStorage\Database\TestModel\ManyToManyDirectModelMapper;
 
 /**
@@ -46,6 +48,7 @@ class DataMapperAbstractTest extends \PHPUnit\Framework\TestCase
             },
             'datetime' => new \DateTime('2005-10-11'),
             'datetime_null' => null,
+            'conditional' => '',
             'ownsOneSelf' => [
                 'id' => 0,
                 'string' => 'OwnsOne',
@@ -97,6 +100,16 @@ class DataMapperAbstractTest extends \PHPUnit\Framework\TestCase
         )->execute();
 
         $GLOBALS['dbpool']->get()->con->prepare(
+            'CREATE TABLE `test_conditional` (
+                `test_conditional_id` int(11) NOT NULL AUTO_INCREMENT,
+                `test_conditional_title` varchar(254) NOT NULL,
+                `test_conditional_base` int(11) NOT NULL,
+                `test_conditional_language` varchar(254) NOT NULL,
+                PRIMARY KEY (`test_conditional_id`)
+            )ENGINE=InnoDB  DEFAULT CHARSET=utf8mb4 AUTO_INCREMENT=1;'
+        )->execute();
+
+        $GLOBALS['dbpool']->get()->con->prepare(
             'CREATE TABLE `test_belongs_to_one` (
                 `test_belongs_to_one_id` int(11) NOT NULL AUTO_INCREMENT,
                 `test_belongs_to_one_string` varchar(254) NOT NULL,
@@ -141,6 +154,7 @@ class DataMapperAbstractTest extends \PHPUnit\Framework\TestCase
 
     protected function tearDown() : void
     {
+        $GLOBALS['dbpool']->get()->con->prepare('DROP TABLE test_conditional')->execute();
         $GLOBALS['dbpool']->get()->con->prepare('DROP TABLE test_base')->execute();
         $GLOBALS['dbpool']->get()->con->prepare('DROP TABLE test_belongs_to_one')->execute();
         $GLOBALS['dbpool']->get()->con->prepare('DROP TABLE test_owns_one')->execute();
@@ -227,6 +241,66 @@ class DataMapperAbstractTest extends \PHPUnit\Framework\TestCase
         self::assertCount(1, BaseModelMapper::getAll());
     }
 
+    public function testFind() : void
+    {
+        $model1 = clone $this->model;
+        $model2 = clone $this->model;
+        $model3 = clone $this->model;
+
+        $model1->string = 'abc';
+        $model2->string = 'hallo sir';
+        $model3->string = 'seasiren';
+
+        BaseModelMapper::create($model1);
+        BaseModelMapper::create($model2);
+        BaseModelMapper::create($model3);
+
+        $found = BaseModelMapper::find('sir');
+        self::assertCount(2, $found);
+        self::assertEquals($model2->string, reset($found)->string);
+        self::assertEquals($model3->string, end($found)->string);
+    }
+
+    public function testWithConditional() : void
+    {
+        $model1 = clone $this->model;
+        $model2 = clone $this->model;
+        $model3 = clone $this->model;
+
+        $model1->string = 'abc';
+        $model2->string = 'hallo sir';
+        $model3->string = 'seasiren';
+
+        $id1 = BaseModelMapper::create($model1);
+        $id2 = BaseModelMapper::create($model2);
+        $id3 = BaseModelMapper::create($model3);
+
+        $cond1 = new Conditional();
+        $cond1->language = 'de';
+        $cond1->title = 'cond1_de';
+        $cond1->base = $id1;
+        ConditionalMapper::create($cond1);
+
+        $cond2 = new Conditional();
+        $cond2->language = 'en';
+        $cond2->title = 'cond1_en';
+        $cond2->base = $id1;
+        ConditionalMapper::create($cond2);
+
+        $cond3 = new Conditional();
+        $cond3->language = 'de';
+        $cond3->title = 'cond2_de';
+        $cond3->base = $id2;
+        ConditionalMapper::create($cond3);
+
+        $found = BaseModelMapper::withConditional('language', 'de')::getAll();
+        self::assertCount(2, $found);
+        self::assertEquals($model1->string, reset($found)->string);
+        self::assertEquals($model2->string, end($found)->string);
+        self::assertEquals('cond1_de', reset($found)->conditional);
+        self::assertEquals('cond2_de', end($found)->conditional);
+    }
+
     /**
      * @testdox The datamapper successfully returns a database entry as array
      * @covers phpOMS\DataStorage\Database\DataMapperAbstract
@@ -307,12 +381,12 @@ class DataMapperAbstractTest extends \PHPUnit\Framework\TestCase
         $id     = BaseModelMapper::createArray($this->modelArray);
         $modelR = BaseModelMapper::getArray($id);
 
-        $modelR['string']   = 'Update';
-        $modelR['int']      = '321';
-        $modelR['bool']     = true;
-        $modelR['float']    = 3.15;
-        $modelR['null']     = null;
-        $modelR['datetime'] = new \DateTime('now');
+        $modelR['string']        = 'Update';
+        $modelR['int']           = '321';
+        $modelR['bool']          = true;
+        $modelR['float']         = 3.15;
+        $modelR['null']          = null;
+        $modelR['datetime']      = new \DateTime('now');
         $modelR['datetime_null'] = null;
 
         $id2     = BaseModelMapper::updateArray($modelR);

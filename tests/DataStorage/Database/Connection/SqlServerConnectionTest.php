@@ -16,6 +16,7 @@ namespace phpOMS\tests\DataStorage\Database\Connection;
 
 use phpOMS\DataStorage\Database\Connection\SqlServerConnection;
 use phpOMS\DataStorage\Database\DatabaseStatus;
+use phpOMS\DataStorage\Database\DatabaseType;
 
 /**
  * @testdox phpOMS\tests\DataStorage\Database\Connection\SqlServerConnectionTest: Sqlserver connection
@@ -35,7 +36,7 @@ class SqlServerConnectionTest extends \PHPUnit\Framework\TestCase
 
     /**
      * @testdox Valid sqlserver connection data result in a valid database connection
-     * @covers phpOMS\DataStorage\Database\Connection\SqlServerConnection
+     * @covers phpOMS\DataStorage\Database\Connection\SqlServerConnection<extended>
      * @group framework
      */
     public function testConnect() : void
@@ -46,6 +47,7 @@ class SqlServerConnectionTest extends \PHPUnit\Framework\TestCase
         self::assertEquals($GLOBALS['CONFIG']['db']['core']['mssql']['admin']['host'], $ssql->getHost());
         self::assertEquals((int) $GLOBALS['CONFIG']['db']['core']['mssql']['admin']['port'], $ssql->getPort());
         self::assertInstanceOf('\phpOMS\DataStorage\Database\Query\Grammar\SqlServerGrammar', $ssql->getGrammar());
+        self::assertEquals(DatabaseType::SQLSRV, $ssql->getType());
     }
 
     /**

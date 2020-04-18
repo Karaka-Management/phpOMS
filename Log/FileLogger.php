@@ -133,6 +133,11 @@ final class FileLogger implements LoggerInterface
      *
      * @return FileLogger
      *
+     * @todo Orange-Management/phpOMS#248
+     *  [FileLogger] Create test for getInstance
+     *  Maybe unset the instance static variable first because it might be defined already.
+     *  In order to do this use the `TestUtils` functionality.
+     *
      * @since 1.0.0
      */
     public static function getInstance(string $path = '', bool $verbose = false) : self

@@ -25,7 +25,7 @@ class BaseModelMapper extends DataMapperAbstract
      */
     protected static array $columns = [
         'test_base_id'                => ['name' => 'test_base_id',                'type' => 'int',      'internal' => 'id'],
-        'test_base_string'            => ['name' => 'test_base_string',            'type' => 'string',   'internal' => 'string'],
+        'test_base_string'            => ['name' => 'test_base_string',            'type' => 'string',   'internal' => 'string', 'autocomplete' => true],
         'test_base_int'               => ['name' => 'test_base_int',               'type' => 'int',      'internal' => 'int'],
         'test_base_bool'              => ['name' => 'test_base_bool',              'type' => 'bool',     'internal' => 'bool'],
         'test_base_null'              => ['name' => 'test_base_null',              'type' => 'int',      'internal' => 'null'],
@@ -68,14 +68,21 @@ class BaseModelMapper extends DataMapperAbstract
         'hasManyDirect' => [
             'mapper'         => ManyToManyDirectModelMapper::class,
             'table'          => 'test_has_many_direct',
-            'external'            => 'test_has_many_direct_to',
-            'self'            => null,
+            'external'       => 'test_has_many_direct_to',
+            'self'           => null,
         ],
         'hasManyRelations' => [
             'mapper'         => ManyToManyRelModelMapper::class,
             'table'          => 'test_has_many_rel_relations',
-            'external'            => 'test_has_many_rel_relations_dest',
-            'self'            => 'test_has_many_rel_relations_src',
+            'external'       => 'test_has_many_rel_relations_dest',
+            'self'           => 'test_has_many_rel_relations_src',
+        ],
+        'conditional' => [
+            'mapper'   => ConditionalMapper::class,
+            'table'    => 'test_conditional',
+            'external' => 'test_conditional_base',
+            'column'   => 'title',
+            'self'     => null,
         ],
     ];
 

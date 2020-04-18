@@ -152,6 +152,9 @@ final class EventManager implements \Countable
      *
      * @return bool returns true on successfully triggering the event, false if the event couldn't be triggered which also includes sub-requirements missing
      *
+     * @todo Orange-Management/phpOMS#241
+     *  [EventManager] Create an event with a regex id/name and trigger it
+     *
      * @since 1.0.0
      */
     public function trigger(string $group, string $id = '', $data = null) : bool

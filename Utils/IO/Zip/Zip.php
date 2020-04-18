@@ -30,6 +30,10 @@ class Zip implements ArchiveInterface
 {
     /**
      * {@inheritdoc}
+     *
+     * @todo Orange-Management/phpOMS#249
+     *  [Zip] Create zip test without destination path/name
+     *  Simply call `Zip::pack([src1, src2, ...], 'output.zip')`
      */
     public static function pack($sources, string $destination, bool $overwrite = false) : bool
     {

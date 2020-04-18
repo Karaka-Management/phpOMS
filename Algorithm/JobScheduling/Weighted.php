@@ -42,6 +42,10 @@ final class Weighted
      *
      * @return int
      *
+     * @todo Orange-Management/phpOMS#243
+     *  [JobScheduling] Implement sortByEnd test coverage
+     *  All 3 if cases are not covered. Implement the tests!
+     *
      * @since 1.0.0
      */
     private static function sortByEnd(JobInterface $j1, JobInterface $j2) : int
@@ -103,6 +107,10 @@ final class Weighted
      * @param JobInterface[] $jobs Jobs to filter
      *
      * @return JobInterface[]
+     *
+     * @todo Orange-Management/phpOMS#244
+     *  [JobScheduling] Implement test for Jobs with same value.
+     *  There is no test case for the else clause in the `solve` function. Implement it.
      *
      * @since 1.0.0
      */

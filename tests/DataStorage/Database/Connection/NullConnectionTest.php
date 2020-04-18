@@ -26,7 +26,7 @@ final class NullConnectionTest extends \PHPUnit\Framework\TestCase
 {
     /**
      * @testdox A null connection can be created as placeholder
-     * @covers phpOMS\DataStorage\Database\Connection\PostgresConnection
+     * @covers phpOMS\DataStorage\Database\Connection\NullConnection<extended>
      * @group framework
      */
     public function testConnect() : void

@@ -25,7 +25,7 @@ use phpOMS\System\MimeType;
 use phpOMS\Uri\HttpUri;
 
 /**
- * @testdox phpOMS\tests\Message\Http\RequestTest: HttpRequest wrapper for http requests
+ * @testdox phpOMS\tests\Message\Http\HttpRequestTest: HttpRequest wrapper for http requests
  *
  * @internal
  */

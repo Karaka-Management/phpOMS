@@ -572,22 +572,6 @@ class Builder extends BuilderAbstract
     }
 
     /**
-     * Get column of where condition
-     *
-     * One column can have multiple where conditions.
-     *
-     * @param mixed $column Column
-     *
-     * @return null|array
-     *
-     * @since 1.0.0
-     */
-    public function getWhereByColumn($column) : ?array
-    {
-        return $this->wheres[self::getPublicColumnName($column)] ?? null;
-    }
-
-    /**
      * Where and sub condition.
      *
      * @param array|string|Where $where    Where sub condition

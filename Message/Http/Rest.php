@@ -57,6 +57,8 @@ final class Rest
 
         \curl_setopt($curl, \CURLOPT_HTTPHEADER, $headers);
         \curl_setopt($curl, \CURLOPT_HEADER, true);
+        \curl_setopt($curl, \CURLOPT_CONNECTTIMEOUT, 5);
+        \curl_setopt($curl, \CURLOPT_TIMEOUT, 30);
 
         switch ($request->getMethod()) {
             case RequestMethod::GET:

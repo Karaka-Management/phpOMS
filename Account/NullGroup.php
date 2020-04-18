@@ -15,7 +15,7 @@ declare(strict_types=1);
 namespace phpOMS\Account;
 
 /**
- * Null account class.
+ * Null group class.
  *
  * @package phpOMS\Account
  * @license OMS License 1.0

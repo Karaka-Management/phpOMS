@@ -763,7 +763,12 @@ class DataMapperAbstract implements DataMapperInterface
                 throw new InvalidMapperException();
             }
 
-            $values = $obj[$propertyName];
+            $values = $obj[$propertyName] ?? null;
+
+            if (!\is_array($values)) {
+                // conditionals
+                continue;
+            }
 
             /** @var self $mapper */
             $mapper  = static::$hasMany[$propertyName]['mapper'];
@@ -1028,6 +1033,11 @@ class DataMapperAbstract implements DataMapperInterface
 
             $values = $property->getValue($obj);
 
+            if (!\is_array($values)) {
+                // conditionals
+                continue;
+            }
+
             if (!$isPublic) {
                 $property->setAccessible(false);
             }
@@ -1109,7 +1119,12 @@ class DataMapperAbstract implements DataMapperInterface
                 throw new InvalidMapperException();
             }
 
-            $values = $obj[$propertyName];
+            $values = $obj[$propertyName] ?? null;
+
+            if (!\is_array($values)) {
+                // conditionals
+                continue;
+            }
 
             /** @var self $mapper */
             $mapper                 = static::$hasMany[$propertyName]['mapper'];
@@ -1565,6 +1580,11 @@ class DataMapperAbstract implements DataMapperInterface
             }
 
             $values = $property->getValue($obj);
+
+            if (!\is_array($values)) {
+                // conditionals
+                continue;
+            }
 
             if (!$isPublic) {
                 $property->setAccessible(false);
@@ -2159,7 +2179,7 @@ class DataMapperAbstract implements DataMapperInterface
         }
 
         foreach (static::$hasMany as $member => $def) {
-            $column = $def['mapper']::getColumnByMember($member);
+            $column = $def['mapper']::getColumnByMember($def['column'] ?? $member);
             $alias  = $column . '_' . ($depth - 1);
 
             if (!\array_key_exists($alias, $result) || !isset($def['column'])) {

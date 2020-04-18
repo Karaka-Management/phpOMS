@@ -26,6 +26,27 @@ require_once __DIR__ . '/../Autoloader.php';
 class MbStringUtilsTest extends \PHPUnit\Framework\TestCase
 {
     /**
+     * @testdox The entropy of a string can be calculated
+     * @covers phpOMS\Utils\StringUtils
+     * @group framework
+     */
+    public function testEntropy() : void
+    {
+        self::assertEqualsWithDelta(2.75, MbStringUtils::mb_entropy('akj@!©¥j'), 0.1);
+    }
+
+    /**
+     * @testdox A string can be checked for multi-byte characters
+     * @covers phpOMS\Utils\StringUtils
+     * @group framework
+     */
+    public function testHasMultiBytes() : void
+    {
+        self::assertTrue(MbStringUtils::hasMultiBytes('akj@!¥aj'));
+        self::assertFalse(MbStringUtils::hasMultiBytes('akjc!aj'));
+    }
+
+    /**
      * @testdox A multi-byte string can be checked if it starts with a defined string
      * @covers phpOMS\Utils\MbStringUtils
      * @group framework

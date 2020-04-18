@@ -95,9 +95,24 @@ class AverageTest extends \PHPUnit\Framework\TestCase
             63.94, 64.13, 64.50, 62.81, 61.88, 62.50, 61.44, 60.13, 61.31, 61.38,
         ];
 
-        $average = [66.39, 66.03, 65.79, 65.6, 65.24, 64.8, 64.46, 63.94, 63.3, 62.87, 62.4];
+        $average = [
+            66.626, 66.302, 66.328, 66.352, 66.19, 66.152, 65.764, 65.264, 64.852, 64.288, 63.452, 63.164, 62.626, 61.752, 61.452, 61.352
+        ];
 
-        self::assertEqualsWithDelta($average, Average::totalMovingAverage($data, 10), 0.1);
+        self::assertEqualsWithDelta($average, Average::totalMovingAverage($data, 5), 0.1);
+    }
+
+    /**
+     * @testdox The weighted moving average is correctly calculated
+     * @group framework
+     */
+    public function testWeightedMovingAverage() : void
+    {
+        $data    = [67.5, 66.5, 66.44, 66.44, 66.25, 65.88, 66.63];
+        $weights = [0.1, 0.2, 0.3, 0.1, 0.2, 0.05, 0.05];
+        $average = [39.982, 39.876, 39.826, 23.188, 19.876];
+
+        self::assertEqualsWithDelta($average, Average::totalMovingAverage($data, 3, $weights), 0.1);
     }
 
     /**

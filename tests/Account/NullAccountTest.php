@@ -27,4 +27,10 @@ final class NullAccountTest extends \PHPUnit\Framework\TestCase
     {
         self::assertInstanceOf('\phpOMS\Account\Account', new NullAccount());
     }
+
+    public function testId() : void
+    {
+        $null = new NullAccount(2);
+        self::assertEquals(2, $null->getId());
+    }
 }

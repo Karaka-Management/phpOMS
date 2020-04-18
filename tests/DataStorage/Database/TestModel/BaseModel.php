@@ -20,6 +20,8 @@ class BaseModel
 
     public $string = 'Base';
 
+    public $conditional = '';
+
     public $int = 11;
 
     public $bool = false;
