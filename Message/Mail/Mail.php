@@ -444,22 +444,41 @@ class Mail
         return true;
     }
 
+    /**
+     * Add string attachment
+     *
+     * @return bool
+     *
+     * @since 1.0.0
+     */
     public function addStringAttachment() : bool
     {
-
+        return true;
     }
 
+    /**
+     * Add inline image
+     *
+     * @return bool
+     *
+     * @since 1.0.0
+     */
     public function addEmbeddedImage() : bool
     {
-
+        return true;
     }
 
+    /**
+     * Add inline image attachment
+     *
+     * @return bool
+     *
+     * @since 1.0.0
+     */
     public function addStringEmbeddedImage() : bool
     {
-
+        return true;
     }
-
-
 
     /**
      * The email should be confirmed by the receivers
@@ -775,17 +794,29 @@ class Mail
         return $output;
     }
 
+    /**
+     * Create html message
+     *
+     * @return void
+     *
+     * @since 1.0.0
+     */
     public function createHtmlMsg() : void
     {
 
     }
 
+    /**
+     * Convert html to text message
+     *
+     * @return string
+     *
+     * @since 1.0.0
+     */
     private function htmlToText() : string
     {
-
+        return '';
     }
-
-
 
     /**
      * Normalize text
@@ -1205,8 +1236,18 @@ class Mail
         return \substr($encoded, 0, -\strlen($lb));
     }
 
+    /**
+     * Quoted encode
+     *
+     * @param string $text    Text to encode
+     * @param int    $context Value context
+     *
+     * @return string
+     *
+     * @since 1.0.0
+     */
     private function encodeQ(string $text, int $context = HeaderContext::TEXT) : string
     {
-
+        return '';
     }
 }
