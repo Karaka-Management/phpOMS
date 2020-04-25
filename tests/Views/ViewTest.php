@@ -64,11 +64,26 @@ class ViewTest extends \PHPUnit\Framework\TestCase
         self::assertEmpty($view->getTemplate());
         self::assertEmpty($view->getViews());
         self::assertIsArray($view->getViews());
+        self::assertFalse($view->hasData('0'));
         self::assertFalse($view->getView('0'));
         self::assertFalse($view->removeView('0'));
         self::assertNull($view->getData('0'));
         self::assertFalse($view->removeData('0'));
         self::assertEmpty($view->toArray());
+    }
+
+    /**
+     * @testdox The view data can be checked for existance
+     * @covers phpOMS\Views\View<extended>
+     * @group framework
+     */
+    public function testHasData() : void
+    {
+        $view = new View($this->app->l11nManager);
+        $view->addData('a', 1);
+
+        self::assertTrue($view->hasData('a'));
+        self::assertFalse($view->hasData('b'));
     }
 
     /**
