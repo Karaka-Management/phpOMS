@@ -88,6 +88,7 @@ final class ApplicationManager
      *
      * @param string $source      Source of the application
      * @param string $destination Destination of the application
+     * @param string $theme       Theme
      *
      * @return void
      *
@@ -96,8 +97,9 @@ final class ApplicationManager
      *
      * @since 1.0.0
      */
-    public function install(string $source, string $destination) : void
+    public function install(string $source, string $destination, string $theme = 'Default') : void
     {
+        $destination = \rtrim($destination, '\\/');
         if (!\file_exists($source) || \file_exists($destination)) {
             return;
         }
@@ -106,8 +108,23 @@ final class ApplicationManager
         $this->applications[$app->getInternalName()] = $app;
 
         $this->installFiles($source, $destination);
-        $this->installTheme($destination, 'Akebi');
+        $this->installTheme($destination, $theme);
         $this->installFromModules($app);
+
+        $files = Directory::list($destination);
+        foreach ($files as $file) {
+            if (!\is_file($destination . '/' . $file)) {
+                continue;
+            }
+
+            $content = \file_get_contents($destination . '/' . $file);
+
+            if ($content === false) {
+                continue;
+            }
+
+            \file_put_contents($destination . '/' . $file, \str_replace('{APPNAME}', \basename($destination), $content));
+        }
     }
 
     /**
