@@ -208,7 +208,7 @@ final class UriFactory
                     $keys[] = $spl[0];
 
                     if (!empty($spl[1])) {
-                        $query = $spl[0] . '=' . $spl[1] . '&' . $query;
+                        $query = $spl[0] . '=' . \urlencode($spl[1]) . '&' . $query;
                     }
                 }
             }
