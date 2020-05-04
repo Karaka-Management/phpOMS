@@ -205,7 +205,7 @@ final class TDistribution
         $sum *= $sin;
 
         if ($degrees % 2 === 1) {
-            $sum = 2 / M_PI * ($sum + $theta);
+            $sum = 2 / \M_PI * ($sum + $theta);
         }
 
         $t = 0.5 * (1 + $sum);

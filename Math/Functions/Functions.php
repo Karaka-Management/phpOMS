@@ -234,4 +234,85 @@ final class Functions
     {
         return \abs(self::mod($value - $start, $length));
     }
+
+    /**
+     * Calculate the value of the error function (gauss error function)
+     *
+     * @param float $value Value
+     *
+     * @return float
+     *
+     * @see Sylvain Chevillard; HAL Id: ensl-00356709
+     * @see https://hal-ens-lyon.archives-ouvertes.fr/ensl-00356709v3
+     *
+     * @since 1.0.0
+     */
+    public static function getErf(float $value) : float
+    {
+        if (\abs($value) > 2.2) {
+            return 1 - self::getErfc($value);
+        }
+
+        $valueSquared = $value * $value;
+        $sum          = $value;
+        $term         = $value;
+        $i            = 1;
+
+        do {
+            $term *= $valueSquared / $i;
+            $sum  -= $term / (2 * $i + 1);
+
+            ++$i;
+
+            $term *= $valueSquared / $i;
+            $sum  += $term / (2 * $i + 1);
+
+            ++$i;
+        } while ($sum !== 0.0 && \abs($term / $sum) > 0.0000001);
+
+        return 2 / \sqrt(\M_PI) * $sum;
+    }
+
+    /**
+     * Calculate the value of the complementary error fanction
+     *
+     * @param float $value Value
+     *
+     * @return float
+     *
+     * @see Sylvain Chevillard; HAL Id: ensl-00356709
+     * @see https://hal-ens-lyon.archives-ouvertes.fr/ensl-00356709v3
+     *
+     * @since 1.0.0
+     */
+    public static function getErfc(float $value) : float
+    {
+        if (\abs($value) <= 2.2) {
+            return 1 - self::getErf($value);
+        }
+
+        if ($value < 0.0) {
+            return 2 - self::getErfc(-$value);
+        }
+
+        $a  = $n = 1;
+        $b  = $c = $value;
+        $d  = ($value * $value) + 0.5;
+        $q1 = $q2 = $b / $d;
+        $t  = 0;
+
+        do {
+            $t  = $a * $n + $b * $value;
+            $a  = $b;
+            $b  = $t;
+            $t  = $c * $n + $d * $value;
+            $c  = $d;
+            $d  = $t;
+            $n += 0.5;
+            $q1 = $q2;
+            $q2 = $b / $d;
+        } while (\abs($q1 - $q2) / $q2 > 0.0000001);
+
+        return 1 / \sqrt(\M_PI) * \exp(-$value * $value) * $q2;
+    }
 }
