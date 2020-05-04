@@ -25,6 +25,23 @@ namespace phpOMS\Math\Matrix;
 final class Vector extends Matrix
 {
     /**
+     * Create vector from array
+     *
+     * @param array $vector Matrix array
+     *
+     * @return self
+     *
+     * @since 1.0.0
+     */
+    public static function fromArray(array $vector) : Vector
+    {
+        $v = new self();
+        $v->setMatrixV($vector);
+
+        return $v;
+    }
+
+    /**
      * Set vector value
      *
      * @param int   $m     Position to set

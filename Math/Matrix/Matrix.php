@@ -80,6 +80,23 @@ class Matrix implements \ArrayAccess, \Iterator
     }
 
     /**
+     * Create matrix from array
+     *
+     * @param array $matrix Matrix array
+     *
+     * @return self
+     *
+     * @since 1.0.0
+     */
+    public static function fromArray(array $matrix) : self
+    {
+        $m = new self();
+        $m->setMatrix($matrix);
+
+        return $m;
+    }
+
+    /**
      * Set value.
      *
      * @param int       $m     Row
