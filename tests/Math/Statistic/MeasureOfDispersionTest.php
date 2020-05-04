@@ -36,9 +36,9 @@ class MeasureOfDispersionTest extends \PHPUnit\Framework\TestCase
      * @testdox The standard deviation is correctly calculated
      * @group framework
      */
-    public function testStandardDeviation() : void
+    public function testStandardDeviationSample() : void
     {
-        self::assertEqualsWithDelta(2.160246, MeasureOfDispersion::standardDeviation([1, 2, 3, 4, 5, 6, 7]), 0.01);
+        self::assertEqualsWithDelta(2.160246, MeasureOfDispersion::standardDeviationSample([1, 2, 3, 4, 5, 6, 7]), 0.01);
     }
 
     /**

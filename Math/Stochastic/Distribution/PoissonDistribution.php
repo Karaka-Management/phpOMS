@@ -191,4 +191,31 @@ final class PoissonDistribution
     {
         return \pow($lambda, -1);
     }
+
+    /**
+     * Poisson-Distribution
+     *
+     * @param float $value        Value
+     * @param float $mean         Mean
+     * @param bool  $isCumulative Cumulative
+     *
+     * @return float
+     *
+     * @since 1.0.0
+     */
+    public static function dist(float $value, float $mean, bool $isCumulative = true) : float
+    {
+        if (!$isCumulative) {
+            return \exp(-$mean) * \pow($mean, $value) / Functions::fact((int) \floor($value));
+        }
+
+        $sum   = 0.0;
+        $limit = \floor($value);
+
+        for ($i = 0; $i <= $limit; ++$i) {
+            $sum += \pow($mean, $i) / Functions::fact($i);
+        }
+
+        return \exp(-$mean) * $sum;
+    }
 }

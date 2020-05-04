@@ -14,6 +14,8 @@ declare(strict_types=1);
 
 namespace phpOMS\Math\Stochastic\Distribution;
 
+use phpOMS\Math\Functions\Functions;
+
 /**
  * Normal distribution.
  *
@@ -108,6 +110,8 @@ final class NormalDistribution
      * @param float $x Value x
      *
      * @return float
+     *
+     * @todo: compare with Functions::getErf($x);
      *
      * @since 1.0.0
      */
@@ -244,5 +248,24 @@ final class NormalDistribution
     public static function getExKurtosis() : float
     {
         return 0;
+    }
+
+    /**
+     * Normal-Distribution
+     *
+     * @param float $value             Value
+     * @param float $mean              Mean
+     * @param float $standardDeviation Standard deviation
+     * @param bool  $isCumulative      Cumulative
+     *
+     * @return float
+     *
+     * @since 1.0.0
+     */
+    public static function dist(float $value, float $mean, float $standardDeviation, bool $isCumulative = true) : float
+    {
+        return $isCumulative
+            ? 0.5 * (1 + Functions::getErf(($value - $mean) / $standardDeviation * \sqrt(2)))
+            : 1 / (\sqrt(2 * \M_PI) * $standardDeviation) * \exp (-\pow($value - $mean, 2) / (2 * $standardDeviation * $standardDeviation));
     }
 }

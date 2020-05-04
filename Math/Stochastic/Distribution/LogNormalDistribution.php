@@ -173,4 +173,20 @@ final class LogNormalDistribution
             [0, 1 / (2 * $sigma ** 2)],
         ];
     }
+
+    /**
+     * Log-Normal-Distribution
+     *
+     * @param float $value             Value
+     * @param float $mean              Mean
+     * @param float $standardDeviation Standard deviation
+     *
+     * @return float
+     *
+     * @since 1.0.0
+     */
+    public static function dist(float $value, float $mean, float $standardDeviation) : float
+    {
+        return NormalDistribution::dist((\log($value) - $mean) / $standardDeviation, 0.0, 1.0, true);
+    }
 }

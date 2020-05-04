@@ -79,11 +79,11 @@ final class MeasureOfDispersion
             throw new ZeroDivisionException();
         }
 
-        return self::standardDeviation($values) / $mean;
+        return self::standardDeviationSample($values) / $mean;
     }
 
     /**
-     * Calculage standard deviation.
+     * Calculate standard deviation of sample.
      *
      * Example: ([4, 5, 9, 1, 3])
      *
@@ -96,7 +96,7 @@ final class MeasureOfDispersion
      *
      * @since 1.0.0
      */
-    public static function standardDeviation(array $values, float $mean = null) : float
+    public static function standardDeviationSample(array $values, float $mean = null) : float
     {
         $mean = $mean !== null ? $mean : Average::arithmeticMean($values);
         $sum  = 0.0;
@@ -106,6 +106,32 @@ final class MeasureOfDispersion
         }
 
         return \sqrt($sum / (\count($values) - 1));
+    }
+
+    /**
+     * Calculate standard deviation of entire population
+     *
+     * Example: ([4, 5, 9, 1, 3])
+     *
+     * @latex \sigma = \sqrt{\sigma^{2}} = \sqrt{Var(X)}
+     *
+     * @param array<int, int|float> $values Values
+     * @param float                 $mean   Mean
+     *
+     * @return float
+     *
+     * @since 1.0.0
+     */
+    public static function standardDeviationPopulation(array $values, float $mean = null) : float
+    {
+        $mean = $mean !== null ? $mean : Average::arithmeticMean($values);
+        $sum  = 0.0;
+
+        foreach ($values as $value) {
+            $sum += ($value - $mean) ** 2;
+        }
+
+        return \sqrt($sum / \count($values));
     }
 
     /**

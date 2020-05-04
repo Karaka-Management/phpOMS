@@ -139,4 +139,24 @@ final class HypergeometricDistribution
         return (($N - 1) * $N ** 2 * ($N * ($N + 1) - 6 * $K * ($N - $K) - 6 * $n * ($N - $n)) + 6 * $n * $K * ($N - $K) * ($N - $n) * (5 * $N - 6))
             / ($n * $K * ($N - $K) * ($N - $n) * ($N - 2) * ($N - 3));
     }
+
+    /**
+     * Hypergeometric-Distribution
+     *
+     * @param int $sampleSuccesses     Amount of sample successes
+     * @param int $samples             Sample size
+     * @param int $populationSuccesses Amount of population successes
+     * @param int $population          Population size
+     *
+     * @return float
+     *
+     * @since 1.0.0
+     */
+    public static function dist(int $sampleSuccesses, int $samples, int $populationSuccesses, int $population) : float
+    {
+        // Each multiplication calculates the total amount of possible group combinations based on a total amount of items.
+        return (int) (\round(Functions::fact($populationSuccesses) / Functions::fact($populationSuccesses - $sampleSuccesses)) / Functions::fact($sampleSuccesses)
+            * \round(Functions::fact($population - $populationSuccesses) / Functions::fact($population - $populationSuccesses - ($samples - $sampleSuccesses))) / Functions::fact($samples - $sampleSuccesses)
+            * \round(Functions::fact($population) / Functions::fact($population - $samples)) / Functions::fact($samples));
+    }
 }

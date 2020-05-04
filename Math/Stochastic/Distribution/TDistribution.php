@@ -159,4 +159,57 @@ final class TDistribution
     {
         return $nu < 5 && $nu > 2 ? \PHP_FLOAT_MAX : 6 / ($nu - 4);
     }
+
+    /**
+     * T-Distribution
+     *
+     * @param float $value   Value
+     * @param int   $degrees Degrees of freedom
+     * @param int   $tails   Tails (1 or 2)
+     *
+     * @return float
+     *
+     * @since 1.0.0
+     */
+    public static function dist(float $value, int $degrees, int $tails = 2) : float
+    {
+        if ($value < 0.0 || $degrees < 1 || $tails < 1 || $tails > 2) {
+            return 0.0;
+        }
+
+        /**
+         * "AS 3" by B E Cooper of the Atlas Computer Laboratory
+         * Ellis Horwood Ltd.; W. Sussex, England
+         */
+        $term  = $degrees;
+        $theta = \atan2($value, \sqrt($term));
+        $cos   = \cos($theta);
+        $sin   = \sin($theta);
+        $sum   = 0.0;
+
+        if ($degrees % 2 === 1) {
+            $i = 3;
+            $term = $cos;
+        } else {
+            $i = 2;
+            $term = 1;
+        }
+
+        $sum = $term;
+        while ($i < $degrees) {
+            $term *= $cos ** 2 * ($i - 1) / $i;
+            $sum  += $term;
+            $i    += 2;
+        }
+
+        $sum *= $sin;
+
+        if ($degrees % 2 === 1) {
+            $sum = 2 / M_PI * ($sum + $theta);
+        }
+
+        $t = 0.5 * (1 + $sum);
+
+        return $tails === 1 ? 1 - \abs($t) : 1 - \abs(1 - $t - $t);
+    }
 }

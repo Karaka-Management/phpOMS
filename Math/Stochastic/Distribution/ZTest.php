@@ -14,6 +14,9 @@ declare(strict_types=1);
 
 namespace phpOMS\Math\Stochastic\Distribution;
 
+use phpOMS\Math\Statistic\Average;
+use phpOMS\Math\Statistic\MeasureOfDispersion;
+
 /**
  * ZTest
  *
@@ -38,26 +41,20 @@ final class ZTest
     /**
      * Test hypthesis.
      *
-     * @param float $dataset      Value observed
-     * @param float $expected     Expected value
-     * @param float $total        Observed dataset size
-     * @param float $significance Significance
+     * @param array      $data  Data
+     * @param float      $alpha Alpha / Observed dataset size
+     * @param null|float $sigma Sigma / Significance
      *
-     * @return bool
+     * @return float
      *
      * @since 1.0.0
      */
-    public static function testHypothesis(float $dataset, float $expected, float $total, float $significance = 0.95) : bool
+    public static function testHypothesis(array $data, float $alpha, float $sigma = null) : float
     {
-        $z = ($dataset - $expected) / \sqrt($expected * (1 - $expected) / $total);
-
-        $zSignificance = 0.0;
-        foreach (self::TABLE as $key => $value) {
-            if ($significance === $value) {
-                $zSignificance = (float) $key;
-            }
+        if ($sigma === null) {
+            return MeasureOfDispersion::standardDeviationSample($data);
         }
 
-        return $z > -$key && $z < $key;
+        return 1 - NormalDistribution::dist((Average::arithmeticMean($data) - $alpha) / ($sigma / \sqrt(\count($data))), 0.0, 1.0, true);
     }
 }

@@ -48,7 +48,7 @@ final class Correlation
      */
     public static function bravaisPersonCorrelationCoefficient(array $x, array $y) : float
     {
-        return MeasureOfDispersion::empiricalCovariance($x, $y) / (MeasureOfDispersion::standardDeviation($x) * MeasureOfDispersion::standardDeviation($y));
+        return MeasureOfDispersion::empiricalCovariance($x, $y) / (MeasureOfDispersion::standardDeviationSample($x) * MeasureOfDispersion::standardDeviationSample($y));
     }
 
     /**
