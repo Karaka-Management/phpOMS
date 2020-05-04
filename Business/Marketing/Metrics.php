@@ -194,9 +194,9 @@ final class Metrics
      * @param array $purchaseProbability Purchase probabilities
      *
      * @return Matrix [
-     *      [0][0] = probability of buying in period t if customer bought in t = 1
-     *      ...
-     * ]
+     *                [0][0] = probability of buying in period t if customer bought in t = 1
+     *                ...
+     *                ]
      */
     public static function migrationModelPurchaseProbability(int $period, array $purchaseProbability) : Matrix
     {
@@ -220,10 +220,10 @@ final class Metrics
      * \end{bmatrix}
      *
      * @return Matrix [
-     *      p1, 1-p1, 0,
-     *      p2, 0,    1-p2,
-     *      p3, 0,    1-p3,
-     * ] where pi = Probability that customer buys in period i
+     *                p1, 1-p1, 0,
+     *                p2, 0,    1-p2,
+     *                p3, 0,    1-p3,
+     *                ] where pi = Probability that customer buys in period i
      *
      * @since 1.0.0
      */
