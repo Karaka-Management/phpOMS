@@ -33,7 +33,7 @@ final class Vector extends Matrix
      *
      * @since 1.0.0
      */
-    public static function fromArray(array $vector) : Vector
+    public static function fromArray(array $vector) : self
     {
         $v = new self();
         $v->setMatrixV($vector);
