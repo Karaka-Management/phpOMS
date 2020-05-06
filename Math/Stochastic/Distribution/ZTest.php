@@ -61,7 +61,7 @@ final class ZTest
             }
         }
 
-        return $z > -$key && $z < $key;
+        return $z > -$zSignificance && $z < $zSignificance;
     }
 
     /**
