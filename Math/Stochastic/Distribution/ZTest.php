@@ -41,20 +41,61 @@ final class ZTest
     /**
      * Test hypthesis.
      *
+     * @param float $dataset      Value observed
+     * @param float $expected     Expected value
+     * @param float $total        Observed dataset size
+     * @param float $significance Significance
+     *
+     * @return bool
+     *
+     * @since 1.0.0
+     */
+    public static function testHypothesis(float $dataset, float $expected, float $total, float $significance = 0.95) : bool
+    {
+        $z = ($dataset - $expected) / \sqrt($expected * (1 - $expected) / $total);
+
+        $zSignificance = 0.0;
+        foreach (self::TABLE as $key => $value) {
+            if ($significance === $value) {
+                $zSignificance = (float) $key;
+            }
+        }
+
+        return $z > -$key && $z < $key;
+    }
+
+    /**
+     * Z-TEST.
+     *
+     * @param float      $value Value to test
      * @param array      $data  Data
-     * @param float      $alpha Alpha / Observed dataset size
      * @param null|float $sigma Sigma / Significance
      *
      * @return float
      *
      * @since 1.0.0
      */
-    public static function testHypothesis(array $data, float $alpha, float $sigma = null) : float
+    public static function zTesting(float $value, array $data, float $sigma = null) : float
     {
-        if ($sigma === null) {
-            return MeasureOfDispersion::standardDeviationSample($data);
-        }
+        $sigma ??= MeasureOfDispersion::standardDeviationSample($data);
 
-        return 1 - NormalDistribution::dist((Average::arithmeticMean($data) - $alpha) / ($sigma / \sqrt(\count($data))), 0.0, 1.0, true);
+        return 1 - NormalDistribution::dist((Average::arithmeticMean($data) - $value) / ($sigma / \sqrt(\count($data))), 0.0, 1.0, true);
+    }
+
+    /**
+     * Z-TEST.
+     *
+     * @param float $value    Value to test
+     * @param float $mean     Mean
+     * @param int   $dataSize Data size
+     * @param float $sigma    Sigma / Significance
+     *
+     * @return float
+     *
+     * @since 1.0.0
+     */
+    public static function zTestingValues(float $value, float $mean, int $dataSize, float $sigma) : float
+    {
+        return 1 - NormalDistribution::dist(($mean - $value) / ($sigma / \sqrt($dataSize)), 0.0, 1.0, true);
     }
 }

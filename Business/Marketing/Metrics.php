@@ -142,7 +142,7 @@ final class Metrics
      */
     public static function calclateMailingSuccess(float $discountRate, array $purchaseProbability, array $payoffs) : Matrix
     {
-        $count = \count($purchaseProbability);
+        $count  = \count($purchaseProbability);
         $profit = new Matrix($count, $count);
         $G      = Vector::fromArray($payoffs);
 
@@ -233,8 +233,8 @@ final class Metrics
 
         $count = \count($purchaseProbability);
         for ($i = 0; $i < $count; ++$i) {
-            $matrix[$i] = [];
-            $matrix[$i][0] = $purchaseProbability[$i];
+            $matrix[$i]         = [];
+            $matrix[$i][0]      = $purchaseProbability[$i];
             $matrix[$i][$i + 1] = 1 - $purchaseProbability[$i];
         }
 

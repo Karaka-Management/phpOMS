@@ -31,4 +31,12 @@ class ZTestTest extends \PHPUnit\Framework\TestCase
 
         self::assertFalse(ZTest::testHypothesis($observed, $expected, $total, $a));
     }
+
+    // https://support.microsoft.com/en-us/office/z-test-function-d633d5a3-2031-4614-a016-92180ad82bee?ui=en-us&rs=en-us&ad=us
+    public function testZTest() : void
+    {
+        //self::assertEqualsWithDelta(0.090574, ZTest::zTest(4, [3, 6, 7, 8, 6, 5, 4, 2, 1, 9]), 0.001);
+
+        self::assertTrue(true);
+    }
 }

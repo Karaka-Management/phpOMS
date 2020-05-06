@@ -188,10 +188,10 @@ final class TDistribution
         $sum   = 0.0;
 
         if ($degrees % 2 === 1) {
-            $i = 3;
+            $i    = 3;
             $term = $cos;
         } else {
-            $i = 2;
+            $i    = 2;
             $term = 1;
         }
 
