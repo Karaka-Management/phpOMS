@@ -192,10 +192,17 @@ final class UriFactory
      */
     private static function unique(string $url) : string
     {
-        $parts = \explode('&', \str_replace('?', '&', $url));
-        $query = '';
+        $parts     = \explode('&', \str_replace('?', '&', $url));
+        $query     = '';
+        $partCount = \count($parts);
+        $fragment  = '';
 
-        if (\count($parts) > 1) {
+        if (($fragStart = \strripos($parts[$partCount - 1], '#')) !== false) {
+            $fragment              = \substr($parts[$partCount - 1], $fragStart);
+            $parts[$partCount - 1] = \substr($parts[$partCount - 1], 0, $fragStart);
+        }
+
+        if ($partCount > 1) {
             $pars   = \array_slice($parts, 1);
             $length = \count($pars);
             $url    = $parts[0];
@@ -214,7 +221,7 @@ final class UriFactory
             }
         }
 
-        return $url . (!empty($query) ? '?' . \rtrim($query, '&') : '');
+        return $url . (!empty($query) ? '?' . \rtrim($query, '&') : '') . $fragment;
     }
 
     /**
