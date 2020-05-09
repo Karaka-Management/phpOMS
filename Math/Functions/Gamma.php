@@ -48,7 +48,7 @@ final class Gamma
     /**
      * Calculate gamma with Lanczos approximation
      *
-     * @param mixed $z Value
+     * @param int|float $z Value
      *
      * @return float
      *
@@ -74,7 +74,7 @@ final class Gamma
     /**
      * Calculate gamma with Stirling approximation
      *
-     * @param mixed $x Value
+     * @param int|float $x Value
      *
      * @return float
      *
@@ -88,7 +88,7 @@ final class Gamma
     /**
      * Calculate gamma with Spouge approximation
      *
-     * @param mixed $z Value
+     * @param int|float $z Value
      *
      * @return float
      *
@@ -112,6 +112,38 @@ final class Gamma
         $accm *= \exp(-$z - 12) * \pow($z + 12, $z + 0.5);
 
         return $accm / $z;
+    }
+
+    /**
+     * Log of the gamma function
+     *
+     * @param int|float $z Value
+     *
+     * @return float
+     *
+     * @see Book: Numerical Recipes - 9780521406895
+     *
+     * @since 1.0.0
+     */
+    public static function logGamma($z) : float
+    {
+        static $approx = [
+            76.18009172947146,-86.50532032941677,
+            24.01409824083091,-1.231739572450155,
+            0.1208650973866179e-2,-0.5395239384953e-5
+        ];
+
+        $y = $z;
+        $x = $z;
+
+        $temp = $x + 5.5 - ($x + 0.5) * \log($x + 5.5);
+        $sum  = 1.000000000190015;
+
+        for ($i = 0; $i < 6; ++$i) {
+            $sum += $approx[$i] / ++$y;
+        }
+
+        return -$temp + \log(\sqrt(2 * \M_PI * $sum / $x));
     }
 
     /**

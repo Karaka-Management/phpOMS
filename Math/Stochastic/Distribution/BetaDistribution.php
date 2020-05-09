@@ -13,6 +13,7 @@
 declare(strict_types=1);
 namespace phpOMS\Math\Stochastic\Distribution;
 
+use phpOMS\Math\Functions\Beta;
 use phpOMS\Math\Functions\Functions;
 
 /**
@@ -148,5 +149,21 @@ final class BetaDistribution
         }
 
         return 1 + $sum;
+    }
+
+    /**
+     * Get cummulative distribution function.
+     *
+     * @param float $x     Value
+     * @param float $alpha Alpha
+     * @param float $beta  Beta
+     *
+     * @return float
+     *
+     * @since 1.0.0
+     */
+    public static function getCdf(float $x, float $alpha, float $beta) : float
+    {
+        return Beta::incompleteBeta($x, $alpha, $beta);
     }
 }

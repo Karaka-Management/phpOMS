@@ -76,7 +76,7 @@ final class NormalDistribution
      * Get probability density function.
      *
      * @param float $x   Value x
-     * @param float $mu  Value mu
+     * @param float $mu  Mean
      * @param float $sig Sigma
      *
      * @return float
@@ -89,10 +89,10 @@ final class NormalDistribution
     }
 
     /**
-     * Get probability density function.
+     * Get cummulative distribution function.
      *
      * @param float $x   Value x
-     * @param float $mu  Value mu
+     * @param float $mu  Mean
      * @param float $sig Sigma
      *
      * @return float
@@ -101,35 +101,13 @@ final class NormalDistribution
      */
     public static function getCdf(float $x, float $mu, float $sig) : float
     {
-        return 1 / 2 * (1 + self::erf(($x - $mu) / ($sig * \sqrt(2))));
-    }
-
-    /**
-     * Error function approximation
-     *
-     * @param float $x Value x
-     *
-     * @return float
-     *
-     * @todo: compare with Functions::getErf($x);
-     *
-     * @since 1.0.0
-     */
-    private static function erf(float $x) : float
-    {
-        if ($x < 0) {
-            return -self::erf(-$x);
-        }
-
-        $a = 8 * (\M_PI - 3) / (3 * \M_PI * (4 - \M_PI));
-
-        return \sqrt(1 - \exp(-($x ** 2) * (4 / \M_PI + $a * $x ** 2) / (1 + $a * $x ** 2)));
+        return 1 / 2 * (1 + Functions::getErf(($x - $mu) / ($sig * \sqrt(2))));
     }
 
     /**
      * Get mode.
      *
-     * @param float $mu Value mu
+     * @param float $mu Mean
      *
      * @return float
      *
@@ -143,7 +121,7 @@ final class NormalDistribution
     /**
      * Get expected value.
      *
-     * @param float $mu Value mu
+     * @param float $mu Mean
      *
      * @return float
      *
@@ -157,7 +135,7 @@ final class NormalDistribution
     /**
      * Get median.
      *
-     * @param float $mu Value mu
+     * @param float $mu Mean
      *
      * @return float
      *
@@ -200,7 +178,7 @@ final class NormalDistribution
      * Get moment generating function.
      *
      * @param float $t   Value t
-     * @param float $mu  Value mu
+     * @param float $mu  Mean
      * @param float $sig Sigma
      *
      * @return float
@@ -248,24 +226,5 @@ final class NormalDistribution
     public static function getExKurtosis() : float
     {
         return 0;
-    }
-
-    /**
-     * Normal-Distribution
-     *
-     * @param float $value             Value
-     * @param float $mean              Mean
-     * @param float $standardDeviation Standard deviation
-     * @param bool  $isCumulative      Cumulative
-     *
-     * @return float
-     *
-     * @since 1.0.0
-     */
-    public static function dist(float $value, float $mean, float $standardDeviation, bool $isCumulative = true) : float
-    {
-        return $isCumulative
-            ? 0.5 * (1 + Functions::getErf(($value - $mean) / $standardDeviation * \sqrt(2)))
-            : 1 / (\sqrt(2 * \M_PI) * $standardDeviation) * \exp (-\pow($value - $mean, 2) / (2 * $standardDeviation * $standardDeviation));
     }
 }

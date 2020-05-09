@@ -141,7 +141,7 @@ final class HypergeometricDistribution
     }
 
     /**
-     * Hypergeometric-Distribution
+     * Get cummulative distribution function.
      *
      * @param int $sampleSuccesses     Amount of sample successes
      * @param int $samples             Sample size
@@ -152,7 +152,7 @@ final class HypergeometricDistribution
      *
      * @since 1.0.0
      */
-    public static function dist(int $sampleSuccesses, int $samples, int $populationSuccesses, int $population) : float
+    public static function getCdf(int $sampleSuccesses, int $samples, int $populationSuccesses, int $population) : float
     {
         // Each multiplication calculates the total amount of possible group combinations based on a total amount of items.
         return (int) (\round(Functions::fact($populationSuccesses) / Functions::fact($populationSuccesses - $sampleSuccesses)) / Functions::fact($sampleSuccesses)

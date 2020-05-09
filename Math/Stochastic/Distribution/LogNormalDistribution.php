@@ -13,6 +13,8 @@
 declare(strict_types=1);
 namespace phpOMS\Math\Stochastic\Distribution;
 
+use phpOMS\Math\Functions\Functions;
+
 /**
  * Log-normal distribution.
  *
@@ -27,7 +29,7 @@ final class LogNormalDistribution
      * Get probability density function.
      *
      * @param float $x     Value x
-     * @param float $mu    Mu
+     * @param float $mu    Mean
      * @param float $sigma Sigma
      *
      * @return float
@@ -43,7 +45,7 @@ final class LogNormalDistribution
     /**
      * Get expected value.
      *
-     * @param float $mu    Mu
+     * @param float $mu    Mean
      * @param float $sigma Sigma = standard deviation
      *
      * @return float
@@ -58,7 +60,7 @@ final class LogNormalDistribution
     /**
      * Get median.
      *
-     * @param float $mu Mu
+     * @param float $mu Mean
      *
      * @return float
      *
@@ -72,7 +74,7 @@ final class LogNormalDistribution
     /**
      * Get mode.
      *
-     * @param float $mu    Mu
+     * @param float $mu    Mean
      * @param float $sigma Sigma
      *
      * @return float
@@ -87,7 +89,7 @@ final class LogNormalDistribution
     /**
      * Get variance.
      *
-     * @param float $mu    Mu
+     * @param float $mu    Mean
      * @param float $sigma Sigma
      *
      * @return float
@@ -102,7 +104,7 @@ final class LogNormalDistribution
     /**
      * Get standard deviation.
      *
-     * @param float $mu    Mu
+     * @param float $mu    Mean
      * @param float $sigma Sigma
      *
      * @return float
@@ -145,7 +147,7 @@ final class LogNormalDistribution
     /**
      * Get entrpoy.
      *
-     * @param float $mu    Mu
+     * @param float $mu    Mean
      * @param float $sigma Sigma
      *
      * @return float
@@ -175,9 +177,9 @@ final class LogNormalDistribution
     }
 
     /**
-     * Log-Normal-Distribution
+     * Get cummulative distribution function.
      *
-     * @param float $value             Value
+     * @param float $x                 Value
      * @param float $mean              Mean
      * @param float $standardDeviation Standard deviation
      *
@@ -185,8 +187,8 @@ final class LogNormalDistribution
      *
      * @since 1.0.0
      */
-    public static function dist(float $value, float $mean, float $standardDeviation) : float
+    public static function getCdf(float $x, float $mean, float $standardDeviation) : float
     {
-        return NormalDistribution::dist((\log($value) - $mean) / $standardDeviation, 0.0, 1.0, true);
+        return 0.5 + 0.5 * Functions::getErf((\log($x) - $mean) / (\sqrt(2) * $standardDeviation));
     }
 }

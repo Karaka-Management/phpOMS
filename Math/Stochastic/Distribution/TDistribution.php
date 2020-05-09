@@ -161,9 +161,9 @@ final class TDistribution
     }
 
     /**
-     * T-Distribution
+     * Get cummulative distribution function.
      *
-     * @param float $value   Value
+     * @param float $x       Value
      * @param int   $degrees Degrees of freedom
      * @param int   $tails   Tails (1 or 2)
      *
@@ -171,9 +171,9 @@ final class TDistribution
      *
      * @since 1.0.0
      */
-    public static function dist(float $value, int $degrees, int $tails = 2) : float
+    public static function getCdf(float $x, int $degrees, int $tails = 2) : float
     {
-        if ($value < 0.0 || $degrees < 1 || $tails < 1 || $tails > 2) {
+        if ($x < 0.0 || $degrees < 1 || $tails < 1 || $tails > 2) {
             return 0.0;
         }
 
@@ -182,7 +182,7 @@ final class TDistribution
          * Ellis Horwood Ltd.; W. Sussex, England
          */
         $term  = $degrees;
-        $theta = \atan2($value, \sqrt($term));
+        $theta = \atan2($x, \sqrt($term));
         $cos   = \cos($theta);
         $sin   = \sin($theta);
         $sum   = 0.0;

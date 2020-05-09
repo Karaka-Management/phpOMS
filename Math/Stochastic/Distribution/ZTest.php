@@ -79,7 +79,7 @@ final class ZTest
     {
         $sigma ??= MeasureOfDispersion::standardDeviationSample($data);
 
-        return 1 - NormalDistribution::dist((Average::arithmeticMean($data) - $value) / ($sigma / \sqrt(\count($data))), 0.0, 1.0, true);
+        return 1 - NormalDistribution::getCdf((Average::arithmeticMean($data) - $value) / ($sigma / \sqrt(\count($data))), 0.0, 1.0, true);
     }
 
     /**
@@ -96,6 +96,6 @@ final class ZTest
      */
     public static function zTestingValues(float $value, float $mean, int $dataSize, float $sigma) : float
     {
-        return 1 - NormalDistribution::dist(($mean - $value) / ($sigma / \sqrt($dataSize)), 0.0, 1.0, true);
+        return 1 - NormalDistribution::getCdf(($mean - $value) / ($sigma / \sqrt($dataSize)), 0.0, 1.0, true);
     }
 }

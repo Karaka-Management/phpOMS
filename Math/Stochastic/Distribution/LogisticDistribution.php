@@ -27,7 +27,7 @@ final class LogisticDistribution
      * Get probability density function.
      *
      * @param float $x  Value x
-     * @param float $mu Mu location
+     * @param float $mu Mean
      * @param float $s  s scale
      *
      * @return float
@@ -44,7 +44,7 @@ final class LogisticDistribution
      * Get cummulative distribution function.
      *
      * @param float $x  Value x
-     * @param float $mu Mu location
+     * @param float $mu Mean
      * @param float $s  s scale
      *
      * @return float
@@ -59,7 +59,7 @@ final class LogisticDistribution
     /**
      * Get mode.
      *
-     * @param float $mu Value mu
+     * @param float $mu Mean
      *
      * @return float
      *
@@ -73,7 +73,7 @@ final class LogisticDistribution
     /**
      * Get expected value.
      *
-     * @param float $mu Value mu
+     * @param float $mu Mean
      *
      * @return float
      *
@@ -87,7 +87,7 @@ final class LogisticDistribution
     /**
      * Get median.
      *
-     * @param float $mu Value mu
+     * @param float $mu Mean
      *
      * @return float
      *

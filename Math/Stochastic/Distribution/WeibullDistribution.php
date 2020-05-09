@@ -101,23 +101,4 @@ final class WeibullDistribution
 
         return $gamma * (1 - 1 / $k) + \log($lambda / $k) + 1;
     }
-
-    /**
-     * Weibull-Distribution
-     *
-     * @param float $value        Value
-     * @param float $alpha        Alpha
-     * @param float $beta         Beta
-     * @param bool  $isCumulative Cumulative
-     *
-     * @return float
-     *
-     * @since 1.0.0
-     */
-    public static function dist(float $value, float $alpha, float $beta, bool $isCumulative = true) : float
-    {
-        return $isCumulative
-            ? 1 - \exp(-\pow($value / $beta, $alpha))
-            : $alpha / \pow($beta, $alpha) * \pow($value, $alpha - 1) * \exp(-\pow($value / $beta, $alpha));
-    }
 }
