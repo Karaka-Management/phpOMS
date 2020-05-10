@@ -28,6 +28,7 @@ class CurrencyTest extends \PHPUnit\Framework\TestCase
      * @testdox A currency can be converted from euro to another currency
      * @covers phpOMS\Utils\Converter\Currency
      * @group framework
+     * @group maybe
      */
     public function testCurrencyFromEur() : void
     {
@@ -38,6 +39,7 @@ class CurrencyTest extends \PHPUnit\Framework\TestCase
      * @testdox A currency can be converted to euro from another currency
      * @covers phpOMS\Utils\Converter\Currency
      * @group framework
+     * @group maybe
      */
     public function testCurrencyToEur() : void
     {
@@ -48,6 +50,7 @@ class CurrencyTest extends \PHPUnit\Framework\TestCase
      * @testdox A currency can be converted from one currency to another currency
      * @covers phpOMS\Utils\Converter\Currency
      * @group framework
+     * @group maybe
      */
     public function testCurrency() : void
     {
@@ -59,6 +62,7 @@ class CurrencyTest extends \PHPUnit\Framework\TestCase
      * @testdox A currency conversion from eur to a invalid currency throws a InvalidArgumentException
      * @covers phpOMS\Utils\Converter\Currency
      * @group framework
+     * @group maybe
      */
     public function testInvalidFromEur() : void
     {
@@ -71,6 +75,7 @@ class CurrencyTest extends \PHPUnit\Framework\TestCase
      * @testdox A currency conversion from a invalid currency to eur throws a InvalidArgumentException
      * @covers phpOMS\Utils\Converter\Currency
      * @group framework
+     * @group maybe
      */
     public function testInvalidToEur() : void
     {
@@ -83,6 +88,7 @@ class CurrencyTest extends \PHPUnit\Framework\TestCase
      * @testdox A currency conversion from a invalid currency to a invalid currency throws a InvalidArgumentException
      * @covers phpOMS\Utils\Converter\Currency
      * @group framework
+     * @group maybe
      */
     public function testInvalidConvert() : void
     {
