@@ -118,7 +118,7 @@ abstract class InstallerAbstract
         $settings = include $path;
 
         foreach ($settings as $setting) {
-            $cfgHandlers->create($setting);
+            $cfgHandler->create($setting);
         }
     }
 
