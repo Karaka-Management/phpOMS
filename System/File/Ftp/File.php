@@ -407,7 +407,12 @@ class File extends FileAbstract implements FileInterface
      */
     public function getParent() : ContainerInterface
     {
-        // todo adjust http link and self();
+        /**
+         * @todo Orange-Management/phpOMS#??? [p:low] [t:todo] [d:medium]
+         *  Implement getParent()
+         */
+
+        return $this;
     }
 
     /**
@@ -419,7 +424,7 @@ class File extends FileAbstract implements FileInterface
      */
     public function createNode() : bool
     {
-        return self::ftpCreate($this->con, $this->uri->getPath(), 0755, true);
+        return self::create($this->con, $this->uri->getPath(), 0755, true);
     }
 
     /**
@@ -434,7 +439,12 @@ class File extends FileAbstract implements FileInterface
      */
     public function copyNode(string $to, bool $overwrite = false) : bool
     {
-        // todo: Implement copyNode() method.
+        /**
+         * @todo Orange-Management/phpOMS#??? [p:low] [t:todo] [d:medium]
+         *  Implement copyNode()
+         */
+
+        return true;
     }
 
     /**
@@ -449,7 +459,12 @@ class File extends FileAbstract implements FileInterface
      */
     public function moveNode(string $to, bool $overwrite = false) : bool
     {
-        // todo: Implement moveNode() method.
+        /**
+         * @todo Orange-Management/phpOMS#??? [p:low] [t:todo] [d:medium]
+         *  Implement moveNode()
+         */
+
+        return true;
     }
 
     /**
@@ -461,7 +476,12 @@ class File extends FileAbstract implements FileInterface
      */
     public function deleteNode() : bool
     {
-        // todo: Implement deleteNode() method.
+        /**
+         * @todo Orange-Management/phpOMS#??? [p:low] [t:todo] [d:medium]
+         *  Implement deleteNode()
+         */
+
+        return true;
     }
 
     /**
@@ -476,7 +496,12 @@ class File extends FileAbstract implements FileInterface
      */
     public function putContent(string $content, int $mode = ContentPutMode::APPEND | ContentPutMode::CREATE) : bool
     {
-        // todo: Implement putContent() method.
+        /**
+         * @todo Orange-Management/phpOMS#??? [p:low] [t:todo] [d:medium]
+         *  Implement putContent()
+         */
+
+        return true;
     }
 
     /**
@@ -492,7 +517,12 @@ class File extends FileAbstract implements FileInterface
      */
     public function setContent(string $content) : bool
     {
-        // todo: Implement setContent() method.
+        /**
+         * @todo Orange-Management/phpOMS#??? [p:low] [t:todo] [d:medium]
+         *  Implement setContent()
+         */
+
+        return true;
     }
 
     /**
@@ -508,7 +538,12 @@ class File extends FileAbstract implements FileInterface
      */
     public function appendContent(string $content) : bool
     {
-        // todo: Implement appendContent() method.
+        /**
+         * @todo Orange-Management/phpOMS#??? [p:low] [t:todo] [d:medium]
+         *  Implement appendContent()
+         */
+
+        return true;
     }
 
     /**
@@ -524,7 +559,12 @@ class File extends FileAbstract implements FileInterface
      */
     public function prependContent(string $content) : bool
     {
-        // todo: Implement prependContent() method.
+        /**
+         * @todo Orange-Management/phpOMS#??? [p:low] [t:todo] [d:medium]
+         *  Implement prependContent()
+         */
+
+        return true;
     }
 
     /**
@@ -536,7 +576,12 @@ class File extends FileAbstract implements FileInterface
      */
     public function getContent() : string
     {
-        // todo: Implement getContent() method.
+        /**
+         * @todo Orange-Management/phpOMS#??? [p:low] [t:todo] [d:medium]
+         *  Implement getContent()
+         */
+
+        return '';
     }
 
     /**
@@ -548,6 +593,11 @@ class File extends FileAbstract implements FileInterface
      */
     public function getExtension() : string
     {
-        // todo: Implement getExtension() method.
+        /**
+         * @todo Orange-Management/phpOMS#??? [p:low] [t:todo] [d:medium]
+         *  Implement getExtension()
+         */
+
+        return '';
     }
 }

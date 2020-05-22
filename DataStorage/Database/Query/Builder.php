@@ -850,7 +850,11 @@ class Builder extends BuilderAbstract
      */
     public function count(string $table = '*') : self
     {
-        // todo: don't do this as string, create new object new \count(); this can get handled by the grammar parser WAY better
+        /**
+         * @todo Orange-Management/phpOMS#??? [p:low] [t:optimization] [d:medium]
+         *  Don't do this as a string, create a new object $this->select(new Count($table)).
+         *  The parser should be able to handle this much better
+         */
         return $this->select('COUNT(' . $table . ')');
     }
 

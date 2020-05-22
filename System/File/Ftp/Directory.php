@@ -34,6 +34,14 @@ use phpOMS\Uri\HttpUri;
 class Directory extends FileAbstract implements FtpContainerInterface, DirectoryInterface
 {
     /**
+     * Ftp connection
+     *
+     * @var resource
+     * @since 1.0.0
+     */
+    private $con;
+
+    /**
      * Directory nodes (files and directories).
      *
      * @var FileAbstract[]
@@ -528,9 +536,12 @@ class Directory extends FileAbstract implements FtpContainerInterface, Directory
      */
     public function createNode() : bool
     {
-        return self::create($this->path, $this->permission, true);
+        return self::create($this->con, $this->path, $this->permission, true);
 
-        // todo: add node
+        /**
+         * @todo Orange-Management/phpOMS#??? [p:low] [t:todo] [d:medium]
+         *  Add node to node list
+         */
     }
 
     /**
@@ -550,7 +561,12 @@ class Directory extends FileAbstract implements FtpContainerInterface, Directory
      */
     public function getParent() : ContainerInterface
     {
-        // todo: Implement getParent() method.
+        /**
+         * @todo Orange-Management/phpOMS#??? [p:low] [t:todo] [d:medium]
+         *  Implement getParent()
+         */
+
+        return $this;
     }
 
     /**
@@ -558,7 +574,12 @@ class Directory extends FileAbstract implements FtpContainerInterface, Directory
      */
     public function copyNode(string $to, bool $overwrite = false) : bool
     {
-        // todo: Implement copyNode() method.
+        /**
+         * @todo Orange-Management/phpOMS#??? [p:low] [t:todo] [d:medium]
+         *  Implement copyNode()
+         */
+
+        return true;
     }
 
     /**
@@ -566,7 +587,12 @@ class Directory extends FileAbstract implements FtpContainerInterface, Directory
      */
     public function moveNode(string $to, bool $overwrite = false) : bool
     {
-        // todo: Implement moveNode() method.
+        /**
+         * @todo Orange-Management/phpOMS#??? [p:low] [t:todo] [d:medium]
+         *  Implement moveNode()
+         */
+
+        return true;
     }
 
     /**
@@ -574,7 +600,12 @@ class Directory extends FileAbstract implements FtpContainerInterface, Directory
      */
     public function deleteNode() : bool
     {
-        // todo: Implement deleteNode() method.
+        /**
+         * @todo Orange-Management/phpOMS#??? [p:low] [t:todo] [d:medium]
+         *  Implement deleteNode()
+         */
+
+        return true;
     }
 
     /**
@@ -650,16 +681,13 @@ class Directory extends FileAbstract implements FtpContainerInterface, Directory
     }
 
     /**
-     * Offset to retrieve
-     * @link  http://php.net/manual/en/arrayaccess.offsetget.php
-     * @param  mixed $offset <p>
-     *                       The offset to retrieve.
-     *                       </p>
-     * @return mixed can return all value types
-     * @since 5.0.0
+     * {@inheritdoc}
      */
     public function offsetGet($offset)
     {
-        // todo: Implement offsetGet() method.
+        /**
+         * @todo Orange-Management/phpOMS#??? [p:low] [t:todo] [d:medium]
+         *  Implement offsetGet()
+         */
     }
 }

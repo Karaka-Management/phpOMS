@@ -280,8 +280,11 @@ class DataMapperAbstract implements DataMapperInterface
      */
     public static function with(...$objects) : void
     {
-        // todo: how to handle with of parent objects/extends/relations
-
+        /**
+         * @todo Orange-Management/phpOMS#??? [p:low] [t:optimization] [d:expert]
+         *  Implement with()
+         *  Only load fields or models which are specified in with
+         */
         self::$fields = $objects;
     }
 
@@ -1272,8 +1275,6 @@ class DataMapperAbstract implements DataMapperInterface
         /** @var self $mapper */
         $mapper = static::$ownsOne[$propertyName]['mapper'];
 
-        // todo: delete owned one object is not recommended since it can be owned by by something else? or does owns one mean that nothing else can have a relation to this one?
-
         return $mapper::updateArray($obj, $relations, $depth);
     }
 
@@ -1644,7 +1645,12 @@ class DataMapperAbstract implements DataMapperInterface
         /** @var self $mapper */
         $mapper = static::$ownsOne[$propertyName]['mapper'];
 
-        // todo: delete owned one object is not recommended since it can be owned by by something else? or does owns one mean that nothing else can have a relation to this one?
+        /**
+         * @todo Orange-Management/phpOMS#??? [p:low] [t:question] [d:expert]
+         *  Deleting a owned one object is not recommended since it can be owned by something else?
+         *  Or does owns one mean that nothing else can have a relation to this model?
+         */
+
         return $mapper::delete($obj);
 
     }
@@ -2415,6 +2421,10 @@ class DataMapperAbstract implements DataMapperInterface
      * @return mixed
      *
      * @since 1.0.0
+     *
+     * @todo Orange-Management/phpOMS#? [p:medium] [d:medium] [t:bug]
+     *  If the pivot element doesn't exist the result set is empty.
+     *  It should just return the closes elements "before" the pivot element.
      */
     public static function getBeforePivot(
         $pivot,

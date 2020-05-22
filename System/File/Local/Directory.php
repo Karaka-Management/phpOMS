@@ -282,7 +282,9 @@ final class Directory extends FileAbstract implements LocalContainerInterface, D
 
     /**
      * {@inheritdoc}
-     * todo: move to fileAbastract since it should be the same for file and directory?
+     *
+     * @todo Orange-Management/phpOMS#??? [p:low] [t:optimization] [d:beginner] [t:question]
+     *  Consider to move this to fileAbastract since it should be the same for file and directory?
      */
     public static function created(string $path) : \DateTime
     {
@@ -425,7 +427,10 @@ final class Directory extends FileAbstract implements LocalContainerInterface, D
     {
         return self::create($this->path, $this->permission, true);
 
-        // todo: add node
+        /**
+         * @todo Orange-Management/phpOMS#??? [p:low] [t:todo] [d:medium]
+         *  Add node to current node list
+         */
     }
 
     /**
@@ -469,7 +474,10 @@ final class Directory extends FileAbstract implements LocalContainerInterface, D
 
             unset($this->nodes[$name]);
 
-            // todo: unlink???
+            /**
+             * @todo Orange-Management/phpOMS#??? [p:low] [t:question] [d:medium]
+             *  Should this also remove the resource? \unlink();
+             */
 
             return true;
         }
@@ -612,7 +620,10 @@ final class Directory extends FileAbstract implements LocalContainerInterface, D
     {
         return self::delete($this->path);
 
-        // todo: remove from node list
+        /**
+         * @todo Orange-Management/phpOMS#??? [p:low] [t:todo] [d:medium]
+         *  Remove node from node list
+         */
     }
 
     /**
@@ -620,6 +631,9 @@ final class Directory extends FileAbstract implements LocalContainerInterface, D
      */
     public function offsetGet($offset) : void
     {
-        // todo: Implement offsetGet() method.
+        /**
+         * @todo Orange-Management/phpOMS#??? [p:low] [t:todo] [d:medium]
+         *  Implement offsetGet()
+         */
     }
 }
