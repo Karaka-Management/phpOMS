@@ -689,5 +689,7 @@ class Directory extends FileAbstract implements FtpContainerInterface, Directory
          * @todo Orange-Management/phpOMS#??? [p:low] [t:todo] [d:medium]
          *  Implement offsetGet()
          */
+
+        return 0;
     }
 }
