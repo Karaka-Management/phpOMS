@@ -35,7 +35,7 @@ class WeightedTest extends \PHPUnit\Framework\TestCase
             new Job(20, new \DateTime('2003-01-01'), new \DateTime('2010-01-01'), 'A'),
             new Job(50, new \DateTime('2001-01-01'), new \DateTime('2002-01-01'), 'B'),
             new Job(100, new \DateTime('2006-01-01'), new \DateTime('2019-01-01'), 'C'),
-            new Job(200, new \DateTime('2002-01-01'), new \DateTime('2100-01-01'), 'D'),
+            new Job(200, new \DateTime('2002-01-01'), new \DateTime('2020-01-01'), 'D'),
         ];
 
         $filtered = WeighteD::solve($jobs);
