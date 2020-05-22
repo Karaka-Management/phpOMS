@@ -629,8 +629,8 @@ final class ModuleManager
             throw new InvalidModuleException($info->getDirectory());
         }
 
-        /** @var $class InstallerAbstract */
-        $class::install($this->app->dbPool, $info);
+        /** @var InstallerAbstract $class */
+        $class::install($this->app->dbPool, $info, $appSettings->appSettings);
     }
 
     /**
