@@ -424,7 +424,7 @@ class File extends FileAbstract implements FileInterface
      */
     public function createNode() : bool
     {
-        return self::create($this->con, $this->uri->getPath(), 0755, true);
+        return self::create($this->con, $this->uri->getPath());
     }
 
     /**
