@@ -34,6 +34,12 @@
             </exclude>
         </whitelist>
     </filter>
+    <groups>
+        <exclude>
+            <group>volume</group>
+            <group>maybe</group>
+        </exclude>
+    </groups>
     <php>
         <const name="WEB_SERVER_HOST" value="localhost" />
         <const name="WEB_SERVER_PORT" value="1234" />
