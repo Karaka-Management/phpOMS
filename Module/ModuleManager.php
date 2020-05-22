@@ -630,7 +630,7 @@ final class ModuleManager
         }
 
         /** @var InstallerAbstract $class */
-        $class::install($this->app->dbPool, $info, $appSettings->appSettings);
+        $class::install($this->app->dbPool, $info, $app->appSettings);
     }
 
     /**
