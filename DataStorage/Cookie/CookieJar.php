@@ -98,7 +98,7 @@ final class CookieJar
         if ($overwrite || !isset($this->cookies[$id])) {
             $this->cookies[$id] = [
                 'value'    => $value,
-                'expiry'   => $expire,
+                'expires'  => $expire,
                 'path'     => $path,
                 'domain'   => $domain,
                 'secure'   => $secure,
@@ -194,7 +194,14 @@ final class CookieJar
 
         // @codeCoverageIgnoreStart
         foreach ($this->cookies as $key => $cookie) {
-            \setcookie($key, $cookie['value'], $cookie['expiry'], $cookie['path'], $cookie['domain'], $cookie['secure'], $cookie['httponly'], 'Strict');
+            \setcookie($key, $cookie['value'], [
+                'expires'  => $cookie['expires'],
+                'path'     => $cookie['path'],
+                'domain'   => $cookie['domain'],
+                'secure'   => $cookie['secure'],
+                'httponly' => $cookie['httponly'],
+                'samesite' => 'Strict'
+            ]);
         }
         // @codeCoverageIgnoreEnd
     }
