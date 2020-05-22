@@ -152,7 +152,7 @@ jobs:
       run: composer install
     - name: Prepare phpstan
       run: |
-        sed -i 's/path: ../../phpOMS\//path: ..\//..\///g' Build/Config/phpstan-baseline.neon
+        sed -i 's/path: ..\/..\/phpOMS\//path: ..\/..\//g' Build/Config/phpstan-baseline.neon
     - name: phpstan
       run: vendor/bin/phpstan analyse -a Autoloader.php --no-progress -l 8 -c Build/Config/phpstan.neon ./
   codestyle-tests:
