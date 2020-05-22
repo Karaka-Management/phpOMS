@@ -14,8 +14,8 @@ declare(strict_types=1);
 
 namespace phpOMS\Module;
 
-use Model\CoreSettings;
 use phpOMS\Application\ApplicationInfo;
+use phpOMS\Config\SettingsInterface
 use phpOMS\DataStorage\Database\DatabasePool;
 use phpOMS\DataStorage\Database\Query\Builder;
 use phpOMS\DataStorage\Database\Schema\Builder as SchemaBuilder;
@@ -78,18 +78,19 @@ abstract class InstallerAbstract
     /**
      * Install module.
      *
-     * @param DatabasePool $dbPool Database instance
-     * @param ModuleInfo   $info   Module info
+     * @param DatabasePool      $dbPool     Database instance
+     * @param ModuleInfo        $info       Module info
+     * @param SettingsInterface $cfgHandler Settings/Configuration handler
      *
      * @return void
      *
      * @since 1.0.0
      */
-    public static function install(DatabasePool $dbPool, ModuleInfo $info) : void
+    public static function install(DatabasePool $dbPool, ModuleInfo $info, SettingsInterface $cfgHandler) : void
     {
         self::createTables($dbPool, $info);
         self::registerInDatabase($dbPool, $info);
-        self::installSettings($dbPool, $info);
+        self::installSettings($dbPool, $info, $cfgHandler);
         self::initRoutes($info);
         self::initHooks($info);
         self::activate($dbPool, $info);
@@ -98,14 +99,15 @@ abstract class InstallerAbstract
     /**
      * Install module settings.
      *
-     * @param DatabasePool $dbPool Database instance
-     * @param ModuleInfo   $info   Module info
+     * @param DatabasePool      $dbPool     Database instance
+     * @param ModuleInfo        $info       Module info
+     * @param SettingsInterface $cfgHandler Settings/Configuration handler
      *
      * @return void
      *
      * @since 1.0.0
      */
-    public static function installSettings(DatabasePool $dbPool, ModuleInfo $info) : void
+    public static function installSettings(DatabasePool $dbPool, ModuleInfo $info, SettingsInterface $cfgHandler) : void
     {
         $path = \dirname($info->getPath()) . '/Admin/Install/Settings.install.php';
 
@@ -116,8 +118,7 @@ abstract class InstallerAbstract
         $settings = include $path;
 
         foreach ($settings as $setting) {
-            $settings = new CoreSettings($dbPool->get('insert'));
-            $settings->create($setting);
+            $cfgHandlers->create($setting);
         }
     }
 
