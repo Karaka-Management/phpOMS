@@ -200,7 +200,7 @@ final class CookieJar
                 'domain'   => $cookie['domain'],
                 'secure'   => $cookie['secure'],
                 'httponly' => $cookie['httponly'],
-                'samesite' => 'Strict'
+                'samesite' => 'Strict',
             ]);
         }
         // @codeCoverageIgnoreEnd
