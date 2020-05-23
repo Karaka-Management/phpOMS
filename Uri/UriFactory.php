@@ -197,9 +197,9 @@ final class UriFactory
         $partCount = \count($parts);
         $fragment  = '';
 
-        if (($fragStart = \strripos($parts[$partCount - 1], '#')) !== false) {
-            $fragment              = \substr($parts[$partCount - 1], $fragStart);
-            $parts[$partCount - 1] = \substr($parts[$partCount - 1], 0, $fragStart);
+        if (($fragStart = \strripos($parts[0], '#')) !== false) {
+            $fragment = \substr($parts[0], $fragStart);
+            $parts[0] = \substr($parts[0], 0, $fragStart);
         }
 
         if ($partCount > 1) {
