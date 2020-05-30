@@ -9,6 +9,11 @@
  * @license   OMS License 1.0
  * @version   1.0.0
  * @link      https://orange-management.org
+ *
+ * Extended based on:
+ * MIT License
+ * © 2011-2012 Xueqiao Xu <xueqiaoxu@gmail.com>
+ * © PathFinding.js
  */
 declare(strict_types=1);
 

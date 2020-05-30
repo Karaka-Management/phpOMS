@@ -151,8 +151,8 @@ class MazeGenerator
     public static function render(array $maze) : string
     {
         $rendered = '';
-        foreach ($maze as $y => $row) {
-            foreach ($row as $x => $column) {
+        foreach ($maze as $row) {
+            foreach ($row as $column) {
                 $rendered .= $column;
             }
 

@@ -9,6 +9,11 @@
  * @license   OMS License 1.0
  * @version   1.0.0
  * @link      https://orange-management.org
+ *
+ * Extended based on:
+ * GLGPL 2.1 License
+ * © 2012 - 2015 Marcus Bointon, 2010 - 2012 Jim Jagielski, 2004 - 2009 Andy Prevost
+ * © PHPMailer
  */
 declare(strict_types=1);
 
