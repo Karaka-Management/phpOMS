@@ -251,12 +251,13 @@ abstract class ModuleAbstract
      * @param mixed  $obj     Response object
      * @param string $mapper  Object mapper
      * @param string $trigger Trigger for the event manager
+     * @param string $ip      Ip
      *
      * @return void
      *
      * @since 1.0.0
      */
-    protected function createModel(int $account, $obj, string $mapper, string $trigger) : void
+    protected function createModel(int $account, $obj, string $mapper, string $trigger, string $ip) : void
     {
         $this->app->eventManager->trigger('PRE:Module:' . static::MODULE_NAME . '-' . $trigger . '-create', '', $obj);
         $mapper::create($obj);
@@ -265,6 +266,7 @@ abstract class ModuleAbstract
             null, $obj,
             0, 0,
             static::MODULE_NAME,
+            $ip
         ]);
     }
 
@@ -275,12 +277,13 @@ abstract class ModuleAbstract
      * @param array  $objs    Response object
      * @param string $mapper  Object mapper
      * @param string $trigger Trigger for the event manager
+     * @param string $ip      Ip
      *
      * @return void
      *
      * @since 1.0.0
      */
-    protected function createModels(int $account, array $objs, string $mapper, string $trigger) : void
+    protected function createModels(int $account, array $objs, string $mapper, string $trigger, string $ip) : void
     {
         foreach ($objs as $obj) {
             $this->app->eventManager->trigger('PRE:Module:' . static::MODULE_NAME . '-' . $trigger . '-create', '', $obj);
@@ -290,6 +293,7 @@ abstract class ModuleAbstract
                 null, $obj,
                 0, 0,
                 static::MODULE_NAME,
+                $ip
             ]);
         }
     }
@@ -302,12 +306,13 @@ abstract class ModuleAbstract
      * @param mixed           $new     Response object new
      * @param \Closure|string $mapper  Object mapper
      * @param string          $trigger Trigger for the event manager
+     * @param string          $ip      Ip
      *
      * @return void
      *
      * @since 1.0.0
      */
-    protected function updateModel(int $account, $old, $new, $mapper, string $trigger) : void
+    protected function updateModel(int $account, $old, $new, $mapper, string $trigger, string $ip) : void
     {
         $this->app->eventManager->trigger('PRE:Module:' . static::MODULE_NAME . '-' . $trigger . '-update', '', $old);
         if (\is_string($mapper)) {
@@ -320,6 +325,7 @@ abstract class ModuleAbstract
             $old, $new,
             0, 0,
             static::MODULE_NAME,
+            $ip
         ]);
     }
 
@@ -330,12 +336,13 @@ abstract class ModuleAbstract
      * @param mixed  $obj     Response object
      * @param string $mapper  Object mapper
      * @param string $trigger Trigger for the event manager
+     * @param string $ip      Ip
      *
      * @return void
      *
      * @since 1.0.0
      */
-    protected function deleteModel(int $account, $obj, string $mapper, string $trigger) : void
+    protected function deleteModel(int $account, $obj, string $mapper, string $trigger, string $ip) : void
     {
         $this->app->eventManager->trigger('PRE:Module:' . static::MODULE_NAME . '-' . $trigger . '-delete', '', $obj);
         $mapper::delete($obj);
@@ -344,6 +351,7 @@ abstract class ModuleAbstract
             $obj,  null,
             0, 0,
             static::MODULE_NAME,
+            $ip
         ]);
     }
 
@@ -356,12 +364,13 @@ abstract class ModuleAbstract
      * @param string $mapper  Object mapper
      * @param string $field   Relation field
      * @param string $trigger Trigger for the event manager
+     * @param string $ip      Ip
      *
      * @return void
      *
      * @since 1.0.0
      */
-    protected function createModelRelation(int $account, $rel1, $rel2, string $mapper, string $field, string $trigger) : void
+    protected function createModelRelation(int $account, $rel1, $rel2, string $mapper, string $field, string $trigger, string $ip) : void
     {
         $this->app->eventManager->trigger('PRE:Module:' . static::MODULE_NAME . '-' . $trigger . '-relation', '', $rel1);
         $mapper::createRelation($field, $rel1, $rel2);
@@ -370,6 +379,7 @@ abstract class ModuleAbstract
             $rel1, $rel2,
             0, 0,
             static::MODULE_NAME,
+            $ip
         ]);
     }
 }
