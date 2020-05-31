@@ -266,7 +266,7 @@ abstract class ModuleAbstract
             null, $obj,
             0, 0,
             static::MODULE_NAME,
-            $ip
+            $ip,
         ]);
     }
 
@@ -293,7 +293,7 @@ abstract class ModuleAbstract
                 null, $obj,
                 0, 0,
                 static::MODULE_NAME,
-                $ip
+                $ip,
             ]);
         }
     }
@@ -325,7 +325,7 @@ abstract class ModuleAbstract
             $old, $new,
             0, 0,
             static::MODULE_NAME,
-            $ip
+            $ip,
         ]);
     }
 
@@ -351,7 +351,7 @@ abstract class ModuleAbstract
             $obj,  null,
             0, 0,
             static::MODULE_NAME,
-            $ip
+            $ip,
         ]);
     }
 
@@ -379,7 +379,7 @@ abstract class ModuleAbstract
             $rel1, $rel2,
             0, 0,
             static::MODULE_NAME,
-            $ip
+            $ip,
         ]);
     }
 }
