@@ -131,19 +131,20 @@ final class ModuleManager
      * Get language files.
      *
      * @param RequestAbstract $request Request
+     * @param null|string     $app     App name
      *
      * @return string[]
      *
      * @since 1.0.0
      */
-    public function getLanguageFiles(RequestAbstract $request) : array
+    public function getLanguageFiles(RequestAbstract $request, string $app = null) : array
     {
         $files = $this->getUriLoad($request);
 
         $lang = [];
         if (isset($files['5'])) {
             foreach ($files['5'] as $module) {
-                $lang[] = '/Modules/' . $module['module_load_from'] . '/Theme/' . $this->app->appName . '/Lang/' . $module['module_load_file'];
+                $lang[] = '/Modules/' . $module['module_load_from'] . '/Theme/' . ($app ?? $this->app->appName) . '/Lang/' . $module['module_load_file'];
             }
         }
 

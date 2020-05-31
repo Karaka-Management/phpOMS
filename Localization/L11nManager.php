@@ -146,21 +146,22 @@ final class L11nManager
     /**
      * Get translation.
      *
-     * @param string $code        Language code
-     * @param string $module      Module name
-     * @param string $theme       Theme
-     * @param mixed  $translation Text
+     * @param string      $code        Language code
+     * @param string      $module      Module name
+     * @param string      $theme       Theme
+     * @param mixed       $translation Text
+     * @param null|string $app         App name
      *
      * @return string In case the language element couldn't be found 'ERROR' will be returned
      *
      * @since 1.0.0
      */
-    public function getText(string $code, string $module, string $theme, $translation) : string
+    public function getText(string $code, string $module, string $theme, $translation, string $app = null) : string
     {
         if (!isset($this->language[$code][$module][$translation])) {
             try {
                 /** @var ModuleAbstract $class */
-                $class = '\Modules\\' . $module . '\\Controller\\' . $this->appName . 'Controller';
+                $class = '\Modules\\' . $module . '\\Controller\\' . ($app ?? $this->appName) . 'Controller';
                 $this->loadLanguage($code, $module, $class::getLocalization($code, $theme));
 
                 if (!isset($this->language[$code][$module][$translation])) {
