@@ -64,7 +64,7 @@ class ModuleAbstractTest extends \PHPUnit\Framework\TestCase
             {
                 $model = new BaseModel();
                 $model->hasManyRelations = [];
-                $this->createModel(1, $model, BaseModelMapper::class, '');
+                $this->createModel(1, $model, BaseModelMapper::class, '', '127.0.0.1');
             }
 
             public function createRelationModel() : void
@@ -78,14 +78,14 @@ class ModuleAbstractTest extends \PHPUnit\Framework\TestCase
                 $model1 = BaseModelMapper::get(1);
                 $model2 = ManyToManyRelModelMapper::get(1);
 
-                $this->createModelRelation(1, $model1->id, $model2->id, BaseModelMapper::class, 'hasManyRelations', '');
+                $this->createModelRelation(1, $model1->id, $model2->id, BaseModelMapper::class, 'hasManyRelations', '', '127.0.0.1');
             }
 
             public function creates() : void
             {
                 $model1 = new BaseModel();
                 $model2 = new BaseModel();
-                $this->createModel(1, [$model1, $model2], BaseModelMapper::class, '');
+                $this->createModel(1, [$model1, $model2], BaseModelMapper::class, '', '127.0.0.1');
             }
 
             public function update() : void
@@ -96,13 +96,13 @@ class ModuleAbstractTest extends \PHPUnit\Framework\TestCase
                 $new = clone $old;
                 $new->string = 'Updated';
 
-                $this->updateModel(1, $old, $new, BaseModelMapper::class, '');
+                $this->updateModel(1, $old, $new, BaseModelMapper::class, '', '127.0.0.1');
             }
 
             public function delete() : void
             {
                 $model = BaseModelMapper::get(1);
-                $this->deleteModel(1, $model, BaseModelMapper::class, '');
+                $this->deleteModel(1, $model, BaseModelMapper::class, '', '127.0.0.1');
             }
         };
     }
