@@ -46,9 +46,9 @@ final class MonotoneChain
     public static function createConvexHull(array $points) : array
     {
         if (($n = \count($points)) < 2) {
-            return $points; 
+            return $points;
         }
-        
+
         \uasort($points, [self::class, 'sort']);
 
         $k      = 0;
