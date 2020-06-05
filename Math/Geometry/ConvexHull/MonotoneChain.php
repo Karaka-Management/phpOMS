@@ -45,36 +45,37 @@ final class MonotoneChain
      */
     public static function createConvexHull(array $points) : array
     {
-        if (($n = \count($points)) > 1) {
-            \uasort($points, [self::class, 'sort']);
+        if (($n = \count($points)) < 2) {
+            return $points; 
+        }
+        
+        \uasort($points, [self::class, 'sort']);
 
-            $k      = 0;
-            $result = [];
+        $k      = 0;
+        $result = [];
 
-            // Lower hull
-            for ($i = 0; $i < $n; ++$i) {
-                while ($k >= 2 && self::cross($result[$k - 2], $result[$k - 1], $points[$i]) <= 0) {
-                    --$k;
-                }
-
-                $result[$k++] = $points[$i];
+        // Lower hull
+        for ($i = 0; $i < $n; ++$i) {
+            while ($k >= 2 && self::cross($result[$k - 2], $result[$k - 1], $points[$i]) <= 0) {
+                --$k;
             }
 
-            // Upper hull
-            for ($i = $n - 2, $t = $k + 1; $i >= 0; --$i) {
-                while ($k >= $t && self::cross($result[$k - 2], $result[$k - 1], $points[$i]) <= 0) {
-                    --$k;
-                }
-
-                $result[$k++] = $points[$i];
-            }
-
-            \ksort($result);
-
-            return \array_slice($result, 0, $k - 1);
+            $result[$k++] = $points[$i];
         }
 
-        return $points;
+        // Upper hull
+        for ($i = $n - 2, $t = $k + 1; $i >= 0; --$i) {
+            while ($k >= $t && self::cross($result[$k - 2], $result[$k - 1], $points[$i]) <= 0) {
+                --$k;
+            }
+
+            $result[$k++] = $points[$i];
+        }
+
+        \ksort($result);
+
+        /** @return array<int, array{x:int|float, y:int|float}> */
+        return \array_slice($result, 0, $k - 1);
     }
 
     /**
