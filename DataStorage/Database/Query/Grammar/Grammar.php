@@ -263,7 +263,7 @@ class Grammar extends GrammarAbstract
 
         if (isset($element['value'])) {
             $expression .= ' ' . \strtoupper($element['operator']) . ' ' . $this->compileValue($query, $element['value']);
-        } elseif ($element['value'] === null && !($element['column'] instanceof Where)) {
+        } elseif ($element['value'] === null && !($element['column'] instanceof Builder)) {
             $operator    = $element['operator'] === '=' ? 'IS' : 'IS NOT';
             $expression .= ' ' . $operator . ' ' . $this->compileValue($query, $element['value']);
         }

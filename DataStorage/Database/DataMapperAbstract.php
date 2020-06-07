@@ -2781,6 +2781,20 @@ class DataMapperAbstract implements DataMapperInterface
             return;
         }
 
+        // @todo: check if there are more cases where the relation is already loaded with joins etc.
+        // there can be pseudo has many elements like localizations. They are has manies but these are already loaded with joins!
+        $hasRealHasMany = false;
+        foreach (static::$hasMany as $many) {
+            if (!isset($many['column'])) {
+                $hasRealHasMany = true;
+                break;
+            }
+        }
+
+        if (!$hasRealHasMany) {
+            return;
+        }
+
         // todo: let hasmanyraw return the full data already and let populatemanytomany just fill it!
         // todo: create a get has many raw id function because sometimes we need this (see update function)
         self::populateManyToMany(self::getHasManyRaw($key, $relations), $obj, $depth);
@@ -2946,7 +2960,7 @@ class DataMapperAbstract implements DataMapperInterface
         $cachedTables = []; // used by conditionals
 
         foreach (static::$hasMany as $member => $value) {
-            if ($value['writeonly'] ?? false === true) {
+            if ($value['writeonly'] ?? false === true || isset($value['column'])) {
                 continue;
             }
 
@@ -2962,9 +2976,11 @@ class DataMapperAbstract implements DataMapperInterface
                         ->where($value['table'] . '.' . $value['external'], '=', $primaryKey);
 
                     foreach (self::$conditionals as $condKey => $condValue) {
-                        if (($column = $value['mapper']::getColumnByMember($condKey)) !== null) {
-                            $query->andWhere($value['table'] . '.' . $column, '=', $condValue);
+                        if (($column = $value['mapper']::getColumnByMember($condKey)) === null) {
+                            continue;
                         }
+
+                        $query->andWhere($value['table'] . '.' . $column, '=', $condValue);
                     }
                 }
 
@@ -3010,10 +3026,13 @@ class DataMapperAbstract implements DataMapperInterface
             $query->fromAs(static::$table, static::$table . '_' . $depth);
         }
 
+        // handle conditional
         foreach (self::$conditionals as $condKey => $condValue) {
-            if (($column = self::getColumnByMember($condKey)) !== null) {
-                $query->andWhere(static::$table . '_' . $depth . '.' . $column, '=', $condValue);
+            if (($column = self::getColumnByMember($condKey)) === null) {
+                continue;
             }
+
+            $query->andWhere(static::$table . '_' . $depth . '.' . $column, '=', $condValue);
         }
 
         // get OwnsOneQuery
@@ -3313,3 +3332,61 @@ class DataMapperAbstract implements DataMapperInterface
         return new $class();
     }
 }
+
+/* C0: setup for C1
+CREATE TABLE IF NOT EXISTS `tag` (
+  `tag_id` int(11) NOT NULL,
+  `tag_bla` int(11) NULL,
+  PRIMARY KEY (`tag_id`)
+) DEFAULT CHARSET=utf8;
+
+CREATE TABLE IF NOT EXISTS `tag_l11n` (
+  `tag_l11n_id` int(11) NOT NULL,
+  `tag_l11n_tag` int(11) NOT NULL,
+  `tag_l11n_title` varchar(250) NOT NULL,
+  `tag_l11n_language` varchar(2) NOT NULL,
+  PRIMARY KEY (`tag_l11n_id`)
+) DEFAULT CHARSET=utf8;
+
+INSERT INTO `tag` (`tag_id`) VALUES
+  ('1'), ('2'), ('3');
+
+INSERT INTO `tag_l11n` (`tag_l11n_id`, `tag_l11n_tag`, `tag_l11n_title`, `tag_l11n_language`) VALUES
+  ('1', '1', 'German', 'de'),
+  ('2', '2', 'German', 'de'),
+  ('3', '1', 'English', 'en'),
+  ('4', '1', 'Italian', 'it'),
+  ('5', '3', 'German', 'de'),
+  ('6', '2', 'English', 'en'),
+  ('7', '3', 'Spanish', 'sp');
+
+*/
+
+/* C1: conditional values with priorities
+SELECT
+    `tag_3`.`tag_id` as tag_id_3, `tag_3`.`tag_bla` as tag_bla_3,
+    `tag_l11n_2`.`tag_l11n_title` as tag_l11n_title_2, `tag_l11n_2`.`tag_l11n_language`
+FROM
+    `tag` as tag_3
+LEFT JOIN
+    `tag_l11n` as tag_l11n_2 ON `tag_3`.`tag_id` = `tag_l11n_2`.`tag_l11n_tag`
+WHERE (
+    `tag_l11n_2`.`tag_l11n_language` = 'it'
+OR (
+    `tag_l11n_2`.`tag_l11n_language` = 'en'
+    AND NOT EXISTS (SELECT *
+                    FROM tag_l11n t3
+                    WHERE t3.tag_l11n_tag = tag_3.tag_id
+                    AND t3.tag_l11n_language = 'it')
+)
+OR (
+    NOT EXISTS (SELECT *
+                    FROM tag_l11n t3
+                    WHERE t3.tag_l11n_tag = tag_3.tag_id
+                    AND t3.tag_l11n_language in ('en', 'it')))
+)
+GROUP BY tag_id_3
+ORDER BY
+    `tag_3`.`tag_id` ASC
+LIMIT 25;
+*/
