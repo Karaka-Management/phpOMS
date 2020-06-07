@@ -50,100 +50,93 @@ class PostgresConnectionTest extends \PHPUnit\Framework\TestCase
     }
 
     /**
-     * @testdox A missing database type throws a InvalidConnectionConfigException
+     * @testdox A missing database type returns a failure
      * @covers phpOMS\DataStorage\Database\Connection\PostgresConnection
      * @group framework
      */
     public function testInvalidDatabaseType() : void
     {
-        self::expectException(\phpOMS\DataStorage\Database\Exception\InvalidConnectionConfigException::class);
-
         $db = $GLOBALS['CONFIG']['db']['core']['postgresql']['admin'];
         unset($db['db']);
         $psql = new PostgresConnection($db);
+        self::assertEquals(DatabaseStatus::FAILURE, $psql->getStatus());
     }
 
     /**
-     * @testdox A missing database host throws a InvalidConnectionConfigException
+     * @testdox A missing database host returns a failure
      * @covers phpOMS\DataStorage\Database\Connection\PostgresConnection
      * @group framework
      */
     public function testInvalidHost() : void
     {
-        self::expectException(\phpOMS\DataStorage\Database\Exception\InvalidConnectionConfigException::class);
-
         $db = $GLOBALS['CONFIG']['db']['core']['postgresql']['admin'];
         unset($db['host']);
         $psql = new PostgresConnection($db);
+        self::assertEquals(DatabaseStatus::FAILURE, $psql->getStatus());
     }
 
     /**
-     * @testdox A missing database port throws a InvalidConnectionConfigException
+     * @testdox A missing database port returns a failure
      * @covers phpOMS\DataStorage\Database\Connection\PostgresConnection
      * @group framework
      */
     public function testInvalidPort() : void
     {
-        self::expectException(\phpOMS\DataStorage\Database\Exception\InvalidConnectionConfigException::class);
-
         $db = $GLOBALS['CONFIG']['db']['core']['postgresql']['admin'];
         unset($db['port']);
         $psql = new PostgresConnection($db);
+        self::assertEquals(DatabaseStatus::FAILURE, $psql->getStatus());
     }
 
     /**
-     * @testdox A missing database throws a InvalidConnectionConfigException
+     * @testdox A missing database returns a failure
      * @covers phpOMS\DataStorage\Database\Connection\PostgresConnection
      * @group framework
      */
     public function testInvalidDatabase() : void
     {
-        self::expectException(\phpOMS\DataStorage\Database\Exception\InvalidConnectionConfigException::class);
-
         $db = $GLOBALS['CONFIG']['db']['core']['postgresql']['admin'];
         unset($db['database']);
         $psql = new PostgresConnection($db);
+        self::assertEquals(DatabaseStatus::FAILURE, $psql->getStatus());
     }
 
     /**
-     * @testdox A missing database login throws a InvalidConnectionConfigException
+     * @testdox A missing database login returns a failure
      * @covers phpOMS\DataStorage\Database\Connection\PostgresConnection
      * @group framework
      */
     public function testInvalidLogin() : void
     {
-        self::expectException(\phpOMS\DataStorage\Database\Exception\InvalidConnectionConfigException::class);
-
         $db = $GLOBALS['CONFIG']['db']['core']['postgresql']['admin'];
         unset($db['login']);
         $psql = new PostgresConnection($db);
+        self::assertEquals(DatabaseStatus::FAILURE, $psql->getStatus());
     }
 
     /**
-     * @testdox A missing database password throws a InvalidConnectionConfigException
+     * @testdox A missing database password returns a failure
      * @covers phpOMS\DataStorage\Database\Connection\PostgresConnection
      * @group framework
      */
     public function testInvalidPassword() : void
     {
-        self::expectException(\phpOMS\DataStorage\Database\Exception\InvalidConnectionConfigException::class);
-
         $db = $GLOBALS['CONFIG']['db']['core']['postgresql']['admin'];
         unset($db['password']);
         $psql = new PostgresConnection($db);
+        self::assertEquals(DatabaseStatus::FAILURE, $psql->getStatus());
     }
 
     /**
-     * @testdox A invalid database type throws a InvalidConnectionConfigException
+     * @testdox A invalid database returns a failure
      * @covers phpOMS\DataStorage\Database\Connection\PostgresConnection
      * @group framework
      */
     public function testInvalidDatabaseTypeName() : void
     {
-        self::expectException(\phpOMS\DataStorage\Database\Exception\InvalidConnectionConfigException::class);
-
         $db       = $GLOBALS['CONFIG']['db']['core']['postgresql']['admin'];
         $db['db'] = 'invalid';
         $psql = new PostgresConnection($db);
+        self::assertEquals(DatabaseStatus::FAILURE, $psql->getStatus());
     }
 }

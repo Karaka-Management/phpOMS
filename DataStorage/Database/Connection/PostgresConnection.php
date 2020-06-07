@@ -68,7 +68,10 @@ final class PostgresConnection extends ConnectionAbstract
             || !DatabaseType::isValidValue($this->dbdata['db'])
         ) {
             $this->status = DatabaseStatus::FAILURE;
-            throw new InvalidConnectionConfigException((string) \json_encode($this->dbdata));
+            $this->dbdata['password'] = '****';
+            //throw new InvalidConnectionConfigException((string) \json_encode($this->dbdata));
+
+            return;
         }
 
         $this->close();

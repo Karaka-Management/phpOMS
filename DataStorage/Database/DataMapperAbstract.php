@@ -2960,7 +2960,7 @@ class DataMapperAbstract implements DataMapperInterface
         $cachedTables = []; // used by conditionals
 
         foreach (static::$hasMany as $member => $value) {
-            if ($value['writeonly'] ?? false === true || isset($value['column'])) {
+            if ($value['writeonly'] ?? false === true || isset($value['column'])) { // @todo: conflict with getQuery()???!?!?!?!
                 continue;
             }
 
@@ -3080,7 +3080,7 @@ class DataMapperAbstract implements DataMapperInterface
         // get HasManyQuery (but only for elements which have a 'column' defined)
         if ($depth > 1 && $relations === RelationType::ALL) {
             foreach (static::$hasMany as $member => $rel) {
-                if (isset($rel['self']) || !isset($rel['column'])) {
+                if (isset($rel['self']) || !isset($rel['column'])) { // @todo: conflict with getHasMany()???!?!?!?!
                     continue;
                 }
 
@@ -3363,6 +3363,7 @@ INSERT INTO `tag_l11n` (`tag_l11n_id`, `tag_l11n_tag`, `tag_l11n_title`, `tag_l1
 */
 
 /* C1: conditional values with priorities
+https://dbfiddle.uk/?rdbms=mariadb_10.4&fiddle=54359372c3481cfee85f423af76665e4
 SELECT
     `tag_3`.`tag_id` as tag_id_3, `tag_3`.`tag_bla` as tag_bla_3,
     `tag_l11n_2`.`tag_l11n_title` as tag_l11n_title_2, `tag_l11n_2`.`tag_l11n_language`
@@ -3386,6 +3387,26 @@ OR (
                     AND t3.tag_l11n_language in ('en', 'it')))
 )
 GROUP BY tag_id_3
+ORDER BY
+    `tag_3`.`tag_id` ASC
+LIMIT 25;
+*/
+
+/* C2: try this
+SELECT
+    `tag_3`.`tag_id` as tag_id_3,
+    COALESCE(`tag_l11n_2`.`tag_l11n_title`, `tag_l11n_3`.`tag_l11n_title`, `tag_l11n_4`.`tag_l11n_title`) as tag_l11n_title_2
+FROM
+    `tag` as tag_3
+LEFT JOIN
+    `tag_l11n` as tag_l11n_2 ON `tag_3`.`tag_id` = `tag_l11n_2`.`tag_l11n_tag`
+                            AND `tag_l11n_2`.`tag_l11n_language` = 'it'
+LEFT JOIN
+    `tag_l11n` as tag_l11n_3 ON `tag_3`.`tag_id` = `tag_l11n_3`.`tag_l11n_tag`
+                            AND `tag_l11n_3`.`tag_l11n_language` = 'en'
+LEFT JOIN
+    `tag_l11n` as tag_l11n_4 ON `tag_3`.`tag_id` = `tag_l11n_4`.`tag_l11n_tag`
+                            AND `tag_l11n_4`.`tag_l11n_language` NOT IN ('en', 'it')
 ORDER BY
     `tag_3`.`tag_id` ASC
 LIMIT 25;

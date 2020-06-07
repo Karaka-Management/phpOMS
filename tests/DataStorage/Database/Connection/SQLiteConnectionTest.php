@@ -48,31 +48,29 @@ class SQLiteConnectionTest extends \PHPUnit\Framework\TestCase
     }
 
     /**
-     * @testdox A missing database type throws a InvalidConnectionConfigException
+     * @testdox A missing database type returns a failure
      * @covers phpOMS\DataStorage\Database\Connection\SQLiteConnection
      * @group framework
      */
     public function testInvalidDatabaseType() : void
     {
-        self::expectException(\phpOMS\DataStorage\Database\Exception\InvalidConnectionConfigException::class);
-
         $db = $GLOBALS['CONFIG']['db']['core']['sqlite']['admin'];
         unset($db['db']);
         $sqlite = new SQLiteConnection($db);
+        self::assertEquals(DatabaseStatus::FAILURE, $sqlite->getStatus());
     }
 
     /**
-     * @testdox A missing database throws a InvalidConnectionConfigException
+     * @testdox A missing database returns a failure
      * @covers phpOMS\DataStorage\Database\Connection\SQLiteConnection
      * @group framework
      */
     public function testInvalidDatabase() : void
     {
-        self::expectException(\phpOMS\DataStorage\Database\Exception\InvalidConnectionConfigException::class);
-
         $db = $GLOBALS['CONFIG']['db']['core']['sqlite']['admin'];
         unset($db['database']);
         $sqlite = new SQLiteConnection($db);
+        self::assertEquals(DatabaseStatus::FAILURE, $sqlite->getStatus());
     }
 
     public static function tearDownAfterClass() : void
