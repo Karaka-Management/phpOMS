@@ -66,6 +66,18 @@ use phpOMS\Utils\ArrayUtils;
  *  but also accepts alternatives if nothing exists for this conditional but for other conditionals. E.g.
  *      * News article doesn't exist in the defined l11n
  *      * However if the article exists in english language it should at least show in that language.
+ *
+ * @todo Orange-Management/phpOMS#???
+ *  Use more column/field names instead of model variable names
+ *  Consider to replace the model member variable name in the `column` definition of hasMany etc. definitions with the actual column name. This could be faster.
+ *  This could make it faster since we don't need to do a reverse look up.
+ *  Maybe this will require us to do a different lookup however which costs a similar amount of time?
+ *
+ * @todo Orange-Management/phpOMS#???
+ *  Concise usage of runtime evaluations vs hard-coded definitions
+ *  Most of the time we are using Mapper::class etc. but there are still places where we use 'table' => 'table_name' instead of Mapper::$table.
+ *  The Mapper::$table approach is probably better for future code changes but makes it probably also slower.
+ *  We really need to decide to follow one path and implement this everywhere.
  */
 class DataMapperAbstract implements DataMapperInterface
 {
