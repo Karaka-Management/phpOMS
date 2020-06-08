@@ -394,7 +394,7 @@ class DirectoryTest extends \PHPUnit\Framework\TestCase
      */
     public function testInvalidCreatedPath() : void
     {
-        self::expectException(\phpOMS\System\File\PathException::class);
+        $this->expectException(\phpOMS\System\File\PathException::class);
 
         Directory::created($this->con, __DIR__ . '/invalid');
     }
@@ -406,7 +406,7 @@ class DirectoryTest extends \PHPUnit\Framework\TestCase
      */
     public function testInvalidChangedPath() : void
     {
-        self::expectException(\phpOMS\System\File\PathException::class);
+        $this->expectException(\phpOMS\System\File\PathException::class);
 
         Directory::changed($this->con, __DIR__ . '/invalid');
     }
@@ -418,7 +418,7 @@ class DirectoryTest extends \PHPUnit\Framework\TestCase
      */
     public function testInvalidOwnerPath() : void
     {
-        self::expectException(\phpOMS\System\File\PathException::class);
+        $this->expectException(\phpOMS\System\File\PathException::class);
 
         Directory::owner($this->con, __DIR__ . '/invalid');
     }

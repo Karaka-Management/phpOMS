@@ -135,7 +135,7 @@ class MeasureOfDispersionTest extends \PHPUnit\Framework\TestCase
      */
     public function testInvalidEmpiricalVariationCoefficient() : void
     {
-        self::expectException(\phpOMS\Math\Exception\ZeroDivisionException::class);
+        $this->expectException(\phpOMS\Math\Exception\ZeroDivisionException::class);
 
         MeasureOfDispersion::empiricalVariationCoefficient([1, 2, 3, 4, 5, 6, 7], 0);
     }
@@ -146,7 +146,7 @@ class MeasureOfDispersionTest extends \PHPUnit\Framework\TestCase
      */
     public function testInvalidEmpiricalCovariance() : void
     {
-        self::expectException(\phpOMS\Math\Exception\ZeroDivisionException::class);
+        $this->expectException(\phpOMS\Math\Exception\ZeroDivisionException::class);
 
         MeasureOfDispersion::empiricalCovariance([], []);
     }
@@ -157,7 +157,7 @@ class MeasureOfDispersionTest extends \PHPUnit\Framework\TestCase
      */
     public function testInvalidEmpiricalCovarianceDimension() : void
     {
-        self::expectException(\phpOMS\Math\Matrix\Exception\InvalidDimensionException::class);
+        $this->expectException(\phpOMS\Math\Matrix\Exception\InvalidDimensionException::class);
 
         MeasureOfDispersion::empiricalCovariance([1, 2, 3, 4], [1, 2, 3]);
     }
@@ -168,7 +168,7 @@ class MeasureOfDispersionTest extends \PHPUnit\Framework\TestCase
      */
     public function testInvalidSampleVariance() : void
     {
-        self::expectException(\phpOMS\Math\Exception\ZeroDivisionException::class);
+        $this->expectException(\phpOMS\Math\Exception\ZeroDivisionException::class);
 
         MeasureOfDispersion::sampleVariance([]);
     }
@@ -179,7 +179,7 @@ class MeasureOfDispersionTest extends \PHPUnit\Framework\TestCase
      */
     public function testInvalidEmpiricalVariance() : void
     {
-        self::expectException(\phpOMS\Math\Exception\ZeroDivisionException::class);
+        $this->expectException(\phpOMS\Math\Exception\ZeroDivisionException::class);
 
         MeasureOfDispersion::empiricalVariance([]);
     }

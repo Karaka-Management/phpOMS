@@ -140,7 +140,7 @@ class MetricsNDTest extends \PHPUnit\Framework\TestCase
      */
     public function testInvalidManhattanDimension() : void
     {
-        self::expectException(\phpOMS\Math\Matrix\Exception\InvalidDimensionException::class);
+        $this->expectException(\phpOMS\Math\Matrix\Exception\InvalidDimensionException::class);
 
         MetricsND::manhattan([3, 6, 4], [4, 6, 8, 3]);
     }
@@ -152,7 +152,7 @@ class MetricsNDTest extends \PHPUnit\Framework\TestCase
      */
     public function testInvalidEuclideanDimension() : void
     {
-        self::expectException(\phpOMS\Math\Matrix\Exception\InvalidDimensionException::class);
+        $this->expectException(\phpOMS\Math\Matrix\Exception\InvalidDimensionException::class);
 
         MetricsND::euclidean([3, 6, 4], [4, 6, 8, 3]);
     }
@@ -164,7 +164,7 @@ class MetricsNDTest extends \PHPUnit\Framework\TestCase
      */
     public function testInvalidChebyshevDimension() : void
     {
-        self::expectException(\phpOMS\Math\Matrix\Exception\InvalidDimensionException::class);
+        $this->expectException(\phpOMS\Math\Matrix\Exception\InvalidDimensionException::class);
 
         MetricsND::chebyshev([3, 6, 4], [4, 6, 8, 3]);
     }
@@ -176,7 +176,7 @@ class MetricsNDTest extends \PHPUnit\Framework\TestCase
      */
     public function testInvalidMinkowskiDimension() : void
     {
-        self::expectException(\phpOMS\Math\Matrix\Exception\InvalidDimensionException::class);
+        $this->expectException(\phpOMS\Math\Matrix\Exception\InvalidDimensionException::class);
 
         MetricsND::minkowski([3, 6, 4], [4, 6, 8, 3], 2);
     }
@@ -188,7 +188,7 @@ class MetricsNDTest extends \PHPUnit\Framework\TestCase
      */
     public function testInvalidCanberraDimension() : void
     {
-        self::expectException(\phpOMS\Math\Matrix\Exception\InvalidDimensionException::class);
+        $this->expectException(\phpOMS\Math\Matrix\Exception\InvalidDimensionException::class);
 
         MetricsND::canberra([3, 6, 4], [4, 6, 8, 3]);
     }
@@ -200,7 +200,7 @@ class MetricsNDTest extends \PHPUnit\Framework\TestCase
      */
     public function testInvalidBrayCurtisDimension() : void
     {
-        self::expectException(\phpOMS\Math\Matrix\Exception\InvalidDimensionException::class);
+        $this->expectException(\phpOMS\Math\Matrix\Exception\InvalidDimensionException::class);
 
         MetricsND::brayCurtis([3, 6, 4], [4, 6, 8, 3]);
     }
@@ -212,7 +212,7 @@ class MetricsNDTest extends \PHPUnit\Framework\TestCase
      */
     public function testInvalidAngularSeparationDimension() : void
     {
-        self::expectException(\phpOMS\Math\Matrix\Exception\InvalidDimensionException::class);
+        $this->expectException(\phpOMS\Math\Matrix\Exception\InvalidDimensionException::class);
 
         MetricsND::angularSeparation([3, 6, 4], [4, 6, 8, 3]);
     }
@@ -224,7 +224,7 @@ class MetricsNDTest extends \PHPUnit\Framework\TestCase
      */
     public function testInvalidHammingDimension() : void
     {
-        self::expectException(\phpOMS\Math\Matrix\Exception\InvalidDimensionException::class);
+        $this->expectException(\phpOMS\Math\Matrix\Exception\InvalidDimensionException::class);
 
         MetricsND::hamming([3, 6, 4], [4, 6, 8, 3]);
     }

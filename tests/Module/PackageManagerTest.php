@@ -146,7 +146,7 @@ class PackageManagerTest extends \PHPUnit\Framework\TestCase
      */
     public function testNotExtractedLoad() : void
     {
-        self::expectException(\phpOMS\System\File\PathException::class);
+        $this->expectException(\phpOMS\System\File\PathException::class);
 
         $package = new PackageManager(
             __DIR__ . '/testPackage.zip',
@@ -164,7 +164,7 @@ class PackageManagerTest extends \PHPUnit\Framework\TestCase
      */
     public function testInvalidInstall() : void
     {
-        self::expectException(\Exception::class);
+        $this->expectException(\Exception::class);
 
         $package = new PackageManager(
             __DIR__ . '/testPackage.zip',

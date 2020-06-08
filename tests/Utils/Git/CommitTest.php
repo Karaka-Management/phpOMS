@@ -133,7 +133,7 @@ class CommitTest extends \PHPUnit\Framework\TestCase
      */
     public function testDuplicateLineChange() : void
     {
-        self::expectException(\Exception::class);
+        $this->expectException(\Exception::class);
 
         $commit = new Commit();
         $commit->addChanges(__DIR__ . '/CommitTest.php', 1, '<?php', 'test');

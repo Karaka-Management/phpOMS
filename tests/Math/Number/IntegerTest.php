@@ -94,7 +94,7 @@ class IntegerTest extends \PHPUnit\Framework\TestCase
      */
     public function testInvalidFermatParameter() : void
     {
-        self::expectException(\InvalidArgumentException::class);
+        $this->expectException(\InvalidArgumentException::class);
 
         Integer::fermatFactor(8);
     }

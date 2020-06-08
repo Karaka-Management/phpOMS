@@ -148,7 +148,7 @@ class LUDecompositionTest extends \PHPUnit\Framework\TestCase
      */
     public function testSolveOfSingularMatrix() : void
     {
-        self::expectException(\Exception::class);
+        $this->expectException(\Exception::class);
 
         $B = new Matrix();
         $B->setMatrix([
@@ -197,7 +197,7 @@ class LUDecompositionTest extends \PHPUnit\Framework\TestCase
      */
     public function testInvalidDimension() : void
     {
-        self::expectException(\phpOMS\Math\Matrix\Exception\InvalidDimensionException::class);
+        $this->expectException(\phpOMS\Math\Matrix\Exception\InvalidDimensionException::class);
 
         $B = new Matrix();
         $B->setMatrix([

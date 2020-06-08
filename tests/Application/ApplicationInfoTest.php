@@ -79,7 +79,7 @@ class ApplicationInfoTest extends \PHPUnit\Framework\TestCase
      */
     public function testInvalidPathLoad() : void
     {
-        self::expectException(\phpOMS\System\File\PathException::class);
+        $this->expectException(\phpOMS\System\File\PathException::class);
 
         $info = new ApplicationInfo(__DIR__ . '/invalid.json');
         $info->load();
@@ -92,7 +92,7 @@ class ApplicationInfoTest extends \PHPUnit\Framework\TestCase
      */
     public function testInvalidPathUpdate() : void
     {
-        self::expectException(\phpOMS\System\File\PathException::class);
+        $this->expectException(\phpOMS\System\File\PathException::class);
 
         $info = new ApplicationInfo(__DIR__ . '/invalid.json');
         $info->update();
@@ -105,7 +105,7 @@ class ApplicationInfoTest extends \PHPUnit\Framework\TestCase
      */
     public function testInvalidDataSet() : void
     {
-        self::expectException(\InvalidArgumentException::class);
+        $this->expectException(\InvalidArgumentException::class);
 
         $info = new ApplicationInfo(__DIR__ . '/info-test.json');
         $info->load();

@@ -227,7 +227,7 @@ class ComplexTest extends \PHPUnit\Framework\TestCase
      */
     public function testInvalidAdd() : void
     {
-        self::expectException(\InvalidArgumentException::class);
+        $this->expectException(\InvalidArgumentException::class);
 
         $cpl = new Complex(4, 3);
         $cpl->add(true);
@@ -240,7 +240,7 @@ class ComplexTest extends \PHPUnit\Framework\TestCase
      */
     public function testInvalidSub() : void
     {
-        self::expectException(\InvalidArgumentException::class);
+        $this->expectException(\InvalidArgumentException::class);
 
         $cpl = new Complex(4, 3);
         $cpl->sub(true);
@@ -253,7 +253,7 @@ class ComplexTest extends \PHPUnit\Framework\TestCase
      */
     public function testInvalidMult() : void
     {
-        self::expectException(\InvalidArgumentException::class);
+        $this->expectException(\InvalidArgumentException::class);
 
         $cpl = new Complex(4, 3);
         $cpl->mult(true);
@@ -266,7 +266,7 @@ class ComplexTest extends \PHPUnit\Framework\TestCase
      */
     public function testInvalidDiv() : void
     {
-        self::expectException(\InvalidArgumentException::class);
+        $this->expectException(\InvalidArgumentException::class);
 
         $cpl = new Complex(4, 3);
         $cpl->div(true);
@@ -279,7 +279,7 @@ class ComplexTest extends \PHPUnit\Framework\TestCase
      */
     public function testInvalidPow() : void
     {
-        self::expectException(\InvalidArgumentException::class);
+        $this->expectException(\InvalidArgumentException::class);
 
         $cpl = new Complex(4, 3);
         $cpl->pow(true);

@@ -177,7 +177,7 @@ class DispatcherTest extends \PHPUnit\Framework\TestCase
      */
     public function testInvalidDestination() : void
     {
-        self::expectException(\UnexpectedValueException::class);
+        $this->expectException(\UnexpectedValueException::class);
 
         $this->app->dispatcher->dispatch(true);
     }
@@ -189,7 +189,7 @@ class DispatcherTest extends \PHPUnit\Framework\TestCase
      */
     public function testInvalidControllerPath() : void
     {
-        self::expectException(\phpOMS\System\File\PathException::class);
+        $this->expectException(\phpOMS\System\File\PathException::class);
 
         $this->app->dispatcher->dispatch('phpOMS\tests\Dispatcher\TestControllers::testFunctionStatic');
     }
@@ -201,7 +201,7 @@ class DispatcherTest extends \PHPUnit\Framework\TestCase
      */
     public function testInvalidControllerFunction() : void
     {
-        self::expectException(\Exception::class);
+        $this->expectException(\Exception::class);
 
         $this->app->dispatcher->dispatch('phpOMS\tests\Dispatcher\TestController::testFunctionStaticINVALID');
     }
@@ -213,7 +213,7 @@ class DispatcherTest extends \PHPUnit\Framework\TestCase
      */
     public function testInvalidControllerString() : void
     {
-        self::expectException(\UnexpectedValueException::class);
+        $this->expectException(\UnexpectedValueException::class);
 
         $this->app->dispatcher->dispatch('phpOMS\tests\Dispatcher\TestController::testFunctionStatic:failure');
     }

@@ -2960,7 +2960,7 @@ class DataMapperAbstract implements DataMapperInterface
         $cachedTables = []; // used by conditionals
 
         foreach (static::$hasMany as $member => $value) {
-            if ($value['writeonly'] ?? false === true || isset($value['column'])) { // @todo: conflict with getQuery()???!?!?!?!
+            if ($value['writeonly'] ?? false === true) {
                 continue;
             }
 

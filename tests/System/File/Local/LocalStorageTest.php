@@ -364,7 +364,7 @@ class LocalStorageTest extends \PHPUnit\Framework\TestCase
      */
     public function testInvalidCreatedPathDirectory() : void
     {
-        self::expectException(\phpOMS\System\File\PathException::class);
+        $this->expectException(\phpOMS\System\File\PathException::class);
 
         LocalStorage::created(__DIR__ . '/invalid');
     }
@@ -376,7 +376,7 @@ class LocalStorageTest extends \PHPUnit\Framework\TestCase
      */
     public function testInvalidChangedPathDirectory() : void
     {
-        self::expectException(\phpOMS\System\File\PathException::class);
+        $this->expectException(\phpOMS\System\File\PathException::class);
 
         LocalStorage::changed(__DIR__ . '/invalid');
     }
@@ -388,7 +388,7 @@ class LocalStorageTest extends \PHPUnit\Framework\TestCase
      */
     public function testInvalidOwnerPathDirectory() : void
     {
-        self::expectException(\phpOMS\System\File\PathException::class);
+        $this->expectException(\phpOMS\System\File\PathException::class);
 
         LocalStorage::owner(__DIR__ . '/invalid');
     }
@@ -942,7 +942,7 @@ class LocalStorageTest extends \PHPUnit\Framework\TestCase
      */
     public function testInvalidGetPathFile() : void
     {
-        self::expectException(\phpOMS\System\File\PathException::class);
+        $this->expectException(\phpOMS\System\File\PathException::class);
 
         LocalStorage::get(__DIR__ . '/invalid.txt');
     }
@@ -954,7 +954,7 @@ class LocalStorageTest extends \PHPUnit\Framework\TestCase
      */
     public function testInvalidCreatedPathFile() : void
     {
-        self::expectException(\phpOMS\System\File\PathException::class);
+        $this->expectException(\phpOMS\System\File\PathException::class);
 
         LocalStorage::created(__DIR__ . '/invalid.txt');
     }
@@ -966,7 +966,7 @@ class LocalStorageTest extends \PHPUnit\Framework\TestCase
      */
     public function testInvalidChangedPathFile() : void
     {
-        self::expectException(\phpOMS\System\File\PathException::class);
+        $this->expectException(\phpOMS\System\File\PathException::class);
 
         LocalStorage::changed(__DIR__ . '/invalid.txt');
     }
@@ -978,7 +978,7 @@ class LocalStorageTest extends \PHPUnit\Framework\TestCase
      */
     public function testInvalidOwnerPathFile() : void
     {
-        self::expectException(\phpOMS\System\File\PathException::class);
+        $this->expectException(\phpOMS\System\File\PathException::class);
 
         LocalStorage::owner(__DIR__ . '/invalid.txt');
     }
@@ -990,7 +990,7 @@ class LocalStorageTest extends \PHPUnit\Framework\TestCase
      */
     public function testInvalidPutPath() : void
     {
-        self::expectException(\phpOMS\System\File\PathException::class);
+        $this->expectException(\phpOMS\System\File\PathException::class);
 
         LocalStorage::put(__DIR__, 'Test');
     }
@@ -1002,7 +1002,7 @@ class LocalStorageTest extends \PHPUnit\Framework\TestCase
      */
     public function testInvalidGetPath() : void
     {
-        self::expectException(\phpOMS\System\File\PathException::class);
+        $this->expectException(\phpOMS\System\File\PathException::class);
 
         LocalStorage::get(__DIR__);
     }
@@ -1014,7 +1014,7 @@ class LocalStorageTest extends \PHPUnit\Framework\TestCase
      */
     public function testInvalidListPath() : void
     {
-        self::expectException(\phpOMS\System\File\PathException::class);
+        $this->expectException(\phpOMS\System\File\PathException::class);
 
         LocalStorage::list(__DIR__ . '/LocalStorageTest.php');
     }
@@ -1026,7 +1026,7 @@ class LocalStorageTest extends \PHPUnit\Framework\TestCase
      */
     public function testInvalidSetPath() : void
     {
-        self::expectException(\phpOMS\System\File\PathException::class);
+        $this->expectException(\phpOMS\System\File\PathException::class);
 
         LocalStorage::set(__DIR__, 'Test');
     }
@@ -1038,7 +1038,7 @@ class LocalStorageTest extends \PHPUnit\Framework\TestCase
      */
     public function testInvalidAppendPath() : void
     {
-        self::expectException(\phpOMS\System\File\PathException::class);
+        $this->expectException(\phpOMS\System\File\PathException::class);
 
         LocalStorage::append(__DIR__, 'Test');
     }
@@ -1050,7 +1050,7 @@ class LocalStorageTest extends \PHPUnit\Framework\TestCase
      */
     public function testInvalidPrependPath() : void
     {
-        self::expectException(\phpOMS\System\File\PathException::class);
+        $this->expectException(\phpOMS\System\File\PathException::class);
 
         LocalStorage::prepend(__DIR__, 'Test');
     }
@@ -1062,7 +1062,7 @@ class LocalStorageTest extends \PHPUnit\Framework\TestCase
      */
     public function testInvalidExtensionPath() : void
     {
-        self::expectException(\phpOMS\System\File\PathException::class);
+        $this->expectException(\phpOMS\System\File\PathException::class);
 
         LocalStorage::extension(__DIR__);
     }

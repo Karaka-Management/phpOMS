@@ -89,7 +89,7 @@ class LaplaceDistributionTest extends \PHPUnit\Framework\TestCase
 
     public function testMgfException() : void
     {
-        self::expectException(\OutOfBoundsException::class);
+        $this->expectException(\OutOfBoundsException::class);
 
         LaplaceDistribution::getMgf(3, 2, 4);
     }

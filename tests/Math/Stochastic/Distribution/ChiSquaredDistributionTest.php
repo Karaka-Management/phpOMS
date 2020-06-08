@@ -105,28 +105,28 @@ class ChiSquaredDistributionTest extends \PHPUnit\Framework\TestCase
 
     public function testHypothesisSizeException() : void
     {
-        self::expectException(\Exception::class);
+        $this->expectException(\Exception::class);
 
         ChiSquaredDistribution::testHypothesis([1, 2], [2]);
     }
 
     public function testHypothesisDegreesOfFreedomException() : void
     {
-        self::expectException(\Exception::class);
+        $this->expectException(\Exception::class);
 
         ChiSquaredDistribution::testHypothesis([], []);
     }
 
     public function testPdfOutOfBoundsException() : void
     {
-        self::expectException(\OutOfBoundsException::class);
+        $this->expectException(\OutOfBoundsException::class);
 
         ChiSquaredDistribution::getPdf(-1, 0);
     }
 
     public function testMgfOutOfBoundsException() : void
     {
-        self::expectException(\OutOfBoundsException::class);
+        $this->expectException(\OutOfBoundsException::class);
 
         ChiSquaredDistribution::getMgf(1, 0.6);
     }

@@ -287,7 +287,7 @@ class PriorityQueueTest extends \PHPUnit\Framework\TestCase
      */
     public function testInvalidPriority() : void
     {
-        self::expectException(\phpOMS\Stdlib\Base\Exception\InvalidEnumValue::class);
+        $this->expectException(\phpOMS\Stdlib\Base\Exception\InvalidEnumValue::class);
 
         $queue = new PriorityQueue(99999);
     }

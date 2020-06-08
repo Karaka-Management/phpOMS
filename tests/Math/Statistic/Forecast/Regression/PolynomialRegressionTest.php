@@ -49,7 +49,7 @@ class PolynomialRegressionTest extends \PHPUnit\Framework\TestCase
      */
     public function testInvalidDimension() : void
     {
-        self::expectException(\phpOMS\Math\Matrix\Exception\InvalidDimensionException::class);
+        $this->expectException(\phpOMS\Math\Matrix\Exception\InvalidDimensionException::class);
 
         $x = [1,2, 3];
         $y = [1,2, 3, 4];

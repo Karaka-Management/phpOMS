@@ -294,7 +294,7 @@ class AccountTest extends \PHPUnit\Framework\TestCase
      */
     public function testEmailException() : void
     {
-        self::expectException(\InvalidArgumentException::class);
+        $this->expectException(\InvalidArgumentException::class);
 
         $account = new Account();
         $account->setEmail('d.duck!@#%@duckburg');
@@ -306,7 +306,7 @@ class AccountTest extends \PHPUnit\Framework\TestCase
      */
     public function testStatusException() : void
     {
-        self::expectException(\phpOMS\Stdlib\Base\Exception\InvalidEnumValue::class);
+        $this->expectException(\phpOMS\Stdlib\Base\Exception\InvalidEnumValue::class);
 
         $account = new Account();
 
@@ -324,7 +324,7 @@ class AccountTest extends \PHPUnit\Framework\TestCase
      */
     public function testTypeException() : void
     {
-        self::expectException(\phpOMS\Stdlib\Base\Exception\InvalidEnumValue::class);
+        $this->expectException(\phpOMS\Stdlib\Base\Exception\InvalidEnumValue::class);
 
         $account = new Account();
 

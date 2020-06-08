@@ -160,6 +160,6 @@ class MysqlConnectionTest extends \PHPUnit\Framework\TestCase
         $db['database'] = 'invalid';
 
         $mysql = new MysqlConnection($db);
-        self::assertEquals(DatabaseStatus::FAILURE, $mysql->getStatus());
+        self::assertEquals(DatabaseStatus::MISSING_DATABASE, $mysql->getStatus());
     }
 }

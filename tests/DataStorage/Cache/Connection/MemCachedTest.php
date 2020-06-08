@@ -270,7 +270,7 @@ class MemCachedTest extends \PHPUnit\Framework\TestCase
      */
     public function testInvalidDataTypeAdd() : void
     {
-        self::expectException(\InvalidArgumentException::class);
+        $this->expectException(\InvalidArgumentException::class);
 
         $this->cache->add('invalid', $this->cache);
     }
@@ -282,7 +282,7 @@ class MemCachedTest extends \PHPUnit\Framework\TestCase
      */
     public function testInvalidDataTypeSet() : void
     {
-        self::expectException(\InvalidArgumentException::class);
+        $this->expectException(\InvalidArgumentException::class);
 
         $this->cache->set('invalid', $this->cache);
     }
@@ -294,7 +294,7 @@ class MemCachedTest extends \PHPUnit\Framework\TestCase
      */
     public function testInvalidCacheHost() : void
     {
-        self::expectException(\phpOMS\DataStorage\Cache\Exception\InvalidConnectionConfigException::class);
+        $this->expectException(\phpOMS\DataStorage\Cache\Exception\InvalidConnectionConfigException::class);
 
         $db = $GLOBALS['CONFIG']['cache']['memcached'];
         unset($db['host']);
@@ -309,7 +309,7 @@ class MemCachedTest extends \PHPUnit\Framework\TestCase
      */
     public function testInvalidCachePort() : void
     {
-        self::expectException(\phpOMS\DataStorage\Cache\Exception\InvalidConnectionConfigException::class);
+        $this->expectException(\phpOMS\DataStorage\Cache\Exception\InvalidConnectionConfigException::class);
 
         $db = $GLOBALS['CONFIG']['cache']['memcached'];
         unset($db['port']);

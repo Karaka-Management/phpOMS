@@ -431,7 +431,7 @@ class ViewTest extends \PHPUnit\Framework\TestCase
      */
     public function testRenderException() : void
     {
-        self::expectException(\phpOMS\System\File\PathException::class);
+        $this->expectException(\phpOMS\System\File\PathException::class);
 
         $view = new View($this->app->l11nManager);
         $view->setTemplate('something.txt');
@@ -446,7 +446,7 @@ class ViewTest extends \PHPUnit\Framework\TestCase
      */
     public function testSerializeException() : void
     {
-        self::expectException(\phpOMS\System\File\PathException::class);
+        $this->expectException(\phpOMS\System\File\PathException::class);
 
         $view = new View($this->app->l11nManager);
         $view->setTemplate('something.txt');
@@ -461,7 +461,7 @@ class ViewTest extends \PHPUnit\Framework\TestCase
      */
     public function testTextWithoutModuleAndTemplate() : void
     {
-        self::expectException(\phpOMS\Module\Exception\InvalidModuleException::class);
+        $this->expectException(\phpOMS\Module\Exception\InvalidModuleException::class);
 
         $view = new View($this->app->l11nManager);
         $view->getText('InvalidText');
@@ -474,7 +474,7 @@ class ViewTest extends \PHPUnit\Framework\TestCase
      */
     public function testTextFromInvalidTemplatePath() : void
     {
-        self::expectException(\phpOMS\Module\Exception\InvalidModuleException::class);
+        $this->expectException(\phpOMS\Module\Exception\InvalidModuleException::class);
 
         $view = new View($this->app->l11nManager);
         $view->setTemplate('/Modules/ABC');
@@ -488,7 +488,7 @@ class ViewTest extends \PHPUnit\Framework\TestCase
      */
     public function testTextInvalidTemplate() : void
     {
-        self::expectException(\phpOMS\Module\Exception\InvalidThemeException::class);
+        $this->expectException(\phpOMS\Module\Exception\InvalidThemeException::class);
 
         $view = new View($this->app->l11nManager);
         $view->getText('InvalidText', 'Admin');

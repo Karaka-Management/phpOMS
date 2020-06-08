@@ -131,7 +131,7 @@ class CholeskyDecompositionTest extends \PHPUnit\Framework\TestCase
      */
     public function testInvalidDimension() : void
     {
-        self::expectException(\phpOMS\Math\Matrix\Exception\InvalidDimensionException::class);
+        $this->expectException(\phpOMS\Math\Matrix\Exception\InvalidDimensionException::class);
 
         $A = new Matrix();
         $A->setMatrix([

@@ -406,7 +406,7 @@ class MatrixTest extends \PHPUnit\Framework\TestCase
      */
     public function testInvalidSetIndexException() : void
     {
-        self::expectException(\phpOMS\Math\Matrix\Exception\InvalidDimensionException::class);
+        $this->expectException(\phpOMS\Math\Matrix\Exception\InvalidDimensionException::class);
 
         $id = new Matrix();
         $id->setMatrix([
@@ -423,7 +423,7 @@ class MatrixTest extends \PHPUnit\Framework\TestCase
      */
     public function testInvalidGetIndexException() : void
     {
-        self::expectException(\phpOMS\Math\Matrix\Exception\InvalidDimensionException::class);
+        $this->expectException(\phpOMS\Math\Matrix\Exception\InvalidDimensionException::class);
 
         $id = new Matrix();
         $id->setMatrix([
@@ -440,7 +440,7 @@ class MatrixTest extends \PHPUnit\Framework\TestCase
      */
     public function testInvalidSub() : void
     {
-        self::expectException(\InvalidArgumentException::class);
+        $this->expectException(\InvalidArgumentException::class);
 
         $id = new Matrix();
         $id->setMatrix([
@@ -458,7 +458,7 @@ class MatrixTest extends \PHPUnit\Framework\TestCase
      */
     public function testInvalidAdd() : void
     {
-        self::expectException(\InvalidArgumentException::class);
+        $this->expectException(\InvalidArgumentException::class);
 
         $id = new Matrix();
         $id->setMatrix([
@@ -476,7 +476,7 @@ class MatrixTest extends \PHPUnit\Framework\TestCase
      */
     public function testInvalidMult() : void
     {
-        self::expectException(\InvalidArgumentException::class);
+        $this->expectException(\InvalidArgumentException::class);
 
         $id = new Matrix();
         $id->setMatrix([
@@ -494,7 +494,7 @@ class MatrixTest extends \PHPUnit\Framework\TestCase
      */
     public function testInvalidDimensionAdd() : void
     {
-        self::expectException(\phpOMS\Math\Matrix\Exception\InvalidDimensionException::class);
+        $this->expectException(\phpOMS\Math\Matrix\Exception\InvalidDimensionException::class);
 
         $A = new Matrix();
         $A->setMatrix([[1, 2], [3, 4]]);
@@ -512,7 +512,7 @@ class MatrixTest extends \PHPUnit\Framework\TestCase
      */
     public function testInvalidDimensionSub() : void
     {
-        self::expectException(\phpOMS\Math\Matrix\Exception\InvalidDimensionException::class);
+        $this->expectException(\phpOMS\Math\Matrix\Exception\InvalidDimensionException::class);
 
         $A = new Matrix();
         $A->setMatrix([[1, 2], [3, 4]]);
@@ -530,7 +530,7 @@ class MatrixTest extends \PHPUnit\Framework\TestCase
      */
     public function testInvalidDimensionMult() : void
     {
-        self::expectException(\phpOMS\Math\Matrix\Exception\InvalidDimensionException::class);
+        $this->expectException(\phpOMS\Math\Matrix\Exception\InvalidDimensionException::class);
 
         $A = new Matrix();
         $A->setMatrix([[1, 2], [3, 4]]);

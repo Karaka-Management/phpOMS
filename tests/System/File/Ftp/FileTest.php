@@ -590,7 +590,7 @@ class FileTest extends \PHPUnit\Framework\TestCase
      */
     public function testInvalidGetPath() : void
     {
-        self::expectException(\phpOMS\System\File\PathException::class);
+        $this->expectException(\phpOMS\System\File\PathException::class);
 
         File::get($this->con, __DIR__ . '/invalid.txt');
     }
@@ -602,7 +602,7 @@ class FileTest extends \PHPUnit\Framework\TestCase
      */
     public function testInvalidCreatedPath() : void
     {
-        self::expectException(\phpOMS\System\File\PathException::class);
+        $this->expectException(\phpOMS\System\File\PathException::class);
 
         File::created($this->con, __DIR__ . '/invalid.txt');
     }
@@ -614,7 +614,7 @@ class FileTest extends \PHPUnit\Framework\TestCase
      */
     public function testInvalidChangedPath() : void
     {
-        self::expectException(\phpOMS\System\File\PathException::class);
+        $this->expectException(\phpOMS\System\File\PathException::class);
 
         File::changed($this->con, __DIR__ . '/invalid.txt');
     }
@@ -626,7 +626,7 @@ class FileTest extends \PHPUnit\Framework\TestCase
      */
     public function testInvalidOwnerPath() : void
     {
-        self::expectException(\phpOMS\System\File\PathException::class);
+        $this->expectException(\phpOMS\System\File\PathException::class);
 
         File::owner($this->con, __DIR__ . '/invalid.txt');
     }

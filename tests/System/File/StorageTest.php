@@ -76,7 +76,7 @@ class StorageTest extends \PHPUnit\Framework\TestCase
      */
     public function testInvalidStorage() : void
     {
-        self::expectException(\Exception::class);
+        $this->expectException(\Exception::class);
 
         self::assertInstanceOf('\phpOMS\System\File\Local\LocalStorage', Storage::env('invalid'));
     }

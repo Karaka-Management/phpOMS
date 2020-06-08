@@ -121,7 +121,7 @@ class AverageTest extends \PHPUnit\Framework\TestCase
      */
     public function testInvalidWeightedAverageDimension() : void
     {
-        self::expectException(\phpOMS\Math\Matrix\Exception\InvalidDimensionException::class);
+        $this->expectException(\phpOMS\Math\Matrix\Exception\InvalidDimensionException::class);
 
         Average::weightedAverage([1, 2, 3, 4, 5, 6, 7], [0.1, 0.2, 0.3, 0.1, 0.2, 0.05]);
     }
@@ -132,7 +132,7 @@ class AverageTest extends \PHPUnit\Framework\TestCase
      */
     public function testInvalidArithmeticMeanZeroDivision() : void
     {
-        self::expectException(\phpOMS\Math\Exception\ZeroDivisionException::class);
+        $this->expectException(\phpOMS\Math\Exception\ZeroDivisionException::class);
 
         Average::arithmeticMean([]);
     }
@@ -143,7 +143,7 @@ class AverageTest extends \PHPUnit\Framework\TestCase
      */
     public function testInvalidMovingAverageZeroDivision() : void
     {
-        self::expectException(\Exception::class);
+        $this->expectException(\Exception::class);
 
         Average::movingAverage([], 4, 2);
     }
@@ -154,7 +154,7 @@ class AverageTest extends \PHPUnit\Framework\TestCase
      */
     public function testInvalidHarmonicMeanZeroDivision() : void
     {
-        self::expectException(\phpOMS\Math\Exception\ZeroDivisionException::class);
+        $this->expectException(\phpOMS\Math\Exception\ZeroDivisionException::class);
 
         Average::harmonicMean([]);
     }
@@ -165,7 +165,7 @@ class AverageTest extends \PHPUnit\Framework\TestCase
      */
     public function testInvalidGeometricMean() : void
     {
-        self::expectException(\phpOMS\Math\Exception\ZeroDivisionException::class);
+        $this->expectException(\phpOMS\Math\Exception\ZeroDivisionException::class);
 
         Average::geometricMean([]);
     }
@@ -176,7 +176,7 @@ class AverageTest extends \PHPUnit\Framework\TestCase
      */
     public function testInvalidHarmonicMean() : void
     {
-        self::expectException(\phpOMS\Math\Exception\ZeroDivisionException::class);
+        $this->expectException(\phpOMS\Math\Exception\ZeroDivisionException::class);
 
         Average::harmonicMean([1, 2, 3, 0, 5, 6, 7]);
     }

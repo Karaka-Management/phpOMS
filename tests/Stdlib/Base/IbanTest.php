@@ -73,7 +73,7 @@ class IbanTest extends \PHPUnit\Framework\TestCase
      */
     public function testInvalidIbanCountry() : void
     {
-        self::expectException(\InvalidArgumentException::class);
+        $this->expectException(\InvalidArgumentException::class);
 
         $iban = new Iban('ZZ22 6008 0000 0960 0280 00');
     }
@@ -85,7 +85,7 @@ class IbanTest extends \PHPUnit\Framework\TestCase
      */
     public function testInvalidIbanLength() : void
     {
-        self::expectException(\InvalidArgumentException::class);
+        $this->expectException(\InvalidArgumentException::class);
 
         $iban = new Iban('DE22 6008 0000 0960 0280 0');
     }
@@ -97,7 +97,7 @@ class IbanTest extends \PHPUnit\Framework\TestCase
      */
     public function testInvalidIbanChecksum() : void
     {
-        self::expectException(\InvalidArgumentException::class);
+        $this->expectException(\InvalidArgumentException::class);
 
         $iban = new Iban('DEA9 6008 0000 0960 0280 00');
     }

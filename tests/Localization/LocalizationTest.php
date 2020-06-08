@@ -86,7 +86,7 @@ class LocalizationTest extends \PHPUnit\Framework\TestCase
      */
     public function testInvalidLanguage() : void
     {
-        self::expectException(\phpOMS\Stdlib\Base\Exception\InvalidEnumValue::class);
+        $this->expectException(\phpOMS\Stdlib\Base\Exception\InvalidEnumValue::class);
 
         $this->localization->setLanguage('abc');
     }
@@ -98,7 +98,7 @@ class LocalizationTest extends \PHPUnit\Framework\TestCase
      */
     public function testInvalidCountry() : void
     {
-        self::expectException(\phpOMS\Stdlib\Base\Exception\InvalidEnumValue::class);
+        $this->expectException(\phpOMS\Stdlib\Base\Exception\InvalidEnumValue::class);
 
         $this->localization->setCountry('abc');
     }
@@ -110,7 +110,7 @@ class LocalizationTest extends \PHPUnit\Framework\TestCase
      */
     public function testInvalidTimezone() : void
     {
-        self::expectException(\phpOMS\Stdlib\Base\Exception\InvalidEnumValue::class);
+        $this->expectException(\phpOMS\Stdlib\Base\Exception\InvalidEnumValue::class);
 
         $this->localization->setTimezone('abc');
     }
@@ -122,7 +122,7 @@ class LocalizationTest extends \PHPUnit\Framework\TestCase
      */
     public function testInvalidCurrency() : void
     {
-        self::expectException(\phpOMS\Stdlib\Base\Exception\InvalidEnumValue::class);
+        $this->expectException(\phpOMS\Stdlib\Base\Exception\InvalidEnumValue::class);
 
         $this->localization->setCurrency('abc');
     }
@@ -134,7 +134,7 @@ class LocalizationTest extends \PHPUnit\Framework\TestCase
      */
     public function testInvalidAngle() : void
     {
-        self::expectException(\phpOMS\Stdlib\Base\Exception\InvalidEnumValue::class);
+        $this->expectException(\phpOMS\Stdlib\Base\Exception\InvalidEnumValue::class);
 
         $this->localization->setAngle('abc');
     }
@@ -146,7 +146,7 @@ class LocalizationTest extends \PHPUnit\Framework\TestCase
      */
     public function testInvalidTemperature() : void
     {
-        self::expectException(\phpOMS\Stdlib\Base\Exception\InvalidEnumValue::class);
+        $this->expectException(\phpOMS\Stdlib\Base\Exception\InvalidEnumValue::class);
 
         $this->localization->setTemperature('abc');
     }
@@ -383,7 +383,7 @@ class LocalizationTest extends \PHPUnit\Framework\TestCase
      */
     public function testInvalidLocalizationLoading() : void
     {
-        self::expectException(\phpOMS\Stdlib\Base\Exception\InvalidEnumValue::class);
+        $this->expectException(\phpOMS\Stdlib\Base\Exception\InvalidEnumValue::class);
 
         $this->localization->loadFromLanguage('INVALID');
     }

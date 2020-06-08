@@ -144,7 +144,7 @@ class EnumTest extends \PHPUnit\Framework\TestCase
      */
     public function testInvalidConstantException() : void
     {
-        self::expectException(\Exception::class);
+        $this->expectException(\Exception::class);
 
         EnumDemo::getByName('ENUM3');
     }

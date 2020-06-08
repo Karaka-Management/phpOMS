@@ -66,7 +66,7 @@ class CurrencyTest extends \PHPUnit\Framework\TestCase
      */
     public function testInvalidFromEur() : void
     {
-        self::expectException(\InvalidArgumentException::class);
+        $this->expectException(\InvalidArgumentException::class);
 
         Currency::fromEurTo(1, 'ERROR');
     }
@@ -79,7 +79,7 @@ class CurrencyTest extends \PHPUnit\Framework\TestCase
      */
     public function testInvalidToEur() : void
     {
-        self::expectException(\InvalidArgumentException::class);
+        $this->expectException(\InvalidArgumentException::class);
 
         Currency::fromToEur(1, 'ERROR');
     }
@@ -92,7 +92,7 @@ class CurrencyTest extends \PHPUnit\Framework\TestCase
      */
     public function testInvalidConvert() : void
     {
-        self::expectException(\InvalidArgumentException::class);
+        $this->expectException(\InvalidArgumentException::class);
 
         Currency::convertCurrency(1, 'ERROR', 'TEST');
     }

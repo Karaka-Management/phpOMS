@@ -90,7 +90,7 @@ class EnumArrayTest extends \PHPUnit\Framework\TestCase
      */
     public function testInvalidConstantException() : void
     {
-        self::expectException(\OutOfBoundsException::class);
+        $this->expectException(\OutOfBoundsException::class);
 
         EnumArrayDemo::get('enum2');
     }

@@ -77,7 +77,7 @@ class ArrayParserTest extends \PHPUnit\Framework\TestCase
      */
     public function testInvalidValueType() : void
     {
-        self::expectException(\UnexpectedValueException::class);
+        $this->expectException(\UnexpectedValueException::class);
 
         ArrayParser::parseVariable(new class() {});
     }

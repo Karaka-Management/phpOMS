@@ -520,7 +520,7 @@ class HttpRequestTest extends \PHPUnit\Framework\TestCase
      */
     public function testInvalidHttpsPort() : void
     {
-        self::expectException(\OutOfRangeException::class);
+        $this->expectException(\OutOfRangeException::class);
 
         $request = new HttpRequest(new HttpUri('http://www.google.com/test/path'));
         $request->isHttps(-1);
@@ -533,7 +533,7 @@ class HttpRequestTest extends \PHPUnit\Framework\TestCase
      */
     public function testInvalidRouteVerb() : void
     {
-        self::expectException(\Exception::class);
+        $this->expectException(\Exception::class);
 
         $request = new HttpRequest(new HttpUri('http://www.google.com/test/path'));
         $request->setMethod('failure');

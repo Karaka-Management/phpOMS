@@ -333,7 +333,7 @@ class FileCacheTest extends \PHPUnit\Framework\TestCase
      */
     public function testInvalidCachePath() : void
     {
-        self::expectException(\phpOMS\DataStorage\Cache\Exception\InvalidConnectionConfigException::class);
+        $this->expectException(\phpOMS\DataStorage\Cache\Exception\InvalidConnectionConfigException::class);
 
         $cache = new FileCache('/etc/invalidPathOrPermission^$:?><');
     }
@@ -345,7 +345,7 @@ class FileCacheTest extends \PHPUnit\Framework\TestCase
      */
     public function testInvalidDataTypeAdd() : void
     {
-        self::expectException(\InvalidArgumentException::class);
+        $this->expectException(\InvalidArgumentException::class);
 
         $this->cache->add('invalid', $this->cache);
     }
@@ -357,7 +357,7 @@ class FileCacheTest extends \PHPUnit\Framework\TestCase
      */
     public function testInvalidDataTypeSet() : void
     {
-        self::expectException(\InvalidArgumentException::class);
+        $this->expectException(\InvalidArgumentException::class);
 
         $this->cache->set('invalid', $this->cache);
     }
