@@ -67,7 +67,7 @@ final class SqlServerConnection extends ConnectionAbstract
         if (!isset($this->dbdata['db'], $this->dbdata['host'], $this->dbdata['port'], $this->dbdata['database'], $this->dbdata['login'], $this->dbdata['password'])
             || !DatabaseType::isValidValue($this->dbdata['db'])
         ) {
-            $this->status = DatabaseStatus::FAILURE;
+            $this->status             = DatabaseStatus::FAILURE;
             $this->dbdata['password'] = '****';
             //throw new InvalidConnectionConfigException((string) \json_encode($this->dbdata));
 
