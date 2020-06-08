@@ -50,7 +50,7 @@ class Localization implements \JsonSerializable
      * @var string
      * @since 1.0.0
      */
-    protected string $language = ISO639x1Enum::_EN;
+    protected string $lang = ISO639x1Enum::_EN;
 
     /**
      * Currency.
@@ -381,7 +381,7 @@ class Localization implements \JsonSerializable
      */
     public function getLanguage() : string
     {
-        return $this->language;
+        return $this->lang;
     }
 
     /**
@@ -403,7 +403,7 @@ class Localization implements \JsonSerializable
             throw new InvalidEnumValue($language);
         }
 
-        $this->language = $language;
+        $this->lang = $language;
     }
 
     /**
@@ -769,7 +769,7 @@ class Localization implements \JsonSerializable
             'id'             => $this->id,
             'country'        => $this->country,
             'timezone'       => $this->timezone,
-            'language'       => $this->language,
+            'language'       => $this->lang,
             'currency'       => $this->currency,
             'currencyformat' => $this->currencyFormat,
             'decimal'        => $this->decimal,

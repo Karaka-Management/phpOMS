@@ -130,7 +130,7 @@ class DataMapperAbstract implements DataMapperInterface
      *
      * Most often used for localizations
      *
-     * @var array<string, array<string, string>>
+     * @var array<string, array{value:mixed, models:null|string[]}>
      * @since 1.0.0
      */
     protected static array $conditionals = [];
@@ -291,16 +291,21 @@ class DataMapperAbstract implements DataMapperInterface
     /**
      * Create a conditional value
      *
-     * @param string $id    Id of the conditional
-     * @param mixed  $value Value of the conditional
+     * @param string   $id     Id of the conditional
+     * @param mixed    $value  Value of the conditional
+     * @param string[] $models Models to apply the conditional on
      *
      * @return static
      *
      * @since 1.0.0
      */
-    public static function withConditional(string $id, $value) /** @todo: return : static */
+    public static function withConditional(string $id, $value, array $models = []) /** @todo: return : static */
     {
-        self::$conditionals[$id] = $value;
+        self::$conditionals[$id] = [
+            'value'  => $value,
+            'models' => empty($models) ? null : $models,
+        ];
+
         return static::class;
     }
 
@@ -358,12 +363,18 @@ class DataMapperAbstract implements DataMapperInterface
         $where1 = new Where(self::$db);
         $where2 = new Where(self::$db);
 
+        $modelName = self::getModelName();
+
         $hasConditionals = false;
         foreach (self::$conditionals as $condKey => $condValue) {
-            if (($column = self::getColumnByMember($condKey)) !== null) {
-                $where1->andWhere(static::$table . '_' . $searchDepth . '.' . $column, '=', $condValue);
-                $hasConditionals = true;
+            if (($column = self::getColumnByMember($condKey)) === null
+                || ($condValue['models'] !== null && !\in_array($modelName, $condValue['models']))
+            ) {
+                continue;
             }
+
+            $where1->andWhere(static::$table . '_' . $searchDepth . '.' . $column, '=', $condValue['value']);
+            $hasConditionals = true;
         }
 
         $hasAutocompletes = false;
@@ -2388,7 +2399,7 @@ class DataMapperAbstract implements DataMapperInterface
      * @param int    $relations Load relations
      * @param int    $depth     Relation depth
      *
-     * @return mixed
+     * @return array
      *
      * @since 1.0.0
      */
@@ -2398,7 +2409,8 @@ class DataMapperAbstract implements DataMapperInterface
         int $limit = 50,
         string $order = 'ASC',
         int $relations = RelationType::ALL,
-        int $depth = 3)
+        int $depth = 3
+    ) : array
     {
         $query = self::getQuery();
         $query->where(static::$table . '_' . $depth . '.' . ($column !== null ? self::getColumnByMember($column) : static::$primaryField), '>', $pivot)
@@ -2418,7 +2430,7 @@ class DataMapperAbstract implements DataMapperInterface
      * @param int    $relations Load relations
      * @param int    $depth     Relation depth
      *
-     * @return mixed
+     * @return array
      *
      * @since 1.0.0
      *
@@ -2432,7 +2444,8 @@ class DataMapperAbstract implements DataMapperInterface
         int $limit = 50,
         string $order = 'ASC',
         int $relations = RelationType::ALL,
-        int $depth = 3)
+        int $depth = 3
+    ) : array
     {
         $query = self::getQuery();
         $query->where(static::$table . '_' . $depth . '.' . ($column !== null ? self::getColumnByMember($column) : static::$primaryField), '<', $pivot)
@@ -2975,12 +2988,15 @@ class DataMapperAbstract implements DataMapperInterface
                         ->from($value['table'])
                         ->where($value['table'] . '.' . $value['external'], '=', $primaryKey);
 
+                    $modelName = $value['mapper']::getModelName();
                     foreach (self::$conditionals as $condKey => $condValue) {
-                        if (($column = $value['mapper']::getColumnByMember($condKey)) === null) {
+                        if (($column = $value['mapper']::getColumnByMember($condKey)) === null
+                            || ($condValue['models'] !== null && !\in_array($modelName, $condValue['models']))
+                        ) {
                             continue;
                         }
 
-                        $query->andWhere($value['table'] . '.' . $column, '=', $condValue);
+                        $query->andWhere($value['table'] . '.' . $column, '=', $condValue['value']);
                     }
                 }
 
@@ -3027,12 +3043,15 @@ class DataMapperAbstract implements DataMapperInterface
         }
 
         // handle conditional
+        $modelName = self::getModelName();
         foreach (self::$conditionals as $condKey => $condValue) {
-            if (($column = self::getColumnByMember($condKey)) === null) {
+            if (($column = self::getColumnByMember($condKey)) === null
+                || ($condValue['models'] !== null && !\in_array($modelName, $condValue['models']))
+            ) {
                 continue;
             }
 
-            $query->andWhere(static::$table . '_' . $depth . '.' . $column, '=', $condValue);
+            $query->andWhere(static::$table . '_' . $depth . '.' . $column, '=', $condValue['value']);
         }
 
         // get OwnsOneQuery
@@ -3330,6 +3349,18 @@ class DataMapperAbstract implements DataMapperInterface
          *  This could be a simple initialize() function in the mapper where the default initialize() is the current defined empty initialization in the DataMapperAbstract.
          */
         return new $class();
+    }
+
+    /**
+     * Get model from mapper
+     *
+     * @return string
+     *
+     * @since 1.0.0
+     */
+    private static function getModelName() : string
+    {
+        return empty(static::$model) ? \substr(static::class, 0, -6) : static::$model;
     }
 }
 
