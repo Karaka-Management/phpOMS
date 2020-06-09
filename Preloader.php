@@ -38,7 +38,7 @@ final class Preloader
      * @var string[]
      * @since 1.0.0
      */
-    private array $ignores = [];
+    private array $ignores = ['.', '..'];
 
     /**
      * Ignore a path or file from preloading
@@ -82,9 +82,7 @@ final class Preloader
     public function load() : void
     {
         foreach ($this->includes as $include) {
-            if (\in_array($include, ['.', '..'])
-                || \in_array($include, $this->ignores)
-            ) {
+            if (\in_array($include, $this->ignores)) {
                 continue;
             }
 
@@ -114,9 +112,7 @@ final class Preloader
         }
 
         while ($file = \readdir($fh)) {
-            if (\in_array($file, ['.', '..'])
-                || \in_array($file, $this->ignores)
-            ) {
+            if (\in_array($file, $this->ignores)) {
                 continue;
             }
 
