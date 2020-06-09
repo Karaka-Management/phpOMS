@@ -782,8 +782,8 @@ final class ModuleManager
                 try {
                     $obj                  = new $class($this->app);
                     $this->running[$name] = $obj;
-                    self::registerRequesting($obj);
-                    self::registerProvided($obj);
+                    $this->registerRequesting($obj);
+                    $this->registerProvided($obj);
                 } catch (\Throwable $e) {
                     $this->running[$name] = new NullModule();
                 }
