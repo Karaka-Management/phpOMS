@@ -1819,6 +1819,73 @@ class DataMapperAbstract implements DataMapperInterface
      *  Create the delete functionality for arrays (deleteArray, deleteArrayModel).
      */
 
+     /**
+     * Populate data.
+     *
+     * @param array $result Result set
+     * @param int   $depth  Relation depth
+     *
+     * @return array
+     *
+     * @since 1.0.0
+     */
+    public static function populateIterable(array $result, int $depth = 3) : array
+    {
+        $obj = [];
+
+        foreach ($result as $element) {
+            if (isset($element[static::$primaryField . '_' . $depth]) && self::isInitialized(static::class, $element[static::$primaryField . '_' . $depth], $depth)) {
+                $obj[$element[static::$primaryField . '_' . $depth]] = self::$initObjects[static::class][$element[static::$primaryField . '_' . $depth]['obj']];
+
+                continue;
+            }
+
+            $toFill = self::createBaseModel();
+
+            if (isset($element[static::$primaryField . '_' . $depth])) {
+                $obj[$element[static::$primaryField . '_' . $depth]] = self::populateAbstract($element, $toFill, $depth);
+                self::addInitialized(static::class, $element[static::$primaryField . '_' . $depth], $obj[$element[static::$primaryField . '_' . $depth]], $depth);
+            } else {
+                throw new \Exception();
+            }
+        }
+
+        return $obj;
+    }
+
+    /**
+     * Populate data.
+     *
+     * @param array $result Result set
+     * @param int   $depth  Relation depth
+     *
+     * @return array
+     *
+     * @since 1.0.0
+     */
+    public static function populateIterableArray(array $result, int $depth = 3) : array
+    {
+        $obj = [];
+
+        foreach ($result as $element) {
+            if (isset($element[static::$primaryField]) && self::isInitializedArray(static::class, $element[static::$primaryField], $depth)) {
+                $obj[$element[static::$primaryField]] = self::$initArrays[static::class][$element[static::$primaryField]]['obj'];
+
+                continue;
+            }
+
+            if (isset($element[static::$primaryField])) {
+                $obj[$element[static::$primaryField]] = self::populateAbstractArray($element, [], $depth);
+                self::addInitializedArray(static::class, $element[static::$primaryField], $obj[$element[static::$primaryField]], $depth);
+            } else {
+                throw new \Exception();
+            }
+        }
+
+        return $obj;
+    }
+
+
     /**
      * Populate data.
      *
