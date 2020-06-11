@@ -311,19 +311,21 @@ class DataMapperAbstract implements DataMapperInterface
     /**
      * Create a conditional value
      *
-     * @param string   $id     Id of the conditional
-     * @param mixed    $value  Value of the conditional
-     * @param string[] $models Models to apply the conditional on
+     * @param string   $id         Id of the conditional
+     * @param mixed    $value      Value of the conditional
+     * @param string[] $models     Models to apply the conditional on
+     * @param string   $comparison Comparison operator
      *
      * @return static
      *
      * @since 1.0.0
      */
-    public static function withConditional(string $id, $value, array $models = []) /** @todo: return : static */
+    public static function withConditional(string $id, $value, array $models = [], string $comparison = '=') /** @todo: return : static */
     {
         self::$conditionals[$id] = [
-            'value'  => $value,
-            'models' => empty($models) ? null : $models,
+            'value'      => $value,
+            'models'     => empty($models) ? null : $models,
+            'comparison' => $comparison,
         ];
 
         return static::class;
@@ -394,7 +396,7 @@ class DataMapperAbstract implements DataMapperInterface
                 continue;
             }
 
-            $where1->andWhere(static::$table . '_' . $searchDepth . '.' . $column, '=', $condValue['value']);
+            $where1->andWhere(static::$table . '_' . $searchDepth . '.' . $column, $condValue['comparison'], $condValue['value']);
             $hasConditionals = true;
         }
 
@@ -3034,7 +3036,7 @@ class DataMapperAbstract implements DataMapperInterface
                             continue;
                         }
 
-                        $query->andWhere($value['table'] . '.' . $column, '=', $condValue['value']);
+                        $query->andWhere($value['table'] . '.' . $column, $condValue['comparison'], $condValue['value']);
                     }
                 }
 
@@ -3091,7 +3093,7 @@ class DataMapperAbstract implements DataMapperInterface
                 continue;
             }
 
-            $query->andWhere(static::$table . '_' . $depth . '.' . $column, '=', $condValue['value']);
+            $query->andWhere(static::$table . '_' . $depth . '.' . $column, $condValue['comparison'], $condValue['value']);
         }
 
         // get OwnsOneQuery
