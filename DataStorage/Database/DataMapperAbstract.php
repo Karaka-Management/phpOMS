@@ -1399,7 +1399,7 @@ class DataMapperAbstract implements DataMapperInterface
             }
 
             if (isset(static::$ownsOne[$propertyName])) {
-                $id    = self::updateOwnsOne($propertyName, $property->getValue($obj), self::$relations, $depth);
+                $id    = self::updateOwnsOne($propertyName, $property->getValue($obj), $depth);
                 $value = self::parseValue($column['type'], $id);
 
                 /**
@@ -1410,7 +1410,7 @@ class DataMapperAbstract implements DataMapperInterface
                  */
                 $query->set([static::$table . '.' . $column['name'] => $value]);
             } elseif (isset(static::$belongsTo[$propertyName])) {
-                $id    = self::updateBelongsTo($propertyName, $property->getValue($obj), self::$relations, $depth);
+                $id    = self::updateBelongsTo($propertyName, $property->getValue($obj), $depth);
                 $value = self::parseValue($column['type'], $id);
 
                 /**
@@ -1473,7 +1473,7 @@ class DataMapperAbstract implements DataMapperInterface
             $property = ArrayUtils::getArray($column['internal'], $obj, '/');
 
             if (isset(static::$ownsOne[$path])) {
-                $id    = self::updateOwnsOneArray($column['internal'], $property, self::$relations, $depth);
+                $id    = self::updateOwnsOneArray($column['internal'], $property, $depth);
                 $value = self::parseValue($column['type'], $id);
 
                 /**
@@ -1484,7 +1484,7 @@ class DataMapperAbstract implements DataMapperInterface
                  */
                 $query->set([static::$table . '.' . $column['name'] => $value]);
             } elseif (isset(static::$belongsTo[$path])) {
-                $id    = self::updateBelongsToArray($column['internal'], $property, self::$relations, $depth);
+                $id    = self::updateBelongsToArray($column['internal'], $property, $depth);
                 $value = self::parseValue($column['type'], $id);
 
                 /**
@@ -1530,17 +1530,18 @@ class DataMapperAbstract implements DataMapperInterface
             return $objId;
         }
 
-        self::addInitialized(static::class, $objId, $obj);
+        self::addInitialized(static::class, $objId, $obj, $depth);
+        --$depth;
 
         if ($relations === RelationType::ALL) {
-            self::updateHasMany($refClass, $obj, $objId, --$depth);
+            self::updateHasMany($refClass, $obj, $objId, $depth);
         }
 
         if (empty($objId)) {
             return self::create($obj, self::$relations);
         }
 
-        self::updateModel($obj, $objId, $refClass, --$depth);
+        self::updateModel($obj, $objId, $refClass, $depth);
 
         self::clear();
 
@@ -1573,7 +1574,8 @@ class DataMapperAbstract implements DataMapperInterface
             return $objId;
         }
 
-        self::addInitializedArray(static::class, $objId, $obj);
+        self::addInitializedArray(static::class, $objId, $obj, $depth);
+        --$depth;
 
         if (empty($objId)) {
             $update = false;
@@ -1581,11 +1583,11 @@ class DataMapperAbstract implements DataMapperInterface
         }
 
         if ($relations === RelationType::ALL) {
-            self::updateHasManyArray($obj, $objId, --$depth);
+            self::updateHasManyArray($obj, $objId, $depth);
         }
 
         if ($update) {
-            self::updateModelArray($obj, $objId, --$depth);
+            self::updateModelArray($obj, $objId, $depth);
         }
 
         self::clear();
