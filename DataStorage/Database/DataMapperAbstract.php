@@ -2561,15 +2561,16 @@ class DataMapperAbstract implements DataMapperInterface
     /**
      * Get object.
      *
-     * @param mixed $primaryKey Key
-     * @param int   $relations  Load relations
-     * @param int   $depth      Relation depth
+     * @param mixed  $primaryKey Key
+     * @param int    $relations  Load relations
+     * @param int    $depth      Relation depth
+     * @param string $ref        Ref (for getBy and getFor)
      *
      * @return array
      *
      * @since 1.0.0
      */
-    public static function getArray($primaryKey, int $relations = RelationType::ALL, int $depth = 3) : array
+    public static function getArray($primaryKey, int $relations = RelationType::ALL, int $depth = 3, string $ref = null) : array
     {
         if ($depth < 1) {
             return $primaryKey;
@@ -2582,8 +2583,10 @@ class DataMapperAbstract implements DataMapperInterface
         $primaryKey = (array) $primaryKey;
         $obj        = [];
 
+        self::$relations = $relations;
+
         foreach ($primaryKey as $key => $value) {
-            if (!self::isInitializedArray(static::class, $value, $depth)) {
+            if (!self::isInitializedArray(static::class, $value, $depth) || $ref !== null) {
                 continue;
             }
 
@@ -2591,7 +2594,7 @@ class DataMapperAbstract implements DataMapperInterface
             unset($primaryKey[$key]);
         }
 
-        $dbData = self::getRaw($primaryKey, $relations, $depth);
+        $dbData = self::getRaw($primaryKey, $relations, $depth, $ref);
         if (empty($dbData)) {
             $countResulsts = \count($obj);
 
@@ -2682,7 +2685,7 @@ class DataMapperAbstract implements DataMapperInterface
      */
     public static function getByArray($byKey, string $by, int $relations = RelationType::ALL, int $depth = 3)
     {
-        return self::get($byKey, $relations, $depth, $by);
+        return self::getArray($byKey, $relations, $depth, $by);
     }
 
     /**
