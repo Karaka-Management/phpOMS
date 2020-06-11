@@ -344,7 +344,7 @@ class DataMapperAbstract implements DataMapperInterface
         if (static::class === self::$parentMapper) {
             self::$parentMapper = null;
             self::$conditionals = [];
-            self::$relations = RelationType::ALL;
+            self::$relations    = RelationType::ALL;
         }
     }
 
