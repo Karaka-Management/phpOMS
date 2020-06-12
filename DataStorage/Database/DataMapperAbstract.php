@@ -445,13 +445,17 @@ class DataMapperAbstract implements DataMapperInterface
      */
     public static function create($obj, int $relations = RelationType::ALL)
     {
-        if (!isset($obj) || self::isNullModel($obj)) {
+        if (!isset($obj)) {
             return null;
         }
 
         self::$relations = $relations;
 
         $refClass = new \ReflectionClass($obj);
+
+        if (self::isNullModel($obj)) {
+            return self::getObjectId($obj, $refClass);
+        }
 
         if (!empty($id = self::getObjectId($obj, $refClass)) && static::$autoincrement) {
             $objId = $id;
@@ -1384,7 +1388,7 @@ class DataMapperAbstract implements DataMapperInterface
         $query->update(static::$table)
             ->where(static::$table . '.' . static::$primaryField, '=', $objId);
 
-        foreach (static::$columns as $key => $column) {
+        foreach (static::$columns as $column) {
             $propertyName = \stripos($column['internal'], '/') !== false ? \explode('/', $column['internal'])[0] : $column['internal'];
             if (isset(static::$hasMany[$propertyName])
                 || $column['internal'] === static::$primaryField
@@ -1519,7 +1523,7 @@ class DataMapperAbstract implements DataMapperInterface
      */
     public static function update($obj, int $relations = RelationType::ALL, int $depth = 3)
     {
-        if (!isset($obj) || self::isNullModel($obj)) {
+        if (!isset($obj)) {
             return null;
         }
 
@@ -1528,7 +1532,7 @@ class DataMapperAbstract implements DataMapperInterface
         $refClass = new \ReflectionClass($obj);
         $objId    = self::getObjectId($obj, $refClass);
 
-        if ($depth < 1) {
+        if ($depth < 1 || self::isNullModel($obj)) {
             return $objId;
         }
 
