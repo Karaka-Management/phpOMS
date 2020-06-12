@@ -1517,7 +1517,7 @@ class DataMapperAbstract implements DataMapperInterface
      *
      * @since 1.0.0
      */
-    public static function update($obj, int $relations = RelationType::ALL, int $depth = 1)
+    public static function update($obj, int $relations = RelationType::ALL, int $depth = 3)
     {
         if (!isset($obj) || self::isNullModel($obj)) {
             return null;
