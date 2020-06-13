@@ -454,7 +454,9 @@ class DataMapperAbstract implements DataMapperInterface
         $refClass = new \ReflectionClass($obj);
 
         if (self::isNullModel($obj)) {
-            return self::getObjectId($obj, $refClass);
+            $objId = self::getObjectId($obj, $refClass);
+
+            return $objId === 0 ? null : $objId;
         }
 
         if (!empty($id = self::getObjectId($obj, $refClass)) && static::$autoincrement) {
@@ -519,7 +521,7 @@ class DataMapperAbstract implements DataMapperInterface
         $query = new Builder(self::$db);
         $query->into(static::$table);
 
-        foreach (static::$columns as $key => $column) {
+        foreach (static::$columns as $column) {
             $propertyName = \stripos($column['internal'], '/') !== false ? \explode('/', $column['internal'])[0] : $column['internal'];
             if (isset(static::$hasMany[$propertyName])) {
                 continue;
@@ -1533,7 +1535,7 @@ class DataMapperAbstract implements DataMapperInterface
         $objId    = self::getObjectId($obj, $refClass);
 
         if ($depth < 1 || self::isNullModel($obj)) {
-            return $objId;
+            return $objId === 0 ? null : $objId;
         }
 
         self::addInitialized(static::class, $objId, $obj, $depth);
