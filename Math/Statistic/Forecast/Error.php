@@ -170,7 +170,7 @@ final class Error
      */
     public static function getCoefficientOfDetermination(array $observed, array $forecasted) : float
     {
-        return Correlation::bravaisPersonCorrelationCoefficient($observed, $forecasted) ** 2;
+        return Correlation::bravaisPersonCorrelationCoefficientPopulation($observed, $forecasted) ** 2;
     }
 
     /**

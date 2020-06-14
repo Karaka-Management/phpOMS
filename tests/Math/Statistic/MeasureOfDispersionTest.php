@@ -57,6 +57,21 @@ class MeasureOfDispersionTest extends \PHPUnit\Framework\TestCase
     }
 
     /**
+     * @testdox The empirical covariance on a sample is correctly calculated
+     * @group framework
+     */
+    public function testSampleCovariance() : void
+    {
+        self::assertEqualsWithDelta(
+            4.0,
+            MeasureOfDispersion::sampleCovariance(
+                [1, 2, 3, 4, 5, 6, 7],
+                [3, 4, 5, 9, 7, 8, 9]
+            ), 0.01
+        );
+    }
+
+    /**
      * @testdox The sample variance is correctly calculated
      * @group framework
      */

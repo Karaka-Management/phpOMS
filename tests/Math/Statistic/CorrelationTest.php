@@ -27,11 +27,26 @@ class CorrelationTest extends \PHPUnit\Framework\TestCase
      * @testdox The correlation coefficient (Bravis Person) is calculated correctly
      * @group framework
      */
-    public function testBravisPersonCorrelationCoefficient() : void
+    public function testBravisPersonCorrelationCoefficientPopulation() : void
     {
         self::assertEqualsWithDelta(
             0.8854,
-            Correlation::bravaisPersonCorrelationCoefficient(
+            Correlation::bravaisPersonCorrelationCoefficientPopulation(
+                [1, 2, 3, 4, 5, 6, 7],
+                [3, 4, 5, 9, 7, 8, 9]
+            ), 0.01
+        );
+    }
+
+    /**
+     * @testdox The correlation coefficient (Bravis Person) is calculated correctly on a sample
+     * @group framework
+     */
+    public function testBravisPersonCorrelationCoefficientSample() : void
+    {
+        self::assertEqualsWithDelta(
+            0.8854,
+            Correlation::bravaisPersonCorrelationCoefficientSample(
                 [1, 2, 3, 4, 5, 6, 7],
                 [3, 4, 5, 9, 7, 8, 9]
             ), 0.01

@@ -46,9 +46,26 @@ final class Correlation
      *
      * @since 1.0.0
      */
-    public static function bravaisPersonCorrelationCoefficient(array $x, array $y) : float
+    public static function bravaisPersonCorrelationCoefficientPopulation(array $x, array $y) : float
     {
-        return MeasureOfDispersion::empiricalCovariance($x, $y) / (MeasureOfDispersion::standardDeviationSample($x) * MeasureOfDispersion::standardDeviationSample($y));
+        return MeasureOfDispersion::empiricalCovariance($x, $y) / (MeasureOfDispersion::standardDeviationPopulation($x) * MeasureOfDispersion::standardDeviationPopulation($y));
+    }
+
+    /**
+     * Calculage bravais person correlation coefficient.
+     *
+     * Example: ([4, 5, 9, 1, 3], [4, 5, 9, 1, 3])
+     *
+     * @param array<int|float> $x Values
+     * @param array<int|float> $y Values
+     *
+     * @return float
+     *
+     * @since 1.0.0
+     */
+    public static function bravaisPersonCorrelationCoefficientSample(array $x, array $y) : float
+    {
+        return MeasureOfDispersion::sampleCovariance($x, $y) / (MeasureOfDispersion::standardDeviationSample($x) * MeasureOfDispersion::standardDeviationSample($y));
     }
 
     /**

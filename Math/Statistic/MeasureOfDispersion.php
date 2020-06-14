@@ -101,11 +101,14 @@ final class MeasureOfDispersion
         $mean = $mean !== null ? $mean : Average::arithmeticMean($values);
         $sum  = 0.0;
 
+        $valueCount = 0;
+
         foreach ($values as $value) {
             $sum += ($value - $mean) ** 2;
+            ++$valueCount;
         }
 
-        return \sqrt($sum / (\count($values) - 1));
+        return \sqrt($sum / ($valueCount - 1));
     }
 
     /**
@@ -127,11 +130,14 @@ final class MeasureOfDispersion
         $mean = $mean !== null ? $mean : Average::arithmeticMean($values);
         $sum  = 0.0;
 
+        $valueCount = 0;
+
         foreach ($values as $value) {
             $sum += ($value - $mean) ** 2;
+            ++$valueCount;
         }
 
-        return \sqrt($sum / \count($values));
+        return \sqrt($sum / $valueCount);
     }
 
     /**
@@ -241,7 +247,37 @@ final class MeasureOfDispersion
             $sum += ($x[$i] - $xMean) * ($y[$i] - $yMean);
         }
 
-        return $sum / ($count - 1);
+        return $sum / $count;
+    }
+
+    /**
+     * Calculage empirical covariance on a sample
+     *
+     * Example: ([4, 5, 9, 1, 3], [4, 5, 9, 1, 3])
+     *
+     * @latex \sigma_{XY} = cov(X, Y) = \sum_{i = 1}^{N}\frac{\left(x_{i} - \bar{X}\right) \left(y_{i} - \bar{Y}\right)}{N - 1}
+     *
+     * @param array<int, int|float> $x     Values
+     * @param array<int, int|float> $y     Values
+     * @param float                 $meanX Mean
+     * @param float                 $meanY Mean
+     *
+     * @return float
+     *
+     * @throws ZeroDivisionException     This exception is thrown if the size of the x array is less than 2
+     * @throws InvalidDimensionException This exception is thrown if x and y have different dimensions
+     *
+     * @since 1.0.0
+     */
+    public static function sampleCovariance(array $x, array $y, float $meanX = null, float $meanY = null) : float
+    {
+        $count = \count($x);
+
+        if ($count < 2) {
+            throw new ZeroDivisionException();
+        }
+
+        return self::empiricalCovariance($x, $y, $meanX, $meanY) * $count / ($count - 1);
     }
 
     /**
