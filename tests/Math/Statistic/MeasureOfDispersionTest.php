@@ -48,7 +48,7 @@ class MeasureOfDispersionTest extends \PHPUnit\Framework\TestCase
     public function testEmpiricalCovariance() : void
     {
         self::assertEqualsWithDelta(
-            4.667,
+            4.0,
             MeasureOfDispersion::empiricalCovariance(
                 [1, 2, 3, 4, 5, 6, 7],
                 [3, 4, 5, 9, 7, 8, 9]
@@ -63,7 +63,7 @@ class MeasureOfDispersionTest extends \PHPUnit\Framework\TestCase
     public function testSampleCovariance() : void
     {
         self::assertEqualsWithDelta(
-            4.0,
+            4.667,
             MeasureOfDispersion::sampleCovariance(
                 [1, 2, 3, 4, 5, 6, 7],
                 [3, 4, 5, 9, 7, 8, 9]
