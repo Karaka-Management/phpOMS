@@ -122,7 +122,7 @@ final class HttpRequest extends RequestAbstract
     private function initCurrentRequest() : void
     {
         $this->uri   = HttpUri::fromCurrent();
-        $this->data  = $_GET ?? [];
+        $this->data  = ($_GET ?? []) + ($_POST ?? []);
         $this->files = $_FILES ?? [];
         $this->header->getL11n()->setLanguage($this->getRequestLanguage());
 
