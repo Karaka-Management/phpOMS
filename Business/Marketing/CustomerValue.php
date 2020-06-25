@@ -14,10 +14,6 @@ declare(strict_types=1);
 
 namespace phpOMS\Business\Marketing;
 
-use phpOMS\Math\Matrix\IdentityMatrix;
-use phpOMS\Math\Matrix\Matrix;
-use phpOMS\Math\Matrix\Vector;
-
 /**
  * Marketing CustomerValue
  *
