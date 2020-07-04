@@ -9,10 +9,11 @@
  * @license   OMS License 1.0
  * @version   1.0.0
  * @link      https://orange-management.org
+ * @see       https://tools.ietf.org/html/rfc6749
  */
 declare(strict_types=1);
 
-namespace phpOMS\Auth\OAuth2;
+namespace phpOMS\Auth\OAuth2\Provider;
 
 /**
  * Provider class.
@@ -22,6 +23,10 @@ namespace phpOMS\Auth\OAuth2;
  * @link    https://orange-management.org
  * @since   1.0.0
  */
-final class Provider
+abstract class ProviderAbstract
 {
+    public function __construct(array $options = [], array $collaborators = [])
+    {
+
+    }
 }
