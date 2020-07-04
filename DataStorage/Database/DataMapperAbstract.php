@@ -740,6 +740,28 @@ class DataMapperAbstract implements DataMapperInterface
 
             $values = $property->getValue($obj);
 
+            /** @var self $mapper */
+            $mapper = static::$hasMany[$propertyName]['mapper'];
+
+            if (\is_object($values)) {
+                // conditionals
+                $relReflectionClass = new \ReflectionClass($values);
+                $relProperty        = $relReflectionClass->getProperty($mapper::$columns[static::$hasMany[$propertyName]['external']]['internal']);
+
+                if (!$isPublic) {
+                    $relProperty->setAccessible(true);
+                }
+
+                $relProperty->setValue($values, $objId);
+
+                if (!$isPublic) {
+                    $relProperty->setAccessible(false);
+                }
+
+                $mapper::create($values);
+                continue;
+            }
+
             if (!\is_array($values)) {
                 // conditionals
                 continue;
@@ -749,8 +771,6 @@ class DataMapperAbstract implements DataMapperInterface
                 $property->setAccessible(false);
             }
 
-            /** @var self $mapper */
-            $mapper             = static::$hasMany[$propertyName]['mapper'];
             $objsIds            = [];
             $relReflectionClass = !empty($values) ? new \ReflectionClass(\reset($values)) : null;
 
@@ -816,13 +836,22 @@ class DataMapperAbstract implements DataMapperInterface
 
             $values = $obj[$propertyName] ?? null;
 
-            if (!\is_array($values)) {
+            /** @var self $mapper */
+            $mapper  = static::$hasMany[$propertyName]['mapper'];
+
+            if (\is_object($values)) {
                 // conditionals
+                $values[$mapper::$columns[static::$hasMany[$propertyName]['external']]['internal']] = $objId;
+
+                $mapper::createArray($values);
+                continue;
+            }
+
+            if (!\is_array($values)) {
                 continue;
             }
 
             /** @var self $mapper */
-            $mapper  = static::$hasMany[$propertyName]['mapper'];
             $objsIds = [];
 
             foreach ($values as $key => &$value) {
