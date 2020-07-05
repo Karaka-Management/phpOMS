@@ -82,6 +82,7 @@ class BaseModelMapper extends DataMapperAbstract
             'table'    => 'test_conditional',
             'external' => 'test_conditional_base',
             'column'   => 'title',
+            'conditional'   => true,
             'self'     => null,
         ],
     ];

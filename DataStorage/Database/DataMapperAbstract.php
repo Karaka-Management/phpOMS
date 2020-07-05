@@ -1960,7 +1960,7 @@ class DataMapperAbstract implements DataMapperInterface
                 ? $mapper::get($values, RelationType::ALL, $depth)
                 : $mapper::get($values, RelationType::ALL, $depth, static::$hasMany[$member]['by']);
 
-            $refProp->setValue($obj, !\is_array($objects) ? [$mapper::getObjectId($objects) => $objects] : $objects);
+            $refProp->setValue($obj, !\is_array($objects) && !isset(static::$hasMany[$member]['conditional']) ? [$mapper::getObjectId($objects) => $objects] : $objects);
 
             if (!$accessible) {
                 $refProp->setAccessible(false);
@@ -1983,7 +1983,7 @@ class DataMapperAbstract implements DataMapperInterface
     {
         foreach ($result as $member => $values) {
             if (empty($values)
-                || isset(static::$hasMany[$member]['column']) // handled in getQuery()
+                || isset(static::$hasMany[$member]['conditional']) // handled in getQuery()
             ) {
                 continue;
             }
@@ -3136,7 +3136,7 @@ class DataMapperAbstract implements DataMapperInterface
 
         // get OwnsOneQuery
         if ($depth > 1 && self::$relations === RelationType::ALL) {
-            foreach (static::$ownsOne as $member => $rel) {
+            foreach (static::$ownsOne as $rel) {
                 $query->leftJoin($rel['mapper']::getTable(), $rel['mapper']::getTable() . '_' . ($depth - 1))
                     ->on(
                         static::$table . '_' . $depth . '.' . $rel['self'], '=',
@@ -3157,7 +3157,7 @@ class DataMapperAbstract implements DataMapperInterface
 
         // get BelognsToQuery
         if ($depth > 1 && self::$relations === RelationType::ALL) {
-            foreach (static::$belongsTo as $member => $rel) {
+            foreach (static::$belongsTo as $rel) {
                 $query->leftJoin($rel['mapper']::getTable(), $rel['mapper']::getTable() . '_' . ($depth - 1))
                     ->on(
                         static::$table . '_' . $depth . '.' . $rel['self'], '=',
@@ -3178,7 +3178,7 @@ class DataMapperAbstract implements DataMapperInterface
 
         // get HasManyQuery (but only for elements which have a 'column' defined)
         if ($depth > 1 && self::$relations === RelationType::ALL) {
-            foreach (static::$hasMany as $member => $rel) {
+            foreach (static::$hasMany as $rel) {
                 if (isset($rel['self']) || !isset($rel['column'])) { // @todo: conflict with getHasMany()???!?!?!?!
                     continue;
                 }
