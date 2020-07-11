@@ -14,8 +14,6 @@ declare(strict_types=1);
 
 namespace phpOMS\tests\Business\Marketing;
 
-use phpOMS\Business\Marketing\Metrics;
-
 /**
  * @testdox phpOMS\tests\Business\Marketing\CustomerValueTest: Customer value
  *
