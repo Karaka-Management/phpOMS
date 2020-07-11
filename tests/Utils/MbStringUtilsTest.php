@@ -27,7 +27,7 @@ class MbStringUtilsTest extends \PHPUnit\Framework\TestCase
 {
     /**
      * @testdox The entropy of a string can be calculated
-     * @covers phpOMS\Utils\StringUtils
+     * @covers phpOMS\Utils\MbStringUtils
      * @group framework
      */
     public function testEntropy() : void
@@ -37,7 +37,7 @@ class MbStringUtilsTest extends \PHPUnit\Framework\TestCase
 
     /**
      * @testdox A string can be checked for multi-byte characters
-     * @covers phpOMS\Utils\StringUtils
+     * @covers phpOMS\Utils\MbStringUtils
      * @group framework
      */
     public function testHasMultiBytes() : void
@@ -150,5 +150,10 @@ class MbStringUtilsTest extends \PHPUnit\Framework\TestCase
     public function testCountMb() : void
     {
         self::assertEquals(5, MbStringUtils::mb_count_chars('αααααΕεΙιΜμΨψ')['α']);
+    }
+
+    public function testUtf8CharBoundary() : void
+    {
+        self::markTestIncomplete();
     }
 }

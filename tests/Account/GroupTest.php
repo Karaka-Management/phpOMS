@@ -100,22 +100,28 @@ class GroupTest extends \PHPUnit\Framework\TestCase
      */
     public function testPermissionAdd() : void
     {
-        $account = new Group();
+        $group = new Group();
 
-        $account->addPermission(new class() extends PermissionAbstract {});
-        self::assertCount(1, $account->getPermissions());
+        $group->addPermission(new class() extends PermissionAbstract {});
+        self::assertCount(1, $group->getPermissions());
 
-        $account->setPermissions([
+        $group->setPermissions([
             new class() extends PermissionAbstract {},
             new class() extends PermissionAbstract {},
         ]);
-        self::assertCount(2, $account->getPermissions());
+        self::assertCount(2, $group->getPermissions());
 
-        $account->addPermissions([
+        $group->addPermissions([
             new class() extends PermissionAbstract {},
             new class() extends PermissionAbstract {},
         ]);
-        self::assertCount(4, $account->getPermissions());
+        self::assertCount(4, $group->getPermissions());
+
+        $group->addPermissions([[
+            new class() extends PermissionAbstract {},
+            new class() extends PermissionAbstract {},
+        ]]);
+        self::assertCount(6, $group->getPermissions());
     }
 
     /**
@@ -125,13 +131,13 @@ class GroupTest extends \PHPUnit\Framework\TestCase
      */
     public function testPermissionExists() : void
     {
-        $account = new Group();
+        $group = new Group();
 
-        $account->addPermission(new class() extends PermissionAbstract {});
-        self::assertCount(1, $account->getPermissions());
+        $group->addPermission(new class() extends PermissionAbstract {});
+        self::assertCount(1, $group->getPermissions());
 
-        self::assertFalse($account->hasPermission(PermissionType::READ, 1, 'a', 'a', 1, 1, 1));
-        self::assertTrue($account->hasPermission(PermissionType::NONE));
+        self::assertFalse($group->hasPermission(PermissionType::READ, 1, 'a', 'a', 1, 1, 1));
+        self::assertTrue($group->hasPermission(PermissionType::NONE));
     }
 
     /**
@@ -141,16 +147,16 @@ class GroupTest extends \PHPUnit\Framework\TestCase
      */
     public function testPermissionRemove() : void
     {
-        $account = new Group();
+        $group = new Group();
 
         $perm = new class() extends PermissionAbstract {};
         $perm->setPermission(PermissionType::READ);
 
-        $account->addPermission($perm);
-        self::assertCount(1, $account->getPermissions());
+        $group->addPermission($perm);
+        self::assertCount(1, $group->getPermissions());
 
-        $account->removePermission($perm);
-        self::assertCount(0, $account->getPermissions());
+        $group->removePermission($perm);
+        self::assertCount(0, $group->getPermissions());
     }
 
     /**

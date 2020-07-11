@@ -98,30 +98,30 @@ final class FileUtils
      */
     public static function absolute(string $origPath) : string
     {
-        if (!\file_exists($origPath) || \realpath($origPath) === false) {
-            $startsWithSlash = \strpos($origPath, '/') === 0 ? '/' : '';
-
-            $path  = [];
-            $parts = \explode('/', $origPath);
-
-            foreach ($parts as $part) {
-                if (empty($part) || $part === '.') {
-                    continue;
-                }
-
-                if ($part !== '..') {
-                    $path[] = $part;
-                } elseif (!empty($path)) {
-                    \array_pop($path);
-                } else {
-                    throw new PathException($origPath);
-                }
-            }
-
-            return $startsWithSlash . \implode('/', $path);
+        if (\file_exists($origPath) || \realpath($origPath) !== false) {
+            return \realpath($origPath);
         }
 
-        return \realpath($origPath);
+        $startsWithSlash = \strpos($origPath, '/') === 0 ? '/' : '';
+
+        $path  = [];
+        $parts = \explode('/', $origPath);
+
+        foreach ($parts as $part) {
+            if (empty($part) || $part === '.') {
+                continue;
+            }
+
+            if ($part !== '..') {
+                $path[] = $part;
+            } elseif (!empty($path)) {
+                \array_pop($path);
+            } else {
+                throw new PathException($origPath);
+            }
+        }
+
+        return $startsWithSlash . \implode('/', $path);
     }
 
     /**

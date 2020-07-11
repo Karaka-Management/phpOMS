@@ -221,6 +221,12 @@ class AccountTest extends \PHPUnit\Framework\TestCase
             new class() extends PermissionAbstract {},
         ]);
         self::assertCount(4, $account->getPermissions());
+
+        $account->addPermissions([[
+            new class() extends PermissionAbstract {},
+            new class() extends PermissionAbstract {},
+        ]]);
+        self::assertCount(6, $account->getPermissions());
     }
 
     /**

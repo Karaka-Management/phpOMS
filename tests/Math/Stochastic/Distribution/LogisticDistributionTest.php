@@ -19,7 +19,52 @@ namespace phpOMS\tests\Math\Stochastic\Distribution;
  */
 class LogisticDistributionTest extends \PHPUnit\Framework\TestCase
 {
-    public function testPlaceholder() : void
+    public function testPdf() : void
+    {
+        self::markTestIncomplete();
+    }
+
+    public function testCdf() : void
+    {
+        self::markTestIncomplete();
+    }
+
+    public function testMode() : void
+    {
+        self::markTestIncomplete();
+    }
+
+    public function testMean() : void
+    {
+        self::markTestIncomplete();
+    }
+
+    public function testMedian() : void
+    {
+        self::markTestIncomplete();
+    }
+
+    public function testVariance() : void
+    {
+        self::markTestIncomplete();
+    }
+
+    public function testStandardDeviation() : void
+    {
+        self::markTestIncomplete();
+    }
+
+    public function testSkewness() : void
+    {
+        self::markTestIncomplete();
+    }
+
+    public function testExKurtosis() : void
+    {
+        self::markTestIncomplete();
+    }
+
+    public function testEntropy() : void
     {
         self::markTestIncomplete();
     }

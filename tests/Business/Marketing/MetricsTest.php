@@ -31,4 +31,44 @@ class MetricsTest extends \PHPUnit\Framework\TestCase
     {
         self::assertEqualsWithDelta(0.85, Metrics::getCustomerRetention(105, 20, 100), 0.01);
     }
+
+    /**
+     * @group framework
+     */
+    public function testBerrysCustomerProfits() : void
+    {
+        self::markTestIncomplete();
+    }
+
+    /**
+     * @group framework
+     */
+    public function testLifeTimeValue() : void
+    {
+        self::markTestIncomplete();
+    }
+
+    /**
+     * @group framework
+     */
+    public function testSimpleRetentionLifeTimeValue() : void
+    {
+        self::markTestIncomplete();
+    }
+
+    /**
+     * @group framework
+     */
+    public function testMailingSuccess() : void
+    {
+        self::markTestIncomplete();
+    }
+
+    /**
+     * @group framework
+     */
+    public function testMigrationModel() : void
+    {
+        self::markTestIncomplete();
+    }
 }

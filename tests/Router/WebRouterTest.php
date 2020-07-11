@@ -295,4 +295,14 @@ class WebRouterTest extends \PHPUnit\Framework\TestCase
             )
         );
     }
+
+    public function testDataValidation() : void
+    {
+        self::markTestIncomplete();
+    }
+
+    public function testDataFromPattern() : void
+    {
+        self::markTestIncomplete();
+    }
 }

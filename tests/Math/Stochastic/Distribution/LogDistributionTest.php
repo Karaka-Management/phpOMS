@@ -19,7 +19,32 @@ namespace phpOMS\tests\Math\Stochastic\Distribution;
  */
 class LogDistributionTest extends \PHPUnit\Framework\TestCase
 {
-    public function testPlaceholder() : void
+    public function testPmf() : void
+    {
+        self::markTestIncomplete();
+    }
+
+    public function testMean() : void
+    {
+        self::markTestIncomplete();
+    }
+
+    public function testMode() : void
+    {
+        self::markTestIncomplete();
+    }
+
+    public function testVariance() : void
+    {
+        self::markTestIncomplete();
+    }
+
+    public function testStandardDeviation() : void
+    {
+        self::markTestIncomplete();
+    }
+
+    public function testMgf() : void
     {
         self::markTestIncomplete();
     }

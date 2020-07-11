@@ -53,6 +53,10 @@ final class FDistribution
      */
     public static function getMode(int $d1, int $d2) : float
     {
+        if ($d1 === 0) {
+            return 0.0;
+        }
+
         return ($d1 - 2) / $d1 * $d2 / ($d2 + 2);
     }
 

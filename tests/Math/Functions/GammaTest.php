@@ -93,4 +93,9 @@ class GammaTest extends \PHPUnit\Framework\TestCase
 
         self::assertTrue(true);
     }
+
+    public function testLogGamma() : void
+    {
+        self::markTestIncomplete();
+    }
 }

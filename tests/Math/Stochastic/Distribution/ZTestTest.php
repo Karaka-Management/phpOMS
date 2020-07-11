@@ -36,7 +36,7 @@ class ZTestTest extends \PHPUnit\Framework\TestCase
     public function testZTest() : void
     {
         //self::assertEqualsWithDelta(0.090574, ZTest::zTest(4, [3, 6, 7, 8, 6, 5, 4, 2, 1, 9]), 0.001);
-
+        self::markTestIncomplete();
         self::assertTrue(true);
     }
 }

@@ -108,4 +108,14 @@ class FunctionsTest extends \PHPUnit\Framework\TestCase
         self::assertEquals(5, Functions::getRelativeDegree(12, 12, 7));
         self::assertEquals(11, Functions::getRelativeDegree(6, 12, 7));
     }
+
+    public function testErf() : void
+    {
+        self::markTestIncomplete();
+    }
+
+    public function testErfc() : void
+    {
+        self::markTestIncomplete();
+    }
 }

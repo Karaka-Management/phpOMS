@@ -54,6 +54,7 @@ class FileUtilsTest extends \PHPUnit\Framework\TestCase
      */
     public function testAbsolute() : void
     {
+        self::assertEquals(\realpath(__DIR__ . '/..'), FileUtils::absolute(__DIR__ . '/..'));
         self::assertEquals('/test/ative', FileUtils::absolute('/test/path/for/../rel/../../ative'));
     }
 
@@ -65,5 +66,10 @@ class FileUtilsTest extends \PHPUnit\Framework\TestCase
     public function testPermissionToOctal() : void
     {
         self::assertEquals(0742, FileUtils::permissionToOctal('rwxr---w-'));
+    }
+
+    public function testChangeFileEncoding() : void
+    {
+        self::markTestIncomplete();
     }
 }
