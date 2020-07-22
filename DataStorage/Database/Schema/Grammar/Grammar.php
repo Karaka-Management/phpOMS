@@ -85,6 +85,20 @@ class Grammar extends QueryGrammar
     ];
 
     /**
+     * Alter components.
+     *
+     * @var string[]
+     * @since 1.0.0
+     */
+    protected array $alterComponents = [
+        'alterTable',
+        'alterColumn',
+        'alterAdd',
+        'alterRename',
+        'alterRemove',
+    ];
+
+    /**
      * {@inheritdoc}
      */
     protected function getComponents(int $type) : array
@@ -100,9 +114,93 @@ class Grammar extends QueryGrammar
                 return $this->createTablesComponents;
             case QueryType::DROP_TABLE:
                 return $this->dropTableComponents;
+            case QueryType::ALTER:
+                return $this->alterComponents;
             default:
                 return parent::getComponents($type);
         }
+    }
+
+    /**
+     * Compile alter table query.
+     *
+     * @param BuilderAbstract $query Query
+     * @param string          $table Table to alter
+     *
+     * @return string
+     *
+     * @since 1.0.0
+     */
+    protected function compileAlterTable(BuilderAbstract $query, string $table) : string
+    {
+        return 'ALTER TABLE ' . $this->expressionizeTableColumn([$table]);
+    }
+
+    /**
+     * Compile alter column query.
+     *
+     * @param BuilderAbstract $query  Query
+     * @param string          $column Column to alter
+     *
+     * @return string
+     *
+     * @since 1.0.0
+     */
+    protected function compileAlterColumn(BuilderAbstract $query, string $column) : string
+    {
+        return '';
+    }
+
+    /**
+     * Compile alter add query.
+     *
+     * @param BuilderAbstract $query Query
+     * @param array           $add   Add data
+     *
+     * @return string
+     *
+     * @since 1.0.0
+     */
+    protected function compileAlterAdd(BuilderAbstract $query, array $add) : string
+    {
+        switch ($add['type']) {
+            case 'COLUMN':
+                return $this->addColumn($add);
+            case 'CONSTRAINT':
+                return $this->addConstraint($add);
+            default:
+                return '';
+        }
+    }
+
+    /**
+     * Add a new column.
+     *
+     * @param array $add Add data
+     *
+     * @return string
+     *
+     * @since 1.0.0
+     */
+    private function addColumn(array $add) : string
+    {
+        return 'ADD ' . $this->expressionizeTableColumn([$add['name']]) . ' ' . $add['datatype'];
+    }
+
+    /**
+     * Add a new constraint/foreign key.
+     *
+     * @param array $add Add data
+     *
+     * @return string
+     *
+     * @since 1.0.0
+     */
+    private function addConstraint(array $add) : string
+    {
+        return 'ADD' . (isset($add['constraint']) ? 'CONSTRAINT ' . $add['constraint'] : '') . ' FOREIGN KEY (' .  $this->expressionizeTableColumn([$add['key']]) . ') REFERENCES '
+            . $this->expressionizeTableColumn([$add['foreignTable']])
+            . ' (' . $this->expressionizeTableColumn([$add['foreignKey']]) . ')';
     }
 
     /**

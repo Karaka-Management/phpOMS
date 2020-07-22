@@ -40,6 +40,23 @@ class MysqlGrammar extends Grammar
     protected string $systemIdentifier = '`';
 
     /**
+     * Compile remove
+     *
+     * @param Builder $query  Builder
+     * @param array   $remove Remove data
+     *
+     * @return string
+     *
+     * @since 1.0.0
+     */
+    protected function compileAlterRemove(BuilderAbstract $query, array $remove) : string
+    {
+        $keyWord = $remove['type'] === 'CONSTRAINT' ? 'FOREIGN KEY ' : 'COLUMN';
+
+        return 'DROP ' . $keyWord . ' ' . $remove['identifier'];
+    }
+
+    /**
      * Compile from.
      *
      * @param Builder $query Builder

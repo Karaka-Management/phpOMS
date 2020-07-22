@@ -88,6 +88,30 @@ class Builder extends QueryBuilder
     public bool $createTableSettings = true;
 
     /**
+     * Table to alter.
+     *
+     * @var string
+     * @since 1.0.0
+     */
+    public string $alterTable = '';
+
+    /**
+     * Column to alter.
+     *
+     * @var string
+     * @since 1.0.0
+     */
+    public string $alterColumn = '';
+
+    /**
+     * Data to add.
+     *
+     * @var array
+     * @since 1.0.0
+     */
+    public array $alterAdd = [];
+
+    /**
      * Constructor.
      *
      * @param ConnectionAbstract $connection Database connection
@@ -262,16 +286,42 @@ class Builder extends QueryBuilder
     }
 
     /**
-     * Alter a field.
+     * Alter a table.
      *
-     * @param array $column Column data
+     * @param string $table Table
      *
-     * @return void
+     * @return self
      *
      * @since 1.0.0
      */
-    public function alter(array $column) : void
+    public function alterTable(string $table) : self
     {
+        $this->type       = QueryType::ALTER;
+        $this->alterTable = $table;
+
+        return $this;
+    }
+
+    /**
+     * Add a constraint
+     *
+     * @param string $key          Key
+     * @param string $foreignTable Foreign table
+     * @param string $foreignKey   Foreign key
+     *
+     * @return self
+     *
+     * @since 1.0.0
+     */
+    public function addConstraint(string $key, string $foreignTable, string $foreignKey, string $constraint = null) : self
+    {
+        $this->alterAdd['type']         = 'CONSTRAINT';
+        $this->alterAdd['key']          = $key;
+        $this->alterAdd['foreignTable'] = $foreignTable;
+        $this->alterAdd['foreignKey']   = $foreignKey;
+        $this->alterAdd['constraint']   = $constraint;
+
+        return $this;
     }
 
     /**
