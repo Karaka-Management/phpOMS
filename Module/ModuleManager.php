@@ -700,7 +700,7 @@ final class ModuleManager
     public function get(string $module) : ModuleAbstract
     {
         $name = $this->generateModuleName($module);
-        if (!isset($this->running[$name])) {
+        if (!array_key_exists($name, $this->running)) {
             $this->initModule($module);
         }
 
