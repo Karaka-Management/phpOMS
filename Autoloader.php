@@ -112,4 +112,30 @@ final class Autoloader
 
         return false;
     }
+
+    /**
+     * Invalidate a already loaded file
+     *
+     * IMPORTANT: This does not reload an already loaded file
+     *
+     * @param string $class Class to invalidate
+     *
+     * @return bool
+     *
+     * @since 1.0.0
+     * @todo Find a way to re-load aready loaded files. This can be important for changed scripts
+     */
+    public static function invalidate(string $class) : bool
+    {
+        if (!\extension_loaded('opcache')
+            || !\opcache_is_script_cached(__DIR__ . '/../../Models/NewsArticleMapper.php')
+        ) {
+            return false;
+        }
+
+        \opcache_invalidate(__DIR__ . '/../../Models/NewsArticleMapper.php');
+        \opcache_compile_file(__DIR__ . '/../../Models/NewsArticleMapper.php');
+
+        return true;
+    }
 }
