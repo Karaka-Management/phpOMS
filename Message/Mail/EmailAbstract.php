@@ -105,6 +105,14 @@ abstract class EmailAbstract
     protected string $endOfLine = "\r\n";
 
     /**
+     * OAuth
+     *
+     * @var OAuth
+     * @since 1.0.0
+     */
+    protected $oauth = null;
+
+    /**
      * Construct
      *
      * @param string $host    Host
@@ -227,8 +235,6 @@ abstract class EmailAbstract
             || $this->submitType === SubmitType::MAIL
         ) {
             $this->endOfLine = $this->submitType === SubmitType::SMTP || !\stripos(\PHP_OS, 'WIN') === 0 ? \PHP_EOL : "\r\n";
-
-            return;
         } elseif ($this->submitType === SubmitType::SENDMAIL) {
             $this->endOfLine = \PHP_EOL;
             $path            = \ini_get('sendmail_path');
@@ -256,6 +262,34 @@ abstract class EmailAbstract
         if (empty($mail->getTo())) {
             return false;
         }
+
+        $this->preSend($mail);
+        $this->postSend($mail);
+
+        return true;
+    }
+
+    private function preSend(Mail $mail) : bool
+    {
+        $this->endOfLine = $this->submitType === SubmitType::SMTP
+            || ($this->submitType === SubmitType::MAIL && \stripos(\PHP_OS, 'WIN') === 0)
+            ? "\r\n" : \PHP_EOL;
+
+        $this->setMessageType();
+
+        if($this->submitType === SubmitType::MAIL) {
+            $this->header .= 'to: ' . $this->addrAppend('to', $this->to);
+            $this->header .= $this->headerLine('Subject', $this->encodeHeader($this->secureHeader($this->subject)));
+        }
+
+        return true;
+    }
+
+
+
+    private function postSend(Mail $mail) : bool
+    {
+        return true;
     }
 
     /**
@@ -619,5 +653,19 @@ abstract class EmailAbstract
         }
 
         return \imap_fetchheader($this->con, $id);
+    }
+
+    /**
+     * Set the OAuth connection
+     *
+     * @param OAuth $oauth OAuth
+     *
+     * @return void
+     *
+     * @since 1.0.0
+     */
+    public function setOAuth($oauth) : void
+    {
+        $this->oauth = $oauth;
     }
 }

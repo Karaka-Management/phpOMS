@@ -20,6 +20,7 @@ declare(strict_types=1);
 namespace phpOMS\Message\Mail;
 
 use phpOMS\System\CharsetType;
+use phpOMS\System\File\Local\File;
 use phpOMS\System\MimeType;
 use phpOMS\Utils\MbStringUtils;
 
@@ -170,6 +171,14 @@ class Mail
     protected string $contentType = MimeType::M_TXT;
 
     /**
+     * Character set
+     *
+     * @var string
+     * @since 1.0.0
+     */
+    protected string $charset = CharsetType::ISO_8859_1;
+
+    /**
      * Mail message type.
      *
      * @var string
@@ -236,8 +245,7 @@ class Mail
     public function setBodyAlt(string $body) : void
     {
         $this->bodyAlt     = $body;
-        $this->contentType = MimeType::M_ALT;
-        $this->setMessageType();
+        $this->contentType = empty($body) ? MimeType::M_TXT : MimeType::M_ALT;
     }
 
     /**
@@ -293,7 +301,7 @@ class Mail
      */
     public function setSubject(string $subject) : void
     {
-        $this->subject = $subject;
+        $this->subject = \trim($subject);
     }
 
     /**
@@ -429,13 +437,9 @@ class Mail
             return false;
         }
 
-        $info = [];
-        \preg_match('#^(.*?)[\\\\/]*(([^/\\\\]*?)(\.([^.\\\\/]+?)|))[\\\\/.]*$#m', $path, $info);
-        $filename = $info[2] ?? '';
-
         $this->attachment[] = [
             'path'        => $path,
-            'filename'    => $filename,
+            'filename'    => \basename($path),
             'name'        => $name,
             'encoding'    => $encoding,
             'type'        => $type,
@@ -443,8 +447,6 @@ class Mail
             'disposition' => $disposition,
             'id'          => $name,
         ];
-
-        $this->setMessageType();
 
         return true;
     }
@@ -456,8 +458,26 @@ class Mail
      *
      * @since 1.0.0
      */
-    public function addStringAttachment() : bool
-    {
+    public function addStringAttachment(
+        string $string,
+        string $filename,
+        string $encoding = EncodingType::E_BASE64,
+        string $type = '',
+        string $disposition = DispositionType::ATTACHMENT
+    ) : bool {
+        $type = $type === '' ? MimeType::getByName('M_' . \strtoupper(File::extension($filename))) : $type;
+
+        $this->attachment[] = [
+            'path'        => $string,
+            'filename'    => $filename,
+            'name'        => \basename($filename),
+            'encoding'    => $encoding,
+            'type'        => $type,
+            'string'      => true,
+            'disposition' => $disposition,
+            'id'          => 0,
+        ];
+
         return true;
     }
 
@@ -468,8 +488,32 @@ class Mail
      *
      * @since 1.0.0
      */
-    public function addEmbeddedImage() : bool
-    {
+    public function addEmbeddedImage(
+        string $path,
+        string $cid,
+        string $name = '',
+        string $encoding = EncodingType::E_BASE64,
+        string $type = '',
+        string $disposition = DispositionType::INLINE
+    ) : bool {
+        if ((bool) \preg_match('#^[a-z]+://#i', $path)) {
+            return false;
+        }
+
+        $type     = $type === '' ? MimeType::getByName('M_' . \strtoupper(File::extension($path))) : $type;
+        $filename = \basename($path);
+
+        $this->attachment[] = [
+            'path'        => $path,
+            'filename'    => $filename,
+            'name'        => empty($name) ? $filename : $name,
+            'encoding'    => $encoding,
+            'type'        => $type,
+            'string'      => false,
+            'disposition' => $disposition,
+            'id'          => $cid,
+        ];
+
         return true;
     }
 
@@ -480,8 +524,27 @@ class Mail
      *
      * @since 1.0.0
      */
-    public function addStringEmbeddedImage() : bool
-    {
+    public function addStringEmbeddedImage(
+        string $string,
+        string $cid,
+        string $name = '',
+        string $encoding = EncodingType::E_BASE64,
+        string $type = '',
+        string $disposition = DispositionType::INLINE
+    ) : bool {
+        $type = $type === '' ? MimeType::getByName('M_' . \strtoupper(File::extension($name))) : $type;
+
+        $this->attachment[] = [
+            'path'        => $string,
+            'filename'    => $name,
+            'name'        => $name,
+            'encoding'    => $encoding,
+            'type'        => $type,
+            'string'      => true,
+            'disposition' => $disposition,
+            'id'          => $cid,
+        ];
+
         return true;
     }
 
@@ -517,9 +580,15 @@ class Mail
             return null;
         }
 
+        $domain = \substr($mail, ++$pos);
+        if (!((bool) \preg_match('/[\x80-\xFF]/', $domain))) {
+            return $mail;
+        }
+
+        $domain     = \mb_convert_encoding($domain, 'UTF-8', $this->charset);
         $normalized = \idn_to_ascii($mail);
 
-        return $normalized === false ? $mail : $normalized;
+        return $normalized === false ? $mail : \substr($domain, 0, $pos) . $normalized;
     }
 
     /**
@@ -555,33 +624,25 @@ class Mail
 
             if (\stripos($address, '<') === false) {
                 if (($address = $this->normalizeEmailAddress($address)) !== null) {
-                    $addresses[$address] = '';
+                    $addresses[] = [
+                        'name'    => '',
+                        'address' => $address,
+                    ];
                 }
             } else {
                 $parts   = \explode('<', $address);
                 $address = \trim(\str_replace('>', '', $parts[1]));
 
                 if (($address = $this->normalizeEmailAddress($address)) !== null) {
-                    $addresses[$address] = \trim(\str_replace(['"', '\''], '', $parts[0]));
+                    $addresses[] = [
+                        'name'    => \trim(\str_replace(['"', '\''], '', $parts[0])),
+                        'address' => $address,
+                    ];
                 }
             }
         }
 
         return $addresses;
-    }
-
-    /**
-     * Check if text has none ascii characters
-     *
-     * @param string $text Text to check
-     *
-     * @return bool
-     *
-     * @since 1.0.0
-     */
-    private function hasNoneASCII(string $text) : bool
-    {
-        return (bool) \preg_match('/[\x80-\xFF]/', $text);
     }
 
     /**
@@ -830,6 +891,10 @@ class Mail
      *
      * @param string $text Text to normalized
      * @param string $lb   Line break
+     *
+     * @return string
+     *
+     * @since 1.0.0
      */
     private function normalizeText(string $text, string $lb = "\n") : string
     {
@@ -1089,7 +1154,7 @@ class Mail
 
                 $mime[] = '--' . $boundary . $this->endOfLine;
                 $mime[] = !empty($attach['name'])
-                    ? 'Content-Type: ' . $attach['type'] . '; name="' . $this->encodeHeader(\trim(\str_replace(["\r", "\n"], '', $attach['name']))) . '"' . $this->endOfLine
+                    ? 'Content-Type: ' . $attach['type'] . '; name=' . $this->quotedString($this->encodeHeader(\trim(\str_replace(["\r", "\n"], '', $attach['name'])))) . '"' . $this->endOfLine
                     : 'Content-Type: ' . $attach['type'] . $this->endOfLine;
 
                 if ($attach['encoding'] !== EncodingType::E_7BIT) {
@@ -1104,8 +1169,8 @@ class Mail
                     $encodedName = $this->encodeHeader(\trim(\str_replace(["\r", "\n"], '', $attach['name'])));
 
                     // @todo: "" might be wrong for || condition
-                    $mime[] = \preg_match('/[ ()<>@,;:"\/\[\]?=]/', $encodedName) || !empty($encodedName)
-                        ? 'Content-Disposition: ' . $attach['disposition'] . '; filename="' . $encodedName . '"' . $this->endOfLine
+                    $mime[] = !empty($encodedName)
+                        ? 'Content-Disposition: ' . $attach['disposition'] . '; filename=' . $this->quotedString($encodedName) . $this->endOfLine
                         : 'Content-Disposition: ' . $attach['disposition'] . $this->endOfLine;
                 }
 
@@ -1187,7 +1252,7 @@ class Mail
      */
     private function encodeFile(string $path, string $encoding = EncodingType::E_BASE64) : string
     {
-        if (!\is_readable($path)) {
+        if (!\is_readable($path) || (bool) \preg_match('#^[a-z]+://#i', $path)) {
             return '';
         }
 
@@ -1242,6 +1307,20 @@ class Mail
     }
 
     /**
+     * Escape special strings
+     *
+     * @param string $text Text to escape
+     *
+     * @return string
+     *
+     * @since 1.0.0
+     */
+    private function quotedString(string $text) : string
+    {
+        return \preg_match('/[ ()<>@,;:"\/\[\]?=]/', $text) === false ? $text : '"' . \str_replace('"', '\\"', $text) . '"';
+    }
+
+    /**
      * Quoted encode
      *
      * @param string $text    Text to encode
@@ -1253,6 +1332,71 @@ class Mail
      */
     private function encodeQ(string $text, int $context = HeaderContext::TEXT) : string
     {
-        return '';
+        $pattern = '';
+               switch ($context) {
+            case HeaderContext::PHRASE:
+                $pattern = '^A-Za-z0-9!*+\/ -';
+                break;
+            case HeaderContext::COMMENT:
+                $pattern = '\(\)"';
+            case HeaderContext::TEXT:
+            default:
+                $pattern = '\000-\011\013\014\016-\037\075\077\137\177-\377' . $pattern;
+        }
+
+        $matches = [];
+        $encoded = \str_replace(["\r", "\n"], '', $text);
+
+        if (\preg_match_all('/[{' . $pattern . '}]/', $encoded, $matches) !== false) {
+            $eqkey = \array_search('', $matches[0], true);
+            if ($eqkey !== false) {
+                unset($matches[0][$eqkey]);
+                \array_unshift($matches[0], '=');
+            }
+
+            $unique = \array_unique($matches[0]);
+            foreach ($unique as $char) {
+                $encoded = \str_replace($char, '=' . \sprintf('%02X', \ord($char)), $encoded);
+            }
+        }
+
+        return \str_replace(' ', '_', $encoded);
+    }
+
+    /**
+     * Set signing files
+     *
+     * @param string $certFile Certification file path
+     * @param string $keyFile  Key file path
+     * @param string $keyPass  Password for the key
+     *
+     * @return void
+     *
+     * @since 1.0.0
+     */
+    public function sign(string $certFile, string $keyFile, string $keyPass) : void
+    {
+        $this->signCertFile = $certFile;
+        $this->signKeyFile  = $keyFile;
+        $this->signKeyPass  = $keyPass;
+    }
+
+    public function preSend() : void
+    {
+        $this->mimeHeader = '';
+        $this->mimeBody = $this->createBody();
+        // @todo: only if createBody impements sign / #tempheader = $this->header
+        $this->mimeHeader = $this->createHeader();
+
+
+
+        // set mime body
+        // set mime header
+        // ...
+    }
+
+    private function addrAppend(string $type, array $addr) : string
+    {
+
     }
 }
