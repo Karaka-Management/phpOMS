@@ -132,7 +132,7 @@ final class UriFactory
 
         $data = $uri->getQueryArray();
         foreach ($data as $key => $value) {
-            self::setQuery('?' . $key, $value);
+            self::setQuery('?' . $key, $value, true);
         }
     }
 
@@ -192,36 +192,39 @@ final class UriFactory
      */
     private static function unique(string $url) : string
     {
-        $parts     = \explode('&', \str_replace('?', '&', $url));
-        $query     = '';
-        $partCount = \count($parts);
-        $fragment  = '';
+        // handle edge cases / normalization
+        $url = \str_replace(
+                ['=%', '=#', '=?'],
+                ['=%25', '=%23', '=%3F'],
+                $url
+            );
 
-        if (($fragStart = \strripos($parts[$partCount - 1], '#')) !== false) {
-            $fragment              = \substr($parts[$partCount - 1], $fragStart);
-            $parts[$partCount - 1] = \substr($parts[$partCount - 1], 0, $fragStart);
-        }
+        $urlStructure = \parse_url($url);
+        \parse_str($urlStructure['query'] ?? '', $urlStructure['query']);
 
-        if ($partCount > 1) {
-            $pars   = \array_slice($parts, 1);
-            $length = \count($pars);
-            $url    = $parts[0];
-            $keys   = [];
+        $escaped =
+            (isset($urlStructure['scheme']) && !empty($urlStructure['scheme'])
+                ? $urlStructure['scheme'] . '://' : '')
+            . (isset($urlStructure['username']) && !empty($urlStructure['username'])
+                ? $urlStructure['username'] . ':' : '')
+            . (isset($urlStructure['password']) && !empty($urlStructure['password'])
+                ? $urlStructure['password'] . '@' : '')
+            . (isset($urlStructure['host']) && !empty($urlStructure['host'])
+                ? $urlStructure['host'] : '')
+            . (isset($urlStructure['port']) && !empty($urlStructure['port'])
+                ? ':' . $urlStructure['port'] : '')
+            . (isset($urlStructure['path']) && !empty($urlStructure['path'])
+                ? $urlStructure['path'] : '')
+            . (isset($urlStructure['query']) && !empty($urlStructure['query'])
+                ? '?' . \http_build_query($urlStructure['query']) : '')
+            . (isset($urlStructure['fragment']) && !empty($urlStructure['fragment'])
+                ? '#' . \str_replace('\#', '#', $urlStructure['fragment']) : '');
 
-            for ($i = $length - 1; $i > -1; --$i) {
-                $spl = \explode('=', $pars[$i]);
-
-                if (isset($spl[1]) && !\in_array($spl[0], $keys)) {
-                    $keys[] = $spl[0];
-
-                    if (!empty($spl[1])) {
-                        $query = $spl[0] . '=' . \urlencode($spl[1]) . '&' . $query;
-                    }
-                }
-            }
-        }
-
-        return $url . (!empty($query) ? '?' . \rtrim($query, '&') : '') . $fragment;
+        return \str_replace(
+                ['%5C%7B', '%5C%7D', '%5C%3F', '%5C%23'],
+                ['{', '}', '?', '#'],
+                $escaped
+            );
     }
 
     /**

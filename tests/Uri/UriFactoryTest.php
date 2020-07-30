@@ -172,7 +172,7 @@ class UriFactoryTest extends \PHPUnit\Framework\TestCase
 
         self::assertTrue(UriFactory::setQuery('/valid2', 'query4'));
 
-        $expected = 'www.test-uri.com?id=1&test=someString&two=PATH&hash=test&none=%23none&found=%2Fnot&v=query4';
+        $expected = 'www.test-uri.com?id=1&test=someString&two=PATH&hash=test&none=%23none&found=%2Fnot%3Fv%3Dquery4';
 
         self::assertEquals($expected, UriFactory::build($uri, $vars));
     }
@@ -192,5 +192,37 @@ class UriFactoryTest extends \PHPUnit\Framework\TestCase
         self::assertEquals($uri, UriFactory::build('{/scheme}://{/host}{/rootPath}{/}?id={?id}&ab={?ab}#{#}'));
         self::assertEquals($uri, UriFactory::build('{%}'));
         self::assertEquals($uri, UriFactory::build('{/base}{/rootPath}{/}?{?}#{#}'));
+    }
+
+    /**
+     * @testdox In case of duplicated query elements the last element is used
+     * @covers phpOMS\Uri\UriFactory
+     * @group framework
+     */
+    public function testDuplicatedQueryElements() : void
+    {
+        $uri = 'http://www.test-uri.com/path/here?id=123&ab=c&id=456#fragi';
+        $expected = 'http://www.test-uri.com/path/here?id=456&ab=c#fragi';
+
+        UriFactory::setupUriBuilder(new HttpUri($uri));
+
+        self::assertEquals($expected, UriFactory::build('{/base}{/rootPath}{/}?id={?id}&ab={?ab}#{#}'));
+    }
+
+    /**
+     * @testdox The uri variables can be unescaped
+     * @covers phpOMS\Uri\UriFactory
+     * @group framework
+     */
+    public function testVariableUnescape() : void
+    {
+        $uri       = 'http://www.test-uri.com/path/here?id=123&ab=c#fragi';
+        $escaped   = '{/base}{/rootPath}{/}?id=\{\?id\}&ab={?ab}#{#}';
+        $unescaped = 'http://www.test-uri.com/path/here?id={?id}&ab=c#fragi';
+
+        var_dump('TEST:');
+        UriFactory::setupUriBuilder(new HttpUri($uri));
+
+        self::assertEquals($unescaped, UriFactory::build($escaped));
     }
 }
