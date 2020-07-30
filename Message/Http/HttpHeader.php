@@ -38,6 +38,14 @@ final class HttpHeader extends HeaderAbstract
     private array $header = [];
 
     /**
+     * Server headers.
+     *
+     * @var string[]
+     * @since 1.0.0
+     */
+    private static $serverHeaders = [];
+
+    /**
      * {@inheritdoc}
      */
     public function set(string $key, string $header, bool $overwrite = false) : bool
@@ -138,17 +146,20 @@ final class HttpHeader extends HeaderAbstract
      */
     public static function getAllHeaders() : array
     {
+        if (!empty(self::$serverHeaders)) {
+            return self::$serverHeaders;
+        }
+
         if (\function_exists('getallheaders')) {
             // @codeCoverageIgnoreStart
-            return \getallheaders();
+            self::$serverHeaders = \getallheaders();
             // @codeCoverageIgnoreEnd
         }
 
-        $headers = [];
         foreach ($_SERVER as $name => $value) {
             $part = \substr($name, 5);
             if ($part === 'HTTP_') {
-                $headers[
+                self::$serverHeaders[
                     \str_replace(
                         ' ',
                         '-',
@@ -162,7 +173,7 @@ final class HttpHeader extends HeaderAbstract
             }
         }
 
-        return $headers;
+        return self::$serverHeaders;
     }
 
     /**
