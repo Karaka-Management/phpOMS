@@ -18,9 +18,12 @@ use phpOMS\Application\ApplicationAbstract;
 use phpOMS\Message\RequestAbstract;
 use phpOMS\Message\ResponseAbstract;
 use phpOMS\System\MimeType;
+use phpOMS\Utils\StringUtils;
 
 /**
  * Module abstraction class.
+ *
+ * @method __call(string $name, array $arguments)
  *
  * @package phpOMS\Module
  * @license OMS License 1.0
@@ -264,8 +267,10 @@ abstract class ModuleAbstract
         $this->app->eventManager->trigger('POST:Module:' . static::MODULE_NAME . '-' . $trigger . '-create', '', [
             $account,
             null, $obj,
-            0, 0,
+            StringUtils::intHash(\is_string($mapper) ? $mapper : \get_class($mapper)), 0,
             static::MODULE_NAME,
+            (string) $obj->getId(),
+            '',
             $ip,
         ]);
     }
@@ -291,8 +296,10 @@ abstract class ModuleAbstract
             $this->app->eventManager->trigger('POST:Module:' . static::MODULE_NAME . '-' . $trigger . '-create', '', [
                 $account,
                 null, $obj,
-                0, 0,
+                StringUtils::intHash(\is_string($mapper) ? $mapper : \get_class($mapper)), 0,
                 static::MODULE_NAME,
+                (string) $obj->getId(),
+                '',
                 $ip,
             ]);
         }
@@ -323,8 +330,10 @@ abstract class ModuleAbstract
         $this->app->eventManager->trigger('POST:Module:' . static::MODULE_NAME . '-' . $trigger . '-update', '', [
             $account,
             $old, $new,
-            0, 0,
+            StringUtils::intHash(\is_string($mapper) ? $mapper : \get_class($mapper)), 0,
             static::MODULE_NAME,
+            (string) $old->getId(),
+            '',
             $ip,
         ]);
     }
@@ -349,8 +358,10 @@ abstract class ModuleAbstract
         $this->app->eventManager->trigger('POST:Module:' . static::MODULE_NAME . '-' . $trigger . '-delete', '', [
             $account,
             $obj,  null,
-            0, 0,
+            StringUtils::intHash(\is_string($mapper) ? $mapper : \get_class($mapper)), 0,
             static::MODULE_NAME,
+            (string) $obj->getId(),
+            '',
             $ip,
         ]);
     }
@@ -377,8 +388,10 @@ abstract class ModuleAbstract
         $this->app->eventManager->trigger('POST:Module:' . static::MODULE_NAME . '-' . $trigger . '-relation', '', [
             $account,
             $rel1, $rel2,
-            0, 0,
+            StringUtils::intHash(\is_string($mapper) ? $mapper : \get_class($mapper)), 0,
             static::MODULE_NAME,
+            '0',
+            '',
             $ip,
         ]);
     }

@@ -85,6 +85,36 @@ class StringUtilsTest extends \PHPUnit\Framework\TestCase
     }
 
     /**
+     * @testdox A string creates a integer hash
+     * @covers phpOMS\Utils\StringUtils
+     * @group framework
+     */
+    public function testIntHash() : void
+    {
+        self::assertGreaterThan(0, StringUtils::intHash('test'));
+    }
+
+    /**
+     * @testdox The same string creates the same hash
+     * @covers phpOMS\Utils\StringUtils
+     * @group framework
+     */
+    public function testSameHash() : void
+    {
+        self::assertEquals(StringUtils::intHash('test'), StringUtils::intHash('test'));
+    }
+
+    /**
+     * @testdox Different strings create different hashes
+     * @covers phpOMS\Utils\StringUtils
+     * @group framework
+     */
+    public function testDifferentHash() : void
+    {
+        self::assertEquals(StringUtils::intHash('test1'), StringUtils::intHash('test2'));
+    }
+
+    /**
      * @testdox Various data types can be stringified
      * @covers phpOMS\Utils\StringUtils
      * @group framework

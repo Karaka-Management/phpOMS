@@ -377,4 +377,27 @@ final class StringUtils
 
         return ['values' => $diffValues, 'mask' => $diffMask];
     }
+
+    /**
+     * Create a int hash from a string
+     *
+     * @param string $str String to hash
+     *
+     * @return int
+     *
+     * @since 1.0.0
+     */
+    public static function intHash(string $str) : int
+    {
+        $res = 0;
+        $pow = 1;
+        $len = \strlen($str);
+
+        for ($i = 0; $i < $len; ++$i) {
+            $res = ($res + (\ord($str[$i]) - \ord('a') + 1) * $pow) % (1e9 + 9);
+            $pow = ($pow * 31) % (1e9 + 9);
+        }
+
+        return (int) $res;
+    }
 }
