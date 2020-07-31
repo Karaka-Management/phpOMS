@@ -248,6 +248,10 @@ final class UriFactory
      */
     public static function build(string $uri, array $toMatch = []) : string
     {
+        if (\stripos($uri, '{') === false) {
+            return $uri;
+        }
+
         $parsed = \preg_replace_callback('(\{[\/#\?%@\.\$][a-zA-Z0-9\-]*\})', function ($match) use ($toMatch) {
             $match = \substr($match[0], 1, \strlen($match[0]) - 2);
 
