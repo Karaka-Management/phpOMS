@@ -228,8 +228,8 @@ class PackageManagerTest extends \PHPUnit\Framework\TestCase
         $package->extract(__DIR__ . '/testPackageExtracted');
         $package->cleanup();
 
-        self::assertFileNotExists(__DIR__ . '/testPackage.zip');
-        self::assertFileNotExists(__DIR__ . '/testPackageExtracted');
+        self::assertFileDoesNotExist(__DIR__ . '/testPackage.zip');
+        self::assertFileDoesNotExist(__DIR__ . '/testPackageExtracted');
     }
 
     public static function tearDownAfterClass() : void

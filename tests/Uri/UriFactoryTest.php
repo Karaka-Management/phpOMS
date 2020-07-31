@@ -220,7 +220,6 @@ class UriFactoryTest extends \PHPUnit\Framework\TestCase
         $escaped   = '{/base}{/rootPath}{/}?id=\{\?id\}&ab={?ab}#{#}';
         $unescaped = 'http://www.test-uri.com/path/here?id={?id}&ab=c#fragi';
 
-        var_dump('TEST:');
         UriFactory::setupUriBuilder(new HttpUri($uri));
 
         self::assertEquals($unescaped, UriFactory::build($escaped));

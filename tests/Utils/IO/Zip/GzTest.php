@@ -40,7 +40,7 @@ class GzTest extends \PHPUnit\Framework\TestCase
         $a = \file_get_contents(__DIR__ . '/test a.txt');
 
         \unlink(__DIR__ . '/test a.txt');
-        self::assertFileNotExists(__DIR__ . '/test a.txt');
+        self::assertFileDoesNotExist(__DIR__ . '/test a.txt');
 
         self::assertTrue(Gz::unpack(__DIR__ . '/test.gz', __DIR__ . '/test a.txt'));
         self::assertFileExists(__DIR__ . '/test a.txt');

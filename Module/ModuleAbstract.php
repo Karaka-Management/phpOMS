@@ -263,13 +263,13 @@ abstract class ModuleAbstract
     protected function createModel(int $account, $obj, string $mapper, string $trigger, string $ip) : void
     {
         $this->app->eventManager->trigger('PRE:Module:' . static::MODULE_NAME . '-' . $trigger . '-create', '', $obj);
-        $mapper::create($obj);
+        $id = $mapper::create($obj);
         $this->app->eventManager->trigger('POST:Module:' . static::MODULE_NAME . '-' . $trigger . '-create', '', [
             $account,
             null, $obj,
             StringUtils::intHash(\is_string($mapper) ? $mapper : \get_class($mapper)), 0,
             static::MODULE_NAME,
-            (string) $obj->getId(),
+            (string) $id,
             '',
             $ip,
         ]);
@@ -292,13 +292,13 @@ abstract class ModuleAbstract
     {
         foreach ($objs as $obj) {
             $this->app->eventManager->trigger('PRE:Module:' . static::MODULE_NAME . '-' . $trigger . '-create', '', $obj);
-            $mapper::create($obj);
+            $id = $mapper::create($obj);
             $this->app->eventManager->trigger('POST:Module:' . static::MODULE_NAME . '-' . $trigger . '-create', '', [
                 $account,
                 null, $obj,
                 StringUtils::intHash(\is_string($mapper) ? $mapper : \get_class($mapper)), 0,
                 static::MODULE_NAME,
-                (string) $obj->getId(),
+                (string) $id,
                 '',
                 $ip,
             ]);
@@ -322,8 +322,9 @@ abstract class ModuleAbstract
     protected function updateModel(int $account, $old, $new, $mapper, string $trigger, string $ip) : void
     {
         $this->app->eventManager->trigger('PRE:Module:' . static::MODULE_NAME . '-' . $trigger . '-update', '', $old);
+        $id = 0;
         if (\is_string($mapper)) {
-            $mapper::update($new);
+            $id = $mapper::update($new);
         } elseif ($mapper instanceof \Closure) {
             $mapper();
         }
@@ -332,7 +333,7 @@ abstract class ModuleAbstract
             $old, $new,
             StringUtils::intHash(\is_string($mapper) ? $mapper : \get_class($mapper)), 0,
             static::MODULE_NAME,
-            (string) $old->getId(),
+            (string) $id,
             '',
             $ip,
         ]);
@@ -354,13 +355,13 @@ abstract class ModuleAbstract
     protected function deleteModel(int $account, $obj, string $mapper, string $trigger, string $ip) : void
     {
         $this->app->eventManager->trigger('PRE:Module:' . static::MODULE_NAME . '-' . $trigger . '-delete', '', $obj);
-        $mapper::delete($obj);
+        $id = $mapper::delete($obj);
         $this->app->eventManager->trigger('POST:Module:' . static::MODULE_NAME . '-' . $trigger . '-delete', '', [
             $account,
             $obj,  null,
             StringUtils::intHash(\is_string($mapper) ? $mapper : \get_class($mapper)), 0,
             static::MODULE_NAME,
-            (string) $obj->getId(),
+            (string) $id,
             '',
             $ip,
         ]);

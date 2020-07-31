@@ -111,7 +111,7 @@ class StringUtilsTest extends \PHPUnit\Framework\TestCase
      */
     public function testDifferentHash() : void
     {
-        self::assertEquals(StringUtils::intHash('test1'), StringUtils::intHash('test2'));
+        self::assertNotEquals(StringUtils::intHash('test1'), StringUtils::intHash('test2'));
     }
 
     /**
