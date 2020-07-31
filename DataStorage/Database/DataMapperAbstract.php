@@ -21,6 +21,7 @@ use phpOMS\DataStorage\Database\Query\QueryType;
 use phpOMS\DataStorage\Database\Query\Where;
 use phpOMS\DataStorage\DataMapperInterface;
 use phpOMS\Utils\ArrayUtils;
+use phpOMS\Utils\TestUtils;
 
 /**
  * Datamapper for databases.
@@ -839,9 +840,9 @@ class DataMapperAbstract implements DataMapperInterface
             /** @var self $mapper */
             $mapper = static::$hasMany[$propertyName]['mapper'];
 
-            if (\is_array($values)) {
+            if (\is_object($values)) {
                 // conditionals
-                $values[$mapper::$columns[static::$hasMany[$propertyName]['external']]['internal']] = $objId;
+                TestUtils::setMember($values, $mapper::$columns[static::$hasMany[$propertyName]['external']]['internal'], $objId);
 
                 $mapper::createArray($values);
                 continue;
