@@ -200,14 +200,21 @@ final class UriFactory
             );
 
         $urlStructure = \parse_url($url);
-        \parse_str($urlStructure['query'] ?? '', $urlStructure['query']);
+
+        if ($urlStructure === false) {
+            return $url;
+        }
+
+        if (isset($urlStructure['query'])) {
+            \parse_str($urlStructure['query'] ?? '', $urlStructure['query']);
+        }
 
         $escaped =
             (isset($urlStructure['scheme']) && !empty($urlStructure['scheme'])
                 ? $urlStructure['scheme'] . '://' : '')
-            . (isset($urlStructure['username']) && !empty($urlStructure['username'])
+            . (isset($urlStructure['username'])
                 ? $urlStructure['username'] . ':' : '')
-            . (isset($urlStructure['password']) && !empty($urlStructure['password'])
+            . (isset($urlStructure['password'])
                 ? $urlStructure['password'] . '@' : '')
             . (isset($urlStructure['host']) && !empty($urlStructure['host'])
                 ? $urlStructure['host'] : '')

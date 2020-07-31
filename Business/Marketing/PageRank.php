@@ -118,7 +118,7 @@ final class PageRank
 
         for ($i = 0; $i < $iterations; ++$i) {
             foreach ($this->relations as $key => $relation) {
-                $PR  = 0.0;
+                $PR = 0.0;
 
                 foreach ($relation as $linkFrom) {
                     $PR += $this->pageRanks[$linkFrom] / $this->outgoing[$linkFrom];

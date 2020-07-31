@@ -98,7 +98,7 @@ final class FileUtils
      */
     public static function absolute(string $origPath) : string
     {
-        if (\file_exists($origPath) || \realpath($origPath) !== false) {
+        if (\realpath($origPath) !== false) {
             return \realpath($origPath);
         }
 

@@ -837,9 +837,9 @@ class DataMapperAbstract implements DataMapperInterface
             $values = $obj[$propertyName] ?? null;
 
             /** @var self $mapper */
-            $mapper  = static::$hasMany[$propertyName]['mapper'];
+            $mapper = static::$hasMany[$propertyName]['mapper'];
 
-            if (\is_object($values)) {
+            if (\is_array($values)) {
                 // conditionals
                 $values[$mapper::$columns[static::$hasMany[$propertyName]['external']]['internal']] = $objId;
 
