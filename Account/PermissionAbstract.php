@@ -407,13 +407,14 @@ class PermissionAbstract implements \JsonSerializable
         int $element = null,
         int $component = null
     ) {
-        return ($unit === null || $this->unit === null || $this->unit === $unit)
+        return $permission === PermissionType::NONE ||
+            (($unit === null || $this->unit === null || $this->unit === $unit)
             && ($app === null || $this->app === null || $this->app === $app)
             && ($module === null || $this->module === null || $this->module === $module)
             && ($type === null || $this->type === null || $this->type === $type)
             && ($element === null || $this->element === null || $this->element === $element)
             && ($component === null || $this->component === null || $this->component === $component)
-            && ($this->permission | $permission) === $this->permission;
+            && ($this->permission | $permission) === $this->permission);
     }
 
     /**

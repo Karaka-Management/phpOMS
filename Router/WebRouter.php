@@ -139,7 +139,7 @@ final class WebRouter implements RouterInterface
                     if ((isset($d['permission']) && $account === null)
                         || (isset($d['permission'])
                             && !$account->hasPermission(
-                                $d['permission']['type'] ?? null, $orgId, $app, $d['permission']['module'] ?? null, $d['permission']['state'] ?? null
+                                $d['permission']['type'] ?? 0, $d['permission']['unit'] ?? $orgId, $app, $d['permission']['module'] ?? null, $d['permission']['state'] ?? null
                             )
                         )
                     ) {
