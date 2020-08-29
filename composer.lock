@@ -1483,7 +1483,7 @@
                 "php": "^7.3 || ^8.0"
             },
             "require-dev": {
-                "phpunit/phpunit": "^9.2"
+                "phpunit/phpunit": "^9.4"
             },
             "type": "library",
             "extra": {
@@ -2091,7 +2091,7 @@
             },
             "require-dev": {
                 "ext-mbstring": "*",
-                "phpunit/phpunit": "^9.2"
+                "phpunit/phpunit": "^9.4"
             },
             "type": "library",
             "extra": {
@@ -2400,7 +2400,7 @@
                 "php": "^7.3 || ^8.0"
             },
             "require-dev": {
-                "phpunit/phpunit": "^9.2"
+                "phpunit/phpunit": "^9.4"
             },
             "type": "library",
             "extra": {
