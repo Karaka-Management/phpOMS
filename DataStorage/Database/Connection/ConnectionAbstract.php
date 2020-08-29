@@ -42,10 +42,10 @@ abstract class ConnectionAbstract implements ConnectionInterface
      *
      * This can be used externally to define queries and execute them.
      *
-     * @var \PDO
+     * @var null|\PDO
      * @since 1.0.0
      */
-    public \PDO $con;
+    public ?\PDO $con;
 
     /**
      * Database data.
@@ -183,7 +183,7 @@ abstract class ConnectionAbstract implements ConnectionInterface
      */
     public function close() : void
     {
-        unset($this->con);
+        $this->con = null;
         $this->status = DatabaseStatus::CLOSED;
     }
 }

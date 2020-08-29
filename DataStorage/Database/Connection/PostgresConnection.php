@@ -83,7 +83,7 @@ final class PostgresConnection extends ConnectionAbstract
 
             $this->status = DatabaseStatus::OK;
         } catch (\PDOException $e) {
-            unset($this->con);
+            $this->con = null;
             $this->status = DatabaseStatus::MISSING_DATABASE;
             throw new InvalidConnectionConfigException((string) \json_encode($this->dbdata));
         } finally {

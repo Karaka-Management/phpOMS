@@ -51,7 +51,7 @@ abstract class SocketAbstract implements SocketInterface
     /**
      * Socket.
      *
-     * @var resource
+     * @var null|resource
      * @since 1.0.0
      */
     protected $sock;
@@ -84,7 +84,7 @@ abstract class SocketAbstract implements SocketInterface
         if (isset($this->sock)) {
             \socket_shutdown($this->sock, 2);
             \socket_close($this->sock);
-            unset($this->sock);
+            $this->sock = null;
         }
     }
 }
