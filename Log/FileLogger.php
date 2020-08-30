@@ -30,7 +30,9 @@ use phpOMS\System\File\Local\File;
 final class FileLogger implements LoggerInterface
 {
     public const MSG_BACKTRACE = '{datetime}; {level}; {ip}; {message}; {backtrace}';
+
     public const MSG_FULL      = '{datetime}; {level}; {ip}; {line}; {version}; {os}; {path}; {message}; {file}; {backtrace}';
+
     public const MSG_SIMPLE    = '{datetime}; {level}; {ip}; {message};';
 
     /**
@@ -185,7 +187,7 @@ final class FileLogger implements LoggerInterface
      *
      * @since 1.0.0
      */
-    public static function startTimeLog(string $id = '')  : bool
+    public static function startTimeLog(string $id = '') : bool
     {
         if (isset(self::$timings[$id])) {
             return false;

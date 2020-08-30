@@ -40,8 +40,11 @@ class ModuleAbstractTest extends \PHPUnit\Framework\TestCase
     {
         $this->module = new class() extends ModuleAbstract {
             const MODULE_VERSION           = '1.2.3';
+
             const MODULE_NAME              = 'Test';
+
             const MODULE_ID                = 2;
+
             protected static array $dependencies = [1, 2];
 
             public function __construct()

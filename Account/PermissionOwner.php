@@ -29,5 +29,6 @@ use phpOMS\Stdlib\Base\Enum;
 abstract class PermissionOwner extends Enum
 {
     public const GROUP   = 1;
+
     public const ACCOUNT = 2;
 }

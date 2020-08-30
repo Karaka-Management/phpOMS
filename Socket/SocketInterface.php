@@ -24,7 +24,6 @@ namespace phpOMS\Socket;
  */
 interface SocketInterface
 {
-
     /**
      * Create the socket.
      *

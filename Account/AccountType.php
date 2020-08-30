@@ -27,5 +27,6 @@ use phpOMS\Stdlib\Base\Enum;
 abstract class AccountType extends Enum
 {
     public const USER  = 0;
+
     public const GROUP = 1;
 }

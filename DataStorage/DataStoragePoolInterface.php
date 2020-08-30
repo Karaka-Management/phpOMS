@@ -26,7 +26,6 @@ namespace phpOMS\DataStorage;
  */
 interface DataStoragePoolInterface
 {
-
     /**
      * Add connection.
      *

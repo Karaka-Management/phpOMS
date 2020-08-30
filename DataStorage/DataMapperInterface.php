@@ -26,7 +26,6 @@ namespace phpOMS\DataStorage;
  */
 interface DataMapperInterface
 {
-
     /**
      * Create data.
      *

@@ -24,7 +24,7 @@ use phpOMS\Contract\ArrayableInterface;
  * @link    https://orange-management.org
  * @since   1.0.0
  */
-final class Redirect implements \Serializable, ArrayableInterface, \JsonSerializable
+final class Redirect implements \JsonSerializable, \Serializable, ArrayableInterface
 {
     /**
      * Message type.

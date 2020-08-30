@@ -27,6 +27,8 @@ use phpOMS\Stdlib\Base\Enum;
 abstract class CharsetType extends Enum
 {
     public const ASCII      = 'us-ascii';
+
     public const ISO_8859_1 = 'iso-8859-1';
+
     public const UTF_8      = 'utf-8';
 }

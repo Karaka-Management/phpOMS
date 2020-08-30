@@ -25,7 +25,10 @@ namespace phpOMS\Stdlib\Base;
 abstract class PhoneType extends Enum
 {
     public const HOME     = 1;
+
     public const BUSINESS = 2;
+
     public const MOBILE   = 3;
+
     public const WORK     = 4;
 }

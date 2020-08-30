@@ -24,7 +24,7 @@ use phpOMS\Contract\ArrayableInterface;
  * @link    https://orange-management.org
  * @since   1.0.0
  */
-final class Reload implements \Serializable, ArrayableInterface, \JsonSerializable
+final class Reload implements \JsonSerializable, \Serializable, ArrayableInterface
 {
     /**
      * Message type.

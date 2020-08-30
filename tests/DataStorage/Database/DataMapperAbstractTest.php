@@ -27,6 +27,7 @@ use phpOMS\tests\DataStorage\Database\TestModel\ManyToManyDirectModelMapper;
 class DataMapperAbstractTest extends \PHPUnit\Framework\TestCase
 {
     protected BaseModel $model;
+
     protected array     $modelArray;
 
     protected function setUp() : void

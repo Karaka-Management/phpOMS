@@ -24,7 +24,6 @@ namespace phpOMS\Utils\IO\Json;
  */
 interface JsonInterface
 {
-
     /**
      * Export Json.
      *

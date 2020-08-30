@@ -26,7 +26,6 @@ namespace phpOMS\System\File;
  */
 interface FileInterface extends ContainerInterface
 {
-
     /**
      * Save content to file.
      *

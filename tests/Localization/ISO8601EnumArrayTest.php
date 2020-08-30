@@ -31,5 +31,4 @@ class ISO8601EnumArrayTest extends \PHPUnit\Framework\TestCase
     {
         self::assertCount(4, ISO8601EnumArray::getConstants());
     }
-
 }

@@ -24,7 +24,6 @@ namespace phpOMS\DataStorage;
  */
 interface DataStorageConnectionInterface
 {
-
     /**
      * Connect to datastorage.
      *

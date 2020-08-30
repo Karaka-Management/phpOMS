@@ -24,7 +24,6 @@ namespace phpOMS\Utils\IO\Spreadsheet;
  */
 interface SpreadsheetInterface
 {
-
     /**
      * Export Spreadsheet.
      *

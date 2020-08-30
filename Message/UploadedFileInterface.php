@@ -26,7 +26,6 @@ use phpOMS\Contract\StreamInterface;
  */
 interface UploadedFileInterface
 {
-
     /**
      * Retrieve a stream representing the uploaded file.
      *

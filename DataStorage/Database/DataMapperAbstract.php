@@ -1859,7 +1859,7 @@ class DataMapperAbstract implements DataMapperInterface
      *  Create the delete functionality for arrays (deleteArray, deleteArrayModel).
      */
 
-     /**
+    /**
      * Populate data.
      *
      * @param array $result Result set
@@ -1924,7 +1924,6 @@ class DataMapperAbstract implements DataMapperInterface
 
         return $obj;
     }
-
 
     /**
      * Populate data.

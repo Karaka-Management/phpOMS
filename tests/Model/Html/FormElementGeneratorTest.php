@@ -366,7 +366,7 @@ class FormElementGeneratorTest extends \PHPUnit\Framework\TestCase
         );
     }
 
-     /**
+    /**
      * @testdox A missing or invalid element type generates a INVALID output
      * @covers phpOMS\Model\Html\FormElementGenerator
      * @group framework

@@ -29,7 +29,7 @@ use phpOMS\Utils\StringUtils;
  * @link    https://orange-management.org
  * @since   1.0.0
  */
-final class Directory extends FileAbstract implements LocalContainerInterface, DirectoryInterface
+final class Directory extends FileAbstract implements DirectoryInterface, LocalContainerInterface
 {
     /**
      * Directory list filter.

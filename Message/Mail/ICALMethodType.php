@@ -27,11 +27,18 @@ use phpOMS\Stdlib\Base\Enum;
 abstract class ICALMethodType extends Enum
 {
     public const REQUEST        = 'REQUEST';
+
     public const PUBLISH        = 'PUBLISH';
+
     public const REPLY          = 'REPLY';
+
     public const ADD            = 'ADD';
+
     public const CANCEL         = 'CANCEL';
+
     public const REFRESH        = 'REFRESH';
+
     public const COUNTER        = 'COUNTER';
+
     public const DECLINECOUNTER = 'DECLINECOUNTER';
 }

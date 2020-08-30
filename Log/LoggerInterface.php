@@ -24,7 +24,6 @@ namespace phpOMS\Log;
  */
 interface LoggerInterface
 {
-
     /**
      * System is unusable.
      *

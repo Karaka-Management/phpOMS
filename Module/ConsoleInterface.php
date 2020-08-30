@@ -24,7 +24,6 @@ namespace phpOMS\Module;
  */
 interface ConsoleInterface
 {
-
     /**
      * Answer console request.
      *

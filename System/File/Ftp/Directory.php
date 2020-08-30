@@ -31,7 +31,7 @@ use phpOMS\Uri\HttpUri;
  * @link    https://orange-management.org
  * @since   1.0.0
  */
-class Directory extends FileAbstract implements FtpContainerInterface, DirectoryInterface
+class Directory extends FileAbstract implements DirectoryInterface, FtpContainerInterface
 {
     /**
      * Ftp connection

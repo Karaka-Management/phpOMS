@@ -25,16 +25,27 @@ namespace phpOMS\System\File;
 final class FileUtils
 {
     public const CODE_EXTENSION         = ['cpp', 'c', 'h', 'hpp', 'cs', 'css', 'scss', 'htm', 'html', 'js', 'java', 'sh', 'vb', 'php', 'rb', 'rs', 'ts', 'swift', 'class', 'htaccess', 'sql', 'py', 'bat', 'xml'];
+
     public const TEXT_EXTENSION         = ['log', 'txt', 'md', 'csv', 'tex', 'latex', 'cfg', 'json', 'config', 'conf', 'ini', 'yaml', 'yml'];
+
     public const WORD_EXTENSION         = ['doc', 'docx', 'rtf', 'odt'];
+
     public const PRESENTATION_EXTENSION = ['ppt', 'pptx', 'pps', 'odp', 'key'];
+
     public const PDF_EXTENSION          = ['pdf'];
+
     public const ARCHIVE_EXTENSION      = ['zip', '7z', 'rar', 'tar', 'gz', 'z', 'deb', 'rpm', 'pkg'];
+
     public const AUDIO_EXTENSION        = ['mp3', 'wav', 'wma', 'ogg'];
+
     public const VIDEO_EXTENSION        = ['mp4', 'flv', 'vob', 'wmv', 'swf', 'mpg', 'mpeg', 'mov', 'mkv', 'h264', 'avi'];
+
     public const SPREADSHEET_EXTENSION  = ['xls', 'xlsm', 'xlr', 'ods'];
+
     public const IMAGE_EXTENSION        = ['png', 'gif', 'jpg', 'jpeg', 'tif', 'tiff', 'bmp', 'svg', 'ico'];
+
     public const DIRECTORY              = ['collection', '/'];
+
     public const SYSTEM_EXTENSION       = ['bak', 'dll', 'sys', 'tmp', 'msi', 'so', 'exe', 'bin', 'iso'];
 
     /**

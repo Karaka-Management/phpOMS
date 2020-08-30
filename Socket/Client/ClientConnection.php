@@ -27,10 +27,15 @@ use phpOMS\Account\Account;
 class ClientConnection
 {
     private $id        = 0;
+
     private $socket    = null;
+
     private $handshake = false;
+
     private $pid       = null;
+
     private $connected = true;
+
     private Account $account;
 
     /**

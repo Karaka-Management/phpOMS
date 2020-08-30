@@ -167,7 +167,6 @@ class FileTest extends \PHPUnit\Framework\TestCase
         File::delete($this->con, $testFile);
     }
 
-
     /**
      * @testdox A file can be appended with additional content
      * @covers phpOMS\System\File\Ftp\File

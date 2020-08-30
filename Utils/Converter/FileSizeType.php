@@ -27,13 +27,22 @@ use phpOMS\Stdlib\Base\Enum;
 abstract class FileSizeType extends Enum
 {
     public const TERRABYTE = 'TB';
+
     public const GIGABYTE  = 'GB';
+
     public const MEGABYTE  = 'MB';
+
     public const KILOBYTE  = 'KB';
+
     public const BYTE      = 'B';
+
     public const TERRABIT  = 'tbit';
+
     public const GIGABIT   = 'gbit';
+
     public const MEGABIT   = 'mbit';
+
     public const KILOBIT   = 'kbit';
+
     public const BIT       = 'bit';
 }

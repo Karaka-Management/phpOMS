@@ -517,7 +517,6 @@ class LocalStorageTest extends \PHPUnit\Framework\TestCase
         \unlink($testFile);
     }
 
-
     /**
      * @testdox A file can be appended with additional content
      * @covers phpOMS\System\File\Local\LocalStorage<extended>

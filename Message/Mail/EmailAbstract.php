@@ -285,8 +285,6 @@ abstract class EmailAbstract
         return true;
     }
 
-
-
     private function postSend(Mail $mail) : bool
     {
         return true;

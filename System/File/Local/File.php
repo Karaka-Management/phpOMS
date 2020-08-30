@@ -29,7 +29,7 @@ use phpOMS\System\File\PathException;
  * @link    https://orange-management.org
  * @since   1.0.0
  */
-final class File extends FileAbstract implements LocalContainerInterface, FileInterface
+final class File extends FileAbstract implements FileInterface, LocalContainerInterface
 {
     /**
      * Constructor.

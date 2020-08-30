@@ -27,7 +27,10 @@ use phpOMS\Stdlib\Base\Enum;
 abstract class DispositionType extends Enum
 {
     public const PLAIN      = 'plain';
+
     public const ALT        = 'alt';
+
     public const ATTACHMENT = 'attach';
+
     public const INLINE     = 'inline';
 }

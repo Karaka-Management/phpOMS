@@ -27,5 +27,6 @@ use phpOMS\Stdlib\Base\Enum;
 abstract class EncryptionType extends Enum
 {
     public const TLS = 'tls';
+
     public const SSL = 'ssl';
 }

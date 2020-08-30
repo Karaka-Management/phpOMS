@@ -27,13 +27,13 @@ use phpOMS\Log\FileLogger;
 final class NullModule extends ModuleAbstract
 {
     /** {@inheritdoc} */
-    public function __call(string $name, array $arguments): void
+    public function __call(string $name, array $arguments) : void
     {
         self::__callStatic($name, $arguments);
     }
 
     /** {@inheritdoc} */
-    public static function __callStatic(string $name, array $arguments): void
+    public static function __callStatic(string $name, array $arguments) : void
     {
         FileLogger::getInstance('', false)
             ->error(

@@ -27,8 +27,12 @@ use phpOMS\Stdlib\Base\Enum;
 abstract class IbanErrorType extends Enum
 {
     public const INVALID_COUNTRY  = 1;
+
     public const INVALID_LENGTH   = 2;
+
     public const INVALID_CHECKSUM = 4;
+
     public const EXPECTED_ZERO    = 8;
+
     public const EXPECTED_NUMERIC = 16;
 }

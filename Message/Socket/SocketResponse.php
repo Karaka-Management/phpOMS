@@ -81,7 +81,7 @@ final class SocketResponse extends ResponseAbstract implements RenderableInterfa
         return $this->render($optimize);
     }
 
-     /**
+    /**
      * Generate response based on header.
      *
      * @param bool $optimize Optimize response / minify

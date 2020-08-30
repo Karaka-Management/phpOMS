@@ -26,7 +26,6 @@ namespace phpOMS\DataStorage\Session;
  */
 interface SessionInterface
 {
-
     /**
      * Get session variable by key.
      *

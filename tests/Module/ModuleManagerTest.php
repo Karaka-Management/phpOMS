@@ -32,11 +32,14 @@ require_once __DIR__ . '/../Autoloader.php';
 class ModuleManagerTest extends \PHPUnit\Framework\TestCase
 {
     protected ApplicationAbstract $app;
+
     protected ModuleManager $moduleManager;
 
     protected function setUp() : void
     {
-        $this->app              = new class() extends ApplicationAbstract { protected string $appName  = 'Api'; };
+        $this->app              = new class() extends ApplicationAbstract {
+ protected string $appName  = 'Api';
+ };
         $this->app->appName     = 'Api';
         $this->app->dbPool      = $GLOBALS['dbpool'];
         $this->app->router      = new WebRouter();

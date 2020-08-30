@@ -30,7 +30,7 @@ use phpOMS\Validation\Network\Email;
  * @link    https://orange-management.org
  * @since   1.0.0
  */
-class Account implements ArrayableInterface, \JsonSerializable
+class Account implements \JsonSerializable, ArrayableInterface
 {
     /**
      * Id.

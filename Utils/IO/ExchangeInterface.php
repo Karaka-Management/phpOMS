@@ -27,6 +27,6 @@ use phpOMS\Utils\IO\Spreadsheet\SpreadsheetInterface;
  * @link    https://orange-management.org
  * @since   1.0.0
  */
-interface ExchangeInterface extends CsvInterface, JsonInterface, SpreadsheetInterface, PdfInterface
+interface ExchangeInterface extends CsvInterface, JsonInterface, PdfInterface, SpreadsheetInterface
 {
 }

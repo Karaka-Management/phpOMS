@@ -38,5 +38,4 @@ class OSTypeTest extends \PHPUnit\Framework\TestCase
     {
         self::assertEquals(OSType::getConstants(), \array_unique(OSType::getConstants()));
     }
-
 }

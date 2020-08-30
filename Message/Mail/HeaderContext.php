@@ -27,6 +27,8 @@ use phpOMS\Stdlib\Base\Enum;
 abstract class HeaderContext extends Enum
 {
     public const TEXT    = 1;
+
     public const PHRASE  = 2;
+
     public const COMMENT = 3;
 }

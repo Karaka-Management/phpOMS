@@ -26,7 +26,7 @@ use phpOMS\Math\Matrix\Vector;
  */
 final class LinearInterpolation implements InterpolationInterface
 {
-        /**
+    /**
      * Points for spline interpolation
      *
      * @var array<int, array{x:int|float, y:int|float}>

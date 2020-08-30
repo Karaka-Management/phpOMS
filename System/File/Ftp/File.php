@@ -268,6 +268,7 @@ class File extends FileAbstract implements FileInterface
 
         return Directory::parseRawList($con, self::dirpath($path))[$path]['user'];
     }
+
     /**
      * {@inheritdoc}
      */

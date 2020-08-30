@@ -203,8 +203,11 @@ class Mail
     protected bool $confirmReading = false;
 
     private string $signKeyFile   = '';
+
     private string $signCertFile  = '';
+
     private string $signExtraFile = '';
+
     private string $signKeyPass   = '';
 
     /**

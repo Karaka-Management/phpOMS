@@ -29,10 +29,16 @@ use phpOMS\Stdlib\Base\Enum;
 abstract class RelationType extends Enum
 {
     public const NONE       = 1;
+
     public const NEWEST     = 2;
+
     public const BELONGS_TO = 4;
+
     public const OWNS_ONE   = 8;
+
     public const HAS_MANY   = 16;
+
     public const ALL        = 32;
+
     public const REFERENCE  = 64;
 }

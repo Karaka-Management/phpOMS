@@ -25,7 +25,9 @@ use phpOMS\Math\Matrix\Vector;
 class MatrixTest extends \PHPUnit\Framework\TestCase
 {
     protected $A = null;
+
     protected $B = null;
+
     protected $C = null;
 
     protected function setUp() : void

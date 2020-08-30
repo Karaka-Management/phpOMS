@@ -29,9 +29,14 @@ use phpOMS\Stdlib\Base\Enum;
 abstract class DatabaseStatus extends Enum
 {
     public const OK               = 0; /* Database connection successful */
+
     public const MISSING_DATABASE = 1; /* Couldn't find database */
+
     public const MISSING_TABLE    = 2; /* One of the core tables couldn't be found */
+
     public const FAILURE          = 3; /* Unknown failure */
+
     public const READONLY         = 4; /* Database connection is in readonly (but ok) */
+
     public const CLOSED           = 5; /* Database connection closed */
 }

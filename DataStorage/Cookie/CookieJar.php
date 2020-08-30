@@ -33,6 +33,7 @@ final class CookieJar
      * @since 1.0.0
      */
     private static bool $isLocked = false;
+
     /**
      * Cookie values.
      *

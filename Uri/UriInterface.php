@@ -24,7 +24,6 @@ namespace phpOMS\Uri;
  */
 interface UriInterface
 {
-
     /**
      * Is uri valid?
      *

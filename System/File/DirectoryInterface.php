@@ -27,7 +27,7 @@ namespace phpOMS\System\File;
  * @phpstan-extends \ArrayAccess<string, mixed>
  * @phpstan-extends \Iterator<string, mixed>
  */
-interface DirectoryInterface extends ContainerInterface, \Iterator, \ArrayAccess
+interface DirectoryInterface extends \ArrayAccess, \Iterator, ContainerInterface
 {
     /**
      * Get node by name.

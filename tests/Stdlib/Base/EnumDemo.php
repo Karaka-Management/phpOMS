@@ -19,5 +19,6 @@ use phpOMS\Stdlib\Base\Enum;
 final class EnumDemo extends Enum
 {
     const ENUM1 = 1;
+
     const ENUM2 = ';l';
 }

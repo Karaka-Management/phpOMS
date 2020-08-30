@@ -24,7 +24,6 @@ namespace phpOMS\Utils\IO\Pdf;
  */
 interface PdfInterface
 {
-
     /**
      * Export Pdf.
      *

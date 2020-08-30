@@ -344,7 +344,7 @@ final class Argument implements UriInterface
     /**
      * {@inheritdoc}
      */
-    public function getQuery(string $key = null)  : string
+    public function getQuery(string $key = null) : string
     {
         if ($key !== null) {
             $key = \strtolower($key);

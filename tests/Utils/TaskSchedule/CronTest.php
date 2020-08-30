@@ -34,6 +34,7 @@ class CronTest extends \PHPUnit\Framework\TestCase
     }
 
     // * * * * * echo "test" > __DIR__ . '/cronjob.log' // evaluate dir
+
     /**
      * @testdox The cron handler has the expected default values after initialization
      * @covers phpOMS\Utils\TaskSchedule\Cron<extended>

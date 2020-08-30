@@ -213,7 +213,7 @@ class HeapTest extends \PHPUnit\Framework\TestCase
         self::assertFalse($heap->contains(new HeapItem(6)));
     }
 
-     /**
+    /**
      * @testdox A heap item can be updated if it exists while maintaining the correct order
      * @covers phpOMS\Stdlib\Base\Heap
      * @group framework

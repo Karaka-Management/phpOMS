@@ -29,7 +29,10 @@ use phpOMS\Stdlib\Base\Enum;
 abstract class ContentPutMode extends Enum
 {
     public const APPEND  = 1;
+
     public const PREPEND = 2;
+
     public const REPLACE = 4;
+
     public const CREATE  = 8;
 }

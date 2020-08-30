@@ -25,7 +25,7 @@ use phpOMS\Stdlib\Base\Exception\InvalidEnumValue;
  * @link    https://orange-management.org
  * @since   1.0.0
  */
-class Group implements ArrayableInterface, \JsonSerializable
+class Group implements \JsonSerializable, ArrayableInterface
 {
     /**
      * Group id.
@@ -206,6 +206,7 @@ class Group implements ArrayableInterface, \JsonSerializable
      *
      * @since 1.0.0
      */
+
     /**
      * {@inheritdoc}
      */

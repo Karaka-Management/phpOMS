@@ -40,7 +40,6 @@ use phpOMS\DataStorage\DataStorageConnectionInterface;
  */
 interface ConnectionInterface extends DataStorageConnectionInterface
 {
-
     /**
      * Updating or adding cache data.
      *

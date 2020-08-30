@@ -24,7 +24,6 @@ namespace phpOMS\Validation;
  */
 interface ValidatorInterface
 {
-
     /**
      * Check if value is valid.
      *

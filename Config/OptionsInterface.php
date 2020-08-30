@@ -24,7 +24,6 @@ namespace phpOMS\Config;
  */
 interface OptionsInterface
 {
-
     /**
      * Is this key set.
      *

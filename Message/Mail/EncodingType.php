@@ -27,8 +27,12 @@ use phpOMS\Stdlib\Base\Enum;
 abstract class EncodingType extends Enum
 {
     public const E_7BIT   = '7bit';
+
     public const E_8BIT   = '8bit';
+
     public const E_BASE64 = 'base64';
+
     public const E_BINARY = 'binary';
+
     public const E_QUOTED = 'quoted-printable';
 }

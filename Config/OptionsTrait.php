@@ -26,7 +26,6 @@ namespace phpOMS\Config;
  */
 trait OptionsTrait
 {
-
     /**
      * Options.
      *

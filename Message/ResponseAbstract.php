@@ -22,7 +22,7 @@ namespace phpOMS\Message;
  * @link    https://orange-management.org
  * @since   1.0.0
  */
-abstract class ResponseAbstract implements MessageInterface, \JsonSerializable
+abstract class ResponseAbstract implements \JsonSerializable, MessageInterface
 {
     /**
      * Responses.

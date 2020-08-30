@@ -27,8 +27,12 @@ use phpOMS\Stdlib\Base\Enum;
 abstract class RouteVerb extends Enum
 {
     public const GET    = 1;
+
     public const PUT    = 2;
+
     public const SET    = 4;
+
     public const DELETE = 8;
+
     public const ANY    = 16;
 }

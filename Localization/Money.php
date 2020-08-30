@@ -105,7 +105,7 @@ final class Money implements \Serializable
      *
      * @since 1.0.0
      */
-    public static function toInt(string $value, string $thousands = ',', string $decimal = '.')  : int
+    public static function toInt(string $value, string $thousands = ',', string $decimal = '.') : int
     {
         $split = \explode($decimal, $value);
 

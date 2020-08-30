@@ -24,7 +24,6 @@ namespace phpOMS\Module;
  */
 interface SocketInterface
 {
-
     /**
      * Answer socket request.
      *
