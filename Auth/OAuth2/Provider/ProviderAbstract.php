@@ -27,6 +27,5 @@ abstract class ProviderAbstract
 {
     public function __construct(array $options = [], array $collaborators = [])
     {
-
     }
 }

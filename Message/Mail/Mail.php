@@ -872,7 +872,6 @@ class Mail
      */
     public function createHtmlMsg() : void
     {
-
     }
 
     /**
@@ -1391,8 +1390,6 @@ class Mail
         // @todo: only if createBody impements sign / #tempheader = $this->header
         $this->mimeHeader = $this->createHeader();
 
-
-
         // set mime body
         // set mime header
         // ...
@@ -1400,6 +1397,5 @@ class Mail
 
     private function addrAppend(string $type, array $addr) : string
     {
-
     }
 }

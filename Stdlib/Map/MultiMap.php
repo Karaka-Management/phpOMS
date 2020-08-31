@@ -465,7 +465,6 @@ final class MultiMap implements \Countable
         }
 
         return $this->getSiblingsSingle($key);
-
     }
 
     /**

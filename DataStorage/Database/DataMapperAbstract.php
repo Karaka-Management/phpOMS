@@ -1731,7 +1731,6 @@ class DataMapperAbstract implements DataMapperInterface
          */
 
         return $mapper::delete($obj);
-
     }
 
     /**
@@ -1756,7 +1755,6 @@ class DataMapperAbstract implements DataMapperInterface
         $mapper = static::$belongsTo[$propertyName]['mapper'];
 
         return $mapper::delete($obj);
-
     }
 
     /**

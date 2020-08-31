@@ -35,7 +35,6 @@ class TaskAbstractTest extends \PHPUnit\Framework\TestCase
 
             public static function createWith(array $jobData) : TaskAbstract
             {
-
             }
         };
     }

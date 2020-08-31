@@ -537,7 +537,6 @@ class Directory extends FileAbstract implements DirectoryInterface, FtpContainer
     public function createNode() : bool
     {
         return self::create($this->con, $this->path, $this->permission, true);
-
         /**
          * @todo Orange-Management/phpOMS#??? [p:low] [t:todo] [d:medium]
          *  Add node to node list

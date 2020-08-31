@@ -73,7 +73,6 @@ class BaseModel
 
             public function unserialize($data) : void
             {
-
             }
         };
 

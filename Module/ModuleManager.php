@@ -212,7 +212,6 @@ final class ModuleManager
 
                 $this->active[$json['name']['internal']] = $json === false ? [] : $json;
             }
-
         }
 
         return $this->active;

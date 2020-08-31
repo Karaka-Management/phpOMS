@@ -45,7 +45,6 @@ final class GeneralProvider
 
     public function __construct(array $options = [], array $collaborators = [])
     {
-
     }
 
     public function getDefaultScopes() : array

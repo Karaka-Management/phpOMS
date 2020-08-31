@@ -105,7 +105,6 @@ class AddressTest extends \PHPUnit\Framework\TestCase
         $this->address->setLocation(new Location());
 
         self::assertInstanceOf('\phpOMS\Stdlib\Base\Location', $this->address->getLocation());
-
     }
 
     /**

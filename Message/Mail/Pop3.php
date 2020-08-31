@@ -46,6 +46,5 @@ class Pop3 extends EmailAbstract
      */
     public function send() : bool
     {
-
     }
 }

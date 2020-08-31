@@ -426,7 +426,6 @@ final class Directory extends FileAbstract implements DirectoryInterface, LocalC
     public function createNode() : bool
     {
         return self::create($this->path, $this->permission, true);
-
         /**
          * @todo Orange-Management/phpOMS#??? [p:low] [t:todo] [d:medium]
          *  Add node to current node list
@@ -619,7 +618,6 @@ final class Directory extends FileAbstract implements DirectoryInterface, LocalC
     public function deleteNode() : bool
     {
         return self::delete($this->path);
-
         /**
          * @todo Orange-Management/phpOMS#??? [p:low] [t:todo] [d:medium]
          *  Remove node from node list
