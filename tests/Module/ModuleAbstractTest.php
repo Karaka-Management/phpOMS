@@ -38,7 +38,7 @@ class ModuleAbstractTest extends \PHPUnit\Framework\TestCase
 
     protected function setUp() : void
     {
-        $this->module = new class() extends ModuleAbstract {
+        $this->module                      = new class() extends ModuleAbstract {
             const MODULE_VERSION           = '1.2.3';
 
             const MODULE_NAME              = 'Test';
@@ -49,7 +49,7 @@ class ModuleAbstractTest extends \PHPUnit\Framework\TestCase
 
             public function __construct()
             {
-                $this->app = new class() extends ApplicationAbstract {};
+                $this->app               = new class() extends ApplicationAbstract {};
                 $this->app->eventManager = new EventManager();
             }
 
@@ -65,7 +65,7 @@ class ModuleAbstractTest extends \PHPUnit\Framework\TestCase
 
             public function create() : void
             {
-                $model = new BaseModel();
+                $model                   = new BaseModel();
                 $model->hasManyRelations = [];
                 $this->createModel(1, $model, BaseModelMapper::class, '', '127.0.0.1');
             }
@@ -96,7 +96,7 @@ class ModuleAbstractTest extends \PHPUnit\Framework\TestCase
                 $old = new BaseModel();
                 BaseModelMapper::create($old);
 
-                $new = clone $old;
+                $new         = clone $old;
                 $new->string = 'Updated';
 
                 $this->updateModel(1, $old, $new, BaseModelMapper::class, '', '127.0.0.1');

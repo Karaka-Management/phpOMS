@@ -112,7 +112,7 @@ class ModuleInfoTest extends \PHPUnit\Framework\TestCase
         $info = new ModuleInfo(__DIR__ . '/info-test.json');
         $info->load();
 
-        $testObj = new class() {
+        $testObj         = new class() {
             public $test = 1;
 
             public function test() : void

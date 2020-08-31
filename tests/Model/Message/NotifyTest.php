@@ -57,28 +57,28 @@ class NotifyTest extends \PHPUnit\Framework\TestCase
         $obj->setTitle('title');
 
         self::assertEquals([
-            'type' => 'notify',
-            'time' => 3,
-            'stay' => 5,
-            'msg' => 'msg',
+            'type'  => 'notify',
+            'time'  => 3,
+            'stay'  => 5,
+            'msg'   => 'msg',
             'title' => 'title',
             'level' => NotifyType::ERROR,
         ], $obj->toArray());
 
         self::assertEquals(\json_encode([
-            'type' => 'notify',
-            'time' => 3,
-            'stay' => 5,
-            'msg' => 'msg',
+            'type'  => 'notify',
+            'time'  => 3,
+            'stay'  => 5,
+            'msg'   => 'msg',
             'title' => 'title',
             'level' => NotifyType::ERROR,
         ]), $obj->serialize());
 
         self::assertEquals([
-            'type' => 'notify',
-            'time' => 3,
-            'stay' => 5,
-            'msg' => 'msg',
+            'type'  => 'notify',
+            'time'  => 3,
+            'stay'  => 5,
+            'msg'   => 'msg',
             'title' => 'title',
             'level' => NotifyType::ERROR,
         ], $obj->jsonSerialize());

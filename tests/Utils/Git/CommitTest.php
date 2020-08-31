@@ -57,7 +57,7 @@ class CommitTest extends \PHPUnit\Framework\TestCase
         self::assertTrue($commit->addFile('/some/file/path'));
         self::assertTrue($commit->addFile('/some/file/path2'));
         self::assertEquals([
-            '/some/file/path' => [],
+            '/some/file/path'  => [],
             '/some/file/path2' => [],
         ], $commit->getFiles());
     }

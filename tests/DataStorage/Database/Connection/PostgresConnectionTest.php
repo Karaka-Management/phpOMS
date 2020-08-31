@@ -136,7 +136,7 @@ class PostgresConnectionTest extends \PHPUnit\Framework\TestCase
     {
         $db       = $GLOBALS['CONFIG']['db']['core']['postgresql']['admin'];
         $db['db'] = 'invalid';
-        $psql = new PostgresConnection($db);
+        $psql     = new PostgresConnection($db);
         self::assertEquals(DatabaseStatus::FAILURE, $psql->getStatus());
     }
 }

@@ -156,7 +156,7 @@ class MysqlConnectionTest extends \PHPUnit\Framework\TestCase
      */
     public function testInvalidDatabaseName() : void
     {
-        $db = $GLOBALS['CONFIG']['db']['core']['masters']['admin'];
+        $db             = $GLOBALS['CONFIG']['db']['core']['masters']['admin'];
         $db['database'] = 'invalid';
 
         $mysql = new MysqlConnection($db);

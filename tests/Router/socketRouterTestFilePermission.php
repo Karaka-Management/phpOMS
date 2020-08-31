@@ -7,11 +7,11 @@ use phpOMS\Account\PermissionType;
 return [
     '^.*backend_admin -settings=general.*$' => [
         0 => [
-            'dest' => '\Modules\Admin\Controller:viewSettingsGeneral',
+            'dest'       => '\Modules\Admin\Controller:viewSettingsGeneral',
             'permission' => [
                 'module' => BackendController::MODULE_NAME,
-                'type'  => PermissionType::READ,
-                'state' => PermissionState::SETTINGS,
+                'type'   => PermissionType::READ,
+                'state'  => PermissionState::SETTINGS,
             ],
         ],
     ],

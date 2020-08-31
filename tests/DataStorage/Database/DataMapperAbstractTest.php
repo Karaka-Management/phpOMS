@@ -34,49 +34,49 @@ class DataMapperAbstractTest extends \PHPUnit\Framework\TestCase
     {
         $this->model      = new BaseModel();
         $this->modelArray = [
-            'id' => 0,
-            'string' => 'Base',
-            'int' => 11,
-            'bool' => false,
-            'null' => null,
-            'float' => 1.3,
-            'json' => [1, 2, 3],
+            'id'               => 0,
+            'string'           => 'Base',
+            'int'              => 11,
+            'bool'             => false,
+            'null'             => null,
+            'float'            => 1.3,
+            'json'             => [1, 2, 3],
             'jsonSerializable' => new class() implements \JsonSerializable {
                 public function jsonSerialize()
                 {
                     return [1, 2, 3];
                 }
             },
-            'datetime' => new \DateTime('2005-10-11'),
+            'datetime'      => new \DateTime('2005-10-11'),
             'datetime_null' => null,
-            'conditional' => '',
-            'ownsOneSelf' => [
-                'id' => 0,
+            'conditional'   => '',
+            'ownsOneSelf'   => [
+                'id'     => 0,
                 'string' => 'OwnsOne',
             ],
             'belongsToOne' => [
-                'id' => 0,
+                'id'     => 0,
                 'string' => 'BelongsTo',
             ],
             'hasManyDirect' => [
                 [
-                    'id' => 0,
+                    'id'     => 0,
                     'string' => 'ManyToManyDirect',
-                    'to' => 0,
+                    'to'     => 0,
                 ],
                 [
-                    'id' => 0,
+                    'id'     => 0,
                     'string' => 'ManyToManyDirect',
-                    'to' => 0,
+                    'to'     => 0,
                 ],
             ],
             'hasManyRelations' => [
                 [
-                    'id' => 0,
+                    'id'     => 0,
                     'string' => 'ManyToManyRel',
                 ],
                 [
-                    'id' => 0,
+                    'id'     => 0,
                     'string' => 'ManyToManyRel',
                 ],
             ],
@@ -276,22 +276,22 @@ class DataMapperAbstractTest extends \PHPUnit\Framework\TestCase
         $id2 = BaseModelMapper::create($model2);
         $id3 = BaseModelMapper::create($model3);
 
-        $cond1 = new Conditional();
+        $cond1           = new Conditional();
         $cond1->language = 'de';
-        $cond1->title = 'cond1_de';
-        $cond1->base = $id1;
+        $cond1->title    = 'cond1_de';
+        $cond1->base     = $id1;
         ConditionalMapper::create($cond1);
 
-        $cond2 = new Conditional();
+        $cond2           = new Conditional();
         $cond2->language = 'en';
-        $cond2->title = 'cond1_en';
-        $cond2->base = $id1;
+        $cond2->title    = 'cond1_en';
+        $cond2->base     = $id1;
         ConditionalMapper::create($cond2);
 
-        $cond3 = new Conditional();
+        $cond3           = new Conditional();
         $cond3->language = 'de';
-        $cond3->title = 'cond2_de';
-        $cond3->base = $id2;
+        $cond3->title    = 'cond2_de';
+        $cond3->base     = $id2;
         ConditionalMapper::create($cond3);
 
         $found = BaseModelMapper::withConditional('language', 'de')::getAll();
@@ -347,12 +347,12 @@ class DataMapperAbstractTest extends \PHPUnit\Framework\TestCase
         $id     = BaseModelMapper::create($this->model);
         $modelR = BaseModelMapper::get($id);
 
-        $modelR->string   = 'Update';
-        $modelR->int      = '321';
-        $modelR->bool     = true;
-        $modelR->float    = 3.15;
-        $modelR->null     = null;
-        $modelR->datetime = new \DateTime('now');
+        $modelR->string        = 'Update';
+        $modelR->int           = '321';
+        $modelR->bool          = true;
+        $modelR->float         = 3.15;
+        $modelR->null          = null;
+        $modelR->datetime      = new \DateTime('now');
         $modelR->datetime_null = null;
 
         $id2     = BaseModelMapper::update($modelR);

@@ -183,7 +183,7 @@ abstract class ConnectionAbstract implements ConnectionInterface
      */
     public function close() : void
     {
-        $this->con = null;
+        $this->con    = null;
         $this->status = DatabaseStatus::CLOSED;
     }
 }

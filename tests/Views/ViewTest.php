@@ -417,7 +417,7 @@ class ViewTest extends \PHPUnit\Framework\TestCase
 
         $view->addView('sub', $view2);
         self::assertEquals([
-                0 => '<strong>Test</strong>',
+                0     => '<strong>Test</strong>',
                 'sub' => ['<strong>Test</strong>'],
             ],
             $view->toArray()

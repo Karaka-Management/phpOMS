@@ -80,7 +80,7 @@ class ClientTest extends \PHPUnit\Framework\TestCase
     {
         self::markTestIncomplete();
         return;
-        $pipes = [];
+        $pipes   = [];
         $process = \proc_open('php ClientTestHelper.php', [1 => ['pipe', 'w'], 2 => ['pipe', 'w']], $pipes, __DIR__);
 
         \sleep(5);

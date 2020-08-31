@@ -42,8 +42,8 @@ class TarTest extends \PHPUnit\Framework\TestCase
         self::assertTrue(Tar::pack(
             [
                 __DIR__ . '/test a.txt' => 'test a.txt',
-                __DIR__ . '/test b.md' => 'test b.md',
-                __DIR__ . '/test' => 'test',
+                __DIR__ . '/test b.md'  => 'test b.md',
+                __DIR__ . '/test'       => 'test',
             ],
             __DIR__ . '/test.tar'
         ));
@@ -93,8 +93,8 @@ class TarTest extends \PHPUnit\Framework\TestCase
         Tar::pack(
             [
                 __DIR__ . '/test a.txt' => 'test a.txt',
-                __DIR__ . '/test b.md' => 'test b.md',
-                __DIR__ . '/test' => 'test',
+                __DIR__ . '/test b.md'  => 'test b.md',
+                __DIR__ . '/test'       => 'test',
             ],
             __DIR__ . '/test2.tar'
         );
@@ -102,8 +102,8 @@ class TarTest extends \PHPUnit\Framework\TestCase
         self::assertFalse(Tar::pack(
             [
                 __DIR__ . '/test a.txt' => 'test a.txt',
-                __DIR__ . '/test b.md' => 'test b.md',
-                __DIR__ . '/test' => 'test',
+                __DIR__ . '/test b.md'  => 'test b.md',
+                __DIR__ . '/test'       => 'test',
             ],
             __DIR__ . '/test2.tar'
         ));
@@ -131,8 +131,8 @@ class TarTest extends \PHPUnit\Framework\TestCase
         self::assertTrue(Tar::pack(
             [
                 __DIR__ . '/test a.txt' => 'test a.txt',
-                __DIR__ . '/test b.md' => 'test b.md',
-                __DIR__ . '/test' => 'test',
+                __DIR__ . '/test b.md'  => 'test b.md',
+                __DIR__ . '/test'       => 'test',
             ],
             __DIR__ . '/test3.tar'
         ));

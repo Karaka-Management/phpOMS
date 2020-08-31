@@ -42,8 +42,8 @@ class ZipTest extends \PHPUnit\Framework\TestCase
         self::assertTrue(Zip::pack(
             [
                 __DIR__ . '/test a.txt' => 'test a.txt',
-                __DIR__ . '/test b.md' => 'test b.md',
-                __DIR__ . '/test' => 'test',
+                __DIR__ . '/test b.md'  => 'test b.md',
+                __DIR__ . '/test'       => 'test',
             ],
             __DIR__ . '/test.zip'
         ));
@@ -93,8 +93,8 @@ class ZipTest extends \PHPUnit\Framework\TestCase
         Zip::pack(
             [
                 __DIR__ . '/test a.txt' => 'test a.txt',
-                __DIR__ . '/test b.md' => 'test b.md',
-                __DIR__ . '/test' => 'test',
+                __DIR__ . '/test b.md'  => 'test b.md',
+                __DIR__ . '/test'       => 'test',
             ],
             __DIR__ . '/test2.zip'
         );
@@ -102,8 +102,8 @@ class ZipTest extends \PHPUnit\Framework\TestCase
         self::assertFalse(Zip::pack(
             [
                 __DIR__ . '/test a.txt' => 'test a.txt',
-                __DIR__ . '/test b.md' => 'test b.md',
-                __DIR__ . '/test' => 'test',
+                __DIR__ . '/test b.md'  => 'test b.md',
+                __DIR__ . '/test'       => 'test',
             ],
             __DIR__ . '/test2.zip'
         ));
@@ -131,8 +131,8 @@ class ZipTest extends \PHPUnit\Framework\TestCase
         self::assertTrue(Zip::pack(
             [
                 __DIR__ . '/test a.txt' => 'test a.txt',
-                __DIR__ . '/test b.md' => 'test b.md',
-                __DIR__ . '/test' => 'test',
+                __DIR__ . '/test b.md'  => 'test b.md',
+                __DIR__ . '/test'       => 'test',
             ],
             __DIR__ . '/test3.zip'
         ));

@@ -41,12 +41,12 @@ class ArrayParserTest extends \PHPUnit\Framework\TestCase
         };
 
         $array = [
-            'string' => 'test',
-            0 => 1,
-            2 => true,
+            'string'  => 'test',
+            0         => 1,
+            2         => true,
             'string2' => 1.3,
-            3 => null,
-            4 => [
+            3         => null,
+            4         => [
                 0 => 'a',
                 1 => 'b',
             ],
@@ -55,12 +55,12 @@ class ArrayParserTest extends \PHPUnit\Framework\TestCase
         ];
 
         $expected = [
-            'string' => 'test',
-            0 => 1,
-            2 => true,
+            'string'  => 'test',
+            0         => 1,
+            2         => true,
             'string2' => 1.3,
-            3 => null,
-            4 => [
+            3         => null,
+            4         => [
                 0 => 'a',
                 1 => 'b',
             ],

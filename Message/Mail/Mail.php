@@ -1387,7 +1387,7 @@ class Mail
     public function preSend() : void
     {
         $this->mimeHeader = '';
-        $this->mimeBody = $this->createBody();
+        $this->mimeBody   = $this->createBody();
         // @todo: only if createBody impements sign / #tempheader = $this->header
         $this->mimeHeader = $this->createHeader();
 

@@ -163,12 +163,12 @@ class PriorityQueueTest extends \PHPUnit\Framework\TestCase
     public function testPriorityChange() : void
     {
         $queue = new PriorityQueue();
-        $id1 = $queue->insert('a');
+        $id1   = $queue->insert('a');
         $queue->setPriority($id1, 3);
         self::assertEquals(3, $queue->get($id1)['priority']);
 
         $queue = new PriorityQueue(PriorityMode::HIGHEST);
-        $id1 = $queue->insert('a');
+        $id1   = $queue->insert('a');
         $queue->setPriority($id1, 3);
         self::assertEquals(3, $queue->get($id1)['priority']);
     }

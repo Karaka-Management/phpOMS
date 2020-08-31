@@ -117,9 +117,9 @@ final class ChiSquaredDistribution
 
         return [
             'Chi2' => $sum,
-            'P'   => $p,
-            'H0'  => ($p > $significance),
-            'df'  => $df,
+            'P'    => $p,
+            'H0'   => ($p > $significance),
+            'df'   => $df,
         ];
     }
 

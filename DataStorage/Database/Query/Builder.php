@@ -1114,7 +1114,7 @@ class Builder extends BuilderAbstract
      */
     public function join($table, string $type = JoinType::JOIN, string $alias = null) : self
     {
-        if (!\is_string($table)&& !($table instanceof self)) {
+        if (!\is_string($table) && !($table instanceof self)) {
             throw new \InvalidArgumentException();
         }
 

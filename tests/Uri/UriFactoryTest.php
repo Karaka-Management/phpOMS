@@ -201,7 +201,7 @@ class UriFactoryTest extends \PHPUnit\Framework\TestCase
      */
     public function testDuplicatedQueryElements() : void
     {
-        $uri = 'http://www.test-uri.com/path/here?id=123&ab=c&id=456#fragi';
+        $uri      = 'http://www.test-uri.com/path/here?id=123&ab=c&id=456#fragi';
         $expected = 'http://www.test-uri.com/path/here?id=456&ab=c#fragi';
 
         UriFactory::setupUriBuilder(new HttpUri($uri));

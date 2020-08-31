@@ -24,7 +24,7 @@ class GammaDistributionTest extends \PHPUnit\Framework\TestCase
     public function testPDFIntegerK() : void
     {
         self::assertEqualsWithDelta(\exp(-1), GammaDistribution::getPdfIntegerK(1, 1, 1), 0.001);
-        self::assertEqualsWithDelta(3 * \exp(-3/4) / 16, GammaDistribution::getPdfIntegerK(3, 2, 4), 0.001);
+        self::assertEqualsWithDelta(3 * \exp(-3 / 4) / 16, GammaDistribution::getPdfIntegerK(3, 2, 4), 0.001);
     }
 
     public function testMeanK() : void

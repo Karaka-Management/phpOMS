@@ -72,7 +72,7 @@ class SpreadsheetDatabaseMapperTest extends \PHPUnit\Framework\TestCase
         $mapper->insert();
 
         $builder = new Builder($this->sqlite, true);
-        $data = $builder->select('insert_1.*')->from('insert_1')->execute()->fetchAll(\PDO::FETCH_ASSOC);
+        $data    = $builder->select('insert_1.*')->from('insert_1')->execute()->fetchAll(\PDO::FETCH_ASSOC);
         self::assertEquals(
             [
                 ['id' => '1', 'int' => '2', 'decimal' => '2.0', 'bool' => '1', 'varchar' => 'Line 1', 'datetime' => '43631'],
@@ -84,7 +84,7 @@ class SpreadsheetDatabaseMapperTest extends \PHPUnit\Framework\TestCase
         );
 
         $builder = new Builder($this->sqlite, true);
-        $data = $builder->select('insert_2.*')->from('insert_2')->execute()->fetchAll(\PDO::FETCH_ASSOC);
+        $data    = $builder->select('insert_2.*')->from('insert_2')->execute()->fetchAll(\PDO::FETCH_ASSOC);
         self::assertEquals(
             [
                 ['id' => '1', 'int' => '2', 'decimal' => '2.0', 'bool' => '1', 'varchar' => 'Line 1', 'datetime' => '43631'],
@@ -107,7 +107,7 @@ class SpreadsheetDatabaseMapperTest extends \PHPUnit\Framework\TestCase
         $mapper->insert();
 
         $builder = new Builder($this->sqlite, true);
-        $data = $builder->select('insert_1.*')->from('insert_1')->execute()->fetchAll(\PDO::FETCH_ASSOC);
+        $data    = $builder->select('insert_1.*')->from('insert_1')->execute()->fetchAll(\PDO::FETCH_ASSOC);
         self::assertEquals(
             [
                 ['id' => '1', 'int' => '2', 'decimal' => '2.0', 'bool' => '1', 'varchar' => 'Line 1', 'datetime' => '43631'],
@@ -119,7 +119,7 @@ class SpreadsheetDatabaseMapperTest extends \PHPUnit\Framework\TestCase
         );
 
         $builder = new Builder($this->sqlite, true);
-        $data = $builder->select('insert_2.*')->from('insert_2')->execute()->fetchAll(\PDO::FETCH_ASSOC);
+        $data    = $builder->select('insert_2.*')->from('insert_2')->execute()->fetchAll(\PDO::FETCH_ASSOC);
         self::assertEquals(
             [
                 ['id' => '1', 'int' => '2', 'decimal' => '2.0', 'bool' => '1', 'varchar' => 'Line 1', 'datetime' => '43631'],
@@ -142,7 +142,7 @@ class SpreadsheetDatabaseMapperTest extends \PHPUnit\Framework\TestCase
         $mapper->insert();
 
         $builder = new Builder($this->sqlite, true);
-        $data = $builder->select('insert_1.*')->from('insert_1')->execute()->fetchAll(\PDO::FETCH_ASSOC);
+        $data    = $builder->select('insert_1.*')->from('insert_1')->execute()->fetchAll(\PDO::FETCH_ASSOC);
         self::assertEquals(
             [
                 ['id' => '1', 'int' => '2', 'decimal' => '2.0', 'bool' => '1', 'varchar' => 'Line 1', 'datetime' => '43631'],
@@ -154,7 +154,7 @@ class SpreadsheetDatabaseMapperTest extends \PHPUnit\Framework\TestCase
         );
 
         $builder = new Builder($this->sqlite, true);
-        $data = $builder->select('insert_2.*')->from('insert_2')->execute()->fetchAll(\PDO::FETCH_ASSOC);
+        $data    = $builder->select('insert_2.*')->from('insert_2')->execute()->fetchAll(\PDO::FETCH_ASSOC);
         self::assertEquals(
             [
                 ['id' => '1', 'int' => '2', 'decimal' => '2.0', 'bool' => '1', 'varchar' => 'Line 1', 'datetime' => '43631'],
@@ -177,7 +177,7 @@ class SpreadsheetDatabaseMapperTest extends \PHPUnit\Framework\TestCase
         $mapper->insert();
 
         $builder = new Builder($this->sqlite, true);
-        $data = $builder->select('insert_1.*')->from('insert_1')->execute()->fetchAll(\PDO::FETCH_ASSOC);
+        $data    = $builder->select('insert_1.*')->from('insert_1')->execute()->fetchAll(\PDO::FETCH_ASSOC);
         self::assertEquals(
             [
                 ['id' => '1', 'int' => '2', 'decimal' => '2.0', 'bool' => '1', 'varchar' => 'Line 1', 'datetime' => '43631'],
@@ -189,7 +189,7 @@ class SpreadsheetDatabaseMapperTest extends \PHPUnit\Framework\TestCase
         );
 
         $builder = new Builder($this->sqlite, true);
-        $data = $builder->select('insert_2.*')->from('insert_2')->execute()->fetchAll(\PDO::FETCH_ASSOC);
+        $data    = $builder->select('insert_2.*')->from('insert_2')->execute()->fetchAll(\PDO::FETCH_ASSOC);
         self::assertEquals(
             [
                 ['id' => '1', 'int' => '2', 'decimal' => '2.0', 'bool' => '1', 'varchar' => 'Line 1', 'datetime' => '43631'],
@@ -204,7 +204,7 @@ class SpreadsheetDatabaseMapperTest extends \PHPUnit\Framework\TestCase
         $mapper->update();
 
         $builder = new Builder($this->sqlite, true);
-        $data = $builder->select('insert_1.*')->from('insert_1')->execute()->fetchAll(\PDO::FETCH_ASSOC);
+        $data    = $builder->select('insert_1.*')->from('insert_1')->execute()->fetchAll(\PDO::FETCH_ASSOC);
         self::assertEquals(
             [
                 ['id' => '1', 'int' => '2', 'decimal' => '2.0', 'bool' => '1', 'varchar' => 'Line 1', 'datetime' => '43631'],
@@ -216,7 +216,7 @@ class SpreadsheetDatabaseMapperTest extends \PHPUnit\Framework\TestCase
         );
 
         $builder = new Builder($this->sqlite, true);
-        $data = $builder->select('insert_2.*')->from('insert_2')->execute()->fetchAll(\PDO::FETCH_ASSOC);
+        $data    = $builder->select('insert_2.*')->from('insert_2')->execute()->fetchAll(\PDO::FETCH_ASSOC);
         self::assertEquals(
             [
                 ['id' => '1', 'int' => '2', 'decimal' => '2.0', 'bool' => '1', 'varchar' => 'Line 1', 'datetime' => '43631'],
@@ -239,7 +239,7 @@ class SpreadsheetDatabaseMapperTest extends \PHPUnit\Framework\TestCase
         $mapper->insert();
 
         $builder = new Builder($this->sqlite, true);
-        $data = $builder->select('insert_1.*')->from('insert_1')->execute()->fetchAll(\PDO::FETCH_ASSOC);
+        $data    = $builder->select('insert_1.*')->from('insert_1')->execute()->fetchAll(\PDO::FETCH_ASSOC);
         self::assertEquals(
             [
                 ['id' => '1', 'int' => '2', 'decimal' => '2.0', 'bool' => '1', 'varchar' => 'Line 1', 'datetime' => '43631'],
@@ -251,7 +251,7 @@ class SpreadsheetDatabaseMapperTest extends \PHPUnit\Framework\TestCase
         );
 
         $builder = new Builder($this->sqlite, true);
-        $data = $builder->select('insert_2.*')->from('insert_2')->execute()->fetchAll(\PDO::FETCH_ASSOC);
+        $data    = $builder->select('insert_2.*')->from('insert_2')->execute()->fetchAll(\PDO::FETCH_ASSOC);
         self::assertEquals(
             [
                 ['id' => '1', 'int' => '2', 'decimal' => '2.0', 'bool' => '1', 'varchar' => 'Line 1', 'datetime' => '43631'],
@@ -266,7 +266,7 @@ class SpreadsheetDatabaseMapperTest extends \PHPUnit\Framework\TestCase
         $mapper->update();
 
         $builder = new Builder($this->sqlite, true);
-        $data = $builder->select('insert_1.*')->from('insert_1')->execute()->fetchAll(\PDO::FETCH_ASSOC);
+        $data    = $builder->select('insert_1.*')->from('insert_1')->execute()->fetchAll(\PDO::FETCH_ASSOC);
         self::assertEquals(
             [
                 ['id' => '1', 'int' => '2', 'decimal' => '2.0', 'bool' => '1', 'varchar' => 'Line 1', 'datetime' => '43631'],
@@ -278,7 +278,7 @@ class SpreadsheetDatabaseMapperTest extends \PHPUnit\Framework\TestCase
         );
 
         $builder = new Builder($this->sqlite, true);
-        $data = $builder->select('insert_2.*')->from('insert_2')->execute()->fetchAll(\PDO::FETCH_ASSOC);
+        $data    = $builder->select('insert_2.*')->from('insert_2')->execute()->fetchAll(\PDO::FETCH_ASSOC);
         self::assertEquals(
             [
                 ['id' => '1', 'int' => '2', 'decimal' => '2.0', 'bool' => '1', 'varchar' => 'Line 1', 'datetime' => '43631'],
@@ -301,7 +301,7 @@ class SpreadsheetDatabaseMapperTest extends \PHPUnit\Framework\TestCase
         $mapper->insert();
 
         $builder = new Builder($this->sqlite, true);
-        $data = $builder->select('insert_1.*')->from('insert_1')->execute()->fetchAll(\PDO::FETCH_ASSOC);
+        $data    = $builder->select('insert_1.*')->from('insert_1')->execute()->fetchAll(\PDO::FETCH_ASSOC);
         self::assertEquals(
             [
                 ['id' => '1', 'int' => '2', 'decimal' => '2.0', 'bool' => '1', 'varchar' => 'Line 1', 'datetime' => '43631'],
@@ -313,7 +313,7 @@ class SpreadsheetDatabaseMapperTest extends \PHPUnit\Framework\TestCase
         );
 
         $builder = new Builder($this->sqlite, true);
-        $data = $builder->select('insert_2.*')->from('insert_2')->execute()->fetchAll(\PDO::FETCH_ASSOC);
+        $data    = $builder->select('insert_2.*')->from('insert_2')->execute()->fetchAll(\PDO::FETCH_ASSOC);
         self::assertEquals(
             [
                 ['id' => '1', 'int' => '2', 'decimal' => '2.0', 'bool' => '1', 'varchar' => 'Line 1', 'datetime' => '43631'],
@@ -328,7 +328,7 @@ class SpreadsheetDatabaseMapperTest extends \PHPUnit\Framework\TestCase
         $mapper->update();
 
         $builder = new Builder($this->sqlite, true);
-        $data = $builder->select('insert_1.*')->from('insert_1')->execute()->fetchAll(\PDO::FETCH_ASSOC);
+        $data    = $builder->select('insert_1.*')->from('insert_1')->execute()->fetchAll(\PDO::FETCH_ASSOC);
         self::assertEquals(
             [
                 ['id' => '1', 'int' => '2', 'decimal' => '2.0', 'bool' => '1', 'varchar' => 'Line 1', 'datetime' => '43631'],
@@ -340,7 +340,7 @@ class SpreadsheetDatabaseMapperTest extends \PHPUnit\Framework\TestCase
         );
 
         $builder = new Builder($this->sqlite, true);
-        $data = $builder->select('insert_2.*')->from('insert_2')->execute()->fetchAll(\PDO::FETCH_ASSOC);
+        $data    = $builder->select('insert_2.*')->from('insert_2')->execute()->fetchAll(\PDO::FETCH_ASSOC);
         self::assertEquals(
             [
                 ['id' => '1', 'int' => '2', 'decimal' => '2.0', 'bool' => '1', 'varchar' => 'Line 1', 'datetime' => '43631'],
@@ -367,7 +367,7 @@ class SpreadsheetDatabaseMapperTest extends \PHPUnit\Framework\TestCase
         $mapper->insert();
 
         $builder = new Builder($this->sqlite, true);
-        $data = $builder->select('insert_1.*')->from('insert_1')->execute()->fetchAll(\PDO::FETCH_ASSOC);
+        $data    = $builder->select('insert_1.*')->from('insert_1')->execute()->fetchAll(\PDO::FETCH_ASSOC);
         self::assertEquals(
             [
                 ['id' => '1', 'int' => '2', 'decimal' => '2.0', 'bool' => '1', 'varchar' => 'Line 1', 'datetime' => '43631'],
@@ -379,7 +379,7 @@ class SpreadsheetDatabaseMapperTest extends \PHPUnit\Framework\TestCase
         );
 
         $builder = new Builder($this->sqlite, true);
-        $data = $builder->select('insert_2.*')->from('insert_2')->execute()->fetchAll(\PDO::FETCH_ASSOC);
+        $data    = $builder->select('insert_2.*')->from('insert_2')->execute()->fetchAll(\PDO::FETCH_ASSOC);
         self::assertEquals(
             [
                 ['id' => '1', 'int' => '2', 'decimal' => '2.0', 'bool' => '1', 'varchar' => 'Line 1', 'datetime' => '43631'],
@@ -393,7 +393,7 @@ class SpreadsheetDatabaseMapperTest extends \PHPUnit\Framework\TestCase
         $mapper = new SpreadsheetDatabaseMapper($this->sqlite, __DIR__ . '/select.ods');
 
         $builder = new Builder($this->sqlite, true);
-        $data = $builder->select('int', 'decimal', 'bool', 'varchar', 'datetime')->from('insert_1');
+        $data    = $builder->select('int', 'decimal', 'bool', 'varchar', 'datetime')->from('insert_1');
 
         $mapper->select([$builder]);
 
@@ -419,7 +419,7 @@ class SpreadsheetDatabaseMapperTest extends \PHPUnit\Framework\TestCase
         $mapper->insert();
 
         $builder = new Builder($this->sqlite, true);
-        $data = $builder->select('insert_1.*')->from('insert_1')->execute()->fetchAll(\PDO::FETCH_ASSOC);
+        $data    = $builder->select('insert_1.*')->from('insert_1')->execute()->fetchAll(\PDO::FETCH_ASSOC);
         self::assertEquals(
             [
                 ['id' => '1', 'int' => '2', 'decimal' => '2.0', 'bool' => '1', 'varchar' => 'Line 1', 'datetime' => '43631'],
@@ -431,7 +431,7 @@ class SpreadsheetDatabaseMapperTest extends \PHPUnit\Framework\TestCase
         );
 
         $builder = new Builder($this->sqlite, true);
-        $data = $builder->select('insert_2.*')->from('insert_2')->execute()->fetchAll(\PDO::FETCH_ASSOC);
+        $data    = $builder->select('insert_2.*')->from('insert_2')->execute()->fetchAll(\PDO::FETCH_ASSOC);
         self::assertEquals(
             [
                 ['id' => '1', 'int' => '2', 'decimal' => '2.0', 'bool' => '1', 'varchar' => 'Line 1', 'datetime' => '43631'],
@@ -445,7 +445,7 @@ class SpreadsheetDatabaseMapperTest extends \PHPUnit\Framework\TestCase
         $mapper = new SpreadsheetDatabaseMapper($this->sqlite, __DIR__ . '/select.xls');
 
         $builder = new Builder($this->sqlite, true);
-        $data = $builder->select('int', 'decimal', 'bool', 'varchar', 'datetime')->from('insert_1');
+        $data    = $builder->select('int', 'decimal', 'bool', 'varchar', 'datetime')->from('insert_1');
 
         $mapper->select([$builder]);
 
@@ -471,7 +471,7 @@ class SpreadsheetDatabaseMapperTest extends \PHPUnit\Framework\TestCase
         $mapper->insert();
 
         $builder = new Builder($this->sqlite, true);
-        $data = $builder->select('insert_1.*')->from('insert_1')->execute()->fetchAll(\PDO::FETCH_ASSOC);
+        $data    = $builder->select('insert_1.*')->from('insert_1')->execute()->fetchAll(\PDO::FETCH_ASSOC);
         self::assertEquals(
             [
                 ['id' => '1', 'int' => '2', 'decimal' => '2.0', 'bool' => '1', 'varchar' => 'Line 1', 'datetime' => '43631'],
@@ -483,7 +483,7 @@ class SpreadsheetDatabaseMapperTest extends \PHPUnit\Framework\TestCase
         );
 
         $builder = new Builder($this->sqlite, true);
-        $data = $builder->select('insert_2.*')->from('insert_2')->execute()->fetchAll(\PDO::FETCH_ASSOC);
+        $data    = $builder->select('insert_2.*')->from('insert_2')->execute()->fetchAll(\PDO::FETCH_ASSOC);
         self::assertEquals(
             [
                 ['id' => '1', 'int' => '2', 'decimal' => '2.0', 'bool' => '1', 'varchar' => 'Line 1', 'datetime' => '43631'],
@@ -497,7 +497,7 @@ class SpreadsheetDatabaseMapperTest extends \PHPUnit\Framework\TestCase
         $mapper = new SpreadsheetDatabaseMapper($this->sqlite, __DIR__ . '/select.xlsx');
 
         $builder = new Builder($this->sqlite, true);
-        $data = $builder->select('int', 'decimal', 'bool', 'varchar', 'datetime')->from('insert_1');
+        $data    = $builder->select('int', 'decimal', 'bool', 'varchar', 'datetime')->from('insert_1');
 
         $mapper->select([$builder]);
 

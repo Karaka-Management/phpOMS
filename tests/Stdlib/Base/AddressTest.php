@@ -52,15 +52,15 @@ class AddressTest extends \PHPUnit\Framework\TestCase
     {
         $expected = [
             'recipient' => '',
-            'fao' => '',
-            'location' => [
-                'postal' => '',
-                'city' => '',
+            'fao'       => '',
+            'location'  => [
+                'postal'  => '',
+                'city'    => '',
                 'country' => '',
                 'address' => '',
-                'state' => '',
-                'geo' => [
-                    'lat' => 0,
+                'state'   => '',
+                'geo'     => [
+                    'lat'  => 0,
                     'long' => 0,
                 ],
             ],
@@ -117,15 +117,15 @@ class AddressTest extends \PHPUnit\Framework\TestCase
     {
         $expected = [
             'recipient' => 'recipient',
-            'fao' => 'fao',
-            'location' => [
-                'postal' => '',
-                'city' => '',
+            'fao'       => 'fao',
+            'location'  => [
+                'postal'  => '',
+                'city'    => '',
                 'country' => '',
                 'address' => '',
-                'state' => '',
-                'geo' => [
-                    'lat' => 0,
+                'state'   => '',
+                'geo'     => [
+                    'lat'  => 0,
                     'long' => 0,
                 ],
             ],
@@ -147,15 +147,15 @@ class AddressTest extends \PHPUnit\Framework\TestCase
     {
         $expected = [
             'recipient' => 'recipient',
-            'fao' => 'fao',
-            'location' => [
-                'postal' => '',
-                'city' => '',
+            'fao'       => 'fao',
+            'location'  => [
+                'postal'  => '',
+                'city'    => '',
                 'country' => '',
                 'address' => '',
-                'state' => '',
-                'geo' => [
-                    'lat' => 0,
+                'state'   => '',
+                'geo'     => [
+                    'lat'  => 0,
                     'long' => 0,
                 ],
             ],

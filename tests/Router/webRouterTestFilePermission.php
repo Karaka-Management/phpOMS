@@ -8,12 +8,12 @@ use phpOMS\Router\RouteVerb;
 return [
     '^.*/backend/admin/settings/general.*$' => [
         0 => [
-            'dest' => '\Modules\Admin\Controller:viewSettingsGeneral',
-            'verb' => RouteVerb::GET,
+            'dest'       => '\Modules\Admin\Controller:viewSettingsGeneral',
+            'verb'       => RouteVerb::GET,
             'permission' => [
                 'module' => BackendController::MODULE_NAME,
-                'type'  => PermissionType::READ,
-                'state' => PermissionState::SETTINGS,
+                'type'   => PermissionType::READ,
+                'state'  => PermissionState::SETTINGS,
             ],
         ],
     ],

@@ -28,7 +28,7 @@ class LogNormalDistributionTest extends \PHPUnit\Framework\TestCase
 
     public function testMean() : void
     {
-        self::assertEqualsWithDelta(\exp(13/2), LogNormalDistribution::getMean(2, 3), 0.001);
+        self::assertEqualsWithDelta(\exp(13 / 2), LogNormalDistribution::getMean(2, 3), 0.001);
     }
 
     public function testVariance() : void
@@ -38,7 +38,7 @@ class LogNormalDistributionTest extends \PHPUnit\Framework\TestCase
 
     public function testStandardDeviation() : void
     {
-        self::assertEqualsWithDelta(\exp(13/2) * \sqrt(\exp(9) - 1), LogNormalDistribution::getStandardDeviation(2, 3), 0.001);
+        self::assertEqualsWithDelta(\exp(13 / 2) * \sqrt(\exp(9) - 1), LogNormalDistribution::getStandardDeviation(2, 3), 0.001);
         self::assertEqualsWithDelta(\sqrt((\exp(9) - 1) * \exp(13)), LogNormalDistribution::getStandardDeviation(2, 3), 0.001);
     }
 

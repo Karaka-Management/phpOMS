@@ -38,7 +38,7 @@ class ModuleManagerTest extends \PHPUnit\Framework\TestCase
     protected function setUp() : void
     {
         $this->app              = new class() extends ApplicationAbstract {
- protected string $appName  = 'Api';
+ protected string $appName      = 'Api';
  };
         $this->app->appName     = 'Api';
         $this->app->dbPool      = $GLOBALS['dbpool'];

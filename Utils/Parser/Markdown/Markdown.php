@@ -153,17 +153,17 @@ class Markdown
      * @since 1.0.0
      */
     protected static $inlineTypes = [
-        '"' => ['SpecialCharacter'],
-        '!' => ['Image'],
-        '&' => ['SpecialCharacter'],
-        '*' => ['Emphasis'],
-        ':' => ['Url'],
-        '<' => ['UrlTag', 'EmailTag', 'SpecialCharacter'],
-        '>' => ['SpecialCharacter'],
-        '[' => ['Link'],
-        '_' => ['Emphasis'],
-        '`' => ['Code'],
-        '~' => ['Strikethrough'],
+        '"'  => ['SpecialCharacter'],
+        '!'  => ['Image'],
+        '&'  => ['SpecialCharacter'],
+        '*'  => ['Emphasis'],
+        ':'  => ['Url'],
+        '<'  => ['UrlTag', 'EmailTag', 'SpecialCharacter'],
+        '>'  => ['SpecialCharacter'],
+        '['  => ['Link'],
+        '_'  => ['Emphasis'],
+        '`'  => ['Code'],
+        '~'  => ['Strikethrough'],
         '\\' => ['EscapeSequence'],
     ];
 
@@ -376,9 +376,9 @@ class Markdown
 
         return [
             'element' => [
-                'name' => 'pre',
+                'name'    => 'pre',
                 'handler' => 'element',
-                'text' => [
+                'text'    => [
                     'name' => 'code',
                     'text' => \substr($lineArray['body'], 4),
                 ],
@@ -455,11 +455,11 @@ class Markdown
         }
 
         return [
-            'char' => $lineArray['text'][0],
+            'char'    => $lineArray['text'][0],
             'element' => [
-                'name' => 'pre',
+                'name'    => 'pre',
                 'handler' => 'element',
-                'text' => $elementArray,
+                'text'    => $elementArray,
             ],
         ];
     }
@@ -538,8 +538,8 @@ class Markdown
 
         return [
             'element' => [
-                'name' => 'h' . \min(6, $level),
-                'text' => \trim($lineArray['text'], '# '),
+                'name'    => 'h' . \min(6, $level),
+                'text'    => \trim($lineArray['text'], '# '),
                 'handler' => 'line',
             ],
         ];
@@ -563,10 +563,10 @@ class Markdown
         }
 
         $block = [
-            'indent' => $lineArray['indent'],
+            'indent'  => $lineArray['indent'],
             'pattern' => $pattern,
             'element' => [
-                'name' => $name,
+                'name'    => $name,
                 'handler' => 'elements',
             ],
         ];
@@ -580,9 +580,9 @@ class Markdown
         }
 
         $block['li'] = [
-            'name' => 'li',
+            'name'    => 'li',
             'handler' => 'li',
-            'text' => [
+            'text'    => [
                 $matches[2],
             ],
         ];
@@ -614,9 +614,9 @@ class Markdown
             unset($block['li']);
 
             $block['li'] = [
-                'name' => 'li',
+                'name'    => 'li',
                 'handler' => 'li',
-                'text' => [
+                'text'    => [
                     isset($matches[1]) ? $matches[1] : '',
                 ],
             ];
@@ -665,9 +665,9 @@ class Markdown
 
         return [
             'element' => [
-                'name' => 'blockquote',
+                'name'    => 'blockquote',
                 'handler' => 'lines',
-                'text' => (array) $matches[1],
+                'text'    => (array) $matches[1],
             ],
         ];
     }
@@ -768,7 +768,7 @@ class Markdown
         }
 
         $data = [
-            'url' => UriFactory::build($matches[2]),
+            'url'   => UriFactory::build($matches[2]),
             'title' => $matches[3] ?? null,
         ];
 
@@ -828,8 +828,8 @@ class Markdown
 
             foreach ($headerCells as $index => $headerCell) {
                 $headerElement = [
-                    'name' => 'th',
-                    'text' => \trim($headerCell),
+                    'name'    => 'th',
+                    'text'    => \trim($headerCell),
                     'handler' => 'line',
                 ];
 
@@ -845,27 +845,27 @@ class Markdown
             $block = [
                 'alignments' => $alignments,
                 'identified' => true,
-                'element' => [
-                    'name' => 'table',
+                'element'    => [
+                    'name'    => 'table',
                     'handler' => 'elements',
                 ],
             ];
 
             $block['element']['text'][] = [
-                'name' => 'thead',
+                'name'    => 'thead',
                 'handler' => 'elements',
             ];
 
             $block['element']['text'][] = [
-                'name' => 'tbody',
+                'name'    => 'tbody',
                 'handler' => 'elements',
-                'text' => [],
+                'text'    => [],
             ];
 
             $block['element']['text'][0]['text'][] = [
-                'name' => 'tr',
+                'name'    => 'tr',
                 'handler' => 'elements',
-                'text' => $headerElements,
+                'text'    => $headerElements,
             ];
 
             return $block;
@@ -900,9 +900,9 @@ class Markdown
 
             foreach ($matches[0] as $index => $cell) {
                 $element = [
-                    'name' => 'td',
+                    'name'    => 'td',
                     'handler' => 'line',
-                    'text' => \trim($cell),
+                    'text'    => \trim($cell),
                 ];
 
                 if (isset($block['alignments'][$index])) {
@@ -915,9 +915,9 @@ class Markdown
             }
 
             $block['element']['text'][1]['text'][] = [
-                'name' => 'tr',
+                'name'    => 'tr',
                 'handler' => 'elements',
-                'text' => $elements,
+                'text'    => $elements,
             ];
 
             return $block;
@@ -937,8 +937,8 @@ class Markdown
     {
         return [
             'element' => [
-                'name' => 'p',
-                'text' => $lineArray['text'],
+                'name'    => 'p',
+                'text'    => $lineArray['text'],
                 'handler' => 'line',
             ],
         ];
@@ -1013,7 +1013,7 @@ class Markdown
         }
 
         return [
-            'extent' => \strlen($matches[0]),
+            'extent'  => \strlen($matches[0]),
             'element' => [
                 'name' => 'code',
                 'text' => \preg_replace("/[ ]*\n/", ' ', $matches[2]),
@@ -1043,10 +1043,10 @@ class Markdown
         }
 
         return [
-            'extent' => \strlen($matches[0]),
+            'extent'  => \strlen($matches[0]),
             'element' => [
-                'name' => 'a',
-                'text' => $matches[1],
+                'name'       => 'a',
+                'text'       => $matches[1],
                 'attributes' => [
                     'href' => UriFactory::build($url),
                 ],
@@ -1082,11 +1082,11 @@ class Markdown
         }
 
         return [
-            'extent' => \strlen($matches[0]),
+            'extent'  => \strlen($matches[0]),
             'element' => [
-                'name' => $emphasis,
+                'name'    => $emphasis,
                 'handler' => 'line',
-                'text' => $matches[1],
+                'text'    => $matches[1],
             ],
         ];
     }
@@ -1135,9 +1135,9 @@ class Markdown
         }
 
         $inline = [
-            'extent' => $link['extent'] + 1,
+            'extent'  => $link['extent'] + 1,
             'element' => [
-                'name' => 'img',
+                'name'       => 'img',
                 'attributes' => [
                     'src' => UriFactory::build($link['element']['attributes']['href']),
                     'alt' => $link['element']['text'],
@@ -1164,11 +1164,11 @@ class Markdown
     protected static function inlineLink(array $excerpt) : ?array
     {
         $element = [
-            'name' => 'a',
-            'handler' => 'line',
-            'text' => null,
+            'name'       => 'a',
+            'handler'    => 'line',
+            'text'       => null,
             'attributes' => [
-                'href' => null,
+                'href'  => null,
                 'title' => null,
             ],
         ];
@@ -1213,7 +1213,7 @@ class Markdown
         }
 
         return [
-            'extent' => $extent,
+            'extent'  => $extent,
             'element' => $element,
         ];
     }
@@ -1266,10 +1266,10 @@ class Markdown
         }
 
         return [
-            'extent' => \strlen($matches[0]),
+            'extent'  => \strlen($matches[0]),
             'element' => [
-                'name' => 'del',
-                'text' => $matches[1],
+                'name'    => 'del',
+                'text'    => $matches[1],
                 'handler' => 'line',
             ],
         ];
@@ -1295,11 +1295,11 @@ class Markdown
         }
 
         return [
-            'extent' => \strlen($matches[0][0]),
+            'extent'   => \strlen($matches[0][0]),
             'position' => $matches[0][1],
-            'element' => [
-                'name' => 'a',
-                'text' => $matches[0][0],
+            'element'  => [
+                'name'       => 'a',
+                'text'       => $matches[0][0],
                 'attributes' => [
                     'href' => UriFactory::build($matches[0][0]),
                 ],
@@ -1323,10 +1323,10 @@ class Markdown
         }
 
         return [
-            'extent' => \strlen($matches[0]),
+            'extent'  => \strlen($matches[0]),
             'element' => [
-                'name' => 'a',
-                'text' => $matches[1],
+                'name'       => 'a',
+                'text'       => $matches[1],
                 'attributes' => [
                     'href' => UriFactory::build($matches[1]),
                 ],

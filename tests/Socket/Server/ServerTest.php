@@ -78,7 +78,7 @@ class ServerTest extends \PHPUnit\Framework\TestCase
 
     public function testSetupTCPSocket() : void
     {
-        $pipes = [];
+        $pipes   = [];
         $process = \proc_open('php ServerTestHelper.php', [1 => ['pipe', 'w'], 2 => ['pipe', 'w']], $pipes, __DIR__);
 
         $socket = new Server($this->app);

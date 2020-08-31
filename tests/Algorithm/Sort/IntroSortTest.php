@@ -85,7 +85,7 @@ class IntroSortTest extends \PHPUnit\Framework\TestCase
         ];
 
         $newList = IntroSort::sort($list);
-        $result = [];
+        $result  = [];
         foreach ($newList as $element) {
             $result[] = $element->value;
         }

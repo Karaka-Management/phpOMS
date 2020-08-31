@@ -54,27 +54,27 @@ class DomTest extends \PHPUnit\Framework\TestCase
         $obj->setSelector('#sel');
 
         self::assertEquals([
-            'type' => 'dom',
-            'time' => 3,
+            'type'     => 'dom',
+            'time'     => 3,
             'selector' => '#sel',
-            'action' => DomAction::SHOW,
-            'content' => 'msg',
+            'action'   => DomAction::SHOW,
+            'content'  => 'msg',
         ], $obj->toArray());
 
         self::assertEquals(\json_encode([
-            'type' => 'dom',
-            'time' => 3,
+            'type'     => 'dom',
+            'time'     => 3,
             'selector' => '#sel',
-            'action' => DomAction::SHOW,
-            'content' => 'msg',
+            'action'   => DomAction::SHOW,
+            'content'  => 'msg',
         ]), $obj->serialize());
 
         self::assertEquals([
-            'type' => 'dom',
-            'time' => 3,
+            'type'     => 'dom',
+            'time'     => 3,
             'selector' => '#sel',
-            'action' => DomAction::SHOW,
-            'content' => 'msg',
+            'action'   => DomAction::SHOW,
+            'content'  => 'msg',
         ], $obj->jsonSerialize());
 
         $obj2 = new Dom();

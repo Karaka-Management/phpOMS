@@ -38,13 +38,13 @@ class TDistributionTest extends \PHPUnit\Framework\TestCase
 
     public function testVariance() : void
     {
-        self::assertEqualsWithDelta(5/3, TDistribution::getVariance(5), 0.001);
+        self::assertEqualsWithDelta(5 / 3, TDistribution::getVariance(5), 0.001);
         self::assertEqualsWithDelta(\PHP_FLOAT_MAX, TDistribution::getVariance(2), 0.001);
     }
 
     public function testStandardDeviation() : void
     {
-        self::assertEqualsWithDelta(\sqrt(5/3), TDistribution::getStandardDeviation(5), 0.001);
+        self::assertEqualsWithDelta(\sqrt(5 / 3), TDistribution::getStandardDeviation(5), 0.001);
         self::assertEqualsWithDelta(\PHP_FLOAT_MAX, TDistribution::getStandardDeviation(2), 0.001);
     }
 

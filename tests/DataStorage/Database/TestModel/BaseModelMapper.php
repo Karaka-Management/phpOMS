@@ -78,12 +78,12 @@ class BaseModelMapper extends DataMapperAbstract
             'self'           => 'test_has_many_rel_relations_src',
         ],
         'conditional' => [
-            'mapper'   => ConditionalMapper::class,
-            'table'    => 'test_conditional',
-            'external' => 'test_conditional_base',
-            'column'   => 'title',
+            'mapper'        => ConditionalMapper::class,
+            'table'         => 'test_conditional',
+            'external'      => 'test_conditional_base',
+            'column'        => 'title',
             'conditional'   => true,
-            'self'     => null,
+            'self'          => null,
         ],
     ];
 

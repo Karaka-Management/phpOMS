@@ -31,10 +31,10 @@ class FormElementGeneratorTest extends \PHPUnit\Framework\TestCase
     public function testGenerateTextInput() : void
     {
         $element = [
-            'type' => 'input',
-            'subtype' => 'text',
+            'type'       => 'input',
+            'subtype'    => 'text',
             'attributes' => [
-                'id' => 'testId',
+                'id'   => 'testId',
                 'name' => 'testName',
                 'type' => 'text',
             ],
@@ -57,10 +57,10 @@ class FormElementGeneratorTest extends \PHPUnit\Framework\TestCase
     public function testGenerateTextInputWithValue() : void
     {
         $element = [
-            'type' => 'input',
-            'subtype' => 'text',
+            'type'       => 'input',
+            'subtype'    => 'text',
             'attributes' => [
-                'id' => 'testId',
+                'id'   => 'testId',
                 'name' => 'testName',
                 'type' => 'text',
             ],
@@ -83,15 +83,15 @@ class FormElementGeneratorTest extends \PHPUnit\Framework\TestCase
     public function testGenerateDateTimeInput() : void
     {
         $element = [
-            'type' => 'input',
-            'subtype' => 'datetime',
+            'type'       => 'input',
+            'subtype'    => 'datetime',
             'attributes' => [
-                'id' => 'testId',
+                'id'   => 'testId',
                 'name' => 'testName',
                 'type' => 'datetime',
             ],
             'default' => [
-                "value" => "2019-02-03 01:23",
+                "value"  => "2019-02-03 01:23",
                 "format" => "Y-m-d",
             ],
         ];
@@ -110,15 +110,15 @@ class FormElementGeneratorTest extends \PHPUnit\Framework\TestCase
     public function testGenerateCheckboxInput() : void
     {
         $element = [
-            'type' => 'input',
-            'subtype' => 'checkbox',
+            'type'       => 'input',
+            'subtype'    => 'checkbox',
             'attributes' => [
-                'id' => 'testId',
+                'id'   => 'testId',
                 'name' => 'testName',
                 'type' => 'checkbox',
             ],
             'default' => [
-                'value' => 'testValue',
+                'value'   => 'testValue',
                 'checked' => true,
                 'content' => 'testContent',
             ],
@@ -138,15 +138,15 @@ class FormElementGeneratorTest extends \PHPUnit\Framework\TestCase
     public function testGenerateCheckboxWithLanguageInput() : void
     {
         $element = [
-            'type' => 'input',
-            'subtype' => 'checkbox',
+            'type'       => 'input',
+            'subtype'    => 'checkbox',
             'attributes' => [
-                'id' => 'testId',
+                'id'   => 'testId',
                 'name' => 'testName',
                 'type' => 'checkbox',
             ],
             'default' => [
-                'value' => 'testValue',
+                'value'   => 'testValue',
                 'checked' => false,
                 'content' => 'testContent',
             ],
@@ -166,15 +166,15 @@ class FormElementGeneratorTest extends \PHPUnit\Framework\TestCase
     public function testGenerateRadioInput() : void
     {
         $element = [
-            'type' => 'input',
-            'subtype' => 'radio',
+            'type'       => 'input',
+            'subtype'    => 'radio',
             'attributes' => [
-                'id' => 'testId',
+                'id'   => 'testId',
                 'name' => 'testName',
                 'type' => 'radio',
             ],
             'default' => [
-                'value' => 'testValue',
+                'value'   => 'testValue',
                 'checked' => true,
                 'content' => 'testContent',
             ],
@@ -194,15 +194,15 @@ class FormElementGeneratorTest extends \PHPUnit\Framework\TestCase
     public function testGenerateRadioWithLanguageInput() : void
     {
         $element = [
-            'type' => 'input',
-            'subtype' => 'radio',
+            'type'       => 'input',
+            'subtype'    => 'radio',
             'attributes' => [
-                'id' => 'testId',
+                'id'   => 'testId',
                 'name' => 'testName',
                 'type' => 'radio',
             ],
             'default' => [
-                'value' => 'testValue',
+                'value'   => 'testValue',
                 'checked' => false,
                 'content' => 'testContent',
             ],
@@ -222,7 +222,7 @@ class FormElementGeneratorTest extends \PHPUnit\Framework\TestCase
     public function testGenerateLabel() : void
     {
         $element = [
-            'type' => 'label',
+            'type'       => 'label',
             'attributes' => [
                 'for' => 'testId',
             ],
@@ -245,7 +245,7 @@ class FormElementGeneratorTest extends \PHPUnit\Framework\TestCase
     public function testGenerateWithLanguageLabel() : void
     {
         $element = [
-            'type' => 'label',
+            'type'       => 'label',
             'attributes' => [
                 'for' => 'testId',
             ],
@@ -268,9 +268,9 @@ class FormElementGeneratorTest extends \PHPUnit\Framework\TestCase
     public function testGenerateTextarea() : void
     {
         $element = [
-            'type' => 'textarea',
+            'type'       => 'textarea',
             'attributes' => [
-                'id' => 'testId',
+                'id'   => 'testId',
                 'name' => 'testName',
             ],
             'default' => [
@@ -292,9 +292,9 @@ class FormElementGeneratorTest extends \PHPUnit\Framework\TestCase
     public function testGenerateWithValueTextarea() : void
     {
         $element = [
-            'type' => 'textarea',
+            'type'       => 'textarea',
             'attributes' => [
-                'id' => 'testId',
+                'id'   => 'testId',
                 'name' => 'testName',
             ],
             'default' => [
@@ -316,9 +316,9 @@ class FormElementGeneratorTest extends \PHPUnit\Framework\TestCase
     public function testGenerateSelect() : void
     {
         $element = [
-            'type' => 'select',
+            'type'       => 'select',
             'attributes' => [
-                'id' => 'testId',
+                'id'   => 'testId',
                 'name' => 'testName',
             ],
             'options' => [
@@ -345,9 +345,9 @@ class FormElementGeneratorTest extends \PHPUnit\Framework\TestCase
     public function testGenerateWithLanguageSelect() : void
     {
         $element = [
-            'type' => 'select',
+            'type'       => 'select',
             'attributes' => [
-                'id' => 'testId',
+                'id'   => 'testId',
                 'name' => 'testName',
             ],
             'options' => [

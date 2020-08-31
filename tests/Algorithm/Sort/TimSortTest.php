@@ -85,7 +85,7 @@ class TimSortTest extends \PHPUnit\Framework\TestCase
         ];
 
         $newList = TimSort::sort($list);
-        $result = [];
+        $result  = [];
         foreach ($newList as $element) {
             $result[] = $element->value;
         }

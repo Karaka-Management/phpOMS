@@ -137,7 +137,7 @@ class SqlServerConnectionTest extends \PHPUnit\Framework\TestCase
     {
         $db       = $GLOBALS['CONFIG']['db']['core']['mssql']['admin'];
         $db['db'] = 'invalid';
-        $ssql = new SqlServerConnection($db);
+        $ssql     = new SqlServerConnection($db);
         self::assertEquals(DatabaseStatus::FAILURE, $ssql->getStatus());
     }
 

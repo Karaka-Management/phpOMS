@@ -42,8 +42,8 @@ class TarGzTest extends \PHPUnit\Framework\TestCase
         self::assertTrue(TarGz::pack(
             [
                 __DIR__ . '/test a.txt' => 'test a.txt',
-                __DIR__ . '/test b.md' => 'test b.md',
-                __DIR__ . '/test' => 'test',
+                __DIR__ . '/test b.md'  => 'test b.md',
+                __DIR__ . '/test'       => 'test',
             ],
             __DIR__ . '/test.tar.gz'
         ));
@@ -93,8 +93,8 @@ class TarGzTest extends \PHPUnit\Framework\TestCase
         TarGz::pack(
             [
                 __DIR__ . '/test a.txt' => 'test a.txt',
-                __DIR__ . '/test b.md' => 'test b.md',
-                __DIR__ . '/test' => 'test',
+                __DIR__ . '/test b.md'  => 'test b.md',
+                __DIR__ . '/test'       => 'test',
             ],
             __DIR__ . '/test2.tar.gz'
         );
@@ -102,8 +102,8 @@ class TarGzTest extends \PHPUnit\Framework\TestCase
         self::assertFalse(TarGz::pack(
             [
                 __DIR__ . '/test a.txt' => 'test a.txt',
-                __DIR__ . '/test b.md' => 'test b.md',
-                __DIR__ . '/test' => 'test',
+                __DIR__ . '/test b.md'  => 'test b.md',
+                __DIR__ . '/test'       => 'test',
             ],
             __DIR__ . '/test2.tar.gz'
         ));
@@ -131,8 +131,8 @@ class TarGzTest extends \PHPUnit\Framework\TestCase
         self::assertTrue(TarGz::pack(
             [
                 __DIR__ . '/test a.txt' => 'test a.txt',
-                __DIR__ . '/test b.md' => 'test b.md',
-                __DIR__ . '/test' => 'test',
+                __DIR__ . '/test b.md'  => 'test b.md',
+                __DIR__ . '/test'       => 'test',
             ],
             __DIR__ . '/test3.tar.gz'
         ));
