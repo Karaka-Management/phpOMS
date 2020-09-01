@@ -202,13 +202,13 @@ class Mail
      */
     protected bool $confirmReading = false;
 
-    private string $signKeyFile   = '';
+    private string $signKeyFile = '';
 
-    private string $signCertFile  = '';
+    private string $signCertFile = '';
 
     private string $signExtraFile = '';
 
-    private string $signKeyPass   = '';
+    private string $signKeyPass = '';
 
     /**
      * Constructor.
@@ -1335,12 +1335,13 @@ class Mail
     private function encodeQ(string $text, int $context = HeaderContext::TEXT) : string
     {
         $pattern = '';
-               switch ($context) {
+        switch ($context) {
             case HeaderContext::PHRASE:
                 $pattern = '^A-Za-z0-9!*+\/ -';
                 break;
             case HeaderContext::COMMENT:
                 $pattern = '\(\)"';
+                break;
             case HeaderContext::TEXT:
             default:
                 $pattern = '\000-\011\013\014\016-\037\075\077\137\177-\377' . $pattern;

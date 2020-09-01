@@ -267,7 +267,7 @@ abstract class ModuleAbstract
         $this->app->eventManager->trigger('POST:Module:' . static::MODULE_NAME . '-' . $trigger . '-create', '', [
             $account,
             null, $obj,
-            StringUtils::intHash(\is_string($mapper) ? $mapper : \get_class($mapper)), 0,
+            StringUtils::intHash($mapper), 0,
             static::MODULE_NAME,
             (string) $id,
             '',
@@ -296,7 +296,7 @@ abstract class ModuleAbstract
             $this->app->eventManager->trigger('POST:Module:' . static::MODULE_NAME . '-' . $trigger . '-create', '', [
                 $account,
                 null, $obj,
-                StringUtils::intHash(\is_string($mapper) ? $mapper : \get_class($mapper)), 0,
+                StringUtils::intHash($mapper), 0,
                 static::MODULE_NAME,
                 (string) $id,
                 '',
@@ -359,7 +359,7 @@ abstract class ModuleAbstract
         $this->app->eventManager->trigger('POST:Module:' . static::MODULE_NAME . '-' . $trigger . '-delete', '', [
             $account,
             $obj,  null,
-            StringUtils::intHash(\is_string($mapper) ? $mapper : \get_class($mapper)), 0,
+            StringUtils::intHash($mapper), 0,
             static::MODULE_NAME,
             (string) $id,
             '',
@@ -389,7 +389,7 @@ abstract class ModuleAbstract
         $this->app->eventManager->trigger('POST:Module:' . static::MODULE_NAME . '-' . $trigger . '-relation', '', [
             $account,
             $rel1, $rel2,
-            StringUtils::intHash(\is_string($mapper) ? $mapper : \get_class($mapper)), 0,
+            StringUtils::intHash($mapper), 0,
             static::MODULE_NAME,
             '0',
             '',

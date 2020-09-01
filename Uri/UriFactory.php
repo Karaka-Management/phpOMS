@@ -199,6 +199,7 @@ final class UriFactory
                 $url
             );
 
+        /** @var array $urlStructure */
         $urlStructure = \parse_url($url);
 
         if ($urlStructure === false) {
@@ -206,7 +207,7 @@ final class UriFactory
         }
 
         if (isset($urlStructure['query'])) {
-            \parse_str($urlStructure['query'] ?? '', $urlStructure['query']);
+            \parse_str($urlStructure['query'] ?? [], $urlStructure['query']);
         }
 
         $escaped =

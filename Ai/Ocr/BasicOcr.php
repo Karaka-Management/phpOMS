@@ -83,13 +83,31 @@ final class BasicOcr
             throw new \Exception();
         }
 
-        $magicNumber     = \unpack('l', \fread($fp, 4))[1];
-        $numberOfImages  = \unpack('l', \fread($fp, 4))[1];
-        $numberOfRows    = \unpack('l', \fread($fp, 4))[1];
-        $numberOfColumns = \unpack('l', \fread($fp, 4))[1];
+        $read = \fread($fp, 4);
+        if (!$read) {
+            return [];
+        }
+        $magicNumber = \unpack('l', $read)[1];
+
+        $read = \fread($fp, 4);
+        if (!$read) {
+            return [];
+        }
+        $numberOfImages = \unpack('l', $read)[1];
+
+        $read = \fread($fp, 4);
+        if (!$read) {
+            return [];
+        }
+        $numberOfRows = \unpack('l', $read)[1];
+
+        $read = \fread($fp, 4);
+        if (!$read) {
+            return [];
+        }
+        $numberOfColumns = \unpack('l', $read)[1];
 
         $images = [];
-
         for ($i = 0; $i < $numberOfImages; ++$i) {
             $image = [];
 
@@ -97,7 +115,11 @@ final class BasicOcr
                 $rows = [];
 
                 for ($col = 0; $col < $numberOfColumns; ++$col) {
-                    $rows[] = \unpack('l', \fread($fp, 1))[1]; //fread($fp, 1);
+                    $read = \fread($fp, 1);
+                    if (!$read) {
+                        return [];
+                    }
+                    $rows[] = \unpack('l', $read)[1]; //fread($fp, 1);
                 }
 
                 $image[] = $rows;
@@ -125,13 +147,25 @@ final class BasicOcr
             throw new \Exception();
         }
 
-        $magicNumber    = \unpack('l', \fread($fp, 4))[1];
-        $numberOfLabels = \unpack('l', \fread($fp, 4))[1];
+        $read = \fread($fp, 4);
+        if (!$read) {
+            return [];
+        }
+        $magicNumber = \unpack('l', $read)[1];
+
+        $read = \fread($fp, 4);
+        if (!$read) {
+            return [];
+        }
+        $numberOfLabels = \unpack('l', $read)[1];
 
         $labels = [];
-
         for ($i = 0; $i < $numberOfLabels; ++$i) {
-            $labels[] = \unpack('l', \fread($fp, 1))[1]; //fread($fp, 1);
+            $read = \fread($fp, 4);
+            if (!$read) {
+                return [];
+            }
+            $labels[] = \unpack('l', $read)[1]; //fread($fp, 1);
         }
 
         return $labels;
@@ -161,7 +195,7 @@ final class BasicOcr
      *
      * @param array $data Image data and labell information to flatten
      *
-     * @return arry
+     * @return array
      *
      * @sicne 1.0.0
      */
@@ -182,7 +216,7 @@ final class BasicOcr
      *
      * @param array $Xtrain Image data used for training
      * @param array $ytrain Labels associated with the trained data
-     * @param array $Xtrain Image data from the image to categorize
+     * @param array $Xtest Image data from the image to categorize
      * @param int   $k      Amount of best fits that should be found
      */
     private function kNearest(array $Xtrain, array $ytrain, array $Xtest, int $k = 3) : array

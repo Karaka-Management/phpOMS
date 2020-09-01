@@ -277,7 +277,7 @@ abstract class EmailAbstract
 
         $this->setMessageType();
 
-        if($this->submitType === SubmitType::MAIL) {
+        if ($this->submitType === SubmitType::MAIL) {
             $this->header .= 'to: ' . $this->addrAppend('to', $this->to);
             $this->header .= $this->headerLine('Subject', $this->encodeHeader($this->secureHeader($this->subject)));
         }
