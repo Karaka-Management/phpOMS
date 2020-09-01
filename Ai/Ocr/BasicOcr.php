@@ -216,7 +216,7 @@ final class BasicOcr
      *
      * @param array $Xtrain Image data used for training
      * @param array $ytrain Labels associated with the trained data
-     * @param array $Xtest Image data from the image to categorize
+     * @param array $Xtest  Image data from the image to categorize
      * @param int   $k      Amount of best fits that should be found
      */
     private function kNearest(array $Xtrain, array $ytrain, array $Xtest, int $k = 3) : array
