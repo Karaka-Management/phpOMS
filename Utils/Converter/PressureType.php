@@ -26,29 +26,29 @@ use phpOMS\Stdlib\Base\Enum;
  */
 abstract class PressureType extends Enum
 {
-    public const PASCALS                   = 'Pa';
+    public const PASCALS = 'Pa';
 
-    public const BAR                       = 'bar';
+    public const BAR = 'bar';
 
-    public const POUND_PER_SQUARE_INCH     = 'psi';
+    public const POUND_PER_SQUARE_INCH = 'psi';
 
-    public const ATMOSPHERES               = 'atm';
+    public const ATMOSPHERES = 'atm';
 
-    public const INCHES_OF_MERCURY         = 'inHg';
+    public const INCHES_OF_MERCURY = 'inHg';
 
-    public const INCHES_OF_WATER           = 'inH20';
+    public const INCHES_OF_WATER = 'inH20';
 
-    public const MILLIMETERS_OF_WATER      = 'mmH20';
+    public const MILLIMETERS_OF_WATER = 'mmH20';
 
-    public const MILLIMETERS_OF_MERCURY    = 'mmHg';
+    public const MILLIMETERS_OF_MERCURY = 'mmHg';
 
-    public const MILLIBAR                  = 'mbar';
+    public const MILLIBAR = 'mbar';
 
     public const KILOGRAM_PER_SQUARE_METER = 'kg/m2';
 
     public const NEWTONS_PER_METER_SQUARED = 'N/m2';
 
-    public const POUNDS_PER_SQUARE_FOOT    = 'psf';
+    public const POUNDS_PER_SQUARE_FOOT = 'psf';
 
-    public const TORRS                     = 'Torr';
+    public const TORRS = 'Torr';
 }

@@ -26,11 +26,11 @@ use phpOMS\Stdlib\Base\Enum;
  */
 abstract class MovementType extends Enum
 {
-    public const DIAGONAL              = 1;
+    public const DIAGONAL = 1;
 
-    public const STRAIGHT              = 2;
+    public const STRAIGHT = 2;
 
     public const DIAGONAL_ONE_OBSTACLE = 4;
 
-    public const DIAGONAL_NO_OBSTACLE  = 8;
+    public const DIAGONAL_NO_OBSTACLE = 8;
 }

@@ -26,29 +26,29 @@ use phpOMS\Stdlib\Base\Enum;
  */
 abstract class WeightType extends Enum
 {
-    public const MICROGRAM   = 'mg';
+    public const MICROGRAM = 'mg';
 
-    public const MILLIGRAM   = 'mug';
+    public const MILLIGRAM = 'mug';
 
-    public const GRAM        = 'g';
+    public const GRAM = 'g';
 
-    public const KILOGRAM    = 'kg';
+    public const KILOGRAM = 'kg';
 
     public const METRIC_TONS = 't';
 
-    public const POUNDS      = 'lb';
+    public const POUNDS = 'lb';
 
-    public const OUNCES      = 'oz';
+    public const OUNCES = 'oz';
 
-    public const STONES      = 'st';
+    public const STONES = 'st';
 
-    public const GRAIN       = 'gr';
+    public const GRAIN = 'gr';
 
-    public const CARAT       = 'ct';
+    public const CARAT = 'ct';
 
-    public const LONG_TONS   = 'uk t';
+    public const LONG_TONS = 'uk t';
 
-    public const SHORT_TONS  = 'us ton';
+    public const SHORT_TONS = 'us ton';
 
     public const TROY_POUNDS = 't lb';
 

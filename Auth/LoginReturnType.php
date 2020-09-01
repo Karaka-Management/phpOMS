@@ -28,25 +28,25 @@ use phpOMS\Stdlib\Base\Enum;
  */
 abstract class LoginReturnType extends Enum
 {
-    public const OK                   = 0; /* Everything is ok and the user got authed */
+    public const OK = 0; /* Everything is ok and the user got authed */
 
-    public const FAILURE              = -1; /* Authentication resulted in a unexpected failure */
+    public const FAILURE = -1; /* Authentication resulted in a unexpected failure */
 
-    public const WRONG_PASSWORD       = -2; /* Authentication with wrong password */
+    public const WRONG_PASSWORD = -2; /* Authentication with wrong password */
 
-    public const WRONG_USERNAME       = -3; /* Authentication with unknown user */
+    public const WRONG_USERNAME = -3; /* Authentication with unknown user */
 
-    public const WRONG_PERMISSION     = -4; /* User doesn't have permission to authenticate */
+    public const WRONG_PERMISSION = -4; /* User doesn't have permission to authenticate */
 
-    public const NOT_ACTIVATED        = -5; /* The user is not activated yet */
+    public const NOT_ACTIVATED = -5; /* The user is not activated yet */
 
     public const WRONG_INPUT_EXCEEDED = -6; /* Too many wrong logins recently */
 
-    public const TIMEOUTED            = -7; /* User received a timeout and can not log in until a certain date */
+    public const TIMEOUTED = -7; /* User received a timeout and can not log in until a certain date */
 
-    public const BANNED               = -8; /* User is banned */
+    public const BANNED = -8; /* User is banned */
 
-    public const INACTIVE             = -9; /* User is inactive */
+    public const INACTIVE = -9; /* User is inactive */
 
-    public const EMPTY_PASSWORD       = -10; /* Empty password in database */
+    public const EMPTY_PASSWORD = -10; /* Empty password in database */
 }

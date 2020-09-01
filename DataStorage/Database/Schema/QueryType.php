@@ -30,13 +30,13 @@ abstract class QueryType extends DefaultQueryType
 {
     public const DROP_DATABASE = 128;
 
-    public const ALTER         = 129;
+    public const ALTER = 129;
 
-    public const TABLES        = 130;
+    public const TABLES = 130;
 
-    public const FIELDS        = 131;
+    public const FIELDS = 131;
 
-    public const CREATE_TABLE  = 132;
+    public const CREATE_TABLE = 132;
 
-    public const DROP_TABLE    = 133;
+    public const DROP_TABLE = 133;
 }

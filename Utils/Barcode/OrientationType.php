@@ -28,5 +28,5 @@ abstract class OrientationType extends Enum
 {
     public const HORIZONTAL = 0;
 
-    public const VERTICAL   = 1;
+    public const VERTICAL = 1;
 }

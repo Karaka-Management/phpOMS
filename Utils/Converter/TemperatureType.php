@@ -26,19 +26,19 @@ use phpOMS\Stdlib\Base\Enum;
  */
 abstract class TemperatureType extends Enum
 {
-    public const CELSIUS    = 'celsius';
+    public const CELSIUS = 'celsius';
 
     public const FAHRENHEIT = 'fahrenheit';
 
-    public const KELVIN     = 'kelvin';
+    public const KELVIN = 'kelvin';
 
-    public const REAUMUR    = 'reaumur';
+    public const REAUMUR = 'reaumur';
 
-    public const RANKINE    = 'rankine';
+    public const RANKINE = 'rankine';
 
-    public const DELISLE    = 'delisle';
+    public const DELISLE = 'delisle';
 
-    public const NEWTON     = 'newton';
+    public const NEWTON = 'newton';
 
-    public const ROMER      = 'romer';
+    public const ROMER = 'romer';
 }

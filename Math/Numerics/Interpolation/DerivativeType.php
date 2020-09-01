@@ -26,7 +26,7 @@ use phpOMS\Stdlib\Base\Enum;
  */
 abstract class DerivativeType extends Enum
 {
-    public const FIRST  = 1;
+    public const FIRST = 1;
 
     public const SECOND = 2;
 }

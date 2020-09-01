@@ -28,13 +28,13 @@ use phpOMS\Stdlib\Base\Enum;
  */
 abstract class DatabaseType extends Enum
 {
-    public const MYSQL     = 'mysql'; /* MySQL */
+    public const MYSQL = 'mysql'; /* MySQL */
 
-    public const SQLITE    = 'sqlite'; /* SQLITE */
+    public const SQLITE = 'sqlite'; /* SQLITE */
 
-    public const PGSQL     = 'pgsql'; /* PostgreSQL */
+    public const PGSQL = 'pgsql'; /* PostgreSQL */
 
-    public const SQLSRV    = 'mssql'; /* Microsoft SQL Server */
+    public const SQLSRV = 'mssql'; /* Microsoft SQL Server */
 
     public const UNDEFINED = 'undefined';
 }

@@ -28,19 +28,19 @@ abstract class DomAction extends Enum
 {
     public const CREATE_BEFORE = 0;
 
-    public const CREATE_AFTER  = 1;
+    public const CREATE_AFTER = 1;
 
-    public const DELETE        = 2;
+    public const DELETE = 2;
 
-    public const REPLACE       = 3;
+    public const REPLACE = 3;
 
-    public const MODIFY        = 4;
+    public const MODIFY = 4;
 
-    public const SHOW          = 5;
+    public const SHOW = 5;
 
-    public const HIDE          = 6;
+    public const HIDE = 6;
 
-    public const ACTIVATE      = 7;
+    public const ACTIVATE = 7;
 
-    public const DEACTIVATE    = 8;
+    public const DEACTIVATE = 8;
 }

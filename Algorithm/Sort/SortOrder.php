@@ -26,7 +26,7 @@ use phpOMS\Stdlib\Base\Enum;
  */
 abstract class SortOrder extends Enum
 {
-    public const ASC  = 1;
+    public const ASC = 1;
 
     public const DESC = 2;
 }

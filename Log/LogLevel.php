@@ -28,17 +28,17 @@ abstract class LogLevel extends Enum
 {
     public const EMERGENCY = 'emergency';
 
-    public const ALERT     = 'alert';
+    public const ALERT = 'alert';
 
-    public const CRITICAL  = 'critical';
+    public const CRITICAL = 'critical';
 
-    public const ERROR     = 'error';
+    public const ERROR = 'error';
 
-    public const WARNING   = 'warning';
+    public const WARNING = 'warning';
 
-    public const NOTICE    = 'notice';
+    public const NOTICE = 'notice';
 
-    public const INFO      = 'info';
+    public const INFO = 'info';
 
-    public const DEBUG     = 'debug';
+    public const DEBUG = 'debug';
 }

@@ -26,9 +26,9 @@ use phpOMS\Stdlib\Base\Enum;
  */
 abstract class GroupStatus extends Enum
 {
-    public const ACTIVE   = 1;
+    public const ACTIVE = 1;
 
     public const INACTIVE = 2;
 
-    public const HIDDEN   = 4;
+    public const HIDDEN = 4;
 }

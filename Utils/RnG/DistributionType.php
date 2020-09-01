@@ -28,5 +28,5 @@ abstract class DistributionType extends Enum
 {
     public const UNIFORM = 0;
 
-    public const NORMAL  = 1;
+    public const NORMAL = 1;
 }

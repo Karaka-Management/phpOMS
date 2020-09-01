@@ -28,29 +28,29 @@ use phpOMS\Stdlib\Base\Enum;
  */
 abstract class ExtensionType extends Enum
 {
-    public const UNKNOWN      = 1;
+    public const UNKNOWN = 1;
 
-    public const CODE         = 2;
+    public const CODE = 2;
 
-    public const AUDIO        = 4;
+    public const AUDIO = 4;
 
-    public const VIDEO        = 8;
+    public const VIDEO = 8;
 
-    public const TEXT         = 16;
+    public const TEXT = 16;
 
-    public const SPREADSHEET  = 32;
+    public const SPREADSHEET = 32;
 
-    public const PDF          = 64;
+    public const PDF = 64;
 
-    public const ARCHIVE      = 128;
+    public const ARCHIVE = 128;
 
     public const PRESENTATION = 256;
 
-    public const IMAGE        = 512;
+    public const IMAGE = 512;
 
-    public const EXECUTABLE   = 1024;
+    public const EXECUTABLE = 1024;
 
-    public const DIRECTORY    = 2048;
+    public const DIRECTORY = 2048;
 
-    public const WORD         = 4096;
+    public const WORD = 4096;
 }

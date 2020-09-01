@@ -26,11 +26,11 @@ use phpOMS\Stdlib\Base\Enum;
  */
 abstract class SubmitType extends Enum
 {
-    public const SMTP     = 'smtp';
+    public const SMTP = 'smtp';
 
-    public const MAIL     = 'mail';
+    public const MAIL = 'mail';
 
     public const SENDMAIL = 'sendmail';
 
-    public const QMAIL    = 'qmail';
+    public const QMAIL = 'qmail';
 }

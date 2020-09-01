@@ -26,13 +26,13 @@ use phpOMS\Stdlib\Base\Enum;
  */
 abstract class NotifyType extends Enum
 {
-    public const BINARY  = 0;
+    public const BINARY = 0;
 
-    public const INFO    = 1;
+    public const INFO = 1;
 
     public const WARNING = 2;
 
-    public const ERROR   = 3;
+    public const ERROR = 3;
 
-    public const FATAL   = 4;
+    public const FATAL = 4;
 }

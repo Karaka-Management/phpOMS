@@ -28,11 +28,11 @@ use phpOMS\Stdlib\Base\Enum;
  */
 abstract class CacheType extends Enum
 {
-    public const FILE      = 'file';
+    public const FILE = 'file';
 
     public const MEMCACHED = 'mem';
 
-    public const REDIS     = 'redis';
+    public const REDIS = 'redis';
 
     public const UNDEFINED = 'na';
 }

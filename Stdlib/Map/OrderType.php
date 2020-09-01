@@ -28,7 +28,7 @@ use phpOMS\Stdlib\Base\Enum;
  */
 abstract class OrderType extends Enum
 {
-    public const LOOSE  = 0; // Doesn't matter in which order the keys are ordered
+    public const LOOSE = 0; // Doesn't matter in which order the keys are ordered
 
     public const STRICT = 1; // The exact key order matters for setting/getting values
 }

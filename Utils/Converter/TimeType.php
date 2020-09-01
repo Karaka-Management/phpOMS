@@ -28,19 +28,19 @@ abstract class TimeType extends Enum
 {
     public const MILLISECONDS = 'ms';
 
-    public const SECONDS      = 's';
+    public const SECONDS = 's';
 
-    public const MINUTES      = 'i';
+    public const MINUTES = 'i';
 
-    public const HOURS        = 'h';
+    public const HOURS = 'h';
 
-    public const DAYS         = 'd';
+    public const DAYS = 'd';
 
-    public const WEEKS        = 'w';
+    public const WEEKS = 'w';
 
-    public const MONTH        = 'm';
+    public const MONTH = 'm';
 
-    public const QUARTER      = 'q';
+    public const QUARTER = 'q';
 
-    public const YEAR         = 'y';
+    public const YEAR = 'y';
 }

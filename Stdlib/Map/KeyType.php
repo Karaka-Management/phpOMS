@@ -28,7 +28,7 @@ use phpOMS\Stdlib\Base\Enum;
  */
 abstract class KeyType extends Enum
 {
-    public const SINGLE   = 0; // There can only be one key(-combination) per value
+    public const SINGLE = 0; // There can only be one key(-combination) per value
 
     public const MULTIPLE = 1; // There can be multiple keys per value
 }

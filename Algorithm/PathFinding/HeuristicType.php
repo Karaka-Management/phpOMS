@@ -26,17 +26,17 @@ use phpOMS\Stdlib\Base\Enum;
  */
 abstract class HeuristicType extends Enum
 {
-    public const MANHATTAN   = 1;
+    public const MANHATTAN = 1;
 
-    public const EUCLIDEAN   = 2;
+    public const EUCLIDEAN = 2;
 
-    public const OCTILE      = 4;
+    public const OCTILE = 4;
 
-    public const CHEBYSHEV   = 8;
+    public const CHEBYSHEV = 8;
 
-    public const MINKOWSKI   = 16;
+    public const MINKOWSKI = 16;
 
-    public const CANBERRA    = 32;
+    public const CANBERRA = 32;
 
     public const BRAY_CURTIS = 64;
 }
