@@ -140,8 +140,12 @@ class L11nManagerTest extends \PHPUnit\Framework\TestCase
         self::assertEquals('USD 1.235', $this->l11nManager->getCurrency($l11n, 1.2345, 'long'));
 
         $this->l11nManager->loadLanguage('en', '0', ['0' => ['CurrencyK' => 'K']]);
+        $this->l11nManager->loadLanguage('en', '0', ['0' => ['CurrencyM' => 'M']]);
+        $this->l11nManager->loadLanguage('en', '0', ['0' => ['CurrencyB' => 'B']]);
         self::assertEquals('K$ 12.345', $this->l11nManager->getCurrency($l11n, 12345.0, 'long', '$', 1000));
         self::assertEquals('KUSD 12.345', $this->l11nManager->getCurrency($l11n, 12345.0, 'long', null, 1000));
+        self::assertEquals('M$ 123.5', $this->l11nManager->getCurrency($l11n, 123456789.0, 'short', '$', 1000000));
+        self::assertEquals('B$ 1.2', $this->l11nManager->getCurrency($l11n, 1234567890.0, 'short', '$', 1000000000));
     }
 
     /**

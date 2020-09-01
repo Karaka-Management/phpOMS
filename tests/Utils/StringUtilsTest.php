@@ -167,6 +167,16 @@ class StringUtilsTest extends \PHPUnit\Framework\TestCase
     }
 
     /**
+     * @testdox Stringify/rendering a unknown data type returns null
+     * @covers phpOMS\Utils\StringUtils
+     * @group framework
+     */
+    public function testInvalidStringify() : void
+    {
+        self::assertEquals(null, StringUtils::stringify(new class() {}));
+    }
+
+    /**
      * @testdox The difference between two strings can be evaluated
      * @covers phpOMS\Utils\StringUtils
      * @group framework

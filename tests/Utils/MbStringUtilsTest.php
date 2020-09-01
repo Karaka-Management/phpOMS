@@ -19,7 +19,7 @@ use phpOMS\Utils\MbStringUtils;
 require_once __DIR__ . '/../Autoloader.php';
 
 /**
- * @testdox phpOMS\tests\Utils\MbStringUtilsTest: String utilities
+ * @testdox phpOMS\tests\Utils\MbStringUtilsTest: Multi-Byte string utilities
  *
  * @internal
  */
@@ -152,8 +152,13 @@ class MbStringUtilsTest extends \PHPUnit\Framework\TestCase
         self::assertEquals(5, MbStringUtils::mb_count_chars('αααααΕεΙιΜμΨψ')['α']);
     }
 
+    /**
+     * @testdox The previous boundary of a utf-8 encoded quoted printable is identified correctly
+     * @covers phpOMS\Utils\MbStringUtils
+     * @group framework
+     */
     public function testUtf8CharBoundary() : void
     {
-        self::markTestIncomplete();
+        self::assertEquals(10, MbStringUtils::utf8CharBoundary('H=E4tten H=FCte ein =DF im Namen, w=E4ren sie m=F6glicherweise k', 12));
     }
 }

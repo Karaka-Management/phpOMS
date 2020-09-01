@@ -62,6 +62,32 @@ class ArrayUtilsTest extends \PHPUnit\Framework\TestCase
     }
 
     /**
+     * @testdox A invalid array path returns null
+     * @covers phpOMS\Utils\ArrayUtils
+     * @group framework
+     */
+    public function testArrayInvalidArrayPath() : void
+    {
+        $expected = [
+            'a' => [
+                'aa' => 1,
+                'ab' => [
+                    'aba',
+                    'ab0',
+                    [
+                        3,
+                        'c',
+                    ],
+                    4,
+                ],
+            ],
+            2 => '2a',
+        ];
+
+        self::assertEquals(null, ArrayUtils::getArray('a/zzz/1', $expected));
+    }
+
+    /**
      * @testdox Test recursively if a value is in an array
      * @covers phpOMS\Utils\ArrayUtils
      * @group framework
@@ -104,6 +130,27 @@ class ArrayUtilsTest extends \PHPUnit\Framework\TestCase
         ];
 
         self::assertFalse(ArrayUtils::inArrayRecursive('aba', ArrayUtils::unsetArray('a/ab', $expected, '/')));
+    }
+
+    /**
+     * @testdox Deleting an invalid array path returns the original array
+     * @covers phpOMS\Utils\ArrayUtils
+     * @group framework
+     */
+    public function testInvalidArrayDelete() : void
+    {
+        $expected = [
+            'a' => [
+                'aa' => 1,
+                'ab' => [
+                    'aba',
+                    'ab0',
+                ],
+            ],
+            2 => '2a',
+        ];
+
+        self::assertEquals($expected, ArrayUtils::unsetArray('a/zzz', $expected, '/'));
     }
 
     /**

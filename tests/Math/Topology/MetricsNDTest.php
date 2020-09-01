@@ -12,7 +12,7 @@
  */
 declare(strict_types=1);
 
-namespace phpOMS\tests\Math\Number;
+namespace phpOMS\tests\Math\Topology;
 
 use phpOMS\Math\Topology\Metrics2D;
 use phpOMS\Math\Topology\MetricsND;

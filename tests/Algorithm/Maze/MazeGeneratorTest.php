@@ -12,7 +12,7 @@
  */
 declare(strict_types=1);
 
-namespace phpOMS\tests\Algorithm\PathFinding;
+namespace phpOMS\tests\Algorithm\Maze;
 
 use phpOMS\Algorithm\Maze\MazeGenerator;
 

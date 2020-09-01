@@ -283,44 +283,43 @@ final class MbStringUtils
     /**
      * Get the utf-8 boundary of a string
      *
-     * @param string $text   To search for utf-8 boundary
-     * @param int    $offset Search offset
+     * @param string $text   QP text to search for utf-8 boundary
+     * @param int    $length Last character boundary prior to this length
      *
      * @return int
      *
      * @since 1.0.0
      */
-    public static function utf8CharBoundary(string $text, int $offset = 0) : int
+    public static function utf8CharBoundary(string $text, int $length = 0) : int
     {
         $reset = 3;
-        $pos   = $offset;
 
         do {
-            $lastChunk  = \substr($text, $pos - $reset, $reset);
+            $lastChunk  = \substr($text, $length - $reset, $reset);
             $encodedPos = \strpos($lastChunk, '=');
 
             if ($encodedPos === false) {
                 break;
             }
 
-            $hex = \substr($text, $pos - $reset + $encodedPos + 1, 2);
+            $hex = \substr($text, $length - $reset + $encodedPos + 1, 2);
             $dec = \hexdec($hex);
 
             if ($dec < 128) {
                 if ($encodedPos > 0) {
-                    $pos -= $reset - $encodedPos;
+                    $length -= $reset - $encodedPos;
                 }
 
                 break;
             } elseif ($dec >= 192) {
-                $pos -= $reset - $encodedPos;
+                $length -= $reset - $encodedPos;
                 break;
-            } elseif ($dec < 192) {
+            } else { /* $dec < 192 */
                 $reset += 3;
             }
         } while (true);
 
-        return $pos;
+        return $length;
     }
 
     /**
