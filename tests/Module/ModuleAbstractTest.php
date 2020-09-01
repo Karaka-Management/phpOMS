@@ -38,7 +38,8 @@ class ModuleAbstractTest extends \PHPUnit\Framework\TestCase
 
     protected function setUp() : void
     {
-        $this->module                      = new class() extends ModuleAbstract {
+        $this->module = new class() extends ModuleAbstract
+        {
             const MODULE_VERSION = '1.2.3';
 
             const MODULE_NAME = 'Test';
