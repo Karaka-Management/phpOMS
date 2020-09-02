@@ -73,7 +73,7 @@ class ConnectionFactoryTest extends \PHPUnit\Framework\TestCase
     }
 
     /**
-     * @testdox An invalid cache type results in an exception
+     * @testdox A invalid cache type results in an exception
      * @group framework
      */
     public function testInvalidCacheType() : void

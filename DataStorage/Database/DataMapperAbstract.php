@@ -1846,7 +1846,6 @@ class DataMapperAbstract implements DataMapperInterface
         }
 
         self::deleteModel($obj, $objId, $refClass);
-
         self::clear();
 
         return $objId;
@@ -1872,7 +1871,9 @@ class DataMapperAbstract implements DataMapperInterface
         $obj = [];
 
         foreach ($result as $element) {
-            if (isset($element[static::$primaryField . '_' . $depth]) && self::isInitialized(static::class, $element[static::$primaryField . '_' . $depth], $depth)) {
+            if (isset($element[static::$primaryField . '_' . $depth])
+                && self::isInitialized(static::class, $element[static::$primaryField . '_' . $depth], $depth)
+            ) {
                 $obj[$element[static::$primaryField . '_' . $depth]] = self::$initObjects[static::class][$element[static::$primaryField . '_' . $depth]['obj']];
 
                 continue;
@@ -1880,12 +1881,12 @@ class DataMapperAbstract implements DataMapperInterface
 
             $toFill = self::createBaseModel();
 
-            if (isset($element[static::$primaryField . '_' . $depth])) {
-                $obj[$element[static::$primaryField . '_' . $depth]] = self::populateAbstract($element, $toFill, $depth);
-                self::addInitialized(static::class, $element[static::$primaryField . '_' . $depth], $obj[$element[static::$primaryField . '_' . $depth]], $depth);
-            } else {
+            if (!isset($element[static::$primaryField . '_' . $depth])) {
                 throw new \Exception();
             }
+
+            $obj[$element[static::$primaryField . '_' . $depth]] = self::populateAbstract($element, $toFill, $depth);
+            self::addInitialized(static::class, $element[static::$primaryField . '_' . $depth], $obj[$element[static::$primaryField . '_' . $depth]], $depth);
         }
 
         return $obj;
@@ -1906,18 +1907,20 @@ class DataMapperAbstract implements DataMapperInterface
         $obj = [];
 
         foreach ($result as $element) {
-            if (isset($element[static::$primaryField]) && self::isInitializedArray(static::class, $element[static::$primaryField], $depth)) {
+            if (isset($element[static::$primaryField])
+                && self::isInitializedArray(static::class, $element[static::$primaryField], $depth)
+            ) {
                 $obj[$element[static::$primaryField]] = self::$initArrays[static::class][$element[static::$primaryField]]['obj'];
 
                 continue;
             }
 
-            if (isset($element[static::$primaryField])) {
-                $obj[$element[static::$primaryField]] = self::populateAbstractArray($element, [], $depth);
-                self::addInitializedArray(static::class, $element[static::$primaryField], $obj[$element[static::$primaryField]], $depth);
-            } else {
+            if (!isset($element[static::$primaryField])) {
                 throw new \Exception();
             }
+
+            $obj[$element[static::$primaryField]] = self::populateAbstractArray($element, [], $depth);
+            self::addInitializedArray(static::class, $element[static::$primaryField], $obj[$element[static::$primaryField]], $depth);
         }
 
         return $obj;

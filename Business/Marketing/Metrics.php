@@ -88,46 +88,6 @@ final class Metrics
     }
 
     /**
-     * Life time value of a customer
-     *
-     * @param \Closure $customerProfit Profit of a customer in year t
-     * @param float    $discountRate   Discount rate
-     *
-     * @return float
-     *
-     * @since 1.0.0
-     */
-    public static function lifeTimeValue(\Closure $customerProfit, float $discountRate) : float
-    {
-        $ltv = 0.0;
-        for ($i = 1; $i < 1000000; ++$i) {
-            $ltv += $customerProfit($i) / \pow(1 + $discountRate, $i - 1);
-        }
-
-        return $ltv;
-    }
-
-    /**
-     * Life time value of a customer
-     *
-     * @param \Closure $customerProfit Profit of a customer in year t
-     * @param float    $discountRate   Discount rate
-     *
-     * @return float
-     *
-     * @since 1.0.0
-     */
-    public static function simpleRetentionLifeTimeValue(\Closure $customerProfit, float $discountRate, float $retentionRate) : float
-    {
-        $ltv = 0.0;
-        for ($i = 1; $i < 1000000; ++$i) {
-            $ltv += $customerProfit($i) * \pow($retentionRate, $i - 1) / \pow(1 + $discountRate, $i - 1);
-        }
-
-        return $ltv;
-    }
-
-    /**
      * Calculate the profitability of customers based on their purchase behaviour
      *
      * The basis for the calculation is the migration model using a markov chain
@@ -140,7 +100,7 @@ final class Metrics
      *
      * @since 1.0.0
      */
-    public static function calclateMailingSuccess(float $discountRate, array $purchaseProbability, array $payoffs) : Matrix
+    public static function calculateMailingSuccess(float $discountRate, array $purchaseProbability, array $payoffs) : Matrix
     {
         $count  = \count($purchaseProbability);
         $profit = new Matrix($count, $count);

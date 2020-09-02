@@ -28,8 +28,8 @@ final class CustomerValue
      * Simple customer lifetime value
      *
      * @param float $margin        Margin per period
-     * @param float $retentionRate Rate of remaining customers per period
-     * @param float $discountRate  Cost of capital to discound future revenue
+     * @param float $retentionRate Rate of remaining customers per period (= average lifetime / (1 + average lifetime))
+     * @param float $discountRate  Cost of capital to discount future revenue
      *
      * @return float
      *
@@ -43,30 +43,30 @@ final class CustomerValue
     /**
      * Normalized measure of recurring revenue
      *
-     * @param array $revenues Revenues
-     * @param int   $periods  Amount of revenue periods
-     * @param float $cutoff   Normalization cutoff (which values should be ignored)
+     * @param array $revenues    Revenues
+     * @param int   $periods     Amount of revenue periods
+     * @param float $lowerCutoff Normalization cutoff (which lower values should be ignored)
+     * @param float $upperCutoff Normalization cutoff (which upper values should be ignored)
      *
      * @return float
      *
      * @since 1.0.0
      */
-    public static function getMRR(array $revenues, int $periods = 12, float $cutoff = 0.1) : float
+    public static function getMRR(array $revenues, int $periods = 12, float $lowerCutoff = 0.1, float $upperCutoff = 0.0) : float
     {
-        if ($cutoff === 0.0) {
+        if ($lowerCutoff === 0.0 && $upperCutoff === 0.0) {
             return \array_sum($revenues) / $periods;
         }
 
-        $count  = \count($revenues);
-        $offset = (int) \round($count * $cutoff, 0, \PHP_ROUND_HALF_UP);
+        \sort($revenues);
 
-        if ($offset * 2 >= $count) {
-            return 0.0;
+        $sum = 0.0;
+        foreach ($revenues as $revenue) {
+            if ($revenue >= $lowerCutoff && $revenue <= $upperCutoff) {
+                $sum += $revenue;
+            }
         }
 
-        \sort($revenues);
-        $normalized = \array_splice($revenues, $offset, $count - $offset);
-
-        return \array_sum($normalized) / $periods;
+        return $sum / $periods;
     }
 }
