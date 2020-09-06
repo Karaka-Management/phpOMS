@@ -211,7 +211,7 @@ final class StringUtils
             return $element ? '1' : '0';
         } elseif ($element === null) {
             return null;
-        } elseif ($element instanceof \DateTime) {
+        } elseif ($element instanceof \DateTimeInterface) {
             return $element->format('Y-m-d H:i:s');
         } elseif ($element instanceof RenderableInterface) {
             return $element->render();

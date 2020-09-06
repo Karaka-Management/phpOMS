@@ -1063,7 +1063,7 @@ class DataMapperAbstract implements DataMapperInterface
             return (float) $value;
         } elseif ($type === 'bool') {
             return (bool) $value;
-        } elseif ($type === 'DateTime') {
+        } elseif ($type === 'DateTime' || $type === 'DateTimeImmutable') {
             return $value === null ? null : $value->format('Y-m-d H:i:s');
         } elseif ($type === 'Json' || $type === 'jsonSerializable') {
             return (string) \json_encode($value);
@@ -2251,6 +2251,13 @@ class DataMapperAbstract implements DataMapperInterface
                 }
 
                 $refProp->setValue($obj, $value);
+            } elseif ($def['type'] === 'DateTimeImmutable') {
+                $value = $value === null ? null : new \DateTimeImmutable($value);
+                if ($hasPath) {
+                    $value = ArrayUtils::setArray($arrayPath, $aValue, $value, '/', true);
+                }
+
+                $refProp->setValue($obj, $value);
             } elseif ($def['type'] === 'Json') {
                 if ($hasPath) {
                     $value = ArrayUtils::setArray($arrayPath, $aValue, $value, '/', true);
@@ -2309,6 +2316,13 @@ class DataMapperAbstract implements DataMapperInterface
                 $refProp->setValue($obj, $value);
             } elseif ($def['mapper']::$columns[$column]['type'] === 'DateTime') {
                 $value = $value === null ? null : new \DateTime($value);
+                if ($hasPath) {
+                    $value = ArrayUtils::setArray($arrayPath, $aValue, $value, '/', true);
+                }
+
+                $refProp->setValue($obj, $value);
+            } elseif ($def['mapper']::$columns[$column]['type'] === 'DateTimeImmutable') {
+                $value = $value === null ? null : new \DateTimeImmutable($value);
                 if ($hasPath) {
                     $value = ArrayUtils::setArray($arrayPath, $aValue, $value, '/', true);
                 }
@@ -2375,6 +2389,8 @@ class DataMapperAbstract implements DataMapperInterface
                 \settype($value, static::$columns[$column]['type']);
             } elseif (static::$columns[$column]['type'] === 'DateTime') {
                 $value = $value === null ? null : new \DateTime($value);
+            } elseif (static::$columns[$column]['type'] === 'DateTimeImmutable') {
+                $value = $value === null ? null : new \DateTimeImmutable($value);
             } elseif (static::$columns[$column]['type'] === 'Json') {
                 $value = \json_decode($value, true);
             }
@@ -2397,6 +2413,8 @@ class DataMapperAbstract implements DataMapperInterface
                 \settype($value, $def['mapper']::$columns[$column]['type']);
             } elseif ($def['mapper']::$columns[$column]['type'] === 'DateTime') {
                 $value = $value === null ? null : new \DateTime($value);
+            } elseif ($def['mapper']::$columns[$column]['type'] === 'DateTimeImmutable') {
+                $value = $value === null ? null : new \DateTimeImmutable($value);
             } elseif ($def['mapper']::$columns[$column]['type'] === 'Json') {
                 $value = \json_decode($value, true);
             }
