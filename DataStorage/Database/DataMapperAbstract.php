@@ -1065,12 +1065,10 @@ class DataMapperAbstract implements DataMapperInterface
             return (bool) $value;
         } elseif ($type === 'DateTime' || $type === 'DateTimeImmutable') {
             return $value === null ? null : $value->format('Y-m-d H:i:s');
-        } elseif ($type === 'Json' || $type === 'jsonSerializable') {
+        } elseif ($type === 'Json' || $value instanceof \JsonSerializable) {
             return (string) \json_encode($value);
         } elseif ($type === 'Serializable') {
             return $value->serialize();
-        } elseif ($value instanceof \JsonSerializable) {
-            return (string) \json_encode($value->jsonSerialize());
         } elseif (\is_object($value) && \method_exists($value, 'getId')) {
             return $value->getId();
         }

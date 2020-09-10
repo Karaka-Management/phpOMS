@@ -128,7 +128,7 @@ interface ContainerInterface
      *
      * @since 1.0.0
      */
-    public function getCreatedAt() : \DateTime;
+    public function getCreatedAt() : \DateTimeInterface;
 
     /**
      * Get the datetime when the resource got last modified.

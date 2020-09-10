@@ -101,10 +101,10 @@ class Account implements \JsonSerializable, ArrayableInterface
     /**
      * Last activity.
      *
-     * @var \DateTime
+     * @var \DateTimeImmutable
      * @since 1.0.0
      */
-    protected \DateTime $createdAt;
+    protected \DateTimeImmutable $createdAt;
 
     /**
      * Groups.
@@ -159,7 +159,7 @@ class Account implements \JsonSerializable, ArrayableInterface
      */
     public function __construct(int $id = 0)
     {
-        $this->createdAt    = new \DateTime('now');
+        $this->createdAt    = new \DateTimeImmutable('now');
         $this->lastActive   = new \DateTime('now');
         $this->id           = $id;
         $this->localization = new Localization();
@@ -423,11 +423,11 @@ class Account implements \JsonSerializable, ArrayableInterface
     /**
      * Get last activity.
      *
-     * @return \DateTime
+     * @return \DateTimeInterface
      *
      * @since 1.0.0
      */
-    public function getLastActive() : \DateTime
+    public function getLastActive() : \DateTimeInterface
     {
         return $this->lastActive ?? $this->getCreatedAt();
     }
@@ -435,11 +435,11 @@ class Account implements \JsonSerializable, ArrayableInterface
     /**
      * Get created at.
      *
-     * @return \DateTime
+     * @return \DateTimeInterface
      *
      * @since 1.0.0
      */
-    public function getCreatedAt() : \DateTime
+    public function getCreatedAt() : \DateTimeInterface
     {
         return $this->createdAt;
     }

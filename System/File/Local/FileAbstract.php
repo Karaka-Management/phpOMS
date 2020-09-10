@@ -66,7 +66,7 @@ abstract class FileAbstract implements ContainerInterface
      * @var \DateTime
      * @since 1.0.0
      */
-    protected \DateTime $createdAt;
+    protected \DateTimeImmutable $createdAt;
 
     /**
      * Last changed at.
@@ -104,7 +104,7 @@ abstract class FileAbstract implements ContainerInterface
         $this->path = \rtrim($path, '/\\');
         $this->name = \basename($path);
 
-        $this->createdAt = new \DateTime('now');
+        $this->createdAt = new \DateTimeImmutable('now');
         $this->changedAt = new \DateTime('now');
     }
 
@@ -151,7 +151,7 @@ abstract class FileAbstract implements ContainerInterface
     /**
      * {@inheritdoc}
      */
-    public function getCreatedAt() : \DateTime
+    public function getCreatedAt() : \DateTimeInterface
     {
         return $this->createdAt;
     }

@@ -105,8 +105,8 @@ class AccountTest extends \PHPUnit\Framework\TestCase
 
         self::assertEquals([], $account->getPermissions());
 
-        self::assertInstanceOf('\DateTime', $account->getLastActive());
-        self::assertInstanceOf('\DateTime', $account->getCreatedAt());
+        self::assertInstanceOf('\DateTimeInterface', $account->getLastActive());
+        self::assertInstanceOf('\DateTimeImmutable', $account->getCreatedAt());
 
         $array = $account->toArray();
         self::assertIsArray($array);
