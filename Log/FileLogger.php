@@ -251,7 +251,7 @@ final class FileLogger implements LoggerInterface
         $backtrace = \json_encode($backtrace);
 
         $replace['{backtrace}'] = $backtrace;
-        $replace['{datetime}']  = \sprintf('%--19s', (new \DateTime('NOW'))->format('Y-m-d H:i:s'));
+        $replace['{datetime}']  = \sprintf('%--19s', (new \DateTimeImmutable('NOW'))->format('Y-m-d H:i:s'));
         $replace['{level}']     = \sprintf('%--12s', $level);
         $replace['{path}']      = $_SERVER['REQUEST_URI'] ?? 'REQUEST_URI';
         $replace['{ip}']        = \sprintf('%--15s', $_SERVER['REMOTE_ADDR'] ?? '0.0.0.0');
