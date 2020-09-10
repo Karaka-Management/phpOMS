@@ -124,11 +124,11 @@ interface ContainerInterface
     /**
      * Get the datetime when the resource got created.
      *
-     * @return \DateTime
+     * @return \DateTimeImmutable
      *
      * @since 1.0.0
      */
-    public function getCreatedAt() : \DateTimeInterface;
+    public function getCreatedAt() : \DateTimeImmutable;
 
     /**
      * Get the datetime when the resource got last modified.

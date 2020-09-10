@@ -151,7 +151,7 @@ abstract class FileAbstract implements ContainerInterface
     /**
      * {@inheritdoc}
      */
-    public function getCreatedAt() : \DateTimeInterface
+    public function getCreatedAt() : \DateTimeImmutable
     {
         return $this->createdAt;
     }
