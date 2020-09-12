@@ -15,6 +15,7 @@ declare(strict_types=1);
 namespace phpOMS\Utils\Converter;
 
 use phpOMS\Stdlib\Base\Enum;
+use phpOMS\Utils\Converter\Measurement;
 
 /**
  * File size type enum.
@@ -45,4 +46,26 @@ abstract class FileSizeType extends Enum
     public const KILOBIT = 'kbit';
 
     public const BIT = 'bit';
+
+    /**
+     * Auto format file size in bytes
+     *
+     * @param float $size File size
+     *
+     * @return array
+     *
+     * @since 1.0.0
+     */
+    public static function autoFormat(float $size) : array
+    {
+        if ($size < 300) {
+            return [$size, 'B'];
+        } elseif ($size < 1000) {
+            return [Measurement::convertFileSize($size, FileSizeType::BYTE, FileSizeType::KILOBYTE), 'KB'];
+        } elseif ($size < 1000 * 1000 * 1000) {
+            return [Measurement::convertFileSize($size, FileSizeType::BYTE, FileSizeType::MEGABYTE), 'MB'];
+        }
+
+        return [Measurement::convertFileSize($size, FileSizeType::BYTE, FileSizeType::GIGABYTE), 'GB'];
+    }
 }

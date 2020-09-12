@@ -17,6 +17,8 @@ namespace phpOMS\tests\Utils\Converter;
 use phpOMS\Utils\Converter\FileSizeType;
 
 /**
+ * @testdox phpOMS\tests\Utils\Converter\FileSizeTypeTest: File size types
+ *
  * @internal
  */
 class FileSizeTypeTest extends \PHPUnit\Framework\TestCase
@@ -55,5 +57,33 @@ class FileSizeTypeTest extends \PHPUnit\Framework\TestCase
         self::assertEquals('mbit', FileSizeType::MEGABIT);
         self::assertEquals('kbit', FileSizeType::KILOBIT);
         self::assertEquals('bit', FileSizeType::BIT);
+    }
+
+    /**
+     * @testdox File sizes can get automatically formatted according to their size
+     * @covers phpOMS\Utils\Converter\FileSizeType
+     * @group framework
+     */
+    public function testAutoFormat() : void
+    {
+        self::assertEquals(
+            [250.0, 'B'],
+            FileSizeType::autoFormat(250)
+        );
+
+        self::assertEquals(
+            [0.5, 'KB'],
+            FileSizeType::autoFormat(500)
+        );
+
+        self::assertEquals(
+            [1.024, 'MB'],
+            FileSizeType::autoFormat(1024 * 1000)
+        );
+
+        self::assertEquals(
+            [1.024, 'GB'],
+            FileSizeType::autoFormat(1024 * 1000 * 1000)
+        );
     }
 }
