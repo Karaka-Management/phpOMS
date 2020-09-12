@@ -49,6 +49,7 @@ class DatabasePoolTest extends \PHPUnit\Framework\TestCase
     {
         /** @var array $CONFIG */
         self::assertTrue($this->dbPool->create('core', $GLOBALS['CONFIG']['db']['core']['masters']['admin']));
+        $this->dbPool->get()->connect();
         self::assertEquals($this->dbPool->get()->getStatus(), DatabaseStatus::OK);
     }
 

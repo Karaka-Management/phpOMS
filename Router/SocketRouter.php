@@ -135,6 +135,8 @@ final class SocketRouter implements RouterInterface
                         }
                     }
                 }
+
+                $bound[] = ['dest' => $d['dest']];
             }
         }
 

@@ -42,6 +42,7 @@ class SqlServerConnectionTest extends \PHPUnit\Framework\TestCase
     public function testConnect() : void
     {
         $ssql = new SqlServerConnection($GLOBALS['CONFIG']['db']['core']['mssql']['admin']);
+        $ssql->connect();
         self::assertEquals(DatabaseStatus::OK, $ssql->getStatus());
         self::assertEquals($GLOBALS['CONFIG']['db']['core']['mssql']['admin']['database'], $ssql->getDatabase());
         self::assertEquals($GLOBALS['CONFIG']['db']['core']['mssql']['admin']['host'], $ssql->getHost());
@@ -60,6 +61,7 @@ class SqlServerConnectionTest extends \PHPUnit\Framework\TestCase
         $db = $GLOBALS['CONFIG']['db']['core']['mssql']['admin'];
         unset($db['db']);
         $ssql = new SqlServerConnection($db);
+        $ssql->connect();
         self::assertEquals(DatabaseStatus::FAILURE, $ssql->getStatus());
     }
 
@@ -86,6 +88,7 @@ class SqlServerConnectionTest extends \PHPUnit\Framework\TestCase
         $db = $GLOBALS['CONFIG']['db']['core']['mssql']['admin'];
         unset($db['port']);
         $ssql = new SqlServerConnection($db);
+        $ssql->connect();
         self::assertEquals(DatabaseStatus::FAILURE, $ssql->getStatus());
     }
 
@@ -99,6 +102,7 @@ class SqlServerConnectionTest extends \PHPUnit\Framework\TestCase
         $db = $GLOBALS['CONFIG']['db']['core']['mssql']['admin'];
         unset($db['database']);
         $ssql = new SqlServerConnection($db);
+        $ssql->connect();
         self::assertEquals(DatabaseStatus::FAILURE, $ssql->getStatus());
     }
 
@@ -112,6 +116,7 @@ class SqlServerConnectionTest extends \PHPUnit\Framework\TestCase
         $db = $GLOBALS['CONFIG']['db']['core']['mssql']['admin'];
         unset($db['login']);
         $ssql = new SqlServerConnection($db);
+        $ssql->connect();
         self::assertEquals(DatabaseStatus::FAILURE, $ssql->getStatus());
     }
 
@@ -125,6 +130,7 @@ class SqlServerConnectionTest extends \PHPUnit\Framework\TestCase
         $db = $GLOBALS['CONFIG']['db']['core']['mssql']['admin'];
         unset($db['password']);
         $ssql = new SqlServerConnection($db);
+        $ssql->connect();
         self::assertEquals(DatabaseStatus::FAILURE, $ssql->getStatus());
     }
 
@@ -138,6 +144,7 @@ class SqlServerConnectionTest extends \PHPUnit\Framework\TestCase
         $db       = $GLOBALS['CONFIG']['db']['core']['mssql']['admin'];
         $db['db'] = 'invalid';
         $ssql     = new SqlServerConnection($db);
+        $ssql->connect();
         self::assertEquals(DatabaseStatus::FAILURE, $ssql->getStatus());
     }
 
@@ -151,6 +158,7 @@ class SqlServerConnectionTest extends \PHPUnit\Framework\TestCase
         $db['database'] = 'invalid';
 
         $ssql = new SqlServerConnection($db);
+        $ssql->connect();
         self::assertEquals(DatabaseStatus::FAILURE, $ssql->getStatus());
     }
 }

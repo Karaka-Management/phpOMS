@@ -42,6 +42,7 @@ class MysqlConnectionTest extends \PHPUnit\Framework\TestCase
     public function testConnect() : void
     {
         $mysql = new MysqlConnection($GLOBALS['CONFIG']['db']['core']['masters']['admin']);
+        $mysql->connect();
 
         self::assertEquals(DatabaseStatus::OK, $mysql->getStatus());
         self::assertEquals($GLOBALS['CONFIG']['db']['core']['masters']['admin']['database'], $mysql->getDatabase());
@@ -62,6 +63,7 @@ class MysqlConnectionTest extends \PHPUnit\Framework\TestCase
         unset($db['db']);
 
         $mysql = new MysqlConnection($db);
+        $mysql->connect();
         self::assertEquals(DatabaseStatus::FAILURE, $mysql->getStatus());
     }
 
@@ -76,6 +78,7 @@ class MysqlConnectionTest extends \PHPUnit\Framework\TestCase
         unset($db['host']);
 
         $mysql = new MysqlConnection($db);
+        $mysql->connect();
         self::assertEquals(DatabaseStatus::FAILURE, $mysql->getStatus());
     }
 
@@ -90,6 +93,7 @@ class MysqlConnectionTest extends \PHPUnit\Framework\TestCase
         unset($db['port']);
 
         $mysql = new MysqlConnection($db);
+        $mysql->connect();
         self::assertEquals(DatabaseStatus::FAILURE, $mysql->getStatus());
     }
 
@@ -104,6 +108,7 @@ class MysqlConnectionTest extends \PHPUnit\Framework\TestCase
         unset($db['database']);
 
         $mysql = new MysqlConnection($db);
+        $mysql->connect();
         self::assertEquals(DatabaseStatus::FAILURE, $mysql->getStatus());
     }
 
@@ -118,6 +123,7 @@ class MysqlConnectionTest extends \PHPUnit\Framework\TestCase
         unset($db['login']);
 
         $mysql = new MysqlConnection($db);
+        $mysql->connect();
         self::assertEquals(DatabaseStatus::FAILURE, $mysql->getStatus());
     }
 
@@ -132,6 +138,7 @@ class MysqlConnectionTest extends \PHPUnit\Framework\TestCase
         unset($db['password']);
 
         $mysql = new MysqlConnection($db);
+        $mysql->connect();
         self::assertEquals(DatabaseStatus::FAILURE, $mysql->getStatus());
     }
 
@@ -146,6 +153,7 @@ class MysqlConnectionTest extends \PHPUnit\Framework\TestCase
         $db['db'] = 'invalid';
 
         $mysql = new MysqlConnection($db);
+        $mysql->connect();
         self::assertEquals(DatabaseStatus::FAILURE, $mysql->getStatus());
     }
 
@@ -160,6 +168,7 @@ class MysqlConnectionTest extends \PHPUnit\Framework\TestCase
         $db['database'] = 'invalid';
 
         $mysql = new MysqlConnection($db);
+        $mysql->connect();
         self::assertEquals(DatabaseStatus::MISSING_DATABASE, $mysql->getStatus());
     }
 }

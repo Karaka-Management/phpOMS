@@ -45,7 +45,7 @@ abstract class ConnectionAbstract implements ConnectionInterface
      * @var null|\PDO
      * @since 1.0.0
      */
-    public ?\PDO $con;
+    protected ?\PDO $con;
 
     /**
      * Database data.
@@ -185,5 +185,23 @@ abstract class ConnectionAbstract implements ConnectionInterface
     {
         $this->con    = null;
         $this->status = DatabaseStatus::CLOSED;
+    }
+
+    /**
+     * Get values
+     *
+     * @param string $name Variable name
+     *
+     * @return mixed Returns the value of the connection
+     *
+     * @since 1.0.0
+     */
+    public function __get($name)
+    {
+        if ($name === 'con' && !isset($this->con)) {
+            $this->connect($this->dbdata);
+        }
+
+        return isset($this->{$name}) ? $this->{$name} : null;
     }
 }
