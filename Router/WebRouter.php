@@ -76,21 +76,25 @@ final class WebRouter implements RouterInterface
      * @param mixed  $destination Destination e.g. Module:function string or callback
      * @param int    $verb        Request verb
      * @param bool   $csrf        Is CSRF token required
+     * @param array  $validation  Validation patterns
+     * @param string $dataPattern Data patterns
      *
      * @return void
      *
      * @since 1.0.0
      */
-    public function add(string $route, $destination, int $verb = RouteVerb::GET, bool $csrf = false) : void
+    public function add(string $route, $destination, int $verb = RouteVerb::GET, bool $csrf = false, array $validation = [], string $dataPattern = '') : void
     {
         if (!isset($this->routes[$route])) {
             $this->routes[$route] = [];
         }
 
         $this->routes[$route][] = [
-            'dest' => $destination,
-            'verb' => $verb,
-            'csrf' => $csrf,
+            'dest'       => $destination,
+            'verb'       => $verb,
+            'csrf'       => $csrf,
+            'validation' => empty($validation) ? null : $validation,
+            'pattern'    => empty($dataPattern) ? null : $dataPattern,
         ];
     }
 
@@ -147,10 +151,6 @@ final class WebRouter implements RouterInterface
                     }
 
                     // if validation check is invalid
-                    /**
-                     * @todo Orange-Management/phpOMS#251
-                     *  [WebRouter] Implement test to validate the provided data
-                     */
                     if (isset($d['validation'])) {
                         foreach ($d['validation'] as $name => $pattern) {
                             if (!isset($data[$name]) || \preg_match($pattern, $data[$name]) !== 1) {
@@ -162,12 +162,8 @@ final class WebRouter implements RouterInterface
                     $temp = ['dest' => $d['dest']];
 
                     // fill data
-                    /**
-                     * @todo Orange-Management/phpOMS#252
-                     *  [WebRouter] Implement test for defining data from route
-                     */
                     if (isset($d['pattern'])) {
-                        \preg_match($d['pattern'], $route, $matches);
+                        \preg_match($d['pattern'], $uri, $matches);
 
                         $temp['data'] = $matches;
                     }

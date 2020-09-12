@@ -199,7 +199,7 @@ class WebRouterTest extends \PHPUnit\Framework\TestCase
      */
     public function testWithValidPermissions() : void
     {
-        if (!Autoloader::exists('\Modules\Admin\Controller')) {
+        if (!Autoloader::exists('\Modules\Admin\Controller\Controller')) {
             self::markTestSkipped();
         }
 
@@ -239,7 +239,7 @@ class WebRouterTest extends \PHPUnit\Framework\TestCase
      */
     public function testWithInvalidPermissions() : void
     {
-        if (!Autoloader::exists('\Modules\Admin\Controller')) {
+        if (!Autoloader::exists('\Modules\Admin\Controller\Controller')) {
             self::markTestSkipped();
         }
 
@@ -296,13 +296,83 @@ class WebRouterTest extends \PHPUnit\Framework\TestCase
         );
     }
 
+    /**
+     * @testdox A data validation pattern validates matches correctly
+     * @covers phpOMS\Router\WebRouter
+     * @group framework
+     */
     public function testDataValidation() : void
     {
-        self::markTestIncomplete();
+        $this->router->add(
+            '^.*/backends/admin/settings/general.*$',
+            'Controller:test',
+            RouteVerb::GET | RouteVerb::SET,
+            false,
+            ['test_pattern' => '/^[a-z]*$/']
+        );
+
+        self::assertEquals(
+            [['dest' => 'Controller:test']],
+            $this->router->route(
+                (new HttpRequest(
+                    new HttpUri('http://test.com/backends/admin/settings/general/something?test')
+                ))->getUri()->getRoute(), null, RouteVerb::ANY, null, null, null, ['test_pattern' => 'abcdef'])
+        );
     }
 
+    /**
+     * @testdox A data validation pattern invalidates missmatches
+     * @covers phpOMS\Router\WebRouter
+     * @group framework
+     */
+    public function testInvalidDataValidation() : void
+    {
+        $this->router->add(
+            '^.*/backends/admin/settings/general.*$',
+            'Controller:test',
+            RouteVerb::GET | RouteVerb::SET,
+            false,
+            ['test_pattern' => '/^[a-z]*$/']
+        );
+
+        self::assertNotEquals(
+            [['dest' => 'Controller:test']],
+            $this->router->route(
+                (new HttpRequest(
+                    new HttpUri('http://test.com/backends/admin/settings/general/something?test')
+                ))->getUri()->getRoute(), null, RouteVerb::ANY, null, null, null, ['test_pattern' => '123'])
+        );
+    }
+
+    /**
+     * @testdox A uri can be used for data population
+     * @covers phpOMS\Router\WebRouter
+     * @group framework
+     */
     public function testDataFromPattern() : void
     {
-        self::markTestIncomplete();
+        $this->router->add(
+            '^.*/backends/admin.*$',
+            'Controller:test',
+            RouteVerb::GET | RouteVerb::SET,
+            false,
+            [],
+            '/^.*?(something)=(\d*).*?$/'
+        );
+
+        self::assertEquals(
+            [[
+                'dest' => 'Controller:test',
+                'data' => [
+                    '/backends/admin?something=123&sd=asdf',
+                    'something',
+                    '123',
+                ]
+            ]],
+            $this->router->route(
+                (new HttpRequest(
+                    new HttpUri('http://test.com/backends/admin?something=123&sd=asdf')
+                ))->getUri()->getRoute(), null, RouteVerb::ANY)
+        );
     }
 }

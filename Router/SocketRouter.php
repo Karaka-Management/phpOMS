@@ -135,22 +135,6 @@ final class SocketRouter implements RouterInterface
                         }
                     }
                 }
-
-                $temp = ['dest' => $d['dest']];
-
-                // fill data
-                if (isset($d['data'])) {
-                    $data = [];
-                    foreach ($d['data'] as $name => $destination) {
-                        if (isset($data[$name])) {
-                            $data[$destination] = $data[$name];
-                        }
-                    }
-
-                    $temp['data'] = $data;
-                }
-
-                $bound[] = $temp;
             }
         }
 
