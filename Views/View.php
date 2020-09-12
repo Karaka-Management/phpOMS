@@ -344,14 +344,14 @@ class View extends ViewAbstract
     /**
      * Print a datetime
      *
-     * @param null|\DateTime $datetime DateTime to print
-     * @param string         $format   Format type to use
+     * @param null|\DateTimeInterface $datetime DateTime to print
+     * @param string                  $format   Format type to use
      *
      * @return string
      *
      * @since 1.0.0
      */
-    public function getDateTime(\DateTime $datetime = null, string $format = null) : string
+    public function getDateTime(\DateTimeInterface $datetime = null, string $format = null) : string
     {
         return $this->l11nManager->getDateTime($this->l11n, $datetime, $format);
     }

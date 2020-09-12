@@ -15,7 +15,6 @@ declare(strict_types=1);
 namespace phpOMS\Utils\Converter;
 
 use phpOMS\Stdlib\Base\Enum;
-use phpOMS\Utils\Converter\Measurement;
 
 /**
  * File size type enum.
@@ -61,11 +60,11 @@ abstract class FileSizeType extends Enum
         if ($size < 300) {
             return [$size, 'B'];
         } elseif ($size < 1000) {
-            return [Measurement::convertFileSize($size, FileSizeType::BYTE, FileSizeType::KILOBYTE), 'KB'];
+            return [Measurement::convertFileSize($size, self::BYTE, self::KILOBYTE), 'KB'];
         } elseif ($size < 1000 * 1000 * 1000) {
-            return [Measurement::convertFileSize($size, FileSizeType::BYTE, FileSizeType::MEGABYTE), 'MB'];
+            return [Measurement::convertFileSize($size, self::BYTE, self::MEGABYTE), 'MB'];
         }
 
-        return [Measurement::convertFileSize($size, FileSizeType::BYTE, FileSizeType::GIGABYTE), 'GB'];
+        return [Measurement::convertFileSize($size, self::BYTE, self::GIGABYTE), 'GB'];
     }
 }

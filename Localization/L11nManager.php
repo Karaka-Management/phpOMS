@@ -250,9 +250,6 @@ final class L11nManager
      *
      * @return string
      *
-     * @todo Orange-Management/phpOMS#247
-     *  [L11nManager] Create currency rendering test for million and billion dividers
-     *
      * @since 1.0.0
      */
     public function getCurrency(Localization $l11n, $currency, string $format = null, string $symbol = null, int $divide = 1) : string
@@ -276,15 +273,15 @@ final class L11nManager
     /**
      * Print a datetime
      *
-     * @param Localization   $l11n     Localization
-     * @param null|\DateTime $datetime DateTime to print
-     * @param string         $format   Format type to use
+     * @param Localization            $l11n     Localization
+     * @param null|\DateTimeInterface $datetime DateTime to print
+     * @param string                  $format   Format type to use
      *
      * @return string
      *
      * @since 1.0.0
      */
-    public function getDateTime(Localization $l11n, \DateTime $datetime = null, string $format = null) : string
+    public function getDateTime(Localization $l11n, \DateTimeInterface $datetime = null, string $format = null) : string
     {
         return $datetime === null ? '' : $datetime->format($l11n->getDateTime()[$format ?? 'medium']);
     }
