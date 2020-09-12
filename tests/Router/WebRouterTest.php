@@ -367,7 +367,7 @@ class WebRouterTest extends \PHPUnit\Framework\TestCase
                     '/backends/admin?something=123&sd=asdf',
                     'something',
                     '123',
-                ]
+                ],
             ]],
             $this->router->route(
                 (new HttpRequest(
