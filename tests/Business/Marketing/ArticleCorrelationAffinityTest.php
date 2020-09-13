@@ -68,4 +68,20 @@ class ArticleCorrelationAffinityTest extends \PHPUnit\Framework\TestCase
             0.001
         );
     }
+
+    /**
+     * @testdox The affinity of a new article is empty
+     * @group framework
+     */
+    public function testInvalidItemAffinity() : void
+    {
+        $orders = [
+            ['A' => 1, 'B' => 1, 'C' => 0, 'D' => 0],
+            ['A' => 0, 'B' => 1, 'C' => 0, 'D' => 0],
+        ];
+
+        $aff = new ArticleCorrelationAffinity($orders);
+
+        self::assertEquals([], $aff->getAffinity('Z'));
+    }
 }
