@@ -42,7 +42,7 @@ class CustomerValueTest extends \PHPUnit\Framework\TestCase
     public function testMRR() : void
     {
         $revenues = [
-            1, 2, 4, 8, 16, 32, 64, 128, 256, 512, 1024, 2048, 4096
+            1, 2, 4, 8, 16, 32, 64, 128, 256, 512, 1024, 2048, 4096,
         ];
 
         self::assertEqualsWithDelta(77.53846, CustomerValue::getMRR($revenues, 13, 10, 1000), 0.01);
