@@ -84,7 +84,7 @@ class ArrayUtilsTest extends \PHPUnit\Framework\TestCase
             2 => '2a',
         ];
 
-        self::assertEquals(null, ArrayUtils::getArray('a/zzz/1', $expected));
+        self::assertNull(ArrayUtils::getArray('a/zzz/1', $expected));
     }
 
     /**

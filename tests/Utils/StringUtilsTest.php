@@ -173,7 +173,7 @@ class StringUtilsTest extends \PHPUnit\Framework\TestCase
      */
     public function testInvalidStringify() : void
     {
-        self::assertEquals(null, StringUtils::stringify(new class() {}));
+        self::assertNull(StringUtils::stringify(new class() {}));
     }
 
     /**
