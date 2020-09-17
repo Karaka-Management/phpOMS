@@ -219,14 +219,16 @@ abstract class ViewAbstract implements RenderableInterface
     public function render(...$data) : string
     {
         $ob   = '';
-        $path = __DIR__ . '/../..' . $this->template . '.tpl.php';
-
-        if (!\file_exists($path)) {
-            throw new PathException($path);
-        }
 
         try {
             \ob_start();
+
+            $path = __DIR__ . '/../..' . $this->template . '.tpl.php';
+
+            if (!\file_exists($path)) {
+                throw new PathException($path);
+            }
+
             /** @noinspection PhpIncludeInspection */
             $includeData = include $path;
             $ob          = (string) \ob_get_clean();
@@ -235,7 +237,8 @@ abstract class ViewAbstract implements RenderableInterface
                 $ob = (string) \json_encode($includeData);
             }
         } catch (\Throwable $e) {
-            $ob = ''; // @codeCoverageIgnore
+            \ob_end_clean();
+            $ob = '';
         } finally {
             return $ob;
         }

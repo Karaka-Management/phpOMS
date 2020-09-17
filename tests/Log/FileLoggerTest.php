@@ -16,6 +16,7 @@ namespace phpOMS\tests\Log;
 
 use phpOMS\Log\FileLogger;
 use phpOMS\Log\LogLevel;
+use phpOMS\Utils\TestUtils;
 
 require_once __DIR__ . '/../Autoloader.php';
 
@@ -74,6 +75,30 @@ class FileLoggerTest extends \PHPUnit\Framework\TestCase
         self::assertEquals([], $this->log->getHighestPerpetrator());
         self::assertEquals([], $this->log->get());
         self::assertEquals([], $this->log->getByLine());
+    }
+
+    /**
+     * @testdox The file logger can automatically create a new instance if none exists
+     * @covers phpOMS\Log\FileLogger
+     * @group framework
+     */
+    public function testFileLoggerInstance() : void
+    {
+        if (\file_exists(__DIR__ . '/named.log')) {
+            \unlink(__DIR__ . '/named.log');
+        }
+
+        $instance = FileLogger::getInstance(__DIR__ . '/named.log', false);
+        TestUtils::getMember($instance, 'instance', null);
+
+        $log = FileLogger::getInstance(__DIR__ . '/named.log', false);
+        self::assertInstanceOf(FileLogger::class, $log);
+
+        TestUtils::setMember($instance, 'instance', $instance);
+
+        if (\file_exists(__DIR__ . '/named.log')) {
+            \unlink(__DIR__ . '/named.log');
+        }
     }
 
     /**

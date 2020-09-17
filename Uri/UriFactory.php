@@ -207,7 +207,7 @@ final class UriFactory
         }
 
         if (isset($urlStructure['query'])) {
-            \parse_str($urlStructure['query'] ?? [], $urlStructure['query']);
+            \parse_str(\str_replace('?', '&', $urlStructure['query']), $urlStructure['query']);
         }
 
         $escaped =

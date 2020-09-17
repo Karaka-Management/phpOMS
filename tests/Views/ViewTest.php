@@ -431,12 +431,10 @@ class ViewTest extends \PHPUnit\Framework\TestCase
      */
     public function testRenderException() : void
     {
-        $this->expectException(\phpOMS\System\File\PathException::class);
-
         $view = new View($this->app->l11nManager);
         $view->setTemplate('something.txt');
 
-        $view->render();
+        self::assertEquals('', $view->render());
     }
 
     /**
@@ -446,12 +444,10 @@ class ViewTest extends \PHPUnit\Framework\TestCase
      */
     public function testSerializeException() : void
     {
-        $this->expectException(\phpOMS\System\File\PathException::class);
-
         $view = new View($this->app->l11nManager);
         $view->setTemplate('something.txt');
 
-        $view->serialize();
+        self::assertEquals('', $view->serialize());
     }
 
     /**

@@ -100,23 +100,21 @@ final class Metrics
      *
      * @since 1.0.0
      */
-    public static function calculateMailingSuccess(float $discountRate, array $purchaseProbability, array $payoffs) : Matrix
+    public static function calculateMailingSuccessEstimation(float $discountRate, array $purchaseProbability, array $payoffs) : Matrix
     {
         $count  = \count($purchaseProbability);
-        $profit = new Matrix($count, $count);
+        $profit = new Vector($count, 1);
         $G      = Vector::fromArray($payoffs);
 
-        $P = [
-            $G,
-            self::createCustomerPurchaseProbabilityMatrix($purchaseProbability),
-        ];
+        $P    = self::createCustomerPurchaseProbabilityMatrix($purchaseProbability);
+        $newP = new IdentityMatrix($count);
 
-        for ($i = 0; $i < $count; ++$i) {
-            if (!isset($P[$i])) {
-                $P[$i] = $P[$i - 1]->mult($P[$i - 1]);
-            }
+        // $i = 0;
+        $profit = $profit->add($G);
 
-            $profit->add($P[$i]->mult($G)->mult(1 / \pow(1 + $discountRate, $i)));
+        for ($i = 1; $i < $count + 1; ++$i) {
+            $newP   = $newP->mult($P);
+            $profit = $profit->add($newP->mult($G)->mult(1 / \pow(1 + $discountRate, $i)));
         }
 
         return $profit;
@@ -124,6 +122,8 @@ final class Metrics
 
     /**
      * Calculate V of the migration model
+     *
+     * Pfeifer and Carraway 2000
      *
      * @param float $discountRate        Discount rate
      * @param array $purchaseProbability Purchase probabilities for different periods
@@ -147,10 +147,12 @@ final class Metrics
     /**
      * Calculate the purchase probability of the different purchase states.
      *
+     * Pfeifer and Carraway 2000
+     *
      * A customer can either buy in a certain period or not.
      * Depending on the result he either moves on to the next state (not buying) or returns to the first state (buying).
      *
-     * @param int   $period              Period to evaluate
+     * @param int   $period              Period to evaluate (t)
      * @param array $purchaseProbability Purchase probabilities
      *
      * @return Matrix [
@@ -160,12 +162,14 @@ final class Metrics
      */
     public static function migrationModelPurchaseProbability(int $period, array $purchaseProbability) : Matrix
     {
-        $matrix = self::createCustomerPurchaseProbabilityMatrix($purchaseProbability);
-        for ($i = 0; $i < $period; ++$i) {
-            $matrix = $matrix->mult($matrix);
+        $matrix    = self::createCustomerPurchaseProbabilityMatrix($purchaseProbability);
+        $newMatrix = clone $matrix;
+
+        for ($i = 0; $i < $period - 1 ; ++$i) {
+            $newMatrix = $newMatrix->mult($matrix);
         }
 
-        return $matrix;
+        return $newMatrix;
     }
 
     /**
@@ -183,7 +187,7 @@ final class Metrics
      *                p1, 1-p1, 0,
      *                p2, 0,    1-p2,
      *                p3, 0,    1-p3,
-     *                ] where pi = Probability that customer buys in period i
+     *                ] where pi = Probability that customer buys in period i / moves from one state to the next state
      *
      * @since 1.0.0
      */
@@ -193,9 +197,12 @@ final class Metrics
 
         $count = \count($purchaseProbability);
         for ($i = 0; $i < $count; ++$i) {
-            $matrix[$i]         = [];
+            $matrix[$i]         = \array_fill(0, $count, 0);
             $matrix[$i][0]      = $purchaseProbability[$i];
-            $matrix[$i][$i + 1] = 1 - $purchaseProbability[$i];
+
+            $matrix[$i][
+                $i === $count - 1 ? $i : $i + 1
+            ] = 1 - $purchaseProbability[$i];
         }
 
         return Matrix::fromArray($matrix);

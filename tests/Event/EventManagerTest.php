@@ -87,7 +87,7 @@ class EventManagerTest extends \PHPUnit\Framework\TestCase
         $this->event->addGroup('group', 'id1');
         $this->event->addGroup('group', 'id2');
 
-        $this->event->trigger('group', 'id1');
+        self::assertFalse($this->event->trigger('group', 'id1'));
         self::assertTrue($this->event->trigger('group', 'id2'));
     }
 
@@ -113,6 +113,63 @@ class EventManagerTest extends \PHPUnit\Framework\TestCase
     public function testInvalidEventTrigger() : void
     {
         self::assertFalse($this->event->trigger('invalid'));
+    }
+
+    /**
+     * @testdox An event can be triggered with group and id regex matches
+     * @covers phpOMS\Event\EventManager
+     * @group framework
+     */
+    public function testDispatchSimilarGroupAndId() : void
+    {
+        $this->event->attach('group', 'path_to_execute', false, true);
+        $this->event->addGroup('group', 'id1');
+        $this->event->addGroup('group', 'id2');
+
+        self::assertTrue($this->event->triggerSimilar('/[a-z]+/', '/id\d/'));
+    }
+
+    /**
+     * @testdox An event can be triggered with a fixed group definition and id regex matches
+     * @covers phpOMS\Event\EventManager
+     * @group framework
+     */
+    public function testDispatchSimilarId() : void
+    {
+        $this->event->attach('group', 'path_to_execute', false, true);
+        $this->event->addGroup('group', 'id1');
+        $this->event->addGroup('group', 'id2');
+
+        self::assertTrue($this->event->triggerSimilar('group', '/id\d/'));
+    }
+
+    /**
+     * @testdox An event can be triggered with regex group matches and fixed id definition
+     * @covers phpOMS\Event\EventManager
+     * @group framework
+     */
+    public function testDispatchSimilarGroup() : void
+    {
+        $this->event->attach('group', 'path_to_execute', false, true);
+        $this->event->addGroup('group', 'id1');
+        $this->event->addGroup('group', 'id2');
+
+        self::assertFalse($this->event->triggerSimilar('group', 'id1'));
+        self::assertTrue($this->event->triggerSimilar('group', 'id2'));
+    }
+
+    /**
+     * @testdox A invalid regex match will not triggered an event
+     * @covers phpOMS\Event\EventManager
+     * @group framework
+     */
+    public function testDispatchSimilarInvalid() : void
+    {
+        $this->event->attach('group', 'path_to_execute', false, true);
+        $this->event->addGroup('group', 'id1');
+        $this->event->addGroup('group', 'id2');
+
+        self::assertFalse($this->event->triggerSimilar('group', '/id\d0/'));
     }
 
     /**

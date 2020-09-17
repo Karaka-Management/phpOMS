@@ -35,7 +35,7 @@ final class Vector extends Matrix
      */
     public static function fromArray(array $vector) : self
     {
-        $v = new self();
+        $v = new self(\count($vector), 1);
         $v->setMatrixV($vector);
 
         return $v;

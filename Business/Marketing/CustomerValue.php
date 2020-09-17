@@ -27,6 +27,8 @@ final class CustomerValue
     /**
      * Simple customer lifetime value
      *
+     * Hazard Model, same as $margin * (1 + $discountRate) / (1 + $discountRate - $retentionRate)
+     *
      * @param float $margin        Margin per period
      * @param float $retentionRate Rate of remaining customers per period (= average lifetime / (1 + average lifetime))
      * @param float $discountRate  Cost of capital to discount future revenue

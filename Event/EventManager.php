@@ -144,35 +144,52 @@ final class EventManager implements \Countable
     }
 
     /**
-     * Trigger event
+     * Trigger event based on regex for group and/or id
      *
-     * @param string $group Name of the event
-     * @param string $id    Sub-requirement for event
+     * @param string $group Name of the event (can be regex)
+     * @param string $id    Sub-requirement for event (can be regex)
      * @param mixed  $data  Data to pass to the callback
      *
-     * @return bool returns true on successfully triggering the event, false if the event couldn't be triggered which also includes sub-requirements missing
-     *
-     * @todo Orange-Management/phpOMS#241
-     *  [EventManager] Create an event with a regex id/name and trigger it
+     * @return bool returns true on successfully triggering ANY event, false if NO event could be triggered which also includes sub-requirements missing
      *
      * @since 1.0.0
      */
-    public function trigger(string $group, string $id = '', $data = null) : bool
+    public function triggerSimilar(string $group, string $id = '', $data = null) : bool
     {
-        if (isset($this->callbacks[$group])) {
-            return $this->triggerSingleEvent($group, $id, $data);
+        $groupIsRegex = \stripos($group, '/') === 0;
+        $idIsRegex    = \stripos($id, '/') === 0;
+
+        $groups = [];
+        if ($groupIsRegex) {
+            foreach ($this->groups as $groupName => $value) {
+                if (\preg_match($group, $groupName) === 1) {
+                    $groups[$groupName] = [];
+                }
+            }
+        } else {
+            $groups[$group] = [];
         }
 
-        $allGroups = \array_keys($this->callbacks);
-        $result    = false;
-
-        foreach ($allGroups as $match) {
-            if (\preg_match('~^' . $match . '$~', $group) === 1) {
-                $result = $result || $this->triggerSingleEvent($match, $id, $data);
+        foreach ($groups as $groupName => $groupValues) {
+            if ($idIsRegex) {
+                foreach ($this->groups[$groupName] as $idName => $value) {
+                    if (\preg_match($id, $idName) === 1) {
+                        $groups[$groupName][] = $idName;
+                    }
+                }
+            } else {
+                $groups[$groupName][] = $id;
             }
         }
 
-        return $result;
+        $triggerValue = false;
+        foreach ($groups as $groupName => $ids) {
+            foreach ($ids as $id) {
+                $triggerValue = $triggerValue || $this->trigger($groupName, $id, $data);
+            }
+        }
+
+        return $triggerValue;
     }
 
     /**
@@ -186,8 +203,12 @@ final class EventManager implements \Countable
      *
      * @since 1.0.0
      */
-    private function triggerSingleEvent(string $group, string $id = '', $data = null) : bool
+    public function trigger(string $group, string $id = '', $data = null) : bool
     {
+        if (!isset($this->callbacks[$group])) {
+            return false;
+        }
+
         if (isset($this->groups[$group])) {
             $this->groups[$group][$id] = true;
         }

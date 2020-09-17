@@ -103,13 +103,9 @@ final class FileLogger implements LoggerInterface
         $path          = \realpath(empty($lpath) ? __DIR__ . '/../../' : $lpath);
         $this->verbose = $verbose;
 
-        if (\is_dir($lpath) || \strpos($lpath, '.') === false) {
-            $path = \rtrim($path !== false ? $path : $lpath, '/') . '/' . \date('Y-m-d') . '.log';
-        } else {
-            $path = $lpath;
-        }
-
-        $this->path = $path;
+        $this->path = \is_dir($lpath) || \strpos($lpath, '.') === false
+            ? \rtrim($path !== false ? $path : $lpath, '/') . '/' . \date('Y-m-d') . '.log'
+            : $lpath;
     }
 
     /**
@@ -134,11 +130,6 @@ final class FileLogger implements LoggerInterface
      * @param bool   $verbose Verbose logging
      *
      * @return FileLogger
-     *
-     * @todo Orange-Management/phpOMS#248
-     *  [FileLogger] Create test for getInstance
-     *  Maybe unset the instance static variable first because it might be defined already.
-     *  In order to do this use the `TestUtils` functionality.
      *
      * @since 1.0.0
      */

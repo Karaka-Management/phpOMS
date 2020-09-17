@@ -196,7 +196,7 @@ final class HttpRequest extends RequestAbstract
                 }
 
                 $line = \rtrim($lineRaw);
-                // @codeCoverageIgnoreEnd
+
                 if ($line === '') {
                     if (!empty($partInfo['Content-Disposition']['filename'])) { /* Is file */
                         $tempdir                    = \sys_get_temp_dir();
@@ -247,6 +247,7 @@ final class HttpRequest extends RequestAbstract
                         $this->files[$name]['error']    = \UPLOAD_ERR_OK;
                         $this->files[$name]['size']     = \filesize($tempname);
                         $this->files[$name]['tmp_name'] = $tempname;
+                        // @codeCoverageIgnoreEnd
                     } elseif ($partInfo !== null) { /* Is variable */
                         // @codeCoverageIgnoreStart
                         // Tested but coverage doesn't show up
@@ -362,7 +363,7 @@ final class HttpRequest extends RequestAbstract
         $firstLocalComponents = \explode('-', $locals[0]);
         // @codeCoverageIgnoreEnd
 
-        return \strtolower($firstLocalComponents[0]);
+        return \strtolower($firstLocalComponents[0]); // @codeCoverageIgnore
     }
 
     /**
@@ -383,7 +384,7 @@ final class HttpRequest extends RequestAbstract
         $locals     = \stripos($components[0], ',') !== false ? $locals = \explode(',', $components[0]) : $components;
         // @codeCoverageIgnoreEnd
 
-        return \str_replace('-', '_', $locals[0]);
+        return \str_replace('-', '_', $locals[0]); // @codeCoverageIgnore
     }
 
     /**
