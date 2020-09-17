@@ -165,7 +165,7 @@ final class Metrics
         $matrix    = self::createCustomerPurchaseProbabilityMatrix($purchaseProbability);
         $newMatrix = clone $matrix;
 
-        for ($i = 0; $i < $period - 1 ; ++$i) {
+        for ($i = 0; $i < $period - 1; ++$i) {
             $newMatrix = $newMatrix->mult($matrix);
         }
 
