@@ -25,26 +25,49 @@ use phpOMS\Auth\OAuth2\AccessToken;
  * @link    https://orange-management.org
  * @since   1.0.0
  */
-final class GeneralProvider
+class GeneralProvider extends ProviderAbstract
 {
-    /**
-     * Authorization url
-     *
-     * @var string
-     * @since 1.0.0
-     */
     private string $urlAuthorize;
 
-    /**
-     * Access token url
-     *
-     * @var string
-     * @since 1.0.0
-     */
     private string $urlAccessToken;
+
+    private string $urlResourceOwnerDetails;
+
+    private string $accessTokenMethod;
+
+    private string $accessTokenResourceOwnerId;
+
+    private ?array $scopes = null;
+
+    private string $scopeSeparator;
+
+    private string $responseCode;
+
+    private string $responseResourceOwnerId = 'id';
 
     public function __construct(array $options = [], array $collaborators = [])
     {
+        if (!isset($options['urlAuthorize'], $options['urlAccessToken'], $options['urlResourceOwnerDetails'])) {
+            throw new \InvalidArgumentException();
+        }
+
+        foreach ($options as $key => $option) {
+            if (\property_exists($this, $key)) {
+                $this->{$key} = $option;
+            }
+        }
+
+        parent::__construct([], $collaborators);
+    }
+
+    public function getBaseAuthorizationUrl() : string
+    {
+        return $this->urlAuthorize;
+    }
+
+    public function getBaseAccessTokenUrl(array $params = []) : string
+    {
+        return $this->urlAccessToken;
     }
 
     public function getDefaultScopes() : array
@@ -67,7 +90,7 @@ final class GeneralProvider
         return $this->scopeSeparator ?: parent::getScopeSeparator();
     }
 
-    private function createResourceOwner(array $reesponse, AccessToken $token) : GeneralResourceOwner
+    private function createResourceOwner(array $response, AccessToken $token) : GeneralResourceOwner
     {
         return new GeneralResourceOwner($response, $this->responseResourceOwnerId);
     }
