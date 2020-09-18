@@ -53,7 +53,7 @@ class Graph
      * @var Node[]
      * @since 1.0.0
      */
-    protected $nodes = [];
+    protected array $nodes = [];
 
     /**
      * Directed
@@ -61,7 +61,7 @@ class Graph
      * @var bool
      * @since 1.0.0
      */
-    protected $isDirected = false;
+    protected bool $isDirected = false;
 
     /**
      * Set node to graph.
@@ -91,6 +91,21 @@ class Graph
     public function getNode($key) : ?Node
     {
         return $this->nodes[$key] ?? null;
+    }
+
+    /**
+     * Define a relationship between two nodes
+     *
+     * @param Node $node1 First node
+     * @param Node $node2 Second node
+     *
+     * @return Edge
+     *
+     * @since 1.0.0
+     */
+    public function setNodeRelative(Node $node1, Node $node2) : Edge
+    {
+        return $node1->setNodeRelative($node2, null, true);
     }
 
     /**
@@ -188,6 +203,37 @@ class Graph
         }
 
         return $edges;
+    }
+
+    /**
+     * Get the edge between two nodes
+     *
+     * @param string $id1 Node id
+     * @param string $id2 Node id
+     *
+     * @return null|Edge
+     *
+     * @since 1.0.0
+     */
+    public function getEdge(string $id1, string $id2) : ?Edge
+    {
+        foreach ($this->nodes as $node) {
+            if ($node->getId() !== $id1 && $node->getId() !== $id2) {
+                continue;
+            }
+
+            $nodeEdges = $node->getEdges();
+
+            foreach ($nodeEdges as $edge) {
+                if (($edge->getNode1()->getId() === $id1 || $edge->getNode1()->getId() === $id2)
+                    && ($edge->getNode2()->getId() === $id1 || $edge->getNode2()->getId() === $id2)
+                ) {
+                    return $edge;
+                }
+            }
+        }
+
+        return null;
     }
 
     /**
@@ -289,19 +335,26 @@ class Graph
             }
 
             /** @var Node $node1 */
-            $node1 = $graph->hasNode($edge->getNode1()->getId()) ? $graph->getNode($edge->getNode1()->getId()) : clone $edge->getNode1();
+            $node1 = $graph->hasNode($edge->getNode1()->getId())
+                ? $graph->getNode($edge->getNode1()->getId())
+                : clone $edge->getNode1();
+
             /** @var Node $node2 */
-            $node2 = $graph->hasNode($edge->getNode2()->getId()) ? $graph->getNode($edge->getNode2()->getId()) : clone $edge->getNode2();
+            $node2 = $graph->hasNode($edge->getNode2()->getId())
+                ? $graph->getNode($edge->getNode2()->getId())
+                : clone $edge->getNode2();
 
-            $node1->setNodeRelative($node2);
-
-            if (!$graph->hasNode($edge->getNode1()->getId())) {
+            if (!$graph->hasNode($node1->getId())) {
+                $node1->removeEdges();
                 $graph->setNode($node1);
             }
 
-            if (!$graph->hasNode($edge->getNode2()->getId())) {
+            if (!$graph->hasNode($node2->getId())) {
+                $node2->removeEdges();
                 $graph->setNode($node2);
             }
+
+            $node1->setNodeRelative($node2)->setWeight($this->getEdge($node1->getId(), $node2->getId())->getWeight());
         }
 
         return $graph;

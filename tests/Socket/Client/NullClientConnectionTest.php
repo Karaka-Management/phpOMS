@@ -14,13 +14,16 @@ declare(strict_types=1);
 
 namespace phpOMS\tests\Socket\Client;
 
+use phpOMS\Socket\Client\NullClientConnection;
+use phpOMS\Socket\Client\ClientConnection;
+
 /**
  * @internal
  */
 final class NullClientConnectionTest extends \PHPUnit\Framework\TestCase
 {
-    public function testPlaceholder() : void
+    public function testDefault() : void
     {
-        self::markTestIncomplete();
+        self::assertInstanceOf(ClientConnection::class, new NullClientConnection());
     }
 }

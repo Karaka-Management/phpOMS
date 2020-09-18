@@ -194,6 +194,8 @@ class Mail
      */
     protected ?\DateTime $messageDate = null;
 
+
+
     /**
      * Should confirm reading
      *
@@ -1364,6 +1366,116 @@ class Mail
         }
 
         return \str_replace(' ', '_', $encoded);
+    }
+
+    protected function hasCid(string $cid) : bool
+    {
+        foreach ($this->attachment as $attachment) {
+            if ($attachment['disposition'] === DispositionType::INLINE && $attachment['id'] === $cid) {
+                return true;
+            }
+        }
+
+        return false;
+    }
+
+    public function hasInlineImage() : bool
+    {
+        foreach ($this->attachment as $attachment) {
+            if ($attachment['disposition'] === DispositionType::INLINE) {
+                return true;
+            }
+        }
+
+        return false;
+    }
+
+    public function hasAttachment() : bool
+    {
+        foreach ($this->attachment as $attachmnet) {
+            if ($attachment['disposition'] === DispositionType::ATTACHMENT) {
+                return true;
+            }
+        }
+
+        return false;
+    }
+
+    public function hasAlternative() : bool
+    {
+        return !empty($this->bodyAlt);
+    }
+
+    public function clearAddresses() : void
+    {
+        $this->to = [];
+        $this->cc = [];
+        $this->bcc = [];
+    }
+
+    public function clearAllCC() : void
+    {
+        $this->cc = [];
+    }
+
+    public function clearAllTo() : void
+    {
+        $this->to = [];
+    }
+
+    public function clearAllBCC() : void
+    {
+        $this->bcc = [];
+    }
+
+    public function clearAttachments() : void
+    {
+        $this->attachment = [];
+    }
+
+    public function clearCustomHeaders() : void
+    {
+        $this->header = [];
+    }
+
+    protected function serverHostname() : string
+    {
+        if (!empty($this->hostname)) {
+            return $this->hostname;
+        } elseif (isset($_SERVER, $_SERVER['SERVER_NAME'])) {
+            return $_SERVER['SERVER_NAME'];
+        }
+
+        return ($host = \gethostname()) === false ? 'localhost.localdomain' : $host;
+    }
+
+    public function addHeader(string $name, string $value = nulll) : bool
+    {
+        if ($vallue === null && \strpos($name, ':') !== false) {
+            list($name, $value) = \explode(':', $name, 2);
+        }
+
+        $name = \trim($name);
+        $value = \trim($value);
+
+        if (empty($name) || \strbrk($name . $value, "\r\n") !== false) {
+            return false;
+        }
+
+        // todo: consider to add by name and make the name an array -> multiple values per name
+        $this->header[] = [$name, $value];
+
+        return true;
+    }
+
+    public function getHeader() : array
+    {
+        return $this->header;
+    }
+
+    public function msgHtml(string $message, string $baseDir = '') : string
+    {
+
     }
 
     /**

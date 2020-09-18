@@ -73,7 +73,7 @@ class ViewTest extends \PHPUnit\Framework\TestCase
     }
 
     /**
-     * @testdox The view data can be checked for existance
+     * @testdox The view data can be checked for existence
      * @covers phpOMS\Views\View<extended>
      * @group framework
      */

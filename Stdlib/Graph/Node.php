@@ -117,16 +117,17 @@ class Node
     /**
      * Set a relative undirected node.
      *
-     * @param Node $node Graph node
-     * @param int  $key  Index for absolute position
+     * @param Node  $node       Graph node
+     * @param int   $key        Index for absolute position
+     * @param booll $isDirected Is directed
      *
      * @return Edge
      *
      * @since 1.0.0
      */
-    public function setNodeRelative(self $node, int $key = null) : Edge
+    public function setNodeRelative(self $node, int $key = null, bool $isDirected = false) : Edge
     {
-        $edge = new Edge($this, $node);
+        $edge = new Edge($this, $node, 0.0, $isDirected);
         $this->setEdge($edge, $key);
 
         if (!$edge->isDirected()) {
@@ -181,6 +182,18 @@ class Node
     public function getEdges() : array
     {
         return $this->edges;
+    }
+
+    /**
+     * Removes all edges / neighbours from the node
+     *
+     * @return void
+     *
+     * @since 1.0.0
+     */
+    public function removeEdges() : void
+    {
+        $this->edges = [];
     }
 
     /**

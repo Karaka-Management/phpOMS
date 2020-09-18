@@ -15,6 +15,9 @@ declare(strict_types=1);
 namespace phpOMS\tests\Stdlib\Graph;
 
 use phpOMS\Stdlib\Graph\Node;
+use phpOMS\Stdlib\Graph\Edge;
+
+use function PHPUnit\Framework\assertInstanceOf;
 
 /**
  * @testdox phpOMS\tests\Stdlib\Graph\NodeTest: Node in a graph
@@ -79,5 +82,84 @@ class NodeTest extends \PHPUnit\Framework\TestCase
         $node2 = new Node('A', 2);
 
         self::assertFalse($node->isEqual($node2));
+    }
+
+    /**
+     * @testdox An edge for a node can be defined
+     * @covers phpOMS\Stdlib\Graph\Node
+     * @group framework
+     */
+    public function testEdgeInputOutput() : void
+    {
+        $node = new Node('A', 1);
+        $node->setEdge(new Edge($node, new Node('B')));
+
+        self::assertCount(1, $node->getEdges());
+    }
+
+    /**
+     * @testdox Edges can be removed from a node
+     * @covers phpOMS\Stdlib\Graph\Node
+     * @group framework
+     */
+    public function testEdgeRemove() : void
+    {
+        $node = new Node('A', 1);
+        $node->setEdge(new Edge($node, new Node('B')));
+        $node->removeEdges();
+
+        self::assertCount(0, $node->getEdges());
+    }
+
+    /**
+     * @testdox An edge for a node can be defined by key
+     * @covers phpOMS\Stdlib\Graph\Node
+     * @group framework
+     */
+    public function testEdgeKeyInputOutput() : void
+    {
+        $node = new Node('A', 1);
+        $node->setEdge(new Edge($node, new Node('B')), 3);
+
+        self::assertEquals(null, $node->getEdge(2));
+        self::assertInstanceOf(Edge::class, $node->getEdge(3));
+    }
+
+    /**
+     * @testdox A node relationship can be defined
+     * @covers phpOMS\Stdlib\Graph\Node
+     * @group framework
+     */
+    public function testNodeRelation() : void
+    {
+        $node1 = new Node('A');
+        $node2 = new Node('B');
+
+        self::assertInstanceOf(Edge::class, $edge = $node1->setNodeRelative($node2, null, false));
+        self::assertCount(1, $node2->getEdges());
+        self::assertFalse($edge->isDirected());
+    }
+
+    /**
+     * @testdox All neighbors of a node can be returned
+     * @covers phpOMS\Stdlib\Graph\Node
+     * @group framework
+     *
+     * @todo: is there bug where directed graphs return invalid neighbors?
+     */
+    public function testNeighborsInputOutput() : void
+    {
+        $node1 = new Node('A');
+        $node2 = new Node('B');
+        $node3 = new Node('C');
+        $node4 = new Node('D');
+
+        $node3->setNodeRelative($node4);
+
+        $node1->setNodeRelative($node2);
+        $node1->setNodeRelative($node3);
+
+        self::assertCount(2, $node1->getNeighbors());
+        self::assertCount(1, $node4->getNeighbors());
     }
 }

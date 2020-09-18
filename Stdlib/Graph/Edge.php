@@ -32,7 +32,7 @@ class Edge
      * @var Node
      * @since 1.0.0
      */
-    private $node1 = null;
+    private Node $node1;
 
     /**
      * Node2.
@@ -42,7 +42,7 @@ class Edge
      * @var Node
      * @since 1.0.0
      */
-    private $node2 = null;
+    private Node $node2;
 
     /**
      * Is graph/edge directed
@@ -50,7 +50,7 @@ class Edge
      * @var bool
      * @since 1.0.0
      */
-    private $isDirected = false;
+    private bool $isDirected = false;
 
     /**
      * Edge weight
@@ -58,7 +58,7 @@ class Edge
      * @var float
      * @since 1.0.0
      */
-    private $weight = 0.0;
+    private float $weight = 0.0;
 
     /**
      * Constructor.
@@ -88,6 +88,20 @@ class Edge
     public function getNodes() : array
     {
         return [$this->node1, $this->node2];
+    }
+
+    /**
+     * Set weight
+     *
+     * @param float $weight Weight
+     *
+     * @return void
+     *
+     * @since 1.0.0
+     */
+    public function setWeight(float $weight) : void
+    {
+        $this->weight = $weight;
     }
 
     /**

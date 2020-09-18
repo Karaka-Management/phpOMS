@@ -207,7 +207,16 @@ final class UriFactory
         }
 
         if (isset($urlStructure['query'])) {
-            \parse_str(\str_replace('?', '&', $urlStructure['query']), $urlStructure['query']);
+            $len = \strlen($urlStructure['query']);
+            for ($i = 0; $i < $len; ++$i) {
+                if ($urlStructure['query'][$i] === '?') {
+                    $urlStructure['query'] = \substr_replace($urlStructure['query'], '&', $i, 1);
+                } elseif ($urlStructure['query'][$i] === '\\') {
+                    ++$i;
+                }
+            }
+
+            \parse_str($urlStructure['query'], $urlStructure['query']);
         }
 
         $escaped =
