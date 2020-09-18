@@ -194,8 +194,6 @@ class Mail
      */
     protected ?\DateTime $messageDate = null;
 
-
-
     /**
      * Should confirm reading
      *
@@ -1408,8 +1406,8 @@ class Mail
 
     public function clearAddresses() : void
     {
-        $this->to = [];
-        $this->cc = [];
+        $this->to  = [];
+        $this->cc  = [];
         $this->bcc = [];
     }
 
@@ -1455,7 +1453,7 @@ class Mail
             list($name, $value) = \explode(':', $name, 2);
         }
 
-        $name = \trim($name);
+        $name  = \trim($name);
         $value = \trim($value);
 
         if (empty($name) || \strbrk($name . $value, "\r\n") !== false) {
@@ -1475,7 +1473,6 @@ class Mail
 
     public function msgHtml(string $message, string $baseDir = '') : string
     {
-
     }
 
     /**

@@ -15,8 +15,8 @@ declare(strict_types=1);
 
 namespace phpOMS\Auth\OAuth2\OptionProvider;
 
-use phpOMS\System\MimeType;
 use phpOMS\Message\Http\RequestMethod;
+use phpOMS\System\MimeType;
 
 /**
  * Provider class.
@@ -31,7 +31,7 @@ class PostAuthOptionProvider implements OptionProviderInterface
     public function getAccessTokenOptions(string $method, array $params) : array
     {
         $options = [
-            'headers' => ['content-type' => MimeType::M_POST]
+            'headers' => ['content-type' => MimeType::M_POST],
         ];
 
         if ($method === RequestMethod::POST) {

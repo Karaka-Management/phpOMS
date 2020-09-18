@@ -14,10 +14,8 @@ declare(strict_types=1);
 
 namespace phpOMS\tests\Stdlib\Graph;
 
-use phpOMS\Stdlib\Graph\Node;
 use phpOMS\Stdlib\Graph\Edge;
-
-use function PHPUnit\Framework\assertInstanceOf;
+use phpOMS\Stdlib\Graph\Node;
 
 /**
  * @testdox phpOMS\tests\Stdlib\Graph\NodeTest: Node in a graph
@@ -121,7 +119,7 @@ class NodeTest extends \PHPUnit\Framework\TestCase
         $node = new Node('A', 1);
         $node->setEdge(new Edge($node, new Node('B')), 3);
 
-        self::assertEquals(null, $node->getEdge(2));
+        self::assertNull($node->getEdge(2));
         self::assertInstanceOf(Edge::class, $node->getEdge(3));
     }
 

@@ -126,12 +126,12 @@ abstract class ProviderAbstract
         $this->state = $options['state'];
 
         $options += [
-            'response_type' => 'code',
+            'response_type'   => 'code',
             'approval_prompt' => 'auto',
         ];
 
         if (\is_array($options['scope'])) {
-            $options['scope'] = implode($this->getScopeSeparator(), $options['scope']);
+            $options['scope'] = \implode($this->getScopeSeparator(), $options['scope']);
         }
 
         $options['redirect_uri'] ??= $this->redirectUri;
@@ -147,9 +147,9 @@ abstract class ProviderAbstract
 
     public function getauthorizationUrl(array $options = []) : string
     {
-        $base = $this->getBaseAuthorizationUrl();
+        $base   = $this->getBaseAuthorizationUrl();
         $params = $this->getAuthorizationParameters($options);
-        $query = $this->getAuthorizationQuery($params);
+        $query  = $this->getAuthorizationQuery($params);
 
         return UriFactory::build($base . '?' . $query);
     }
@@ -162,7 +162,7 @@ abstract class ProviderAbstract
         }
 
         // @codeCoverageIgnoreStart
-        header('Location: ' . $url);
+        \header('Location: ' . $url);
         exit;
         // @codeCoverageIgnoreEnd
     }
@@ -199,8 +199,8 @@ abstract class ProviderAbstract
 
     protected function getAccessTokenRequest(array $params) : HttpRequest
     {
-        $method = $this->getAccessTokenMethod();
-        $url = $this->getAccessTokenUrl($params);
+        $method  = $this->getAccessTokenMethod();
+        $url     = $this->getAccessTokenUrl($params);
         $options = $this->getoptionProvider->getAccessTokenOptions($this->getAccessTokenMethod(), $params);
 
         return $this->createRequest($method, $url, null, $options);
@@ -212,17 +212,17 @@ abstract class ProviderAbstract
         $grant = \is_string($grant) ? $this->grantFactory->getGrant($grant) : $this->verifyGrant();
 
         $params = [
-            'client_id' => $this->clientId,
+            'client_id'     => $this->clientId,
             'client_secret' => $this->clientSecret,
-            'redirect_uri' => $this->redirectUri,
+            'redirect_uri'  => $this->redirectUri,
         ];
 
-        $params = $grant->prepareRequestParameters($params, $options);
-        $request = $this->getAccessTokenRequest($params);
+        $params   = $grant->prepareRequestParameters($params, $options);
+        $request  = $this->getAccessTokenRequest($params);
         $response = $this->getParsedResponse($request);
 
         $prepared = $this->prepareAccessTokenResponse($response);
-        $token = $this->createAccessToken($prepared, $grant);
+        $token    = $this->createAccessToken($prepared, $grant);
 
         return $token;
     }
@@ -242,7 +242,7 @@ abstract class ProviderAbstract
     public function getParsedResponse(HttpRequest $request)
     {
         $response = $request->rest();
-        $parsed = $this->parseResponse($response);
+        $parsed   = $this->parseResponse($response);
 
         $this->checkResponse($response, $parsed);
 
@@ -252,7 +252,7 @@ abstract class ProviderAbstract
     protected function parseResponse(HttpResponse $response) : array
     {
         $content = $response->getBody();
-        $type = \implode(';', (array) $response->getHeader()->get('Content-Type'));
+        $type    = \implode(';', (array) $response->getHeader()->get('Content-Type'));
 
         if (\stripos($type, 'urlencoded') !== false) {
             \parse_str($content, $parsed);
@@ -267,7 +267,9 @@ abstract class ProviderAbstract
         }
     }
 
-    abstract protected function checkResponse(HttpResponse $response, $data) : void; // todo: consider to make bool
+    abstract protected function checkResponse(HttpResponse $response, $data) : void;
+
+ // todo: consider to make bool
 
     protected function prepareAccessTokenResponse(array $result) : array
     {
@@ -294,8 +296,8 @@ abstract class ProviderAbstract
 
     protected function fetchResourceOwnerDetails(AccessToken $token)
     {
-        $url = $this->getResourceOwnerDetailsUrl($token);
-        $request = $this->getAuthenticatedRequest(RequestMethod::GET, $url, $token);
+        $url      = $this->getResourceOwnerDetailsUrl($token);
+        $request  = $this->getAuthenticatedRequest(RequestMethod::GET, $url, $token);
         $response = $this->getParsedResponse($request);
 
         return $response;

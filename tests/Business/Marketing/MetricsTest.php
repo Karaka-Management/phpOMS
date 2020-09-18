@@ -38,12 +38,12 @@ class MetricsTest extends \PHPUnit\Framework\TestCase
      */
     public function testBerrysCustomerProfits() : void
     {
-        $acquisitionCost = 30.0;
-        $customers = 100000;
+        $acquisitionCost          = 30.0;
+        $customers                = 100000;
         $ongoingMarketingCustomer = 10;
-        $revenueCustomer = 100;
-        $cogsCustomer = 50;
-        $discountRate = 0.15;
+        $revenueCustomer          = 100;
+        $cogsCustomer             = 50;
+        $discountRate             = 0.15;
 
         self::assertEqualsWithDelta(
             4076923.08,

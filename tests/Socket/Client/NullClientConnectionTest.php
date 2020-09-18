@@ -14,8 +14,8 @@ declare(strict_types=1);
 
 namespace phpOMS\tests\Socket\Client;
 
-use phpOMS\Socket\Client\NullClientConnection;
 use phpOMS\Socket\Client\ClientConnection;
+use phpOMS\Socket\Client\NullClientConnection;
 
 /**
  * @internal

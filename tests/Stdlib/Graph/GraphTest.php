@@ -270,7 +270,7 @@ class GraphTest extends \PHPUnit\Framework\TestCase
             $this->graph->getEdge($node1->getId(), $node3->getId())->getNode2()->getId()
         );
 
-        self::assertEquals(null, $this->graph->getEdge('invalid1', 'invalid2'));
+        self::assertNull($this->graph->getEdge('invalid1', 'invalid2'));
     }
 
     /**

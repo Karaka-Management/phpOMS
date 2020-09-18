@@ -30,7 +30,7 @@ class HttpBasicAuthOptionProvider extends PostAuthOptionProvider
         $encoded = \base64_encode($params['client_id'] . ':' . $params['client_secret']);
         unset($params['client_id'], $params['client_secret']);
 
-        $options = parent::getAccessTokenOptions($method, $params);
+        $options                             = parent::getAccessTokenOptions($method, $params);
         $options['headers']['Authorization'] = 'Basic ' . $encoded;
 
         return $options;

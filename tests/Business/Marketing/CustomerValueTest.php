@@ -35,7 +35,6 @@ class CustomerValueTest extends \PHPUnit\Framework\TestCase
         self::assertEqualsWithDelta(30000, CustomerValue::getSimpleCLV($margin, $retention, 0.0), 0.1);
     }
 
-
     /**
      * @testdox The monthly recurring revenue (MRR) is correctly calculated
      * @group framework
