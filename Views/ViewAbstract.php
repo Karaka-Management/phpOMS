@@ -218,7 +218,7 @@ abstract class ViewAbstract implements RenderableInterface
      */
     public function render(...$data) : string
     {
-        $ob   = '';
+        $ob = '';
 
         try {
             \ob_start();
