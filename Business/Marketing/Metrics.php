@@ -197,8 +197,8 @@ final class Metrics
 
         $count = \count($purchaseProbability);
         for ($i = 0; $i < $count; ++$i) {
-            $matrix[$i]         = \array_fill(0, $count, 0);
-            $matrix[$i][0]      = $purchaseProbability[$i];
+            $matrix[$i]    = \array_fill(0, $count, 0);
+            $matrix[$i][0] = $purchaseProbability[$i];
 
             $matrix[$i][
                 $i === $count - 1 ? $i : $i + 1
