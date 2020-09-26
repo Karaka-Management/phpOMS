@@ -63,7 +63,7 @@ abstract class FileAbstract implements ContainerInterface
     /**
      * Created at.
      *
-     * @var \DateTime
+     * @var \DateTimeImmutable
      * @since 1.0.0
      */
     protected \DateTimeImmutable $createdAt;

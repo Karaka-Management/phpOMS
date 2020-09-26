@@ -117,9 +117,9 @@ class Node
     /**
      * Set a relative undirected node.
      *
-     * @param Node  $node       Graph node
-     * @param int   $key        Index for absolute position
-     * @param booll $isDirected Is directed
+     * @param Node $node       Graph node
+     * @param int  $key        Index for absolute position
+     * @param bool $isDirected Is directed
      *
      * @return Edge
      *
