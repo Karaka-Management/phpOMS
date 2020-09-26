@@ -90,7 +90,7 @@ class AccessToken implements AccessTokenInterface, ResourceOwnerAccessTokenInter
         return $this->expires < \time();
     }
 
-    public function getValues(): array
+    public function getValues() : array
     {
         return $this->vallues;
     }

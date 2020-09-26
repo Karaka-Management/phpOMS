@@ -31,7 +31,7 @@ class GeneralResourceOwner implements ResourceOwnerInterface
 
     public function __construct(array $response, string $resourceOwnerId)
     {
-        $this->response = $response;
+        $this->response        = $response;
         $this->resourceOwnerId = $resourceOwnerId;
     }
 

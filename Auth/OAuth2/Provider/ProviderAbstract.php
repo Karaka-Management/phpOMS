@@ -15,17 +15,17 @@ declare(strict_types=1);
 
 namespace phpOMS\Auth\OAuth2\Provider;
 
+use phpOMS\Auth\OAuth2\Grant\GrantAbstract;
+use phpOMS\Auth\OAuth2\Grant\GrantFactory;
+use phpOMS\Auth\OAuth2\OptionProvider\OptionProviderInterface;
+use phpOMS\Auth\OAuth2\OptionProvider\PostAuthOptionProvider;
+use phpOMS\Auth\OAuth2\Token\AccessToken;
+use phpOMS\Auth\OAuth2\Token\AccessTokenInterface;
+use phpOMS\Message\Http\HttpRequest;
 use phpOMS\Message\Http\HttpResponse;
 use phpOMS\Message\Http\RequestMethod;
 use phpOMS\Uri\UriFactory;
 use phpOMS\Utils\ArrayUtils;
-use phpOMS\Auth\OAuth2\Grant\GrantFactory;
-use phpOMS\Auth\OAuth2\OptionProvider\OptionProviderInterface;
-use phpOMS\Auth\OAuth2\Grant\GrantAbstract;
-use phpOMS\Auth\OAuth2\Token\AccessToken;
-use phpOMS\Auth\OAuth2\Token\AccessTokenInterface;
-use phpOMS\Message\Http\HttpRequest;
-use phpOMS\Auth\OAuth2\OptionProvider\PostAuthOptionProvider;
 
 /**
  * Provider class.
