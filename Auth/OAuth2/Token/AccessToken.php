@@ -4,7 +4,7 @@
  *
  * PHP Version 7.4
  *
- * @package   phpOMS\Auth\OAuth2
+ * @package   phpOMS\Auth\OAuth2\Token
  * @copyright Dennis Eichhorn
  * @license   OMS License 1.0
  * @version   1.0.0
@@ -17,7 +17,7 @@ namespace phpOMS\Auth\OAuth2\Token;
 /**
  * Access token class.
  *
- * @package phpOMS\Auth\OAuth2
+ * @package phpOMS\Auth\OAuth2\Token
  * @license OMS License 1.0
  * @link    https://orange-management.org
  * @since   1.0.0

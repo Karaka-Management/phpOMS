@@ -4,7 +4,7 @@
  *
  * PHP Version 7.4
  *
- * @package   phpOMS\Auth\OAuth2\OptionProvider
+ * @package   phpOMS\Auth\OAuth2\Provider
  * @copyright Dennis Eichhorn
  * @license   OMS License 1.0
  * @version   1.0.0
@@ -18,7 +18,7 @@ namespace phpOMS\Auth\OAuth2\Provider;
 /**
  * Provider class.
  *
- * @package phpOMS\Auth\OAuth2\OptionProvider
+ * @package phpOMS\Auth\OAuth2\Provider
  * @license OMS License 1.0
  * @link    https://orange-management.org
  * @since   1.0.0
