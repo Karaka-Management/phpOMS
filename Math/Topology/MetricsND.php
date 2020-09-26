@@ -112,7 +112,7 @@ final class MetricsND
             $dist[] = \abs($a[$key] - $b[$key]);
         }
 
-        return \max($dist);
+        return (float) \max($dist);
     }
 
     /**
