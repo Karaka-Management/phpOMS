@@ -57,7 +57,7 @@ final class MetricsND
 
         $dist = 0.0;
         foreach ($a as $key => $e) {
-            $dist += \abs($a[$key] - $b[$key]);
+            $dist += \abs($e - $b[$key]);
         }
 
         return $dist;
@@ -83,7 +83,7 @@ final class MetricsND
 
         $dist = 0.0;
         foreach ($a as $key => $e) {
-            $dist += \abs($a[$key] - $b[$key]) ** 2;
+            $dist += \abs($e - $b[$key]) ** 2;
         }
 
         return \sqrt($dist);
@@ -109,7 +109,7 @@ final class MetricsND
 
         $dist = [];
         foreach ($a as $key => $e) {
-            $dist[] = \abs($a[$key] - $b[$key]);
+            $dist[] = \abs($e - $b[$key]);
         }
 
         return (float) \max($dist);
@@ -136,7 +136,7 @@ final class MetricsND
 
         $dist = 0.0;
         foreach ($a as $key => $e) {
-            $dist += \pow(\abs($a[$key] - $b[$key]), $lambda);
+            $dist += \pow(\abs($e - $b[$key]), $lambda);
         }
 
         return \pow($dist, 1 / $lambda);
@@ -162,7 +162,7 @@ final class MetricsND
 
         $dist = 0.0;
         foreach ($a as $key => $e) {
-            $dist += \abs($a[$key] - $b[$key]) / (\abs($a[$key]) + \abs($b[$key]));
+            $dist += \abs($e - $b[$key]) / (\abs($e) + \abs($b[$key]));
         }
 
         return $dist;
@@ -189,8 +189,8 @@ final class MetricsND
         $distTop    = 0.0;
         $distBottom = 0.0;
         foreach ($a as $key => $e) {
-            $distTop    += \abs($a[$key] - $b[$key]);
-            $distBottom += $a[$key] + $b[$key];
+            $distTop    += \abs($e - $b[$key]);
+            $distBottom += $e + $b[$key];
         }
 
         return $distTop / $distBottom;
@@ -218,8 +218,8 @@ final class MetricsND
         $distBottomA = 0.0;
         $distBottomB = 0.0;
         foreach ($a as $key => $e) {
-            $distTop     += $a[$key] * $b[$key];
-            $distBottomA += $a[$key] ** 2;
+            $distTop     += $e * $b[$key];
+            $distBottomA += $e ** 2;
             $distBottomB += $b[$key] ** 2;
         }
 
