@@ -12,7 +12,7 @@
  */
 declare(strict_types=1);
 
-namespace phpOMS\Auth\OAuth2;
+namespace phpOMS\Auth\OAuth2\Token;
 
 /**
  * Access token class.
@@ -88,6 +88,11 @@ class AccessToken implements AccessTokenInterface, ResourceOwnerAccessTokenInter
     public function hasExpired() : bool
     {
         return $this->expires < \time();
+    }
+
+    public function getValues(): array
+    {
+        return $this->vallues;
     }
 
     public function __toString()

@@ -15,7 +15,7 @@ declare(strict_types=1);
 
 namespace phpOMS\Auth\OAuth2\Provider;
 
-use phpOMS\Auth\OAuth2\AccessToken;
+use phpOMS\Auth\OAuth2\Token\AccessToken;
 
 /**
  * Provider class.
@@ -70,27 +70,32 @@ class GeneralProvider extends ProviderAbstract
         return $this->urlAccessToken;
     }
 
+    public function getResourceOwnerDetailsUrl(AccessToken $token) : string
+    {
+        return $this->urlResourceOwnerDetails;
+    }
+
     public function getDefaultScopes() : array
     {
         return $this->scopes;
     }
 
-    private function getAccessTokenMethod() : string
+    protected function getAccessTokenMethod() : string
     {
         return $this->accessTokenMethod ?: parent::getAccessTokenMethod();
     }
 
-    private function getAccessTokenResourceOwnerId() : string
+    protected function getAccessTokenResourceOwnerId() : string
     {
         return $this->accessTokenResourceOwnerId ?: parent::getAccessTokenResourceOwnerId();
     }
 
-    private function getScopeSeparator() : string
+    protected function getScopeSeparator() : string
     {
         return $this->scopeSeparator ?: parent::getScopeSeparator();
     }
 
-    private function createResourceOwner(array $response, AccessToken $token) : GeneralResourceOwner
+    protected function createResourceOwner(array $response, AccessToken $token) : GeneralResourceOwner
     {
         return new GeneralResourceOwner($response, $this->responseResourceOwnerId);
     }

@@ -19,6 +19,13 @@ use phpOMS\Message\Http\HttpResponse;
 use phpOMS\Message\Http\RequestMethod;
 use phpOMS\Uri\UriFactory;
 use phpOMS\Utils\ArrayUtils;
+use phpOMS\Auth\OAuth2\Grant\GrantFactory;
+use phpOMS\Auth\OAuth2\OptionProvider\OptionProviderInterface;
+use phpOMS\Auth\OAuth2\Grant\GrantAbstract;
+use phpOMS\Auth\OAuth2\Token\AccessToken;
+use phpOMS\Auth\OAuth2\Token\AccessTokenInterface;
+use phpOMS\Message\Http\HttpRequest;
+use phpOMS\Auth\OAuth2\OptionProvider\PostAuthOptionProvider;
 
 /**
  * Provider class.
@@ -142,7 +149,7 @@ abstract class ProviderAbstract
 
     protected function getAuthorizationQuery(array $params) : string
     {
-        return \http_build_query($params, null, '&', \PHP_QUERY_RFC3986);
+        return \http_build_query($params, '', '&', \PHP_QUERY_RFC3986);
     }
 
     public function getauthorizationUrl(array $options = []) : string
@@ -154,10 +161,10 @@ abstract class ProviderAbstract
         return UriFactory::build($base . '?' . $query);
     }
 
-    public function authorize(array $options = [], callable $redirectHander = null)
+    public function authorize(array $options = [], callable $redirectHandler = null)
     {
         $url = $this->getAuthorizationUrl($options);
-        if ($redirectHander !== null) {
+        if ($redirectHandler !== null) {
             return $redirectHandler($url, $this);
         }
 
@@ -177,21 +184,14 @@ abstract class ProviderAbstract
         return static::ACCESS_TOKEN_RESOURCE_OWNER_ID;
     }
 
-    protected function verifyGrant($grant) : AbstractGrant
-    {
-        $this->grantFactory->checkGrant($grant);
-
-        return $grant;
-    }
-
     protected function getAccessTokenUrl(array $params) : string
     {
         $url = $this->getBaseAccessTokenUrl($params);
 
         if ($this->getAccessTokenMethod() === RequestMethod::GET) {
-            $query = $this->getAccessTokenQuery($params);
+            $query = \http_build_query($params, '', '&', \PHP_QUERY_RFC3986);
 
-            return UriFactory::build($ur . '?' . $query);
+            return UriFactory::build($url . '?' . $query);
         }
 
         return $url;
@@ -209,7 +209,7 @@ abstract class ProviderAbstract
     // string | Grant
     public function getAccessToken($grant, array $options = []) : AccessTokenInterface
     {
-        $grant = \is_string($grant) ? $this->grantFactory->getGrant($grant) : $this->verifyGrant();
+        $grant = \is_string($grant) ? $this->grantFactory->getGrant($grant) : $grant;
 
         $params = [
             'client_id'     => $this->clientId,
@@ -244,8 +244,6 @@ abstract class ProviderAbstract
         $response = $request->rest();
         $parsed   = $this->parseResponse($response);
 
-        $this->checkResponse($response, $parsed);
-
         return $parsed;
     }
 
@@ -267,8 +265,6 @@ abstract class ProviderAbstract
         }
     }
 
-    abstract protected function checkResponse(HttpResponse $response, $data) : void;
-
  // todo: consider to make bool
 
     protected function prepareAccessTokenResponse(array $result) : array
@@ -280,7 +276,7 @@ abstract class ProviderAbstract
         return $result;
     }
 
-    protected function createAccessToken(array $response, AbstractGrant $grant) : AccessTokenInterface
+    protected function createAccessToken(array $response, GrantAbstract $grant) : AccessTokenInterface
     {
         return new AccessToken($response);
     }
@@ -297,7 +293,7 @@ abstract class ProviderAbstract
     protected function fetchResourceOwnerDetails(AccessToken $token)
     {
         $url      = $this->getResourceOwnerDetailsUrl($token);
-        $request  = $this->getAuthenticatedRequest(RequestMethod::GET, $url, $token);
+        $request  = $this->createRequest(RequestMethod::GET, $url, $token, []);
         $response = $this->getParsedResponse($request);
 
         return $response;

@@ -34,7 +34,7 @@ class GrantFactory
         return $this;
     }
 
-    public function getGrant(string $name) : AbstractGrant
+    public function getGrant(string $name) : GrantAbstract
     {
         if (!isset($this->registry[$name])) {
             $this->registerDefaultGrant($name);
@@ -45,10 +45,12 @@ class GrantFactory
 
     protected function registerDefaultGrant(string $name) : self
     {
-        $class = \str_replace(' ', '', \ucwords(\str_replace(['-', '_', ' ', $name])));
+        $class = \str_replace(' ', '', \ucwords(\str_replace(['-', '_'], ' ', $name)));
         $class = 'phpOMS\\OAuth2\\Grant\\' . $class;
 
-        $this->checkGrant($class);
+        if (!\is_subclass_of($class, GrantAbstract::class)) {
+            throw new \Exception();
+        }
 
         return $this->setGrant($name, new $class());
     }
