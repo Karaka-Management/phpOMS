@@ -1,48 +1,40 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<phpunit
-        bootstrap="Bootstrap.php"
-        colors="true"
-        stopOnError="true"
-        stopOnFailure="false"
-        stopOnIncomplete="false"
-        stopOnSkipped="false"
-        beStrictAboutTestsThatDoNotTestAnything="false"
-        >
-    <testsuites>
-        <testsuite name="phpOMS">
-            <directory>./</directory>
-            <exclude>Module/ModuleManagerTest.php</exclude>
-            <exclude>./tests</exclude>
-            <exclude>./vendor</exclude>
-            <exclude>./Build</exclude>
-            <exclude>./Resources</exclude>
-        </testsuite>
-    </testsuites>
-    <filter>
-        <whitelist addUncoveredFilesFromWhitelist="true" processUncoveredFilesFromWhitelist="false">
-            <directory suffix=".php">.*</directory>
-            <exclude>
-                <directory>../*/tests*</directory>
-                <directory suffix="tpl.php">../*</directory>
-                <directory suffix="lang.php">../*</directory>
-                <directory suffix="Test.php">../*</directory>
-                <directory>./Build</directory>
-                <directory>./Resources</directory>
-                <directory>*vendor*</directory>
-                <directory>./vendor</directory>
-                <directory>../vendor</directory>
-            </exclude>
-        </whitelist>
-    </filter>
-    <groups>
-        <exclude>
-            <group>volume</group>
-            <group>maybe</group>
-        </exclude>
-    </groups>
-    <php>
-        <const name="WEB_SERVER_HOST" value="localhost" />
-        <const name="WEB_SERVER_PORT" value="1234" />
-        <const name="WEB_SERVER_DOCROOT" value="./" />
-    </php>
+<phpunit xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" bootstrap="Bootstrap.php" colors="true" stopOnError="true" stopOnFailure="false" stopOnIncomplete="false" stopOnSkipped="false" beStrictAboutTestsThatDoNotTestAnything="false" xsi:noNamespaceSchemaLocation="https://schema.phpunit.de/9.3/phpunit.xsd">
+  <coverage includeUncoveredFiles="true" processUncoveredFiles="false">
+    <include>
+      <directory suffix=".php">.*</directory>
+    </include>
+    <exclude>
+      <directory>../*/tests*</directory>
+      <directory suffix="tpl.php">../*</directory>
+      <directory suffix="lang.php">../*</directory>
+      <directory suffix="Test.php">../*</directory>
+      <directory>./Build</directory>
+      <directory>./Resources</directory>
+      <directory>*vendor*</directory>
+      <directory>./vendor</directory>
+      <directory>../vendor</directory>
+    </exclude>
+  </coverage>
+  <testsuites>
+    <testsuite name="phpOMS">
+      <directory>./</directory>
+      <exclude>Module/ModuleManagerTest.php</exclude>
+      <exclude>./tests</exclude>
+      <exclude>./vendor</exclude>
+      <exclude>./Build</exclude>
+      <exclude>./Resources</exclude>
+    </testsuite>
+  </testsuites>
+  <groups>
+    <exclude>
+      <group>volume</group>
+      <group>maybe</group>
+    </exclude>
+  </groups>
+  <php>
+    <const name="WEB_SERVER_HOST" value="localhost"/>
+    <const name="WEB_SERVER_PORT" value="1234"/>
+    <const name="WEB_SERVER_DOCROOT" value="./"/>
+  </php>
 </phpunit>

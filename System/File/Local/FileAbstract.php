@@ -189,7 +189,7 @@ abstract class FileAbstract implements ContainerInterface
         $ctime = \filectime($this->path);
 
         $this->createdAt = (new \DateTimeImmutable())->setTimestamp($mtime === false ? 0 : $mtime);
-        $this->changedAt = (new \DateTimeImmutable())->setTimestamp($ctime === false ? 0 : $ctime);
+        $this->changedAt->setTimestamp($ctime === false ? 0 : $ctime);
 
         $owner = \fileowner($this->path);
 
