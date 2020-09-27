@@ -331,7 +331,7 @@ final class Functions
      */
     public static function generalizedHypergeometricFunction(array $a, array $b, float $z) : float
     {
-        $sum = 0.0;
+        $sum   = 0.0;
         $aProd = \array_fill(0, 20, []);
         $bProd = \array_fill(0, 20, []);
 

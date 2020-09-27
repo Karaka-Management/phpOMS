@@ -50,7 +50,7 @@ class FileSessionTest extends \PHPUnit\Framework\TestCase
         self::assertEquals('value', $this->session->get('test'));
     }
 
-     /**
+    /**
      * @testdox Session data cannot be overwritten
      * @group framework
      */
