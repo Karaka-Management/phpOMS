@@ -14,8 +14,6 @@ declare(strict_types=1);
 
 namespace phpOMS\tests\Ai\Ocr;
 
-use phpOMS\Ai\Ocr\BasicOcr;
-
 /**
  * @internal
  */
