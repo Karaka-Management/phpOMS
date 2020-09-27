@@ -13,6 +13,8 @@
 declare(strict_types=1);
 namespace phpOMS\Math\Stochastic\Distribution;
 
+use phpOMS\Math\Functions\Beta;
+
 /**
  * F distribution.
  *
@@ -23,6 +25,39 @@ namespace phpOMS\Math\Stochastic\Distribution;
  */
 final class FDistribution
 {
+    /**
+     * Get probability density function.
+     *
+     * @param float $x  Value x
+     * @param int   $d1 Degreegs of freedom
+     * @param int   $d2 Degreegs of freedom
+     *
+     * @return float
+     *
+     * @since 1.0.0
+     */
+    public static function getPdf(float $x, int $d1, int $d2) : float
+    {
+        return \sqrt((\pow($d1 * $x, $d1) * ($d2 ** $d2)) / \pow($d1 * $x + $d2, $d1 + $d2))
+            / ($x * Beta::beta($d1 / 2, $d2 / 2));
+    }
+
+    /**
+     * Get cumulative density function.
+     *
+     * @param float $x  Value x
+     * @param int   $d1 Degreegs of freedom
+     * @param int   $d2 Degreegs of freedom
+     *
+     * @return float
+     *
+     * @since 1.0.0
+     */
+    public static function getCdf(float $x, int $d1, int $d2) : float
+    {
+        return Beta::regularizedBeta($d1 * $x / ($d1 * $x + $d2), $d1 / 2, $d2 / 2);
+    }
+
     /**
      * Get expected value.
      *

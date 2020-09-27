@@ -58,6 +58,9 @@ class RedisCacheTest extends \PHPUnit\Framework\TestCase
         self::assertEquals(CacheStatus::OK, $this->cache->stats()['status']);
         self::assertEquals(0, $this->cache->stats()['count']);
         self::assertGreaterThanOrEqual(0, $this->cache->stats()['size']);
+        self::assertEquals('1', $this->cache->getCache());
+        self::assertEquals('127.0.0.1', $this->cache->getHost());
+        self::assertEquals(6379, $this->cache->getPort());
     }
 
     /**

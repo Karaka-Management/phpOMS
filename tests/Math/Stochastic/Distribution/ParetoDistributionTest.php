@@ -59,4 +59,33 @@ class ParetoDistributionTest extends \PHPUnit\Framework\TestCase
         self::assertEqualsWithDelta(3.810317377662722, ParetoDistribution::getSkewness(6, 5), 0.001);
         self::assertEquals(0.0, ParetoDistribution::getSkewness(3));
     }
+
+    public function testMedian() : void
+    {
+        self::assertEquals(3 * \pow(2, 1 / 4), ParetoDistribution::getMedian(3, 4));
+    }
+
+    public function testMode() : void
+    {
+        self::assertEquals(3, ParetoDistribution::getMode(3));
+    }
+
+    public function testEntropy() : void
+    {
+        self::assertEquals(
+            \log(3 / 4 * \exp(1 + 1 / 4)),
+            ParetoDistribution::getEntropy(3, 4)
+        );
+    }
+
+    public function testFisherInformation() : void
+    {
+        self::assertEquals(
+            [
+                [4 / (3 ** 2), -1 / 3],
+                [-1 / 3, 1 / (4 ** 2)],
+            ],
+            ParetoDistribution::getFisherInformation(3, 4)
+        );
+    }
 }

@@ -55,6 +55,9 @@ class MemCachedTest extends \PHPUnit\Framework\TestCase
         self::assertTrue($this->cache->flushAll());
         self::assertEquals(0, $this->cache->getThreshold());
         self::assertNull($this->cache->get('test'));
+        self::assertEquals('', $this->cache->getCache());
+        self::assertEquals('127.0.0.1', $this->cache->getHost());
+        self::assertEquals(11211, $this->cache->getPort());
         self::assertEquals(
             [
                 'status'  => CacheStatus::OK,
@@ -242,6 +245,20 @@ class MemCachedTest extends \PHPUnit\Framework\TestCase
         self::assertEquals('testVal2', $this->cache->get('key2', 1));
         \sleep(2);
         self::assertNull($this->cache->get('key2', 1));
+    }
+
+    /**
+     * @testdox Cache data can be flushed by expiration date
+     * @covers phpOMS\DataStorage\Cache\Connection\MemCached<extended>
+     * @group framework
+     */
+    public function testFlushExpired() : void
+    {
+        $this->cache->set('key6', 'testVal6', 1);
+        \sleep(2);
+
+        $this->cache->flush(0);
+        self::assertNull($this->cache->get('key6', 0));
     }
 
     /**

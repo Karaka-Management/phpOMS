@@ -315,4 +315,47 @@ final class Functions
 
         return 1 / \sqrt(\M_PI) * \exp(-$value * $value) * $q2;
     }
+
+    /**
+     * Generalized hypergeometric function.
+     *
+     * pFq(a1, ..., ap; b1, ..., bq; z)
+     *
+     * @param array<int, float|int> $a Array of values
+     * @param array<int, float|int> $b Array of values
+     * @param float                 $z Z
+     *
+     * @return float
+     *
+     * @since 1.0.0
+     */
+    public static function generalizedHypergeometricFunction(array $a, array $b, float $z) : float
+    {
+        $sum = 0.0;
+        $aProd = \array_fill(0, 20, []);
+        $bProd = \array_fill(0, 20, []);
+
+        for ($n = 0; $n < 20; ++$n) {
+            foreach ($a as $key => $value) {
+                if ($n === 0) {
+                    $aProd[$n][$key] = 1;
+                } else {
+                    $aProd[$n][$key] = $aProd[$n - 1][$key] * ($value + $n - 1);
+                }
+            }
+
+            foreach ($b as $key => $value) {
+                if ($n === 0) {
+                    $bProd[$n][$key] = 1;
+                } else {
+                    $bProd[$n][$key] = $bProd[$n - 1][$key] * ($value + $n - 1);
+                }
+            }
+
+            $temp = \array_product($aProd[$n]) / \array_product($bProd[$n]);
+            $sum += $temp * $z ** $n / self::fact($n);
+        }
+
+        return $sum;
+    }
 }

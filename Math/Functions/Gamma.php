@@ -35,6 +35,20 @@ final class Gamma
     }
 
     /**
+     * Gamma function
+     *
+     * @param int|float $z Value
+     *
+     * @return float
+     *
+     * @since 1.0.0
+     */
+    public static function gamma($z) : float
+    {
+        return \exp(self::logGamma($z));
+    }
+
+    /**
      * approximation values.
      *
      * @var float[]
@@ -134,16 +148,15 @@ final class Gamma
         ];
 
         $y = $z;
-        $x = $z;
 
-        $temp = $x + 5.5 - ($x + 0.5) * \log($x + 5.5);
+        $temp = $z + 5.5 - ($z + 0.5) * \log($z + 5.5);
         $sum  = 1.000000000190015;
 
         for ($i = 0; $i < 6; ++$i) {
             $sum += $approx[$i] / ++$y;
         }
 
-        return -$temp + \log(\sqrt(2 * \M_PI * $sum / $x));
+        return -$temp + \log(\sqrt(2 * \M_PI) * $sum / $z);
     }
 
     /**
@@ -160,5 +173,132 @@ final class Gamma
     public static function getGammaInteger(int $k) : int
     {
         return Functions::fact($k - 1);
+    }
+
+    /**
+     * First or lower incomplete gamma function
+     *
+     * @param float $a a
+     * @param float $x Value
+     *
+     * @return float
+     *
+     * @since 1.0.0
+     */
+    public static function incompleteGammaFirst(float $a, float $x) : float
+    {
+        return self::regularizedGamma($a, $x) * \exp(self::logGamma($a));
+    }
+
+    /**
+     * Second or upper incomplete gamma function
+     *
+     * @param float $a a
+     * @param float $x Value
+     *
+     * @return float
+     *
+     * @since 1.0.0
+     */
+    public static function incompleteGammaSecond(float $a, float $x) : float
+    {
+        return \exp(self::logGamma($a)) - self::regularizedGamma($a, $x) * \exp(self::logGamma($a));
+    }
+
+    /**
+     * Incomplete gamma function
+     *
+     * @param float $a a
+     * @param float $x Value
+     *
+     * @return float
+     *
+     * @since 1.0.0
+     */
+    public static function regularizedGamma(float $a, float $x) : float
+    {
+        if ($x <= 0.0 || $a <= 0.0 || $a > 10000000000.0) {
+            return 0.0;
+        } elseif ($x < $a + 1.0) {
+            return self::gammaSeriesExpansion($a, $x);
+        }
+
+        return 1.0 - self::gammaFraction($a, $x);
+    }
+
+    /**
+     * Gamma series expansion
+     *
+     * @param float $a a
+     * @param float $x Value
+     *
+     * @return float
+     *
+     * @see JSci
+     * @author Jaco van Kooten
+     * @license LGPL 2.1
+     * @since 1.0.0
+     */
+    private static function gammaSeriesExpansion(float $a, float $x) : float
+    {
+        $ap  = $a;
+        $del = 1.0 / $a;
+        $sum = $del;
+
+        for ($i = 1; $i < 150; ++$i) {
+            ++$ap;
+
+            $del *= $x / $ap;
+            $sum += $del;
+
+            if ($del < $sum * 2.22e-16) {
+                return $sum * \exp(-$x + $a * \log($x) - self::logGamma($a));
+            }
+        }
+
+        return 0.0;
+    }
+
+    /**
+     * Gamma fraction
+     *
+     * @param float $a a
+     * @param float $x Value
+     *
+     * @return float
+     *
+     * @see JSci
+     * @author Jaco van Kooten
+     * @license LGPL 2.1
+     * @since 1.0.0
+     */
+    private static function gammaFraction(float $a, float $x) : float
+    {
+        $b   = $x + 1.0 - $a;
+        $c   = 1.0 / 2.23e-308;
+        $d   = 1.0 / $b;
+        $h   = $d;
+        $del = 0.0;
+
+        for ($i = 1; $i < 150 && \abs($del - 1.0) > 2.22e-16; ++$i) {
+            $an = - $i * ($i - $a);
+            $b += 2.0;
+            $d  = $an * $d + $b;
+            $c  = $b + $an / $c;
+
+            if (\abs($c) < 2.23e-308) {
+                $c = 2.23e-308;
+            }
+
+            if (\abs($d) < 2.23e-308) {
+                $d = 2.23e-308;
+            }
+
+            $d   = 1.0 / $d;
+            $del = $d * $c;
+            $h  *= $del;
+        }
+
+        return \exp(-$x + $a * \log($x) - self::logGamma($a)) * $h;
     }
 }

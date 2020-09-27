@@ -83,4 +83,14 @@ class GeometricDistributionTest extends \PHPUnit\Framework\TestCase
 
         self::assertEquals(\ceil(-1 / \log(1 - $p, 2)), GeometricDistribution::getMedian($p));
     }
+
+    public function testMgf() : void
+    {
+        $p  = 0.3;
+        $t1 = 2;
+        $t2 = -\log(1 - $p) * 0.8;
+
+        self::assertEquals($p / (1 - (1 - $p) * \exp($t1)), GeometricDistribution::getMgf($p, $t1));
+        self::assertEquals($p * \exp($t2) / (1 - (1 - $p) * \exp($t2)), GeometricDistribution::getMgf($p, $t2));
+    }
 }

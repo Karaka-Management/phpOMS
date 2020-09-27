@@ -79,12 +79,13 @@ final class HttpSession implements SessionInterface
         }
 
         if ($sid !== '') {
-            \session_id((string) $sid);
+            \session_id((string) $sid); // @codeCoverageIgnore
         }
 
         $this->inactivityInterval = $inactivityInterval;
 
         if (\session_status() !== \PHP_SESSION_ACTIVE && !\headers_sent()) {
+            // @codeCoverageIgnoreStart
             \session_set_cookie_params([
                 'lifetime' => $liftetime,
                 'path'     => '/',
@@ -92,8 +93,9 @@ final class HttpSession implements SessionInterface
                 'secure'   => false,
                 'httponly' => true,
                 'samesite' => 'Strict',
-            ]); // @codeCoverageIgnore
-            \session_start(); // @codeCoverageIgnore
+            ]);
+            \session_start();
+            // @codeCoverageIgnoreEnd
         }
 
         if ($this->inactivityInterval > 0 && ($this->inactivityInterval + ($_SESSION['lastActivity'] ?? 0) < \time())) {
@@ -172,12 +174,16 @@ final class HttpSession implements SessionInterface
     /**
      * {@inheritdoc}
      */
-    public function save() : void
+    public function save() : bool
     {
-        if (!$this->isLocked) {
-            $_SESSION = $this->sessionData;
-            \session_write_close();
+        if ($this->isLocked) {
+            return false;
         }
+
+        $_SESSION = $this->sessionData;
+        \session_write_close();
+
+        return true;
     }
 
     /**

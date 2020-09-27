@@ -64,11 +64,11 @@ interface SessionInterface
     /**
      * Save session.
      *
-     * @return void
+     * @return bool
      *
      * @since 1.0.0
      */
-    public function save() : void;
+    public function save() : bool;
 
     /**
      * @return string

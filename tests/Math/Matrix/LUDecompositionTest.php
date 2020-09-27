@@ -191,6 +191,24 @@ class LUDecompositionTest extends \PHPUnit\Framework\TestCase
     }
 
     /**
+     * @testdox The determinat can be calculated
+     * @covers phpOMS\Math\Matrix\LUDecomposition
+     * @group framework
+     */
+    public function testDet() : void
+    {
+        $B = new Matrix();
+        $B->setMatrix([
+            [25, 15, -5],
+            [15, 17, 0],
+            [-5, 0, 11],
+        ]);
+
+        $lu = new LUDecomposition($B);
+        self::assertEqualsWithDelta(1775.0, $lu->det(), 0.1);
+    }
+
+    /**
      * @testdox A invalid vector throws a InvalidDimensionException
      * @covers phpOMS\Math\Matrix\LUDecomposition
      * @group framework

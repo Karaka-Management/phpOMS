@@ -161,7 +161,7 @@ final class BasicOcr
 
         $labels = [];
         for ($i = 0; $i < $numberOfLabels; ++$i) {
-            $read = \fread($fp, 4);
+            $read = \fread($fp, 1);
             if (!$read) {
                 return [];
             }

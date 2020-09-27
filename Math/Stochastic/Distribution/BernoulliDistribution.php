@@ -32,7 +32,7 @@ final class BernoulliDistribution
      *
      * @return float
      *
-     * @throws \Exception
+     * @throws \InvalidArgumentException
      *
      * @since 1.0.0
      */
@@ -44,11 +44,11 @@ final class BernoulliDistribution
             return $p;
         }
 
-        throw new \Exception('wrong parameter');
+        throw new \InvalidArgumentException('k needs to be 0 or 1');
     }
 
     /**
-     * Get cummulative distribution function.
+     * Get cumulative distribution function.
      *
      * @param float $p Value p
      * @param float $k Value k

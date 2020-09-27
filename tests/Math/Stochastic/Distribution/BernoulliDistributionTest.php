@@ -109,4 +109,10 @@ class BernoulliDistributionTest extends \PHPUnit\Framework\TestCase
 
         self::assertEqualsWithDelta(1 / ($p * $q), BernoulliDistribution::getFisherInformation($p), 0.01);
     }
+
+    public function testInvalidPmfParameter() : void
+    {
+        $this->expectException(\InvalidArgumentException::class);
+        BernoulliDistribution::getPmf(0.7, 3);
+    }
 }

@@ -26,7 +26,39 @@ use phpOMS\Math\Functions\Gamma;
 final class GammaDistribution
 {
     /**
-     * Get probability density function.
+     * Get probability density function for shape and scale.
+     *
+     * @param float $x     Value x
+     * @param float $k     k shape
+     * @param float $theta Theta scale
+     *
+     * @return float
+     *
+     * @since 1.0.0
+     */
+    public static function getPdfScale(float $x, float $k, float $theta) : float
+    {
+        return 1 / (Gamma::gamma($k) * $theta ** $k) * \pow($x, $k - 1) * \exp(-$x / $theta);
+    }
+
+    /**
+     * Get probability density function for shape and rate.
+     *
+     * @param float $x     Value x
+     * @param float $alpha Alpha shape
+     * @param float $beta  Beta rate
+     *
+     * @return float
+     *
+     * @since 1.0.0
+     */
+    public static function getPdfRate(float $x, float $alpha, float $beta) : float
+    {
+        return $beta ** $alpha / Gamma::gamma($alpha) * \pow($x, $alpha - 1) * \exp(-$beta * $x);
+    }
+
+    /**
+     * Get probability density function for shape and scale.
      *
      * @param float $x     Value x
      * @param int   $k     k shape
@@ -36,13 +68,13 @@ final class GammaDistribution
      *
      * @since 1.0.0
      */
-    public static function getPdfIntegerK(float $x, int $k, float $theta) : float
+    public static function getPdfIntegerScale(float $x, int $k, float $theta) : float
     {
         return 1 / (Gamma::getGammaInteger($k) * $theta ** $k) * \pow($x, $k - 1) * \exp(-$x / $theta);
     }
 
     /**
-     * Get probability density function.
+     * Get probability density function for shape and rate.
      *
      * @param float $x     Value x
      * @param int   $alpha Alpha shape
@@ -52,9 +84,41 @@ final class GammaDistribution
      *
      * @since 1.0.0
      */
-    public static function getPdfIntegerAlphaBeta(float $x, int $alpha, float $beta) : float
+    public static function getPdfIntegerRate(float $x, int $alpha, float $beta) : float
     {
         return $beta ** $alpha / Gamma::getGammaInteger($alpha) * \pow($x, $alpha - 1) * \exp(-$beta * $x);
+    }
+
+    /**
+     * Get cumulative density function for shape and scale.
+     *
+     * @param float $x     Value x
+     * @param float $k     k shape
+     * @param float $theta Theta scale
+     *
+     * @return float
+     *
+     * @since 1.0.0
+     */
+    public static function getCdfScale(float $x, float $k, float $theta) : float
+    {
+        return 1 / Gamma::gamma($k) * Gamma::incompleteGammaFirst($k, $x / $theta);
+    }
+
+    /**
+     * Get cumulative density function for shape and rate.
+     *
+     * @param float $x     Value x
+     * @param float $alpha Alpha shape
+     * @param float $beta  Beta rate
+     *
+     * @return float
+     *
+     * @since 1.0.0
+     */
+    public static function getCdfRate(float $x, float $alpha, float $beta) : float
+    {
+        return 1 / Gamma::gamma($alpha) * Gamma::incompleteGammaFirst($alpha, $beta * $x);
     }
 
     /**
@@ -67,7 +131,7 @@ final class GammaDistribution
      *
      * @since 1.0.0
      */
-    public static function getMeanK(float $k, float $theta) : float
+    public static function getMeanScale(float $k, float $theta) : float
     {
         return $k * $theta;
     }
@@ -82,9 +146,9 @@ final class GammaDistribution
      *
      * @since 1.0.0
      */
-    public static function getMeanAlphaBeta(float $alpha, float $beta) : float
+    public static function getMeanRate(float $alpha, float $beta) : float
     {
-        return $alpha * $beta;
+        return $alpha / $beta;
     }
 
     /**
@@ -97,7 +161,7 @@ final class GammaDistribution
      *
      * @since 1.0.0
      */
-    public static function getModeK(float $k, float $theta) : float
+    public static function getModeScale(float $k, float $theta) : float
     {
         return ($k - 1) * $theta;
     }
@@ -112,7 +176,7 @@ final class GammaDistribution
      *
      * @since 1.0.0
      */
-    public static function getModeAlphaBeta(float $alpha, float $beta) : float
+    public static function getModeRate(float $alpha, float $beta) : float
     {
         return ($alpha - 1) / $beta;
     }
@@ -155,7 +219,7 @@ final class GammaDistribution
      *
      * @since 1.0.0
      */
-    public static function getVarianceK(float $k, float $theta) : float
+    public static function getVarianceScale(float $k, float $theta) : float
     {
         return $k * $theta ** 2;
     }
@@ -170,9 +234,9 @@ final class GammaDistribution
      *
      * @since 1.0.0
      */
-    public static function getStandardDeviationK(float $k, float $theta) : float
+    public static function getStandardDeviationScale(float $k, float $theta) : float
     {
-        return \sqrt(self::getVarianceK($k, $theta));
+        return \sqrt(self::getVarianceScale($k, $theta));
     }
 
     /**
@@ -185,7 +249,7 @@ final class GammaDistribution
      *
      * @since 1.0.0
      */
-    public static function getVarianceAlphaBeta(float $alpha, float $beta) : float
+    public static function getVarianceRate(float $alpha, float $beta) : float
     {
         return $alpha / ($beta ** 2);
     }
@@ -200,9 +264,9 @@ final class GammaDistribution
      *
      * @since 1.0.0
      */
-    public static function getStandardDeviationAlphaBeta(float $alpha, float $beta) : float
+    public static function getStandardDeviationRate(float $alpha, float $beta) : float
     {
-        return \sqrt(self::getVarianceAlphaBeta($alpha, $beta));
+        return \sqrt(self::getVarianceRate($alpha, $beta));
     }
 
     /**
@@ -216,7 +280,7 @@ final class GammaDistribution
      *
      * @since 1.0.0
      */
-    public static function getMgfK(float $k, float $t, float $theta) : float
+    public static function getMgfScale(float $k, float $t, float $theta) : float
     {
         return \pow(1 - $theta * $t, -$k);
     }
@@ -232,7 +296,7 @@ final class GammaDistribution
      *
      * @since 1.0.0
      */
-    public static function getMgfAlphaBeta(float $t, float $alpha, float $beta) : float
+    public static function getMgfRate(float $t, float $alpha, float $beta) : float
     {
         return \pow(1 - $t / $beta, -$alpha);
     }

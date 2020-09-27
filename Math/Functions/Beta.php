@@ -47,23 +47,40 @@ final class Beta
      */
     public static function incompleteBeta(float $x, float $p, float $q) : float
     {
-        if ($x < 0.0) {
-            return 0.0;
-        } elseif ($x >= 1.0) {
-            return 1.0;
-        } elseif ($p <= 0.0 || $q >= 0.0 || $p + $q > 10000000000.0) {
-            return 0.0;
-        }
-
-        $bGamma = \exp(-self::logBeta($p, $q)) + $p * \log($x) + $q * \log(1.0 - $x);
-
-        return $x < ($p + 1.0) / ($p + $q + 2.0)
-            ? $bGamma * self::betaFraction($x, $p, $q) / $p
-            : 1.0 - $bGamma * self::betaFraction(1 - $x, $q, $p) / $q;
+        return self::regularizedBeta($x, $p, $q) * self::beta($p, $q);
     }
 
     /**
-     * Fraction of the incomplete beta function
+     * Incomplete beta function
+     *
+     * @param float $x Value
+     * @param float $p p
+     * @param float $q q
+     *
+     * @return float
+     *
+     * @since 1.0.0
+     */
+    public static function regularizedBeta(float $x, float $p, float $q) : float
+    {
+        if ($x <= 0.0) {
+            return 0.0;
+        } elseif ($x >= 1.0) {
+            return 1.0;
+        } elseif ($p <= 0.0 || $q <= 0.0 || $p + $q > 10000000000.0) {
+            return 0.0;
+        }
+
+        $bGamma = \exp(-self::logBeta($p, $q) + $p * \log($x) + $q * \log(1.0 - $x));
+
+        // this uses the symmetry of the beta function
+        return ($x < ($p + 1.0) / ($p + $q + 2.0)
+            ? $bGamma * self::betaFraction($x, $p, $q) / $p
+            : 1.0 - $bGamma * self::betaFraction(1.0 - $x, $q, $p) / $q);
+    }
+
+    /**
+     * Fraction of the beta function
      *
      * @param float $x Value
      * @param float $p p
@@ -72,6 +89,7 @@ final class Beta
      * @see JSci
      * @author Jaco van Kooten
      * @license LGPL 2.1
+     * @since 1.0.0
      */
     private static function betaFraction(float $x, float $p, float $q) : float
     {

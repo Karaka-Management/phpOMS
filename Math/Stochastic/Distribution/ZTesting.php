@@ -27,7 +27,7 @@ use phpOMS\Math\Statistic\MeasureOfDispersion;
  *
  * @internal
  */
-final class ZTest
+final class ZTesting
 {
     public const TABLE = [
         '2.58' => 0.99,
@@ -75,11 +75,11 @@ final class ZTest
      *
      * @since 1.0.0
      */
-    public static function zTesting(float $value, array $data, float $sigma = null) : float
+    public static function zTest(float $value, array $data, float $sigma = null) : float
     {
         $sigma ??= MeasureOfDispersion::standardDeviationSample($data);
 
-        return 1 - NormalDistribution::getCdf((Average::arithmeticMean($data) - $value) / ($sigma / \sqrt(\count($data))), 0.0, 1.0, true);
+        return 1 - NormalDistribution::getCdf((Average::arithmeticMean($data) - $value) / ($sigma / \sqrt(\count($data))), 0.0, 1.0);
     }
 
     /**
@@ -94,8 +94,8 @@ final class ZTest
      *
      * @since 1.0.0
      */
-    public static function zTestingValues(float $value, float $mean, int $dataSize, float $sigma) : float
+    public static function zTestValues(float $value, float $mean, int $dataSize, float $sigma) : float
     {
-        return 1 - NormalDistribution::getCdf(($mean - $value) / ($sigma / \sqrt($dataSize)), 0.0, 1.0, true);
+        return 1 - NormalDistribution::getCdf(($mean - $value) / ($sigma / \sqrt($dataSize)), 0.0, 1.0);
     }
 }

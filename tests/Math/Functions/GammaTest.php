@@ -25,6 +25,17 @@ use phpOMS\Math\Functions\Gamma;
 class GammaTest extends \PHPUnit\Framework\TestCase
 {
     /**
+     * @testdox The gamma function can be approximated
+     * @covers phpOMS\Math\Functions\Gamma
+     * @group framework
+     */
+    public function testGamma() : void
+    {
+        self::assertEqualsWithDelta(2.0, Gamma::gamma(3.0), 0.001);
+        self::assertEqualsWithDelta(11.631728, Gamma::gamma(4.5), 0.001);
+    }
+
+    /**
      * @testdox The gamma function can be calculated for integers
      * @covers phpOMS\Math\Functions\Gamma
      * @group framework
@@ -94,8 +105,59 @@ class GammaTest extends \PHPUnit\Framework\TestCase
         self::assertTrue(true);
     }
 
+    /**
+     * @testdox The log gamma function can be approximated
+     * @covers phpOMS\Math\Functions\Gamma
+     * @group framework
+     */
     public function testLogGamma() : void
     {
-        self::markTestIncomplete();
+        $gsl = [
+            0.0, 0.0, 0.693147, 1.791759, 3.178053, 4.787491, 6.57925, 8.52516, 10.604602, 12.801827,
+        ];
+
+        for ($i = 1; $i <= 10; ++$i) {
+            if (!(\abs($gsl[$i - 1] - Gamma::logGamma($i)) < 0.01)) {
+                self::assertTrue(false);
+            }
+        }
+
+        self::assertTrue(true);
+    }
+
+    /**
+     * @testdox The first incomplete gamma function can be approximated
+     * @covers phpOMS\Math\Functions\Gamma
+     * @group framework
+     */
+    public function testFirstIncompleteGamma() : void
+    {
+        self::assertEqualsWithDelta(0.0, Gamma::incompleteGammaFirst(3.0, 0.0), 0.001);
+        self::assertEqualsWithDelta(1.523793, Gamma::incompleteGammaFirst(3.0, 4.0), 0.001);
+        self::assertEqualsWithDelta(2.116608, Gamma::incompleteGammaFirst(4.0, 3.0), 0.001);
+    }
+
+    /**
+     * @testdox The second incomplete gamma function can be approximated
+     * @covers phpOMS\Math\Functions\Gamma
+     * @group framework
+     */
+    public function testSecondIncompleteGamma() : void
+    {
+        self::assertEqualsWithDelta(2.0, Gamma::incompleteGammaSecond(3.0, 0.0), 0.001);
+        self::assertEqualsWithDelta(0.476206, Gamma::incompleteGammaSecond(3.0, 4.0), 0.001);
+        self::assertEqualsWithDelta(3.883391, Gamma::incompleteGammaSecond(4.0, 3.0), 0.001);
+    }
+
+    /**
+     * @testdox The regularized incomplete gamma function can be approximated
+     * @covers phpOMS\Math\Functions\Gamma
+     * @group framework
+     */
+    public function testRegularizedGamma() : void
+    {
+        self::assertEqualsWithDelta(0.0, Gamma::regularizedGamma(3.0, 0.0), 0.001);
+        self::assertEqualsWithDelta(0.761896, Gamma::regularizedGamma(3.0, 4.0), 0.001);
+        self::assertEqualsWithDelta(0.352768, Gamma::regularizedGamma(4.0, 3.0), 0.001);
     }
 }

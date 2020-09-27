@@ -14,6 +14,8 @@ declare(strict_types=1);
 
 namespace phpOMS\Math\Stochastic\Distribution;
 
+use phpOMS\Math\Functions\Gamma;
+
 /**
  * Chi squared distribution.
  *
@@ -159,7 +161,22 @@ final class ChiSquaredDistribution
             throw new \OutOfBoundsException('Out of bounds');
         }
 
-        return 0.0;
+        return 1 / (\pow(2, $df / 2) * Gamma::gamma($df / 2)) * \pow($x, $df / 2 - 1) * \exp(-$x / 2);
+    }
+
+    /**
+     * Get cumulative density function.
+     *
+     * @param float $x  Value x
+     * @param int   $df Degreegs of freedom
+     *
+     * @return float
+     *
+     * @since 1.0.0
+     */
+    public static function getCdf(float $x, int $df) : float
+    {
+        return 1 / Gamma::gamma($df / 2) * Gamma::incompleteGammaFirst($df / 2, $x / 2);
     }
 
     /**

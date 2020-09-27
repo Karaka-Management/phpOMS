@@ -74,7 +74,8 @@ final class UniformDistributionDiscrete
      */
     public static function getMgf(int $t, float $a, float $b) : float
     {
-        return (\exp($a * $t) - \exp(($b + 1) * $t)) / (($b - $a + 1) * (1 - \exp($t)));
+        return (\exp($a * $t) - \exp(($b + 1) * $t))
+            / (($b - $a + 1) * (1 - \exp($t)));
     }
 
     /**

@@ -93,4 +93,27 @@ class NormalDistributionTest extends \PHPUnit\Framework\TestCase
     {
         self::assertEqualsWithDelta(384.16, NormalDistribution::getSampleSizeFromInfinitePopulation(NormalDistribution::TABLE['0.95'], 0.05, 0.5), 0.01);
     }
+
+    public function testMgf() : void
+    {
+        $t     = 3;
+        $mu    = 4;
+        $sigma = 5;
+
+        self::assertEquals(
+            \exp($mu * $t + $sigma ** 2 * $t **2 / 2),
+            NormalDistribution::getMgf($t, $mu, $sigma)
+        );
+    }
+
+    public function testFisherInformation() : void
+    {
+        self::assertEquals(
+            [
+                [1 / 3 ** 2, 0],
+                [0, 1 / (2 * 3 ** 4)],
+            ],
+            NormalDistribution::getFisherInformation(3)
+        );
+    }
 }

@@ -57,6 +57,9 @@ class FileCacheTest extends \PHPUnit\Framework\TestCase
         self::assertTrue(\is_dir(__DIR__ . '/Cache'));
         self::assertTrue($this->cache->flushAll());
         self::assertEquals(50, $this->cache->getThreshold());
+        self::assertEquals('', $this->cache->getCache());
+        self::assertEquals('', $this->cache->getHost());
+        self::assertEquals(0, $this->cache->getPort());
         self::assertNull($this->cache->get('test'));
         self::assertEquals(
             [

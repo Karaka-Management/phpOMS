@@ -144,13 +144,7 @@ final class MemCached extends ConnectionAbstract
      */
     public function flush(int $expire = 0) : bool
     {
-        if ($this->status !== CacheStatus::OK) {
-            return false;
-        }
-
-        $this->con->flush();
-
-        return true;
+        return $this->flushAll();
     }
 
     /**

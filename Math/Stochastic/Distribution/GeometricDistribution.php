@@ -134,7 +134,9 @@ final class GeometricDistribution
      */
     public static function getMgf(float $p, float $t) : float
     {
-        return $t < -\log(1 - $p) ? $p * \exp($t) / (1 - (1 - $p) * \exp($t)) : $p / (1 - (1 - $p) * \exp($t));
+        return $t < -\log(1 - $p)
+            ? $p * \exp($t) / (1 - (1 - $p) * \exp($t))
+            : $p / (1 - (1 - $p) * \exp($t));
     }
 
     /**

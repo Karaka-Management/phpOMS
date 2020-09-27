@@ -139,9 +139,9 @@ final class BetaDistribution
     public static function getMgf(float $t, float $alpha, float $beta) : float
     {
         $sum = 0;
-        for ($k = 1; $k < 20; ++$k) {
+        for ($k = 1; $k < 15; ++$k) {
             $product = 1;
-            for ($r = 0; $r < $k - 1; ++$r) {
+            for ($r = 0; $r < $k; ++$r) {
                 $product *= ($alpha + $r) / ($alpha + $beta + $r);
             }
 
@@ -152,7 +152,23 @@ final class BetaDistribution
     }
 
     /**
-     * Get cummulative distribution function.
+     * Get prdobability distribution function.
+     *
+     * @param float $x     Value
+     * @param float $alpha Alpha
+     * @param float $beta  Beta
+     *
+     * @return float
+     *
+     * @since 1.0.0
+     */
+    public static function getPdf(float $x, float $alpha, float $beta) : float
+    {
+        return \pow($x, $alpha - 1) * \pow(1 - $x, $beta - 1) / Beta::beta($alpha, $beta);
+    }
+
+    /**
+     * Get cumulative distribution function.
      *
      * @param float $x     Value
      * @param float $alpha Alpha
@@ -164,6 +180,6 @@ final class BetaDistribution
      */
     public static function getCdf(float $x, float $alpha, float $beta) : float
     {
-        return Beta::incompleteBeta($x, $alpha, $beta);
+        return Beta::regularizedBeta($x, $alpha, $beta);
     }
 }

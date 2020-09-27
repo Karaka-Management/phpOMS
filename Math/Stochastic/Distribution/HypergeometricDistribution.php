@@ -39,7 +39,7 @@ final class HypergeometricDistribution
      */
     public static function getPmf(int $K, int $N, int $k, int $n) : float
     {
-        return Functions::fact($K, $k) * Functions::fact($N - $K, $n - $k) / Functions::fact($N, $n);
+        return Functions::binomialCoefficient($K, $k) * Functions::binomialCoefficient($N - $K, $n - $k) / Functions::binomialCoefficient($N, $n);
     }
 
     /**
@@ -141,22 +141,26 @@ final class HypergeometricDistribution
     }
 
     /**
-     * Get cummulative distribution function.
+     * Get cumulative distribution function.
      *
-     * @param int $sampleSuccesses     Amount of sample successes
-     * @param int $samples             Sample size
-     * @param int $populationSuccesses Amount of population successes
-     * @param int $population          Population size
+     * @param int $K Successful states in the population
+     * @param int $N Population size
+     * @param int $k Observed successes
+     * @param int $n Number of draws
      *
      * @return float
      *
      * @since 1.0.0
      */
-    public static function getCdf(int $sampleSuccesses, int $samples, int $populationSuccesses, int $population) : float
+    public static function getCdf(int $K, int $N, int $k, int $n) : float
     {
-        // Each multiplication calculates the total amount of possible group combinations based on a total amount of items.
-        return (int) (\round(Functions::fact($populationSuccesses) / Functions::fact($populationSuccesses - $sampleSuccesses)) / Functions::fact($sampleSuccesses)
-            * \round(Functions::fact($population - $populationSuccesses) / Functions::fact($population - $populationSuccesses - ($samples - $sampleSuccesses))) / Functions::fact($samples - $sampleSuccesses)
-            * \round(Functions::fact($population) / Functions::fact($population - $samples)) / Functions::fact($samples));
+        return 1 - Functions::binomialCoefficient($n, $k + 1)
+            * Functions::binomialCoefficient($N - $n, $K - $k - 1)
+                / Functions::binomialCoefficient($N, $K)
+            * Functions::generalizedHypergeometricFunction(
+                [1, $k + 1 - $K, $k + 1 - $n],
+                [$k + 2, $N + $k + 2 - $K - $n],
+                1
+            );
     }
 }

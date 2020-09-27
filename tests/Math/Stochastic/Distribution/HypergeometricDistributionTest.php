@@ -45,4 +45,23 @@ class HypergeometricDistributionTest extends \PHPUnit\Framework\TestCase
     {
         self::assertEqualsWithDelta(-0.247277, HypergeometricDistribution::getExKurtosis(15, 20, 12), 0.001);
     }
+
+    public function testMode() : void
+    {
+        $N = 8;
+        $n = 4;
+        $K = 5;
+
+        self::assertEquals(3, HypergeometricDistribution::getMode($K, $N, $n));
+    }
+
+    public function testPmf() : void
+    {
+        self::assertEqualsWithDelta(0.146284, HypergeometricDistribution::getPmf(7, 20, 5, 10), 0.001);
+    }
+
+    public function testCdf() : void
+    {
+        self::assertEqualsWithDelta(0.97136, HypergeometricDistribution::getCdf(7, 20, 5, 10), 0.001);
+    }
 }

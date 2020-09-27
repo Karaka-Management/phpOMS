@@ -113,7 +113,7 @@ abstract class ConnectionAbstract implements ConnectionInterface
      */
     public function getPort() : int
     {
-        return (int) $this->dbdata['port'] ?? 0;
+        return (int) ($this->dbdata['port'] ?? 0);
     }
 
     /**

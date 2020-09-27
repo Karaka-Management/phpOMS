@@ -65,4 +65,26 @@ class CubicSplineInterpolationTest extends \PHPUnit\Framework\TestCase
 
         self::assertEqualsWithDelta(0.915345, $interpolation->interpolate(1.5), 0.1);
     }
+
+    /**
+     * @testdox The spline interpolation for out of bounds values uses linear extrapolation
+     * @covers phpOMS\Math\Numerics\Interpolation\CubicSplineInterpolation
+     * @group framework
+     */
+    public function testInterpolationUnderOverflow() : void
+    {
+        $interpolation = new CubicSplineInterpolation([
+            ['x' => 0.1, 'y' => 0.1],
+            ['x' => 0.4, 'y' => 0.7],
+            ['x' => 1.2, 'y' => 0.6],
+            ['x' => 1.8, 'y' => 1.1],
+            ['x' => 2.0, 'y' => 0.9],
+        ],
+        0.0, DerivativeType::SECOND,
+        0.0, DerivativeType::SECOND,
+    );
+
+        self::assertEqualsWithDelta(-0.140528, $interpolation->interpolate(0), 0.001);
+        self::assertEqualsWithDelta(-0.016007, $interpolation->interpolate(2.5), 0.001);
+    }
 }

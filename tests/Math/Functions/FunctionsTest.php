@@ -109,13 +109,39 @@ class FunctionsTest extends \PHPUnit\Framework\TestCase
         self::assertEquals(11, Functions::getRelativeDegree(6, 12, 7));
     }
 
+    /**
+     * @testdox The error function can be correctly approximated
+     * @covers phpOMS\Math\Functions\Functions
+     * @group framework
+     */
     public function testErf() : void
     {
-        self::markTestIncomplete();
+        self::assertEqualsWithDelta(-0.8427, Functions::getErf(-1), 0.001);
+        self::assertEqualsWithDelta(0.0, Functions::getErf(0), 0.001);
+        self::assertEqualsWithDelta(0.8427, Functions::getErf(1), 0.001);
+        self::assertEqualsWithDelta(0.9988, Functions::getErf(2.3), 0.001);
     }
 
+    /**
+     * @testdox The complementary error function can be correctly approximated
+     * @covers phpOMS\Math\Functions\Functions
+     * @group framework
+     */
     public function testErfc() : void
     {
-        self::markTestIncomplete();
+        self::assertEqualsWithDelta(1.8427, Functions::getErfc(-1), 0.001);
+        self::assertEqualsWithDelta(1, Functions::getErfc(0), 0.001);
+        self::assertEqualsWithDelta(0.15729920705, Functions::getErfc(1), 0.001);
+        self::assertEqualsWithDelta(2.0, Functions::getErfc(-5), 0.001);
+    }
+
+    /**
+     * @testdox The generalized hypergeometric function can be correctly calculated
+     * @covers phpOMS\Math\Functions\Functions
+     * @group framework
+     */
+    public function testGeneralizedHypergeometricFunction() : void
+    {
+        self::assertEqualsWithDelta(2.7289353, Functions::generalizedHypergeometricFunction([2, 3], [4], 0.5), 0.001);
     }
 }

@@ -154,9 +154,9 @@ final class LogNormalDistribution
      *
      * @since 1.0.0
      */
-    public static function getEntrpoy(float $mu, float $sigma) : float
+    public static function getEntropy(float $mu, float $sigma) : float
     {
-        return \log($sigma * \exp($mu + 1 / 2) * \sqrt(2 * \M_1_PI), 2);
+        return \log($sigma * \exp($mu + 1 / 2) * \sqrt(2 * \M_PI), 2);
     }
 
     /**
@@ -172,12 +172,12 @@ final class LogNormalDistribution
     {
         return [
             [1 / ($sigma ** 2), 0],
-            [0, 1 / (2 * $sigma ** 2)],
+            [0, 1 / (2 * $sigma ** 4)],
         ];
     }
 
     /**
-     * Get cummulative distribution function.
+     * Get cumulative distribution function.
      *
      * @param float $x                 Value
      * @param float $mean              Mean

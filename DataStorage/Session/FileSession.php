@@ -17,7 +17,7 @@ namespace phpOMS\DataStorage\Session;
 use phpOMS\DataStorage\LockException;
 
 /**
- * Console session class.
+ * File session class.
  *
  * @package phpOMS\DataStorage\Session
  * @license OMS License 1.0
@@ -26,7 +26,7 @@ use phpOMS\DataStorage\LockException;
  *
  * @SuppressWarnings(PHPMD.Superglobals)
  */
-class ConsoleSession implements SessionInterface
+class FileSession implements SessionInterface
 {
     /**
      * Is session locked/already set.
@@ -83,12 +83,16 @@ class ConsoleSession implements SessionInterface
 
         $this->inactivityInterval = $inactivityInterval;
 
-        if (\session_status() !== \PHP_SESSION_ACTIVE) {
-            \session_set_cookie_params($liftetime, '/', '', false, true); // @codeCoverageIgnore
-            \session_start(); // @codeCoverageIgnore
+        if (\session_status() !== \PHP_SESSION_ACTIVE && !\headers_sent()) {
+            // @codeCoverageIgnoreStart
+            \session_set_cookie_params($liftetime, '/', '', false, true);
+            \session_start();
+            // @codeCoverageIgnoreEnd
         }
 
-        if ($this->inactivityInterval > 0 && ($this->inactivityInterval + ($_SESSION['lastActivity'] ?? 0) < \time())) {
+        if ($this->inactivityInterval > 0
+            && ($this->inactivityInterval + ($_SESSION['lastActivity'] ?? 0) < \time())
+        ) {
             $this->destroy(); // @codeCoverageIgnore
         }
 
@@ -143,12 +147,16 @@ class ConsoleSession implements SessionInterface
     /**
      * {@inheritdoc}
      */
-    public function save() : void
+    public function save() : bool
     {
-        if (!$this->isLocked) {
-            $_SESSION = $this->sessionData;
-            \session_write_close();
+        if ($this->isLocked) {
+            return false;
         }
+
+        $_SESSION = $this->sessionData;
+        \session_write_close();
+
+        return true;
     }
 
     /**
@@ -202,6 +210,7 @@ class ConsoleSession implements SessionInterface
      * Destruct session.
      *
      * @since 1.0.0
+     * @codeCoverageIgnore
      */
     public function __destruct()
     {

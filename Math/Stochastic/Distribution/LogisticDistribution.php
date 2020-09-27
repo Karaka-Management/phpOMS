@@ -41,7 +41,7 @@ final class LogisticDistribution
     }
 
     /**
-     * Get cummulative distribution function.
+     * Get cumulative distribution function.
      *
      * @param float $x  Value x
      * @param float $mu Mean

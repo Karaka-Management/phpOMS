@@ -161,7 +161,7 @@ final class TDistribution
     }
 
     /**
-     * Get cummulative distribution function.
+     * Get cumulative distribution function.
      *
      * @param float $x       Value
      * @param int   $degrees Degrees of freedom
@@ -171,7 +171,7 @@ final class TDistribution
      *
      * @since 1.0.0
      */
-    public static function getCdf(float $x, int $degrees, int $tails = 2) : float
+    public static function getCdf(float $x, int $degrees, int $tails = 1) : float
     {
         if ($x < 0.0 || $degrees < 1 || $tails < 1 || $tails > 2) {
             return 0.0;
@@ -210,6 +210,6 @@ final class TDistribution
 
         $t = 0.5 * (1 + $sum);
 
-        return $tails === 1 ? 1 - \abs($t) : 1 - \abs(1 - $t - $t);
+        return $tails === 1 ? \abs($t) : 1 - \abs(1 - $t - $t);
     }
 }

@@ -84,6 +84,14 @@ class UniformDistributionDiscreteTest extends \PHPUnit\Framework\TestCase
         self::assertEquals(-(6 * ($n ** 2 + 1)) / (5 * ($n ** 2 - 1)), UniformDistributionDiscrete::getExKurtosis($a, $b));
     }
 
+    public function testMgf() : void
+    {
+        self::assertEquals(
+            (\exp(3 * 2) - \exp((4 + 1) * 2)) / ((4 - 3 + 1) * (1 - \exp(2))),
+            UniformDistributionDiscrete::getMgf(2, 3, 4)
+        );
+    }
+
     public function testCdfExceptionUpper() : void
     {
         $this->expectException(\OutOfBoundsException::class);

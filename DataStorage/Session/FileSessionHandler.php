@@ -15,7 +15,7 @@ declare(strict_types=1);
 namespace phpOMS\DataStorage\Session;
 
 /**
- * Console session handler.
+ * File session handler.
  *
  * @package phpOMS\DataStorage\Session
  * @license OMS License 1.0
@@ -24,7 +24,7 @@ namespace phpOMS\DataStorage\Session;
  *
  * @SuppressWarnings(PHPMD.Superglobals)
  */
-final class ConsoleSessionHandler implements \SessionHandlerInterface, \SessionIdInterface
+final class FileSessionHandler implements \SessionHandlerInterface, \SessionIdInterface
 {
     /**
      * File path for session
@@ -44,6 +44,10 @@ final class ConsoleSessionHandler implements \SessionHandlerInterface, \SessionI
     public function __construct(string $path)
     {
         $this->savePath = $path;
+
+        if (\realpath($path) === false) {
+            \mkdir($path, 0755, true);
+        }
     }
 
     /**
@@ -55,7 +59,7 @@ final class ConsoleSessionHandler implements \SessionHandlerInterface, \SessionI
      */
     public function create_sid() : string
     {
-        return \session_create_id('console-');
+        return \session_create_id('s-');
     }
 
     /**
@@ -71,11 +75,8 @@ final class ConsoleSessionHandler implements \SessionHandlerInterface, \SessionI
     public function open($savePath, $sessionName)
     {
         $this->savePath = $savePath;
-        if (!\is_dir($this->savePath)) {
-            \mkdir($this->savePath, 0755);
-        }
 
-        return true;
+        return \is_dir($this->savePath);
     }
 
     /**

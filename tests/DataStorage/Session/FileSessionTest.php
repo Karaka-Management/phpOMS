@@ -14,20 +14,20 @@ declare(strict_types=1);
 
 namespace phpOMS\tests\DataStorage\Session;
 
-use phpOMS\DataStorage\Session\HttpSession;
+use phpOMS\DataStorage\Session\FileSession;
 
 /**
- * @testdox phpOMS\tests\DataStorage\Session\HttpSessionTest: Session data handler for http sessions
+ * @testdox phpOMS\tests\DataStorage\Session\FileSessionTest: File session handler
  *
  * @internal
  */
-class HttpSessionTest extends \PHPUnit\Framework\TestCase
+class FileSessionTest extends \PHPUnit\Framework\TestCase
 {
-    protected HttpSession $session;
+    protected FileSession $session;
 
     protected function setUp() : void
     {
-        $this->session = new HttpSession(1, '', 1);
+        $this->session = new FileSession();
     }
 
     /**
@@ -36,9 +36,8 @@ class HttpSessionTest extends \PHPUnit\Framework\TestCase
      */
     public function testDefault() : void
     {
-        $session = new HttpSession();
-        self::assertNull($session->get('key'));
-        self::assertFalse($session->isLocked());
+        self::assertNull($this->session->get('key'));
+        self::assertFalse($this->session->isLocked());
     }
 
     /**
@@ -51,7 +50,7 @@ class HttpSessionTest extends \PHPUnit\Framework\TestCase
         self::assertEquals('value', $this->session->get('test'));
     }
 
-    /**
+     /**
      * @testdox Session data cannot be overwritten
      * @group framework
      */

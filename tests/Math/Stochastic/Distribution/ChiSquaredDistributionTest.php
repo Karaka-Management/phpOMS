@@ -103,6 +103,16 @@ class ChiSquaredDistributionTest extends \PHPUnit\Framework\TestCase
         self::assertEquals((1 - 2 * $t) ** (-$df / 2), ChiSquaredDistribution::getMgf($df, $t));
     }
 
+    public function testPdf() : void
+    {
+        self::assertEqualsWithDelta(0.20755, ChiSquaredDistribution::getPdf(2, 3), 0.001);
+    }
+
+    public function testCdf() : void
+    {
+        self::assertEqualsWithDelta(0.42759, ChiSquaredDistribution::getCdf(2, 3), 0.001);
+    }
+
     public function testHypothesisSizeException() : void
     {
         $this->expectException(\Exception::class);

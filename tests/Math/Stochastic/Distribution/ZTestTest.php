@@ -14,12 +14,14 @@ declare(strict_types=1);
 
 namespace phpOMS\tests\Math\Stochastic\Distribution;
 
-use phpOMS\Math\Stochastic\Distribution\ZTest;
+use phpOMS\Math\Statistic\Average;
+use phpOMS\Math\Statistic\MeasureOfDispersion;
+use phpOMS\Math\Stochastic\Distribution\ZTesting;
 
 /**
  * @internal
  */
-class ZTestTest extends \PHPUnit\Framework\TestCase
+class ZTestingTest extends \PHPUnit\Framework\TestCase
 {
     // http://sphweb.bumc.bu.edu/otlt/MPH-Modules/BS/BS704_HypothesisTesting-ChiSquare/BS704_HypothesisTesting-ChiSquare_print.html
     public function testHypothesisFalse() : void
@@ -29,14 +31,22 @@ class ZTestTest extends \PHPUnit\Framework\TestCase
         $expected = 0.75;
         $total    = 125; // total count of observed sample size
 
-        self::assertFalse(ZTest::testHypothesis($observed, $expected, $total, $a));
+        self::assertFalse(ZTesting::testHypothesis($observed, $expected, $total, $a));
     }
 
     // https://support.microsoft.com/en-us/office/z-test-function-d633d5a3-2031-4614-a016-92180ad82bee?ui=en-us&rs=en-us&ad=us
     public function testZTest() : void
     {
-        //self::assertEqualsWithDelta(0.090574, ZTest::zTest(4, [3, 6, 7, 8, 6, 5, 4, 2, 1, 9]), 0.001);
-        self::markTestIncomplete();
-        self::assertTrue(true);
+        self::assertEqualsWithDelta(0.090574, ZTesting::zTest(4, [3, 6, 7, 8, 6, 5, 4, 2, 1, 9]), 0.001);
+    }
+
+    public function testZTestValues() : void
+    {
+        $data = [3, 6, 7, 8, 6, 5, 4, 2, 1, 9];
+        $mean = Average::arithmeticMean($data);
+        $size = \count($data);
+        $sig  = MeasureOfDispersion::standardDeviationSample($data);
+
+        self::assertEqualsWithDelta(0.090574, ZTesting::zTestValues(4, $mean, $size, $sig), 0.001);
     }
 }

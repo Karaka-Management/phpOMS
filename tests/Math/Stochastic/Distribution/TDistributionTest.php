@@ -58,4 +58,12 @@ class TDistributionTest extends \PHPUnit\Framework\TestCase
     {
         self::assertEquals(0, TDistribution::getSkewness());
     }
+
+    public function testCdf() : void
+    {
+        self::assertEqualsWithDelta(0.0, TDistribution::getCdf(1.25, 5, 0), 0.001);
+        self::assertEqualsWithDelta(0.86669, TDistribution::getCdf(1.25, 5, 1), 0.001);
+        self::assertEqualsWithDelta(0.78867, TDistribution::getCdf(1.0, 2, 1), 0.001);
+        self::assertEqualsWithDelta(0.4226, TDistribution::getCdf(1.0, 2, 2), 0.001);
+    }
 }

@@ -55,4 +55,20 @@ class BetaDistributionTest extends \PHPUnit\Framework\TestCase
     {
         self::assertEqualsWithDelta(-6 / 7, BetaDistribution::getExKurtosis(2.0, 2.0), 0.001);
     }
+
+    public function testPdf() : void
+    {
+        self::assertEqualsWithDelta(0.9375, BetaDistribution::getPdf(0.5, 2, 5), 0.001);
+    }
+
+    public function testCdf() : void
+    {
+        self::assertEqualsWithDelta(0.890625, BetaDistribution::getCdf(0.5, 2, 5), 0.001);
+    }
+
+    public function testMgf() : void
+    {
+        self::assertEqualsWithDelta(1.0, BetaDistribution::getMgf(0, 2, 5), 0.001);
+        self::assertEqualsWithDelta(1.869356, BetaDistribution::getMgf(2, 2, 5), 0.001);
+    }
 }

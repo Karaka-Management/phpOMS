@@ -53,4 +53,14 @@ class FDistributionTest extends \PHPUnit\Framework\TestCase
         self::assertEquals(0.0, FDistribution::getSkewness(1, 6));
         self::assertEquals(2 * (2 * 4 + 7 - 2) / (7 - 6) * \sqrt(2 * (7 - 4) / (4 * (7 + 4 - 2))), FDistribution::getSkewness(4, 7));
     }
+
+    public function testPdf() : void
+    {
+        self::assertEqualsWithDelta(0.2788548, FDistribution::getPdf(1, 2, 3), 0.001);
+    }
+
+    public function testCdf() : void
+    {
+        self::assertEqualsWithDelta(0.5352419, FDistribution::getCdf(1, 2, 3), 0.001);
+    }
 }

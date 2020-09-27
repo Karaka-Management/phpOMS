@@ -97,4 +97,13 @@ class UniformDistributionContinuousTest extends \PHPUnit\Framework\TestCase
     {
         self::assertEquals(-6 / 5, UniformDistributionContinuous::getExKurtosis());
     }
+
+    public function testMgf() : void
+    {
+        self::assertEquals(1, UniformDistributionContinuous::getMgf(0, 2, 3));
+        self::assertEquals(
+            (\exp(2 * 4) - \exp(2 *3)) / (2 * (4 - 3)),
+            UniformDistributionContinuous::getMgf(2, 3, 4)
+        );
+    }
 }

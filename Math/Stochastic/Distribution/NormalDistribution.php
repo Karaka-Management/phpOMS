@@ -89,7 +89,7 @@ final class NormalDistribution
     }
 
     /**
-     * Get cummulative distribution function.
+     * Get cumulative distribution function.
      *
      * @param float $x   Value x
      * @param float $mu  Mean
@@ -213,7 +213,10 @@ final class NormalDistribution
      */
     public static function getFisherInformation(float $sig) : array
     {
-        return [[1 / $sig ** 2, 0], [0, 1 / (2 * $sig ** 4)]];
+        return [
+            [1 / $sig ** 2, 0],
+            [0, 1 / (2 * $sig ** 4)],
+        ];
     }
 
     /**
