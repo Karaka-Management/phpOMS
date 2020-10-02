@@ -48,6 +48,14 @@ final class Directory extends FileAbstract implements DirectoryInterface, LocalC
     private array $nodes = [];
 
     /**
+     * Is directory initialized
+     *
+     * @var bool
+     * @since 1.0.0
+     */
+    private bool $isInitialized = false;
+
+    /**
      * Constructor.
      *
      * @param string $path   Path
@@ -55,12 +63,12 @@ final class Directory extends FileAbstract implements DirectoryInterface, LocalC
      *
      * @since 1.0.0
      */
-    public function __construct(string $path, string $filter = '*')
+    public function __construct(string $path, string $filter = '*', bool $initialize = true)
     {
         $this->filter = \ltrim($filter, '\\/');
         parent::__construct($path);
 
-        if (\file_exists($this->path)) {
+        if ($initialize && \file_exists($this->path)) {
             $this->index();
         }
     }
@@ -85,7 +93,8 @@ final class Directory extends FileAbstract implements DirectoryInterface, LocalC
         $path     = \rtrim($path, '\\/');
         $iterator = new \RecursiveIteratorIterator(
             new \RecursiveDirectoryIterator($path, \RecursiveDirectoryIterator::SKIP_DOTS),
-            \RecursiveIteratorIterator::SELF_FIRST);
+            \RecursiveIteratorIterator::SELF_FIRST
+        );
 
         if ($filter !== '*') {
             $iterator = new \RegexIterator($iterator, '/' . $filter . '/i', \RecursiveRegexIterator::GET_MATCH);
@@ -138,11 +147,16 @@ final class Directory extends FileAbstract implements DirectoryInterface, LocalC
      */
     public function index() : void
     {
+        if ($this->isInitialized) {
+            return;
+        }
+
+        $this->isInitialized = true;
         parent::index();
 
         foreach (\glob($this->path . \DIRECTORY_SEPARATOR . $this->filter) as $filename) {
             if (!StringUtils::endsWith(\trim($filename), '.')) {
-                $file = \is_dir($filename) ? new self($filename) : new File($filename);
+                $file = \is_dir($filename) ? new self($filename, '*', false) : new File($filename);
 
                 $this->addNode($file);
             }
@@ -152,13 +166,27 @@ final class Directory extends FileAbstract implements DirectoryInterface, LocalC
     /**
      * {@inheritdoc}
      */
-    public function addNode($file) : bool
+    public function addNode(ContainerInterface $node) : self
     {
-        $this->count                  += $file->getCount();
-        $this->size                   += $file->getSize();
-        $this->nodes[$file->getName()] = $file;
+        $this->count                  += $node->getCount();
+        $this->size                   += $node->getSize();
+        $this->nodes[$node->getName()] = $node;
 
-        return $file->createNode();
+        $node->createNode();
+
+        return $this;
+    }
+
+    /**
+     * Create node
+     *
+     * @return bool
+     *
+     * @since 1.0.0
+     */
+    public function createNode() : bool
+    {
+        return self::create($this->path, $this->permission, true);
     }
 
     /**
@@ -174,7 +202,7 @@ final class Directory extends FileAbstract implements DirectoryInterface, LocalC
         $directories = \scandir($dir);
 
         if ($directories === false) {
-            return $countSize;
+            return $countSize; // @codeCoverageIgnore
         }
 
         foreach ($directories as $key => $filename) {
@@ -218,7 +246,7 @@ final class Directory extends FileAbstract implements DirectoryInterface, LocalC
         $ignore[] = '..';
 
         if ($files === false) {
-            return $size;
+            return $size; // @codeCoverageIgnore
         }
 
         foreach ($files as $t) {
@@ -249,7 +277,7 @@ final class Directory extends FileAbstract implements DirectoryInterface, LocalC
         $files = \scandir($path);
 
         if ($files === false) {
-            return false;
+            return false; // @codeCoverageIgnore
         }
 
         /* Removing . and .. */
@@ -354,6 +382,7 @@ final class Directory extends FileAbstract implements DirectoryInterface, LocalC
             self::create($to, 0755, true);
         } elseif ($overwrite && \file_exists($to)) {
             self::delete($to);
+            self::create($to, 0755, true);
         } else {
             return false;
         }
@@ -417,19 +446,11 @@ final class Directory extends FileAbstract implements DirectoryInterface, LocalC
      */
     public function getNode(string $name) : ?ContainerInterface
     {
-        return $this->nodes[$name] ?? null;
-    }
+        if (isset($this->nodes[$name]) && $this->nodes[$name] instanceof self) {
+            $this->nodes[$name]->index();
+        }
 
-    /**
-     * {@inheritdoc}
-     */
-    public function createNode() : bool
-    {
-        return self::create($this->path, $this->permission, true);
-        /**
-         * @todo Orange-Management/phpOMS#??? [p:low] [t:todo] [d:medium]
-         *  Add node to current node list
-         */
+        return $this->nodes[$name] ?? null;
     }
 
     /**
@@ -453,30 +474,8 @@ final class Directory extends FileAbstract implements DirectoryInterface, LocalC
             try {
                 \mkdir($path, $permission, $recursive);
             } catch (\Throwable $t) {
-                return false;
+                return false; // @codeCoverageIgnore
             }
-
-            return true;
-        }
-
-        return false;
-    }
-
-    /**
-     * {@inheritdoc}
-     */
-    public function remove(string $name) : bool
-    {
-        if (isset($this->nodes[$name])) {
-            $this->count -= $this->nodes[$name]->getCount();
-            $this->size  -= $this->nodes[$name]->getSize();
-
-            unset($this->nodes[$name]);
-
-            /**
-             * @todo Orange-Management/phpOMS#??? [p:low] [t:question] [d:medium]
-             *  Should this also remove the resource? \unlink();
-             */
 
             return true;
         }
@@ -497,7 +496,13 @@ final class Directory extends FileAbstract implements DirectoryInterface, LocalC
      */
     public function current()
     {
-        return \current($this->nodes);
+        $current = \current($this->nodes);
+
+        if (isset($current) && $current instanceof self) {
+            $current->index();
+        }
+
+        return $current;
     }
 
     /**
@@ -513,7 +518,13 @@ final class Directory extends FileAbstract implements DirectoryInterface, LocalC
      */
     public function next()
     {
-        return \next($this->nodes);
+        $next = \next($this->nodes);
+
+        if (isset($next) && $next instanceof self) {
+            $next->index();
+        }
+
+        return $next;
     }
 
     /**
@@ -617,21 +628,44 @@ final class Directory extends FileAbstract implements DirectoryInterface, LocalC
      */
     public function deleteNode() : bool
     {
-        return self::delete($this->path);
-        /**
-         * @todo Orange-Management/phpOMS#??? [p:low] [t:todo] [d:medium]
-         *  Remove node from node list
-         */
+        self::delete($this->path);
+
+        if (!isset($this->nodes[$this->path])) {
+            return false;
+        }
+
+        $this->count -= $this->nodes[$this->path]->getCount();
+        $this->size  -= $this->nodes[$this->path]->getSize();
+
+        unset($this->nodes[$this->path]);
+
+        return true;
     }
 
     /**
      * {@inheritdoc}
      */
-    public function offsetGet($offset) : void
+    public function offsetGet($offset)
     {
-        /**
-         * @todo Orange-Management/phpOMS#??? [p:low] [t:todo] [d:medium]
-         *  Implement offsetGet()
-         */
+        if (isset($this->nodes[$offset]) && $this->nodes[$offset] instanceof self) {
+            $this->nodes[$offset]->index();
+        }
+
+        return $this->nodes[$offset] ?? null;
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function getList() : array
+    {
+        $pathLength = \strlen($this->path);
+        $content    = [];
+
+        foreach ($this->nodes as $node) {
+            $content[] = \substr($node->getPath(), $pathLength + 1);
+        }
+
+        return $content;
     }
 }

@@ -30,8 +30,14 @@ class CaesarTest extends \PHPUnit\Framework\TestCase
      */
     public function testEncoding() : void
     {
-        $raw = StringUtils::generateString(1, 100);
-        $key = StringUtils::generateString(1, 100);
+        $raw = StringUtils::generateString(11, 100);
+        $key = StringUtils::generateString(5, 10);
+
+        self::assertNotEquals($raw, Caesar::encode($raw, $key));
+        self::assertEquals($raw, Caesar::decode(Caesar::encode($raw, $key), $key));
+
+        $raw = StringUtils::generateString(5, 10);
+        $key = StringUtils::generateString(11, 100);
 
         self::assertNotEquals($raw, Caesar::encode($raw, $key));
         self::assertEquals($raw, Caesar::decode(Caesar::encode($raw, $key), $key));

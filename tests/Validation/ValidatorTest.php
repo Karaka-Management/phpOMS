@@ -109,4 +109,21 @@ class ValidatorTest extends \PHPUnit\Framework\TestCase
         self::assertTrue(Validator::matches('ThisTestVar', '/TestVar/'));
         self::assertFalse(Validator::matches('ThisTestVar', '/ThisTest$/'));
     }
+
+    public function testErrorMessage() : void
+    {
+        self::assertEquals('', Validator::getMessage());
+    }
+
+    public function testErrorCode() : void
+    {
+        self::assertEquals(0, Validator::getErrorCode());
+    }
+
+    public function testResetError() : void
+    {
+        Validator::resetError();
+        self::assertEquals('', Validator::getMessage());
+        self::assertEquals(0, Validator::getErrorCode());
+    }
 }

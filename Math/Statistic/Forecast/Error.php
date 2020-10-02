@@ -126,6 +126,26 @@ final class Error
     }
 
     /**
+     * Get mean absolute deviation (MAD).
+     *
+     * @param array<int, int|float> $observed   Observed values
+     * @param array<int, int|float> $forecasted Forecasted values
+     *
+     * @return float
+     *
+     * @since 1.0.0
+     */
+    public static function getMeanAbsoulteDeviation(array $observed, array $forecasted) : float
+    {
+        $deviation = 0.0;
+        foreach ($observed as $key => $value) {
+            $deviation += \abs($value - $forecasted[$key]);
+        }
+
+        return $deviation / \count($observed);
+    }
+
+    /**
      * Get mean squared error (MSE).
      *
      * @param array<int, int|float> $errors Errors
@@ -210,71 +230,12 @@ final class Error
     }
 
     /**
-     * Get Aike's information criterion (AIC)
-     *
-     * @param float $sse          SSE
-     * @param int   $observations Amount of observations
-     * @param int   $predictors   Amount of predictors
-     *
-     * @return float
-     *
-     * @todo Orange-Management/phpOMS#167
-     *  Create unit test.
-     *
-     * @since 1.0.0
-     */
-    public static function getAkaikeInformationCriterion(float $sse, int $observations, int $predictors) : float
-    {
-        return $observations * \log($sse / $observations) + 2 * ($predictors + 2);
-    }
-
-    /**
-     * Get corrected Aike's information criterion (AIC)
-     *
-     * Correction for small amount of observations
-     *
-     * @param float $aic          AIC
-     * @param int   $observations Amount of observations
-     * @param int   $predictors   Amount of predictors
-     *
-     * @return float
-     *
-     * @since 1.0.0
-     */
-    public static function getCorrectedAkaikeInformationCriterion(float $aic, int $observations, int $predictors) : float
-    {
-        return $aic + (2 * ($predictors + 2) * ($predictors + 3)) / ($observations - $predictors - 3);
-    }
-
-    /**
-     * Get Bayesian information criterion (BIC)
-     *
-     * @param float $sse          SSE
-     * @param int   $observations Amount of observations
-     * @param int   $predictors   Amount of predictors
-     *
-     * @return float
-     *
-     * @todo Orange-Management/phpOMS#168
-     *  Create unit test.
-     *
-     * @since 1.0.0
-     */
-    public static function getSchwarzBayesianInformationCriterion(float $sse, int $observations, int $predictors) : float
-    {
-        return $observations * \log($sse / $observations) + ($predictors + 2) * \log($observations);
-    }
-
-    /**
      * Get mean absolute percentage error (MAPE).
      *
      * @param float[] $observed   Dataset
      * @param float[] $forecasted Forecasted
      *
      * @return float
-     *
-     * @todo Orange-Management/phpOMS#169
-     *  Create unit test.
      *
      * @since 1.0.0
      */
@@ -291,9 +252,6 @@ final class Error
      *
      * @return float
      *
-     * @todo Orange-Management/phpOMS#170
-     *  Create unit test.
-     *
      * @since 1.0.0
      */
     public static function getSymmetricMeanAbsolutePercentageError(array $observed, array $forecasted) : float
@@ -301,60 +259,10 @@ final class Error
         $error = [];
 
         foreach ($observed as $key => $value) {
-            $error[] = 200 * \abs($value - $forecasted[$key]) / ($value + $forecasted[$key]);
+            $error[] = \abs($value - $forecasted[$key]) / ($value + $forecasted[$key]) / 2;
         }
 
         return Average::arithmeticMean($error);
-    }
-
-    /**
-     * Get cross sectional scaled errors (CSSE)
-     *
-     * @param array<int, int|float> $errors   Errors
-     * @param float[]               $observed Dataset
-     *
-     * @return float[]
-     *
-     * @todo Orange-Management/phpOMS#172
-     *  Create unit test.
-     *
-     * @since 1.0.0
-     */
-    public static function getCrossSectionalScaledErrorArray(array $errors, array $observed) : array
-    {
-        $scaled    = [];
-        $deviation = MeasureOfDispersion::meanDeviation($observed);
-
-        foreach ($errors as $error) {
-            $scaled[] = $error / $deviation;
-        }
-
-        return $scaled;
-    }
-
-    /**
-     * Get cross sectional scaled errors (CSSE)
-     *
-     * @param float   $error    Errors
-     * @param float[] $observed Dataset
-     *
-     * @return float
-     *
-     * @todo Orange-Management/phpOMS#171
-     *  Create unit test.
-     *
-     * @since 1.0.0
-     */
-    public static function getCrossSectionalScaledError(float $error, array $observed) : float
-    {
-        $mean = Average::arithmeticMean($observed);
-        $sum  = 0.0;
-
-        foreach ($observed as $value) {
-            $sum += \abs($value - $mean);
-        }
-
-        return $error / MeasureOfDispersion::meanDeviation($observed);
     }
 
     /**
@@ -372,14 +280,11 @@ final class Error
     }
 
     /**
-     * Get mean absolute scaled error (MSSE)
+     * Get mean squared scaled error (MSSE)
      *
      * @param array<int, int|float> $scaledErrors Scaled errors
      *
      * @return float
-     *
-     * @todo Orange-Management/phpOMS#173
-     *  Create unit test.
      *
      * @since 1.0.0
      */

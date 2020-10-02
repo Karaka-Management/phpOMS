@@ -16,6 +16,7 @@ namespace phpOMS\tests\Math\Statistic\Forecast;
 
 use phpOMS\Math\Statistic\Forecast\Error;
 use phpOMS\Math\Statistic\MeasureOfDispersion;
+use phpOMS\Utils\ArrayUtils;
 
 /**
  * @internal
@@ -93,6 +94,27 @@ class ErrorTest extends \PHPUnit\Framework\TestCase
         self::assertEqualsWithDelta(0.0983, Error::getMeanAbsoluteScaledError($scaledErrors), 0.01);
     }
 
+    public function testMSSE() : void
+    {
+        $observed = [
+            -2.9, -2.83, -0.95, -0.88, 1.21, -1.67, 0.83, -0.27, 1.36,
+            -0.34, 0.48, -2.83, -0.95, -0.88, 1.21, -1.67, -2.99, 1.24, 0.64,
+        ];
+
+        $forecast = [
+            -2.95, -2.7, -1.00, -0.68, 1.50, -1.00, 0.90, -0.37, 1.26,
+            -0.54, 0.58, -2.13, -0.75, -0.89, 1.25, -1.65, -3.20, 1.29, 0.60,
+        ];
+
+        $errors       = Error::getForecastErrorArray($observed, $forecast);
+        $scaledErrors = Error::getScaledErrorArray($errors, $observed);
+
+        self::assertEqualsWithDelta(
+            Error::getMeanAbsoluteScaledError(ArrayUtils::powerInt($scaledErrors, 2)),
+            Error::getMeanSquaredScaledError($scaledErrors), 0.01
+        );
+    }
+
     public function testScaledError() : void
     {
         self::assertEquals(
@@ -116,5 +138,29 @@ class ErrorTest extends \PHPUnit\Framework\TestCase
         ), 0.001);
 
         self::assertEqualsWithDelta(0.922085138, Error::getAdjustedCoefficientOfDetermination(0.944346527, 8, 2), 0.001);
+    }
+
+    public function testMAPE() : void
+    {
+        self::assertEqualsWithDelta(0.17551, Error::getMeanAbsolutePercentageError(
+            [112.3, 108.4, 148.9, 117.4],
+            [124.7, 103.7, 116.6, 78.5],
+        ), 0.001);
+    }
+
+    public function testSMAPE() : void
+    {
+        self::assertEqualsWithDelta(0.049338, Error::getSymmetricMeanAbsolutePercentageError(
+            [112.3, 108.4, 148.9, 117.4],
+            [124.7, 103.7, 116.6, 78.5],
+        ), 0.001);
+    }
+
+    public function testMAD() : void
+    {
+        self::assertEqualsWithDelta(22.075, Error::getMeanAbsoulteDeviation(
+            [112.3, 108.4, 148.9, 117.4],
+            [124.7, 103.7, 116.6, 78.5],
+        ), 0.001);
     }
 }

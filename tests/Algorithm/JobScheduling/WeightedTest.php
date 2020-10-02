@@ -32,10 +32,12 @@ class WeightedTest extends \PHPUnit\Framework\TestCase
     public function testNoOverlappingScheduling() : void
     {
         $jobs = [
+            new Job(10, new \DateTime('2000-01-01'), null, '0'),
             new Job(20, new \DateTime('2003-01-01'), new \DateTime('2010-01-01'), 'A'),
             new Job(50, new \DateTime('2001-01-01'), new \DateTime('2002-01-01'), 'B'),
             new Job(100, new \DateTime('2006-01-01'), new \DateTime('2019-01-01'), 'C'),
             new Job(200, new \DateTime('2002-01-01'), new \DateTime('2020-01-01'), 'D'),
+            new Job(300, new \DateTime('2004-01-01'), null, '1'),
         ];
 
         $filtered = WeighteD::solve($jobs);
@@ -48,11 +50,11 @@ class WeightedTest extends \PHPUnit\Framework\TestCase
             $names[] = $job->getName();
         }
 
-        self::assertEqualsWithDelta(250, $value, 0.01);
+        self::assertEqualsWithDelta(350, $value, 0.01);
 
         self::assertTrue(
             \in_array('B', $names)
-            && \in_array('D', $names)
+            && \in_array('1', $names)
         );
     }
 

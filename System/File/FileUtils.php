@@ -128,7 +128,7 @@ final class FileUtils
             } elseif (!empty($path)) {
                 \array_pop($path);
             } else {
-                throw new PathException($origPath);
+                throw new PathException($origPath); // @codeCoverageIgnore
             }
         }
 
@@ -138,23 +138,25 @@ final class FileUtils
     /**
      * Change encoding of file
      *
-     * @param string $file     Path to file which should be re-encoded
-     * @param string $encoding New file encoding
+     * @param string $input          Path to file which should be re-encoded
+     * @param string $output         Output file path
+     * @param string $outputEncoding New file encoding
+     * @param string $inputEncoding  Old file encoding
      *
      * @return void
      *
      * @since 1.0.0
      */
-    public static function changeFileEncoding(string $file, string $encoding) : void
+    public static function changeFileEncoding(string $input, string $output, string $outputEncoding, string $inputEncoding = '') : void
     {
-        $content = \file_get_contents($file);
+        $content = \file_get_contents($input);
 
         if ($content === false) {
-            return;
+            return; // @codeCoverageIgnore
         }
 
-        $detected = \mb_detect_encoding($content);
-        \file_put_contents($file, \mb_convert_encoding($content, $encoding, $detected === false ? \mb_list_encodings() : $detected));
+        $detected = empty($inputEncoding) ? \mb_detect_encoding($content) : $inputEncoding;
+        \file_put_contents($output, \mb_convert_encoding($content, $outputEncoding, $detected === false ? \mb_list_encodings() : $detected));
     }
 
     /**

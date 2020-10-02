@@ -84,6 +84,24 @@ class TarTest extends \PHPUnit\Framework\TestCase
     }
 
     /**
+     * @testdox Extracting invalid tar files fail
+     * @covers phpOMS\Utils\IO\Zip\Tar
+     * @group framework
+     */
+    public function testInvalidTarUnpack() : void
+    {
+        self::assertFalse(Tar::unpack(
+            __DIR__ . '/invalid.tar',
+            __DIR__
+        ));
+
+        self::assertFalse(Tar::unpack(
+            __DIR__ . '/test a.txt',
+            __DIR__
+        ));
+    }
+
+    /**
      * @testdox A tar archive cannot be overwritten by default
      * @covers phpOMS\Utils\IO\Zip\Tar
      * @group framework

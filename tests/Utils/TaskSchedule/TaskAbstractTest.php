@@ -15,6 +15,7 @@ declare(strict_types=1);
 namespace phpOMS\tests\Utils\TaskSchedule;
 
 use phpOMS\Utils\TaskSchedule\TaskAbstract;
+use phpOMS\Utils\TaskSchedule\TaskFactory;
 
 /**
  * @testdox phpOMS\tests\Utils\TaskSchedule\TaskAbstractTest: Job/task abstraction
@@ -35,6 +36,7 @@ class TaskAbstractTest extends \PHPUnit\Framework\TestCase
 
             public static function createWith(array $jobData) : TaskAbstract
             {
+                return TaskFactory::create();
             }
         };
     }
@@ -64,6 +66,17 @@ class TaskAbstractTest extends \PHPUnit\Framework\TestCase
     {
         $this->class->setCommand('Command');
         self::assertEquals('Command', $this->class->getCommand());
+    }
+
+    /**
+     * @testdox The interval can be set and returned
+     * @covers phpOMS\Utils\TaskSchedule\TaskAbstract
+     * @group framework
+     */
+    public function testIntervalInputOutput() : void
+    {
+        $this->class->setInterval('Interval');
+        self::assertEquals('Interval', $this->class->getInterval());
     }
 
     /**

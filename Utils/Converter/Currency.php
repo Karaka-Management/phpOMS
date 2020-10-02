@@ -97,26 +97,28 @@ final class Currency
      */
     public static function getEcbEuroRates() : array
     {
-        if (empty(self::$ecbCurrencies)) {
-            $request = new HttpRequest(new HttpUri('https://www.ecb.europa.eu/stats/eurofxref/eurofxref-daily.xml'));
-            $request->setMethod(RequestMethod::GET);
+        if (!empty(self::$ecbCurrencies)) {
+            return self::$ecbCurrencies;
+        }
 
-            try {
-                $xml = new \SimpleXMLElement(Rest::request($request)->getBody());
+        $request = new HttpRequest(new HttpUri('https://www.ecb.europa.eu/stats/eurofxref/eurofxref-daily.xml'));
+        $request->setMethod(RequestMethod::GET);
 
-                if (!isset($xml->Cube)) {
-                    throw new \Exception('Invalid xml path');
-                }
+        try {
+            $xml = new \SimpleXMLElement(Rest::request($request)->getBody());
 
-                $node                = $xml->Cube->Cube->Cube;
-                self::$ecbCurrencies = [];
-
-                foreach ($node as $key => $value) {
-                    self::$ecbCurrencies[\strtoupper((string) $value->attributes()['currency'])] = (float) $value->attributes()['rate'];
-                }
-            } catch (\Throwable $t) {
-                self::$ecbCurrencies = [];
+            if (!isset($xml->Cube)) {
+                throw new \Exception('Invalid xml path'); // @codeCoverageIgnore
             }
+
+            $node                = $xml->Cube->Cube->Cube;
+            self::$ecbCurrencies = [];
+
+            foreach ($node as $key => $value) {
+                self::$ecbCurrencies[\strtoupper((string) $value->attributes()['currency'])] = (float) $value->attributes()['rate'];
+            }
+        } catch (\Throwable $t) {
+            self::$ecbCurrencies = []; // @codeCoverageIgnore
         }
 
         return self::$ecbCurrencies;

@@ -2009,14 +2009,4 @@ abstract class MimeType extends Enum
     public const M_ZMM = 'application/vnd.handheld-entertainment+xml';
 
     public const M_123 = 'application/vnd.lotus-1-2-3';
-
-    /** {@inheritdoc} */
-    public static function getByName(string $name)
-    {
-        if (!self::isValidName($name)) {
-            return 'application/octet-stream';
-        }
-
-        return \constant('self::' . $name);
-    }
 }

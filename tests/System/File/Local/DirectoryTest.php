@@ -37,6 +37,11 @@ class DirectoryTest extends \PHPUnit\Framework\TestCase
         \rmdir($dirPath);
     }
 
+    public function testStaticRemove() : void
+    {
+        self::markTestIncomplete();
+    }
+
     /**
      * @testdox A directory can be checked for existence
      * @covers phpOMS\System\File\Local\Directory
@@ -278,6 +283,36 @@ class DirectoryTest extends \PHPUnit\Framework\TestCase
     }
 
     /**
+     * @testdox A directory can be forced to be copied to a different location even if the destination already exists
+     * @covers phpOMS\System\File\Local\Directory
+     * @group framework
+     */
+    public function testStaticCopyOverwrite() : void
+    {
+        $dirTestPath = __DIR__ . '/dirtest';
+        self::assertTrue(Directory::copy($dirTestPath, __DIR__ . '/newdirtest'));
+        self::assertFalse(Directory::copy($dirTestPath, __DIR__ . '/newdirtest', false));
+        self::assertTrue(Directory::copy($dirTestPath, __DIR__ . '/newdirtest', true));
+        self::assertFileExists(__DIR__ . '/newdirtest/sub/path/test3.txt');
+
+        Directory::delete(__DIR__ . '/newdirtest');
+    }
+
+    /**
+     * @testdox By default a directory is not overwritten on copy
+     * @covers phpOMS\System\File\Local\Directory
+     * @group framework
+     */
+    public function testStaticInvalidCopyOverwrite() : void
+    {
+        $dirTestPath = __DIR__ . '/dirtest';
+        self::assertTrue(Directory::copy($dirTestPath, __DIR__ . '/newdirtest'));
+        self::assertFalse(Directory::copy($dirTestPath, __DIR__ . '/newdirtest', false));
+
+        Directory::delete(__DIR__ . '/newdirtest');
+    }
+
+    /**
      * @testdox A directory can be moved/renamed to a different path
      * @covers phpOMS\System\File\Local\Directory
      * @group framework
@@ -286,8 +321,42 @@ class DirectoryTest extends \PHPUnit\Framework\TestCase
     {
         $dirTestPath = __DIR__ . '/dirtest';
 
+        self::assertTrue(Directory::move($dirTestPath, __DIR__ . '/parent/newdirtest'));
+        self::assertFileExists(__DIR__ . '/parent/newdirtest/sub/path/test3.txt');
+
+        Directory::move(__DIR__ . '/parent/newdirtest', $dirTestPath);
+        \rmdir(__DIR__ . '/parent');
+    }
+
+    /**
+     * @testdox By default a directory is not overwritten on move
+     * @covers phpOMS\System\File\Local\Directory
+     * @group framework
+     */
+    public function testStaticInvalidMoveOverwrite() : void
+    {
+        $dirTestPath = __DIR__ . '/dirtest';
+
         self::assertTrue(Directory::move($dirTestPath, __DIR__ . '/newdirtest'));
-        self::assertFileExists(__DIR__ . '/newdirtest/sub/path/test3.txt');
+        self::assertFalse(Directory::move(__DIR__ . '/newdirtest', __DIR__ . '/newdirtest', false));
+
+        Directory::move(__DIR__ . '/newdirtest', $dirTestPath);
+    }
+
+    /**
+     * @testdox A directory can be forced to be moved/renamed to a different path even if the destination already exists
+     * @covers phpOMS\System\File\Local\Directory
+     * @group framework
+     */
+    public function testStaticMoveOverwrite() : void
+    {
+        $dirTestPath = __DIR__ . '/dirtest';
+
+        self::assertTrue(Directory::move($dirTestPath, __DIR__ . '/newdirtest'));
+
+        self::assertTrue(Directory::copy(__DIR__ . '/newdirtest', $dirTestPath));
+        self::assertFalse(Directory::move($dirTestPath, __DIR__ . '/newdirtest', false));
+        self::assertTrue(Directory::move($dirTestPath, __DIR__ . '/newdirtest', true));
 
         Directory::move(__DIR__ . '/newdirtest', $dirTestPath);
     }
@@ -334,6 +403,7 @@ class DirectoryTest extends \PHPUnit\Framework\TestCase
     {
         $dirTestPath = __DIR__ . '/dirtest';
         self::assertCount(6, Directory::list($dirTestPath));
+        self::assertEquals(['sub/test2.txt', 'sub/test4.md', 'sub/path/test3.txt'], Directory::list($dirTestPath, 'test[0-9]+.*'));
     }
 
     /**
@@ -345,6 +415,27 @@ class DirectoryTest extends \PHPUnit\Framework\TestCase
     {
         $dirTestPath = __DIR__ . '/dirtest';
         self::assertCount(3, Directory::listByExtension($dirTestPath, 'txt'));
+    }
+
+    /**
+     * @testdox The owner of a directory can be returned
+     * @covers phpOMS\System\File\Local\Directory
+     * @group framework
+     */
+    public function testStaticOwner() : void
+    {
+        $dirTestPath = __DIR__ . '/dirtest';
+        self::assertNotEmpty(Directory::owner($dirTestPath));
+    }
+
+    /**
+     * @testdox Invalid directory names and paths can be sanitized
+     * @covers phpOMS\System\File\Local\Directory
+     * @group framework
+     */
+    public function testDirectoryNameSanitizing() : void
+    {
+        self::assertEquals(':/some/test/[path', Directory::sanitize(':#&^$/some%/test/[path!'));
     }
 
     /**
@@ -421,5 +512,140 @@ class DirectoryTest extends \PHPUnit\Framework\TestCase
         $this->expectException(\phpOMS\System\File\PathException::class);
 
         Directory::owner(__DIR__ . '/invalid');
+    }
+
+    public function testList() : void
+    {
+        $dirTestPath = __DIR__ . '/dirtest';
+        $dir = new Directory($dirTestPath);
+
+        self::assertEquals([
+            'sub',
+            'test.txt'
+        ], $dir->getList());
+    }
+
+    public function testNodeOutput() : void
+    {
+        $dirTestPath = __DIR__ . '/dirtest';
+        $dir = new Directory($dirTestPath);
+
+        self::assertInstanceOf(Directory::class, $dir->getNode('sub'));
+    }
+
+    public function testNodeCreate() : void
+    {
+        $dir = new Directory(__DIR__);
+        $dir->addNode(new Directory(__DIR__ . '/nodedir'));
+
+        self::assertTrue(\file_exists(__DIR__ . '/nodedir'));
+        \rmdir(__DIR__ . '/nodedir');
+
+        $dir = new Directory(__DIR__ . '/nodedir2');
+        $dir->createNode();
+
+        self::assertTrue(\file_exists(__DIR__ . '/nodedir2'));
+        \rmdir(__DIR__ . '/nodedir2');
+    }
+
+    public function testNodeDelete() : void
+    {
+        $dir = new Directory(__DIR__);
+        $dir->addNode(new Directory(__DIR__ . '/nodedir'));
+
+        self::assertTrue(\file_exists(__DIR__ . '/nodedir'));
+        self::assertTrue($dir->deleteNode());
+        self::assertFalse(\file_exists(__DIR__ . '/nodedir'));
+    }
+
+    public function testNodeCopy() : void
+    {
+        self::markTestIncomplete();
+    }
+
+    public function testNodeMove() : void
+    {
+        self::markTestIncomplete();
+    }
+
+    public function testNodeExists() : void
+    {
+        self::markTestIncomplete();
+    }
+
+    public function testParentOutput() : void
+    {
+        self::markTestIncomplete();
+    }
+
+
+    public function testNodeNext() : void
+    {
+        self::markTestIncomplete();
+    }
+
+    public function testNodeCurrent() : void
+    {
+        self::markTestIncomplete();
+    }
+
+    public function testNodeKey() : void
+    {
+        self::markTestIncomplete();
+    }
+
+    public function testNodeArrayRead() : void
+    {
+        self::markTestIncomplete();
+    }
+
+    public function testNodeArraySet() : void
+    {
+        self::markTestIncomplete();
+    }
+
+    public function testNodeArrayRemove() : void
+    {
+        self::markTestIncomplete();
+    }
+
+    public function testNodeArrayExists() : void
+    {
+        self::markTestIncomplete();
+    }
+
+    public function testNodeCreatedAt() : void
+    {
+        self::markTestIncomplete();
+    }
+
+    public function testNodeChangedAt() : void
+    {
+        self::markTestIncomplete();
+    }
+
+    public function testNodeOwner() : void
+    {
+        self::markTestIncomplete();
+    }
+
+    public function testNodePermission() : void
+    {
+        self::markTestIncomplete();
+    }
+
+    public function testDirname() : void
+    {
+        self::markTestIncomplete();
+    }
+
+    public function testName() : void
+    {
+        self::markTestIncomplete();
+    }
+
+    public function testDirpath() : void
+    {
+        self::markTestIncomplete();
     }
 }

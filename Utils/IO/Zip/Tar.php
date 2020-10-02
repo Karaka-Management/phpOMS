@@ -46,25 +46,18 @@ class Tar implements ArchiveInterface
          * @var string $relative
          */
         foreach ($sources as $source => $relative) {
-            if (\is_numeric($source) && \realpath($relative) !== false) {
-                $source   = $relative;
-                $relative = '';
-            }
-
-            $source = \realpath($source);
-
-            if ($source === false) {
-                continue;
-            }
-
-            $source = \str_replace('\\', '/', $source);
-
-            if (!\file_exists($source)) {
+            if (($source = \realpath($source)) === false
+                || ($source = \str_replace('\\', '/', $source)) === false
+                || !\file_exists($source)
+            ) {
                 continue;
             }
 
             if (\is_dir($source)) {
-                $files = new \RecursiveIteratorIterator(new \RecursiveDirectoryIterator($source), \RecursiveIteratorIterator::SELF_FIRST);
+                $files = new \RecursiveIteratorIterator(
+                    new \RecursiveDirectoryIterator($source),
+                    \RecursiveIteratorIterator::SELF_FIRST
+                );
 
                 foreach ($files as $file) {
                     $file = \str_replace('\\', '/', $file);
@@ -103,12 +96,16 @@ class Tar implements ArchiveInterface
             return false;
         }
 
-        $destination = \str_replace('\\', '/', $destination);
-        $destination = \rtrim($destination, '/');
-        $tar         = new \PharData($source);
+        try {
+            $destination = \str_replace('\\', '/', $destination);
+            $destination = \rtrim($destination, '/');
+            $tar         = new \PharData($source);
 
-        $tar->extractTo($destination . '/');
+            $tar->extractTo($destination . '/');
 
-        return true;
+            return true;
+        } catch (\Throwable $t) {
+            return false;
+        }
     }
 }

@@ -203,7 +203,7 @@ final class Money implements \Serializable
         $right = \substr($value, -self::MAX_DECIMALS);
 
         if ($right === false) {
-            throw new \Exception();
+            throw new \Exception(); // @codeCoverageIgnore
         }
 
         return ($decimals > 0) ? \number_format((float) $left, 0, $this->decimal, $this->thousands) . $this->decimal . \substr($right, 0, $decimals) : \str_pad($left, 1, '0');

@@ -352,7 +352,7 @@ final class MeasureOfDispersion
     }
 
     /**
-     * Get mean absolute deviation.
+     * Get mean absolute deviation (MAD).
      *
      * @param array<int, int|float> $x      Values
      * @param float                 $mean   Mean

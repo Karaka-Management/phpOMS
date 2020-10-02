@@ -43,11 +43,20 @@ interface DirectoryInterface extends \ArrayAccess, \Iterator, ContainerInterface
     /**
      * Add file or directory.
      *
-     * @param mixed $file File to add
+     * @param ContainerInterface $file File to add
      *
-     * @return bool
+     * @return self
      *
      * @since 1.0.0
      */
-    public function addNode($file) : bool;
+    public function addNode(ContainerInterface $file) : self;
+
+    /**
+     * Get files in directory.
+     *
+     * @return array
+     *
+     * @since 1.0.0
+     */
+    public function getList() : array;
 }

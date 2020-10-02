@@ -68,8 +68,25 @@ class FileUtilsTest extends \PHPUnit\Framework\TestCase
         self::assertEquals(0742, FileUtils::permissionToOctal('rwxr---w-'));
     }
 
+    /**
+     * @testdox The encoding of a file can be changed
+     * @covers phpOMS\System\File\FileUtils
+     * @group framework
+     */
     public function testChangeFileEncoding() : void
     {
-        self::markTestIncomplete();
+        if (\file_exists(__DIR__ . '/UTF-8.txt')) {
+            \unlink(__DIR__ . '/UTF-8.txt');
+        }
+
+        FileUtils::changeFileEncoding(__DIR__ . '/Windows-1252.txt', __DIR__ . '/UTF-8.txt', 'UTF-8', 'Windows-1252');
+
+        self::assertFileExists(__DIR__ . '/UTF-8.txt');
+        self::assertNotEquals("This is a test file with some¶\ncontent Ø Æ.", \file_get_contents(__DIR__ . '/Windows-1252.txt'));
+        self::assertEquals("This is a test file with some¶\ncontent Ø Æ.", \file_get_contents(__DIR__ . '/UTF-8.txt'));
+
+        if (\file_exists(__DIR__ . '/UTF-8.txt')) {
+            \unlink(__DIR__ . '/UTF-8.txt');
+        }
     }
 }

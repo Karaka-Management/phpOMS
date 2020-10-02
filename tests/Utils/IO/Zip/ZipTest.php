@@ -43,6 +43,7 @@ class ZipTest extends \PHPUnit\Framework\TestCase
             [
                 __DIR__ . '/test a.txt' => 'test a.txt',
                 __DIR__ . '/test b.md'  => 'test b.md',
+                __DIR__ . '/invalid.so' => 'invalid.so',
                 __DIR__ . '/test'       => 'test',
             ],
             __DIR__ . '/test.zip'
@@ -81,6 +82,41 @@ class ZipTest extends \PHPUnit\Framework\TestCase
         self::assertEquals($e, \file_get_contents(__DIR__ . '/test/sub/test e.txt'));
 
         \unlink(__DIR__ . '/test.zip');
+    }
+
+    /**
+     * @testdox The output of the zip archive needs to be properly defined
+     * @covers phpOMS\Utils\IO\Zip\Zip
+     * @group framework
+     */
+    public function testInvalidZipDestination() : void
+    {
+        self::assertFalse(Zip::pack(
+            [
+                __DIR__ . '/test a.txt' => 'test a.txt',
+                __DIR__ . '/test b.md'  => 'test b.md',
+                __DIR__ . '/test'       => 'test',
+            ],
+            __DIR__
+        ));
+    }
+
+    /**
+     * @testdox Extracting invalid zip files fail
+     * @covers phpOMS\Utils\IO\Zip\Zip
+     * @group framework
+     */
+    public function testInvalidZipUnpack() : void
+    {
+        self::assertFalse(Zip::unpack(
+            __DIR__ . '/invalid.zip',
+            __DIR__
+        ));
+
+        self::assertFalse(Zip::unpack(
+            __DIR__ . '/test a.txt',
+            __DIR__
+        ));
     }
 
     /**

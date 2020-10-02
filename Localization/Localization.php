@@ -256,7 +256,7 @@ class Localization implements \JsonSerializable
         $files = \glob(__DIR__ . '/../Localization/Defaults/Definitions/' . $langCode . '_' . $countryCode . '*');
 
         if ($files === false) {
-            $files = [];
+            $files = []; // @codeCoverageIgnore
         }
 
         foreach ($files as $file) {

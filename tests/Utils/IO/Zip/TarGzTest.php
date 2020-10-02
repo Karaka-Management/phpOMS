@@ -109,6 +109,15 @@ class TarGzTest extends \PHPUnit\Framework\TestCase
         ));
 
         \unlink(__DIR__ . '/test2.tar.gz');
+
+        self::assertFalse(TarGz::pack(
+            [
+                __DIR__ . '/test a.txt' => 'test a.txt',
+                __DIR__ . '/test b.md'  => 'test b.md',
+                __DIR__ . '/test'       => 'test',
+            ],
+            __DIR__ . '/invalidpack.tar.gz'
+        ));
     }
 
     /**
@@ -139,7 +148,17 @@ class TarGzTest extends \PHPUnit\Framework\TestCase
 
         TarGz::unpack(__DIR__ . '/abc/test3.tar.gz', __DIR__);
         self::assertFalse(TarGz::unpack(__DIR__ . '/abc/test3.tar.gz', __DIR__));
-
         \unlink(__DIR__ . '/test3.tar.gz');
+
+        self::assertTrue(TarGz::pack(
+            [
+                __DIR__ . '/test a.txt' => 'test a.txt',
+                __DIR__ . '/test b.md'  => 'test b.md',
+                __DIR__ . '/test'       => 'test',
+            ],
+            __DIR__ . '/invalidunpack.tar.gz'
+        ));
+        self::assertFalse(TarGz::unpack(__DIR__ . '/invalidunpack.tar.gz', __DIR__));
+        \unlink(__DIR__ . '/invalidunpack.tar.gz');
     }
 }

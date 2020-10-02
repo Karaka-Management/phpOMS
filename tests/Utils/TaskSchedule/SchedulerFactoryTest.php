@@ -27,7 +27,7 @@ class SchedulerFactoryTest extends \PHPUnit\Framework\TestCase
 {
     /**
      * @testdox The correct scheduler is crated depending on the operating system
-     * @covers phpOMS\Utils\TaskSchedule\SchedulerAbstract
+     * @covers phpOMS\Utils\TaskSchedule\SchedulerFactory
      * @group framework
      */
     public function testCreate() : void

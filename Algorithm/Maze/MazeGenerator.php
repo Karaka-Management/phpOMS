@@ -63,7 +63,7 @@ class MazeGenerator
             }
         }
 
-        while (0 < $n) {
+        while ($n > 0) {
             $potential = [
                 [$pos[0] + 1, $pos[1]],
                 [$pos[0], $pos[1] + 1],
@@ -97,7 +97,6 @@ class MazeGenerator
                 $pos = \array_pop($path);
 
                 if ($pos === null) {
-                    $n = 0;
                     break;
                 }
             }

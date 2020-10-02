@@ -80,4 +80,18 @@ class StringCompareTest extends \PHPUnit\Framework\TestCase
         $this->dict->add('Carton');
         self::assertEquals('Carton', $this->dict->matchDictionary('carton'));
     }
+
+    /**
+     * @testdox Two texts can be compared on a per word basis for similarity
+     * @covers phpOMS\Utils\StringCompare
+     * @group framework
+     */
+    public function testValueWords() : void
+    {
+        // every word in s1 is found in s2, therefore a "perfect" match
+        self::assertEquals(0, StringCompare::valueWords('This is a test', 'This is not a test'));
+
+        // a is compared to is which has a distance of 2
+        self::assertEquals(2, StringCompare::valueWords('This is a test', 'This is not test'));
+    }
 }

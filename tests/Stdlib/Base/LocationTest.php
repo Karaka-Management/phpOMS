@@ -212,5 +212,6 @@ class LocationTest extends \PHPUnit\Framework\TestCase
         $this->location->setGeo(['lat' => 12.1, 'long' => 11.2,]);
 
         self::assertEquals($expected, $this->location->jsonSerialize());
+        self::assertEquals(\json_encode($this->location->jsonSerialize()), $this->location->serialize());
     }
 }

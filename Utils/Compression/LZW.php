@@ -69,7 +69,7 @@ class LZW implements CompressionInterface
         $entry      = '';
         $dictSize   = 256;
 
-        if (empty($compressed) || $compressed === false) {
+        if (empty($compressed) || $compressed === [''] || $compressed === false) {
             return '';
         }
 

@@ -35,14 +35,14 @@ class CsvSettings
      *
      * @since 1.0.0
      */
-    public static function getFileDelimiter($file, int $checkLines = 2, array $delimiters = [',', '\t', ';', '|', ':']) : string
+    public static function getFileDelimiter($file, int $checkLines = 2, array $delimiters = [',', "\t", ';', '|', ':']) : string
     {
         $results = [];
         $i       = 0;
         $line    = \fgets($file);
 
         if ($line === false) {
-            return ';';
+            return ';'; // @codeCoverageIgnore
         }
 
         while ($line !== false && $i < $checkLines) {
@@ -53,7 +53,7 @@ class CsvSettings
                 $fields = \preg_split($regExp, $line);
 
                 if ($fields === false) {
-                    return ';';
+                    return ';'; // @codeCoverageIgnore
                 }
 
                 if (\count($fields) > 1) {

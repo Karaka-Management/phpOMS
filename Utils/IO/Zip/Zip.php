@@ -49,25 +49,18 @@ class Zip implements ArchiveInterface
          * @var string $relative
          */
         foreach ($sources as $source => $relative) {
-            if (\is_numeric($source) && \realpath($relative) !== false) {
-                $source   = $relative;
-                $relative = '';
-            }
-
-            $source = \realpath($source);
-
-            if ($source === false) {
-                continue;
-            }
-
-            $source = \str_replace('\\', '/', $source);
-
-            if (!\file_exists($source)) {
+            if (($source = \realpath($source)) === false
+                || ($source = \str_replace('\\', '/', $source)) === false
+                || !\file_exists($source)
+            ) {
                 continue;
             }
 
             if (\is_dir($source)) {
-                $files = new \RecursiveIteratorIterator(new \RecursiveDirectoryIterator($source), \RecursiveIteratorIterator::SELF_FIRST);
+                $files = new \RecursiveIteratorIterator(
+                    new \RecursiveDirectoryIterator($source),
+                    \RecursiveIteratorIterator::SELF_FIRST
+                );
 
                 foreach ($files as $file) {
                     $file = \str_replace('\\', '/', $file);
@@ -109,13 +102,17 @@ class Zip implements ArchiveInterface
         $destination = \str_replace('\\', '/', $destination);
         $destination = \rtrim($destination, '/');
 
-        $zip = new \ZipArchive();
-        if (!$zip->open($source)) {
+        try {
+            $zip = new \ZipArchive();
+            if (!$zip->open($source)) {
+                return false;
+            }
+
+            $zip->extractTo($destination . '/');
+
+            return $zip->close();
+        } catch (\Throwable $t) {
             return false;
         }
-
-        $zip->extractTo($destination . '/');
-
-        return $zip->close();
     }
 }
