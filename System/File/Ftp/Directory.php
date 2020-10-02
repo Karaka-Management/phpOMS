@@ -548,9 +548,9 @@ class Directory extends FileAbstract implements DirectoryInterface, FtpContainer
      */
     public function addNode(ContainerInterface $node) : self
     {
-        $this->count                  += $node->getCount();
-        $this->size                   += $node->getSize();
-        $this->nodes[$node->getName()] = $node;
+        $this->count                      += $node->getCount();
+        $this->size                       += $node->getSize();
+        $this->nodes[$node->getBasename()] = $node;
 
         $node->createNode();
 

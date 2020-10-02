@@ -135,6 +135,14 @@ abstract class FileAbstract implements ContainerInterface
     /**
      * {@inheritdoc}
      */
+    public function getBasename() : string
+    {
+        return \basename($this->path);
+    }
+
+    /**
+     * {@inheritdoc}
+     */
     public function getPath() : string
     {
         return $this->path;

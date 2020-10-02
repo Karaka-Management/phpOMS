@@ -60,6 +60,15 @@ interface ContainerInterface
     public function getName() : string;
 
     /**
+     * Get base name of the resource incl. extension if available.
+     *
+     * @return string
+     *
+     * @since 1.0.0
+     */
+    public function getBasename() : string;
+
+    /**
      * Get absolute path of the resource.
      *
      * @return string

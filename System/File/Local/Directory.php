@@ -168,9 +168,9 @@ final class Directory extends FileAbstract implements DirectoryInterface, LocalC
      */
     public function addNode(ContainerInterface $node) : self
     {
-        $this->count                  += $node->getCount();
-        $this->size                   += $node->getSize();
-        $this->nodes[$node->getName()] = $node;
+        $this->count                      += $node->getCount();
+        $this->size                       += $node->getSize();
+        $this->nodes[$node->getBasename()] = $node;
 
         $node->createNode();
 
@@ -446,11 +446,29 @@ final class Directory extends FileAbstract implements DirectoryInterface, LocalC
      */
     public function getNode(string $name) : ?ContainerInterface
     {
+        $name = isset($this->nodes[$name]) ? $name : $this->path . '/' . $name;
+
         if (isset($this->nodes[$name]) && $this->nodes[$name] instanceof self) {
             $this->nodes[$name]->index();
         }
 
         return $this->nodes[$name] ?? null;
+    }
+
+     /**
+     * Check if the child node exists
+     *
+     * @param string $name Child node name
+     *
+     * @return bool
+     *
+     * @since 1.0.0
+     */
+    public function isExisting(string $name) : bool
+    {
+        $name = isset($this->nodes[$name]) ? $name : $this->path . '/' . $name;
+
+        return isset($this->nodes[$name]);
     }
 
     /**
@@ -542,7 +560,7 @@ final class Directory extends FileAbstract implements DirectoryInterface, LocalC
      */
     public function offsetSet($offset, $value) : void
     {
-        if ($offset === null) {
+        if ($offset === null || !isset($this->nodes[$offset])) {
             $this->addNode($value);
         } else {
             $this->nodes[$offset] = $value;
@@ -554,6 +572,8 @@ final class Directory extends FileAbstract implements DirectoryInterface, LocalC
      */
     public function offsetExists($offset)
     {
+        $offset = isset($this->nodes[$offset]) ? $offset : $this->path . '/' . $offset;
+
         return isset($this->nodes[$offset]);
     }
 
@@ -562,7 +582,11 @@ final class Directory extends FileAbstract implements DirectoryInterface, LocalC
      */
     public function offsetUnset($offset) : void
     {
+        $offset = isset($this->nodes[$offset]) ? $offset : $this->path . '/' . $offset;
+
         if (isset($this->nodes[$offset])) {
+            $this->nodes[$offset]->deleteNode();
+
             unset($this->nodes[$offset]);
         }
     }
@@ -628,18 +652,9 @@ final class Directory extends FileAbstract implements DirectoryInterface, LocalC
      */
     public function deleteNode() : bool
     {
-        self::delete($this->path);
+        // @todo: update parent
 
-        if (!isset($this->nodes[$this->path])) {
-            return false;
-        }
-
-        $this->count -= $this->nodes[$this->path]->getCount();
-        $this->size  -= $this->nodes[$this->path]->getSize();
-
-        unset($this->nodes[$this->path]);
-
-        return true;
+        return self::delete($this->path);
     }
 
     /**

@@ -37,11 +37,6 @@ class DirectoryTest extends \PHPUnit\Framework\TestCase
         \rmdir($dirPath);
     }
 
-    public function testStaticRemove() : void
-    {
-        self::markTestIncomplete();
-    }
-
     /**
      * @testdox A directory can be checked for existence
      * @covers phpOMS\System\File\Local\Directory
@@ -554,98 +549,171 @@ class DirectoryTest extends \PHPUnit\Framework\TestCase
         $dir->addNode(new Directory(__DIR__ . '/nodedir'));
 
         self::assertTrue(\file_exists(__DIR__ . '/nodedir'));
-        self::assertTrue($dir->deleteNode());
+        self::assertTrue($dir->getNode('nodedir')->deleteNode());
         self::assertFalse(\file_exists(__DIR__ . '/nodedir'));
     }
 
     public function testNodeCopy() : void
     {
-        self::markTestIncomplete();
+        $dir = new Directory(__DIR__);
+        $dir->addNode(new Directory(__DIR__ . '/nodedir'));
+
+        $dir->getNode('nodedir')->copyNode(__DIR__ . '/nodedir2');
+        self::assertTrue(\file_exists(__DIR__ . '/nodedir2'));
+
+        \rmdir(__DIR__ . '/nodedir');
+        \rmdir(__DIR__ . '/nodedir2');
     }
 
     public function testNodeMove() : void
     {
-        self::markTestIncomplete();
+        $dir = new Directory(__DIR__);
+        $dir->addNode(new Directory(__DIR__ . '/nodedir'));
+
+        $dir->getNode('nodedir')->moveNode(__DIR__ . '/nodedir2');
+        self::assertFalse(\file_exists(__DIR__ . '/nodedir'));
+        self::assertTrue(\file_exists(__DIR__ . '/nodedir2'));
+
+        \rmdir(__DIR__ . '/nodedir2');
     }
 
     public function testNodeExists() : void
     {
-        self::markTestIncomplete();
+        $dir = new Directory(__DIR__);
+
+        self::assertTrue($dir->isExisting('dirtest'));
+        self::assertFalse($dir->isExisting('invalid'));
     }
 
     public function testParentOutput() : void
     {
-        self::markTestIncomplete();
-    }
+        $dir = new Directory(__DIR__ . '/dirtest');
 
+        self::assertEquals(__DIR__, $dir->parentNode()->getPath());
+    }
 
     public function testNodeNext() : void
     {
-        self::markTestIncomplete();
+        $dir = new Directory(__DIR__ . '/dirtest');
+
+        self::assertEquals(__DIR__ . '/dirtest/test.txt', $dir->next()->getPath());
     }
 
     public function testNodeCurrent() : void
     {
-        self::markTestIncomplete();
+        $dir = new Directory(__DIR__ . '/dirtest');
+
+        self::assertEquals(__DIR__ . '/dirtest/sub', $dir->current()->getPath());
     }
 
     public function testNodeKey() : void
     {
-        self::markTestIncomplete();
+        $dir = new Directory(__DIR__ . '/dirtest');
+
+        self::assertEquals('sub', $dir->key());
+        $dir->next();
+        self::assertEquals('test.txt', $dir->key());
     }
 
     public function testNodeArrayRead() : void
     {
-        self::markTestIncomplete();
+        $dir = new Directory(__DIR__ . '/dirtest');
+
+        self::assertEquals('test', $dir['test.txt']->getName());
     }
 
     public function testNodeArraySet() : void
     {
-        self::markTestIncomplete();
+        $dir = new Directory(__DIR__);
+        $dir[] = new Directory(__DIR__ . '/nodedir');
+
+        self::assertTrue(\file_exists(__DIR__ . '/nodedir'));
+        \rmdir(__DIR__ . '/nodedir');
     }
 
     public function testNodeArrayRemove() : void
     {
-        self::markTestIncomplete();
+        $dir = new Directory(__DIR__);
+        $dir->addNode(new Directory(__DIR__ . '/nodedir'));
+
+        self::assertTrue(\file_exists(__DIR__ . '/nodedir'));
+        unset($dir['nodedir']);
+        self::assertFalse(\file_exists(__DIR__ . '/nodedir'));
     }
 
     public function testNodeArrayExists() : void
     {
-        self::markTestIncomplete();
+        $dir = new Directory(__DIR__);
+
+        self::assertTrue(isset($dir['dirtest']));
+        self::assertFalse(isset($dir['invalid']));
     }
 
     public function testNodeCreatedAt() : void
     {
-        self::markTestIncomplete();
+        $dirPath = __DIR__ . '/test';
+        $dir = new Directory($dirPath);
+
+        self::assertTrue($dir->createNode());
+
+        $now = new \DateTime('now');
+        self::assertEquals($now->format('Y-m-d'), $dir->getCreatedAt()->format('Y-m-d'));
+
+        \rmdir($dirPath);
     }
 
     public function testNodeChangedAt() : void
     {
-        self::markTestIncomplete();
+        $dirPath = __DIR__ . '/test';
+        $dir = new Directory($dirPath);
+
+        self::assertTrue($dir->createNode());
+
+        $now = new \DateTime('now');
+        self::assertEquals($now->format('Y-m-d'), $dir->getChangedAt()->format('Y-m-d'));
+
+        \rmdir($dirPath);
     }
 
     public function testNodeOwner() : void
     {
-        self::markTestIncomplete();
+        $dir = new Directory(__DIR__ . '/dirtest');
+
+        self::assertNotEmpty($dir->getOwner());
     }
 
     public function testNodePermission() : void
     {
-        self::markTestIncomplete();
+        $dir = new Directory(__DIR__ . '/dirtest');
+
+        self::assertGreaterThan(0, $dir->getPermission());
     }
 
     public function testDirname() : void
     {
-        self::markTestIncomplete();
+        $dir = new Directory(__DIR__ . '/dirtest');
+
+        self::assertEquals('dirtest', $dir->next()->getDirname());
     }
 
     public function testName() : void
     {
-        self::markTestIncomplete();
+        $dir = new Directory(__DIR__ . '/dirtest');
+
+        self::assertEquals('test', $dir->next()->getName());
+    }
+
+    public function testBaseame() : void
+    {
+        $dir = new Directory(__DIR__ . '/dirtest');
+
+        self::assertEquals('test.txt', $dir->next()->getBasename());
     }
 
     public function testDirpath() : void
     {
-        self::markTestIncomplete();
+        $dir = new Directory(__DIR__ . '/dirtest');
+
+        self::assertEquals(__DIR__ . '/dirtest', $dir->next()->getDirpath());
     }
 }
