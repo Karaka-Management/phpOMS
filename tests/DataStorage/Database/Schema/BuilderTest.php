@@ -32,7 +32,7 @@ class BuilderTest extends \PHPUnit\Framework\TestCase
     }
 
     /**
-     * @testdox Mysql drops form a valid query
+     * @testdox Mysql database drop forms a valid query
      * @group framework
      */
     public function testMysqlDrop() : void
@@ -40,6 +40,17 @@ class BuilderTest extends \PHPUnit\Framework\TestCase
         $query = new Builder($this->con);
         $sql   = 'DROP DATABASE `test`;';
         self::assertEquals($sql, $query->dropDatabase('test')->toSql());
+    }
+
+    /**
+     * @testdox Mysql table drop forms a valid query
+     * @group framework
+     */
+    public function testMysqlDropTable() : void
+    {
+        $query = new Builder($this->con);
+        $sql   = 'DROP TABLE `test`;';
+        self::assertEquals($sql, $query->dropTable('test')->toSql());
     }
 
     /**

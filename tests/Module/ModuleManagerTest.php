@@ -20,6 +20,7 @@ use phpOMS\Dispatcher\Dispatcher;
 use phpOMS\Message\Http\HttpRequest;
 use phpOMS\Module\ModuleManager;
 use phpOMS\Router\WebRouter;
+use phpOMS\System\File\Local\Directory;
 use phpOMS\Uri\HttpUri;
 
 require_once __DIR__ . '/../Autoloader.php';
@@ -243,5 +244,23 @@ class ModuleManagerTest extends \PHPUnit\Framework\TestCase
         self::assertFalse($this->moduleManager->uninstall('TestModule'));
         self::assertFalse($this->moduleManager->isActive('TestModule'));
         self::assertFalse($this->moduleManager->isRunning('TestModule'));
+    }
+
+    public function testInvalidModulePath() : void
+    {
+        $moduleManager = new ModuleManager($this->app, __DIR__ . '/Testmodule');
+
+        self::assertEquals([], $moduleManager->getAllModules());
+        self::assertEquals([], $moduleManager->getInstalledModules());
+    }
+
+    public function testInvalidModuleInstall() : void
+    {
+        self::assertFalse($this->moduleManager->install('Invalid'));
+    }
+
+    public function testInvalidModuleUninstall() : void
+    {
+        self::assertFalse($this->moduleManager->uninstall('Invalid'));
     }
 }

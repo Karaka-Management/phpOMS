@@ -184,15 +184,16 @@ class DirectoryTest extends \PHPUnit\Framework\TestCase
      */
     public function testStaticCreatedAt() : void
     {
-        self::markTestSkipped();
         $dirPath = __DIR__ . '/test';
 
         self::assertTrue(Directory::create(self::$con, $dirPath));
 
         $now = new \DateTime('now');
+        $now->setTimestamp(-1);
+
         self::assertEquals($now->format('Y-m-d'), Directory::created(self::$con, $dirPath)->format('Y-m-d'));
 
-        \rmdir($dirPath);
+        Directory::delete(self::$con, $dirPath);
     }
 
     /**
@@ -202,16 +203,16 @@ class DirectoryTest extends \PHPUnit\Framework\TestCase
      */
     public function testStaticChangedAt() : void
     {
-        self::markTestSkipped();
-
         $dirPath = __DIR__ . '/test';
 
         self::assertTrue(Directory::create(self::$con, $dirPath));
 
         $now = new \DateTime('now');
+        $now->setTimestamp(-1);
+
         self::assertEquals($now->format('Y-m-d'), Directory::changed(self::$con, $dirPath)->format('Y-m-d'));
 
-        \rmdir($dirPath);
+        Directory::delete(self::$con, $dirPath);
     }
 
     /**
@@ -580,7 +581,7 @@ class DirectoryTest extends \PHPUnit\Framework\TestCase
     {
         $dir = new Directory(new HttpUri(self::BASE . __DIR__ . '/dirtest'), '*', true, self::$con);
 
-        self::assertEquals(__DIR__, $dir->parentNode()->getPath());
+        self::assertEquals(__DIR__, $dir->getParent()->getPath());
     }
 
     public function testNodeNext() : void

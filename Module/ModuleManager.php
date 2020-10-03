@@ -376,7 +376,7 @@ final class ModuleManager
 
             return true;
         } catch (\Exception $e) {
-            return false;
+            return false; // @codeCoverageIgnore
         }
     }
 
@@ -427,7 +427,7 @@ final class ModuleManager
 
             return true;
         } catch (\Exception $e) {
-            return false;
+            return false; // @codeCoverageIgnore
         }
     }
 
@@ -528,10 +528,8 @@ final class ModuleManager
             $this->installApplications($module);
 
             return true;
-        } catch (PathException $e) {
-            return false;
-        } catch (\Exception $e) {
-            return false;
+        } catch (\Throwable $t) {
+            return false; // @codeCoverageIgnore
         }
     }
 
@@ -587,9 +585,7 @@ final class ModuleManager
             }
 
             return true;
-        } catch (PathException $e) {
-            return false;
-        } catch (\Exception $e) {
+        } catch (\Throwable $t) {
             return false;
         }
     }

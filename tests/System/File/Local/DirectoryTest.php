@@ -592,7 +592,7 @@ class DirectoryTest extends \PHPUnit\Framework\TestCase
     {
         $dir = new Directory(__DIR__ . '/dirtest');
 
-        self::assertEquals(__DIR__, $dir->parentNode()->getPath());
+        self::assertEquals(__DIR__, $dir->getParent()->getPath());
     }
 
     public function testNodeNext() : void

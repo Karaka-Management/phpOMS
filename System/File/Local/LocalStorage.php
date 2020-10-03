@@ -64,13 +64,13 @@ class LocalStorage extends StorageAbstract
     /**
      * {@inheritdoc}
      */
-    public static function list(string $path, string $filter = '*') : array
+    public static function list(string $path, string $filter = '*', bool $recursive = false) : array
     {
         if (\is_file($path)) {
             throw new PathException($path);
         }
 
-        return Directory::list($path, $filter);
+        return Directory::list($path, $filter, $recursive);
     }
 
     /**
@@ -78,7 +78,9 @@ class LocalStorage extends StorageAbstract
      */
     public static function create(string $path) : bool
     {
-        return \stripos($path, '.') === false ? Directory::create($path, 0755, true) : File::create($path);
+        return \stripos($path, '.') === false
+            ? Directory::create($path, 0755, true)
+            : File::create($path);
     }
 
     /**

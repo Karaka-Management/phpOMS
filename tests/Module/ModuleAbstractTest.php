@@ -89,7 +89,7 @@ class ModuleAbstractTest extends \PHPUnit\Framework\TestCase
             {
                 $model1 = new BaseModel();
                 $model2 = new BaseModel();
-                $this->createModel(1, [$model1, $model2], BaseModelMapper::class, '', '127.0.0.1');
+                $this->createModels(1, [$model1, $model2], BaseModelMapper::class, '', '127.0.0.1');
             }
 
             public function update() : void

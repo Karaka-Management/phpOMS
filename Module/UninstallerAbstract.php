@@ -68,12 +68,11 @@ abstract class UninstallerAbstract
 
         $content = \file_get_contents($path);
         if ($content === false) {
-            return;
+            return; // @codeCoverageIgnore
         }
 
         $definitions = \json_decode($content, true);
-
-        $builder = new SchemaBuilder($dbPool->get('schema'));
+        $builder     = new SchemaBuilder($dbPool->get('schema'));
 
         foreach ($definitions as $definition) {
             $builder->dropTable($definition['table'] ?? '');

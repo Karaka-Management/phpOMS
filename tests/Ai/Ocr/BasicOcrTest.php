@@ -14,13 +14,41 @@ declare(strict_types=1);
 
 namespace phpOMS\tests\Ai\Ocr;
 
+use phpOMS\Ai\Ocr\BasicOcr;
+
 /**
  * @internal
  */
 class BasicOcrTest extends \PHPUnit\Framework\TestCase
 {
-    public function testPlaceholder() : void
+    public function testOcr() : void
     {
-        self::markTestIncomplete();
+        $ocr = new BasicOcr();
+        $ocr->trainWith(__DIR__ . '/train-images-idx3-ubyte', __DIR__ . '/train-labels-idx1-ubyte', 1000);
+
+        self::assertEquals(
+            [
+                ['label' => 7, 'prob' => 1], ['label' => 7, 'prob' => 1], ['label' => 7, 'prob' => 1],
+                ['label' => 2, 'prob' => 2 / 3], ['label' => 2, 'prob' => 2 / 3], ['label' => 8, 'prob' => 1 / 3],
+                ['label' => 1, 'prob' => 1], ['label' => 1, 'prob' => 1], ['label' => 1, 'prob' => 1],
+                ['label' => 0, 'prob' => 1], ['label' => 0, 'prob' => 1], ['label' => 0, 'prob' => 1],
+                ['label' => 4, 'prob' => 2 / 3], ['label' => 9, 'prob' => 1 / 3], ['label' => 4, 'prob' => 2 / 3],
+            ],
+            $ocr->match(__DIR__ . '/t10k-images-idx3-ubyte', 3, 5)
+        );
+    }
+
+    public function testInvalidImagePath() : void
+    {
+        $this->expectException(\phpOMS\System\File\PathException::class);
+        $ocr = new BasicOcr();
+        $ocr->trainWith(__DIR__ . '/invalid', __DIR__ . '/train-labels-idx1-ubyte', 1);
+    }
+
+    public function testInvalidLabelPath() : void
+    {
+        $this->expectException(\phpOMS\System\File\PathException::class);
+        $ocr = new BasicOcr();
+        $ocr->trainWith(__DIR__ . '/train-images-idx3-ubyte', __DIR__ . '/invalid', 1);
     }
 }

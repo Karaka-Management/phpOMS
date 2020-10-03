@@ -92,7 +92,7 @@ class PackageManagerTest extends \PHPUnit\Framework\TestCase
             Directory::delete(__DIR__ . '/dummyModule');
         }
 
-        Directory::copy(__DIR__ . '/testModule', __DIR__ . '/dummyModule');
+        Directory::copy(__DIR__ . '/testModulePackage', __DIR__ . '/dummyModule');
 
         $package = new PackageManager(
             __DIR__ . '/testPackage.zip',

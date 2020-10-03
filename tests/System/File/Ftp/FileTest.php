@@ -337,7 +337,7 @@ class FileTest extends \PHPUnit\Framework\TestCase
     {
         $testFile = __DIR__ . '/test.txt';
 
-        self::assertEquals(1, File::count($testFile));
+        self::assertEquals(1, File::count(self::$con, $testFile));
     }
 
     /**
@@ -887,7 +887,7 @@ class FileTest extends \PHPUnit\Framework\TestCase
     {
         $file = new File(new HttpUri(self::BASE . __DIR__ . '/dirtest/test.txt'), self::$con);
 
-        self::assertEquals('Local', $file->getParent()->getName());
+        self::assertEquals('Ftp', $file->getParent()->getName());
     }
 
     public function testNodeDirectory() : void

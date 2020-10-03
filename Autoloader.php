@@ -128,13 +128,13 @@ final class Autoloader
     public static function invalidate(string $class) : bool
     {
         if (!\extension_loaded('opcache')
-            || !\opcache_is_script_cached(__DIR__ . '/../../Models/NewsArticleMapper.php')
+            || !\opcache_is_script_cached($class)
         ) {
             return false;
         }
 
-        \opcache_invalidate(__DIR__ . '/../../Models/NewsArticleMapper.php');
-        \opcache_compile_file(__DIR__ . '/../../Models/NewsArticleMapper.php');
+        \opcache_invalidate($class);
+        \opcache_compile_file($class);
 
         return true;
     }

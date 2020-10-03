@@ -50,6 +50,20 @@ class File extends FileAbstract implements FileInterface
         $this->con = $con ?? self::ftpConnect($this->uri);
 
         parent::__construct($uri->getPath());
+
+        if (self::exists($this->con, $this->path)) {
+            $this->index();
+        }
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function index() : void
+    {
+        parent::index();
+
+        $this->size = (int) \ftp_size($this->con, $this->path);
     }
 
     /**
@@ -162,7 +176,7 @@ class File extends FileAbstract implements FileInterface
     /**
      * {@inheritdoc}
      */
-    public static function count(string $path, bool $recursive = true, array $ignore = []) : int
+    public static function count($con, string $path, bool $recursive = true, array $ignore = []) : int
     {
         return 1;
     }
@@ -378,6 +392,18 @@ class File extends FileAbstract implements FileInterface
     }
 
     /**
+     * Check if the file exists
+     *
+     * @return bool
+     *
+     * @since 1.0.0
+     */
+    public function isExisting() : bool
+    {
+        return self::exists($this->con, $this->path);
+    }
+
+    /**
      * Get the parent path of the resource.
      *
      * The parent resource path is always a directory.
@@ -388,12 +414,10 @@ class File extends FileAbstract implements FileInterface
      */
     public function getParent() : ContainerInterface
     {
-        /**
-         * @todo Orange-Management/phpOMS#??? [p:low] [t:todo] [d:medium]
-         *  Implement getParent()
-         */
+        $uri = clone $this->uri;
+        $uri->setPath(self::parent($this->path));
 
-        return $this;
+        return new Directory($uri, '*', true, $this->con);
     }
 
     /**
@@ -420,12 +444,7 @@ class File extends FileAbstract implements FileInterface
      */
     public function copyNode(string $to, bool $overwrite = false) : bool
     {
-        /**
-         * @todo Orange-Management/phpOMS#??? [p:low] [t:todo] [d:medium]
-         *  Implement copyNode()
-         */
-
-        return true;
+        return self::copy($this->con, $this->path, $to, $overwrite);
     }
 
     /**
@@ -440,12 +459,7 @@ class File extends FileAbstract implements FileInterface
      */
     public function moveNode(string $to, bool $overwrite = false) : bool
     {
-        /**
-         * @todo Orange-Management/phpOMS#??? [p:low] [t:todo] [d:medium]
-         *  Implement moveNode()
-         */
-
-        return true;
+        return self::move($this->con, $this->path, $to, $overwrite);
     }
 
     /**
@@ -457,12 +471,7 @@ class File extends FileAbstract implements FileInterface
      */
     public function deleteNode() : bool
     {
-        /**
-         * @todo Orange-Management/phpOMS#??? [p:low] [t:todo] [d:medium]
-         *  Implement deleteNode()
-         */
-
-        return true;
+        return self::delete($this->con, $this->path);
     }
 
     /**
@@ -477,12 +486,7 @@ class File extends FileAbstract implements FileInterface
      */
     public function putContent(string $content, int $mode = ContentPutMode::APPEND | ContentPutMode::CREATE) : bool
     {
-        /**
-         * @todo Orange-Management/phpOMS#??? [p:low] [t:todo] [d:medium]
-         *  Implement putContent()
-         */
-
-        return true;
+        return self::put($this->con, $this->path, $content, $mode);
     }
 
     /**
@@ -498,12 +502,7 @@ class File extends FileAbstract implements FileInterface
      */
     public function setContent(string $content) : bool
     {
-        /**
-         * @todo Orange-Management/phpOMS#??? [p:low] [t:todo] [d:medium]
-         *  Implement setContent()
-         */
-
-        return true;
+        return $this->putContent($content, ContentPutMode::REPLACE | ContentPutMode::CREATE);
     }
 
     /**
@@ -519,12 +518,7 @@ class File extends FileAbstract implements FileInterface
      */
     public function appendContent(string $content) : bool
     {
-        /**
-         * @todo Orange-Management/phpOMS#??? [p:low] [t:todo] [d:medium]
-         *  Implement appendContent()
-         */
-
-        return true;
+        return $this->putContent($content, ContentPutMode::APPEND);
     }
 
     /**
@@ -540,12 +534,7 @@ class File extends FileAbstract implements FileInterface
      */
     public function prependContent(string $content) : bool
     {
-        /**
-         * @todo Orange-Management/phpOMS#??? [p:low] [t:todo] [d:medium]
-         *  Implement prependContent()
-         */
-
-        return true;
+        return $this->putContent($content, ContentPutMode::PREPEND);
     }
 
     /**
@@ -557,12 +546,7 @@ class File extends FileAbstract implements FileInterface
      */
     public function getContent() : string
     {
-        /**
-         * @todo Orange-Management/phpOMS#??? [p:low] [t:todo] [d:medium]
-         *  Implement getContent()
-         */
-
-        return '';
+        return self::get($this->con, $this->path);
     }
 
     /**
@@ -605,5 +589,13 @@ class File extends FileAbstract implements FileInterface
     public function getDirPath() : string
     {
         return \dirname($this->path);
+    }
+
+    public function getDirectory() : ContainerInterface
+    {
+        $uri = clone $this->uri;
+        $uri->setPath(self::dirpath($this->path));
+
+        return new Directory($uri, '*', true, $this->con);
     }
 }

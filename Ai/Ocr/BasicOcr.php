@@ -15,6 +15,7 @@ declare(strict_types=1);
 namespace phpOMS\Ai\Ocr;
 
 use phpOMS\Math\Topology\MetricsND;
+use phpOMS\System\File\PathException;
 
 /**
  * Basic OCR implementation for MNIST data
@@ -53,80 +54,80 @@ final class BasicOcr
      *
      * @param string $dataPath  Impage path to read
      * @param string $labelPath Label path to read
+     * @param string $limit     Limit
      *
      * @return void
      *
      * @since 1.0.0
      */
-    public function trainWith(string $dataPath, string $labelPath) : void
+    public function trainWith(string $dataPath, string $labelPath, int $limit = 0) : void
     {
-        $Xtrain = $this->readImages($dataPath);
-        $ytrain = $this->readLabels($labelPath);
+        $Xtrain = $this->readImages($dataPath, $limit);
+        $ytrain = $this->readLabels($labelPath, $limit);
 
-        $this->Xtrain = \array_merge($this->Xtrain, $this->extractFeatures($Xtrain));
-        $this->ytrain = \array_merge($this->ytrain, $this->extractFeatures($ytrain));
+        $this->Xtrain = \array_merge($this->Xtrain, $Xtrain);
+        $this->ytrain = \array_merge($this->ytrain, $ytrain);
     }
 
     /**
      * Reat image from path
      *
-     * @param string $path Image to read
+     * @param string $path  Image to read
+     * @param string $limit Limit
      *
      * @return array
      *
      * @since 1.0.0
      */
-    private function readImages(string $path) : array
+    private function readImages(string $path, int $limit = 0) : array
     {
+        if (!\file_exists($path)) {
+            throw new PathException($path);
+        }
+
         $fp = \fopen($path, 'r');
         if ($fp === false) {
-            throw new \Exception();
+            throw new PathException($path); // @codeCoverageIgnore
         }
 
         $read = \fread($fp, 4);
-        if (!$read) {
-            return [];
+        if ($read === false) {
+            return []; // @codeCoverageIgnore
         }
-        $magicNumber = \unpack('l', $read)[1];
+        $magicNumber = \unpack('N', $read)[1];
 
         $read = \fread($fp, 4);
-        if (!$read) {
-            return [];
+        if ($read === false) {
+            return []; // @codeCoverageIgnore
         }
-        $numberOfImages = \unpack('l', $read)[1];
+        $numberOfImages = \unpack('N', $read)[1];
+
+        if ($limit > 0) {
+            $numberOfImages = \min($numberOfImages, $limit);
+        }
 
         $read = \fread($fp, 4);
-        if (!$read) {
-            return [];
+        if ($read === false) {
+            return []; // @codeCoverageIgnore
         }
-        $numberOfRows = \unpack('l', $read)[1];
+        $numberOfRows = \unpack('N', $read)[1];
 
         $read = \fread($fp, 4);
-        if (!$read) {
-            return [];
+        if ($read === false) {
+            return []; // @codeCoverageIgnore
         }
-        $numberOfColumns = \unpack('l', $read)[1];
+        $numberOfColumns = \unpack('N', $read)[1];
 
         $images = [];
         for ($i = 0; $i < $numberOfImages; ++$i) {
-            $image = [];
-
-            for ($row = 0; $row < $numberOfRows; ++$row) {
-                $rows = [];
-
-                for ($col = 0; $col < $numberOfColumns; ++$col) {
-                    $read = \fread($fp, 1);
-                    if (!$read) {
-                        return [];
-                    }
-                    $rows[] = \unpack('l', $read)[1]; //fread($fp, 1);
-                }
-
-                $image[] = $rows;
+            $read = \fread($fp, $numberOfRows * $numberOfColumns);
+            if ($read === false) {
+                return []; // @codeCoverageIgnore
             }
-
-            $images[] = $image;
+            $images[] = \array_values(\unpack('C*', $read));
         }
+
+        \fclose($fp);
 
         return $images;
     }
@@ -134,81 +135,52 @@ final class BasicOcr
     /**
      * Read labels from from path
      *
-     * @param string $path Labels path
+     * @param string $path  Labels path
+     * @param string $limit Limit
      *
      * @return array
      *
      * @since 1.0.0
      */
-    private function readLabels(string $path) : array
+    private function readLabels(string $path, int $limit = 0) : array
     {
+        if (!\file_exists($path)) {
+            throw new PathException($path);
+        }
+
         $fp = \fopen($path, 'r');
         if ($fp === false) {
-            throw new \Exception();
+            throw new PathException($path); // @codeCoverageIgnore
         }
 
         $read = \fread($fp, 4);
-        if (!$read) {
-            return [];
+        if ($read === false) {
+            return []; // @codeCoverageIgnore
         }
-        $magicNumber = \unpack('l', $read)[1];
+        $magicNumber = \unpack('N', $read)[1];
 
         $read = \fread($fp, 4);
-        if (!$read) {
-            return [];
+        if ($read === false) {
+            return []; // @codeCoverageIgnore
         }
-        $numberOfLabels = \unpack('l', $read)[1];
+        $numberOfLabels = \unpack('N', $read)[1];
+
+        if ($limit > 0) {
+            $numberOfLabels = \min($numberOfLabels, $limit);
+        }
 
         $labels = [];
         for ($i = 0; $i < $numberOfLabels; ++$i) {
             $read = \fread($fp, 1);
-            if (!$read) {
-                return [];
+            if ($read === false) {
+                return []; // @codeCoverageIgnore
             }
-            $labels[] = \unpack('l', $read)[1]; //fread($fp, 1);
+            $labels[] = \unpack('C', $read)[1];
         }
+
+        \fclose($fp);
 
         return $labels;
-    }
-
-    /**
-     * Extract data and labe information from image data
-     *
-     * @param array $data Image data and label information from the images
-     *
-     * @return array
-     *
-     * @since 1.0.0
-     */
-    private function extractFeatures(array $data) : array
-    {
-        $features = [];
-        foreach ($data as $sample) {
-            $features[] = $this->flatten($sample);
-        }
-
-        return $features;
-    }
-
-    /**
-     * Reduce the dimension of the data and label information
-     *
-     * @param array $data Image data and labell information to flatten
-     *
-     * @return array
-     *
-     * @sicne 1.0.0
-     */
-    private function flatten(array $data) : array
-    {
-        $flat = [];
-        foreach ($data as $sublist) {
-            foreach ($sublist as $pixel) {
-                $flat[] = $pixel;
-            }
-        }
-
-        return $flat;
     }
 
     /**
@@ -227,19 +199,22 @@ final class BasicOcr
             $distances = $this->getDistances($Xtrain, $sample);
             \asort($distances);
 
-            // find possible k-labels for a image
-            $kKeys           = \array_keys(\array_slice($distances, 0, $k));
-            $candidateLabels = [];
+            $keys = \array_keys($distances);
 
-            foreach ($kKeys as $key) {
-                $candidateLabels[] = $ytrain[$key];
+            $candidateLabels = [];
+            for ($i = 0; $i < $k; ++$i) {
+                $candidateLabels[] = $ytrain[$keys[$i]];
             }
 
             // find best match
             $countedCandidates = \array_count_values($candidateLabels);
-            \asort($countedCandidates);
 
-            $predictedLabels[] = ['label' => \array_key_first($countedCandidates), 'prob' => \reset($countedCandidates) / $k];
+            foreach ($candidateLabels as $i => $label) {
+                $predictedLabels[] = [
+                    'label' => $label,
+                    'prob'  => $countedCandidates[$candidateLabels[$i]] / $k,
+                ];
+            }
         }
 
         return $predictedLabels;
@@ -268,17 +243,19 @@ final class BasicOcr
     /**
      * Categorize an unknown image
      *
-     * @param string $path Path to the image to categorize/evaluate/match against the training data
+     * @param string $path       Path to the image to categorize/evaluate/match against the training data
+     * @param string $comparison Amount of comparisons
+     * @param string $limit      Limit
      *
      * @return array
      *
      * @since 1.0.0
      */
-    public function match(string $path) : array
+    public function match(string $path, int $comparison = 3, int $limit = 0) : array
     {
         // @todo: implement image reading if it isn't an mnist file
-        $Xtest = $this->readImages($path);
+        $Xtest = $this->readImages($path, $limit);
 
-        return $this->kNearest($this->Xtrain, $this->ytrain, $Xtest);
+        return $this->kNearest($this->Xtrain, $this->ytrain, $Xtest, $comparison);
     }
 }

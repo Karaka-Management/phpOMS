@@ -176,17 +176,6 @@ abstract class FileAbstract implements ContainerInterface
     /**
      * {@inheritdoc}
      */
-    public function parentNode() : Directory
-    {
-        $uri = clone $this->uri;
-        $uri->setPath(Directory::parent($this->path));
-
-        return new Directory($uri, '*', true, $this->con);
-    }
-
-    /**
-     * {@inheritdoc}
-     */
     public function getCreatedAt() : \DateTimeImmutable
     {
         return $this->createdAt;

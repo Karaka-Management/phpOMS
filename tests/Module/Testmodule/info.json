@@ -1,0 +1,25 @@
+{
+    "name": {
+        "id": 1999000000,
+        "internal": "Testmodule",
+        "external": "Testmodule"
+    },
+    "category": "Test",
+    "version": "1.0.0",
+    "requirements": {
+        "phpOMS": "1.0.0",
+        "phpOMS-db": "1.0.0"
+    },
+    "creator": {
+        "name": "Orange Management",
+        "website": "www.spl1nes.com"
+    },
+    "description": "Testmodule module.",
+    "directory": "Testmodule",
+    "dependencies": {
+    },
+    "providing": {
+    },
+    "load": [
+    ]
+}

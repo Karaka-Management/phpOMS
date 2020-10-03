@@ -162,7 +162,7 @@ final class PackageManager
 
             $contents = \file_get_contents($this->extractPath . '/' . $file);
             if ($contents === false) {
-                throw new \Exception();
+                throw new \Exception(); // @codeCoverageIgnore
             }
 
             \sodium_crypto_generichash_update($state, $contents);
