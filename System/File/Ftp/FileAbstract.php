@@ -15,6 +15,7 @@ declare(strict_types=1);
 namespace phpOMS\System\File\Ftp;
 
 use phpOMS\System\File\ContainerInterface;
+use phpOMS\Uri\HttpUri;
 
 /**
  * Filesystem class.
@@ -28,6 +29,22 @@ use phpOMS\System\File\ContainerInterface;
  */
 abstract class FileAbstract implements ContainerInterface
 {
+    /**
+     * Ftp connection
+     *
+     * @var resource
+     * @since 1.0.0
+     */
+    protected $con;
+
+    /**
+     * Ftp uri
+     *
+     * @var resource
+     * @since 1.0.0
+     */
+    protected HttpUri $uri;
+
     /**
      * Path.
      *
@@ -93,6 +110,14 @@ abstract class FileAbstract implements ContainerInterface
     protected int $permission = 0755;
 
     /**
+     * Is directory initialized
+     *
+     * @var bool
+     * @since 1.0.0
+     */
+    protected bool $isInitialized = false;
+
+    /**
      * Constructor.
      *
      * @param string $path Path
@@ -153,7 +178,10 @@ abstract class FileAbstract implements ContainerInterface
      */
     public function parentNode() : Directory
     {
-        return new Directory(Directory::parent($this->path));
+        $uri = clone $this->uri;
+        $uri->setPath(Directory::parent($this->path));
+
+        return new Directory($uri, '*', true, $this->con);
     }
 
     /**
@@ -193,8 +221,8 @@ abstract class FileAbstract implements ContainerInterface
      */
     public function index() : void
     {
-        $mtime = \filemtime($this->path);
-        $ctime = \filectime($this->path);
+        $mtime = \ftp_mdtm($this->con, $this->path);
+        $ctime = \ftp_mdtm($this->con, $this->path);
 
         $this->createdAt->setTimestamp($mtime === false ? 0 : $mtime);
         $this->changedAt->setTimestamp($ctime === false ? 0 : $ctime);
@@ -203,5 +231,7 @@ abstract class FileAbstract implements ContainerInterface
 
         $this->owner      = $owner === false ? 0 : $owner;
         $this->permission = (int) \substr(\sprintf('%o', \fileperms($this->path)), -4);
+
+        $this->isInitialized = true;
     }
 }

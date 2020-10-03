@@ -20,6 +20,7 @@ use phpOMS\System\File\FileUtils;
 use phpOMS\System\File\Local\Directory as LocalDirectory;
 use phpOMS\System\File\PathException;
 use phpOMS\Uri\HttpUri;
+use phpOMS\Utils\StringUtils;
 
 /**
  * Filesystem class.
@@ -33,14 +34,6 @@ use phpOMS\Uri\HttpUri;
  */
 class Directory extends FileAbstract implements DirectoryInterface, FtpContainerInterface
 {
-    /**
-     * Ftp connection
-     *
-     * @var resource
-     * @since 1.0.0
-     */
-    private $con;
-
     /**
      * Directory nodes (files and directories).
      *
@@ -78,20 +71,49 @@ class Directory extends FileAbstract implements DirectoryInterface, FtpContainer
     /**
      * Constructor.
      *
-     * @param HttpUri $uri    Uri
-     * @param string  $filter Filter
+     * @param HttpUri       $uri        Uri
+     * @param string        $filter     Filter
+     * @param bool          $initialize Should get initialized during construction
+     * @param null|resource $con        Connection
      *
      * @since 1.0.0
      */
-    public function __construct(HttpUri $uri, string $filter = '*', bool $initialize = true)
+    public function __construct(HttpUri $uri, string $filter = '*', bool $initialize = true, $con = null)
     {
-        $this->con = self::ftpConnect($uri);
+        $this->uri = $uri;
+        $this->con = $con ?? self::ftpConnect($uri);
 
         $this->filter = \ltrim($filter, '\\/');
         parent::__construct($uri->getPath());
 
-        if ($initialize && \file_exists($this->path)) {
+        if ($initialize && self::exists($this->con, $this->path)) {
             $this->index();
+        }
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function index() : void
+    {
+        if ($this->isInitialized) {
+            return;
+        }
+
+        $this->isInitialized = true;
+        parent::index();
+
+        $list = self::list($this->con, $this->path);
+
+        foreach ($list as $filename) {
+            if (!StringUtils::endsWith(\trim($filename), '.')) {
+                $uri = clone $this->uri;
+                $uri->setPath($filename);
+
+                $file = \ftp_size($this->con, $filename) === -1 ? new self($uri, '*', false, $this->con) : new File($uri, $this->con);
+
+                $this->addNode($file);
+            }
         }
     }
 
@@ -101,12 +123,13 @@ class Directory extends FileAbstract implements DirectoryInterface, FtpContainer
      * @param resource $con    FTP connection
      * @param string   $path   Path
      * @param string   $filter Filter
+     * @param bool     $recursive Recursive list
      *
      * @return string[]
      *
      * @since 1.0.0
      */
-    public static function list($con, string $path, string $filter = '*') : array
+    public static function list($con, string $path, string $filter = '*', bool $recursive = false) : array
     {
         if (!self::exists($con, $path)) {
             return [];
@@ -117,15 +140,15 @@ class Directory extends FileAbstract implements DirectoryInterface, FtpContainer
         $detailed = self::parseRawList($con, $path);
 
         foreach ($detailed as $key => $item) {
-            if ($filter !== '*' && \preg_match($filter, $key) === 1) {
+            if ($item['type'] === 'dir' && $recursive) {
+                $list = \array_merge($list, self::list($con, $key, $filter, $recursive));
+            }
+
+            if ($filter !== '*' && \preg_match($filter, $key) !== 1) {
                 continue;
             }
 
             $list[] = $key;
-
-            if ($item['type'] === 'dir') {
-                $list = \array_merge($list, self::list($con, $key));
-            }
         }
 
         /** @var string[] $list */
@@ -485,28 +508,33 @@ class Directory extends FileAbstract implements DirectoryInterface, FtpContainer
      */
     public static function move($con, string $from, string $to, bool $overwrite = false) : bool
     {
-        if (!self::exists($con, $from)) {
+        if (!self::exists($con, $from)
+            || (!$overwrite && self::exists($con, $to))
+        ) {
             return false;
         }
 
         if ($overwrite && self::exists($con, $to)) {
             self::delete($con, $to);
-        } elseif (self::exists($con, $to)) {
-            return false;
         }
 
         $copy = self::copy($con, $from, $to);
+
+        if (!$copy) {
+            return false;
+        }
+
         self::delete($con, $from);
 
-        return $copy;
+        return true;
     }
 
     /**
      * {@inheritdoc}
      */
-    public static function sanitize(string $path, string $replace = '', string $invalid = '/[^\w\s\d\.\-_~,;\/\[\]\(\]]/') : string
+    public static function sanitize(string $path, string $replace = '', string $invalid = '/[^\w\s\d\.\-_~,;:\[\]\(\]\/]/') : string
     {
-        return LocalDirectory::sanitize($path, $replace, $invalid);
+        return \preg_replace($invalid, $replace, $path) ?? '';
     }
 
     /**
@@ -514,7 +542,7 @@ class Directory extends FileAbstract implements DirectoryInterface, FtpContainer
      */
     public static function dirname(string $path) : string
     {
-        return LocalDirectory::dirname($path);
+        return \basename($path);
     }
 
     /**
@@ -522,7 +550,7 @@ class Directory extends FileAbstract implements DirectoryInterface, FtpContainer
      */
     public static function dirpath(string $path) : string
     {
-        return LocalDirectory::dirpath($path);
+        return $path;
     }
 
     /**
@@ -530,7 +558,7 @@ class Directory extends FileAbstract implements DirectoryInterface, FtpContainer
      */
     public static function name(string $path) : string
     {
-        return LocalDirectory::name($path);
+        return \basename($path);
     }
 
     /**
@@ -538,7 +566,7 @@ class Directory extends FileAbstract implements DirectoryInterface, FtpContainer
      */
     public static function basename(string $path) : string
     {
-        return LocalDirectory::basename($path);
+        return \basename($path);
     }
 
     /**
@@ -582,7 +610,13 @@ class Directory extends FileAbstract implements DirectoryInterface, FtpContainer
      */
     public function getParent() : ContainerInterface
     {
-        return new self(self::parent($this->path));
+        $uri = clone $this->uri;
+        $uri->setPath(self::parent($this->path));
+
+        return new self(
+            $uri,
+            '*', true, $this->con
+        );
     }
 
     /**
@@ -756,12 +790,13 @@ class Directory extends FileAbstract implements DirectoryInterface, FtpContainer
      * @param string   $path      Path
      * @param string   $extension Extension
      * @param string   $exclude   Pattern to exclude
+     * @param bool     $recursive Recursive
      *
      * @return array<array|string>
      *
      * @since 1.0.0
      */
-    public static function listByExtension($con, string $path, string $extension = '', string $exclude = '') : array
+    public static function listByExtension($con, string $path, string $extension = '', string $exclude = '', bool $recursive = false) : array
     {
         $list = [];
         $path = \rtrim($path, '\\/');
@@ -770,7 +805,7 @@ class Directory extends FileAbstract implements DirectoryInterface, FtpContainer
             return $list;
         }
 
-        $files = self::list($con, $path, empty($extension) ? '*' : '/*.\.' . $extension . '$/');
+        $files = self::list($con, $path, empty($extension) ? '*' : '/.*\.' . $extension . '$/', $recursive);
 
         foreach ($files as $file) {
             if (!empty($exclude) && \preg_match('/' . $exclude . '/', $file) === 1) {

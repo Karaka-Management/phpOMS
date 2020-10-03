@@ -161,9 +161,9 @@ final class Argument implements UriInterface
     {
         $this->uri = $uri;
 
-        $this->setPath($uri);
+        $this->setInternalPath($uri);
         $this->setQuery($uri);
-        $this->setFragment($uri);
+        $this->setInternalFragment($uri);
     }
 
     /**
@@ -175,7 +175,7 @@ final class Argument implements UriInterface
      *
      * @since 1.0.0
      */
-    private function setPath(string $uri) : void
+    private function setInternalPath(string $uri) : void
     {
         $start = \stripos($uri, ':');
 
@@ -239,7 +239,7 @@ final class Argument implements UriInterface
      *
      * @since 1.0.0
      */
-    private function setFragment(string $uri) : void
+    private function setInternalFragment(string $uri) : void
     {
         $result = \preg_match('/#([a-zA-Z0-9]*)/', $uri, $matches);
 
@@ -291,9 +291,25 @@ final class Argument implements UriInterface
     /**
      * {@inheritdoc}
      */
+    public function setScheme(string $scheme) : void
+    {
+        $this->scheme = $scheme;
+    }
+
+    /**
+     * {@inheritdoc}
+     */
     public function getHost() : string
     {
         return $this->host;
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function setHost(string $host) : void
+    {
+        $this->host = $host;
     }
 
     /**
@@ -307,6 +323,14 @@ final class Argument implements UriInterface
     /**
      * {@inheritdoc}
      */
+    public function setPort(int $port) : void
+    {
+        $this->port = $port;
+    }
+
+    /**
+     * {@inheritdoc}
+     */
     public function getPass() : string
     {
         return $this->pass;
@@ -315,9 +339,26 @@ final class Argument implements UriInterface
     /**
      * {@inheritdoc}
      */
+    public function setPass(string $pass) : void
+    {
+        $this->pass = $pass;
+    }
+
+    /**
+     * {@inheritdoc}
+     */
     public function getPath() : string
     {
         return $this->path;
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function setPath(string $path) : void
+    {
+        $this->path         = $path;
+        $this->pathElements = \explode('/', \ltrim($this->path, '/'));
     }
 
     /**
@@ -390,6 +431,14 @@ final class Argument implements UriInterface
     /**
      * {@inheritdoc}
      */
+    public function setFragment(string $fragment) : void
+    {
+        $this->fragment = $fragment;
+    }
+
+    /**
+     * {@inheritdoc}
+     */
     public function getBase() : string
     {
         return $this->base;
@@ -417,6 +466,14 @@ final class Argument implements UriInterface
     public function getUser() : string
     {
         return $this->user;
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function setUser(string $user) : void
+    {
+        $this->user = $user;
     }
 
     /**

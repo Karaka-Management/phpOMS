@@ -340,25 +340,23 @@ final class File extends FileAbstract implements FileInterface, LocalContainerIn
      */
     public static function copy(string $from, string $to, bool $overwrite = false) : bool
     {
-        if (!\is_file($from)) {
+        if (!\is_file($from)
+            || (!$overwrite && \file_exists($to))
+        ) {
             return false;
         }
 
-        if ($overwrite || !\file_exists($to)) {
-            if (!Directory::exists(\dirname($to))) {
-                Directory::create(\dirname($to), 0755, true);
-            }
-
-            if ($overwrite && \file_exists($to)) {
-                \unlink($to);
-            }
-
-            \copy($from, $to);
-
-            return true;
+        if (!Directory::exists(\dirname($to))) {
+            Directory::create(\dirname($to), 0755, true);
         }
 
-        return false;
+        if ($overwrite && \file_exists($to)) {
+            \unlink($to);
+        }
+
+        \copy($from, $to);
+
+        return true;
     }
 
     /**
@@ -372,7 +370,9 @@ final class File extends FileAbstract implements FileInterface, LocalContainerIn
             return false;
         }
 
-        return self::delete($from);
+        self::delete($from);
+
+        return true;
     }
 
     /**

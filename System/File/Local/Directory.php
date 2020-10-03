@@ -48,18 +48,11 @@ final class Directory extends FileAbstract implements DirectoryInterface, LocalC
     private array $nodes = [];
 
     /**
-     * Is directory initialized
-     *
-     * @var bool
-     * @since 1.0.0
-     */
-    private bool $isInitialized = false;
-
-    /**
      * Constructor.
      *
-     * @param string $path   Path
-     * @param string $filter Filter
+     * @param string $path       Path
+     * @param string $filter     Filter
+     * @param bool   $initialize Should get initialized during construction
      *
      * @since 1.0.0
      */
@@ -76,31 +69,38 @@ final class Directory extends FileAbstract implements DirectoryInterface, LocalC
     /**
      * List all files in directory recursively.
      *
-     * @param string $path   Path
-     * @param string $filter Filter
+     * @param string $path      Path
+     * @param string $filter    Filter
+     * @param bool   $recursive Recursive list
      *
      * @return string[] Array of files and directory with relative path to $path
      *
      * @since 1.0.0
      */
-    public static function list(string $path, string $filter = '*') : array
+    public static function list(string $path, string $filter = '*', bool $recursive = false) : array
     {
         if (!\file_exists($path)) {
             return [];
         }
 
-        $list     = [];
-        $path     = \rtrim($path, '\\/');
-        $iterator = new \RecursiveIteratorIterator(
-            new \RecursiveDirectoryIterator($path, \RecursiveDirectoryIterator::SKIP_DOTS),
-            \RecursiveIteratorIterator::SELF_FIRST
-        );
+        $list = [];
+        $path = \rtrim($path, '\\/');
+
+        $iterator = $recursive
+            ? new \RecursiveIteratorIterator(
+                new \RecursiveDirectoryIterator($path, \RecursiveDirectoryIterator::SKIP_DOTS),
+                \RecursiveIteratorIterator::SELF_FIRST)
+            : new \DirectoryIterator($path);
 
         if ($filter !== '*') {
             $iterator = new \RegexIterator($iterator, '/' . $filter . '/i', \RecursiveRegexIterator::GET_MATCH);
         }
 
         foreach ($iterator as $item) {
+            if ($item->isDot()) {
+                continue;
+            }
+
             $list[] = \str_replace('\\', '/', $iterator->getSubPathname());
         }
 
@@ -114,12 +114,13 @@ final class Directory extends FileAbstract implements DirectoryInterface, LocalC
      * @param string $path      Path
      * @param string $extension Extension
      * @param string $exclude   Pattern to exclude
+     * @param bool   $recursive Recursive
      *
      * @return array<array|string>
      *
      * @since 1.0.0
      */
-    public static function listByExtension(string $path, string $extension = '', string $exclude = '') : array
+    public static function listByExtension(string $path, string $extension = '', string $exclude = '', bool $recursive = true) : array
     {
         $list = [];
         $path = \rtrim($path, '\\/');
@@ -128,10 +129,17 @@ final class Directory extends FileAbstract implements DirectoryInterface, LocalC
             return $list;
         }
 
-        foreach ($iterator = new \RecursiveIteratorIterator(
-            new \RecursiveDirectoryIterator($path, \RecursiveDirectoryIterator::SKIP_DOTS),
-            \RecursiveIteratorIterator::SELF_FIRST) as $item
-        ) {
+        $iterator = $recursive
+            ? new \RecursiveIteratorIterator(
+                new \RecursiveDirectoryIterator($path, \RecursiveDirectoryIterator::SKIP_DOTS),
+                \RecursiveIteratorIterator::SELF_FIRST)
+            : new \DirectoryIterator($path);
+
+        foreach ($iterator as $item) {
+            if ($item->isDot()) {
+                continue;
+            }
+
             if ((empty($extension) || $item->getExtension() === $extension)
                 && (empty($exclude) || (!(bool) \preg_match('/' . $exclude . '/', $iterator->getSubPathname())))
             ) {
@@ -151,7 +159,6 @@ final class Directory extends FileAbstract implements DirectoryInterface, LocalC
             return;
         }
 
-        $this->isInitialized = true;
         parent::index();
 
         foreach (\glob($this->path . \DIRECTORY_SEPARATOR . $this->filter) as $filename) {
@@ -406,13 +413,13 @@ final class Directory extends FileAbstract implements DirectoryInterface, LocalC
      */
     public static function move(string $from, string $to, bool $overwrite = false) : bool
     {
-        if (!\is_dir($from)) {
+        if (!\is_dir($from)
+            || (!$overwrite && \file_exists($to))
+        ) {
             return false;
         }
 
-        if (!$overwrite && \file_exists($to)) {
-            return false;
-        } elseif ($overwrite && \file_exists($to)) {
+        if ($overwrite && \file_exists($to)) {
             self::delete($to);
         }
 

@@ -60,11 +60,24 @@ class HttpUriTest extends \PHPUnit\Framework\TestCase
      * @covers phpOMS\Uri\HttpUri
      * @group framework
      */
-    public function testSchemaInputOutput() : void
+    public function testSchemeInputOutput() : void
     {
         $obj = new HttpUri('https://www.google.com/test/path.php?para1=abc&para2=2#frag');
 
         self::assertEquals('https', $obj->getScheme());
+
+        $obj->setScheme('ftp');
+        self::assertEquals('ftp', $obj->getScheme());
+    }
+
+    public function testPortInputOutput() : void
+    {
+        $obj = new HttpUri('https://www.google.com:21/test/path.php?para1=abc&para2=2#frag');
+
+        self::assertEquals(21, $obj->getPort());
+
+        $obj->setPort(123);
+        self::assertEquals(123, $obj->getPort());
     }
 
     /**
@@ -77,6 +90,9 @@ class HttpUriTest extends \PHPUnit\Framework\TestCase
         $obj = new HttpUri('https://www.google.com/test/path.php?para1=abc&para2=2#frag');
 
         self::assertEquals('www.google.com', $obj->getHost());
+
+        $obj->setHost('127.0.0.1');
+        self::assertEquals('127.0.0.1', $obj->getHost());
     }
 
     /**
@@ -89,6 +105,9 @@ class HttpUriTest extends \PHPUnit\Framework\TestCase
         $obj = new HttpUri('https://username:password@google.com/test/path.php?para1=abc&para2=2#frag');
 
         self::assertEquals('username', $obj->getUser());
+
+        $obj->setUser('user');
+        self::assertEquals('user', $obj->getUser());
     }
 
     /**
@@ -101,6 +120,9 @@ class HttpUriTest extends \PHPUnit\Framework\TestCase
         $obj = new HttpUri('https://username:password@google.com/test/path.php?para1=abc&para2=2#frag');
 
         self::assertEquals('password', $obj->getPass());
+
+        $obj->setPass('pass');
+        self::assertEquals('pass', $obj->getPass());
     }
 
     /**
@@ -164,6 +186,14 @@ class HttpUriTest extends \PHPUnit\Framework\TestCase
         self::assertEquals('a', $obj->getRootPath());
     }
 
+    public function testPathInputOutput() : void
+    {
+        $obj = new HttpUri('https://www.google.com/test/path.php?para1=abc&para2=2#frag');
+
+        $obj->setPath('new');
+        self::assertEquals('new', $obj->getPath());
+    }
+
     /**
      * @testdox The path offset can be set and returned
      * @covers phpOMS\Uri\HttpUri
@@ -216,6 +246,9 @@ class HttpUriTest extends \PHPUnit\Framework\TestCase
     {
         $obj = new HttpUri('https://www.google.com/test/path.php?para1=abc&para2=2#frag');
         self::assertEquals('frag', $obj->getFragment());
+
+        $obj->setFragment('frag2');
+        self::assertEquals('frag2', $obj->getFragment());
     }
 
     /**

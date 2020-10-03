@@ -37,32 +37,19 @@ use phpOMS\Uri\HttpUri;
 class File extends FileAbstract implements FileInterface
 {
     /**
-     * Ftp connection
-     *
-     * @var resource
-     * @since 1.0.0
-     */
-    private $con;
-
-    /**
-     * Ftp connection uri.
-     *
-     * @var HttpUri
-     * @since 1.0.0
-     */
-    private HttpUri $uri;
-
-    /**
      * Create ftp connection
      *
-     * @param string $path Ftp path including username and password
+     * @param string        $path Ftp path including username and password
+     * @param null|resource $con  Connection
      *
      * @since 1.0.0
      */
-    public function __construct(string $path)
+    public function __construct(HttpUri $uri, $con = null)
     {
-        $this->uri = new HttpUri($path);
-        $this->con = self::ftpConnect($this->uri);
+        $this->uri = $uri;
+        $this->con = $con ?? self::ftpConnect($this->uri);
+
+        parent::__construct($uri->getPath());
     }
 
     /**
@@ -108,7 +95,7 @@ class File extends FileAbstract implements FileInterface
         }
 
         $pathName = LocalDirectory::name($path);
-        foreach ($list as $key => $item) {
+        foreach ($list as $item) {
             if ($pathName === LocalDirectory::name($item)) {
                 return true;
             }
@@ -314,11 +301,9 @@ class File extends FileAbstract implements FileInterface
      */
     public static function copy($con, string $from, string $to, bool $overwrite = false) : bool
     {
-        if (!self::exists($con, $from)) {
-            return false;
-        }
-
-        if (!$overwrite && self::exists($con, $to)) {
+        if (!self::exists($con, $from)
+            || (!$overwrite && self::exists($con, $to))
+        ) {
             return false;
         }
 
@@ -337,20 +322,15 @@ class File extends FileAbstract implements FileInterface
      */
     public static function move($con, string $from, string $to, bool $overwrite = false) : bool
     {
-        if (!self::exists($con, $from)) {
+        $result = self::copy($con, $from, $to, $overwrite);
+
+        if (!$result) {
             return false;
         }
 
-        if ($overwrite && self::exists($con, $to)) {
-            self::delete($con, $to);
-        } elseif (self::exists($con, $to)) {
-            return false;
-        }
-
-        $copy = self::copy($con, $from, $to);
         self::delete($con, $from);
 
-        return $copy;
+        return true;
     }
 
     /**
@@ -586,19 +566,20 @@ class File extends FileAbstract implements FileInterface
     }
 
     /**
-     * Get file extension.
-     *
-     * @return string
-     *
-     * @since 1.0.0
+     * {@inheritdoc}
+     */
+    public function getName() : string
+    {
+        return \explode('.', $this->name)[0];
+    }
+
+    /**
+     * {@inheritdoc}
      */
     public function getExtension() : string
     {
-        /**
-         * @todo Orange-Management/phpOMS#??? [p:low] [t:todo] [d:medium]
-         *  Implement getExtension()
-         */
+        $extension = \explode('.', $this->name);
 
-        return '';
+        return $extension[1] ?? '';
     }
 }

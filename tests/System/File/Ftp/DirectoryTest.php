@@ -26,17 +26,16 @@ class DirectoryTest extends \PHPUnit\Framework\TestCase
 {
     const BASE = 'ftp://test:123456@127.0.0.1:20';
 
-    private $con = null;
+    private static $con = null;
 
-    private $dir = null;
+    public static function setUpBeforeClass() : void
+    {
+        self::$con = Directory::ftpConnect(new HttpUri(self::BASE));
+    }
 
     protected function setUp() : void
     {
-        if ($this->con === null) {
-            $this->con = Directory::ftpConnect(new HttpUri(self::BASE));
-        }
-
-        if ($this->con === false) {
+        if (self::$con === false) {
             $this->markTestSkipped(
               'The ftp connection is not available.'
             );
@@ -61,7 +60,7 @@ class DirectoryTest extends \PHPUnit\Framework\TestCase
     public function testStaticCreate() : void
     {
         $dirPath = __DIR__ . '/test';
-        self::assertTrue(Directory::create($this->con, $dirPath));
+        self::assertTrue(Directory::create(self::$con, $dirPath));
         self::assertTrue(\is_dir($dirPath));
 
         \rmdir($dirPath);
@@ -74,8 +73,8 @@ class DirectoryTest extends \PHPUnit\Framework\TestCase
      */
     public function testStaticExists() : void
     {
-        self::assertTrue(Directory::exists($this->con, __DIR__));
-        self::assertFalse(Directory::exists($this->con, __DIR__ . '/invalid/path/here'));
+        self::assertTrue(Directory::exists(self::$con, __DIR__));
+        self::assertFalse(Directory::exists(self::$con, __DIR__ . '/invalid/path/here'));
     }
 
     /**
@@ -86,8 +85,8 @@ class DirectoryTest extends \PHPUnit\Framework\TestCase
     public function testInvalidStaticOverwrite() : void
     {
         $dirPath = __DIR__ . '/test';
-        self::assertTrue(Directory::create($this->con, $dirPath));
-        self::assertFalse(Directory::create($this->con, $dirPath));
+        self::assertTrue(Directory::create(self::$con, $dirPath));
+        self::assertFalse(Directory::create(self::$con, $dirPath));
 
         \rmdir($dirPath);
     }
@@ -100,12 +99,12 @@ class DirectoryTest extends \PHPUnit\Framework\TestCase
     public function testStaticSubdir() : void
     {
         $dirPath = __DIR__ . '/test/sub/path';
-        self::assertTrue(Directory::create($this->con, $dirPath, 0755, true));
-        self::assertTrue(Directory::exists($this->con, $dirPath));
+        self::assertTrue(Directory::create(self::$con, $dirPath, 0755, true));
+        self::assertTrue(Directory::exists(self::$con, $dirPath));
 
-        Directory::delete($this->con, __DIR__ . '/test/sub/path');
-        Directory::delete($this->con, __DIR__ . '/test/sub');
-        Directory::delete($this->con, __DIR__ . '/test');
+        Directory::delete(self::$con, __DIR__ . '/test/sub/path');
+        Directory::delete(self::$con, __DIR__ . '/test/sub');
+        Directory::delete(self::$con, __DIR__ . '/test');
     }
 
     /**
@@ -115,7 +114,7 @@ class DirectoryTest extends \PHPUnit\Framework\TestCase
      */
     public function testInvalidStaticSubdir() : void
     {
-        self::assertFalse(Directory::create($this->con, __DIR__ . '/invalid/path/here'));
+        self::assertFalse(Directory::create(self::$con, __DIR__ . '/invalid/path/here'));
     }
 
     /**
@@ -188,10 +187,10 @@ class DirectoryTest extends \PHPUnit\Framework\TestCase
         self::markTestSkipped();
         $dirPath = __DIR__ . '/test';
 
-        self::assertTrue(Directory::create($this->con, $dirPath));
+        self::assertTrue(Directory::create(self::$con, $dirPath));
 
         $now = new \DateTime('now');
-        self::assertEquals($now->format('Y-m-d'), Directory::created($this->con, $dirPath)->format('Y-m-d'));
+        self::assertEquals($now->format('Y-m-d'), Directory::created(self::$con, $dirPath)->format('Y-m-d'));
 
         \rmdir($dirPath);
     }
@@ -207,10 +206,10 @@ class DirectoryTest extends \PHPUnit\Framework\TestCase
 
         $dirPath = __DIR__ . '/test';
 
-        self::assertTrue(Directory::create($this->con, $dirPath));
+        self::assertTrue(Directory::create(self::$con, $dirPath));
 
         $now = new \DateTime('now');
-        self::assertEquals($now->format('Y-m-d'), Directory::changed($this->con, $dirPath)->format('Y-m-d'));
+        self::assertEquals($now->format('Y-m-d'), Directory::changed(self::$con, $dirPath)->format('Y-m-d'));
 
         \rmdir($dirPath);
     }
@@ -224,9 +223,9 @@ class DirectoryTest extends \PHPUnit\Framework\TestCase
     {
         $dirPath = __DIR__ . '/test';
 
-        self::assertTrue(Directory::create($this->con, $dirPath));
-        self::assertTrue(Directory::delete($this->con, $dirPath));
-        self::assertFalse(Directory::exists($this->con, $dirPath));
+        self::assertTrue(Directory::create(self::$con, $dirPath));
+        self::assertTrue(Directory::delete(self::$con, $dirPath));
+        self::assertFalse(Directory::exists(self::$con, $dirPath));
     }
 
     /**
@@ -238,7 +237,7 @@ class DirectoryTest extends \PHPUnit\Framework\TestCase
     {
         $dirPath = __DIR__ . '/test';
 
-        self::assertFalse(Directory::delete($this->con, $dirPath));
+        self::assertFalse(Directory::delete(self::$con, $dirPath));
     }
 
     /**
@@ -249,7 +248,7 @@ class DirectoryTest extends \PHPUnit\Framework\TestCase
     public function testStaticSizeRecursive() : void
     {
         $dirTestPath = __DIR__ . '/dirtest';
-        self::assertGreaterThan(0, Directory::size($this->con, $dirTestPath));
+        self::assertGreaterThan(0, Directory::size(self::$con, $dirTestPath));
     }
 
     /**
@@ -260,7 +259,7 @@ class DirectoryTest extends \PHPUnit\Framework\TestCase
     public function testInvalidStaticSizeRecursive() : void
     {
         $dirTestPath = __DIR__ . '/invalid/test/here';
-        self::assertEquals(-1, Directory::size($this->con, $dirTestPath));
+        self::assertEquals(-1, Directory::size(self::$con, $dirTestPath));
     }
 
     /**
@@ -271,7 +270,7 @@ class DirectoryTest extends \PHPUnit\Framework\TestCase
     public function testStaticSize() : void
     {
         $dirTestPath = __DIR__ . '/dirtest';
-        self::assertGreaterThan(Directory::size($this->con, $dirTestPath, false), Directory::size($this->con, $dirTestPath));
+        self::assertGreaterThan(Directory::size(self::$con, $dirTestPath, false), Directory::size(self::$con, $dirTestPath));
     }
 
     /**
@@ -282,7 +281,7 @@ class DirectoryTest extends \PHPUnit\Framework\TestCase
     public function testStaticPermission() : void
     {
         $dirTestPath = __DIR__ . '/dirtest';
-        self::assertGreaterThan(0, Directory::permission($this->con, $dirTestPath));
+        self::assertGreaterThan(0, Directory::permission(self::$con, $dirTestPath));
     }
 
     /**
@@ -293,7 +292,7 @@ class DirectoryTest extends \PHPUnit\Framework\TestCase
     public function testInvalidStaticPermission() : void
     {
         $dirTestPath = __DIR__ . '/invalid/test/here';
-        self::assertEquals(-1, Directory::permission($this->con, $dirTestPath));
+        self::assertEquals(-1, Directory::permission(self::$con, $dirTestPath));
     }
 
     /**
@@ -304,30 +303,30 @@ class DirectoryTest extends \PHPUnit\Framework\TestCase
     public function testStaticCopy() : void
     {
         $dirTestPath = __DIR__ . '/dirtest';
-        self::assertTrue(Directory::copy($this->con, $dirTestPath, __DIR__ . '/newdirtest'));
+        self::assertTrue(Directory::copy(self::$con, $dirTestPath, __DIR__ . '/newdirtest'));
         self::assertFileExists(__DIR__ . '/newdirtest/sub/path/test3.txt');
 
-        Directory::delete($this->con, __DIR__ . '/newdirtest');
+        Directory::delete(self::$con, __DIR__ . '/newdirtest');
     }
 
     public function testStaticCopyOverwrite() : void
     {
         $dirTestPath = __DIR__ . '/dirtest';
-        self::assertTrue(Directory::copy($this->con, $dirTestPath, __DIR__ . '/newdirtest'));
-        self::assertFalse(Directory::copy($this->con, $dirTestPath, __DIR__ . '/newdirtest', false));
-        self::assertTrue(Directory::copy($this->con, $dirTestPath, __DIR__ . '/newdirtest', true));
+        self::assertTrue(Directory::copy(self::$con, $dirTestPath, __DIR__ . '/newdirtest'));
+        self::assertFalse(Directory::copy(self::$con, $dirTestPath, __DIR__ . '/newdirtest', false));
+        self::assertTrue(Directory::copy(self::$con, $dirTestPath, __DIR__ . '/newdirtest', true));
         self::assertFileExists(__DIR__ . '/newdirtest/sub/path/test3.txt');
 
-        Directory::delete($this->con, __DIR__ . '/newdirtest');
+        Directory::delete(self::$con, __DIR__ . '/newdirtest');
     }
 
     public function testStaticInvalidCopyOverwrite() : void
     {
         $dirTestPath = __DIR__ . '/dirtest';
-        self::assertTrue(Directory::copy($this->con, $dirTestPath, __DIR__ . '/newdirtest'));
-        self::assertFalse(Directory::copy($this->con, $dirTestPath, __DIR__ . '/newdirtest', false));
+        self::assertTrue(Directory::copy(self::$con, $dirTestPath, __DIR__ . '/newdirtest'));
+        self::assertFalse(Directory::copy(self::$con, $dirTestPath, __DIR__ . '/newdirtest', false));
 
-        Directory::delete($this->con, __DIR__ . '/newdirtest');
+        Directory::delete(self::$con, __DIR__ . '/newdirtest');
     }
 
     /**
@@ -339,33 +338,33 @@ class DirectoryTest extends \PHPUnit\Framework\TestCase
     {
         $dirTestPath = __DIR__ . '/dirtest';
 
-        self::assertTrue(Directory::move($this->con, $dirTestPath, __DIR__ . '/newdirtest'));
+        self::assertTrue(Directory::move(self::$con, $dirTestPath, __DIR__ . '/newdirtest'));
         self::assertFileExists(__DIR__ . '/newdirtest/sub/path/test3.txt');
 
-        Directory::move($this->con, __DIR__ . '/newdirtest', $dirTestPath);
+        Directory::move(self::$con, __DIR__ . '/newdirtest', $dirTestPath);
     }
 
     public function testStaticInvalidMoveOverwrite() : void
     {
         $dirTestPath = __DIR__ . '/dirtest';
 
-        self::assertTrue(Directory::move($this->con, $dirTestPath, __DIR__ . '/newdirtest'));
-        self::assertFalse(Directory::move($this->con, __DIR__ . '/newdirtest', __DIR__ . '/newdirtest', false));
+        self::assertTrue(Directory::move(self::$con, $dirTestPath, __DIR__ . '/newdirtest'));
+        self::assertFalse(Directory::move(self::$con, __DIR__ . '/newdirtest', __DIR__ . '/newdirtest', false));
 
-        Directory::move($this->con, __DIR__ . '/newdirtest', $dirTestPath);
+        Directory::move(self::$con, __DIR__ . '/newdirtest', $dirTestPath);
     }
 
     public function testStaticMoveOverwrite() : void
     {
         $dirTestPath = __DIR__ . '/dirtest';
 
-        self::assertTrue(Directory::move($this->con, $dirTestPath, __DIR__ . '/newdirtest'));
+        self::assertTrue(Directory::move(self::$con, $dirTestPath, __DIR__ . '/newdirtest'));
 
-        self::assertTrue(Directory::copy($this->con, __DIR__ . '/newdirtest', $dirTestPath));
-        self::assertFalse(Directory::move($this->con, $dirTestPath, __DIR__ . '/newdirtest', false));
-        self::assertTrue(Directory::move($this->con, $dirTestPath, __DIR__ . '/newdirtest', true));
+        self::assertTrue(Directory::copy(self::$con, __DIR__ . '/newdirtest', $dirTestPath));
+        self::assertFalse(Directory::move(self::$con, $dirTestPath, __DIR__ . '/newdirtest', false));
+        self::assertTrue(Directory::move(self::$con, $dirTestPath, __DIR__ . '/newdirtest', true));
 
-        Directory::move($this->con, __DIR__ . '/newdirtest', $dirTestPath);
+        Directory::move(self::$con, __DIR__ . '/newdirtest', $dirTestPath);
     }
 
     /**
@@ -376,7 +375,7 @@ class DirectoryTest extends \PHPUnit\Framework\TestCase
     public function testStaticCountRecursive() : void
     {
         $dirTestPath = __DIR__ . '/dirtest';
-        self::assertEquals(4, Directory::count($this->con, $dirTestPath));
+        self::assertEquals(4, Directory::count(self::$con, $dirTestPath));
     }
 
     /**
@@ -387,7 +386,7 @@ class DirectoryTest extends \PHPUnit\Framework\TestCase
     public function testStaticCount() : void
     {
         $dirTestPath = __DIR__ . '/dirtest';
-        self::assertEquals(1, Directory::count($this->con, $dirTestPath, false));
+        self::assertEquals(1, Directory::count(self::$con, $dirTestPath, false));
     }
 
     /**
@@ -398,7 +397,7 @@ class DirectoryTest extends \PHPUnit\Framework\TestCase
     public function testInvalidStaticCount() : void
     {
         $dirTestPath = __DIR__ . '/invalid/path/here';
-        self::assertEquals(-1, Directory::count($this->con, $dirTestPath, false));
+        self::assertEquals(-1, Directory::count(self::$con, $dirTestPath, false));
     }
 
     /**
@@ -409,19 +408,19 @@ class DirectoryTest extends \PHPUnit\Framework\TestCase
     public function testStaticListFiles() : void
     {
         $dirTestPath = __DIR__ . '/dirtest';
-        self::assertCount(6, Directory::list($this->con, $dirTestPath));
+        self::assertCount(6, Directory::list(self::$con, $dirTestPath, '*', true));
     }
 
     public function testStaticListFilesByExtension() : void
     {
         $dirTestPath = __DIR__ . '/dirtest';
-        self::assertCount(3, Directory::listByExtension($this->con, $dirTestPath, 'txt'));
+        self::assertCount(3, Directory::listByExtension(self::$con, $dirTestPath, 'txt', '', true));
     }
 
     public function testStaticOwner() : void
     {
         $dirTestPath = __DIR__ . '/dirtest';
-        self::assertNotEmpty(Directory::owner($this->con, $dirTestPath));
+        self::assertNotEmpty(Directory::owner(self::$con, $dirTestPath));
     }
 
     public function testDirectoryNameSanitizing() : void
@@ -436,12 +435,12 @@ class DirectoryTest extends \PHPUnit\Framework\TestCase
      */
     public function testInvalidListPath() : void
     {
-        self::assertEquals([], Directory::list($this->con, __DIR__ . '/invalid.txt'));
+        self::assertEquals([], Directory::list(self::$con, __DIR__ . '/invalid.txt'));
     }
 
     public function testInvalidListFilesByExtension() : void
     {
-        self::assertEquals([], Directory::listByExtension($this->con, __DIR__ . '/invalid/path/here', 'txt'));
+        self::assertEquals([], Directory::listByExtension(self::$con, __DIR__ . '/invalid/path/here', 'txt'));
     }
 
     /**
@@ -451,7 +450,7 @@ class DirectoryTest extends \PHPUnit\Framework\TestCase
      */
     public function testInvalidCopyPath() : void
     {
-        self::assertFalse(Directory::copy($this->con, __DIR__ . '/invalid', __DIR__ . '/invalid2'));
+        self::assertFalse(Directory::copy(self::$con, __DIR__ . '/invalid', __DIR__ . '/invalid2'));
     }
 
     /**
@@ -461,7 +460,7 @@ class DirectoryTest extends \PHPUnit\Framework\TestCase
      */
     public function testInvalidMovePath() : void
     {
-        self::assertFalse(Directory::move($this->con, __DIR__ . '/invalid', __DIR__ . '/invalid2'));
+        self::assertFalse(Directory::move(self::$con, __DIR__ . '/invalid', __DIR__ . '/invalid2'));
     }
 
     /**
@@ -473,7 +472,7 @@ class DirectoryTest extends \PHPUnit\Framework\TestCase
     {
         $this->expectException(\phpOMS\System\File\PathException::class);
 
-        Directory::created($this->con, __DIR__ . '/invalid');
+        Directory::created(self::$con, __DIR__ . '/invalid');
     }
 
     /**
@@ -485,7 +484,7 @@ class DirectoryTest extends \PHPUnit\Framework\TestCase
     {
         $this->expectException(\phpOMS\System\File\PathException::class);
 
-        Directory::changed($this->con, __DIR__ . '/invalid');
+        Directory::changed(self::$con, __DIR__ . '/invalid');
     }
 
     /**
@@ -497,13 +496,13 @@ class DirectoryTest extends \PHPUnit\Framework\TestCase
     {
         $this->expectException(\phpOMS\System\File\PathException::class);
 
-        Directory::owner($this->con, __DIR__ . '/invalid');
+        Directory::owner(self::$con, __DIR__ . '/invalid');
     }
 
     public function testList() : void
     {
         $dirTestPath = __DIR__ . '/dirtest';
-        $dir = new Directory(new HttpUri(self::BASE . '/' . $dirTestPath));
+        $dir = new Directory(new HttpUri(self::BASE . '/' . $dirTestPath), '*', true, self::$con);
 
         self::assertEquals([
             'sub',
@@ -514,20 +513,20 @@ class DirectoryTest extends \PHPUnit\Framework\TestCase
     public function testNodeOutput() : void
     {
         $dirTestPath = __DIR__ . '/dirtest';
-        $dir = new Directory(new HttpUri(self::BASE . '/' . $dirTestPath));
+        $dir = new Directory(new HttpUri(self::BASE . '/' . $dirTestPath), '*', true, self::$con);
 
         self::assertInstanceOf(Directory::class, $dir->getNode('sub'));
     }
 
     public function testNodeCreate() : void
     {
-        $dir = new Directory(new HttpUri(self::BASE . '/' . __DIR__));
-        $dir->addNode(new Directory(new HttpUri(self::BASE . '/' . __DIR__ . '/nodedir')));
+        $dir = new Directory(new HttpUri(self::BASE . '/' . __DIR__), '*', true, self::$con);
+        $dir->addNode(new Directory(new HttpUri(self::BASE . __DIR__ . '/nodedir')));
 
         self::assertTrue(\file_exists(__DIR__ . '/nodedir'));
         \rmdir(__DIR__ . '/nodedir');
 
-        $dir = new Directory(new HttpUri(self::BASE . '/' . __DIR__ . '/nodedir2'));
+        $dir = new Directory(new HttpUri(self::BASE . __DIR__ . '/nodedir2'), '*', true, self::$con);
         $dir->createNode();
 
         self::assertTrue(\file_exists(__DIR__ . '/nodedir2'));
@@ -536,8 +535,8 @@ class DirectoryTest extends \PHPUnit\Framework\TestCase
 
     public function testNodeDelete() : void
     {
-        $dir = new Directory(new HttpUri(self::BASE . '/' . __DIR__));
-        $dir->addNode(new Directory(new HttpUri(self::BASE . '/' . __DIR__ . '/nodedir')));
+        $dir = new Directory(new HttpUri(self::BASE . '/' . __DIR__), '*', true, self::$con);
+        $dir->addNode(new Directory(new HttpUri(self::BASE . __DIR__ . '/nodedir')));
 
         self::assertTrue(\file_exists(__DIR__ . '/nodedir'));
         self::assertTrue($dir->getNode('nodedir')->deleteNode());
@@ -546,8 +545,8 @@ class DirectoryTest extends \PHPUnit\Framework\TestCase
 
     public function testNodeCopy() : void
     {
-        $dir = new Directory(new HttpUri(self::BASE . '/' . __DIR__));
-        $dir->addNode(new Directory(new HttpUri(self::BASE . '/' . __DIR__ . '/nodedir')));
+        $dir = new Directory(new HttpUri(self::BASE . '/' . __DIR__), '*', true, self::$con);
+        $dir->addNode(new Directory(new HttpUri(self::BASE . __DIR__ . '/nodedir')));
 
         $dir->getNode('nodedir')->copyNode(__DIR__ . '/nodedir2');
         self::assertTrue(\file_exists(__DIR__ . '/nodedir2'));
@@ -558,8 +557,8 @@ class DirectoryTest extends \PHPUnit\Framework\TestCase
 
     public function testNodeMove() : void
     {
-        $dir = new Directory(new HttpUri(self::BASE . '/' . __DIR__));
-        $dir->addNode(new Directory(new HttpUri(self::BASE . '/' . __DIR__ . '/nodedir')));
+        $dir = new Directory(new HttpUri(self::BASE . '/' . __DIR__), '*', true, self::$con);
+        $dir->addNode(new Directory(new HttpUri(self::BASE . __DIR__ . '/nodedir')));
 
         $dir->getNode('nodedir')->moveNode(__DIR__ . '/nodedir2');
         self::assertFalse(\file_exists(__DIR__ . '/nodedir'));
@@ -570,7 +569,7 @@ class DirectoryTest extends \PHPUnit\Framework\TestCase
 
     public function testNodeExists() : void
     {
-        $dir = new Directory(new HttpUri(self::BASE . '/' . __DIR__));
+        $dir = new Directory(new HttpUri(self::BASE . '/' . __DIR__), '*', true, self::$con);
 
         self::assertTrue($dir->isExisting());
         self::assertTrue($dir->isExisting('dirtest'));
@@ -579,28 +578,28 @@ class DirectoryTest extends \PHPUnit\Framework\TestCase
 
     public function testParentOutput() : void
     {
-        $dir = new Directory(new HttpUri(self::BASE . '/' . __DIR__ . '/dirtest'));
+        $dir = new Directory(new HttpUri(self::BASE . __DIR__ . '/dirtest'), '*', true, self::$con);
 
         self::assertEquals(__DIR__, $dir->parentNode()->getPath());
     }
 
     public function testNodeNext() : void
     {
-        $dir = new Directory(new HttpUri(self::BASE . '/' . __DIR__ . '/dirtest'));
+        $dir = new Directory(new HttpUri(self::BASE . __DIR__ . '/dirtest'), '*', true, self::$con);
 
         self::assertEquals(__DIR__ . '/dirtest/test.txt', $dir->next()->getPath());
     }
 
     public function testNodeCurrent() : void
     {
-        $dir = new Directory(new HttpUri(self::BASE . '/' . __DIR__ . '/dirtest'));
+        $dir = new Directory(new HttpUri(self::BASE . __DIR__ . '/dirtest'), '*', true, self::$con);
 
         self::assertEquals(__DIR__ . '/dirtest/sub', $dir->current()->getPath());
     }
 
     public function testNodeKey() : void
     {
-        $dir = new Directory(new HttpUri(self::BASE . '/' . __DIR__ . '/dirtest'));
+        $dir = new Directory(new HttpUri(self::BASE . __DIR__ . '/dirtest'), '*', true, self::$con);
 
         self::assertEquals('sub', $dir->key());
         $dir->next();
@@ -609,20 +608,20 @@ class DirectoryTest extends \PHPUnit\Framework\TestCase
 
     public function testNodeArrayRead() : void
     {
-        $dir = new Directory(new HttpUri(self::BASE . '/' . __DIR__ . '/dirtest'));
+        $dir = new Directory(new HttpUri(self::BASE . __DIR__ . '/dirtest'), '*', true, self::$con);
 
         self::assertEquals('test', $dir['test.txt']->getName());
     }
 
     public function testNodeArraySet() : void
     {
-        $dir = new Directory(new HttpUri(self::BASE . '/' . __DIR__));
-        $dir[] = new Directory(new HttpUri(self::BASE . '/' . __DIR__ . '/nodedir'));
+        $dir = new Directory(new HttpUri(self::BASE . '/' . __DIR__), '*', true, self::$con);
+        $dir[] = new Directory(new HttpUri(self::BASE . __DIR__ . '/nodedir'));
 
         self::assertTrue(\file_exists(__DIR__ . '/nodedir'));
         \rmdir(__DIR__ . '/nodedir');
 
-        $dir['nodedir'] = new Directory(new HttpUri(self::BASE . '/' . __DIR__ . '/nodedir'));
+        $dir['nodedir'] = new Directory(new HttpUri(self::BASE . __DIR__ . '/nodedir'));
 
         self::assertTrue(\file_exists(__DIR__ . '/nodedir'));
         \rmdir(__DIR__ . '/nodedir');
@@ -630,8 +629,8 @@ class DirectoryTest extends \PHPUnit\Framework\TestCase
 
     public function testNodeArrayRemove() : void
     {
-        $dir = new Directory(new HttpUri(self::BASE . '/' . __DIR__));
-        $dir->addNode(new Directory(new HttpUri(self::BASE . '/' . __DIR__ . '/nodedir')));
+        $dir = new Directory(new HttpUri(self::BASE . '/' . __DIR__), '*', true, self::$con);
+        $dir->addNode(new Directory(new HttpUri(self::BASE . __DIR__ . '/nodedir')));
 
         self::assertTrue(\file_exists(__DIR__ . '/nodedir'));
         unset($dir['nodedir']);
@@ -640,7 +639,7 @@ class DirectoryTest extends \PHPUnit\Framework\TestCase
 
     public function testNodeArrayExists() : void
     {
-        $dir = new Directory(new HttpUri(self::BASE . '/' . __DIR__));
+        $dir = new Directory(new HttpUri(self::BASE . '/' . __DIR__), '*', true, self::$con);
 
         self::assertTrue(isset($dir['dirtest']));
         self::assertFalse(isset($dir['invalid']));
@@ -649,7 +648,7 @@ class DirectoryTest extends \PHPUnit\Framework\TestCase
     public function testNodeCreatedAt() : void
     {
         $dirPath = __DIR__ . '/test';
-        $dir = new Directory(new HttpUri(self::BASE . '/' . $dirPath));
+        $dir = new Directory(new HttpUri(self::BASE . '/' . $dirPath), '*', true, self::$con);
 
         self::assertTrue($dir->createNode());
 
@@ -662,7 +661,7 @@ class DirectoryTest extends \PHPUnit\Framework\TestCase
     public function testNodeChangedAt() : void
     {
         $dirPath = __DIR__ . '/test';
-        $dir = new Directory(new HttpUri(self::BASE . '/' . $dirPath));
+        $dir = new Directory(new HttpUri(self::BASE . '/' . $dirPath), '*', true, self::$con);
 
         self::assertTrue($dir->createNode());
 
@@ -674,42 +673,42 @@ class DirectoryTest extends \PHPUnit\Framework\TestCase
 
     public function testNodeOwner() : void
     {
-        $dir = new Directory(new HttpUri(self::BASE . '/' . __DIR__ . '/dirtest'));
+        $dir = new Directory(new HttpUri(self::BASE . __DIR__ . '/dirtest'), '*', true, self::$con);
 
         self::assertNotEmpty($dir->getOwner());
     }
 
     public function testNodePermission() : void
     {
-        $dir = new Directory(new HttpUri(self::BASE . '/' . __DIR__ . '/dirtest'));
+        $dir = new Directory(new HttpUri(self::BASE . __DIR__ . '/dirtest'), '*', true, self::$con);
 
         self::assertGreaterThan(0, $dir->getPermission());
     }
 
     public function testDirname() : void
     {
-        $dir = new Directory(new HttpUri(self::BASE . '/' . __DIR__ . '/dirtest'));
+        $dir = new Directory(new HttpUri(self::BASE . __DIR__ . '/dirtest'), '*', true, self::$con);
 
         self::assertEquals('dirtest', $dir->next()->getDirname());
     }
 
     public function testName() : void
     {
-        $dir = new Directory(new HttpUri(self::BASE . '/' . __DIR__ . '/dirtest'));
+        $dir = new Directory(new HttpUri(self::BASE . __DIR__ . '/dirtest'), '*', true, self::$con);
 
         self::assertEquals('test', $dir->next()->getName());
     }
 
     public function testBaseame() : void
     {
-        $dir = new Directory(new HttpUri(self::BASE . '/' . __DIR__ . '/dirtest'));
+        $dir = new Directory(new HttpUri(self::BASE . __DIR__ . '/dirtest'), '*', true, self::$con);
 
         self::assertEquals('test.txt', $dir->next()->getBasename());
     }
 
     public function testDirpath() : void
     {
-        $dir = new Directory(new HttpUri(self::BASE . '/' . __DIR__ . '/dirtest'));
+        $dir = new Directory(new HttpUri(self::BASE . __DIR__ . '/dirtest'), '*', true, self::$con);
 
         self::assertEquals(__DIR__ . '/dirtest', $dir->next()->getDirpath());
     }

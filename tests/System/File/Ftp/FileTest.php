@@ -28,15 +28,16 @@ class FileTest extends \PHPUnit\Framework\TestCase
 {
     const BASE = 'ftp://test:123456@127.0.0.1:20';
 
-    private $con = null;
+    private static $con = null;
+
+    public static function setUpBeforeClass() : void
+    {
+        self::$con = File::ftpConnect(new HttpUri(self::BASE));
+    }
 
     protected function setUp() : void
     {
-        if ($this->con === null) {
-            $this->con = File::ftpConnect(new HttpUri(self::BASE));
-        }
-
-        if ($this->con === false) {
+        if (self::$con === false) {
             $this->markTestSkipped(
               'The ftp connection is not available.'
             );
@@ -61,11 +62,11 @@ class FileTest extends \PHPUnit\Framework\TestCase
     public function testStaticCreate() : void
     {
         $testFile = __DIR__ . '/test.txt';
-        self::assertTrue(File::create($this->con, $testFile));
+        self::assertTrue(File::create(self::$con, $testFile));
         self::assertTrue(\is_file($testFile));
         self::assertEquals('', \file_get_contents($testFile));
 
-        File::delete($this->con, $testFile);
+        File::delete(self::$con, $testFile);
     }
 
     /**
@@ -76,11 +77,11 @@ class FileTest extends \PHPUnit\Framework\TestCase
     public function testInvalidStaticCreate() : void
     {
         $testFile = __DIR__ . '/test.txt';
-        self::assertTrue(File::create($this->con, $testFile));
-        self::assertFalse(File::create($this->con, $testFile));
+        self::assertTrue(File::create(self::$con, $testFile));
+        self::assertFalse(File::create(self::$con, $testFile));
         self::assertTrue(\is_file($testFile));
 
-        File::delete($this->con, $testFile);
+        File::delete(self::$con, $testFile);
     }
 
     /**
@@ -91,11 +92,11 @@ class FileTest extends \PHPUnit\Framework\TestCase
     public function testStaticPut() : void
     {
         $testFile = __DIR__ . '/test.txt';
-        self::assertTrue(File::put($this->con, $testFile, 'test', ContentPutMode::CREATE));
+        self::assertTrue(File::put(self::$con, $testFile, 'test', ContentPutMode::CREATE));
         self::assertTrue(\is_file($testFile));
         self::assertEquals('test', \file_get_contents($testFile));
 
-        File::delete($this->con, $testFile);
+        File::delete(self::$con, $testFile);
     }
 
     /**
@@ -106,7 +107,7 @@ class FileTest extends \PHPUnit\Framework\TestCase
     public function testInvalidStaticCreateReplace() : void
     {
         $testFile = __DIR__ . '/test.txt';
-        self::assertFalse(File::put($this->con, $testFile, 'test', ContentPutMode::REPLACE));
+        self::assertFalse(File::put(self::$con, $testFile, 'test', ContentPutMode::REPLACE));
         self::assertfalse(\file_exists($testFile));
     }
 
@@ -118,7 +119,7 @@ class FileTest extends \PHPUnit\Framework\TestCase
     public function testInvalidStaticCreateAppend() : void
     {
         $testFile = __DIR__ . '/test.txt';
-        self::assertFalse(File::put($this->con, $testFile, 'test', ContentPutMode::APPEND));
+        self::assertFalse(File::put(self::$con, $testFile, 'test', ContentPutMode::APPEND));
         self::assertfalse(\file_exists($testFile));
     }
 
@@ -130,7 +131,7 @@ class FileTest extends \PHPUnit\Framework\TestCase
     public function testInvalidStaticCreatePrepend() : void
     {
         $testFile = __DIR__ . '/test.txt';
-        self::assertFalse(File::put($this->con, $testFile, 'test', ContentPutMode::PREPEND));
+        self::assertFalse(File::put(self::$con, $testFile, 'test', ContentPutMode::PREPEND));
         self::assertfalse(\file_exists($testFile));
     }
 
@@ -141,8 +142,8 @@ class FileTest extends \PHPUnit\Framework\TestCase
      */
     public function testStaticExists() : void
     {
-        self::assertTrue(File::exists($this->con, __DIR__ . '/FileTest.php'));
-        self::assertFalse(File::exists($this->con, __DIR__ . '/invalid/file.txt'));
+        self::assertTrue(File::exists(self::$con, __DIR__ . '/FileTest.php'));
+        self::assertFalse(File::exists(self::$con, __DIR__ . '/invalid/file.txt'));
     }
 
     /**
@@ -153,12 +154,12 @@ class FileTest extends \PHPUnit\Framework\TestCase
     public function testStaticReplace() : void
     {
         $testFile = __DIR__ . '/test.txt';
-        self::assertTrue(File::put($this->con, $testFile, 'test', ContentPutMode::CREATE));
-        self::assertTrue(File::put($this->con, $testFile, 'test2', ContentPutMode::REPLACE));
+        self::assertTrue(File::put(self::$con, $testFile, 'test', ContentPutMode::CREATE));
+        self::assertTrue(File::put(self::$con, $testFile, 'test2', ContentPutMode::REPLACE));
 
         self::assertEquals('test2', \file_get_contents($testFile));
 
-        File::delete($this->con, $testFile);
+        File::delete(self::$con, $testFile);
     }
 
     /**
@@ -169,12 +170,12 @@ class FileTest extends \PHPUnit\Framework\TestCase
     public function testStaticSetAlias() : void
     {
         $testFile = __DIR__ . '/test.txt';
-        self::assertTrue(File::put($this->con, $testFile, 'test', ContentPutMode::CREATE));
-        self::assertTrue(File::set($this->con, $testFile, 'test2'));
+        self::assertTrue(File::put(self::$con, $testFile, 'test', ContentPutMode::CREATE));
+        self::assertTrue(File::set(self::$con, $testFile, 'test2'));
 
         self::assertEquals('test2', \file_get_contents($testFile));
 
-        File::delete($this->con, $testFile);
+        File::delete(self::$con, $testFile);
     }
 
     /**
@@ -185,12 +186,12 @@ class FileTest extends \PHPUnit\Framework\TestCase
     public function testStaticAppend() : void
     {
         $testFile = __DIR__ . '/test.txt';
-        self::assertTrue(File::put($this->con, $testFile, 'test', ContentPutMode::CREATE));
-        self::assertTrue(File::put($this->con, $testFile, 'test2', ContentPutMode::APPEND));
+        self::assertTrue(File::put(self::$con, $testFile, 'test', ContentPutMode::CREATE));
+        self::assertTrue(File::put(self::$con, $testFile, 'test2', ContentPutMode::APPEND));
 
         self::assertEquals('testtest2', \file_get_contents($testFile));
 
-        File::delete($this->con, $testFile);
+        File::delete(self::$con, $testFile);
     }
 
     /**
@@ -201,12 +202,12 @@ class FileTest extends \PHPUnit\Framework\TestCase
     public function testStaticAppendAlias() : void
     {
         $testFile = __DIR__ . '/test.txt';
-        self::assertTrue(File::put($this->con, $testFile, 'test', ContentPutMode::CREATE));
-        self::assertTrue(File::append($this->con, $testFile, 'test2'));
+        self::assertTrue(File::put(self::$con, $testFile, 'test', ContentPutMode::CREATE));
+        self::assertTrue(File::append(self::$con, $testFile, 'test2'));
 
         self::assertEquals('testtest2', \file_get_contents($testFile));
 
-        File::delete($this->con, $testFile);
+        File::delete(self::$con, $testFile);
     }
 
     /**
@@ -217,12 +218,12 @@ class FileTest extends \PHPUnit\Framework\TestCase
     public function testStaticPrepend() : void
     {
         $testFile = __DIR__ . '/test.txt';
-        self::assertTrue(File::put($this->con, $testFile, 'test', ContentPutMode::CREATE));
-        self::assertTrue(File::put($this->con, $testFile, 'test2', ContentPutMode::PREPEND));
+        self::assertTrue(File::put(self::$con, $testFile, 'test', ContentPutMode::CREATE));
+        self::assertTrue(File::put(self::$con, $testFile, 'test2', ContentPutMode::PREPEND));
 
         self::assertEquals('test2test', \file_get_contents($testFile));
 
-        File::delete($this->con, $testFile);
+        File::delete(self::$con, $testFile);
     }
 
     /**
@@ -233,12 +234,12 @@ class FileTest extends \PHPUnit\Framework\TestCase
     public function testStaticPrependAlias() : void
     {
         $testFile = __DIR__ . '/test.txt';
-        self::assertTrue(File::put($this->con, $testFile, 'test', ContentPutMode::CREATE));
-        self::assertTrue(File::prepend($this->con, $testFile, 'test2'));
+        self::assertTrue(File::put(self::$con, $testFile, 'test', ContentPutMode::CREATE));
+        self::assertTrue(File::prepend(self::$con, $testFile, 'test2'));
 
         self::assertEquals('test2test', \file_get_contents($testFile));
 
-        File::delete($this->con, $testFile);
+        File::delete(self::$con, $testFile);
     }
 
     /**
@@ -249,10 +250,10 @@ class FileTest extends \PHPUnit\Framework\TestCase
     public function testStaticGet() : void
     {
         $testFile = __DIR__ . '/test.txt';
-        self::assertTrue(File::put($this->con, $testFile, 'test', ContentPutMode::CREATE));
-        self::assertEquals('test', File::get($this->con, $testFile));
+        self::assertTrue(File::put(self::$con, $testFile, 'test', ContentPutMode::CREATE));
+        self::assertEquals('test', File::get(self::$con, $testFile));
 
-        File::delete($this->con, $testFile);
+        File::delete(self::$con, $testFile);
     }
 
     /**
@@ -347,12 +348,12 @@ class FileTest extends \PHPUnit\Framework\TestCase
     public function testStaticCreatedAt() : void
     {
         $testFile = __DIR__ . '/test.txt';
-        self::assertTrue(File::create($this->con, $testFile));
+        self::assertTrue(File::create(self::$con, $testFile));
 
         $now = new \DateTime('now');
-        self::assertEquals($now->format('Y-m-d'), File::created($this->con, $testFile)->format('Y-m-d'));
+        self::assertEquals($now->format('Y-m-d'), File::created(self::$con, $testFile)->format('Y-m-d'));
 
-        File::delete($this->con, $testFile);
+        File::delete(self::$con, $testFile);
     }
 
     /**
@@ -363,12 +364,12 @@ class FileTest extends \PHPUnit\Framework\TestCase
     public function testStaticChangedAt() : void
     {
         $testFile = __DIR__ . '/test.txt';
-        self::assertTrue(File::create($this->con, $testFile));
+        self::assertTrue(File::create(self::$con, $testFile));
 
         $now = new \DateTime('now');
-        self::assertEquals($now->format('Y-m-d'), File::changed($this->con, $testFile)->format('Y-m-d'));
+        self::assertEquals($now->format('Y-m-d'), File::changed(self::$con, $testFile)->format('Y-m-d'));
 
-        File::delete($this->con, $testFile);
+        File::delete(self::$con, $testFile);
     }
 
     /**
@@ -380,9 +381,9 @@ class FileTest extends \PHPUnit\Framework\TestCase
     {
         $testFile = __DIR__ . '/test.txt';
 
-        self::assertTrue(File::create($this->con, $testFile));
-        self::assertTrue(File::delete($this->con, $testFile));
-        self::assertFalse(File::exists($this->con, $testFile));
+        self::assertTrue(File::create(self::$con, $testFile));
+        self::assertTrue(File::delete(self::$con, $testFile));
+        self::assertFalse(File::exists(self::$con, $testFile));
     }
 
     /**
@@ -394,7 +395,7 @@ class FileTest extends \PHPUnit\Framework\TestCase
     {
         $testFile = __DIR__ . '/test.txt';
 
-        self::assertFalse(File::delete($this->con, $testFile));
+        self::assertFalse(File::delete(self::$con, $testFile));
     }
 
     /**
@@ -405,11 +406,11 @@ class FileTest extends \PHPUnit\Framework\TestCase
     public function testStaticSize() : void
     {
         $testFile = __DIR__ . '/test.txt';
-        File::put($this->con, $testFile, 'test', ContentPutMode::CREATE);
+        File::put(self::$con, $testFile, 'test', ContentPutMode::CREATE);
 
-        self::assertGreaterThan(0, File::size($this->con, $testFile));
+        self::assertGreaterThan(0, File::size(self::$con, $testFile));
 
-        File::delete($this->con, $testFile);
+        File::delete(self::$con, $testFile);
     }
 
     /**
@@ -420,11 +421,11 @@ class FileTest extends \PHPUnit\Framework\TestCase
     public function testStaticPermission() : void
     {
         $testFile = __DIR__ . '/test.txt';
-        File::put($this->con, $testFile, 'test', ContentPutMode::CREATE);
+        File::put(self::$con, $testFile, 'test', ContentPutMode::CREATE);
 
-        self::assertGreaterThan(0, File::permission($this->con, $testFile));
+        self::assertGreaterThan(0, File::permission(self::$con, $testFile));
 
-        File::delete($this->con, $testFile);
+        File::delete(self::$con, $testFile);
     }
 
     /**
@@ -435,7 +436,7 @@ class FileTest extends \PHPUnit\Framework\TestCase
     public function testInvalidStaticPermission() : void
     {
         $testFile = __DIR__ . '/test.txt';
-        self::assertEquals(-1, File::permission($this->con, $testFile));
+        self::assertEquals(-1, File::permission(self::$con, $testFile));
     }
 
     /**
@@ -448,17 +449,17 @@ class FileTest extends \PHPUnit\Framework\TestCase
         $testFile = __DIR__ . '/test.txt';
         $newPath  = __DIR__ . '/sub/path/testing.txt';
 
-        File::put($this->con, $testFile, 'test', ContentPutMode::CREATE);
+        File::put(self::$con, $testFile, 'test', ContentPutMode::CREATE);
 
-        self::assertTrue(File::copy($this->con, $testFile, $newPath));
-        self::assertTrue(File::exists($this->con, $newPath));
-        self::assertEquals('test', File::get($this->con, $newPath));
+        self::assertTrue(File::copy(self::$con, $testFile, $newPath));
+        self::assertTrue(File::exists(self::$con, $newPath));
+        self::assertEquals('test', File::get(self::$con, $newPath));
 
-        File::delete($this->con, $newPath);
-        Directory::delete($this->con, __DIR__ . '/sub/path/');
-        Directory::delete($this->con, __DIR__ . '/sub/');
+        File::delete(self::$con, $newPath);
+        Directory::delete(self::$con, __DIR__ . '/sub/path/');
+        Directory::delete(self::$con, __DIR__ . '/sub/');
 
-        File::delete($this->con, $testFile);
+        File::delete(self::$con, $testFile);
     }
 
     /**
@@ -471,14 +472,14 @@ class FileTest extends \PHPUnit\Framework\TestCase
         $testFile = __DIR__ . '/test.txt';
         $newPath  = __DIR__ . '/test2.txt';
 
-        File::put($this->con, $testFile, 'test', ContentPutMode::CREATE);
-        File::put($this->con, $newPath, 'test2', ContentPutMode::CREATE);
+        File::put(self::$con, $testFile, 'test', ContentPutMode::CREATE);
+        File::put(self::$con, $newPath, 'test2', ContentPutMode::CREATE);
 
-        self::assertFalse(File::copy($this->con, $testFile, $newPath));
-        self::assertEquals('test2', File::get($this->con, $newPath));
+        self::assertFalse(File::copy(self::$con, $testFile, $newPath));
+        self::assertEquals('test2', File::get(self::$con, $newPath));
 
-        File::delete($this->con, $newPath);
-        File::delete($this->con, $testFile);
+        File::delete(self::$con, $newPath);
+        File::delete(self::$con, $testFile);
     }
 
     /**
@@ -491,14 +492,14 @@ class FileTest extends \PHPUnit\Framework\TestCase
         $testFile = __DIR__ . '/test.txt';
         $newPath  = __DIR__ . '/test2.txt';
 
-        File::put($this->con, $testFile, 'test', ContentPutMode::CREATE);
-        File::put($this->con, $newPath, 'test2', ContentPutMode::CREATE);
+        File::put(self::$con, $testFile, 'test', ContentPutMode::CREATE);
+        File::put(self::$con, $newPath, 'test2', ContentPutMode::CREATE);
 
-        self::assertTrue(File::copy($this->con, $testFile, $newPath, true));
-        self::assertEquals('test', File::get($this->con, $newPath));
+        self::assertTrue(File::copy(self::$con, $testFile, $newPath, true));
+        self::assertEquals('test', File::get(self::$con, $newPath));
 
-        File::delete($this->con, $newPath);
-        File::delete($this->con, $testFile);
+        File::delete(self::$con, $newPath);
+        File::delete(self::$con, $testFile);
     }
 
     /**
@@ -511,14 +512,14 @@ class FileTest extends \PHPUnit\Framework\TestCase
         $testFile = __DIR__ . '/test.txt';
         $newPath  = __DIR__ . '/sub/path/testing.txt';
 
-        File::put($this->con, $testFile, 'test', ContentPutMode::CREATE);
+        File::put(self::$con, $testFile, 'test', ContentPutMode::CREATE);
 
-        self::assertTrue(File::move($this->con, $testFile, $newPath));
-        self::assertFalse(File::exists($this->con, $testFile));
-        self::assertTrue(File::exists($this->con, $newPath));
-        self::assertEquals('test', File::get($this->con, $newPath));
+        self::assertTrue(File::move(self::$con, $testFile, $newPath));
+        self::assertFalse(File::exists(self::$con, $testFile));
+        self::assertTrue(File::exists(self::$con, $newPath));
+        self::assertEquals('test', File::get(self::$con, $newPath));
 
-        Directory::delete($this->con, __DIR__ . '/sub');
+        Directory::delete(self::$con, __DIR__ . '/sub');
     }
 
     /**
@@ -531,15 +532,15 @@ class FileTest extends \PHPUnit\Framework\TestCase
         $testFile = __DIR__ . '/test.txt';
         $newPath  = __DIR__ . '/test2.txt';
 
-        File::put($this->con, $testFile, 'test', ContentPutMode::CREATE);
-        File::put($this->con, $newPath, 'test2', ContentPutMode::CREATE);
+        File::put(self::$con, $testFile, 'test', ContentPutMode::CREATE);
+        File::put(self::$con, $newPath, 'test2', ContentPutMode::CREATE);
 
-        self::assertFalse(File::move($this->con, $testFile, $newPath));
-        self::assertTrue(File::exists($this->con, $testFile));
-        self::assertEquals('test2', File::get($this->con, $newPath));
+        self::assertFalse(File::move(self::$con, $testFile, $newPath));
+        self::assertTrue(File::exists(self::$con, $testFile));
+        self::assertEquals('test2', File::get(self::$con, $newPath));
 
-        File::delete($this->con, $newPath);
-        File::delete($this->con, $testFile);
+        File::delete(self::$con, $newPath);
+        File::delete(self::$con, $testFile);
     }
 
     /**
@@ -552,20 +553,20 @@ class FileTest extends \PHPUnit\Framework\TestCase
         $testFile = __DIR__ . '/test.txt';
         $newPath  = __DIR__ . '/test2.txt';
 
-        File::put($this->con, $testFile, 'test', ContentPutMode::CREATE);
-        File::put($this->con, $newPath, 'test2', ContentPutMode::CREATE);
+        File::put(self::$con, $testFile, 'test', ContentPutMode::CREATE);
+        File::put(self::$con, $newPath, 'test2', ContentPutMode::CREATE);
 
-        self::assertTrue(File::move($this->con, $testFile, $newPath, true));
-        self::assertFalse(File::exists($this->con, $testFile));
-        self::assertEquals('test', File::get($this->con, $newPath));
+        self::assertTrue(File::move(self::$con, $testFile, $newPath, true));
+        self::assertFalse(File::exists(self::$con, $testFile));
+        self::assertEquals('test', File::get(self::$con, $newPath));
 
-        File::delete($this->con, $newPath);
+        File::delete(self::$con, $newPath);
     }
 
     public function testStaticOwner() : void
     {
         $dirTestPath = __DIR__ . '/dirtest/test.txt';
-        self::assertNotEmpty(File::owner($this->con, $dirTestPath));
+        self::assertNotEmpty(File::owner(self::$con, $dirTestPath));
     }
 
     public function testFileNameSanitizing() : void
@@ -580,7 +581,7 @@ class FileTest extends \PHPUnit\Framework\TestCase
      */
     public function testInvalidSizePath() : void
     {
-        self::assertEquals(-1, File::size($this->con, __DIR__ . '/invalid.txt'));
+        self::assertEquals(-1, File::size(self::$con, __DIR__ . '/invalid.txt'));
     }
 
     /**
@@ -590,7 +591,7 @@ class FileTest extends \PHPUnit\Framework\TestCase
      */
     public function testInvalidCopyPath() : void
     {
-        self::assertFalse(File::copy($this->con, __DIR__ . '/invalid.txt', __DIR__ . '/invalid2.txt'));
+        self::assertFalse(File::copy(self::$con, __DIR__ . '/invalid.txt', __DIR__ . '/invalid2.txt'));
     }
 
     /**
@@ -600,7 +601,7 @@ class FileTest extends \PHPUnit\Framework\TestCase
      */
     public function testInvalidMovePath() : void
     {
-        self::assertFalse(File::move($this->con, __DIR__ . '/invalid.txt', __DIR__ . '/invalid2.txt'));
+        self::assertFalse(File::move(self::$con, __DIR__ . '/invalid.txt', __DIR__ . '/invalid2.txt'));
     }
 
     /**
@@ -612,7 +613,7 @@ class FileTest extends \PHPUnit\Framework\TestCase
     {
         $this->expectException(\phpOMS\System\File\PathException::class);
 
-        File::get($this->con, __DIR__ . '/invalid.txt');
+        File::get(self::$con, __DIR__ . '/invalid.txt');
     }
 
     /**
@@ -624,7 +625,7 @@ class FileTest extends \PHPUnit\Framework\TestCase
     {
         $this->expectException(\phpOMS\System\File\PathException::class);
 
-        File::created($this->con, __DIR__ . '/invalid.txt');
+        File::created(self::$con, __DIR__ . '/invalid.txt');
     }
 
     /**
@@ -636,7 +637,7 @@ class FileTest extends \PHPUnit\Framework\TestCase
     {
         $this->expectException(\phpOMS\System\File\PathException::class);
 
-        File::changed($this->con, __DIR__ . '/invalid.txt');
+        File::changed(self::$con, __DIR__ . '/invalid.txt');
     }
 
     /**
@@ -648,7 +649,7 @@ class FileTest extends \PHPUnit\Framework\TestCase
     {
         $this->expectException(\phpOMS\System\File\PathException::class);
 
-        File::owner($this->con, __DIR__ . '/invalid.txt');
+        File::owner(self::$con, __DIR__ . '/invalid.txt');
     }
 
     public function testNodeInputOutput() : void

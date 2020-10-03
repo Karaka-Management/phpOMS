@@ -45,6 +45,17 @@ interface UriInterface
     public function getScheme() : string;
 
     /**
+     * Set scheme.
+     *
+     * @param string $scheme Path
+     *
+     * @return void
+     *
+     * @since 1.0.0
+     */
+    public function setScheme(string $scheme) : void;
+
+    /**
      * Get authority.
      *
      * @return string
@@ -72,6 +83,17 @@ interface UriInterface
     public function getHost() : string;
 
     /**
+     * Set host.
+     *
+     * @param string $host Host
+     *
+     * @return void
+     *
+     * @since 1.0.0
+     */
+    public function setHost(string $host) : void;
+
+    /**
      * Get port.
      *
      * @return int
@@ -79,6 +101,17 @@ interface UriInterface
      * @since 1.0.0
      */
     public function getPort() : int;
+
+    /**
+     * Set port.
+     *
+     * @param int $port Port
+     *
+     * @return void
+     *
+     * @since 1.0.0
+     */
+    public function setPort(int $port) : void;
 
     /**
      * Get path.
@@ -90,6 +123,17 @@ interface UriInterface
     public function getPath() : string;
 
     /**
+     * Set path.
+     *
+     * @param string $path Path
+     *
+     * @return void
+     *
+     * @since 1.0.0
+     */
+    public function setPath(string $path) : void;
+
+    /**
      * Get user.
      *
      * @return string
@@ -99,6 +143,17 @@ interface UriInterface
     public function getUser() : string;
 
     /**
+     * Set user.
+     *
+     * @param string $user User
+     *
+     * @return void
+     *
+     * @since 1.0.0
+     */
+    public function setUser(string $user) : void;
+
+    /**
      * Get password.
      *
      * @return string
@@ -106,6 +161,17 @@ interface UriInterface
      * @since 1.0.0
      */
     public function getPass() : string;
+
+    /**
+     * Set pass.
+     *
+     * @param string $pass Pass
+     *
+     * @return void
+     *
+     * @since 1.0.0
+     */
+    public function setPass(string $pass) : void;
 
     /**
      * Get root path.
@@ -149,7 +215,7 @@ interface UriInterface
      *
      * @since 1.0.0
      */
-    public function getPathElement(int $pos) : string;
+    public function getPathElement(int $pos = 0) : string;
 
     /**
      * Get path elements.
@@ -188,6 +254,17 @@ interface UriInterface
      * @since 1.0.0
      */
     public function getFragment() : string;
+
+    /**
+     * Set fragment.
+     *
+     * @param string $fragment Fragment
+     *
+     * @return void
+     *
+     * @since 1.0.0
+     */
+    public function setFragment(string $fragment) : void;
 
     /**
      * Get uri.

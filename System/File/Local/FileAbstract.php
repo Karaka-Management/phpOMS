@@ -93,6 +93,14 @@ abstract class FileAbstract implements ContainerInterface
     protected int $permission = 0755;
 
     /**
+     * Is directory initialized
+     *
+     * @var bool
+     * @since 1.0.0
+     */
+    protected bool $isInitialized = false;
+
+    /**
      * Constructor.
      *
      * @param string $path Path
@@ -203,5 +211,7 @@ abstract class FileAbstract implements ContainerInterface
 
         $this->owner      = $owner === false ? 0 : $owner;
         $this->permission = (int) \substr(\sprintf('%o', \fileperms($this->path)), -4);
+
+        $this->isInitialized = true;
     }
 }

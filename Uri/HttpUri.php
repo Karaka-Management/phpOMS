@@ -280,9 +280,25 @@ final class HttpUri implements UriInterface
     /**
      * {@inheritdoc}
      */
+    public function setScheme(string $scheme) : void
+    {
+        $this->scheme = $scheme;
+    }
+
+    /**
+     * {@inheritdoc}
+     */
     public function getHost() : string
     {
         return $this->host;
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function setHost(string $host) : void
+    {
+        $this->host = $host;
     }
 
     /**
@@ -315,6 +331,14 @@ final class HttpUri implements UriInterface
     /**
      * {@inheritdoc}
      */
+    public function setPort(int $port) : void
+    {
+        $this->port = $port;
+    }
+
+    /**
+     * {@inheritdoc}
+     */
     public function getPass() : string
     {
         return $this->pass;
@@ -323,9 +347,26 @@ final class HttpUri implements UriInterface
     /**
      * {@inheritdoc}
      */
+    public function setPass(string $pass) : void
+    {
+        $this->pass = $pass;
+    }
+
+    /**
+     * {@inheritdoc}
+     */
     public function getPath() : string
     {
         return $this->path;
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function setPath(string $path) : void
+    {
+        $this->path         = $path;
+        $this->pathElements = \explode('/', \ltrim($this->path, '/'));
     }
 
     /**
@@ -398,6 +439,14 @@ final class HttpUri implements UriInterface
     /**
      * {@inheritdoc}
      */
+    public function setFragment(string $fragment) : void
+    {
+        $this->fragment = $fragment;
+    }
+
+    /**
+     * {@inheritdoc}
+     */
     public function getBase() : string
     {
         return $this->base;
@@ -426,6 +475,14 @@ final class HttpUri implements UriInterface
     public function getUser() : string
     {
         return $this->user;
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function setUser(string $user) : void
+    {
+        $this->user = $user;
     }
 
     /**

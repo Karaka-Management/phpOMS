@@ -65,7 +65,7 @@ class ArgumentTest extends \PHPUnit\Framework\TestCase
      * @covers phpOMS\Uri\Argument
      * @group framework
      */
-    public function testPathInputOutput() : void
+    public function testParsePathInputOutput() : void
     {
         $obj = new Argument(':modules/admin/test/path.php ?para1=abc ?para2=2 #frag');
 
@@ -75,6 +75,54 @@ class ArgumentTest extends \PHPUnit\Framework\TestCase
             ['modules', 'admin', 'test', 'path'],
             $obj->getPathElements()
         );
+    }
+
+    public function testPathInputOutput() : void
+    {
+        $obj = new Argument(':modules/admin/test/path.php ?para1=abc ?para2=2 #frag');
+
+        $obj->setPath('modules/admin/new/path');
+        self::assertEquals('modules/admin/new/path', $obj->getPath());
+    }
+
+    public function testSchemeInputOutput() : void
+    {
+        $obj = new Argument(':modules/admin/test/path.php ?para1=abc ?para2=2 #frag');
+
+        $obj->setScheme('scheme');
+        self::assertEquals('scheme', $obj->getScheme());
+    }
+
+    public function testUserInputOutput() : void
+    {
+        $obj = new Argument(':modules/admin/test/path.php ?para1=abc ?para2=2 #frag');
+
+        $obj->setUser('user');
+        self::assertEquals('user', $obj->getUser());
+    }
+
+    public function testPassInputOutput() : void
+    {
+        $obj = new Argument(':modules/admin/test/path.php ?para1=abc ?para2=2 #frag');
+
+        $obj->setPass('pass');
+        self::assertEquals('pass', $obj->getPass());
+    }
+
+    public function testHostInputOutput() : void
+    {
+        $obj = new Argument(':modules/admin/test/path.php ?para1=abc ?para2=2 #frag');
+
+        $obj->setHost('host');
+        self::assertEquals('host', $obj->getHost());
+    }
+
+    public function testPortInputOutput() : void
+    {
+        $obj = new Argument(':modules/admin/test/path.php ?para1=abc ?para2=2 #frag');
+
+        $obj->setPort(123);
+        self::assertEquals(123, $obj->getPort());
     }
 
     /**
@@ -126,6 +174,9 @@ class ArgumentTest extends \PHPUnit\Framework\TestCase
         $obj = new Argument(':modules/admin/test/path.php ?para1=abc ?para2=2 #frag');
 
         self::assertEquals('frag', $obj->getFragment());
+
+        $obj->setFragment('frag2');
+        self::assertEquals('frag2', $obj->getFragment());
     }
 
     /**
