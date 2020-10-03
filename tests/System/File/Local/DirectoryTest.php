@@ -514,18 +514,18 @@ class DirectoryTest extends \PHPUnit\Framework\TestCase
     public function testList() : void
     {
         $dirTestPath = __DIR__ . '/dirtest';
-        $dir = new Directory($dirTestPath);
+        $dir         = new Directory($dirTestPath);
 
         self::assertEquals([
             'sub',
-            'test.txt'
+            'test.txt',
         ], $dir->getList());
     }
 
     public function testNodeOutput() : void
     {
         $dirTestPath = __DIR__ . '/dirtest';
-        $dir = new Directory($dirTestPath);
+        $dir         = new Directory($dirTestPath);
 
         self::assertInstanceOf(Directory::class, $dir->getNode('sub'));
     }
@@ -627,7 +627,7 @@ class DirectoryTest extends \PHPUnit\Framework\TestCase
 
     public function testNodeArraySet() : void
     {
-        $dir = new Directory(__DIR__);
+        $dir   = new Directory(__DIR__);
         $dir[] = new Directory(__DIR__ . '/nodedir');
 
         self::assertTrue(\file_exists(__DIR__ . '/nodedir'));
@@ -660,7 +660,7 @@ class DirectoryTest extends \PHPUnit\Framework\TestCase
     public function testNodeCreatedAt() : void
     {
         $dirPath = __DIR__ . '/test';
-        $dir = new Directory($dirPath);
+        $dir     = new Directory($dirPath);
 
         self::assertTrue($dir->createNode());
 
@@ -673,7 +673,7 @@ class DirectoryTest extends \PHPUnit\Framework\TestCase
     public function testNodeChangedAt() : void
     {
         $dirPath = __DIR__ . '/test';
-        $dir = new Directory($dirPath);
+        $dir     = new Directory($dirPath);
 
         self::assertTrue($dir->createNode());
 

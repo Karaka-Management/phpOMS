@@ -46,7 +46,7 @@ class FileTest extends \PHPUnit\Framework\TestCase
 
     public function testConnection() : void
     {
-        self::assertNotEquals(false, File::ftpConnect(new HttpUri(self::BASE . '/test')));
+        self::assertNotFalse(File::ftpConnect(new HttpUri(self::BASE . '/test')));
     }
 
     public function testInvalidConnection() : void
