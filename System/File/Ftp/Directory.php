@@ -60,7 +60,7 @@ class Directory extends FileAbstract implements DirectoryInterface, FtpContainer
      */
     public static function ftpConnect(HttpUri $http)
     {
-        $con = \ftp_connect($http->getHost(), $http->getPort());
+        $con = \ftp_connect($http->getHost(), $http->getPort(), 10);
 
         if ($con === false) {
             return false;
@@ -69,7 +69,7 @@ class Directory extends FileAbstract implements DirectoryInterface, FtpContainer
         \ftp_login($con, $http->getUser(), $http->getPass());
 
         if ($http->getPath() !== '') {
-            \ftp_chdir($con, $http->getPath());
+            @\ftp_chdir($con, $http->getPath());
         }
 
         return $con;
@@ -97,6 +97,10 @@ class Directory extends FileAbstract implements DirectoryInterface, FtpContainer
         $detailed = self::parseRawList($con, $path);
 
         foreach ($detailed as $key => $item) {
+            if ($filter !== '*' && \preg_match($filter, $key) === 1) {
+                continue;
+            }
+
             $list[] = $key;
 
             if ($item['type'] === 'dir') {
@@ -172,10 +176,6 @@ class Directory extends FileAbstract implements DirectoryInterface, FtpContainer
         $countSize   = 0;
         $directories = self::parseRawList($con, $dir);
 
-        if ($directories === false) {
-            return $countSize;
-        }
-
         foreach ($directories as $key => $filename) {
             if ($key === '..' || $key === '.') {
                 continue;
@@ -204,10 +204,6 @@ class Directory extends FileAbstract implements DirectoryInterface, FtpContainer
         $files    = self::parseRawList($con, $path);
         $ignore[] = '.';
         $ignore[] = '..';
-
-        if ($files === false) {
-            return $size;
-        }
 
         foreach ($files as $key => $t) {
             if (\in_array($key, $ignore)) {
@@ -436,7 +432,7 @@ class Directory extends FileAbstract implements DirectoryInterface, FtpContainer
         }
 
         $list = \scandir($from);
-        foreach ($list as $key => $item) {
+        foreach ($list as $item) {
             if ($item === '.' || $item === '..') {
                 continue;
             }
@@ -528,6 +524,12 @@ class Directory extends FileAbstract implements DirectoryInterface, FtpContainer
      */
     public function getNode(string $name) : ?ContainerInterface
     {
+        $name = isset($this->nodes[$name]) ? $name : $this->path . '/' . $name;
+
+        if (isset($this->nodes[$name]) && $this->nodes[$name] instanceof self) {
+            $this->nodes[$name]->index();
+        }
+
         return $this->nodes[$name] ?? null;
     }
 
@@ -537,10 +539,6 @@ class Directory extends FileAbstract implements DirectoryInterface, FtpContainer
     public function createNode() : bool
     {
         return self::create($this->con, $this->path, $this->permission, true);
-        /**
-         * @todo Orange-Management/phpOMS#??? [p:low] [t:todo] [d:medium]
-         *  Add node to node list
-         */
     }
 
     /**
@@ -562,12 +560,7 @@ class Directory extends FileAbstract implements DirectoryInterface, FtpContainer
      */
     public function getParent() : ContainerInterface
     {
-        /**
-         * @todo Orange-Management/phpOMS#??? [p:low] [t:todo] [d:medium]
-         *  Implement getParent()
-         */
-
-        return $this;
+        return new self(self::parent($this->path));
     }
 
     /**
@@ -575,12 +568,7 @@ class Directory extends FileAbstract implements DirectoryInterface, FtpContainer
      */
     public function copyNode(string $to, bool $overwrite = false) : bool
     {
-        /**
-         * @todo Orange-Management/phpOMS#??? [p:low] [t:todo] [d:medium]
-         *  Implement copyNode()
-         */
-
-        return true;
+        return self::copy($this->con, $this->path, $to, $overwrite);
     }
 
     /**
@@ -588,12 +576,7 @@ class Directory extends FileAbstract implements DirectoryInterface, FtpContainer
      */
     public function moveNode(string $to, bool $overwrite = false) : bool
     {
-        /**
-         * @todo Orange-Management/phpOMS#??? [p:low] [t:todo] [d:medium]
-         *  Implement moveNode()
-         */
-
-        return true;
+        return self::move($this->con, $this->path, $to, $overwrite);
     }
 
     /**
@@ -601,12 +584,9 @@ class Directory extends FileAbstract implements DirectoryInterface, FtpContainer
      */
     public function deleteNode() : bool
     {
-        /**
-         * @todo Orange-Management/phpOMS#??? [p:low] [t:todo] [d:medium]
-         *  Implement deleteNode()
-         */
+        // @todo: update parent
 
-        return true;
+        return self::delete($this->con, $this->path);
     }
 
     /**
@@ -622,7 +602,13 @@ class Directory extends FileAbstract implements DirectoryInterface, FtpContainer
      */
     public function current()
     {
-        return \current($this->nodes);
+        $current = \current($this->nodes);
+
+        if (isset($current) && $current instanceof self) {
+            $current->index();
+        }
+
+        return $current;
     }
 
     /**
@@ -638,7 +624,13 @@ class Directory extends FileAbstract implements DirectoryInterface, FtpContainer
      */
     public function next()
     {
-        return \next($this->nodes);
+        $next = \next($this->nodes);
+
+        if (isset($next) && $next instanceof self) {
+            $next->index();
+        }
+
+        return $next;
     }
 
     /**
@@ -656,10 +648,11 @@ class Directory extends FileAbstract implements DirectoryInterface, FtpContainer
      */
     public function offsetSet($offset, $value) : void
     {
-        if ($offset === null) {
+        if ($offset === null || !isset($this->nodes[$offset])) {
             $this->addNode($value);
         } else {
-            $this->nodes[$offset] = $value;
+            $this->nodes[$offset]->deleteNode();
+            $this->addNode($value);
         }
     }
 
@@ -668,6 +661,8 @@ class Directory extends FileAbstract implements DirectoryInterface, FtpContainer
      */
     public function offsetExists($offset)
     {
+        $offset = isset($this->nodes[$offset]) ? $offset : $this->path . '/' . $offset;
+
         return isset($this->nodes[$offset]);
     }
 
@@ -676,7 +671,11 @@ class Directory extends FileAbstract implements DirectoryInterface, FtpContainer
      */
     public function offsetUnset($offset) : void
     {
+        $offset = isset($this->nodes[$offset]) ? $offset : $this->path . '/' . $offset;
+
         if (isset($this->nodes[$offset])) {
+            $this->nodes[$offset]->deleteNode();
+
             unset($this->nodes[$offset]);
         }
     }
@@ -686,12 +685,31 @@ class Directory extends FileAbstract implements DirectoryInterface, FtpContainer
      */
     public function offsetGet($offset)
     {
-        /**
-         * @todo Orange-Management/phpOMS#??? [p:low] [t:todo] [d:medium]
-         *  Implement offsetGet()
-         */
+        if (isset($this->nodes[$offset]) && $this->nodes[$offset] instanceof self) {
+            $this->nodes[$offset]->index();
+        }
 
-        return 0;
+        return $this->nodes[$offset] ?? null;
+    }
+
+    /**
+     * Check if the child node exists
+     *
+     * @param string $name Child node name. If empty checks if this node exists.
+     *
+     * @return bool
+     *
+     * @since 1.0.0
+     */
+    public function isExisting(string $name = null) : bool
+    {
+        if ($name === null) {
+            return \file_exists($this->path);
+        }
+
+        $name = isset($this->nodes[$name]) ? $name : $this->path . '/' . $name;
+
+        return isset($this->nodes[$name]);
     }
 
     /**
@@ -699,6 +717,47 @@ class Directory extends FileAbstract implements DirectoryInterface, FtpContainer
      */
     public function getList() : array
     {
-        return [];
+        $pathLength = \strlen($this->path);
+        $content    = [];
+
+        foreach ($this->nodes as $node) {
+            $content[] = \substr($node->getPath(), $pathLength + 1);
+        }
+
+        return $content;
+    }
+
+    /**
+     * List all files by extension directory.
+     *
+     * @param resource $con       FTP connection
+     * @param string   $path      Path
+     * @param string   $extension Extension
+     * @param string   $exclude   Pattern to exclude
+     *
+     * @return array<array|string>
+     *
+     * @since 1.0.0
+     */
+    public static function listByExtension($con, string $path, string $extension = '', string $exclude = '') : array
+    {
+        $list = [];
+        $path = \rtrim($path, '\\/');
+
+        if (!\file_exists($path)) {
+            return $list;
+        }
+
+        $files = self::list($con, $path, empty($extension) ? '*' : '/*.\.' . $extension . '$/');
+
+        foreach ($files as $file) {
+            if (!empty($exclude) && \preg_match('/' . $exclude . '/', $file) === 1) {
+                continue;
+            }
+
+            $list[] = $file;
+        }
+
+        return $list;
     }
 }

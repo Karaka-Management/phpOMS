@@ -904,6 +904,11 @@ class LocalStorageTest extends \PHPUnit\Framework\TestCase
         \unlink($newPath);
     }
 
+    public function testSanitize() : void
+    {
+        self::assertEquals(':/some/test/[path', LocalStorage::sanitize(':#&^$/some%/test/[path!'));
+    }
+
     /**
      * @testdox The size of a none-existing file is negative
      * @covers phpOMS\System\File\Local\LocalStorage<extended>

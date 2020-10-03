@@ -581,6 +581,7 @@ class DirectoryTest extends \PHPUnit\Framework\TestCase
     {
         $dir = new Directory(__DIR__);
 
+        self::assertTrue($dir->isExisting());
         self::assertTrue($dir->isExisting('dirtest'));
         self::assertFalse($dir->isExisting('invalid'));
     }
@@ -626,6 +627,11 @@ class DirectoryTest extends \PHPUnit\Framework\TestCase
     {
         $dir = new Directory(__DIR__);
         $dir[] = new Directory(__DIR__ . '/nodedir');
+
+        self::assertTrue(\file_exists(__DIR__ . '/nodedir'));
+        \rmdir(__DIR__ . '/nodedir');
+
+        $dir['nodedir'] = new Directory(__DIR__ . '/nodedir');
 
         self::assertTrue(\file_exists(__DIR__ . '/nodedir'));
         \rmdir(__DIR__ . '/nodedir');

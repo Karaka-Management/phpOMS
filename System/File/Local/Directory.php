@@ -455,17 +455,21 @@ final class Directory extends FileAbstract implements DirectoryInterface, LocalC
         return $this->nodes[$name] ?? null;
     }
 
-     /**
+    /**
      * Check if the child node exists
      *
-     * @param string $name Child node name
+     * @param string $name Child node name. If empty checks if this node exists.
      *
      * @return bool
      *
      * @since 1.0.0
      */
-    public function isExisting(string $name) : bool
+    public function isExisting(string $name = null) : bool
     {
+        if ($name === null) {
+            return \file_exists($this->path);
+        }
+
         $name = isset($this->nodes[$name]) ? $name : $this->path . '/' . $name;
 
         return isset($this->nodes[$name]);
@@ -563,7 +567,8 @@ final class Directory extends FileAbstract implements DirectoryInterface, LocalC
         if ($offset === null || !isset($this->nodes[$offset])) {
             $this->addNode($value);
         } else {
-            $this->nodes[$offset] = $value;
+            $this->nodes[$offset]->deleteNode();
+            $this->addNode($value);
         }
     }
 

@@ -94,7 +94,7 @@ final class File extends FileAbstract implements FileInterface, LocalContainerIn
                 return true;
             }
         } catch (\Throwable $e) {
-            return false;
+            return false; // @codeCoverageIgnore
         }
 
         return false;
@@ -295,13 +295,14 @@ final class File extends FileAbstract implements FileInterface, LocalContainerIn
      */
     public static function pathInfo(string $path) : array
     {
-        $info = [];
-        \preg_match('#^(.*?)[\\\\/]*(([^/\\\\]*?)(\.([^.\\\\/]+?)|))[\\\\/.]*$#m', $path, $info);
+        $temp = [];
+        \preg_match('#^(.*?)[\\\\/]*(([^/\\\\]*?)(\.([^.\\\\/]+?)|))[\\\\/.]*$#m', $path, $temp);
 
-        $info['dirname']   = $info[1] ?? '';
-        $info['basename']  = $info[2] ?? '';
-        $info['filename']  = $info[3] ?? '';
-        $info['extension'] = $info[5] ?? '';
+        $info              = [];
+        $info['dirname']   = $temp[1] ?? '';
+        $info['basename']  = $temp[2] ?? '';
+        $info['filename']  = $temp[3] ?? '';
+        $info['extension'] = $temp[5] ?? '';
 
         return $info;
     }
@@ -421,6 +422,18 @@ final class File extends FileAbstract implements FileInterface, LocalContainerIn
     }
 
     /**
+     * Check if the file exists
+     *
+     * @return bool
+     *
+     * @since 1.0.0
+     */
+    public function isExisting() : bool
+    {
+        return \file_exists($this->path);
+    }
+
+    /**
      * {@inheritdoc}
      */
     public static function create(string $path) : bool
@@ -465,7 +478,7 @@ final class File extends FileAbstract implements FileInterface, LocalContainerIn
      */
     public function appendContent(string $content) : bool
     {
-        return $this->putContent($content, ContentPutMode::APPEND | ContentPutMode::CREATE);
+        return $this->putContent($content, ContentPutMode::APPEND);
     }
 
     /**
@@ -473,7 +486,7 @@ final class File extends FileAbstract implements FileInterface, LocalContainerIn
      */
     public function prependContent(string $content) : bool
     {
-        return $this->putContent($content, ContentPutMode::PREPEND | ContentPutMode::CREATE);
+        return $this->putContent($content, ContentPutMode::PREPEND);
     }
 
     /**
@@ -500,6 +513,11 @@ final class File extends FileAbstract implements FileInterface, LocalContainerIn
     public function getParent() : ContainerInterface
     {
         return new Directory(self::parent($this->path));
+    }
+
+    public function getDirectory() : ContainerInterface
+    {
+        return new Directory(self::dirpath($this->path));
     }
 
     /**

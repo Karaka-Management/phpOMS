@@ -31,12 +31,21 @@ class FileTest extends \PHPUnit\Framework\TestCase
      */
     public function testStaticCreate() : void
     {
-        $testFile = __DIR__ . '/test.txt';
+        $testFile = __DIR__ . '/path/test.txt';
+        if (\file_exists($testFile)) {
+            \unlink($testFile);
+        }
+
+        if (\file_exists(__DIR__ . '/path')) {
+            \rmdir(__DIR__ . '/path');
+        }
+
         self::assertTrue(File::create($testFile));
         self::assertTrue(\is_file($testFile));
         self::assertEquals('', \file_get_contents($testFile));
 
         \unlink($testFile);
+        \rmdir(__DIR__ . '/path');
     }
 
     /**
@@ -47,6 +56,10 @@ class FileTest extends \PHPUnit\Framework\TestCase
     public function testInvalidStaticCreate() : void
     {
         $testFile = __DIR__ . '/test.txt';
+        if (\file_exists($testFile)) {
+            \unlink($testFile);
+        }
+
         self::assertTrue(File::create($testFile));
         self::assertFalse(File::create($testFile));
         self::assertTrue(\is_file($testFile));
@@ -61,12 +74,21 @@ class FileTest extends \PHPUnit\Framework\TestCase
      */
     public function testStaticPut() : void
     {
-        $testFile = __DIR__ . '/test.txt';
+        $testFile = __DIR__ . '/path/test.txt';
+        if (\file_exists($testFile)) {
+            \unlink($testFile);
+        }
+
+        if (\file_exists(__DIR__ . '/path')) {
+            \rmdir(__DIR__ . '/path');
+        }
+
         self::assertTrue(File::put($testFile, 'test', ContentPutMode::CREATE));
         self::assertTrue(\is_file($testFile));
         self::assertEquals('test', \file_get_contents($testFile));
 
         \unlink($testFile);
+        \rmdir(__DIR__ . '/path');
     }
 
     /**
@@ -77,6 +99,10 @@ class FileTest extends \PHPUnit\Framework\TestCase
     public function testInvalidStaticCreateReplace() : void
     {
         $testFile = __DIR__ . '/test.txt';
+        if (\file_exists($testFile)) {
+            \unlink($testFile);
+        }
+
         self::assertFalse(File::put($testFile, 'test', ContentPutMode::REPLACE));
         self::assertfalse(\file_exists($testFile));
     }
@@ -89,6 +115,10 @@ class FileTest extends \PHPUnit\Framework\TestCase
     public function testInvalidStaticCreateAppend() : void
     {
         $testFile = __DIR__ . '/test.txt';
+        if (\file_exists($testFile)) {
+            \unlink($testFile);
+        }
+
         self::assertFalse(File::put($testFile, 'test', ContentPutMode::APPEND));
         self::assertfalse(\file_exists($testFile));
     }
@@ -101,6 +131,10 @@ class FileTest extends \PHPUnit\Framework\TestCase
     public function testInvalidStaticCreatePrepend() : void
     {
         $testFile = __DIR__ . '/test.txt';
+        if (\file_exists($testFile)) {
+            \unlink($testFile);
+        }
+
         self::assertFalse(File::put($testFile, 'test', ContentPutMode::PREPEND));
         self::assertfalse(\file_exists($testFile));
     }
@@ -124,6 +158,10 @@ class FileTest extends \PHPUnit\Framework\TestCase
     public function testStaticReplace() : void
     {
         $testFile = __DIR__ . '/test.txt';
+        if (\file_exists($testFile)) {
+            \unlink($testFile);
+        }
+
         self::assertTrue(File::put($testFile, 'test', ContentPutMode::CREATE));
         self::assertTrue(File::put($testFile, 'test2', ContentPutMode::REPLACE));
 
@@ -140,6 +178,10 @@ class FileTest extends \PHPUnit\Framework\TestCase
     public function testStaticSetAlias() : void
     {
         $testFile = __DIR__ . '/test.txt';
+        if (\file_exists($testFile)) {
+            \unlink($testFile);
+        }
+
         self::assertTrue(File::put($testFile, 'test', ContentPutMode::CREATE));
         self::assertTrue(File::set($testFile, 'test2'));
 
@@ -156,6 +198,10 @@ class FileTest extends \PHPUnit\Framework\TestCase
     public function testStaticAppend() : void
     {
         $testFile = __DIR__ . '/test.txt';
+        if (\file_exists($testFile)) {
+            \unlink($testFile);
+        }
+
         self::assertTrue(File::put($testFile, 'test', ContentPutMode::CREATE));
         self::assertTrue(File::put($testFile, 'test2', ContentPutMode::APPEND));
 
@@ -172,6 +218,10 @@ class FileTest extends \PHPUnit\Framework\TestCase
     public function testStaticAppendAlias() : void
     {
         $testFile = __DIR__ . '/test.txt';
+        if (\file_exists($testFile)) {
+            \unlink($testFile);
+        }
+
         self::assertTrue(File::put($testFile, 'test', ContentPutMode::CREATE));
         self::assertTrue(File::append($testFile, 'test2'));
 
@@ -188,6 +238,10 @@ class FileTest extends \PHPUnit\Framework\TestCase
     public function testStaticPrepend() : void
     {
         $testFile = __DIR__ . '/test.txt';
+        if (\file_exists($testFile)) {
+            \unlink($testFile);
+        }
+
         self::assertTrue(File::put($testFile, 'test', ContentPutMode::CREATE));
         self::assertTrue(File::put($testFile, 'test2', ContentPutMode::PREPEND));
 
@@ -204,6 +258,10 @@ class FileTest extends \PHPUnit\Framework\TestCase
     public function testStaticPrependAlias() : void
     {
         $testFile = __DIR__ . '/test.txt';
+        if (\file_exists($testFile)) {
+            \unlink($testFile);
+        }
+
         self::assertTrue(File::put($testFile, 'test', ContentPutMode::CREATE));
         self::assertTrue(File::prepend($testFile, 'test2'));
 
@@ -220,6 +278,10 @@ class FileTest extends \PHPUnit\Framework\TestCase
     public function testStaticGet() : void
     {
         $testFile = __DIR__ . '/test.txt';
+        if (\file_exists($testFile)) {
+            \unlink($testFile);
+        }
+
         self::assertTrue(File::put($testFile, 'test', ContentPutMode::CREATE));
         self::assertEquals('test', File::get($testFile));
 
@@ -376,6 +438,10 @@ class FileTest extends \PHPUnit\Framework\TestCase
     public function testStaticSize() : void
     {
         $testFile = __DIR__ . '/test.txt';
+        if (\file_exists($testFile)) {
+            \unlink($testFile);
+        }
+
         File::put($testFile, 'test', ContentPutMode::CREATE);
 
         self::assertGreaterThan(0, File::size($testFile));
@@ -391,6 +457,10 @@ class FileTest extends \PHPUnit\Framework\TestCase
     public function testStaticPermission() : void
     {
         $testFile = __DIR__ . '/test.txt';
+        if (\file_exists($testFile)) {
+            \unlink($testFile);
+        }
+
         File::put($testFile, 'test', ContentPutMode::CREATE);
 
         self::assertGreaterThan(0, File::permission($testFile));
@@ -409,6 +479,19 @@ class FileTest extends \PHPUnit\Framework\TestCase
         self::assertEquals(-1, File::permission($testFile));
     }
 
+    public function testPathInfo() : void
+    {
+        $testFile = __DIR__ . '/test.txt';
+        self::assertEquals([
+                'dirname' => __DIR__,
+                'basename' => 'test.txt',
+                'filename' => 'test',
+                'extension' => 'txt',
+            ],
+            File::pathInfo($testFile)
+        );
+    }
+
     /**
      * @testdox A file can be copied to a different location
      * @covers phpOMS\System\File\Local\File
@@ -417,7 +500,11 @@ class FileTest extends \PHPUnit\Framework\TestCase
     public function testStaticCopy() : void
     {
         $testFile = __DIR__ . '/test.txt';
-        $newPath  = __DIR__ . '/sub/path/testing.txt';
+        if (\file_exists($testFile)) {
+            \unlink($testFile);
+        }
+
+        $newPath = __DIR__ . '/sub/path/testing.txt';
 
         File::put($testFile, 'test', ContentPutMode::CREATE);
 
@@ -440,7 +527,14 @@ class FileTest extends \PHPUnit\Framework\TestCase
     public function testInvalidStaticCopy() : void
     {
         $testFile = __DIR__ . '/test.txt';
-        $newPath  = __DIR__ . '/test2.txt';
+        if (\file_exists($testFile)) {
+            \unlink($testFile);
+        }
+
+        $newPath = __DIR__ . '/test2.txt';
+        if (\file_exists($newPath)) {
+            \unlink($newPath);
+        }
 
         File::put($testFile, 'test', ContentPutMode::CREATE);
         File::put($newPath, 'test2', ContentPutMode::CREATE);
@@ -460,7 +554,14 @@ class FileTest extends \PHPUnit\Framework\TestCase
     public function testStaticCopyOverwrite() : void
     {
         $testFile = __DIR__ . '/test.txt';
+        if (\file_exists($testFile)) {
+            \unlink($testFile);
+        }
+
         $newPath  = __DIR__ . '/test2.txt';
+        if (\file_exists($newPath)) {
+            \unlink($newPath);
+        }
 
         File::put($testFile, 'test', ContentPutMode::CREATE);
         File::put($newPath, 'test2', ContentPutMode::CREATE);
@@ -480,7 +581,11 @@ class FileTest extends \PHPUnit\Framework\TestCase
     public function testStaticMove() : void
     {
         $testFile = __DIR__ . '/test.txt';
-        $newPath  = __DIR__ . '/sub/path/testing.txt';
+        if (\file_exists($testFile)) {
+            \unlink($testFile);
+        }
+
+        $newPath = __DIR__ . '/sub/path/testing.txt';
 
         File::put($testFile, 'test', ContentPutMode::CREATE);
 
@@ -502,7 +607,11 @@ class FileTest extends \PHPUnit\Framework\TestCase
     public function testInvalidStaticMove() : void
     {
         $testFile = __DIR__ . '/test.txt';
-        $newPath  = __DIR__ . '/test2.txt';
+        if (\file_exists($testFile)) {
+            \unlink($testFile);
+        }
+
+        $newPath = __DIR__ . '/test2.txt';
 
         File::put($testFile, 'test', ContentPutMode::CREATE);
         File::put($newPath, 'test2', ContentPutMode::CREATE);
@@ -523,7 +632,11 @@ class FileTest extends \PHPUnit\Framework\TestCase
     public function testStaticMoveOverwrite() : void
     {
         $testFile = __DIR__ . '/test.txt';
-        $newPath  = __DIR__ . '/test2.txt';
+        if (\file_exists($testFile)) {
+            \unlink($testFile);
+        }
+
+        $newPath = __DIR__ . '/test2.txt';
 
         File::put($testFile, 'test', ContentPutMode::CREATE);
         File::put($newPath, 'test2', ContentPutMode::CREATE);
@@ -533,6 +646,17 @@ class FileTest extends \PHPUnit\Framework\TestCase
         self::assertEquals('test', File::get($newPath));
 
         \unlink($newPath);
+    }
+
+    public function testStaticOwner() : void
+    {
+        $dirTestPath = __DIR__ . '/dirtest/test.txt';
+        self::assertNotEmpty(File::owner($dirTestPath));
+    }
+
+    public function testFileNameSanitizing() : void
+    {
+        self::assertEquals('/some/test/[path.txt', File::sanitize(':#&^$/some%/test/[path!.txt'));
     }
 
     /**
@@ -611,5 +735,250 @@ class FileTest extends \PHPUnit\Framework\TestCase
         $this->expectException(\phpOMS\System\File\PathException::class);
 
         File::owner(__DIR__ . '/invalid.txt');
+    }
+
+    public function testNodeInputOutput() : void
+    {
+        $testFile = __DIR__ . '/test.txt';
+        if (\file_exists($testFile)) {
+            \unlink($testFile);
+        }
+
+        $file = new File($testFile);
+        self::assertTrue($file->setContent('test'));
+        self::assertEquals('test', $file->getContent());
+
+        \unlink($testFile);
+    }
+
+    public function testNodeReplace() : void
+    {
+        $testFile = __DIR__ . '/test.txt';
+        if (\file_exists($testFile)) {
+            \unlink($testFile);
+        }
+
+        $file = new File($testFile);
+        self::assertTrue($file->setContent('test'));
+        self::assertTrue($file->setContent('test2'));
+        self::assertEquals('test2', $file->getContent());
+
+        \unlink($testFile);
+    }
+
+    public function testNodeAppend() : void
+    {
+        $testFile = __DIR__ . '/test.txt';
+        if (\file_exists($testFile)) {
+            \unlink($testFile);
+        }
+
+        $file = new File($testFile);
+        self::assertTrue($file->setContent('test'));
+        self::assertTrue($file->appendContent('2'));
+        self::assertEquals('test2', $file->getContent());
+
+        \unlink($testFile);
+    }
+
+    public function testNodePrepend() : void
+    {
+        $testFile = __DIR__ . '/test.txt';
+        if (\file_exists($testFile)) {
+            \unlink($testFile);
+        }
+
+        $file = new File($testFile);
+        self::assertTrue($file->setContent('test'));
+        self::assertTrue($file->prependContent('2'));
+        self::assertEquals('2test', $file->getContent());
+
+        \unlink($testFile);
+    }
+
+    public function testNodeExtension() : void
+    {
+        $testFile = __DIR__ . '/test.txt';
+        $file     = new File($testFile);
+
+        self::assertEquals('txt', $file->getExtension());
+    }
+
+    public function testNodeCreatedAt() : void
+    {
+        $testFile = __DIR__ . '/test.txt';
+        if (\file_exists($testFile)) {
+            \unlink($testFile);
+        }
+
+        $file = new File($testFile);
+
+        $file->createNode();
+
+        $now = new \DateTime('now');
+        self::assertEquals($now->format('Y-m-d'), $file->getCreatedAt()->format('Y-m-d'));
+
+        \unlink($testFile);
+    }
+
+    public function testNodeChangedAt() : void
+    {
+        $testFile = __DIR__ . '/test.txt';
+        if (\file_exists($testFile)) {
+            \unlink($testFile);
+        }
+
+        $file = new File($testFile);
+
+        $file->createNode();
+
+        $now = new \DateTime('now');
+        self::assertEquals($now->format('Y-m-d'), $file->getChangedAt()->format('Y-m-d'));
+
+        \unlink($testFile);
+    }
+
+    public function testNodeOwner() : void
+    {
+        $testFile = __DIR__ . '/dirtest/test.txt';
+        $file     = new File($testFile);
+
+        self::assertNotEmpty($file->getOwner());
+    }
+
+    public function testNodePermission() : void
+    {
+        $testFile = __DIR__ . '/dirtest/test.txt';
+        $file     = new File($testFile);
+
+        self::assertGreaterThan(0, $file->getPermission());
+    }
+
+    public function testDirname() : void
+    {
+        $testFile = __DIR__ . '/dirtest/test.txt';
+        $file     = new File($testFile);
+
+        self::assertEquals('dirtest', $file->getDirname());
+    }
+
+    public function testName() : void
+    {
+        $testFile = __DIR__ . '/dirtest/test.txt';
+        $file     = new File($testFile);
+
+        self::assertEquals('test', $file->getName());
+    }
+
+    public function testBaseame() : void
+    {
+        $testFile = __DIR__ . '/dirtest/test.txt';
+        $file     = new File($testFile);
+
+        self::assertEquals('test.txt', $file->getBasename());
+    }
+
+    public function testDirpath() : void
+    {
+        $testFile = __DIR__ . '/dirtest/test.txt';
+        $file     = new File($testFile);
+
+        self::assertEquals(__DIR__ . '/dirtest', $file->getDirPath());
+    }
+
+    public function testParentOutput() : void
+    {
+        $testFile = __DIR__ . '/dirtest/test.txt';
+        $file     = new File($testFile);
+
+        self::assertEquals(__DIR__ . '/dirtest', $file->getDirPath());
+    }
+
+    public function testNodeCreate() : void
+    {
+        $testFile = __DIR__ . '/test.txt';
+        if (\file_exists($testFile)) {
+            \unlink($testFile);
+        }
+
+        $file = new File($testFile);
+
+        $file->createNode();
+        self::assertTrue(\file_exists($testFile));
+
+        \unlink($testFile);
+    }
+
+    public function testNodeDelete() : void
+    {
+        $testFile = __DIR__ . '/test.txt';
+        if (\file_exists($testFile)) {
+            \unlink($testFile);
+        }
+
+        $file = new File($testFile);
+
+        $file->createNode();
+        self::assertTrue(\file_exists($testFile));
+        self::assertTrue($file->deleteNode());
+        self::assertFalse(\file_exists($testFile));
+    }
+
+    public function testNodeCopy() : void
+    {
+        $testFile = __DIR__ . '/test.txt';
+        if (\file_exists($testFile)) {
+            \unlink($testFile);
+        }
+
+        $file = new File($testFile);
+
+        $file->createNode();
+        self::assertTrue($file->copyNode(__DIR__ . '/test2.txt'));
+        self::assertTrue(\file_exists($testFile));
+        self::assertTrue(\file_exists(__DIR__ . '/test2.txt'));
+
+        \unlink($testFile);
+        \unlink(__DIR__ . '/test2.txt');
+    }
+
+    public function testNodeMove() : void
+    {
+        $testFile = __DIR__ . '/test.txt';
+        if (\file_exists($testFile)) {
+            \unlink($testFile);
+        }
+
+        $file = new File($testFile);
+
+        $file->createNode();
+        self::assertTrue($file->moveNode(__DIR__ . '/test2.txt'));
+        self::assertFalse(\file_exists($testFile));
+        self::assertTrue(\file_exists(__DIR__ . '/test2.txt'));
+
+        \unlink(__DIR__ . '/test2.txt');
+    }
+
+    public function testNodeExists() : void
+    {
+        $file  = new File(__DIR__ . '/dirtest/test.txt');
+        $file2 = new File(__DIR__ . '/invalid.txt');
+
+        self::assertTrue($file->isExisting());
+        self::assertFalse($file2->isExisting());
+    }
+
+    public function testNodeParent() : void
+    {
+        $file = new File(__DIR__ . '/dirtest/test.txt');
+
+        self::assertEquals('Local', $file->getParent()->getName());
+    }
+
+    public function testNodeDirectory() : void
+    {
+        $file = new File(__DIR__ . '/dirtest/test.txt');
+
+        self::assertEquals('dirtest', $file->getDirectory()->getName());
     }
 }
