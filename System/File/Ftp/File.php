@@ -582,4 +582,28 @@ class File extends FileAbstract implements FileInterface
 
         return $extension[1] ?? '';
     }
+
+    /**
+     * Gets the directory name of a file.
+     *
+     * @return string returns the directory name of the file
+     *
+     * @since 1.0.0
+     */
+    public function getDirName() : string
+    {
+        return \basename(\dirname($this->path));
+    }
+
+    /**
+     * Gets the directory path of a file.
+     *
+     * @return string returns the directory path of the file
+     *
+     * @since 1.0.0
+     */
+    public function getDirPath() : string
+    {
+        return \dirname($this->path);
+    }
 }

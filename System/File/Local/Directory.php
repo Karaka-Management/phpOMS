@@ -97,11 +97,11 @@ final class Directory extends FileAbstract implements DirectoryInterface, LocalC
         }
 
         foreach ($iterator as $item) {
-            if ($item->isDot()) {
+            if (!$recursive && $item->isDot()) {
                 continue;
             }
 
-            $list[] = \str_replace('\\', '/', $iterator->getSubPathname());
+            $list[] = \substr(\str_replace('\\', '/', $iterator->getPathname()), \strlen($path) + 1);
         }
 
         /** @var string[] $list */
@@ -136,14 +136,16 @@ final class Directory extends FileAbstract implements DirectoryInterface, LocalC
             : new \DirectoryIterator($path);
 
         foreach ($iterator as $item) {
-            if ($item->isDot()) {
+            if (!$recursive && $item->isDot()) {
                 continue;
             }
 
+            $subPath = \substr($iterator->getPathname(), \strlen($path) + 1);
+
             if ((empty($extension) || $item->getExtension() === $extension)
-                && (empty($exclude) || (!(bool) \preg_match('/' . $exclude . '/', $iterator->getSubPathname())))
+                && (empty($exclude) || (!(bool) \preg_match('/' . $exclude . '/', $subPath)))
             ) {
-                $list[] = \str_replace('\\', '/', $iterator->getSubPathname());
+                $list[] = \str_replace('\\', '/', $subPath);
             }
         }
 
@@ -398,10 +400,12 @@ final class Directory extends FileAbstract implements DirectoryInterface, LocalC
             new \RecursiveDirectoryIterator($from, \RecursiveDirectoryIterator::SKIP_DOTS),
             \RecursiveIteratorIterator::SELF_FIRST) as $item
         ) {
+            $subPath = $iterator->getSubPathname();
+
             if ($item->isDir()) {
-                \mkdir($to . '/' . $iterator->getSubPathname());
+                \mkdir($to . '/' . $subPath);
             } else {
-                \copy($from . '/' . $iterator->getSubPathname(), $to . '/' . $iterator->getSubPathname());
+                \copy($from . '/' . $subPath, $to . '/' . $subPath);
             }
         }
 

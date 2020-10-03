@@ -120,9 +120,9 @@ class Directory extends FileAbstract implements DirectoryInterface, FtpContainer
     /**
      * List all files in directory.
      *
-     * @param resource $con    FTP connection
-     * @param string   $path   Path
-     * @param string   $filter Filter
+     * @param resource $con       FTP connection
+     * @param string   $path      Path
+     * @param string   $filter    Filter
      * @param bool     $recursive Recursive list
      *
      * @return string[]

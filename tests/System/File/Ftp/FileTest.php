@@ -659,7 +659,7 @@ class FileTest extends \PHPUnit\Framework\TestCase
             \unlink($testFile);
         }
 
-        $file = new File($testFile);
+        $file = new File(new HttpUri(self::BASE . $testFile), self::$con);
         self::assertTrue($file->setContent('test'));
         self::assertEquals('test', $file->getContent());
 
@@ -673,7 +673,7 @@ class FileTest extends \PHPUnit\Framework\TestCase
             \unlink($testFile);
         }
 
-        $file = new File($testFile);
+        $file = new File(new HttpUri(self::BASE . $testFile), self::$con);
         self::assertTrue($file->setContent('test'));
         self::assertTrue($file->setContent('test2'));
         self::assertEquals('test2', $file->getContent());
@@ -688,7 +688,7 @@ class FileTest extends \PHPUnit\Framework\TestCase
             \unlink($testFile);
         }
 
-        $file = new File($testFile);
+        $file = new File(new HttpUri(self::BASE . $testFile), self::$con);
         self::assertTrue($file->setContent('test'));
         self::assertTrue($file->appendContent('2'));
         self::assertEquals('test2', $file->getContent());
@@ -703,7 +703,7 @@ class FileTest extends \PHPUnit\Framework\TestCase
             \unlink($testFile);
         }
 
-        $file = new File($testFile);
+        $file = new File(new HttpUri(self::BASE . $testFile), self::$con);
         self::assertTrue($file->setContent('test'));
         self::assertTrue($file->prependContent('2'));
         self::assertEquals('2test', $file->getContent());
@@ -714,7 +714,7 @@ class FileTest extends \PHPUnit\Framework\TestCase
     public function testNodeExtension() : void
     {
         $testFile = __DIR__ . '/test.txt';
-        $file     = new File($testFile);
+        $file     = new File(new HttpUri(self::BASE . $testFile), self::$con);
 
         self::assertEquals('txt', $file->getExtension());
     }
@@ -726,7 +726,7 @@ class FileTest extends \PHPUnit\Framework\TestCase
             \unlink($testFile);
         }
 
-        $file = new File($testFile);
+        $file = new File(new HttpUri(self::BASE . $testFile), self::$con);
 
         $file->createNode();
 
@@ -743,7 +743,7 @@ class FileTest extends \PHPUnit\Framework\TestCase
             \unlink($testFile);
         }
 
-        $file = new File($testFile);
+        $file = new File(new HttpUri(self::BASE . $testFile), self::$con);
 
         $file->createNode();
 
@@ -756,7 +756,7 @@ class FileTest extends \PHPUnit\Framework\TestCase
     public function testNodeOwner() : void
     {
         $testFile = __DIR__ . '/dirtest/test.txt';
-        $file     = new File($testFile);
+        $file     = new File(new HttpUri(self::BASE . $testFile), self::$con);
 
         self::assertNotEmpty($file->getOwner());
     }
@@ -764,7 +764,7 @@ class FileTest extends \PHPUnit\Framework\TestCase
     public function testNodePermission() : void
     {
         $testFile = __DIR__ . '/dirtest/test.txt';
-        $file     = new File($testFile);
+        $file     = new File(new HttpUri(self::BASE . $testFile), self::$con);
 
         self::assertGreaterThan(0, $file->getPermission());
     }
@@ -772,7 +772,7 @@ class FileTest extends \PHPUnit\Framework\TestCase
     public function testDirname() : void
     {
         $testFile = __DIR__ . '/dirtest/test.txt';
-        $file     = new File($testFile);
+        $file     = new File(new HttpUri(self::BASE . $testFile), self::$con);
 
         self::assertEquals('dirtest', $file->getDirname());
     }
@@ -780,7 +780,7 @@ class FileTest extends \PHPUnit\Framework\TestCase
     public function testName() : void
     {
         $testFile = __DIR__ . '/dirtest/test.txt';
-        $file     = new File($testFile);
+        $file     = new File(new HttpUri(self::BASE . $testFile), self::$con);
 
         self::assertEquals('test', $file->getName());
     }
@@ -788,7 +788,7 @@ class FileTest extends \PHPUnit\Framework\TestCase
     public function testBaseame() : void
     {
         $testFile = __DIR__ . '/dirtest/test.txt';
-        $file     = new File($testFile);
+        $file     = new File(new HttpUri(self::BASE . $testFile), self::$con);
 
         self::assertEquals('test.txt', $file->getBasename());
     }
@@ -796,7 +796,7 @@ class FileTest extends \PHPUnit\Framework\TestCase
     public function testDirpath() : void
     {
         $testFile = __DIR__ . '/dirtest/test.txt';
-        $file     = new File($testFile);
+        $file     = new File(new HttpUri(self::BASE . $testFile), self::$con);
 
         self::assertEquals(__DIR__ . '/dirtest', $file->getDirPath());
     }
@@ -804,7 +804,7 @@ class FileTest extends \PHPUnit\Framework\TestCase
     public function testParentOutput() : void
     {
         $testFile = __DIR__ . '/dirtest/test.txt';
-        $file     = new File($testFile);
+        $file     = new File(new HttpUri(self::BASE . $testFile), self::$con);
 
         self::assertEquals(__DIR__ . '/dirtest', $file->getDirPath());
     }
@@ -816,7 +816,7 @@ class FileTest extends \PHPUnit\Framework\TestCase
             \unlink($testFile);
         }
 
-        $file = new File($testFile);
+        $file = new File(new HttpUri(self::BASE . $testFile), self::$con);
 
         $file->createNode();
         self::assertTrue(\file_exists($testFile));
@@ -831,7 +831,7 @@ class FileTest extends \PHPUnit\Framework\TestCase
             \unlink($testFile);
         }
 
-        $file = new File($testFile);
+        $file = new File(new HttpUri(self::BASE . $testFile), self::$con);
 
         $file->createNode();
         self::assertTrue(\file_exists($testFile));
@@ -846,7 +846,7 @@ class FileTest extends \PHPUnit\Framework\TestCase
             \unlink($testFile);
         }
 
-        $file = new File($testFile);
+        $file = new File(new HttpUri(self::BASE . $testFile), self::$con);
 
         $file->createNode();
         self::assertTrue($file->copyNode(__DIR__ . '/test2.txt'));
@@ -864,7 +864,7 @@ class FileTest extends \PHPUnit\Framework\TestCase
             \unlink($testFile);
         }
 
-        $file = new File($testFile);
+        $file = new File(new HttpUri(self::BASE . $testFile), self::$con);
 
         $file->createNode();
         self::assertTrue($file->moveNode(__DIR__ . '/test2.txt'));
@@ -876,8 +876,8 @@ class FileTest extends \PHPUnit\Framework\TestCase
 
     public function testNodeExists() : void
     {
-        $file  = new File(__DIR__ . '/dirtest/test.txt');
-        $file2 = new File(__DIR__ . '/invalid.txt');
+        $file  = new File(new HttpUri(self::BASE . __DIR__ . '/dirtest/test.txt'), self::$con);
+        $file2 = new File(new HttpUri(self::BASE . __DIR__ . '/invalid.txt'), self::$con);
 
         self::assertTrue($file->isExisting());
         self::assertFalse($file2->isExisting());
@@ -885,14 +885,14 @@ class FileTest extends \PHPUnit\Framework\TestCase
 
     public function testNodeParent() : void
     {
-        $file = new File(__DIR__ . '/dirtest/test.txt');
+        $file = new File(new HttpUri(self::BASE . __DIR__ . '/dirtest/test.txt'), self::$con);
 
         self::assertEquals('Local', $file->getParent()->getName());
     }
 
     public function testNodeDirectory() : void
     {
-        $file = new File(__DIR__ . '/dirtest/test.txt');
+        $file = new File(new HttpUri(self::BASE . __DIR__ . '/dirtest/test.txt'), self::$con);
 
         self::assertEquals('dirtest', $file->getDirectory()->getName());
     }

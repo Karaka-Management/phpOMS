@@ -502,7 +502,7 @@ class DirectoryTest extends \PHPUnit\Framework\TestCase
     public function testList() : void
     {
         $dirTestPath = __DIR__ . '/dirtest';
-        $dir = new Directory(new HttpUri(self::BASE . '/' . $dirTestPath), '*', true, self::$con);
+        $dir = new Directory(new HttpUri(self::BASE . $dirTestPath), '*', true, self::$con);
 
         self::assertEquals([
             'sub',
@@ -513,14 +513,14 @@ class DirectoryTest extends \PHPUnit\Framework\TestCase
     public function testNodeOutput() : void
     {
         $dirTestPath = __DIR__ . '/dirtest';
-        $dir = new Directory(new HttpUri(self::BASE . '/' . $dirTestPath), '*', true, self::$con);
+        $dir = new Directory(new HttpUri(self::BASE . $dirTestPath), '*', true, self::$con);
 
         self::assertInstanceOf(Directory::class, $dir->getNode('sub'));
     }
 
     public function testNodeCreate() : void
     {
-        $dir = new Directory(new HttpUri(self::BASE . '/' . __DIR__), '*', true, self::$con);
+        $dir = new Directory(new HttpUri(self::BASE . __DIR__), '*', true, self::$con);
         $dir->addNode(new Directory(new HttpUri(self::BASE . __DIR__ . '/nodedir')));
 
         self::assertTrue(\file_exists(__DIR__ . '/nodedir'));
@@ -535,7 +535,7 @@ class DirectoryTest extends \PHPUnit\Framework\TestCase
 
     public function testNodeDelete() : void
     {
-        $dir = new Directory(new HttpUri(self::BASE . '/' . __DIR__), '*', true, self::$con);
+        $dir = new Directory(new HttpUri(self::BASE . __DIR__), '*', true, self::$con);
         $dir->addNode(new Directory(new HttpUri(self::BASE . __DIR__ . '/nodedir')));
 
         self::assertTrue(\file_exists(__DIR__ . '/nodedir'));
@@ -545,7 +545,7 @@ class DirectoryTest extends \PHPUnit\Framework\TestCase
 
     public function testNodeCopy() : void
     {
-        $dir = new Directory(new HttpUri(self::BASE . '/' . __DIR__), '*', true, self::$con);
+        $dir = new Directory(new HttpUri(self::BASE . __DIR__), '*', true, self::$con);
         $dir->addNode(new Directory(new HttpUri(self::BASE . __DIR__ . '/nodedir')));
 
         $dir->getNode('nodedir')->copyNode(__DIR__ . '/nodedir2');
@@ -557,7 +557,7 @@ class DirectoryTest extends \PHPUnit\Framework\TestCase
 
     public function testNodeMove() : void
     {
-        $dir = new Directory(new HttpUri(self::BASE . '/' . __DIR__), '*', true, self::$con);
+        $dir = new Directory(new HttpUri(self::BASE . __DIR__), '*', true, self::$con);
         $dir->addNode(new Directory(new HttpUri(self::BASE . __DIR__ . '/nodedir')));
 
         $dir->getNode('nodedir')->moveNode(__DIR__ . '/nodedir2');
@@ -569,7 +569,7 @@ class DirectoryTest extends \PHPUnit\Framework\TestCase
 
     public function testNodeExists() : void
     {
-        $dir = new Directory(new HttpUri(self::BASE . '/' . __DIR__), '*', true, self::$con);
+        $dir = new Directory(new HttpUri(self::BASE . __DIR__), '*', true, self::$con);
 
         self::assertTrue($dir->isExisting());
         self::assertTrue($dir->isExisting('dirtest'));
@@ -615,7 +615,7 @@ class DirectoryTest extends \PHPUnit\Framework\TestCase
 
     public function testNodeArraySet() : void
     {
-        $dir = new Directory(new HttpUri(self::BASE . '/' . __DIR__), '*', true, self::$con);
+        $dir = new Directory(new HttpUri(self::BASE . __DIR__), '*', true, self::$con);
         $dir[] = new Directory(new HttpUri(self::BASE . __DIR__ . '/nodedir'));
 
         self::assertTrue(\file_exists(__DIR__ . '/nodedir'));
@@ -629,7 +629,7 @@ class DirectoryTest extends \PHPUnit\Framework\TestCase
 
     public function testNodeArrayRemove() : void
     {
-        $dir = new Directory(new HttpUri(self::BASE . '/' . __DIR__), '*', true, self::$con);
+        $dir = new Directory(new HttpUri(self::BASE . __DIR__), '*', true, self::$con);
         $dir->addNode(new Directory(new HttpUri(self::BASE . __DIR__ . '/nodedir')));
 
         self::assertTrue(\file_exists(__DIR__ . '/nodedir'));
@@ -639,7 +639,7 @@ class DirectoryTest extends \PHPUnit\Framework\TestCase
 
     public function testNodeArrayExists() : void
     {
-        $dir = new Directory(new HttpUri(self::BASE . '/' . __DIR__), '*', true, self::$con);
+        $dir = new Directory(new HttpUri(self::BASE . __DIR__), '*', true, self::$con);
 
         self::assertTrue(isset($dir['dirtest']));
         self::assertFalse(isset($dir['invalid']));
@@ -648,7 +648,7 @@ class DirectoryTest extends \PHPUnit\Framework\TestCase
     public function testNodeCreatedAt() : void
     {
         $dirPath = __DIR__ . '/test';
-        $dir = new Directory(new HttpUri(self::BASE . '/' . $dirPath), '*', true, self::$con);
+        $dir = new Directory(new HttpUri(self::BASE . $dirPath), '*', true, self::$con);
 
         self::assertTrue($dir->createNode());
 
@@ -661,7 +661,7 @@ class DirectoryTest extends \PHPUnit\Framework\TestCase
     public function testNodeChangedAt() : void
     {
         $dirPath = __DIR__ . '/test';
-        $dir = new Directory(new HttpUri(self::BASE . '/' . $dirPath), '*', true, self::$con);
+        $dir = new Directory(new HttpUri(self::BASE . $dirPath), '*', true, self::$con);
 
         self::assertTrue($dir->createNode());
 
@@ -710,6 +710,6 @@ class DirectoryTest extends \PHPUnit\Framework\TestCase
     {
         $dir = new Directory(new HttpUri(self::BASE . __DIR__ . '/dirtest'), '*', true, self::$con);
 
-        self::assertEquals(__DIR__ . '/dirtest', $dir->next()->getDirpath());
+        self::assertEquals(__DIR__ . '/dirtest', $dir->next()->getDirPath());
     }
 }

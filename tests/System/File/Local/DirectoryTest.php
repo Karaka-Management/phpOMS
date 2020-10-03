@@ -701,7 +701,7 @@ class DirectoryTest extends \PHPUnit\Framework\TestCase
     {
         $dir = new Directory(__DIR__ . '/dirtest');
 
-        self::assertEquals('dirtest', $dir->next()->getDirname());
+        self::assertEquals('dirtest', $dir->next()->getDirName());
     }
 
     public function testName() : void
@@ -722,6 +722,6 @@ class DirectoryTest extends \PHPUnit\Framework\TestCase
     {
         $dir = new Directory(__DIR__ . '/dirtest');
 
-        self::assertEquals(__DIR__ . '/dirtest', $dir->next()->getDirpath());
+        self::assertEquals(__DIR__ . '/dirtest', $dir->next()->getDirPath());
     }
 }
