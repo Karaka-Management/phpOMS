@@ -374,7 +374,9 @@ final class Directory extends FileAbstract implements DirectoryInterface, LocalC
      */
     public static function copy(string $from, string $to, bool $overwrite = false) : bool
     {
-        if (!\is_dir($from)) {
+        if (!\is_dir($from)
+            || (!$overwrite && \file_exists($to))
+        ) {
             return false;
         }
 
@@ -383,8 +385,6 @@ final class Directory extends FileAbstract implements DirectoryInterface, LocalC
         } elseif ($overwrite && \file_exists($to)) {
             self::delete($to);
             self::create($to, 0755, true);
-        } else {
-            return false;
         }
 
         foreach ($iterator = new \RecursiveIteratorIterator(

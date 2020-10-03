@@ -76,6 +76,26 @@ class Directory extends FileAbstract implements DirectoryInterface, FtpContainer
     }
 
     /**
+     * Constructor.
+     *
+     * @param HttpUri $uri    Uri
+     * @param string  $filter Filter
+     *
+     * @since 1.0.0
+     */
+    public function __construct(HttpUri $uri, string $filter = '*', bool $initialize = true)
+    {
+        $this->con = self::ftpConnect($uri);
+
+        $this->filter = \ltrim($filter, '\\/');
+        parent::__construct($uri->getPath());
+
+        if ($initialize && \file_exists($this->path)) {
+            $this->index();
+        }
+    }
+
+    /**
      * List all files in directory.
      *
      * @param resource $con    FTP connection
@@ -354,7 +374,9 @@ class Directory extends FileAbstract implements DirectoryInterface, FtpContainer
      */
     public static function copy($con, string $from, string $to, bool $overwrite = false) : bool
     {
-        if (!self::exists($con, $from)) {
+        if (!self::exists($con, $from)
+            || (!$overwrite && self::exists($con, $to))
+        ) {
             return false;
         }
 
