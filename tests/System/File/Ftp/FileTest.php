@@ -348,6 +348,8 @@ class FileTest extends \PHPUnit\Framework\TestCase
     public function testStaticCreatedAt() : void
     {
         $testFile = __DIR__ . '/test.txt';
+        File::delete(self::$con, $testFile);
+
         self::assertTrue(File::create(self::$con, $testFile));
 
         $now = new \DateTime('now');
@@ -364,6 +366,8 @@ class FileTest extends \PHPUnit\Framework\TestCase
     public function testStaticChangedAt() : void
     {
         $testFile = __DIR__ . '/test.txt';
+        File::delete(self::$con, $testFile);
+
         self::assertTrue(File::create(self::$con, $testFile));
 
         $now = new \DateTime('now');
@@ -406,6 +410,8 @@ class FileTest extends \PHPUnit\Framework\TestCase
     public function testStaticSize() : void
     {
         $testFile = __DIR__ . '/test.txt';
+        File::delete(self::$con, $testFile);
+
         File::put(self::$con, $testFile, 'test', ContentPutMode::CREATE);
 
         self::assertGreaterThan(0, File::size(self::$con, $testFile));
@@ -421,6 +427,8 @@ class FileTest extends \PHPUnit\Framework\TestCase
     public function testStaticPermission() : void
     {
         $testFile = __DIR__ . '/test.txt';
+        File::delete(self::$con, $testFile);
+
         File::put(self::$con, $testFile, 'test', ContentPutMode::CREATE);
 
         self::assertGreaterThan(0, File::permission(self::$con, $testFile));

@@ -34,7 +34,7 @@ class TarGz implements ArchiveInterface
     public static function pack($source, string $destination, bool $overwrite = false) : bool
     {
         $destination = \str_replace('\\', '/', $destination);
-        if (!$overwrite && \file_exists($destination) || !\file_exists($source)) {
+        if (!$overwrite && \file_exists($destination)) {
             return false;
         }
 
@@ -43,7 +43,10 @@ class TarGz implements ArchiveInterface
         }
 
         $pack = Gz::pack($destination . '.tmp', $destination, $overwrite);
-        \unlink($destination . '.tmp');
+
+        if ($pack) {
+            \unlink($destination . '.tmp');
+        }
 
         return $pack;
     }
@@ -54,7 +57,7 @@ class TarGz implements ArchiveInterface
     public static function unpack(string $source, string $destination) : bool
     {
         $destination = \str_replace('\\', '/', $destination);
-        if (\file_exists($destination) || !\file_exists($source)) {
+        if (!\file_exists($destination) || !\file_exists($source)) {
             return false;
         }
 
