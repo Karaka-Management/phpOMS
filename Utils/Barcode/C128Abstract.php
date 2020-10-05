@@ -327,7 +327,7 @@ abstract class C128Abstract
         $image      = \imagecreate($dimensions['width'], $dimensions['height']);
 
         if ($image === false) {
-            throw new \Exception();
+            throw new \Exception(); // @codeCoverageIgnore
         }
 
         $black    = \imagecolorallocate($image, 0, 0, 0);

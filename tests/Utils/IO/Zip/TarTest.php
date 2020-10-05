@@ -44,6 +44,7 @@ class TarTest extends \PHPUnit\Framework\TestCase
                 __DIR__ . '/test a.txt' => 'test a.txt',
                 __DIR__ . '/test b.md'  => 'test b.md',
                 __DIR__ . '/test'       => 'test',
+                __DIR__ . '/invalid.txt',
             ],
             __DIR__ . '/test.tar'
         ));

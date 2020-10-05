@@ -127,8 +127,9 @@ final class Autoloader
      */
     public static function invalidate(string $class) : bool
     {
-        if (!\extension_loaded('opcache')
+        if (!\extension_loaded('zend opcache')
             || !\opcache_is_script_cached($class)
+            || \opcache_get_status() === false
         ) {
             return false;
         }

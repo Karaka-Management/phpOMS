@@ -105,7 +105,7 @@ final class StringCompare
         $total  = 0;
 
         if ($words1 === false || $words2 === false) {
-            return \PHP_INT_MAX;
+            return \PHP_INT_MAX; // @codeCoverageIgnore
         }
 
         foreach ($words1 as $word1) {

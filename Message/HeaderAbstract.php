@@ -156,7 +156,6 @@ abstract class HeaderAbstract
     public function setStatusCode(int $status) : void
     {
         $this->status = $status;
-        $this->generate($status);
     }
 
     /**

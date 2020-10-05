@@ -45,6 +45,7 @@ class ZipTest extends \PHPUnit\Framework\TestCase
                 __DIR__ . '/test b.md'  => 'test b.md',
                 __DIR__ . '/invalid.so' => 'invalid.so',
                 __DIR__ . '/test'       => 'test',
+                __DIR__ . '/invalid.txt',
             ],
             __DIR__ . '/test.zip'
         ));

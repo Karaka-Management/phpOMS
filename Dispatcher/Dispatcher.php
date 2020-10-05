@@ -68,8 +68,11 @@ final class Dispatcher implements DispatcherInterface
 
         if (\is_array($controller)) {
             if (isset($controller['dest'])) {
-                if (!empty($data) && !empty($controller['data'])) {
-                    $data = \array_merge($data, $controller['data']);
+                if (!empty($controller['data'])) {
+                    $data = \array_merge(
+                        empty($data) ? [] : $data,
+                        \is_array($controller['data']) ? $controller['data'] : [$controller['data']]
+                    );
                 }
 
                 $controller = $controller['dest'];

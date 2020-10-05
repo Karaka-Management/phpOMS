@@ -32,14 +32,14 @@ class Gz implements ArchiveInterface
     public static function pack($source, string $destination, bool $overwrite = false) : bool
     {
         $destination = \str_replace('\\', '/', $destination);
-        if (!$overwrite && \file_exists($destination)) {
+        if (!$overwrite && \file_exists($destination) || !\file_exists($source)) {
             return false;
         }
 
         $gz  = \gzopen($destination, 'w');
         $src = \fopen($source, 'r');
         if ($gz === false || $src === false) {
-            return false;
+            return false; // @codeCoverageIgnore
         }
 
         while (!\feof($src)) {
@@ -65,7 +65,7 @@ class Gz implements ArchiveInterface
         $gz   = \gzopen($source, 'r');
         $dest = \fopen($destination, 'w');
         if ($gz === false || $dest === false) {
-            return false;
+            return false; // @codeCoverageIgnore
         }
 
         while (!\gzeof($gz)) {

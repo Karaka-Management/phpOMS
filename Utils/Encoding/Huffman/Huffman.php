@@ -86,7 +86,7 @@ final class Huffman
         $binary               = '';
 
         if ($splittedBinaryString === false) {
-            return $binary;
+            return $binary; // @codeCoverageIgnore
         }
 
         foreach ($splittedBinaryString as $i => $c) {

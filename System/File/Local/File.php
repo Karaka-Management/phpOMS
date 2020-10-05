@@ -444,7 +444,7 @@ final class File extends FileAbstract implements FileInterface, LocalContainerIn
             }
 
             if (!\is_writable(\dirname($path))) {
-                return false;
+                return false; // @codeCoverageIgnore
             }
 
            \touch($path);

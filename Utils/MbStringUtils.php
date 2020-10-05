@@ -299,7 +299,7 @@ final class MbStringUtils
             $encodedPos = \strpos($lastChunk, '=');
 
             if ($encodedPos === false) {
-                break;
+                break; // @codeCoverageIgnore
             }
 
             $hex = \substr($text, $length - $reset + $encodedPos + 1, 2);

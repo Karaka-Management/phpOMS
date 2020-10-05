@@ -54,14 +54,20 @@ class AutoloaderTest extends \PHPUnit\Framework\TestCase
 
     public function testOpcodeCacheInvalidation() : void
     {
-        if (!\extension_loaded('opcache')) {
+        if (!\extension_loaded('zend opcache')
+            || \ini_get('opcache.enable') !== '1'
+            || \ini_get('opcache.enable_cli') !== '1'
+            || \ini_get('opcache.file_cache_only') !== '0'
+            || \opcache_get_status() === false
+        ) {
             $this->markTestSkipped(
               'The opcache extension is not available.'
             );
         }
 
+        self::assertFalse(\opcache_is_script_cached(__DIR__ . '/TestLoad3.php'));
         Autoloader::defaultAutoloader('\phpOMS\tests\TestLoad3');
-        Autoloader::invalidate(__DIR__ . '/TestLoad3.php');
+        self::assertTrue(Autoloader::invalidate(__DIR__ . '/TestLoad3.php'));
         self::assertTrue(\opcache_is_script_cached(__DIR__ . '/TestLoad3.php'));
     }
 

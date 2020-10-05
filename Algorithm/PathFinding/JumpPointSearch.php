@@ -537,7 +537,7 @@ final class JumpPointSearch implements PathFinderInterface
                 return $node;
             }
         } else {
-            throw new \Exception('invalid movement');
+            throw new \Exception('invalid movement'); // @codeCoverageIgnore
         }
 
         return self::jumpStraight($grid->getNode($x + $dx, $y + $dy), $node, $endNode, $grid);

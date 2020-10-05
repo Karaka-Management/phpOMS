@@ -246,7 +246,7 @@ class View extends ViewAbstract
         $this->module = \substr($this->template, $start, $end - $start);
 
         if ($this->module === false) {
-            $this->module = '0';
+            $this->module = '0'; // @codeCoverageIgnore
         }
     }
 
@@ -274,7 +274,7 @@ class View extends ViewAbstract
         $this->theme = \substr($this->template, $start, $end - $start);
 
         if ($this->theme === false) {
-            $this->theme = '0';
+            $this->theme = '0'; // @codeCoverageIgnore
         }
     }
 

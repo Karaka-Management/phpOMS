@@ -122,7 +122,7 @@ class PriorityQueue implements \Countable, \Serializable
             case PriorityMode::LOWEST:
                 return $this->getInsertLowest($priority);
             default:
-                throw new InvalidEnumValue($this->type);
+                throw new InvalidEnumValue($this->type); // @codeCoverageIgnore
         }
     }
 

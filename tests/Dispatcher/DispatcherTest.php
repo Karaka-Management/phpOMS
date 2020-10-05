@@ -161,13 +161,29 @@ class DispatcherTest extends \PHPUnit\Framework\TestCase
             !empty(
                 $this->app->dispatcher->dispatch(
                     [
-                        function($req, $resp, $data = null) { return true; },
+                        function($app, $req, $resp, $data = null) { return true; },
                         'phpOMS\tests\Dispatcher\TestController:testFunction',
                         'phpOMS\tests\Dispatcher\TestController::testFunctionStatic',
                     ],
                     new HttpRequest(new HttpUri(''), $localization),
                     new HttpResponse($localization)
                 )
+            )
+        );
+    }
+
+    public function testArrayWithData() : void
+    {
+        $localization = new Localization();
+
+        self::assertEquals([2],
+            $this->app->dispatcher->dispatch(
+                [
+                    'dest' => function($app, $req, $resp, $data = null) { return $data; },
+                    'data' => 2
+                ],
+                new HttpRequest(new HttpUri(''), $localization),
+                new HttpResponse($localization)
             )
         );
     }

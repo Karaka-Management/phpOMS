@@ -198,4 +198,11 @@ class MeasureOfDispersionTest extends \PHPUnit\Framework\TestCase
 
         MeasureOfDispersion::empiricalVariance([]);
     }
+
+    public function testInvalidSampleCovarianceDimension() : void
+    {
+        $this->expectException(\phpOMS\Math\Exception\ZeroDivisionException::class);
+
+        MeasureOfDispersion::sampleCovariance([], []);
+    }
 }

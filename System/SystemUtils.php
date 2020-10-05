@@ -54,7 +54,7 @@ final class SystemUtils
             $fh = \fopen('/proc/meminfo', 'r');
 
             if ($fh === false) {
-                return $mem;
+                return $mem; // @codeCoverageIgnore
             }
 
             while ($line = \fgets($fh)) {
@@ -86,7 +86,7 @@ final class SystemUtils
             $free = \shell_exec('free');
 
             if ($free === null) {
-                return $memUsage;
+                return $memUsage; // @codeCoverageIgnore
             }
 
             $free     = \trim($free);

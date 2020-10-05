@@ -254,4 +254,44 @@ class EigenvalueDecompositionTest extends \PHPUnit\Framework\TestCase
         self::assertEqualsWithDelta([1, 1], $eig->getRealEigenvalues()->toArray(), 0.1);
         self::assertEqualsWithDelta([2, -2], $eig->getImagEigenvalues()->toArray(), 0.1);
     }
+
+    public function testComplexDivision() : void
+    {
+        $A = new Matrix();
+        $A->setMatrix([
+            [-2, -4, 2],
+            [3, 1, -4],
+            [4, 5, 5],
+        ]);
+
+        $eig = new EigenvalueDecomposition($A);
+        self::assertEqualsWithDelta([
+            [-0.3569, 4.49865, 0.0],
+            [-4.49865, -0.3569, 0],
+            [0.0, 0.0, 4.7139],
+        ], $eig->getD()->toArray(), 0.1);
+
+        self::assertEqualsWithDelta([-0.35695, -0.35695, 4.7139], $eig->getRealEigenvalues()->toArray(), 0.1);
+        self::assertEqualsWithDelta([4.49865, -4.49865, 0.0], $eig->getImagEigenvalues()->toArray(), 0.1);
+    }
+
+    public function testComplexDivision2() : void
+    {
+        $A = new Matrix();
+        $A->setMatrix([
+            [-2, 3, 2],
+            [-4, 1, -4],
+            [4, 5, 5],
+        ]);
+
+        $eig = new EigenvalueDecomposition($A);
+        self::assertEqualsWithDelta([
+            [-2.5510, 0.0, 0.0],
+            [0.0, 3.27552, 4.79404],
+            [0.0, -4.7940, 3.27552],
+        ], $eig->getD()->toArray(), 0.1);
+
+        self::assertEqualsWithDelta([-2.5510, 3.27552, 3.27552], $eig->getRealEigenvalues()->toArray(), 0.1);
+        self::assertEqualsWithDelta([0.0, 4.7940, -4.7940], $eig->getImagEigenvalues()->toArray(), 0.1);
+    }
 }

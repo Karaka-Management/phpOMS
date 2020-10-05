@@ -214,6 +214,7 @@ final class HttpUri implements UriInterface
      * @return string Returns the current uri
      *
      * @since 1.0.0
+     * @codeCoverageIgnore
      */
     public static function getCurrent() : string
     {
@@ -230,6 +231,7 @@ final class HttpUri implements UriInterface
      * @return HttpUri Returns the current uri
      *
      * @since 1.0.0
+     * @codeCoverageIgnore
      */
     public static function fromCurrent() : self
     {

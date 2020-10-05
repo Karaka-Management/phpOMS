@@ -201,9 +201,8 @@ final class UriFactory
 
         /** @var array $urlStructure */
         $urlStructure = \parse_url($url);
-
         if ($urlStructure === false) {
-            return $url;
+            return $url; // @codeCoverageIgnore
         }
 
         if (isset($urlStructure['query'])) {

@@ -109,7 +109,7 @@ final class Evaluator
         $equation = \preg_split('/([\+\-\*\/\^\(\)])/', $equation, -1, \PREG_SPLIT_NO_EMPTY | \PREG_SPLIT_DELIM_CAPTURE);
 
         if ($equation === false) {
-            return [];
+            return []; // @codeCoverageIgnore
         }
 
         $equation = \array_filter($equation, function($n) {
