@@ -137,7 +137,7 @@ class EigenvalueDecompositionTest extends \PHPUnit\Framework\TestCase
         $eig = new EigenvalueDecomposition($A);
 
         self::assertEqualsWithDelta([-5, 3, 6], $eig->getRealEigenvalues()->toArray(), 0.1);
-        self::assertEqualsWithDelta([0, 0, 0], $eig->getImagEigenvalues()->toArray(), 0.1);;
+        self::assertEqualsWithDelta([0, 0, 0], $eig->getImagEigenvalues()->toArray(), 0.1);
     }
 
     /**

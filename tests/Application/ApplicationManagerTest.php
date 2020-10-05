@@ -16,13 +16,13 @@ namespace phpOMS\tests\Application;
 
 require_once __DIR__ . '/../Autoloader.php';
 
-use phpOMS\Application\ApplicationManager;
-use phpOMS\Application\ApplicationAbstract;
-use phpOMS\Router\WebRouter;
-use phpOMS\Dispatcher\Dispatcher;
 use Model\CoreSettings;
 use Modules\CMS\Models\Application;
+use phpOMS\Application\ApplicationAbstract;
+use phpOMS\Application\ApplicationManager;
+use phpOMS\Dispatcher\Dispatcher;
 use phpOMS\Module\ModuleManager;
+use phpOMS\Router\WebRouter;
 
 /**
  * @testdox phpOMS\tests\Application\ApplicationManagerTest: Application manager

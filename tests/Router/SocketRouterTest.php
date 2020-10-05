@@ -19,7 +19,6 @@ use Modules\Admin\Models\PermissionState;
 use phpOMS\Account\Account;
 use phpOMS\Account\PermissionAbstract;
 use phpOMS\Account\PermissionType;
-use phpOMS\Autoloader;
 use phpOMS\Router\SocketRouter;
 
 require_once __DIR__ . '/../Autoloader.php';
