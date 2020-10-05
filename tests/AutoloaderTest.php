@@ -33,4 +33,41 @@ class AutoloaderTest extends \PHPUnit\Framework\TestCase
         self::assertTrue(Autoloader::exists('\phpOMS\Autoloader'));
         self::assertFalse(Autoloader::exists('\Does\Not\Exist'));
     }
+
+    public function testLoading() : void
+    {
+        Autoloader::defaultAutoloader('\phpOMS\tests\TestLoad');
+
+        $includes = \get_included_files();
+        self::assertTrue(\in_array(\realpath(__DIR__ . '/TestLoad.php'), $includes));
+    }
+
+    public function testManualPathLoading() : void
+    {
+        Autoloader::addPath(__DIR__ . '/../');
+        Autoloader::defaultAutoloader('\tests\TestLoad2');
+        Autoloader::defaultAutoloader('\tests\Invalid');
+
+        $includes = \get_included_files();
+        self::assertTrue(\in_array(\realpath(__DIR__ . '/TestLoad2.php'), $includes));
+    }
+
+    public function testOpcodeCacheInvalidation() : void
+    {
+        if (!\extension_loaded('opcache')) {
+            $this->markTestSkipped(
+              'The opcache extension is not available.'
+            );
+        }
+
+        Autoloader::defaultAutoloader('\phpOMS\tests\TestLoad3');
+        Autoloader::invalidate(__DIR__ . '/TestLoad3.php');
+        self::assertTrue(\opcache_is_script_cached(__DIR__ . '/TestLoad3.php'));
+    }
+
+    public function testUncachedInvalidation() : void
+    {
+        self::assertFalse(\opcache_is_script_cached(__DIR__ . '/TestLoad4.php'));
+        self::assertFalse(Autoloader::invalidate(__DIR__ . '/TestLoad4.php'));
+    }
 }

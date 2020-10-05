@@ -12,6 +12,7 @@
  */
 declare(strict_types=1);
 
+// @codeCoverageIgnoreStart
 require_once __DIR__ . '/Preloader.php';
 
 $preloader = new \phpOMS\Preloader();
@@ -35,3 +36,4 @@ $preloader->includePath(__DIR__ . '/Account')
     ->includePath(__DIR__ . '/Uri')
     ->includePath(__DIR__ . '/Views')
     ->load();
+// @codeCoverageIgnoreEnd

@@ -45,10 +45,13 @@ class Zip implements ArchiveInterface
         }
 
         /**
-         * @var string $source
          * @var string $relative
          */
         foreach ($sources as $source => $relative) {
+            if (\is_int($source)) {
+                $source = $relative;
+            }
+
             if (($source = \realpath($source)) === false
                 || ($source = \str_replace('\\', '/', $source)) === false
                 || !\file_exists($source)

@@ -108,7 +108,7 @@ final class Preloader
         $fh = \opendir($path);
 
         if ($fh === false) {
-            return;
+            return; // @codeCoverageIgnore
         }
 
         while ($file = \readdir($fh)) {

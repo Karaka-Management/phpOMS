@@ -90,11 +90,6 @@ class SocketRouterTest extends \PHPUnit\Framework\TestCase
      */
     public function testDynamicRouteAdding() : void
     {
-        self::assertNotEquals(
-            [['dest' => '\Modules\Admin\Controller:viewSettingsGeneral']],
-            $this->router->route('backends_admin -settings=general -t 123')
-        );
-
         $this->router->add('^.*backends_admin -settings=general.*$', 'Controller:test');
         self::assertEquals(
             [['dest' => 'Controller:test']],
@@ -109,10 +104,6 @@ class SocketRouterTest extends \PHPUnit\Framework\TestCase
      */
     public function testWithValidPermissions() : void
     {
-        if (!Autoloader::exists('\Modules\Admin\Controller')) {
-            self::markTestSkipped();
-        }
-
         self::assertTrue($this->router->importFromFile(__DIR__ . '/socketRouterTestFilePermission.php'));
 
         $perm = new class(
@@ -146,10 +137,6 @@ class SocketRouterTest extends \PHPUnit\Framework\TestCase
      */
     public function testWithInvalidPermissions() : void
     {
-        if (!Autoloader::exists('\Modules\Admin\Controller')) {
-            self::markTestSkipped();
-        }
-
         self::assertTrue($this->router->importFromFile(__DIR__ . '/socketRouterTestFilePermission.php'));
 
         $perm2 = new class(
@@ -197,6 +184,71 @@ class SocketRouterTest extends \PHPUnit\Framework\TestCase
                 null,
                 $account2
             )
+        );
+    }
+
+    /**
+     * @testdox A data validation pattern validates matches correctly
+     * @covers phpOMS\Router\SocketRouter
+     * @group framework
+     */
+    public function testDataValidation() : void
+    {
+        $this->router->add(
+            '^.*backends_admin -settings=general.*$',
+            'Controller:test',
+            ['test_pattern' => '/^[a-z]*$/']
+        );
+
+        self::assertEquals(
+            [['dest' => 'Controller:test']],
+            $this->router->route('backends_admin -settings=general -t 123', null, null, null, ['test_pattern' => 'abcdef'])
+        );
+    }
+
+    /**
+     * @testdox A data validation pattern invalidates missmatches
+     * @covers phpOMS\Router\SocketRouter
+     * @group framework
+     */
+    public function testInvalidDataValidation() : void
+    {
+        $this->router->add(
+            '^.*backends_admin -settings=general.*$',
+            'Controller:test',
+            ['test_pattern' => '/^[a-z]*$/']
+        );
+
+        self::assertNotEquals(
+            [['dest' => 'Controller:test']],
+            $this->router->route('backends_admin -settings=general -t 123', null, null, null, ['test_pattern' => '123'])
+        );
+    }
+
+    /**
+     * @testdox A uri can be used for data population
+     * @covers phpOMS\Router\SocketRouter
+     * @group framework
+     */
+    public function testDataFromPattern() : void
+    {
+        $this->router->add(
+            '^.*-settings=general.*$',
+            'Controller:test',
+            [],
+            '/^.*?(settings)=([a-z]*).*?$/'
+        );
+
+        self::assertEquals(
+            [[
+                'dest' => 'Controller:test',
+                'data' => [
+                    'backends_admin -settings=general -t 123',
+                    'settings',
+                    'general',
+                ],
+            ]],
+            $this->router->route('backends_admin -settings=general -t 123')
         );
     }
 }

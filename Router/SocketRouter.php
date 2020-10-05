@@ -77,14 +77,20 @@ final class SocketRouter implements RouterInterface
      *
      * @since 1.0.0
      */
-    public function add(string $route, $destination) : void
-    {
+    public function add(
+        string $route,
+        $destination,
+        array $validation = [],
+        string $dataPattern = ''
+    ) : void {
         if (!isset($this->routes[$route])) {
             $this->routes[$route] = [];
         }
 
         $this->routes[$route][] = [
-            'dest' => $destination,
+            'dest'       => $destination,
+            'validation' => empty($validation) ? null : $validation,
+            'pattern'    => empty($dataPattern) ? null : $dataPattern,
         ];
     }
 
@@ -136,7 +142,16 @@ final class SocketRouter implements RouterInterface
                     }
                 }
 
-                $bound[] = ['dest' => $d['dest']];
+                $temp = ['dest' => $d['dest']];
+
+                // fill data
+                if (isset($d['pattern'])) {
+                    \preg_match($d['pattern'], $uri, $matches);
+
+                    $temp['data'] = $matches;
+                }
+
+                $bound[] = $temp;
             }
         }
 

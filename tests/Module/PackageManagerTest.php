@@ -50,7 +50,7 @@ class PackageManagerTest extends \PHPUnit\Framework\TestCase
         $alice_sign_publickey = \sodium_crypto_sign_publickey($alice_sign_kp);
 
         // create signature
-        $files = Directory::list(__DIR__ . '/testPackage');
+        $files = Directory::list(__DIR__ . '/testPackage', '*', true);
         $state = \sodium_crypto_generichash_init();
 
         foreach ($files as $file) {

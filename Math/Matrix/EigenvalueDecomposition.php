@@ -541,14 +541,14 @@ final class EigenvalueDecomposition
                 --$l;
             }
 
-            if ($l == $n) {
+            if ($l === $n) {
                 $this->H[$n][$n] = $this->H[$n][$n] + $exshift;
                 $this->D[$n]     = $this->H[$n][$n];
                 $this->E[$n]     = 0.0;
                 $iter            = 0;
 
                 --$n;
-            } elseif ($l == $n - 1) {
+            } elseif ($l === $n - 1) {
                 $w = $this->H[$n][$n - 1] * $this->H[$n - 1][$n];
                 $p = ($this->H[$n - 1][$n - 1] - $this->H[$n][$n]) / 2.0;
                 $q = $p * $p + $w;
@@ -691,54 +691,56 @@ final class EigenvalueDecomposition
 
                     $s = $p < 0 ? -\sqrt($p * $p + $q * $q + $r * $r) : \sqrt($p * $p + $q * $q + $r * $r);
 
-                    if ($s != 0) {
-                        if ($k !== $m) {
-                            $this->H[$k][$k - 1] = -$s * $x;
-                         } elseif ($l !== $m) {
-                            $this->H[$k][$k - 1] = -$this->H[$k][$k - 1];
+                    if ($s == 0) {
+                        continue;
+                    }
+
+                    if ($k !== $m) {
+                        $this->H[$k][$k - 1] = -$s * $x;
+                    } elseif ($l !== $m) {
+                        $this->H[$k][$k - 1] = -$this->H[$k][$k - 1];
+                    }
+
+                    $p += $s;
+                    $x  = $p / $s;
+                    $y  = $q / $s;
+                    $z  = $r / $s;
+                    $q /= $p;
+                    $r /= $p;
+
+                    for ($j = $k; $j < $nn; ++$j) {
+                        $p = $this->H[$k][$j] + $q * $this->H[$k + 1][$j];
+                        if ($notlast) {
+                            $p                   = $p + $r * $this->H[$k + 2][$j];
+                            $this->H[$k + 2][$j] = $this->H[$k + 2][$j] - $p * $z;
                         }
 
-                        $p += $s;
-                        $x  = $p / $s;
-                        $y  = $q / $s;
-                        $z  = $r / $s;
-                        $q /= $p;
-                        $r /= $p;
+                        $this->H[$k][$j]     = $this->H[$k][$j] - $p * $x;
+                        $this->H[$k + 1][$j] = $this->H[$k + 1][$j] - $p * $y;
+                    }
 
-                        for ($j = $k; $j < $nn; ++$j) {
-                            $p = $this->H[$k][$j] + $q * $this->H[$k + 1][$j];
-                            if ($notlast) {
-                                $p                   = $p + $r * $this->H[$k + 2][$j];
-                                $this->H[$k + 2][$j] = $this->H[$k + 2][$j] - $p * $z;
-                            }
+                    $min = \min($n, $k + 3);
+                    for ($i = 0; $i <= $min; ++$i) {
+                        $p = $x * $this->H[$i][$k] + $y * $this->H[$i][$k + 1];
 
-                            $this->H[$k][$j]     = $this->H[$k][$j] - $p * $x;
-                            $this->H[$k + 1][$j] = $this->H[$k + 1][$j] - $p * $y;
+                        if ($notlast) {
+                            $p                   = $p + $z * $this->H[$i][$k + 2];
+                            $this->H[$i][$k + 2] = $this->H[$i][$k + 2] - $p * $r;
                         }
 
-                        $min = \min($n, $k + 3);
-                        for ($i = 0; $i <= $min; ++$i) {
-                            $p = $x * $this->H[$i][$k] + $y * $this->H[$i][$k + 1];
+                        $this->H[$i][$k]     = $this->H[$i][$k] - $p;
+                        $this->H[$i][$k + 1] = $this->H[$i][$k + 1] - $p * $q;
+                    }
 
-                            if ($notlast) {
-                                $p                   = $p + $z * $this->H[$i][$k + 2];
-                                $this->H[$i][$k + 2] = $this->H[$i][$k + 2] - $p * $r;
-                            }
+                    for ($i = $low; $i <= $high; ++$i) {
+                        $p = $x * $this->V[$i][$k] + $y * $this->V[$i][$k + 1];
 
-                            $this->H[$i][$k]     = $this->H[$i][$k] - $p;
-                            $this->H[$i][$k + 1] = $this->H[$i][$k + 1] - $p * $q;
+                        if ($notlast) {
+                            $p                  += $z * $this->V[$i][$k + 2];
+                            $this->V[$i][$k + 2] = $this->V[$i][$k + 2] - $p * $r;
                         }
-
-                        for ($i = $low; $i <= $high; ++$i) {
-                            $p = $x * $this->V[$i][$k] + $y * $this->V[$i][$k + 1];
-
-                            if ($notlast) {
-                                $p                  += $z * $this->V[$i][$k + 2];
-                                $this->V[$i][$k + 2] = $this->V[$i][$k + 2] - $p * $r;
-                            }
-                            $this->V[$i][$k]     = $this->V[$i][$k] - $p;
-                            $this->V[$i][$k + 1] = $this->V[$i][$k + 1] - $p * $q;
-                        }
+                        $this->V[$i][$k]     = $this->V[$i][$k] - $p;
+                        $this->V[$i][$k + 1] = $this->V[$i][$k + 1] - $p * $q;
                     }
                 }
             }

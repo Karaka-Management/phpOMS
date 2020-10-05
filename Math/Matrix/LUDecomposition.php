@@ -111,7 +111,7 @@ final class LUDecomposition
                 }
             }
 
-            if ($p != $j) {
+            if ($p !== $j) {
                 for ($k = 0; $k < $this->n; ++$k) {
                     $t                = $this->LU[$p][$k];
                     $this->LU[$p][$k] = $this->LU[$j][$k];

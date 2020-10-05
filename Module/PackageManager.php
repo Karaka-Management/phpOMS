@@ -152,7 +152,7 @@ final class PackageManager
      */
     private function hashFiles() : string
     {
-        $files = Directory::list($this->extractPath);
+        $files = Directory::list($this->extractPath, '*', true);
         $state = \sodium_crypto_generichash_init();
 
         foreach ($files as $file) {

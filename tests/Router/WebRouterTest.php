@@ -119,15 +119,6 @@ class WebRouterTest extends \PHPUnit\Framework\TestCase
      */
     public function testDynamicRouteAdding() : void
     {
-        self::assertNotEquals(
-            [['dest' => '\Modules\Admin\Controller:viewSettingsGeneral']],
-            $this->router->route(
-                (new HttpRequest(
-                    new HttpUri('http://test.com/backends/admin/settings/general/something?test')
-                ))->getUri()->getRoute()
-            )
-        );
-
         $this->router->add('^.*/backends/admin/settings/general.*$', 'Controller:test', RouteVerb::GET | RouteVerb::SET);
         self::assertEquals(
             [['dest' => 'Controller:test']],
