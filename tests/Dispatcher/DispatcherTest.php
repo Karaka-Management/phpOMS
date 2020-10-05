@@ -180,7 +180,7 @@ class DispatcherTest extends \PHPUnit\Framework\TestCase
             $this->app->dispatcher->dispatch(
                 [
                     'dest' => function($app, $req, $resp, $data = null) { return $data; },
-                    'data' => 2
+                    'data' => 2,
                 ],
                 new HttpRequest(new HttpUri(''), $localization),
                 new HttpResponse($localization)
