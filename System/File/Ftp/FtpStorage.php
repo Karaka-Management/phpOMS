@@ -31,7 +31,7 @@ class FtpStorage extends StorageAbstract
 {
     private static $con = null;
 
-    public static function with($con)
+    public static function with($con) : void
     {
         self::$con = $con;
     }

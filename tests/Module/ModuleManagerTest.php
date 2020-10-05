@@ -20,7 +20,6 @@ use phpOMS\Dispatcher\Dispatcher;
 use phpOMS\Message\Http\HttpRequest;
 use phpOMS\Module\ModuleManager;
 use phpOMS\Router\WebRouter;
-use phpOMS\System\File\Local\Directory;
 use phpOMS\Uri\HttpUri;
 
 require_once __DIR__ . '/../Autoloader.php';

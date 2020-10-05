@@ -15,10 +15,10 @@ declare(strict_types=1);
 namespace phpOMS\tests\System\File\Ftp;
 
 use phpOMS\System\File\ContentPutMode;
-use phpOMS\System\File\Ftp\FtpStorage;
-use phpOMS\Uri\HttpUri;
 use phpOMS\System\File\Ftp\Directory;
 use phpOMS\System\File\Ftp\File;
+use phpOMS\System\File\Ftp\FtpStorage;
+use phpOMS\Uri\HttpUri;
 
 /**
  * @testdox phpOMS\tests\System\File\Ftp\FtpStorageTest: Directory & File handler for local file system

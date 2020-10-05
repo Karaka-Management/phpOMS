@@ -44,7 +44,7 @@ class DirectoryTest extends \PHPUnit\Framework\TestCase
 
     public function testConnection() : void
     {
-        self::assertNotEquals(false, Directory::ftpConnect(new HttpUri(self::BASE . '/test')));
+        self::assertNotFalse(Directory::ftpConnect(new HttpUri(self::BASE . '/test')));
     }
 
     public function testInvalidConnection() : void
@@ -503,18 +503,18 @@ class DirectoryTest extends \PHPUnit\Framework\TestCase
     public function testList() : void
     {
         $dirTestPath = __DIR__ . '/dirtest';
-        $dir = new Directory(new HttpUri(self::BASE . $dirTestPath), '*', true, self::$con);
+        $dir         = new Directory(new HttpUri(self::BASE . $dirTestPath), '*', true, self::$con);
 
         self::assertEquals([
             'sub',
-            'test.txt'
+            'test.txt',
         ], $dir->getList());
     }
 
     public function testNodeOutput() : void
     {
         $dirTestPath = __DIR__ . '/dirtest';
-        $dir = new Directory(new HttpUri(self::BASE . $dirTestPath), '*', true, self::$con);
+        $dir         = new Directory(new HttpUri(self::BASE . $dirTestPath), '*', true, self::$con);
 
         self::assertInstanceOf(Directory::class, $dir->getNode('sub'));
     }
@@ -616,7 +616,7 @@ class DirectoryTest extends \PHPUnit\Framework\TestCase
 
     public function testNodeArraySet() : void
     {
-        $dir = new Directory(new HttpUri(self::BASE . __DIR__), '*', true, self::$con);
+        $dir   = new Directory(new HttpUri(self::BASE . __DIR__), '*', true, self::$con);
         $dir[] = new Directory(new HttpUri(self::BASE . __DIR__ . '/nodedir'));
 
         self::assertTrue(\file_exists(__DIR__ . '/nodedir'));
@@ -649,7 +649,7 @@ class DirectoryTest extends \PHPUnit\Framework\TestCase
     public function testNodeCreatedAt() : void
     {
         $dirPath = __DIR__ . '/test';
-        $dir = new Directory(new HttpUri(self::BASE . $dirPath), '*', true, self::$con);
+        $dir     = new Directory(new HttpUri(self::BASE . $dirPath), '*', true, self::$con);
 
         self::assertTrue($dir->createNode());
 
@@ -662,7 +662,7 @@ class DirectoryTest extends \PHPUnit\Framework\TestCase
     public function testNodeChangedAt() : void
     {
         $dirPath = __DIR__ . '/test';
-        $dir = new Directory(new HttpUri(self::BASE . $dirPath), '*', true, self::$con);
+        $dir     = new Directory(new HttpUri(self::BASE . $dirPath), '*', true, self::$con);
 
         self::assertTrue($dir->createNode());
 

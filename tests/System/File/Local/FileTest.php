@@ -483,9 +483,9 @@ class FileTest extends \PHPUnit\Framework\TestCase
     {
         $testFile = __DIR__ . '/test.txt';
         self::assertEquals([
-                'dirname' => __DIR__,
-                'basename' => 'test.txt',
-                'filename' => 'test',
+                'dirname'   => __DIR__,
+                'basename'  => 'test.txt',
+                'filename'  => 'test',
                 'extension' => 'txt',
             ],
             File::pathInfo($testFile)
