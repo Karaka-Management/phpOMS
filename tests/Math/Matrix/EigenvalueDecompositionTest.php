@@ -302,7 +302,7 @@ class EigenvalueDecompositionTest extends \PHPUnit\Framework\TestCase
             [9, 4, 5, 1],
             [-1, 15, -2, 13],
             [-14, 7, 15, -13],
-            [13, -16, -2, 19]
+            [13, -16, -2, 19],
         ]);
 
         $eig = new EigenvalueDecomposition($A);
@@ -311,7 +311,7 @@ class EigenvalueDecompositionTest extends \PHPUnit\Framework\TestCase
             [17.7766, 14.8641, 0.0, 0.0],
             [-14.8641, 17.7766, 0.0, 0.0],
             [0.0, 0.0, 11.22336, 5.6595],
-            [0.0, 0.0, -5.6595, 11.22336]
+            [0.0, 0.0, -5.6595, 11.22336],
         ], $eig->getD()->toArray(), 0.1);
 
         self::assertEqualsWithDelta([17.7766, 17.7766, 11.2233, 11.2233], $eig->getRealEigenvalues()->toArray(), 0.1);
@@ -325,7 +325,7 @@ class EigenvalueDecompositionTest extends \PHPUnit\Framework\TestCase
             [5, 14, 5, -6],
             [13, 12, -4, -3],
             [13, 10, 8, 17],
-            [5, -6, 3, 16]
+            [5, -6, 3, 16],
         ]);
 
         $eig = new EigenvalueDecomposition($A);
@@ -334,7 +334,7 @@ class EigenvalueDecompositionTest extends \PHPUnit\Framework\TestCase
             [22.6519, 3.96406, 0.0, 0.0],
             [-3.96406, 22.6519, 0.0, 0.0],
             [0.0, 0.0, -2.1519, 3.39498],
-            [0.0, 0.0, -3.39498, -2.1519]
+            [0.0, 0.0, -3.39498, -2.1519],
         ], $eig->getD()->toArray(), 0.1);
 
         self::assertEqualsWithDelta([22.6519, 22.6519, -2.1519, -2.1519], $eig->getRealEigenvalues()->toArray(), 0.1);
