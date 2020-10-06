@@ -41,7 +41,7 @@ class HttpHeaderTest extends \PHPUnit\Framework\TestCase
     public function testDefaults() : void
     {
         self::assertFalse($this->header->isLocked());
-        self::assertEquals(0, $this->header->getStatusCode());
+        self::assertEquals(RequestStatusCode::R_200, $this->header->getStatusCode());
         self::assertEquals('HTTP/1.1', $this->header->getProtocolVersion());
         self::assertEmpty(HttpHeader::getAllHeaders());
         self::assertEquals('', $this->header->getReasonPhrase());

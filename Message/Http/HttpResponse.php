@@ -92,7 +92,7 @@ final class HttpResponse extends ResponseAbstract implements RenderableInterface
      */
     public function getJsonData() : array
     {
-        return \json_decode($this->getRaw(), true);
+        return \json_decode($this->getRaw(), true) ?? [];
     }
 
     /**

@@ -131,7 +131,7 @@ final class HttpHeader extends HeaderAbstract
     public function getStatusCode() : int
     {
         if ($this->status === 0) {
-            $this->status = (int) \http_response_code();
+            $this->status = RequestStatusCode::R_200;
         }
 
         return parent::getStatusCode();
