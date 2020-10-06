@@ -39,9 +39,11 @@ class AverageTest extends \PHPUnit\Framework\TestCase
     public function testAngleMean() : void
     {
         self::assertEqualsWithDelta(-90, Average::angleMean([90.0, 180.0, 270.0, 360.0]), 0.01);
+        self::assertEqualsWithDelta(-90, Average::angleMean([90.0, 45.0, 180.0, 270.0, 360.0, 360.0], 1), 0.01);
         self::assertEqualsWithDelta(9.999999999999977, Average::angleMean([370.0]), 0.01);
 
         self::assertEqualsWithDelta(270, Average::angleMean2([90.0, 180.0, 270.0, 360.0]), 0.01);
+        self::assertEqualsWithDelta(270, Average::angleMean2([90.0, 45.0, 180.0, 270.0, 360.0, 360.0], 1), 0.01);
         self::assertEqualsWithDelta(9.999999999999977, Average::angleMean2([370.0]), 0.01);
     }
 
@@ -52,6 +54,7 @@ class AverageTest extends \PHPUnit\Framework\TestCase
     public function testArithmeticMean() : void
     {
         self::assertEqualsWithDelta(4, Average::arithmeticMean([1, 2, 3, 4, 5, 6, 7]), 0.01);
+        self::assertEqualsWithDelta(4, Average::arithmeticMean([1, 2, -4, -6, 8, 9, 3, 4, 5, 6, 7], 2), 0.01);
     }
 
     /**
@@ -73,6 +76,7 @@ class AverageTest extends \PHPUnit\Framework\TestCase
     public function testGeometricMean() : void
     {
         self::assertEqualsWithDelta(3.3800151591413, Average::geometricMean([1, 2, 3, 4, 5, 6, 7]), 0.01);
+        self::assertEqualsWithDelta(3.3800151591413, Average::geometricMean([1, 2, -4, -6, 8, 9, 3, 4, 5, 6, 7],2), 0.01);
     }
 
     /**
@@ -82,6 +86,7 @@ class AverageTest extends \PHPUnit\Framework\TestCase
     public function testHarmonicMean() : void
     {
         self::assertEqualsWithDelta(2.6997245179063, Average::harmonicMean([1, 2, 3, 4, 5, 6, 7]), 0.01);
+        self::assertEqualsWithDelta(2.6997245179063, Average::harmonicMean([1, 2, -4, -6, 8, 9, 3, 4, 5, 6, 7], 2), 0.01);
     }
 
     /**
@@ -170,6 +175,20 @@ class AverageTest extends \PHPUnit\Framework\TestCase
         Average::geometricMean([]);
     }
 
+    public function testInvalidAngleMean() : void
+    {
+        $this->expectException(\phpOMS\Math\Exception\ZeroDivisionException::class);
+
+        Average::angleMean([]);
+    }
+
+    public function testInvalidAngleMean2() : void
+    {
+        $this->expectException(\phpOMS\Math\Exception\ZeroDivisionException::class);
+
+        Average::angleMean2([]);
+    }
+
     /**
      * @testdox A dataset with a 0 element throws a ZeroDivisionException
      * @group framework
@@ -188,6 +207,7 @@ class AverageTest extends \PHPUnit\Framework\TestCase
     public function testMode() : void
     {
         self::assertEqualsWithDelta(2, Average::mode([1, 2, 2, 3, 4, 4, 2]), 0.01);
+        self::assertEqualsWithDelta(2, Average::mode([1, 2, 2, -1, -5, 3, 4, 4, 5, 9, 2], 2), 0.01);
     }
 
     /**
@@ -197,6 +217,7 @@ class AverageTest extends \PHPUnit\Framework\TestCase
     public function testMedian() : void
     {
         self::assertEqualsWithDelta(4, Average::median([1, 2, 3, 4, 5, 6, 7]), 0.01);
+        self::assertEqualsWithDelta(4, Average::median([1, 2, -4, -6, 8, 9, 3, 4, 5, 6, 7], 2), 0.01);
         self::assertEqualsWithDelta(3.5, Average::median([1, 2, 3, 4, 5, 6]), 0.01);
     }
 }

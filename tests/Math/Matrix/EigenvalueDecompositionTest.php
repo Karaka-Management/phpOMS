@@ -294,4 +294,76 @@ class EigenvalueDecompositionTest extends \PHPUnit\Framework\TestCase
         self::assertEqualsWithDelta([-2.5510, 3.27552, 3.27552], $eig->getRealEigenvalues()->toArray(), 0.1);
         self::assertEqualsWithDelta([0.0, 4.7940, -4.7940], $eig->getImagEigenvalues()->toArray(), 0.1);
     }
+
+    public function testComplexDivision3() : void
+    {
+        $A = new Matrix();
+        $A->setMatrix([
+            [9, 4, 5, 1],
+            [-1, 15, -2, 13],
+            [-14, 7, 15, -13],
+            [13, -16, -2, 19]
+        ]);
+
+        $eig = new EigenvalueDecomposition($A);
+
+        self::assertEqualsWithDelta([
+            [17.7766, 14.8641, 0.0, 0.0],
+            [-14.8641, 17.7766, 0.0, 0.0],
+            [0.0, 0.0, 11.22336, 5.6595],
+            [0.0, 0.0, -5.6595, 11.22336]
+        ], $eig->getD()->toArray(), 0.1);
+
+        self::assertEqualsWithDelta([17.7766, 17.7766, 11.2233, 11.2233], $eig->getRealEigenvalues()->toArray(), 0.1);
+        self::assertEqualsWithDelta([14.8641, -14.8641, 5.6595, -5.6595], $eig->getImagEigenvalues()->toArray(), 0.1);
+    }
+
+    public function testComplexDivision4() : void
+    {
+        $A = new Matrix();
+        $A->setMatrix([
+            [5, 14, 5, -6],
+            [13, 12, -4, -3],
+            [13, 10, 8, 17],
+            [5, -6, 3, 16]
+        ]);
+
+        $eig = new EigenvalueDecomposition($A);
+
+        self::assertEqualsWithDelta([
+            [22.6519, 3.96406, 0.0, 0.0],
+            [-3.96406, 22.6519, 0.0, 0.0],
+            [0.0, 0.0, -2.1519, 3.39498],
+            [0.0, 0.0, -3.39498, -2.1519]
+        ], $eig->getD()->toArray(), 0.1);
+
+        self::assertEqualsWithDelta([22.6519, 22.6519, -2.1519, -2.1519], $eig->getRealEigenvalues()->toArray(), 0.1);
+        self::assertEqualsWithDelta([3.96406, -3.96406, 3.39498, -3.39498], $eig->getImagEigenvalues()->toArray(), 0.1);
+    }
 }
+/*
+        Test case finder
+        $c = 0;
+        try {
+            do {
+                $array = [];
+                for ($i = 0; $i < 4; ++$i) {
+                    $array[] = [];
+                    for ($j = 0; $j < 4; ++$j) {
+                        $div = \mt_rand(-20, 20);
+
+                        $array[$i][] = \mt_rand(-20, 20);
+                    }
+                }
+
+                $A = new Matrix();
+                $A->setMatrix($array);
+
+                $eig = new EigenvalueDecomposition($A);
+                ++$c;
+            } while (true);
+        } catch (\Throwable $t) {
+            var_dump($c);
+            var_dump($array);
+        }
+*/

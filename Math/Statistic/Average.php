@@ -173,6 +173,7 @@ final class Average
      * Example: ([1, 2, 2, 3, 4, 4, 2])
      *
      * @param array<int, int|float> $values Values
+     * @param int                   $offset Offset for outlier
      *
      * @return float
      *
@@ -180,12 +181,17 @@ final class Average
      *
      * @since 1.0.0
      */
-    public static function arithmeticMean(array $values) : float
+    public static function arithmeticMean(array $values, int $offset = 0) : float
     {
         $count = \count($values);
-
-        if ($count === 0) {
+        if ($count <= $offset * 2) {
             throw new ZeroDivisionException();
+        }
+
+        if ($offset > 0) {
+            \sort($values);
+            $values = \array_slice($values, $offset, -$offset);
+            $count -= $offset * 2;
         }
 
         return \array_sum($values) / $count;
@@ -197,13 +203,19 @@ final class Average
      * Example: ([1, 2, 2, 3, 4, 4, 2])
      *
      * @param array<int, int|float> $values Values
+     * @param int                   $offset Offset for outlier
      *
      * @return float
      *
      * @since 1.0.0
      */
-    public static function mode(array $values) : float
+    public static function mode(array $values, int $offset = 0) : float
     {
+        if ($offset > 0) {
+            \sort($values);
+            $values = \array_slice($values, $offset, -$offset);
+        }
+
         $count = \array_count_values($values);
         $best  = \max($count);
 
@@ -216,14 +228,20 @@ final class Average
      * Example: ([1, 2, 2, 3, 4, 4, 2])
      *
      * @param array<int, int|float> $values Values
+     * @param int                   $offset Offset for outlier
      *
      * @return float
      *
      * @since 1.0.0
      */
-    public static function median(array $values) : float
+    public static function median(array $values, int $offset = 0) : float
     {
         \sort($values);
+
+        if ($offset > 0) {
+            $values = \array_slice($values, $offset, -$offset);
+        }
+
         $count     = \count($values);
         $middleval = (int) \floor(($count - 1) / 2);
 
@@ -255,9 +273,14 @@ final class Average
     public static function geometricMean(array $values, int $offset = 0) : float
     {
         $count = \count($values);
-
-        if ($count === 0) {
+        if ($count <= $offset * 2) {
             throw new ZeroDivisionException();
+        }
+
+        if ($offset > 0) {
+            \sort($values);
+            $values = \array_slice($values, $offset, -$offset);
+            $count -= $offset * 2;
         }
 
         return \pow(\array_product($values), 1 / $count);
@@ -279,23 +302,18 @@ final class Average
      */
     public static function harmonicMean(array $values, int $offset = 0) : float
     {
-        \sort($values);
-
-        if ($offset > 0) {
-            /**
-             * @todo Orange-Management/phpOMS#175
-             *  Create unit test.
-             */
-            $values = \array_slice($values, $offset, -$offset);
-        }
-
         $count = \count($values);
-        $sum   = 0.0;
-
-        if ($count === 0) {
+        if ($count <= $offset * 2) {
             throw new ZeroDivisionException();
         }
 
+        if ($offset > 0) {
+            \sort($values);
+            $values = \array_slice($values, $offset, -$offset);
+            $count -= $offset * 2;
+        }
+
+        $sum = 0.0;
         foreach ($values as $value) {
             if ($value === 0) {
                 throw new ZeroDivisionException();
@@ -319,19 +337,29 @@ final class Average
      *
      * @since 1.0.0
      */
-    public static function angleMean($angles, int $offset = 0) : float
+    public static function angleMean(array $angles, int $offset = 0) : float
     {
-        $y    = 0;
-        $x    = 0;
-        $size = \count($angles);
+        $count = \count($angles);
+        if ($count <= $offset * 2) {
+            throw new ZeroDivisionException();
+        }
 
-        for ($i = 0; $i < $size; ++$i) {
+        if ($offset > 0) {
+            \sort($angles);
+            $angles = \array_slice($angles, $offset, -$offset);
+            $count -= $offset * 2;
+        }
+
+        $y = 0;
+        $x = 0;
+
+        for ($i = 0; $i < $count; ++$i) {
             $x += \cos(\deg2rad($angles[$i]));
             $y += \sin(\deg2rad($angles[$i]));
         }
 
-        $x /= $size;
-        $y /= $size;
+        $x /= $count;
+        $y /= $count;
 
         return \rad2deg(\atan2($y, $x));
     }
@@ -350,14 +378,15 @@ final class Average
      */
     public static function angleMean2(array $angles, int $offset = 0) : float
     {
-        \sort($angles);
+        $count = \count($angles);
+        if ($count <= $offset * 2) {
+            throw new ZeroDivisionException();
+        }
 
         if ($offset > 0) {
-            /**
-             * @todo Orange-Management/phpOMS#176
-             *  Create unit test.
-             */
+            \sort($angles);
             $angles = \array_slice($angles, $offset, -$offset);
+            $count -= $offset * 2;
         }
 
         $sins = 0.0;
@@ -368,8 +397,8 @@ final class Average
             $coss += \cos(\deg2rad($a));
         }
 
-        $avgsin = $sins / (0.0 + \count($angles));
-        $avgcos = $coss / (0.0 + \count($angles));
+        $avgsin = $sins / (0.0 + $count);
+        $avgcos = $coss / (0.0 + $count);
         $avgang = \rad2deg(\atan2($avgsin, $avgcos));
 
         while ($avgang < 0.0) {
