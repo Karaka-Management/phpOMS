@@ -23,7 +23,7 @@ class AuthorizationCodeTest extends \PHPUnit\Framework\TestCase
 {
     private AuthorizationCode $grant;
 
-    public function setUp() : void
+    protected function setUp() : void
     {
         $this->grant = new AuthorizationCode();
     }
@@ -33,17 +33,17 @@ class AuthorizationCodeTest extends \PHPUnit\Framework\TestCase
         self::assertEquals('authorization_code', $this->grant->__toString());
         self::assertEquals(
             [
-                'code' => 'value',
+                'code'   => 'value',
                 'option' => '2',
-                'test' => 'value2',
+                'test'   => 'value2',
             ],
             $this->grant->prepareRequestParamters(
                 [
-                    'code' => 'value'
+                    'code' => 'value',
                 ],
                 [
                     'option' => '2',
-                    'test' => 'value2'
+                    'test'   => 'value2',
                 ]
             )
         );
@@ -54,11 +54,11 @@ class AuthorizationCodeTest extends \PHPUnit\Framework\TestCase
         $this->expectException(\Exception::class);
         $this->grant->prepareRequestParamters(
             [
-                'test' => 'value'
+                'test' => 'value',
             ],
             [
                 'option' => '2',
-                'test' => 'value2'
+                'test'   => 'value2',
             ]
         );
     }

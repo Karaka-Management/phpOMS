@@ -15,8 +15,8 @@ declare(strict_types=1);
 namespace phpOMS\tests\Auth\OAuth2\Grant;
 
 use phpOMS\Auth\OAuth2\Grant\AuthorizationCode;
-use phpOMS\Auth\OAuth2\Grant\GrantFactory;
 use phpOMS\Auth\OAuth2\Grant\GrantAbstract;
+use phpOMS\Auth\OAuth2\Grant\GrantFactory;
 
 /**
  * @internal
@@ -25,7 +25,7 @@ class GrantFactoryTest extends \PHPUnit\Framework\TestCase
 {
     private GrantFactory $factory;
 
-    public function setUp() : void
+    protected function setUp() : void
     {
         $this->factory = new GrantFactory();
     }
@@ -38,7 +38,7 @@ class GrantFactoryTest extends \PHPUnit\Framework\TestCase
 
     public function testGrantInputOutput() : void
     {
-        $grant = new class extends GrantAbstract {
+        $grant = new class() extends GrantAbstract {
             protected function getName() : string
             {
                 return 'TestGrant';

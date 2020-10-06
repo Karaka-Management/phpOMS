@@ -27,9 +27,9 @@ class AccessTokenTest extends \PHPUnit\Framework\TestCase
         self::assertEquals('token', $token->getToken());
         self::assertEquals('token', $token->__toString());
         self::assertEquals(-1, $token->getExpires());
-        self::assertEquals(null, $token->getRefreshToken());
-        self::assertEquals(null, $token->getResourceOwnerId());
-        self::assertEquals(false, $token->hasExpired());
+        self::assertNull($token->getRefreshToken());
+        self::assertNull($token->getResourceOwnerId());
+        self::assertFalse($token->hasExpired());
         self::assertEquals([], $token->getValues());
         self::assertEquals(['access_token' => 'token'], $token->jsonSerialize());
     }
@@ -74,11 +74,11 @@ class AccessTokenTest extends \PHPUnit\Framework\TestCase
     public function testValuesInputOutput() : void
     {
         $token = new AccessToken([
-            'access_token' => 'token',
+            'access_token'      => 'token',
             'resource_owner_id' => 'owner',
-            'expires_in' => 10,
-            'refresh_token' => 'refresh',
-            'more' => 'values'
+            'expires_in'        => 10,
+            'refresh_token'     => 'refresh',
+            'more'              => 'values',
         ]);
 
         self::assertEquals(
@@ -92,20 +92,20 @@ class AccessTokenTest extends \PHPUnit\Framework\TestCase
         $expires = \time() + 10;
 
         $token = new AccessToken([
-            'access_token' => 'token',
+            'access_token'      => 'token',
             'resource_owner_id' => 'owner',
-            'expires' => $expires,
-            'refresh_token' => 'refresh',
-            'more' => 'values'
+            'expires'           => $expires,
+            'refresh_token'     => 'refresh',
+            'more'              => 'values',
         ]);
 
         self::assertEquals(
             [
-                'access_token' => 'token',
+                'access_token'      => 'token',
                 'resource_owner_id' => 'owner',
-                'expires' => $expires,
-                'refresh_token' => 'refresh',
-                'more' => 'values'
+                'expires'           => $expires,
+                'refresh_token'     => 'refresh',
+                'more'              => 'values',
             ],
             $token->jsonSerialize()
         );

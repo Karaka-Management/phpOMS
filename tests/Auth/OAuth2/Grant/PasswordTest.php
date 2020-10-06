@@ -23,7 +23,7 @@ class PasswordTest extends \PHPUnit\Framework\TestCase
 {
     private Password $grant;
 
-    public function setUp() : void
+    protected function setUp() : void
     {
         $this->grant = new Password();
     }
@@ -35,15 +35,15 @@ class PasswordTest extends \PHPUnit\Framework\TestCase
             [
                 'username' => 'value',
                 'password' => '2',
-                'test' => 'value2',
+                'test'     => 'value2',
             ],
             $this->grant->prepareRequestParamters(
                 [
-                    'username' => 'value'
+                    'username' => 'value',
                 ],
                 [
                     'password' => '2',
-                    'test' => 'value2'
+                    'test'     => 'value2',
                 ]
             )
         );
@@ -54,11 +54,11 @@ class PasswordTest extends \PHPUnit\Framework\TestCase
         $this->expectException(\Exception::class);
         $this->grant->prepareRequestParamters(
             [
-                'username' => 'value'
+                'username' => 'value',
             ],
             [
                 'option' => '2',
-                'test' => 'value2'
+                'test'   => 'value2',
             ]
         );
     }

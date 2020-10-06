@@ -23,7 +23,7 @@ class RefreshTokenTest extends \PHPUnit\Framework\TestCase
 {
     private RefreshToken $grant;
 
-    public function setUp() : void
+    protected function setUp() : void
     {
         $this->grant = new RefreshToken();
     }
@@ -34,16 +34,16 @@ class RefreshTokenTest extends \PHPUnit\Framework\TestCase
         self::assertEquals(
             [
                 'refresh_token' => 'value',
-                'option' => '2',
-                'test' => 'value2',
+                'option'        => '2',
+                'test'          => 'value2',
             ],
             $this->grant->prepareRequestParamters(
                 [
-                    'refresh_token' => 'value'
+                    'refresh_token' => 'value',
                 ],
                 [
                     'option' => '2',
-                    'test' => 'value2'
+                    'test'   => 'value2',
                 ]
             )
         );
@@ -54,11 +54,11 @@ class RefreshTokenTest extends \PHPUnit\Framework\TestCase
         $this->expectException(\Exception::class);
         $this->grant->prepareRequestParamters(
             [
-                'test' => 'value'
+                'test' => 'value',
             ],
             [
                 'option' => '2',
-                'test' => 'value2'
+                'test'   => 'value2',
             ]
         );
     }

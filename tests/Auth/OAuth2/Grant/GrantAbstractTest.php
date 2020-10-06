@@ -23,9 +23,9 @@ class GrantAbstractTest extends \PHPUnit\Framework\TestCase
 {
     private GrantAbstract $grant;
 
-    public function setUp() : void
+    protected function setUp() : void
     {
-        $this->grant = new class extends GrantAbstract {
+        $this->grant = new class() extends GrantAbstract {
             protected function getName() : string
             {
                 return 'TestGrant';
@@ -43,16 +43,16 @@ class GrantAbstractTest extends \PHPUnit\Framework\TestCase
         self::assertEquals('TestGrant', $this->grant->__toString());
         self::assertEquals(
             [
-                'test' => 'value2',
-                'option' => '2'
+                'test'   => 'value2',
+                'option' => '2',
             ],
             $this->grant->prepareRequestParamters(
                 [
-                    'test' => 'value'
+                    'test' => 'value',
                 ],
                 [
                     'option' => '2',
-                    'test' => 'value2'
+                    'test'   => 'value2',
                 ]
             )
         );
@@ -63,7 +63,7 @@ class GrantAbstractTest extends \PHPUnit\Framework\TestCase
         $this->expectException(\Exception::class);
         $this->grant->prepareRequestParamters(
             [
-                'something' => 'value'
+                'something' => 'value',
             ],
             [
                 'option' => '2',
