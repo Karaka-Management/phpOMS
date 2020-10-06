@@ -6,6 +6,7 @@
  *
  * @package   phpOMS\Auth\OAuth2\Token
  * @copyright Dennis Eichhorn
+ * @copyright MIT - Copyright (c) 2013-2018 Alex Bilbie <hello@alexbilbie.com> - thephpleague/oauth2-client
  * @license   OMS License 1.0
  * @version   1.0.0
  * @link      https://orange-management.org
@@ -26,7 +27,7 @@ class AccessToken implements AccessTokenInterface, ResourceOwnerAccessTokenInter
 {
     protected string $accessToken;
 
-    protected ?int $expires = null;
+    protected int $expires = -1;
 
     protected ?string $refreshToken = null;
 
@@ -70,7 +71,7 @@ class AccessToken implements AccessTokenInterface, ResourceOwnerAccessTokenInter
         return $this->accessToken;
     }
 
-    public function getExpires() : ?int
+    public function getExpires() : int
     {
         return $this->expires;
     }
@@ -87,12 +88,12 @@ class AccessToken implements AccessTokenInterface, ResourceOwnerAccessTokenInter
 
     public function hasExpired() : bool
     {
-        return $this->expires < \time();
+        return $this->expires > 0 && $this->expires < \time();
     }
 
     public function getValues() : array
     {
-        return $this->vallues;
+        return $this->values;
     }
 
     public function __toString()
@@ -102,21 +103,18 @@ class AccessToken implements AccessTokenInterface, ResourceOwnerAccessTokenInter
 
     public function jsonSerialize()
     {
-        $params = $this->values;
+        $params                 = $this->values;
+        $params['access_token'] = $this->accessToken;
 
-        if (isset($this->accessToken)) {
-            $params['access_token'] = $this->accessToken;
-        }
-
-        if (isset($this->refreshToken)) {
+        if ($this->refreshToken !== null) {
             $params['refresh_token'] = $this->refreshToken;
         }
 
-        if (isset($this->expires)) {
+        if ($this->expires > 0) {
             $params['expires'] = $this->expires;
         }
 
-        if (isset($this->resourceOwnerId)) {
+        if ($this->resourceOwnerId !== null) {
             $params['resource_owner_id'] = $this->resourceOwnerId;
         }
 

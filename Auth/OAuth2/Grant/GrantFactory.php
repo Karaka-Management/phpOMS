@@ -6,6 +6,7 @@
  *
  * @package   phpOMS\Auth\OAuth2\Grant
  * @copyright Dennis Eichhorn
+ * @copyright MIT - Copyright (c) 2013-2018 Alex Bilbie <hello@alexbilbie.com> - thephpleague/oauth2-client
  * @license   OMS License 1.0
  * @version   1.0.0
  * @link      https://orange-management.org
@@ -46,7 +47,7 @@ class GrantFactory
     protected function registerDefaultGrant(string $name) : self
     {
         $class = \str_replace(' ', '', \ucwords(\str_replace(['-', '_'], ' ', $name)));
-        $class = 'phpOMS\\OAuth2\\Grant\\' . $class;
+        $class = 'phpOMS\\Auth\\OAuth2\\Grant\\' . $class;
 
         if (!\is_subclass_of($class, GrantAbstract::class)) {
             throw new \Exception();

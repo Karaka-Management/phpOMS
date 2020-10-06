@@ -6,8 +6,8 @@
  *
  * @package   phpOMS\Math\Matrix
  * @copyright Dennis Eichhorn
+ * @copyright JAMA - https://math.nist.gov/javanumerics/jama/
  * @license   OMS License 1.0
- * @license   JAMA - https://math.nist.gov/javanumerics/jama/
  * @version   1.0.0
  * @link      https://orange-management.org
  */
@@ -25,7 +25,6 @@ use phpOMS\Math\Matrix\Exception\InvalidDimensionException;
  *
  * @package phpOMS\Math\Matrix
  * @license OMS License 1.0
- * @license JAMA - https://math.nist.gov/javanumerics/jama/
  * @link    https://orange-management.org
  * @since   1.0.0
  */

@@ -1,0 +1,62 @@
+<?php
+/**
+ * Orange Management
+ *
+ * PHP Version 7.4
+ *
+ * @package   tests
+ * @copyright Dennis Eichhorn
+ * @license   OMS License 1.0
+ * @version   1.0.0
+ * @link      https://orange-management.org
+ */
+declare(strict_types=1);
+
+namespace phpOMS\tests\Auth\OAuth2\Grant;
+
+use phpOMS\Auth\OAuth2\Grant\AuthorizationCode;
+use phpOMS\Auth\OAuth2\Grant\GrantFactory;
+use phpOMS\Auth\OAuth2\Grant\GrantAbstract;
+
+/**
+ * @internal
+ */
+class GrantFactoryTest extends \PHPUnit\Framework\TestCase
+{
+    private GrantFactory $factory;
+
+    public function setUp() : void
+    {
+        $this->factory = new GrantFactory();
+    }
+
+    public function testGrantGet() : void
+    {
+        $grant = $this->factory->getGrant('AuthorizationCode');
+        self::assertInstanceOf(AuthorizationCode::class, $grant);
+    }
+
+    public function testGrantInputOutput() : void
+    {
+        $grant = new class extends GrantAbstract {
+            protected function getName() : string
+            {
+                return 'TestGrant';
+            }
+
+            protected function getRequiredRequestParameters() : array
+            {
+                return ['test'];
+            }
+        };
+        $this->factory->setGrant('test', $grant);
+
+        self::assertInstanceOf(\get_class($grant), $this->factory->getGrant('test'));
+    }
+
+    public function testInvalidGrantGet() : void
+    {
+        $this->expectException(\Exception::class);
+        $this->factory->getGrant('invalid');
+    }
+}
