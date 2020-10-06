@@ -25,7 +25,7 @@ class HttpBasicAuthOptionProviderTest extends \PHPUnit\Framework\TestCase
 {
     private HttpBasicAuthOptionProvider $provider;
 
-    public function setUp() : void
+    protected function setUp() : void
     {
         $this->provider = new HttpBasicAuthOptionProvider();
     }
@@ -35,16 +35,16 @@ class HttpBasicAuthOptionProviderTest extends \PHPUnit\Framework\TestCase
         self::assertEquals(
             [
                 'headers' => [
-                    'content-type' => MimeType::M_POST,
-                    'Authorization' => 'Basic aWQ6c2VjcmV0'
+                    'content-type'  => MimeType::M_POST,
+                    'Authorization' => 'Basic aWQ6c2VjcmV0',
                 ],
                 'body' => 'para=test&para2=test2',
             ],
             $this->provider->getAccessTokenOptions(RequestMethod::POST, [
-                    'para' => 'test',
-                    'para2' => 'test2',
-                    'client_id' => 'id',
-                    'client_secret' => 'secret'
+                    'para'          => 'test',
+                    'para2'         => 'test2',
+                    'client_id'     => 'id',
+                    'client_secret' => 'secret',
                 ]
             )
         );
@@ -54,8 +54,8 @@ class HttpBasicAuthOptionProviderTest extends \PHPUnit\Framework\TestCase
     {
         self::assertEquals([],
             $this->provider->getAccessTokenOptions(RequestMethod::POST, [
-                    'para' => 'test',
-                    'para2' => 'test2',
+                    'para'      => 'test',
+                    'para2'     => 'test2',
                     'client_id' => 'id',
                 ]
             )

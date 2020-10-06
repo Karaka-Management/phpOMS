@@ -25,7 +25,7 @@ class PostAuthOptionProviderTest extends \PHPUnit\Framework\TestCase
 {
     private PostAuthOptionProvider $provider;
 
-    public function setUp() : void
+    protected function setUp() : void
     {
         $this->provider = new PostAuthOptionProvider();
     }
@@ -35,7 +35,7 @@ class PostAuthOptionProviderTest extends \PHPUnit\Framework\TestCase
         self::assertEquals(
             [
                 'headers' => ['content-type' => MimeType::M_POST],
-                'body' => 'para=test&para2=test2',
+                'body'    => 'para=test&para2=test2',
             ],
             $this->provider->getAccessTokenOptions(RequestMethod::POST, ['para' => 'test', 'para2' => 'test2'])
         );

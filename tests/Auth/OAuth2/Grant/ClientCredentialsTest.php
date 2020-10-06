@@ -23,7 +23,7 @@ class ClientCredentialsTest extends \PHPUnit\Framework\TestCase
 {
     private ClientCredentials $grant;
 
-    public function setUp() : void
+    protected function setUp() : void
     {
         $this->grant = new ClientCredentials();
     }
@@ -33,17 +33,17 @@ class ClientCredentialsTest extends \PHPUnit\Framework\TestCase
         self::assertEquals('client_credentials', $this->grant->__toString());
         self::assertEquals(
             [
-                'code' => 'value',
+                'code'   => 'value',
                 'option' => '2',
-                'test' => 'value2',
+                'test'   => 'value2',
             ],
             $this->grant->prepareRequestParamters(
                 [
-                    'code' => 'value'
+                    'code' => 'value',
                 ],
                 [
                     'option' => '2',
-                    'test' => 'value2'
+                    'test'   => 'value2',
                 ]
             )
         );
