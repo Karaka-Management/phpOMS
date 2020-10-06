@@ -275,7 +275,7 @@ final class Gamma
     private static function gammaFraction(float $a, float $x) : float
     {
         $b   = $x + 1.0 - $a;
-        $c   = 1.0 / 2.23e-308;
+        $c   = 1.0 / 1.18e-37;
         $d   = 1.0 / $b;
         $h   = $d;
         $del = 0.0;
@@ -286,12 +286,12 @@ final class Gamma
             $d  = $an * $d + $b;
             $c  = $b + $an / $c;
 
-            if (\abs($c) < 2.23e-308) {
-                $c = 2.23e-308;
+            if (\abs($c) < 1.18e-37) {
+                $c = 1.18e-37;
             }
 
-            if (\abs($d) < 2.23e-308) {
-                $d = 2.23e-308;
+            if (\abs($d) < 1.18e-37) {
+                $d = 1.18e-37;
             }
 
             $d   = 1.0 / $d;

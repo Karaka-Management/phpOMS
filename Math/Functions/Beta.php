@@ -99,8 +99,8 @@ final class Beta
         $pMinus = $p - 1.0;
         $h      = 1.0 - $pqSum * $x / $pPlus;
 
-        if (\abs($h) < 2.23e-308) {
-            $h = 2.23e-308;
+        if (\abs($h) < 1.18e-37) {
+            $h = 1.18e-37;
         }
 
         $h     = 1.0 / $h;
@@ -112,33 +112,33 @@ final class Beta
             $m2 = 2 * $m;
             $d  = $m * ($q - $m) * $x / (($pMinus + $m2) * ($p + $m2));
             $h  = 1.0 + $d * $h;
-            if (\abs($h) < 2.23e-308) {
-                $h = 2.23e-308;
+            if (\abs($h) < 1.18e-37) {
+                $h = 1.18e-37;
             }
 
             $h = 1.0 / $h;
             $c = 1.0 + $d / $c;
-            if (\abs($c) < 2.23e-308) {
-                $c = 2.23e-308;
+            if (\abs($c) < 1.18e-37) {
+                $c = 1.18e-37;
             }
 
             $frac *= $h * $c;
             $d     = -($p + $m) * ($pqSum + $m) * $x / (($p + $m2) * ($pPlus + $m2));
             $h     = 1.0 + $d * $h;
-            if (\abs($h) < 2.23e-308) {
-                $h = 2.23e-308;
+            if (\abs($h) < 1.18e-37) {
+                $h = 1.18e-37;
             }
 
             $h = 1.0 / $h;
             $c = 1.0 + $d / $c;
-            if (\abs($c) < 2.23e-308) {
-                $c = 2.23e-308;
+            if (\abs($c) < 1.18e-37) {
+                $c = 1.18e-37;
             }
 
             $delta = $h * $c;
             $frac *= $delta;
             ++$m;
-        } while ($m < 1000000000 && \abs($delta - 1.0) > 8.88e-16);
+        } while ($m < 1000000 && \abs($delta - 1.0) > 8.88e-16);
 
         return $frac;
     }
