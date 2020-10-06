@@ -1824,6 +1824,7 @@ class DataMapperAbstract implements DataMapperInterface
      */
     public static function delete($obj, int $relations = RelationType::REFERENCE)
     {
+        // @todo: only do this if RelationType !== NONE
         if (\is_scalar($obj)) {
             $obj = static::get($obj);
         }
@@ -3373,11 +3374,11 @@ class DataMapperAbstract implements DataMapperInterface
      */
     private static function removeInitialized(string $mapper, $id)
     {
-        if (self::isInitialized($mapper, $id)) {
+        if (isset(self::$initObjects[$mapper][$id])) {
             unset(self::$initObjects[$mapper][$id]);
         }
 
-        if (self::isInitializedArray($mapper, $id)) {
+        if (isset(self::$initArrays[$mapper][$id])) {
             unset(self::$initArrays[$mapper][$id]);
         }
     }
