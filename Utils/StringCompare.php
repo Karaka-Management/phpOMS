@@ -87,6 +87,83 @@ final class StringCompare
     }
 
     /**
+     * Jaro string distance
+     *
+     * @param string $s1 String1
+     * @param string $s2 String2
+     *
+     * @return float
+     *
+     * @since 1.0.0
+     */
+    public static function jaro(string $s1, string $s2) : float
+    {
+        $s1Size = \strlen($s1);
+        $s2Size = \strlen($s2);
+
+        if ($s1Size === 0) {
+            return $s2Size === 0 ? 1.0 : 0.0;
+        }
+
+        $mDistance = (int) (\max($s1Size, $s2Size) / 2 - 1);
+
+        $matches        = 0;
+        $transpositions = 0.0;
+
+        $s1Matches = [];
+        $s2Matches = [];
+
+        for ($i = 0; $i < $s1Size; ++$i) {
+            $start = \max(0, $i - $mDistance);
+            $end   = \min($i + $mDistance + 1, $s2Size);
+
+            for ($j = $start; $j < $end; ++$j) {
+                if (isset($s2Matches[$j])) {
+                    continue;
+                }
+
+                if ($s1[$i] !== $s2[$j]) {
+                    continue;
+                }
+
+                $s1Matches[$i] = true;
+                $s2Matches[$j] = true;
+
+                ++$matches;
+                break;
+            }
+        }
+
+        if ($matches === 0) {
+            return 0.0;
+        }
+
+        $j = 0;
+        for ($i = 0; $i < $s1Size; ++$i) {
+            if (!isset($s1Matches[$i])) {
+                continue;
+            }
+
+            while (!isset($s2Matches[$j])) {
+                ++$j;
+            }
+
+            if ($s1[$i] !== $s2[$j]) {
+                ++$transpositions;
+            }
+
+            ++$j;
+        }
+
+        $transpositions /= 2.0;
+
+        return ($matches / $s1Size
+            + $matches / $s2Size
+            + ($matches - $transpositions) / $matches)
+            / 3.0;
+    }
+
+    /**
      * Calculate word match score.
      *
      * @param string $s1 Word 1

@@ -94,4 +94,18 @@ class StringCompareTest extends \PHPUnit\Framework\TestCase
         // a is compared to is which has a distance of 2
         self::assertEquals(2, StringCompare::valueWords('This is a test', 'This is not test'));
     }
+
+    public function testJaro() : void
+    {
+        self::assertEqualsWithDelta(0.944444, StringCompare::jaro('MARTHA', 'MARHTA'), 0.01);
+        self::assertEqualsWithDelta(0.766667, StringCompare::jaro('DIXON', 'DICKSONX'), 0.01);
+        self::assertEqualsWithDelta(0.896296, StringCompare::jaro('JELLYFISH', 'SMELLYFISH'), 0.01);
+    }
+
+    public function testJaroEmpty() : void
+    {
+        self::assertEquals(1.0, StringCompare::jaro('', ''));
+        self::assertEquals(0.0, StringCompare::jaro('', 'test'));
+        self::assertEquals(0.0, StringCompare::jaro('test', ''));
+    }
 }

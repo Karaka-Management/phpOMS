@@ -26,10 +26,6 @@ use phpOMS\Contract\RenderableInterface;
  * @link    https://orange-management.org
  * @since   1.0.0
  *
- * @todo Orange-Management/phpOMS#119
- *  Create jaro winkler distance
- *  https://en.wikipedia.org/wiki/Jaro%E2%80%93Winkler_distance
- *
  * @SuppressWarnings(PHPMD.CamelCaseMethodName)
  */
 final class StringUtils
