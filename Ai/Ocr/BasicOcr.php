@@ -54,7 +54,7 @@ final class BasicOcr
      *
      * @param string $dataPath  Impage path to read
      * @param string $labelPath Label path to read
-     * @param string $limit     Limit
+     * @param string $limit     Limit (0 = unlimited)
      *
      * @return void
      *
@@ -245,7 +245,7 @@ final class BasicOcr
      *
      * @param string $path       Path to the image to categorize/evaluate/match against the training data
      * @param string $comparison Amount of comparisons
-     * @param string $limit      Limit
+     * @param string $limit      Limit (0 = unlimited)
      *
      * @return array
      *
