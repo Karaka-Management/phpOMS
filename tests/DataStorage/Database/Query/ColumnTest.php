@@ -21,6 +21,10 @@ use phpOMS\DataStorage\Database\Query\Column;
  */
 class ColumnTest extends \PHPUnit\Framework\TestCase
 {
+    /**
+     * @covers phpOMS\DataStorage\Database\Query\Column
+     * @group framework
+     */
     public function testDefault() : void
     {
         self::assertInstanceOf('\phpOMS\DataStorage\Database\Query\Builder', new Column($GLOBALS['dbpool']->get()));

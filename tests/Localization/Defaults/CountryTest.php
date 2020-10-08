@@ -27,6 +27,7 @@ class CountryTest extends \PHPUnit\Framework\TestCase
 {
     /**
      * @testdox The model has the expected member variables and default values
+     * @covers phpOMS\Localization\Defaults\Country
      * @group framework
      */
     public function testDefaults() : void

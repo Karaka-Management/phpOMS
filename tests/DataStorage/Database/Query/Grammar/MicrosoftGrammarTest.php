@@ -21,6 +21,10 @@ use phpOMS\DataStorage\Database\Query\Grammar\MicrosoftGrammar;
  */
 class MicrosoftGrammarTest extends \PHPUnit\Framework\TestCase
 {
+    /**
+     * @covers phpOMS\DataStorage\Database\Query\Grammar\MicrosoftGrammar
+     * @group framework
+     */
     public function testDefault() : void
     {
         self::assertInstanceOf('\phpOMS\DataStorage\Database\Query\Grammar\Grammar', new MicrosoftGrammar());

@@ -40,6 +40,7 @@ class CurrencyMapperTest extends \PHPUnit\Framework\TestCase
 
     /**
      * @testdox The model can be read from the database
+     * @covers phpOMS\Localization\Defaults\CurrencyMapper
      * @group framework
      */
     public function testR() : void

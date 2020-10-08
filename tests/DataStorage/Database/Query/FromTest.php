@@ -21,6 +21,10 @@ use phpOMS\DataStorage\Database\Query\From;
  */
 class FromTest extends \PHPUnit\Framework\TestCase
 {
+    /**
+     * @covers phpOMS\DataStorage\Database\Query\From
+     * @group framework
+     */
     public function testDefault() : void
     {
         self::assertInstanceOf('\phpOMS\DataStorage\Database\Query\Builder', new From($GLOBALS['dbpool']->get()));

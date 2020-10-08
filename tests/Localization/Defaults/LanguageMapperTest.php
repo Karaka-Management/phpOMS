@@ -40,6 +40,7 @@ class LanguageMapperTest extends \PHPUnit\Framework\TestCase
 
     /**
      * @testdox The model can be read from the database
+     * @covers phpOMS\Localization\Defaults\LanguageMapper
      * @group framework
      */
     public function testR() : void

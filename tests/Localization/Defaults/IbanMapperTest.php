@@ -40,6 +40,7 @@ class IbanMapperTest extends \PHPUnit\Framework\TestCase
 
     /**
      * @testdox The model can be read from the database
+     * @covers phpOMS\Localization\Defaults\IbanMapper
      * @group framework
      */
     public function testR() : void

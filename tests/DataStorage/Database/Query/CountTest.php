@@ -21,6 +21,10 @@ use phpOMS\DataStorage\Database\Query\Count;
  */
 class CountTest extends \PHPUnit\Framework\TestCase
 {
+    /**
+     * @covers phpOMS\DataStorage\Database\Query\Count
+     * @group framework
+     */
     public function testDefault() : void
     {
         self::assertInstanceOf('\phpOMS\DataStorage\Database\Query\Builder', new Count($GLOBALS['dbpool']->get()));

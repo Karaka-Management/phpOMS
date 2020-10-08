@@ -21,6 +21,10 @@ use phpOMS\DataStorage\Database\Query\Expression;
  */
 class ExpressionTest extends \PHPUnit\Framework\TestCase
 {
+    /**
+     * @covers phpOMS\DataStorage\Database\Query\Expression
+     * @group framework
+     */
     public function testDefault() : void
     {
         self::assertInstanceOf('\phpOMS\DataStorage\Database\Query\Builder', new Expression($GLOBALS['dbpool']->get()));

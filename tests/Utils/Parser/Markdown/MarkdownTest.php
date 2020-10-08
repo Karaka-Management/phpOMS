@@ -22,6 +22,10 @@ use phpOMS\Utils\Parser\Markdown\Markdown;
  */
 class MarkdownTest extends \PHPUnit\Framework\TestCase
 {
+    /**
+     * @covers phpOMS\Utils\Parser\Markdown\Markdown
+     * @group framework
+     */
     public function testParsing() : void
     {
         $files = Directory::list(__DIR__ . '/data');

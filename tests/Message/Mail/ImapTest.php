@@ -21,6 +21,10 @@ use phpOMS\Message\Mail\Imap;
  */
 class ImapTest extends \PHPUnit\Framework\TestCase
 {
+    /**
+     * @covers phpOMS\Message\Mail\Imap
+     * @group framework
+     */
     public function testDefault() : void
     {
         self::markTestIncomplete();

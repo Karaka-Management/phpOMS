@@ -21,6 +21,10 @@ use phpOMS\DataStorage\Database\Query\Where;
  */
 class WhereTest extends \PHPUnit\Framework\TestCase
 {
+    /**
+     * @covers phpOMS\DataStorage\Database\Query\Where
+     * @group framework
+     */
     public function testDefault() : void
     {
         self::assertInstanceOf('\phpOMS\DataStorage\Database\Query\Builder', new Where($GLOBALS['dbpool']->get()));

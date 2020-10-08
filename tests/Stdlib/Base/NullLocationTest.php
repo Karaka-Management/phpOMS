@@ -21,6 +21,10 @@ use phpOMS\Stdlib\Base\NullLocation;
  */
 final class NullLocationTest extends \PHPUnit\Framework\TestCase
 {
+    /**
+     * @covers phpOMS\Stdlib\Base\NullLocation
+     * @group framework
+     */
     public function testNullLocation() : void
     {
         self::assertInstanceOf('\phpOMS\Stdlib\Base\Location', new NullLocation());

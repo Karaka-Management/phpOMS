@@ -21,6 +21,10 @@ use phpOMS\DataStorage\Database\Query\Into;
  */
 class IntoTest extends \PHPUnit\Framework\TestCase
 {
+    /**
+     * @covers phpOMS\DataStorage\Database\Query\Into
+     * @group framework
+     */
     public function testDefault() : void
     {
         self::assertInstanceOf('\phpOMS\DataStorage\Database\Query\Builder', new Into($GLOBALS['dbpool']->get()));

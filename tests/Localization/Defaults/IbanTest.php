@@ -27,6 +27,7 @@ class IbanTest extends \PHPUnit\Framework\TestCase
 {
     /**
      * @testdox The model has the expected member variables and default values
+     * @covers phpOMS\Localization\Defaults\Iban
      * @group framework
      */
     public function testDefaults() : void

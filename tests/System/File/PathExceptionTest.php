@@ -21,6 +21,10 @@ use phpOMS\System\File\PathException;
  */
 class PathExceptionTest extends \PHPUnit\Framework\TestCase
 {
+    /**
+     * @covers phpOMS\System\File\PathException
+     * @group framework
+     */
     public function testConstructor() : void
     {
         $e = new PathException('test.file');

@@ -21,6 +21,10 @@ use phpOMS\Math\Exception\ZeroDivisionException;
  */
 class ZeroDivisionExceptionTest extends \PHPUnit\Framework\TestCase
 {
+    /**
+     * @covers phpOMS\Math\Exception\ZeroDivisionException
+     * @group framework
+     */
     public function testException() : void
     {
         self::assertInstanceOf(\UnexpectedValueException::class, new ZeroDivisionException());

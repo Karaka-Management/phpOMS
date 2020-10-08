@@ -23,6 +23,10 @@ use phpOMS\Preloader;
  */
 class PreloaderTest extends \PHPUnit\Framework\TestCase
 {
+    /**
+     * @covers phpOMS\Preloader
+     * @group framework
+     */
     public function testPreloading() : void
     {
         $includes = \get_included_files();
