@@ -57,7 +57,7 @@ class TarGz implements ArchiveInterface
     public static function unpack(string $source, string $destination) : bool
     {
         $destination = \str_replace('\\', '/', $destination);
-        if (!\is_dir($destination) || !\is_file($source)) {
+        if (!\is_dir($destination) || \is_file($source)) {
             return false;
         }
 
