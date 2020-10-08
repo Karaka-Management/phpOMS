@@ -210,7 +210,7 @@ abstract class InstallerAbstract
                     self::installRoutes(__DIR__ . '/../../' . $child->getName() . '/' . \basename($file->getName(), '.php') . '/Routes.php', $file->getPath());
                 }
             } elseif ($child instanceof File) {
-                if (!\is_dir(__DIR__ . '/../../' . $child->getName())
+                if (!\is_file(__DIR__ . '/../../' . $child->getName())
                     || ($appInfo !== null && \basename($child->getName(), '.php') !== $appInfo->getInternalName())
                 ) {
                     continue;
@@ -280,7 +280,7 @@ abstract class InstallerAbstract
         foreach ($directories as $child) {
             if ($child instanceof Directory) {
                 foreach ($child as $file) {
-                    if (!\is_file(__DIR__ . '/../../' . $child->getName() . '/' . \basename($file->getName(), '.php'))
+                    if (!\is_dir(__DIR__ . '/../../' . $child->getName() . '/' . \basename($file->getName(), '.php'))
                         || ($appInfo !== null && \basename($file->getName(), '.php') !== $appInfo->getInternalName())
                     ) {
                         continue;
