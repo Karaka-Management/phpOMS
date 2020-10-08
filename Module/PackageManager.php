@@ -156,7 +156,7 @@ final class PackageManager
         $state = \sodium_crypto_generichash_init();
 
         foreach ($files as $file) {
-            if ($file === 'package.cert' || \is_file($this->extractPath . '/' . $file)) {
+            if ($file === 'package.cert' || \is_dir($this->extractPath . '/' . $file)) {
                 continue;
             }
 
