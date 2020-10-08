@@ -90,7 +90,7 @@ class Tar implements ArchiveInterface
      */
     public static function unpack(string $source, string $destination) : bool
     {
-        if (!\is_dir($source)) {
+        if (!\is_file($source)) {
             return false;
         }
 
