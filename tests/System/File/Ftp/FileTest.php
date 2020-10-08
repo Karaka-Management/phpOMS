@@ -924,6 +924,8 @@ class FileTest extends \PHPUnit\Framework\TestCase
         $file->createNode();
         self::assertTrue(\is_file($testFile));
         self::assertTrue($file->deleteNode());
+
+        \clearstatcache();
         self::assertFalse(\is_file($testFile));
     }
 

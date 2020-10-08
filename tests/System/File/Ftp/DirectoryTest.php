@@ -597,6 +597,8 @@ class DirectoryTest extends \PHPUnit\Framework\TestCase
 
         self::assertTrue(\is_dir(__DIR__ . '/nodedir'));
         self::assertTrue($dir->getNode('nodedir')->deleteNode());
+
+        \clearstatcache();
         self::assertFalse(\is_dir(__DIR__ . '/nodedir'));
     }
 
@@ -731,6 +733,8 @@ class DirectoryTest extends \PHPUnit\Framework\TestCase
 
         self::assertTrue(\is_dir(__DIR__ . '/nodedir'));
         unset($dir['nodedir']);
+
+        \clearstatcache();
         self::assertFalse(\is_dir(__DIR__ . '/nodedir'));
     }
 
