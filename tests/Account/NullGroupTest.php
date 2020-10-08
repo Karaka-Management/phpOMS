@@ -23,6 +23,10 @@ use phpOMS\Account\NullGroup;
  */
 final class NullGroupTest extends \PHPUnit\Framework\TestCase
 {
+    /**
+     * @covers phpOMS\Account\NullGroup
+     * @group module
+     */
     public function testNull() : void
     {
         self::assertInstanceOf('\phpOMS\Account\Group', new NullGroup());
