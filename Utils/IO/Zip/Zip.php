@@ -35,7 +35,9 @@ class Zip implements ArchiveInterface
     {
         $destination = FileUtils::absolute(\str_replace('\\', '/', $destination));
 
-        if (!$overwrite && \is_file($destination)) {
+        if (!$overwrite && \is_file($destination)
+            || \is_dir($destination)
+        ) {
             return false;
         }
 
