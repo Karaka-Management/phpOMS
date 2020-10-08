@@ -31,11 +31,11 @@ class FileLoggerTest extends \PHPUnit\Framework\TestCase
 
     protected function setUp() : void
     {
-        if (\file_exists(__DIR__ . '/' . \date('Y-m-d') . '.log')) {
+        if (\is_file(__DIR__ . '/' . \date('Y-m-d') . '.log')) {
             \unlink(__DIR__ . '/' . \date('Y-m-d') . '.log');
         }
 
-        if (\file_exists(__DIR__ . '/test.log')) {
+        if (\is_file(__DIR__ . '/test.log')) {
             \unlink(__DIR__ . '/test.log');
         }
 
@@ -44,11 +44,11 @@ class FileLoggerTest extends \PHPUnit\Framework\TestCase
 
     protected function tearDown() : void
     {
-        if (\file_exists(__DIR__ . '/' . \date('Y-m-d') . '.log')) {
+        if (\is_file(__DIR__ . '/' . \date('Y-m-d') . '.log')) {
             \unlink(__DIR__ . '/' . \date('Y-m-d') . '.log');
         }
 
-        if (\file_exists(__DIR__ . '/test.log')) {
+        if (\is_file(__DIR__ . '/test.log')) {
             \unlink(__DIR__ . '/test.log');
         }
     }
@@ -84,7 +84,7 @@ class FileLoggerTest extends \PHPUnit\Framework\TestCase
      */
     public function testFileLoggerInstance() : void
     {
-        if (\file_exists(__DIR__ . '/named.log')) {
+        if (\is_file(__DIR__ . '/named.log')) {
             \unlink(__DIR__ . '/named.log');
         }
 
@@ -96,7 +96,7 @@ class FileLoggerTest extends \PHPUnit\Framework\TestCase
 
         TestUtils::setMember($instance, 'instance', $instance);
 
-        if (\file_exists(__DIR__ . '/named.log')) {
+        if (\is_file(__DIR__ . '/named.log')) {
             \unlink(__DIR__ . '/named.log');
         }
     }
@@ -108,16 +108,16 @@ class FileLoggerTest extends \PHPUnit\Framework\TestCase
      */
     public function testNamedLogFile() : void
     {
-        if (\file_exists(__DIR__ . '/named.log')) {
+        if (\is_file(__DIR__ . '/named.log')) {
             \unlink(__DIR__ . '/named.log');
         }
 
         $log = new FileLogger(__DIR__ . '/named.log', false);
 
         $log->info('something');
-        self::assertTrue(\file_exists(__DIR__ . '/named.log'));
+        self::assertTrue(\is_file(__DIR__ . '/named.log'));
 
-        if (\file_exists(__DIR__ . '/named.log')) {
+        if (\is_file(__DIR__ . '/named.log')) {
             \unlink(__DIR__ . '/named.log');
         }
     }
@@ -132,7 +132,7 @@ class FileLoggerTest extends \PHPUnit\Framework\TestCase
         $log = new FileLogger(__DIR__, false);
 
         $log->info('something');
-        self::assertTrue(\file_exists(__DIR__ . '/' . \date('Y-m-d') . '.log'));
+        self::assertTrue(\is_file(__DIR__ . '/' . \date('Y-m-d') . '.log'));
     }
 
     /**
@@ -144,7 +144,7 @@ class FileLoggerTest extends \PHPUnit\Framework\TestCase
     {
         $log = new FileLogger(__DIR__, false);
 
-        self::assertFalse(\file_exists(__DIR__ . '/' . \date('Y-m-d') . '.log'));
+        self::assertFalse(\is_file(__DIR__ . '/' . \date('Y-m-d') . '.log'));
     }
 
     /**

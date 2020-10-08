@@ -81,7 +81,7 @@ final class BasicOcr
      */
     private function readImages(string $path, int $limit = 0) : array
     {
-        if (!\file_exists($path)) {
+        if (!\is_file($path)) {
             throw new PathException($path);
         }
 
@@ -144,7 +144,7 @@ final class BasicOcr
      */
     private function readLabels(string $path, int $limit = 0) : array
     {
-        if (!\file_exists($path)) {
+        if (!\is_file($path)) {
             throw new PathException($path);
         }
 

@@ -28,12 +28,20 @@ class C128AbstractTest extends \PHPUnit\Framework\TestCase
         $this->obj = new class() extends C128Abstract {};
     }
 
+    /**
+     * @covers phpOMS\Utils\Barcode\C128Abstract<extended>
+     * @group framework
+     */
     public function testSetGet() : void
     {
         $this->obj->setContent('abc');
         self::assertEquals('abc', $this->obj->getContent());
     }
 
+    /**
+     * @covers phpOMS\Utils\Barcode\C128Abstract<extended>
+     * @group framework
+     */
     public function testInvalidDimensionWidth() : void
     {
         $this->expectException(\OutOfBoundsException::class);
@@ -41,6 +49,10 @@ class C128AbstractTest extends \PHPUnit\Framework\TestCase
         $this->obj->setDimension(-2, 1);
     }
 
+    /**
+     * @covers phpOMS\Utils\Barcode\C128Abstract<extended>
+     * @group framework
+     */
     public function testInvalidDimensionHeight() : void
     {
         $this->expectException(\OutOfBoundsException::class);
@@ -48,6 +60,10 @@ class C128AbstractTest extends \PHPUnit\Framework\TestCase
         $this->obj->setDimension(1, -2);
     }
 
+    /**
+     * @covers phpOMS\Utils\Barcode\C128Abstract<extended>
+     * @group framework
+     */
     public function testInvalidOrientation() : void
     {
         $this->expectException(\phpOMS\Stdlib\Base\Exception\InvalidEnumValue::class);

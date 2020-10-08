@@ -261,6 +261,10 @@ class MatrixTest extends \PHPUnit\Framework\TestCase
         self::assertEquals(2, $B->rank());
     }
 
+    /**
+     * @covers phpOMS\Math\Matrix\Matrix
+     * @group framework
+     */
     public function testInverse() : void
     {
         $A = new Matrix();
@@ -294,6 +298,10 @@ class MatrixTest extends \PHPUnit\Framework\TestCase
         self::assertEquals([[-6, -7], [0, -5]], $this->C->upperTriangular()->getMatrix());
     }
 
+    /**
+     * @covers phpOMS\Math\Matrix\Matrix
+     * @group framework
+     */
     public function testLowerTriangular() : void
     {
         self::markTestIncomplete();

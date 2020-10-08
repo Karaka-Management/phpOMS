@@ -21,6 +21,10 @@ use phpOMS\Model\Message\FormValidation;
  */
 class FormValidationTest extends \PHPUnit\Framework\TestCase
 {
+    /**
+     * @covers phpOMS\Model\Message\FormValidation
+     * @group framework
+     */
     public function testAttributes() : void
     {
         $obj = new FormValidation([]);
@@ -30,6 +34,10 @@ class FormValidationTest extends \PHPUnit\Framework\TestCase
         self::assertObjectHasAttribute('validation', $obj);
     }
 
+    /**
+     * @covers phpOMS\Model\Message\FormValidation
+     * @group framework
+     */
     public function testDefault() : void
     {
         $obj = new FormValidation([]);
@@ -38,6 +46,10 @@ class FormValidationTest extends \PHPUnit\Framework\TestCase
         self::assertEmpty($obj->toArray()['validation']);
     }
 
+    /**
+     * @covers phpOMS\Model\Message\FormValidation
+     * @group framework
+     */
     public function testSetGet() : void
     {
         $arr = ['a' => true, 'b' => false];

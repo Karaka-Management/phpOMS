@@ -102,7 +102,7 @@ final class FileSessionHandler implements \SessionHandlerInterface, \SessionIdIn
      */
     public function read($id)
     {
-        if (!\file_exists($this->savePath . '/sess_' . $id)) {
+        if (!\is_file($this->savePath . '/sess_' . $id)) {
             return '';
         }
 
@@ -136,7 +136,7 @@ final class FileSessionHandler implements \SessionHandlerInterface, \SessionIdIn
     public function destroy($id)
     {
         $file = $this->savePath . '/sess_' . $id;
-        if (\file_exists($file)) {
+        if (\is_file($file)) {
             \unlink($file);
         }
 
@@ -161,7 +161,7 @@ final class FileSessionHandler implements \SessionHandlerInterface, \SessionIdIn
         }
 
         foreach ($files as $file) {
-            if (\filemtime($file) + $maxlifetime < \time() && \file_exists($file)) {
+            if (\filemtime($file) + $maxlifetime < \time() && \is_file($file)) {
                 \unlink($file);
             }
         }

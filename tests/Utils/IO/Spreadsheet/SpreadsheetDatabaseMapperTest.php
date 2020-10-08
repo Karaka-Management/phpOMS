@@ -45,7 +45,7 @@ class SpreadsheetDatabaseMapperTest extends \PHPUnit\Framework\TestCase
             return;
         }
 
-        if (\file_exists(__DIR__ . '/spreadsheet.db')) {
+        if (\is_file(__DIR__ . '/spreadsheet.db')) {
             \unlink(__DIR__ . '/spreadsheet.db');
         }
 
@@ -56,7 +56,7 @@ class SpreadsheetDatabaseMapperTest extends \PHPUnit\Framework\TestCase
 
     protected function tearDown() : void
     {
-        if (\file_exists(__DIR__ . '/spreadsheet.db')) {
+        if (\is_file(__DIR__ . '/spreadsheet.db')) {
             \unlink(__DIR__ . '/spreadsheet.db');
         }
     }
@@ -359,7 +359,7 @@ class SpreadsheetDatabaseMapperTest extends \PHPUnit\Framework\TestCase
      */
     public function testSelectOds() : void
     {
-        if (\file_exists(__DIR__ . '/select.ods')) {
+        if (\is_file(__DIR__ . '/select.ods')) {
             \unlink(__DIR__ . '/select.ods');
         }
 
@@ -399,7 +399,7 @@ class SpreadsheetDatabaseMapperTest extends \PHPUnit\Framework\TestCase
 
         self::assertTrue($this->compareSelectInsertSheet(__DIR__ . '/select.ods', __DIR__ . '/insert.ods'));
 
-        if (\file_exists(__DIR__ . '/select.ods')) {
+        if (\is_file(__DIR__ . '/select.ods')) {
             \unlink(__DIR__ . '/select.ods');
         }
     }
@@ -411,7 +411,7 @@ class SpreadsheetDatabaseMapperTest extends \PHPUnit\Framework\TestCase
      */
     public function testSelectXls() : void
     {
-        if (\file_exists(__DIR__ . '/select.xls')) {
+        if (\is_file(__DIR__ . '/select.xls')) {
             \unlink(__DIR__ . '/select.xls');
         }
 
@@ -451,7 +451,7 @@ class SpreadsheetDatabaseMapperTest extends \PHPUnit\Framework\TestCase
 
         self::assertTrue($this->compareSelectInsertSheet(__DIR__ . '/select.xls', __DIR__ . '/insert.xls'));
 
-        if (\file_exists(__DIR__ . '/select.xls')) {
+        if (\is_file(__DIR__ . '/select.xls')) {
             \unlink(__DIR__ . '/select.xls');
         }
     }
@@ -463,7 +463,7 @@ class SpreadsheetDatabaseMapperTest extends \PHPUnit\Framework\TestCase
      */
     public function testSelectXlsx() : void
     {
-        if (\file_exists(__DIR__ . '/select.xlsx')) {
+        if (\is_file(__DIR__ . '/select.xlsx')) {
             \unlink(__DIR__ . '/select.xlsx');
         }
 
@@ -503,7 +503,7 @@ class SpreadsheetDatabaseMapperTest extends \PHPUnit\Framework\TestCase
 
         self::assertTrue($this->compareSelectInsertSheet(__DIR__ . '/select.xlsx', __DIR__ . '/insert.xlsx'));
 
-        if (\file_exists(__DIR__ . '/select.xlsx')) {
+        if (\is_file(__DIR__ . '/select.xlsx')) {
             \unlink(__DIR__ . '/select.xlsx');
         }
     }

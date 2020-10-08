@@ -117,7 +117,7 @@ final class PackageManager
      */
     public function load() : void
     {
-        if (!\file_exists($this->extractPath)) {
+        if (!\is_dir($this->extractPath)) {
             throw new PathException($this->extractPath);
         }
 
@@ -135,7 +135,7 @@ final class PackageManager
      */
     public function isValid() : bool
     {
-        if (!\file_exists($this->extractPath . '/package.cert')) {
+        if (!\is_dir($this->extractPath . '/package.cert')) {
             return false;
         }
 

@@ -172,6 +172,10 @@ class DispatcherTest extends \PHPUnit\Framework\TestCase
         );
     }
 
+    /**
+     * @covers phpOMS\Dispatcher\Dispatcher
+     * @group framework
+     */
     public function testArrayWithData() : void
     {
         $localization = new Localization();

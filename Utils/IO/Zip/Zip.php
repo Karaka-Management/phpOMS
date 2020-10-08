@@ -35,7 +35,7 @@ class Zip implements ArchiveInterface
     {
         $destination = FileUtils::absolute(\str_replace('\\', '/', $destination));
 
-        if (!$overwrite && \file_exists($destination)) {
+        if (!$overwrite && \is_file($destination)) {
             return false;
         }
 
@@ -50,13 +50,6 @@ class Zip implements ArchiveInterface
         foreach ($sources as $source => $relative) {
             if (\is_int($source)) {
                 $source = $relative;
-            }
-
-            if (($source = \realpath($source)) === false
-                || ($source = \str_replace('\\', '/', $source)) === false
-                || !\file_exists($source)
-            ) {
-                continue;
             }
 
             if (\is_dir($source)) {
@@ -87,6 +80,8 @@ class Zip implements ArchiveInterface
                 }
             } elseif (\is_file($source)) {
                 $zip->addFile($source, $relative);
+            } else {
+                continue;
             }
         }
 
@@ -98,7 +93,7 @@ class Zip implements ArchiveInterface
      */
     public static function unpack(string $source, string $destination) : bool
     {
-        if (!\file_exists($source)) {
+        if (!\is_file($source)) {
             return false;
         }
 

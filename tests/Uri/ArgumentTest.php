@@ -77,6 +77,10 @@ class ArgumentTest extends \PHPUnit\Framework\TestCase
         );
     }
 
+    /**
+     * @covers phpOMS\Uri\Argument
+     * @group framework
+     */
     public function testPathInputOutput() : void
     {
         $obj = new Argument(':modules/admin/test/path.php ?para1=abc ?para2=2 #frag');
@@ -85,6 +89,10 @@ class ArgumentTest extends \PHPUnit\Framework\TestCase
         self::assertEquals('modules/admin/new/path', $obj->getPath());
     }
 
+    /**
+     * @covers phpOMS\Uri\Argument
+     * @group framework
+     */
     public function testSchemeInputOutput() : void
     {
         $obj = new Argument(':modules/admin/test/path.php ?para1=abc ?para2=2 #frag');
@@ -93,6 +101,10 @@ class ArgumentTest extends \PHPUnit\Framework\TestCase
         self::assertEquals('scheme', $obj->getScheme());
     }
 
+    /**
+     * @covers phpOMS\Uri\Argument
+     * @group framework
+     */
     public function testUserInputOutput() : void
     {
         $obj = new Argument(':modules/admin/test/path.php ?para1=abc ?para2=2 #frag');
@@ -101,6 +113,10 @@ class ArgumentTest extends \PHPUnit\Framework\TestCase
         self::assertEquals('user', $obj->getUser());
     }
 
+    /**
+     * @covers phpOMS\Uri\Argument
+     * @group framework
+     */
     public function testPassInputOutput() : void
     {
         $obj = new Argument(':modules/admin/test/path.php ?para1=abc ?para2=2 #frag');
@@ -109,6 +125,10 @@ class ArgumentTest extends \PHPUnit\Framework\TestCase
         self::assertEquals('pass', $obj->getPass());
     }
 
+    /**
+     * @covers phpOMS\Uri\Argument
+     * @group framework
+     */
     public function testHostInputOutput() : void
     {
         $obj = new Argument(':modules/admin/test/path.php ?para1=abc ?para2=2 #frag');
@@ -117,6 +137,10 @@ class ArgumentTest extends \PHPUnit\Framework\TestCase
         self::assertEquals('host', $obj->getHost());
     }
 
+    /**
+     * @covers phpOMS\Uri\Argument
+     * @group framework
+     */
     public function testPortInputOutput() : void
     {
         $obj = new Argument(':modules/admin/test/path.php ?para1=abc ?para2=2 #frag');

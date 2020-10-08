@@ -61,7 +61,7 @@ final class Directory extends FileAbstract implements DirectoryInterface, LocalC
         $this->filter = \ltrim($filter, '\\/');
         parent::__construct($path);
 
-        if ($initialize && \file_exists($this->path)) {
+        if ($initialize && \is_dir($this->path)) {
             $this->index();
         }
     }
@@ -79,7 +79,7 @@ final class Directory extends FileAbstract implements DirectoryInterface, LocalC
      */
     public static function list(string $path, string $filter = '*', bool $recursive = false) : array
     {
-        if (!\file_exists($path)) {
+        if (!\is_dir($path)) {
             return [];
         }
 
@@ -125,7 +125,7 @@ final class Directory extends FileAbstract implements DirectoryInterface, LocalC
         $list = [];
         $path = \rtrim($path, '\\/');
 
-        if (!\file_exists($path)) {
+        if (!\is_dir($path)) {
             return $list;
         }
 
@@ -203,7 +203,7 @@ final class Directory extends FileAbstract implements DirectoryInterface, LocalC
      */
     public static function size(string $dir, bool $recursive = true) : int
     {
-        if (!\file_exists($dir) || !\is_readable($dir)) {
+        if (!\is_dir($dir) || !\is_readable($dir)) {
             return -1;
         }
 
@@ -245,7 +245,7 @@ final class Directory extends FileAbstract implements DirectoryInterface, LocalC
      */
     public static function count(string $path, bool $recursive = true, array $ignore = []) : int
     {
-        if (!\file_exists($path)) {
+        if (!\is_dir($path)) {
             return -1;
         }
 
@@ -279,7 +279,7 @@ final class Directory extends FileAbstract implements DirectoryInterface, LocalC
      */
     public static function delete(string $path) : bool
     {
-        if (empty($path) || !\file_exists($path)) {
+        if (empty($path) || !\is_dir($path)) {
             return false;
         }
 
@@ -325,7 +325,7 @@ final class Directory extends FileAbstract implements DirectoryInterface, LocalC
      */
     public static function created(string $path) : \DateTime
     {
-        if (!\file_exists($path)) {
+        if (!\is_dir($path)) {
             throw new PathException($path);
         }
 
@@ -342,7 +342,7 @@ final class Directory extends FileAbstract implements DirectoryInterface, LocalC
      */
     public static function changed(string $path) : \DateTime
     {
-        if (!\file_exists($path)) {
+        if (!\is_dir($path)) {
             throw new PathException($path);
         }
 
@@ -359,7 +359,7 @@ final class Directory extends FileAbstract implements DirectoryInterface, LocalC
      */
     public static function owner(string $path) : int
     {
-        if (!\file_exists($path)) {
+        if (!\is_dir($path)) {
             throw new PathException($path);
         }
 
@@ -371,7 +371,7 @@ final class Directory extends FileAbstract implements DirectoryInterface, LocalC
      */
     public static function permission(string $path) : int
     {
-        if (!\file_exists($path)) {
+        if (!\is_dir($path)) {
             return -1;
         }
 
@@ -384,14 +384,14 @@ final class Directory extends FileAbstract implements DirectoryInterface, LocalC
     public static function copy(string $from, string $to, bool $overwrite = false) : bool
     {
         if (!\is_dir($from)
-            || (!$overwrite && \file_exists($to))
+            || (!$overwrite && \is_dir($to))
         ) {
             return false;
         }
 
-        if (!\file_exists($to)) {
+        if (!\is_dir($to)) {
             self::create($to, 0755, true);
-        } elseif ($overwrite && \file_exists($to)) {
+        } elseif ($overwrite && \is_dir($to)) {
             self::delete($to);
             self::create($to, 0755, true);
         }
@@ -418,12 +418,12 @@ final class Directory extends FileAbstract implements DirectoryInterface, LocalC
     public static function move(string $from, string $to, bool $overwrite = false) : bool
     {
         if (!\is_dir($from)
-            || (!$overwrite && \file_exists($to))
+            || (!$overwrite && \is_dir($to))
         ) {
             return false;
         }
 
-        if ($overwrite && \file_exists($to)) {
+        if ($overwrite && \is_dir($to)) {
             self::delete($to);
         }
 
@@ -441,7 +441,7 @@ final class Directory extends FileAbstract implements DirectoryInterface, LocalC
      */
     public static function exists(string $path) : bool
     {
-        return \file_exists($path);
+        return \is_dir($path);
     }
 
     /**
@@ -478,7 +478,7 @@ final class Directory extends FileAbstract implements DirectoryInterface, LocalC
     public function isExisting(string $name = null) : bool
     {
         if ($name === null) {
-            return \file_exists($this->path);
+            return \is_dir($this->path);
         }
 
         $name = isset($this->nodes[$name]) ? $name : $this->path . '/' . $name;
@@ -499,8 +499,8 @@ final class Directory extends FileAbstract implements DirectoryInterface, LocalC
      */
     public static function create(string $path, int $permission = 0755, bool $recursive = false) : bool
     {
-        if (!\file_exists($path)) {
-            if (!$recursive && !\file_exists(self::parent($path))) {
+        if (!\is_dir($path)) {
+            if (!$recursive && !\is_dir(self::parent($path))) {
                 return false;
             }
 

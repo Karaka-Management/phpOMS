@@ -28,6 +28,10 @@ class AuthorizationCodeTest extends \PHPUnit\Framework\TestCase
         $this->grant = new AuthorizationCode();
     }
 
+    /**
+     * @covers phpOMS\Auth\OAuth2\Grant\AuthorizationCode
+     * @group framework
+     */
     public function testDefault() : void
     {
         self::assertEquals('authorization_code', $this->grant->__toString());
@@ -49,6 +53,10 @@ class AuthorizationCodeTest extends \PHPUnit\Framework\TestCase
         );
     }
 
+    /**
+     * @covers phpOMS\Auth\OAuth2\Grant\AuthorizationCode
+     * @group framework
+     */
     public function testMissingDefaultOption() : void
     {
         $this->expectException(\Exception::class);

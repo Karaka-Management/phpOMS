@@ -22,54 +22,112 @@ use phpOMS\Message\Console\ConsoleHeader;
  */
 class ConsoleHeaderTest extends \PHPUnit\Framework\TestCase
 {
+    private ConsoleHeader $header;
+
+    public function setUp() : void
+    {
+        $this->header = new ConsoleHeader();
+    }
+
+    /**
+     * @covers phpOMS\Message\Console\ConsoleHeader
+     * @group framework
+     */
     public function testDefaults() : void
     {
-        $header = new ConsoleHeader();
-        self::assertFalse($header->isLocked());
-        self::assertEquals(0, $header->getStatusCode());
-        self::assertEquals('1.0', $header->getProtocolVersion());
-        self::assertEquals('', $header->getReasonPhrase());
-        self::assertEquals([], $header->get('key'));
-        self::assertFalse($header->has('key'));
-        self::assertInstanceOf(Localization::class, $header->getL11n());
-        self::assertEquals(0, $header->getAccount());
+        self::assertFalse($this->header->isLocked());
+        self::assertEquals(0, $this->header->getStatusCode());
+        self::assertEquals('1.0', $this->header->getProtocolVersion());
+        self::assertEquals('', $this->header->getReasonPhrase());
+        self::assertEquals([], $this->header->get('key'));
+        self::assertFalse($this->header->has('key'));
+        self::assertInstanceOf(Localization::class, $this->header->getL11n());
+        self::assertEquals(0, $this->header->getAccount());
     }
 
-    public function testGetSet() : void
+    /**
+     * @covers phpOMS\Message\Console\ConsoleHeader
+     * @group framework
+     */
+    public function testValueInputOutput() : void
     {
-        $header = new ConsoleHeader();
-
-        self::assertTrue($header->set('key', 'header'));
-        self::assertEquals(['header'], $header->get('key'));
-        self::assertTrue($header->has('key'));
-
-        self::assertFalse($header->set('key', 'header2'));
-        self::assertEquals(['header'], $header->get('key'));
-
-        self::assertTrue($header->set('key', 'header3', true));
-        self::assertEquals(['header3'], $header->get('key'));
-
-        self::assertTrue($header->remove('key'));
-        self::assertFalse($header->has('key'));
-        self::assertFalse($header->remove('key'));
-
-        $header->setAccount(2);
-        self::AssertEquals(2, $header->getAccount(2));
+        self::assertTrue($this->header->set('key', 'header'));
+        self::assertEquals(['header'], $this->header->get('key'));
     }
 
+    /**
+     * @covers phpOMS\Message\Console\ConsoleHeader
+     * @group framework
+     */
+    public function testHasKey() : void
+    {
+        self::assertTrue($this->header->set('key', 'header'));
+        self::assertTrue($this->header->has('key'));
+    }
+
+    /**
+     * @covers phpOMS\Message\Console\ConsoleHeader
+     * @group framework
+     */
+    public function testInvalidOverwrite() : void
+    {
+        self::assertTrue($this->header->set('key', 'header'));
+        self::assertFalse($this->header->set('key', 'header2'));
+        self::assertEquals(['header'], $this->header->get('key'));
+    }
+
+    /**
+     * @covers phpOMS\Message\Console\ConsoleHeader
+     * @group framework
+     */
+    public function testOverwrite() : void
+    {
+        self::assertTrue($this->header->set('key', 'header'));
+        self::assertTrue($this->header->set('key', 'header3', true));
+        self::assertEquals(['header3'], $this->header->get('key'));
+    }
+
+    /**
+     * @covers phpOMS\Message\Console\ConsoleHeader
+     * @group framework
+     */
+    public function testRemove() : void
+    {
+        self::assertTrue($this->header->set('key', 'header'));
+        self::assertTrue($this->header->remove('key'));
+        self::assertFalse($this->header->has('key'));
+        self::assertFalse($this->header->remove('key'));
+    }
+
+    /**
+     * @covers phpOMS\Message\Console\ConsoleHeader
+     * @group framework
+     */
+    public function testAccount() : void
+    {
+        $this->header->setAccount(2);
+        self::AssertEquals(2, $this->header->getAccount(2));
+    }
+
+    /**
+     * @covers phpOMS\Message\Console\ConsoleHeader
+     * @group framework
+     */
     public function testLockedHeaderSet() : void
     {
-        $header = new ConsoleHeader();
-        $header->lock();
-        self::assertTrue($header->isLocked());
-        self::assertFalse($header->set('key', 'value'));
+        $this->header->lock();
+        self::assertTrue($this->header->isLocked());
+        self::assertFalse($this->header->set('key', 'value'));
     }
 
+    /**
+     * @covers phpOMS\Message\Console\ConsoleHeader
+     * @group framework
+     */
     public function testLockedHeaderRemove() : void
     {
-        $header = new ConsoleHeader();
-        $header->lock();
-        self::assertTrue($header->isLocked());
-        self::assertFalse($header->remove('key'));
+        $this->header->lock();
+        self::assertTrue($this->header->isLocked());
+        self::assertFalse($this->header->remove('key'));
     }
 }

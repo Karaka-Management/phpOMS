@@ -30,7 +30,7 @@ class FileCacheTest extends \PHPUnit\Framework\TestCase
 
     protected function setUp() : void
     {
-        if (\file_exists(__DIR__ . '/Cache')) {
+        if (\is_dir(__DIR__ . '/Cache')) {
             \rmdir(__DIR__ . '/Cache');
         }
 
@@ -41,7 +41,7 @@ class FileCacheTest extends \PHPUnit\Framework\TestCase
     {
         $this->cache->flushAll();
 
-        if (\file_exists(__DIR__ . '/Cache')) {
+        if (\is_dir(__DIR__ . '/Cache')) {
             \rmdir(__DIR__ . '/Cache');
         }
     }

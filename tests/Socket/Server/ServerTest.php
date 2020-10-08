@@ -36,11 +36,11 @@ class ServerTest extends \PHPUnit\Framework\TestCase
 
     public static function setUpBeforeClass() : void
     {
-        if (\file_exists(__DIR__ . '/client.log')) {
+        if (\is_file(__DIR__ . '/client.log')) {
             \unlink(__DIR__ . '/client.log');
         }
 
-        if (\file_exists(__DIR__ . '/server.log')) {
+        if (\is_file(__DIR__ . '/server.log')) {
             \unlink(__DIR__ . '/server.log');
         }
     }
@@ -76,6 +76,10 @@ class ServerTest extends \PHPUnit\Framework\TestCase
         \unlink(__DIR__ . '/server.log');
     }
 
+    /**
+     * @covers phpOMS\Socket\Server\Server
+     * @group framework
+     */
     public function testSetupTCPSocket() : void
     {
         $pipes   = [];
@@ -89,7 +93,7 @@ class ServerTest extends \PHPUnit\Framework\TestCase
 
         $socket->run();
 
-        self::assertTrue(\file_exists(__DIR__ . '/server.log'));
+        self::assertTrue(\is_file(__DIR__ . '/server.log'));
         self::assertEquals(
             'Creating socket...' . "\n"
             . 'Binding socket...' . "\n"
@@ -103,7 +107,7 @@ class ServerTest extends \PHPUnit\Framework\TestCase
             \file_get_contents(__DIR__ . '/server.log')
         );
 
-        self::assertTrue(\file_exists(__DIR__ . '/client.log'));
+        self::assertTrue(\is_file(__DIR__ . '/client.log'));
         $client = \file_get_contents(__DIR__ . '/client.log');
         self::assertStringContainsString('Sending: handshake', $client);
         self::assertStringContainsString('Sending: help', $client);

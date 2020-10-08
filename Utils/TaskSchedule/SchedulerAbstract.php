@@ -90,7 +90,7 @@ abstract class SchedulerAbstract
         ];
 
         foreach ($paths as $path) {
-            if (\file_exists($path)) {
+            if (\is_file($path)) {
                 self::setBin($path);
 
                 return true;

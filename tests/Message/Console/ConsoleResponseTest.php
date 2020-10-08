@@ -22,6 +22,10 @@ use phpOMS\Message\Console\ConsoleResponse;
  */
 class ConsoleResponseTest extends \PHPUnit\Framework\TestCase
 {
+    /**
+     * @covers phpOMS\Message\Console\ConsoleResponse
+     * @group framework
+     */
     public function testDefault() : void
     {
         $response = new ConsoleResponse(new Localization());
@@ -32,6 +36,10 @@ class ConsoleResponseTest extends \PHPUnit\Framework\TestCase
         self::assertInstanceOf('\phpOMS\Message\Console\ConsoleHeader', $response->getHeader());
     }
 
+    /**
+     * @covers phpOMS\Message\Console\ConsoleResponse
+     * @group framework
+     */
     public function testSetGet() : void
     {
         $response = new ConsoleResponse(new Localization());

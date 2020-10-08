@@ -34,6 +34,10 @@ class AutoloaderTest extends \PHPUnit\Framework\TestCase
         self::assertFalse(Autoloader::exists('\Does\Not\Exist'));
     }
 
+    /**
+     * @covers phpOMS\Autoloader
+     * @group framework
+     */
     public function testLoading() : void
     {
         Autoloader::defaultAutoloader('\phpOMS\tests\TestLoad');
@@ -42,6 +46,10 @@ class AutoloaderTest extends \PHPUnit\Framework\TestCase
         self::assertTrue(\in_array(\realpath(__DIR__ . '/TestLoad.php'), $includes));
     }
 
+    /**
+     * @covers phpOMS\Autoloader
+     * @group framework
+     */
     public function testManualPathLoading() : void
     {
         Autoloader::addPath(__DIR__ . '/../');
@@ -52,6 +60,10 @@ class AutoloaderTest extends \PHPUnit\Framework\TestCase
         self::assertTrue(\in_array(\realpath(__DIR__ . '/TestLoad2.php'), $includes));
     }
 
+    /**
+     * @covers phpOMS\Autoloader
+     * @group framework
+     */
     public function testOpcodeCacheInvalidation() : void
     {
         if (!\extension_loaded('zend opcache')
@@ -71,6 +83,10 @@ class AutoloaderTest extends \PHPUnit\Framework\TestCase
         self::assertTrue(\opcache_is_script_cached(__DIR__ . '/TestLoad3.php'));
     }
 
+    /**
+     * @covers phpOMS\Autoloader
+     * @group framework
+     */
     public function testUncachedInvalidation() : void
     {
         self::assertFalse(\opcache_is_script_cached(__DIR__ . '/TestLoad4.php'));

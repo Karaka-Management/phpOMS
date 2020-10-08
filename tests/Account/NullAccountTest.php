@@ -23,11 +23,19 @@ use phpOMS\Account\NullAccount;
  */
 final class NullAccountTest extends \PHPUnit\Framework\TestCase
 {
+    /**
+     * @covers phpOMS\Account\NullAccount
+     * @group framework
+     */
     public function testNull() : void
     {
         self::assertInstanceOf('\phpOMS\Account\Account', new NullAccount());
     }
 
+    /**
+     * @covers phpOMS\Account\NullAccount
+     * @group framework
+     */
     public function testId() : void
     {
         $null = new NullAccount(2);

@@ -24,6 +24,10 @@ use phpOMS\System\SystemType;
  */
 class OperatingSystemTest extends \PHPUnit\Framework\TestCase
 {
+    /**
+     * @covers phpOMS\System\OperatingSystem
+     * @group framework
+     */
     public function testSystem() : void
     {
         self::assertNotEquals(SystemType::UNKNOWN, OperatingSystem::getSystem());

@@ -242,6 +242,10 @@ class DataMapperAbstractTest extends \PHPUnit\Framework\TestCase
         self::assertCount(1, BaseModelMapper::getAll());
     }
 
+    /**
+     * @covers phpOMS\DataStorage\Database\DataMapperAbstract
+     * @group framework
+     */
     public function testFind() : void
     {
         $model1 = clone $this->model;
@@ -262,6 +266,10 @@ class DataMapperAbstractTest extends \PHPUnit\Framework\TestCase
         self::assertEquals($model3->string, \end($found)->string);
     }
 
+    /**
+     * @covers phpOMS\DataStorage\Database\DataMapperAbstract
+     * @group framework
+     */
     public function testWithConditional() : void
     {
         $model1 = clone $this->model;

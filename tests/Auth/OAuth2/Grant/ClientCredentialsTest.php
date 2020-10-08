@@ -28,6 +28,10 @@ class ClientCredentialsTest extends \PHPUnit\Framework\TestCase
         $this->grant = new ClientCredentials();
     }
 
+    /**
+     * @covers phpOMS\Auth\OAuth2\Grant\ClientCredentials
+     * @group framework
+     */
     public function testDefault() : void
     {
         self::assertEquals('client_credentials', $this->grant->__toString());

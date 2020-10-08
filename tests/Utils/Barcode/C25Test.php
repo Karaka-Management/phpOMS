@@ -31,10 +31,14 @@ class C25Test extends \PHPUnit\Framework\TestCase
         }
     }
 
+    /**
+     * @covers phpOMS\Utils\Barcode\C25<extended>
+     * @group framework
+     */
     public function testImagePng() : void
     {
         $path = __DIR__ . '/c25.png';
-        if (\file_exists($path)) {
+        if (\is_file($path)) {
             \unlink($path);
         }
 
@@ -44,10 +48,14 @@ class C25Test extends \PHPUnit\Framework\TestCase
         self::assertFileExists($path);
     }
 
+    /**
+     * @covers phpOMS\Utils\Barcode\C25<extended>
+     * @group framework
+     */
     public function testImageJpg() : void
     {
         $path = __DIR__ . '/c25.jpg';
-        if (\file_exists($path)) {
+        if (\is_file($path)) {
             \unlink($path);
         }
 
@@ -57,10 +65,14 @@ class C25Test extends \PHPUnit\Framework\TestCase
         self::assertFileExists($path);
     }
 
+    /**
+     * @covers phpOMS\Utils\Barcode\C25<extended>
+     * @group framework
+     */
     public function testOrientationAndMargin() : void
     {
         $path = __DIR__ . '/c25_vertical.png';
-        if (\file_exists($path)) {
+        if (\is_file($path)) {
             \unlink($path);
         }
 
@@ -71,12 +83,20 @@ class C25Test extends \PHPUnit\Framework\TestCase
         self::assertFileExists($path);
     }
 
+    /**
+     * @covers phpOMS\Utils\Barcode\C25<extended>
+     * @group framework
+     */
     public function testValidString() : void
     {
         self::assertTrue(C25::isValidString('1234567890'));
         self::assertFalse(C25::isValidString('1234567A890'));
     }
 
+    /**
+     * @covers phpOMS\Utils\Barcode\C25<extended>
+     * @group framework
+     */
     public function testInvalidOrientation() : void
     {
         $this->expectException(\InvalidArgumentException::class);

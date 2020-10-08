@@ -17,7 +17,6 @@ namespace phpOMS\tests\Application;
 require_once __DIR__ . '/../Autoloader.php';
 
 use Model\CoreSettings;
-use Modules\CMS\Models\Application;
 use phpOMS\Application\ApplicationAbstract;
 use phpOMS\Application\ApplicationManager;
 use phpOMS\Dispatcher\Dispatcher;
@@ -49,17 +48,29 @@ class ApplicationManagerTest extends \PHPUnit\Framework\TestCase
         $this->appManager = new ApplicationManager($app->moduleManager);
     }
 
+    /**
+     * @covers phpOMS\Application\ApplicationManager
+     * @group framework
+     */
     public function testInstall() : void
     {
         self::markTestIncomplete();
     }
 
+    /**
+     * @covers phpOMS\Application\ApplicationManager
+     * @group framework
+     */
     public function testInvalidSourceDestinationInstallPath() : void
     {
         self::assertFalse($this->appManager->install(__DIR__ . '/invalid', __DIR__));
         self::assertFalse($this->appManager->install(__DIR__, __DIR__));
     }
 
+    /**
+     * @covers phpOMS\Application\ApplicationManager
+     * @group framework
+     */
     public function testMissingApplicationInfoFile() : void
     {
         $this->expectException(\phpOMS\System\File\PathException::class);
@@ -67,6 +78,10 @@ class ApplicationManagerTest extends \PHPUnit\Framework\TestCase
         self::assertFalse($this->appManager->install(__DIR__, __DIR__ . '/newapp'));
     }
 
+    /**
+     * @covers phpOMS\Application\ApplicationManager
+     * @group framework
+     */
     public function testInstallFromModules() : void
     {
         self::markTestIncomplete();

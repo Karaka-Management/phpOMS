@@ -21,6 +21,10 @@ use phpOMS\Math\Stochastic\Distribution\UniformDistributionContinuous;
  */
 class UniformDistributionContinuousTest extends \PHPUnit\Framework\TestCase
 {
+    /**
+     * @covers phpOMS\Math\Stochastic\Distribution\UniformDistributionContinuous
+     * @group framework
+     */
     public function testPdf() : void
     {
         $a = 1;
@@ -31,6 +35,10 @@ class UniformDistributionContinuousTest extends \PHPUnit\Framework\TestCase
         self::assertEquals(0, UniformDistributionContinuous::getPdf(5, $a, $b));
     }
 
+    /**
+     * @covers phpOMS\Math\Stochastic\Distribution\UniformDistributionContinuous
+     * @group framework
+     */
     public function testCdf() : void
     {
         $a = 1;
@@ -42,6 +50,10 @@ class UniformDistributionContinuousTest extends \PHPUnit\Framework\TestCase
         self::assertEquals(1, UniformDistributionContinuous::getCdf(5, $a, $b));
     }
 
+    /**
+     * @covers phpOMS\Math\Stochastic\Distribution\UniformDistributionContinuous
+     * @group framework
+     */
     public function testMode() : void
     {
         $a = 1;
@@ -56,6 +68,10 @@ class UniformDistributionContinuousTest extends \PHPUnit\Framework\TestCase
         );
     }
 
+    /**
+     * @covers phpOMS\Math\Stochastic\Distribution\UniformDistributionContinuous
+     * @group framework
+     */
     public function testMean() : void
     {
         $a = 1;
@@ -64,6 +80,10 @@ class UniformDistributionContinuousTest extends \PHPUnit\Framework\TestCase
         self::assertEquals(1 / 2 * ($b + $a), UniformDistributionContinuous::getMean($a, $b));
     }
 
+    /**
+     * @covers phpOMS\Math\Stochastic\Distribution\UniformDistributionContinuous
+     * @group framework
+     */
     public function testMedian() : void
     {
         $a = 1;
@@ -72,6 +92,10 @@ class UniformDistributionContinuousTest extends \PHPUnit\Framework\TestCase
         self::assertEquals(1 / 2 * ($b + $a), UniformDistributionContinuous::getMedian($a, $b));
     }
 
+    /**
+     * @covers phpOMS\Math\Stochastic\Distribution\UniformDistributionContinuous
+     * @group framework
+     */
     public function testVariance() : void
     {
         $a = 1;
@@ -80,6 +104,10 @@ class UniformDistributionContinuousTest extends \PHPUnit\Framework\TestCase
         self::assertEquals(1 / 12 * ($b - $a) ** 2, UniformDistributionContinuous::getVariance($a, $b));
     }
 
+    /**
+     * @covers phpOMS\Math\Stochastic\Distribution\UniformDistributionContinuous
+     * @group framework
+     */
     public function testStandardDeviation() : void
     {
         $a = 1;
@@ -88,16 +116,28 @@ class UniformDistributionContinuousTest extends \PHPUnit\Framework\TestCase
         self::assertEquals(\sqrt(1 / 12 * ($b - $a) ** 2), UniformDistributionContinuous::getStandardDeviation($a, $b));
     }
 
+    /**
+     * @covers phpOMS\Math\Stochastic\Distribution\UniformDistributionContinuous
+     * @group framework
+     */
     public function testSkewness() : void
     {
         self::assertEquals(0, UniformDistributionContinuous::getSkewness());
     }
 
+    /**
+     * @covers phpOMS\Math\Stochastic\Distribution\UniformDistributionContinuous
+     * @group framework
+     */
     public function testExKurtosis() : void
     {
         self::assertEquals(-6 / 5, UniformDistributionContinuous::getExKurtosis());
     }
 
+    /**
+     * @covers phpOMS\Math\Stochastic\Distribution\UniformDistributionContinuous
+     * @group framework
+     */
     public function testMgf() : void
     {
         self::assertEquals(1, UniformDistributionContinuous::getMgf(0, 2, 3));

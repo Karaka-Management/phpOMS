@@ -31,10 +31,14 @@ class CodebarTest extends \PHPUnit\Framework\TestCase
         }
     }
 
+    /**
+     * @covers phpOMS\Utils\Barcode\Codebar<extended>
+     * @group framework
+     */
     public function testImagePng() : void
     {
         $path = __DIR__ . '/codebar.png';
-        if (\file_exists($path)) {
+        if (\is_file($path)) {
             \unlink($path);
         }
 
@@ -44,10 +48,14 @@ class CodebarTest extends \PHPUnit\Framework\TestCase
         self::assertFileExists($path);
     }
 
+    /**
+     * @covers phpOMS\Utils\Barcode\Codebar<extended>
+     * @group framework
+     */
     public function testImageJpg() : void
     {
         $path = __DIR__ . '/codebar.jpg';
-        if (\file_exists($path)) {
+        if (\is_file($path)) {
             \unlink($path);
         }
 
@@ -57,10 +65,14 @@ class CodebarTest extends \PHPUnit\Framework\TestCase
         self::assertFileExists($path);
     }
 
+    /**
+     * @covers phpOMS\Utils\Barcode\Codebar<extended>
+     * @group framework
+     */
     public function testOrientationAndMargin() : void
     {
         $path = __DIR__ . '/ccodebar_vertical.png';
-        if (\file_exists($path)) {
+        if (\is_file($path)) {
             \unlink($path);
         }
 
@@ -71,6 +83,10 @@ class CodebarTest extends \PHPUnit\Framework\TestCase
         self::assertFileExists($path);
     }
 
+    /**
+     * @covers phpOMS\Utils\Barcode\Codebar<extended>
+     * @group framework
+     */
     public function testValidString() : void
     {
         self::assertTrue(Codebar::isValidString('412163'));

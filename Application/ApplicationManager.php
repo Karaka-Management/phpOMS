@@ -97,7 +97,7 @@ final class ApplicationManager
     public function install(string $source, string $destination, string $theme = 'Default') : bool
     {
         $destination = \rtrim($destination, '\\/');
-        if (!\file_exists($source) || \file_exists($destination)) {
+        if (!\is_dir($source) || \is_dir($destination)) {
             return false;
         }
 
@@ -152,11 +152,11 @@ final class ApplicationManager
      */
     private function installTheme(string $destination, string $theme) : void
     {
-        if (\file_exists($destination . '/css')) {
+        if (\is_dir($destination . '/css')) {
             Directory::delete($destination . '/css');
         }
 
-        if (\file_exists($destination . '/Themes/' . $theme . '/css')) {
+        if (\is_dir($destination . '/Themes/' . $theme . '/css')) {
             Directory::copy(
                 $destination . '/Themes/' . $theme . '/css',
                 $destination . '/css',

@@ -95,6 +95,10 @@ class StringCompareTest extends \PHPUnit\Framework\TestCase
         self::assertEquals(2, StringCompare::valueWords('This is a test', 'This is not test'));
     }
 
+    /**
+     * @covers phpOMS\Utils\StringCompare
+     * @group framework
+     */
     public function testJaro() : void
     {
         self::assertEqualsWithDelta(0.944444, StringCompare::jaro('MARTHA', 'MARHTA'), 0.01);
@@ -102,6 +106,10 @@ class StringCompareTest extends \PHPUnit\Framework\TestCase
         self::assertEqualsWithDelta(0.896296, StringCompare::jaro('JELLYFISH', 'SMELLYFISH'), 0.01);
     }
 
+    /**
+     * @covers phpOMS\Utils\StringCompare
+     * @group framework
+     */
     public function testJaroEmpty() : void
     {
         self::assertEquals(1.0, StringCompare::jaro('', ''));

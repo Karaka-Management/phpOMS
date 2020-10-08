@@ -22,6 +22,10 @@ use phpOMS\Model\Message\NotifyType;
  */
 class NotifyTest extends \PHPUnit\Framework\TestCase
 {
+    /**
+     * @covers phpOMS\Model\Message\Notify
+     * @group framework
+     */
     public function testAttributes() : void
     {
         $obj = new Notify();
@@ -35,6 +39,10 @@ class NotifyTest extends \PHPUnit\Framework\TestCase
         self::assertObjectHasAttribute('level', $obj);
     }
 
+    /**
+     * @covers phpOMS\Model\Message\Notify
+     * @group framework
+     */
     public function testDefault() : void
     {
         $obj = new Notify();
@@ -47,6 +55,10 @@ class NotifyTest extends \PHPUnit\Framework\TestCase
         self::assertEquals(NotifyType::INFO, $obj->toArray()['level']);
     }
 
+    /**
+     * @covers phpOMS\Model\Message\Notify
+     * @group framework
+     */
     public function testSetGet() : void
     {
         $obj = new Notify('message', NotifyType::WARNING);

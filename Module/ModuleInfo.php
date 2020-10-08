@@ -80,7 +80,7 @@ final class ModuleInfo
      */
     public function load() : void
     {
-        if (!\file_exists($this->path)) {
+        if (!\is_file($this->path)) {
             throw new PathException($this->path);
         }
 
@@ -100,7 +100,7 @@ final class ModuleInfo
      */
     public function update() : void
     {
-        if (!\file_exists($this->path)) {
+        if (!\is_file($this->path)) {
             throw new PathException($this->path);
         }
 

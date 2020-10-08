@@ -38,6 +38,10 @@ class GrantAbstractTest extends \PHPUnit\Framework\TestCase
         };
     }
 
+    /**
+     * @covers phpOMS\Auth\OAuth2\Grant\GrantAbstract
+     * @group framework
+     */
     public function testDefault() : void
     {
         self::assertEquals('TestGrant', $this->grant->__toString());
@@ -58,6 +62,10 @@ class GrantAbstractTest extends \PHPUnit\Framework\TestCase
         );
     }
 
+    /**
+     * @covers phpOMS\Auth\OAuth2\Grant\GrantAbstract
+     * @group framework
+     */
     public function testMissingDefaultOption() : void
     {
         $this->expectException(\Exception::class);

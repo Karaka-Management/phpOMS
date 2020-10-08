@@ -34,7 +34,7 @@ class TarGz implements ArchiveInterface
     public static function pack($source, string $destination, bool $overwrite = false) : bool
     {
         $destination = \str_replace('\\', '/', $destination);
-        if (!$overwrite && \file_exists($destination)) {
+        if (!$overwrite && \is_file($destination)) {
             return false;
         }
 
@@ -57,7 +57,7 @@ class TarGz implements ArchiveInterface
     public static function unpack(string $source, string $destination) : bool
     {
         $destination = \str_replace('\\', '/', $destination);
-        if (!\file_exists($destination) || !\file_exists($source)) {
+        if (!\is_dir($destination) || !\is_file($source)) {
             return false;
         }
 

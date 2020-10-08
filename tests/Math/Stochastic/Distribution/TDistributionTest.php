@@ -21,44 +21,76 @@ use phpOMS\Math\Stochastic\Distribution\TDistribution;
  */
 class TDistributionTest extends \PHPUnit\Framework\TestCase
 {
+    /**
+     * @covers phpOMS\Math\Stochastic\Distribution\TDistribution
+     * @group framework
+     */
     public function testMean() : void
     {
         self::assertEquals(0, TDistribution::getMean());
     }
 
+    /**
+     * @covers phpOMS\Math\Stochastic\Distribution\TDistribution
+     * @group framework
+     */
     public function testMedian() : void
     {
         self::assertEquals(0, TDistribution::getMedian());
     }
 
+    /**
+     * @covers phpOMS\Math\Stochastic\Distribution\TDistribution
+     * @group framework
+     */
     public function testMode() : void
     {
         self::assertEquals(0, TDistribution::getMode());
     }
 
+    /**
+     * @covers phpOMS\Math\Stochastic\Distribution\TDistribution
+     * @group framework
+     */
     public function testVariance() : void
     {
         self::assertEqualsWithDelta(5 / 3, TDistribution::getVariance(5), 0.001);
         self::assertEqualsWithDelta(\PHP_FLOAT_MAX, TDistribution::getVariance(2), 0.001);
     }
 
+    /**
+     * @covers phpOMS\Math\Stochastic\Distribution\TDistribution
+     * @group framework
+     */
     public function testStandardDeviation() : void
     {
         self::assertEqualsWithDelta(\sqrt(5 / 3), TDistribution::getStandardDeviation(5), 0.001);
         self::assertEqualsWithDelta(\PHP_FLOAT_MAX, TDistribution::getStandardDeviation(2), 0.001);
     }
 
+    /**
+     * @covers phpOMS\Math\Stochastic\Distribution\TDistribution
+     * @group framework
+     */
     public function testExKurtosis() : void
     {
         self::assertEqualsWithDelta(6, TDistribution::getExKurtosis(5), 0.001);
         self::assertEqualsWithDelta(\PHP_FLOAT_MAX, TDistribution::getExKurtosis(3), 0.001);
     }
 
+    /**
+     * @covers phpOMS\Math\Stochastic\Distribution\TDistribution
+     * @group framework
+     */
     public function testSkewness() : void
     {
         self::assertEquals(0, TDistribution::getSkewness());
     }
 
+    /**
+     * @covers phpOMS\Math\Stochastic\Distribution\TDistribution
+     * @group framework
+     */
     public function testCdf() : void
     {
         self::assertEqualsWithDelta(0.0, TDistribution::getCdf(1.25, 5, 0), 0.001);

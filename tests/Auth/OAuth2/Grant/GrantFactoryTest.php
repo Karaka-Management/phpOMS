@@ -30,12 +30,20 @@ class GrantFactoryTest extends \PHPUnit\Framework\TestCase
         $this->factory = new GrantFactory();
     }
 
+    /**
+     * @covers phpOMS\Auth\OAuth2\Grant\GrantFactory
+     * @group framework
+     */
     public function testGrantGet() : void
     {
         $grant = $this->factory->getGrant('AuthorizationCode');
         self::assertInstanceOf(AuthorizationCode::class, $grant);
     }
 
+    /**
+     * @covers phpOMS\Auth\OAuth2\Grant\GrantFactory
+     * @group framework
+     */
     public function testGrantInputOutput() : void
     {
         $grant = new class() extends GrantAbstract {
@@ -54,6 +62,10 @@ class GrantFactoryTest extends \PHPUnit\Framework\TestCase
         self::assertInstanceOf(\get_class($grant), $this->factory->getGrant('test'));
     }
 
+    /**
+     * @covers phpOMS\Auth\OAuth2\Grant\GrantFactory
+     * @group framework
+     */
     public function testInvalidGrantGet() : void
     {
         $this->expectException(\Exception::class);

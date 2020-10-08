@@ -117,7 +117,7 @@ final class FileLogger implements LoggerInterface
      */
     private function createFile() : void
     {
-        if (!$this->created && !\file_exists($this->path)) {
+        if (!$this->created && !\is_file($this->path)) {
             File::create($this->path);
             $this->created = true;
         }
@@ -380,7 +380,7 @@ final class FileLogger implements LoggerInterface
     {
         $levels = [];
 
-        if (!\file_exists($this->path)) {
+        if (!\is_file($this->path)) {
             return $levels;
         }
 
@@ -427,7 +427,7 @@ final class FileLogger implements LoggerInterface
     {
         $connection = [];
 
-        if (!\file_exists($this->path)) {
+        if (!\is_file($this->path)) {
             return $connection;
         }
 
@@ -477,7 +477,7 @@ final class FileLogger implements LoggerInterface
         $logs = [];
         $id   = 0;
 
-        if (!\file_exists($this->path)) {
+        if (!\is_file($this->path)) {
             return $logs;
         }
 
@@ -535,7 +535,7 @@ final class FileLogger implements LoggerInterface
         $log     = [];
         $current = 0;
 
-        if (!\file_exists($this->path)) {
+        if (!\is_file($this->path)) {
             return $log;
         }
 

@@ -25,6 +25,7 @@ class FinanceFormulasTest extends \PHPUnit\Framework\TestCase
 {
     /**
      * @testdox The annual percentage yield (APY) and reverse value calculations are correct
+     * @covers phpOMS\Business\Finance\FinanceFormulas
      * @group framework
      */
     public function testAnnualPercentageYield() : void
@@ -41,6 +42,7 @@ class FinanceFormulasTest extends \PHPUnit\Framework\TestCase
 
     /**
      * @testdox The future value of annuity (FVA) and reverse value calculations are correct
+     * @covers phpOMS\Business\Finance\FinanceFormulas
      * @group framework
      */
     public function testFutureValueOfAnnuity() : void
@@ -59,6 +61,7 @@ class FinanceFormulasTest extends \PHPUnit\Framework\TestCase
 
     /**
      * @testdox The future value of annuity continuous compounding (FVACC) and reverse value calculations are correct
+     * @covers phpOMS\Business\Finance\FinanceFormulas
      * @group framework
      */
     public function testFutureValueOfAnnuityContinuousCompounding() : void
@@ -77,6 +80,7 @@ class FinanceFormulasTest extends \PHPUnit\Framework\TestCase
 
     /**
      * @testdox The annuity payment from the present value (PV) and reverse value calculations are correct
+     * @covers phpOMS\Business\Finance\FinanceFormulas
      * @group framework
      */
     public function testAnnuityPaymentPV() : void
@@ -95,6 +99,7 @@ class FinanceFormulasTest extends \PHPUnit\Framework\TestCase
 
     /**
      * @testdox The annuity payment from the future value (FV) and reverse value calculations are correct
+     * @covers phpOMS\Business\Finance\FinanceFormulas
      * @group framework
      */
     public function testAnnuityPaymentFV() : void
@@ -113,6 +118,7 @@ class FinanceFormulasTest extends \PHPUnit\Framework\TestCase
 
     /**
      * @testdox The annuity payment from the present value (PV) and reverse value calculations are correct
+     * @covers phpOMS\Business\Finance\FinanceFormulas
      * @group framework
      */
     public function testAnnutiyPaymentFactorPV() : void
@@ -129,6 +135,7 @@ class FinanceFormulasTest extends \PHPUnit\Framework\TestCase
 
     /**
      * @testdox The present value of the annuity is correct
+     * @covers phpOMS\Business\Finance\FinanceFormulas
      * @group framework
      */
     public function testPresentValueOfAnnuity() : void
@@ -147,6 +154,7 @@ class FinanceFormulasTest extends \PHPUnit\Framework\TestCase
 
     /**
      * @testdox The present value annuity factor of the annuity is correct
+     * @covers phpOMS\Business\Finance\FinanceFormulas
      * @group framework
      */
     public function testPresentValueAnnuityFactor() : void
@@ -163,6 +171,7 @@ class FinanceFormulasTest extends \PHPUnit\Framework\TestCase
 
     /**
      * @testdox The due present value the annuity is correct
+     * @covers phpOMS\Business\Finance\FinanceFormulas
      * @group framework
      */
     public function testPresentValueOfAnnuityDue() : void
@@ -182,6 +191,7 @@ class FinanceFormulasTest extends \PHPUnit\Framework\TestCase
 
     /**
      * @testdox The due future value the annuity is correct
+     * @covers phpOMS\Business\Finance\FinanceFormulas
      * @group framework
      */
     public function testFutureValueOfAnnuityDue() : void
@@ -201,6 +211,7 @@ class FinanceFormulasTest extends \PHPUnit\Framework\TestCase
 
     /**
      * @testdox The relative market share calculations by shares and ales are correct
+     * @covers phpOMS\Business\Finance\FinanceFormulas
      * @group framework
      */
     public function testRelativeMarketShare() : void
@@ -211,6 +222,7 @@ class FinanceFormulasTest extends \PHPUnit\Framework\TestCase
 
     /**
      * @testdox The asset ratio calculations are correct
+     * @covers phpOMS\Business\Finance\FinanceFormulas
      * @group framework
      */
     public function testAssetRatios() : void
@@ -221,6 +233,7 @@ class FinanceFormulasTest extends \PHPUnit\Framework\TestCase
 
     /**
      * @testdox Balance ratio calculations for DII, Receivables/Turnover, and more are correct
+     * @covers phpOMS\Business\Finance\FinanceFormulas
      * @group framework
      */
     public function testBalanceRatios() : void
@@ -233,6 +246,7 @@ class FinanceFormulasTest extends \PHPUnit\Framework\TestCase
 
     /**
      * @testdox Dept ratios for dept coverage, dept to equity and dept to income are correct
+     * @covers phpOMS\Business\Finance\FinanceFormulas
      * @group framework
      */
     public function testDeptRatios() : void
@@ -245,6 +259,7 @@ class FinanceFormulasTest extends \PHPUnit\Framework\TestCase
 
     /**
      * @testdox Return on balance statement positions are correct (e.g. return on assets, on equity)
+     * @covers phpOMS\Business\Finance\FinanceFormulas
      * @group framework
      */
     public function testReturnOnBalancePositions() : void
@@ -256,6 +271,7 @@ class FinanceFormulasTest extends \PHPUnit\Framework\TestCase
 
     /**
      * @testdox Balance / P&L ratios are correct (e.g. inventory turnover, net profit margin)
+     * @covers phpOMS\Business\Finance\FinanceFormulas
      * @group framework
      */
     public function testBalancePLRatios() : void
@@ -265,6 +281,11 @@ class FinanceFormulasTest extends \PHPUnit\Framework\TestCase
         self::assertEquals(500 / 1000, FinanceFormulas::getReceivablesTurnoverRatio(500, 1000));
     }
 
+    /**
+     * @testdox Balance / P&L ratios are correct (e.g. inventory turnover, net profit margin)
+     * @covers phpOMS\Business\Finance\FinanceFormulas
+     * @group framework
+     */
     public function testRatios() : void
     {
         self::assertEquals(500 / 1000, FinanceFormulas::getInterestCoverageRatio(500, 1000));
@@ -279,6 +300,7 @@ class FinanceFormulasTest extends \PHPUnit\Framework\TestCase
 
     /**
      * @testdox Compound calculations for interest, principal and periods are correct
+     * @covers phpOMS\Business\Finance\FinanceFormulas
      * @group framework
      */
     public function testCompound() : void
@@ -298,6 +320,7 @@ class FinanceFormulasTest extends \PHPUnit\Framework\TestCase
 
     /**
      * @testdox Continuous compound calculations for interest, principal and periods are correct
+     * @covers phpOMS\Business\Finance\FinanceFormulas
      * @group framework
      */
     public function testContinuousCompounding() : void
@@ -318,6 +341,7 @@ class FinanceFormulasTest extends \PHPUnit\Framework\TestCase
 
     /**
      * @testdox Calculations for interest, principal and periods are correct
+     * @covers phpOMS\Business\Finance\FinanceFormulas
      * @group framework
      */
     public function testSimpleInterest() : void
@@ -336,6 +360,7 @@ class FinanceFormulasTest extends \PHPUnit\Framework\TestCase
 
     /**
      * @testdox The discounted payback period is correct
+     * @covers phpOMS\Business\Finance\FinanceFormulas
      * @group framework
      */
     public function testDiscountedPaybackPeriod() : void
@@ -349,6 +374,7 @@ class FinanceFormulasTest extends \PHPUnit\Framework\TestCase
 
     /**
      * @testdox Test the correct calculation of the growth rate in order to double and vice versa
+     * @covers phpOMS\Business\Finance\FinanceFormulas
      * @group framework
      */
     public function testDoublingTime() : void
@@ -361,6 +387,7 @@ class FinanceFormulasTest extends \PHPUnit\Framework\TestCase
 
     /**
      * @testdox Test the correct calculation of the growth rate in order to double and vice versa with continuous compounding
+     * @covers phpOMS\Business\Finance\FinanceFormulas
      * @group framework
      */
     public function testDoublingTimeContinuousCompounding() : void
@@ -373,6 +400,7 @@ class FinanceFormulasTest extends \PHPUnit\Framework\TestCase
 
     /**
      * @testdox Calculations for equivalent annual annuity are correct
+     * @covers phpOMS\Business\Finance\FinanceFormulas
      * @group framework
      */
     public function testEquivalentAnnualAnnuity() : void
@@ -388,6 +416,7 @@ class FinanceFormulasTest extends \PHPUnit\Framework\TestCase
 
     /**
      * @testdox The free cash flow to equity calculation is correct (how much cash is available after expenses and dept payments)
+     * @covers phpOMS\Business\Finance\FinanceFormulas
      * @group framework
      */
     public function testFreeCashFlowToEquity() : void
@@ -403,6 +432,7 @@ class FinanceFormulasTest extends \PHPUnit\Framework\TestCase
 
     /**
      * @testdox The free cash flow to firm calculation is correct (how much cash is available after expenses)
+     * @covers phpOMS\Business\Finance\FinanceFormulas
      * @group framework
      */
     public function testFreeCashFlowToFirm() : void
@@ -418,6 +448,7 @@ class FinanceFormulasTest extends \PHPUnit\Framework\TestCase
 
     /**
      * @testdox The future value calculation is correct
+     * @covers phpOMS\Business\Finance\FinanceFormulas
      * @group framework
      */
     public function testFutureValue() : void
@@ -431,6 +462,7 @@ class FinanceFormulasTest extends \PHPUnit\Framework\TestCase
 
     /**
      * @testdox The future value calculation including continuous compounding is correct
+     * @covers phpOMS\Business\Finance\FinanceFormulas
      * @group framework
      */
     public function testFutureValueContinuousCompounding() : void
@@ -444,6 +476,7 @@ class FinanceFormulasTest extends \PHPUnit\Framework\TestCase
 
     /**
      * @testdox The future value factor calculation is correct
+     * @covers phpOMS\Business\Finance\FinanceFormulas
      * @group framework
      */
     public function testValueFactor() : void
@@ -457,6 +490,7 @@ class FinanceFormulasTest extends \PHPUnit\Framework\TestCase
 
     /**
      * @testdox The calculation of the geometric mean of multiple return rates is correct
+     * @covers phpOMS\Business\Finance\FinanceFormulas
      * @group framework
      */
     public function testGeometricMeanReturn() : void
@@ -468,6 +502,7 @@ class FinanceFormulasTest extends \PHPUnit\Framework\TestCase
 
     /**
      * @testdox The calculation of the future value of the growing annuity is correct
+     * @covers phpOMS\Business\Finance\FinanceFormulas
      * @group framework
      */
     public function testGrowingAnnuityFV() : void
@@ -482,6 +517,7 @@ class FinanceFormulasTest extends \PHPUnit\Framework\TestCase
 
     /**
      * @testdox The calculation of the payment based on the present value of the growing annuity is correct
+     * @covers phpOMS\Business\Finance\FinanceFormulas
      * @group framework
      */
     public function testGrowingAnnuityPaymentPV() : void
@@ -496,6 +532,7 @@ class FinanceFormulasTest extends \PHPUnit\Framework\TestCase
 
     /**
      * @testdox The calculation of the payment based on the future value of the growing annuity is correct
+     * @covers phpOMS\Business\Finance\FinanceFormulas
      * @group framework
      */
     public function testGrowingAnnuityPaymentFV() : void
@@ -510,6 +547,7 @@ class FinanceFormulasTest extends \PHPUnit\Framework\TestCase
 
     /**
      * @testdox The calculation of the present value of the growing annuity is correct
+     * @covers phpOMS\Business\Finance\FinanceFormulas
      * @group framework
      */
     public function testGrowingAnnuityPV() : void
@@ -524,6 +562,7 @@ class FinanceFormulasTest extends \PHPUnit\Framework\TestCase
 
     /**
      * @testdox The calculation of the present value of the growing perpetuity is correct
+     * @covers phpOMS\Business\Finance\FinanceFormulas
      * @group framework
      */
     public function testGrowingPerpetuityPV() : void
@@ -537,6 +576,7 @@ class FinanceFormulasTest extends \PHPUnit\Framework\TestCase
 
     /**
      * @testdox The calculation of the net present value is correct
+     * @covers phpOMS\Business\Finance\FinanceFormulas
      * @group framework
      */
     public function testNetPresentValue() : void
@@ -549,6 +589,7 @@ class FinanceFormulasTest extends \PHPUnit\Framework\TestCase
 
     /**
      * @testdox No cash flows in the net present value calculation result in 0
+     * @covers phpOMS\Business\Finance\FinanceFormulas
      * @group framework
      */
     public function testEmptyNetPresentValue() : void
@@ -558,6 +599,7 @@ class FinanceFormulasTest extends \PHPUnit\Framework\TestCase
 
     /**
      * @testdox The calculation of the real rate of return is correct
+     * @covers phpOMS\Business\Finance\FinanceFormulas
      * @group framework
      */
     public function testRealRateOfReturn() : void
@@ -570,6 +612,7 @@ class FinanceFormulasTest extends \PHPUnit\Framework\TestCase
 
     /**
      * @testdox The calculation of the net working capital is correct
+     * @covers phpOMS\Business\Finance\FinanceFormulas
      * @group framework
      */
     public function testNetWorkingCapital() : void
@@ -579,6 +622,7 @@ class FinanceFormulasTest extends \PHPUnit\Framework\TestCase
 
     /**
      * @testdox The periods to reach a future value based on the present value is calculated correctly
+     * @covers phpOMS\Business\Finance\FinanceFormulas
      * @group framework
      */
     public function testNumberOfPeriodsPVFV() : void
@@ -592,6 +636,7 @@ class FinanceFormulasTest extends \PHPUnit\Framework\TestCase
 
     /**
      * @testdox The calculation of the present value is correct
+     * @covers phpOMS\Business\Finance\FinanceFormulas
      * @group framework
      */
     public function testPresentValue() : void
@@ -605,6 +650,7 @@ class FinanceFormulasTest extends \PHPUnit\Framework\TestCase
 
     /**
      * @testdox The calculation of the present value using continuous compounding is correct
+     * @covers phpOMS\Business\Finance\FinanceFormulas
      * @group framework
      */
     public function testPresentValueContinuousCompounding() : void

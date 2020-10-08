@@ -43,7 +43,7 @@ final class File extends FileAbstract implements FileInterface, LocalContainerIn
         parent::__construct($path);
         $this->count = 1;
 
-        if (\file_exists($this->path)) {
+        if (\is_file($this->path)) {
             $this->index();
         }
     }
@@ -71,7 +71,7 @@ final class File extends FileAbstract implements FileInterface, LocalContainerIn
      */
     public static function put(string $path, string $content, int $mode = ContentPutMode::REPLACE | ContentPutMode::CREATE) : bool
     {
-        $exists = \file_exists($path);
+        $exists = \is_file($path);
 
         try {
             if (($exists && ContentPutMode::hasFlag($mode, ContentPutMode::APPEND))
@@ -111,7 +111,7 @@ final class File extends FileAbstract implements FileInterface, LocalContainerIn
      */
     public static function get(string $path) : string
     {
-        if (!\file_exists($path)) {
+        if (!\is_file($path)) {
             throw new PathException($path);
         }
 
@@ -184,7 +184,7 @@ final class File extends FileAbstract implements FileInterface, LocalContainerIn
      */
     public static function exists(string $path) : bool
     {
-        return \file_exists($path);
+        return \is_file($path);
     }
 
     /**
@@ -208,7 +208,7 @@ final class File extends FileAbstract implements FileInterface, LocalContainerIn
      */
     public static function created(string $path) : \DateTime
     {
-        if (!\file_exists($path)) {
+        if (!\is_file($path)) {
             throw new PathException($path);
         }
 
@@ -222,7 +222,7 @@ final class File extends FileAbstract implements FileInterface, LocalContainerIn
      */
     public static function changed(string $path) : \DateTime
     {
-        if (!\file_exists($path)) {
+        if (!\is_file($path)) {
             throw new PathException($path);
         }
 
@@ -253,7 +253,7 @@ final class File extends FileAbstract implements FileInterface, LocalContainerIn
      */
     public static function size(string $path, bool $recursive = true) : int
     {
-        if (!\file_exists($path)) {
+        if (!\is_file($path)) {
             return -1;
         }
 
@@ -265,7 +265,7 @@ final class File extends FileAbstract implements FileInterface, LocalContainerIn
      */
     public static function owner(string $path) : int
     {
-        if (!\file_exists($path)) {
+        if (!\is_file($path)) {
             throw new PathException($path);
         }
 
@@ -277,7 +277,7 @@ final class File extends FileAbstract implements FileInterface, LocalContainerIn
      */
     public static function permission(string $path) : int
     {
-        if (!\file_exists($path)) {
+        if (!\is_file($path)) {
             return -1;
         }
 
@@ -341,7 +341,7 @@ final class File extends FileAbstract implements FileInterface, LocalContainerIn
     public static function copy(string $from, string $to, bool $overwrite = false) : bool
     {
         if (!\is_file($from)
-            || (!$overwrite && \file_exists($to))
+            || (!$overwrite && \is_file($to))
         ) {
             return false;
         }
@@ -350,7 +350,7 @@ final class File extends FileAbstract implements FileInterface, LocalContainerIn
             Directory::create(\dirname($to), 0755, true);
         }
 
-        if ($overwrite && \file_exists($to)) {
+        if ($overwrite && \is_file($to)) {
             \unlink($to);
         }
 
@@ -380,7 +380,7 @@ final class File extends FileAbstract implements FileInterface, LocalContainerIn
      */
     public static function delete(string $path) : bool
     {
-        if (!\file_exists($path)) {
+        if (!\is_file($path)) {
             return false;
         }
 
@@ -430,7 +430,7 @@ final class File extends FileAbstract implements FileInterface, LocalContainerIn
      */
     public function isExisting() : bool
     {
-        return \file_exists($this->path);
+        return \is_file($this->path);
     }
 
     /**
@@ -438,7 +438,7 @@ final class File extends FileAbstract implements FileInterface, LocalContainerIn
      */
     public static function create(string $path) : bool
     {
-        if (!\file_exists($path)) {
+        if (!\is_file($path)) {
             if (!Directory::exists(\dirname($path))) {
                 Directory::create(\dirname($path), 0755, true);
             }

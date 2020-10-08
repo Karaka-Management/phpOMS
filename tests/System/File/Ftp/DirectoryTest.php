@@ -42,11 +42,19 @@ class DirectoryTest extends \PHPUnit\Framework\TestCase
         }
     }
 
+    /**
+     * @covers phpOMS\System\File\Ftp\Directory<extended>
+     * @group framework
+     */
     public function testConnection() : void
     {
         self::assertNotFalse(Directory::ftpConnect(new HttpUri(self::BASE . '/test')));
     }
 
+    /**
+     * @covers phpOMS\System\File\Ftp\Directory<extended>
+     * @group framework
+     */
     public function testInvalidConnection() : void
     {
         self::assertFalse(Directory::ftpConnect(new HttpUri('ftp://orange-management.org:21')));
@@ -54,7 +62,7 @@ class DirectoryTest extends \PHPUnit\Framework\TestCase
 
     /**
      * @testdox A directory can be created
-     * @covers phpOMS\System\File\Ftp\Directory
+     * @covers phpOMS\System\File\Ftp\Directory<extended>
      * @group framework
      */
     public function testStaticCreate() : void
@@ -68,7 +76,7 @@ class DirectoryTest extends \PHPUnit\Framework\TestCase
 
     /**
      * @testdox A directory can be checked for existence
-     * @covers phpOMS\System\File\Ftp\Directory
+     * @covers phpOMS\System\File\Ftp\Directory<extended>
      * @group framework
      */
     public function testStaticExists() : void
@@ -79,7 +87,7 @@ class DirectoryTest extends \PHPUnit\Framework\TestCase
 
     /**
      * @testdox An existing directory cannot be overwritten
-     * @covers phpOMS\System\File\Ftp\Directory
+     * @covers phpOMS\System\File\Ftp\Directory<extended>
      * @group framework
      */
     public function testInvalidStaticOverwrite() : void
@@ -93,7 +101,7 @@ class DirectoryTest extends \PHPUnit\Framework\TestCase
 
     /**
      * @testdox A directory can be forced to be created recursively
-     * @covers phpOMS\System\File\Ftp\Directory
+     * @covers phpOMS\System\File\Ftp\Directory<extended>
      * @group framework
      */
     public function testStaticSubdir() : void
@@ -109,7 +117,7 @@ class DirectoryTest extends \PHPUnit\Framework\TestCase
 
     /**
      * @testdox By default a directory is not created recursively
-     * @covers phpOMS\System\File\Ftp\Directory
+     * @covers phpOMS\System\File\Ftp\Directory<extended>
      * @group framework
      */
     public function testInvalidStaticSubdir() : void
@@ -119,7 +127,7 @@ class DirectoryTest extends \PHPUnit\Framework\TestCase
 
     /**
      * @testdox The name of a directory is just its name without its path
-     * @covers phpOMS\System\File\Ftp\Directory
+     * @covers phpOMS\System\File\Ftp\Directory<extended>
      * @group framework
      */
     public function testStaticName() : void
@@ -131,7 +139,7 @@ class DirectoryTest extends \PHPUnit\Framework\TestCase
 
     /**
      * @testdox The basename is the same as the name of the directory
-     * @covers phpOMS\System\File\Ftp\Directory
+     * @covers phpOMS\System\File\Ftp\Directory<extended>
      * @group framework
      */
     public function testStaticBasename() : void
@@ -143,7 +151,7 @@ class DirectoryTest extends \PHPUnit\Framework\TestCase
 
     /**
      * @testdox The dirname is the same as the name of the directory
-     * @covers phpOMS\System\File\Ftp\Directory
+     * @covers phpOMS\System\File\Ftp\Directory<extended>
      * @group framework
      */
     public function testStaticDirname() : void
@@ -155,7 +163,7 @@ class DirectoryTest extends \PHPUnit\Framework\TestCase
 
     /**
      * @testdox The parent of a directory can be returned
-     * @covers phpOMS\System\File\Ftp\Directory
+     * @covers phpOMS\System\File\Ftp\Directory<extended>
      * @group framework
      */
     public function testStaticParent() : void
@@ -167,7 +175,7 @@ class DirectoryTest extends \PHPUnit\Framework\TestCase
 
     /**
      * @testdox The full absolute path of a directory can be returned
-     * @covers phpOMS\System\File\Ftp\Directory
+     * @covers phpOMS\System\File\Ftp\Directory<extended>
      * @group framework
      */
     public function testStaticDirectoryPath() : void
@@ -179,7 +187,7 @@ class DirectoryTest extends \PHPUnit\Framework\TestCase
 
     /**
      * @testdox The directories creation date can be returned
-     * @covers phpOMS\System\File\Ftp\Directory
+     * @covers phpOMS\System\File\Ftp\Directory<extended>
      * @group framework
      */
     public function testStaticCreatedAt() : void
@@ -198,7 +206,7 @@ class DirectoryTest extends \PHPUnit\Framework\TestCase
 
     /**
      * @testdox The directories last change date can be returned
-     * @covers phpOMS\System\File\Ftp\Directory
+     * @covers phpOMS\System\File\Ftp\Directory<extended>
      * @group framework
      */
     public function testStaticChangedAt() : void
@@ -217,7 +225,7 @@ class DirectoryTest extends \PHPUnit\Framework\TestCase
 
     /**
      * @testdox A directory can be deleted
-     * @covers phpOMS\System\File\Ftp\Directory
+     * @covers phpOMS\System\File\Ftp\Directory<extended>
      * @group framework
      */
     public function testStaticDelete() : void
@@ -231,7 +239,7 @@ class DirectoryTest extends \PHPUnit\Framework\TestCase
 
     /**
      * @testdox A none-existing directory cannot be deleted
-     * @covers phpOMS\System\File\Ftp\Directory
+     * @covers phpOMS\System\File\Ftp\Directory<extended>
      * @group framework
      */
     public function testInvalidStaticDelete() : void
@@ -243,7 +251,7 @@ class DirectoryTest extends \PHPUnit\Framework\TestCase
 
     /**
      * @testdox The size of a directory can be returned
-     * @covers phpOMS\System\File\Ftp\Directory
+     * @covers phpOMS\System\File\Ftp\Directory<extended>
      * @group framework
      */
     public function testStaticSizeRecursive() : void
@@ -254,7 +262,7 @@ class DirectoryTest extends \PHPUnit\Framework\TestCase
 
     /**
      * @testdox The size of a none-existing directory is negative
-     * @covers phpOMS\System\File\Ftp\Directory
+     * @covers phpOMS\System\File\Ftp\Directory<extended>
      * @group framework
      */
     public function testInvalidStaticSizeRecursive() : void
@@ -265,7 +273,7 @@ class DirectoryTest extends \PHPUnit\Framework\TestCase
 
     /**
      * @testdox The recursive size of a directory is equals or greater than the size of the same directory none-recursive
-     * @covers phpOMS\System\File\Ftp\Directory
+     * @covers phpOMS\System\File\Ftp\Directory<extended>
      * @group framework
      */
     public function testStaticSize() : void
@@ -276,7 +284,7 @@ class DirectoryTest extends \PHPUnit\Framework\TestCase
 
     /**
      * @testdox The permission of a directory can be returned
-     * @covers phpOMS\System\File\Ftp\Directory
+     * @covers phpOMS\System\File\Ftp\Directory<extended>
      * @group framework
      */
     public function testStaticPermission() : void
@@ -287,7 +295,7 @@ class DirectoryTest extends \PHPUnit\Framework\TestCase
 
     /**
      * @testdox The permission of a none-existing directory is negative
-     * @covers phpOMS\System\File\Ftp\Directory
+     * @covers phpOMS\System\File\Ftp\Directory<extended>
      * @group framework
      */
     public function testInvalidStaticPermission() : void
@@ -298,7 +306,7 @@ class DirectoryTest extends \PHPUnit\Framework\TestCase
 
     /**
      * @testdox A directory can be copied recursively
-     * @covers phpOMS\System\File\Ftp\Directory
+     * @covers phpOMS\System\File\Ftp\Directory<extended>
      * @group framework
      */
     public function testStaticCopy() : void
@@ -310,6 +318,10 @@ class DirectoryTest extends \PHPUnit\Framework\TestCase
         Directory::delete(self::$con, __DIR__ . '/newdirtest');
     }
 
+    /**
+     * @covers phpOMS\System\File\Ftp\Directory<extended>
+     * @group framework
+     */
     public function testStaticCopyOverwrite() : void
     {
         $dirTestPath = __DIR__ . '/dirtest';
@@ -321,6 +333,10 @@ class DirectoryTest extends \PHPUnit\Framework\TestCase
         Directory::delete(self::$con, __DIR__ . '/newdirtest');
     }
 
+    /**
+     * @covers phpOMS\System\File\Ftp\Directory<extended>
+     * @group framework
+     */
     public function testStaticInvalidCopyOverwrite() : void
     {
         $dirTestPath = __DIR__ . '/dirtest';
@@ -332,7 +348,7 @@ class DirectoryTest extends \PHPUnit\Framework\TestCase
 
     /**
      * @testdox A directory can be moved/renamed to a different path
-     * @covers phpOMS\System\File\Ftp\Directory
+     * @covers phpOMS\System\File\Ftp\Directory<extended>
      * @group framework
      */
     public function testStaticMove() : void
@@ -345,6 +361,10 @@ class DirectoryTest extends \PHPUnit\Framework\TestCase
         Directory::move(self::$con, __DIR__ . '/newdirtest', $dirTestPath);
     }
 
+    /**
+     * @covers phpOMS\System\File\Ftp\Directory<extended>
+     * @group framework
+     */
     public function testStaticInvalidMoveOverwrite() : void
     {
         $dirTestPath = __DIR__ . '/dirtest';
@@ -355,6 +375,10 @@ class DirectoryTest extends \PHPUnit\Framework\TestCase
         Directory::move(self::$con, __DIR__ . '/newdirtest', $dirTestPath);
     }
 
+    /**
+     * @covers phpOMS\System\File\Ftp\Directory<extended>
+     * @group framework
+     */
     public function testStaticMoveOverwrite() : void
     {
         $dirTestPath = __DIR__ . '/dirtest';
@@ -370,7 +394,7 @@ class DirectoryTest extends \PHPUnit\Framework\TestCase
 
     /**
      * @testdox The amount of files in a directory can be returned recursively
-     * @covers phpOMS\System\File\Ftp\Directory
+     * @covers phpOMS\System\File\Ftp\Directory<extended>
      * @group framework
      */
     public function testStaticCountRecursive() : void
@@ -381,7 +405,7 @@ class DirectoryTest extends \PHPUnit\Framework\TestCase
 
     /**
      * @testdox The amount of files in a directory can be returned none-recursively
-     * @covers phpOMS\System\File\Ftp\Directory
+     * @covers phpOMS\System\File\Ftp\Directory<extended>
      * @group framework
      */
     public function testStaticCount() : void
@@ -392,7 +416,7 @@ class DirectoryTest extends \PHPUnit\Framework\TestCase
 
     /**
      * @testdox The amount of files of a none-existing directory is negative
-     * @covers phpOMS\System\File\Ftp\Directory
+     * @covers phpOMS\System\File\Ftp\Directory<extended>
      * @group framework
      */
     public function testInvalidStaticCount() : void
@@ -403,7 +427,7 @@ class DirectoryTest extends \PHPUnit\Framework\TestCase
 
     /**
      * @testdox All files and sub-directories of a directory can be listed
-     * @covers phpOMS\System\File\Ftp\Directory
+     * @covers phpOMS\System\File\Ftp\Directory<extended>
      * @group framework
      */
     public function testStaticListFiles() : void
@@ -412,18 +436,30 @@ class DirectoryTest extends \PHPUnit\Framework\TestCase
         self::assertCount(6, Directory::list(self::$con, $dirTestPath, '*', true));
     }
 
+    /**
+     * @covers phpOMS\System\File\Ftp\Directory<extended>
+     * @group framework
+     */
     public function testStaticListFilesByExtension() : void
     {
         $dirTestPath = __DIR__ . '/dirtest';
         self::assertCount(3, Directory::listByExtension(self::$con, $dirTestPath, 'txt', '', true));
     }
 
+    /**
+     * @covers phpOMS\System\File\Ftp\Directory<extended>
+     * @group framework
+     */
     public function testStaticOwner() : void
     {
         $dirTestPath = __DIR__ . '/dirtest';
         self::assertNotEmpty(Directory::owner(self::$con, $dirTestPath));
     }
 
+    /**
+     * @covers phpOMS\System\File\Ftp\Directory<extended>
+     * @group framework
+     */
     public function testDirectoryNameSanitizing() : void
     {
         self::assertEquals(':/some/test/[path', Directory::sanitize(':#&^$/some%/test/[path!'));
@@ -431,7 +467,7 @@ class DirectoryTest extends \PHPUnit\Framework\TestCase
 
     /**
      * @testdox A none-existing directory returns a empty list of files and sub-directories
-     * @covers phpOMS\System\File\Ftp\Directory
+     * @covers phpOMS\System\File\Ftp\Directory<extended>
      * @group framework
      */
     public function testInvalidListPath() : void
@@ -439,6 +475,10 @@ class DirectoryTest extends \PHPUnit\Framework\TestCase
         self::assertEquals([], Directory::list(self::$con, __DIR__ . '/invalid.txt'));
     }
 
+    /**
+     * @covers phpOMS\System\File\Ftp\Directory<extended>
+     * @group framework
+     */
     public function testInvalidListFilesByExtension() : void
     {
         self::assertEquals([], Directory::listByExtension(self::$con, __DIR__ . '/invalid/path/here', 'txt'));
@@ -446,7 +486,7 @@ class DirectoryTest extends \PHPUnit\Framework\TestCase
 
     /**
      * @testdox A invalid directory cannot be copied to a new destination
-     * @covers phpOMS\System\File\Ftp\Directory
+     * @covers phpOMS\System\File\Ftp\Directory<extended>
      * @group framework
      */
     public function testInvalidCopyPath() : void
@@ -456,7 +496,7 @@ class DirectoryTest extends \PHPUnit\Framework\TestCase
 
     /**
      * @testdox A invalid directory cannot be moved to a new destination
-     * @covers phpOMS\System\File\Ftp\Directory
+     * @covers phpOMS\System\File\Ftp\Directory<extended>
      * @group framework
      */
     public function testInvalidMovePath() : void
@@ -466,7 +506,7 @@ class DirectoryTest extends \PHPUnit\Framework\TestCase
 
     /**
      * @testdox Reading the creation date of a none-existing directory throws a PathException
-     * @covers phpOMS\System\File\Ftp\Directory
+     * @covers phpOMS\System\File\Ftp\Directory<extended>
      * @group framework
      */
     public function testInvalidCreatedPath() : void
@@ -478,7 +518,7 @@ class DirectoryTest extends \PHPUnit\Framework\TestCase
 
     /**
      * @testdox Reading the last change date of a none-existing directory throws a PathException
-     * @covers phpOMS\System\File\Ftp\Directory
+     * @covers phpOMS\System\File\Ftp\Directory<extended>
      * @group framework
      */
     public function testInvalidChangedPath() : void
@@ -490,7 +530,7 @@ class DirectoryTest extends \PHPUnit\Framework\TestCase
 
     /**
      * @testdox Reading the owner of a none-existing directory throws a PathException
-     * @covers phpOMS\System\File\Ftp\Directory
+     * @covers phpOMS\System\File\Ftp\Directory<extended>
      * @group framework
      */
     public function testInvalidOwnerPath() : void
@@ -500,6 +540,10 @@ class DirectoryTest extends \PHPUnit\Framework\TestCase
         Directory::owner(self::$con, __DIR__ . '/invalid');
     }
 
+    /**
+     * @covers phpOMS\System\File\Ftp\Directory<extended>
+     * @group framework
+     */
     public function testList() : void
     {
         $dirTestPath = __DIR__ . '/dirtest';
@@ -511,6 +555,10 @@ class DirectoryTest extends \PHPUnit\Framework\TestCase
         ], $dir->getList());
     }
 
+    /**
+     * @covers phpOMS\System\File\Ftp\Directory<extended>
+     * @group framework
+     */
     public function testNodeOutput() : void
     {
         $dirTestPath = __DIR__ . '/dirtest';
@@ -519,55 +567,75 @@ class DirectoryTest extends \PHPUnit\Framework\TestCase
         self::assertInstanceOf(Directory::class, $dir->getNode('sub'));
     }
 
+    /**
+     * @covers phpOMS\System\File\Ftp\Directory<extended>
+     * @group framework
+     */
     public function testNodeCreate() : void
     {
         $dir = new Directory(new HttpUri(self::BASE . __DIR__), '*', true, self::$con);
         $dir->addNode(new Directory(new HttpUri(self::BASE . __DIR__ . '/nodedir')));
 
-        self::assertTrue(\file_exists(__DIR__ . '/nodedir'));
+        self::assertTrue(\is_dir(__DIR__ . '/nodedir'));
         \rmdir(__DIR__ . '/nodedir');
 
         $dir = new Directory(new HttpUri(self::BASE . __DIR__ . '/nodedir2'), '*', true, self::$con);
         $dir->createNode();
 
-        self::assertTrue(\file_exists(__DIR__ . '/nodedir2'));
+        self::assertTrue(\is_dir(__DIR__ . '/nodedir2'));
         \rmdir(__DIR__ . '/nodedir2');
     }
 
+    /**
+     * @covers phpOMS\System\File\Ftp\Directory<extended>
+     * @group framework
+     */
     public function testNodeDelete() : void
     {
         $dir = new Directory(new HttpUri(self::BASE . __DIR__), '*', true, self::$con);
         $dir->addNode(new Directory(new HttpUri(self::BASE . __DIR__ . '/nodedir')));
 
-        self::assertTrue(\file_exists(__DIR__ . '/nodedir'));
+        self::assertTrue(\is_dir(__DIR__ . '/nodedir'));
         self::assertTrue($dir->getNode('nodedir')->deleteNode());
-        self::assertFalse(\file_exists(__DIR__ . '/nodedir'));
+        self::assertFalse(\is_dir(__DIR__ . '/nodedir'));
     }
 
+    /**
+     * @covers phpOMS\System\File\Ftp\Directory<extended>
+     * @group framework
+     */
     public function testNodeCopy() : void
     {
         $dir = new Directory(new HttpUri(self::BASE . __DIR__), '*', true, self::$con);
         $dir->addNode(new Directory(new HttpUri(self::BASE . __DIR__ . '/nodedir')));
 
         $dir->getNode('nodedir')->copyNode(__DIR__ . '/nodedir2');
-        self::assertTrue(\file_exists(__DIR__ . '/nodedir2'));
+        self::assertTrue(\is_dir(__DIR__ . '/nodedir2'));
 
         \rmdir(__DIR__ . '/nodedir');
         \rmdir(__DIR__ . '/nodedir2');
     }
 
+    /**
+     * @covers phpOMS\System\File\Ftp\Directory<extended>
+     * @group framework
+     */
     public function testNodeMove() : void
     {
         $dir = new Directory(new HttpUri(self::BASE . __DIR__), '*', true, self::$con);
         $dir->addNode(new Directory(new HttpUri(self::BASE . __DIR__ . '/nodedir')));
 
         $dir->getNode('nodedir')->moveNode(__DIR__ . '/nodedir2');
-        self::assertFalse(\file_exists(__DIR__ . '/nodedir'));
-        self::assertTrue(\file_exists(__DIR__ . '/nodedir2'));
+        self::assertFalse(\is_dir(__DIR__ . '/nodedir'));
+        self::assertTrue(\is_dir(__DIR__ . '/nodedir2'));
 
         \rmdir(__DIR__ . '/nodedir2');
     }
 
+    /**
+     * @covers phpOMS\System\File\Ftp\Directory<extended>
+     * @group framework
+     */
     public function testNodeExists() : void
     {
         $dir = new Directory(new HttpUri(self::BASE . __DIR__), '*', true, self::$con);
@@ -577,6 +645,10 @@ class DirectoryTest extends \PHPUnit\Framework\TestCase
         self::assertFalse($dir->isExisting('invalid'));
     }
 
+    /**
+     * @covers phpOMS\System\File\Ftp\Directory<extended>
+     * @group framework
+     */
     public function testParentOutput() : void
     {
         $dir = new Directory(new HttpUri(self::BASE . __DIR__ . '/dirtest'), '*', true, self::$con);
@@ -584,6 +656,10 @@ class DirectoryTest extends \PHPUnit\Framework\TestCase
         self::assertEquals(__DIR__, $dir->getParent()->getPath());
     }
 
+    /**
+     * @covers phpOMS\System\File\Ftp\Directory<extended>
+     * @group framework
+     */
     public function testNodeNext() : void
     {
         $dir = new Directory(new HttpUri(self::BASE . __DIR__ . '/dirtest'), '*', true, self::$con);
@@ -591,6 +667,10 @@ class DirectoryTest extends \PHPUnit\Framework\TestCase
         self::assertEquals(__DIR__ . '/dirtest/test.txt', $dir->next()->getPath());
     }
 
+    /**
+     * @covers phpOMS\System\File\Ftp\Directory<extended>
+     * @group framework
+     */
     public function testNodeCurrent() : void
     {
         $dir = new Directory(new HttpUri(self::BASE . __DIR__ . '/dirtest'), '*', true, self::$con);
@@ -598,6 +678,10 @@ class DirectoryTest extends \PHPUnit\Framework\TestCase
         self::assertEquals(__DIR__ . '/dirtest/sub', $dir->current()->getPath());
     }
 
+    /**
+     * @covers phpOMS\System\File\Ftp\Directory<extended>
+     * @group framework
+     */
     public function testNodeKey() : void
     {
         $dir = new Directory(new HttpUri(self::BASE . __DIR__ . '/dirtest'), '*', true, self::$con);
@@ -607,6 +691,10 @@ class DirectoryTest extends \PHPUnit\Framework\TestCase
         self::assertEquals('test.txt', $dir->key());
     }
 
+    /**
+     * @covers phpOMS\System\File\Ftp\Directory<extended>
+     * @group framework
+     */
     public function testNodeArrayRead() : void
     {
         $dir = new Directory(new HttpUri(self::BASE . __DIR__ . '/dirtest'), '*', true, self::$con);
@@ -614,30 +702,42 @@ class DirectoryTest extends \PHPUnit\Framework\TestCase
         self::assertEquals('test', $dir['test.txt']->getName());
     }
 
+    /**
+     * @covers phpOMS\System\File\Ftp\Directory<extended>
+     * @group framework
+     */
     public function testNodeArraySet() : void
     {
         $dir   = new Directory(new HttpUri(self::BASE . __DIR__), '*', true, self::$con);
         $dir[] = new Directory(new HttpUri(self::BASE . __DIR__ . '/nodedir'));
 
-        self::assertTrue(\file_exists(__DIR__ . '/nodedir'));
+        self::assertTrue(\is_dir(__DIR__ . '/nodedir'));
         \rmdir(__DIR__ . '/nodedir');
 
         $dir['nodedir'] = new Directory(new HttpUri(self::BASE . __DIR__ . '/nodedir'));
 
-        self::assertTrue(\file_exists(__DIR__ . '/nodedir'));
+        self::assertTrue(\is_dir(__DIR__ . '/nodedir'));
         \rmdir(__DIR__ . '/nodedir');
     }
 
+    /**
+     * @covers phpOMS\System\File\Ftp\Directory<extended>
+     * @group framework
+     */
     public function testNodeArrayRemove() : void
     {
         $dir = new Directory(new HttpUri(self::BASE . __DIR__), '*', true, self::$con);
         $dir->addNode(new Directory(new HttpUri(self::BASE . __DIR__ . '/nodedir')));
 
-        self::assertTrue(\file_exists(__DIR__ . '/nodedir'));
+        self::assertTrue(\is_dir(__DIR__ . '/nodedir'));
         unset($dir['nodedir']);
-        self::assertFalse(\file_exists(__DIR__ . '/nodedir'));
+        self::assertFalse(\is_dir(__DIR__ . '/nodedir'));
     }
 
+    /**
+     * @covers phpOMS\System\File\Ftp\Directory<extended>
+     * @group framework
+     */
     public function testNodeArrayExists() : void
     {
         $dir = new Directory(new HttpUri(self::BASE . __DIR__), '*', true, self::$con);
@@ -646,6 +746,10 @@ class DirectoryTest extends \PHPUnit\Framework\TestCase
         self::assertFalse(isset($dir['invalid']));
     }
 
+    /**
+     * @covers phpOMS\System\File\Ftp\Directory<extended>
+     * @group framework
+     */
     public function testNodeCreatedAt() : void
     {
         $dirPath = __DIR__ . '/test';
@@ -659,6 +763,10 @@ class DirectoryTest extends \PHPUnit\Framework\TestCase
         \rmdir($dirPath);
     }
 
+    /**
+     * @covers phpOMS\System\File\Ftp\Directory<extended>
+     * @group framework
+     */
     public function testNodeChangedAt() : void
     {
         $dirPath = __DIR__ . '/test';
@@ -672,6 +780,10 @@ class DirectoryTest extends \PHPUnit\Framework\TestCase
         \rmdir($dirPath);
     }
 
+    /**
+     * @covers phpOMS\System\File\Ftp\Directory<extended>
+     * @group framework
+     */
     public function testNodeOwner() : void
     {
         $dir = new Directory(new HttpUri(self::BASE . __DIR__ . '/dirtest'), '*', true, self::$con);
@@ -679,6 +791,10 @@ class DirectoryTest extends \PHPUnit\Framework\TestCase
         self::assertNotEmpty($dir->getOwner());
     }
 
+    /**
+     * @covers phpOMS\System\File\Ftp\Directory<extended>
+     * @group framework
+     */
     public function testNodePermission() : void
     {
         $dir = new Directory(new HttpUri(self::BASE . __DIR__ . '/dirtest'), '*', true, self::$con);
@@ -686,6 +802,10 @@ class DirectoryTest extends \PHPUnit\Framework\TestCase
         self::assertGreaterThan(0, $dir->getPermission());
     }
 
+    /**
+     * @covers phpOMS\System\File\Ftp\Directory<extended>
+     * @group framework
+     */
     public function testDirname() : void
     {
         $dir = new Directory(new HttpUri(self::BASE . __DIR__ . '/dirtest'), '*', true, self::$con);
@@ -693,6 +813,10 @@ class DirectoryTest extends \PHPUnit\Framework\TestCase
         self::assertEquals('dirtest', $dir->next()->getDirname());
     }
 
+    /**
+     * @covers phpOMS\System\File\Ftp\Directory<extended>
+     * @group framework
+     */
     public function testName() : void
     {
         $dir = new Directory(new HttpUri(self::BASE . __DIR__ . '/dirtest'), '*', true, self::$con);
@@ -700,6 +824,10 @@ class DirectoryTest extends \PHPUnit\Framework\TestCase
         self::assertEquals('test', $dir->next()->getName());
     }
 
+    /**
+     * @covers phpOMS\System\File\Ftp\Directory<extended>
+     * @group framework
+     */
     public function testBaseame() : void
     {
         $dir = new Directory(new HttpUri(self::BASE . __DIR__ . '/dirtest'), '*', true, self::$con);
@@ -707,6 +835,10 @@ class DirectoryTest extends \PHPUnit\Framework\TestCase
         self::assertEquals('test.txt', $dir->next()->getBasename());
     }
 
+    /**
+     * @covers phpOMS\System\File\Ftp\Directory<extended>
+     * @group framework
+     */
     public function testDirpath() : void
     {
         $dir = new Directory(new HttpUri(self::BASE . __DIR__ . '/dirtest'), '*', true, self::$con);

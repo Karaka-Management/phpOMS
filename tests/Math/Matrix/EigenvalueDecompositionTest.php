@@ -237,6 +237,10 @@ class EigenvalueDecompositionTest extends \PHPUnit\Framework\TestCase
         );
     }
 
+    /**
+     * @covers phpOMS\Math\Matrix\EigenvalueDecomposition
+     * @group framework
+     */
     public function testComplexEigenvalueDecomposition() : void
     {
         $A = new Matrix();
@@ -255,6 +259,10 @@ class EigenvalueDecompositionTest extends \PHPUnit\Framework\TestCase
         self::assertEqualsWithDelta([2, -2], $eig->getImagEigenvalues()->toArray(), 0.1);
     }
 
+    /**
+     * @covers phpOMS\Math\Matrix\EigenvalueDecomposition
+     * @group framework
+     */
     public function testComplexDivision() : void
     {
         $A = new Matrix();
@@ -275,6 +283,10 @@ class EigenvalueDecompositionTest extends \PHPUnit\Framework\TestCase
         self::assertEqualsWithDelta([4.49865, -4.49865, 0.0], $eig->getImagEigenvalues()->toArray(), 0.1);
     }
 
+    /**
+     * @covers phpOMS\Math\Matrix\EigenvalueDecomposition
+     * @group framework
+     */
     public function testComplexDivision2() : void
     {
         $A = new Matrix();
@@ -295,6 +307,10 @@ class EigenvalueDecompositionTest extends \PHPUnit\Framework\TestCase
         self::assertEqualsWithDelta([0.0, 4.7940, -4.7940], $eig->getImagEigenvalues()->toArray(), 0.1);
     }
 
+    /**
+     * @covers phpOMS\Math\Matrix\EigenvalueDecomposition
+     * @group framework
+     */
     public function testComplexDivision3() : void
     {
         $A = new Matrix();
@@ -318,6 +334,10 @@ class EigenvalueDecompositionTest extends \PHPUnit\Framework\TestCase
         self::assertEqualsWithDelta([14.8641, -14.8641, 5.6595, -5.6595], $eig->getImagEigenvalues()->toArray(), 0.1);
     }
 
+    /**
+     * @covers phpOMS\Math\Matrix\EigenvalueDecomposition
+     * @group framework
+     */
     public function testComplexDivision4() : void
     {
         $A = new Matrix();

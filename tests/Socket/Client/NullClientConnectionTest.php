@@ -23,6 +23,10 @@ use phpOMS\Socket\Client\NullClientConnection;
  */
 final class NullClientConnectionTest extends \PHPUnit\Framework\TestCase
 {
+    /**
+     * @covers phpOMS\Socket\Client\NullClientConnection
+     * @group framework
+     */
     public function testDefault() : void
     {
         self::assertInstanceOf(ClientConnection::class, new NullClientConnection(new Account(), null));

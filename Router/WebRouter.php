@@ -59,7 +59,7 @@ final class WebRouter implements RouterInterface
      */
     public function importFromFile(string $path) : bool
     {
-        if (!\file_exists($path)) {
+        if (!\is_file($path)) {
             return false;
         }
 

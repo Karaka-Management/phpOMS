@@ -21,6 +21,10 @@ use phpOMS\Auth\OAuth2\Token\AccessToken;
  */
 class AccessTokenTest extends \PHPUnit\Framework\TestCase
 {
+    /**
+     * @covers phpOMS\Auth\OAuth2\Token\AccessToken
+     * @group framework
+     */
     public function testDefault() : void
     {
         $token = new AccessToken(['access_token' => 'token']);
@@ -34,6 +38,10 @@ class AccessTokenTest extends \PHPUnit\Framework\TestCase
         self::assertEquals(['access_token' => 'token'], $token->jsonSerialize());
     }
 
+    /**
+     * @covers phpOMS\Auth\OAuth2\Token\AccessToken
+     * @group framework
+     */
     public function testExpiresInputOutput() : void
     {
         $expires = \time();
@@ -41,6 +49,10 @@ class AccessTokenTest extends \PHPUnit\Framework\TestCase
         self::assertEquals($expires, $token->getExpires());
     }
 
+    /**
+     * @covers phpOMS\Auth\OAuth2\Token\AccessToken
+     * @group framework
+     */
     public function testExpiresInInputOutput() : void
     {
         $expires = \time();
@@ -49,6 +61,10 @@ class AccessTokenTest extends \PHPUnit\Framework\TestCase
         self::assertTrue($expires < $token->getExpires() && $token->getExpires() < $expires + 20);
     }
 
+    /**
+     * @covers phpOMS\Auth\OAuth2\Token\AccessToken
+     * @group framework
+     */
     public function testHasExpired() : void
     {
         $token   = new AccessToken(['access_token' => 'token', 'expires_in' => -5]);
@@ -59,18 +75,30 @@ class AccessTokenTest extends \PHPUnit\Framework\TestCase
         self::assertTrue($token->hasExpired());
     }
 
+    /**
+     * @covers phpOMS\Auth\OAuth2\Token\AccessToken
+     * @group framework
+     */
     public function testResourceOwnerIdInputOutput() : void
     {
         $token = new AccessToken(['access_token' => 'token', 'resource_owner_id' => 'owner']);
         self::assertEquals('owner', $token->getResourceOwnerId());
     }
 
+    /**
+     * @covers phpOMS\Auth\OAuth2\Token\AccessToken
+     * @group framework
+     */
     public function testRefreshTokenInputOutput() : void
     {
         $token = new AccessToken(['access_token' => 'token', 'refresh_token' => 'refresh']);
         self::assertEquals('refresh', $token->getRefreshToken());
     }
 
+    /**
+     * @covers phpOMS\Auth\OAuth2\Token\AccessToken
+     * @group framework
+     */
     public function testValuesInputOutput() : void
     {
         $token = new AccessToken([
@@ -87,6 +115,10 @@ class AccessTokenTest extends \PHPUnit\Framework\TestCase
         );
     }
 
+    /**
+     * @covers phpOMS\Auth\OAuth2\Token\AccessToken
+     * @group framework
+     */
     public function testJsonSeriaize() : void
     {
         $expires = \time() + 10;
@@ -111,6 +143,10 @@ class AccessTokenTest extends \PHPUnit\Framework\TestCase
         );
     }
 
+    /**
+     * @covers phpOMS\Auth\OAuth2\Token\AccessToken
+     * @group framework
+     */
     public function testMissingAccessToken() : void
     {
         $this->expectException(\InvalidArgumentException::class);

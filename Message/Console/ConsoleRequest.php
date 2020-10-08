@@ -147,6 +147,18 @@ final class ConsoleRequest extends RequestAbstract
     }
 
     /**
+     * Get request method.
+     *
+     * @return string
+     *
+     * @since 1.0.0
+     */
+    public function getMethod() : string
+    {
+        return $this->method;
+    }
+
+    /**
      * Determine request OS.
      *
      * @return string

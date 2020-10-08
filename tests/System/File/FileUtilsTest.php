@@ -75,7 +75,7 @@ class FileUtilsTest extends \PHPUnit\Framework\TestCase
      */
     public function testChangeFileEncoding() : void
     {
-        if (\file_exists(__DIR__ . '/UTF-8.txt')) {
+        if (\is_file(__DIR__ . '/UTF-8.txt')) {
             \unlink(__DIR__ . '/UTF-8.txt');
         }
 
@@ -85,7 +85,7 @@ class FileUtilsTest extends \PHPUnit\Framework\TestCase
         self::assertNotEquals("This is a test file with some¶\ncontent Ø Æ.", \file_get_contents(__DIR__ . '/Windows-1252.txt'));
         self::assertEquals("This is a test file with some¶\ncontent Ø Æ.", \file_get_contents(__DIR__ . '/UTF-8.txt'));
 
-        if (\file_exists(__DIR__ . '/UTF-8.txt')) {
+        if (\is_file(__DIR__ . '/UTF-8.txt')) {
             \unlink(__DIR__ . '/UTF-8.txt');
         }
     }

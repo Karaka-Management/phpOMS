@@ -439,7 +439,7 @@ class Directory extends FileAbstract implements DirectoryInterface, FtpContainer
             return false;
         }
 
-        if (!\file_exists($to)) {
+        if (!\is_dir($to)) {
             \mkdir($to);
         }
 
@@ -452,7 +452,7 @@ class Directory extends FileAbstract implements DirectoryInterface, FtpContainer
             }
         }
 
-        return \file_exists($to);
+        return \is_dir($to);
     }
 
     /**
@@ -468,7 +468,7 @@ class Directory extends FileAbstract implements DirectoryInterface, FtpContainer
      */
     public static function put($con, string $from, string $to) : bool
     {
-        if (!\file_exists($from)) {
+        if (!\is_dir($from)) {
             return false;
         }
 
@@ -760,7 +760,7 @@ class Directory extends FileAbstract implements DirectoryInterface, FtpContainer
     public function isExisting(string $name = null) : bool
     {
         if ($name === null) {
-            return \file_exists($this->path);
+            return \is_dir($this->path);
         }
 
         $name = isset($this->nodes[$name]) ? $name : $this->path . '/' . $name;
@@ -801,7 +801,7 @@ class Directory extends FileAbstract implements DirectoryInterface, FtpContainer
         $list = [];
         $path = \rtrim($path, '\\/');
 
-        if (!\file_exists($path)) {
+        if (!\is_dir($path)) {
             return $list;
         }
 

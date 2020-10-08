@@ -31,10 +31,14 @@ class C39Test extends \PHPUnit\Framework\TestCase
         }
     }
 
+    /**
+     * @covers phpOMS\Utils\Barcode\C39<extended>
+     * @group framework
+     */
     public function testImagePng() : void
     {
         $path = __DIR__ . '/c39.png';
-        if (\file_exists($path)) {
+        if (\is_file($path)) {
             \unlink($path);
         }
 
@@ -44,10 +48,14 @@ class C39Test extends \PHPUnit\Framework\TestCase
         self::assertFileExists($path);
     }
 
+    /**
+     * @covers phpOMS\Utils\Barcode\C39<extended>
+     * @group framework
+     */
     public function testImageJpg() : void
     {
         $path = __DIR__ . '/c39.jpg';
-        if (\file_exists($path)) {
+        if (\is_file($path)) {
             \unlink($path);
         }
 
@@ -57,10 +65,14 @@ class C39Test extends \PHPUnit\Framework\TestCase
         self::assertFileExists($path);
     }
 
+    /**
+     * @covers phpOMS\Utils\Barcode\C39<extended>
+     * @group framework
+     */
     public function testOrientationAndMargin() : void
     {
         $path = __DIR__ . '/c39_vertical.png';
-        if (\file_exists($path)) {
+        if (\is_file($path)) {
             \unlink($path);
         }
 
@@ -71,6 +83,10 @@ class C39Test extends \PHPUnit\Framework\TestCase
         self::assertFileExists($path);
     }
 
+    /**
+     * @covers phpOMS\Utils\Barcode\C39<extended>
+     * @group framework
+     */
     public function testValidString() : void
     {
         self::assertTrue(C39::isValidString('ABCDEFG0123+-'));

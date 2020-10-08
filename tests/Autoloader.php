@@ -42,7 +42,7 @@ class Autoloader
         $class = \ltrim($class, '\\');
         $class = \str_replace(['_', '\\'], '/', $class);
 
-        if (!\file_exists($path = __DIR__ . '/../../' . $class . '.php')) {
+        if (!\is_file($path = __DIR__ . '/../../' . $class . '.php')) {
             return;
         }
 
@@ -66,6 +66,6 @@ class Autoloader
         $class = \ltrim($class, '\\');
         $class = \str_replace(['_', '\\'], '/', $class);
 
-        return \file_exists(__DIR__ . '/../../' . $class . '.php');
+        return \is_file(__DIR__ . '/../../' . $class . '.php');
     }
 }

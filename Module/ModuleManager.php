@@ -191,6 +191,7 @@ final class ModuleManager
     public function getActiveModules(bool $useCache = true) : array
     {
         if (empty($this->active) || !$useCache) {
+            // @todo: use ModuleMapper and return objects
             $query = new Builder($this->app->dbPool->get('select'));
             $sth   = $query->select('module.module_path')
                 ->from('module')
@@ -202,9 +203,8 @@ final class ModuleManager
             foreach ($active as $module) {
                 $path = $this->modulePath . '/' . $module . '/info.json';
 
-                if (!\file_exists($path)) {
+                if (!\is_file($path)) {
                     continue;
-                    // throw new PathException($path);
                 }
 
                 $content = \file_get_contents($path);
@@ -257,6 +257,8 @@ final class ModuleManager
     public function getAllModules() : array
     {
         if (empty($this->all)) {
+            // @todo: return objects
+
             \chdir($this->modulePath);
             $files = \glob('*', \GLOB_ONLYDIR);
 
@@ -268,9 +270,8 @@ final class ModuleManager
             for ($i = 0; $i < $c; ++$i) {
                 $path = $this->modulePath . '/' . $files[$i] . '/info.json';
 
-                if (!\file_exists($path)) {
+                if (!\is_file($path)) {
                     continue;
-                    // throw new PathException($path);
                 }
 
                 $content = \file_get_contents($path);
@@ -307,6 +308,7 @@ final class ModuleManager
     public function getInstalledModules(bool $useCache = true) : array
     {
         if (empty($this->installed) || !$useCache) {
+            // @todo: use ModuleMapper and return objects
             $query = new Builder($this->app->dbPool->get('select'));
             $sth   = $query->select('module.module_path')
                 ->from('module')
@@ -317,9 +319,8 @@ final class ModuleManager
             foreach ($installed as $module) {
                 $path = $this->modulePath . '/' . $module . '/info.json';
 
-                if (!\file_exists($path)) {
+                if (!\is_file($path)) {
                     continue;
-                    // throw new PathException($path);
                 }
 
                 $this->installed[$module] = $this->loadInfo($module);
@@ -500,7 +501,7 @@ final class ModuleManager
          * @todo Orange-Management/Modules#193
          *  Implement online database and downloading api for modules and updates
          */
-        if (!\file_exists($this->modulePath . '/' . $module . '/Admin/Installer.php')) {
+        if (!\is_file($this->modulePath . '/' . $module . '/Admin/Installer.php')) {
             return false;
         }
 
@@ -550,7 +551,7 @@ final class ModuleManager
             return false;
         }
 
-        if (!\file_exists($this->modulePath . '/' . $module . '/Admin/Uninstaller.php')) {
+        if (!\is_file($this->modulePath . '/' . $module . '/Admin/Uninstaller.php')) {
             return false;
         }
 
@@ -643,7 +644,7 @@ final class ModuleManager
      */
     public function installProviding(string $from, string $for) : void
     {
-        if (\file_exists($this->modulePath . '/' . $from . '/Admin/Install/' . $for . '.php')) {
+        if (\is_file($this->modulePath . '/' . $from . '/Admin/Install/' . $for . '.php')) {
             $class = '\\Modules\\' . $from . '\\Admin\\Install\\' . $for;
             $class::install($this->modulePath, $this->app->dbPool);
         }

@@ -28,6 +28,10 @@ class RefreshTokenTest extends \PHPUnit\Framework\TestCase
         $this->grant = new RefreshToken();
     }
 
+    /**
+     * @covers phpOMS\Auth\OAuth2\Grant\RefreshToken
+     * @group framework
+     */
     public function testDefault() : void
     {
         self::assertEquals('refresh_token', $this->grant->__toString());
@@ -49,6 +53,10 @@ class RefreshTokenTest extends \PHPUnit\Framework\TestCase
         );
     }
 
+    /**
+     * @covers phpOMS\Auth\OAuth2\Grant\RefreshToken
+     * @group framework
+     */
     public function testMissingDefaultOption() : void
     {
         $this->expectException(\Exception::class);

@@ -28,6 +28,10 @@ class PasswordTest extends \PHPUnit\Framework\TestCase
         $this->grant = new Password();
     }
 
+    /**
+     * @covers phpOMS\Auth\OAuth2\Grant\Password
+     * @group framework
+     */
     public function testDefault() : void
     {
         self::assertEquals('password', $this->grant->__toString());
@@ -49,6 +53,10 @@ class PasswordTest extends \PHPUnit\Framework\TestCase
         );
     }
 
+    /**
+     * @covers phpOMS\Auth\OAuth2\Grant\Password
+     * @group framework
+     */
     public function testMissingDefaultOption() : void
     {
         $this->expectException(\Exception::class);

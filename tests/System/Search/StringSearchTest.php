@@ -23,31 +23,55 @@ use phpOMS\System\Search\StringSearch;
  */
 class StringSearchTest extends \PHPUnit\Framework\TestCase
 {
+    /**
+     * @covers phpOMS\System\Search\StringSearch
+     * @group framework
+     */
     public function testKnutMorrisPrattSearch() : void
     {
         self::assertEquals(15, StringSearch::knuthMorrisPrattSearch('ABCDABD', 'ABC ABCDAB ABCDABCDABDE'));
     }
 
+    /**
+     * @covers phpOMS\System\Search\StringSearch
+     * @group framework
+     */
     public function testInvalidKnutMorrisPrattSearch() : void
     {
         self::assertEquals(-1, StringSearch::knuthMorrisPrattSearch('ABCDABDZ', 'ABC ABCDAB ABCDABCDABDE'));
     }
 
+    /**
+     * @covers phpOMS\System\Search\StringSearch
+     * @group framework
+     */
     public function testBoyerMooreHorspoolSimpleSearch() : void
     {
         self::assertEquals(15, StringSearch::boyerMooreHorspoolSimpleSearch('ABCDABD', 'ABC ABCDAB ABCDABCDABDE'));
     }
 
+    /**
+     * @covers phpOMS\System\Search\StringSearch
+     * @group framework
+     */
     public function testInvalidBoyerMooreHorspoolSimpleSearch() : void
     {
         self::assertEquals(-1, StringSearch::boyerMooreHorspoolSimpleSearch('ABCDABDZ', 'ABC ABCDAB ABCDABCDABDE'));
     }
 
+    /**
+     * @covers phpOMS\System\Search\StringSearch
+     * @group framework
+     */
     public function testBoyerMooreHorspoolSearch() : void
     {
         self::assertEquals(15, StringSearch::boyerMooreHorspoolSearch('ABCDABD', 'ABC ABCDAB ABCDABCDABDE'));
     }
 
+    /**
+     * @covers phpOMS\System\Search\StringSearch
+     * @group framework
+     */
     public function testInvalidBoyerMooreHorspoolSearch() : void
     {
         self::assertEquals(-1, StringSearch::boyerMooreHorspoolSearch('ABCDABDZ', 'ABC ABCDAB ABCDABCDABDE'));

@@ -110,8 +110,7 @@ abstract class InstallerAbstract
     public static function installSettings(DatabasePool $dbPool, ModuleInfo $info, SettingsInterface $cfgHandler) : void
     {
         $path = \dirname($info->getPath()) . '/Admin/Install/Settings.install.php';
-
-        if (!\file_exists($path)) {
+        if (!\is_file($path)) {
             return;
         }
 
@@ -135,8 +134,7 @@ abstract class InstallerAbstract
     protected static function createTables(DatabasePool $dbPool, ModuleInfo $info) : void
     {
         $path = \dirname($info->getPath()) . '/Admin/Install/db.json';
-
-        if (!\file_exists($path)) {
+        if (!\is_file($path)) {
             return;
         }
 
@@ -203,7 +201,7 @@ abstract class InstallerAbstract
         foreach ($directories as $child) {
             if ($child instanceof Directory) {
                 foreach ($child as $file) {
-                    if (!\file_exists(__DIR__ . '/../../' . $child->getName() . '/' . \basename($file->getName(), '.php'))
+                    if (!\is_dir(__DIR__ . '/../../' . $child->getName() . '/' . \basename($file->getName(), '.php'))
                         || ($appInfo !== null && \basename($file->getName(), '.php') !== $appInfo->getInternalName())
                     ) {
                         continue;
@@ -212,7 +210,7 @@ abstract class InstallerAbstract
                     self::installRoutes(__DIR__ . '/../../' . $child->getName() . '/' . \basename($file->getName(), '.php') . '/Routes.php', $file->getPath());
                 }
             } elseif ($child instanceof File) {
-                if (!\file_exists(__DIR__ . '/../../' . $child->getName())
+                if (!\is_dir(__DIR__ . '/../../' . $child->getName())
                     || ($appInfo !== null && \basename($child->getName(), '.php') !== $appInfo->getInternalName())
                 ) {
                     continue;
@@ -237,15 +235,15 @@ abstract class InstallerAbstract
      */
     protected static function installRoutes(string $destRoutePath, string $srcRoutePath) : void
     {
-        if (!\file_exists($destRoutePath)) {
+        if (!\is_file($destRoutePath)) {
             \file_put_contents($destRoutePath, '<?php return [];');
         }
 
-        if (!\file_exists($srcRoutePath)) {
+        if (!\is_file($srcRoutePath)) {
             return;
         }
 
-        if (!\file_exists($destRoutePath)) {
+        if (!\is_file($destRoutePath)) {
             throw new PathException($destRoutePath);
         }
 
@@ -279,10 +277,10 @@ abstract class InstallerAbstract
     {
         $directories = new Directory(\dirname($info->getPath()) . '/Admin/Hooks');
 
-        foreach ($directories as $key => $child) {
+        foreach ($directories as $child) {
             if ($child instanceof Directory) {
-                foreach ($child as $key2 => $file) {
-                    if (!\file_exists(__DIR__ . '/../../' . $child->getName() . '/' . \basename($file->getName(), '.php'))
+                foreach ($child as $file) {
+                    if (!\is_file(__DIR__ . '/../../' . $child->getName() . '/' . \basename($file->getName(), '.php'))
                         || ($appInfo !== null && \basename($file->getName(), '.php') !== $appInfo->getInternalName())
                     ) {
                         continue;
@@ -291,7 +289,7 @@ abstract class InstallerAbstract
                     self::installHooks(__DIR__ . '/../../' . $child->getName() . '/' . \basename($file->getName(), '.php') . '/Hooks.php', $file->getPath());
                 }
             } elseif ($child instanceof File) {
-                if (!\file_exists(__DIR__ . '/../../' . $child->getName())
+                if (!\is_file(__DIR__ . '/../../' . $child->getName())
                     || ($appInfo !== null && \basename($child->getName(), '.php') !== $appInfo->getInternalName())
                 ) {
                     continue;
@@ -317,15 +315,15 @@ abstract class InstallerAbstract
      */
     protected static function installHooks(string $destHookPath, string $srcHookPath) : void
     {
-        if (!\file_exists($destHookPath)) {
+        if (!\is_file($destHookPath)) {
             \file_put_contents($destHookPath, '<?php return [];');
         }
 
-        if (!\file_exists($srcHookPath)) {
+        if (!\is_file($srcHookPath)) {
             return;
         }
 
-        if (!\file_exists($destHookPath)) {
+        if (!\is_file($destHookPath)) {
             throw new PathException($destHookPath);
         }
 

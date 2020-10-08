@@ -114,7 +114,7 @@ final class L11nManager
     public function loadLanguageFromFile(string $language, string $from, string $file) : void
     {
         $lang = [];
-        if (\file_exists($file)) {
+        if (\is_file($file)) {
             /** @noinspection PhpIncludeInspection */
             $lang = include $file;
         }

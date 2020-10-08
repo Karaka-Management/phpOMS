@@ -21,6 +21,10 @@ use phpOMS\Ai\Ocr\BasicOcr;
  */
 class BasicOcrTest extends \PHPUnit\Framework\TestCase
 {
+    /**
+     * @covers phpOMS\Ai\Ocr\BasicOcr
+     * @group framework
+     */
     public function testOcr() : void
     {
         $ocr = new BasicOcr();
@@ -38,6 +42,10 @@ class BasicOcrTest extends \PHPUnit\Framework\TestCase
         );
     }
 
+    /**
+     * @covers phpOMS\Ai\Ocr\BasicOcr
+     * @group framework
+     */
     public function testInvalidImagePath() : void
     {
         $this->expectException(\phpOMS\System\File\PathException::class);
@@ -45,6 +53,10 @@ class BasicOcrTest extends \PHPUnit\Framework\TestCase
         $ocr->trainWith(__DIR__ . '/invalid', __DIR__ . '/train-labels-idx1-ubyte', 1);
     }
 
+    /**
+     * @covers phpOMS\Ai\Ocr\BasicOcr
+     * @group framework
+     */
     public function testInvalidLabelPath() : void
     {
         $this->expectException(\phpOMS\System\File\PathException::class);

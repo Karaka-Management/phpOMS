@@ -474,7 +474,7 @@ class FtpStorageTest extends \PHPUnit\Framework\TestCase
     {
         $testFile = __DIR__ . '/test.txt';
         self::assertFalse(FtpStorage::put($testFile, 'test', ContentPutMode::REPLACE));
-        self::assertfalse(\file_exists($testFile));
+        self::assertfalse(\is_file($testFile));
     }
 
     /**
@@ -486,7 +486,7 @@ class FtpStorageTest extends \PHPUnit\Framework\TestCase
     {
         $testFile = __DIR__ . '/test.txt';
         self::assertFalse(FtpStorage::put($testFile, 'test', ContentPutMode::APPEND));
-        self::assertfalse(\file_exists($testFile));
+        self::assertfalse(\is_file($testFile));
     }
 
     /**
@@ -498,7 +498,7 @@ class FtpStorageTest extends \PHPUnit\Framework\TestCase
     {
         $testFile = __DIR__ . '/test.txt';
         self::assertFalse(FtpStorage::put($testFile, 'test', ContentPutMode::PREPEND));
-        self::assertfalse(\file_exists($testFile));
+        self::assertfalse(\is_file($testFile));
     }
 
     /**
@@ -932,6 +932,10 @@ class FtpStorageTest extends \PHPUnit\Framework\TestCase
         File::delete(self::$con, $newPath);
     }
 
+    /**
+     * @covers phpOMS\System\File\Ftp\FtpStorage<extended>
+     * @group framework
+     */
     public function testSanitize() : void
     {
         self::assertEquals(':/some/test/[path', FtpStorage::sanitize(':#&^$/some%/test/[path!'));

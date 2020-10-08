@@ -21,6 +21,10 @@ use phpOMS\Math\Stochastic\Distribution\LogDistribution;
  */
 class LogDistributionTest extends \PHPUnit\Framework\TestCase
 {
+    /**
+     * @covers phpOMS\Math\Stochastic\Distribution\LogDistribution
+     * @group framework
+     */
     public function testPmf() : void
     {
         $p = 0.3;
@@ -32,6 +36,10 @@ class LogDistributionTest extends \PHPUnit\Framework\TestCase
         );
     }
 
+    /**
+     * @covers phpOMS\Math\Stochastic\Distribution\LogDistribution
+     * @group framework
+     */
     public function testCdf() : void
     {
         $p = 6 / 9;
@@ -43,6 +51,10 @@ class LogDistributionTest extends \PHPUnit\Framework\TestCase
         );
     }
 
+    /**
+     * @covers phpOMS\Math\Stochastic\Distribution\LogDistribution
+     * @group framework
+     */
     public function testMean() : void
     {
         $p = 0.3;
@@ -50,11 +62,19 @@ class LogDistributionTest extends \PHPUnit\Framework\TestCase
         self::assertEquals(-1 / \log(1 - $p) * $p / (1 - $p), LogDistribution::getMean($p));
     }
 
+    /**
+     * @covers phpOMS\Math\Stochastic\Distribution\LogDistribution
+     * @group framework
+     */
     public function testMode() : void
     {
         self::assertEquals(1, LogDistribution::getMode());
     }
 
+    /**
+     * @covers phpOMS\Math\Stochastic\Distribution\LogDistribution
+     * @group framework
+     */
     public function testVariance() : void
     {
         $p = 0.3;
@@ -65,6 +85,10 @@ class LogDistributionTest extends \PHPUnit\Framework\TestCase
         );
     }
 
+    /**
+     * @covers phpOMS\Math\Stochastic\Distribution\LogDistribution
+     * @group framework
+     */
     public function testStandardDeviation() : void
     {
         $p = 0.3;
@@ -75,6 +99,10 @@ class LogDistributionTest extends \PHPUnit\Framework\TestCase
         );
     }
 
+    /**
+     * @covers phpOMS\Math\Stochastic\Distribution\LogDistribution
+     * @group framework
+     */
     public function testMgf() : void
     {
         $p = 0.3;

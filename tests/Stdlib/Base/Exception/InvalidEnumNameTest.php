@@ -21,6 +21,10 @@ use phpOMS\Stdlib\Base\Exception\InvalidEnumName;
  */
 class InvalidEnumNameTest extends \PHPUnit\Framework\TestCase
 {
+    /**
+     * @covers phpOMS\Stdlib\Base\Exception\InvalidEnumName
+     * @group framework
+     */
     public function testException() : void
     {
         self::assertInstanceOf(\UnexpectedValueException::class, new InvalidEnumName(''));

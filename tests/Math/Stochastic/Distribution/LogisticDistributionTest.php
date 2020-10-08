@@ -21,6 +21,10 @@ use phpOMS\Math\Stochastic\Distribution\LogisticDistribution;
  */
 class LogisticDistributionTest extends \PHPUnit\Framework\TestCase
 {
+    /**
+     * @covers phpOMS\Math\Stochastic\Distribution\LogisticDistribution
+     * @group framework
+     */
     public function testPdf() : void
     {
         $x  = 3;
@@ -33,6 +37,10 @@ class LogisticDistributionTest extends \PHPUnit\Framework\TestCase
         );
     }
 
+    /**
+     * @covers phpOMS\Math\Stochastic\Distribution\LogisticDistribution
+     * @group framework
+     */
     public function testCdf() : void
     {
         $x  = 3;
@@ -45,21 +53,37 @@ class LogisticDistributionTest extends \PHPUnit\Framework\TestCase
         );
     }
 
+    /**
+     * @covers phpOMS\Math\Stochastic\Distribution\LogisticDistribution
+     * @group framework
+     */
     public function testMode() : void
     {
         self::assertEquals(3, LogisticDistribution::getMode(3));
     }
 
+    /**
+     * @covers phpOMS\Math\Stochastic\Distribution\LogisticDistribution
+     * @group framework
+     */
     public function testMean() : void
     {
         self::assertEquals(3, LogisticDistribution::getMean(3));
     }
 
+    /**
+     * @covers phpOMS\Math\Stochastic\Distribution\LogisticDistribution
+     * @group framework
+     */
     public function testMedian() : void
     {
         self::assertEquals(3, LogisticDistribution::getMedian(3));
     }
 
+    /**
+     * @covers phpOMS\Math\Stochastic\Distribution\LogisticDistribution
+     * @group framework
+     */
     public function testVariance() : void
     {
         $s = 3;
@@ -69,6 +93,10 @@ class LogisticDistributionTest extends \PHPUnit\Framework\TestCase
         );
     }
 
+    /**
+     * @covers phpOMS\Math\Stochastic\Distribution\LogisticDistribution
+     * @group framework
+     */
     public function testStandardDeviation() : void
     {
         $s = 3;
@@ -78,16 +106,28 @@ class LogisticDistributionTest extends \PHPUnit\Framework\TestCase
         );
     }
 
+    /**
+     * @covers phpOMS\Math\Stochastic\Distribution\LogisticDistribution
+     * @group framework
+     */
     public function testSkewness() : void
     {
         self::assertEquals(0, LogisticDistribution::getSkewness());
     }
 
+    /**
+     * @covers phpOMS\Math\Stochastic\Distribution\LogisticDistribution
+     * @group framework
+     */
     public function testExKurtosis() : void
     {
         self::assertEquals(6 / 5, LogisticDistribution::getExKurtosis());
     }
 
+    /**
+     * @covers phpOMS\Math\Stochastic\Distribution\LogisticDistribution
+     * @group framework
+     */
     public function testEntropy() : void
     {
         $s = 3;

@@ -31,10 +31,14 @@ class C128aTest extends \PHPUnit\Framework\TestCase
         }
     }
 
+    /**
+     * @covers phpOMS\Utils\Barcode\C128a<extended>
+     * @group framework
+     */
     public function testImagePng() : void
     {
         $path = __DIR__ . '/c128a.png';
-        if (\file_exists($path)) {
+        if (\is_file($path)) {
             \unlink($path);
         }
 
@@ -44,10 +48,14 @@ class C128aTest extends \PHPUnit\Framework\TestCase
         self::assertFileExists($path);
     }
 
+    /**
+     * @covers phpOMS\Utils\Barcode\C128a<extended>
+     * @group framework
+     */
     public function testImageJpg() : void
     {
         $path = __DIR__ . '/c128a.jpg';
-        if (\file_exists($path)) {
+        if (\is_file($path)) {
             \unlink($path);
         }
 
@@ -57,10 +65,14 @@ class C128aTest extends \PHPUnit\Framework\TestCase
         self::assertFileExists($path);
     }
 
+    /**
+     * @covers phpOMS\Utils\Barcode\C128a<extended>
+     * @group framework
+     */
     public function testOrientationAndMargin() : void
     {
         $path = __DIR__ . '/c128a_vertical.png';
-        if (\file_exists($path)) {
+        if (\is_file($path)) {
             \unlink($path);
         }
 
@@ -71,6 +83,10 @@ class C128aTest extends \PHPUnit\Framework\TestCase
         self::assertFileExists($path);
     }
 
+    /**
+     * @covers phpOMS\Utils\Barcode\C128a<extended>
+     * @group framework
+     */
     public function testValidString() : void
     {
         self::assertTrue(C128a::isValidString('ABCDEFG0123+-'));

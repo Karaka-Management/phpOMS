@@ -94,11 +94,19 @@ class RestTest extends \PHPUnit\Framework\TestCase
         self::assertEquals('abc', REST::request($request)->getJsonData()['args']['gdata']);
     }
 
+    /**
+     * @covers phpOMS\Message\Http\Rest
+     * @group framework
+     */
     public function testJsonRequest() : void
     {
         self::markTestIncomplete();
     }
 
+    /**
+     * @covers phpOMS\Message\Http\Rest
+     * @group framework
+     */
     public function testMultiRequest() : void
     {
         self::markTestIncomplete();

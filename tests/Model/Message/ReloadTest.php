@@ -21,6 +21,10 @@ use phpOMS\Model\Message\Reload;
  */
 class ReloadTest extends \PHPUnit\Framework\TestCase
 {
+    /**
+     * @covers phpOMS\Model\Message\Reload
+     * @group framework
+     */
     public function testAttributes() : void
     {
         $obj = new Reload();
@@ -30,6 +34,10 @@ class ReloadTest extends \PHPUnit\Framework\TestCase
         self::assertObjectHasAttribute('delay', $obj);
     }
 
+    /**
+     * @covers phpOMS\Model\Message\Reload
+     * @group framework
+     */
     public function testDefault() : void
     {
         $obj = new Reload();
@@ -38,6 +46,10 @@ class ReloadTest extends \PHPUnit\Framework\TestCase
         self::assertEquals(0, $obj->toArray()['time']);
     }
 
+    /**
+     * @covers phpOMS\Model\Message\Reload
+     * @group framework
+     */
     public function testSetGet() : void
     {
         $obj = new Reload(5);

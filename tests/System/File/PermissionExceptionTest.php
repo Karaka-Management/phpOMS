@@ -21,6 +21,10 @@ use phpOMS\System\File\PermissionException;
  */
 class PermissionExceptionTest extends \PHPUnit\Framework\TestCase
 {
+    /**
+     * @covers phpOMS\System\File\PermissionException
+     * @group framework
+     */
     public function testConstructor() : void
     {
         $e = new PermissionException('test.file');

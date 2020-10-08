@@ -245,6 +245,10 @@ class ModuleManagerTest extends \PHPUnit\Framework\TestCase
         self::assertFalse($this->moduleManager->isRunning('TestModule'));
     }
 
+    /**
+     * @covers phpOMS\Module\ModuleManager
+     * @group framework
+     */
     public function testInvalidModulePath() : void
     {
         $moduleManager = new ModuleManager($this->app, __DIR__ . '/Testmodule');
@@ -253,11 +257,19 @@ class ModuleManagerTest extends \PHPUnit\Framework\TestCase
         self::assertEquals([], $moduleManager->getInstalledModules());
     }
 
+    /**
+     * @covers phpOMS\Module\ModuleManager
+     * @group framework
+     */
     public function testInvalidModuleInstall() : void
     {
         self::assertFalse($this->moduleManager->install('Invalid'));
     }
 
+    /**
+     * @covers phpOMS\Module\ModuleManager
+     * @group framework
+     */
     public function testInvalidModuleUninstall() : void
     {
         self::assertFalse($this->moduleManager->uninstall('Invalid'));

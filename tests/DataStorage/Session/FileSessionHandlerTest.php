@@ -28,7 +28,7 @@ class FileSessionHandlerTest extends \PHPUnit\Framework\TestCase
 
     protected function setUp() : void
     {
-        if (\file_exists(__DIR__ . '/test')) {
+        if (\is_dir(__DIR__ . '/test')) {
             Directory::delete(__DIR__ . '/test');
         }
 
@@ -37,7 +37,7 @@ class FileSessionHandlerTest extends \PHPUnit\Framework\TestCase
 
     protected function tearDown() : void
     {
-        if (\file_exists(__DIR__ . '/test')) {
+        if (\is_dir(__DIR__ . '/test')) {
             Directory::delete(__DIR__ . '/test');
         }
     }

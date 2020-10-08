@@ -30,6 +30,10 @@ class HttpBasicAuthOptionProviderTest extends \PHPUnit\Framework\TestCase
         $this->provider = new HttpBasicAuthOptionProvider();
     }
 
+    /**
+     * @covers phpOMS\Auth\OAuth2\OptionProvider\HttpBasicAuthOptionProvider
+     * @group framework
+     */
     public function testDefault() : void
     {
         self::assertEquals(
@@ -50,6 +54,10 @@ class HttpBasicAuthOptionProviderTest extends \PHPUnit\Framework\TestCase
         );
     }
 
+    /**
+     * @covers phpOMS\Auth\OAuth2\OptionProvider\HttpBasicAuthOptionProvider
+     * @group framework
+     */
     public function testInvalidParams() : void
     {
         self::assertEquals([],

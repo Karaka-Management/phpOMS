@@ -21,6 +21,10 @@ use phpOMS\Model\Message\Redirect;
  */
 class RedirectTest extends \PHPUnit\Framework\TestCase
 {
+    /**
+     * @covers phpOMS\Model\Message\Redirect
+     * @group framework
+     */
     public function testAttributes() : void
     {
         $obj = new Redirect('');
@@ -32,6 +36,10 @@ class RedirectTest extends \PHPUnit\Framework\TestCase
         self::assertObjectHasAttribute('new', $obj);
     }
 
+    /**
+     * @covers phpOMS\Model\Message\Redirect
+     * @group framework
+     */
     public function testDefault() : void
     {
         $obj = new Redirect('');
@@ -42,6 +50,10 @@ class RedirectTest extends \PHPUnit\Framework\TestCase
         self::assertFalse($obj->toArray()['new']);
     }
 
+    /**
+     * @covers phpOMS\Model\Message\Redirect
+     * @group framework
+     */
     public function testSetGet() : void
     {
         $obj = new Redirect('url', true);

@@ -23,6 +23,10 @@ use phpOMS\Uri\InvalidUriException;
  */
 class InvalidUriExceptionTest extends \PHPUnit\Framework\TestCase
 {
+    /**
+     * @covers phpOMS\Uri\InvalidUriException
+     * @group framework
+     */
     public function testException() : void
     {
         self::assertInstanceOf(\UnexpectedValueException::class, new InvalidUriException(''));

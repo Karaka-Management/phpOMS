@@ -30,6 +30,10 @@ class PostAuthOptionProviderTest extends \PHPUnit\Framework\TestCase
         $this->provider = new PostAuthOptionProvider();
     }
 
+    /**
+     * @covers phpOMS\Auth\OAuth2\OptionProvider\PostAuthOptionProvider
+     * @group framework
+     */
     public function testDefault() : void
     {
         self::assertEquals(

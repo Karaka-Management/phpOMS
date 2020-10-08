@@ -248,7 +248,7 @@ class Localization implements \JsonSerializable
         }
 
         if ($countryCode !== '*'
-            && !\file_exists(__DIR__ . '/../Localization/Defaults/Definitions/' . $langCode . '_' . $countryCode . '.json')
+            && !\is_file(__DIR__ . '/../Localization/Defaults/Definitions/' . $langCode . '_' . $countryCode . '.json')
         ) {
             $countryCode = '';
         }

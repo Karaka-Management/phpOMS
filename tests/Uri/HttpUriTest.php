@@ -70,6 +70,10 @@ class HttpUriTest extends \PHPUnit\Framework\TestCase
         self::assertEquals('ftp', $obj->getScheme());
     }
 
+    /**
+     * @covers phpOMS\Uri\HttpUri
+     * @group framework
+     */
     public function testPortInputOutput() : void
     {
         $obj = new HttpUri('https://www.google.com:21/test/path.php?para1=abc&para2=2#frag');
@@ -186,6 +190,10 @@ class HttpUriTest extends \PHPUnit\Framework\TestCase
         self::assertEquals('a', $obj->getRootPath());
     }
 
+    /**
+     * @covers phpOMS\Uri\HttpUri
+     * @group framework
+     */
     public function testPathInputOutput() : void
     {
         $obj = new HttpUri('https://www.google.com/test/path.php?para1=abc&para2=2#frag');

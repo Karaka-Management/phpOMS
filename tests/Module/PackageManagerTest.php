@@ -29,17 +29,17 @@ class PackageManagerTest extends \PHPUnit\Framework\TestCase
 {
     public static function setUpBeforeClass() : void
     {
-        if (\file_exists(__DIR__ . '/testPackage.zip')) {
+        if (\is_file(__DIR__ . '/testPackage.zip')) {
             \unlink(__DIR__ . '/testPackage.zip');
         }
 
-        if (\file_exists(__DIR__ . '/testPackageExtracted')) {
+        if (\is_file(__DIR__ . '/testPackageExtracted')) {
             \array_map('unlink', \glob(__DIR__ . '/testPackageExtracted/testSubPackage/*'));
             \rmdir(__DIR__ . '/testPackageExtracted/testSubPackage');
             \array_map('unlink', \glob(__DIR__ . '/testPackageExtracted/*'));
         }
 
-        if (\file_exists(__DIR__ . '/public.key')) {
+        if (\is_file(__DIR__ . '/public.key')) {
             \unlink(__DIR__ . '/public.key');
         }
 
@@ -88,7 +88,7 @@ class PackageManagerTest extends \PHPUnit\Framework\TestCase
      */
     public function testPackageValidInstall() : void
     {
-        if (\file_exists(__DIR__ . '/dummyModule')) {
+        if (\is_dir(__DIR__ . '/dummyModule')) {
             Directory::delete(__DIR__ . '/dummyModule');
         }
 
@@ -110,19 +110,19 @@ class PackageManagerTest extends \PHPUnit\Framework\TestCase
         self::assertGreaterThan(100, \filesize(__DIR__ . '/dummyModule/README.md'));
         self::assertEquals('To copy!', \file_get_contents(__DIR__ . '/dummyModule/Replace.md'));
 
-        self::assertFalse(\file_exists(__DIR__ . '/dummyModule/toMove'));
-        self::assertTrue(\file_exists(__DIR__ . '/dummyModule/moveHere'));
-        self::assertTrue(\file_exists(__DIR__ . '/dummyModule/moveHere/a.md'));
-        self::assertTrue(\file_exists(__DIR__ . '/dummyModule/moveHere/sub/b.txt'));
+        self::assertFalse(\is_dir(__DIR__ . '/dummyModule/toMove'));
+        self::assertTrue(\is_dir(__DIR__ . '/dummyModule/moveHere'));
+        self::assertTrue(\is_file(__DIR__ . '/dummyModule/moveHere/a.md'));
+        self::assertTrue(\is_file(__DIR__ . '/dummyModule/moveHere/sub/b.txt'));
 
-        self::assertTrue(\file_exists(__DIR__ . '/dummyModule/externalCopy.md'));
+        self::assertTrue(\is_file(__DIR__ . '/dummyModule/externalCopy.md'));
 
-        self::assertTrue(\file_exists(__DIR__ . '/dummyModule/toCopy'));
-        self::assertTrue(\file_exists(__DIR__ . '/dummyModule/copyHere'));
-        self::assertTrue(\file_exists(__DIR__ . '/dummyModule/copyHere/a.md'));
-        self::assertTrue(\file_exists(__DIR__ . '/dummyModule/copyHere/sub/b.txt'));
+        self::assertTrue(\is_dir(__DIR__ . '/dummyModule/toCopy'));
+        self::assertTrue(\is_dir(__DIR__ . '/dummyModule/copyHere'));
+        self::assertTrue(\is_file(__DIR__ . '/dummyModule/copyHere/a.md'));
+        self::assertTrue(\is_file(__DIR__ . '/dummyModule/copyHere/sub/b.txt'));
 
-        self::assertFalse(\file_exists(__DIR__ . '/dummyModule/Remove'));
+        self::assertFalse(\is_dir(__DIR__ . '/dummyModule/Remove'));
 
         \sleep(1);
 
@@ -134,7 +134,7 @@ class PackageManagerTest extends \PHPUnit\Framework\TestCase
             self::assertEquals('cmd script', \file_get_contents(__DIR__ . '/dummyModule/cmdscript.md'));
         }
 
-        if (\file_exists(__DIR__ . '/dummyModule')) {
+        if (\is_dir(__DIR__ . '/dummyModule')) {
             Directory::delete(__DIR__ . '/dummyModule');
         }
     }
@@ -234,18 +234,18 @@ class PackageManagerTest extends \PHPUnit\Framework\TestCase
 
     public static function tearDownAfterClass() : void
     {
-        if (\file_exists(__DIR__ . '/testPackage.zip')) {
+        if (\is_file(__DIR__ . '/testPackage.zip')) {
             \unlink(__DIR__ . '/testPackage.zip');
         }
 
-        if (\file_exists(__DIR__ . '/testPackageExtracted')) {
+        if (\is_dir(__DIR__ . '/testPackageExtracted')) {
             \array_map('unlink', \glob(__DIR__ . '/testPackageExtracted/testSubPackage/*'));
             \rmdir(__DIR__ . '/testPackageExtracted/testSubPackage');
             \array_map('unlink', \glob(__DIR__ . '/testPackageExtracted/*'));
             \rmdir(__DIR__ . '/testPackageExtracted');
         }
 
-        if (\file_exists(__DIR__ . '/public.key')) {
+        if (\is_file(__DIR__ . '/public.key')) {
             \unlink(__DIR__ . '/public.key');
         }
 

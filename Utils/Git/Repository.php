@@ -95,7 +95,7 @@ class Repository
 
         $this->path = \realpath($path);
 
-        if (\file_exists($this->path . '/.git') && \is_dir($this->path . '/.git')) {
+        if (\is_dir($this->path . '/.git') && \is_dir($this->path . '/.git')) {
             $this->bare = false;
         } elseif (\is_file($this->path . '/config')) { // Is this a bare repo?
             $parseIni = \parse_ini_file($this->path . '/config');
@@ -251,7 +251,7 @@ class Repository
      */
     public function create(string $source = null) : void
     {
-        if (!\is_dir($this->path) || \file_exists($this->path . '/.git')) {
+        if (!\is_dir($this->path) || \is_dir($this->path . '/.git')) {
             throw new \Exception('Already repository');
         }
 
@@ -662,7 +662,7 @@ class Repository
                 continue;
             }
 
-            if (!\file_exists($path = $this->getDirectoryPath() . ($this->bare ? '/' : '/../') . $line)) {
+            if (!\is_dir($path = $this->getDirectoryPath() . ($this->bare ? '/' : '/../') . $line)) {
                 return 0;
             }
 

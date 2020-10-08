@@ -225,7 +225,7 @@ abstract class ViewAbstract implements RenderableInterface
 
             $path = __DIR__ . '/../..' . $this->template . '.tpl.php';
 
-            if (!\file_exists($path)) {
+            if (!\is_file($path)) {
                 throw new PathException($path);
             }
 

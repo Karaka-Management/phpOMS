@@ -44,11 +44,19 @@ class FileTest extends \PHPUnit\Framework\TestCase
         }
     }
 
+    /**
+     * @covers phpOMS\System\File\Ftp\File<extended>
+     * @group framework
+     */
     public function testConnection() : void
     {
         self::assertNotFalse(File::ftpConnect(new HttpUri(self::BASE . '/test')));
     }
 
+    /**
+     * @covers phpOMS\System\File\Ftp\File<extended>
+     * @group framework
+     */
     public function testInvalidConnection() : void
     {
         self::assertFalse(File::ftpConnect(new HttpUri('ftp://orange-management.org:21')));
@@ -56,7 +64,7 @@ class FileTest extends \PHPUnit\Framework\TestCase
 
     /**
      * @testdox A file without content can be created
-     * @covers phpOMS\System\File\Ftp\File
+     * @covers phpOMS\System\File\Ftp\File<extended>
      * @group framework
      */
     public function testStaticCreate() : void
@@ -71,7 +79,7 @@ class FileTest extends \PHPUnit\Framework\TestCase
 
     /**
      * @testdox A file cannot be created if it already exists
-     * @covers phpOMS\System\File\Ftp\File
+     * @covers phpOMS\System\File\Ftp\File<extended>
      * @group framework
      */
     public function testInvalidStaticCreate() : void
@@ -86,7 +94,7 @@ class FileTest extends \PHPUnit\Framework\TestCase
 
     /**
      * @testdox A file with content can be created
-     * @covers phpOMS\System\File\Ftp\File
+     * @covers phpOMS\System\File\Ftp\File<extended>
      * @group framework
      */
     public function testStaticPut() : void
@@ -101,43 +109,43 @@ class FileTest extends \PHPUnit\Framework\TestCase
 
     /**
      * @testdox A file cannot be replaced if it doesn't exists
-     * @covers phpOMS\System\File\Ftp\File
+     * @covers phpOMS\System\File\Ftp\File<extended>
      * @group framework
      */
     public function testInvalidStaticCreateReplace() : void
     {
         $testFile = __DIR__ . '/test.txt';
         self::assertFalse(File::put(self::$con, $testFile, 'test', ContentPutMode::REPLACE));
-        self::assertfalse(\file_exists($testFile));
+        self::assertfalse(\is_file($testFile));
     }
 
     /**
      * @testdox A file cannot be appended if it doesn't exists
-     * @covers phpOMS\System\File\Ftp\File
+     * @covers phpOMS\System\File\Ftp\File<extended>
      * @group framework
      */
     public function testInvalidStaticCreateAppend() : void
     {
         $testFile = __DIR__ . '/test.txt';
         self::assertFalse(File::put(self::$con, $testFile, 'test', ContentPutMode::APPEND));
-        self::assertfalse(\file_exists($testFile));
+        self::assertfalse(\is_file($testFile));
     }
 
     /**
      * @testdox A file cannot be prepended if it doesn't exists
-     * @covers phpOMS\System\File\Ftp\File
+     * @covers phpOMS\System\File\Ftp\File<extended>
      * @group framework
      */
     public function testInvalidStaticCreatePrepend() : void
     {
         $testFile = __DIR__ . '/test.txt';
         self::assertFalse(File::put(self::$con, $testFile, 'test', ContentPutMode::PREPEND));
-        self::assertfalse(\file_exists($testFile));
+        self::assertfalse(\is_file($testFile));
     }
 
     /**
      * @testdox A file can be checked for existence
-     * @covers phpOMS\System\File\Ftp\File
+     * @covers phpOMS\System\File\Ftp\File<extended>
      * @group framework
      */
     public function testStaticExists() : void
@@ -148,7 +156,7 @@ class FileTest extends \PHPUnit\Framework\TestCase
 
     /**
      * @testdox A file can be replaced with a new one
-     * @covers phpOMS\System\File\Ftp\File
+     * @covers phpOMS\System\File\Ftp\File<extended>
      * @group framework
      */
     public function testStaticReplace() : void
@@ -164,7 +172,7 @@ class FileTest extends \PHPUnit\Framework\TestCase
 
     /**
      * @testdox The set alias works like the replace flag
-     * @covers phpOMS\System\File\Ftp\File
+     * @covers phpOMS\System\File\Ftp\File<extended>
      * @group framework
      */
     public function testStaticSetAlias() : void
@@ -180,7 +188,7 @@ class FileTest extends \PHPUnit\Framework\TestCase
 
     /**
      * @testdox A file can be appended with additional content
-     * @covers phpOMS\System\File\Ftp\File
+     * @covers phpOMS\System\File\Ftp\File<extended>
      * @group framework
      */
     public function testStaticAppend() : void
@@ -196,7 +204,7 @@ class FileTest extends \PHPUnit\Framework\TestCase
 
     /**
      * @testdox The append alias works like the append flag
-     * @covers phpOMS\System\File\Ftp\File
+     * @covers phpOMS\System\File\Ftp\File<extended>
      * @group framework
      */
     public function testStaticAppendAlias() : void
@@ -212,7 +220,7 @@ class FileTest extends \PHPUnit\Framework\TestCase
 
     /**
      * @testdox A file can be prepended with additional content
-     * @covers phpOMS\System\File\Ftp\File
+     * @covers phpOMS\System\File\Ftp\File<extended>
      * @group framework
      */
     public function testStaticPrepend() : void
@@ -228,7 +236,7 @@ class FileTest extends \PHPUnit\Framework\TestCase
 
     /**
      * @testdox The prepend alias works like the prepend flag
-     * @covers phpOMS\System\File\Ftp\File
+     * @covers phpOMS\System\File\Ftp\File<extended>
      * @group framework
      */
     public function testStaticPrependAlias() : void
@@ -244,7 +252,7 @@ class FileTest extends \PHPUnit\Framework\TestCase
 
     /**
      * @testdox The content of a file can be read
-     * @covers phpOMS\System\File\Ftp\File
+     * @covers phpOMS\System\File\Ftp\File<extended>
      * @group framework
      */
     public function testStaticGet() : void
@@ -258,7 +266,7 @@ class FileTest extends \PHPUnit\Framework\TestCase
 
     /**
      * @testdox The parent directory of a file can be returned
-     * @covers phpOMS\System\File\Ftp\File
+     * @covers phpOMS\System\File\Ftp\File<extended>
      * @group framework
      */
     public function testStaticParent() : void
@@ -270,7 +278,7 @@ class FileTest extends \PHPUnit\Framework\TestCase
 
     /**
      * @testdox The extension of a file can be returned
-     * @covers phpOMS\System\File\Ftp\File
+     * @covers phpOMS\System\File\Ftp\File<extended>
      * @group framework
      */
     public function testStaticExtension() : void
@@ -282,7 +290,7 @@ class FileTest extends \PHPUnit\Framework\TestCase
 
     /**
      * @testdox The name of a file can be returned
-     * @covers phpOMS\System\File\Ftp\File
+     * @covers phpOMS\System\File\Ftp\File<extended>
      * @group framework
      */
     public function testStaticName() : void
@@ -294,7 +302,7 @@ class FileTest extends \PHPUnit\Framework\TestCase
 
     /**
      * @testdox The basename of a file can be returned
-     * @covers phpOMS\System\File\Ftp\File
+     * @covers phpOMS\System\File\Ftp\File<extended>
      * @group framework
      */
     public function testStaticBaseName() : void
@@ -306,7 +314,7 @@ class FileTest extends \PHPUnit\Framework\TestCase
 
     /**
      * @testdox The file name of a file can be returned
-     * @covers phpOMS\System\File\Ftp\File
+     * @covers phpOMS\System\File\Ftp\File<extended>
      * @group framework
      */
     public function testStaticDirname() : void
@@ -318,7 +326,7 @@ class FileTest extends \PHPUnit\Framework\TestCase
 
     /**
      * @testdox The file path of a file can be returned
-     * @covers phpOMS\System\File\Ftp\File
+     * @covers phpOMS\System\File\Ftp\File<extended>
      * @group framework
      */
     public function testStaticDirectoryPath() : void
@@ -330,7 +338,7 @@ class FileTest extends \PHPUnit\Framework\TestCase
 
     /**
      * @testdox The count of a file is always 1
-     * @covers phpOMS\System\File\Ftp\File
+     * @covers phpOMS\System\File\Ftp\File<extended>
      * @group framework
      */
     public function testStaticCount() : void
@@ -342,7 +350,7 @@ class FileTest extends \PHPUnit\Framework\TestCase
 
     /**
      * @testdox The directories creation date can be returned
-     * @covers phpOMS\System\File\Ftp\File
+     * @covers phpOMS\System\File\Ftp\File<extended>
      * @group framework
      */
     public function testStaticCreatedAt() : void
@@ -360,7 +368,7 @@ class FileTest extends \PHPUnit\Framework\TestCase
 
     /**
      * @testdox The directories last change date can be returned
-     * @covers phpOMS\System\File\Ftp\File
+     * @covers phpOMS\System\File\Ftp\File<extended>
      * @group framework
      */
     public function testStaticChangedAt() : void
@@ -378,7 +386,7 @@ class FileTest extends \PHPUnit\Framework\TestCase
 
     /**
      * @testdox A file can be deleted
-     * @covers phpOMS\System\File\Ftp\File
+     * @covers phpOMS\System\File\Ftp\File<extended>
      * @group framework
      */
     public function testStaticDelete() : void
@@ -392,7 +400,7 @@ class FileTest extends \PHPUnit\Framework\TestCase
 
     /**
      * @testdox A none-existing file cannot be deleted
-     * @covers phpOMS\System\File\Ftp\File
+     * @covers phpOMS\System\File\Ftp\File<extended>
      * @group framework
      */
     public function testInvalidStaticDelete() : void
@@ -404,7 +412,7 @@ class FileTest extends \PHPUnit\Framework\TestCase
 
     /**
      * @testdox The size of a file can be returned
-     * @covers phpOMS\System\File\Ftp\File
+     * @covers phpOMS\System\File\Ftp\File<extended>
      * @group framework
      */
     public function testStaticSize() : void
@@ -421,7 +429,7 @@ class FileTest extends \PHPUnit\Framework\TestCase
 
     /**
      * @testdox The permission of a file can be returned
-     * @covers phpOMS\System\File\Ftp\File
+     * @covers phpOMS\System\File\Ftp\File<extended>
      * @group framework
      */
     public function testStaticPermission() : void
@@ -438,7 +446,7 @@ class FileTest extends \PHPUnit\Framework\TestCase
 
     /**
      * @testdox The permission of a none-existing file is negative
-     * @covers phpOMS\System\File\Ftp\File
+     * @covers phpOMS\System\File\Ftp\File<extended>
      * @group framework
      */
     public function testInvalidStaticPermission() : void
@@ -449,7 +457,7 @@ class FileTest extends \PHPUnit\Framework\TestCase
 
     /**
      * @testdox A file can be copied to a different location
-     * @covers phpOMS\System\File\Ftp\File
+     * @covers phpOMS\System\File\Ftp\File<extended>
      * @group framework
      */
     public function testStaticCopy() : void
@@ -472,7 +480,7 @@ class FileTest extends \PHPUnit\Framework\TestCase
 
     /**
      * @testdox A file cannot be copied to a different location if the destination already exists
-     * @covers phpOMS\System\File\Ftp\File
+     * @covers phpOMS\System\File\Ftp\File<extended>
      * @group framework
      */
     public function testInvalidStaticCopy() : void
@@ -492,7 +500,7 @@ class FileTest extends \PHPUnit\Framework\TestCase
 
     /**
      * @testdox A file can be forced to be copied to a different location even if the destination already exists
-     * @covers phpOMS\System\File\Ftp\File
+     * @covers phpOMS\System\File\Ftp\File<extended>
      * @group framework
      */
     public function testStaticCopyOverwrite() : void
@@ -512,7 +520,7 @@ class FileTest extends \PHPUnit\Framework\TestCase
 
     /**
      * @testdox A file can be moved to a different location
-     * @covers phpOMS\System\File\Ftp\File
+     * @covers phpOMS\System\File\Ftp\File<extended>
      * @group framework
      */
     public function testStaticMove() : void
@@ -532,7 +540,7 @@ class FileTest extends \PHPUnit\Framework\TestCase
 
     /**
      * @testdox A file cannot be moved to a different location if the destination already exists
-     * @covers phpOMS\System\File\Ftp\File
+     * @covers phpOMS\System\File\Ftp\File<extended>
      * @group framework
      */
     public function testInvalidStaticMove() : void
@@ -553,7 +561,7 @@ class FileTest extends \PHPUnit\Framework\TestCase
 
     /**
      * @testdox A file can be forced to be moved to a different location even if the destination already exists
-     * @covers phpOMS\System\File\Ftp\File
+     * @covers phpOMS\System\File\Ftp\File<extended>
      * @group framework
      */
     public function testStaticMoveOverwrite() : void
@@ -571,12 +579,20 @@ class FileTest extends \PHPUnit\Framework\TestCase
         File::delete(self::$con, $newPath);
     }
 
+    /**
+     * @covers phpOMS\System\File\Ftp\File<extended>
+     * @group framework
+     */
     public function testStaticOwner() : void
     {
         $dirTestPath = __DIR__ . '/dirtest/test.txt';
         self::assertNotEmpty(File::owner(self::$con, $dirTestPath));
     }
 
+    /**
+     * @covers phpOMS\System\File\Ftp\File<extended>
+     * @group framework
+     */
     public function testFileNameSanitizing() : void
     {
         self::assertEquals('/some/test/[path.txt', File::sanitize(':#&^$/some%/test/[path!.txt'));
@@ -584,7 +600,7 @@ class FileTest extends \PHPUnit\Framework\TestCase
 
     /**
      * @testdox The size of a none-existing file is negative
-     * @covers phpOMS\System\File\Ftp\File
+     * @covers phpOMS\System\File\Ftp\File<extended>
      * @group framework
      */
     public function testInvalidSizePath() : void
@@ -594,7 +610,7 @@ class FileTest extends \PHPUnit\Framework\TestCase
 
     /**
      * @testdox A none-existing file cannot be copied
-     * @covers phpOMS\System\File\Ftp\File
+     * @covers phpOMS\System\File\Ftp\File<extended>
      * @group framework
      */
     public function testInvalidCopyPath() : void
@@ -604,7 +620,7 @@ class FileTest extends \PHPUnit\Framework\TestCase
 
     /**
      * @testdox A none-existing file cannot be moved
-     * @covers phpOMS\System\File\Ftp\File
+     * @covers phpOMS\System\File\Ftp\File<extended>
      * @group framework
      */
     public function testInvalidMovePath() : void
@@ -614,7 +630,7 @@ class FileTest extends \PHPUnit\Framework\TestCase
 
     /**
      * @testdox Reading the content of a none-existing file throws a PathException
-     * @covers phpOMS\System\File\Ftp\File
+     * @covers phpOMS\System\File\Ftp\File<extended>
      * @group framework
      */
     public function testInvalidGetPath() : void
@@ -626,7 +642,7 @@ class FileTest extends \PHPUnit\Framework\TestCase
 
     /**
      * @testdox Reading the created date of a none-existing file throws a PathException
-     * @covers phpOMS\System\File\Ftp\File
+     * @covers phpOMS\System\File\Ftp\File<extended>
      * @group framework
      */
     public function testInvalidCreatedPath() : void
@@ -638,7 +654,7 @@ class FileTest extends \PHPUnit\Framework\TestCase
 
     /**
      * @testdox Reading the last change date of a none-existing file throws a PathException
-     * @covers phpOMS\System\File\Ftp\File
+     * @covers phpOMS\System\File\Ftp\File<extended>
      * @group framework
      */
     public function testInvalidChangedPath() : void
@@ -650,7 +666,7 @@ class FileTest extends \PHPUnit\Framework\TestCase
 
     /**
      * @testdox Reading the owner of a none-existing file throws a PathException
-     * @covers phpOMS\System\File\Ftp\File
+     * @covers phpOMS\System\File\Ftp\File<extended>
      * @group framework
      */
     public function testInvalidOwnerPath() : void
@@ -660,10 +676,14 @@ class FileTest extends \PHPUnit\Framework\TestCase
         File::owner(self::$con, __DIR__ . '/invalid.txt');
     }
 
+    /**
+     * @covers phpOMS\System\File\Ftp\File<extended>
+     * @group framework
+     */
     public function testNodeInputOutput() : void
     {
         $testFile = __DIR__ . '/test.txt';
-        if (\file_exists($testFile)) {
+        if (\is_file($testFile)) {
             \unlink($testFile);
         }
 
@@ -674,10 +694,14 @@ class FileTest extends \PHPUnit\Framework\TestCase
         \unlink($testFile);
     }
 
+    /**
+     * @covers phpOMS\System\File\Ftp\File<extended>
+     * @group framework
+     */
     public function testNodeReplace() : void
     {
         $testFile = __DIR__ . '/test.txt';
-        if (\file_exists($testFile)) {
+        if (\is_file($testFile)) {
             \unlink($testFile);
         }
 
@@ -689,10 +713,14 @@ class FileTest extends \PHPUnit\Framework\TestCase
         \unlink($testFile);
     }
 
+    /**
+     * @covers phpOMS\System\File\Ftp\File<extended>
+     * @group framework
+     */
     public function testNodeAppend() : void
     {
         $testFile = __DIR__ . '/test.txt';
-        if (\file_exists($testFile)) {
+        if (\is_file($testFile)) {
             \unlink($testFile);
         }
 
@@ -704,10 +732,14 @@ class FileTest extends \PHPUnit\Framework\TestCase
         \unlink($testFile);
     }
 
+    /**
+     * @covers phpOMS\System\File\Ftp\File<extended>
+     * @group framework
+     */
     public function testNodePrepend() : void
     {
         $testFile = __DIR__ . '/test.txt';
-        if (\file_exists($testFile)) {
+        if (\is_file($testFile)) {
             \unlink($testFile);
         }
 
@@ -719,6 +751,10 @@ class FileTest extends \PHPUnit\Framework\TestCase
         \unlink($testFile);
     }
 
+    /**
+     * @covers phpOMS\System\File\Ftp\File<extended>
+     * @group framework
+     */
     public function testNodeExtension() : void
     {
         $testFile = __DIR__ . '/test.txt';
@@ -727,10 +763,14 @@ class FileTest extends \PHPUnit\Framework\TestCase
         self::assertEquals('txt', $file->getExtension());
     }
 
+    /**
+     * @covers phpOMS\System\File\Ftp\File<extended>
+     * @group framework
+     */
     public function testNodeCreatedAt() : void
     {
         $testFile = __DIR__ . '/test.txt';
-        if (\file_exists($testFile)) {
+        if (\is_file($testFile)) {
             \unlink($testFile);
         }
 
@@ -744,10 +784,14 @@ class FileTest extends \PHPUnit\Framework\TestCase
         \unlink($testFile);
     }
 
+    /**
+     * @covers phpOMS\System\File\Ftp\File<extended>
+     * @group framework
+     */
     public function testNodeChangedAt() : void
     {
         $testFile = __DIR__ . '/test.txt';
-        if (\file_exists($testFile)) {
+        if (\is_file($testFile)) {
             \unlink($testFile);
         }
 
@@ -761,6 +805,10 @@ class FileTest extends \PHPUnit\Framework\TestCase
         \unlink($testFile);
     }
 
+    /**
+     * @covers phpOMS\System\File\Ftp\File<extended>
+     * @group framework
+     */
     public function testNodeOwner() : void
     {
         $testFile = __DIR__ . '/dirtest/test.txt';
@@ -769,6 +817,10 @@ class FileTest extends \PHPUnit\Framework\TestCase
         self::assertNotEmpty($file->getOwner());
     }
 
+    /**
+     * @covers phpOMS\System\File\Ftp\File<extended>
+     * @group framework
+     */
     public function testNodePermission() : void
     {
         $testFile = __DIR__ . '/dirtest/test.txt';
@@ -777,6 +829,10 @@ class FileTest extends \PHPUnit\Framework\TestCase
         self::assertGreaterThan(0, $file->getPermission());
     }
 
+    /**
+     * @covers phpOMS\System\File\Ftp\File<extended>
+     * @group framework
+     */
     public function testDirname() : void
     {
         $testFile = __DIR__ . '/dirtest/test.txt';
@@ -785,6 +841,10 @@ class FileTest extends \PHPUnit\Framework\TestCase
         self::assertEquals('dirtest', $file->getDirname());
     }
 
+    /**
+     * @covers phpOMS\System\File\Ftp\File<extended>
+     * @group framework
+     */
     public function testName() : void
     {
         $testFile = __DIR__ . '/dirtest/test.txt';
@@ -793,6 +853,10 @@ class FileTest extends \PHPUnit\Framework\TestCase
         self::assertEquals('test', $file->getName());
     }
 
+    /**
+     * @covers phpOMS\System\File\Ftp\File<extended>
+     * @group framework
+     */
     public function testBaseame() : void
     {
         $testFile = __DIR__ . '/dirtest/test.txt';
@@ -801,6 +865,10 @@ class FileTest extends \PHPUnit\Framework\TestCase
         self::assertEquals('test.txt', $file->getBasename());
     }
 
+    /**
+     * @covers phpOMS\System\File\Ftp\File<extended>
+     * @group framework
+     */
     public function testDirpath() : void
     {
         $testFile = __DIR__ . '/dirtest/test.txt';
@@ -809,6 +877,10 @@ class FileTest extends \PHPUnit\Framework\TestCase
         self::assertEquals(__DIR__ . '/dirtest', $file->getDirPath());
     }
 
+    /**
+     * @covers phpOMS\System\File\Ftp\File<extended>
+     * @group framework
+     */
     public function testParentOutput() : void
     {
         $testFile = __DIR__ . '/dirtest/test.txt';
@@ -817,40 +889,52 @@ class FileTest extends \PHPUnit\Framework\TestCase
         self::assertEquals(__DIR__ . '/dirtest', $file->getDirPath());
     }
 
+    /**
+     * @covers phpOMS\System\File\Ftp\File<extended>
+     * @group framework
+     */
     public function testNodeCreate() : void
     {
         $testFile = __DIR__ . '/test.txt';
-        if (\file_exists($testFile)) {
+        if (\is_file($testFile)) {
             \unlink($testFile);
         }
 
         $file = new File(new HttpUri(self::BASE . $testFile), self::$con);
 
         $file->createNode();
-        self::assertTrue(\file_exists($testFile));
+        self::assertTrue(\is_file($testFile));
 
         \unlink($testFile);
     }
 
+    /**
+     * @covers phpOMS\System\File\Ftp\File<extended>
+     * @group framework
+     */
     public function testNodeDelete() : void
     {
         $testFile = __DIR__ . '/test.txt';
-        if (\file_exists($testFile)) {
+        if (\is_file($testFile)) {
             \unlink($testFile);
         }
 
         $file = new File(new HttpUri(self::BASE . $testFile), self::$con);
 
         $file->createNode();
-        self::assertTrue(\file_exists($testFile));
+        self::assertTrue(\is_file($testFile));
         self::assertTrue($file->deleteNode());
-        self::assertFalse(\file_exists($testFile));
+        self::assertFalse(\is_file($testFile));
     }
 
+    /**
+     * @covers phpOMS\System\File\Ftp\File<extended>
+     * @group framework
+     */
     public function testNodeCopy() : void
     {
         $testFile = __DIR__ . '/test.txt';
-        if (\file_exists($testFile)) {
+        if (\is_file($testFile)) {
             \unlink($testFile);
         }
 
@@ -858,17 +942,21 @@ class FileTest extends \PHPUnit\Framework\TestCase
 
         $file->createNode();
         self::assertTrue($file->copyNode(__DIR__ . '/test2.txt'));
-        self::assertTrue(\file_exists($testFile));
-        self::assertTrue(\file_exists(__DIR__ . '/test2.txt'));
+        self::assertTrue(\is_file($testFile));
+        self::assertTrue(\is_file(__DIR__ . '/test2.txt'));
 
         \unlink($testFile);
         \unlink(__DIR__ . '/test2.txt');
     }
 
+    /**
+     * @covers phpOMS\System\File\Ftp\File<extended>
+     * @group framework
+     */
     public function testNodeMove() : void
     {
         $testFile = __DIR__ . '/test.txt';
-        if (\file_exists($testFile)) {
+        if (\is_file($testFile)) {
             \unlink($testFile);
         }
 
@@ -876,12 +964,16 @@ class FileTest extends \PHPUnit\Framework\TestCase
 
         $file->createNode();
         self::assertTrue($file->moveNode(__DIR__ . '/test2.txt'));
-        self::assertFalse(\file_exists($testFile));
-        self::assertTrue(\file_exists(__DIR__ . '/test2.txt'));
+        self::assertFalse(\is_file($testFile));
+        self::assertTrue(\is_file(__DIR__ . '/test2.txt'));
 
         \unlink(__DIR__ . '/test2.txt');
     }
 
+    /**
+     * @covers phpOMS\System\File\Ftp\File<extended>
+     * @group framework
+     */
     public function testNodeExists() : void
     {
         $file  = new File(new HttpUri(self::BASE . __DIR__ . '/dirtest/test.txt'), self::$con);
@@ -891,6 +983,10 @@ class FileTest extends \PHPUnit\Framework\TestCase
         self::assertFalse($file2->isExisting());
     }
 
+    /**
+     * @covers phpOMS\System\File\Ftp\File<extended>
+     * @group framework
+     */
     public function testNodeParent() : void
     {
         $file = new File(new HttpUri(self::BASE . __DIR__ . '/dirtest/test.txt'), self::$con);
@@ -898,6 +994,10 @@ class FileTest extends \PHPUnit\Framework\TestCase
         self::assertEquals('Ftp', $file->getParent()->getName());
     }
 
+    /**
+     * @covers phpOMS\System\File\Ftp\File<extended>
+     * @group framework
+     */
     public function testNodeDirectory() : void
     {
         $file = new File(new HttpUri(self::BASE . __DIR__ . '/dirtest/test.txt'), self::$con);

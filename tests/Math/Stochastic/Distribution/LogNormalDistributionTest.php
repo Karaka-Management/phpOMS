@@ -21,21 +21,37 @@ use phpOMS\Math\Stochastic\Distribution\LogNormalDistribution;
  */
 class LogNormalDistributionTest extends \PHPUnit\Framework\TestCase
 {
+    /**
+     * @covers phpOMS\Math\Stochastic\Distribution\LogNormalDistribution
+     * @group framework
+     */
     public function testPdf() : void
     {
         self::assertEqualsWithDelta(0.060069054, LogNormalDistribution::getPdf(3, 2, 2), 0.001);
     }
 
+    /**
+     * @covers phpOMS\Math\Stochastic\Distribution\LogNormalDistribution
+     * @group framework
+     */
     public function testCdf() : void
     {
         self::assertEqualsWithDelta(0.32610510, LogNormalDistribution::getCdf(3, 2, 2), 0.001);
     }
 
+    /**
+     * @covers phpOMS\Math\Stochastic\Distribution\LogNormalDistribution
+     * @group framework
+     */
     public function testMean() : void
     {
         self::assertEqualsWithDelta(\exp(13 / 2), LogNormalDistribution::getMean(2, 3), 0.001);
     }
 
+    /**
+     * @covers phpOMS\Math\Stochastic\Distribution\LogNormalDistribution
+     * @group framework
+     */
     public function testVariance() : void
     {
         self::assertEqualsWithDelta(
@@ -44,6 +60,10 @@ class LogNormalDistributionTest extends \PHPUnit\Framework\TestCase
         );
     }
 
+    /**
+     * @covers phpOMS\Math\Stochastic\Distribution\LogNormalDistribution
+     * @group framework
+     */
     public function testStandardDeviation() : void
     {
         self::assertEqualsWithDelta(
@@ -57,6 +77,10 @@ class LogNormalDistributionTest extends \PHPUnit\Framework\TestCase
         );
     }
 
+    /**
+     * @covers phpOMS\Math\Stochastic\Distribution\LogNormalDistribution
+     * @group framework
+     */
     public function testSkewness() : void
     {
         self::assertEqualsWithDelta(
@@ -65,6 +89,10 @@ class LogNormalDistributionTest extends \PHPUnit\Framework\TestCase
         );
     }
 
+    /**
+     * @covers phpOMS\Math\Stochastic\Distribution\LogNormalDistribution
+     * @group framework
+     */
     public function testExKurtosis() : void
     {
         self::assertEqualsWithDelta(
@@ -73,16 +101,28 @@ class LogNormalDistributionTest extends \PHPUnit\Framework\TestCase
         );
     }
 
+    /**
+     * @covers phpOMS\Math\Stochastic\Distribution\LogNormalDistribution
+     * @group framework
+     */
     public function testMedian() : void
     {
         self::assertEquals(\exp(3), LogNormalDistribution::getMedian(3));
     }
 
+    /**
+     * @covers phpOMS\Math\Stochastic\Distribution\LogNormalDistribution
+     * @group framework
+     */
     public function testMode() : void
     {
         self::assertEquals(\exp(3 - 4 ** 2), LogNormalDistribution::getMode(3, 4));
     }
 
+    /**
+     * @covers phpOMS\Math\Stochastic\Distribution\LogNormalDistribution
+     * @group framework
+     */
     public function testEntropy() : void
     {
         self::assertEqualsWithDelta(
@@ -91,6 +131,10 @@ class LogNormalDistributionTest extends \PHPUnit\Framework\TestCase
         );
     }
 
+    /**
+     * @covers phpOMS\Math\Stochastic\Distribution\LogNormalDistribution
+     * @group framework
+     */
     public function testFisherInformation() : void
     {
         self::assertEquals(

@@ -36,11 +36,11 @@ class ClientTest extends \PHPUnit\Framework\TestCase
 
     public static function setUpBeforeClass() : void
     {
-        if (\file_exists(__DIR__ . '/client.log')) {
+        if (\is_file(__DIR__ . '/client.log')) {
             \unlink(__DIR__ . '/client.log');
         }
 
-        if (\file_exists(__DIR__ . '/server.log')) {
+        if (\is_file(__DIR__ . '/server.log')) {
             \unlink(__DIR__ . '/server.log');
         }
     }
@@ -76,6 +76,10 @@ class ClientTest extends \PHPUnit\Framework\TestCase
         \unlink(__DIR__ . '/server.log');
     }
 
+    /**
+     * @covers phpOMS\Socket\Client\Client
+     * @group framework
+     */
     public function testSetupTCPSocket() : void
     {
         self::markTestIncomplete();

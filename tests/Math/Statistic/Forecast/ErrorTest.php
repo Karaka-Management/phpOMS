@@ -23,6 +23,10 @@ use phpOMS\Utils\ArrayUtils;
  */
 class ErrorTest extends \PHPUnit\Framework\TestCase
 {
+    /**
+     * @covers phpOMS\Math\Statistic\Forecast\Error
+     * @group framework
+     */
     public function testForecastError() : void
     {
         self::assertEquals(1000 - 700, Error::getForecastError(1000, 700));
@@ -42,6 +46,10 @@ class ErrorTest extends \PHPUnit\Framework\TestCase
         self::assertEquals([Error::getForecastError(1000, 700)], Error::getForecastErrorArray([1000], [700]));
     }
 
+    /**
+     * @covers phpOMS\Math\Statistic\Forecast\Error
+     * @group framework
+     */
     public function testErrorPercentage() : void
     {
         self::assertEqualsWithDelta(300 / 1000, Error::getPercentageError(300, 1000), 0.01);
@@ -62,6 +70,10 @@ class ErrorTest extends \PHPUnit\Framework\TestCase
         );
     }
 
+    /**
+     * @covers phpOMS\Math\Statistic\Forecast\Error
+     * @group framework
+     */
     public function testMeanErrors() : void
     {
         $errors = [
@@ -76,6 +88,10 @@ class ErrorTest extends \PHPUnit\Framework\TestCase
         self::assertEqualsWithDelta(406.2019, Error::getRootMeanSquaredError($errors), 0.01);
     }
 
+    /**
+     * @covers phpOMS\Math\Statistic\Forecast\Error
+     * @group framework
+     */
     public function testMASE() : void
     {
         $observed = [
@@ -94,6 +110,10 @@ class ErrorTest extends \PHPUnit\Framework\TestCase
         self::assertEqualsWithDelta(0.0983, Error::getMeanAbsoluteScaledError($scaledErrors), 0.01);
     }
 
+    /**
+     * @covers phpOMS\Math\Statistic\Forecast\Error
+     * @group framework
+     */
     public function testMSSE() : void
     {
         $observed = [
@@ -115,6 +135,10 @@ class ErrorTest extends \PHPUnit\Framework\TestCase
         );
     }
 
+    /**
+     * @covers phpOMS\Math\Statistic\Forecast\Error
+     * @group framework
+     */
     public function testScaledError() : void
     {
         self::assertEquals(
@@ -123,6 +147,10 @@ class ErrorTest extends \PHPUnit\Framework\TestCase
         );
     }
 
+    /**
+     * @covers phpOMS\Math\Statistic\Forecast\Error
+     * @group framework
+     */
     public function testSSE() : void
     {
         $errors = MeasureOfDispersion::meanDeviationArray([99.0, 98.6, 98.5, 101.1, 98.3, 98.6, 97.9, 98.4, 99.2, 99.1]);
@@ -130,6 +158,10 @@ class ErrorTest extends \PHPUnit\Framework\TestCase
         self::assertEqualsWithDelta(6.921, Error::getSumSquaredError($errors), 0.001);
     }
 
+    /**
+     * @covers phpOMS\Math\Statistic\Forecast\Error
+     * @group framework
+     */
     public function testCoefficientOfDetermination() : void
     {
         self::assertEqualsWithDelta(0.9729, Error::getCoefficientOfDetermination(
@@ -140,6 +172,10 @@ class ErrorTest extends \PHPUnit\Framework\TestCase
         self::assertEqualsWithDelta(0.922085138, Error::getAdjustedCoefficientOfDetermination(0.944346527, 8, 2), 0.001);
     }
 
+    /**
+     * @covers phpOMS\Math\Statistic\Forecast\Error
+     * @group framework
+     */
     public function testMAPE() : void
     {
         self::assertEqualsWithDelta(0.17551, Error::getMeanAbsolutePercentageError(
@@ -148,6 +184,10 @@ class ErrorTest extends \PHPUnit\Framework\TestCase
         ), 0.001);
     }
 
+    /**
+     * @covers phpOMS\Math\Statistic\Forecast\Error
+     * @group framework
+     */
     public function testSMAPE() : void
     {
         self::assertEqualsWithDelta(0.049338, Error::getSymmetricMeanAbsolutePercentageError(
@@ -156,6 +196,10 @@ class ErrorTest extends \PHPUnit\Framework\TestCase
         ), 0.001);
     }
 
+    /**
+     * @covers phpOMS\Math\Statistic\Forecast\Error
+     * @group framework
+     */
     public function testMAD() : void
     {
         self::assertEqualsWithDelta(22.075, Error::getMeanAbsoulteDeviation(

@@ -25,10 +25,20 @@ use phpOMS\Uri\Argument;
  */
 class ConsoleRequestTest extends \PHPUnit\Framework\TestCase
 {
+    private ConsoleRequest $request;
+
+    public function setUp() : void
+    {
+        $this->request = new ConsoleRequest(new Argument('get:some/test/path'), $l11n = new Localization());
+    }
+
+    /**
+     * @covers phpOMS\Message\Console\ConsoleRequest
+     * @group framework
+     */
     public function testDefault() : void
     {
         $request = new ConsoleRequest();
-
         self::assertEquals('en', $request->getHeader()->getL11n()->getLanguage());
         self::assertEquals(OSType::LINUX, $request->getOS());
         self::assertEquals('127.0.0.1', $request->getOrigin());
@@ -39,30 +49,93 @@ class ConsoleRequestTest extends \PHPUnit\Framework\TestCase
         self::assertNull($request->getData('key'));
     }
 
-    public function testSetGet() : void
+    /**
+     * @covers phpOMS\Message\Console\ConsoleRequest
+     * @group framework
+     */
+    public function testOSInputOutput() : void
     {
-        $request = new ConsoleRequest(new Argument('get:some/test/path'), $l11n = new Localization());
-
-        $request->setOS(OSType::WINDOWS_XP);
-        self::assertEquals(OSType::WINDOWS_XP, $request->getOS());
-
-        $request->setMethod(RequestMethod::PUT);
-
-        $request->setMethod(RequestMethod::DELETE);
-
-        $request->setMethod(RequestMethod::POST);
-
-        self::assertEquals('get:some/test/path', $request->getUri()->__toString());
-
-        self::assertEquals($l11n, $request->getHeader()->getL11n());
-
-        self::assertTrue($request->setData('key', 'value'));
-        self::assertFalse($request->setData('key', 'value2', false));
-        self::assertEquals('value', $request->getData('key'));
-        self::assertTrue($request->hasData('key'));
-        self::assertEquals(['key' => 'value'], $request->getData());
+        $this->request->setOS(OSType::WINDOWS_XP);
+        self::assertEquals(OSType::WINDOWS_XP, $this->request->getOS());
     }
 
+    /**
+     * @covers phpOMS\Message\Console\ConsoleRequest
+     * @group framework
+     */
+    public function testMethodInputOutput() : void
+    {
+        $this->request->setMethod(RequestMethod::POST);
+        self::assertEquals(RequestMethod::POST, $this->request->getMethod());
+    }
+
+    /**
+     * @covers phpOMS\Message\Console\ConsoleRequest
+     * @group framework
+     */
+    public function testInputOutputUriString() : void
+    {
+        self::assertEquals('get:some/test/path', $this->request->getUri()->__toString());
+    }
+
+    /**
+     * @covers phpOMS\Message\Console\ConsoleRequest
+     * @group framework
+     */
+    public function testInputOutputL11n() : void
+    {
+        $l11n = new Localization();
+        self::assertEquals($l11n, $this->request->getHeader()->getL11n());
+    }
+
+    /**
+     * @covers phpOMS\Message\Console\ConsoleRequest
+     * @group framework
+     */
+    public function testDataInputOutput() : void
+    {
+        self::assertTrue($this->request->setData('key', 'value'));
+        self::assertEquals('value', $this->request->getData('key'));
+        self::assertEquals(['key' => 'value'], $this->request->getData());
+    }
+
+    /**
+     * @covers phpOMS\Message\Console\ConsoleRequest
+     * @group framework
+     */
+    public function testHasData() : void
+    {
+        self::assertTrue($this->request->setData('key', 'value'));
+        self::assertTrue($this->request->hasData('key'));
+    }
+
+    /**
+     * @covers phpOMS\Message\Console\ConsoleRequest
+     * @group framework
+     */
+    public function testInvalidOverwrite() : void
+    {
+        self::assertTrue($this->request->setData('key', 'value'));
+        self::assertFalse($this->request->setData('key', 'value2', false));
+        self::assertEquals('value', $this->request->getData('key'));
+    }
+
+    /**
+     * @covers phpOMS\Message\Console\ConsoleRequest
+     * @group framework
+     */
+    public function testOverwrite() : void
+    {
+        self::assertTrue($this->request->setData('key', 'value'));
+        self::assertTrue($this->request->setData('key', 'value2', true));
+        self::assertEquals('value2', $this->request->getData('key'));
+        self::assertEquals(['key' => 'value2'], $this->request->getData());
+    }
+
+    /**
+     * @covers phpOMS\Message\Console\ConsoleRequest
+     * @group framework
+     */
     public function testToString() : void
     {
         $request = new ConsoleRequest(new Argument('get:some/test/path'));

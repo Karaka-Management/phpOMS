@@ -62,7 +62,7 @@ abstract class UninstallerAbstract
     {
         $path = \dirname($info->getPath()) . '/Admin/Install/db.json';
 
-        if (!\file_exists($path)) {
+        if (!\is_file($path)) {
             return;
         }
 

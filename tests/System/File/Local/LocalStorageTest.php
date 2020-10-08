@@ -447,7 +447,7 @@ class LocalStorageTest extends \PHPUnit\Framework\TestCase
     {
         $testFile = __DIR__ . '/test.txt';
         self::assertFalse(LocalStorage::put($testFile, 'test', ContentPutMode::REPLACE));
-        self::assertfalse(\file_exists($testFile));
+        self::assertfalse(\is_file($testFile));
     }
 
     /**
@@ -459,7 +459,7 @@ class LocalStorageTest extends \PHPUnit\Framework\TestCase
     {
         $testFile = __DIR__ . '/test.txt';
         self::assertFalse(LocalStorage::put($testFile, 'test', ContentPutMode::APPEND));
-        self::assertfalse(\file_exists($testFile));
+        self::assertfalse(\is_file($testFile));
     }
 
     /**
@@ -471,7 +471,7 @@ class LocalStorageTest extends \PHPUnit\Framework\TestCase
     {
         $testFile = __DIR__ . '/test.txt';
         self::assertFalse(LocalStorage::put($testFile, 'test', ContentPutMode::PREPEND));
-        self::assertfalse(\file_exists($testFile));
+        self::assertfalse(\is_file($testFile));
     }
 
     /**
@@ -904,6 +904,10 @@ class LocalStorageTest extends \PHPUnit\Framework\TestCase
         \unlink($newPath);
     }
 
+    /**
+     * @covers phpOMS\System\File\Local\LocalStorage<extended>
+     * @group framework
+     */
     public function testSanitize() : void
     {
         self::assertEquals(':/some/test/[path', LocalStorage::sanitize(':#&^$/some%/test/[path!'));
