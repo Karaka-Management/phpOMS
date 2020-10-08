@@ -135,7 +135,7 @@ final class PackageManager
      */
     public function isValid() : bool
     {
-        if (!\is_dir($this->extractPath . '/package.cert')) {
+        if (!\is_file($this->extractPath . '/package.cert')) {
             return false;
         }
 
@@ -156,7 +156,7 @@ final class PackageManager
         $state = \sodium_crypto_generichash_init();
 
         foreach ($files as $file) {
-            if ($file === 'package.cert' || \is_dir($this->extractPath . '/' . $file)) {
+            if ($file === 'package.cert' || \is_file($this->extractPath . '/' . $file)) {
                 continue;
             }
 

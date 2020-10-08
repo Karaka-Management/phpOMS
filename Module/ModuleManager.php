@@ -663,7 +663,7 @@ final class ModuleManager
      */
     public function installApplications(string $from) : void
     {
-        if (!\file_exists($this->modulePath . '/' . $from . '/Application')) {
+        if (!\is_dir($this->modulePath . '/' . $from . '/Application')) {
             return;
         }
 
