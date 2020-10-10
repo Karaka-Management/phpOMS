@@ -24,7 +24,7 @@ class ConsoleHeaderTest extends \PHPUnit\Framework\TestCase
 {
     private ConsoleHeader $header;
 
-    public function setUp() : void
+    protected function setUp() : void
     {
         $this->header = new ConsoleHeader();
     }
