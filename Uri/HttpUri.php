@@ -195,7 +195,7 @@ final class HttpUri implements UriInterface
             $this->path = $path;
         }
 
-        $this->pathElements = \explode('/', \ltrim($this->path, '/'));
+        $this->pathElements = \explode('/', \trim($this->path, '/'));
         $this->queryString  = $url['query'] ?? '';
 
         if (!empty($this->queryString)) {
