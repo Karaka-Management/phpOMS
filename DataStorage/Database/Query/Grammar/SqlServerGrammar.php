@@ -27,6 +27,22 @@ use phpOMS\DataStorage\Database\Query\Builder;
 class SqlServerGrammar extends Grammar
 {
     /**
+     * System identifier.
+     *
+     * @var string
+     * @since 1.0.0
+     */
+    protected string $systemIdentifierStart = '[';
+
+    /**
+     * System identifier.
+     *
+     * @var string
+     * @since 1.0.0
+     */
+    protected string $systemIdentifierEnd = ']';
+
+    /**
      * Compile random.
      *
      * @param Builder $query   Builder

@@ -48,7 +48,15 @@ abstract class GrammarAbstract
      * @var string
      * @since 1.0.0
      */
-    protected string $systemIdentifier = '"';
+    protected string $systemIdentifierStart = '"';
+
+    /**
+     * System identifier.
+     *
+     * @var string
+     * @since 1.0.0
+     */
+    protected string $systemIdentifierEnd = '"';
 
     /**
      * And operator.
@@ -201,11 +209,13 @@ abstract class GrammarAbstract
      */
     protected function compileSystem(string $system) : string
     {
-        $identifier = $this->systemIdentifier;
+        $identifierStart = $this->systemIdentifierStart;
+        $identifierEnd   = $this->systemIdentifierEnd;
 
         foreach ($this->specialKeywords as $keyword) {
             if (\strrpos($system, $keyword, -\strlen($system)) !== false) {
-                $identifier = '';
+                $identifierStart = '';
+                $identifierEnd   = '';
 
                 break;
             }
@@ -216,9 +226,9 @@ abstract class GrammarAbstract
 
         foreach ($split as $key => $system) {
             $fullSystem .= '.'
-                . ($system !== '*' ? $identifier : '')
+                . ($system !== '*' ? $identifierStart : '')
                 . $system
-                . ($system !== '*' ? $identifier : '');
+                . ($system !== '*' ? $identifierEnd : '');
         }
 
         return \ltrim($fullSystem, '.');

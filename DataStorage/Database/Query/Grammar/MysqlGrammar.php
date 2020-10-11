@@ -32,7 +32,15 @@ class MysqlGrammar extends Grammar
      * @var string
      * @since 1.0.0
      */
-    protected string $systemIdentifier = '`';
+    protected string $systemIdentifierStart = '`';
+
+    /**
+     * System identifier.
+     *
+     * @var string
+     * @since 1.0.0
+     */
+    protected string $systemIdentifierEnd = '`';
 
     /**
      * Compile random.

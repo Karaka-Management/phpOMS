@@ -24,4 +24,19 @@ namespace phpOMS\DataStorage\Database\Schema\Grammar;
  */
 class SqlServerGrammar extends Grammar
 {
+    /**
+     * System identifier.
+     *
+     * @var string
+     * @since 1.0.0
+     */
+    protected string $systemIdentifierStart = '[';
+
+    /**
+     * System identifier.
+     *
+     * @var string
+     * @since 1.0.0
+     */
+    protected string $systemIdentifierEnd = ']';
 }

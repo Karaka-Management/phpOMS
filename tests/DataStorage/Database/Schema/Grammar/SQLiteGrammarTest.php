@@ -30,6 +30,7 @@ class SQLiteGrammarTest extends \PHPUnit\Framework\TestCase
     public function testDefault() : void
     {
         self::assertInstanceOf('\phpOMS\DataStorage\Database\Schema\Grammar\Grammar', new SQLiteGrammar());
-        self::assertEquals('`', TestUtils::getMember(new SQLiteGrammar(), 'systemIdentifier'));
+        self::assertEquals('`', TestUtils::getMember(new SQLiteGrammar(), 'systemIdentifierStart'));
+        self::assertEquals('`', TestUtils::getMember(new SQLiteGrammar(), 'systemIdentifierEnd'));
     }
 }

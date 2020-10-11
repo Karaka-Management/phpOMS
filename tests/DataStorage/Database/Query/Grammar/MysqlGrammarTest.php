@@ -31,6 +31,7 @@ class MysqlGrammarTest extends \PHPUnit\Framework\TestCase
     public function testDefault() : void
     {
         self::assertInstanceOf('\phpOMS\DataStorage\Database\Query\Grammar\Grammar', new MysqlGrammar());
-        self::assertEquals('`', TestUtils::getMember(new MysqlGrammar(), 'systemIdentifier'));
+        self::assertEquals('`', TestUtils::getMember(new MysqlGrammar(), 'systemIdentifierStart'));
+        self::assertEquals('`', TestUtils::getMember(new MysqlGrammar(), 'systemIdentifierEnd'));
     }
 }
