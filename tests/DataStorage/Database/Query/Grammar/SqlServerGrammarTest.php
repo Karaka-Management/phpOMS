@@ -14,19 +14,19 @@ declare(strict_types=1);
 
 namespace phpOMS\tests\DataStorage\Database\Query\Grammar;
 
-use phpOMS\DataStorage\Database\Query\Grammar\MicrosoftGrammar;
+use phpOMS\DataStorage\Database\Query\Grammar\SqlServerGrammar;
 
 /**
  * @internal
  */
-class MicrosoftGrammarTest extends \PHPUnit\Framework\TestCase
+class SqlServerGrammarTest extends \PHPUnit\Framework\TestCase
 {
     /**
-     * @covers phpOMS\DataStorage\Database\Query\Grammar\MicrosoftGrammar
+     * @covers phpOMS\DataStorage\Database\Query\Grammar\SqlServerGrammar
      * @group framework
      */
     public function testDefault() : void
     {
-        self::assertInstanceOf('\phpOMS\DataStorage\Database\Query\Grammar\Grammar', new MicrosoftGrammar());
+        self::assertInstanceOf('\phpOMS\DataStorage\Database\Query\Grammar\Grammar', new SqlServerGrammar());
     }
 }

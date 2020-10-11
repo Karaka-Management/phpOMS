@@ -17,8 +17,8 @@ namespace phpOMS\DataStorage\Database\Connection;
 use phpOMS\DataStorage\Database\DatabaseStatus;
 use phpOMS\DataStorage\Database\DatabaseType;
 use phpOMS\DataStorage\Database\Exception\InvalidConnectionConfigException;
-use phpOMS\DataStorage\Database\Query\Grammar\MysqlGrammar;
-use phpOMS\DataStorage\Database\Schema\Grammar\MysqlGrammar as MysqlSchemaGrammar;
+use phpOMS\DataStorage\Database\Query\Grammar\SqlServerGrammar;
+use phpOMS\DataStorage\Database\Schema\Grammar\SqlServerGrammar as SqlServerSchemaGrammar;
 
 /**
  * Database handler.
@@ -45,8 +45,8 @@ final class SqlServerConnection extends ConnectionAbstract
     public function __construct(array $dbdata)
     {
         $this->type          = DatabaseType::SQLSRV;
-        $this->grammar       = new MysqlGrammar();
-        $this->schemaGrammar = new MysqlSchemaGrammar();
+        $this->grammar       = new SqlServerGrammar();
+        $this->schemaGrammar = new SqlServerSchemaGrammar();
 
         $this->dbdata = $dbdata;
     }
@@ -79,6 +79,7 @@ final class SqlServerConnection extends ConnectionAbstract
         } catch (\PDOException $e) {
             $this->con    = null;
             $this->status = DatabaseStatus::MISSING_DATABASE;
+            throw new InvalidConnectionConfigException((string) \json_encode($this->dbdata));
         } finally {
             $this->dbdata['password'] = '****';
         }

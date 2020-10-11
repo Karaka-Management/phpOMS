@@ -24,7 +24,7 @@ use phpOMS\DataStorage\Database\Query\Builder;
  * @link    https://orange-management.org
  * @since   1.0.0
  */
-class MicrosoftGrammar extends Grammar
+class SqlServerGrammar extends Grammar
 {
     /**
      * Compile random.

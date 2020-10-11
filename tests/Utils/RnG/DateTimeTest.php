@@ -34,15 +34,15 @@ class DateTimeTest extends \PHPUnit\Framework\TestCase
             $dateMin = new \DateTime();
             $dateMax = new \DateTime();
 
-            $min = \mt_rand(0, \PHP_INT_MAX - 2);
-            $max = \mt_rand($min + 1, \PHP_INT_MAX);
+            $min = \mt_rand(0, (int) (2147483647 / 2));
+            $max = \mt_rand($min + 10, 2147483647);
 
             $dateMin->setTimestamp($min);
             $dateMax->setTimestamp($max);
 
             $rng = DateTime::generateDateTime($dateMin, $dateMax);
 
-            if (!($rng->getTimestamp() >= $min && $rng->getTimestamp() <= $max)) {
+            if ($rng->getTimestamp() < $min || $rng->getTimestamp() > $max) {
                 self::assertTrue(false);
             }
         }
