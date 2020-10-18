@@ -16,6 +16,7 @@ namespace phpOMS\Localization;
 
 use phpOMS\Log\FileLogger;
 use phpOMS\Module\ModuleAbstract;
+use phpOMS\Autoloader;
 
 /**
  * Localization class.
@@ -162,6 +163,10 @@ final class L11nManager
             try {
                 /** @var ModuleAbstract $class */
                 $class = '\Modules\\' . $module . '\\Controller\\' . ($app ?? $this->appName) . 'Controller';
+                if (!Autoloader::exists($class)) {
+                    return 'ERROR';
+                }
+
                 $this->loadLanguage($code, $module, $class::getLocalization($code, $theme));
 
                 if (!isset($this->language[$code][$module][$translation])) {
@@ -257,15 +262,21 @@ final class L11nManager
         $language = $l11n->getLanguage() ?? 'en';
         $symbol ??= $l11n->getCurrency();
 
-        if ($divide === 1000) {
-            $symbol = $this->getHtml($language, '0', '0', 'CurrencyK') . $symbol;
-        } elseif ($divide === 1000000) {
-            $symbol = $this->getHtml($language, '0', '0', 'CurrencyM') . $symbol;
-        } elseif ($divide === 1000000000) {
-            $symbol = $this->getHtml($language, '0', '0', 'CurrencyB') . $symbol;
+        if (\is_float($currency)) {
+            $currency = (int) ($currency * \pow(10, Money::MAX_DECIMALS));
         }
 
-        $money = new Money($currency / $divide, $l11n->getThousands(), $l11n->getDecimal(), $symbol ?? $l11n->getCurrency(), (int) $l11n->getCurrencyFormat());
+        if (!empty($symbol)) {
+            if ($divide === 1000) {
+                $symbol = $this->getHtml($language, '0', '0', 'CurrencyK') . $symbol;
+            } elseif ($divide === 1000000) {
+                $symbol = $this->getHtml($language, '0', '0', 'CurrencyM') . $symbol;
+            } elseif ($divide === 1000000000) {
+                $symbol = $this->getHtml($language, '0', '0', 'CurrencyB') . $symbol;
+            }
+        }
+
+        $money = new Money((int) ($currency / $divide), $l11n->getThousands(), $l11n->getDecimal(), $symbol ?? $l11n->getCurrency(), (int) $l11n->getCurrencyFormat());
 
         return $money->getCurrency($l11n->getPrecision()[$format ?? 'medium']);
     }
