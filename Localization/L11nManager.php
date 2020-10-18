@@ -14,9 +14,9 @@ declare(strict_types=1);
 
 namespace phpOMS\Localization;
 
+use phpOMS\Autoloader;
 use phpOMS\Log\FileLogger;
 use phpOMS\Module\ModuleAbstract;
-use phpOMS\Autoloader;
 
 /**
  * Localization class.
