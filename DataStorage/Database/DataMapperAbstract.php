@@ -2684,6 +2684,7 @@ class DataMapperAbstract implements DataMapperInterface
      * @return mixed
      *
      * @since 1.0.0
+     * @todo by and for look the same, this cannot be correct.
      */
     public static function getFor($forKey, string $for, int $relations = RelationType::ALL, int $depth = 3)
     {
@@ -2701,6 +2702,7 @@ class DataMapperAbstract implements DataMapperInterface
      * @return mixed
      *
      * @since 1.0.0
+     * @todo by and for look the same, this cannot be correct.
      */
     public static function getBy($byKey, string $by, int $relations = RelationType::ALL, int $depth = 3)
     {
