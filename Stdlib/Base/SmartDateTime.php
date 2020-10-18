@@ -56,8 +56,8 @@ class SmartDateTime extends \DateTime
     public function __construct(string $datetime = 'now', DateTimeZone $timezone = null)
     {
         $parsed = \str_replace(
-            ['Y', 'm'],
-            [\date('Y'), \date('m')],
+            ['Y', 'm', 'd'],
+            [\date('Y'), \date('m'), \date('d')],
             $datetime
         );
 
