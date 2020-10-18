@@ -14,6 +14,8 @@ declare(strict_types=1);
 
 namespace phpOMS\Stdlib\Base;
 
+use phpOMS\Localization\ISO3166TwoEnum;
+
 /**
  * Location class.
  *
@@ -54,7 +56,7 @@ class Location implements \JsonSerializable, \Serializable
      * @var string
      * @since 1.0.0
      */
-    protected string $country = '';
+    protected string $country = ISO3166TwoEnum::_USA;
 
     /**
      * Street & district.
