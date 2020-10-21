@@ -714,7 +714,7 @@ class DataMapperAbstract implements DataMapperInterface
      */
     public static function createRelation(string $member, $id1, $id2) : bool
     {
-        if (!isset(static::$hasMany[$member]) || !isset(static::$hasMany[$member]['self'])) {
+        if (!isset(static::$hasMany[$member]) || !isset(static::$hasMany[$member]['external'])) {
             return false;
         }
 
@@ -758,7 +758,7 @@ class DataMapperAbstract implements DataMapperInterface
             if (\is_object($values)) {
                 // conditionals
                 $relReflectionClass = new \ReflectionClass($values);
-                $relProperty        = $relReflectionClass->getProperty($mapper::$columns[static::$hasMany[$propertyName]['external']]['internal']);
+                $relProperty        = $relReflectionClass->getProperty($mapper::$columns[static::$hasMany[$propertyName]['self']]['internal']);
 
                 if (!$isPublic) {
                     $relProperty->setAccessible(true);
@@ -806,8 +806,8 @@ class DataMapperAbstract implements DataMapperInterface
                 // Setting relation value (id) for relation (since the relation is not stored in an extra relation table)
                 /** @var string $table */
                 /** @var array $columns */
-                if (!isset(static::$hasMany[$propertyName]['self'])) {
-                    $relProperty = $relReflectionClass->getProperty($mapper::$columns[static::$hasMany[$propertyName]['external']]['internal']);
+                if (!isset(static::$hasMany[$propertyName]['external'])) {
+                    $relProperty = $relReflectionClass->getProperty($mapper::$columns[static::$hasMany[$propertyName]['self']]['internal']);
 
                     if (!$isPublic) {
                         $relProperty->setAccessible(true);
@@ -853,7 +853,7 @@ class DataMapperAbstract implements DataMapperInterface
 
             if (\is_object($values)) {
                 // conditionals
-                TestUtils::setMember($values, $mapper::$columns[static::$hasMany[$propertyName]['external']]['internal'], $objId);
+                TestUtils::setMember($values, $mapper::$columns[static::$hasMany[$propertyName]['self']]['internal'], $objId);
 
                 $mapper::createArray($values);
                 continue;
@@ -887,9 +887,9 @@ class DataMapperAbstract implements DataMapperInterface
                 /** @var string $table */
                 /** @var array $columns */
                 if (static::$hasMany[$propertyName]['table'] === static::$hasMany[$propertyName]['mapper']::$table
-                    && isset($mapper::$columns[static::$hasMany[$propertyName]['external']])
+                    && isset($mapper::$columns[static::$hasMany[$propertyName]['self']])
                 ) {
-                    $value[$mapper::$columns[static::$hasMany[$propertyName]['external']]['internal']] = $objId;
+                    $value[$mapper::$columns[static::$hasMany[$propertyName]['self']]['internal']] = $objId;
                 }
 
                 $objsIds[$key] = $mapper::createArray($value);
@@ -1023,13 +1023,13 @@ class DataMapperAbstract implements DataMapperInterface
     private static function createRelationTable(string $propertyName, array $objsIds, $objId) : void
     {
         /** @var string $table */
-        if (empty($objsIds) || !isset(static::$hasMany[$propertyName]['self'])) {
+        if (empty($objsIds) || !isset(static::$hasMany[$propertyName]['external'])) {
             return;
         }
 
         $relQuery = new Builder(self::$db);
         $relQuery->into(static::$hasMany[$propertyName]['table'])
-            ->insert(static::$hasMany[$propertyName]['self'], static::$hasMany[$propertyName]['external']);
+            ->insert(static::$hasMany[$propertyName]['external'], static::$hasMany[$propertyName]['self']);
 
         foreach ($objsIds as $key => $src) {
             if (\is_object($src)) {
@@ -1159,9 +1159,9 @@ class DataMapperAbstract implements DataMapperInterface
                 /** @var string $table */
                 /** @var array $columns */
                 if (static::$hasMany[$propertyName]['table'] === static::$hasMany[$propertyName]['mapper']::$table
-                    && isset($mapper::$columns[static::$hasMany[$propertyName]['external']])
+                    && isset($mapper::$columns[static::$hasMany[$propertyName]['self']])
                 ) {
-                    $relProperty = $relReflectionClass->getProperty($mapper::$columns[static::$hasMany[$propertyName]['external']]['internal']);
+                    $relProperty = $relReflectionClass->getProperty($mapper::$columns[static::$hasMany[$propertyName]['self']]['internal']);
 
                     if (!$isPublic) {
                         $relProperty->setAccessible(true);
@@ -1241,9 +1241,9 @@ class DataMapperAbstract implements DataMapperInterface
                 /** @var string $table */
                 /** @var array $columns */
                 if (static::$hasMany[$propertyName]['table'] === static::$hasMany[$propertyName]['mapper']::$table
-                    && isset($mapper::$columns[static::$hasMany[$propertyName]['external']])
+                    && isset($mapper::$columns[static::$hasMany[$propertyName]['self']])
                 ) {
-                    $value[$mapper::$columns[static::$hasMany[$propertyName]['external']]['internal']] = $objId;
+                    $value[$mapper::$columns[static::$hasMany[$propertyName]['self']]['internal']] = $objId;
                 }
 
                 $objsIds[$propertyName][$key] = $mapper::createArray($value);
@@ -1308,8 +1308,8 @@ class DataMapperAbstract implements DataMapperInterface
             $relQuery = new Builder(self::$db);
             $relQuery->delete()
                 ->from(static::$hasMany[$propertyName]['table'])
-                ->where(static::$hasMany[$propertyName]['table'] . '.' . static::$hasMany[$propertyName]['self'], '=', $src)
-                ->where(static::$hasMany[$propertyName]['table'] . '.' . static::$hasMany[$propertyName]['external'], '=', $objId, 'and');
+                ->where(static::$hasMany[$propertyName]['table'] . '.' . static::$hasMany[$propertyName]['external'], '=', $src)
+                ->where(static::$hasMany[$propertyName]['table'] . '.' . static::$hasMany[$propertyName]['self'], '=', $objId, 'and');
 
             self::$db->con->prepare($relQuery->toSql())->execute();
         }
@@ -2028,10 +2028,10 @@ class DataMapperAbstract implements DataMapperInterface
         $mapper = static::$ownsOne[$member]['mapper'];
 
         if ($depth < 1) {
-            if (\array_key_exists(static::$ownsOne[$member]['self'] . '_' . ($depth + 1), $result)) {
+            if (\array_key_exists(static::$ownsOne[$member]['external'] . '_' . ($depth + 1), $result)) {
                 return isset(static::$ownsOne[$member]['column'])
-                    ? $result[static::$ownsOne[$member]['self'] . '_' . ($depth + 1)]
-                    : $mapper::createNullModel($result[static::$ownsOne[$member]['self'] . '_' . ($depth + 1)]);
+                    ? $result[static::$ownsOne[$member]['external'] . '_' . ($depth + 1)]
+                    : $mapper::createNullModel($result[static::$ownsOne[$member]['external'] . '_' . ($depth + 1)]);
             } else {
                 return $default;
             }
@@ -2068,8 +2068,8 @@ class DataMapperAbstract implements DataMapperInterface
         $mapper = static::$ownsOne[$member]['mapper'];
 
         if ($depth < 1) {
-            if (\array_key_exists(static::$ownsOne[$member]['self'] . '_' . ($depth + 1), $result)) {
-                return $result[static::$ownsOne[$member]['self'] . '_' . ($depth + 1)];
+            if (\array_key_exists(static::$ownsOne[$member]['external'] . '_' . ($depth + 1), $result)) {
+                return $result[static::$ownsOne[$member]['external'] . '_' . ($depth + 1)];
             } else {
                 return $default;
             }
@@ -2108,10 +2108,10 @@ class DataMapperAbstract implements DataMapperInterface
         $mapper = static::$belongsTo[$member]['mapper'];
 
         if ($depth < 1) {
-            if (\array_key_exists(static::$belongsTo[$member]['self'] . '_' . ($depth + 1), $result)) {
+            if (\array_key_exists(static::$belongsTo[$member]['external'] . '_' . ($depth + 1), $result)) {
                 return isset(static::$belongsTo[$member]['column'])
-                    ? $result[static::$belongsTo[$member]['self'] . '_' . ($depth + 1)]
-                    : $mapper::createNullModel($result[static::$belongsTo[$member]['self'] . '_' . ($depth + 1)]);
+                    ? $result[static::$belongsTo[$member]['external'] . '_' . ($depth + 1)]
+                    : $mapper::createNullModel($result[static::$belongsTo[$member]['external'] . '_' . ($depth + 1)]);
             } else {
                 return $default;
             }
@@ -2148,8 +2148,8 @@ class DataMapperAbstract implements DataMapperInterface
         $mapper = static::$belongsTo[$member]['mapper'];
 
         if ($depth < 1) {
-            if (\array_key_exists(static::$belongsTo[$member]['self'] . '_' . ($depth + 1), $result)) {
-                return $result[static::$belongsTo[$member]['self'] . '_' . ($depth + 1)];
+            if (\array_key_exists(static::$belongsTo[$member]['external'] . '_' . ($depth + 1), $result)) {
+                return $result[static::$belongsTo[$member]['external'] . '_' . ($depth + 1)];
             } else {
                 return $default;
             }
@@ -2984,42 +2984,42 @@ class DataMapperAbstract implements DataMapperInterface
         } else {
             if (isset(static::$hasMany[$ref])) {
                 if ($keys !== null && $keys !== false) {
-                    $query->where(static::$hasMany[$ref]['table'] . '_' . $depth . '.' . static::$hasMany[$ref]['self'], $comparison, $keys);
+                    $query->where(static::$hasMany[$ref]['table'] . '_' . $depth . '.' . static::$hasMany[$ref]['external'], $comparison, $keys);
                 }
 
                 $query->leftJoin(static::$hasMany[$ref]['table'], static::$hasMany[$ref]['table'] . '_' . $depth);
-                if (static::$hasMany[$ref]['self'] !== null) {
+                if (static::$hasMany[$ref]['external'] !== null) {
                     $query->on(
                         static::$table . '_' . $depth . '.' . static::$hasMany[$ref][static::$primaryField], '=',
-                        static::$hasMany[$ref]['table'] . '_' . $depth . '.' . static::$hasMany[$ref]['external'], 'and',
+                        static::$hasMany[$ref]['table'] . '_' . $depth . '.' . static::$hasMany[$ref]['self'], 'and',
                         static::$hasMany[$ref]['table'] . '_' . $depth
                     );
                 } else {
                     $query->on(
                         static::$table . '_' . $depth . '.' . static::$primaryField, '=',
-                        static::$hasMany[$ref]['table'] . '_' . $depth . '.' . static::$hasMany[$ref]['external'], 'and',
+                        static::$hasMany[$ref]['table'] . '_' . $depth . '.' . static::$hasMany[$ref]['self'], 'and',
                         static::$hasMany[$ref]['table'] . '_' . $depth
                     );
                 }
-            } elseif (isset(static::$belongsTo[$ref]) && static::$belongsTo[$ref]['self'] !== null) {
+            } elseif (isset(static::$belongsTo[$ref]) && static::$belongsTo[$ref]['external'] !== null) {
                 if ($keys !== null && $keys !== false) {
                     $query->where(static::$table . '_' . $depth . '.' . $ref, $comparison, $keys);
                 }
 
                 $query->leftJoin(static::$belongsTo[$ref]['mapper']::getTable(), static::$belongsTo[$ref]['mapper']::getTable() . '_' . $depth)
                     ->on(
-                        static::$table . '_' . $depth . '.' . static::$belongsTo[$ref]['self'], '=',
+                        static::$table . '_' . $depth . '.' . static::$belongsTo[$ref]['external'], '=',
                         static::$belongsTo[$ref]['mapper']::getTable() . '_' . $depth . '.' . static::$belongsTo[$ref]['mapper']::getPrimaryField() , 'and',
                         static::$belongsTo[$ref]['mapper']::getTable() . '_' . $depth
                     );
-            } elseif (isset(static::$ownsOne[$ref]) && static::$ownsOne[$ref]['self'] !== null) {
+            } elseif (isset(static::$ownsOne[$ref]) && static::$ownsOne[$ref]['external'] !== null) {
                 if ($keys !== null && $keys !== false) {
                     $query->where(static::$table . '_' . $depth . '.' . $ref, $comparison, $keys);
                 }
 
                 $query->leftJoin(static::$ownsOne[$ref]['mapper']::getTable(), static::$ownsOne[$ref]['mapper']::getTable() . '_' . $depth)
                     ->on(
-                        static::$table . '_' . $depth . '.' . static::$ownsOne[$ref]['self'], '=',
+                        static::$table . '_' . $depth . '.' . static::$ownsOne[$ref]['external'], '=',
                         static::$ownsOne[$ref]['mapper']::getTable() . '_' . $depth . '.' . static::$ownsOne[$ref]['mapper']::getPrimaryField() , 'and',
                         static::$ownsOne[$ref]['mapper']::getTable() . '_' . $depth
                     );
@@ -3052,9 +3052,9 @@ class DataMapperAbstract implements DataMapperInterface
     public static function getHasManyPrimaryKeys($refKey, string $ref) : array
     {
         $query = new Builder(self::$db);
-        $query->select(static::$hasMany[$ref]['table'] . '.' . static::$hasMany[$ref]['external'])
+        $query->select(static::$hasMany[$ref]['table'] . '.' . static::$hasMany[$ref]['self'])
             ->from(static::$hasMany[$ref]['table'])
-            ->where(static::$hasMany[$ref]['table'] . '.' . static::$hasMany[$ref]['self'], '=', $refKey);
+            ->where(static::$hasMany[$ref]['table'] . '.' . static::$hasMany[$ref]['external'], '=', $refKey);
 
         $sth = self::$db->con->prepare($query->toSql());
         $sth->execute();
@@ -3091,11 +3091,11 @@ class DataMapperAbstract implements DataMapperInterface
 
                 if (self::$relations === RelationType::ALL) {
                     /** @var string $primaryField */
-                    $src = $value['self'] ?? $value['mapper']::$primaryField;
+                    $src = $value['external'] ?? $value['mapper']::$primaryField;
 
                     $query->select($value['table'] . '.' . $src)
                         ->from($value['table'])
-                        ->where($value['table'] . '.' . $value['external'], '=', $primaryKey);
+                        ->where($value['table'] . '.' . $value['self'], '=', $primaryKey);
 
                     $modelName = $value['mapper']::getModelName();
                     foreach (self::$conditionals as $condKey => $condValue) {
@@ -3170,7 +3170,7 @@ class DataMapperAbstract implements DataMapperInterface
             foreach (static::$ownsOne as $rel) {
                 $query->leftJoin($rel['mapper']::getTable(), $rel['mapper']::getTable() . '_' . ($depth - 1))
                     ->on(
-                        static::$table . '_' . $depth . '.' . $rel['self'], '=',
+                        static::$table . '_' . $depth . '.' . $rel['external'], '=',
                         $rel['mapper']::getTable() . '_' . ($depth - 1) . '.' . (
                             isset($rel['by']) ? $rel['mapper']::getColumnByMember($rel['by']) : $rel['mapper']::getPrimaryField()
                         ), 'and',
@@ -3191,7 +3191,7 @@ class DataMapperAbstract implements DataMapperInterface
             foreach (static::$belongsTo as $rel) {
                 $query->leftJoin($rel['mapper']::getTable(), $rel['mapper']::getTable() . '_' . ($depth - 1))
                     ->on(
-                        static::$table . '_' . $depth . '.' . $rel['self'], '=',
+                        static::$table . '_' . $depth . '.' . $rel['external'], '=',
                         $rel['mapper']::getTable() . '_' . ($depth - 1) . '.' . (
                             isset($rel['by']) ? $rel['mapper']::getColumnByMember($rel['by']) : $rel['mapper']::getPrimaryField()
                         ), 'and',
@@ -3210,16 +3210,16 @@ class DataMapperAbstract implements DataMapperInterface
         // get HasManyQuery (but only for elements which have a 'column' defined)
         if ($depth > 1 && self::$relations === RelationType::ALL) {
             foreach (static::$hasMany as $rel) {
-                if (isset($rel['self']) || !isset($rel['column'])) { // @todo: conflict with getHasMany()???!?!?!?!
+                if (isset($rel['external']) || !isset($rel['column'])) { // @todo: conflict with getHasMany()???!?!?!?!
                     continue;
                 }
 
                 // todo: handle self and self === null
                 $query->leftJoin($rel['mapper']::getTable(), $rel['mapper']::getTable() . '_' . ($depth - 1))
                     ->on(
-                        static::$table . '_' . $depth . '.' . ($rel['self'] ?? static::$primaryField), '=',
+                        static::$table . '_' . $depth . '.' . ($rel['external'] ?? static::$primaryField), '=',
                         $rel['mapper']::getTable() . '_' . ($depth - 1) . '.' . (
-                            isset($rel['by']) ? $rel['mapper']::getColumnByMember($rel['by']) : $rel['external']
+                            isset($rel['by']) ? $rel['mapper']::getColumnByMember($rel['by']) : $rel['self']
                         ), 'and',
                         $rel['mapper']::getTable() . '_' . ($depth - 1)
                     );
