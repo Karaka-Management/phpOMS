@@ -231,6 +231,17 @@ class DataMapperAbstract implements DataMapperInterface
     protected static int $relations = RelationType::ALL;
 
     /**
+     * Datetime format of the database datetime
+     *
+     * This is only for the datetime stored in the database not the generated query.
+     * For the query check the datetime in Grammar:$datetimeFormat
+     *
+     * @var string
+     * @since 1.0.0
+     */
+    protected static string $datetimeFormat = 'Y-m-d H:i:s';
+
+    /**
      * Constructor.
      *
      * @since 1.0.0
@@ -1064,7 +1075,7 @@ class DataMapperAbstract implements DataMapperInterface
         } elseif ($type === 'bool') {
             return (bool) $value;
         } elseif ($type === 'DateTime' || $type === 'DateTimeImmutable') {
-            return $value === null ? null : $value->format('Y-m-d H:i:s');
+            return $value === null ? null : $value->format(self::$datetimeFormat);
         } elseif ($type === 'Json' || $value instanceof \JsonSerializable) {
             return (string) \json_encode($value);
         } elseif ($type === 'Serializable') {

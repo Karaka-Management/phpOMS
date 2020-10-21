@@ -48,6 +48,11 @@ final class MysqlConnection extends ConnectionAbstract
         $this->grammar       = new MysqlGrammar();
         $this->schemaGrammar = new MysqlSchemaGrammar();
 
+        if (isset($dbdata['datetimeformat'])) {
+            $this->grammar->setDateTimeFormat($dbdata['datetimeformat']);
+            $this->schemaGrammar->setDateTimeFormat($dbdata['datetimeformat']);
+        }
+
         $this->dbdata = $dbdata;
     }
 

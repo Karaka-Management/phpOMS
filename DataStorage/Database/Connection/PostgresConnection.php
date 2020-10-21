@@ -48,6 +48,11 @@ final class PostgresConnection extends ConnectionAbstract
         $this->grammar       = new PostgresGrammar();
         $this->schemaGrammar = new PostgresSchemaGrammar();
 
+        if (isset($dbdata['datetimeformat'])) {
+            $this->grammar->setDateTimeFormat($dbdata['datetimeformat']);
+            $this->schemaGrammar->setDateTimeFormat($dbdata['datetimeformat']);
+        }
+
         $this->dbdata = $dbdata;
     }
 

@@ -54,6 +54,9 @@ class Zip implements ArchiveInterface
                 $source = $relative;
             }
 
+            $source   = \str_replace('\\', '/', $source);
+            $relative = \str_replace('\\', '/', $relative);
+
             if (\is_dir($source)) {
                 $files = new \RecursiveIteratorIterator(
                     new \RecursiveDirectoryIterator($source),
@@ -72,7 +75,7 @@ class Zip implements ArchiveInterface
 
                     $absolute = \realpath($file);
                     $absolute = \str_replace('\\', '/', (string) $absolute);
-                    $dir      = \str_replace($source . '/', '', $relative . '/' . $absolute);
+                    $dir      = \str_replace($source . '/', '', \rtrim($relative, '/\\') . '/' . \ltrim($absolute, '/\\'));
 
                     if (\is_dir($absolute)) {
                         $zip->addEmptyDir($dir . '/');

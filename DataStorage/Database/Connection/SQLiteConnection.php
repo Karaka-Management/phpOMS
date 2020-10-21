@@ -48,6 +48,11 @@ final class SQLiteConnection extends ConnectionAbstract
         $this->grammar       = new SQLiteGrammar();
         $this->schemaGrammar = new SQLiteSchemaGrammar();
 
+        if (isset($dbdata['datetimeformat'])) {
+            $this->grammar->setDateTimeFormat($dbdata['datetimeformat']);
+            $this->schemaGrammar->setDateTimeFormat($dbdata['datetimeformat']);
+        }
+
         $this->dbdata = $dbdata;
     }
 
