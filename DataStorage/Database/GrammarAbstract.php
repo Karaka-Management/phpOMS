@@ -87,6 +87,28 @@ abstract class GrammarAbstract
     ];
 
     /**
+     * Datetime format.
+     *
+     * @var string
+     * @since 1.0.0
+     */
+    protected string $datetimeFormat = 'Y-m-d H:i:s';
+
+    /**
+     * Set the datetime format
+     *
+     * @param string $format Datetime format
+     *
+     * @return void
+     *
+     * @since 1.0.0
+     */
+    public function setDateTimeFormat(string $format) : void
+    {
+        $this->datetimeFormat = $format;
+    }
+
+    /**
      * Compile to query.
      *
      * @param BuilderAbstract $query Builder

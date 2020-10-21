@@ -48,6 +48,11 @@ final class SqlServerConnection extends ConnectionAbstract
         $this->grammar       = new SqlServerGrammar();
         $this->schemaGrammar = new SqlServerSchemaGrammar();
 
+        if (isset($dbdata['datetimeformat'])) {
+            $this->grammar->setDateTimeFormat($dbdata['datetimeformat']);
+            $this->schemaGrammar->setDateTimeFormat($dbdata['datetimeformat']);
+        }
+
         $this->dbdata = $dbdata;
     }
 
