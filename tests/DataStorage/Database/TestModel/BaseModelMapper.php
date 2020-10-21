@@ -47,14 +47,14 @@ class BaseModelMapper extends DataMapperAbstract
     protected static array $belongsTo = [
         'belongsToOne' => [
             'mapper' => BelongsToModelMapper::class,
-            'self'   => 'test_base_belongs_to_one',
+            'external'   => 'test_base_belongs_to_one',
         ],
     ];
 
     protected static array $ownsOne = [
         'ownsOneSelf' => [
             'mapper' => OwnsOneModelMapper::class,
-            'self'   => 'test_base_owns_one_self',
+            'external'   => 'test_base_owns_one_self',
         ],
     ];
 
@@ -68,22 +68,22 @@ class BaseModelMapper extends DataMapperAbstract
         'hasManyDirect' => [
             'mapper'         => ManyToManyDirectModelMapper::class,
             'table'          => 'test_has_many_direct',
-            'external'       => 'test_has_many_direct_to',
-            'self'           => null,
+            'self'       => 'test_has_many_direct_to',
+            'external'           => null,
         ],
         'hasManyRelations' => [
             'mapper'         => ManyToManyRelModelMapper::class,
             'table'          => 'test_has_many_rel_relations',
-            'external'       => 'test_has_many_rel_relations_dest',
-            'self'           => 'test_has_many_rel_relations_src',
+            'external'       => 'test_has_many_rel_relations_src',
+            'self'           => 'test_has_many_rel_relations_dest',
         ],
         'conditional' => [
             'mapper'        => ConditionalMapper::class,
             'table'         => 'test_conditional',
-            'external'      => 'test_conditional_base',
+            'self'      => 'test_conditional_base',
             'column'        => 'title',
             'conditional'   => true,
-            'self'          => null,
+            'external'          => null,
         ],
     ];
 
