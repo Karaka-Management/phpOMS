@@ -56,7 +56,7 @@ class LocationTest extends \PHPUnit\Framework\TestCase
         $expected = [
             'postal'  => '',
             'city'    => '',
-            'country' => '',
+            'country' => 'US',
             'address' => '',
             'state'   => '',
             'geo'     => [
@@ -67,7 +67,7 @@ class LocationTest extends \PHPUnit\Framework\TestCase
 
         self::assertEquals('', $this->location->getPostal());
         self::assertEquals('', $this->location->getCity());
-        self::assertEquals('', $this->location->getCountry());
+        self::assertEquals('US', $this->location->getCountry());
         self::assertEquals('', $this->location->getAddress());
         self::assertEquals('', $this->location->getState());
         self::assertEquals(0, $this->location->getId());
