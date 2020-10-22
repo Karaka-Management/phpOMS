@@ -70,7 +70,7 @@ class Tar implements ArchiveInterface
 
                     $absolute = \realpath($file);
                     $absolute = \str_replace('\\', '/', (string) $absolute);
-                    $dir      = \str_replace($source . '/', '', \rtrim($relative, '/\\') . '/' . \ltrim($absolute, '/\\'));
+                    $dir      = \rtrim($relative, '/\\') . '/' . \ltrim(\str_replace($source . '/', '', $absolute), '/\\');
 
                     if (\is_dir($absolute)) {
                         $tar->addEmptyDir($dir . '/');
