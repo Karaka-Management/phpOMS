@@ -25,6 +25,8 @@ use phpOMS\DataStorage\Database\Schema\Grammar\Grammar as SchemaGrammar;
  * Handles the database connection.
  * Implementing wrapper functions for multiple databases is planned (far away).
  *
+ * @property \PDO $con
+ *
  * @package phpOMS\DataStorage\Database\Connection
  * @license OMS License 1.0
  * @link    https://orange-management.org
@@ -42,10 +44,10 @@ abstract class ConnectionAbstract implements ConnectionInterface
      *
      * This can be used externally to define queries and execute them.
      *
-     * @var null|\PDO
+     * @var \PDO
      * @since 1.0.0
      */
-    protected ?\PDO $con;
+    protected \PDO $con;
 
     /**
      * Database data.
@@ -183,7 +185,7 @@ abstract class ConnectionAbstract implements ConnectionInterface
      */
     public function close() : void
     {
-        $this->con    = null;
+        $this->con    = new NullPDO();
         $this->status = DatabaseStatus::CLOSED;
     }
 
@@ -193,6 +195,9 @@ abstract class ConnectionAbstract implements ConnectionInterface
      * @param string $name Variable name
      *
      * @return mixed Returns the value of the connection
+     *
+     * @todo Orange-Management/phpOMS#218
+     *  As soon as readonly member variables are possible the magic methods should be removed.
      *
      * @since 1.0.0
      */

@@ -163,6 +163,8 @@ final class L11nManager
             try {
                 /** @var ModuleAbstract $class */
                 $class = '\Modules\\' . $module . '\\Controller\\' . ($app ?? $this->appName) . 'Controller';
+
+                /** @var string $class */
                 if (!Autoloader::exists($class)) {
                     return 'ERROR';
                 }

@@ -42,7 +42,7 @@ final class Directory extends FileAbstract implements DirectoryInterface, LocalC
     /**
      * Directory nodes (files and directories).
      *
-     * @var FileAbstract[]
+     * @var ContainerInterface[]
      * @since 1.0.0
      */
     private array $nodes = [];
@@ -400,6 +400,7 @@ final class Directory extends FileAbstract implements DirectoryInterface, LocalC
             new \RecursiveDirectoryIterator($from, \RecursiveDirectoryIterator::SKIP_DOTS),
             \RecursiveIteratorIterator::SELF_FIRST) as $item
         ) {
+            /** @var \RecursiveDirectoryIterator $iterator */
             $subPath = $iterator->getSubPathname();
 
             if ($item->isDir()) {
@@ -563,7 +564,7 @@ final class Directory extends FileAbstract implements DirectoryInterface, LocalC
     /**
      * {@inheritdoc}
      */
-    public function valid()
+    public function valid() : bool
     {
         $key = \key($this->nodes);
 

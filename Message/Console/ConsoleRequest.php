@@ -48,14 +48,6 @@ final class ConsoleRequest extends RequestAbstract
     protected string $method;
 
     /**
-     * Request hash.
-     *
-     * @var string[]
-     * @since 1.0.0
-     */
-    protected array $hash = [];
-
-    /**
      * OS type.
      *
      * @var string
@@ -118,18 +110,6 @@ final class ConsoleRequest extends RequestAbstract
 
             $this->hash[] = \sha1(\implode('', $paths));
         }
-    }
-
-    /**
-     * Get request hash.
-     *
-     * @return array
-     *
-     * @since 1.0.0
-     */
-    public function getHash() : array
-    {
-        return $this->hash;
     }
 
     /**

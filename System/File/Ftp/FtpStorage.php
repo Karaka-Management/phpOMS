@@ -29,8 +29,23 @@ use phpOMS\System\File\StorageAbstract;
  */
 class FtpStorage extends StorageAbstract
 {
+    /**
+     * Connection
+     *
+     * @var resource
+     * @since 1.0.0
+     */
     private static $con = null;
 
+    /**
+     * Set connection
+     *
+     * @param resource $con Connection
+     *
+     * @return void
+     *
+     * @since 1.0.0
+     */
     public static function with($con) : void
     {
         self::$con = $con;

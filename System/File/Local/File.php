@@ -515,6 +515,13 @@ final class File extends FileAbstract implements FileInterface, LocalContainerIn
         return new Directory(self::parent($this->path));
     }
 
+    /**
+     * Get directory of the file
+     *
+     * @return ContainerInterface
+     *
+     * @since 1.0.0
+     */
     public function getDirectory() : ContainerInterface
     {
         return new Directory(self::dirpath($this->path));

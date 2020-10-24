@@ -49,9 +49,9 @@ final class File
     {
         if ($bytes < 1000) {
             return $bytes . 'b';
-        } elseif ($bytes > 999 && $bytes < 1000000) {
+        } elseif ($bytes < 1000000) {
             return \rtrim(\rtrim(\number_format($bytes / 1000, 1, $decimal, $thousands), '0'), $decimal) . 'kb';
-        } elseif ($bytes > 999999 && $bytes < 1000000000) {
+        } elseif ($bytes < 1000000000) {
             return \rtrim(\rtrim(\number_format($bytes / 1000000, 1, $decimal, $thousands), '0'), $decimal) . 'mb';
         }
 
@@ -73,7 +73,7 @@ final class File
     {
         if ($kilobytes < 1000) {
             return \rtrim(\rtrim(\number_format($kilobytes, 1, $decimal, $thousands), '0'), $decimal) . 'kb';
-        } elseif ($kilobytes > 999 && $kilobytes < 1000000) {
+        } elseif ($kilobytes < 1000000) {
             return \rtrim(\rtrim(\number_format($kilobytes / 1000, 1, $decimal, $thousands), '0'), $decimal) . 'mb';
         }
 

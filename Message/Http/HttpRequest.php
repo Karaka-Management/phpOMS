@@ -65,14 +65,6 @@ final class HttpRequest extends RequestAbstract
     private array $info;
 
     /**
-     * Request hash.
-     *
-     * @var string[]
-     * @since 1.0.0
-     */
-    protected array $hash = [];
-
-    /**
      * Constructor.
      *
      * @param UriInterface $uri  Uri
@@ -316,18 +308,6 @@ final class HttpRequest extends RequestAbstract
 
             \fclose($stream);
         }
-    }
-
-    /**
-     * Get request hash.
-     *
-     * @return string[]
-     *
-     * @since 1.0.0
-     */
-    public function getHash() : array
-    {
-        return $this->hash;
     }
 
     /**

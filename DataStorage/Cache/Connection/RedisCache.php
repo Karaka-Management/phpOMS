@@ -58,13 +58,13 @@ final class RedisCache extends ConnectionAbstract
     /**
      * Connect to cache
      *
-     * @param array{db:int, host:string, port:int} $data Cache data
+     * @param null|array{db:int, host:string, port:int} $data Cache data
      *
      * @return void
      *
      * @since 1.0.0
      */
-    public function connect(array $data) : void
+    public function connect(array $data = null) : void
     {
         $this->dbdata = isset($data) ? $data : $this->dbdata;
 

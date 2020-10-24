@@ -29,13 +29,13 @@ interface DataStorageConnectionInterface
      *
      * Overwrites current connection if existing
      *
-     * @param string[] $data the basic datastorage information for establishing a connection
+     * @param null|array $data the basic datastorage information for establishing a connection
      *
      * @return void
      *
      * @since 1.0.0
      */
-    public function connect(array $data) : void;
+    public function connect(array $data = null) : void;
 
     /**
      * Get the datastorage type.

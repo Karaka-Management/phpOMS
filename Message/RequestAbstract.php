@@ -66,6 +66,15 @@ abstract class RequestAbstract implements MessageInterface
      */
     protected HeaderAbstract $header;
 
+
+    /**
+     * Request hash.
+     *
+     * @var string[]
+     * @since 1.0.0
+     */
+    protected array $hash = [];
+
     /**
      * Get data.
      *
@@ -221,6 +230,18 @@ abstract class RequestAbstract implements MessageInterface
     public function getHeader() : HeaderAbstract
     {
         return $this->header;
+    }
+
+    /**
+     * Get request hash.
+     *
+     * @return string[]
+     *
+     * @since 1.0.0
+     */
+    public function getHash() : array
+    {
+        return $this->hash;
     }
 
     /**

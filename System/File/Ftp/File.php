@@ -39,8 +39,8 @@ class File extends FileAbstract implements FileInterface
     /**
      * Create ftp connection
      *
-     * @param string        $path Ftp path including username and password
-     * @param null|resource $con  Connection
+     * @param HttpUri       $uri Ftp uri/path including username and password
+     * @param null|resource $con Connection
      *
      * @since 1.0.0
      */
@@ -162,15 +162,18 @@ class File extends FileAbstract implements FileInterface
             throw new PathException($path);
         }
 
-        $temp    = \fopen('php://temp', 'r+');
-        $content = '';
-
-        if (\ftp_fget($con, $temp, $path, \FTP_BINARY, 0)) {
-            \rewind($temp);
-            $content = \stream_get_contents($temp);
+        $fp = \fopen('php://temp', 'r+');
+        if ($fp === false) {
+            return '';
         }
 
-        return $content;
+        $content = '';
+        if (\ftp_fget($con, $fp, $path, \FTP_BINARY, 0)) {
+            \rewind($fp);
+            $content = \stream_get_contents($fp);
+        }
+
+        return $content === false ? '' : $content;
     }
 
     /**
@@ -591,6 +594,13 @@ class File extends FileAbstract implements FileInterface
         return \dirname($this->path);
     }
 
+    /**
+     * Get directory of the file
+     *
+     * @return ContainerInterface
+     *
+     * @since 1.0.0
+     */
     public function getDirectory() : ContainerInterface
     {
         $uri = clone $this->uri;

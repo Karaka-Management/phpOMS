@@ -26,7 +26,21 @@ namespace phpOMS\Auth\OAuth2\Provider;
  */
 interface ResourceOwnerInterface
 {
-    public function getId();
+    /**
+     * Get id
+     *
+     * @return string
+     *
+     * @since 1.0.0
+     */
+    public function getId() : string;
 
+    /**
+     * Serialize as array
+     *
+     * @return array
+     *
+     * @since 1.0.0
+     */
     public function toArray() : array;
 }

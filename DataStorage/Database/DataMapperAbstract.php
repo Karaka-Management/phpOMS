@@ -161,7 +161,7 @@ class DataMapperAbstract implements DataMapperInterface
      *
      * Relation is defined in current mapper
      *
-     * @var array<string, array{mapper:string, self:string, by?:string}>
+     * @var array<string, array{mapper:string, external:string, by?:string, column?:string, conditional?:bool}>
      * @since 1.0.0
      */
     protected static array $ownsOne = [];
@@ -169,7 +169,7 @@ class DataMapperAbstract implements DataMapperInterface
     /**
      * Belongs to.
      *
-     * @var array<string, array{mapper:string, self:string}>
+     * @var array<string, array{mapper:string, external:string}>
      * @since 1.0.0
      */
     protected static array $belongsTo = [];
@@ -794,6 +794,7 @@ class DataMapperAbstract implements DataMapperInterface
                     continue;
                 }
 
+                /** @var \ReflectionClass $relReflectionClass */
                 $primaryKey = $mapper::getObjectId($value, $relReflectionClass);
 
                 // already in db
@@ -1022,7 +1023,6 @@ class DataMapperAbstract implements DataMapperInterface
      */
     private static function createRelationTable(string $propertyName, array $objsIds, $objId) : void
     {
-        /** @var string $table */
         if (empty($objsIds) || !isset(static::$hasMany[$propertyName]['external'])) {
             return;
         }
@@ -1031,7 +1031,7 @@ class DataMapperAbstract implements DataMapperInterface
         $relQuery->into(static::$hasMany[$propertyName]['table'])
             ->insert(static::$hasMany[$propertyName]['external'], static::$hasMany[$propertyName]['self']);
 
-        foreach ($objsIds as $key => $src) {
+        foreach ($objsIds as $src) {
             if (\is_object($src)) {
                 $mapper = (\stripos($mapper = \get_class($src), '\Null') !== false
                     ? \str_replace('\Null', '\\', $mapper)
@@ -1144,6 +1144,7 @@ class DataMapperAbstract implements DataMapperInterface
                     continue;
                 }
 
+                /** @var \ReflectionClass @relReflectionClass */
                 $primaryKey = $mapper::getObjectId($value, $relReflectionClass);
 
                 // already in db
@@ -2058,7 +2059,7 @@ class DataMapperAbstract implements DataMapperInterface
      * @param int    $depth   Relation depth
      * @param mixed  $default Default value
      *
-     * @return void
+     * @return array
      *
      * @since 1.0.0
      */
@@ -2138,7 +2139,7 @@ class DataMapperAbstract implements DataMapperInterface
      * @param int    $depth   Relation depth
      * @param mixed  $default Default value
      *
-     * @return void
+     * @return array
      *
      * @since 1.0.0
      */
@@ -2292,7 +2293,10 @@ class DataMapperAbstract implements DataMapperInterface
                 continue;
             }
 
-            $value = $result[$alias];
+            $value     = $result[$alias];
+            $hasPath   = false;
+            $aValue    = null;
+            $arrayPath = '/';
 
             if (\stripos($member, '/') !== false) {
                 $hasPath = true;
@@ -2974,8 +2978,9 @@ class DataMapperAbstract implements DataMapperInterface
         $keys       = $comparison === 'in' ? $keys : \reset($keys);
 
         $query ??= self::getQuery(null, [], $relations, $depth);
+        $hasBy   = $ref === null ? false : isset(static::$columns[self::getColumnByMember($ref)]);
 
-        if ($ref === null || ($hasBy = isset(static::$columns[self::getColumnByMember($ref)]))) {
+        if ($ref === null || $hasBy) {
             $ref = $ref === null || !$hasBy ? static::$primaryField : static::$columns[self::getColumnByMember($ref)]['name'];
 
             if ($keys !== null && $keys !== false) {

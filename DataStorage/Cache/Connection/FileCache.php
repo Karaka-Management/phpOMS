@@ -94,9 +94,9 @@ final class FileCache extends ConnectionAbstract
     /**
      * Connect to cache
      *
-     * @param array{0:string} $data Cache data (path to cache directory)
+     * @param null|array{0:string} $data Cache data (path to cache directory)
      */
-    public function connect(array $data) : void
+    public function connect(array $data = null) : void
     {
         $this->dbdata = $data;
 

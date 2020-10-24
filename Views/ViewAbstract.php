@@ -210,7 +210,7 @@ abstract class ViewAbstract implements RenderableInterface
     /**
      * Get view/template response.
      *
-     * @param array ...$data Data to pass to renderer
+     * @param mixed ...$data Data to pass to renderer
      *
      * @return string
      *

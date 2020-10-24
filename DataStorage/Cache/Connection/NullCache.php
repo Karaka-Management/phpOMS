@@ -27,7 +27,7 @@ final class NullCache extends ConnectionAbstract
     /**
      * {@inheritdoc}
      */
-    public function connect(array $data) : void
+    public function connect(array $data = null) : void
     {
     }
 

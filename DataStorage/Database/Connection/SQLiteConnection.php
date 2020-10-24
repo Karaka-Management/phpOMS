@@ -88,7 +88,7 @@ final class SQLiteConnection extends ConnectionAbstract
 
             $this->status = DatabaseStatus::OK;
         } catch (\PDOException $e) {
-            $this->con    = null;
+            $this->con    = new NullPDO();
             $this->status = DatabaseStatus::MISSING_DATABASE;
         } finally {
             $this->dbdata['password'] = '****';

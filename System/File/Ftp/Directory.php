@@ -43,6 +43,14 @@ class Directory extends FileAbstract implements DirectoryInterface, FtpContainer
     private array $nodes = [];
 
     /**
+     * Filter for directory listing
+     *
+     * @var string
+     * @since 1.0.0
+     */
+    private string $filter = '*';
+
+    /**
      * Create ftp connection.
      *
      * @param HttpUri $http Uri
@@ -477,6 +485,10 @@ class Directory extends FileAbstract implements DirectoryInterface, FtpContainer
         }
 
         $list = \scandir($from);
+        if ($list === false) {
+            return false;
+        }
+
         foreach ($list as $item) {
             if ($item === '.' || $item === '..') {
                 continue;

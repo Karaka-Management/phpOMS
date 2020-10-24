@@ -40,7 +40,7 @@ abstract class FileAbstract implements ContainerInterface
     /**
      * Ftp uri
      *
-     * @var resource
+     * @var HttpUri
      * @since 1.0.0
      */
     protected HttpUri $uri;
@@ -213,7 +213,7 @@ abstract class FileAbstract implements ContainerInterface
         $mtime = \ftp_mdtm($this->con, $this->path);
         $ctime = \ftp_mdtm($this->con, $this->path);
 
-        $this->createdAt->setTimestamp($mtime === false ? 0 : $mtime);
+        $this->createdAt = (new \DateTimeImmutable())->setTimestamp($mtime === false ? 0 : $mtime);
         $this->changedAt->setTimestamp($ctime === false ? 0 : $ctime);
 
         $owner = \fileowner($this->path);

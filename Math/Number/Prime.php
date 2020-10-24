@@ -76,25 +76,24 @@ final class Prime
      */
     public static function rabinTest(int $n, int $k = 10000) : bool
     {
-        if ($n == 2) {
+        if ($n === 2) {
             return true;
         }
 
-        if ($n < 2 || $n % 2 == 0) {
+        if ($n < 2 || $n % 2 === 0) {
             return false;
         }
 
         $d = $n - 1;
         $s = 0;
 
-        while ($d % 2 == 0) {
+        while ($d % 2 === 0) {
             $d /= 2;
             ++$s;
         }
 
         for ($i = 0; $i < $k; ++$i) {
             $a = \mt_rand(2, $n - 1);
-
             $x = \bcpowmod((string) $a, (string) $d, (string) $n);
 
             if ($x == 1 || $x == $n - 1) {
@@ -102,9 +101,17 @@ final class Prime
             }
 
             for ($j = 1; $j < $s; ++$j) {
-                $x = \bcmod(\bcmul($x, $x), (string) $n);
+                if ($x === null) {
+                    return false;
+                }
 
-                if ($x == 1) {
+                $mul = \bcmul($x, $x);
+                if ($mul === null) {
+                    return false;
+                }
+
+                $x = \bcmod($mul, (string) $n);
+                if ($x == 1 || $x === null) {
                     return false;
                 }
 
