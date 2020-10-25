@@ -274,10 +274,6 @@ final class UriFactory
             return $uri;
         }
 
-        if (\stripos($uri, '{?u')) {
-            $a = 1;
-        }
-
         $parsed = \preg_replace_callback('(\{[\/#\?%@\.\$][a-zA-Z0-9\-]*\})', function ($match) use ($toMatch) {
             $match = \substr($match[0], 1, \strlen($match[0]) - 2);
 
