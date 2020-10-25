@@ -88,6 +88,8 @@ class ISO639x1Enum extends Enum
 
     public const _KW = 'kw';
 
+    public const _KO = 'ko';
+
     public const _CO = 'co';
 
     public const _CR = 'cr';
@@ -167,6 +169,8 @@ class ISO639x1Enum extends Enum
     public const _IT = 'it';
 
     public const _IU = 'iu';
+
+    public const _JA = 'ja';
 
     public const _JV = 'jv';
 
@@ -367,4 +371,6 @@ class ISO639x1Enum extends Enum
     public const _ZA = 'za';
 
     public const _ZU = 'zu';
+
+    public const _ZH = 'zh';
 }
