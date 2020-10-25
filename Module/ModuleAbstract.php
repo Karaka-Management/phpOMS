@@ -262,9 +262,9 @@ abstract class ModuleAbstract
      */
     protected function createModel(int $account, $obj, string $mapper, string $trigger, string $ip) : void
     {
-        $this->app->eventManager->trigger('PRE:Module:' . static::MODULE_NAME . '-' . $trigger . '-create', '', $obj);
+        $this->app->eventManager->triggerSimilar('PRE:Module:' . static::MODULE_NAME . '-' . $trigger . '-create', '', $obj);
         $id = $mapper::create($obj);
-        $this->app->eventManager->trigger('POST:Module:' . static::MODULE_NAME . '-' . $trigger . '-create', '', [
+        $this->app->eventManager->triggerSimilar('POST:Module:' . static::MODULE_NAME . '-' . $trigger . '-create', '', [
             $account,
             null, $obj,
             StringUtils::intHash($mapper), 0,
@@ -291,9 +291,9 @@ abstract class ModuleAbstract
     protected function createModels(int $account, array $objs, string $mapper, string $trigger, string $ip) : void
     {
         foreach ($objs as $obj) {
-            $this->app->eventManager->trigger('PRE:Module:' . static::MODULE_NAME . '-' . $trigger . '-create', '', $obj);
+            $this->app->eventManager->triggerSimilar('PRE:Module:' . static::MODULE_NAME . '-' . $trigger . '-create', '', $obj);
             $id = $mapper::create($obj);
-            $this->app->eventManager->trigger('POST:Module:' . static::MODULE_NAME . '-' . $trigger . '-create', '', [
+            $this->app->eventManager->triggerSimilar('POST:Module:' . static::MODULE_NAME . '-' . $trigger . '-create', '', [
                 $account,
                 null, $obj,
                 StringUtils::intHash($mapper), 0,
@@ -321,14 +321,14 @@ abstract class ModuleAbstract
      */
     protected function updateModel(int $account, $old, $new, $mapper, string $trigger, string $ip) : void
     {
-        $this->app->eventManager->trigger('PRE:Module:' . static::MODULE_NAME . '-' . $trigger . '-update', '', $old);
+        $this->app->eventManager->triggerSimilar('PRE:Module:' . static::MODULE_NAME . '-' . $trigger . '-update', '', $old);
         $id = 0;
         if (\is_string($mapper)) {
             $id = $mapper::update($new);
         } elseif ($mapper instanceof \Closure) {
             $mapper();
         }
-        $this->app->eventManager->trigger('POST:Module:' . static::MODULE_NAME . '-' . $trigger . '-update', '', [
+        $this->app->eventManager->triggerSimilar('POST:Module:' . static::MODULE_NAME . '-' . $trigger . '-update', '', [
             $account,
             $old, $new,
             StringUtils::intHash(\is_string($mapper) ? $mapper : \get_class($mapper)), 0,
@@ -354,9 +354,9 @@ abstract class ModuleAbstract
      */
     protected function deleteModel(int $account, $obj, string $mapper, string $trigger, string $ip) : void
     {
-        $this->app->eventManager->trigger('PRE:Module:' . static::MODULE_NAME . '-' . $trigger . '-delete', '', $obj);
+        $this->app->eventManager->triggerSimilar('PRE:Module:' . static::MODULE_NAME . '-' . $trigger . '-delete', '', $obj);
         $id = $mapper::delete($obj);
-        $this->app->eventManager->trigger('POST:Module:' . static::MODULE_NAME . '-' . $trigger . '-delete', '', [
+        $this->app->eventManager->triggerSimilar('POST:Module:' . static::MODULE_NAME . '-' . $trigger . '-delete', '', [
             $account,
             $obj,  null,
             StringUtils::intHash($mapper), 0,
@@ -384,9 +384,9 @@ abstract class ModuleAbstract
      */
     protected function createModelRelation(int $account, $rel1, $rel2, string $mapper, string $field, string $trigger, string $ip) : void
     {
-        $this->app->eventManager->trigger('PRE:Module:' . static::MODULE_NAME . '-' . $trigger . '-relation', '', $rel1);
+        $this->app->eventManager->triggerSimilar('PRE:Module:' . static::MODULE_NAME . '-' . $trigger . '-relation', '', $rel1);
         $mapper::createRelation($field, $rel1, $rel2);
-        $this->app->eventManager->trigger('POST:Module:' . static::MODULE_NAME . '-' . $trigger . '-relation', '', [
+        $this->app->eventManager->triggerSimilar('POST:Module:' . static::MODULE_NAME . '-' . $trigger . '-relation', '', [
             $account,
             $rel1, $rel2,
             StringUtils::intHash($mapper), 0,

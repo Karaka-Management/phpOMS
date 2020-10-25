@@ -139,6 +139,7 @@ final class EventManager implements \Countable
         }
 
         $this->callbacks[$group]['callbacks'][] = $callback;
+        $this->addGroup($group, '');
 
         return true;
     }
@@ -160,24 +161,28 @@ final class EventManager implements \Countable
         $idIsRegex    = \stripos($id, '/') === 0;
 
         $groups = [];
-        if ($groupIsRegex) {
-            foreach ($this->groups as $groupName => $value) {
+        foreach ($this->groups as $groupName => $value) {
+            if ($groupIsRegex) {
                 if (\preg_match($group, $groupName) === 1) {
                     $groups[$groupName] = [];
                 }
+            } elseif (\preg_match($groupName, $group) === 1) {
+                $groups[$groupName] = [];
             }
-        } else {
-            $groups[$group] = [];
         }
 
         foreach ($groups as $groupName => $groupValues) {
-            if ($idIsRegex) {
-                foreach ($this->groups[$groupName] as $idName => $value) {
+            foreach ($this->groups[$groupName] as $idName => $value) {
+                if ($idIsRegex) {
                     if (\preg_match($id, $idName) === 1) {
                         $groups[$groupName][] = $idName;
                     }
+                } elseif ($idName !== '' && \preg_match($idName, $id) === 1) {
+                    $groups[$groupName][] = $id;
                 }
-            } else {
+            }
+
+            if (empty($groups[$groupName])) {
                 $groups[$groupName][] = $id;
             }
         }
