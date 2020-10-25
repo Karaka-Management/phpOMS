@@ -30,7 +30,7 @@ class Text
      * @var string[]
      * @since 1.0.0
      */
-    private static $wordsWest = [
+    public const LOREM_IPSUM = [
         'lorem', 'ipsum', 'dolor', 'sit', 'amet', 'consectetur', 'adipiscing', 'elit', 'curabitur', 'vel', 'hendrerit', 'libero',
         'eleifend', 'blandit', 'nunc', 'ornare', 'odio', 'ut', 'orci', 'gravida', 'imperdiet', 'nullam', 'purus', 'lacinia', 'a',
         'pretium', 'quis', 'congue', 'praesent', 'sagittis', 'laoreet', 'auctor', 'mauris', 'non', 'velit', 'eros', 'dictum',
@@ -144,7 +144,7 @@ class Text
         }
 
         if ($words === null) {
-            $words = self::$wordsWest;
+            $words = self::LOREM_IPSUM;
         }
 
         $punctuation      = $this->generatePunctuation($length);
