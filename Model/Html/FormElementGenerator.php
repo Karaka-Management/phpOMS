@@ -74,7 +74,7 @@ final class FormElementGenerator
             $element .= ' ' . $attribute . '="' . $val .  '"';
         }
 
-        $value ??= $json['default']['value'];
+        $value ??= $json['default']['value'] ?? '';
 
         $element .= (isset($json['default']) || $value !== null ? ' value="' . ($json['subtype'] === 'datetime' ? (new SmartDateTime($value))->format($json['default']['format']) : $value) .  '"' : '');
 
