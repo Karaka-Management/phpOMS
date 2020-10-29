@@ -178,7 +178,7 @@ final class Money implements \Serializable
      */
     public function getCurrency(int $decimals = 2) : string
     {
-        return ($this->position === 0 ? $this->symbol . ' ' : '') . $this->getAmount($decimals) . ($this->position === 1 ? ' ' . $this->symbol : '');
+        return ($this->position === 0 && !empty($this->symbol) ? $this->symbol . ' ' : '') . $this->getAmount($decimals) . ($this->position === 1 ? ' ' . $this->symbol : '');
     }
 
     /**
@@ -194,7 +194,9 @@ final class Money implements \Serializable
      */
     public function getAmount(int $decimals = 2) : string
     {
-        $value = (string) \round($this->value, -self::MAX_DECIMALS + $decimals);
+        $value = $this->value === 0
+            ? \str_repeat('0', self::MAX_DECIMALS)
+            : (string) \round($this->value, -self::MAX_DECIMALS + $decimals);
 
         $left = \substr($value, 0, -self::MAX_DECIMALS);
 
@@ -206,7 +208,9 @@ final class Money implements \Serializable
             throw new \Exception(); // @codeCoverageIgnore
         }
 
-        return ($decimals > 0) ? \number_format((float) $left, 0, $this->decimal, $this->thousands) . $this->decimal . \substr($right, 0, $decimals) : \str_pad($left, 1, '0');
+        return $decimals > 0
+            ? \number_format((float) $left, 0, $this->decimal, $this->thousands) . $this->decimal . \substr($right, 0, $decimals)
+            : \str_pad($left, 1, '0');
     }
 
     /**
