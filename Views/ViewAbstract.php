@@ -58,15 +58,16 @@ abstract class ViewAbstract implements RenderableInterface
     /**
      * Set the template.
      *
-     * @param string $template View template
+     * @param string $template  View template
+     * @param string $extension Extension of the template
      *
      * @return void
      *
      * @since 1.0.0
      */
-    public function setTemplate(string $template) : void
+    public function setTemplate(string $template, string $extension = 'tpl.php') : void
     {
-        $this->template = $template;
+        $this->template = __DIR__ . '/../..' . $template . '.' . $extension;
     }
 
     /**
@@ -223,8 +224,7 @@ abstract class ViewAbstract implements RenderableInterface
         try {
             \ob_start();
 
-            $path = __DIR__ . '/../..' . $this->template . '.tpl.php';
-
+            $path = $this->template;
             if (!\is_file($path)) {
                 throw new PathException($path);
             }
