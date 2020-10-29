@@ -78,7 +78,7 @@ final class Depreciation
      *
      * @since 1.0.0
      */
-    public static function getArithmeticDegressivDepreciationFactor(float $start, float $residual, int $duration) : float
+    public static function getArithmeticDegressiveDepreciationFactor(float $start, float $residual, int $duration) : float
     {
         return ($start - $residual) / ($duration * ($duration + 1) / 2);
     }
@@ -95,9 +95,9 @@ final class Depreciation
      *
      * @since 1.0.0
      */
-    public static function getArithmeticDegressivDepreciationInT(float $start, float $residual, int $duration, int $t) : float
+    public static function getArithmeticDegressiveDepreciationInT(float $start, float $residual, int $duration, int $t) : float
     {
-        return self::getArithmeticDegressivDepreciationFactor($start, $residual, $duration) * ($duration - $t + 1);
+        return self::getArithmeticDegressiveDepreciationFactor($start, $residual, $duration) * ($duration - $t + 1);
     }
 
     /**
@@ -112,19 +112,19 @@ final class Depreciation
      *
      * @since 1.0.0
      */
-    public static function getArithmeticDegressivDepreciationResidualInT(float $start, float $residual, int $duration, int $t) : float
+    public static function getArithmeticDegressiveDepreciationResidualInT(float $start, float $residual, int $duration, int $t) : float
     {
         $end = $start;
 
         for ($i = 1; $i <= $t; ++$i) {
-            $end -= self::getArithmeticDegressivDepreciationInT($start, $residual, $duration, $i);
+            $end -= self::getArithmeticDegressiveDepreciationInT($start, $residual, $duration, $i);
         }
 
         return $end;
     }
 
     /**
-     * Calculate the progressive factor
+     * Calculate the progressivee factor
      *
      * @param float $start    Value to depreciate (reduced by residual value if required)
      * @param float $residual Residual value
@@ -134,7 +134,7 @@ final class Depreciation
      *
      * @since 1.0.0
      */
-    public static function getArithmeticProgressivDepreciationFactor(float $start, float $residual, int $duration) : float
+    public static function getArithmeticProgressiveDepreciationFactor(float $start, float $residual, int $duration) : float
     {
         return ($start - $residual) / ($duration * ($duration + 1) / 2);
     }
@@ -151,9 +151,9 @@ final class Depreciation
      *
      * @since 1.0.0
      */
-    public static function getArithmeticProgressivDepreciationInT(float $start, float $residual, int $duration, int $t) : float
+    public static function getArithmeticProgressiveDepreciationInT(float $start, float $residual, int $duration, int $t) : float
     {
-        return self::getArithmeticProgressivDepreciationFactor($start, $residual, $duration) * $t;
+        return self::getArithmeticProgressiveDepreciationFactor($start, $residual, $duration) * $t;
     }
 
     /**
@@ -168,9 +168,9 @@ final class Depreciation
      *
      * @since 1.0.0
      */
-    public static function getArithmeticProgressivDepreciationResidualInT(float $start, float $residual, int $duration, int $t) : float
+    public static function getArithmeticProgressiveDepreciationResidualInT(float $start, float $residual, int $duration, int $t) : float
     {
-        return $start - self::getArithmeticProgressivDepreciationFactor($start, $residual, $duration) * $t * ($t + 1) / 2;
+        return $start - self::getArithmeticProgressiveDepreciationFactor($start, $residual, $duration) * $t * ($t + 1) / 2;
     }
 
     /**
@@ -184,7 +184,7 @@ final class Depreciation
      *
      * @since 1.0.0
      */
-    public static function getGeometicProgressivDepreciationRate(float $start, float $residual, int $duration) : float
+    public static function getGeometicProgressiveDepreciationRate(float $start, float $residual, int $duration) : float
     {
         return (1 - \pow($residual / $start, 1 / $duration));
     }
@@ -201,9 +201,9 @@ final class Depreciation
      *
      * @since 1.0.0
      */
-    public static function getGeometicProgressivDepreciationInT(float $start, float $residual, int $duration, int $t) : float
+    public static function getGeometicProgressiveDepreciationInT(float $start, float $residual, int $duration, int $t) : float
     {
-        $rate = self::getGeometicProgressivDepreciationRate($start, $residual, $duration);
+        $rate = self::getGeometicProgressiveDepreciationRate($start, $residual, $duration);
 
         return $start * (1 - $rate) ** ($duration - $t) * $rate;
     }
@@ -220,12 +220,12 @@ final class Depreciation
      *
      * @since 1.0.0
      */
-    public static function getGeometicProgressivDepreciationResidualInT(float $start, float $residual, int $duration, int $t) : float
+    public static function getGeometicProgressiveDepreciationResidualInT(float $start, float $residual, int $duration, int $t) : float
     {
         $end = $start;
 
         for ($i = 1; $i <= $t; ++$i) {
-            $end -= self::getGeometicProgressivDepreciationInT($start, $residual, $duration, $i);
+            $end -= self::getGeometicProgressiveDepreciationInT($start, $residual, $duration, $i);
         }
 
         return $end;
@@ -242,7 +242,7 @@ final class Depreciation
      *
      * @since 1.0.0
      */
-    public static function getGeometicDegressivDepreciationRate(float $start, float $residual, int $duration) : float
+    public static function getGeometicDegressiveDepreciationRate(float $start, float $residual, int $duration) : float
     {
         return (1 - \pow($residual / $start, 1 / $duration));
     }
@@ -259,9 +259,9 @@ final class Depreciation
      *
      * @since 1.0.0
      */
-    public static function getGeometicDegressivDepreciationInT(float $start, float $residual, int $duration, int $t) : float
+    public static function getGeometicDegressiveDepreciationInT(float $start, float $residual, int $duration, int $t) : float
     {
-        $rate = self::getGeometicDegressivDepreciationRate($start, $residual, $duration);
+        $rate = self::getGeometicDegressiveDepreciationRate($start, $residual, $duration);
         return $start * (1 - $rate) ** ($t - 1) * $rate;
     }
 
@@ -277,8 +277,8 @@ final class Depreciation
      *
      * @since 1.0.0
      */
-    public static function getGeometicDegressivDepreciationResidualInT(float $start, float $residual, int $duration, int $t) : float
+    public static function getGeometicDegressiveDepreciationResidualInT(float $start, float $residual, int $duration, int $t) : float
     {
-        return $start * (1 - self::getGeometicDegressivDepreciationRate($start, $residual, $duration)) ** $t;
+        return $start * (1 - self::getGeometicDegressiveDepreciationRate($start, $residual, $duration)) ** $t;
     }
 }

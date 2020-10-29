@@ -41,63 +41,63 @@ class DepreciationTest extends \PHPUnit\Framework\TestCase
      * @testdox The arithmetic degressive depreciation and reverse value calculations are correct
      * @group framework
      */
-    public function testArithmeticDegressivDepreciation() : void
+    public function testArithmeticDegressiveDepreciation() : void
     {
         $start    = 150000;
         $residual = 18000;
         $duration = 5;
         $t        = 2;
 
-        self::assertEqualsWithDelta(8800, Depreciation::getArithmeticDegressivDepreciationFactor($start, $residual, $duration), 5);
-        self::assertEqualsWithDelta(35200, Depreciation::getArithmeticDegressivDepreciationInT($start, $residual,$duration, $t), 5);
-        self::assertEqualsWithDelta(70800, Depreciation::getArithmeticDegressivDepreciationResidualInT($start, $residual, $duration, $t), 5);
+        self::assertEqualsWithDelta(8800, Depreciation::getArithmeticDegressiveDepreciationFactor($start, $residual, $duration), 5);
+        self::assertEqualsWithDelta(35200, Depreciation::getArithmeticDegressiveDepreciationInT($start, $residual,$duration, $t), 5);
+        self::assertEqualsWithDelta(70800, Depreciation::getArithmeticDegressiveDepreciationResidualInT($start, $residual, $duration, $t), 5);
     }
 
     /**
      * @testdox The arithmetic progressive depreciation and reverse value calculations are correct
      * @group framework
      */
-    public function testArithmeticProgressivDepreciation() : void
+    public function testArithmeticProgressiveDepreciation() : void
     {
         $start    = 40000;
         $residual = 4700;
         $duration = 4;
         $t        = 2;
 
-        self::assertEqualsWithDelta(3530, Depreciation::getArithmeticProgressivDepreciationFactor($start, $residual, $duration), 5);
-        self::assertEqualsWithDelta(7060, Depreciation::getArithmeticProgressivDepreciationInT($start, $residual, $duration, $t), 5);
-        self::assertEqualsWithDelta(29410, Depreciation::getArithmeticProgressivDepreciationResidualInT($start, $residual, $duration, $t), 5);
+        self::assertEqualsWithDelta(3530, Depreciation::getArithmeticProgressiveDepreciationFactor($start, $residual, $duration), 5);
+        self::assertEqualsWithDelta(7060, Depreciation::getArithmeticProgressiveDepreciationInT($start, $residual, $duration, $t), 5);
+        self::assertEqualsWithDelta(29410, Depreciation::getArithmeticProgressiveDepreciationResidualInT($start, $residual, $duration, $t), 5);
     }
 
     /**
      * @testdox The geometric progressive depreciation and reverse value calculations are correct
      * @group framework
      */
-    public function testGeometricProgressivDepreciation() : void
+    public function testGeometricProgressiveDepreciation() : void
     {
         $start    = 150000;
         $residual = 18000;
         $duration = 5;
         $t        = 2;
 
-        self::assertEqualsWithDelta(0.3456, Depreciation::getGeometicProgressivDepreciationRate($start, $residual, $duration), 0.01);
-        self::assertEqualsWithDelta(14527, Depreciation::getGeometicProgressivDepreciationInT($start, $residual, $duration, $t), 5);
-        self::assertEqualsWithDelta(125965, Depreciation::getGeometicProgressivDepreciationResidualInT($start, $residual, $duration, $t), 5);
+        self::assertEqualsWithDelta(0.3456, Depreciation::getGeometicProgressiveDepreciationRate($start, $residual, $duration), 0.01);
+        self::assertEqualsWithDelta(14527, Depreciation::getGeometicProgressiveDepreciationInT($start, $residual, $duration, $t), 5);
+        self::assertEqualsWithDelta(125965, Depreciation::getGeometicProgressiveDepreciationResidualInT($start, $residual, $duration, $t), 5);
     }
 
     /**
      * @testdox The geometric degressive depreciation and reverse value calculations are correct
      * @group framework
      */
-    public function testGeometricDegressivDepreciation() : void
+    public function testGeometricDegressiveDepreciation() : void
     {
         $start    = 150000;
         $residual = 18000;
         $duration = 5;
         $t        = 2;
 
-        self::assertEqualsWithDelta(0.3456, Depreciation::getGeometicDegressivDepreciationRate($start, $residual, $duration), 0.01);
-        self::assertEqualsWithDelta(33924, Depreciation::getGeometicDegressivDepreciationInT($start, $residual, $duration, $t), 5);
-        self::assertEqualsWithDelta(64236, Depreciation::getGeometicDegressivDepreciationResidualInT($start, $residual, $duration, $t), 5);
+        self::assertEqualsWithDelta(0.3456, Depreciation::getGeometicDegressiveDepreciationRate($start, $residual, $duration), 0.01);
+        self::assertEqualsWithDelta(33924, Depreciation::getGeometicDegressiveDepreciationInT($start, $residual, $duration, $t), 5);
+        self::assertEqualsWithDelta(64236, Depreciation::getGeometicDegressiveDepreciationResidualInT($start, $residual, $duration, $t), 5);
     }
 }
