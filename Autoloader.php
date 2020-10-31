@@ -34,7 +34,6 @@ final class Autoloader
      */
     private static $paths = [
         __DIR__ . '/../',
-        __DIR__ . '/../../',
     ];
 
     /**
@@ -62,9 +61,33 @@ final class Autoloader
     }
 
     /**
+     * Find include paths for class
+     *
+     * @param string $class Class name
+     *
+     * @return array
+     *
+     * @since 1.0.0
+     */
+    public static function findPaths(string $class) : array
+    {
+        $found = [];
+        $class = \ltrim($class, '\\');
+        $class = \str_replace(['_', '\\'], '/', $class);
+
+        foreach (self::$paths as $path) {
+            if (\is_file($file = $path . $class . '.php')) {
+                $found[] = $file;
+            }
+        }
+
+        return $found;
+    }
+
+    /**
      * Loading classes by namespace + class name.
      *
-     * @param string $class Class path
+     * @param string $class Class name
      *
      * @example Autoloader::defaultAutoloader('\phpOMS\Autoloader') // void
      *
