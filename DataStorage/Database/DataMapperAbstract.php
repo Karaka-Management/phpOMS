@@ -183,6 +183,14 @@ class DataMapperAbstract implements DataMapperInterface
     protected static string $table = '';
 
     /**
+     * Parent column.
+     *
+     * @var string
+     * @since 1.0.0
+     */
+    protected static string $parent = '';
+
+    /**
      * Model to use by the mapper.
      *
      * @var string
@@ -2824,6 +2832,24 @@ class DataMapperAbstract implements DataMapperInterface
         }
 
         return self::getAllByQuery($query, $relations, $depth);
+    }
+
+    /**
+     * Parent parent.
+     *
+     * @param int $depth   Relation depth
+     * @param mixed $value Parent value id
+     *
+     * @return array
+     *
+     * @since 1.0.0
+     */
+    public static function getByParent($value, int $depth = 3) : array
+    {
+        $query = self::getQuery();
+        $query->where(static::$table . '_' . $depth . '.' . static::$parent, '=', $value);
+
+        return self::getAllByQuery($query, RelationType::ALL, $depth);
     }
 
     /**
