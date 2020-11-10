@@ -39,7 +39,7 @@ class ConsoleRequestTest extends \PHPUnit\Framework\TestCase
     public function testDefault() : void
     {
         $request = new ConsoleRequest();
-        self::assertEquals('en', $request->getHeader()->getL11n()->getLanguage());
+        self::assertEquals('en', $request->getLanguage());
         self::assertEquals(OSType::LINUX, $request->getOS());
         self::assertEquals('127.0.0.1', $request->getOrigin());
         self::assertEmpty($request->getBody());

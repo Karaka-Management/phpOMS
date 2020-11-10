@@ -42,7 +42,7 @@ class HttpRequestTest extends \PHPUnit\Framework\TestCase
 
         $_SERVER['HTTP_USER_AGENT'] = OSType::UNKNOWN . BrowserType::UNKNOWN;
 
-        self::assertEquals('en', $request->getHeader()->getL11n()->getLanguage());
+        self::assertEquals('en', $request->getLanguage());
         self::assertFalse($request->isMobile());
         self::assertEquals(BrowserType::UNKNOWN, $request->getBrowser());
         self::assertEquals(OSType::UNKNOWN, $request->getOS());

@@ -233,6 +233,18 @@ abstract class RequestAbstract implements MessageInterface
     }
 
     /**
+     * Get request language.
+     *
+     * @return string
+     *
+     * @since 1.0.0
+     */
+    public function getLanguage() : string
+    {
+        return $this->header->getL11n()->getLanguage();
+    }
+
+    /**
      * Get request hash.
      *
      * @return string[]

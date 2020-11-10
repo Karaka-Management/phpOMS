@@ -104,6 +104,18 @@ abstract class ResponseAbstract implements \JsonSerializable, MessageInterface
     }
 
     /**
+     * Get response language.
+     *
+     * @return string
+     *
+     * @since 1.0.0
+     */
+    public function getLanguage() : string
+    {
+        return $this->header->getL11n()->getLanguage();
+    }
+
+    /**
      * Get response body.
      *
      * @param bool $optimize Optimize response / minify
