@@ -3132,6 +3132,7 @@ class DataMapperAbstract implements DataMapperInterface
                     foreach (self::$conditionals as $condKey => $condValue) {
                         if (($column = $value['mapper']::getColumnByMember($condKey)) === null
                             || ($condValue['models'] !== null && !\in_array($modelName, $condValue['models']))
+                            || ($value['conditional'] ?? false) === false
                         ) {
                             continue;
                         }

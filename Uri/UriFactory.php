@@ -118,7 +118,7 @@ final class UriFactory
         self::setQuery('/port', (string) $uri->getPort());
         self::setQuery('/base', \rtrim($uri->getBase(), '/'));
         self::setQuery('/rootPath', $uri->getRootPath());
-        self::setQuery('?', $uri->getQuery());
+        self::setQuery('?', '?' . $uri->getQuery());
         self::setQuery('%', $uri->__toString());
         self::setQuery('#', $uri->getFragment());
         self::setQuery('/', $uri->getPath());
