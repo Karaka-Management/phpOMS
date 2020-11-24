@@ -253,7 +253,7 @@ class Server extends SocketAbstract
     public function shutdown($request) : void
     {
         $msg = 'shutdown' . "\n";
-        \socket_write($this->clientManager->get($request->getHeader()->getAccount())->getSocket(), $msg, \strlen($msg));
+        \socket_write($this->clientManager->get($request->header->account)->getSocket(), $msg, \strlen($msg));
 
         $this->run = false;
     }

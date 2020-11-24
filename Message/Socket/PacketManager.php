@@ -71,7 +71,7 @@ class PacketManager
     public function handle(string $data, $client) : void
     {
         $request = new SocketRequest();
-        $request->getHeader()->setAccount($client->getAccount()->getId());
+        $request->header->account = $client->getAccount()->getId();
 
         $response = new SocketResponse();
 

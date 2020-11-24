@@ -852,7 +852,7 @@ class FileTest extends \PHPUnit\Framework\TestCase
         $file->createNode();
 
         $now = new \DateTime('now');
-        self::assertEquals($now->format('Y-m-d'), $file->getCreatedAt()->format('Y-m-d'));
+        self::assertEquals($now->format('Y-m-d'), $file->createdAt->format('Y-m-d'));
 
         \unlink($testFile);
     }

@@ -162,23 +162,31 @@ final class EventManager implements \Countable
 
         $groups = [];
         foreach ($this->groups as $groupName => $value) {
+            $groupNameIsRegex = \stripos($groupName, '/') === 0;
+
             if ($groupIsRegex) {
                 if (\preg_match($group, $groupName) === 1) {
                     $groups[$groupName] = [];
                 }
-            } elseif (\preg_match($groupName, $group) === 1) {
+            } elseif ($groupNameIsRegex && \preg_match($groupName, $group) === 1) {
+                $groups[$groupName] = [];
+            } elseif ($groupName === $group) {
                 $groups[$groupName] = [];
             }
         }
 
         foreach ($groups as $groupName => $groupValues) {
             foreach ($this->groups[$groupName] as $idName => $value) {
+                $idNameIsRegex = \stripos($idName, '/') === 0;
+
                 if ($idIsRegex) {
                     if (\preg_match($id, $idName) === 1) {
                         $groups[$groupName][] = $idName;
                     }
-                } elseif ($idName !== '' && \preg_match($idName, $id) === 1) {
+                } elseif ($idNameIsRegex && \preg_match($idName, $id) === 1) {
                     $groups[$groupName][] = $id;
+                } elseif ($idName === $id) {
+                    $groups[$groupName] = [];
                 }
             }
 
@@ -218,25 +226,25 @@ final class EventManager implements \Countable
             $this->groups[$group][$id] = true;
         }
 
-        if (!$this->hasOutstanding($group)) {
-            foreach ($this->callbacks[$group]['callbacks'] as $func) {
-                if (\is_array($data)) {
-                    $this->dispatcher->dispatch($func, ...$data);
-                } else {
-                    $this->dispatcher->dispatch($func, $data);
-                }
-            }
-
-            if ($this->callbacks[$group]['remove']) {
-                $this->detach($group);
-            } elseif ($this->callbacks[$group]['reset']) {
-                $this->reset($group);
-            }
-
-            return true;
+        if ($this->hasOutstanding($group)) {
+            return false;
         }
 
-        return false;
+        foreach ($this->callbacks[$group]['callbacks'] as $func) {
+            if (\is_array($data)) {
+                $this->dispatcher->dispatch($func, ...$data);
+            } else {
+                $this->dispatcher->dispatch($func, $data);
+            }
+        }
+
+        if ($this->callbacks[$group]['remove']) {
+            $this->detach($group);
+        } elseif ($this->callbacks[$group]['reset']) {
+            $this->reset($group);
+        }
+
+        return true;
     }
 
     /**
@@ -352,6 +360,10 @@ final class EventManager implements \Countable
     {
         if (!isset($this->groups[$group])) {
             $this->groups[$group] = [];
+        }
+
+        if (isset($this->groups[$group][''])) {
+            unset($this->groups[$group]['']);
         }
 
         $this->groups[$group][$id] = false;

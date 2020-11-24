@@ -48,7 +48,7 @@ final class Rest
         \curl_setopt($curl, \CURLOPT_NOBODY, true);
 
         // handle header
-        $requestHeaders = $request->getHeader()->get();
+        $requestHeaders = $request->header->get();
         $headers        = [];
 
         foreach ($requestHeaders as $key => $header) {
@@ -108,9 +108,9 @@ final class Rest
         }
 
         // handle user auth
-        if ($request->getUri()->getUser() !== '') {
+        if ($request->uri->user !== '') {
             \curl_setopt($curl, \CURLOPT_HTTPAUTH, \CURLAUTH_BASIC);
-            \curl_setopt($curl, \CURLOPT_USERPWD, $request->getUri()->getUserInfo());
+            \curl_setopt($curl, \CURLOPT_USERPWD, $request->uri->getUserInfo());
         }
 
         $cHeaderString = '';
@@ -128,7 +128,7 @@ final class Rest
                 }
 
                 $name = \strtolower(\trim($header[0]));
-                $response->getHeader()->set($name, \trim($header[1]));
+                $response->header->set($name, \trim($header[1]));
 
                 return $length;
             }

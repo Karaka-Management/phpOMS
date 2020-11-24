@@ -263,8 +263,8 @@ class ViewTest extends \PHPUnit\Framework\TestCase
     {
         $view = new View($this->app->l11nManager, $request = new HttpRequest(new HttpUri('')), $response = new HttpResponse());
 
-        self::assertEquals($request, $view->getRequest());
-        self::assertEquals($response, $view->getResponse());
+        self::assertEquals($request, $view->request);
+        self::assertEquals($response, $view->response);
     }
 
     /**
@@ -276,7 +276,7 @@ class ViewTest extends \PHPUnit\Framework\TestCase
     {
         $view = new View($this->app->l11nManager, new HttpRequest(new HttpUri('')), $response = new HttpResponse());
 
-        self::assertEquals($response, $view->getResponse());
+        self::assertEquals($response, $view->response);
     }
 
     /**

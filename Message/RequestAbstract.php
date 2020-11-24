@@ -32,7 +32,7 @@ abstract class RequestAbstract implements MessageInterface
      * @var UriInterface
      * @since 1.0.0
      */
-    protected UriInterface $uri;
+    public UriInterface $uri;
 
     /**
      * Request data.
@@ -64,7 +64,7 @@ abstract class RequestAbstract implements MessageInterface
      * @var HeaderAbstract
      * @since 1.0.0
      */
-    protected HeaderAbstract $header;
+    public HeaderAbstract $header;
 
     /**
      * Request hash.
@@ -220,18 +220,6 @@ abstract class RequestAbstract implements MessageInterface
     }
 
     /**
-     * Get request header.
-     *
-     * @return HeaderAbstract
-     *
-     * @since 1.0.0
-     */
-    public function getHeader() : HeaderAbstract
-    {
-        return $this->header;
-    }
-
-    /**
      * Get request language.
      *
      * @return string
@@ -240,7 +228,7 @@ abstract class RequestAbstract implements MessageInterface
      */
     public function getLanguage() : string
     {
-        return $this->header->getL11n()->getLanguage();
+        return $this->header->l11n->getLanguage();
     }
 
     /**
@@ -280,17 +268,5 @@ abstract class RequestAbstract implements MessageInterface
     public function getFiles() : array
     {
         return $this->files;
-    }
-
-    /**
-     * Get request uri.
-     *
-     * @return UriInterface
-     *
-     * @since 1.0.0
-     */
-    public function getUri() : UriInterface
-    {
-        return $this->uri;
     }
 }

@@ -47,7 +47,7 @@ class WeightedTest extends \PHPUnit\Framework\TestCase
 
         foreach ($filtered as $job) {
             $value  += $job->getValue();
-            $names[] = $job->getName();
+            $names[] = $job->name;
         }
 
         self::assertEqualsWithDelta(350, $value, 0.01);

@@ -46,7 +46,7 @@ class Item implements ItemInterface
      * @var string
      * @since 1.0.0
      */
-    private string $name = '';
+    public string $name = '';
 
     /**
      * Cosntructor.

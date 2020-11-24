@@ -50,11 +50,11 @@ class ArgumentTest extends \PHPUnit\Framework\TestCase
 
         self::assertEquals('/', $obj->getRootPath());
         self::assertEquals(0, $obj->getPathOffset());
-        self::assertEquals('', $obj->getScheme());
-        self::assertEquals('', $obj->getHost());
-        self::assertEquals(0, $obj->getPort());
-        self::assertEquals('', $obj->getPass());
-        self::assertEquals('', $obj->getUser());
+        self::assertEquals('', $obj->scheme);
+        self::assertEquals('', $obj->host);
+        self::assertEquals(0, $obj->port);
+        self::assertEquals('', $obj->pass);
+        self::assertEquals('', $obj->user);
         self::assertEquals('', $obj->getAuthority());
         self::assertEquals('', $obj->getUserInfo());
         self::assertEquals('', $obj->getBase());
@@ -97,8 +97,8 @@ class ArgumentTest extends \PHPUnit\Framework\TestCase
     {
         $obj = new Argument(':modules/admin/test/path.php ?para1=abc ?para2=2 #frag');
 
-        $obj->setScheme('scheme');
-        self::assertEquals('scheme', $obj->getScheme());
+        $obj->scheme = 'scheme';
+        self::assertEquals('scheme', $obj->scheme);
     }
 
     /**
@@ -109,8 +109,8 @@ class ArgumentTest extends \PHPUnit\Framework\TestCase
     {
         $obj = new Argument(':modules/admin/test/path.php ?para1=abc ?para2=2 #frag');
 
-        $obj->setUser('user');
-        self::assertEquals('user', $obj->getUser());
+        $obj->user = 'user';
+        self::assertEquals('user', $obj->user);
     }
 
     /**
@@ -121,8 +121,8 @@ class ArgumentTest extends \PHPUnit\Framework\TestCase
     {
         $obj = new Argument(':modules/admin/test/path.php ?para1=abc ?para2=2 #frag');
 
-        $obj->setPass('pass');
-        self::assertEquals('pass', $obj->getPass());
+        $obj->pass = 'pass';
+        self::assertEquals('pass', $obj->pass);
     }
 
     /**
@@ -133,8 +133,8 @@ class ArgumentTest extends \PHPUnit\Framework\TestCase
     {
         $obj = new Argument(':modules/admin/test/path.php ?para1=abc ?para2=2 #frag');
 
-        $obj->setHost('host');
-        self::assertEquals('host', $obj->getHost());
+        $obj->host = 'host';
+        self::assertEquals('host', $obj->host);
     }
 
     /**
@@ -145,8 +145,8 @@ class ArgumentTest extends \PHPUnit\Framework\TestCase
     {
         $obj = new Argument(':modules/admin/test/path.php ?para1=abc ?para2=2 #frag');
 
-        $obj->setPort(123);
-        self::assertEquals(123, $obj->getPort());
+        $obj->port = 123;
+        self::assertEquals(123, $obj->port);
     }
 
     /**
@@ -197,10 +197,10 @@ class ArgumentTest extends \PHPUnit\Framework\TestCase
     {
         $obj = new Argument(':modules/admin/test/path.php ?para1=abc ?para2=2 #frag');
 
-        self::assertEquals('frag', $obj->getFragment());
+        self::assertEquals('frag', $obj->fragment);
 
-        $obj->setFragment('frag2');
-        self::assertEquals('frag2', $obj->getFragment());
+        $obj->fragment = 'frag2';
+        self::assertEquals('frag2', $obj->fragment);
     }
 
     /**

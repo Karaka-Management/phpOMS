@@ -221,8 +221,8 @@ abstract class ModuleAbstract
         $obj
     ) : void
     {
-        $response->getHeader()->set('Content-Type', MimeType::M_JSON . '; charset=utf-8', true);
-        $response->set($request->getUri()->__toString(), [
+        $response->header->set('Content-Type', MimeType::M_JSON . '; charset=utf-8', true);
+        $response->set($request->uri->__toString(), [
             'status'   => $status,
             'title'    => $title,
             'message'  => $message,
@@ -243,8 +243,8 @@ abstract class ModuleAbstract
      */
     protected function fillJsonRawResponse(RequestAbstract $request, ResponseAbstract $response, $obj) : void
     {
-        $response->getHeader()->set('Content-Type', MimeType::M_JSON . '; charset=utf-8', true);
-        $response->set($request->getUri()->__toString(), $obj);
+        $response->header->set('Content-Type', MimeType::M_JSON . '; charset=utf-8', true);
+        $response->set($request->uri->__toString(), $obj);
     }
 
     /**

@@ -251,7 +251,7 @@ abstract class ProviderAbstract
     protected function parseResponse(HttpResponse $response) : array
     {
         $content = $response->getBody();
-        $type    = \implode(';', (array) $response->getHeader()->get('Content-Type'));
+        $type    = \implode(';', (array) $response->header->get('Content-Type'));
 
         if (\stripos($type, 'urlencoded') !== false) {
             \parse_str($content, $parsed);

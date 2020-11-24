@@ -63,7 +63,7 @@ class AccountTest extends \PHPUnit\Framework\TestCase
         self::assertObjectHasAttribute('groups', $account);
         self::assertObjectHasAttribute('type', $account);
         self::assertObjectHasAttribute('status', $account);
-        self::assertObjectHasAttribute('localization', $account);
+        self::assertObjectHasAttribute('l11n', $account);
     }
 
     /**
@@ -79,20 +79,20 @@ class AccountTest extends \PHPUnit\Framework\TestCase
         self::assertIsInt($account->getId());
         self::assertEquals(0, $account->getId());
 
-        self::assertInstanceOf('\phpOMS\Localization\Localization', $account->getL11n());
+        self::assertInstanceOf('\phpOMS\Localization\Localization', $account->l11n);
 
         self::assertEquals([], $account->getGroups());
 
-        self::assertNull($account->getName());
+        self::assertNull($account->login);
 
-        self::assertIsString($account->getName1());
-        self::assertEquals('', $account->getName1());
+        self::assertIsString($account->name1);
+        self::assertEquals('', $account->name1);
 
-        self::assertIsString($account->getName2());
-        self::assertEquals('', $account->getName2());
+        self::assertIsString($account->name2);
+        self::assertEquals('', $account->name2);
 
-        self::assertIsString($account->getName3());
-        self::assertEquals('', $account->getName3());
+        self::assertIsString($account->name3);
+        self::assertEquals('', $account->name3);
 
         self::assertIsString($account->getEmail());
         self::assertEquals('', $account->getEmail());
@@ -106,7 +106,7 @@ class AccountTest extends \PHPUnit\Framework\TestCase
         self::assertEquals([], $account->getPermissions());
 
         self::assertInstanceOf('\DateTimeInterface', $account->getLastActive());
-        self::assertInstanceOf('\DateTimeImmutable', $account->getCreatedAt());
+        self::assertInstanceOf('\DateTimeImmutable', $account->createdAt);
 
         $array = $account->toArray();
         self::assertIsArray($array);
@@ -125,20 +125,17 @@ class AccountTest extends \PHPUnit\Framework\TestCase
         $account = new Account();
         $account->generatePassword('abcd');
 
-        $account->setName('Login');
-        self::assertEquals('Login', $account->getName());
+        $account->login = 'Login';
+        self::assertEquals('Login', $account->login);
 
-        $account->setName1('Donald');
-        self::assertEquals('Donald', $account->getName1());
+        $account->name1 = 'Donald';
+        self::assertEquals('Donald', $account->name1);
 
-        $account->setName2('Fauntleroy');
-        self::assertEquals('Fauntleroy', $account->getName2());
+        $account->name2 = 'Fauntleroy';
+        self::assertEquals('Fauntleroy', $account->name2);
 
-        $account->setName3('Duck');
-        self::assertEquals('Duck', $account->getName3());
-
-        $account->setName('Login');
-        self::assertEquals('Login', $account->getName());
+        $account->name3 = 'Duck';
+        self::assertEquals('Duck', $account->name3);
     }
 
     /**
@@ -276,8 +273,8 @@ class AccountTest extends \PHPUnit\Framework\TestCase
         $account = new Account();
         $account->generatePassword('abcd');
 
-        $account->setL11n(new Localization());
-        self::assertInstanceOf('\phpOMS\Localization\Localization', $account->getL11n());
+        $account->l11n = new Localization();
+        self::assertInstanceOf('\phpOMS\Localization\Localization', $account->l11n);
     }
 
     /**

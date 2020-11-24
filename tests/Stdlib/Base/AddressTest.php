@@ -66,9 +66,9 @@ class AddressTest extends \PHPUnit\Framework\TestCase
             ],
         ];
 
-        self::assertEquals('', $this->address->getRecipient());
-        self::assertEquals('', $this->address->getFAO());
-        self::assertInstanceOf('\phpOMS\Stdlib\Base\Location', $this->address->getLocation());
+        self::assertEquals('', $this->address->recipient);
+        self::assertEquals('', $this->address->fao);
+        self::assertInstanceOf('\phpOMS\Stdlib\Base\Location', $this->address->location);
         self::assertEquals($expected, $this->address->toArray());
         self::assertEquals($expected, $this->address->jsonSerialize());
     }
@@ -80,8 +80,8 @@ class AddressTest extends \PHPUnit\Framework\TestCase
      */
     public function testFAOInputOutput() : void
     {
-        $this->address->setFAO('fao');
-        self::assertEquals('fao', $this->address->getFAO());
+        $this->address->fao = 'fao';
+        self::assertEquals('fao', $this->address->fao);
     }
 
     /**
@@ -91,8 +91,8 @@ class AddressTest extends \PHPUnit\Framework\TestCase
      */
     public function testRecipientInputOutput() : void
     {
-        $this->address->setRecipient('recipient');
-        self::assertEquals('recipient', $this->address->getRecipient());
+        $this->address->recipient = 'recipient';
+        self::assertEquals('recipient', $this->address->recipient);
     }
 
     /**
@@ -102,9 +102,9 @@ class AddressTest extends \PHPUnit\Framework\TestCase
      */
     public function testLocationInputOutput() : void
     {
-        $this->address->setLocation(new Location());
+        $this->address->location = new Location();
 
-        self::assertInstanceOf('\phpOMS\Stdlib\Base\Location', $this->address->getLocation());
+        self::assertInstanceOf('\phpOMS\Stdlib\Base\Location', $this->address->location);
     }
 
     /**
@@ -130,9 +130,9 @@ class AddressTest extends \PHPUnit\Framework\TestCase
             ],
         ];
 
-        $this->address->setFAO('fao');
-        $this->address->setRecipient('recipient');
-        $this->address->setLocation(new Location());
+        $this->address->fao = 'fao';
+        $this->address->recipient = 'recipient';
+        $this->address->location = new Location();
 
         self::assertEquals($expected, $this->address->toArray());
     }
@@ -160,9 +160,9 @@ class AddressTest extends \PHPUnit\Framework\TestCase
             ],
         ];
 
-        $this->address->setFAO('fao');
-        $this->address->setRecipient('recipient');
-        $this->address->setLocation(new Location());
+        $this->address->fao = 'fao';
+        $this->address->recipient = 'recipient';
+        $this->address->location = new Location();
 
         self::assertEquals($expected, $this->address->jsonSerialize());
     }

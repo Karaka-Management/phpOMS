@@ -411,7 +411,7 @@ final class FileCache extends ConnectionAbstract
 
         foreach ($dir as $file) {
             if ($file instanceof File) {
-                $created = $file->getCreatedAt()->getTimestamp();
+                $created = $file->createdAt->getTimestamp();
                 if (($expire >= 0 && $created + $expire < $now)
                     || ($expire < 0 && $created + $this->getExpire($file->getContent()) < $now)
                 ) {

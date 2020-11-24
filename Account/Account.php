@@ -46,7 +46,7 @@ class Account implements \JsonSerializable, ArrayableInterface
      * @var string
      * @since 1.0.0
      */
-    protected string $name1 = '';
+    public string $name1 = '';
 
     /**
      * Names.
@@ -54,7 +54,7 @@ class Account implements \JsonSerializable, ArrayableInterface
      * @var string
      * @since 1.0.0
      */
-    protected string $name2 = '';
+    public string $name2 = '';
 
     /**
      * Names.
@@ -62,7 +62,7 @@ class Account implements \JsonSerializable, ArrayableInterface
      * @var string
      * @since 1.0.0
      */
-    protected string $name3 = '';
+    public string $name3 = '';
 
     /**
      * Email.
@@ -88,7 +88,7 @@ class Account implements \JsonSerializable, ArrayableInterface
      * @var null|string
      * @since 1.0.0
      */
-    protected ?string $login = null;
+    public ?string $login = null;
 
     /**
      * Last activity.
@@ -104,7 +104,7 @@ class Account implements \JsonSerializable, ArrayableInterface
      * @var \DateTimeImmutable
      * @since 1.0.0
      */
-    protected \DateTimeImmutable $createdAt;
+    public \DateTimeImmutable $createdAt;
 
     /**
      * Groups.
@@ -144,7 +144,7 @@ class Account implements \JsonSerializable, ArrayableInterface
      * @var Localization
      * @since 1.0.0
      */
-    protected $localization;
+    public Localization $l11n;
 
     use PermissionHandlingTrait;
 
@@ -159,10 +159,10 @@ class Account implements \JsonSerializable, ArrayableInterface
      */
     public function __construct(int $id = 0)
     {
-        $this->createdAt    = new \DateTimeImmutable('now');
-        $this->lastActive   = new \DateTime('now');
-        $this->id           = $id;
-        $this->localization = new Localization();
+        $this->createdAt  = new \DateTimeImmutable('now');
+        $this->lastActive = new \DateTime('now');
+        $this->id         = $id;
+        $this->l11n       = new Localization();
     }
 
     /**
@@ -175,20 +175,6 @@ class Account implements \JsonSerializable, ArrayableInterface
     public function getId() : int
     {
         return $this->id;
-    }
-
-    /**
-     * Get localization.
-     *
-     * Every account can have a different localization which can be accessed here.
-     *
-     * @return Localization
-     *
-     * @since 1.0.0
-     */
-    public function getL11n()
-    {
-        return $this->localization;
     }
 
     /**
@@ -218,110 +204,6 @@ class Account implements \JsonSerializable, ArrayableInterface
     public function addGroup($group) : void
     {
         $this->groups[] = $group;
-    }
-
-    /**
-     * Set localization.
-     *
-     * @param Localization $l11n Localization
-     *
-     * @return void
-     *
-     * @since 1.0.0
-     */
-    public function setL11n(Localization $l11n) : void
-    {
-        $this->localization = $l11n;
-    }
-
-    /**
-     * Get name.
-     *
-     * @return string Returns the login name or null
-     *
-     * @since 1.0.0
-     */
-    public function getName() : ?string
-    {
-        return $this->login;
-    }
-
-    /**
-     * Get name1.
-     *
-     * @return string Returns the name1
-     *
-     * @since 1.0.0
-     */
-    public function getName1() : string
-    {
-        return $this->name1;
-    }
-
-    /**
-     * Set name1.
-     *
-     * @param string $name Name
-     *
-     * @return void
-     *
-     * @since 1.0.0
-     */
-    public function setName1(string $name) : void
-    {
-        $this->name1 = $name;
-    }
-
-    /**
-     * Get name2.
-     *
-     * @return string Returns name 2
-     *
-     * @since 1.0.0
-     */
-    public function getName2() : string
-    {
-        return $this->name2;
-    }
-
-    /**
-     * Set name2.
-     *
-     * @param string $name Name
-     *
-     * @return void
-     *
-     * @since 1.0.0
-     */
-    public function setName2(string $name) : void
-    {
-        $this->name2 = $name;
-    }
-
-    /**
-     * Get name3.
-     *
-     * @return string Returns name 3
-     *
-     * @since 1.0.0
-     */
-    public function getName3() : string
-    {
-        return $this->name3;
-    }
-
-    /**
-     * Set name3.
-     *
-     * @param string $name Name
-     *
-     * @return void
-     *
-     * @since 1.0.0
-     */
-    public function setName3(string $name) : void
-    {
-        $this->name3 = $name;
     }
 
     /**
@@ -429,19 +311,7 @@ class Account implements \JsonSerializable, ArrayableInterface
      */
     public function getLastActive() : \DateTimeInterface
     {
-        return $this->lastActive ?? $this->getCreatedAt();
-    }
-
-    /**
-     * Get created at.
-     *
-     * @return \DateTimeImmutable
-     *
-     * @since 1.0.0
-     */
-    public function getCreatedAt() : \DateTimeImmutable
-    {
-        return $this->createdAt;
+        return $this->lastActive ?? $this->createdAt;
     }
 
     /**
@@ -464,20 +334,6 @@ class Account implements \JsonSerializable, ArrayableInterface
         }
 
         $this->password = $temp;
-    }
-
-    /**
-     * Set name.
-     *
-     * @param string $name Name
-     *
-     * @return void
-     *
-     * @since 1.0.0
-     */
-    public function setName(string $name) : void
-    {
-        $this->login = $name;
     }
 
     /**

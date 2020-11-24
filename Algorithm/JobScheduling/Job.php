@@ -54,7 +54,7 @@ class Job implements JobInterface
      * @var string
      * @since 1.0.0
      */
-    private string $name = '';
+    public string $name = '';
 
     /**
      * Cosntructor.
@@ -95,13 +95,5 @@ class Job implements JobInterface
     public function getEnd() : ?\DateTime
     {
         return $this->end;
-    }
-
-    /**
-     * {@inheritdoc}
-     */
-    public function getName() : string
-    {
-        return $this->name;
     }
 }

@@ -56,44 +56,4 @@ interface PointInterface
      * @since 1.0.0
      */
     public function setCoordinate(int $index, $value) : void;
-
-    /**
-     * Get group this point belongs to
-     *
-     * @return int
-     *
-     * @since 1.0.0
-     */
-    public function getGroup() : int;
-
-    /**
-     * Set the group this point belongs to
-     *
-     * @param int $group Group or cluster this point belongs to
-     *
-     * @return void
-     *
-     * @since 1.0.0
-     */
-    public function setGroup(int $group) : void;
-
-    /**
-     * Set the point name
-     *
-     * @param string $name Name of the point
-     *
-     * @return void
-     *
-     * @since 1.0.0
-     */
-    public function setName(string $name) : void;
-
-    /**
-     * Get the name of the point
-     *
-     * @return string
-     *
-     * @since 1.0.0
-     */
-    public function getName() : string;
 }

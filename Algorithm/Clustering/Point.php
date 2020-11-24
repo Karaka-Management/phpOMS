@@ -38,7 +38,7 @@ class Point implements PointInterface
      * @var int
      * @since 1.0.0
      */
-    private int $group = 0;
+    public int $group = 0;
 
     /**
      * Name of the point
@@ -46,7 +46,7 @@ class Point implements PointInterface
      * @var string
      * @since 1.0.0
      */
-    private string $name = '';
+    public string $name = '';
 
     /**
      * Constructor.
@@ -84,37 +84,5 @@ class Point implements PointInterface
     public function setCoordinate(int $index, $value) : void
     {
         $this->coordinates[$index] = $value;
-    }
-
-    /**
-     * {@inheritdoc}
-     */
-    public function getGroup() : int
-    {
-        return $this->group;
-    }
-
-    /**
-     * {@inheritdoc}
-     */
-    public function setGroup(int $group) : void
-    {
-        $this->group = $group;
-    }
-
-    /**
-     * {@inheritdoc}
-     */
-    public function setName(string $name) : void
-    {
-        $this->name = $name;
-    }
-
-    /**
-     * {@inheritdoc}
-     */
-    public function getName() : string
-    {
-        return $this->name;
     }
 }

@@ -51,13 +51,4 @@ interface JobInterface
      * @since 1.0.0
      */
     public function getEnd() : ?\DateTime;
-
-    /**
-     * Get the name of the job
-     *
-     * @return string
-     *
-     * @since 1.0.0
-     */
-    public function getName() : string;
 }

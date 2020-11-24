@@ -65,11 +65,11 @@ class LocationTest extends \PHPUnit\Framework\TestCase
             ],
         ];
 
-        self::assertEquals('', $this->location->getPostal());
-        self::assertEquals('', $this->location->getCity());
+        self::assertEquals('', $this->location->postal);
+        self::assertEquals('', $this->location->city);
         self::assertEquals('US', $this->location->getCountry());
-        self::assertEquals('', $this->location->getAddress());
-        self::assertEquals('', $this->location->getState());
+        self::assertEquals('', $this->location->address);
+        self::assertEquals('', $this->location->state);
         self::assertEquals(0, $this->location->getId());
         self::assertEquals(AddressType::HOME, $this->location->getType());
         self::assertEquals(['lat' => 0, 'long' => 0], $this->location->getGeo());
@@ -84,8 +84,8 @@ class LocationTest extends \PHPUnit\Framework\TestCase
      */
     public function testPostalInputOutput() : void
     {
-        $this->location->setPostal('0123456789');
-        self::assertEquals('0123456789', $this->location->getPostal());
+        $this->location->postal = '0123456789';
+        self::assertEquals('0123456789', $this->location->postal);
     }
 
     /**
@@ -106,8 +106,8 @@ class LocationTest extends \PHPUnit\Framework\TestCase
      */
     public function testCityInputOutput() : void
     {
-        $this->location->setCity('city');
-        self::assertEquals('city', $this->location->getCity());
+        $this->location->city = 'city';
+        self::assertEquals('city', $this->location->city);
     }
 
     /**
@@ -128,8 +128,8 @@ class LocationTest extends \PHPUnit\Framework\TestCase
      */
     public function testAddressInputOutput() : void
     {
-        $this->location->setAddress('Some address here');
-        self::assertEquals('Some address here', $this->location->getAddress());
+        $this->location->address = 'Some address here';
+        self::assertEquals('Some address here', $this->location->address);
     }
 
     /**
@@ -139,8 +139,8 @@ class LocationTest extends \PHPUnit\Framework\TestCase
      */
     public function testStateInputOutput() : void
     {
-        $this->location->setState('This is a state 123');
-        self::assertEquals('This is a state 123', $this->location->getState());
+        $this->location->state = 'This is a state 123';
+        self::assertEquals('This is a state 123', $this->location->state);
     }
 
     /**
@@ -173,12 +173,12 @@ class LocationTest extends \PHPUnit\Framework\TestCase
             ],
         ];
 
-        $this->location->setPostal('0123456789');
+        $this->location->postal = '0123456789';
         $this->location->setType(AddressType::BUSINESS);
-        $this->location->setCity('city');
+        $this->location->city = 'city';
+        $this->location->address = 'Some address here';
+        $this->location->state = 'This is a state 123';
         $this->location->setCountry('Country');
-        $this->location->setAddress('Some address here');
-        $this->location->setState('This is a state 123');
         $this->location->setGeo(['lat' => 12.1, 'long' => 11.2,]);
 
         self::assertEquals($expected, $this->location->toArray());
@@ -203,12 +203,12 @@ class LocationTest extends \PHPUnit\Framework\TestCase
             ],
         ];
 
-        $this->location->setPostal('0123456789');
+        $this->location->postal = '0123456789';
         $this->location->setType(AddressType::BUSINESS);
-        $this->location->setCity('city');
+        $this->location->city = 'city';
+        $this->location->address = 'Some address here';
+        $this->location->state = 'This is a state 123';
         $this->location->setCountry('Country');
-        $this->location->setAddress('Some address here');
-        $this->location->setState('This is a state 123');
         $this->location->setGeo(['lat' => 12.1, 'long' => 11.2,]);
 
         self::assertEquals($expected, $this->location->jsonSerialize());

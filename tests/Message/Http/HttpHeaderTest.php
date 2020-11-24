@@ -41,14 +41,14 @@ class HttpHeaderTest extends \PHPUnit\Framework\TestCase
     public function testDefaults() : void
     {
         self::assertFalse($this->header->isLocked());
-        self::assertEquals(RequestStatusCode::R_200, $this->header->getStatusCode());
+        self::assertEquals(RequestStatusCode::R_200, $this->header->status);
         self::assertEquals('HTTP/1.1', $this->header->getProtocolVersion());
         self::assertEmpty(HttpHeader::getAllHeaders());
         self::assertEquals('', $this->header->getReasonPhrase());
         self::assertEquals([], $this->header->get('key'));
         self::assertFalse($this->header->has('key'));
-        self::assertInstanceOf(Localization::class, $this->header->getL11n());
-        self::assertEquals(0, $this->header->getAccount());
+        self::assertInstanceOf(Localization::class, $this->header->l11n);
+        self::assertEquals(0, $this->header->account);
     }
 
     /**
@@ -130,8 +130,8 @@ class HttpHeaderTest extends \PHPUnit\Framework\TestCase
      */
     public function testAccountInputOutput() : void
     {
-        $this->header->setAccount(2);
-        self::assertEquals(2, $this->header->getAccount(2));
+        $this->header->account = 2;
+        self::assertEquals(2, $this->header->account);
     }
 
     /**

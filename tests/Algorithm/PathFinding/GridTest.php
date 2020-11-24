@@ -78,7 +78,7 @@ class GridTest extends \PHPUnit\Framework\TestCase
         ], Node::class);
 
         $grid->setNode(0, 0, new Node(0, 0, 1.0, false));
-        self::assertFalse($grid->getNode(0, 0)->isWalkable());
+        self::assertFalse($grid->getNode(0, 0)->isWalkable);
         self::assertFalse($grid->isWalkable(0, 0));
     }
 

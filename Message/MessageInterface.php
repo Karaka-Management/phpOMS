@@ -25,15 +25,6 @@ namespace phpOMS\Message;
 interface MessageInterface
 {
     /**
-     * Retrieves all message header values.
-     *
-     * @return null|HeaderAbstract
-     *
-     * @since 1.0.0
-     */
-    public function getHeader() : ?HeaderAbstract;
-
-    /**
      * Gets the body of the message.
      *
      * @return string

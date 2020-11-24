@@ -30,7 +30,7 @@ class Address implements \JsonSerializable
      * @var string
      * @since 1.0.0
      */
-    private string $recipient = '';
+    public string $recipient = '';
 
     /**
      * Sub of the address.
@@ -38,7 +38,7 @@ class Address implements \JsonSerializable
      * @var string
      * @since 1.0.0
      */
-    private string $fao = '';
+    public string $fao = '';
 
     /**
      * Location.
@@ -46,7 +46,7 @@ class Address implements \JsonSerializable
      * @var Location
      * @since 1.0.0
      */
-    private Location $location;
+    public Location $location;
 
     /**
      * Constructor.
@@ -56,84 +56,6 @@ class Address implements \JsonSerializable
     public function __construct()
     {
         $this->location = new Location();
-    }
-
-    /**
-     * Get recipient.
-     *
-     * @return string
-     *
-     * @since 1.0.0
-     */
-    public function getRecipient() : string
-    {
-        return $this->recipient;
-    }
-
-    /**
-     * Set recipient.
-     *
-     * @param string $recipient Recipient
-     *
-     * @return void
-     *
-     * @since 1.0.0
-     */
-    public function setRecipient(string $recipient) : void
-    {
-        $this->recipient = $recipient;
-    }
-
-    /**
-     * Get FAO.
-     *
-     * @return string
-     *
-     * @since 1.0.0
-     */
-    public function getFAO() : string
-    {
-        return $this->fao;
-    }
-
-    /**
-     * Set FAO.
-     *
-     * @param string $fao FAO
-     *
-     * @return void
-     *
-     * @since 1.0.0
-     */
-    public function setFAO(string $fao) : void
-    {
-        $this->fao = $fao;
-    }
-
-    /**
-     * Get location.
-     *
-     * @return Location
-     *
-     * @since 1.0.0
-     */
-    public function getLocation() : Location
-    {
-        return $this->location;
-    }
-
-    /**
-     * Set location.
-     *
-     * @param Location $location Location
-     *
-     * @return void
-     *
-     * @since 1.0.0
-     */
-    public function setLocation(Location $location) : void
-    {
-        $this->location = $location;
     }
 
     /**

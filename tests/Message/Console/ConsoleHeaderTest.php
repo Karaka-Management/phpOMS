@@ -36,13 +36,13 @@ class ConsoleHeaderTest extends \PHPUnit\Framework\TestCase
     public function testDefaults() : void
     {
         self::assertFalse($this->header->isLocked());
-        self::assertEquals(0, $this->header->getStatusCode());
+        self::assertEquals(0, $this->header->status);
         self::assertEquals('1.0', $this->header->getProtocolVersion());
         self::assertEquals('', $this->header->getReasonPhrase());
         self::assertEquals([], $this->header->get('key'));
         self::assertFalse($this->header->has('key'));
-        self::assertInstanceOf(Localization::class, $this->header->getL11n());
-        self::assertEquals(0, $this->header->getAccount());
+        self::assertInstanceOf(Localization::class, $this->header->l11n);
+        self::assertEquals(0, $this->header->account);
     }
 
     /**
@@ -105,8 +105,8 @@ class ConsoleHeaderTest extends \PHPUnit\Framework\TestCase
      */
     public function testAccount() : void
     {
-        $this->header->setAccount(2);
-        self::AssertEquals(2, $this->header->getAccount(2));
+        $this->header->account = 2;
+        self::AssertEquals(2, $this->header->account);
     }
 
     /**

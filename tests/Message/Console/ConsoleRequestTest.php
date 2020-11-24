@@ -43,7 +43,7 @@ class ConsoleRequestTest extends \PHPUnit\Framework\TestCase
         self::assertEquals(OSType::LINUX, $request->getOS());
         self::assertEquals('127.0.0.1', $request->getOrigin());
         self::assertEmpty($request->getBody());
-        self::assertInstanceOf('\phpOMS\Message\Console\ConsoleHeader', $request->getHeader());
+        self::assertInstanceOf('\phpOMS\Message\Console\ConsoleHeader', $request->header);
         self::assertEquals('', $request->__toString());
         self::assertFalse($request->hasData('key'));
         self::assertNull($request->getData('key'));
@@ -75,7 +75,7 @@ class ConsoleRequestTest extends \PHPUnit\Framework\TestCase
      */
     public function testInputOutputUriString() : void
     {
-        self::assertEquals('get:some/test/path', $this->request->getUri()->__toString());
+        self::assertEquals('get:some/test/path', $this->request->uri->__toString());
     }
 
     /**
@@ -85,7 +85,7 @@ class ConsoleRequestTest extends \PHPUnit\Framework\TestCase
     public function testInputOutputL11n() : void
     {
         $l11n = new Localization();
-        self::assertEquals($l11n, $this->request->getHeader()->getL11n());
+        self::assertEquals($l11n, $this->request->header->l11n);
     }
 
     /**

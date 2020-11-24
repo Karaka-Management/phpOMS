@@ -64,7 +64,7 @@ class HeaderAbstractTest extends \PHPUnit\Framework\TestCase
      */
     public function testStatusCodeInputOutput() : void
     {
-        $this->header->setStatusCode(2);
-        self::assertEquals(2, $this->header->getStatusCode());
+        $this->header->status = 2;
+        self::assertEquals(2, $this->header->status);
     }
 }

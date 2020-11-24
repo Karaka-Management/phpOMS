@@ -75,7 +75,7 @@ final class HttpRequest extends RequestAbstract
     public function __construct(UriInterface $uri = null, Localization $l11n = null)
     {
         $this->header = new HttpHeader();
-        $this->header->setL11n($l11n ?? new Localization());
+        $this->header->l11n = $l11n ?? new Localization();
 
         if ($uri !== null) {
             $this->uri = $uri;
@@ -116,7 +116,7 @@ final class HttpRequest extends RequestAbstract
         $this->uri   = HttpUri::fromCurrent();
         $this->data  = ($_GET ?? []) + ($_POST ?? []);
         $this->files = $_FILES ?? [];
-        $this->header->getL11n()->setLanguage($this->getRequestLanguage());
+        $this->header->l11n->setLanguage($this->getRequestLanguage());
 
         $this->initNonGetData();
     }

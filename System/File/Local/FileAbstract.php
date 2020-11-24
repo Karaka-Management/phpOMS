@@ -66,7 +66,7 @@ abstract class FileAbstract implements ContainerInterface
      * @var \DateTimeImmutable
      * @since 1.0.0
      */
-    protected \DateTimeImmutable $createdAt;
+    public \DateTimeImmutable $createdAt;
 
     /**
      * Last changed at.

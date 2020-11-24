@@ -31,7 +31,7 @@ class AuthorTest extends \PHPUnit\Framework\TestCase
     public function testDefault() : void
     {
         $author = new Author();
-        self::assertEquals('', $author->getName());
+        self::assertEquals('', $author->name);
         self::assertEquals('', $author->getEmail());
         self::assertEquals(0, $author->getCommitCount());
         self::assertEquals(0, $author->getAdditionCount());
@@ -46,7 +46,7 @@ class AuthorTest extends \PHPUnit\Framework\TestCase
     public function testConstructInputOutput() : void
     {
         $author = new Author('test', 'email');
-        self::assertEquals('test', $author->getName());
+        self::assertEquals('test', $author->name);
         self::assertEquals('email', $author->getEmail());
     }
 

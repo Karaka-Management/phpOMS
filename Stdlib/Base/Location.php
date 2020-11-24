@@ -40,7 +40,7 @@ class Location implements \JsonSerializable, \Serializable
      * @var string
      * @since 1.0.0
      */
-    protected string $postal = '';
+    public string $postal = '';
 
     /**
      * Name of city.
@@ -48,7 +48,7 @@ class Location implements \JsonSerializable, \Serializable
      * @var string
      * @since 1.0.0
      */
-    protected string $city = '';
+    public string $city = '';
 
     /**
      * Name of the country.
@@ -64,7 +64,7 @@ class Location implements \JsonSerializable, \Serializable
      * @var string
      * @since 1.0.0
      */
-    protected string $address = '';
+    public string $address = '';
 
     /**
      * Address type
@@ -80,7 +80,7 @@ class Location implements \JsonSerializable, \Serializable
      * @var string
      * @since 1.0.0
      */
-    protected string $state = '';
+    public string $state = '';
 
     /**
      * Geo coordinates.
@@ -129,58 +129,6 @@ class Location implements \JsonSerializable, \Serializable
     }
 
     /**
-     * Get postal or zip code
-     *
-     * @return string
-     *
-     * @since 1.0.0
-     */
-    public function getPostal() : string
-    {
-        return $this->postal;
-    }
-
-    /**
-     * Set postal or zip code
-     *
-     * @param string $postal Postal code
-     *
-     * @return void
-     *
-     * @since 1.0.0
-     */
-    public function setPostal(string $postal) : void
-    {
-        $this->postal = $postal;
-    }
-
-    /**
-     * Get city name
-     *
-     * @return string
-     *
-     * @since 1.0.0
-     */
-    public function getCity() : string
-    {
-        return $this->city;
-    }
-
-    /**
-     * Set city name
-     *
-     * @param string $city City name
-     *
-     * @return void
-     *
-     * @since 1.0.0
-     */
-    public function setCity(string $city) : void
-    {
-        $this->city = $city;
-    }
-
-    /**
      * Get country code
      *
      * @return string
@@ -204,58 +152,6 @@ class Location implements \JsonSerializable, \Serializable
     public function setCountry(string $country) : void
     {
         $this->country = $country;
-    }
-
-    /**
-     * Get address
-     *
-     * @return string
-     *
-     * @since 1.0.0
-     */
-    public function getAddress() : string
-    {
-        return $this->address;
-    }
-
-    /**
-     * Set address
-     *
-     * @param string $address Address
-     *
-     * @return void
-     *
-     * @since 1.0.0
-     */
-    public function setAddress(string $address) : void
-    {
-        $this->address = $address;
-    }
-
-    /**
-     * Get state name
-     *
-     * @return string
-     *
-     * @since 1.0.0
-     */
-    public function getState() : string
-    {
-        return $this->state;
-    }
-
-    /**
-     * Set state name
-     *
-     * @param string $state State name
-     *
-     * @return void
-     *
-     * @since 1.0.0
-     */
-    public function setState(string $state) : void
-    {
-        $this->state = $state;
     }
 
     /**

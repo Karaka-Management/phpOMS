@@ -61,14 +61,14 @@ class GroupTest extends \PHPUnit\Framework\TestCase
         self::assertIsInt($group->getId());
         self::assertEquals(0, $group->getId());
 
-        self::assertIsString($group->getName());
-        self::assertEquals('', $group->getName());
+        self::assertIsString($group->name);
+        self::assertEquals('', $group->name);
 
         self::assertIsInt($group->getStatus());
         self::assertEquals(GroupStatus::INACTIVE, $group->getStatus());
 
-        self::assertIsString($group->getDescription());
-        self::assertEquals('', $group->getDescription());
+        self::assertIsString($group->description);
+        self::assertEquals('', $group->description);
 
         $array = $group->toArray();
         self::assertIsArray($array);
@@ -86,11 +86,11 @@ class GroupTest extends \PHPUnit\Framework\TestCase
     {
         $group = new Group();
 
-        $group->setName('Duck');
-        self::assertEquals('Duck', $group->getName());
+        $group->name = 'Duck';
+        self::assertEquals('Duck', $group->name);
 
-        $group->setDescription('Animal');
-        self::assertEquals('Animal', $group->getDescription());
+        $group->description = 'Animal';
+        self::assertEquals('Animal', $group->description);
     }
 
     /**

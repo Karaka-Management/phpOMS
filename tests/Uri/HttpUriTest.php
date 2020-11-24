@@ -47,9 +47,9 @@ class HttpUriTest extends \PHPUnit\Framework\TestCase
     {
         $obj = new HttpUri('https://www.google.com/test/path.php?para1=abc&para2=2#frag');
 
-        self::assertEquals('', $obj->getPass());
-        self::assertEquals('', $obj->getUser());
-        self::assertEquals(80, $obj->getPort());
+        self::assertEquals('', $obj->pass);
+        self::assertEquals('', $obj->user);
+        self::assertEquals(80, $obj->port);
         self::assertEquals('', $obj->getUserInfo());
         self::assertEquals('', $obj->getRootPath());
         self::assertEquals(0, $obj->getPathOffset());
@@ -64,10 +64,10 @@ class HttpUriTest extends \PHPUnit\Framework\TestCase
     {
         $obj = new HttpUri('https://www.google.com/test/path.php?para1=abc&para2=2#frag');
 
-        self::assertEquals('https', $obj->getScheme());
+        self::assertEquals('https', $obj->scheme);
 
-        $obj->setScheme('ftp');
-        self::assertEquals('ftp', $obj->getScheme());
+        $obj->scheme = 'ftp';
+        self::assertEquals('ftp', $obj->scheme);
     }
 
     /**
@@ -78,10 +78,10 @@ class HttpUriTest extends \PHPUnit\Framework\TestCase
     {
         $obj = new HttpUri('https://www.google.com:21/test/path.php?para1=abc&para2=2#frag');
 
-        self::assertEquals(21, $obj->getPort());
+        self::assertEquals(21, $obj->port);
 
-        $obj->setPort(123);
-        self::assertEquals(123, $obj->getPort());
+        $obj->port = 123;
+        self::assertEquals(123, $obj->port);
     }
 
     /**
@@ -93,10 +93,10 @@ class HttpUriTest extends \PHPUnit\Framework\TestCase
     {
         $obj = new HttpUri('https://www.google.com/test/path.php?para1=abc&para2=2#frag');
 
-        self::assertEquals('www.google.com', $obj->getHost());
+        self::assertEquals('www.google.com', $obj->host);
 
-        $obj->setHost('127.0.0.1');
-        self::assertEquals('127.0.0.1', $obj->getHost());
+        $obj->host = '127.0.0.1';
+        self::assertEquals('127.0.0.1', $obj->host);
     }
 
     /**
@@ -108,10 +108,10 @@ class HttpUriTest extends \PHPUnit\Framework\TestCase
     {
         $obj = new HttpUri('https://username:password@google.com/test/path.php?para1=abc&para2=2#frag');
 
-        self::assertEquals('username', $obj->getUser());
+        self::assertEquals('username', $obj->user);
 
-        $obj->setUser('user');
-        self::assertEquals('user', $obj->getUser());
+        $obj->user = 'user';
+        self::assertEquals('user', $obj->user);
     }
 
     /**
@@ -123,10 +123,10 @@ class HttpUriTest extends \PHPUnit\Framework\TestCase
     {
         $obj = new HttpUri('https://username:password@google.com/test/path.php?para1=abc&para2=2#frag');
 
-        self::assertEquals('password', $obj->getPass());
+        self::assertEquals('password', $obj->pass);
 
-        $obj->setPass('pass');
-        self::assertEquals('pass', $obj->getPass());
+        $obj->pass = 'pass';
+        self::assertEquals('pass', $obj->pass);
     }
 
     /**
@@ -253,10 +253,10 @@ class HttpUriTest extends \PHPUnit\Framework\TestCase
     public function testFragment() : void
     {
         $obj = new HttpUri('https://www.google.com/test/path.php?para1=abc&para2=2#frag');
-        self::assertEquals('frag', $obj->getFragment());
+        self::assertEquals('frag', $obj->fragment);
 
-        $obj->setFragment('frag2');
-        self::assertEquals('frag2', $obj->getFragment());
+        $obj->fragment = 'frag2';
+        self::assertEquals('frag2', $obj->fragment);
     }
 
     /**
@@ -293,9 +293,9 @@ class HttpUriTest extends \PHPUnit\Framework\TestCase
         $obj = new HttpUri('http:///03*l.2/test?abc=d');
 
         self::assertEquals('', $obj->getPath());
-        self::assertEquals('', $obj->getPass());
-        self::assertEquals('', $obj->getUser());
-        self::assertEquals(80, $obj->getPort());
+        self::assertEquals('', $obj->pass);
+        self::assertEquals('', $obj->user);
+        self::assertEquals(80, $obj->port);
         self::assertEquals('', $obj->getUserInfo());
         self::assertEquals('', $obj->getRootPath());
     }

@@ -126,7 +126,7 @@ class EventManagerTest extends \PHPUnit\Framework\TestCase
         $this->event->addGroup('group', 'id1');
         $this->event->addGroup('group', 'id2');
 
-        self::assertTrue($this->event->triggerSimilar('/[a-z]+/', '/id\d/'));
+        self::assertTrue($this->event->triggerSimilar('/[a-z]+/', '/id\\d/'));
     }
 
     /**
@@ -140,7 +140,7 @@ class EventManagerTest extends \PHPUnit\Framework\TestCase
         $this->event->addGroup('group', 'id1');
         $this->event->addGroup('group', 'id2');
 
-        self::assertTrue($this->event->triggerSimilar('group', '/id\d/'));
+        self::assertTrue($this->event->triggerSimilar('group', '/id\\d/'));
     }
 
     /**
@@ -169,7 +169,7 @@ class EventManagerTest extends \PHPUnit\Framework\TestCase
         $this->event->addGroup('group', 'id1');
         $this->event->addGroup('group', 'id2');
 
-        self::assertFalse($this->event->triggerSimilar('group', '/id\d0/'));
+        self::assertFalse($this->event->triggerSimilar('group', '/id\\d0/'));
     }
 
     /**

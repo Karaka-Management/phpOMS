@@ -161,7 +161,7 @@ class UriFactoryTest extends \PHPUnit\Framework\TestCase
      */
     public function testBuilder() : void
     {
-        $uri = 'www.test-uri.com?id={@ID}&test={.mTest}&two={/path}&hash={#hash}&none=#none&found={/not}?v={/valid2}';
+        $uri = 'www.test-uri.com?id={@ID}&test={.mTest}&two={/path}&hash={#hash}&none=#none&found={/not}&v={/valid2}';
 
         $vars = [
             '@ID'    => 1,
@@ -172,7 +172,7 @@ class UriFactoryTest extends \PHPUnit\Framework\TestCase
 
         self::assertTrue(UriFactory::setQuery('/valid2', 'query4'));
 
-        $expected = 'www.test-uri.com?id=1&test=someString&two=PATH&hash=test&none=%23none&found=%2Fnot&v=query4';
+        $expected = 'www.test-uri.com?id=1&test=someString&two=PATH&hash=test&none=%23none&v=query4';
 
         self::assertEquals($expected, UriFactory::build($uri, $vars));
     }

@@ -37,7 +37,7 @@ final class ConsoleRequest extends RequestAbstract
      * @var UriInterface
      * @since 1.0.0
      */
-    protected UriInterface $uri;
+    public UriInterface $uri;
 
     /**
      * Request method.
@@ -66,7 +66,7 @@ final class ConsoleRequest extends RequestAbstract
     public function __construct(UriInterface $uri = null, Localization $l11n = null)
     {
         $this->header = new ConsoleHeader();
-        $this->header->setL11n($l11n ?? new Localization());
+        $this->header->l11n = $l11n ?? new Localization();
 
         $this->uri = $uri ?? new Argument();
         $this->init();
@@ -83,7 +83,7 @@ final class ConsoleRequest extends RequestAbstract
      */
     private function init() : void
     {
-        $this->header->getL11n()->setLanguage('en');
+        $this->header->l11n->setLanguage('en');
     }
 
     /**

@@ -35,8 +35,8 @@ class PointTest extends \PHPUnit\Framework\TestCase
         self::assertEquals([3.0, 2.0], $point->getCoordinates());
         self::assertEquals(3.0, $point->getCoordinate(0));
         self::assertEquals(2.0, $point->getCoordinate(1));
-        self::assertEquals(0, $point->getGroup());
-        self::assertEquals('abc', $point->getName());
+        self::assertEquals(0, $point->group);
+        self::assertEquals('abc', $point->name);
     }
 
     /**
@@ -65,8 +65,8 @@ class PointTest extends \PHPUnit\Framework\TestCase
     {
         $point = new Point([3.0, 2.0], 'abc');
 
-        $point->setGroup(2);
-        self::assertEquals(2, $point->getGroup());
+        $point->group = 2;
+        self::assertEquals(2, $point->group);
     }
 
     /**
@@ -78,7 +78,7 @@ class PointTest extends \PHPUnit\Framework\TestCase
     {
         $point = new Point([3.0, 2.0], 'abc');
 
-        $point->setName('xyz');
-        self::assertEquals('xyz', $point->getName());
+        $point->name = 'xyz';
+        self::assertEquals('xyz', $point->name);
     }
 }

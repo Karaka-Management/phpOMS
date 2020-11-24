@@ -113,17 +113,17 @@ final class UriFactory
      */
     public static function setupUriBuilder(UriInterface $uri) : void
     {
-        self::setQuery('/scheme', $uri->getScheme());
-        self::setQuery('/host', $uri->getHost());
-        self::setQuery('/port', (string) $uri->getPort());
+        self::setQuery('/scheme', $uri->scheme);
+        self::setQuery('/host', $uri->host);
+        self::setQuery('/port', (string) $uri->port);
         self::setQuery('/base', \rtrim($uri->getBase(), '/'));
         self::setQuery('/rootPath', $uri->getRootPath());
         self::setQuery('?', '?' . $uri->getQuery());
         self::setQuery('%', $uri->__toString());
-        self::setQuery('#', $uri->getFragment());
+        self::setQuery('#', $uri->fragment);
         self::setQuery('/', $uri->getPath());
-        self::setQuery(':user', $uri->getUser());
-        self::setQuery(':pass', $uri->getPass());
+        self::setQuery(':user', $uri->user);
+        self::setQuery(':pass', $uri->pass);
 
         $data = $uri->getPathElements();
         foreach ($data as $key => $value) {

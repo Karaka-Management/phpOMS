@@ -134,11 +134,11 @@ final class Kmeans
             }
 
             foreach ($points as $point) {
-                $clusterPoint = $clusterCenters[$point->getGroup()];
+                $clusterPoint = $clusterCenters[$point->group];
 
                 // this should ensure that clusterPoint and therfore the center group is never 0. But this is not true.
-                $clusterPoint->setGroup(
-                    $clusterPoint->getGroup() + 1
+                $clusterPoint->group = (
+                    $clusterPoint->group + 1
                 );
 
                 for ($i = 0; $i < $coordinates; ++$i) {
@@ -153,9 +153,9 @@ final class Kmeans
                      *  Invalid center coodinate value
                      *  In some cases the center point of a cluster belongs to the group 0 in this case the coordinate value is not working correctly.
                      *  As a quick fix the value is set to `1` in such a case but probably has multiple side effects.
-                     *  Maybe it makes sense to just use `$center->getGroup() + 1` or set the value to `0`.
+                     *  Maybe it makes sense to just use `$center->group + 1` or set the value to `0`.
                      */
-                    $center->setCoordinate($i, $center->getCoordinate($i) / ($center->getGroup() === 0 ? 1 : $center->getGroup()));
+                    $center->setCoordinate($i, $center->getCoordinate($i) / ($center->group === 0 ? 1 : $center->group));
                 }
             }
 
@@ -163,9 +163,9 @@ final class Kmeans
             foreach ($points as $point) {
                 $min = $this->nearestClusterCenter($point, $clusterCenters)[0];
 
-                if ($min !== $point->getGroup()) {
+                if ($min !== $point->group) {
                     ++$changed;
-                    $point->setGroup($min);
+                    $point->group = ($min);
                 }
             }
 
@@ -175,8 +175,8 @@ final class Kmeans
         }
 
         foreach ($clusterCenters as $key => $center) {
-            $center->setGroup($key);
-            $center->setName((string) $key);
+            $center->group = ($key);
+            $center->name = (string) $key;
         }
 
         $this->clusterCenters = $clusterCenters;
@@ -194,7 +194,7 @@ final class Kmeans
      */
     private function nearestClusterCenter(PointInterface $point, array $clusterCenters) : array
     {
-        $index = $point->getGroup();
+        $index = $point->group;
         $dist  = \PHP_FLOAT_MAX;
 
         foreach ($clusterCenters as $key => $cPoint) {
@@ -244,7 +244,7 @@ final class Kmeans
         }
 
         foreach ($points as $point) {
-            $point->setGroup($this->nearestClusterCenter($point, $clusters)[0]);
+            $point->group = ($this->nearestClusterCenter($point, $clusters)[0]);
         }
 
         return $clusters;

@@ -37,9 +37,9 @@ class MetaTest extends \PHPUnit\Framework\TestCase
      */
     public function testDefault() : void
     {
-        self::assertEquals('', $this->meta->getDescription());
+        self::assertEquals('', $this->meta->description);
         self::assertEquals('', $this->meta->getCharset());
-        self::assertEquals('', $this->meta->getAuthor());
+        self::assertEquals('', $this->meta->author);
         self::assertEquals('', $this->meta->getName(''));
         self::assertEquals('', $this->meta->getProperty(''));
         self::assertEquals('', $this->meta->getItemprop(''));
@@ -65,8 +65,8 @@ class MetaTest extends \PHPUnit\Framework\TestCase
      */
     public function testAuthorInputOutput() : void
     {
-        $this->meta->setAuthor('oms');
-        self::assertEquals('oms', $this->meta->getAuthor());
+        $this->meta->author = 'oms';
+        self::assertEquals('oms', $this->meta->author);
     }
 
     /**
@@ -87,8 +87,8 @@ class MetaTest extends \PHPUnit\Framework\TestCase
      */
     public function testDescriptionInputOutput() : void
     {
-        $this->meta->setDescription('some description');
-        self::assertEquals('some description', $this->meta->getDescription());
+        $this->meta->description = 'some description';
+        self::assertEquals('some description', $this->meta->description);
     }
 
     /**
@@ -132,9 +132,9 @@ class MetaTest extends \PHPUnit\Framework\TestCase
     public function testRender() : void
     {
         $this->meta->addKeyword('orange');
-        $this->meta->setAuthor('oms');
+        $this->meta->author = 'oms';
         $this->meta->setCharset('utf-8');
-        $this->meta->setDescription('some description');
+        $this->meta->description = 'some description';
         $this->meta->setProperty('og:title', 'TestProperty');
         $this->meta->setItemprop('title', 'TestItemprop');
         $this->meta->setName('title', 'TestName');

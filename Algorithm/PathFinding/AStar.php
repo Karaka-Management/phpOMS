@@ -84,7 +84,7 @@ final class AStar implements PathFinderInterface
                     $neighbor->setG($ng);
                     $neighbor->setH($neighbor->getG() ?? $neighbor->getWeight() * Heuristic::metric($neighbor->getCoordinates(), $endNode->getCoordinates(), $heuristic));
                     $neighbor->setF($neighbor->getG() + $neighbor->getH());
-                    $neighbor->setParent($node);
+                    $neighbor->parent = $node;
 
                     if (!$neighbor->isOpened()) {
                         $openList->push($neighbor);
@@ -100,7 +100,7 @@ final class AStar implements PathFinderInterface
 
         while ($node !== null) {
             $path->addNode($node);
-            $node = $node->getParent();
+            $node = $node->parent;
         }
 
         return $path;

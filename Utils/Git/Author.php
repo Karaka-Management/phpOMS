@@ -30,7 +30,7 @@ class Author
      * @var string
      * @since 1.0.0
      */
-    private string $name = '';
+    public string $name = '';
 
     /**
      * Email.
@@ -76,18 +76,6 @@ class Author
     {
         $this->name  = $name;
         $this->email = $email;
-    }
-
-    /**
-     * Get name
-     *
-     * @return string
-     *
-     * @since 1.0.0
-     */
-    public function getName() : string
-    {
-        return $this->name;
     }
 
     /**

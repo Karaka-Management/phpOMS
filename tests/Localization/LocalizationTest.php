@@ -47,7 +47,7 @@ class LocalizationTest extends \PHPUnit\Framework\TestCase
     {
         self::assertObjectHasAttribute('country', $this->localization);
         self::assertObjectHasAttribute('timezone', $this->localization);
-        self::assertObjectHasAttribute('lang', $this->localization);
+        self::assertObjectHasAttribute('language', $this->localization);
         self::assertObjectHasAttribute('currency', $this->localization);
         self::assertObjectHasAttribute('decimal', $this->localization);
         self::assertObjectHasAttribute('thousands', $this->localization);

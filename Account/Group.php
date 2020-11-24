@@ -41,7 +41,7 @@ class Group implements \JsonSerializable, ArrayableInterface
      * @var string
      * @since 1.0.0
      */
-    protected string $name = '';
+    public string $name = '';
 
     /**
      * Group name.
@@ -49,7 +49,7 @@ class Group implements \JsonSerializable, ArrayableInterface
      * @var string
      * @since 1.0.0
      */
-    protected string $description = '';
+    public string $description = '';
 
     /**
      * Group members.
@@ -87,58 +87,6 @@ class Group implements \JsonSerializable, ArrayableInterface
     public function getId() : int
     {
         return $this->id;
-    }
-
-    /**
-     * Get group name.
-     *
-     * @return string Returns the name of the group
-     *
-     * @since 1.0.0
-     */
-    public function getName() : string
-    {
-        return $this->name;
-    }
-
-    /**
-     * Set group name.
-     *
-     * @param string $name Group name
-     *
-     * @return void
-     *
-     * @since 1.0.0
-     */
-    public function setName(string $name) : void
-    {
-        $this->name = $name;
-    }
-
-    /**
-     * Get group description.
-     *
-     * @return string Returns the description of the group
-     *
-     * @since 1.0.0
-     */
-    public function getDescription() : string
-    {
-        return $this->description;
-    }
-
-    /**
-     * Set group description.
-     *
-     * @param string $description Group description
-     *
-     * @return void
-     *
-     * @since 1.0.0
-     */
-    public function setDescription(string $description) : void
-    {
-        $this->description = $description;
     }
 
     /**

@@ -38,8 +38,8 @@ class HeadTest extends \PHPUnit\Framework\TestCase
      */
     public function testDefault() : void
     {
-        self::assertInstanceOf('\phpOMS\Model\Html\Meta', $this->head->getMeta());
-        self::assertEquals('', $this->head->getTitle());
+        self::assertInstanceOf('\phpOMS\Model\Html\Meta', $this->head->meta);
+        self::assertEquals('', $this->head->title);
         self::assertEquals('en', $this->head->getLanguage());
         self::assertEquals([], $this->head->getStyleAll());
         self::assertEquals([], $this->head->getScriptAll());
@@ -57,8 +57,8 @@ class HeadTest extends \PHPUnit\Framework\TestCase
      */
     public function testTitleInputOutput() : void
     {
-        $this->head->setTitle('my title');
-        self::assertEquals('my title', $this->head->getTitle());
+        $this->head->title = 'my title';
+        self::assertEquals('my title', $this->head->title);
     }
 
     /**

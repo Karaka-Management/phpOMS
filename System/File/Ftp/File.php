@@ -77,13 +77,13 @@ class File extends FileAbstract implements FileInterface
      */
     public static function ftpConnect(HttpUri $http)
     {
-        $con = \ftp_connect($http->getHost(), $http->getPort(), 10);
+        $con = \ftp_connect($http->host, $http->port, 10);
 
         if ($con === false) {
             return false;
         }
 
-        \ftp_login($con, $http->getUser(), $http->getPass());
+        \ftp_login($con, $http->user, $http->pass);
 
         if ($http->getPath() !== '') {
             @\ftp_chdir($con, $http->getPath());

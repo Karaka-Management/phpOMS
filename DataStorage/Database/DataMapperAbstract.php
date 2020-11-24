@@ -768,13 +768,13 @@ class DataMapperAbstract implements DataMapperInterface
                 $relReflectionClass = new \ReflectionClass($values);
                 $relProperty        = $relReflectionClass->getProperty($mapper::$columns[static::$hasMany[$propertyName]['self']]['internal']);
 
-                if (!$isPublic) {
+                if (!($isPublicRel = $relProperty->isPublic())) {
                     $relProperty->setAccessible(true);
                 }
 
                 $relProperty->setValue($values, $objId);
 
-                if (!$isPublic) {
+                if (!$isPublicRel) {
                     $relProperty->setAccessible(false);
                 }
 

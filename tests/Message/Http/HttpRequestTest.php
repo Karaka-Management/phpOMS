@@ -53,7 +53,7 @@ class HttpRequestTest extends \PHPUnit\Framework\TestCase
         self::assertEmpty($request->getFiles());
         self::assertEquals(RouteVerb::GET, $request->getRouteVerb());
         self::assertEquals(RequestMethod::GET, $request->getMethod());
-        self::assertInstanceOf('\phpOMS\Message\Http\HttpHeader', $request->getHeader());
+        self::assertInstanceOf('\phpOMS\Message\Http\HttpHeader', $request->header);
         self::assertInstanceOf('\phpOMS\Message\Http\HttpRequest', HttpRequest::createFromSuperglobals());
         self::assertEquals('http://', $request->__toString());
         self::assertFalse($request->hasData('key'));
@@ -152,7 +152,7 @@ class HttpRequestTest extends \PHPUnit\Framework\TestCase
             'a94a8fe5ccb19ba61c4c0873d391e987982fbbd3',
             '328413d996ab9b79af9d4098af3a65b885c4ca64',
             ], $request->getHash());
-        self::assertEquals($l11n, $request->getHeader()->getL11n());
+        self::assertEquals($l11n, $request->header->l11n);
     }
 
     /**
@@ -388,7 +388,7 @@ class HttpRequestTest extends \PHPUnit\Framework\TestCase
     {
         $request = new HttpRequest(new HttpUri('http://localhost:1234' . $GLOBALS['frameworkpath'] . 'tests/Message/Http/HttpRequestPost.php'));
         $request->setMethod(RequestMethod::POST);
-        $request->getHeader()->set('Content-Type', MimeType::M_POST);
+        $request->header->set('Content-Type', MimeType::M_POST);
         $request->setData('testKey', 'testValue');
 
         self::assertEquals(
@@ -406,7 +406,7 @@ class HttpRequestTest extends \PHPUnit\Framework\TestCase
     {
         $request = new HttpRequest(new HttpUri('http://localhost:1234' . $GLOBALS['frameworkpath'] . 'tests/Message/Http/HttpRequestPost.php'));
         $request->setMethod(RequestMethod::POST);
-        $request->getHeader()->set('Content-Type', MimeType::M_JSON);
+        $request->header->set('Content-Type', MimeType::M_JSON);
         $request->setData('testKey', 'testValue');
 
         self::assertEquals(
@@ -424,7 +424,7 @@ class HttpRequestTest extends \PHPUnit\Framework\TestCase
     {
         $request = new HttpRequest(new HttpUri('http://localhost:1234' . $GLOBALS['frameworkpath'] . 'tests/Message/Http/HttpRequestPost.php'));
         $request->setMethod(RequestMethod::POST);
-        $request->getHeader()->set('Content-Type', MimeType::M_MULT);
+        $request->header->set('Content-Type', MimeType::M_MULT);
         $request->setData('testKey', 'testValue');
 
         self::assertEquals(

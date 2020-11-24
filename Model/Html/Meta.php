@@ -41,7 +41,7 @@ final class Meta implements RenderableInterface
      * @var string
      * @since 1.0.0
      */
-    private string $author = '';
+    public string $author = '';
 
     /**
      * Charset.
@@ -57,7 +57,7 @@ final class Meta implements RenderableInterface
      * @var string
      * @since 1.0.0
      */
-    private string $description = '';
+    public string $description = '';
 
     /**
      * Itemprop.
@@ -112,32 +112,6 @@ final class Meta implements RenderableInterface
     }
 
     /**
-     * Get author.
-     *
-     * @return string Author
-     *
-     * @since 1.0.0
-     */
-    public function getAuthor() : string
-    {
-        return $this->author;
-    }
-
-    /**
-     * Set author.
-     *
-     * @param string $author Author
-     *
-     * @return void
-     *
-     * @since 1.0.0
-     */
-    public function setAuthor(string $author) : void
-    {
-        $this->author = $author;
-    }
-
-    /**
      * Get charset.
      *
      * @return string Charset
@@ -161,32 +135,6 @@ final class Meta implements RenderableInterface
     public function setCharset(string $charset) : void
     {
         $this->charset = $charset;
-    }
-
-    /**
-     * Get description.
-     *
-     * @return string Descritpion
-     *
-     * @since 1.0.0
-     */
-    public function getDescription() : string
-    {
-        return $this->description;
-    }
-
-    /**
-     * Set description.
-     *
-     * @param string $description Meta description
-     *
-     * @return void
-     *
-     * @since 1.0.0
-     */
-    public function setDescription(string $description) : void
-    {
-        $this->description = $description;
     }
 
     /**

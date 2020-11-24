@@ -32,8 +32,8 @@ class ConsoleResponseTest extends \PHPUnit\Framework\TestCase
         self::assertEquals('', $response->getBody());
         self::assertEquals('', $response->render());
         self::assertEquals([], $response->toArray());
-        self::assertInstanceOf('\phpOMS\Localization\Localization', $response->getHeader()->getL11n());
-        self::assertInstanceOf('\phpOMS\Message\Console\ConsoleHeader', $response->getHeader());
+        self::assertInstanceOf('\phpOMS\Localization\Localization', $response->header->l11n);
+        self::assertInstanceOf('\phpOMS\Message\Console\ConsoleHeader', $response->header);
     }
 
     /**

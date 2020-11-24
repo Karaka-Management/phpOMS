@@ -163,7 +163,7 @@ class CommitTest extends \PHPUnit\Framework\TestCase
         $commit = new Commit();
 
         $commit->setAuthor(new Author('Orange'));
-        self::assertEquals('Orange', $commit->getAuthor()->getName());
+        self::assertEquals('Orange', $commit->getAuthor()->name);
     }
 
     /**
@@ -176,7 +176,7 @@ class CommitTest extends \PHPUnit\Framework\TestCase
         $commit = new Commit();
 
         $commit->setBranch(new Branch('develop'));
-        self::assertEquals('develop', $commit->getBranch()->getName());
+        self::assertEquals('develop', $commit->getBranch()->name);
     }
 
     /**
@@ -189,7 +189,7 @@ class CommitTest extends \PHPUnit\Framework\TestCase
         $commit = new Commit();
 
         $commit->setTag(new Tag('1.0.0'));
-        self::assertEquals('1.0.0', $commit->getTag()->getName());
+        self::assertEquals('1.0.0', $commit->getTag()->name);
     }
 
     /**

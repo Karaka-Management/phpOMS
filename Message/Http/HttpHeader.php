@@ -46,6 +46,14 @@ final class HttpHeader extends HeaderAbstract
     private static $serverHeaders = [];
 
     /**
+     * Response status.
+     *
+     * @var int
+     * @since 1.0.0
+     */
+    public int $status = RequestStatusCode::R_200;
+
+    /**
      * {@inheritdoc}
      */
     public function set(string $key, string $header, bool $overwrite = false) : bool
@@ -119,22 +127,6 @@ final class HttpHeader extends HeaderAbstract
     public function getProtocolVersion() : string
     {
         return $_SERVER['SERVER_PROTOCOL'] ?? 'HTTP/1.1';
-    }
-
-    /**
-     * Get status code.
-     *
-     * @return int
-     *
-     * @since 1.0.0
-     */
-    public function getStatusCode() : int
-    {
-        if ($this->status === 0) {
-            $this->status = RequestStatusCode::R_200;
-        }
-
-        return parent::getStatusCode();
     }
 
     /**

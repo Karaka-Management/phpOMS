@@ -35,6 +35,6 @@ class JobTest extends \PHPUnit\Framework\TestCase
         self::assertEquals(3.0, $item->getValue());
         self::assertEquals((new \DateTime('now'))->format('Y-m-d'), $item->getStart()->format('Y-m-d'));
         self::assertNull($item->getEnd());
-        self::assertEquals('abc', $item->getName());
+        self::assertEquals('abc', $item->name);
     }
 }

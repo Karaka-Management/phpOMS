@@ -38,7 +38,7 @@ abstract class ResponseAbstract implements \JsonSerializable, MessageInterface
      * @var HeaderAbstract
      * @since 1.0.0
      */
-    protected HeaderAbstract $header;
+    public HeaderAbstract $header;
 
     /**
      * Get response by ID.
@@ -92,18 +92,6 @@ abstract class ResponseAbstract implements \JsonSerializable, MessageInterface
     abstract public function toArray() : array;
 
     /**
-     * Get header.
-     *
-     * @return HeaderAbstract
-     *
-     * @since 1.0.0
-     */
-    public function getHeader() : HeaderAbstract
-    {
-        return $this->header;
-    }
-
-    /**
      * Get response language.
      *
      * @return string
@@ -112,7 +100,7 @@ abstract class ResponseAbstract implements \JsonSerializable, MessageInterface
      */
     public function getLanguage() : string
     {
-        return $this->header->getL11n()->getLanguage();
+        return $this->header->l11n->getLanguage();
     }
 
     /**

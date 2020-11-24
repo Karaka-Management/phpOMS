@@ -54,7 +54,7 @@ class Node
      * @var bool
      * @since 1.0.0
      */
-    private bool $isWalkable = true;
+    public bool $isWalkable = true;
 
     /**
      * Parent node.
@@ -62,7 +62,7 @@ class Node
      * @var null|Node
      * @since 1.0.0
      */
-    private ?Node $parent = null;
+    public ?Node $parent = null;
 
     /**
      * Constructor.
@@ -80,18 +80,6 @@ class Node
         $this->y          = $y;
         $this->weight     = $weight;
         $this->isWalkable = $isWalkable;
-    }
-
-    /**
-     * Can this node be walked on?
-     *
-     * @return bool
-     *
-     * @since 1.0.0
-     */
-    public function isWalkable() : bool
-    {
-        return $this->isWalkable;
     }
 
     /**
@@ -128,32 +116,6 @@ class Node
     public function getY() : int
     {
         return $this->y;
-    }
-
-    /**
-     * Set parent node
-     *
-     * @param null|Node $node Parent node
-     *
-     * @return void
-     *
-     * @since 1.0.0
-     */
-    public function setParent(?self $node) : void
-    {
-        $this->parent = $node;
-    }
-
-    /**
-     * Get parent node
-     *
-     * @return null|Node
-     *
-     * @since 1.0.0
-     */
-    public function getParent() : ?self
-    {
-        return $this->parent;
     }
 
     /**

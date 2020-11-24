@@ -75,7 +75,7 @@ final class JumpPointSearch implements PathFinderInterface
 
         while ($node !== null) {
             $path->addNode($node);
-            $node = $node->getParent();
+            $node = $node->parent;
         }
 
         return $path;
@@ -121,7 +121,7 @@ final class JumpPointSearch implements PathFinderInterface
                 $jumpPoint->setG($ng);
                 $jumpPoint->setH($jumpPoint->getH() ?? Heuristic::metric($jumpPoint->getCoordinates(), $endNode->getCoordinates(), $heuristic));
                 $jumpPoint->setF($jumpPoint->getG() + $jumpPoint->getH());
-                $jumpPoint->setParent($node);
+                $jumpPoint->parent = $node;
 
                 if (!$jumpPoint->isOpened()) {
                     $openList->push($jumpPoint);
@@ -171,15 +171,15 @@ final class JumpPointSearch implements PathFinderInterface
      */
     private static function findNeighborsStraight(JumpPointNode $node, Grid $grid) : array
     {
-        if ($node->getParent() === null) {
+        if ($node->parent === null) {
             return $grid->getNeighbors($node, MovementType::STRAIGHT);
         }
 
         $x = $node->getX();
         $y = $node->getY();
 
-        $px = $node->getParent()->getX();
-        $py = $node->getParent()->getY();
+        $px = $node->parent->getX();
+        $py = $node->parent->getY();
 
         /** @var int $dx */
         $dx = ($x - $px) / \max(\abs($x - $px), 1);
@@ -229,15 +229,15 @@ final class JumpPointSearch implements PathFinderInterface
      */
     private static function findNeighborsDiagonal(JumpPointNode $node, Grid $grid) : array
     {
-        if ($node->getParent() === null) {
+        if ($node->parent === null) {
             return $grid->getNeighbors($node, MovementType::DIAGONAL);
         }
 
         $x = $node->getX();
         $y = $node->getY();
 
-        $px = $node->getParent()->getX();
-        $py = $node->getParent()->getY();
+        $px = $node->parent->getX();
+        $py = $node->parent->getY();
 
         /** @var int $dx */
         $dx = ($x - $px) / \max(\abs($x - $px), 1);
@@ -307,15 +307,15 @@ final class JumpPointSearch implements PathFinderInterface
      */
     private static function findNeighborsDiagonalOneObstacle(JumpPointNode $node, Grid $grid) : array
     {
-        if ($node->getParent() === null) {
+        if ($node->parent === null) {
             return $grid->getNeighbors($node, MovementType::DIAGONAL_ONE_OBSTACLE);
         }
 
         $x = $node->getX();
         $y = $node->getY();
 
-        $px = $node->getParent()->getX();
-        $py = $node->getParent()->getY();
+        $px = $node->parent->getX();
+        $py = $node->parent->getY();
 
         /** @var int $dx */
         $dx = ($x - $px) / \max(\abs($x - $px), 1);
@@ -381,15 +381,15 @@ final class JumpPointSearch implements PathFinderInterface
      */
     private static function findNeighborsDiagonalNoObstacle(JumpPointNode $node, Grid $grid) : array
     {
-        if ($node->getParent() === null) {
+        if ($node->parent === null) {
             return $grid->getNeighbors($node, MovementType::DIAGONAL_NO_OBSTACLE);
         }
 
         $x = $node->getX();
         $y = $node->getY();
 
-        $px = $node->getParent()->getX();
-        $py = $node->getParent()->getY();
+        $px = $node->parent->getX();
+        $py = $node->parent->getY();
 
         /** @var int $dx */
         $dx = ($x - $px) / \max(\abs($x - $px), 1);
@@ -501,7 +501,7 @@ final class JumpPointSearch implements PathFinderInterface
      */
     private static function jumpStraight(?JumpPointNode $node, ?JumpPointNode $pNode, JumpPointNode $endNode, Grid $grid) : ?JumpPointNode
     {
-        if ($node === null || $pNode === null || !$node->isWalkable()) {
+        if ($node === null || $pNode === null || !$node->isWalkable) {
             return null;
         }
 
@@ -557,7 +557,7 @@ final class JumpPointSearch implements PathFinderInterface
      */
     private static function jumpDiagonal(?JumpPointNode $node, ?JumpPointNode $pNode, JumpPointNode $endNode, Grid $grid) : ?JumpPointNode
     {
-        if ($node === null || $pNode === null || !$node->isWalkable()) {
+        if ($node === null || $pNode === null || !$node->isWalkable) {
             return null;
         }
 
@@ -617,7 +617,7 @@ final class JumpPointSearch implements PathFinderInterface
      */
     private static function jumpDiagonalOneObstacle(?JumpPointNode $node, ?JumpPointNode $pNode, JumpPointNode $endNode, Grid $grid) : ?JumpPointNode
     {
-        if ($node === null || $pNode === null || !$node->isWalkable()) {
+        if ($node === null || $pNode === null || !$node->isWalkable) {
             return null;
         }
 
@@ -681,7 +681,7 @@ final class JumpPointSearch implements PathFinderInterface
      */
     private static function jumpDiagonalNoObstacle(?JumpPointNode $node, ?JumpPointNode $pNode, JumpPointNode $endNode, Grid $grid) : ?JumpPointNode
     {
-        if ($node === null || $pNode === null || !$node->isWalkable()) {
+        if ($node === null || $pNode === null || !$node->isWalkable) {
             return null;
         }
 

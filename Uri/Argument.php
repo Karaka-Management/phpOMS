@@ -68,7 +68,7 @@ final class Argument implements UriInterface
      * @var string
      * @since 1.0.0
      */
-    private string $scheme = '';
+    public string $scheme = '';
 
     /**
      * Uri host.
@@ -76,7 +76,7 @@ final class Argument implements UriInterface
      * @var string
      * @since 1.0.0
      */
-    private string $host = '';
+    public string $host = '';
 
     /**
      * Uri port.
@@ -84,7 +84,7 @@ final class Argument implements UriInterface
      * @var int
      * @since 1.0.0
      */
-    private int $port = 0;
+    public int $port = 0;
 
     /**
      * Uri user.
@@ -92,7 +92,7 @@ final class Argument implements UriInterface
      * @var string
      * @since 1.0.0
      */
-    private string $user = '';
+    public string $user = '';
 
     /**
      * Uri password.
@@ -100,7 +100,7 @@ final class Argument implements UriInterface
      * @var string
      * @since 1.0.0
      */
-    private string $pass = '';
+    public string $pass = '';
 
     /**
      * Uri path.
@@ -132,7 +132,7 @@ final class Argument implements UriInterface
      * @var string
      * @since 1.0.0
      */
-    private string $fragment = '';
+    public string $fragment = '';
 
     /**
      * Uri base.
@@ -283,70 +283,6 @@ final class Argument implements UriInterface
     /**
      * {@inheritdoc}
      */
-    public function getScheme() : string
-    {
-        return $this->scheme;
-    }
-
-    /**
-     * {@inheritdoc}
-     */
-    public function setScheme(string $scheme) : void
-    {
-        $this->scheme = $scheme;
-    }
-
-    /**
-     * {@inheritdoc}
-     */
-    public function getHost() : string
-    {
-        return $this->host;
-    }
-
-    /**
-     * {@inheritdoc}
-     */
-    public function setHost(string $host) : void
-    {
-        $this->host = $host;
-    }
-
-    /**
-     * {@inheritdoc}
-     */
-    public function getPort() : int
-    {
-        return $this->port;
-    }
-
-    /**
-     * {@inheritdoc}
-     */
-    public function setPort(int $port) : void
-    {
-        $this->port = $port;
-    }
-
-    /**
-     * {@inheritdoc}
-     */
-    public function getPass() : string
-    {
-        return $this->pass;
-    }
-
-    /**
-     * {@inheritdoc}
-     */
-    public function setPass(string $pass) : void
-    {
-        $this->pass = $pass;
-    }
-
-    /**
-     * {@inheritdoc}
-     */
     public function getPath() : string
     {
         return $this->path;
@@ -423,22 +359,6 @@ final class Argument implements UriInterface
     /**
      * {@inheritdoc}
      */
-    public function getFragment() : string
-    {
-        return $this->fragment;
-    }
-
-    /**
-     * {@inheritdoc}
-     */
-    public function setFragment(string $fragment) : void
-    {
-        $this->fragment = $fragment;
-    }
-
-    /**
-     * {@inheritdoc}
-     */
     public function getBase() : string
     {
         return $this->base;
@@ -458,22 +378,6 @@ final class Argument implements UriInterface
     public function getAuthority() : string
     {
         return '';
-    }
-
-    /**
-     * {@inheritdoc}
-     */
-    public function getUser() : string
-    {
-        return $this->user;
-    }
-
-    /**
-     * {@inheritdoc}
-     */
-    public function setUser(string $user) : void
-    {
-        $this->user = $user;
     }
 
     /**

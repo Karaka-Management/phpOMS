@@ -31,7 +31,7 @@ class BranchTest extends \PHPUnit\Framework\TestCase
     public function testDefault() : void
     {
         $branch = new Branch();
-        self::assertEquals('', $branch->getName());
+        self::assertEquals('', $branch->name);
     }
 
     /**
@@ -42,6 +42,6 @@ class BranchTest extends \PHPUnit\Framework\TestCase
     public function testConstructInputOutput() : void
     {
         $branch = new Branch('test');
-        self::assertEquals('test', $branch->getName());
+        self::assertEquals('test', $branch->name);
     }
 }

@@ -41,8 +41,8 @@ class ResponseTest extends \PHPUnit\Framework\TestCase
         self::assertEquals('', $this->response->getBody());
         self::assertEquals('', $this->response->render());
         self::assertEquals([], $this->response->toArray());
-        self::assertInstanceOf('\phpOMS\Localization\Localization', $this->response->getHeader()->getL11n());
-        self::assertInstanceOf('\phpOMS\Message\Http\HttpHeader', $this->response->getHeader());
+        self::assertInstanceOf('\phpOMS\Localization\Localization', $this->response->header->l11n);
+        self::assertInstanceOf('\phpOMS\Message\Http\HttpHeader', $this->response->header);
     }
 
     /**
@@ -155,7 +155,7 @@ class ResponseTest extends \PHPUnit\Framework\TestCase
         });
         $this->response->set('null', null);
 
-        $this->response->getHeader()->set('Content-Type', MimeType::M_JSON . '; charset=utf-8', true);
+        $this->response->header->set('Content-Type', MimeType::M_JSON . '; charset=utf-8', true);
         self::assertEquals(\json_encode($data), $this->response->render());
     }
 
@@ -186,7 +186,7 @@ class ResponseTest extends \PHPUnit\Framework\TestCase
             }
         });
 
-        $this->response->getHeader()->set('Content-Type', MimeType::M_HTML . '; charset=utf-8', true);
+        $this->response->header->set('Content-Type', MimeType::M_HTML . '; charset=utf-8', true);
         self::assertEquals('view_string with <div> text</div> that has whitespaces and new lines', $this->response->render(true));
     }
 
@@ -204,7 +204,7 @@ class ResponseTest extends \PHPUnit\Framework\TestCase
             }
         });
 
-        $this->response->getHeader()->set('Content-Type', MimeType::M_TEXT . '; charset=utf-8', true);
+        $this->response->header->set('Content-Type', MimeType::M_TEXT . '; charset=utf-8', true);
         self::assertEquals(" view_string  with <div> text</div>  that has \n whitespaces and \n\nnew lines\n ", $this->response->render(true));
     }
 

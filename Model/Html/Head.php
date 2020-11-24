@@ -44,7 +44,7 @@ final class Head implements RenderableInterface
      * @var string
      * @since 1.0.0
      */
-    private string $title = '';
+    public string $title = '';
 
     /**
      * Assets bound to this page instance.
@@ -68,7 +68,7 @@ final class Head implements RenderableInterface
      * @var Meta
      * @since 1.0.0
      */
-    private Meta $meta;
+    public Meta $meta;
 
     /**
      * html style.
@@ -96,44 +96,6 @@ final class Head implements RenderableInterface
     public function __construct()
     {
         $this->meta = new Meta();
-    }
-
-    /**
-     * Set page meta.
-     *
-     * @return Meta
-     *
-     * @since 1.0.0
-     */
-    public function getMeta() : Meta
-    {
-        return $this->meta;
-    }
-
-    /**
-     * Set page title.
-     *
-     * @return string
-     *
-     * @since 1.0.0
-     */
-    public function getTitle() : string
-    {
-        return $this->title;
-    }
-
-    /**
-     * Set page title.
-     *
-     * @param string $title Page title
-     *
-     * @return void
-     *
-     * @since 1.0.0
-     */
-    public function setTitle(string $title) : void
-    {
-        $this->title = $title;
     }
 
     /**

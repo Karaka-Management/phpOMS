@@ -130,7 +130,7 @@ class Grid
      */
     public function isWalkable(int $x, int $y) : bool
     {
-        return isset($this->nodes[$y]) && isset($this->nodes[$y][$x]) && $this->nodes[$y][$x]->isWalkable();
+        return isset($this->nodes[$y]) && isset($this->nodes[$y][$x]) && $this->nodes[$y][$x]->isWalkable;
     }
 
     /**

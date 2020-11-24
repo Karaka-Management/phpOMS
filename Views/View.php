@@ -61,7 +61,7 @@ class View extends ViewAbstract
      * @var null|RequestAbstract
      * @since 1.0.0
      */
-    protected ?RequestAbstract $request;
+    public ?RequestAbstract $request;
 
     /**
      * Request.
@@ -69,7 +69,7 @@ class View extends ViewAbstract
      * @var null|ResponseAbstract
      * @since 1.0.0
      */
-    protected ?ResponseAbstract $response;
+    public ?ResponseAbstract $response;
 
     /**
      * Theme name.
@@ -101,7 +101,7 @@ class View extends ViewAbstract
         $this->l11nManager = $l11n ?? new L11nManager('Error');
         $this->request     = $request;
         $this->response    = $response;
-        $this->l11n        = $response !== null ? $response->getHeader()->getL11n() : new Localization();
+        $this->l11n        = $response !== null ? $response->header->l11n : new Localization();
     }
 
     /**
@@ -354,29 +354,5 @@ class View extends ViewAbstract
     public function getDateTime(\DateTimeInterface $datetime = null, string $format = null) : string
     {
         return $this->l11nManager->getDateTime($this->l11n, $datetime, $format);
-    }
-
-    /**
-     * Get request of view
-     *
-     * @return null|RequestAbstract
-     *
-     * @since 1.0.0
-     */
-    public function getRequest() : ?RequestAbstract
-    {
-        return $this->request;
-    }
-
-    /**
-     * Get response of view
-     *
-     * @return null|ResponseAbstract
-     *
-     * @since 1.0.0
-     */
-    public function getResponse() : ?ResponseAbstract
-    {
-        return $this->response;
     }
 }
