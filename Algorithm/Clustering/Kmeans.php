@@ -176,7 +176,7 @@ final class Kmeans
 
         foreach ($clusterCenters as $key => $center) {
             $center->group = ($key);
-            $center->name = (string) $key;
+            $center->name  = (string) $key;
         }
 
         $this->clusterCenters = $clusterCenters;

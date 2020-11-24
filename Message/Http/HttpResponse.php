@@ -41,7 +41,7 @@ final class HttpResponse extends ResponseAbstract implements RenderableInterface
      */
     public function __construct(Localization $l11n = null)
     {
-        $this->header = new HttpHeader();
+        $this->header       = new HttpHeader();
         $this->header->l11n = $l11n ?? new Localization();
     }
 

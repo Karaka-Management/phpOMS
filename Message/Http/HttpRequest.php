@@ -74,7 +74,7 @@ final class HttpRequest extends RequestAbstract
      */
     public function __construct(UriInterface $uri = null, Localization $l11n = null)
     {
-        $this->header = new HttpHeader();
+        $this->header       = new HttpHeader();
         $this->header->l11n = $l11n ?? new Localization();
 
         if ($uri !== null) {

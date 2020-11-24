@@ -130,9 +130,9 @@ class AddressTest extends \PHPUnit\Framework\TestCase
             ],
         ];
 
-        $this->address->fao = 'fao';
+        $this->address->fao       = 'fao';
         $this->address->recipient = 'recipient';
-        $this->address->location = new Location();
+        $this->address->location  = new Location();
 
         self::assertEquals($expected, $this->address->toArray());
     }
@@ -160,9 +160,9 @@ class AddressTest extends \PHPUnit\Framework\TestCase
             ],
         ];
 
-        $this->address->fao = 'fao';
+        $this->address->fao       = 'fao';
         $this->address->recipient = 'recipient';
-        $this->address->location = new Location();
+        $this->address->location  = new Location();
 
         self::assertEquals($expected, $this->address->jsonSerialize());
     }

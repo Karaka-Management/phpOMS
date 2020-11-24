@@ -70,7 +70,7 @@ class PacketManager
      */
     public function handle(string $data, $client) : void
     {
-        $request = new SocketRequest();
+        $request                  = new SocketRequest();
         $request->header->account = $client->getAccount()->getId();
 
         $response = new SocketResponse();

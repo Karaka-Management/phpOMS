@@ -49,7 +49,7 @@ final class ConsoleResponse extends ResponseAbstract implements RenderableInterf
      */
     public function __construct(Localization $l11n = null)
     {
-        $this->header = new ConsoleHeader();
+        $this->header       = new ConsoleHeader();
         $this->header->l11n = $l11n ?? new Localization();
     }
 

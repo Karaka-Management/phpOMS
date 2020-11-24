@@ -620,7 +620,7 @@ class Directory extends FileAbstract implements DirectoryInterface, FtpContainer
     /**
      * {@inheritdoc}
      */
-    public function getParent(): ContainerInterface
+    public function getParent() : ContainerInterface
     {
         $uri = clone $this->uri;
         $uri->setPath(self::parent($this->path));

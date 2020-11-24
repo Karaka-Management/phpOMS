@@ -175,9 +175,9 @@ class LocationTest extends \PHPUnit\Framework\TestCase
 
         $this->location->postal = '0123456789';
         $this->location->setType(AddressType::BUSINESS);
-        $this->location->city = 'city';
+        $this->location->city    = 'city';
         $this->location->address = 'Some address here';
-        $this->location->state = 'This is a state 123';
+        $this->location->state   = 'This is a state 123';
         $this->location->setCountry('Country');
         $this->location->setGeo(['lat' => 12.1, 'long' => 11.2,]);
 
@@ -205,9 +205,9 @@ class LocationTest extends \PHPUnit\Framework\TestCase
 
         $this->location->postal = '0123456789';
         $this->location->setType(AddressType::BUSINESS);
-        $this->location->city = 'city';
+        $this->location->city    = 'city';
         $this->location->address = 'Some address here';
-        $this->location->state = 'This is a state 123';
+        $this->location->state   = 'This is a state 123';
         $this->location->setCountry('Country');
         $this->location->setGeo(['lat' => 12.1, 'long' => 11.2,]);
 
