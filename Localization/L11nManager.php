@@ -90,12 +90,9 @@ final class L11nManager
             throw new \UnexpectedValueException($from);
         }
 
-        if (!isset($this->language[$language][$from])) {
-            $this->language[$language][$from] = $translation[$from];
-        } else {
-            /** @noinspection PhpWrongStringConcatenationInspection */
-            $this->language[$language][$from] = $translation[$from] + $this->language[$language][$from];
-        }
+        $this->language[$language][$from] = !isset($this->language[$language][$from])
+            ? $translation[$from]
+            : $translation[$from] + $this->language[$language][$from];
     }
 
     /**
@@ -114,12 +111,12 @@ final class L11nManager
      */
     public function loadLanguageFromFile(string $language, string $from, string $file) : void
     {
-        $lang = [];
-        if (\is_file($file)) {
-            /** @noinspection PhpIncludeInspection */
-            $lang = include $file;
+        if (!\is_file($file)) {
+            return;
         }
 
+        /** @noinspection PhpIncludeInspection */
+        $lang = include $file;
         $this->loadLanguage($language, $from, $lang);
     }
 
@@ -159,33 +156,31 @@ final class L11nManager
      */
     public function getText(string $code, string $module, string $theme, $translation, string $app = null) : string
     {
-        if (!isset($this->language[$code][$module][$translation])) {
-            try {
-                /** @var ModuleAbstract $class */
-                $class = '\Modules\\' . $module . '\\Controller\\' . ($app ?? $this->appName) . 'Controller';
-
-                /** @var string $class */
-                if (!Autoloader::exists($class)) {
-                    return 'ERROR';
-                }
-
-                $this->loadLanguage($code, $module, $class::getLocalization($code, $theme));
-
-                if (!isset($this->language[$code][$module][$translation])) {
-                    return 'ERROR';
-                }
-            } catch (\Throwable $e) {
-                // @codeCoverageIgnoreStart
-                FileLogger::getInstance()->warning(FileLogger::MSG_FULL, [
-                    'message' => 'Undefined translation for \'' . $code . '/' . $module . '/' . $translation . '\'.',
-                ]);
-
-                return 'ERROR';
-                // @codeCoverageIgnoreEnd
-            }
+        if (isset($this->language[$code][$module][$translation])) {
+            return $this->language[$code][$module][$translation];
         }
 
-        return $this->language[$code][$module][$translation];
+        try {
+            /** @var ModuleAbstract $class */
+            $class = '\Modules\\' . $module . '\\Controller\\' . ($app ?? $this->appName) . 'Controller';
+
+            /** @var string $class */
+            if (!Autoloader::exists($class)) {
+                return 'ERROR';
+            }
+
+            $this->loadLanguage($code, $module, $class::getLocalization($code, $theme));
+        } catch (\Throwable $e) {
+            // @codeCoverageIgnoreStart
+            FileLogger::getInstance()->warning(FileLogger::MSG_FULL, [
+                'message' => 'Undefined translation for \'' . $code . '/' . $module . '/' . $translation . '\'.',
+            ]);
+            // @codeCoverageIgnoreEnd
+        }
+
+        return isset($this->language[$code][$module][$translation])
+            ? $this->language[$code][$module][$translation]
+            : 'ERROR';
     }
 
     /**
@@ -278,7 +273,13 @@ final class L11nManager
             }
         }
 
-        $money = new Money((int) ($currency / $divide), $l11n->getThousands(), $l11n->getDecimal(), $symbol ?? $l11n->getCurrency(), (int) $l11n->getCurrencyFormat());
+        $money = new Money(
+            (int) ($currency / $divide),
+            $l11n->getThousands(),
+            $l11n->getDecimal(),
+            $symbol ?? $l11n->getCurrency(),
+            (int) $l11n->getCurrencyFormat()
+        );
 
         return $money->getCurrency($l11n->getPrecision()[$format ?? 'medium']);
     }
@@ -296,6 +297,8 @@ final class L11nManager
      */
     public function getDateTime(Localization $l11n, \DateTimeInterface $datetime = null, string $format = null) : string
     {
-        return $datetime === null ? '' : $datetime->format($l11n->getDateTime()[$format ?? 'medium']);
+        return $datetime === null
+            ? ''
+            : $datetime->format($l11n->getDateTime()[$format ?? 'medium']);
     }
 }

@@ -29,6 +29,14 @@ use phpOMS\Utils\Converter\TemperatureType;
 class Localization implements \JsonSerializable
 {
     /**
+     * Definition path.
+     *
+     * @var string
+     * @since 1.0.0
+     */
+    private const DEFINITIONS_PATH = __DIR__ . '/../Localization/Defaults/Definitions/';
+
+    /**
      * Country ID.
      *
      * @var string
@@ -243,25 +251,19 @@ class Localization implements \JsonSerializable
         $langCode    = \strtolower($langCode);
         $countryCode = \strtoupper($countryCode);
 
-        if (!ISO639x1Enum::isValidValue($langCode)) {
-            throw new InvalidEnumValue($langCode);
-        }
-
         if ($countryCode !== '*'
-            && !\is_file(__DIR__ . '/../Localization/Defaults/Definitions/' . $langCode . '_' . $countryCode . '.json')
+            && !\is_file(self::DEFINITIONS_PATH . $langCode . '_' . $countryCode . '.json')
         ) {
             $countryCode = '';
         }
 
-        $files = \glob(__DIR__ . '/../Localization/Defaults/Definitions/' . $langCode . '_' . $countryCode . '*');
-
+        $files = \glob(self::DEFINITIONS_PATH . $langCode . '_' . $countryCode . '*');
         if ($files === false) {
             $files = []; // @codeCoverageIgnore
         }
 
         foreach ($files as $file) {
             $fileContent = \file_get_contents($file);
-
             if ($fileContent === false) {
                 break; // @codeCoverageIgnore
             }
@@ -271,8 +273,7 @@ class Localization implements \JsonSerializable
             return;
         }
 
-        $fileContent = \file_get_contents(__DIR__ . '/../Localization/Defaults/Definitions/en_US.json');
-
+        $fileContent = \file_get_contents(DEFINITIONS_PATH . 'en_US.json');
         if ($fileContent === false) {
             return; // @codeCoverageIgnore
         }

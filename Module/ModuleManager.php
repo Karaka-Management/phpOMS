@@ -207,7 +207,7 @@ final class ModuleManager
             $active = $sth->fetchAll(\PDO::FETCH_COLUMN);
 
             foreach ($active as $module) {
-                $path = $this->modulePath . '/' . $module . '/info.json';
+                $path = $this->modulePath . $module . '/info.json';
 
                 if (!\is_file($path)) {
                     continue;
@@ -274,7 +274,7 @@ final class ModuleManager
 
             $c = $files === false ? 0 : \count($files);
             for ($i = 0; $i < $c; ++$i) {
-                $path = $this->modulePath . '/' . $files[$i] . '/info.json';
+                $path = $this->modulePath . $files[$i] . '/info.json';
 
                 if (!\is_file($path)) {
                     continue;
@@ -323,7 +323,7 @@ final class ModuleManager
             $installed = $sth->fetchAll(\PDO::FETCH_COLUMN);
 
             foreach ($installed as $module) {
-                $path = $this->modulePath . '/' . $module . '/info.json';
+                $path = $this->modulePath . $module . '/info.json';
 
                 if (!\is_file($path)) {
                     continue;
@@ -347,7 +347,7 @@ final class ModuleManager
      */
     private function loadInfo(string $module) : ModuleInfo
     {
-        $path = \realpath($oldPath = $this->modulePath . '/' . $module . '/info.json');
+        $path = \realpath($oldPath = $this->modulePath . $module . '/info.json');
 
         if ($path === false) {
             throw new PathException($oldPath);
@@ -507,7 +507,7 @@ final class ModuleManager
          * @todo Orange-Management/Modules#193
          *  Implement online database and downloading api for modules and updates
          */
-        if (!\is_file($this->modulePath . '/' . $module . '/Admin/Installer.php')) {
+        if (!\is_file($this->modulePath . $module . '/Admin/Installer.php')) {
             return false;
         }
 
@@ -557,7 +557,7 @@ final class ModuleManager
             return false;
         }
 
-        if (!\is_file($this->modulePath . '/' . $module . '/Admin/Uninstaller.php')) {
+        if (!\is_file($this->modulePath . $module . '/Admin/Uninstaller.php')) {
             return false;
         }
 
@@ -650,7 +650,7 @@ final class ModuleManager
      */
     public function installProviding(string $from, string $for) : void
     {
-        if (\is_file($this->modulePath . '/' . $from . '/Admin/Install/' . $for . '.php')) {
+        if (\is_file($this->modulePath . $from . '/Admin/Install/' . $for . '.php')) {
             $class = '\\Modules\\' . $from . '\\Admin\\Install\\' . $for;
             $class::install($this->modulePath, $this->app->dbPool);
         }
@@ -669,11 +669,11 @@ final class ModuleManager
      */
     public function installApplications(string $from) : void
     {
-        if (!\is_dir($this->modulePath . '/' . $from . '/Application')) {
+        if (!\is_dir($this->modulePath . $from . '/Application')) {
             return;
         }
 
-        $dirs = \scandir($this->modulePath . '/' . $from . '/Application');
+        $dirs = \scandir($this->modulePath . $from . '/Application');
 
         if ($dirs === false) {
             return;

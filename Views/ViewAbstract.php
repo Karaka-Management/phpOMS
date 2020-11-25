@@ -28,6 +28,14 @@ use phpOMS\System\File\PathException;
 abstract class ViewAbstract implements RenderableInterface
 {
     /**
+     * Base path.
+     *
+     * @var string
+     * @since 1.0.0
+     */
+    private const BASE_PATH = __DIR__ . '/../..';
+
+    /**
      * Template.
      *
      * @var string
@@ -67,7 +75,7 @@ abstract class ViewAbstract implements RenderableInterface
      */
     public function setTemplate(string $template, string $extension = 'tpl.php') : void
     {
-        $this->template = __DIR__ . '/../..' . $template . '.' . $extension;
+        $this->template = self::BASE_PATH . $template . '.' . $extension;
     }
 
     /**

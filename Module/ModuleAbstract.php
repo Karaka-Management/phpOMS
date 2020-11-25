@@ -49,7 +49,7 @@ abstract class ModuleAbstract
      * @var string
      * @since 1.0.0
      */
-    public const MODULE_PATH = __DIR__ . '/../../Modules';
+    public const MODULE_PATH = __DIR__ . '/../../Modules/';
 
     /**
      * Module version.
@@ -124,7 +124,7 @@ abstract class ModuleAbstract
     public static function getLocalization(string $language, string $destination) : array
     {
         $lang = [];
-        if (\is_file($oldPath = __DIR__ . '/../../Modules/' . static::MODULE_NAME . '/Theme/' . $destination . '/Lang/' . $language . '.lang.php')) {
+        if (\is_file($oldPath = self::MODULE_PATH . static::MODULE_NAME . '/Theme/' . $destination . '/Lang/' . $language . '.lang.php')) {
             /** @noinspection PhpIncludeInspection */
             return include $oldPath;
         }
