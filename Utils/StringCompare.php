@@ -171,8 +171,6 @@ final class StringCompare
      *
      * @return int
      *
-     * @todo: Consider to remove previous matches in words2. Otherwise the distance may be checked against the same word over and over.
-     *
      * @since 1.0.0
      */
     public static function valueWords(string $s1, string $s2) : int

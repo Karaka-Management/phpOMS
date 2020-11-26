@@ -283,9 +283,6 @@ class ArrayUtilsTest extends \PHPUnit\Framework\TestCase
      * @testdox All array values in an array can be potentiated by an integer
      * @covers phpOMS\Utils\ArrayUtils
      *
-     * @todo Orange-Management/phpOMS#223
-     *  In the ArrayUtils class the power* functions should be combined once union types become available.
-     *
      * @group framework
      */
     public function testPowerInt() : void
@@ -297,9 +294,6 @@ class ArrayUtilsTest extends \PHPUnit\Framework\TestCase
     /**
      * @testdox All array values in an array can be potentiated by a float
      * @covers phpOMS\Utils\ArrayUtils
-     *
-     * @todo Orange-Management/phpOMS#223
-     *  In the ArrayUtils class the power* functions should be combined once union types become available.
      *
      * @group framework
      */

@@ -97,7 +97,7 @@ final class Rest
                  *
                  * according to the verbose output of curl the request is correct. this means the server must have a problem with it
                  *
-                 * the php webserver and apache2 both seem to be unable to populate the php://input correctly -> not a server isue but a php issue?
+                 * the php webserver and apache2 both seem to be unable to populate the php://input correctly -> not a server issue but a php issue?
                  */
                 $headers['content-type']   = 'Content-Type: multipart/form-data; boundary/' . $boundary;
                 $headers['content-length'] = 'Content-Length: ' . \strlen($data);

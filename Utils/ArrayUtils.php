@@ -21,11 +21,6 @@ namespace phpOMS\Utils;
  * @license OMS License 1.0
  * @link    https://orange-management.org
  * @since   1.0.0
- *
- * @todo Orange-Management/phpOMS#154
- *  Create excel operations on arrays
- *  In many cases there are values stored inside of arrays which need simple math operators performed on them.
- *  Instead of writing the expression it should be possible to do this in good old excel fasion.
  */
 final class ArrayUtils
 {
@@ -394,9 +389,6 @@ final class ArrayUtils
      *
      * @return float[]
      *
-     * @todo Orange-Management/phpOMS#223
-     *  In the ArrayUtils class the power* functions should be combined once union types become available.
-     *
      * @since 1.0.0
      */
     public static function powerFloat(array $values, float $exp = 2.0) : array
@@ -417,9 +409,6 @@ final class ArrayUtils
      * @param int              $exp    Exponent
      *
      * @return array<int|float>
-     *
-     * @todo Orange-Management/phpOMS#223
-     *  In the ArrayUtils class the power* functions should be combined once union types become available.
      *
      * @since 1.0.0
      */

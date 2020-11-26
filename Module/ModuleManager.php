@@ -33,9 +33,6 @@ use phpOMS\System\File\PathException;
  * @license OMS License 1.0
  * @link    https://orange-management.org
  * @since   1.0.0
- *
- * @todo Orange-Management/Modules#113
- *  Don't use name but id for identification
  */
 final class ModuleManager
 {
@@ -197,7 +194,6 @@ final class ModuleManager
     public function getActiveModules(bool $useCache = true) : array
     {
         if (empty($this->active) || !$useCache) {
-            // @todo: use ModuleMapper and return objects
             $query = new Builder($this->app->dbPool->get('select'));
             $sth   = $query->select('module.module_path')
                 ->from('module')
@@ -263,8 +259,6 @@ final class ModuleManager
     public function getAllModules() : array
     {
         if (empty($this->all)) {
-            // @todo: return objects
-
             \chdir($this->modulePath);
             $files = \glob('*', \GLOB_ONLYDIR);
 
@@ -274,16 +268,11 @@ final class ModuleManager
 
             $c = $files === false ? 0 : \count($files);
             for ($i = 0; $i < $c; ++$i) {
-                $path = $this->modulePath . $files[$i] . '/info.json';
+                $module = $this->loadInfo($files[$i]);
 
-                if (!\is_file($path)) {
-                    continue;
+                if ($module !== null) {
+                    $this->all[$files[$i]] = $module;
                 }
-
-                $content = \file_get_contents($path);
-                $json    = \json_decode($content === false ? '[]' : $content, true);
-
-                $this->all[(string) ($json['name']['internal'] ?? '?')] = $json === false ? [] : $json;
             }
         }
 
@@ -314,7 +303,6 @@ final class ModuleManager
     public function getInstalledModules(bool $useCache = true) : array
     {
         if (empty($this->installed) || !$useCache) {
-            // @todo: use ModuleMapper and return objects
             $query = new Builder($this->app->dbPool->get('select'));
             $sth   = $query->select('module.module_path')
                 ->from('module')
@@ -323,12 +311,6 @@ final class ModuleManager
             $installed = $sth->fetchAll(\PDO::FETCH_COLUMN);
 
             foreach ($installed as $module) {
-                $path = $this->modulePath . $module . '/info.json';
-
-                if (!\is_file($path)) {
-                    continue;
-                }
-
                 $this->installed[$module] = $this->loadInfo($module);
             }
         }
@@ -341,16 +323,16 @@ final class ModuleManager
      *
      * @param string $module Module name
      *
-     * @return ModuleInfo
+     * @return null|ModuleInfo
      *
      * @since 1.0.0
      */
-    private function loadInfo(string $module) : ModuleInfo
+    private function loadInfo(string $module) : ?ModuleInfo
     {
         $path = \realpath($oldPath = $this->modulePath . $module . '/info.json');
 
         if ($path === false) {
-            throw new PathException($oldPath);
+            return null;
         }
 
         $info = new ModuleInfo($path);
@@ -503,10 +485,6 @@ final class ModuleManager
             return false;
         }
 
-        /**
-         * @todo Orange-Management/Modules#193
-         *  Implement online database and downloading api for modules and updates
-         */
         if (!\is_file($this->modulePath . $module . '/Admin/Installer.php')) {
             return false;
         }

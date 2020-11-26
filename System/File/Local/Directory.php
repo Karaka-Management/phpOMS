@@ -317,42 +317,7 @@ final class Directory extends FileAbstract implements DirectoryInterface, LocalC
         return \implode('/', $path);
     }
 
-    /**
-     * {@inheritdoc}
-     *
-     * @todo Orange-Management/phpOMS#??? [p:low] [t:optimization] [d:beginner] [t:question]
-     *  Consider to move this to fileAbastract since it should be the same for file and directory?
-     */
-    public static function created(string $path) : \DateTime
-    {
-        if (!\is_dir($path)) {
-            throw new PathException($path);
-        }
 
-        $created = new \DateTime('now');
-        $time    = \filemtime($path);
-
-        $created->setTimestamp($time === false ? 0 : $time);
-
-        return $created;
-    }
-
-    /**
-     * {@inheritdoc}
-     */
-    public static function changed(string $path) : \DateTime
-    {
-        if (!\is_dir($path)) {
-            throw new PathException($path);
-        }
-
-        $changed = new \DateTime();
-        $time    = \filectime($path);
-
-        $changed->setTimestamp($time === false ? 0 : $time);
-
-        return $changed;
-    }
 
     /**
      * {@inheritdoc}

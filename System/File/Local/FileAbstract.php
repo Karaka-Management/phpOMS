@@ -119,6 +119,51 @@ abstract class FileAbstract implements ContainerInterface
     /**
      * {@inheritdoc}
      */
+    public static function created(string $path) : \DateTime
+    {
+        if (!\file_exists($path)) {
+            throw new PathException($path);
+        }
+
+        $time = \filectime($path);
+
+        return self::createFileTime($time === false ? 0 : $time);
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public static function changed(string $path) : \DateTime
+    {
+        if (!\file_exists($path)) {
+            throw new PathException($path);
+        }
+
+        $time = \filemtime($path);
+
+        return self::createFileTime($time === false ? 0 : $time);
+    }
+
+    /**
+     * Create file time.
+     *
+     * @param int $time Time of the file
+     *
+     * @return \DateTime
+     *
+     * @since 1.0.0
+     */
+    private static function createFileTime(int $time) : \DateTime
+    {
+        $fileTime = new \DateTime();
+        $fileTime->setTimestamp($time);
+
+        return $fileTime;
+    }
+
+    /**
+     * {@inheritdoc}
+     */
     public function getCount(bool $recursive = true) : int
     {
         return $this->count;

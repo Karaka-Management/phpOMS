@@ -31,11 +31,6 @@ use phpOMS\DataStorage\Database\Schema\Grammar\Grammar as SchemaGrammar;
  * @license OMS License 1.0
  * @link    https://orange-management.org
  * @since   1.0.0
- *
- * @todo Orange-Management/Modules#100
- *  Init only when used
- *  The database connection should only get initialized when used.
- *  Setup happens before but initialization should only happen on the first usage.
  */
 abstract class ConnectionAbstract implements ConnectionInterface
 {
@@ -195,9 +190,6 @@ abstract class ConnectionAbstract implements ConnectionInterface
      * @param string $name Variable name
      *
      * @return mixed Returns the value of the connection
-     *
-     * @todo Orange-Management/phpOMS#218
-     *  As soon as readonly member variables are possible the magic methods should be removed.
      *
      * @since 1.0.0
      */

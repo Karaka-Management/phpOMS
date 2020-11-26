@@ -206,51 +206,6 @@ final class File extends FileAbstract implements FileInterface, LocalContainerIn
     /**
      * {@inheritdoc}
      */
-    public static function created(string $path) : \DateTime
-    {
-        if (!\is_file($path)) {
-            throw new PathException($path);
-        }
-
-        $time = \filemtime($path);
-
-        return self::createFileTime($time === false ? 0 : $time);
-    }
-
-    /**
-     * {@inheritdoc}
-     */
-    public static function changed(string $path) : \DateTime
-    {
-        if (!\is_file($path)) {
-            throw new PathException($path);
-        }
-
-        $time = \filemtime($path);
-
-        return self::createFileTime($time === false ? 0 : $time);
-    }
-
-    /**
-     * Create file time.
-     *
-     * @param int $time Time of the file
-     *
-     * @return \DateTime
-     *
-     * @since 1.0.0
-     */
-    private static function createFileTime(int $time) : \DateTime
-    {
-        $fileTime = new \DateTime();
-        $fileTime->setTimestamp($time);
-
-        return $fileTime;
-    }
-
-    /**
-     * {@inheritdoc}
-     */
     public static function size(string $path, bool $recursive = true) : int
     {
         if (!\is_file($path)) {

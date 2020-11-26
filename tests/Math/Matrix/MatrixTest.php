@@ -276,11 +276,6 @@ class MatrixTest extends \PHPUnit\Framework\TestCase
 
         self::markTestIncomplete();
 
-        /**
-         * @todo Orange-Management/phpOMS#179
-         *  Create unit test for inverse.
-         *  It seems like some columns are ordered in a different way
-         */
         /*self::assertEquals([
             [-0.9, -0.5, 2.2],
             [0.7, 0.5, -1.6],

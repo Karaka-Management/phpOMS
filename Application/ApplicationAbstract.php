@@ -194,9 +194,6 @@ class ApplicationAbstract
      *
      * @return void
      *
-     * @todo Orange-Management/phpOMS#218
-     *  As soon as readonly member variables are possible the magic methods should be removed.
-     *
      * @since 1.0.0
      */
     public function __set($name, $value) : void
@@ -214,9 +211,6 @@ class ApplicationAbstract
      * @param string $name Variable name
      *
      * @return mixed Returns the value of the application member
-     *
-     * @todo Orange-Management/phpOMS#218
-     *  As soon as readonly member variables are possible the magic methods should be removed.
      *
      * @since 1.0.0
      */

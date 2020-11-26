@@ -2578,11 +2578,6 @@ class DataMapperAbstract implements DataMapperInterface
      *
      * @return mixed
      *
-     * @todo Orange-Management/phpOMS#161
-     *  Reconsider get*() parameter order
-     *  Check if the parameter order of all of the get functions makes sense or if another order would be better.
-     *  Especially the fill parameter probably should be swapped with the depth filter.
-     *
      * @since 1.0.0
      */
     public static function get($primaryKey, int $relations = RelationType::ALL, int $depth = 3, string $ref = null, Builder $query = null)

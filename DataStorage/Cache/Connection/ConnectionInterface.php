@@ -23,20 +23,6 @@ use phpOMS\DataStorage\DataStorageConnectionInterface;
  * @license OMS License 1.0
  * @link    https://orange-management.org
  * @since   1.0.0
- *
- * @todo Orange-Management/phpOMS#184
- *  Add more functions:
- *      * exists           - Checks if the key exists
- *      * getLike          - Get all by pattern
- *      * removeLike       - Remove all by pattern
- *      * getMult          - Get multiple results
- *      * removeMult       - Remove multiple
- *      * setMult          - Set multiple
- *      * updateExpiration - Update expiration
- *      * increment        - Increment numeric value
- *      * decrement        - Decrement numeric value
- *      * rename           - Rename key
- *      * save             - Save cache (to hard drive or somewhere else)
  */
 interface ConnectionInterface extends DataStorageConnectionInterface
 {

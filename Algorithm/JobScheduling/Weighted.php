@@ -55,7 +55,7 @@ final class Weighted
         }
 
         if ($j1->getEnd() !== null && $j2->getEnd() === null) {
-            return -1; // @todo: Implement test case
+            return -1;
         }
 
         return $j1->getEnd()->getTimestamp() <=> $j2->getEnd()->getTimestamp();

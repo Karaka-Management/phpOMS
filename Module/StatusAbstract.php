@@ -53,10 +53,6 @@ abstract class StatusAbstract
      *
      * @return void
      *
-     * @todo Orange-Management/phpOMS#228
-     *  Remove/Add routes on module status change
-     *  If the status of a module changes it should also change the routing file.
-     *
      * @since 1.0.0
      */
     private static function activateRoutes(string $destRoutePath, string $srcRoutePath) : void
@@ -105,10 +101,6 @@ abstract class StatusAbstract
      * @param string $srcRoutePath  Source route path
      *
      * @return void
-     *
-     * @todo Orange-Management/phpOMS#228
-     *  Remove/Add routes on module status change
-     *  If the status of a module changes it should also change the routing file.
      *
      * @since 1.0.0
      */
