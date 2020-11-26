@@ -955,11 +955,7 @@ class DataMapperAbstract implements DataMapperInterface
         $mapper     = static::$ownsOne[$propertyName]['mapper'];
         $primaryKey = $obj[static::$columns[static::$primaryField]['internal']];
 
-        if (empty($primaryKey)) {
-            return $mapper::createArray($obj);
-        }
-
-        return $primaryKey;
+        return empty($primaryKey) ? $mapper::createArray($obj) : $primaryKey;
     }
 
     /**
@@ -984,11 +980,7 @@ class DataMapperAbstract implements DataMapperInterface
         $mapper     = static::$belongsTo[$propertyName]['mapper'];
         $primaryKey = $mapper::getObjectId($obj);
 
-        if (empty($primaryKey)) {
-            return $mapper::create($obj);
-        }
-
-        return $primaryKey;
+        return empty($primaryKey) ? $mapper::create($obj) : $primaryKey;
     }
 
     /**
@@ -1009,11 +1001,7 @@ class DataMapperAbstract implements DataMapperInterface
         $mapper     = static::$belongsTo[$propertyName]['mapper'];
         $primaryKey = $obj[static::$columns[static::$primaryField]['internal']];
 
-        if (empty($primaryKey)) {
-            return $mapper::createArray($obj);
-        }
-
-        return $primaryKey;
+        return empty($primaryKey) ? $mapper::createArray($obj) : $primaryKey;
     }
 
     /**
@@ -1598,7 +1586,6 @@ class DataMapperAbstract implements DataMapperInterface
         }
 
         self::updateModel($obj, $objId, $refClass, $depth);
-
         self::clear();
 
         return $objId;
