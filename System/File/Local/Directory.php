@@ -322,8 +322,6 @@ final class Directory extends FileAbstract implements DirectoryInterface
         return \implode('/', $path);
     }
 
-
-
     /**
      * {@inheritdoc}
      */

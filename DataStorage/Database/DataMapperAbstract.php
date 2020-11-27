@@ -2810,8 +2810,8 @@ class DataMapperAbstract implements DataMapperInterface
     /**
      * Parent parent.
      *
-     * @param int   $depth Relation depth
      * @param mixed $value Parent value id
+     * @param int   $depth Relation depth
      *
      * @return array
      *

@@ -22,7 +22,6 @@ use phpOMS\DataStorage\Database\Query\Builder;
 use phpOMS\Message\Http\HttpRequest;
 use phpOMS\Message\RequestAbstract;
 use phpOMS\Module\Exception\InvalidModuleException;
-use phpOMS\System\File\PathException;
 
 /**
  * Module manager class.
