@@ -32,16 +32,8 @@ use phpOMS\Utils\StringUtils;
  * @link    https://orange-management.org
  * @since   1.0.0
  */
-class Directory extends FileAbstract implements DirectoryInterface, FtpContainerInterface
+class Directory extends FileAbstract implements DirectoryInterface
 {
-    /**
-     * Directory nodes (files and directories).
-     *
-     * @var FileAbstract[]
-     * @since 1.0.0
-     */
-    private array $nodes = [];
-
     /**
      * Filter for directory listing
      *
@@ -49,6 +41,14 @@ class Directory extends FileAbstract implements DirectoryInterface, FtpContainer
      * @since 1.0.0
      */
     private string $filter = '*';
+
+    /**
+     * Directory nodes (files and directories).
+     *
+     * @var array<string, ContainerInterface>
+     * @since 1.0.0
+     */
+    private array $nodes = [];
 
     /**
      * Create ftp connection.
@@ -385,6 +385,7 @@ class Directory extends FileAbstract implements DirectoryInterface, FtpContainer
             $data[$names[$key]] = $e;
         }
 
+        /** @var array<string, array{permission:int, number:string, user:string, group:string, size:string, month:string, day:string, time:string, type:string}> */
         return $data;
     }
 
@@ -499,7 +500,11 @@ class Directory extends FileAbstract implements DirectoryInterface, FtpContainer
             if (\is_dir($item)) {
                 self::put($con, $item, $to . '/' . self::name($item));
             } else {
-                File::put($con, $to . '/' . self::name($item), \file_get_contents($item));
+                $content = \file_get_contents($item);
+
+                if ($content !== false) {
+                    File::put($con, $to . '/' . self::name($item), $content);
+                }
             }
         }
 
@@ -682,7 +687,7 @@ class Directory extends FileAbstract implements DirectoryInterface, FtpContainer
     /**
      * {@inheritdoc}
      */
-    public function key()
+    public function key() : ?string
     {
         return \key($this->nodes);
     }
@@ -690,7 +695,7 @@ class Directory extends FileAbstract implements DirectoryInterface, FtpContainer
     /**
      * {@inheritdoc}
      */
-    public function next()
+    public function next() : FileAbstract
     {
         $next = \next($this->nodes);
 
@@ -704,7 +709,7 @@ class Directory extends FileAbstract implements DirectoryInterface, FtpContainer
     /**
      * {@inheritdoc}
      */
-    public function valid()
+    public function valid() : bool
     {
         $key = \key($this->nodes);
 

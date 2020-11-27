@@ -14,6 +14,8 @@ declare(strict_types=1);
 
 namespace phpOMS\System\File\Ftp;
 
+use phpOMS\System\File\ContainerInterface;
+
 /**
  * Filesystem class.
  *
@@ -24,7 +26,7 @@ namespace phpOMS\System\File\Ftp;
  * @link    https://orange-management.org
  * @since   1.0.0
  */
-interface FtpContainerInterface
+interface FtpContainerInterface extends ContainerInterface
 {
     /**
      * Get the datetime when the resource got created.

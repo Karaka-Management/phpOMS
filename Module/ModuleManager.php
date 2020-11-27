@@ -97,7 +97,7 @@ final class ModuleManager
     /**
      * All modules in the module directory.
      *
-     * @var array<string, array>
+     * @var array<string, ModuleInfo>
      * @since 1.0.0
      */
     private array $all = [];
@@ -252,7 +252,7 @@ final class ModuleManager
     /**
      * Get all modules in the module directory.
      *
-     * @return array<string, array>
+     * @return array<string, ModuleInfo>
      *
      * @since 1.0.0
      */
@@ -268,10 +268,10 @@ final class ModuleManager
 
             $c = $files === false ? 0 : \count($files);
             for ($i = 0; $i < $c; ++$i) {
-                $module = $this->loadInfo($files[$i]);
+                $info = $this->loadInfo($files[$i]);
 
-                if ($module !== null) {
-                    $this->all[$files[$i]] = $module;
+                if ($info !== null) {
+                    $this->all[$files[$i]] = $info;
                 }
             }
         }
@@ -311,7 +311,11 @@ final class ModuleManager
             $installed = $sth->fetchAll(\PDO::FETCH_COLUMN);
 
             foreach ($installed as $module) {
-                $this->installed[$module] = $this->loadInfo($module);
+                $info = $this->loadInfo($module);
+
+                if ($info !== null) {
+                    $this->installed[$module] = $info;
+                }
             }
         }
 
@@ -360,6 +364,10 @@ final class ModuleManager
 
         try {
             $info = $this->loadInfo($module);
+
+            if ($info === null) {
+                return false;
+            }
 
             $this->deactivateModule($info);
 
@@ -412,6 +420,10 @@ final class ModuleManager
         try {
             $info = $this->loadInfo($module);
 
+            if ($info === null) {
+                return false;
+            }
+
             $this->activateModule($info);
 
             return true;
@@ -457,7 +469,11 @@ final class ModuleManager
      */
     public function reInit(string $module, ApplicationInfo $appInfo = null) : void
     {
-        $info  = $this->loadInfo($module);
+        $info = $this->loadInfo($module);
+        if ($info === null) {
+            return;
+        }
+
         $class = '\\Modules\\' . $info->getDirectory() . '\\Admin\\Installer';
 
         if (!Autoloader::exists($class)) {
@@ -491,6 +507,9 @@ final class ModuleManager
 
         try {
             $info = $this->loadInfo($module);
+            if ($info === null) {
+                return false;
+            }
 
             $this->installed[$module] = $info;
             $this->installDependencies($info->getDependencies());
@@ -541,6 +560,9 @@ final class ModuleManager
 
         try {
             $info = $this->loadInfo($module);
+            if ($info === null) {
+                return false;
+            }
 
             $this->installed[$module] = $info;
             // uninstall dependencies if not used by others

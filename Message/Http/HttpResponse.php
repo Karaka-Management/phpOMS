@@ -25,6 +25,8 @@ use phpOMS\Views\View;
 /**
  * Response class.
  *
+ * @property \phpOMS\Message\Http\HttpHeader $header Http header
+ *
  * @package phpOMS\Message\Http
  * @license OMS License 1.0
  * @link    https://orange-management.org

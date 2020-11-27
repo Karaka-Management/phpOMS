@@ -146,4 +146,16 @@ abstract class HeaderAbstract
      * @since 1.0.0
      */
     abstract public function has(string $key) : bool;
+
+    /**
+     * Push all headers.
+     *
+     * @return void
+     *
+     * @since 1.0.0
+     * @codeCoverageIgnore
+     */
+    public function push() : void
+    {
+    }
 }

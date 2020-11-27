@@ -14,6 +14,8 @@ declare(strict_types=1);
 
 namespace phpOMS\System\File\Local;
 
+use phpOMS\System\File\ContainerInterface;
+
 /**
  * Filesystem class.
  *
@@ -24,7 +26,7 @@ namespace phpOMS\System\File\Local;
  * @link    https://orange-management.org
  * @since   1.0.0
  */
-interface LocalContainerInterface
+interface LocalContainerInterface extends ContainerInterface
 {
     /**
      * Get the datetime when the resource got created.

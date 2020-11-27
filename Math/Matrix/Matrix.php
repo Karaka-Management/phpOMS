@@ -704,7 +704,7 @@ class Matrix implements \ArrayAccess, \Iterator
     /**
      * {@inheritdoc}
      */
-    public function current()
+    public function current() : int
     {
         return $this->offsetGet($this->position);
     }

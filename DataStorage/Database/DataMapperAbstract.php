@@ -813,8 +813,6 @@ class DataMapperAbstract implements DataMapperInterface
                 }
 
                 // Setting relation value (id) for relation (since the relation is not stored in an extra relation table)
-                /** @var string $table */
-                /** @var array $columns */
                 if (!isset(static::$hasMany[$propertyName]['external'])) {
                     $relProperty = $relReflectionClass->getProperty($mapper::$columns[static::$hasMany[$propertyName]['self']]['internal']);
 
@@ -893,8 +891,6 @@ class DataMapperAbstract implements DataMapperInterface
                 }
 
                 // Setting relation value (id) for relation (since the relation is not stored in an extra relation table)
-                /** @var string $table */
-                /** @var array $columns */
                 if (static::$hasMany[$propertyName]['table'] === static::$hasMany[$propertyName]['mapper']::$table
                     && isset($mapper::$columns[static::$hasMany[$propertyName]['self']])
                 ) {
@@ -1153,8 +1149,6 @@ class DataMapperAbstract implements DataMapperInterface
                 }
 
                 // create if not existing
-                /** @var string $table */
-                /** @var array $columns */
                 if (static::$hasMany[$propertyName]['table'] === static::$hasMany[$propertyName]['mapper']::$table
                     && isset($mapper::$columns[static::$hasMany[$propertyName]['self']])
                 ) {
@@ -1235,8 +1229,6 @@ class DataMapperAbstract implements DataMapperInterface
                 }
 
                 // create if not existing
-                /** @var string $table */
-                /** @var array $columns */
                 if (static::$hasMany[$propertyName]['table'] === static::$hasMany[$propertyName]['mapper']::$table
                     && isset($mapper::$columns[static::$hasMany[$propertyName]['self']])
                 ) {
@@ -1293,7 +1285,6 @@ class DataMapperAbstract implements DataMapperInterface
      */
     private static function deleteRelationTable(string $propertyName, array $objsIds, $objId) : void
     {
-        /** @var string $table */
         if (empty($objsIds)
             || static::$hasMany[$propertyName]['table'] === static::$table
             || static::$hasMany[$propertyName]['table'] === static::$hasMany[$propertyName]['mapper']::$table
@@ -2879,7 +2870,7 @@ class DataMapperAbstract implements DataMapperInterface
         $query->random(static::$primaryField)
             ->limit($amount);
 
-        return self::getAllByQuery($query, $relations, $depth, null, $query);
+        return self::getAllByQuery($query, $relations, $depth);
     }
 
     /**
@@ -3103,7 +3094,6 @@ class DataMapperAbstract implements DataMapperInterface
                 $query = new Builder(self::$db);
 
                 if (self::$relations === RelationType::ALL) {
-                    /** @var string $primaryField */
                     $src = $value['external'] ?? $value['mapper']::$primaryField;
 
                     $query->select($value['table'] . '.' . $src)

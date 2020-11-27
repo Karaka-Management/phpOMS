@@ -17,6 +17,13 @@ namespace phpOMS\Uri;
 /**
  * Uri interface.
  *
+ * @property string $scheme Scheme
+ * @property string $host Host
+ * @property int $port Port
+ * @property string $fragment Fragment
+ * @property string $user User
+ * @property string $pass Password
+ *
  * @package phpOMS\Uri
  * @license OMS License 1.0
  * @link    https://orange-management.org

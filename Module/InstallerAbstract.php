@@ -198,6 +198,7 @@ abstract class InstallerAbstract
     {
         $directories = new Directory(\dirname($info->getPath()) . '/Admin/Routes');
 
+        /** @var Directory|File $child */
         foreach ($directories as $child) {
             if ($child instanceof Directory) {
                 foreach ($child as $file) {
@@ -277,6 +278,7 @@ abstract class InstallerAbstract
     {
         $directories = new Directory(\dirname($info->getPath()) . '/Admin/Hooks');
 
+        /** @var Directory|File $child */
         foreach ($directories as $child) {
             if ($child instanceof Directory) {
                 foreach ($child as $file) {

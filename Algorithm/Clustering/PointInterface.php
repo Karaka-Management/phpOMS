@@ -18,6 +18,9 @@ namespace phpOMS\Algorithm\Clustering;
 /**
  * Point interface.
  *
+ * @property int $group Group
+ * @property string $name Name
+ *
  * @package phpOMS\Algorithm\Clustering;
  * @license OMS License 1.0
  * @link    https://orange-management.org

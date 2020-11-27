@@ -143,7 +143,7 @@ class Builder extends BuilderAbstract
     /**
      * Group.
      *
-     * @var string[]
+     * @var string[]|self[]
      * @since 1.0.0
      */
     public array $groups = [];
@@ -274,6 +274,8 @@ class Builder extends BuilderAbstract
     {
         $this->type = QueryType::SELECT;
 
+        /** @var mixed[] $columns */
+        /** @var mixed $column */
         foreach ($columns as $column) {
             if (\is_string($column) || $column instanceof self) {
                 $this->selects[] = $column;
@@ -489,7 +491,7 @@ class Builder extends BuilderAbstract
     /**
      * From.
      *
-     * @param array ...$tables Tables
+     * @param mixed ...$tables Tables
      *
      * @return Builder
      *
@@ -497,6 +499,8 @@ class Builder extends BuilderAbstract
      */
     public function from(...$tables) : self
     {
+        /** @var mixed[] $tables */
+        /** @var mixed $table */
         foreach ($tables as $key => $table) {
             if (\is_string($table) || $table instanceof self) {
                 $this->from[] = $table;
@@ -654,7 +658,7 @@ class Builder extends BuilderAbstract
     /**
      * Group by.
      *
-     * @param array|string ...$columns Grouping result
+     * @param mixed ...$columns Grouping result
      *
      * @return Builder
      *
@@ -662,6 +666,8 @@ class Builder extends BuilderAbstract
      */
     public function groupBy(...$columns) : self
     {
+        /** @var mixed[] $columns */
+        /** @var mixed $column */
         foreach ($columns as $column) {
             if (\is_string($column) || $column instanceof self) {
                 $this->groups[] = $column;
@@ -998,7 +1004,7 @@ class Builder extends BuilderAbstract
     /**
      * Values to insert.
      *
-     * @param array ...$sets Values
+     * @param mixed ...$sets Values
      *
      * @return Builder
      *
@@ -1030,7 +1036,7 @@ class Builder extends BuilderAbstract
     /**
      * Update columns.
      *
-     * @param array ...$tables Column names to update
+     * @param mixed ...$tables Column names to update
      *
      * @return Builder
      *
@@ -1046,6 +1052,8 @@ class Builder extends BuilderAbstract
 
         $this->type = QueryType::UPDATE;
 
+        /** @var mixed[] $tables */
+        /** @var mixed $table */
         foreach ($tables as $table) {
             if (\is_string($table) || $table instanceof self) {
                 $this->updates[] = $table;
@@ -1100,7 +1108,7 @@ class Builder extends BuilderAbstract
     /**
      * Join.
      *
-     * @param mixed       $table Join query
+     * @param string|self $table Join query
      * @param string      $type  Join type
      * @param null|string $alias Alias name (empty = none)
      *
@@ -1110,7 +1118,9 @@ class Builder extends BuilderAbstract
      */
     public function join($table, string $type = JoinType::JOIN, string $alias = null) : self
     {
-        if (!\is_string($table) && !($table instanceof self)) {
+        if ((!\is_string($table) && !($table instanceof self))
+            || ($alias === null && !\is_string($table))
+        ) {
             throw new \InvalidArgumentException();
         }
 

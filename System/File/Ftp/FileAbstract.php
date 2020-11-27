@@ -14,7 +14,6 @@ declare(strict_types=1);
 
 namespace phpOMS\System\File\Ftp;
 
-use phpOMS\System\File\ContainerInterface;
 use phpOMS\Uri\HttpUri;
 
 /**
@@ -27,7 +26,7 @@ use phpOMS\Uri\HttpUri;
  * @link    https://orange-management.org
  * @since   1.0.0
  */
-abstract class FileAbstract implements ContainerInterface
+abstract class FileAbstract implements FtpContainerInterface
 {
     /**
      * Ftp connection

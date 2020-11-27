@@ -14,7 +14,7 @@ declare(strict_types=1);
 
 namespace phpOMS\System\File\Local;
 
-use phpOMS\System\File\ContainerInterface;
+use phpOMS\System\File\PathException;
 
 /**
  * Filesystem class.
@@ -26,7 +26,7 @@ use phpOMS\System\File\ContainerInterface;
  * @link    https://orange-management.org
  * @since   1.0.0
  */
-abstract class FileAbstract implements ContainerInterface
+abstract class FileAbstract implements LocalContainerInterface
 {
     /**
      * Path.

@@ -29,7 +29,7 @@ use phpOMS\Utils\StringUtils;
  * @link    https://orange-management.org
  * @since   1.0.0
  */
-final class Directory extends FileAbstract implements DirectoryInterface, LocalContainerInterface
+final class Directory extends FileAbstract implements DirectoryInterface
 {
     /**
      * Directory list filter.
@@ -42,7 +42,7 @@ final class Directory extends FileAbstract implements DirectoryInterface, LocalC
     /**
      * Directory nodes (files and directories).
      *
-     * @var ContainerInterface[]
+     * @var array<string, ContainerInterface>
      * @since 1.0.0
      */
     private array $nodes = [];
@@ -163,7 +163,12 @@ final class Directory extends FileAbstract implements DirectoryInterface, LocalC
 
         parent::index();
 
-        foreach (\glob($this->path . \DIRECTORY_SEPARATOR . $this->filter) as $filename) {
+        $files = \glob($this->path . \DIRECTORY_SEPARATOR . $this->filter);
+        if ($files === false) {
+            return;
+        }
+
+        foreach ($files as $filename) {
             if (!StringUtils::endsWith(\trim($filename), '.')) {
                 $file = \is_dir($filename) ? new self($filename, '*', false) : new File($filename);
 
@@ -493,7 +498,7 @@ final class Directory extends FileAbstract implements DirectoryInterface, LocalC
     /**
      * {@inheritdoc}
      */
-    public function current()
+    public function current() : self
     {
         $current = \current($this->nodes);
 
@@ -507,7 +512,7 @@ final class Directory extends FileAbstract implements DirectoryInterface, LocalC
     /**
      * {@inheritdoc}
      */
-    public function key()
+    public function key() : ?string
     {
         return \key($this->nodes);
     }
@@ -515,7 +520,7 @@ final class Directory extends FileAbstract implements DirectoryInterface, LocalC
     /**
      * {@inheritdoc}
      */
-    public function next()
+    public function next() : FileAbstract
     {
         $next = \next($this->nodes);
 

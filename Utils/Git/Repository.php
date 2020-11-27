@@ -429,7 +429,7 @@ class Repository
      */
     public function createBranch(Branch $branch, bool $force = false) : string
     {
-        return \implode("\n", $this->run('branch ' . ($force ? '-D' : '-d') . ' ' . $branch->getName()));
+        return \implode("\n", $this->run('branch ' . ($force ? '-D' : '-d') . ' ' . $branch->name));
     }
 
     /**
@@ -497,7 +497,7 @@ class Repository
      */
     public function checkout(Branch $branch) : string
     {
-        $result       = \implode("\n", $this->run('checkout ' . $branch->getName()));
+        $result       = \implode("\n", $this->run('checkout ' . $branch->name));
         $this->branch = $branch;
 
         return $result;
@@ -514,7 +514,7 @@ class Repository
      */
     public function merge(Branch $branch) : string
     {
-        return \implode("\n", $this->run('merge ' . $branch->getName() . ' --no-ff'));
+        return \implode("\n", $this->run('merge ' . $branch->name . ' --no-ff'));
     }
 
     /**
@@ -579,7 +579,7 @@ class Repository
     {
         $remote = \escapeshellarg($remote);
 
-        return \implode("\n", $this->run('push --tags ' . $remote . ' ' . $branch->getName()));
+        return \implode("\n", $this->run('push --tags ' . $remote . ' ' . $branch->name));
     }
 
     /**
@@ -596,7 +596,7 @@ class Repository
     {
         $remote = \escapeshellarg($remote);
 
-        return \implode("\n", $this->run('pull ' . $remote . ' ' . $branch->getName()));
+        return \implode("\n", $this->run('pull ' . $remote . ' ' . $branch->name));
     }
 
     /**
@@ -711,7 +711,7 @@ class Repository
 
             $author      = \substr($line, \strlen($matches[0]) + 1);
             $contributor = new Author($author === false ? '' : $author);
-            $contributor->setCommitCount($this->getCommitsCount($start, $end)[$contributor->getName()]);
+            $contributor->setCommitCount($this->getCommitsCount($start, $end)[$contributor->name]);
 
             $addremove = $this->getAdditionsRemovalsByContributor($contributor, $start, $end);
             $contributor->setAdditionCount($addremove['added']);
@@ -781,7 +781,7 @@ class Repository
 
         $addremove = ['added' => 0, 'removed' => 0];
         $lines     = $this->run(
-            'log --author=' . \escapeshellarg($author->getName())
+            'log --author=' . \escapeshellarg($author->name)
             . ' --since="' . $start->format('Y-m-d')
             . '" --before="' . $end->format('Y-m-d')
             . '" --pretty=tformat: --numstat'
@@ -833,7 +833,7 @@ class Repository
         if ($author === null) {
             $author = '';
         } else {
-            $author = ' --author=' . \escapeshellarg($author->getName()) . '';
+            $author = ' --author=' . \escapeshellarg($author->name) . '';
         }
 
         $lines = $this->run(
