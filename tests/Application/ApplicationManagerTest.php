@@ -43,7 +43,7 @@ class ApplicationManagerTest extends \PHPUnit\Framework\TestCase
         $app->router        = new WebRouter();
         $app->dispatcher    = new Dispatcher($app);
         $app->appSettings   = new CoreSettings($app->dbPool->get('admin'));
-        $app->moduleManager = new ModuleManager($app, __DIR__ . '/../../../Modules');
+        $app->moduleManager = new ModuleManager($app, __DIR__ . '/../../../Modules/');
 
         $this->appManager = new ApplicationManager($app->moduleManager);
     }

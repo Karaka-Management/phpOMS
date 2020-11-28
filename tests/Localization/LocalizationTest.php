@@ -375,16 +375,4 @@ class LocalizationTest extends \PHPUnit\Framework\TestCase
         $this->localization->loadFromLanguage(ISO639x1Enum::_AA);
         self::assertEquals(ISO4217CharEnum::_USD, $this->localization->getCurrency());
     }
-
-    /**
-     * @testdox Loading localization data from a file with invalid language throws InvalidEnumValue
-     * @covers phpOMS\Localization\Localization
-     * @group framework
-     */
-    public function testInvalidLocalizationLoading() : void
-    {
-        $this->expectException(\phpOMS\Stdlib\Base\Exception\InvalidEnumValue::class);
-
-        $this->localization->loadFromLanguage('INVALID');
-    }
 }

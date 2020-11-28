@@ -273,7 +273,7 @@ class Localization implements \JsonSerializable
             return;
         }
 
-        $fileContent = \file_get_contents(DEFINITIONS_PATH . 'en_US.json');
+        $fileContent = \file_get_contents(self::DEFINITIONS_PATH . 'en_US.json');
         if ($fileContent === false) {
             return; // @codeCoverageIgnore
         }

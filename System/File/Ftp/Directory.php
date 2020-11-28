@@ -673,7 +673,7 @@ class Directory extends FileAbstract implements DirectoryInterface
     /**
      * {@inheritdoc}
      */
-    public function current()
+    public function current() : FileAbstract
     {
         $current = \current($this->nodes);
 
@@ -695,7 +695,7 @@ class Directory extends FileAbstract implements DirectoryInterface
     /**
      * {@inheritdoc}
      */
-    public function next() : FileAbstract
+    public function next()
     {
         $next = \next($this->nodes);
 

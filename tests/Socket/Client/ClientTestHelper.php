@@ -55,7 +55,7 @@ $app->orgId          = 1;
 $app->cachePool      = new CachePool($app->dbPool);
 $app->accountManager = new AccountManager($GLOBALS['session']);
 $app->appSettings    = new CoreSettings($app->dbPool->get());
-$app->moduleManager  = new ModuleManager($app, __DIR__ . '/../../../../Modules');
+$app->moduleManager  = new ModuleManager($app, __DIR__ . '/../../../../Modules/');
 $app->dispatcher     = new Dispatcher($app);
 $app->eventManager   = new EventManager($app->dispatcher);
 $app->eventManager->importFromFile(__DIR__ . '/../../../Socket/Hooks.php');

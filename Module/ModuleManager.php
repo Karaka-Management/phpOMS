@@ -113,7 +113,7 @@ final class ModuleManager
      * Constructor.
      *
      * @param ApplicationAbstract $app        Application
-     * @param string              $modulePath Path to modules
+     * @param string              $modulePath Path to modules (must end with '/')
      *
      * @since 1.0.0
      */

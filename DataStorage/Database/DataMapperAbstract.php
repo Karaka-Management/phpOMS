@@ -761,12 +761,13 @@ class DataMapperAbstract implements DataMapperInterface
             $values = $property->getValue($obj);
 
             /** @var self $mapper */
-            $mapper = static::$hasMany[$propertyName]['mapper'];
+            $mapper       = static::$hasMany[$propertyName]['mapper'];
+            $internalName = isset($mapper::$columns[static::$hasMany[$propertyName]['self']]) ? $mapper::$columns[static::$hasMany[$propertyName]['self']]['internal'] : 'ERROR';
 
             if (\is_object($values)) {
                 // conditionals
                 $relReflectionClass = new \ReflectionClass($values);
-                $relProperty        = $relReflectionClass->getProperty($mapper::$columns[static::$hasMany[$propertyName]['self']]['internal']);
+                $relProperty        = $relReflectionClass->getProperty($internalName);
 
                 if (!($isPublicRel = $relProperty->isPublic())) {
                     $relProperty->setAccessible(true);
@@ -779,10 +780,17 @@ class DataMapperAbstract implements DataMapperInterface
                 }
 
                 $mapper::create($values);
-                continue;
-            }
 
-            if (!\is_array($values)) {
+                if (!$isPublic) {
+                    $property->setAccessible(false);
+                }
+
+                continue;
+            } elseif (!\is_array($values)) {
+                if (!$isPublic) {
+                    $property->setAccessible(false);
+                }
+
                 // conditionals
                 continue;
             }
@@ -814,13 +822,20 @@ class DataMapperAbstract implements DataMapperInterface
 
                 // Setting relation value (id) for relation (since the relation is not stored in an extra relation table)
                 if (!isset(static::$hasMany[$propertyName]['external'])) {
-                    $relProperty = $relReflectionClass->getProperty($mapper::$columns[static::$hasMany[$propertyName]['self']]['internal']);
+                    $relProperty = $relReflectionClass->getProperty($internalName);
 
                     if (!$isPublic) {
                         $relProperty->setAccessible(true);
                     }
 
-                    $relProperty->setValue($value, $objId);
+                    // todo maybe consider to just set the column type to object, and then check for that (might be faster)
+                    if (isset($mapper::$belongsTo[$internalName])
+                        || isset($mapper::$ownsOne[$internalName])
+                    ) {
+                        $relProperty->setValue($value, self::createNullModel($objId));
+                    } else {
+                        $relProperty->setValue($value, $objId);
+                    }
 
                     if (!$isPublic) {
                         $relProperty->setAccessible(false);
@@ -3464,14 +3479,7 @@ class DataMapperAbstract implements DataMapperInterface
         $parts[$c] = 'Null' . $name;
         $class     = \implode('\\', $parts);
 
-        $obj = new $class();
-
-        if ($id !== null) {
-            $refClass = new \ReflectionClass($obj);
-            self::setObjectId($refClass, $obj, $id);
-        }
-
-        return $obj;
+        return $id !== null ? new $class($id) : new $class();
     }
 
     /**

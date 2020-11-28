@@ -46,7 +46,7 @@ class ModuleManagerTest extends \PHPUnit\Framework\TestCase
         $this->app->router      = new WebRouter();
         $this->app->dispatcher  = new Dispatcher($this->app);
         $this->app->appSettings = new CoreSettings($this->app->dbPool->get('admin'));
-        $this->moduleManager    = new ModuleManager($this->app, __DIR__ . '/../../../Modules');
+        $this->moduleManager    = new ModuleManager($this->app, __DIR__ . '/../../../Modules/');
     }
 
     /**
@@ -251,7 +251,7 @@ class ModuleManagerTest extends \PHPUnit\Framework\TestCase
      */
     public function testInvalidModulePath() : void
     {
-        $moduleManager = new ModuleManager($this->app, __DIR__ . '/Testmodule');
+        $moduleManager = new ModuleManager($this->app, __DIR__ . '/Testmodule/');
 
         self::assertEquals([], $moduleManager->getAllModules());
         self::assertEquals([], $moduleManager->getInstalledModules());
