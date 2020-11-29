@@ -180,14 +180,7 @@ final class FileLogger implements LoggerInterface
      */
     public static function startTimeLog(string $id = '') : bool
     {
-        if (isset(self::$timings[$id])) {
-            return false;
-        }
-
-        $temp  = \explode(' ', \microtime());
-        $mtime = ((float) $temp[1]) + ((float) $temp[0]);
-
-        self::$timings[$id] = ['start' => $mtime, 'end' => 0.0, 'time' => 0.0];
+        self::$timings[$id] = ['start' => \microtime(true), 'end' => 0.0, 'time' => 0.0];
 
         return true;
     }
@@ -197,14 +190,13 @@ final class FileLogger implements LoggerInterface
      *
      * @param string $id the ID by which this time measurement gets identified
      *
-     * @return float The time measurement in ms
+     * @return float The time measurement in seconds
      *
      * @since 1.0.0
      */
     public static function endTimeLog(string $id = '') : float
     {
-        $temp  = \explode(' ', \microtime());
-        $mtime = ((float) $temp[1]) + ((float) $temp[0]);
+        $mtime = \microtime(true);
 
         self::$timings[$id]['end']  = $mtime;
         self::$timings[$id]['time'] = $mtime - self::$timings[$id]['start'];

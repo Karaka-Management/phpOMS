@@ -20,5 +20,5 @@ class ManyToManyDirectModel
 
     public $string = 'ManyToManyDirect';
 
-    public $to = 0;
+    public int $to = 0;
 }
