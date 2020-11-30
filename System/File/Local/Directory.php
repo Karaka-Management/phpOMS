@@ -88,7 +88,7 @@ final class Directory extends FileAbstract implements DirectoryInterface
 
         $iterator = $recursive
             ? new \RecursiveIteratorIterator(
-                new \RecursiveDirectoryIterator($path, \RecursiveDirectoryIterator::SKIP_DOTS | \FilesystemIterator::CURRENT_AS_PATHNAME),
+                new \RecursiveDirectoryIterator($path, \RecursiveDirectoryIterator::SKIP_DOTS),
                 \RecursiveIteratorIterator::SELF_FIRST)
             : new \DirectoryIterator($path);
 
@@ -131,7 +131,7 @@ final class Directory extends FileAbstract implements DirectoryInterface
 
         $iterator = $recursive
             ? new \RecursiveIteratorIterator(
-                new \RecursiveDirectoryIterator($path, \RecursiveDirectoryIterator::SKIP_DOTS | \FilesystemIterator::CURRENT_AS_PATHNAME),
+                new \RecursiveDirectoryIterator($path, \RecursiveDirectoryIterator::SKIP_DOTS),
                 \RecursiveIteratorIterator::SELF_FIRST)
             : new \DirectoryIterator($path);
 
@@ -365,7 +365,7 @@ final class Directory extends FileAbstract implements DirectoryInterface
         }
 
         foreach ($iterator = new \RecursiveIteratorIterator(
-            new \RecursiveDirectoryIterator($from, \RecursiveDirectoryIterator::SKIP_DOTS | \FilesystemIterator::CURRENT_AS_PATHNAME),
+            new \RecursiveDirectoryIterator($from, \RecursiveDirectoryIterator::SKIP_DOTS),
             \RecursiveIteratorIterator::SELF_FIRST) as $item
         ) {
             /** @var \RecursiveDirectoryIterator $iterator */
