@@ -64,7 +64,7 @@ class Zip implements ArchiveInterface
                 );
 
                 foreach ($files as $file) {
-                    $file = \str_replace('\\', '/', $file);
+                    $file = \str_replace('\\', '/', $file->key());
 
                     /* Ignore . and .. */
                     if (($pos = \mb_strrpos($file, '/')) === false

@@ -400,7 +400,6 @@ class FileLoggerTest extends \PHPUnit\Framework\TestCase
     public function testTiming() : void
     {
         self::assertTrue(FileLogger::startTimeLog('test'));
-        self::assertFalse(FileLogger::startTimeLog('test'));
         self::assertGreaterThan(0.0, FileLogger::endTimeLog('test'));
     }
 }
