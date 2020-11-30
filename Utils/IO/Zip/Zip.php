@@ -59,12 +59,12 @@ class Zip implements ArchiveInterface
 
             if (\is_dir($source)) {
                 $files = new \RecursiveIteratorIterator(
-                    new \RecursiveDirectoryIterator($source),
+                    new \RecursiveDirectoryIterator($source, \FilesystemIterator::CURRENT_AS_PATHNAME),
                     \RecursiveIteratorIterator::SELF_FIRST
                 );
 
                 foreach ($files as $file) {
-                    $file = \str_replace('\\', '/', $file->key());
+                    $file = \str_replace('\\', '/', $file);
 
                     /* Ignore . and .. */
                     if (($pos = \mb_strrpos($file, '/')) === false

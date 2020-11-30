@@ -54,7 +54,7 @@ class Tar implements ArchiveInterface
 
             if (\is_dir($source)) {
                 $files = new \RecursiveIteratorIterator(
-                    new \RecursiveDirectoryIterator($source),
+                    new \RecursiveDirectoryIterator($source, \FilesystemIterator::CURRENT_AS_PATHNAME),
                     \RecursiveIteratorIterator::SELF_FIRST
                 );
 
