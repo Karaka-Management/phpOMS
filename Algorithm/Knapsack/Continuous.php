@@ -36,6 +36,21 @@ final class Continuous
     }
 
     /**
+     * Comparing items
+     *
+     * @param Item[] $a Item
+     * @param Item[] $b Item
+     *
+     * @return int
+     *
+     * @since 1.0.0
+     */
+    private static function continuousComparator(array $a, array $b) : int
+    {
+        return $b['item']->getValue() / $b['item']->getCost() <=> $a['item']->getValue() / $a['item']->getCost();
+    }
+
+    /**
      * Fill the backpack with items
      *
      * @param array             $items    Items to fill the backpack with ['item' => Item, 'quantity' => ?]
@@ -47,9 +62,7 @@ final class Continuous
      */
     public static function solve(array $items, BackpackInterface $backpack) : BackpackInterface
     {
-        \usort($items, function($a, $b) {
-            return $a['item']->getValue() / $a['item']->getCost() < $b['item']->getValue() / $b['item']->getCost();
-        });
+        \usort($items, ['self', 'continuousComparator']);
 
         $availableSpace = $backpack->getMaxCost();
 

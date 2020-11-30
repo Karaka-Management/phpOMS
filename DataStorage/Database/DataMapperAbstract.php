@@ -363,11 +363,13 @@ class DataMapperAbstract implements DataMapperInterface
     public static function clear() : void
     {
         // clear parent and objects
-        if (static::class === self::$parentMapper) {
-            self::$parentMapper = null;
-            self::$conditionals = [];
-            self::$relations    = RelationType::ALL;
+        if (static::class !== self::$parentMapper) {
+            return;
         }
+
+        self::$parentMapper = null;
+        self::$conditionals = [];
+        self::$relations    = RelationType::ALL;
     }
 
     /**
