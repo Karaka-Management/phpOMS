@@ -297,7 +297,7 @@ class Builder extends BuilderAbstract
      *
      * @since 1.0.0
      */
-    public function selectAs($column, string $alias) : self
+    public function selectAs(mixed $column, string $alias) : self
     {
         $this->type            = QueryType::SELECT;
         $this->selects[$alias] = $column;
@@ -327,20 +327,18 @@ class Builder extends BuilderAbstract
     /**
      * Bind parameter.
      *
-     * @param mixed $binds Binds
+     * @param string|array $binds Binds
      *
      * @return Builder
      *
      * @since 1.0.0
      */
-    public function bind($binds) : self
+    public function bind(string|array $binds) : self
     {
         if (\is_array($binds)) {
             $this->binds += $binds;
-        } elseif (\is_string($binds)) {
-            $this->binds[] = $binds;
         } else {
-            throw new \InvalidArgumentException();
+            $this->binds[] = $binds;
         }
 
         return $this;
@@ -522,7 +520,7 @@ class Builder extends BuilderAbstract
      *
      * @since 1.0.0
      */
-    public function fromAs($column, string $alias) : self
+    public function fromAs(mixed $column, string $alias) : self
     {
         $this->from[$alias] = $column;
 
@@ -532,10 +530,10 @@ class Builder extends BuilderAbstract
     /**
      * Where.
      *
-     * @param array|string|Where $columns  Columns
-     * @param array|string       $operator Operator
+     * @param string|array|Where $columns  Columns
+     * @param string|array       $operator Operator
      * @param mixed              $values   Values
-     * @param array|string       $boolean  Boolean condition
+     * @param string|array       $boolean  Boolean condition
      *
      * @return Builder
      *
@@ -543,7 +541,7 @@ class Builder extends BuilderAbstract
      *
      * @since 1.0.0
      */
-    public function where($columns, $operator = null, $values = null, $boolean = 'and') : self
+    public function where(string|array|Where $columns, string|array $operator = null, mixed $values = null, string|array $boolean = 'and') : self
     {
         if (!\is_array($columns)) {
             $columns  = [$columns];
@@ -574,15 +572,15 @@ class Builder extends BuilderAbstract
     /**
      * Where and sub condition.
      *
-     * @param array|string|Where $where    Where sub condition
-     * @param mixed              $operator Operator
+     * @param string|array|Where $where    Where sub condition
+     * @param string|array       $operator Operator
      * @param mixed              $values   Values
      *
      * @return Builder
      *
      * @since 1.0.0
      */
-    public function andWhere($where, $operator = null, $values = null) : self
+    public function andWhere(string|array|Where $where, string|array $operator = null, mixed $values = null) : self
     {
         return $this->where($where, $operator, $values, 'and');
     }
@@ -590,15 +588,15 @@ class Builder extends BuilderAbstract
     /**
      * Where or sub condition.
      *
-     * @param array|string|Where $where    Where sub condition
-     * @param mixed              $operator Operator
+     * @param string|array|Where $where    Where sub condition
+     * @param string|array       $operator Operator
      * @param mixed              $values   Values
      *
      * @return Builder
      *
      * @since 1.0.0
      */
-    public function orWhere($where, $operator = null, $values = null) : self
+    public function orWhere(string|array|Where $where, string|array $operator = null, mixed $values = null) : self
     {
         return $this->where($where, $operator, $values, 'or');
     }
@@ -606,15 +604,15 @@ class Builder extends BuilderAbstract
     /**
      * Where in.
      *
-     * @param array|string|Where $column  Column
-     * @param mixed              $values  Values
+     * @param string|array|Where $column  Column
+     * @param string|array       $values  Values
      * @param string             $boolean Boolean condition
      *
      * @return Builder
      *
      * @since 1.0.0
      */
-    public function whereIn($column, $values = null, string $boolean = 'and') : self
+    public function whereIn(string|array|Where $column, mixed $values = null, string $boolean = 'and') : self
     {
         $this->where($column, 'in', $values, $boolean);
 
@@ -624,14 +622,14 @@ class Builder extends BuilderAbstract
     /**
      * Where null.
      *
-     * @param array|string|Where $column  Column
+     * @param string|array|Where $column  Column
      * @param string             $boolean Boolean condition
      *
      * @return Builder
      *
      * @since 1.0.0
      */
-    public function whereNull($column, string $boolean = 'and') : self
+    public function whereNull(string|array|Where $column, string $boolean = 'and') : self
     {
         $this->where($column, '=', null, $boolean);
 
@@ -641,14 +639,14 @@ class Builder extends BuilderAbstract
     /**
      * Where not null.
      *
-     * @param array|string|Where $column  Column
+     * @param string|array|Where $column  Column
      * @param string             $boolean Boolean condition
      *
      * @return Builder
      *
      * @since 1.0.0
      */
-    public function whereNotNull($column, string $boolean = 'and') : self
+    public function whereNotNull(string|array|Where $column, string $boolean = 'and') : self
     {
         $this->where($column, '!=', null, $boolean);
 
@@ -714,14 +712,14 @@ class Builder extends BuilderAbstract
     /**
      * Order by oldest.
      *
-     * @param array|string    $columns Columns
+     * @param string|array    $columns Columns
      * @param string|string[] $order   Orders
      *
      * @return Builder
      *
      * @since 1.0.0
      */
-    public function orderBy($columns, $order = 'DESC') : self
+    public function orderBy(string|array $columns, string|array $order = 'DESC') : self
     {
         if (\is_string($columns)) {
             if (!\is_string($order)) {
@@ -733,12 +731,10 @@ class Builder extends BuilderAbstract
             }
 
             $this->orders[$order][] = $columns;
-        } elseif (\is_array($columns)) {
+        } else {
             foreach ($columns as $key => $column) {
                 $this->orders[\is_string($order) ? $order : $order[$key]][] = $column;
             }
-        } else {
-            throw new \InvalidArgumentException();
         }
 
         return $this;
@@ -785,7 +781,7 @@ class Builder extends BuilderAbstract
      *
      * @since 1.0.0
      */
-    public function union($query) : self
+    public function union(mixed $query) : self
     {
         if (!\is_array($query)) {
             $this->unions[] = $query;
@@ -983,7 +979,7 @@ class Builder extends BuilderAbstract
      *
      * @since 1.0.0
      */
-    public function value($value) : self
+    public function value(mixed $value) : self
     {
         \end($this->values);
 
@@ -1026,7 +1022,7 @@ class Builder extends BuilderAbstract
      *
      * @since 1.0.0
      */
-    public function set($set) : self
+    public function set(mixed $set) : self
     {
         $this->sets[\key($set)] = \current($set);
 
@@ -1116,14 +1112,8 @@ class Builder extends BuilderAbstract
      *
      * @since 1.0.0
      */
-    public function join($table, string $type = JoinType::JOIN, string $alias = null) : self
+    public function join(string|self $table, string $type = JoinType::JOIN, string $alias = null) : self
     {
-        if ((!\is_string($table) && !($table instanceof self))
-            || ($alias === null && !\is_string($table))
-        ) {
-            throw new \InvalidArgumentException();
-        }
-
         $this->joins[$alias ?? $table] = ['type' => $type, 'table' => $table, 'alias' => $alias];
 
         return $this;
@@ -1132,14 +1122,14 @@ class Builder extends BuilderAbstract
     /**
      * Join.
      *
-     * @param mixed       $column Join query
+     * @param string|self $column Join query
      * @param null|string $alias  Alias name (empty = none)
      *
      * @return Builder
      *
      * @since 1.0.0
      */
-    public function leftJoin($column, string $alias = null) : self
+    public function leftJoin(string|self $column, string $alias = null) : self
     {
         return $this->join($column, JoinType::LEFT_JOIN, $alias);
     }
@@ -1147,14 +1137,14 @@ class Builder extends BuilderAbstract
     /**
      * Join.
      *
-     * @param mixed       $column Join query
+     * @param string|self $column Join query
      * @param null|string $alias  Alias name (empty = none)
      *
      * @return Builder
      *
      * @since 1.0.0
      */
-    public function leftOuterJoin($column, string $alias = null) : self
+    public function leftOuterJoin(string|self $column, string $alias = null) : self
     {
         return $this->join($column, JoinType::LEFT_OUTER_JOIN, $alias);
     }
@@ -1162,14 +1152,14 @@ class Builder extends BuilderAbstract
     /**
      * Join.
      *
-     * @param mixed       $column Join query
+     * @param string|self $column Join query
      * @param null|string $alias  Alias name (empty = none)
      *
      * @return Builder
      *
      * @since 1.0.0
      */
-    public function leftInnerJoin($column, string $alias = null) : self
+    public function leftInnerJoin(string|self $column, string $alias = null) : self
     {
         return $this->join($column, JoinType::LEFT_INNER_JOIN, $alias);
     }
@@ -1177,14 +1167,14 @@ class Builder extends BuilderAbstract
     /**
      * Join.
      *
-     * @param mixed       $column Join query
+     * @param string|self $column Join query
      * @param null|string $alias  Alias name (empty = none)
      *
      * @return Builder
      *
      * @since 1.0.0
      */
-    public function rightJoin($column, string $alias = null) : self
+    public function rightJoin(string|self $column, string $alias = null) : self
     {
         return $this->join($column, JoinType::RIGHT_JOIN, $alias);
     }
@@ -1192,14 +1182,14 @@ class Builder extends BuilderAbstract
     /**
      * Join.
      *
-     * @param mixed       $column Join query
+     * @param string|self $column Join query
      * @param null|string $alias  Alias name (empty = none)
      *
      * @return Builder
      *
      * @since 1.0.0
      */
-    public function rightOuterJoin($column, string $alias = null) : self
+    public function rightOuterJoin(string|self $column, string $alias = null) : self
     {
         return $this->join($column, JoinType::RIGHT_OUTER_JOIN, $alias);
     }
@@ -1207,14 +1197,14 @@ class Builder extends BuilderAbstract
     /**
      * Join.
      *
-     * @param mixed       $column Join query
+     * @param string|self $column Join query
      * @param null|string $alias  Alias name (empty = none)
      *
      * @return Builder
      *
      * @since 1.0.0
      */
-    public function rightInnerJoin($column, string $alias = null) : self
+    public function rightInnerJoin(string|self $column, string $alias = null) : self
     {
         return $this->join($column, JoinType::RIGHT_INNER_JOIN, $alias);
     }
@@ -1222,14 +1212,14 @@ class Builder extends BuilderAbstract
     /**
      * Join.
      *
-     * @param mixed       $column Join query
+     * @param string|self $column Join query
      * @param null|string $alias  Alias name (empty = none)
      *
      * @return Builder
      *
      * @since 1.0.0
      */
-    public function outerJoin($column, string $alias = null) : self
+    public function outerJoin(string|self $column, string $alias = null) : self
     {
         return $this->join($column, JoinType::OUTER_JOIN, $alias);
     }
@@ -1237,14 +1227,14 @@ class Builder extends BuilderAbstract
     /**
      * Join.
      *
-     * @param mixed       $column Join query
+     * @param string|self $column Join query
      * @param null|string $alias  Alias name (empty = none)
      *
      * @return Builder
      *
      * @since 1.0.0
      */
-    public function innerJoin($column, string $alias = null) : self
+    public function innerJoin(string|self $column, string $alias = null) : self
     {
         return $this->join($column, JoinType::INNER_JOIN, $alias);
     }
@@ -1252,14 +1242,14 @@ class Builder extends BuilderAbstract
     /**
      * Join.
      *
-     * @param mixed       $column Join query
+     * @param string|self $column Join query
      * @param null|string $alias  Alias name (empty = none)
      *
      * @return Builder
      *
      * @since 1.0.0
      */
-    public function crossJoin($column, string $alias = null) : self
+    public function crossJoin(string|self $column, string $alias = null) : self
     {
         return $this->join($column, JoinType::CROSS_JOIN, $alias);
     }
@@ -1267,14 +1257,14 @@ class Builder extends BuilderAbstract
     /**
      * Join.
      *
-     * @param mixed       $column Join query
+     * @param string|self $column Join query
      * @param null|string $alias  Alias name (empty = none)
      *
      * @return Builder
      *
      * @since 1.0.0
      */
-    public function fullJoin($column, string $alias = null) : self
+    public function fullJoin(string|self $column, string $alias = null) : self
     {
         return $this->join($column, JoinType::FULL_JOIN, $alias);
     }
@@ -1282,14 +1272,14 @@ class Builder extends BuilderAbstract
     /**
      * Join.
      *
-     * @param mixed       $column Join query
+     * @param string|self $column Join query
      * @param null|string $alias  Alias name (empty = none)
      *
      * @return Builder
      *
      * @since 1.0.0
      */
-    public function fullOuterJoin($column, string $alias = null) : self
+    public function fullOuterJoin(string|self $column, string $alias = null) : self
     {
         return $this->join($column, JoinType::FULL_OUTER_JOIN, $alias);
     }
@@ -1319,7 +1309,7 @@ class Builder extends BuilderAbstract
      *
      * @since 1.0.0
      */
-    public function on($columns, $operator = null, $values = null, $boolean = 'and', string $table = null) : self
+    public function on(string|array $columns, string|array $operator = null, string|array $values = null, string|array $boolean = 'and', string $table = null) : self
     {
         if ($operator !== null && !\is_array($operator) && !\in_array(\strtolower($operator), self::OPERATORS)) {
             throw new \InvalidArgumentException('Unknown operator.');
@@ -1365,7 +1355,7 @@ class Builder extends BuilderAbstract
      *
      * @since 1.0.0
      */
-    public function orOn($columns, $operator = null, $values = null) : self
+    public function orOn(string|array $columns, $operator = null, $values = null) : self
     {
         return $this->on($columns, $operator, $values, 'or');
     }
@@ -1381,7 +1371,7 @@ class Builder extends BuilderAbstract
      *
      * @since 1.0.0
      */
-    public function andOn($columns, $operator = null, $values = null) : self
+    public function andOn(string|array $columns, $operator = null, $values = null) : self
     {
         return $this->on($columns, $operator, $values, 'and');
     }

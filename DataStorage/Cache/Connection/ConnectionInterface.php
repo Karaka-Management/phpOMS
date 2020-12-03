@@ -29,52 +29,52 @@ interface ConnectionInterface extends DataStorageConnectionInterface
     /**
      * Updating or adding cache data.
      *
-     * @param mixed $key    Unique cache key
-     * @param mixed $value  Cache value
-     * @param int   $expire Valid duration (in s). Negative expiration means no expiration.
+     * @param int|string $key    Unique cache key
+     * @param mixed      $value  Cache value
+     * @param int        $expire Valid duration (in s). Negative expiration means no expiration.
      *
      * @return void
      *
      * @since 1.0.0
      */
-    public function set($key, $value, int $expire = -1) : void;
+    public function set(int|string $key, mixed $value, int $expire = -1) : void;
 
     /**
      * Adding new data if it doesn't exist.
      *
-     * @param mixed $key    Unique cache key
-     * @param mixed $value  Cache value
-     * @param int   $expire Valid duration (in s)
+     * @param int|string $key    Unique cache key
+     * @param mixed      $value  Cache value
+     * @param int        $expire Valid duration (in s)
      *
      * @return bool
      *
      * @since 1.0.0
      */
-    public function add($key, $value, int $expire = -1) : bool;
+    public function add(int|string $key, mixed $value, int $expire = -1) : bool;
 
     /**
      * Get cache by key.
      *
-     * @param mixed $key    Unique cache key
-     * @param int   $expire Valid duration (in s). In case the data needs to be newer than the defined expiration time. If the expiration date is larger than the defined expiration time and supposed to be expired it will not remove the outdated cache.
+     * @param int|string $key    Unique cache key
+     * @param int        $expire Valid duration (in s). In case the data needs to be newer than the defined expiration time. If the expiration date is larger than the defined expiration time and supposed to be expired it will not remove the outdated cache.
      *
      * @return mixed Cache value
      *
      * @since 1.0.0
      */
-    public function get($key, int $expire = -1);
+    public function get(int|string $key, int $expire = -1) : mixed;
 
     /**
      * Remove value by key.
      *
-     * @param mixed $key    Unique cache key
-     * @param int   $expire Valid duration (in s)
+     * @param int|string $key    Unique cache key
+     * @param int        $expire Valid duration (in s)
      *
      * @return bool
      *
      * @since 1.0.0
      */
-    public function delete($key, int $expire = -1) : bool;
+    public function delete(int|string $key, int $expire = -1) : bool;
 
     /**
      * Removing all cache elements larger or equal to the expiration date. Call flushAll for removing persistent cache elements (expiration is negative) as well.
@@ -99,15 +99,15 @@ interface ConnectionInterface extends DataStorageConnectionInterface
     /**
      * Updating existing value/key.
      *
-     * @param mixed $key    Unique cache key
-     * @param mixed $value  Cache value
-     * @param int   $expire Valid duration (in s)
+     * @param int|string $key    Unique cache key
+     * @param mixed      $value  Cache value
+     * @param int        $expire Valid duration (in s)
      *
      * @return bool
      *
      * @since 1.0.0
      */
-    public function replace($key, $value, int $expire = -1) : bool;
+    public function replace(int|string $key, mixed $value, int $expire = -1) : bool;
 
     /**
      * Requesting cache stats.

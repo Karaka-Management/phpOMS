@@ -254,7 +254,7 @@ final class L11nManager
      *
      * @since 1.0.0
      */
-    public function getCurrency(Localization $l11n, $currency, string $format = null, string $symbol = null, int $divide = 1) : string
+    public function getCurrency(Localization $l11n, int|float $currency, string $format = null, string $symbol = null, int $divide = 1) : string
     {
         $language = $l11n->getLanguage() ?? 'en';
         $symbol ??= $l11n->getCurrency();

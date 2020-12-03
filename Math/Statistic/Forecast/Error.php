@@ -171,7 +171,7 @@ final class Error
      */
     public static function getRootMeanSquaredError(array $errors) : float
     {
-        return \sqrt(Average::arithmeticMean(ArrayUtils::powerInt($errors, 2)));
+        return \sqrt(Average::arithmeticMean(ArrayUtils::power($errors, 2)));
     }
 
     /**
@@ -290,7 +290,7 @@ final class Error
      */
     public static function getMeanSquaredScaledError(array $scaledErrors) : float
     {
-        return Average::arithmeticMean(ArrayUtils::powerInt($scaledErrors, 2));
+        return Average::arithmeticMean(ArrayUtils::power($scaledErrors, 2));
     }
 
     /**

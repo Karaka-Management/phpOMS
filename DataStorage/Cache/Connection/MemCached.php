@@ -80,7 +80,7 @@ final class MemCached extends ConnectionAbstract
     /**
      * {@inheritdoc}
      */
-    public function set($key, $value, int $expire = -1) : void
+    public function set(int|string $key, mixed $value, int $expire = -1) : void
     {
         if ($this->status !== CacheStatus::OK) {
             return;
@@ -96,7 +96,7 @@ final class MemCached extends ConnectionAbstract
     /**
      * {@inheritdoc}
      */
-    public function add($key, $value, int $expire = -1) : bool
+    public function add(int|string $key, mixed $value, int $expire = -1) : bool
     {
         if ($this->status !== CacheStatus::OK) {
             return false;
@@ -112,7 +112,7 @@ final class MemCached extends ConnectionAbstract
     /**
      * {@inheritdoc}
      */
-    public function get($key, int $expire = -1)
+    public function get(int|string $key, int $expire = -1) : mixed
     {
         if ($this->status !== CacheStatus::OK) {
             return null;
@@ -130,7 +130,7 @@ final class MemCached extends ConnectionAbstract
     /**
      * {@inheritdoc}
      */
-    public function delete($key, int $expire = -1) : bool
+    public function delete(int|string $key, int $expire = -1) : bool
     {
         if ($this->status !== CacheStatus::OK) {
             return false;
@@ -164,7 +164,7 @@ final class MemCached extends ConnectionAbstract
     /**
      * {@inheritdoc}
      */
-    public function replace($key, $value, int $expire = -1) : bool
+    public function replace(int|string $key, mixed $value, int $expire = -1) : bool
     {
         if ($this->status !== CacheStatus::OK) {
             return false;

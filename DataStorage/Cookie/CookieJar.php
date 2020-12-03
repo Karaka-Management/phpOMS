@@ -121,7 +121,7 @@ final class CookieJar
      *
      * @since 1.0.0
      */
-    public function get(string $id)
+    public function get(string $id) : mixed
     {
         return $this->cookies[$id] ?? null;
     }

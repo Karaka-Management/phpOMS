@@ -495,18 +495,6 @@ class BuilderTest extends \PHPUnit\Framework\TestCase
     }
 
     /**
-     * @testdox Invalid join types throw a InvalidArgumentException
-     * @group framework
-     */
-    public function testInvalidJoinTable() : void
-    {
-        $this->expectException(\InvalidArgumentException::class);
-
-        $query = new Builder($this->con, true);
-        $query->join(null);
-    }
-
-    /**
      * @testdox Invalid join operators throw a InvalidArgumentException
      * @group framework
      */
@@ -519,18 +507,6 @@ class BuilderTest extends \PHPUnit\Framework\TestCase
     }
 
     /**
-     * @testdox Invalid order types throw a InvalidArgumentException
-     * @group framework
-     */
-    public function testInvalidOrderType() : void
-    {
-        $this->expectException(\InvalidArgumentException::class);
-
-        $query = new Builder($this->con, true);
-        $query->orderBy('a', 1);
-    }
-
-    /**
      * @testdox Invalid order column types throw a InvalidArgumentException
      * @group framework
      */
@@ -539,6 +515,6 @@ class BuilderTest extends \PHPUnit\Framework\TestCase
         $this->expectException(\InvalidArgumentException::class);
 
         $query = new Builder($this->con, true);
-        $query->orderBy(null, 'DESC');
+        $query->orderBy('valid', ['invalid']);
     }
 }

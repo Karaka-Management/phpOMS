@@ -316,15 +316,17 @@ abstract class ModuleAbstract
      *
      * @since 1.0.0
      */
-    protected function updateModel(int $account, $old, $new, $mapper, string $trigger, string $ip) : void
+    protected function updateModel(int $account, mixed $old, mixed $new, string|\Closure $mapper, string $trigger, string $ip) : void
     {
         $this->app->eventManager->triggerSimilar('PRE:Module:' . static::MODULE_NAME . '-' . $trigger . '-update', '', $old);
         $id = 0;
+
         if (\is_string($mapper)) {
             $id = $mapper::update($new);
-        } elseif ($mapper instanceof \Closure) {
+        } else {
             $mapper();
         }
+
         $this->app->eventManager->triggerSimilar('POST:Module:' . static::MODULE_NAME . '-' . $trigger . '-update', '', [
             $account,
             $old, $new,
@@ -349,7 +351,7 @@ abstract class ModuleAbstract
      *
      * @since 1.0.0
      */
-    protected function deleteModel(int $account, $obj, string $mapper, string $trigger, string $ip) : void
+    protected function deleteModel(int $account, mixed $obj, string $mapper, string $trigger, string $ip) : void
     {
         $this->app->eventManager->triggerSimilar('PRE:Module:' . static::MODULE_NAME . '-' . $trigger . '-delete', '', $obj);
         $id = $mapper::delete($obj);
@@ -379,7 +381,7 @@ abstract class ModuleAbstract
      *
      * @since 1.0.0
      */
-    protected function createModelRelation(int $account, $rel1, $rel2, string $mapper, string $field, string $trigger, string $ip) : void
+    protected function createModelRelation(int $account, mixed $rel1, mixed $rel2, string $mapper, string $field, string $trigger, string $ip) : void
     {
         $this->app->eventManager->triggerSimilar('PRE:Module:' . static::MODULE_NAME . '-' . $trigger . '-relation', '', $rel1);
         $mapper::createRelation($field, $rel1, $rel2);

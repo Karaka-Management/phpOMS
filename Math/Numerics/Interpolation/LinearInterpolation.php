@@ -96,7 +96,7 @@ final class LinearInterpolation implements InterpolationInterface
     /**
      * {@inheritdoc}
      */
-    public function interpolate($x) : float
+    public function interpolate(int|float $x) : float
     {
         $n    = \count($this->points);
         $xPos = $n - 1;

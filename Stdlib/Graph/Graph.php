@@ -88,7 +88,7 @@ class Graph
      *
      * @since 1.0.0
      */
-    public function getNode($key) : ?Node
+    public function getNode(mixed $key) : ?Node
     {
         return $this->nodes[$key] ?? null;
     }
@@ -167,7 +167,7 @@ class Graph
      *
      * @since 1.0.0
      */
-    public function getCost()
+    public function getCost() : int|float
     {
         $edges = $this->getEdges();
         $costs = 0;

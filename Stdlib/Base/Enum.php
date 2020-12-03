@@ -84,7 +84,7 @@ abstract class Enum
      *
      * @since 1.0.0
      */
-    public static function getByName(string $name)
+    public static function getByName(string $name) : mixed
     {
         if (!self::isValidName($name)) {
             throw new \UnexpectedValueException($name);
@@ -102,7 +102,7 @@ abstract class Enum
      *
      * @since 1.0.0
      */
-    public static function getName(string $value)
+    public static function getName(string $value) : bool|int|string
     {
         $arr = self::getConstants();
 

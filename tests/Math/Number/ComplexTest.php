@@ -271,17 +271,4 @@ class ComplexTest extends \PHPUnit\Framework\TestCase
         $cpl = new Complex(4, 3);
         $cpl->div(true);
     }
-
-    /**
-     * @testdox The power of a invalid type throws a InvalidArgumentException
-     * @covers phpOMS\Math\Number\Complex
-     * @group framework
-     */
-    public function testInvalidPow() : void
-    {
-        $this->expectException(\InvalidArgumentException::class);
-
-        $cpl = new Complex(4, 3);
-        $cpl->pow(true);
-    }
 }

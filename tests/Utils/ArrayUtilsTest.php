@@ -280,27 +280,18 @@ class ArrayUtilsTest extends \PHPUnit\Framework\TestCase
     }
 
     /**
-     * @testdox All array values in an array can be potentiated by an integer
+     * @testdox All array values in an array can be potentiated by a numeric value
      * @covers phpOMS\Utils\ArrayUtils
      *
      * @group framework
      */
-    public function testPowerInt() : void
+    public function test() : void
     {
-        self::assertEquals([4, 9, 16], ArrayUtils::powerInt([2, 3, 4], 2));
-        self::assertEquals([8, 27, 64], ArrayUtils::powerInt([2, 3, 4], 3));
-    }
+        self::assertEquals([4, 9, 16], ArrayUtils::power([2, 3, 4], 2));
+        self::assertEquals([8, 27, 64], ArrayUtils::power([2, 3, 4], 3));
 
-    /**
-     * @testdox All array values in an array can be potentiated by a float
-     * @covers phpOMS\Utils\ArrayUtils
-     *
-     * @group framework
-     */
-    public function testPowerFloat() : void
-    {
-        self::assertEqualsWithDelta([2.0, 3.0, 4.0], ArrayUtils::powerFloat([4, 9, 16], 1 / 2), 0.0);
-        self::assertEqualsWithDelta([2.0, 3.0, 4.0], ArrayUtils::powerFloat([8, 27, 64], 1 / 3), 0.0);
+        self::assertEqualsWithDelta([2.0, 3.0, 4.0], ArrayUtils::power([4, 9, 16], 1 / 2), 0.0);
+        self::assertEqualsWithDelta([2.0, 3.0, 4.0], ArrayUtils::power([8, 27, 64], 1 / 3), 0.0);
     }
 
     /**

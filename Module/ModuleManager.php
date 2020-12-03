@@ -719,7 +719,7 @@ final class ModuleManager
      *
      * @since 1.0.0
      */
-    public function initModule($modules) : void
+    public function initModule(string|array $modules) : void
     {
         $modules = (array) $modules;
         foreach ($modules as $module) {

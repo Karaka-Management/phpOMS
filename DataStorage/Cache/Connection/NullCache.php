@@ -34,14 +34,14 @@ final class NullCache extends ConnectionAbstract
     /**
      * {@inheritdoc}
      */
-    public function set($key, $value, int $expire = -1) : void
+    public function set(int|string $key, mixed $value, int $expire = -1) : void
     {
     }
 
     /**
      * {@inheritdoc}
      */
-    public function add($key, $value, int $expire = -1) : bool
+    public function add(int|string $key, mixed $value, int $expire = -1) : bool
     {
         return true;
     }
@@ -49,7 +49,7 @@ final class NullCache extends ConnectionAbstract
     /**
      * {@inheritdoc}
      */
-    public function get($key, int $expire = -1)
+    public function get(int|string $key, int $expire = -1) : mixed
     {
         return null;
     }
@@ -57,7 +57,7 @@ final class NullCache extends ConnectionAbstract
     /**
      * {@inheritdoc}
      */
-    public function delete($key, int $expire = -1) : bool
+    public function delete(int|string $key, int $expire = -1) : bool
     {
         return true;
     }
@@ -81,7 +81,7 @@ final class NullCache extends ConnectionAbstract
     /**
      * {@inheritdoc}
      */
-    public function replace($key, $value, int $expire = -1) : bool
+    public function replace(int|string $key, mixed $value, int $expire = -1) : bool
     {
         return true;
     }

@@ -287,7 +287,7 @@ class Repository
      *
      * @since 1.0.0
      */
-    public function add($files = '*') : string
+    public function add(string|array $files = '*') : string
     {
         $files = $this->parseFileList($files);
 
@@ -304,7 +304,7 @@ class Repository
      *
      * @since 1.0.0
      */
-    public function rm($files = '*', bool $cached = false) : string
+    public function rm(string|array $files = '*', bool $cached = false) : string
     {
         $files = $this->parseFileList($files);
 
@@ -322,12 +322,10 @@ class Repository
      *
      * @since 1.0.0
      */
-    private function parseFileList($files) : string
+    private function parseFileList(string|array $files) : string
     {
         if (\is_array($files)) {
             return '"' . \implode('" "', $files) . '"';
-        } elseif (!\is_string($files)) {
-            throw new \InvalidArgumentException('Wrong type for $files.');
         }
 
         return $files;

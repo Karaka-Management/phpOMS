@@ -65,7 +65,7 @@ final class Vector extends Matrix
      *
      * @since 1.0.0
      */
-    public function getV(int $m)
+    public function getV(int $m) : int|float
     {
         return parent::get($m, 0);
     }

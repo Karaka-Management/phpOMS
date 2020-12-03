@@ -54,7 +54,7 @@ final class DependencyResolver
      *
      * @since 1.0.0
      */
-    private static function dependencyResolve($item, array $items, array &$resolved, array &$unresolved) : void
+    private static function dependencyResolve(int|string $item, array $items, array &$resolved, array &$unresolved) : void
     {
         $unresolved[] = $item;
 

@@ -465,7 +465,7 @@ class DataMapperAbstract implements DataMapperInterface
      *
      * @since 1.0.0
      */
-    public static function create($obj, int $relations = RelationType::ALL)
+    public static function create($obj, int $relations = RelationType::ALL) : mixed
     {
         if (!isset($obj)) {
             return null;
@@ -507,7 +507,7 @@ class DataMapperAbstract implements DataMapperInterface
      *
      * @since 1.0.0
      */
-    public static function createArray(array &$obj, int $relations = RelationType::ALL)
+    public static function createArray(array &$obj, int $relations = RelationType::ALL) : mixed
     {
         self::$relations = $relations;
 
@@ -538,7 +538,7 @@ class DataMapperAbstract implements DataMapperInterface
      *
      * @since 1.0.0
      */
-    private static function createModel(object $obj, \ReflectionClass $refClass)
+    private static function createModel(object $obj, \ReflectionClass $refClass) : mixed
     {
         $query = new Builder(self::$db);
         $query->into(static::$table);
@@ -616,7 +616,7 @@ class DataMapperAbstract implements DataMapperInterface
      *
      * @since 1.0.0
      */
-    private static function createModelArray(array &$obj)
+    private static function createModelArray(array &$obj) : mixed
     {
         $query = new Builder(self::$db);
         $query->into(static::$table);
@@ -670,7 +670,7 @@ class DataMapperAbstract implements DataMapperInterface
      *
      * @since 1.0.0
      */
-    public static function getObjectId(object $obj, \ReflectionClass $refClass = null)
+    public static function getObjectId(object $obj, \ReflectionClass $refClass = null) : mixed
     {
         $refClass   ??= new \ReflectionClass($obj);
         $propertyName = static::$columns[static::$primaryField]['internal'];
@@ -943,7 +943,7 @@ class DataMapperAbstract implements DataMapperInterface
      *
      * @since 1.0.0
      */
-    private static function createOwnsOne(string $propertyName, $obj)
+    private static function createOwnsOne(string $propertyName, $obj) : mixed
     {
         if (!\is_object($obj)) {
             return $obj;
@@ -972,7 +972,7 @@ class DataMapperAbstract implements DataMapperInterface
      *
      * @since 1.0.0
      */
-    private static function createOwnsOneArray(string $propertyName, array &$obj)
+    private static function createOwnsOneArray(string $propertyName, array &$obj) : mixed
     {
         /** @var self $mapper */
         $mapper     = static::$ownsOne[$propertyName]['mapper'];
@@ -993,7 +993,7 @@ class DataMapperAbstract implements DataMapperInterface
      *
      * @since 1.0.0
      */
-    private static function createBelongsTo(string $propertyName, $obj)
+    private static function createBelongsTo(string $propertyName, $obj) : mixed
     {
         if (!\is_object($obj)) {
             return $obj;
@@ -1018,7 +1018,7 @@ class DataMapperAbstract implements DataMapperInterface
      *
      * @since 1.0.0
      */
-    private static function createBelongsToArray(string $propertyName, array $obj)
+    private static function createBelongsToArray(string $propertyName, array $obj) : mixed
     {
         /** @var self $mapper */
         $mapper     = static::$belongsTo[$propertyName]['mapper'];
@@ -1081,7 +1081,7 @@ class DataMapperAbstract implements DataMapperInterface
      *
      * @since 1.0.0
      */
-    private static function parseValue(string $type, $value = null)
+    private static function parseValue(string $type, $value = null) : mixed
     {
         if ($value === null) {
             return null;
@@ -1277,7 +1277,7 @@ class DataMapperAbstract implements DataMapperInterface
      *
      * @since 1.0.0
      */
-    private static function updateRelationTable(array $objsIds, $objId)
+    private static function updateRelationTable(array $objsIds, $objId) : mixed
     {
         $many = self::getHasManyRaw($objId);
 
@@ -1339,7 +1339,7 @@ class DataMapperAbstract implements DataMapperInterface
      *
      * @since 1.0.0
      */
-    private static function updateOwnsOne(string $propertyName, $obj, int $depth = 1)
+    private static function updateOwnsOne(string $propertyName, $obj, int $depth = 1) : mixed
     {
         if (!\is_object($obj)) {
             return $obj;
@@ -1364,7 +1364,7 @@ class DataMapperAbstract implements DataMapperInterface
      *
      * @since 1.0.0
      */
-    private static function updateOwnsOneArray(string $propertyName, array $obj, int $depth = 1)
+    private static function updateOwnsOneArray(string $propertyName, array $obj, int $depth = 1) : mixed
     {
         /** @var self $mapper */
         $mapper = static::$ownsOne[$propertyName]['mapper'];
@@ -1385,7 +1385,7 @@ class DataMapperAbstract implements DataMapperInterface
      *
      * @since 1.0.0
      */
-    private static function updateBelongsTo(string $propertyName, $obj, int $depth = 1)
+    private static function updateBelongsTo(string $propertyName, $obj, int $depth = 1) : mixed
     {
         if (!\is_object($obj)) {
             return $obj;
@@ -1410,7 +1410,7 @@ class DataMapperAbstract implements DataMapperInterface
      *
      * @since 1.0.0
      */
-    private static function updateBelongsToArray(string $propertyName, $obj, int $depth = 1)
+    private static function updateBelongsToArray(string $propertyName, $obj, int $depth = 1) : mixed
     {
         if (!\is_array($obj)) {
             return $obj;
@@ -1572,7 +1572,7 @@ class DataMapperAbstract implements DataMapperInterface
      *
      * @since 1.0.0
      */
-    public static function update($obj, int $relations = RelationType::ALL, int $depth = 3)
+    public static function update($obj, int $relations = RelationType::ALL, int $depth = 3) : mixed
     {
         if (!isset($obj)) {
             return null;
@@ -1615,7 +1615,7 @@ class DataMapperAbstract implements DataMapperInterface
      *
      * @since 1.0.0
      */
-    public static function updateArray(array &$obj, int $relations = RelationType::ALL, int $depth = 1)
+    public static function updateArray(array &$obj, int $relations = RelationType::ALL, int $depth = 1) : mixed
     {
         if (empty($obj)) {
             return null;
@@ -1731,7 +1731,7 @@ class DataMapperAbstract implements DataMapperInterface
      *
      * @since 1.0.0
      */
-    private static function deleteOwnsOne(string $propertyName, $obj)
+    private static function deleteOwnsOne(string $propertyName, $obj) : mixed
     {
         if (!\is_object($obj)) {
             return $obj;
@@ -1761,7 +1761,7 @@ class DataMapperAbstract implements DataMapperInterface
      *
      * @since 1.0.0
      */
-    private static function deleteBelongsTo(string $propertyName, $obj)
+    private static function deleteBelongsTo(string $propertyName, $obj) : mixed
     {
         if (!\is_object($obj)) {
             return $obj;
@@ -1847,7 +1847,7 @@ class DataMapperAbstract implements DataMapperInterface
      *
      * @since 1.0.0
      */
-    public static function delete($obj, int $relations = RelationType::REFERENCE)
+    public static function delete($obj, int $relations = RelationType::REFERENCE) : mixed
     {
         // @todo: only do this if RelationType !== NONE
         if (\is_scalar($obj)) {
@@ -2039,7 +2039,7 @@ class DataMapperAbstract implements DataMapperInterface
      *
      * @since 1.0.0
      */
-    public static function populateOwnsOne(string $member, array $result, int $depth = 3, $default = null)
+    public static function populateOwnsOne(string $member, array $result, int $depth = 3, $default = null) : mixed
     {
         /** @var self $mapper */
         $mapper = static::$ownsOne[$member]['mapper'];

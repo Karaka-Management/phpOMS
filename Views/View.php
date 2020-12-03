@@ -289,7 +289,7 @@ class View extends ViewAbstract
      *
      * @since 1.0.0
      */
-    public function getHtml($translation, string $module = null, string $theme = null) : string
+    public function getHtml(mixed $translation, string $module = null, string $theme = null) : string
     {
         return \htmlspecialchars($this->getText($translation, $module, $theme));
     }
@@ -304,7 +304,7 @@ class View extends ViewAbstract
      *
      * @since 1.0.0
      */
-    public function getNumeric($numeric, string $format = null) : string
+    public function getNumeric(int|float $numeric, string $format = null) : string
     {
         return $this->l11nManager->getNumeric($this->l11n, $numeric, $format);
     }
@@ -336,7 +336,7 @@ class View extends ViewAbstract
      *
      * @since 1.0.0
      */
-    public function getCurrency($currency, string $format = null, string $symbol = null, int $divide = 1) : string
+    public function getCurrency(int|float $currency, string $format = null, string $symbol = null, int $divide = 1) : string
     {
         return $this->l11nManager->getCurrency($this->l11n, $currency, $format, $symbol, $divide);
     }

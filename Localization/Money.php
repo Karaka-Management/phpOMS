@@ -83,7 +83,7 @@ final class Money implements \Serializable
      *
      * @since 1.0.0
      */
-    public function __construct($value = 0, string $thousands = ',', string $decimal = '.', string $symbol = '', int $position = 0)
+    public function __construct(int|float|string $value = 0, string $thousands = ',', string $decimal = '.', string $symbol = '', int $position = 0)
     {
         $this->value     = \is_int($value) ? $value : self::toInt((string) $value);
         $this->thousands = $thousands;
@@ -216,19 +216,19 @@ final class Money implements \Serializable
     /**
      * Add money.
      *
-     * @param int|float|Money|string $value Value to add
+     * @param int|float|string|Money $value Value to add
      *
      * @return Money
      *
      * @since 1.0.0
      */
-    public function add($value) : self
+    public function add(int|float|string|self $value) : self
     {
         if (\is_string($value) || \is_float($value)) {
             $this->value += self::toInt((string) $value, $this->thousands, $this->decimal);
         } elseif (\is_int($value)) {
             $this->value += $value;
-        } elseif ($value instanceof self) {
+        } else {
             $this->value += $value->getInt();
         }
 
@@ -250,19 +250,19 @@ final class Money implements \Serializable
     /**
      * Sub money.
      *
-     * @param int|float|Money|string $value Value to subtract
+     * @param int|float|string|Money $value Value to subtract
      *
      * @return Money
      *
      * @since 1.0.0
      */
-    public function sub($value) : self
+    public function sub(int|float|string|self $value) : self
     {
         if (\is_string($value) || \is_float($value)) {
             $this->value -= self::toInt((string) $value, $this->thousands, $this->decimal);
         } elseif (\is_int($value)) {
             $this->value -= $value;
-        } elseif ($value instanceof self) {
+        } else {
             $this->value -= $value->getInt();
         }
 
