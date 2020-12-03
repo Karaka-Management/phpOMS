@@ -193,7 +193,7 @@ abstract class ConnectionAbstract implements ConnectionInterface
      *
      * @since 1.0.0
      */
-    public function __get($name)
+    public function __get(string $name) : mixed
     {
         if ($name === 'con' && !isset($this->con)) {
             $this->connect($this->dbdata);

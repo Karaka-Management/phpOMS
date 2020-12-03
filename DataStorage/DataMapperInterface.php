@@ -35,7 +35,7 @@ interface DataMapperInterface
      *
      * @since 1.0.0
      */
-    public static function create($obj);
+    public static function create(mixed $obj);
 
     /**
      * Update data.
@@ -46,7 +46,7 @@ interface DataMapperInterface
      *
      * @since 1.0.0
      */
-    public static function update($obj);
+    public static function update(mixed $obj);
 
     /**
      * Delete data.
@@ -57,7 +57,7 @@ interface DataMapperInterface
      *
      * @since 1.0.0
      */
-    public static function delete($obj);
+    public static function delete(mixed $obj);
 
     /**
      * Find data.
@@ -90,5 +90,5 @@ interface DataMapperInterface
      *
      * @since 1.0.0
      */
-    public static function get($primaryKey);
+    public static function get(mixed $primaryKey);
 }

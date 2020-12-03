@@ -21,9 +21,9 @@ require_once __DIR__ . '/../../Autoloader.php';
 
 class NumericElement implements SortableInterface
 {
-    public $value = 0;
+    public int|float $value = 0;
 
-    public function __construct($value)
+    public function __construct(int|float $value)
     {
         $this->value = $value;
     }
@@ -38,12 +38,12 @@ class NumericElement implements SortableInterface
         return $this->value === $obj->getValue();
     }
 
-    public function getValue()
+    public function getValue() : int|float
     {
         return $this->value;
     }
 
-    public static function max(array $list)
+    public static function max(array $list) : int|float
     {
         $values = [];
         foreach ($list as $element) {
@@ -53,7 +53,7 @@ class NumericElement implements SortableInterface
         return \max($values);
     }
 
-    public static function min(array $list)
+    public static function min(array $list) : int|float
     {
         $values = [];
         foreach ($list as $element) {

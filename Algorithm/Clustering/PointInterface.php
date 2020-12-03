@@ -51,12 +51,12 @@ interface PointInterface
     /**
      * Set the coordinate of the point
      *
-     * @param int   $index Index of the coordinate (e.g. 0 = x);
-     * @param mixed $value Value of the coordinate
+     * @param int       $index Index of the coordinate (e.g. 0 = x);
+     * @param int|float $value Value of the coordinate
      *
      * @return void
      *
      * @since 1.0.0
      */
-    public function setCoordinate(int $index, $value) : void;
+    public function setCoordinate(int $index, int|float $value) : void;
 }

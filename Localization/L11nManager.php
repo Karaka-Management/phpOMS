@@ -147,14 +147,14 @@ final class L11nManager
      * @param string      $code        Language code
      * @param string      $module      Module name
      * @param string      $theme       Theme
-     * @param mixed       $translation Text
+     * @param string      $translation Text
      * @param null|string $app         App name
      *
      * @return string In case the language element couldn't be found 'ERROR' will be returned
      *
      * @since 1.0.0
      */
-    public function getText(string $code, string $module, string $theme, $translation, string $app = null) : string
+    public function getText(string $code, string $module, string $theme, string $translation, string $app = null) : string
     {
         if (isset($this->language[$code][$module][$translation])) {
             return $this->language[$code][$module][$translation];
@@ -189,13 +189,13 @@ final class L11nManager
      * @param string $code        Language code
      * @param string $module      Module name
      * @param string $theme       Theme
-     * @param mixed  $translation Text
+     * @param string $translation Text
      *
      * @return string In case the language element couldn't be found 'ERROR' will be returned
      *
      * @since 1.0.0
      */
-    public function getHtml(string $code, string $module, string $theme, $translation) : string
+    public function getHtml(string $code, string $module, string $theme, string $translation) : string
     {
         return \htmlspecialchars($this->getText($code, $module, $theme, $translation));
     }
@@ -211,7 +211,7 @@ final class L11nManager
      *
      * @since 1.0.0
      */
-    public function getNumeric(Localization $l11n, $numeric, string $format = null) : string
+    public function getNumeric(Localization $l11n, int|float $numeric, string $format = null) : string
     {
         return \number_format(
             $numeric,

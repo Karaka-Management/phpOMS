@@ -191,7 +191,7 @@ final class StringUtils
      *
      * @since 1.0.0
      */
-    public static function stringify($element, $option = null) : ?string
+    public static function stringify(mixed $element, mixed $option = null) : ?string
     {
         if ($element instanceof \JsonSerializable || \is_array($element)) {
             $encoded = \json_encode($element, $option !== null ? $option : 0);

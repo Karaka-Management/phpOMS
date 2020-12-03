@@ -27,26 +27,26 @@ interface OptionsInterface
     /**
      * Is this key set.
      *
-     * @param mixed $key Key to check for existence
+     * @param int|string $key Key to check for existence
      *
      * @return bool
      *
      * @since 1.0.0
      */
-    public function exists($key) : bool;
+    public function exists(int|string $key) : bool;
 
     /**
      * Updating or adding settings.
      *
-     * @param mixed $key       Unique option key
-     * @param mixed $value     Option value
-     * @param bool  $overwrite Overwrite existing value
+     * @param int|string $key       Unique option key
+     * @param mixed      $value     Option value
+     * @param bool       $overwrite Overwrite existing value
      *
      * @return bool
      *
      * @since 1.0.0
      */
-    public function setOption($key, $value, bool $overwrite = true) : bool;
+    public function setOption(int|string $key, mixed $value, bool $overwrite = true) : bool;
 
     /**
      * Updating or adding settings.
@@ -63,11 +63,11 @@ interface OptionsInterface
     /**
      * Get option by key.
      *
-     * @param mixed $key Unique option key
+     * @param int|string $key Unique option key
      *
      * @return mixed Option value
      *
      * @since 1.0.0
      */
-    public function getOption($key);
+    public function getOption(int|string $key) : mixed;
 }

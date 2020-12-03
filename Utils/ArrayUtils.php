@@ -88,7 +88,7 @@ final class ArrayUtils
      *
      * @since 1.0.0
      */
-    public static function setArray(string $path, array $data, $value, string $delim = '/', bool $overwrite = false) : array
+    public static function setArray(string $path, array $data, mixed $value, string $delim = '/', bool $overwrite = false) : array
     {
         $pathParts = \explode($delim, \trim($path, $delim));
         $current   = &$data;
@@ -129,7 +129,7 @@ final class ArrayUtils
      *
      * @since 1.0.0
      */
-    public static function getArray(string $path, array $data, string $delim = '/')
+    public static function getArray(string $path, array $data, string $delim = '/') : mixed
     {
         $pathParts = \explode($delim, \trim($path, $delim));
         $current   = $data;
@@ -160,7 +160,7 @@ final class ArrayUtils
      *
      * @since 1.0.0
      */
-    public static function inArrayRecursive($needle, array $haystack, $key = null) : bool
+    public static function inArrayRecursive(mixed $needle, array $haystack, $key = null) : bool
     {
         $found = false;
 
@@ -356,7 +356,7 @@ final class ArrayUtils
      *
      * @since 1.0.0
      */
-    public static function arraySumRecursive(array $array)
+    public static function arraySumRecursive(array $array) : mixed
     {
         return \array_sum(self::arrayFlatten($array));
     }

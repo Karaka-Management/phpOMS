@@ -62,31 +62,27 @@ final class Dispatcher implements DispatcherInterface
     /**
      * {@inheritdoc}
      */
-    public function dispatch($controller, ...$data) : array
+    public function dispatch(array|string|\Closure $controller, ...$data) : array
     {
         $views = [];
 
-        if (\is_array($controller)) {
-            if (isset($controller['dest'])) {
-                if (!empty($controller['data'])) {
-                    $data = \array_merge(
-                        empty($data) ? [] : $data,
-                        \is_array($controller['data']) ? $controller['data'] : [$controller['data']]
-                    );
-                }
-
-                $controller = $controller['dest'];
+        if (\is_array($controller) && isset($controller['dest'])) {
+            if (!empty($controller['data'])) {
+                $data = \array_merge(
+                    empty($data) ? [] : $data,
+                    \is_array($controller['data']) ? $controller['data'] : [$controller['data']]
+                );
             }
+
+            $controller = $controller['dest'];
         }
 
         if (\is_string($controller)) {
             $views += $this->dispatchString($controller, $data);
         } elseif (\is_array($controller)) {
             $views += $this->dispatchArray($controller, $data);
-        } elseif ($controller instanceof \Closure) {
-            $views[] = $this->dispatchClosure($controller, $data);
         } else {
-            throw new \UnexpectedValueException('Unexpected controller type.');
+            $views[] = $this->dispatchClosure($controller, $data);
         }
 
         return $views;
@@ -171,7 +167,7 @@ final class Dispatcher implements DispatcherInterface
      *
      * @since 1.0.0
      */
-    private function dispatchClosure(\Closure $controller, array $data = null)
+    private function dispatchClosure(\Closure $controller, array $data = null) : mixed
     {
         return $data === null ? $controller($this->app) : $controller($this->app, ...$data);
     }

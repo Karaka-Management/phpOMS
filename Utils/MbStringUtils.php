@@ -80,7 +80,7 @@ final class MbStringUtils
      *
      * @since 1.0.0
      */
-    public static function mb_startsWith(string $haystack, $needles) : bool
+    public static function mb_startsWith(string $haystack, string|array $needles) : bool
     {
         if (\is_string($needles)) {
             $needles = [$needles];

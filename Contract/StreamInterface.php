@@ -276,7 +276,7 @@ interface StreamInterface
      *
      * @since 1.0.0
      */
-    public function setCustomData(string $key, $value) : self;
+    public function setCustomData(string $key, mixed $value) : self;
 
     /**
      * Get custom data from the stream

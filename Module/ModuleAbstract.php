@@ -238,7 +238,7 @@ abstract class ModuleAbstract
      *
      * @since 1.0.0
      */
-    protected function fillJsonRawResponse(RequestAbstract $request, ResponseAbstract $response, $obj) : void
+    protected function fillJsonRawResponse(RequestAbstract $request, ResponseAbstract $response, mixed $obj) : void
     {
         $response->header->set('Content-Type', MimeType::M_JSON . '; charset=utf-8', true);
         $response->set($request->uri->__toString(), $obj);
@@ -257,7 +257,7 @@ abstract class ModuleAbstract
      *
      * @since 1.0.0
      */
-    protected function createModel(int $account, $obj, string $mapper, string $trigger, string $ip) : void
+    protected function createModel(int $account, mixed $obj, string $mapper, string $trigger, string $ip) : void
     {
         $this->app->eventManager->triggerSimilar('PRE:Module:' . static::MODULE_NAME . '-' . $trigger . '-create', '', $obj);
         $id = $mapper::create($obj);

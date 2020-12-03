@@ -77,13 +77,13 @@ abstract class RequestAbstract implements MessageInterface
     /**
      * Get data.
      *
-     * @param mixed $key Data key
+     * @param string $key Data key
      *
      * @return mixed
      *
      * @since 1.0.0
      */
-    public function getData($key = null)
+    public function getData(string $key = null) : mixed
     {
         if ($key === null) {
             return $this->data;
@@ -97,13 +97,13 @@ abstract class RequestAbstract implements MessageInterface
     /**
      * Get data.
      *
-     * @param mixed $key Data key
+     * @param string $key Data key
      *
      * @return array
      *
      * @since 1.0.0
      */
-    public function getDataJson($key) : array
+    public function getDataJson(string $key) : array
     {
         $key = \mb_strtolower($key);
 
@@ -119,14 +119,14 @@ abstract class RequestAbstract implements MessageInterface
     /**
      * Get data.
      *
-     * @param mixed  $key   Data key
+     * @param string $key   Data key
      * @param string $delim Data delimiter
      *
      * @return array
      *
      * @since 1.0.0
      */
-    public function getDataList($key, string $delim = ',') : array
+    public function getDataList(string $key, string $delim = ',') : array
     {
         $key = \mb_strtolower($key);
 
@@ -171,13 +171,13 @@ abstract class RequestAbstract implements MessageInterface
     /**
      * Check if has data.
      *
-     * @param mixed $key Data key
+     * @param string $key Data key
      *
      * @return bool
      *
      * @since 1.0.0
      */
-    public function hasData($key) : bool
+    public function hasData(string $key) : bool
     {
         return isset($this->data[$key]);
     }
@@ -185,15 +185,15 @@ abstract class RequestAbstract implements MessageInterface
     /**
      * Set request data.
      *
-     * @param mixed $key       Data key
-     * @param mixed $value     Value
-     * @param bool  $overwrite Overwrite data
+     * @param string $key       Data key
+     * @param mixed  $value     Value
+     * @param bool   $overwrite Overwrite data
      *
      * @return bool
      *
      * @since 1.0.0
      */
-    public function setData($key, $value, bool $overwrite = false) : bool
+    public function setData(string $key, mixed $value, bool $overwrite = false) : bool
     {
         if (!$this->lock) {
             $key = \mb_strtolower($key);

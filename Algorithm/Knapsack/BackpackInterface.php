@@ -65,11 +65,11 @@ interface BackpackInterface
      * Add item to backpack
      *
      * @param ItemInterface $item     Item
-     * @param mixed         $quantity Quantity of the item
+     * @param int|float     $quantity Quantity of the item
      *
      * @return void
      *
      * @since 1.0.0
      */
-    public function addItem(ItemInterface $item, $quantity = 1) : void;
+    public function addItem(ItemInterface $item, int|float $quantity = 1) : void;
 }

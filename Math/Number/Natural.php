@@ -43,7 +43,7 @@ final class Natural
      *
      * @since 1.0.0
      */
-    public static function isNatural($value) : bool
+    public static function isNatural(mixed $value) : bool
     {
         return \is_int($value) && $value >= 0;
     }

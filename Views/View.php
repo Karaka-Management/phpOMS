@@ -127,7 +127,7 @@ class View extends ViewAbstract
      *
      * @since 1.0.0
      */
-    public function getData(string $id)
+    public function getData(string $id) : mixed
     {
         return $this->data[$id] ?? null;
     }
@@ -142,7 +142,7 @@ class View extends ViewAbstract
      *
      * @since 1.0.0
      */
-    public function setData(string $id, $data) : void
+    public function setData(string $id, mixed $data) : void
     {
         $this->data[$id] = $data;
     }
@@ -177,7 +177,7 @@ class View extends ViewAbstract
      *
      * @since 1.0.0
      */
-    public function addData(string $id, $data) : bool
+    public function addData(string $id, mixed $data) : bool
     {
         if (isset($this->data[$id])) {
             return false;
@@ -191,7 +191,7 @@ class View extends ViewAbstract
     /**
      * Get translation.
      *
-     * @param mixed  $translation Text
+     * @param string $translation Text
      * @param string $module      Module name
      * @param string $theme       Theme name
      *
@@ -199,7 +199,7 @@ class View extends ViewAbstract
      *
      * @since 1.0.0
      */
-    public function getText($translation, string $module = null, string $theme = null) : string
+    public function getText(string $translation, string $module = null, string $theme = null) : string
     {
         if ($module === null && $this->module === null) {
             $this->setModuleDynamically();

@@ -49,7 +49,7 @@ abstract class ResponseAbstract implements \JsonSerializable, MessageInterface
      *
      * @since 1.0.0
      */
-    public function get($id)
+    public function get(mixed $id) : mixed
     {
         return $this->response[$id] ?? null;
     }
@@ -65,7 +65,7 @@ abstract class ResponseAbstract implements \JsonSerializable, MessageInterface
      *
      * @since 1.0.0
      */
-    public function set($key, $response, bool $overwrite = false) : void
+    public function set(mixed $key, mixed $response, bool $overwrite = false) : void
     {
         // This is not working since the key contains :: from http://
         //$this->response = ArrayUtils::setArray((string) $key, $this->response, $response, ':', $overwrite);

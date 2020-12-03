@@ -301,7 +301,7 @@ final class FileCache extends ConnectionAbstract
      *
      * @since 1.0.0
      */
-    private function reverseValue(int $type, string $raw, int $expireEnd)
+    private function reverseValue(int $type, string $raw, int $expireEnd) : mixed
     {
         switch ($type) {
             case CacheValueType::_INT:

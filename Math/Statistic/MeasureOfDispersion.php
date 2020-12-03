@@ -319,7 +319,7 @@ final class MeasureOfDispersion
      *
      * @since 1.0.0
      */
-    public static function meanDeviation(array $x, float $mean = null, $offset = 0) : float
+    public static function meanDeviation(array $x, float $mean = null, int $offset = 0) : float
     {
         $mean = $mean !== null ? $mean : Average::arithmeticMean($x);
         $sum  = 0.0;
@@ -362,7 +362,7 @@ final class MeasureOfDispersion
      *
      * @since 1.0.0
      */
-    public static function meanAbsoluteDeviation(array $x, float $mean = null, $offset = 0) : float
+    public static function meanAbsoluteDeviation(array $x, float $mean = null, int $offset = 0) : float
     {
         $mean = $mean !== null ? $mean : Average::arithmeticMean($x);
         $sum  = 0.0;

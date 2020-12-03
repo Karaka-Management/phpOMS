@@ -33,7 +33,7 @@ interface OperationInterface
      *
      * @since 1.0.0
      */
-    public function add($x);
+    public function add(mixed $x);
 
     /**
      * Subtract value.
@@ -44,7 +44,7 @@ interface OperationInterface
      *
      * @since 1.0.0
      */
-    public function sub($x);
+    public function sub(mixed $x);
 
     /**
      * Right multiplicate value.
@@ -55,7 +55,7 @@ interface OperationInterface
      *
      * @since 1.0.0
      */
-    public function mult($x);
+    public function mult(mixed $x);
 
     /**
      * Right devision value.
@@ -66,7 +66,7 @@ interface OperationInterface
      *
      * @since 1.0.0
      */
-    public function div($x);
+    public function div(mixed $x);
 
     /**
      * Power of value.
@@ -77,7 +77,7 @@ interface OperationInterface
      *
      * @since 1.0.0
      */
-    public function pow($p);
+    public function pow(mixed $p);
 
     /**
      * Abs of value.
@@ -86,5 +86,5 @@ interface OperationInterface
      *
      * @since 1.0.0
      */
-    public function abs();
+    public function abs() : mixed;
 }

@@ -33,7 +33,7 @@ interface SpreadsheetInterface
      *
      * @since 1.0.0
      */
-    public function exportSpreadsheet($path) : void;
+    public function exportSpreadsheet(string $path) : void;
 
     /**
      * Import Spreadsheet.
@@ -44,5 +44,5 @@ interface SpreadsheetInterface
      *
      * @since 1.0.0
      */
-    public function importSpreadsheet($path) : void;
+    public function importSpreadsheet(string $path) : void;
 }

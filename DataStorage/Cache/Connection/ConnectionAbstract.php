@@ -150,7 +150,7 @@ abstract class ConnectionAbstract implements ConnectionInterface
      *
      * @since 1.0.0
      */
-    protected function dataType($value) : int
+    protected function dataType(mixed $value) : int
     {
         if (\is_int($value)) {
             return CacheValueType::_INT;

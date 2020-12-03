@@ -341,7 +341,7 @@ class Repository
      *
      * @since 1.0.0
      */
-    public function commit(Commit $commit, $all = true) : string
+    public function commit(Commit $commit, bool $all = true) : string
     {
         return \implode("\n", $this->run('commit ' . ($all ? '-av' : '-v') . ' -m ' . \escapeshellarg($commit->getMessage())));
     }

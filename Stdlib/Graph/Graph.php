@@ -82,13 +82,13 @@ class Graph
     /**
      * Get graph node
      *
-     * @param mixed $key Node key
+     * @param int|string $key Node key
      *
      * @return null|Node
      *
      * @since 1.0.0
      */
-    public function getNode(mixed $key) : ?Node
+    public function getNode(int|string $key) : ?Node
     {
         return $this->nodes[$key] ?? null;
     }
@@ -111,13 +111,13 @@ class Graph
     /**
      * Graph has node
      *
-     * @param mixed $key Node key
+     * @param int|string $key Node key
      *
      * @return bool
      *
      * @since 1.0.0
      */
-    public function hasNode($key) : bool
+    public function hasNode(int|string $key) : bool
     {
         return isset($this->nodes[$key]);
     }
@@ -543,14 +543,14 @@ class Graph
     /**
      * Get longest path between two nodes.
      *
-     * @param mixed $node1 Graph node
-     * @param mixed $node2 Graph node
+     * @param int|string $node1 Graph node
+     * @param int|string $node2 Graph node
      *
      * @return Node[]
      *
      * @since 1.0.0
      */
-    public function longestPathBetweenNodes($node1, $node2) : array
+    public function longestPathBetweenNodes(int|string $node1, int|string $node2) : array
     {
         if (!($node1 instanceof Node)) {
             $node1 = $this->getNode($node1);

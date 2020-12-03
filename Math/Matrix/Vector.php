@@ -44,14 +44,14 @@ final class Vector extends Matrix
     /**
      * Set vector value
      *
-     * @param int   $m     Position to set
-     * @param mixed $value Value to set
+     * @param int       $m     Position to set
+     * @param int|float $value Value to set
      *
      * @return void
      *
      * @since 1.0.0
      */
-    public function setV(int $m, $value) : void
+    public function setV(int $m, int|float $value) : void
     {
         parent::set($m , 0, $value);
     }

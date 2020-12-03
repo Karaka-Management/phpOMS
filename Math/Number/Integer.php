@@ -43,7 +43,7 @@ final class Integer
      *
      * @since 1.0.0
      */
-    public static function isInteger($value) : bool
+    public static function isInteger(mixed $value) : bool
     {
         return \is_int($value);
     }

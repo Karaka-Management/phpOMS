@@ -80,7 +80,7 @@ class PriorityQueue implements \Countable, \Serializable
      *
      * @since 1.0.0
      */
-    public function insert($data, float $priority = 1.0) : int
+    public function insert(mixed $data, float $priority = 1.0) : int
     {
         do {
             $key = \mt_rand();

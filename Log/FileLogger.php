@@ -368,7 +368,7 @@ final class FileLogger implements LoggerInterface
      *
      * @since 1.0.0
      */
-    public function countLogs()
+    public function countLogs() : array
     {
         $levels = [];
 

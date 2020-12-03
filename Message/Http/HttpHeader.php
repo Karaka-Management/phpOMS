@@ -171,13 +171,13 @@ final class HttpHeader extends HeaderAbstract
     /**
      * Remove header by ID.
      *
-     * @param mixed $key Header key
+     * @param string $key Header key
      *
      * @return bool
      *
      * @since 1.0.0
      */
-    public function remove($key) : bool
+    public function remove(string $key) : bool
     {
         if ($this->isLocked) {
             return false;

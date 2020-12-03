@@ -35,7 +35,7 @@ interface SessionInterface
      *
      * @since 1.0.0
      */
-    public function get(string $key);
+    public function get(string $key) : mixed;
 
     /**
      * Store session value by key.
@@ -48,7 +48,7 @@ interface SessionInterface
      *
      * @since 1.0.0
      */
-    public function set(string $key, $value, bool $overwrite = false) : bool;
+    public function set(string $key, mixed $value, bool $overwrite = false) : bool;
 
     /**
      * Remove value from session by key.

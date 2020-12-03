@@ -33,5 +33,5 @@ interface PdfInterface
      *
      * @since 1.0.0
      */
-    public function exportPdf($path) : void;
+    public function exportPdf(string $path) : void;
 }

@@ -64,13 +64,13 @@ final class HttpResponse extends ResponseAbstract implements RenderableInterface
     /**
      * Remove response by ID.
      *
-     * @param mixed $id Response ID
+     * @param string $id Response ID
      *
      * @return bool
      *
      * @since 1.0.0
      */
-    public function remove($id) : bool
+    public function remove(string $id) : bool
     {
         if (isset($this->response[$id])) {
             unset($this->response[$id]);

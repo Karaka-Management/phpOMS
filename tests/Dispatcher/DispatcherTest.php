@@ -193,18 +193,6 @@ class DispatcherTest extends \PHPUnit\Framework\TestCase
     }
 
     /**
-     * @testdox A invalid destination type throws UnexpectedValueException
-     * @covers phpOMS\Dispatcher\Dispatcher
-     * @group framework
-     */
-    public function testInvalidDestination() : void
-    {
-        $this->expectException(\UnexpectedValueException::class);
-
-        $this->app->dispatcher->dispatch(true);
-    }
-
-    /**
      * @testdox A invalid controller path throws a PathException
      * @covers phpOMS\Dispatcher\Dispatcher
      * @group framework

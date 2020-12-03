@@ -130,7 +130,7 @@ class ErrorTest extends \PHPUnit\Framework\TestCase
         $scaledErrors = Error::getScaledErrorArray($errors, $observed);
 
         self::assertEqualsWithDelta(
-            Error::getMeanAbsoluteScaledError(ArrayUtils::powerInt($scaledErrors, 2)),
+            Error::getMeanAbsoluteScaledError(ArrayUtils::power($scaledErrors, 2)),
             Error::getMeanSquaredScaledError($scaledErrors), 0.01
         );
     }

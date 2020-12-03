@@ -439,60 +439,6 @@ class MatrixTest extends \PHPUnit\Framework\TestCase
     }
 
     /**
-     * @testdox Subtracting a invalid data type from a matrix throws a InvalidArgumentException
-     * @covers phpOMS\Math\Matrix\Matrix
-     * @group framework
-     */
-    public function testInvalidSub() : void
-    {
-        $this->expectException(\InvalidArgumentException::class);
-
-        $id = new Matrix();
-        $id->setMatrix([
-            [1, 0],
-            [0, 1],
-        ]);
-
-        $id->sub(true);
-    }
-
-    /**
-     * @testdox Adding a invalid data type from a matrix throws a InvalidArgumentException
-     * @covers phpOMS\Math\Matrix\Matrix
-     * @group framework
-     */
-    public function testInvalidAdd() : void
-    {
-        $this->expectException(\InvalidArgumentException::class);
-
-        $id = new Matrix();
-        $id->setMatrix([
-            [1, 0],
-            [0, 1],
-        ]);
-
-        $id->add(true);
-    }
-
-    /**
-     * @testdox Multiplying a invalid data type from a matrix throws a InvalidArgumentException
-     * @covers phpOMS\Math\Matrix\Matrix
-     * @group framework
-     */
-    public function testInvalidMult() : void
-    {
-        $this->expectException(\InvalidArgumentException::class);
-
-        $id = new Matrix();
-        $id->setMatrix([
-            [1, 0],
-            [0, 1],
-        ]);
-
-        $id->mult(true);
-    }
-
-    /**
      * @testdox Adding a matrix with a different dimension to a matrix throws a InvalidDimensionException
      * @covers phpOMS\Math\Matrix\Matrix
      * @group framework

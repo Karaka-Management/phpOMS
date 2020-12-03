@@ -376,45 +376,37 @@ class Matrix implements \ArrayAccess, \Iterator
     /**
      * Subtract right.
      *
-     * @param mixed $value Value
+     * @param int|float|self $value Value
      *
      * @return Matrix
      *
-     * @throws \InvalidArgumentException
-     *
      * @since 1.0.0
      */
-    public function sub($value) : self
+    public function sub(int|float|self $value) : self
     {
-        if ($value instanceof self) {
-            return $this->add($value->mult(-1));
-        } elseif (!\is_string($value) && \is_numeric($value)) {
-            return $this->add(-$value);
+        if (\is_numeric($value)) {
+            return $this->addScalar(-$value);
         }
 
-        throw new \InvalidArgumentException('Type');
+        return $this->add($value->mult(-1));
     }
 
     /**
      * Add right.
      *
-     * @param mixed $value Value
+     * @param int|float|self $value Value
      *
      * @return Matrix
      *
-     * @throws \InvalidArgumentException
-     *
      * @since 1.0.0
      */
-    public function add($value) : self
+    public function add(int|float|self $value) : self
     {
-        if ($value instanceof self) {
-            return $this->addMatrix($value);
-        } elseif (!\is_string($value) && \is_numeric($value)) {
+        if (\is_numeric($value)) {
             return $this->addScalar($value);
         }
 
-        throw new \InvalidArgumentException();
+        return $this->addMatrix($value);
     }
 
     /**
@@ -423,8 +415,6 @@ class Matrix implements \ArrayAccess, \Iterator
      * @param Matrix $matrix Matrix to add
      *
      * @return Matrix
-     *
-     * @throws \Exception
      *
      * @since 1.0.0
      */
@@ -476,15 +466,13 @@ class Matrix implements \ArrayAccess, \Iterator
     /**
      * Add scalar.
      *
-     * @param mixed $scalar Scalar
+     * @param int|float $scalar Scalar
      *
      * @return Matrix
      *
-     * @throws \Exception
-     *
      * @since 1.0.0
      */
-    private function addScalar($scalar) : self
+    private function addScalar(int|float $scalar) : self
     {
         $newMatrixArr = $this->matrix;
 
@@ -503,23 +491,19 @@ class Matrix implements \ArrayAccess, \Iterator
     /**
      * Multiply right.
      *
-     * @param mixed $value Factor
+     * @param int|float|self $value Factor
      *
      * @return Matrix
      *
-     * @throws \InvalidArgumentException
-     *
      * @since 1.0.0
      */
-    public function mult($value) : self
+    public function mult(int|float|self $value) : self
     {
-        if ($value instanceof self) {
-            return $this->multMatrix($value);
-        } elseif (!\is_string($value) && \is_numeric($value)) {
+        if (\is_numeric($value)) {
             return $this->multScalar($value);
         }
 
-        throw new \InvalidArgumentException('Type');
+        return $this->multMatrix($value);
     }
 
     /**
@@ -528,8 +512,6 @@ class Matrix implements \ArrayAccess, \Iterator
      * @param Matrix $matrix Matrix to multiply with
      *
      * @return Matrix
-     *
-     * @throws \Exception
      *
      * @since 1.0.0
      */
@@ -566,15 +548,13 @@ class Matrix implements \ArrayAccess, \Iterator
     /**
      * Multiply matrix.
      *
-     * @param mixed $scalar Scalar value
+     * @param int|float $scalar Scalar value
      *
      * @return Matrix
      *
-     * @throws \Exception
-     *
      * @since 1.0.0
      */
-    private function multScalar($scalar) : self
+    private function multScalar(int|float $scalar) : self
     {
         $newMatrixArr = $this->matrix;
 

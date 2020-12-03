@@ -64,7 +64,7 @@ class Heap
      *
      * @since 1.0.0
      */
-    public function insort($x, int $lo = 0) : void
+    public function insort(mixed $x, int $lo = 0) : void
     {
         $hi = \count($this->nodes);
 
@@ -89,7 +89,7 @@ class Heap
      *
      * @since 1.0.0
      */
-    public function push($item) : void
+    public function push(mixed $item) : void
     {
         $this->nodes[] = $item;
         $this->siftDown(0, \count($this->nodes) - 1);
@@ -102,7 +102,7 @@ class Heap
      *
      * @since 1.0.0
      */
-    public function pop()
+    public function pop() : mixed
     {
         $last = \array_pop($this->nodes);
         if (empty($this->nodes)) {
@@ -123,7 +123,7 @@ class Heap
      *
      * @since 1.0.0
      */
-    public function peek()
+    public function peek() : mixed
     {
         return $this->nodes[0];
     }
@@ -137,7 +137,7 @@ class Heap
      *
      * @since 1.0.0
      */
-    public function contains($item) : bool
+    public function contains(mixed $item) : bool
     {
         foreach ($this->nodes as $key => $node) {
             if (\is_scalar($item)) {
@@ -161,7 +161,7 @@ class Heap
      *
      * @since 1.0.0
      */
-    public function replace($new)
+    public function replace(mixed $new) : mixed
     {
         $old            = $this->nodes[0];
         $this->nodes[0] = $new;
@@ -179,7 +179,7 @@ class Heap
      *
      * @since 1.0.0
      */
-    public function pushpop($item)
+    public function pushpop(mixed $item) : mixed
     {
         if (!empty($this->nodes) && ($this->compare)($this->nodes[0], $item) < 0) {
             $temp           = $item;
@@ -220,7 +220,7 @@ class Heap
      *
      * @since 1.0.0
      */
-    public function update($item) : bool
+    public function update(mixed $item) : bool
     {
         $pos = null;
         foreach ($this->nodes as $key => $node) {

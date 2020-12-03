@@ -29,7 +29,7 @@ final class Iban extends ValidatorAbstract
     /**
      * {@inheritdoc}
      */
-    public static function isValid($value, array $constraints = null) : bool
+    public static function isValid(mixed $value, array $constraints = null) : bool
     {
         $value = \str_replace(' ', '', \strtolower($value));
 

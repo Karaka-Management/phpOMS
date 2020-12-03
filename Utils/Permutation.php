@@ -103,13 +103,13 @@ final class Permutation
      * @param array|string $toPermute To permutate
      * @param array        $key       Permutation keys
      *
-     * @return mixed
+     * @return string|array
      *
      * @throws \OutOfBoundsException This exception is thrown if the permutation key is larger than the data to permute
      *
      * @since 1.0.0
      */
-    public static function permutate($toPermute, array $key)
+    public static function permutate(string|array $toPermute, array $key) : string|array
     {
         $length = \is_array($toPermute) ? \count($toPermute) : \strlen($toPermute);
 

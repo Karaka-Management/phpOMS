@@ -56,7 +56,7 @@ class Node
      *
      * @since 1.0.0
      */
-    public function __construct(string $id, $data = null)
+    public function __construct(string $id, mixed $data = null)
     {
         $this->id   = $id;
         $this->data = $data;
@@ -81,7 +81,7 @@ class Node
      *
      * @since 1.0.0
      */
-    public function getData()
+    public function getData() : mixed
     {
         return $this->data;
     }
@@ -95,7 +95,7 @@ class Node
      *
      * @since 1.0.0
      */
-    public function setData($data) : void
+    public function setData(mixed $data) : void
     {
         $this->data = $data;
     }

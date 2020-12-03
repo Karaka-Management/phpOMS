@@ -99,7 +99,7 @@ final class ArticleCorrelationAffinity
      *
      * @since 1.0.0
      */
-    public function getAffinity($item, int $resultSize = 0) : array
+    public function getAffinity(mixed $item, int $resultSize = 0) : array
     {
         if (!isset($this->affinity[$item])) {
             return [];

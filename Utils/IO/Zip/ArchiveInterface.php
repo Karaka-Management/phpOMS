@@ -27,15 +27,15 @@ interface ArchiveInterface
     /**
      * Create archive.
      *
-     * @param mixed  $sources     Files and directories to compress
-     * @param string $destination Output destination
-     * @param bool   $overwrite   Overwrite if destination is existing
+     * @param string|array $sources     Files and directories to compress
+     * @param string       $destination Output destination
+     * @param bool         $overwrite   Overwrite if destination is existing
      *
      * @return bool
      *
      * @since 1.0.0
      */
-    public static function pack($sources, string $destination, bool $overwrite = false) : bool;
+    public static function pack(string|array $sources, string $destination, bool $overwrite = false) : bool;
 
     /**
      * Unpack archive.

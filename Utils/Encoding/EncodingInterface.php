@@ -33,7 +33,7 @@ interface EncodingInterface
      *
      * @since 1.0.0
      */
-    public static function encode($source);
+    public static function encode(mixed $source);
 
     /**
      * Dedecodes text
@@ -44,5 +44,5 @@ interface EncodingInterface
      *
      * @since 1.0.0
      */
-    public static function decode($decoded);
+    public static function decode(mixed $decoded);
 }

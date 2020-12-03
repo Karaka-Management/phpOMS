@@ -81,29 +81,29 @@ abstract class ViewAbstract implements RenderableInterface
     /**
      * Print html output.
      *
-     * @param mixed $text Text
+     * @param string $text Text
      *
      * @return string
      *
      * @since 1.0.0
      */
-    public function printHtml($text) : string
+    public function printHtml(string $text) : string
     {
-        return \htmlspecialchars((string) $text);
+        return \htmlspecialchars($text);
     }
 
     /**
      * Print html output.
      *
-     * @param mixed $text Text
+     * @param string $text Text
      *
      * @return string
      *
      * @since 1.0.0
      */
-    public static function html($text) : string
+    public static function html(string $text) : string
     {
-        return \htmlspecialchars((string) $text);
+        return \htmlspecialchars($text);
     }
 
     /**
@@ -123,11 +123,11 @@ abstract class ViewAbstract implements RenderableInterface
      *
      * @param string $id View ID
      *
-     * @return false|View
+     * @return false|self
      *
      * @since 1.0.0
      */
-    public function getView(string $id)
+    public function getView(string $id) : bool|self
     {
         if (!isset($this->views[$id])) {
             return false;

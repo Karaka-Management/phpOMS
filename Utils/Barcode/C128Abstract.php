@@ -223,7 +223,7 @@ abstract class C128Abstract
      *
      * @since 1.0.0
      */
-    public function get()
+    public function get() : mixed
     {
         $codeString = static::$CODE_START . $this->generateCodeString() . static::$CODE_END;
 
@@ -321,7 +321,7 @@ abstract class C128Abstract
      *
      * @since 1.0.0
      */
-    protected function createImage(string $codeString)
+    protected function createImage(string $codeString) : mixed
     {
         $dimensions = $this->calculateDimensions($codeString);
         $image      = \imagecreate($dimensions['width'], $dimensions['height']);

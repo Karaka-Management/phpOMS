@@ -118,7 +118,7 @@ final class ApplicationInfo
      *
      * @since 1.0.0
      */
-    public function set(string $path, $data, string $delim = '/') : void
+    public function set(string $path, mixed $data, string $delim = '/') : void
     {
         if (!\is_scalar($data) && !\is_array($data) && !($data instanceof \JsonSerializable)) {
             throw new \InvalidArgumentException('Type of $data "' . \gettype($data) . '" is not supported.');

@@ -1355,7 +1355,7 @@ class Builder extends BuilderAbstract
      *
      * @since 1.0.0
      */
-    public function orOn(string|array $columns, $operator = null, $values = null) : self
+    public function orOn(string|array $columns, string|array $operator = null, string|array $values = null) : self
     {
         return $this->on($columns, $operator, $values, 'or');
     }
@@ -1371,7 +1371,7 @@ class Builder extends BuilderAbstract
      *
      * @since 1.0.0
      */
-    public function andOn(string|array $columns, $operator = null, $values = null) : self
+    public function andOn(string|array $columns, string|array $operator = null, string|array $values = null) : self
     {
         return $this->on($columns, $operator, $values, 'and');
     }
@@ -1399,7 +1399,7 @@ class Builder extends BuilderAbstract
      *
      * @since 1.0.0
      */
-    public function execute()
+    public function execute() : mixed
     {
         $sth = $this->connection->con->prepare($this->toSql());
 
@@ -1425,7 +1425,7 @@ class Builder extends BuilderAbstract
      *
      * @since 1.0.0
      */
-    public static function getBindParamType($value) : int
+    public static function getBindParamType(mixed $value) : int
     {
         if (\is_int($value)) {
             return \PDO::PARAM_INT;
@@ -1447,7 +1447,7 @@ class Builder extends BuilderAbstract
      *
      * @since 1.0.0
      */
-    public static function getPublicColumnName($column) : string
+    public static function getPublicColumnName(mixed $column) : string
     {
         if (\is_string($column)) {
             return $column;

@@ -253,7 +253,7 @@ final class RedisCache extends ConnectionAbstract
      *
      * @since 1.0.0
      */
-    private function build(mixed $value)
+    private function build(mixed $value) : mixed
     {
         $type = $this->dataType($value);
         $raw  = $this->cachify($value, $type);
@@ -273,7 +273,7 @@ final class RedisCache extends ConnectionAbstract
      *
      * @since 1.0.0
      */
-    private function cachify(mixed $value, int $type)
+    private function cachify(mixed $value, int $type) : mixed
     {
         if ($type === CacheValueType::_INT || $type === CacheValueType::_STRING || $type === CacheValueType::_BOOL) {
             return (string) $value;
@@ -303,7 +303,7 @@ final class RedisCache extends ConnectionAbstract
      *
      * @since 1.0.0
      */
-    private function reverseValue(int $type, mixed $raw, int $start)
+    private function reverseValue(int $type, mixed $raw, int $start) : mixed
     {
         switch ($type) {
             case CacheValueType::_INT:

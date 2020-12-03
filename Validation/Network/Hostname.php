@@ -39,7 +39,7 @@ abstract class Hostname extends ValidatorAbstract
     /**
      * {@inheritdoc}
      */
-    public static function isValid($value, array $constraints = null) : bool
+    public static function isValid(mixed $value, array $constraints = null) : bool
     {
         return \filter_var(\gethostbyname($value), \FILTER_VALIDATE_IP) !== false;
     }

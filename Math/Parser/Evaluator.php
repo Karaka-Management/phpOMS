@@ -73,15 +73,17 @@ final class Evaluator
     /**
      * Parse value.
      *
-     * @param mixed $value Value to parse
+     * @param int|float|string $value Value to parse
      *
-     * @return mixed
+     * @return int|float
      *
      * @since 1.0.0
      */
-    private static function parseValue($value)
+    private static function parseValue(int|float|string $value) : int|float
     {
-        return !\is_string($value) ? $value : (\stripos($value, '.') === false ? (int) $value : (float) $value);
+        return !\is_string($value)
+            ? $value
+            : (\stripos($value, '.') === false ? (int) $value : (float) $value);
     }
 
     /**

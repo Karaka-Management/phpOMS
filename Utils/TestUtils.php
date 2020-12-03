@@ -47,7 +47,7 @@ final class TestUtils
      *
      * @since 1.0.0
      */
-    public static function setMember(object $obj, string $name, $value) : bool
+    public static function setMember(object $obj, string $name, mixed $value) : bool
     {
         $reflectionClass = new \ReflectionClass(\get_class($obj));
 
@@ -80,7 +80,7 @@ final class TestUtils
      *
      * @since 1.0.0
      */
-    public static function getMember(object $obj, string $name)
+    public static function getMember(object $obj, string $name) : mixed
     {
         $reflectionClass = new \ReflectionClass($obj);
 

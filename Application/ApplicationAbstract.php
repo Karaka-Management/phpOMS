@@ -190,13 +190,13 @@ class ApplicationAbstract
      * Set values
      *
      * @param string $name  Variable name
-     * @param string $value Variable value
+     * @param mixed  $value Variable value
      *
      * @return void
      *
      * @since 1.0.0
      */
-    public function __set($name, $value) : void
+    public function __set(string $name, mixed $value) : void
     {
         if (!empty($this->{$name})) {
             return;
@@ -214,7 +214,7 @@ class ApplicationAbstract
      *
      * @since 1.0.0
      */
-    public function __get($name)
+    public function __get(string $name) : mixed
     {
         return isset($this->{$name}) ? $this->{$name} : null;
     }

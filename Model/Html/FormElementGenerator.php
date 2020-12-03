@@ -37,7 +37,7 @@ final class FormElementGenerator
      *
      * @since 1.0.0
      */
-    public static function generate(array $json, $value = null, array $lang = []) : string
+    public static function generate(array $json, mixed $value = null, array $lang = []) : string
     {
         if (!isset($json['type'])) {
             return 'INVALID';
@@ -67,7 +67,7 @@ final class FormElementGenerator
      *
      * @since 1.0.0
      */
-    private static function generateInput(array $json, $value = null, array $lang = []) : string
+    private static function generateInput(array $json, mixed $value = null, array $lang = []) : string
     {
         $element = '<input';
         foreach ($json['attributes'] as $attribute => $val) {
@@ -96,7 +96,7 @@ final class FormElementGenerator
      *
      * @since 1.0.0
      */
-    private static function generateSelect(array $json, $value = null, array $lang = []) : string
+    private static function generateSelect(array $json, mixed $value = null, array $lang = []) : string
     {
         $element = '<select';
         foreach ($json['attributes'] as $attribute => $val) {
@@ -126,7 +126,7 @@ final class FormElementGenerator
      *
      * @since 1.0.0
      */
-    private static function generateTextarea(array $json, $value = null) : string
+    private static function generateTextarea(array $json, mixed $value = null) : string
     {
         $element = '<textarea';
         foreach ($json['attributes'] as $attribute => $val) {

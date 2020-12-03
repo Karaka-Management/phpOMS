@@ -71,7 +71,7 @@ class FileSession implements SessionInterface
      *
      * @since 1.0.0
      */
-    public function __construct(int $liftetime = 3600, $sid = '', int $inactivityInterval = 0)
+    public function __construct(int $liftetime = 3600, string $sid = '', int $inactivityInterval = 0)
     {
         if (\session_id()) {
             \session_write_close(); // @codeCoverageIgnore
@@ -105,7 +105,7 @@ class FileSession implements SessionInterface
     /**
      * {@inheritdoc}
      */
-    public function set(string $key, $value, bool $overwrite = false) : bool
+    public function set(string $key, mixed $value, bool $overwrite = false) : bool
     {
         if (!$this->isLocked && ($overwrite || !isset($this->sessionData[$key]))) {
             $this->sessionData[$key] = $value;
@@ -119,7 +119,7 @@ class FileSession implements SessionInterface
     /**
      * {@inheritdoc}
      */
-    public function get(string $key)
+    public function get(string $key) : mixed
     {
         return $this->sessionData[$key] ?? null;
     }

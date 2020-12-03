@@ -33,7 +33,7 @@ interface CsvInterface
      *
      * @since  1.0.0
      */
-    public function exportCsv($path) : void;
+    public function exportCsv(string $path) : void;
 
     /**
      * Import Csv.
@@ -44,5 +44,5 @@ interface CsvInterface
      *
      * @since  1.0.0
      */
-    public function importCsv($path) : void;
+    public function importCsv(string $path) : void;
 }

@@ -59,7 +59,7 @@ class Directory extends FileAbstract implements DirectoryInterface
      *
      * @since 1.0.0
      */
-    public static function ftpConnect(HttpUri $http)
+    public static function ftpConnect(HttpUri $http) : mixed
     {
         $con = \ftp_connect($http->host, $http->port, 10);
 

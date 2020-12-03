@@ -65,7 +65,7 @@ final class CauchyDistribution
      *
      * @since 1.0.0
      */
-    public static function getMode($x0) : float
+    public static function getMode(float $x0) : float
     {
         return $x0;
     }

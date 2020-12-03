@@ -37,7 +37,7 @@ abstract class Enum
      *
      * @since 1.0.0
      */
-    public static function isValidValue($value) : bool
+    public static function isValidValue(mixed $value) : bool
     {
         $constants = self::getConstants();
 
@@ -65,7 +65,7 @@ abstract class Enum
      *
      * @since 1.0.0
      */
-    public static function getRandom()
+    public static function getRandom() : mixed
     {
         $constants = self::getConstants();
         $keys      = \array_keys($constants);

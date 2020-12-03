@@ -217,23 +217,19 @@ final class Complex
     /**
      * Add opperator
      *
-     * @param mixed $value Value to add
+     * @param int|float|self $value Value to add
      *
      * @return Complex
      *
-     * @throws \InvalidArgumentException This exception is thrown if the argument has an invalid type
-     *
      * @since 1.0.0
      */
-    public function add($value) : self
+    public function add(int|float|self $value) : self
     {
         if (\is_numeric($value)) {
             return $this->addScalar($value);
-        } elseif ($value instanceof self) {
-            return $this->addComplex($value);
         }
 
-        throw new \InvalidArgumentException();
+        return $this->addComplex($value);
     }
 
     /**
@@ -253,13 +249,13 @@ final class Complex
     /**
      * Add opperator
      *
-     * @param mixed $val Value to add
+     * @param int|float $val Value to add
      *
      * @return Complex
      *
      * @since 1.0.0
      */
-    private function addScalar($val) : self
+    private function addScalar(int|float $val) : self
     {
         return new self($this->re + $val, $this->im);
     }
@@ -267,23 +263,19 @@ final class Complex
     /**
      * Sub opperator
      *
-     * @param mixed $value Value to sub
+     * @param int|float|self $value Value to sub
      *
      * @return Complex
      *
-     * @throws \InvalidArgumentException This exception is thrown if the argument has an invalid type
-     *
      * @since 1.0.0
      */
-    public function sub($value) : self
+    public function sub(int|float|self $value) : self
     {
         if (\is_numeric($value)) {
             return $this->subScalar($value);
-        } elseif ($value instanceof self) {
-            return $this->subComplex($value);
         }
 
-        throw new \InvalidArgumentException();
+        return $this->subComplex($value);
     }
 
     /**
@@ -303,13 +295,13 @@ final class Complex
     /**
      * Sub opperator
      *
-     * @param mixed $val Value to sub
+     * @param int|float $val Value to sub
      *
      * @return Complex
      *
      * @since 1.0.0
      */
-    private function subScalar($val) : self
+    private function subScalar(int|float $val) : self
     {
         return new self($this->re - $val, $this->im);
     }
@@ -317,23 +309,19 @@ final class Complex
     /**
      * Mult opperator
      *
-     * @param mixed $value Value to mult
+     * @param int|float|self $value Value to mult
      *
      * @return Complex
      *
-     * @throws \InvalidArgumentException This exception is thrown if the argument has an invalid type
-     *
      * @since 1.0.0
      */
-    public function mult($value) : self
+    public function mult(int|float|self $value) : self
     {
         if (\is_numeric($value)) {
             return $this->multScalar($value);
-        } elseif ($value instanceof self) {
-            return $this->multComplex($value);
         }
 
-        throw new \InvalidArgumentException();
+        return $this->multComplex($value);
     }
 
     /**
@@ -356,13 +344,13 @@ final class Complex
     /**
      * Mult opperator
      *
-     * @param mixed $val Value to mult
+     * @param int|float $val Value to mult
      *
      * @return Complex
      *
      * @since 1.0.0
      */
-    private function multScalar($val) : self
+    private function multScalar(int|float $val) : self
     {
         return new self($this->re * $val, $this->im * $val);
     }
@@ -370,7 +358,7 @@ final class Complex
     /**
      * Div opperator
      *
-     * @param mixed $value Value to div
+     * @param int|float|self $value Value to div
      *
      * @return Complex
      *
@@ -378,15 +366,13 @@ final class Complex
      *
      * @since 1.0.0
      */
-    public function div($value) : self
+    public function div(int|float|self $value) : self
     {
         if (\is_numeric($value)) {
-            return $this->divScalar($value);
-        } elseif ($value instanceof self) {
-            return $this->divComplex($value);
+           return $this->divScalar($value);
         }
 
-        throw new \InvalidArgumentException();
+        return $this->divComplex($value);
     }
 
     /**
@@ -409,13 +395,13 @@ final class Complex
     /**
      * Div opperator
      *
-     * @param mixed $val Value to div
+     * @param int|float $val Value to div
      *
      * @return Complex
      *
      * @since 1.0.0
      */
-    private function divScalar($val) : self
+    private function divScalar(int|float $val) : self
     {
         return new self($this->re / $val, $this->im / $val);
     }

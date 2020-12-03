@@ -73,7 +73,7 @@ abstract class EnumArray
      *
      * @since 1.0.0
      */
-    public static function isValidValue($value) : bool
+    public static function isValidValue(mixed $value) : bool
     {
         return \in_array($value, static::$constants, true);
     }
@@ -89,7 +89,7 @@ abstract class EnumArray
      *
      * @since 1.0.0
      */
-    public static function get($key)
+    public static function get(mixed $key) : mixed
     {
         if (!isset(static::$constants[$key])) {
             throw new \OutOfBoundsException('Key "' . $key . '" is not valid.');
@@ -117,7 +117,7 @@ abstract class EnumArray
      *
      * @since 1.0.0
      */
-    public static function getRandom()
+    public static function getRandom() : mixed
     {
         $keys = \array_keys(static::$constants);
 

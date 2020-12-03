@@ -278,7 +278,7 @@ final class Money implements \Serializable
      *
      * @since 1.0.0
      */
-    public function mult($value) : self
+    public function mult(int|float $value) : self
     {
         $this->value = (int) ($this->value * $value);
 
@@ -294,7 +294,7 @@ final class Money implements \Serializable
      *
      * @since 1.0.0
      */
-    public function div($value) : self
+    public function div(int|float $value) : self
     {
         $this->value = (int) ($this->value / $value);
 
@@ -324,7 +324,7 @@ final class Money implements \Serializable
      *
      * @since 1.0.0
      */
-    public function pow($value) : self
+    public function pow(int|float $value) : self
     {
         $this->value = (int) ($this->value ** $value);
 

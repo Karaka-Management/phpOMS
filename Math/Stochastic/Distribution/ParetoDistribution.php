@@ -94,7 +94,7 @@ final class ParetoDistribution
      *
      * @since 1.0.0
      */
-    public static function getMode($xm) : float
+    public static function getMode(float $xm) : float
     {
         return $xm;
     }

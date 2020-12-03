@@ -63,7 +63,7 @@ class ArrayParser
      *
      * @since 1.0.0
      */
-    public static function parseVariable($value, int $depth = 1) : string
+    public static function parseVariable(mixed $value, int $depth = 1) : string
     {
         if (\is_array($value)) {
             return self::serializeArray($value, $depth);

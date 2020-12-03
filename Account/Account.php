@@ -109,7 +109,7 @@ class Account implements \JsonSerializable, ArrayableInterface
     /**
      * Groups.
      *
-     * @var int[]
+     * @var Group[]
      * @since 1.0.0
      */
     protected array $groups = [];
@@ -183,7 +183,7 @@ class Account implements \JsonSerializable, ArrayableInterface
      * Every account can belong to multiple groups.
      * These groups usually are used for permissions and categorize accounts.
      *
-     * @return array Returns array of all groups
+     * @return Group[] Returns array of all groups
      *
      * @since 1.0.0
      */
@@ -195,13 +195,13 @@ class Account implements \JsonSerializable, ArrayableInterface
     /**
      * Add group.
      *
-     * @param mixed $group Group to add
+     * @param Group $group Group to add
      *
      * @return void
      *
      * @since 1.0.0
      */
-    public function addGroup($group) : void
+    public function addGroup(Group $group) : void
     {
         $this->groups[] = $group;
     }

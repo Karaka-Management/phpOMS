@@ -325,7 +325,7 @@ class Grammar extends GrammarAbstract
      *
      * @since 1.0.0
      */
-    protected function compileValue(Builder $query, $value) : string
+    protected function compileValue(Builder $query, mixed $value) : string
     {
         if (\is_string($value)) {
             return $query->quote($value);
@@ -389,7 +389,7 @@ class Grammar extends GrammarAbstract
      *
      * @since 1.0.0
      */
-    protected function compileOffset(Builder $query, $offset) : string
+    protected function compileOffset(Builder $query, int $offset) : string
     {
         return 'OFFSET ' . $offset;
     }
@@ -508,7 +508,7 @@ class Grammar extends GrammarAbstract
      *
      * @since 1.0.0
      */
-    protected function compileGroups(Builder $query, array $groups)
+    protected function compileGroups(Builder $query, array $groups) : string
     {
         $expression = '';
 
@@ -587,7 +587,7 @@ class Grammar extends GrammarAbstract
      *
      * @since 1.0.0
      */
-    protected function compileInto(Builder $query, $table) : string
+    protected function compileInto(Builder $query, string $table) : string
     {
         return 'INSERT INTO ' . $this->compileSystem($table);
     }

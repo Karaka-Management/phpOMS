@@ -70,7 +70,7 @@ final class EventManager implements \Countable
             /**
              * {@inheritdoc}
              */
-            public function dispatch($func, ...$data) : array
+            public function dispatch(array|string|\Closure $func, ...$data) : array
             {
                 if (!($func instanceof \Closure)) {
                     return [];
@@ -123,16 +123,16 @@ final class EventManager implements \Countable
     /**
      * Attach new event
      *
-     * @param string $group    Name of the event (unique)
-     * @param mixed  $callback Callback or route for the event
-     * @param bool   $remove   Remove event after triggering it?
-     * @param bool   $reset    Reset event after triggering it? Remove must be false!
+     * @param string          $group    Name of the event (unique)
+     * @param string|\Closure $callback Callback or route for the event
+     * @param bool            $remove   Remove event after triggering it?
+     * @param bool            $reset    Reset event after triggering it? Remove must be false!
      *
      * @return bool
      *
      * @since 1.0.0
      */
-    public function attach(string $group, $callback, bool $remove = false, bool $reset = false) : bool
+    public function attach(string $group, string|\Closure $callback, bool $remove = false, bool $reset = false) : bool
     {
         if (!isset($this->callbacks[$group])) {
             $this->callbacks[$group] = ['remove' => $remove, 'reset' => $reset, 'callbacks' => []];
@@ -155,7 +155,7 @@ final class EventManager implements \Countable
      *
      * @since 1.0.0
      */
-    public function triggerSimilar(string $group, string $id = '', $data = null) : bool
+    public function triggerSimilar(string $group, string $id = '', mixed $data = null) : bool
     {
         $groupIsRegex = \stripos($group, '/') === 0;
         $idIsRegex    = \stripos($id, '/') === 0;
@@ -216,7 +216,7 @@ final class EventManager implements \Countable
      *
      * @since 1.0.0
      */
-    public function trigger(string $group, string $id = '', $data = null) : bool
+    public function trigger(string $group, string $id = '', mixed $data = null) : bool
     {
         if (!isset($this->callbacks[$group])) {
             return false;
