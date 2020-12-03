@@ -2,7 +2,7 @@
 /**
  * Orange Management
  *
- * PHP Version 7.4
+ * PHP Version 8.0
  *
  * @package   phpOMS\Math\Numerics\Interpolation
  * @copyright Dennis Eichhorn
