@@ -18,6 +18,7 @@ require_once __DIR__ . '/../Autoloader.php';
 
 use phpOMS\Application\ApplicationAbstract;
 use phpOMS\Application\ApplicationManager;
+use phpOMS\Config\SettingsInterface;
 use phpOMS\Dispatcher\Dispatcher;
 use phpOMS\Module\ModuleManager;
 use phpOMS\Router\WebRouter;
