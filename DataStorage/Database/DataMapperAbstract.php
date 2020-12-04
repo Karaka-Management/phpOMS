@@ -555,7 +555,7 @@ class DataMapperAbstract implements DataMapperInterface
                 $tValue = $property->getValue($obj);
                 $property->setAccessible(false);
             } else {
-                $tValue = $obj->$propertyName;
+                $tValue = $obj->{$propertyName};
             }
 
             if (isset(static::$ownsOne[$propertyName])) {
@@ -681,7 +681,7 @@ class DataMapperAbstract implements DataMapperInterface
             $objectId = $refProp->getValue($obj);
             $refProp->setAccessible(false);
         } else {
-            $objectId = $obj->$propertyName;
+            $objectId = $obj->{$propertyName};
         }
 
         return $objectId;
@@ -709,7 +709,7 @@ class DataMapperAbstract implements DataMapperInterface
             $refProp->setValue($obj, $objId);
             $refProp->setAccessible(false);
         } else {
-            $obj->$propertyName = $objId;
+            $obj->{$propertyName} = $objId;
         }
     }
 
@@ -764,7 +764,7 @@ class DataMapperAbstract implements DataMapperInterface
                 $property->setAccessible(true);
                 $values = $property->getValue($obj);
             } else {
-                $values = $obj->$propertyName;
+                $values = $obj->{$propertyName};
             }
 
             /** @var self $mapper */
@@ -781,7 +781,7 @@ class DataMapperAbstract implements DataMapperInterface
                     $relProperty->setValue($values, $objId);
                     $relProperty->setAccessible(false);
                 } else {
-                    $values->$internalName = $objId;
+                    $values->{$internalName} = $objId;
                 }
 
                 if (!$isPublic) {
@@ -839,13 +839,13 @@ class DataMapperAbstract implements DataMapperInterface
                         if (!$isPublic) {
                             $relProperty->setValue($value, self::createNullModel($objId));
                         } else {
-                            $value->$internalName = self::createNullModel($objId);
+                            $value->{$internalName} = self::createNullModel($objId);
                         }
                     } else {
                         if (!$isPublic) {
                             $relProperty->setValue($value, $objId);
                         } else {
-                            $value->$internalName = $objId;
+                            $value->{$internalName} = $objId;
                         }
                     }
 
@@ -1140,7 +1140,7 @@ class DataMapperAbstract implements DataMapperInterface
                 $values = $property->getValue($obj);
                 $property->setAccessible(false);
             } else {
-                $values = $obj->$propertyName;
+                $values = $obj->{$propertyName};
             }
 
             if (!\is_array($values)) {
@@ -1184,7 +1184,7 @@ class DataMapperAbstract implements DataMapperInterface
                         $relProperty->setValue($value, $objId);
                         $relProperty->setAccessible(false);
                     } else {
-                        $value->$mapper::$columns[static::$hasMany[$propertyName]['self']]['internal'] = $objId;
+                        $value->{$mapper}::$columns[static::$hasMany[$propertyName]['self']]['internal'] = $objId;
                     }
                 }
 
@@ -1457,7 +1457,7 @@ class DataMapperAbstract implements DataMapperInterface
                 $tValue = $property->getValue($obj);
                 $property->setAccessible(false);
             } else {
-                $tValue = $obj->$propertyName;
+                $tValue = $obj->{$propertyName};
             }
 
             if (isset(static::$ownsOne[$propertyName])) {
@@ -1678,7 +1678,7 @@ class DataMapperAbstract implements DataMapperInterface
                 $values = $property->getValue($obj);
                 $property->setAccessible(false);
             } else {
-                $values = $obj->$propertyName;
+                $values = $obj->{$propertyName};
             }
 
             if (!\is_array($values)) {
@@ -1812,7 +1812,7 @@ class DataMapperAbstract implements DataMapperInterface
                  *  The exception is of course the belongsTo relation.
                  */
                 foreach (static::$columns as $key => $column) {
-                    $value = $isPublic ? $obj->$propertyName : $property->getValue($obj);
+                    $value = $isPublic ? $obj->{$propertyName} : $property->getValue($obj);
                     if (self::$relations === RelationType::ALL
                             && isset(static::$ownsOne[$propertyName])
                             && $column['internal'] === $propertyName
@@ -1989,7 +1989,7 @@ class DataMapperAbstract implements DataMapperInterface
                 );
                 $refProp->setAccessible(false);
             } else {
-                $obj->$member = !\is_array($objects) && !isset(static::$hasMany[$member]['conditional'])
+                $obj->{$member} = !\is_array($objects) && !isset(static::$hasMany[$member]['conditional'])
                     ? [$mapper::getObjectId($objects) => $objects]
                     : $objects;
             }
@@ -2365,7 +2365,7 @@ class DataMapperAbstract implements DataMapperInterface
 
                 $refProp->setValue($obj, \json_decode($value, true));
             } elseif ($def['mapper']::$columns[$column]['type'] === 'Serializable') {
-                $member = $isPublic ? $obj->$member : $refProp->getValue($obj);
+                $member = $isPublic ? $obj->{$member} : $refProp->getValue($obj);
                 $member->unserialize($value);
             }
 

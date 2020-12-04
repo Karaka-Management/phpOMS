@@ -24,7 +24,7 @@ namespace phpOMS\Account;
  */
 final class NullGroup extends Group
 {
-	/**
+    /**
      * Constructor
      *
      * @param int $id Model id

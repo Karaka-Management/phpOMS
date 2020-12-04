@@ -338,8 +338,8 @@ final class HttpRequest extends RequestAbstract
         }
 
         // @codeCoverageIgnoreStart
-        $components = \explode(';', $_SERVER['HTTP_ACCEPT_LANGUAGE']);
-        $locals     = \stripos($components[0], ',') !== false
+        $components   = \explode(';', $_SERVER['HTTP_ACCEPT_LANGUAGE']);
+        $locals       = \stripos($components[0], ',') !== false
             ? $locals = \explode(',', $components[0])
             : $components;
 
