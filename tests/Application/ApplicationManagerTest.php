@@ -18,6 +18,7 @@ require_once __DIR__ . '/../Autoloader.php';
 
 use phpOMS\Application\ApplicationAbstract;
 use phpOMS\Application\ApplicationManager;
+use phpOMS\Config\OptionsTrait;
 use phpOMS\Config\SettingsInterface;
 use phpOMS\Dispatcher\Dispatcher;
 use phpOMS\Module\ModuleManager;
@@ -43,6 +44,8 @@ class ApplicationManagerTest extends \PHPUnit\Framework\TestCase
         $app->router      = new WebRouter();
         $app->dispatcher  = new Dispatcher($app);
         $app->appSettings = new class implements SettingsInterface {
+            use OptionsTrait;
+
             public function get(
                 mixed $ids = null,
                 string|array $names = null,
