@@ -42,12 +42,12 @@ interface SettingsInterface extends OptionsInterface
      * @since 1.0.0
      */
     public function get(
-        $ids = null,
-        $names = null,
+        mixed $ids = null,
+        string|array $names = null,
         string $module = null,
         int $group = null,
         int $account = null
-    );
+    ) : mixed;
 
     /**
      * Set option by key.

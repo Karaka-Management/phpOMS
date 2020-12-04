@@ -16,7 +16,6 @@ namespace phpOMS\tests\Application;
 
 require_once __DIR__ . '/../Autoloader.php';
 
-use Model\CoreSettings;
 use phpOMS\Application\ApplicationAbstract;
 use phpOMS\Application\ApplicationManager;
 use phpOMS\Dispatcher\Dispatcher;
@@ -38,11 +37,29 @@ class ApplicationManagerTest extends \PHPUnit\Framework\TestCase
             protected string $appName = 'Api';
         };
 
-        $app->appName       = 'Api';
-        $app->dbPool        = $GLOBALS['dbpool'];
-        $app->router        = new WebRouter();
-        $app->dispatcher    = new Dispatcher($app);
-        $app->appSettings   = new CoreSettings($app->dbPool->get('admin'));
+        $app->appName     = 'Api';
+        $app->dbPool      = $GLOBALS['dbpool'];
+        $app->router      = new WebRouter();
+        $app->dispatcher  = new Dispatcher($app);
+        $app->appSettings = new class implements SettingsInterface {
+            public function get(
+                mixed $ids = null,
+                string|array $names = null,
+                string $module = null,
+                int $group = null,
+                int $account = null
+            ) : mixed {
+                return '';
+            }
+
+            public function set(array $options, bool $store = false) : void {}
+
+            public function save(array $options = []) : void {}
+
+            public function create(array $options = []) : void {}
+        };
+
+        ($app->dbPool->get('admin'));
         $app->moduleManager = new ModuleManager($app, __DIR__ . '/../../../Modules/');
 
         $this->appManager = new ApplicationManager($app->moduleManager);
