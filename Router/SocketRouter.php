@@ -14,6 +14,8 @@ declare(strict_types=1);
 
 namespace phpOMS\Router;
 
+use phpOMS\Account\Account;
+
 /**
  * Router class for socket routes.
  *
@@ -79,7 +81,7 @@ final class SocketRouter implements RouterInterface
      */
     public function add(
         string $route,
-        $destination,
+        mixed $destination,
         array $validation = [],
         string $dataPattern = ''
     ) : void {
@@ -97,11 +99,11 @@ final class SocketRouter implements RouterInterface
     /**
      * Route request.
      *
-     * @param string $uri     Route
-     * @param string $app     Application name
-     * @param int    $orgId   Organization id
-     * @param mixed  $account Account
-     * @param array  $data    Data
+     * @param string  $uri     Route
+     * @param string  $app     Application name
+     * @param int     $orgId   Organization id
+     * @param Account $account Account
+     * @param array   $data    Data
      *
      * @return array[]
      *
@@ -111,7 +113,7 @@ final class SocketRouter implements RouterInterface
         string $uri,
         string $app = null,
         int $orgId = null,
-        $account = null,
+        Account $account = null,
         array $data = null
     ) : array
     {

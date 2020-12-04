@@ -14,8 +14,6 @@ declare(strict_types=1);
 
 namespace phpOMS\tests\Router;
 
-use Modules\Admin\Controller\BackendController;
-use Modules\Admin\Models\PermissionState;
 use phpOMS\Account\Account;
 use phpOMS\Account\PermissionAbstract;
 use phpOMS\Account\PermissionType;
@@ -108,9 +106,9 @@ class SocketRouterTest extends \PHPUnit\Framework\TestCase
         $perm = new class(
             null,
             null,
-            BackendController::MODULE_NAME,
+            'TEST',
             0,
-            PermissionState::SETTINGS,
+            1,
             null,
             null,
             PermissionType::READ
@@ -141,9 +139,9 @@ class SocketRouterTest extends \PHPUnit\Framework\TestCase
         $perm2 = new class(
             null,
             null,
-            BackendController::MODULE_NAME,
+            'TEST',
             0,
-            PermissionState::SETTINGS,
+            1,
             null,
             null,
             PermissionType::CREATE
@@ -154,7 +152,7 @@ class SocketRouterTest extends \PHPUnit\Framework\TestCase
             null,
             'InvalidModule',
             0,
-            PermissionState::SETTINGS,
+            1,
             null,
             null,
             PermissionType::READ
@@ -163,7 +161,7 @@ class SocketRouterTest extends \PHPUnit\Framework\TestCase
         $perm4 = new class(
             null,
             null,
-            BackendController::MODULE_NAME,
+            'TEST',
             0,
             99,
             null,

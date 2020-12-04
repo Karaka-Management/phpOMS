@@ -14,6 +14,8 @@ declare(strict_types=1);
 
 namespace phpOMS\Router;
 
+use phpOMS\Account\Account;
+
 /**
  * Router class for web routes.
  *
@@ -85,7 +87,7 @@ final class WebRouter implements RouterInterface
      */
     public function add(
         string $route,
-        $destination,
+        mixed $destination,
         int $verb = RouteVerb::GET,
         bool $csrf = false, array $validation = [],
         string $dataPattern = ''
@@ -106,13 +108,13 @@ final class WebRouter implements RouterInterface
     /**
      * Route request.
      *
-     * @param string $uri     Route
-     * @param string $csrf    CSRF token
-     * @param int    $verb    Route verb
-     * @param string $app     Application name
-     * @param int    $orgId   Organization id
-     * @param mixed  $account Account
-     * @param array  $data    Validation
+     * @param string  $uri     Route
+     * @param string  $csrf    CSRF token
+     * @param int     $verb    Route verb
+     * @param string  $app     Application name
+     * @param int     $orgId   Organization id
+     * @param Account $account Account
+     * @param array   $data    Validation
      *
      * @return array[]
      *
@@ -124,7 +126,7 @@ final class WebRouter implements RouterInterface
         int $verb = RouteVerb::GET,
         string $app = null,
         int $orgId = null,
-        $account = null,
+        Account $account = null,
         array $data = null
     ) : array
     {
