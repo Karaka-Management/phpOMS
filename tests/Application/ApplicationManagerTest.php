@@ -60,7 +60,6 @@ class ApplicationManagerTest extends \PHPUnit\Framework\TestCase
             public function create(array $options = []) : void {}
         };
 
-        ($app->dbPool->get('admin'));
         $app->moduleManager = new ModuleManager($app, __DIR__ . '/../../../Modules/');
 
         $this->appManager = new ApplicationManager($app->moduleManager);
