@@ -31,21 +31,21 @@ use phpOMS\Views\View;
  */
 final class SocketResponse extends ResponseAbstract implements RenderableInterface
 {
-   /**
-    * Set response.
-    *
-    * @param array $response Response to set
-    *
-    * @return void
-    *
-    * @since 1.0.0
-    */
-   public function setResponse(array $response) : void
-   {
-       $this->response = $response;
-   }
+    /**
+     * Set response.
+     *
+     * @param array $response Response to set
+     *
+     * @return void
+     *
+     * @since 1.0.0
+     */
+    public function setResponse(array $response) : void
+    {
+        $this->response = $response;
+    }
 
-   /**
+    /**
     * Remove response by ID.
     *
     * @param mixed $id Response ID
@@ -54,24 +54,24 @@ final class SocketResponse extends ResponseAbstract implements RenderableInterfa
     *
     * @since 1.0.0
     */
-   public function remove($id) : bool
-   {
-       if (isset($this->response[$id])) {
-           unset($this->response[$id]);
+    public function remove($id) : bool
+    {
+        if (isset($this->response[$id])) {
+            unset($this->response[$id]);
 
-           return true;
-       }
+            return true;
+        }
 
-       return false;
-   }
+        return false;
+    }
 
-   /**
+    /**
     * {@inheritdoc}
     */
-   public function getJsonData() : array
-   {
-       return \json_decode($this->getRaw(), true);
-   }
+    public function getJsonData() : array
+    {
+        return \json_decode($this->getRaw(), true);
+    }
 
     /**
      * {@inheritdoc}

@@ -369,7 +369,7 @@ final class Complex
     public function div(int|float|self $value) : self
     {
         if (\is_numeric($value)) {
-           return $this->divScalar($value);
+            return $this->divScalar($value);
         }
 
         return $this->divComplex($value);

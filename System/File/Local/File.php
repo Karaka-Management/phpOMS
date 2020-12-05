@@ -402,7 +402,7 @@ final class File extends FileAbstract implements FileInterface
                 return false; // @codeCoverageIgnore
             }
 
-           \touch($path);
+            \touch($path);
 
             return true;
         }
