@@ -665,8 +665,9 @@ class DirectoryTest extends \PHPUnit\Framework\TestCase
     public function testNodeNext() : void
     {
         $dir = new Directory(new HttpUri(self::BASE . __DIR__ . '/dirtest'), '*', true, self::$con);
+        $dir->next();
 
-        self::assertEquals(__DIR__ . '/dirtest/test.txt', $dir->next()->getPath());
+        self::assertEquals(__DIR__ . '/dirtest/test.txt', $dir->current()->getPath());
     }
 
     /**
@@ -689,6 +690,7 @@ class DirectoryTest extends \PHPUnit\Framework\TestCase
         $dir = new Directory(new HttpUri(self::BASE . __DIR__ . '/dirtest'), '*', true, self::$con);
 
         self::assertEquals('sub', $dir->key());
+
         $dir->next();
         self::assertEquals('test.txt', $dir->key());
     }
@@ -813,8 +815,9 @@ class DirectoryTest extends \PHPUnit\Framework\TestCase
     public function testDirname() : void
     {
         $dir = new Directory(new HttpUri(self::BASE . __DIR__ . '/dirtest'), '*', true, self::$con);
+        $dir->next();
 
-        self::assertEquals('dirtest', $dir->next()->getDirname());
+        self::assertEquals('dirtest', $dir->current()->getDirname());
     }
 
     /**
@@ -824,8 +827,9 @@ class DirectoryTest extends \PHPUnit\Framework\TestCase
     public function testName() : void
     {
         $dir = new Directory(new HttpUri(self::BASE . __DIR__ . '/dirtest'), '*', true, self::$con);
+        $dir->next();
 
-        self::assertEquals('test', $dir->next()->getName());
+        self::assertEquals('test', $dir->current()->getName());
     }
 
     /**
@@ -835,8 +839,9 @@ class DirectoryTest extends \PHPUnit\Framework\TestCase
     public function testBaseame() : void
     {
         $dir = new Directory(new HttpUri(self::BASE . __DIR__ . '/dirtest'), '*', true, self::$con);
+        $dir->next();
 
-        self::assertEquals('test.txt', $dir->next()->getBasename());
+        self::assertEquals('test.txt', $dir->current()->getBasename());
     }
 
     /**
@@ -846,7 +851,8 @@ class DirectoryTest extends \PHPUnit\Framework\TestCase
     public function testDirpath() : void
     {
         $dir = new Directory(new HttpUri(self::BASE . __DIR__ . '/dirtest'), '*', true, self::$con);
+        $dir->next();
 
-        self::assertEquals(__DIR__ . '/dirtest', $dir->next()->getDirPath());
+        self::assertEquals(__DIR__ . '/dirtest', $dir->current()->getDirPath());
     }
 }

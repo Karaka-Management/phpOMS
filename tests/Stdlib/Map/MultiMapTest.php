@@ -651,7 +651,7 @@ class MultiMapTest extends \PHPUnit\Framework\TestCase
         $map = new MultiMap(KeyType::MULTIPLE);
 
         $map->add(['a', 'b'], 'val2');
-        $remap = $map->remap(['a', 'b'], ['c', 'd']);
+        $remap = $map->remap('a', 'b');
 
         self::assertFalse($remap);
     }
@@ -716,7 +716,7 @@ class MultiMapTest extends \PHPUnit\Framework\TestCase
         self::assertFalse($removed);
 
         $removed = $map->remove(['a', 'b']);
-        self::assertFalse($map->removeKey(['a', 'b']));
+        self::assertFalse($map->removeKey('a'));
     }
 
     /**
@@ -753,6 +753,6 @@ class MultiMapTest extends \PHPUnit\Framework\TestCase
         self::assertFalse($removed);
 
         $removed = $map->remove(['a', 'b']);
-        self::assertFalse($map->removeKey(['a', 'b']));
+        self::assertFalse($map->removeKey('a'));
     }
 }

@@ -276,7 +276,7 @@ final class MultiMap implements \Countable
             $permutation = Permutation::permut($key, [], false);
 
             foreach ($permutation as $permut) {
-                if ($this->set(\implode(':', $permut), $value)) {
+                if ($this->setSingle(\implode(':', $permut), $value)) {
                     return true;
                 }
             }
@@ -284,7 +284,7 @@ final class MultiMap implements \Countable
             return false;
         }
 
-        return $this->set(\implode(':', $key), $value);
+        return $this->setSingle(\implode(':', $key), $value);
     }
 
     /**
@@ -340,7 +340,7 @@ final class MultiMap implements \Countable
         $key = \is_array($key) ? $key : [$key];
 
         if ($this->orderType !== OrderType::LOOSE) {
-            return $this->remove(\implode(':', $key));
+            return $this->removeSingle(\implode(':', $key));
         }
 
         /** @var array $keys */
@@ -348,7 +348,7 @@ final class MultiMap implements \Countable
         $found = false;
 
         foreach ($keys as $key => $value) {
-            $allFound = $this->remove(\implode(':', $value));
+            $allFound = $this->removeSingle(\implode(':', $value));
 
             if ($allFound) {
                 $found = true;
@@ -505,14 +505,15 @@ final class MultiMap implements \Countable
     private function getSiblingsSingle(int|string $key) : array
     {
         $siblings = [];
+        if (!isset($this->keys[$key])) {
+            return [];
+        }
 
-        if (isset($this->keys[$key])) {
-            $id = $this->keys[$key];
+        $id = $this->keys[$key];
 
-            foreach ($this->keys as $found => $value) {
-                if ($value === $id && $found !== $key) {
-                    $siblings[] = $found;
-                }
+        foreach ($this->keys as $found => $value) {
+            if ($value === $id && $found !== $key) {
+                $siblings[] = $found;
             }
         }
 
