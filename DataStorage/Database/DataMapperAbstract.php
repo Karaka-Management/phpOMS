@@ -336,11 +336,11 @@ class DataMapperAbstract implements DataMapperInterface
      * @param string[] $models     Models to apply the conditional on
      * @param string   $comparison Comparison operator
      *
-     * @return static
+     * @return string
      *
      * @since 1.0.0
      */
-    public static function withConditional(string $id, mixed $value, array $models = [], string $comparison = '=') : static
+    public static function withConditional(string $id, mixed $value, array $models = [], string $comparison = '=') : string
     {
         self::$conditionals[$id] = [
             'value'      => $value,
