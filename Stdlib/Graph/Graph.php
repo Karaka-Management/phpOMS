@@ -354,7 +354,12 @@ class Graph
                 $graph->setNode($node2);
             }
 
-            $node1->setNodeRelative($node2)->setWeight($this->getEdge($node1->getId(), $node2->getId())->getWeight());
+            $node1->setNodeRelative($node2)
+                ->setWeight($this->getEdge(
+                        $node1->getId(),
+                        $node2->getId()
+                    )->getWeight()
+                );
         }
 
         return $graph;
@@ -543,14 +548,14 @@ class Graph
     /**
      * Get longest path between two nodes.
      *
-     * @param int|string $node1 Graph node
-     * @param int|string $node2 Graph node
+     * @param int|string|Node $node1 Graph node
+     * @param int|string|Node $node2 Graph node
      *
      * @return Node[]
      *
      * @since 1.0.0
      */
-    public function longestPathBetweenNodes(int|string $node1, int|string $node2) : array
+    public function longestPathBetweenNodes(int|string|Node $node1, int|string|Node $node2) : array
     {
         if (!($node1 instanceof Node)) {
             $node1 = $this->getNode($node1);

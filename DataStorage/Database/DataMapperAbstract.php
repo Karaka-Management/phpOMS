@@ -340,7 +340,7 @@ class DataMapperAbstract implements DataMapperInterface
      *
      * @since 1.0.0
      */
-    public static function withConditional(string $id, mixed $value, array $models = [], string $comparison = '=') /** @todo: return : static */
+    public static function withConditional(string $id, mixed $value, array $models = [], string $comparison = '=') : static
     {
         self::$conditionals[$id] = [
             'value'      => $value,
@@ -348,6 +348,7 @@ class DataMapperAbstract implements DataMapperInterface
             'comparison' => $comparison,
         ];
 
+        /** @var static */
         return static::class;
     }
 
@@ -594,7 +595,10 @@ class DataMapperAbstract implements DataMapperInterface
         }
 
         try {
-            self::$db->con->prepare($query->toSql())->execute();
+            $sth = self::$db->con->prepare($query->toSql());
+            if ($sth !== false) {
+                $sth->execute();
+            }
         } catch (\Throwable $t) {
             \var_dump($t->getMessage());
             \var_dump($query->toSql());
@@ -655,7 +659,10 @@ class DataMapperAbstract implements DataMapperInterface
             $query->insert(static::$primaryField)->value(0);
         }
 
-        self::$db->con->prepare($query->toSql())->execute();
+        $sth = self::$db->con->prepare($query->toSql());
+        if ($sth !== false) {
+            $sth->execute();
+        }
 
         return self::$db->con->lastInsertId();
     }
@@ -1064,7 +1071,10 @@ class DataMapperAbstract implements DataMapperInterface
         }
 
         try {
-            self::$db->con->prepare($relQuery->toSql())->execute();
+            $sth = self::$db->con->prepare($relQuery->toSql());
+            if ($sth !== false) {
+                $sth->execute();
+            }
         } catch (\Throwable $e) {
             \var_dump($e->getMessage());
             \var_dump($relQuery->toSql());
@@ -1322,7 +1332,10 @@ class DataMapperAbstract implements DataMapperInterface
                 ->where(static::$hasMany[$propertyName]['table'] . '.' . static::$hasMany[$propertyName]['external'], '=', $src)
                 ->where(static::$hasMany[$propertyName]['table'] . '.' . static::$hasMany[$propertyName]['self'], '=', $objId, 'and');
 
-            self::$db->con->prepare($relQuery->toSql())->execute();
+            $sth = self::$db->con->prepare($relQuery->toSql());
+            if ($sth !== false) {
+                $sth->execute();
+            }
         }
     }
 
@@ -1494,7 +1507,10 @@ class DataMapperAbstract implements DataMapperInterface
             }
         }
 
-        self::$db->con->prepare($query->toSql())->execute();
+        $sth = self::$db->con->prepare($query->toSql());
+        if ($sth !== false) {
+            $sth->execute();
+        }
     }
 
     /**
@@ -1558,7 +1574,10 @@ class DataMapperAbstract implements DataMapperInterface
             }
         }
 
-        self::$db->con->prepare($query->toSql())->execute();
+        $sth = self::$db->con->prepare($query->toSql());
+        if ($sth !== false) {
+            $sth->execute();
+        }
     }
 
     /**
@@ -1834,7 +1853,10 @@ class DataMapperAbstract implements DataMapperInterface
             }
         }
 
-        self::$db->con->prepare($query->toSql())->execute();
+        $sth = self::$db->con->prepare($query->toSql());
+        if ($sth !== false) {
+            $sth->execute();
+        }
     }
 
     /**
@@ -3045,9 +3067,13 @@ class DataMapperAbstract implements DataMapperInterface
         }
 
         try {
+            $results = false;
+
             $sth = self::$db->con->prepare($query->toSql());
-            $sth->execute();
-            $results = $sth->fetchAll(\PDO::FETCH_ASSOC);
+            if ($sth !== false) {
+                $sth->execute();
+                $results = $sth->fetchAll(\PDO::FETCH_ASSOC);
+            }
         } catch (\Throwable $t) {
             $results = false;
             \var_dump($query->toSql());
@@ -3074,10 +3100,13 @@ class DataMapperAbstract implements DataMapperInterface
             ->from(static::$hasMany[$ref]['table'])
             ->where(static::$hasMany[$ref]['table'] . '.' . static::$hasMany[$ref]['external'], '=', $refKey);
 
-        $sth = self::$db->con->prepare($query->toSql());
-        $sth->execute();
+        $result = false;
 
-        $result = $sth->fetchAll(\PDO::FETCH_NUM);
+        $sth = self::$db->con->prepare($query->toSql());
+        if ($sth !== false) {
+            $sth->execute();
+            $result = $sth->fetchAll(\PDO::FETCH_NUM);
+        }
 
         return $result === false ? [] : \array_column($result, 0);
     }
@@ -3128,9 +3157,10 @@ class DataMapperAbstract implements DataMapperInterface
                 }
 
                 $sth = self::$db->con->prepare($query->toSql());
-                $sth->execute();
-
-                $cachedTables[$value['table']] = $sth->fetchAll(\PDO::FETCH_COLUMN);
+                if ($sth !== false) {
+                    $sth->execute();
+                    $cachedTables[$value['table']] = $sth->fetchAll(\PDO::FETCH_COLUMN);
+                }
             }
 
             $result[$member] = $cachedTables[$value['table']];

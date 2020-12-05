@@ -334,6 +334,11 @@ abstract class C128Abstract
         $white    = \imagecolorallocate($image, 255, 255, 255);
         $location = 0;
         $length   = \strlen($codeString);
+
+        if ($white === false || $black === false) {
+            throw new \Exception(); // @codeCoverageIgnore
+        }
+
         \imagefill($image, 0, 0, $white);
 
         for ($position = 1; $position <= $length; ++$position) {

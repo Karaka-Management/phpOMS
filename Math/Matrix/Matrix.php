@@ -686,7 +686,9 @@ class Matrix implements \ArrayAccess, \Iterator
      */
     public function current() : int
     {
-        return $this->offsetGet($this->position);
+        $row = (int) ($this->position / $this->m);
+
+        return $this->matrix[$row][$this->position - $row * $this->n];
     }
 
     /**

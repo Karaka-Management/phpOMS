@@ -496,15 +496,14 @@ final class Directory extends FileAbstract implements DirectoryInterface
     /**
      * {@inheritdoc}
      */
-    public function current() : FileAbstract
+    public function current() : ContainerInterface
     {
         $current = \current($this->nodes);
-
-        if (isset($current) && $current instanceof self) {
+        if ($current instanceof self) {
             $current->index();
         }
 
-        return $current;
+        return $current === false ? $this : $current;
     }
 
     /**
@@ -521,12 +520,9 @@ final class Directory extends FileAbstract implements DirectoryInterface
     public function next()
     {
         $next = \next($this->nodes);
-
-        if (isset($next) && $next instanceof self) {
+        if ($next instanceof self) {
             $next->index();
         }
-
-        return $next;
     }
 
     /**

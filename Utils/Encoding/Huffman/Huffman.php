@@ -94,7 +94,7 @@ final class Huffman
                 $c .= '0';
             }
 
-            $binary .= \chr(\bindec($c));
+            $binary .= \chr((int) \bindec($c));
         }
 
         return $binary;

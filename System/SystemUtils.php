@@ -85,7 +85,7 @@ final class SystemUtils
         if (\stristr(\PHP_OS, 'LINUX')) {
             $free = \shell_exec('free');
 
-            if ($free === null) {
+            if ($free === null || $free === false) {
                 return $memUsage; // @codeCoverageIgnore
             }
 
@@ -115,7 +115,13 @@ final class SystemUtils
             \exec('wmic cpu get LoadPercentage', $cpuUsage);
             $cpuUsage = $cpuUsage[1];
         } elseif (\stristr(\PHP_OS, 'LINUX') !== false) {
-            $cpuUsage = \sys_getloadavg()[0] * 100 / \exec('nproc');
+            $loadavg  = \sys_getloadavg();
+
+            if ($loadavg === false) {
+                return -1;
+            }
+
+            $cpuUsage = $loadavg[0] * 100 / \exec('nproc');
         }
 
         return (int) $cpuUsage;

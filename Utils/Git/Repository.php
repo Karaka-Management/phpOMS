@@ -129,6 +129,11 @@ class Repository
     {
         $branches = $this->getBranches();
         $active   = \preg_grep('/^\*/', $branches);
+
+        if (!\is_array($active)) {
+            return new Branch();
+        }
+
         \reset($active);
 
         return new Branch(\current($active));

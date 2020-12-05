@@ -101,7 +101,7 @@ final class Prime
             }
 
             for ($j = 1; $j < $s; ++$j) {
-                if ($x === null) {
+                if ($x === null || $x === false) {
                     return false;
                 }
 

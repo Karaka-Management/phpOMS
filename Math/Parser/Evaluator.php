@@ -37,7 +37,9 @@ final class Evaluator
      */
     public static function evaluate(string $equation) : ?float
     {
-        if (\substr_count($equation, '(') !== \substr_count($equation, ')') || \preg_match('#[^0-9\+\-\*\/\(\)\ \^\.]#', $equation)) {
+        if (\substr_count($equation, '(') !== \substr_count($equation, ')')
+            || \preg_match('#[^0-9\+\-\*\/\(\)\ \^\.]#', $equation)
+        ) {
             return null;
         }
 
@@ -48,8 +50,8 @@ final class Evaluator
             if (\is_numeric($value)) {
                 $stack[] = $value;
             } else {
-                $a = self::parseValue(\array_pop($stack));
-                $b = self::parseValue(\array_pop($stack));
+                $a = self::parseValue(\array_pop($stack) ?? 0);
+                $b = self::parseValue(\array_pop($stack) ?? 0);
 
                 if ($value === '+') {
                     $stack[] = $a + $b;

@@ -149,7 +149,7 @@ final class WebRouter implements RouterInterface
                     // if permission check is invalid
                     if ((isset($d['permission']) && $account === null)
                         || (isset($d['permission'])
-                            && !$account->hasPermission(
+                            && !$account?->hasPermission(
                                 $d['permission']['type'] ?? 0, $d['permission']['unit'] ?? $orgId, $app, $d['permission']['module'] ?? null, $d['permission']['state'] ?? null
                             )
                         )

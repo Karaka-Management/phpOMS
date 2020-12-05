@@ -32,7 +32,11 @@ class Gz implements ArchiveInterface
     public static function pack(string|array $source, string $destination, bool $overwrite = false) : bool
     {
         $destination = \str_replace('\\', '/', $destination);
-        if (!$overwrite && \is_file($destination) || !\is_file($source)) {
+        if ($destination === false
+            || \is_array($source)
+            || (!$overwrite && \is_file($destination))
+            || !\is_file($source)
+        ) {
             return false;
         }
 
@@ -68,8 +72,8 @@ class Gz implements ArchiveInterface
             return false; // @codeCoverageIgnore
         }
 
-        while (!\gzeof($gz)) {
-            \fwrite($dest, \gzread($gz, 4096));
+        while (!\gzeof($gz) && ($read = \gzread($gz, 4096)) !== false) {
+            \fwrite($dest, $read);
         }
 
         \fclose($dest);

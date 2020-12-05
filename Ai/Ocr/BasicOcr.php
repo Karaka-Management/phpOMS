@@ -90,41 +90,41 @@ final class BasicOcr
             throw new PathException($path); // @codeCoverageIgnore
         }
 
-        $read = \fread($fp, 4);
-        if ($read === false) {
-            return []; // @codeCoverageIgnore
-        }
-        $magicNumber = \unpack('N', $read)[1];
 
-        $read = \fread($fp, 4);
-        if ($read === false) {
+        if (($read = \fread($fp, 4)) === false || ($unpack = \unpack('N', $read)) === false) {
             return []; // @codeCoverageIgnore
         }
-        $numberOfImages = \unpack('N', $read)[1];
+        $magicNumber = $unpack[1];
+
+        if (($read = \fread($fp, 4)) === false || ($unpack = \unpack('N', $read)) === false) {
+            return []; // @codeCoverageIgnore
+        }
+        $numberOfImages = $unpack[1];
 
         if ($limit > 0) {
             $numberOfImages = \min($numberOfImages, $limit);
         }
 
-        $read = \fread($fp, 4);
-        if ($read === false) {
-            return []; // @codeCoverageIgnore
-        }
-        $numberOfRows = \unpack('N', $read)[1];
 
-        $read = \fread($fp, 4);
-        if ($read === false) {
+        if (($read = \fread($fp, 4)) === false || ($unpack = \unpack('N', $read)) === false) {
             return []; // @codeCoverageIgnore
         }
-        $numberOfColumns = \unpack('N', $read)[1];
+        $numberOfRows = $unpack[1];
+
+        if (($read = \fread($fp, 4)) === false || ($unpack = \unpack('N', $read)) === false) {
+            return []; // @codeCoverageIgnore
+        }
+        $numberOfColumns = $unpack[1];
 
         $images = [];
         for ($i = 0; $i < $numberOfImages; ++$i) {
-            $read = \fread($fp, $numberOfRows * $numberOfColumns);
-            if ($read === false) {
+
+            if (($read = \fread($fp, $numberOfRows * $numberOfColumns)) === false
+                || ($unpack = \unpack('C*', $read)) === false
+            ) {
                 return []; // @codeCoverageIgnore
             }
-            $images[] = \array_values(\unpack('C*', $read));
+            $images[] = \array_values($unpack);
         }
 
         \fclose($fp);
@@ -153,17 +153,16 @@ final class BasicOcr
             throw new PathException($path); // @codeCoverageIgnore
         }
 
-        $read = \fread($fp, 4);
-        if ($read === false) {
-            return []; // @codeCoverageIgnore
-        }
-        $magicNumber = \unpack('N', $read)[1];
 
-        $read = \fread($fp, 4);
-        if ($read === false) {
+        if (($read = \fread($fp, 4)) === false || ($unpack = \unpack('N', $read)) === false) {
             return []; // @codeCoverageIgnore
         }
-        $numberOfLabels = \unpack('N', $read)[1];
+        $magicNumber = $unpack[1];
+
+        if (($read = \fread($fp, 4)) === false || ($unpack = \unpack('N', $read)) === false) {
+            return []; // @codeCoverageIgnore
+        }
+        $numberOfLabels = $unpack[1];
 
         if ($limit > 0) {
             $numberOfLabels = \min($numberOfLabels, $limit);
@@ -171,11 +170,11 @@ final class BasicOcr
 
         $labels = [];
         for ($i = 0; $i < $numberOfLabels; ++$i) {
-            $read = \fread($fp, 1);
-            if ($read === false) {
+
+            if (($read = \fread($fp, 1)) === false || ($unpack = \unpack('C', $read)) === false) {
                 return []; // @codeCoverageIgnore
             }
-            $labels[] = \unpack('C', $read)[1];
+            $labels[] = $unpack[1];
         }
 
         \fclose($fp);

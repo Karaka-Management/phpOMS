@@ -184,11 +184,11 @@ final class MultiMap implements \Countable
      */
     public function get(int|string|array $key) : mixed
     {
-        if ($this->keyType === KeyType::SINGLE) {
-            return $this->getSingle($key);
-        } else {
+        if ($this->keyType === KeyType::MULTIPLE || \is_array($key)) {
             return $this->getMultiple($key);
         }
+
+        return $this->getSingle($key);
     }
 
     /**
@@ -233,7 +233,9 @@ final class MultiMap implements \Countable
             }
         }
 
-        return isset($this->keys[$key]) ? $this->values[$this->keys[$key]] ?? null : null;
+        return !\is_array($key) && isset($this->keys[$key])
+            ? $this->values[$this->keys[$key]] ?? null
+            : null;
     }
 
     /**
@@ -248,7 +250,7 @@ final class MultiMap implements \Countable
      */
     public function set(int|string|array $key, mixed $value) : bool
     {
-        if ($this->keyType === KeyType::MULTIPLE && \is_array($key)) {
+        if ($this->keyType === KeyType::MULTIPLE || \is_array($key)) {
             return $this->setMultiple($key, $value);
         }
 
@@ -267,6 +269,8 @@ final class MultiMap implements \Countable
      */
     private function setMultiple(int|string|array $key, mixed $value) : bool
     {
+        $key = \is_array($key) ? $key : [$key];
+
         if ($this->orderType !== OrderType::STRICT) {
             /** @var array<string[]> $permutation */
             $permutation = Permutation::permut($key, [], false);
@@ -315,7 +319,7 @@ final class MultiMap implements \Countable
      */
     public function remove(int|string|array $key) : bool
     {
-        if ($this->keyType === KeyType::MULTIPLE && \is_array($key)) {
+        if ($this->keyType === KeyType::MULTIPLE || \is_array($key)) {
             return $this->removeMultiple($key);
         }
 
@@ -333,6 +337,8 @@ final class MultiMap implements \Countable
      */
     private function removeMultiple(int|string|array $key) : bool
     {
+        $key = \is_array($key) ? $key : [$key];
+
         if ($this->orderType !== OrderType::LOOSE) {
             return $this->remove(\implode(':', $key));
         }
@@ -381,14 +387,14 @@ final class MultiMap implements \Countable
      *
      * Both keys need to exist in the multimap.
      *
-     * @param int|string|array $old Old key
-     * @param int|string|array $new New key
+     * @param int|string $old Old key
+     * @param int|string $new New key
      *
      * @return bool
      *
      * @since 1.0.0
      */
-    public function remap(int|string|array $old, int|string|array $new) : bool
+    public function remap(int|string $old, int|string $new) : bool
     {
         if ($this->keyType === KeyType::MULTIPLE) {
             return false;
@@ -410,13 +416,13 @@ final class MultiMap implements \Countable
      *
      * This only removes the value if no other key exists for this value.
      *
-     * @param int|string|array $key Key used to identify value
+     * @param int|string $key Key used to identify value
      *
      * @return bool
      *
      * @since 1.0.0
      */
-    public function removeKey(int|string|array $key) : bool
+    public function removeKey(int|string $key) : bool
     {
         if ($this->keyType === KeyType::MULTIPLE) {
             return false;
@@ -460,7 +466,7 @@ final class MultiMap implements \Countable
      */
     public function getSiblings(int|string|array $key) : array
     {
-        if ($this->keyType === KeyType::MULTIPLE) {
+        if ($this->keyType === KeyType::MULTIPLE || \is_array($key)) {
             return $this->getSiblingsMultiple($key);
         }
 
