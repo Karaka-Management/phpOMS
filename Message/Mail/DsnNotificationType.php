@@ -17,28 +17,22 @@ namespace phpOMS\Message\Mail;
 use phpOMS\Stdlib\Base\Enum;
 
 /**
- * Calendar message types enum.
+ * Dsn notification types enum.
  *
  * @package phpOMS\Message\Mail
  * @license OMS License 1.0
  * @link    https://orange-management.org
  * @since   1.0.0
  */
-abstract class ICALMethodType extends Enum
+abstract class DsnNotificationType extends Enum
 {
-    public const REQUEST = 'REQUEST';
+    public const NONE = '';
 
-    public const PUBLISH = 'PUBLISH';
+    public const NEVER = 'NEVER';
 
-    public const REPLY = 'REPLY';
+    public const SUCCESS = 'SUCCESS';
 
-    public const ADD = 'ADD';
+    public const FAILURE = 'FAILURE';
 
-    public const CANCEL = 'CANCEL';
-
-    public const REFRESH = 'REFRESH';
-
-    public const COUNTER = 'COUNTER';
-
-    public const DECLINECOUNTER = 'DECLINECOUNTER';
+    public const DELAY = 'DELAY';
 }

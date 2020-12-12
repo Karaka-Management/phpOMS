@@ -2009,4 +2009,22 @@ abstract class MimeType extends Enum
     public const M_ZMM = 'application/vnd.handheld-entertainment+xml';
 
     public const M_123 = 'application/vnd.lotus-1-2-3';
+
+    /**
+     * Get mime from file extension
+     *
+     * @param string $extension Extension
+     *
+     * @return string
+     *
+     * @since 1.0.0
+     */
+    public static function extensionToMime(string $extension) : string
+    {
+        try {
+            return self::getByName('M_' . \strtoupper($extension)) ?? 'application/octet-stream';
+        } catch (\Throwable $t) {
+            return 'application/octet-stream';
+        }
+    }
 }

@@ -399,4 +399,34 @@ final class StringUtils
 
         return (int) $res;
     }
+
+    /**
+     * Fix CVE-2016-10033 and CVE-2016-10045 by disallowing potentially unsafe shell characters.
+     *
+     * @param string $string String to check
+     *
+     * @return bool
+     *
+     * @since 1.0.0
+     */
+    public static function isShellSafe(string $string)
+    {
+        if (\escapeshellcmd($string) !== $string
+            || !\in_array(\escapeshellarg($string), ["'$string'", "\"$string\""])
+        ) {
+            return false;
+        }
+
+        $length = \strlen($string);
+
+        for ($i = 0; $i < $length; ++$i) {
+            $c = $string[$i];
+
+            if (!\ctype_alnum($c) && \strpos('@_-.', $c) === false) {
+                return false;
+            }
+        }
+
+        return true;
+    }
 }

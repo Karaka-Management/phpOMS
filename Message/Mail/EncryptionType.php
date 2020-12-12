@@ -19,14 +19,16 @@ use phpOMS\Stdlib\Base\Enum;
 /**
  * Encryption enum.
  *
- * @package  phpOMS\Message\Mail
+ * @package phpOMS\Message\Mail
  * @license OMS License 1.0
  * @link    https://orange-management.org
  * @since   1.0.0
  */
 abstract class EncryptionType extends Enum
 {
+    public const NONE = '';
+
     public const TLS = 'tls';
 
-    public const SSL = 'ssl';
+    public const SMTPS = 'ssl';
 }

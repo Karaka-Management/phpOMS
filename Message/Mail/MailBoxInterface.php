@@ -4,7 +4,7 @@
  *
  * PHP Version 8.0
  *
- * @package   phpOMS\Message\Mail
+ * @package   phpOMS\Uri
  * @copyright Dennis Eichhorn
  * @license   OMS License 1.0
  * @version   1.0.0
@@ -14,21 +14,16 @@ declare(strict_types=1);
 
 namespace phpOMS\Message\Mail;
 
-use phpOMS\Stdlib\Base\Enum;
-
 /**
- * Submit enum.
+ * Message interface.
  *
- * @package phpOMS\Message\Mail
+ * @property string $subject Subject
+ *
+ * @package phpOMS\Uri
  * @license OMS License 1.0
  * @link    https://orange-management.org
  * @since   1.0.0
  */
-abstract class HeaderContext extends Enum
+interface MailBoxInterface
 {
-    public const TEXT = 1;
-
-    public const PHRASE = 2;
-
-    public const COMMENT = 3;
 }

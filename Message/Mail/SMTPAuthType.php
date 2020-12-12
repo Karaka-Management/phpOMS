@@ -17,28 +17,22 @@ namespace phpOMS\Message\Mail;
 use phpOMS\Stdlib\Base\Enum;
 
 /**
- * Calendar message types enum.
+ * SMTP auth types enum.
  *
  * @package phpOMS\Message\Mail
  * @license OMS License 1.0
  * @link    https://orange-management.org
  * @since   1.0.0
  */
-abstract class ICALMethodType extends Enum
+abstract class SMTPAuthType extends Enum
 {
-    public const REQUEST = 'REQUEST';
+    public const NONE = '';
 
-    public const PUBLISH = 'PUBLISH';
+    public const CRAM = 'CRAM-MD5';
 
-    public const REPLY = 'REPLY';
+    public const LOGIN = 'LOGIN';
 
-    public const ADD = 'ADD';
+    public const PLAIN = 'PLAIN';
 
-    public const CANCEL = 'CANCEL';
-
-    public const REFRESH = 'REFRESH';
-
-    public const COUNTER = 'COUNTER';
-
-    public const DECLINECOUNTER = 'DECLINECOUNTER';
+    public const XOAUTH2 = 'XOAUTH2';
 }

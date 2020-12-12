@@ -126,4 +126,24 @@ final class SystemUtils
 
         return (int) $cpuUsage;
     }
+
+    /**
+     * Get the server hostname.
+     *
+     * @return string
+     *
+     * @since 1.0.0
+     */
+    public static function getHostname() : string
+    {
+        if (isset($_SERVER['SERVER_NAME'])) {
+            return $_SERVER['SERVER_NAME'];
+        } elseif (($result = gethostname()) !== false) {
+            return $result;
+        } elseif (\php_uname('n') !== false) {
+            return \php_uname('n');
+        }
+
+        return 'localhost.localdomain';
+    }
 }

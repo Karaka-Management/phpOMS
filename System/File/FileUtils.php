@@ -191,4 +191,85 @@ final class FileUtils
 
         return \intval($perm, 8);
     }
+
+    /**
+     * Multi-byte-safe pathinfo.
+     *
+     * @param string          $path    Path
+     * @param null|int|string $options PATHINFO_* or specifier for the component
+     *
+     * @return string|array
+     *
+     * @since 1.0.0
+     */
+    public static function mb_pathinfo(string $path, int|string $options = null) : string|array
+    {
+        $ret      = ['dirname' => '', 'basename' => '', 'extension' => '', 'filename' => ''];
+        $pathinfo = [];
+
+        if (\preg_match('#^(.*?)[\\\\/]*(([^/\\\\]*?)(\.([^.\\\\/]+?)|))[\\\\/.]*$#m', $path, $pathinfo)) {
+            if (isset($pathinfo[1])) {
+                $ret['dirname'] = $pathinfo[1];
+            }
+            if (isset($pathinfo[2])) {
+                $ret['basename'] = $pathinfo[2];
+            }
+            if (isset($pathinfo[5])) {
+                $ret['extension'] = $pathinfo[5];
+            }
+            if (isset($pathinfo[3])) {
+                $ret['filename'] = $pathinfo[3];
+            }
+        }
+
+        switch ($options) {
+            case \PATHINFO_DIRNAME:
+            case 'dirname':
+                return $ret['dirname'];
+            case \PATHINFO_BASENAME:
+            case 'basename':
+                return $ret['basename'];
+            case \PATHINFO_EXTENSION:
+            case 'extension':
+                return $ret['extension'];
+            case \PATHINFO_FILENAME:
+            case 'filename':
+                return $ret['filename'];
+            default:
+                return $ret;
+        }
+    }
+
+    /**
+     * Check whether a file path is safe, accessible, and readable.
+     *
+     * @param string $path A relative or absolute path
+     *
+     * @return bool
+     *
+     * @since 1.0.0
+     */
+    public static function isAccessible(string $path) : bool
+    {
+        $readable = \is_file($path);
+        if (\strpos($path, '\\\\') !== 0) {
+            $readable = $readable && \is_readable($path);
+        }
+
+        return self::isPermittedPath($path) && $readable;
+    }
+
+    /**
+     * Check whether a file path is of a permitted type.
+     *
+     * @param string $path Path
+     *
+     * @return bool
+     *
+     * @since 1.0.0
+     */
+    public static function isPermittedPath(string $path) : bool
+    {
+        return !\preg_match('#^[a-z]+://#i', $path);
+    }
 }
