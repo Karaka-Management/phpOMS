@@ -27,14 +27,14 @@ interface ValidatorInterface
     /**
      * Check if value is valid.
      *
-     * @param mixed $value       Value to validate
-     * @param array $constraints Constraints for validation
+     * @param mixed      $value       Value to validate
+     * @param null|array $constraints Constraints for validation
      *
      * @return bool
      *
      * @since 1.0.0
      */
-    public static function isValid(mixed $value, array $constraints = null);
+    public static function isValid(mixed $value, array $constraints = null) : bool;
 
     /**
      * Get most recent error string.
