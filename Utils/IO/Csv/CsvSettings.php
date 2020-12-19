@@ -68,6 +68,8 @@ class CsvSettings
             $line = \fgets($file);
         }
 
+        \rewind($file);
+
         $results = \array_keys($results, \max($results));
 
         return $results[0];
