@@ -322,8 +322,6 @@ class MailHandler
             default:
                 return false;
         }
-
-        return false;
     }
 
     /**
@@ -361,11 +359,8 @@ class MailHandler
         \fwrite($con, $mail->bodyMime);
 
         $result = \pclose($con);
-        if ($result !== 0) {
-            return false;
-        }
 
-        return true;
+        return $result === 0;
     }
 
     /**
@@ -391,7 +386,10 @@ class MailHandler
         //This sets the SMTP envelope sender which gets turned into a return-path header by the receiver
         // CVE-2016-10033, CVE-2016-10045: Don't pass -f if characters will be escaped.
         $params = null;
-        if (!empty($mail->sender) && EmailValidator::isValid($mail->sender) && StringUtils::isShellSafe($mail->sender)) {
+        if (!empty($mail->sender)
+            && EmailValidator::isValid($mail->sender)
+            && StringUtils::isShellSafe($mail->sender)
+        ) {
             $params = \sprintf('-f%s', $mail->sender);
         }
 
@@ -400,7 +398,6 @@ class MailHandler
             \ini_set('sendmail_from', $mail->sender);
         }
 
-        $result = false;
         $result = $this->mailPassthru($to, $mail, $header, $params);
 
         if (isset($oldFrom)) {
@@ -478,11 +475,7 @@ class MailHandler
             $this->smtp->close();
         }
 
-        if (!empty($badRcpt)) {
-            return false;
-        }
-
-        return true;
+        return empty($badRcpt);
     }
 
     /**

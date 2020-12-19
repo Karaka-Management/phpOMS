@@ -1292,8 +1292,8 @@ class Email implements MessageInterface
             return '';
         }
 
-        $fileBuffer = file_get_contents($path);
-        if (false === $fileBuffer) {
+        $fileBuffer = \file_get_contents($path);
+        if ($fileBuffer === false) {
             return '';
         }
 
