@@ -21,6 +21,7 @@ namespace phpOMS\Uri;
  * @property string $host Host
  * @property int $port Port
  * @property string $fragment Fragment
+ * @property array $fragments Fragments
  * @property string $user User
  * @property string $pass Password
  *
