@@ -281,15 +281,15 @@ class View extends ViewAbstract
     /**
      * Get translation.
      *
-     * @param mixed  $translation Text
-     * @param string $module      Module name
-     * @param string $theme       Theme name
+     * @param string      $translation Text
+     * @param null|string $module      Module name
+     * @param null|string $theme       Theme name
      *
      * @return string
      *
      * @since 1.0.0
      */
-    public function getHtml(mixed $translation, string $module = null, string $theme = null) : string
+    public function getHtml(string $translation, string $module = null, string $theme = null) : string
     {
         return \htmlspecialchars($this->getText($translation, $module, $theme));
     }
