@@ -2003,12 +2003,12 @@ class DataMapperAbstract implements DataMapperInterface
                 ? $mapper::get($values, RelationType::ALL, $depth)
                 : $mapper::get($values, RelationType::ALL, $depth, static::$hasMany[$member]['by']);
 
-            if (!($isPublic = $refProp->isPublic())) {
+            if (!$refProp->isPublic()) {
                 $refProp->setAccessible(true);
-                $refProp->setValue($obj, !\is_array($objects) && !isset(static::$hasMany[$member]['conditional'])
+                $refProp->setValue($obj, (!\is_array($objects) && (!isset(static::$hasMany[$member]['conditional']) || \is_array($values)) // @todo: \is_array($values) is weird, was necessary for the itemmanagement list at some point, but only suddenly????!!!!
                     ? [$mapper::getObjectId($objects) => $objects]
                     : $objects
-                );
+                ));
                 $refProp->setAccessible(false);
             } else {
                 $obj->{$member} = !\is_array($objects) && !isset(static::$hasMany[$member]['conditional'])
@@ -2138,6 +2138,7 @@ class DataMapperAbstract implements DataMapperInterface
      * @return mixed
      *
      * @todo: in the future we could pass not only the $id ref but all of the data as a join!!! and save an additional select!!!
+     * @todo: only the belongs to model gets populated the children of the belongsto model are always null models. either this function needs to call the get for the children, it should call get for the belongs to right away like the has many, or i find a way to recursevily load the data for all sub models and then populate that somehow recursively, probably too complex.
      *
      * @since 1.0.0
      */
