@@ -134,6 +134,11 @@ final class UriFactory
         foreach ($data as $key => $value) {
             self::setQuery('?' . $key, $value, true);
         }
+
+        $data = $uri->fragments;
+        foreach ($data as $key => $value) {
+            self::setQuery('#' . $key, $value, true);
+        }
     }
 
     /**
@@ -198,6 +203,10 @@ final class UriFactory
                 ['=%25', '=%23', '=%3F'],
                 $url
             );
+
+        if (\stripos($url, '?') === false && ($pos = \stripos($url, '&')) !== false) {
+            $url = \substr_replace($url, '?', $pos, 1);
+        }
 
         /** @var array $urlStructure */
         $urlStructure = \parse_url($url);
