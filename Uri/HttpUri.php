@@ -213,7 +213,7 @@ final class HttpUri implements UriInterface
         $this->query = \array_change_key_case($this->query, \CASE_LOWER);
 
         $this->fragment  = $url['fragment'] ?? '';
-        $this->fragments = \explode(',', $url['fragment'] ?? '');
+        $this->fragments = \explode('&', $url['fragment'] ?? '');
         $this->base      = $this->scheme . '://' . $this->host . ($this->port !== 80 ? ':' . $this->port : '') . $this->rootPath;
     }
 
