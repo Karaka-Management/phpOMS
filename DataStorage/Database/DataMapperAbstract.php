@@ -2005,10 +2005,11 @@ class DataMapperAbstract implements DataMapperInterface
 
             if (!$refProp->isPublic()) {
                 $refProp->setAccessible(true);
-                $refProp->setValue($obj, (!\is_array($objects) && (!isset(static::$hasMany[$member]['conditional']) || \is_array($values)) // @todo: \is_array($values) is weird, was necessary for the itemmanagement list at some point, but only suddenly????!!!!
+                // @todo: \is_array($values) is weird, was necessary for the itemmanagement list at some point, but only suddenly????!!!!
+                $refProp->setValue($obj, !\is_array($objects) && (!isset(static::$hasMany[$member]['conditional']) || \is_array($values))
                     ? [$mapper::getObjectId($objects) => $objects]
                     : $objects
-                ));
+                );
                 $refProp->setAccessible(false);
             } else {
                 $obj->{$member} = !\is_array($objects) && !isset(static::$hasMany[$member]['conditional'])
