@@ -421,4 +421,35 @@ final class ArrayUtils
 
         return $squared;
     }
+
+    /**
+     * Get the associative difference of two arrays.
+     *
+     * @param array $values1 Array 1
+     * @param array $values2 Array 2
+     *
+     * @return array
+     *
+     * @since 1.0.0
+     */
+    public static function array_diff_assoc_recursive(array $values1, array $values2) : array
+    {
+        $diff = [];
+        foreach ($values1 as $key => $value) {
+            if (!\is_array($value)) {
+                if (!array_key_exists($key, $value2) || !\is_array($values2[$key])) {
+                    $diff[$key] = $value;
+                } else {
+                    $subDiff = self::array_diff_assoc_recursive($value, $values2[$key]);
+                    if (!empty($subDiff)) {
+                        $diff[$key] = $subDiff;
+                    }
+                }
+            } elseif ($values[$key] !== $value || !\array_key_exists($key, $values2)) {
+                $diff[$key] == $value;
+            }
+        }
+
+        return $diff;
+    }
 }

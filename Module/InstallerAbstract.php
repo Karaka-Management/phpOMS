@@ -19,11 +19,6 @@ use phpOMS\Config\SettingsInterface;
 use phpOMS\DataStorage\Database\DatabasePool;
 use phpOMS\DataStorage\Database\Query\Builder;
 use phpOMS\DataStorage\Database\Schema\Builder as SchemaBuilder;
-use phpOMS\System\File\Local\Directory;
-use phpOMS\System\File\Local\File;
-use phpOMS\System\File\PathException;
-use phpOMS\System\File\PermissionException;
-use phpOMS\Utils\Parser\Php\ArrayParser;
 
 /**
  * Installer abstract class.
@@ -91,8 +86,6 @@ abstract class InstallerAbstract
         self::createTables($dbPool, $info);
         self::registerInDatabase($dbPool, $info);
         self::installSettings($dbPool, $info, $cfgHandler);
-        self::initRoutes($info);
-        self::initHooks($info);
         self::activate($dbPool, $info);
     }
 
@@ -178,168 +171,8 @@ abstract class InstallerAbstract
      */
     public static function reInit(ModuleInfo $info, ApplicationInfo $appInfo = null) : void
     {
-        self::initRoutes($info, $appInfo);
-        self::initHooks($info, $appInfo);
-    }
-
-    /**
-     * Init routes.
-     *
-     * @param ModuleInfo           $info    Module info
-     * @param null|ApplicationInfo $appInfo Application info
-     *
-     * @return void
-     *
-     * @throws PermissionException
-     *
-     * @since 1.0.0
-     */
-    protected static function initRoutes(ModuleInfo $info, ApplicationInfo $appInfo = null) : void
-    {
-        $directories = new Directory(\dirname($info->getPath()) . '/Admin/Routes');
-
-        /** @var Directory|File $child */
-        foreach ($directories as $child) {
-            if ($child instanceof Directory) {
-                foreach ($child as $file) {
-                    if (!\is_dir(__DIR__ . '/../../' . $child->getName() . '/' . \basename($file->getName(), '.php'))
-                        || ($appInfo !== null && \basename($file->getName(), '.php') !== $appInfo->getInternalName())
-                    ) {
-                        continue;
-                    }
-
-                    self::installRoutes(__DIR__ . '/../../' . $child->getName() . '/' . \basename($file->getName(), '.php') . '/Routes.php', $file->getPath());
-                }
-            } elseif ($child instanceof File) {
-                if (!\is_dir(__DIR__ . '/../../' . $child->getName())
-                    || ($appInfo !== null && \basename($child->getName(), '.php') !== $appInfo->getInternalName())
-                ) {
-                    continue;
-                }
-
-                self::installRoutes(__DIR__ . '/../../' . $child->getName() . '/Routes.php', $child->getPath());
-            }
-        }
-    }
-
-    /**
-     * Install routes.
-     *
-     * @param string $destRoutePath Destination route path
-     * @param string $srcRoutePath  Source route path
-     *
-     * @return void
-     *
-     * @throws PermissionException
-     *
-     * @since 1.0.0
-     */
-    protected static function installRoutes(string $destRoutePath, string $srcRoutePath) : void
-    {
-        if (!\is_file($destRoutePath)) {
-            \file_put_contents($destRoutePath, '<?php return [];');
-        }
-
-        if (!\is_file($srcRoutePath)) {
-            return;
-        }
-
-        if (!\is_file($destRoutePath)) {
-            throw new PathException($destRoutePath);
-        }
-
-        if (!\is_writable($destRoutePath)) {
-            throw new PermissionException($destRoutePath);
-        }
-
-        /** @noinspection PhpIncludeInspection */
-        $appRoutes = include $destRoutePath;
-        /** @noinspection PhpIncludeInspection */
-        $moduleRoutes = include $srcRoutePath;
-
-        $appRoutes = \array_merge_recursive($appRoutes, $moduleRoutes);
-
-        \file_put_contents($destRoutePath, '<?php return ' . ArrayParser::serializeArray($appRoutes) . ';', \LOCK_EX);
-    }
-
-    /**
-     * Init hooks.
-     *
-     * @param ModuleInfo           $info    Module info
-     * @param null|ApplicationInfo $appInfo Application info
-     *
-     * @return void
-     *
-     * @throws PermissionException
-     *
-     * @since 1.0.0
-     */
-    protected static function initHooks(ModuleInfo $info, ApplicationInfo $appInfo = null) : void
-    {
-        $directories = new Directory(\dirname($info->getPath()) . '/Admin/Hooks');
-
-        /** @var Directory|File $child */
-        foreach ($directories as $child) {
-            if ($child instanceof Directory) {
-                foreach ($child as $file) {
-                    if (!\is_dir(__DIR__ . '/../../' . $child->getName() . '/' . \basename($file->getName(), '.php'))
-                        || ($appInfo !== null && \basename($file->getName(), '.php') !== $appInfo->getInternalName())
-                    ) {
-                        continue;
-                    }
-
-                    self::installHooks(__DIR__ . '/../../' . $child->getName() . '/' . \basename($file->getName(), '.php') . '/Hooks.php', $file->getPath());
-                }
-            } elseif ($child instanceof File) {
-                if (!\is_dir(__DIR__ . '/../../' . $child->getName())
-                    || ($appInfo !== null && \basename($child->getName(), '.php') !== $appInfo->getInternalName())
-                ) {
-                    continue;
-                }
-
-                self::installHooks(__DIR__ . '/../../' . $child->getName() . '/Hooks.php', $child->getPath());
-            }
-        }
-    }
-
-    /**
-     * Install hooks.
-     *
-     * @param string $destHookPath Destination hook path
-     * @param string $srcHookPath  Source hook path
-     *
-     * @return void
-     *
-     * @throws PathException       This exception is thrown if the hook file doesn't exist
-     * @throws PermissionException This exception is thrown if the hook file couldn't be updated (no write permission)
-     *
-     * @since 1.0.0
-     */
-    protected static function installHooks(string $destHookPath, string $srcHookPath) : void
-    {
-        if (!\is_file($destHookPath)) {
-            \file_put_contents($destHookPath, '<?php return [];');
-        }
-
-        if (!\is_file($srcHookPath)) {
-            return;
-        }
-
-        if (!\is_file($destHookPath)) {
-            throw new PathException($destHookPath);
-        }
-
-        if (!\is_writable($destHookPath)) {
-            throw new PermissionException($destHookPath);
-        }
-
-        /** @noinspection PhpIncludeInspection */
-        $appHooks = include $destHookPath;
-        /** @noinspection PhpIncludeInspection */
-        $moduleHooks = include $srcHookPath;
-
-        $appHooks = \array_merge_recursive($appHooks, $moduleHooks);
-
-        \file_put_contents($destHookPath, '<?php return ' . ArrayParser::serializeArray($appHooks) . ';', \LOCK_EX);
+        $class = '\Modules\\' . $info->getDirectory() . '\Admin\Status';
+        $class::activateRoutes($info, $appInfo);
+        $class::activateHooks($info, $appInfo);
     }
 }

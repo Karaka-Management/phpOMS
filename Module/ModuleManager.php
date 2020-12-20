@@ -333,7 +333,6 @@ final class ModuleManager
     private function loadInfo(string $module) : ?ModuleInfo
     {
         $path = \realpath($oldPath = $this->modulePath . $module . '/info.json');
-
         if ($path === false) {
             return null;
         }
@@ -356,14 +355,12 @@ final class ModuleManager
     public function deactivate(string $module) : bool
     {
         $installed = $this->getInstalledModules(false);
-
         if (!isset($installed[$module])) {
             return false;
         }
 
         try {
             $info = $this->loadInfo($module);
-
             if ($info === null) {
                 return false;
             }
@@ -390,7 +387,6 @@ final class ModuleManager
     private function deactivateModule(ModuleInfo $info) : void
     {
         $class = '\\Modules\\' . $info->getDirectory() . '\\Admin\\Status';
-
         if (!Autoloader::exists($class)) {
             throw new InvalidModuleException($info->getDirectory());
         }
@@ -411,14 +407,12 @@ final class ModuleManager
     public function activate(string $module) : bool
     {
         $installed = $this->getInstalledModules(false);
-
         if (!isset($installed[$module])) {
             return false;
         }
 
         try {
             $info = $this->loadInfo($module);
-
             if ($info === null) {
                 return false;
             }
@@ -445,7 +439,6 @@ final class ModuleManager
     private function activateModule(ModuleInfo $info) : void
     {
         $class = '\\Modules\\' . $info->getDirectory() . '\\Admin\\Status';
-
         if (!Autoloader::exists($class)) {
             throw new InvalidModuleException($info->getDirectory());
         }
@@ -495,7 +488,6 @@ final class ModuleManager
     public function install(string $module) : bool
     {
         $installed = $this->getInstalledModules(false);
-
         if (isset($installed[$module])) {
             return false;
         }
@@ -548,7 +540,6 @@ final class ModuleManager
     public function uninstall(string $module) : bool
     {
         $installed = $this->getInstalledModules(false);
-
         if (!isset($installed[$module])) {
             return false;
         }
@@ -570,7 +561,6 @@ final class ModuleManager
             // uninstall module
 
             $class = '\\Modules\\' . $info->getDirectory() . '\\Admin\\Uninstaller';
-
             if (!Autoloader::exists($class)) {
                 throw new InvalidModuleException($info->getDirectory());
             }
@@ -626,7 +616,6 @@ final class ModuleManager
     private function installModule(ModuleInfo $info) : void
     {
         $class = '\\Modules\\' . $info->getDirectory() . '\\Admin\\Installer';
-
         if (!Autoloader::exists($class)) {
             throw new InvalidModuleException($info->getDirectory());
         }
@@ -649,10 +638,12 @@ final class ModuleManager
      */
     public function installProviding(string $from, string $for) : void
     {
-        if (\is_file($this->modulePath . $from . '/Admin/Install/' . $for . '.php')) {
-            $class = '\\Modules\\' . $from . '\\Admin\\Install\\' . $for;
-            $class::install($this->modulePath, $this->app->dbPool);
+        if (!\is_file($this->modulePath . $from . '/Admin/Install/' . $for . '.php')) {
+            return;
         }
+
+        $class = '\\Modules\\' . $from . '\\Admin\\Install\\' . $for;
+        $class::install($this->modulePath, $this->app->dbPool);
     }
 
     /**
@@ -673,7 +664,6 @@ final class ModuleManager
         }
 
         $dirs = \scandir($this->modulePath . $from . '/Application');
-
         if ($dirs === false) {
             return;
         }
