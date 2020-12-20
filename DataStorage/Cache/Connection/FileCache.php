@@ -155,7 +155,14 @@ final class FileCache extends ConnectionAbstract
 
         $path = Directory::sanitize($key, self::SANITIZE);
 
-        File::put($this->con . '/' . \trim($path, '/') . '.cache', $this->build($value, $expire));
+        $fp = \fopen($this->con . '/' . \trim($path, '/') . '.cache', 'w+');
+        if (\flock($fp, \LOCK_EX)) {
+            \ftruncate($fp, 0);
+            \fwrite($fp, $this->build($value, $expire));
+            \fflush($fp);
+            \flock($fp, \LOCK_UN);
+        }
+        \fclose($fp);
     }
 
     /**
@@ -170,7 +177,14 @@ final class FileCache extends ConnectionAbstract
         $path = $this->getPath($key);
 
         if (!File::exists($path)) {
-            File::put($path, $this->build($value, $expire));
+            $fp = \fopen($path, 'w+');
+            if (\flock($fp, \LOCK_EX)) {
+                \ftruncate($fp, 0);
+                \fwrite($fp, $this->build($value, $expire));
+                \fflush($fp);
+                \flock($fp, \LOCK_UN);
+            }
+            \fclose($fp);
 
             return true;
         }
@@ -377,16 +391,252 @@ final class FileCache extends ConnectionAbstract
             $cacheExpire = $this->getExpire($raw);
             $cacheExpire = ($cacheExpire === -1) ? $created : (int) $cacheExpire;
 
-            if ($cacheExpire >= 0 && $created + $cacheExpire < $now) {
-                return $this->delete($key);
-            }
+            if (($cacheExpire >= 0 && $created + $cacheExpire < $now)
+                || ($cacheExpire >= 0 && \abs($now - $created) > $expire)
+            ) {
+                File::delete($path);
 
-            if ($cacheExpire >= 0 && \abs($now - $created) > $expire) {
-                return $this->delete($key);
+                return true;
             }
         }
 
         return false;
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function exists(int|string $key, int $expire = -1) : bool
+    {
+        if ($this->status !== CacheStatus::OK) {
+            return false;
+        }
+
+        $path = $this->getPath($key);
+        if (!File::exists($path)) {
+            return false;
+        }
+
+        $created = File::created($path)->getTimestamp();
+        $now     = \time();
+
+        if ($expire >= 0 && $created + $expire < $now) {
+            return false;
+        }
+
+        $raw = \file_get_contents($path);
+        if ($raw === false) {
+            return false;
+        }
+
+        $type        = (int) $raw[0];
+        $expireStart = (int) \strpos($raw, self::DELIM);
+        $expireEnd   = (int) \strpos($raw, self::DELIM, $expireStart + 1);
+
+        if ($expireStart < 0 || $expireEnd < 0) {
+            return false;
+        }
+
+        $cacheExpire = \substr($raw, $expireStart + 1, $expireEnd - ($expireStart + 1));
+        $cacheExpire = ($cacheExpire === -1) ? $created : (int) $cacheExpire;
+
+        if ($cacheExpire >= 0 && $created + $cacheExpire + ($expire > 0 ? $expire : 0) < $now) {
+            File::delete($path);
+
+            return false;
+        }
+
+        return true;
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function increment(int|string $key, int $value = 1) : void
+    {
+        $path = $this->getPath($key);
+        if (!File::exists($path)) {
+            return;
+        }
+
+        $created = File::created($path)->getTimestamp();
+        $now     = \time();
+
+        if ($expire >= 0 && $created + $expire < $now) {
+            return;
+        }
+
+        $raw = \file_get_contents($path);
+        if ($raw === false) {
+            return;
+        }
+
+        $type        = (int) $raw[0];
+        $expireStart = (int) \strpos($raw, self::DELIM);
+        $expireEnd   = (int) \strpos($raw, self::DELIM, $expireStart + 1);
+
+        if ($expireStart < 0 || $expireEnd < 0) {
+            return;
+        }
+
+        $cacheExpire = \substr($raw, $expireStart + 1, $expireEnd - ($expireStart + 1));
+        $cacheExpire = ($cacheExpire === -1) ? $created : (int) $cacheExpire;
+
+        $val = $this->reverseValue($type, $raw, $expireEnd);
+        $this->set($key, $val + $value, $cacheExpire);
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function decrement(int|string $key, int $value = 1) : void
+    {
+        $path = $this->getPath($key);
+        if (!File::exists($path)) {
+            return;
+        }
+
+        $created = File::created($path)->getTimestamp();
+        $now     = \time();
+
+        if ($expire >= 0 && $created + $expire < $now) {
+            return;
+        }
+
+        $raw = \file_get_contents($path);
+        if ($raw === false) {
+            return;
+        }
+
+        $type        = (int) $raw[0];
+        $expireStart = (int) \strpos($raw, self::DELIM);
+        $expireEnd   = (int) \strpos($raw, self::DELIM, $expireStart + 1);
+
+        if ($expireStart < 0 || $expireEnd < 0) {
+            return;
+        }
+
+        $cacheExpire = \substr($raw, $expireStart + 1, $expireEnd - ($expireStart + 1));
+        $cacheExpire = ($cacheExpire === -1) ? $created : (int) $cacheExpire;
+
+        $val = $this->reverseValue($type, $raw, $expireEnd);
+        $this->set($key, $val - $value, $cacheExpire);
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function rename(int|string $old, int|string $new, int $expire = -1) : void
+    {
+        $value = $this->get($old);
+        $this->set($new, $value, $expire);
+        $this->delete($old);
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function getLike(string $pattern, int $expire = -1) : array
+    {
+        if ($this->status !== CacheStatus::OK) {
+            return [];
+        }
+
+        $files  = Directory::list($this->con . '/', $pattern . '\.cache', true);
+        $values = [];
+
+        foreach ($files as $path) {
+            $path    = $this->con . '/' . $path;
+            $created = File::created($path)->getTimestamp();
+            $now     = \time();
+
+            if ($expire >= 0 && $created + $expire < $now) {
+                continue;
+            }
+
+            $raw = \file_get_contents($path);
+            if ($raw === false) {
+                continue;
+            }
+
+            $type        = (int) $raw[0];
+            $expireStart = (int) \strpos($raw, self::DELIM);
+            $expireEnd   = (int) \strpos($raw, self::DELIM, $expireStart + 1);
+
+            if ($expireStart < 0 || $expireEnd < 0) {
+                continue;
+            }
+
+            $cacheExpire = \substr($raw, $expireStart + 1, $expireEnd - ($expireStart + 1));
+            $cacheExpire = ($cacheExpire === -1) ? $created : (int) $cacheExpire;
+
+            if ($cacheExpire >= 0 && $created + $cacheExpire + ($expire > 0 ? $expire : 0) < $now) {
+                File::delete($path);
+
+                continue;
+            }
+
+            $values[] = $this->reverseValue($type, $raw, $expireEnd);
+        }
+
+        return $values;
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function deleteLike(string $pattern, int $expire = -1) : bool
+    {
+        if ($this->status !== CacheStatus::OK) {
+            return false;
+        }
+
+        $files = Directory::list($this->con . '/', $pattern . '\.cache', true);
+
+        foreach ($files as $path) {
+            $path = $this->con . '/' . $path;
+
+            if ($expire < 0) {
+                File::delete($path);
+
+                continue;
+            }
+
+            if ($expire >= 0) {
+                $created = File::created($path)->getTimestamp();
+                $now     = \time();
+                $raw     = \file_get_contents($path);
+
+                if ($raw === false) {
+                    continue;
+                }
+
+                $cacheExpire = $this->getExpire($raw);
+                $cacheExpire = ($cacheExpire === -1) ? $created : (int) $cacheExpire;
+
+                if (($cacheExpire >= 0 && $created + $cacheExpire < $now)
+                    || ($cacheExpire >= 0 && \abs($now - $created) > $expire)
+                ) {
+                    File::delete($path);
+
+                    continue;
+                }
+            }
+        }
+
+        return true;
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function updateExpire(int|string $key, int $expire = -1) : bool
+    {
+        $value = $this->get($key);
+        $this->delete($key);
+        $this->set($key, $value, $expire);
+
+        return true;
     }
 
     /**
@@ -427,7 +677,14 @@ final class FileCache extends ConnectionAbstract
         $path = $this->getPath($key);
 
         if (File::exists($path)) {
-            File::put($path, $this->build($value, $expire));
+            $fp = \fopen($path, 'w+');
+            if (\flock($fp, \LOCK_EX)) {
+                \ftruncate($fp, 0);
+                \fwrite($fp, $this->build($value, $expire));
+                \fflush($fp);
+                \flock($fp, \LOCK_UN);
+            }
+            \fclose($fp);
 
             return true;
         }

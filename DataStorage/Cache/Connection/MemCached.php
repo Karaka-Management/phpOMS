@@ -142,6 +142,103 @@ final class MemCached extends ConnectionAbstract
     /**
      * {@inheritdoc}
      */
+    public function exists(int|string $key, int $expire = -1) : bool
+    {
+        if ($this->status !== CacheStatus::OK) {
+            return false;
+        }
+
+        return $this->con->get($key) !== false;
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function increment(int|string $key, int $value = 1) : void
+    {
+        $this->con->increment($key, $value);
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function decrement(int|string $key, int $value = 1) : void
+    {
+        $this->con->decrement($key, $value);
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function rename(int|string $old, int|string $new, int $expire = -1) : void
+    {
+        $value = $this->get($old);
+        $this->set($new, $value, $expire);
+        $this->delete($old);
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function getLike(string $pattern, int $expire = -1) : array
+    {
+        if ($this->status !== CacheStatus::OK) {
+            return [];
+        }
+
+        $keys   = $this->con->getAllKeys();
+        $values = [];
+
+        foreach ($keys as $key) {
+            if (\preg_match($key, $key) === 1) {
+                $result = $this->con->get($key);
+                if (\is_string($result)) {
+                    $type   = (int) $result[0];
+                    $start  = (int) \strpos($result, self::DELIM);
+                    $result = $this->reverseValue($type, $result, $start);
+                }
+
+                $values[] = $result;
+            }
+        }
+
+        return $values;
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function deleteLike(string $pattern, int $expire = -1) : bool
+    {
+        if ($this->status !== CacheStatus::OK) {
+            return false;
+        }
+
+        $keys = $this->con->getAllKeys();
+        foreach ($keys as $key) {
+            if (\preg_match($key, $key) === 1) {
+                $this->con->delete($key);
+            }
+        }
+
+        return true;
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function updateExpire(int|string $key, int $expire = -1) : bool
+    {
+        if ($expire > 0) {
+            $this->con->touch($key, $expire);
+        }
+
+        return true;
+    }
+
+    /**
+     * {@inheritdoc}
+     */
     public function flush(int $expire = 0) : bool
     {
         return $this->flushAll();

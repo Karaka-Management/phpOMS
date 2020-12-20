@@ -101,4 +101,43 @@ final class NullCache extends ConnectionAbstract
     {
         return 0;
     }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function exists(int|string $key, int $expire = -1) : bool
+    {
+        return true;
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function rename(int|string $old, int|string $new, int $expire = -1) : void
+    {
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function getLike(string $pattern, int $expire = -1) : array
+    {
+        return [];
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function deleteLike(string $pattern, int $expire = -1) : bool
+    {
+        return true;
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function updateExpire(int|string $key, int $expire = -1) : bool
+    {
+        return true;
+    }
 }
