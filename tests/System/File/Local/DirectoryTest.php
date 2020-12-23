@@ -398,7 +398,7 @@ class DirectoryTest extends \PHPUnit\Framework\TestCase
     {
         $dirTestPath = __DIR__ . '/dirtest';
         self::assertCount(6, Directory::list($dirTestPath, '*', true));
-        self::assertEquals(['sub/test2.txt', 'sub/test4.md', 'sub/path/test3.txt'], Directory::list($dirTestPath, 'test[0-9]+.*', true));
+        self::assertEquals([], \array_diff(['sub/test2.txt', 'sub/test4.md', 'sub/path/test3.txt'], Directory::list($dirTestPath, 'test[0-9]+.*', true)));
 
         self::assertCount(2, Directory::list($dirTestPath, '*', false));
     }

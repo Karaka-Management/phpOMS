@@ -692,7 +692,7 @@ class Email implements MessageInterface
                 : $this->messageDate->format('D, j M Y H:i:s O'))
             . self::$LE;
 
-        if ($this->mailer === SubmitType::MAIL) {
+        if ($this->mailer !== SubmitType::MAIL) {
             $result .= \count($this->to) > 0
                 ? $this->addrAppend('To', $this->to)
                 : 'To: undisclosed-recipients:;' . self::$LE;
@@ -706,7 +706,9 @@ class Email implements MessageInterface
         }
 
         // sendmail and mail() extract Bcc from the header before sending
-        if (($this->mailer === SubmitType::MAIL || $this->mailer === SubmitType::SENDMAIL || $this->mailer === SubmitType::QMAIL)
+        if (($this->mailer === SubmitType::MAIL
+                || $this->mailer === SubmitType::SENDMAIL
+                || $this->mailer === SubmitType::QMAIL)
             && \count($this->bcc) > 0
         ) {
             $result .= $this->addrAppend('Bcc', $this->bcc);

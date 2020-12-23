@@ -42,6 +42,20 @@ class MailHandlerTest extends \PHPUnit\Framework\TestCase
         self::assertTrue($mailer->send($mail));
     }
 
+    public function testSendTextWithSendmail() : void
+    {
+        $mailer = new MailHandler();
+        $mailer->setMailer(SubmitType::SENDMAIL);
+
+        $mail = new Email();
+        $mail->setFrom('dennis.eichhorn@orange-management.org', 'Dennis Eichhorn');
+        $mail->addTo('info@orange-management.org', 'Dennis Eichhorn');
+        $mail->subject = 'Test email';
+        $mail->body    = 'This is some content';
+
+        self::assertTrue($mailer->send($mail));
+    }
+
     public function testReceiveMailWithImap() : void
     {/*
         $mailer = new Imap();
