@@ -41,6 +41,20 @@ final class NullCache extends ConnectionAbstract
     /**
      * {@inheritdoc}
      */
+    public function increment(int|string $key, int $value = 1) : void
+    {
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function decrement(int|string $key, int $value = 1) : void
+    {
+    }
+
+    /**
+     * {@inheritdoc}
+     */
     public function add(int|string $key, mixed $value, int $expire = -1) : bool
     {
         return true;

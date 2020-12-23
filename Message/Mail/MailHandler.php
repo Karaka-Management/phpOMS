@@ -348,7 +348,7 @@ class MailHandler
             $mailerToolFmt = '%s -oi -t';
         }
 
-        $mailerTool = \sprintf($mailerToolFmt, \escapeshellcmd($this->sendmail), $mail->sender);
+        $mailerTool = \sprintf($mailerToolFmt, \escapeshellcmd($this->mailerTool), $mail->sender);
 
         $con = \popen($mailerTool, 'w');
         if ($con === false) {

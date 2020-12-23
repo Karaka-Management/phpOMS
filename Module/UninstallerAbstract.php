@@ -40,163 +40,26 @@ abstract class UninstallerAbstract
      */
     public static function uninstall(DatabasePool $dbPool, ModuleInfo $info) : void
     {
-        self::uninitRoutes($info, $appInfo);
-        self::uninitHooks($info, $appInfo);
-
+        self::deactivate($dbPool, $info);
         self::dropTables($dbPool, $info);
         self::unregisterFromDatabase($dbPool, $info);
     }
 
     /**
-     * Uninstall routes.
+     * Activate after install.
      *
-     * @param string $destRoutePath Destination route path
-     * @param string $srcRoutePath  Source route path
-     *
-     * @return void
-     *
-     * @since 1.0.0
-     */
-    private static function uninitRoutes(string $destRoutePath, string $srcRoutePath) : void
-    {
-        $directories = new Directory(\dirname($info->getPath()) . '/Admin/Routes');
-
-        /** @var Directory|File $child */
-        foreach ($directories as $child) {
-            if ($child instanceof Directory) {
-                foreach ($child as $file) {
-                    if (!\is_dir(__DIR__ . '/../../' . $child->getName() . '/' . \basename($file->getName(), '.php'))
-                        || ($appInfo !== null && \basename($file->getName(), '.php') !== $appInfo->getInternalName())
-                    ) {
-                        continue;
-                    }
-
-                    self::uninstallRoutes(__DIR__ . '/../../' . $child->getName() . '/' . \basename($file->getName(), '.php') . '/Routes.php', $file->getPath());
-                }
-            } elseif ($child instanceof File) {
-                if (!\is_dir(__DIR__ . '/../../' . $child->getName())
-                    || ($appInfo !== null && \basename($child->getName(), '.php') !== $appInfo->getInternalName())
-                ) {
-                    continue;
-                }
-
-                self::uninstallRoutes(__DIR__ . '/../../' . $child->getName() . '/Routes.php', $child->getPath());
-            }
-        }
-    }
-
-    /**
-     * Uninstall routes.
-     *
-     * @param string $destRoutePath Destination route path
-     * @param string $srcRoutePath  Source route path
-     *
-     * @return void
-     *
-     * @throws PermissionException
-     *
-     * @since 1.0.0
-     */
-    protected static function uninstallRoutes(string $destRoutePath, string $srcRoutePath) : void
-    {
-        if (!\is_file($destRoutePath)
-            || !\is_file($srcRoutePath)
-        ) {
-            return;
-        }
-
-        if (!\is_file($destRoutePath)) {
-            throw new PathException($destRoutePath);
-        }
-
-        if (!\is_writable($destRoutePath)) {
-            throw new PermissionException($destRoutePath);
-        }
-
-        /** @noinspection PhpIncludeInspection */
-        $appRoutes = include $destRoutePath;
-        /** @noinspection PhpIncludeInspection */
-        $moduleRoutes = include $srcRoutePath;
-
-        $appRoutes = ArrayUtils::array_diff_assoc_recursive($appRoutes, $moduleRoutes);
-
-        \file_put_contents($destRoutePath, '<?php return ' . ArrayParser::serializeArray($appRoutes) . ';', \LOCK_EX);
-    }
-
-    /**
-     * Uninstall hooks.
-     *
-     * @param string $destHookPath Destination hook path
-     * @param string $srcHookPath  Source hook path
+     * @param DatabasePool $dbPool Database instance
+     * @param ModuleInfo   $info   Module info
      *
      * @return void
      *
      * @since 1.0.0
      */
-    private static function deactivateHooks(string $destHookPath, string $srcHookPath) : void
+    protected static function deactivate(DatabasePool $dbPool, ModuleInfo $info) : void
     {
-        $directories = new Directory(\dirname($info->getPath()) . '/Admin/Hooks');
-
-        /** @var Directory|File $child */
-        foreach ($directories as $child) {
-            if ($child instanceof Directory) {
-                foreach ($child as $file) {
-                    if (!\is_dir(__DIR__ . '/../../' . $child->getName() . '/' . \basename($file->getName(), '.php'))
-                        || ($appInfo !== null && \basename($file->getName(), '.php') !== $appInfo->getInternalName())
-                    ) {
-                        continue;
-                    }
-
-                    self::uninstallHooks(__DIR__ . '/../../' . $child->getName() . '/' . \basename($file->getName(), '.php') . '/Hooks.php', $file->getPath());
-                }
-            } elseif ($child instanceof File) {
-                if (!\is_dir(__DIR__ . '/../../' . $child->getName())
-                    || ($appInfo !== null && \basename($child->getName(), '.php') !== $appInfo->getInternalName())
-                ) {
-                    continue;
-                }
-
-                self::uninstallHooks(__DIR__ . '/../../' . $child->getName() . '/Hooks.php', $child->getPath());
-            }
-        }
-    }
-
-    /**
-     * Uninstall hooks.
-     *
-     * @param string $destHookPath Destination hook path
-     * @param string $srcHookPath  Source hook path
-     *
-     * @return void
-     *
-     * @throws PermissionException
-     *
-     * @since 1.0.0
-     */
-    protected static function uninstallHooks(string $destHookPath, string $srcHookPath) : void
-    {
-        if (!\is_file($destHookPath)
-            || !\is_file($srcHookPath)
-        ) {
-            return;
-        }
-
-        if (!\is_file($destHookPath)) {
-            throw new PathException($destHookPath);
-        }
-
-        if (!\is_writable($destHookPath)) {
-            throw new PermissionException($destHookPath);
-        }
-
-        /** @noinspection PhpIncludeInspection */
-        $appHooks = include $destHookPath;
-        /** @noinspection PhpIncludeInspection */
-        $moduleHooks = include $srcHookPath;
-
-        $appHooks = ArrayUtils::array_diff_assoc_recursive($appHooks, $moduleHooks);
-
-        \file_put_contents($destHookPath, '<?php return ' . ArrayParser::serializeArray($appHooks) . ';', \LOCK_EX);
+        /** @var StatusAbstract $class */
+        $class = '\Modules\\' . $info->getDirectory() . '\Admin\Status';
+        $class::deactivate($dbPool, $info);
     }
 
     /**

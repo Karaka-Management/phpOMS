@@ -247,7 +247,6 @@ abstract class ViewAbstract implements RenderableInterface
         } catch (\Throwable $e) {
             \ob_end_clean();
             $ob = '';
-            echo $e->getMessage();
         } finally {
             return $ob;
         }

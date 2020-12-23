@@ -369,6 +369,7 @@ final class ModuleManager
 
             return true;
         } catch (\Exception $e) {
+            echo $e->getMessage();
             return false; // @codeCoverageIgnore
         }
     }
@@ -489,7 +490,7 @@ final class ModuleManager
     {
         $installed = $this->getInstalledModules(false);
         if (isset($installed[$module])) {
-            return false;
+            return true;
         }
 
         if (!\is_file($this->modulePath . $module . '/Admin/Installer.php')) {

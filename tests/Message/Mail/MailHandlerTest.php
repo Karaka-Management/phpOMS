@@ -16,7 +16,6 @@ namespace phpOMS\tests\Message;
 
 require_once __DIR__ . '/../../Autoloader.php';
 
-use phpOMS\Message\Mail\Mail;
 use phpOMS\Message\Mail\MailHandler;
 use phpOMS\Message\Mail\SubmitType;
 use phpOMS\Message\Mail\Email;
@@ -30,17 +29,17 @@ use phpOMS\Message\Mail\Imap;
 class MailHandlerTest extends \PHPUnit\Framework\TestCase
 {
     public function testSendTextWithMail() : void
-    {/*
+    {
         $mailer = new MailHandler();
         $mailer->setMailer(SubmitType::MAIL);
 
         $mail = new Email();
-        $mail->setFrom('d.eichhorn@orange-management.org', 'Dennis Eichhorn');
-        $mail->addTo('coyle.maguire@googlemail.com', 'Donald Duck');
+        $mail->setFrom('dennis.eichhorn@orange-management.org', 'Dennis Eichhorn');
+        $mail->addTo('info@orange-management.org', 'Dennis Eichhorn');
         $mail->subject = 'Test email';
         $mail->body    = 'This is some content';
 
-        self::assertTrue($mailer->send($mail));*/
+        self::assertTrue($mailer->send($mail));
     }
 
     public function testReceiveMailWithImap() : void

@@ -436,8 +436,8 @@ final class ArrayUtils
     {
         $diff = [];
         foreach ($values1 as $key => $value) {
-            if (!\is_array($value)) {
-                if (!array_key_exists($key, $value2) || !\is_array($values2[$key])) {
+            if (\is_array($value)) {
+                if (!array_key_exists($key, $values2) || !\is_array($values2[$key])) {
                     $diff[$key] = $value;
                 } else {
                     $subDiff = self::array_diff_assoc_recursive($value, $values2[$key]);
@@ -445,8 +445,8 @@ final class ArrayUtils
                         $diff[$key] = $subDiff;
                     }
                 }
-            } elseif ($values[$key] !== $value || !\array_key_exists($key, $values2)) {
-                $diff[$key] == $value;
+            } elseif (!\array_key_exists($key, $values2) || $values2[$key] !== $value) {
+                $diff[$key] = $value;
             }
         }
 
