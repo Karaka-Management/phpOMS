@@ -114,7 +114,7 @@ final class Dispatcher implements DispatcherInterface
         $views    = [];
         $dispatch = \explode(':', $controller);
 
-        if (!Autoloader::exists($dispatch[0])) {
+        if (!Autoloader::exists($dispatch[0]) && !isset($this->controllers[$dispatch[0]])) {
             throw new PathException($dispatch[0]);
         }
 

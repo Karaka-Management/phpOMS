@@ -91,4 +91,37 @@ class BuilderTest extends \PHPUnit\Framework\TestCase
             ->toSql()
         );
     }
+
+    public function testMysqlAlter() : void
+    {/*
+        $query = new Builder($this->con);
+        $sql   = 'CREATE TABLE `user_roles` (`user_id` INT NOT NULL AUTO_INCREMENT, `role_id` VARCHAR(10) DEFAULT \'1\' NULL, PRIMARY KEY (`user_id`), FOREIGN KEY (`user_id`) REFERENCES `users` (`ext1_id`), FOREIGN KEY (`role_id`) REFERENCES `roles` (`ext2_id`)) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 AUTO_INCREMENT=1;';
+        self::assertEquals(
+            $sql,
+            $query->createTable('user_roles')
+                ->field('user_id', 'INT', null, false, true, false, true, 'users', 'ext1_id')
+                ->field('role_id', 'VARCHAR(10)', '1', true, false, false, false, 'roles', 'ext2_id')
+            ->toSql()
+        );*/
+    }
+
+
+    public function testMysqlCreateFromSchema() : void
+    {
+        Builder::createFromSchema(
+            \json_decode(
+                \file_get_contents(__DIR__ . '/Grammar/testSchema.json'), true
+            )['test'],
+            $this->con
+        );
+
+        $table  = new Builder($this->con);
+        $tables = $table->selectTables()->execute()->fetchAll(\PDO::FETCH_COLUMN);
+        self::assertContains('test', $tables);
+        self::assertContains('test_foreign', $tables);
+
+        $delete  = new Builder($this->con);
+        $delete->dropTable('test')->execute();
+        $delete->dropTable('test_foreign')->execute();
+    }
 }

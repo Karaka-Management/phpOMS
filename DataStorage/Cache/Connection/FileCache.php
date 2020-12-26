@@ -153,7 +153,7 @@ final class FileCache extends ConnectionAbstract
             return;
         }
 
-        $path = Directory::sanitize($key, self::SANITIZE);
+        $path = Directory::sanitize((string) $key, self::SANITIZE);
 
         $fp = \fopen($this->con . '/' . \trim($path, '/') . '.cache', 'w+');
         if (\flock($fp, \LOCK_EX)) {
@@ -462,10 +462,6 @@ final class FileCache extends ConnectionAbstract
         $created = File::created($path)->getTimestamp();
         $now     = \time();
 
-        if ($expire >= 0 && $created + $expire < $now) {
-            return;
-        }
-
         $raw = \file_get_contents($path);
         if ($raw === false) {
             return;
@@ -498,10 +494,6 @@ final class FileCache extends ConnectionAbstract
 
         $created = File::created($path)->getTimestamp();
         $now     = \time();
-
-        if ($expire >= 0 && $created + $expire < $now) {
-            return;
-        }
 
         $raw = \file_get_contents($path);
         if ($raw === false) {
@@ -632,7 +624,7 @@ final class FileCache extends ConnectionAbstract
      */
     public function updateExpire(int|string $key, int $expire = -1) : bool
     {
-        $value = $this->get($key);
+        $value = $this->get($key, $expire);
         $this->delete($key);
         $this->set($key, $value, $expire);
 
@@ -703,7 +695,7 @@ final class FileCache extends ConnectionAbstract
      */
     private function getPath(int|string $key) : string
     {
-        $path = Directory::sanitize($key, self::SANITIZE);
+        $path = Directory::sanitize((string) $key, self::SANITIZE);
         return $this->con . '/' . \trim($path, '/') . '.cache';
     }
 }

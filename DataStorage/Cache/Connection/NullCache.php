@@ -121,7 +121,7 @@ final class NullCache extends ConnectionAbstract
      */
     public function exists(int|string $key, int $expire = -1) : bool
     {
-        return true;
+        return false;
     }
 
     /**

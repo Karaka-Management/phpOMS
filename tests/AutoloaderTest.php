@@ -60,6 +60,11 @@ class AutoloaderTest extends \PHPUnit\Framework\TestCase
         self::assertTrue(\in_array(\realpath(__DIR__ . '/TestLoad2.php'), $includes));
     }
 
+    public function testPathFinding() : void
+    {
+        self::assertCount(1, Autoloader::findPaths('\phpOMS\Autoloader'));
+    }
+
     /**
      * @covers phpOMS\Autoloader
      * @group framework

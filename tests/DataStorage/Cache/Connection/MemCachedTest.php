@@ -125,6 +125,52 @@ class MemCachedTest extends \PHPUnit\Framework\TestCase
         self::assertEquals('testValAdd', $this->cache->get('addKey'));
     }
 
+    public function testGetLike() : void
+    {
+        $this->cache->set('key1', 'testVal1');
+        $this->cache->set('key2', 'testVal2');
+        self::assertEquals(['testVal1', 'testVal2'], $this->cache->getLike('key\d'));
+    }
+
+    public function testIncrement() : void
+    {
+        $this->cache->set(1, 1);
+        $this->cache->increment(1, 2);
+        self::assertEquals(3, $this->cache->get(1));
+    }
+
+    public function testDecrement() : void
+    {
+        $this->cache->set(1, 3);
+        $this->cache->decrement(1, 2);
+        self::assertEquals(1, $this->cache->get(1));
+    }
+
+    public function testRename() : void
+    {
+        $this->cache->set('a', 'testVal1');
+        $this->cache->rename('a', 'b');
+        self::assertEquals('testVal1', $this->cache->get('b'));
+    }
+
+    public function testDeleteLike() : void
+    {
+        $this->cache->set('key1', 'testVal1');
+        $this->cache->set('key2', 'testVal2');
+        self::assertTrue($this->cache->deleteLike('key\d'));
+        self::assertEquals([], $this->cache->getLike('key\d'));
+    }
+
+    public function testUpdateExpire() : void
+    {
+        $this->cache->set('key2', 'testVal2', 1);
+        self::assertEquals('testVal2', $this->cache->get('key2', 1));
+        \sleep(2);
+        self::assertNull($this->cache->get('key2', 1));
+        self::assertTrue($this->cache->updateExpire(10000));
+        self::assertEquals('testVal2', $this->cache->get('key2', 1));
+    }
+
     /**
      * @testdox Cache data cannot be added if it already exists
      * @covers phpOMS\DataStorage\Cache\Connection\MemCached<extended>

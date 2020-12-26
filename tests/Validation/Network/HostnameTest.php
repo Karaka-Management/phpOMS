@@ -28,11 +28,18 @@ class HostnameTest extends \PHPUnit\Framework\TestCase
      * @covers phpOMS\Validation\Network\Hostname
      * @group framework
      */
-    public function testHostname() : void
+    public function testHostnameDomain() : void
     {
         self::assertTrue(Hostname::isValid('test.com'));
         self::assertFalse(Hostname::isValid('http://test.com'));
         self::assertFalse(Hostname::isValid('test.com/test?something=a'));
         self::assertFalse(Hostname::isValid('//somethign/wrong'));
+    }
+
+    public function testHostnameIp() : void
+    {
+        self::assertTrue(Hostname::isValid('127.0.0.1'));
+        self::assertTrue(Hostname::isValid('[2001:0db8:85a3:0000:0000:8a2e:0370:7334]'));
+        self::assertFalse(Hostname::isValid('2001:0db8:85a3:0000:0000:8a2e:0370:7334'));
     }
 }

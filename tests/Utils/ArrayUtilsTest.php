@@ -313,4 +313,22 @@ class ArrayUtilsTest extends \PHPUnit\Framework\TestCase
     {
         self::assertEquals([1, 3, 4], ArrayUtils::abs([-1, 3, -4]));
     }
+
+    public function testArrayDiffAssocResursive() : void
+    {
+        self::assertEquals(
+            ['a' => 1, 'b' => ['c' => 2]],
+            ArrayUtils::array_diff_assoc_recursive(['a' => 1, 'b' => ['c' => 2]], [])
+        );
+
+        self::assertEquals(
+            ['b' => ['d' => 3]],
+            ArrayUtils::array_diff_assoc_recursive(['a' => 1, 'b' => ['c' => 2, 'd' => 3]], ['a' => 1, 'b' => ['c' => 2]])
+        );
+
+        self::assertEquals(
+            [],
+            ArrayUtils::array_diff_assoc_recursive([], ['a' => 1, 'b' => ['c' => 2]])
+        );
+    }
 }

@@ -30,13 +30,20 @@ class MailHandlerTest extends \PHPUnit\Framework\TestCase
 {
     public function testSendTextWithMail() : void
     {
+        if (!\file_exists('/usr/sbin/sendmail') && empty(\ini_get('sendmail_path'))) {
+            self::markTestSkipped();
+        }
+
         $mailer = new MailHandler();
         $mailer->setMailer(SubmitType::MAIL);
 
         $mail = new Email();
-        $mail->setFrom('dennis.eichhorn@orange-management.org', 'Dennis Eichhorn');
-        $mail->addTo('info@orange-management.org', 'Dennis Eichhorn');
-        $mail->subject = 'Test email';
+        $mail->setFrom('info@orange-management.org', 'Dennis Eichhorn');
+        $mail->addTo('test@orange-management.email', 'Dennis Eichhorn');
+        $mail->addCC('test2@orange-management.email', 'Dennis Eichhorn');
+        $mail->addBCC('test3@orange-management.email', 'Dennis Eichhorn');
+        $mail->addReplyTo('test4@orange-management.email', 'Dennis Eichhorn');
+        $mail->subject = 'testSendTextWithMail';
         $mail->body    = 'This is some content';
 
         self::assertTrue($mailer->send($mail));
@@ -44,13 +51,20 @@ class MailHandlerTest extends \PHPUnit\Framework\TestCase
 
     public function testSendTextWithSendmail() : void
     {
+        if (!\file_exists('/usr/sbin/sendmail') && empty(\ini_get('sendmail_path'))) {
+            self::markTestSkipped();
+        }
+
         $mailer = new MailHandler();
         $mailer->setMailer(SubmitType::SENDMAIL);
 
         $mail = new Email();
-        $mail->setFrom('dennis.eichhorn@orange-management.org', 'Dennis Eichhorn');
-        $mail->addTo('info@orange-management.org', 'Dennis Eichhorn');
-        $mail->subject = 'Test email';
+        $mail->setFrom('info@orange-management.org', 'Dennis Eichhorn');
+        $mail->addTo('test@orange-management.email', 'Dennis Eichhorn');
+        $mail->addCC('test2@orange-management.email', 'Dennis Eichhorn');
+        $mail->addBCC('test3@orange-management.email', 'Dennis Eichhorn');
+        $mail->addReplyTo('test4@orange-management.email', 'Dennis Eichhorn');
+        $mail->subject = 'testSendTextWithSendmail';
         $mail->body    = 'This is some content';
 
         self::assertTrue($mailer->send($mail));

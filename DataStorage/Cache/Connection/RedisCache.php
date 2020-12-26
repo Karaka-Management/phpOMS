@@ -220,7 +220,7 @@ final class RedisCache extends ConnectionAbstract
         $values = [];
 
         foreach ($keys as $key) {
-            if (\preg_match($key, $key) === 1) {
+            if (\preg_match('/' . $pattern . '/', $key) === 1) {
                 $result = $this->con->get($key);
                 if (\is_string($result)) {
                     $type   = (int) $result[0];
@@ -246,7 +246,7 @@ final class RedisCache extends ConnectionAbstract
 
         $keys = $this->con->keys('*');
         foreach ($keys as $key) {
-            if (\preg_match($key, $key) === 1) {
+            if (\preg_match('/' . $pattern . '/', $key) === 1) {
                 $this->con->del($key);
             }
         }
