@@ -17,6 +17,7 @@ namespace phpOMS\tests\Message;
 require_once __DIR__ . '/../../Autoloader.php';
 
 use phpOMS\Message\Mail\Email;
+use phpOMS\System\CharsetType;
 
 /**
  * @testdox phpOMS\tests\Message\MailHandlerTest: Abstract mail handler
@@ -25,6 +26,23 @@ use phpOMS\Message\Mail\Email;
  */
 class EmailTestTest extends \PHPUnit\Framework\TestCase
 {
+    protected Email $mail;
+
+    public function setUp() : void
+    {
+        $this->mail = new Email();
+    }
+
+    public function testDefault() : void
+    {
+        self::assertEquals(CharsetType::ISO_8859_1, $this->mail->charset);
+        self::assertEquals('', $this->mail->subject);
+        self::assertEquals('', $this->mail->body);
+        self::assertEquals('', $this->mail->bodyAlt);
+        self::assertFalse($this->mail->hasAttachment());
+        self::assertFalse($this->mail->hasInlineImage());
+    }
+
     public function testEmailParsing() : void
     {
         self::assertEquals(
@@ -36,5 +54,27 @@ class EmailTestTest extends \PHPUnit\Framework\TestCase
             [['name' => 'Test Name', 'address' => 'test@orange-management.org']],
             Email::parseAddresses('Test Name <test@orange-management.org>', false)
         );
+    }
+
+    public function testHtml() : void
+    {
+        $message = \file_get_contents(__DIR__ . '/files/utf8.html');
+        $this->mail->charset = CharsetType::UTF_8;
+        $this->mail->body = '';
+        $this->mail->bodyAlt = '';
+
+        $this->mail->msgHTML($message, __DIR__ . '/files');
+        //$this->mail->subject = 'msgHTML';
+
+        self::assertNotEmpty($this->mail->body);
+        self::assertNotEmpty($this->mail->bodyAlt);
+        self::assertTrue(\stripos($this->mail->body, 'cid:') !== false);
+    }
+
+    public function testAttachment() : void
+    {
+        self::assertTrue($this->mail->addAttachment(__DIR__ . '/files/logo.png', 'logo'));
+        self::assertTrue($this->mail->hasAttachment());
+        self::assertCount(1, $this->mail->getAttachments());
     }
 }

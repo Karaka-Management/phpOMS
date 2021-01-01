@@ -105,15 +105,21 @@ class BuilderTest extends \PHPUnit\Framework\TestCase
         );*/
     }
 
-
     public function testMysqlCreateFromSchema() : void
     {
         Builder::createFromSchema(
             \json_decode(
                 \file_get_contents(__DIR__ . '/Grammar/testSchema.json'), true
+            )['test_foreign'],
+            $this->con
+        )->execute();
+
+        Builder::createFromSchema(
+            \json_decode(
+                \file_get_contents(__DIR__ . '/Grammar/testSchema.json'), true
             )['test'],
             $this->con
-        );
+        )->execute();
 
         $table  = new Builder($this->con);
         $tables = $table->selectTables()->execute()->fetchAll(\PDO::FETCH_COLUMN);

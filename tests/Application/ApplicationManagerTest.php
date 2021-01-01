@@ -23,6 +23,7 @@ use phpOMS\Config\SettingsInterface;
 use phpOMS\Dispatcher\Dispatcher;
 use phpOMS\Module\ModuleManager;
 use phpOMS\Router\WebRouter;
+use phpOMS\System\File\Local\Directory;
 
 /**
  * @testdox phpOMS\tests\Application\ApplicationManagerTest: Application manager
@@ -74,7 +75,10 @@ class ApplicationManagerTest extends \PHPUnit\Framework\TestCase
      */
     public function testInstall() : void
     {
-        self::markTestIncomplete();
+        self::assertTrue($this->appManager->install(__DIR__ . '/Testapp', __DIR__ . '/Apps/Testapp'));
+        self::assertTrue(\is_dir(__DIR__ . '/Apps/Testapp'));
+        self::assertTrue(\is_file(__DIR__ . '/Apps/Testapp/css/styles.css'));
+        Directory::delete(__DIR__ . '/Apps/Testapp');
     }
 
     /**

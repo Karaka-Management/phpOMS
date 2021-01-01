@@ -283,7 +283,7 @@ class Email implements MessageInterface
      * @var string
      * @since 1.0.0
      */
-    protected string $charset = CharsetType::ISO_8859_1;
+    public string $charset = CharsetType::ISO_8859_1;
 
     /**
      * Mail message type.
