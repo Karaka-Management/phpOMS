@@ -601,7 +601,7 @@ class DataMapperAbstract implements DataMapperInterface
             }
         } catch (\Throwable $t) {
             \var_dump($t->getMessage());
-            \var_dump($query->toSql());
+            \var_dump($a = $query->toSql());
             return -1;
         }
 
@@ -2271,7 +2271,10 @@ class DataMapperAbstract implements DataMapperInterface
                     static::$ownsOne[$def['internal']]['mapper']::fillRelations($value, self::$relations, $depth - 1);
                 }
 
-                $refProp->setValue($obj, $value);
+                if (!empty($value)) {
+                    // todo: find better solution. this was because of a bug with the sales billing list query depth = 4. The address was set (from the client, referral or creator) but then somehow there was a second address element which was all null and null cannot be asigned to a string variable (e.g. country). The problem with this solution is that if the model expects an initialization (e.g. at lest set the elements to null, '', 0 etc.) this is now not done.
+                    $refProp->setValue($obj, $value);
+                }
             } elseif (isset(static::$belongsTo[$def['internal']])) {
                 $default = null;
                 if ($depth - 1 < 1 && $refProp->isInitialized($obj)) {
@@ -2556,7 +2559,7 @@ class DataMapperAbstract implements DataMapperInterface
         int $depth = 3
     ) : array
     {
-        $query = self::getQuery();
+        $query = self::getQuery(depth: $depth);
         $query->where(static::$table . '_' . $depth . '.' . ($column !== null ? self::getColumnByMember($column) : static::$primaryField), '>', $pivot)
             ->orderBy(static::$table . '_' . $depth . '.' . ($column !== null ? self::getColumnByMember($column) : static::$primaryField), $order)
             ->limit($limit);

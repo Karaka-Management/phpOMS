@@ -1401,15 +1401,19 @@ class Builder extends BuilderAbstract
      */
     public function execute() : mixed
     {
-        $sth = $this->connection->con->prepare($this->toSql());
+        try {
+            $sth = $this->connection->con->prepare($this->toSql());
 
-        foreach ($this->binds as $key => $bind) {
-            $type = self::getBindParamType($bind);
+            foreach ($this->binds as $key => $bind) {
+                $type = self::getBindParamType($bind);
 
-            $sth->bindParam($key, $bind, $type);
+                $sth->bindParam($key, $bind, $type);
+            }
+
+            $sth->execute();
+        } catch (\Throwable $t) {
+            var_dump($this->toSql());
         }
-
-        $sth->execute();
 
         return $sth;
     }

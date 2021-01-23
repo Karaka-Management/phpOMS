@@ -77,13 +77,14 @@ abstract class RequestAbstract implements MessageInterface
     /**
      * Get data.
      *
-     * @param string $key Data key
+     * @param string $key  Data key
+     * @param string $type Return type
      *
      * @return mixed
      *
      * @since 1.0.0
      */
-    public function getData(string $key = null) : mixed
+    public function getData(string $key = null, string $type = null) : mixed
     {
         if ($key === null) {
             return $this->data;
@@ -91,7 +92,24 @@ abstract class RequestAbstract implements MessageInterface
 
         $key = \mb_strtolower($key);
 
-        return $this->data[$key] ?? null;
+        if ($type === null) {
+            return $this->data[$key] ?? null;
+        }
+
+        if (!isset($this->data[$key])) {
+            return null;
+        }
+
+        switch ($type) {
+            case 'int':
+                return (int) $this->data[$key];
+            case 'string':
+                return (string) $this->data[$key];
+            case 'float':
+                return (float) $this->data[$key];
+            default:
+                return $this->data[$key];
+        }
     }
 
     /**
