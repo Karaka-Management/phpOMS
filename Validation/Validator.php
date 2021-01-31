@@ -72,7 +72,7 @@ final class Validator extends ValidatorAbstract
      *
      * @since 1.0.0
      */
-    public static function isType(mixed $var, string|array $constraint) : bool
+    public static function isType(mixed $var, string | array $constraint) : bool
     {
         if (!\is_array($constraint)) {
             $constraint = [$constraint];
@@ -119,7 +119,7 @@ final class Validator extends ValidatorAbstract
      *
      * @since 1.0.0
      */
-    public static function contains(string $var, string|array $substr) : bool
+    public static function contains(string $var, string | array $substr) : bool
     {
         return \is_string($substr) ? \strpos($var, $substr) !== false : StringUtils::contains($var, $substr);
     }
@@ -150,7 +150,7 @@ final class Validator extends ValidatorAbstract
      *
      * @since 1.0.0
      */
-    public static function hasLimit(int|float $var, int|float $min = 0, int|float $max = \PHP_INT_MAX) : bool
+    public static function hasLimit(int | float $var, int | float $min = 0, int | float $max = \PHP_INT_MAX) : bool
     {
         if ($var <= $max && $var >= $min) {
             return true;

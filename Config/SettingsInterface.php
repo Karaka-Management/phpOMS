@@ -43,7 +43,7 @@ interface SettingsInterface extends OptionsInterface
      */
     public function get(
         mixed $ids = null,
-        string|array $names = null,
+        string | array $names = null,
         string $module = null,
         int $group = null,
         int $account = null

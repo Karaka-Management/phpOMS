@@ -80,7 +80,7 @@ final class MemCached extends ConnectionAbstract
     /**
      * {@inheritdoc}
      */
-    public function set(int|string $key, mixed $value, int $expire = -1) : void
+    public function set(int | string $key, mixed $value, int $expire = -1) : void
     {
         if ($this->status !== CacheStatus::OK) {
             return;
@@ -96,7 +96,7 @@ final class MemCached extends ConnectionAbstract
     /**
      * {@inheritdoc}
      */
-    public function add(int|string $key, mixed $value, int $expire = -1) : bool
+    public function add(int | string $key, mixed $value, int $expire = -1) : bool
     {
         if ($this->status !== CacheStatus::OK) {
             return false;
@@ -112,7 +112,7 @@ final class MemCached extends ConnectionAbstract
     /**
      * {@inheritdoc}
      */
-    public function get(int|string $key, int $expire = -1) : mixed
+    public function get(int | string $key, int $expire = -1) : mixed
     {
         if ($this->status !== CacheStatus::OK) {
             return null;
@@ -130,7 +130,7 @@ final class MemCached extends ConnectionAbstract
     /**
      * {@inheritdoc}
      */
-    public function delete(int|string $key, int $expire = -1) : bool
+    public function delete(int | string $key, int $expire = -1) : bool
     {
         if ($this->status !== CacheStatus::OK) {
             return false;
@@ -142,7 +142,7 @@ final class MemCached extends ConnectionAbstract
     /**
      * {@inheritdoc}
      */
-    public function exists(int|string $key, int $expire = -1) : bool
+    public function exists(int | string $key, int $expire = -1) : bool
     {
         if ($this->status !== CacheStatus::OK) {
             return false;
@@ -154,7 +154,7 @@ final class MemCached extends ConnectionAbstract
     /**
      * {@inheritdoc}
      */
-    public function increment(int|string $key, int $value = 1) : void
+    public function increment(int | string $key, int $value = 1) : void
     {
         $this->con->increment($key, $value);
     }
@@ -162,7 +162,7 @@ final class MemCached extends ConnectionAbstract
     /**
      * {@inheritdoc}
      */
-    public function decrement(int|string $key, int $value = 1) : void
+    public function decrement(int | string $key, int $value = 1) : void
     {
         $this->con->decrement($key, $value);
     }
@@ -170,7 +170,7 @@ final class MemCached extends ConnectionAbstract
     /**
      * {@inheritdoc}
      */
-    public function rename(int|string $old, int|string $new, int $expire = -1) : void
+    public function rename(int | string $old, int | string $new, int $expire = -1) : void
     {
         $value = $this->get($old);
         $this->set($new, $value, $expire);
@@ -227,7 +227,7 @@ final class MemCached extends ConnectionAbstract
     /**
      * {@inheritdoc}
      */
-    public function updateExpire(int|string $key, int $expire = -1) : bool
+    public function updateExpire(int | string $key, int $expire = -1) : bool
     {
         if ($expire > 0) {
             $this->con->touch($key, $expire);
@@ -261,7 +261,7 @@ final class MemCached extends ConnectionAbstract
     /**
      * {@inheritdoc}
      */
-    public function replace(int|string $key, mixed $value, int $expire = -1) : bool
+    public function replace(int | string $key, mixed $value, int $expire = -1) : bool
     {
         if ($this->status !== CacheStatus::OK) {
             return false;

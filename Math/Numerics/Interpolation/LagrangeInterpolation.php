@@ -46,7 +46,7 @@ final class LagrangeInterpolation implements InterpolationInterface
     /**
      * {@inheritdoc}
      */
-    public function interpolate(int|float $x) : float
+    public function interpolate(int | float $x) : float
     {
         $n      = \count($this->points);
         $result = 0.0;

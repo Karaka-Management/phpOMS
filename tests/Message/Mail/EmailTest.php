@@ -28,7 +28,7 @@ class EmailTestTest extends \PHPUnit\Framework\TestCase
 {
     protected Email $mail;
 
-    public function setUp() : void
+    protected function setUp() : void
     {
         $this->mail = new Email();
     }
@@ -58,9 +58,9 @@ class EmailTestTest extends \PHPUnit\Framework\TestCase
 
     public function testHtml() : void
     {
-        $message = \file_get_contents(__DIR__ . '/files/utf8.html');
+        $message             = \file_get_contents(__DIR__ . '/files/utf8.html');
         $this->mail->charset = CharsetType::UTF_8;
-        $this->mail->body = '';
+        $this->mail->body    = '';
         $this->mail->bodyAlt = '';
 
         $this->mail->msgHTML($message, __DIR__ . '/files');

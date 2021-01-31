@@ -120,12 +120,12 @@ class Pop3 extends MailHandler implements MailBoxInterface
         return \imap_num_recent($this->mailbox);
     }
 
-    public function copyMail(string|array $messages, string $box) : bool
+    public function copyMail(string | array $messages, string $box) : bool
     {
         return \imap_mail_copy($this->mailbox, !\is_string($messages) ? \implode(',', $messages) : $messages, $box);
     }
 
-    public function moveMail(string|array $messages, string $box) : bool
+    public function moveMail(string | array $messages, string $box) : bool
     {
         return \imap_mail_copy($this->mailbox, !\is_string($messages) ? \implode(',', $messages) : $messages, $box);
     }

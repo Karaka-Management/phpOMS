@@ -104,7 +104,7 @@ final class RedisCache extends ConnectionAbstract
     /**
      * {@inheritdoc}
      */
-    public function set(int|string $key, mixed $value, int $expire = -1) : void
+    public function set(int | string $key, mixed $value, int $expire = -1) : void
     {
         if ($this->status !== CacheStatus::OK) {
             return;
@@ -122,7 +122,7 @@ final class RedisCache extends ConnectionAbstract
     /**
      * {@inheritdoc}
      */
-    public function add(int|string $key, mixed $value, int $expire = -1) : bool
+    public function add(int | string $key, mixed $value, int $expire = -1) : bool
     {
         if ($this->status !== CacheStatus::OK) {
             return false;
@@ -138,7 +138,7 @@ final class RedisCache extends ConnectionAbstract
     /**
      * {@inheritdoc}
      */
-    public function get(int|string $key, int $expire = -1) : mixed
+    public function get(int | string $key, int $expire = -1) : mixed
     {
         if ($this->status !== CacheStatus::OK || $this->con->exists($key) < 1) {
             return null;
@@ -158,7 +158,7 @@ final class RedisCache extends ConnectionAbstract
     /**
      * {@inheritdoc}
      */
-    public function delete(int|string $key, int $expire = -1) : bool
+    public function delete(int | string $key, int $expire = -1) : bool
     {
         if ($this->status !== CacheStatus::OK) {
             return false;
@@ -170,7 +170,7 @@ final class RedisCache extends ConnectionAbstract
     /**
      * {@inheritdoc}
      */
-    public function exists(int|string $key, int $expire = -1) : bool
+    public function exists(int | string $key, int $expire = -1) : bool
     {
         if ($this->status !== CacheStatus::OK) {
             return false;
@@ -182,7 +182,7 @@ final class RedisCache extends ConnectionAbstract
     /**
      * {@inheritdoc}
      */
-    public function increment(int|string $key, int $value = 1) : void
+    public function increment(int | string $key, int $value = 1) : void
     {
         $this->con->incrBy($key, $value);
     }
@@ -190,7 +190,7 @@ final class RedisCache extends ConnectionAbstract
     /**
      * {@inheritdoc}
      */
-    public function decrement(int|string $key, int $value = 1) : void
+    public function decrement(int | string $key, int $value = 1) : void
     {
         $this->con->decrBy($key, $value);
     }
@@ -198,7 +198,7 @@ final class RedisCache extends ConnectionAbstract
     /**
      * {@inheritdoc}
      */
-    public function rename(int|string $old, int|string $new, int $expire = -1) : void
+    public function rename(int | string $old, int | string $new, int $expire = -1) : void
     {
         $this->con->rename($old, $new);
 
@@ -257,7 +257,7 @@ final class RedisCache extends ConnectionAbstract
     /**
      * {@inheritdoc}
      */
-    public function updateExpire(int|string $key, int $expire = -1) : bool
+    public function updateExpire(int | string $key, int $expire = -1) : bool
     {
         if ($expire > 0) {
             $this->con->expire($key, $expire);
@@ -291,7 +291,7 @@ final class RedisCache extends ConnectionAbstract
     /**
      * {@inheritdoc}
      */
-    public function replace(int|string $key, mixed $value, int $expire = -1) : bool
+    public function replace(int | string $key, mixed $value, int $expire = -1) : bool
     {
         if ($this->status !== CacheStatus::OK) {
             return false;

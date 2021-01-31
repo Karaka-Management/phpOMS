@@ -14,8 +14,8 @@ declare(strict_types=1);
 
 namespace phpOMS\tests\DataStorage\Cache\Connection;
 
-use phpOMS\DataStorage\Cache\CacheType;
 use phpOMS\DataStorage\Cache\CacheStatus;
+use phpOMS\DataStorage\Cache\CacheType;
 use phpOMS\DataStorage\Cache\Connection\NullCache;
 
 /**

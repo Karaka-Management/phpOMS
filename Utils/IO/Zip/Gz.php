@@ -29,7 +29,7 @@ class Gz implements ArchiveInterface
     /**
      * {@inheritdoc}
      */
-    public static function pack(string|array $source, string $destination, bool $overwrite = false) : bool
+    public static function pack(string | array $source, string $destination, bool $overwrite = false) : bool
     {
         $destination = \str_replace('\\', '/', $destination);
         if ($destination === false

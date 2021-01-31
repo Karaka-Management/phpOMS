@@ -34,28 +34,28 @@ final class NullCache extends ConnectionAbstract
     /**
      * {@inheritdoc}
      */
-    public function set(int|string $key, mixed $value, int $expire = -1) : void
+    public function set(int | string $key, mixed $value, int $expire = -1) : void
     {
     }
 
     /**
      * {@inheritdoc}
      */
-    public function increment(int|string $key, int $value = 1) : void
+    public function increment(int | string $key, int $value = 1) : void
     {
     }
 
     /**
      * {@inheritdoc}
      */
-    public function decrement(int|string $key, int $value = 1) : void
+    public function decrement(int | string $key, int $value = 1) : void
     {
     }
 
     /**
      * {@inheritdoc}
      */
-    public function add(int|string $key, mixed $value, int $expire = -1) : bool
+    public function add(int | string $key, mixed $value, int $expire = -1) : bool
     {
         return true;
     }
@@ -63,7 +63,7 @@ final class NullCache extends ConnectionAbstract
     /**
      * {@inheritdoc}
      */
-    public function get(int|string $key, int $expire = -1) : mixed
+    public function get(int | string $key, int $expire = -1) : mixed
     {
         return null;
     }
@@ -71,7 +71,7 @@ final class NullCache extends ConnectionAbstract
     /**
      * {@inheritdoc}
      */
-    public function delete(int|string $key, int $expire = -1) : bool
+    public function delete(int | string $key, int $expire = -1) : bool
     {
         return true;
     }
@@ -95,7 +95,7 @@ final class NullCache extends ConnectionAbstract
     /**
      * {@inheritdoc}
      */
-    public function replace(int|string $key, mixed $value, int $expire = -1) : bool
+    public function replace(int | string $key, mixed $value, int $expire = -1) : bool
     {
         return true;
     }
@@ -119,7 +119,7 @@ final class NullCache extends ConnectionAbstract
     /**
      * {@inheritdoc}
      */
-    public function exists(int|string $key, int $expire = -1) : bool
+    public function exists(int | string $key, int $expire = -1) : bool
     {
         return false;
     }
@@ -127,7 +127,7 @@ final class NullCache extends ConnectionAbstract
     /**
      * {@inheritdoc}
      */
-    public function rename(int|string $old, int|string $new, int $expire = -1) : void
+    public function rename(int | string $old, int | string $new, int $expire = -1) : void
     {
     }
 
@@ -150,7 +150,7 @@ final class NullCache extends ConnectionAbstract
     /**
      * {@inheritdoc}
      */
-    public function updateExpire(int|string $key, int $expire = -1) : bool
+    public function updateExpire(int | string $key, int $expire = -1) : bool
     {
         return true;
     }

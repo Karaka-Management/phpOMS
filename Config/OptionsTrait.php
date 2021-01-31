@@ -43,7 +43,7 @@ trait OptionsTrait
      *
      * @since 1.0.0
      */
-    public function exists(int|string $key) : bool
+    public function exists(int | string $key) : bool
     {
         return isset($this->options[$key]);
     }
@@ -57,7 +57,7 @@ trait OptionsTrait
      *
      * @since 1.0.0
      */
-    public function getOption(int|string $key) : mixed
+    public function getOption(int | string $key) : mixed
     {
         return $this->options[$key] ?? null;
     }
@@ -95,7 +95,7 @@ trait OptionsTrait
      *
      * @since 1.0.0
      */
-    public function setOption(int|string $key, mixed $value, bool $overwrite = true) : bool
+    public function setOption(int | string $key, mixed $value, bool $overwrite = true) : bool
     {
         if ($overwrite || !isset($this->options[$key])) {
             $this->options[$key] = $value;

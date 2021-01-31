@@ -109,7 +109,7 @@ final class Permutation
      *
      * @since 1.0.0
      */
-    public static function permutate(string|array $toPermute, array $key) : string|array
+    public static function permutate(string | array $toPermute, array $key) : string | array
     {
         $length = \is_array($toPermute) ? \count($toPermute) : \strlen($toPermute);
 

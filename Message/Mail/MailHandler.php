@@ -18,10 +18,10 @@ declare(strict_types=1);
 
 namespace phpOMS\Message\Mail;
 
-use phpOMS\Validation\Network\Email as EmailValidator;
-use phpOMS\Utils\StringUtils;
-use phpOMS\Validation\Network\Hostname;
 use phpOMS\System\SystemUtils;
+use phpOMS\Utils\StringUtils;
+use phpOMS\Validation\Network\Email as EmailValidator;
+use phpOMS\Validation\Network\Hostname;
 
 /**
  * Mail class.
@@ -410,11 +410,11 @@ class MailHandler
     /**
      * Call mail() in a safe_mode-aware fashion.
      *
-     * @param string      $to      To
-     * @param Email       $mail    Mail
-     * @param string      $body    Message Body
-     * @param string      $header  Additional Header(s)
-     * @param null|string $params  Params
+     * @param string      $to     To
+     * @param Email       $mail   Mail
+     * @param string      $body   Message Body
+     * @param string      $header Additional Header(s)
+     * @param null|string $params Params
      *
      * @return bool
      *
@@ -502,7 +502,7 @@ class MailHandler
         }
 
         $this->smtp->timeout = $this->timeout;
-        $this->smtp->doVerp = $this->useVerp;
+        $this->smtp->doVerp  = $this->useVerp;
 
         $hosts = \explode(';', $this->host);
         foreach ($hosts as $hostentry) {
@@ -540,7 +540,7 @@ class MailHandler
             }
 
             //Do we need the OpenSSL extension?
-            $sslExt = defined('OPENSSL_ALGO_SHA256');
+            $sslExt = \defined('OPENSSL_ALGO_SHA256');
             if (($secure === EncryptionType::TLS || $secure === EncryptionType::SMTPS)
                 && !$sslExt
             ) {
@@ -580,7 +580,7 @@ class MailHandler
                 }
 
                 return !($this->useSMTPAuth
-                        && !$this->smtp->authenticate($this->username, $this->password, $this->authType, $this->oauth )
+                        && !$this->smtp->authenticate($this->username, $this->password, $this->authType, $this->oauth)
                     );
             }
         }

@@ -144,7 +144,7 @@ final class CubicSplineInterpolation implements InterpolationInterface
     /**
      * {@inheritdoc}
      */
-    public function interpolate(int|float $x) : float
+    public function interpolate(int | float $x) : float
     {
         $n    = \count($this->points);
         $xPos = $n - 1;

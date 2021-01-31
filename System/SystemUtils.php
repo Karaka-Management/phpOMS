@@ -138,7 +138,7 @@ final class SystemUtils
     {
         if (isset($_SERVER['SERVER_NAME'])) {
             return $_SERVER['SERVER_NAME'];
-        } elseif (($result = gethostname()) !== false) {
+        } elseif (($result = \gethostname()) !== false) {
             return $result;
         } elseif (\php_uname('n') !== false) {
             return \php_uname('n');

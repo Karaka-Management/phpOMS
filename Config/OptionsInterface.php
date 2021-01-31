@@ -33,7 +33,7 @@ interface OptionsInterface
      *
      * @since 1.0.0
      */
-    public function exists(int|string $key) : bool;
+    public function exists(int | string $key) : bool;
 
     /**
      * Updating or adding settings.
@@ -46,7 +46,7 @@ interface OptionsInterface
      *
      * @since 1.0.0
      */
-    public function setOption(int|string $key, mixed $value, bool $overwrite = true) : bool;
+    public function setOption(int | string $key, mixed $value, bool $overwrite = true) : bool;
 
     /**
      * Updating or adding settings.
@@ -69,5 +69,5 @@ interface OptionsInterface
      *
      * @since 1.0.0
      */
-    public function getOption(int|string $key) : mixed;
+    public function getOption(int | string $key) : mixed;
 }

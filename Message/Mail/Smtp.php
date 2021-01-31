@@ -210,7 +210,7 @@ class Smtp
         }
 
         $crypto_method = \STREAM_CRYPTO_METHOD_TLS_CLIENT;
-        if (defined('STREAM_CRYPTO_METHOD_TLSv1_2_CLIENT')) {
+        if (\defined('STREAM_CRYPTO_METHOD_TLSv1_2_CLIENT')) {
             $crypto_method |= \STREAM_CRYPTO_METHOD_TLSv1_2_CLIENT;
             $crypto_method |= \STREAM_CRYPTO_METHOD_TLSv1_1_CLIENT;
         }
@@ -342,13 +342,13 @@ class Smtp
         // Creates an md5 HMAC.
         // by Lance Rushing
         $byteLen = 64;
-        if (strlen($key) > $byteLen) {
+        if (\strlen($key) > $byteLen) {
             $key = \pack('H*', \md5($key));
         }
 
-        $key  = \str_pad($key, $byteLen, \chr(0x00));
-        $ipad = \str_pad('', $byteLen, \chr(0x36));
-        $opad = \str_pad('', $byteLen, \chr(0x5c));
+        $key    = \str_pad($key, $byteLen, \chr(0x00));
+        $ipad   = \str_pad('', $byteLen, \chr(0x36));
+        $opad   = \str_pad('', $byteLen, \chr(0x5c));
         $k_ipad = $key ^ $ipad;
         $k_opad = $key ^ $opad;
 
@@ -392,7 +392,7 @@ class Smtp
         $this->heloRply   = '';
 
         if (\is_resource($this->con)) {
-            fclose($this->con);
+            \fclose($this->con);
             $this->con = null;
         }
     }
@@ -526,7 +526,7 @@ class Smtp
     protected function parseHelloFields(string $type) : void
     {
         $this->serverCaps = [];
-        $lines = \explode("\n", $this->heloRply);
+        $lines            = \explode("\n", $this->heloRply);
 
         foreach ($lines as $n => $s) {
             //First 4 chars contain response code followed by - or space
@@ -538,7 +538,7 @@ class Smtp
             $fields = \explode(' ', $s);
             if (!empty($fields)) {
                 if (!$n) {
-                    $name = $type;
+                    $name   = $type;
                     $fields = $fields[0];
                 } else {
                     $name = \array_shift($fields);
@@ -650,7 +650,7 @@ class Smtp
      *
      * @since 1.0.0
      */
-    protected function sendCommand(string $command, string $commandstring, int|array $expect) : bool
+    protected function sendCommand(string $command, string $commandstring, int | array $expect) : bool
     {
         if (!$this->isConnected()) {
             return false;
@@ -703,7 +703,7 @@ class Smtp
      */
     public function sendAndMail(string $from) : bool
     {
-        return $this->sendCommand('SAML', "SAML FROM:$from", 250);
+        return $this->sendCommand('SAML', "SAML FROM:${from}", 250);
     }
 
     /**
@@ -717,7 +717,7 @@ class Smtp
      */
     public function verify(string $name) : bool
     {
-        return $this->sendCommand('VRFY', "VRFY $name", [250, 251]);
+        return $this->sendCommand('VRFY', "VRFY ${name}", [250, 251]);
     }
 
     /**
@@ -877,7 +877,7 @@ class Smtp
             $this->lastSmtpTransactionId = '';
         } else {
             $this->lastSmtpTransactionId = '';
-            $patterns = SmtpTransactionPattern::getConstants();
+            $patterns                    = SmtpTransactionPattern::getConstants();
 
             foreach ($patterns as $pattern) {
                 $matches = [];

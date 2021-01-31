@@ -44,12 +44,12 @@ class ApplicationManagerTest extends \PHPUnit\Framework\TestCase
         $app->dbPool      = $GLOBALS['dbpool'];
         $app->router      = new WebRouter();
         $app->dispatcher  = new Dispatcher($app);
-        $app->appSettings = new class implements SettingsInterface {
+        $app->appSettings = new class() implements SettingsInterface {
             use OptionsTrait;
 
             public function get(
                 mixed $ids = null,
-                string|array $names = null,
+                string | array $names = null,
                 string $module = null,
                 int $group = null,
                 int $account = null

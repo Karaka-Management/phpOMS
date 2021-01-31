@@ -46,14 +46,14 @@ final class SocketResponse extends ResponseAbstract implements RenderableInterfa
     }
 
     /**
-    * Remove response by ID.
-    *
-    * @param mixed $id Response ID
-    *
-    * @return bool
-    *
-    * @since 1.0.0
-    */
+     * Remove response by ID.
+     *
+     * @param mixed $id Response ID
+     *
+     * @return bool
+     *
+     * @since 1.0.0
+     */
     public function remove($id) : bool
     {
         if (isset($this->response[$id])) {
@@ -66,8 +66,8 @@ final class SocketResponse extends ResponseAbstract implements RenderableInterfa
     }
 
     /**
-    * {@inheritdoc}
-    */
+     * {@inheritdoc}
+     */
     public function getJsonData() : array
     {
         return \json_decode($this->getRaw(), true);

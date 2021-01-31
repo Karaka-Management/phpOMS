@@ -109,7 +109,7 @@ class Matrix implements \ArrayAccess, \Iterator
      *
      * @since 1.0.0
      */
-    public function set(int $m, int $n, int|float $value) : void
+    public function set(int $m, int $n, int | float $value) : void
     {
         if (!isset($this->matrix[$m], $this->matrix[$m][$n])) {
             throw new InvalidDimensionException($m . 'x' . $n);
@@ -130,7 +130,7 @@ class Matrix implements \ArrayAccess, \Iterator
      *
      * @since 1.0.0
      */
-    public function get(int $m, int $n = 0) : int|float
+    public function get(int $m, int $n = 0) : int | float
     {
         if (!isset($this->matrix[$m], $this->matrix[$m][$n])) {
             throw new InvalidDimensionException($m . 'x' . $n);
@@ -382,7 +382,7 @@ class Matrix implements \ArrayAccess, \Iterator
      *
      * @since 1.0.0
      */
-    public function sub(int|float|self $value) : self
+    public function sub(int | float | self $value) : self
     {
         if (\is_numeric($value)) {
             return $this->addScalar(-$value);
@@ -400,7 +400,7 @@ class Matrix implements \ArrayAccess, \Iterator
      *
      * @since 1.0.0
      */
-    public function add(int|float|self $value) : self
+    public function add(int | float | self $value) : self
     {
         if (\is_numeric($value)) {
             return $this->addScalar($value);
@@ -472,7 +472,7 @@ class Matrix implements \ArrayAccess, \Iterator
      *
      * @since 1.0.0
      */
-    private function addScalar(int|float $scalar) : self
+    private function addScalar(int | float $scalar) : self
     {
         $newMatrixArr = $this->matrix;
 
@@ -497,7 +497,7 @@ class Matrix implements \ArrayAccess, \Iterator
      *
      * @since 1.0.0
      */
-    public function mult(int|float|self $value) : self
+    public function mult(int | float | self $value) : self
     {
         if (\is_numeric($value)) {
             return $this->multScalar($value);
@@ -554,7 +554,7 @@ class Matrix implements \ArrayAccess, \Iterator
      *
      * @since 1.0.0
      */
-    private function multScalar(int|float $scalar) : self
+    private function multScalar(int | float $scalar) : self
     {
         $newMatrixArr = $this->matrix;
 

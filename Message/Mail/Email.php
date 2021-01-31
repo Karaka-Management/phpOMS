@@ -20,11 +20,11 @@ declare(strict_types=1);
 namespace phpOMS\Message\Mail;
 
 use phpOMS\System\CharsetType;
-use phpOMS\System\MimeType;
-use phpOMS\Validation\Network\Email as EmailValidator;
 use phpOMS\System\File\FileUtils;
-use phpOMS\Utils\MbStringUtils;
+use phpOMS\System\MimeType;
 use phpOMS\System\SystemUtils;
+use phpOMS\Utils\MbStringUtils;
+use phpOMS\Validation\Network\Email as EmailValidator;
 
 /**
  * Mail class.
@@ -563,8 +563,8 @@ class Email implements MessageInterface
      * Parse and validate a string containing one or more RFC822-style comma-separated email addresses
      * of the form "display name <address>" into an array of name/address pairs.
      *
-     * @param  string $addrstr Address line
-     * @param  bool   $useImap Use imap for parsing
+     * @param string $addrstr Address line
+     * @param bool   $useImap Use imap for parsing
      *
      * @return array
      *
@@ -580,7 +580,7 @@ class Email implements MessageInterface
                     && EmailValidator::isValid($address->mailbox . '@' . $address->host)
                 ) {
                     $addresses[] = [
-                        'name' => (\property_exists($address, 'personal') ? $address->personal : ''),
+                        'name'    => (\property_exists($address, 'personal') ? $address->personal : ''),
                         'address' => $address->mailbox . '@' . $address->host,
                     ];
                 }
@@ -591,11 +591,11 @@ class Email implements MessageInterface
 
         $list = \explode(',', $addrstr);
         foreach ($list as $address) {
-            $address = trim($address);
+            $address = \trim($address);
             if (\strpos($address, '<') === false) {
                 if (EmailValidator::isValid($address)) {
                     $addresses[] = [
-                        'name' => '',
+                        'name'    => '',
                         'address' => $address,
                     ];
                 }
@@ -605,7 +605,7 @@ class Email implements MessageInterface
 
                 if (EmailValidator::isValid($email)) {
                     $addresses[] = [
-                        'name' => \trim(\str_replace(['"', "'"], '', $name)),
+                        'name'    => \trim(\str_replace(['"', "'"], '', $name)),
                         'address' => $email,
                     ];
                 }
@@ -670,7 +670,7 @@ class Email implements MessageInterface
                 $this->bodyMime
             );
 
-            $this->headerMime = rtrim($this->headerMime, " \r\n\t") . self::$LE .
+            $this->headerMime = \rtrim($this->headerMime, " \r\n\t") . self::$LE .
                 self::normalizeBreaks($headerDkim, self::$LE) . self::$LE;
         }
 
@@ -876,7 +876,7 @@ class Email implements MessageInterface
         $domain = \mb_convert_encoding($domain, 'UTF-8', $charset);
 
         $errorcode = 0;
-        if (defined('INTL_IDNA_VARIANT_UTS46')) {
+        if (\defined('INTL_IDNA_VARIANT_UTS46')) {
             $punycode = \idn_to_ascii($domain, $errorcode, \INTL_IDNA_VARIANT_UTS46);
         } else {
             $punycode = \idn_to_ascii($domain, $errorcode);
@@ -999,7 +999,7 @@ class Email implements MessageInterface
                 $body .= $mimePre;
                 $body .= $this->getBoundary($this->boundary[1], $altBodyCharSet, MimeType::M_TEXT, $altBodyEncoding);
                 $body .= $this->encodeString($this->bodyAlt, $altBodyEncoding) . self::$LE;
-                $body .= $this->getBoundary( $this->boundary[1], $bodyCharSet, MimeType::M_HTML, $bodyEncoding);
+                $body .= $this->getBoundary($this->boundary[1], $bodyCharSet, MimeType::M_HTML, $bodyEncoding);
                 $body .= $this->encodeString($this->body, $bodyEncoding) . self::$LE;
 
                 if (!empty($this->ical)) {
@@ -1085,7 +1085,7 @@ class Email implements MessageInterface
         }
 
         if (!empty($this->signKeyFile)) {
-            if (!defined('PKCS7_TEXT')) {
+            if (!\defined('PKCS7_TEXT')) {
                 return '';
             }
 
@@ -1104,7 +1104,7 @@ class Email implements MessageInterface
                         'file://' . \realpath($this->signCertFile),
                         ['file://' . \realpath($this->signKeyFile), $this->signKeyPass],
                         [],
-                        PKCS7_DETACHED,
+                        \PKCS7_DETACHED,
                         $this->signExtracertFiles
                     );
 
@@ -1235,7 +1235,7 @@ class Email implements MessageInterface
             // Allow for bypassing the Content-Disposition header
             if (!empty($disposition)) {
                 $encodedName = $this->encodeHeader(\trim(\str_replace(["\r", "\n"], '', $name)));
-                    $mime[] = !empty($encodedName)
+                    $mime[]  = !empty($encodedName)
                         ? \sprintf('Content-Disposition: %s; filename=%s%s',
                                 $disposition,
                                 self::quotedString($encodedName),
@@ -1317,7 +1317,7 @@ class Email implements MessageInterface
     private function encodeString(string $str, string $encoding = EncodingType::E_BASE64) : string
     {
         $encoded = '';
-        switch (strtolower($encoding)) {
+        switch (\strtolower($encoding)) {
             case EncodingType::E_BASE64:
                 $encoded = \chunk_split(\base64_encode($str), self::STD_LINE_LENGTH, self::$LE);
                 break;
@@ -1406,7 +1406,6 @@ class Email implements MessageInterface
         return false;
     }
 
-
     /**
      * Create address list
      *
@@ -1424,7 +1423,7 @@ class Email implements MessageInterface
             $addresses[] = $this->addrFormat($address);
         }
 
-        return $type . ': ' . implode(', ', $addresses) . static::$LE;
+        return $type . ': ' . \implode(', ', $addresses) . static::$LE;
     }
 
     /**
@@ -1582,7 +1581,7 @@ class Email implements MessageInterface
 
                     return $str === $encoded && !\preg_match('/[^A-Za-z0-9!#$%&\'*+\/=?^_`{|}~ -]/', $str)
                         ? $encoded
-                        : "\"$encoded\"";
+                        : "\"${encoded}\"";
                 }
 
                 $matchcount = \preg_match_all('/[^\040\041\043-\133\135-\176]/', $str, $matches);
@@ -1628,13 +1627,13 @@ class Email implements MessageInterface
                     $maxLen -= $maxLen % 4;
                     $encoded = \trim(\chunk_split($encoded, $maxLen, "\n"));
                 }
-                $encoded = \preg_replace('/^(.*)$/m', ' =?' . $charset . "?$encoding?\\1?=", $encoded);
+                $encoded = \preg_replace('/^(.*)$/m', ' =?' . $charset . "?${encoding}?\\1?=", $encoded);
                 break;
             case 'Q':
                 $encoded = $this->encodeQ($str, $position);
                 $encoded = $this->wrapText($encoded, $maxLen, true);
                 $encoded = \str_replace('=' . self::$LE, "\n", \trim($encoded));
-                $encoded = \preg_replace('/^(.*)$/m', ' =?' . $charset . "?$encoding?\\1?=", $encoded);
+                $encoded = \preg_replace('/^(.*)$/m', ' =?' . $charset . "?${encoding}?\\1?=", $encoded);
                 break;
             default:
                 return $str;
@@ -1710,7 +1709,7 @@ class Email implements MessageInterface
         $end     = '?=';
         $encoded = '';
 
-        $mbLength = \mb_strlen($str, $this->charset);
+        $mbLength  = \mb_strlen($str, $this->charset);
         $length    = 75 - \strlen($start) - \strlen($end);
         $ratio     = $mbLength / \strlen($str);
         $avgLength = \floor($length * $ratio * .75);
@@ -1721,8 +1720,8 @@ class Email implements MessageInterface
 
             do {
                 $offset = $avgLength - $lookBack;
-                $chunk = \mb_substr($str, $i, $offset, $this->charset);
-                $chunk = \base64_encode($chunk);
+                $chunk  = \mb_substr($str, $i, $offset, $this->charset);
+                $chunk  = \base64_encode($chunk);
                 ++$lookBack;
             } while (\strlen($chunk) > $length);
 
@@ -1731,7 +1730,6 @@ class Email implements MessageInterface
 
         return \substr($encoded, 0, -\strlen($linebreak));
     }
-
 
     /**
      * Add an attachment from a path on the filesystem.
@@ -2181,7 +2179,7 @@ class Email implements MessageInterface
      */
     public function dkimSign(string $signHeader) : string
     {
-        if (!defined('PKCS7_TEXT')) {
+        if (!\defined('PKCS7_TEXT')) {
             return '';
         }
 
@@ -2319,7 +2317,7 @@ class Email implements MessageInterface
         foreach ($parsedHeaders as $header) {
             if (\in_array(\strtolower($header['label']), $autoSignHeaders, true)) {
                 $headersToSignKeys[] = $header['label'];
-                $headersToSign[] = $header['label'] . ': ' . $header['value'];
+                $headersToSign[]     = $header['label'] . ': ' . $header['value'];
 
                 if ($this->dkimCopyHeader) {
                     $copiedHeaders[] = $header['label'] . ':'
@@ -2333,7 +2331,7 @@ class Email implements MessageInterface
                 foreach ($this->customHeader as $customHeader) {
                     if ($customHeader[0] === $header['label']) {
                         $headersToSignKeys[] = $header['label'];
-                        $headersToSign[] = $header['label'] . ': ' . $header['value'];
+                        $headersToSign[]     = $header['label'] . ': ' . $header['value'];
 
                         if ($this->dkimCopyHeader) {
                             $copiedHeaders[] = $header['label'] . ':'
