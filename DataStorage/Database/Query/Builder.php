@@ -1402,7 +1402,7 @@ class Builder extends BuilderAbstract
     public function execute() : mixed
     {
         try {
-            $t = $this->toSql();
+            $t   = $this->toSql();
             $sth = $this->connection->con->prepare($this->toSql());
 
             foreach ($this->binds as $key => $bind) {
