@@ -250,6 +250,14 @@ class DataMapperAbstract implements DataMapperInterface
     protected static string $datetimeFormat = 'Y-m-d H:i:s';
 
     /**
+     * Raw query data from last query
+     *
+     * @var array
+     * @since 1.0.0
+     */
+    protected static array $lastQueryData = [];
+
+    /**
      * Constructor.
      *
      * @since 1.0.0
@@ -1449,6 +1457,11 @@ class DataMapperAbstract implements DataMapperInterface
      */
     private static function updateModel(object $obj, mixed $objId, \ReflectionClass $refClass = null, int $depth = 1) : void
     {
+        // Model doesn't have anything to update
+        if (\count(static::$columns) < 2) {
+            return;
+        }
+
         $query = new Builder(self::$db);
         $query->update(static::$table)
             ->where(static::$table . '.' . static::$primaryField, '=', $objId);
@@ -1507,9 +1520,14 @@ class DataMapperAbstract implements DataMapperInterface
             }
         }
 
-        $sth = self::$db->con->prepare($query->toSql());
-        if ($sth !== false) {
-            $sth->execute();
+        try {
+            $sth = self::$db->con->prepare($query->toSql());
+            if ($sth !== false) {
+                $sth->execute();
+            }
+        } catch (\Throwable $t) {
+            echo $t->getMessage();
+            echo $query->toSql();
         }
     }
 
@@ -2641,6 +2659,11 @@ class DataMapperAbstract implements DataMapperInterface
 
         if (!empty($keys) || $primaryKey === null) {
             $dbData = self::getRaw($keys, self::$relations, $depth, $ref, $query);
+
+            if (static::class === self::$parentMapper) {
+                static::$lastQueryData = $dbData;
+            }
+
             foreach ($dbData as $row) {
                 $value       = $row[static::$primaryField . '_' . $depth];
                 $obj[$value] = self::createBaseModel();
@@ -2662,6 +2685,11 @@ class DataMapperAbstract implements DataMapperInterface
         }
 
         return $obj;
+    }
+
+    public static function getDataLastQuery() : array
+    {
+        return static::$lastQueryData;
     }
 
     /**

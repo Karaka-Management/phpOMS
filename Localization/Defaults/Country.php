@@ -73,6 +73,22 @@ class Country
     protected string $subdevision = '';
 
     /**
+     * Country region.
+     *
+     * @var string
+     * @since 1.0.0
+     */
+    protected string $region = '';
+
+    /**
+     * Country developed.
+     *
+     * @var string
+     * @since 1.0.0
+     */
+    protected bool $isDeveloped = false;
+
+    /**
      * Get id
      *
      * @return int
@@ -142,5 +158,29 @@ class Country
     public function getSubdevision() : string
     {
         return $this->subdevision;
+    }
+
+    /**
+     * Get country region
+     *
+     * @return string
+     *
+     * @since 1.0.0
+     */
+    public function getRegion() : string
+    {
+        return $this->region;
+    }
+
+    /**
+     * Is country developed
+     *
+     * @return bool
+     *
+     * @since 1.0.0
+     */
+    public function isDeveloped() : bool
+    {
+        return $this->isDeveloped;
     }
 }

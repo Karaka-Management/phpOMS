@@ -84,6 +84,10 @@ abstract class GrammarAbstract
         'COUNT(',
         'MAX(',
         'MIN(',
+        'SUM(',
+        'DATE(',
+        'YEAR(',
+        'MONTH(',
     ];
 
     /**

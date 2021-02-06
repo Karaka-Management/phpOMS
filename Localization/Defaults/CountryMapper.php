@@ -38,6 +38,8 @@ class CountryMapper extends DataMapperAbstract
         'country_code2'   => ['name' => 'country_code2',   'type' => 'string', 'internal' => 'code2'],
         'country_code3'   => ['name' => 'country_code3',   'type' => 'string', 'internal' => 'code3'],
         'country_numeric' => ['name' => 'country_numeric', 'type' => 'int',    'internal' => 'numeric'],
+        'country_region'  => ['name' => 'country_region', 'type' => 'string',    'internal' => 'region'],
+        'country_developed' => ['name' => 'country_developed', 'type' => 'bool',    'internal' => 'isDeveloped'],
     ];
 
     /**
