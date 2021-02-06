@@ -147,7 +147,7 @@ final class FileCache extends ConnectionAbstract
     /**
      * {@inheritdoc}
      */
-    public function set(int|string $key, mixed $value, int $expire = -1) : void
+    public function set(int | string $key, mixed $value, int $expire = -1) : void
     {
         if ($this->status !== CacheStatus::OK) {
             return;
@@ -168,7 +168,7 @@ final class FileCache extends ConnectionAbstract
     /**
      * {@inheritdoc}
      */
-    public function add(int|string $key, mixed $value, int $expire = -1) : bool
+    public function add(int | string $key, mixed $value, int $expire = -1) : bool
     {
         if ($this->status !== CacheStatus::OK) {
             return false;
@@ -261,7 +261,7 @@ final class FileCache extends ConnectionAbstract
     /**
      * {@inheritdoc}
      */
-    public function get(int|string $key, int $expire = -1) : mixed
+    public function get(int | string $key, int $expire = -1) : mixed
     {
         if ($this->status !== CacheStatus::OK) {
             return null;
@@ -362,7 +362,7 @@ final class FileCache extends ConnectionAbstract
     /**
      * {@inheritdoc}
      */
-    public function delete(int|string $key, int $expire = -1) : bool
+    public function delete(int | string $key, int $expire = -1) : bool
     {
         if ($this->status !== CacheStatus::OK) {
             return false;
@@ -406,7 +406,7 @@ final class FileCache extends ConnectionAbstract
     /**
      * {@inheritdoc}
      */
-    public function exists(int|string $key, int $expire = -1) : bool
+    public function exists(int | string $key, int $expire = -1) : bool
     {
         if ($this->status !== CacheStatus::OK) {
             return false;
@@ -452,7 +452,7 @@ final class FileCache extends ConnectionAbstract
     /**
      * {@inheritdoc}
      */
-    public function increment(int|string $key, int $value = 1) : void
+    public function increment(int | string $key, int $value = 1) : void
     {
         $path = $this->getPath($key);
         if (!File::exists($path)) {
@@ -485,7 +485,7 @@ final class FileCache extends ConnectionAbstract
     /**
      * {@inheritdoc}
      */
-    public function decrement(int|string $key, int $value = 1) : void
+    public function decrement(int | string $key, int $value = 1) : void
     {
         $path = $this->getPath($key);
         if (!File::exists($path)) {
@@ -518,7 +518,7 @@ final class FileCache extends ConnectionAbstract
     /**
      * {@inheritdoc}
      */
-    public function rename(int|string $old, int|string $new, int $expire = -1) : void
+    public function rename(int | string $old, int | string $new, int $expire = -1) : void
     {
         $value = $this->get($old);
         $this->set($new, $value, $expire);
@@ -622,7 +622,7 @@ final class FileCache extends ConnectionAbstract
     /**
      * {@inheritdoc}
      */
-    public function updateExpire(int|string $key, int $expire = -1) : bool
+    public function updateExpire(int | string $key, int $expire = -1) : bool
     {
         $value = $this->get($key, $expire);
         $this->delete($key);
@@ -660,7 +660,7 @@ final class FileCache extends ConnectionAbstract
     /**
      * {@inheritdoc}
      */
-    public function replace(int|string $key, mixed $value, int $expire = -1) : bool
+    public function replace(int | string $key, mixed $value, int $expire = -1) : bool
     {
         if ($this->status !== CacheStatus::OK) {
             return false;
@@ -693,7 +693,7 @@ final class FileCache extends ConnectionAbstract
      *
      * @since 1.0.0
      */
-    private function getPath(int|string $key) : string
+    private function getPath(int | string $key) : string
     {
         $path = Directory::sanitize((string) $key, self::SANITIZE);
         return $this->con . '/' . \trim($path, '/') . '.cache';

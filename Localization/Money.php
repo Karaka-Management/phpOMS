@@ -83,7 +83,7 @@ final class Money implements \Serializable
      *
      * @since 1.0.0
      */
-    public function __construct(int|float|string $value = 0, string $thousands = ',', string $decimal = '.', string $symbol = '', int $position = 0)
+    public function __construct(int | float | string $value = 0, string $thousands = ',', string $decimal = '.', string $symbol = '', int $position = 0)
     {
         $this->value     = \is_int($value) ? $value : self::toInt((string) $value);
         $this->thousands = $thousands;
@@ -222,7 +222,7 @@ final class Money implements \Serializable
      *
      * @since 1.0.0
      */
-    public function add(int|float|string|self $value) : self
+    public function add(int | float | string | self $value) : self
     {
         if (\is_string($value) || \is_float($value)) {
             $this->value += self::toInt((string) $value, $this->thousands, $this->decimal);
@@ -256,7 +256,7 @@ final class Money implements \Serializable
      *
      * @since 1.0.0
      */
-    public function sub(int|float|string|self $value) : self
+    public function sub(int | float | string | self $value) : self
     {
         if (\is_string($value) || \is_float($value)) {
             $this->value -= self::toInt((string) $value, $this->thousands, $this->decimal);
@@ -278,7 +278,7 @@ final class Money implements \Serializable
      *
      * @since 1.0.0
      */
-    public function mult(int|float $value) : self
+    public function mult(int | float $value) : self
     {
         $this->value = (int) ($this->value * $value);
 
@@ -294,7 +294,7 @@ final class Money implements \Serializable
      *
      * @since 1.0.0
      */
-    public function div(int|float $value) : self
+    public function div(int | float $value) : self
     {
         $this->value = (int) ($this->value / $value);
 
@@ -324,7 +324,7 @@ final class Money implements \Serializable
      *
      * @since 1.0.0
      */
-    public function pow(int|float $value) : self
+    public function pow(int | float $value) : self
     {
         $this->value = (int) ($this->value ** $value);
 

@@ -46,7 +46,7 @@ interface PointInterface
      *
      * @since 1.0.0
      */
-    public function getCoordinate(int $index) : int|float;
+    public function getCoordinate(int $index) : int | float;
 
     /**
      * Set the coordinate of the point
@@ -58,5 +58,5 @@ interface PointInterface
      *
      * @since 1.0.0
      */
-    public function setCoordinate(int $index, int|float $value) : void;
+    public function setCoordinate(int $index, int | float $value) : void;
 }

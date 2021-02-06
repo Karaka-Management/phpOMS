@@ -70,7 +70,7 @@ final class EventManager implements \Countable
             /**
              * {@inheritdoc}
              */
-            public function dispatch(array|string|\Closure $func, ...$data) : array
+            public function dispatch(array | string | \Closure $func, ...$data) : array
             {
                 if (!($func instanceof \Closure)) {
                     return [];
@@ -132,7 +132,7 @@ final class EventManager implements \Countable
      *
      * @since 1.0.0
      */
-    public function attach(string $group, string|\Closure $callback, bool $remove = false, bool $reset = false) : bool
+    public function attach(string $group, string | \Closure $callback, bool $remove = false, bool $reset = false) : bool
     {
         if (!isset($this->callbacks[$group])) {
             $this->callbacks[$group] = ['remove' => $remove, 'reset' => $reset, 'callbacks' => []];

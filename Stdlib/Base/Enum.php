@@ -102,7 +102,7 @@ abstract class Enum
      *
      * @since 1.0.0
      */
-    public static function getName(string $value) : bool|int|string
+    public static function getName(string $value) : bool | int | string
     {
         $arr = self::getConstants();
 

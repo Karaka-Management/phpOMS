@@ -48,7 +48,7 @@ final class Complex
      *
      * @since 1.0.0
      */
-    public function __construct(int|float $re = 0, int|float $im = 0)
+    public function __construct(int | float $re = 0, int | float $im = 0)
     {
         $this->re = $re;
         $this->im = $im;
@@ -61,7 +61,7 @@ final class Complex
      *
      * @since 1.0.0
      */
-    public function re() : int|float
+    public function re() : int | float
     {
         return $this->re;
     }
@@ -73,7 +73,7 @@ final class Complex
      *
      * @since 1.0.0
      */
-    public function im() : int|float
+    public function im() : int | float
     {
         return $this->im;
     }
@@ -129,7 +129,7 @@ final class Complex
      *
      * @since 1.0.0
      */
-    public function abs() : int|float
+    public function abs() : int | float
     {
         return \sqrt($this->re ** 2 + $this->im ** 2);
     }
@@ -155,7 +155,7 @@ final class Complex
      *
      * @since 1.0.0
      */
-    public function pow(int|float|self $value) : self
+    public function pow(int | float | self $value) : self
     {
         if (\is_int($value)) {
             return $this->powInteger($value);
@@ -209,7 +209,7 @@ final class Complex
      *
      * @since 1.0.0
      */
-    public function powScalar(int|float $value) : self
+    public function powScalar(int | float $value) : self
     {
         return $this;
     }
@@ -223,7 +223,7 @@ final class Complex
      *
      * @since 1.0.0
      */
-    public function add(int|float|self $value) : self
+    public function add(int | float | self $value) : self
     {
         if (\is_numeric($value)) {
             return $this->addScalar($value);
@@ -255,7 +255,7 @@ final class Complex
      *
      * @since 1.0.0
      */
-    private function addScalar(int|float $val) : self
+    private function addScalar(int | float $val) : self
     {
         return new self($this->re + $val, $this->im);
     }
@@ -269,7 +269,7 @@ final class Complex
      *
      * @since 1.0.0
      */
-    public function sub(int|float|self $value) : self
+    public function sub(int | float | self $value) : self
     {
         if (\is_numeric($value)) {
             return $this->subScalar($value);
@@ -301,7 +301,7 @@ final class Complex
      *
      * @since 1.0.0
      */
-    private function subScalar(int|float $val) : self
+    private function subScalar(int | float $val) : self
     {
         return new self($this->re - $val, $this->im);
     }
@@ -315,7 +315,7 @@ final class Complex
      *
      * @since 1.0.0
      */
-    public function mult(int|float|self $value) : self
+    public function mult(int | float | self $value) : self
     {
         if (\is_numeric($value)) {
             return $this->multScalar($value);
@@ -350,7 +350,7 @@ final class Complex
      *
      * @since 1.0.0
      */
-    private function multScalar(int|float $val) : self
+    private function multScalar(int | float $val) : self
     {
         return new self($this->re * $val, $this->im * $val);
     }
@@ -366,7 +366,7 @@ final class Complex
      *
      * @since 1.0.0
      */
-    public function div(int|float|self $value) : self
+    public function div(int | float | self $value) : self
     {
         if (\is_numeric($value)) {
             return $this->divScalar($value);
@@ -401,7 +401,7 @@ final class Complex
      *
      * @since 1.0.0
      */
-    private function divScalar(int|float $val) : self
+    private function divScalar(int | float $val) : self
     {
         return new self($this->re / $val, $this->im / $val);
     }

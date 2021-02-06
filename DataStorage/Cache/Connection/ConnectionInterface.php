@@ -37,7 +37,7 @@ interface ConnectionInterface extends DataStorageConnectionInterface
      *
      * @since 1.0.0
      */
-    public function set(int|string $key, mixed $value, int $expire = -1) : void;
+    public function set(int | string $key, mixed $value, int $expire = -1) : void;
 
     /**
      * Increment value.
@@ -49,7 +49,7 @@ interface ConnectionInterface extends DataStorageConnectionInterface
      *
      * @since 1.0.0
      */
-    public function increment(int|string $key, int $value = 1) : void;
+    public function increment(int | string $key, int $value = 1) : void;
 
     /**
      * Decrement value.
@@ -61,7 +61,7 @@ interface ConnectionInterface extends DataStorageConnectionInterface
      *
      * @since 1.0.0
      */
-    public function decrement(int|string $key, int $value = 1) : void;
+    public function decrement(int | string $key, int $value = 1) : void;
 
     /**
      * Rename cache key.
@@ -74,7 +74,7 @@ interface ConnectionInterface extends DataStorageConnectionInterface
      *
      * @since 1.0.0
      */
-    public function rename(int|string $old, int|string $new, int $expire = -1) : void;
+    public function rename(int | string $old, int | string $new, int $expire = -1) : void;
 
     /**
      * Adding new data if it doesn't exist.
@@ -87,7 +87,7 @@ interface ConnectionInterface extends DataStorageConnectionInterface
      *
      * @since 1.0.0
      */
-    public function add(int|string $key, mixed $value, int $expire = -1) : bool;
+    public function add(int | string $key, mixed $value, int $expire = -1) : bool;
 
     /**
      * Get cache by key.
@@ -99,7 +99,7 @@ interface ConnectionInterface extends DataStorageConnectionInterface
      *
      * @since 1.0.0
      */
-    public function get(int|string $key, int $expire = -1) : mixed;
+    public function get(int | string $key, int $expire = -1) : mixed;
 
     /**
      * Get cache by pattern.
@@ -123,7 +123,7 @@ interface ConnectionInterface extends DataStorageConnectionInterface
      *
      * @since 1.0.0
      */
-    public function exists(int|string $key, int $expire = -1) : bool;
+    public function exists(int | string $key, int $expire = -1) : bool;
 
     /**
      * Remove value by key.
@@ -135,7 +135,7 @@ interface ConnectionInterface extends DataStorageConnectionInterface
      *
      * @since 1.0.0
      */
-    public function delete(int|string $key, int $expire = -1) : bool;
+    public function delete(int | string $key, int $expire = -1) : bool;
 
     /**
      * Remove value by pattern.
@@ -180,7 +180,7 @@ interface ConnectionInterface extends DataStorageConnectionInterface
      *
      * @since 1.0.0
      */
-    public function replace(int|string $key, mixed $value, int $expire = -1) : bool;
+    public function replace(int | string $key, mixed $value, int $expire = -1) : bool;
 
     /**
      * Updating expire.
@@ -192,7 +192,7 @@ interface ConnectionInterface extends DataStorageConnectionInterface
      *
      * @since 1.0.0
      */
-    public function updateExpire(int|string $key, int $expire = -1) : bool;
+    public function updateExpire(int | string $key, int $expire = -1) : bool;
 
     /**
      * Requesting cache stats.

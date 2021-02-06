@@ -211,7 +211,7 @@ final class L11nManager
      *
      * @since 1.0.0
      */
-    public function getNumeric(Localization $l11n, int|float $numeric, string $format = null) : string
+    public function getNumeric(Localization $l11n, int | float $numeric, string $format = null) : string
     {
         return \number_format(
             $numeric,
@@ -254,7 +254,7 @@ final class L11nManager
      *
      * @since 1.0.0
      */
-    public function getCurrency(Localization $l11n, int|float $currency, string $format = null, string $symbol = null, int $divide = 1) : string
+    public function getCurrency(Localization $l11n, int | float $currency, string $format = null, string $symbol = null, int $divide = 1) : string
     {
         $language = $l11n->getLanguage() ?? 'en';
         $symbol ??= $l11n->getCurrency();

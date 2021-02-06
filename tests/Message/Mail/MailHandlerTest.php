@@ -16,10 +16,10 @@ namespace phpOMS\tests\Message;
 
 require_once __DIR__ . '/../../Autoloader.php';
 
-use phpOMS\Message\Mail\MailHandler;
-use phpOMS\Message\Mail\SubmitType;
 use phpOMS\Message\Mail\Email;
 use phpOMS\Message\Mail\Imap;
+use phpOMS\Message\Mail\MailHandler;
+use phpOMS\Message\Mail\SubmitType;
 use phpOMS\System\CharsetType;
 
 /**
@@ -31,7 +31,7 @@ class MailHandlerTest extends \PHPUnit\Framework\TestCase
 {
     protected MailHandler $handler;
 
-    public function setUp() : void
+    protected function setUp() : void
     {
         $this->handler = new MailHandler();
     }
@@ -93,9 +93,9 @@ class MailHandlerTest extends \PHPUnit\Framework\TestCase
         $mail->addBCC('test3@orange-management.email', 'Dennis Eichhorn');
         $mail->addReplyTo('test4@orange-management.email', 'Dennis Eichhorn');
         $mail->subject = 'testSendHtmlWithMail';
-        $message = \file_get_contents(__DIR__ . '/files/utf8.html');
+        $message       = \file_get_contents(__DIR__ . '/files/utf8.html');
         $mail->charset = CharsetType::UTF_8;
-        $mail->body = '';
+        $mail->body    = '';
         $mail->bodyAlt = '';
 
         $mail->msgHTML($message, __DIR__ . '/files');
@@ -119,9 +119,9 @@ class MailHandlerTest extends \PHPUnit\Framework\TestCase
         $mail->addBCC('test3@orange-management.email', 'Dennis Eichhorn');
         $mail->addReplyTo('test4@orange-management.email', 'Dennis Eichhorn');
         $mail->subject = 'testSendHtmlWithSendmail';
-        $message = \file_get_contents(__DIR__ . '/files/utf8.html');
+        $message       = \file_get_contents(__DIR__ . '/files/utf8.html');
         $mail->charset = CharsetType::UTF_8;
-        $mail->body = '';
+        $mail->body    = '';
         $mail->bodyAlt = '';
 
         $mail->msgHTML($message, __DIR__ . '/files');

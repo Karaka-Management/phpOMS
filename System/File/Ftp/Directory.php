@@ -694,7 +694,7 @@ class Directory extends FileAbstract implements DirectoryInterface
     /**
      * {@inheritdoc}
      */
-    public function next()
+    public function next() : void
     {
         $next = \next($this->nodes);
         if ($next instanceof self) {

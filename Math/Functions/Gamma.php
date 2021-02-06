@@ -43,7 +43,7 @@ final class Gamma
      *
      * @since 1.0.0
      */
-    public static function gamma(int|float $z) : float
+    public static function gamma(int | float $z) : float
     {
         return \exp(self::logGamma($z));
     }
@@ -68,7 +68,7 @@ final class Gamma
      *
      * @since 1.0.0
      */
-    public static function lanczosApproximationReal(int|float $z) : float
+    public static function lanczosApproximationReal(int | float $z) : float
     {
         if ($z < 0.5) {
             return \M_PI / (\sin(\M_PI * $z) * self::lanczosApproximationReal(1 - $z));
@@ -94,7 +94,7 @@ final class Gamma
      *
      * @since 1.0.0
      */
-    public static function stirlingApproximation(int|float $x) : float
+    public static function stirlingApproximation(int | float $x) : float
     {
         return \sqrt(2.0 * \M_PI / $x) * \pow($x / \M_E, $x);
     }
@@ -108,7 +108,7 @@ final class Gamma
      *
      * @since 1.0.0
      */
-    public static function spougeApproximation(int|float $z) : float
+    public static function spougeApproximation(int | float $z) : float
     {
         $k1_fact = 1.0;
         $c       = [\sqrt(2.0 * \M_PI)];
@@ -139,7 +139,7 @@ final class Gamma
      *
      * @since 1.0.0
      */
-    public static function logGamma(int|float $z) : float
+    public static function logGamma(int | float $z) : float
     {
         static $approx = [
             76.18009172947146,-86.50532032941677,

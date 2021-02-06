@@ -25,11 +25,11 @@ namespace phpOMS\Message;
 interface MessageInterface
 {
     /**
-    * Gets the body of the message.
-    *
-    * @return string
-    *
-    * @since 1.0.0
-    */
+     * Gets the body of the message.
+     *
+     * @return string
+     *
+     * @since 1.0.0
+     */
     public function getBody() : string;
 }

@@ -104,7 +104,7 @@ class Backpack implements BackpackInterface
     /**
      * {@inheritdoc}
      */
-    public function addItem(ItemInterface $item, int|float $quantity = 1) : void
+    public function addItem(ItemInterface $item, int | float $quantity = 1) : void
     {
         $this->items[] = ['item' => $item, 'quantity' => $quantity];
         $this->value  += $item->getValue() * $quantity;

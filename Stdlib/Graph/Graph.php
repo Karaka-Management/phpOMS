@@ -88,7 +88,7 @@ class Graph
      *
      * @since 1.0.0
      */
-    public function getNode(int|string $key) : ?Node
+    public function getNode(int | string $key) : ?Node
     {
         return $this->nodes[$key] ?? null;
     }
@@ -117,7 +117,7 @@ class Graph
      *
      * @since 1.0.0
      */
-    public function hasNode(int|string $key) : bool
+    public function hasNode(int | string $key) : bool
     {
         return isset($this->nodes[$key]);
     }
@@ -167,7 +167,7 @@ class Graph
      *
      * @since 1.0.0
      */
-    public function getCost() : int|float
+    public function getCost() : int | float
     {
         $edges = $this->getEdges();
         $costs = 0;
@@ -555,7 +555,7 @@ class Graph
      *
      * @since 1.0.0
      */
-    public function longestPathBetweenNodes(int|string|Node $node1, int|string|Node $node2) : array
+    public function longestPathBetweenNodes(int | string | Node $node1, int | string | Node $node2) : array
     {
         if (!($node1 instanceof Node)) {
             $node1 = $this->getNode($node1);

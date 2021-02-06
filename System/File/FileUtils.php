@@ -202,7 +202,7 @@ final class FileUtils
      *
      * @since 1.0.0
      */
-    public static function mb_pathinfo(string $path, int|string $options = null) : string|array
+    public static function mb_pathinfo(string $path, int | string $options = null) : string | array
     {
         $ret      = ['dirname' => '', 'basename' => '', 'extension' => '', 'filename' => ''];
         $pathinfo = [];

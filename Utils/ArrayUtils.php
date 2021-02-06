@@ -334,7 +334,7 @@ final class ArrayUtils
      *
      * @since 1.0.0
      */
-    public static function arraySum(array $array, int $start = 0, int $count = 0) : int|float
+    public static function arraySum(array $array, int $start = 0, int $count = 0) : int | float
     {
         $count = $count === 0 ? \count($array) : $start + $count;
         $sum   = 0;
@@ -391,7 +391,7 @@ final class ArrayUtils
      *
      * @since 1.0.0
      */
-    public static function power(array $values, int|float $exp = 2) : array
+    public static function power(array $values, int | float $exp = 2) : array
     {
         $squared = [];
 

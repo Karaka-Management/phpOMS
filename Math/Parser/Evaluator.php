@@ -81,7 +81,7 @@ final class Evaluator
      *
      * @since 1.0.0
      */
-    private static function parseValue(int|float|string $value) : int|float
+    private static function parseValue(int | float | string $value) : int | float
     {
         return !\is_string($value)
             ? $value

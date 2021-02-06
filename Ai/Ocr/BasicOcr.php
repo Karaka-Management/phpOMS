@@ -90,7 +90,6 @@ final class BasicOcr
             throw new PathException($path); // @codeCoverageIgnore
         }
 
-
         if (($read = \fread($fp, 4)) === false || ($unpack = \unpack('N', $read)) === false) {
             return []; // @codeCoverageIgnore
         }
@@ -105,7 +104,6 @@ final class BasicOcr
             $numberOfImages = \min($numberOfImages, $limit);
         }
 
-
         if (($read = \fread($fp, 4)) === false || ($unpack = \unpack('N', $read)) === false) {
             return []; // @codeCoverageIgnore
         }
@@ -118,7 +116,6 @@ final class BasicOcr
 
         $images = [];
         for ($i = 0; $i < $numberOfImages; ++$i) {
-
             if (($read = \fread($fp, $numberOfRows * $numberOfColumns)) === false
                 || ($unpack = \unpack('C*', $read)) === false
             ) {
@@ -153,7 +150,6 @@ final class BasicOcr
             throw new PathException($path); // @codeCoverageIgnore
         }
 
-
         if (($read = \fread($fp, 4)) === false || ($unpack = \unpack('N', $read)) === false) {
             return []; // @codeCoverageIgnore
         }
@@ -170,7 +166,6 @@ final class BasicOcr
 
         $labels = [];
         for ($i = 0; $i < $numberOfLabels; ++$i) {
-
             if (($read = \fread($fp, 1)) === false || ($unpack = \unpack('C', $read)) === false) {
                 return []; // @codeCoverageIgnore
             }

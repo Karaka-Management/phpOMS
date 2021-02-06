@@ -71,5 +71,5 @@ interface BackpackInterface
      *
      * @since 1.0.0
      */
-    public function addItem(ItemInterface $item, int|float $quantity = 1) : void;
+    public function addItem(ItemInterface $item, int | float $quantity = 1) : void;
 }

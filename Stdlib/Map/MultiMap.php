@@ -182,7 +182,7 @@ final class MultiMap implements \Countable
      *
      * @since 1.0.0
      */
-    public function get(int|string|array $key) : mixed
+    public function get(int | string | array $key) : mixed
     {
         if ($this->keyType === KeyType::MULTIPLE || \is_array($key)) {
             return $this->getMultiple($key);
@@ -200,7 +200,7 @@ final class MultiMap implements \Countable
      *
      * @since 1.0.0
      */
-    private function getSingle(int|string $key) : mixed
+    private function getSingle(int | string $key) : mixed
     {
         return isset($this->keys[$key]) ? $this->values[$this->keys[$key]] ?? null : null;
     }
@@ -214,7 +214,7 @@ final class MultiMap implements \Countable
      *
      * @since 1.0.0
      */
-    private function getMultiple(int|string|array $key) : mixed
+    private function getMultiple(int | string | array $key) : mixed
     {
         if (\is_array($key)) {
             if ($this->orderType === OrderType::LOOSE) {
@@ -248,7 +248,7 @@ final class MultiMap implements \Countable
      *
      * @since 1.0.0
      */
-    public function set(int|string|array $key, mixed $value) : bool
+    public function set(int | string | array $key, mixed $value) : bool
     {
         if ($this->keyType === KeyType::MULTIPLE || \is_array($key)) {
             return $this->setMultiple($key, $value);
@@ -267,7 +267,7 @@ final class MultiMap implements \Countable
      *
      * @since 1.0.0
      */
-    private function setMultiple(int|string|array $key, mixed $value) : bool
+    private function setMultiple(int | string | array $key, mixed $value) : bool
     {
         $key = \is_array($key) ? $key : [$key];
 
@@ -297,7 +297,7 @@ final class MultiMap implements \Countable
      *
      * @since 1.0.0
      */
-    private function setSingle(int|string $key, mixed $value) : bool
+    private function setSingle(int | string $key, mixed $value) : bool
     {
         if (isset($this->keys[$key])) {
             $this->values[$this->keys[$key]] = $value;
@@ -317,7 +317,7 @@ final class MultiMap implements \Countable
      *
      * @since 1.0.0
      */
-    public function remove(int|string|array $key) : bool
+    public function remove(int | string | array $key) : bool
     {
         if ($this->keyType === KeyType::MULTIPLE || \is_array($key)) {
             return $this->removeMultiple($key);
@@ -335,7 +335,7 @@ final class MultiMap implements \Countable
      *
      * @since 1.0.0
      */
-    private function removeMultiple(int|string|array $key) : bool
+    private function removeMultiple(int | string | array $key) : bool
     {
         $key = \is_array($key) ? $key : [$key];
 
@@ -367,7 +367,7 @@ final class MultiMap implements \Countable
      *
      * @since 1.0.0
      */
-    private function removeSingle(int|string $key) : bool
+    private function removeSingle(int | string $key) : bool
     {
         if (isset($this->keys[$key])) {
             $id = $this->keys[$key];
@@ -394,7 +394,7 @@ final class MultiMap implements \Countable
      *
      * @since 1.0.0
      */
-    public function remap(int|string $old, int|string $new) : bool
+    public function remap(int | string $old, int | string $new) : bool
     {
         if ($this->keyType === KeyType::MULTIPLE) {
             return false;
@@ -422,7 +422,7 @@ final class MultiMap implements \Countable
      *
      * @since 1.0.0
      */
-    public function removeKey(int|string $key) : bool
+    public function removeKey(int | string $key) : bool
     {
         if ($this->keyType === KeyType::MULTIPLE) {
             return false;
@@ -442,7 +442,7 @@ final class MultiMap implements \Countable
      *
      * @since 1.0.0
      */
-    private function removeKeySingle(int|string $key) : bool
+    private function removeKeySingle(int | string $key) : bool
     {
         if (isset($this->keys[$key])) {
             unset($this->keys[$key]);
@@ -464,7 +464,7 @@ final class MultiMap implements \Countable
      *
      * @since 1.0.0
      */
-    public function getSiblings(int|string|array $key) : array
+    public function getSiblings(int | string | array $key) : array
     {
         if ($this->keyType === KeyType::MULTIPLE || \is_array($key)) {
             return $this->getSiblingsMultiple($key);
@@ -482,7 +482,7 @@ final class MultiMap implements \Countable
      *
      * @since 1.0.0
      */
-    public function getSiblingsMultiple(int|string|array $key) : array
+    public function getSiblingsMultiple(int | string | array $key) : array
     {
         if ($this->orderType === OrderType::LOOSE) {
             $key = \is_array($key) ? $key : [$key];
@@ -502,7 +502,7 @@ final class MultiMap implements \Countable
      *
      * @since 1.0.0
      */
-    private function getSiblingsSingle(int|string $key) : array
+    private function getSiblingsSingle(int | string $key) : array
     {
         $siblings = [];
         if (!isset($this->keys[$key])) {

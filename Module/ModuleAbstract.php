@@ -320,7 +320,7 @@ abstract class ModuleAbstract
      *
      * @since 1.0.0
      */
-    protected function updateModel(int $account, mixed $old, mixed $new, string|\Closure $mapper, string $trigger, string $ip) : void
+    protected function updateModel(int $account, mixed $old, mixed $new, string | \Closure $mapper, string $trigger, string $ip) : void
     {
         $this->app->eventManager->triggerSimilar('PRE:Module:' . static::MODULE_NAME . '-' . $trigger . '-update', '', $old);
         $id = 0;

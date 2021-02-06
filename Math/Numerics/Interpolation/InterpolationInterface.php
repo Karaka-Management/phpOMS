@@ -33,5 +33,5 @@ interface InterpolationInterface
      *
      * @since 1.0.0
      */
-    public function interpolate(int|float $x) : float;
+    public function interpolate(int | float $x) : float;
 }

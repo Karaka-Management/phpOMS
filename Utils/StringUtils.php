@@ -82,7 +82,7 @@ final class StringUtils
      *
      * @since 1.0.0
      */
-    public static function endsWith(string $haystack, string|array $needles) : bool
+    public static function endsWith(string $haystack, string | array $needles) : bool
     {
         if (\is_string($needles)) {
             $needles = [$needles];
@@ -114,7 +114,7 @@ final class StringUtils
      *
      * @since 1.0.0
      */
-    public static function startsWith(string $haystack, string|array $needles) : bool
+    public static function startsWith(string $haystack, string | array $needles) : bool
     {
         if (\is_string($needles)) {
             $needles = [$needles];
@@ -412,7 +412,7 @@ final class StringUtils
     public static function isShellSafe(string $string)
     {
         if (\escapeshellcmd($string) !== $string
-            || !\in_array(\escapeshellarg($string), ["'$string'", "\"$string\""])
+            || !\in_array(\escapeshellarg($string), ["'${string}'", "\"${string}\""])
         ) {
             return false;
         }

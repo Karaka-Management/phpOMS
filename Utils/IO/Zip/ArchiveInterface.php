@@ -35,7 +35,7 @@ interface ArchiveInterface
      *
      * @since 1.0.0
      */
-    public static function pack(string|array $sources, string $destination, bool $overwrite = false) : bool;
+    public static function pack(string | array $sources, string $destination, bool $overwrite = false) : bool;
 
     /**
      * Unpack archive.
