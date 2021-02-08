@@ -40,7 +40,7 @@ final class FileUtils
 
     public const VIDEO_EXTENSION = ['mp4', 'flv', 'vob', 'wmv', 'swf', 'mpg', 'mpeg', 'mov', 'mkv', 'h264', 'avi'];
 
-    public const SPREADSHEET_EXTENSION = ['xls', 'xlsm', 'xlr', 'ods'];
+    public const SPREADSHEET_EXTENSION = ['xls', 'xlsx', 'xlsm', 'xlr', 'ods'];
 
     public const IMAGE_EXTENSION = ['png', 'gif', 'jpg', 'jpeg', 'tif', 'tiff', 'bmp', 'svg', 'ico'];
 
