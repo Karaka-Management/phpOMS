@@ -123,14 +123,6 @@ class Account implements \JsonSerializable, ArrayableInterface
     protected string $password = '';
 
     /**
-     * Password.
-     *
-     * @var string
-     * @since 1.0.0
-     */
-    public string $tempPassword = '';
-
-    /**
      * Account type.
      *
      * @var int
