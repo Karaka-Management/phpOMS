@@ -2563,6 +2563,7 @@ class DataMapperAbstract implements DataMapperInterface
      * @param string $order     Order of the elements
      * @param int    $relations Load relations
      * @param int    $depth     Relation depth
+     * @param Builder $query    Query
      *
      * @return array
      *
@@ -2574,10 +2575,11 @@ class DataMapperAbstract implements DataMapperInterface
         int $limit = 50,
         string $order = 'ASC',
         int $relations = RelationType::ALL,
-        int $depth = 3
+        int $depth = 3,
+        Builder $query = null
     ) : array
     {
-        $query = self::getQuery(depth: $depth);
+        $query ??= self::getQuery(depth: $depth);
         $query->where(static::$table . '_' . $depth . '.' . ($column !== null ? self::getColumnByMember($column) : static::$primaryField), '>', $pivot)
             ->orderBy(static::$table . '_' . $depth . '.' . ($column !== null ? self::getColumnByMember($column) : static::$primaryField), $order)
             ->limit($limit);
@@ -2594,6 +2596,7 @@ class DataMapperAbstract implements DataMapperInterface
      * @param string $order     Order of the elements
      * @param int    $relations Load relations
      * @param int    $depth     Relation depth
+     * @param Builder $query    Query
      *
      * @return array
      *
@@ -2609,10 +2612,11 @@ class DataMapperAbstract implements DataMapperInterface
         int $limit = 50,
         string $order = 'ASC',
         int $relations = RelationType::ALL,
-        int $depth = 3
+        int $depth = 3,
+        Builder $query = null
     ) : array
     {
-        $query = self::getQuery();
+        $query ??= self::getQuery(depth: $depth);
         $query->where(static::$table . '_' . $depth . '.' . ($column !== null ? self::getColumnByMember($column) : static::$primaryField), '<', $pivot)
             ->orderBy(static::$table . '_' . $depth . '.' . ($column !== null ? self::getColumnByMember($column) : static::$primaryField), $order)
             ->limit($limit);
@@ -2633,7 +2637,13 @@ class DataMapperAbstract implements DataMapperInterface
      *
      * @since 1.0.0
      */
-    public static function get(mixed $primaryKey, int $relations = RelationType::ALL, int $depth = 3, string $ref = null, Builder $query = null) : mixed
+    public static function get(
+        mixed $primaryKey,
+        int $relations = RelationType::ALL,
+        int $depth = 3,
+        string $ref = null,
+        Builder $query = null
+    ) : mixed
     {
         if ($depth < 1) {
             return self::createNullModel($primaryKey);

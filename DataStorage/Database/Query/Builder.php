@@ -1413,6 +1413,7 @@ class Builder extends BuilderAbstract
 
             $sth->execute();
         } catch (\Throwable $t) {
+            \var_dump($t->getMessage());
             \var_dump($this->toSql());
         }
 
