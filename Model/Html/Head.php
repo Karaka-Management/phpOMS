@@ -142,11 +142,13 @@ final class Head implements RenderableInterface
     /**
      * Get the evaluated contents of the object.
      *
+     * @param mixed ...$data Data to pass to renderer
+     *
      * @return string
      *
      * @since 1.0.0
      */
-    public function render() : string
+    public function render(...$data) : string
     {
         $head  = '';
         $head .= $this->meta->render();

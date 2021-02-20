@@ -106,7 +106,7 @@ final class HttpResponse extends ResponseAbstract implements RenderableInterface
      *
      * @since 1.0.0
      */
-    public function render(bool $optimize = false) : string
+    public function render(...$data) : string
     {
         $types = $this->header->get('Content-Type');
 
@@ -116,7 +116,7 @@ final class HttpResponse extends ResponseAbstract implements RenderableInterface
             }
         }
 
-        return $this->getRaw($optimize);
+        return $this->getRaw($data[0]);
     }
 
     /**
@@ -195,5 +195,15 @@ final class HttpResponse extends ResponseAbstract implements RenderableInterface
         }
 
         return $result;
+    }
+
+    public function endAllOutputBuffering() : void
+    {
+        $this->header->push();
+
+        $levels = \ob_get_level();
+        for ($i = 0; $i < $levels; ++$i) {
+            \ob_end_clean();
+        }
     }
 }

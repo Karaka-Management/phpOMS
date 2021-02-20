@@ -30,9 +30,11 @@ interface RenderableInterface
     /**
      * Get the evaluated contents of the object.
      *
+     * @param mixed ...$data Data to pass to renderer
+     *
      * @return string Returns rendered output
      *
      * @since 1.0.0
      */
-    public function render() : string;
+    public function render(...$data) : string;
 }

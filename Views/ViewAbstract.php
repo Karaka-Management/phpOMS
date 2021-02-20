@@ -36,6 +36,14 @@ abstract class ViewAbstract implements RenderableInterface
     private const BASE_PATH = __DIR__ . '/../..';
 
     /**
+     * Output is buffered
+     *
+     * @var bool
+     * @since 1.0.0
+     */
+    public bool $isBuffered = true;
+
+    /**
      * Template.
      *
      * @var string
@@ -230,7 +238,9 @@ abstract class ViewAbstract implements RenderableInterface
         $ob = '';
 
         try {
-            \ob_start();
+            if ($this->isBuffered) {
+                \ob_start();
+            }
 
             $path = $this->template;
             if (!\is_file($path)) {
@@ -239,13 +249,48 @@ abstract class ViewAbstract implements RenderableInterface
 
             /** @noinspection PhpIncludeInspection */
             $includeData = include $path;
-            $ob          = (string) \ob_get_clean();
+
+            if ($this->isBuffered) {
+                $ob = (string) \ob_get_clean();
+            }
 
             if (\is_array($includeData)) {
                 $ob = (string) \json_encode($includeData);
             }
         } catch (\Throwable $e) {
-            \ob_end_clean();
+            if ($this->isBuffered) {
+                \ob_end_clean();
+            }
+
+            $ob = '';
+        } finally {
+            return $ob;
+        }
+    }
+
+    /**
+     * Very similar to render, except that it executes the template file and returns its response as is.
+     * This allows to build the template as any datatype (e.g. pdf).
+     *
+     * @param mixed ...$data Data to pass to build
+     *
+     * @return mixed
+     *
+     * @since 1.0.0
+     */
+    public function build(...$data) : mixed
+    {
+        $ob = '';
+
+        try {
+            $path = $this->template;
+            if (!\is_file($path)) {
+                throw new PathException($path);
+            }
+
+            /** @noinspection PhpIncludeInspection */
+            $ob = include $path;
+        } catch (\Throwable $e) {
             $ob = '';
         } finally {
             return $ob;
