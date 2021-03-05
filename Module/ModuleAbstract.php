@@ -261,9 +261,9 @@ abstract class ModuleAbstract
     {
         $trigger = static::MODULE_NAME . '-' . $trigger . '-create';
 
-        $this->app->eventManager->triggerSimilar('PRE:Module:' . $trigger . '-create', '', $obj);
+        $this->app->eventManager->triggerSimilar('PRE:Module:' . $trigger, '', $obj);
         $id = $mapper::create($obj);
-        $this->app->eventManager->triggerSimilar('POST:Module:' . $trigger . '-create', '', [
+        $this->app->eventManager->triggerSimilar('POST:Module:' . $trigger, '', [
             $account,
             null, $obj,
             StringUtils::intHash($mapper), $trigger,
