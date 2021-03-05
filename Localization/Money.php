@@ -170,13 +170,13 @@ final class Money implements \Serializable
     /**
      * Get money.
      *
-     * @param int $decimals Precision
+     * @param int $decimals Precision (null = auto decimals)
      *
      * @return string
      *
      * @since 1.0.0
      */
-    public function getCurrency(int $decimals = 2) : string
+    public function getCurrency(?int $decimals = 2) : string
     {
         return ($this->position === 0 && !empty($this->symbol) ? $this->symbol . ' ' : '') . $this->getAmount($decimals) . ($this->position === 1 ? ' ' . $this->symbol : '');
     }
@@ -184,7 +184,7 @@ final class Money implements \Serializable
     /**
      * Get money.
      *
-     * @param int $decimals Precision
+     * @param null|int $decimals Precision (null = auto decimals)
      *
      * @return string
      *
@@ -192,7 +192,7 @@ final class Money implements \Serializable
      *
      * @since 1.0.0
      */
-    public function getAmount(int $decimals = 2) : string
+    public function getAmount(?int $decimals = 2) : string
     {
         $value = $this->value === 0
             ? \str_repeat('0', self::MAX_DECIMALS)
@@ -206,6 +206,10 @@ final class Money implements \Serializable
 
         if ($right === false) {
             throw new \Exception(); // @codeCoverageIgnore
+        }
+
+        if ($decimals === null) {
+            $decimals = \strlen(\rtrim($right, '0'));
         }
 
         return $decimals > 0
