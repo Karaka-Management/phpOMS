@@ -626,7 +626,7 @@ final class HttpRequest extends RequestAbstract
     /**
      * Get referer.
      *
-     * @return int
+     * @return string
      *
      * @since 1.0.0
      */
