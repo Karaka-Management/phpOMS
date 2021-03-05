@@ -624,6 +624,18 @@ final class HttpRequest extends RequestAbstract
     }
 
     /**
+     * Get referer.
+     *
+     * @return int
+     *
+     * @since 1.0.0
+     */
+    public function getReferer() : string
+    {
+        return $_SERVER['HTTP_REFERER'] ?? '';
+    }
+
+    /**
      * Get request method.
      *
      * @return string
