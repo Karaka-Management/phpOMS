@@ -198,7 +198,7 @@ final class EventManager implements \Countable
         $triggerValue = false;
         foreach ($groups as $groupName => $ids) {
             foreach ($ids as $id) {
-                $triggerValue = $triggerValue || $this->trigger($groupName, $id, $data);
+                $triggerValue = $this->trigger($groupName, $id, $data) || $triggerValue;
             }
         }
 
