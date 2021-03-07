@@ -2557,13 +2557,13 @@ class DataMapperAbstract implements DataMapperInterface
     /**
      * Get objects for pagination
      *
-     * @param mixed  $pivot     Pivot
-     * @param string $column    Sort column/pivot column
-     * @param int    $limit     Result limit
-     * @param string $order     Order of the elements
-     * @param int    $relations Load relations
-     * @param int    $depth     Relation depth
-     * @param Builder $query    Query
+     * @param mixed   $pivot     Pivot
+     * @param string  $column    Sort column/pivot column
+     * @param int     $limit     Result limit
+     * @param string  $order     Order of the elements
+     * @param int     $relations Load relations
+     * @param int     $depth     Relation depth
+     * @param Builder $query     Query
      *
      * @return array
      *
@@ -2590,13 +2590,13 @@ class DataMapperAbstract implements DataMapperInterface
     /**
      * Get objects for pagination
      *
-     * @param mixed  $pivot     Pivot
-     * @param string $column    Sort column/pivot column
-     * @param int    $limit     Result limit
-     * @param string $order     Order of the elements
-     * @param int    $relations Load relations
-     * @param int    $depth     Relation depth
-     * @param Builder $query    Query
+     * @param mixed   $pivot     Pivot
+     * @param string  $column    Sort column/pivot column
+     * @param int     $limit     Result limit
+     * @param string  $order     Order of the elements
+     * @param int     $relations Load relations
+     * @param int     $depth     Relation depth
+     * @param Builder $query     Query
      *
      * @return array
      *
