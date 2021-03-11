@@ -274,13 +274,11 @@ class MatrixTest extends \PHPUnit\Framework\TestCase
             [2, 1, 1],
         ]);
 
-        self::markTestIncomplete();
-
-        /*self::assertEquals([
+        self::assertEquals([
             [-0.9, -0.5, 2.2],
             [0.7, 0.5, -1.6],
             [1.1, 0.5, -1.8],
-        ], $A->inverse()->toArray(), '', 0.2);*/
+        ], $A->inverse()->toArray(), '', 0.2);
     }
 
     /**

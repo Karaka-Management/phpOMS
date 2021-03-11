@@ -71,17 +71,6 @@ interface DataMapperInterface
     public static function find(string $search) : array;
 
     /**
-     * Load.
-     *
-     * @param array ...$objects Objects to load
-     *
-     * @return $this
-     *
-     * @since 1.0.0
-     */
-    public static function with(...$objects);
-
-    /**
      * Get object.
      *
      * @param mixed $primaryKey Key

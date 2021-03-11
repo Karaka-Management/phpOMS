@@ -302,7 +302,7 @@ class DataMapperAbstractTest extends \PHPUnit\Framework\TestCase
         $cond3->base     = $id2;
         ConditionalMapper::create($cond3);
 
-        $found = BaseModelMapper::withConditional('language', 'de')::getAll();
+        $found = BaseModelMapper::with('language', 'de')::getAll();
         self::assertCount(2, $found);
         self::assertEquals($model1->string, \reset($found)->string);
         self::assertEquals($model2->string, \end($found)->string);

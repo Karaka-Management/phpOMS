@@ -139,16 +139,6 @@ class DataMapperAbstract implements DataMapperInterface
     protected static array $columns = [];
 
     /**
-     * Conditional.
-     *
-     * Most often used for localizations
-     *
-     * @var array<string, array{value:mixed, models:null|string[]}>
-     * @since 1.0.0
-     */
-    protected static array $conditionals = [];
-
-    /**
      * Has many relation.
      *
      * @var array<string, array>
@@ -204,7 +194,7 @@ class DataMapperAbstract implements DataMapperInterface
      * @var array[]
      * @since 1.0.0
      */
-    protected static array $fields = [];
+    protected static array $withFields = [];
 
     /**
      * Initialized objects for cross reference to reduce initialization costs
@@ -318,42 +308,39 @@ class DataMapperAbstract implements DataMapperInterface
     }
 
     /**
-     * Load.
-     *
-     * @param array ...$objects Objects to load
-     *
-     * @return void
-     *
-     * @since 1.0.0
-     */
-    public static function with(...$objects) : void
-    {
-        /**
-         * @todo Orange-Management/phpOMS#??? [p:low] [t:optimization] [d:expert]
-         *  Implement with()
-         *  Only load fields or models which are specified in with
-         */
-        self::$fields = $objects;
-    }
-
-    /**
      * Create a conditional value
      *
      * @param string   $id         Id of the conditional
      * @param mixed    $value      Value of the conditional
      * @param string[] $models     Models to apply the conditional on
      * @param string   $comparison Comparison operator
+     * @param string   $orderBy    Field name to order by
+     * @param string   $sortOrder  Sort order
+     * @param int      $limit      Limit
      *
      * @return string
      *
      * @since 1.0.0
      */
-    public static function withConditional(string $id, mixed $value, array $models = [], string $comparison = '=') : string
+    public static function with(
+        string $id,
+        mixed $value = null,
+        ?array $models = [],
+        string $comparison = '=',
+        string $orderBy = null,
+        string $sortOrder = null,
+        int $limit = null
+    ) : string
     {
-        self::$conditionals[$id] = [
+        // @todo: this doesn't allow a offset / secondary condition (e.g. between two values)
+        self::$withFields[$id] = [
             'value'      => $value,
-            'models'     => empty($models) ? null : $models,
+            'models'     => $models === [] ? null : $models,
             'comparison' => $comparison,
+            'orderBy' => $orderBy,
+            'sortOrder' => $sortOrder,
+            'limit' => $limit,
+            'ignore' => $models === null, // don't load this model
         ];
 
         /** @var string */
@@ -377,7 +364,7 @@ class DataMapperAbstract implements DataMapperInterface
         }
 
         self::$parentMapper = null;
-        self::$conditionals = [];
+        self::$withFields = [];
         self::$relations    = RelationType::ALL;
     }
 
@@ -420,14 +407,26 @@ class DataMapperAbstract implements DataMapperInterface
         $modelName = self::getModelName();
 
         $hasConditionals = false;
-        foreach (self::$conditionals as $condKey => $condValue) {
+        foreach (self::$withFields as $condKey => $condValue) {
             if (($column = self::getColumnByMember($condKey)) === null
                 || ($condValue['models'] !== null && !\in_array($modelName, $condValue['models']))
+                || $condValue['ignore']
             ) {
                 continue;
             }
 
-            $where1->andWhere(static::$table . '_' . $searchDepth . '.' . $column, $condValue['comparison'], $condValue['value']);
+            if ($condValue['value'] !== null) {
+                $where1->andWhere(static::$table . '_' . $searchDepth . '.' . $column, $condValue['comparison'], $condValue['value']);
+            }
+
+            if ($condValue['orderBy'] !== null) {
+                $where1->orderBy(static::$table . '_' . $searchDepth . '.' . static::$columns[$condValue['orderBy']], $condValue['sortOrder']);
+            }
+
+            if ($condValue['limit'] !== null) {
+                $where1->limit($condValue['limit']);
+            }
+
             $hasConditionals = true;
         }
 
@@ -3172,7 +3171,9 @@ class DataMapperAbstract implements DataMapperInterface
         self::$relations = $relations;
 
         foreach (static::$hasMany as $member => $value) {
-            if ($value['writeonly'] ?? false === true) {
+            if ($value['writeonly'] ?? false === true
+                || (isset(self::$withFields[$member]['ignore']) && self::$withFields[$member]['ignore']) // should not be loaded
+            ) {
                 continue;
             }
 
@@ -3182,20 +3183,47 @@ class DataMapperAbstract implements DataMapperInterface
                 if (self::$relations === RelationType::ALL) {
                     $src = $value['external'] ?? $value['mapper']::$primaryField;
 
+                    // @todo: what if a specific column name is defined instead of primaryField for the join? Fix, it should be stored in 'column'
                     $query->select($value['table'] . '.' . $src)
                         ->from($value['table'])
                         ->where($value['table'] . '.' . $value['self'], '=', $primaryKey);
 
+                    if ($value['mapper']::getTable() !== $value['table']) {
+                        $query->leftJoin($value['mapper']::getTable())
+                            ->on($value['table'] . '.' . $src, '=', $value['mapper']::getTable() . '.' . $value['mapper']::getPrimaryField());
+                    }
+
+                    // @todo: here the relation table should probably join the the model table for better ::with() handling
+
+                    if (isset(self::$withFields[$member]) && self::$withFields[$member]['orderBy'] !== null) {
+                        $query->orderBy($value['mapper']::getTable() . '.' . $value['mapper']::getColumnByMember(self::$withFields[$member]['orderBy']), self::$withFields[$member]['sortOrder']);
+                    }
+
+                    if (isset(self::$withFields[$member]) && self::$withFields[$member]['limit'] !== null) {
+                        $query->limit(self::$withFields[$member]['limit']);
+                    }
+
                     $modelName = $value['mapper']::getModelName();
-                    foreach (self::$conditionals as $condKey => $condValue) {
+                    foreach (self::$withFields as $condKey => $condValue) {
                         if (($column = $value['mapper']::getColumnByMember($condKey)) === null
                             || ($condValue['models'] !== null && !\in_array($modelName, $condValue['models']))
                             || ($value['conditional'] ?? false) === false
+                            || $condValue['ignore']
                         ) {
                             continue;
                         }
 
-                        $query->andWhere($value['table'] . '.' . $column, $condValue['comparison'], $condValue['value']);
+                        if ($condValue['value'] !== null) {
+                            $query->andWhere($value['mapper']::getTable() . '.' . $column, $condValue['comparison'], $condValue['value']);
+                        }
+
+                        if ($condValue['orderBy'] !== null) {
+                            $query->orderBy($value['mapper']::getTable() . '.' . $column . '.' . $value['mapper']::getColumnByMember($condValue['orderBy']), $condValue['sortOrder']);
+                        }
+
+                        if ($condValue['limit'] !== null) {
+                            $query->limit($condValue['limit']);
+                        }
                     }
                 }
 
@@ -3209,6 +3237,7 @@ class DataMapperAbstract implements DataMapperInterface
             $result[$member] = $cachedTables[$value['table']];
         }
 
+        // @todo: this returns IDs it should return the database data here in order to reduce the requests.
         return $result;
     }
 
@@ -3246,19 +3275,34 @@ class DataMapperAbstract implements DataMapperInterface
 
         // handle conditional
         $modelName = self::getModelName();
-        foreach (self::$conditionals as $condKey => $condValue) {
+        foreach (self::$withFields as $condKey => $condValue) {
             if (($column = self::getColumnByMember($condKey)) === null
                 || ($condValue['models'] !== null && !\in_array($modelName, $condValue['models']))
+                || $condValue['ignore']
             ) {
                 continue;
             }
 
-            $query->andWhere(static::$table . '_' . $depth . '.' . $column, $condValue['comparison'], $condValue['value']);
+            if ($condValue['value'] !== null) {
+                $query->andWhere(static::$table . '_' . $depth . '.' . $column, $condValue['comparison'], $condValue['value']);
+            }
+
+            if ($condValue['orderBy'] !== null) {
+                $query->orderBy(static::$table . '_' . $depth . '.' . $columns[$condValue['orderBy']], $condValue['sortOrder']);
+            }
+
+            if ($condValue['limit'] !== null) {
+                $query->limit($condValue['limit']);
+            }
         }
 
         // get OwnsOneQuery
         if ($depth > 1 && self::$relations === RelationType::ALL) {
-            foreach (static::$ownsOne as $rel) {
+            foreach (static::$ownsOne as $key => $rel) {
+                if (isset(self::$withFields[$key]) && self::$withFields[$key]['ignore']) {
+                    continue;
+                }
+
                 $query->leftJoin($rel['mapper']::getTable(), $rel['mapper']::getTable() . '_' . ($depth - 1))
                     ->on(
                         static::$table . '_' . $depth . '.' . $rel['external'], '=',
@@ -3280,6 +3324,10 @@ class DataMapperAbstract implements DataMapperInterface
         // get BelognsToQuery
         if ($depth > 1 && self::$relations === RelationType::ALL) {
             foreach (static::$belongsTo as $rel) {
+                if (isset(self::$withFields[$key]) && self::$withFields[$key]['ignore']) {
+                    continue;
+                }
+
                 $query->leftJoin($rel['mapper']::getTable(), $rel['mapper']::getTable() . '_' . ($depth - 1))
                     ->on(
                         static::$table . '_' . $depth . '.' . $rel['external'], '=',
@@ -3301,7 +3349,10 @@ class DataMapperAbstract implements DataMapperInterface
         // get HasManyQuery (but only for elements which have a 'column' defined)
         if ($depth > 1 && self::$relations === RelationType::ALL) {
             foreach (static::$hasMany as $rel) {
-                if (isset($rel['external']) || !isset($rel['column'])) { // @todo: conflict with getHasMany()???!?!?!?!
+                // @todo: impl. conditiona/with handling, sort, limit, filter or is this not required here?
+                if (isset($rel['external']) || !isset($rel['column']) // @todo: conflict with getHasMany()???!?!?!?!
+                    || (isset(self::$withFields[$key]) && self::$withFields[$key]['ignore'])
+                ) {
                     continue;
                 }
 
