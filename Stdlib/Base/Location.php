@@ -218,11 +218,11 @@ class Location implements \JsonSerializable, \Serializable
     {
         $data = \json_decode($serialized, true);
 
-        $this->postal = $data['postal'];
-        $this->city = $data['city'];
+        $this->postal  = $data['postal'];
+        $this->city    = $data['city'];
         $this->country = $data['country'];
         $this->address = $data['address'];
-        $this->state = $data['state'];
-        $this->geo = $data['geo'];
+        $this->state   = $data['state'];
+        $this->geo     = $data['geo'];
     }
 }

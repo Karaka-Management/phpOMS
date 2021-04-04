@@ -83,7 +83,6 @@ final class Money extends FloatInt
         return $this;
     }
 
-
     /**
      * Get money.
      *

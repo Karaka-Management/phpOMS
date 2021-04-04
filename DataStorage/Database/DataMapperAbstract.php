@@ -21,7 +21,6 @@ use phpOMS\DataStorage\Database\Query\QueryType;
 use phpOMS\DataStorage\Database\Query\Where;
 use phpOMS\DataStorage\DataMapperInterface;
 use phpOMS\Utils\ArrayUtils;
-use phpOMS\Utils\TestUtils;
 
 /**
  * Datamapper for databases.
@@ -337,10 +336,10 @@ class DataMapperAbstract implements DataMapperInterface
             'value'      => $value,
             'models'     => $models === [] ? null : $models,
             'comparison' => $comparison,
-            'orderBy' => $orderBy,
-            'sortOrder' => $sortOrder,
-            'limit' => $limit,
-            'ignore' => $models === null, // don't load this model
+            'orderBy'    => $orderBy,
+            'sortOrder'  => $sortOrder,
+            'limit'      => $limit,
+            'ignore'     => $models === null, // don't load this model
         ];
 
         /** @var string */
@@ -364,7 +363,7 @@ class DataMapperAbstract implements DataMapperInterface
         }
 
         self::$parentMapper = null;
-        self::$withFields = [];
+        self::$withFields   = [];
         self::$relations    = RelationType::ALL;
     }
 

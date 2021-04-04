@@ -58,7 +58,7 @@ final class CustomerValue
     public static function getBasicCLV(array $margins, float $retentionRate, float $discountRate) : float
     {
         $clv = 0.0;
-        $c = 1;
+        $c   = 1;
         foreach ($margins as $margin) {
             $clv += ($retentionRate ** $c) * $margin * \pow(1 / (1 + $discountRate), $c);
 
