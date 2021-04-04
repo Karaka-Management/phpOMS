@@ -12,8 +12,8 @@
  *
  * Extended based on:
  * GLGPL 2.1 License
- * © 2012 - 2015 Marcus Bointon, 2010 - 2012 Jim Jagielski, 2004 - 2009 Andy Prevost
- * © PHPMailer
+ * (c) 2012 - 2015 Marcus Bointon, 2010 - 2012 Jim Jagielski, 2004 - 2009 Andy Prevost
+ * (c) PHPMailer
  */
 declare(strict_types=1);
 

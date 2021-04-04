@@ -32,7 +32,7 @@ class MbStringUtilsTest extends \PHPUnit\Framework\TestCase
      */
     public function testEntropy() : void
     {
-        self::assertEqualsWithDelta(2.75, MbStringUtils::mb_entropy('akj@!©¥j'), 0.1);
+        self::assertEqualsWithDelta(2.75, MbStringUtils::mb_entropy('akj@!(c)¥j'), 0.1);
     }
 
     /**

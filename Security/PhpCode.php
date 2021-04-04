@@ -148,7 +148,7 @@ final class PhpCode
      * Validate file integrety
      *
      * @param string $source Source code path
-     * @param string $hash   Source hash
+     * @param string $hash   Source hash (md5)
      *
      * @return bool Returns true if filee matches expected signature otherwise false is returned
      *

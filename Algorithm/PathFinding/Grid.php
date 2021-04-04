@@ -12,8 +12,8 @@
  *
  * Extended based on:
  * MIT License
- * © 2011-2012 Xueqiao Xu <xueqiaoxu@gmail.com>
- * © PathFinding.js
+ * (c) 2011-2012 Xueqiao Xu <xueqiaoxu@gmail.com>
+ * (c) PathFinding.js
  */
 declare(strict_types=1);
 

@@ -62,10 +62,10 @@ class PermissionAbstract implements \JsonSerializable
     /**
      * Providing module id.
      *
-     * @var int
+     * @var string
      * @since 1.0.0
      */
-    protected int $from = 0;
+    protected ?string $from = null;
 
     /**
      * Type.
@@ -105,7 +105,7 @@ class PermissionAbstract implements \JsonSerializable
      * @param null|int    $unit       Unit Unit to check (null if all are acceptable)
      * @param null|string $app        App App to check  (null if all are acceptable)
      * @param null|string $module     Module Module to check  (null if all are acceptable)
-     * @param int         $from       Provided by which module
+     * @param null|string $from       Provided by which module
      * @param null|int    $type       Type (e.g. customer) (null if all are acceptable)
      * @param null|int    $element    (e.g. customer id) (null if all are acceptable)
      * @param null|int    $component  (e.g. address) (null if all are acceptable)
@@ -117,7 +117,7 @@ class PermissionAbstract implements \JsonSerializable
         int $unit = null,
         string $app = null,
         string $module = null,
-        int $from = 0,
+        string $from = null,
         int $type = null,
         int $element = null,
         int $component = null,
@@ -226,11 +226,11 @@ class PermissionAbstract implements \JsonSerializable
     /**
      * Get providing module id.
      *
-     * @return int Returns the module responsible for setting this permission
+     * @return null|string Returns the module responsible for setting this permission
      *
      * @since 1.0.0
      */
-    public function getFrom() : int
+    public function getFrom() : ?string
     {
         return $this->from;
     }
@@ -238,13 +238,13 @@ class PermissionAbstract implements \JsonSerializable
     /**
      * Set providing module id.
      *
-     * @param int $from Providing module
+     * @param null|string $from Providing module
      *
      * @return void
      *
      * @since 1.0.0
      */
-    public function setFrom(int $from = 0) : void
+    public function setFrom(string $from = null) : void
     {
         $this->from = $from;
     }

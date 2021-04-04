@@ -15,7 +15,9 @@ declare(strict_types=1);
 namespace phpOMS\Math\Stochastic\Distribution;
 
 /**
- * Bernulli distribution.
+ * T distribution.
+ *
+ * Test the similarity of two means
  *
  * @package phpOMS\Math\Stochastic\Distribution
  * @license OMS License 1.0

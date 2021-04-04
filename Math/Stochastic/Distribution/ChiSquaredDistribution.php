@@ -19,6 +19,8 @@ use phpOMS\Math\Functions\Gamma;
 /**
  * Chi squared distribution.
  *
+ * Test if two variables are similarly distributed (goodness fit, test dependency of variables)
+ *
  * @package phpOMS\Math\Stochastic\Distribution
  * @license OMS License 1.0
  * @link    https://orange-management.org

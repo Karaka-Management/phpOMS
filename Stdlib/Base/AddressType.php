@@ -37,4 +37,6 @@ abstract class AddressType extends Enum
     public const CONTRACT = 6;
 
     public const OTHER = 7;
+
+    public const EDUCATION = 8;
 }

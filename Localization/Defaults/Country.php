@@ -83,7 +83,7 @@ class Country
     /**
      * Country developed.
      *
-     * @var string
+     * @var bool
      * @since 1.0.0
      */
     protected bool $isDeveloped = false;

@@ -29,6 +29,14 @@ use phpOMS\DataStorage\Database\Connection\ConnectionAbstract;
 class Builder extends BuilderAbstract
 {
     /**
+     * Log queries.
+     *
+     * @var bool
+     * @since 1.0.0
+     */
+    public static bool $log = false;
+
+    /**
      * Is read only.
      *
      * @var bool
@@ -369,7 +377,13 @@ class Builder extends BuilderAbstract
             $this->resolveJoinDependencies();
         }
 
-        return $this->grammar->compileQuery($this);
+        $query = $this->grammar->compileQuery($this);
+
+        if (self::$log) {
+            \phpOMS\Log\FileLogger::getInstance()->debug($query);
+        }
+
+        return $query;
     }
 
     /**

@@ -59,6 +59,68 @@ final class Metrics
     }
 
     /**
+     * Calcualte the coefficient of retention
+     *
+     * @param float $retentionRate Observed retention rate (optionally use the average)
+     * @param float $rc            Retention rate ceiling
+     * @param int   $t             Period
+     *
+     * @return float
+     *
+     * @since 1.0.0
+     */
+    public static function getCoefficientOfRetention(float $retentionRate, float $rc, int $t) : float
+    {
+        return 1 / $t * \log($rc - $retentionRate);
+    }
+
+    /**
+     * Predict the retention rate for period t
+     *
+     * @param float $rc Retention rate ceiling
+     * @param float $r  Coefficient of retention
+     * @param int   $t  Period t
+     *
+     * @return float
+     *
+     * @since 1.0.0
+     */
+    public static function predictCustomerRetention(float $rc, float $r, int $t) : float
+    {
+        return $rc * (1 - \exp(-$r * $t));
+    }
+
+    /**
+     * Calculate the average lifetime duration
+     *
+     * @param array $retainedCustomers Retained customers per period
+     *
+     * @return float
+     *
+     * @since 1.0.0
+     */
+    public static function averageLifetimeDuration(array $retainedCustomers) : float
+    {
+        return \array_sum($retainedCustomers) / \count($retainedCustomers);
+    }
+
+    /**
+     * Calculate the probability of a customer being active
+     *
+     * @param int $purchases    Number of purchases during the periods
+     * @param int $periods      Number of periods (e.g. number of months)
+     * @param int $lastPurchase In which period was the last purchase
+     *
+     * @return float
+     *
+     * @since 1.0.0
+     */
+    public static function customerActiveProbability(int $purchases, int $periods, int $lastPurchase) : float
+    {
+        return \pow($lastPurchase / $periods, $purchases);
+    }
+
+    /**
      * Calculate the customer profits
      *
      * @param int   $customers      Amount of customers acquired

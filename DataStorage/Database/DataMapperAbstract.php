@@ -420,7 +420,7 @@ class DataMapperAbstract implements DataMapperInterface
             }
 
             if ($condValue['orderBy'] !== null) {
-                $where1->orderBy(static::$table . '_' . $searchDepth . '.' . static::$columns[$condValue['orderBy']], $condValue['sortOrder']);
+                $where1->orderBy(static::$table . '_' . $searchDepth . '.' . static::getColumnByMember($condValue['orderBy']), $condValue['sortOrder']);
             }
 
             if ($condValue['limit'] !== null) {
@@ -899,14 +899,6 @@ class DataMapperAbstract implements DataMapperInterface
             /** @var self $mapper */
             $mapper = static::$hasMany[$propertyName]['mapper'];
 
-            if (\is_object($values)) {
-                // conditionals
-                TestUtils::setMember($values, $mapper::$columns[static::$hasMany[$propertyName]['self']]['internal'], $objId);
-
-                $mapper::createArray($values);
-                continue;
-            }
-
             if (!\is_array($values)) {
                 continue;
             }
@@ -1160,14 +1152,13 @@ class DataMapperAbstract implements DataMapperInterface
                 $values = $obj->{$propertyName};
             }
 
-            if (!\is_array($values)) {
-                // conditionals
+            if (!\is_array($values) || empty($values)) {
                 continue;
             }
 
             /** @var self $mapper */
             $mapper                 = static::$hasMany[$propertyName]['mapper'];
-            $relReflectionClass     = !empty($values) ? new \ReflectionClass(\reset($values)) : null;
+            $relReflectionClass     = new \ReflectionClass(\reset($values));
             $objsIds[$propertyName] = [];
 
             foreach ($values as $key => &$value) {
@@ -1178,7 +1169,6 @@ class DataMapperAbstract implements DataMapperInterface
                     continue;
                 }
 
-                /** @var \ReflectionClass @relReflectionClass */
                 $primaryKey = $mapper::getObjectId($value, $relReflectionClass);
 
                 // already in db
@@ -2081,7 +2071,7 @@ class DataMapperAbstract implements DataMapperInterface
      */
     public static function populateOwnsOne(string $member, array $result, int $depth = 3, mixed $default = null) : mixed
     {
-        /** @var self $mapper */
+        /** @var self|string $mapper */
         $mapper = static::$ownsOne[$member]['mapper'];
 
         if ($depth < 1) {
@@ -2121,7 +2111,7 @@ class DataMapperAbstract implements DataMapperInterface
      */
     public static function populateOwnsOneArray(string $member, array $result, int $depth = 3, mixed $default = null) : array
     {
-        /** @var self $mapper */
+        /** @var self|string $mapper */
         $mapper = static::$ownsOne[$member]['mapper'];
 
         if ($depth < 1) {
@@ -2162,7 +2152,7 @@ class DataMapperAbstract implements DataMapperInterface
      */
     public static function populateBelongsTo(string $member, array $result, int $depth = 3, mixed $default = null) : mixed
     {
-        /** @var self $mapper */
+        /** @var self|string $mapper */
         $mapper = static::$belongsTo[$member]['mapper'];
 
         if ($depth < 1) {
@@ -2202,7 +2192,7 @@ class DataMapperAbstract implements DataMapperInterface
      */
     public static function populateBelongsToArray(string $member, array $result, int $depth = 3, mixed $default = null) : array
     {
-        /** @var self $mapper */
+        /** @var self|string $mapper */
         $mapper = static::$belongsTo[$member]['mapper'];
 
         if ($depth < 1) {
@@ -3111,6 +3101,8 @@ class DataMapperAbstract implements DataMapperInterface
         try {
             $results = false;
 
+            $t = $query->toSql();
+
             $sth = self::$db->con->prepare($query->toSql());
             if ($sth !== false) {
                 $sth->execute();
@@ -3323,7 +3315,7 @@ class DataMapperAbstract implements DataMapperInterface
 
         // get BelognsToQuery
         if ($depth > 1 && self::$relations === RelationType::ALL) {
-            foreach (static::$belongsTo as $rel) {
+            foreach (static::$belongsTo as $key => $rel) {
                 if (isset(self::$withFields[$key]) && self::$withFields[$key]['ignore']) {
                     continue;
                 }
@@ -3348,7 +3340,7 @@ class DataMapperAbstract implements DataMapperInterface
 
         // get HasManyQuery (but only for elements which have a 'column' defined)
         if ($depth > 1 && self::$relations === RelationType::ALL) {
-            foreach (static::$hasMany as $rel) {
+            foreach (static::$hasMany as $key => $rel) {
                 // @todo: impl. conditiona/with handling, sort, limit, filter or is this not required here?
                 if (isset($rel['external']) || !isset($rel['column']) // @todo: conflict with getHasMany()???!?!?!?!
                     || (isset(self::$withFields[$key]) && self::$withFields[$key]['ignore'])

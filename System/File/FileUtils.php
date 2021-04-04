@@ -110,7 +110,9 @@ final class FileUtils
     public static function absolute(string $origPath) : string
     {
         if (\file_exists($origPath) !== false) {
-            return \realpath($origPath);
+            $path = \realpath($origPath);
+
+            return $path === false ? '' : $path;
         }
 
         $startsWithSlash = \strpos($origPath, '/') === 0 || \strpos($origPath, '\\') === 0 ? '/' : '';

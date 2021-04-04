@@ -20,6 +20,8 @@ use phpOMS\Math\Statistic\MeasureOfDispersion;
 /**
  * ZTest
  *
+ * Test if the mean is the same as the population mean
+ *
  * @package phpOMS\Math\Stochastic\Distribution
  * @license OMS License 1.0
  * @link    https://orange-management.org

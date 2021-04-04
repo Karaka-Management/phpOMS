@@ -212,15 +212,17 @@ class Location implements \JsonSerializable, \Serializable
     }
 
     /**
-     * Constructs the object
-     * @link  http://php.net/manual/en/serializable.unserialize.php
-     * @param  string $serialized <p>
-     *                            The string representation of the object.
-     *                            </p>
-     * @return void
-     * @since 5.1.0
+     * {@inheritdoc}
      */
     public function unserialize($serialized) : void
     {
+        $data = \json_decode($serialized, true);
+
+        $this->postal = $data['postal'];
+        $this->city = $data['city'];
+        $this->country = $data['country'];
+        $this->address = $data['address'];
+        $this->state = $data['state'];
+        $this->geo = $data['geo'];
     }
 }
