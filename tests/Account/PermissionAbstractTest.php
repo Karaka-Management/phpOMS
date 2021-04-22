@@ -113,8 +113,8 @@ class PermissionAbstractTest extends \PHPUnit\Framework\TestCase
     {
         $perm = new class() extends PermissionAbstract {};
 
-        $perm->setFrom(3);
-        self::assertEquals(3, $perm->getFrom());
+        $perm->setFrom('3');
+        self::assertEquals('3', $perm->getFrom());
     }
 
     /**
