@@ -414,7 +414,7 @@ class PermissionAbstract implements \JsonSerializable
             && ($type === null || $this->type === null || $this->type === $type)
             && ($element === null || $this->element === null || $this->element === $element)
             && ($component === null || $this->component === null || $this->component === $component)
-            && ($this->permission | $permission) === $this->permission);
+            && ($this->permission & $permission) === $permission);
     }
 
     /**
