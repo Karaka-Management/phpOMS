@@ -100,7 +100,7 @@ final class HttpResponse extends ResponseAbstract implements RenderableInterface
     /**
      * Generate response based on header.
      *
-     * @param bool $optimize Optimize response / minify
+     * @param mixed $data Data passt to render function. (0 => bool: $optimize
      *
      * @return string
      *
@@ -116,7 +116,7 @@ final class HttpResponse extends ResponseAbstract implements RenderableInterface
             }
         }
 
-        return $this->getRaw($data[0]);
+        return $this->getRaw($data[0] ?? false);
     }
 
     /**
@@ -196,7 +196,16 @@ final class HttpResponse extends ResponseAbstract implements RenderableInterface
 
         return $result;
     }
-
+    
+    /**
+     * Ends the output buffering
+     *
+     * This is helpful in case the output buffering should be stopped for streamed/chunked responses (e.g. large data)
+     *
+     * @return void
+     *
+     * @since 1.0.0
+     */
     public function endAllOutputBuffering() : void
     {
         $this->header->push();
