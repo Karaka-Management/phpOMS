@@ -55,8 +55,8 @@ final class Money extends FloatInt
      */
     public function __construct(int | float | string $value = 0, string $thousands = ',', string $decimal = '.', string $symbol = '', int $position = 0)
     {
-        $this->symbol    = $symbol;
-        $this->position  = $position;
+        $this->symbol   = $symbol;
+        $this->position = $position;
 
         parent::__construct($value, $thousands, $decimal);
     }
@@ -75,8 +75,8 @@ final class Money extends FloatInt
      */
     public function setLocalization(string $thousands = ',', string $decimal = '.', string $symbol = '', int $position = 0) : self
     {
-        $this->symbol    = $symbol;
-        $this->position  = $position;
+        $this->symbol   = $symbol;
+        $this->position = $position;
 
         parent::setLocalization($thousands, $decimal);
 
