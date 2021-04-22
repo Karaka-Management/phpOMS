@@ -230,7 +230,7 @@ class PermissionAbstractTest extends \PHPUnit\Framework\TestCase
         $perm->setPermission(PermissionType::READ);
         $perm->addPermission(PermissionType::CREATE);
         self::assertTrue($perm->hasPermissionFlags(PermissionType::READ));
-        self::assertTrue($perm->hasPermissionFlags(PermissionType::READ & PermissionType::CREATE));
+        self::assertTrue($perm->hasPermissionFlags(PermissionType::READ | PermissionType::CREATE));
     }
 
     /**
