@@ -378,7 +378,7 @@ class PermissionAbstract implements \JsonSerializable
      */
     public function hasPermissionFlags(int $permission) : bool
     {
-        return ($this->permission | $permission) === $this->permission;
+        return ($this->permission & $permission) === $permission;
     }
 
     /**
