@@ -166,7 +166,7 @@ final class L11nManager
 
             /** @var string $class */
             if (!Autoloader::exists($class)) {
-                return 'ERROR';
+                return 'ERROR-' . $translation;
             }
 
             $this->loadLanguage($code, $module, $class::getLocalization($code, $theme));
@@ -178,9 +178,7 @@ final class L11nManager
             // @codeCoverageIgnoreEnd
         }
 
-        return isset($this->language[$code][$module][$translation])
-            ? $this->language[$code][$module][$translation]
-            : 'ERROR';
+        return $this->language[$code][$module][$translation] ?? 'ERROR-' . $translation;
     }
 
     /**
