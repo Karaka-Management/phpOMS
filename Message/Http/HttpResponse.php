@@ -196,7 +196,7 @@ final class HttpResponse extends ResponseAbstract implements RenderableInterface
 
         return $result;
     }
-    
+
     /**
      * Ends the output buffering
      *
