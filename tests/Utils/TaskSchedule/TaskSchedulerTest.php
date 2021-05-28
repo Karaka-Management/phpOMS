@@ -28,7 +28,7 @@ class TaskSchedulerTest extends \PHPUnit\Framework\TestCase
     {
         if (\stripos(\PHP_OS, 'WIN') === false) {
             $this->markTestSkipped(
-              'The OS is not linux.'
+              'The OS is not windows.'
             );
         }
     }

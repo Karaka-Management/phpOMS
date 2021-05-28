@@ -53,8 +53,8 @@ class L11nManagerTest extends \PHPUnit\Framework\TestCase
         self::assertFalse($this->l11nManager->isLanguageLoaded('en'));
         self::assertEquals([], $this->l11nManager->getModuleLanguage('en'));
         self::assertEquals([], $this->l11nManager->getModuleLanguage('en', 'Admin'));
-        self::assertEquals('ERROR', $this->l11nManager->getHtml('en', 'Admin', 'Backend', 'Test2'));
-        self::assertEquals('ERROR', $this->l11nManager->getText('en', 'Admin', 'Backend', 'Test2'));
+        self::assertEquals('ERROR-Test2', $this->l11nManager->getHtml('en', 'Admin', 'Backend', 'Test2'));
+        self::assertEquals('ERROR-Test2', $this->l11nManager->getText('en', 'Admin', 'Backend', 'Test2'));
     }
 
     /**

@@ -41,6 +41,22 @@ class FileTest extends \PHPUnit\Framework\TestCase
             $this->markTestSkipped(
               'The ftp connection is not available.'
             );
+        } else {
+            try {
+                $mkdir = \ftp_mkdir(self::$con, '0xFF');
+                \ftp_rmdir(self::$con, '0xFF');
+
+                $put = \ftp_put(self::$con, '0x00');
+                \ftp_delete(self::$con, '0x00');
+
+                if (!$mkdir || !$put) {
+                    throw new \Exception();
+                }
+            } catch (\Throwable $t) {
+                $this->markTestSkipped(
+                  'No write permissions on ftp server.'
+                );
+            }
         }
     }
 

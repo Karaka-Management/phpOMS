@@ -84,13 +84,13 @@ final class SocketResponse extends ResponseAbstract implements RenderableInterfa
     /**
      * Generate response based on header.
      *
-     * @param bool $optimize Optimize response / minify
+     * @param mixed $data Data passt to render function. (0 => bool: $optimize)
      *
      * @return string
      *
      * @since 1.0.0
      */
-    public function render(bool $optimize = false) : string
+    public function render(...$data) : string
     {
         $types = $this->header->get('Content-Type');
 
@@ -100,7 +100,7 @@ final class SocketResponse extends ResponseAbstract implements RenderableInterfa
             }
         }
 
-        return $this->getRaw($optimize);
+        return $this->getRaw($data[0] ?? false);
     }
 
     /**

@@ -159,7 +159,7 @@ class StringUtilsTest extends \PHPUnit\Framework\TestCase
         }));
 
         self::assertEquals('abc', StringUtils::stringify(new class() implements RenderableInterface {
-            public function render() : string
+            public function render(...$data) : string
             {
                 return 'abc';
             }
