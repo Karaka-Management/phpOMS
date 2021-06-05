@@ -2183,7 +2183,6 @@ class DataMapperAbstract implements DataMapperInterface
             return $mapper::getBy($result[$mapper::getColumnByMember(static::$belongsTo[$member]['by']) . '_' . $depth], static::$belongsTo[$member]['by']);
         }
 
-
         $obj = $mapper::getInitialized($mapper, $result[$mapper::$primaryField . '_' . $depth], $depth);
 
         return $obj ?? $mapper::populateAbstract($result, $mapper::createBaseModel(), $depth);
