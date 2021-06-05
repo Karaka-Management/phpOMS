@@ -14,6 +14,7 @@ declare(strict_types=1);
 
 namespace phpOMS\DataStorage\Database;
 
+use Mpdf\Tag\P;
 use phpOMS\DataStorage\Database\Connection\ConnectionAbstract;
 use phpOMS\DataStorage\Database\Exception\InvalidMapperException;
 use phpOMS\DataStorage\Database\Query\Builder;
@@ -678,15 +679,16 @@ class DataMapperAbstract implements DataMapperInterface
      *
      * @param object           $obj      Model to create
      * @param \ReflectionClass $refClass Reflection class
+     * @param string           $member   Member name for the id, if it is not the primary key
      *
      * @return mixed
      *
      * @since 1.0.0
      */
-    public static function getObjectId(object $obj, \ReflectionClass $refClass = null) : mixed
+    public static function getObjectId(object $obj, \ReflectionClass $refClass = null, string $member = null) : mixed
     {
         $refClass   ??= new \ReflectionClass($obj);
-        $propertyName = static::$columns[static::$primaryField]['internal'];
+        $propertyName = static::$columns[$member ?? static::$primaryField]['internal'];
         $refProp      = $refClass->getProperty($propertyName);
 
         if (!$refProp->isPublic()) {
@@ -1006,8 +1008,9 @@ class DataMapperAbstract implements DataMapperInterface
 
         /** @var self $mapper */
         $mapper     = static::$belongsTo[$propertyName]['mapper'];
-        $primaryKey = $mapper::getObjectId($obj);
+        $primaryKey = $mapper::getObjectId($obj, member: static::$belongsTo[$propertyName]['by'] ?? null);
 
+        // @todo: the $mapper::create() might cause a problem is 'by' is set. because we don't want to create this obj but the child obj.
         return empty($primaryKey) ? $mapper::create($obj) : $primaryKey;
     }
 
@@ -2171,6 +2174,15 @@ class DataMapperAbstract implements DataMapperInterface
         if (!isset($result[$mapper::$primaryField . '_' . $depth])) {
             return $mapper::createNullModel();
         }
+
+        // get the belongs to based on a different column (not primary key)
+        // this is often used if the value is actually a different model:
+        //      you want the profile but the account id is referenced
+        //      in this case you can get the profile by loading the profile based on the account reference column
+        if (isset(static::$belongsTo[$member]['by'])) {
+            return $mapper::getBy($result[$mapper::getColumnByMember(static::$belongsTo[$member]['by']) . '_' . $depth], static::$belongsTo[$member]['by']);
+        }
+
 
         $obj = $mapper::getInitialized($mapper, $result[$mapper::$primaryField . '_' . $depth], $depth);
 
