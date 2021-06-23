@@ -152,14 +152,23 @@ final class ApplicationManager
      */
     private function installTheme(string $destination, string $theme) : void
     {
-        if (\is_dir($destination . '/css')) {
-            Directory::delete($destination . '/css');
+        if (!\is_dir($path = $destination . '/Themes/' . $theme)) {
+            return;
         }
 
-        if (\is_dir($destination . '/Themes/' . $theme . '/css')) {
+        $dirs = \scandir($path);
+        foreach ($dirs as $dir) {
+            if (!\is_dir($path. '/' . $dir) || $dir === '.' || $dir === '..') {
+                continue;
+            }
+
+            if (\is_dir($destination . '/' . $dir)) {
+                Directory::delete($destination . '/' . $dir);
+            }
+
             Directory::copy(
-                $destination . '/Themes/' . $theme . '/css',
-                $destination . '/css',
+                $destination . '/Themes/' . $theme . '/' . $dir,
+                $destination . '/' . $dir,
                 true
             );
         }
