@@ -688,7 +688,7 @@ class DataMapperAbstract implements DataMapperInterface
     public static function getObjectId(object $obj, \ReflectionClass $refClass = null, string $member = null) : mixed
     {
         $refClass   ??= new \ReflectionClass($obj);
-        $propertyName = static::$columns[$member ?? static::$primaryField]['internal'];
+        $propertyName = $member ?? static::$columns[static::$primaryField]['internal'];
         $refProp      = $refClass->getProperty($propertyName);
 
         if (!$refProp->isPublic()) {
@@ -1006,9 +1006,31 @@ class DataMapperAbstract implements DataMapperInterface
             return $obj;
         }
 
-        /** @var self $mapper */
-        $mapper     = static::$belongsTo[$propertyName]['mapper'];
-        $primaryKey = $mapper::getObjectId($obj, member: static::$belongsTo[$propertyName]['by'] ?? null);
+        $mapper     = '';
+        $primaryKey = 0;
+
+        if (isset(static::$belongsTo[$propertyName]['by'])) {
+            // has by (obj is stored as a different model e.g. model = profile but reference/db is account)
+
+            $refClass = new \ReflectionClass($obj);
+            $refProp  = $refClass->getProperty(static::$belongsTo[$propertyName]['by']);
+
+            if (!$refProp->isPublic()) {
+                $refProp->setAccessible(true);
+                $obj = $refProp->getValue($obj);
+                $refProp->setAccessible(false);
+            } else {
+                $obj = $obj->{static::$belongsTo[$propertyName]['by']};
+            }
+
+            /** @var self $mapper */
+            $mapper     = static::$belongsTo[$propertyName]['mapper']::getBelongsTo(static::$belongsTo[$propertyName]['by'])['mapper'];
+            $primaryKey = $mapper::getObjectId($obj);
+        } else {
+            /** @var self $mapper */
+            $mapper     = static::$belongsTo[$propertyName]['mapper'];
+            $primaryKey = $mapper::getObjectId($obj);
+        }
 
         // @todo: the $mapper::create() might cause a problem is 'by' is set. because we don't want to create this obj but the child obj.
         return empty($primaryKey) ? $mapper::create($obj) : $primaryKey;
@@ -2337,7 +2359,12 @@ class DataMapperAbstract implements DataMapperInterface
                 $refProp->setValue($obj, \json_decode($value, true));
             } elseif ($def['type'] === 'Serializable') {
                 $member = $isPublic ? $obj->{$def['internal']} : $refProp->getValue($obj);
-                $member->unserialize($value);
+
+                if ($value === null) {
+                    $obj->{$def['internal']} = $value;
+                } else {
+                    $member->unserialize($value);
+                }
             }
 
             if (!$isPublic) {
@@ -2582,6 +2609,8 @@ class DataMapperAbstract implements DataMapperInterface
         $query->where(static::$table . '_' . $depth . '.' . ($column !== null ? self::getColumnByMember($column) : static::$primaryField), '>', $pivot)
             ->orderBy(static::$table . '_' . $depth . '.' . ($column !== null ? self::getColumnByMember($column) : static::$primaryField), $order)
             ->limit($limit);
+
+        $q = $query->toSql();
 
         return self::getAllByQuery($query, $relations, $depth);
     }
@@ -3571,6 +3600,20 @@ class DataMapperAbstract implements DataMapperInterface
         }
 
         return null;
+    }
+
+    /**
+     * Get belongsTo definitions
+     *
+     * @param string $name member name
+     *
+     * @return null|array
+     *
+     * @since 1.0.0
+     */
+    public static function getBelongsTo(string $name) : ?array
+    {
+        return static::$belongsTo[$name] ?? [];
     }
 
     /**
