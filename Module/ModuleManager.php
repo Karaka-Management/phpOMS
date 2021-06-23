@@ -644,7 +644,7 @@ final class ModuleManager
         }
 
         $class = '\\Modules\\' . $from . '\\Admin\\Install\\' . $for;
-        $class::install($this->modulePath, $this->app->dbPool);
+        $class::install($this->modulePath, $this->app);
     }
 
     /**
