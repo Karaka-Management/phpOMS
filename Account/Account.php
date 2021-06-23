@@ -327,7 +327,7 @@ class Account implements \JsonSerializable, ArrayableInterface
      */
     public function generatePassword(string $password) : void
     {
-        $temp = \password_hash($password, \PASSWORD_DEFAULT);
+        $temp = \password_hash($password, \PASSWORD_BCRYPT);
 
         if ($temp === false) {
             throw new \Exception('Internal password_hash error.'); // @codeCoverageIgnore
