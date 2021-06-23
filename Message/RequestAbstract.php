@@ -107,6 +107,8 @@ abstract class RequestAbstract implements MessageInterface
                 return (string) $this->data[$key];
             case 'float':
                 return (float) $this->data[$key];
+            case 'bool':
+                return (bool) $this->data[$key];
             default:
                 return $this->data[$key];
         }
