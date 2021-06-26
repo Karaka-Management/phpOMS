@@ -100,7 +100,7 @@ final class HttpResponse extends ResponseAbstract implements RenderableInterface
     /**
      * Generate response based on header.
      *
-     * @param mixed $data Data passt to render function. (0 => bool: $optimize)
+     * @param mixed ...$data Data passt to render function. (0 => bool: $optimize)
      *
      * @return string
      *
