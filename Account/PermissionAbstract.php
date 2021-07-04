@@ -406,7 +406,8 @@ class PermissionAbstract implements \JsonSerializable
         int $type = null,
         int $element = null,
         int $component = null
-    ) : bool {
+    ) : bool
+    {
         return $permission === PermissionType::NONE ||
             (($unit === null || $this->unit === null || $this->unit === $unit)
             && ($app === null || $this->app === null || $this->app === $app)

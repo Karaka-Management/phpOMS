@@ -284,7 +284,8 @@ class Graph
         array &$parent,
         int &$index,
         array &$bridges
-    ) : void {
+    ) : void
+    {
         $id           = $node->getId();
         $visited[$id] = true;
 

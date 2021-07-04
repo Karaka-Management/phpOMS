@@ -84,7 +84,8 @@ final class SocketRouter implements RouterInterface
         mixed $destination,
         array $validation = [],
         string $dataPattern = ''
-    ) : void {
+    ) : void
+    {
         if (!isset($this->routes[$route])) {
             $this->routes[$route] = [];
         }

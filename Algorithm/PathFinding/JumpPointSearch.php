@@ -39,7 +39,8 @@ final class JumpPointSearch implements PathFinderInterface
         int $endX, int $endY,
         Grid $grid,
         int $heuristic, int $movement
-    ) : Path {
+    ) : Path
+    {
         /** @var null|JumpPointNode $startNode */
         $startNode = $grid->getNode($startX, $startY);
         /** @var null|JumpPointNode $endNode */

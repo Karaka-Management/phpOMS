@@ -153,7 +153,8 @@ trait PermissionHandlingTrait
         int $type = null,
         int $element = null,
         int $component = null
-    ) : bool {
+    ) : bool
+    {
         $app = $app !== null ? \strtolower($app) : $app;
 
         foreach ($this->permissions as $p) {

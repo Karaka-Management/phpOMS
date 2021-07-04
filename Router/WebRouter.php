@@ -91,7 +91,8 @@ final class WebRouter implements RouterInterface
         int $verb = RouteVerb::GET,
         bool $csrf = false, array $validation = [],
         string $dataPattern = ''
-    ) : void {
+    ) : void
+    {
         if (!isset($this->routes[$route])) {
             $this->routes[$route] = [];
         }

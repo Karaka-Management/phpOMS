@@ -236,7 +236,8 @@ class Smtp
         string $password,
         string $authtype = '',
         mixed $oauth = null
-    ) : bool {
+    ) : bool
+    {
         if (empty($this->serverCaps)) {
             return false;
         }

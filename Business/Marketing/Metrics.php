@@ -143,7 +143,8 @@ final class Metrics
         float $marketingCosts,
         float $discountRate,
         float $retentionRate
-    ) : float {
+    ) : float
+    {
         return $customers * ($revenue - $cogs) * ((1 + $discountRate) / (1 + $discountRate - $retentionRate))
             - $customers * $marketingCosts * ((1 + $discountRate) / (1 + $discountRate - $retentionRate))
             - $customers * $acquistionCost;

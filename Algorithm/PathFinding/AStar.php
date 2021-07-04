@@ -39,7 +39,8 @@ final class AStar implements PathFinderInterface
         int $endX, int $endY,
         Grid $grid,
         int $heuristic, int $movement
-    ) : Path {
+    ) : Path
+    {
         /** @var null|AStarNode $startNode */
         $startNode = $grid->getNode($startX, $startY);
         /** @var null|AStarNode $endNode */
