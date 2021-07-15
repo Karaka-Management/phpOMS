@@ -89,4 +89,26 @@ class FileUtilsTest extends \PHPUnit\Framework\TestCase
             \unlink(__DIR__ . '/UTF-8.txt');
         }
     }
+
+    /**
+     * @testdox The file information can be resolved from a path
+     * @covers phpOMS\System\File\FileUtils
+     * @group framework
+     */
+    public function testPathInfo() : void
+    {
+        self::assertEquals(__DIR__, FileUtils::mb_pathinfo(__DIR__ . '/FileUtilsTest.php', \PATHINFO_DIRNAME));
+        self::assertEquals(\basename(__DIR__ . '/FileUtilsTest.php'), FileUtils::mb_pathinfo(__DIR__ . '/FileUtilsTest.php', \PATHINFO_BASENAME));
+        self::assertEquals('php', FileUtils::mb_pathinfo(__DIR__ . '/FileUtilsTest.php', \PATHINFO_EXTENSION));
+        self::assertEquals('FileUtilsTest', FileUtils::mb_pathinfo(__DIR__ . '/FileUtilsTest.php', \PATHINFO_FILENAME));
+        self::assertEquals(
+            [
+                'dirname' => __DIR__,
+                'basename' => \basename(__DIR__ . '/FileUtilsTest.php'),
+                'extension' => 'php',
+                'filename' => 'FileUtilsTest',
+            ],
+            FileUtils::mb_pathinfo(__DIR__ . '/FileUtilsTest.php', \PATHINFO_FILENAME)
+        );
+    }
 }

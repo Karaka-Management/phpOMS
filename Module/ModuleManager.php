@@ -660,11 +660,11 @@ final class ModuleManager
      */
     public function installApplications(string $from) : void
     {
-        if (!\is_dir($this->modulePath . $from . '/Application')) {
+        if (!\is_dir($this->modulePath . $from . '/Admin/Install/Application')) {
             return;
         }
 
-        $dirs = \scandir($this->modulePath . $from . '/Application');
+        $dirs = \scandir($this->modulePath . $from . '/Admin/Install/Application');
         if ($dirs === false) {
             return;
         }

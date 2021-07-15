@@ -871,4 +871,28 @@ class DirectoryTest extends \PHPUnit\Framework\TestCase
 
         self::assertEquals(__DIR__ . '/dirtest', $dir->current()->getDirPath());
     }
+
+    /**
+     * @covers phpOMS\System\File\Ftp\Directory<extended>
+     * @group framework
+     */
+    public function testNodeValid() : void
+    {
+        $dir = new Directory(new HttpUri(self::BASE . __DIR__ . '/dirtest'), '*', true, self::$con);
+        $dir->next();
+
+        self::assertTrue($dir->valid());
+    }
+
+    /**
+     * @covers phpOMS\System\File\Ftp\Directory<extended>
+     * @group framework
+     */
+    public function testNodeInvalid() : void
+    {
+        $dir = new Directory(new HttpUri(self::BASE . __DIR__ . '/dirtest'), '*', true, self::$con);
+        $dir->next()->next()->next()->next()->next()->next()->next();
+
+        self::assertFalse($dir->valid());
+    }
 }

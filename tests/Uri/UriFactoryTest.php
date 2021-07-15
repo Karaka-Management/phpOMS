@@ -224,4 +224,31 @@ class UriFactoryTest extends \PHPUnit\Framework\TestCase
 
         self::assertEquals($unescaped, UriFactory::build($escaped));
     }
+
+    /**
+     * @testdox In case of missing ? for  query the builder automatically fixes it
+     * @covers phpOMS\Uri\UriFactory
+     * @group framework
+     */
+    public function testMissingQueryIdentifier() : void
+    {
+        $uri = 'http://www.test-uri.com/path/here?id=123&ab=c#fragi';
+
+        UriFactory::setupUriBuilder(new HttpUri($uri));
+
+        self::assertEquals($uri, UriFactory::build('{/base}{/rootPath}{/}&id={?id}&ab={?ab}#{#}'));
+    }
+
+    /**
+     * @testdox In case of missing ? for  query the builder automatically fixes it
+     * @covers phpOMS\Uri\UriFactory
+     * @group framework
+     */
+    public function testNormalUrlParsing() : void
+    {
+        $uri      = 'http://www.test-uri.com/path/here?id=123&ab=c#fragi';
+        $expected = 'http://www.test-uri.com/path/here?id=123&ab=c#fragi';
+
+        self::assertEquals($expected, UriFactory::build($uri));
+    }
 }
