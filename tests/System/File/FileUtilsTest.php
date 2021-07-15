@@ -103,10 +103,10 @@ class FileUtilsTest extends \PHPUnit\Framework\TestCase
         self::assertEquals('FileUtilsTest', FileUtils::mb_pathinfo(__DIR__ . '/FileUtilsTest.php', \PATHINFO_FILENAME));
         self::assertEquals(
             [
-                'dirname' => __DIR__,
-                'basename' => \basename(__DIR__ . '/FileUtilsTest.php'),
+                'dirname'   => __DIR__,
+                'basename'  => \basename(__DIR__ . '/FileUtilsTest.php'),
                 'extension' => 'php',
-                'filename' => 'FileUtilsTest',
+                'filename'  => 'FileUtilsTest',
             ],
             FileUtils::mb_pathinfo(__DIR__ . '/FileUtilsTest.php', \PATHINFO_FILENAME)
         );
