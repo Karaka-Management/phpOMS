@@ -14,6 +14,8 @@ declare(strict_types=1);
 
 namespace phpOMS\Message;
 
+use phpOMS\Localization\ISO639x1Enum;
+
 /**
  * Response abstract class.
  *
@@ -100,6 +102,10 @@ abstract class ResponseAbstract implements \JsonSerializable, MessageInterface
      */
     public function getLanguage() : string
     {
+        if (!isset($this->header)) {
+            return ISO639x1Enum::_EN;
+        }
+
         return $this->header->l11n->getLanguage();
     }
 

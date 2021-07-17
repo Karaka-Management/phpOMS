@@ -416,11 +416,11 @@ class DataMapperAbstract implements DataMapperInterface
             }
 
             if ($condValue['value'] !== null) {
-                $where1->andWhere(static::$table . '_' . $searchDepth . '.' . $column, $condValue['comparison'], $condValue['value']);
+                $where1->andWhere(static::$table . '_d' . $searchDepth . '.' . $column, $condValue['comparison'], $condValue['value']);
             }
 
             if ($condValue['orderBy'] !== null) {
-                $where1->orderBy(static::$table . '_' . $searchDepth . '.' . static::getColumnByMember($condValue['orderBy']), $condValue['sortOrder']);
+                $where1->orderBy(static::$table . '_d' . $searchDepth . '.' . static::getColumnByMember($condValue['orderBy']), $condValue['sortOrder']);
             }
 
             if ($condValue['limit'] !== null) {
@@ -433,7 +433,7 @@ class DataMapperAbstract implements DataMapperInterface
         $hasAutocompletes = false;
         foreach (static::$columns as $col) {
             if (isset($col['autocomplete']) && $col['autocomplete']) {
-                $where2->where(static::$table . '_' . $searchDepth . '.' . $col['name'], 'LIKE', '%' . $search . '%', 'OR');
+                $where2->where(static::$table . '_d' . $searchDepth . '.' . $col['name'], 'LIKE', '%' . $search . '%', 'OR');
                 $hasAutocompletes = true;
             }
         }

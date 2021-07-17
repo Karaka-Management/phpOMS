@@ -58,11 +58,8 @@ class GraphTest extends \PHPUnit\Framework\TestCase
         self::assertEquals([], $this->graph->getBridges());
         self::assertEquals([], $this->graph->getFloydWarshallShortestPath());
         self::assertEquals([], $this->graph->getDijkstraShortestPath());
-        self::assertEquals([], $this->graph->depthFirstTraversal());
-        self::assertEquals([], $this->graph->breadthFirstTraversal());
         self::assertEquals([], $this->graph->longestPath());
         self::assertEquals([], $this->graph->longestPathBetweenNodes('invalid1', 'invalid2'));
-        self::assertEquals([], $this->graph->getUnconnected());
 
         self::assertEquals(0, $this->graph->getCost());
         self::assertEquals($this->graph, $this->graph->getKruskalMinimalSpanningTree());

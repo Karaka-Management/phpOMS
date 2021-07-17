@@ -58,7 +58,7 @@ class Edge
      * @var float
      * @since 1.0.0
      */
-    private float $weight = 0.0;
+    private float $weight = 1.0;
 
     /**
      * Constructor.
@@ -70,7 +70,7 @@ class Edge
      *
      * @since 1.0.0
      */
-    public function __construct(Node $node1, Node $node2, float $weight = 0.0, bool $isDirected = false)
+    public function __construct(Node $node1, Node $node2, float $weight = 1.0, bool $isDirected = false)
     {
         $this->node1      = $node1;
         $this->node2      = $node2;

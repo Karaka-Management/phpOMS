@@ -101,6 +101,7 @@ class FileUtilsTest extends \PHPUnit\Framework\TestCase
         self::assertEquals(\basename(__DIR__ . '/FileUtilsTest.php'), FileUtils::mb_pathinfo(__DIR__ . '/FileUtilsTest.php', \PATHINFO_BASENAME));
         self::assertEquals('php', FileUtils::mb_pathinfo(__DIR__ . '/FileUtilsTest.php', \PATHINFO_EXTENSION));
         self::assertEquals('FileUtilsTest', FileUtils::mb_pathinfo(__DIR__ . '/FileUtilsTest.php', \PATHINFO_FILENAME));
+
         self::assertEquals(
             [
                 'dirname' => __DIR__,
@@ -108,7 +109,7 @@ class FileUtilsTest extends \PHPUnit\Framework\TestCase
                 'extension' => 'php',
                 'filename' => 'FileUtilsTest',
             ],
-            FileUtils::mb_pathinfo(__DIR__ . '/FileUtilsTest.php', \PATHINFO_FILENAME)
+            FileUtils::mb_pathinfo(__DIR__ . '/FileUtilsTest.php')
         );
     }
 }

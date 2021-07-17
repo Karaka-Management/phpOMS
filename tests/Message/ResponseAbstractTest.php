@@ -17,6 +17,7 @@ namespace phpOMS\tests\Message;
 require_once __DIR__ . '/../Autoloader.php';
 
 use phpOMS\Message\ResponseAbstract;
+use phpOMS\Localization\ISO639x1Enum;
 
 /**
  * @testdox phpOMS\tests\Message\ResponseAbstractTest: Abstract response
@@ -52,6 +53,7 @@ class ResponseAbstractTest extends \PHPUnit\Framework\TestCase
     {
         self::assertNull($this->response->get('asdf'));
         self::assertEquals('', $this->response->getBody());
+        self::assertTrue(ISO639x1Enum::isValidValue($this->response->getLanguage()));
     }
 
     /**

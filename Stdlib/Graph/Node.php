@@ -173,6 +173,26 @@ class Node
     }
 
     /**
+     * Get graph edge by neighbor.
+     *
+     * @param Node $node Neighbor node
+     *
+     * @return null|Edge
+     *
+     * @since 1.0.0
+     */
+    public function getEdgeByNeighbor(self $node) : ?Edge
+    {
+        foreach ($this->edges as $edge) {
+            if ($edge->getNode1()->isEqual($node) || $edge->getNode2()->isEqual($node)) {
+                return $edge;
+            }
+        }
+
+        return null;
+    }
+
+    /**
      * Get graph edges
      *
      * @return Edge[]

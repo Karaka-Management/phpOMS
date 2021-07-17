@@ -21,29 +21,6 @@ namespace phpOMS\Stdlib\Graph;
  * @license OMS License 1.0
  * @link    https://orange-management.org
  * @since   1.0.0
- *
- * @todo Orange-Management/phpOMS#10
- *      * Count all paths between 2 nodes
- *      * Return all paths between 2 nodes
- *      * Find cycles using graph coloring
- *      * Find a negative cycle
- *      * Find cycles with n length
- *      * Find cycles with odd length
- *      * Find shortest path between 2 nodes
- *      * Find longest path between 2 nodes
- *      * Find islands
- *      * Find all unreachable nodes
- *      * Check if strongly connected
- *      * Find longest path between 2 nodes
- *      * Find longest path
- *      * Get the girth
- *      * Get the circuit rank
- *      * Get the node connectivity
- *      * Get the edge connectivity
- *      * Is the graph connected
- *      * Get the unconnected nodes as their own graph
- *      * Check if bipartite
- *      * Check if triangle free
  */
 class Graph
 {
@@ -511,15 +488,79 @@ class Graph
     }
 
     /**
-     * Perform depth first traversal.
+     * Perform depth first traversal
+     *
+     * @param int|string|Node $node1 Graph node
+     * @param int|string|Node $node2 Graph node
      *
      * @return array
      *
      * @since 1.0.0
      */
-    public function depthFirstTraversal() : array
+    private function depthFirstTraversal(
+        int | string | Node $node1,
+        int | string | Node $node2 = null,
+        array &$visited,
+        array &$path,
+        array &$paths
+    ) : array
     {
-        return [];
+        $visited[$node1->getId()] = true;
+
+        if ($node1->isEquals($node2)) {
+            $paths[] = $path;
+        }
+
+        $neighbors = $node1->getNeighbors();
+        foreach ($neighbors as $neighbor) {
+            if (!isset($visited[$neighbor->getId()]) || !$visited[$neighbor->getId()]) {
+                $path[] = $neighbor;
+                $this->depthFirstTraversal($neighbor, $node2, $visited, $path);
+                \array_pop($path);
+            }
+        }
+
+        $visited[$node1->getId()] = false;
+    }
+
+    /**
+     * Find all reachable nodes with depth first traversal (iterative)
+     *
+     * @param int|string|Node $node1 Graph node
+     *
+     * @return Node[]
+     *
+     * @since 1.0.0
+     */
+    public function findAllReachableNodesDFS(int | string | Node $node1) : array
+    {
+        $nodes = [];
+
+        if (!($node1 instanceof Node)) {
+            $node1 = $this->getNode($node1);
+        }
+
+        $visited = [];
+        $stack   = [];
+        $stack[] = $node1;
+
+        while (!empty($stack)) {
+            $cNode   = \array_pop($stack);
+            $nodes[] = $cNode;
+
+            if (!isset($visited[$cNode->getId()]) || !$visited[$cNode->getId()]) {
+                $visited[$cNode->getId()] = true;
+            }
+
+            $neighbors = $cNode->getNeighbors();
+            foreach ($neighbors as $neighbor) {
+                if (!isset($visited[$cNode->getId()]) || !$visited[$cNode->getId()]) {
+                    $stack[] = $neighbor;
+                }
+            }
+        }
+
+        return $nodes;
     }
 
     /**
@@ -547,6 +588,54 @@ class Graph
     }
 
     /**
+     * Get all paths between two nodes
+     *
+     * @param int|string|Node $node1 Graph node
+     * @param int|string|Node $node2 Graph node
+     *
+     * @return array<int, Node[]>
+     *
+     * @since 1.0.0
+     */
+    public function getAllPathsBetweenNodes(int | string | Node $node1, int | string | Node $node2) : array
+    {
+        if (!($node1 instanceof Node)) {
+            $node1 = $this->getNode($node1);
+        }
+
+        if (!($node2 instanceof Node)) {
+            $node2 = $this->getNode($node2);
+        }
+
+        if ($node1 === null || $node2 === null) {
+            return [];
+        }
+
+        $path    = [];
+        $paths   = [];
+        $visited = [];
+
+        $this->depthFirstTraversal($node1, $node2, $visited, $path, $paths);
+
+        return $paths;
+    }
+
+    /**
+     * Count possible paths between two nodes.
+     *
+     * @param int|string|Node $node1 Graph node
+     * @param int|string|Node $node2 Graph node
+     *
+     * @return int
+     *
+     * @since 1.0.0
+     */
+    public function countAllPathsBetweenNodes(int | string | Node $node1, int | string | Node $node2) : int
+    {
+        return \count($this->getAllPathsBetweenNodes($node1, $node2));
+    }
+
+    /**
      * Get longest path between two nodes.
      *
      * @param int|string|Node $node1 Graph node
@@ -558,15 +647,48 @@ class Graph
      */
     public function longestPathBetweenNodes(int | string | Node $node1, int | string | Node $node2) : array
     {
-        if (!($node1 instanceof Node)) {
-            $node1 = $this->getNode($node1);
+        $paths = $this->getAllPathsBetweenNodes($node1, $node2);
+
+        if (empty($paths)) {
+            return [];
         }
 
-        if (!($node2 instanceof Node)) {
-            $node2 = $this->getNode($node2);
+        foreach ($paths as $key => $path) {
+            $edges[$key] = 0;
+            foreach ($path as $node) {
+                $edges[$key] += $node->getEdgeByNeighbor()->getWeight();
+            }
         }
 
-        return [];
+        \arsort($edges);
+
+        return $paths[\array_key_first($edges)];
+    }
+
+    /**
+     * Get shortest path between two nodes.
+     *
+     * @param int|string|Node $node1 Graph node
+     * @param int|string|Node $node2 Graph node
+     *
+     * @return Node[]
+     *
+     * @since 1.0.0
+     */
+    public function shortestPathBetweenNodes(int | string | Node $node1, int | string | Node $node2) : array
+    {
+        $paths = $this->getAllPathsBetweenNodes($node1, $node2);
+
+        foreach ($paths as $key => $path) {
+            $edges[$key] = 0;
+            foreach ($path as $node) {
+                $edges[$key] += $node->getEdgeByNeighbor()->getWeight();
+            }
+        }
+
+        \asort($edges);
+
+        return $paths[\array_key_first($edges)];
     }
 
     /**
@@ -684,21 +806,13 @@ class Graph
      */
     public function isConnected() : bool
     {
-        return true;
-    }
+        if (empty($this->nodes)) {
+            return true;
+        }
 
-    /**
-     * Get unconnected sub graphs
-     *
-     * @return Graph[]
-     *
-     * @since 1.0.0
-     */
-    public function getUnconnected() : array
-    {
-        // get all unconnected sub graphs
+        $nodes = $this->findAllReachableNodesDFS(\reset($this->nodes));
 
-        return [];
+        return \count($nodes) === \count($this->nodes);
     }
 
     /**
