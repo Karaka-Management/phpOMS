@@ -16,8 +16,8 @@ namespace phpOMS\tests\Message;
 
 require_once __DIR__ . '/../Autoloader.php';
 
-use phpOMS\Message\ResponseAbstract;
 use phpOMS\Localization\ISO639x1Enum;
+use phpOMS\Message\ResponseAbstract;
 
 /**
  * @testdox phpOMS\tests\Message\ResponseAbstractTest: Abstract response
