@@ -38,7 +38,5 @@ class TextTest extends \PHPUnit\Framework\TestCase
             $text->generateText(300),
             $text->generateText(300)
         );
-
-        self::assertGreaterThan(0, $text->getSentences());
     }
 }

@@ -55,7 +55,7 @@ class Text
      * @var bool
      * @since 1.0.0
      */
-    private $hasFormatting = false;
+    public bool $hasFormatting = false;
 
     /**
      * Text has paragraphs.
@@ -63,7 +63,7 @@ class Text
      * @var bool
      * @since 1.0.0
      */
-    private $hasParagraphs = false;
+    public bool $hasParagraphs = false;
 
     /**
      * Amount of sentences of the last generated text.
@@ -71,7 +71,7 @@ class Text
      * @var int
      * @since 1.0.0
      */
-    private $sentences = 0;
+    public int $sentences = 0;
 
     /**
      * Constructor
@@ -83,48 +83,8 @@ class Text
      */
     public function __construct(bool $hasFormatting = false, bool $hasParagraphs = false)
     {
-        $this->setFormatting($hasFormatting);
-        $this->setParagraphs($hasParagraphs);
-    }
-
-    /**
-     * Set if the text should have formatting.
-     *
-     * @param bool $hasFormatting text has formatting
-     *
-     * @return void
-     *
-     * @since 1.0.0
-     */
-    public function setFormatting(bool $hasFormatting) : void
-    {
         $this->hasFormatting = $hasFormatting;
-    }
-
-    /**
-     * Set if the text should have paragraphs.
-     *
-     * @param bool $hasParagraphs Text has paragraphs
-     *
-     * @return void
-     *
-     * @since 1.0.0
-     */
-    public function setParagraphs(bool $hasParagraphs) : void
-    {
         $this->hasParagraphs = $hasParagraphs;
-    }
-
-    /**
-     * Amount of sentences of the last generated text.
-     *
-     * @return int
-     *
-     * @since 1.0.0
-     */
-    public function getSentences() : int
-    {
-        return $this->sentences;
     }
 
     /**

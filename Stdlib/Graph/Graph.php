@@ -490,24 +490,27 @@ class Graph
     /**
      * Perform depth first traversal
      *
-     * @param int|string|Node $node1 Graph node
-     * @param int|string|Node $node2 Graph node
+     * @param Node  $node1   Graph node
+     * @param Node  $node2   Graph node
+     * @param array $visited Is the node already visited
+     * @param array $path    Array of nodes (a path through the graph = connected nodes)
+     * @param array $paths   Array of paths (all identified paths)
      *
-     * @return array
+     * @return void
      *
      * @since 1.0.0
      */
     private function depthFirstTraversal(
-        int | string | Node $node1,
-        int | string | Node $node2 = null,
+        Node $node1,
+        Node $node2 = null,
         array &$visited,
         array &$path,
         array &$paths
-    ) : array
+    ) : void
     {
         $visited[$node1->getId()] = true;
 
-        if ($node1->isEquals($node2)) {
+        if ($node2 !== null && $node1->isEqual($node2)) {
             $paths[] = $path;
         }
 
@@ -515,7 +518,7 @@ class Graph
         foreach ($neighbors as $neighbor) {
             if (!isset($visited[$neighbor->getId()]) || !$visited[$neighbor->getId()]) {
                 $path[] = $neighbor;
-                $this->depthFirstTraversal($neighbor, $node2, $visited, $path);
+                $this->depthFirstTraversal($neighbor, $node2, $visited, $path, $paths);
                 \array_pop($path);
             }
         }
@@ -538,6 +541,10 @@ class Graph
 
         if (!($node1 instanceof Node)) {
             $node1 = $this->getNode($node1);
+        }
+
+        if ($node1 === null) {
+            return $nodes;
         }
 
         $visited = [];
@@ -647,6 +654,18 @@ class Graph
      */
     public function longestPathBetweenNodes(int | string | Node $node1, int | string | Node $node2) : array
     {
+        if (!($node1 instanceof Node)) {
+            $node1 = $this->getNode($node1);
+        }
+
+        if (!($node2 instanceof Node)) {
+            $node2 = $this->getNode($node2);
+        }
+
+        if ($node1 === null || $node2 === null) {
+            return [];
+        }
+
         $paths = $this->getAllPathsBetweenNodes($node1, $node2);
 
         if (empty($paths)) {
@@ -656,7 +675,7 @@ class Graph
         foreach ($paths as $key => $path) {
             $edges[$key] = 0;
             foreach ($path as $node) {
-                $edges[$key] += $node->getEdgeByNeighbor()->getWeight();
+                $edges[$key] += $node1->getEdgeByNeighbor($node)->getWeight();
             }
         }
 
@@ -677,13 +696,30 @@ class Graph
      */
     public function shortestPathBetweenNodes(int | string | Node $node1, int | string | Node $node2) : array
     {
+        if (!($node1 instanceof Node)) {
+            $node1 = $this->getNode($node1);
+        }
+
+        if (!($node2 instanceof Node)) {
+            $node2 = $this->getNode($node2);
+        }
+
+        if ($node1 === null || $node2 === null) {
+            return [];
+        }
+
         $paths = $this->getAllPathsBetweenNodes($node1, $node2);
 
+        $edges = [];
         foreach ($paths as $key => $path) {
             $edges[$key] = 0;
             foreach ($path as $node) {
-                $edges[$key] += $node->getEdgeByNeighbor()->getWeight();
+                $edges[$key] += $node1->getEdgeByNeighbor($node)->getWeight();
             }
+        }
+
+        if ($edges === []) {
+            return [];
         }
 
         \asort($edges);

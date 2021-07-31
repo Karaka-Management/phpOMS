@@ -784,7 +784,9 @@ class DataMapperAbstract implements DataMapperInterface
 
             /** @var self $mapper */
             $mapper       = static::$hasMany[$propertyName]['mapper'];
-            $internalName = isset($mapper::$columns[static::$hasMany[$propertyName]['self']]) ? $mapper::$columns[static::$hasMany[$propertyName]['self']]['internal'] : 'ERROR';
+            $internalName = isset($mapper::$columns[static::$hasMany[$propertyName]['self']])
+                ? $mapper::$columns[static::$hasMany[$propertyName]['self']]['internal']
+                : 'ERROR';
 
             if (\is_object($values)) {
                 // conditionals
@@ -2037,7 +2039,7 @@ class DataMapperAbstract implements DataMapperInterface
             if (!$refProp->isPublic()) {
                 $refProp->setAccessible(true);
                 // @todo: \is_array($values) is weird, was necessary for the itemmanagement list at some point, but only suddenly????!!!!
-                $refProp->setValue($obj, !\is_array($objects) && (!isset(static::$hasMany[$member]['conditional']) || \is_array($values))
+                $refProp->setValue($obj, !\is_array($objects) && (!isset(static::$hasMany[$member]['conditional']) || (\is_array($values) && \count($values) > 1))
                     ? [$mapper::getObjectId($objects) => $objects]
                     : $objects
                 );

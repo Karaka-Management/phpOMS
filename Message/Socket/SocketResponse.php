@@ -84,7 +84,7 @@ final class SocketResponse extends ResponseAbstract implements RenderableInterfa
     /**
      * Generate response based on header.
      *
-     * @param mixed $data Data passt to render function. (0 => bool: $optimize)
+     * @param mixed ...$data Data passt to render function. (0 => bool: $optimize)
      *
      * @return string
      *
