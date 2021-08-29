@@ -23,6 +23,9 @@ class AuthorizationCodeTest extends \PHPUnit\Framework\TestCase
 {
     private AuthorizationCode $grant;
 
+    /**
+     * {@inheritdoc}
+     */
     protected function setUp() : void
     {
         $this->grant = new AuthorizationCode();

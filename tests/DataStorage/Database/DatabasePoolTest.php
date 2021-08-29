@@ -27,6 +27,9 @@ class DatabasePoolTest extends \PHPUnit\Framework\TestCase
 {
     protected DatabasePool $dbPool;
 
+    /**
+     * {@inheritdoc}
+     */
     protected function setUp() : void
     {
         $this->dbPool = new DatabasePool();

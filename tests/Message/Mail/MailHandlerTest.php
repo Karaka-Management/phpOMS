@@ -31,6 +31,9 @@ class MailHandlerTest extends \PHPUnit\Framework\TestCase
 {
     protected MailHandler $handler;
 
+    /**
+     * {@inheritdoc}
+     */
     protected function setUp() : void
     {
         $this->handler = new MailHandler();

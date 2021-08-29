@@ -25,6 +25,9 @@ class PolynomialRegressionTest extends \PHPUnit\Framework\TestCase
 {
     protected $reg = null;
 
+    /**
+     * {@inheritdoc}
+     */
     protected function setUp() : void
     {
         // y = 1.0 + 2.0 * x + 3.0 * x^2

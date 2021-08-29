@@ -25,6 +25,9 @@ class GrantFactoryTest extends \PHPUnit\Framework\TestCase
 {
     private GrantFactory $factory;
 
+    /**
+     * {@inheritdoc}
+     */
     protected function setUp() : void
     {
         $this->factory = new GrantFactory();

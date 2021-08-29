@@ -23,6 +23,9 @@ class C128AbstractTest extends \PHPUnit\Framework\TestCase
 {
     protected $obj = null;
 
+    /**
+     * {@inheritdoc}
+     */
     protected function setUp() : void
     {
         $this->obj = new class() extends C128Abstract {};

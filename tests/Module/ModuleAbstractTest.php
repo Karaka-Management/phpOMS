@@ -36,6 +36,9 @@ class ModuleAbstractTest extends \PHPUnit\Framework\TestCase
 {
     protected $module = null;
 
+    /**
+     * {@inheritdoc}
+     */
     protected function setUp() : void
     {
         $this->module = new class() extends ModuleAbstract
@@ -214,6 +217,9 @@ class ModuleAbstractTest extends \PHPUnit\Framework\TestCase
         );
     }
 
+    /**
+     * Create test database schema
+     */
     private function dbSetup() : void
     {
         BaseModelMapper::clearCache();
@@ -289,6 +295,9 @@ class ModuleAbstractTest extends \PHPUnit\Framework\TestCase
         )->execute();
     }
 
+    /**
+     * Teardown test database
+     */
     private function dbTeardown() : void
     {
         $GLOBALS['dbpool']->get()->con->prepare('DROP TABLE test_conditional')->execute();

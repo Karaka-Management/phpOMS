@@ -27,6 +27,9 @@ class ConsoleRequestTest extends \PHPUnit\Framework\TestCase
 {
     private ConsoleRequest $request;
 
+    /**
+     * {@inheritdoc}
+     */
     protected function setUp() : void
     {
         $this->request = new ConsoleRequest(new Argument('get:some/test/path'), $l11n = new Localization());

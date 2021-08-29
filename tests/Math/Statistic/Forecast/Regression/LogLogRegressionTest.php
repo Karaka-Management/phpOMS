@@ -25,6 +25,9 @@ class LogLogRegressionTest extends \PHPUnit\Framework\TestCase
 {
     protected $reg = null;
 
+    /**
+     * {@inheritdoc}
+     */
     protected function setUp() : void
     {
         // ln(y) = 2 + 3 * ln(x) => y = e^(2 + 3 * ln(x))

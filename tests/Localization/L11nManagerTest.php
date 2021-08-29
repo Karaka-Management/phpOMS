@@ -28,6 +28,9 @@ class L11nManagerTest extends \PHPUnit\Framework\TestCase
 {
     protected L11nManager $l11nManager;
 
+    /**
+     * {@inheritdoc}
+     */
     protected function setUp() : void
     {
         $this->l11nManager = new L11nManager('Api');

@@ -30,6 +30,9 @@ class MatrixTest extends \PHPUnit\Framework\TestCase
 
     protected $C = null;
 
+    /**
+     * {@inheritdoc}
+     */
     protected function setUp() : void
     {
         $this->A = new Matrix(2, 3);

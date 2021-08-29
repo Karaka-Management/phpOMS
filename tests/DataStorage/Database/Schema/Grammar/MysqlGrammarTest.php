@@ -29,6 +29,9 @@ class MysqlGrammarTest extends \PHPUnit\Framework\TestCase
 {
     protected MysqlConnection $con;
 
+    /**
+     * {@inheritdoc}
+     */
     protected function setUp() : void
     {
         $this->con = new MysqlConnection($GLOBALS['CONFIG']['db']['core']['masters']['admin']);

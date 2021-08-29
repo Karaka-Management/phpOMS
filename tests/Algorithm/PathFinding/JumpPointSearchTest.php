@@ -47,6 +47,13 @@ class JumpPointSearchTest extends \PHPUnit\Framework\TestCase
         [0, 0, 0, 0, 0, 9, 0, 0, 0, 0, 0, 0, 0, 0, 0,],
     ];
 
+    /**
+     * Render a maze with ASCII symbols
+     *
+     * @param array $grid Maze grid
+     *
+     * @return void
+     */
     private function renderMaze(array $grid) : void
     {
         echo "\n";

@@ -35,6 +35,9 @@ class SpreadsheetDatabaseMapperTest extends \PHPUnit\Framework\TestCase
         Autoloader::addPath(__DIR__ . '/../../../../Resources/');
     }
 
+    /**
+     * {@inheritdoc}
+     */
     protected function setUp() : void
     {
         if (!\extension_loaded('pdo_sqlite')) {

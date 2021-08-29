@@ -25,6 +25,9 @@ class HttpBasicAuthOptionProviderTest extends \PHPUnit\Framework\TestCase
 {
     private HttpBasicAuthOptionProvider $provider;
 
+    /**
+     * {@inheritdoc}
+     */
     protected function setUp() : void
     {
         $this->provider = new HttpBasicAuthOptionProvider();

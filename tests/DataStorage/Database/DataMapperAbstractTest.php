@@ -30,6 +30,9 @@ class DataMapperAbstractTest extends \PHPUnit\Framework\TestCase
 
     protected array     $modelArray;
 
+    /**
+     * {@inheritdoc}
+     */
     protected function setUp() : void
     {
         $this->model      = new BaseModel();

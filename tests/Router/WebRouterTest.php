@@ -34,6 +34,9 @@ class WebRouterTest extends \PHPUnit\Framework\TestCase
 {
     protected WebRouter $router;
 
+    /**
+     * {@inheritdoc}
+     */
     protected function setUp() : void
     {
         $this->router = new WebRouter();

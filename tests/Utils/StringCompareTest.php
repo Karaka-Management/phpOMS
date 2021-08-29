@@ -27,6 +27,9 @@ class StringCompareTest extends \PHPUnit\Framework\TestCase
 {
     private StringCompare $dict;
 
+    /**
+     * {@inheritdoc}
+     */
     protected function setUp() : void
     {
         $this->dict = new StringCompare(

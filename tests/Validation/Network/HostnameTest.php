@@ -36,6 +36,11 @@ class HostnameTest extends \PHPUnit\Framework\TestCase
         self::assertFalse(Hostname::isValid('//somethign/wrong'));
     }
 
+    /**
+     * @testdox A IP can be validated as hostname
+     * @covers phpOMS\Validation\Network\Hostname
+     * @group framework
+     */
     public function testHostnameIp() : void
     {
         self::assertTrue(Hostname::isValid('127.0.0.1'));

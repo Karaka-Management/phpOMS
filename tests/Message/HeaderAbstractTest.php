@@ -27,6 +27,9 @@ class HeaderAbstractTest extends \PHPUnit\Framework\TestCase
 {
     protected $header = null;
 
+    /**
+     * {@inheritdoc}
+     */
     protected function setUp() : void
     {
         $this->header = new class() extends HeaderAbstract

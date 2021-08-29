@@ -26,6 +26,9 @@ class LocationTest extends \PHPUnit\Framework\TestCase
 {
     protected Location $location;
 
+    /**
+     * {@inheritdoc}
+     */
     protected function setUp() : void
     {
         $this->location = new Location();

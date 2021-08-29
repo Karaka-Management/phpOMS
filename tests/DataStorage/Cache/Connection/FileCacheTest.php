@@ -28,6 +28,9 @@ class FileCacheTest extends \PHPUnit\Framework\TestCase
 {
     protected FileCache $cache;
 
+    /**
+     * {@inheritdoc}
+     */
     protected function setUp() : void
     {
         if (\is_dir(__DIR__ . '/Cache')) {

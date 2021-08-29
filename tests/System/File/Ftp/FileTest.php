@@ -35,6 +35,9 @@ class FileTest extends \PHPUnit\Framework\TestCase
         self::$con = File::ftpConnect(new HttpUri(self::BASE));
     }
 
+    /**
+     * {@inheritdoc}
+     */
     protected function setUp() : void
     {
         if (self::$con === false) {

@@ -314,6 +314,11 @@ class ArrayUtilsTest extends \PHPUnit\Framework\TestCase
         self::assertEquals([1, 3, 4], ArrayUtils::abs([-1, 3, -4]));
     }
 
+    /**
+     * @testdox The difference of two arrays can be evaluated recursively
+     * @covers phpOMS\Utils\ArrayUtils
+     * @group framework
+     */
     public function testArrayDiffAssocResursive() : void
     {
         self::assertEquals(

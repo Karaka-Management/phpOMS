@@ -28,6 +28,9 @@ class HttpHeaderTest extends \PHPUnit\Framework\TestCase
 {
     protected HttpHeader $header;
 
+    /**
+     * {@inheritdoc}
+     */
     protected function setUp() : void
     {
         $this->header = new HttpHeader();

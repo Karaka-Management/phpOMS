@@ -27,6 +27,9 @@ class AssetManagerTest extends \PHPUnit\Framework\TestCase
 {
     protected $manager = null;
 
+    /**
+     * {@inheritdoc}
+     */
     protected function setUp() : void
     {
         $this->manager = new AssetManager();

@@ -28,6 +28,9 @@ class IntroSortTest extends \PHPUnit\Framework\TestCase
 {
     protected $list = [];
 
+    /**
+     * {@inheritdoc}
+     */
     protected function setUp() : void
     {
         $this->list = [

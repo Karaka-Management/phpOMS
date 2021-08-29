@@ -14,7 +14,6 @@ declare(strict_types=1);
 
 namespace phpOMS\DataStorage\Database;
 
-use Mpdf\Tag\P;
 use phpOMS\DataStorage\Database\Connection\ConnectionAbstract;
 use phpOMS\DataStorage\Database\Exception\InvalidMapperException;
 use phpOMS\DataStorage\Database\Query\Builder;
@@ -603,9 +602,7 @@ class DataMapperAbstract implements DataMapperInterface
 
         try {
             $sth = self::$db->con->prepare($query->toSql());
-            if ($sth !== false) {
-                $sth->execute();
-            }
+            $sth->execute();
         } catch (\Throwable $t) {
             \var_dump($t->getMessage());
             \var_dump($a = $query->toSql());
@@ -2611,8 +2608,6 @@ class DataMapperAbstract implements DataMapperInterface
         $query->where(static::$table . '_d' . $depth . '.' . ($column !== null ? self::getColumnByMember($column) : static::$primaryField), '>', $pivot)
             ->orderBy(static::$table . '_d' . $depth . '.' . ($column !== null ? self::getColumnByMember($column) : static::$primaryField), $order)
             ->limit($limit);
-
-        $q = $query->toSql();
 
         return self::getAllByQuery($query, $relations, $depth);
     }

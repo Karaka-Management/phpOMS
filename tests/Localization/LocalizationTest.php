@@ -33,6 +33,9 @@ class LocalizationTest extends \PHPUnit\Framework\TestCase
 {
     protected Localization $localization;
 
+    /**
+     * {@inheritdoc}
+     */
     protected function setUp() : void
     {
         $this->localization = new Localization();

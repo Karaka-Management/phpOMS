@@ -28,6 +28,9 @@ class EmailTestTest extends \PHPUnit\Framework\TestCase
 {
     protected Email $mail;
 
+    /**
+     * {@inheritdoc}
+     */
     protected function setUp() : void
     {
         $this->mail = new Email();

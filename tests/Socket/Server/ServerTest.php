@@ -45,6 +45,9 @@ class ServerTest extends \PHPUnit\Framework\TestCase
         }
     }
 
+    /**
+     * {@inheritdoc}
+     */
     protected function setUp() : void
     {
         if (!Autoloader::exists('\Model\CoreSettings')) {

@@ -23,6 +23,9 @@ class PasswordTest extends \PHPUnit\Framework\TestCase
 {
     private Password $grant;
 
+    /**
+     * {@inheritdoc}
+     */
     protected function setUp() : void
     {
         $this->grant = new Password();

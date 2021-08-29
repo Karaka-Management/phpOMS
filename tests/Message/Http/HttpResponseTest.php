@@ -26,6 +26,9 @@ class ResponseTest extends \PHPUnit\Framework\TestCase
 {
     protected HttpResponse $response;
 
+    /**
+     * {@inheritdoc}
+     */
     protected function setUp() : void
     {
         $this->response = new HttpResponse();

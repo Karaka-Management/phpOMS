@@ -26,6 +26,9 @@ class HeadTest extends \PHPUnit\Framework\TestCase
 {
     protected Head $head;
 
+    /**
+     * {@inheritdoc}
+     */
     protected function setUp() : void
     {
         $this->head = new Head();

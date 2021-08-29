@@ -28,6 +28,9 @@ class RedisCacheTest extends \PHPUnit\Framework\TestCase
 {
     protected RedisCache $cache;
 
+    /**
+     * {@inheritdoc}
+     */
     protected function setUp() : void
     {
         if (!\extension_loaded('redis')) {

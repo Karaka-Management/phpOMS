@@ -29,6 +29,9 @@ class FileLoggerTest extends \PHPUnit\Framework\TestCase
 {
     protected FileLogger $log;
 
+    /**
+     * {@inheritdoc}
+     */
     protected function setUp() : void
     {
         if (\is_file(__DIR__ . '/' . \date('Y-m-d') . '.log')) {

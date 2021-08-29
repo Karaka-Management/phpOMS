@@ -30,6 +30,9 @@ final class NullModuleTest extends \PHPUnit\Framework\TestCase
 {
     protected NullModule $module;
 
+    /**
+     * {@inheritdoc}
+     */
     protected function setUp() : void
     {
         $app = new class() extends ApplicationAbstract

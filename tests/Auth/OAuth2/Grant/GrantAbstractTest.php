@@ -23,6 +23,9 @@ class GrantAbstractTest extends \PHPUnit\Framework\TestCase
 {
     private GrantAbstract $grant;
 
+    /**
+     * {@inheritdoc}
+     */
     protected function setUp() : void
     {
         $this->grant = new class() extends GrantAbstract {

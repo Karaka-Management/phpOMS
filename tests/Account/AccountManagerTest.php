@@ -30,6 +30,9 @@ class AccountManagerTest extends \PHPUnit\Framework\TestCase
 
     protected $account = null;
 
+    /**
+     * {@inheritdoc}
+     */
     protected function setUp() : void
     {
         $this->manager = new AccountManager($GLOBALS['httpSession']);

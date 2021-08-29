@@ -25,6 +25,9 @@ class PostAuthOptionProviderTest extends \PHPUnit\Framework\TestCase
 {
     private PostAuthOptionProvider $provider;
 
+    /**
+     * {@inheritdoc}
+     */
     protected function setUp() : void
     {
         $this->provider = new PostAuthOptionProvider();

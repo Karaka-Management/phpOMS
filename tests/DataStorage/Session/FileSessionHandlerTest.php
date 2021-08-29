@@ -26,6 +26,9 @@ class FileSessionHandlerTest extends \PHPUnit\Framework\TestCase
 {
     protected FileSessionHandler $sh;
 
+    /**
+     * {@inheritdoc}
+     */
     protected function setUp() : void
     {
         if (\is_dir(__DIR__ . '/test')) {

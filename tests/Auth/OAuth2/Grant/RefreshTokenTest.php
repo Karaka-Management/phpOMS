@@ -23,6 +23,9 @@ class RefreshTokenTest extends \PHPUnit\Framework\TestCase
 {
     private RefreshToken $grant;
 
+    /**
+     * {@inheritdoc}
+     */
     protected function setUp() : void
     {
         $this->grant = new RefreshToken();

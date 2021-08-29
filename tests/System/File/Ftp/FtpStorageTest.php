@@ -36,6 +36,9 @@ class FtpStorageTest extends \PHPUnit\Framework\TestCase
         self::$con = Directory::ftpConnect(new HttpUri(self::BASE));
     }
 
+    /**
+     * {@inheritdoc}
+     */
     protected function setUp() : void
     {
         if (self::$con === false) {

@@ -34,6 +34,9 @@ class ApplicationManagerTest extends \PHPUnit\Framework\TestCase
 {
     protected ApplicationManager $appManager;
 
+    /**
+     * {@inheritdoc}
+     */
     protected function setUp() : void
     {
         $app                          = new class() extends ApplicationAbstract {

@@ -35,6 +35,9 @@ class ModuleManagerTest extends \PHPUnit\Framework\TestCase
 
     protected ModuleManager $moduleManager;
 
+    /**
+     * {@inheritdoc}
+     */
     protected function setUp() : void
     {
         $this->app                    = new class() extends ApplicationAbstract {

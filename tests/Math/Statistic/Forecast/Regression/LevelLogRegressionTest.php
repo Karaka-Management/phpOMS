@@ -25,6 +25,9 @@ class LevelLogRegressionTest extends \PHPUnit\Framework\TestCase
 {
     protected $reg = null;
 
+    /**
+     * {@inheritdoc}
+     */
     protected function setUp() : void
     {
         // y = 1 + log(x)

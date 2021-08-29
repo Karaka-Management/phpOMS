@@ -27,6 +27,9 @@ final class NullCacheTest extends \PHPUnit\Framework\TestCase
 {
     protected NullCache $cache;
 
+    /**
+     * {@inheritdoc}
+     */
     protected function setUp() : void
     {
         $this->cache = new NullCache([]);

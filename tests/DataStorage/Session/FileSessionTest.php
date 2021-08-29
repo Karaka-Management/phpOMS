@@ -25,6 +25,9 @@ class FileSessionTest extends \PHPUnit\Framework\TestCase
 {
     protected FileSession $session;
 
+    /**
+     * {@inheritdoc}
+     */
     protected function setUp() : void
     {
         $this->session = new FileSession();

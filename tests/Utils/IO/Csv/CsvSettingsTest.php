@@ -36,6 +36,11 @@ class CsvSettingsTest extends \PHPUnit\Framework\TestCase
         self::assertEquals(';', CsvSettings::getFileDelimiter(\fopen(__DIR__ . '/semicolon.csv', 'r')));
     }
 
+    /**
+     * @testdox The delimiter in a csv string can be guessed
+     * @covers phpOMS\Utils\IO\Csv\CsvSettings
+     * @group framework
+     */
     public function testStringDelimiter() : void
     {
         self::assertEquals(':', CsvSettings::getStringDelimiter(\file_get_contents(__DIR__ . '/colon.csv')));

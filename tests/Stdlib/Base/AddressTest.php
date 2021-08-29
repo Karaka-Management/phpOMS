@@ -26,6 +26,9 @@ class AddressTest extends \PHPUnit\Framework\TestCase
 {
     protected Address $address;
 
+    /**
+     * {@inheritdoc}
+     */
     protected function setUp() : void
     {
         $this->address = new Address();

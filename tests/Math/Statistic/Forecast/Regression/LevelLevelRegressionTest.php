@@ -27,6 +27,9 @@ class LevelLevelRegressionTest extends \PHPUnit\Framework\TestCase
 {
     protected $reg = null;
 
+    /**
+     * {@inheritdoc}
+     */
     protected function setUp() : void
     {
         // y = 3 + 4 * x

@@ -25,6 +25,9 @@ class MetaTest extends \PHPUnit\Framework\TestCase
 {
     protected Meta $meta;
 
+    /**
+     * {@inheritdoc}
+     */
     protected function setUp() : void
     {
         $this->meta = new Meta();

@@ -28,6 +28,9 @@ class MemCachedTest extends \PHPUnit\Framework\TestCase
 {
     protected MemCached $cache;
 
+    /**
+     * {@inheritdoc}
+     */
     protected function setUp() : void
     {
         if (!\extension_loaded('memcached')) {

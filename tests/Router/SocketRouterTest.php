@@ -30,6 +30,9 @@ class SocketRouterTest extends \PHPUnit\Framework\TestCase
 {
     protected SocketRouter $router;
 
+    /**
+     * {@inheritdoc}
+     */
     protected function setUp() : void
     {
         $this->router = new SocketRouter();

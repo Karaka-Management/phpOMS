@@ -25,6 +25,9 @@ class HttpSessionTest extends \PHPUnit\Framework\TestCase
 {
     protected HttpSession $session;
 
+    /**
+     * {@inheritdoc}
+     */
     protected function setUp() : void
     {
         $this->session = new HttpSession(1, '', 1);

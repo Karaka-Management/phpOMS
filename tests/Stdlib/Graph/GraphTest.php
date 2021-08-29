@@ -26,6 +26,9 @@ class GraphTest extends \PHPUnit\Framework\TestCase
 {
     protected Graph $graph;
 
+    /**
+     * {@inheritdoc}
+     */
     protected function setUp() : void
     {
         $this->graph = new Graph();

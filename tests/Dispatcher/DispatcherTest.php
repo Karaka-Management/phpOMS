@@ -34,6 +34,9 @@ class DispatcherTest extends \PHPUnit\Framework\TestCase
 {
     protected ApplicationAbstract $app;
 
+    /**
+     * {@inheritdoc}
+     */
     protected function setUp() : void
     {
         $this->app                    = new class() extends ApplicationAbstract {

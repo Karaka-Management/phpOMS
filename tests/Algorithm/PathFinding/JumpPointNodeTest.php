@@ -27,6 +27,9 @@ class JumpPointNodeTest extends \PHPUnit\Framework\TestCase
 {
     protected $node;
 
+    /**
+     * {@inheritdoc}
+     */
     protected function setUp() : void
     {
         $this->node = new JumpPointNode(1, 2, 3.0, false);

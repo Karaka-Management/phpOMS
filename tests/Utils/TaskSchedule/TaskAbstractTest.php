@@ -26,6 +26,9 @@ class TaskAbstractTest extends \PHPUnit\Framework\TestCase
 {
     private $class = null;
 
+    /**
+     * {@inheritdoc}
+     */
     protected function setUp() : void
     {
         $this->class = new class('') extends TaskAbstract {

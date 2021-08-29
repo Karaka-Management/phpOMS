@@ -38,6 +38,8 @@ abstract class Hostname extends ValidatorAbstract
 
     /**
      * {@inheritdoc}
+     *
+     * A IPv6 string MUST be in [...] to be sucessfully validated
      */
     public static function isValid(mixed $value, array $constraints = null) : bool
     {

@@ -30,6 +30,9 @@ class CurrencyTest extends \PHPUnit\Framework\TestCase
 {
     private static $reachable;
 
+    /**
+     * {@inheritdoc}
+     */
     protected function setUp() : void
     {
         if (!isset(self::$reachable)) {

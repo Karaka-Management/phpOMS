@@ -37,6 +37,9 @@ class ViewTest extends \PHPUnit\Framework\TestCase
 
     protected ApplicationAbstract $app;
 
+    /**
+     * {@inheritdoc}
+     */
     protected function setUp() : void
     {
         $this->dbPool = new DatabasePool();

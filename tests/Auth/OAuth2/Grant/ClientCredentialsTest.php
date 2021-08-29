@@ -23,6 +23,9 @@ class ClientCredentialsTest extends \PHPUnit\Framework\TestCase
 {
     private ClientCredentials $grant;
 
+    /**
+     * {@inheritdoc}
+     */
     protected function setUp() : void
     {
         $this->grant = new ClientCredentials();

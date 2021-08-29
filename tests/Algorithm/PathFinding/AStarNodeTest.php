@@ -27,6 +27,9 @@ class AStarNodeTest extends \PHPUnit\Framework\TestCase
 {
     protected $node;
 
+    /**
+     * {@inheritdoc}
+     */
     protected function setUp() : void
     {
         $this->node = new AStarNode(1, 2, 3.0, false);

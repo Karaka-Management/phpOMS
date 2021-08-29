@@ -28,6 +28,9 @@ class ResponseAbstractTest extends \PHPUnit\Framework\TestCase
 {
     protected $response = null;
 
+    /**
+     * {@inheritdoc}
+     */
     protected function setUp() : void
     {
         $this->response = new class() extends ResponseAbstract

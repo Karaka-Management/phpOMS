@@ -34,6 +34,9 @@ class AccountTest extends \PHPUnit\Framework\TestCase
 {
     protected $l11nManager = null;
 
+    /**
+     * {@inheritdoc}
+     */
     protected function setUp() : void
     {
         $this->l11nManager = new L11nManager('Api');

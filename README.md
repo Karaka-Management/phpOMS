@@ -37,9 +37,15 @@ Please note if you are only interested in using the framework without the web ap
 
 ### Setup
 
+#### End-User
+
 After installing the requirements and configuring the webserver for the correct path navigate to https://your_url.com/Install and follow the installation process. Afterwards you will be redirected to the installed backend.
 
-For more detailed information please checkout the [Installation Guide](https://orange-management.org/dev/guide?page=setup/installation) for developers or the [Installation Guide](https://orange-management.org/info?page=setup/server) for end-users.
+For more detailed information please checkout the [Installation Guide](https://orange-management.org/dev/guide?page=setup/installation).
+
+#### Developer
+
+https://github.com/Orange-Management/Developer-Guide/blob/master/setup/installation.md
 
 ## Philosophy
 

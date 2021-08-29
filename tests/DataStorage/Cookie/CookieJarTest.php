@@ -25,6 +25,9 @@ class CookieJarTest extends \PHPUnit\Framework\TestCase
 {
     protected CookieJar $jar;
 
+    /**
+     * {@inheritdoc}
+     */
     protected function setUp() : void
     {
         $this->jar = new CookieJar();
