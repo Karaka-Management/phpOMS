@@ -207,6 +207,26 @@ class Account implements \JsonSerializable, ArrayableInterface
     }
 
     /**
+     * User has group.
+     *
+     * @param int $group Group id
+     *
+     * @return void
+     *
+     * @since 1.0.0
+     */
+    public function hasGroup(int $id) : bool
+    {
+        foreach ($this->groups as $group) {
+            if ($group->getId() === $id) {
+                return true;
+            }
+        }
+
+        return false;
+    }
+
+    /**
      * Get email.
      *
      * @return string Returns the email address

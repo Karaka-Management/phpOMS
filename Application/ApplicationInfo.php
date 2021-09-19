@@ -222,4 +222,16 @@ final class ApplicationInfo
     {
         return $this->info['version'] ?? '';
     }
+
+    /**
+     * Get info data.
+     *
+     * @return array<string, string>
+     *
+     * @since 1.0.0
+     */
+    public function getProviding() : array
+    {
+        return $this->info['providing'] ?? [];
+    }
 }

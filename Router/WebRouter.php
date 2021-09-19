@@ -72,6 +72,17 @@ final class WebRouter implements RouterInterface
     }
 
     /**
+     * Clear routes
+     *
+     * @return void
+     * @since 1.0.0
+     */
+    public function clear() : void
+    {
+        $this->routes = [];
+    }
+
+    /**
      * Add route.
      *
      * @param string $route       Route regex
@@ -144,25 +155,35 @@ final class WebRouter implements RouterInterface
                 ) {
                     // if csrf is required but not set
                     if (isset($d['csrf']) && $d['csrf'] && $csrf === null) {
-                        return $app !== null ? $this->route('/' . \strtolower($app) . '/e403', $csrf, $verb) : $this->route('/e403', $csrf, $verb);
+                        return $app !== null
+                            ? $this->route('/' . \strtolower($app) . '/e403', $csrf, $verb)
+                            : $this->route('/e403', $csrf, $verb);
                     }
 
                     // if permission check is invalid
                     if ((isset($d['permission']) && $account === null)
                         || (isset($d['permission'])
                             && !$account?->hasPermission(
-                                $d['permission']['type'] ?? 0, $d['permission']['unit'] ?? $orgId, $app, $d['permission']['module'] ?? null, $d['permission']['state'] ?? null
+                                $d['permission']['type'] ?? 0,
+                                $d['permission']['unit'] ?? $orgId,
+                                $app,
+                                $d['permission']['module'] ?? null,
+                                $d['permission']['state'] ?? null
                             )
                         )
                     ) {
-                        return $app !== null ? $this->route('/' . \strtolower($app) . '/e403', $csrf, $verb) : $this->route('/e403', $csrf, $verb);
+                        return $app !== null
+                            ? $this->route('/' . \strtolower($app) . '/e403', $csrf, $verb)
+                            : $this->route('/e403', $csrf, $verb);
                     }
 
                     // if validation check is invalid
                     if (isset($d['validation'])) {
-                        foreach ($d['validation'] as $name => $pattern) {
-                            if (!isset($data[$name]) || \preg_match($pattern, $data[$name]) !== 1) {
-                                return $app !== null ? $this->route('/' . \strtolower($app) . '/e403', $csrf, $verb) : $this->route('/e403', $csrf, $verb);
+                        foreach ($d['validation'] as $name => $validation) {
+                            if (!isset($data[$name]) || \preg_match($validation, $data[$name]) !== 1) {
+                                return $app !== null
+                                    ? $this->route('/' . \strtolower($app) . '/e403', $csrf, $verb)
+                                    : $this->route('/e403', $csrf, $verb);
                             }
                         }
                     }

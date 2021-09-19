@@ -228,7 +228,7 @@ abstract class StatusAbstract
     {
         $query = new Builder($dbPool->get('update'));
         $query->update('module')
-            ->sets('module.module_active', 1)
+            ->sets('module.module_active', ModuleStatus::ACTIVE)
             ->where('module.module_id', '=', $info->getInternalName())
             ->execute();
     }
@@ -416,7 +416,7 @@ abstract class StatusAbstract
     {
         $query = new Builder($dbPool->get('update'));
         $query->update('module')
-            ->sets('module.module_active', 0)
+            ->sets('module.module_active', ModuleStatus::INACTIVE)
             ->where('module.module_id', '=', $info->getInternalName())
             ->execute();
     }

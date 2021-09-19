@@ -62,14 +62,6 @@ final class ModuleManager
     private ApplicationAbstract $app;
 
     /**
-     * Application manager.
-     *
-     * @var ApplicationManager
-     * @since 1.0.0
-     */
-    private ApplicationManager $appManager;
-
-    /**
      * Installed modules.
      *
      * @var array<string, ModuleInfo>
@@ -511,17 +503,14 @@ final class ModuleManager
             $providing = $info->getProviding();
             foreach ($providing as $key => $version) {
                 if (isset($installed[$key])) {
-                    $this->installProviding($module, $key);
+                    $this->installProviding('/Modules/' . $module, $key);
                 }
             }
 
             /* Install receiving and applications */
             foreach ($this->installed as $key => $value) {
-                $this->installProviding($key, $module);
+                $this->installProviding('/Modules/' . $key, $module);
             }
-
-            $this->appManager = new ApplicationManager($this);
-            $this->installApplications($module);
 
             return true;
         } catch (\Throwable $t) {
@@ -630,7 +619,7 @@ final class ModuleManager
      *
      * Installing additional functionality for another module
      *
-     * @param string $from From module
+     * @param string $from From path
      * @param string $for  For module
      *
      * @return void
@@ -639,43 +628,14 @@ final class ModuleManager
      */
     public function installProviding(string $from, string $for) : void
     {
-        if (!\is_file($this->modulePath . $from . '/Admin/Install/' . $for . '.php')) {
+        if (!\is_file(__DIR__ . '/../..' . $from . '/Admin/Install/' . $for . '.php')) {
             return;
         }
 
-        $class = '\\Modules\\' . $from . '\\Admin\\Install\\' . $for;
+        $from = \str_replace('/', '\\', $from);
+
+        $class = $from . '\\Admin\\Install\\' . $for;
         $class::install($this->modulePath, $this->app);
-    }
-
-    /**
-     * Install applications.
-     *
-     * Installing additional functionality for another module
-     *
-     * @param string $from From module
-     *
-     * @return void
-     *
-     * @since 1.0.0
-     */
-    public function installApplications(string $from) : void
-    {
-        if (!\is_dir($this->modulePath . $from . '/Admin/Install/Application')) {
-            return;
-        }
-
-        $dirs = \scandir($this->modulePath . $from . '/Admin/Install/Application');
-        if ($dirs === false) {
-            return;
-        }
-
-        foreach ($dirs as $dir) {
-            if ($dir === '.' || $dir === '..') {
-                continue;
-            }
-
-            $this->appManager->install($dir, __DIR__ . '/../../Web/' . \basename($dir));
-        }
     }
 
     /**

@@ -724,7 +724,7 @@ class Builder extends BuilderAbstract
     }
 
     /**
-     * Order by oldest.
+     * Order by.
      *
      * @param string|array    $columns Columns
      * @param string|string[] $order   Orders
@@ -736,19 +736,13 @@ class Builder extends BuilderAbstract
     public function orderBy(string | array $columns, string | array $order = 'DESC') : self
     {
         if (\is_string($columns)) {
-            if (!\is_string($order)) {
-                throw new \InvalidArgumentException();
-            }
+            $columns = [$columns];
+        }
 
-            if (!isset($this->orders[$order])) {
-                $this->orders[$order] = [];
-            }
+        foreach ($columns as $key => $column) {
+            $tOrder = \is_string($order) ? $order : $order[$key];
 
-            $this->orders[$order][] = $columns;
-        } else {
-            foreach ($columns as $key => $column) {
-                $this->orders[\is_string($order) ? $order : $order[$key]][] = $column;
-            }
+            $this->orders[$column] = $tOrder;
         }
 
         return $this;

@@ -535,22 +535,18 @@ class Grammar extends GrammarAbstract
      */
     protected function compileOrders(Builder $query, array $orders) : string
     {
-        $expression = '';
+        $expression    = '';
+        $lastOrderType = '';
 
-        foreach ($orders as $key => $order) {
-            foreach ($order as $column) {
-                $expression .= $this->compileSystem($column) . ', ';
-            }
-
-            $expression  = \rtrim($expression, ', ');
-            $expression .= ' ' . $key . ', ';
+        foreach ($orders as $column => $order) {
+            $expression .= $this->compileSystem($column) . ' ' . $order . ', ';
         }
+
+        $expression = \rtrim($expression, ', ');
 
         if ($expression === '') {
             return '';
         }
-
-        $expression = \rtrim($expression, ', ');
 
         return 'ORDER BY ' . $expression;
     }

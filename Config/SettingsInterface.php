@@ -33,6 +33,7 @@ interface SettingsInterface extends OptionsInterface
      *
      * @param null|int|int[]|string|string[] $ids     Ids
      * @param null|string|string[]           $names   Setting name
+     * @param null|int                       $app     Application
      * @param null|string                    $module  Module name
      * @param null|int                       $group   Group id
      * @param null|int                       $account Account id
@@ -44,6 +45,7 @@ interface SettingsInterface extends OptionsInterface
     public function get(
         mixed $ids = null,
         string | array $names = null,
+        int $app = null,
         string $module = null,
         int $group = null,
         int $account = null

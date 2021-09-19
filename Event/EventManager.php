@@ -121,6 +121,18 @@ final class EventManager implements \Countable
     }
 
     /**
+     * Clear all events
+     *
+     * @return void
+     * @since 1.0.0
+     */
+    public function clear() : bool
+    {
+        $this->groups    = [];
+        $this->callbacks = [];
+    }
+
+    /**
      * Attach new event
      *
      * @param string          $group    Name of the event (unique)

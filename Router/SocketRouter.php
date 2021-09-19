@@ -70,6 +70,17 @@ final class SocketRouter implements RouterInterface
     }
 
     /**
+     * Clear routes
+     *
+     * @return void
+     * @since 1.0.0
+     */
+    public function clear() : void
+    {
+        $this->routes = [];
+    }
+
+    /**
      * Add route.
      *
      * @param string $route       Route regex

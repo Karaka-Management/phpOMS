@@ -34,4 +34,12 @@ interface RouterInterface
      * @since 1.0.0
      */
     public function importFromFile(string $path) : bool;
+
+    /**
+     * Clear routes
+     *
+     * @return void
+     * @since 1.0.0
+     */
+    public function clear() : void;
 }

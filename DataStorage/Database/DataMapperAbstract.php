@@ -122,14 +122,6 @@ class DataMapperAbstract implements DataMapperInterface
     protected static string $createdAt = '';
 
     /**
-     * Language
-     *
-     * @var string
-     * @since 1.0.0
-     */
-    protected static string $languageField = '';
-
-    /**
      * Columns.
      *
      * @var array<string, array{name:string, type:string, internal:string, autocomplete?:bool, readonly?:bool, writeonly?:bool, annotations?:array}>
@@ -247,6 +239,14 @@ class DataMapperAbstract implements DataMapperInterface
     protected static array $lastQueryData = [];
 
     /**
+     * Fields to sort by.
+     *
+     * @var array[]
+     * @since 1.0.0
+     */
+    protected static array $sortFields = [];
+
+    /**
      * Constructor.
      *
      * @since 1.0.0
@@ -342,6 +342,34 @@ class DataMapperAbstract implements DataMapperInterface
             'ignore'     => $models === null, // don't load this model
         ];
 
+        // @todo: ignore seems to be a bug, models === null is true VERY often because i usually omit the models definition. Why is it still working, or is it?
+
+        /** @var string */
+        return static::class;
+    }
+
+    /**
+     * Create a conditional value
+     *
+     * @param string   $by         Name of the variable to sort by
+     * @param string   $order      ASC or DESC
+     * @param string[] $models     Models to apply the sort on
+     *
+     * @return string
+     *
+     * @since 1.0.0
+     */
+    public static function sortBy(
+        string $by,
+        string $order = 'DESC',
+        ?array $models = [],
+    ) : string
+    {
+        self::$sortFields[$by] = [
+            'order'  => $order,
+            'models' => $models === [] ? null : $models,
+        ];
+
         /** @var string */
         return static::class;
     }
@@ -364,6 +392,7 @@ class DataMapperAbstract implements DataMapperInterface
 
         self::$parentMapper = null;
         self::$withFields   = [];
+        self::$sortFields   = [];
         self::$relations    = RelationType::ALL;
     }
 
@@ -746,6 +775,31 @@ class DataMapperAbstract implements DataMapperInterface
 
         self::createRelationTable($member, \is_array($id2) ? $id2 : [$id2], $id1);
         self::removeInitialized(static::class, $id1);
+
+        return true;
+    }
+
+    /**
+     * Delete relation
+     *
+     * This is only possible for hasMany objects which are stored in a relation table
+     *
+     * @param string $member Member name of the relation
+     * @param mixed  $id1    Id of the primary object
+     * @param mixed  $id2    Id of the secondary object
+     *
+     * @return bool
+     *
+     * @since 1.0.0
+     */
+    public static function delteRelation(string $member, mixed $id1, mixed $id2) : bool
+    {
+        if (!isset(static::$hasMany[$member]) || !isset(static::$hasMany[$member]['external'])) {
+            return false;
+        }
+
+        self::removeInitialized(static::class, $id1);
+        self::deleteRelationTable($member, \is_array($id2) ? $id2 : [$id2], $id1);
 
         return true;
     }
@@ -1329,7 +1383,7 @@ class DataMapperAbstract implements DataMapperInterface
      * Delete relation table entry
      *
      * @param string $propertyName Property name to initialize
-     * @param array  $objsIds      Object ids to insert
+     * @param array  $objsIds      Object ids to delete
      * @param mixed  $objId        Model to reference
      *
      * @return void
@@ -2585,7 +2639,6 @@ class DataMapperAbstract implements DataMapperInterface
      * @param mixed   $pivot     Pivot
      * @param string  $column    Sort column/pivot column
      * @param int     $limit     Result limit
-     * @param string  $order     Order of the elements
      * @param int     $relations Load relations
      * @param int     $depth     Relation depth
      * @param Builder $query     Query
@@ -2598,16 +2651,13 @@ class DataMapperAbstract implements DataMapperInterface
         mixed $pivot,
         string $column = null,
         int $limit = 50,
-        string $order = 'ASC',
         int $relations = RelationType::ALL,
         int $depth = 3,
         Builder $query = null
     ) : array
     {
         $query ??= self::getQuery(depth: $depth);
-        $query->where(static::$table . '_d' . $depth . '.' . ($column !== null ? self::getColumnByMember($column) : static::$primaryField), '>', $pivot)
-            ->orderBy(static::$table . '_d' . $depth . '.' . ($column !== null ? self::getColumnByMember($column) : static::$primaryField), $order)
-            ->limit($limit);
+        $query->where(static::$table . '_d' . $depth . '.' . ($column !== null ? self::getColumnByMember($column) : static::$primaryField), '>', $pivot);
 
         return self::getAllByQuery($query, $relations, $depth);
     }
@@ -2618,7 +2668,6 @@ class DataMapperAbstract implements DataMapperInterface
      * @param mixed   $pivot     Pivot
      * @param string  $column    Sort column/pivot column
      * @param int     $limit     Result limit
-     * @param string  $order     Order of the elements
      * @param int     $relations Load relations
      * @param int     $depth     Relation depth
      * @param Builder $query     Query
@@ -2635,7 +2684,6 @@ class DataMapperAbstract implements DataMapperInterface
         mixed $pivot,
         string $column = null,
         int $limit = 50,
-        string $order = 'ASC',
         int $relations = RelationType::ALL,
         int $depth = 3,
         Builder $query = null
@@ -2643,7 +2691,6 @@ class DataMapperAbstract implements DataMapperInterface
     {
         $query ??= self::getQuery(depth: $depth);
         $query->where(static::$table . '_d' . $depth . '.' . ($column !== null ? self::getColumnByMember($column) : static::$primaryField), '<', $pivot)
-            ->orderBy(static::$table . '_d' . $depth . '.' . ($column !== null ? self::getColumnByMember($column) : static::$primaryField), $order)
             ->limit($limit);
 
         return self::getAllByQuery($query, $relations, $depth);
@@ -3205,69 +3252,73 @@ class DataMapperAbstract implements DataMapperInterface
 
         foreach (static::$hasMany as $member => $value) {
             if ($value['writeonly'] ?? false === true
+                || self::$relations !== RelationType::ALL
                 || (isset(self::$withFields[$member]['ignore']) && self::$withFields[$member]['ignore']) // should not be loaded
             ) {
                 continue;
             }
 
-            if (!isset($cachedTables[$value['table']])) {
-                $query = new Builder(self::$db);
+            if (isset($cachedTables[$value['table']])) {
+                $result[$member] = $cachedTables[$value['table']];
 
-                if (self::$relations === RelationType::ALL) {
-                    $src = $value['external'] ?? $value['mapper']::$primaryField;
+                continue;
+            }
 
-                    // @todo: what if a specific column name is defined instead of primaryField for the join? Fix, it should be stored in 'column'
-                    $query->select($value['table'] . '.' . $src)
-                        ->from($value['table'])
-                        ->where($value['table'] . '.' . $value['self'], '=', $primaryKey);
+            $query = new Builder(self::$db);
+            $src   = $value['external'] ?? $value['mapper']::$primaryField;
 
-                    if ($value['mapper']::getTable() !== $value['table']) {
-                        $query->leftJoin($value['mapper']::getTable())
-                            ->on($value['table'] . '.' . $src, '=', $value['mapper']::getTable() . '.' . $value['mapper']::getPrimaryField());
-                    }
+            // @todo: what if a specific column name is defined instead of primaryField for the join? Fix, it should be stored in 'column'
+            $query->select($value['table'] . '.' . $src)
+                ->from($value['table'])
+                ->where($value['table'] . '.' . $value['self'], '=', $primaryKey);
 
-                    // @todo: here the relation table should probably join the the model table for better ::with() handling
+            if ($value['mapper']::getTable() !== $value['table']) {
+                $query->leftJoin($value['mapper']::getTable())
+                    ->on($value['table'] . '.' . $src, '=', $value['mapper']::getTable() . '.' . $value['mapper']::getPrimaryField());
+            }
 
-                    if (isset(self::$withFields[$member]) && self::$withFields[$member]['orderBy'] !== null) {
-                        $query->orderBy($value['mapper']::getTable() . '.' . $value['mapper']::getColumnByMember(self::$withFields[$member]['orderBy']), self::$withFields[$member]['sortOrder']);
-                    }
+            $modelName = $value['mapper']::getModelName();
 
-                    if (isset(self::$withFields[$member]) && self::$withFields[$member]['limit'] !== null) {
-                        $query->limit(self::$withFields[$member]['limit']);
-                    }
+            // @todo: here the relation table should probably join the the model table for better ::with() handling
 
-                    $modelName = $value['mapper']::getModelName();
-                    foreach (self::$withFields as $condKey => $condValue) {
-                        if (($column = $value['mapper']::getColumnByMember($condKey)) === null
-                            || ($condValue['models'] !== null && !\in_array($modelName, $condValue['models']))
-                            || ($value['conditional'] ?? false) === false
-                            || $condValue['ignore']
-                        ) {
-                            continue;
-                        }
+            if (isset(self::$sortFields[$member])
+                && ($column = $value['mapper']::getColumnByMember($member)) !== null
+                && (self::$sortFields[$member]['models'] === null || \in_array($modelName, self::$sortFields[$member]['models']))
+            ) {
+                $query->orderBy($value['mapper']::getTable() . '.' . $column, self::$sortFields[$member]['order']);
+            } elseif (isset($value['sort'])) {
+                $query->orderBy($value['mapper']::getTable() . '.' . $value['mapper']::getColumnByMember($value['sort']['orderBy']), $value['sort']['sortOrder']);
+            }
 
-                        if ($condValue['value'] !== null) {
-                            $query->andWhere($value['mapper']::getTable() . '.' . $column, $condValue['comparison'], $condValue['value']);
-                        }
+            if (isset(self::$withFields[$member]) && self::$withFields[$member]['limit'] !== null) {
+                $query->limit(self::$withFields[$member]['limit']);
+            }
 
-                        if ($condValue['orderBy'] !== null) {
-                            $query->orderBy($value['mapper']::getTable() . '.' . $column . '.' . $value['mapper']::getColumnByMember($condValue['orderBy']), $condValue['sortOrder']);
-                        }
+            // @todo: like the foreach loop below, I probably also need to loop all sortFields to check if ther is a sortField defined which is part of the hasMany definition?!
 
-                        if ($condValue['limit'] !== null) {
-                            $query->limit($condValue['limit']);
-                        }
-                    }
+            foreach (self::$withFields as $condKey => $condValue) {
+                if (($column = $value['mapper']::getColumnByMember($condKey)) === null
+                    || ($condValue['models'] !== null && !\in_array($modelName, $condValue['models']))
+                    || ($value['conditional'] ?? false) === false
+                    || $condValue['ignore']
+                ) {
+                    continue;
                 }
 
-                $sth = self::$db->con->prepare($query->toSql());
-                if ($sth !== false) {
-                    $sth->execute();
-                    $cachedTables[$value['table']] = $sth->fetchAll(\PDO::FETCH_COLUMN);
+                if ($condValue['value'] !== null) {
+                    $query->andWhere($value['mapper']::getTable() . '.' . $column, $condValue['comparison'], $condValue['value']);
+                }
+
+                if ($condValue['limit'] !== null) {
+                    $query->limit($condValue['limit']);
                 }
             }
 
-            $result[$member] = $cachedTables[$value['table']];
+            $sth = self::$db->con->prepare($query->toSql());
+            if ($sth !== false) {
+                $sth->execute();
+                $result[$member] = $cachedTables[$value['table']] = $sth->fetchAll(\PDO::FETCH_COLUMN);
+            }
         }
 
         // @todo: this returns IDs it should return the database data here in order to reduce the requests.
@@ -3306,8 +3357,19 @@ class DataMapperAbstract implements DataMapperInterface
             $query->fromAs(static::$table, static::$table . '_d' . $depth);
         }
 
-        // handle conditional
+        // handle sort, the column name order is very important. Therefore it cannot be done in the foreach loop above!
         $modelName = self::getModelName();
+        foreach (self::$sortFields as $member => $sort) {
+            if (($column = self::getColumnByMember($member)) === null
+                || ($sort['models'] !== null && !\in_array($modelName, $sort['models']))
+            ) {
+                continue;
+            }
+
+            $query->orderBy(static::$table . '_d' . $depth . '.' . $column, $sort['order']);
+        }
+
+        // handle conditional
         foreach (self::$withFields as $condKey => $condValue) {
             if (($column = self::getColumnByMember($condKey)) === null
                 || ($condValue['models'] !== null && !\in_array($modelName, $condValue['models']))
@@ -3382,7 +3444,7 @@ class DataMapperAbstract implements DataMapperInterface
         // get HasManyQuery (but only for elements which have a 'column' defined)
         if ($depth > 1 && self::$relations === RelationType::ALL) {
             foreach (static::$hasMany as $key => $rel) {
-                // @todo: impl. conditiona/with handling, sort, limit, filter or is this not required here?
+                // @todo: impl. conditional/with handling, sort, limit, filter or is this not required here?
                 if (isset($rel['external']) || !isset($rel['column']) // @todo: conflict with getHasMany()???!?!?!?!
                     || (isset(self::$withFields[$key]) && self::$withFields[$key]['ignore'])
                 ) {

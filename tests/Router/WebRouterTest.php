@@ -349,7 +349,7 @@ class WebRouterTest extends \PHPUnit\Framework\TestCase
             RouteVerb::GET | RouteVerb::SET,
             false,
             [],
-            '/^.*?(something)=(\d*).*?$/'
+            '/^.*?(something)=(?<name>\d*).*?$/'
         );
 
         self::assertEquals(
@@ -358,6 +358,7 @@ class WebRouterTest extends \PHPUnit\Framework\TestCase
                 'data' => [
                     '/backends/admin?something=123&sd=asdf',
                     'something',
+                    'name' => '123',
                     '123',
                 ],
             ]],

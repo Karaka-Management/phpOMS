@@ -16,7 +16,6 @@ declare(strict_types=1);
 
 namespace phpOMS\Application;
 
-use phpOMS\Module\ModuleManager;
 use phpOMS\System\File\Local\Directory;
 use phpOMS\System\File\PathException;
 
@@ -33,14 +32,6 @@ use phpOMS\System\File\PathException;
 final class ApplicationManager
 {
     /**
-     * Module manager
-     *
-     * @var ModuleManager
-     * @since 1.0.0
-     */
-    private ModuleManager $moduleManager;
-
-    /**
      * Applications
      *
      * @var ApplicationInfo[]
@@ -51,13 +42,10 @@ final class ApplicationManager
     /**
      * Constructor.
      *
-     * @param ModuleManager $moduleManager Module manager
-     *
      * @since. 1.0.0
      */
-    public function __construct(ModuleManager $moduleManager)
+    public function __construct()
     {
-        $this->moduleManager = $moduleManager;
     }
 
     /**
@@ -106,7 +94,6 @@ final class ApplicationManager
 
         $this->installFiles($source, $destination);
         $this->installTheme($destination, $theme);
-        $this->installFromModules($app);
 
         $files = Directory::list($destination, '*', true);
         foreach ($files as $file) {
@@ -171,23 +158,6 @@ final class ApplicationManager
                 $destination . '/' . $dir,
                 true
             );
-        }
-    }
-
-    /**
-     * Install routes and hooks from modules for application
-     *
-     * @param ApplicationInfo $info Application info
-     *
-     * @return void
-     *
-     * @since 1.0.0
-     */
-    public function installFromModules(ApplicationInfo $info) : void
-    {
-        $installed = $this->moduleManager->getInstalledModules();
-        foreach ($installed as $module => $moduleInfo) {
-            $this->moduleManager->reInit($module, $info);
         }
     }
 }

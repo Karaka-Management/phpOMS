@@ -69,7 +69,7 @@ class ApplicationManagerTest extends \PHPUnit\Framework\TestCase
 
         $app->moduleManager = new ModuleManager($app, __DIR__ . '/../../../Modules/');
 
-        $this->appManager = new ApplicationManager($app->moduleManager);
+        $this->appManager = new ApplicationManager();
     }
 
     /**
