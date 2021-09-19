@@ -16,7 +16,6 @@ namespace phpOMS\Module;
 
 use phpOMS\Application\ApplicationAbstract;
 use phpOMS\Application\ApplicationInfo;
-use phpOMS\Application\ApplicationManager;
 use phpOMS\Autoloader;
 use phpOMS\DataStorage\Database\Query\Builder;
 use phpOMS\Message\Http\HttpRequest;

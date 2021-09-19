@@ -351,9 +351,9 @@ class DataMapperAbstract implements DataMapperInterface
     /**
      * Create a conditional value
      *
-     * @param string   $by         Name of the variable to sort by
-     * @param string   $order      ASC or DESC
-     * @param string[] $models     Models to apply the sort on
+     * @param string   $by     Name of the variable to sort by
+     * @param string   $order  ASC or DESC
+     * @param string[] $models Models to apply the sort on
      *
      * @return string
      *
