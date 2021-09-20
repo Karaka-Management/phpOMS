@@ -14,7 +14,6 @@ declare(strict_types=1);
 
 namespace phpOMS\Application;
 
-use phpOMS\Application\ApplicationInfo;
 use phpOMS\DataStorage\Database\DatabasePool;
 use phpOMS\DataStorage\Database\Query\Builder;
 use phpOMS\System\File\Local\Directory;
