@@ -32,6 +32,14 @@ use phpOMS\System\File\PathException;
 final class ApplicationManager
 {
     /**
+     * Application instance.
+     *
+     * @var ApplicationAbstract
+     * @since 1.0.0
+     */
+    private ApplicationAbstract $app;
+
+    /**
      * Applications
      *
      * @var ApplicationInfo[]
@@ -42,10 +50,13 @@ final class ApplicationManager
     /**
      * Constructor.
      *
-     * @since. 1.0.0
+     * @param ApplicationAbstract $app Application
+     *
+     * @since 1.0.0
      */
-    public function __construct()
+    public function __construct(ApplicationAbstract $app)
     {
+        $this->app = $app;
     }
 
     /**
@@ -85,31 +96,30 @@ final class ApplicationManager
     public function install(string $source, string $destination, string $theme = 'Default') : bool
     {
         $destination = \rtrim($destination, '\\/');
+        $source      = \rtrim($source, '/\\');
+
         if (!\is_dir($source) || \is_dir($destination)) {
             return false;
         }
 
-        $app                                         = $this->loadInfo(\rtrim($source, '/\\') . '/info.json');
-        $this->applications[$app->getInternalName()] = $app;
-
-        $this->installFiles($source, $destination);
-        $this->installTheme($destination, $theme);
-
-        $files = Directory::list($destination, '*', true);
-        foreach ($files as $file) {
-            if (!\is_file($destination . '/' . $file)) {
-                continue;
-            }
-
-            $content = \file_get_contents($destination . '/' . $file);
-            if ($content === false) {
-                continue; // @codeCoverageIgnore
-            }
-
-            \file_put_contents($destination . '/' . $file, \str_replace('{APPNAME}', \basename($destination), $content));
+        if (!\is_file($source . '/Admin/Installer.php')) {
+            return false;
         }
 
-        return true;
+        try {
+            $info                                         = $this->loadInfo($source . '/info.json');
+            $this->applications[$info->getInternalName()] = $info;
+
+            $this->installFiles($source, $destination);
+            $this->replacePlaceholder($destination);
+
+            $class = '\\Web\\' . $info->getInternalName() . '\\Admin\\Installer';
+            $class::install($this->app->dbPool, $info, $this->app->appSettings);
+
+            return true;
+        } catch (\Throwable $t) {
+            return false; // @codeCoverageIgnore
+        }
     }
 
     /**
@@ -128,36 +138,28 @@ final class ApplicationManager
     }
 
     /**
-     * Install the theme
+     * Replace placeholder string (application placeholder name)
      *
      * @param string $destination Destination of the application
-     * @param string $theme       Theme name
      *
      * @return void
      *
      * @since 1.0.0
      */
-    private function installTheme(string $destination, string $theme) : void
+    private function replacePlaceholder(string $destination) : void
     {
-        if (!\is_dir($path = $destination . '/Themes/' . $theme)) {
-            return;
-        }
-
-        $dirs = \scandir($path);
-        foreach ($dirs as $dir) {
-            if (!\is_dir($path. '/' . $dir) || $dir === '.' || $dir === '..') {
+        $files = Directory::list($destination, '*', true);
+        foreach ($files as $file) {
+            if (!\is_file($destination . '/' . $file)) {
                 continue;
             }
 
-            if (\is_dir($destination . '/' . $dir)) {
-                Directory::delete($destination . '/' . $dir);
+            $content = \file_get_contents($destination . '/' . $file);
+            if ($content === false) {
+                continue; // @codeCoverageIgnore
             }
 
-            Directory::copy(
-                $destination . '/Themes/' . $theme . '/' . $dir,
-                $destination . '/' . $dir,
-                true
-            );
+            \file_put_contents($destination . '/' . $file, \str_replace('{APPNAME}', \basename($destination), $content));
         }
     }
 }
