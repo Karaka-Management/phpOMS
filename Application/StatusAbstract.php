@@ -35,4 +35,22 @@ use phpOMS\Utils\Parser\Php\ArrayParser;
  */
 abstract class StatusAbstract
 {
+    /**
+     * Deactivate module in database.
+     *
+     * @param DatabasePool $dbPool Database instance
+     * @param ModuleInfo   $info   Module info
+     *
+     * @return void
+     *
+     * @since 1.0.0
+     */
+    public static function deactivateInDatabase(DatabasePool $dbPool, ModuleInfo $info) : void
+    {
+        $query = new Builder($dbPool->get('update'));
+        $query->update('app')
+            ->sets('app.app_active', ModuleStatus::INACTIVE)
+            ->where('app.app_id', '=', $info->getInternalName())
+            ->execute();
+    }
 }
