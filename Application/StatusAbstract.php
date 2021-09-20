@@ -4,7 +4,7 @@
  *
  * PHP Version 8.0
  *
- * @package   phpOMS\Module
+ * @package   phpOMS\Application
  * @copyright Dennis Eichhorn
  * @license   OMS License 1.0
  * @version   1.0.0
@@ -12,7 +12,7 @@
  */
 declare(strict_types=1);
 
-namespace phpOMS\Module;
+namespace phpOMS\Application;
 
 use phpOMS\Application\ApplicationInfo;
 use phpOMS\DataStorage\Database\DatabasePool;
@@ -29,7 +29,7 @@ use phpOMS\Utils\Parser\Php\ArrayParser;
  *
  * This abstraction can be used by modules in order to manipulate their basic status/state.
  *
- * @package phpOMS\Module
+ * @package phpOMS\Application
  * @license OMS License 1.0
  * @link    https://orange-management.org
  * @since   1.0.0
