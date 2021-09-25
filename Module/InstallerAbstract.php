@@ -31,46 +31,6 @@ use phpOMS\DataStorage\Database\Schema\Builder as SchemaBuilder;
 abstract class InstallerAbstract
 {
     /**
-     * Register module in database.
-     *
-     * @param DatabasePool $dbPool Database instance
-     * @param ModuleInfo   $info   Module info
-     *
-     * @return void
-     *
-     * @since 1.0.0
-     */
-    public static function registerInDatabase(DatabasePool $dbPool, ModuleInfo $info) : void
-    {
-        $queryModule = new Builder($dbPool->get('insert'));
-        $queryModule->insert('module_id', 'module_theme', 'module_path', 'module_active', 'module_version')
-            ->into('module')
-            ->values($info->getInternalName(), 'Default', $info->getDirectory(), 0, $info->getVersion())
-            ->execute();
-
-        $queryLoad = new Builder($dbPool->get('insert'));
-        $queryLoad->insert('module_load_pid', 'module_load_type', 'module_load_from', 'module_load_for', 'module_load_file')
-            ->into('module_load');
-
-        $load = $info->getLoad();
-        foreach ($load as $val) {
-            foreach ($val['pid'] as $pid) {
-                $queryLoad->values(
-                    \sha1(\str_replace('/', '', $pid)),
-                    (int) $val['type'],
-                    $val['from'],
-                    $val['for'],
-                    $val['file']
-                );
-            }
-        }
-
-        if (!empty($queryLoad->getValues())) {
-            $queryLoad->execute();
-        }
-    }
-
-    /**
      * Install module.
      *
      * @param DatabasePool      $dbPool     Database instance
@@ -84,7 +44,6 @@ abstract class InstallerAbstract
     public static function install(DatabasePool $dbPool, ModuleInfo $info, SettingsInterface $cfgHandler) : void
     {
         self::createTables($dbPool, $info);
-        self::registerInDatabase($dbPool, $info);
         self::installSettings($dbPool, $info, $cfgHandler);
         self::activate($dbPool, $info);
     }
@@ -99,6 +58,7 @@ abstract class InstallerAbstract
      * @return void
      *
      * @since 1.0.0
+     * @todo move to admin module as providing option (like media providing `Admin.install.php` instead of Settings.install.php)
      */
     public static function installSettings(DatabasePool $dbPool, ModuleInfo $info, SettingsInterface $cfgHandler) : void
     {

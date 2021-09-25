@@ -19,6 +19,7 @@ use phpOMS\Config\SettingsInterface;
 use phpOMS\DataStorage\Database\DatabasePool;
 use phpOMS\DataStorage\Database\Query\Builder;
 use phpOMS\DataStorage\Database\Schema\Builder as SchemaBuilder;
+use phpOMS\System\File\Local\Directory;
 
 /**
  * Installer abstract class.
@@ -44,28 +45,9 @@ abstract class InstallerAbstract
     public static function install(DatabasePool $dbPool, ApplicationInfo $info, SettingsInterface $cfgHandler) : void
     {
         self::createTables($dbPool, $info);
-        self::registerInDatabase($dbPool, $info);
         self::installSettings($dbPool, $info, $cfgHandler);
         self::activate($dbPool, $info);
-    }
-
-    /**
-     * Register app in database.
-     *
-     * @param DatabasePool    $dbPool Database instance
-     * @param ApplicationInfo $info   App info
-     *
-     * @return void
-     *
-     * @since 1.0.0
-     */
-    public static function registerInDatabase(DatabasePool $dbPool, ApplicationInfo $info) : void
-    {
-        $queryApp = new Builder($dbPool->get('insert'));
-        $queryApp->insert('app_name', 'app_theme', 'app_status')
-            ->into('app')
-            ->values($info->getInternalName(), 'Default', ApplicationStatus::NORMAL)
-            ->execute();
+        self::installTheme(__DIR__ . '/../../Web/' . $info->getInternalName(), 'Default');
     }
 
     /**
@@ -184,7 +166,7 @@ abstract class InstallerAbstract
     public static function reInit(ApplicationInfo $info) : void
     {
         $class = '\\Web\\' . $info->getInternalName() . '\\Admin\\Status';
-        $class::activateRoutes($appInfo);
-        $class::activateHooks($appInfo);
+        $class::activateRoutes($info);
+        $class::activateHooks($info);
     }
 }

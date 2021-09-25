@@ -50,7 +50,6 @@ abstract class StatusAbstract
     {
         self::activateRoutes($info);
         self::activateHooks($info);
-        self::activateInDatabase($dbPool, $info);
     }
 
     /**
@@ -215,25 +214,6 @@ abstract class StatusAbstract
     }
 
     /**
-     * Deactivate module in database.
-     *
-     * @param DatabasePool $dbPool Database instance
-     * @param ModuleInfo   $info   Module info
-     *
-     * @return void
-     *
-     * @since 1.0.0
-     */
-    public static function activateInDatabase(DatabasePool $dbPool, ModuleInfo $info) : void
-    {
-        $query = new Builder($dbPool->get('update'));
-        $query->update('module')
-            ->sets('module.module_active', ModuleStatus::ACTIVE)
-            ->where('module.module_id', '=', $info->getInternalName())
-            ->execute();
-    }
-
-    /**
      * Deactivate module.
      *
      * @param DatabasePool $dbPool Database instance
@@ -247,7 +227,6 @@ abstract class StatusAbstract
     {
         self::deactivateRoutes($info);
         self::deactivateHooks($info);
-        self::deactivateInDatabase($dbPool, $info);
     }
 
     /**
@@ -400,24 +379,5 @@ abstract class StatusAbstract
         $appHooks = ArrayUtils::array_diff_assoc_recursive($appHooks, $moduleHooks);
 
         \file_put_contents($destHookPath, '<?php return ' . ArrayParser::serializeArray($appHooks) . ';', \LOCK_EX);
-    }
-
-    /**
-     * Deactivate module in database.
-     *
-     * @param DatabasePool $dbPool Database instance
-     * @param ModuleInfo   $info   Module info
-     *
-     * @return void
-     *
-     * @since 1.0.0
-     */
-    public static function deactivateInDatabase(DatabasePool $dbPool, ModuleInfo $info) : void
-    {
-        $query = new Builder($dbPool->get('update'));
-        $query->update('module')
-            ->sets('module.module_active', ModuleStatus::INACTIVE)
-            ->where('module.module_id', '=', $info->getInternalName())
-            ->execute();
     }
 }

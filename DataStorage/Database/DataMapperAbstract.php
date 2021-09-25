@@ -638,7 +638,7 @@ class DataMapperAbstract implements DataMapperInterface
             return -1;
         }
 
-        $objId = self::$db->con->lastInsertId();
+        $objId = empty($id = self::getObjectId($obj, $refClass)) ? self::$db->con->lastInsertId() : $id;
         \settype($objId, static::$columns[static::$primaryField]['type']);
 
         return $objId;

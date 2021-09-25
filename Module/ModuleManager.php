@@ -163,7 +163,7 @@ final class ModuleManager
                 ->from('module_load')
                 ->innerJoin('module')->on('module_load.module_load_from', '=', 'module.module_id')->orOn('module_load.module_load_for', '=', 'module.module_id')
                 ->whereIn('module_load.module_load_pid', $uriHash)
-                ->andWhere('module.module_active', '=', 1)
+                ->andWhere('module.module_status', '=', ModuleStatus::ACTIVE)
                 ->execute();
 
             $this->uriLoad = $sth->fetchAll(\PDO::FETCH_GROUP);
@@ -187,7 +187,7 @@ final class ModuleManager
             $query = new Builder($this->app->dbPool->get('select'));
             $sth   = $query->select('module.module_path')
                 ->from('module')
-                ->where('module.module_active', '=', 1)
+                ->where('module.module_status', '=', ModuleStatus::ACTIVE)
                 ->execute();
 
             $active = $sth->fetchAll(\PDO::FETCH_COLUMN);
@@ -207,6 +207,20 @@ final class ModuleManager
         }
 
         return $this->active;
+    }
+
+    /**
+     * Is module installed
+     *
+     * @param string $module Module name
+     *
+     * @return bool
+     *
+     * @since 1.0.0
+     */
+    public function isInstalled(string $module) : bool
+    {
+        return isset($this->getInstalledModules(false)[$module]);
     }
 
     /**
@@ -296,6 +310,7 @@ final class ModuleManager
             $query = new Builder($this->app->dbPool->get('select'));
             $sth   = $query->select('module.module_path')
                 ->from('module')
+                ->where('module_status', '!=', ModuleStatus::AVAILABLE)
                 ->execute();
 
             $installed = $sth->fetchAll(\PDO::FETCH_COLUMN);
@@ -495,7 +510,6 @@ final class ModuleManager
             }
 
             $this->installed[$module] = $info;
-            $this->installDependencies($info->getDependencies());
             $this->installModule($info);
 
             /* Install providing but only if receiving module is already installed */
@@ -572,22 +586,6 @@ final class ModuleManager
             return true;
         } catch (\Throwable $t) {
             return false;
-        }
-    }
-
-    /**
-     * Install module dependencies.
-     *
-     * @param array<string, string> $dependencies Module dependencies
-     *
-     * @return void
-     *
-     * @since 1.0.0
-     */
-    private function installDependencies(array $dependencies) : void
-    {
-        foreach ($dependencies as $key => $version) {
-            $this->install($key);
         }
     }
 

@@ -16,6 +16,10 @@ namespace phpOMS\Application;
 
 use phpOMS\DataStorage\Database\DatabasePool;
 use phpOMS\DataStorage\Database\Query\Builder;
+use phpOMS\Utils\Parser\Php\ArrayParser;
+use phpOMS\System\File\PermissionException;
+use phpOMS\System\File\PathException;
+use phpOMS\Utils\ArrayUtils;
 
 /**
  * Status abstract class.
@@ -43,7 +47,6 @@ abstract class StatusAbstract
     {
         self::activateRoutes($info);
         self::activateHooks($info);
-        self::activateInDatabase($dbPool, $info);
     }
 
     /**
@@ -268,25 +271,6 @@ abstract class StatusAbstract
     }
 
     /**
-     * Deactivate app in database.
-     *
-     * @param DatabasePool $dbPool Database instance
-     * @param ApplicationInfo   $info   Module info
-     *
-     * @return void
-     *
-     * @since 1.0.0
-     */
-    public static function activateInDatabase(DatabasePool $dbPool, ApplicationInfo $info) : void
-    {
-        $query = new Builder($dbPool->get('update'));
-        $query->update('app')
-            ->sets('app.app_status', ApplicationStatus::NORMAL)
-            ->where('app.app_name', '=', $info->getInternalName())
-            ->execute();
-    }
-
-    /**
      * Deactivate app.
      *
      * @param DatabasePool $dbPool Database instance
@@ -300,25 +284,5 @@ abstract class StatusAbstract
     {
         self::deactivateRoutes($info);
         self::deactivateHooks($info);
-        self::deactivateInDatabase($dbPool, $info);
-    }
-
-    /**
-     * Deactivate app in database.
-     *
-     * @param DatabasePool $dbPool Database instance
-     * @param ApplicationInfo   $info   Module info
-     *
-     * @return void
-     *
-     * @since 1.0.0
-     */
-    public static function deactivateInDatabase(DatabasePool $dbPool, ApplicationInfo $info) : void
-    {
-        $query = new Builder($dbPool->get('update'));
-        $query->update('app')
-            ->sets('app.app_status', ApplicationStatus::DISABLED)
-            ->where('app.app_name', '=', $info->getInternalName())
-            ->execute();
     }
 }
