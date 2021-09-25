@@ -31,8 +31,8 @@ abstract class UninstallerAbstract
     /**
      * Install module.
      *
-     * @param DatabasePool $dbPool Database instance
-     * @param ApplicationInfo   $info   App info
+     * @param DatabasePool    $dbPool Database instance
+     * @param ApplicationInfo $info   App info
      *
      * @return void
      *
@@ -48,8 +48,8 @@ abstract class UninstallerAbstract
     /**
      * Activate after install.
      *
-     * @param DatabasePool $dbPool Database instance
-     * @param ApplicationInfo   $info   App info
+     * @param DatabasePool    $dbPool Database instance
+     * @param ApplicationInfo $info   App info
      *
      * @return void
      *
@@ -65,8 +65,8 @@ abstract class UninstallerAbstract
     /**
      * Drop tables of app.
      *
-     * @param DatabasePool $dbPool Database instance
-     * @param ApplicationInfo   $info   App info
+     * @param DatabasePool    $dbPool Database instance
+     * @param ApplicationInfo $info   App info
      *
      * @return void
      *
@@ -98,8 +98,8 @@ abstract class UninstallerAbstract
     /**
      * Unregister app from database.
      *
-     * @param DatabasePool $dbPool Database instance
-     * @param ApplicationInfo   $info   App info
+     * @param DatabasePool    $dbPool Database instance
+     * @param ApplicationInfo $info   App info
      *
      * @return void
      *

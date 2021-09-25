@@ -14,7 +14,6 @@ declare(strict_types=1);
 
 namespace phpOMS\Application;
 
-use phpOMS\Application\ApplicationInfo;
 use phpOMS\Config\SettingsInterface;
 use phpOMS\DataStorage\Database\DatabasePool;
 use phpOMS\DataStorage\Database\Query\Builder;
@@ -34,7 +33,7 @@ abstract class InstallerAbstract
      * Install app.
      *
      * @param DatabasePool      $dbPool     Database instance
-     * @param ApplicationInfo        $info       App info
+     * @param ApplicationInfo   $info       App info
      * @param SettingsInterface $cfgHandler Settings/Configuration handler
      *
      * @return void
@@ -158,8 +157,8 @@ abstract class InstallerAbstract
     /**
      * Activate after install.
      *
-     * @param DatabasePool $dbPool Database instance
-     * @param ApplicationInfo   $info   App info
+     * @param DatabasePool    $dbPool Database instance
+     * @param ApplicationInfo $info   App info
      *
      * @return void
      *
