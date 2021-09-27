@@ -101,7 +101,7 @@ class Zip implements ArchiveInterface
      */
     public static function unpack(string $source, string $destination) : bool
     {
-        if (!\is_file($source) || \is_dir($destination)) {
+        if (!\is_file($source) || !\is_dir($destination)) {
             return false;
         }
 
