@@ -36,8 +36,8 @@ abstract class StatusAbstract
     /**
      * Deactivate app.
      *
-     * @param DatabasePool $dbPool Database instance
-     * @param ApplicationInfo   $info   Module info
+     * @param DatabasePool    $dbPool Database instance
+     * @param ApplicationInfo $info   Module info
      *
      * @return void
      *
@@ -273,8 +273,8 @@ abstract class StatusAbstract
     /**
      * Deactivate app.
      *
-     * @param DatabasePool $dbPool Database instance
-     * @param ApplicationInfo   $info   Module info
+     * @param DatabasePool    $dbPool Database instance
+     * @param ApplicationInfo $info   Module info
      *
      * @return void
      *
