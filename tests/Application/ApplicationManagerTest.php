@@ -53,6 +53,7 @@ class ApplicationManagerTest extends \PHPUnit\Framework\TestCase
             public function get(
                 mixed $ids = null,
                 string | array $names = null,
+                int $app = null,
                 string $module = null,
                 int $group = null,
                 int $account = null
@@ -69,7 +70,7 @@ class ApplicationManagerTest extends \PHPUnit\Framework\TestCase
 
         $app->moduleManager = new ModuleManager($app, __DIR__ . '/../../../Modules/');
 
-        $this->appManager = new ApplicationManager();
+        $this->appManager = new ApplicationManager($app);
     }
 
     /**

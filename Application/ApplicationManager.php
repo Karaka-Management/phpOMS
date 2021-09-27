@@ -40,12 +40,12 @@ final class ApplicationManager
     private ApplicationAbstract $app;
 
     /**
-     * Applications
+     * Installed modules.
      *
-     * @var ApplicationInfo[]
+     * @var array<string, ApplicationInfo>
      * @since 1.0.0
      */
-    private array $applications = [];
+    private array $installed = [];
 
     /**
      * Constructor.
@@ -107,8 +107,8 @@ final class ApplicationManager
         }
 
         try {
-            $info                                         = $this->loadInfo($source . '/info.json');
-            $this->applications[$info->getInternalName()] = $info;
+            $info                                      = $this->loadInfo($source . '/info.json');
+            $this->installed[$info->getInternalName()] = $info;
 
             $this->installFiles($source, $destination);
             $this->replacePlaceholder($destination);
@@ -120,6 +120,55 @@ final class ApplicationManager
         } catch (\Throwable $t) {
             return false; // @codeCoverageIgnore
         }
+    }
+
+    public function getProvidingForModule(string $module) : array
+    {
+        $providing = [];
+        $installed = $this->getInstalledApplications();
+
+        foreach ($installed as $app => $info) {
+            if (!isset($providing[$app])) {
+                $providing[$app] = [];
+            }
+
+            $appProviding = $info->getProviding();
+            foreach ($appProviding as $for => $version) {
+                if ($for !== $module) {
+                    continue;
+                }
+
+                $providing[$app][] = $for;
+            }
+        }
+
+        return $providing;
+    }
+
+     /**
+     * Get all installed modules.
+     *
+     * @param bool $useCache Use Cache
+     *
+     * @return array<string, ModuleInfo>
+     *
+     * @since 1.0.0
+     */
+    public function getInstalledApplications(bool $useCache = true) : array
+    {
+        if (empty($this->installed) || !$useCache) {
+            $apps = \scandir(__DIR__ . '/../../Web');
+
+            foreach ($apps as $app) {
+                if ($app === '.' || $app === '..' || !\is_file(__DIR__ . '/../../Web/' . $app . '/info.json')) {
+                    continue;
+                }
+
+                $this->installed[$app] = $this->loadInfo(__DIR__ . '/../../Web/' . $app . '/info.json');
+            }
+        }
+
+        return $this->installed;
     }
 
     /**

@@ -104,10 +104,6 @@ final class Weighted
      *
      * @return JobInterface[]
      *
-     * @todo Orange-Management/phpOMS#244
-     *  [JobScheduling] Implement test for Jobs with same value.
-     *  There is no test case for the else clause in the `solve` function. Implement it.
-     *
      * @since 1.0.0
      */
     public static function solve(array $jobs) : array

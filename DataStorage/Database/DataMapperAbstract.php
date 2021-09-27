@@ -32,52 +32,17 @@ use phpOMS\Utils\ArrayUtils;
  * @link    https://orange-management.org
  * @since   1.0.0
  *
- * @todo Orange-Management/phpOMS#122
- *  Split/Refactor.
- *  Child extends parent. Parent creates GetMapper, CreateMapper etc.
- *  Example:
- *  ```User::get(...)```
- *  The get() function (defined in an abstract class) creates internally an instance of GetMapper.
- *  The GetMapper receives all information such as primaryField, columns etc internally from the get().
- *  This transfer of knowledge to the GetMapper could be done in the abstract class as a setup() function.
- *  Now all mappers are split. The overhead is one additional function call and the setup() function.
- *  Alternatively, think about using traits in the beginning.
- *
- * @todo Orange-Management/Modules#99
- *  Use binds
- *  Currently databinds are not used. Currently injections are possible.
- *
- * @todo Orange-Management/phpOMS#241
- *  [DataMapper] Consider global conditionals
- *  In some cases conditionals in the mapper are typed again and again
- *      e.g. language conditional for localization purposes
- *  This is very annoying and maybe could be defined once in a `$conditionalsGlobal = [];` array.
- *  This array then populates the `$conditionals` array in the mapper.
- *  Overwriting the global conditionals could be possible by defining a conditional as `null`.
- *
  * @todo Orange-Management/phpOMS#242
  *  [DataMapper] Conditional queries bugs/problems
  *  Corrupted conditional relations are not shown and therefor cannot be fixed by the user e.g.
  *      * Tag is created
  *      * No l11n is created
- *  -> The tags without l11n are not shown in the list and therefor the user doesn't know about them and cannot fix them.
+ *  -> The tags without l11n are not shown in the list and therefor the user doesn't know about them and cannot fix them. (wrong join type?)
  *  If the defined conditional doesn't exist (e.g. language) the element is not shown at all.
  *  This can be a problem if the user wants the conditional as preferred result
  *  but also accepts alternatives if nothing exists for this conditional but for other conditionals. E.g.
  *      * News article doesn't exist in the defined l11n
  *      * However if the article exists in english language it should at least show in that language.
- *
- * @todo Orange-Management/phpOMS#???
- *  Use more column/field names instead of model variable names
- *  Consider to replace the model member variable name in the `column` definition of hasMany etc. definitions with the actual column name. This could be faster.
- *  This could make it faster since we don't need to do a reverse look up.
- *  Maybe this will require us to do a different lookup however which costs a similar amount of time?
- *
- * @todo Orange-Management/phpOMS#???
- *  Concise usage of runtime evaluations vs hard-coded definitions
- *  Most of the time we are using Mapper::class etc. but there are still places where we use 'table' => 'table_name' instead of Mapper::$table.
- *  The Mapper::$table approach is probably better for future code changes but makes it probably also slower.
- *  We really need to decide to follow one path and implement this everywhere.
  */
 class DataMapperAbstract implements DataMapperInterface
 {

@@ -139,14 +139,13 @@ final class Autoloader
     /**
      * Invalidate a already loaded file
      *
-     * IMPORTANT: This does not reload an already loaded file
+     * IMPORTANT: This does not reload an already loaded file, this is not possible.
      *
      * @param string $class Class to invalidate
      *
      * @return bool
      *
      * @since 1.0.0
-     * @todo Find a way to re-load aready loaded files. This can be important for changed scripts
      */
     public static function invalidate(string $class) : bool
     {

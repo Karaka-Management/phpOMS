@@ -148,13 +148,7 @@ final class Kmeans
 
             foreach ($clusterCenters as $center) {
                 for ($i = 0; $i < $coordinates; ++$i) {
-                    /**
-                     * @todo Orange-Management/phpOMS#229
-                     *  Invalid center coodinate value
-                     *  In some cases the center point of a cluster belongs to the group 0 in this case the coordinate value is not working correctly.
-                     *  As a quick fix the value is set to `1` in such a case but probably has multiple side effects.
-                     *  Maybe it makes sense to just use `$center->group + 1` or set the value to `0`.
-                     */
+                    // @todo Invalid center coodinate value in like 5 % of the runs
                     $center->setCoordinate($i, $center->getCoordinate($i) / ($center->group === 0 ? 1 : $center->group));
                 }
             }

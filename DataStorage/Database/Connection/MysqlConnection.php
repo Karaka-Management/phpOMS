@@ -16,7 +16,6 @@ namespace phpOMS\DataStorage\Database\Connection;
 
 use phpOMS\DataStorage\Database\DatabaseStatus;
 use phpOMS\DataStorage\Database\DatabaseType;
-use phpOMS\DataStorage\Database\Exception\InvalidConnectionConfigException;
 use phpOMS\DataStorage\Database\Query\Grammar\MysqlGrammar;
 use phpOMS\DataStorage\Database\Schema\Grammar\MysqlGrammar as MysqlSchemaGrammar;
 

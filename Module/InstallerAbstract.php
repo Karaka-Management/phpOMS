@@ -44,34 +44,7 @@ abstract class InstallerAbstract
     public static function install(DatabasePool $dbPool, ModuleInfo $info, SettingsInterface $cfgHandler) : void
     {
         self::createTables($dbPool, $info);
-        self::installSettings($dbPool, $info, $cfgHandler);
         self::activate($dbPool, $info);
-    }
-
-    /**
-     * Install module settings.
-     *
-     * @param DatabasePool      $dbPool     Database instance
-     * @param ModuleInfo        $info       Module info
-     * @param SettingsInterface $cfgHandler Settings/Configuration handler
-     *
-     * @return void
-     *
-     * @since 1.0.0
-     * @todo move to admin module as providing option (like media providing `Admin.install.php` instead of Settings.install.php)
-     */
-    public static function installSettings(DatabasePool $dbPool, ModuleInfo $info, SettingsInterface $cfgHandler) : void
-    {
-        $path = \dirname($info->getPath()) . '/Admin/Install/Settings.install.php';
-        if (!\is_file($path)) {
-            return;
-        }
-
-        $settings = include $path;
-
-        foreach ($settings as $setting) {
-            $cfgHandler->create($setting);
-        }
     }
 
     /**

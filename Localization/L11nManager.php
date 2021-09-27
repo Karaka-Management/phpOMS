@@ -96,6 +96,29 @@ final class L11nManager
     }
 
     /**
+     * Load language file which contains multiple languages.
+     *
+     * @param string $from     Module name
+     * @param string $file     File to import language from
+     *
+     * @return void
+     *
+     * @since 1.0.0
+     */
+    public function loadLanguageFile(string $from, string $file) : void
+    {
+        if (!\is_file($file)) {
+            return;
+        }
+
+        /** @noinspection PhpIncludeInspection */
+        $lang = include $file;
+
+        foreach ($lang as $code => $translation)
+        $this->loadLanguage($code, $from, $translation);
+    }
+
+    /**
      * Load language from file.
      *
      * One module can only be loaded once. Once the module got loaded it's not

@@ -189,7 +189,6 @@ final class BasicOcr
     {
         $predictedLabels = [];
         foreach ($Xtest as $sample) {
-            // @todo: consider to path the k-limit to the getDistances function for earlier filtering
             $distances = $this->getDistances($Xtrain, $sample);
             \asort($distances);
 

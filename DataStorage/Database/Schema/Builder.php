@@ -68,20 +68,22 @@ class Builder extends QueryBuilder
     public array $selectTables = ['*'];
 
     /**
+     * Always calls compileCreateTableSettings in the Grammar
+     *
+     * This is important to set the correct table settings (e.g. utf8mb4 instead of utf8)
+     *
+     * @var bool
+     * @since 1.0.0
+     */
+    public bool $createTableSettings = true;
+
+    /**
      * Select fields.
      *
      * @var string
      * @since 1.0.0
      */
     public string $selectFields = '';
-
-    /**
-     * @todo: ?????.
-     *
-     * @var bool
-     * @since 1.0.0
-     */
-    public bool $createTableSettings = true;
 
     /**
      * Table to alter.
