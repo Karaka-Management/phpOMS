@@ -34,12 +34,14 @@ class Tar implements ArchiveInterface
     public static function pack(string | array $sources, string $destination, bool $overwrite = false) : bool
     {
         $destination = FileUtils::absolute(\str_replace('\\', '/', $destination));
-        if (!$overwrite && \is_file($destination)) {
+        if ((!$overwrite && \is_file($destination))
+            || \is_dir($destination)
+        ) {
             return false;
         }
 
         if (\is_string($sources)) {
-            $sources = [$sources];
+            $sources = [$sources => ''];
         }
 
         $tar = new \PharData($destination);
@@ -52,7 +54,7 @@ class Tar implements ArchiveInterface
                 $source = $relative;
             }
 
-            $source   = \str_replace('\\', '/', $source);
+            $source   = FileUtils::absolute(\str_replace('\\', '/', $source));
             $relative = \str_replace('\\', '/', $relative);
 
             if (\is_dir($source)) {
@@ -73,7 +75,7 @@ class Tar implements ArchiveInterface
 
                     $absolute = \realpath($file);
                     $absolute = \str_replace('\\', '/', (string) $absolute);
-                    $dir      = \rtrim($relative, '/\\') . '/' . \ltrim(\str_replace($source . '/', '', $absolute), '/\\');
+                    $dir      = \ltrim(\rtrim($relative, '/\\') . '/' . \ltrim(\str_replace($source . '/', '', $absolute), '/\\'), '/\\');
 
                     if (\is_dir($absolute)) {
                         $tar->addEmptyDir($dir . '/');
