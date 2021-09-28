@@ -147,7 +147,7 @@ final class ApplicationManager
         return $providing;
     }
 
-     /**
+    /**
      * Get all installed modules.
      *
      * @param bool $useCache Use Cache

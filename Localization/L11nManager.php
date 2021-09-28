@@ -98,8 +98,8 @@ final class L11nManager
     /**
      * Load language file which contains multiple languages.
      *
-     * @param string $from     Module name
-     * @param string $file     File to import language from
+     * @param string $from Module name
+     * @param string $file File to import language from
      *
      * @return void
      *

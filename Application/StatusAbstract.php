@@ -15,11 +15,10 @@ declare(strict_types=1);
 namespace phpOMS\Application;
 
 use phpOMS\DataStorage\Database\DatabasePool;
-use phpOMS\DataStorage\Database\Query\Builder;
-use phpOMS\Utils\Parser\Php\ArrayParser;
-use phpOMS\System\File\PermissionException;
 use phpOMS\System\File\PathException;
+use phpOMS\System\File\PermissionException;
 use phpOMS\Utils\ArrayUtils;
+use phpOMS\Utils\Parser\Php\ArrayParser;
 
 /**
  * Status abstract class.
