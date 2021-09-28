@@ -113,7 +113,9 @@ final class ApplicationManager
             $this->installFiles($source, $destination);
             $this->replacePlaceholder($destination);
 
-            $class = '\\Web\\' . $info->getInternalName() . '\\Admin\\Installer';
+            $classPath = \substr(\realpath($destination) . '/Admin/Installer', \strlen(\realpath(__DIR__ . '/../../')));
+
+            $class = \str_replace('/', '\\', $classPath);
             $class::install($this->app->dbPool, $info, $this->app->appSettings);
 
             return true;
@@ -149,22 +151,23 @@ final class ApplicationManager
      * Get all installed modules.
      *
      * @param bool $useCache Use Cache
+     * @param string $basePath Base path for the applications
      *
      * @return array<string, ModuleInfo>
      *
      * @since 1.0.0
      */
-    public function getInstalledApplications(bool $useCache = true) : array
+    public function getInstalledApplications(bool $useCache = true, string $basePath = __DIR__ . '/../../Web') : array
     {
         if (empty($this->installed) || !$useCache) {
-            $apps = \scandir(__DIR__ . '/../../Web');
+            $apps = \scandir($basePath);
 
             foreach ($apps as $app) {
-                if ($app === '.' || $app === '..' || !\is_file(__DIR__ . '/../../Web/' . $app . '/info.json')) {
+                if ($app === '.' || $app === '..' || !\is_file($basePath . '/' . $app . '/info.json')) {
                     continue;
                 }
 
-                $this->installed[$app] = $this->loadInfo(__DIR__ . '/../../Web/' . $app . '/info.json');
+                $this->installed[$app] = $this->loadInfo($basePath . '/' . $app . '/info.json');
             }
         }
 

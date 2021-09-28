@@ -33,6 +33,7 @@ use phpOMS\Utils\ArrayUtils;
  */
 abstract class StatusAbstract
 {
+    public const PATH = '';
     /**
      * Deactivate app.
      *
@@ -62,7 +63,7 @@ abstract class StatusAbstract
      */
     public static function activateRoutes(ApplicationInfo $appInfo = null) : void
     {
-        self::installRoutes(__DIR__ . '/../../Web/' . $appInfo->getInternalName() . '/Routes.php', __DIR__ . '/../../Web/' . $appInfo->getInternalName() . '/Admin/Install/Application/Routes.php');
+        self::installRoutes(static::PATH . '/../Routes.php', static::PATH . '/../Admin/Install/Application/Routes.php');
     }
 
     /**
@@ -78,7 +79,7 @@ abstract class StatusAbstract
      */
     public static function activateHooks(ApplicationInfo $appInfo = null) : void
     {
-        self::installRoutes(__DIR__ . '/../../Web/' . $appInfo->getInternalName() . '/Hooks.php', __DIR__ . '/../../Web/' . $appInfo->getInternalName() . '/Admin/Install/Application/Hooks.php');
+        self::installRoutes(static::PATH . '/../Hooks.php', static::PATH . '/../Admin/Install/Application/Hooks.php');
     }
 
     /**
@@ -175,7 +176,7 @@ abstract class StatusAbstract
      */
     public static function deactivateRoutes(ApplicationInfo $appInfo) : void
     {
-        self::installRoutes(__DIR__ . '/../../Web/' . $appInfo->getInternalName() . '/Routes.php', __DIR__ . '/../../Web/' . $appInfo->getInternalName() . '/Admin/Install/Application/Routes.php');
+        self::installRoutes(static::PATH . '/../Routes.php', static::PATH . '/../Admin/Install/Application/Routes.php');
     }
 
     /**
@@ -191,7 +192,7 @@ abstract class StatusAbstract
      */
     public static function deactivateHooks(ApplicationInfo $appInfo) : void
     {
-        self::installRoutes(__DIR__ . '/../../Web/' . $appInfo->getInternalName() . '/Hooks.php', __DIR__ . '/../../Web/' . $appInfo->getInternalName() . '/Admin/Install/Application/Hooks.php');
+        self::installRoutes(static::PATH . '/../Hooks.php', static::PATH . '/../Admin/Install/Application/Hooks.php');
     }
 
     /**

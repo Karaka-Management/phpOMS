@@ -112,11 +112,11 @@ class BuilderTest extends \PHPUnit\Framework\TestCase
         self::assertEquals($sql, $query->select('a.test')->from('a')->where('a.test', '=', 1)->orderBy('a.test', 'ASC')->toSql());
 
         $query = new Builder($this->con);
-        $sql   = 'SELECT `a`.`test` FROM `a` WHERE `a`.`test` = 1 ORDER BY `a`.`test`, `a`.`test2` DESC;';
+        $sql   = 'SELECT `a`.`test` FROM `a` WHERE `a`.`test` = 1 ORDER BY `a`.`test` DESC, `a`.`test2` DESC;';
         self::assertEquals($sql, $query->select('a.test')->from('a')->where('a.test', '=', 1)->orderBy(['a.test', 'a.test2'], ['DESC', 'DESC'])->toSql());
 
         $query = new Builder($this->con);
-        $sql   = 'SELECT `a`.`test` FROM `a` WHERE `a`.`test` = 1 ORDER BY `a`.`test`, `a`.`test2` ASC;';
+        $sql   = 'SELECT `a`.`test` FROM `a` WHERE `a`.`test` = 1 ORDER BY `a`.`test` ASC, `a`.`test2` ASC;';
         self::assertEquals($sql, $query->select('a.test')->from('a')->where('a.test', '=', 1)->orderBy(['a.test', 'a.test2'], 'ASC')->toSql());
     }
 
@@ -507,17 +507,5 @@ class BuilderTest extends \PHPUnit\Framework\TestCase
 
         $query = new Builder($this->con, true);
         $query->join('b')->on('a', 'invalid', 'b');
-    }
-
-    /**
-     * @testdox Invalid order column types throw a InvalidArgumentException
-     * @group framework
-     */
-    public function testInvalidOrderColumnType() : void
-    {
-        $this->expectException(\InvalidArgumentException::class);
-
-        $query = new Builder($this->con, true);
-        $query->orderBy('valid', ['invalid']);
     }
 }

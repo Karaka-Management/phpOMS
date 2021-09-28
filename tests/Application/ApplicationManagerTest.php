@@ -101,9 +101,7 @@ class ApplicationManagerTest extends \PHPUnit\Framework\TestCase
      */
     public function testMissingApplicationInfoFile() : void
     {
-        $this->expectException(\phpOMS\System\File\PathException::class);
-
-        self::assertFalse($this->appManager->install(__DIR__, __DIR__ . '/newapp'));
+        self::assertFalse($this->appManager->install(__DIR__, __DIR__ . '/newapp', __DIR__ . '/Apps/newapp'));
     }
 
     /**

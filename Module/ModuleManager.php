@@ -336,7 +336,7 @@ final class ModuleManager
      *
      * @since 1.0.0
      */
-    private function loadInfo(string $module) : ?ModuleInfo
+    public function loadInfo(string $module) : ?ModuleInfo
     {
         $path = \realpath($oldPath = $this->modulePath . $module . '/info.json');
         if ($path === false) {

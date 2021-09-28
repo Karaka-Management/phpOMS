@@ -30,6 +30,8 @@ use phpOMS\System\File\Local\Directory;
  */
 abstract class InstallerAbstract
 {
+    public const PATH = '';
+
     /**
      * Install app.
      *
@@ -46,7 +48,7 @@ abstract class InstallerAbstract
         self::createTables($dbPool, $info);
         self::installSettings($dbPool, $info, $cfgHandler);
         self::activate($dbPool, $info);
-        self::installTheme(__DIR__ . '/../../Web/' . $info->getInternalName(), 'Default');
+        self::installTheme(static::PATH . '/..', 'Default');
     }
 
     /**
@@ -96,7 +98,7 @@ abstract class InstallerAbstract
      */
     public static function installSettings(DatabasePool $dbPool, ApplicationInfo $info, SettingsInterface $cfgHandler) : void
     {
-        $path = __DIR__ . '/../../Web/' . $info->getInternalName() . '/Admin/Install/Settings.install.php';
+        $path = static::PATH . '/Install/Settings.install.php';
         if (!\is_file($path)) {
             return;
         }
@@ -120,7 +122,7 @@ abstract class InstallerAbstract
      */
     protected static function createTables(DatabasePool $dbPool, ApplicationInfo $info) : void
     {
-        $path = __DIR__ . '/../../Web/' . $info->getInternalName() . '/Admin/Install/db.json';
+        $path = static::PATH . '/Install/db.json';
         if (!\is_file($path)) {
             return;
         }
@@ -148,8 +150,9 @@ abstract class InstallerAbstract
      */
     protected static function activate(DatabasePool $dbPool, ApplicationInfo $info) : void
     {
-        /** @var StatusAbstract $class */
-        $class = '\\Web\\' . $info->getInternalName() . '\\Admin\\Status';
+        $classPath = \substr(\realpath(static::PATH) . '/Status', \strlen(\realpath(__DIR__ . '/../../')));
+
+        $class = \str_replace('/', '\\', $classPath);
         $class::activate($dbPool, $info);
     }
 
@@ -164,7 +167,9 @@ abstract class InstallerAbstract
      */
     public static function reInit(ApplicationInfo $info) : void
     {
-        $class = '\\Web\\' . $info->getInternalName() . '\\Admin\\Status';
+        $classPath = \substr(\realpath(static::PATH) . '/Status', \strlen(\realpath(__DIR__ . '/../../')));
+
+        $class = \str_replace('/', '\\', $classPath);
         $class::activateRoutes($info);
         $class::activateHooks($info);
     }

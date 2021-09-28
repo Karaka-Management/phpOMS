@@ -60,8 +60,8 @@ class ApplicationInfoTest extends \PHPUnit\Framework\TestCase
         $info = new ApplicationInfo(__DIR__ . '/info-test.json');
         $info->load();
 
-        $info->set('/name/internal', 'ABC');
-        self::assertEquals('ABC', $info->getInternalName());
+        $info->set('/name/internal', 'Testapp');
+        self::assertEquals('Testapp', $info->getInternalName());
         $info->update();
 
         $info2 = new ApplicationInfo(__DIR__ . '/info-test.json');

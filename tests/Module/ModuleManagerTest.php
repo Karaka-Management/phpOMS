@@ -15,12 +15,16 @@ declare(strict_types=1);
 namespace phpOMS\tests\Module;
 
 use Model\CoreSettings;
+use Modules\Admin\Models\ModuleMapper;
 use phpOMS\Application\ApplicationAbstract;
 use phpOMS\Dispatcher\Dispatcher;
 use phpOMS\Message\Http\HttpRequest;
 use phpOMS\Module\ModuleManager;
 use phpOMS\Router\WebRouter;
 use phpOMS\Uri\HttpUri;
+use Modules\Admin\Models\Module;
+use phpOMS\Module\ModuleStatus;
+use phpOMS\DataStorage\Database\Query\Builder;
 
 require_once __DIR__ . '/../Autoloader.php';
 
@@ -163,10 +167,44 @@ class ModuleManagerTest extends \PHPUnit\Framework\TestCase
     {
         $this->moduleManager->install('TestModule');
 
+        $module = new Module();
+        $module->id = 'TestModule';
+        $module->name = 'TestModule';
+        $module->path = 'TestModule';
+        ModuleMapper::create($module);
+
         self::assertTrue($this->moduleManager->deactivate('TestModule'));
         self::assertFalse($this->moduleManager->isActive('TestModule'));
 
         self::assertTrue($this->moduleManager->activate('TestModule'));
+
+        // this is normally done in the ApiController
+        $module->setStatus(ModuleStatus::ACTIVE);
+        ModuleMapper::update($module);
+
+        $queryLoad = new Builder($this->app->dbPool->get('insert'));
+        $queryLoad->insert('module_load_pid', 'module_load_type', 'module_load_from', 'module_load_for', 'module_load_file')
+            ->into('module_load');
+
+        $moduleInfo = $this->moduleManager->loadInfo('TestModule');
+
+        $load = $moduleInfo->getLoad();
+        foreach ($load as $val) {
+            foreach ($val['pid'] as $pid) {
+                $queryLoad->values(
+                    \sha1(\str_replace('/', '', $pid)),
+                    (int) $val['type'],
+                    $val['from'],
+                    $val['for'],
+                    $val['file']
+                );
+            }
+        }
+
+        if (!empty($queryLoad->getValues())) {
+            $queryLoad->execute();
+        }
+
         self::assertTrue($this->moduleManager->isActive('TestModule'));
     }
 

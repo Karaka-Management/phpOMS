@@ -1,8 +1,8 @@
 {
     "name": {
         "id": 1000100000,
-        "internal": "ABC",
-        "external": "ABC"
+        "internal": "Testapp",
+        "external": "Testapp"
     },
     "version": "1.0.0",
     "category": "Test",
