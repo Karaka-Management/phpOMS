@@ -150,7 +150,7 @@ final class ApplicationManager
     /**
      * Get all installed modules.
      *
-     * @param bool $useCache Use Cache
+     * @param bool   $useCache Use Cache
      * @param string $basePath Base path for the applications
      *
      * @return array<string, ModuleInfo>
