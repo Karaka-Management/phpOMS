@@ -42,7 +42,7 @@ final class SocketRouter implements RouterInterface
      *      '{REGEX_PATH}' => [
      *          'dest' => '{DESTINATION_NAMESPACE:method}', // can also be static by using :: between namespace and function name
      *          'permission' => [ // optional
-     *              'module' => '{MODULE_NAME}',
+     *              'module' => '{NAME}',
      *              'type' => PermissionType::{TYPE},
      *              'state' => PermissionState::{STATE},
      *          ],

@@ -74,9 +74,7 @@ class PackageManagerTest extends \PHPUnit\Framework\TestCase
 
         // create zip
         Zip::pack(
-            [
-                __DIR__ . '/testPackage' => '/',
-            ],
+            __DIR__ . '/testPackage',
             __DIR__ . '/testPackage.zip'
         );
     }

@@ -44,7 +44,7 @@ final class WebRouter implements RouterInterface
      *          'verb' => RouteVerb::{VERB},
      *          'csrf' => true,
      *          'permission' => [ // optional
-     *              'module' => '{MODULE_NAME}',
+     *              'module' => '{NAME}',
      *              'type' => PermissionType::{TYPE},
      *              'state' => PermissionState::{STATE},
      *          ],

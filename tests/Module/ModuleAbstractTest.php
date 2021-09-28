@@ -43,11 +43,11 @@ class ModuleAbstractTest extends \PHPUnit\Framework\TestCase
     {
         $this->module = new class() extends ModuleAbstract
         {
-            const MODULE_VERSION = '1.2.3';
+            const VERSION = '1.2.3';
 
-            const MODULE_NAME = 'Test';
+            const NAME = 'Test';
 
-            const MODULE_ID = 2;
+            const ID = 2;
 
             protected static array $dependencies = [1, 2];
 
@@ -121,8 +121,8 @@ class ModuleAbstractTest extends \PHPUnit\Framework\TestCase
      */
     public function testConstants() : void
     {
-        self::assertEquals(2, $this->module::MODULE_ID);
-        self::assertEquals('1.2.3', $this->module::MODULE_VERSION);
+        self::assertEquals(2, $this->module::ID);
+        self::assertEquals('1.2.3', $this->module::VERSION);
     }
 
     /**
