@@ -23,6 +23,7 @@ use phpOMS\Message\Http\Rest;
 use phpOMS\Router\RouteVerb;
 use phpOMS\System\MimeType;
 use phpOMS\Uri\HttpUri;
+use phpOMS\Localization\ISO639x1Enum;
 
 /**
  * @testdox phpOMS\tests\Message\Http\HttpRequestTest: HttpRequest wrapper for http requests
@@ -107,6 +108,18 @@ class HttpRequestTest extends \PHPUnit\Framework\TestCase
     }
 
     /**
+     * @testdox The request referer can be returned
+     * @covers phpOMS\Message\Http\HttpRequest<extended>
+     * @group framework
+     */
+    public function testRequestRefererOutput() : void
+    {
+        $request = new HttpRequest(new HttpUri(''), $l11n = new Localization());
+
+        self::assertEquals('', $request->getReferer());
+    }
+
+    /**
      * @testdox The route verb gets correctly inferred from the request method
      * @covers phpOMS\Message\Http\HttpRequest<extended>
      * @group framework
@@ -138,6 +151,21 @@ class HttpRequestTest extends \PHPUnit\Framework\TestCase
     }
 
     /**
+     * @testdox The request langauge can be returned
+     * @covers phpOMS\Message\Http\HttpRequest<extended>
+     * @group framework
+     */
+    public function testLangaugeOutput() : void
+    {
+        $request = new HttpRequest(new HttpUri('http://www.google.com/test/path'), $l11n = new Localization());
+
+        $request->header->l11n = new Localization();
+        $request->header->l11n->setLanguage(ISO639x1Enum::_DE);
+
+        self::assertEquals(ISO639x1Enum::_DE, $request->getLanguage());
+    }
+
+    /**
      * @testdox The url hashes for the different paths get correctly generated
      * @covers phpOMS\Message\Http\HttpRequest<extended>
      * @group framework
@@ -153,21 +181,6 @@ class HttpRequestTest extends \PHPUnit\Framework\TestCase
             '328413d996ab9b79af9d4098af3a65b885c4ca64',
             ], $request->getHash());
         self::assertEquals($l11n, $request->header->l11n);
-    }
-
-    /**
-     * @testdox Request data can be set and returned
-     * @covers phpOMS\Message\Http\HttpRequest<extended>
-     * @group framework
-     */
-    public function testDataInputOutput() : void
-    {
-        $request = new HttpRequest(new HttpUri('http://www.google.com/test/path'), $l11n = new Localization());
-
-        self::assertTrue($request->setData('key', 'value'));
-        self::assertEquals('value', $request->getData('key'));
-        self::assertTrue($request->hasData('key'));
-        self::assertEquals(['key' => 'value'], $request->getData());
     }
 
     /**

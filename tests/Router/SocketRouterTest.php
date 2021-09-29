@@ -84,6 +84,22 @@ class SocketRouterTest extends \PHPUnit\Framework\TestCase
     }
 
     /**
+     * @testdox The routes can be removed from the router
+     * @covers phpOMS\Router\SocketRouter
+     * @group framework
+     */
+    public function testRouteClearing() : void
+    {
+        self::assertTrue($this->router->importFromFile(__DIR__ . '/socketRouterTestFile.php'));
+        $this->router->clear();
+
+        self::assertEquals(
+            [],
+            $this->router->route('backend_admin -settings=general -t 123')
+        );
+    }
+
+    /**
      * @testdox Routes can be added dynamically
      * @covers phpOMS\Router\SocketRouter
      * @group framework

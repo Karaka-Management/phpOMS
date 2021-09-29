@@ -96,14 +96,29 @@ class L11nManagerTest extends \PHPUnit\Framework\TestCase
      * @covers phpOMS\Localization\L11nManager
      * @group framework
      */
-    public function testLanguageFile() : void
+    public function testLanguageFromLanguageFile() : void
     {
         $this->l11nManager2 = new L11nManager('Api');
         $this->l11nManager2->loadLanguageFromFile('en', 'Test', __DIR__ . '/langTestFile.php');
+        $this->l11nManager2->loadLanguageFromFile('en', 'Test', __DIR__ . '/invalidLangTestFile.php'); // the l11n manager doesn't do anything for invalid lang file paths
         self::assertEquals('value', $this->l11nManager2->getHtml('en', 'Test', 'RandomThemeDoesNotMatterAlreadyLoaded', 'key'));
 
         self::assertEquals(['Test' => ['key' => 'value']], $this->l11nManager2->getModuleLanguage('en'));
         self::assertEquals(['key' => 'value'], $this->l11nManager2->getModuleLanguage('en', 'Test'));
+    }
+
+    /**
+     * @testdox Language data can be loaded from a file
+     * @covers phpOMS\Localization\L11nManager
+     * @group framework
+     */
+    public function testLanguageMultipleLanguagesFromSingleFile() : void
+    {
+        $this->l11nManager2 = new L11nManager('Api');
+        $this->l11nManager2->loadLanguageFile('Test', __DIR__ . '/multiLangTestFile.php');
+        $this->l11nManager2->loadLanguageFile('Test', __DIR__ . '/invalidLangTestFile.php'); // the l11n manager doesn't do anything for invalid lang file paths
+        self::assertEquals('Test_EN', $this->l11nManager2->getHtml('en', 'Test', 'RandomThemeDoesNotMatterAlreadyLoaded', 'key'));
+        self::assertEquals('Test_DE', $this->l11nManager2->getHtml('de', 'Test', 'RandomThemeDoesNotMatterAlreadyLoaded', 'key'));
     }
 
     /**
@@ -163,6 +178,7 @@ class L11nManagerTest extends \PHPUnit\Framework\TestCase
         $date = new \DateTime('2020-01-01 13:45:22');
         self::assertEquals('2020.01.01', $this->l11nManager->getDateTime($l11n, $date, 'medium'));
         self::assertEquals('2020.01.01 01:45', $this->l11nManager->getDateTime($l11n, $date, 'long'));
+        self::assertEquals('', $this->l11nManager->getDateTime($l11n, null, 'long'));
     }
 
     /**

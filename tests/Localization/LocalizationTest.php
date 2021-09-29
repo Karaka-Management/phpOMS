@@ -335,10 +335,21 @@ class LocalizationTest extends \PHPUnit\Framework\TestCase
      * @covers phpOMS\Localization\Localization
      * @group framework
      */
+    public function testLocalizationFromLanguageCode() : void
+    {
+        $l11n = Localization::fromLanguage(ISO639x1Enum::_DE);
+        self::assertEquals(ISO4217CharEnum::_EUR, $l11n->getCurrency());
+    }
+
+    /**
+     * @testdox Localization data can be loaded from a locale file
+     * @covers phpOMS\Localization\Localization
+     * @group framework
+     */
     public function testLocalizationLoading() : void
     {
-        $this->localization->loadFromLanguage(ISO639x1Enum::_EN);
-        self::assertEquals(ISO4217CharEnum::_USD, $this->localization->getCurrency());
+        $this->localization->loadFromLanguage(ISO639x1Enum::_DE);
+        self::assertEquals(ISO4217CharEnum::_EUR, $this->localization->getCurrency());
     }
 
     /**
@@ -348,7 +359,7 @@ class LocalizationTest extends \PHPUnit\Framework\TestCase
      */
     public function testLocalizationSerialize() : void
     {
-        $this->localization->loadFromLanguage(ISO639x1Enum::_EN);
+        $this->localization->loadFromLanguage(ISO639x1Enum::_DE);
         $l11n1 = $this->localization->jsonSerialize();
 
         $l11nObj = Localization::fromJson($l11n1);
@@ -364,8 +375,8 @@ class LocalizationTest extends \PHPUnit\Framework\TestCase
      */
     public function testInvalidCountryLocalizationLoading() : void
     {
-        $this->localization->loadFromLanguage(ISO639x1Enum::_EN, 'ABC');
-        self::assertEquals(ISO4217CharEnum::_USD, $this->localization->getCurrency());
+        $this->localization->loadFromLanguage(ISO639x1Enum::_DE, 'ABC');
+        self::assertEquals(ISO4217CharEnum::_EUR, $this->localization->getCurrency());
     }
 
     /**

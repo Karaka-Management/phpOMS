@@ -35,7 +35,7 @@ final class Iban extends ValidatorAbstract
 
         $temp = \substr($value, 0, 2);
         if ($temp === false) {
-            return false;
+            return false; // @codeCoverageIgnore
         }
 
         $enumName = 'C_' . \strtoupper($temp);

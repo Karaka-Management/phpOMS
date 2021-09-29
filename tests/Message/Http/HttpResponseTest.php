@@ -16,6 +16,8 @@ namespace phpOMS\tests\Message\Http;
 
 use phpOMS\Message\Http\HttpResponse;
 use phpOMS\System\MimeType;
+use phpOMS\Localization\Localization;
+use phpOMS\Localization\ISO639x1Enum;
 
 /**
  * @testdox phpOMS\tests\Message\Http\ResponseTest: HttpResponse wrapper for http responses
@@ -81,6 +83,40 @@ class ResponseTest extends \PHPUnit\Framework\TestCase
         $this->response->remove('a');
 
         self::assertFalse($this->response->remove('a'));
+    }
+
+    /**
+     * @testdox Test disabling output buffering
+     * @covers phpOMS\Message\Http\HttpResponse<extended>
+     * @group framework
+     */
+    public function testEndAllOutputBuffering() : void
+    {
+        if (\headers_sent()) {
+            $this->response->header->lock();
+        }
+        $start = \ob_get_level();
+
+        \ob_start();
+        \ob_start();
+
+        self::assertEquals($start + 2, \ob_get_level());
+        $this->response->endAllOutputBuffering();
+        self::assertEquals(0, \ob_get_level());
+    }
+
+    /**
+     * @testdox The response langauge can be returned
+     * @covers phpOMS\Message\Http\HttpResponse<extended>
+     * @group framework
+     */
+    public function testLangaugeOutput() : void
+    {
+
+        $this->response->header->l11n = new Localization();
+        $this->response->header->l11n->setLanguage(ISO639x1Enum::_DE);
+
+        self::assertEquals(ISO639x1Enum::_DE, $this->response->getLanguage());
     }
 
     /**

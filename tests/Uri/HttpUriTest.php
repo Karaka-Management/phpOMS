@@ -203,6 +203,20 @@ class HttpUriTest extends \PHPUnit\Framework\TestCase
     }
 
     /**
+     * @covers phpOMS\Uri\HttpUri
+     * @group framework
+     */
+    public function testPathElementInputOutput() : void
+    {
+        $obj = new HttpUri('https://www.google.com/test/second/path.php?para1=abc&para2=2#frag');
+
+        self::assertEquals(['test', 'second', 'path'], $obj->getPathElements());
+
+        $obj->setPath('new/test');
+        self::assertEquals(['new', 'test'], $obj->getPathElements());
+    }
+
+    /**
      * @testdox The path offset can be set and returned
      * @covers phpOMS\Uri\HttpUri
      * @group framework

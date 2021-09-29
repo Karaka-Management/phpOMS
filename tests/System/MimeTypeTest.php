@@ -39,4 +39,22 @@ class MimeTypeTest extends \PHPUnit\Framework\TestCase
 
         self::assertTrue(true);
     }
+
+    /**
+     * @covers phpOMS\System\MimeType
+     * @group framework
+     */
+    public function testExtensionToMime() : void
+    {
+        self::assertEquals('application/pdf', MimeType::extensionToMime('pdf'));
+    }
+
+    /**
+     * @covers phpOMS\System\MimeType
+     * @group framework
+     */
+    public function testInvalidExtensionToMime() : void
+    {
+        self::assertEquals('application/octet-stream', MimeType::extensionToMime('INVALID'));
+    }
 }

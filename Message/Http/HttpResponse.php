@@ -208,7 +208,9 @@ final class HttpResponse extends ResponseAbstract implements RenderableInterface
      */
     public function endAllOutputBuffering() : void
     {
-        $this->header->push();
+        if (!$this->header->isLocked()) {
+            $this->header->push();
+        }
 
         $levels = \ob_get_level();
         for ($i = 0; $i < $levels; ++$i) {

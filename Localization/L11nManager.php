@@ -114,8 +114,9 @@ final class L11nManager
         /** @noinspection PhpIncludeInspection */
         $lang = include $file;
 
-        foreach ($lang as $code => $translation)
-        $this->loadLanguage($code, $from, $translation);
+        foreach ($lang as $code => $translation) {
+            $this->loadLanguage($code, $from, $translation);
+        }
     }
 
     /**

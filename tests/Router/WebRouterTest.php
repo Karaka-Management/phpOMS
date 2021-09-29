@@ -96,6 +96,26 @@ class WebRouterTest extends \PHPUnit\Framework\TestCase
     }
 
     /**
+     * @testdox The routes can be removed from the router
+     * @covers phpOMS\Router\WebRouter
+     * @group framework
+     */
+    public function testRouteClearing() : void
+    {
+        self::assertTrue($this->router->importFromFile(__DIR__ . '/webRouterTestFile.php'));
+        $this->router->clear();
+
+        self::assertEquals(
+            [],
+            $this->router->route(
+                (new HttpRequest(
+                    new HttpUri('http://test.com/backend/admin/settings/general/something?test')
+                ))->uri->getRoute()
+            )
+        );
+    }
+
+    /**
      * @testdox Invalid routing verbs don't match even if the route matches
      * @covers phpOMS\Router\WebRouter
      * @group framework

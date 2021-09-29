@@ -228,4 +228,16 @@ class StringUtilsTest extends \PHPUnit\Framework\TestCase
             StringUtils::createDiffMarkup($original, $new)
         );
     }
+
+    /**
+     * @testdox A string can be validated for shell safety
+     * @covers phpOMS\Utils\StringUtils
+     * @group framework
+     */
+    public function testIsShellSafe() : void
+    {
+        self::assertTrue(StringUtils::isShellSafe('asdf'));
+        self::assertFalse(StringUtils::isShellSafe('&#;`|*?~<>^()[]{}$\\'));
+        self::assertFalse(StringUtils::isShellSafe('™'));
+    }
 }

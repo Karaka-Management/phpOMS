@@ -15,6 +15,7 @@ declare(strict_types=1);
 namespace phpOMS\Utils\IO\Zip;
 
 use phpOMS\System\File\FileUtils;
+use phpOMS\System\File\Local\Directory;
 
 /**
  * Zip class for handling zip files.
@@ -100,6 +101,10 @@ class Tar implements ArchiveInterface
     {
         if (!\is_file($source)) {
             return false;
+        }
+
+        if (!\is_dir($destination)) {
+            Directory::create($destination, recursive: true);
         }
 
         try {

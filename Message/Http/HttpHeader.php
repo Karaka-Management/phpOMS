@@ -233,7 +233,7 @@ final class HttpHeader extends HeaderAbstract
         }
 
         foreach ($this->header as $name => $arr) {
-            foreach ($arr as $ele => $value) {
+            foreach ($arr as $value) {
                 \header($name . ': ' . $value);
             }
         }

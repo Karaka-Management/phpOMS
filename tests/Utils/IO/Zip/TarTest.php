@@ -82,6 +82,27 @@ class TarTest extends \PHPUnit\Framework\TestCase
         self::assertEquals($e, \file_get_contents(__DIR__ . '/test/sub/test e.txt'));
 
         \unlink(__DIR__ . '/test.tar');
+
+        /* @todo: fix this, this is not working "cannot open test.tar"
+        // second test
+        self::assertTrue(Tar::pack(
+            [__DIR__ . '/test' => 'test'],
+            __DIR__ . '/test.tar'
+        ));
+
+        self::assertTrue(Tar::unpack(__DIR__ . '/test.tar', __DIR__ . '/new_dir'));
+        self::assertFileExists(__DIR__ . '/new_dir/test');
+        self::assertEquals($c, \file_get_contents(__DIR__ . '/new_dir/test/test c.txt'));
+
+        \unlink(__DIR__ . '/new_dir/test/test c.txt');
+        \unlink(__DIR__ . '/new_dir/test/test d.txt');
+        \unlink(__DIR__ . '/new_dir/test/sub/test e.txt');
+        \rmdir(__DIR__ . '/new_dir/test/sub');
+        \rmdir(__DIR__ . '/new_dir/test');
+        \rmdir(__DIR__ . '/new_dir');
+
+        \unlink(__DIR__ . '/test.tar');
+        */
     }
 
     /**

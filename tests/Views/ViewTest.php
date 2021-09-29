@@ -390,6 +390,19 @@ class ViewTest extends \PHPUnit\Framework\TestCase
     }
 
     /**
+     * @testdox A view template can be build
+     * @covers phpOMS\Views\View<extended>
+     * @group framework
+     */
+    public function testBuild() : void
+    {
+        $view = new View();
+
+        $view->setTemplate('/phpOMS/tests/Views/testTemplate');
+        self::assertEquals('<strong>Test</strong>', $view->build());
+    }
+
+    /**
      * @testdox A view template can be serialized
      * @covers phpOMS\Views\View<extended>
      * @group framework
@@ -438,6 +451,19 @@ class ViewTest extends \PHPUnit\Framework\TestCase
         $view->setTemplate('something.txt');
 
         self::assertEquals('', $view->render());
+    }
+
+    /**
+     * @testdox Building a invalid template throws a PathException
+     * @covers phpOMS\Views\View<extended>
+     * @group framework
+     */
+    public function testBuildException() : void
+    {
+        $view = new View($this->app->l11nManager);
+        $view->setTemplate('something.txt');
+
+        self::assertEquals('', $view->build());
     }
 
     /**

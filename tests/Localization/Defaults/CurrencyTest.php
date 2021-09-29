@@ -39,5 +39,6 @@ class CurrencyTest extends \PHPUnit\Framework\TestCase
         self::assertEquals(0, $obj->getSubunits());
         self::assertEquals('', $obj->getDecimals());
         self::assertEquals('', $obj->getCountries());
+        self::assertEquals('', $obj->getCode());
     }
 }

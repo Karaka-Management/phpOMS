@@ -217,4 +217,27 @@ class LocationTest extends \PHPUnit\Framework\TestCase
         self::assertEquals($expected, $this->location->jsonSerialize());
         self::assertEquals(\json_encode($this->location->jsonSerialize()), $this->location->serialize());
     }
+
+    /**
+     * @testdox The location can unserialized
+     * @covers phpOMS\Stdlib\Base\Location
+     * @group framework
+     */
+    public function testUnserialize() : void
+    {
+        $expected = [
+            'postal'  => '0123456789',
+            'city'    => 'city',
+            'country' => 'Country',
+            'address' => 'Some address here',
+            'state'   => 'This is a state 123',
+            'geo'     => [
+                'lat'  => 12.1,
+                'long' => 11.2,
+            ],
+        ];
+
+        $this->location->unserialize(\json_encode($expected));
+        self::assertEquals(\json_encode($expected), $this->location->serialize());
+    }
 }

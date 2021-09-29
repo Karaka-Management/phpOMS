@@ -186,7 +186,7 @@ final class Argument implements UriInterface
         $end = \stripos($uri, ' ', $start + 1);
 
         if ($end === false) {
-            $end = \strlen($uri);
+            $end = \strlen($uri); // @codeCoverageIgnore
         }
 
         $path       = $start < 8 ? \substr($uri, $start + 1, $end - $start - 1) : $uri;
