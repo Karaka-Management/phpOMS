@@ -33,6 +33,7 @@ use phpOMS\Utils\Parser\Php\ArrayParser;
 abstract class StatusAbstract
 {
     public const PATH = '';
+
     /**
      * Deactivate app.
      *

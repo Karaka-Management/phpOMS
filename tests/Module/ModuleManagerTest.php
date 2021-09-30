@@ -15,16 +15,16 @@ declare(strict_types=1);
 namespace phpOMS\tests\Module;
 
 use Model\CoreSettings;
+use Modules\Admin\Models\Module;
 use Modules\Admin\Models\ModuleMapper;
 use phpOMS\Application\ApplicationAbstract;
+use phpOMS\DataStorage\Database\Query\Builder;
 use phpOMS\Dispatcher\Dispatcher;
 use phpOMS\Message\Http\HttpRequest;
 use phpOMS\Module\ModuleManager;
+use phpOMS\Module\ModuleStatus;
 use phpOMS\Router\WebRouter;
 use phpOMS\Uri\HttpUri;
-use Modules\Admin\Models\Module;
-use phpOMS\Module\ModuleStatus;
-use phpOMS\DataStorage\Database\Query\Builder;
 
 require_once __DIR__ . '/../Autoloader.php';
 
@@ -167,8 +167,8 @@ class ModuleManagerTest extends \PHPUnit\Framework\TestCase
     {
         $this->moduleManager->install('TestModule');
 
-        $module = new Module();
-        $module->id = 'TestModule';
+        $module       = new Module();
+        $module->id   = 'TestModule';
         $module->name = 'TestModule';
         $module->path = 'TestModule';
         ModuleMapper::create($module);
