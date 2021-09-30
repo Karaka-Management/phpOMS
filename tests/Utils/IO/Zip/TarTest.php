@@ -83,22 +83,21 @@ class TarTest extends \PHPUnit\Framework\TestCase
 
         \unlink(__DIR__ . '/test.tar');
 
-        /* @todo: fix this, this is not working "cannot open test.tar"
+        /* @todo not working, somehow it cannot open the test.tar
         // second test
         self::assertTrue(Tar::pack(
-            [__DIR__ . '/test' => 'test'],
+            __DIR__ . '/test',
             __DIR__ . '/test.tar'
         ));
 
         self::assertTrue(Tar::unpack(__DIR__ . '/test.tar', __DIR__ . '/new_dir'));
-        self::assertFileExists(__DIR__ . '/new_dir/test');
-        self::assertEquals($c, \file_get_contents(__DIR__ . '/new_dir/test/test c.txt'));
+        self::assertFileExists(__DIR__ . '/new_dir');
+        self::assertEquals($c, \file_get_contents(__DIR__ . '/new_dir/test c.txt'));
 
-        \unlink(__DIR__ . '/new_dir/test/test c.txt');
-        \unlink(__DIR__ . '/new_dir/test/test d.txt');
-        \unlink(__DIR__ . '/new_dir/test/sub/test e.txt');
-        \rmdir(__DIR__ . '/new_dir/test/sub');
-        \rmdir(__DIR__ . '/new_dir/test');
+        \unlink(__DIR__ . '/new_dir/test c.txt');
+        \unlink(__DIR__ . '/new_dir/test d.txt');
+        \unlink(__DIR__ . '/new_dir/sub/test e.txt');
+        \rmdir(__DIR__ . '/new_dir/sub');
         \rmdir(__DIR__ . '/new_dir');
 
         \unlink(__DIR__ . '/test.tar');

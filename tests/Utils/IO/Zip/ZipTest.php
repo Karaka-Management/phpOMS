@@ -91,14 +91,13 @@ class ZipTest extends \PHPUnit\Framework\TestCase
         ));
 
         self::assertTrue(Zip::unpack(__DIR__ . '/test.zip', __DIR__ . '/new_dir'));
-        self::assertFileExists(__DIR__ . '/new_dir/test');
-        self::assertEquals($c, \file_get_contents(__DIR__ . '/new_dir/test/test c.txt'));
+        self::assertFileExists(__DIR__ . '/new_dir');
+        self::assertEquals($c, \file_get_contents(__DIR__ . '/new_dir/test c.txt'));
 
-        \unlink(__DIR__ . '/new_dir/test/test c.txt');
-        \unlink(__DIR__ . '/new_dir/test/test d.txt');
-        \unlink(__DIR__ . '/new_dir/test/sub/test e.txt');
-        \rmdir(__DIR__ . '/new_dir/test/sub');
-        \rmdir(__DIR__ . '/new_dir/test');
+        \unlink(__DIR__ . '/new_dir/test c.txt');
+        \unlink(__DIR__ . '/new_dir/test d.txt');
+        \unlink(__DIR__ . '/new_dir/sub/test e.txt');
+        \rmdir(__DIR__ . '/new_dir/sub');
         \rmdir(__DIR__ . '/new_dir');
 
         \unlink(__DIR__ . '/test.zip');

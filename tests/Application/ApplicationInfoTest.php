@@ -45,6 +45,7 @@ class ApplicationInfoTest extends \PHPUnit\Framework\TestCase
         self::assertEquals($jarray['dependencies'], $info->getDependencies());
         self::assertEquals($jarray['directory'], $info->getDirectory());
         self::assertEquals($jarray['version'], $info->getVersion());
+        self::assertEquals($jarray['providing'], $info->getProviding());
         self::assertEquals(__DIR__ . '/info-test.json', $info->getPath());
     }
 

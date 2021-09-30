@@ -211,6 +211,7 @@ class ModuleManagerTest extends \PHPUnit\Framework\TestCase
     /**
      * @testdox A module can be re-initialized
      * @covers phpOMS\Module\ModuleManager
+     * @covers phpOMS\Module\StatusAbstract
      * @group framework
      */
     public function testReInit() : void
@@ -282,6 +283,11 @@ class ModuleManagerTest extends \PHPUnit\Framework\TestCase
         $this->moduleManager->uninstall('TestModule');
 
         self::assertFalse($this->moduleManager->uninstall('TestModule'));
+
+        $module = ModuleMapper::get('TestModule');
+        ModuleMapper::delete($module);
+        ModuleMapper::clearCache();
+
         self::assertFalse($this->moduleManager->isActive('TestModule'));
         self::assertFalse($this->moduleManager->isRunning('TestModule'));
     }

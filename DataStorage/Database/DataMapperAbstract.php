@@ -757,7 +757,7 @@ class DataMapperAbstract implements DataMapperInterface
      *
      * @since 1.0.0
      */
-    public static function delteRelation(string $member, mixed $id1, mixed $id2) : bool
+    public static function deleteRelation(string $member, mixed $id1, mixed $id2) : bool
     {
         if (!isset(static::$hasMany[$member]) || !isset(static::$hasMany[$member]['external'])) {
             return false;
@@ -1364,7 +1364,7 @@ class DataMapperAbstract implements DataMapperInterface
             return;
         }
 
-        foreach ($objsIds as $key => $src) {
+        foreach ($objsIds as $src) {
             $relQuery = new Builder(self::$db);
             $relQuery->delete()
                 ->from(static::$hasMany[$propertyName]['table'])

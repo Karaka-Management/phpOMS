@@ -16,5 +16,8 @@
     },
     "description": "The administration module.",
     "directory": "Admin",
+    "providing": {
+        "Navigation": "*"
+    },
     "dependencies": []
 }

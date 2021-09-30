@@ -1,0 +1,19 @@
+{
+    "test_app": {
+        "name": "test_app",
+        "fields": {
+            "test_app_id": {
+                "name": "test_app_id",
+                "type": "INT",
+                "null": false,
+                "primary": true,
+                "autoincrement": true
+            },
+            "test_app_title": {
+                "name": "test_app_title",
+                "type": "VARCHAR(255)",
+                "null": false
+            }
+        }
+    }
+}

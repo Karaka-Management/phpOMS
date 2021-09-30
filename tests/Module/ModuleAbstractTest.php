@@ -43,6 +43,8 @@ class ModuleAbstractTest extends \PHPUnit\Framework\TestCase
     {
         $this->module = new class() extends ModuleAbstract
         {
+            public const PATH = __DIR__ . '/';
+
             const VERSION = '1.2.3';
 
             const NAME = 'Test';
@@ -74,6 +76,20 @@ class ModuleAbstractTest extends \PHPUnit\Framework\TestCase
                 $this->createModel(1, $model, BaseModelMapper::class, '', '127.0.0.1');
             }
 
+            public function createMultiple() : void
+            {
+                $models = [];
+
+                $models[]                    = new BaseModel();
+                $models[0]->hasManyRelations = [];
+
+                $models[]                    = new BaseModel();
+                $models[1]->hasManyRelations = [];
+
+
+                $this->createModels(1, $models, BaseModelMapper::class, '', '127.0.0.1');
+            }
+
             public function createRelationModel() : void
             {
                 $model = new ManyToManyRelModel();
@@ -86,6 +102,14 @@ class ModuleAbstractTest extends \PHPUnit\Framework\TestCase
                 $model2 = ManyToManyRelModelMapper::get(1);
 
                 $this->createModelRelation(1, $model1->id, $model2->id, BaseModelMapper::class, 'hasManyRelations', '', '127.0.0.1');
+            }
+
+            public function deleteRelationDB() : void
+            {
+                $model1 = BaseModelMapper::get(1);
+                $model2 = ManyToManyRelModelMapper::get(1);
+
+                $this->deleteModelRelation(1, $model1->id, $model2->id, BaseModelMapper::class, 'hasManyRelations', '', '127.0.0.1');
             }
 
             public function creates() : void
@@ -164,6 +188,16 @@ class ModuleAbstractTest extends \PHPUnit\Framework\TestCase
     {
         $this->module->addReceiving('Test2');
         self::assertTrue(\in_array('Test2', $this->module->getReceiving()));
+    }
+
+    /**
+     * @testdox A invalid language or theme returns in an empty localization/language dataset
+     * @covers phpOMS\Module\ModuleAbstract<extended>
+     * @group framework
+     */
+    public function testLocalization() : void
+    {
+        self::assertEquals(['Test' => ['Key' => 'Value']], $this->module::getLocalization('en', 'Mytheme'));
     }
 
     /**
@@ -334,8 +368,7 @@ class ModuleAbstractTest extends \PHPUnit\Framework\TestCase
     {
         $this->dbSetup();
 
-        $this->module->create();
-        $this->module->create();
+        $this->module->createMultiple();
         self::assertCount(2, BaseModelMapper::getAll());
 
         $this->dbTeardown();
@@ -390,6 +423,13 @@ class ModuleAbstractTest extends \PHPUnit\Framework\TestCase
 
         $model = BaseModelMapper::get(1);
         self::assertCount(1, $model->hasManyRelations);
+
+        BaseModelMapper::clearCache();
+        $this->module->deleteRelationDB();
+        BaseModelMapper::clearCache();
+
+        $model = BaseModelMapper::get(1);
+        self::assertCount(0, $model->hasManyRelations);
 
         $this->dbTeardown();
     }

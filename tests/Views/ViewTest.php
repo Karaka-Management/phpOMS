@@ -398,7 +398,7 @@ class ViewTest extends \PHPUnit\Framework\TestCase
     {
         $view = new View();
 
-        $view->setTemplate('/phpOMS/tests/Views/testTemplate');
+        $view->setTemplate('/phpOMS/tests/Views/testReturnTemplate');
         self::assertEquals('<strong>Test</strong>', $view->build());
     }
 

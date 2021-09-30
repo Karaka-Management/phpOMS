@@ -45,7 +45,6 @@ abstract class InstallerAbstract
     public static function install(DatabasePool $dbPool, ApplicationInfo $info, SettingsInterface $cfgHandler) : void
     {
         self::createTables($dbPool, $info);
-        self::installSettings($dbPool, $info, $cfgHandler);
         self::activate($dbPool, $info);
         self::installTheme(static::PATH . '/..', 'Default');
     }
@@ -81,31 +80,6 @@ abstract class InstallerAbstract
                 $destination . '/' . $dir,
                 true
             );
-        }
-    }
-
-    /**
-     * Install app settings.
-     *
-     * @param DatabasePool      $dbPool     Database instance
-     * @param ApplicationInfo   $info       App info
-     * @param SettingsInterface $cfgHandler Settings/Configuration handler
-     *
-     * @return void
-     *
-     * @since 1.0.0
-     */
-    public static function installSettings(DatabasePool $dbPool, ApplicationInfo $info, SettingsInterface $cfgHandler) : void
-    {
-        $path = static::PATH . '/Install/Settings.install.php';
-        if (!\is_file($path)) {
-            return;
-        }
-
-        $settings = include $path;
-
-        foreach ($settings as $setting) {
-            $cfgHandler->create($setting);
         }
     }
 

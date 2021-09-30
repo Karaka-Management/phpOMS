@@ -75,6 +75,8 @@ class ApplicationManagerTest extends \PHPUnit\Framework\TestCase
 
     /**
      * @covers phpOMS\Application\ApplicationManager
+     * @covers phpOMS\Application\InstallerAbstract
+     * @covers phpOMS\Application\StatusAbstract
      * @group framework
      */
     public function testInstall() : void
@@ -82,7 +84,15 @@ class ApplicationManagerTest extends \PHPUnit\Framework\TestCase
         self::assertTrue($this->appManager->install(__DIR__ . '/Testapp', __DIR__ . '/Apps/Testapp'));
         self::assertTrue(\is_dir(__DIR__ . '/Apps/Testapp'));
         self::assertTrue(\is_file(__DIR__ . '/Apps/Testapp/css/styles.css'));
+
+        $apps = $this->appManager->getInstalledApplications(false, __DIR__ . '/Apps');
+        self::assertTrue(isset($apps['Testapp']));
+
+        $providing = $this->appManager->getProvidingForModule('Navigation');
         Directory::delete(__DIR__ . '/Apps/Testapp');
+
+        self::assertTrue(isset($providing['Testapp']));
+        self::assertTrue(\in_array('Navigation', $providing['Testapp']));
     }
 
     /**
@@ -102,14 +112,5 @@ class ApplicationManagerTest extends \PHPUnit\Framework\TestCase
     public function testMissingApplicationInfoFile() : void
     {
         self::assertFalse($this->appManager->install(__DIR__, __DIR__ . '/newapp', __DIR__ . '/Apps/newapp'));
-    }
-
-    /**
-     * @covers phpOMS\Application\ApplicationManager
-     * @group framework
-     */
-    public function testInstallFromModules() : void
-    {
-        self::markTestIncomplete();
     }
 }

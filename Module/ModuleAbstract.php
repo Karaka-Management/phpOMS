@@ -121,7 +121,7 @@ abstract class ModuleAbstract
     public static function getLocalization(string $language, string $destination) : array
     {
         $lang = [];
-        if (\is_file($oldPath = self::PATH . static::NAME . '/Theme/' . $destination . '/Lang/' . $language . '.lang.php')) {
+        if (\is_file($oldPath = static::PATH . static::NAME . '/Theme/' . $destination . '/Lang/' . $language . '.lang.php')) {
             /** @noinspection PhpIncludeInspection */
             return include $oldPath;
         }

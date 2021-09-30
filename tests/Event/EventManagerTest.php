@@ -68,6 +68,20 @@ class EventManagerTest extends \PHPUnit\Framework\TestCase
     }
 
     /**
+     * @testdox Events can be cleared
+     * @covers phpOMS\Event\EventManager
+     * @group framework
+     */
+    public function testClear() : void
+    {
+        self::assertTrue($this->event->attach('group', function() { return true; }, false, false));
+        self::assertEquals(1, $this->event->count());
+        $this->event->clear();
+
+        self::assertEquals(0, $this->event->count());
+    }
+
+    /**
      * @testdox Multiple callbacks can be added to an event
      * @covers phpOMS\Event\EventManager
      * @group framework
@@ -196,7 +210,7 @@ class EventManagerTest extends \PHPUnit\Framework\TestCase
      * @covers phpOMS\Event\EventManager
      * @group framework
      */
-    public function testNoeReset() : void
+    public function testNoReset() : void
     {
         self::assertTrue($this->event->attach('group', function() { return true; }, false, false));
         $this->event->addGroup('group', 'id1');

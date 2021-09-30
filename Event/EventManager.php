@@ -126,7 +126,7 @@ final class EventManager implements \Countable
      * @return void
      * @since 1.0.0
      */
-    public function clear() : bool
+    public function clear() : void
     {
         $this->groups    = [];
         $this->callbacks = [];
@@ -271,7 +271,7 @@ final class EventManager implements \Countable
     private function reset(string $group) : void
     {
         if (!isset($this->groups[$group])) {
-            return;
+            return; // @codeCoverageIgnore
         }
 
         foreach ($this->groups[$group] as $id => $ok) {
@@ -291,7 +291,7 @@ final class EventManager implements \Countable
     private function hasOutstanding(string $group) : bool
     {
         if (!isset($this->groups[$group])) {
-            return false;
+            return false; // @codeCoverageIgnore
         }
 
         foreach ($this->groups[$group] as $id => $ok) {
