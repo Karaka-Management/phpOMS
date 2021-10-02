@@ -27,17 +27,17 @@ class StatusAbstractTest extends \PHPUnit\Framework\TestCase
 {
 	protected StatusAbstract $status;
 
-	/**
+    /**
      * {@inheritdoc}
      */
     protected function setUp() : void
     {
-        $this->status = new class() extends StatusAbstract {
+        $this->status      = new class() extends StatusAbstract {
         	public const PATH = __DIR__ . '/Invalid';
         };
     }
 
-	/**
+    /**
      * @covers phpOMS\Application\StatusAbstract
      * @group framework
      */

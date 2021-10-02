@@ -27,17 +27,17 @@ class InstallerAbstractTest extends \PHPUnit\Framework\TestCase
 {
 	protected InstallerAbstract $installer;
 
-	/**
+    /**
      * {@inheritdoc}
      */
     protected function setUp() : void
     {
-        $this->installer = new class() extends InstallerAbstract {
+        $this->installer   = new class() extends InstallerAbstract {
         	public const PATH = __DIR__ . '/Invalid';
         };
     }
 
-	/**
+    /**
      * @covers phpOMS\Application\InstallerAbstract
      * @group framework
      */

@@ -14,6 +14,7 @@ declare(strict_types=1);
 
 namespace phpOMS\tests\Message\Http;
 
+use phpOMS\Localization\ISO639x1Enum;
 use phpOMS\Localization\Localization;
 use phpOMS\Message\Http\BrowserType;
 use phpOMS\Message\Http\HttpRequest;
@@ -23,7 +24,6 @@ use phpOMS\Message\Http\Rest;
 use phpOMS\Router\RouteVerb;
 use phpOMS\System\MimeType;
 use phpOMS\Uri\HttpUri;
-use phpOMS\Localization\ISO639x1Enum;
 
 /**
  * @testdox phpOMS\tests\Message\Http\HttpRequestTest: HttpRequest wrapper for http requests

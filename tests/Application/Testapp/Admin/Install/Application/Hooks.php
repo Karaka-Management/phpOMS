@@ -15,5 +15,5 @@ declare(strict_types=1);
 return [
     '/POST:App:Testapp.*?\-create/' => [
         'callback' => ['\phpOMS\tess\Application\Apps\Testapp\Controller\Controller:testHook'],
-    ]
+    ],
 ];

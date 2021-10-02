@@ -87,7 +87,7 @@ final class QuickSort implements SortInterface
     private static function partition(array &$list, int $lo, int $hi, int $order) : int
     {
         $pivot = $list[$hi];
-        $i = $lo - 1;
+        $i     = $lo - 1;
 
         for ($j = $lo; $j <= $hi - 1; ++$j) {
             if (!$list[$j]->compare($pivot, $order)) {

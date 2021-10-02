@@ -86,7 +86,6 @@ class ModuleAbstractTest extends \PHPUnit\Framework\TestCase
                 $models[]                    = new BaseModel();
                 $models[1]->hasManyRelations = [];
 
-
                 $this->createModels(1, $models, BaseModelMapper::class, '', '127.0.0.1');
             }
 

@@ -221,8 +221,8 @@ class ModuleManagerTest extends \PHPUnit\Framework\TestCase
 
     /**
      * @testdox A module can be re-initialized
-     * @covers phpOMS\Module\ModuleManager
      * @covers phpOMS\Module\InstallerAbstract
+     * @covers phpOMS\Module\ModuleManager
      * @covers phpOMS\Module\StatusAbstract
      * @group framework
      */

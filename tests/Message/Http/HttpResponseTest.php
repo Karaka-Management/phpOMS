@@ -14,10 +14,10 @@ declare(strict_types=1);
 
 namespace phpOMS\tests\Message\Http;
 
+use phpOMS\Localization\ISO639x1Enum;
+use phpOMS\Localization\Localization;
 use phpOMS\Message\Http\HttpResponse;
 use phpOMS\System\MimeType;
-use phpOMS\Localization\Localization;
-use phpOMS\Localization\ISO639x1Enum;
 
 /**
  * @testdox phpOMS\tests\Message\Http\ResponseTest: HttpResponse wrapper for http responses
@@ -112,7 +112,6 @@ class ResponseTest extends \PHPUnit\Framework\TestCase
      */
     public function testLangaugeOutput() : void
     {
-
         $this->response->header->l11n = new Localization();
         $this->response->header->l11n->setLanguage(ISO639x1Enum::_DE);
 

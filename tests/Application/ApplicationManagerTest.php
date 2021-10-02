@@ -76,8 +76,8 @@ class ApplicationManagerTest extends \PHPUnit\Framework\TestCase
     /**
      * @covers phpOMS\Application\ApplicationManager
      * @covers phpOMS\Application\InstallerAbstract
-     * @covers phpOMS\Application\UninstallerAbstract
      * @covers phpOMS\Application\StatusAbstract
+     * @covers phpOMS\Application\UninstallerAbstract
      * @group framework
      */
     public function testInstallUninstall() : void

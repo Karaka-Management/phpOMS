@@ -172,7 +172,7 @@ final class ApplicationManager
         }
 
         $classPath = \substr(\realpath($appPath) . '/Admin/Installer', \strlen(\realpath(__DIR__ . '/../../')));
-        $class = \str_replace('/', '\\', $classPath);
+        $class     = \str_replace('/', '\\', $classPath);
 
         /** @var $class InstallerAbstract */
         $class::reInit($info);

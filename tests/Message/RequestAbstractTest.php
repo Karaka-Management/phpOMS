@@ -16,7 +16,6 @@ namespace phpOMS\tests\Message;
 
 require_once __DIR__ . '/../Autoloader.php';
 
-use phpOMS\Localization\ISO639x1Enum;
 use phpOMS\Message\RequestAbstract;
 
 /**
@@ -67,7 +66,7 @@ class RequestAbstractTest extends \PHPUnit\Framework\TestCase
      */
     public function testInvalidDataKeyOutput() : void
     {
-        self::assertEquals(null, $this->request->getData('invalid'));
+        self::assertNull($this->request->getData('invalid'));
     }
 
     /**
@@ -84,7 +83,7 @@ class RequestAbstractTest extends \PHPUnit\Framework\TestCase
         self::assertEquals(2, $this->request->getData('key2', 'int'));
 
         $this->request->setData('key3', '1');
-        self::assertEquals(true, $this->request->getData('key3', 'bool'));
+        self::assertTrue($this->request->getData('key3', 'bool'));
 
         $this->request->setData('key4', '1.23');
         self::assertEquals(1.23, $this->request->getData('key4', 'float'));

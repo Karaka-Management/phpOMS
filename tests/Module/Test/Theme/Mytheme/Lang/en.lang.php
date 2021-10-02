@@ -14,5 +14,5 @@ declare(strict_types=1);
 
 return ['Test' => [
     'Key' => 'Value',
-]
+],
 ];
