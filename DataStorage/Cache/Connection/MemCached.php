@@ -154,17 +154,21 @@ final class MemCached extends ConnectionAbstract
     /**
      * {@inheritdoc}
      */
-    public function increment(int | string $key, int $value = 1) : void
+    public function increment(int | string $key, int $value = 1) : bool
     {
         $this->con->increment($key, $value);
+
+        return true;
     }
 
     /**
      * {@inheritdoc}
      */
-    public function decrement(int | string $key, int $value = 1) : void
+    public function decrement(int | string $key, int $value = 1) : bool
     {
         $this->con->decrement($key, $value);
+
+        return true;
     }
 
     /**

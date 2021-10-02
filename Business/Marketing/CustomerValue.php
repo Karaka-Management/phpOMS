@@ -27,7 +27,7 @@ final class CustomerValue
     /**
      * Simple customer lifetime value
      *
-     * Hazard Model, same as $margin * (1 + $discountRate) / (1 + $discountRate - $retentionRate)
+     * Hazard Model
      *
      * @param float $margin        Margin per period (or revenue/sales)
      * @param float $retentionRate Rate of remaining customers per period (= average lifetime / (1 + average lifetime))
@@ -40,32 +40,6 @@ final class CustomerValue
     public static function getSimpleCLV(float $margin, float $retentionRate, float $discountRate) : float
     {
         return $margin * $retentionRate / (1 + $discountRate - $retentionRate);
-    }
-
-    /**
-     * Basic customer lifetime value
-     *
-     * Hazard Model, same as $margin * (1 + $discountRate) / (1 + $discountRate - $retentionRate)
-     *
-     * @param array $margins       Margin per period (or revenue/sales)
-     * @param float $retentionRate Rate of remaining customers per period (= average lifetime / (1 + average lifetime))
-     * @param float $discountRate  Cost of capital to discount future revenue
-     *
-     * @return float
-     *
-     * @since 1.0.0
-     */
-    public static function getBasicCLV(array $margins, float $retentionRate, float $discountRate) : float
-    {
-        $clv = 0.0;
-        $c   = 1;
-        foreach ($margins as $margin) {
-            $clv += ($retentionRate ** $c) * $margin * \pow(1 / (1 + $discountRate), $c);
-
-            ++$c;
-        }
-
-        return $clv;
     }
 
     /**

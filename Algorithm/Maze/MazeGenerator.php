@@ -97,7 +97,7 @@ class MazeGenerator
                 $pos = \array_pop($path);
 
                 if ($pos === null) {
-                    break;
+                    break; // @codeCoverageIgnore
                 }
             }
         }

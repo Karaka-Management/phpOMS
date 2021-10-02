@@ -205,7 +205,7 @@ final class BasicOcr
             foreach ($candidateLabels as $i => $label) {
                 $predictedLabels[] = [
                     'label' => $label,
-                    'prob'  => $countedCandidates[$candidateLabels[$i]] / $k,
+                    'prob'  => $countedCandidates[$label] / $k,
                 ];
             }
         }

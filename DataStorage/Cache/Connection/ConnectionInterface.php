@@ -45,11 +45,11 @@ interface ConnectionInterface extends DataStorageConnectionInterface
      * @param int|string $key   Unique cache key
      * @param int        $value By value
      *
-     * @return void
+     * @return bool
      *
      * @since 1.0.0
      */
-    public function increment(int | string $key, int $value = 1) : void;
+    public function increment(int | string $key, int $value = 1) : bool;
 
     /**
      * Decrement value.
@@ -57,11 +57,11 @@ interface ConnectionInterface extends DataStorageConnectionInterface
      * @param int|string $key   Unique cache key
      * @param int        $value By value
      *
-     * @return void
+     * @return bool
      *
      * @since 1.0.0
      */
-    public function decrement(int | string $key, int $value = 1) : void;
+    public function decrement(int | string $key, int $value = 1) : bool;
 
     /**
      * Rename cache key.

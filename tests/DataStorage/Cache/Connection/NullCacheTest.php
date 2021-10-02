@@ -78,7 +78,7 @@ final class NullCacheTest extends \PHPUnit\Framework\TestCase
 
     public function testDecrement() : void
     {
-        $this->cache->increment(1, 1);
+        $this->cache->decrement(1, 1);
         self::assertNull($this->cache->get(1));
     }
 

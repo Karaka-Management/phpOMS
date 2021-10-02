@@ -83,7 +83,7 @@ class MetricsTest extends \PHPUnit\Framework\TestCase
     }
 
     /**
-     *  @testdox The CLTV can be calculated using the migration model
+     * @testdox The CLTV can be calculated using the migration model
      * @group framework
      */
     public function testMigrationModel() : void
@@ -101,7 +101,7 @@ class MetricsTest extends \PHPUnit\Framework\TestCase
     }
 
     /**
-     *  @testdox The migration model can be used in order to determin which buying/none-buying customer group should receive a mailing
+     * @testdox The migration model can be used in order to determin which buying/none-buying customer group should receive a mailing
      * @group framework
      */
     public function testMailingSuccessEstimation() : void
@@ -115,5 +115,18 @@ class MetricsTest extends \PHPUnit\Framework\TestCase
             )->toArray(),
             0.1
         );
+    }
+
+    /**
+     * @testdox The probability of a customer buying can be calculated based on his previous purchase behavior
+     * @group framework
+     */
+    public function testCustomerActiveProbability() : void
+    {
+        $purchases = 10;
+        $periods   = 36; // months
+
+        self::assertEqualsWithDelta(0.017, Metrics::customerActiveProbability($purchases, $periods, 24), 0.001);
+        self::assertEqualsWithDelta(1.0, Metrics::customerActiveProbability($purchases, $periods, 36), 0.001);
     }
 }

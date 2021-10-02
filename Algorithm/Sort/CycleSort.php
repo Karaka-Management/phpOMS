@@ -64,14 +64,16 @@ final class CycleSort implements SortInterface
                 ++$pos;
             }
 
-            $old        = $list[$pos];
-            $list[$pos] = $item;
-            $item       = $old;
+            if ($pos !== $start) {
+                $old        = $list[$pos];
+                $list[$pos] = $item;
+                $item       = $old;
+            }
 
             while ($pos !== $start) {
-                $pos     = $start;
-                $length1 = \count($list);
-                for ($i = $start + 1; $i < $length1; ++$i) {
+                $pos = $start;
+
+                for ($i = $start + 1; $i < $n; ++$i) {
                     if (!$list[$i]->compare($item, $order)) {
                         ++$pos;
                     }
@@ -81,9 +83,11 @@ final class CycleSort implements SortInterface
                     ++$pos;
                 }
 
-                $old        = $list[$pos];
-                $list[$pos] = $item;
-                $item       = $old;
+                if (!$item->equals($list[$pos])) {
+                    $old        = $list[$pos];
+                    $list[$pos] = $item;
+                    $item       = $old;
+                }
             }
         }
 

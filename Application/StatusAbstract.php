@@ -63,7 +63,7 @@ abstract class StatusAbstract
      */
     public static function activateRoutes(ApplicationInfo $appInfo = null) : void
     {
-        self::installRoutes(static::PATH . '/../Routes.php', static::PATH . '/../Admin/Install/Application/Routes.php');
+        self::installRoutesHooks(static::PATH . '/../Routes.php', static::PATH . '/../Admin/Install/Application/Routes.php');
     }
 
     /**
@@ -79,7 +79,7 @@ abstract class StatusAbstract
      */
     public static function activateHooks(ApplicationInfo $appInfo = null) : void
     {
-        self::installRoutes(static::PATH . '/../Hooks.php', static::PATH . '/../Admin/Install/Application/Hooks.php');
+        self::installRoutesHooks(static::PATH . '/../Hooks.php', static::PATH . '/../Admin/Install/Application/Hooks.php');
     }
 
     /**
@@ -94,7 +94,7 @@ abstract class StatusAbstract
      *
      * @since 1.0.0
      */
-    protected static function installRoutes(string $destRoutePath, string $srcRoutePath) : void
+    protected static function installRoutesHooks(string $destRoutePath, string $srcRoutePath) : void
     {
         if (!\is_file($destRoutePath)) {
             \file_put_contents($destRoutePath, '<?php return [];');
@@ -115,175 +115,40 @@ abstract class StatusAbstract
         /** @noinspection PhpIncludeInspection */
         $appRoutes = include $destRoutePath;
         /** @noinspection PhpIncludeInspection */
-        $moduleRoutes = include $srcRoutePath;
+        $srcRoutes = include $srcRoutePath;
 
-        $appRoutes = \array_merge_recursive($appRoutes, $moduleRoutes);
-
-        \file_put_contents($destRoutePath, '<?php return ' . ArrayParser::serializeArray($appRoutes) . ';', \LOCK_EX);
-    }
-
-    /**
-     * Install hooks.
-     *
-     * @param string $destHookPath Destination hook path
-     * @param string $srcHookPath  Source hook path
-     *
-     * @return void
-     *
-     * @throws PathException       This exception is thrown if the hook file doesn't exist
-     * @throws PermissionException This exception is thrown if the hook file couldn't be updated (no write permission)
-     *
-     * @since 1.0.0
-     */
-    protected static function installHooks(string $destHookPath, string $srcHookPath) : void
-    {
-        if (!\is_file($destHookPath)) {
-            \file_put_contents($destHookPath, '<?php return [];');
-        }
-
-        if (!\is_file($srcHookPath)) {
-            return;
-        }
-
-        if (!\is_file($destHookPath)) {
-            throw new PathException($destHookPath);
-        }
-
-        if (!\is_writable($destHookPath)) {
-            throw new PermissionException($destHookPath);
-        }
-
-        /** @noinspection PhpIncludeInspection */
-        $appHooks = include $destHookPath;
-        /** @noinspection PhpIncludeInspection */
-        $moduleHooks = include $srcHookPath;
-
-        $appHooks = \array_merge_recursive($appHooks, $moduleHooks);
-
-        \file_put_contents($destHookPath, '<?php return ' . ArrayParser::serializeArray($appHooks) . ';', \LOCK_EX);
-    }
-
-    /**
-     * Deactivate routes.
-     *
-     * @param ApplicationInfo $appInfo Application info
-     *
-     * @return void
-     *
-     * @throws PermissionException
-     *
-     * @since 1.0.0
-     */
-    public static function deactivateRoutes(ApplicationInfo $appInfo) : void
-    {
-        self::installRoutes(static::PATH . '/../Routes.php', static::PATH . '/../Admin/Install/Application/Routes.php');
-    }
-
-    /**
-     * Deactivate hooks.
-     *
-     * @param ApplicationInfo $appInfo Application info
-     *
-     * @return void
-     *
-     * @throws PermissionException
-     *
-     * @since 1.0.0
-     */
-    public static function deactivateHooks(ApplicationInfo $appInfo) : void
-    {
-        self::installRoutes(static::PATH . '/../Hooks.php', static::PATH . '/../Admin/Install/Application/Hooks.php');
-    }
-
-    /**
-     * Uninstall routes.
-     *
-     * @param string $destRoutePath Destination route path
-     * @param string $srcRoutePath  Source route path
-     *
-     * @return void
-     *
-     * @throws PermissionException
-     *
-     * @since 1.0.0
-     */
-    public static function uninstallRoutes(string $destRoutePath, string $srcRoutePath) : void
-    {
-        if (!\is_file($destRoutePath)
-            || !\is_file($srcRoutePath)
-        ) {
-            return;
-        }
-
-        if (!\is_file($destRoutePath)) {
-            throw new PathException($destRoutePath);
-        }
-
-        if (!\is_writable($destRoutePath)) {
-            throw new PermissionException($destRoutePath);
-        }
-
-        /** @noinspection PhpIncludeInspection */
-        $appRoutes = include $destRoutePath;
-        /** @noinspection PhpIncludeInspection */
-        $moduleRoutes = include $srcRoutePath;
-
-        $appRoutes = ArrayUtils::array_diff_assoc_recursive($appRoutes, $moduleRoutes);
+        $appRoutes = \array_merge_recursive($appRoutes, $srcRoutes);
 
         \file_put_contents($destRoutePath, '<?php return ' . ArrayParser::serializeArray($appRoutes) . ';', \LOCK_EX);
     }
 
     /**
-     * Uninstall hooks.
-     *
-     * @param string $destHookPath Destination hook path
-     * @param string $srcHookPath  Source hook path
+     * Clear all routes.
      *
      * @return void
      *
+     * @throws PathException
      * @throws PermissionException
      *
      * @since 1.0.0
      */
-    protected static function uninstallHooks(string $destHookPath, string $srcHookPath) : void
+    public static function clearRoutes() : void
     {
-        if (!\is_file($destHookPath)
-            || !\is_file($srcHookPath)
-        ) {
-            return;
-        }
-
-        if (!\is_file($destHookPath)) {
-            throw new PathException($destHookPath);
-        }
-
-        if (!\is_writable($destHookPath)) {
-            throw new PermissionException($destHookPath);
-        }
-
-        /** @noinspection PhpIncludeInspection */
-        $appHooks = include $destHookPath;
-        /** @noinspection PhpIncludeInspection */
-        $moduleHooks = include $srcHookPath;
-
-        $appHooks = ArrayUtils::array_diff_assoc_recursive($appHooks, $moduleHooks);
-
-        \file_put_contents($destHookPath, '<?php return ' . ArrayParser::serializeArray($appHooks) . ';', \LOCK_EX);
+        \file_put_contents(static::PATH . '/../Routes.php', '<?php return [];', \LOCK_EX);
     }
 
     /**
-     * Deactivate app.
-     *
-     * @param DatabasePool    $dbPool Database instance
-     * @param ApplicationInfo $info   Module info
+     * Clear all hooks.
      *
      * @return void
      *
+     * @throws PathException
+     * @throws PermissionException
+     *
      * @since 1.0.0
      */
-    public static function deactivate(DatabasePool $dbPool, ApplicationInfo $info) : void
+    public static function clearHooks() : void
     {
-        self::deactivateRoutes($info);
-        self::deactivateHooks($info);
+        \file_put_contents(static::PATH . '/../Hooks.php', '<?php return [];', \LOCK_EX);
     }
 }

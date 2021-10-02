@@ -76,10 +76,11 @@ class ApplicationManagerTest extends \PHPUnit\Framework\TestCase
     /**
      * @covers phpOMS\Application\ApplicationManager
      * @covers phpOMS\Application\InstallerAbstract
+     * @covers phpOMS\Application\UninstallerAbstract
      * @covers phpOMS\Application\StatusAbstract
      * @group framework
      */
-    public function testInstall() : void
+    public function testInstallUninstall() : void
     {
         self::assertTrue($this->appManager->install(__DIR__ . '/Testapp', __DIR__ . '/Apps/Testapp'));
         self::assertTrue(\is_dir(__DIR__ . '/Apps/Testapp'));
@@ -89,10 +90,32 @@ class ApplicationManagerTest extends \PHPUnit\Framework\TestCase
         self::assertTrue(isset($apps['Testapp']));
 
         $providing = $this->appManager->getProvidingForModule('Navigation');
-        Directory::delete(__DIR__ . '/Apps/Testapp');
 
         self::assertTrue(isset($providing['Testapp']));
         self::assertTrue(\in_array('Navigation', $providing['Testapp']));
+
+        $this->appManager->uninstall(__DIR__ . '/Apps/Testapp');
+        self::assertFalse(\is_dir(__DIR__ . '/Apps/Testapp'));
+    }
+
+    /**
+     * @testdox A module can be re-initialized
+     * @covers phpOMS\Application\ApplicationManager
+     * @covers phpOMS\Application\InstallerAbstract
+     * @covers phpOMS\Application\StatusAbstract
+     * @group framework
+     */
+    public function testReInit() : void
+    {
+        Directory::delete(__DIR__ . '/Apps/Testapp');
+
+        $this->appManager->install(__DIR__ . '/Testapp', __DIR__ . '/Apps/Testapp');
+
+        $this->appManager->reInit(__DIR__ . '/Apps/Testapp');
+        self::assertEquals($r1 = include __DIR__ . '/Testapp/Admin/Install/Application/Routes.php', $r2 = include __DIR__ . '/Apps/Testapp/Routes.php');
+        self::assertEquals($h1 = include __DIR__ . '/Testapp/Admin/Install/Application/Hooks.php', $h2 = include __DIR__ . '/Apps/Testapp/Hooks.php');
+
+        Directory::delete(__DIR__ . '/Apps/Testapp');
     }
 
     /**
@@ -109,8 +132,36 @@ class ApplicationManagerTest extends \PHPUnit\Framework\TestCase
      * @covers phpOMS\Application\ApplicationManager
      * @group framework
      */
+    public function testMissingInstallerPath() : void
+    {
+        self::assertFalse($this->appManager->install(__DIR__ . '/MissingInstaller', __DIR__ . '/Apps/MissingInstaller'));
+    }
+
+    /**
+     * @covers phpOMS\Application\ApplicationManager
+     * @group framework
+     */
     public function testMissingApplicationInfoFile() : void
     {
-        self::assertFalse($this->appManager->install(__DIR__, __DIR__ . '/newapp', __DIR__ . '/Apps/newapp'));
+        self::assertFalse($this->appManager->install(__DIR__ . '/MissingInfo', __DIR__ . '/Apps/MissingInfo'));
+    }
+
+    /**
+     * @covers phpOMS\Application\ApplicationManager
+     * @group framework
+     */
+    public function testInvalidSourceUninstallPath() : void
+    {
+        self::assertFalse($this->appManager->uninstall(__DIR__ . '/invalid', __DIR__));
+        self::assertFalse($this->appManager->uninstall(__DIR__, __DIR__));
+    }
+
+    /**
+     * @covers phpOMS\Application\ApplicationManager
+     * @group framework
+     */
+    public function testMissingUninstallerPath() : void
+    {
+        self::assertFalse($this->appManager->uninstall(__DIR__ . '/Apps/MissingInstaller'));
     }
 }

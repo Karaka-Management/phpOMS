@@ -88,8 +88,8 @@ abstract class UninstallerAbstract
         $definitions = \json_decode($content, true);
         $builder     = new SchemaBuilder($dbPool->get('schema'));
 
-        foreach ($definitions as $definition) {
-            $builder->dropTable($definition['table'] ?? '');
+        foreach ($definitions as $name => $definition) {
+            $builder->dropTable($name ?? '');
         }
 
         $builder->execute();

@@ -54,10 +54,10 @@ class Builder extends QueryBuilder
     /**
      * Table to drop.
      *
-     * @var string
+     * @var array
      * @since 1.0.0
      */
-    public string $dropTable = '';
+    public array $dropTable = [];
 
     /**
      * Tables.
@@ -192,8 +192,8 @@ class Builder extends QueryBuilder
      */
     public function dropTable(string $table) : self
     {
-        $this->type      = QueryType::DROP_TABLE;
-        $this->dropTable = $table;
+        $this->type        = QueryType::DROP_TABLE;
+        $this->dropTable[] = $table;
 
         return $this;
     }

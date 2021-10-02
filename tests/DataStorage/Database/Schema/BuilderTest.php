@@ -108,29 +108,19 @@ class BuilderTest extends \PHPUnit\Framework\TestCase
         );*/
     }
 
+    /**
+     * @testdox The grammar correctly deletes a table
+     * @covers phpOMS\DataStorage\Database\Schema\Grammar\MysqlGrammar<extended>
+     * @group framework
+     */
     public function testMysqlCreateFromSchema() : void
     {
-        Builder::createFromSchema(
-            \json_decode(
-                \file_get_contents(__DIR__ . '/Grammar/testSchema.json'), true
-            )['test_foreign'],
-            $this->con
-        )->execute();
+        $query = new Builder($this->con);
+        $sql   = 'DROP TABLE `test`, `test_foreign`;';
 
-        Builder::createFromSchema(
-            \json_decode(
-                \file_get_contents(__DIR__ . '/Grammar/testSchema.json'), true
-            )['test'],
-            $this->con
-        )->execute();
-
-        $table  = new Builder($this->con);
-        $tables = $table->selectTables()->execute()->fetchAll(\PDO::FETCH_COLUMN);
-        self::assertContains('test', $tables);
-        self::assertContains('test_foreign', $tables);
-
-        $delete  = new Builder($this->con);
-        $delete->dropTable('test')->execute();
-        $delete->dropTable('test_foreign')->execute();
+        self::assertEquals(
+            $sql,
+            $query->dropTable('test')->dropTable('test_foreign')->toSql()
+        );
     }
 }

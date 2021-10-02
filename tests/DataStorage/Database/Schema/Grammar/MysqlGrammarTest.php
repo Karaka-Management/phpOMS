@@ -15,7 +15,7 @@ declare(strict_types=1);
 namespace phpOMS\tests\DataStorage\Database\Schema\Grammar;
 
 use phpOMS\DataStorage\Database\Connection\MysqlConnection;
-use phpOMS\DataStorage\Database\Schema\Builder as SchemaBuilder;
+use phpOMS\DataStorage\Database\Schema\Builder;
 use phpOMS\DataStorage\Database\Schema\Grammar\MysqlGrammar;
 use phpOMS\Utils\ArrayUtils;
 use phpOMS\Utils\TestUtils;
@@ -58,15 +58,15 @@ class MysqlGrammarTest extends \PHPUnit\Framework\TestCase
     {
         $definitions = \json_decode(\file_get_contents(__DIR__ . '/testSchema.json'), true);
         foreach ($definitions as $definition) {
-            SchemaBuilder::createFromSchema($definition, $this->con)->execute();
+            Builder::createFromSchema($definition, $this->con)->execute();
         }
 
-        $table  = new SchemaBuilder($this->con);
+        $table  = new Builder($this->con);
         $tables = $table->selectTables()->execute()->fetchAll(\PDO::FETCH_COLUMN);
         self::assertContains('test', $tables);
         self::assertContains('test_foreign', $tables);
 
-        $field  = new SchemaBuilder($this->con);
+        $field  = new Builder($this->con);
         $fields = $field->selectFields('test')->execute()->fetchAll();
 
         foreach ($definitions['test']['fields'] as $key => $field) {
@@ -75,6 +75,11 @@ class MysqlGrammarTest extends \PHPUnit\Framework\TestCase
                 'Couldn\'t find "' . $key . '" in array'
             );
         }
+
+        $delete  = new Builder($this->con);
+        $delete->dropTable('test')
+            ->dropTable('test_foreign')
+            ->execute();
     }
 
     /**
@@ -84,13 +89,22 @@ class MysqlGrammarTest extends \PHPUnit\Framework\TestCase
      */
     public function testDelete() : void
     {
-        $table  = new SchemaBuilder($this->con);
+        $definitions = \json_decode(\file_get_contents(__DIR__ . '/testSchema.json'), true);
+        foreach ($definitions as $definition) {
+            Builder::createFromSchema($definition, $this->con)->execute();
+        }
+
+        $table  = new Builder($this->con);
         $tables = $table->selectTables()->execute()->fetchAll(\PDO::FETCH_COLUMN);
+        self::assertContains('test', $tables);
+        self::assertContains('test_foreign', $tables);
 
-        $delete  = new SchemaBuilder($this->con);
-        $delete->dropTable('test')->execute();
-        $delete->dropTable('test_foreign')->execute();
+        $delete  = new Builder($this->con);
+        $delete->dropTable('test')
+            ->dropTable('test_foreign')
+            ->execute();
 
+        $table  = new Builder($this->con);
         $tables = $table->selectTables()->execute()->fetchAll();
         self::assertNotContains('test', $tables);
         self::assertNotContains('test_foreign', $tables);

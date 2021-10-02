@@ -142,7 +142,7 @@ final class Prime
         $primes = \array_combine($range, $range);
 
         if ($primes === false) {
-            return [];
+            return []; // @codeCoverageIgnore
         }
 
         while ($number * $number < $n) {

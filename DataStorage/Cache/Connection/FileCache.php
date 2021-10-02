@@ -238,7 +238,7 @@ final class FileCache extends ConnectionAbstract
             return '';
         }
 
-        throw new InvalidEnumValue($type);
+        throw new InvalidEnumValue($type); // @codeCoverageIgnore
     }
 
     /**
@@ -281,7 +281,7 @@ final class FileCache extends ConnectionAbstract
 
         $raw = \file_get_contents($path);
         if ($raw === false) {
-            return null;
+            return null; // @codeCoverageIgnore
         }
 
         $type        = (int) $raw[0];
@@ -289,7 +289,7 @@ final class FileCache extends ConnectionAbstract
         $expireEnd   = (int) \strpos($raw, self::DELIM, $expireStart + 1);
 
         if ($expireStart < 0 || $expireEnd < 0) {
-            return null;
+            return null; // @codeCoverageIgnore
         }
 
         $cacheExpire = \substr($raw, $expireStart + 1, $expireEnd - ($expireStart + 1));
@@ -337,7 +337,7 @@ final class FileCache extends ConnectionAbstract
                 $namespace      = \substr($raw, $namespaceStart + 1, $namespaceEnd - $namespaceStart - 1);
 
                 if ($namespace === false) {
-                    return null;
+                    return null; // @codeCoverageIgnore
                 }
 
                 return new $namespace();
@@ -347,7 +347,7 @@ final class FileCache extends ConnectionAbstract
                 $namespace      = \substr($raw, $namespaceStart + 1, $namespaceEnd - $namespaceStart - 1);
 
                 if ($namespace === false) {
-                    return null;
+                    return null; // @codeCoverageIgnore
                 }
 
                 $obj = new $namespace();
@@ -385,7 +385,7 @@ final class FileCache extends ConnectionAbstract
             $raw     = \file_get_contents($path);
 
             if ($raw === false) {
-                return false;
+                return false; // @codeCoverageIgnore
             }
 
             $cacheExpire = $this->getExpire($raw);
@@ -426,7 +426,7 @@ final class FileCache extends ConnectionAbstract
 
         $raw = \file_get_contents($path);
         if ($raw === false) {
-            return false;
+            return false; // @codeCoverageIgnore
         }
 
         $type        = (int) $raw[0];
@@ -434,7 +434,7 @@ final class FileCache extends ConnectionAbstract
         $expireEnd   = (int) \strpos($raw, self::DELIM, $expireStart + 1);
 
         if ($expireStart < 0 || $expireEnd < 0) {
-            return false;
+            return false; // @codeCoverageIgnore
         }
 
         $cacheExpire = \substr($raw, $expireStart + 1, $expireEnd - ($expireStart + 1));
@@ -452,11 +452,11 @@ final class FileCache extends ConnectionAbstract
     /**
      * {@inheritdoc}
      */
-    public function increment(int | string $key, int $value = 1) : void
+    public function increment(int | string $key, int $value = 1) : bool
     {
         $path = $this->getPath($key);
         if (!File::exists($path)) {
-            return;
+            return false;
         }
 
         $created = File::created($path)->getTimestamp();
@@ -464,7 +464,7 @@ final class FileCache extends ConnectionAbstract
 
         $raw = \file_get_contents($path);
         if ($raw === false) {
-            return;
+            return false; // @codeCoverageIgnore
         }
 
         $type        = (int) $raw[0];
@@ -472,7 +472,7 @@ final class FileCache extends ConnectionAbstract
         $expireEnd   = (int) \strpos($raw, self::DELIM, $expireStart + 1);
 
         if ($expireStart < 0 || $expireEnd < 0) {
-            return;
+            return false; // @codeCoverageIgnore
         }
 
         $cacheExpire = \substr($raw, $expireStart + 1, $expireEnd - ($expireStart + 1));
@@ -480,16 +480,18 @@ final class FileCache extends ConnectionAbstract
 
         $val = $this->reverseValue($type, $raw, $expireEnd);
         $this->set($key, $val + $value, $cacheExpire);
+
+        return true;
     }
 
     /**
      * {@inheritdoc}
      */
-    public function decrement(int | string $key, int $value = 1) : void
+    public function decrement(int | string $key, int $value = 1) : bool
     {
         $path = $this->getPath($key);
         if (!File::exists($path)) {
-            return;
+            return false;
         }
 
         $created = File::created($path)->getTimestamp();
@@ -497,7 +499,7 @@ final class FileCache extends ConnectionAbstract
 
         $raw = \file_get_contents($path);
         if ($raw === false) {
-            return;
+            return false; // @codeCoverageIgnore
         }
 
         $type        = (int) $raw[0];
@@ -505,7 +507,7 @@ final class FileCache extends ConnectionAbstract
         $expireEnd   = (int) \strpos($raw, self::DELIM, $expireStart + 1);
 
         if ($expireStart < 0 || $expireEnd < 0) {
-            return;
+            return false; // @codeCoverageIgnore
         }
 
         $cacheExpire = \substr($raw, $expireStart + 1, $expireEnd - ($expireStart + 1));
@@ -513,6 +515,8 @@ final class FileCache extends ConnectionAbstract
 
         $val = $this->reverseValue($type, $raw, $expireEnd);
         $this->set($key, $val - $value, $cacheExpire);
+
+        return true;
     }
 
     /**
@@ -548,7 +552,7 @@ final class FileCache extends ConnectionAbstract
 
             $raw = \file_get_contents($path);
             if ($raw === false) {
-                continue;
+                continue; // @codeCoverageIgnore
             }
 
             $type        = (int) $raw[0];
@@ -556,7 +560,7 @@ final class FileCache extends ConnectionAbstract
             $expireEnd   = (int) \strpos($raw, self::DELIM, $expireStart + 1);
 
             if ($expireStart < 0 || $expireEnd < 0) {
-                continue;
+                continue; // @codeCoverageIgnore
             }
 
             $cacheExpire = \substr($raw, $expireStart + 1, $expireEnd - ($expireStart + 1));
@@ -600,7 +604,7 @@ final class FileCache extends ConnectionAbstract
                 $raw     = \file_get_contents($path);
 
                 if ($raw === false) {
-                    continue;
+                    continue; // @codeCoverageIgnore
                 }
 
                 $cacheExpire = $this->getExpire($raw);

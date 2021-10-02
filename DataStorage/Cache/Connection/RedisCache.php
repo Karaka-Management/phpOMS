@@ -182,17 +182,21 @@ final class RedisCache extends ConnectionAbstract
     /**
      * {@inheritdoc}
      */
-    public function increment(int | string $key, int $value = 1) : void
+    public function increment(int | string $key, int $value = 1) : bool
     {
         $this->con->incrBy($key, $value);
+
+        return true;
     }
 
     /**
      * {@inheritdoc}
      */
-    public function decrement(int | string $key, int $value = 1) : void
+    public function decrement(int | string $key, int $value = 1) : bool
     {
         $this->con->decrBy($key, $value);
+
+        return true;
     }
 
     /**

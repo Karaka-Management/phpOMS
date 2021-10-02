@@ -143,6 +143,10 @@ abstract class InstallerAbstract
         $classPath = \substr(\realpath(static::PATH) . '/Status', \strlen(\realpath(__DIR__ . '/../../')));
 
         $class = \str_replace('/', '\\', $classPath);
+
+        $class::clearRoutes();
+        $class::clearHooks();
+
         $class::activateRoutes($info);
         $class::activateHooks($info);
     }

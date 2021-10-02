@@ -40,7 +40,7 @@ abstract class UninstallerAbstract
      */
     public static function uninstall(DatabasePool $dbPool, ApplicationInfo $info) : void
     {
-        self::deactivate($dbPool, $info);
+        //self::deactivate($dbPool, $info);
         self::dropTables($dbPool, $info);
         self::unregisterFromDatabase($dbPool, $info);
     }
@@ -55,12 +55,14 @@ abstract class UninstallerAbstract
      *
      * @since 1.0.0
      */
+    /*
     protected static function deactivate(DatabasePool $dbPool, ApplicationInfo $info) : void
     {
-        /** @var StatusAbstract $class */
-        $class = '\Web\\' . $info->getInternalName() . '\Admin\Status';
+        $classPath = \substr(\realpath(static::PATH) . '/Status', \strlen(\realpath(__DIR__ . '/../../')));
+
+        $class = \str_replace('/', '\\', $classPath);
         $class::deactivate($dbPool, $info);
-    }
+    }*/
 
     /**
      * Drop tables of app.
@@ -74,8 +76,7 @@ abstract class UninstallerAbstract
      */
     public static function dropTables(DatabasePool $dbPool, ApplicationInfo $info) : void
     {
-        $path = __DIR__ . '/../../Web/' . $info->getInternalName() . '/Admin/Install/db.json';
-
+        $path = static::PATH . '/Install/db.json';
         if (!\is_file($path)) {
             return;
         }
@@ -88,8 +89,8 @@ abstract class UninstallerAbstract
         $definitions = \json_decode($content, true);
         $builder     = new SchemaBuilder($dbPool->get('schema'));
 
-        foreach ($definitions as $definition) {
-            $builder->dropTable($definition['table'] ?? '');
+        foreach ($definitions as $name => $definition) {
+            $builder->dropTable($name ?? '');
         }
 
         $builder->execute();

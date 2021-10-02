@@ -77,7 +77,7 @@ abstract class StatusAbstract
                         continue;
                     }
 
-                    self::installRoutes(__DIR__ . '/../../' . $child->getName() . '/' . \basename($file->getName(), '.php') . '/Routes.php', $file->getPath());
+                    self::installRoutesHooks(__DIR__ . '/../../' . $child->getName() . '/' . \basename($file->getName(), '.php') . '/Routes.php', $file->getPath());
                 }
             } elseif ($child instanceof File) {
                 if (!\is_dir(__DIR__ . '/../../' . $child->getName())
@@ -86,7 +86,7 @@ abstract class StatusAbstract
                     continue;
                 }
 
-                self::installRoutes(__DIR__ . '/../../' . $child->getName() . '/Routes.php', $child->getPath());
+                self::installRoutesHooks(__DIR__ . '/../../' . $child->getName() . '/Routes.php', $child->getPath());
             }
         }
     }
@@ -103,7 +103,7 @@ abstract class StatusAbstract
      *
      * @since 1.0.0
      */
-    protected static function installRoutes(string $destRoutePath, string $srcRoutePath) : void
+    protected static function installRoutesHooks(string $destRoutePath, string $srcRoutePath) : void
     {
         if (!\is_file($destRoutePath)) {
             \file_put_contents($destRoutePath, '<?php return [];');
@@ -157,7 +157,7 @@ abstract class StatusAbstract
                         continue;
                     }
 
-                    self::installHooks(__DIR__ . '/../../' . $child->getName() . '/' . \basename($file->getName(), '.php') . '/Hooks.php', $file->getPath());
+                    self::installRoutesHooks(__DIR__ . '/../../' . $child->getName() . '/' . \basename($file->getName(), '.php') . '/Hooks.php', $file->getPath());
                 }
             } elseif ($child instanceof File) {
                 if (!\is_dir(__DIR__ . '/../../' . $child->getName())
@@ -166,50 +166,9 @@ abstract class StatusAbstract
                     continue;
                 }
 
-                self::installHooks(__DIR__ . '/../../' . $child->getName() . '/Hooks.php', $child->getPath());
+                self::installRoutesHooks(__DIR__ . '/../../' . $child->getName() . '/Hooks.php', $child->getPath());
             }
         }
-    }
-
-    /**
-     * Install hooks.
-     *
-     * @param string $destHookPath Destination hook path
-     * @param string $srcHookPath  Source hook path
-     *
-     * @return void
-     *
-     * @throws PathException       This exception is thrown if the hook file doesn't exist
-     * @throws PermissionException This exception is thrown if the hook file couldn't be updated (no write permission)
-     *
-     * @since 1.0.0
-     */
-    protected static function installHooks(string $destHookPath, string $srcHookPath) : void
-    {
-        if (!\is_file($destHookPath)) {
-            \file_put_contents($destHookPath, '<?php return [];');
-        }
-
-        if (!\is_file($srcHookPath)) {
-            return;
-        }
-
-        if (!\is_file($destHookPath)) {
-            throw new PathException($destHookPath);
-        }
-
-        if (!\is_writable($destHookPath)) {
-            throw new PermissionException($destHookPath);
-        }
-
-        /** @noinspection PhpIncludeInspection */
-        $appHooks = include $destHookPath;
-        /** @noinspection PhpIncludeInspection */
-        $moduleHooks = include $srcHookPath;
-
-        $appHooks = \array_merge_recursive($appHooks, $moduleHooks);
-
-        \file_put_contents($destHookPath, '<?php return ' . ArrayParser::serializeArray($appHooks) . ';', \LOCK_EX);
     }
 
     /**
@@ -252,7 +211,7 @@ abstract class StatusAbstract
                         continue;
                     }
 
-                    self::uninstallRoutes(__DIR__ . '/../../' . $child->getName() . '/' . \basename($file->getName(), '.php') . '/Routes.php', $file->getPath());
+                    self::uninstallRoutesHooks(__DIR__ . '/../../' . $child->getName() . '/' . \basename($file->getName(), '.php') . '/Routes.php', $file->getPath());
                 }
             } elseif ($child instanceof File) {
                 if (!\is_dir(__DIR__ . '/../../' . $child->getName())
@@ -261,7 +220,7 @@ abstract class StatusAbstract
                     continue;
                 }
 
-                self::uninstallRoutes(__DIR__ . '/../../' . $child->getName() . '/Routes.php', $child->getPath());
+                self::uninstallRoutesHooks(__DIR__ . '/../../' . $child->getName() . '/Routes.php', $child->getPath());
             }
         }
     }
@@ -278,7 +237,7 @@ abstract class StatusAbstract
      *
      * @since 1.0.0
      */
-    public static function uninstallRoutes(string $destRoutePath, string $srcRoutePath) : void
+    public static function uninstallRoutesHooks(string $destRoutePath, string $srcRoutePath) : void
     {
         if (!\is_file($destRoutePath)
             || !\is_file($srcRoutePath)
@@ -328,7 +287,7 @@ abstract class StatusAbstract
                         continue;
                     }
 
-                    self::uninstallHooks(__DIR__ . '/../../' . $child->getName() . '/' . \basename($file->getName(), '.php') . '/Hooks.php', $file->getPath());
+                    self::uninstallRoutesHooks(__DIR__ . '/../../' . $child->getName() . '/' . \basename($file->getName(), '.php') . '/Hooks.php', $file->getPath());
                 }
             } elseif ($child instanceof File) {
                 if (!\is_dir(__DIR__ . '/../../' . $child->getName())
@@ -337,46 +296,8 @@ abstract class StatusAbstract
                     continue;
                 }
 
-                self::uninstallHooks(__DIR__ . '/../../' . $child->getName() . '/Hooks.php', $child->getPath());
+                self::uninstallRoutesHooks(__DIR__ . '/../../' . $child->getName() . '/Hooks.php', $child->getPath());
             }
         }
-    }
-
-    /**
-     * Uninstall hooks.
-     *
-     * @param string $destHookPath Destination hook path
-     * @param string $srcHookPath  Source hook path
-     *
-     * @return void
-     *
-     * @throws PermissionException
-     *
-     * @since 1.0.0
-     */
-    protected static function uninstallHooks(string $destHookPath, string $srcHookPath) : void
-    {
-        if (!\is_file($destHookPath)
-            || !\is_file($srcHookPath)
-        ) {
-            return;
-        }
-
-        if (!\is_file($destHookPath)) {
-            throw new PathException($destHookPath);
-        }
-
-        if (!\is_writable($destHookPath)) {
-            throw new PermissionException($destHookPath);
-        }
-
-        /** @noinspection PhpIncludeInspection */
-        $appHooks = include $destHookPath;
-        /** @noinspection PhpIncludeInspection */
-        $moduleHooks = include $srcHookPath;
-
-        $appHooks = ArrayUtils::array_diff_assoc_recursive($appHooks, $moduleHooks);
-
-        \file_put_contents($destHookPath, '<?php return ' . ArrayParser::serializeArray($appHooks) . ';', \LOCK_EX);
     }
 }

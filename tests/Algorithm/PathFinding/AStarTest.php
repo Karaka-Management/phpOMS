@@ -17,6 +17,7 @@ namespace phpOMS\tests\Algorithm\PathFinding;
 use phpOMS\Algorithm\PathFinding\AStar;
 use phpOMS\Algorithm\PathFinding\AStarNode;
 use phpOMS\Algorithm\PathFinding\Grid;
+use phpOMS\Algorithm\PathFinding\Path;
 use phpOMS\Algorithm\PathFinding\HeuristicType;
 use phpOMS\Algorithm\PathFinding\MovementType;
 
@@ -248,5 +249,24 @@ class AStarTest extends \PHPUnit\Framework\TestCase
             [0, 0, 0, 0, 0, 9, 0, 0, 0, 0, 0, 0, 0, 0, 0, ],
             [0, 0, 0, 0, 0, 9, 0, 0, 0, 0, 0, 0, 0, 0, 0, ],
         ], $this->gridArray);
+    }
+
+    /**
+     * @testdox A invalid start or end node returns the grid
+     * @covers phpOMS\Algorithm\PathFinding\AStar
+     * @group framework
+     */
+    public function testInvalidStartEndNode() : void
+    {
+        $grid = Grid::createGridFromArray($this->gridArray, AStarNode::class);
+
+        self::assertEquals(
+            new Path($grid),
+            $path = AStar::findPath(
+                999, 999,
+                -999, -999,
+                $grid, HeuristicType::EUCLIDEAN, MovementType::DIAGONAL_NO_OBSTACLE
+            )
+        );
     }
 }

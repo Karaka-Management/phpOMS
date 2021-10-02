@@ -14,17 +14,17 @@ declare(strict_types=1);
 
 namespace phpOMS\tests\Application\Apps\{APPNAME}\Admin;
 
-use phpOMS\Application\StatusAbstract;
+use phpOMS\Application\UninstallerAbstract;
 
 /**
- * Status class.
+ * Uninstaller class.
  *
  * @package phpOMS\tests\Application\Apps\{APPNAME}\Admin
  * @license OMS License 1.0
  * @link    https://orange-management.org
  * @since   1.0.0
  */
-final class Status extends StatusAbstract
+final class Uninstaller extends UninstallerAbstract
 {
 	public const PATH = __DIR__;
 }

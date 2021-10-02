@@ -92,6 +92,16 @@ class L11nManagerTest extends \PHPUnit\Framework\TestCase
     }
 
     /**
+     * @testdox An invalid localization source returns an error string
+     * @covers phpOMS\Localization\L11nManager
+     * @group framework
+     */
+    public function testInvalidControllerSource() : void
+    {
+        self::assertEquals('ERROR-Key', $this->l11nManager->getText('en', 'InvalidSource', 'RandomThemeDoesNotMatterAlreadyLoaded', 'Key'));
+    }
+
+    /**
      * @testdox Language data can be loaded from a file
      * @covers phpOMS\Localization\L11nManager
      * @group framework

@@ -4,7 +4,7 @@
  *
  * PHP Version 8.0
  *
- * @package   Web\Api\Admin
+ * @package   phpOMS\tests\Application\Apps\{APPNAME}\Admin
  * @copyright Dennis Eichhorn
  * @license   OMS License 1.0
  * @version   1.0.0
@@ -19,7 +19,7 @@ use phpOMS\Application\InstallerAbstract;
 /**
  * Installer class.
  *
- * @package Web\Api\Admin
+ * @package phpOMS\tests\Application\Apps\{APPNAME}\Admin
  * @license OMS License 1.0
  * @link    https://orange-management.org
  * @since   1.0.0

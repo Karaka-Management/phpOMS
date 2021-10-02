@@ -232,16 +232,16 @@ class Grammar extends QueryGrammar
     /**
      * Compile drop query.
      *
-     * @param BuilderAbstract $query Query
-     * @param string          $table Tables to drop
+     * @param BuilderAbstract $query    Query
+     * @param string          $database Tables to drop
      *
      * @return string
      *
      * @since 1.0.0
      */
-    protected function compileDropDatabase(BuilderAbstract $query, string $table) : string
+    protected function compileDropDatabase(BuilderAbstract $query, string $database) : string
     {
-        $expression = $this->expressionizeTableColumn([$table]);
+        $expression = $this->expressionizeTableColumn([$database]);
 
         if ($expression === '') {
             $expression = '*';
@@ -253,16 +253,16 @@ class Grammar extends QueryGrammar
     /**
      * Compile drop query.
      *
-     * @param BuilderAbstract $query Query
-     * @param string          $table Tables to drop
+     * @param BuilderAbstract $query  Query
+     * @param array           $tables Tables to drop
      *
      * @return string
      *
      * @since 1.0.0
      */
-    protected function compileDropTable(BuilderAbstract $query, string $table) : string
+    protected function compileDropTable(BuilderAbstract $query, array $tables) : string
     {
-        $expression = $this->expressionizeTableColumn([$table]);
+        $expression = $this->expressionizeTableColumn($tables);
 
         if ($expression === '') {
             $expression = '*';

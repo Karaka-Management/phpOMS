@@ -32,9 +32,9 @@ class WeightedTest extends \PHPUnit\Framework\TestCase
     public function testNoOverlappingScheduling() : void
     {
         $jobs = [
-            new Job(10, new \DateTime('2000-01-01'), null, '0'),
             new Job(20, new \DateTime('2003-01-01'), new \DateTime('2010-01-01'), 'A'),
             new Job(50, new \DateTime('2001-01-01'), new \DateTime('2002-01-01'), 'B'),
+            new Job(10, new \DateTime('2000-01-01'), null, '0'),
             new Job(100, new \DateTime('2006-01-01'), new \DateTime('2019-01-01'), 'C'),
             new Job(200, new \DateTime('2002-01-01'), new \DateTime('2020-01-01'), 'D'),
             new Job(300, new \DateTime('2004-01-01'), null, '1'),

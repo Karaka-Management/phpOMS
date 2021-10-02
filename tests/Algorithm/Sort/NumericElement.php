@@ -32,7 +32,7 @@ float $value = 0;
 
     public function compare(SortableInterface $obj, int $order = SortOrder::ASC) : bool
     {
-        return $order === SortOrder::ASC ? $this->value > $obj->value : $this->value < $obj->value;
+        return $order === SortOrder::ASC ? $this->value >= $obj->value : $this->value <= $obj->value;
     }
 
     public function equals(SortableInterface $obj) : bool

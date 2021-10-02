@@ -43,7 +43,7 @@ class ModuleAbstractTest extends \PHPUnit\Framework\TestCase
     {
         $this->module = new class() extends ModuleAbstract
         {
-            public const PATH = __DIR__ . '/';
+            public const PATH = __DIR__ . '/Test';
 
             const VERSION = '1.2.3';
 

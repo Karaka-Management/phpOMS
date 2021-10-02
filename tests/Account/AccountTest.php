@@ -18,6 +18,7 @@ use phpOMS\Account\Account;
 use phpOMS\Account\AccountStatus;
 use phpOMS\Account\AccountType;
 use phpOMS\Account\Group;
+use phpOMS\Account\NullGroup;
 use phpOMS\Account\PermissionAbstract;
 use phpOMS\Account\PermissionType;
 use phpOMS\Localization\L11nManager;
@@ -107,6 +108,7 @@ class AccountTest extends \PHPUnit\Framework\TestCase
         self::assertEquals(AccountType::USER, $account->getType());
 
         self::assertEquals([], $account->getPermissions());
+        self::assertFalse($account->hasGroup(2));
 
         self::assertInstanceOf('\DateTimeInterface', $account->getLastActive());
         self::assertInstanceOf('\DateTimeImmutable', $account->createdAt);
@@ -151,8 +153,9 @@ class AccountTest extends \PHPUnit\Framework\TestCase
         $account = new Account();
         $account->generatePassword('abcd');
 
-        $account->addGroup(new Group());
+        $account->addGroup(new NullGroup(2));
         self::assertCount(1, $account->getGroups());
+        self::assertTrue($account->hasGroup(2));
     }
 
     /**

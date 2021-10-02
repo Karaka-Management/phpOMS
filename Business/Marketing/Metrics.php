@@ -91,25 +91,11 @@ final class Metrics
     }
 
     /**
-     * Calculate the average lifetime duration
-     *
-     * @param array $retainedCustomers Retained customers per period
-     *
-     * @return float
-     *
-     * @since 1.0.0
-     */
-    public static function averageLifetimeDuration(array $retainedCustomers) : float
-    {
-        return \array_sum($retainedCustomers) / \count($retainedCustomers);
-    }
-
-    /**
      * Calculate the probability of a customer being active
      *
      * @param int $purchases    Number of purchases during the periods
      * @param int $periods      Number of periods (e.g. number of months)
-     * @param int $lastPurchase In which period was the last purchase
+     * @param int $lastPurchase In which period was the last purchase (lastPurchase = periods: means customer purchased in this period)
      *
      * @return float
      *

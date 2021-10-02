@@ -98,11 +98,7 @@ final class ApplicationManager
         $destination = \rtrim($destination, '\\/');
         $source      = \rtrim($source, '/\\');
 
-        if (!\is_dir($source) || \is_dir($destination)) {
-            return false;
-        }
-
-        if (!\is_file($source . '/Admin/Installer.php')) {
+        if (!\is_dir($source) || \is_dir($destination) || !\is_file($source . '/Admin/Installer.php')) {
             return false;
         }
 
@@ -124,6 +120,73 @@ final class ApplicationManager
         }
     }
 
+    /**
+     * Uninstall the application
+     *
+     * @param string $source Source of the application
+     *
+     * @return bool
+     *
+     * @since 1.0.0
+     */
+    public function uninstall(string $source) : bool
+    {
+        $source = \rtrim($source, '/\\');
+        if (!\is_dir($source) || !\is_file($source . '/Admin/Uninstaller.php')) {
+            return false;
+        }
+
+        try {
+            $info                                      = $this->loadInfo($source . '/info.json');
+            $this->installed[$info->getInternalName()] = $info;
+
+            $classPath = \substr(\realpath($source) . '/Admin/Uninstaller', $t = \strlen(\realpath(__DIR__ . '/../../')));
+
+            $class = \str_replace('/', '\\', $classPath);
+            $class::uninstall($this->app->dbPool, $info, $this->app->appSettings);
+
+            $this->uninstallFiles($source);
+
+            return true;
+        } catch (\Throwable $t) {
+            return false; // @codeCoverageIgnore
+        }
+    }
+
+    /**
+     * Re-init application.
+     *
+     * @param string $appPath App path
+     *
+     * @return void
+     *
+     * @throws InvalidModuleException Throws this exception in case the installer doesn't exist
+     *
+     * @since 1.0.0
+     */
+    public function reInit(string $appPath) : void
+    {
+        $info = $this->loadInfo($appPath . '/info.json');
+        if ($info === null) {
+            return;
+        }
+
+        $classPath = \substr(\realpath($appPath) . '/Admin/Installer', \strlen(\realpath(__DIR__ . '/../../')));
+        $class = \str_replace('/', '\\', $classPath);
+
+        /** @var $class InstallerAbstract */
+        $class::reInit($info);
+    }
+
+    /**
+     * Get all applications who are providing for a specific module.
+     *
+     * @param string $module Module to check providings for
+     *
+     * @return array<string, string[]>
+     *
+     * @since 1.0.0
+     */
     public function getProvidingForModule(string $module) : array
     {
         $providing = [];
@@ -187,6 +250,20 @@ final class ApplicationManager
     private function installFiles(string $source, string $destination) : void
     {
         Directory::copy($source, $destination);
+    }
+
+    /**
+     * Uninstall files
+     *
+     * @param string $source Source path
+     *
+     * @return void
+     *
+     * @since 1.0.0
+     */
+    private function uninstallFiles(string $source) : void
+    {
+        Directory::delete($source);
     }
 
     /**

@@ -38,6 +38,7 @@ class StoogeSortTest extends \PHPUnit\Framework\TestCase
             new NumericElement(1),
             new NumericElement(4),
             new NumericElement(2),
+            new NumericElement(2),
             new NumericElement(8),
         ];
     }
@@ -62,11 +63,11 @@ class StoogeSortTest extends \PHPUnit\Framework\TestCase
     {
         $newList = StoogeSort::sort($this->list);
         self::assertEquals(
-            [1, 2, 4, 5, 8], [$newList[0]->value, $newList[1]->value, $newList[2]->value, $newList[3]->value, $newList[4]->value,]
+            [1, 2, 2, 4, 5, 8], [$newList[0]->value, $newList[1]->value, $newList[2]->value, $newList[3]->value, $newList[4]->value, $newList[5]->value,]
         );
 
         self::assertEquals(
-            [5, 1, 4, 2, 8], [$this->list[0]->value, $this->list[1]->value, $this->list[2]->value, $this->list[3]->value, $this->list[4]->value,]
+            [5, 1, 4, 2, 2, 8], [$this->list[0]->value, $this->list[1]->value, $this->list[2]->value, $this->list[3]->value, $this->list[4]->value, $this->list[5]->value,]
         );
     }
 
@@ -78,11 +79,11 @@ class StoogeSortTest extends \PHPUnit\Framework\TestCase
     {
         $newList = StoogeSort::sort($this->list, SortOrder::DESC);
         self::assertEquals(
-            [8, 5, 4, 2, 1], [$newList[0]->value, $newList[1]->value, $newList[2]->value, $newList[3]->value, $newList[4]->value,]
+            [8, 5, 4, 2, 2, 1], [$newList[0]->value, $newList[1]->value, $newList[2]->value, $newList[3]->value, $newList[4]->value, $newList[5]->value,]
         );
 
         self::assertEquals(
-            [5, 1, 4, 2, 8], [$this->list[0]->value, $this->list[1]->value, $this->list[2]->value, $this->list[3]->value, $this->list[4]->value,]
+            [5, 1, 4, 2, 2, 8], [$this->list[0]->value, $this->list[1]->value, $this->list[2]->value, $this->list[3]->value, $this->list[4]->value, $this->list[5]->value,]
         );
     }
 }

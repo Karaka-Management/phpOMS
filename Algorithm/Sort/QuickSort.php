@@ -67,7 +67,7 @@ final class QuickSort implements SortInterface
     {
         if ($lo < $hi) {
             $i = self::partition($list, $lo, $hi, $order);
-            self::qsort($list, $lo, $i, $order);
+            self::qsort($list, $lo, $i - 1, $order);
             self::qsort($list, $i + 1, $hi, $order);
         }
     }
@@ -86,26 +86,22 @@ final class QuickSort implements SortInterface
      */
     private static function partition(array &$list, int $lo, int $hi, int $order) : int
     {
-        $pivot = $list[$lo + ((int) (($hi - $lo) / 2))];
-        while (true) {
-            while (!$list[$lo]->compare($pivot, $order)) {
-                ++$lo;
+        $pivot = $list[$hi];
+        $i = $lo - 1;
+
+        for ($j = $lo; $j <= $hi - 1; ++$j) {
+            if (!$list[$j]->compare($pivot, $order)) {
+                ++$i;
+                $old      = $list[$i];
+                $list[$i] = $list[$j];
+                $list[$j] = $old;
             }
-
-            while ($list[$hi]->compare($pivot, $order)) {
-                --$hi;
-            }
-
-            if ($lo >= $hi) {
-                return $hi;
-            }
-
-            $old       = $list[$lo];
-            $list[$lo] = $list[$hi];
-            $list[$hi] = $old;
-
-            ++$lo;
-            --$hi;
         }
+
+        $old          = $list[$i + 1];
+        $list[$i + 1] = $list[$hi];
+        $list[$hi]    = $old;
+
+        return $i + 1;
     }
 }

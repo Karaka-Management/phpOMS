@@ -15,6 +15,7 @@ declare(strict_types=1);
 namespace phpOMS\tests\Algorithm\PathFinding;
 
 use phpOMS\Algorithm\PathFinding\Grid;
+use phpOMS\Algorithm\PathFinding\Path;
 use phpOMS\Algorithm\PathFinding\HeuristicType;
 use phpOMS\Algorithm\PathFinding\JumpPointNode;
 use phpOMS\Algorithm\PathFinding\JumpPointSearch;
@@ -248,5 +249,24 @@ class JumpPointSearchTest extends \PHPUnit\Framework\TestCase
             [0, 0, 0, 0, 0, 9, 0, 0, 0, 0, 0, 0, 0, 0, 0, ],
             [0, 0, 0, 0, 0, 9, 0, 0, 0, 0, 0, 0, 0, 0, 0, ],
         ], $this->gridArray);
+    }
+
+    /**
+     * @testdox A invalid start or end node returns the grid
+     * @covers phpOMS\Algorithm\PathFinding\JumpPointSearch
+     * @group framework
+     */
+    public function testInvalidStartEndNode() : void
+    {
+        $grid = Grid::createGridFromArray($this->gridArray, JumpPointNode::class);
+
+        self::assertEquals(
+            new Path($grid),
+            $path = JumpPointSearch::findPath(
+                999, 999,
+                -999, -999,
+                $grid, HeuristicType::EUCLIDEAN, MovementType::DIAGONAL_NO_OBSTACLE
+            )
+        );
     }
 }
