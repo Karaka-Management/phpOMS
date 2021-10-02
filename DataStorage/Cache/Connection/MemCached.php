@@ -29,6 +29,14 @@ use phpOMS\DataStorage\Cache\Exception\InvalidConnectionConfigException;
 final class MemCached extends ConnectionAbstract
 {
     /**
+     * Delimiter for cache meta data
+     *
+     * @var string
+     * @since 1.0.0
+     */
+    private const DELIM = '$';
+
+    /**
      * {@inheritdoc}
      */
     protected string $type = CacheType::MEMCACHED;
@@ -90,7 +98,7 @@ final class MemCached extends ConnectionAbstract
             throw new \InvalidArgumentException();
         }
 
-        $this->con->set($key, $value, \max($expire, 0));
+        $this->con->set((string) $key, $value, \max($expire, 0));
     }
 
     /**
@@ -106,7 +114,7 @@ final class MemCached extends ConnectionAbstract
             throw new \InvalidArgumentException();
         }
 
-        return $this->con->add($key, $value, \max($expire, 0));
+        return $this->con->add((string) $key, $value, \max($expire, 0));
     }
 
     /**
@@ -118,7 +126,7 @@ final class MemCached extends ConnectionAbstract
             return null;
         }
 
-        $result = $this->con->get($key);
+        $result = $this->con->get((string) $key);
 
         if ($this->con->getResultCode() !== \Memcached::RES_SUCCESS) {
             return null;
@@ -136,7 +144,7 @@ final class MemCached extends ConnectionAbstract
             return false;
         }
 
-        return $this->con->delete($key);
+        return $this->con->delete((string) $key);
     }
 
     /**
@@ -148,7 +156,7 @@ final class MemCached extends ConnectionAbstract
             return false;
         }
 
-        return $this->con->get($key) !== false;
+        return $this->con->get((string) $key) !== false;
     }
 
     /**
@@ -156,7 +164,7 @@ final class MemCached extends ConnectionAbstract
      */
     public function increment(int | string $key, int $value = 1) : bool
     {
-        $this->con->increment($key, $value);
+        $this->con->increment((string) $key, $value);
 
         return true;
     }
@@ -166,7 +174,7 @@ final class MemCached extends ConnectionAbstract
      */
     public function decrement(int | string $key, int $value = 1) : bool
     {
-        $this->con->decrement($key, $value);
+        $this->con->decrement((string) $key, $value);
 
         return true;
     }
@@ -176,9 +184,9 @@ final class MemCached extends ConnectionAbstract
      */
     public function rename(int | string $old, int | string $new, int $expire = -1) : void
     {
-        $value = $this->get($old);
-        $this->set($new, $value, $expire);
-        $this->delete($old);
+        $value = $this->get((string) $old);
+        $this->set((string) $new, $value, $expire);
+        $this->delete((string) $old);
     }
 
     /**
@@ -210,6 +218,61 @@ final class MemCached extends ConnectionAbstract
     }
 
     /**
+     * Parse cached value
+     *
+     * @param int    $type      Cached value type
+     * @param string $raw       Cached value
+     * @param int    $expireEnd Value end position
+     *
+     * @return mixed
+     *
+     * @since 1.0.0
+     */
+    private function reverseValue(int $type, string $raw, int $expireEnd) : mixed
+    {
+        switch ($type) {
+            case CacheValueType::_INT:
+                return (int) \substr($raw, $expireEnd + 1);
+            case CacheValueType::_FLOAT:
+                return (float) \substr($raw, $expireEnd + 1);
+            case CacheValueType::_BOOL:
+                return (bool) \substr($raw, $expireEnd + 1);
+            case CacheValueType::_STRING:
+                return \substr($raw, $expireEnd + 1);
+            case CacheValueType::_ARRAY:
+                $array = \substr($raw, $expireEnd + 1);
+                return \json_decode($array === false ? '[]' : $array, true);
+            case CacheValueType::_NULL:
+                return null;
+            case CacheValueType::_JSONSERIALIZABLE:
+                $namespaceStart = (int) \strpos($raw, self::DELIM, $expireEnd);
+                $namespaceEnd   = (int) \strpos($raw, self::DELIM, $namespaceStart + 1);
+                $namespace      = \substr($raw, $namespaceStart + 1, $namespaceEnd - $namespaceStart - 1);
+
+                if ($namespace === false) {
+                    return null; // @codeCoverageIgnore
+                }
+
+                return new $namespace();
+            case CacheValueType::_SERIALIZABLE:
+                $namespaceStart = (int) \strpos($raw, self::DELIM, $expireEnd);
+                $namespaceEnd   = (int) \strpos($raw, self::DELIM, $namespaceStart + 1);
+                $namespace      = \substr($raw, $namespaceStart + 1, $namespaceEnd - $namespaceStart - 1);
+
+                if ($namespace === false) {
+                    return null; // @codeCoverageIgnore
+                }
+
+                $obj = new $namespace();
+                $obj->unserialize(\substr($raw, $namespaceEnd + 1));
+
+                return $obj;
+            default:
+                return null;
+        }
+    }
+
+    /**
      * {@inheritdoc}
      */
     public function deleteLike(string $pattern, int $expire = -1) : bool
@@ -234,7 +297,7 @@ final class MemCached extends ConnectionAbstract
     public function updateExpire(int | string $key, int $expire = -1) : bool
     {
         if ($expire > 0) {
-            $this->con->touch($key, $expire);
+            $this->con->touch((string) $key, $expire);
         }
 
         return true;
@@ -271,7 +334,7 @@ final class MemCached extends ConnectionAbstract
             return false;
         }
 
-        return $this->con->replace($key, $value, \max($expire, 0));
+        return $this->con->replace((string) $key, $value, \max($expire, 0));
     }
 
     /**

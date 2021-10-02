@@ -114,11 +114,11 @@ abstract class StatusAbstract
         }
 
         if (!\is_file($destRoutePath)) {
-            throw new PathException($destRoutePath);
+            throw new PathException($destRoutePath); // @codeCoverageIgnore
         }
 
         if (!\is_writable($destRoutePath)) {
-            throw new PermissionException($destRoutePath);
+            throw new PermissionException($destRoutePath); // @codeCoverageIgnore
         }
 
         /** @noinspection PhpIncludeInspection */
@@ -246,11 +246,11 @@ abstract class StatusAbstract
         }
 
         if (!\is_file($destRoutePath)) {
-            throw new PathException($destRoutePath);
+            throw new PathException($destRoutePath); // @codeCoverageIgnore
         }
 
         if (!\is_writable($destRoutePath)) {
-            throw new PermissionException($destRoutePath);
+            throw new PermissionException($destRoutePath); // @codeCoverageIgnore
         }
 
         /** @noinspection PhpIncludeInspection */

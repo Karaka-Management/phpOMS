@@ -209,7 +209,7 @@ class Account implements \JsonSerializable, ArrayableInterface
     /**
      * User has group.
      *
-     * @param int $group Group id
+     * @param int $id Group id
      *
      * @return void
      *
