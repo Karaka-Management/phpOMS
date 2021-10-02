@@ -95,12 +95,12 @@ abstract class StatusAbstract
      */
     protected static function installRoutesHooks(string $destRoutePath, string $srcRoutePath) : void
     {
-        if (!\is_file($destRoutePath)) {
-            \file_put_contents($destRoutePath, '<?php return [];');
-        }
-
         if (!\is_file($srcRoutePath)) {
             return;
+        }
+
+        if (!\is_file($destRoutePath)) {
+            \file_put_contents($destRoutePath, '<?php return [];');
         }
 
         if (!\is_file($destRoutePath)) {

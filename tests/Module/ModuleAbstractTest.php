@@ -428,8 +428,10 @@ class ModuleAbstractTest extends \PHPUnit\Framework\TestCase
         BaseModelMapper::clearCache();
 
         $model = BaseModelMapper::get(1);
-        self::assertCount(0, $model->hasManyRelations);
 
+        // count = 2 because the moduel automatically initializes 2 hasMany relationships in the __construct()
+        // This actually means that the delete was successful, otherwise the hasManyRelations would have been overwritten with 1 relation (see above before the delete)
+        self::assertCount(2, $model->hasManyRelations);
         $this->dbTeardown();
     }
 }
