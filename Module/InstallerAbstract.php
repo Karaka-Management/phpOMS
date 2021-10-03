@@ -96,7 +96,7 @@ abstract class InstallerAbstract
     {
         $classPath = \substr(\realpath(static::PATH) . '/Status', \strlen(\realpath(__DIR__ . '/../../')));
 
-         /** @var StatusAbstract $class */
+        /** @var StatusAbstract $class */
         $class = \str_replace('/', '\\', $classPath);
         $class::activate($dbPool, $info);
     }
@@ -115,7 +115,7 @@ abstract class InstallerAbstract
     {
         $classPath = \substr(\realpath(static::PATH) . '/Status', \strlen(\realpath(__DIR__ . '/../../')));
 
-         /** @var StatusAbstract $class */
+        /** @var StatusAbstract $class */
         $class = \str_replace('/', '\\', $classPath);
         $class::activateRoutes($info, $appInfo);
         $class::activateHooks($info, $appInfo);
