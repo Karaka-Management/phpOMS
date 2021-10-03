@@ -153,8 +153,8 @@ class RedisCacheTest extends \PHPUnit\Framework\TestCase
 
         $result = $this->cache->getLike('key\d');
         self::assertEquals(2, \count($result));
-        self::assertTrue(\in_array('testVal1', $result))
-        self::assertTrue(\in_array('testVal2', $result))
+        self::assertTrue(\in_array('testVal1', $result));
+        self::assertTrue(\in_array('testVal2', $result));
     }
 
     public function testExpiredGetLike() : void
