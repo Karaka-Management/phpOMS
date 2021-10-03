@@ -41,11 +41,11 @@ class MailHandlerTest extends \PHPUnit\Framework\TestCase
 
     public function testSendTextWithMail() : void
     {
-        if (!\file_exists('/usr/sbin/sendmail') && empty(\ini_get('sendmail_path'))) {
+        $this->handler->setMailer(SubmitType::MAIL);
+
+        if (!\file_exists($this->handler->mailerTool)) {
             self::markTestSkipped();
         }
-
-        $this->handler->setMailer(SubmitType::MAIL);
 
         $mail = new Email();
         $mail->setFrom('test1@orange-management.email', 'Dennis Eichhorn');
@@ -62,11 +62,11 @@ class MailHandlerTest extends \PHPUnit\Framework\TestCase
 
     public function testSendTextWithSendmail() : void
     {
-        if (!\file_exists('/usr/sbin/sendmail') && empty(\ini_get('sendmail_path'))) {
+        $this->handler->setMailer(SubmitType::SENDMAIL);
+
+        if (!\file_exists($this->handler->mailerTool)) {
             self::markTestSkipped();
         }
-
-        $this->handler->setMailer(SubmitType::SENDMAIL);
 
         $mail = new Email();
         $mail->setFrom('test1@orange-management.email', 'Dennis Eichhorn');
@@ -83,11 +83,11 @@ class MailHandlerTest extends \PHPUnit\Framework\TestCase
 
     public function testSendHtmlWithMail() : void
     {
-        if (!\file_exists('/usr/sbin/sendmail') && empty(\ini_get('sendmail_path'))) {
+        $this->handler->setMailer(SubmitType::MAIL);
+
+        if (!\file_exists($this->handler->mailerTool)) {
             self::markTestSkipped();
         }
-
-        $this->handler->setMailer(SubmitType::MAIL);
 
         $mail = new Email();
         $mail->setFrom('test1@orange-management.email', 'Dennis Eichhorn');
@@ -109,11 +109,11 @@ class MailHandlerTest extends \PHPUnit\Framework\TestCase
 
     public function testSendHtmlWithSendmail() : void
     {
-        if (!\file_exists('/usr/sbin/sendmail') && empty(\ini_get('sendmail_path'))) {
+        $this->handler->setMailer(SubmitType::SENDMAIL);
+
+        if (!\file_exists($this->handler->mailerTool)) {
             self::markTestSkipped();
         }
-
-        $this->handler->setMailer(SubmitType::SENDMAIL);
 
         $mail = new Email();
         $mail->setFrom('test1@orange-management.email', 'Dennis Eichhorn');

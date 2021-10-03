@@ -160,8 +160,6 @@ final class ApplicationManager
      *
      * @return void
      *
-     * @throws InvalidModuleException Throws this exception in case the installer doesn't exist
-     *
      * @since 1.0.0
      */
     public function reInit(string $appPath) : void
@@ -216,7 +214,7 @@ final class ApplicationManager
      * @param bool   $useCache Use Cache
      * @param string $basePath Base path for the applications
      *
-     * @return array<string, ModuleInfo>
+     * @return array<string, ApplicationInfo>
      *
      * @since 1.0.0
      */

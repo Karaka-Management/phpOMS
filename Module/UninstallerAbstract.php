@@ -29,6 +29,14 @@ use phpOMS\DataStorage\Database\Schema\Builder as SchemaBuilder;
 abstract class UninstallerAbstract
 {
     /**
+     * Path of the file
+     *
+     * @var string
+     * @since 1.0.0
+     */
+    public const PATH = '';
+
+    /**
      * Install module.
      *
      * @param DatabasePool $dbPool Database instance
@@ -58,7 +66,10 @@ abstract class UninstallerAbstract
     protected static function deactivate(DatabasePool $dbPool, ModuleInfo $info) : void
     {
         /** @var StatusAbstract $class */
-        $class = '\Modules\\' . $info->getDirectory() . '\Admin\Status';
+        $classPath = \substr(\realpath(static::PATH) . '/Status', \strlen(\realpath(__DIR__ . '/../../')));
+
+         /** @var StatusAbstract $class */
+        $class = \str_replace('/', '\\', $classPath);
         $class::deactivate($dbPool, $info);
     }
 
@@ -74,8 +85,7 @@ abstract class UninstallerAbstract
      */
     public static function dropTables(DatabasePool $dbPool, ModuleInfo $info) : void
     {
-        $path = \dirname($info->getPath()) . '/Admin/Install/db.json';
-
+        $path = static::PATH . '/Install/db.json';
         if (!\is_file($path)) {
             return;
         }

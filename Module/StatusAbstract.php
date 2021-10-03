@@ -36,6 +36,14 @@ use phpOMS\Utils\Parser\Php\ArrayParser;
 abstract class StatusAbstract
 {
     /**
+     * Path of the file
+     *
+     * @var string
+     * @since 1.0.0
+     */
+    public const PATH = '';
+
+    /**
      * Deactivate module.
      *
      * @param DatabasePool $dbPool Database instance
@@ -65,7 +73,7 @@ abstract class StatusAbstract
      */
     public static function activateRoutes(ModuleInfo $info, ApplicationInfo $appInfo = null) : void
     {
-        $directories = new Directory(\dirname($info->getPath()) . '/Admin/Routes');
+        $directories = new Directory(static::PATH . '/Routes');
 
         /** @var Directory|File $child */
         foreach ($directories as $child) {
@@ -145,7 +153,7 @@ abstract class StatusAbstract
      */
     public static function activateHooks(ModuleInfo $info, ApplicationInfo $appInfo = null) : void
     {
-        $directories = new Directory(\dirname($info->getPath()) . '/Admin/Hooks');
+        $directories = new Directory(static::PATH . '/Hooks');
 
         /** @var Directory|File $child */
         foreach ($directories as $child) {
@@ -199,7 +207,7 @@ abstract class StatusAbstract
      */
     public static function deactivateRoutes(ModuleInfo $info, ApplicationInfo $appInfo = null) : void
     {
-        $directories = new Directory(\dirname($info->getPath()) . '/Admin/Routes');
+        $directories = new Directory(static::PATH . '/Routes');
 
         /** @var Directory|File $child */
         foreach ($directories as $child) {
@@ -275,7 +283,7 @@ abstract class StatusAbstract
      */
     public static function deactivateHooks(ModuleInfo $info, ApplicationInfo $appInfo = null) : void
     {
-        $directories = new Directory(\dirname($info->getPath()) . '/Admin/Hooks');
+        $directories = new Directory(static::PATH . '/Hooks');
 
         /** @var Directory|File $child */
         foreach ($directories as $child) {

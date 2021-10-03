@@ -29,6 +29,14 @@ use phpOMS\DataStorage\Database\Schema\Builder as SchemaBuilder;
 abstract class UninstallerAbstract
 {
     /**
+     * Path of the file
+     *
+     * @var string
+     * @since 1.0.0
+     */
+    public const PATH = '';
+
+    /**
      * Install module.
      *
      * @param DatabasePool    $dbPool Database instance

@@ -29,6 +29,12 @@ use phpOMS\System\File\Local\Directory;
  */
 abstract class InstallerAbstract
 {
+    /**
+     * Path of the file
+     *
+     * @var string
+     * @since 1.0.0
+     */
     public const PATH = '';
 
     /**

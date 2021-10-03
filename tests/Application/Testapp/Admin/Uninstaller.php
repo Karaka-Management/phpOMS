@@ -24,7 +24,13 @@ use phpOMS\Application\UninstallerAbstract;
  * @link    https://orange-management.org
  * @since   1.0.0
  */
-final class Uninstaller extends UninstallerAbstract
+final class Installer extends InstallerAbstract
 {
-	public const PATH = __DIR__;
+    /**
+     * Path of the file
+     *
+     * @var string
+     * @since 1.0.0
+     */
+    public const PATH = __DIR__;
 }

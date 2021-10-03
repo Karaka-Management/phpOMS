@@ -31,6 +31,12 @@ use phpOMS\Utils\Parser\Php\ArrayParser;
  */
 abstract class StatusAbstract
 {
+    /**
+     * Path of the file
+     *
+     * @var string
+     * @since 1.0.0
+     */
     public const PATH = '';
 
     /**

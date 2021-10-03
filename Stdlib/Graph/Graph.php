@@ -555,13 +555,13 @@ class Graph
             $cNode   = \array_pop($stack);
             $nodes[] = $cNode;
 
-            if (!isset($visited[$cNode->getId()]) || !$visited[$cNode->getId()]) {
+            if (!isset($visited[$cNode->getId()]) || $visited[$cNode->getId()] === false) {
                 $visited[$cNode->getId()] = true;
             }
 
             $neighbors = $cNode->getNeighbors();
             foreach ($neighbors as $neighbor) {
-                if (!isset($visited[$cNode->getId()]) || !$visited[$cNode->getId()]) {
+                if (!isset($visited[$cNode->getId()]) || $visited[$cNode->getId()] === false) {
                     $stack[] = $neighbor;
                 }
             }

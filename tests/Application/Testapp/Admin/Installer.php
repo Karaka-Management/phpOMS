@@ -26,5 +26,11 @@ use phpOMS\Application\InstallerAbstract;
  */
 final class Installer extends InstallerAbstract
 {
-	public const PATH = __DIR__;
+    /**
+     * Path of the file
+     *
+     * @var string
+     * @since 1.0.0
+     */
+    public const PATH = __DIR__;
 }
