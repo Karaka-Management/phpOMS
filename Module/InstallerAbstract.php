@@ -95,9 +95,13 @@ abstract class InstallerAbstract
      */
     protected static function activate(DatabasePool $dbPool, ModuleInfo $info) : void
     {
-        $classPath = \substr(\realpath(static::PATH) . '/Status', \strlen(\realpath(__DIR__ . '/../../')));
+        if (($path = \realpath(static::PATH)) === false) {
+            return; // @codeCoverageIgnore
+        }
 
-        /** @var StatusAbstract $class */
+        $classPath = \substr($path . '/Status', (int) \strlen((string) \realpath(__DIR__ . '/../../')));
+
+        /** @var class-string<StatusAbstract> $class */
         $class = \str_replace('/', '\\', $classPath);
 
         if (!Autoloader::exists($class)) {
@@ -119,9 +123,13 @@ abstract class InstallerAbstract
      */
     public static function reInit(ModuleInfo $info, ApplicationInfo $appInfo = null) : void
     {
-        $classPath = \substr(\realpath(static::PATH) . '/Status', \strlen(\realpath(__DIR__ . '/../../')));
+        if (($path = \realpath(static::PATH)) === false) {
+            return; // @codeCoverageIgnore
+        }
 
-        /** @var StatusAbstract $class */
+        $classPath = \substr($path . '/Status', \strlen((string) \realpath(__DIR__ . '/../../')));
+
+        /** @var class-string<StatusAbstract> $class */
         $class = \str_replace('/', '\\', $classPath);
 
         if (!Autoloader::exists($class)) {

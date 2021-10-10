@@ -336,7 +336,7 @@ class Graph
                 ->setWeight($this->getEdge(
                         $node1->getId(),
                         $node2->getId()
-                    )->getWeight()
+                    )?->getWeight() ?? 0.0
                 );
         }
 

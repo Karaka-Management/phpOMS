@@ -266,7 +266,11 @@ final class ModuleManager
             \chdir($this->modulePath);
             $files = \glob('*', \GLOB_ONLYDIR);
 
-            $c = $files === false ? 0 : \count($files);
+            if ($files === false) {
+                return $this->all; // @codeCoverageIgnore
+            }
+
+            $c = \count($files);
             for ($i = 0; $i < $c; ++$i) {
                 $info = $this->loadInfo($files[$i]);
 

@@ -65,8 +65,12 @@ abstract class UninstallerAbstract
      */
     protected static function deactivate(DatabasePool $dbPool, ModuleInfo $info) : void
     {
-        /** @var StatusAbstract $class */
-        $classPath = \substr(\realpath(static::PATH) . '/Status', \strlen(\realpath(__DIR__ . '/../../')));
+        if (($path = \realpath(static::PATH)) === false) {
+            return; // @codeCoverageIgnore;
+        }
+
+        /** @var string $classPath */
+        $classPath = \substr($path . '/Status', \strlen((string) \realpath(__DIR__ . '/../../')));
 
         /** @var StatusAbstract $class */
         $class = \str_replace('/', '\\', $classPath);

@@ -59,7 +59,7 @@ final class FileSessionHandler implements \SessionHandlerInterface, \SessionIdIn
      */
     public function create_sid() : string
     {
-        return \session_create_id('s-');
+        return ($sid = \session_create_id('s-')) === false ? '' : $sid;
     }
 
     /**

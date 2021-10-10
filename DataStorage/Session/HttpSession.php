@@ -105,7 +105,7 @@ final class HttpSession implements SessionInterface
         $this->sessionData                 = $_SESSION ?? [];
         $_SESSION                          = null;
         $this->sessionData['lastActivity'] = \time();
-        $this->sid                         = \session_id();
+        $this->sid                         = (string) \session_id();
 
         $this->setCsrfProtection();
     }

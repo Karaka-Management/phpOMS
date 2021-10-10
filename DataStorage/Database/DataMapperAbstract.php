@@ -2113,7 +2113,7 @@ class DataMapperAbstract implements DataMapperInterface
      */
     public static function populateOwnsOne(string $member, array $result, int $depth = 3, mixed $default = null) : mixed
     {
-        /** @var self|string $mapper */
+        /** @var class-string<self> $mapper */
         $mapper = static::$ownsOne[$member]['mapper'];
 
         if ($depth < 1) {
@@ -2153,7 +2153,7 @@ class DataMapperAbstract implements DataMapperInterface
      */
     public static function populateOwnsOneArray(string $member, array $result, int $depth = 3, mixed $default = null) : array
     {
-        /** @var self|string $mapper */
+        /** @var class-string<self> $mapper */
         $mapper = static::$ownsOne[$member]['mapper'];
 
         if ($depth < 1) {
@@ -2194,7 +2194,7 @@ class DataMapperAbstract implements DataMapperInterface
      */
     public static function populateBelongsTo(string $member, array $result, int $depth = 3, mixed $default = null) : mixed
     {
-        /** @var self|string $mapper */
+        /** @var class-string<self> $mapper */
         $mapper = static::$belongsTo[$member]['mapper'];
 
         if ($depth < 1) {
@@ -2242,7 +2242,7 @@ class DataMapperAbstract implements DataMapperInterface
      */
     public static function populateBelongsToArray(string $member, array $result, int $depth = 3, mixed $default = null) : array
     {
-        /** @var self|string $mapper */
+        /** @var class-string<self> $mapper */
         $mapper = static::$belongsTo[$member]['mapper'];
 
         if ($depth < 1) {

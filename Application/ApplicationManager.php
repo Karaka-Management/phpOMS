@@ -98,7 +98,7 @@ final class ApplicationManager
         $destination = \rtrim($destination, '\\/');
         $source      = \rtrim($source, '/\\');
 
-        if (!\is_dir($source) || \is_dir($destination) || !\is_file($source . '/Admin/Installer.php')) {
+        if (!\is_dir($source) || ($path = \realpath($destination)) === false || !\is_file($source . '/Admin/Installer.php')) {
             return false;
         }
 
@@ -109,8 +109,9 @@ final class ApplicationManager
             $this->installFiles($source, $destination);
             $this->replacePlaceholder($destination);
 
-            $classPath = \substr(\realpath($destination) . '/Admin/Installer', \strlen(\realpath(__DIR__ . '/../../')));
+            $classPath = \substr($path . '/Admin/Installer', (int) \strlen((string) \realpath(__DIR__ . '/../../')));
 
+            // @var class-string<InstallerAbstract> $class
             $class = \str_replace('/', '\\', $classPath);
             $class::install($this->app->dbPool, $info, $this->app->appSettings);
 
@@ -132,7 +133,7 @@ final class ApplicationManager
     public function uninstall(string $source) : bool
     {
         $source = \rtrim($source, '/\\');
-        if (!\is_dir($source) || !\is_file($source . '/Admin/Uninstaller.php')) {
+        if (($path = \realpath($source)) === false || !\is_file($source . '/Admin/Uninstaller.php')) {
             return false;
         }
 
@@ -140,8 +141,9 @@ final class ApplicationManager
             $info                                      = $this->loadInfo($source . '/info.json');
             $this->installed[$info->getInternalName()] = $info;
 
-            $classPath = \substr(\realpath($source) . '/Admin/Uninstaller', $t = \strlen(\realpath(__DIR__ . '/../../')));
+            $classPath = \substr($path . '/Admin/Uninstaller', (int) \strlen((string) \realpath(__DIR__ . '/../../')));
 
+            // @var class-string<UninstallerAbstract> $class
             $class = \str_replace('/', '\\', $classPath);
             $class::uninstall($this->app->dbPool, $info, $this->app->appSettings);
 
@@ -169,7 +171,12 @@ final class ApplicationManager
             return;
         }
 
-        $classPath = \substr(\realpath($appPath) . '/Admin/Installer', \strlen(\realpath(__DIR__ . '/../../')));
+        if (($path = \realpath($appPath)) === false) {
+            return; // @codeCoverageIgnore
+        }
+
+        // @var class-string<InstallerAbstract> $class
+        $classPath = \substr($path . '/Admin/Installer', (int) \strlen((string) \realpath(__DIR__ . '/../../')));
         $class     = \str_replace('/', '\\', $classPath);
 
         /** @var $class InstallerAbstract */
@@ -222,6 +229,10 @@ final class ApplicationManager
     {
         if (empty($this->installed) || !$useCache) {
             $apps = \scandir($basePath);
+
+            if ($apps === false) {
+                return $this->installed; // @codeCoverageIgnore
+            }
 
             foreach ($apps as $app) {
                 if ($app === '.' || $app === '..' || !\is_file($basePath . '/' . $app . '/info.json')) {

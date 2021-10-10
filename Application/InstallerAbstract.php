@@ -73,6 +73,10 @@ abstract class InstallerAbstract
         }
 
         $dirs = \scandir($path);
+        if ($dirs === false) {
+            return; // @codeCoverageIgnore
+        }
+
         foreach ($dirs as $dir) {
             if (!\is_dir($path. '/' . $dir) || $dir === '.' || $dir === '..') {
                 continue;
@@ -130,8 +134,13 @@ abstract class InstallerAbstract
      */
     protected static function activate(DatabasePool $dbPool, ApplicationInfo $info) : void
     {
-        $classPath = \substr(\realpath(static::PATH) . '/Status', \strlen(\realpath(__DIR__ . '/../../')));
+        if (($path = \realpath(static::PATH)) === false) {
+            return; // @codeCoverageIgnore
+        }
 
+        $classPath = \substr($path . '/Status', (int) \strlen((string) \realpath(__DIR__ . '/../../')));
+
+        // @var class-string<StatusAbstract> $class
         $class = \str_replace('/', '\\', $classPath);
 
         if (!Autoloader::exists($class)) {
@@ -152,8 +161,13 @@ abstract class InstallerAbstract
      */
     public static function reInit(ApplicationInfo $info) : void
     {
-        $classPath = \substr(\realpath(static::PATH) . '/Status', \strlen(\realpath(__DIR__ . '/../../')));
+        if (($path = \realpath(static::PATH)) === false) {
+            return; // @codeCoverageIgnore
+        }
 
+        $classPath = \substr($path . '/Status', (int) \strlen((string) \realpath(__DIR__ . '/../../')));
+
+        // @var class-string<StatusAbstract> $class
         $class = \str_replace('/', '\\', $classPath);
 
         if (!Autoloader::exists($class)) {
