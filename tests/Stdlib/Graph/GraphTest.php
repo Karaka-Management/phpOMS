@@ -63,6 +63,9 @@ class GraphTest extends \PHPUnit\Framework\TestCase
         self::assertEquals([], $this->graph->getDijkstraShortestPath());
         self::assertEquals([], $this->graph->longestPath());
         self::assertEquals([], $this->graph->longestPathBetweenNodes('invalid1', 'invalid2'));
+        self::assertEquals([], $this->graph->shortestPathBetweenNodes('invalid1', 'invalid2'));
+        self::assertEquals([], $this->graph->getAllPathsBetweenNodes('invalid1', 'invalid2'));
+        self::assertEquals([], $this->graph->findAllReachableNodesDFS('invalid1'));
 
         self::assertEquals(0, $this->graph->getCost());
         self::assertEquals($this->graph, $this->graph->getKruskalMinimalSpanningTree());
@@ -392,5 +395,322 @@ class GraphTest extends \PHPUnit\Framework\TestCase
 
         self::assertCount(6, $nodes);
         self::assertEquals(17.0, $minimalSpanningTree->getCost());
+    }
+
+     /**
+     *     1 - 3 - 5
+     *   / |\     /
+     * 0   | \   /
+     *   \ |  \ /
+     *     2   4   6
+     *
+     * @covers phpOMS\Stdlib\Graph\Graph
+     * @group framework
+     */
+    public function testFindAllReachableNodesDFS() : void
+    {
+        $node0 = new Node('0');
+        $node1 = new Node('1');
+        $node2 = new Node('2');
+        $node3 = new Node('3');
+        $node4 = new Node('4');
+        $node5 = new Node('5');
+        $node6 = new Node('6');
+
+        $this->graph->setNode($node0);
+        $this->graph->setNode($node1);
+        $this->graph->setNode($node2);
+        $this->graph->setNode($node3);
+        $this->graph->setNode($node4);
+        $this->graph->setNode($node5);
+        $this->graph->setNode($node6);
+
+        $node0->setNodeRelative($node1);
+        $node0->setNodeRelative($node2);
+        $node1->setNodeRelative($node2);
+        $node1->setNodeRelative($node3);
+        $node1->setNodeRelative($node4);
+        $node3->setNodeRelative($node5);
+        $node4->setNodeRelative($node5);
+
+        $nodes = $this->graph->findAllReachableNodesDFS($node0);
+        self::assertCount(6, $nodes);
+    }
+
+    /**
+     *     1 - 3 - 5
+     *   / |\     /
+     * 0   | \   /
+     *   \ |  \ /
+     *     2   4   6
+     *
+     * @covers phpOMS\Stdlib\Graph\Graph
+     * @group framework
+     */
+    public function testGetAllPathsBetweenNodes() : void
+    {
+        $node0 = new Node('0');
+        $node1 = new Node('1');
+        $node2 = new Node('2');
+        $node3 = new Node('3');
+        $node4 = new Node('4');
+        $node5 = new Node('5');
+        $node6 = new Node('6');
+
+        $this->graph->setNode($node0);
+        $this->graph->setNode($node1);
+        $this->graph->setNode($node2);
+        $this->graph->setNode($node3);
+        $this->graph->setNode($node4);
+        $this->graph->setNode($node5);
+        $this->graph->setNode($node6);
+
+        $node0->setNodeRelative($node1);
+        $node0->setNodeRelative($node2);
+        $node1->setNodeRelative($node2);
+        $node1->setNodeRelative($node3);
+        $node1->setNodeRelative($node4);
+        $node3->setNodeRelative($node5);
+        $node4->setNodeRelative($node5);
+
+        $paths = $this->graph->getAllPathsBetweenNodes($node0, $node5);
+        self::assertCount(4, $paths);
+    }
+
+    /**
+     *     1 - 3 - 5
+     *   / |\     /
+     * 0   | \   /
+     *   \ |  \ /
+     *     2   4   6
+     *
+     * @covers phpOMS\Stdlib\Graph\Graph
+     * @group framework
+     */
+    public function testCountAllPathsBetweenNodes() : void
+    {
+        $node0 = new Node('0');
+        $node1 = new Node('1');
+        $node2 = new Node('2');
+        $node3 = new Node('3');
+        $node4 = new Node('4');
+        $node5 = new Node('5');
+        $node6 = new Node('6');
+
+        $this->graph->setNode($node0);
+        $this->graph->setNode($node1);
+        $this->graph->setNode($node2);
+        $this->graph->setNode($node3);
+        $this->graph->setNode($node4);
+        $this->graph->setNode($node5);
+        $this->graph->setNode($node6);
+
+        $node0->setNodeRelative($node1);
+        $node0->setNodeRelative($node2);
+        $node1->setNodeRelative($node2);
+        $node1->setNodeRelative($node3);
+        $node1->setNodeRelative($node4);
+        $node3->setNodeRelative($node5);
+        $node4->setNodeRelative($node5);
+
+        self::assertEquals(4, $this->graph->countAllPathsBetweenNodes($node0, $node5));
+    }
+
+    /**
+     *     1 - 3 - 5
+     *   / |\     /
+     * 0   | \   /
+     *   \ |  \ /
+     *     2   4   6
+     *
+     * @covers phpOMS\Stdlib\Graph\Graph
+     * @group framework
+     */
+    public function testLongestPathBetweenNodes() : void
+    {
+        $node0 = new Node('0');
+        $node1 = new Node('1');
+        $node2 = new Node('2');
+        $node3 = new Node('3');
+        $node4 = new Node('4');
+        $node5 = new Node('5');
+        $node6 = new Node('6');
+
+        $this->graph->setNode($node0);
+        $this->graph->setNode($node1);
+        $this->graph->setNode($node2);
+        $this->graph->setNode($node3);
+        $this->graph->setNode($node4);
+        $this->graph->setNode($node5);
+        $this->graph->setNode($node6);
+
+        $node0->setNodeRelative($node1);
+        $node0->setNodeRelative($node2);
+        $node1->setNodeRelative($node2);
+        $node1->setNodeRelative($node3);
+        $node1->setNodeRelative($node4);
+        $node3->setNodeRelative($node5);
+        $node4->setNodeRelative($node5);
+
+        $path = $this->graph->longestPathBetweenNodes($node0, $node5);
+        self::assertCount(4, $path);
+
+        $path = $this->graph->longestPathBetweenNodes($node0, $node6);
+        self::assertEquals([], $path);
+    }
+
+    /**
+     *     1 - 3 - 5
+     *   / |\     /
+     * 0   | \   /
+     *   \ |  \ /
+     *     2   4   6
+     *
+     * @covers phpOMS\Stdlib\Graph\Graph
+     * @group framework
+     */
+    public function testShortestPathBetweenNodes() : void
+    {
+        $node0 = new Node('0');
+        $node1 = new Node('1');
+        $node2 = new Node('2');
+        $node3 = new Node('3');
+        $node4 = new Node('4');
+        $node5 = new Node('5');
+        $node6 = new Node('6');
+
+        $this->graph->setNode($node0);
+        $this->graph->setNode($node1);
+        $this->graph->setNode($node2);
+        $this->graph->setNode($node3);
+        $this->graph->setNode($node4);
+        $this->graph->setNode($node5);
+        $this->graph->setNode($node6);
+
+        $node0->setNodeRelative($node1);
+        $node0->setNodeRelative($node2);
+        $node1->setNodeRelative($node2);
+        $node1->setNodeRelative($node3);
+        $node1->setNodeRelative($node4);
+        $node3->setNodeRelative($node5);
+        $node4->setNodeRelative($node5);
+
+        $path = $this->graph->shortestPathBetweenNodes($node0, $node5);
+        self::assertCount(3, $path);
+    }
+
+    /**
+     *     1 - 3 - 5
+     *   / |\     /
+     * 0   | \   /
+     *   \ |  \ /
+     *     2   4   6
+     *
+     * @covers phpOMS\Stdlib\Graph\Graph
+     * @group framework
+     */
+    public function testUnconnectedGraph() : void
+    {
+        $node0 = new Node('0');
+        $node1 = new Node('1');
+        $node2 = new Node('2');
+        $node3 = new Node('3');
+        $node4 = new Node('4');
+        $node5 = new Node('5');
+        $node6 = new Node('6');
+
+        $this->graph->setNode($node0);
+        $this->graph->setNode($node1);
+        $this->graph->setNode($node2);
+        $this->graph->setNode($node3);
+        $this->graph->setNode($node4);
+        $this->graph->setNode($node5);
+        $this->graph->setNode($node6);
+
+        $node0->setNodeRelative($node1);
+        $node0->setNodeRelative($node2);
+        $node1->setNodeRelative($node2);
+        $node1->setNodeRelative($node3);
+        $node1->setNodeRelative($node4);
+        $node3->setNodeRelative($node5);
+        $node4->setNodeRelative($node5);
+
+        self::assertFalse($this->graph->isConnected());
+    }
+
+    /**
+     *     1 - 3 - 5
+     *   / |\     /
+     * 0   | \   /
+     *   \ |  \ /
+     *     2   4
+     *
+     * @covers phpOMS\Stdlib\Graph\Graph
+     * @group framework
+     */
+    public function testConnectedGraph() : void
+    {
+        $node0 = new Node('0');
+        $node1 = new Node('1');
+        $node2 = new Node('2');
+        $node3 = new Node('3');
+        $node4 = new Node('4');
+        $node5 = new Node('5');
+
+        $this->graph->setNode($node0);
+        $this->graph->setNode($node1);
+        $this->graph->setNode($node2);
+        $this->graph->setNode($node3);
+        $this->graph->setNode($node4);
+        $this->graph->setNode($node5);
+
+        $node0->setNodeRelative($node1);
+        $node0->setNodeRelative($node2);
+        $node1->setNodeRelative($node2);
+        $node1->setNodeRelative($node3);
+        $node1->setNodeRelative($node4);
+        $node3->setNodeRelative($node5);
+        $node4->setNodeRelative($node5);
+
+        self::assertTrue($this->graph->isConnected());
+    }
+
+    /**
+     *     1 - 3 - 5
+     *   / |\     /
+     * 0   | \   /
+     *   \ |  \ /
+     *     2   4
+     *
+     * @covers phpOMS\Stdlib\Graph\Graph
+     * @group framework
+     */
+    public function testDiameter() : void
+    {
+        self::markTestIncomplete();
+
+        $node0 = new Node('0');
+        $node1 = new Node('1');
+        $node2 = new Node('2');
+        $node3 = new Node('3');
+        $node4 = new Node('4');
+        $node5 = new Node('5');
+
+        $this->graph->setNode($node0);
+        $this->graph->setNode($node1);
+        $this->graph->setNode($node2);
+        $this->graph->setNode($node3);
+        $this->graph->setNode($node4);
+        $this->graph->setNode($node5);
+
+        $node0->setNodeRelative($node1);
+        $node0->setNodeRelative($node2);
+        $node1->setNodeRelative($node2);
+        $node1->setNodeRelative($node3);
+        $node1->setNodeRelative($node4);
+        $node3->setNodeRelative($node5);
+        $node4->setNodeRelative($node5);
+
+        self::assertEquals(0, $this->graph->getDiameter());
     }
 }

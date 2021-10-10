@@ -461,6 +461,14 @@ class Email implements MessageInterface
         return true;
     }
 
+    public function getFrom() : array
+    {
+        return [
+            $this->from,
+            $this->fromName,
+        ];
+    }
+
     /**
      * Sets message type to html or plain.
      *
@@ -473,6 +481,16 @@ class Email implements MessageInterface
     public function setHtml(bool $isHtml = true) : void
     {
         $this->contentType = $isHtml ? MimeType::M_HTML : MimeType::M_TEXT;
+    }
+
+    public function getContentType() : string
+    {
+        return $this->contentType;
+    }
+
+    public function isHtml() : bool
+    {
+        return $this->contentType === MimeType::M_HTML;
     }
 
     /**
@@ -903,7 +921,7 @@ class Email implements MessageInterface
         $bytes = \random_bytes($len);
 
         if ($bytes === '') {
-            $bytes = \hash('sha256', \uniqid((string) \mt_rand(), true), true);
+            $bytes = \hash('sha256', \uniqid((string) \mt_rand(), true), true); // @codeCoverageIgnore
         }
 
         return \str_replace(['=', '+', '/'], '', \base64_encode(\hash('sha256', $bytes, true)));
@@ -1804,7 +1822,7 @@ class Email implements MessageInterface
      */
     public function addStringAttachment(
         string $string,
-        string $filename ,
+        string $filename,
         string $encoding = EncodingType::E_BASE64,
         string $type = '',
         string $disposition = 'attachment'
@@ -2090,7 +2108,7 @@ class Email implements MessageInterface
      *
      * @since 1.0.0
      */
-    private static function normalizeBreaks($text, $breaktype) : string
+    private static function normalizeBreaks(string $text, string $breaktype) : string
     {
         $text = \str_replace(["\r\n", "\r"], "\n", $text);
 
@@ -2259,7 +2277,7 @@ class Email implements MessageInterface
      *
      * @since 1.0.0
      */
-    public function dkimAdd($headersLine, $subject, $body) : string
+    public function dkimAdd(string $headersLine, string $subject, string $body) : string
     {
         $DKIMsignatureType    = 'rsa-sha256';
         $DKIMcanonicalization = 'relaxed/simple';

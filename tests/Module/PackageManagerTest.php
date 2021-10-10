@@ -90,6 +90,9 @@ class PackageManagerTest extends \PHPUnit\Framework\TestCase
             Directory::delete(__DIR__ . '/dummyModule');
         }
 
+        \chmod(__DIR__ . '/testPackage/testSubPackage/run.batch', 0777);
+        \chmod(__DIR__ . '/testPackage/testSubPackage/run.sh', 0777);
+
         Directory::copy(__DIR__ . '/testModulePackage', __DIR__ . '/dummyModule');
 
         $package = new PackageManager(

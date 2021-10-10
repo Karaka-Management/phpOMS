@@ -76,6 +76,21 @@ class SQLiteConnectionTest extends \PHPUnit\Framework\TestCase
         self::assertEquals(DatabaseStatus::FAILURE, $sqlite->getStatus());
     }
 
+    /**
+     * @testdox A invalid database returns a failure
+     * @covers phpOMS\DataStorage\Database\Connection\SQLiteConnection
+     * @group framework
+     */
+    public function testInvalidDatabaseName() : void
+    {
+        $db             = $GLOBALS['CONFIG']['db']['core']['masters']['admin'];
+        $db['database'] = 'invalid';
+
+        $mysql = new SQLiteConnection($db);
+        $mysql->connect();
+        self::assertEquals(DatabaseStatus::MISSING_DATABASE, $mysql->getStatus());
+    }
+
     public static function tearDownAfterClass() : void
     {
         if (\is_file($GLOBALS['CONFIG']['db']['core']['sqlite']['admin']['database'])) {

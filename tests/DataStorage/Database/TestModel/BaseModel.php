@@ -16,7 +16,7 @@ namespace phpOMS\tests\DataStorage\Database\TestModel;
 
 class BaseModel
 {
-    public $id = 0;
+    protected $id = 0;
 
     public $string = 'Base';
 
@@ -82,5 +82,10 @@ class BaseModel
                 return [1, 2, 3];
             }
         };
+    }
+
+    public function getId() : int
+    {
+        return $this->id;
     }
 }

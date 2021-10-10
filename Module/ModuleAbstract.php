@@ -249,7 +249,7 @@ abstract class ModuleAbstract
      *
      * @param int    $account Account id
      * @param mixed  $obj     Response object
-     * @param string $mapper  Object mapper
+     * @param string | \Closure $mapper  Object mapper
      * @param string $trigger Trigger for the event manager
      * @param string $ip      Ip
      *
@@ -257,17 +257,24 @@ abstract class ModuleAbstract
      *
      * @since 1.0.0
      */
-    protected function createModel(int $account, mixed $obj, string $mapper, string $trigger, string $ip) : void
+    protected function createModel(int $account, mixed $obj, string | \Closure $mapper, string $trigger, string $ip) : void
     {
         $trigger = static::NAME . '-' . $trigger . '-create';
 
         $this->app->eventManager->triggerSimilar('PRE:Module:' . $trigger, '', $obj);
-        $id = $mapper::create($obj);
+        $id = 0;
+
+        if (\is_string($mapper)) {
+            $id = $mapper::create($obj);
+        } else {
+            $mapper();
+        }
+
         $this->app->eventManager->triggerSimilar('POST:Module:' . $trigger, '',
             [
                 $account,
                 null, $obj,
-                StringUtils::intHash($mapper), $trigger,
+                StringUtils::intHash(\is_string($mapper) ? $mapper : \get_class($mapper)), $trigger,
                 static::NAME,
                 (string) $id,
                 '',
@@ -281,7 +288,7 @@ abstract class ModuleAbstract
      *
      * @param int    $account Account id
      * @param array  $objs    Response object
-     * @param string $mapper  Object mapper
+     * @param string | \Closure $mapper  Object mapper
      * @param string $trigger Trigger for the event manager
      * @param string $ip      Ip
      *
@@ -289,18 +296,25 @@ abstract class ModuleAbstract
      *
      * @since 1.0.0
      */
-    protected function createModels(int $account, array $objs, string $mapper, string $trigger, string $ip) : void
+    protected function createModels(int $account, array $objs, string | \Closure $mapper, string $trigger, string $ip) : void
     {
         $trigger = static::NAME . '-' . $trigger . '-create';
 
         foreach ($objs as $obj) {
             $this->app->eventManager->triggerSimilar('PRE:Module:' . $trigger, '', $obj);
-            $id = $mapper::create($obj);
+            $id = 0;
+
+            if (\is_string($mapper)) {
+                $id = $mapper::create($obj);
+            } else {
+                $mapper();
+            }
+
             $this->app->eventManager->triggerSimilar('POST:Module:' . $trigger, '',
                 [
                     $account,
                     null, $obj,
-                    StringUtils::intHash($mapper), $trigger,
+                    StringUtils::intHash(\is_string($mapper) ? $mapper : \get_class($mapper)), $trigger,
                     static::NAME,
                     (string) $id,
                     '',
@@ -316,7 +330,7 @@ abstract class ModuleAbstract
      * @param int             $account Account id
      * @param mixed           $old     Response object old
      * @param mixed           $new     Response object new
-     * @param \Closure|string $mapper  Object mapper
+     * @param string | \Closure $mapper  Object mapper
      * @param string          $trigger Trigger for the event manager
      * @param string          $ip      Ip
      *
@@ -353,7 +367,7 @@ abstract class ModuleAbstract
      *
      * @param int    $account Account id
      * @param mixed  $obj     Response object
-     * @param string $mapper  Object mapper
+     * @param string | \Closure $mapper  Object mapper
      * @param string $trigger Trigger for the event manager
      * @param string $ip      Ip
      *
@@ -361,17 +375,24 @@ abstract class ModuleAbstract
      *
      * @since 1.0.0
      */
-    protected function deleteModel(int $account, mixed $obj, string $mapper, string $trigger, string $ip) : void
+    protected function deleteModel(int $account, mixed $obj, string | \Closure $mapper, string $trigger, string $ip) : void
     {
         $trigger = static::NAME . '-' . $trigger . '-delete';
 
         $this->app->eventManager->triggerSimilar('PRE:Module:' . $trigger, '', $obj);
-        $id = $mapper::delete($obj);
+        $id = 0;
+
+        if (\is_string($mapper)) {
+            $id = $mapper::delete($obj);
+        } else {
+            $mapper();
+        }
+
         $this->app->eventManager->triggerSimilar('POST:Module:' . $trigger, '',
             [
                 $account,
                 $obj,  null,
-                StringUtils::intHash($mapper), $trigger,
+                StringUtils::intHash(\is_string($mapper) ? $mapper : \get_class($mapper)), $trigger,
                 static::NAME,
                 (string) $id,
                 '',

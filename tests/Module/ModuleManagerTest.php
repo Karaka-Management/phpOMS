@@ -25,6 +25,7 @@ use phpOMS\Module\ModuleManager;
 use phpOMS\Module\ModuleStatus;
 use phpOMS\Router\WebRouter;
 use phpOMS\Uri\HttpUri;
+use phpOMS\Utils\TestUtils;
 
 require_once __DIR__ . '/../Autoloader.php';
 
@@ -261,6 +262,22 @@ class ModuleManagerTest extends \PHPUnit\Framework\TestCase
         self::assertTrue($this->moduleManager->isRunning('TestModule'));
     }
 
+    public function testGetLanguageForInvalidRequest() : void
+    {
+        $request = new HttpRequest(new HttpUri('http://127.0.0.1/en/error/invalid'));
+        $request->createRequestHashs(0);
+
+        TestUtils::setMember($request, 'hash', ['asdf']);
+
+        self::assertEquals([], $this->moduleManager->getLanguageFiles($request));
+    }
+
+    public function testGetActiveModulesWithInvalidBasePath() : void
+    {
+        $this->moduleManager = new ModuleManager($this->app, __DIR__ . '/invalid');
+        self::assertEquals([], $this->moduleManager->getActiveModules(false));
+    }
+
     /**
      * @testdox Installed modules can be returned
      * @covers phpOMS\Module\ModuleManager
@@ -271,6 +288,21 @@ class ModuleManagerTest extends \PHPUnit\Framework\TestCase
         $installed = $this->moduleManager->getInstalledModules();
 
         self::assertNotEmpty($installed);
+    }
+
+    public function testIsInstalled() : void
+    {
+        self::assertTrue($this->moduleManager->isInstalled('TestModule'));
+    }
+
+    public function testInstallingAlreadyInstalledModule() : void
+    {
+        self::assertTrue($this->moduleManager->install('TestModule'));
+    }
+
+    public function testAvailableModules() : void
+    {
+        self::assertEquals([], $this->moduleManager->getAvailableModules());
     }
 
     /**

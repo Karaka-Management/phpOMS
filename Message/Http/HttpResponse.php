@@ -202,17 +202,19 @@ final class HttpResponse extends ResponseAbstract implements RenderableInterface
      *
      * This is helpful in case the output buffering should be stopped for streamed/chunked responses (e.g. large data)
      *
+     * @param int $levels Levels to close
+     *
      * @return void
      *
      * @since 1.0.0
      */
-    public function endAllOutputBuffering() : void
+    public function endAllOutputBuffering(int $levels = 0) : void
     {
         if (!$this->header->isLocked()) {
             $this->header->push();
         }
 
-        $levels = \ob_get_level();
+        $levels = $levels === 0 ? \ob_get_level() : $levels;
         for ($i = 0; $i < $levels; ++$i) {
             \ob_end_clean();
         }

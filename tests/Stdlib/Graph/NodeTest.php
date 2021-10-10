@@ -160,4 +160,20 @@ class NodeTest extends \PHPUnit\Framework\TestCase
         self::assertCount(2, $node1->getNeighbors());
         self::assertCount(1, $node4->getNeighbors());
     }
+
+    public function testFindEdgeFromNeighbor() : void
+    {
+        $node1 = new Node('A');
+        $node2 = new Node('B');
+        $node3 = new Node('C');
+        $node4 = new Node('D');
+
+        $node3->setNodeRelative($node4);
+
+        $node1->setNodeRelative($node2);
+        $node1->setNodeRelative($node3);
+
+        self::assertEquals('C', $node1->getEdgeByNeighbor($node3)->getNode2()->getId());
+        self::assertEquals(null, $node1->getEdgeByNeighbor($node4));
+    }
 }

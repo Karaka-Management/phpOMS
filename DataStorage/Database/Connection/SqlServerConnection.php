@@ -84,7 +84,6 @@ final class SqlServerConnection extends ConnectionAbstract
         } catch (\PDOException $e) {
             $this->con    = new NullPDO();
             $this->status = DatabaseStatus::MISSING_DATABASE;
-            throw new InvalidConnectionConfigException((string) \json_encode($this->dbdata));
         } finally {
             $this->dbdata['password'] = '****';
         }

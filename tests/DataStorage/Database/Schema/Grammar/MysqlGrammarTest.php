@@ -52,6 +52,7 @@ class MysqlGrammarTest extends \PHPUnit\Framework\TestCase
     /**
      * @testdox The the grammar correctly creates and returns a database table
      * @covers phpOMS\DataStorage\Database\Schema\Grammar\MysqlGrammar<extended>
+     * @covers phpOMS\DataStorage\Database\Schema\Builder
      * @group framework
      */
     public function testSchemaInputOutput() : void

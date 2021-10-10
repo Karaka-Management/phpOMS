@@ -64,7 +64,7 @@ class ClientTest extends \PHPUnit\Framework\TestCase
         $this->app->orgId          = 1;
         $this->app->cachePool      = new CachePool($this->app->dbPool);
         $this->app->accountManager = new AccountManager($GLOBALS['session']);
-        $this->app->appSettings    = new CoreSettings($this->app->dbPool->get());
+        $this->app->appSettings    = new CoreSettings();
         $this->app->moduleManager  = new ModuleManager($this->app, __DIR__ . '/../../../../Modules/');
         $this->app->dispatcher     = new Dispatcher($this->app);
         $this->app->eventManager   = new EventManager($this->app->dispatcher);

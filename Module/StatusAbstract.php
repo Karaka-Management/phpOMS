@@ -73,30 +73,7 @@ abstract class StatusAbstract
      */
     public static function activateRoutes(ModuleInfo $info, ApplicationInfo $appInfo = null) : void
     {
-        $directories = new Directory(static::PATH . '/Routes');
-
-        /** @var Directory|File $child */
-        foreach ($directories as $child) {
-            if ($child instanceof Directory) {
-                foreach ($child as $file) {
-                    if (!\is_dir(__DIR__ . '/../../' . $child->getName() . '/' . \basename($file->getName(), '.php'))
-                        || ($appInfo !== null && \basename($file->getName(), '.php') !== $appInfo->getInternalName())
-                    ) {
-                        continue;
-                    }
-
-                    self::installRoutesHooks(__DIR__ . '/../../' . $child->getName() . '/' . \basename($file->getName(), '.php') . '/Routes.php', $file->getPath());
-                }
-            } elseif ($child instanceof File) {
-                if (!\is_dir(__DIR__ . '/../../' . $child->getName())
-                    || ($appInfo !== null && \basename($child->getName(), '.php') !== $appInfo->getInternalName())
-                ) {
-                    continue;
-                }
-
-                self::installRoutesHooks(__DIR__ . '/../../' . $child->getName() . '/Routes.php', $child->getPath());
-            }
-        }
+        self::activateRoutesHooks($info, $appInfo, 'Routes');
     }
 
     /**
@@ -153,7 +130,24 @@ abstract class StatusAbstract
      */
     public static function activateHooks(ModuleInfo $info, ApplicationInfo $appInfo = null) : void
     {
-        $directories = new Directory(static::PATH . '/Hooks');
+        self::activateRoutesHooks($info, $appInfo, 'Hooks');
+    }
+
+    /**
+     * Init routes and hooks.
+     *
+     * @param ModuleInfo           $info    Module info
+     * @param null|ApplicationInfo $appInfo Application info
+     *
+     * @return void
+     *
+     * @throws PermissionException
+     *
+     * @since 1.0.0
+     */
+    public static function activateRoutesHooks(ModuleInfo $info, ApplicationInfo $appInfo = null, string $type) : void
+    {
+        $directories = new Directory(static::PATH . '/' . $type);
 
         /** @var Directory|File $child */
         foreach ($directories as $child) {
@@ -165,7 +159,7 @@ abstract class StatusAbstract
                         continue;
                     }
 
-                    self::installRoutesHooks(__DIR__ . '/../../' . $child->getName() . '/' . \basename($file->getName(), '.php') . '/Hooks.php', $file->getPath());
+                    self::installRoutesHooks(__DIR__ . '/../../' . $child->getName() . '/' . \basename($file->getName(), '.php') . '/' . $type . '.php', $file->getPath());
                 }
             } elseif ($child instanceof File) {
                 if (!\is_dir(__DIR__ . '/../../' . $child->getName())
@@ -174,7 +168,7 @@ abstract class StatusAbstract
                     continue;
                 }
 
-                self::installRoutesHooks(__DIR__ . '/../../' . $child->getName() . '/Hooks.php', $child->getPath());
+                self::installRoutesHooks(__DIR__ . '/../../' . $child->getName() . '/' . $type . '.php', $child->getPath());
             }
         }
     }
@@ -207,7 +201,22 @@ abstract class StatusAbstract
      */
     public static function deactivateRoutes(ModuleInfo $info, ApplicationInfo $appInfo = null) : void
     {
-        $directories = new Directory(static::PATH . '/Routes');
+        self::deactivateRoutesHooks($info, $appInfo, 'Routes');
+    }
+
+    /**
+     * Deactivate routes and hooks.
+     *
+     * @param ModuleInfo           $info    Module info
+     * @param null|ApplicationInfo $appInfo Application info
+     *
+     * @return void
+     *
+     * @since 1.0.0
+     */
+    public static function deactivateRoutesHooks(ModuleInfo $info, ApplicationInfo $appInfo = null, string $type) : void
+    {
+        $directories = new Directory(static::PATH . '/'. $type);
 
         /** @var Directory|File $child */
         foreach ($directories as $child) {
@@ -219,7 +228,7 @@ abstract class StatusAbstract
                         continue;
                     }
 
-                    self::uninstallRoutesHooks(__DIR__ . '/../../' . $child->getName() . '/' . \basename($file->getName(), '.php') . '/Routes.php', $file->getPath());
+                    self::uninstallRoutesHooks(__DIR__ . '/../../' . $child->getName() . '/' . \basename($file->getName(), '.php') . '/'. $type . '.php', $file->getPath());
                 }
             } elseif ($child instanceof File) {
                 if (!\is_dir(__DIR__ . '/../../' . $child->getName())
@@ -228,7 +237,7 @@ abstract class StatusAbstract
                     continue;
                 }
 
-                self::uninstallRoutesHooks(__DIR__ . '/../../' . $child->getName() . '/Routes.php', $child->getPath());
+                self::uninstallRoutesHooks(__DIR__ . '/../../' . $child->getName() . '/'. $type . '.php', $child->getPath());
             }
         }
     }
@@ -245,7 +254,7 @@ abstract class StatusAbstract
      *
      * @since 1.0.0
      */
-    public static function uninstallRoutesHooks(string $destRoutePath, string $srcRoutePath) : void
+    protected static function uninstallRoutesHooks(string $destRoutePath, string $srcRoutePath) : void
     {
         if (!\is_file($destRoutePath)
             || !\is_file($srcRoutePath)
@@ -283,29 +292,6 @@ abstract class StatusAbstract
      */
     public static function deactivateHooks(ModuleInfo $info, ApplicationInfo $appInfo = null) : void
     {
-        $directories = new Directory(static::PATH . '/Hooks');
-
-        /** @var Directory|File $child */
-        foreach ($directories as $child) {
-            if ($child instanceof Directory) {
-                foreach ($child as $file) {
-                    if (!\is_dir(__DIR__ . '/../../' . $child->getName() . '/' . \basename($file->getName(), '.php'))
-                        || ($appInfo !== null && \basename($file->getName(), '.php') !== $appInfo->getInternalName())
-                    ) {
-                        continue;
-                    }
-
-                    self::uninstallRoutesHooks(__DIR__ . '/../../' . $child->getName() . '/' . \basename($file->getName(), '.php') . '/Hooks.php', $file->getPath());
-                }
-            } elseif ($child instanceof File) {
-                if (!\is_dir(__DIR__ . '/../../' . $child->getName())
-                    || ($appInfo !== null && \basename($child->getName(), '.php') !== $appInfo->getInternalName())
-                ) {
-                    continue;
-                }
-
-                self::uninstallRoutesHooks(__DIR__ . '/../../' . $child->getName() . '/Hooks.php', $child->getPath());
-            }
-        }
+        self::deactivateRoutesHooks($info, $appInfo, 'Hooks');
     }
 }

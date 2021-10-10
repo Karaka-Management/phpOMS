@@ -148,4 +148,19 @@ class PostgresConnectionTest extends \PHPUnit\Framework\TestCase
         $psql->connect();
         self::assertEquals(DatabaseStatus::FAILURE, $psql->getStatus());
     }
+
+    /**
+     * @testdox A invalid database returns a failure
+     * @covers phpOMS\DataStorage\Database\Connection\PostgresConnection
+     * @group framework
+     */
+    public function testInvalidDatabaseName() : void
+    {
+        $db             = $GLOBALS['CONFIG']['db']['core']['masters']['admin'];
+        $db['database'] = 'invalid';
+
+        $mysql = new PostgresConnection($db);
+        $mysql->connect();
+        self::assertEquals(DatabaseStatus::MISSING_DATABASE, $mysql->getStatus());
+    }
 }

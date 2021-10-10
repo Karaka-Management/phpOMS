@@ -18,6 +18,7 @@ use phpOMS\Application\ApplicationInfo;
 use phpOMS\Config\SettingsInterface;
 use phpOMS\DataStorage\Database\DatabasePool;
 use phpOMS\DataStorage\Database\Schema\Builder as SchemaBuilder;
+use phpOMS\Autoloader;
 
 /**
  * Installer abstract class.
@@ -98,6 +99,11 @@ abstract class InstallerAbstract
 
         /** @var StatusAbstract $class */
         $class = \str_replace('/', '\\', $classPath);
+
+        if (!Autoloader::exists($class)) {
+            throw new \UnexpectedValueException($class); // @codeCoverageIgnore
+        }
+
         $class::activate($dbPool, $info);
     }
 
@@ -117,6 +123,11 @@ abstract class InstallerAbstract
 
         /** @var StatusAbstract $class */
         $class = \str_replace('/', '\\', $classPath);
+
+        if (!Autoloader::exists($class)) {
+            throw new \UnexpectedValueException($class); // @codeCoverageIgnore
+        }
+
         $class::activateRoutes($info, $appInfo);
         $class::activateHooks($info, $appInfo);
     }

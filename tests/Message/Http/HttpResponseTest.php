@@ -24,7 +24,7 @@ use phpOMS\System\MimeType;
  *
  * @internal
  */
-class ResponseTest extends \PHPUnit\Framework\TestCase
+class HttpResponseTest extends \PHPUnit\Framework\TestCase
 {
     protected HttpResponse $response;
 
@@ -87,7 +87,7 @@ class ResponseTest extends \PHPUnit\Framework\TestCase
 
     /**
      * @testdox Test disabling output buffering
-     * @covers phpOMS\Message\Http\HttpResponse<extended>
+     * @covers phpOMS\Message\Http\HttpResponse
      * @group framework
      */
     public function testEndAllOutputBuffering() : void
@@ -100,9 +100,9 @@ class ResponseTest extends \PHPUnit\Framework\TestCase
         \ob_start();
         \ob_start();
 
-        self::assertEquals($start + 2, \ob_get_level());
-        $this->response->endAllOutputBuffering();
-        self::assertEquals(0, \ob_get_level());
+        self::assertEquals($start + 2, $end = \ob_get_level());
+        $this->response->endAllOutputBuffering($end - $start);
+        self::assertEquals($start, \ob_get_level());
     }
 
     /**

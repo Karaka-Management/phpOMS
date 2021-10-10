@@ -529,6 +529,8 @@ class Graph
     /**
      * Find all reachable nodes with depth first traversal (iterative)
      *
+     * Includes the node itself
+     *
      * @param int|string|Node $node1 Graph node
      *
      * @return Node[]
@@ -548,20 +550,20 @@ class Graph
         }
 
         $visited = [];
-        $stack   = [];
-        $stack[] = $node1;
+        $stack   = [$node1];
 
         while (!empty($stack)) {
-            $cNode   = \array_pop($stack);
-            $nodes[] = $cNode;
-
-            if (!isset($visited[$cNode->getId()]) || $visited[$cNode->getId()] === false) {
-                $visited[$cNode->getId()] = true;
+            $cNode = \array_pop($stack);
+            if (isset($visited[$cNode->getId()]) && $visited[$cNode->getId()] === true) {
+                continue;
             }
+
+            $nodes[]                  = $cNode;
+            $visited[$cNode->getId()] = true;
 
             $neighbors = $cNode->getNeighbors();
             foreach ($neighbors as $neighbor) {
-                if (!isset($visited[$cNode->getId()]) || $visited[$cNode->getId()] === false) {
+                if (!isset($visited[$neighbor->getId()]) || $visited[$neighbor->getId()] === false) {
                     $stack[] = $neighbor;
                 }
             }
@@ -596,6 +598,7 @@ class Graph
 
     /**
      * Get all paths between two nodes
+     * Inclides end node, but not start node in the paths
      *
      * @param int|string|Node $node1 Graph node
      * @param int|string|Node $node2 Graph node
@@ -672,16 +675,33 @@ class Graph
             return [];
         }
 
+        $mostNodes      = 0;
+        $mostNodesCount = 0;
         foreach ($paths as $key => $path) {
             $edges[$key] = 0;
+            $nodeCount   = 0;
             foreach ($path as $node) {
+                if ($node1->getEdgeByNeighbor($node) === null) {
+                    continue;
+                }
+
                 $edges[$key] += $node1->getEdgeByNeighbor($node)->getWeight();
+                ++$nodeCount;
+            }
+
+            if ($nodeCount > $mostNodesCount) {
+                $mostNodesCount = $nodeCount;
+                $mostNodes      = $key;
             }
         }
 
-        \arsort($edges);
+        if (\array_sum($edges) > 0.0) {
+            \arsort($edges);
 
-        return $paths[\array_key_first($edges)];
+            return $paths[\array_key_first($edges)];
+        }
+
+        return $paths[$mostNodes];
     }
 
     /**
@@ -711,20 +731,33 @@ class Graph
         $paths = $this->getAllPathsBetweenNodes($node1, $node2);
 
         $edges = [];
+        $leastNodes      = 0;
+        $leastNodesCount = \PHP_INT_MAX;
         foreach ($paths as $key => $path) {
             $edges[$key] = 0;
+            $nodeCount   = 0;
             foreach ($path as $node) {
+                if ($node1->getEdgeByNeighbor($node) === null) {
+                    continue;
+                }
+
                 $edges[$key] += $node1->getEdgeByNeighbor($node)->getWeight();
+                ++$nodeCount;
+            }
+
+            if ($nodeCount < $leastNodesCount && $nodeCount > 0) {
+                $leastNodesCount = $nodeCount;
+                $leastNodes      = $key;
             }
         }
 
-        if ($edges === []) {
-            return [];
+        if (\array_sum($edges) > 0.0) {
+            \asort($edges);
+
+            return $paths[\array_key_first($edges)];
         }
 
-        \asort($edges);
-
-        return $paths[\array_key_first($edges)];
+        return $paths[$leastNodes];
     }
 
     /**

@@ -100,7 +100,7 @@ class ModuleAbstractTest extends \PHPUnit\Framework\TestCase
                 $model1 = BaseModelMapper::get(1);
                 $model2 = ManyToManyRelModelMapper::get(1);
 
-                $this->createModelRelation(1, $model1->id, $model2->id, BaseModelMapper::class, 'hasManyRelations', '', '127.0.0.1');
+                $this->createModelRelation(1, $model1->getId(), $model2->id, BaseModelMapper::class, 'hasManyRelations', '', '127.0.0.1');
             }
 
             public function deleteRelationDB() : void
@@ -108,7 +108,7 @@ class ModuleAbstractTest extends \PHPUnit\Framework\TestCase
                 $model1 = BaseModelMapper::get(1);
                 $model2 = ManyToManyRelModelMapper::get(1);
 
-                $this->deleteModelRelation(1, $model1->id, $model2->id, BaseModelMapper::class, 'hasManyRelations', '', '127.0.0.1');
+                $this->deleteModelRelation(1, $model1->getId(), $model2->id, BaseModelMapper::class, 'hasManyRelations', '', '127.0.0.1');
             }
 
             public function creates() : void
@@ -133,6 +133,34 @@ class ModuleAbstractTest extends \PHPUnit\Framework\TestCase
             {
                 $model = BaseModelMapper::get(1);
                 $this->deleteModel(1, $model, BaseModelMapper::class, '', '127.0.0.1');
+            }
+
+            public function createWithCallable() : string
+            {
+                \ob_start();
+                $this->createModel(1, null, function() { echo 1; }, '', '127.0.0.1');
+                return \ob_get_clean();
+            }
+
+            public function createsWithCallable() : string
+            {
+                \ob_start();
+                $this->createModels(1, [null, null], function() { echo 1; }, '', '127.0.0.1');
+                return \ob_get_clean();
+            }
+
+            public function updateWithCallable() : string
+            {
+                \ob_start();
+                $this->updateModel(1, null, null, function() { echo 1; }, '', '127.0.0.1');
+                return \ob_get_clean();
+            }
+
+            public function deleteWithCallable() : string
+            {
+                \ob_start();
+                $this->deleteModel(1, null, function() { echo 1; }, '', '127.0.0.1');
+                return \ob_get_clean();
             }
         };
     }
@@ -433,5 +461,20 @@ class ModuleAbstractTest extends \PHPUnit\Framework\TestCase
         // This actually means that the delete was successful, otherwise the hasManyRelations would have been overwritten with 1 relation (see above before the delete)
         self::assertCount(2, $model->hasManyRelations);
         $this->dbTeardown();
+    }
+
+    public function testModelFunctionsWithClosure() : void
+    {
+        $output = $this->module->createWithCallable();
+        self::assertEquals('1', $output);
+
+        $output = $this->module->createsWithCallable();
+        self::assertEquals('11', $output);
+
+        $output = $this->module->updateWithCallable();
+        self::assertEquals('1', $output);
+
+        $output = $this->module->deleteWithCallable();
+        self::assertEquals('1', $output);
     }
 }

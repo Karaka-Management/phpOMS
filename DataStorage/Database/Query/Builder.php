@@ -353,18 +353,6 @@ class Builder extends BuilderAbstract
     }
 
     /**
-     * Creating new.
-     *
-     * @return Builder
-     *
-     * @since 1.0.0
-     */
-    public function newQuery() : self
-    {
-        return new self($this->connection, $this->isReadOnly);
-    }
-
-    /**
      * Parsing to sql string.
      *
      * @return string

@@ -16,4 +16,8 @@ namespace phpOMS\tests\DataStorage\Database\TestModel;
 
 final class NullBaseModel extends BaseModel
 {
+	public function __construct(int $id = 0)
+	{
+		$this->id = $id;
+	}
 }

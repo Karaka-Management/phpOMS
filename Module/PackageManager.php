@@ -300,9 +300,9 @@ final class PackageManager
 
             if (StringUtils::endsWith($component, '.php')) {
                 $cmd = 'php ' . $path;
-            } elseif (StringUtils::endsWith($component, '.sh') && OperatingSystem::getSystem() === SystemType::LINUX && \is_executable($path)) {
-                $cmd = $path;
-            } elseif (StringUtils::endsWith($component, '.batch') && OperatingSystem::getSystem() === SystemType::WIN && \is_executable($path)) {
+            } elseif ((StringUtils::endsWith($component, '.sh') && OperatingSystem::getSystem() === SystemType::LINUX && \is_executable($path))
+                || (StringUtils::endsWith($component, '.batch') && OperatingSystem::getSystem() === SystemType::WIN && \is_executable($path))
+            ) {
                 $cmd = $path;
             }
 

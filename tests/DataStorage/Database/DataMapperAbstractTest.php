@@ -14,10 +14,13 @@ declare(strict_types=1);
 namespace phpOMS\tests\DataStorage\Database;
 
 use phpOMS\tests\DataStorage\Database\TestModel\BaseModel;
+use phpOMS\tests\DataStorage\Database\TestModel\NullBaseModel;
 use phpOMS\tests\DataStorage\Database\TestModel\BaseModelMapper;
 use phpOMS\tests\DataStorage\Database\TestModel\Conditional;
 use phpOMS\tests\DataStorage\Database\TestModel\ConditionalMapper;
 use phpOMS\tests\DataStorage\Database\TestModel\ManyToManyDirectModelMapper;
+use phpOMS\tests\DataStorage\Database\TestModel\ManyToManyRelModel;
+use phpOMS\tests\DataStorage\Database\TestModel\ManyToManyRelModelMapper;
 
 /**
  * @testdox phpOMS\tests\DataStorage\Database\DataMapperAbstractTest: Datamapper for database models
@@ -158,6 +161,7 @@ class DataMapperAbstractTest extends \PHPUnit\Framework\TestCase
 
     protected function tearDown() : void
     {
+        BaseModelMapper::clearCache();
         $GLOBALS['dbpool']->get()->con->prepare('DROP TABLE test_conditional')->execute();
         $GLOBALS['dbpool']->get()->con->prepare('DROP TABLE test_base')->execute();
         $GLOBALS['dbpool']->get()->con->prepare('DROP TABLE test_belongs_to_one')->execute();
@@ -187,7 +191,24 @@ class DataMapperAbstractTest extends \PHPUnit\Framework\TestCase
     public function testCreate() : void
     {
         self::assertGreaterThan(0, BaseModelMapper::create($this->model));
-        self::assertGreaterThan(0, $this->model->id);
+        self::assertGreaterThan(0, $this->model->getId());
+    }
+
+    public function testCreateNullModel() : void
+    {
+        $nullModel1 = new NullBaseModel();
+        self::assertEquals(null, BaseModelMapper::create($nullModel1));
+
+        $nullModel2 = new NullBaseModel(77);
+        self::assertEquals(77, BaseModelMapper::create($nullModel2));
+    }
+
+    public function testCreateAlreadyCreatedModel() : void
+    {
+        self::assertGreaterThan(0, $id = BaseModelMapper::create($this->model));
+        self::assertGreaterThan(0, $this->model->getId());
+        self::assertEquals($id, BaseModelMapper::create($this->model));
+        self::assertEquals($id, $this->model->getId());
     }
 
     /**
@@ -201,6 +222,23 @@ class DataMapperAbstractTest extends \PHPUnit\Framework\TestCase
         self::assertGreaterThan(0, $this->modelArray['id']);
     }
 
+    public function testCreateHasManyRelation() : void
+    {
+        $id1 = BaseModelMapper::create($this->model);
+
+        $count1 = \count($this->model->hasManyRelations);
+
+        $hasMany = new ManyToManyRelModel();
+        $id2 = ManyToManyRelModelMapper::create($hasMany);
+
+        BaseModelMapper::createRelation('hasManyRelations', $id1, $id2);
+
+        BaseModelMapper::clearCache();
+
+        $base = BaseModelMapper::get($id1);
+        self::assertCount($count1 + 1, $base->hasManyRelations);
+    }
+
     /**
      * @testdox The datamapper successfully returns a database entry as model
      * @covers phpOMS\DataStorage\Database\DataMapperAbstract
@@ -211,7 +249,7 @@ class DataMapperAbstractTest extends \PHPUnit\Framework\TestCase
         $id     = BaseModelMapper::create($this->model);
         $modelR = BaseModelMapper::get($id);
 
-        self::assertEquals($this->model->id, $modelR->id);
+        self::assertEquals($this->model->getId(), $modelR->getId());
         self::assertEquals($this->model->string, $modelR->string);
         self::assertEquals($this->model->int, $modelR->int);
         self::assertEquals($this->model->bool, $modelR->bool);
@@ -221,8 +259,7 @@ class DataMapperAbstractTest extends \PHPUnit\Framework\TestCase
         self::assertNull($modelR->datetime_null);
 
         /**
-         * @todo Orange-Management/phpOMS#227
-         *  Serializable and JsonSerializable data can be inserted and updated in the database but it's not possible to correctly populate a model with the data in its original format.
+         * @todo Serializable and JsonSerializable data can be inserted and updated in the database but it's not possible to correctly populate a model with the data in its original format.
          */
         //self::assertEquals('123', $modelR->serializable);
         //self::assertEquals($this->model->json, $modelR->json);
@@ -234,15 +271,66 @@ class DataMapperAbstractTest extends \PHPUnit\Framework\TestCase
         self::assertEquals(\reset($this->model->hasManyRelations)->string, \reset($modelR->hasManyRelations)->string);
         self::assertEquals($this->model->ownsOneSelf->string, $modelR->ownsOneSelf->string);
         self::assertEquals($this->model->belongsToOne->string, $modelR->belongsToOne->string);
+    }
 
+    public function testGetAll() : void
+    {
+        BaseModelMapper::create($this->model);
+        self::assertCount(1, BaseModelMapper::getAll());
+    }
+
+    public function testGetFor() : void
+    {
+        $id  = BaseModelMapper::create($this->model);
         $for = ManyToManyDirectModelMapper::getFor($id, 'to');
 
         self::assertEquals(
             \reset($this->model->hasManyDirect)->string,
             $for[1]->string
         );
+    }
 
-        self::assertCount(1, BaseModelMapper::getAll());
+    public function testGetBy() : void
+    {
+        $model1 = new BaseModel();
+        $model1->string = '123';
+
+        $model2 = new BaseModel();
+        $model2->string = '456';
+
+        $id1 = BaseModelMapper::create($model1);
+        $id2 = BaseModelMapper::create($model2);
+
+        $by = BaseModelMapper::getBy('456', 'string');
+        self::assertEquals($model2->getId(), $by->getId());
+    }
+
+    public function testGetCached() : void
+    {
+        $id      = BaseModelMapper::create($this->model);
+        $modelR  = BaseModelMapper::get($id);
+        $modelR2 = BaseModelMapper::get($id);
+
+        self::assertEquals($modelR->getId(), $modelR2->getId());
+    }
+
+    public function testGetNewest() : void
+    {
+        $model1 = new BaseModel();
+        $model1->datetime = new \DateTime('now');
+        $id1 = BaseModelMapper::create($model1);
+        \sleep(1);
+        $model2 = new BaseModel();
+        $model2->datetime = new \DateTime('now');
+        $id2 = BaseModelMapper::create($model2);
+
+        $newest = BaseModelMapper::getNewest();
+        self::assertEquals($id2, \reset($newest)->getId());
+    }
+
+    public function testGetNullModel() : void
+    {
+        self::assertEquals(NullBaseModel::class, \get_class(BaseModelMapper::get(99)));
     }
 
     /**
@@ -436,5 +524,19 @@ class DataMapperAbstractTest extends \PHPUnit\Framework\TestCase
          * @todo Orange-Management/phpOMS#225
          *  Test the deletion of a model with relations (deleting relations).
          */
+    }
+
+    public function testDeleteHasManyRelation() : void
+    {
+        $id1 = BaseModelMapper::create($this->model);
+
+        $count1 = \count($this->model->hasManyRelations);
+
+        BaseModelMapper::deleteRelation('hasManyRelations', $id1, \reset($this->model->hasManyRelations)->id);
+
+        BaseModelMapper::clearCache();
+        $base = BaseModelMapper::get($id1);
+
+        self::assertCount($count1 - 1, $base->hasManyRelations);
     }
 }

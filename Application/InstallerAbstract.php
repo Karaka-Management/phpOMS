@@ -18,6 +18,7 @@ use phpOMS\Config\SettingsInterface;
 use phpOMS\DataStorage\Database\DatabasePool;
 use phpOMS\DataStorage\Database\Schema\Builder as SchemaBuilder;
 use phpOMS\System\File\Local\Directory;
+use phpOMS\Autoloader;
 
 /**
  * Installer abstract class.
@@ -132,6 +133,11 @@ abstract class InstallerAbstract
         $classPath = \substr(\realpath(static::PATH) . '/Status', \strlen(\realpath(__DIR__ . '/../../')));
 
         $class = \str_replace('/', '\\', $classPath);
+
+        if (!Autoloader::exists($class)) {
+            throw new \UnexpectedValueException($class); // @codeCoverageIgnore
+        }
+
         $class::activate($dbPool, $info);
     }
 
@@ -149,6 +155,10 @@ abstract class InstallerAbstract
         $classPath = \substr(\realpath(static::PATH) . '/Status', \strlen(\realpath(__DIR__ . '/../../')));
 
         $class = \str_replace('/', '\\', $classPath);
+
+        if (!Autoloader::exists($class)) {
+            throw new \UnexpectedValueException($class); // @codeCoverageIgnore
+        }
 
         $class::clearRoutes();
         $class::clearHooks();

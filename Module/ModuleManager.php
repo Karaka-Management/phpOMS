@@ -266,10 +266,6 @@ final class ModuleManager
             \chdir($this->modulePath);
             $files = \glob('*', \GLOB_ONLYDIR);
 
-            if ($files === false) {
-                return [];
-            }
-
             $c = $files === false ? 0 : \count($files);
             for ($i = 0; $i < $c; ++$i) {
                 $info = $this->loadInfo($files[$i]);
@@ -368,14 +364,13 @@ final class ModuleManager
         try {
             $info = $this->loadInfo($module);
             if ($info === null) {
-                return false;
+                return false; // @codeCoverageIgnore
             }
 
             $this->deactivateModule($info);
 
             return true;
         } catch (\Exception $e) {
-            echo $e->getMessage();
             return false; // @codeCoverageIgnore
         }
     }
@@ -421,7 +416,7 @@ final class ModuleManager
         try {
             $info = $this->loadInfo($module);
             if ($info === null) {
-                return false;
+                return false; // @codeCoverageIgnore
             }
 
             $this->activateModule($info);
@@ -506,7 +501,7 @@ final class ModuleManager
         try {
             $info = $this->loadInfo($module);
             if ($info === null) {
-                return false;
+                return false; // @codeCoverageIgnore
             }
 
             $this->installed[$module] = $info;
@@ -554,7 +549,7 @@ final class ModuleManager
         try {
             $info = $this->loadInfo($module);
             if ($info === null) {
-                return false;
+                return false; // @codeCoverageIgnore
             }
 
             $this->installed[$module] = $info;
