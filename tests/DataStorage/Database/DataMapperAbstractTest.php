@@ -14,13 +14,13 @@ declare(strict_types=1);
 namespace phpOMS\tests\DataStorage\Database;
 
 use phpOMS\tests\DataStorage\Database\TestModel\BaseModel;
-use phpOMS\tests\DataStorage\Database\TestModel\NullBaseModel;
 use phpOMS\tests\DataStorage\Database\TestModel\BaseModelMapper;
 use phpOMS\tests\DataStorage\Database\TestModel\Conditional;
 use phpOMS\tests\DataStorage\Database\TestModel\ConditionalMapper;
 use phpOMS\tests\DataStorage\Database\TestModel\ManyToManyDirectModelMapper;
 use phpOMS\tests\DataStorage\Database\TestModel\ManyToManyRelModel;
 use phpOMS\tests\DataStorage\Database\TestModel\ManyToManyRelModelMapper;
+use phpOMS\tests\DataStorage\Database\TestModel\NullBaseModel;
 
 /**
  * @testdox phpOMS\tests\DataStorage\Database\DataMapperAbstractTest: Datamapper for database models
@@ -197,7 +197,7 @@ class DataMapperAbstractTest extends \PHPUnit\Framework\TestCase
     public function testCreateNullModel() : void
     {
         $nullModel1 = new NullBaseModel();
-        self::assertEquals(null, BaseModelMapper::create($nullModel1));
+        self::assertNull(BaseModelMapper::create($nullModel1));
 
         $nullModel2 = new NullBaseModel(77);
         self::assertEquals(77, BaseModelMapper::create($nullModel2));
@@ -229,7 +229,7 @@ class DataMapperAbstractTest extends \PHPUnit\Framework\TestCase
         $count1 = \count($this->model->hasManyRelations);
 
         $hasMany = new ManyToManyRelModel();
-        $id2 = ManyToManyRelModelMapper::create($hasMany);
+        $id2     = ManyToManyRelModelMapper::create($hasMany);
 
         BaseModelMapper::createRelation('hasManyRelations', $id1, $id2);
 
@@ -292,10 +292,10 @@ class DataMapperAbstractTest extends \PHPUnit\Framework\TestCase
 
     public function testGetBy() : void
     {
-        $model1 = new BaseModel();
+        $model1         = new BaseModel();
         $model1->string = '123';
 
-        $model2 = new BaseModel();
+        $model2         = new BaseModel();
         $model2->string = '456';
 
         $id1 = BaseModelMapper::create($model1);
@@ -316,13 +316,13 @@ class DataMapperAbstractTest extends \PHPUnit\Framework\TestCase
 
     public function testGetNewest() : void
     {
-        $model1 = new BaseModel();
+        $model1           = new BaseModel();
         $model1->datetime = new \DateTime('now');
-        $id1 = BaseModelMapper::create($model1);
+        $id1              = BaseModelMapper::create($model1);
         \sleep(1);
-        $model2 = new BaseModel();
+        $model2           = new BaseModel();
         $model2->datetime = new \DateTime('now');
-        $id2 = BaseModelMapper::create($model2);
+        $id2              = BaseModelMapper::create($model2);
 
         $newest = BaseModelMapper::getNewest();
         self::assertEquals($id2, \reset($newest)->getId());

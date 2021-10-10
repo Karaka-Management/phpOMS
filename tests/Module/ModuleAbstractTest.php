@@ -138,28 +138,28 @@ class ModuleAbstractTest extends \PHPUnit\Framework\TestCase
             public function createWithCallable() : string
             {
                 \ob_start();
-                $this->createModel(1, null, function() { echo 1; }, '', '127.0.0.1');
+                $this->createModel(1, null, function() : void { echo 1; }, '', '127.0.0.1');
                 return \ob_get_clean();
             }
 
             public function createsWithCallable() : string
             {
                 \ob_start();
-                $this->createModels(1, [null, null], function() { echo 1; }, '', '127.0.0.1');
+                $this->createModels(1, [null, null], function() : void { echo 1; }, '', '127.0.0.1');
                 return \ob_get_clean();
             }
 
             public function updateWithCallable() : string
             {
                 \ob_start();
-                $this->updateModel(1, null, null, function() { echo 1; }, '', '127.0.0.1');
+                $this->updateModel(1, null, null, function() : void { echo 1; }, '', '127.0.0.1');
                 return \ob_get_clean();
             }
 
             public function deleteWithCallable() : string
             {
                 \ob_start();
-                $this->deleteModel(1, null, function() { echo 1; }, '', '127.0.0.1');
+                $this->deleteModel(1, null, function() : void { echo 1; }, '', '127.0.0.1');
                 return \ob_get_clean();
             }
         };

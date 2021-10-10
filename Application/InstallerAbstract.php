@@ -14,11 +14,11 @@ declare(strict_types=1);
 
 namespace phpOMS\Application;
 
+use phpOMS\Autoloader;
 use phpOMS\Config\SettingsInterface;
 use phpOMS\DataStorage\Database\DatabasePool;
 use phpOMS\DataStorage\Database\Schema\Builder as SchemaBuilder;
 use phpOMS\System\File\Local\Directory;
-use phpOMS\Autoloader;
 
 /**
  * Installer abstract class.

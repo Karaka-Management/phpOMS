@@ -730,7 +730,7 @@ class Graph
 
         $paths = $this->getAllPathsBetweenNodes($node1, $node2);
 
-        $edges = [];
+        $edges           = [];
         $leastNodes      = 0;
         $leastNodesCount = \PHP_INT_MAX;
         foreach ($paths as $key => $path) {

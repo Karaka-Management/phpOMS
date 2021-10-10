@@ -397,7 +397,7 @@ class GraphTest extends \PHPUnit\Framework\TestCase
         self::assertEquals(17.0, $minimalSpanningTree->getCost());
     }
 
-     /**
+    /**
      *     1 - 3 - 5
      *   / |\     /
      * 0   | \   /

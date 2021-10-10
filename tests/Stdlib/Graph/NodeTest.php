@@ -174,6 +174,6 @@ class NodeTest extends \PHPUnit\Framework\TestCase
         $node1->setNodeRelative($node3);
 
         self::assertEquals('C', $node1->getEdgeByNeighbor($node3)->getNode2()->getId());
-        self::assertEquals(null, $node1->getEdgeByNeighbor($node4));
+        self::assertNull($node1->getEdgeByNeighbor($node4));
     }
 }

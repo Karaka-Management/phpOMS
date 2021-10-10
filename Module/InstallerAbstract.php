@@ -15,10 +15,10 @@ declare(strict_types=1);
 namespace phpOMS\Module;
 
 use phpOMS\Application\ApplicationInfo;
+use phpOMS\Autoloader;
 use phpOMS\Config\SettingsInterface;
 use phpOMS\DataStorage\Database\DatabasePool;
 use phpOMS\DataStorage\Database\Schema\Builder as SchemaBuilder;
-use phpOMS\Autoloader;
 
 /**
  * Installer abstract class.

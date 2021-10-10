@@ -77,12 +77,11 @@ class EmailTestTest extends \PHPUnit\Framework\TestCase
 
         self::assertEquals(
             [
-                'test@orange-management.org' => ['test@orange-management.org', 'Test Name'],
+                'test@orange-management.org'  => ['test@orange-management.org', 'Test Name'],
                 'test2@orange-management.org' => ['test2@orange-management.org', 'Test Name 2'],
             ],
             $this->mail->to
         );
-
     }
 
     public function testInvalidAddTo() : void
@@ -98,12 +97,11 @@ class EmailTestTest extends \PHPUnit\Framework\TestCase
 
         self::assertEquals(
             [
-                'test@orange-management.org' => ['test@orange-management.org', 'Test Name'],
+                'test@orange-management.org'  => ['test@orange-management.org', 'Test Name'],
                 'test2@orange-management.org' => ['test2@orange-management.org', 'Test Name 2'],
             ],
             $this->mail->cc
         );
-
     }
 
     public function testInvalidAddCC() : void
@@ -119,12 +117,11 @@ class EmailTestTest extends \PHPUnit\Framework\TestCase
 
         self::assertEquals(
             [
-                'test@orange-management.org' => ['test@orange-management.org', 'Test Name'],
+                'test@orange-management.org'  => ['test@orange-management.org', 'Test Name'],
                 'test2@orange-management.org' => ['test2@orange-management.org', 'Test Name 2'],
             ],
             $this->mail->bcc
         );
-
     }
 
     public function testInvalidAddBCC() : void
@@ -140,12 +137,11 @@ class EmailTestTest extends \PHPUnit\Framework\TestCase
 
         self::assertEquals(
             [
-                'test@orange-management.org' => ['test@orange-management.org', 'Test Name'],
+                'test@orange-management.org'  => ['test@orange-management.org', 'Test Name'],
                 'test2@orange-management.org' => ['test2@orange-management.org', 'Test Name 2'],
             ],
             $this->mail->replyTo
         );
-
     }
 
     public function testInvalidAddReplyTo() : void

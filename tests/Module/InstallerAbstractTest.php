@@ -16,10 +16,10 @@ namespace phpOMS\tests\Module;
 
 require_once __DIR__ . '/../Autoloader.php';
 
-use phpOMS\Module\InstallerAbstract;
-use phpOMS\DataStorage\Database\DatabasePool;
-use phpOMS\Module\ModuleInfo;
 use Model\CoreSettings;
+use phpOMS\DataStorage\Database\DatabasePool;
+use phpOMS\Module\InstallerAbstract;
+use phpOMS\Module\ModuleInfo;
 
 /**
  * @testdox phpOMS\tests\Module\InstallerAbstractTest: Abstract module
@@ -30,14 +30,13 @@ class InstallerAbstractTest extends \PHPUnit\Framework\TestCase
 {
 	protected InstallerAbstract $installer;
 
-	/**
+    /**
      * {@inheritdoc}
      */
     protected function setUp() : void
     {
     	$this->installer = new class() extends InstallerAbstract
     	{
-
     	};
     }
 

@@ -16,10 +16,9 @@ namespace phpOMS\tests\Application;
 
 require_once __DIR__ . '/../Autoloader.php';
 
+use phpOMS\Application\ApplicationInfo;
 use phpOMS\Application\UninstallerAbstract;
 use phpOMS\DataStorage\Database\DatabasePool;
-use phpOMS\Application\ApplicationInfo;
-use Model\CoreSettings;
 
 /**
  * @testdox phpOMS\tests\Application\UninstallerAbstractTest: Abstract module
@@ -30,12 +29,11 @@ class UninstallerAbstractTest extends \PHPUnit\Framework\TestCase
 {
 	protected UninstallerAbstract $uninstaller;
 
-	/**
+    /**
      * {@inheritdoc}
      */
     protected function setUp() : void
     {
-
     	$this->uninstaller = new class() extends UninstallerAbstract
     	{
             public const PATH = __DIR__ . '/invalid';

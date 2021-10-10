@@ -343,7 +343,7 @@ class MailHandlerTest extends \PHPUnit\Framework\TestCase
         $mail->setFrom('test1@orange-management.email', 'Dennis Eichhorn');
         $mail->addTo('test@orange-management.email', 'Dennis Eichhorn');
         $mail->subject = 'testSendPlainWithMail';
-        $mail->body = 'Body';
+        $mail->body    = 'Body';
 
         self::assertTrue($this->handler->send($mail));
     }
@@ -360,7 +360,7 @@ class MailHandlerTest extends \PHPUnit\Framework\TestCase
         $mail->setFrom('test1@orange-management.email', 'Dennis Eichhorn');
         $mail->addTo('test@orange-management.email', 'Dennis Eichhorn');
         $mail->subject = 'testSendPlainWithSendmail';
-        $mail->body = 'Body';
+        $mail->body    = 'Body';
 
         self::assertTrue($this->handler->send($mail));
     }

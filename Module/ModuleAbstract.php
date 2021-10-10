@@ -247,11 +247,11 @@ abstract class ModuleAbstract
     /**
      * Create a model
      *
-     * @param int    $account Account id
-     * @param mixed  $obj     Response object
+     * @param int               $account Account id
+     * @param mixed             $obj     Response object
      * @param string | \Closure $mapper  Object mapper
-     * @param string $trigger Trigger for the event manager
-     * @param string $ip      Ip
+     * @param string            $trigger Trigger for the event manager
+     * @param string            $ip      Ip
      *
      * @return void
      *
@@ -286,11 +286,11 @@ abstract class ModuleAbstract
     /**
      * Create a model
      *
-     * @param int    $account Account id
-     * @param array  $objs    Response object
+     * @param int               $account Account id
+     * @param array             $objs    Response object
      * @param string | \Closure $mapper  Object mapper
-     * @param string $trigger Trigger for the event manager
-     * @param string $ip      Ip
+     * @param string            $trigger Trigger for the event manager
+     * @param string            $ip      Ip
      *
      * @return void
      *
@@ -327,12 +327,12 @@ abstract class ModuleAbstract
     /**
      * Update a model
      *
-     * @param int             $account Account id
-     * @param mixed           $old     Response object old
-     * @param mixed           $new     Response object new
+     * @param int               $account Account id
+     * @param mixed             $old     Response object old
+     * @param mixed             $new     Response object new
      * @param string | \Closure $mapper  Object mapper
-     * @param string          $trigger Trigger for the event manager
-     * @param string          $ip      Ip
+     * @param string            $trigger Trigger for the event manager
+     * @param string            $ip      Ip
      *
      * @return void
      *
@@ -365,11 +365,11 @@ abstract class ModuleAbstract
     /**
      * Delete a model
      *
-     * @param int    $account Account id
-     * @param mixed  $obj     Response object
+     * @param int               $account Account id
+     * @param mixed             $obj     Response object
      * @param string | \Closure $mapper  Object mapper
-     * @param string $trigger Trigger for the event manager
-     * @param string $ip      Ip
+     * @param string            $trigger Trigger for the event manager
+     * @param string            $ip      Ip
      *
      * @return void
      *
