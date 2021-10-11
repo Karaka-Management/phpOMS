@@ -111,7 +111,7 @@ final class RedisCache extends ConnectionAbstract
         }
 
         if ($expire > 0) {
-            $this->con->setEx((string) $key, $expire * 1000, $this->build($value));
+            $this->con->setEx((string) $key, $expire, $this->build($value));
 
             return;
         }
@@ -129,7 +129,7 @@ final class RedisCache extends ConnectionAbstract
         }
 
         if ($expire > 0) {
-            return $this->con->setNx((string) $key, $this->build($value), $expire * 1000);
+            return $this->con->setNx((string) $key, $this->build($value), $expire);
         }
 
         return $this->con->setNx((string) $key, $this->build($value));
@@ -207,7 +207,7 @@ final class RedisCache extends ConnectionAbstract
         $this->con->rename((string) $old, (string) $new);
 
         if ($expire > 0) {
-            $this->con->expire((string) $new, $expire * 1000);
+            $this->con->expire((string) $new, $expire);
         }
     }
 
@@ -264,7 +264,7 @@ final class RedisCache extends ConnectionAbstract
     public function updateExpire(int | string $key, int $expire = -1) : bool
     {
         if ($expire > 0) {
-            $this->con->expire((string) $key, $expire * 1000);
+            $this->con->expire((string) $key, $expire);
         }
 
         return true;
@@ -302,7 +302,7 @@ final class RedisCache extends ConnectionAbstract
         }
 
         if ($this->con->exists((string) $key) > 0) {
-            $this->set((string) $key, $value, $expire * 1000);
+            $this->set((string) $key, $value, $expire);
 
             return true;
         }
