@@ -71,7 +71,6 @@ final class ApplicationManager
     private function loadInfo(string $appPath) : ApplicationInfo
     {
         $path = \realpath($appPath);
-
         if ($path === false) {
             throw new PathException($appPath);
         }
@@ -98,7 +97,13 @@ final class ApplicationManager
         $destination = \rtrim($destination, '\\/');
         $source      = \rtrim($source, '/\\');
 
-        if (!\is_dir($source) || ($path = \realpath($destination)) === false || !\is_file($source . '/Admin/Installer.php')) {
+        if (!\is_dir(\dirname($destination))) {
+            Directory::create(\dirname($destination), 0755, true);
+        }
+
+        if (!\is_dir($source) || ($path = \realpath($destination)) === false
+            || !\is_file($source . '/Admin/Installer.php')
+        ) {
             return false;
         }
 
