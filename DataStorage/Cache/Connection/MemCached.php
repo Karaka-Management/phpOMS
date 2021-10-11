@@ -128,11 +128,7 @@ final class MemCached extends ConnectionAbstract
 
         $result = $this->con->get((string) $key);
 
-        if ($this->con->getResultCode() !== \Memcached::RES_SUCCESS) {
-            return null;
-        }
-
-        return $result;
+        return $this->con->getResultCode() !== \Memcached::RES_SUCCESS ? null : $result;
     }
 
     /**
@@ -144,7 +140,9 @@ final class MemCached extends ConnectionAbstract
             return false;
         }
 
-        return $this->con->delete((string) $key);
+        $result = $this->con->delete((string) $key);
+
+        return $this->con->getResultCode() === \Memcached::RES_NOTFOUND ? false : $result;
     }
 
     /**
@@ -164,9 +162,11 @@ final class MemCached extends ConnectionAbstract
      */
     public function increment(int | string $key, int $value = 1) : bool
     {
-        $this->con->increment((string) $key, $value);
+        if ($this->status !== CacheStatus::OK) {
+            return false;
+        }
 
-        return true;
+        return $this->con->increment((string) $key, $value) !== false;
     }
 
     /**
@@ -174,9 +174,11 @@ final class MemCached extends ConnectionAbstract
      */
     public function decrement(int | string $key, int $value = 1) : bool
     {
-        $this->con->decrement((string) $key, $value);
+        if ($this->status !== CacheStatus::OK) {
+            return false;
+        }
 
-        return true;
+        return $this->con->decrement((string) $key, $value) !== false;
     }
 
     /**
@@ -184,6 +186,10 @@ final class MemCached extends ConnectionAbstract
      */
     public function rename(int | string $old, int | string $new, int $expire = -1) : void
     {
+        if ($this->status !== CacheStatus::OK) {
+            return;
+        }
+
         $value = $this->get((string) $old);
         $this->set((string) $new, $value, $expire);
         $this->delete((string) $old);
@@ -296,6 +302,10 @@ final class MemCached extends ConnectionAbstract
      */
     public function updateExpire(int | string $key, int $expire = -1) : bool
     {
+        if ($this->status !== CacheStatus::OK) {
+            return false;
+        }
+
         if ($expire > 0) {
             $this->con->touch((string) $key, $expire);
         }
@@ -308,7 +318,11 @@ final class MemCached extends ConnectionAbstract
      */
     public function flush(int $expire = 0) : bool
     {
-        return $this->flushAll();
+        if ($this->status !== CacheStatus::OK) {
+            return false;
+        }
+
+        return $this->flush();
     }
 
     /**

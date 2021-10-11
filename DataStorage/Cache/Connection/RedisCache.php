@@ -184,6 +184,10 @@ final class RedisCache extends ConnectionAbstract
      */
     public function increment(int | string $key, int $value = 1) : bool
     {
+        if ($this->status !== CacheStatus::OK) {
+            return false;
+        }
+
         $this->con->incrBy((string) $key, $value);
 
         return true;
@@ -194,6 +198,10 @@ final class RedisCache extends ConnectionAbstract
      */
     public function decrement(int | string $key, int $value = 1) : bool
     {
+        if ($this->status !== CacheStatus::OK) {
+            return false;
+        }
+
         $this->con->decrBy((string) $key, $value);
 
         return true;
@@ -204,6 +212,10 @@ final class RedisCache extends ConnectionAbstract
      */
     public function rename(int | string $old, int | string $new, int $expire = -1) : void
     {
+        if ($this->status !== CacheStatus::OK) {
+            return;
+        }
+
         $this->con->rename((string) $old, (string) $new);
 
         if ($expire > 0) {
@@ -263,6 +275,10 @@ final class RedisCache extends ConnectionAbstract
      */
     public function updateExpire(int | string $key, int $expire = -1) : bool
     {
+        if ($this->status !== CacheStatus::OK) {
+            return false;
+        }
+
         if ($expire > 0) {
             $this->con->expire((string) $key, $expire);
         }
@@ -275,7 +291,11 @@ final class RedisCache extends ConnectionAbstract
      */
     public function flush(int $expire = 0) : bool
     {
-        return $this->flushAll();
+        if ($this->status !== CacheStatus::OK) {
+            return false;
+        }
+
+        return $this->flushDb();
     }
 
     /**

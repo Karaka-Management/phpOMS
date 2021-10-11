@@ -454,6 +454,10 @@ final class FileCache extends ConnectionAbstract
      */
     public function increment(int | string $key, int $value = 1) : bool
     {
+        if ($this->status !== CacheStatus::OK) {
+            return false;
+        }
+
         $path = $this->getPath($key);
         if (!File::exists($path)) {
             return false;
@@ -489,6 +493,10 @@ final class FileCache extends ConnectionAbstract
      */
     public function decrement(int | string $key, int $value = 1) : bool
     {
+        if ($this->status !== CacheStatus::OK) {
+            return false;
+        }
+
         $path = $this->getPath($key);
         if (!File::exists($path)) {
             return false;
@@ -524,6 +532,10 @@ final class FileCache extends ConnectionAbstract
      */
     public function rename(int | string $old, int | string $new, int $expire = -1) : void
     {
+        if ($this->status !== CacheStatus::OK) {
+            return;
+        }
+
         $value = $this->get($old);
         $this->set($new, $value, $expire);
         $this->delete($old);
@@ -628,6 +640,10 @@ final class FileCache extends ConnectionAbstract
      */
     public function updateExpire(int | string $key, int $expire = -1) : bool
     {
+        if ($this->status !== CacheStatus::OK) {
+            return false;
+        }
+
         $value = $this->get($key, $expire);
         $this->delete($key);
         $this->set($key, $value, $expire);
