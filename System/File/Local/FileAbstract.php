@@ -109,8 +109,8 @@ abstract class FileAbstract implements LocalContainerInterface
      */
     public function __construct(string $path)
     {
-        $this->path = rtrim($path, '/\\');
-        $this->name = basename($path);
+        $this->path = \rtrim($path, '/\\');
+        $this->name = \basename($path);
 
         $this->createdAt = new \DateTimeImmutable('now');
         $this->changedAt = new \DateTime('now');
@@ -121,11 +121,11 @@ abstract class FileAbstract implements LocalContainerInterface
      */
     public static function created(string $path) : \DateTime
     {
-        if (!file_exists($path)) {
+        if (!\file_exists($path)) {
             throw new PathException($path);
         }
 
-        $time = filectime($path);
+        $time = \filectime($path);
 
         return self::createFileTime($time === false ? 0 : $time);
     }
@@ -135,11 +135,11 @@ abstract class FileAbstract implements LocalContainerInterface
      */
     public static function changed(string $path) : \DateTime
     {
-        if (!file_exists($path)) {
+        if (!\file_exists($path)) {
             throw new PathException($path);
         }
 
-        $time = filemtime($path);
+        $time = \filemtime($path);
 
         return self::createFileTime($time === false ? 0 : $time);
     }
@@ -190,7 +190,7 @@ abstract class FileAbstract implements LocalContainerInterface
      */
     public function getBasename() : string
     {
-        return basename($this->path);
+        return \basename($this->path);
     }
 
     /**
@@ -238,16 +238,16 @@ abstract class FileAbstract implements LocalContainerInterface
      */
     public function index() : void
     {
-        $mtime = filemtime($this->path);
-        $ctime = filectime($this->path);
+        $mtime = \filemtime($this->path);
+        $ctime = \filectime($this->path);
 
         $this->createdAt = (new \DateTimeImmutable())->setTimestamp($mtime === false ? 0 : $mtime);
         $this->changedAt->setTimestamp($ctime === false ? 0 : $ctime);
 
-        $owner = fileowner($this->path);
+        $owner = \fileowner($this->path);
 
         $this->owner      = $owner === false ? 0 : $owner;
-        $this->permission = (int) substr(sprintf('%o', fileperms($this->path)), -4);
+        $this->permission = (int) \substr(\sprintf('%o', \fileperms($this->path)), -4);
 
         $this->isInitialized = true;
     }

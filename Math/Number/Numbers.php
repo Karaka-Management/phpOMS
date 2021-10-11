@@ -68,14 +68,14 @@ final class Numbers
     public static function isSelfdescribing(int $n) : bool
     {
         $n     = (string) $n;
-        $split = str_split($n);
+        $split = \str_split($n);
 
         if ($split === false) {
             return false; // @codeCoverageIgnore
         }
 
         foreach ($split as $place => $value) {
-            if (substr_count($n, (string) $place) != $value) {
+            if (\substr_count($n, (string) $place) != $value) {
                 return false;
             }
         }
@@ -94,7 +94,7 @@ final class Numbers
      */
     public static function isSquare(int $n) : bool
     {
-        return abs(((int) sqrt($n)) * ((int) sqrt($n)) - $n) < 0.001;
+        return \abs(((int) \sqrt($n)) * ((int) \sqrt($n)) - $n) < 0.001;
     }
 
     /**

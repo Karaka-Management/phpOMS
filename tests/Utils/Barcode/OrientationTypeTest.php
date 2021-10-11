@@ -36,7 +36,7 @@ class OrientationTypeTest extends \PHPUnit\Framework\TestCase
      */
     public function testUnique() : void
     {
-        self::assertEquals(OrientationType::getConstants(), array_unique(OrientationType::getConstants()));
+        self::assertEquals(OrientationType::getConstants(), \array_unique(OrientationType::getConstants()));
     }
 
     /**

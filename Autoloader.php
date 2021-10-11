@@ -14,7 +14,7 @@ declare(strict_types=1);
 
 namespace phpOMS;
 
-spl_autoload_register('\phpOMS\Autoloader::defaultAutoloader');
+\spl_autoload_register('\phpOMS\Autoloader::defaultAutoloader');
 
 /**
  * Autoloader class.
@@ -72,11 +72,11 @@ final class Autoloader
     public static function findPaths(string $class) : array
     {
         $found = [];
-        $class = ltrim($class, '\\');
-        $class = str_replace(['_', '\\'], '/', $class);
+        $class = \ltrim($class, '\\');
+        $class = \str_replace(['_', '\\'], '/', $class);
 
         foreach (self::$paths as $path) {
-            if (is_file($file = $path . $class . '.php')) {
+            if (\is_file($file = $path . $class . '.php')) {
                 $found[] = $file;
             }
         }
@@ -99,11 +99,11 @@ final class Autoloader
      */
     public static function defaultAutoloader(string $class) : void
     {
-        $class = ltrim($class, '\\');
-        $class = str_replace(['_', '\\'], '/', $class);
+        $class = \ltrim($class, '\\');
+        $class = \str_replace(['_', '\\'], '/', $class);
 
         foreach (self::$paths as $path) {
-            if (is_file($file = $path . $class . '.php')) {
+            if (\is_file($file = $path . $class . '.php')) {
                 include $file;
 
                 return;
@@ -124,11 +124,11 @@ final class Autoloader
      */
     public static function exists(string $class) : bool
     {
-        $class = ltrim($class, '\\');
-        $class = str_replace(['_', '\\'], '/', $class);
+        $class = \ltrim($class, '\\');
+        $class = \str_replace(['_', '\\'], '/', $class);
 
         foreach (self::$paths as $path) {
-            if (is_file($path . $class . '.php')) {
+            if (\is_file($path . $class . '.php')) {
                 return true;
             }
         }
@@ -150,14 +150,14 @@ final class Autoloader
     public static function invalidate(string $class) : bool
     {
         if (!\extension_loaded('zend opcache')
-            || !opcache_is_script_cached($class)
-            || opcache_get_status() === false
+            || !\opcache_is_script_cached($class)
+            || \opcache_get_status() === false
         ) {
             return false;
         }
 
-        opcache_invalidate($class);
-        opcache_compile_file($class);
+        \opcache_invalidate($class);
+        \opcache_compile_file($class);
 
         return true;
     }

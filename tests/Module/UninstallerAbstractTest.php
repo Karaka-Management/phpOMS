@@ -51,6 +51,6 @@ class UninstallerAbstractTest extends \PHPUnit\Framework\TestCase
             new ModuleInfo(__DIR__)
         );
 
-        self::assertFalse(file_exists($this->uninstaller::PATH . '/Install/db.json'));
+        self::assertFalse(\file_exists($this->uninstaller::PATH . '/Install/db.json'));
     }
 }

@@ -114,7 +114,7 @@ final class Weighted
             return $jobs;
         }
 
-        usort($jobs, [self::class, 'sortByEnd']);
+        \usort($jobs, [self::class, 'sortByEnd']);
 
         $valueTable = [$jobs[0]->getValue()];
 
@@ -128,7 +128,7 @@ final class Weighted
 
             if ($l != -1) {
                 $value += $valueTable[$l];
-                $jList  = array_merge($resultTable[$l], $jList);
+                $jList  = \array_merge($resultTable[$l], $jList);
             }
 
             if ($value > $valueTable[$i - 1]) {

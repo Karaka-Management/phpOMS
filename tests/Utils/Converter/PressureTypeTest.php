@@ -36,7 +36,7 @@ class PressureTypeTest extends \PHPUnit\Framework\TestCase
      */
     public function testUnique() : void
     {
-        self::assertEquals(PressureType::getConstants(), array_unique(PressureType::getConstants()));
+        self::assertEquals(PressureType::getConstants(), \array_unique(PressureType::getConstants()));
     }
 
     /**

@@ -50,7 +50,7 @@ final class BucketSort
         }
 
         foreach ($list as $element) {
-            $buckets[(int) floor(($bucketCount - 1) * $element->getValue() / $M)][] = $element;
+            $buckets[(int) \floor(($bucketCount - 1) * $element->getValue() / $M)][] = $element;
         }
 
         $sorted = [];
@@ -58,6 +58,6 @@ final class BucketSort
             $sorted[] = $algo::sort($bucket, SortOrder::ASC);
         }
 
-        return $order === SortOrder::ASC ? array_merge(...$sorted) : array_reverse(array_merge(...$sorted), false);
+        return $order === SortOrder::ASC ? \array_merge(...$sorted) : \array_reverse(\array_merge(...$sorted), false);
     }
 }

@@ -34,12 +34,12 @@ class FileLoggerTest extends \PHPUnit\Framework\TestCase
      */
     protected function setUp() : void
     {
-        if (is_file(__DIR__ . '/' . date('Y-m-d') . '.log')) {
-            unlink(__DIR__ . '/' . date('Y-m-d') . '.log');
+        if (\is_file(__DIR__ . '/' . \date('Y-m-d') . '.log')) {
+            \unlink(__DIR__ . '/' . \date('Y-m-d') . '.log');
         }
 
-        if (is_file(__DIR__ . '/test.log')) {
-            unlink(__DIR__ . '/test.log');
+        if (\is_file(__DIR__ . '/test.log')) {
+            \unlink(__DIR__ . '/test.log');
         }
 
         $this->log = new FileLogger(__DIR__ . '/test.log', false);
@@ -47,12 +47,12 @@ class FileLoggerTest extends \PHPUnit\Framework\TestCase
 
     protected function tearDown() : void
     {
-        if (is_file(__DIR__ . '/' . date('Y-m-d') . '.log')) {
-            unlink(__DIR__ . '/' . date('Y-m-d') . '.log');
+        if (\is_file(__DIR__ . '/' . \date('Y-m-d') . '.log')) {
+            \unlink(__DIR__ . '/' . \date('Y-m-d') . '.log');
         }
 
-        if (is_file(__DIR__ . '/test.log')) {
-            unlink(__DIR__ . '/test.log');
+        if (\is_file(__DIR__ . '/test.log')) {
+            \unlink(__DIR__ . '/test.log');
         }
     }
 
@@ -87,8 +87,8 @@ class FileLoggerTest extends \PHPUnit\Framework\TestCase
      */
     public function testFileLoggerInstance() : void
     {
-        if (is_file(__DIR__ . '/named.log')) {
-            unlink(__DIR__ . '/named.log');
+        if (\is_file(__DIR__ . '/named.log')) {
+            \unlink(__DIR__ . '/named.log');
         }
 
         $instance = FileLogger::getInstance(__DIR__ . '/named.log', false);
@@ -99,8 +99,8 @@ class FileLoggerTest extends \PHPUnit\Framework\TestCase
 
         TestUtils::setMember($instance, 'instance', $instance);
 
-        if (is_file(__DIR__ . '/named.log')) {
-            unlink(__DIR__ . '/named.log');
+        if (\is_file(__DIR__ . '/named.log')) {
+            \unlink(__DIR__ . '/named.log');
         }
     }
 
@@ -111,17 +111,17 @@ class FileLoggerTest extends \PHPUnit\Framework\TestCase
      */
     public function testNamedLogFile() : void
     {
-        if (is_file(__DIR__ . '/named.log')) {
-            unlink(__DIR__ . '/named.log');
+        if (\is_file(__DIR__ . '/named.log')) {
+            \unlink(__DIR__ . '/named.log');
         }
 
         $log = new FileLogger(__DIR__ . '/named.log', false);
 
         $log->info('something');
-        self::assertTrue(is_file(__DIR__ . '/named.log'));
+        self::assertTrue(\is_file(__DIR__ . '/named.log'));
 
-        if (is_file(__DIR__ . '/named.log')) {
-            unlink(__DIR__ . '/named.log');
+        if (\is_file(__DIR__ . '/named.log')) {
+            \unlink(__DIR__ . '/named.log');
         }
     }
 
@@ -135,7 +135,7 @@ class FileLoggerTest extends \PHPUnit\Framework\TestCase
         $log = new FileLogger(__DIR__, false);
 
         $log->info('something');
-        self::assertTrue(is_file(__DIR__ . '/' . date('Y-m-d') . '.log'));
+        self::assertTrue(\is_file(__DIR__ . '/' . \date('Y-m-d') . '.log'));
     }
 
     /**
@@ -147,7 +147,7 @@ class FileLoggerTest extends \PHPUnit\Framework\TestCase
     {
         $log = new FileLogger(__DIR__, false);
 
-        self::assertFalse(is_file(__DIR__ . '/' . date('Y-m-d') . '.log'));
+        self::assertFalse(\is_file(__DIR__ . '/' . \date('Y-m-d') . '.log'));
     }
 
     /**
@@ -217,18 +217,18 @@ class FileLoggerTest extends \PHPUnit\Framework\TestCase
             'file'    => self::class,
         ]);
 
-        $logContent = file_get_contents(__DIR__ . '/test.log');
+        $logContent = \file_get_contents(__DIR__ . '/test.log');
 
-        self::assertTrue(stripos($logContent, 'emergency1') !== false);
-        self::assertTrue(stripos($logContent, 'alert2') !== false);
-        self::assertTrue(stripos($logContent, 'critical3') !== false);
-        self::assertTrue(stripos($logContent, 'error4') !== false);
-        self::assertTrue(stripos($logContent, 'warning5') !== false);
-        self::assertTrue(stripos($logContent, 'notice6') !== false);
-        self::assertTrue(stripos($logContent, 'info7') !== false);
-        self::assertTrue(stripos($logContent, 'debug8') !== false);
-        self::assertTrue(stripos($logContent, 'log9') !== false);
-        self::assertTrue(stripos($logContent, 'console10') !== false);
+        self::assertTrue(\stripos($logContent, 'emergency1') !== false);
+        self::assertTrue(\stripos($logContent, 'alert2') !== false);
+        self::assertTrue(\stripos($logContent, 'critical3') !== false);
+        self::assertTrue(\stripos($logContent, 'error4') !== false);
+        self::assertTrue(\stripos($logContent, 'warning5') !== false);
+        self::assertTrue(\stripos($logContent, 'notice6') !== false);
+        self::assertTrue(\stripos($logContent, 'info7') !== false);
+        self::assertTrue(\stripos($logContent, 'debug8') !== false);
+        self::assertTrue(\stripos($logContent, 'log9') !== false);
+        self::assertTrue(\stripos($logContent, 'console10') !== false);
 
         self::assertEquals(1, $this->log->countLogs()['emergency'] ?? 0);
         self::assertEquals(1, $this->log->countLogs()['alert'] ?? 0);
@@ -353,10 +353,10 @@ class FileLoggerTest extends \PHPUnit\Framework\TestCase
     {
         $this->log = new FileLogger(__DIR__, true);
 
-        ob_start();
+        \ob_start();
         $this->log->info('my log message');
-        $ob = ob_get_clean();
-        ob_clean();
+        $ob = \ob_get_clean();
+        \ob_clean();
 
         self::assertEquals('my log message' . "\n", $ob);
     }
@@ -370,12 +370,12 @@ class FileLoggerTest extends \PHPUnit\Framework\TestCase
     {
         $this->log = new FileLogger(__DIR__, false);
 
-        ob_start();
+        \ob_start();
         $this->log->console('my log message', true);
-        $ob = ob_get_clean();
-        ob_clean();
+        $ob = \ob_get_clean();
+        \ob_clean();
 
-        self::assertTrue(stripos($ob, 'my log message') !== false);
+        self::assertTrue(\stripos($ob, 'my log message') !== false);
     }
 
     /**

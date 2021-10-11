@@ -177,23 +177,23 @@ final class Argument implements UriInterface
      */
     private function setInternalPath(string $uri) : void
     {
-        $start = stripos($uri, ':');
+        $start = \stripos($uri, ':');
 
         if ($start === false) {
             return;
         }
 
-        $end = stripos($uri, ' ', $start + 1);
+        $end = \stripos($uri, ' ', $start + 1);
 
         if ($end === false) {
             $end = \strlen($uri); // @codeCoverageIgnore
         }
 
-        $path       = $start < 8 ? substr($uri, $start + 1, $end - $start - 1) : $uri;
-        $this->path = $path === false ? '' : ltrim($path, ':');
+        $path       = $start < 8 ? \substr($uri, $start + 1, $end - $start - 1) : $uri;
+        $this->path = $path === false ? '' : \ltrim($path, ':');
 
         if (StringUtils::endsWith($this->path, '.php')) {
-            $path = substr($this->path, 0, -4);
+            $path = \substr($this->path, 0, -4);
 
             if ($path === false) {
                 throw new \Exception(); // @codeCoverageIgnore
@@ -202,7 +202,7 @@ final class Argument implements UriInterface
             $this->path = $path;
         }
 
-        $this->pathElements = explode('/', ltrim($this->path, '/'));
+        $this->pathElements = \explode('/', \ltrim($this->path, '/'));
     }
 
     /**
@@ -216,7 +216,7 @@ final class Argument implements UriInterface
      */
     private function setQuery(string $uri) : void
     {
-        $result = preg_match_all('/\?([a-zA-Z0-9]*)(=)([a-zA-Z0-9]*)/', $uri, $matches);
+        $result = \preg_match_all('/\?([a-zA-Z0-9]*)(=)([a-zA-Z0-9]*)/', $uri, $matches);
 
         if ($result === false || empty($matches)) {
             return;
@@ -227,7 +227,7 @@ final class Argument implements UriInterface
             $this->queryString  .= ' ?' . $value . '=' . $matches[3][$key];
         }
 
-        $this->queryString = ltrim($this->queryString);
+        $this->queryString = \ltrim($this->queryString);
     }
 
     /**
@@ -241,7 +241,7 @@ final class Argument implements UriInterface
      */
     private function setInternalFragment(string $uri) : void
     {
-        $result = preg_match('/#([a-zA-Z0-9]*)/', $uri, $matches);
+        $result = \preg_match('/#([a-zA-Z0-9]*)/', $uri, $matches);
 
         if ($result === 1) {
             $this->fragment = $matches[1] ?? '';
@@ -294,7 +294,7 @@ final class Argument implements UriInterface
     public function setPath(string $path) : void
     {
         $this->path         = $path;
-        $this->pathElements = explode('/', ltrim($this->path, '/'));
+        $this->pathElements = \explode('/', \ltrim($this->path, '/'));
     }
 
     /**
@@ -324,7 +324,7 @@ final class Argument implements UriInterface
     public function getQuery(string $key = null) : string
     {
         if ($key !== null) {
-            $key = strtolower($key);
+            $key = \strtolower($key);
 
             return $this->query[$key] ?? '';
         }

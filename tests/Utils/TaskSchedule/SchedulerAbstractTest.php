@@ -30,7 +30,7 @@ class SchedulerAbstractTest extends \PHPUnit\Framework\TestCase
      */
     public function testDefault() : void
     {
-        self::assertTrue(SchedulerAbstract::getBin() === '' || is_file(SchedulerAbstract::getBin()));
+        self::assertTrue(SchedulerAbstract::getBin() === '' || \is_file(SchedulerAbstract::getBin()));
     }
 
     /**

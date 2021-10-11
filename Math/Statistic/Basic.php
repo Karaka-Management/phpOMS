@@ -50,8 +50,8 @@ final class Basic
         $freaquency = [];
         $sum        = 1;
 
-        if (!($isArray = \is_array(reset($values)))) {
-            $sum = array_sum($values);
+        if (!($isArray = \is_array(\reset($values)))) {
+            $sum = \array_sum($values);
         }
 
         foreach ($values as $value) {

@@ -105,7 +105,7 @@ final class StringCompare
             return $s2Size === 0 ? 1.0 : 0.0;
         }
 
-        $mDistance = (int) (max($s1Size, $s2Size) / 2 - 1);
+        $mDistance = (int) (\max($s1Size, $s2Size) / 2 - 1);
 
         $matches        = 0;
         $transpositions = 0.0;
@@ -114,8 +114,8 @@ final class StringCompare
         $s2Matches = [];
 
         for ($i = 0; $i < $s1Size; ++$i) {
-            $start = max(0, $i - $mDistance);
-            $end   = min($i + $mDistance + 1, $s2Size);
+            $start = \max(0, $i - $mDistance);
+            $end   = \min($i + $mDistance + 1, $s2Size);
 
             for ($j = $start; $j < $end; ++$j) {
                 if (isset($s2Matches[$j])) {
@@ -175,8 +175,8 @@ final class StringCompare
      */
     public static function valueWords(string $s1, string $s2) : int
     {
-        $words1 = preg_split('/[ _-]/', $s1);
-        $words2 = preg_split('/[ _-]/', $s2);
+        $words1 = \preg_split('/[ _-]/', $s1);
+        $words2 = \preg_split('/[ _-]/', $s2);
         $total  = 0;
 
         if ($words1 === false || $words2 === false) {
@@ -187,7 +187,7 @@ final class StringCompare
             $best = \strlen($s2);
 
             foreach ($words2 as $word2) {
-                $wordDist = levenshtein($word1, $word2);
+                $wordDist = \levenshtein($word1, $word2);
 
                 if ($wordDist < $best) {
                     $best = $wordDist;
@@ -216,7 +216,7 @@ final class StringCompare
      */
     public static function valuePhrase(string $s1, string $s2) : int
     {
-        return levenshtein($s1, $s2);
+        return \levenshtein($s1, $s2);
     }
 
     /**
@@ -231,7 +231,7 @@ final class StringCompare
      */
     public static function valueLength(string $s1, string $s2) : int
     {
-        return abs(\strlen($s1) - \strlen($s2));
+        return \abs(\strlen($s1) - \strlen($s2));
     }
 
     /**
@@ -260,8 +260,8 @@ final class StringCompare
         $wordValue   = self::valueWords($s1, $s2);
         $lengthValue = self::valueLength($s1, $s2);
 
-        return min($phraseValue * $phraseWeight, $wordValue * $wordWeight) * $minWeight
-            + max($phraseValue * $phraseWeight, $wordValue * $wordWeight) * $maxWeight
+        return \min($phraseValue * $phraseWeight, $wordValue * $wordWeight) * $minWeight
+            + \max($phraseValue * $phraseWeight, $wordValue * $wordWeight) * $maxWeight
             + $lengthValue * $lengthWeight;
     }
 }

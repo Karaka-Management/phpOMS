@@ -73,7 +73,7 @@ class GroupTest extends \PHPUnit\Framework\TestCase
         $array = $group->toArray();
         self::assertIsArray($array);
         self::assertGreaterThan(0, \count($array));
-        self::assertEquals(json_encode($array), $group->__toString());
+        self::assertEquals(\json_encode($array), $group->__toString());
         self::assertEquals($array, $group->jsonSerialize());
     }
 
@@ -185,7 +185,7 @@ class GroupTest extends \PHPUnit\Framework\TestCase
 
         $rand = 0;
         do {
-            $rand = mt_rand(\PHP_INT_MIN, \PHP_INT_MAX);
+            $rand = \mt_rand(\PHP_INT_MIN, \PHP_INT_MAX);
         } while (GroupStatus::isValidValue($rand));
 
         $group->setStatus($rand);

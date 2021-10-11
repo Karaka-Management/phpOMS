@@ -101,19 +101,19 @@ abstract class StatusAbstract
      */
     protected static function installRoutesHooks(string $destRoutePath, string $srcRoutePath) : void
     {
-        if (!is_file($srcRoutePath)) {
+        if (!\is_file($srcRoutePath)) {
             return;
         }
 
-        if (!is_file($destRoutePath)) {
-            file_put_contents($destRoutePath, '<?php return [];');
+        if (!\is_file($destRoutePath)) {
+            \file_put_contents($destRoutePath, '<?php return [];');
         }
 
-        if (!is_file($destRoutePath)) {
+        if (!\is_file($destRoutePath)) {
             throw new PathException($destRoutePath); // @codeCoverageIgnore
         }
 
-        if (!is_writable($destRoutePath)) {
+        if (!\is_writable($destRoutePath)) {
             throw new PermissionException($destRoutePath); // @codeCoverageIgnore
         }
 
@@ -122,9 +122,9 @@ abstract class StatusAbstract
         /** @noinspection PhpIncludeInspection */
         $srcRoutes = include $srcRoutePath;
 
-        $appRoutes = array_merge_recursive($appRoutes, $srcRoutes);
+        $appRoutes = \array_merge_recursive($appRoutes, $srcRoutes);
 
-        file_put_contents($destRoutePath, '<?php return ' . ArrayParser::serializeArray($appRoutes) . ';', \LOCK_EX);
+        \file_put_contents($destRoutePath, '<?php return ' . ArrayParser::serializeArray($appRoutes) . ';', \LOCK_EX);
     }
 
     /**
@@ -139,7 +139,7 @@ abstract class StatusAbstract
      */
     public static function clearRoutes() : void
     {
-        file_put_contents(static::PATH . '/../Routes.php', '<?php return [];', \LOCK_EX);
+        \file_put_contents(static::PATH . '/../Routes.php', '<?php return [];', \LOCK_EX);
     }
 
     /**
@@ -154,6 +154,6 @@ abstract class StatusAbstract
      */
     public static function clearHooks() : void
     {
-        file_put_contents(static::PATH . '/../Hooks.php', '<?php return [];', \LOCK_EX);
+        \file_put_contents(static::PATH . '/../Hooks.php', '<?php return [];', \LOCK_EX);
     }
 }

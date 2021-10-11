@@ -108,8 +108,8 @@ class Text
         }
 
         $punctuation      = $this->generatePunctuation($length);
-        $punctuationCount = array_count_values(
-                array_map(
+        $punctuationCount = \array_count_values(
+                \array_map(
                     function ($item) {
                         return $item[1];
                     },
@@ -136,16 +136,16 @@ class Text
         for ($i = 0; $i < $length + 1; ++$i) {
             $newSentence = false;
 
-            $lastChar = substr($text, -1);
+            $lastChar = \substr($text, -1);
 
             if ($lastChar === '.' || $lastChar === '!' || $lastChar === '?' || !$lastChar) {
                 $newSentence = true;
             }
 
-            $word = $words[mt_rand(0, $wordCount - 1)] ?? '';
+            $word = $words[\mt_rand(0, $wordCount - 1)] ?? '';
 
             if ($newSentence) {
-                $word = ucfirst($word);
+                $word = \ucfirst($word);
                 ++$sentenceCount;
 
                 /** @noinspection PhpUndefinedVariableInspection */
@@ -169,7 +169,7 @@ class Text
             }
         }
 
-        $text = ltrim($text);
+        $text = \ltrim($text);
 
         if ($this->hasParagraphs) {
             $text = '<p>' . $text . '</p>';
@@ -199,24 +199,24 @@ class Text
         $punctuation = [];
 
         for ($i = 0; $i < $length;) {
-            $sentenceLength = mt_rand($minSentences, $maxSentences);
+            $sentenceLength = \mt_rand($minSentences, $maxSentences);
 
             if ($i + $sentenceLength > $length || $length - ($i + $sentenceLength) < $minSentences) {
                 $sentenceLength = $length - $i;
             }
 
             /* Handle comma */
-            $commaHere = (mt_rand(0, 100) <= $probComma * 100 && $sentenceLength >= 2 * $minCommaSpacing ? true : false);
+            $commaHere = (\mt_rand(0, 100) <= $probComma * 100 && $sentenceLength >= 2 * $minCommaSpacing ? true : false);
             $posComma  = [];
 
             if ($commaHere) {
-                $posComma[]    = mt_rand($minCommaSpacing, $sentenceLength - $minCommaSpacing);
+                $posComma[]    = \mt_rand($minCommaSpacing, $sentenceLength - $minCommaSpacing);
                 $punctuation[] = [$i + $posComma[0], ','];
 
-                $commaHere = (mt_rand(0, 100) <= $probComma * 100 && $sentenceLength > $posComma[0] + $minCommaSpacing * 2 ? true : false);
+                $commaHere = (\mt_rand(0, 100) <= $probComma * 100 && $sentenceLength > $posComma[0] + $minCommaSpacing * 2 ? true : false);
 
                 if ($commaHere) {
-                    $posComma[]    = mt_rand($posComma[0] + $minCommaSpacing, $sentenceLength - $minCommaSpacing);
+                    $posComma[]    = \mt_rand($posComma[0] + $minCommaSpacing, $sentenceLength - $minCommaSpacing);
                     $punctuation[] = [$i + $posComma[1], ','];
                 }
             }
@@ -224,14 +224,14 @@ class Text
             $i += $sentenceLength;
 
             /* Handle sentence ending */
-            $isDot = (mt_rand(0, 100) <= $probDot * 100 ? true : false);
+            $isDot = (\mt_rand(0, 100) <= $probDot * 100 ? true : false);
 
             if ($isDot) {
                 $punctuation[] = [$i, '.'];
                 continue;
             }
 
-            $isEx = (mt_rand(0, 100) <= $probExc * 100 ? true : false);
+            $isEx = (\mt_rand(0, 100) <= $probExc * 100 ? true : false);
 
             if ($isEx) {
                 $punctuation[] = [$i, '!'];
@@ -261,7 +261,7 @@ class Text
         $paragraph = [];
 
         for ($i = 0; $i < $length;) {
-            $paragraphLength = mt_rand($minSentence, $maxSentence);
+            $paragraphLength = \mt_rand($minSentence, $maxSentence);
 
             if ($i + $paragraphLength > $length || $length - ($i + $paragraphLength) < $minSentence) {
                 $paragraphLength = $length - $i;
@@ -292,9 +292,9 @@ class Text
         $formatting = [];
 
         for ($i = 0; $i < $length; ++$i) {
-            $isCursive = (mt_rand(0, 1000) <= 1000 * $probCursive ? true : false);
-            $isBold    = (mt_rand(0, 1000) <= 1000 * $probBold ? true : false);
-            $isUline   = (mt_rand(0, 1000) <= 1000 * $probUline ? true : false);
+            $isCursive = (\mt_rand(0, 1000) <= 1000 * $probCursive ? true : false);
+            $isBold    = (\mt_rand(0, 1000) <= 1000 * $probBold ? true : false);
+            $isUline   = (\mt_rand(0, 1000) <= 1000 * $probUline ? true : false);
 
             if ($isUline) {
                 $formatting[$i] = 'u';

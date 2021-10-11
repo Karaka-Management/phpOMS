@@ -40,7 +40,7 @@ final class WeibullDistribution
     {
         return $x < 0.0
             ? 0.0
-            : $k / $lambda * pow($x / $lambda, $k - 1) * exp(-($x / $lambda) ** $k);
+            : $k / $lambda * \pow($x / $lambda, $k - 1) * \exp(-($x / $lambda) ** $k);
     }
 
     /**
@@ -58,7 +58,7 @@ final class WeibullDistribution
     {
         return $x < 0.0
             ? 0.0
-            : 1 - exp(-($x / $lambda) ** $k);
+            : 1 - \exp(-($x / $lambda) ** $k);
     }
 
     /**
@@ -88,7 +88,7 @@ final class WeibullDistribution
      */
     public static function getMedian(float $lambda, float $k) : float
     {
-        return $lambda * pow(log(2), 1 / $k);
+        return $lambda * \pow(\log(2), 1 / $k);
     }
 
     /**
@@ -118,7 +118,7 @@ final class WeibullDistribution
      */
     public static function getStandardDeviation(float $lambda, float $k) : float
     {
-        return sqrt(self::getVariance($lambda, $k));
+        return \sqrt(self::getVariance($lambda, $k));
     }
 
     /**
@@ -133,7 +133,7 @@ final class WeibullDistribution
      */
     public static function getMode(float $lambda, float $k) : float
     {
-        return $lambda * pow(($k - 1) / $k, 1 / $k);
+        return $lambda * \pow(($k - 1) / $k, 1 / $k);
     }
 
     /**
@@ -169,6 +169,6 @@ final class WeibullDistribution
     {
         $gamma = 0.57721566490153286060651209008240243104215933593992;
 
-        return $gamma * (1 - 1 / $k) + log($lambda / $k) + 1;
+        return $gamma * (1 - 1 / $k) + \log($lambda / $k) + 1;
     }
 }

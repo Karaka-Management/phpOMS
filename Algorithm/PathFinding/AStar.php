@@ -79,7 +79,7 @@ final class AStar implements PathFinderInterface
                     continue;
                 }
 
-                $ng = $node->getG() + (($neighbor->getX() - $node->getX() === 0 || $neighbor->getY() - $node->getY() === 0) ? 1 : sqrt(2));
+                $ng = $node->getG() + (($neighbor->getX() - $node->getX() === 0 || $neighbor->getY() - $node->getY() === 0) ? 1 : \sqrt(2));
 
                 if (!$neighbor->isOpened() || $ng < $neighbor->getG()) {
                     $neighbor->setG($ng);

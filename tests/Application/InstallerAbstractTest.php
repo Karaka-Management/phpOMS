@@ -44,6 +44,6 @@ class InstallerAbstractTest extends \PHPUnit\Framework\TestCase
     public function testInvalidTheme() : void
     {
     	$this->installer::installTheme(__DIR__, 'Invalid');
-    	self::assertFalse(is_dir(__DIR__ . '/css'));
+    	self::assertFalse(\is_dir(__DIR__ . '/css'));
     }
 }

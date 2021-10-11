@@ -36,12 +36,12 @@ class ClientTest extends \PHPUnit\Framework\TestCase
 
     public static function setUpBeforeClass() : void
     {
-        if (is_file(__DIR__ . '/client.log')) {
-            unlink(__DIR__ . '/client.log');
+        if (\is_file(__DIR__ . '/client.log')) {
+            \unlink(__DIR__ . '/client.log');
         }
 
-        if (is_file(__DIR__ . '/server.log')) {
-            unlink(__DIR__ . '/server.log');
+        if (\is_file(__DIR__ . '/server.log')) {
+            \unlink(__DIR__ . '/server.log');
         }
     }
 
@@ -75,8 +75,8 @@ class ClientTest extends \PHPUnit\Framework\TestCase
 
     protected function tearDown() : void
     {
-        unlink(__DIR__ . '/client.log');
-        unlink(__DIR__ . '/server.log');
+        \unlink(__DIR__ . '/client.log');
+        \unlink(__DIR__ . '/server.log');
     }
 
     /**
@@ -88,9 +88,9 @@ class ClientTest extends \PHPUnit\Framework\TestCase
         self::markTestIncomplete();
         return;
         $pipes   = [];
-        $process = proc_open('php ClientTestHelper.php', [1 => ['pipe', 'w'], 2 => ['pipe', 'w']], $pipes, __DIR__);
+        $process = \proc_open('php ClientTestHelper.php', [1 => ['pipe', 'w'], 2 => ['pipe', 'w']], $pipes, __DIR__);
 
-        sleep(5);
+        \sleep(5);
 
         $socket = new Client($this->app);
         $socket->create('127.0.0.1', $GLOBALS['CONFIG']['socket']['master']['port']);
@@ -113,13 +113,13 @@ class ClientTest extends \PHPUnit\Framework\TestCase
             . 'Doing handshake...' . "\n"
             . 'Handshake succeeded.' . "\n"
             . 'Is shutdown...' . "\n",
-            file_get_contents(__DIR__ . '/server.log')
+            \file_get_contents(__DIR__ . '/server.log')
         );
 
         foreach ($pipes as $pipe) {
-            fclose($pipe);
+            \fclose($pipe);
         }
 
-        proc_close($process);
+        \proc_close($process);
     }
 }

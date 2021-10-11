@@ -148,24 +148,24 @@ final class NaiveBayesClassifier
                     if (isset($this->dict[$criteria][$attr]['data'][$word])
                         && $this->dict[$criteria][$attr]['data'][$word] >= $minimum
                     ) {
-                        $p = ($this->dict[$criteria][$attr]['data'][$word] / array_sum($this->dict[$criteria][$attr]['data']))
+                        $p = ($this->dict[$criteria][$attr]['data'][$word] / \array_sum($this->dict[$criteria][$attr]['data']))
                             * ($this->probabilities['criteria'][$criteria]['count'] / $this->probabilities['count'])
                             / $this->probabilities['attr'][$attr]['data'][$word];
 
-                        $n += log(1 - $p) - log($p);
+                        $n += \log(1 - $p) - \log($p);
                     }
                 }
             } else {
-                $p = (1 / sqrt(2 * \M_PI * $this->probabilities['criteria'][$criteria]['attr'][$attr]['variance'])
-                        * exp(-($value - $this->probabilities['criteria'][$criteria]['attr'][$attr]['mean']) ** 2 / (2 * $this->probabilities['criteria'][$criteria]['attr'][$attr]['variance'])))
+                $p = (1 / \sqrt(2 * \M_PI * $this->probabilities['criteria'][$criteria]['attr'][$attr]['variance'])
+                        * \exp(-($value - $this->probabilities['criteria'][$criteria]['attr'][$attr]['mean']) ** 2 / (2 * $this->probabilities['criteria'][$criteria]['attr'][$attr]['variance'])))
                     * ($this->probabilities['criteria'][$criteria]['count'] / $this->probabilities['count'])
                     / $this->probabilities['attr'][$attr]['data'];
 
-                $n += log(1 - $p) - log($p);
+                $n += \log(1 - $p) - \log($p);
             }
         }
 
-        return 1 / (1 + exp($n));
+        return 1 / (1 + \exp($n));
     }
 
     /**
@@ -191,8 +191,8 @@ final class NaiveBayesClassifier
                         $this->probabilities['attr'][$attr] = ['data' => 0.0];
                     }
 
-                    $this->probabilities['attr'][$attr]['data'] += (1 / sqrt(2 * \M_PI * $this->probabilities['criteria'][$criteria]['attr'][$attr]['variance'])
-                            * exp(-($toMatch[$attr] - $this->probabilities['criteria'][$criteria]['attr'][$attr]['mean']) ** 2 / (2 * $this->probabilities['criteria'][$criteria]['attr'][$attr]['variance'])))
+                    $this->probabilities['attr'][$attr]['data'] += (1 / \sqrt(2 * \M_PI * $this->probabilities['criteria'][$criteria]['attr'][$attr]['variance'])
+                            * \exp(-($toMatch[$attr] - $this->probabilities['criteria'][$criteria]['attr'][$attr]['mean']) ** 2 / (2 * $this->probabilities['criteria'][$criteria]['attr'][$attr]['variance'])))
                         * ($this->probabilities['criteria'][$criteria]['count'] / $this->probabilities['count']);
                 } else {
                     if (!isset($this->probabilities['attr'][$attr])) {
@@ -208,7 +208,7 @@ final class NaiveBayesClassifier
                             $this->probabilities['attr'][$attr]['data'][$word] = 0.0;
                         }
 
-                        $this->probabilities['attr'][$attr]['data'][$word] += ($this->dict[$criteria][$attr]['data'][$word] / array_sum($this->dict[$criteria][$attr]['data']))
+                        $this->probabilities['attr'][$attr]['data'][$word] += ($this->dict[$criteria][$attr]['data'][$word] / \array_sum($this->dict[$criteria][$attr]['data']))
                             * ($this->probabilities['criteria'][$criteria]['count'] / $this->probabilities['count']);
                     }
                 }

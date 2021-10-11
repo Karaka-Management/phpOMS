@@ -47,11 +47,11 @@ class FtpStorageTest extends \PHPUnit\Framework\TestCase
             );
         } else {
             try {
-                $mkdir = ftp_mkdir(self::$con, '0xFF');
-                ftp_rmdir(self::$con, '0xFF');
+                $mkdir = \ftp_mkdir(self::$con, '0xFF');
+                \ftp_rmdir(self::$con, '0xFF');
 
-                $put = ftp_put(self::$con, '0x00');
-                ftp_delete(self::$con, '0x00');
+                $put = \ftp_put(self::$con, '0x00');
+                \ftp_delete(self::$con, '0x00');
 
                 if (!$mkdir || !$put) {
                     throw new \Exception();
@@ -75,7 +75,7 @@ class FtpStorageTest extends \PHPUnit\Framework\TestCase
     {
         $dirPath = __DIR__ . '/test';
         self::assertTrue(FtpStorage::create($dirPath));
-        self::assertTrue(is_dir($dirPath));
+        self::assertTrue(\is_dir($dirPath));
 
         Directory::delete(self::$con, $dirPath);
     }
@@ -166,7 +166,7 @@ class FtpStorageTest extends \PHPUnit\Framework\TestCase
     {
         $dirPath = __DIR__ . '/test';
 
-        self::assertEquals(str_replace('\\', '/', realpath(__DIR__)), FtpStorage::parent($dirPath));
+        self::assertEquals(\str_replace('\\', '/', \realpath(__DIR__)), FtpStorage::parent($dirPath));
     }
 
     /**
@@ -448,10 +448,10 @@ class FtpStorageTest extends \PHPUnit\Framework\TestCase
     {
         $testFile = __DIR__ . '/test.txt';
         self::assertTrue(FtpStorage::create($testFile));
-        self::assertTrue(is_file($testFile));
-        self::assertEquals('', file_get_contents($testFile));
+        self::assertTrue(\is_file($testFile));
+        self::assertEquals('', \file_get_contents($testFile));
 
-        unlink($testFile);
+        \unlink($testFile);
     }
 
     /**
@@ -464,9 +464,9 @@ class FtpStorageTest extends \PHPUnit\Framework\TestCase
         $testFile = __DIR__ . '/test.txt';
         self::assertTrue(FtpStorage::create($testFile));
         self::assertFalse(FtpStorage::create($testFile));
-        self::assertTrue(is_file($testFile));
+        self::assertTrue(\is_file($testFile));
 
-        unlink($testFile);
+        \unlink($testFile);
     }
 
     /**
@@ -478,10 +478,10 @@ class FtpStorageTest extends \PHPUnit\Framework\TestCase
     {
         $testFile = __DIR__ . '/test.txt';
         self::assertTrue(FtpStorage::put($testFile, 'test', ContentPutMode::CREATE));
-        self::assertTrue(is_file($testFile));
-        self::assertEquals('test', file_get_contents($testFile));
+        self::assertTrue(\is_file($testFile));
+        self::assertEquals('test', \file_get_contents($testFile));
 
-        unlink($testFile);
+        \unlink($testFile);
     }
 
     /**
@@ -493,7 +493,7 @@ class FtpStorageTest extends \PHPUnit\Framework\TestCase
     {
         $testFile = __DIR__ . '/test.txt';
         self::assertFalse(FtpStorage::put($testFile, 'test', ContentPutMode::REPLACE));
-        self::assertfalse(is_file($testFile));
+        self::assertfalse(\is_file($testFile));
     }
 
     /**
@@ -505,7 +505,7 @@ class FtpStorageTest extends \PHPUnit\Framework\TestCase
     {
         $testFile = __DIR__ . '/test.txt';
         self::assertFalse(FtpStorage::put($testFile, 'test', ContentPutMode::APPEND));
-        self::assertfalse(is_file($testFile));
+        self::assertfalse(\is_file($testFile));
     }
 
     /**
@@ -517,7 +517,7 @@ class FtpStorageTest extends \PHPUnit\Framework\TestCase
     {
         $testFile = __DIR__ . '/test.txt';
         self::assertFalse(FtpStorage::put($testFile, 'test', ContentPutMode::PREPEND));
-        self::assertfalse(is_file($testFile));
+        self::assertfalse(\is_file($testFile));
     }
 
     /**
@@ -542,9 +542,9 @@ class FtpStorageTest extends \PHPUnit\Framework\TestCase
         self::assertTrue(FtpStorage::put($testFile, 'test', ContentPutMode::CREATE));
         self::assertTrue(FtpStorage::put($testFile, 'test2', ContentPutMode::REPLACE));
 
-        self::assertEquals('test2', file_get_contents($testFile));
+        self::assertEquals('test2', \file_get_contents($testFile));
 
-        unlink($testFile);
+        \unlink($testFile);
     }
 
     /**
@@ -558,9 +558,9 @@ class FtpStorageTest extends \PHPUnit\Framework\TestCase
         self::assertTrue(FtpStorage::put($testFile, 'test', ContentPutMode::CREATE));
         self::assertTrue(FtpStorage::set($testFile, 'test2'));
 
-        self::assertEquals('test2', file_get_contents($testFile));
+        self::assertEquals('test2', \file_get_contents($testFile));
 
-        unlink($testFile);
+        \unlink($testFile);
     }
 
     /**
@@ -574,9 +574,9 @@ class FtpStorageTest extends \PHPUnit\Framework\TestCase
         self::assertTrue(FtpStorage::put($testFile, 'test', ContentPutMode::CREATE));
         self::assertTrue(FtpStorage::put($testFile, 'test2', ContentPutMode::APPEND));
 
-        self::assertEquals('testtest2', file_get_contents($testFile));
+        self::assertEquals('testtest2', \file_get_contents($testFile));
 
-        unlink($testFile);
+        \unlink($testFile);
     }
 
     /**
@@ -590,9 +590,9 @@ class FtpStorageTest extends \PHPUnit\Framework\TestCase
         self::assertTrue(FtpStorage::put($testFile, 'test', ContentPutMode::CREATE));
         self::assertTrue(FtpStorage::append($testFile, 'test2'));
 
-        self::assertEquals('testtest2', file_get_contents($testFile));
+        self::assertEquals('testtest2', \file_get_contents($testFile));
 
-        unlink($testFile);
+        \unlink($testFile);
     }
 
     /**
@@ -606,9 +606,9 @@ class FtpStorageTest extends \PHPUnit\Framework\TestCase
         self::assertTrue(FtpStorage::put($testFile, 'test', ContentPutMode::CREATE));
         self::assertTrue(FtpStorage::put($testFile, 'test2', ContentPutMode::PREPEND));
 
-        self::assertEquals('test2test', file_get_contents($testFile));
+        self::assertEquals('test2test', \file_get_contents($testFile));
 
-        unlink($testFile);
+        \unlink($testFile);
     }
 
     /**
@@ -622,9 +622,9 @@ class FtpStorageTest extends \PHPUnit\Framework\TestCase
         self::assertTrue(FtpStorage::put($testFile, 'test', ContentPutMode::CREATE));
         self::assertTrue(FtpStorage::prepend($testFile, 'test2'));
 
-        self::assertEquals('test2test', file_get_contents($testFile));
+        self::assertEquals('test2test', \file_get_contents($testFile));
 
-        unlink($testFile);
+        \unlink($testFile);
     }
 
     /**
@@ -638,7 +638,7 @@ class FtpStorageTest extends \PHPUnit\Framework\TestCase
         self::assertTrue(FtpStorage::put($testFile, 'test', ContentPutMode::CREATE));
         self::assertEquals('test', FtpStorage::get($testFile));
 
-        unlink($testFile);
+        \unlink($testFile);
     }
 
     /**
@@ -650,7 +650,7 @@ class FtpStorageTest extends \PHPUnit\Framework\TestCase
     {
         $testFile = __DIR__ . '/test.txt';
 
-        self::assertEquals(str_replace('\\', '/', realpath(__DIR__ . '/../')), FtpStorage::parent($testFile));
+        self::assertEquals(\str_replace('\\', '/', \realpath(__DIR__ . '/../')), FtpStorage::parent($testFile));
     }
 
     /**
@@ -698,7 +698,7 @@ class FtpStorageTest extends \PHPUnit\Framework\TestCase
     {
         $testFile = __DIR__ . '/test.txt';
 
-        self::assertEquals(basename(realpath(__DIR__)), FtpStorage::dirname($testFile));
+        self::assertEquals(\basename(\realpath(__DIR__)), FtpStorage::dirname($testFile));
     }
 
     /**
@@ -710,7 +710,7 @@ class FtpStorageTest extends \PHPUnit\Framework\TestCase
     {
         $testFile = __DIR__ . '/test.txt';
 
-        self::assertEquals(realpath(__DIR__), FtpStorage::dirpath($testFile));
+        self::assertEquals(\realpath(__DIR__), FtpStorage::dirpath($testFile));
     }
 
     /**
@@ -738,7 +738,7 @@ class FtpStorageTest extends \PHPUnit\Framework\TestCase
         $now = new \DateTime('now');
         self::assertEquals($now->format('Y-m-d'), FtpStorage::created($testFile)->format('Y-m-d'));
 
-        unlink($testFile);
+        \unlink($testFile);
     }
 
     /**
@@ -754,7 +754,7 @@ class FtpStorageTest extends \PHPUnit\Framework\TestCase
         $now = new \DateTime('now');
         self::assertEquals($now->format('Y-m-d'), FtpStorage::changed($testFile)->format('Y-m-d'));
 
-        unlink($testFile);
+        \unlink($testFile);
     }
 
     /**
@@ -795,7 +795,7 @@ class FtpStorageTest extends \PHPUnit\Framework\TestCase
 
         self::assertGreaterThan(0, FtpStorage::size($testFile));
 
-        unlink($testFile);
+        \unlink($testFile);
     }
 
     /**
@@ -810,7 +810,7 @@ class FtpStorageTest extends \PHPUnit\Framework\TestCase
 
         self::assertGreaterThan(0, FtpStorage::permission($testFile));
 
-        unlink($testFile);
+        \unlink($testFile);
     }
 
     /**

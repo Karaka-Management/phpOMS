@@ -52,7 +52,7 @@ float $value = 0;
             $values[] = $element->value;
         }
 
-        return max($values);
+        return \max($values);
     }
 
     public static function min(array $list) : int | float
@@ -62,6 +62,6 @@ float $value = 0;
             $values[] = $element->value;
         }
 
-        return min($values);
+        return \min($values);
     }
 }

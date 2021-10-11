@@ -90,7 +90,7 @@ final class UniformDistributionContinuous
      */
     public static function getMgf(int $t, float $a, float $b) : float
     {
-        return $t === 0 ? 1 : (exp($t * $b) - exp($t * $a)) / ($t * ($b - $a));
+        return $t === 0 ? 1 : (\exp($t * $b) - \exp($t * $a)) / ($t * ($b - $a));
     }
 
     /**
@@ -174,6 +174,6 @@ final class UniformDistributionContinuous
      */
     public static function getStandardDeviation(float $a, float $b) : float
     {
-        return sqrt(self::getVariance($a, $b));
+        return \sqrt(self::getVariance($a, $b));
     }
 }

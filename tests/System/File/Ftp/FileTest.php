@@ -46,11 +46,11 @@ class FileTest extends \PHPUnit\Framework\TestCase
             );
         } else {
             try {
-                $mkdir = ftp_mkdir(self::$con, '0xFF');
-                ftp_rmdir(self::$con, '0xFF');
+                $mkdir = \ftp_mkdir(self::$con, '0xFF');
+                \ftp_rmdir(self::$con, '0xFF');
 
-                $put = ftp_put(self::$con, '0x00');
-                ftp_delete(self::$con, '0x00');
+                $put = \ftp_put(self::$con, '0x00');
+                \ftp_delete(self::$con, '0x00');
 
                 if (!$mkdir || !$put) {
                     throw new \Exception();
@@ -90,8 +90,8 @@ class FileTest extends \PHPUnit\Framework\TestCase
     {
         $testFile = __DIR__ . '/test.txt';
         self::assertTrue(File::create(self::$con, $testFile));
-        self::assertTrue(is_file($testFile));
-        self::assertEquals('', file_get_contents($testFile));
+        self::assertTrue(\is_file($testFile));
+        self::assertEquals('', \file_get_contents($testFile));
 
         File::delete(self::$con, $testFile);
     }
@@ -106,7 +106,7 @@ class FileTest extends \PHPUnit\Framework\TestCase
         $testFile = __DIR__ . '/test.txt';
         self::assertTrue(File::create(self::$con, $testFile));
         self::assertFalse(File::create(self::$con, $testFile));
-        self::assertTrue(is_file($testFile));
+        self::assertTrue(\is_file($testFile));
 
         File::delete(self::$con, $testFile);
     }
@@ -120,8 +120,8 @@ class FileTest extends \PHPUnit\Framework\TestCase
     {
         $testFile = __DIR__ . '/test.txt';
         self::assertTrue(File::put(self::$con, $testFile, 'test', ContentPutMode::CREATE));
-        self::assertTrue(is_file($testFile));
-        self::assertEquals('test', file_get_contents($testFile));
+        self::assertTrue(\is_file($testFile));
+        self::assertEquals('test', \file_get_contents($testFile));
 
         File::delete(self::$con, $testFile);
     }
@@ -135,7 +135,7 @@ class FileTest extends \PHPUnit\Framework\TestCase
     {
         $testFile = __DIR__ . '/test.txt';
         self::assertFalse(File::put(self::$con, $testFile, 'test', ContentPutMode::REPLACE));
-        self::assertfalse(is_file($testFile));
+        self::assertfalse(\is_file($testFile));
     }
 
     /**
@@ -147,7 +147,7 @@ class FileTest extends \PHPUnit\Framework\TestCase
     {
         $testFile = __DIR__ . '/test.txt';
         self::assertFalse(File::put(self::$con, $testFile, 'test', ContentPutMode::APPEND));
-        self::assertfalse(is_file($testFile));
+        self::assertfalse(\is_file($testFile));
     }
 
     /**
@@ -159,7 +159,7 @@ class FileTest extends \PHPUnit\Framework\TestCase
     {
         $testFile = __DIR__ . '/test.txt';
         self::assertFalse(File::put(self::$con, $testFile, 'test', ContentPutMode::PREPEND));
-        self::assertfalse(is_file($testFile));
+        self::assertfalse(\is_file($testFile));
     }
 
     /**
@@ -184,7 +184,7 @@ class FileTest extends \PHPUnit\Framework\TestCase
         self::assertTrue(File::put(self::$con, $testFile, 'test', ContentPutMode::CREATE));
         self::assertTrue(File::put(self::$con, $testFile, 'test2', ContentPutMode::REPLACE));
 
-        self::assertEquals('test2', file_get_contents($testFile));
+        self::assertEquals('test2', \file_get_contents($testFile));
 
         File::delete(self::$con, $testFile);
     }
@@ -200,7 +200,7 @@ class FileTest extends \PHPUnit\Framework\TestCase
         self::assertTrue(File::put(self::$con, $testFile, 'test', ContentPutMode::CREATE));
         self::assertTrue(File::set(self::$con, $testFile, 'test2'));
 
-        self::assertEquals('test2', file_get_contents($testFile));
+        self::assertEquals('test2', \file_get_contents($testFile));
 
         File::delete(self::$con, $testFile);
     }
@@ -216,7 +216,7 @@ class FileTest extends \PHPUnit\Framework\TestCase
         self::assertTrue(File::put(self::$con, $testFile, 'test', ContentPutMode::CREATE));
         self::assertTrue(File::put(self::$con, $testFile, 'test2', ContentPutMode::APPEND));
 
-        self::assertEquals('testtest2', file_get_contents($testFile));
+        self::assertEquals('testtest2', \file_get_contents($testFile));
 
         File::delete(self::$con, $testFile);
     }
@@ -232,7 +232,7 @@ class FileTest extends \PHPUnit\Framework\TestCase
         self::assertTrue(File::put(self::$con, $testFile, 'test', ContentPutMode::CREATE));
         self::assertTrue(File::append(self::$con, $testFile, 'test2'));
 
-        self::assertEquals('testtest2', file_get_contents($testFile));
+        self::assertEquals('testtest2', \file_get_contents($testFile));
 
         File::delete(self::$con, $testFile);
     }
@@ -248,7 +248,7 @@ class FileTest extends \PHPUnit\Framework\TestCase
         self::assertTrue(File::put(self::$con, $testFile, 'test', ContentPutMode::CREATE));
         self::assertTrue(File::put(self::$con, $testFile, 'test2', ContentPutMode::PREPEND));
 
-        self::assertEquals('test2test', file_get_contents($testFile));
+        self::assertEquals('test2test', \file_get_contents($testFile));
 
         File::delete(self::$con, $testFile);
     }
@@ -264,7 +264,7 @@ class FileTest extends \PHPUnit\Framework\TestCase
         self::assertTrue(File::put(self::$con, $testFile, 'test', ContentPutMode::CREATE));
         self::assertTrue(File::prepend(self::$con, $testFile, 'test2'));
 
-        self::assertEquals('test2test', file_get_contents($testFile));
+        self::assertEquals('test2test', \file_get_contents($testFile));
 
         File::delete(self::$con, $testFile);
     }
@@ -292,7 +292,7 @@ class FileTest extends \PHPUnit\Framework\TestCase
     {
         $testFile = __DIR__ . '/test.txt';
 
-        self::assertEquals(str_replace('\\', '/', realpath(__DIR__ . '/../')), File::parent($testFile));
+        self::assertEquals(\str_replace('\\', '/', \realpath(__DIR__ . '/../')), File::parent($testFile));
     }
 
     /**
@@ -340,7 +340,7 @@ class FileTest extends \PHPUnit\Framework\TestCase
     {
         $testFile = __DIR__ . '/test.txt';
 
-        self::assertEquals(basename(realpath(__DIR__)), File::dirname($testFile));
+        self::assertEquals(\basename(\realpath(__DIR__)), File::dirname($testFile));
     }
 
     /**
@@ -352,7 +352,7 @@ class FileTest extends \PHPUnit\Framework\TestCase
     {
         $testFile = __DIR__ . '/test.txt';
 
-        self::assertEquals(realpath(__DIR__), File::dirpath($testFile));
+        self::assertEquals(\realpath(__DIR__), File::dirpath($testFile));
     }
 
     /**
@@ -702,15 +702,15 @@ class FileTest extends \PHPUnit\Framework\TestCase
     public function testNodeInputOutput() : void
     {
         $testFile = __DIR__ . '/test.txt';
-        if (is_file($testFile)) {
-            unlink($testFile);
+        if (\is_file($testFile)) {
+            \unlink($testFile);
         }
 
         $file = new File(new HttpUri(self::BASE . $testFile), self::$con);
         self::assertTrue($file->setContent('test'));
         self::assertEquals('test', $file->getContent());
 
-        unlink($testFile);
+        \unlink($testFile);
     }
 
     /**
@@ -720,8 +720,8 @@ class FileTest extends \PHPUnit\Framework\TestCase
     public function testNodeReplace() : void
     {
         $testFile = __DIR__ . '/test.txt';
-        if (is_file($testFile)) {
-            unlink($testFile);
+        if (\is_file($testFile)) {
+            \unlink($testFile);
         }
 
         $file = new File(new HttpUri(self::BASE . $testFile), self::$con);
@@ -729,7 +729,7 @@ class FileTest extends \PHPUnit\Framework\TestCase
         self::assertTrue($file->setContent('test2'));
         self::assertEquals('test2', $file->getContent());
 
-        unlink($testFile);
+        \unlink($testFile);
     }
 
     /**
@@ -739,8 +739,8 @@ class FileTest extends \PHPUnit\Framework\TestCase
     public function testNodeAppend() : void
     {
         $testFile = __DIR__ . '/test.txt';
-        if (is_file($testFile)) {
-            unlink($testFile);
+        if (\is_file($testFile)) {
+            \unlink($testFile);
         }
 
         $file = new File(new HttpUri(self::BASE . $testFile), self::$con);
@@ -748,7 +748,7 @@ class FileTest extends \PHPUnit\Framework\TestCase
         self::assertTrue($file->appendContent('2'));
         self::assertEquals('test2', $file->getContent());
 
-        unlink($testFile);
+        \unlink($testFile);
     }
 
     /**
@@ -758,8 +758,8 @@ class FileTest extends \PHPUnit\Framework\TestCase
     public function testNodePrepend() : void
     {
         $testFile = __DIR__ . '/test.txt';
-        if (is_file($testFile)) {
-            unlink($testFile);
+        if (\is_file($testFile)) {
+            \unlink($testFile);
         }
 
         $file = new File(new HttpUri(self::BASE . $testFile), self::$con);
@@ -767,7 +767,7 @@ class FileTest extends \PHPUnit\Framework\TestCase
         self::assertTrue($file->prependContent('2'));
         self::assertEquals('2test', $file->getContent());
 
-        unlink($testFile);
+        \unlink($testFile);
     }
 
     /**
@@ -789,8 +789,8 @@ class FileTest extends \PHPUnit\Framework\TestCase
     public function testNodeCreatedAt() : void
     {
         $testFile = __DIR__ . '/test.txt';
-        if (is_file($testFile)) {
-            unlink($testFile);
+        if (\is_file($testFile)) {
+            \unlink($testFile);
         }
 
         $file = new File(new HttpUri(self::BASE . $testFile), self::$con);
@@ -800,7 +800,7 @@ class FileTest extends \PHPUnit\Framework\TestCase
         $now = new \DateTime('now');
         self::assertEquals($now->format('Y-m-d'), $file->getCreatedAt()->format('Y-m-d'));
 
-        unlink($testFile);
+        \unlink($testFile);
     }
 
     /**
@@ -810,8 +810,8 @@ class FileTest extends \PHPUnit\Framework\TestCase
     public function testNodeChangedAt() : void
     {
         $testFile = __DIR__ . '/test.txt';
-        if (is_file($testFile)) {
-            unlink($testFile);
+        if (\is_file($testFile)) {
+            \unlink($testFile);
         }
 
         $file = new File(new HttpUri(self::BASE . $testFile), self::$con);
@@ -821,7 +821,7 @@ class FileTest extends \PHPUnit\Framework\TestCase
         $now = new \DateTime('now');
         self::assertEquals($now->format('Y-m-d'), $file->getChangedAt()->format('Y-m-d'));
 
-        unlink($testFile);
+        \unlink($testFile);
     }
 
     /**
@@ -915,16 +915,16 @@ class FileTest extends \PHPUnit\Framework\TestCase
     public function testNodeCreate() : void
     {
         $testFile = __DIR__ . '/test.txt';
-        if (is_file($testFile)) {
-            unlink($testFile);
+        if (\is_file($testFile)) {
+            \unlink($testFile);
         }
 
         $file = new File(new HttpUri(self::BASE . $testFile), self::$con);
 
         $file->createNode();
-        self::assertTrue(is_file($testFile));
+        self::assertTrue(\is_file($testFile));
 
-        unlink($testFile);
+        \unlink($testFile);
     }
 
     /**
@@ -934,18 +934,18 @@ class FileTest extends \PHPUnit\Framework\TestCase
     public function testNodeDelete() : void
     {
         $testFile = __DIR__ . '/test.txt';
-        if (is_file($testFile)) {
-            unlink($testFile);
+        if (\is_file($testFile)) {
+            \unlink($testFile);
         }
 
         $file = new File(new HttpUri(self::BASE . $testFile), self::$con);
 
         $file->createNode();
-        self::assertTrue(is_file($testFile));
+        self::assertTrue(\is_file($testFile));
         self::assertTrue($file->deleteNode());
 
-        clearstatcache();
-        self::assertFalse(is_file($testFile));
+        \clearstatcache();
+        self::assertFalse(\is_file($testFile));
     }
 
     /**
@@ -955,19 +955,19 @@ class FileTest extends \PHPUnit\Framework\TestCase
     public function testNodeCopy() : void
     {
         $testFile = __DIR__ . '/test.txt';
-        if (is_file($testFile)) {
-            unlink($testFile);
+        if (\is_file($testFile)) {
+            \unlink($testFile);
         }
 
         $file = new File(new HttpUri(self::BASE . $testFile), self::$con);
 
         $file->createNode();
         self::assertTrue($file->copyNode(__DIR__ . '/test2.txt'));
-        self::assertTrue(is_file($testFile));
-        self::assertTrue(is_file(__DIR__ . '/test2.txt'));
+        self::assertTrue(\is_file($testFile));
+        self::assertTrue(\is_file(__DIR__ . '/test2.txt'));
 
-        unlink($testFile);
-        unlink(__DIR__ . '/test2.txt');
+        \unlink($testFile);
+        \unlink(__DIR__ . '/test2.txt');
     }
 
     /**
@@ -977,18 +977,18 @@ class FileTest extends \PHPUnit\Framework\TestCase
     public function testNodeMove() : void
     {
         $testFile = __DIR__ . '/test.txt';
-        if (is_file($testFile)) {
-            unlink($testFile);
+        if (\is_file($testFile)) {
+            \unlink($testFile);
         }
 
         $file = new File(new HttpUri(self::BASE . $testFile), self::$con);
 
         $file->createNode();
         self::assertTrue($file->moveNode(__DIR__ . '/test2.txt'));
-        self::assertFalse(is_file($testFile));
-        self::assertTrue(is_file(__DIR__ . '/test2.txt'));
+        self::assertFalse(\is_file($testFile));
+        self::assertTrue(\is_file(__DIR__ . '/test2.txt'));
 
-        unlink(__DIR__ . '/test2.txt');
+        \unlink(__DIR__ . '/test2.txt');
     }
 
     /**

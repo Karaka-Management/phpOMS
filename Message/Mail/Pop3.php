@@ -52,7 +52,7 @@ class Pop3 extends MailHandler implements MailBoxInterface
      */
     public function connectInbox() : bool
     {
-        $this->mailbox = ($tmp = imap_open(
+        $this->mailbox = ($tmp = \imap_open(
             '{'
             . $this->host . ':' . $this->port . '/pop3'
             . ($this->encryption !== EncryptionType::NONE ? '/ssl' : '')
@@ -63,13 +63,13 @@ class Pop3 extends MailHandler implements MailBoxInterface
 
     public function getBoxes() : array
     {
-        $list = imap_list($this->mailbox, '{' . $this->host . ':' . $this->port . '}');
+        $list = \imap_list($this->mailbox, '{' . $this->host . ':' . $this->port . '}');
         if (!\is_array($list)) {
             return [];
         }
 
         foreach ($list as $key => $value) {
-            $list[$key] = imap_utf7_decode($value);
+            $list[$key] = \imap_utf7_decode($value);
         }
 
         return $list;
@@ -77,77 +77,77 @@ class Pop3 extends MailHandler implements MailBoxInterface
 
     public function renameBox(string $old, string $new) : bool
     {
-        return imap_renamemailbox($this->mailbox, $old, imap_utf7_encode($new));
+        return \imap_renamemailbox($this->mailbox, $old, \imap_utf7_encode($new));
     }
 
     public function deleteBox(string $box) : bool
     {
-        return imap_deletemailbox($this->mailbox, $box);
+        return \imap_deletemailbox($this->mailbox, $box);
     }
 
     public function createBox(string $box) : bool
     {
-        return imap_createmailbox($this->mailbox, imap_utf7_encode($box));
+        return \imap_createmailbox($this->mailbox, \imap_utf7_encode($box));
     }
 
     public function countMail(string $box) : int
     {
         if ($this->box !== $box) {
-            imap_reopen($this->box, $box);
+            \imap_reopen($this->box, $box);
             $this->box = $box;
         }
 
-        return imap_num_msg($this->mailbox);
+        return \imap_num_msg($this->mailbox);
     }
 
     public function getMailboxInfo(string $box) : object
     {
         if ($this->box !== $box) {
-            imap_reopen($this->box, $box);
+            \imap_reopen($this->box, $box);
             $this->box = $box;
         }
 
-        return imap_status($this->mailbox);
+        return \imap_status($this->mailbox);
     }
 
     public function getRecentCount(string $box) : int
     {
         if ($this->box !== $box) {
-            imap_reopen($this->box, $box);
+            \imap_reopen($this->box, $box);
             $this->box = $box;
         }
 
-        return imap_num_recent($this->mailbox);
+        return \imap_num_recent($this->mailbox);
     }
 
     public function copyMail(string | array $messages, string $box) : bool
     {
-        return imap_mail_copy($this->mailbox, !\is_string($messages) ? implode(',', $messages) : $messages, $box);
+        return \imap_mail_copy($this->mailbox, !\is_string($messages) ? \implode(',', $messages) : $messages, $box);
     }
 
     public function moveMail(string | array $messages, string $box) : bool
     {
-        return imap_mail_copy($this->mailbox, !\is_string($messages) ? implode(',', $messages) : $messages, $box);
+        return \imap_mail_copy($this->mailbox, !\is_string($messages) ? \implode(',', $messages) : $messages, $box);
     }
 
     public function deleteMail(int $msg) : bool
     {
-        return imap_delete($this->mailbox, $msg);
+        return \imap_delete($this->mailbox, $msg);
     }
 
     public function getHeaders(string $box) : array
     {
         if ($this->box !== $box) {
-            imap_reopen($this->box, $box);
+            \imap_reopen($this->box, $box);
             $this->box = $box;
         }
 
-        return imap_headers($this->mailbox);
+        return \imap_headers($this->mailbox);
     }
 
     public function getHeaderInfo(int $msg) : object
     {
-        return imap_headerinfo($this->mailbox, $msg);
+        return \imap_headerinfo($this->mailbox, $msg);
     }
 
     public function getMail(int $msg) : Email
@@ -165,7 +165,7 @@ class Pop3 extends MailHandler implements MailBoxInterface
     public function inboxClose() : void
     {
         if ($this->mailbox !== null) {
-            imap_close($this->mailbox);
+            \imap_close($this->mailbox);
         }
     }
 }

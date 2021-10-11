@@ -255,7 +255,7 @@ class Account implements \JsonSerializable, ArrayableInterface
             throw new \InvalidArgumentException();
         }
 
-        $this->email = mb_strtolower($email);
+        $this->email = \mb_strtolower($email);
     }
 
     /**
@@ -347,7 +347,7 @@ class Account implements \JsonSerializable, ArrayableInterface
      */
     public function generatePassword(string $password) : void
     {
-        $temp = password_hash($password, \PASSWORD_BCRYPT);
+        $temp = \password_hash($password, \PASSWORD_BCRYPT);
 
         if ($temp === false) {
             throw new \Exception('Internal password_hash error.'); // @codeCoverageIgnore
@@ -377,7 +377,7 @@ class Account implements \JsonSerializable, ArrayableInterface
      */
     public function __toString() : string
     {
-        return (string) json_encode($this->toArray());
+        return (string) \json_encode($this->toArray());
     }
 
     /**

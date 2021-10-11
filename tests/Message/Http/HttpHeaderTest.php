@@ -189,22 +189,22 @@ class HttpHeaderTest extends \PHPUnit\Framework\TestCase
     public function testHeaderGeneration() : void
     {
         $this->header->generate(RequestStatusCode::R_403);
-        self::assertEquals(403, http_response_code());
+        self::assertEquals(403, \http_response_code());
 
         $this->header->generate(RequestStatusCode::R_404);
-        self::assertEquals(404, http_response_code());
+        self::assertEquals(404, \http_response_code());
 
         $this->header->generate(RequestStatusCode::R_406);
-        self::assertEquals(406, http_response_code());
+        self::assertEquals(406, \http_response_code());
 
         $this->header->generate(RequestStatusCode::R_407);
-        self::assertEquals(407, http_response_code());
+        self::assertEquals(407, \http_response_code());
 
         $this->header->generate(RequestStatusCode::R_503);
-        self::assertEquals(503, http_response_code());
+        self::assertEquals(503, \http_response_code());
 
         $this->header->generate(RequestStatusCode::R_500);
-        self::assertEquals(500, http_response_code());
+        self::assertEquals(500, \http_response_code());
     }
 
     /**

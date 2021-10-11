@@ -36,7 +36,7 @@ class EnergyPowerTypeTest extends \PHPUnit\Framework\TestCase
      */
     public function testUnique() : void
     {
-        self::assertEquals(EnergyPowerType::getConstants(), array_unique(EnergyPowerType::getConstants()));
+        self::assertEquals(EnergyPowerType::getConstants(), \array_unique(EnergyPowerType::getConstants()));
     }
 
     /**

@@ -74,7 +74,7 @@ abstract class RegressionAbstract
             $sum += $errors[$i] ** 2;
         }
 
-        return sqrt($sum / $count);
+        return \sqrt($sum / $count);
     }
 
     /**
@@ -99,7 +99,7 @@ abstract class RegressionAbstract
             $sum += $errors[$i] ** 2;
         }
 
-        return sqrt($sum / ($count - 2));
+        return \sqrt($sum / ($count - 2));
     }
 
     /**
@@ -127,7 +127,7 @@ abstract class RegressionAbstract
             $sum += ($x[$i] - $meanX) ** 2;
         }
 
-        $interval = $multiplier * sqrt($mse + $mse / $count + $mse * ($fX - $meanX) ** 2 / $sum);
+        $interval = $multiplier * \sqrt($mse + $mse / $count + $mse * ($fX - $meanX) ** 2 / $sum);
 
         return [$fY - $interval, $fY + $interval];
     }

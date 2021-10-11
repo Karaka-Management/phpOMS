@@ -73,11 +73,11 @@ final class Functions
      */
     public static function binomialCoefficient(int $n, int $k) : int
     {
-        $max = max([$k, $n - $k]);
-        $min = min([$k, $n - $k]);
+        $max = \max([$k, $n - $k]);
+        $min = \min([$k, $n - $k]);
 
         $fact  = 1;
-        $range = array_reverse(range(1, $min));
+        $range = \array_reverse(\range(1, $min));
 
         for ($i = $max + 1; $i < $n + 1; ++$i) {
             $div = 1;
@@ -232,7 +232,7 @@ final class Functions
      */
     public static function getRelativeDegree(int $value, int $length, int $start = 0) : int
     {
-        return abs(self::mod($value - $start, $length));
+        return \abs(self::mod($value - $start, $length));
     }
 
     /**
@@ -249,7 +249,7 @@ final class Functions
      */
     public static function getErf(float $value) : float
     {
-        if (abs($value) > 2.2) {
+        if (\abs($value) > 2.2) {
             return 1 - self::getErfc($value);
         }
 
@@ -268,9 +268,9 @@ final class Functions
             $sum  += $term / (2 * $i + 1);
 
             ++$i;
-        } while ($sum !== 0.0 && abs($term / $sum) > 0.0000001);
+        } while ($sum !== 0.0 && \abs($term / $sum) > 0.0000001);
 
-        return 2 / sqrt(\M_PI) * $sum;
+        return 2 / \sqrt(\M_PI) * $sum;
     }
 
     /**
@@ -287,7 +287,7 @@ final class Functions
      */
     public static function getErfc(float $value) : float
     {
-        if (abs($value) <= 2.2) {
+        if (\abs($value) <= 2.2) {
             return 1 - self::getErf($value);
         }
 
@@ -311,9 +311,9 @@ final class Functions
             $n += 0.5;
             $q1 = $q2;
             $q2 = $b / $d;
-        } while (abs($q1 - $q2) / $q2 > 0.0000001);
+        } while (\abs($q1 - $q2) / $q2 > 0.0000001);
 
-        return 1 / sqrt(\M_PI) * exp(-$value * $value) * $q2;
+        return 1 / \sqrt(\M_PI) * \exp(-$value * $value) * $q2;
     }
 
     /**
@@ -332,8 +332,8 @@ final class Functions
     public static function generalizedHypergeometricFunction(array $a, array $b, float $z) : float
     {
         $sum   = 0.0;
-        $aProd = array_fill(0, 20, []);
-        $bProd = array_fill(0, 20, []);
+        $aProd = \array_fill(0, 20, []);
+        $bProd = \array_fill(0, 20, []);
 
         for ($n = 0; $n < 20; ++$n) {
             foreach ($a as $key => $value) {
@@ -352,7 +352,7 @@ final class Functions
                 }
             }
 
-            $temp = array_product($aProd[$n]) / array_product($bProd[$n]);
+            $temp = \array_product($aProd[$n]) / \array_product($bProd[$n]);
             $sum += $temp * $z ** $n / self::fact($n);
         }
 

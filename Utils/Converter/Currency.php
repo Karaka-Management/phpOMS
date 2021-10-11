@@ -77,7 +77,7 @@ final class Currency
     public static function fromEurTo(float $value, string $to) : float
     {
         $currencies = self::getEcbEuroRates();
-        $to         = strtoupper($to);
+        $to         = \strtoupper($to);
 
         if (!isset($currencies[$to])) {
             throw new \InvalidArgumentException('Currency doesn\'t exists');
@@ -115,7 +115,7 @@ final class Currency
             self::$ecbCurrencies = [];
 
             foreach ($node as $key => $value) {
-                self::$ecbCurrencies[strtoupper((string) $value->attributes()['currency'])] = (float) $value->attributes()['rate'];
+                self::$ecbCurrencies[\strtoupper((string) $value->attributes()['currency'])] = (float) $value->attributes()['rate'];
             }
         } catch (\Throwable $t) {
             self::$ecbCurrencies = []; // @codeCoverageIgnore
@@ -139,7 +139,7 @@ final class Currency
     public static function fromToEur(float $value, string $from) : float
     {
         $currencies = self::getEcbEuroRates();
-        $from       = strtoupper($from);
+        $from       = \strtoupper($from);
 
         if (!isset($currencies[$from])) {
             throw new \InvalidArgumentException('Currency doesn\'t exists');
@@ -164,8 +164,8 @@ final class Currency
     public static function convertCurrency(float $value, string $from, string $to) : float
     {
         $currencies = self::getEcbEuroRates();
-        $from       = strtoupper($from);
-        $to         = strtoupper($to);
+        $from       = \strtoupper($from);
+        $to         = \strtoupper($to);
 
         if ((!isset($currencies[$from]) && $from !== ISO4217CharEnum::_EUR) || (!isset($currencies[$to]) && $to !== ISO4217CharEnum::_EUR)) {
             throw new \InvalidArgumentException('Currency doesn\'t exists');

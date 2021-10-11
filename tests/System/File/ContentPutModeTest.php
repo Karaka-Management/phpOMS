@@ -36,7 +36,7 @@ class ContentPutModeTest extends \PHPUnit\Framework\TestCase
      */
     public function testUnique() : void
     {
-        self::assertEquals(ContentPutMode::getConstants(), array_unique(ContentPutMode::getConstants()));
+        self::assertEquals(ContentPutMode::getConstants(), \array_unique(ContentPutMode::getConstants()));
     }
 
     /**

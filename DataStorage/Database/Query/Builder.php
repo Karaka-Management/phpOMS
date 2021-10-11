@@ -389,12 +389,12 @@ class Builder extends BuilderAbstract
             $dependencies[$table] = [];
 
             foreach ($this->ons[$table] as $on) {
-                if (stripos($on['column'], '.')) {
-                    $dependencies[$table][] = explode('.', $on['column'])[0];
+                if (\stripos($on['column'], '.')) {
+                    $dependencies[$table][] = \explode('.', $on['column'])[0];
                 }
 
-                if (stripos($on['value'], '.')) {
-                    $dependencies[$table][] = explode('.', $on['value'])[0];
+                if (\stripos($on['value'], '.')) {
+                    $dependencies[$table][] = \explode('.', $on['value'])[0];
                 }
             }
         }
@@ -438,7 +438,7 @@ class Builder extends BuilderAbstract
         }
 
         $this->type = QueryType::RAW;
-        $this->raw  = rtrim($raw, ';');
+        $this->raw  = \rtrim($raw, ';');
 
         return $this;
     }
@@ -459,14 +459,14 @@ class Builder extends BuilderAbstract
             return true;
         }
 
-        $raw = strtolower($raw);
+        $raw = \strtolower($raw);
 
-        if (stripos($raw, 'insert') !== false
-            || stripos($raw, 'update') !== false
-            || stripos($raw, 'drop') !== false
-            || stripos($raw, 'delete') !== false
-            || stripos($raw, 'create') !== false
-            || stripos($raw, 'alter') !== false
+        if (\stripos($raw, 'insert') !== false
+            || \stripos($raw, 'update') !== false
+            || \stripos($raw, 'drop') !== false
+            || \stripos($raw, 'delete') !== false
+            || \stripos($raw, 'create') !== false
+            || \stripos($raw, 'alter') !== false
         ) {
             return false;
         }
@@ -554,7 +554,7 @@ class Builder extends BuilderAbstract
 
         $i = 0;
         foreach ($columns as $column) {
-            if (isset($operator[$i]) && !\in_array(strtolower($operator[$i]), self::OPERATORS)) {
+            if (isset($operator[$i]) && !\in_array(\strtolower($operator[$i]), self::OPERATORS)) {
                 throw new \InvalidArgumentException('Unknown operator: "' . $operator[$i] . '"');
             }
 
@@ -977,9 +977,9 @@ class Builder extends BuilderAbstract
      */
     public function value(mixed $value) : self
     {
-        end($this->values);
+        \end($this->values);
 
-        $key   = key($this->values);
+        $key   = \key($this->values);
         $key ??= 0;
 
         if (\is_array($value)) {
@@ -988,7 +988,7 @@ class Builder extends BuilderAbstract
             $this->values[$key][] = $value;
         }
 
-        reset($this->values);
+        \reset($this->values);
 
         return $this;
     }
@@ -1020,7 +1020,7 @@ class Builder extends BuilderAbstract
      */
     public function set(mixed $set) : self
     {
-        $this->sets[key($set)] = current($set);
+        $this->sets[\key($set)] = \current($set);
 
         return $this;
     }
@@ -1307,7 +1307,7 @@ class Builder extends BuilderAbstract
      */
     public function on(string | array $columns, string | array $operator = null, string | array $values = null, string | array $boolean = 'and', string $table = null) : self
     {
-        if ($operator !== null && !\is_array($operator) && !\in_array(strtolower($operator), self::OPERATORS)) {
+        if ($operator !== null && !\is_array($operator) && !\in_array(\strtolower($operator), self::OPERATORS)) {
             throw new \InvalidArgumentException('Unknown operator.');
         }
 
@@ -1320,10 +1320,10 @@ class Builder extends BuilderAbstract
 
         $joinCount = \count($this->joins) - 1;
         $i         = 0;
-        $table   ??= array_keys($this->joins)[$joinCount];
+        $table   ??= \array_keys($this->joins)[$joinCount];
 
         foreach ($columns as $column) {
-            if (isset($operator[$i]) && !\in_array(strtolower($operator[$i]), self::OPERATORS)) {
+            if (isset($operator[$i]) && !\in_array(\strtolower($operator[$i]), self::OPERATORS)) {
                 throw new \InvalidArgumentException('Unknown operator.');
             }
 
@@ -1408,8 +1408,8 @@ class Builder extends BuilderAbstract
 
             $sth->execute();
         } catch (\Throwable $t) {
-            var_dump($t->getMessage());
-            var_dump($this->toSql());
+            \var_dump($t->getMessage());
+            \var_dump($this->toSql());
 
             $sth = null;
         }
@@ -1459,7 +1459,7 @@ class Builder extends BuilderAbstract
         } elseif ($column instanceof \Serializable) {
             return $column->serialize();
         } elseif ($column instanceof self) {
-            return md5($column->toSql());
+            return \md5($column->toSql());
         }
 
         throw new \Exception();

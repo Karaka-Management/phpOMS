@@ -137,10 +137,10 @@ class MemCachedTest extends \PHPUnit\Framework\TestCase
     public function testExpiredExists() : void
     {
         $this->cache->set('key2', 'testVal2', 2);
-        sleep(1);
+        \sleep(1);
         self::assertTrue($this->cache->exists('key2'));
         self::assertFalse($this->cache->exists('key2', 0));
-        sleep(3);
+        \sleep(3);
         self::assertFalse($this->cache->exists('key2'));
     }
 
@@ -161,10 +161,10 @@ class MemCachedTest extends \PHPUnit\Framework\TestCase
     {
         $this->cache->set('key1', 'testVal1', 2);
         $this->cache->set('key2', 'testVal2', 2);
-        sleep(1);
-        self::assertEquals([], array_diff(['testVal1', 'testVal2'], $this->cache->getLike('key\d')));
+        \sleep(1);
+        self::assertEquals([], \array_diff(['testVal1', 'testVal2'], $this->cache->getLike('key\d')));
         self::assertEquals([], $this->cache->getLike('key\d', 0));
-        sleep(3);
+        \sleep(3);
         self::assertEquals([], $this->cache->getLike('key\d'));
     }
 
@@ -223,8 +223,8 @@ class MemCachedTest extends \PHPUnit\Framework\TestCase
     {
         $this->cache->set('key2', 'testVal2', 1);
         self::assertEquals('testVal2', $this->cache->get('key2', 1));
-        sleep(2);
-        self::assertTrue($this->cache->updateExpire('key2', time() + 10000));
+        \sleep(2);
+        self::assertTrue($this->cache->updateExpire('key2', \time() + 10000));
         self::assertEquals('testVal2', $this->cache->get('key2'));
     }
 
@@ -351,7 +351,7 @@ class MemCachedTest extends \PHPUnit\Framework\TestCase
     {
         $this->cache->set('key2', 'testVal2', 1);
         self::assertEquals('testVal2', $this->cache->get('key2', 1));
-        sleep(2);
+        \sleep(2);
         self::assertNull($this->cache->get('key2', 1));
     }
 
@@ -363,7 +363,7 @@ class MemCachedTest extends \PHPUnit\Framework\TestCase
     public function testFlushExpired() : void
     {
         $this->cache->set('key6', 'testVal6', 1);
-        sleep(2);
+        \sleep(2);
 
         $this->cache->flush(0);
         self::assertNull($this->cache->get('key6', 0));

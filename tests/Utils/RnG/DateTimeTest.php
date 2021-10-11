@@ -34,8 +34,8 @@ class DateTimeTest extends \PHPUnit\Framework\TestCase
             $dateMin = new \DateTime();
             $dateMax = new \DateTime();
 
-            $min = mt_rand(0, (int) (2147483647 / 2));
-            $max = mt_rand($min + 10, 2147483647);
+            $min = \mt_rand(0, (int) (2147483647 / 2));
+            $max = \mt_rand($min + 10, 2147483647);
 
             $dateMin->setTimestamp($min);
             $dateMax->setTimestamp($max);

@@ -50,7 +50,7 @@ final class Lorenzkurve
         $i    = 1;
         $n    = \count($data);
 
-        sort($data);
+        \sort($data);
 
         foreach ($data as $key => $value) {
             $sum1 += $i * $value;

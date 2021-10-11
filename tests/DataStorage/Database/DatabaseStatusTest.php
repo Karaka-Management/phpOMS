@@ -36,7 +36,7 @@ class DatabaseStatusTest extends \PHPUnit\Framework\TestCase
      */
     public function testUnique() : void
     {
-        self::assertEquals(DatabaseStatus::getConstants(), array_unique(DatabaseStatus::getConstants()));
+        self::assertEquals(DatabaseStatus::getConstants(), \array_unique(DatabaseStatus::getConstants()));
     }
 
     /**

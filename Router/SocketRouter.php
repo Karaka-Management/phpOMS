@@ -59,7 +59,7 @@ final class SocketRouter implements RouterInterface
      */
     public function importFromFile(string $path) : bool
     {
-        if (!is_file($path)) {
+        if (!\is_file($path)) {
             return false;
         }
 
@@ -131,7 +131,7 @@ final class SocketRouter implements RouterInterface
     {
         $bound = [];
         foreach ($this->routes as $route => $destination) {
-            if (!((bool) preg_match('~^' . $route . '$~', $uri))) {
+            if (!((bool) \preg_match('~^' . $route . '$~', $uri))) {
                 continue;
             }
 
@@ -144,14 +144,14 @@ final class SocketRouter implements RouterInterface
                         )
                     )
                 ) {
-                    return $app !== null ? $this->route('/' . strtolower($app) . '/e403') : $this->route('/e403');
+                    return $app !== null ? $this->route('/' . \strtolower($app) . '/e403') : $this->route('/e403');
                 }
 
                 // if validation check is invalid
                 if (isset($d['validation'])) {
                     foreach ($d['validation'] as $name => $pattern) {
-                        if (!isset($data[$name]) || preg_match($pattern, $data[$name]) !== 1) {
-                            return $app !== null ? $this->route('/' . strtolower($app) . '/e403') : $this->route('/e403');
+                        if (!isset($data[$name]) || \preg_match($pattern, $data[$name]) !== 1) {
+                            return $app !== null ? $this->route('/' . \strtolower($app) . '/e403') : $this->route('/e403');
                         }
                     }
                 }
@@ -160,7 +160,7 @@ final class SocketRouter implements RouterInterface
 
                 // fill data
                 if (isset($d['pattern'])) {
-                    preg_match($d['pattern'], $uri, $matches);
+                    \preg_match($d['pattern'], $uri, $matches);
 
                     $temp['data'] = $matches;
                 }

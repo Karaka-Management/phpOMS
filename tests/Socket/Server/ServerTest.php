@@ -36,12 +36,12 @@ class ServerTest extends \PHPUnit\Framework\TestCase
 
     public static function setUpBeforeClass() : void
     {
-        if (is_file(__DIR__ . '/client.log')) {
-            unlink(__DIR__ . '/client.log');
+        if (\is_file(__DIR__ . '/client.log')) {
+            \unlink(__DIR__ . '/client.log');
         }
 
-        if (is_file(__DIR__ . '/server.log')) {
-            unlink(__DIR__ . '/server.log');
+        if (\is_file(__DIR__ . '/server.log')) {
+            \unlink(__DIR__ . '/server.log');
         }
     }
 
@@ -75,8 +75,8 @@ class ServerTest extends \PHPUnit\Framework\TestCase
 
     protected function tearDown() : void
     {
-        unlink(__DIR__ . '/client.log');
-        unlink(__DIR__ . '/server.log');
+        \unlink(__DIR__ . '/client.log');
+        \unlink(__DIR__ . '/server.log');
     }
 
     /**
@@ -86,7 +86,7 @@ class ServerTest extends \PHPUnit\Framework\TestCase
     public function testSetupTCPSocket() : void
     {
         $pipes   = [];
-        $process = proc_open('php ServerTestHelper.php', [1 => ['pipe', 'w'], 2 => ['pipe', 'w']], $pipes, __DIR__);
+        $process = \proc_open('php ServerTestHelper.php', [1 => ['pipe', 'w'], 2 => ['pipe', 'w']], $pipes, __DIR__);
 
         $socket = new Server($this->app);
         $socket->create('127.0.0.1', $GLOBALS['CONFIG']['socket']['master']['port']);
@@ -96,7 +96,7 @@ class ServerTest extends \PHPUnit\Framework\TestCase
 
         $socket->run();
 
-        self::assertTrue(is_file(__DIR__ . '/server.log'));
+        self::assertTrue(\is_file(__DIR__ . '/server.log'));
         self::assertEquals(
             'Creating socket...' . "\n"
             . 'Binding socket...' . "\n"
@@ -107,19 +107,19 @@ class ServerTest extends \PHPUnit\Framework\TestCase
             . 'Doing handshake...' . "\n"
             . 'Handshake succeeded.' . "\n"
             . 'Is shutdown...' . "\n",
-            file_get_contents(__DIR__ . '/server.log')
+            \file_get_contents(__DIR__ . '/server.log')
         );
 
-        self::assertTrue(is_file(__DIR__ . '/client.log'));
-        $client = file_get_contents(__DIR__ . '/client.log');
+        self::assertTrue(\is_file(__DIR__ . '/client.log'));
+        $client = \file_get_contents(__DIR__ . '/client.log');
         self::assertStringContainsString('Sending: handshake', $client);
         self::assertStringContainsString('Sending: help', $client);
         self::assertStringContainsString('Sending: shutdown', $client);
 
         foreach ($pipes as $pipe) {
-            fclose($pipe);
+            \fclose($pipe);
         }
 
-        proc_close($process);
+        \proc_close($process);
     }
 }

@@ -62,7 +62,7 @@ class ChiSquaredDistributionTest extends \PHPUnit\Framework\TestCase
      */
     public function testMode() : void
     {
-        self::assertEquals(max(5 - 2, 0), ChiSquaredDistribution::getMode(5));
+        self::assertEquals(\max(5 - 2, 0), ChiSquaredDistribution::getMode(5));
     }
 
     /**
@@ -95,7 +95,7 @@ class ChiSquaredDistributionTest extends \PHPUnit\Framework\TestCase
     {
         $df = 5;
 
-        self::assertEquals(sqrt(2 * $df), ChiSquaredDistribution::getStandardDeviation($df));
+        self::assertEquals(\sqrt(2 * $df), ChiSquaredDistribution::getStandardDeviation($df));
     }
 
     /**
@@ -117,7 +117,7 @@ class ChiSquaredDistributionTest extends \PHPUnit\Framework\TestCase
     {
         $df = 5;
 
-        self::assertEquals(sqrt(8 / $df), ChiSquaredDistribution::getSkewness($df));
+        self::assertEquals(\sqrt(8 / $df), ChiSquaredDistribution::getSkewness($df));
     }
 
     /**

@@ -71,7 +71,7 @@ final class Metrics
      */
     public static function getCoefficientOfRetention(float $retentionRate, float $rc, int $t) : float
     {
-        return 1 / $t * log($rc - $retentionRate);
+        return 1 / $t * \log($rc - $retentionRate);
     }
 
     /**
@@ -87,7 +87,7 @@ final class Metrics
      */
     public static function predictCustomerRetention(float $rc, float $r, int $t) : float
     {
-        return $rc * (1 - exp(-$r * $t));
+        return $rc * (1 - \exp(-$r * $t));
     }
 
     /**
@@ -103,7 +103,7 @@ final class Metrics
      */
     public static function customerActiveProbability(int $purchases, int $periods, int $lastPurchase) : float
     {
-        return pow($lastPurchase / $periods, $purchases);
+        return \pow($lastPurchase / $periods, $purchases);
     }
 
     /**
@@ -163,7 +163,7 @@ final class Metrics
 
         for ($i = 1; $i < $count + 1; ++$i) {
             $newP   = $newP->mult($P);
-            $profit = $profit->add($newP->mult($G)->mult(1 / pow(1 + $discountRate, $i)));
+            $profit = $profit->add($newP->mult($G)->mult(1 / \pow(1 + $discountRate, $i)));
         }
 
         return $profit;
@@ -246,7 +246,7 @@ final class Metrics
 
         $count = \count($purchaseProbability);
         for ($i = 0; $i < $count; ++$i) {
-            $matrix[$i]    = array_fill(0, $count, 0);
+            $matrix[$i]    = \array_fill(0, $count, 0);
             $matrix[$i][0] = $purchaseProbability[$i];
 
             $matrix[$i][

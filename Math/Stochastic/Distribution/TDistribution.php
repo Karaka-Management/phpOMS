@@ -145,7 +145,7 @@ final class TDistribution
      */
     public static function getStandardDeviation(int $nu) : float
     {
-        return $nu < 3 ? \PHP_FLOAT_MAX : sqrt(self::getVariance($nu));
+        return $nu < 3 ? \PHP_FLOAT_MAX : \sqrt(self::getVariance($nu));
     }
 
     /**
@@ -184,9 +184,9 @@ final class TDistribution
          * Ellis Horwood Ltd.; W. Sussex, England
          */
         $term  = $degrees;
-        $theta = atan2($x, sqrt($term));
-        $cos   = cos($theta);
-        $sin   = sin($theta);
+        $theta = \atan2($x, \sqrt($term));
+        $cos   = \cos($theta);
+        $sin   = \sin($theta);
         $sum   = 0.0;
 
         if ($degrees % 2 === 1) {
@@ -212,6 +212,6 @@ final class TDistribution
 
         $t = 0.5 * (1 + $sum);
 
-        return $tails === 1 ? abs($t) : 1 - abs(1 - $t - $t);
+        return $tails === 1 ? \abs($t) : 1 - \abs(1 - $t - $t);
     }
 }

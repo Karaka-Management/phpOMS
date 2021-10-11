@@ -34,7 +34,7 @@ class MinimumCoinProblemTest extends \PHPUnit\Framework\TestCase
     {
         self::assertEquals(
             [],
-            array_diff_key([6, 6, 5], MinimumCoinProblem::getMinimumCoinsForValueI([9, 6, 5, 6, 1], 17))
+            \array_diff_key([6, 6, 5], MinimumCoinProblem::getMinimumCoinsForValueI([9, 6, 5, 6, 1], 17))
         );
     }
 }

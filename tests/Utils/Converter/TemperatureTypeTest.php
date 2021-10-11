@@ -36,7 +36,7 @@ class TemperatureTypeTest extends \PHPUnit\Framework\TestCase
      */
     public function testUnique() : void
     {
-        self::assertEquals(TemperatureType::getConstants(), array_unique(TemperatureType::getConstants()));
+        self::assertEquals(TemperatureType::getConstants(), \array_unique(TemperatureType::getConstants()));
     }
 
     /**

@@ -69,7 +69,7 @@ final class FileUtils
      */
     public static function getExtensionType(string $extension) : int
     {
-        $extension = strtolower($extension);
+        $extension = \strtolower($extension);
 
         if (\in_array($extension, self::CODE_EXTENSION)) {
             return ExtensionType::CODE;
@@ -109,16 +109,16 @@ final class FileUtils
      */
     public static function absolute(string $origPath) : string
     {
-        if (file_exists($origPath) !== false) {
-            $path = realpath($origPath);
+        if (\file_exists($origPath) !== false) {
+            $path = \realpath($origPath);
 
             return $path === false ? '' : $path;
         }
 
-        $startsWithSlash = strpos($origPath, '/') === 0 || strpos($origPath, '\\') === 0 ? '/' : '';
+        $startsWithSlash = \strpos($origPath, '/') === 0 || \strpos($origPath, '\\') === 0 ? '/' : '';
 
         $path  = [];
-        $parts = explode('/', $origPath);
+        $parts = \explode('/', $origPath);
 
         foreach ($parts as $part) {
             if (empty($part) || $part === '.') {
@@ -128,13 +128,13 @@ final class FileUtils
             if ($part !== '..' || empty($path)) {
                 $path[] = $part;
             } elseif (!empty($path)) {
-                array_pop($path);
+                \array_pop($path);
             } else {
                 throw new PathException($origPath); // @codeCoverageIgnore
             }
         }
 
-        return $startsWithSlash . implode('/', $path);
+        return $startsWithSlash . \implode('/', $path);
     }
 
     /**
@@ -151,14 +151,14 @@ final class FileUtils
      */
     public static function changeFileEncoding(string $input, string $output, string $outputEncoding, string $inputEncoding = '') : void
     {
-        $content = file_get_contents($input);
+        $content = \file_get_contents($input);
 
         if ($content === false) {
             return; // @codeCoverageIgnore
         }
 
-        $detected = empty($inputEncoding) ? mb_detect_encoding($content) : $inputEncoding;
-        file_put_contents($output, mb_convert_encoding($content, $outputEncoding, $detected === false ? mb_list_encodings() : $detected));
+        $detected = empty($inputEncoding) ? \mb_detect_encoding($content) : $inputEncoding;
+        \file_put_contents($output, \mb_convert_encoding($content, $outputEncoding, $detected === false ? \mb_list_encodings() : $detected));
     }
 
     /**
@@ -209,7 +209,7 @@ final class FileUtils
         $ret      = ['dirname' => '', 'basename' => '', 'extension' => '', 'filename' => ''];
         $pathinfo = [];
 
-        if (preg_match('#^(.*?)[\\\\/]*(([^/\\\\]*?)(\.([^.\\\\/]+?)|))[\\\\/.]*$#m', $path, $pathinfo)) {
+        if (\preg_match('#^(.*?)[\\\\/]*(([^/\\\\]*?)(\.([^.\\\\/]+?)|))[\\\\/.]*$#m', $path, $pathinfo)) {
             if (isset($pathinfo[1])) {
                 $ret['dirname'] = $pathinfo[1];
             }
@@ -253,9 +253,9 @@ final class FileUtils
      */
     public static function isAccessible(string $path) : bool
     {
-        $readable = is_file($path);
-        if (strpos($path, '\\\\') !== 0) {
-            $readable = $readable && is_readable($path);
+        $readable = \is_file($path);
+        if (\strpos($path, '\\\\') !== 0) {
+            $readable = $readable && \is_readable($path);
         }
 
         return self::isPermittedPath($path) && $readable;
@@ -272,6 +272,6 @@ final class FileUtils
      */
     public static function isPermittedPath(string $path) : bool
     {
-        return !preg_match('#^[a-z]+://#i', $path);
+        return !\preg_match('#^[a-z]+://#i', $path);
     }
 }

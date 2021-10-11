@@ -70,7 +70,7 @@ final class RedisCache extends ConnectionAbstract
 
         if (!isset($this->dbdata['host'], $this->dbdata['port'], $this->dbdata['db'])) {
             $this->status = CacheStatus::FAILURE;
-            throw new InvalidConnectionConfigException((string) json_encode($this->dbdata));
+            throw new InvalidConnectionConfigException((string) \json_encode($this->dbdata));
         }
 
         $this->con->connect($this->dbdata['host'], $this->dbdata['port']);
@@ -148,7 +148,7 @@ final class RedisCache extends ConnectionAbstract
 
         if (\is_string($result)) {
             $type   = (int) $result[0];
-            $start  = (int) strpos($result, self::DELIM);
+            $start  = (int) \strpos($result, self::DELIM);
             $result = $this->reverseValue($type, $result, $start);
         }
 
@@ -224,11 +224,11 @@ final class RedisCache extends ConnectionAbstract
         $values = [];
 
         foreach ($keys as $key) {
-            if (preg_match('/' . $pattern . '/', $key) === 1) {
+            if (\preg_match('/' . $pattern . '/', $key) === 1) {
                 $result = $this->con->get((string) $key);
                 if (\is_string($result)) {
                     $type   = (int) $result[0];
-                    $start  = (int) strpos($result, self::DELIM);
+                    $start  = (int) \strpos($result, self::DELIM);
                     $result = $this->reverseValue($type, $result, $start);
                 }
 
@@ -250,7 +250,7 @@ final class RedisCache extends ConnectionAbstract
 
         $keys = $this->con->keys('*');
         foreach ($keys as $key) {
-            if (preg_match('/' . $pattern . '/', $key) === 1) {
+            if (\preg_match('/' . $pattern . '/', $key) === 1) {
                 $this->con->del($key);
             }
         }
@@ -381,13 +381,13 @@ final class RedisCache extends ConnectionAbstract
         if ($type === CacheValueType::_INT || $type === CacheValueType::_STRING || $type === CacheValueType::_BOOL) {
             return (string) $value;
         } elseif ($type === CacheValueType::_FLOAT) {
-            return rtrim(rtrim(number_format($value, 5, '.', ''), '0'), '.');
+            return \rtrim(\rtrim(\number_format($value, 5, '.', ''), '0'), '.');
         } elseif ($type === CacheValueType::_ARRAY) {
-            return (string) json_encode($value);
+            return (string) \json_encode($value);
         } elseif ($type === CacheValueType::_SERIALIZABLE) {
             return \get_class($value) . self::DELIM . $value->serialize();
         } elseif ($type === CacheValueType::_JSONSERIALIZABLE) {
-            return \get_class($value) . self::DELIM . ((string) json_encode($value->jsonSerialize()));
+            return \get_class($value) . self::DELIM . ((string) \json_encode($value->jsonSerialize()));
         } elseif ($type === CacheValueType::_NULL) {
             return '';
         }
@@ -410,22 +410,22 @@ final class RedisCache extends ConnectionAbstract
     {
         switch ($type) {
             case CacheValueType::_INT:
-                return (int) substr($raw, $start + 1);
+                return (int) \substr($raw, $start + 1);
             case CacheValueType::_FLOAT:
-                return (float) substr($raw, $start + 1);
+                return (float) \substr($raw, $start + 1);
             case CacheValueType::_BOOL:
-                return (bool) substr($raw, $start + 1);
+                return (bool) \substr($raw, $start + 1);
             case CacheValueType::_STRING:
-                return substr($raw, $start + 1);
+                return \substr($raw, $start + 1);
             case CacheValueType::_ARRAY:
-                $array = substr($raw, $start + 1);
-                return json_decode($array === false ? '[]' : $array, true);
+                $array = \substr($raw, $start + 1);
+                return \json_decode($array === false ? '[]' : $array, true);
             case CacheValueType::_NULL:
                 return null;
             case CacheValueType::_JSONSERIALIZABLE:
-                $namespaceStart = (int) strpos($raw, self::DELIM, $start);
-                $namespaceEnd   = (int) strpos($raw, self::DELIM, $namespaceStart + 1);
-                $namespace      = substr($raw, $namespaceStart + 1, $namespaceEnd - $namespaceStart - 1);
+                $namespaceStart = (int) \strpos($raw, self::DELIM, $start);
+                $namespaceEnd   = (int) \strpos($raw, self::DELIM, $namespaceStart + 1);
+                $namespace      = \substr($raw, $namespaceStart + 1, $namespaceEnd - $namespaceStart - 1);
 
                 if ($namespace === false) {
                     return null;
@@ -433,16 +433,16 @@ final class RedisCache extends ConnectionAbstract
 
                 return new $namespace();
             case CacheValueType::_SERIALIZABLE:
-                $namespaceStart = (int) strpos($raw, self::DELIM, $start);
-                $namespaceEnd   = (int) strpos($raw, self::DELIM, $namespaceStart + 1);
-                $namespace      = substr($raw, $namespaceStart + 1, $namespaceEnd - $namespaceStart - 1);
+                $namespaceStart = (int) \strpos($raw, self::DELIM, $start);
+                $namespaceEnd   = (int) \strpos($raw, self::DELIM, $namespaceStart + 1);
+                $namespace      = \substr($raw, $namespaceStart + 1, $namespaceEnd - $namespaceStart - 1);
 
                 if ($namespace === false) {
                     return null;
                 }
 
                 $obj = new $namespace();
-                $obj->unserialize(substr($raw, $namespaceEnd + 1));
+                $obj->unserialize(\substr($raw, $namespaceEnd + 1));
 
                 return $obj;
             default:

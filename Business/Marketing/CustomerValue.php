@@ -57,10 +57,10 @@ final class CustomerValue
     public static function getMRR(array $revenues, int $periods = 12, float $lowerCutoff = 0.1, float $upperCutoff = 0.0) : float
     {
         if ($lowerCutoff === 0.0 && $upperCutoff === 0.0) {
-            return array_sum($revenues) / $periods;
+            return \array_sum($revenues) / $periods;
         }
 
-        sort($revenues);
+        \sort($revenues);
 
         $sum = 0.0;
         foreach ($revenues as $revenue) {

@@ -239,7 +239,7 @@ class HttpRequestTest extends \PHPUnit\Framework\TestCase
             'b' => [4, 5],
         ];
 
-        $request->setData('abc', json_encode($data));
+        $request->setData('abc', \json_encode($data));
         self::assertEquals($data, $request->getDataJson('abc'));
     }
 
@@ -270,7 +270,7 @@ class HttpRequestTest extends \PHPUnit\Framework\TestCase
             'b' => [4, 5],
         ];
 
-        $request->setData('abc', json_encode($data) . ',');
+        $request->setData('abc', \json_encode($data) . ',');
         self::assertEquals([], $request->getDataJson('abc'));
     }
 
@@ -288,7 +288,7 @@ class HttpRequestTest extends \PHPUnit\Framework\TestCase
             'a', 'b',
         ];
 
-        $request->setData('abc', implode(',', $data));
+        $request->setData('abc', \implode(',', $data));
         self::assertEquals($data, $request->getDataList('abc'));
     }
 
@@ -405,7 +405,7 @@ class HttpRequestTest extends \PHPUnit\Framework\TestCase
         $request->setData('testKey', 'testValue');
 
         self::assertEquals(
-            json_encode($request->getData()),
+            \json_encode($request->getData()),
             Rest::request($request)->getBody()
         );
     }
@@ -423,7 +423,7 @@ class HttpRequestTest extends \PHPUnit\Framework\TestCase
         $request->setData('testKey', 'testValue');
 
         self::assertEquals(
-            json_encode($request->getData()),
+            \json_encode($request->getData()),
             Rest::request($request)->getBody()
         );
     }
@@ -441,7 +441,7 @@ class HttpRequestTest extends \PHPUnit\Framework\TestCase
         $request->setData('testKey', 'testValue');
 
         self::assertEquals(
-            json_encode($request->getData()),
+            \json_encode($request->getData()),
             Rest::request($request)->getBody()
         );
     }

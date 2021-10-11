@@ -29,7 +29,7 @@ class MetricsTest extends \PHPUnit\Framework\TestCase
      */
     public function testABCMetric() : void
     {
-        self::assertEquals((int) sqrt(5 * 5 + 11 * 11 + 9 * 9), Metrics::abcScore(5, 11, 9));
+        self::assertEquals((int) \sqrt(5 * 5 + 11 * 11 + 9 * 9), Metrics::abcScore(5, 11, 9));
     }
 
     /**

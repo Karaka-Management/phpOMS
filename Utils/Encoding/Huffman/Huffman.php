@@ -82,7 +82,7 @@ final class Huffman
             $binary .= $this->dictionary->get($source[$i]);
         }
 
-        $splittedBinaryString = str_split('1' . $binary . '1', 8);
+        $splittedBinaryString = \str_split('1' . $binary . '1', 8);
         $binary               = '';
 
         if ($splittedBinaryString === false) {
@@ -94,7 +94,7 @@ final class Huffman
                 $c .= '0';
             }
 
-            $binary .= \chr((int) bindec($c));
+            $binary .= \chr((int) \bindec($c));
         }
 
         return $binary;
@@ -120,33 +120,33 @@ final class Huffman
         $source    = '';
 
         for ($i = 0; $i < $rawLenght; ++$i) {
-            $decbin = decbin(\ord($raw[$i]));
+            $decbin = \decbin(\ord($raw[$i]));
 
             while (\strlen($decbin) < 8) {
                 $decbin = '0' . $decbin;
             }
 
             if ($i === 0) {
-                $pos = strpos($decbin, '1');
+                $pos = \strpos($decbin, '1');
 
                 if ($pos === false) {
                     throw new \Exception(); // @codeCoverageIgnore
                 }
 
-                $decbin = substr($decbin, $pos + 1);
+                $decbin = \substr($decbin, $pos + 1);
                 if ($decbin === false) {
                     throw new \Exception(); // @codeCoverageIgnore
                 }
             }
 
             if ($i + 1 === $rawLenght) {
-                $pos = strrpos($decbin, '1');
+                $pos = \strrpos($decbin, '1');
 
                 if ($pos === false) {
                     throw new \Exception(); // @codeCoverageIgnore
                 }
 
-                $decbin = substr($decbin, 0, $pos);
+                $decbin = \substr($decbin, 0, $pos);
                 if ($decbin === false) {
                     throw new \Exception(); // @codeCoverageIgnore
                 }

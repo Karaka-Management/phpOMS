@@ -36,7 +36,7 @@ final class ParetoDistribution
      */
     public static function getPdf(float $x, float $xm, float $alpha) : float
     {
-        return $alpha * $xm ** $alpha / (pow($x, $alpha + 1));
+        return $alpha * $xm ** $alpha / (\pow($x, $alpha + 1));
     }
 
     /**
@@ -82,7 +82,7 @@ final class ParetoDistribution
      */
     public static function getMedian(float $xm, float $alpha) : float
     {
-        return $xm * pow(2, 1 / $alpha);
+        return $xm * \pow(2, 1 / $alpha);
     }
 
     /**
@@ -126,7 +126,7 @@ final class ParetoDistribution
      */
     public static function getStandardDeviation(float $xm, float $alpha) : float
     {
-        return sqrt(self::getVariance($xm, $alpha));
+        return \sqrt(self::getVariance($xm, $alpha));
     }
 
     /**
@@ -140,7 +140,7 @@ final class ParetoDistribution
      */
     public static function getSkewness(float $alpha) : float
     {
-        return $alpha < 4 ? 0.0 : 2 * (1 + $alpha) / ($alpha - 3) * sqrt(($alpha - 2) / $alpha);
+        return $alpha < 4 ? 0.0 : 2 * (1 + $alpha) / ($alpha - 3) * \sqrt(($alpha - 2) / $alpha);
     }
 
     /**
@@ -174,7 +174,7 @@ final class ParetoDistribution
      */
     public static function getEntropy(float $xm, float $alpha) : float
     {
-        return log(($xm / $alpha) * exp(1 + 1 / $alpha));
+        return \log(($xm / $alpha) * \exp(1 + 1 / $alpha));
     }
 
     /**

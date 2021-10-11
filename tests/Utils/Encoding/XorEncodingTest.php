@@ -31,7 +31,7 @@ class XorEncodingTest extends \PHPUnit\Framework\TestCase
     public function testEncoding() : void
     {
         $test = XorEncoding::encode('This is a test.', 'abcd');
-        self::assertEquals(hex2bin('350a0a17410b10440042170112164d'), XorEncoding::encode('This is a test.', 'abcd'));
-        self::assertEquals('This is a test.', XorEncoding::decode(hex2bin('350a0a17410b10440042170112164d'), 'abcd'));
+        self::assertEquals(\hex2bin('350a0a17410b10440042170112164d'), XorEncoding::encode('This is a test.', 'abcd'));
+        self::assertEquals('This is a test.', XorEncoding::decode(\hex2bin('350a0a17410b10440042170112164d'), 'abcd'));
     }
 }

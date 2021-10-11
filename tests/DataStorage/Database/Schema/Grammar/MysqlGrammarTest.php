@@ -57,7 +57,7 @@ class MysqlGrammarTest extends \PHPUnit\Framework\TestCase
      */
     public function testSchemaInputOutput() : void
     {
-        $definitions = json_decode(file_get_contents(__DIR__ . '/testSchema.json'), true);
+        $definitions = \json_decode(\file_get_contents(__DIR__ . '/testSchema.json'), true);
         foreach ($definitions as $definition) {
             Builder::createFromSchema($definition, $this->con)->execute();
         }
@@ -90,7 +90,7 @@ class MysqlGrammarTest extends \PHPUnit\Framework\TestCase
      */
     public function testDelete() : void
     {
-        $definitions = json_decode(file_get_contents(__DIR__ . '/testSchema.json'), true);
+        $definitions = \json_decode(\file_get_contents(__DIR__ . '/testSchema.json'), true);
         foreach ($definitions as $definition) {
             Builder::createFromSchema($definition, $this->con)->execute();
         }

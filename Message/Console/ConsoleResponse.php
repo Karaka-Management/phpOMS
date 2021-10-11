@@ -109,8 +109,8 @@ final class ConsoleResponse extends ResponseAbstract implements RenderableInterf
         $types = $this->header->get('Content-Type');
 
         foreach ($types as $type) {
-            if (stripos($type, MimeType::M_JSON) !== false) {
-                return (string) json_encode($this->jsonSerialize());
+            if (\stripos($type, MimeType::M_JSON) !== false) {
+                return (string) \json_encode($this->jsonSerialize());
             }
         }
 
@@ -135,7 +135,7 @@ final class ConsoleResponse extends ResponseAbstract implements RenderableInterf
         foreach ($this->response as $key => $response) {
             if ($response instanceof \Serializable) {
                 $render .= $response->serialize();
-            } elseif (\is_string($response) || is_numeric($response)) {
+            } elseif (\is_string($response) || \is_numeric($response)) {
                 $render .= $response;
             } else {
                 throw new \Exception('Wrong response type');
@@ -158,7 +158,7 @@ final class ConsoleResponse extends ResponseAbstract implements RenderableInterf
                     $result += $response->toArray();
                 } elseif (\is_array($response)) {
                     $result += $response;
-                } elseif (is_scalar($response)) {
+                } elseif (\is_scalar($response)) {
                     $result[] = $response;
                 } elseif ($response instanceof \JsonSerializable) {
                     $result[] = $response->jsonSerialize();

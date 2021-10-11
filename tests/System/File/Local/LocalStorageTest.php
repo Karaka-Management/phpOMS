@@ -33,9 +33,9 @@ class LocalStorageTest extends \PHPUnit\Framework\TestCase
     {
         $dirPath = __DIR__ . '/test';
         self::assertTrue(LocalStorage::create($dirPath));
-        self::assertTrue(is_dir($dirPath));
+        self::assertTrue(\is_dir($dirPath));
 
-        rmdir($dirPath);
+        \rmdir($dirPath);
     }
 
     /**
@@ -60,7 +60,7 @@ class LocalStorageTest extends \PHPUnit\Framework\TestCase
         self::assertTrue(LocalStorage::create($dirPath));
         self::assertFalse(LocalStorage::create($dirPath));
 
-        rmdir($dirPath);
+        \rmdir($dirPath);
     }
 
     /**
@@ -74,9 +74,9 @@ class LocalStorageTest extends \PHPUnit\Framework\TestCase
         self::assertTrue(LocalStorage::create($dirPath, 0755, true));
         self::assertTrue(LocalStorage::exists($dirPath));
 
-        rmdir(__DIR__ . '/test/sub/path');
-        rmdir(__DIR__ . '/test/sub');
-        rmdir(__DIR__ . '/test');
+        \rmdir(__DIR__ . '/test/sub/path');
+        \rmdir(__DIR__ . '/test/sub');
+        \rmdir(__DIR__ . '/test');
     }
 
     /**
@@ -124,7 +124,7 @@ class LocalStorageTest extends \PHPUnit\Framework\TestCase
     {
         $dirPath = __DIR__ . '/test';
 
-        self::assertEquals(str_replace('\\', '/', realpath(__DIR__)), LocalStorage::parent($dirPath));
+        self::assertEquals(\str_replace('\\', '/', \realpath(__DIR__)), LocalStorage::parent($dirPath));
     }
 
     /**
@@ -153,7 +153,7 @@ class LocalStorageTest extends \PHPUnit\Framework\TestCase
         $now = new \DateTime('now');
         self::assertEquals($now->format('Y-m-d'), LocalStorage::created($dirPath)->format('Y-m-d'));
 
-        rmdir($dirPath);
+        \rmdir($dirPath);
     }
 
     /**
@@ -170,7 +170,7 @@ class LocalStorageTest extends \PHPUnit\Framework\TestCase
         $now = new \DateTime('now');
         self::assertEquals($now->format('Y-m-d'), LocalStorage::changed($dirPath)->format('Y-m-d'));
 
-        rmdir($dirPath);
+        \rmdir($dirPath);
     }
 
     /**
@@ -402,10 +402,10 @@ class LocalStorageTest extends \PHPUnit\Framework\TestCase
     {
         $testFile = __DIR__ . '/test.txt';
         self::assertTrue(LocalStorage::create($testFile));
-        self::assertTrue(is_file($testFile));
-        self::assertEquals('', file_get_contents($testFile));
+        self::assertTrue(\is_file($testFile));
+        self::assertEquals('', \file_get_contents($testFile));
 
-        unlink($testFile);
+        \unlink($testFile);
     }
 
     /**
@@ -418,9 +418,9 @@ class LocalStorageTest extends \PHPUnit\Framework\TestCase
         $testFile = __DIR__ . '/test.txt';
         self::assertTrue(LocalStorage::create($testFile));
         self::assertFalse(LocalStorage::create($testFile));
-        self::assertTrue(is_file($testFile));
+        self::assertTrue(\is_file($testFile));
 
-        unlink($testFile);
+        \unlink($testFile);
     }
 
     /**
@@ -432,10 +432,10 @@ class LocalStorageTest extends \PHPUnit\Framework\TestCase
     {
         $testFile = __DIR__ . '/test.txt';
         self::assertTrue(LocalStorage::put($testFile, 'test', ContentPutMode::CREATE));
-        self::assertTrue(is_file($testFile));
-        self::assertEquals('test', file_get_contents($testFile));
+        self::assertTrue(\is_file($testFile));
+        self::assertEquals('test', \file_get_contents($testFile));
 
-        unlink($testFile);
+        \unlink($testFile);
     }
 
     /**
@@ -447,7 +447,7 @@ class LocalStorageTest extends \PHPUnit\Framework\TestCase
     {
         $testFile = __DIR__ . '/test.txt';
         self::assertFalse(LocalStorage::put($testFile, 'test', ContentPutMode::REPLACE));
-        self::assertfalse(is_file($testFile));
+        self::assertfalse(\is_file($testFile));
     }
 
     /**
@@ -459,7 +459,7 @@ class LocalStorageTest extends \PHPUnit\Framework\TestCase
     {
         $testFile = __DIR__ . '/test.txt';
         self::assertFalse(LocalStorage::put($testFile, 'test', ContentPutMode::APPEND));
-        self::assertfalse(is_file($testFile));
+        self::assertfalse(\is_file($testFile));
     }
 
     /**
@@ -471,7 +471,7 @@ class LocalStorageTest extends \PHPUnit\Framework\TestCase
     {
         $testFile = __DIR__ . '/test.txt';
         self::assertFalse(LocalStorage::put($testFile, 'test', ContentPutMode::PREPEND));
-        self::assertfalse(is_file($testFile));
+        self::assertfalse(\is_file($testFile));
     }
 
     /**
@@ -496,9 +496,9 @@ class LocalStorageTest extends \PHPUnit\Framework\TestCase
         self::assertTrue(LocalStorage::put($testFile, 'test', ContentPutMode::CREATE));
         self::assertTrue(LocalStorage::put($testFile, 'test2', ContentPutMode::REPLACE));
 
-        self::assertEquals('test2', file_get_contents($testFile));
+        self::assertEquals('test2', \file_get_contents($testFile));
 
-        unlink($testFile);
+        \unlink($testFile);
     }
 
     /**
@@ -512,9 +512,9 @@ class LocalStorageTest extends \PHPUnit\Framework\TestCase
         self::assertTrue(LocalStorage::put($testFile, 'test', ContentPutMode::CREATE));
         self::assertTrue(LocalStorage::set($testFile, 'test2'));
 
-        self::assertEquals('test2', file_get_contents($testFile));
+        self::assertEquals('test2', \file_get_contents($testFile));
 
-        unlink($testFile);
+        \unlink($testFile);
     }
 
     /**
@@ -528,9 +528,9 @@ class LocalStorageTest extends \PHPUnit\Framework\TestCase
         self::assertTrue(LocalStorage::put($testFile, 'test', ContentPutMode::CREATE));
         self::assertTrue(LocalStorage::put($testFile, 'test2', ContentPutMode::APPEND));
 
-        self::assertEquals('testtest2', file_get_contents($testFile));
+        self::assertEquals('testtest2', \file_get_contents($testFile));
 
-        unlink($testFile);
+        \unlink($testFile);
     }
 
     /**
@@ -544,9 +544,9 @@ class LocalStorageTest extends \PHPUnit\Framework\TestCase
         self::assertTrue(LocalStorage::put($testFile, 'test', ContentPutMode::CREATE));
         self::assertTrue(LocalStorage::append($testFile, 'test2'));
 
-        self::assertEquals('testtest2', file_get_contents($testFile));
+        self::assertEquals('testtest2', \file_get_contents($testFile));
 
-        unlink($testFile);
+        \unlink($testFile);
     }
 
     /**
@@ -560,9 +560,9 @@ class LocalStorageTest extends \PHPUnit\Framework\TestCase
         self::assertTrue(LocalStorage::put($testFile, 'test', ContentPutMode::CREATE));
         self::assertTrue(LocalStorage::put($testFile, 'test2', ContentPutMode::PREPEND));
 
-        self::assertEquals('test2test', file_get_contents($testFile));
+        self::assertEquals('test2test', \file_get_contents($testFile));
 
-        unlink($testFile);
+        \unlink($testFile);
     }
 
     /**
@@ -576,9 +576,9 @@ class LocalStorageTest extends \PHPUnit\Framework\TestCase
         self::assertTrue(LocalStorage::put($testFile, 'test', ContentPutMode::CREATE));
         self::assertTrue(LocalStorage::prepend($testFile, 'test2'));
 
-        self::assertEquals('test2test', file_get_contents($testFile));
+        self::assertEquals('test2test', \file_get_contents($testFile));
 
-        unlink($testFile);
+        \unlink($testFile);
     }
 
     /**
@@ -592,7 +592,7 @@ class LocalStorageTest extends \PHPUnit\Framework\TestCase
         self::assertTrue(LocalStorage::put($testFile, 'test', ContentPutMode::CREATE));
         self::assertEquals('test', LocalStorage::get($testFile));
 
-        unlink($testFile);
+        \unlink($testFile);
     }
 
     /**
@@ -604,7 +604,7 @@ class LocalStorageTest extends \PHPUnit\Framework\TestCase
     {
         $testFile = __DIR__ . '/test.txt';
 
-        self::assertEquals(str_replace('\\', '/', realpath(__DIR__ . '/../')), LocalStorage::parent($testFile));
+        self::assertEquals(\str_replace('\\', '/', \realpath(__DIR__ . '/../')), LocalStorage::parent($testFile));
     }
 
     /**
@@ -652,7 +652,7 @@ class LocalStorageTest extends \PHPUnit\Framework\TestCase
     {
         $testFile = __DIR__ . '/test.txt';
 
-        self::assertEquals(basename(realpath(__DIR__)), LocalStorage::dirname($testFile));
+        self::assertEquals(\basename(\realpath(__DIR__)), LocalStorage::dirname($testFile));
     }
 
     /**
@@ -664,7 +664,7 @@ class LocalStorageTest extends \PHPUnit\Framework\TestCase
     {
         $testFile = __DIR__ . '/test.txt';
 
-        self::assertEquals(realpath(__DIR__), LocalStorage::dirpath($testFile));
+        self::assertEquals(\realpath(__DIR__), LocalStorage::dirpath($testFile));
     }
 
     /**
@@ -692,7 +692,7 @@ class LocalStorageTest extends \PHPUnit\Framework\TestCase
         $now = new \DateTime('now');
         self::assertEquals($now->format('Y-m-d'), LocalStorage::created($testFile)->format('Y-m-d'));
 
-        unlink($testFile);
+        \unlink($testFile);
     }
 
     /**
@@ -708,7 +708,7 @@ class LocalStorageTest extends \PHPUnit\Framework\TestCase
         $now = new \DateTime('now');
         self::assertEquals($now->format('Y-m-d'), LocalStorage::changed($testFile)->format('Y-m-d'));
 
-        unlink($testFile);
+        \unlink($testFile);
     }
 
     /**
@@ -749,7 +749,7 @@ class LocalStorageTest extends \PHPUnit\Framework\TestCase
 
         self::assertGreaterThan(0, LocalStorage::size($testFile));
 
-        unlink($testFile);
+        \unlink($testFile);
     }
 
     /**
@@ -764,7 +764,7 @@ class LocalStorageTest extends \PHPUnit\Framework\TestCase
 
         self::assertGreaterThan(0, LocalStorage::permission($testFile));
 
-        unlink($testFile);
+        \unlink($testFile);
     }
 
     /**
@@ -794,11 +794,11 @@ class LocalStorageTest extends \PHPUnit\Framework\TestCase
         self::assertTrue(LocalStorage::exists($newPath));
         self::assertEquals('test', LocalStorage::get($newPath));
 
-        unlink($newPath);
-        rmdir(__DIR__ . '/sub/path/');
-        rmdir(__DIR__ . '/sub/');
+        \unlink($newPath);
+        \rmdir(__DIR__ . '/sub/path/');
+        \rmdir(__DIR__ . '/sub/');
 
-        unlink($testFile);
+        \unlink($testFile);
     }
 
     /**
@@ -817,8 +817,8 @@ class LocalStorageTest extends \PHPUnit\Framework\TestCase
         self::assertFalse(LocalStorage::copy($testFile, $newPath));
         self::assertEquals('test2', LocalStorage::get($newPath));
 
-        unlink($newPath);
-        unlink($testFile);
+        \unlink($newPath);
+        \unlink($testFile);
     }
 
     /**
@@ -837,8 +837,8 @@ class LocalStorageTest extends \PHPUnit\Framework\TestCase
         self::assertTrue(LocalStorage::copy($testFile, $newPath, true));
         self::assertEquals('test', LocalStorage::get($newPath));
 
-        unlink($newPath);
-        unlink($testFile);
+        \unlink($newPath);
+        \unlink($testFile);
     }
 
     /**
@@ -858,9 +858,9 @@ class LocalStorageTest extends \PHPUnit\Framework\TestCase
         self::assertTrue(LocalStorage::exists($newPath));
         self::assertEquals('test', LocalStorage::get($newPath));
 
-        unlink($newPath);
-        rmdir(__DIR__ . '/sub/path/');
-        rmdir(__DIR__ . '/sub/');
+        \unlink($newPath);
+        \rmdir(__DIR__ . '/sub/path/');
+        \rmdir(__DIR__ . '/sub/');
     }
 
     /**
@@ -880,8 +880,8 @@ class LocalStorageTest extends \PHPUnit\Framework\TestCase
         self::assertTrue(LocalStorage::exists($testFile));
         self::assertEquals('test2', LocalStorage::get($newPath));
 
-        unlink($newPath);
-        unlink($testFile);
+        \unlink($newPath);
+        \unlink($testFile);
     }
 
     /**
@@ -901,7 +901,7 @@ class LocalStorageTest extends \PHPUnit\Framework\TestCase
         self::assertFalse(LocalStorage::exists($testFile));
         self::assertEquals('test', LocalStorage::get($newPath));
 
-        unlink($newPath);
+        \unlink($newPath);
     }
 
     /**

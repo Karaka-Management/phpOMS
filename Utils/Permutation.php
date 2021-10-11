@@ -49,7 +49,7 @@ final class Permutation
         $permutations = [];
 
         if (empty($toPermute)) {
-            $permutations[] = $concat ? implode('', $result) : $result;
+            $permutations[] = $concat ? \implode('', $result) : $result;
         } else {
             foreach ($toPermute as $key => $val) {
                 $newArr   = $toPermute;
@@ -58,7 +58,7 @@ final class Permutation
 
                 unset($newArr[$key]);
 
-                $permutations = array_merge($permutations, self::permut($newArr, $newres, $concat));
+                $permutations = \array_merge($permutations, self::permut($newArr, $newres, $concat));
             }
         }
 
@@ -77,7 +77,7 @@ final class Permutation
      */
     public static function isPermutation(string $a, string $b) : bool
     {
-        return count_chars($a, 1) === count_chars($b, 1);
+        return \count_chars($a, 1) === \count_chars($b, 1);
     }
 
     /**
@@ -92,9 +92,9 @@ final class Permutation
      */
     public static function isPalindrome(string $a, string $filter = 'a-zA-Z0-9') : bool
     {
-        $a = strtolower(preg_replace('/[^' . $filter . ']/', '', $a) ?? '');
+        $a = \strtolower(\preg_replace('/[^' . $filter . ']/', '', $a) ?? '');
 
-        return $a === strrev($a);
+        return $a === \strrev($a);
     }
 
     /**

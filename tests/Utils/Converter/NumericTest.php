@@ -30,7 +30,7 @@ class NumericTest extends \PHPUnit\Framework\TestCase
      */
     public function testArabicToRoman() : void
     {
-        $rand = mt_rand(1, 9999);
+        $rand = \mt_rand(1, 9999);
         self::assertEquals($rand, Numeric::romanToArabic(Numeric::arabicToRoman($rand)));
 
         self::assertEquals('VIII', Numeric::arabicToRoman(8));

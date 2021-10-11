@@ -86,9 +86,9 @@ final class Preloader
                 continue;
             }
 
-            if (is_dir($include)) {
+            if (\is_dir($include)) {
                 $this->loadDir($include);
-            } elseif (is_file($include)) {
+            } elseif (\is_file($include)) {
                 $this->loadFile($include);
             }
         }
@@ -105,25 +105,25 @@ final class Preloader
      */
     private function loadDir(string $path) : void
     {
-        $fh = opendir($path);
+        $fh = \opendir($path);
 
         if ($fh === false) {
             return; // @codeCoverageIgnore
         }
 
-        while ($file = readdir($fh)) {
+        while ($file = \readdir($fh)) {
             if (\in_array($file, $this->ignores)) {
                 continue;
             }
 
-            if (is_dir($path . '/' . $file)) {
+            if (\is_dir($path . '/' . $file)) {
                 $this->loadDir($path . '/' . $file);
-            } elseif (is_file($path . '/' . $file)) {
+            } elseif (\is_file($path . '/' . $file)) {
                 $this->loadFile($path . '/' . $file);
             }
         }
 
-        closedir($fh);
+        \closedir($fh);
     }
 
     /**
@@ -138,7 +138,7 @@ final class Preloader
     private function loadFile(string $path) : void
     {
         if (\in_array($path, $this->ignores)
-            || substr($path, -\strlen('.php')) !== '.php'
+            || \substr($path, -\strlen('.php')) !== '.php'
         ) {
             return;
         }

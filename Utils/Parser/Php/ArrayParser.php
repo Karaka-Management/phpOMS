@@ -42,13 +42,13 @@ class ArrayParser
 
         foreach ($arr as $key => $val) {
             if (\is_string($key)) {
-                $key = '\'' . str_replace('\'', '\\\'', $key) . '\'';
+                $key = '\'' . \str_replace('\'', '\\\'', $key) . '\'';
             }
 
-            $stringify .= str_repeat(' ', $depth * 4) . $key . ' => ' . self::parseVariable($val, $depth + 1) . ',' . "\n";
+            $stringify .= \str_repeat(' ', $depth * 4) . $key . ' => ' . self::parseVariable($val, $depth + 1) . ',' . "\n";
         }
 
-        return $stringify . str_repeat(' ', ($depth - 1) * 4) . ']';
+        return $stringify . \str_repeat(' ', ($depth - 1) * 4) . ']';
     }
 
     /**
@@ -68,14 +68,14 @@ class ArrayParser
         if (\is_array($value)) {
             return self::serializeArray($value, $depth);
         } elseif (\is_string($value)) {
-            return '\'' . str_replace('\'', '\\\'', $value) . '\'';
+            return '\'' . \str_replace('\'', '\\\'', $value) . '\'';
         } elseif (\is_bool($value)) {
             return $value ? 'true' : 'false';
         } elseif ($value === null) {
             return 'null';
         } elseif (\is_float($value)) {
-            return rtrim(rtrim(number_format($value, 5, '.', ''), '0'), '.');
-        } elseif (is_scalar($value)) {
+            return \rtrim(\rtrim(\number_format($value, 5, '.', ''), '0'), '.');
+        } elseif (\is_scalar($value)) {
             return (string) $value;
         } elseif ($value instanceof \Serializable) {
             return self::parseVariable($value->serialize());

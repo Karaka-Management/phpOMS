@@ -117,8 +117,8 @@ final class Complex
     public function sqrt() : self
     {
         return new self(
-            sqrt(($this->re + sqrt($this->re ** 2 + $this->im ** 2)) / 2),
-            ($this->im <=> 0) * sqrt((-$this->re + sqrt($this->re ** 2 + $this->im ** 2)) / 2)
+            \sqrt(($this->re + \sqrt($this->re ** 2 + $this->im ** 2)) / 2),
+            ($this->im <=> 0) * \sqrt((-$this->re + \sqrt($this->re ** 2 + $this->im ** 2)) / 2)
         );
     }
 
@@ -131,7 +131,7 @@ final class Complex
      */
     public function abs() : int | float
     {
-        return sqrt($this->re ** 2 + $this->im ** 2);
+        return \sqrt($this->re ** 2 + $this->im ** 2);
     }
 
     /**
@@ -225,7 +225,7 @@ final class Complex
      */
     public function add(int | float | self $value) : self
     {
-        if (is_numeric($value)) {
+        if (\is_numeric($value)) {
             return $this->addScalar($value);
         }
 
@@ -271,7 +271,7 @@ final class Complex
      */
     public function sub(int | float | self $value) : self
     {
-        if (is_numeric($value)) {
+        if (\is_numeric($value)) {
             return $this->subScalar($value);
         }
 
@@ -317,7 +317,7 @@ final class Complex
      */
     public function mult(int | float | self $value) : self
     {
-        if (is_numeric($value)) {
+        if (\is_numeric($value)) {
             return $this->multScalar($value);
         }
 
@@ -368,7 +368,7 @@ final class Complex
      */
     public function div(int | float | self $value) : self
     {
-        if (is_numeric($value)) {
+        if (\is_numeric($value)) {
             return $this->divScalar($value);
         }
 
@@ -417,12 +417,12 @@ final class Complex
      */
     public function render(int $precision = 2) : string
     {
-        return ($this->re !== 0 ? number_format($this->re, $precision) : '')
+        return ($this->re !== 0 ? \number_format($this->re, $precision) : '')
         . ($this->im > 0 && $this->re !== 0 ? ' +' : '')
         . ($this->im < 0 && $this->re !== 0 ? ' -' : '')
         . ($this->im !== 0 ? (
-            ($this->re !== 0 ? ' ' : '') . number_format(
-                ($this->im < 0 && $this->re === 0 ? $this->im : abs($this->im)), $precision
+            ($this->re !== 0 ? ' ' : '') . \number_format(
+                ($this->im < 0 && $this->re === 0 ? $this->im : \abs($this->im)), $precision
                 ) . 'i'
             ) : '');
     }

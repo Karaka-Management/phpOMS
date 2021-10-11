@@ -49,7 +49,7 @@ final class CombSort implements SortInterface
         }
 
         while (!$sorted) {
-            $gap = (int) floor($gap / $shrink);
+            $gap = (int) \floor($gap / $shrink);
 
             if ($gap < 2) {
                 $gap    = 1;

@@ -69,7 +69,7 @@ class ExponentialDistributionTest extends \PHPUnit\Framework\TestCase
      */
     public function testMedian() : void
     {
-        self::assertEquals(1 / 3 * log(2), ExponentialDistribution::getMedian(3));
+        self::assertEquals(1 / 3 * \log(2), ExponentialDistribution::getMedian(3));
     }
 
     /**
@@ -99,7 +99,7 @@ class ExponentialDistributionTest extends \PHPUnit\Framework\TestCase
      */
     public function testStandardDeviation() : void
     {
-        self::assertEquals(sqrt(1 / (3 ** 2)), ExponentialDistribution::getStandardDeviation(3));
+        self::assertEquals(\sqrt(1 / (3 ** 2)), ExponentialDistribution::getStandardDeviation(3));
     }
 
     /**

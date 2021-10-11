@@ -28,6 +28,6 @@ class FileCacheJsonSerializable implements \JsonSerializable
 
     public function unserialize($val) : void
     {
-        $this->val = json_decode($val, true);
+        $this->val = \json_decode($val, true);
     }
 }

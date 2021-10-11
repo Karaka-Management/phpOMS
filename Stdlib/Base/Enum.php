@@ -68,9 +68,9 @@ abstract class Enum
     public static function getRandom() : mixed
     {
         $constants = self::getConstants();
-        $keys      = array_keys($constants);
+        $keys      = \array_keys($constants);
 
-        return $constants[$keys[mt_rand(0, \count($constants) - 1)]];
+        return $constants[$keys[\mt_rand(0, \count($constants) - 1)]];
     }
 
     /**
@@ -106,7 +106,7 @@ abstract class Enum
     {
         $arr = self::getConstants();
 
-        return array_search($value, $arr);
+        return \array_search($value, $arr);
     }
 
     /**

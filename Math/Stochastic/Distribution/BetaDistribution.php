@@ -91,7 +91,7 @@ final class BetaDistribution
      */
     public static function getStandardDeviation(float $alpha, float $beta) : float
     {
-        return sqrt(self::getVariance($alpha, $beta));
+        return \sqrt(self::getVariance($alpha, $beta));
     }
 
     /**
@@ -106,7 +106,7 @@ final class BetaDistribution
      */
     public static function getSkewness(float $alpha, float $beta) : float
     {
-        return 2 * ($beta - $alpha) * sqrt($alpha + $beta + 1) / (($alpha + $beta + 2) * sqrt($alpha * $beta));
+        return 2 * ($beta - $alpha) * \sqrt($alpha + $beta + 1) / (($alpha + $beta + 2) * \sqrt($alpha * $beta));
     }
 
     /**
@@ -164,7 +164,7 @@ final class BetaDistribution
      */
     public static function getPdf(float $x, float $alpha, float $beta) : float
     {
-        return pow($x, $alpha - 1) * pow(1 - $x, $beta - 1) / Beta::beta($alpha, $beta);
+        return \pow($x, $alpha - 1) * \pow(1 - $x, $beta - 1) / Beta::beta($alpha, $beta);
     }
 
     /**

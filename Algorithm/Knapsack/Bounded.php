@@ -55,7 +55,7 @@ final class Bounded
 
         // @var int<0, max> $maxCost
         $maxCost = (int) $backpack->getMaxCost();
-        $mm      = array_fill(0, ($maxCost + 1), 0);
+        $mm      = \array_fill(0, ($maxCost + 1), 0);
         $m       = [];
         $m[0]    = $mm;
 

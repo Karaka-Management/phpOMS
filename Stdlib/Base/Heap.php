@@ -77,7 +77,7 @@ class Heap
             }
         }
 
-        array_splice($this->nodes, $lo, 0, [$x]);
+        \array_splice($this->nodes, $lo, 0, [$x]);
     }
 
     /**
@@ -104,7 +104,7 @@ class Heap
      */
     public function pop() : mixed
     {
-        $last = array_pop($this->nodes);
+        $last = \array_pop($this->nodes);
         if (empty($this->nodes)) {
             return $last;
         }
@@ -140,7 +140,7 @@ class Heap
     public function contains(mixed $item) : bool
     {
         foreach ($this->nodes as $key => $node) {
-            if (is_scalar($item)) {
+            if (\is_scalar($item)) {
                 if ($node === $item) {
                     return true;
                 }
@@ -252,9 +252,9 @@ class Heap
     public function getNLargest(int $n) : array
     {
         $nodes = $this->nodes;
-        uasort($nodes, $this->compare);
+        \uasort($nodes, $this->compare);
 
-        return \array_slice(array_reverse($nodes), 0, $n);
+        return \array_slice(\array_reverse($nodes), 0, $n);
     }
 
     /**
@@ -269,7 +269,7 @@ class Heap
     public function getNSmallest(int $n) : array
     {
         $nodes = $this->nodes;
-        uasort($nodes, $this->compare);
+        \uasort($nodes, $this->compare);
 
         return \array_slice($nodes, 0, $n);
     }

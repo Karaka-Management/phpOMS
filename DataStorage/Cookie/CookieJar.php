@@ -145,8 +145,8 @@ final class CookieJar
             }
 
             // @codeCoverageIgnoreStart
-            if (!headers_sent()) {
-                setcookie($id, '', time() - 3600);
+            if (!\headers_sent()) {
+                \setcookie($id, '', \time() - 3600);
 
                 return true;
             }
@@ -195,7 +195,7 @@ final class CookieJar
 
         // @codeCoverageIgnoreStart
         foreach ($this->cookies as $key => $cookie) {
-            setcookie($key, $cookie['value'], [
+            \setcookie($key, $cookie['value'], [
                 'expires'  => $cookie['expires'],
                 'path'     => $cookie['path'],
                 'domain'   => $cookie['domain'],

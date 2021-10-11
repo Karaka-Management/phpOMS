@@ -47,9 +47,9 @@ final class ImageUtils
      */
     public static function decodeBase64Image(string $img) : string
     {
-        $img = str_replace('data:image/png;base64,', '', $img);
-        $img = str_replace(' ', '+', $img);
+        $img = \str_replace('data:image/png;base64,', '', $img);
+        $img = \str_replace(' ', '+', $img);
 
-        return (string) base64_decode($img);
+        return (string) \base64_decode($img);
     }
 }

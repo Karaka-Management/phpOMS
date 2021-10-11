@@ -185,7 +185,7 @@ class Location implements \JsonSerializable, \Serializable
      */
     public function serialize() : string
     {
-        return (string) json_encode($this->jsonSerialize());
+        return (string) \json_encode($this->jsonSerialize());
     }
 
     /**
@@ -216,7 +216,7 @@ class Location implements \JsonSerializable, \Serializable
      */
     public function unserialize($serialized) : void
     {
-        $data = json_decode($serialized, true);
+        $data = \json_decode($serialized, true);
 
         $this->postal  = $data['postal'];
         $this->city    = $data['city'];

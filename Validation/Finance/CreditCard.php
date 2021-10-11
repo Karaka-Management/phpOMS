@@ -35,7 +35,7 @@ final class CreditCard extends ValidatorAbstract
             return false;
         }
 
-        $value = preg_replace('/\D/', '', $value) ?? '';
+        $value = \preg_replace('/\D/', '', $value) ?? '';
 
         // Set the string length and parity
         $numberLength = \strlen($value);

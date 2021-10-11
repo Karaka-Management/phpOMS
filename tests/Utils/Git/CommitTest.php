@@ -214,7 +214,7 @@ class CommitTest extends \PHPUnit\Framework\TestCase
     {
         $commit = new Commit();
 
-        $commit->setRepository(new Repository(realpath(__DIR__ . '/../../../')));
-        self::assertEquals(realpath(__DIR__ . '/../../../'), $commit->getRepository()->getPath());
+        $commit->setRepository(new Repository(\realpath(__DIR__ . '/../../../')));
+        self::assertEquals(\realpath(__DIR__ . '/../../../'), $commit->getRepository()->getPath());
     }
 }

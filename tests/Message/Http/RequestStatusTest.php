@@ -36,7 +36,7 @@ class RequestStatusTest extends \PHPUnit\Framework\TestCase
      */
     public function testUnique() : void
     {
-        self::assertEquals(RequestStatus::getConstants(), array_unique(RequestStatus::getConstants()));
+        self::assertEquals(RequestStatus::getConstants(), \array_unique(RequestStatus::getConstants()));
     }
 
     /**

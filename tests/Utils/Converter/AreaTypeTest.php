@@ -36,7 +36,7 @@ class AreaTypeTest extends \PHPUnit\Framework\TestCase
      */
     public function testUnique() : void
     {
-        self::assertEquals(AreaType::getConstants(), array_unique(AreaType::getConstants()));
+        self::assertEquals(AreaType::getConstants(), \array_unique(AreaType::getConstants()));
     }
 
     /**

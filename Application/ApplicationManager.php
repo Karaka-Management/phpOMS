@@ -70,7 +70,7 @@ final class ApplicationManager
      */
     private function loadInfo(string $appPath) : ApplicationInfo
     {
-        $path = realpath($appPath);
+        $path = \realpath($appPath);
         if ($path === false) {
             throw new PathException($appPath);
         }
@@ -94,15 +94,15 @@ final class ApplicationManager
      */
     public function install(string $source, string $destination, string $theme = 'Default') : bool
     {
-        $destination = rtrim($destination, '\\/');
-        $source      = rtrim($source, '/\\');
+        $destination = \rtrim($destination, '\\/');
+        $source      = \rtrim($source, '/\\');
 
-        if (!is_dir(\dirname($destination))) {
+        if (!\is_dir(\dirname($destination))) {
             Directory::create(\dirname($destination), 0755, true);
         }
 
-        if (!is_dir($source) || ($path = realpath($destination)) === false
-            || !is_file($source . '/Admin/Installer.php')
+        if (!\is_dir($source) || ($path = \realpath($destination)) === false
+            || !\is_file($source . '/Admin/Installer.php')
         ) {
             return false;
         }
@@ -114,10 +114,10 @@ final class ApplicationManager
             $this->installFiles($source, $destination);
             $this->replacePlaceholder($destination);
 
-            $classPath = substr($path . '/Admin/Installer', (int) \strlen((string) realpath(__DIR__ . '/../../')));
+            $classPath = \substr($path . '/Admin/Installer', (int) \strlen((string) \realpath(__DIR__ . '/../../')));
 
             // @var class-string<InstallerAbstract> $class
-            $class = str_replace('/', '\\', $classPath);
+            $class = \str_replace('/', '\\', $classPath);
             $class::install($this->app->dbPool, $info, $this->app->appSettings);
 
             return true;
@@ -137,8 +137,8 @@ final class ApplicationManager
      */
     public function uninstall(string $source) : bool
     {
-        $source = rtrim($source, '/\\');
-        if (($path = realpath($source)) === false || !is_file($source . '/Admin/Uninstaller.php')) {
+        $source = \rtrim($source, '/\\');
+        if (($path = \realpath($source)) === false || !\is_file($source . '/Admin/Uninstaller.php')) {
             return false;
         }
 
@@ -146,10 +146,10 @@ final class ApplicationManager
             $info                                      = $this->loadInfo($source . '/info.json');
             $this->installed[$info->getInternalName()] = $info;
 
-            $classPath = substr($path . '/Admin/Uninstaller', (int) \strlen((string) realpath(__DIR__ . '/../../')));
+            $classPath = \substr($path . '/Admin/Uninstaller', (int) \strlen((string) \realpath(__DIR__ . '/../../')));
 
             // @var class-string<UninstallerAbstract> $class
-            $class = str_replace('/', '\\', $classPath);
+            $class = \str_replace('/', '\\', $classPath);
             $class::uninstall($this->app->dbPool, $info, $this->app->appSettings);
 
             $this->uninstallFiles($source);
@@ -176,13 +176,13 @@ final class ApplicationManager
             return;
         }
 
-        if (($path = realpath($appPath)) === false) {
+        if (($path = \realpath($appPath)) === false) {
             return; // @codeCoverageIgnore
         }
 
         // @var class-string<InstallerAbstract> $class
-        $classPath = substr($path . '/Admin/Installer', (int) \strlen((string) realpath(__DIR__ . '/../../')));
-        $class     = str_replace('/', '\\', $classPath);
+        $classPath = \substr($path . '/Admin/Installer', (int) \strlen((string) \realpath(__DIR__ . '/../../')));
+        $class     = \str_replace('/', '\\', $classPath);
 
         /** @var $class InstallerAbstract */
         $class::reInit($info);
@@ -233,14 +233,14 @@ final class ApplicationManager
     public function getInstalledApplications(bool $useCache = true, string $basePath = __DIR__ . '/../../Web') : array
     {
         if (empty($this->installed) || !$useCache) {
-            $apps = scandir($basePath);
+            $apps = \scandir($basePath);
 
             if ($apps === false) {
                 return $this->installed; // @codeCoverageIgnore
             }
 
             foreach ($apps as $app) {
-                if ($app === '.' || $app === '..' || !is_file($basePath . '/' . $app . '/info.json')) {
+                if ($app === '.' || $app === '..' || !\is_file($basePath . '/' . $app . '/info.json')) {
                     continue;
                 }
 
@@ -293,16 +293,16 @@ final class ApplicationManager
     {
         $files = Directory::list($destination, '*', true);
         foreach ($files as $file) {
-            if (!is_file($destination . '/' . $file)) {
+            if (!\is_file($destination . '/' . $file)) {
                 continue;
             }
 
-            $content = file_get_contents($destination . '/' . $file);
+            $content = \file_get_contents($destination . '/' . $file);
             if ($content === false) {
                 continue; // @codeCoverageIgnore
             }
 
-            file_put_contents($destination . '/' . $file, str_replace('{APPNAME}', basename($destination), $content));
+            \file_put_contents($destination . '/' . $file, \str_replace('{APPNAME}', \basename($destination), $content));
         }
     }
 }

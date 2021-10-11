@@ -32,7 +32,7 @@ class LogisticDistributionTest extends \PHPUnit\Framework\TestCase
         $s  = 2;
 
         self::assertEquals(
-            exp(-($x - $mu) / $s) / ($s * (1 + exp(-($x - $mu) / $s)) ** 2),
+            \exp(-($x - $mu) / $s) / ($s * (1 + \exp(-($x - $mu) / $s)) ** 2),
             LogisticDistribution::getPdf($x, $mu, $s)
         );
     }
@@ -48,7 +48,7 @@ class LogisticDistributionTest extends \PHPUnit\Framework\TestCase
         $s  = 2;
 
         self::assertEquals(
-            1 / (1 + exp(-($x - $mu) / $s)),
+            1 / (1 + \exp(-($x - $mu) / $s)),
             LogisticDistribution::getCdf($x, $mu, $s)
         );
     }
@@ -101,7 +101,7 @@ class LogisticDistributionTest extends \PHPUnit\Framework\TestCase
     {
         $s = 3;
         self::assertEquals(
-            sqrt($s ** 2 * \M_PI ** 2 / 3),
+            \sqrt($s ** 2 * \M_PI ** 2 / 3),
             LogisticDistribution::getStandardDeviation($s)
         );
     }
@@ -131,6 +131,6 @@ class LogisticDistributionTest extends \PHPUnit\Framework\TestCase
     public function testEntropy() : void
     {
         $s = 3;
-        self::assertEquals(log($s) + 2, LogisticDistribution::getEntropy($s));
+        self::assertEquals(\log($s) + 2, LogisticDistribution::getEntropy($s));
     }
 }

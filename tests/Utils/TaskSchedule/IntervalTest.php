@@ -42,7 +42,7 @@ class IntervalTest extends \PHPUnit\Framework\TestCase
         self::assertEquals([], $interval->getMonth());
         self::assertEquals([], $interval->getDayOfWeek());
         self::assertEquals([], $interval->getYear());
-        self::assertEquals(json_encode([
+        self::assertEquals(\json_encode([
                 'start'       => $dt->format('Y-m-d H:i:s'),
                 'end'         => null,
                 'maxDuration' => 0,
@@ -298,7 +298,7 @@ class IntervalTest extends \PHPUnit\Framework\TestCase
         $interval->addDayOfMonth(1, 3, 2);
         $interval->addDayOfWeek(1, 3, 2);
 
-        self::assertEquals(json_encode([
+        self::assertEquals(\json_encode([
             'start'       => '2015-08-14 00:00:00',
             'end'         => '2018-10-30 00:00:00',
             'maxDuration' => 30,

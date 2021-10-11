@@ -36,7 +36,7 @@ class QueryTypeTest extends \PHPUnit\Framework\TestCase
      */
     public function testUnique() : void
     {
-        self::assertEquals(QueryType::getConstants(), array_unique(QueryType::getConstants()));
+        self::assertEquals(QueryType::getConstants(), \array_unique(QueryType::getConstants()));
     }
 
     /**

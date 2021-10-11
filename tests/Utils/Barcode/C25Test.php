@@ -38,8 +38,8 @@ class C25Test extends \PHPUnit\Framework\TestCase
     public function testImagePng() : void
     {
         $path = __DIR__ . '/c25.png';
-        if (is_file($path)) {
-            unlink($path);
+        if (\is_file($path)) {
+            \unlink($path);
         }
 
         $img = new C25('1234567890', 150, 50);
@@ -55,8 +55,8 @@ class C25Test extends \PHPUnit\Framework\TestCase
     public function testImageJpg() : void
     {
         $path = __DIR__ . '/c25.jpg';
-        if (is_file($path)) {
-            unlink($path);
+        if (\is_file($path)) {
+            \unlink($path);
         }
 
         $img = new C25('1234567890', 150, 50);
@@ -72,8 +72,8 @@ class C25Test extends \PHPUnit\Framework\TestCase
     public function testOrientationAndMargin() : void
     {
         $path = __DIR__ . '/c25_vertical.png';
-        if (is_file($path)) {
-            unlink($path);
+        if (\is_file($path)) {
+            \unlink($path);
         }
 
         $img = new C25('1234567890', 50, 200, OrientationType::VERTICAL);

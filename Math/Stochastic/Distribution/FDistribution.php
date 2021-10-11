@@ -38,7 +38,7 @@ final class FDistribution
      */
     public static function getPdf(float $x, int $d1, int $d2) : float
     {
-        return sqrt((pow($d1 * $x, $d1) * ($d2 ** $d2)) / pow($d1 * $x + $d2, $d1 + $d2))
+        return \sqrt((\pow($d1 * $x, $d1) * ($d2 ** $d2)) / \pow($d1 * $x + $d2, $d1 + $d2))
             / ($x * Beta::beta($d1 / 2, $d2 / 2));
     }
 
@@ -127,7 +127,7 @@ final class FDistribution
      */
     public static function getStandardDeviation(int $d1, int $d2) : float
     {
-        return sqrt(self::getVariance($d1, $d2));
+        return \sqrt(self::getVariance($d1, $d2));
     }
 
     /**
@@ -146,7 +146,7 @@ final class FDistribution
             return 0.0;
         }
 
-        return (2 * $d1 + $d2 - 2) * sqrt(8 * ($d2 - 4))
-            / (($d2 - 6) * sqrt($d1 * ($d1 + $d2 - 2)));
+        return (2 * $d1 + $d2 - 2) * \sqrt(8 * ($d2 - 4))
+            / (($d2 - 6) * \sqrt($d1 * ($d1 + $d2 - 2)));
     }
 }

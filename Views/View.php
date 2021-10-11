@@ -232,18 +232,18 @@ class View extends ViewAbstract
     {
         $match = '/Modules/';
 
-        if (($start = strripos($this->template, $match)) === false) {
+        if (($start = \strripos($this->template, $match)) === false) {
             throw new InvalidModuleException($this->template);
         }
 
         $start = $start + \strlen($match);
-        $end   = strpos($this->template, '/', $start);
+        $end   = \strpos($this->template, '/', $start);
 
         if ($end === false) {
             throw new InvalidModuleException($this->template);
         }
 
-        $this->module = substr($this->template, $start, $end - $start);
+        $this->module = \substr($this->template, $start, $end - $start);
 
         if ($this->module === false) {
             $this->module = '0'; // @codeCoverageIgnore
@@ -265,13 +265,13 @@ class View extends ViewAbstract
     {
         $match = '/Theme/';
 
-        if (($start = strripos($this->template, $match)) === false) {
+        if (($start = \strripos($this->template, $match)) === false) {
             throw new InvalidThemeException($this->template);
         }
 
         $start       = $start + \strlen($match);
-        $end         = strpos($this->template, '/', $start);
-        $this->theme = substr($this->template, $start, $end - $start);
+        $end         = \strpos($this->template, '/', $start);
+        $this->theme = \substr($this->template, $start, $end - $start);
 
         if ($this->theme === false) {
             $this->theme = '0'; // @codeCoverageIgnore
@@ -291,7 +291,7 @@ class View extends ViewAbstract
      */
     public function getHtml(string $translation, string $module = null, string $theme = null) : string
     {
-        return htmlspecialchars($this->getText($translation, $module, $theme));
+        return \htmlspecialchars($this->getText($translation, $module, $theme));
     }
 
     /**

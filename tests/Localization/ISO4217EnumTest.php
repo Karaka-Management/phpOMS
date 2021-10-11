@@ -30,6 +30,6 @@ class ISO4217EnumTest extends \PHPUnit\Framework\TestCase
     public function testEnums() : void
     {
         $enum = ISO4217Enum::getConstants();
-        self::assertEquals(\count($enum), \count(array_unique($enum)));
+        self::assertEquals(\count($enum), \count(\array_unique($enum)));
     }
 }

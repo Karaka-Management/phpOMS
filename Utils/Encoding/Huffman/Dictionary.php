@@ -80,17 +80,17 @@ final class Dictionary
         /** @var array<int, array<int, string|array>> $count */
         $count = [];
         while (isset($source[0])) {
-            $count[] = [substr_count($source, $source[0]), $source[0]];
-            $source  = str_replace($source[0], '', $source);
+            $count[] = [\substr_count($source, $source[0]), $source[0]];
+            $source  = \str_replace($source[0], '', $source);
         }
 
-        sort($count);
+        \sort($count);
         while (\count($count) > 1) {
-            $row1    = array_shift($count);
-            $row2    = array_shift($count);
+            $row1    = \array_shift($count);
+            $row2    = \array_shift($count);
             $count[] = [$row1[0] + $row2[0], [$row1, $row2]];
 
-            sort($count);
+            \sort($count);
         }
 
         $this->fill(\is_array($count[0][1]) ? $count[0][1] : $count);
@@ -145,7 +145,7 @@ final class Dictionary
             throw new \InvalidArgumentException('Character already exists');
         }
 
-        if (\strlen(str_replace('0', '', str_replace('1', '', $value))) !== 0) {
+        if (\strlen(\str_replace('0', '', \str_replace('1', '', $value))) !== 0) {
             throw new \InvalidArgumentException('Bad formatting.');
         }
 
@@ -203,11 +203,11 @@ final class Dictionary
         }
 
         for ($i = $this->min; $i <= $this->max; ++$i) {
-            $needle = substr($value, 0, $i);
+            $needle = \substr($value, 0, $i);
 
             foreach ($this->dictionary as $key => $val) {
                 if ($needle === $val) {
-                    $value = substr($value, $i);
+                    $value = \substr($value, $i);
 
                     return $key;
                 }

@@ -77,7 +77,7 @@ class MysqlGrammar extends Grammar
             ->from('information_schema.tables')
             ->where('table_schema', '=', $query->getConnection()->getDatabase());
 
-        return rtrim($builder->toSql(), ';');
+        return \rtrim($builder->toSql(), ';');
     }
 
     /**
@@ -98,7 +98,7 @@ class MysqlGrammar extends Grammar
             ->where('table_schema', '=', $query->getConnection()->getDatabase())
             ->andWhere('table_name', '=', $table);
 
-        return rtrim($builder->toSql(), ';');
+        return \rtrim($builder->toSql(), ';');
     }
 
     /**
@@ -150,7 +150,7 @@ class MysqlGrammar extends Grammar
             }
         }
 
-        return '(' . ltrim(rtrim($fieldQuery . $keys, ','), ' ') . ')';
+        return '(' . \ltrim(\rtrim($fieldQuery . $keys, ','), ' ') . ')';
     }
 
     /**

@@ -112,7 +112,7 @@ class SmartDateTimeTest extends \PHPUnit\Framework\TestCase
         $expected = new \DateTime('now');
         $obj      = SmartDateTime::createFromDateTime($expected);
 
-        self::assertEquals(date("Y-m-t", strtotime($expected->format('Y-m-d'))), $obj->getEndOfMonth()->format('Y-m-d'));
+        self::assertEquals(\date("Y-m-t", \strtotime($expected->format('Y-m-d'))), $obj->getEndOfMonth()->format('Y-m-d'));
     }
 
     /**
@@ -125,7 +125,7 @@ class SmartDateTimeTest extends \PHPUnit\Framework\TestCase
         $expected = new \DateTime('now');
         $obj      = SmartDateTime::createFromDateTime($expected);
 
-        self::assertEquals(date("Y-m-01", strtotime($expected->format('Y-m-d'))), $obj->getStartOfMonth()->format('Y-m-d'));
+        self::assertEquals(\date("Y-m-01", \strtotime($expected->format('Y-m-d'))), $obj->getStartOfMonth()->format('Y-m-d'));
     }
 
     /**
@@ -205,8 +205,8 @@ class SmartDateTimeTest extends \PHPUnit\Framework\TestCase
         $expected = new \DateTime('now');
         $obj      = SmartDateTime::createFromDateTime($expected);
 
-        self::assertEquals(date('w', $expected->getTimestamp()), SmartDateTime::dayOfWeek((int) $expected->format('Y'), (int) $expected->format('m'), (int) $expected->format('d')));
-        self::assertEquals(date('w', $expected->getTimestamp()), $obj->getDayOfWeek());
+        self::assertEquals(\date('w', $expected->getTimestamp()), SmartDateTime::dayOfWeek((int) $expected->format('Y'), (int) $expected->format('m'), (int) $expected->format('d')));
+        self::assertEquals(\date('w', $expected->getTimestamp()), $obj->getDayOfWeek());
     }
 
     /**

@@ -65,7 +65,7 @@ final class MinimumCoinProblem
                         && $subRes + 1 < $table[$i]
                     ) {
                         $table[$i]     = $subRes + 1;
-                        $usedCoins[$i] = $coins[$j] === null ? ($usedCoins[$i] ?? []) : array_merge($usedCoins[$i - $coins[$j]] ?? [], [$coins[$j]]);
+                        $usedCoins[$i] = $coins[$j] === null ? ($usedCoins[$i] ?? []) : \array_merge($usedCoins[$i - $coins[$j]] ?? [], [$coins[$j]]);
                     }
                 }
             }

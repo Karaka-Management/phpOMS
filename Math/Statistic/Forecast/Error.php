@@ -139,7 +139,7 @@ final class Error
     {
         $deviation = 0.0;
         foreach ($observed as $key => $value) {
-            $deviation += abs($value - $forecasted[$key]);
+            $deviation += \abs($value - $forecasted[$key]);
         }
 
         return $deviation / \count($observed);
@@ -171,7 +171,7 @@ final class Error
      */
     public static function getRootMeanSquaredError(array $errors) : float
     {
-        return sqrt(Average::arithmeticMean(ArrayUtils::power($errors, 2)));
+        return \sqrt(Average::arithmeticMean(ArrayUtils::power($errors, 2)));
     }
 
     /**
@@ -259,7 +259,7 @@ final class Error
         $error = [];
 
         foreach ($observed as $key => $value) {
-            $error[] = abs($value - $forecasted[$key]) / ($value + $forecasted[$key]) / 2;
+            $error[] = \abs($value - $forecasted[$key]) / ($value + $forecasted[$key]) / 2;
         }
 
         return Average::arithmeticMean($error);
@@ -348,7 +348,7 @@ final class Error
         $count = \count($observed);
 
         for ($i = 0 + $m; $i < $count; ++$i) {
-            $sum += abs($observed[$i] - $observed[$i - $m]);
+            $sum += \abs($observed[$i] - $observed[$i - $m]);
         }
 
         return $sum;

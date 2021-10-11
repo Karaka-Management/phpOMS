@@ -1,14 +1,14 @@
 <?php declare(strict_types=1);
 
-ini_set('memory_limit', '2048M');
-ini_set('display_errors', '1');
-ini_set('display_startup_errors', '1');
-error_reporting(\E_ALL);
-setlocale(\LC_ALL, 'en_US.UTF-8');
+\ini_set('memory_limit', '2048M');
+\ini_set('display_errors', '1');
+\ini_set('display_startup_errors', '1');
+\error_reporting(\E_ALL);
+\setlocale(\LC_ALL, 'en_US.UTF-8');
 
-if (is_file('vendor/autoload.php')) {
+if (\is_file('vendor/autoload.php')) {
     include_once 'vendor/autoload.php';
-} elseif (is_file('../../vendor/autoload.php')) {
+} elseif (\is_file('../../vendor/autoload.php')) {
     include_once '../../vendor/autoload.php';
 }
 
@@ -361,11 +361,11 @@ $GLOBALS['frameworkpath'] = '/';
 function phpServe() : void
 {
     // OS detection
-    $isWindows = stristr(php_uname('s'), 'Windows') !== false;
+    $isWindows = \stristr(\php_uname('s'), 'Windows') !== false;
 
     // Command that starts the built-in web server
     if ($isWindows) {
-        $command = sprintf(
+        $command = \sprintf(
             'wmic process call create "php -S %s:%d -t %s" | find "ProcessId"',
             WEB_SERVER_HOST,
             WEB_SERVER_PORT,
@@ -374,7 +374,7 @@ function phpServe() : void
 
         $killCommand = 'taskkill /f /pid ';
     } else {
-        $command = sprintf(
+        $command = \sprintf(
             'php -S %s:%d -t %s >/dev/null 2>&1 & echo $!',
             WEB_SERVER_HOST,
             WEB_SERVER_PORT,
@@ -386,35 +386,35 @@ function phpServe() : void
 
     // Execute the command and store the process ID
     $output = [];
-    echo sprintf('Starting server...') . \PHP_EOL;
-    echo sprintf(' Current directory: %s', getcwd()) . \PHP_EOL;
-    echo sprintf(' %s', $command);
-    exec($command, $output);
+    echo \sprintf('Starting server...') . \PHP_EOL;
+    echo \sprintf(' Current directory: %s', \getcwd()) . \PHP_EOL;
+    echo \sprintf(' %s', $command);
+    \exec($command, $output);
 
     // Get PID
     if ($isWindows) {
-        $pid = explode('=', $output[0]);
-        $pid = str_replace(' ', '', $pid[1]);
-        $pid = str_replace(';', '', $pid);
+        $pid = \explode('=', $output[0]);
+        $pid = \str_replace(' ', '', $pid[1]);
+        $pid = \str_replace(';', '', $pid);
     } else {
         $pid = (int) $output[0];
     }
 
     // Log
-    echo sprintf(
+    echo \sprintf(
         ' %s - Web server started on %s:%d with PID %d',
-        date('r'),
+        \date('r'),
         WEB_SERVER_HOST,
         WEB_SERVER_PORT,
         $pid
     ) . \PHP_EOL;
 
     // Kill the web server when the process ends
-    register_shutdown_function(function() use ($killCommand, $pid) : void {
-        echo \PHP_EOL . sprintf('Stopping server...') . \PHP_EOL;
-        echo sprintf(' %s - Killing process with ID %d', date('r'), $pid) . \PHP_EOL;
-        exec($killCommand . $pid);
+    \register_shutdown_function(function() use ($killCommand, $pid) : void {
+        echo \PHP_EOL . \sprintf('Stopping server...') . \PHP_EOL;
+        echo \sprintf(' %s - Killing process with ID %d', \date('r'), $pid) . \PHP_EOL;
+        \exec($killCommand . $pid);
     });
 }
 
-phpServe();
+\phpServe();

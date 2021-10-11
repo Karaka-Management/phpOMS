@@ -134,7 +134,7 @@ class Smtp
         }
 
         $this->lastReply = $this->getLines();
-        $responseCode    = (int) substr($this->lastReply, 0, 3);
+        $responseCode    = (int) \substr($this->lastReply, 0, 3);
         if ($responseCode === 220) {
             return true;
         }
@@ -171,11 +171,11 @@ class Smtp
         $errstr = '';
 
         if ($streamok) {
-            $socketContext = stream_context_create($options);
-            $connection    = stream_socket_client($host . ':' . $port, $errno, $errstr, $timeout, \STREAM_CLIENT_CONNECT, $socketContext);
+            $socketContext = \stream_context_create($options);
+            $connection    = \stream_socket_client($host . ':' . $port, $errno, $errstr, $timeout, \STREAM_CLIENT_CONNECT, $socketContext);
         } else {
             //Fall back to fsockopen which should work in more places, but is missing some features
-            $connection = fsockopen($host, $port, $errno, $errstr, $timeout);
+            $connection = \fsockopen($host, $port, $errno, $errstr, $timeout);
         }
 
         if (!\is_resource($connection)) {
@@ -184,13 +184,13 @@ class Smtp
 
         // SMTP server can take longer to respond, give longer timeout for first read
         // Windows does not have support for this timeout function
-        if (strpos(\PHP_OS, 'WIN') !== 0) {
-            $max = (int) ini_get('max_execution_time');
-            if ($max !== 0 && $timeout > $max && strpos(ini_get('disable_functions'), 'set_time_limit') === false) {
-                set_time_limit($timeout);
+        if (\strpos(\PHP_OS, 'WIN') !== 0) {
+            $max = (int) \ini_get('max_execution_time');
+            if ($max !== 0 && $timeout > $max && \strpos(\ini_get('disable_functions'), 'set_time_limit') === false) {
+                \set_time_limit($timeout);
             }
 
-            stream_set_timeout($connection, $timeout, 0);
+            \stream_set_timeout($connection, $timeout, 0);
         }
 
         return $connection === false ? null : $connection;
@@ -215,7 +215,7 @@ class Smtp
             $crypto_method |= \STREAM_CRYPTO_METHOD_TLSv1_1_CLIENT;
         }
 
-        return (bool) stream_socket_enable_crypto($this->con, true, $crypto_method);
+        return (bool) \stream_socket_enable_crypto($this->con, true, $crypto_method);
     }
 
     /**
@@ -282,7 +282,7 @@ class Smtp
                 // Start authentication
                 if (!$this->sendCommand('AUTH', 'AUTH PLAIN', 334)
                     || !$this->sendCommand('User & Password',
-                            base64_encode("\0" . $username . "\0" . $password),
+                            \base64_encode("\0" . $username . "\0" . $password),
                             235
                         )
                 ) {
@@ -292,8 +292,8 @@ class Smtp
             case 'LOGIN':
                 // Start authentication
                 if (!$this->sendCommand('AUTH', 'AUTH LOGIN', 334)
-                    || !$this->sendCommand('Username', base64_encode($username), 334)
-                    || !$this->sendCommand('Password', base64_encode($password), 235)
+                    || !$this->sendCommand('Username', \base64_encode($username), 334)
+                    || !$this->sendCommand('Password', \base64_encode($password), 235)
                 ) {
                     return false;
                 }
@@ -304,11 +304,11 @@ class Smtp
                     return false;
                 }
 
-                $challenge = base64_decode(substr($this->lastReply, 4));
+                $challenge = \base64_decode(\substr($this->lastReply, 4));
                 $response  = $username . ' ' . $this->hmac($challenge, $password);
 
                 // send encoded credentials
-                return $this->sendCommand('Username', base64_encode($response), 235);
+                return $this->sendCommand('Username', \base64_encode($response), 235);
             case 'XOAUTH2':
                 //The OAuth instance must be set up prior to requesting auth.
                 if ($OAuth === null) {
@@ -344,16 +344,16 @@ class Smtp
         // by Lance Rushing
         $byteLen = 64;
         if (\strlen($key) > $byteLen) {
-            $key = pack('H*', md5($key));
+            $key = \pack('H*', \md5($key));
         }
 
-        $key    = str_pad($key, $byteLen, \chr(0x00));
-        $ipad   = str_pad('', $byteLen, \chr(0x36));
-        $opad   = str_pad('', $byteLen, \chr(0x5c));
+        $key    = \str_pad($key, $byteLen, \chr(0x00));
+        $ipad   = \str_pad('', $byteLen, \chr(0x36));
+        $opad   = \str_pad('', $byteLen, \chr(0x5c));
         $k_ipad = $key ^ $ipad;
         $k_opad = $key ^ $opad;
 
-        return md5($k_opad . pack('H*', md5($k_ipad . $data)));
+        return \md5($k_opad . \pack('H*', \md5($k_ipad . $data)));
     }
 
     /**
@@ -369,7 +369,7 @@ class Smtp
             return false;
         }
 
-        $status = stream_get_meta_data($this->con);
+        $status = \stream_get_meta_data($this->con);
         if ($status['eof']) {
             $this->close();
 
@@ -393,7 +393,7 @@ class Smtp
         $this->heloRply   = '';
 
         if (\is_resource($this->con)) {
-            fclose($this->con);
+            \fclose($this->con);
             $this->con = null;
         }
     }
@@ -416,14 +416,14 @@ class Smtp
         /* The server is ready to accept data!
          * According to rfc821 we should not send more than 1000 characters on a single line (including the LE)
          */
-        $lines = explode("\n", str_replace(["\r\n", "\r"], "\n", $msg_data));
+        $lines = \explode("\n", \str_replace(["\r\n", "\r"], "\n", $msg_data));
 
         /* To distinguish between a complete RFC822 message and a plain message body, we check if the first field
          * of the first line (':' separated) does not contain a space then it _should_ be a header and we will
          * process all lines before a blank line as headers.
          */
-        $field     = substr($lines[0], 0, strpos($lines[0], ':'));
-        $inHeaders = (!empty($field) && strpos($field, ' ') === false);
+        $field     = \substr($lines[0], 0, \strpos($lines[0], ':'));
+        $inHeaders = (!empty($field) && \strpos($field, ' ') === false);
 
         foreach ($lines as $line) {
             $linesOut = [];
@@ -432,14 +432,14 @@ class Smtp
             }
 
             while (isset($line[$maxLineLength])) {
-                $pos = strrpos(substr($line, 0, $maxLineLength), ' ');
+                $pos = \strrpos(\substr($line, 0, $maxLineLength), ' ');
                 if (!$pos) {
                     $pos        = $maxLineLength - 1;
-                    $linesOut[] = substr($line, 0, $pos);
-                    $line       = substr($line, $pos);
+                    $linesOut[] = \substr($line, 0, $pos);
+                    $line       = \substr($line, $pos);
                 } else {
-                    $linesOut[] = substr($line, 0, $pos);
-                    $line       = substr($line, $pos + 1);
+                    $linesOut[] = \substr($line, 0, $pos);
+                    $line       = \substr($line, $pos + 1);
                 }
 
                 if ($inHeaders) {
@@ -484,7 +484,7 @@ class Smtp
             return true;
         }
 
-        if (substr($this->heloRply, 0, 3) == '421') {
+        if (\substr($this->heloRply, 0, 3) == '421') {
             return false;
         }
 
@@ -527,22 +527,22 @@ class Smtp
     protected function parseHelloFields(string $type) : void
     {
         $this->serverCaps = [];
-        $lines            = explode("\n", $this->heloRply);
+        $lines            = \explode("\n", $this->heloRply);
 
         foreach ($lines as $n => $s) {
             //First 4 chars contain response code followed by - or space
-            $s = trim(substr($s, 4));
+            $s = \trim(\substr($s, 4));
             if (empty($s)) {
                 continue;
             }
 
-            $fields = explode(' ', $s);
+            $fields = \explode(' ', $s);
             if (!empty($fields)) {
                 if (!$n) {
                     $name   = $type;
                     $fields = $fields[0];
                 } else {
-                    $name = array_shift($fields);
+                    $name = \array_shift($fields);
                     switch ($name) {
                         case 'SIZE':
                             $fields = ($fields ? $fields[0] : 0);
@@ -612,17 +612,17 @@ class Smtp
         } else {
             $notify = [];
 
-            if (strpos($dsn, 'NEVER') !== false) {
+            if (\strpos($dsn, 'NEVER') !== false) {
                 $notify[] = 'NEVER';
             } else {
                 foreach (['SUCCESS', 'FAILURE', 'DELAY'] as $value) {
-                    if (strpos($dsn, $value) !== false) {
+                    if (\strpos($dsn, $value) !== false) {
                         $notify[] = $value;
                     }
                 }
             }
 
-            $rcpt = 'RCPT TO:<' . $address . '> NOTIFY=' . implode(',', $notify);
+            $rcpt = 'RCPT TO:<' . $address . '> NOTIFY=' . \implode(',', $notify);
         }
 
         return $this->sendCommand('RCPT TO', $rcpt, [250, 251]);
@@ -657,8 +657,8 @@ class Smtp
             return false;
         }
 
-        if ((strpos($commandstring, "\n") !== false)
-            || (strpos($commandstring, "\r") !== false)
+        if ((\strpos($commandstring, "\n") !== false)
+            || (\strpos($commandstring, "\r") !== false)
         ) {
             return false;
         }
@@ -668,21 +668,21 @@ class Smtp
         $this->lastReply = $this->getLines();
 
         $matches = [];
-        if (preg_match('/^([\d]{3})[ -](?:([\d]\\.[\d]\\.[\d]{1,2}) )?/', $this->lastReply, $matches)) {
+        if (\preg_match('/^([\d]{3})[ -](?:([\d]\\.[\d]\\.[\d]{1,2}) )?/', $this->lastReply, $matches)) {
             $code   = (int) $matches[1];
             $codeEx = \count($matches) > 2 ? $matches[2] : null;
 
             // Cut off error code from each response line
-            $detail = preg_replace(
+            $detail = \preg_replace(
                 "/{$code}[ -]" .
-                ($codeEx ? str_replace('.', '\\.', $codeEx) . ' ' : '') . '/m',
+                ($codeEx ? \str_replace('.', '\\.', $codeEx) . ' ' : '') . '/m',
                 '',
                 $this->lastReply
             );
         } else {
             // Fall back to simple parsing if regex fails
-            $code   = (int) substr($this->lastReply, 0, 3);
-            $detail = substr($this->lastReply, 4);
+            $code   = (int) \substr($this->lastReply, 0, 3);
+            $detail = \substr($this->lastReply, 4);
         }
 
         if (!\in_array($code, (array) $expect, true)) {
@@ -746,7 +746,7 @@ class Smtp
      */
     public function clientSend(string $data, string $command = '') : int
     {
-        $result = fwrite($this->con, $data);
+        $result = \fwrite($this->con, $data);
 
         return $result === false ? -1 : $result;
     }
@@ -819,17 +819,17 @@ class Smtp
         $data    = '';
         $endTime = 0;
 
-        stream_set_timeout($this->con, $this->timeout);
+        \stream_set_timeout($this->con, $this->timeout);
         if ($this->timeLimit > 0) {
-            $endTime = time() + $this->timeLimit;
+            $endTime = \time() + $this->timeLimit;
         }
 
         $selR  = [$this->con];
         $selW  = null;
         $tries = 0;
 
-        while (\is_resource($this->con) && !feof($this->con)) {
-            $n = stream_select($selR, $selW, $selW, $this->timeLimit);
+        while (\is_resource($this->con) && !\feof($this->con)) {
+            $n = \stream_select($selR, $selW, $selW, $this->timeLimit);
             if ($n === false) {
                 if ($tries < 3) {
                     ++$tries;
@@ -839,7 +839,7 @@ class Smtp
                 }
             }
 
-            $str   = fgets($this->con, self::MAX_REPLY_LENGTH);
+            $str   = \fgets($this->con, self::MAX_REPLY_LENGTH);
             $data .= $str;
 
             // If response is only 3 chars (not valid, but RFC5321 S4.2 says it must be handled),
@@ -849,13 +849,13 @@ class Smtp
                 break;
             }
 
-            $info = stream_get_meta_data($this->con);
+            $info = \stream_get_meta_data($this->con);
             if ($info['timed_out']) {
                 break;
             }
 
             // Now check if reads took too long
-            if ($endTime && time() > $endTime) {
+            if ($endTime && \time() > $endTime) {
                 break;
             }
         }
@@ -882,8 +882,8 @@ class Smtp
 
             foreach ($patterns as $pattern) {
                 $matches = [];
-                if (preg_match($pattern, $reply, $matches)) {
-                    $this->lastSmtpTransactionId = trim($matches[1]);
+                if (\preg_match($pattern, $reply, $matches)) {
+                    $this->lastSmtpTransactionId = \trim($matches[1]);
                     break;
                 }
             }

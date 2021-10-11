@@ -83,8 +83,8 @@ class ApplicationManagerTest extends \PHPUnit\Framework\TestCase
     public function testInstallUninstall() : void
     {
         self::assertTrue($this->appManager->install(__DIR__ . '/Testapp', __DIR__ . '/Apps/Testapp'));
-        self::assertTrue(is_dir(__DIR__ . '/Apps/Testapp'));
-        self::assertTrue(is_file(__DIR__ . '/Apps/Testapp/css/styles.css'));
+        self::assertTrue(\is_dir(__DIR__ . '/Apps/Testapp'));
+        self::assertTrue(\is_file(__DIR__ . '/Apps/Testapp/css/styles.css'));
 
         $apps = $this->appManager->getInstalledApplications(false, __DIR__ . '/Apps');
         self::assertTrue(isset($apps['Testapp']));
@@ -95,7 +95,7 @@ class ApplicationManagerTest extends \PHPUnit\Framework\TestCase
         self::assertTrue(\in_array('Navigation', $providing['Testapp']));
 
         $this->appManager->uninstall(__DIR__ . '/Apps/Testapp');
-        self::assertFalse(is_dir(__DIR__ . '/Apps/Testapp'));
+        self::assertFalse(\is_dir(__DIR__ . '/Apps/Testapp'));
     }
 
     /**

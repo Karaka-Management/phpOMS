@@ -80,14 +80,14 @@ final class ModuleInfo
      */
     public function load() : void
     {
-        if (!is_file($this->path)) {
+        if (!\is_file($this->path)) {
             throw new PathException($this->path);
         }
 
-        $contents = file_get_contents($this->path);
+        $contents = \file_get_contents($this->path);
 
         /** @var array{name:array{id:int, internal:string, external:string}, category:string, vision:string, requirements:array, creator:array{name:string, website:string}, description:string, directory:string, dependencies:array<string, string>, providing:array<string, string>, load:array<int, array{pid:string[], type:int, for:string, file:string, from:string}>} $info */
-        $info       = json_decode($contents === false ? '[]' : $contents, true);
+        $info       = \json_decode($contents === false ? '[]' : $contents, true);
         $this->info = $info === false ? [] : $info;
     }
 
@@ -100,11 +100,11 @@ final class ModuleInfo
      */
     public function update() : void
     {
-        if (!is_file($this->path)) {
+        if (!\is_file($this->path)) {
             throw new PathException($this->path);
         }
 
-        file_put_contents($this->path, json_encode($this->info, \JSON_PRETTY_PRINT));
+        \file_put_contents($this->path, \json_encode($this->info, \JSON_PRETTY_PRINT));
     }
 
     /**
@@ -120,7 +120,7 @@ final class ModuleInfo
      */
     public function set(string $path, $data, string $delim = '/') : void
     {
-        if (!is_scalar($data) && !\is_array($data) && !($data instanceof \JsonSerializable)) {
+        if (!\is_scalar($data) && !\is_array($data) && !($data instanceof \JsonSerializable)) {
             throw new \InvalidArgumentException('Type of $data "' . \gettype($data) . '" is not supported.');
         }
 

@@ -50,9 +50,9 @@ final class MeasureOfDispersion
      */
     public static function range(array $values) : float
     {
-        sort($values);
-        $end   = end($values);
-        $start = reset($values);
+        \sort($values);
+        $end   = \end($values);
+        $start = \reset($values);
 
         return $end - $start;
     }
@@ -108,7 +108,7 @@ final class MeasureOfDispersion
             ++$valueCount;
         }
 
-        return sqrt($sum / ($valueCount - 1));
+        return \sqrt($sum / ($valueCount - 1));
     }
 
     /**
@@ -137,7 +137,7 @@ final class MeasureOfDispersion
             ++$valueCount;
         }
 
-        return sqrt($sum / $valueCount);
+        return \sqrt($sum / $valueCount);
     }
 
     /**
@@ -300,7 +300,7 @@ final class MeasureOfDispersion
         /** @var int $count */
         $count /= 2;
 
-        sort($x);
+        \sort($x);
 
         $Q1 = Average::median(\array_slice($x, 0, $count));
         $Q3 = Average::median(\array_slice($x, -$count, $count));
@@ -368,7 +368,7 @@ final class MeasureOfDispersion
         $sum  = 0.0;
 
         foreach ($x as $xi) {
-            $sum += abs($xi - $mean);
+            $sum += \abs($xi - $mean);
         }
 
         return $sum / (\count($x) - $offset);
@@ -388,7 +388,7 @@ final class MeasureOfDispersion
         $mean = $mean !== null ? $mean : Average::arithmeticMean($x);
 
         foreach ($x as $key => $value) {
-            $x[$key] = abs($value - $mean);
+            $x[$key] = \abs($value - $mean);
         }
 
         return $x;

@@ -48,10 +48,10 @@ class MazeGenerator
     public static function random(int $width, int $height) : array
     {
         $n          = $height * $width - 1;
-        $horizontal = array_fill(0, $height, []);
-        $vertical   = array_fill(0, $height, []);
+        $horizontal = \array_fill(0, $height, []);
+        $vertical   = \array_fill(0, $height, []);
 
-        $pos       = [mt_rand(0, $height) - 1, mt_rand(0, $width) - 1];
+        $pos       = [\mt_rand(0, $height) - 1, \mt_rand(0, $width) - 1];
         $path      = [$pos];
         $unvisited = [];
 
@@ -82,7 +82,7 @@ class MazeGenerator
             if (!empty($neighbors)) {
                 --$n;
 
-                $next                                  = $neighbors[mt_rand(0, \count($neighbors) - 1)];
+                $next                                  = $neighbors[\mt_rand(0, \count($neighbors) - 1)];
                 $unvisited[$next[0] + 1][$next[1] + 1] = false;
 
                 if ($next[0] === $pos[0]) {
@@ -94,7 +94,7 @@ class MazeGenerator
                 $path[] = $next;
                 $pos    = $next;
             } else {
-                $pos = array_pop($path);
+                $pos = \array_pop($path);
 
                 if ($pos === null) {
                     break; // @codeCoverageIgnore
@@ -111,7 +111,7 @@ class MazeGenerator
                     if ($j % 4 === 0) {
                         $line[$j] = '+'; // 9
                     } else {
-                        $line[$j] = $i > 0 && ($vertical[$i / 2 - 1][(int) floor($j / 4)] ?? false) ? ' ' : '-'; // 9
+                        $line[$j] = $i > 0 && ($vertical[$i / 2 - 1][(int) \floor($j / 4)] ?? false) ? ' ' : '-'; // 9
                     }
                 }
             } else {

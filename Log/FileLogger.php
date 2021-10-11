@@ -100,11 +100,11 @@ final class FileLogger implements LoggerInterface
      */
     public function __construct(string $lpath, bool $verbose = false)
     {
-        $path          = realpath(empty($lpath) ? __DIR__ . '/../../' : $lpath);
+        $path          = \realpath(empty($lpath) ? __DIR__ . '/../../' : $lpath);
         $this->verbose = $verbose;
 
-        $this->path = is_dir($lpath) || strpos($lpath, '.') === false
-            ? rtrim($path !== false ? $path : $lpath, '/') . '/' . date('Y-m-d') . '.log'
+        $this->path = \is_dir($lpath) || \strpos($lpath, '.') === false
+            ? \rtrim($path !== false ? $path : $lpath, '/') . '/' . \date('Y-m-d') . '.log'
             : $lpath;
     }
 
@@ -117,7 +117,7 @@ final class FileLogger implements LoggerInterface
      */
     private function createFile() : void
     {
-        if (!$this->created && !is_file($this->path)) {
+        if (!$this->created && !\is_file($this->path)) {
             File::create($this->path);
             $this->created = true;
         }
@@ -153,7 +153,7 @@ final class FileLogger implements LoggerInterface
     public function __destruct()
     {
         if (\is_resource($this->fp)) {
-            fclose($this->fp);
+            \fclose($this->fp);
         }
     }
 
@@ -180,7 +180,7 @@ final class FileLogger implements LoggerInterface
      */
     public static function startTimeLog(string $id = '') : bool
     {
-        self::$timings[$id] = ['start' => microtime(true), 'end' => 0.0, 'time' => 0.0];
+        self::$timings[$id] = ['start' => \microtime(true), 'end' => 0.0, 'time' => 0.0];
 
         return true;
     }
@@ -196,7 +196,7 @@ final class FileLogger implements LoggerInterface
      */
     public static function endTimeLog(string $id = '') : float
     {
-        $mtime = microtime(true);
+        $mtime = \microtime(true);
 
         self::$timings[$id]['end']  = $mtime;
         self::$timings[$id]['time'] = $mtime - self::$timings[$id]['start'];
@@ -222,7 +222,7 @@ final class FileLogger implements LoggerInterface
             $replace['{' . $key . '}'] = $val;
         }
 
-        $backtrace = debug_backtrace();
+        $backtrace = \debug_backtrace();
 
         // Removing sensitive config data from logging
         foreach ($backtrace as $key => $value) {
@@ -231,18 +231,18 @@ final class FileLogger implements LoggerInterface
             }
         }
 
-        $backtrace = json_encode($backtrace);
+        $backtrace = \json_encode($backtrace);
 
         $replace['{backtrace}'] = $backtrace;
-        $replace['{datetime}']  = sprintf('%--19s', (new \DateTimeImmutable('NOW'))->format('Y-m-d H:i:s'));
-        $replace['{level}']     = sprintf('%--12s', $level);
+        $replace['{datetime}']  = \sprintf('%--19s', (new \DateTimeImmutable('NOW'))->format('Y-m-d H:i:s'));
+        $replace['{level}']     = \sprintf('%--12s', $level);
         $replace['{path}']      = $_SERVER['REQUEST_URI'] ?? 'REQUEST_URI';
-        $replace['{ip}']        = sprintf('%--15s', $_SERVER['REMOTE_ADDR'] ?? '0.0.0.0');
-        $replace['{version}']   = sprintf('%--15s', \PHP_VERSION);
-        $replace['{os}']        = sprintf('%--15s', \PHP_OS);
-        $replace['{line}']      = sprintf('%--15s', $context['line'] ?? '?');
+        $replace['{ip}']        = \sprintf('%--15s', $_SERVER['REMOTE_ADDR'] ?? '0.0.0.0');
+        $replace['{version}']   = \sprintf('%--15s', \PHP_VERSION);
+        $replace['{os}']        = \sprintf('%--15s', \PHP_OS);
+        $replace['{line}']      = \sprintf('%--15s', $context['line'] ?? '?');
 
-        return strtr($message, $replace);
+        return \strtr($message, $replace);
     }
 
     /**
@@ -261,17 +261,17 @@ final class FileLogger implements LoggerInterface
         }
 
         $this->createFile();
-        if (!is_writable($this->path)) {
+        if (!\is_writable($this->path)) {
             return; // @codeCoverageIgnore
         }
 
-        $this->fp = fopen($this->path, 'a');
+        $this->fp = \fopen($this->path, 'a');
 
-        if ($this->fp !== false && flock($this->fp, \LOCK_EX)) {
-            fwrite($this->fp, $message . "\n");
-            fflush($this->fp);
-            flock($this->fp, \LOCK_UN);
-            fclose($this->fp);
+        if ($this->fp !== false && \flock($this->fp, \LOCK_EX)) {
+            \fwrite($this->fp, $message . "\n");
+            \fflush($this->fp);
+            \flock($this->fp, \LOCK_UN);
+            \fclose($this->fp);
             $this->fp = false;
         }
     }
@@ -372,36 +372,36 @@ final class FileLogger implements LoggerInterface
     {
         $levels = [];
 
-        if (!is_file($this->path)) {
+        if (!\is_file($this->path)) {
             return $levels;
         }
 
-        $this->fp = fopen($this->path, 'r');
+        $this->fp = \fopen($this->path, 'r');
 
         if ($this->fp === false) {
             return $levels; // @codeCoverageIgnore
         }
 
-        fseek($this->fp, 0);
-        $line = fgetcsv($this->fp, 0, ';');
+        \fseek($this->fp, 0);
+        $line = \fgetcsv($this->fp, 0, ';');
 
         while ($line !== false && $line !== null) {
             if (\count($line) < 2) {
                 continue; // @codeCoverageIgnore
             }
 
-            $line[1] = trim($line[1]);
+            $line[1] = \trim($line[1]);
 
             if (!isset($levels[$line[1]])) {
                 $levels[$line[1]] = 0;
             }
 
             ++$levels[$line[1]];
-            $line = fgetcsv($this->fp, 0, ';');
+            $line = \fgetcsv($this->fp, 0, ';');
         }
 
-        fseek($this->fp, 0, \SEEK_END);
-        fclose($this->fp);
+        \fseek($this->fp, 0, \SEEK_END);
+        \fclose($this->fp);
 
         return $levels;
     }
@@ -419,37 +419,37 @@ final class FileLogger implements LoggerInterface
     {
         $connection = [];
 
-        if (!is_file($this->path)) {
+        if (!\is_file($this->path)) {
             return $connection;
         }
 
-        $this->fp = fopen($this->path, 'r');
+        $this->fp = \fopen($this->path, 'r');
 
         if ($this->fp === false) {
             return $connection; // @codeCoverageIgnore
         }
 
-        fseek($this->fp, 0);
-        $line = fgetcsv($this->fp, 0, ';');
+        \fseek($this->fp, 0);
+        $line = \fgetcsv($this->fp, 0, ';');
 
         while ($line !== false && $line !== null) {
             if (\count($line) < 3) {
                 continue; // @codeCoverageIgnore
             }
 
-            $line[2] = trim($line[2]);
+            $line[2] = \trim($line[2]);
 
             if (!isset($connection[$line[2]])) {
                 $connection[$line[2]] = 0;
             }
 
             ++$connection[$line[2]];
-            $line = fgetcsv($this->fp, 0, ';');
+            $line = \fgetcsv($this->fp, 0, ';');
         }
 
-        fseek($this->fp, 0, \SEEK_END);
-        fclose($this->fp);
-        asort($connection);
+        \fseek($this->fp, 0, \SEEK_END);
+        \fclose($this->fp);
+        \asort($connection);
 
         return \array_slice($connection, 0, $limit);
     }
@@ -469,19 +469,19 @@ final class FileLogger implements LoggerInterface
         $logs = [];
         $id   = 0;
 
-        if (!is_file($this->path)) {
+        if (!\is_file($this->path)) {
             return $logs;
         }
 
-        $this->fp = fopen($this->path, 'r');
+        $this->fp = \fopen($this->path, 'r');
 
         if ($this->fp === false) {
             return $logs; // @codeCoverageIgnore
         }
 
-        fseek($this->fp, 0);
+        \fseek($this->fp, 0);
 
-        $line = fgetcsv($this->fp, 0, ';');
+        $line = \fgetcsv($this->fp, 0, ';');
         while ($line !== false && $line !== null) {
             if ($limit < 1) {
                 break;
@@ -490,25 +490,25 @@ final class FileLogger implements LoggerInterface
             ++$id;
 
             if ($offset > 0) {
-                $line = fgetcsv($this->fp, 0, ';');
+                $line = \fgetcsv($this->fp, 0, ';');
 
                 --$offset;
                 continue;
             }
 
             foreach ($line as &$value) {
-                $value = trim($value);
+                $value = \trim($value);
             }
 
             $logs[$id] = $line;
 
             --$limit;
 
-            $line = fgetcsv($this->fp, 0, ';');
+            $line = \fgetcsv($this->fp, 0, ';');
         }
 
-        fseek($this->fp, 0, \SEEK_END);
-        fclose($this->fp);
+        \fseek($this->fp, 0, \SEEK_END);
+        \fclose($this->fp);
 
         return $logs;
     }
@@ -527,19 +527,19 @@ final class FileLogger implements LoggerInterface
         $log     = [];
         $current = 0;
 
-        if (!is_file($this->path)) {
+        if (!\is_file($this->path)) {
             return $log;
         }
 
-        $this->fp = fopen($this->path, 'r');
+        $this->fp = \fopen($this->path, 'r');
 
         if ($this->fp === false) {
             return $log; // @codeCoverageIgnore
         }
 
-        fseek($this->fp, 0);
+        \fseek($this->fp, 0);
 
-        while (($line = fgetcsv($this->fp, 0, ';')) !== false && $current <= $id) {
+        while (($line = \fgetcsv($this->fp, 0, ';')) !== false && $current <= $id) {
             ++$current;
 
             if ($current < $id || $line === null) {
@@ -547,14 +547,14 @@ final class FileLogger implements LoggerInterface
             }
 
             foreach ($line as $value) {
-                $log[] = trim($value);
+                $log[] = \trim($value);
             }
 
             break;
         }
 
-        fseek($this->fp, 0, \SEEK_END);
-        fclose($this->fp);
+        \fseek($this->fp, 0, \SEEK_END);
+        \fclose($this->fp);
 
         return $log;
     }
@@ -573,7 +573,7 @@ final class FileLogger implements LoggerInterface
     public function console(string $message, bool $verbose = true, array $context = []) : void
     {
         if (empty($context)) {
-            $message = date('[Y-m-d H:i:s] ') . $message . "\r\n";
+            $message = \date('[Y-m-d H:i:s] ') . $message . "\r\n";
         }
 
         if ($verbose) {

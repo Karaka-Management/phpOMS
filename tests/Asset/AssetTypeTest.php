@@ -38,7 +38,7 @@ class AssetTypeTest extends \PHPUnit\Framework\TestCase
      */
     public function testUnique() : void
     {
-        self::assertEquals(AssetType::getConstants(), array_unique(AssetType::getConstants()));
+        self::assertEquals(AssetType::getConstants(), \array_unique(AssetType::getConstants()));
     }
 
     /**

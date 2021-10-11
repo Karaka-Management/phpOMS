@@ -75,7 +75,7 @@ class C25 extends C128Abstract
      */
     public function setContent(string $content) : void
     {
-        if (!ctype_digit($content)) {
+        if (!\ctype_digit($content)) {
             throw new \InvalidArgumentException($content);
         }
 
@@ -94,7 +94,7 @@ class C25 extends C128Abstract
 
         for ($posX = 1; $posX <= $length; ++$posX) {
             for ($posY = 0; $posY < $arrayLength; ++$posY) {
-                if (substr($this->content, ($posX - 1), 1) == self::$CODEARRAY[$posY]) {
+                if (\substr($this->content, ($posX - 1), 1) == self::$CODEARRAY[$posY]) {
                     $temp[$posX] = self::$CODEARRAY2[$posY];
                 }
             }
@@ -102,8 +102,8 @@ class C25 extends C128Abstract
 
         for ($posX = 1; $posX <= $length; $posX += 2) {
             if (isset($temp[$posX], $temp[($posX + 1)])) {
-                $temp1 = explode('-', $temp[$posX]);
-                $temp2 = explode('-', $temp[($posX + 1)]);
+                $temp1 = \explode('-', $temp[$posX]);
+                $temp2 = \explode('-', $temp[($posX + 1)]);
 
                 $count = \count($temp1);
                 for ($posY = 0; $posY < $count; ++$posY) {

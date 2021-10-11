@@ -43,8 +43,8 @@ class BetaTest extends \PHPUnit\Framework\TestCase
     public function testLogBeta() : void
     {
         self::assertEqualsWithDelta(0, Beta::logBeta(1, 0), 0.001);
-        self::assertEqualsWithDelta(log(4.4776093), Beta::logBeta(1.5, 0.2), 0.001);
-        self::assertEqualsWithDelta(log(Beta::beta(2, 4)), Beta::logBeta(2, 4), 0.001);
+        self::assertEqualsWithDelta(\log(4.4776093), Beta::logBeta(1.5, 0.2), 0.001);
+        self::assertEqualsWithDelta(\log(Beta::beta(2, 4)), Beta::logBeta(2, 4), 0.001);
     }
 
     /**

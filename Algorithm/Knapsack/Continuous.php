@@ -62,7 +62,7 @@ final class Continuous
      */
     public static function solve(array $items, BackpackInterface $backpack) : BackpackInterface
     {
-        usort($items, ['self', 'continuousComparator']);
+        \usort($items, ['self', 'continuousComparator']);
 
         $availableSpace = $backpack->getMaxCost();
 
@@ -73,7 +73,7 @@ final class Continuous
 
             $backpack->addItem(
                 $item['item'],
-                $quantity = min($item['quantity'], $availableSpace / $item['item']->getCost())
+                $quantity = \min($item['quantity'], $availableSpace / $item['item']->getCost())
             );
 
             $availableSpace -= $quantity * $item['item']->getCost();

@@ -36,7 +36,7 @@ class CacheValueTypeTest extends \PHPUnit\Framework\TestCase
      */
     public function testUnique() : void
     {
-        self::assertEquals(CacheValueType::getConstants(), array_unique(CacheValueType::getConstants()));
+        self::assertEquals(CacheValueType::getConstants(), \array_unique(CacheValueType::getConstants()));
     }
 
     /**

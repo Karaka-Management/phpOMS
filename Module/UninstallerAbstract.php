@@ -65,15 +65,15 @@ abstract class UninstallerAbstract
      */
     protected static function deactivate(DatabasePool $dbPool, ModuleInfo $info) : void
     {
-        if (($path = realpath(static::PATH)) === false) {
+        if (($path = \realpath(static::PATH)) === false) {
             return; // @codeCoverageIgnore;
         }
 
         /** @var string $classPath */
-        $classPath = substr($path . '/Status', \strlen((string) realpath(__DIR__ . '/../../')));
+        $classPath = \substr($path . '/Status', \strlen((string) \realpath(__DIR__ . '/../../')));
 
         /** @var StatusAbstract $class */
-        $class = str_replace('/', '\\', $classPath);
+        $class = \str_replace('/', '\\', $classPath);
         $class::deactivate($dbPool, $info);
     }
 
@@ -90,16 +90,16 @@ abstract class UninstallerAbstract
     public static function dropTables(DatabasePool $dbPool, ModuleInfo $info) : void
     {
         $path = static::PATH . '/Install/db.json';
-        if (!is_file($path)) {
+        if (!\is_file($path)) {
             return;
         }
 
-        $content = file_get_contents($path);
+        $content = \file_get_contents($path);
         if ($content === false) {
             return; // @codeCoverageIgnore
         }
 
-        $definitions = json_decode($content, true);
+        $definitions = \json_decode($content, true);
         $builder     = new SchemaBuilder($dbPool->get('schema'));
 
         foreach ($definitions as $name => $definition) {

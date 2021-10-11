@@ -66,6 +66,6 @@ final class Rectangle implements D2ShapeInterface
      */
     public static function getDiagonal(float $a, float $b) : float
     {
-        return sqrt($a * $a + $b * $b);
+        return \sqrt($a * $a + $b * $b);
     }
 }

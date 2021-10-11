@@ -248,37 +248,37 @@ class Localization implements \JsonSerializable
      */
     public function loadFromLanguage(string $langCode, string $countryCode = '*') : void
     {
-        $langCode    = strtolower($langCode);
-        $countryCode = strtoupper($countryCode);
+        $langCode    = \strtolower($langCode);
+        $countryCode = \strtoupper($countryCode);
 
         if ($countryCode !== '*'
-            && !is_file(self::DEFINITIONS_PATH . $langCode . '_' . $countryCode . '.json')
+            && !\is_file(self::DEFINITIONS_PATH . $langCode . '_' . $countryCode . '.json')
         ) {
             $countryCode = '';
         }
 
-        $files = glob(self::DEFINITIONS_PATH . $langCode . '_' . $countryCode . '*');
+        $files = \glob(self::DEFINITIONS_PATH . $langCode . '_' . $countryCode . '*');
         if ($files === false) {
             $files = []; // @codeCoverageIgnore
         }
 
         foreach ($files as $file) {
-            $fileContent = file_get_contents($file);
+            $fileContent = \file_get_contents($file);
             if ($fileContent === false) {
                 break; // @codeCoverageIgnore
             }
 
-            $this->importLocale(json_decode($fileContent, true));
+            $this->importLocale(\json_decode($fileContent, true));
 
             return;
         }
 
-        $fileContent = file_get_contents(self::DEFINITIONS_PATH . 'en_US.json');
+        $fileContent = \file_get_contents(self::DEFINITIONS_PATH . 'en_US.json');
         if ($fileContent === false) {
             return; // @codeCoverageIgnore
         }
 
-        $this->importLocale(json_decode($fileContent, true));
+        $this->importLocale(\json_decode($fileContent, true));
     }
 
     /**
@@ -398,7 +398,7 @@ class Localization implements \JsonSerializable
      */
     public function setLanguage(string $language) : void
     {
-        $language = strtolower($language);
+        $language = \strtolower($language);
 
         if (!ISO639x1Enum::isValidValue($language)) {
             throw new InvalidEnumValue($language);

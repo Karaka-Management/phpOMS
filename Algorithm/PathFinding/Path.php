@@ -104,7 +104,7 @@ class Path
             $dx = $this->nodes[$i - 1]->getX() - $this->nodes[$i]->getX();
             $dy = $this->nodes[$i - 1]->getY() - $this->nodes[$i]->getY();
 
-            $dist += sqrt($dx * $dx + $dy * $dy);
+            $dist += \sqrt($dx * $dx + $dy * $dy);
         }
 
         return $dist;
@@ -149,7 +149,7 @@ class Path
                 $coord1 = $reverse[$i + 1];
 
                 $interpolated = $this->interpolate($coord0, $coord1);
-                $expanded     = array_merge($expanded, $interpolated);
+                $expanded     = \array_merge($expanded, $interpolated);
             }
 
             $expanded[]          = $reverse[$length - 1];
@@ -174,8 +174,8 @@ class Path
      */
     private function interpolate(Node $node1, Node $node2) : array
     {
-        $dx = abs($node2->getX() - $node1->getX());
-        $dy = abs($node2->getY() - $node1->getY());
+        $dx = \abs($node2->getX() - $node1->getX());
+        $dy = \abs($node2->getY() - $node1->getY());
 
         $sx = ($node1->getX() < $node2->getX()) ? 1 : -1;
         $sy = ($node1->getY() < $node2->getY()) ? 1 : -1;

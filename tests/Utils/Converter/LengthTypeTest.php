@@ -36,7 +36,7 @@ class LengthTypeTest extends \PHPUnit\Framework\TestCase
      */
     public function testUnique() : void
     {
-        self::assertEquals(LengthType::getConstants(), array_unique(LengthType::getConstants()));
+        self::assertEquals(LengthType::getConstants(), \array_unique(LengthType::getConstants()));
     }
 
     /**

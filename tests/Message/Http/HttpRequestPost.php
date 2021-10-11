@@ -6,4 +6,4 @@ use phpOMS\Message\Http\HttpRequest;
 
 $request = HttpRequest::createFromSuperglobals();
 
-echo json_encode($request->getData());
+echo \json_encode($request->getData());

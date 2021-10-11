@@ -72,7 +72,7 @@ final class ConsoleHeader extends HeaderAbstract
             return false;
         }
 
-        $key = strtolower($key);
+        $key = \strtolower($key);
 
         if (!$overwrite && isset($this->header[$key])) {
             return false;
@@ -146,7 +146,7 @@ final class ConsoleHeader extends HeaderAbstract
             return $this->header;
         }
 
-        return $this->header[strtolower($key)] ?? [];
+        return $this->header[\strtolower($key)] ?? [];
     }
 
     /**

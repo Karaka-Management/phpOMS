@@ -84,7 +84,7 @@ class HeapTest extends \PHPUnit\Framework\TestCase
     {
         $heap = new Heap();
         for ($i = 0; $i < 10; ++$i) {
-            $heap->push(mt_rand());
+            $heap->push(\mt_rand());
         }
 
         $sorted = [];
@@ -93,7 +93,7 @@ class HeapTest extends \PHPUnit\Framework\TestCase
         }
 
         $sortedFunction = $sorted;
-        sort($sortedFunction);
+        \sort($sortedFunction);
 
         self::assertEquals($sortedFunction, $sorted);
     }
@@ -107,7 +107,7 @@ class HeapTest extends \PHPUnit\Framework\TestCase
     {
         $heap = new Heap(function($a, $b) { return ($a <=> $b) * -1; });
         for ($i = 0; $i < 10; ++$i) {
-            $heap->push(mt_rand());
+            $heap->push(\mt_rand());
         }
 
         $sorted = [];
@@ -116,9 +116,9 @@ class HeapTest extends \PHPUnit\Framework\TestCase
         }
 
         $sortedFunction = $sorted;
-        sort($sortedFunction);
+        \sort($sortedFunction);
 
-        self::assertEquals(array_reverse($sortedFunction), $sorted);
+        self::assertEquals(\array_reverse($sortedFunction), $sorted);
     }
 
     /**
@@ -167,7 +167,7 @@ class HeapTest extends \PHPUnit\Framework\TestCase
         self::assertEquals(1, $heap->pushpop(6));
 
         $heapArray = $heap->toArray();
-        sort($heapArray);
+        \sort($heapArray);
         self::assertEquals([2, 3, 4, 5, 6], $heapArray);
     }
 

@@ -37,7 +37,7 @@ final class LogDistribution
      */
     public static function getPmf(float $p, int $k) : float
     {
-        return -1 / log(1 - $p) * $p ** $k / $k;
+        return -1 / \log(1 - $p) * $p ** $k / $k;
     }
 
     /**
@@ -55,7 +55,7 @@ final class LogDistribution
         // This is a workaround!
         // Actually 0 should be used instead of 0.0001.
         // This is only used because the incomplete beta function doesn't work for p or q = 0
-        return 1 + Beta::incompleteBeta($p, $k + 1, 0.0001) / log(1 - $p);
+        return 1 + Beta::incompleteBeta($p, $k + 1, 0.0001) / \log(1 - $p);
     }
 
     /**
@@ -69,7 +69,7 @@ final class LogDistribution
      */
     public static function getMean(float $p) : float
     {
-        return -1 / log(1 - $p) * $p / (1 - $p);
+        return -1 / \log(1 - $p) * $p / (1 - $p);
     }
 
     /**
@@ -95,8 +95,8 @@ final class LogDistribution
      */
     public static function getVariance(float $p) : float
     {
-        return -($p ** 2 + $p * log(1 - $p))
-            / ((1 - $p) ** 2 * log(1 - $p) ** 2);
+        return -($p ** 2 + $p * \log(1 - $p))
+            / ((1 - $p) ** 2 * \log(1 - $p) ** 2);
     }
 
     /**
@@ -110,7 +110,7 @@ final class LogDistribution
      */
     public static function getStandardDeviation(float $p) : float
     {
-        return sqrt(self::getVariance($p));
+        return \sqrt(self::getVariance($p));
     }
 
     /**
@@ -125,6 +125,6 @@ final class LogDistribution
      */
     public static function getMgf(float $p, float $t) : float
     {
-        return log(1 - $p * exp($t)) / log(1 - $p);
+        return \log(1 - $p * \exp($t)) / \log(1 - $p);
     }
 }

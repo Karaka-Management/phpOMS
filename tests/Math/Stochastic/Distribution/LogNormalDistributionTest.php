@@ -45,7 +45,7 @@ class LogNormalDistributionTest extends \PHPUnit\Framework\TestCase
      */
     public function testMean() : void
     {
-        self::assertEqualsWithDelta(exp(13 / 2), LogNormalDistribution::getMean(2, 3), 0.001);
+        self::assertEqualsWithDelta(\exp(13 / 2), LogNormalDistribution::getMean(2, 3), 0.001);
     }
 
     /**
@@ -55,7 +55,7 @@ class LogNormalDistributionTest extends \PHPUnit\Framework\TestCase
     public function testVariance() : void
     {
         self::assertEqualsWithDelta(
-            (exp(9) - 1) * exp(13),
+            (\exp(9) - 1) * \exp(13),
             LogNormalDistribution::getVariance(2, 3), 0.001
         );
     }
@@ -67,12 +67,12 @@ class LogNormalDistributionTest extends \PHPUnit\Framework\TestCase
     public function testStandardDeviation() : void
     {
         self::assertEqualsWithDelta(
-            exp(13 / 2) * sqrt(exp(9) - 1),
+            \exp(13 / 2) * \sqrt(\exp(9) - 1),
             LogNormalDistribution::getStandardDeviation(2, 3), 0.001
         );
 
         self::assertEqualsWithDelta(
-            sqrt((exp(9) - 1) * exp(13)),
+            \sqrt((\exp(9) - 1) * \exp(13)),
             LogNormalDistribution::getStandardDeviation(2, 3), 0.001
         );
     }
@@ -84,7 +84,7 @@ class LogNormalDistributionTest extends \PHPUnit\Framework\TestCase
     public function testSkewness() : void
     {
         self::assertEqualsWithDelta(
-            sqrt(exp(9) - 1) * (exp(9) + 2),
+            \sqrt(\exp(9) - 1) * (\exp(9) + 2),
             LogNormalDistribution::getSkewness(3), 0.001
         );
     }
@@ -96,7 +96,7 @@ class LogNormalDistributionTest extends \PHPUnit\Framework\TestCase
     public function testExKurtosis() : void
     {
         self::assertEqualsWithDelta(
-            exp(16) + 2 * exp(12) + 3 * exp(8) - 6,
+            \exp(16) + 2 * \exp(12) + 3 * \exp(8) - 6,
             LogNormalDistribution::getExKurtosis(2), 0.001
         );
     }
@@ -107,7 +107,7 @@ class LogNormalDistributionTest extends \PHPUnit\Framework\TestCase
      */
     public function testMedian() : void
     {
-        self::assertEquals(exp(3), LogNormalDistribution::getMedian(3));
+        self::assertEquals(\exp(3), LogNormalDistribution::getMedian(3));
     }
 
     /**
@@ -116,7 +116,7 @@ class LogNormalDistributionTest extends \PHPUnit\Framework\TestCase
      */
     public function testMode() : void
     {
-        self::assertEquals(exp(3 - 4 ** 2), LogNormalDistribution::getMode(3, 4));
+        self::assertEquals(\exp(3 - 4 ** 2), LogNormalDistribution::getMode(3, 4));
     }
 
     /**
@@ -126,7 +126,7 @@ class LogNormalDistributionTest extends \PHPUnit\Framework\TestCase
     public function testEntropy() : void
     {
         self::assertEqualsWithDelta(
-            log(4 * exp(3 + 0.5) * sqrt(2 * \M_PI), 2),
+            \log(4 * \exp(3 + 0.5) * \sqrt(2 * \M_PI), 2),
             LogNormalDistribution::getEntropy(3, 4), 0.001
         );
     }

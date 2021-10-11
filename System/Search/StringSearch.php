@@ -60,7 +60,7 @@ abstract class StringSearch
 
             if ($j > 0) {
                 $i += $shift[$j - 1];
-                $j  = max($j - $shift[$j - 1], 0);
+                $j  = \max($j - $shift[$j - 1], 0);
             } else {
                 ++$i;
                 $j = 0;
@@ -98,7 +98,7 @@ abstract class StringSearch
 
                 if ($j > 0) {
                     $i += $shift[$j - 1];
-                    $j  = max($j - $shift[$j - 1], 0);
+                    $j  = \max($j - $shift[$j - 1], 0);
                 } else {
                     ++$i;
                     $j = 0;

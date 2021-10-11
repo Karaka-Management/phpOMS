@@ -149,7 +149,7 @@ class NormalDistributionTest extends \PHPUnit\Framework\TestCase
         $sigma = 5;
 
         self::assertEquals(
-            exp($mu * $t + $sigma ** 2 * $t ** 2 / 2),
+            \exp($mu * $t + $sigma ** 2 * $t ** 2 / 2),
             NormalDistribution::getMgf($t, $mu, $sigma)
         );
     }

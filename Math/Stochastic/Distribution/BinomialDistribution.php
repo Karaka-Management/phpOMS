@@ -38,7 +38,7 @@ final class BinomialDistribution
      */
     public static function getMode(int $n, float $p) : float
     {
-        return floor(($n + 1) * $p);
+        return \floor(($n + 1) * $p);
     }
 
     /**
@@ -54,7 +54,7 @@ final class BinomialDistribution
      */
     public static function getMgf(int $n, float $t, float $p) : float
     {
-        return pow(1 - $p + $p * exp($t), $n);
+        return \pow(1 - $p + $p * \exp($t), $n);
     }
 
     /**
@@ -69,7 +69,7 @@ final class BinomialDistribution
      */
     public static function getSkewness(int $n, float $p) : float
     {
-        return (1 - 2 * $p) / sqrt($n * $p * (1 - $p));
+        return (1 - 2 * $p) / \sqrt($n * $p * (1 - $p));
     }
 
     /**
@@ -139,7 +139,7 @@ final class BinomialDistribution
      */
     public static function getPmf(int $n, int $k, float $p) : float
     {
-        return Functions::binomialCoefficient($n, $k) * pow($p, $k) * pow(1 - $p, $n - $k);
+        return Functions::binomialCoefficient($n, $k) * \pow($p, $k) * \pow(1 - $p, $n - $k);
     }
 
     /**
@@ -154,7 +154,7 @@ final class BinomialDistribution
      */
     public static function getMedian(int $n, float $p) : float
     {
-        return floor($n * $p);
+        return \floor($n * $p);
     }
 
     /**
@@ -199,6 +199,6 @@ final class BinomialDistribution
      */
     public static function getStandardDeviation(int $n, float $p) : float
     {
-        return sqrt(self::getVariance($n, $p));
+        return \sqrt(self::getVariance($n, $p));
     }
 }

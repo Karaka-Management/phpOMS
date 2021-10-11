@@ -51,7 +51,7 @@ final class Cone implements D3ShapeInterface
      */
     public static function getSurface(float $r, float $h) : float
     {
-        return \M_PI * $r * ($r + sqrt($h ** 2 + $r ** 2));
+        return \M_PI * $r * ($r + \sqrt($h ** 2 + $r ** 2));
     }
 
     /**
@@ -66,7 +66,7 @@ final class Cone implements D3ShapeInterface
      */
     public static function getSlantHeight(float $r, float $h) : float
     {
-        return sqrt($h ** 2 + $r ** 2);
+        return \sqrt($h ** 2 + $r ** 2);
     }
 
     /**

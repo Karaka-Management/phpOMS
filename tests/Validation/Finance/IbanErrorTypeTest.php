@@ -36,7 +36,7 @@ class IbanErrorTypeTest extends \PHPUnit\Framework\TestCase
      */
     public function testUnique() : void
     {
-        self::assertEquals(IbanErrorType::getConstants(), array_unique(IbanErrorType::getConstants()));
+        self::assertEquals(IbanErrorType::getConstants(), \array_unique(IbanErrorType::getConstants()));
     }
 
     /**

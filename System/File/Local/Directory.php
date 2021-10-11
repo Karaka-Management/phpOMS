@@ -58,10 +58,10 @@ final class Directory extends FileAbstract implements DirectoryInterface
      */
     public function __construct(string $path, string $filter = '*', bool $initialize = true)
     {
-        $this->filter = ltrim($filter, '\\/');
+        $this->filter = \ltrim($filter, '\\/');
         parent::__construct($path);
 
-        if ($initialize && is_dir($this->path)) {
+        if ($initialize && \is_dir($this->path)) {
             $this->index();
         }
     }
@@ -79,12 +79,12 @@ final class Directory extends FileAbstract implements DirectoryInterface
      */
     public static function list(string $path, string $filter = '*', bool $recursive = false) : array
     {
-        if (!is_dir($path)) {
+        if (!\is_dir($path)) {
             return [];
         }
 
         $list = [];
-        $path = rtrim($path, '\\/');
+        $path = \rtrim($path, '\\/');
 
         $iterator = $recursive
             ? new \RecursiveIteratorIterator(
@@ -101,7 +101,7 @@ final class Directory extends FileAbstract implements DirectoryInterface
                 continue;
             }
 
-            $list[] = substr(str_replace('\\', '/', $iterator->getPathname()), \strlen($path) + 1);
+            $list[] = \substr(\str_replace('\\', '/', $iterator->getPathname()), \strlen($path) + 1);
         }
 
         /** @var string[] $list */
@@ -123,9 +123,9 @@ final class Directory extends FileAbstract implements DirectoryInterface
     public static function listByExtension(string $path, string $extension = '', string $exclude = '', bool $recursive = true) : array
     {
         $list = [];
-        $path = rtrim($path, '\\/');
+        $path = \rtrim($path, '\\/');
 
-        if (!is_dir($path)) {
+        if (!\is_dir($path)) {
             return $list;
         }
 
@@ -140,12 +140,12 @@ final class Directory extends FileAbstract implements DirectoryInterface
                 continue;
             }
 
-            $subPath = substr($iterator->getPathname(), \strlen($path) + 1);
+            $subPath = \substr($iterator->getPathname(), \strlen($path) + 1);
 
             if ((empty($extension) || $item->getExtension() === $extension)
-                && (empty($exclude) || (!(bool) preg_match('/' . $exclude . '/', $subPath)))
+                && (empty($exclude) || (!(bool) \preg_match('/' . $exclude . '/', $subPath)))
             ) {
-                $list[] = str_replace('\\', '/', $subPath);
+                $list[] = \str_replace('\\', '/', $subPath);
             }
         }
 
@@ -163,14 +163,14 @@ final class Directory extends FileAbstract implements DirectoryInterface
 
         parent::index();
 
-        $files = glob($this->path . \DIRECTORY_SEPARATOR . $this->filter);
+        $files = \glob($this->path . \DIRECTORY_SEPARATOR . $this->filter);
         if ($files === false) {
             return;
         }
 
         foreach ($files as $filename) {
-            if (!StringUtils::endsWith(trim($filename), '.')) {
-                $file = is_dir($filename) ? new self($filename, '*', false) : new File($filename);
+            if (!StringUtils::endsWith(\trim($filename), '.')) {
+                $file = \is_dir($filename) ? new self($filename, '*', false) : new File($filename);
 
                 $this->addNode($file);
             }
@@ -208,12 +208,12 @@ final class Directory extends FileAbstract implements DirectoryInterface
      */
     public static function size(string $dir, bool $recursive = true) : int
     {
-        if (!is_dir($dir) || !is_readable($dir)) {
+        if (!\is_dir($dir) || !\is_readable($dir)) {
             return -1;
         }
 
         $countSize   = 0;
-        $directories = scandir($dir);
+        $directories = \scandir($dir);
 
         if ($directories === false) {
             return $countSize; // @codeCoverageIgnore
@@ -225,10 +225,10 @@ final class Directory extends FileAbstract implements DirectoryInterface
             }
 
             $path = $dir . '/' . $filename;
-            if (is_dir($path) && $recursive) {
+            if (\is_dir($path) && $recursive) {
                 $countSize += self::size($path, $recursive);
-            } elseif (is_file($path)) {
-                $countSize += filesize($path);
+            } elseif (\is_file($path)) {
+                $countSize += \filesize($path);
             }
         }
 
@@ -250,12 +250,12 @@ final class Directory extends FileAbstract implements DirectoryInterface
      */
     public static function count(string $path, bool $recursive = true, array $ignore = []) : int
     {
-        if (!is_dir($path)) {
+        if (!\is_dir($path)) {
             return -1;
         }
 
         $size     = 0;
-        $files    = scandir($path);
+        $files    = \scandir($path);
         $ignore[] = '.';
         $ignore[] = '..';
 
@@ -267,9 +267,9 @@ final class Directory extends FileAbstract implements DirectoryInterface
             if (\in_array($t, $ignore)) {
                 continue;
             }
-            if (is_dir(rtrim($path, '/') . '/' . $t)) {
+            if (\is_dir(\rtrim($path, '/') . '/' . $t)) {
                 if ($recursive) {
-                    $size += self::count(rtrim($path, '/') . '/' . $t, true, $ignore);
+                    $size += self::count(\rtrim($path, '/') . '/' . $t, true, $ignore);
                 }
             } else {
                 ++$size;
@@ -284,11 +284,11 @@ final class Directory extends FileAbstract implements DirectoryInterface
      */
     public static function delete(string $path) : bool
     {
-        if (empty($path) || !is_dir($path)) {
+        if (empty($path) || !\is_dir($path)) {
             return false;
         }
 
-        $files = scandir($path);
+        $files = \scandir($path);
 
         if ($files === false) {
             return false; // @codeCoverageIgnore
@@ -299,14 +299,14 @@ final class Directory extends FileAbstract implements DirectoryInterface
         unset($files[0]);
 
         foreach ($files as $file) {
-            if (is_dir($path . '/' . $file)) {
+            if (\is_dir($path . '/' . $file)) {
                 self::delete($path . '/' . $file);
             } else {
-                unlink($path . '/' . $file);
+                \unlink($path . '/' . $file);
             }
         }
 
-        rmdir($path);
+        \rmdir($path);
 
         return true;
     }
@@ -316,10 +316,10 @@ final class Directory extends FileAbstract implements DirectoryInterface
      */
     public static function parent(string $path) : string
     {
-        $path = explode('/', str_replace('\\', '/', $path));
-        array_pop($path);
+        $path = \explode('/', \str_replace('\\', '/', $path));
+        \array_pop($path);
 
-        return implode('/', $path);
+        return \implode('/', $path);
     }
 
     /**
@@ -327,11 +327,11 @@ final class Directory extends FileAbstract implements DirectoryInterface
      */
     public static function owner(string $path) : int
     {
-        if (!is_dir($path)) {
+        if (!\is_dir($path)) {
             throw new PathException($path);
         }
 
-        return (int) fileowner($path);
+        return (int) \fileowner($path);
     }
 
     /**
@@ -339,11 +339,11 @@ final class Directory extends FileAbstract implements DirectoryInterface
      */
     public static function permission(string $path) : int
     {
-        if (!is_dir($path)) {
+        if (!\is_dir($path)) {
             return -1;
         }
 
-        return (int) fileperms($path);
+        return (int) \fileperms($path);
     }
 
     /**
@@ -351,15 +351,15 @@ final class Directory extends FileAbstract implements DirectoryInterface
      */
     public static function copy(string $from, string $to, bool $overwrite = false) : bool
     {
-        if (!is_dir($from)
-            || (!$overwrite && is_dir($to))
+        if (!\is_dir($from)
+            || (!$overwrite && \is_dir($to))
         ) {
             return false;
         }
 
-        if (!is_dir($to)) {
+        if (!\is_dir($to)) {
             self::create($to, 0755, true);
-        } elseif ($overwrite && is_dir($to)) {
+        } elseif ($overwrite && \is_dir($to)) {
             self::delete($to);
             self::create($to, 0755, true);
         }
@@ -372,9 +372,9 @@ final class Directory extends FileAbstract implements DirectoryInterface
             $subPath = $iterator->getSubPathname();
 
             if ($item->isDir()) {
-                mkdir($to . '/' . $subPath);
+                \mkdir($to . '/' . $subPath);
             } else {
-                copy($from . '/' . $subPath, $to . '/' . $subPath);
+                \copy($from . '/' . $subPath, $to . '/' . $subPath);
             }
         }
 
@@ -386,13 +386,13 @@ final class Directory extends FileAbstract implements DirectoryInterface
      */
     public static function move(string $from, string $to, bool $overwrite = false) : bool
     {
-        if (!is_dir($from)
-            || (!$overwrite && is_dir($to))
+        if (!\is_dir($from)
+            || (!$overwrite && \is_dir($to))
         ) {
             return false;
         }
 
-        if ($overwrite && is_dir($to)) {
+        if ($overwrite && \is_dir($to)) {
             self::delete($to);
         }
 
@@ -400,7 +400,7 @@ final class Directory extends FileAbstract implements DirectoryInterface
             self::create(self::parent($to), 0755, true);
         }
 
-        rename($from, $to);
+        \rename($from, $to);
 
         return true;
     }
@@ -410,7 +410,7 @@ final class Directory extends FileAbstract implements DirectoryInterface
      */
     public static function exists(string $path) : bool
     {
-        return is_dir($path);
+        return \is_dir($path);
     }
 
     /**
@@ -418,7 +418,7 @@ final class Directory extends FileAbstract implements DirectoryInterface
      */
     public static function sanitize(string $path, string $replace = '', string $invalid = '/[^\w\s\d\.\-_~,;:\[\]\(\]\/]/') : string
     {
-        return preg_replace($invalid, $replace, $path) ?? '';
+        return \preg_replace($invalid, $replace, $path) ?? '';
     }
 
     /**
@@ -447,7 +447,7 @@ final class Directory extends FileAbstract implements DirectoryInterface
     public function isExisting(string $name = null) : bool
     {
         if ($name === null) {
-            return is_dir($this->path);
+            return \is_dir($this->path);
         }
 
         $name = isset($this->nodes[$name]) ? $name : $this->path . '/' . $name;
@@ -468,13 +468,13 @@ final class Directory extends FileAbstract implements DirectoryInterface
      */
     public static function create(string $path, int $permission = 0755, bool $recursive = false) : bool
     {
-        if (!is_dir($path)) {
-            if (!$recursive && !is_dir(self::parent($path))) {
+        if (!\is_dir($path)) {
+            if (!$recursive && !\is_dir(self::parent($path))) {
                 return false;
             }
 
             try {
-                mkdir($path, $permission, $recursive);
+                \mkdir($path, $permission, $recursive);
             } catch (\Throwable $t) {
                 return false; // @codeCoverageIgnore
             }
@@ -490,7 +490,7 @@ final class Directory extends FileAbstract implements DirectoryInterface
      */
     public function rewind() : void
     {
-        reset($this->nodes);
+        \reset($this->nodes);
     }
 
     /**
@@ -498,7 +498,7 @@ final class Directory extends FileAbstract implements DirectoryInterface
      */
     public function current() : ContainerInterface
     {
-        $current = current($this->nodes);
+        $current = \current($this->nodes);
         if ($current instanceof self) {
             $current->index();
         }
@@ -511,7 +511,7 @@ final class Directory extends FileAbstract implements DirectoryInterface
      */
     public function key() : ?string
     {
-        return key($this->nodes);
+        return \key($this->nodes);
     }
 
     /**
@@ -519,7 +519,7 @@ final class Directory extends FileAbstract implements DirectoryInterface
      */
     public function next() : void
     {
-        $next = next($this->nodes);
+        $next = \next($this->nodes);
         if ($next instanceof self) {
             $next->index();
         }
@@ -530,7 +530,7 @@ final class Directory extends FileAbstract implements DirectoryInterface
      */
     public function valid() : bool
     {
-        $key = key($this->nodes);
+        $key = \key($this->nodes);
 
         return ($key !== null && $key !== false);
     }
@@ -577,7 +577,7 @@ final class Directory extends FileAbstract implements DirectoryInterface
      */
     public static function name(string $path) : string
     {
-        return basename($path);
+        return \basename($path);
     }
 
     /**
@@ -585,7 +585,7 @@ final class Directory extends FileAbstract implements DirectoryInterface
      */
     public static function dirname(string $path) : string
     {
-        return basename($path);
+        return \basename($path);
     }
 
     /**
@@ -601,7 +601,7 @@ final class Directory extends FileAbstract implements DirectoryInterface
      */
     public static function basename(string $path) : string
     {
-        return basename($path);
+        return \basename($path);
     }
 
     /**
@@ -659,7 +659,7 @@ final class Directory extends FileAbstract implements DirectoryInterface
         $content    = [];
 
         foreach ($this->nodes as $node) {
-            $content[] = substr($node->getPath(), $pathLength + 1);
+            $content[] = \substr($node->getPath(), $pathLength + 1);
         }
 
         return $content;

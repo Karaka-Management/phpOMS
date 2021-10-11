@@ -41,7 +41,7 @@ final class PoissonDistribution
      */
     public static function getPmf(int $k, float $lambda) : float
     {
-        return exp($k * log($lambda) - $lambda - log(Gamma::getGammaInteger($k + 1)));
+        return \exp($k * \log($lambda) - $lambda - \log(Gamma::getGammaInteger($k + 1)));
     }
 
     /**
@@ -59,10 +59,10 @@ final class PoissonDistribution
         $sum = 0.0;
 
         for ($i = 0; $i < $k + 1; ++$i) {
-            $sum += pow($lambda, $i) / Functions::fact($i);
+            $sum += \pow($lambda, $i) / Functions::fact($i);
         }
 
-        return exp(-$lambda) * $sum;
+        return \exp(-$lambda) * $sum;
     }
 
     /**
@@ -76,7 +76,7 @@ final class PoissonDistribution
      */
     public static function getMode(float $lambda) : float
     {
-        return floor($lambda);
+        return \floor($lambda);
     }
 
     /**
@@ -104,7 +104,7 @@ final class PoissonDistribution
      */
     public static function getMedian(float $lambda) : float
     {
-        return floor($lambda + 1 / 3 - 0.02 / $lambda);
+        return \floor($lambda + 1 / 3 - 0.02 / $lambda);
     }
 
     /**
@@ -132,7 +132,7 @@ final class PoissonDistribution
      */
     public static function getStandardDeviation(float $lambda) : float
     {
-        return sqrt($lambda);
+        return \sqrt($lambda);
     }
 
     /**
@@ -147,7 +147,7 @@ final class PoissonDistribution
      */
     public static function getMgf(float $lambda, float $t) : float
     {
-        return exp($lambda * (exp($t) - 1));
+        return \exp($lambda * (\exp($t) - 1));
     }
 
     /**
@@ -161,7 +161,7 @@ final class PoissonDistribution
      */
     public static function getSkewness(float $lambda) : float
     {
-        return pow($lambda, -1 / 2);
+        return \pow($lambda, -1 / 2);
     }
 
     /**
@@ -175,7 +175,7 @@ final class PoissonDistribution
      */
     public static function getFisherInformation(float $lambda) : float
     {
-        return pow($lambda, -1);
+        return \pow($lambda, -1);
     }
 
     /**
@@ -189,6 +189,6 @@ final class PoissonDistribution
      */
     public static function getExKurtosis(float $lambda) : float
     {
-        return pow($lambda, -1);
+        return \pow($lambda, -1);
     }
 }

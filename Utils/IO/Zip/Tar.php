@@ -34,9 +34,9 @@ class Tar implements ArchiveInterface
      */
     public static function pack(string | array $sources, string $destination, bool $overwrite = false) : bool
     {
-        $destination = FileUtils::absolute(str_replace('\\', '/', $destination));
-        if ((!$overwrite && is_file($destination))
-            || is_dir($destination)
+        $destination = FileUtils::absolute(\str_replace('\\', '/', $destination));
+        if ((!$overwrite && \is_file($destination))
+            || \is_dir($destination)
         ) {
             return false;
         }
@@ -55,36 +55,36 @@ class Tar implements ArchiveInterface
                 $source = $relative;
             }
 
-            $source   = FileUtils::absolute(str_replace('\\', '/', $source));
-            $relative = str_replace('\\', '/', $relative);
+            $source   = FileUtils::absolute(\str_replace('\\', '/', $source));
+            $relative = \str_replace('\\', '/', $relative);
 
-            if (is_dir($source)) {
+            if (\is_dir($source)) {
                 $files = new \RecursiveIteratorIterator(
                     new \RecursiveDirectoryIterator($source, \FilesystemIterator::CURRENT_AS_PATHNAME),
                     \RecursiveIteratorIterator::SELF_FIRST
                 );
 
                 foreach ($files as $file) {
-                    $file = str_replace('\\', '/', $file);
+                    $file = \str_replace('\\', '/', $file);
 
                     /* Ignore . and .. */
-                    if (($pos = mb_strrpos($file, '/')) === false
-                        || \in_array(mb_substr($file, $pos + 1), ['.', '..'])
+                    if (($pos = \mb_strrpos($file, '/')) === false
+                        || \in_array(\mb_substr($file, $pos + 1), ['.', '..'])
                     ) {
                         continue;
                     }
 
-                    $absolute = realpath($file);
-                    $absolute = str_replace('\\', '/', (string) $absolute);
-                    $dir      = ltrim(rtrim($relative, '/\\') . '/' . ltrim(str_replace($source . '/', '', $absolute), '/\\'), '/\\');
+                    $absolute = \realpath($file);
+                    $absolute = \str_replace('\\', '/', (string) $absolute);
+                    $dir      = \ltrim(\rtrim($relative, '/\\') . '/' . \ltrim(\str_replace($source . '/', '', $absolute), '/\\'), '/\\');
 
-                    if (is_dir($absolute)) {
+                    if (\is_dir($absolute)) {
                         $tar->addEmptyDir($dir . '/');
-                    } elseif (is_file($absolute)) {
+                    } elseif (\is_file($absolute)) {
                         $tar->addFile($absolute, $dir);
                     }
                 }
-            } elseif (is_file($source)) {
+            } elseif (\is_file($source)) {
                 $tar->addFile($source, $relative);
             } else {
                 continue;
@@ -99,17 +99,17 @@ class Tar implements ArchiveInterface
      */
     public static function unpack(string $source, string $destination) : bool
     {
-        if (!is_file($source)) {
+        if (!\is_file($source)) {
             return false;
         }
 
-        if (!is_dir($destination)) {
+        if (!\is_dir($destination)) {
             Directory::create($destination, recursive: true);
         }
 
         try {
-            $destination = str_replace('\\', '/', $destination);
-            $destination = rtrim($destination, '/');
+            $destination = \str_replace('\\', '/', $destination);
+            $destination = \rtrim($destination, '/');
             $tar         = new \PharData($source);
 
             $tar->extractTo($destination . '/');

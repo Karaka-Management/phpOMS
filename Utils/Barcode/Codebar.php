@@ -67,7 +67,7 @@ class Codebar extends C128Abstract
      */
     public function setContent(string $content) : void
     {
-        parent::setContent(strtoupper($content));
+        parent::setContent(\strtoupper($content));
     }
 
     /**
@@ -81,7 +81,7 @@ class Codebar extends C128Abstract
 
         for ($posX = 1; $posX <= $length; ++$posX) {
             for ($posY = 0; $posY < $lenCodearr; ++$posY) {
-                if (substr($this->content, ($posX - 1), 1) == self::$CODEARRAY[$posY]) {
+                if (\substr($this->content, ($posX - 1), 1) == self::$CODEARRAY[$posY]) {
                     $codeString .= self::$CODEARRAY2[$posY] . '1';
                 }
             }

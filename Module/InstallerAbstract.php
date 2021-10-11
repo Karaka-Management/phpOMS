@@ -68,16 +68,16 @@ abstract class InstallerAbstract
     protected static function createTables(DatabasePool $dbPool, ModuleInfo $info) : void
     {
         $path = static::PATH . '/Install/db.json';
-        if (!is_file($path)) {
+        if (!\is_file($path)) {
             return;
         }
 
-        $content = file_get_contents($path);
+        $content = \file_get_contents($path);
         if ($content === false) {
             return; // @codeCoverageIgnore
         }
 
-        $definitions = json_decode($content, true);
+        $definitions = \json_decode($content, true);
         foreach ($definitions as $definition) {
             SchemaBuilder::createFromSchema($definition, $dbPool->get('schema'))->execute();
         }
@@ -95,14 +95,14 @@ abstract class InstallerAbstract
      */
     protected static function activate(DatabasePool $dbPool, ModuleInfo $info) : void
     {
-        if (($path = realpath(static::PATH)) === false) {
+        if (($path = \realpath(static::PATH)) === false) {
             return; // @codeCoverageIgnore
         }
 
-        $classPath = substr($path . '/Status', (int) \strlen((string) realpath(__DIR__ . '/../../')));
+        $classPath = \substr($path . '/Status', (int) \strlen((string) \realpath(__DIR__ . '/../../')));
 
         /** @var class-string<StatusAbstract> $class */
-        $class = str_replace('/', '\\', $classPath);
+        $class = \str_replace('/', '\\', $classPath);
 
         if (!Autoloader::exists($class)) {
             throw new \UnexpectedValueException($class); // @codeCoverageIgnore
@@ -123,14 +123,14 @@ abstract class InstallerAbstract
      */
     public static function reInit(ModuleInfo $info, ApplicationInfo $appInfo = null) : void
     {
-        if (($path = realpath(static::PATH)) === false) {
+        if (($path = \realpath(static::PATH)) === false) {
             return; // @codeCoverageIgnore
         }
 
-        $classPath = substr($path . '/Status', \strlen((string) realpath(__DIR__ . '/../../')));
+        $classPath = \substr($path . '/Status', \strlen((string) \realpath(__DIR__ . '/../../')));
 
         /** @var class-string<StatusAbstract> $class */
-        $class = str_replace('/', '\\', $classPath);
+        $class = \str_replace('/', '\\', $classPath);
 
         if (!Autoloader::exists($class)) {
             throw new \UnexpectedValueException($class); // @codeCoverageIgnore

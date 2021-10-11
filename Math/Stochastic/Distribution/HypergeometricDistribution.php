@@ -103,7 +103,7 @@ final class HypergeometricDistribution
      */
     public static function getStandardDeviation(int $K, int $N, int $n) : float
     {
-        return sqrt($n * $K / $N * ($N - $K) / $N * ($N - $n) / ($N - 1));
+        return \sqrt($n * $K / $N * ($N - $K) / $N * ($N - $n) / ($N - 1));
     }
 
     /**
@@ -119,8 +119,8 @@ final class HypergeometricDistribution
      */
     public static function getSkewness(int $K, int $N, int $n) : float
     {
-        return ($N - 2 * $K) * sqrt($N - 1) * ($N - 2 * $n)
-            / (sqrt($n * $K * ($N - $K) * ($N - $n)) * ($N - 2));
+        return ($N - 2 * $K) * \sqrt($N - 1) * ($N - 2 * $n)
+            / (\sqrt($n * $K * ($N - $K) * ($N - $n)) * ($N - 2));
     }
 
     /**

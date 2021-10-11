@@ -36,7 +36,7 @@ class KeyTypeTest extends \PHPUnit\Framework\TestCase
      */
     public function testUnique() : void
     {
-        self::assertEquals(KeyType::getConstants(), array_unique(KeyType::getConstants()));
+        self::assertEquals(KeyType::getConstants(), \array_unique(KeyType::getConstants()));
     }
 
     /**

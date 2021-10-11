@@ -36,7 +36,7 @@ class AngleTypeTest extends \PHPUnit\Framework\TestCase
      */
     public function testUnique() : void
     {
-        self::assertEquals(AngleType::getConstants(), array_unique(AngleType::getConstants()));
+        self::assertEquals(AngleType::getConstants(), \array_unique(AngleType::getConstants()));
     }
 
     /**

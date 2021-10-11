@@ -38,7 +38,7 @@ class PermissionTypeTest extends \PHPUnit\Framework\TestCase
      */
     public function testUnique() : void
     {
-        self::assertEquals(PermissionType::getConstants(), array_unique(PermissionType::getConstants()));
+        self::assertEquals(PermissionType::getConstants(), \array_unique(PermissionType::getConstants()));
     }
 
     /**

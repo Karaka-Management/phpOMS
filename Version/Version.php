@@ -48,6 +48,6 @@ final class Version
      */
     public static function compare(string $ver1, string $ver2) : int
     {
-        return version_compare($ver1, $ver2);
+        return \version_compare($ver1, $ver2);
     }
 }

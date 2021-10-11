@@ -36,7 +36,7 @@ class ExtensionTypeTest extends \PHPUnit\Framework\TestCase
      */
     public function testUnique() : void
     {
-        self::assertEquals(ExtensionType::getConstants(), array_unique(ExtensionType::getConstants()));
+        self::assertEquals(ExtensionType::getConstants(), \array_unique(ExtensionType::getConstants()));
     }
 
     /**

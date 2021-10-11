@@ -43,7 +43,7 @@ class MailHandlerTest extends \PHPUnit\Framework\TestCase
     {
         $this->handler->setMailer(SubmitType::MAIL);
 
-        if ($this->handler->mailerTool !== '' && !file_exists(explode(' ', $this->handler->mailerTool)[0])) {
+        if ($this->handler->mailerTool !== '' && !\file_exists(\explode(' ', $this->handler->mailerTool)[0])) {
             self::markTestSkipped();
         }
 
@@ -59,7 +59,7 @@ class MailHandlerTest extends \PHPUnit\Framework\TestCase
         $mail->addAttachment(__DIR__ . '/files/logo.png', 'logo');
         $mail->addEmbeddedImage(__DIR__ . '/files/logo.png', 'cid1');
         $mail->addStringAttachment('String content', 'string_content_file.txt');
-        $mail->addStringEmbeddedImage(file_get_contents(__DIR__ . '/files/logo.png'), 'cid2');
+        $mail->addStringEmbeddedImage(\file_get_contents(__DIR__ . '/files/logo.png'), 'cid2');
 
         self::assertTrue($this->handler->send($mail));
     }
@@ -68,7 +68,7 @@ class MailHandlerTest extends \PHPUnit\Framework\TestCase
     {
         $this->handler->setMailer(SubmitType::SENDMAIL);
 
-        if ($this->handler->mailerTool !== '' && !file_exists(explode(' ', $this->handler->mailerTool)[0])) {
+        if ($this->handler->mailerTool !== '' && !\file_exists(\explode(' ', $this->handler->mailerTool)[0])) {
             self::markTestSkipped();
         }
 
@@ -84,7 +84,7 @@ class MailHandlerTest extends \PHPUnit\Framework\TestCase
         $mail->addAttachment(__DIR__ . '/files/logo.png', 'logo');
         $mail->addEmbeddedImage(__DIR__ . '/files/logo.png', 'cid1');
         $mail->addStringAttachment('String content', 'string_content_file.txt');
-        $mail->addStringEmbeddedImage(file_get_contents(__DIR__ . '/files/logo.png'), 'cid2');
+        $mail->addStringEmbeddedImage(\file_get_contents(__DIR__ . '/files/logo.png'), 'cid2');
 
         self::assertTrue($this->handler->send($mail));
     }
@@ -93,7 +93,7 @@ class MailHandlerTest extends \PHPUnit\Framework\TestCase
     {
         $this->handler->setMailer(SubmitType::MAIL);
 
-        if ($this->handler->mailerTool !== '' && !file_exists(explode(' ', $this->handler->mailerTool)[0])) {
+        if ($this->handler->mailerTool !== '' && !\file_exists(\explode(' ', $this->handler->mailerTool)[0])) {
             self::markTestSkipped();
         }
 
@@ -104,7 +104,7 @@ class MailHandlerTest extends \PHPUnit\Framework\TestCase
         $mail->addBCC('test3@orange-management.email', 'Dennis Eichhorn');
         $mail->addReplyTo('test4@orange-management.email', 'Dennis Eichhorn');
         $mail->subject = 'testSendHtmlWithMail';
-        $message       = file_get_contents(__DIR__ . '/files/utf8.html');
+        $message       = \file_get_contents(__DIR__ . '/files/utf8.html');
         $mail->charset = CharsetType::UTF_8;
         $mail->body    = '';
         $mail->bodyAlt = '';
@@ -114,7 +114,7 @@ class MailHandlerTest extends \PHPUnit\Framework\TestCase
         $mail->addAttachment(__DIR__ . '/files/logo.png', 'logo');
         $mail->addEmbeddedImage(__DIR__ . '/files/logo.png', 'cid1');
         $mail->addStringAttachment('String content', 'string_content_file.txt');
-        $mail->addStringEmbeddedImage(file_get_contents(__DIR__ . '/files/logo.png'), 'cid2');
+        $mail->addStringEmbeddedImage(\file_get_contents(__DIR__ . '/files/logo.png'), 'cid2');
 
         self::assertTrue($this->handler->send($mail));
     }
@@ -123,7 +123,7 @@ class MailHandlerTest extends \PHPUnit\Framework\TestCase
     {
         $this->handler->setMailer(SubmitType::SENDMAIL);
 
-        if ($this->handler->mailerTool !== '' && !file_exists(explode(' ', $this->handler->mailerTool)[0])) {
+        if ($this->handler->mailerTool !== '' && !\file_exists(\explode(' ', $this->handler->mailerTool)[0])) {
             self::markTestSkipped();
         }
 
@@ -134,7 +134,7 @@ class MailHandlerTest extends \PHPUnit\Framework\TestCase
         $mail->addBCC('test3@orange-management.email', 'Dennis Eichhorn');
         $mail->addReplyTo('test4@orange-management.email', 'Dennis Eichhorn');
         $mail->subject = 'testSendHtmlWithSendmail';
-        $message       = file_get_contents(__DIR__ . '/files/utf8.html');
+        $message       = \file_get_contents(__DIR__ . '/files/utf8.html');
         $mail->charset = CharsetType::UTF_8;
         $mail->body    = '';
         $mail->bodyAlt = '';
@@ -144,7 +144,7 @@ class MailHandlerTest extends \PHPUnit\Framework\TestCase
         $mail->addAttachment(__DIR__ . '/files/logo.png', 'logo');
         $mail->addEmbeddedImage(__DIR__ . '/files/logo.png', 'cid1');
         $mail->addStringAttachment('String content', 'string_content_file.txt');
-        $mail->addStringEmbeddedImage(file_get_contents(__DIR__ . '/files/logo.png'), 'cid2');
+        $mail->addStringEmbeddedImage(\file_get_contents(__DIR__ . '/files/logo.png'), 'cid2');
 
         self::assertTrue($this->handler->send($mail));
     }
@@ -153,7 +153,7 @@ class MailHandlerTest extends \PHPUnit\Framework\TestCase
     {
         $this->handler->setMailer(SubmitType::MAIL);
 
-        if ($this->handler->mailerTool !== '' && !file_exists(explode(' ', $this->handler->mailerTool)[0])) {
+        if ($this->handler->mailerTool !== '' && !\file_exists(\explode(' ', $this->handler->mailerTool)[0])) {
             self::markTestSkipped();
         }
 
@@ -172,7 +172,7 @@ class MailHandlerTest extends \PHPUnit\Framework\TestCase
     {
         $this->handler->setMailer(SubmitType::SENDMAIL);
 
-        if ($this->handler->mailerTool !== '' && !file_exists(explode(' ', $this->handler->mailerTool)[0])) {
+        if ($this->handler->mailerTool !== '' && !\file_exists(\explode(' ', $this->handler->mailerTool)[0])) {
             self::markTestSkipped();
         }
 
@@ -191,7 +191,7 @@ class MailHandlerTest extends \PHPUnit\Framework\TestCase
     {
         $this->handler->setMailer(SubmitType::MAIL);
 
-        if ($this->handler->mailerTool !== '' && !file_exists(explode(' ', $this->handler->mailerTool)[0])) {
+        if ($this->handler->mailerTool !== '' && !\file_exists(\explode(' ', $this->handler->mailerTool)[0])) {
             self::markTestSkipped();
         }
 
@@ -208,7 +208,7 @@ class MailHandlerTest extends \PHPUnit\Framework\TestCase
     {
         $this->handler->setMailer(SubmitType::SENDMAIL);
 
-        if ($this->handler->mailerTool !== '' && !file_exists(explode(' ', $this->handler->mailerTool)[0])) {
+        if ($this->handler->mailerTool !== '' && !\file_exists(\explode(' ', $this->handler->mailerTool)[0])) {
             self::markTestSkipped();
         }
 
@@ -225,7 +225,7 @@ class MailHandlerTest extends \PHPUnit\Framework\TestCase
     {
         $this->handler->setMailer(SubmitType::MAIL);
 
-        if ($this->handler->mailerTool !== '' && !file_exists(explode(' ', $this->handler->mailerTool)[0])) {
+        if ($this->handler->mailerTool !== '' && !\file_exists(\explode(' ', $this->handler->mailerTool)[0])) {
             self::markTestSkipped();
         }
 
@@ -242,7 +242,7 @@ class MailHandlerTest extends \PHPUnit\Framework\TestCase
     {
         $this->handler->setMailer(SubmitType::SENDMAIL);
 
-        if ($this->handler->mailerTool !== '' && !file_exists(explode(' ', $this->handler->mailerTool)[0])) {
+        if ($this->handler->mailerTool !== '' && !\file_exists(\explode(' ', $this->handler->mailerTool)[0])) {
             self::markTestSkipped();
         }
 
@@ -259,7 +259,7 @@ class MailHandlerTest extends \PHPUnit\Framework\TestCase
     {
         $this->handler->setMailer(SubmitType::MAIL);
 
-        if ($this->handler->mailerTool !== '' && !file_exists(explode(' ', $this->handler->mailerTool)[0])) {
+        if ($this->handler->mailerTool !== '' && !\file_exists(\explode(' ', $this->handler->mailerTool)[0])) {
             self::markTestSkipped();
         }
 
@@ -279,7 +279,7 @@ class MailHandlerTest extends \PHPUnit\Framework\TestCase
     {
         $this->handler->setMailer(SubmitType::SENDMAIL);
 
-        if ($this->handler->mailerTool !== '' && !file_exists(explode(' ', $this->handler->mailerTool)[0])) {
+        if ($this->handler->mailerTool !== '' && !\file_exists(\explode(' ', $this->handler->mailerTool)[0])) {
             self::markTestSkipped();
         }
 
@@ -299,7 +299,7 @@ class MailHandlerTest extends \PHPUnit\Framework\TestCase
     {
         $this->handler->setMailer(SubmitType::MAIL);
 
-        if ($this->handler->mailerTool !== '' && !file_exists(explode(' ', $this->handler->mailerTool)[0])) {
+        if ($this->handler->mailerTool !== '' && !\file_exists(\explode(' ', $this->handler->mailerTool)[0])) {
             self::markTestSkipped();
         }
 
@@ -317,7 +317,7 @@ class MailHandlerTest extends \PHPUnit\Framework\TestCase
     {
         $this->handler->setMailer(SubmitType::SENDMAIL);
 
-        if ($this->handler->mailerTool !== '' && !file_exists(explode(' ', $this->handler->mailerTool)[0])) {
+        if ($this->handler->mailerTool !== '' && !\file_exists(\explode(' ', $this->handler->mailerTool)[0])) {
             self::markTestSkipped();
         }
 
@@ -335,7 +335,7 @@ class MailHandlerTest extends \PHPUnit\Framework\TestCase
     {
         $this->handler->setMailer(SubmitType::MAIL);
 
-        if ($this->handler->mailerTool !== '' && !file_exists(explode(' ', $this->handler->mailerTool)[0])) {
+        if ($this->handler->mailerTool !== '' && !\file_exists(\explode(' ', $this->handler->mailerTool)[0])) {
             self::markTestSkipped();
         }
 
@@ -352,7 +352,7 @@ class MailHandlerTest extends \PHPUnit\Framework\TestCase
     {
         $this->handler->setMailer(SubmitType::SENDMAIL);
 
-        if ($this->handler->mailerTool !== '' && !file_exists(explode(' ', $this->handler->mailerTool)[0])) {
+        if ($this->handler->mailerTool !== '' && !\file_exists(\explode(' ', $this->handler->mailerTool)[0])) {
             self::markTestSkipped();
         }
 

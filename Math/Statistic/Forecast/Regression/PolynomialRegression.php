@@ -48,7 +48,7 @@ final class PolynomialRegression
         $xm = Average::arithmeticMean($x);
         $ym = Average::arithmeticMean($y);
 
-        $r = range(0, $n - 1);
+        $r = \range(0, $n - 1);
 
         $xTemp = [];
         foreach ($r as $e) {

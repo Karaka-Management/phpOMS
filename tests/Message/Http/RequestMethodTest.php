@@ -36,7 +36,7 @@ class RequestMethodTest extends \PHPUnit\Framework\TestCase
      */
     public function testUnique() : void
     {
-        self::assertEquals(RequestMethod::getConstants(), array_unique(RequestMethod::getConstants()));
+        self::assertEquals(RequestMethod::getConstants(), \array_unique(RequestMethod::getConstants()));
     }
 
     /**

@@ -104,7 +104,7 @@ final class EventManager implements \Countable
      */
     public function importFromFile(string $path) : bool
     {
-        if (!is_file($path)) {
+        if (!\is_file($path)) {
             return false;
         }
 
@@ -169,18 +169,18 @@ final class EventManager implements \Countable
      */
     public function triggerSimilar(string $group, string $id = '', mixed $data = null) : bool
     {
-        $groupIsRegex = stripos($group, '/') === 0;
-        $idIsRegex    = stripos($id, '/') === 0;
+        $groupIsRegex = \stripos($group, '/') === 0;
+        $idIsRegex    = \stripos($id, '/') === 0;
 
         $groups = [];
         foreach ($this->groups as $groupName => $value) {
-            $groupNameIsRegex = stripos($groupName, '/') === 0;
+            $groupNameIsRegex = \stripos($groupName, '/') === 0;
 
             if ($groupIsRegex) {
-                if (preg_match($group, $groupName) === 1) {
+                if (\preg_match($group, $groupName) === 1) {
                     $groups[$groupName] = [];
                 }
-            } elseif ($groupNameIsRegex && preg_match($groupName, $group) === 1) {
+            } elseif ($groupNameIsRegex && \preg_match($groupName, $group) === 1) {
                 $groups[$groupName] = [];
             } elseif ($groupName === $group) {
                 $groups[$groupName] = [];
@@ -189,13 +189,13 @@ final class EventManager implements \Countable
 
         foreach ($groups as $groupName => $groupValues) {
             foreach ($this->groups[$groupName] as $idName => $value) {
-                $idNameIsRegex = stripos($idName, '/') === 0;
+                $idNameIsRegex = \stripos($idName, '/') === 0;
 
                 if ($idIsRegex) {
-                    if (preg_match($id, $idName) === 1) {
+                    if (\preg_match($id, $idName) === 1) {
                         $groups[$groupName][] = $idName;
                     }
-                } elseif ($idNameIsRegex && preg_match($idName, $id) === 1) {
+                } elseif ($idNameIsRegex && \preg_match($idName, $id) === 1) {
                     $groups[$groupName][] = $id;
                 } elseif ($idName === $id) {
                     $groups[$groupName] = [];

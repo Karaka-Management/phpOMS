@@ -26,7 +26,7 @@ class CronTest extends \PHPUnit\Framework\TestCase
 {
     protected function setUp() : void
     {
-        if (stripos(\PHP_OS, 'LINUX') === false) {
+        if (\stripos(\PHP_OS, 'LINUX') === false) {
             $this->markTestSkipped(
               'The OS is not linux.'
             );

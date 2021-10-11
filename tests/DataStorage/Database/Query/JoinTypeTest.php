@@ -36,7 +36,7 @@ class JoinTypeTest extends \PHPUnit\Framework\TestCase
      */
     public function testUnique() : void
     {
-        self::assertEquals(JoinType::getConstants(), array_unique(JoinType::getConstants()));
+        self::assertEquals(JoinType::getConstants(), \array_unique(JoinType::getConstants()));
     }
 
     /**

@@ -268,12 +268,12 @@ class MailHandler
             case SubmitType::SMTP:
                 return;
             case SubmitType::SENDMAIL:
-                $this->mailerTool = stripos($sendmailPath = ini_get('sendmail_path'), 'sendmail') === false
+                $this->mailerTool = \stripos($sendmailPath = \ini_get('sendmail_path'), 'sendmail') === false
                     ? '/usr/sbin/sendmail'
                     : $sendmailPath;
                 return;
             case SubmitType::QMAIL:
-                $this->mailerTool = stripos($sendmailPath = ini_get('sendmail_path'), 'qmail') === false
+                $this->mailerTool = \stripos($sendmailPath = \ini_get('sendmail_path'), 'qmail') === false
                     ? '/var/qmail/bin/qmail-inject'
                     : $sendmailPath;
                 return;
@@ -335,7 +335,7 @@ class MailHandler
      */
     protected function sendmailSend(Email $mail) : bool
     {
-        $header = rtrim($mail->headerMime, " \r\n\t") . self::$LE . self::$LE;
+        $header = \rtrim($mail->headerMime, " \r\n\t") . self::$LE . self::$LE;
 
         // CVE-2016-10033, CVE-2016-10045: Don't pass -f if characters will be escaped.
         if (!empty($mail->sender) && StringUtils::isShellSafe($mail->sender)) {
@@ -348,17 +348,17 @@ class MailHandler
             $mailerToolFmt = '%s -oi -t';
         }
 
-        $mailerTool = sprintf($mailerToolFmt, escapeshellcmd($this->mailerTool), $mail->sender);
+        $mailerTool = \sprintf($mailerToolFmt, \escapeshellcmd($this->mailerTool), $mail->sender);
 
-        $con = popen($mailerTool, 'w');
+        $con = \popen($mailerTool, 'w');
         if ($con === false) {
             return false;
         }
 
-        fwrite($con, $header);
-        fwrite($con, $mail->bodyMime);
+        \fwrite($con, $header);
+        \fwrite($con, $mail->bodyMime);
 
-        $result = pclose($con);
+        $result = \pclose($con);
 
         return $result === 0;
     }
@@ -374,14 +374,14 @@ class MailHandler
      */
     protected function mailSend(Email $mail) : bool
     {
-        $header = rtrim($mail->headerMime, " \r\n\t") . self::$LE . self::$LE;
+        $header = \rtrim($mail->headerMime, " \r\n\t") . self::$LE . self::$LE;
 
         $toArr = [];
         foreach ($mail->to as $toaddr) {
             $toArr[] = $mail->addrFormat($toaddr);
         }
 
-        $to = implode(', ', $toArr);
+        $to = \implode(', ', $toArr);
 
         //This sets the SMTP envelope sender which gets turned into a return-path header by the receiver
         // CVE-2016-10033, CVE-2016-10045: Don't pass -f if characters will be escaped.
@@ -390,18 +390,18 @@ class MailHandler
             && EmailValidator::isValid($mail->sender)
             && StringUtils::isShellSafe($mail->sender)
         ) {
-            $params = sprintf('-f%s', $mail->sender);
+            $params = \sprintf('-f%s', $mail->sender);
         }
 
         if (!empty($mail->sender) && EmailValidator::isValid($mail->sender)) {
-            $oldFrom = ini_get('sendmail_from');
-            ini_set('sendmail_from', $mail->sender);
+            $oldFrom = \ini_get('sendmail_from');
+            \ini_set('sendmail_from', $mail->sender);
         }
 
         $result = $this->mailPassthru($to, $mail, $header, $params);
 
         if (isset($oldFrom)) {
-            ini_set('sendmail_from', $oldFrom);
+            \ini_set('sendmail_from', $oldFrom);
         }
 
         return $result;
@@ -422,11 +422,11 @@ class MailHandler
      */
     private function mailPassthru(string $to, Email $mail, string $header, string $params = null) : bool
     {
-        $subject = $mail->encodeHeader(trim(str_replace(["\r", "\n"], '', $mail->subject)));
+        $subject = $mail->encodeHeader(\trim(\str_replace(["\r", "\n"], '', $mail->subject)));
 
         return !$this->useMailOptions || $params === null
-            ? mail($to, $subject, $mail->body, $header)
-            : mail($to, $subject, $mail->body, $header, $params);
+            ? \mail($to, $subject, $mail->body, $header)
+            : \mail($to, $subject, $mail->body, $header, $params);
     }
 
     /**
@@ -440,7 +440,7 @@ class MailHandler
      */
     protected function smtpSend(Email $mail) : bool
     {
-        $header = rtrim($mail->headerMime, " \r\n\t") . self::$LE . self::$LE;
+        $header = \rtrim($mail->headerMime, " \r\n\t") . self::$LE . self::$LE;
 
         if (!$this->smtpConnect($this->smtpOptions)) {
             return false;
@@ -504,12 +504,12 @@ class MailHandler
         $this->smtp->timeout = $this->timeout;
         $this->smtp->doVerp  = $this->useVerp;
 
-        $hosts = explode(';', $this->host);
+        $hosts = \explode(';', $this->host);
         foreach ($hosts as $hostentry) {
             $hostinfo = [];
-            if (!preg_match(
+            if (!\preg_match(
                     '/^(?:(ssl|tls):\/\/)?(.+?)(?::(\d+))?$/',
-                    trim($hostentry),
+                    \trim($hostentry),
                     $hostinfo
                 )
             ) {
@@ -551,7 +551,7 @@ class MailHandler
             $port = $this->port;
 
             if (isset($hostinfo[3])
-                && is_numeric($hostinfo[3])
+                && \is_numeric($hostinfo[3])
                 && $hostinfo[3] > 0 && $hostinfo[3] < 65536
             ) {
                 $port = (int) $hostinfo[3];

@@ -83,7 +83,7 @@ class WeibullDistributionTest extends \PHPUnit\Framework\TestCase
      */
     public function testStandardDeviation() : void
     {
-        self::assertEqualsWithDelta(sqrt(3.43362932), WeibullDistribution::getStandardDeviation(4, 2), 0.001);
+        self::assertEqualsWithDelta(\sqrt(3.43362932), WeibullDistribution::getStandardDeviation(4, 2), 0.001);
     }
 
     /**

@@ -280,13 +280,13 @@ class Graph
 
                 $this->bridgesDepthFirstSearch($neighbor, $visited, $discovery, $low, $parent, $index, $bridges);
 
-                $low[$id] = min($low[$id], $low[$neighbor->getId()]);
+                $low[$id] = \min($low[$id], $low[$neighbor->getId()]);
 
                 if ($low[$neighbor->getId()] > $discovery[$id]) {
                     $bridges[] = $edge;
                 }
             } elseif (isset($parent[$id]) && !$neighbor->isEqual($parent[$id])) {
-                $low[$id] = min($low[$id], $discovery[$neighbor->getId()]);
+                $low[$id] = \min($low[$id], $discovery[$neighbor->getId()]);
             }
         }
     }
@@ -303,7 +303,7 @@ class Graph
         $graph = new self();
         $edges = $this->getEdges();
 
-        usort($edges, Edge::class . '::compare');
+        \usort($edges, Edge::class . '::compare');
 
         foreach ($edges as $edge) {
             if ($graph->hasNode($edge->getNode1()->getId())
@@ -519,7 +519,7 @@ class Graph
             if (!isset($visited[$neighbor->getId()]) || !$visited[$neighbor->getId()]) {
                 $path[] = $neighbor;
                 $this->depthFirstTraversal($neighbor, $node2, $visited, $path, $paths);
-                array_pop($path);
+                \array_pop($path);
             }
         }
 
@@ -553,7 +553,7 @@ class Graph
         $stack   = [$node1];
 
         while (!empty($stack)) {
-            $cNode = array_pop($stack);
+            $cNode = \array_pop($stack);
             if (isset($visited[$cNode->getId()]) && $visited[$cNode->getId()] === true) {
                 continue;
             }
@@ -695,10 +695,10 @@ class Graph
             }
         }
 
-        if (array_sum($edges) > 0.0) {
-            arsort($edges);
+        if (\array_sum($edges) > 0.0) {
+            \arsort($edges);
 
-            return $paths[array_key_first($edges)];
+            return $paths[\array_key_first($edges)];
         }
 
         return $paths[$mostNodes];
@@ -751,10 +751,10 @@ class Graph
             }
         }
 
-        if (array_sum($edges) > 0.0) {
-            asort($edges);
+        if (\array_sum($edges) > 0.0) {
+            \asort($edges);
 
-            return $paths[array_key_first($edges)];
+            return $paths[\array_key_first($edges)];
         }
 
         return $paths[$leastNodes];
@@ -810,7 +810,7 @@ class Graph
                 }
 
                 /** @var int $diameter */
-                $diameter = max($diameter, $this->getFloydWarshallShortestPath());
+                $diameter = \max($diameter, $this->getFloydWarshallShortestPath());
             }
         }
 
@@ -879,7 +879,7 @@ class Graph
             return true;
         }
 
-        $nodes = $this->findAllReachableNodesDFS(reset($this->nodes));
+        $nodes = $this->findAllReachableNodesDFS(\reset($this->nodes));
 
         return \count($nodes) === \count($this->nodes);
     }

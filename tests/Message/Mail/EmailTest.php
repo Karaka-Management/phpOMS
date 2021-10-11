@@ -198,7 +198,7 @@ class EmailTestTest extends \PHPUnit\Framework\TestCase
 
     public function testHtml() : void
     {
-        $message             = file_get_contents(__DIR__ . '/files/utf8.html');
+        $message             = \file_get_contents(__DIR__ . '/files/utf8.html');
         $this->mail->charset = CharsetType::UTF_8;
         $this->mail->body    = '';
         $this->mail->bodyAlt = '';
@@ -208,7 +208,7 @@ class EmailTestTest extends \PHPUnit\Framework\TestCase
 
         self::assertNotEmpty($this->mail->body);
         self::assertNotEmpty($this->mail->bodyAlt);
-        self::assertTrue(stripos($this->mail->body, 'cid:') !== false);
+        self::assertTrue(\stripos($this->mail->body, 'cid:') !== false);
     }
 
     public function testAttachment() : void

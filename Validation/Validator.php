@@ -45,7 +45,7 @@ final class Validator extends ValidatorAbstract
         }
 
         foreach ($constraints as $test => $settings) {
-            $callback = StringUtils::endsWith($test, 'Not') ? substr($test, 0, -3) : (string) $test;
+            $callback = StringUtils::endsWith($test, 'Not') ? \substr($test, 0, -3) : (string) $test;
 
             if (!\is_callable($callback)) {
                 throw new \BadFunctionCallException();
@@ -79,7 +79,7 @@ final class Validator extends ValidatorAbstract
         }
 
         foreach ($constraint as $key => $value) {
-            if (!is_a($var, $value)) {
+            if (!\is_a($var, $value)) {
                 return false;
             }
         }
@@ -121,7 +121,7 @@ final class Validator extends ValidatorAbstract
      */
     public static function contains(string $var, string | array $substr) : bool
     {
-        return \is_string($substr) ? strpos($var, $substr) !== false : StringUtils::contains($var, $substr);
+        return \is_string($substr) ? \strpos($var, $substr) !== false : StringUtils::contains($var, $substr);
     }
 
     /**
@@ -136,7 +136,7 @@ final class Validator extends ValidatorAbstract
      */
     public static function matches(string $var, string $pattern) : bool
     {
-        return (preg_match($pattern, $var) === 1 ? true : false);
+        return (\preg_match($pattern, $var) === 1 ? true : false);
     }
 
     /**

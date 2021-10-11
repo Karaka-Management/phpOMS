@@ -35,7 +35,7 @@ class ModuleInfoTest extends \PHPUnit\Framework\TestCase
         $info = new ModuleInfo(__DIR__ . '/info-test.json');
         $info->load();
 
-        $jarray = json_decode(file_get_contents(__DIR__ . '/info-test.json'), true);
+        $jarray = \json_decode(\file_get_contents(__DIR__ . '/info-test.json'), true);
 
         self::assertEquals($jarray, $info->get());
         self::assertEquals($jarray['name']['id'], $info->getId());
@@ -57,7 +57,7 @@ class ModuleInfoTest extends \PHPUnit\Framework\TestCase
      */
     public function testChange() : void
     {
-        $jarray = json_decode(file_get_contents(__DIR__ . '/info-test.json'), true);
+        $jarray = \json_decode(\file_get_contents(__DIR__ . '/info-test.json'), true);
 
         $info = new ModuleInfo(__DIR__ . '/info-test.json');
         $info->load();

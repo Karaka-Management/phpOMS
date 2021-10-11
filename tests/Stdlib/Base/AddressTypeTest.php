@@ -36,7 +36,7 @@ class AddressTypeTest extends \PHPUnit\Framework\TestCase
      */
     public function testUnique() : void
     {
-        self::assertEquals(AddressType::getConstants(), array_unique(AddressType::getConstants()));
+        self::assertEquals(AddressType::getConstants(), \array_unique(AddressType::getConstants()));
     }
 
     /**

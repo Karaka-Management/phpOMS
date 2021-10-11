@@ -79,7 +79,7 @@ final class FormValidation implements \JsonSerializable, \Serializable, Arrayabl
      */
     public function unserialize($raw) : void
     {
-        $unserialized = json_decode($raw, true);
+        $unserialized = \json_decode($raw, true);
 
         $this->validation = $unserialized['validation'] ?? [];
     }
@@ -93,7 +93,7 @@ final class FormValidation implements \JsonSerializable, \Serializable, Arrayabl
      */
     public function __toString()
     {
-        return (string) json_encode($this->toArray());
+        return (string) \json_encode($this->toArray());
     }
 
     /**

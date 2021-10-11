@@ -83,7 +83,7 @@ class PriorityQueue implements \Countable, \Serializable
     public function insert(mixed $data, float $priority = 1.0) : int
     {
         do {
-            $key = mt_rand();
+            $key = \mt_rand();
         } while (isset($this->queue[$key]));
 
         if (\count($this->queue) === 0) {
@@ -225,7 +225,7 @@ class PriorityQueue implements \Countable, \Serializable
      */
     public function pop() : array
     {
-        return array_pop($this->queue) ?? [];
+        return \array_pop($this->queue) ?? [];
     }
 
     /**
@@ -315,7 +315,7 @@ class PriorityQueue implements \Countable, \Serializable
      */
     public function serialize() : string
     {
-        return (string) json_encode($this->queue);
+        return (string) \json_encode($this->queue);
     }
 
     /**
@@ -329,6 +329,6 @@ class PriorityQueue implements \Countable, \Serializable
      */
     public function unserialize($data) : void
     {
-        $this->queue = json_decode($data, true);
+        $this->queue = \json_decode($data, true);
     }
 }

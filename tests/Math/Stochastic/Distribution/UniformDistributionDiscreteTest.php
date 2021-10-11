@@ -100,7 +100,7 @@ class UniformDistributionDiscreteTest extends \PHPUnit\Framework\TestCase
         $a = 1;
         $b = 4;
 
-        self::assertEquals(sqrt((($b - $a + 1) ** 2 - 1) / 12), UniformDistributionDiscrete::getStandardDeviation($a, $b));
+        self::assertEquals(\sqrt((($b - $a + 1) ** 2 - 1) / 12), UniformDistributionDiscrete::getStandardDeviation($a, $b));
     }
 
     /**
@@ -123,7 +123,7 @@ class UniformDistributionDiscreteTest extends \PHPUnit\Framework\TestCase
     public function testMgf() : void
     {
         self::assertEquals(
-            (exp(3 * 2) - exp((4 + 1) * 2)) / ((4 - 3 + 1) * (1 - exp(2))),
+            (\exp(3 * 2) - \exp((4 + 1) * 2)) / ((4 - 3 + 1) * (1 - \exp(2))),
             UniformDistributionDiscrete::getMgf(2, 3, 4)
         );
     }

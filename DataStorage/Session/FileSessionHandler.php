@@ -45,8 +45,8 @@ final class FileSessionHandler implements \SessionHandlerInterface, \SessionIdIn
     {
         $this->savePath = $path;
 
-        if (realpath($path) === false) {
-            mkdir($path, 0755, true);
+        if (\realpath($path) === false) {
+            \mkdir($path, 0755, true);
         }
     }
 
@@ -59,7 +59,7 @@ final class FileSessionHandler implements \SessionHandlerInterface, \SessionIdIn
      */
     public function create_sid() : string
     {
-        return ($sid = session_create_id('s-')) === false ? '' : $sid;
+        return ($sid = \session_create_id('s-')) === false ? '' : $sid;
     }
 
     /**
@@ -76,7 +76,7 @@ final class FileSessionHandler implements \SessionHandlerInterface, \SessionIdIn
     {
         $this->savePath = $savePath;
 
-        return is_dir($this->savePath);
+        return \is_dir($this->savePath);
     }
 
     /**
@@ -102,11 +102,11 @@ final class FileSessionHandler implements \SessionHandlerInterface, \SessionIdIn
      */
     public function read($id)
     {
-        if (!is_file($this->savePath . '/sess_' . $id)) {
+        if (!\is_file($this->savePath . '/sess_' . $id)) {
             return '';
         }
 
-        return (string) file_get_contents($this->savePath . '/sess_' . $id);
+        return (string) \file_get_contents($this->savePath . '/sess_' . $id);
     }
 
     /**
@@ -121,7 +121,7 @@ final class FileSessionHandler implements \SessionHandlerInterface, \SessionIdIn
      */
     public function write($id, $data)
     {
-        return file_put_contents($this->savePath . '/sess_' . $id, $data) === false ? false : true;
+        return \file_put_contents($this->savePath . '/sess_' . $id, $data) === false ? false : true;
     }
 
     /**
@@ -136,8 +136,8 @@ final class FileSessionHandler implements \SessionHandlerInterface, \SessionIdIn
     public function destroy($id)
     {
         $file = $this->savePath . '/sess_' . $id;
-        if (is_file($file)) {
-            unlink($file);
+        if (\is_file($file)) {
+            \unlink($file);
         }
 
         return true;
@@ -154,15 +154,15 @@ final class FileSessionHandler implements \SessionHandlerInterface, \SessionIdIn
      */
     public function gc($maxlifetime)
     {
-        $files = glob("{$this->savePath}/sess_*");
+        $files = \glob("{$this->savePath}/sess_*");
 
         if ($files === false) {
             return false;
         }
 
         foreach ($files as $file) {
-            if (filemtime($file) + $maxlifetime < time() && is_file($file)) {
-                unlink($file);
+            if (\filemtime($file) + $maxlifetime < \time() && \is_file($file)) {
+                \unlink($file);
             }
         }
 

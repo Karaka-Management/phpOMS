@@ -36,7 +36,7 @@ class BrowserTypeTest extends \PHPUnit\Framework\TestCase
      */
     public function testUnique() : void
     {
-        self::assertEquals(BrowserType::getConstants(), array_unique(BrowserType::getConstants()));
+        self::assertEquals(BrowserType::getConstants(), \array_unique(BrowserType::getConstants()));
     }
 
     /**

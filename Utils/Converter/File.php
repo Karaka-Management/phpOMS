@@ -50,12 +50,12 @@ final class File
         if ($bytes < 1000) {
             return $bytes . 'b';
         } elseif ($bytes < 1000000) {
-            return rtrim(rtrim(number_format($bytes / 1000, 1, $decimal, $thousands), '0'), $decimal) . 'kb';
+            return \rtrim(\rtrim(\number_format($bytes / 1000, 1, $decimal, $thousands), '0'), $decimal) . 'kb';
         } elseif ($bytes < 1000000000) {
-            return rtrim(rtrim(number_format($bytes / 1000000, 1, $decimal, $thousands), '0'), $decimal) . 'mb';
+            return \rtrim(\rtrim(\number_format($bytes / 1000000, 1, $decimal, $thousands), '0'), $decimal) . 'mb';
         }
 
-        return rtrim(rtrim(number_format($bytes / 1000000000, 1, $decimal, $thousands), '0'), $decimal) . 'gb';
+        return \rtrim(\rtrim(\number_format($bytes / 1000000000, 1, $decimal, $thousands), '0'), $decimal) . 'gb';
     }
 
     /**
@@ -72,11 +72,11 @@ final class File
     public static function kilobyteSizeToString(int $kilobytes, string $decimal = '.', string $thousands = ',') : string
     {
         if ($kilobytes < 1000) {
-            return rtrim(rtrim(number_format($kilobytes, 1, $decimal, $thousands), '0'), $decimal) . 'kb';
+            return \rtrim(\rtrim(\number_format($kilobytes, 1, $decimal, $thousands), '0'), $decimal) . 'kb';
         } elseif ($kilobytes < 1000000) {
-            return rtrim(rtrim(number_format($kilobytes / 1000, 1, $decimal, $thousands), '0'), $decimal) . 'mb';
+            return \rtrim(\rtrim(\number_format($kilobytes / 1000, 1, $decimal, $thousands), '0'), $decimal) . 'mb';
         }
 
-        return rtrim(rtrim(number_format($kilobytes / 1000000, 1, $decimal, $thousands), '0'), $decimal) . 'gb';
+        return \rtrim(\rtrim(\number_format($kilobytes / 1000000, 1, $decimal, $thousands), '0'), $decimal) . 'gb';
     }
 }

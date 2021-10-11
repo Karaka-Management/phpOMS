@@ -46,6 +46,6 @@ class StatusAbstractTest extends \PHPUnit\Framework\TestCase
     	$this->status::activateRoutes();
         $this->status::activateHooks();
 
-        self::assertFalse(is_file(__DIR__ . '/Routes.php'));
+        self::assertFalse(\is_file(__DIR__ . '/Routes.php'));
     }
 }

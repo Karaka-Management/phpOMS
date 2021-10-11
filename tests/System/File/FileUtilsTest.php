@@ -54,7 +54,7 @@ class FileUtilsTest extends \PHPUnit\Framework\TestCase
      */
     public function testAbsolute() : void
     {
-        self::assertEquals(realpath(__DIR__ . '/..'), FileUtils::absolute(__DIR__ . '/..'));
+        self::assertEquals(\realpath(__DIR__ . '/..'), FileUtils::absolute(__DIR__ . '/..'));
         self::assertEquals('/test/ative', FileUtils::absolute('/test/path/for/../rel/../../ative'));
     }
 
@@ -75,18 +75,18 @@ class FileUtilsTest extends \PHPUnit\Framework\TestCase
      */
     public function testChangeFileEncoding() : void
     {
-        if (is_file(__DIR__ . '/UTF-8.txt')) {
-            unlink(__DIR__ . '/UTF-8.txt');
+        if (\is_file(__DIR__ . '/UTF-8.txt')) {
+            \unlink(__DIR__ . '/UTF-8.txt');
         }
 
         FileUtils::changeFileEncoding(__DIR__ . '/Windows-1252.txt', __DIR__ . '/UTF-8.txt', 'UTF-8', 'Windows-1252');
 
         self::assertFileExists(__DIR__ . '/UTF-8.txt');
-        self::assertNotEquals("This is a test file with some¶\ncontent Ø Æ.", file_get_contents(__DIR__ . '/Windows-1252.txt'));
-        self::assertEquals("This is a test file with some¶\ncontent Ø Æ.", file_get_contents(__DIR__ . '/UTF-8.txt'));
+        self::assertNotEquals("This is a test file with some¶\ncontent Ø Æ.", \file_get_contents(__DIR__ . '/Windows-1252.txt'));
+        self::assertEquals("This is a test file with some¶\ncontent Ø Æ.", \file_get_contents(__DIR__ . '/UTF-8.txt'));
 
-        if (is_file(__DIR__ . '/UTF-8.txt')) {
-            unlink(__DIR__ . '/UTF-8.txt');
+        if (\is_file(__DIR__ . '/UTF-8.txt')) {
+            \unlink(__DIR__ . '/UTF-8.txt');
         }
     }
 
@@ -98,14 +98,14 @@ class FileUtilsTest extends \PHPUnit\Framework\TestCase
     public function testPathInfo() : void
     {
         self::assertEquals(__DIR__, FileUtils::mb_pathinfo(__DIR__ . '/FileUtilsTest.php', \PATHINFO_DIRNAME));
-        self::assertEquals(basename(__DIR__ . '/FileUtilsTest.php'), FileUtils::mb_pathinfo(__DIR__ . '/FileUtilsTest.php', \PATHINFO_BASENAME));
+        self::assertEquals(\basename(__DIR__ . '/FileUtilsTest.php'), FileUtils::mb_pathinfo(__DIR__ . '/FileUtilsTest.php', \PATHINFO_BASENAME));
         self::assertEquals('php', FileUtils::mb_pathinfo(__DIR__ . '/FileUtilsTest.php', \PATHINFO_EXTENSION));
         self::assertEquals('FileUtilsTest', FileUtils::mb_pathinfo(__DIR__ . '/FileUtilsTest.php', \PATHINFO_FILENAME));
 
         self::assertEquals(
             [
                 'dirname'   => __DIR__,
-                'basename'  => basename(__DIR__ . '/FileUtilsTest.php'),
+                'basename'  => \basename(__DIR__ . '/FileUtilsTest.php'),
                 'extension' => 'php',
                 'filename'  => 'FileUtilsTest',
             ],

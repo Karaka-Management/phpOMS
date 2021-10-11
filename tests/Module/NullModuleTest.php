@@ -60,6 +60,6 @@ final class NullModuleTest extends \PHPUnit\Framework\TestCase
         $this->module->invalidMethodCall();
 
         $path = TestUtils::getMember(FileLogger::getInstance(), 'path');
-        self::assertStringContainsString('Expected module/controller but got NullModule.', file_get_contents($path));
+        self::assertStringContainsString('Expected module/controller but got NullModule.', \file_get_contents($path));
     }
 }

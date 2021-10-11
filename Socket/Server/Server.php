@@ -89,10 +89,10 @@ class Server extends SocketAbstract
      */
     public static function hasInternet() : bool
     {
-        $connected = @fsockopen("www.google.com", 80);
+        $connected = @\fsockopen("www.google.com", 80);
 
         if ($connected) {
-            fclose($connected);
+            \fclose($connected);
 
             return true;
         } else {
@@ -108,7 +108,7 @@ class Server extends SocketAbstract
         $this->app->logger->info('Creating socket...');
         parent::create($ip, $port);
         $this->app->logger->info('Binding socket...');
-        socket_bind($this->sock, $this->ip, $this->port);
+        \socket_bind($this->sock, $this->ip, $this->port);
     }
 
     /**
@@ -142,7 +142,7 @@ class Server extends SocketAbstract
             return true;
         }
 
-        if (preg_match("/Sec-WebSocket-Version: (.*)\r\n/", $headers, $match) === false) {
+        if (\preg_match("/Sec-WebSocket-Version: (.*)\r\n/", $headers, $match) === false) {
             return false;
         }
 
@@ -152,31 +152,31 @@ class Server extends SocketAbstract
             return false;
         }
 
-        if (preg_match("/GET (.*) HTTP/", $headers, $match)) {
+        if (\preg_match("/GET (.*) HTTP/", $headers, $match)) {
             $root = $match[1];
         }
 
-        if (preg_match("/Host: (.*)\r\n/", $headers, $match)) {
+        if (\preg_match("/Host: (.*)\r\n/", $headers, $match)) {
             $host = $match[1];
         }
 
-        if (preg_match("/Origin: (.*)\r\n/", $headers, $match)) {
+        if (\preg_match("/Origin: (.*)\r\n/", $headers, $match)) {
             $origin = $match[1];
         }
 
         $key = '';
-        if (preg_match("/Sec-WebSocket-Key: (.*)\r\n/", $headers, $match)) {
+        if (\preg_match("/Sec-WebSocket-Key: (.*)\r\n/", $headers, $match)) {
             $key = $match[1];
         }
 
         $acceptKey = $key . '258EAFA5-E914-47DA-95CA-C5AB0DC85B11';
-        $acceptKey = base64_encode(sha1($acceptKey, true));
+        $acceptKey = \base64_encode(\sha1($acceptKey, true));
         $upgrade   = "HTTP/1.1 101 Switching Protocols\r\n" .
             "Upgrade: websocket\r\n" .
             "Connection: Upgrade\r\n" .
             "Sec-WebSocket-Accept: ${acceptKey}" .
             "\r\n\r\n";
-        socket_write($client->getSocket(), $upgrade);
+        \socket_write($client->getSocket(), $upgrade);
         $client->setHandshake(true);
 
         return true;
@@ -188,8 +188,8 @@ class Server extends SocketAbstract
     public function run() : void
     {
         $this->app->logger->info('Start listening...');
-        @socket_listen($this->sock);
-        @socket_set_nonblock($this->sock);
+        @\socket_listen($this->sock);
+        @\socket_set_nonblock($this->sock);
         $this->conn[] = $this->sock;
 
         $this->app->logger->info('Is running...');
@@ -199,7 +199,7 @@ class Server extends SocketAbstract
             $write  = null;
             $except = null;
 
-            if (socket_select($read, $write, $except, 0) < 1) {
+            if (\socket_select($read, $write, $except, 0) < 1) {
                 // error
                 // socket_last_error();
                 // socket_strerror(socket_last_error());
@@ -209,17 +209,17 @@ class Server extends SocketAbstract
 
             foreach ($read as $key => $socket) {
                 if ($this->sock === $socket) {
-                    $newc = @socket_accept($this->sock);
+                    $newc = @\socket_accept($this->sock);
                     $this->connectClient($newc);
                 } else {
                     $client = $this->clientManager->getBySocket($socket);
-                    $data   = @socket_read($socket, 1024, \PHP_NORMAL_READ);
+                    $data   = @\socket_read($socket, 1024, \PHP_NORMAL_READ);
 
                     if ($data === false) {
-                        socket_close($socket);
+                        \socket_close($socket);
                     }
 
-                    $data = \is_string($data) ? trim($data) : '';
+                    $data = \is_string($data) ? \trim($data) : '';
 
                     if (!$client->getHandshake()) {
                         $this->app->logger->debug('Doing handshake...');
@@ -253,7 +253,7 @@ class Server extends SocketAbstract
     public function shutdown($request) : void
     {
         $msg = 'shutdown' . "\n";
-        socket_write($this->clientManager->get($request->header->account)->getSocket(), $msg, \strlen($msg));
+        \socket_write($this->clientManager->get($request->header->account)->getSocket(), $msg, \strlen($msg));
 
         $this->run = false;
     }
@@ -290,8 +290,8 @@ class Server extends SocketAbstract
         $this->app->logger->debug('Disconnecting client...');
         $client->setConnected(false);
         $client->setHandshake(false);
-        socket_shutdown($client->getSocket(), 2);
-        socket_close($client->getSocket());
+        \socket_shutdown($client->getSocket(), 2);
+        \socket_close($client->getSocket());
 
         if (isset($this->conn[$client->getId()])) {
             unset($this->conn[$client->getId()]);
@@ -314,14 +314,14 @@ class Server extends SocketAbstract
     {
         $length = \ord($payload[1]) & 127;
         if ($length == 126) {
-            $masks = substr($payload, 4, 4);
-            $data  = substr($payload, 8);
+            $masks = \substr($payload, 4, 4);
+            $data  = \substr($payload, 8);
         } elseif ($length == 127) {
-            $masks = substr($payload, 10, 4);
-            $data  = substr($payload, 14);
+            $masks = \substr($payload, 10, 4);
+            $data  = \substr($payload, 14);
         } else {
-            $masks = substr($payload, 2, 4);
-            $data  = substr($payload, 6);
+            $masks = \substr($payload, 2, 4);
+            $data  = \substr($payload, 6);
         }
         $text       = '';
         $dataLength = \strlen($data);

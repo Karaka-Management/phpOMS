@@ -17,20 +17,20 @@ namespace phpOMS\tests\Socket\Server;
 require_once __DIR__ . '/../../../Autoloader.php';
 $config = require_once __DIR__ . '/../../../../config.php';
 
-sleep(5);
+\sleep(5);
 
 function handleSocketError($sock) : void
 {
-    if (\is_resource($sock) && ($err = socket_last_error($sock)) !== 0) {
-        file_put_contents(__DIR__ . '/client.log', socket_strerror($err) . "\n", \FILE_APPEND);
-        socket_clear_error();
+    if (\is_resource($sock) && ($err = \socket_last_error($sock)) !== 0) {
+        \file_put_contents(__DIR__ . '/client.log', \socket_strerror($err) . "\n", \FILE_APPEND);
+        \socket_clear_error();
     }
 }
 
 try {
-    $sock = @socket_create(\AF_INET, \SOCK_STREAM, \SOL_TCP);
-    socket_set_nonblock($sock);
-    @socket_connect($sock, '127.0.0.1', $config['socket']['master']['port']);
+    $sock = @\socket_create(\AF_INET, \SOCK_STREAM, \SOL_TCP);
+    \socket_set_nonblock($sock);
+    @\socket_connect($sock, '127.0.0.1', $config['socket']['master']['port']);
     handleSocketError($sock);
 
     $msgs = [
@@ -40,11 +40,11 @@ try {
     ];
 
     foreach ($msgs as $msg) {
-        file_put_contents(__DIR__ . '/client.log', 'Sending: ' . $msg . "\n", \FILE_APPEND);
-        @socket_write($sock, $msg, \strlen($msg));
+        \file_put_contents(__DIR__ . '/client.log', 'Sending: ' . $msg . "\n", \FILE_APPEND);
+        @\socket_write($sock, $msg, \strlen($msg));
         handleSocketError($sock);
 
-        $data = @socket_read($sock, 1024);
+        $data = @\socket_read($sock, 1024);
         handleSocketError($sock);
 
         /* Server no data */
@@ -53,15 +53,15 @@ try {
         }
 
         /* Normalize */
-        $data = trim($data);
+        $data = \trim($data);
 
-        file_put_contents(__DIR__ . '/client.log', 'Receiving' . $data . "\n", \FILE_APPEND);
+        \file_put_contents(__DIR__ . '/client.log', 'Receiving' . $data . "\n", \FILE_APPEND);
     }
 
     handleSocketError($sock);
-    socket_close($sock);
+    \socket_close($sock);
 } catch (\Throwable $e) {
-    file_put_contents(__DIR__ . '/client.log', $e->getMessage(), \FILE_APPEND);
+    \file_put_contents(__DIR__ . '/client.log', $e->getMessage(), \FILE_APPEND);
 }
 
 handleSocketError($sock);

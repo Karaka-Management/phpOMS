@@ -57,7 +57,7 @@ final class MetricsND
 
         $dist = 0.0;
         foreach ($a as $key => $e) {
-            $dist += abs($e - $b[$key]);
+            $dist += \abs($e - $b[$key]);
         }
 
         return $dist;
@@ -83,10 +83,10 @@ final class MetricsND
 
         $dist = 0.0;
         foreach ($a as $key => $e) {
-            $dist += abs($e - $b[$key]) ** 2;
+            $dist += \abs($e - $b[$key]) ** 2;
         }
 
-        return sqrt($dist);
+        return \sqrt($dist);
     }
 
     /**
@@ -109,10 +109,10 @@ final class MetricsND
 
         $dist = [];
         foreach ($a as $key => $e) {
-            $dist[] = abs($e - $b[$key]);
+            $dist[] = \abs($e - $b[$key]);
         }
 
-        return (float) max($dist);
+        return (float) \max($dist);
     }
 
     /**
@@ -136,10 +136,10 @@ final class MetricsND
 
         $dist = 0.0;
         foreach ($a as $key => $e) {
-            $dist += pow(abs($e - $b[$key]), $lambda);
+            $dist += \pow(\abs($e - $b[$key]), $lambda);
         }
 
-        return pow($dist, 1 / $lambda);
+        return \pow($dist, 1 / $lambda);
     }
 
     /**
@@ -162,7 +162,7 @@ final class MetricsND
 
         $dist = 0.0;
         foreach ($a as $key => $e) {
-            $dist += abs($e - $b[$key]) / (abs($e) + abs($b[$key]));
+            $dist += \abs($e - $b[$key]) / (\abs($e) + \abs($b[$key]));
         }
 
         return $dist;
@@ -189,7 +189,7 @@ final class MetricsND
         $distTop    = 0.0;
         $distBottom = 0.0;
         foreach ($a as $key => $e) {
-            $distTop    += abs($e - $b[$key]);
+            $distTop    += \abs($e - $b[$key]);
             $distBottom += $e + $b[$key];
         }
 
@@ -223,7 +223,7 @@ final class MetricsND
             $distBottomB += $b[$key] ** 2;
         }
 
-        return $distTop / pow($distBottomA * $distBottomB, 1 / 2);
+        return $distTop / \pow($distBottomA * $distBottomB, 1 / 2);
     }
 
     /**

@@ -38,7 +38,7 @@ class CharsetTypeTest extends \PHPUnit\Framework\TestCase
      */
     public function testUnique() : void
     {
-        self::assertEquals(CharsetType::getConstants(), array_unique(CharsetType::getConstants()));
+        self::assertEquals(CharsetType::getConstants(), \array_unique(CharsetType::getConstants()));
     }
 
     /**

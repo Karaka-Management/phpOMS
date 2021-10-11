@@ -45,7 +45,7 @@ final class TimSort implements SortInterface
 
         for ($lo = 0; $lo < $n; $lo += self::BLOCKS) {
             // insertion sort
-            $hi = min($lo + 31, $n - 1);
+            $hi = \min($lo + 31, $n - 1);
             for ($j = $lo + 1; $j <= $hi; ++$j) {
                 $temp = $list[$j];
                 $c    = $j - 1;
@@ -63,7 +63,7 @@ final class TimSort implements SortInterface
             for ($lo = 0; $lo < $n; $lo += 2 * $size) {
                 // merge sort
                 $mi = $lo + $size - 1;
-                $hi = min($lo + 2 * $size - 1, $n - 1);
+                $hi = \min($lo + 2 * $size - 1, $n - 1);
 
                 $n1 = $mi - $lo + 1;
                 $n2 = $hi - $mi;

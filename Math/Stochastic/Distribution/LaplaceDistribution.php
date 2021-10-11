@@ -37,7 +37,7 @@ final class LaplaceDistribution
      */
     public static function getPdf(float $x, float $mu, float $b) : float
     {
-        return 1 / (2 * $b) * exp(-abs($x - $mu) / $b);
+        return 1 / (2 * $b) * \exp(-\abs($x - $mu) / $b);
     }
 
     /**
@@ -53,7 +53,7 @@ final class LaplaceDistribution
      */
     public static function getCdf(float $x, float $mu, float $b) : float
     {
-        return $x < $mu ? exp(($x - $mu) / $b) / 2 : 1 - exp(-($x - $mu) / $b) / 2;
+        return $x < $mu ? \exp(($x - $mu) / $b) / 2 : 1 - \exp(-($x - $mu) / $b) / 2;
     }
 
     /**
@@ -123,7 +123,7 @@ final class LaplaceDistribution
      */
     public static function getStandardDeviation(float $b) : float
     {
-        return sqrt(self::getVariance($b));
+        return \sqrt(self::getVariance($b));
     }
 
     /**
@@ -141,11 +141,11 @@ final class LaplaceDistribution
      */
     public static function getMgf(float $t, float $mu, float $b) : float
     {
-        if (abs($t) >= 1 / $b) {
+        if (\abs($t) >= 1 / $b) {
             throw new \OutOfBoundsException('Out of bounds');
         }
 
-        return exp($mu * $t) / (1 - $b ** 2 * $t ** 2);
+        return \exp($mu * $t) / (1 - $b ** 2 * $t ** 2);
     }
 
     /**

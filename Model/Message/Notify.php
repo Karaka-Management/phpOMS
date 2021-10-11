@@ -183,7 +183,7 @@ final class Notify implements \JsonSerializable, \Serializable, ArrayableInterfa
      */
     public function unserialize($raw) : void
     {
-        $unserialized = json_decode($raw, true);
+        $unserialized = \json_decode($raw, true);
 
         $this->delay   = $unserialized['time'] ?? 0;
         $this->stay    = $unserialized['stay'] ?? 0;
@@ -201,7 +201,7 @@ final class Notify implements \JsonSerializable, \Serializable, ArrayableInterfa
      */
     public function __toString()
     {
-        return (string) json_encode($this->toArray());
+        return (string) \json_encode($this->toArray());
     }
 
     /**

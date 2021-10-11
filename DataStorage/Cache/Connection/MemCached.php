@@ -77,7 +77,7 @@ final class MemCached extends ConnectionAbstract
 
         if (!isset($this->dbdata['host'], $this->dbdata['port'])) {
             $this->status = CacheStatus::FAILURE;
-            throw new InvalidConnectionConfigException((string) json_encode($this->dbdata));
+            throw new InvalidConnectionConfigException((string) \json_encode($this->dbdata));
         }
 
         $this->con->addServer($this->dbdata['host'], $this->dbdata['port']);
@@ -94,11 +94,11 @@ final class MemCached extends ConnectionAbstract
             return;
         }
 
-        if (!(is_scalar($value) || $value === null || \is_array($value) || $value instanceof \JsonSerializable || $value instanceof \Serializable)) {
+        if (!(\is_scalar($value) || $value === null || \is_array($value) || $value instanceof \JsonSerializable || $value instanceof \Serializable)) {
             throw new \InvalidArgumentException();
         }
 
-        $this->con->set((string) $key, $value, max($expire, 0));
+        $this->con->set((string) $key, $value, \max($expire, 0));
     }
 
     /**
@@ -110,11 +110,11 @@ final class MemCached extends ConnectionAbstract
             return false;
         }
 
-        if (!(is_scalar($value) || $value === null || \is_array($value) || $value instanceof \JsonSerializable || $value instanceof \Serializable)) {
+        if (!(\is_scalar($value) || $value === null || \is_array($value) || $value instanceof \JsonSerializable || $value instanceof \Serializable)) {
             throw new \InvalidArgumentException();
         }
 
-        return $this->con->add((string) $key, $value, max($expire, 0));
+        return $this->con->add((string) $key, $value, \max($expire, 0));
     }
 
     /**
@@ -202,11 +202,11 @@ final class MemCached extends ConnectionAbstract
         $values = [];
 
         foreach ($keys as $key) {
-            if (preg_match('/' . $pattern . '/', $key) === 1) {
+            if (\preg_match('/' . $pattern . '/', $key) === 1) {
                 $result = $this->con->get($key);
                 if (\is_string($result)) {
                     $type   = (int) $result[0];
-                    $start  = (int) strpos($result, self::DELIM);
+                    $start  = (int) \strpos($result, self::DELIM);
                     $result = $this->reverseValue($type, $result, $start);
                 }
 
@@ -232,22 +232,22 @@ final class MemCached extends ConnectionAbstract
     {
         switch ($type) {
             case CacheValueType::_INT:
-                return (int) substr($raw, $expireEnd + 1);
+                return (int) \substr($raw, $expireEnd + 1);
             case CacheValueType::_FLOAT:
-                return (float) substr($raw, $expireEnd + 1);
+                return (float) \substr($raw, $expireEnd + 1);
             case CacheValueType::_BOOL:
-                return (bool) substr($raw, $expireEnd + 1);
+                return (bool) \substr($raw, $expireEnd + 1);
             case CacheValueType::_STRING:
-                return substr($raw, $expireEnd + 1);
+                return \substr($raw, $expireEnd + 1);
             case CacheValueType::_ARRAY:
-                $array = substr($raw, $expireEnd + 1);
-                return json_decode($array === false ? '[]' : $array, true);
+                $array = \substr($raw, $expireEnd + 1);
+                return \json_decode($array === false ? '[]' : $array, true);
             case CacheValueType::_NULL:
                 return null;
             case CacheValueType::_JSONSERIALIZABLE:
-                $namespaceStart = (int) strpos($raw, self::DELIM, $expireEnd);
-                $namespaceEnd   = (int) strpos($raw, self::DELIM, $namespaceStart + 1);
-                $namespace      = substr($raw, $namespaceStart + 1, $namespaceEnd - $namespaceStart - 1);
+                $namespaceStart = (int) \strpos($raw, self::DELIM, $expireEnd);
+                $namespaceEnd   = (int) \strpos($raw, self::DELIM, $namespaceStart + 1);
+                $namespace      = \substr($raw, $namespaceStart + 1, $namespaceEnd - $namespaceStart - 1);
 
                 if ($namespace === false) {
                     return null; // @codeCoverageIgnore
@@ -255,16 +255,16 @@ final class MemCached extends ConnectionAbstract
 
                 return new $namespace();
             case CacheValueType::_SERIALIZABLE:
-                $namespaceStart = (int) strpos($raw, self::DELIM, $expireEnd);
-                $namespaceEnd   = (int) strpos($raw, self::DELIM, $namespaceStart + 1);
-                $namespace      = substr($raw, $namespaceStart + 1, $namespaceEnd - $namespaceStart - 1);
+                $namespaceStart = (int) \strpos($raw, self::DELIM, $expireEnd);
+                $namespaceEnd   = (int) \strpos($raw, self::DELIM, $namespaceStart + 1);
+                $namespace      = \substr($raw, $namespaceStart + 1, $namespaceEnd - $namespaceStart - 1);
 
                 if ($namespace === false) {
                     return null; // @codeCoverageIgnore
                 }
 
                 $obj = new $namespace();
-                $obj->unserialize(substr($raw, $namespaceEnd + 1));
+                $obj->unserialize(\substr($raw, $namespaceEnd + 1));
 
                 return $obj;
             default:
@@ -283,7 +283,7 @@ final class MemCached extends ConnectionAbstract
 
         $keys = $this->con->getAllKeys();
         foreach ($keys as $key) {
-            if (preg_match('/' . $pattern . '/', $key) === 1) {
+            if (\preg_match('/' . $pattern . '/', $key) === 1) {
                 $this->con->delete($key);
             }
         }
@@ -334,7 +334,7 @@ final class MemCached extends ConnectionAbstract
             return false;
         }
 
-        return $this->con->replace((string) $key, $value, max($expire, 0));
+        return $this->con->replace((string) $key, $value, \max($expire, 0));
     }
 
     /**
@@ -347,7 +347,7 @@ final class MemCached extends ConnectionAbstract
         }
 
         $stat = $this->con->getStats();
-        $temp = reset($stat);
+        $temp = \reset($stat);
 
         $stats           = [];
         $stats['status'] = $this->status;

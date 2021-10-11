@@ -49,7 +49,7 @@ final class MonotoneChain
             return $points;
         }
 
-        uasort($points, [self::class, 'sort']);
+        \uasort($points, [self::class, 'sort']);
 
         $k      = 0;
         $result = [];
@@ -72,7 +72,7 @@ final class MonotoneChain
             $result[$k++] = $points[$i];
         }
 
-        ksort($result);
+        \ksort($result);
 
         /** @return array<int, array{x:int|float, y:int|float}> */
         return \array_slice($result, 0, $k - 1);

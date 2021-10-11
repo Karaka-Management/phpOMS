@@ -56,7 +56,7 @@ class FormValidationTest extends \PHPUnit\Framework\TestCase
         $obj = new FormValidation($arr);
 
         self::assertEquals(['type' => 'validation', 'validation' => $arr], $obj->toArray());
-        self::assertEquals(json_encode(['type' => 'validation', 'validation' => $arr]), $obj->serialize());
+        self::assertEquals(\json_encode(['type' => 'validation', 'validation' => $arr]), $obj->serialize());
         self::assertEquals(['type' => 'validation', 'validation' => $arr], $obj->jsonSerialize());
 
         $obj2 = new FormValidation();

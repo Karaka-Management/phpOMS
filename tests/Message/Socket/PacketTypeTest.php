@@ -36,7 +36,7 @@ class PacketTypeTest extends \PHPUnit\Framework\TestCase
      */
     public function testUnique() : void
     {
-        self::assertEquals(PacketType::getConstants(), array_unique(PacketType::getConstants()));
+        self::assertEquals(PacketType::getConstants(), \array_unique(PacketType::getConstants()));
     }
 
     /**

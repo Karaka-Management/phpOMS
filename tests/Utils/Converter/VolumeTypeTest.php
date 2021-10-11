@@ -36,7 +36,7 @@ class VolumeTypeTest extends \PHPUnit\Framework\TestCase
      */
     public function testUnique() : void
     {
-        self::assertEquals(VolumeType::getConstants(), array_unique(VolumeType::getConstants()));
+        self::assertEquals(VolumeType::getConstants(), \array_unique(VolumeType::getConstants()));
     }
 
     /**

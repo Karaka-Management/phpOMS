@@ -65,8 +65,8 @@ final class BasicOcr
         $Xtrain = $this->readImages($dataPath, $limit);
         $ytrain = $this->readLabels($labelPath, $limit);
 
-        $this->Xtrain = array_merge($this->Xtrain, $Xtrain);
-        $this->ytrain = array_merge($this->ytrain, $ytrain);
+        $this->Xtrain = \array_merge($this->Xtrain, $Xtrain);
+        $this->ytrain = \array_merge($this->ytrain, $ytrain);
     }
 
     /**
@@ -81,50 +81,50 @@ final class BasicOcr
      */
     private function readImages(string $path, int $limit = 0) : array
     {
-        if (!is_file($path)) {
+        if (!\is_file($path)) {
             throw new PathException($path);
         }
 
-        $fp = fopen($path, 'r');
+        $fp = \fopen($path, 'r');
         if ($fp === false) {
             throw new PathException($path); // @codeCoverageIgnore
         }
 
-        if (($read = fread($fp, 4)) === false || ($unpack = unpack('N', $read)) === false) {
+        if (($read = \fread($fp, 4)) === false || ($unpack = \unpack('N', $read)) === false) {
             return []; // @codeCoverageIgnore
         }
         $magicNumber = $unpack[1];
 
-        if (($read = fread($fp, 4)) === false || ($unpack = unpack('N', $read)) === false) {
+        if (($read = \fread($fp, 4)) === false || ($unpack = \unpack('N', $read)) === false) {
             return []; // @codeCoverageIgnore
         }
         $numberOfImages = $unpack[1];
 
         if ($limit > 0) {
-            $numberOfImages = min($numberOfImages, $limit);
+            $numberOfImages = \min($numberOfImages, $limit);
         }
 
-        if (($read = fread($fp, 4)) === false || ($unpack = unpack('N', $read)) === false) {
+        if (($read = \fread($fp, 4)) === false || ($unpack = \unpack('N', $read)) === false) {
             return []; // @codeCoverageIgnore
         }
         $numberOfRows = $unpack[1];
 
-        if (($read = fread($fp, 4)) === false || ($unpack = unpack('N', $read)) === false) {
+        if (($read = \fread($fp, 4)) === false || ($unpack = \unpack('N', $read)) === false) {
             return []; // @codeCoverageIgnore
         }
         $numberOfColumns = $unpack[1];
 
         $images = [];
         for ($i = 0; $i < $numberOfImages; ++$i) {
-            if (($read = fread($fp, $numberOfRows * $numberOfColumns)) === false
-                || ($unpack = unpack('C*', $read)) === false
+            if (($read = \fread($fp, $numberOfRows * $numberOfColumns)) === false
+                || ($unpack = \unpack('C*', $read)) === false
             ) {
                 return []; // @codeCoverageIgnore
             }
-            $images[] = array_values($unpack);
+            $images[] = \array_values($unpack);
         }
 
-        fclose($fp);
+        \fclose($fp);
 
         return $images;
     }
@@ -141,38 +141,38 @@ final class BasicOcr
      */
     private function readLabels(string $path, int $limit = 0) : array
     {
-        if (!is_file($path)) {
+        if (!\is_file($path)) {
             throw new PathException($path);
         }
 
-        $fp = fopen($path, 'r');
+        $fp = \fopen($path, 'r');
         if ($fp === false) {
             throw new PathException($path); // @codeCoverageIgnore
         }
 
-        if (($read = fread($fp, 4)) === false || ($unpack = unpack('N', $read)) === false) {
+        if (($read = \fread($fp, 4)) === false || ($unpack = \unpack('N', $read)) === false) {
             return []; // @codeCoverageIgnore
         }
         $magicNumber = $unpack[1];
 
-        if (($read = fread($fp, 4)) === false || ($unpack = unpack('N', $read)) === false) {
+        if (($read = \fread($fp, 4)) === false || ($unpack = \unpack('N', $read)) === false) {
             return []; // @codeCoverageIgnore
         }
         $numberOfLabels = $unpack[1];
 
         if ($limit > 0) {
-            $numberOfLabels = min($numberOfLabels, $limit);
+            $numberOfLabels = \min($numberOfLabels, $limit);
         }
 
         $labels = [];
         for ($i = 0; $i < $numberOfLabels; ++$i) {
-            if (($read = fread($fp, 1)) === false || ($unpack = unpack('C', $read)) === false) {
+            if (($read = \fread($fp, 1)) === false || ($unpack = \unpack('C', $read)) === false) {
                 return []; // @codeCoverageIgnore
             }
             $labels[] = $unpack[1];
         }
 
-        fclose($fp);
+        \fclose($fp);
 
         return $labels;
     }
@@ -190,9 +190,9 @@ final class BasicOcr
         $predictedLabels = [];
         foreach ($Xtest as $sample) {
             $distances = $this->getDistances($Xtrain, $sample);
-            asort($distances);
+            \asort($distances);
 
-            $keys = array_keys($distances);
+            $keys = \array_keys($distances);
 
             $candidateLabels = [];
             for ($i = 0; $i < $k; ++$i) {
@@ -200,7 +200,7 @@ final class BasicOcr
             }
 
             // find best match
-            $countedCandidates = array_count_values($candidateLabels);
+            $countedCandidates = \array_count_values($candidateLabels);
 
             foreach ($candidateLabels as $i => $label) {
                 $predictedLabels[] = [

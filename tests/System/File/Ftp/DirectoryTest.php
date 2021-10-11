@@ -44,11 +44,11 @@ class DirectoryTest extends \PHPUnit\Framework\TestCase
             );
         } else {
             try {
-                $mkdir = ftp_mkdir(self::$con, '0xFF');
-                ftp_rmdir(self::$con, '0xFF');
+                $mkdir = \ftp_mkdir(self::$con, '0xFF');
+                \ftp_rmdir(self::$con, '0xFF');
 
-                $put = ftp_put(self::$con, '0x00');
-                ftp_delete(self::$con, '0x00');
+                $put = \ftp_put(self::$con, '0x00');
+                \ftp_delete(self::$con, '0x00');
 
                 if (!$mkdir || !$put) {
                     throw new \Exception();
@@ -88,9 +88,9 @@ class DirectoryTest extends \PHPUnit\Framework\TestCase
     {
         $dirPath = __DIR__ . '/test';
         self::assertTrue(Directory::create(self::$con, $dirPath));
-        self::assertTrue(is_dir($dirPath));
+        self::assertTrue(\is_dir($dirPath));
 
-        rmdir($dirPath);
+        \rmdir($dirPath);
     }
 
     /**
@@ -115,7 +115,7 @@ class DirectoryTest extends \PHPUnit\Framework\TestCase
         self::assertTrue(Directory::create(self::$con, $dirPath));
         self::assertFalse(Directory::create(self::$con, $dirPath));
 
-        rmdir($dirPath);
+        \rmdir($dirPath);
     }
 
     /**
@@ -189,7 +189,7 @@ class DirectoryTest extends \PHPUnit\Framework\TestCase
     {
         $dirPath = __DIR__ . '/test';
 
-        self::assertEquals(str_replace('\\', '/', realpath(__DIR__)), Directory::parent($dirPath));
+        self::assertEquals(\str_replace('\\', '/', \realpath(__DIR__)), Directory::parent($dirPath));
     }
 
     /**
@@ -595,14 +595,14 @@ class DirectoryTest extends \PHPUnit\Framework\TestCase
         $dir = new Directory(new HttpUri(self::BASE . __DIR__), '*', true, self::$con);
         $dir->addNode(new Directory(new HttpUri(self::BASE . __DIR__ . '/nodedir')));
 
-        self::assertTrue(is_dir(__DIR__ . '/nodedir'));
-        rmdir(__DIR__ . '/nodedir');
+        self::assertTrue(\is_dir(__DIR__ . '/nodedir'));
+        \rmdir(__DIR__ . '/nodedir');
 
         $dir = new Directory(new HttpUri(self::BASE . __DIR__ . '/nodedir2'), '*', true, self::$con);
         $dir->createNode();
 
-        self::assertTrue(is_dir(__DIR__ . '/nodedir2'));
-        rmdir(__DIR__ . '/nodedir2');
+        self::assertTrue(\is_dir(__DIR__ . '/nodedir2'));
+        \rmdir(__DIR__ . '/nodedir2');
     }
 
     /**
@@ -614,11 +614,11 @@ class DirectoryTest extends \PHPUnit\Framework\TestCase
         $dir = new Directory(new HttpUri(self::BASE . __DIR__), '*', true, self::$con);
         $dir->addNode(new Directory(new HttpUri(self::BASE . __DIR__ . '/nodedir')));
 
-        self::assertTrue(is_dir(__DIR__ . '/nodedir'));
+        self::assertTrue(\is_dir(__DIR__ . '/nodedir'));
         self::assertTrue($dir->getNode('nodedir')->deleteNode());
 
-        clearstatcache();
-        self::assertFalse(is_dir(__DIR__ . '/nodedir'));
+        \clearstatcache();
+        self::assertFalse(\is_dir(__DIR__ . '/nodedir'));
     }
 
     /**
@@ -631,10 +631,10 @@ class DirectoryTest extends \PHPUnit\Framework\TestCase
         $dir->addNode(new Directory(new HttpUri(self::BASE . __DIR__ . '/nodedir')));
 
         $dir->getNode('nodedir')->copyNode(__DIR__ . '/nodedir2');
-        self::assertTrue(is_dir(__DIR__ . '/nodedir2'));
+        self::assertTrue(\is_dir(__DIR__ . '/nodedir2'));
 
-        rmdir(__DIR__ . '/nodedir');
-        rmdir(__DIR__ . '/nodedir2');
+        \rmdir(__DIR__ . '/nodedir');
+        \rmdir(__DIR__ . '/nodedir2');
     }
 
     /**
@@ -647,10 +647,10 @@ class DirectoryTest extends \PHPUnit\Framework\TestCase
         $dir->addNode(new Directory(new HttpUri(self::BASE . __DIR__ . '/nodedir')));
 
         $dir->getNode('nodedir')->moveNode(__DIR__ . '/nodedir2');
-        self::assertFalse(is_dir(__DIR__ . '/nodedir'));
-        self::assertTrue(is_dir(__DIR__ . '/nodedir2'));
+        self::assertFalse(\is_dir(__DIR__ . '/nodedir'));
+        self::assertTrue(\is_dir(__DIR__ . '/nodedir2'));
 
-        rmdir(__DIR__ . '/nodedir2');
+        \rmdir(__DIR__ . '/nodedir2');
     }
 
     /**
@@ -734,13 +734,13 @@ class DirectoryTest extends \PHPUnit\Framework\TestCase
         $dir   = new Directory(new HttpUri(self::BASE . __DIR__), '*', true, self::$con);
         $dir[] = new Directory(new HttpUri(self::BASE . __DIR__ . '/nodedir'));
 
-        self::assertTrue(is_dir(__DIR__ . '/nodedir'));
-        rmdir(__DIR__ . '/nodedir');
+        self::assertTrue(\is_dir(__DIR__ . '/nodedir'));
+        \rmdir(__DIR__ . '/nodedir');
 
         $dir['nodedir'] = new Directory(new HttpUri(self::BASE . __DIR__ . '/nodedir'));
 
-        self::assertTrue(is_dir(__DIR__ . '/nodedir'));
-        rmdir(__DIR__ . '/nodedir');
+        self::assertTrue(\is_dir(__DIR__ . '/nodedir'));
+        \rmdir(__DIR__ . '/nodedir');
     }
 
     /**
@@ -752,11 +752,11 @@ class DirectoryTest extends \PHPUnit\Framework\TestCase
         $dir = new Directory(new HttpUri(self::BASE . __DIR__), '*', true, self::$con);
         $dir->addNode(new Directory(new HttpUri(self::BASE . __DIR__ . '/nodedir')));
 
-        self::assertTrue(is_dir(__DIR__ . '/nodedir'));
+        self::assertTrue(\is_dir(__DIR__ . '/nodedir'));
         unset($dir['nodedir']);
 
-        clearstatcache();
-        self::assertFalse(is_dir(__DIR__ . '/nodedir'));
+        \clearstatcache();
+        self::assertFalse(\is_dir(__DIR__ . '/nodedir'));
     }
 
     /**
@@ -785,7 +785,7 @@ class DirectoryTest extends \PHPUnit\Framework\TestCase
         $now = new \DateTime('now');
         self::assertEquals($now->format('Y-m-d'), $dir->getCreatedAt()->format('Y-m-d'));
 
-        rmdir($dirPath);
+        \rmdir($dirPath);
     }
 
     /**
@@ -802,7 +802,7 @@ class DirectoryTest extends \PHPUnit\Framework\TestCase
         $now = new \DateTime('now');
         self::assertEquals($now->format('Y-m-d'), $dir->getChangedAt()->format('Y-m-d'));
 
-        rmdir($dirPath);
+        \rmdir($dirPath);
     }
 
     /**
