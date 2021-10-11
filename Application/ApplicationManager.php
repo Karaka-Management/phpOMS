@@ -97,11 +97,7 @@ final class ApplicationManager
         $destination = \rtrim($destination, '\\/');
         $source      = \rtrim($source, '/\\');
 
-        if (!\is_dir(\dirname($destination))) {
-            Directory::create(\dirname($destination), 0755, true);
-        }
-
-        if (!\is_dir($source) || ($path = \realpath($destination)) === false
+        if (!\is_dir($source) || \is_dir($destination)
             || !\is_file($source . '/Admin/Installer.php')
         ) {
             return false;
@@ -113,6 +109,10 @@ final class ApplicationManager
 
             $this->installFiles($source, $destination);
             $this->replacePlaceholder($destination);
+
+            if (($path = \realpath($destination)) === false) {
+                return false; // @codeCoverageIgnore
+            }
 
             $classPath = \substr($path . '/Admin/Installer', (int) \strlen((string) \realpath(__DIR__ . '/../../')));
 

@@ -109,7 +109,7 @@ class ApplicationManagerTest extends \PHPUnit\Framework\TestCase
     {
         Directory::delete(__DIR__ . '/Apps/Testapp');
 
-        $this->appManager->install(__DIR__ . '/Testapp', __DIR__ . '/Apps/Testapp');
+        self::assertTrue($this->appManager->install(__DIR__ . '/Testapp', __DIR__ . '/Apps/Testapp'));
 
         $this->appManager->reInit(__DIR__ . '/Apps/Testapp');
         self::assertEquals($r1 = include __DIR__ . '/Testapp/Admin/Install/Application/Routes.php', $r2 = include __DIR__ . '/Apps/Testapp/Routes.php');
