@@ -27,7 +27,7 @@ final class IdentityMatrix extends Matrix
     /**
      * Constructor.
      *
-     * @param int $n Matrix dimension
+     * @param int<0, max> $n Matrix dimension
      *
      * @since 1.0.0
      */

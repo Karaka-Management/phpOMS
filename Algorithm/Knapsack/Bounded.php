@@ -51,7 +51,9 @@ final class Bounded
      */
     public static function solve(array $items, BackpackInterface $backpack) : BackpackInterface
     {
-        $n       = \count($items);
+        $n = \count($items);
+
+        // @var int<0, max> $maxCost
         $maxCost = (int) $backpack->getMaxCost();
         $mm      = \array_fill(0, ($maxCost + 1), 0);
         $m       = [];

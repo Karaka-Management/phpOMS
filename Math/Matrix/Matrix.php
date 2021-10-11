@@ -40,7 +40,7 @@ class Matrix implements \ArrayAccess, \Iterator
     /**
      * Columns.
      *
-     * @var int
+     * @var int<0, max>
      * @since 1.0.0
      */
     protected int $n = 0;
@@ -48,7 +48,7 @@ class Matrix implements \ArrayAccess, \Iterator
     /**
      * Rows.
      *
-     * @var int
+     * @var int<0, max>
      * @since 1.0.0
      */
     protected int $m = 0;
@@ -64,8 +64,8 @@ class Matrix implements \ArrayAccess, \Iterator
     /**
      * Constructor.
      *
-     * @param int $m Rows
-     * @param int $n Columns
+     * @param int<0, max> $m Rows
+     * @param int<0, max> $n Columns
      *
      * @since 1.0.0
      */
@@ -442,7 +442,7 @@ class Matrix implements \ArrayAccess, \Iterator
     /**
      * Get matrix rows.
      *
-     * @return int
+     * @return int<0, max>
      *
      * @since 1.0.0
      */
@@ -454,7 +454,7 @@ class Matrix implements \ArrayAccess, \Iterator
     /**
      * Get matrix columns.
      *
-     * @return int
+     * @return int<0, max>
      *
      * @since 1.0.0
      */
@@ -748,7 +748,7 @@ class Matrix implements \ArrayAccess, \Iterator
      */
     public function offsetSet($offset, $value) : void
     {
-        $row                                           = (int) ($offset / $this->m);
+        $row                                           = (int) ((int) $offset / $this->m);
         $this->matrix[$row][$offset - $row * $this->n] = $value;
     }
 

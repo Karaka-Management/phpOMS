@@ -38,8 +38,8 @@ class MazeGenerator
     /**
      * Generate a random maze
      *
-     * @param int $width  Width
-     * @param int $height Height
+     * @param int<0, max> $width  Width
+     * @param int<0, max> $height Height
      *
      * @return array
      *

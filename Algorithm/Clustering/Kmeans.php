@@ -60,7 +60,7 @@ final class Kmeans
      * Constructor
      *
      * @param PointInterface[] $points   Points to cluster
-     * @param int              $clusters Amount of clusters
+     * @param int<0, max>      $clusters Amount of clusters
      * @param null|\Closure    $metric   metric to use for the distance between two points
      *
      * @since 1.0.0
@@ -114,7 +114,7 @@ final class Kmeans
      * Generate the clusters of the points
      *
      * @param PointInterface[] $points   Points to cluster
-     * @param int              $clusters Amount of clusters
+     * @param int<0, max>      $clusters Amount of clusters
      *
      * @return void
      *
@@ -207,7 +207,7 @@ final class Kmeans
      * Initializae cluster centers
      *
      * @param PointInterface[] $points Points to use for the cluster center initialization
-     * @param int              $n      Amount of clusters to use
+     * @param int<0, max>      $n      Amount of clusters to use
      *
      * @return PointInterface[]
      *
