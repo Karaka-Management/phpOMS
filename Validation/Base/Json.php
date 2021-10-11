@@ -32,9 +32,9 @@ abstract class Json extends ValidatorAbstract
      */
     public static function isValid(mixed $value, array $constraints = null) : bool
     {
-        \json_decode($value);
+        json_decode($value);
 
-        return \json_last_error() == \JSON_ERROR_NONE;
+        return json_last_error() == \JSON_ERROR_NONE;
     }
 
     /**
@@ -113,7 +113,7 @@ abstract class Json extends ValidatorAbstract
     {
         $completePaths = [];
         foreach ($template as $key => $value) {
-            $key                 = \str_replace('/0', '/.*', $key);
+            $key                 = str_replace('/0', '/.*', $key);
             $completePaths[$key] = $value;
         }
 
@@ -122,7 +122,7 @@ abstract class Json extends ValidatorAbstract
 
             foreach ($completePaths as $tPath => $tValue) {
                 if ($tPath === $sPath
-                    || \preg_match('~' . \str_replace('/', '\\/', $tPath) . '~', $sPath) === 1
+                    || preg_match('~' . str_replace('/', '\\/', $tPath) . '~', $sPath) === 1
                 ) {
                     $hasDefinition = true;
                     break;
@@ -151,9 +151,9 @@ abstract class Json extends ValidatorAbstract
     {
         $completePaths = [];
         foreach ($template as $key => $value) {
-            $key = \str_replace('/0', '/.*', $key);
+            $key = str_replace('/0', '/.*', $key);
 
-            if (\stripos($key, '/.*') !== false) {
+            if (stripos($key, '/.*') !== false) {
                 continue;
             }
 
@@ -165,7 +165,7 @@ abstract class Json extends ValidatorAbstract
 
             foreach ($source as $sPath => $sValue) {
                 if ($tPath === $sPath
-                    || \preg_match('~' . \str_replace('/', '\\/', $tPath) . '~', $sPath) === 1
+                    || preg_match('~' . str_replace('/', '\\/', $tPath) . '~', $sPath) === 1
                 ) {
                     unset($completePaths[$tPath]);
                     break;
@@ -190,7 +190,7 @@ abstract class Json extends ValidatorAbstract
     {
         $validPaths = [];
         foreach ($template as $key => $value) {
-            $key              = \str_replace('/0', '/\d*', $key);
+            $key              = str_replace('/0', '/\d*', $key);
             $validPaths[$key] = $value;
         }
 
@@ -200,13 +200,13 @@ abstract class Json extends ValidatorAbstract
 
             foreach ($validPaths as $tPath => $tValue) {
                 if ($tPath === $sPath
-                    || \preg_match('~' . \str_replace('/', '\\/', $tPath) . '~', $sPath) === 1
+                    || preg_match('~' . str_replace('/', '\\/', $tPath) . '~', $sPath) === 1
                 ) {
                     $pathFound = true;
                     $sValue    = StringUtils::stringify($sValue);
 
                     if (($tValue === $sValue
-                        || \preg_match('~' . ((string) $tValue) . '~', (string) $sValue) === 1)
+                        || preg_match('~' . ((string) $tValue) . '~', (string) $sValue) === 1)
                     ) {
                         $isValidValue = true;
                         break;

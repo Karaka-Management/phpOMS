@@ -47,7 +47,7 @@ final class ArrayUtils
      */
     public static function unsetArray(string $path, array $data, string $delim = '/') : array
     {
-        $nodes  = \explode($delim, \trim($path, $delim));
+        $nodes  = explode($delim, trim($path, $delim));
         $prevEl = null;
         $el     = &$data;
         $node   = null;
@@ -90,7 +90,7 @@ final class ArrayUtils
      */
     public static function setArray(string $path, array $data, mixed $value, string $delim = '/', bool $overwrite = false) : array
     {
-        $pathParts = \explode($delim, \trim($path, $delim));
+        $pathParts = explode($delim, trim($path, $delim));
         $current   = &$data;
 
         if ($pathParts === false) {
@@ -106,8 +106,8 @@ final class ArrayUtils
         } elseif (\is_array($current) && !\is_array($value)) {
             $current[] = $value;
         } elseif (\is_array($current) && \is_array($value)) {
-            $current = \array_merge($current, $value);
-        } elseif (\is_scalar($current) && $current !== null) {
+            $current = array_merge($current, $value);
+        } elseif (is_scalar($current) && $current !== null) {
             $current = [$current, $value];
         } else {
             $current = $value;
@@ -131,7 +131,7 @@ final class ArrayUtils
      */
     public static function getArray(string $path, array $data, string $delim = '/') : mixed
     {
-        $pathParts = \explode($delim, \trim($path, $delim));
+        $pathParts = explode($delim, trim($path, $delim));
         $current   = $data;
 
         if ($pathParts === false) {
@@ -235,7 +235,7 @@ final class ArrayUtils
      */
     public static function arrayToCsv(array $data, string $delimiter = ';', string $enclosure = '"', string $escape = '\\') : string
     {
-        $outstream = \fopen('php://memory', 'r+');
+        $outstream = fopen('php://memory', 'r+');
 
         if ($outstream === false) {
             throw new \Exception(); // @codeCoverageIgnore
@@ -243,12 +243,12 @@ final class ArrayUtils
 
         foreach ($data as $line) {
             /** @noinspection PhpMethodParametersCountMismatchInspection */
-            \fputcsv($outstream, $line, $delimiter, $enclosure, $escape);
+            fputcsv($outstream, $line, $delimiter, $enclosure, $escape);
         }
 
-        \rewind($outstream);
-        $csv = \stream_get_contents($outstream);
-        \fclose($outstream);
+        rewind($outstream);
+        $csv = stream_get_contents($outstream);
+        fclose($outstream);
 
         return $csv === false ? '' : $csv;
     }
@@ -267,11 +267,11 @@ final class ArrayUtils
      */
     public static function getArg(string $id, array $args) : ?string
     {
-        if (($key = \array_search($id, $args)) === false || $key === \count($args) - 1) {
+        if (($key = array_search($id, $args)) === false || $key === \count($args) - 1) {
             return null;
         }
 
-        return \trim($args[(int) $key + 1], '" ');
+        return trim($args[(int) $key + 1], '" ');
     }
 
     /**
@@ -286,7 +286,7 @@ final class ArrayUtils
      */
     public static function hasArg(string $id, array $args) : int
     {
-        if (($key = \array_search($id, $args)) === false) {
+        if (($key = array_search($id, $args)) === false) {
             return -1;
         }
 
@@ -308,13 +308,13 @@ final class ArrayUtils
     {
         // see collection collapse as alternative?!
         $flat  = [];
-        $stack = \array_values($array);
+        $stack = array_values($array);
 
         while (!empty($stack)) {
-            $value = \array_shift($stack);
+            $value = array_shift($stack);
 
             if (\is_array($value)) {
-                $stack = \array_merge(\array_values($value), $stack);
+                $stack = array_merge(array_values($value), $stack);
             } else {
                 $flat[] = $value;
             }
@@ -338,7 +338,7 @@ final class ArrayUtils
     {
         $count = $count === 0 ? \count($array) : $start + $count;
         $sum   = 0;
-        $array = \array_values($array);
+        $array = array_values($array);
 
         for ($i = $start; $i <= $count - 1; ++$i) {
             $sum += $array[$i];
@@ -358,7 +358,7 @@ final class ArrayUtils
      */
     public static function arraySumRecursive(array $array) : mixed
     {
-        return \array_sum(self::arrayFlatten($array));
+        return array_sum(self::arrayFlatten($array));
     }
 
     /**
@@ -375,7 +375,7 @@ final class ArrayUtils
         $abs = [];
 
         foreach ($values as $value) {
-            $abs[] = \abs($value);
+            $abs[] = abs($value);
         }
 
         return $abs;
@@ -416,7 +416,7 @@ final class ArrayUtils
         $squared = [];
 
         foreach ($values as $value) {
-            $squared[] = \sqrt($value);
+            $squared[] = sqrt($value);
         }
 
         return $squared;

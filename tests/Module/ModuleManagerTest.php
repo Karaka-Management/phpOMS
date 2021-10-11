@@ -127,7 +127,7 @@ class ModuleManagerTest extends \PHPUnit\Framework\TestCase
         $active = $this->moduleManager->getActiveModules();
 
         /** @var string $last */
-        $last = \end($active);
+        $last = end($active);
 
         self::assertTrue($this->moduleManager->isActive($last['name']['internal']));
         self::assertFalse($this->moduleManager->isActive('Invalid'));
@@ -193,7 +193,7 @@ class ModuleManagerTest extends \PHPUnit\Framework\TestCase
         foreach ($load as $val) {
             foreach ($val['pid'] as $pid) {
                 $queryLoad->values(
-                    \sha1(\str_replace('/', '', $pid)),
+                    sha1(str_replace('/', '', $pid)),
                     (int) $val['type'],
                     $val['from'],
                     $val['for'],

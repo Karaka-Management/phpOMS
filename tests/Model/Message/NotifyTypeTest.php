@@ -36,7 +36,7 @@ class NotifyTypeTest extends \PHPUnit\Framework\TestCase
      */
     public function testUnique() : void
     {
-        self::assertEquals(NotifyType::getConstants(), \array_unique(NotifyType::getConstants()));
+        self::assertEquals(NotifyType::getConstants(), array_unique(NotifyType::getConstants()));
     }
 
     /**

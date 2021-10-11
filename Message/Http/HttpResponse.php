@@ -94,7 +94,7 @@ final class HttpResponse extends ResponseAbstract implements RenderableInterface
      */
     public function getJsonData() : array
     {
-        return \json_decode($this->getRaw(), true) ?? [];
+        return json_decode($this->getRaw(), true) ?? [];
     }
 
     /**
@@ -111,8 +111,8 @@ final class HttpResponse extends ResponseAbstract implements RenderableInterface
         $types = $this->header->get('Content-Type');
 
         foreach ($types as $type) {
-            if (\stripos($type, MimeType::M_JSON) !== false) {
-                return (string) \json_encode($this->jsonSerialize());
+            if (stripos($type, MimeType::M_JSON) !== false) {
+                return (string) json_encode($this->jsonSerialize());
             }
         }
 
@@ -157,10 +157,10 @@ final class HttpResponse extends ResponseAbstract implements RenderableInterface
     private function removeWhitespaceAndLineBreak(string $render) : string
     {
         $types = $this->header->get('Content-Type');
-        if (\stripos($types[0], MimeType::M_HTML) !== false) {
-            $clean = \preg_replace('/(?s)<pre[^<]*>.*?<\/pre>(*SKIP)(*F)|(\s{2,}|\n|\t)/', ' ', $render);
+        if (stripos($types[0], MimeType::M_HTML) !== false) {
+            $clean = preg_replace('/(?s)<pre[^<]*>.*?<\/pre>(*SKIP)(*F)|(\s{2,}|\n|\t)/', ' ', $render);
 
-            return \trim($clean ?? '');
+            return trim($clean ?? '');
         }
 
         return $render;
@@ -176,7 +176,7 @@ final class HttpResponse extends ResponseAbstract implements RenderableInterface
         foreach ($this->response as $response) {
             if ($response instanceof View) {
                 $result[] = $response->toArray();
-            } elseif (\is_array($response) || \is_scalar($response)) {
+            } elseif (\is_array($response) || is_scalar($response)) {
                 $result[] = $response;
             } elseif ($response instanceof \JsonSerializable) {
                 $result[] = $response->jsonSerialize();
@@ -214,9 +214,9 @@ final class HttpResponse extends ResponseAbstract implements RenderableInterface
             $this->header->push();
         }
 
-        $levels = $levels === 0 ? \ob_get_level() : $levels;
+        $levels = $levels === 0 ? ob_get_level() : $levels;
         for ($i = 0; $i < $levels; ++$i) {
-            \ob_end_clean();
+            ob_end_clean();
         }
     }
 }

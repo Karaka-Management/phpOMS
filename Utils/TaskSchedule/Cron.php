@@ -31,9 +31,9 @@ class Cron extends SchedulerAbstract
     public function create(TaskAbstract $task) : void
     {
         $this->run('-l > ' . __DIR__ . '/tmpcron.tmp');
-        \file_put_contents(__DIR__ . '/tmpcron.tmp', $task->__toString() . "\n", \FILE_APPEND);
+        file_put_contents(__DIR__ . '/tmpcron.tmp', $task->__toString() . "\n", \FILE_APPEND);
         $this->run(__DIR__ . '/tmpcron.tmp');
-        \unlink(__DIR__ . '/tmpcron.tmp');
+        unlink(__DIR__ . '/tmpcron.tmp');
     }
 
     /**
@@ -44,26 +44,26 @@ class Cron extends SchedulerAbstract
         $this->run('-l > ' . __DIR__ . '/tmpcron.tmp');
 
         $new = '';
-        $fp  = \fopen(__DIR__ . '/tmpcron.tmp', 'r+');
+        $fp  = fopen(__DIR__ . '/tmpcron.tmp', 'r+');
 
         if ($fp) {
-            $line = \fgets($fp);
+            $line = fgets($fp);
             while ($line !== false) {
-                if ($line[0] !== '#' && \stripos($line, 'name="' . $task->getId()) !== false) {
+                if ($line[0] !== '#' && stripos($line, 'name="' . $task->getId()) !== false) {
                     $new .= $task->__toString() . "\n";
                 } else {
                     $new .= $line;
                 }
 
-                $line = \fgets($fp);
+                $line = fgets($fp);
             }
 
-            \fclose($fp);
-            \file_put_contents(__DIR__ . '/tmpcron.tmp', $new);
+            fclose($fp);
+            file_put_contents(__DIR__ . '/tmpcron.tmp', $new);
         }
 
         $this->run(__DIR__ . '/tmpcron.tmp');
-        \unlink(__DIR__ . '/tmpcron.tmp');
+        unlink(__DIR__ . '/tmpcron.tmp');
     }
 
     /**
@@ -82,26 +82,26 @@ class Cron extends SchedulerAbstract
         $this->run('-l > ' . __DIR__ . '/tmpcron.tmp');
 
         $new = '';
-        $fp  = \fopen(__DIR__ . '/tmpcron.tmp', 'r+');
+        $fp  = fopen(__DIR__ . '/tmpcron.tmp', 'r+');
 
         if ($fp) {
-            $line = \fgets($fp);
+            $line = fgets($fp);
             while ($line !== false) {
-                if ($line[0] !== '#' && \stripos($line, 'name="' . $name) !== false) {
-                    $line = \fgets($fp);
+                if ($line[0] !== '#' && stripos($line, 'name="' . $name) !== false) {
+                    $line = fgets($fp);
                     continue;
                 }
 
                 $new .= $line;
-                $line = \fgets($fp);
+                $line = fgets($fp);
             }
 
-            \fclose($fp);
-            \file_put_contents(__DIR__ . '/tmpcron.tmp', $new);
+            fclose($fp);
+            file_put_contents(__DIR__ . '/tmpcron.tmp', $new);
         }
 
         $this->run(__DIR__ . '/tmpcron.tmp');
-        \unlink(__DIR__ . '/tmpcron.tmp');
+        unlink(__DIR__ . '/tmpcron.tmp');
     }
 
     /**
@@ -112,32 +112,32 @@ class Cron extends SchedulerAbstract
         $this->run('-l > ' . __DIR__ . '/tmpcron.tmp');
 
         $jobs = [];
-        $fp   = \fopen(__DIR__ . '/tmpcron.tmp', 'r+');
+        $fp   = fopen(__DIR__ . '/tmpcron.tmp', 'r+');
 
         if ($fp) {
-            $line = \fgets($fp);
+            $line = fgets($fp);
             while ($line !== false) {
                 if ($line[0] !== '#') {
                     $elements   = [];
-                    $namePos    = \stripos($line, 'name="');
-                    $nameEndPos = \stripos($line, '"', $namePos + 7);
+                    $namePos    = stripos($line, 'name="');
+                    $nameEndPos = stripos($line, '"', $namePos + 7);
 
                     if ($namePos !== false && $nameEndPos !== false) {
-                        $elements[] = \substr($line, $namePos + 6, $nameEndPos - 1);
+                        $elements[] = substr($line, $namePos + 6, $nameEndPos - 1);
                     }
 
-                    $elements = \array_merge($elements, \explode(' ', $line));
+                    $elements = array_merge($elements, explode(' ', $line));
                     $jobs[]   = CronJob::createWith($elements);
                 }
 
-                $line = \fgets($fp);
+                $line = fgets($fp);
             }
 
-            \fclose($fp);
+            fclose($fp);
         }
 
         $this->run(__DIR__ . '/tmpcron.tmp');
-        \unlink(__DIR__ . '/tmpcron.tmp');
+        unlink(__DIR__ . '/tmpcron.tmp');
 
         return $jobs;
     }
@@ -150,26 +150,26 @@ class Cron extends SchedulerAbstract
         $this->run('-l > ' . __DIR__ . '/tmpcron.tmp');
 
         $jobs = [];
-        $fp   = \fopen(__DIR__ . '/tmpcron.tmp', 'r+');
+        $fp   = fopen(__DIR__ . '/tmpcron.tmp', 'r+');
 
         if ($fp) {
-            $line = \fgets($fp);
+            $line = fgets($fp);
             while ($line !== false) {
-                if ($line[0] !== '#' && \stripos($line, '# name="' . $name) !== false) {
+                if ($line[0] !== '#' && stripos($line, '# name="' . $name) !== false) {
                     $elements   = [];
                     $elements[] = $name;
-                    $elements   = \array_merge($elements, \explode(' ', $line));
+                    $elements   = array_merge($elements, explode(' ', $line));
                     $jobs[]     = CronJob::createWith($elements);
                 }
 
-                $line = \fgets($fp);
+                $line = fgets($fp);
             }
 
-            \fclose($fp);
+            fclose($fp);
         }
 
         $this->run(__DIR__ . '/tmpcron.tmp');
-        \unlink(__DIR__ . '/tmpcron.tmp');
+        unlink(__DIR__ . '/tmpcron.tmp');
 
         return $jobs;
     }

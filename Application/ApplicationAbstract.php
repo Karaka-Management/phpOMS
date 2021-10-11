@@ -35,21 +35,21 @@ use phpOMS\Router\RouterInterface;
  * is restricted to write once in order to prevent manipulation
  * and afterwards read only.
  *
- * @property string $appName
- * @property int $orgId
- * @property \phpOMS\DataStorage\Database\DatabasePool $dbPool
- * @property \phpOMS\Localization\L11nManager $l11nManager
- * @property \phpOMS\Localization\Localization $l11nServer
- * @property \phpOMS\Router\RouterInterface $router
+ * @property string                                       $appName
+ * @property int                                          $orgId
+ * @property \phpOMS\DataStorage\Database\DatabasePool    $dbPool
+ * @property \phpOMS\Localization\L11nManager             $l11nManager
+ * @property \phpOMS\Localization\Localization            $l11nServer
+ * @property \phpOMS\Router\RouterInterface               $router
  * @property \phpOMS\DataStorage\Session\SessionInterface $sessionManager
- * @property \phpOMS\DataStorage\Cookie\CookieJar $cookieJar
- * @property \phpOMS\Module\ModuleManager $moduleManager
- * @property \phpOMS\Dispatcher\Dispatcher $dispatcher
- * @property \phpOMS\DataStorage\Cache\CachePool $cachePool
- * @property \phpOMS\Config\SettingsInterface $appSettings
- * @property \phpOMS\Event\EventManager $eventManager
- * @property \phpOMS\Account\AccountManager $accountManager
- * @property \phpOMS\Log\FileLogger $logger
+ * @property \phpOMS\DataStorage\Cookie\CookieJar         $cookieJar
+ * @property \phpOMS\Module\ModuleManager                 $moduleManager
+ * @property \phpOMS\Dispatcher\Dispatcher                $dispatcher
+ * @property \phpOMS\DataStorage\Cache\CachePool          $cachePool
+ * @property \phpOMS\Config\SettingsInterface             $appSettings
+ * @property \phpOMS\Event\EventManager                   $eventManager
+ * @property \phpOMS\Account\AccountManager               $accountManager
+ * @property \phpOMS\Log\FileLogger                       $logger
  *
  * @package phpOMS\Application
  * @license OMS License 1.0

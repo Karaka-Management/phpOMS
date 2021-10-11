@@ -65,7 +65,7 @@ class SchemaMapper
 
         $tables = [];
         foreach ($tNames as $name) {
-            $tables[] = \array_values($name)[0];
+            $tables[] = array_values($name)[0];
         }
 
         return $tables;
@@ -103,7 +103,7 @@ class SchemaMapper
 
         $fields = [];
         foreach ($tNames as $name) {
-            $fields[] = \array_values($name);
+            $fields[] = array_values($name);
         }
 
         return $fields;

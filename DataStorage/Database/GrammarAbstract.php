@@ -123,9 +123,9 @@ abstract class GrammarAbstract
      */
     public function compileQuery(BuilderAbstract $query) : string
     {
-        return \trim(
-            \implode(' ',
-                \array_filter(
+        return trim(
+            implode(' ',
+                array_filter(
                     $this->compileComponents($query),
                     function ($value) {
                         return (string) $value !== '';
@@ -159,7 +159,7 @@ abstract class GrammarAbstract
         /* Loop all possible query components and if they exist compile them. */
         foreach ($components as $component) {
             if (isset($query->{$component}) && !empty($query->{$component})) {
-                $sql[$component] = $this->{'compile' . \ucfirst($component)}($query, $query->{$component});
+                $sql[$component] = $this->{'compile' . ucfirst($component)}($query, $query->{$component});
             }
         }
 
@@ -219,7 +219,7 @@ abstract class GrammarAbstract
             }
         }
 
-        return \rtrim($expression, ', ');
+        return rtrim($expression, ', ');
     }
 
     /**
@@ -239,7 +239,7 @@ abstract class GrammarAbstract
         $identifierEnd   = $this->systemIdentifierEnd;
 
         foreach ($this->specialKeywords as $keyword) {
-            if (\strrpos($system, $keyword, -\strlen($system)) !== false) {
+            if (strrpos($system, $keyword, -\strlen($system)) !== false) {
                 $identifierStart = '';
                 $identifierEnd   = '';
 
@@ -247,7 +247,7 @@ abstract class GrammarAbstract
             }
         }
 
-        $split      = \explode('.', $system);
+        $split      = explode('.', $system);
         $fullSystem = '';
 
         foreach ($split as $key => $system) {
@@ -257,6 +257,6 @@ abstract class GrammarAbstract
                 . ($system !== '*' ? $identifierEnd : '');
         }
 
-        return \ltrim($fullSystem, '.');
+        return ltrim($fullSystem, '.');
     }
 }

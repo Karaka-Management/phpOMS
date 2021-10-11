@@ -36,7 +36,7 @@ class WeightTypeTest extends \PHPUnit\Framework\TestCase
      */
     public function testUnique() : void
     {
-        self::assertEquals(WeightType::getConstants(), \array_unique(WeightType::getConstants()));
+        self::assertEquals(WeightType::getConstants(), array_unique(WeightType::getConstants()));
     }
 
     /**

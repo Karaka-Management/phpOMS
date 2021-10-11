@@ -63,7 +63,7 @@ abstract class SocketAbstract implements SocketInterface
     {
         $this->ip   = $ip;
         $this->port = $port;
-        $this->sock = \socket_create(\AF_INET, \SOCK_STREAM, \SOL_TCP);
+        $this->sock = socket_create(\AF_INET, \SOCK_STREAM, \SOL_TCP);
     }
 
     /**
@@ -82,8 +82,8 @@ abstract class SocketAbstract implements SocketInterface
     public function close() : void
     {
         if (isset($this->sock)) {
-            \socket_shutdown($this->sock, 2);
-            \socket_close($this->sock);
+            socket_shutdown($this->sock, 2);
+            socket_close($this->sock);
             $this->sock = null;
         }
     }

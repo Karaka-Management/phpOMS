@@ -38,8 +38,8 @@ final class LogNormalDistribution
      */
     public static function getPdf(float $x, float $mu, float $sigma) : float
     {
-        return 1 / ($x * $sigma * \sqrt(2 * \M_PI))
-            * \exp(-(\log($x) - $mu) ** 2 / (2 * $sigma ** 2));
+        return 1 / ($x * $sigma * sqrt(2 * \M_PI))
+            * exp(-(log($x) - $mu) ** 2 / (2 * $sigma ** 2));
     }
 
     /**
@@ -54,7 +54,7 @@ final class LogNormalDistribution
      */
     public static function getMean(float $mu, float $sigma) : float
     {
-        return \exp($mu + $sigma ** 2 / 2);
+        return exp($mu + $sigma ** 2 / 2);
     }
 
     /**
@@ -68,7 +68,7 @@ final class LogNormalDistribution
      */
     public static function getMedian(float $mu) : float
     {
-        return \exp($mu);
+        return exp($mu);
     }
 
     /**
@@ -83,7 +83,7 @@ final class LogNormalDistribution
      */
     public static function getMode(float $mu, float $sigma) : float
     {
-        return \exp($mu - $sigma ** 2);
+        return exp($mu - $sigma ** 2);
     }
 
     /**
@@ -98,7 +98,7 @@ final class LogNormalDistribution
      */
     public static function getVariance(float $mu, float $sigma) : float
     {
-        return (\exp($sigma ** 2) - 1) * \exp(2 * $mu + $sigma ** 2);
+        return (exp($sigma ** 2) - 1) * exp(2 * $mu + $sigma ** 2);
     }
 
     /**
@@ -113,7 +113,7 @@ final class LogNormalDistribution
      */
     public static function getStandardDeviation(float $mu, float $sigma) : float
     {
-        return \sqrt(self::getVariance($mu, $sigma));
+        return sqrt(self::getVariance($mu, $sigma));
     }
 
     /**
@@ -127,7 +127,7 @@ final class LogNormalDistribution
      */
     public static function getSkewness(float $sigma) : float
     {
-        return (\exp($sigma ** 2) + 2) * \sqrt(\exp($sigma ** 2) - 1);
+        return (exp($sigma ** 2) + 2) * sqrt(exp($sigma ** 2) - 1);
     }
 
     /**
@@ -141,7 +141,7 @@ final class LogNormalDistribution
      */
     public static function getExKurtosis(float $sigma) : float
     {
-        return \exp(4 * $sigma ** 2) + 2 * \exp(3 * $sigma ** 2) + 3 * \exp(2 * $sigma ** 2) - 6;
+        return exp(4 * $sigma ** 2) + 2 * exp(3 * $sigma ** 2) + 3 * exp(2 * $sigma ** 2) - 6;
     }
 
     /**
@@ -156,7 +156,7 @@ final class LogNormalDistribution
      */
     public static function getEntropy(float $mu, float $sigma) : float
     {
-        return \log($sigma * \exp($mu + 1 / 2) * \sqrt(2 * \M_PI), 2);
+        return log($sigma * exp($mu + 1 / 2) * sqrt(2 * \M_PI), 2);
     }
 
     /**
@@ -189,6 +189,6 @@ final class LogNormalDistribution
      */
     public static function getCdf(float $x, float $mean, float $standardDeviation) : float
     {
-        return 0.5 + 0.5 * Functions::getErf((\log($x) - $mean) / (\sqrt(2) * $standardDeviation));
+        return 0.5 + 0.5 * Functions::getErf((log($x) - $mean) / (sqrt(2) * $standardDeviation));
     }
 }

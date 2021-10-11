@@ -38,8 +38,8 @@ class CodebarTest extends \PHPUnit\Framework\TestCase
     public function testImagePng() : void
     {
         $path = __DIR__ . '/codebar.png';
-        if (\is_file($path)) {
-            \unlink($path);
+        if (is_file($path)) {
+            unlink($path);
         }
 
         $img = new Codebar('412163', 200, 50);
@@ -55,8 +55,8 @@ class CodebarTest extends \PHPUnit\Framework\TestCase
     public function testImageJpg() : void
     {
         $path = __DIR__ . '/codebar.jpg';
-        if (\is_file($path)) {
-            \unlink($path);
+        if (is_file($path)) {
+            unlink($path);
         }
 
         $img = new Codebar('412163', 200, 50);
@@ -72,8 +72,8 @@ class CodebarTest extends \PHPUnit\Framework\TestCase
     public function testOrientationAndMargin() : void
     {
         $path = __DIR__ . '/ccodebar_vertical.png';
-        if (\is_file($path)) {
-            \unlink($path);
+        if (is_file($path)) {
+            unlink($path);
         }
 
         $img = new Codebar('412163', 50, 200, OrientationType::VERTICAL);

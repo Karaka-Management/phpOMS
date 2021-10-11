@@ -250,7 +250,7 @@ class SocketHeader extends HeaderAbstract implements \Serializable
      */
     public function get(string $key = null) : array
     {
-        return $key === null ? $this->header : ($this->header[\strtolower($key)] ?? []);
+        return $key === null ? $this->header : ($this->header[strtolower($key)] ?? []);
     }
 
     /**

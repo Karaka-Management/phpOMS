@@ -51,19 +51,19 @@ class TarTest extends \PHPUnit\Framework\TestCase
 
         self::assertFileExists(__DIR__ . '/test.tar');
 
-        $a = \file_get_contents(__DIR__ . '/test a.txt');
-        $b = \file_get_contents(__DIR__ . '/test b.md');
-        $c = \file_get_contents(__DIR__ . '/test/test c.txt');
-        $d = \file_get_contents(__DIR__ . '/test/test d.txt');
-        $e = \file_get_contents(__DIR__ . '/test/sub/test e.txt');
+        $a = file_get_contents(__DIR__ . '/test a.txt');
+        $b = file_get_contents(__DIR__ . '/test b.md');
+        $c = file_get_contents(__DIR__ . '/test/test c.txt');
+        $d = file_get_contents(__DIR__ . '/test/test d.txt');
+        $e = file_get_contents(__DIR__ . '/test/sub/test e.txt');
 
-        \unlink(__DIR__ . '/test a.txt');
-        \unlink(__DIR__ . '/test b.md');
-        \unlink(__DIR__ . '/test/test c.txt');
-        \unlink(__DIR__ . '/test/test d.txt');
-        \unlink(__DIR__ . '/test/sub/test e.txt');
-        \rmdir(__DIR__ . '/test/sub');
-        \rmdir(__DIR__ . '/test');
+        unlink(__DIR__ . '/test a.txt');
+        unlink(__DIR__ . '/test b.md');
+        unlink(__DIR__ . '/test/test c.txt');
+        unlink(__DIR__ . '/test/test d.txt');
+        unlink(__DIR__ . '/test/sub/test e.txt');
+        rmdir(__DIR__ . '/test/sub');
+        rmdir(__DIR__ . '/test');
 
         self::assertTrue(Tar::unpack(__DIR__ . '/test.tar', __DIR__));
 
@@ -75,13 +75,13 @@ class TarTest extends \PHPUnit\Framework\TestCase
         self::assertFileExists(__DIR__ . '/test/sub');
         self::assertFileExists(__DIR__ . '/test');
 
-        self::assertEquals($a, \file_get_contents(__DIR__ . '/test a.txt'));
-        self::assertEquals($b, \file_get_contents(__DIR__ . '/test b.md'));
-        self::assertEquals($c, \file_get_contents(__DIR__ . '/test/test c.txt'));
-        self::assertEquals($d, \file_get_contents(__DIR__ . '/test/test d.txt'));
-        self::assertEquals($e, \file_get_contents(__DIR__ . '/test/sub/test e.txt'));
+        self::assertEquals($a, file_get_contents(__DIR__ . '/test a.txt'));
+        self::assertEquals($b, file_get_contents(__DIR__ . '/test b.md'));
+        self::assertEquals($c, file_get_contents(__DIR__ . '/test/test c.txt'));
+        self::assertEquals($d, file_get_contents(__DIR__ . '/test/test d.txt'));
+        self::assertEquals($e, file_get_contents(__DIR__ . '/test/sub/test e.txt'));
 
-        \unlink(__DIR__ . '/test.tar');
+        unlink(__DIR__ . '/test.tar');
 
         /* @todo not working, somehow it cannot open the test.tar
         // second test
@@ -147,7 +147,7 @@ class TarTest extends \PHPUnit\Framework\TestCase
             __DIR__ . '/test2.tar'
         ));
 
-        \unlink(__DIR__ . '/test2.tar');
+        unlink(__DIR__ . '/test2.tar');
     }
 
     /**
@@ -179,6 +179,6 @@ class TarTest extends \PHPUnit\Framework\TestCase
         Tar::unpack(__DIR__ . '/abc/test3.tar', __DIR__);
         self::assertFalse(Tar::unpack(__DIR__ . '/abc/test3.tar', __DIR__));
 
-        \unlink(__DIR__ . '/test3.tar');
+        unlink(__DIR__ . '/test3.tar');
     }
 }

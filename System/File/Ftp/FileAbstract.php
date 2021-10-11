@@ -125,8 +125,8 @@ abstract class FileAbstract implements FtpContainerInterface
      */
     public function __construct(string $path)
     {
-        $this->path = \rtrim($path, '/\\');
-        $this->name = \basename($path);
+        $this->path = rtrim($path, '/\\');
+        $this->name = basename($path);
 
         $this->createdAt = new \DateTimeImmutable('now');
         $this->changedAt = new \DateTime('now');
@@ -161,7 +161,7 @@ abstract class FileAbstract implements FtpContainerInterface
      */
     public function getBasename() : string
     {
-        return \basename($this->path);
+        return basename($this->path);
     }
 
     /**
@@ -209,16 +209,16 @@ abstract class FileAbstract implements FtpContainerInterface
      */
     public function index() : void
     {
-        $mtime = \ftp_mdtm($this->con, $this->path);
-        $ctime = \ftp_mdtm($this->con, $this->path);
+        $mtime = ftp_mdtm($this->con, $this->path);
+        $ctime = ftp_mdtm($this->con, $this->path);
 
         $this->createdAt = (new \DateTimeImmutable())->setTimestamp($mtime === false ? 0 : $mtime);
         $this->changedAt->setTimestamp($ctime === false ? 0 : $ctime);
 
-        $owner = \fileowner($this->path);
+        $owner = fileowner($this->path);
 
         $this->owner      = $owner === false ? 0 : $owner;
-        $this->permission = (int) \substr(\sprintf('%o', \fileperms($this->path)), -4);
+        $this->permission = (int) substr(sprintf('%o', fileperms($this->path)), -4);
 
         $this->isInitialized = true;
     }

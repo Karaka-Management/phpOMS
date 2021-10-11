@@ -30,6 +30,6 @@ class ISO3166NameEnumTest extends \PHPUnit\Framework\TestCase
     public function testEnums() : void
     {
         $enum = ISO3166NameEnum::getConstants();
-        self::assertEquals(\count($enum), \count(\array_unique($enum)));
+        self::assertEquals(\count($enum), \count(array_unique($enum)));
     }
 }

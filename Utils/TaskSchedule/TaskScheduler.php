@@ -62,12 +62,12 @@ class TaskScheduler extends SchedulerAbstract
      */
     public function getAll() : array
     {
-        $lines = \explode("\n", $this->normalize($this->run('/query /v /fo CSV')));
+        $lines = explode("\n", $this->normalize($this->run('/query /v /fo CSV')));
         unset($lines[0]);
 
         $jobs = [];
         foreach ($lines as $line) {
-            $jobs[] = Schedule::createWith(\str_getcsv($line));
+            $jobs[] = Schedule::createWith(str_getcsv($line));
         }
 
         return $jobs;
@@ -79,22 +79,22 @@ class TaskScheduler extends SchedulerAbstract
     public function getAllByName(string $name, bool $exact = true) : array
     {
         if ($exact) {
-            $lines = \explode("\n", $this->normalize($this->run('/query /v /fo CSV /tn ' . \escapeshellarg($name))));
+            $lines = explode("\n", $this->normalize($this->run('/query /v /fo CSV /tn ' . escapeshellarg($name))));
             unset($lines[0]);
 
             $jobs = [];
             foreach ($lines as $line) {
-                $jobs[] = Schedule::createWith(\str_getcsv($line));
+                $jobs[] = Schedule::createWith(str_getcsv($line));
             }
         } else {
-            $lines = \explode("\n", $this->normalize($this->run('/query /v /fo CSV')));
+            $lines = explode("\n", $this->normalize($this->run('/query /v /fo CSV')));
             unset($lines[0]);
 
             $jobs = [];
             foreach ($lines as $key => $line) {
-                $line = \str_getcsv($line);
+                $line = str_getcsv($line);
 
-                if (\stripos($line[1], $name) !== false) {
+                if (stripos($line[1], $name) !== false) {
                     $jobs[] = Schedule::createWith($line);
                 }
             }

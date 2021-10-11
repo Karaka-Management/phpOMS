@@ -70,7 +70,7 @@ final class Storage
             }
         } else {
             $stg = $env;
-            $env = \ucfirst(\strtolower($env));
+            $env = ucfirst(strtolower($env));
             $env = __NAMESPACE__ . '\\' . $env . '\\' . $env . 'Storage';
 
             try {

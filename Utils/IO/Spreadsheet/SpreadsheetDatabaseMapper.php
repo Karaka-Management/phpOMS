@@ -143,7 +143,7 @@ class SpreadsheetDatabaseMapper implements IODatabaseMapper
             }
 
             $colCount = \count($results[0]);
-            $columns  = \array_keys($results[0]);
+            $columns  = array_keys($results[0]);
 
             // set column titles
             for ($i = 1; $i <= $colCount; ++$i) {

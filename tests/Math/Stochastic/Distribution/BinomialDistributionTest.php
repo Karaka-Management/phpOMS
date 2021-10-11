@@ -68,7 +68,7 @@ class BinomialDistributionTest extends \PHPUnit\Framework\TestCase
         $n = 20;
         $p = 0.4;
 
-        self::assertEqualsWithDelta(\floor($n * $p), BinomialDistribution::getMedian($n, $p), 0.01);
+        self::assertEqualsWithDelta(floor($n * $p), BinomialDistribution::getMedian($n, $p), 0.01);
     }
 
     /**
@@ -80,7 +80,7 @@ class BinomialDistributionTest extends \PHPUnit\Framework\TestCase
         $n = 20;
         $p = 0.4;
 
-        self::assertEqualsWithDelta(\floor(($n + 1) * $p), BinomialDistribution::getMode($n, $p), 0.01);
+        self::assertEqualsWithDelta(floor(($n + 1) * $p), BinomialDistribution::getMode($n, $p), 0.01);
     }
 
     /**
@@ -104,7 +104,7 @@ class BinomialDistributionTest extends \PHPUnit\Framework\TestCase
         $n = 20;
         $p = 0.4;
 
-        self::assertEqualsWithDelta(\sqrt($n * $p * (1 - $p)), BinomialDistribution::getStandardDeviation($n, $p), 0.01);
+        self::assertEqualsWithDelta(sqrt($n * $p * (1 - $p)), BinomialDistribution::getStandardDeviation($n, $p), 0.01);
     }
 
     /**
@@ -116,7 +116,7 @@ class BinomialDistributionTest extends \PHPUnit\Framework\TestCase
         $n = 20;
         $p = 0.4;
 
-        self::assertEqualsWithDelta((1 - 2 * $p) / \sqrt($n * $p * (1 - $p)), BinomialDistribution::getSkewness($n, $p), 0.01);
+        self::assertEqualsWithDelta((1 - 2 * $p) / sqrt($n * $p * (1 - $p)), BinomialDistribution::getSkewness($n, $p), 0.01);
     }
 
     /**
@@ -141,7 +141,7 @@ class BinomialDistributionTest extends \PHPUnit\Framework\TestCase
         $p = 0.4;
         $t = 3;
 
-        self::assertEqualsWithDelta((1 - $p + $p * \exp($t)) ** $n, BinomialDistribution::getMgf($n, $t, $p), 0.01);
+        self::assertEqualsWithDelta((1 - $p + $p * exp($t)) ** $n, BinomialDistribution::getMgf($n, $t, $p), 0.01);
     }
 
     /**

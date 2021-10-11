@@ -36,7 +36,7 @@ final class ExponentialDistribution
      */
     public static function getPdf(float $x, float $lambda) : float
     {
-        return $x >= 0 ? $lambda * \exp(-$lambda * $x) : 0;
+        return $x >= 0 ? $lambda * exp(-$lambda * $x) : 0;
     }
 
     /**
@@ -51,7 +51,7 @@ final class ExponentialDistribution
      */
     public static function getCdf(float $x, float $lambda) : float
     {
-        return $x >= 0 ? 1 - 1 / \exp($lambda * $x) : 0;
+        return $x >= 0 ? 1 - 1 / exp($lambda * $x) : 0;
     }
 
     /**
@@ -91,7 +91,7 @@ final class ExponentialDistribution
      */
     public static function getMedian(float $lambda) : float
     {
-        return 1 / $lambda * \log(2);
+        return 1 / $lambda * log(2);
     }
 
     /**
@@ -105,7 +105,7 @@ final class ExponentialDistribution
      */
     public static function getVariance(float $lambda) : float
     {
-        return \pow($lambda, -2);
+        return pow($lambda, -2);
     }
 
     /**
@@ -119,7 +119,7 @@ final class ExponentialDistribution
      */
     public static function getStandardDeviation(float $lambda) : float
     {
-        return \sqrt(self::getVariance($lambda));
+        return sqrt(self::getVariance($lambda));
     }
 
     /**

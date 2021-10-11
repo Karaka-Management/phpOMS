@@ -36,6 +36,6 @@ class OSTypeTest extends \PHPUnit\Framework\TestCase
      */
     public function testUnique() : void
     {
-        self::assertEquals(OSType::getConstants(), \array_unique(OSType::getConstants()));
+        self::assertEquals(OSType::getConstants(), array_unique(OSType::getConstants()));
     }
 }

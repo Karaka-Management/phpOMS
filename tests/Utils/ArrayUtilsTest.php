@@ -265,7 +265,7 @@ class ArrayUtilsTest extends \PHPUnit\Framework\TestCase
     public function testArgGet() : void
     {
         if (ArrayUtils::getArg('--configuration', $_SERVER['argv']) !== null) {
-            self::assertTrue(\stripos(ArrayUtils::getArg('--configuration', $_SERVER['argv']), '.xml') !== false);
+            self::assertTrue(stripos(ArrayUtils::getArg('--configuration', $_SERVER['argv']), '.xml') !== false);
         }
     }
 

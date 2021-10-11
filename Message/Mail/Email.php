@@ -42,7 +42,7 @@ class Email implements MessageInterface
      * @var string
      * @since 1.0.0
      */
-    const XMAILER = 'phpOMS';
+    public const XMAILER = 'phpOMS';
 
     /**
      * The maximum line length supported by mail().
@@ -50,7 +50,7 @@ class Email implements MessageInterface
      * @var int
      * @since 1.0.0
      */
-    const MAIL_MAX_LINE_LENGTH = 63;
+    public const MAIL_MAX_LINE_LENGTH = 63;
 
     /**
      * The maximum line length allowed by RFC 2822 section 2.1.1.
@@ -58,7 +58,7 @@ class Email implements MessageInterface
      * @var int
      * @since 1.0.0
      */
-    const MAX_LINE_LENGTH = 998;
+    public const MAX_LINE_LENGTH = 998;
 
     /**
      * The lower maximum line length allowed by RFC 2822 section 2.1.1.
@@ -66,7 +66,7 @@ class Email implements MessageInterface
      * @var int
      * @since 1.0.0
      */
-    const STD_LINE_LENGTH = 76;
+    public const STD_LINE_LENGTH = 76;
 
     /**
      * Folding White Space.
@@ -74,7 +74,7 @@ class Email implements MessageInterface
      * @var string
      * @since 1.0.0
      */
-    const FWS = ' ';
+    public const FWS = ' ';
 
     /**
      * SMTP RFC standard line ending
@@ -444,8 +444,8 @@ class Email implements MessageInterface
      */
     public function setFrom(string $address, string $name = '') : bool
     {
-        $address = \trim($address);
-        $name    = \trim(\preg_replace('/[\r\n]+/', '', $name));
+        $address = trim($address);
+        $name    = trim(preg_replace('/[\r\n]+/', '', $name));
 
         if (!EmailValidator::isValid($address)) {
             return false;
@@ -592,13 +592,13 @@ class Email implements MessageInterface
     {
         $addresses = [];
         if ($useimap && \function_exists('imap_rfc822_parse_adrlist')) {
-            $list = \imap_rfc822_parse_adrlist($addrstr, '');
+            $list = imap_rfc822_parse_adrlist($addrstr, '');
             foreach ($list as $address) {
-                if (('.SYNTAX-ERROR.' !== $address->host)
+                if (($address->host !== '.SYNTAX-ERROR.')
                     && EmailValidator::isValid($address->mailbox . '@' . $address->host)
                 ) {
                     $addresses[] = [
-                        'name'    => (\property_exists($address, 'personal') ? $address->personal : ''),
+                        'name'    => (property_exists($address, 'personal') ? $address->personal : ''),
                         'address' => $address->mailbox . '@' . $address->host,
                     ];
                 }
@@ -607,10 +607,10 @@ class Email implements MessageInterface
             return $addresses;
         }
 
-        $list = \explode(',', $addrstr);
+        $list = explode(',', $addrstr);
         foreach ($list as $address) {
-            $address = \trim($address);
-            if (\strpos($address, '<') === false) {
+            $address = trim($address);
+            if (strpos($address, '<') === false) {
                 if (EmailValidator::isValid($address)) {
                     $addresses[] = [
                         'name'    => '',
@@ -618,12 +618,12 @@ class Email implements MessageInterface
                     ];
                 }
             } else {
-                list($name, $email) = \explode('<', $address);
-                $email              = \trim(\str_replace('>', '', $email));
+                list($name, $email) = explode('<', $address);
+                $email              = trim(str_replace('>', '', $email));
 
                 if (EmailValidator::isValid($email)) {
                     $addresses[] = [
-                        'name'    => \trim(\str_replace(['"', "'"], '', $name)),
+                        'name'    => trim(str_replace(['"', "'"], '', $name)),
                         'address' => $email,
                     ];
                 }
@@ -669,7 +669,7 @@ class Email implements MessageInterface
                 ? $this->createAddressList('To', $this->to)
                 : 'Subject: undisclosed-recipients:;' . self::$LE;
 
-            $this->header .= 'Subject: ' . $this->encodeHeader(\trim(\str_replace(["\r", "\n"], '', $this->subject))) . self::$LE;
+            $this->header .= 'Subject: ' . $this->encodeHeader(trim(str_replace(["\r", "\n"], '', $this->subject))) . self::$LE;
         }
 
         // Sign with DKIM if enabled
@@ -678,17 +678,17 @@ class Email implements MessageInterface
             && (!empty($this->dkimPrivateKey)
                 || (!empty($this->dkimPrivatePath)
                     && FileUtils::isPermittedPath($this->dkimPrivatePath)
-                    && \is_file($this->dkimPrivatePath)
+                    && is_file($this->dkimPrivatePath)
                 )
             )
         ) {
             $headerDkim = $this->dkimAdd(
                 $this->headerMime . $this->header,
-                $this->encodeHeader(\trim(\str_replace(["\r", "\n"], '', $this->subject))),
+                $this->encodeHeader(trim(str_replace(["\r", "\n"], '', $this->subject))),
                 $this->bodyMime
             );
 
-            $this->headerMime = \rtrim($this->headerMime, " \r\n\t") . self::$LE .
+            $this->headerMime = rtrim($this->headerMime, " \r\n\t") . self::$LE .
                 self::normalizeBreaks($headerDkim, self::$LE) . self::$LE;
         }
 
@@ -716,7 +716,7 @@ class Email implements MessageInterface
                 : 'To: undisclosed-recipients:;' . self::$LE;
         }
 
-        $result .= $this->addrAppend('From', [[\trim($this->from), $this->fromName]]);
+        $result .= $this->addrAppend('From', [[trim($this->from), $this->fromName]]);
 
         // sendmail and mail() extract Cc from the header before sending
         if (\count($this->cc) > 0) {
@@ -738,16 +738,16 @@ class Email implements MessageInterface
 
         // mail() sets the subject itself
         if ($this->mailer !== SubmitType::MAIL) {
-            $result .= 'Subject: ' . $this->encodeHeader(\trim(\str_replace(["\r", "\n"], '', $this->subject))) . self::$LE;
+            $result .= 'Subject: ' . $this->encodeHeader(trim(str_replace(["\r", "\n"], '', $this->subject))) . self::$LE;
         }
 
         $this->hostname = empty($this->hostname) ? SystemUtils::getHostname() : $this->hostname;
 
         // Only allow a custom message Id if it conforms to RFC 5322 section 3.6.4
         // https://tools.ietf.org/html/rfc5322#section-3.6.4
-        $this->messageId = $this->messageId !== '' && \preg_match('/^<.*@.*>$/', $this->messageId)
+        $this->messageId = $this->messageId !== '' && preg_match('/^<.*@.*>$/', $this->messageId)
             ? $this->messageId
-            : \sprintf('<%s@%s>', $this->uniqueid, $this->hostname);
+            : sprintf('<%s@%s>', $this->uniqueid, $this->hostname);
 
         $result .= 'Message-ID: ' . $this->messageId . self::$LE;
 
@@ -763,7 +763,7 @@ class Email implements MessageInterface
 
         // Add custom headers
         foreach ($this->customHeader as $header) {
-            $result .= \trim($header[0]) . ': ' . $this->encodeHeader(\trim($header[1])) . self::$LE;
+            $result .= trim($header[0]) . ': ' . $this->encodeHeader(trim($header[1])) . self::$LE;
         }
 
         if (!empty($this->signKeyFile)) {
@@ -791,7 +791,7 @@ class Email implements MessageInterface
             $addresses[] = $this->addrFormat($address);
         }
 
-        return $type . ': ' . \implode(', ', $addresses) . self::$LE;
+        return $type . ': ' . implode(', ', $addresses) . self::$LE;
     }
 
     /**
@@ -806,11 +806,11 @@ class Email implements MessageInterface
     public function addrFormat(array $addr) : string
     {
         if (empty($addr[1])) {
-            return \trim(\str_replace(["\r", "\n"], '', $addr[0]));
+            return trim(str_replace(["\r", "\n"], '', $addr[0]));
         }
 
-        return $this->encodeHeader(\trim(\str_replace(["\r", "\n"], '', $addr[1])), 'phrase') .
-            ' <' . \trim(\str_replace(["\r", "\n"], '', $addr[0])) . '>';
+        return $this->encodeHeader(trim(str_replace(["\r", "\n"], '', $addr[1])), 'phrase') .
+            ' <' . trim(str_replace(["\r", "\n"], '', $addr[0])) . '>';
     }
 
     /**
@@ -884,24 +884,24 @@ class Email implements MessageInterface
             return $address;
         }
 
-        $pos    = \strrpos($address, '@');
-        $domain = \substr($address, ++$pos);
+        $pos    = strrpos($address, '@');
+        $domain = substr($address, ++$pos);
 
-        if (!((bool) \preg_match('/[\x80-\xFF]/', $domain)) || !\mb_check_encoding($domain, $charset)) {
+        if (!((bool) preg_match('/[\x80-\xFF]/', $domain)) || !mb_check_encoding($domain, $charset)) {
             return $address;
         }
 
-        $domain = \mb_convert_encoding($domain, 'UTF-8', $charset);
+        $domain = mb_convert_encoding($domain, 'UTF-8', $charset);
 
         $errorcode = 0;
         if (\defined('INTL_IDNA_VARIANT_UTS46')) {
-            $punycode = \idn_to_ascii($domain, $errorcode, \INTL_IDNA_VARIANT_UTS46);
+            $punycode = idn_to_ascii($domain, $errorcode, \INTL_IDNA_VARIANT_UTS46);
         } else {
-            $punycode = \idn_to_ascii($domain, $errorcode);
+            $punycode = idn_to_ascii($domain, $errorcode);
         }
 
         if ($punycode !== false) {
-            return \substr($address, 0, $pos) . $punycode;
+            return substr($address, 0, $pos) . $punycode;
         }
 
         return $address;
@@ -918,13 +918,13 @@ class Email implements MessageInterface
     {
         $len   = 32; //32 bytes = 256 bits
         $bytes = '';
-        $bytes = \random_bytes($len);
+        $bytes = random_bytes($len);
 
         if ($bytes === '') {
-            $bytes = \hash('sha256', \uniqid((string) \mt_rand(), true), true); // @codeCoverageIgnore
+            $bytes = hash('sha256', uniqid((string) mt_rand(), true), true); // @codeCoverageIgnore
         }
 
-        return \str_replace(['=', '+', '/'], '', \base64_encode(\hash('sha256', $bytes, true)));
+        return str_replace(['=', '+', '/'], '', base64_encode(hash('sha256', $bytes, true)));
     }
 
     /**
@@ -953,7 +953,7 @@ class Email implements MessageInterface
         $bodyCharSet  = $this->charset;
 
         // Can we do a 7-bit downgrade?
-        if ($bodyEncoding === EncodingType::E_8BIT && !((bool) \preg_match('/[\x80-\xFF]/', $this->body))) {
+        if ($bodyEncoding === EncodingType::E_8BIT && !((bool) preg_match('/[\x80-\xFF]/', $this->body))) {
             $bodyEncoding = EncodingType::E_7BIT;
 
             //All ISO 8859, Windows codepage and UTF-8 charsets are ascii compatible up to 7-bit
@@ -963,7 +963,7 @@ class Email implements MessageInterface
         // If lines are too long, and we're not already using an encoding that will shorten them,
         // change to quoted-printable transfer encoding for the body part only
         if ($this->encoding !== EncodingType::E_BASE64
-            && ((bool) \preg_match('/^(.{' . (self::MAX_LINE_LENGTH + \strlen(self::$LE)) . ',})/m', $this->body))
+            && ((bool) preg_match('/^(.{' . (self::MAX_LINE_LENGTH + \strlen(self::$LE)) . ',})/m', $this->body))
         ) {
             $bodyEncoding = EncodingType::E_QUOTED;
         }
@@ -972,7 +972,7 @@ class Email implements MessageInterface
         $altBodyCharSet  = $this->charset;
 
         //Can we do a 7-bit downgrade?
-        if ($altBodyEncoding === EncodingType::E_8BIT && !((bool) \preg_match('/[\x80-\xFF]/', $this->bodyAlt))) {
+        if ($altBodyEncoding === EncodingType::E_8BIT && !((bool) preg_match('/[\x80-\xFF]/', $this->bodyAlt))) {
             $altBodyEncoding = EncodingType::E_7BIT;
 
             //All ISO 8859, Windows codepage and UTF-8 charsets are ascii compatible up to 7-bit
@@ -982,7 +982,7 @@ class Email implements MessageInterface
         //If lines are too long, and we're not already using an encoding that will shorten them,
         //change to quoted-printable transfer encoding for the alt body part only
         if ($altBodyEncoding !== EncodingType::E_BASE64
-            && ((bool) \preg_match('/^(.{' . (self::MAX_LINE_LENGTH + \strlen(self::$LE)) . ',})/m', $this->bodyAlt))
+            && ((bool) preg_match('/^(.{' . (self::MAX_LINE_LENGTH + \strlen(self::$LE)) . ',})/m', $this->bodyAlt))
         ) {
             $altBodyEncoding = EncodingType::E_QUOTED;
         }
@@ -1025,7 +1025,7 @@ class Email implements MessageInterface
                     $methods = ICALMethodType::getConstants();
 
                     foreach ($methods as $imethod) {
-                        if (\stripos($this->ical, 'METHOD:' . $imethod) !== false) {
+                        if (stripos($this->ical, 'METHOD:' . $imethod) !== false) {
                             $method = $imethod;
                             break;
                         }
@@ -1065,7 +1065,7 @@ class Email implements MessageInterface
                     $methods = ICALMethodType::getConstants();
 
                     foreach ($methods as $imethod) {
-                        if (\stripos($this->ical, 'METHOD:' . $imethod) !== false) {
+                        if (stripos($this->ical, 'METHOD:' . $imethod) !== false) {
                             $method = $imethod;
                             break;
                         }
@@ -1107,36 +1107,36 @@ class Email implements MessageInterface
                 return '';
             }
 
-            $file   = \tempnam(\sys_get_temp_dir(), 'srcsign');
-            $signed = \tempnam(\sys_get_temp_dir(), 'mailsign');
-            \file_put_contents($file, $body);
+            $file   = tempnam(sys_get_temp_dir(), 'srcsign');
+            $signed = tempnam(sys_get_temp_dir(), 'mailsign');
+            file_put_contents($file, $body);
 
             //Workaround for PHP bug https://bugs.php.net/bug.php?id=69197
             $sign = empty($this->signExtracertFiles)
-                ? \openssl_pkcs7_sign($file, $signed,
-                        'file://' . \realpath($this->signCertFile),
-                        ['file://' . \realpath($this->signKeyFile), $this->signKeyPass],
+                ? openssl_pkcs7_sign($file, $signed,
+                        'file://' . realpath($this->signCertFile),
+                        ['file://' . realpath($this->signKeyFile), $this->signKeyPass],
                         []
                     )
-                : \openssl_pkcs7_sign($file, $signed,
-                        'file://' . \realpath($this->signCertFile),
-                        ['file://' . \realpath($this->signKeyFile), $this->signKeyPass],
+                : openssl_pkcs7_sign($file, $signed,
+                        'file://' . realpath($this->signCertFile),
+                        ['file://' . realpath($this->signKeyFile), $this->signKeyPass],
                         [],
                         \PKCS7_DETACHED,
                         $this->signExtracertFiles
                     );
 
-            \unlink($file);
+            unlink($file);
             if ($sign === false) {
-                \unlink($signed);
+                unlink($signed);
                 return '';
             }
 
-            $body = \file_get_contents($signed);
-            \unlink($signed);
+            $body = file_get_contents($signed);
+            unlink($signed);
 
             //The message returned by openssl contains both headers and body, so need to split them up
-            $parts             = \explode("\n\n", $body, 2);
+            $parts             = explode("\n\n", $body, 2);
             $this->headerMime .= $parts[0] . self::$LE . self::$LE;
             $body              = $parts[1];
         }
@@ -1172,7 +1172,7 @@ class Email implements MessageInterface
         }
 
         $result .= '--' . $boundary . self::$LE;
-        $result .= \sprintf('Content-Type: %s; charset=%s', $contentType, $charset);
+        $result .= sprintf('Content-Type: %s; charset=%s', $contentType, $charset);
         $result .= self::$LE;
 
         // RFC1341 part 5 says 7bit is assumed if not specified
@@ -1209,7 +1209,7 @@ class Email implements MessageInterface
             $string  = $bString ? $attachment[0] : '';
             $path    = !$bString ? $attachment[0] : '';
 
-            $inclHash = \hash('sha256', \serialize($attachment));
+            $inclHash = hash('sha256', serialize($attachment));
             if (\in_array($inclHash, $incl, true)) {
                 continue;
             }
@@ -1226,40 +1226,40 @@ class Email implements MessageInterface
             }
 
             $cidUniq[$cid] = true;
-            $mime[]        = \sprintf('--%s%s', $boundary, self::$LE);
+            $mime[]        = sprintf('--%s%s', $boundary, self::$LE);
 
             //Only include a filename property if we have one
             $mime[] = !empty($name)
-                ? \sprintf('Content-Type: %s; name=%s%s',
+                ? sprintf('Content-Type: %s; name=%s%s',
                         $type,
-                        self::quotedString($this->encodeHeader(\trim(\str_replace(["\r", "\n"], '', $name)))),
+                        self::quotedString($this->encodeHeader(trim(str_replace(["\r", "\n"], '', $name)))),
                         self::$LE
                     )
-                : \sprintf('Content-Type: %s%s',
+                : sprintf('Content-Type: %s%s',
                     $type,
                     self::$LE
                 );
 
             // RFC1341 part 5 says 7bit is assumed if not specified
             if ($encoding !== EncodingType::E_7BIT) {
-                $mime[] = \sprintf('Content-Transfer-Encoding: %s%s', $encoding, self::$LE);
+                $mime[] = sprintf('Content-Transfer-Encoding: %s%s', $encoding, self::$LE);
             }
 
             //Only set Content-IDs on inline attachments
             if ((string) $cid !== '' && $disposition === 'inline') {
-                $mime[] = 'Content-ID: <' . $this->encodeHeader(\trim(\str_replace(["\r", "\n"], '', $cid))) . '>' . self::$LE;
+                $mime[] = 'Content-ID: <' . $this->encodeHeader(trim(str_replace(["\r", "\n"], '', $cid))) . '>' . self::$LE;
             }
 
             // Allow for bypassing the Content-Disposition header
             if (!empty($disposition)) {
-                $encodedName = $this->encodeHeader(\trim(\str_replace(["\r", "\n"], '', $name)));
+                $encodedName = $this->encodeHeader(trim(str_replace(["\r", "\n"], '', $name)));
                     $mime[]  = !empty($encodedName)
-                        ? \sprintf('Content-Disposition: %s; filename=%s%s',
+                        ? sprintf('Content-Disposition: %s; filename=%s%s',
                                 $disposition,
                                 self::quotedString($encodedName),
                                 self::$LE . self::$LE
                             )
-                        : \sprintf('Content-Disposition: %s%s', $disposition, self::$LE . self::$LE);
+                        : sprintf('Content-Disposition: %s%s', $disposition, self::$LE . self::$LE);
             } else {
                 $mime[] = self::$LE;
             }
@@ -1272,9 +1272,9 @@ class Email implements MessageInterface
             $mime[] = self::$LE;
         }
 
-        $mime[] = \sprintf('--%s--%s', $boundary, self::$LE);
+        $mime[] = sprintf('--%s--%s', $boundary, self::$LE);
 
-        return \implode('', $mime);
+        return implode('', $mime);
     }
 
     /**
@@ -1289,8 +1289,8 @@ class Email implements MessageInterface
      */
     private static function quotedString(string $str) : string
     {
-        if (\preg_match('/[ ()<>@,;:"\/\[\]?=]/', $str)) {
-            return '"' . \str_replace('"', '\\"', $str) . '"';
+        if (preg_match('/[ ()<>@,;:"\/\[\]?=]/', $str)) {
+            return '"' . str_replace('"', '\\"', $str) . '"';
         }
 
         return $str;
@@ -1312,7 +1312,7 @@ class Email implements MessageInterface
             return '';
         }
 
-        $fileBuffer = \file_get_contents($path);
+        $fileBuffer = file_get_contents($path);
         if ($fileBuffer === false) {
             return '';
         }
@@ -1335,14 +1335,14 @@ class Email implements MessageInterface
     private function encodeString(string $str, string $encoding = EncodingType::E_BASE64) : string
     {
         $encoded = '';
-        switch (\strtolower($encoding)) {
+        switch (strtolower($encoding)) {
             case EncodingType::E_BASE64:
-                $encoded = \chunk_split(\base64_encode($str), self::STD_LINE_LENGTH, self::$LE);
+                $encoded = chunk_split(base64_encode($str), self::STD_LINE_LENGTH, self::$LE);
                 break;
             case EncodingType::E_7BIT:
             case EncodingType::E_8BIT:
                 $encoded = self::normalizeBreaks($str, self::$LE);
-                if (\substr($encoded, -(\strlen(self::$LE))) !== self::$LE) {
+                if (substr($encoded, -(\strlen(self::$LE))) !== self::$LE) {
                     $encoded .= self::$LE;
                 }
 
@@ -1351,7 +1351,7 @@ class Email implements MessageInterface
                 $encoded = $str;
                 break;
             case EncodingType::E_QUOTED:
-                $encoded = self::normalizeBreaks(\quoted_printable_encode($str), self::$LE);
+                $encoded = self::normalizeBreaks(quoted_printable_encode($str), self::$LE);
                 break;
             default:
                 return '';
@@ -1382,7 +1382,7 @@ class Email implements MessageInterface
             $type[] = 'attach';
         }
 
-        $this->messageType = \implode('_', $type);
+        $this->messageType = implode('_', $type);
         if ($this->messageType === '') {
             $this->messageType = 'plain';
         }
@@ -1441,7 +1441,7 @@ class Email implements MessageInterface
             $addresses[] = $this->addrFormat($address);
         }
 
-        return $type . ': ' . \implode(', ', $addresses) . static::$LE;
+        return $type . ': ' . implode(', ', $addresses) . static::$LE;
     }
 
     /**
@@ -1484,26 +1484,26 @@ class Email implements MessageInterface
      */
     private function wrapText(string $message, int $length, bool $qpMode = false) : string
     {
-        $softBreak = $qpMode ? \sprintf(' =%s', self::$LE) : self::$LE;
+        $softBreak = $qpMode ? sprintf(' =%s', self::$LE) : self::$LE;
 
         // Don't split multibyte characters
-        $isUtf8  = \strtolower($this->charset) === CharsetType::UTF_8;
+        $isUtf8  = strtolower($this->charset) === CharsetType::UTF_8;
         $leLen   = \strlen(self::$LE);
         $crlfLen = \strlen(self::$LE);
 
         $message = self::normalizeBreaks($message, self::$LE);
 
         //Remove a trailing line break
-        if (\substr($message, -$leLen) === self::$LE) {
-            $message = \substr($message, 0, -$leLen);
+        if (substr($message, -$leLen) === self::$LE) {
+            $message = substr($message, 0, -$leLen);
         }
 
         //Split message into lines
-        $lines = \explode(self::$LE, $message);
+        $lines = explode(self::$LE, $message);
 
         $message = '';
         foreach ($lines as $line) {
-            $words     = \explode(' ', $line);
+            $words     = explode(' ', $line);
             $buf       = '';
             $firstword = true;
 
@@ -1516,16 +1516,16 @@ class Email implements MessageInterface
                             $len = $spaceLeft;
                             if ($isUtf8) {
                                 $len = MbStringUtils::utf8CharBoundary($word, $len);
-                            } elseif ('=' === \substr($word, $len - 1, 1)) {
+                            } elseif (substr($word, $len - 1, 1) === '=') {
                                 --$len;
-                            } elseif ('=' === \substr($word, $len - 2, 1)) {
+                            } elseif (substr($word, $len - 2, 1) === '=') {
                                 $len -= 2;
                             }
 
-                            $part     = \substr($word, 0, $len);
-                            $word     = \substr($word, $len);
+                            $part     = substr($word, 0, $len);
+                            $word     = substr($word, $len);
                             $buf     .= ' ' . $part;
-                            $message .= $buf . \sprintf('=%s', self::$LE);
+                            $message .= $buf . sprintf('=%s', self::$LE);
                         } else {
                             $message .= $buf . $softBreak;
                         }
@@ -1541,17 +1541,17 @@ class Email implements MessageInterface
                         $len = $length;
                         if ($isUtf8) {
                             $len = MbStringUtils::utf8CharBoundary($word, $len);
-                        } elseif (\substr($word, $len - 1, 1) === '=') {
+                        } elseif (substr($word, $len - 1, 1) === '=') {
                             --$len;
-                        } elseif (\substr($word, $len - 2, 1) === '=') {
+                        } elseif (substr($word, $len - 2, 1) === '=') {
                             $len -= 2;
                         }
 
-                        $part = \substr($word, 0, $len);
-                        $word = (string) \substr($word, $len);
+                        $part = substr($word, 0, $len);
+                        $word = (string) substr($word, $len);
 
                         if ($word !== '') {
-                            $message .= $part . \sprintf('=%s', self::$LE);
+                            $message .= $part . sprintf('=%s', self::$LE);
                         } else {
                             $buf = $part;
                         }
@@ -1563,7 +1563,7 @@ class Email implements MessageInterface
                     }
 
                     $buf .= $word;
-                    if ('' !== $bufO && \strlen($buf) > $length) {
+                    if ($bufO !== '' && \strlen($buf) > $length) {
                         $message .= $bufO . $softBreak;
                         $buf      = $word;
                     }
@@ -1592,28 +1592,28 @@ class Email implements MessageInterface
     public function encodeHeader(string $str, string $position = 'text') : string
     {
         $matchcount = 0;
-        switch (\strtolower($position)) {
+        switch (strtolower($position)) {
             case 'phrase':
-                if (!\preg_match('/[\200-\377]/', $str)) {
-                    $encoded = \addcslashes($str, "\0..\37\177\\\"");
+                if (!preg_match('/[\200-\377]/', $str)) {
+                    $encoded = addcslashes($str, "\0..\37\177\\\"");
 
-                    return $str === $encoded && !\preg_match('/[^A-Za-z0-9!#$%&\'*+\/=?^_`{|}~ -]/', $str)
+                    return $str === $encoded && !preg_match('/[^A-Za-z0-9!#$%&\'*+\/=?^_`{|}~ -]/', $str)
                         ? $encoded
                         : "\"${encoded}\"";
                 }
 
-                $matchcount = \preg_match_all('/[^\040\041\043-\133\135-\176]/', $str, $matches);
+                $matchcount = preg_match_all('/[^\040\041\043-\133\135-\176]/', $str, $matches);
                 break;
             /* @noinspection PhpMissingBreakStatementInspection */
             case 'comment':
-                $matchcount = \preg_match_all('/[()"]/', $str, $matches);
+                $matchcount = preg_match_all('/[()"]/', $str, $matches);
             case 'text':
             default:
-                $matchcount += \preg_match_all('/[\000-\010\013\014\016-\037\177-\377]/', $str, $matches);
+                $matchcount += preg_match_all('/[\000-\010\013\014\016-\037\177-\377]/', $str, $matches);
                 break;
         }
 
-        $charset = ((bool) \preg_match('/[\x80-\xFF]/', $str)) ? $this->charset : CharsetType::ASCII;
+        $charset = ((bool) preg_match('/[\x80-\xFF]/', $str)) ? $this->charset : CharsetType::ASCII;
 
         // Q/B encoding adds 8 chars and the charset ("` =?<charset>?[QB]?<content>?=`").
         $overhead = 8 + \strlen($charset);
@@ -1638,26 +1638,26 @@ class Email implements MessageInterface
 
         switch ($encoding) {
             case 'B':
-                if (\strlen($str) > \mb_strlen($str, $this->charset)) {
+                if (\strlen($str) > mb_strlen($str, $this->charset)) {
                     $encoded = $this->base64EncodeWrapMB($str, "\n");
                 } else {
-                    $encoded = \base64_encode($str);
+                    $encoded = base64_encode($str);
                     $maxLen -= $maxLen % 4;
-                    $encoded = \trim(\chunk_split($encoded, $maxLen, "\n"));
+                    $encoded = trim(chunk_split($encoded, $maxLen, "\n"));
                 }
-                $encoded = \preg_replace('/^(.*)$/m', ' =?' . $charset . "?${encoding}?\\1?=", $encoded);
+                $encoded = preg_replace('/^(.*)$/m', ' =?' . $charset . "?${encoding}?\\1?=", $encoded);
                 break;
             case 'Q':
                 $encoded = $this->encodeQ($str, $position);
                 $encoded = $this->wrapText($encoded, $maxLen, true);
-                $encoded = \str_replace('=' . self::$LE, "\n", \trim($encoded));
-                $encoded = \preg_replace('/^(.*)$/m', ' =?' . $charset . "?${encoding}?\\1?=", $encoded);
+                $encoded = str_replace('=' . self::$LE, "\n", trim($encoded));
+                $encoded = preg_replace('/^(.*)$/m', ' =?' . $charset . "?${encoding}?\\1?=", $encoded);
                 break;
             default:
                 return $str;
         }
 
-        return \trim(self::normalizeBreaks($encoded, self::$LE));
+        return trim(self::normalizeBreaks($encoded, self::$LE));
     }
 
     /**
@@ -1673,9 +1673,9 @@ class Email implements MessageInterface
     private function encodeQ(string $str, string $position = 'text') : string
     {
         $pattern = '';
-        $encoded = \str_replace(["\r", "\n"], '', $str);
+        $encoded = str_replace(["\r", "\n"], '', $str);
 
-        switch (\strtolower($position)) {
+        switch (strtolower($position)) {
             case 'phrase':
                 $pattern = '^A-Za-z0-9!*+\/ -';
                 break;
@@ -1688,27 +1688,27 @@ class Email implements MessageInterface
                 break;
         }
 
-        if (\preg_match_all("/[{$pattern}]/", $encoded, $matches) !== false) {
-            return \str_replace(' ', '_', $encoded);
+        if (preg_match_all("/[{$pattern}]/", $encoded, $matches) !== false) {
+            return str_replace(' ', '_', $encoded);
         }
 
         $matches = [];
         // If the string contains an '=', make sure it's the first thing we replace
         // so as to avoid double-encoding
-        $eqkey = \array_search('=', $matches[0], true);
-        if (false !== $eqkey) {
+        $eqkey = array_search('=', $matches[0], true);
+        if ($eqkey !== false) {
             unset($matches[0][$eqkey]);
-            \array_unshift($matches[0], '=');
+            array_unshift($matches[0], '=');
         }
 
-        $unique = \array_unique($matches[0]);
+        $unique = array_unique($matches[0]);
         foreach ($unique as $char) {
-            $encoded = \str_replace($char, '=' . \sprintf('%02X', \ord($char)), $encoded);
+            $encoded = str_replace($char, '=' . sprintf('%02X', \ord($char)), $encoded);
         }
 
         // Replace spaces with _ (more readable than =20)
         // RFC 2047 section 4.2(2)
-        return \str_replace(' ', '_', $encoded);
+        return str_replace(' ', '_', $encoded);
     }
 
     /**
@@ -1727,10 +1727,10 @@ class Email implements MessageInterface
         $end     = '?=';
         $encoded = '';
 
-        $mbLength  = \mb_strlen($str, $this->charset);
+        $mbLength  = mb_strlen($str, $this->charset);
         $length    = 75 - \strlen($start) - \strlen($end);
         $ratio     = $mbLength / \strlen($str);
-        $avgLength = \floor($length * $ratio * .75);
+        $avgLength = floor($length * $ratio * .75);
 
         $offset = 0;
         for ($i = 0; $i < $mbLength; $i += $offset) {
@@ -1738,15 +1738,15 @@ class Email implements MessageInterface
 
             do {
                 $offset = $avgLength - $lookBack;
-                $chunk  = \mb_substr($str, $i, $offset, $this->charset);
-                $chunk  = \base64_encode($chunk);
+                $chunk  = mb_substr($str, $i, $offset, $this->charset);
+                $chunk  = base64_encode($chunk);
                 ++$lookBack;
             } while (\strlen($chunk) > $length);
 
             $encoded .= $chunk . $linebreak;
         }
 
-        return \substr($encoded, 0, -\strlen($linebreak));
+        return substr($encoded, 0, -\strlen($linebreak));
     }
 
     /**
@@ -1973,10 +1973,10 @@ class Email implements MessageInterface
      */
     public function addCustomHeader(string $name, string $value = null) : bool
     {
-        $name  = \trim($name);
-        $value = \trim($value);
+        $name  = trim($name);
+        $value = trim($value);
 
-        if (empty($name) || \strpbrk($name . $value, "\r\n") !== false) {
+        if (empty($name) || strpbrk($name . $value, "\r\n") !== false) {
             return false;
         }
 
@@ -2017,54 +2017,54 @@ class Email implements MessageInterface
      */
     public function msgHTML(string $message, string $basedir = '', \Closure $advanced = null)
     {
-        \preg_match_all('/(?<!-)(src|background)=["\'](.*)["\']/Ui', $message, $images);
+        preg_match_all('/(?<!-)(src|background)=["\'](.*)["\']/Ui', $message, $images);
 
         if (isset($images[2])) {
-            if (\strlen($basedir) > 1 && \substr($basedir, -1) !== '/') {
+            if (\strlen($basedir) > 1 && substr($basedir, -1) !== '/') {
                 $basedir .= '/';
             }
 
             foreach ($images[2] as $imgindex => $url) {
                 // Convert data URIs into embedded images
                 $match = [];
-                if (\preg_match('#^data:(image/(?:jpe?g|gif|png));?(base64)?,(.+)#', $url, $match)) {
-                    if (\count($match) === 4 && EncodingType::E_BASE64 === $match[2]) {
-                        $data = \base64_decode($match[3]);
-                    } elseif ('' === $match[2]) {
-                        $data = \rawurldecode($match[3]);
+                if (preg_match('#^data:(image/(?:jpe?g|gif|png));?(base64)?,(.+)#', $url, $match)) {
+                    if (\count($match) === 4 && $match[2] === EncodingType::E_BASE64) {
+                        $data = base64_decode($match[3]);
+                    } elseif ($match[2] === '') {
+                        $data = rawurldecode($match[3]);
                     } else {
                         continue;
                     }
 
-                    $cid = \substr(\hash('sha256', $data), 0, 32) . '@phpoms.0'; // RFC2392 S 2
+                    $cid = substr(hash('sha256', $data), 0, 32) . '@phpoms.0'; // RFC2392 S 2
                     if (!$this->cidExists($cid)) {
                         $this->addStringEmbeddedImage($data, $cid, 'embed' . $imgindex, EncodingType::E_BASE64, $match[1]);
                     }
 
-                    $message = \str_replace($images[0][$imgindex], $images[1][$imgindex] . '="cid:' . $cid . '"', $message);
+                    $message = str_replace($images[0][$imgindex], $images[1][$imgindex] . '="cid:' . $cid . '"', $message);
 
                     continue;
                 }
 
                 if (!empty($basedir)
-                    && (\strpos($url, '..') === false)
-                    && \strpos($url, 'cid:') !== 0
-                    && !\preg_match('#^[a-z][a-z0-9+.-]*:?//#i', $url)
+                    && (strpos($url, '..') === false)
+                    && strpos($url, 'cid:') !== 0
+                    && !preg_match('#^[a-z][a-z0-9+.-]*:?//#i', $url)
                 ) {
                     $filename  = FileUtils::mb_pathinfo($url, \PATHINFO_BASENAME);
                     $directory = \dirname($url);
 
-                    if ('.' === $directory) {
+                    if ($directory === '.') {
                         $directory = '';
                     }
 
                     // RFC2392 S 2
-                    $cid = \substr(\hash('sha256', $url), 0, 32) . '@phpoms.0';
-                    if (\strlen($basedir) > 1 && '/' !== \substr($basedir, -1)) {
+                    $cid = substr(hash('sha256', $url), 0, 32) . '@phpoms.0';
+                    if (\strlen($basedir) > 1 && substr($basedir, -1) !== '/') {
                         $basedir .= '/';
                     }
 
-                    if (\strlen($directory) > 1 && '/' !== \substr($directory, -1)) {
+                    if (\strlen($directory) > 1 && substr($directory, -1) !== '/') {
                         $directory .= '/';
                     }
 
@@ -2076,8 +2076,8 @@ class Email implements MessageInterface
                             MimeType::extensionToMime((string) FileUtils::mb_pathinfo($filename, \PATHINFO_EXTENSION))
                         )
                     ) {
-                        $message = \preg_replace(
-                            '/' . $images[1][$imgindex] . '=["\']' . \preg_quote($url, '/') . '["\']/Ui',
+                        $message = preg_replace(
+                            '/' . $images[1][$imgindex] . '=["\']' . preg_quote($url, '/') . '["\']/Ui',
                             $images[1][$imgindex] . '="cid:' . $cid . '"',
                             $message
                         );
@@ -2110,10 +2110,10 @@ class Email implements MessageInterface
      */
     private static function normalizeBreaks(string $text, string $breaktype) : string
     {
-        $text = \str_replace(["\r\n", "\r"], "\n", $text);
+        $text = str_replace(["\r\n", "\r"], "\n", $text);
 
         if ($breaktype !== "\n") {
-            $text = \str_replace("\n", $breaktype, $text);
+            $text = str_replace("\n", $breaktype, $text);
         }
 
         return $text;
@@ -2135,8 +2135,8 @@ class Email implements MessageInterface
             return $advanced($html);
         }
 
-        return \html_entity_decode(
-            \trim(\strip_tags(\preg_replace('/<(head|title|style|script)[^>]*>.*?<\/\\1>/si', '', $html))),
+        return html_entity_decode(
+            trim(strip_tags(preg_replace('/<(head|title|style|script)[^>]*>.*?<\/\\1>/si', '', $html))),
             \ENT_QUOTES,
             $this->charset
         );
@@ -2178,9 +2178,9 @@ class Email implements MessageInterface
 
         for ($i = 0; $i < $len; ++$i) {
             $ord   = \ord($txt[$i]);
-            $line .= ((0x21 <= $ord) && ($ord <= 0x3A)) || $ord === 0x3C || ((0x3E <= $ord) && ($ord <= 0x7E))
+            $line .= (($ord >= 0x21) && ($ord <= 0x3A)) || $ord === 0x3C || (($ord >= 0x3E) && ($ord <= 0x7E))
                 ? $txt[$i]
-                : '=' . \sprintf('%02X', $ord);
+                : '=' . sprintf('%02X', $ord);
         }
 
         return $line;
@@ -2203,14 +2203,14 @@ class Email implements MessageInterface
 
         $privKeyStr = !empty($this->dkimPrivateKey)
             ? $this->dkimPrivateKey
-            : \file_get_contents($this->dkimPrivatePath);
+            : file_get_contents($this->dkimPrivatePath);
 
         $privKey = $this->dkimPass !== ''
-            ? \openssl_pkey_get_private($privKeyStr, $this->dkimPass)
-            : \openssl_pkey_get_private($privKeyStr);
+            ? openssl_pkey_get_private($privKeyStr, $this->dkimPass)
+            : openssl_pkey_get_private($privKeyStr);
 
-        if (\openssl_sign($signHeader, $signature, $privKey, 'sha256WithRSAEncryption')) {
-            return \base64_encode($signature);
+        if (openssl_sign($signHeader, $signature, $privKey, 'sha256WithRSAEncryption')) {
+            return base64_encode($signature);
         }
 
         return '';
@@ -2228,22 +2228,22 @@ class Email implements MessageInterface
     public function dkimHeaderC(string $signHeader) : string
     {
         $signHeader = self::normalizeBreaks($signHeader, "\r\n");
-        $signHeader = \preg_replace('/\r\n[ \t]+/', ' ', $signHeader);
-        $lines      = \explode("\r\n", $signHeader);
+        $signHeader = preg_replace('/\r\n[ \t]+/', ' ', $signHeader);
+        $lines      = explode("\r\n", $signHeader);
 
         foreach ($lines as $key => $line) {
-            if (\strpos($line, ':') === false) {
+            if (strpos($line, ':') === false) {
                 continue;
             }
 
-            list($heading, $value) = \explode(':', $line, 2);
-            $heading               = \strtolower($heading);
-            $value                 = \preg_replace('/[ \t]+/', ' ', $value);
+            list($heading, $value) = explode(':', $line, 2);
+            $heading               = strtolower($heading);
+            $value                 = preg_replace('/[ \t]+/', ' ', $value);
 
-            $lines[$key] = \trim($heading, " \t") . ':' . \trim($value, " \t");
+            $lines[$key] = trim($heading, " \t") . ':' . trim($value, " \t");
         }
 
-        return \implode("\r\n", $lines);
+        return implode("\r\n", $lines);
     }
 
     /**
@@ -2263,7 +2263,7 @@ class Email implements MessageInterface
 
         $body = self::normalizeBreaks($body, "\r\n");
 
-        return \rtrim($body, " \r\n\t") . "\r\n";
+        return rtrim($body, " \r\n\t") . "\r\n";
     }
 
     /**
@@ -2282,7 +2282,7 @@ class Email implements MessageInterface
         $DKIMsignatureType    = 'rsa-sha256';
         $DKIMcanonicalization = 'relaxed/simple';
         $DKIMquery            = 'dns/txt';
-        $DKIMtime             = \time();
+        $DKIMtime             = time();
 
         $autoSignHeaders = [
             'from',
@@ -2297,11 +2297,11 @@ class Email implements MessageInterface
             'x-mailer',
         ];
 
-        if (\stripos($headersLine, 'Subject') === false) {
+        if (stripos($headersLine, 'Subject') === false) {
             $headersLine .= 'Subject: ' . $subject . self::$LE;
         }
 
-        $headerLines        = \explode(self::$LE, $headersLine);
+        $headerLines        = explode(self::$LE, $headersLine);
         $currentHeaderLabel = '';
         $currentHeaderValue = '';
         $parsedHeaders      = [];
@@ -2310,14 +2310,14 @@ class Email implements MessageInterface
 
         foreach ($headerLines as $headerLine) {
             $matches = [];
-            if (\preg_match('/^([^ \t]*?)(?::[ \t]*)(.*)$/', $headerLine, $matches)) {
+            if (preg_match('/^([^ \t]*?)(?::[ \t]*)(.*)$/', $headerLine, $matches)) {
                 if ($currentHeaderLabel !== '') {
                     $parsedHeaders[] = ['label' => $currentHeaderLabel, 'value' => $currentHeaderValue];
                 }
 
                 $currentHeaderLabel = $matches[1];
                 $currentHeaderValue = $matches[2];
-            } elseif (\preg_match('/^[ \t]+(.*)$/', $headerLine, $matches)) {
+            } elseif (preg_match('/^[ \t]+(.*)$/', $headerLine, $matches)) {
                 $currentHeaderValue .= ' ' . $matches[1];
             }
 
@@ -2333,13 +2333,13 @@ class Email implements MessageInterface
         $headersToSign     = [];
 
         foreach ($parsedHeaders as $header) {
-            if (\in_array(\strtolower($header['label']), $autoSignHeaders, true)) {
+            if (\in_array(strtolower($header['label']), $autoSignHeaders, true)) {
                 $headersToSignKeys[] = $header['label'];
                 $headersToSign[]     = $header['label'] . ': ' . $header['value'];
 
                 if ($this->dkimCopyHeader) {
                     $copiedHeaders[] = $header['label'] . ':'
-                        . \str_replace('|', '=7C', $this->dkimQP($header['value']));
+                        . str_replace('|', '=7C', $this->dkimQP($header['value']));
                 }
 
                 continue;
@@ -2353,7 +2353,7 @@ class Email implements MessageInterface
 
                         if ($this->dkimCopyHeader) {
                             $copiedHeaders[] = $header['label'] . ':'
-                                . \str_replace('|', '=7C', $this->dkimQP($header['value']));
+                                . str_replace('|', '=7C', $this->dkimQP($header['value']));
                         }
 
                         continue 2;
@@ -2373,8 +2373,8 @@ class Email implements MessageInterface
                 }
 
                 $copiedHeaderFields .= \strlen($copiedHeader) > self::STD_LINE_LENGTH - 3
-                    ? \substr(
-                            \chunk_split($copiedHeader, self::STD_LINE_LENGTH - 3, self::$LE . self::FWS),
+                    ? substr(
+                            chunk_split($copiedHeader, self::STD_LINE_LENGTH - 3, self::$LE . self::FWS),
                             0,
                             -\strlen(self::$LE . self::FWS)
                         )
@@ -2386,10 +2386,10 @@ class Email implements MessageInterface
             $copiedHeaderFields .= ';' . self::$LE;
         }
 
-        $headerKeys   = ' h=' . \implode(':', $headersToSignKeys) . ';' . self::$LE;
-        $headerValues = \implode(self::$LE, $headersToSign);
+        $headerKeys   = ' h=' . implode(':', $headersToSignKeys) . ';' . self::$LE;
+        $headerValues = implode(self::$LE, $headersToSign);
         $body         = $this->dkimBodyC($body);
-        $DKIMb64      = \base64_encode(\pack('H*', \hash('sha256', $body)));
+        $DKIMb64      = base64_encode(pack('H*', hash('sha256', $body)));
         $ident        = '';
 
         if ($this->dkimIdentity !== '') {
@@ -2412,7 +2412,7 @@ class Email implements MessageInterface
         );
 
         $signature = $this->dkimSign($canonicalizedHeaders);
-        $signature = \trim(\chunk_split($signature, self::STD_LINE_LENGTH - 3, self::$LE . self::FWS));
+        $signature = trim(chunk_split($signature, self::STD_LINE_LENGTH - 3, self::$LE . self::FWS));
 
         return self::normalizeBreaks($dkimSignatureHeader . $signature, self::$LE);
     }

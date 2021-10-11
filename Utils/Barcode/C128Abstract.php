@@ -243,8 +243,8 @@ abstract class C128Abstract
     {
         $res = $this->get();
 
-        \imagepng($res, $file);
-        \imagedestroy($res);
+        imagepng($res, $file);
+        imagedestroy($res);
     }
 
     /**
@@ -260,8 +260,8 @@ abstract class C128Abstract
     {
         $res = $this->get();
 
-        \imagejpeg($res, $file);
-        \imagedestroy($res);
+        imagejpeg($res, $file);
+        imagedestroy($res);
     }
 
     /**
@@ -295,14 +295,14 @@ abstract class C128Abstract
      */
     protected function generateCodeString() : string
     {
-        $keys       = \array_keys(static::$CODEARRAY);
-        $values     = \array_flip($keys);
+        $keys       = array_keys(static::$CODEARRAY);
+        $values     = array_flip($keys);
         $codeString = '';
         $length     = \strlen($this->content);
         $checksum   = static::$CHECKSUM;
 
         for ($pos = 1; $pos <= $length; ++$pos) {
-            $activeKey   = \substr($this->content, ($pos - 1), 1);
+            $activeKey   = substr($this->content, ($pos - 1), 1);
             $codeString .= static::$CODEARRAY[$activeKey];
             $checksum   += $values[$activeKey] * $pos;
         }
@@ -324,14 +324,14 @@ abstract class C128Abstract
     protected function createImage(string $codeString) : mixed
     {
         $dimensions = $this->calculateDimensions($codeString);
-        $image      = \imagecreate($dimensions['width'], $dimensions['height']);
+        $image      = imagecreate($dimensions['width'], $dimensions['height']);
 
         if ($image === false) {
             throw new \Exception(); // @codeCoverageIgnore
         }
 
-        $black    = \imagecolorallocate($image, 0, 0, 0);
-        $white    = \imagecolorallocate($image, 255, 255, 255);
+        $black    = imagecolorallocate($image, 0, 0, 0);
+        $white    = imagecolorallocate($image, 255, 255, 255);
         $location = 0;
         $length   = \strlen($codeString);
 
@@ -339,13 +339,13 @@ abstract class C128Abstract
             throw new \Exception(); // @codeCoverageIgnore
         }
 
-        \imagefill($image, 0, 0, $white);
+        imagefill($image, 0, 0, $white);
 
         for ($position = 1; $position <= $length; ++$position) {
-            $cur_size = $location + (int) (\substr($codeString, ($position - 1), 1));
+            $cur_size = $location + (int) (substr($codeString, ($position - 1), 1));
 
             if ($this->orientation === OrientationType::HORIZONTAL) {
-                \imagefilledrectangle(
+                imagefilledrectangle(
                     $image,
                     $location + $this->margin,
                     0 + $this->margin,
@@ -354,7 +354,7 @@ abstract class C128Abstract
                     ($position % 2 == 0 ? $white : $black)
                 );
             } else {
-                \imagefilledrectangle(
+                imagefilledrectangle(
                     $image,
                     0 + $this->margin,
                     $location + $this->margin,
@@ -385,7 +385,7 @@ abstract class C128Abstract
         $length     = \strlen($codeString);
 
         for ($i = 1; $i <= $length; ++$i) {
-            $codeLength = $codeLength + (int) (\substr($codeString, ($i - 1), 1));
+            $codeLength = $codeLength + (int) (substr($codeString, ($i - 1), 1));
         }
 
         return $codeLength;

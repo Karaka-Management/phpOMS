@@ -38,7 +38,7 @@ class FileSizeTypeTest extends \PHPUnit\Framework\TestCase
      */
     public function testUnique() : void
     {
-        self::assertEquals(FileSizeType::getConstants(), \array_unique(FileSizeType::getConstants()));
+        self::assertEquals(FileSizeType::getConstants(), array_unique(FileSizeType::getConstants()));
     }
 
     /**

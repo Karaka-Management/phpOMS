@@ -45,11 +45,11 @@ class ModuleAbstractTest extends \PHPUnit\Framework\TestCase
         {
             public const PATH = __DIR__ . '/Test';
 
-            const VERSION = '1.2.3';
+            public const VERSION = '1.2.3';
 
-            const NAME = 'Test';
+            public const NAME = 'Test';
 
-            const ID = 2;
+            public const ID = 2;
 
             protected static array $dependencies = [1, 2];
 
@@ -137,30 +137,30 @@ class ModuleAbstractTest extends \PHPUnit\Framework\TestCase
 
             public function createWithCallable() : string
             {
-                \ob_start();
+                ob_start();
                 $this->createModel(1, null, function() : void { echo 1; }, '', '127.0.0.1');
-                return \ob_get_clean();
+                return ob_get_clean();
             }
 
             public function createsWithCallable() : string
             {
-                \ob_start();
+                ob_start();
                 $this->createModels(1, [null, null], function() : void { echo 1; }, '', '127.0.0.1');
-                return \ob_get_clean();
+                return ob_get_clean();
             }
 
             public function updateWithCallable() : string
             {
-                \ob_start();
+                ob_start();
                 $this->updateModel(1, null, null, function() : void { echo 1; }, '', '127.0.0.1');
-                return \ob_get_clean();
+                return ob_get_clean();
             }
 
             public function deleteWithCallable() : string
             {
-                \ob_start();
+                ob_start();
                 $this->deleteModel(1, null, function() : void { echo 1; }, '', '127.0.0.1');
-                return \ob_get_clean();
+                return ob_get_clean();
             }
         };
     }

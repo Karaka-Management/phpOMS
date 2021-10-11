@@ -106,26 +106,26 @@ final class Polygon implements D2ShapeInterface
             $vertex1 = $polygon[$i - 1];
             $vertex2 = $polygon[$i];
 
-            if (\abs($vertex1['y'] - $vertex2['y']) < self::EPSILON
-                && \abs($vertex1['y'] - $point['y']) < self::EPSILON
-                && $point['x'] > \min($vertex1['x'], $vertex2['x'])
-                && $point['x'] < \max($vertex1['x'], $vertex2['x'])
+            if (abs($vertex1['y'] - $vertex2['y']) < self::EPSILON
+                && abs($vertex1['y'] - $point['y']) < self::EPSILON
+                && $point['x'] > min($vertex1['x'], $vertex2['x'])
+                && $point['x'] < max($vertex1['x'], $vertex2['x'])
             ) {
                 return 0; // boundary
             }
 
-            if ($point['y'] > \min($vertex1['y'], $vertex2['y'])
-                && $point['y'] <= \max($vertex1['y'], $vertex2['y'])
-                && $point['x'] <= \max($vertex1['x'], $vertex2['x'])
-                && \abs($vertex1['y'] - $vertex2['y']) >= self::EPSILON
+            if ($point['y'] > min($vertex1['y'], $vertex2['y'])
+                && $point['y'] <= max($vertex1['y'], $vertex2['y'])
+                && $point['x'] <= max($vertex1['x'], $vertex2['x'])
+                && abs($vertex1['y'] - $vertex2['y']) >= self::EPSILON
             ) {
                 $xinters = ($point['y'] - $vertex1['y']) * ($vertex2['x'] - $vertex1['x']) / ($vertex2['y'] - $vertex1['y']) + $vertex1['x'];
 
-                if (\abs($xinters - $point['x']) < self::EPSILON) {
+                if (abs($xinters - $point['x']) < self::EPSILON) {
                     return 0; // boundary
                 }
 
-                if (\abs($vertex1['x'] - $vertex2['x']) < self::EPSILON || $point['x'] < $xinters) {
+                if (abs($vertex1['x'] - $vertex2['x']) < self::EPSILON || $point['x'] < $xinters) {
                     ++$countIntersect;
                 }
             }
@@ -151,7 +151,7 @@ final class Polygon implements D2ShapeInterface
     private static function isOnVertex(array $point, array $polygon) : bool
     {
         foreach ($polygon as $vertex) {
-            if (\abs($point['x'] - $vertex['x']) < self::EPSILON && \abs($point['y'] - $vertex['y']) < self::EPSILON) {
+            if (abs($point['x'] - $vertex['x']) < self::EPSILON && abs($point['y'] - $vertex['y']) < self::EPSILON) {
                 return true;
             }
         }
@@ -192,7 +192,7 @@ final class Polygon implements D2ShapeInterface
      */
     public function getSurface() : float
     {
-        return \abs($this->getSignedSurface());
+        return abs($this->getSignedSurface());
     }
 
     /**
@@ -227,10 +227,10 @@ final class Polygon implements D2ShapeInterface
     public function getPerimeter() : float
     {
         $count     = \count($this->coord);
-        $perimeter = \sqrt(($this->coord[0]['x'] - $this->coord[$count - 1]['x']) ** 2 + ($this->coord[0]['y'] - $this->coord[$count - 1]['y']) ** 2);
+        $perimeter = sqrt(($this->coord[0]['x'] - $this->coord[$count - 1]['x']) ** 2 + ($this->coord[0]['y'] - $this->coord[$count - 1]['y']) ** 2);
 
         for ($i = 0; $i < $count - 1; ++$i) {
-            $perimeter += \sqrt(($this->coord[$i + 1]['x'] - $this->coord[$i]['x']) ** 2 + ($this->coord[$i + 1]['y'] - $this->coord[$i]['y']) ** 2);
+            $perimeter += sqrt(($this->coord[$i + 1]['x'] - $this->coord[$i]['x']) ** 2 + ($this->coord[$i + 1]['y'] - $this->coord[$i]['y']) ** 2);
         }
 
         return $perimeter;
@@ -278,7 +278,7 @@ final class Polygon implements D2ShapeInterface
      */
     public static function getRegularAreaByLength(float $length, int $sides) : float
     {
-        return $length ** 2 * $sides / (4 * \tan(\M_PI / $sides));
+        return $length ** 2 * $sides / (4 * tan(\M_PI / $sides));
     }
 
     /**
@@ -293,6 +293,6 @@ final class Polygon implements D2ShapeInterface
      */
     public static function getRegularAreaByRadius(float $r, int $sides) : float
     {
-        return $r ** 2 * $sides * \tan(\M_PI / $sides);
+        return $r ** 2 * $sides * tan(\M_PI / $sides);
     }
 }

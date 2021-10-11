@@ -108,7 +108,7 @@ final class ConsoleRequest extends RequestAbstract
                 $paths[] = $pathArray[$i];
             }
 
-            $this->hash[] = \sha1(\implode('', $paths));
+            $this->hash[] = sha1(implode('', $paths));
         }
     }
 
@@ -148,7 +148,7 @@ final class ConsoleRequest extends RequestAbstract
     public function getOS() : string
     {
         if (!isset($this->os)) {
-            $this->os = \strtolower(\PHP_OS);
+            $this->os = strtolower(\PHP_OS);
         }
 
         return $this->os;

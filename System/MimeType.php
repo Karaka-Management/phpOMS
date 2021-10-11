@@ -2022,7 +2022,7 @@ abstract class MimeType extends Enum
     public static function extensionToMime(string $extension) : string
     {
         try {
-            return self::getByName('M_' . \strtoupper($extension)) ?? 'application/octet-stream';
+            return self::getByName('M_' . strtoupper($extension)) ?? 'application/octet-stream';
         } catch (\Throwable $t) {
             return 'application/octet-stream';
         }

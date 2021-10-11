@@ -126,8 +126,8 @@ final class Integer
      */
     public static function greatestCommonDivisor(int $n, int $m) : int
     {
-        $n = \abs($n);
-        $m = \abs($m);
+        $n = abs($n);
+        $m = abs($m);
 
         while ($n !== $m) {
             if ($n > $m) {
@@ -158,7 +158,7 @@ final class Integer
             throw new \InvalidArgumentException('Only odd integers are allowed');
         }
 
-        $a  = (int) \ceil(\sqrt($value));
+        $a  = (int) ceil(sqrt($value));
         $b2 = ($a * $a - $value);
         $i  = 1;
 
@@ -168,6 +168,6 @@ final class Integer
             $b2 = ($a * $a - $value);
         }
 
-        return [(int) \round($a - \sqrt($b2)), (int) \round($a + \sqrt($b2))];
+        return [(int) round($a - sqrt($b2)), (int) round($a + sqrt($b2))];
     }
 }

@@ -38,7 +38,7 @@ final class GammaDistribution
      */
     public static function getPdfScale(float $x, float $k, float $theta) : float
     {
-        return 1 / (Gamma::gamma($k) * $theta ** $k) * \pow($x, $k - 1) * \exp(-$x / $theta);
+        return 1 / (Gamma::gamma($k) * $theta ** $k) * pow($x, $k - 1) * exp(-$x / $theta);
     }
 
     /**
@@ -54,7 +54,7 @@ final class GammaDistribution
      */
     public static function getPdfRate(float $x, float $alpha, float $beta) : float
     {
-        return $beta ** $alpha / Gamma::gamma($alpha) * \pow($x, $alpha - 1) * \exp(-$beta * $x);
+        return $beta ** $alpha / Gamma::gamma($alpha) * pow($x, $alpha - 1) * exp(-$beta * $x);
     }
 
     /**
@@ -70,7 +70,7 @@ final class GammaDistribution
      */
     public static function getPdfIntegerScale(float $x, int $k, float $theta) : float
     {
-        return 1 / (Gamma::getGammaInteger($k) * $theta ** $k) * \pow($x, $k - 1) * \exp(-$x / $theta);
+        return 1 / (Gamma::getGammaInteger($k) * $theta ** $k) * pow($x, $k - 1) * exp(-$x / $theta);
     }
 
     /**
@@ -86,7 +86,7 @@ final class GammaDistribution
      */
     public static function getPdfIntegerRate(float $x, int $alpha, float $beta) : float
     {
-        return $beta ** $alpha / Gamma::getGammaInteger($alpha) * \pow($x, $alpha - 1) * \exp(-$beta * $x);
+        return $beta ** $alpha / Gamma::getGammaInteger($alpha) * pow($x, $alpha - 1) * exp(-$beta * $x);
     }
 
     /**
@@ -192,7 +192,7 @@ final class GammaDistribution
      */
     public static function getSkewness(float $k) : float
     {
-        return 2 / \sqrt($k);
+        return 2 / sqrt($k);
     }
 
     /**
@@ -236,7 +236,7 @@ final class GammaDistribution
      */
     public static function getStandardDeviationScale(float $k, float $theta) : float
     {
-        return \sqrt(self::getVarianceScale($k, $theta));
+        return sqrt(self::getVarianceScale($k, $theta));
     }
 
     /**
@@ -266,7 +266,7 @@ final class GammaDistribution
      */
     public static function getStandardDeviationRate(float $alpha, float $beta) : float
     {
-        return \sqrt(self::getVarianceRate($alpha, $beta));
+        return sqrt(self::getVarianceRate($alpha, $beta));
     }
 
     /**
@@ -282,7 +282,7 @@ final class GammaDistribution
      */
     public static function getMgfScale(float $k, float $t, float $theta) : float
     {
-        return \pow(1 - $theta * $t, -$k);
+        return pow(1 - $theta * $t, -$k);
     }
 
     /**
@@ -298,6 +298,6 @@ final class GammaDistribution
      */
     public static function getMgfRate(float $t, float $alpha, float $beta) : float
     {
-        return \pow(1 - $t / $beta, -$alpha);
+        return pow(1 - $t / $beta, -$alpha);
     }
 }

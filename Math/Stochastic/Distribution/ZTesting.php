@@ -54,7 +54,7 @@ final class ZTesting
      */
     public static function testHypothesis(float $dataset, float $expected, float $total, float $significance = 0.95) : bool
     {
-        $z = ($dataset - $expected) / \sqrt($expected * (1 - $expected) / $total);
+        $z = ($dataset - $expected) / sqrt($expected * (1 - $expected) / $total);
 
         $zSignificance = 0.0;
         foreach (self::TABLE as $key => $value) {
@@ -81,7 +81,7 @@ final class ZTesting
     {
         $sigma ??= MeasureOfDispersion::standardDeviationSample($data);
 
-        return 1 - NormalDistribution::getCdf((Average::arithmeticMean($data) - $value) / ($sigma / \sqrt(\count($data))), 0.0, 1.0);
+        return 1 - NormalDistribution::getCdf((Average::arithmeticMean($data) - $value) / ($sigma / sqrt(\count($data))), 0.0, 1.0);
     }
 
     /**
@@ -98,6 +98,6 @@ final class ZTesting
      */
     public static function zTestValues(float $value, float $mean, int $dataSize, float $sigma) : float
     {
-        return 1 - NormalDistribution::getCdf(($mean - $value) / ($sigma / \sqrt($dataSize)), 0.0, 1.0);
+        return 1 - NormalDistribution::getCdf(($mean - $value) / ($sigma / sqrt($dataSize)), 0.0, 1.0);
     }
 }

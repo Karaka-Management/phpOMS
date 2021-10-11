@@ -73,7 +73,7 @@ class DomTest extends \PHPUnit\Framework\TestCase
             'content'  => 'msg',
         ], $obj->toArray());
 
-        self::assertEquals(\json_encode([
+        self::assertEquals(json_encode([
             'type'     => 'dom',
             'time'     => 3,
             'selector' => '#sel',

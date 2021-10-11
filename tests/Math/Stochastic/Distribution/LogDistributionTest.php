@@ -31,7 +31,7 @@ class LogDistributionTest extends \PHPUnit\Framework\TestCase
         $k = 4;
 
         self::assertEquals(
-            -1 / \log(1 - $p) * $p ** $k / $k,
+            -1 / log(1 - $p) * $p ** $k / $k,
             LogDistribution::getPmf($p, $k)
         );
     }
@@ -59,7 +59,7 @@ class LogDistributionTest extends \PHPUnit\Framework\TestCase
     {
         $p = 0.3;
 
-        self::assertEquals(-1 / \log(1 - $p) * $p / (1 - $p), LogDistribution::getMean($p));
+        self::assertEquals(-1 / log(1 - $p) * $p / (1 - $p), LogDistribution::getMean($p));
     }
 
     /**
@@ -80,7 +80,7 @@ class LogDistributionTest extends \PHPUnit\Framework\TestCase
         $p = 0.3;
 
         self::assertEquals(
-            -($p ** 2 + $p * \log(1 - $p)) / ((1 - $p) ** 2 * (\log(1 - $p)) ** 2),
+            -($p ** 2 + $p * log(1 - $p)) / ((1 - $p) ** 2 * (log(1 - $p)) ** 2),
             LogDistribution::getVariance($p)
         );
     }
@@ -94,7 +94,7 @@ class LogDistributionTest extends \PHPUnit\Framework\TestCase
         $p = 0.3;
 
         self::assertEquals(
-            \sqrt(-($p ** 2 + $p * \log(1 - $p)) / ((1 - $p) ** 2 * (\log(1 - $p)) ** 2)),
+            sqrt(-($p ** 2 + $p * log(1 - $p)) / ((1 - $p) ** 2 * (log(1 - $p)) ** 2)),
             LogDistribution::getStandardDeviation($p)
         );
     }
@@ -109,7 +109,7 @@ class LogDistributionTest extends \PHPUnit\Framework\TestCase
         $t = 0.8;
 
         self::assertEquals(
-            \log(1 - $p * \exp($t)) / \log(1 - $p),
+            log(1 - $p * exp($t)) / log(1 - $p),
             LogDistribution::getMgf($p, $t)
         );
     }

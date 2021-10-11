@@ -116,7 +116,7 @@ class AccountTest extends \PHPUnit\Framework\TestCase
         $array = $account->toArray();
         self::assertIsArray($array);
         self::assertGreaterThan(0, \count($array));
-        self::assertEquals(\json_encode($array), $account->__toString());
+        self::assertEquals(json_encode($array), $account->__toString());
         self::assertEquals($array, $account->jsonSerialize());
     }
 
@@ -321,7 +321,7 @@ class AccountTest extends \PHPUnit\Framework\TestCase
 
         $rand = 0;
         do {
-            $rand = \mt_rand(\PHP_INT_MIN, \PHP_INT_MAX);
+            $rand = mt_rand(\PHP_INT_MIN, \PHP_INT_MAX);
         } while (AccountStatus::isValidValue($rand));
 
         $account->setStatus($rand);
@@ -339,7 +339,7 @@ class AccountTest extends \PHPUnit\Framework\TestCase
 
         $rand = 0;
         do {
-            $rand = \mt_rand(\PHP_INT_MIN, \PHP_INT_MAX);
+            $rand = mt_rand(\PHP_INT_MIN, \PHP_INT_MAX);
         } while (AccountType::isValidValue($rand));
 
         $account->setType($rand);

@@ -138,7 +138,7 @@ final class ChiSquaredDistribution
      */
     public static function getDegreesOfFreedom(array $values) : int
     {
-        if (\is_array($first = \reset($values))) {
+        if (\is_array($first = reset($values))) {
             return (\count($values) - 1) * (\count($first) - 1);
         } else {
             return \count($values) - 1;
@@ -163,7 +163,7 @@ final class ChiSquaredDistribution
             throw new \OutOfBoundsException('Out of bounds');
         }
 
-        return 1 / (\pow(2, $df / 2) * Gamma::gamma($df / 2)) * \pow($x, $df / 2 - 1) * \exp(-$x / 2);
+        return 1 / (pow(2, $df / 2) * Gamma::gamma($df / 2)) * pow($x, $df / 2 - 1) * exp(-$x / 2);
     }
 
     /**
@@ -192,7 +192,7 @@ final class ChiSquaredDistribution
      */
     public static function getMode(int $df) : int
     {
-        return \max($df - 2, 0);
+        return max($df - 2, 0);
     }
 
     /**
@@ -248,7 +248,7 @@ final class ChiSquaredDistribution
      */
     public static function getStandardDeviation(int $df) : float
     {
-        return \sqrt(self::getVariance($df));
+        return sqrt(self::getVariance($df));
     }
 
     /**
@@ -269,7 +269,7 @@ final class ChiSquaredDistribution
             throw new \OutOfBoundsException('Out of bounds');
         }
 
-        return \pow(1 - 2 * $t, -$df / 2);
+        return pow(1 - 2 * $t, -$df / 2);
     }
 
     /**
@@ -283,7 +283,7 @@ final class ChiSquaredDistribution
      */
     public static function getSkewness(int $df) : float
     {
-        return \sqrt(8 / $df);
+        return sqrt(8 / $df);
     }
 
     /**

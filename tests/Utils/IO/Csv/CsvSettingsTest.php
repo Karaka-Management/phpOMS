@@ -30,10 +30,10 @@ class CsvSettingsTest extends \PHPUnit\Framework\TestCase
      */
     public function testFileDelimiter() : void
     {
-        self::assertEquals(':', CsvSettings::getFileDelimiter(\fopen(__DIR__ . '/colon.csv', 'r')));
-        self::assertEquals(',', CsvSettings::getFileDelimiter(\fopen(__DIR__ . '/comma.csv', 'r')));
-        self::assertEquals('|', CsvSettings::getFileDelimiter(\fopen(__DIR__ . '/pipe.csv', 'r')));
-        self::assertEquals(';', CsvSettings::getFileDelimiter(\fopen(__DIR__ . '/semicolon.csv', 'r')));
+        self::assertEquals(':', CsvSettings::getFileDelimiter(fopen(__DIR__ . '/colon.csv', 'r')));
+        self::assertEquals(',', CsvSettings::getFileDelimiter(fopen(__DIR__ . '/comma.csv', 'r')));
+        self::assertEquals('|', CsvSettings::getFileDelimiter(fopen(__DIR__ . '/pipe.csv', 'r')));
+        self::assertEquals(';', CsvSettings::getFileDelimiter(fopen(__DIR__ . '/semicolon.csv', 'r')));
     }
 
     /**
@@ -43,9 +43,9 @@ class CsvSettingsTest extends \PHPUnit\Framework\TestCase
      */
     public function testStringDelimiter() : void
     {
-        self::assertEquals(':', CsvSettings::getStringDelimiter(\file_get_contents(__DIR__ . '/colon.csv')));
-        self::assertEquals(',', CsvSettings::getStringDelimiter(\file_get_contents(__DIR__ . '/comma.csv')));
-        self::assertEquals('|', CsvSettings::getStringDelimiter(\file_get_contents(__DIR__ . '/pipe.csv')));
-        self::assertEquals(';', CsvSettings::getStringDelimiter(\file_get_contents(__DIR__ . '/semicolon.csv')));
+        self::assertEquals(':', CsvSettings::getStringDelimiter(file_get_contents(__DIR__ . '/colon.csv')));
+        self::assertEquals(',', CsvSettings::getStringDelimiter(file_get_contents(__DIR__ . '/comma.csv')));
+        self::assertEquals('|', CsvSettings::getStringDelimiter(file_get_contents(__DIR__ . '/pipe.csv')));
+        self::assertEquals(';', CsvSettings::getStringDelimiter(file_get_contents(__DIR__ . '/semicolon.csv')));
     }
 }

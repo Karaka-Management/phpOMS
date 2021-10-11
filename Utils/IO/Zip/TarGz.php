@@ -33,8 +33,8 @@ class TarGz implements ArchiveInterface
      */
     public static function pack(string | array $source, string $destination, bool $overwrite = false) : bool
     {
-        $destination = \str_replace('\\', '/', $destination);
-        if (!$overwrite && \is_file($destination)) {
+        $destination = str_replace('\\', '/', $destination);
+        if (!$overwrite && is_file($destination)) {
             return false;
         }
 
@@ -45,7 +45,7 @@ class TarGz implements ArchiveInterface
         $pack = Gz::pack($destination . '.tmp', $destination, $overwrite);
 
         if ($pack) {
-            \unlink($destination . '.tmp');
+            unlink($destination . '.tmp');
         }
 
         return $pack;
@@ -56,8 +56,8 @@ class TarGz implements ArchiveInterface
      */
     public static function unpack(string $source, string $destination) : bool
     {
-        $destination = \str_replace('\\', '/', $destination);
-        if (!\is_dir($destination) || !\is_file($source)) {
+        $destination = str_replace('\\', '/', $destination);
+        if (!is_dir($destination) || !is_file($source)) {
             return false;
         }
 
@@ -66,7 +66,7 @@ class TarGz implements ArchiveInterface
         }
 
         $unpacked = Tar::unpack($destination . '/' . File::name($source) . '.tmp', $destination);
-        \unlink($destination . '/' . File::name($source) . '.tmp');
+        unlink($destination . '/' . File::name($source) . '.tmp');
 
         return $unpacked;
     }

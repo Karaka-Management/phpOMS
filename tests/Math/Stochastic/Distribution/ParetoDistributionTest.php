@@ -65,7 +65,7 @@ class ParetoDistributionTest extends \PHPUnit\Framework\TestCase
      */
     public function testStandardDeviation() : void
     {
-        self::assertEqualsWithDelta(\sqrt(2), ParetoDistribution::getStandardDeviation(3, 4), 0.001);
+        self::assertEqualsWithDelta(sqrt(2), ParetoDistribution::getStandardDeviation(3, 4), 0.001);
     }
 
     /**
@@ -94,7 +94,7 @@ class ParetoDistributionTest extends \PHPUnit\Framework\TestCase
      */
     public function testMedian() : void
     {
-        self::assertEquals(3 * \pow(2, 1 / 4), ParetoDistribution::getMedian(3, 4));
+        self::assertEquals(3 * pow(2, 1 / 4), ParetoDistribution::getMedian(3, 4));
     }
 
     /**
@@ -113,7 +113,7 @@ class ParetoDistributionTest extends \PHPUnit\Framework\TestCase
     public function testEntropy() : void
     {
         self::assertEquals(
-            \log(3 / 4 * \exp(1 + 1 / 4)),
+            log(3 / 4 * exp(1 + 1 / 4)),
             ParetoDistribution::getEntropy(3, 4)
         );
     }

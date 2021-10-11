@@ -119,8 +119,8 @@ abstract class EnumArray
      */
     public static function getRandom() : mixed
     {
-        $keys = \array_keys(static::$constants);
+        $keys = array_keys(static::$constants);
 
-        return static::$constants[$keys[\mt_rand(0, \count(static::$constants) - 1)]];
+        return static::$constants[$keys[mt_rand(0, \count(static::$constants) - 1)]];
     }
 }

@@ -97,7 +97,7 @@ abstract class ViewAbstract implements RenderableInterface
      */
     public function printHtml(?string $text) : string
     {
-        return $text === null ? '' : \htmlspecialchars($text);
+        return $text === null ? '' : htmlspecialchars($text);
     }
 
     /**
@@ -111,7 +111,7 @@ abstract class ViewAbstract implements RenderableInterface
      */
     public static function html(?string $text) : string
     {
-        return $text === null ? '' : \htmlspecialchars($text);
+        return $text === null ? '' : htmlspecialchars($text);
     }
 
     /**
@@ -196,7 +196,7 @@ abstract class ViewAbstract implements RenderableInterface
     public function serialize() : string
     {
         if (empty($this->template)) {
-            return (string) \json_encode($this->toArray());
+            return (string) json_encode($this->toArray());
         }
 
         return $this->render();
@@ -239,11 +239,11 @@ abstract class ViewAbstract implements RenderableInterface
 
         try {
             if ($this->isBuffered) {
-                \ob_start();
+                ob_start();
             }
 
             $path = $this->template;
-            if (!\is_file($path)) {
+            if (!is_file($path)) {
                 throw new PathException($path);
             }
 
@@ -251,15 +251,15 @@ abstract class ViewAbstract implements RenderableInterface
             $includeData = include $path;
 
             if ($this->isBuffered) {
-                $ob = (string) \ob_get_clean();
+                $ob = (string) ob_get_clean();
             }
 
             if (\is_array($includeData)) {
-                $ob = (string) \json_encode($includeData);
+                $ob = (string) json_encode($includeData);
             }
         } catch (\Throwable $e) {
             if ($this->isBuffered) {
-                \ob_end_clean();
+                ob_end_clean();
             }
 
             $ob = '';
@@ -284,7 +284,7 @@ abstract class ViewAbstract implements RenderableInterface
 
         try {
             $path = $this->template;
-            if (!\is_file($path)) {
+            if (!is_file($path)) {
                 throw new PathException($path);
             }
 

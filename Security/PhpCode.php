@@ -78,7 +78,7 @@ final class PhpCode
      */
     public static function normalizeSource(string $source) : string
     {
-        return \str_replace(["\n", "\r\n", "\r", "\t"], ['', '', '', ' '], $source);
+        return str_replace(["\n", "\r\n", "\r", "\t"], ['', '', '', ' '], $source);
     }
 
     /**
@@ -92,7 +92,7 @@ final class PhpCode
      */
     public static function hasUnicode(string $source) : bool
     {
-        return (bool) \preg_match('/[^\x00-\x7f]/', $source);
+        return (bool) preg_match('/[^\x00-\x7f]/', $source);
     }
 
     /**
@@ -106,14 +106,14 @@ final class PhpCode
      */
     public static function isDisabled(array $functions) : bool
     {
-        $disabled = \ini_get('disable_functions');
+        $disabled = ini_get('disable_functions');
 
         if ($disabled === false) {
             return true; // @codeCoverageIgnore
         }
 
-        $disabled = \str_replace(' ', '', $disabled);
-        $disabled = \explode(',', $disabled);
+        $disabled = str_replace(' ', '', $disabled);
+        $disabled = explode(',', $disabled);
 
         foreach ($functions as $function) {
             if (!\in_array($function, $disabled)) {
@@ -136,7 +136,7 @@ final class PhpCode
     public static function hasDeprecatedFunction(string $source) : bool
     {
         foreach (self::$deprecatedFunctions as $function) {
-            if (\preg_match('/' . $function . '\s*\(/', $source) === 1) {
+            if (preg_match('/' . $function . '\s*\(/', $source) === 1) {
                 return true;
             }
         }
@@ -156,7 +156,7 @@ final class PhpCode
      */
     public static function validateFileIntegrity(string $source, string $hash) : bool
     {
-        return \md5_file($source) === $hash;
+        return md5_file($source) === $hash;
     }
 
     /**

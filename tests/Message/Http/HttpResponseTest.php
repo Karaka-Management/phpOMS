@@ -92,17 +92,17 @@ class HttpResponseTest extends \PHPUnit\Framework\TestCase
      */
     public function testEndAllOutputBuffering() : void
     {
-        if (\headers_sent()) {
+        if (headers_sent()) {
             $this->response->header->lock();
         }
-        $start = \ob_get_level();
+        $start = ob_get_level();
 
-        \ob_start();
-        \ob_start();
+        ob_start();
+        ob_start();
 
-        self::assertEquals($start + 2, $end = \ob_get_level());
+        self::assertEquals($start + 2, $end = ob_get_level());
         $this->response->endAllOutputBuffering($end - $start);
-        self::assertEquals($start, \ob_get_level());
+        self::assertEquals($start, ob_get_level());
     }
 
     /**
@@ -194,7 +194,7 @@ class HttpResponseTest extends \PHPUnit\Framework\TestCase
         $this->response->set('null', null);
 
         $this->response->header->set('Content-Type', MimeType::M_JSON . '; charset=utf-8', true);
-        self::assertEquals(\json_encode($data), $this->response->render());
+        self::assertEquals(json_encode($data), $this->response->render());
     }
 
     /**
@@ -205,7 +205,7 @@ class HttpResponseTest extends \PHPUnit\Framework\TestCase
     public function testJsonDataDecode() : void
     {
         $array = [1, 'abc' => 'def'];
-        $this->response->set('json', \json_encode($array));
+        $this->response->set('json', json_encode($array));
 
         self::assertEquals($array, $this->response->getJsonData());
     }

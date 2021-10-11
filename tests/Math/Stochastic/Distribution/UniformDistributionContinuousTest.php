@@ -113,7 +113,7 @@ class UniformDistributionContinuousTest extends \PHPUnit\Framework\TestCase
         $a = 1;
         $b = 4;
 
-        self::assertEquals(\sqrt(1 / 12 * ($b - $a) ** 2), UniformDistributionContinuous::getStandardDeviation($a, $b));
+        self::assertEquals(sqrt(1 / 12 * ($b - $a) ** 2), UniformDistributionContinuous::getStandardDeviation($a, $b));
     }
 
     /**
@@ -142,7 +142,7 @@ class UniformDistributionContinuousTest extends \PHPUnit\Framework\TestCase
     {
         self::assertEquals(1, UniformDistributionContinuous::getMgf(0, 2, 3));
         self::assertEquals(
-            (\exp(2 * 4) - \exp(2 * 3)) / (2 * (4 - 3)),
+            (exp(2 * 4) - exp(2 * 3)) / (2 * (4 - 3)),
             UniformDistributionContinuous::getMgf(2, 3, 4)
         );
     }

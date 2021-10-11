@@ -30,9 +30,9 @@ class RepositoryTest extends \PHPUnit\Framework\TestCase
      */
     public function testDefault() : void
     {
-        $repo = new Repository(\realpath(__DIR__ . '/../../../'));
-        self::assertTrue('phpOMS' === $repo->getName() || 'build' === $repo->getName());
-        self::assertEquals(\str_replace('\\', '/', \realpath(__DIR__ . '/../../../.git')), \str_replace('\\', '/', $repo->getDirectoryPath()));
-        self::assertEquals(\realpath(__DIR__ . '/../../../'), $repo->getPath());
+        $repo = new Repository(realpath(__DIR__ . '/../../../'));
+        self::assertTrue($repo->getName() === 'phpOMS' || $repo->getName() === 'build');
+        self::assertEquals(str_replace('\\', '/', realpath(__DIR__ . '/../../../.git')), str_replace('\\', '/', $repo->getDirectoryPath()));
+        self::assertEquals(realpath(__DIR__ . '/../../../'), $repo->getPath());
     }
 }

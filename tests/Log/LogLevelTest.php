@@ -38,7 +38,7 @@ class LogLevelTest extends \PHPUnit\Framework\TestCase
      */
     public function testUnique() : void
     {
-        self::assertEquals(LogLevel::getConstants(), \array_unique(LogLevel::getConstants()));
+        self::assertEquals(LogLevel::getConstants(), array_unique(LogLevel::getConstants()));
     }
 
     /**

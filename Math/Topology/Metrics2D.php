@@ -51,7 +51,7 @@ final class Metrics2D
      */
     public static function manhattan(array $a, array $b) : float
     {
-        return \abs($a['x'] - $b['x']) + \abs($a['y'] - $b['y']);
+        return abs($a['x'] - $b['x']) + abs($a['y'] - $b['y']);
     }
 
     /**
@@ -68,10 +68,10 @@ final class Metrics2D
      */
     public static function euclidean(array $a, array $b) : float
     {
-        $dx = \abs($a['x'] - $b['x']);
-        $dy = \abs($a['y'] - $b['y']);
+        $dx = abs($a['x'] - $b['x']);
+        $dy = abs($a['y'] - $b['y']);
 
-        return \sqrt($dx * $dx + $dy * $dy);
+        return sqrt($dx * $dx + $dy * $dy);
     }
 
     /**
@@ -88,10 +88,10 @@ final class Metrics2D
      */
     public static function octile(array $a, array $b) : float
     {
-        $dx = \abs($a['x'] - $b['x']);
-        $dy = \abs($a['y'] - $b['y']);
+        $dx = abs($a['x'] - $b['x']);
+        $dy = abs($a['y'] - $b['y']);
 
-        return $dx < $dy ? (\sqrt(2) - 1) * $dx + $dy : (\sqrt(2) - 1) * $dy + $dx;
+        return $dx < $dy ? (sqrt(2) - 1) * $dx + $dy : (sqrt(2) - 1) * $dy + $dx;
     }
 
     /**
@@ -108,9 +108,9 @@ final class Metrics2D
      */
     public static function chebyshev(array $a, array $b) : float
     {
-        return \max(
-            \abs($a['x'] - $b['x']),
-            \abs($a['y'] - $b['y'])
+        return max(
+            abs($a['x'] - $b['x']),
+            abs($a['y'] - $b['y'])
         );
     }
 
@@ -129,9 +129,9 @@ final class Metrics2D
      */
     public static function minkowski(array $a, array $b, int $lambda) : float
     {
-        return \pow(
-            \pow(\abs($a['x'] - $b['x']), $lambda)
-            + \pow(\abs($a['y'] - $b['y']), $lambda),
+        return pow(
+            pow(abs($a['x'] - $b['x']), $lambda)
+            + pow(abs($a['y'] - $b['y']), $lambda),
             1 / $lambda
         );
     }
@@ -150,8 +150,8 @@ final class Metrics2D
      */
     public static function canberra(array $a, array $b) : float
     {
-        return \abs($a['x'] - $b['x']) / (\abs($a['x']) + \abs($b['x']))
-            + \abs($a['y'] - $b['y']) / (\abs($a['y']) + \abs($b['y']));
+        return abs($a['x'] - $b['x']) / (abs($a['x']) + abs($b['x']))
+            + abs($a['y'] - $b['y']) / (abs($a['y']) + abs($b['y']));
     }
 
     /**
@@ -168,8 +168,8 @@ final class Metrics2D
      */
     public static function brayCurtis(array $a, array $b) : float
     {
-        return (\abs($a['x'] - $b['x'])
-                + \abs($a['y'] - $b['y']))
+        return (abs($a['x'] - $b['x'])
+                + abs($a['y'] - $b['y']))
             / (($a['x'] + $b['x'])
                 + ($a['y'] + $b['y']));
     }
@@ -188,7 +188,7 @@ final class Metrics2D
      */
     public static function angularSeparation(array $a, array $b) : float
     {
-        return ($a['x'] * $b['x'] + $a['y'] * $b['y']) / \pow(($a['x'] ** 2 + $a['y'] ** 2) * ($b['x'] ** 2 + $b['y'] ** 2), 1 / 2);
+        return ($a['x'] * $b['x'] + $a['y'] * $b['y']) / pow(($a['x'] ** 2 + $a['y'] ** 2) * ($b['x'] ** 2 + $b['y'] ** 2), 1 / 2);
     }
 
     /**
@@ -253,11 +253,11 @@ final class Metrics2D
             $bPos[$i] = [$b[$i], $i];
         }
 
-        \usort($bPos, function ($e1, $e2) {
+        usort($bPos, function ($e1, $e2) {
             return $e1[0] <=> $e2[0];
         });
 
-        $vis = \array_fill(0, $size, false);
+        $vis = array_fill(0, $size, false);
         $ans = 0;
 
         for ($i = 0; $i < $size; ++$i) {

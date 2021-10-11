@@ -36,7 +36,7 @@ class RelationTypeTest extends \PHPUnit\Framework\TestCase
      */
     public function testUnique() : void
     {
-        self::assertEquals(RelationType::getConstants(), \array_unique(RelationType::getConstants()));
+        self::assertEquals(RelationType::getConstants(), array_unique(RelationType::getConstants()));
     }
 
     /**

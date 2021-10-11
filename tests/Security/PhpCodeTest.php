@@ -35,7 +35,7 @@ class PhpCodeTest extends \PHPUnit\Framework\TestCase
         self::assertTrue(
             PhpCode::hasUnicode(
                 PhpCode::normalizeSource(
-                    \file_get_contents(__DIR__ . '/Sample/hasUnicode.php')
+                    file_get_contents(__DIR__ . '/Sample/hasUnicode.php')
                 )
             )
         );
@@ -51,7 +51,7 @@ class PhpCodeTest extends \PHPUnit\Framework\TestCase
         self::assertFalse(
             PhpCode::hasUnicode(
                 PhpCode::normalizeSource(
-                    \file_get_contents(__DIR__ . '/Sample/noUnicode.php')
+                    file_get_contents(__DIR__ . '/Sample/noUnicode.php')
                 )
             )
         );
@@ -78,7 +78,7 @@ class PhpCodeTest extends \PHPUnit\Framework\TestCase
         self::assertTrue(
             PhpCode::hasDeprecatedFunction(
                 PhpCode::normalizeSource(
-                    \file_get_contents(__DIR__ . '/Sample/hasDeprecated.php')
+                    file_get_contents(__DIR__ . '/Sample/hasDeprecated.php')
                 )
             )
         );
@@ -94,7 +94,7 @@ class PhpCodeTest extends \PHPUnit\Framework\TestCase
         self::assertFalse(
             PhpCode::hasDeprecatedFunction(
                 PhpCode::normalizeSource(
-                    \file_get_contents(__DIR__ . '/Sample/noDeprecated.php')
+                    file_get_contents(__DIR__ . '/Sample/noDeprecated.php')
                 )
             )
         );
@@ -107,7 +107,7 @@ class PhpCodeTest extends \PHPUnit\Framework\TestCase
      */
     public function testFileIntegrity() : void
     {
-        self::assertTrue(PhpCode::validateFileIntegrity(__DIR__ . '/Sample/hasDeprecated.php', \md5_file(__DIR__ . '/Sample/hasDeprecated.php')));
+        self::assertTrue(PhpCode::validateFileIntegrity(__DIR__ . '/Sample/hasDeprecated.php', md5_file(__DIR__ . '/Sample/hasDeprecated.php')));
     }
 
     /**
@@ -117,7 +117,7 @@ class PhpCodeTest extends \PHPUnit\Framework\TestCase
      */
     public function testFileInvalidIntegrity() : void
     {
-        self::assertFalse(PhpCode::validateFileIntegrity(__DIR__ . '/Sample/hasUnicode.php', \md5_file(__DIR__ . '/Sample/hasDeprecated.php')));
+        self::assertFalse(PhpCode::validateFileIntegrity(__DIR__ . '/Sample/hasUnicode.php', md5_file(__DIR__ . '/Sample/hasDeprecated.php')));
     }
 
     /**

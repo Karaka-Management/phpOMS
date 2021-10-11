@@ -85,7 +85,7 @@ final class NormalDistribution
      */
     public static function getPdf(float $x, float $mu, float $sig) : float
     {
-        return 1 / ($sig * \sqrt(2 * \M_PI)) * \exp(-($x - $mu) ** 2 / (2 * $sig ** 2));
+        return 1 / ($sig * sqrt(2 * \M_PI)) * exp(-($x - $mu) ** 2 / (2 * $sig ** 2));
     }
 
     /**
@@ -101,7 +101,7 @@ final class NormalDistribution
      */
     public static function getCdf(float $x, float $mu, float $sig) : float
     {
-        return 1 / 2 * (1 + Functions::getErf(($x - $mu) / ($sig * \sqrt(2))));
+        return 1 / 2 * (1 + Functions::getErf(($x - $mu) / ($sig * sqrt(2))));
     }
 
     /**
@@ -187,7 +187,7 @@ final class NormalDistribution
      */
     public static function getMgf(float $t, float $mu, float $sig) : float
     {
-        return \exp($mu * $t + ($sig ** 2 * $t ** 2) / 2);
+        return exp($mu * $t + ($sig ** 2 * $t ** 2) / 2);
     }
 
     /**

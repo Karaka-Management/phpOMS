@@ -77,7 +77,7 @@ class NotifyTest extends \PHPUnit\Framework\TestCase
             'level' => NotifyType::ERROR,
         ], $obj->toArray());
 
-        self::assertEquals(\json_encode([
+        self::assertEquals(json_encode([
             'type'  => 'notify',
             'time'  => 3,
             'stay'  => 5,

@@ -31,29 +31,29 @@ class Gz implements ArchiveInterface
      */
     public static function pack(string | array $source, string $destination, bool $overwrite = false) : bool
     {
-        $destination = \str_replace('\\', '/', $destination);
+        $destination = str_replace('\\', '/', $destination);
         if ($destination === false
             || \is_array($source)
-            || (!$overwrite && \is_file($destination))
-            || !\is_file($source)
+            || (!$overwrite && is_file($destination))
+            || !is_file($source)
         ) {
             return false;
         }
 
-        $gz  = \gzopen($destination, 'w');
-        $src = \fopen($source, 'r');
+        $gz  = gzopen($destination, 'w');
+        $src = fopen($source, 'r');
         if ($gz === false || $src === false) {
             return false; // @codeCoverageIgnore
         }
 
-        while (!\feof($src)) {
-            $read = \fread($src, 4096);
-            \gzwrite($gz, $read === false ? '' : $read);
+        while (!feof($src)) {
+            $read = fread($src, 4096);
+            gzwrite($gz, $read === false ? '' : $read);
         }
 
-        \fclose($src);
+        fclose($src);
 
-        return \gzclose($gz);
+        return gzclose($gz);
     }
 
     /**
@@ -61,23 +61,23 @@ class Gz implements ArchiveInterface
      */
     public static function unpack(string $source, string $destination) : bool
     {
-        $destination = \str_replace('\\', '/', $destination);
-        if (\is_file($destination) || !\is_file($source)) {
+        $destination = str_replace('\\', '/', $destination);
+        if (is_file($destination) || !is_file($source)) {
             return false;
         }
 
-        $gz   = \gzopen($source, 'r');
-        $dest = \fopen($destination, 'w');
+        $gz   = gzopen($source, 'r');
+        $dest = fopen($destination, 'w');
         if ($gz === false || $dest === false) {
             return false; // @codeCoverageIgnore
         }
 
-        while (!\gzeof($gz) && ($read = \gzread($gz, 4096)) !== false) {
-            \fwrite($dest, $read);
+        while (!gzeof($gz) && ($read = gzread($gz, 4096)) !== false) {
+            fwrite($dest, $read);
         }
 
-        \fclose($dest);
+        fclose($dest);
 
-        return \gzclose($gz);
+        return gzclose($gz);
     }
 }

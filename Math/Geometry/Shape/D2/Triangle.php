@@ -92,6 +92,6 @@ final class Triangle implements D2ShapeInterface
             $hypot += $val * $val;
         }
 
-        return \sqrt($hypot);
+        return sqrt($hypot);
     }
 }

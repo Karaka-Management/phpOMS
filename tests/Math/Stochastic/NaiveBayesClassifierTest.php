@@ -23,7 +23,7 @@ use phpOMS\Math\Stochastic\NaiveBayesClassifier;
  */
 class NaiveBayesClassifierTest extends \PHPUnit\Framework\TestCase
 {
-    const PLAY = [
+    public const PLAY = [
         ['weather' => ['Overcast']],
         ['weather' => ['Rainy']],
         ['weather' => ['Sunny']],
@@ -35,7 +35,7 @@ class NaiveBayesClassifierTest extends \PHPUnit\Framework\TestCase
         ['weather' => ['Overcast']],
     ];
 
-    const NO_PLAY = [
+    public const NO_PLAY = [
         ['weather' => ['Sunny']],
         ['weather' => ['Rainy']],
         ['weather' => ['Rainy']],
@@ -43,14 +43,14 @@ class NaiveBayesClassifierTest extends \PHPUnit\Framework\TestCase
         ['weather' => ['Rainy']],
     ];
 
-    const MALE = [
+    public const MALE = [
         ['height' => 6, 'weight' => 180, 'foot' => 12],
         ['height' => 5.92, 'weight' => 190, 'foot' => 11],
         ['height' => 5.58, 'weight' => 170, 'foot' => 12],
         ['height' => 5.92, 'weight' => 165, 'foot' => 10],
     ];
 
-    const FEMALE = [
+    public const FEMALE = [
         ['height' => 5, 'weight' => 100, 'foot' => 6],
         ['height' => 5.5, 'weight' => 150, 'foot' => 8],
         ['height' => 5.42, 'weight' => 130, 'foot' => 7],

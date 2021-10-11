@@ -38,8 +38,8 @@ class C39Test extends \PHPUnit\Framework\TestCase
     public function testImagePng() : void
     {
         $path = __DIR__ . '/c39.png';
-        if (\is_file($path)) {
-            \unlink($path);
+        if (is_file($path)) {
+            unlink($path);
         }
 
         $img = new C39('ABCDEFG0123+-', 150, 50);
@@ -55,8 +55,8 @@ class C39Test extends \PHPUnit\Framework\TestCase
     public function testImageJpg() : void
     {
         $path = __DIR__ . '/c39.jpg';
-        if (\is_file($path)) {
-            \unlink($path);
+        if (is_file($path)) {
+            unlink($path);
         }
 
         $img = new C39('ABCDEFG0123+-', 150, 50);
@@ -72,8 +72,8 @@ class C39Test extends \PHPUnit\Framework\TestCase
     public function testOrientationAndMargin() : void
     {
         $path = __DIR__ . '/c39_vertical.png';
-        if (\is_file($path)) {
-            \unlink($path);
+        if (is_file($path)) {
+            unlink($path);
         }
 
         $img = new C39('ABCDEFG0123+-', 50, 150, OrientationType::VERTICAL);

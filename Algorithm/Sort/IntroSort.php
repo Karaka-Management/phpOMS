@@ -46,7 +46,7 @@ final class IntroSort implements SortInterface
             return InsertionSort::sort($clone, $order);
         }
 
-        if ($size > \log(\count($list)) * 2) {
+        if ($size > log(\count($list)) * 2) {
             return HeapSort::sort($clone, $order);
         }
 

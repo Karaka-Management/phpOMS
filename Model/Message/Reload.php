@@ -85,7 +85,7 @@ final class Reload implements \JsonSerializable, \Serializable, ArrayableInterfa
      */
     public function unserialize($raw) : void
     {
-        $unserialized = \json_decode($raw, true);
+        $unserialized = json_decode($raw, true);
 
         $this->delay = $unserialized['time'] ?? 0;
     }
@@ -99,7 +99,7 @@ final class Reload implements \JsonSerializable, \Serializable, ArrayableInterfa
      */
     public function __toString()
     {
-        return (string) \json_encode($this->toArray());
+        return (string) json_encode($this->toArray());
     }
 
     /**

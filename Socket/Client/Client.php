@@ -78,21 +78,21 @@ class Client extends SocketAbstract
      */
     public function run() : void
     {
-        \socket_connect($this->sock, $this->ip, $this->port);
+        socket_connect($this->sock, $this->ip, $this->port);
 
         $errorCounter = 0;
 
         while ($this->run) {
             try {
                 if (!empty($this->packets)) {
-                    $msg = \array_shift($this->packets);
+                    $msg = array_shift($this->packets);
 
-                    \socket_write($this->sock, $msg, \strlen($msg));
+                    socket_write($this->sock, $msg, \strlen($msg));
                 }
 
                 $read = [$this->sock];
 
-                if (\socket_last_error() !== 0) {
+                if (socket_last_error() !== 0) {
                     ++$errorCounter;
                 }
 
@@ -105,9 +105,9 @@ class Client extends SocketAbstract
                 //}
 
                 if (\count($read) > 0) {
-                    $data = \socket_read($this->sock, 1024);
+                    $data = socket_read($this->sock, 1024);
 
-                    \var_dump($data);
+                    var_dump($data);
 
                     /* Server no data */
                     if ($data === false) {
@@ -115,10 +115,10 @@ class Client extends SocketAbstract
                     }
 
                     /* Normalize */
-                    $data = \trim($data);
+                    $data = trim($data);
 
                     if (!empty($data)) {
-                        $data = \explode(' ', $data);
+                        $data = explode(' ', $data);
                         $this->commands->trigger($data[0], 0, $data);
                     }
                 }

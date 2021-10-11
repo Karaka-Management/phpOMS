@@ -59,7 +59,7 @@ final class StringUtils
     public static function contains(string $haystack, array $needles) : bool
     {
         foreach ($needles as $needle) {
-            if (\strpos($haystack, $needle) !== false) {
+            if (strpos($haystack, $needle) !== false) {
                 return true;
             }
         }
@@ -89,7 +89,7 @@ final class StringUtils
         }
 
         foreach ($needles as $needle) {
-            if ($needle === '' || (($temp = \strlen($haystack) - \strlen($needle)) >= 0 && \strpos($haystack, $needle, $temp) !== false)) {
+            if ($needle === '' || (($temp = \strlen($haystack) - \strlen($needle)) >= 0 && strpos($haystack, $needle, $temp) !== false)) {
                 return true;
             }
         }
@@ -121,7 +121,7 @@ final class StringUtils
         }
 
         foreach ($needles as $needle) {
-            if ($needle === '' || \strrpos($haystack, $needle, -\strlen($haystack)) !== false) {
+            if ($needle === '' || strrpos($haystack, $needle, -\strlen($haystack)) !== false) {
                 return true;
             }
         }
@@ -173,12 +173,12 @@ final class StringUtils
         $size    = \strlen($value);
 
         /** @var array $countChars */
-        $countChars = \count_chars($value, 1);
+        $countChars = count_chars($value, 1);
 
         /** @var int $v */
         foreach ($countChars as $v) {
             $p        = $v / $size;
-            $entropy -= $p * \log($p) / \log(2);
+            $entropy -= $p * log($p) / log(2);
         }
 
         return $entropy;
@@ -197,7 +197,7 @@ final class StringUtils
     public static function stringify(mixed $element, mixed $option = null) : ?string
     {
         if ($element instanceof \JsonSerializable || \is_array($element)) {
-            $encoded = \json_encode($element, $option !== null ? $option : 0);
+            $encoded = json_encode($element, $option !== null ? $option : 0);
 
             return $encoded ? $encoded : null;
         } elseif ($element instanceof \Serializable) {
@@ -214,7 +214,7 @@ final class StringUtils
             return $element->format('Y-m-d H:i:s');
         } elseif ($element instanceof RenderableInterface) {
             return $element->render();
-        } elseif (\method_exists($element, '__toString')) {
+        } elseif (method_exists($element, '__toString')) {
             return $element->__toString();
         }
 
@@ -234,8 +234,8 @@ final class StringUtils
      */
     public static function createDiffMarkup(string $old, string $new, string $delim = '') : string
     {
-        $splitOld = !empty($delim) ? \explode($delim, $old) : \str_split($old);
-        $splitNew = !empty($delim) ? \explode($delim, $new) : \str_split($new);
+        $splitOld = !empty($delim) ? explode($delim, $old) : str_split($old);
+        $splitNew = !empty($delim) ? explode($delim, $new) : str_split($new);
 
         if ($splitOld === false
             || (empty($old) && !empty($new))
@@ -265,19 +265,19 @@ final class StringUtils
             if ($mc !== $pmc) {
                 switch ($pmc) {
                     case -1:
-                        $result = (!empty($delim) ? \rtrim($result, $delim) : $result) . '</del>' . $delim;
+                        $result = (!empty($delim) ? rtrim($result, $delim) : $result) . '</del>' . $delim;
                         break;
                     case 1:
-                        $result = (!empty($delim) ? \rtrim($result, $delim) : $result) . '</ins>' . $delim;
+                        $result = (!empty($delim) ? rtrim($result, $delim) : $result) . '</ins>' . $delim;
                         break;
                 }
 
                 switch ($mc) {
                     case -1:
-                        $result = (!empty($delim) && ($pmc === 1 || $pmc === -1) ? \rtrim($result, $delim) : $result) . '<del>';
+                        $result = (!empty($delim) && ($pmc === 1 || $pmc === -1) ? rtrim($result, $delim) : $result) . '<del>';
                         break;
                     case 1:
-                        $result = (!empty($delim) && ($pmc === 1 || $pmc === -1) ? \rtrim($result, $delim) : $result) . '<ins>';
+                        $result = (!empty($delim) && ($pmc === 1 || $pmc === -1) ? rtrim($result, $delim) : $result) . '<ins>';
                         break;
                 }
             }
@@ -286,7 +286,7 @@ final class StringUtils
             $pmc     = $mc;
         }
 
-        $result = (!empty($delim) ? \rtrim($result, $delim) : $result);
+        $result = (!empty($delim) ? rtrim($result, $delim) : $result);
 
         switch ($pmc) {
             case -1:
@@ -297,7 +297,7 @@ final class StringUtils
                 break;
         }
 
-        return \str_replace(['<ins></ins>', '<del></del>'], ['', ''], $result);
+        return str_replace(['<ins></ins>', '<del></del>'], ['', ''], $result);
     }
 
     /**
@@ -341,7 +341,7 @@ final class StringUtils
                 } else {
                     $a1         = $dm[$i - 1][$j];
                     $a2         = $dm[$i][$j - 1];
-                    $dm[$i][$j] = \max($a1, $a2);
+                    $dm[$i][$j] = max($a1, $a2);
                 }
             }
         }
@@ -371,8 +371,8 @@ final class StringUtils
             --$j;
         }
 
-        $diffValues = \array_reverse($diffValues);
-        $diffMask   = \array_reverse($diffMask);
+        $diffValues = array_reverse($diffValues);
+        $diffMask   = array_reverse($diffMask);
 
         return ['values' => $diffValues, 'mask' => $diffMask];
     }
@@ -411,8 +411,8 @@ final class StringUtils
      */
     public static function isShellSafe(string $string)
     {
-        if (\escapeshellcmd($string) !== $string
-            || !\in_array(\escapeshellarg($string), ["'${string}'", "\"${string}\""])
+        if (escapeshellcmd($string) !== $string
+            || !\in_array(escapeshellarg($string), ["'${string}'", "\"${string}\""])
         ) {
             return false;
         }
@@ -422,7 +422,7 @@ final class StringUtils
         for ($i = 0; $i < $length; ++$i) {
             $c = $string[$i];
 
-            if (!\ctype_alnum($c) && \strpos('@_-.', $c) === false) {
+            if (!ctype_alnum($c) && strpos('@_-.', $c) === false) {
                 return false;
             }
         }

@@ -35,8 +35,8 @@ class Email
     {
         $count = \count(Text::LOREM_IPSUM) - 1;
 
-        return Text::LOREM_IPSUM[\mt_rand(0, $count)]
-            . '@' . Text::LOREM_IPSUM[\mt_rand(0, $count)]
+        return Text::LOREM_IPSUM[mt_rand(0, $count)]
+            . '@' . Text::LOREM_IPSUM[mt_rand(0, $count)]
             . '.com';
     }
 }

@@ -526,7 +526,7 @@ class Interval implements \Serializable
      */
     public function serialize() : string
     {
-        $serialized = \json_encode([
+        $serialized = json_encode([
             'start'       => $this->start->format('Y-m-d H:i:s'),
             'end'         => $this->end === null ? null : $this->end->format('Y-m-d H:i:s'),
             'maxDuration' => $this->maxDuration,
@@ -551,7 +551,7 @@ class Interval implements \Serializable
      */
     public function unserialize($serialized) : void
     {
-        $data = \json_decode($serialized, true);
+        $data = json_decode($serialized, true);
 
         $this->start       = new \DateTime($data['start']);
         $this->end         = $data['end'] === null ? null : new \DateTime($data['end']);

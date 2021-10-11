@@ -34,11 +34,11 @@ class SystemUtilsTest extends \PHPUnit\Framework\TestCase
     {
         self::assertGreaterThan(0, SystemUtils::getRAM());
 
-        if (\stristr(\PHP_OS, 'WIN')) {
+        if (stristr(\PHP_OS, 'WIN')) {
             self::assertEquals(0, SystemUtils::getRAMUsage());
         }
 
-        if (!\stristr(\PHP_OS, 'WIN')) {
+        if (!stristr(\PHP_OS, 'WIN')) {
             self::assertGreaterThan(0, SystemUtils::getRAMUsage());
         }
     }

@@ -64,7 +64,7 @@ class TDistributionTest extends \PHPUnit\Framework\TestCase
      */
     public function testStandardDeviation() : void
     {
-        self::assertEqualsWithDelta(\sqrt(5 / 3), TDistribution::getStandardDeviation(5), 0.001);
+        self::assertEqualsWithDelta(sqrt(5 / 3), TDistribution::getStandardDeviation(5), 0.001);
         self::assertEqualsWithDelta(\PHP_FLOAT_MAX, TDistribution::getStandardDeviation(2), 0.001);
     }
 

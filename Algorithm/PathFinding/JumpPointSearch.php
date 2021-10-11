@@ -183,9 +183,9 @@ final class JumpPointSearch implements PathFinderInterface
         $py = $node->parent->getY();
 
         /** @var int $dx */
-        $dx = ($x - $px) / \max(\abs($x - $px), 1);
+        $dx = ($x - $px) / max(abs($x - $px), 1);
         /** @var int $dy */
-        $dy = ($y - $py) / \max(\abs($y - $py), 1);
+        $dy = ($y - $py) / max(abs($y - $py), 1);
 
         $neighbors = [];
         if ($dx !== 0) {
@@ -241,9 +241,9 @@ final class JumpPointSearch implements PathFinderInterface
         $py = $node->parent->getY();
 
         /** @var int $dx */
-        $dx = ($x - $px) / \max(\abs($x - $px), 1);
+        $dx = ($x - $px) / max(abs($x - $px), 1);
         /** @var int $dy */
-        $dy = ($y - $py) / \max(\abs($y - $py), 1);
+        $dy = ($y - $py) / max(abs($y - $py), 1);
 
         $neighbors = [];
         if ($dx !== 0 && $dy !== 0) {
@@ -319,9 +319,9 @@ final class JumpPointSearch implements PathFinderInterface
         $py = $node->parent->getY();
 
         /** @var int $dx */
-        $dx = ($x - $px) / \max(\abs($x - $px), 1);
+        $dx = ($x - $px) / max(abs($x - $px), 1);
         /** @var int $dy */
-        $dy = ($y - $py) / \max(\abs($y - $py), 1);
+        $dy = ($y - $py) / max(abs($y - $py), 1);
 
         $neighbors = [];
         if ($dx !== 0 && $dy !== 0) {
@@ -393,9 +393,9 @@ final class JumpPointSearch implements PathFinderInterface
         $py = $node->parent->getY();
 
         /** @var int $dx */
-        $dx = ($x - $px) / \max(\abs($x - $px), 1);
+        $dx = ($x - $px) / max(abs($x - $px), 1);
         /** @var int $dy */
-        $dy = ($y - $py) / \max(\abs($y - $py), 1);
+        $dy = ($y - $py) / max(abs($y - $py), 1);
 
         $neighbors = [];
         if ($dx !== 0 && $dy !== 0) {

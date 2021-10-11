@@ -36,7 +36,7 @@ class DistributionTypeTest extends \PHPUnit\Framework\TestCase
      */
     public function testUnique() : void
     {
-        self::assertEquals(DistributionType::getConstants(), \array_unique(DistributionType::getConstants()));
+        self::assertEquals(DistributionType::getConstants(), array_unique(DistributionType::getConstants()));
     }
 
     /**

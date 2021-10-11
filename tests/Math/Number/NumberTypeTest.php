@@ -36,7 +36,7 @@ class NumberTypeTest extends \PHPUnit\Framework\TestCase
      */
     public function testUnique() : void
     {
-        self::assertEquals(NumberType::getConstants(), \array_unique(NumberType::getConstants()));
+        self::assertEquals(NumberType::getConstants(), array_unique(NumberType::getConstants()));
     }
 
     /**

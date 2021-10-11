@@ -63,7 +63,7 @@ class File extends FileAbstract implements FileInterface
     {
         parent::index();
 
-        $this->size = (int) \ftp_size($this->con, $this->path);
+        $this->size = (int) ftp_size($this->con, $this->path);
     }
 
     /**
@@ -77,16 +77,16 @@ class File extends FileAbstract implements FileInterface
      */
     public static function ftpConnect(HttpUri $http) : mixed
     {
-        $con = \ftp_connect($http->host, $http->port, 10);
+        $con = ftp_connect($http->host, $http->port, 10);
 
         if ($con === false) {
             return false;
         }
 
-        \ftp_login($con, $http->user, $http->pass);
+        ftp_login($con, $http->user, $http->pass);
 
         if ($http->getPath() !== '') {
-            @\ftp_chdir($con, $http->getPath());
+            @ftp_chdir($con, $http->getPath());
         }
 
         return $con;
@@ -102,7 +102,7 @@ class File extends FileAbstract implements FileInterface
         }
 
         $parent = LocalDirectory::parent($path);
-        $list   = \ftp_nlist($con, $parent === '' ? '/' : $parent);
+        $list   = ftp_nlist($con, $parent === '' ? '/' : $parent);
 
         if ($list === false) {
             return false;
@@ -130,22 +130,22 @@ class File extends FileAbstract implements FileInterface
             || (ContentPutMode::hasFlag($mode, ContentPutMode::REPLACE) && $exists)
             || (!$exists && ContentPutMode::hasFlag($mode, ContentPutMode::CREATE))
         ) {
-            $tmpFile = 'file' . \mt_rand();
+            $tmpFile = 'file' . mt_rand();
             if (ContentPutMode::hasFlag($mode, ContentPutMode::APPEND) && $exists) {
-                \file_put_contents($tmpFile, self::get($con, $path) . $content);
+                file_put_contents($tmpFile, self::get($con, $path) . $content);
             } elseif (ContentPutMode::hasFlag($mode, ContentPutMode::PREPEND) && $exists) {
-                \file_put_contents($tmpFile, $content . self::get($con, $path));
+                file_put_contents($tmpFile, $content . self::get($con, $path));
             } else {
                 if (!Directory::exists($con, \dirname($path))) {
                     Directory::create($con, \dirname($path), 0755, true);
                 }
 
-                \file_put_contents($tmpFile, $content);
+                file_put_contents($tmpFile, $content);
             }
 
-            \ftp_put($con, $path, $tmpFile, \FTP_BINARY);
-            \ftp_chmod($con, 0755, $path);
-            \unlink($tmpFile);
+            ftp_put($con, $path, $tmpFile, \FTP_BINARY);
+            ftp_chmod($con, 0755, $path);
+            unlink($tmpFile);
 
             return true;
         }
@@ -162,15 +162,15 @@ class File extends FileAbstract implements FileInterface
             throw new PathException($path);
         }
 
-        $fp = \fopen('php://temp', 'r+');
+        $fp = fopen('php://temp', 'r+');
         if ($fp === false) {
             return '';
         }
 
         $content = '';
-        if (\ftp_fget($con, $fp, $path, \FTP_BINARY, 0)) {
-            \rewind($fp);
-            $content = \stream_get_contents($fp);
+        if (ftp_fget($con, $fp, $path, \FTP_BINARY, 0)) {
+            rewind($fp);
+            $content = stream_get_contents($fp);
         }
 
         return $content === false ? '' : $content;
@@ -242,7 +242,7 @@ class File extends FileAbstract implements FileInterface
         }
 
         $changed = new \DateTime();
-        $time    = \ftp_mdtm($con, $path);
+        $time    = ftp_mdtm($con, $path);
 
         $changed->setTimestamp($time === false ? 0 : $time);
 
@@ -258,7 +258,7 @@ class File extends FileAbstract implements FileInterface
             return -1;
         }
 
-        return \ftp_size($con, $path);
+        return ftp_size($con, $path);
     }
 
     /**
@@ -359,7 +359,7 @@ class File extends FileAbstract implements FileInterface
             return false;
         }
 
-        return \ftp_delete($con, $path);
+        return ftp_delete($con, $path);
     }
 
     /**
@@ -557,7 +557,7 @@ class File extends FileAbstract implements FileInterface
      */
     public function getName() : string
     {
-        return \explode('.', $this->name)[0];
+        return explode('.', $this->name)[0];
     }
 
     /**
@@ -565,7 +565,7 @@ class File extends FileAbstract implements FileInterface
      */
     public function getExtension() : string
     {
-        $extension = \explode('.', $this->name);
+        $extension = explode('.', $this->name);
 
         return $extension[1] ?? '';
     }
@@ -579,7 +579,7 @@ class File extends FileAbstract implements FileInterface
      */
     public function getDirName() : string
     {
-        return \basename(\dirname($this->path));
+        return basename(\dirname($this->path));
     }
 
     /**

@@ -75,7 +75,7 @@ class Matrix implements \ArrayAccess, \Iterator
         $this->m = $m;
 
         for ($i = 0; $i < $m; ++$i) {
-            $this->matrix[$i] = \array_fill(0, $n, 0);
+            $this->matrix[$i] = array_fill(0, $n, 0);
         }
     }
 
@@ -149,7 +149,7 @@ class Matrix implements \ArrayAccess, \Iterator
     public function transpose() : self
     {
         $matrix = new self($this->n, $this->m);
-        $matrix->setMatrix(\array_map(null, ...$this->matrix));
+        $matrix->setMatrix(array_map(null, ...$this->matrix));
 
         return $matrix;
     }
@@ -322,11 +322,11 @@ class Matrix implements \ArrayAccess, \Iterator
         $nDim   = $this->n;
 
         $rank     = 0;
-        $selected = \array_fill(0, $mDim, false);
+        $selected = array_fill(0, $mDim, false);
 
         for ($i = 0; $i < $nDim; ++$i) {
             for ($j = 0; $j < $mDim; ++$j) {
-                if (!$selected[$j] && \abs($matrix[$j][$i]) > 0.0001) {
+                if (!$selected[$j] && abs($matrix[$j][$i]) > 0.0001) {
                     break;
                 }
             }
@@ -342,7 +342,7 @@ class Matrix implements \ArrayAccess, \Iterator
             }
 
             for ($k = 0; $k < $mDim; ++$k) {
-                if ($k !== $j && \abs($matrix[$k][$i]) > 0.0001) {
+                if ($k !== $j && abs($matrix[$k][$i]) > 0.0001) {
                     for ($p = $i + 1; $p < $nDim; ++$p) {
                         $matrix[$k][$p] -= $matrix[$j][$p] * $matrix[$k][$i];
                     }
@@ -384,7 +384,7 @@ class Matrix implements \ArrayAccess, \Iterator
      */
     public function sub(int | float | self $value) : self
     {
-        if (\is_numeric($value)) {
+        if (is_numeric($value)) {
             return $this->addScalar(-$value);
         }
 
@@ -402,7 +402,7 @@ class Matrix implements \ArrayAccess, \Iterator
      */
     public function add(int | float | self $value) : self
     {
-        if (\is_numeric($value)) {
+        if (is_numeric($value)) {
             return $this->addScalar($value);
         }
 
@@ -499,7 +499,7 @@ class Matrix implements \ArrayAccess, \Iterator
      */
     public function mult(int | float | self $value) : self
     {
-        if (\is_numeric($value)) {
+        if (is_numeric($value)) {
             return $this->multScalar($value);
         }
 
@@ -606,7 +606,7 @@ class Matrix implements \ArrayAccess, \Iterator
             $max = 0;
 
             for ($j = $i; $j < $n; ++$j) {
-                if (\abs($arr[$j][$i]) > \abs($arr[$max][$i])) {
+                if (abs($arr[$j][$i]) > abs($arr[$max][$i])) {
                     $max = $j;
                 }
             }

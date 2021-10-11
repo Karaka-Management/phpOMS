@@ -267,8 +267,8 @@ class DataMapperAbstractTest extends \PHPUnit\Framework\TestCase
 
         self::assertCount(2, $modelR->hasManyDirect);
         self::assertCount(2, $modelR->hasManyRelations);
-        self::assertEquals(\reset($this->model->hasManyDirect)->string, \reset($modelR->hasManyDirect)->string);
-        self::assertEquals(\reset($this->model->hasManyRelations)->string, \reset($modelR->hasManyRelations)->string);
+        self::assertEquals(reset($this->model->hasManyDirect)->string, reset($modelR->hasManyDirect)->string);
+        self::assertEquals(reset($this->model->hasManyRelations)->string, reset($modelR->hasManyRelations)->string);
         self::assertEquals($this->model->ownsOneSelf->string, $modelR->ownsOneSelf->string);
         self::assertEquals($this->model->belongsToOne->string, $modelR->belongsToOne->string);
     }
@@ -285,7 +285,7 @@ class DataMapperAbstractTest extends \PHPUnit\Framework\TestCase
         $for = ManyToManyDirectModelMapper::getFor($id, 'to');
 
         self::assertEquals(
-            \reset($this->model->hasManyDirect)->string,
+            reset($this->model->hasManyDirect)->string,
             $for[1]->string
         );
     }
@@ -319,13 +319,13 @@ class DataMapperAbstractTest extends \PHPUnit\Framework\TestCase
         $model1           = new BaseModel();
         $model1->datetime = new \DateTime('now');
         $id1              = BaseModelMapper::create($model1);
-        \sleep(1);
+        sleep(1);
         $model2           = new BaseModel();
         $model2->datetime = new \DateTime('now');
         $id2              = BaseModelMapper::create($model2);
 
         $newest = BaseModelMapper::getNewest();
-        self::assertEquals($id2, \reset($newest)->getId());
+        self::assertEquals($id2, reset($newest)->getId());
     }
 
     public function testGetNullModel() : void
@@ -353,8 +353,8 @@ class DataMapperAbstractTest extends \PHPUnit\Framework\TestCase
 
         $found = BaseModelMapper::find('sir');
         self::assertCount(2, $found);
-        self::assertEquals($model2->string, \reset($found)->string);
-        self::assertEquals($model3->string, \end($found)->string);
+        self::assertEquals($model2->string, reset($found)->string);
+        self::assertEquals($model3->string, end($found)->string);
     }
 
     /**
@@ -395,10 +395,10 @@ class DataMapperAbstractTest extends \PHPUnit\Framework\TestCase
 
         $found = BaseModelMapper::with('language', 'de')::getAll();
         self::assertCount(2, $found);
-        self::assertEquals($model1->string, \reset($found)->string);
-        self::assertEquals($model2->string, \end($found)->string);
-        self::assertEquals('cond1_de', \reset($found)->conditional);
-        self::assertEquals('cond2_de', \end($found)->conditional);
+        self::assertEquals($model1->string, reset($found)->string);
+        self::assertEquals($model2->string, end($found)->string);
+        self::assertEquals('cond1_de', reset($found)->conditional);
+        self::assertEquals('cond2_de', end($found)->conditional);
     }
 
     /**
@@ -422,15 +422,15 @@ class DataMapperAbstractTest extends \PHPUnit\Framework\TestCase
 
         self::assertCount(2, $modelR['hasManyDirect']);
         self::assertCount(2, $modelR['hasManyRelations']);
-        self::assertEquals(\reset($this->modelArray['hasManyDirect'])['string'], \reset($modelR['hasManyDirect'])['string']);
-        self::assertEquals(\reset($this->modelArray['hasManyRelations'])['string'], \reset($modelR['hasManyRelations'])['string']);
+        self::assertEquals(reset($this->modelArray['hasManyDirect'])['string'], reset($modelR['hasManyDirect'])['string']);
+        self::assertEquals(reset($this->modelArray['hasManyRelations'])['string'], reset($modelR['hasManyRelations'])['string']);
         self::assertEquals($this->modelArray['ownsOneSelf']['string'], $modelR['ownsOneSelf']['string']);
         self::assertEquals($this->modelArray['belongsToOne']['string'], $modelR['belongsToOne']['string']);
 
         $for = ManyToManyDirectModelMapper::getForArray($id, 'to');
         self::assertEquals(
-            \reset($this->modelArray['hasManyDirect'])['string'],
-            \reset($for)['string']
+            reset($this->modelArray['hasManyDirect'])['string'],
+            reset($for)['string']
         );
 
         self::assertCount(1, BaseModelMapper::getAllArray());
@@ -532,7 +532,7 @@ class DataMapperAbstractTest extends \PHPUnit\Framework\TestCase
 
         $count1 = \count($this->model->hasManyRelations);
 
-        BaseModelMapper::deleteRelation('hasManyRelations', $id1, \reset($this->model->hasManyRelations)->id);
+        BaseModelMapper::deleteRelation('hasManyRelations', $id1, reset($this->model->hasManyRelations)->id);
 
         BaseModelMapper::clearCache();
         $base = BaseModelMapper::get($id1);

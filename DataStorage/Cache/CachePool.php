@@ -96,7 +96,7 @@ final class CachePool implements DataStoragePoolInterface
         }
 
         if (empty($key)) {
-            return \reset($this->pool);
+            return reset($this->pool);
         }
 
         return $this->pool[$key];

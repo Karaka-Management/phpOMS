@@ -38,7 +38,7 @@ class SystemTypeTest extends \PHPUnit\Framework\TestCase
      */
     public function testUnique() : void
     {
-        self::assertEquals(SystemType::getConstants(), \array_unique(SystemType::getConstants()));
+        self::assertEquals(SystemType::getConstants(), array_unique(SystemType::getConstants()));
     }
 
     /**

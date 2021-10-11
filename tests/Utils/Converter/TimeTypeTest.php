@@ -36,7 +36,7 @@ class TimeTypeTest extends \PHPUnit\Framework\TestCase
      */
     public function testUnique() : void
     {
-        self::assertEquals(TimeType::getConstants(), \array_unique(TimeType::getConstants()));
+        self::assertEquals(TimeType::getConstants(), array_unique(TimeType::getConstants()));
     }
 
     /**

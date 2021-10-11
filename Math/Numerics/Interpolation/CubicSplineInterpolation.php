@@ -157,7 +157,7 @@ final class CubicSplineInterpolation implements InterpolationInterface
             }
         }
 
-        $xPos = \max($xPos - 1, 0);
+        $xPos = max($xPos - 1, 0);
         $h    = $x - $this->points[$xPos]['x'];
 
         if ($x < $this->points[0]['x']) {

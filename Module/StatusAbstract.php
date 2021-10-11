@@ -90,19 +90,19 @@ abstract class StatusAbstract
      */
     protected static function installRoutesHooks(string $destRoutePath, string $srcRoutePath) : void
     {
-        if (!\is_file($srcRoutePath)) {
+        if (!is_file($srcRoutePath)) {
             return;
         }
 
-        if (!\is_file($destRoutePath)) {
-            \file_put_contents($destRoutePath, '<?php return [];');
+        if (!is_file($destRoutePath)) {
+            file_put_contents($destRoutePath, '<?php return [];');
         }
 
-        if (!\is_file($destRoutePath)) {
+        if (!is_file($destRoutePath)) {
             throw new PathException($destRoutePath); // @codeCoverageIgnore
         }
 
-        if (!\is_writable($destRoutePath)) {
+        if (!is_writable($destRoutePath)) {
             throw new PermissionException($destRoutePath); // @codeCoverageIgnore
         }
 
@@ -111,9 +111,9 @@ abstract class StatusAbstract
         /** @noinspection PhpIncludeInspection */
         $moduleRoutes = include $srcRoutePath;
 
-        $appRoutes = \array_merge_recursive($appRoutes, $moduleRoutes);
+        $appRoutes = array_merge_recursive($appRoutes, $moduleRoutes);
 
-        \file_put_contents($destRoutePath, '<?php return ' . ArrayParser::serializeArray($appRoutes) . ';', \LOCK_EX);
+        file_put_contents($destRoutePath, '<?php return ' . ArrayParser::serializeArray($appRoutes) . ';', \LOCK_EX);
     }
 
     /**
@@ -153,17 +153,17 @@ abstract class StatusAbstract
         foreach ($directories as $child) {
             if ($child instanceof Directory) {
                 foreach ($child as $file) {
-                    if (!\is_dir(__DIR__ . '/../../' . $child->getName() . '/' . \basename($file->getName(), '.php'))
-                        || ($appInfo !== null && \basename($file->getName(), '.php') !== $appInfo->getInternalName())
+                    if (!is_dir(__DIR__ . '/../../' . $child->getName() . '/' . basename($file->getName(), '.php'))
+                        || ($appInfo !== null && basename($file->getName(), '.php') !== $appInfo->getInternalName())
                     ) {
                         continue;
                     }
 
-                    self::installRoutesHooks(__DIR__ . '/../../' . $child->getName() . '/' . \basename($file->getName(), '.php') . '/' . $type . '.php', $file->getPath());
+                    self::installRoutesHooks(__DIR__ . '/../../' . $child->getName() . '/' . basename($file->getName(), '.php') . '/' . $type . '.php', $file->getPath());
                 }
             } elseif ($child instanceof File) {
-                if (!\is_dir(__DIR__ . '/../../' . $child->getName())
-                    || ($appInfo !== null && \basename($child->getName(), '.php') !== $appInfo->getInternalName())
+                if (!is_dir(__DIR__ . '/../../' . $child->getName())
+                    || ($appInfo !== null && basename($child->getName(), '.php') !== $appInfo->getInternalName())
                 ) {
                     continue;
                 }
@@ -222,17 +222,17 @@ abstract class StatusAbstract
         foreach ($directories as $child) {
             if ($child instanceof Directory) {
                 foreach ($child as $file) {
-                    if (!\is_dir(__DIR__ . '/../../' . $child->getName() . '/' . \basename($file->getName(), '.php'))
-                        || ($appInfo !== null && \basename($file->getName(), '.php') !== $appInfo->getInternalName())
+                    if (!is_dir(__DIR__ . '/../../' . $child->getName() . '/' . basename($file->getName(), '.php'))
+                        || ($appInfo !== null && basename($file->getName(), '.php') !== $appInfo->getInternalName())
                     ) {
                         continue;
                     }
 
-                    self::uninstallRoutesHooks(__DIR__ . '/../../' . $child->getName() . '/' . \basename($file->getName(), '.php') . '/'. $type . '.php', $file->getPath());
+                    self::uninstallRoutesHooks(__DIR__ . '/../../' . $child->getName() . '/' . basename($file->getName(), '.php') . '/'. $type . '.php', $file->getPath());
                 }
             } elseif ($child instanceof File) {
-                if (!\is_dir(__DIR__ . '/../../' . $child->getName())
-                    || ($appInfo !== null && \basename($child->getName(), '.php') !== $appInfo->getInternalName())
+                if (!is_dir(__DIR__ . '/../../' . $child->getName())
+                    || ($appInfo !== null && basename($child->getName(), '.php') !== $appInfo->getInternalName())
                 ) {
                     continue;
                 }
@@ -256,17 +256,17 @@ abstract class StatusAbstract
      */
     protected static function uninstallRoutesHooks(string $destRoutePath, string $srcRoutePath) : void
     {
-        if (!\is_file($destRoutePath)
-            || !\is_file($srcRoutePath)
+        if (!is_file($destRoutePath)
+            || !is_file($srcRoutePath)
         ) {
             return;
         }
 
-        if (!\is_file($destRoutePath)) {
+        if (!is_file($destRoutePath)) {
             throw new PathException($destRoutePath); // @codeCoverageIgnore
         }
 
-        if (!\is_writable($destRoutePath)) {
+        if (!is_writable($destRoutePath)) {
             throw new PermissionException($destRoutePath); // @codeCoverageIgnore
         }
 
@@ -277,7 +277,7 @@ abstract class StatusAbstract
 
         $appRoutes = ArrayUtils::array_diff_assoc_recursive($appRoutes, $moduleRoutes);
 
-        \file_put_contents($destRoutePath, '<?php return ' . ArrayParser::serializeArray($appRoutes) . ';', \LOCK_EX);
+        file_put_contents($destRoutePath, '<?php return ' . ArrayParser::serializeArray($appRoutes) . ';', \LOCK_EX);
     }
 
     /**

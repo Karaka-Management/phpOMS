@@ -36,7 +36,7 @@ class OrderTypeTest extends \PHPUnit\Framework\TestCase
      */
     public function testUnique() : void
     {
-        self::assertEquals(OrderType::getConstants(), \array_unique(OrderType::getConstants()));
+        self::assertEquals(OrderType::getConstants(), array_unique(OrderType::getConstants()));
     }
 
     /**

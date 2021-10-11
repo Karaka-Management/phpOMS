@@ -31,6 +31,6 @@ abstract class DateTime extends ValidatorAbstract
      */
     public static function isValid(mixed $value, array $constraints = null) : bool
     {
-        return (bool) \strtotime($value);
+        return (bool) strtotime($value);
     }
 }

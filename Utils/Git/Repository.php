@@ -69,7 +69,7 @@ class Repository
      */
     public function __construct(string $path = '')
     {
-        if (\is_dir($path)) {
+        if (is_dir($path)) {
             $this->setPath($path);
         }
 
@@ -89,16 +89,16 @@ class Repository
      */
     private function setPath(string $path) : void
     {
-        if (!\is_dir($path) || \realpath($path) === false) {
+        if (!is_dir($path) || realpath($path) === false) {
             throw new PathException($path);
         }
 
-        $this->path = \realpath($path);
+        $this->path = realpath($path);
 
-        if (\is_dir($this->path . '/.git') && \is_dir($this->path . '/.git')) {
+        if (is_dir($this->path . '/.git') && is_dir($this->path . '/.git')) {
             $this->bare = false;
-        } elseif (\is_file($this->path . '/config')) { // Is this a bare repo?
-            $parseIni = \parse_ini_file($this->path . '/config');
+        } elseif (is_file($this->path . '/config')) { // Is this a bare repo?
+            $parseIni = parse_ini_file($this->path . '/config');
 
             if ($parseIni !== false && $parseIni['bare']) {
                 $this->bare = true;
@@ -128,15 +128,15 @@ class Repository
     public function getActiveBranch() : Branch
     {
         $branches = $this->getBranches();
-        $active   = \preg_grep('/^\*/', $branches);
+        $active   = preg_grep('/^\*/', $branches);
 
         if (!\is_array($active)) {
             return new Branch();
         }
 
-        \reset($active);
+        reset($active);
 
-        return new Branch(\current($active));
+        return new Branch(current($active));
     }
 
     /**
@@ -152,7 +152,7 @@ class Repository
         $result   = [];
 
         foreach ($branches as $key => $branch) {
-            $branch = \trim($branch, '* ');
+            $branch = trim($branch, '* ');
 
             if ($branch !== '') {
                 $result[] = $branch;
@@ -175,14 +175,14 @@ class Repository
      */
     private function run(string $cmd) : array
     {
-        if (\strtolower((string) \substr(\PHP_OS, 0, 3)) == 'win') {
-            $cmd = 'cd ' . \escapeshellarg(\dirname(Git::getBin()))
-                . ' && ' . \basename(Git::getBin())
-                . ' -C ' . \escapeshellarg($this->path) . ' '
+        if (strtolower((string) substr(\PHP_OS, 0, 3)) == 'win') {
+            $cmd = 'cd ' . escapeshellarg(\dirname(Git::getBin()))
+                . ' && ' . basename(Git::getBin())
+                . ' -C ' . escapeshellarg($this->path) . ' '
                 . $cmd;
         } else {
-            $cmd = \escapeshellarg(Git::getBin())
-                . ' -C ' . \escapeshellarg($this->path) . ' '
+            $cmd = escapeshellarg(Git::getBin())
+                . ' -C ' . escapeshellarg($this->path) . ' '
                 . $cmd;
         }
 
@@ -192,26 +192,26 @@ class Repository
             2 => ['pipe', 'w'],
         ];
 
-        $resource = \proc_open($cmd, $desc, $pipes, $this->path, null);
+        $resource = proc_open($cmd, $desc, $pipes, $this->path, null);
 
         if ($resource === false) {
             throw new \Exception();
         }
 
-        $stdout = \stream_get_contents($pipes[1]);
-        $stderr = \stream_get_contents($pipes[2]);
+        $stdout = stream_get_contents($pipes[1]);
+        $stderr = stream_get_contents($pipes[2]);
 
         foreach ($pipes as $pipe) {
-            \fclose($pipe);
+            fclose($pipe);
         }
 
-        $status = \proc_close($resource);
+        $status = proc_close($resource);
 
         if ($status == -1) {
             throw new \Exception((string) $stderr);
         }
 
-        return $this->parseLines(\trim($stdout === false ? '' : $stdout));
+        return $this->parseLines(trim($stdout === false ? '' : $stdout));
     }
 
     /**
@@ -225,7 +225,7 @@ class Repository
      */
     private function parseLines(string $lines) : array
     {
-        $lineArray = \preg_split('/\r\n|\n|\r/', $lines);
+        $lineArray = preg_split('/\r\n|\n|\r/', $lines);
         $lines     = [];
 
         if ($lineArray === false) {
@@ -233,7 +233,7 @@ class Repository
         }
 
         foreach ($lineArray as $key => $line) {
-            $temp = \preg_replace('/\s+/', ' ', \trim($line, ' '));
+            $temp = preg_replace('/\s+/', ' ', trim($line, ' '));
 
             if (!empty($temp)) {
                 $lines[] = $temp;
@@ -256,12 +256,12 @@ class Repository
      */
     public function create(string $source = null) : void
     {
-        if (!\is_dir($this->path) || \is_dir($this->path . '/.git')) {
+        if (!is_dir($this->path) || is_dir($this->path . '/.git')) {
             throw new \Exception('Already repository');
         }
 
         if ($source !== null) {
-            \stripos($source, '//') !== false ? $this->cloneRemote($source) : $this->cloneFrom($source);
+            stripos($source, '//') !== false ? $this->cloneRemote($source) : $this->cloneFrom($source);
 
             return;
         }
@@ -278,7 +278,7 @@ class Repository
      */
     public function status() : string
     {
-        return \implode("\n", $this->run('status'));
+        return implode("\n", $this->run('status'));
     }
 
     /**
@@ -296,7 +296,7 @@ class Repository
     {
         $files = $this->parseFileList($files);
 
-        return \implode("\n", $this->run('add ' . $files . ' -v'));
+        return implode("\n", $this->run('add ' . $files . ' -v'));
     }
 
     /**
@@ -313,7 +313,7 @@ class Repository
     {
         $files = $this->parseFileList($files);
 
-        return \implode("\n", $this->run('rm ' . ($cached ? '--cached ' : '') . $files));
+        return implode("\n", $this->run('rm ' . ($cached ? '--cached ' : '') . $files));
     }
 
     /**
@@ -330,7 +330,7 @@ class Repository
     private function parseFileList(string | array $files) : string
     {
         if (\is_array($files)) {
-            return '"' . \implode('" "', $files) . '"';
+            return '"' . implode('" "', $files) . '"';
         }
 
         return $files;
@@ -348,7 +348,7 @@ class Repository
      */
     public function commit(Commit $commit, bool $all = true) : string
     {
-        return \implode("\n", $this->run('commit ' . ($all ? '-av' : '-v') . ' -m ' . \escapeshellarg($commit->getMessage())));
+        return implode("\n", $this->run('commit ' . ($all ? '-av' : '-v') . ' -m ' . escapeshellarg($commit->getMessage())));
     }
 
     /**
@@ -364,11 +364,11 @@ class Repository
      */
     public function cloneTo(string $target) : string
     {
-        if (!\is_dir($target)) {
+        if (!is_dir($target)) {
             throw new PathException($target);
         }
 
-        return \implode("\n", $this->run('clone --local ' . $this->path . ' ' . $target));
+        return implode("\n", $this->run('clone --local ' . $this->path . ' ' . $target));
     }
 
     /**
@@ -384,11 +384,11 @@ class Repository
      */
     public function cloneFrom(string $source) : string
     {
-        if (!\is_dir($source)) {
+        if (!is_dir($source)) {
             throw new PathException($source);
         }
 
-        return \implode("\n", $this->run('clone --local ' . $source . ' ' . $this->path));
+        return implode("\n", $this->run('clone --local ' . $source . ' ' . $this->path));
     }
 
     /**
@@ -402,7 +402,7 @@ class Repository
      */
     public function cloneRemote(string $source) : string
     {
-        return \implode("\n", $this->run('clone ' . $source . ' ' . $this->path));
+        return implode("\n", $this->run('clone ' . $source . ' ' . $this->path));
     }
 
     /**
@@ -417,7 +417,7 @@ class Repository
      */
     public function clean(bool $dirs = false, bool $force = false) : string
     {
-        return \implode("\n", $this->run('clean' . ($force ? ' -f' : '') . ($dirs ? ' -d' : '')));
+        return implode("\n", $this->run('clean' . ($force ? ' -f' : '') . ($dirs ? ' -d' : '')));
     }
 
     /**
@@ -432,7 +432,7 @@ class Repository
      */
     public function createBranch(Branch $branch, bool $force = false) : string
     {
-        return \implode("\n", $this->run('branch ' . ($force ? '-D' : '-d') . ' ' . $branch->name));
+        return implode("\n", $this->run('branch ' . ($force ? '-D' : '-d') . ' ' . $branch->name));
     }
 
     /**
@@ -446,8 +446,8 @@ class Repository
     {
         if (empty($this->name)) {
             $path       = $this->getDirectoryPath();
-            $path       = \str_replace('\\', '/', $path);
-            $path       = \explode('/', $path);
+            $path       = str_replace('\\', '/', $path);
+            $path       = explode('/', $path);
             $this->name = $path[\count($path) - ($this->bare ? 1 : 2)];
         }
 
@@ -479,7 +479,7 @@ class Repository
         $result   = [];
 
         foreach ($branches as $key => $branch) {
-            $branch = \trim($branch, '* ');
+            $branch = trim($branch, '* ');
 
             if ($branch !== '') {
                 $result[] = $branch;
@@ -500,7 +500,7 @@ class Repository
      */
     public function checkout(Branch $branch) : string
     {
-        $result       = \implode("\n", $this->run('checkout ' . $branch->name));
+        $result       = implode("\n", $this->run('checkout ' . $branch->name));
         $this->branch = $branch;
 
         return $result;
@@ -517,7 +517,7 @@ class Repository
      */
     public function merge(Branch $branch) : string
     {
-        return \implode("\n", $this->run('merge ' . $branch->name . ' --no-ff'));
+        return implode("\n", $this->run('merge ' . $branch->name . ' --no-ff'));
     }
 
     /**
@@ -529,7 +529,7 @@ class Repository
      */
     public function fetch() : string
     {
-        return \implode("\n", $this->run('fetch'));
+        return implode("\n", $this->run('fetch'));
     }
 
     /**
@@ -543,7 +543,7 @@ class Repository
      */
     public function createTag(Tag $tag) : string
     {
-        return \implode("\n", $this->run('tag -a ' . $tag->getName() . ' -m ' . \escapeshellarg($tag->getMessage())));
+        return implode("\n", $this->run('tag -a ' . $tag->getName() . ' -m ' . escapeshellarg($tag->getMessage())));
     }
 
     /**
@@ -580,9 +580,9 @@ class Repository
      */
     public function push(string $remote, Branch $branch) : string
     {
-        $remote = \escapeshellarg($remote);
+        $remote = escapeshellarg($remote);
 
-        return \implode("\n", $this->run('push --tags ' . $remote . ' ' . $branch->name));
+        return implode("\n", $this->run('push --tags ' . $remote . ' ' . $branch->name));
     }
 
     /**
@@ -597,9 +597,9 @@ class Repository
      */
     public function pull(string $remote, Branch $branch) : string
     {
-        $remote = \escapeshellarg($remote);
+        $remote = escapeshellarg($remote);
 
-        return \implode("\n", $this->run('pull ' . $remote . ' ' . $branch->name));
+        return implode("\n", $this->run('pull ' . $remote . ' ' . $branch->name));
     }
 
     /**
@@ -613,7 +613,7 @@ class Repository
      */
     public function setDescription(string $description) : void
     {
-        \file_put_contents($this->getDirectoryPath(), $description);
+        file_put_contents($this->getDirectoryPath(), $description);
     }
 
     /**
@@ -625,7 +625,7 @@ class Repository
      */
     public function getDescription() : string
     {
-        return (string) \file_get_contents($this->getDirectoryPath() . '/description');
+        return (string) file_get_contents($this->getDirectoryPath() . '/description');
     }
 
     /**
@@ -665,22 +665,22 @@ class Repository
                 continue;
             }
 
-            if (!\is_dir($path = $this->getDirectoryPath() . ($this->bare ? '/' : '/../') . $line)) {
+            if (!is_dir($path = $this->getDirectoryPath() . ($this->bare ? '/' : '/../') . $line)) {
                 return 0;
             }
 
-            $fh = \fopen($path, 'r');
+            $fh = fopen($path, 'r');
 
             if (!$fh) {
                 return 0;
             }
 
-            while (!\feof($fh)) {
-                \fgets($fh);
+            while (!feof($fh)) {
+                fgets($fh);
                 ++$loc;
             }
 
-            \fclose($fh);
+            fclose($fh);
         }
 
         return $loc;
@@ -710,9 +710,9 @@ class Repository
         $contributors = [];
 
         foreach ($lines as $line) {
-            \preg_match('/^[0-9]*/', $line, $matches);
+            preg_match('/^[0-9]*/', $line, $matches);
 
-            $author      = \substr($line, \strlen($matches[0]) + 1);
+            $author      = substr($line, \strlen($matches[0]) + 1);
             $contributor = new Author($author === false ? '' : $author);
             $contributor->setCommitCount($this->getCommitsCount($start, $end)[$contributor->name]);
 
@@ -750,9 +750,9 @@ class Repository
         $commits = [];
 
         foreach ($lines as $line) {
-            \preg_match('/^[0-9]*/', $line, $matches);
+            preg_match('/^[0-9]*/', $line, $matches);
 
-            $temp = \substr($line, \strlen($matches[0]) + 1);
+            $temp = substr($line, \strlen($matches[0]) + 1);
             if ($temp !== false) {
                 $commits[$temp] = (int) $matches[0];
             }
@@ -784,14 +784,14 @@ class Repository
 
         $addremove = ['added' => 0, 'removed' => 0];
         $lines     = $this->run(
-            'log --author=' . \escapeshellarg($author->name)
+            'log --author=' . escapeshellarg($author->name)
             . ' --since="' . $start->format('Y-m-d')
             . '" --before="' . $end->format('Y-m-d')
             . '" --pretty=tformat: --numstat'
         );
 
         foreach ($lines as $line) {
-            $nums = \explode(' ', $line);
+            $nums = explode(' ', $line);
 
             $addremove['added']   += $nums[0];
             $addremove['removed'] += $nums[1];
@@ -809,7 +809,7 @@ class Repository
      */
     public function getRemote() : string
     {
-        return \implode("\n", $this->run('config --get remote.origin.url'));
+        return implode("\n", $this->run('config --get remote.origin.url'));
     }
 
     /**
@@ -836,7 +836,7 @@ class Repository
         if ($author === null) {
             $author = '';
         } else {
-            $author = ' --author=' . \escapeshellarg($author->name) . '';
+            $author = ' --author=' . escapeshellarg($author->name) . '';
         }
 
         $lines = $this->run(
@@ -848,7 +848,7 @@ class Repository
         $commits = [];
 
         for ($i = 0; $i < $count; ++$i) {
-            $match = \preg_match('/[0-9ABCDEFabcdef]{40}/', $lines[$i], $matches);
+            $match = preg_match('/[0-9ABCDEFabcdef]{40}/', $lines[$i], $matches);
 
             if ($match !== false && $match !== 0) {
                 $commit                    = $this->getCommit($matches[0]);
@@ -872,14 +872,14 @@ class Repository
      */
     public function getCommit(string $commit) : Commit
     {
-        $lines = $this->run('show --name-only ' . \escapeshellarg($commit));
+        $lines = $this->run('show --name-only ' . escapeshellarg($commit));
         $count = \count($lines);
 
         if (empty($lines)) {
             return new NullCommit();
         }
 
-        \preg_match('/[0-9ABCDEFabcdef]{40}/', $lines[0], $matches);
+        preg_match('/[0-9ABCDEFabcdef]{40}/', $lines[0], $matches);
 
         if (!isset($matches[0]) || \strlen($matches[0]) !== 40) {
             throw new \Exception('Invalid commit id');
@@ -889,21 +889,21 @@ class Repository
             return new Commit();
         }
 
-        $author = \explode(':', $lines[1] ?? '');
+        $author = explode(':', $lines[1] ?? '');
         if (\count($author) < 2) {
             $author = ['none', 'none'];
         } else {
-            $author = \explode('<', \trim($author[1] ?? ''));
+            $author = explode('<', trim($author[1] ?? ''));
         }
 
-        $date = \substr($lines[2] ?? '', 6);
+        $date = substr($lines[2] ?? '', 6);
         if ($date === false) {
             $date = 'now';
         }
 
         $commit = new Commit($matches[0]);
-        $commit->setAuthor(new Author(\trim($author[0] ?? ''), \rtrim($author[1] ?? '', '>')));
-        $commit->setDate(new \DateTime(\trim($date ?? 'now')));
+        $commit->setAuthor(new Author(trim($author[0] ?? ''), rtrim($author[1] ?? '', '>')));
+        $commit->setDate(new \DateTime(trim($date ?? 'now')));
         $commit->setMessage($lines[3]);
         $commit->setTag(new Tag());
         $commit->setRepository($this);
@@ -935,7 +935,7 @@ class Repository
             return new NullCommit();
         }
 
-        \preg_match('/[0-9ABCDEFabcdef]{40}/', $lines[0], $matches);
+        preg_match('/[0-9ABCDEFabcdef]{40}/', $lines[0], $matches);
 
         if (!isset($matches[0]) || \strlen($matches[0]) !== 40) {
             throw new \Exception('Invalid commit id');

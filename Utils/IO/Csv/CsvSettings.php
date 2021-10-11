@@ -39,7 +39,7 @@ class CsvSettings
     {
         $results = [];
         $i       = 0;
-        $line    = \fgets($file);
+        $line    = fgets($file);
 
         if ($line === false) {
             return ';'; // @codeCoverageIgnore
@@ -50,7 +50,7 @@ class CsvSettings
 
             foreach ($delimiters as $delimiter) {
                 $regExp = '/[' . $delimiter . ']/';
-                $fields = \preg_split($regExp, $line);
+                $fields = preg_split($regExp, $line);
 
                 if ($fields === false) {
                     return ';'; // @codeCoverageIgnore
@@ -65,12 +65,12 @@ class CsvSettings
                 }
             }
 
-            $line = \fgets($file);
+            $line = fgets($file);
         }
 
-        \rewind($file);
+        rewind($file);
 
-        $results = \array_keys($results, \max($results));
+        $results = array_keys($results, max($results));
 
         return $results[0];
     }
@@ -89,14 +89,14 @@ class CsvSettings
     public static function getStringDelimiter(string $content, int $checkLines = 2, array $delimiters = [',', "\t", ';', '|', ':']) : string
     {
         $results = [];
-        $lines   = \explode("\n", $content);
+        $lines   = explode("\n", $content);
         $i       = 0;
 
         do {
             $line = $lines[$i];
             foreach ($delimiters as $delimiter) {
                 $regExp = '/[' . $delimiter . ']/';
-                $fields = \preg_split($regExp, $line);
+                $fields = preg_split($regExp, $line);
 
                 if ($fields === false) {
                     return ';'; // @codeCoverageIgnore
@@ -114,7 +114,7 @@ class CsvSettings
             ++$i;
         } while ($i < $checkLines);
 
-        $results = \array_keys($results, \max($results));
+        $results = array_keys($results, max($results));
 
         return $results[0];
     }

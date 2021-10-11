@@ -66,7 +66,7 @@ final class HttpHeader extends HeaderAbstract
             return false;
         }
 
-        $key = \strtolower($key);
+        $key = strtolower($key);
 
         if (!$overwrite && isset($this->header[$key])) {
             return false;
@@ -113,7 +113,7 @@ final class HttpHeader extends HeaderAbstract
      */
     public static function isSecurityHeader(string $key) : bool
     {
-        $key = \strtolower($key);
+        $key = strtolower($key);
 
         return $key === 'content-security-policy'
             || $key === 'x-xss-protection'
@@ -144,20 +144,20 @@ final class HttpHeader extends HeaderAbstract
 
         if (\function_exists('getallheaders')) {
             // @codeCoverageIgnoreStart
-            self::$serverHeaders = \getallheaders();
+            self::$serverHeaders = getallheaders();
             // @codeCoverageIgnoreEnd
         }
 
         foreach ($_SERVER as $name => $value) {
-            $part = \substr($name, 5);
+            $part = substr($name, 5);
             if ($part === 'HTTP_') {
                 self::$serverHeaders[
-                    \str_replace(
+                    str_replace(
                         ' ',
                         '-',
-                        \ucwords(
-                            \strtolower(
-                                \str_replace('_', ' ', $part)
+                        ucwords(
+                            strtolower(
+                                str_replace('_', ' ', $part)
                             )
                         )
                     )
@@ -207,7 +207,7 @@ final class HttpHeader extends HeaderAbstract
      */
     public function get(string $key = null) : array
     {
-        return $key === null ? $this->header : ($this->header[\strtolower($key)] ?? []);
+        return $key === null ? $this->header : ($this->header[strtolower($key)] ?? []);
     }
 
     /**
@@ -234,11 +234,11 @@ final class HttpHeader extends HeaderAbstract
 
         foreach ($this->header as $name => $arr) {
             foreach ($arr as $value) {
-                \header($name . ': ' . $value);
+                header($name . ': ' . $value);
             }
         }
 
-        \header("X-Powered-By: hidden");
+        header("X-Powered-By: hidden");
 
         $this->lock();
     }
@@ -280,7 +280,7 @@ final class HttpHeader extends HeaderAbstract
     {
         $this->set('HTTP', 'HTTP/1.0 403 Forbidden');
         $this->set('Status', 'Status: HTTP/1.0 403 Forbidden');
-        \http_response_code(403);
+        http_response_code(403);
     }
 
     /**
@@ -294,7 +294,7 @@ final class HttpHeader extends HeaderAbstract
     {
         $this->set('HTTP', 'HTTP/1.0 404 Not Found');
         $this->set('Status', 'Status: HTTP/1.0 404 Not Found');
-        \http_response_code(404);
+        http_response_code(404);
     }
 
     /**
@@ -308,7 +308,7 @@ final class HttpHeader extends HeaderAbstract
     {
         $this->set('HTTP', 'HTTP/1.0 406 Not acceptable');
         $this->set('Status', 'Status: 406 Not acceptable');
-        \http_response_code(406);
+        http_response_code(406);
     }
 
     /**
@@ -320,7 +320,7 @@ final class HttpHeader extends HeaderAbstract
      */
     private function generate407() : void
     {
-        \http_response_code(407);
+        http_response_code(407);
     }
 
     /**
@@ -335,7 +335,7 @@ final class HttpHeader extends HeaderAbstract
         $this->set('HTTP', 'HTTP/1.0 503 Service Temporarily Unavailable');
         $this->set('Status', 'Status: 503 Service Temporarily Unavailable');
         $this->set('Retry-After', 'Retry-After: 300');
-        \http_response_code(503);
+        http_response_code(503);
     }
 
     /**
@@ -350,6 +350,6 @@ final class HttpHeader extends HeaderAbstract
         $this->set('HTTP', 'HTTP/1.0 500 Internal Server Error');
         $this->set('Status', 'Status: 500 Internal Server Error');
         $this->set('Retry-After', 'Retry-After: 300');
-        \http_response_code(500);
+        http_response_code(500);
     }
 }

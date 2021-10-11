@@ -72,7 +72,7 @@ trait PermissionHandlingTrait
     {
         foreach ($permissions as $permission) {
             if (\is_array($permission)) {
-                $this->permissions = \array_merge($this->permissions, $permission);
+                $this->permissions = array_merge($this->permissions, $permission);
             } else {
                 $this->permissions[] = $permission;
             }
@@ -155,7 +155,7 @@ trait PermissionHandlingTrait
         int $component = null
     ) : bool
     {
-        $app = $app !== null ? \strtolower($app) : $app;
+        $app = $app !== null ? strtolower($app) : $app;
 
         foreach ($this->permissions as $p) {
             if ($p->hasPermission($permission, $unit, $app, $module, $type, $element, $component)) {

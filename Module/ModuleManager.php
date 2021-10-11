@@ -195,12 +195,12 @@ final class ModuleManager
             foreach ($active as $module) {
                 $path = $this->modulePath . $module . '/info.json';
 
-                if (!\is_file($path)) {
+                if (!is_file($path)) {
                     continue;
                 }
 
-                $content = \file_get_contents($path);
-                $json    = \json_decode($content === false ? '[]' : $content, true);
+                $content = file_get_contents($path);
+                $json    = json_decode($content === false ? '[]' : $content, true);
 
                 $this->active[$json['name']['internal']] = $json === false ? [] : $json;
             }
@@ -263,8 +263,8 @@ final class ModuleManager
     public function getAllModules() : array
     {
         if (empty($this->all)) {
-            \chdir($this->modulePath);
-            $files = \glob('*', \GLOB_ONLYDIR);
+            chdir($this->modulePath);
+            $files = glob('*', \GLOB_ONLYDIR);
 
             if ($files === false) {
                 return $this->all; // @codeCoverageIgnore
@@ -338,7 +338,7 @@ final class ModuleManager
      */
     public function loadInfo(string $module) : ?ModuleInfo
     {
-        $path = \realpath($oldPath = $this->modulePath . $module . '/info.json');
+        $path = realpath($oldPath = $this->modulePath . $module . '/info.json');
         if ($path === false) {
             return null;
         }
@@ -498,7 +498,7 @@ final class ModuleManager
             return true;
         }
 
-        if (!\is_file($this->modulePath . $module . '/Admin/Installer.php')) {
+        if (!is_file($this->modulePath . $module . '/Admin/Installer.php')) {
             return false;
         }
 
@@ -546,7 +546,7 @@ final class ModuleManager
             return false;
         }
 
-        if (!\is_file($this->modulePath . $module . '/Admin/Uninstaller.php')) {
+        if (!is_file($this->modulePath . $module . '/Admin/Uninstaller.php')) {
             return false;
         }
 
@@ -624,11 +624,11 @@ final class ModuleManager
      */
     public function installProviding(string $from, string $for) : void
     {
-        if (!\is_file(__DIR__ . '/../..' . $from . '/Admin/Install/' . $for . '.php')) {
+        if (!is_file(__DIR__ . '/../..' . $from . '/Admin/Install/' . $for . '.php')) {
             return;
         }
 
-        $from = \str_replace('/', '\\', $from);
+        $from = str_replace('/', '\\', $from);
 
         $class = $from . '\\Admin\\Install\\' . $for;
         $class::install($this->modulePath, $this->app);

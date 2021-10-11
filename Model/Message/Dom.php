@@ -147,7 +147,7 @@ final class Dom implements \Serializable, ArrayableInterface
      */
     public function unserialize($raw) : void
     {
-        $unserialized = \json_decode($raw, true);
+        $unserialized = json_decode($raw, true);
 
         $this->delay    = $unserialized['time'] ?? 0;
         $this->selector = $unserialized['selector'] ?? '';
@@ -164,7 +164,7 @@ final class Dom implements \Serializable, ArrayableInterface
      */
     public function __toString()
     {
-        return (string) \json_encode($this->toArray());
+        return (string) json_encode($this->toArray());
     }
 
     /**

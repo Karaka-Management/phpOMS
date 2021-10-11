@@ -50,17 +50,17 @@ class Phone
                 $countries = ['de' => 49, 'us' => 1];
             }
 
-            $numberString = \str_replace(
+            $numberString = str_replace(
                 '$1',
-                (string) $countries[\array_keys($countries)[\mt_rand(0, \count($countries) - 1)]],
+                (string) $countries[array_keys($countries)[mt_rand(0, \count($countries) - 1)]],
                 $numberString
             );
         }
 
-        $numberParts = \substr_count($struct, '$');
+        $numberParts = substr_count($struct, '$');
 
         for ($i = ($isInt ? 2 : 1); $i <= $numberParts; ++$i) {
-            $numberString = \str_replace(
+            $numberString = str_replace(
                 '$' . $i,
                 StringUtils::generateString(
                     $size[$i - 1][0] ?? 0,

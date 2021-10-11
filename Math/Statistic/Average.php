@@ -189,12 +189,12 @@ final class Average
         }
 
         if ($offset > 0) {
-            \sort($values);
+            sort($values);
             $values = \array_slice($values, $offset, -$offset);
             $count -= $offset * 2;
         }
 
-        return \array_sum($values) / $count;
+        return array_sum($values) / $count;
     }
 
     /**
@@ -212,14 +212,14 @@ final class Average
     public static function mode(array $values, int $offset = 0) : float
     {
         if ($offset > 0) {
-            \sort($values);
+            sort($values);
             $values = \array_slice($values, $offset, -$offset);
         }
 
-        $count = \array_count_values($values);
-        $best  = \max($count);
+        $count = array_count_values($values);
+        $best  = max($count);
 
-        return (float) (\array_keys($count, $best)[0] ?? 0.0);
+        return (float) (array_keys($count, $best)[0] ?? 0.0);
     }
 
     /**
@@ -236,14 +236,14 @@ final class Average
      */
     public static function median(array $values, int $offset = 0) : float
     {
-        \sort($values);
+        sort($values);
 
         if ($offset > 0) {
             $values = \array_slice($values, $offset, -$offset);
         }
 
         $count     = \count($values);
-        $middleval = (int) \floor(($count - 1) / 2);
+        $middleval = (int) floor(($count - 1) / 2);
 
         if ($count % 2) {
             $median = $values[$middleval];
@@ -278,12 +278,12 @@ final class Average
         }
 
         if ($offset > 0) {
-            \sort($values);
+            sort($values);
             $values = \array_slice($values, $offset, -$offset);
             $count -= $offset * 2;
         }
 
-        return \pow(\array_product($values), 1 / $count);
+        return pow(array_product($values), 1 / $count);
     }
 
     /**
@@ -308,7 +308,7 @@ final class Average
         }
 
         if ($offset > 0) {
-            \sort($values);
+            sort($values);
             $values = \array_slice($values, $offset, -$offset);
             $count -= $offset * 2;
         }
@@ -345,7 +345,7 @@ final class Average
         }
 
         if ($offset > 0) {
-            \sort($angles);
+            sort($angles);
             $angles = \array_slice($angles, $offset, -$offset);
             $count -= $offset * 2;
         }
@@ -354,14 +354,14 @@ final class Average
         $x = 0;
 
         for ($i = 0; $i < $count; ++$i) {
-            $x += \cos(\deg2rad($angles[$i]));
-            $y += \sin(\deg2rad($angles[$i]));
+            $x += cos(deg2rad($angles[$i]));
+            $y += sin(deg2rad($angles[$i]));
         }
 
         $x /= $count;
         $y /= $count;
 
-        return \rad2deg(\atan2($y, $x));
+        return rad2deg(atan2($y, $x));
     }
 
     /**
@@ -384,7 +384,7 @@ final class Average
         }
 
         if ($offset > 0) {
-            \sort($angles);
+            sort($angles);
             $angles = \array_slice($angles, $offset, -$offset);
             $count -= $offset * 2;
         }
@@ -393,13 +393,13 @@ final class Average
         $coss = 0.0;
 
         foreach ($angles as $a) {
-            $sins += \sin(\deg2rad($a));
-            $coss += \cos(\deg2rad($a));
+            $sins += sin(deg2rad($a));
+            $coss += cos(deg2rad($a));
         }
 
         $avgsin = $sins / (0.0 + $count);
         $avgcos = $coss / (0.0 + $count);
-        $avgang = \rad2deg(\atan2($avgsin, $avgcos));
+        $avgang = rad2deg(atan2($avgsin, $avgcos));
 
         while ($avgang < 0.0) {
             $avgang += 360.0;

@@ -249,7 +249,7 @@ class Grammar extends GrammarAbstract
         $expression = '';
 
         if (!$first) {
-            $expression = ' ' . \strtoupper($element['boolean']) . ' ';
+            $expression = ' ' . strtoupper($element['boolean']) . ' ';
         }
 
         if (\is_string($element['column'])) {
@@ -257,14 +257,14 @@ class Grammar extends GrammarAbstract
         } elseif ($element['column'] instanceof \Closure) {
             $expression .= $element['column']();
         } elseif ($element['column'] instanceof Where) {
-            $where       = \rtrim($this->compileWhereQuery($element['column']), ';');
-            $expression .= '(' . (\stripos($where, 'WHERE ') === 0 ? \substr($where, 6) : $where) . ')';
+            $where       = rtrim($this->compileWhereQuery($element['column']), ';');
+            $expression .= '(' . (stripos($where, 'WHERE ') === 0 ? substr($where, 6) : $where) . ')';
         } elseif ($element['column'] instanceof Builder) {
-            $expression .= '(' . \rtrim($element['column']->toSql(), ';') . ')';
+            $expression .= '(' . rtrim($element['column']->toSql(), ';') . ')';
         }
 
         if (isset($element['value'])) {
-            $expression .= ' ' . \strtoupper($element['operator']) . ' ' . $this->compileValue($query, $element['value']);
+            $expression .= ' ' . strtoupper($element['operator']) . ' ' . $this->compileValue($query, $element['value']);
         } elseif ($element['value'] === null && !($element['column'] instanceof Builder)) {
             $operator    = $element['operator'] === '=' ? 'IS' : 'IS NOT';
             $expression .= ' ' . $operator . ' ' . $this->compileValue($query, $element['value']);
@@ -340,7 +340,7 @@ class Grammar extends GrammarAbstract
                 $values .= $this->compileValue($query, $val) . ', ';
             }
 
-            return '(' . \rtrim($values, ', ') . ')';
+            return '(' . rtrim($values, ', ') . ')';
         } elseif ($value instanceof \DateTime) {
             return $query->quote($value->format($this->datetimeFormat));
         } elseif ($value === null) {
@@ -348,13 +348,13 @@ class Grammar extends GrammarAbstract
         } elseif (\is_bool($value)) {
             return (string) ((int) $value);
         } elseif (\is_float($value)) {
-            return \rtrim(\rtrim(\number_format($value, 5, '.', ''), '0'), '.');
+            return rtrim(rtrim(number_format($value, 5, '.', ''), '0'), '.');
         } elseif ($value instanceof Column) {
-            return '(' . \rtrim($this->compileColumnQuery($value), ';') . ')';
+            return '(' . rtrim($this->compileColumnQuery($value), ';') . ')';
         } elseif ($value instanceof Builder) {
-            return '(' . \rtrim($value->toSql(), ';') . ')';
+            return '(' . rtrim($value->toSql(), ';') . ')';
         } elseif ($value instanceof \JsonSerializable) {
-            $encoded = \json_encode($value);
+            $encoded = json_encode($value);
 
             return $encoded ? $encoded : 'NULL';
         } elseif ($value instanceof \Serializable) {
@@ -418,13 +418,13 @@ class Grammar extends GrammarAbstract
             } elseif ($join['table'] instanceof \Closure) {
                 $expression .= $join['table']() . (\is_string($join['alias']) ? ' as ' . $join['alias'] : '');
             } elseif ($join['table'] instanceof Builder) {
-                $expression .= '(' . \rtrim($join['table']->toSql(), ';') . ')' . (\is_string($join['alias']) ? ' as ' . $join['alias'] : '');
+                $expression .= '(' . rtrim($join['table']->toSql(), ';') . ')' . (\is_string($join['alias']) ? ' as ' . $join['alias'] : '');
             }
 
             $expression .= $this->compileOn($query, $query->ons[$join['alias'] ?? $table]) . ' ';
         }
 
-        $expression = \rtrim($expression, ', ');
+        $expression = rtrim($expression, ', ');
 
         return $expression;
     }
@@ -472,12 +472,12 @@ class Grammar extends GrammarAbstract
         $expression = '';
 
         if (!$first) {
-            $expression = ' ' . \strtoupper($element['boolean']) . ' ';
+            $expression = ' ' . strtoupper($element['boolean']) . ' ';
         }
 
         if (\is_string($element['column'])) {
             // handle bug when no table is specified in the where column
-            if (\count($query->from) === 1 && \stripos($element['column'], '.') === false) {
+            if (\count($query->from) === 1 && stripos($element['column'], '.') === false) {
                 $element['column'] = $query->from[0] . '.' . $element['column'];
             }
 
@@ -487,11 +487,11 @@ class Grammar extends GrammarAbstract
         } elseif ($element['column'] instanceof Builder) {
             $expression .= '(' . $element['column']->toSql() . ')';
         } elseif ($element['column'] instanceof Where) {
-            $expression .= '(' . \rtrim($this->compileWhereQuery($element['column']), ';') . ')';
+            $expression .= '(' . rtrim($this->compileWhereQuery($element['column']), ';') . ')';
         }
 
         if (isset($element['value'])) {
-            $expression .= ' ' . \strtoupper($element['operator']) . ' ' . $this->compileSystem($element['value']);
+            $expression .= ' ' . strtoupper($element['operator']) . ' ' . $this->compileSystem($element['value']);
         } else {
             $operator    = $element['operator'] === '=' ? 'IS' : 'IS NOT';
             $expression .= ' ' . $operator . ' ' . $this->compileValue($query, $element['value']);
@@ -518,7 +518,7 @@ class Grammar extends GrammarAbstract
             $expression .= $this->compileSystem($group) . ', ';
         }
 
-        $expression = \rtrim($expression, ', ');
+        $expression = rtrim($expression, ', ');
 
         return 'GROUP BY ' . $expression;
     }
@@ -542,7 +542,7 @@ class Grammar extends GrammarAbstract
             $expression .= $this->compileSystem($column) . ' ' . $order . ', ';
         }
 
-        $expression = \rtrim($expression, ', ');
+        $expression = rtrim($expression, ', ');
 
         if ($expression === '') {
             return '';
@@ -612,7 +612,7 @@ class Grammar extends GrammarAbstract
             return '';
         }
 
-        return '(' . \rtrim($cols, ', ') . ')';
+        return '(' . rtrim($cols, ', ') . ')';
     }
 
     /**
@@ -637,7 +637,7 @@ class Grammar extends GrammarAbstract
             return '';
         }
 
-        return 'VALUES ' . \rtrim($vals, ', ');
+        return 'VALUES ' . rtrim($vals, ', ');
     }
 
     /**
@@ -664,6 +664,6 @@ class Grammar extends GrammarAbstract
             return '';
         }
 
-        return 'SET ' . \rtrim($vals, ', ');
+        return 'SET ' . rtrim($vals, ', ');
     }
 }

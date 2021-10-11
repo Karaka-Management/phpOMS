@@ -63,8 +63,8 @@ class GammaDistributionTest extends \PHPUnit\Framework\TestCase
      */
     public function testPdfIntegerScale() : void
     {
-        self::assertEqualsWithDelta(\exp(-1), GammaDistribution::getPdfIntegerScale(1, 1, 1), 0.001);
-        self::assertEqualsWithDelta(3 * \exp(-3 / 4) / 16, GammaDistribution::getPdfIntegerScale(3, 2, 4), 0.001);
+        self::assertEqualsWithDelta(exp(-1), GammaDistribution::getPdfIntegerScale(1, 1, 1), 0.001);
+        self::assertEqualsWithDelta(3 * exp(-3 / 4) / 16, GammaDistribution::getPdfIntegerScale(3, 2, 4), 0.001);
     }
 
     /**
@@ -113,7 +113,7 @@ class GammaDistributionTest extends \PHPUnit\Framework\TestCase
     {
         $alpha = 4;
         $beta  = 2;
-        self::assertEquals($alpha / \pow($beta, 2), GammaDistribution::getVarianceRate($alpha, $beta));
+        self::assertEquals($alpha / pow($beta, 2), GammaDistribution::getVarianceRate($alpha, $beta));
     }
 
     /**
@@ -122,7 +122,7 @@ class GammaDistributionTest extends \PHPUnit\Framework\TestCase
      */
     public function testStandardDeviationScale() : void
     {
-        self::assertEqualsWithDelta(\sqrt(32), GammaDistribution::getStandardDeviationScale(2, 4), 0.001);
+        self::assertEqualsWithDelta(sqrt(32), GammaDistribution::getStandardDeviationScale(2, 4), 0.001);
     }
 
     /**
@@ -133,7 +133,7 @@ class GammaDistributionTest extends \PHPUnit\Framework\TestCase
     {
         $alpha = 4;
         $beta  = 2;
-        self::assertEquals(\sqrt($alpha / \pow($beta, 2)), GammaDistribution::getStandardDeviationRate($alpha, $beta));
+        self::assertEquals(sqrt($alpha / pow($beta, 2)), GammaDistribution::getStandardDeviationRate($alpha, $beta));
     }
 
     /**
@@ -151,7 +151,7 @@ class GammaDistributionTest extends \PHPUnit\Framework\TestCase
      */
     public function testSkewness() : void
     {
-        self::assertEqualsWithDelta(\sqrt(2), GammaDistribution::getSkewness(2, 4), 0.001);
+        self::assertEqualsWithDelta(sqrt(2), GammaDistribution::getSkewness(2, 4), 0.001);
     }
 
     /**
@@ -163,7 +163,7 @@ class GammaDistributionTest extends \PHPUnit\Framework\TestCase
         $theta = 2;
         $t     = 1 / $theta * 0.4;
         $k     = 3;
-        self::assertEquals(\pow(1 - $theta * $t, -$k), GammaDistribution::getMgfScale($k, $t, $theta));
+        self::assertEquals(pow(1 - $theta * $t, -$k), GammaDistribution::getMgfScale($k, $t, $theta));
     }
 
     /**
@@ -175,7 +175,7 @@ class GammaDistributionTest extends \PHPUnit\Framework\TestCase
         $alpha = 4;
         $beta  = 3;
         $t     = 2;
-        self::assertEquals(\pow(1 - $t / $beta, -$alpha), GammaDistribution::getMgfRate($t, $alpha, $beta));
+        self::assertEquals(pow(1 - $t / $beta, -$alpha), GammaDistribution::getMgfRate($t, $alpha, $beta));
     }
 
     /**

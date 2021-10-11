@@ -38,7 +38,7 @@ class GroupStatusTest extends \PHPUnit\Framework\TestCase
      */
     public function testUnique() : void
     {
-        self::assertEquals(GroupStatus::getConstants(), \array_unique(GroupStatus::getConstants()));
+        self::assertEquals(GroupStatus::getConstants(), array_unique(GroupStatus::getConstants()));
     }
 
     /**

@@ -75,7 +75,7 @@ class Iban implements \Serializable
      */
     public static function normalize(string $iban) : string
     {
-        return \strtoupper(\str_replace(' ', '', $iban));
+        return strtoupper(str_replace(' ', '', $iban));
     }
 
     /**
@@ -114,15 +114,15 @@ class Iban implements \Serializable
     private function getSequence(string $sequence) : string
     {
         $country = $this->getCountry();
-        $layout  = \str_replace(' ', '', IbanEnum::getByName('C_' . $country));
-        $start   = \stripos($layout, $sequence);
-        $end     = \strrpos($layout, $sequence);
+        $layout  = str_replace(' ', '', IbanEnum::getByName('C_' . $country));
+        $start   = stripos($layout, $sequence);
+        $end     = strrpos($layout, $sequence);
 
         if ($start === false || $end === false) {
             return '';
         }
 
-        $sequence = \substr($this->iban, $start, $end - $start + 1);
+        $sequence = substr($this->iban, $start, $end - $start + 1);
 
         return $sequence === false ? '' : $sequence;
     }
@@ -136,7 +136,7 @@ class Iban implements \Serializable
      */
     public function getCountry() : string
     {
-        $country = \substr($this->iban, 0, 2);
+        $country = substr($this->iban, 0, 2);
 
         return $country === false ? '?' : $country;
     }
@@ -268,7 +268,7 @@ class Iban implements \Serializable
      */
     public function prettyPrint() : string
     {
-        return \wordwrap($this->iban, 4, ' ', true);
+        return wordwrap($this->iban, 4, ' ', true);
     }
 
     /**

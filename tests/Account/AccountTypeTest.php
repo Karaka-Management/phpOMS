@@ -38,7 +38,7 @@ class AccountTypeTest extends \PHPUnit\Framework\TestCase
      */
     public function testUnique() : void
     {
-        self::assertEquals(AccountType::getConstants(), \array_unique(AccountType::getConstants()));
+        self::assertEquals(AccountType::getConstants(), array_unique(AccountType::getConstants()));
     }
 
     /**

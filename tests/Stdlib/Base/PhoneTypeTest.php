@@ -36,7 +36,7 @@ class PhoneTypeTest extends \PHPUnit\Framework\TestCase
      */
     public function testUnique() : void
     {
-        self::assertEquals(PhoneType::getConstants(), \array_unique(PhoneType::getConstants()));
+        self::assertEquals(PhoneType::getConstants(), array_unique(PhoneType::getConstants()));
     }
 
     /**

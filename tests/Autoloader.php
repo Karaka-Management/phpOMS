@@ -14,7 +14,7 @@ declare(strict_types=1);
 
 namespace Tests\PHPUnit;
 
-\spl_autoload_register('\Tests\PHPUnit\Autoloader::defaultAutoloader');
+spl_autoload_register('\Tests\PHPUnit\Autoloader::defaultAutoloader');
 
 /**
  * Autoloader class.
@@ -39,10 +39,10 @@ class Autoloader
      */
     public static function defaultAutoloader(string $class) : void
     {
-        $class = \ltrim($class, '\\');
-        $class = \str_replace(['_', '\\'], '/', $class);
+        $class = ltrim($class, '\\');
+        $class = str_replace(['_', '\\'], '/', $class);
 
-        if (!\is_file($path = __DIR__ . '/../../' . $class . '.php')) {
+        if (!is_file($path = __DIR__ . '/../../' . $class . '.php')) {
             return;
         }
 
@@ -63,9 +63,9 @@ class Autoloader
      */
     public static function exists(string $class) : bool
     {
-        $class = \ltrim($class, '\\');
-        $class = \str_replace(['_', '\\'], '/', $class);
+        $class = ltrim($class, '\\');
+        $class = str_replace(['_', '\\'], '/', $class);
 
-        return \is_file(__DIR__ . '/../../' . $class . '.php');
+        return is_file(__DIR__ . '/../../' . $class . '.php');
     }
 }

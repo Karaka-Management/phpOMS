@@ -31,7 +31,7 @@ class FileSessionHandlerTest extends \PHPUnit\Framework\TestCase
      */
     protected function setUp() : void
     {
-        if (\is_dir(__DIR__ . '/test')) {
+        if (is_dir(__DIR__ . '/test')) {
             Directory::delete(__DIR__ . '/test');
         }
 
@@ -40,7 +40,7 @@ class FileSessionHandlerTest extends \PHPUnit\Framework\TestCase
 
     protected function tearDown() : void
     {
-        if (\is_dir(__DIR__ . '/test')) {
+        if (is_dir(__DIR__ . '/test')) {
             Directory::delete(__DIR__ . '/test');
         }
     }
@@ -125,7 +125,7 @@ class FileSessionHandlerTest extends \PHPUnit\Framework\TestCase
         self::assertTrue($this->sh->write($id, 'test'));
         self::assertEquals('test', $this->sh->read($id));
 
-        \sleep(2);
+        sleep(2);
 
         $this->sh->gc(0);
         self::assertEquals('', $this->sh->read($id));

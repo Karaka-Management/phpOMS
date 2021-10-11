@@ -33,8 +33,8 @@ class FileCacheTest extends \PHPUnit\Framework\TestCase
      */
     protected function setUp() : void
     {
-        if (\is_dir(__DIR__ . '/Cache')) {
-            \rmdir(__DIR__ . '/Cache');
+        if (is_dir(__DIR__ . '/Cache')) {
+            rmdir(__DIR__ . '/Cache');
         }
 
         $this->cache = new FileCache(__DIR__ . '/Cache');
@@ -44,8 +44,8 @@ class FileCacheTest extends \PHPUnit\Framework\TestCase
     {
         $this->cache->flushAll();
 
-        if (\is_dir(__DIR__ . '/Cache')) {
-            \rmdir(__DIR__ . '/Cache');
+        if (is_dir(__DIR__ . '/Cache')) {
+            rmdir(__DIR__ . '/Cache');
         }
     }
 
@@ -57,7 +57,7 @@ class FileCacheTest extends \PHPUnit\Framework\TestCase
     public function testDefault() : void
     {
         self::assertEquals(CacheType::FILE, $this->cache->getType());
-        self::assertTrue(\is_dir(__DIR__ . '/Cache'));
+        self::assertTrue(is_dir(__DIR__ . '/Cache'));
         self::assertTrue($this->cache->flushAll());
         self::assertEquals(50, $this->cache->getThreshold());
         self::assertEquals('', $this->cache->getCache());
@@ -137,10 +137,10 @@ class FileCacheTest extends \PHPUnit\Framework\TestCase
     public function testExpiredExists() : void
     {
         $this->cache->set('key2', 'testVal2', 2);
-        \sleep(1);
+        sleep(1);
         self::assertTrue($this->cache->exists('key2'));
         self::assertFalse($this->cache->exists('key2', 0));
-        \sleep(3);
+        sleep(3);
         self::assertFalse($this->cache->exists('key2'));
     }
 
@@ -154,17 +154,17 @@ class FileCacheTest extends \PHPUnit\Framework\TestCase
     {
         $this->cache->set('key1', 'testVal1');
         $this->cache->set('key2', 'testVal2');
-        self::assertEquals([], \array_diff(['testVal1', 'testVal2'], $this->cache->getLike('key\d')));
+        self::assertEquals([], array_diff(['testVal1', 'testVal2'], $this->cache->getLike('key\d')));
     }
 
     public function testExpiredGetLike() : void
     {
         $this->cache->set('key1', 'testVal1', 2);
         $this->cache->set('key2', 'testVal2', 2);
-        \sleep(1);
-        self::assertEquals([], \array_diff(['testVal1', 'testVal2'], $this->cache->getLike('key\d')));
+        sleep(1);
+        self::assertEquals([], array_diff(['testVal1', 'testVal2'], $this->cache->getLike('key\d')));
         self::assertEquals([], $this->cache->getLike('key\d', 0));
-        \sleep(3);
+        sleep(3);
         self::assertEquals([], $this->cache->getLike('key\d'));
     }
 
@@ -218,7 +218,7 @@ class FileCacheTest extends \PHPUnit\Framework\TestCase
         $this->cache->set('key1', 'testVal1', 2);
         $this->cache->set('key2', 'testVal2', 2);
 
-        \sleep(1);
+        sleep(1);
 
         self::assertTrue($this->cache->deleteLike('key\d', 0));
         self::assertEquals([], $this->cache->getLike('key\d'));
@@ -234,8 +234,8 @@ class FileCacheTest extends \PHPUnit\Framework\TestCase
     {
         $this->cache->set('key2', 'testVal2', 1);
         self::assertEquals('testVal2', $this->cache->get('key2', 1));
-        \sleep(2);
-        self::assertTrue($this->cache->updateExpire('key2', \time() + 10000));
+        sleep(2);
+        self::assertTrue($this->cache->updateExpire('key2', time() + 10000));
         self::assertEquals('testVal2', $this->cache->get('key2'));
     }
 
@@ -363,7 +363,7 @@ class FileCacheTest extends \PHPUnit\Framework\TestCase
     {
         $this->cache->set('key2', 'testVal2', 1);
         self::assertEquals('testVal2', $this->cache->get('key2', 1));
-        \sleep(2);
+        sleep(2);
         self::assertNull($this->cache->get('key2', 1));
         self::assertNull($this->cache->get('key2')); // this causes a side effect of deleting the outdated cache element!!!
     }
@@ -376,7 +376,7 @@ class FileCacheTest extends \PHPUnit\Framework\TestCase
     public function testForceExpiredInputOutput() : void
     {
         $this->cache->set('key2', 'testVal2', 1);
-        \sleep(2);
+        sleep(2);
         self::assertEquals('testVal2', $this->cache->get('key2', 10));
     }
 
@@ -399,7 +399,7 @@ class FileCacheTest extends \PHPUnit\Framework\TestCase
     public function testDeleteExpired() : void
     {
         $this->cache->set('key4', 'testVal4', 1);
-        \sleep(2);
+        sleep(2);
         self::assertTrue($this->cache->delete('key4', 1));
     }
 
@@ -411,7 +411,7 @@ class FileCacheTest extends \PHPUnit\Framework\TestCase
     public function testForceDeleteUnexpired() : void
     {
         $this->cache->set('key5', 'testVal5', 10000);
-        \sleep(2);
+        sleep(2);
         self::assertFalse($this->cache->delete('key5', 1000000));
         self::assertTrue($this->cache->delete('key5', 1));
     }
@@ -424,7 +424,7 @@ class FileCacheTest extends \PHPUnit\Framework\TestCase
     public function testFlushExpired() : void
     {
         $this->cache->set('key6', 'testVal6', 1);
-        \sleep(2);
+        sleep(2);
 
         $this->cache->flush(0);
         self::assertNull($this->cache->get('key6', 0));

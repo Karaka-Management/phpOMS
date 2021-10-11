@@ -68,21 +68,21 @@ abstract class InstallerAbstract
      */
     public static function installTheme(string $destination, string $theme) : void
     {
-        if (!\is_dir($path = $destination . '/Themes/' . $theme)) {
+        if (!is_dir($path = $destination . '/Themes/' . $theme)) {
             return;
         }
 
-        $dirs = \scandir($path);
+        $dirs = scandir($path);
         if ($dirs === false) {
             return; // @codeCoverageIgnore
         }
 
         foreach ($dirs as $dir) {
-            if (!\is_dir($path. '/' . $dir) || $dir === '.' || $dir === '..') {
+            if (!is_dir($path. '/' . $dir) || $dir === '.' || $dir === '..') {
                 continue;
             }
 
-            if (\is_dir($destination . '/' . $dir)) {
+            if (is_dir($destination . '/' . $dir)) {
                 Directory::delete($destination . '/' . $dir);
             }
 
@@ -107,16 +107,16 @@ abstract class InstallerAbstract
     protected static function createTables(DatabasePool $dbPool, ApplicationInfo $info) : void
     {
         $path = static::PATH . '/Install/db.json';
-        if (!\is_file($path)) {
+        if (!is_file($path)) {
             return;
         }
 
-        $content = \file_get_contents($path);
+        $content = file_get_contents($path);
         if ($content === false) {
             return; // @codeCoverageIgnore
         }
 
-        $definitions = \json_decode($content, true);
+        $definitions = json_decode($content, true);
         foreach ($definitions as $definition) {
             SchemaBuilder::createFromSchema($definition, $dbPool->get('schema'))->execute();
         }
@@ -134,14 +134,14 @@ abstract class InstallerAbstract
      */
     protected static function activate(DatabasePool $dbPool, ApplicationInfo $info) : void
     {
-        if (($path = \realpath(static::PATH)) === false) {
+        if (($path = realpath(static::PATH)) === false) {
             return; // @codeCoverageIgnore
         }
 
-        $classPath = \substr($path . '/Status', (int) \strlen((string) \realpath(__DIR__ . '/../../')));
+        $classPath = substr($path . '/Status', (int) \strlen((string) realpath(__DIR__ . '/../../')));
 
         // @var class-string<StatusAbstract> $class
-        $class = \str_replace('/', '\\', $classPath);
+        $class = str_replace('/', '\\', $classPath);
 
         if (!Autoloader::exists($class)) {
             throw new \UnexpectedValueException($class); // @codeCoverageIgnore
@@ -161,14 +161,14 @@ abstract class InstallerAbstract
      */
     public static function reInit(ApplicationInfo $info) : void
     {
-        if (($path = \realpath(static::PATH)) === false) {
+        if (($path = realpath(static::PATH)) === false) {
             return; // @codeCoverageIgnore
         }
 
-        $classPath = \substr($path . '/Status', (int) \strlen((string) \realpath(__DIR__ . '/../../')));
+        $classPath = substr($path . '/Status', (int) \strlen((string) realpath(__DIR__ . '/../../')));
 
         // @var class-string<StatusAbstract> $class
-        $class = \str_replace('/', '\\', $classPath);
+        $class = str_replace('/', '\\', $classPath);
 
         if (!Autoloader::exists($class)) {
             throw new \UnexpectedValueException($class); // @codeCoverageIgnore

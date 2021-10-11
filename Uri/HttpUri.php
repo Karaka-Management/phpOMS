@@ -168,7 +168,7 @@ final class HttpUri implements UriInterface
     public function set(string $uri) : void
     {
         $this->uri = $uri;
-        $url       = \parse_url($this->uri);
+        $url       = parse_url($this->uri);
 
         if ($url === false) {
             $this->scheme       = '';
@@ -194,7 +194,7 @@ final class HttpUri implements UriInterface
         $this->path   = $url['path'] ?? '';
 
         if (StringUtils::endsWith($this->path, '.php')) {
-            $path = \substr($this->path, 0, -4);
+            $path = substr($this->path, 0, -4);
 
             if ($path === false) {
                 throw new \Exception(); // @codeCoverageIgnore
@@ -203,17 +203,17 @@ final class HttpUri implements UriInterface
             $this->path = $path;
         }
 
-        $this->pathElements = \explode('/', \trim($this->path, '/'));
+        $this->pathElements = explode('/', trim($this->path, '/'));
         $this->queryString  = $url['query'] ?? '';
 
         if (!empty($this->queryString)) {
-            \parse_str($this->queryString, $this->query);
+            parse_str($this->queryString, $this->query);
         }
 
-        $this->query = \array_change_key_case($this->query, \CASE_LOWER);
+        $this->query = array_change_key_case($this->query, \CASE_LOWER);
 
         $this->fragment  = $url['fragment'] ?? '';
-        $this->fragments = \explode('&', $url['fragment'] ?? '');
+        $this->fragments = explode('&', $url['fragment'] ?? '');
         $this->base      = $this->scheme . '://' . $this->host . ($this->port !== 80 ? ':' . $this->port : '') . $this->rootPath;
     }
 
@@ -252,7 +252,7 @@ final class HttpUri implements UriInterface
      */
     public static function isValid(string $uri) : bool
     {
-        return (bool) \filter_var($uri, \FILTER_VALIDATE_URL);
+        return (bool) filter_var($uri, \FILTER_VALIDATE_URL);
     }
 
     /**
@@ -268,7 +268,7 @@ final class HttpUri implements UriInterface
      */
     public function setRootPath(string $root) : void
     {
-        $this->rootPath = \rtrim($root, '/');
+        $this->rootPath = rtrim($root, '/');
         $this->base     = $this->scheme . '://' . $this->host . ($this->port !== 80 ? ':' . $this->port : '') . $this->rootPath;
     }
 
@@ -289,14 +289,14 @@ final class HttpUri implements UriInterface
      */
     public function getSubdomain() : string
     {
-        $host   = \explode('.', $this->host);
+        $host   = explode('.', $this->host);
         $length = \count($host) - 2;
 
         if ($length < 1) {
             return '';
         }
 
-        return \implode('.', \array_slice($host, 0, $length));
+        return implode('.', \array_slice($host, 0, $length));
     }
 
     /**
@@ -313,7 +313,7 @@ final class HttpUri implements UriInterface
     public function setPath(string $path) : void
     {
         $this->path         = $path;
-        $this->pathElements = \explode('/', \ltrim($this->path, '/'));
+        $this->pathElements = explode('/', ltrim($this->path, '/'));
     }
 
     /**
@@ -343,7 +343,7 @@ final class HttpUri implements UriInterface
     public function getQuery(string $key = null) : string
     {
         if ($key !== null) {
-            $key = \strtolower($key);
+            $key = strtolower($key);
 
             return $this->query[$key] ?? '';
         }

@@ -55,9 +55,9 @@ class SmartDateTime extends \DateTime
      */
     public function __construct(string $datetime = 'now', DateTimeZone $timezone = null)
     {
-        $parsed = \str_replace(
+        $parsed = str_replace(
             ['Y', 'm', 'd'],
-            [\date('Y'), \date('m'), \date('d')],
+            [date('Y'), date('m'), date('d')],
             $datetime
         );
 
@@ -112,13 +112,13 @@ class SmartDateTime extends \DateTime
      */
     public function smartModify(int $y, int $m = 0, int $d = 0, int $calendar = \CAL_GREGORIAN) : self
     {
-        $yearChange  = (int) \floor(((int) $this->format('m') - 1 + $m) / 12);
+        $yearChange  = (int) floor(((int) $this->format('m') - 1 + $m) / 12);
         $yearChange  = ((int) $this->format('m') - 1 + $m) < 0 && ((int) $this->format('m') - 1 + $m) % 12 === 0 ? $yearChange - 1 : $yearChange;
         $yearNew     = (int) $this->format('Y') + $y + $yearChange;
         $monthNew    = ((int) $this->format('m') + $m) % 12;
         $monthNew    = $monthNew === 0 ? 12 : ($monthNew < 0 ? 12 + $monthNew : $monthNew);
-        $dayMonthOld = \cal_days_in_month($calendar, (int) $this->format('m'), (int) $this->format('Y'));
-        $dayMonthNew = \cal_days_in_month($calendar, $monthNew, $yearNew);
+        $dayMonthOld = cal_days_in_month($calendar, (int) $this->format('m'), (int) $this->format('Y'));
+        $dayMonthNew = cal_days_in_month($calendar, $monthNew, $yearNew);
         $dayOld      = (int) $this->format('d');
 
         if ($dayOld > $dayMonthNew) {
@@ -171,9 +171,9 @@ class SmartDateTime extends \DateTime
      */
     public function getStartOfWeek() : self
     {
-        $w = (int) \strtotime('-' . \date('w', $this->getTimestamp()) .' days', $this->getTimestamp());
+        $w = (int) strtotime('-' . date('w', $this->getTimestamp()) .' days', $this->getTimestamp());
 
-        return new self(\date('Y-m-d', $w));
+        return new self(date('Y-m-d', $w));
     }
 
     /**
@@ -185,9 +185,9 @@ class SmartDateTime extends \DateTime
      */
     public function getEndOfWeek() : self
     {
-        $w = (int) \strtotime('+' . (6 - (int) \date('w', $this->getTimestamp())) .' days', $this->getTimestamp());
+        $w = (int) strtotime('+' . (6 - (int) date('w', $this->getTimestamp())) .' days', $this->getTimestamp());
 
-        return new self(\date('Y-m-d', $w));
+        return new self(date('Y-m-d', $w));
     }
 
     /**
@@ -211,13 +211,13 @@ class SmartDateTime extends \DateTime
      */
     public function getFirstDayOfMonth() : int
     {
-        $time = \mktime(0, 0, 0, (int) $this->format('m'), 1, (int) $this->format('Y'));
+        $time = mktime(0, 0, 0, (int) $this->format('m'), 1, (int) $this->format('Y'));
 
         if ($time === false) {
             return -1; // @codeCoverageIgnore
         }
 
-        return \getdate($time)['wday'];
+        return getdate($time)['wday'];
     }
 
     /**
@@ -229,7 +229,7 @@ class SmartDateTime extends \DateTime
      */
     public function getEndOfDay() : self
     {
-        return new self(\date('Y-m-d', $this->getTimestamp()) . ' 23:59:59');
+        return new self(date('Y-m-d', $this->getTimestamp()) . ' 23:59:59');
     }
 
     /**
@@ -241,7 +241,7 @@ class SmartDateTime extends \DateTime
      */
     public function getStartOfDay() : self
     {
-        return new self(\date('Y-m-d', $this->getTimestamp()) . ' 00:00:00');
+        return new self(date('Y-m-d', $this->getTimestamp()) . ' 00:00:00');
     }
 
     /**
@@ -297,13 +297,13 @@ class SmartDateTime extends \DateTime
      */
     public static function dayOfWeek(int $y, int $m, int $d) : int
     {
-        $time = \strtotime($d . '-' . $m . '-' . $y);
+        $time = strtotime($d . '-' . $m . '-' . $y);
 
         if ($time === false) {
             return -1;
         }
 
-        return (int) \date('w', $time);
+        return (int) date('w', $time);
     }
 
     /**

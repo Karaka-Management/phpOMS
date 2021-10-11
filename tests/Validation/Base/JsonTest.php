@@ -41,9 +41,9 @@ class JsonTest extends \PHPUnit\Framework\TestCase
      */
     public function testJsonTemplate() : void
     {
-        $template = \json_decode(\file_get_contents(__DIR__ . '/json/template.json'), true);
+        $template = json_decode(file_get_contents(__DIR__ . '/json/template.json'), true);
 
-        $valid = \json_decode(\file_get_contents(__DIR__ . '/json/valid.json'), true);
+        $valid = json_decode(file_get_contents(__DIR__ . '/json/valid.json'), true);
         self::assertTrue(Json::validateTemplate($template, $valid));
         self::assertTrue(Json::validateTemplate($template, $valid, true));
     }
@@ -55,9 +55,9 @@ class JsonTest extends \PHPUnit\Framework\TestCase
      */
     public function testJsonTemplateAdditional() : void
     {
-        $template = \json_decode(\file_get_contents(__DIR__ . '/json/template.json'), true);
+        $template = json_decode(file_get_contents(__DIR__ . '/json/template.json'), true);
 
-        $additional = \json_decode(\file_get_contents(__DIR__ . '/json/additional.json'), true);
+        $additional = json_decode(file_get_contents(__DIR__ . '/json/additional.json'), true);
         self::assertTrue(Json::validateTemplate($template, $additional));
     }
 
@@ -68,9 +68,9 @@ class JsonTest extends \PHPUnit\Framework\TestCase
      */
     public function testJsonTemplateInvalidAdditional() : void
     {
-        $template = \json_decode(\file_get_contents(__DIR__ . '/json/template.json'), true);
+        $template = json_decode(file_get_contents(__DIR__ . '/json/template.json'), true);
 
-        $additional = \json_decode(\file_get_contents(__DIR__ . '/json/additional.json'), true);
+        $additional = json_decode(file_get_contents(__DIR__ . '/json/additional.json'), true);
         self::assertFalse(Json::validateTemplate($template, $additional, true));
     }
 
@@ -81,9 +81,9 @@ class JsonTest extends \PHPUnit\Framework\TestCase
      */
     public function testJsonTemplateInvalidMissing() : void
     {
-        $template = \json_decode(\file_get_contents(__DIR__ . '/json/template.json'), true);
+        $template = json_decode(file_get_contents(__DIR__ . '/json/template.json'), true);
 
-        $incomplete = \json_decode(\file_get_contents(__DIR__ . '/json/incomplete.json'), true);
+        $incomplete = json_decode(file_get_contents(__DIR__ . '/json/incomplete.json'), true);
         self::assertFalse(Json::validateTemplate($template, $incomplete));
     }
 
@@ -94,9 +94,9 @@ class JsonTest extends \PHPUnit\Framework\TestCase
      */
     public function testInvalidJsonTemplate() : void
     {
-        $template = \json_decode(\file_get_contents(__DIR__ . '/json/template.json'), true);
+        $template = json_decode(file_get_contents(__DIR__ . '/json/template.json'), true);
 
-        $invalid = \json_decode(\file_get_contents(__DIR__ . '/json/invalid.json'), true);
+        $invalid = json_decode(file_get_contents(__DIR__ . '/json/invalid.json'), true);
         self::assertFalse(Json::validateTemplate($template, $invalid));
     }
 }

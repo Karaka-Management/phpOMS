@@ -45,7 +45,7 @@ final class Gamma
      */
     public static function gamma(int | float $z) : float
     {
-        return \exp(self::logGamma($z));
+        return exp(self::logGamma($z));
     }
 
     /**
@@ -71,7 +71,7 @@ final class Gamma
     public static function lanczosApproximationReal(int | float $z) : float
     {
         if ($z < 0.5) {
-            return \M_PI / (\sin(\M_PI * $z) * self::lanczosApproximationReal(1 - $z));
+            return \M_PI / (sin(\M_PI * $z) * self::lanczosApproximationReal(1 - $z));
         }
 
         --$z;
@@ -82,7 +82,7 @@ final class Gamma
             $a += self::LANCZOSAPPROXIMATION[$i] / ($z + $i);
         }
 
-        return \sqrt(2 * \M_PI) * \pow($t, $z + 0.5) * \exp(-$t) * $a;
+        return sqrt(2 * \M_PI) * pow($t, $z + 0.5) * exp(-$t) * $a;
     }
 
     /**
@@ -96,7 +96,7 @@ final class Gamma
      */
     public static function stirlingApproximation(int | float $x) : float
     {
-        return \sqrt(2.0 * \M_PI / $x) * \pow($x / \M_E, $x);
+        return sqrt(2.0 * \M_PI / $x) * pow($x / \M_E, $x);
     }
 
     /**
@@ -111,10 +111,10 @@ final class Gamma
     public static function spougeApproximation(int | float $z) : float
     {
         $k1_fact = 1.0;
-        $c       = [\sqrt(2.0 * \M_PI)];
+        $c       = [sqrt(2.0 * \M_PI)];
 
         for ($k = 1; $k < 12; ++$k) {
-            $c[$k]    = \exp(12 - $k) * \pow(12 - $k, $k - 0.5) / $k1_fact;
+            $c[$k]    = exp(12 - $k) * pow(12 - $k, $k - 0.5) / $k1_fact;
             $k1_fact *= -$k;
         }
 
@@ -123,7 +123,7 @@ final class Gamma
             $accm += $c[$k] / ($z + $k);
         }
 
-        $accm *= \exp(-$z - 12) * \pow($z + 12, $z + 0.5);
+        $accm *= exp(-$z - 12) * pow($z + 12, $z + 0.5);
 
         return $accm / $z;
     }
@@ -149,14 +149,14 @@ final class Gamma
 
         $y = $z;
 
-        $temp = $z + 5.5 - ($z + 0.5) * \log($z + 5.5);
+        $temp = $z + 5.5 - ($z + 0.5) * log($z + 5.5);
         $sum  = 1.000000000190015;
 
         for ($i = 0; $i < 6; ++$i) {
             $sum += $approx[$i] / ++$y;
         }
 
-        return -$temp + \log(\sqrt(2 * \M_PI) * $sum / $z);
+        return -$temp + log(sqrt(2 * \M_PI) * $sum / $z);
     }
 
     /**
@@ -187,7 +187,7 @@ final class Gamma
      */
     public static function incompleteGammaFirst(float $a, float $x) : float
     {
-        return self::regularizedGamma($a, $x) * \exp(self::logGamma($a));
+        return self::regularizedGamma($a, $x) * exp(self::logGamma($a));
     }
 
     /**
@@ -202,7 +202,7 @@ final class Gamma
      */
     public static function incompleteGammaSecond(float $a, float $x) : float
     {
-        return \exp(self::logGamma($a)) - self::regularizedGamma($a, $x) * \exp(self::logGamma($a));
+        return exp(self::logGamma($a)) - self::regularizedGamma($a, $x) * exp(self::logGamma($a));
     }
 
     /**
@@ -252,7 +252,7 @@ final class Gamma
             $sum += $del;
 
             if ($del < $sum * 2.22e-16) {
-                return $sum * \exp(-$x + $a * \log($x) - self::logGamma($a));
+                return $sum * exp(-$x + $a * log($x) - self::logGamma($a));
             }
         }
 
@@ -280,17 +280,17 @@ final class Gamma
         $h   = $d;
         $del = 0.0;
 
-        for ($i = 1; $i < 150 && \abs($del - 1.0) > 2.22e-16; ++$i) {
+        for ($i = 1; $i < 150 && abs($del - 1.0) > 2.22e-16; ++$i) {
             $an = - $i * ($i - $a);
             $b += 2.0;
             $d  = $an * $d + $b;
             $c  = $b + $an / $c;
 
-            if (\abs($c) < 1.18e-37) {
+            if (abs($c) < 1.18e-37) {
                 $c = 1.18e-37;
             }
 
-            if (\abs($d) < 1.18e-37) {
+            if (abs($d) < 1.18e-37) {
                 $d = 1.18e-37;
             }
 
@@ -299,6 +299,6 @@ final class Gamma
             $h  *= $del;
         }
 
-        return \exp(-$x + $a * \log($x) - self::logGamma($a)) * $h;
+        return exp(-$x + $a * log($x) - self::logGamma($a)) * $h;
     }
 }

@@ -71,7 +71,7 @@ final class Beta
             return 0.0;
         }
 
-        $bGamma = \exp(-self::logBeta($p, $q) + $p * \log($x) + $q * \log(1.0 - $x));
+        $bGamma = exp(-self::logBeta($p, $q) + $p * log($x) + $q * log(1.0 - $x));
 
         // this uses the symmetry of the beta function
         return ($x < ($p + 1.0) / ($p + $q + 2.0)
@@ -99,7 +99,7 @@ final class Beta
         $pMinus = $p - 1.0;
         $h      = 1.0 - $pqSum * $x / $pPlus;
 
-        if (\abs($h) < 1.18e-37) {
+        if (abs($h) < 1.18e-37) {
             $h = 1.18e-37;
         }
 
@@ -112,33 +112,33 @@ final class Beta
             $m2 = 2 * $m;
             $d  = $m * ($q - $m) * $x / (($pMinus + $m2) * ($p + $m2));
             $h  = 1.0 + $d * $h;
-            if (\abs($h) < 1.18e-37) {
+            if (abs($h) < 1.18e-37) {
                 $h = 1.18e-37;
             }
 
             $h = 1.0 / $h;
             $c = 1.0 + $d / $c;
-            if (\abs($c) < 1.18e-37) {
+            if (abs($c) < 1.18e-37) {
                 $c = 1.18e-37;
             }
 
             $frac *= $h * $c;
             $d     = -($p + $m) * ($pqSum + $m) * $x / (($p + $m2) * ($pPlus + $m2));
             $h     = 1.0 + $d * $h;
-            if (\abs($h) < 1.18e-37) {
+            if (abs($h) < 1.18e-37) {
                 $h = 1.18e-37;
             }
 
             $h = 1.0 / $h;
             $c = 1.0 + $d / $c;
-            if (\abs($c) < 1.18e-37) {
+            if (abs($c) < 1.18e-37) {
                 $c = 1.18e-37;
             }
 
             $delta = $h * $c;
             $frac *= $delta;
             ++$m;
-        } while ($m < 1000000 && \abs($delta - 1.0) > 8.88e-16);
+        } while ($m < 1000000 && abs($delta - 1.0) > 8.88e-16);
 
         return $frac;
     }
@@ -172,6 +172,6 @@ final class Beta
      */
     public static function beta(float $p, float $q) : float
     {
-        return \exp(self::logBeta($p, $q));
+        return exp(self::logBeta($p, $q));
     }
 }

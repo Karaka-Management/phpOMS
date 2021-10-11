@@ -61,16 +61,16 @@ class Directory extends FileAbstract implements DirectoryInterface
      */
     public static function ftpConnect(HttpUri $http) : mixed
     {
-        $con = \ftp_connect($http->host, $http->port, 10);
+        $con = ftp_connect($http->host, $http->port, 10);
 
         if ($con === false) {
             return false;
         }
 
-        \ftp_login($con, $http->user, $http->pass);
+        ftp_login($con, $http->user, $http->pass);
 
         if ($http->getPath() !== '') {
-            @\ftp_chdir($con, $http->getPath());
+            @ftp_chdir($con, $http->getPath());
         }
 
         return $con;
@@ -91,7 +91,7 @@ class Directory extends FileAbstract implements DirectoryInterface
         $this->uri = $uri;
         $this->con = $con ?? self::ftpConnect($uri);
 
-        $this->filter = \ltrim($filter, '\\/');
+        $this->filter = ltrim($filter, '\\/');
         parent::__construct($uri->getPath());
 
         if ($initialize && self::exists($this->con, $this->path)) {
@@ -114,11 +114,11 @@ class Directory extends FileAbstract implements DirectoryInterface
         $list = self::list($this->con, $this->path);
 
         foreach ($list as $filename) {
-            if (!StringUtils::endsWith(\trim($filename), '.')) {
+            if (!StringUtils::endsWith(trim($filename), '.')) {
                 $uri = clone $this->uri;
                 $uri->setPath($filename);
 
-                $file = \ftp_size($this->con, $filename) === -1 ? new self($uri, '*', false, $this->con) : new File($uri, $this->con);
+                $file = ftp_size($this->con, $filename) === -1 ? new self($uri, '*', false, $this->con) : new File($uri, $this->con);
 
                 $this->addNode($file);
             }
@@ -144,15 +144,15 @@ class Directory extends FileAbstract implements DirectoryInterface
         }
 
         $list     = [];
-        $path     = \rtrim($path, '\\/');
+        $path     = rtrim($path, '\\/');
         $detailed = self::parseRawList($con, $path);
 
         foreach ($detailed as $key => $item) {
             if ($item['type'] === 'dir' && $recursive) {
-                $list = \array_merge($list, self::list($con, $key, $filter, $recursive));
+                $list = array_merge($list, self::list($con, $key, $filter, $recursive));
             }
 
-            if ($filter !== '*' && \preg_match($filter, $key) !== 1) {
+            if ($filter !== '*' && preg_match($filter, $key) !== 1) {
                 continue;
             }
 
@@ -189,7 +189,7 @@ class Directory extends FileAbstract implements DirectoryInterface
             return false;
         }
 
-        $parts = \explode('/', $path);
+        $parts = explode('/', $path);
         if ($parts[0] === '') {
             $parts[0] = '/';
         }
@@ -205,11 +205,11 @@ class Directory extends FileAbstract implements DirectoryInterface
                     return false;
                 }
 
-                \ftp_mkdir($con, $part);
-                \ftp_chmod($con, $permission, $part);
+                ftp_mkdir($con, $part);
+                ftp_chmod($con, $permission, $part);
             }
 
-            \ftp_chdir($con, $part);
+            ftp_chdir($con, $part);
         }
 
         return self::exists($con, $path);
@@ -235,7 +235,7 @@ class Directory extends FileAbstract implements DirectoryInterface
             if ($filename['type'] === 'dir' && $recursive) {
                 $countSize += self::size($con, $key, $recursive);
             } elseif ($filename['type'] === 'file') {
-                $countSize += \ftp_size($con, $key);
+                $countSize += ftp_size($con, $key);
             }
         }
 
@@ -277,7 +277,7 @@ class Directory extends FileAbstract implements DirectoryInterface
      */
     public static function delete($con, string $path) : bool
     {
-        $path = \rtrim($path, '\\/');
+        $path = rtrim($path, '\\/');
 
         if (!self::exists($con, $path)) {
             return false;
@@ -293,7 +293,7 @@ class Directory extends FileAbstract implements DirectoryInterface
             }
         }
 
-        return \ftp_rmdir($con, $path);
+        return ftp_rmdir($con, $path);
     }
 
     /**
@@ -322,7 +322,7 @@ class Directory extends FileAbstract implements DirectoryInterface
         }
 
         $changed = new \DateTime();
-        $time    = \ftp_mdtm($con, $path);
+        $time    = ftp_mdtm($con, $path);
 
         $changed->setTimestamp($time === false ? 0 : $time);
 
@@ -353,8 +353,8 @@ class Directory extends FileAbstract implements DirectoryInterface
      */
     public static function parseRawList($con, string $path) : array
     {
-        $listData = \ftp_rawlist($con, $path);
-        $names    = \ftp_nlist($con, $path);
+        $listData = ftp_rawlist($con, $path);
+        $names    = ftp_nlist($con, $path);
         $data     = [];
 
         if ($names === false || $listData === false) {
@@ -362,7 +362,7 @@ class Directory extends FileAbstract implements DirectoryInterface
         }
 
         foreach ($listData as $key => $item) {
-            $chunks = \preg_split("/\s+/", $item);
+            $chunks = preg_split("/\s+/", $item);
 
             if ($chunks === false) {
                 continue;
@@ -379,7 +379,7 @@ class Directory extends FileAbstract implements DirectoryInterface
                 $e['time']
             ) = $chunks;
 
-            $e['permission'] = FileUtils::permissionToOctal(\substr($e['permission'], 1));
+            $e['permission'] = FileUtils::permissionToOctal(substr($e['permission'], 1));
             $e['type']       = $chunks[0][0] === 'd' ? 'dir' : 'file';
 
             $data[$names[$key]] = $e;
@@ -412,15 +412,15 @@ class Directory extends FileAbstract implements DirectoryInterface
             return false;
         }
 
-        $tempName = 'temp' . \mt_rand();
-        \mkdir($tempName);
+        $tempName = 'temp' . mt_rand();
+        mkdir($tempName);
         $download = self::get($con, $from, $tempName . '/' . self::name($from));
 
         if (!$download) {
             return false;
         }
 
-        $upload = self::put($con, \realpath($tempName) . '/' . self::name($from), $to);
+        $upload = self::put($con, realpath($tempName) . '/' . self::name($from), $to);
 
         if (!$upload) {
             return false;
@@ -448,8 +448,8 @@ class Directory extends FileAbstract implements DirectoryInterface
             return false;
         }
 
-        if (!\is_dir($to)) {
-            \mkdir($to);
+        if (!is_dir($to)) {
+            mkdir($to);
         }
 
         $list = self::parseRawList($con, $from);
@@ -457,11 +457,11 @@ class Directory extends FileAbstract implements DirectoryInterface
             if ($item['type'] === 'dir') {
                 self::get($con, $key, $to . '/' . self::name($key));
             } else {
-                \file_put_contents($to . '/' . self::name($key), File::get($con, $key));
+                file_put_contents($to . '/' . self::name($key), File::get($con, $key));
             }
         }
 
-        return \is_dir($to);
+        return is_dir($to);
     }
 
     /**
@@ -477,7 +477,7 @@ class Directory extends FileAbstract implements DirectoryInterface
      */
     public static function put($con, string $from, string $to) : bool
     {
-        if (!\is_dir($from)) {
+        if (!is_dir($from)) {
             return false;
         }
 
@@ -485,7 +485,7 @@ class Directory extends FileAbstract implements DirectoryInterface
             self::create($con, $to, 0755, true);
         }
 
-        $list = \scandir($from);
+        $list = scandir($from);
         if ($list === false) {
             return false;
         }
@@ -495,12 +495,12 @@ class Directory extends FileAbstract implements DirectoryInterface
                 continue;
             }
 
-            $item = $from . '/' . \ltrim($item, '/');
+            $item = $from . '/' . ltrim($item, '/');
 
-            if (\is_dir($item)) {
+            if (is_dir($item)) {
                 self::put($con, $item, $to . '/' . self::name($item));
             } else {
-                $content = \file_get_contents($item);
+                $content = file_get_contents($item);
 
                 if ($content !== false) {
                     File::put($con, $to . '/' . self::name($item), $content);
@@ -551,7 +551,7 @@ class Directory extends FileAbstract implements DirectoryInterface
      */
     public static function sanitize(string $path, string $replace = '', string $invalid = '/[^\w\s\d\.\-_~,;:\[\]\(\]\/]/') : string
     {
-        return \preg_replace($invalid, $replace, $path) ?? '';
+        return preg_replace($invalid, $replace, $path) ?? '';
     }
 
     /**
@@ -559,7 +559,7 @@ class Directory extends FileAbstract implements DirectoryInterface
      */
     public static function dirname(string $path) : string
     {
-        return \basename($path);
+        return basename($path);
     }
 
     /**
@@ -575,7 +575,7 @@ class Directory extends FileAbstract implements DirectoryInterface
      */
     public static function name(string $path) : string
     {
-        return \basename($path);
+        return basename($path);
     }
 
     /**
@@ -583,7 +583,7 @@ class Directory extends FileAbstract implements DirectoryInterface
      */
     public static function basename(string $path) : string
     {
-        return \basename($path);
+        return basename($path);
     }
 
     /**
@@ -667,7 +667,7 @@ class Directory extends FileAbstract implements DirectoryInterface
      */
     public function rewind() : void
     {
-        \reset($this->nodes);
+        reset($this->nodes);
     }
 
     /**
@@ -675,7 +675,7 @@ class Directory extends FileAbstract implements DirectoryInterface
      */
     public function current() : ContainerInterface
     {
-        $current = \current($this->nodes);
+        $current = current($this->nodes);
         if ($current instanceof self) {
             $current->index();
         }
@@ -688,7 +688,7 @@ class Directory extends FileAbstract implements DirectoryInterface
      */
     public function key() : ?string
     {
-        return \key($this->nodes);
+        return key($this->nodes);
     }
 
     /**
@@ -696,7 +696,7 @@ class Directory extends FileAbstract implements DirectoryInterface
      */
     public function next() : void
     {
-        $next = \next($this->nodes);
+        $next = next($this->nodes);
         if ($next instanceof self) {
             $next->index();
         }
@@ -707,7 +707,7 @@ class Directory extends FileAbstract implements DirectoryInterface
      */
     public function valid() : bool
     {
-        $key = \key($this->nodes);
+        $key = key($this->nodes);
 
         return ($key !== null && $key !== false);
     }
@@ -773,7 +773,7 @@ class Directory extends FileAbstract implements DirectoryInterface
     public function isExisting(string $name = null) : bool
     {
         if ($name === null) {
-            return \is_dir($this->path);
+            return is_dir($this->path);
         }
 
         $name = isset($this->nodes[$name]) ? $name : $this->path . '/' . $name;
@@ -790,7 +790,7 @@ class Directory extends FileAbstract implements DirectoryInterface
         $content    = [];
 
         foreach ($this->nodes as $node) {
-            $content[] = \substr($node->getPath(), $pathLength + 1);
+            $content[] = substr($node->getPath(), $pathLength + 1);
         }
 
         return $content;
@@ -812,16 +812,16 @@ class Directory extends FileAbstract implements DirectoryInterface
     public static function listByExtension($con, string $path, string $extension = '', string $exclude = '', bool $recursive = false) : array
     {
         $list = [];
-        $path = \rtrim($path, '\\/');
+        $path = rtrim($path, '\\/');
 
-        if (!\is_dir($path)) {
+        if (!is_dir($path)) {
             return $list;
         }
 
         $files = self::list($con, $path, empty($extension) ? '*' : '/.*\.' . $extension . '$/', $recursive);
 
         foreach ($files as $file) {
-            if (!empty($exclude) && \preg_match('/' . $exclude . '/', $file) === 1) {
+            if (!empty($exclude) && preg_match('/' . $exclude . '/', $file) === 1) {
                 continue;
             }
 

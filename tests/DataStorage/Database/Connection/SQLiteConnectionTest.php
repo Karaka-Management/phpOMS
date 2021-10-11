@@ -93,8 +93,8 @@ class SQLiteConnectionTest extends \PHPUnit\Framework\TestCase
 
     public static function tearDownAfterClass() : void
     {
-        if (\is_file($GLOBALS['CONFIG']['db']['core']['sqlite']['admin']['database'])) {
-            \unlink($GLOBALS['CONFIG']['db']['core']['sqlite']['admin']['database']);
+        if (is_file($GLOBALS['CONFIG']['db']['core']['sqlite']['admin']['database'])) {
+            unlink($GLOBALS['CONFIG']['db']['core']['sqlite']['admin']['database']);
         }
     }
 }

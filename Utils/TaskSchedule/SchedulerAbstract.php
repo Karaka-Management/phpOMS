@@ -60,11 +60,11 @@ abstract class SchedulerAbstract
      */
     public static function setBin(string $path) : void
     {
-        if (\realpath($path) === false) {
+        if (realpath($path) === false) {
             throw new PathException($path);
         }
 
-        self::$bin = \realpath($path);
+        self::$bin = realpath($path);
     }
 
     /**
@@ -90,7 +90,7 @@ abstract class SchedulerAbstract
         ];
 
         foreach ($paths as $path) {
-            if (\is_file($path)) {
+            if (is_file($path)) {
                 self::setBin($path);
 
                 return true;
@@ -113,7 +113,7 @@ abstract class SchedulerAbstract
      */
     protected function run(string $cmd) : string
     {
-        $cmd = 'cd ' . \escapeshellarg(\dirname(self::$bin)) . ' && ' . \basename(self::$bin) . ' ' . $cmd;
+        $cmd = 'cd ' . escapeshellarg(\dirname(self::$bin)) . ' && ' . basename(self::$bin) . ' ' . $cmd;
 
         $pipes = [];
         $desc  = [
@@ -121,25 +121,25 @@ abstract class SchedulerAbstract
             2 => ['pipe', 'w'],
         ];
 
-        $resource = \proc_open($cmd, $desc, $pipes, __DIR__, null);
+        $resource = proc_open($cmd, $desc, $pipes, __DIR__, null);
         if ($resource === false) {
             return '';
         }
 
-        $stdout = \stream_get_contents($pipes[1]);
-        $stderr = \stream_get_contents($pipes[2]);
+        $stdout = stream_get_contents($pipes[1]);
+        $stderr = stream_get_contents($pipes[2]);
 
         foreach ($pipes as $pipe) {
-            \fclose($pipe);
+            fclose($pipe);
         }
 
-        $status = \proc_close($resource);
+        $status = proc_close($resource);
 
         if ($status === -1) {
             throw new \Exception((string) $stderr);
         }
 
-        return $stdout === false ? '' : \trim($stdout);
+        return $stdout === false ? '' : trim($stdout);
     }
 
     /**
@@ -197,7 +197,7 @@ abstract class SchedulerAbstract
      */
     protected function normalize(string $raw) : string
     {
-        return \str_replace("\r\n", "\n", $raw);
+        return str_replace("\r\n", "\n", $raw);
     }
 
     /**

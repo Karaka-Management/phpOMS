@@ -151,7 +151,7 @@ class PriorityQueueTest extends \PHPUnit\Framework\TestCase
                 ['data' => 'c', 'priority' => 1],
                 ['data' => 'b', 'priority' => 4],
                 ['data' => 'a', 'priority' => 3],
-            ], \array_values($queue->getAll())
+            ], array_values($queue->getAll())
         );
     }
 

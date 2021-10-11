@@ -130,7 +130,7 @@ class Group implements \JsonSerializable, ArrayableInterface
      */
     public function __toString() : string
     {
-        return (string) \json_encode($this->toArray());
+        return (string) json_encode($this->toArray());
     }
 
     /**

@@ -73,33 +73,33 @@ class FileSession implements SessionInterface
      */
     public function __construct(int $liftetime = 3600, string $sid = '', int $inactivityInterval = 0)
     {
-        if (\session_id()) {
-            \session_write_close(); // @codeCoverageIgnore
+        if (session_id()) {
+            session_write_close(); // @codeCoverageIgnore
         }
 
         if ($sid !== '') {
-            \session_id((string) $sid);
+            session_id((string) $sid);
         }
 
         $this->inactivityInterval = $inactivityInterval;
 
-        if (\session_status() !== \PHP_SESSION_ACTIVE && !\headers_sent()) {
+        if (session_status() !== \PHP_SESSION_ACTIVE && !headers_sent()) {
             // @codeCoverageIgnoreStart
-            \session_set_cookie_params($liftetime, '/', '', false, true);
-            \session_start();
+            session_set_cookie_params($liftetime, '/', '', false, true);
+            session_start();
             // @codeCoverageIgnoreEnd
         }
 
         if ($this->inactivityInterval > 0
-            && ($this->inactivityInterval + ($_SESSION['lastActivity'] ?? 0) < \time())
+            && ($this->inactivityInterval + ($_SESSION['lastActivity'] ?? 0) < time())
         ) {
             $this->destroy(); // @codeCoverageIgnore
         }
 
         $this->sessionData                 = $_SESSION ?? [];
         $_SESSION                          = null;
-        $this->sessionData['lastActivity'] = \time();
-        $this->sid                         = (string) \session_id();
+        $this->sessionData['lastActivity'] = time();
+        $this->sid                         = (string) session_id();
     }
 
     /**
@@ -154,7 +154,7 @@ class FileSession implements SessionInterface
         }
 
         $_SESSION = $this->sessionData;
-        \session_write_close();
+        session_write_close();
 
         return true;
     }
@@ -199,10 +199,10 @@ class FileSession implements SessionInterface
      */
     private function destroy() : void
     {
-        if (\session_status() !== \PHP_SESSION_NONE) {
-            \session_destroy();
+        if (session_status() !== \PHP_SESSION_NONE) {
+            session_destroy();
             $this->sessionData = [];
-            \session_start();
+            session_start();
         }
     }
 

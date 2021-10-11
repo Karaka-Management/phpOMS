@@ -39,101 +39,101 @@ final class Rest
      */
     public static function request(HttpRequest $request) : HttpResponse
     {
-        $curl = \curl_init();
+        $curl = curl_init();
 
         if ($curl === false) {
             throw new \Exception('Internal curl_init error.'); // @codeCoverageIgnore
         }
 
-        \curl_setopt($curl, \CURLOPT_NOBODY, true);
+        curl_setopt($curl, \CURLOPT_NOBODY, true);
 
         // handle header
         $requestHeaders = $request->header->get();
         $headers        = [];
 
         foreach ($requestHeaders as $key => $header) {
-            $headers[$key] = $key . ': ' . \implode('', $header);
+            $headers[$key] = $key . ': ' . implode('', $header);
         }
 
-        \curl_setopt($curl, \CURLOPT_HTTPHEADER, $headers);
-        \curl_setopt($curl, \CURLOPT_HEADER, true);
-        \curl_setopt($curl, \CURLOPT_CONNECTTIMEOUT, 5);
-        \curl_setopt($curl, \CURLOPT_TIMEOUT, 30);
+        curl_setopt($curl, \CURLOPT_HTTPHEADER, $headers);
+        curl_setopt($curl, \CURLOPT_HEADER, true);
+        curl_setopt($curl, \CURLOPT_CONNECTTIMEOUT, 5);
+        curl_setopt($curl, \CURLOPT_TIMEOUT, 30);
 
         switch ($request->getMethod()) {
             case RequestMethod::GET:
-                \curl_setopt($curl, \CURLOPT_HTTPGET, true);
+                curl_setopt($curl, \CURLOPT_HTTPGET, true);
                 break;
             case RequestMethod::POST:
-                \curl_setopt($curl, \CURLOPT_CUSTOMREQUEST, 'POST');
+                curl_setopt($curl, \CURLOPT_CUSTOMREQUEST, 'POST');
                 break;
             case RequestMethod::PUT:
-                \curl_setopt($curl, \CURLOPT_CUSTOMREQUEST, 'PUT');
+                curl_setopt($curl, \CURLOPT_CUSTOMREQUEST, 'PUT');
                 break;
             case RequestMethod::DELETE:
-                \curl_setopt($curl, \CURLOPT_CUSTOMREQUEST, 'DELETE');
+                curl_setopt($curl, \CURLOPT_CUSTOMREQUEST, 'DELETE');
                 break;
         }
 
         // handle none-get
         if ($request->getMethod() !== RequestMethod::GET) {
-            \curl_setopt($curl, \CURLOPT_POST, 1);
+            curl_setopt($curl, \CURLOPT_POST, 1);
 
             // handle different content types
             $contentType = $requestHeaders['content-type'] ?? [];
             if ($request->getData() !== null && (empty($contentType) || \in_array(MimeType::M_POST, $contentType))) {
-                \curl_setopt($curl, \CURLOPT_POSTFIELDS, \http_build_query($request->getData()));
+                curl_setopt($curl, \CURLOPT_POSTFIELDS, http_build_query($request->getData()));
             } elseif ($request->getData() !== null && \in_array(MimeType::M_JSON, $contentType)) {
-                \curl_setopt($curl, \CURLOPT_POSTFIELDS, \json_encode($request->getData()));
+                curl_setopt($curl, \CURLOPT_POSTFIELDS, json_encode($request->getData()));
             } elseif ($request->getData() !== null && \in_array(MimeType::M_MULT, $contentType)) {
-                $boundary = '----' . \uniqid();
+                $boundary = '----' . uniqid();
                 $data     = self::createMultipartData($boundary, $request->getData());
 
                 // @todo: replace boundary/ with the correct boundary= in the future. Currently this cannot be done due to a bug. If we do it now the server cannot correclty populate php://input
                 $headers['content-type']   = 'Content-Type: multipart/form-data; boundary/' . $boundary;
                 $headers['content-length'] = 'Content-Length: ' . \strlen($data);
 
-                \curl_setopt($curl, \CURLOPT_HTTPHEADER, $headers);
-                \curl_setopt($curl, \CURLOPT_POSTFIELDS, $data);
+                curl_setopt($curl, \CURLOPT_HTTPHEADER, $headers);
+                curl_setopt($curl, \CURLOPT_POSTFIELDS, $data);
             }
         }
 
         // handle user auth
         if ($request->uri->user !== '') {
-            \curl_setopt($curl, \CURLOPT_HTTPAUTH, \CURLAUTH_BASIC);
-            \curl_setopt($curl, \CURLOPT_USERPWD, $request->uri->getUserInfo());
+            curl_setopt($curl, \CURLOPT_HTTPAUTH, \CURLAUTH_BASIC);
+            curl_setopt($curl, \CURLOPT_USERPWD, $request->uri->getUserInfo());
         }
 
         $cHeaderString = '';
         $response      = new HttpResponse();
 
-        \curl_setopt($curl, \CURLOPT_HEADERFUNCTION,
+        curl_setopt($curl, \CURLOPT_HEADERFUNCTION,
             function($curl, $header) use ($response, &$cHeaderString) {
                 $cHeaderString .= $header;
 
                 $length = \strlen($header);
-                $header = \explode(':', $header, 2);
+                $header = explode(':', $header, 2);
 
                 if (\count($header) < 2) {
                     return $length;
                 }
 
-                $name = \strtolower(\trim($header[0]));
-                $response->header->set($name, \trim($header[1]));
+                $name = strtolower(trim($header[0]));
+                $response->header->set($name, trim($header[1]));
 
                 return $length;
             }
         );
 
-        \curl_setopt($curl, \CURLOPT_URL, $request->__toString());
-        \curl_setopt($curl, \CURLOPT_RETURNTRANSFER, 1);
+        curl_setopt($curl, \CURLOPT_URL, $request->__toString());
+        curl_setopt($curl, \CURLOPT_RETURNTRANSFER, 1);
 
-        $result = \curl_exec($curl);
+        $result = curl_exec($curl);
         $len    = \strlen($cHeaderString);
 
-        \curl_close($curl);
+        curl_close($curl);
 
-        $response->set('', \substr(\is_bool($result) ? '' : $result, $len === false ? 0 : $len));
+        $response->set('', substr(\is_bool($result) ? '' : $result, $len === false ? 0 : $len));
 
         return $response;
     }

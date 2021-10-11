@@ -41,6 +41,6 @@ class ISO639x1EnumTest extends \PHPUnit\Framework\TestCase
         }
 
         self::assertTrue($ok);
-        self::assertEquals(\count($enum), \count(\array_unique($enum)));
+        self::assertEquals(\count($enum), \count(array_unique($enum)));
     }
 }

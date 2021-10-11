@@ -56,7 +56,7 @@ class FtpStorage extends StorageAbstract
      */
     protected static function getClassType(string $path) : string
     {
-        return \ftp_size(self::$con, $path) === -1 && \stripos($path, '.') === false
+        return ftp_size(self::$con, $path) === -1 && stripos($path, '.') === false
             ? Directory::class
             : File::class;
     }
@@ -90,7 +90,7 @@ class FtpStorage extends StorageAbstract
      */
     public static function create(string $path) : bool
     {
-        return \stripos($path, '.') === false
+        return stripos($path, '.') === false
             ? Directory::create(self::$con, $path, 0755, true)
             : File::create(self::$con, $path);
     }

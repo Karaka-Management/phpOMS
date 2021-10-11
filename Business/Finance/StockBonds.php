@@ -363,7 +363,7 @@ final class StockBonds
      */
     public static function getZeroCouponBondValue(float $F, float $r, int $t) : float
     {
-        return $F / \pow(1 + $r, $t);
+        return $F / pow(1 + $r, $t);
     }
 
     /**
@@ -379,6 +379,6 @@ final class StockBonds
      */
     public static function getZeroCouponBondEffectiveYield(float $F, float $PV, int $n) : float
     {
-        return \pow($F / $PV, 1 / $n) - 1;
+        return pow($F / $PV, 1 / $n) - 1;
     }
 }

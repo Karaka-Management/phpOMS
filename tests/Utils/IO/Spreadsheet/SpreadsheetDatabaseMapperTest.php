@@ -48,19 +48,19 @@ class SpreadsheetDatabaseMapperTest extends \PHPUnit\Framework\TestCase
             return;
         }
 
-        if (\is_file(__DIR__ . '/spreadsheet.db')) {
-            \unlink(__DIR__ . '/spreadsheet.db');
+        if (is_file(__DIR__ . '/spreadsheet.db')) {
+            unlink(__DIR__ . '/spreadsheet.db');
         }
 
-        \copy(__DIR__ . '/backup.db', __DIR__ . '/spreadsheet.db');
+        copy(__DIR__ . '/backup.db', __DIR__ . '/spreadsheet.db');
 
         $this->sqlite = new SQLiteConnection(['db' => 'sqlite', 'database' => __DIR__ . '/spreadsheet.db']);
     }
 
     protected function tearDown() : void
     {
-        if (\is_file(__DIR__ . '/spreadsheet.db')) {
-            \unlink(__DIR__ . '/spreadsheet.db');
+        if (is_file(__DIR__ . '/spreadsheet.db')) {
+            unlink(__DIR__ . '/spreadsheet.db');
         }
     }
 
@@ -362,8 +362,8 @@ class SpreadsheetDatabaseMapperTest extends \PHPUnit\Framework\TestCase
      */
     public function testSelectOds() : void
     {
-        if (\is_file(__DIR__ . '/select.ods')) {
-            \unlink(__DIR__ . '/select.ods');
+        if (is_file(__DIR__ . '/select.ods')) {
+            unlink(__DIR__ . '/select.ods');
         }
 
         $mapper = new SpreadsheetDatabaseMapper($this->sqlite, __DIR__ . '/insert.ods');
@@ -402,8 +402,8 @@ class SpreadsheetDatabaseMapperTest extends \PHPUnit\Framework\TestCase
 
         self::assertTrue($this->compareSelectInsertSheet(__DIR__ . '/select.ods', __DIR__ . '/insert.ods'));
 
-        if (\is_file(__DIR__ . '/select.ods')) {
-            \unlink(__DIR__ . '/select.ods');
+        if (is_file(__DIR__ . '/select.ods')) {
+            unlink(__DIR__ . '/select.ods');
         }
     }
 
@@ -414,8 +414,8 @@ class SpreadsheetDatabaseMapperTest extends \PHPUnit\Framework\TestCase
      */
     public function testSelectXls() : void
     {
-        if (\is_file(__DIR__ . '/select.xls')) {
-            \unlink(__DIR__ . '/select.xls');
+        if (is_file(__DIR__ . '/select.xls')) {
+            unlink(__DIR__ . '/select.xls');
         }
 
         $mapper = new SpreadsheetDatabaseMapper($this->sqlite, __DIR__ . '/insert.xls');
@@ -454,8 +454,8 @@ class SpreadsheetDatabaseMapperTest extends \PHPUnit\Framework\TestCase
 
         self::assertTrue($this->compareSelectInsertSheet(__DIR__ . '/select.xls', __DIR__ . '/insert.xls'));
 
-        if (\is_file(__DIR__ . '/select.xls')) {
-            \unlink(__DIR__ . '/select.xls');
+        if (is_file(__DIR__ . '/select.xls')) {
+            unlink(__DIR__ . '/select.xls');
         }
     }
 
@@ -466,8 +466,8 @@ class SpreadsheetDatabaseMapperTest extends \PHPUnit\Framework\TestCase
      */
     public function testSelectXlsx() : void
     {
-        if (\is_file(__DIR__ . '/select.xlsx')) {
-            \unlink(__DIR__ . '/select.xlsx');
+        if (is_file(__DIR__ . '/select.xlsx')) {
+            unlink(__DIR__ . '/select.xlsx');
         }
 
         $mapper = new SpreadsheetDatabaseMapper($this->sqlite, __DIR__ . '/insert.xlsx');
@@ -506,8 +506,8 @@ class SpreadsheetDatabaseMapperTest extends \PHPUnit\Framework\TestCase
 
         self::assertTrue($this->compareSelectInsertSheet(__DIR__ . '/select.xlsx', __DIR__ . '/insert.xlsx'));
 
-        if (\is_file(__DIR__ . '/select.xlsx')) {
-            \unlink(__DIR__ . '/select.xlsx');
+        if (is_file(__DIR__ . '/select.xlsx')) {
+            unlink(__DIR__ . '/select.xlsx');
         }
     }
 

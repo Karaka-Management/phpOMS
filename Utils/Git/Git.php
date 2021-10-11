@@ -45,16 +45,16 @@ class Git
     public static function test() : bool
     {
         $pipes    = [];
-        $resource = \proc_open(\escapeshellarg(self::getBin()), [1 => ['pipe', 'w'], 2 => ['pipe', 'w']], $pipes);
+        $resource = proc_open(escapeshellarg(self::getBin()), [1 => ['pipe', 'w'], 2 => ['pipe', 'w']], $pipes);
 
-        $stdout = \stream_get_contents($pipes[1]);
-        $stderr = \stream_get_contents($pipes[2]);
+        $stdout = stream_get_contents($pipes[1]);
+        $stderr = stream_get_contents($pipes[2]);
 
         foreach ($pipes as $pipe) {
-            \fclose($pipe);
+            fclose($pipe);
         }
 
-        return $resource !== false && \proc_close($resource) !== 127;
+        return $resource !== false && proc_close($resource) !== 127;
     }
 
     /**
@@ -82,10 +82,10 @@ class Git
      */
     public static function setBin(string $path) : void
     {
-        if (\realpath($path) === false) {
+        if (realpath($path) === false) {
             throw new PathException($path);
         }
 
-        self::$bin = \realpath($path);
+        self::$bin = realpath($path);
     }
 }

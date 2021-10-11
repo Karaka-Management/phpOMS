@@ -87,7 +87,7 @@ final class PackageManager
     public function __construct(string $path, string $basePath, string $publicKey)
     {
         $this->path      = $path;
-        $this->basePath  = \rtrim($basePath, '\\/');
+        $this->basePath  = rtrim($basePath, '\\/');
         $this->publicKey = $publicKey;
     }
 
@@ -102,7 +102,7 @@ final class PackageManager
      */
     public function extract(string $path) : void
     {
-        $this->extractPath = \rtrim($path, '\\/');
+        $this->extractPath = rtrim($path, '\\/');
         Zip::unpack($this->path, $this->extractPath);
     }
 
@@ -117,12 +117,12 @@ final class PackageManager
      */
     public function load() : void
     {
-        if (!\is_dir($this->extractPath)) {
+        if (!is_dir($this->extractPath)) {
             throw new PathException($this->extractPath);
         }
 
-        $contents   = \file_get_contents($this->extractPath . '/info.json');
-        $info       = \json_decode($contents === false ? '[]' : $contents, true);
+        $contents   = file_get_contents($this->extractPath . '/info.json');
+        $info       = json_decode($contents === false ? '[]' : $contents, true);
         $this->info = $info === false ? [] : $info;
     }
 
@@ -135,11 +135,11 @@ final class PackageManager
      */
     public function isValid() : bool
     {
-        if (!\is_file($this->extractPath . '/package.cert')) {
+        if (!is_file($this->extractPath . '/package.cert')) {
             return false;
         }
 
-        $contents = \file_get_contents($this->extractPath . '/package.cert');
+        $contents = file_get_contents($this->extractPath . '/package.cert');
         return $this->authenticate($contents === false ? '' : $contents, $this->hashFiles());
     }
 
@@ -153,22 +153,22 @@ final class PackageManager
     private function hashFiles() : string
     {
         $files = Directory::list($this->extractPath, '*', true);
-        $state = \sodium_crypto_generichash_init();
+        $state = sodium_crypto_generichash_init();
 
         foreach ($files as $file) {
-            if ($file === 'package.cert' || \is_dir($this->extractPath . '/' . $file)) {
+            if ($file === 'package.cert' || is_dir($this->extractPath . '/' . $file)) {
                 continue;
             }
 
-            $contents = \file_get_contents($this->extractPath . '/' . $file);
+            $contents = file_get_contents($this->extractPath . '/' . $file);
             if ($contents === false) {
                 throw new \Exception(); // @codeCoverageIgnore
             }
 
-            \sodium_crypto_generichash_update($state, $contents);
+            sodium_crypto_generichash_update($state, $contents);
         }
 
-        return \sodium_crypto_generichash_final($state);
+        return sodium_crypto_generichash_final($state);
     }
 
     /**
@@ -188,7 +188,7 @@ final class PackageManager
 
         foreach ($this->info['update'] as $steps) {
             foreach ($steps as $key => $components) {
-                if (\method_exists($this, $key)) {
+                if (method_exists($this, $key)) {
                     $this->{$key}($components);
                 }
             }
@@ -207,21 +207,21 @@ final class PackageManager
     private function download(array $components) : void
     {
         foreach ($components as $from => $to) {
-            $fp = \fopen($this->basePath . '/' . $to, 'w+');
-            $ch = \curl_init(\str_replace(' ','%20', $from));
+            $fp = fopen($this->basePath . '/' . $to, 'w+');
+            $ch = curl_init(str_replace(' ','%20', $from));
 
             if ($ch === false || $fp === false) {
                 continue; // @codeCoverageIgnore
             }
 
-            \curl_setopt($ch, \CURLOPT_TIMEOUT, 50);
-            \curl_setopt($ch, \CURLOPT_FILE, $fp);
-            \curl_setopt($ch, \CURLOPT_FOLLOWLOCATION, true);
+            curl_setopt($ch, \CURLOPT_TIMEOUT, 50);
+            curl_setopt($ch, \CURLOPT_FILE, $fp);
+            curl_setopt($ch, \CURLOPT_FOLLOWLOCATION, true);
 
-            \curl_exec($ch);
+            curl_exec($ch);
 
-            \curl_close($ch);
-            \fclose($fp);
+            curl_close($ch);
+            fclose($fp);
         }
     }
 
@@ -237,8 +237,8 @@ final class PackageManager
     private function move(array $components) : void
     {
         foreach ($components as $from => $to) {
-            $fromPath = StringUtils::startsWith($from, '/Package/') ? $this->extractPath . '/' . \substr($from, 9) : $this->basePath . '/' . $from;
-            $toPath   = StringUtils::startsWith($to, '/Package/') ? $this->extractPath . '/' . \substr($to, 9) : $this->basePath . '/' . $to;
+            $fromPath = StringUtils::startsWith($from, '/Package/') ? $this->extractPath . '/' . substr($from, 9) : $this->basePath . '/' . $from;
+            $toPath   = StringUtils::startsWith($to, '/Package/') ? $this->extractPath . '/' . substr($to, 9) : $this->basePath . '/' . $to;
 
             LocalStorage::move($fromPath, $toPath, true);
         }
@@ -256,10 +256,10 @@ final class PackageManager
     private function copy(array $components) : void
     {
         foreach ($components as $from => $tos) {
-            $fromPath = StringUtils::startsWith($from, '/Package/') ? $this->extractPath . '/' . \substr($from, 9) : $this->basePath . '/' . $from;
+            $fromPath = StringUtils::startsWith($from, '/Package/') ? $this->extractPath . '/' . substr($from, 9) : $this->basePath . '/' . $from;
 
             foreach ($tos as $to) {
-                $toPath = StringUtils::startsWith($to, '/Package/') ? $this->extractPath . '/' . \substr($to, 9) : $this->basePath . '/' . $to;
+                $toPath = StringUtils::startsWith($to, '/Package/') ? $this->extractPath . '/' . substr($to, 9) : $this->basePath . '/' . $to;
 
                 LocalStorage::copy($fromPath, $toPath, true);
             }
@@ -278,7 +278,7 @@ final class PackageManager
     private function delete(array $components) : void
     {
         foreach ($components as $component) {
-            $path = StringUtils::startsWith($component, '/Package/') ? $this->extractPath . '/' . \substr($component, 9) : $this->basePath . '/' . $component;
+            $path = StringUtils::startsWith($component, '/Package/') ? $this->extractPath . '/' . substr($component, 9) : $this->basePath . '/' . $component;
             LocalStorage::delete($path);
         }
     }
@@ -296,26 +296,26 @@ final class PackageManager
     {
         foreach ($components as $component) {
             $cmd  = '';
-            $path = StringUtils::startsWith($component, '/Package/') ? $this->extractPath . '/' . \substr($component, 9) : $this->basePath . '/' . $component;
+            $path = StringUtils::startsWith($component, '/Package/') ? $this->extractPath . '/' . substr($component, 9) : $this->basePath . '/' . $component;
 
             if (StringUtils::endsWith($component, '.php')) {
                 $cmd = 'php ' . $path;
-            } elseif ((StringUtils::endsWith($component, '.sh') && OperatingSystem::getSystem() === SystemType::LINUX && \is_executable($path))
-                || (StringUtils::endsWith($component, '.batch') && OperatingSystem::getSystem() === SystemType::WIN && \is_executable($path))
+            } elseif ((StringUtils::endsWith($component, '.sh') && OperatingSystem::getSystem() === SystemType::LINUX && is_executable($path))
+                || (StringUtils::endsWith($component, '.batch') && OperatingSystem::getSystem() === SystemType::WIN && is_executable($path))
             ) {
                 $cmd = $path;
             }
 
             if ($cmd !== '') {
                 $pipes    = [];
-                $resource = \proc_open($cmd, [1 => ['pipe', 'w'], 2 => ['pipe', 'w']], $pipes, $this->extractPath);
+                $resource = proc_open($cmd, [1 => ['pipe', 'w'], 2 => ['pipe', 'w']], $pipes, $this->extractPath);
 
                 foreach ($pipes as $pipe) {
-                    \fclose($pipe);
+                    fclose($pipe);
                 }
 
                 if ($resource !== false) {
-                    \proc_close($resource);
+                    proc_close($resource);
                 }
             }
         }
@@ -347,7 +347,7 @@ final class PackageManager
     private function authenticate(string $signedHash, string $rawHash) : bool
     {
         try {
-            return \sodium_crypto_sign_verify_detached($signedHash, $rawHash, $this->publicKey);
+            return sodium_crypto_sign_verify_detached($signedHash, $rawHash, $this->publicKey);
         } catch(\Throwable $t) {
             return false;
         }

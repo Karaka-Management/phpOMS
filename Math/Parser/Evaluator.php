@@ -37,8 +37,8 @@ final class Evaluator
      */
     public static function evaluate(string $equation) : ?float
     {
-        if (\substr_count($equation, '(') !== \substr_count($equation, ')')
-            || \preg_match('#[^0-9\+\-\*\/\(\)\ \^\.]#', $equation)
+        if (substr_count($equation, '(') !== substr_count($equation, ')')
+            || preg_match('#[^0-9\+\-\*\/\(\)\ \^\.]#', $equation)
         ) {
             return null;
         }
@@ -47,11 +47,11 @@ final class Evaluator
         $postfix = self::shuntingYard($equation);
 
         foreach ($postfix as $i => $value) {
-            if (\is_numeric($value)) {
+            if (is_numeric($value)) {
                 $stack[] = $value;
             } else {
-                $a = self::parseValue(\array_pop($stack) ?? 0);
-                $b = self::parseValue(\array_pop($stack) ?? 0);
+                $a = self::parseValue(array_pop($stack) ?? 0);
+                $b = self::parseValue(array_pop($stack) ?? 0);
 
                 if ($value === '+') {
                     $stack[] = $a + $b;
@@ -67,9 +67,9 @@ final class Evaluator
             }
         }
 
-        $result = \array_pop($stack);
+        $result = array_pop($stack);
 
-        return \is_numeric($result) ? (float) $result : null;
+        return is_numeric($result) ? (float) $result : null;
     }
 
     /**
@@ -85,7 +85,7 @@ final class Evaluator
     {
         return !\is_string($value)
             ? $value
-            : (\stripos($value, '.') === false ? (int) $value : (float) $value);
+            : (stripos($value, '.') === false ? (int) $value : (float) $value);
     }
 
     /**
@@ -109,46 +109,46 @@ final class Evaluator
         ];
         $output    = [];
 
-        $equation = \str_replace(' ', '', $equation);
-        $equation = \preg_split('/([\+\-\*\/\^\(\)])/', $equation, -1, \PREG_SPLIT_NO_EMPTY | \PREG_SPLIT_DELIM_CAPTURE);
+        $equation = str_replace(' ', '', $equation);
+        $equation = preg_split('/([\+\-\*\/\^\(\)])/', $equation, -1, \PREG_SPLIT_NO_EMPTY | \PREG_SPLIT_DELIM_CAPTURE);
 
         if ($equation === false) {
             return []; // @codeCoverageIgnore
         }
 
-        $equation = \array_filter($equation, function($n) {
+        $equation = array_filter($equation, function($n) {
             return $n !== '';
         });
 
         foreach ($equation as $i => $token) {
-            if (\is_numeric($token)) {
+            if (is_numeric($token)) {
                 $output[] = $token;
-            } elseif (\strpbrk($token, '^*/+-') !== false) {
+            } elseif (strpbrk($token, '^*/+-') !== false) {
                 $o1 = $token;
-                $o2 = \end($stack);
+                $o2 = end($stack);
 
-                while ($o2 !== false && \strpbrk($o2, '^*/+-') !== false
+                while ($o2 !== false && strpbrk($o2, '^*/+-') !== false
                     && (($operators[$o1]['order'] === -1 && $operators[$o1]['precedence'] <= $operators[$o2]['precedence'])
                         || ($operators[$o1]['order'] === 1 && $operators[$o1]['precedence'] < $operators[$o2]['precedence']))
                 ) {
-                    $output[] = \array_pop($stack);
-                    $o2       = \end($stack);
+                    $output[] = array_pop($stack);
+                    $o2       = end($stack);
                 }
 
                 $stack[] = $o1;
             } elseif ($token === '(') {
                 $stack[] = $token;
             } elseif ($token === ')') {
-                while (\end($stack) !== '(') {
-                    $output[] = \array_pop($stack);
+                while (end($stack) !== '(') {
+                    $output[] = array_pop($stack);
                 }
 
-                \array_pop($stack);
+                array_pop($stack);
             }
         }
 
         while (\count($stack) > 0) {
-            $output[] = \array_pop($stack);
+            $output[] = array_pop($stack);
         }
 
         /** @var string[] $output */

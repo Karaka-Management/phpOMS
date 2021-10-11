@@ -85,7 +85,7 @@ final class ArticleCorrelationAffinity
 
         // sort correlations
         foreach ($possibleItems as $item) {
-            \arsort($this->affinity[$item]);
+            arsort($this->affinity[$item]);
         }
     }
 

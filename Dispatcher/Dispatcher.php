@@ -68,7 +68,7 @@ final class Dispatcher implements DispatcherInterface
 
         if (\is_array($controller) && isset($controller['dest'])) {
             if (!empty($controller['data'])) {
-                $data = \array_merge(
+                $data = array_merge(
                     empty($data) ? [] : $data,
                     \is_array($controller['data']) ? $controller['data'] : [$controller['data']]
                 );
@@ -112,7 +112,7 @@ final class Dispatcher implements DispatcherInterface
     private function dispatchString(string $controller, array $data = null) : array
     {
         $views    = [];
-        $dispatch = \explode(':', $controller);
+        $dispatch = explode(':', $controller);
 
         if (!Autoloader::exists($dispatch[0]) && !isset($this->controllers[$dispatch[0]])) {
             throw new PathException($dispatch[0]);

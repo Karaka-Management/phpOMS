@@ -48,7 +48,7 @@ final class BitonicSort implements SortInterface
         $first  = self::sort(\array_slice($list, 0, (int) ($n / 2)), SortOrder::ASC);
         $second = self::sort(\array_slice($list, (int) ($n / 2)), SortOrder::DESC);
 
-        return self::merge(\array_merge($first, $second), $order);
+        return self::merge(array_merge($first, $second), $order);
     }
 
     /**
@@ -81,6 +81,6 @@ final class BitonicSort implements SortInterface
         $first  = self::merge(\array_slice($list, 0, (int) ($n / 2)), $order);
         $second = self::merge(\array_slice($list, (int) ($n / 2)), $order);
 
-        return \array_merge($first, $second);
+        return array_merge($first, $second);
     }
 }

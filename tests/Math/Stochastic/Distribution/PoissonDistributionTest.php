@@ -86,7 +86,7 @@ class PoissonDistributionTest extends \PHPUnit\Framework\TestCase
     {
         $l = 4.6;
 
-        self::assertEquals(\sqrt($l), PoissonDistribution::getStandardDeviation($l));
+        self::assertEquals(sqrt($l), PoissonDistribution::getStandardDeviation($l));
     }
 
     /**
@@ -97,7 +97,7 @@ class PoissonDistributionTest extends \PHPUnit\Framework\TestCase
     {
         $l = 4.6;
 
-        self::assertEquals(1 / \sqrt($l), PoissonDistribution::getSkewness($l));
+        self::assertEquals(1 / sqrt($l), PoissonDistribution::getSkewness($l));
     }
 
     /**
@@ -119,7 +119,7 @@ class PoissonDistributionTest extends \PHPUnit\Framework\TestCase
     {
         $l = 4.6;
 
-        self::assertEquals(\floor($l + 1 / 3 - 0.02 / $l), PoissonDistribution::getMedian($l));
+        self::assertEquals(floor($l + 1 / 3 - 0.02 / $l), PoissonDistribution::getMedian($l));
     }
 
     /**
@@ -142,6 +142,6 @@ class PoissonDistributionTest extends \PHPUnit\Framework\TestCase
         $l = 4.6;
         $t = 3;
 
-        self::assertEquals(\exp($l * (\exp($t) - 1)), PoissonDistribution::getMgf($l, $t));
+        self::assertEquals(exp($l * (exp($t) - 1)), PoissonDistribution::getMgf($l, $t));
     }
 }

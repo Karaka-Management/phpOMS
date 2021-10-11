@@ -43,7 +43,7 @@ final class File extends FileAbstract implements FileInterface
         parent::__construct($path);
         $this->count = 1;
 
-        if (\is_file($this->path)) {
+        if (is_file($this->path)) {
             $this->index();
         }
     }
@@ -55,7 +55,7 @@ final class File extends FileAbstract implements FileInterface
     {
         parent::index();
 
-        $this->size = (int) \filesize($this->path);
+        $this->size = (int) filesize($this->path);
     }
 
     /**
@@ -71,7 +71,7 @@ final class File extends FileAbstract implements FileInterface
      */
     public static function put(string $path, string $content, int $mode = ContentPutMode::REPLACE | ContentPutMode::CREATE) : bool
     {
-        $exists = \is_file($path);
+        $exists = is_file($path);
 
         try {
             if (($exists && ContentPutMode::hasFlag($mode, ContentPutMode::APPEND))
@@ -80,15 +80,15 @@ final class File extends FileAbstract implements FileInterface
                 || (!$exists && ContentPutMode::hasFlag($mode, ContentPutMode::CREATE))
             ) {
                 if ($exists && ContentPutMode::hasFlag($mode, ContentPutMode::APPEND)) {
-                    \file_put_contents($path, \file_get_contents($path) . $content);
+                    file_put_contents($path, file_get_contents($path) . $content);
                 } elseif ($exists && ContentPutMode::hasFlag($mode, ContentPutMode::PREPEND)) {
-                    \file_put_contents($path, $content . \file_get_contents($path));
+                    file_put_contents($path, $content . file_get_contents($path));
                 } else {
                     if (!Directory::exists(\dirname($path))) {
                         Directory::create(\dirname($path), 0755, true);
                     }
 
-                    \file_put_contents($path, $content);
+                    file_put_contents($path, $content);
                 }
 
                 return true;
@@ -111,11 +111,11 @@ final class File extends FileAbstract implements FileInterface
      */
     public static function get(string $path) : string
     {
-        if (!\is_file($path)) {
+        if (!is_file($path)) {
             throw new PathException($path);
         }
 
-        $contents = \file_get_contents($path);
+        $contents = file_get_contents($path);
 
         return $contents === false ? '' : $contents;
     }
@@ -184,7 +184,7 @@ final class File extends FileAbstract implements FileInterface
      */
     public static function exists(string $path) : bool
     {
-        return \is_file($path);
+        return is_file($path);
     }
 
     /**
@@ -200,7 +200,7 @@ final class File extends FileAbstract implements FileInterface
      */
     public static function sanitize(string $path, string $replace = '', string $invalid = '/[^\w\s\d\.\-_~,;\/\[\]\(\]]/') : string
     {
-        return \preg_replace($invalid, $replace, $path) ?? '';
+        return preg_replace($invalid, $replace, $path) ?? '';
     }
 
     /**
@@ -208,11 +208,11 @@ final class File extends FileAbstract implements FileInterface
      */
     public static function size(string $path, bool $recursive = true) : int
     {
-        if (!\is_file($path)) {
+        if (!is_file($path)) {
             return -1;
         }
 
-        return (int) \filesize($path);
+        return (int) filesize($path);
     }
 
     /**
@@ -220,11 +220,11 @@ final class File extends FileAbstract implements FileInterface
      */
     public static function owner(string $path) : int
     {
-        if (!\is_file($path)) {
+        if (!is_file($path)) {
             throw new PathException($path);
         }
 
-        return (int) \fileowner($path);
+        return (int) fileowner($path);
     }
 
     /**
@@ -232,11 +232,11 @@ final class File extends FileAbstract implements FileInterface
      */
     public static function permission(string $path) : int
     {
-        if (!\is_file($path)) {
+        if (!is_file($path)) {
             return -1;
         }
 
-        return (int) \fileperms($path);
+        return (int) fileperms($path);
     }
 
     /**
@@ -251,7 +251,7 @@ final class File extends FileAbstract implements FileInterface
     public static function pathInfo(string $path) : array
     {
         $temp = [];
-        \preg_match('#^(.*?)[\\\\/]*(([^/\\\\]*?)(\.([^.\\\\/]+?)|))[\\\\/.]*$#m', $path, $temp);
+        preg_match('#^(.*?)[\\\\/]*(([^/\\\\]*?)(\.([^.\\\\/]+?)|))[\\\\/.]*$#m', $path, $temp);
 
         $info              = [];
         $info['dirname']   = $temp[1] ?? '';
@@ -273,7 +273,7 @@ final class File extends FileAbstract implements FileInterface
      */
     public static function dirname(string $path) : string
     {
-        return \basename(\dirname($path));
+        return basename(\dirname($path));
     }
 
     /**
@@ -295,8 +295,8 @@ final class File extends FileAbstract implements FileInterface
      */
     public static function copy(string $from, string $to, bool $overwrite = false) : bool
     {
-        if (!\is_file($from)
-            || (!$overwrite && \is_file($to))
+        if (!is_file($from)
+            || (!$overwrite && is_file($to))
         ) {
             return false;
         }
@@ -305,11 +305,11 @@ final class File extends FileAbstract implements FileInterface
             Directory::create(\dirname($to), 0755, true);
         }
 
-        if ($overwrite && \is_file($to)) {
-            \unlink($to);
+        if ($overwrite && is_file($to)) {
+            unlink($to);
         }
 
-        \copy($from, $to);
+        copy($from, $to);
 
         return true;
     }
@@ -335,11 +335,11 @@ final class File extends FileAbstract implements FileInterface
      */
     public static function delete(string $path) : bool
     {
-        if (!\is_file($path)) {
+        if (!is_file($path)) {
             return false;
         }
 
-        \unlink($path);
+        unlink($path);
 
         return true;
     }
@@ -353,7 +353,7 @@ final class File extends FileAbstract implements FileInterface
      */
     public function getDirName() : string
     {
-        return \basename(\dirname($this->path));
+        return basename(\dirname($this->path));
     }
 
     /**
@@ -385,7 +385,7 @@ final class File extends FileAbstract implements FileInterface
      */
     public function isExisting() : bool
     {
-        return \is_file($this->path);
+        return is_file($this->path);
     }
 
     /**
@@ -393,16 +393,16 @@ final class File extends FileAbstract implements FileInterface
      */
     public static function create(string $path) : bool
     {
-        if (!\is_file($path)) {
+        if (!is_file($path)) {
             if (!Directory::exists(\dirname($path))) {
                 Directory::create(\dirname($path), 0755, true);
             }
 
-            if (!\is_writable(\dirname($path))) {
+            if (!is_writable(\dirname($path))) {
                 return false; // @codeCoverageIgnore
             }
 
-            \touch($path);
+            touch($path);
 
             return true;
         }
@@ -415,7 +415,7 @@ final class File extends FileAbstract implements FileInterface
      */
     public function getContent() : string
     {
-        $contents = \file_get_contents($this->path);
+        $contents = file_get_contents($this->path);
 
         return $contents === false ? '' : $contents;
     }
@@ -449,7 +449,7 @@ final class File extends FileAbstract implements FileInterface
      */
     public function getName() : string
     {
-        return \explode('.', $this->name)[0];
+        return explode('.', $this->name)[0];
     }
 
     /**
@@ -457,7 +457,7 @@ final class File extends FileAbstract implements FileInterface
      */
     public function getExtension() : string
     {
-        $extension = \explode('.', $this->name);
+        $extension = explode('.', $this->name);
 
         return $extension[1] ?? '';
     }
@@ -519,7 +519,7 @@ final class File extends FileAbstract implements FileInterface
      */
     public static function name(string $path) : string
     {
-        return \explode('.', \basename($path))[0];
+        return explode('.', basename($path))[0];
     }
 
     /**
@@ -527,7 +527,7 @@ final class File extends FileAbstract implements FileInterface
      */
     public static function basename(string $path) : string
     {
-        return \basename($path);
+        return basename($path);
     }
 
     /**
@@ -541,7 +541,7 @@ final class File extends FileAbstract implements FileInterface
      */
     public static function extension(string $path) : string
     {
-        $extension = \explode('.', \basename($path));
+        $extension = explode('.', basename($path));
 
         return $extension[1] ?? '';
     }

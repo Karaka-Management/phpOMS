@@ -87,26 +87,26 @@ class FloatInt implements \Serializable
      */
     public static function toInt(string $value, string $thousands = ',', string $decimal = '.') : int
     {
-        $split = \explode($decimal, $value);
+        $split = explode($decimal, $value);
 
         if ($split === false) {
             throw new \Exception('Internal explode error.'); // @codeCoverageIgnore
         }
 
         $left  = $split[0];
-        $left  = \str_replace($thousands, '', $left);
+        $left  = str_replace($thousands, '', $left);
         $right = '';
 
         if (\count($split) > 1) {
             $right = $split[1];
         }
 
-        $right = \substr($right, 0, self::MAX_DECIMALS);
+        $right = substr($right, 0, self::MAX_DECIMALS);
         if ($right === false) {
             throw new \Exception('Internal substr error.'); // @codeCoverageIgnore
         }
 
-        return ((int) $left) * 10 ** self::MAX_DECIMALS + (int) \str_pad($right, self::MAX_DECIMALS, '0');
+        return ((int) $left) * 10 ** self::MAX_DECIMALS + (int) str_pad($right, self::MAX_DECIMALS, '0');
     }
 
     /**
@@ -159,26 +159,26 @@ class FloatInt implements \Serializable
         $isNegative = $this->value < 0 ? 1 : 0;
 
         $value = $this->value === 0
-            ? \str_repeat('0', self::MAX_DECIMALS)
-            : (string) \round($this->value, -self::MAX_DECIMALS + $decimals);
+            ? str_repeat('0', self::MAX_DECIMALS)
+            : (string) round($this->value, -self::MAX_DECIMALS + $decimals);
 
-        $left = \substr($value, 0, -self::MAX_DECIMALS + $isNegative);
+        $left = substr($value, 0, -self::MAX_DECIMALS + $isNegative);
 
         /** @var string $left */
         $left  = $left === false ? '0' : $left;
-        $right = \substr($value, -self::MAX_DECIMALS + $isNegative);
+        $right = substr($value, -self::MAX_DECIMALS + $isNegative);
 
         if ($right === false) {
             throw new \Exception(); // @codeCoverageIgnore
         }
 
         if ($decimals === null) {
-            $decimals = \strlen(\rtrim($right, '0'));
+            $decimals = \strlen(rtrim($right, '0'));
         }
 
         return $decimals > 0
-            ? \number_format((float) $left, 0, $this->decimal, $this->thousands) . $this->decimal . \substr($right, 0, $decimals)
-            : \str_pad($left, 1, '0');
+            ? number_format((float) $left, 0, $this->decimal, $this->thousands) . $this->decimal . substr($right, 0, $decimals)
+            : str_pad($left, 1, '0');
     }
 
     /**
@@ -278,7 +278,7 @@ class FloatInt implements \Serializable
      */
     public function abs() : self
     {
-        $this->value = \abs($this->value);
+        $this->value = abs($this->value);
 
         return $this;
     }

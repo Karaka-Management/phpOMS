@@ -36,7 +36,7 @@ class DatabaseTypeTest extends \PHPUnit\Framework\TestCase
      */
     public function testUnique() : void
     {
-        self::assertEquals(DatabaseType::getConstants(), \array_unique(DatabaseType::getConstants()));
+        self::assertEquals(DatabaseType::getConstants(), array_unique(DatabaseType::getConstants()));
     }
 
     /**

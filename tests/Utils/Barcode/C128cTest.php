@@ -38,8 +38,8 @@ class C128cTest extends \PHPUnit\Framework\TestCase
     public function testImagePng() : void
     {
         $path = __DIR__ . '/c128c.png';
-        if (\is_file($path)) {
-            \unlink($path);
+        if (is_file($path)) {
+            unlink($path);
         }
 
         $img = new C128c('412163', 200, 50);
@@ -55,8 +55,8 @@ class C128cTest extends \PHPUnit\Framework\TestCase
     public function testImageJpg() : void
     {
         $path = __DIR__ . '/c128c.jpg';
-        if (\is_file($path)) {
-            \unlink($path);
+        if (is_file($path)) {
+            unlink($path);
         }
 
         $img = new C128c('412163', 200, 50);
@@ -72,8 +72,8 @@ class C128cTest extends \PHPUnit\Framework\TestCase
     public function testOrientationAndMargin() : void
     {
         $path = __DIR__ . '/c128c_vertical.png';
-        if (\is_file($path)) {
-            \unlink($path);
+        if (is_file($path)) {
+            unlink($path);
         }
 
         $img = new C128c('412163', 50, 200, OrientationType::VERTICAL);

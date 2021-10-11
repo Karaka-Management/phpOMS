@@ -36,8 +36,8 @@ final class LogisticDistribution
      */
     public static function getPdf(float $x, float $mu, float $s) : float
     {
-        return \exp(-($x - $mu) / $s)
-            / ($s * (1 + \exp(-($x - $mu) / $s)) ** 2);
+        return exp(-($x - $mu) / $s)
+            / ($s * (1 + exp(-($x - $mu) / $s)) ** 2);
     }
 
     /**
@@ -53,7 +53,7 @@ final class LogisticDistribution
      */
     public static function getCdf(float $x, float $mu, float $s) : float
     {
-        return 1 / (1 + \exp(-($x - $mu) / $s));
+        return 1 / (1 + exp(-($x - $mu) / $s));
     }
 
     /**
@@ -123,7 +123,7 @@ final class LogisticDistribution
      */
     public static function getStandardDeviation(float $s) : float
     {
-        return \sqrt(self::getVariance($s));
+        return sqrt(self::getVariance($s));
     }
 
     /**
@@ -161,6 +161,6 @@ final class LogisticDistribution
      */
     public static function getEntropy(float $s) : float
     {
-        return \log($s) + 2;
+        return log($s) + 2;
     }
 }

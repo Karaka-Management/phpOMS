@@ -59,7 +59,7 @@ class RedirectTest extends \PHPUnit\Framework\TestCase
         $obj = new Redirect('url', true);
 
         self::assertEquals(['type' => 'redirect', 'time' => 0, 'uri' => 'url', 'new' => true], $obj->toArray());
-        self::assertEquals(\json_encode(['type' => 'redirect', 'time' => 0, 'uri' => 'url', 'new' => true]), $obj->serialize());
+        self::assertEquals(json_encode(['type' => 'redirect', 'time' => 0, 'uri' => 'url', 'new' => true]), $obj->serialize());
         self::assertEquals(['type' => 'redirect', 'time' => 0, 'uri' => 'url', 'new' => true], $obj->jsonSerialize());
 
         $obj->setDelay(6);

@@ -74,19 +74,19 @@ final class HttpSession implements SessionInterface
      */
     public function __construct(int $liftetime = 3600, string $sid = '', int $inactivityInterval = 0)
     {
-        if (\session_id()) {
-            \session_write_close(); // @codeCoverageIgnore
+        if (session_id()) {
+            session_write_close(); // @codeCoverageIgnore
         }
 
         if ($sid !== '') {
-            \session_id((string) $sid); // @codeCoverageIgnore
+            session_id((string) $sid); // @codeCoverageIgnore
         }
 
         $this->inactivityInterval = $inactivityInterval;
 
-        if (\session_status() !== \PHP_SESSION_ACTIVE && !\headers_sent()) {
+        if (session_status() !== \PHP_SESSION_ACTIVE && !headers_sent()) {
             // @codeCoverageIgnoreStart
-            \session_set_cookie_params([
+            session_set_cookie_params([
                 'lifetime' => $liftetime,
                 'path'     => '/',
                 'domain'   => '',
@@ -94,18 +94,18 @@ final class HttpSession implements SessionInterface
                 'httponly' => true,
                 'samesite' => 'Strict',
             ]);
-            \session_start();
+            session_start();
             // @codeCoverageIgnoreEnd
         }
 
-        if ($this->inactivityInterval > 0 && ($this->inactivityInterval + ($_SESSION['lastActivity'] ?? 0) < \time())) {
+        if ($this->inactivityInterval > 0 && ($this->inactivityInterval + ($_SESSION['lastActivity'] ?? 0) < time())) {
             $this->destroy(); // @codeCoverageIgnore
         }
 
         $this->sessionData                 = $_SESSION ?? [];
         $_SESSION                          = null;
-        $this->sessionData['lastActivity'] = \time();
-        $this->sid                         = (string) \session_id();
+        $this->sessionData['lastActivity'] = time();
+        $this->sid                         = (string) session_id();
 
         $this->setCsrfProtection();
     }
@@ -122,7 +122,7 @@ final class HttpSession implements SessionInterface
         $this->set('UID', 0, false);
 
         if (($csrf = $this->get('CSRF')) === null) {
-            $csrf = \bin2hex(\random_bytes(32));
+            $csrf = bin2hex(random_bytes(32));
             $this->set('CSRF', $csrf, false);
         }
 
@@ -181,7 +181,7 @@ final class HttpSession implements SessionInterface
         }
 
         $_SESSION = $this->sessionData;
-        \session_write_close();
+        session_write_close();
 
         return true;
     }
@@ -226,10 +226,10 @@ final class HttpSession implements SessionInterface
      */
     private function destroy() : void
     {
-        if (\session_status() !== \PHP_SESSION_NONE) {
-            \session_destroy();
+        if (session_status() !== \PHP_SESSION_NONE) {
+            session_destroy();
             $this->sessionData = [];
-            \session_start();
+            session_start();
         }
     }
 

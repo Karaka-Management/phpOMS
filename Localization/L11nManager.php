@@ -107,7 +107,7 @@ final class L11nManager
      */
     public function loadLanguageFile(string $from, string $file) : void
     {
-        if (!\is_file($file)) {
+        if (!is_file($file)) {
             return;
         }
 
@@ -135,7 +135,7 @@ final class L11nManager
      */
     public function loadLanguageFromFile(string $language, string $from, string $file) : void
     {
-        if (!\is_file($file)) {
+        if (!is_file($file)) {
             return;
         }
 
@@ -219,7 +219,7 @@ final class L11nManager
      */
     public function getHtml(string $code, string $module, string $theme, string $translation) : string
     {
-        return \htmlspecialchars($this->getText($code, $module, $theme, $translation));
+        return htmlspecialchars($this->getText($code, $module, $theme, $translation));
     }
 
     /**
@@ -235,7 +235,7 @@ final class L11nManager
      */
     public function getNumeric(Localization $l11n, int | float $numeric, string $format = null) : string
     {
-        return \number_format(
+        return number_format(
             $numeric,
             $l11n->getPrecision()[$format ?? 'medium'],
             $l11n->getDecimal(),
@@ -256,7 +256,7 @@ final class L11nManager
      */
     public function getPercentage(Localization $l11n, float $percentage, string $format = null) : string
     {
-        return \number_format(
+        return number_format(
             $percentage, $l11n->getPrecision()[$format ?? 'medium'],
             $l11n->getDecimal(),
             $l11n->getThousands()
@@ -282,7 +282,7 @@ final class L11nManager
         $symbol ??= $l11n->getCurrency();
 
         if (\is_float($currency)) {
-            $currency = (int) ($currency * \pow(10, Money::MAX_DECIMALS));
+            $currency = (int) ($currency * pow(10, Money::MAX_DECIMALS));
         }
 
         if (!empty($symbol)) {

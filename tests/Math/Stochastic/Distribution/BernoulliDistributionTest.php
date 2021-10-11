@@ -94,7 +94,7 @@ class BernoulliDistributionTest extends \PHPUnit\Framework\TestCase
         $p = 0.3;
         $q = 1 - $p;
 
-        self::assertEqualsWithDelta(\sqrt($p * $q), BernoulliDistribution::getStandardDeviation($p), 0.01);
+        self::assertEqualsWithDelta(sqrt($p * $q), BernoulliDistribution::getStandardDeviation($p), 0.01);
     }
 
     /**
@@ -106,7 +106,7 @@ class BernoulliDistributionTest extends \PHPUnit\Framework\TestCase
         $p = 0.3;
         $q = 1 - $p;
 
-        self::assertEqualsWithDelta((1 - 2 * $p) / \sqrt($p * $q), BernoulliDistribution::getSkewness($p), 0.01);
+        self::assertEqualsWithDelta((1 - 2 * $p) / sqrt($p * $q), BernoulliDistribution::getSkewness($p), 0.01);
     }
 
     /**
@@ -130,7 +130,7 @@ class BernoulliDistributionTest extends \PHPUnit\Framework\TestCase
         $p = 0.3;
         $q = 1 - $p;
 
-        self::assertEqualsWithDelta(-$q * \log($q) - $p * \log($p), BernoulliDistribution::getEntropy($p), 0.01);
+        self::assertEqualsWithDelta(-$q * log($q) - $p * log($p), BernoulliDistribution::getEntropy($p), 0.01);
     }
 
     /**
@@ -143,7 +143,7 @@ class BernoulliDistributionTest extends \PHPUnit\Framework\TestCase
         $q = 1 - $p;
         $t = 2;
 
-        self::assertEqualsWithDelta($q + $p * \exp($t), BernoulliDistribution::getMgf($p, $t), 0.01);
+        self::assertEqualsWithDelta($q + $p * exp($t), BernoulliDistribution::getMgf($p, $t), 0.01);
     }
 
     /**

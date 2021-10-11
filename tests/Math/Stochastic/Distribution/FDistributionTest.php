@@ -61,7 +61,7 @@ class FDistributionTest extends \PHPUnit\Framework\TestCase
     {
         self::assertEquals(0.0, FDistribution::getStandardDeviation(1, 2));
         self::assertEquals(0.0, FDistribution::getStandardDeviation(1, 4));
-        self::assertEqualsWithDelta(\sqrt(11.1111), FDistribution::getStandardDeviation(3, 5), 0.01);
+        self::assertEqualsWithDelta(sqrt(11.1111), FDistribution::getStandardDeviation(3, 5), 0.01);
     }
 
     /**
@@ -71,7 +71,7 @@ class FDistributionTest extends \PHPUnit\Framework\TestCase
     public function testSkewness() : void
     {
         self::assertEquals(0.0, FDistribution::getSkewness(1, 6));
-        self::assertEquals(2 * (2 * 4 + 7 - 2) / (7 - 6) * \sqrt(2 * (7 - 4) / (4 * (7 + 4 - 2))), FDistribution::getSkewness(4, 7));
+        self::assertEquals(2 * (2 * 4 + 7 - 2) / (7 - 6) * sqrt(2 * (7 - 4) / (4 * (7 + 4 - 2))), FDistribution::getSkewness(4, 7));
     }
 
     /**

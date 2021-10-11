@@ -59,7 +59,7 @@ final class MbStringUtils
     public static function mb_contains(string $haystack, array $needles) : bool
     {
         foreach ($needles as $needle) {
-            if (\mb_strpos($haystack, $needle) !== false) {
+            if (mb_strpos($haystack, $needle) !== false) {
                 return true;
             }
         }
@@ -87,7 +87,7 @@ final class MbStringUtils
         }
 
         foreach ($needles as $needle) {
-            if ($needle === '' || \mb_strrpos($haystack, $needle, -\mb_strlen($haystack)) !== false) {
+            if ($needle === '' || mb_strrpos($haystack, $needle, -mb_strlen($haystack)) !== false) {
                 return true;
             }
         }
@@ -119,7 +119,7 @@ final class MbStringUtils
         }
 
         foreach ($needles as $needle) {
-            if ($needle === '' || (($temp = \mb_strlen($haystack) - \mb_strlen($needle)) >= 0 && \mb_strpos($haystack, $needle, $temp) !== false)) {
+            if ($needle === '' || (($temp = mb_strlen($haystack) - mb_strlen($needle)) >= 0 && mb_strpos($haystack, $needle, $temp) !== false)) {
                 return true;
             }
         }
@@ -138,11 +138,11 @@ final class MbStringUtils
      */
     public static function mb_ucfirst(string $string) : string
     {
-        $strlen    = \mb_strlen($string);
-        $firstChar = \mb_substr($string, 0, 1);
-        $then      = \mb_substr($string, 1, $strlen - 1);
+        $strlen    = mb_strlen($string);
+        $firstChar = mb_substr($string, 0, 1);
+        $then      = mb_substr($string, 1, $strlen - 1);
 
-        return \mb_strtoupper($firstChar) . $then;
+        return mb_strtoupper($firstChar) . $then;
     }
 
     /**
@@ -156,11 +156,11 @@ final class MbStringUtils
      */
     public static function mb_lcfirst(string $string) : string
     {
-        $strlen    = \mb_strlen($string);
-        $firstChar = \mb_substr($string, 0, 1);
-        $then      = \mb_substr($string, 1, $strlen - 1);
+        $strlen    = mb_strlen($string);
+        $firstChar = mb_substr($string, 0, 1);
+        $then      = mb_substr($string, 1, $strlen - 1);
 
-        return \mb_strtolower($firstChar) . $then;
+        return mb_strtolower($firstChar) . $then;
     }
 
     /**
@@ -176,11 +176,11 @@ final class MbStringUtils
     public static function mb_trim(string $string, string $charlist = ' ') : string
     {
         if ($charlist === ' ') {
-            return \trim($string);
+            return trim($string);
         } else {
-            $charlist = \str_replace('/', '\/', \preg_quote($charlist));
+            $charlist = str_replace('/', '\/', preg_quote($charlist));
 
-            return \preg_replace('/(^[' . $charlist . ']+)|([ ' . $charlist . ']+$)/us', '', $string) ?? '';
+            return preg_replace('/(^[' . $charlist . ']+)|([ ' . $charlist . ']+$)/us', '', $string) ?? '';
         }
     }
 
@@ -197,11 +197,11 @@ final class MbStringUtils
     public static function mb_rtrim(string $string, string $charlist = ' ') : string
     {
         if ($charlist === ' ') {
-            return \rtrim($string);
+            return rtrim($string);
         } else {
-            $charlist = \str_replace('/', '\/', \preg_quote($charlist));
+            $charlist = str_replace('/', '\/', preg_quote($charlist));
 
-            return \preg_replace('/([' . $charlist . ']+$)/us', '', $string) ?? '';
+            return preg_replace('/([' . $charlist . ']+$)/us', '', $string) ?? '';
         }
     }
 
@@ -218,11 +218,11 @@ final class MbStringUtils
     public static function mb_ltrim(string $string, string $charlist = ' ') : string
     {
         if ($charlist === ' ') {
-            return \ltrim($string);
+            return ltrim($string);
         } else {
-            $charlist = \str_replace('/', '\/', \preg_quote($charlist));
+            $charlist = str_replace('/', '\/', preg_quote($charlist));
 
-            return \preg_replace('/(^[' . $charlist . ']+)/us', '', $string) ?? '';
+            return preg_replace('/(^[' . $charlist . ']+)/us', '', $string) ?? '';
         }
     }
 
@@ -238,12 +238,12 @@ final class MbStringUtils
     public static function mb_entropy(string $value) : float
     {
         $entropy    = 0.0;
-        $size       = \mb_strlen($value);
+        $size       = mb_strlen($value);
         $countChars = self::mb_count_chars($value);
 
         foreach ($countChars as $v) {
             $p        = $v / $size;
-            $entropy -= $p * \log($p) / \log(2);
+            $entropy -= $p * log($p) / log(2);
         }
 
         return $entropy;
@@ -260,11 +260,11 @@ final class MbStringUtils
      */
     public static function mb_count_chars(string $input) : array
     {
-        $l      = \mb_strlen($input, 'UTF-8');
+        $l      = mb_strlen($input, 'UTF-8');
         $unique = [];
 
         for ($i = 0; $i < $l; ++$i) {
-            $char = \mb_substr($input, $i, 1, 'UTF-8');
+            $char = mb_substr($input, $i, 1, 'UTF-8');
 
             if (!\array_key_exists($char, $unique)) {
                 $unique[$char] = 0;
@@ -291,15 +291,15 @@ final class MbStringUtils
         $reset = 3;
 
         do {
-            $lastChunk  = \substr($text, $length - $reset, $reset);
-            $encodedPos = \strpos($lastChunk, '=');
+            $lastChunk  = substr($text, $length - $reset, $reset);
+            $encodedPos = strpos($lastChunk, '=');
 
             if ($encodedPos === false) {
                 break; // @codeCoverageIgnore
             }
 
-            $hex = \substr($text, $length - $reset + $encodedPos + 1, 2);
-            $dec = \hexdec($hex);
+            $hex = substr($text, $length - $reset + $encodedPos + 1, 2);
+            $dec = hexdec($hex);
 
             if ($dec < 128) {
                 if ($encodedPos > 0) {
@@ -330,6 +330,6 @@ final class MbStringUtils
      */
     public static function hasMultiBytes(string $text, string $charset = CharsetType::UTF_8) : bool
     {
-        return \strlen($text) > \mb_strlen($text, $charset);
+        return \strlen($text) > mb_strlen($text, $charset);
     }
 }

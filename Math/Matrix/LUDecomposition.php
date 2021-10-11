@@ -96,7 +96,7 @@ final class LUDecomposition
 
             for ($i = 0; $i < $this->m; ++$i) {
                 $LUrowi = $this->LU[$i];
-                $kmax   = \min($i, $j);
+                $kmax   = min($i, $j);
                 $s      = 0.0;
 
                 for ($k = 0; $k < $kmax; ++$k) {
@@ -107,7 +107,7 @@ final class LUDecomposition
 
             $p = $j;
             for ($i = $j + 1; $i < $this->m; ++$i) {
-                if (\abs($LUcolj[$i]) > \abs($LUcolj[$p])) {
+                if (abs($LUcolj[$i]) > abs($LUcolj[$p])) {
                     $p = $i;
                 }
             }

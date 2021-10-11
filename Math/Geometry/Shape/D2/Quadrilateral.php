@@ -39,8 +39,8 @@ final class Quadrilateral implements D2ShapeInterface
     public static function getSurfaceFromSidesAndAngle(float $a, float $b, float $c, float $d, float $alpha) : float
     {
         $s     = ($a + $b + $c + $d) / 2;
-        $gamma = \acos(($c ** 2 + $d ** 2 - $a ** 2 - $b ** 2 + 2 * $a * $b * \cos(\deg2rad($alpha))) / (2 * $c * $d));
+        $gamma = acos(($c ** 2 + $d ** 2 - $a ** 2 - $b ** 2 + 2 * $a * $b * cos(deg2rad($alpha))) / (2 * $c * $d));
 
-        return \sqrt(($s - $a) * ($s - $b) * ($s - $c) * ($s - $d) - $a * $b * $c * $d * \cos((\deg2rad($alpha) + $gamma) / 2) ** 2);
+        return sqrt(($s - $a) * ($s - $b) * ($s - $c) * ($s - $d) - $a * $b * $c * $d * cos((deg2rad($alpha) + $gamma) / 2) ** 2);
     }
 }

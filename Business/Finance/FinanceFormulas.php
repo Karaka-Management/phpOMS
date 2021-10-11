@@ -56,7 +56,7 @@ final class FinanceFormulas
      */
     public static function getAnnualPercentageYield(float $r, int $n) : float
     {
-        return \pow(1 + $r / $n, $n) - 1;
+        return pow(1 + $r / $n, $n) - 1;
     }
 
     /**
@@ -73,7 +73,7 @@ final class FinanceFormulas
      */
     public static function getStateAnnualInterestRateOfAPY(float $apy, int $n) : float
     {
-        return (\pow($apy + 1, 1 / $n) - 1) * $n;
+        return (pow($apy + 1, 1 / $n) - 1) * $n;
     }
 
     /**
@@ -89,7 +89,7 @@ final class FinanceFormulas
      */
     public static function getFutureValueOfAnnuity(float $P, float $r, int $n) : float
     {
-        return $P * (\pow(1 + $r, $n) - 1) / $r;
+        return $P * (pow(1 + $r, $n) - 1) / $r;
     }
 
     /**
@@ -105,7 +105,7 @@ final class FinanceFormulas
      */
     public static function getNumberOfPeriodsOfFVA(float $fva, float $P, float $r) : int
     {
-        return (int) \round(\log($fva / $P * $r + 1) / \log(1 + $r));
+        return (int) round(log($fva / $P * $r + 1) / log(1 + $r));
     }
 
     /**
@@ -121,7 +121,7 @@ final class FinanceFormulas
      */
     public static function getPeriodicPaymentOfFVA(float $fva, float $r, int $n) : float
     {
-        return $fva / ((\pow(1 + $r, $n) - 1) / $r);
+        return $fva / ((pow(1 + $r, $n) - 1) / $r);
     }
 
     /**
@@ -137,7 +137,7 @@ final class FinanceFormulas
      */
     public static function getFutureValueOfAnnuityConinuousCompounding(float $cf, float $r, int $t) : float
     {
-        return $cf * (\exp($r * $t) - 1) / (\exp($r) - 1);
+        return $cf * (exp($r * $t) - 1) / (exp($r) - 1);
     }
 
     /**
@@ -153,7 +153,7 @@ final class FinanceFormulas
      */
     public static function getCashFlowOfFVACC(float $fvacc, float $r, int $t) : float
     {
-        return $fvacc / ((\exp($r * $t) - 1) / (\exp($r) - 1));
+        return $fvacc / ((exp($r * $t) - 1) / (exp($r) - 1));
     }
 
     /**
@@ -169,7 +169,7 @@ final class FinanceFormulas
      */
     public static function getTimeOfFVACC(float $fvacc, float $cf, float $r) : int
     {
-        return (int) \round(\log($fvacc / $cf * (\exp($r) - 1) + 1) / $r);
+        return (int) round(log($fvacc / $cf * (exp($r) - 1) + 1) / $r);
     }
 
     /**
@@ -185,7 +185,7 @@ final class FinanceFormulas
      */
     public static function getAnnuityPaymentPV(float $pv, float $r, int $n) : float
     {
-        return $r * $pv / (1 - \pow(1 + $r, -$n));
+        return $r * $pv / (1 - pow(1 + $r, -$n));
     }
 
     /**
@@ -201,7 +201,7 @@ final class FinanceFormulas
      */
     public static function getNumberOfAPPV(float $p, float $pv, float $r) : int
     {
-        return (int) \round(-\log(-($r * $pv / $p - 1)) / \log(1 + $r));
+        return (int) round(-log(-($r * $pv / $p - 1)) / log(1 + $r));
     }
 
     /**
@@ -217,7 +217,7 @@ final class FinanceFormulas
      */
     public static function getPresentValueOfAPPV(float $p, float $r, int $n) : float
     {
-        return $p / $r * (1 - \pow(1 + $r, -$n));
+        return $p / $r * (1 - pow(1 + $r, -$n));
     }
 
     /**
@@ -233,7 +233,7 @@ final class FinanceFormulas
      */
     public static function getAnnuityPaymentFV(float $fv, float $r, int $n) : float
     {
-        return $r * $fv / (\pow(1 + $r, $n) - 1);
+        return $r * $fv / (pow(1 + $r, $n) - 1);
     }
 
     /**
@@ -249,7 +249,7 @@ final class FinanceFormulas
      */
     public static function getNumberOfAPFV(float $p, float $fv, float $r) : int
     {
-        return (int) \round(\log($fv * $r / $p + 1) / \log(1 + $r));
+        return (int) round(log($fv * $r / $p + 1) / log(1 + $r));
     }
 
     /**
@@ -265,7 +265,7 @@ final class FinanceFormulas
      */
     public static function getFutureValueOfAPFV(float $p, float $r, int $n) : float
     {
-        return $p / $r * (\pow(1 + $r, $n) - 1);
+        return $p / $r * (pow(1 + $r, $n) - 1);
     }
 
     /**
@@ -280,7 +280,7 @@ final class FinanceFormulas
      */
     public static function getAnnutiyPaymentFactorPV(float $r, int $n) : float
     {
-        return $r / (1 - \pow(1 + $r, -$n));
+        return $r / (1 - pow(1 + $r, -$n));
     }
 
     /**
@@ -295,7 +295,7 @@ final class FinanceFormulas
      */
     public static function getNumberOfAPFPV(float $p, float $r) : int
     {
-        return (int) \round(-\log(-($r / $p - 1)) / \log(1 + $r));
+        return (int) round(-log(-($r / $p - 1)) / log(1 + $r));
     }
 
     /**
@@ -311,7 +311,7 @@ final class FinanceFormulas
      */
     public static function getPresentValueOfAnnuity(float $P, float $r, int $n) : float
     {
-        return $P * (1 - \pow(1 + $r, -$n)) / $r;
+        return $P * (1 - pow(1 + $r, -$n)) / $r;
     }
 
     /**
@@ -327,7 +327,7 @@ final class FinanceFormulas
      */
     public static function getNumberOfPeriodsOfPVA(float $pva, float $P, float $r) : int
     {
-        return (int) \round(-\log(-($pva / $P * $r - 1)) / \log(1 + $r));
+        return (int) round(-log(-($pva / $P * $r - 1)) / log(1 + $r));
     }
 
     /**
@@ -343,7 +343,7 @@ final class FinanceFormulas
      */
     public static function getPeriodicPaymentOfPVA(float $pva, float $r, int $n) : float
     {
-        return $pva / ((1 - \pow(1 + $r, -$n)) / $r);
+        return $pva / ((1 - pow(1 + $r, -$n)) / $r);
     }
 
     /**
@@ -358,7 +358,7 @@ final class FinanceFormulas
      */
     public static function getPresentValueAnnuityFactor(float $r, int $n) : float
     {
-        return (1 - \pow(1 + $r, -$n)) / $r;
+        return (1 - pow(1 + $r, -$n)) / $r;
     }
 
     /**
@@ -373,7 +373,7 @@ final class FinanceFormulas
      */
     public static function getPeriodsOfPVAF(float $p, float $r) : int
     {
-        return (int) \round(-\log(-($p * $r - 1)) / \log(1 + $r));
+        return (int) round(-log(-($p * $r - 1)) / log(1 + $r));
     }
 
     /**
@@ -389,7 +389,7 @@ final class FinanceFormulas
      */
     public static function getPresentValueOfAnnuityDue(float $P, float $r, int $n) : float
     {
-        return $P + $P * ((1 - \pow(1 + $r, -($n - 1))) / $r);
+        return $P + $P * ((1 - pow(1 + $r, -($n - 1))) / $r);
     }
 
     /**
@@ -407,7 +407,7 @@ final class FinanceFormulas
      */
     public static function getPeriodicPaymentOfPVAD(float $PV, float $r, int $n) : float
     {
-        return $PV * $r / (1 - \pow(1 + $r, -$n)) * 1 / (1 + $r);
+        return $PV * $r / (1 - pow(1 + $r, -$n)) * 1 / (1 + $r);
     }
 
     /**
@@ -423,7 +423,7 @@ final class FinanceFormulas
      */
     public static function getPeriodsOfPVAD(float $PV, float $P, float $r) : int
     {
-        return (int) \round(-(\log(-($PV - $P) / $P * $r + 1) / \log(1 + $r) - 1));
+        return (int) round(-(log(-($PV - $P) / $P * $r + 1) / log(1 + $r) - 1));
     }
 
     /**
@@ -439,7 +439,7 @@ final class FinanceFormulas
      */
     public static function getFutureValueOfAnnuityDue(float $P, float $r, int $n) : float
     {
-        return (1 + $r) * $P * (\pow(1 + $r, $n) - 1) / $r;
+        return (1 + $r) * $P * (pow(1 + $r, $n) - 1) / $r;
     }
 
     /**
@@ -455,7 +455,7 @@ final class FinanceFormulas
      */
     public static function getPeriodicPaymentOfFVAD(float $FV, float $r, int $n) : float
     {
-        return $FV / ((1 + $r) * ((\pow(1 + $r, $n) - 1) / $r));
+        return $FV / ((1 + $r) * ((pow(1 + $r, $n) - 1) / $r));
     }
 
     /**
@@ -471,7 +471,7 @@ final class FinanceFormulas
      */
     public static function getPeriodsOfFVAD(float $FV, float $P, float $r) : int
     {
-        return (int) \round(\log($FV / (1 + $r) / $P * $r + 1) / \log(1 + $r));
+        return (int) round(log($FV / (1 + $r) / $P * $r + 1) / log(1 + $r));
     }
 
     /**
@@ -547,7 +547,7 @@ final class FinanceFormulas
      */
     public static function getCompoundInterest(float $P, float $r, int $n) : float
     {
-        return $P * (\pow(1 + $r, $n) - 1);
+        return $P * (pow(1 + $r, $n) - 1);
     }
 
     /**
@@ -563,7 +563,7 @@ final class FinanceFormulas
      */
     public static function getPrincipalOfCompundInterest(float $C, float $r, int $n) : float
     {
-        return $C / (\pow(1 + $r, $n) - 1);
+        return $C / (pow(1 + $r, $n) - 1);
     }
 
     /**
@@ -579,7 +579,7 @@ final class FinanceFormulas
      */
     public static function getPeriodsOfCompundInterest(float $P, float $C, float $r) : float
     {
-        return \log($C / $P + 1) / \log(1 + $r);
+        return log($C / $P + 1) / log(1 + $r);
     }
 
     /**
@@ -595,7 +595,7 @@ final class FinanceFormulas
      */
     public static function getContinuousCompounding(float $P, float $r, int $t) : float
     {
-        return $P * \exp($r * $t);
+        return $P * exp($r * $t);
     }
 
     /**
@@ -611,7 +611,7 @@ final class FinanceFormulas
      */
     public static function getPrincipalOfContinuousCompounding(float $C, float $r, int $t) : float
     {
-        return $C / \exp($r * $t);
+        return $C / exp($r * $t);
     }
 
     /**
@@ -627,7 +627,7 @@ final class FinanceFormulas
      */
     public static function getPeriodsOfContinuousCompounding(float $P, float $C, float $r) : float
     {
-        return \log($C / $P) / $r;
+        return log($C / $P) / $r;
     }
 
     /**
@@ -643,7 +643,7 @@ final class FinanceFormulas
      */
     public static function getRateOfContinuousCompounding(float $P, float $C, float $t) : float
     {
-        return \log($C / $P) / $t;
+        return log($C / $P) / $t;
     }
 
     /**
@@ -748,7 +748,7 @@ final class FinanceFormulas
      */
     public static function getDiscountedPaybackPeriod(float $CF, float $O1, float $r) : float
     {
-        return \log(1 / (1 - $O1 * $r / $CF)) / \log(1 + $r);
+        return log(1 / (1 - $O1 * $r / $CF)) / log(1 + $r);
     }
 
     /**
@@ -762,7 +762,7 @@ final class FinanceFormulas
      */
     public static function getDoublingTime(float $r) : float
     {
-        return \log(2) / \log(1 + $r);
+        return log(2) / log(1 + $r);
     }
 
     /**
@@ -776,7 +776,7 @@ final class FinanceFormulas
      */
     public static function getDoublingRate(float $t) : float
     {
-        return \exp(\log(2) / $t) - 1;
+        return exp(log(2) / $t) - 1;
     }
 
     /**
@@ -790,7 +790,7 @@ final class FinanceFormulas
      */
     public static function getDoublingTimeContinuousCompounding(float $r) : float
     {
-        return \log(2) / $r;
+        return log(2) / $r;
     }
 
     /**
@@ -804,7 +804,7 @@ final class FinanceFormulas
      */
     public static function getDoublingContinuousCompoundingRate(float $t) : float
     {
-        return \log(2) / $t;
+        return log(2) / $t;
     }
 
     /**
@@ -820,7 +820,7 @@ final class FinanceFormulas
      */
     public static function getEquivalentAnnualAnnuity(float $NPV, float $r, int $n) : float
     {
-        return $r * $NPV / (1 - \pow(1 + $r, -$n));
+        return $r * $NPV / (1 - pow(1 + $r, -$n));
     }
 
     /**
@@ -836,7 +836,7 @@ final class FinanceFormulas
      */
     public static function getPeriodsOfEAA(float $C, float $NPV, float $r) : int
     {
-        return (int) \round(-\log(1 - $r * $NPV / $C) / \log(1 + $r));
+        return (int) round(-log(1 - $r * $NPV / $C) / log(1 + $r));
     }
 
     /**
@@ -852,7 +852,7 @@ final class FinanceFormulas
      */
     public static function getNetPresentValueOfEAA(float $C, float $r, int $n) : float
     {
-        return $C * (1 - \pow(1 + $r, -$n)) / $r;
+        return $C * (1 - pow(1 + $r, -$n)) / $r;
     }
 
     /**
@@ -908,7 +908,7 @@ final class FinanceFormulas
      */
     public static function getFutureValue(float $C, float $r, int $n) : float
     {
-        return $C * \pow(1 + $r, $n);
+        return $C * pow(1 + $r, $n);
     }
 
     /**
@@ -924,7 +924,7 @@ final class FinanceFormulas
      */
     public static function getFutureValueContinuousCompounding(float $PV, float $r, int $t) : float
     {
-        return $PV * \exp($r * $t);
+        return $PV * exp($r * $t);
     }
 
     /**
@@ -944,7 +944,7 @@ final class FinanceFormulas
      */
     public static function getFutureValueFactor(float $r, int $n) : float
     {
-        return \pow(1 + $r, $n);
+        return pow(1 + $r, $n);
     }
 
     /**
@@ -977,7 +977,7 @@ final class FinanceFormulas
      */
     public static function getGrowingAnnuityFV(float $P, float $r, float $g, int $n) : float
     {
-        return $P * (\pow(1 + $r, $n) - \pow(1 + $g, $n)) / ($r - $g);
+        return $P * (pow(1 + $r, $n) - pow(1 + $g, $n)) / ($r - $g);
     }
 
     /**
@@ -994,7 +994,7 @@ final class FinanceFormulas
      */
     public static function getGrowingAnnuityPaymentPV(float $PV, float $r, float $g, int $n) : float
     {
-        return $PV * ($r - $g) / (1 - \pow((1 + $g) / (1 + $r), $n));
+        return $PV * ($r - $g) / (1 - pow((1 + $g) / (1 + $r), $n));
     }
 
     /**
@@ -1011,7 +1011,7 @@ final class FinanceFormulas
      */
     public static function getGrowingAnnuityPaymentFV(float $FV, float $r, float $g, int $n) : float
     {
-        return $FV * ($r - $g) / (\pow(1 + $r, $n) - \pow(1 + $g, $n));
+        return $FV * ($r - $g) / (pow(1 + $r, $n) - pow(1 + $g, $n));
     }
 
     /**
@@ -1028,7 +1028,7 @@ final class FinanceFormulas
      */
     public static function getGrowingAnnuityPV(float $P, float $r, float $g, int $n) : float
     {
-        return $P / ($r - $g) * (1 - \pow((1 + $g) / (1 + $r), $n));
+        return $P / ($r - $g) * (1 - pow((1 + $g) / (1 + $r), $n));
     }
 
     /**
@@ -1100,7 +1100,7 @@ final class FinanceFormulas
         $npv = -$C[0];
 
         for ($i = 1; $i < $count; ++$i) {
-            $npv += $C[$i] / \pow(1 + $r, $i);
+            $npv += $C[$i] / pow(1 + $r, $i);
         }
 
         return $npv;
@@ -1149,7 +1149,7 @@ final class FinanceFormulas
      */
     public static function getNumberOfPeriodsPVFV(float $FV, float $PV, float $r) : float
     {
-        return \log($FV / $PV) / \log(1 + $r);
+        return log($FV / $PV) / log(1 + $r);
     }
 
     /**
@@ -1195,7 +1195,7 @@ final class FinanceFormulas
      */
     public static function getPresentValue(float $C, float $r, int $n) : float
     {
-        return $C / \pow(1 + $r, $n);
+        return $C / pow(1 + $r, $n);
     }
 
     /**
@@ -1211,7 +1211,7 @@ final class FinanceFormulas
      */
     public static function getPresentValueContinuousCompounding(float $C, float $r, int $t) : float
     {
-        return $C / \exp($r * $t);
+        return $C / exp($r * $t);
     }
 
     /**
@@ -1226,7 +1226,7 @@ final class FinanceFormulas
      */
     public static function getPresentValueFactor(float $r, int $n) : float
     {
-        return 1 / \pow(1 + $r, $n);
+        return 1 / pow(1 + $r, $n);
     }
 
     /**
@@ -1410,7 +1410,7 @@ final class FinanceFormulas
      */
     public static function getSimpleInterestTime(float $I, float $P, float $r) : int
     {
-        return (int) \round($I / ($P * $r));
+        return (int) round($I / ($P * $r));
     }
 
     /**

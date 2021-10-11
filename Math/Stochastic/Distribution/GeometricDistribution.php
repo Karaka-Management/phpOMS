@@ -36,7 +36,7 @@ final class GeometricDistribution
      */
     public static function getPmf(float $p, int $k) : float
     {
-        return \pow(1 - $p, $k - 1) * $p;
+        return pow(1 - $p, $k - 1) * $p;
     }
 
     /**
@@ -51,7 +51,7 @@ final class GeometricDistribution
      */
     public static function getCdf(float $p, int $k) : float
     {
-        return 1 - \pow(1 - $p, $k);
+        return 1 - pow(1 - $p, $k);
     }
 
     /**
@@ -91,7 +91,7 @@ final class GeometricDistribution
      */
     public static function getMedian(float $p) : float
     {
-        return \ceil(-1 / (\log(1 - $p, 2)));
+        return ceil(-1 / (log(1 - $p, 2)));
     }
 
     /**
@@ -119,7 +119,7 @@ final class GeometricDistribution
      */
     public static function getStandardDeviation(float $p) : float
     {
-        return \sqrt(self::getVariance($p));
+        return sqrt(self::getVariance($p));
     }
 
     /**
@@ -134,9 +134,9 @@ final class GeometricDistribution
      */
     public static function getMgf(float $p, float $t) : float
     {
-        return $t < -\log(1 - $p)
-            ? $p * \exp($t) / (1 - (1 - $p) * \exp($t))
-            : $p / (1 - (1 - $p) * \exp($t));
+        return $t < -log(1 - $p)
+            ? $p * exp($t) / (1 - (1 - $p) * exp($t))
+            : $p / (1 - (1 - $p) * exp($t));
     }
 
     /**
@@ -150,7 +150,7 @@ final class GeometricDistribution
      */
     public static function getSkewness(float $lambda) : float
     {
-        return (2 - $lambda) / \sqrt(1 - $lambda);
+        return (2 - $lambda) / sqrt(1 - $lambda);
     }
 
     /**

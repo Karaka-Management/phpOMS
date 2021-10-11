@@ -57,7 +57,7 @@ class BetaDistributionTest extends \PHPUnit\Framework\TestCase
      */
     public function testStandardDeviation() : void
     {
-        self::assertEqualsWithDelta(\sqrt(1 / 20), BetaDistribution::getStandardDeviation(2.0, 2.0), 0.001);
+        self::assertEqualsWithDelta(sqrt(1 / 20), BetaDistribution::getStandardDeviation(2.0, 2.0), 0.001);
     }
 
     /**

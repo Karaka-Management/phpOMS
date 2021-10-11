@@ -73,7 +73,7 @@ final class UriFactory
             self::$uri = [];
         } else {
             foreach (self::$uri as $key => $value) {
-                if (\stripos($key, $identifier) === 0) {
+                if (stripos($key, $identifier) === 0) {
                     unset(self::$uri[$key]);
                 }
             }
@@ -116,7 +116,7 @@ final class UriFactory
         self::setQuery('/scheme', $uri->scheme);
         self::setQuery('/host', $uri->host);
         self::setQuery('/port', (string) $uri->port);
-        self::setQuery('/base', \rtrim($uri->getBase(), '/'));
+        self::setQuery('/base', rtrim($uri->getBase(), '/'));
         self::setQuery('/rootPath', $uri->getRootPath());
         self::setQuery('?', '?' . $uri->getQuery());
         self::setQuery('%', $uri->__toString());
@@ -175,7 +175,7 @@ final class UriFactory
         $success = false;
 
         foreach (self::$uri as $key => $value) {
-            if (((bool) \preg_match('~^' . $pattern . '$~', $key))) {
+            if (((bool) preg_match('~^' . $pattern . '$~', $key))) {
                 unset(self::$uri[$key]);
                 $success = true;
             }
@@ -198,18 +198,18 @@ final class UriFactory
     private static function unique(string $url) : string
     {
         // handle edge cases / normalization
-        $url = \str_replace(
+        $url = str_replace(
                 ['=%', '=#', '=?'],
                 ['=%25', '=%23', '=%3F'],
                 $url
             );
 
-        if (\stripos($url, '?') === false && ($pos = \stripos($url, '&')) !== false) {
-            $url = \substr_replace($url, '?', $pos, 1);
+        if (stripos($url, '?') === false && ($pos = stripos($url, '&')) !== false) {
+            $url = substr_replace($url, '?', $pos, 1);
         }
 
         /** @var array $urlStructure */
-        $urlStructure = \parse_url($url);
+        $urlStructure = parse_url($url);
         if ($urlStructure === false) {
             return $url; // @codeCoverageIgnore
         }
@@ -218,16 +218,16 @@ final class UriFactory
             $len = \strlen($urlStructure['query']);
             for ($i = 0; $i < $len; ++$i) {
                 if ($urlStructure['query'][$i] === '?') {
-                    $urlStructure['query'] = \substr_replace($urlStructure['query'], '&', $i, 1);
+                    $urlStructure['query'] = substr_replace($urlStructure['query'], '&', $i, 1);
                 } elseif ($urlStructure['query'][$i] === '\\') {
                     ++$i;
                 }
             }
 
-            \parse_str($urlStructure['query'], $urlStructure['query']);
+            parse_str($urlStructure['query'], $urlStructure['query']);
 
             foreach ($urlStructure['query'] as $para => $query) {
-                if ($query === '' && \stripos($url, $para . '=') !== false) {
+                if ($query === '' && stripos($url, $para . '=') !== false) {
                     unset($urlStructure['query'][$para]);
                 }
             }
@@ -247,11 +247,11 @@ final class UriFactory
             . (isset($urlStructure['path']) && !empty($urlStructure['path'])
                 ? $urlStructure['path'] : '')
             . (isset($urlStructure['query']) && !empty($urlStructure['query'])
-                ? '?' . \http_build_query($urlStructure['query']) : '')
+                ? '?' . http_build_query($urlStructure['query']) : '')
             . (isset($urlStructure['fragment']) && !empty($urlStructure['fragment'])
-                ? '#' . \str_replace('\#', '#', $urlStructure['fragment']) : '');
+                ? '#' . str_replace('\#', '#', $urlStructure['fragment']) : '');
 
-        return \str_replace(
+        return str_replace(
                 ['%5C%7B', '%5C%7D', '%5C%3F', '%5C%23'],
                 ['{', '}', '?', '#'],
                 $escaped
@@ -279,12 +279,12 @@ final class UriFactory
      */
     public static function build(string $uri, array $toMatch = []) : string
     {
-        if (\stripos($uri, '{') === false) {
+        if (stripos($uri, '{') === false) {
             return $uri;
         }
 
-        $parsed = \preg_replace_callback('(\{[\/#\?%@\.\$][a-zA-Z0-9\-]*\})', function ($match) use ($toMatch) {
-            $match = \substr($match[0], 1, \strlen($match[0]) - 2);
+        $parsed = preg_replace_callback('(\{[\/#\?%@\.\$][a-zA-Z0-9\-]*\})', function ($match) use ($toMatch) {
+            $match = substr($match[0], 1, \strlen($match[0]) - 2);
 
             return $toMatch[$match] ?? self::$uri[$match] ?? '';
         }, $uri);

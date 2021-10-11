@@ -90,7 +90,7 @@ abstract class RequestAbstract implements MessageInterface
             return $this->data;
         }
 
-        $key = \mb_strtolower($key);
+        $key = mb_strtolower($key);
 
         if (!isset($this->data[$key])) {
             return null;
@@ -125,13 +125,13 @@ abstract class RequestAbstract implements MessageInterface
      */
     public function getDataJson(string $key) : array
     {
-        $key = \mb_strtolower($key);
+        $key = mb_strtolower($key);
 
         if (!isset($this->data[$key])) {
             return [];
         }
 
-        $json = \json_decode($this->data[$key], true);
+        $json = json_decode($this->data[$key], true);
 
         return $json === false ? [] : $json ?? [];
     }
@@ -148,20 +148,20 @@ abstract class RequestAbstract implements MessageInterface
      */
     public function getDataList(string $key, string $delim = ',') : array
     {
-        $key = \mb_strtolower($key);
+        $key = mb_strtolower($key);
 
         if (!isset($this->data[$key])) {
             return [];
         }
 
-        $list = \explode($delim, $this->data[$key]);
+        $list = explode($delim, $this->data[$key]);
 
         if ($list === false) {
             return []; // @codeCoverageIgnore
         }
 
         foreach ($list as $i => $e) {
-            $list[$i] = \trim($e);
+            $list[$i] = trim($e);
         }
 
         return $list;
@@ -180,7 +180,7 @@ abstract class RequestAbstract implements MessageInterface
     {
         $data = [];
         foreach ($this->data as $key => $value) {
-            if (\preg_match('/' . $regex . '/', $key) === 1) {
+            if (preg_match('/' . $regex . '/', $key) === 1) {
                 $data[$key] = $value;
             }
         }
@@ -216,7 +216,7 @@ abstract class RequestAbstract implements MessageInterface
     public function setData(string $key, mixed $value, bool $overwrite = false) : bool
     {
         if (!$this->lock) {
-            $key = \mb_strtolower($key);
+            $key = mb_strtolower($key);
             if ($overwrite || !isset($this->data[$key])) {
                 $this->data[$key] = $value;
 

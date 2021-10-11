@@ -493,8 +493,8 @@ class Name
      */
     public static function generateName(array $type, string $origin = 'western') : string
     {
-        $rndType = \mt_rand(0, \count($type) - 1);
+        $rndType = mt_rand(0, \count($type) - 1);
 
-        return self::$names[$origin][$type[$rndType]][\mt_rand(0, \count(self::$names[$origin][$type[$rndType]]) - 1)];
+        return self::$names[$origin][$type[$rndType]][mt_rand(0, \count(self::$names[$origin][$type[$rndType]]) - 1)];
     }
 }

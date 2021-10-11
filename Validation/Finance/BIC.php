@@ -31,6 +31,6 @@ final class BIC extends ValidatorAbstract
      */
     public static function isValid(mixed $value, array $constraints = null) : bool
     {
-        return (bool) \preg_match('/^[a-z]{6}[0-9a-z]{2}([0-9a-z]{3})?\z/i', $value);
+        return (bool) preg_match('/^[a-z]{6}[0-9a-z]{2}([0-9a-z]{3})?\z/i', $value);
     }
 }

@@ -36,7 +36,7 @@ class SpeedTypeTest extends \PHPUnit\Framework\TestCase
      */
     public function testUnique() : void
     {
-        self::assertEquals(SpeedType::getConstants(), \array_unique(SpeedType::getConstants()));
+        self::assertEquals(SpeedType::getConstants(), array_unique(SpeedType::getConstants()));
     }
 
     /**
