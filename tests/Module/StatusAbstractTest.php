@@ -34,6 +34,19 @@ class StatusAbstractTest extends \PHPUnit\Framework\TestCase
     {
     	$this->status = new class() extends StatusAbstract
     	{
+            public const PATH = __DIR__ . '/../../../Modules/Invalid';
     	};
+    }
+
+    /**
+     * @covers phpOMS\Module\StatusAbstract
+     * @group framework
+     */
+    public function testInvalidModulePathActivation() : void
+    {
+        $this->status::activateRoutes();
+        $this->status::activateHooks();
+
+        self::assertFalse(\is_dir(__DIR__ . '/../../../Modules/Invalid'));
     }
 }

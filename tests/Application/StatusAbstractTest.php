@@ -32,7 +32,8 @@ class StatusAbstractTest extends \PHPUnit\Framework\TestCase
      */
     protected function setUp() : void
     {
-        $this->status      = new class() extends StatusAbstract {
+        $this->status = new class() extends StatusAbstract
+        {
         	public const PATH = __DIR__ . '/Invalid';
         };
     }
