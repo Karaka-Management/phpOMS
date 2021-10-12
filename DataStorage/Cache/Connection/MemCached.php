@@ -207,7 +207,7 @@ final class MemCached extends ConnectionAbstract
         $keys   = $this->con->getAllKeys();
         $values = [];
 
-        var_dump($keys);
+        \var_dump($keys);
 
         foreach ($keys as $key) {
             if (\preg_match('/' . $pattern . '/', $key) === 1) {
