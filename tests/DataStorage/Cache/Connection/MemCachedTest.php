@@ -150,30 +150,6 @@ class MemCachedTest extends \PHPUnit\Framework\TestCase
         self::assertFalse($this->cache->exists('invalid'));
     }
 
-    public function testGetLike() : void
-    {
-        $this->cache->set('key1', 'testVal1');
-        $this->cache->set('key2', 'testVal2');
-        self::assertEquals(['testVal1', 'testVal2'], $this->cache->getLike('key\d'));
-    }
-
-    public function testExpiredGetLike() : void
-    {
-        $this->cache->set('key1', 'testVal1', 2);
-        $this->cache->set('key2', 'testVal2', 2);
-        \sleep(1);
-        self::assertEquals([], \array_diff(['testVal1', 'testVal2'], $this->cache->getLike('key\d')));
-        self::assertEquals([], $this->cache->getLike('key\d', 0));
-        \sleep(3);
-        self::assertEquals([], $this->cache->getLike('key\d'));
-    }
-
-    public function testGetLikeInvalidStatus() : void
-    {
-        TestUtils::setMember($this->cache, 'status', CacheStatus::FAILURE);
-        self::assertEquals([], $this->cache->getLike('key\d'));
-    }
-
     public function testIncrement() : void
     {
         $this->cache->set(1, 1);
@@ -203,20 +179,6 @@ class MemCachedTest extends \PHPUnit\Framework\TestCase
         $this->cache->set('a', 'testVal1');
         $this->cache->rename('a', 'b');
         self::assertEquals('testVal1', $this->cache->get('b'));
-    }
-
-    public function testDeleteLike() : void
-    {
-        $this->cache->set('key1', 'testVal1');
-        $this->cache->set('key2', 'testVal2');
-        self::assertTrue($this->cache->deleteLike('key\d'));
-        self::assertEquals([], $this->cache->getLike('key\d'));
-    }
-
-    public function testDeleteLikeInvalidStatus() : void
-    {
-        TestUtils::setMember($this->cache, 'status', CacheStatus::FAILURE);
-        self::assertFalse($this->cache->deleteLike('key\d'));
     }
 
     public function testUpdateExpire() : void

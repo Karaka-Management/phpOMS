@@ -102,18 +102,6 @@ interface ConnectionInterface extends DataStorageConnectionInterface
     public function get(int | string $key, int $expire = -1) : mixed;
 
     /**
-     * Get cache by pattern.
-     *
-     * @param string $key    Unique cache key
-     * @param int    $expire Valid duration (in s). In case the data needs to be newer than the defined expiration time. If the expiration date is larger than the defined expiration time and supposed to be expired it will not remove the outdated cache.
-     *
-     * @return array Cache values
-     *
-     * @since 1.0.0
-     */
-    public function getLike(string $pattern, int $expire = -1) : array;
-
-    /**
      * Exists cache by key.
      *
      * @param int|string $key    Unique cache key
@@ -136,18 +124,6 @@ interface ConnectionInterface extends DataStorageConnectionInterface
      * @since 1.0.0
      */
     public function delete(int | string $key, int $expire = -1) : bool;
-
-    /**
-     * Remove value by pattern.
-     *
-     * @param string $key    Unique cache key
-     * @param int    $expire Valid duration (in s)
-     *
-     * @return bool
-     *
-     * @since 1.0.0
-     */
-    public function deleteLike(string $pattern, int $expire = -1) : bool;
 
     /**
      * Removing all cache elements larger or equal to the expiration date. Call flushAll for removing persistent cache elements (expiration is negative) as well.

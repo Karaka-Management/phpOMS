@@ -196,36 +196,6 @@ final class MemCached extends ConnectionAbstract
     }
 
     /**
-     * {@inheritdoc}
-     */
-    public function getLike(string $pattern, int $expire = -1) : array
-    {
-        if ($this->status !== CacheStatus::OK) {
-            return [];
-        }
-
-        $keys   = $this->con->getAllKeys();
-        $values = [];
-
-        var_dump($keys);
-
-        foreach ($keys as $key) {
-            if (\preg_match('/' . $pattern . '/', $key) === 1) {
-                $result = $this->con->get($key);
-                if (\is_string($result)) {
-                    $type   = (int) $result[0];
-                    $start  = (int) \strpos($result, self::DELIM);
-                    $result = $this->reverseValue($type, $result, $start);
-                }
-
-                $values[] = $result;
-            }
-        }
-
-        return $values;
-    }
-
-    /**
      * Parse cached value
      *
      * @param int    $type      Cached value type
@@ -278,25 +248,6 @@ final class MemCached extends ConnectionAbstract
             default:
                 return null;
         }
-    }
-
-    /**
-     * {@inheritdoc}
-     */
-    public function deleteLike(string $pattern, int $expire = -1) : bool
-    {
-        if ($this->status !== CacheStatus::OK) {
-            return false;
-        }
-
-        $keys = $this->con->getAllKeys();
-        foreach ($keys as $key) {
-            if (\preg_match('/' . $pattern . '/', $key) === 1) {
-                $this->con->delete($key);
-            }
-        }
-
-        return true;
     }
 
     /**
