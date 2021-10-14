@@ -46,7 +46,7 @@ class MailHandlerTest extends \PHPUnit\Framework\TestCase
         $this->handler->setMailer(SubmitType::MAIL);
 
         if (($this->handler->mailerTool !== '' && !\file_exists(\explode(' ', $this->handler->mailerTool)[0]))
-            || ($this->handler->mailerTool === '' && OperatingSystem::getSystem() !== SystemType::WIN && \stripos($sendmailPath = \ini_get('sendmail_path'), 'sendmail') === false)
+            || ($this->handler->mailerTool === '' && OperatingSystem::getSystem() !== SystemType::WIN && (\stripos($sendmailPath = \ini_get('sendmail_path'), 'sendmail') === false) || !\file_exists(\explode(' ', $sendmailPath)[0]))
         ) {
             self::markTestSkipped();
         }
@@ -98,7 +98,7 @@ class MailHandlerTest extends \PHPUnit\Framework\TestCase
         $this->handler->setMailer(SubmitType::MAIL);
 
         if (($this->handler->mailerTool !== '' && !\file_exists(\explode(' ', $this->handler->mailerTool)[0]))
-            || ($this->handler->mailerTool === '' && OperatingSystem::getSystem() !== SystemType::WIN && \stripos($sendmailPath = \ini_get('sendmail_path'), 'sendmail') === false)
+            || ($this->handler->mailerTool === '' && OperatingSystem::getSystem() !== SystemType::WIN && (\stripos($sendmailPath = \ini_get('sendmail_path'), 'sendmail') === false) || !\file_exists(\explode(' ', $sendmailPath)[0]))
         ) {
             self::markTestSkipped();
         }
@@ -160,7 +160,7 @@ class MailHandlerTest extends \PHPUnit\Framework\TestCase
         $this->handler->setMailer(SubmitType::MAIL);
 
         if (($this->handler->mailerTool !== '' && !\file_exists(\explode(' ', $this->handler->mailerTool)[0]))
-            || ($this->handler->mailerTool === '' && OperatingSystem::getSystem() !== SystemType::WIN && \stripos($sendmailPath = \ini_get('sendmail_path'), 'sendmail') === false)
+            || ($this->handler->mailerTool === '' && OperatingSystem::getSystem() !== SystemType::WIN && (\stripos($sendmailPath = \ini_get('sendmail_path'), 'sendmail') === false) || !\file_exists(\explode(' ', $sendmailPath)[0]))
         ) {
             self::markTestSkipped();
         }
@@ -200,7 +200,7 @@ class MailHandlerTest extends \PHPUnit\Framework\TestCase
         $this->handler->setMailer(SubmitType::MAIL);
 
         if (($this->handler->mailerTool !== '' && !\file_exists(\explode(' ', $this->handler->mailerTool)[0]))
-            || ($this->handler->mailerTool === '' && OperatingSystem::getSystem() !== SystemType::WIN && \stripos($sendmailPath = \ini_get('sendmail_path'), 'sendmail') === false)
+            || ($this->handler->mailerTool === '' && OperatingSystem::getSystem() !== SystemType::WIN && (\stripos($sendmailPath = \ini_get('sendmail_path'), 'sendmail') === false) || !\file_exists(\explode(' ', $sendmailPath)[0]))
         ) {
             self::markTestSkipped();
         }
@@ -236,14 +236,10 @@ class MailHandlerTest extends \PHPUnit\Framework\TestCase
         $this->handler->setMailer(SubmitType::MAIL);
 
         if (($this->handler->mailerTool !== '' && !\file_exists(\explode(' ', $this->handler->mailerTool)[0]))
-            || ($this->handler->mailerTool === '' && OperatingSystem::getSystem() !== SystemType::WIN && \stripos($sendmailPath = \ini_get('sendmail_path'), 'sendmail') === false)
+            || ($this->handler->mailerTool === '' && OperatingSystem::getSystem() !== SystemType::WIN && (\stripos($sendmailPath = \ini_get('sendmail_path'), 'sendmail') === false) || !\file_exists(\explode(' ', $sendmailPath)[0]))
         ) {
             self::markTestSkipped();
         }
-
-        \var_dump($sendmailPath);
-        \var_dump($this->handler->mailerTool);
-        \var_dump(OperatingSystem::getSystem());
 
         $mail = new Email();
         $mail->setFrom('test1@orange-management.email', 'Dennis Eichhorn');
@@ -276,7 +272,7 @@ class MailHandlerTest extends \PHPUnit\Framework\TestCase
         $this->handler->setMailer(SubmitType::MAIL);
 
         if (($this->handler->mailerTool !== '' && !\file_exists(\explode(' ', $this->handler->mailerTool)[0]))
-            || ($this->handler->mailerTool === '' && OperatingSystem::getSystem() !== SystemType::WIN && \stripos($sendmailPath = \ini_get('sendmail_path'), 'sendmail') === false)
+            || ($this->handler->mailerTool === '' && OperatingSystem::getSystem() !== SystemType::WIN && (\stripos($sendmailPath = \ini_get('sendmail_path'), 'sendmail') === false) || !\file_exists(\explode(' ', $sendmailPath)[0]))
         ) {
             self::markTestSkipped();
         }
@@ -318,7 +314,7 @@ class MailHandlerTest extends \PHPUnit\Framework\TestCase
         $this->handler->setMailer(SubmitType::MAIL);
 
         if (($this->handler->mailerTool !== '' && !\file_exists(\explode(' ', $this->handler->mailerTool)[0]))
-            || ($this->handler->mailerTool === '' && OperatingSystem::getSystem() !== SystemType::WIN && \stripos($sendmailPath = \ini_get('sendmail_path'), 'sendmail') === false)
+            || ($this->handler->mailerTool === '' && OperatingSystem::getSystem() !== SystemType::WIN && (\stripos($sendmailPath = \ini_get('sendmail_path'), 'sendmail') === false) || !\file_exists(\explode(' ', $sendmailPath)[0]))
         ) {
             self::markTestSkipped();
         }
@@ -356,7 +352,7 @@ class MailHandlerTest extends \PHPUnit\Framework\TestCase
         $this->handler->setMailer(SubmitType::MAIL);
 
         if (($this->handler->mailerTool !== '' && !\file_exists(\explode(' ', $this->handler->mailerTool)[0]))
-            || ($this->handler->mailerTool === '' && OperatingSystem::getSystem() !== SystemType::WIN && \stripos($sendmailPath = \ini_get('sendmail_path'), 'sendmail') === false)
+            || ($this->handler->mailerTool === '' && OperatingSystem::getSystem() !== SystemType::WIN && (\stripos($sendmailPath = \ini_get('sendmail_path'), 'sendmail') === false) || !\file_exists(\explode(' ', $sendmailPath)[0]))
         ) {
             self::markTestSkipped();
         }
@@ -387,11 +383,13 @@ class MailHandlerTest extends \PHPUnit\Framework\TestCase
         self::assertTrue($this->handler->send($mail));
     }
 
+    /*
     public function testReceiveMailWithImap() : void
-    {/*
+    {
         $this->handler = new Imap();
         $this->handler->connectInbox();
 
-        var_dump($this->handler->getBoxes());*/
+        var_dump($this->handler->getBoxes());
     }
+    */
 }
