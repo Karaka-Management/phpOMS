@@ -32,6 +32,7 @@ class ConsoleResponseTest extends \PHPUnit\Framework\TestCase
     {
         $this->response = new ConsoleResponse();
     }
+
     /**
      * @covers phpOMS\Message\Console\ConsoleResponse
      * @group framework
