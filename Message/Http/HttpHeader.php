@@ -149,7 +149,7 @@ final class HttpHeader extends HeaderAbstract
         }
 
         foreach ($_SERVER as $name => $value) {
-            $part = \substr($name, 5);
+            $part = \substr($name, 0, 5);
             if ($part === 'HTTP_') {
                 self::$serverHeaders[
                     \str_replace(
@@ -157,7 +157,7 @@ final class HttpHeader extends HeaderAbstract
                         '-',
                         \ucwords(
                             \strtolower(
-                                \str_replace('_', ' ', $part)
+                                \str_replace('_', ' ', \substr($name, 5))
                             )
                         )
                     )

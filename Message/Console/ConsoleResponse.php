@@ -4,7 +4,7 @@
  *
  * PHP Version 8.0
  *
- * @package   phpOMS\Message\Http
+ * @package   phpOMS\Message\Console
  * @copyright Dennis Eichhorn
  * @license   OMS License 1.0
  * @version   1.0.0
@@ -20,12 +20,13 @@ use phpOMS\Log\FileLogger;
 use phpOMS\Message\Http\RequestStatusCode;
 use phpOMS\Message\ResponseAbstract;
 use phpOMS\System\MimeType;
+use phpOMS\Utils\StringUtils;
 use phpOMS\Views\View;
 
 /**
  * Response class.
  *
- * @package phpOMS\Message\Http
+ * @package phpOMS\Message\Console
  * @license OMS License 1.0
  * @link    https://orange-management.org
  * @since   1.0.0
@@ -133,13 +134,7 @@ final class ConsoleResponse extends ResponseAbstract implements RenderableInterf
         $render = '';
 
         foreach ($this->response as $key => $response) {
-            if ($response instanceof \Serializable) {
-                $render .= $response->serialize();
-            } elseif (\is_string($response) || \is_numeric($response)) {
-                $render .= $response;
-            } else {
-                throw new \Exception('Wrong response type');
-            }
+            $render .= StringUtils::stringify($response);
         }
 
         return $render;
@@ -152,35 +147,27 @@ final class ConsoleResponse extends ResponseAbstract implements RenderableInterf
     {
         $result = [];
 
-        try {
-            foreach ($this->response as $key => $response) {
-                if ($response instanceof View) {
-                    $result += $response->toArray();
-                } elseif (\is_array($response)) {
-                    $result += $response;
-                } elseif (\is_scalar($response)) {
-                    $result[] = $response;
-                } elseif ($response instanceof \JsonSerializable) {
-                    $result[] = $response->jsonSerialize();
-                } elseif ($response === null) {
-                    continue;
-                } else {
-                    throw new \Exception('Wrong response type');
-                }
+        foreach ($this->response as $key => $response) {
+            if ($response instanceof View) {
+                $result[] = $response->toArray();
+            } elseif (\is_array($response) || \is_scalar($response)) {
+                $result[] = $response;
+            } elseif ($response instanceof \JsonSerializable) {
+                $result[] = $response->jsonSerialize();
+            } elseif ($response === null) {
+                continue;
+            } else {
+                FileLogger::getInstance('', false)
+                    ->error(
+                        FileLogger::MSG_FULL, [
+                            'message' => 'Unknown type.',
+                            'line'    => __LINE__,
+                            'file'    => self::class,
+                        ]
+                    );
             }
-        } catch (\Exception $e) {
-            FileLogger::getInstance('', false)
-                ->error(
-                    FileLogger::MSG_FULL, [
-                        'message' => $e->getMessage(),
-                        'line'    => __LINE__,
-                        'file'    => self::class,
-                    ]
-                );
-
-            $result = [];
-        } finally {
-            return $result;
         }
+
+        return $result;
     }
 }

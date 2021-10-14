@@ -30,6 +30,10 @@ class ZipTest extends \PHPUnit\Framework\TestCase
               'The ZIP extension is not available.'
             );
         }
+
+        if (\is_dir('new_dir')) {
+            \rmdir('new_dir');
+        }
     }
 
     /**
@@ -164,6 +168,11 @@ class ZipTest extends \PHPUnit\Framework\TestCase
         ));
 
         \unlink(__DIR__ . '/test2.zip');
+    }
+
+    public function testInvalidArchiveUnpack() : void
+    {
+        self::assertFalse(Zip::unpack(__DIR__ . '/malformed.zip', __DIR__));
     }
 
     /**

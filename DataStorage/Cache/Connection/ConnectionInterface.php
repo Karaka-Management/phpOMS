@@ -70,11 +70,11 @@ interface ConnectionInterface extends DataStorageConnectionInterface
      * @param int|string $new    Unique cache key
      * @param int        $expire Valid duration (in s). Negative expiration means no expiration.
      *
-     * @return void
+     * @return bool
      *
      * @since 1.0.0
      */
-    public function rename(int | string $old, int | string $new, int $expire = -1) : void;
+    public function rename(int | string $old, int | string $new, int $expire = -1) : bool;
 
     /**
      * Adding new data if it doesn't exist.

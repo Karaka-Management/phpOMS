@@ -30,6 +30,10 @@ class TarTest extends \PHPUnit\Framework\TestCase
               'The Phar extension is not available.'
             );
         }
+
+        if (\is_dir('new_dir')) {
+            \rmdir('new_dir');
+        }
     }
 
     /**
@@ -83,14 +87,13 @@ class TarTest extends \PHPUnit\Framework\TestCase
 
         \unlink(__DIR__ . '/test.tar');
 
-        /* @todo not working, somehow it cannot open the test.tar
         // second test
         self::assertTrue(Tar::pack(
             __DIR__ . '/test',
-            __DIR__ . '/test.tar'
+            __DIR__ . '/test2.tar'
         ));
 
-        self::assertTrue(Tar::unpack(__DIR__ . '/test.tar', __DIR__ . '/new_dir'));
+        self::assertTrue(Tar::unpack(__DIR__ . '/test2.tar', __DIR__ . '/new_dir'));
         self::assertFileExists(__DIR__ . '/new_dir');
         self::assertEquals($c, \file_get_contents(__DIR__ . '/new_dir/test c.txt'));
 
@@ -100,8 +103,12 @@ class TarTest extends \PHPUnit\Framework\TestCase
         \rmdir(__DIR__ . '/new_dir/sub');
         \rmdir(__DIR__ . '/new_dir');
 
-        \unlink(__DIR__ . '/test.tar');
-        */
+        \unlink(__DIR__ . '/test2.tar');
+    }
+
+    public function testInvalidArchiveUnpack() : void
+    {
+        self::assertFalse(Tar::unpack(__DIR__ . '/malformed.tar', __DIR__));
     }
 
     /**
@@ -135,7 +142,7 @@ class TarTest extends \PHPUnit\Framework\TestCase
                 __DIR__ . '/test b.md'  => 'test b.md',
                 __DIR__ . '/test'       => 'test',
             ],
-            __DIR__ . '/test2.tar'
+            __DIR__ . '/test3.tar'
         );
 
         self::assertFalse(Tar::pack(
@@ -144,10 +151,10 @@ class TarTest extends \PHPUnit\Framework\TestCase
                 __DIR__ . '/test b.md'  => 'test b.md',
                 __DIR__ . '/test'       => 'test',
             ],
-            __DIR__ . '/test2.tar'
+            __DIR__ . '/test3.tar'
         ));
 
-        \unlink(__DIR__ . '/test2.tar');
+        \unlink(__DIR__ . '/test3.tar');
     }
 
     /**
@@ -173,12 +180,12 @@ class TarTest extends \PHPUnit\Framework\TestCase
                 __DIR__ . '/test b.md'  => 'test b.md',
                 __DIR__ . '/test'       => 'test',
             ],
-            __DIR__ . '/test3.tar'
+            __DIR__ . '/test4.tar'
         ));
 
-        Tar::unpack(__DIR__ . '/abc/test3.tar', __DIR__);
-        self::assertFalse(Tar::unpack(__DIR__ . '/abc/test3.tar', __DIR__));
+        Tar::unpack(__DIR__ . '/abc/test4.tar', __DIR__);
+        self::assertFalse(Tar::unpack(__DIR__ . '/abc/test4.tar', __DIR__));
 
-        \unlink(__DIR__ . '/test3.tar');
+        \unlink(__DIR__ . '/test4.tar');
     }
 }

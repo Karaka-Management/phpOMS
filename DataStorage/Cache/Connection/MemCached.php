@@ -142,7 +142,7 @@ final class MemCached extends ConnectionAbstract
 
         $result = $this->con->delete((string) $key);
 
-        return $this->con->getResultCode() === \Memcached::RES_NOTFOUND ? false : $result;
+        return $this->con->getResultCode() === \Memcached::RES_NOTFOUND ? true : $result;
     }
 
     /**
@@ -184,15 +184,17 @@ final class MemCached extends ConnectionAbstract
     /**
      * {@inheritdoc}
      */
-    public function rename(int | string $old, int | string $new, int $expire = -1) : void
+    public function rename(int | string $old, int | string $new, int $expire = -1) : bool
     {
         if ($this->status !== CacheStatus::OK) {
-            return;
+            return false;
         }
 
         $value = $this->get((string) $old);
         $this->set((string) $new, $value, $expire);
         $this->delete((string) $old);
+
+        return true;
     }
 
     /**
@@ -206,6 +208,7 @@ final class MemCached extends ConnectionAbstract
      *
      * @since 1.0.0
      */
+    /*
     private function reverseValue(int $type, string $raw, int $expireEnd) : mixed
     {
         switch ($type) {
@@ -246,9 +249,10 @@ final class MemCached extends ConnectionAbstract
 
                 return $obj;
             default:
-                return null;
+                return null; // @codeCoverageIgnore
         }
     }
+    */
 
     /**
      * {@inheritdoc}
@@ -275,7 +279,7 @@ final class MemCached extends ConnectionAbstract
             return false;
         }
 
-        return $this->flush();
+        return $this->flushAll();
     }
 
     /**

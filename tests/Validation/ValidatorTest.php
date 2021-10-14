@@ -97,6 +97,12 @@ class ValidatorTest extends \PHPUnit\Framework\TestCase
         self::assertTrue(Validator::isValid('value', ['phpOMS\Validation\Validator::hasLength' => [4]]));
     }
 
+    public function testInvalidValidatorCall() : void
+    {
+        $this->expectException(\BadFunctionCallException::class);
+        Validator::isValid('value', ['\invalid_call' => []]);
+    }
+
     /**
      * @testdox A value can be checked to match a regular expression
      * @covers phpOMS\Validation\Validator<extended>

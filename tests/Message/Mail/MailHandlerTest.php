@@ -21,6 +21,7 @@ use phpOMS\Message\Mail\Imap;
 use phpOMS\Message\Mail\MailHandler;
 use phpOMS\Message\Mail\SubmitType;
 use phpOMS\System\CharsetType;
+use phpOMS\System\SystemType;
 use phpOMS\System\OperatingSystem;
 
 /**

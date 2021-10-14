@@ -82,6 +82,24 @@ class ConsoleRequestTest extends \PHPUnit\Framework\TestCase
     }
 
     /**
+     * @testdox The url hashes for the different paths get correctly generated
+     * @covers phpOMS\Message\Console\ConsoleRequest
+     * @group framework
+     */
+    public function testHashingInputOutput() : void
+    {
+        $request = new ConsoleRequest(new Argument(':test/path ?para1=abc ?para2=2 #frag'), $l11n = new Localization());
+
+        $request->createRequestHashs(0);
+        self::assertEquals([
+            'da39a3ee5e6b4b0d3255bfef95601890afd80709',
+            'a94a8fe5ccb19ba61c4c0873d391e987982fbbd3',
+            '328413d996ab9b79af9d4098af3a65b885c4ca64',
+            ], $request->getHash());
+        self::assertEquals($l11n, $request->header->l11n);
+    }
+
+    /**
      * @covers phpOMS\Message\Console\ConsoleRequest
      * @group framework
      */

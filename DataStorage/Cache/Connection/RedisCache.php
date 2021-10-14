@@ -146,7 +146,8 @@ final class RedisCache extends ConnectionAbstract
 
         $result = $this->con->get((string) $key);
 
-        if (\is_string($result)) {
+        if (\is_string($result) && ($result[0] ?? null) === self::DELIM) {
+            $result = \substr($result, 1);
             $type   = (int) $result[0];
             $start  = (int) \strpos($result, self::DELIM);
             $result = $this->reverseValue($type, $result, $start);
@@ -164,7 +165,9 @@ final class RedisCache extends ConnectionAbstract
             return false;
         }
 
-        return $this->con->del((string) $key) > 0;
+        $this->con->del((string) $key);
+
+        return true;
     }
 
     /**
@@ -184,7 +187,9 @@ final class RedisCache extends ConnectionAbstract
      */
     public function increment(int | string $key, int $value = 1) : bool
     {
-        if ($this->status !== CacheStatus::OK) {
+        if ($this->status !== CacheStatus::OK
+            || !$this->exists((string) $key)
+        ) {
             return false;
         }
 
@@ -198,7 +203,9 @@ final class RedisCache extends ConnectionAbstract
      */
     public function decrement(int | string $key, int $value = 1) : bool
     {
-        if ($this->status !== CacheStatus::OK) {
+        if ($this->status !== CacheStatus::OK
+            || !$this->exists((string) $key)
+        ) {
             return false;
         }
 
@@ -210,10 +217,10 @@ final class RedisCache extends ConnectionAbstract
     /**
      * {@inheritdoc}
      */
-    public function rename(int | string $old, int | string $new, int $expire = -1) : void
+    public function rename(int | string $old, int | string $new, int $expire = -1) : bool
     {
         if ($this->status !== CacheStatus::OK) {
-            return;
+            return false;
         }
 
         $this->con->rename((string) $old, (string) $new);
@@ -221,6 +228,8 @@ final class RedisCache extends ConnectionAbstract
         if ($expire > 0) {
             $this->con->expire((string) $new, $expire);
         }
+
+        return true;
     }
 
     /**
@@ -238,7 +247,8 @@ final class RedisCache extends ConnectionAbstract
         foreach ($keys as $key) {
             if (\preg_match('/' . $pattern . '/', $key) === 1) {
                 $result = $this->con->get((string) $key);
-                if (\is_string($result)) {
+                if (\is_string($result) && ($result[0] ?? null) === self::DELIM) {
+                    $result = \substr($result, 1);
                     $type   = (int) $result[0];
                     $start  = (int) \strpos($result, self::DELIM);
                     $result = $this->reverseValue($type, $result, $start);
@@ -368,7 +378,7 @@ final class RedisCache extends ConnectionAbstract
     }
 
     /**
-     * Removing all cache elements larger or equal to the expiration date. Call flushAll for removing persistent cache elements (expiration is negative) as well.
+     * Build value
      *
      * @param mixed $value Data to cache
      *
@@ -381,7 +391,10 @@ final class RedisCache extends ConnectionAbstract
         $type = $this->dataType($value);
         $raw  = $this->cachify($value, $type);
 
-        return \is_string($raw) ? $type . self::DELIM . $raw : $raw;
+        return \is_string($raw)
+            && ($type !== CacheValueType::_INT && $type !== CacheValueType::_FLOAT)
+            ? self::DELIM . $type . self::DELIM . $raw
+            : $raw;
     }
 
     /**
@@ -448,7 +461,7 @@ final class RedisCache extends ConnectionAbstract
                 $namespace      = \substr($raw, $namespaceStart + 1, $namespaceEnd - $namespaceStart - 1);
 
                 if ($namespace === false) {
-                    return null;
+                    return null; // @codeCoverageIgnore
                 }
 
                 return new $namespace();
@@ -458,7 +471,7 @@ final class RedisCache extends ConnectionAbstract
                 $namespace      = \substr($raw, $namespaceStart + 1, $namespaceEnd - $namespaceStart - 1);
 
                 if ($namespace === false) {
-                    return null;
+                    return null; // @codeCoverageIgnore
                 }
 
                 $obj = new $namespace();
@@ -466,7 +479,7 @@ final class RedisCache extends ConnectionAbstract
 
                 return $obj;
             default:
-                return null;
+                return null; // @codeCoverageIgnore
         }
     }
 }

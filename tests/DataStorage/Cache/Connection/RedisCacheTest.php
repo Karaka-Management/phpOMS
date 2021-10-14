@@ -135,7 +135,7 @@ class RedisCacheTest extends \PHPUnit\Framework\TestCase
         $this->cache->set('key2', 'testVal2', 2);
         \sleep(1);
         self::assertTrue($this->cache->exists('key2'));
-        self::assertFalse($this->cache->exists('key2', 0));
+        self::assertTrue($this->cache->exists('key2', 0));
         \sleep(3);
         self::assertFalse($this->cache->exists('key2'));
     }
@@ -163,7 +163,7 @@ class RedisCacheTest extends \PHPUnit\Framework\TestCase
         $this->cache->set('key2', 'testVal2', 2);
         \sleep(1);
         self::assertEquals([], \array_diff(['testVal1', 'testVal2'], $this->cache->getLike('key\d')));
-        self::assertEquals([], $this->cache->getLike('key\d', 0));
+        self::assertEquals([],  \array_diff(['testVal1', 'testVal2'], $this->cache->getLike('key\d', 0)));
         \sleep(3);
         self::assertEquals([], $this->cache->getLike('key\d'));
     }
@@ -181,6 +181,12 @@ class RedisCacheTest extends \PHPUnit\Framework\TestCase
         self::assertEquals(3, $this->cache->get(1));
     }
 
+    public function testIncrementInvalidStatus() : void
+    {
+        TestUtils::setMember($this->cache, 'status', CacheStatus::FAILURE);
+        self::assertFalse($this->cache->increment('invalid', 2));
+    }
+
     public function testInvalidKeyIncrement() : void
     {
         self::assertFalse($this->cache->increment('invalid', 2));
@@ -193,6 +199,12 @@ class RedisCacheTest extends \PHPUnit\Framework\TestCase
         self::assertEquals(1, $this->cache->get(1));
     }
 
+    public function testDecrementInvalidStatus() : void
+    {
+        TestUtils::setMember($this->cache, 'status', CacheStatus::FAILURE);
+        self::assertFalse($this->cache->decrement('invalid', 2));
+    }
+
     public function testInvalidKeyDecrement() : void
     {
         self::assertFalse($this->cache->decrement('invalid', 2));
@@ -201,8 +213,14 @@ class RedisCacheTest extends \PHPUnit\Framework\TestCase
     public function testRename() : void
     {
         $this->cache->set('a', 'testVal1');
-        $this->cache->rename('a', 'b');
+        self::assertTrue($this->cache->rename('a', 'b'));
         self::assertEquals('testVal1', $this->cache->get('b'));
+    }
+
+    public function testRenameInvalidStatus() : void
+    {
+        TestUtils::setMember($this->cache, 'status', CacheStatus::FAILURE);
+        self::assertFalse($this->cache->rename('old', 'new'));
     }
 
     public function testDeleteLike() : void
@@ -221,11 +239,17 @@ class RedisCacheTest extends \PHPUnit\Framework\TestCase
 
     public function testUpdateExpire() : void
     {
-        $this->cache->set('key2', 'testVal2', 1);
+        $this->cache->set('key2', 'testVal2', 10);
         self::assertEquals('testVal2', $this->cache->get('key2', 1));
         \sleep(2);
-        self::assertTrue($this->cache->updateExpire('key2', \time() + 10000));
+        self::assertTrue($this->cache->updateExpire('key2', 30));
         self::assertEquals('testVal2', $this->cache->get('key2'));
+    }
+
+    public function testUpdateExpireInvalidStatus() : void
+    {
+        TestUtils::setMember($this->cache, 'status', CacheStatus::FAILURE);
+        self::assertFalse($this->cache->updateExpire('invalid', 2));
     }
 
     /**
@@ -276,6 +300,12 @@ class RedisCacheTest extends \PHPUnit\Framework\TestCase
 
         self::assertTrue($this->cache->delete('key4'));
         self::assertNull($this->cache->get('key4'));
+    }
+
+    public function testDeleteInvalidStatus() : void
+    {
+        TestUtils::setMember($this->cache, 'status', CacheStatus::FAILURE);
+        self::assertFalse($this->cache->delete('invalid', 2));
     }
 
     public function testInvalidKeyDelete() : void

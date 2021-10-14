@@ -242,8 +242,8 @@ class ArrayUtilsTest extends \PHPUnit\Framework\TestCase
      */
     public function testArgHas() : void
     {
-        if (ArrayUtils::getArg('--configuration', $_SERVER['argv']) !== null) {
-            self::assertGreaterThan(0, ArrayUtils::hasArg('--configuration', $_SERVER['argv']));
+        if (ArrayUtils::getArg('--configuration', $_SERVER['argv'] ?? null) !== null) {
+            self::assertGreaterThan(0, ArrayUtils::hasArg('--configuration', $_SERVER['argv'] ?? null));
         }
     }
 
@@ -254,7 +254,7 @@ class ArrayUtilsTest extends \PHPUnit\Framework\TestCase
      */
     public function testInvalidArgHas() : void
     {
-        self::assertEquals(-1, ArrayUtils::hasArg('--testNull', $_SERVER['argv']));
+        self::assertEquals(-1, ArrayUtils::hasArg('--testNull', $_SERVER['argv'] ?? null));
     }
 
     /**
@@ -264,8 +264,8 @@ class ArrayUtilsTest extends \PHPUnit\Framework\TestCase
      */
     public function testArgGet() : void
     {
-        if (ArrayUtils::getArg('--configuration', $_SERVER['argv']) !== null) {
-            self::assertTrue(\stripos(ArrayUtils::getArg('--configuration', $_SERVER['argv']), '.xml') !== false);
+        if (ArrayUtils::getArg('--configuration', $_SERVER['argv'] ?? null) !== null) {
+            self::assertTrue(\stripos(ArrayUtils::getArg('--configuration', $_SERVER['argv'] ?? null), '.xml') !== false);
         }
     }
 
@@ -276,7 +276,7 @@ class ArrayUtilsTest extends \PHPUnit\Framework\TestCase
      */
     public function testInvalidArgGet() : void
     {
-        self::assertNull(ArrayUtils::getArg('--testNull', $_SERVER['argv']));
+        self::assertNull(ArrayUtils::getArg('--testNull', $_SERVER['argv'] ?? null));
     }
 
     /**

@@ -584,7 +584,7 @@ final class ModuleManager
 
             return true;
         } catch (\Throwable $t) {
-            return false;
+            return false; // @codeCoverageIgnore
         }
     }
 

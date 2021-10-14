@@ -90,7 +90,7 @@ final class NullCacheTest extends \PHPUnit\Framework\TestCase
     public function testRename() : void
     {
         $this->cache->set(1, 1);
-        $this->cache->rename(1, 2);
+        self::assertTrue($this->cache->rename(1, 2));
         self::assertNull($this->cache->get(2));
     }
 

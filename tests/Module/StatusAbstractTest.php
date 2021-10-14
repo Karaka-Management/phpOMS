@@ -17,6 +17,7 @@ namespace phpOMS\tests\Module;
 require_once __DIR__ . '/../Autoloader.php';
 
 use phpOMS\Module\StatusAbstract;
+use phpOMS\Module\ModuleInfo;
 
 /**
  * @testdox phpOMS\tests\Module\StatusAbstractTest: Abstract module
@@ -44,8 +45,10 @@ class StatusAbstractTest extends \PHPUnit\Framework\TestCase
      */
     public function testInvalidModulePathActivation() : void
     {
-        $this->status::activateRoutes();
-        $this->status::activateHooks();
+        $moduleInfo = new ModuleInfo(__DIR__ . '/info.json');
+
+        $this->status::activateRoutes($moduleInfo);
+        $this->status::activateHooks($moduleInfo);
 
         self::assertFalse(\is_dir(__DIR__ . '/../../../Modules/Invalid'));
     }

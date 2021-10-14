@@ -96,22 +96,22 @@ final class Prime
             $a = \mt_rand(2, $n - 1);
             $x = \bcpowmod((string) $a, (string) $d, (string) $n);
 
+            if ($x === false) {
+                return false;
+            }
+
             if ($x == 1 || $x == $n - 1) {
                 continue;
             }
 
             for ($j = 1; $j < $s; ++$j) {
-                if ($x === null || $x === false) {
-                    return false;
-                }
-
                 $mul = \bcmul($x, $x);
-                if ($mul === null) {
+                /*if ($mul === null) {
                     return false;
-                }
+                }*/
 
                 $x = \bcmod($mul, (string) $n);
-                if ($x == 1 || $x === null) {
+                if ($x == 1) {
                     return false;
                 }
 

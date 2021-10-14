@@ -170,7 +170,7 @@ class EmailTestTest extends \PHPUnit\Framework\TestCase
     public function testInvalidCustomHeaderInputOutput() : void
     {
         self::assertFalse($this->mail->addCustomHeader('', ''));
-        self::AssertEquals([], $this->mail->getCustomHeaders());
+        self::assertEquals([], $this->mail->getCustomHeaders());
     }
 
     public function testEmailParsing() : void

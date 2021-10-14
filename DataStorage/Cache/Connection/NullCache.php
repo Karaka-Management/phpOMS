@@ -129,8 +129,9 @@ final class NullCache extends ConnectionAbstract
     /**
      * {@inheritdoc}
      */
-    public function rename(int | string $old, int | string $new, int $expire = -1) : void
+    public function rename(int | string $old, int | string $new, int $expire = -1) : bool
     {
+        return true;
     }
 
     /**

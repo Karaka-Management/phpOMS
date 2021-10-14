@@ -186,6 +186,12 @@ class FileCacheTest extends \PHPUnit\Framework\TestCase
         self::assertFalse($this->cache->increment('invalid', 2));
     }
 
+    public function testIncrementInvalidStatus() : void
+    {
+        TestUtils::setMember($this->cache, 'status', CacheStatus::FAILURE);
+        self::assertFalse($this->cache->increment('invalid', 2));
+    }
+
     public function testDecrement() : void
     {
         $this->cache->set(1, 3);
@@ -198,11 +204,29 @@ class FileCacheTest extends \PHPUnit\Framework\TestCase
         self::assertFalse($this->cache->decrement('invalid', 2));
     }
 
+    public function testDecrementInvalidStatus() : void
+    {
+        TestUtils::setMember($this->cache, 'status', CacheStatus::FAILURE);
+        self::assertFalse($this->cache->decrement('invalid', 2));
+    }
+
     public function testRename() : void
     {
         $this->cache->set('a', 'testVal1');
-        $this->cache->rename('a', 'b');
+        self::assertTrue($this->cache->rename('a', 'b'));
         self::assertEquals('testVal1', $this->cache->get('b'));
+    }
+
+    public function testRenameInvalidStatus() : void
+    {
+        TestUtils::setMember($this->cache, 'status', CacheStatus::FAILURE);
+        self::assertFalse($this->cache->rename('old', 'new'));
+    }
+
+    public function testDeleteInvalidStatus() : void
+    {
+        TestUtils::setMember($this->cache, 'status', CacheStatus::FAILURE);
+        self::assertFalse($this->cache->delete('invalid', 2));
     }
 
     public function testDeleteLike() : void
@@ -237,6 +261,12 @@ class FileCacheTest extends \PHPUnit\Framework\TestCase
         \sleep(2);
         self::assertTrue($this->cache->updateExpire('key2', \time() + 10000));
         self::assertEquals('testVal2', $this->cache->get('key2'));
+    }
+
+    public function testUpdateExpireInvalidStatus() : void
+    {
+        TestUtils::setMember($this->cache, 'status', CacheStatus::FAILURE);
+        self::assertFalse($this->cache->updateExpire('invalid', 2));
     }
 
     /**

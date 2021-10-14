@@ -43,7 +43,7 @@ class Zip implements ArchiveInterface
 
         $zip = new \ZipArchive();
         if (!$zip->open($destination, $overwrite ? \ZipArchive::CREATE | \ZipArchive::OVERWRITE : \ZipArchive::CREATE)) {
-            return false;
+            return false; // @codeCoverageIgnore
         }
 
         if (\is_string($sources)) {
@@ -116,7 +116,7 @@ class Zip implements ArchiveInterface
         try {
             $zip = new \ZipArchive();
             if (!$zip->open($source)) {
-                return false;
+                return false; // @codeCoverageIgnore
             }
 
             $zip->extractTo($destination . '/');

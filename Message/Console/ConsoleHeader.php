@@ -4,7 +4,7 @@
  *
  * PHP Version 8.0
  *
- * @package   phpOMS\Message\Http
+ * @package   phpOMS\Message\Console
  * @copyright Dennis Eichhorn
  * @license   OMS License 1.0
  * @version   1.0.0
@@ -19,7 +19,7 @@ use phpOMS\Message\HeaderAbstract;
 /**
  * Response class.
  *
- * @package phpOMS\Message\Http
+ * @package phpOMS\Message\Console
  * @license OMS License 1.0
  * @link    https://orange-management.org
  * @since   1.0.0
@@ -51,7 +51,6 @@ final class ConsoleHeader extends HeaderAbstract
      */
     public function __construct()
     {
-        $this->set('Content-Type', 'text/html; charset=utf-8');
         parent::__construct();
     }
 
@@ -142,11 +141,7 @@ final class ConsoleHeader extends HeaderAbstract
      */
     public function get(string $key = null) : array
     {
-        if ($key === null) {
-            return $this->header;
-        }
-
-        return $this->header[\strtolower($key)] ?? [];
+        return $key === null ? $this->header : ($this->header[\strtolower($key)] ?? []);
     }
 
     /**

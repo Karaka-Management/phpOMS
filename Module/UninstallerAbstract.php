@@ -66,7 +66,7 @@ abstract class UninstallerAbstract
     protected static function deactivate(DatabasePool $dbPool, ModuleInfo $info) : void
     {
         if (($path = \realpath(static::PATH)) === false) {
-            return; // @codeCoverageIgnore;
+            return; // @codeCoverageIgnore
         }
 
         /** @var string $classPath */

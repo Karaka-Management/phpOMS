@@ -16,6 +16,7 @@ namespace phpOMS\tests\Message\Console;
 
 use phpOMS\Localization\Localization;
 use phpOMS\Message\Console\ConsoleHeader;
+use phpOMS\Message\Http\RequestStatusCode;
 
 /**
  * @internal
@@ -43,6 +44,7 @@ class ConsoleHeaderTest extends \PHPUnit\Framework\TestCase
         self::assertEquals('1.0', $this->header->getProtocolVersion());
         self::assertEquals('', $this->header->getReasonPhrase());
         self::assertEquals([], $this->header->get('key'));
+        self::assertEquals([], $this->header->get());
         self::assertFalse($this->header->has('key'));
         self::assertInstanceOf(Localization::class, $this->header->l11n);
         self::assertEquals(0, $this->header->account);
@@ -103,13 +105,24 @@ class ConsoleHeaderTest extends \PHPUnit\Framework\TestCase
     }
 
     /**
+     * @testdox The header can generate default http headers based on status codes
+     * @covers phpOMS\Message\Console\ConsoleHeader<extended>
+     * @group framework
+     */
+    public function testHeaderGeneration() : void
+    {
+        self::markTestIncomplete();
+        $this->header->generate(RequestStatusCode::R_500);
+    }
+
+    /**
      * @covers phpOMS\Message\Console\ConsoleHeader
      * @group framework
      */
     public function testAccount() : void
     {
         $this->header->account = 2;
-        self::AssertEquals(2, $this->header->account);
+        self::assertEquals(2, $this->header->account);
     }
 
     /**

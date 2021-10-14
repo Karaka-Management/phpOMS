@@ -99,13 +99,18 @@ final class ConsoleRequest extends RequestAbstract
      */
     public function createRequestHashs(int $start = 0) : void
     {
-        $this->hash = [];
+        $this->hash = [\sha1('')];
         $pathArray  = $this->uri->getPathElements();
+        $pathLength = \count($pathArray);
 
-        foreach ($pathArray as $key => $path) {
+        for ($i = $start; $i < $pathLength; ++$i) {
+            if ($pathArray[$i] === '') {
+                continue;
+            }
+
             $paths = [];
-            for ($i = $start; $i < $key + 1; ++$i) {
-                $paths[] = $pathArray[$i];
+            for ($j = $start; $j <= $i; ++$j) {
+                $paths[] = $pathArray[$j];
             }
 
             $this->hash[] = \sha1(\implode('', $paths));

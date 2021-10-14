@@ -77,7 +77,7 @@ final class SqlServerConnection extends ConnectionAbstract
 
         try {
             $this->con = new \PDO('sqlsrv:Server=' . $this->dbdata['host'] . ',' . $this->dbdata['port'] . ';Database=' . $this->dbdata['database'] . ';ConnectionPooling=0', $this->dbdata['login'], $this->dbdata['password']);
-            $this->con->setAttribute(\PDO::ATTR_EMULATE_PREPARES, false);
+            //$this->con->setAttribute(\PDO::ATTR_EMULATE_PREPARES, false); // Not working!
             $this->con->setAttribute(\PDO::ATTR_ERRMODE, \PDO::ERRMODE_EXCEPTION);
 
             $this->status = DatabaseStatus::OK;

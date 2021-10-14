@@ -22,6 +22,10 @@ use phpOMS\System\File\Local\Directory;
  *
  * Providing basic zip support
  *
+ * IMPORTANT:
+ * PharData seems to cache created files, which means even if the previously created file is deleted, it cannot create a new file with the same destination.
+ * bug? https://bugs.php.net/bug.php?id=75101
+ *
  * @package phpOMS\Utils\IO\Zip
  * @license OMS License 1.0
  * @link    https://orange-management.org

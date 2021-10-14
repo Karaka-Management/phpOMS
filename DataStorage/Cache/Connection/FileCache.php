@@ -355,7 +355,7 @@ final class FileCache extends ConnectionAbstract
 
                 return $obj;
             default:
-                return null;
+                return null; // @codeCoverageIgnore
         }
     }
 
@@ -530,15 +530,17 @@ final class FileCache extends ConnectionAbstract
     /**
      * {@inheritdoc}
      */
-    public function rename(int | string $old, int | string $new, int $expire = -1) : void
+    public function rename(int | string $old, int | string $new, int $expire = -1) : bool
     {
         if ($this->status !== CacheStatus::OK) {
-            return;
+            return false;
         }
 
         $value = $this->get($old);
         $this->set($new, $value, $expire);
         $this->delete($old);
+
+        return true;
     }
 
     /**
