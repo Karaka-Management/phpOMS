@@ -21,8 +21,8 @@ use phpOMS\Message\Mail\Imap;
 use phpOMS\Message\Mail\MailHandler;
 use phpOMS\Message\Mail\SubmitType;
 use phpOMS\System\CharsetType;
-use phpOMS\System\SystemType;
 use phpOMS\System\OperatingSystem;
+use phpOMS\System\SystemType;
 
 /**
  * @testdox phpOMS\tests\Message\MailHandlerTest: Abstract mail handler
@@ -241,9 +241,9 @@ class MailHandlerTest extends \PHPUnit\Framework\TestCase
             self::markTestSkipped();
         }
 
-        var_dump($sendmailPath);
-        var_dump($this->handler->mailerTool);
-        var_dump(OperatingSystem::getSystem());
+        \var_dump($sendmailPath);
+        \var_dump($this->handler->mailerTool);
+        \var_dump(OperatingSystem::getSystem());
 
         $mail = new Email();
         $mail->setFrom('test1@orange-management.email', 'Dennis Eichhorn');
