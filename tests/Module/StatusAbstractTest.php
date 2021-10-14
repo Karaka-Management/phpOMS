@@ -16,8 +16,8 @@ namespace phpOMS\tests\Module;
 
 require_once __DIR__ . '/../Autoloader.php';
 
-use phpOMS\Module\StatusAbstract;
 use phpOMS\Module\ModuleInfo;
+use phpOMS\Module\StatusAbstract;
 
 /**
  * @testdox phpOMS\tests\Module\StatusAbstractTest: Abstract module
