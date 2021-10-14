@@ -105,13 +105,17 @@ final class Prime
             }
 
             for ($j = 1; $j < $s; ++$j) {
+                if ($x === null) {
+                    return false;
+                }
+
                 $mul = \bcmul($x, $x);
                 /*if ($mul === null) {
                     return false;
                 }*/
 
                 $x = \bcmod($mul, (string) $n);
-                if ($x == 1) {
+                if ($x == 1 || $x === null) {
                     return false;
                 }
 

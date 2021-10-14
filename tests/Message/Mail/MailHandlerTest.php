@@ -241,6 +241,10 @@ class MailHandlerTest extends \PHPUnit\Framework\TestCase
             self::markTestSkipped();
         }
 
+        var_dump($sendmailPath);
+        var_dump($this->handler->mailerTool);
+        var_dump(OperatingSystem::getSystem());
+
         $mail = new Email();
         $mail->setFrom('test1@orange-management.email', 'Dennis Eichhorn');
         $mail->addTo('test@orange-management.email', 'Dennis Eichhorn');
