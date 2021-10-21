@@ -22,7 +22,7 @@ use phpOMS\DataStorage\Database\DatabaseType;
  *
  * @internal
  */
-class SQLiteConnectionTest extends \PHPUnit\Framework\TestCase
+final class SQLiteConnectionTest extends \PHPUnit\Framework\TestCase
 {
     protected function setUp() : void
     {

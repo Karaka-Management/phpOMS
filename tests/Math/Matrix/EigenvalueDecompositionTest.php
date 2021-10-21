@@ -22,7 +22,7 @@ use phpOMS\Math\Matrix\Matrix;
  *
  * @internal
  */
-class EigenvalueDecompositionTest extends \PHPUnit\Framework\TestCase
+final class EigenvalueDecompositionTest extends \PHPUnit\Framework\TestCase
 {
     /**
      * @testdox A matrix can be checked for symmetry

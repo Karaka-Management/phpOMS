@@ -22,7 +22,7 @@ use phpOMS\Utils\TestUtils;
  *
  * @internal
  */
-class MysqlGrammarTest extends \PHPUnit\Framework\TestCase
+final class MysqlGrammarTest extends \PHPUnit\Framework\TestCase
 {
     /**
      * @testdox The grammar has the expected default values after initialization

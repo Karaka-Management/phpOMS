@@ -25,7 +25,7 @@ use phpOMS\Localization\Defaults\CurrencyMapper;
  *
  * @internal
  */
-class CurrencyMapperTest extends \PHPUnit\Framework\TestCase
+final class CurrencyMapperTest extends \PHPUnit\Framework\TestCase
 {
     public static function setUpBeforeClass() : void
     {

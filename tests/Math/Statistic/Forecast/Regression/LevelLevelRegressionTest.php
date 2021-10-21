@@ -23,7 +23,7 @@ use phpOMS\Math\Stochastic\Distribution\TDistribution;
  *
  * @internal
  */
-class LevelLevelRegressionTest extends \PHPUnit\Framework\TestCase
+final class LevelLevelRegressionTest extends \PHPUnit\Framework\TestCase
 {
     protected $reg = null;
 

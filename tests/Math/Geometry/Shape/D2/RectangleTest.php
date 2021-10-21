@@ -21,7 +21,7 @@ use phpOMS\Math\Geometry\Shape\D2\Rectangle;
  *
  * @internal
  */
-class RectangleTest extends \PHPUnit\Framework\TestCase
+final class RectangleTest extends \PHPUnit\Framework\TestCase
 {
     /**
      * @testdox The surface can be calculated

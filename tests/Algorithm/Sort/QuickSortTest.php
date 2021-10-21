@@ -24,7 +24,7 @@ require_once __DIR__ . '/../../Autoloader.php';
  *
  * @internal
  */
-class QuickSortTest extends \PHPUnit\Framework\TestCase
+final class QuickSortTest extends \PHPUnit\Framework\TestCase
 {
     protected $list = [];
 

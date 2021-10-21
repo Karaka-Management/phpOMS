@@ -21,7 +21,7 @@ use phpOMS\Validation\Finance\Iban;
  *
  * @internal
  */
-class IbanTest extends \PHPUnit\Framework\TestCase
+final class IbanTest extends \PHPUnit\Framework\TestCase
 {
     /**
      * @testdox A iban can be validated

@@ -21,7 +21,7 @@ use phpOMS\Uri\UriScheme;
 /**
  * @internal
  */
-class UriSchemeTest extends \PHPUnit\Framework\TestCase
+final class UriSchemeTest extends \PHPUnit\Framework\TestCase
 {
     /**
      * @group framework

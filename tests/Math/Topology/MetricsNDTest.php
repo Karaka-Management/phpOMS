@@ -22,7 +22,7 @@ use phpOMS\Math\Topology\MetricsND;
  *
  * @internal
  */
-class MetricsNDTest extends \PHPUnit\Framework\TestCase
+final class MetricsNDTest extends \PHPUnit\Framework\TestCase
 {
     /**
      * @testdox The manhattan distance can be calculated

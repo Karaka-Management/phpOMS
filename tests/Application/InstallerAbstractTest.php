@@ -23,7 +23,7 @@ use phpOMS\Application\InstallerAbstract;
  *
  * @internal
  */
-class InstallerAbstractTest extends \PHPUnit\Framework\TestCase
+final class InstallerAbstractTest extends \PHPUnit\Framework\TestCase
 {
 	protected InstallerAbstract $installer;
 

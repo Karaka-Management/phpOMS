@@ -21,7 +21,7 @@ use phpOMS\Math\Statistic\Forecast\Regression\PolynomialRegression;
  *
  * @internal
  */
-class PolynomialRegressionTest extends \PHPUnit\Framework\TestCase
+final class PolynomialRegressionTest extends \PHPUnit\Framework\TestCase
 {
     protected $reg = null;
 

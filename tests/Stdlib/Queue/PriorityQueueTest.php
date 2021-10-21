@@ -22,7 +22,7 @@ use phpOMS\Stdlib\Queue\PriorityQueue;
  *
  * @internal
  */
-class PriorityQueueTest extends \PHPUnit\Framework\TestCase
+final class PriorityQueueTest extends \PHPUnit\Framework\TestCase
 {
     /**
      * @testdox The queue has the expected default values and functionality after initialization

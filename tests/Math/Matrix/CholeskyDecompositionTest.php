@@ -23,7 +23,7 @@ use phpOMS\Math\Matrix\Vector;
  *
  * @internal
  */
-class CholeskyDecompositionTest extends \PHPUnit\Framework\TestCase
+final class CholeskyDecompositionTest extends \PHPUnit\Framework\TestCase
 {
     /**
      * @testdox The decomposition can be created and the original matrix can be computed

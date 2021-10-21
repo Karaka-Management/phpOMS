@@ -21,7 +21,7 @@ use phpOMS\Math\Number\Integer;
  *
  * @internal
  */
-class IntegerTest extends \PHPUnit\Framework\TestCase
+final class IntegerTest extends \PHPUnit\Framework\TestCase
 {
     /**
      * @testdox A value can be checked to be an integer

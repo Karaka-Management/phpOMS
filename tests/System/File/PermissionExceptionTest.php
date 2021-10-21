@@ -19,7 +19,7 @@ use phpOMS\System\File\PermissionException;
 /**
  * @internal
  */
-class PermissionExceptionTest extends \PHPUnit\Framework\TestCase
+final class PermissionExceptionTest extends \PHPUnit\Framework\TestCase
 {
     /**
      * @covers phpOMS\System\File\PermissionException

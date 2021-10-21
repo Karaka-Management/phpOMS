@@ -22,7 +22,7 @@ use phpOMS\Algorithm\Clustering\Point;
  *
  * @internal
  */
-class KmeansTest extends \PHPUnit\Framework\TestCase
+final class KmeansTest extends \PHPUnit\Framework\TestCase
 {
     /**
      * @testdox The clustering of points and dynamic check of new points works as expected

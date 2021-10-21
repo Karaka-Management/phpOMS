@@ -23,7 +23,7 @@ require_once __DIR__ . '/../Autoloader.php';
  *
  * @internal
  */
-class SystemUtilsTest extends \PHPUnit\Framework\TestCase
+final class SystemUtilsTest extends \PHPUnit\Framework\TestCase
 {
     /**
      * @testdox Test if it is possible to get information about the available RAM and usage

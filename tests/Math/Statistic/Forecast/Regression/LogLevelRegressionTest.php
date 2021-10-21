@@ -21,7 +21,7 @@ use phpOMS\Math\Statistic\Forecast\Regression\LogLevelRegression;
  *
  * @internal
  */
-class LogLevelRegressionTest extends \PHPUnit\Framework\TestCase
+final class LogLevelRegressionTest extends \PHPUnit\Framework\TestCase
 {
     protected $reg = null;
 

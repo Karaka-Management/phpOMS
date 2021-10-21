@@ -21,7 +21,7 @@ use phpOMS\Utils\Converter\Numeric;
  *
  * @internal
  */
-class NumericTest extends \PHPUnit\Framework\TestCase
+final class NumericTest extends \PHPUnit\Framework\TestCase
 {
     /**
      * @testdox Arabic numbers can be converted to roman numbers

@@ -21,7 +21,7 @@ use phpOMS\Utils\RnG\Text;
  *
  * @internal
  */
-class TextTest extends \PHPUnit\Framework\TestCase
+final class TextTest extends \PHPUnit\Framework\TestCase
 {
     /**
      * @testdox Random text can be generated

@@ -23,7 +23,7 @@ use phpOMS\Localization\Defaults\Language;
  *
  * @internal
  */
-class LanguageTest extends \PHPUnit\Framework\TestCase
+final class LanguageTest extends \PHPUnit\Framework\TestCase
 {
     /**
      * @testdox The model has the expected member variables and default values

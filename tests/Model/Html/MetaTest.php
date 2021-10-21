@@ -21,7 +21,7 @@ use phpOMS\Model\Html\Meta;
  *
  * @internal
  */
-class MetaTest extends \PHPUnit\Framework\TestCase
+final class MetaTest extends \PHPUnit\Framework\TestCase
 {
     protected Meta $meta;
 

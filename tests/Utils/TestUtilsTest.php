@@ -23,7 +23,7 @@ use phpOMS\Utils\TestUtils;
  *
  * @internal
  */
-class TestUtilsTest extends \PHPUnit\Framework\TestCase
+final class TestUtilsTest extends \PHPUnit\Framework\TestCase
 {
     /**
      * @testdox A member value can be returned

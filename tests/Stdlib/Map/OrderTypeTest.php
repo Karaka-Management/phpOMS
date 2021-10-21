@@ -19,7 +19,7 @@ use phpOMS\Stdlib\Map\OrderType;
 /**
  * @internal
  */
-class OrderTypeTest extends \PHPUnit\Framework\TestCase
+final class OrderTypeTest extends \PHPUnit\Framework\TestCase
 {
     /**
      * @group framework

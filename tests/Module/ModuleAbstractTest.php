@@ -32,7 +32,7 @@ use phpOMS\Uri\HttpUri;
  *
  * @internal
  */
-class ModuleAbstractTest extends \PHPUnit\Framework\TestCase
+final class ModuleAbstractTest extends \PHPUnit\Framework\TestCase
 {
     protected $module = null;
 

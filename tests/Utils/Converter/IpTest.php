@@ -21,7 +21,7 @@ use phpOMS\Utils\Converter\Ip;
  *
  * @internal
  */
-class IpTest extends \PHPUnit\Framework\TestCase
+final class IpTest extends \PHPUnit\Framework\TestCase
 {
     /**
      * @testdox An ip can be converted to a float

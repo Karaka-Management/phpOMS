@@ -19,7 +19,7 @@ use phpOMS\DataStorage\Database\Query\Grammar\SqlServerGrammar;
 /**
  * @internal
  */
-class SqlServerGrammarTest extends \PHPUnit\Framework\TestCase
+final class SqlServerGrammarTest extends \PHPUnit\Framework\TestCase
 {
     /**
      * @covers phpOMS\DataStorage\Database\Query\Grammar\SqlServerGrammar

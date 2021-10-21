@@ -19,7 +19,7 @@ use phpOMS\Utils\Converter\EnergyPowerType;
 /**
  * @internal
  */
-class EnergyPowerTypeTest extends \PHPUnit\Framework\TestCase
+final class EnergyPowerTypeTest extends \PHPUnit\Framework\TestCase
 {
     /**
      * @group framework

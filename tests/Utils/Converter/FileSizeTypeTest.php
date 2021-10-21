@@ -21,7 +21,7 @@ use phpOMS\Utils\Converter\FileSizeType;
  *
  * @internal
  */
-class FileSizeTypeTest extends \PHPUnit\Framework\TestCase
+final class FileSizeTypeTest extends \PHPUnit\Framework\TestCase
 {
     /**
      * @group framework

@@ -17,7 +17,7 @@ namespace phpOMS\tests\Stdlib\Graph;
 /**
  * @internal
  */
-class TreeTest extends \PHPUnit\Framework\TestCase
+final class TreeTest extends \PHPUnit\Framework\TestCase
 {
     public function testPlaceholder() : void
     {

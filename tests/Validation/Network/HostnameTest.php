@@ -21,7 +21,7 @@ use phpOMS\Validation\Network\Hostname;
  *
  * @internal
  */
-class HostnameTest extends \PHPUnit\Framework\TestCase
+final class HostnameTest extends \PHPUnit\Framework\TestCase
 {
     /**
      * @testdox A hostname can be validated

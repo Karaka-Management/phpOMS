@@ -19,7 +19,7 @@ use phpOMS\Utils\IO\Json\InvalidJsonException;
 /**
  * @internal
  */
-class InvalidJsonExceptionTest extends \PHPUnit\Framework\TestCase
+final class InvalidJsonExceptionTest extends \PHPUnit\Framework\TestCase
 {
     /**
      * @covers phpOMS\Utils\IO\Json\InvalidJsonException

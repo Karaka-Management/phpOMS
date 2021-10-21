@@ -22,7 +22,7 @@ use phpOMS\DataStorage\Cache\Connection\ConnectionFactory;
  *
  * @internal
  */
-class ConnectionFactoryTest extends \PHPUnit\Framework\TestCase
+final class ConnectionFactoryTest extends \PHPUnit\Framework\TestCase
 {
     /**
      * @testdox The file cache can be created

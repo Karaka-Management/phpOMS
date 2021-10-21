@@ -19,7 +19,7 @@ use phpOMS\Math\Stochastic\Distribution\ParetoDistribution;
 /**
  * @internal
  */
-class ParetoDistributionTest extends \PHPUnit\Framework\TestCase
+final class ParetoDistributionTest extends \PHPUnit\Framework\TestCase
 {
     /**
      * @covers phpOMS\Math\Stochastic\Distribution\ParetoDistribution

@@ -19,7 +19,7 @@ use phpOMS\Utils\RnG\DistributionType;
 /**
  * @internal
  */
-class DistributionTypeTest extends \PHPUnit\Framework\TestCase
+final class DistributionTypeTest extends \PHPUnit\Framework\TestCase
 {
     /**
      * @group framework

@@ -21,7 +21,7 @@ use phpOMS\Algorithm\JobScheduling\Job;
  *
  * @internal
  */
-class JobTest extends \PHPUnit\Framework\TestCase
+final class JobTest extends \PHPUnit\Framework\TestCase
 {
     /**
      * @testdox The job has the expected values after initialization

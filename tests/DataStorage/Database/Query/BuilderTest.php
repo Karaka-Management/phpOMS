@@ -23,7 +23,7 @@ use phpOMS\DataStorage\Database\Query\Parameter;
  *
  * @internal
  */
-class BuilderTest extends \PHPUnit\Framework\TestCase
+final class BuilderTest extends \PHPUnit\Framework\TestCase
 {
     protected $con;
 

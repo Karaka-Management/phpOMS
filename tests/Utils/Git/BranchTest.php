@@ -21,7 +21,7 @@ use phpOMS\Utils\Git\Branch;
  *
  * @internal
  */
-class BranchTest extends \PHPUnit\Framework\TestCase
+final class BranchTest extends \PHPUnit\Framework\TestCase
 {
     /**
      * @testdox The branch has the expected default values after initialization

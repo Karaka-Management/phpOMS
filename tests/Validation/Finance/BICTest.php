@@ -21,7 +21,7 @@ use phpOMS\Validation\Finance\BIC;
  *
  * @internal
  */
-class BICTest extends \PHPUnit\Framework\TestCase
+final class BICTest extends \PHPUnit\Framework\TestCase
 {
     /**
      * @testdox A BIC can be validated

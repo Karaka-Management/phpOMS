@@ -19,7 +19,7 @@ use phpOMS\DataStorage\Cache\CacheStatus;
 /**
  * @internal
  */
-class CacheStatusTest extends \PHPUnit\Framework\TestCase
+final class CacheStatusTest extends \PHPUnit\Framework\TestCase
 {
     /**
      * @group framework

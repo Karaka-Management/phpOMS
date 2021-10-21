@@ -17,7 +17,7 @@ namespace phpOMS\tests\Utils\Barcode;
 /**
  * @internal
  */
-class AztecTest extends \PHPUnit\Framework\TestCase
+final class AztecTest extends \PHPUnit\Framework\TestCase
 {
     public function testPlaceholder() : void
     {

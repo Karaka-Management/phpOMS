@@ -21,7 +21,7 @@ use phpOMS\Utils\Encoding\Huffman\Dictionary;
  *
  * @internal
  */
-class DictionaryTest extends \PHPUnit\Framework\TestCase
+final class DictionaryTest extends \PHPUnit\Framework\TestCase
 {
     /**
      * @testdox Only single characters can be returned from the dictionary. Multiple characters throw a InvalidArgumentException

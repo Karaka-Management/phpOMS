@@ -19,7 +19,7 @@ use phpOMS\Math\Stochastic\Distribution\TDistribution;
 /**
  * @internal
  */
-class TDistributionTest extends \PHPUnit\Framework\TestCase
+final class TDistributionTest extends \PHPUnit\Framework\TestCase
 {
     /**
      * @covers phpOMS\Math\Stochastic\Distribution\TDistribution

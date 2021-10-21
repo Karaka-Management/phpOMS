@@ -21,7 +21,7 @@ use phpOMS\Math\Functions\Functions;
  *
  * @internal
  */
-class FunctionsTest extends \PHPUnit\Framework\TestCase
+final class FunctionsTest extends \PHPUnit\Framework\TestCase
 {
     /**
      * @testdox The factorial of a number can be calculated

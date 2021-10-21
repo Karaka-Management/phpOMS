@@ -23,7 +23,7 @@ use phpOMS\Algorithm\Knapsack\Item;
  *
  * @internal
  */
-class ContinuousTest extends \PHPUnit\Framework\TestCase
+final class ContinuousTest extends \PHPUnit\Framework\TestCase
 {
     /**
      * @testdox The optimal item selection in a backpack is calculated in order to optimize the value/profit while considering the available capacity/cost limit [discrete quantities]

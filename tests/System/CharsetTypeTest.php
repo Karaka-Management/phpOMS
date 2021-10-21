@@ -21,7 +21,7 @@ use phpOMS\System\CharsetType;
 /**
  * @internal
  */
-class CharsetTypeTest extends \PHPUnit\Framework\TestCase
+final class CharsetTypeTest extends \PHPUnit\Framework\TestCase
 {
     /**
      * @group framework

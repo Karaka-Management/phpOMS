@@ -25,7 +25,7 @@ use phpOMS\Localization\Defaults\IbanMapper;
  *
  * @internal
  */
-class IbanMapperTest extends \PHPUnit\Framework\TestCase
+final class IbanMapperTest extends \PHPUnit\Framework\TestCase
 {
     public static function setUpBeforeClass() : void
     {

@@ -24,7 +24,7 @@ require_once __DIR__ . '/../../Autoloader.php';
  *
  * @internal
  */
-class OddEvenSortTest extends \PHPUnit\Framework\TestCase
+final class OddEvenSortTest extends \PHPUnit\Framework\TestCase
 {
     protected $list = [];
 

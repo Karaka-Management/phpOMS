@@ -19,7 +19,7 @@ use phpOMS\DataStorage\Database\Query\Count;
 /**
  * @internal
  */
-class CountTest extends \PHPUnit\Framework\TestCase
+final class CountTest extends \PHPUnit\Framework\TestCase
 {
     /**
      * @covers phpOMS\DataStorage\Database\Query\Count

@@ -21,7 +21,7 @@ use phpOMS\Business\Finance\Lorenzkurve;
  *
  * @internal
  */
-class LorenzkurveTest extends \PHPUnit\Framework\TestCase
+final class LorenzkurveTest extends \PHPUnit\Framework\TestCase
 {
     /**
      * @testdox The gini coefficient calculation is correct

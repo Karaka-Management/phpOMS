@@ -19,7 +19,7 @@ use phpOMS\Module\Exception\InvalidThemeException;
 /**
  * @internal
  */
-class InvalidThemeExceptionTest extends \PHPUnit\Framework\TestCase
+final class InvalidThemeExceptionTest extends \PHPUnit\Framework\TestCase
 {
     /**
      * @covers phpOMS\Module\Exception\InvalidThemeException

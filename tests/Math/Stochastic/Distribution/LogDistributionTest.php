@@ -19,7 +19,7 @@ use phpOMS\Math\Stochastic\Distribution\LogDistribution;
 /**
  * @internal
  */
-class LogDistributionTest extends \PHPUnit\Framework\TestCase
+final class LogDistributionTest extends \PHPUnit\Framework\TestCase
 {
     /**
      * @covers phpOMS\Math\Stochastic\Distribution\LogDistribution

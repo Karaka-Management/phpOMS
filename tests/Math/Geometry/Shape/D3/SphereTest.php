@@ -21,7 +21,7 @@ use phpOMS\Math\Geometry\Shape\D3\Sphere;
  *
  * @internal
  */
-class SphereTest extends \PHPUnit\Framework\TestCase
+final class SphereTest extends \PHPUnit\Framework\TestCase
 {
     /**
      * @testdox The volume can be calculated

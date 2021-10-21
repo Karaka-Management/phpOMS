@@ -21,7 +21,7 @@ use phpOMS\Math\Statistic\MeasureOfDispersion;
  *
  * @internal
  */
-class MeasureOfDispersionTest extends \PHPUnit\Framework\TestCase
+final class MeasureOfDispersionTest extends \PHPUnit\Framework\TestCase
 {
     /**
      * @testdox The range of a dataset is correctly calculated

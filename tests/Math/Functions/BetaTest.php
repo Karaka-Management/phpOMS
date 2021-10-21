@@ -21,7 +21,7 @@ use phpOMS\Math\Functions\Beta;
  *
  * @internal
  */
-class BetaTest extends \PHPUnit\Framework\TestCase
+final class BetaTest extends \PHPUnit\Framework\TestCase
 {
     /**
      * @testdox The beta function can be approximated

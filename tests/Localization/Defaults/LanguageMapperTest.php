@@ -25,7 +25,7 @@ use phpOMS\Localization\Defaults\LanguageMapper;
  *
  * @internal
  */
-class LanguageMapperTest extends \PHPUnit\Framework\TestCase
+final class LanguageMapperTest extends \PHPUnit\Framework\TestCase
 {
     public static function setUpBeforeClass() : void
     {

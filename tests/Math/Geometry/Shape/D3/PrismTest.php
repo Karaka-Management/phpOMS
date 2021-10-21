@@ -21,7 +21,7 @@ use phpOMS\Math\Geometry\Shape\D3\Prism;
  *
  * @internal
  */
-class PrismTest extends \PHPUnit\Framework\TestCase
+final class PrismTest extends \PHPUnit\Framework\TestCase
 {
     /**
      * @testdox The volume can be calculated with the length

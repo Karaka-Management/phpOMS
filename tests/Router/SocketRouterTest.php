@@ -26,7 +26,7 @@ require_once __DIR__ . '/../Autoloader.php';
  *
  * @internal
  */
-class SocketRouterTest extends \PHPUnit\Framework\TestCase
+final class SocketRouterTest extends \PHPUnit\Framework\TestCase
 {
     protected SocketRouter $router;
 

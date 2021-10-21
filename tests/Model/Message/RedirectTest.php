@@ -19,7 +19,7 @@ use phpOMS\Model\Message\Redirect;
 /**
  * @internal
  */
-class RedirectTest extends \PHPUnit\Framework\TestCase
+final class RedirectTest extends \PHPUnit\Framework\TestCase
 {
     /**
      * @covers phpOMS\Model\Message\Redirect

@@ -22,7 +22,7 @@ use phpOMS\Algorithm\Knapsack\Item;
  *
  * @internal
  */
-class BackpackTest extends \PHPUnit\Framework\TestCase
+final class BackpackTest extends \PHPUnit\Framework\TestCase
 {
     /**
      * @testdox The backpack has the expected values after initialization

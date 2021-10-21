@@ -23,7 +23,7 @@ require_once __DIR__ . '/../Autoloader.php';
  *
  * @internal
  */
-class MbStringUtilsTest extends \PHPUnit\Framework\TestCase
+final class MbStringUtilsTest extends \PHPUnit\Framework\TestCase
 {
     /**
      * @testdox The entropy of a string can be calculated

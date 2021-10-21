@@ -21,7 +21,7 @@ use phpOMS\Validation\Network\Email;
  *
  * @internal
  */
-class EmailTest extends \PHPUnit\Framework\TestCase
+final class EmailTest extends \PHPUnit\Framework\TestCase
 {
     /**
      * @testdox A email can be validated

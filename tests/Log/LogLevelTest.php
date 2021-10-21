@@ -21,7 +21,7 @@ use phpOMS\Log\LogLevel;
 /**
  * @internal
  */
-class LogLevelTest extends \PHPUnit\Framework\TestCase
+final class LogLevelTest extends \PHPUnit\Framework\TestCase
 {
     /**
      * @group framework

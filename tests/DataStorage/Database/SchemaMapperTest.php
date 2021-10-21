@@ -20,7 +20,7 @@ use phpOMS\DataStorage\Database\SchemaMapper;
  *
  * @internal
  */
-class SchemaMapperTest extends \PHPUnit\Framework\TestCase
+final class SchemaMapperTest extends \PHPUnit\Framework\TestCase
 {
     protected function setUp() : void
     {

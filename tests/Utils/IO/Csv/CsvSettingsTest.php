@@ -21,7 +21,7 @@ use phpOMS\Utils\IO\Csv\CsvSettings;
  *
  * @internal
  */
-class CsvSettingsTest extends \PHPUnit\Framework\TestCase
+final class CsvSettingsTest extends \PHPUnit\Framework\TestCase
 {
     /**
      * @testdox The delimiter in a csv file can be guessed

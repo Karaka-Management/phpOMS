@@ -24,7 +24,7 @@ use phpOMS\Message\ResponseAbstract;
  *
  * @internal
  */
-class ResponseAbstractTest extends \PHPUnit\Framework\TestCase
+final class ResponseAbstractTest extends \PHPUnit\Framework\TestCase
 {
     protected $response = null;
 

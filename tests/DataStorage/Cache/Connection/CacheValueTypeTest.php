@@ -19,7 +19,7 @@ use phpOMS\DataStorage\Cache\Connection\CacheValueType;
 /**
  * @internal
  */
-class CacheValueTypeTest extends \PHPUnit\Framework\TestCase
+final class CacheValueTypeTest extends \PHPUnit\Framework\TestCase
 {
     /**
      * @group framework

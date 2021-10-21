@@ -21,7 +21,7 @@ use phpOMS\System\SystemType;
 /**
  * @internal
  */
-class SystemTypeTest extends \PHPUnit\Framework\TestCase
+final class SystemTypeTest extends \PHPUnit\Framework\TestCase
 {
     /**
      * @group framework

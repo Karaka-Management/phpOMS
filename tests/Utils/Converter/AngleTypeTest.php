@@ -19,7 +19,7 @@ use phpOMS\Utils\Converter\AngleType;
 /**
  * @internal
  */
-class AngleTypeTest extends \PHPUnit\Framework\TestCase
+final class AngleTypeTest extends \PHPUnit\Framework\TestCase
 {
     /**
      * @group framework

@@ -19,7 +19,7 @@ use phpOMS\Stdlib\Map\KeyType;
 /**
  * @internal
  */
-class KeyTypeTest extends \PHPUnit\Framework\TestCase
+final class KeyTypeTest extends \PHPUnit\Framework\TestCase
 {
     /**
      * @group framework

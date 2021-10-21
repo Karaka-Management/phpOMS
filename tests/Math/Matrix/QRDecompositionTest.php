@@ -23,7 +23,7 @@ use phpOMS\Math\Matrix\Vector;
  *
  * @internal
  */
-class QRDecompositionTest extends \PHPUnit\Framework\TestCase
+final class QRDecompositionTest extends \PHPUnit\Framework\TestCase
 {
     /**
      * @testdox A matrix can be checked if it has a full rank

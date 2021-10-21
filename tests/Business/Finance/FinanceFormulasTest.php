@@ -21,7 +21,7 @@ use phpOMS\Business\Finance\FinanceFormulas;
  *
  * @internal
  */
-class FinanceFormulasTest extends \PHPUnit\Framework\TestCase
+final class FinanceFormulasTest extends \PHPUnit\Framework\TestCase
 {
     /**
      * @testdox The annual percentage yield (APY) and reverse value calculations are correct

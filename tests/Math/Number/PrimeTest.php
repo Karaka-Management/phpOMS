@@ -21,7 +21,7 @@ use phpOMS\Math\Number\Prime;
  *
  * @internal
  */
-class PrimeTest extends \PHPUnit\Framework\TestCase
+final class PrimeTest extends \PHPUnit\Framework\TestCase
 {
     /**
      * @testdox A number can be checked to be a prime number

@@ -23,7 +23,7 @@ use phpOMS\Localization\Defaults\Currency;
  *
  * @internal
  */
-class CurrencyTest extends \PHPUnit\Framework\TestCase
+final class CurrencyTest extends \PHPUnit\Framework\TestCase
 {
     /**
      * @testdox The model has the expected member variables and default values

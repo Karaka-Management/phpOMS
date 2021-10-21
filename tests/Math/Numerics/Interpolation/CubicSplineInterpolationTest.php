@@ -22,7 +22,7 @@ use phpOMS\Math\Numerics\Interpolation\DerivativeType;
  *
  * @internal
  */
-class CubicSplineInterpolationTest extends \PHPUnit\Framework\TestCase
+final class CubicSplineInterpolationTest extends \PHPUnit\Framework\TestCase
 {
     /**
      * @testdox The spline interpolation using the first derivative is correct

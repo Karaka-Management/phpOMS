@@ -21,7 +21,7 @@ use phpOMS\DataStorage\Session\FileSession;
  *
  * @internal
  */
-class FileSessionTest extends \PHPUnit\Framework\TestCase
+final class FileSessionTest extends \PHPUnit\Framework\TestCase
 {
     protected FileSession $session;
 

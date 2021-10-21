@@ -21,7 +21,7 @@ use phpOMS\DataStorage\LockException;
 /**
  * @internal
  */
-class LockExceptionTest extends \PHPUnit\Framework\TestCase
+final class LockExceptionTest extends \PHPUnit\Framework\TestCase
 {
     /**
      * @covers phpOMS\DataStorage\LockException

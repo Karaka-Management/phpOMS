@@ -24,7 +24,7 @@ use phpOMS\Module\StatusAbstract;
  *
  * @internal
  */
-class StatusAbstractTest extends \PHPUnit\Framework\TestCase
+final class StatusAbstractTest extends \PHPUnit\Framework\TestCase
 {
 	protected StatusAbstract $status;
 

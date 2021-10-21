@@ -23,7 +23,7 @@ use phpOMS\Module\ModuleInfo;
  *
  * @internal
  */
-class ModuleInfoTest extends \PHPUnit\Framework\TestCase
+final class ModuleInfoTest extends \PHPUnit\Framework\TestCase
 {
     /**
      * @testdox A info file can be correctly loaded

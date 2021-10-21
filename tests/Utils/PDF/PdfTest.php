@@ -17,7 +17,7 @@ namespace phpOMS\tests\Utils\PDF;
 /**
  * @internal
  */
-class PdfTest extends \PHPUnit\Framework\TestCase
+final class PdfTest extends \PHPUnit\Framework\TestCase
 {
     public function testPlaceholder() : void
     {

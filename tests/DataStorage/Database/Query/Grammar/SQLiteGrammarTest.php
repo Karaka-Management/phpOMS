@@ -22,7 +22,7 @@ use phpOMS\Utils\TestUtils;
  *
  * @internal
  */
-class SQLiteGrammarTest extends \PHPUnit\Framework\TestCase
+final class SQLiteGrammarTest extends \PHPUnit\Framework\TestCase
 {
     /**
      * @testdox The grammar has the expected default values after initialization

@@ -21,7 +21,7 @@ use phpOMS\Utils\IO\Zip\Zip;
  *
  * @internal
  */
-class ZipTest extends \PHPUnit\Framework\TestCase
+final class ZipTest extends \PHPUnit\Framework\TestCase
 {
     protected function setUp() : void
     {

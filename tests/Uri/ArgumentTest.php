@@ -23,7 +23,7 @@ use phpOMS\Uri\Argument;
  *
  * @internal
  */
-class ArgumentTest extends \PHPUnit\Framework\TestCase
+final class ArgumentTest extends \PHPUnit\Framework\TestCase
 {
     /**
      * @testdox A uri can be validated

@@ -19,7 +19,7 @@ use phpOMS\Math\Stochastic\Distribution\GammaDistribution;
 /**
  * @internal
  */
-class GammaDistributionTest extends \PHPUnit\Framework\TestCase
+final class GammaDistributionTest extends \PHPUnit\Framework\TestCase
 {
     /**
      * @covers phpOMS\Math\Stochastic\Distribution\GammaDistribution

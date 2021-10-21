@@ -21,7 +21,7 @@ use phpOMS\Localization\TimeZoneEnumArray;
 /**
  * @internal
  */
-class TimeZoneEnumArrayTest extends \PHPUnit\Framework\TestCase
+final class TimeZoneEnumArrayTest extends \PHPUnit\Framework\TestCase
 {
     /**
      * @group framework

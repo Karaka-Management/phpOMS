@@ -21,7 +21,7 @@ use phpOMS\Algorithm\Clustering\Point;
  *
  * @internal
  */
-class PointTest extends \PHPUnit\Framework\TestCase
+final class PointTest extends \PHPUnit\Framework\TestCase
 {
     /**
      * @testdox The point has the expected default values after initialization

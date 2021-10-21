@@ -22,7 +22,7 @@ use phpOMS\DataStorage\Database\DatabaseType;
  *
  * @internal
  */
-class PostgresConnectionTest extends \PHPUnit\Framework\TestCase
+final class PostgresConnectionTest extends \PHPUnit\Framework\TestCase
 {
     protected function setUp() : void
     {

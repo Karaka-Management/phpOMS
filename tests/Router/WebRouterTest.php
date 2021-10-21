@@ -30,7 +30,7 @@ require_once __DIR__ . '/../Autoloader.php';
  *
  * @internal
  */
-class WebRouterTest extends \PHPUnit\Framework\TestCase
+final class WebRouterTest extends \PHPUnit\Framework\TestCase
 {
     protected WebRouter $router;
 

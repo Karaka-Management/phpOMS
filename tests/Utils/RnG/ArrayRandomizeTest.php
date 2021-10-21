@@ -21,7 +21,7 @@ use phpOMS\Utils\RnG\ArrayRandomize;
  *
  * @internal
  */
-class ArrayRandomizeTest extends \PHPUnit\Framework\TestCase
+final class ArrayRandomizeTest extends \PHPUnit\Framework\TestCase
 {
     /**
      * @testdox An array can be randomized using the yates algorithm

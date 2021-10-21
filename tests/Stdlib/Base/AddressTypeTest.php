@@ -19,7 +19,7 @@ use phpOMS\Stdlib\Base\AddressType;
 /**
  * @internal
  */
-class AddressTypeTest extends \PHPUnit\Framework\TestCase
+final class AddressTypeTest extends \PHPUnit\Framework\TestCase
 {
     /**
      * @group framework

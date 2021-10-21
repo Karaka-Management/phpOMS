@@ -19,7 +19,7 @@ use phpOMS\Math\Number\NumberType;
 /**
  * @internal
  */
-class NumberTypeTest extends \PHPUnit\Framework\TestCase
+final class NumberTypeTest extends \PHPUnit\Framework\TestCase
 {
     /**
      * @group framework

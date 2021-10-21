@@ -19,7 +19,7 @@ use phpOMS\DataStorage\Database\Query\Into;
 /**
  * @internal
  */
-class IntoTest extends \PHPUnit\Framework\TestCase
+final class IntoTest extends \PHPUnit\Framework\TestCase
 {
     /**
      * @covers phpOMS\DataStorage\Database\Query\Into

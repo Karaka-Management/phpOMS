@@ -23,7 +23,7 @@ use phpOMS\Localization\Defaults\Country;
  *
  * @internal
  */
-class CountryTest extends \PHPUnit\Framework\TestCase
+final class CountryTest extends \PHPUnit\Framework\TestCase
 {
     /**
      * @testdox The model has the expected member variables and default values

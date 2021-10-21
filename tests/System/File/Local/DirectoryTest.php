@@ -21,7 +21,7 @@ use phpOMS\System\File\Local\Directory;
  *
  * @internal
  */
-class DirectoryTest extends \PHPUnit\Framework\TestCase
+final class DirectoryTest extends \PHPUnit\Framework\TestCase
 {
     /**
      * @testdox A directory can be created

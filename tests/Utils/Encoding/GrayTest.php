@@ -21,7 +21,7 @@ use phpOMS\Utils\Encoding\Gray;
  *
  * @internal
  */
-class GrayTest extends \PHPUnit\Framework\TestCase
+final class GrayTest extends \PHPUnit\Framework\TestCase
 {
     /**
      * @testdox Text can be encoded and decoded with the gray encoding

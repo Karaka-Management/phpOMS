@@ -19,7 +19,7 @@ use phpOMS\Math\Exception\ZeroDivisionException;
 /**
  * @internal
  */
-class ZeroDivisionExceptionTest extends \PHPUnit\Framework\TestCase
+final class ZeroDivisionExceptionTest extends \PHPUnit\Framework\TestCase
 {
     /**
      * @covers phpOMS\Math\Exception\ZeroDivisionException

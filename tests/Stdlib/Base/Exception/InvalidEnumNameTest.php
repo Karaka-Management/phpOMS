@@ -19,7 +19,7 @@ use phpOMS\Stdlib\Base\Exception\InvalidEnumName;
 /**
  * @internal
  */
-class InvalidEnumNameTest extends \PHPUnit\Framework\TestCase
+final class InvalidEnumNameTest extends \PHPUnit\Framework\TestCase
 {
     /**
      * @covers phpOMS\Stdlib\Base\Exception\InvalidEnumName

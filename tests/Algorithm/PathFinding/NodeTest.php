@@ -23,7 +23,7 @@ require_once __DIR__ . '/../../Autoloader.php';
  *
  * @internal
  */
-class NodeTest extends \PHPUnit\Framework\TestCase
+final class NodeTest extends \PHPUnit\Framework\TestCase
 {
     /**
      * @testdox The node has the expected values after initialization

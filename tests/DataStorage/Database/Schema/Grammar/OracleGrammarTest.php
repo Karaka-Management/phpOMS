@@ -19,7 +19,7 @@ use phpOMS\DataStorage\Database\Schema\Grammar\OracleGrammar;
 /**
  * @internal
  */
-class OracleGrammarTest extends \PHPUnit\Framework\TestCase
+final class OracleGrammarTest extends \PHPUnit\Framework\TestCase
 {
     /**
      * @covers phpOMS\DataStorage\Database\Schema\Grammar\OracleGrammar

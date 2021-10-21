@@ -24,7 +24,7 @@ use phpOMS\Utils\TestUtils;
  *
  * @internal
  */
-class FileCacheTest extends \PHPUnit\Framework\TestCase
+final class FileCacheTest extends \PHPUnit\Framework\TestCase
 {
     protected FileCache $cache;
 

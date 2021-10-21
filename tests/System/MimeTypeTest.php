@@ -21,7 +21,7 @@ use phpOMS\System\MimeType;
 /**
  * @internal
  */
-class MimeTypeTest extends \PHPUnit\Framework\TestCase
+final class MimeTypeTest extends \PHPUnit\Framework\TestCase
 {
     /**
      * @group framework

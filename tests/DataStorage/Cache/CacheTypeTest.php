@@ -19,7 +19,7 @@ use phpOMS\DataStorage\Cache\CacheType;
 /**
  * @internal
  */
-class CacheTypeTest extends \PHPUnit\Framework\TestCase
+final class CacheTypeTest extends \PHPUnit\Framework\TestCase
 {
     /**
      * @group framework

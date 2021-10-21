@@ -21,7 +21,7 @@ use phpOMS\Utils\Converter\File;
  *
  * @internal
  */
-class FileTest extends \PHPUnit\Framework\TestCase
+final class FileTest extends \PHPUnit\Framework\TestCase
 {
     /**
      * @testdox A byte number can be converted to a string representation

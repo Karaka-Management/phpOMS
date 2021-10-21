@@ -21,7 +21,7 @@ use phpOMS\Localization\ISO3166CharEnum;
 /**
  * @internal
  */
-class ISO3166CharEnumTest extends \PHPUnit\Framework\TestCase
+final class ISO3166CharEnumTest extends \PHPUnit\Framework\TestCase
 {
     /**
      * @group framework

@@ -21,7 +21,7 @@ use phpOMS\Utils\RnG\DateTime;
  *
  * @internal
  */
-class DateTimeTest extends \PHPUnit\Framework\TestCase
+final class DateTimeTest extends \PHPUnit\Framework\TestCase
 {
     /**
      * @testdox A random date time can be generated

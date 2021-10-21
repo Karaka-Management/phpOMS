@@ -30,7 +30,7 @@ use phpOMS\Uri\HttpUri;
  *
  * @internal
  */
-class HttpRequestTest extends \PHPUnit\Framework\TestCase
+final class HttpRequestTest extends \PHPUnit\Framework\TestCase
 {
     /**
      * @testdox The request has the expected default values after initialization

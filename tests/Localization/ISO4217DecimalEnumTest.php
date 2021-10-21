@@ -21,7 +21,7 @@ use phpOMS\Localization\ISO4217DecimalEnum;
 /**
  * @internal
  */
-class ISO4217DecimalEnumTest extends \PHPUnit\Framework\TestCase
+final class ISO4217DecimalEnumTest extends \PHPUnit\Framework\TestCase
 {
     /**
      * @group framework

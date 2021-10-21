@@ -29,7 +29,7 @@ require_once __DIR__ . '/../Autoloader.php';
  *
  * @internal
  */
-class LocalizationTest extends \PHPUnit\Framework\TestCase
+final class LocalizationTest extends \PHPUnit\Framework\TestCase
 {
     protected Localization $localization;
 

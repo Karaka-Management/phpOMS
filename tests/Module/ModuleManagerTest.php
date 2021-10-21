@@ -34,7 +34,7 @@ require_once __DIR__ . '/../Autoloader.php';
  *
  * @internal
  */
-class ModuleManagerTest extends \PHPUnit\Framework\TestCase
+final class ModuleManagerTest extends \PHPUnit\Framework\TestCase
 {
     protected ApplicationAbstract $app;
 

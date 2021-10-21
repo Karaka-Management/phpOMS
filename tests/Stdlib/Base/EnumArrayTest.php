@@ -19,7 +19,7 @@ namespace phpOMS\tests\Stdlib\Base;
  *
  * @internal
  */
-class EnumArrayTest extends \PHPUnit\Framework\TestCase
+final class EnumArrayTest extends \PHPUnit\Framework\TestCase
 {
     /**
      * @testdox A valid enum name returns the enum value

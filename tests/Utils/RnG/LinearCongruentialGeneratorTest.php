@@ -21,7 +21,7 @@ use phpOMS\Utils\RnG\LinearCongruentialGenerator;
  *
  * @internal
  */
-class LinearCongruentialGeneratorTest extends \PHPUnit\Framework\TestCase
+final class LinearCongruentialGeneratorTest extends \PHPUnit\Framework\TestCase
 {
     /**
      * @testdox The bsd random number generator starts with the correct sequence

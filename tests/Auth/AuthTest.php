@@ -23,7 +23,7 @@ require_once __DIR__ . '/../Autoloader.php';
  *
  * @internal
  */
-class AuthTest extends \PHPUnit\Framework\TestCase
+final class AuthTest extends \PHPUnit\Framework\TestCase
 {
     /**
      * @testdox The default http session doesn't authenticate an account

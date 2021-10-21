@@ -19,7 +19,7 @@ use phpOMS\Message\Http\RequestStatus;
 /**
  * @internal
  */
-class RequestStatusTest extends \PHPUnit\Framework\TestCase
+final class RequestStatusTest extends \PHPUnit\Framework\TestCase
 {
     /**
      * @group framework

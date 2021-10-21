@@ -21,7 +21,7 @@ use phpOMS\Utils\IO\Zip\Tar;
  *
  * @internal
  */
-class TarTest extends \PHPUnit\Framework\TestCase
+final class TarTest extends \PHPUnit\Framework\TestCase
 {
     protected function setUp() : void
     {

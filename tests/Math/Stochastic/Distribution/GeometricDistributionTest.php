@@ -19,7 +19,7 @@ use phpOMS\Math\Stochastic\Distribution\GeometricDistribution;
 /**
  * @internal
  */
-class GeometricDistributionTest extends \PHPUnit\Framework\TestCase
+final class GeometricDistributionTest extends \PHPUnit\Framework\TestCase
 {
     /**
      * @covers phpOMS\Math\Stochastic\Distribution\GeometricDistribution

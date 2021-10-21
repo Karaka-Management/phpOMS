@@ -22,7 +22,7 @@ use phpOMS\System\File\Local\Directory;
  *
  * @internal
  */
-class FileSessionHandlerTest extends \PHPUnit\Framework\TestCase
+final class FileSessionHandlerTest extends \PHPUnit\Framework\TestCase
 {
     protected FileSessionHandler $sh;
 

@@ -23,7 +23,7 @@ use phpOMS\Message\HeaderAbstract;
  *
  * @internal
  */
-class HeaderAbstractTest extends \PHPUnit\Framework\TestCase
+final class HeaderAbstractTest extends \PHPUnit\Framework\TestCase
 {
     protected $header = null;
 

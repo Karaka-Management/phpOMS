@@ -19,7 +19,7 @@ use phpOMS\DataStorage\Database\Query\JoinType;
 /**
  * @internal
  */
-class JoinTypeTest extends \PHPUnit\Framework\TestCase
+final class JoinTypeTest extends \PHPUnit\Framework\TestCase
 {
     /**
      * @group framework

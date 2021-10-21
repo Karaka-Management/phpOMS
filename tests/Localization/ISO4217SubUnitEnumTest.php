@@ -21,7 +21,7 @@ use phpOMS\Localization\ISO4217SubUnitEnum;
 /**
  * @internal
  */
-class ISO4217SubUnitEnumTest extends \PHPUnit\Framework\TestCase
+final class ISO4217SubUnitEnumTest extends \PHPUnit\Framework\TestCase
 {
     /**
      * @group framework

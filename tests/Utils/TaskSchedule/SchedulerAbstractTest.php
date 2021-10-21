@@ -21,7 +21,7 @@ use phpOMS\Utils\TaskSchedule\SchedulerAbstract;
  *
  * @internal
  */
-class SchedulerAbstractTest extends \PHPUnit\Framework\TestCase
+final class SchedulerAbstractTest extends \PHPUnit\Framework\TestCase
 {
     /**
      * @testdox The scheduler has the expected default values after initialization

@@ -17,7 +17,7 @@ namespace phpOMS\tests\Utils\IO;
 /**
  * @internal
  */
-class IODatabaseMapperTest extends \PHPUnit\Framework\TestCase
+final class IODatabaseMapperTest extends \PHPUnit\Framework\TestCase
 {
     public function testPlaceholder() : void
     {

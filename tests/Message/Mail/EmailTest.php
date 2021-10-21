@@ -25,7 +25,7 @@ use phpOMS\System\MimeType;
  *
  * @internal
  */
-class EmailTestTest extends \PHPUnit\Framework\TestCase
+final class EmailTestTest extends \PHPUnit\Framework\TestCase
 {
     protected Email $mail;
 

@@ -21,7 +21,7 @@ use phpOMS\Math\Geometry\Shape\D2\Trapezoid;
  *
  * @internal
  */
-class TrapezoidTest extends \PHPUnit\Framework\TestCase
+final class TrapezoidTest extends \PHPUnit\Framework\TestCase
 {
     /**
      * @testdox The surface can be calculated

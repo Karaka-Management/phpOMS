@@ -21,7 +21,7 @@ use phpOMS\Math\Stochastic\NaiveBayesClassifier;
  *
  * @internal
  */
-class NaiveBayesClassifierTest extends \PHPUnit\Framework\TestCase
+final class NaiveBayesClassifierTest extends \PHPUnit\Framework\TestCase
 {
     public const PLAY = [
         ['weather' => ['Overcast']],

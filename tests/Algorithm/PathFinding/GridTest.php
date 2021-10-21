@@ -25,7 +25,7 @@ require_once __DIR__ . '/../../Autoloader.php';
  *
  * @internal
  */
-class GridTest extends \PHPUnit\Framework\TestCase
+final class GridTest extends \PHPUnit\Framework\TestCase
 {
     /**
      * @testdox By default a grid is empty

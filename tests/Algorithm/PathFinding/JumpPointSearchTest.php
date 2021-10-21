@@ -28,7 +28,7 @@ require_once __DIR__ . '/../../Autoloader.php';
  *
  * @internal
  */
-class JumpPointSearchTest extends \PHPUnit\Framework\TestCase
+final class JumpPointSearchTest extends \PHPUnit\Framework\TestCase
 {
     private array $gridArray = [
         [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,],

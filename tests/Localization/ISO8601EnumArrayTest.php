@@ -21,7 +21,7 @@ use phpOMS\Localization\ISO8601EnumArray;
 /**
  * @internal
  */
-class ISO8601EnumArrayTest extends \PHPUnit\Framework\TestCase
+final class ISO8601EnumArrayTest extends \PHPUnit\Framework\TestCase
 {
     /**
      * @group framework

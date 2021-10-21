@@ -19,7 +19,7 @@ use phpOMS\Stdlib\Queue\PriorityMode;
 /**
  * @internal
  */
-class PriorityModeTest extends \PHPUnit\Framework\TestCase
+final class PriorityModeTest extends \PHPUnit\Framework\TestCase
 {
     /**
      * @group framework

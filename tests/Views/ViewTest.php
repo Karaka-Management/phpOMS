@@ -31,7 +31,7 @@ use phpOMS\Views\ViewAbstract;
  *
  * @internal
  */
-class ViewTest extends \PHPUnit\Framework\TestCase
+final class ViewTest extends \PHPUnit\Framework\TestCase
 {
     protected DatabasePool $dbPool;
 

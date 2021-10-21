@@ -21,7 +21,7 @@ use phpOMS\Utils\TaskSchedule\Interval;
  *
  * @internal
  */
-class IntervalTest extends \PHPUnit\Framework\TestCase
+final class IntervalTest extends \PHPUnit\Framework\TestCase
 {
     /**
      * @testdox The interval has the expected default values after initialization

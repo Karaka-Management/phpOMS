@@ -17,7 +17,7 @@ namespace phpOMS\tests\Message\Socket;
 /**
  * @internal
  */
-class RequestTest extends \PHPUnit\Framework\TestCase
+final class RequestTest extends \PHPUnit\Framework\TestCase
 {
     public function testPlaceholder() : void
     {

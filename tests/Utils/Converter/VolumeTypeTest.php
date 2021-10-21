@@ -19,7 +19,7 @@ use phpOMS\Utils\Converter\VolumeType;
 /**
  * @internal
  */
-class VolumeTypeTest extends \PHPUnit\Framework\TestCase
+final class VolumeTypeTest extends \PHPUnit\Framework\TestCase
 {
     /**
      * @group framework

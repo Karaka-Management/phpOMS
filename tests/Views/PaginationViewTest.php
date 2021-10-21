@@ -23,7 +23,7 @@ use phpOMS\Views\PaginationView;
  *
  * @internal
  */
-class PaginationViewTest extends \PHPUnit\Framework\TestCase
+final class PaginationViewTest extends \PHPUnit\Framework\TestCase
 {
     /**
      * @testdox The pagination view has the expected default values after initialization

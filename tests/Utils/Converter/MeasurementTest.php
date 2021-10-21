@@ -32,7 +32,7 @@ use phpOMS\Utils\Converter\WeightType;
  *
  * @internal
  */
-class MeasurementTest extends \PHPUnit\Framework\TestCase
+final class MeasurementTest extends \PHPUnit\Framework\TestCase
 {
     /**
      * @testdox Temperatures can be converted

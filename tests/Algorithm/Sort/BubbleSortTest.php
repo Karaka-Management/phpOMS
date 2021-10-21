@@ -24,7 +24,7 @@ require_once __DIR__ . '/../../Autoloader.php';
  *
  * @internal
  */
-class BubbleSortTest extends \PHPUnit\Framework\TestCase
+final class BubbleSortTest extends \PHPUnit\Framework\TestCase
 {
     protected $list = [];
 

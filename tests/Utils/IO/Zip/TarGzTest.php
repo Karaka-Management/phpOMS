@@ -21,7 +21,7 @@ use phpOMS\Utils\IO\Zip\TarGz;
  *
  * @internal
  */
-class TarGzTest extends \PHPUnit\Framework\TestCase
+final class TarGzTest extends \PHPUnit\Framework\TestCase
 {
     protected function setUp() : void
     {

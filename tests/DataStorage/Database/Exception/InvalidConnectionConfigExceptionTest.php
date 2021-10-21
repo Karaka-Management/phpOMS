@@ -19,7 +19,7 @@ use phpOMS\DataStorage\Database\Exception\InvalidConnectionConfigException;
 /**
  * @internal
  */
-class InvalidConnectionConfigExceptionTest extends \PHPUnit\Framework\TestCase
+final class InvalidConnectionConfigExceptionTest extends \PHPUnit\Framework\TestCase
 {
     /**
      * @covers phpOMS\DataStorage\Database\Exception\InvalidConnectionConfigException

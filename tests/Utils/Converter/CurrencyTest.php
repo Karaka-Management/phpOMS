@@ -26,7 +26,7 @@ use phpOMS\Utils\Converter\Currency;
  *
  * @internal
  */
-class CurrencyTest extends \PHPUnit\Framework\TestCase
+final class CurrencyTest extends \PHPUnit\Framework\TestCase
 {
     private static $reachable;
 

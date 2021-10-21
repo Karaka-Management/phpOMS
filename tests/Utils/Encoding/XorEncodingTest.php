@@ -21,7 +21,7 @@ use phpOMS\Utils\Encoding\XorEncoding;
  *
  * @internal
  */
-class XorEncodingTest extends \PHPUnit\Framework\TestCase
+final class XorEncodingTest extends \PHPUnit\Framework\TestCase
 {
     /**
      * @testdox Text can be encoded and decoded with the xor encoding

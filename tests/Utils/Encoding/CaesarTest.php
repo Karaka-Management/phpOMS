@@ -21,7 +21,7 @@ use phpOMS\Utils\RnG\StringUtils;
  * @testdox phpOMS\tests\Utils\Encoding\CaesarTest: Caesar text encoding/decoding
  * @internal
  */
-class CaesarTest extends \PHPUnit\Framework\TestCase
+final class CaesarTest extends \PHPUnit\Framework\TestCase
 {
     /**
      * @testdox Text can be encoded and decoded with the ceasar encoding

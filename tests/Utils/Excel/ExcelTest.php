@@ -17,7 +17,7 @@ namespace phpOMS\tests\Utils\Excel;
 /**
  * @internal
  */
-class ExcelTest extends \PHPUnit\Framework\TestCase
+final class ExcelTest extends \PHPUnit\Framework\TestCase
 {
     public function testPlaceholder() : void
     {

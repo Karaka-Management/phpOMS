@@ -21,7 +21,7 @@ use phpOMS\Utils\Git\Author;
  *
  * @internal
  */
-class AuthorTest extends \PHPUnit\Framework\TestCase
+final class AuthorTest extends \PHPUnit\Framework\TestCase
 {
     /**
      * @testdox The author has the expected default values after initialization

@@ -21,7 +21,7 @@ use phpOMS\System\MimeType;
 /**
  * @internal
  */
-class ConsoleResponseTest extends \PHPUnit\Framework\TestCase
+final class ConsoleResponseTest extends \PHPUnit\Framework\TestCase
 {
     protected ConsoleResponse $response;
 

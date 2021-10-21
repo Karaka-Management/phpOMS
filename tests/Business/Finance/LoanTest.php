@@ -21,7 +21,7 @@ use phpOMS\Business\Finance\Loan;
  *
  * @internal
  */
-class LoanTest extends \PHPUnit\Framework\TestCase
+final class LoanTest extends \PHPUnit\Framework\TestCase
 {
     /**
      * @testdox The loan to deposit ratio is correct

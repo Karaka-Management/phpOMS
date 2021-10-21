@@ -19,7 +19,7 @@ use phpOMS\Math\Stochastic\Distribution\BinomialDistribution;
 /**
  * @internal
  */
-class BinomialDistributionTest extends \PHPUnit\Framework\TestCase
+final class BinomialDistributionTest extends \PHPUnit\Framework\TestCase
 {
     /**
      * @covers phpOMS\Math\Stochastic\Distribution\BinomialDistribution

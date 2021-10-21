@@ -19,7 +19,7 @@ use phpOMS\Math\Stochastic\Distribution\UniformDistributionDiscrete;
 /**
  * @internal
  */
-class UniformDistributionDiscreteTest extends \PHPUnit\Framework\TestCase
+final class UniformDistributionDiscreteTest extends \PHPUnit\Framework\TestCase
 {
     /**
      * @covers phpOMS\Math\Stochastic\Distribution\UniformDistributionDiscrete

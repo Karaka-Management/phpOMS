@@ -22,7 +22,7 @@ use phpOMS\Stdlib\Base\Location;
  *
  * @internal
  */
-class LocationTest extends \PHPUnit\Framework\TestCase
+final class LocationTest extends \PHPUnit\Framework\TestCase
 {
     protected Location $location;
 

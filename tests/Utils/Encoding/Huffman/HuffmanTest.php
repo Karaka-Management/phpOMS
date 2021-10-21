@@ -21,7 +21,7 @@ use phpOMS\Utils\Encoding\Huffman\Huffman;
  *
  * @internal
  */
-class HuffmanTest extends \PHPUnit\Framework\TestCase
+final class HuffmanTest extends \PHPUnit\Framework\TestCase
 {
     /**
      * @testdox Encoding and decoding empty data results in an empty output

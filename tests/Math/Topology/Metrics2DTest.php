@@ -21,7 +21,7 @@ use phpOMS\Math\Topology\Metrics2D;
  *
  * @internal
  */
-class Metrics2DTest extends \PHPUnit\Framework\TestCase
+final class Metrics2DTest extends \PHPUnit\Framework\TestCase
 {
     /**
      * @testdox The manhattan distance can be calculated

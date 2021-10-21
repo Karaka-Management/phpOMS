@@ -19,7 +19,7 @@ use phpOMS\Model\Message\NotifyType;
 /**
  * @internal
  */
-class NotifyTypeTest extends \PHPUnit\Framework\TestCase
+final class NotifyTypeTest extends \PHPUnit\Framework\TestCase
 {
     /**
      * @group framework

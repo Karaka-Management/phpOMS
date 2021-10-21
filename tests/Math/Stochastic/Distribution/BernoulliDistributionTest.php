@@ -19,7 +19,7 @@ use phpOMS\Math\Stochastic\Distribution\BernoulliDistribution;
 /**
  * @internal
  */
-class BernoulliDistributionTest extends \PHPUnit\Framework\TestCase
+final class BernoulliDistributionTest extends \PHPUnit\Framework\TestCase
 {
     /**
      * @covers phpOMS\Math\Stochastic\Distribution\BernoulliDistribution

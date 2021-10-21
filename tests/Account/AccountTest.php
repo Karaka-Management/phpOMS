@@ -31,7 +31,7 @@ require_once __DIR__ . '/../Autoloader.php';
  *
  * @internal
  */
-class AccountTest extends \PHPUnit\Framework\TestCase
+final class AccountTest extends \PHPUnit\Framework\TestCase
 {
     protected $l11nManager = null;
 

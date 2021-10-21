@@ -21,7 +21,7 @@ use phpOMS\Utils\TaskSchedule\CronJob;
  *
  * @internal
  */
-class CronJobTest extends \PHPUnit\Framework\TestCase
+final class CronJobTest extends \PHPUnit\Framework\TestCase
 {
     /**
      * @testdox The cron job has the expected default values after initialization

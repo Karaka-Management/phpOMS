@@ -23,7 +23,7 @@ use phpOMS\Utils\StringCompare;
  *
  * @internal
  */
-class StringCompareTest extends \PHPUnit\Framework\TestCase
+final class StringCompareTest extends \PHPUnit\Framework\TestCase
 {
     private StringCompare $dict;
 

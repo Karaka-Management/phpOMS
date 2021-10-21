@@ -21,7 +21,7 @@ use phpOMS\Router\RouteVerb;
 /**
  * @internal
  */
-class RouteVerbTest extends \PHPUnit\Framework\TestCase
+final class RouteVerbTest extends \PHPUnit\Framework\TestCase
 {
     /**
      * @group framework

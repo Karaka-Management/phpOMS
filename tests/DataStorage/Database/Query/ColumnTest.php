@@ -19,7 +19,7 @@ use phpOMS\DataStorage\Database\Query\Column;
 /**
  * @internal
  */
-class ColumnTest extends \PHPUnit\Framework\TestCase
+final class ColumnTest extends \PHPUnit\Framework\TestCase
 {
     /**
      * @covers phpOMS\DataStorage\Database\Query\Column

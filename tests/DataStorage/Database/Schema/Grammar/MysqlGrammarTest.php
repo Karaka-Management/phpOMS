@@ -25,7 +25,7 @@ use phpOMS\Utils\TestUtils;
  *
  * @internal
  */
-class MysqlGrammarTest extends \PHPUnit\Framework\TestCase
+final class MysqlGrammarTest extends \PHPUnit\Framework\TestCase
 {
     protected MysqlConnection $con;
 

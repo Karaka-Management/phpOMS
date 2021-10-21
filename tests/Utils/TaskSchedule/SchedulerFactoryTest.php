@@ -23,7 +23,7 @@ use phpOMS\Utils\TaskSchedule\TaskScheduler;
  *
  * @internal
  */
-class SchedulerFactoryTest extends \PHPUnit\Framework\TestCase
+final class SchedulerFactoryTest extends \PHPUnit\Framework\TestCase
 {
     /**
      * @testdox The correct scheduler is crated depending on the operating system

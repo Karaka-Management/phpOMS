@@ -19,7 +19,7 @@ use phpOMS\Math\Stochastic\Distribution\ChiSquaredDistribution;
 /**
  * @internal
  */
-class ChiSquaredDistributionTest extends \PHPUnit\Framework\TestCase
+final class ChiSquaredDistributionTest extends \PHPUnit\Framework\TestCase
 {
     /**
      * @covers phpOMS\Math\Stochastic\Distribution\ChiSquaredDistribution

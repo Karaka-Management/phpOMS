@@ -26,7 +26,7 @@ require_once __DIR__ . '/../Autoloader.php';
  *
  * @internal
  */
-class GroupTest extends \PHPUnit\Framework\TestCase
+final class GroupTest extends \PHPUnit\Framework\TestCase
 {
     /**
      * @testdox The group has the expected member variables

@@ -23,7 +23,7 @@ use phpOMS\Security\PhpCode;
  *
  * @internal
  */
-class PhpCodeTest extends \PHPUnit\Framework\TestCase
+final class PhpCodeTest extends \PHPUnit\Framework\TestCase
 {
     /**
      * @testdox A file with unicode characters gets correctly identified

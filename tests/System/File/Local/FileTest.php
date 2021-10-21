@@ -22,7 +22,7 @@ use phpOMS\System\File\Local\File;
  *
  * @internal
  */
-class FileTest extends \PHPUnit\Framework\TestCase
+final class FileTest extends \PHPUnit\Framework\TestCase
 {
     /**
      * @testdox A file without content can be created

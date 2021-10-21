@@ -21,7 +21,7 @@ use phpOMS\Math\Number\Complex;
  *
  * @internal
  */
-class ComplexTest extends \PHPUnit\Framework\TestCase
+final class ComplexTest extends \PHPUnit\Framework\TestCase
 {
     /**
      * @testdox The complex number has the expected default values after initialization

@@ -22,7 +22,7 @@ use phpOMS\System\File\Local\LocalStorage;
  *
  * @internal
  */
-class LocalStorageTest extends \PHPUnit\Framework\TestCase
+final class LocalStorageTest extends \PHPUnit\Framework\TestCase
 {
     /**
      * @testdox A directory can be created

@@ -21,7 +21,7 @@ use phpOMS\Math\Geometry\Shape\D3\Cuboid;
  *
  * @internal
  */
-class CuboidTest extends \PHPUnit\Framework\TestCase
+final class CuboidTest extends \PHPUnit\Framework\TestCase
 {
     /**
      * @testdox The volume can be calculated

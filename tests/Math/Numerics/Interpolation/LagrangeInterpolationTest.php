@@ -21,7 +21,7 @@ use phpOMS\Math\Numerics\Interpolation\LagrangeInterpolation;
  *
  * @internal
  */
-class LagrangeInterpolationTest extends \PHPUnit\Framework\TestCase
+final class LagrangeInterpolationTest extends \PHPUnit\Framework\TestCase
 {
     /**
      * @testdox The lagrange interpolation is correct

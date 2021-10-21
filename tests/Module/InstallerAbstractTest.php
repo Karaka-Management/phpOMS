@@ -26,7 +26,7 @@ use phpOMS\Module\ModuleInfo;
  *
  * @internal
  */
-class InstallerAbstractTest extends \PHPUnit\Framework\TestCase
+final class InstallerAbstractTest extends \PHPUnit\Framework\TestCase
 {
 	protected InstallerAbstract $installer;
 

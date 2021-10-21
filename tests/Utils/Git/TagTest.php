@@ -21,7 +21,7 @@ use phpOMS\Utils\Git\Tag;
  *
  * @internal
  */
-class TagTest extends \PHPUnit\Framework\TestCase
+final class TagTest extends \PHPUnit\Framework\TestCase
 {
     /**
      * @testdox The tag has the expected default values after initialization

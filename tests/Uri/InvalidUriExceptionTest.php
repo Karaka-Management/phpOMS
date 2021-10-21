@@ -21,7 +21,7 @@ use phpOMS\Uri\InvalidUriException;
 /**
  * @internal
  */
-class InvalidUriExceptionTest extends \PHPUnit\Framework\TestCase
+final class InvalidUriExceptionTest extends \PHPUnit\Framework\TestCase
 {
     /**
      * @covers phpOMS\Uri\InvalidUriException

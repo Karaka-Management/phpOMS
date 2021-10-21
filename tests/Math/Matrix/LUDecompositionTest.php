@@ -23,7 +23,7 @@ use phpOMS\Math\Matrix\Vector;
  *
  * @internal
  */
-class LUDecompositionTest extends \PHPUnit\Framework\TestCase
+final class LUDecompositionTest extends \PHPUnit\Framework\TestCase
 {
     /**
      * @testdox The L matrix of the decomposition can be calculated

@@ -19,7 +19,7 @@ use phpOMS\DataStorage\Database\Schema\QueryType;
 /**
  * @internal
  */
-class QueryTypeTest extends \PHPUnit\Framework\TestCase
+final class QueryTypeTest extends \PHPUnit\Framework\TestCase
 {
     /**
      * @group framework

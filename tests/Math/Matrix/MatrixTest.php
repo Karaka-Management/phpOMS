@@ -22,7 +22,7 @@ use phpOMS\Math\Matrix\Vector;
  *
  * @internal
  */
-class MatrixTest extends \PHPUnit\Framework\TestCase
+final class MatrixTest extends \PHPUnit\Framework\TestCase
 {
     protected $A = null;
 

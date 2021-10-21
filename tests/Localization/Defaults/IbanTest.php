@@ -23,7 +23,7 @@ use phpOMS\Localization\Defaults\Iban;
  *
  * @internal
  */
-class IbanTest extends \PHPUnit\Framework\TestCase
+final class IbanTest extends \PHPUnit\Framework\TestCase
 {
     /**
      * @testdox The model has the expected member variables and default values

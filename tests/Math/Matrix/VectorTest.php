@@ -21,7 +21,7 @@ use phpOMS\Math\Matrix\Vector;
  *
  * @internal
  */
-class VectorTest extends \PHPUnit\Framework\TestCase
+final class VectorTest extends \PHPUnit\Framework\TestCase
 {
     /**
      * @testdox The vector has the expected default values after initialization

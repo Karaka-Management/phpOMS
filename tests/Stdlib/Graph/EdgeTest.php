@@ -22,7 +22,7 @@ use phpOMS\Stdlib\Graph\Node;
  *
  * @internal
  */
-class EdgeTest extends \PHPUnit\Framework\TestCase
+final class EdgeTest extends \PHPUnit\Framework\TestCase
 {
     /**
      * @testdox The edge has the expected default values after initialization

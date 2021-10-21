@@ -21,7 +21,7 @@ use phpOMS\Asset\AssetType;
 /**
  * @internal
  */
-class AssetTypeTest extends \PHPUnit\Framework\TestCase
+final class AssetTypeTest extends \PHPUnit\Framework\TestCase
 {
     /**
      * @group framework

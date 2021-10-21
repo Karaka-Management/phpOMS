@@ -21,7 +21,7 @@ use phpOMS\Algorithm\Knapsack\Item;
  *
  * @internal
  */
-class ItemTest extends \PHPUnit\Framework\TestCase
+final class ItemTest extends \PHPUnit\Framework\TestCase
 {
     /**
      * @testdox The item has the expected values after initialization

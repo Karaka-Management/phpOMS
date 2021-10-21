@@ -25,7 +25,7 @@ use phpOMS\Module\UninstallerAbstract;
  *
  * @internal
  */
-class UninstallerAbstractTest extends \PHPUnit\Framework\TestCase
+final class UninstallerAbstractTest extends \PHPUnit\Framework\TestCase
 {
 	protected UninstallerAbstract $uninstaller;
 

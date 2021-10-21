@@ -19,7 +19,7 @@ use phpOMS\DataStorage\Database\Query\Select;
 /**
  * @internal
  */
-class SelectTest extends \PHPUnit\Framework\TestCase
+final class SelectTest extends \PHPUnit\Framework\TestCase
 {
     /**
      * @covers phpOMS\DataStorage\Database\Query\Select

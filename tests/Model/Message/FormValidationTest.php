@@ -19,7 +19,7 @@ use phpOMS\Model\Message\FormValidation;
 /**
  * @internal
  */
-class FormValidationTest extends \PHPUnit\Framework\TestCase
+final class FormValidationTest extends \PHPUnit\Framework\TestCase
 {
     /**
      * @covers phpOMS\Model\Message\FormValidation

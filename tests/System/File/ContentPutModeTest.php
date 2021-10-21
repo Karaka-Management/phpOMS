@@ -19,7 +19,7 @@ use phpOMS\System\File\ContentPutMode;
 /**
  * @internal
  */
-class ContentPutModeTest extends \PHPUnit\Framework\TestCase
+final class ContentPutModeTest extends \PHPUnit\Framework\TestCase
 {
     /**
      * @group framework

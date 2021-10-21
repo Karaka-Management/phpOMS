@@ -21,7 +21,7 @@ use phpOMS\Math\Numerics\Interpolation\LinearInterpolation;
  *
  * @internal
  */
-class LinearInterpolationTest extends \PHPUnit\Framework\TestCase
+final class LinearInterpolationTest extends \PHPUnit\Framework\TestCase
 {
     /**
      * @testdox The linear interpolation is correct

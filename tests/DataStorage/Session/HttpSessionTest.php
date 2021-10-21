@@ -21,7 +21,7 @@ use phpOMS\DataStorage\Session\HttpSession;
  *
  * @internal
  */
-class HttpSessionTest extends \PHPUnit\Framework\TestCase
+final class HttpSessionTest extends \PHPUnit\Framework\TestCase
 {
     protected HttpSession $session;
 

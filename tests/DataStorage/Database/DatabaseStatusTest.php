@@ -19,7 +19,7 @@ use phpOMS\DataStorage\Database\DatabaseStatus;
 /**
  * @internal
  */
-class DatabaseStatusTest extends \PHPUnit\Framework\TestCase
+final class DatabaseStatusTest extends \PHPUnit\Framework\TestCase
 {
     /**
      * @group framework

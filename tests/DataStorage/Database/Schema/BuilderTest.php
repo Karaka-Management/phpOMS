@@ -22,7 +22,7 @@ use phpOMS\DataStorage\Database\Schema\Builder;
  *
  * @internal
  */
-class BuilderTest extends \PHPUnit\Framework\TestCase
+final class BuilderTest extends \PHPUnit\Framework\TestCase
 {
     protected MysqlConnection $con;
 

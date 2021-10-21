@@ -21,7 +21,7 @@ use phpOMS\Math\Number\Natural;
  *
  * @internal
  */
-class NaturalTest extends \PHPUnit\Framework\TestCase
+final class NaturalTest extends \PHPUnit\Framework\TestCase
 {
     /**
      * @testdox A number can be checked to be natural

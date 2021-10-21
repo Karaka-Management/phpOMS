@@ -21,7 +21,7 @@ use phpOMS\Utils\TaskSchedule\Schedule;
  *
  * @internal
  */
-class ScheduleTest extends \PHPUnit\Framework\TestCase
+final class ScheduleTest extends \PHPUnit\Framework\TestCase
 {
     /**
      * @testdox The task has the expected default values after initialization

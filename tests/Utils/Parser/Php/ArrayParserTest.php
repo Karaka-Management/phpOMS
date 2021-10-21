@@ -21,7 +21,7 @@ use phpOMS\Utils\Parser\Php\ArrayParser;
  *
  * @internal
  */
-class ArrayParserTest extends \PHPUnit\Framework\TestCase
+final class ArrayParserTest extends \PHPUnit\Framework\TestCase
 {
     /**
      * @testdox An array can be encoded and decoded as php code

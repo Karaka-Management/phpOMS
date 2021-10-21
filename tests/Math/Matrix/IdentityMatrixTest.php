@@ -21,7 +21,7 @@ use phpOMS\Math\Matrix\IdentityMatrix;
  *
  * @internal
  */
-class IdentityMatrixTest extends \PHPUnit\Framework\TestCase
+final class IdentityMatrixTest extends \PHPUnit\Framework\TestCase
 {
     /**
      * @testdox The identity matrix is the identity

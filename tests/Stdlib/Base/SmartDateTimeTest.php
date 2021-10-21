@@ -21,7 +21,7 @@ use phpOMS\Stdlib\Base\SmartDateTime;
  *
  * @internal
  */
-class SmartDateTimeTest extends \PHPUnit\Framework\TestCase
+final class SmartDateTimeTest extends \PHPUnit\Framework\TestCase
 {
     /**
      * @testdox The smart datetime extends the datetime

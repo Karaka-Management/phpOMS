@@ -21,7 +21,7 @@ use phpOMS\Math\Statistic\Average;
  *
  * @internal
  */
-class AverageTest extends \PHPUnit\Framework\TestCase
+final class AverageTest extends \PHPUnit\Framework\TestCase
 {
     /**
      * @testdox The average change of a dataset is correctly calculated

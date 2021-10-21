@@ -19,7 +19,7 @@ use phpOMS\DataStorage\Database\Query\Where;
 /**
  * @internal
  */
-class WhereTest extends \PHPUnit\Framework\TestCase
+final class WhereTest extends \PHPUnit\Framework\TestCase
 {
     /**
      * @covers phpOMS\DataStorage\Database\Query\Where

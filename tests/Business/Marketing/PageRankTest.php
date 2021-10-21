@@ -21,7 +21,7 @@ use phpOMS\Business\Marketing\PageRank;
  *
  * @internal
  */
-class PageRankTest extends \PHPUnit\Framework\TestCase
+final class PageRankTest extends \PHPUnit\Framework\TestCase
 {
     /**
      * @testdox Test the correctness of the page rank algorithm

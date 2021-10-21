@@ -19,7 +19,7 @@ use phpOMS\Math\Stochastic\Distribution\HypergeometricDistribution;
 /**
  * @internal
  */
-class HypergeometricDistributionTest extends \PHPUnit\Framework\TestCase
+final class HypergeometricDistributionTest extends \PHPUnit\Framework\TestCase
 {
     /**
      * @covers phpOMS\Math\Stochastic\Distribution\HypergeometricDistribution

@@ -21,7 +21,7 @@ use phpOMS\Utils\RnG\StringUtils;
  *
  * @internal
  */
-class StringUtilsTest extends \PHPUnit\Framework\TestCase
+final class StringUtilsTest extends \PHPUnit\Framework\TestCase
 {
     /**
      * @testdox Random strings can be generated

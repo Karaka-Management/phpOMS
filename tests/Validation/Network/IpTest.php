@@ -21,7 +21,7 @@ use phpOMS\Validation\Network\Ip;
  *
  * @internal
  */
-class IpTest extends \PHPUnit\Framework\TestCase
+final class IpTest extends \PHPUnit\Framework\TestCase
 {
     /**
      * @testdox A ip can be validated

@@ -21,7 +21,7 @@ use phpOMS\Message\Http\RequestStatusCode;
 /**
  * @internal
  */
-class ConsoleHeaderTest extends \PHPUnit\Framework\TestCase
+final class ConsoleHeaderTest extends \PHPUnit\Framework\TestCase
 {
     private ConsoleHeader $header;
 

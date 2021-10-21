@@ -21,7 +21,7 @@ use phpOMS\DataStorage\Cookie\CookieJar;
  *
  * @internal
  */
-class CookieJarTest extends \PHPUnit\Framework\TestCase
+final class CookieJarTest extends \PHPUnit\Framework\TestCase
 {
     protected CookieJar $jar;
 

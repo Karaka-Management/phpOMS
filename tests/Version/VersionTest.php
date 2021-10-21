@@ -23,7 +23,7 @@ require_once __DIR__ . '/../Autoloader.php';
  *
  * @internal
  */
-class VersionTest extends \PHPUnit\Framework\TestCase
+final class VersionTest extends \PHPUnit\Framework\TestCase
 {
     /**
      * @testdox Versions can be compared with each other

@@ -19,7 +19,7 @@ use phpOMS\Utils\Converter\SpeedType;
 /**
  * @internal
  */
-class SpeedTypeTest extends \PHPUnit\Framework\TestCase
+final class SpeedTypeTest extends \PHPUnit\Framework\TestCase
 {
     /**
      * @group framework

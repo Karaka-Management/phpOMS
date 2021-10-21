@@ -24,7 +24,7 @@ require_once __DIR__ . '/../../Autoloader.php';
  *
  * @internal
  */
-class HeuristicTest extends \PHPUnit\Framework\TestCase
+final class HeuristicTest extends \PHPUnit\Framework\TestCase
 {
     /**
      * @testdox The heuristics return the correct metric results

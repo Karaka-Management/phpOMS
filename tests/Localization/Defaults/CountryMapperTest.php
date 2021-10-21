@@ -25,7 +25,7 @@ use phpOMS\Localization\Defaults\CountryMapper;
  *
  * @internal
  */
-class CountryMapperTest extends \PHPUnit\Framework\TestCase
+final class CountryMapperTest extends \PHPUnit\Framework\TestCase
 {
     public static function setUpBeforeClass() : void
     {

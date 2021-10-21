@@ -21,7 +21,7 @@ use phpOMS\Math\Geometry\Shape\D2\Polygon;
  *
  * @internal
  */
-class PolygonTest extends \PHPUnit\Framework\TestCase
+final class PolygonTest extends \PHPUnit\Framework\TestCase
 {
     /**
      * @testdox The location of a point can be checked relative to a polygon

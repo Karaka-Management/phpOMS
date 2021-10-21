@@ -17,7 +17,7 @@ namespace phpOMS\tests\Utils\Barcode;
 /**
  * @internal
  */
-class HIBCCTest extends \PHPUnit\Framework\TestCase
+final class HIBCCTest extends \PHPUnit\Framework\TestCase
 {
     public function testPlaceholder() : void
     {

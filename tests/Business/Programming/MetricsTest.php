@@ -21,7 +21,7 @@ use phpOMS\Business\Programming\Metrics;
  *
  * @internal
  */
-class MetricsTest extends \PHPUnit\Framework\TestCase
+final class MetricsTest extends \PHPUnit\Framework\TestCase
 {
     /**
      * @testdox Test correctness of the ABC calculation

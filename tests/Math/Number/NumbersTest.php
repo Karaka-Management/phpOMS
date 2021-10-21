@@ -21,7 +21,7 @@ use phpOMS\Math\Number\Numbers;
  *
  * @internal
  */
-class NumbersTest extends \PHPUnit\Framework\TestCase
+final class NumbersTest extends \PHPUnit\Framework\TestCase
 {
     /**
      * @testdox A number can be checked to be perfect

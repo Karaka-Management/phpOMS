@@ -19,7 +19,7 @@ use phpOMS\DataStorage\Database\Exception\InvalidMapperException;
 /**
  * @internal
  */
-class InvalidMapperExceptionTest extends \PHPUnit\Framework\TestCase
+final class InvalidMapperExceptionTest extends \PHPUnit\Framework\TestCase
 {
     /**
      * @covers phpOMS\DataStorage\Database\Exception\InvalidMapperException

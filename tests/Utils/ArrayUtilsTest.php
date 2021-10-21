@@ -23,7 +23,7 @@ require_once __DIR__ . '/../Autoloader.php';
  *
  * @internal
  */
-class ArrayUtilsTest extends \PHPUnit\Framework\TestCase
+final class ArrayUtilsTest extends \PHPUnit\Framework\TestCase
 {
     /**
      * @testdox Array values can be set and returned with a path

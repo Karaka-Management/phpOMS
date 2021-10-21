@@ -22,7 +22,7 @@ use phpOMS\Utils\TaskSchedule\CronJob;
  *
  * @internal
  */
-class CronTest extends \PHPUnit\Framework\TestCase
+final class CronTest extends \PHPUnit\Framework\TestCase
 {
     protected function setUp() : void
     {

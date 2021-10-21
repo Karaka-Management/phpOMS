@@ -21,7 +21,7 @@ use phpOMS\Validation\Finance\CreditCard;
  *
  * @internal
  */
-class CreditCardTest extends \PHPUnit\Framework\TestCase
+final class CreditCardTest extends \PHPUnit\Framework\TestCase
 {
     /**
      * @testdox A credit card can be validated

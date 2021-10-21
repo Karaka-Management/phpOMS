@@ -23,7 +23,7 @@ require_once __DIR__ . '/../Autoloader.php';
  *
  * @internal
  */
-class AssetManagerTest extends \PHPUnit\Framework\TestCase
+final class AssetManagerTest extends \PHPUnit\Framework\TestCase
 {
     protected $manager = null;
 

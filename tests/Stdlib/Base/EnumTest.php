@@ -19,7 +19,7 @@ namespace phpOMS\tests\Stdlib\Base;
  *
  * @internal
  */
-class EnumTest extends \PHPUnit\Framework\TestCase
+final class EnumTest extends \PHPUnit\Framework\TestCase
 {
     /**
      * @testdox A valid enum name can be validated

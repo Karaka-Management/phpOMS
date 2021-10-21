@@ -21,7 +21,7 @@ use phpOMS\Math\Geometry\Shape\D3\Cone;
  *
  * @internal
  */
-class ConeTest extends \PHPUnit\Framework\TestCase
+final class ConeTest extends \PHPUnit\Framework\TestCase
 {
     /**
      * @testdox The volume can be calculated

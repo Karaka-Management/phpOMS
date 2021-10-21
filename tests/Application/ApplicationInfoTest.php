@@ -23,7 +23,7 @@ use phpOMS\Application\ApplicationInfo;
  *
  * @internal
  */
-class ApplicationInfoTest extends \PHPUnit\Framework\TestCase
+final class ApplicationInfoTest extends \PHPUnit\Framework\TestCase
 {
     /**
      * @testdox A info file can be correctly loaded

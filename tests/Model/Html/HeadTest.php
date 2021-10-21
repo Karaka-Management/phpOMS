@@ -22,7 +22,7 @@ use phpOMS\Model\Html\Head;
  *
  * @internal
  */
-class HeadTest extends \PHPUnit\Framework\TestCase
+final class HeadTest extends \PHPUnit\Framework\TestCase
 {
     protected Head $head;
 

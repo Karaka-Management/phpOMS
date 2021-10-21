@@ -19,7 +19,7 @@ use phpOMS\Utils\Converter\WeightType;
 /**
  * @internal
  */
-class WeightTypeTest extends \PHPUnit\Framework\TestCase
+final class WeightTypeTest extends \PHPUnit\Framework\TestCase
 {
     /**
      * @group framework

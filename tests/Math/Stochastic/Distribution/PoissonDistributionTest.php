@@ -19,7 +19,7 @@ use phpOMS\Math\Stochastic\Distribution\PoissonDistribution;
 /**
  * @internal
  */
-class PoissonDistributionTest extends \PHPUnit\Framework\TestCase
+final class PoissonDistributionTest extends \PHPUnit\Framework\TestCase
 {
     /**
      * @covers phpOMS\Math\Stochastic\Distribution\PoissonDistribution

@@ -22,7 +22,7 @@ use phpOMS\Algorithm\JobScheduling\Weighted;
  *
  * @internal
  */
-class WeightedTest extends \PHPUnit\Framework\TestCase
+final class WeightedTest extends \PHPUnit\Framework\TestCase
 {
     /**
      * @testdox The optimal job combination is selected to maximize the value/profit without overlapping jobs

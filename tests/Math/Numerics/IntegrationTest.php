@@ -25,7 +25,7 @@ use phpOMS\Math\Numerics\Integration;
  *
  * Commented out assertions which take a long time with xdebug. without xdebug these are fine!
  */
-class IntegrationTest extends \PHPUnit\Framework\TestCase
+final class IntegrationTest extends \PHPUnit\Framework\TestCase
 {
     /**
      * @testdox Integration by summing up rectangle areas from the left side

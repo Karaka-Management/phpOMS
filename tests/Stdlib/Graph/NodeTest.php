@@ -22,7 +22,7 @@ use phpOMS\Stdlib\Graph\Node;
  *
  * @internal
  */
-class NodeTest extends \PHPUnit\Framework\TestCase
+final class NodeTest extends \PHPUnit\Framework\TestCase
 {
     /**
      * @testdox The node has the expected default values after initialization

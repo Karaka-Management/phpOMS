@@ -24,7 +24,7 @@ use phpOMS\Utils\TestUtils;
  *
  * @internal
  */
-class MemCachedTest extends \PHPUnit\Framework\TestCase
+final class MemCachedTest extends \PHPUnit\Framework\TestCase
 {
     protected MemCached $cache;
 

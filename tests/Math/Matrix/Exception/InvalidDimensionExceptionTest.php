@@ -19,7 +19,7 @@ use phpOMS\Math\Matrix\Exception\InvalidDimensionException;
 /**
  * @internal
  */
-class InvalidDimensionExceptionTest extends \PHPUnit\Framework\TestCase
+final class InvalidDimensionExceptionTest extends \PHPUnit\Framework\TestCase
 {
     /**
      * @covers phpOMS\Math\Matrix\Exception\InvalidDimensionException

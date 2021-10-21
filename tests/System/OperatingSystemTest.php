@@ -22,7 +22,7 @@ use phpOMS\System\SystemType;
 /**
  * @internal
  */
-class OperatingSystemTest extends \PHPUnit\Framework\TestCase
+final class OperatingSystemTest extends \PHPUnit\Framework\TestCase
 {
     /**
      * @covers phpOMS\System\OperatingSystem

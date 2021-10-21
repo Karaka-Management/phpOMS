@@ -19,7 +19,7 @@ use phpOMS\Math\Stochastic\Distribution\LaplaceDistribution;
 /**
  * @internal
  */
-class LaplaceDistributionTest extends \PHPUnit\Framework\TestCase
+final class LaplaceDistributionTest extends \PHPUnit\Framework\TestCase
 {
     /**
      * @covers phpOMS\Math\Stochastic\Distribution\LaplaceDistribution

@@ -19,7 +19,7 @@ use phpOMS\Message\Socket\PacketType;
 /**
  * @internal
  */
-class PacketTypeTest extends \PHPUnit\Framework\TestCase
+final class PacketTypeTest extends \PHPUnit\Framework\TestCase
 {
     /**
      * @group framework

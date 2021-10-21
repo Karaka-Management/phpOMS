@@ -21,7 +21,7 @@ use phpOMS\Business\Marketing\ArticleCorrelationAffinity;
  *
  * @internal
  */
-class ArticleCorrelationAffinityTest extends \PHPUnit\Framework\TestCase
+final class ArticleCorrelationAffinityTest extends \PHPUnit\Framework\TestCase
 {
     /**
      * @testdox The highest affinities between articles purchased are calculated correctly

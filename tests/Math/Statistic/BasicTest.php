@@ -19,7 +19,7 @@ use phpOMS\Math\Statistic\Basic;
 /**
  * @internal
  */
-class BasicTest extends \PHPUnit\Framework\TestCase
+final class BasicTest extends \PHPUnit\Framework\TestCase
 {
     /**
      * @covers phpOMS\Math\Statistic\Basic

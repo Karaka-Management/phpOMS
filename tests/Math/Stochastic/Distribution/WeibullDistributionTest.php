@@ -19,7 +19,7 @@ use phpOMS\Math\Stochastic\Distribution\WeibullDistribution;
 /**
  * @internal
  */
-class WeibullDistributionTest extends \PHPUnit\Framework\TestCase
+final class WeibullDistributionTest extends \PHPUnit\Framework\TestCase
 {
     /**
      * @covers phpOMS\Math\Stochastic\Distribution\WeibullDistribution

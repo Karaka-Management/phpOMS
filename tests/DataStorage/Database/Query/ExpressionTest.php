@@ -19,7 +19,7 @@ use phpOMS\DataStorage\Database\Query\Expression;
 /**
  * @internal
  */
-class ExpressionTest extends \PHPUnit\Framework\TestCase
+final class ExpressionTest extends \PHPUnit\Framework\TestCase
 {
     /**
      * @covers phpOMS\DataStorage\Database\Query\Expression

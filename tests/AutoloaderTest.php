@@ -21,7 +21,7 @@ use phpOMS\Autoloader;
  *
  * @internal
  */
-class AutoloaderTest extends \PHPUnit\Framework\TestCase
+final class AutoloaderTest extends \PHPUnit\Framework\TestCase
 {
     /**
      * @testdox Classes can be checked for existence

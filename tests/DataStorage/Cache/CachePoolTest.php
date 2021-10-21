@@ -22,7 +22,7 @@ use phpOMS\DataStorage\Cache\Connection\FileCache;
  *
  * @internal
  */
-class CachePoolTest extends \PHPUnit\Framework\TestCase
+final class CachePoolTest extends \PHPUnit\Framework\TestCase
 {
     /**
      * @testdox The pool has the expected default values after initialization

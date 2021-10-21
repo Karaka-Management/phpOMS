@@ -21,7 +21,7 @@ use phpOMS\Utils\Compression\LZW;
  *
  * @internal
  */
-class LZWTest extends \PHPUnit\Framework\TestCase
+final class LZWTest extends \PHPUnit\Framework\TestCase
 {
     /**
      * @testdox A string can be LZW compressed and uncompressed

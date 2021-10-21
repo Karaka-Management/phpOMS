@@ -19,7 +19,7 @@ use phpOMS\DataStorage\Database\RelationType;
 /**
  * @internal
  */
-class RelationTypeTest extends \PHPUnit\Framework\TestCase
+final class RelationTypeTest extends \PHPUnit\Framework\TestCase
 {
     /**
      * @group framework

@@ -23,7 +23,7 @@ require_once __DIR__ . '/../../Autoloader.php';
  *
  * @internal
  */
-class MinimumCoinProblemTest extends \PHPUnit\Framework\TestCase
+final class MinimumCoinProblemTest extends \PHPUnit\Framework\TestCase
 {
     /**
      * @testdox A value is matched with the minimum quantity of available coins.

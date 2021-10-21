@@ -19,7 +19,7 @@ use phpOMS\Utils\Converter\AreaType;
 /**
  * @internal
  */
-class AreaTypeTest extends \PHPUnit\Framework\TestCase
+final class AreaTypeTest extends \PHPUnit\Framework\TestCase
 {
     /**
      * @group framework

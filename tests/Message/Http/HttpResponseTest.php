@@ -24,7 +24,7 @@ use phpOMS\System\MimeType;
  *
  * @internal
  */
-class HttpResponseTest extends \PHPUnit\Framework\TestCase
+final class HttpResponseTest extends \PHPUnit\Framework\TestCase
 {
     protected HttpResponse $response;
 

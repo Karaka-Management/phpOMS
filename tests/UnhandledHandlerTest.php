@@ -19,7 +19,7 @@ use phpOMS\UnhandledHandler;
 /**
  * @internal
  */
-class UnhandledHandlerTest extends \PHPUnit\Framework\TestCase
+final class UnhandledHandlerTest extends \PHPUnit\Framework\TestCase
 {
     /**
      * @covers phpOMS\UnhandledHandler

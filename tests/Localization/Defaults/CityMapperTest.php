@@ -25,7 +25,7 @@ use phpOMS\Localization\Defaults\CityMapper;
  *
  * @internal
  */
-class CityMapperTest extends \PHPUnit\Framework\TestCase
+final class CityMapperTest extends \PHPUnit\Framework\TestCase
 {
     public static function setUpBeforeClass() : void
     {

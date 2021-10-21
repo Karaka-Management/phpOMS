@@ -19,7 +19,7 @@ use phpOMS\Math\Stochastic\Distribution\NormalDistribution;
 /**
  * @internal
  */
-class NormalDistributionTest extends \PHPUnit\Framework\TestCase
+final class NormalDistributionTest extends \PHPUnit\Framework\TestCase
 {
     /**
      * @covers phpOMS\Math\Stochastic\Distribution\NormalDistribution

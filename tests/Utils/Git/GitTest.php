@@ -21,7 +21,7 @@ use phpOMS\Utils\Git\Git;
  *
  * @internal
  */
-class GitTest extends \PHPUnit\Framework\TestCase
+final class GitTest extends \PHPUnit\Framework\TestCase
 {
     /**
      * @testdox The git path can be returned

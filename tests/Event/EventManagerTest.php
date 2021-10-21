@@ -23,7 +23,7 @@ use phpOMS\Event\EventManager;
  *
  * @internal
  */
-class EventManagerTest extends \PHPUnit\Framework\TestCase
+final class EventManagerTest extends \PHPUnit\Framework\TestCase
 {
     protected EventManager $event;
 

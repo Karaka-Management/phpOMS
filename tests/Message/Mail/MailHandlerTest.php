@@ -29,7 +29,7 @@ use phpOMS\System\SystemType;
  *
  * @internal
  */
-class MailHandlerTest extends \PHPUnit\Framework\TestCase
+final class MailHandlerTest extends \PHPUnit\Framework\TestCase
 {
     protected MailHandler $handler;
 

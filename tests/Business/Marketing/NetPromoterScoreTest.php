@@ -21,7 +21,7 @@ use phpOMS\Business\Marketing\NetPromoterScore;
  *
  * @internal
  */
-class NetPromoterScoreTest extends \PHPUnit\Framework\TestCase
+final class NetPromoterScoreTest extends \PHPUnit\Framework\TestCase
 {
     /**
      * @testdox The net promoter has the expected default values after initialization

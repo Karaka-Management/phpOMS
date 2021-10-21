@@ -17,7 +17,7 @@ namespace phpOMS\tests;
 /**
  * @internal
  */
-class ExtensionTest extends \PHPUnit\Framework\TestCase
+final class ExtensionTest extends \PHPUnit\Framework\TestCase
 {
     public function testExtensionMbstring() : void
     {

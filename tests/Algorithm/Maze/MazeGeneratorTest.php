@@ -23,7 +23,7 @@ require_once __DIR__ . '/../../Autoloader.php';
  *
  * @internal
  */
-class MazeGeneratorTest extends \PHPUnit\Framework\TestCase
+final class MazeGeneratorTest extends \PHPUnit\Framework\TestCase
 {
     /**
      * @testdox A random maze can be generated

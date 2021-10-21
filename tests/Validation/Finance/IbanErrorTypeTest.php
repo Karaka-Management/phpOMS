@@ -19,7 +19,7 @@ use phpOMS\Validation\Finance\IbanErrorType;
 /**
  * @internal
  */
-class IbanErrorTypeTest extends \PHPUnit\Framework\TestCase
+final class IbanErrorTypeTest extends \PHPUnit\Framework\TestCase
 {
     /**
      * @group framework

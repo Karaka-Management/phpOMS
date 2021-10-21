@@ -24,7 +24,7 @@ use phpOMS\Uri\HttpUri;
  *
  * @internal
  */
-class FileTest extends \PHPUnit\Framework\TestCase
+final class FileTest extends \PHPUnit\Framework\TestCase
 {
     public const BASE = 'ftp://test:123456@127.0.0.1:20';
 

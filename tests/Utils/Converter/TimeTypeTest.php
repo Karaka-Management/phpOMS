@@ -19,7 +19,7 @@ use phpOMS\Utils\Converter\TimeType;
 /**
  * @internal
  */
-class TimeTypeTest extends \PHPUnit\Framework\TestCase
+final class TimeTypeTest extends \PHPUnit\Framework\TestCase
 {
     /**
      * @group framework

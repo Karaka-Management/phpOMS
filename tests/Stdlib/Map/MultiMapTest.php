@@ -23,7 +23,7 @@ use phpOMS\Stdlib\Map\OrderType;
  *
  * @internal
  */
-class MultiMapTest extends \PHPUnit\Framework\TestCase
+final class MultiMapTest extends \PHPUnit\Framework\TestCase
 {
     /**
      * @testdox The map has the expected default values and functionality after initialization

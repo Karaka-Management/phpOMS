@@ -24,7 +24,7 @@ use phpOMS\Account\PermissionType;
  *
  * @internal
  */
-class PermissionAbstractTest extends \PHPUnit\Framework\TestCase
+final class PermissionAbstractTest extends \PHPUnit\Framework\TestCase
 {
     /**
      * @testdox The permission has the expected default values after initialization

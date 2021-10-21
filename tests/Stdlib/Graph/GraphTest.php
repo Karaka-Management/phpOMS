@@ -22,7 +22,7 @@ use phpOMS\Stdlib\Graph\Node;
  *
  * @internal
  */
-class GraphTest extends \PHPUnit\Framework\TestCase
+final class GraphTest extends \PHPUnit\Framework\TestCase
 {
     protected Graph $graph;
 

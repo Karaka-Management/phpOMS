@@ -21,7 +21,7 @@ use phpOMS\Account\GroupStatus;
 /**
  * @internal
  */
-class GroupStatusTest extends \PHPUnit\Framework\TestCase
+final class GroupStatusTest extends \PHPUnit\Framework\TestCase
 {
     /**
      * @group framework

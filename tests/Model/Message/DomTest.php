@@ -20,7 +20,7 @@ use phpOMS\Model\Message\DomAction;
 /**
  * @internal
  */
-class DomTest extends \PHPUnit\Framework\TestCase
+final class DomTest extends \PHPUnit\Framework\TestCase
 {
     /**
      * @covers phpOMS\Model\Message\Dom

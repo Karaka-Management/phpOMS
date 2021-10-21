@@ -23,7 +23,7 @@ use phpOMS\DataStorage\Database\DatabaseStatus;
  *
  * @internal
  */
-class DatabasePoolTest extends \PHPUnit\Framework\TestCase
+final class DatabasePoolTest extends \PHPUnit\Framework\TestCase
 {
     protected DatabasePool $dbPool;
 

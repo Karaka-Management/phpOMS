@@ -19,7 +19,7 @@ use phpOMS\Message\Http\BrowserType;
 /**
  * @internal
  */
-class BrowserTypeTest extends \PHPUnit\Framework\TestCase
+final class BrowserTypeTest extends \PHPUnit\Framework\TestCase
 {
     /**
      * @group framework

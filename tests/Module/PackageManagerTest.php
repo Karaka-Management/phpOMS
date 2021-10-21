@@ -25,7 +25,7 @@ use phpOMS\Utils\IO\Zip\Zip;
  *
  * @internal
  */
-class PackageManagerTest extends \PHPUnit\Framework\TestCase
+final class PackageManagerTest extends \PHPUnit\Framework\TestCase
 {
     public static function setUpBeforeClass() : void
     {

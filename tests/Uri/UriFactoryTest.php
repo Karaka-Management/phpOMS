@@ -24,7 +24,7 @@ require_once __DIR__ . '/../Autoloader.php';
  *
  * @internal
  */
-class UriFactoryTest extends \PHPUnit\Framework\TestCase
+final class UriFactoryTest extends \PHPUnit\Framework\TestCase
 {
     /**
      * @testdox The http url factory has the expected default values after initialization

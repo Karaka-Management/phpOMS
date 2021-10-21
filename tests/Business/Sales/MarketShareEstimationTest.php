@@ -20,7 +20,7 @@ use phpOMS\Business\Sales\MarketShareEstimation;
  *
  * @internal
  */
-class MarketShareEstimationTest extends \PHPUnit\Framework\TestCase
+final class MarketShareEstimationTest extends \PHPUnit\Framework\TestCase
 {
     /**
      * @testdox The rank calculated with Zipf is correct

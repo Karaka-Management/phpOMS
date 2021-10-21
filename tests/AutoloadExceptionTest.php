@@ -19,7 +19,7 @@ use phpOMS\AutoloadException;
 /**
  * @internal
  */
-class AutoloadExceptionTest extends \PHPUnit\Framework\TestCase
+final class AutoloadExceptionTest extends \PHPUnit\Framework\TestCase
 {
     /**
      * @covers phpOMS\AutoloadException

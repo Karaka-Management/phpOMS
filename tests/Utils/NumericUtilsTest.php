@@ -23,7 +23,7 @@ require_once __DIR__ . '/../Autoloader.php';
  *
  * @internal
  */
-class NumericUtilsTest extends \PHPUnit\Framework\TestCase
+final class NumericUtilsTest extends \PHPUnit\Framework\TestCase
 {
     /**
      * @testdox Integers can be unsigned right shifted

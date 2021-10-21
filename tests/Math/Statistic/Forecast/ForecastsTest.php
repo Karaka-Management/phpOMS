@@ -19,7 +19,7 @@ use phpOMS\Math\Statistic\Forecast\Forecasts;
 /**
  * @internal
  */
-class ForecastsTest extends \PHPUnit\Framework\TestCase
+final class ForecastsTest extends \PHPUnit\Framework\TestCase
 {
 	public function testForecastInterval() : void
     {

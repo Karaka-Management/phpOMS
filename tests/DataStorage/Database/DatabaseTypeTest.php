@@ -19,7 +19,7 @@ use phpOMS\DataStorage\Database\DatabaseType;
 /**
  * @internal
  */
-class DatabaseTypeTest extends \PHPUnit\Framework\TestCase
+final class DatabaseTypeTest extends \PHPUnit\Framework\TestCase
 {
     /**
      * @group framework

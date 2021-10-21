@@ -21,7 +21,7 @@ use phpOMS\Utils\RnG\File;
  *
  * @internal
  */
-class FileTest extends \PHPUnit\Framework\TestCase
+final class FileTest extends \PHPUnit\Framework\TestCase
 {
     /**
      * @testdox A random file extension can be generated

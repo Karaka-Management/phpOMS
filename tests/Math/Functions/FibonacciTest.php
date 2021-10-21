@@ -21,7 +21,7 @@ use phpOMS\Math\Functions\Fibonacci;
  *
  * @internal
  */
-class FibonacciTest extends \PHPUnit\Framework\TestCase
+final class FibonacciTest extends \PHPUnit\Framework\TestCase
 {
     /**
      * @testdox A number can be checked if it is a fibonacci number

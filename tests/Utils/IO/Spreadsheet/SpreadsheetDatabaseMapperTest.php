@@ -25,7 +25,7 @@ use phpOMS\Utils\StringUtils;
  *
  * @internal
  */
-class SpreadsheetDatabaseMapperTest extends \PHPUnit\Framework\TestCase
+final class SpreadsheetDatabaseMapperTest extends \PHPUnit\Framework\TestCase
 {
     protected $sqlite;
 

@@ -19,7 +19,7 @@ use phpOMS\Math\Stochastic\Distribution\CauchyDistribution;
 /**
  * @internal
  */
-class CauchyDistributionTest extends \PHPUnit\Framework\TestCase
+final class CauchyDistributionTest extends \PHPUnit\Framework\TestCase
 {
     /**
      * @covers phpOMS\Math\Stochastic\Distribution\CauchyDistribution

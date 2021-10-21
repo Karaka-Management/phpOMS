@@ -22,7 +22,7 @@ use phpOMS\System\File\FileUtils;
  *
  * @internal
  */
-class FileUtilsTest extends \PHPUnit\Framework\TestCase
+final class FileUtilsTest extends \PHPUnit\Framework\TestCase
 {
     /**
      * @testdox File extensions can be categorized

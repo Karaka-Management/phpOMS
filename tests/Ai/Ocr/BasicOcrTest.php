@@ -19,7 +19,7 @@ use phpOMS\Ai\Ocr\BasicOcr;
 /**
  * @internal
  */
-class BasicOcrTest extends \PHPUnit\Framework\TestCase
+final class BasicOcrTest extends \PHPUnit\Framework\TestCase
 {
     /**
      * @covers phpOMS\Ai\Ocr\BasicOcr

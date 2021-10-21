@@ -17,7 +17,7 @@ namespace phpOMS\tests\Socket\Server;
 /**
  * @internal
  */
-class ClientManagerTest extends \PHPUnit\Framework\TestCase
+final class ClientManagerTest extends \PHPUnit\Framework\TestCase
 {
     public function testPlaceholder() : void
     {

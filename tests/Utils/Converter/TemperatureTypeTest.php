@@ -19,7 +19,7 @@ use phpOMS\Utils\Converter\TemperatureType;
 /**
  * @internal
  */
-class TemperatureTypeTest extends \PHPUnit\Framework\TestCase
+final class TemperatureTypeTest extends \PHPUnit\Framework\TestCase
 {
     /**
      * @group framework

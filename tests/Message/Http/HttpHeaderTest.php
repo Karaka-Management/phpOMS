@@ -24,7 +24,7 @@ use phpOMS\System\MimeType;
  *
  * @internal
  */
-class HttpHeaderTest extends \PHPUnit\Framework\TestCase
+final class HttpHeaderTest extends \PHPUnit\Framework\TestCase
 {
     protected HttpHeader $header;
 

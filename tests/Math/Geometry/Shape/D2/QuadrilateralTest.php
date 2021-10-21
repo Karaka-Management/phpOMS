@@ -21,7 +21,7 @@ use phpOMS\Math\Geometry\Shape\D2\Quadrilateral;
  *
  * @internal
  */
-class QuadrilateralTest extends \PHPUnit\Framework\TestCase
+final class QuadrilateralTest extends \PHPUnit\Framework\TestCase
 {
     /**
      * @testdox The area can be calculated

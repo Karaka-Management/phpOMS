@@ -23,7 +23,7 @@ use phpOMS\Message\RequestAbstract;
  *
  * @internal
  */
-class RequestAbstractTest extends \PHPUnit\Framework\TestCase
+final class RequestAbstractTest extends \PHPUnit\Framework\TestCase
 {
     protected $request = null;
 

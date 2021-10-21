@@ -21,7 +21,7 @@ use phpOMS\Auth\LoginReturnType;
 /**
  * @internal
  */
-class LoginReturnTypeTest extends \PHPUnit\Framework\TestCase
+final class LoginReturnTypeTest extends \PHPUnit\Framework\TestCase
 {
     /**
      * @group framework

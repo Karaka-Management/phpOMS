@@ -23,7 +23,7 @@ use phpOMS\Utils\ColorUtils;
  *
  * @internal
  */
-class ColorUtilsTest extends \PHPUnit\Framework\TestCase
+final class ColorUtilsTest extends \PHPUnit\Framework\TestCase
 {
     /**
      * @testdox A integer can be converted to rgb

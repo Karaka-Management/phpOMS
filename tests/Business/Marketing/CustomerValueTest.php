@@ -21,7 +21,7 @@ use phpOMS\Business\Marketing\CustomerValue;
  *
  * @internal
  */
-class CustomerValueTest extends \PHPUnit\Framework\TestCase
+final class CustomerValueTest extends \PHPUnit\Framework\TestCase
 {
     /**
      * @testdox The simple customer life time value is correctly calculated

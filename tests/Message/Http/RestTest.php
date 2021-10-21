@@ -24,7 +24,7 @@ use phpOMS\Uri\HttpUri;
  *
  * @internal
  */
-class RestTest extends \PHPUnit\Framework\TestCase
+final class RestTest extends \PHPUnit\Framework\TestCase
 {
     /**
      * @testdox A get request successfully returns the expected result

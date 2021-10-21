@@ -19,7 +19,7 @@ use phpOMS\Validation\Finance\IbanEnum;
 /**
  * @internal
  */
-class IbanEnumTest extends \PHPUnit\Framework\TestCase
+final class IbanEnumTest extends \PHPUnit\Framework\TestCase
 {
     /**
      * @group framework

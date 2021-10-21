@@ -21,7 +21,7 @@ use phpOMS\Utils\RnG\Phone;
  *
  * @internal
  */
-class PhoneTest extends \PHPUnit\Framework\TestCase
+final class PhoneTest extends \PHPUnit\Framework\TestCase
 {
     /**
      * @testdox Random phone numbers can be generated

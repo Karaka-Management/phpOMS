@@ -30,7 +30,7 @@ use phpOMS\Socket\Client\Client;
 /**
  * @internal
  */
-class ClientTest extends \PHPUnit\Framework\TestCase
+final class ClientTest extends \PHPUnit\Framework\TestCase
 {
     protected $app;
 

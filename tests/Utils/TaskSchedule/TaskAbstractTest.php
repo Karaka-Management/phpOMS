@@ -22,7 +22,7 @@ use phpOMS\Utils\TaskSchedule\TaskFactory;
  *
  * @internal
  */
-class TaskAbstractTest extends \PHPUnit\Framework\TestCase
+final class TaskAbstractTest extends \PHPUnit\Framework\TestCase
 {
     private $class = null;
 

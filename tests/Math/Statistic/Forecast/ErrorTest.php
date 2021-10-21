@@ -21,7 +21,7 @@ use phpOMS\Utils\ArrayUtils;
 /**
  * @internal
  */
-class ErrorTest extends \PHPUnit\Framework\TestCase
+final class ErrorTest extends \PHPUnit\Framework\TestCase
 {
     /**
      * @covers phpOMS\Math\Statistic\Forecast\Error

@@ -21,7 +21,7 @@ use phpOMS\Business\Finance\Depreciation;
  *
  * @internal
  */
-class DepreciationTest extends \PHPUnit\Framework\TestCase
+final class DepreciationTest extends \PHPUnit\Framework\TestCase
 {
     /**
      * @testdox The straight line depreciation and reverse value calculations are correct

@@ -22,7 +22,7 @@ use phpOMS\Stdlib\Base\Iban;
  *
  * @internal
  */
-class IbanTest extends \PHPUnit\Framework\TestCase
+final class IbanTest extends \PHPUnit\Framework\TestCase
 {
     /**
      * @testdox A iban can be correctly parsed into its different components

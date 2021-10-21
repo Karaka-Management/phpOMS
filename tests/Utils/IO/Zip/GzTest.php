@@ -21,7 +21,7 @@ use phpOMS\Utils\IO\Zip\Gz;
  *
  * @internal
  */
-class GzTest extends \PHPUnit\Framework\TestCase
+final class GzTest extends \PHPUnit\Framework\TestCase
 {
     /**
      * @testdox Data can be gz packed and unpacked

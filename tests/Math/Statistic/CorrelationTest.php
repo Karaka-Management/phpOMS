@@ -21,7 +21,7 @@ use phpOMS\Math\Statistic\Correlation;
  *
  * @internal
  */
-class CorrelationTest extends \PHPUnit\Framework\TestCase
+final class CorrelationTest extends \PHPUnit\Framework\TestCase
 {
     /**
      * @testdox The correlation coefficient (Bravis Person) is calculated correctly

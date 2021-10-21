@@ -19,7 +19,7 @@ use phpOMS\Message\Http\OSType;
 /**
  * @internal
  */
-class OSTypeTest extends \PHPUnit\Framework\TestCase
+final class OSTypeTest extends \PHPUnit\Framework\TestCase
 {
     /**
      * @group framework

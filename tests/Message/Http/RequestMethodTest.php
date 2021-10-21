@@ -19,7 +19,7 @@ use phpOMS\Message\Http\RequestMethod;
 /**
  * @internal
  */
-class RequestMethodTest extends \PHPUnit\Framework\TestCase
+final class RequestMethodTest extends \PHPUnit\Framework\TestCase
 {
     /**
      * @group framework

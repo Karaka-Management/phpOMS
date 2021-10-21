@@ -23,7 +23,7 @@ require_once __DIR__ . '/../../Autoloader.php';
  *
  * @internal
  */
-class AStarNodeTest extends \PHPUnit\Framework\TestCase
+final class AStarNodeTest extends \PHPUnit\Framework\TestCase
 {
     protected $node;
 

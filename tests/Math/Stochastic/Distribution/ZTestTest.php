@@ -21,7 +21,7 @@ use phpOMS\Math\Stochastic\Distribution\ZTesting;
 /**
  * @internal
  */
-class ZTestingTest extends \PHPUnit\Framework\TestCase
+final class ZTestingTest extends \PHPUnit\Framework\TestCase
 {
     // http://sphweb.bumc.bu.edu/otlt/MPH-Modules/BS/BS704_HypothesisTesting-ChiSquare/BS704_HypothesisTesting-ChiSquare_print.html
 

@@ -20,7 +20,7 @@ use phpOMS\Utils\Barcode\OrientationType;
 /**
  * @internal
  */
-class CodebarTest extends \PHPUnit\Framework\TestCase
+final class CodebarTest extends \PHPUnit\Framework\TestCase
 {
     protected function setUp() : void
     {

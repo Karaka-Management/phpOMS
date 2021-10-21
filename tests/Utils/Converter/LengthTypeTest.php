@@ -19,7 +19,7 @@ use phpOMS\Utils\Converter\LengthType;
 /**
  * @internal
  */
-class LengthTypeTest extends \PHPUnit\Framework\TestCase
+final class LengthTypeTest extends \PHPUnit\Framework\TestCase
 {
     /**
      * @group framework

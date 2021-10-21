@@ -21,7 +21,7 @@ use phpOMS\Application\ApplicationAbstract;
  *
  * @internal
  */
-class ApplicationAbstractTest extends \PHPUnit\Framework\TestCase
+final class ApplicationAbstractTest extends \PHPUnit\Framework\TestCase
 {
     /**
      * @testdox Application values can be set and returned

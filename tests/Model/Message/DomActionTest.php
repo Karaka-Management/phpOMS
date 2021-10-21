@@ -19,7 +19,7 @@ use phpOMS\Model\Message\DomAction;
 /**
  * @internal
  */
-class DomActionTest extends \PHPUnit\Framework\TestCase
+final class DomActionTest extends \PHPUnit\Framework\TestCase
 {
     /**
      * @group framework

@@ -21,7 +21,7 @@ use phpOMS\Math\Geometry\ConvexHull\MonotoneChain;
  *
  * @internal
  */
-class MonotoneChainTest extends \PHPUnit\Framework\TestCase
+final class MonotoneChainTest extends \PHPUnit\Framework\TestCase
 {
     /**
      * @testdox A convex hull can be formed from multiple points on a plane

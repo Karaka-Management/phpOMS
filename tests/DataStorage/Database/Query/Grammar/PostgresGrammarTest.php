@@ -19,7 +19,7 @@ use phpOMS\DataStorage\Database\Query\Grammar\PostgresGrammar;
 /**
  * @internal
  */
-class PostgresGrammarTest extends \PHPUnit\Framework\TestCase
+final class PostgresGrammarTest extends \PHPUnit\Framework\TestCase
 {
     /**
      * @covers phpOMS\DataStorage\Database\Query\Grammar\PostgresGrammar

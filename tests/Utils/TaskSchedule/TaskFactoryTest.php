@@ -23,7 +23,7 @@ use phpOMS\Utils\TaskSchedule\TaskFactory;
  *
  * @internal
  */
-class TaskFactoryTest extends \PHPUnit\Framework\TestCase
+final class TaskFactoryTest extends \PHPUnit\Framework\TestCase
 {
     /**
      * @testdox The correct task is crated depending on the operating system

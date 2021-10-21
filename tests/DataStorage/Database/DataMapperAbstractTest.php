@@ -27,7 +27,7 @@ use phpOMS\tests\DataStorage\Database\TestModel\NullBaseModel;
  *
  * @internal
  */
-class DataMapperAbstractTest extends \PHPUnit\Framework\TestCase
+final class DataMapperAbstractTest extends \PHPUnit\Framework\TestCase
 {
     protected BaseModel $model;
 

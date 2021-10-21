@@ -22,7 +22,7 @@ use phpOMS\Utils\TaskSchedule\TaskScheduler;
  *
  * @internal
  */
-class TaskSchedulerTest extends \PHPUnit\Framework\TestCase
+final class TaskSchedulerTest extends \PHPUnit\Framework\TestCase
 {
     protected function setUp() : void
     {

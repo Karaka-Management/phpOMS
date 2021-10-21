@@ -23,7 +23,7 @@ use phpOMS\DataStorage\Database\DatabaseType;
  *
  * @internal
  */
-class SqlServerConnectionTest extends \PHPUnit\Framework\TestCase
+final class SqlServerConnectionTest extends \PHPUnit\Framework\TestCase
 {
     protected function setUp() : void
     {

@@ -21,7 +21,7 @@ use phpOMS\Model\Html\FormElementGenerator;
  *
  * @internal
  */
-class FormElementGeneratorTest extends \PHPUnit\Framework\TestCase
+final class FormElementGeneratorTest extends \PHPUnit\Framework\TestCase
 {
     /**
      * @testdox A text input element can be generated

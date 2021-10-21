@@ -19,7 +19,7 @@ use phpOMS\Utils\Barcode\C128Abstract;
 /**
  * @internal
  */
-class C128AbstractTest extends \PHPUnit\Framework\TestCase
+final class C128AbstractTest extends \PHPUnit\Framework\TestCase
 {
     protected $obj = null;
 

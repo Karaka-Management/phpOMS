@@ -21,7 +21,7 @@ use phpOMS\Localization\ISO639Enum;
 /**
  * @internal
  */
-class ISO639EnumTest extends \PHPUnit\Framework\TestCase
+final class ISO639EnumTest extends \PHPUnit\Framework\TestCase
 {
     /**
      * @group framework

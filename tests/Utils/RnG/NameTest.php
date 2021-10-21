@@ -21,7 +21,7 @@ use phpOMS\Utils\RnG\Name;
  *
  * @internal
  */
-class NameTest extends \PHPUnit\Framework\TestCase
+final class NameTest extends \PHPUnit\Framework\TestCase
 {
     /**
      * @testdox Random female and male names can be generated

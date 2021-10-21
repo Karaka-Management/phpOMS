@@ -23,7 +23,7 @@ use phpOMS\Validation\Base\DateTime;
  *
  * @internal
  */
-class DateTimeTest extends \PHPUnit\Framework\TestCase
+final class DateTimeTest extends \PHPUnit\Framework\TestCase
 {
     /**
      * @testdox A date time string can be validated

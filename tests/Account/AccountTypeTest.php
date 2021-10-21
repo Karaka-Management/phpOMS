@@ -21,7 +21,7 @@ use phpOMS\Account\AccountType;
 /**
  * @internal
  */
-class AccountTypeTest extends \PHPUnit\Framework\TestCase
+final class AccountTypeTest extends \PHPUnit\Framework\TestCase
 {
     /**
      * @group framework

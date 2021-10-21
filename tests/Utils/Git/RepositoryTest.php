@@ -21,7 +21,7 @@ use phpOMS\Utils\Git\Repository;
  *
  * @internal
  */
-class RepositoryTest extends \PHPUnit\Framework\TestCase
+final class RepositoryTest extends \PHPUnit\Framework\TestCase
 {
     /**
      * @testdox The repository has the expected default values after initialization

@@ -21,7 +21,7 @@ use phpOMS\Math\Geometry\Shape\D2\Triangle;
  *
  * @internal
  */
-class TriangleTest extends \PHPUnit\Framework\TestCase
+final class TriangleTest extends \PHPUnit\Framework\TestCase
 {
     /**
      * @testdox The surface can be calculated

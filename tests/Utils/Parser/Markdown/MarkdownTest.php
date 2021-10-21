@@ -20,7 +20,7 @@ use phpOMS\Utils\Parser\Markdown\Markdown;
 /**
  * @internal
  */
-class MarkdownTest extends \PHPUnit\Framework\TestCase
+final class MarkdownTest extends \PHPUnit\Framework\TestCase
 {
     /**
      * @covers phpOMS\Utils\Parser\Markdown\Markdown

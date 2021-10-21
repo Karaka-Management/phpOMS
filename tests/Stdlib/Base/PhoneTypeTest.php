@@ -19,7 +19,7 @@ use phpOMS\Stdlib\Base\PhoneType;
 /**
  * @internal
  */
-class PhoneTypeTest extends \PHPUnit\Framework\TestCase
+final class PhoneTypeTest extends \PHPUnit\Framework\TestCase
 {
     /**
      * @group framework

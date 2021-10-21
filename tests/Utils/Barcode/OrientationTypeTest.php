@@ -19,7 +19,7 @@ use phpOMS\Utils\Barcode\OrientationType;
 /**
  * @internal
  */
-class OrientationTypeTest extends \PHPUnit\Framework\TestCase
+final class OrientationTypeTest extends \PHPUnit\Framework\TestCase
 {
     /**
      * @group framework

@@ -21,7 +21,7 @@ use phpOMS\Validation\Base\Json;
  *
  * @internal
  */
-class JsonTest extends \PHPUnit\Framework\TestCase
+final class JsonTest extends \PHPUnit\Framework\TestCase
 {
     /**
      * @testdox A json string can be validated

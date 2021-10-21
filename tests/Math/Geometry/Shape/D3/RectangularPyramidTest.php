@@ -21,7 +21,7 @@ use phpOMS\Math\Geometry\Shape\D3\RectangularPyramid;
  *
  * @internal
  */
-class RectangularPyramidTest extends \PHPUnit\Framework\TestCase
+final class RectangularPyramidTest extends \PHPUnit\Framework\TestCase
 {
     /**
      * @testdox The volume can be calculated

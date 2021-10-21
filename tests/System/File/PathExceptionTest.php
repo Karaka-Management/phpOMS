@@ -19,7 +19,7 @@ use phpOMS\System\File\PathException;
 /**
  * @internal
  */
-class PathExceptionTest extends \PHPUnit\Framework\TestCase
+final class PathExceptionTest extends \PHPUnit\Framework\TestCase
 {
     /**
      * @covers phpOMS\System\File\PathException

@@ -25,7 +25,7 @@ use phpOMS\Utils\Git\Tag;
  *
  * @internal
  */
-class CommitTest extends \PHPUnit\Framework\TestCase
+final class CommitTest extends \PHPUnit\Framework\TestCase
 {
     /**
      * @testdox The commit has the expected default values after initialization

@@ -21,7 +21,7 @@ use phpOMS\Business\Finance\StockBonds;
  *
  * @internal
  */
-class StockBondsTest extends \PHPUnit\Framework\TestCase
+final class StockBondsTest extends \PHPUnit\Framework\TestCase
 {
     /**
      * @testdox The calculation of various stock/bond related ratios/yields is correct

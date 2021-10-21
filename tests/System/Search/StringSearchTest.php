@@ -21,7 +21,7 @@ use phpOMS\System\Search\StringSearch;
  *
  * @internal
  */
-class StringSearchTest extends \PHPUnit\Framework\TestCase
+final class StringSearchTest extends \PHPUnit\Framework\TestCase
 {
     /**
      * @covers phpOMS\System\Search\StringSearch

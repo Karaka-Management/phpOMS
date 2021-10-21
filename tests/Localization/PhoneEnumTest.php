@@ -21,7 +21,7 @@ use phpOMS\Localization\PhoneEnum;
 /**
  * @internal
  */
-class PhoneEnumTest extends \PHPUnit\Framework\TestCase
+final class PhoneEnumTest extends \PHPUnit\Framework\TestCase
 {
     /**
      * @group framework

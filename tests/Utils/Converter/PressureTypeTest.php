@@ -19,7 +19,7 @@ use phpOMS\Utils\Converter\PressureType;
 /**
  * @internal
  */
-class PressureTypeTest extends \PHPUnit\Framework\TestCase
+final class PressureTypeTest extends \PHPUnit\Framework\TestCase
 {
     /**
      * @group framework

@@ -21,7 +21,7 @@ use phpOMS\Stdlib\Base\Heap;
  *
  * @internal
  */
-class HeapTest extends \PHPUnit\Framework\TestCase
+final class HeapTest extends \PHPUnit\Framework\TestCase
 {
     /**
      * @testdox A list of elements can be turned into a heap

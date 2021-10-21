@@ -19,7 +19,7 @@ use phpOMS\Module\Exception\InvalidModuleException;
 /**
  * @internal
  */
-class InvalidModuleExceptionTest extends \PHPUnit\Framework\TestCase
+final class InvalidModuleExceptionTest extends \PHPUnit\Framework\TestCase
 {
     /**
      * @covers phpOMS\Module\Exception\InvalidModuleException

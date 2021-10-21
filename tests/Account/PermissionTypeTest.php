@@ -21,7 +21,7 @@ use phpOMS\Account\PermissionType;
 /**
  * @internal
  */
-class PermissionTypeTest extends \PHPUnit\Framework\TestCase
+final class PermissionTypeTest extends \PHPUnit\Framework\TestCase
 {
     /**
      * @group framework

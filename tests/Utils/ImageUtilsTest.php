@@ -23,7 +23,7 @@ use phpOMS\Utils\ImageUtils;
  *
  * @internal
  */
-class ImageUtilsTest extends \PHPUnit\Framework\TestCase
+final class ImageUtilsTest extends \PHPUnit\Framework\TestCase
 {
     /**
      * @testdox Base64 image data can be decoded to an image

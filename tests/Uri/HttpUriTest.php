@@ -23,7 +23,7 @@ use phpOMS\Uri\HttpUri;
  *
  * @internal
  */
-class HttpUriTest extends \PHPUnit\Framework\TestCase
+final class HttpUriTest extends \PHPUnit\Framework\TestCase
 {
     /**
      * @testdox A url can be validated

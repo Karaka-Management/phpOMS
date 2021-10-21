@@ -30,7 +30,7 @@ use phpOMS\System\File\Local\Directory;
  *
  * @internal
  */
-class ApplicationManagerTest extends \PHPUnit\Framework\TestCase
+final class ApplicationManagerTest extends \PHPUnit\Framework\TestCase
 {
     protected ApplicationManager $appManager;
 

@@ -23,7 +23,7 @@ use phpOMS\Uri\Argument;
 /**
  * @internal
  */
-class ConsoleRequestTest extends \PHPUnit\Framework\TestCase
+final class ConsoleRequestTest extends \PHPUnit\Framework\TestCase
 {
     private ConsoleRequest $request;
 

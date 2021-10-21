@@ -22,7 +22,7 @@ use phpOMS\Math\Functions\Gamma;
  *
  * @internal
  */
-class GammaTest extends \PHPUnit\Framework\TestCase
+final class GammaTest extends \PHPUnit\Framework\TestCase
 {
     /**
      * @testdox The gamma function can be approximated

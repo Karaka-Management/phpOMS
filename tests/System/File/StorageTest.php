@@ -22,7 +22,7 @@ use phpOMS\System\File\Storage;
  *
  * @internal
  */
-class StorageTest extends \PHPUnit\Framework\TestCase
+final class StorageTest extends \PHPUnit\Framework\TestCase
 {
     /**
      * @testdox By default the local storage handler is returned

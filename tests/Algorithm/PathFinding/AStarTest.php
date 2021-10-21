@@ -28,7 +28,7 @@ require_once __DIR__ . '/../../Autoloader.php';
  *
  * @internal
  */
-class AStarTest extends \PHPUnit\Framework\TestCase
+final class AStarTest extends \PHPUnit\Framework\TestCase
 {
     private array $gridArray = [
         [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,],

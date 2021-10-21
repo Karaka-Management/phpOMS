@@ -19,7 +19,7 @@ use phpOMS\Model\Message\Reload;
 /**
  * @internal
  */
-class ReloadTest extends \PHPUnit\Framework\TestCase
+final class ReloadTest extends \PHPUnit\Framework\TestCase
 {
     /**
      * @covers phpOMS\Model\Message\Reload

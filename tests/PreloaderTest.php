@@ -21,7 +21,7 @@ use phpOMS\Preloader;
  *
  * @internal
  */
-class PreloaderTest extends \PHPUnit\Framework\TestCase
+final class PreloaderTest extends \PHPUnit\Framework\TestCase
 {
     /**
      * @covers phpOMS\Preloader

@@ -25,7 +25,7 @@ use phpOMS\DataStorage\Database\Connection\SqlServerConnection;
  *
  * @internal
  */
-class ConnectionFactoryTest extends \PHPUnit\Framework\TestCase
+final class ConnectionFactoryTest extends \PHPUnit\Framework\TestCase
 {
     /**
      * @testdox The mysql connection can be successfully created

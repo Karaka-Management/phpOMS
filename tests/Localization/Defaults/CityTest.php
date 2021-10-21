@@ -23,7 +23,7 @@ use phpOMS\Localization\Defaults\City;
  *
  * @internal
  */
-class CityTest extends \PHPUnit\Framework\TestCase
+final class CityTest extends \PHPUnit\Framework\TestCase
 {
     /**
      * @testdox The model has the expected member variables and default values

@@ -24,7 +24,7 @@ use phpOMS\Utils\TestUtils;
  *
  * @internal
  */
-class RedisCacheTest extends \PHPUnit\Framework\TestCase
+final class RedisCacheTest extends \PHPUnit\Framework\TestCase
 {
     protected RedisCache $cache;
 

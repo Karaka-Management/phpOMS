@@ -19,7 +19,7 @@ use phpOMS\System\File\ExtensionType;
 /**
  * @internal
  */
-class ExtensionTypeTest extends \PHPUnit\Framework\TestCase
+final class ExtensionTypeTest extends \PHPUnit\Framework\TestCase
 {
     /**
      * @group framework

@@ -19,7 +19,7 @@ use phpOMS\Math\Stochastic\Distribution\BetaDistribution;
 /**
  * @internal
  */
-class BetaDistributionTest extends \PHPUnit\Framework\TestCase
+final class BetaDistributionTest extends \PHPUnit\Framework\TestCase
 {
     /**
      * @covers phpOMS\Math\Stochastic\Distribution\BetaDistribution
