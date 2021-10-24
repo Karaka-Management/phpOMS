@@ -69,7 +69,7 @@ final class SQLiteConnectionTest extends \PHPUnit\Framework\TestCase
      */
     public function testInvalidDatabasePath() : void
     {
-        $db = $GLOBALS['CONFIG']['db']['core']['masters']['admin'];
+        $db             = $GLOBALS['CONFIG']['db']['core']['masters']['admin'];
         $db['database'] = 'invalid.sqlite';
 
         $sqlite = new SQLiteConnection($db);
