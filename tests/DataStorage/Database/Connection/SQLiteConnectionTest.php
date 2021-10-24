@@ -63,6 +63,21 @@ final class SQLiteConnectionTest extends \PHPUnit\Framework\TestCase
     }
 
     /**
+     * @testdox Valid sqlite connection data result in a valid database connection
+     * @covers phpOMS\DataStorage\Database\Connection\SQLiteConnection<extended>
+     * @group framework
+     */
+    public function testInvalidDatabasePath() : void
+    {
+        $db = $GLOBALS['CONFIG']['db']['core']['masters']['admin'];
+        $db['database'] = 'invalid.sqlite';
+
+        $sqlite = new SQLiteConnection($db);
+        $sqlite->connect();
+        self::assertEquals(DatabaseStatus::MISSING_DATABASE, $sqlite->getStatus());
+    }
+
+    /**
      * @testdox A missing database returns a failure
      * @covers phpOMS\DataStorage\Database\Connection\SQLiteConnection
      * @group framework
@@ -86,15 +101,17 @@ final class SQLiteConnectionTest extends \PHPUnit\Framework\TestCase
         $db             = $GLOBALS['CONFIG']['db']['core']['masters']['admin'];
         $db['database'] = 'invalid';
 
-        $mysql = new SQLiteConnection($db);
-        $mysql->connect();
-        self::assertEquals(DatabaseStatus::MISSING_DATABASE, $mysql->getStatus());
+        $sqlite = new SQLiteConnection($db);
+        $sqlite->connect();
+        self::assertEquals(DatabaseStatus::MISSING_DATABASE, $sqlite->getStatus());
     }
 
+    /*
     public static function tearDownAfterClass() : void
     {
         if (\is_file($GLOBALS['CONFIG']['db']['core']['sqlite']['admin']['database'])) {
             \unlink($GLOBALS['CONFIG']['db']['core']['sqlite']['admin']['database']);
         }
     }
+    */
 }

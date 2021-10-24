@@ -82,6 +82,10 @@ final class SQLiteConnection extends ConnectionAbstract
         $this->close();
 
         try {
+            if (!\is_file($this->dbdata['database'])) {
+                throw new \PDOException();
+            }
+
             $this->con = new \PDO($this->dbdata['db'] . ':' . $this->dbdata['database']);
             $this->con->setAttribute(\PDO::ATTR_EMULATE_PREPARES, false);
             $this->con->setAttribute(\PDO::ATTR_ERRMODE, \PDO::ERRMODE_EXCEPTION);
