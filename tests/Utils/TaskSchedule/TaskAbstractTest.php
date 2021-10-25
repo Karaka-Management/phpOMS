@@ -24,7 +24,7 @@ use phpOMS\Utils\TaskSchedule\TaskFactory;
  */
 final class TaskAbstractTest extends \PHPUnit\Framework\TestCase
 {
-    private $class = null;
+    private TaskAbstract $class;
 
     /**
      * {@inheritdoc}
