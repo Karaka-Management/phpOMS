@@ -56,8 +56,6 @@ final class DirectoryTest extends \PHPUnit\Framework\TestCase
             }
         } catch (\Throwable $t) {
             self::$con = null;
-
-            var_dump($t->getMessage());
         }
     }
 
