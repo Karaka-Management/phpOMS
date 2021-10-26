@@ -125,6 +125,7 @@ class File extends FileAbstract implements FileInterface
     {
         $exists = self::exists($con, $path);
 
+        // @todo: consider to use the php://memory way, used in the seUpBeforeClass in the test
         if ((ContentPutMode::hasFlag($mode, ContentPutMode::APPEND) && $exists)
             || (ContentPutMode::hasFlag($mode, ContentPutMode::PREPEND) && $exists)
             || (ContentPutMode::hasFlag($mode, ContentPutMode::REPLACE) && $exists)

@@ -34,6 +34,34 @@ final class FtpStorageTest extends \PHPUnit\Framework\TestCase
     public static function setUpBeforeClass() : void
     {
         self::$con = Directory::ftpConnect(new HttpUri(self::BASE));
+
+        if (self::$con === false) {
+            self::$con = null;
+
+            return;
+        }
+
+        try {
+            $mkdir = \ftp_mkdir(self::$con, '0xFF');
+            \ftp_rmdir(self::$con, '0xFF');
+
+            $f = \fopen('php://memory', 'r+');
+            \fwrite($f, '0x00');
+            \rewind($f);
+
+            $put = \ftp_fput(self::$con, '0x00', $f);
+            \fclose($f);
+
+            \ftp_delete(self::$con, '0x00');
+
+            if (!$mkdir || !$put) {
+                throw new \Exception();
+            }
+        } catch (\Throwable $t) {
+            self::$con = null;
+        }
+
+        FtpStorage::with(self::$con);
     }
 
     /**
@@ -41,29 +69,11 @@ final class FtpStorageTest extends \PHPUnit\Framework\TestCase
      */
     protected function setUp() : void
     {
-        if (self::$con === false) {
+        if (self::$con === null) {
             $this->markTestSkipped(
               'The ftp connection is not available.'
             );
-        } else {
-            try {
-                $mkdir = \ftp_mkdir(self::$con, '0xFF');
-                \ftp_rmdir(self::$con, '0xFF');
-
-                $put = \ftp_put(self::$con, '0x00');
-                \ftp_delete(self::$con, '0x00');
-
-                if (!$mkdir || !$put) {
-                    throw new \Exception();
-                }
-            } catch (\Throwable $t) {
-                $this->markTestSkipped(
-                  'No write permissions on ftp server.'
-                );
-            }
         }
-
-        FtpStorage::with(self::$con);
     }
 
     /**
