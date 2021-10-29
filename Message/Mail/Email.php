@@ -895,7 +895,7 @@ class Email implements MessageInterface
 
         $errorcode = 0;
         if (\defined('INTL_IDNA_VARIANT_UTS46')) {
-            $punycode = \idn_to_ascii($domain, $errorcode, \INTL_IDNA_VARIANT_UTS46);
+            $punycode = \idn_to_ascii($domain, $errorcode, INTL_IDNA_VARIANT_UTS46);
         } else {
             $punycode = \idn_to_ascii($domain, $errorcode);
         }

@@ -904,7 +904,10 @@ final class DirectoryTest extends \PHPUnit\Framework\TestCase
     public function testNodeInvalid() : void
     {
         $dir = new Directory(new HttpUri(self::BASE . __DIR__ . '/dirtest'), '*', true, self::$con);
-        $dir?->next()?->next()?->next()?->next()?->next()?->next()?->next();
+
+        while ($dir->valid()) {
+            $dir->next();
+        }
 
         self::assertFalse($dir->valid());
     }
