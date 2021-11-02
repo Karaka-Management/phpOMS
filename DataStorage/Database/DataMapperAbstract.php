@@ -2932,7 +2932,7 @@ class DataMapperAbstract implements DataMapperInterface
      */
     public static function getNewest(int $limit = 1, Builder $query = null, int $relations = RelationType::ALL, int $depth = 3) : array
     {
-        $query ??= self::getQuery(null, [], $relations, $depth);
+        $query = self::getQuery($query, [], $relations, $depth);
         $query->limit($limit);
 
         if (!empty(static::$createdAt)) {

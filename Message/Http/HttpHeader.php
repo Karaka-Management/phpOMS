@@ -62,11 +62,10 @@ final class HttpHeader extends HeaderAbstract
             return false;
         }
 
+        $key = \strtolower($key);
         if (self::isSecurityHeader($key) && isset($this->header[$key])) {
             return false;
         }
-
-        $key = \strtolower($key);
 
         if (!$overwrite && isset($this->header[$key])) {
             return false;
