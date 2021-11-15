@@ -3163,7 +3163,7 @@ class DataMapperAbstract implements DataMapperInterface
             }
         } catch (\Throwable $t) {
             $results = false;
-            \var_dump($query->toSql());
+            \var_dump($a = $query->toSql());
             \var_dump($t->getMessage());
         }
 

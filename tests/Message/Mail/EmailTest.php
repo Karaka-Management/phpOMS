@@ -12,7 +12,7 @@
  */
 declare(strict_types=1);
 
-namespace phpOMS\tests\Message;
+namespace phpOMS\tests\Message\Mail;
 
 require_once __DIR__ . '/../../Autoloader.php';
 

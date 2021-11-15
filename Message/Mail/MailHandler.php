@@ -207,14 +207,6 @@ class MailHandler
     public ?Smtp $smtp = null;
 
     /**
-     * An instance of the SMTP sender class.
-     *
-     * @var resource
-     * @since 1.0.0
-     */
-    public mixed $mailbox = null;
-
-    /**
      * SMTP RFC standard line ending
      *
      * @var string
@@ -455,12 +447,14 @@ class MailHandler
         $badRcpt = [];
         foreach ([$mail->to, $mail->cc, $mail->bcc] as $togroup) {
             foreach ($togroup as $to) {
-                $badRcpt = $this->smtp->recipient($to[0], $this->dsn) ? $badRcpt + 1 : $badRcpt;
+                if (!$this->smtp->recipient($to[0], $this->dsn)) {
+                    $badRcpt[] = $to[0];
+                }
             }
         }
 
         // Only send the DATA command if we have viable recipients
-        if ((\count($this->to) + \count($this->cc) + \count($this->bcc) > $badRcpt)
+        if ((\count($mail->to) + \count($mail->cc) + \count($mail->bcc) > \count($badRcpt))
             && !$this->smtp->data($header . $mail->body, self::MAX_LINE_LENGTH)
         ) {
             return false;

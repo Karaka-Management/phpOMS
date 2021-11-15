@@ -83,7 +83,7 @@ class Smtp
      * @var ?resource
      * @since 1.0.0
      */
-    protected $con;
+    protected $con = null;
 
     /**
      * The reply the server sent to us for HELO.
@@ -215,6 +215,8 @@ class Smtp
             $crypto_method |= \STREAM_CRYPTO_METHOD_TLSv1_1_CLIENT;
         }
 
+        // This may throw "Peer certificate CN=`...` did not match expected CN=`...`"
+        // The solution is to replace the invalid ssl certificate with a correct one
         return (bool) \stream_socket_enable_crypto($this->con, true, $crypto_method);
     }
 

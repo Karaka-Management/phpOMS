@@ -1107,24 +1107,28 @@ class Email implements MessageInterface
                 return '';
             }
 
-            $file   = \tempnam(\sys_get_temp_dir(), 'srcsign');
-            $signed = \tempnam(\sys_get_temp_dir(), 'mailsign');
+            $file   = \tempnam($tmpDir = \sys_get_temp_dir(), 'srcsign');
+            $signed = \tempnam($tmpDir, 'mailsign');
             \file_put_contents($file, $body);
 
-            //Workaround for PHP bug https://bugs.php.net/bug.php?id=69197
-            $sign = empty($this->signExtracertFiles)
-                ? \openssl_pkcs7_sign($file, $signed,
-                        'file://' . \realpath($this->signCertFile),
-                        ['file://' . \realpath($this->signKeyFile), $this->signKeyPass],
-                        []
-                    )
-                : \openssl_pkcs7_sign($file, $signed,
-                        'file://' . \realpath($this->signCertFile),
-                        ['file://' . \realpath($this->signKeyFile), $this->signKeyPass],
-                        [],
-                        \PKCS7_DETACHED,
-                        $this->signExtracertFiles
-                    );
+            try {
+                // Workaround for PHP bug https://bugs.php.net/bug.php?id=69197
+                $sign = empty($this->signExtracertFiles)
+                    ? \openssl_pkcs7_sign(\realpath($file), $signed,
+                            'file://' . \realpath($this->signCertFile),
+                            ['file://' . \realpath($this->signKeyFile), $this->signKeyPass],
+                            [],
+                        )
+                    : \openssl_pkcs7_sign(\realpath($file), $signed,
+                            'file://' . \realpath($this->signCertFile),
+                            ['file://' . \realpath($this->signKeyFile), $this->signKeyPass],
+                            [],
+                            \PKCS7_DETACHED,
+                            $this->signExtracertFiles
+                        );
+            } catch (\Throwable $t) {
+                $sign = false;
+            }
 
             \unlink($file);
             if ($sign === false) {
@@ -1314,7 +1318,7 @@ class Email implements MessageInterface
 
         $fileBuffer = \file_get_contents($path);
         if ($fileBuffer === false) {
-            return '';
+            return ''; // @codeCoverageIgnore
         }
 
         $fileBuffer = $this->encodeString($fileBuffer, $encoding);

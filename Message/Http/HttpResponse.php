@@ -109,14 +109,13 @@ final class HttpResponse extends ResponseAbstract implements RenderableInterface
     public function render(...$data) : string
     {
         $types = $this->header->get('Content-Type');
-
         foreach ($types as $type) {
             if (\stripos($type, MimeType::M_JSON) !== false) {
                 return (string) \json_encode($this->jsonSerialize());
             }
         }
 
-        return $this->getRaw($data[0] ?? false);
+        return $this->getRaw(\stripos($type ?? '', MimeType::M_HTML) !== false ? ($data[0] ?? false) : false);
     }
 
     /**
@@ -133,8 +132,7 @@ final class HttpResponse extends ResponseAbstract implements RenderableInterface
     private function getRaw(bool $optimize = false) : string
     {
         $render = '';
-
-        foreach ($this->response as $key => $response) {
+        foreach ($this->response as $response) {
             $render .= StringUtils::stringify($response);
         }
 

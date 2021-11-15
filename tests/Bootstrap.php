@@ -17,6 +17,10 @@ require_once __DIR__ . '/../Autoloader.php';
 use phpOMS\DataStorage\Database\DatabasePool;
 use phpOMS\DataStorage\Database\DataMapperAbstract;
 use phpOMS\DataStorage\Session\HttpSession;
+use phpOMS\Log\FileLogger;
+
+// Initialize file logger with correct path
+$tmp = FileLogger::getInstance(__DIR__ . '/../Logs');
 
 $CONFIG = [
     'db'       => [
