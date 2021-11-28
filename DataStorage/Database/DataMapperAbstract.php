@@ -1233,7 +1233,7 @@ class DataMapperAbstract implements DataMapperInterface
                         $relProperty->setValue($value, $objId);
                         $relProperty->setAccessible(false);
                     } else {
-                        $value->{$mapper}::$columns[static::$hasMany[$propertyName]['self']]['internal'] = $objId;
+                        $value->{$mapper::$columns[static::$hasMany[$propertyName]['self']]['internal']} = $objId;
                     }
                 }
 
@@ -2624,6 +2624,10 @@ class DataMapperAbstract implements DataMapperInterface
         $query ??= self::getQuery(depth: $depth);
         $query->where(static::$table . '_d' . $depth . '.' . ($column !== null ? self::getColumnByMember($column) : static::$primaryField), '>', $pivot);
 
+        if ($limit > 0) {
+            $query->limit($limit);
+        }
+
         return self::getAllByQuery($query, $relations, $depth);
     }
 
@@ -2655,8 +2659,11 @@ class DataMapperAbstract implements DataMapperInterface
     ) : array
     {
         $query ??= self::getQuery(depth: $depth);
-        $query->where(static::$table . '_d' . $depth . '.' . ($column !== null ? self::getColumnByMember($column) : static::$primaryField), '<', $pivot)
-            ->limit($limit);
+        $query->where(static::$table . '_d' . $depth . '.' . ($column !== null ? self::getColumnByMember($column) : static::$primaryField), '<', $pivot);
+
+        if ($limit > 0) {
+            $query->limit($limit);
+        }
 
         return self::getAllByQuery($query, $relations, $depth);
     }
