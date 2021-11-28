@@ -32,16 +32,19 @@ abstract class DataMapperAbstract
     protected int $type = 0;
 
     protected array $with = [];
+
 	protected array $sort = [];
+
 	protected array $limit = [];
+
 	protected array $where = [];
 
 	/**
-     * Database connection.
-     *
-     * @var ConnectionAbstract
-     * @since 1.0.0
-     */
+	 * Database connection.
+	 *
+	 * @var ConnectionAbstract
+	 * @since 1.0.0
+	 */
 	protected ConnectionAbstract $db;
 
 	public function __construct(DataMapperFactory $mapper, ConnectionAbstract $db)
@@ -95,9 +98,9 @@ abstract class DataMapperAbstract
 		$memberSplit = \array_shift($split);
 
 		$this->where[$memberSplit ?? ''][] = [
-			'child' => \implode('/', $split),
-			'value' => $value,
-			'logic' => $logic,
+			'child'      => \implode('/', $split),
+			'value'      => $value,
+			'logic'      => $logic,
 			'comparison' => $comparison,
 		];
 
@@ -151,7 +154,7 @@ abstract class DataMapperAbstract
     	return $relMapper;
     }
 
-	/**
+    /**
      * Parse value
      *
      * @param string $type  Value type
@@ -186,5 +189,5 @@ abstract class DataMapperAbstract
         return $value;
     }
 
-	abstract function execute(...$options);
+	abstract public function execute(...$options);
 }
