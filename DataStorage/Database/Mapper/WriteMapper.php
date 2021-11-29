@@ -74,7 +74,7 @@ class WriteMapper extends DataMapperAbstract
 
     private function createModel(object $obj, \ReflectionClass $refClass) : mixed
     {
-        $query = new Builder(self::$db);
+        $query = new Builder($this->db);
         $query->into($this->mapper::TABLE);
 
         foreach ($this->mapper::COLUMNS as $column) {
@@ -128,7 +128,7 @@ class WriteMapper extends DataMapperAbstract
         }
 
         try {
-            $sth = self::$db->con->prepare($query->toSql());
+            $sth = $this->db->con->prepare($query->toSql());
             $sth->execute();
         } catch (\Throwable $t) {
             \var_dump($t->getMessage());
@@ -136,7 +136,7 @@ class WriteMapper extends DataMapperAbstract
             return -1;
         }
 
-        $objId = empty($id = $this->mapper::getObjectId($obj, $refClass)) ? self::$db->con->lastInsertId() : $id;
+        $objId = empty($id = $this->mapper::getObjectId($obj, $refClass)) ? $this->db->con->lastInsertId() : $id;
         \settype($objId, $this->mapper::COLUMNS[$this->mapper::PRIMARYFIELD]['type']);
 
         return $objId;
@@ -313,7 +313,7 @@ class WriteMapper extends DataMapperAbstract
             return;
         }
 
-        $relQuery = new Builder(self::$db);
+        $relQuery = new Builder($this->db);
         $relQuery->into($this->mapper::HAS_MANY[$propertyName]['table'])
             ->insert($this->mapper::HAS_MANY[$propertyName]['external'], $this->mapper::HAS_MANY[$propertyName]['self']);
 
@@ -331,7 +331,7 @@ class WriteMapper extends DataMapperAbstract
         }
 
         try {
-            $sth = self::$db->con->prepare($relQuery->toSql());
+            $sth = $this->db->con->prepare($relQuery->toSql());
             if ($sth !== false) {
                 $sth->execute();
             }

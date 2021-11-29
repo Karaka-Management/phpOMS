@@ -31,6 +31,8 @@ abstract class DataMapperAbstract
 
     protected int $type = 0;
 
+    protected int $depth = 1;
+
     protected array $with = [];
 
 	protected array $sort = [];

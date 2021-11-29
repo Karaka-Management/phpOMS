@@ -158,6 +158,13 @@ class DataMapperFactory
     {
     }
 
+    public static function db(ConnectionAbstract $db = null) : string
+    {
+        self::$db = $db;
+
+        return static::class;
+    }
+
     public static function reader(ConnectionAbstract $db = null) : ReadMapper
 	{
 		return new ReadMapper(new static(), $db ?? self::$db);

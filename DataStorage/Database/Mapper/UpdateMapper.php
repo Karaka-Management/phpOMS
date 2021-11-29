@@ -81,7 +81,7 @@ class UpdateMapper extends DataMapperAbstract
             return;
         }
 
-        $query = new Builder(self::$db);
+        $query = new Builder($this->db);
         $query->update($this->mapper::TABLE)
             ->where($this->mapper::TABLE . '.' . $this->mapper::PRIMARYFIELD, '=', $objId);
 
@@ -140,7 +140,7 @@ class UpdateMapper extends DataMapperAbstract
         }
 
         try {
-            $sth = self::$db->con->prepare($query->toSql());
+            $sth = $this->db->con->prepare($query->toSql());
             if ($sth !== false) {
                 $sth->execute();
             }
@@ -236,13 +236,13 @@ class UpdateMapper extends DataMapperAbstract
 
                     $relMapper->execute($value);
 
-                    $objsIds[$propertyName][$key] = $value;
+                    $objsIds[$propertyName][$key] = $primaryKey;
 
                     continue;
                 }
 
                 // create if not existing
-                if ($this->mapper::HAS_MANY[$propertyName]['table'] === $this->mapper::HAS_MANY[$propertyName]['mapper']::$table
+                if ($this->mapper::HAS_MANY[$propertyName]['table'] === $this->mapper::HAS_MANY[$propertyName]['mapper']::TABLE
                     && isset($mapper::COLUMNS[$this->mapper::HAS_MANY[$propertyName]['self']])
                 ) {
                     $relProperty = $relReflectionClass->getProperty($mapper::COLUMNS[$this->mapper::HAS_MANY[$propertyName]['self']]['internal']);
@@ -291,15 +291,15 @@ class UpdateMapper extends DataMapperAbstract
             $sth->execute();
             $result =  $sth->fetchAll(\PDO::FETCH_COLUMN);
 
-            $removes = \array_diff($result, \array_keys($objsIds[$member] ?? []));
-            $adds    = \array_diff(\array_keys($objsIds[$member] ?? []), $result);
+            $removes = \array_diff($result, \array_values($objsIds[$member] ?? []));
+            $adds    = \array_diff(\array_values($objsIds[$member] ?? []), $result);
 
             if (!empty($removes)) {
-                $this->mapper::remover()->deleteRelationTable($member, $removes, $objId);
+                $this->mapper::remover(db: $this->db)->deleteRelationTable($member, $removes, $objId);
             }
 
             if (!empty($adds)) {
-                $this->mapper::writer()->createRelationTable($member, $adds, $objId);
+                $this->mapper::writer(db: $this->db)->createRelationTable($member, $adds, $objId);
             }
         }
     }

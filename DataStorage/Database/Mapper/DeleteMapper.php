@@ -68,7 +68,7 @@ class DeleteMapper extends DataMapperAbstract
 
     private function deleteModel(object $obj, mixed $objId, \ReflectionClass $refClass = null) : void
     {
-        $query = new Builder(self::$db);
+        $query = new Builder($this->db);
         $query->delete()
             ->from($this->mapper::TABLE)
             ->where($this->mapper::TABLE . '.' . $this->mapper::PRIMARYFIELD, '=', $objId);
@@ -112,7 +112,7 @@ class DeleteMapper extends DataMapperAbstract
             }
         }
 
-        $sth = self::$db->con->prepare($query->toSql());
+        $sth = $this->db->con->prepare($query->toSql());
         if ($sth !== false) {
             $sth->execute();
         }
@@ -235,19 +235,19 @@ class DeleteMapper extends DataMapperAbstract
     {
         if (empty($objsIds)
             || $this->mapper::HAS_MANY[$propertyName]['table'] === $this->mapper::TABLE
-            || $this->mapper::HAS_MANY[$propertyName]['table'] === $this->mapper::HAS_MANY[$propertyName]['mapper']::$table
+            || $this->mapper::HAS_MANY[$propertyName]['table'] === $this->mapper::HAS_MANY[$propertyName]['mapper']::TABLE
         ) {
             return;
         }
 
         foreach ($objsIds as $src) {
-            $relQuery = new Builder(self::$db);
+            $relQuery = new Builder($this->db);
             $relQuery->delete()
                 ->from($this->mapper::HAS_MANY[$propertyName]['table'])
                 ->where($this->mapper::HAS_MANY[$propertyName]['table'] . '.' . $this->mapper::HAS_MANY[$propertyName]['external'], '=', $src)
                 ->where($this->mapper::HAS_MANY[$propertyName]['table'] . '.' . $this->mapper::HAS_MANY[$propertyName]['self'], '=', $objId, 'and');
 
-            $sth = self::$db->con->prepare($relQuery->toSql());
+            $sth = $this->db->con->prepare($relQuery->toSql());
             if ($sth !== false) {
                 $sth->execute();
             }

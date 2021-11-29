@@ -27,7 +27,6 @@ use phpOMS\Utils\ArrayUtils;
  */
 class ReadMapper extends DataMapperAbstract
 {
-    private int $depth = 1;
     private $columns = [];
 
 	public function get() : self

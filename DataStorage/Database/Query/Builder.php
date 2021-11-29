@@ -690,7 +690,7 @@ class Builder extends BuilderAbstract
      */
     public function newest(string $column) : self
     {
-        $this->orderBy($column, 'DESC');
+        $this->orderBy($column, OrderType::DESC);
 
         return $this;
     }
@@ -706,7 +706,7 @@ class Builder extends BuilderAbstract
      */
     public function oldest(string $column) : self
     {
-        $this->orderBy($column, 'ASC');
+        $this->orderBy($column, OrderType::ASC);
 
         return $this;
     }
@@ -721,7 +721,7 @@ class Builder extends BuilderAbstract
      *
      * @since 1.0.0
      */
-    public function orderBy(string | array $columns, string | array $order = 'DESC') : self
+    public function orderBy(string | array $columns, string | array $order = OrderType::DESC) : self
     {
         if (\is_string($columns)) {
             $columns = [$columns];
