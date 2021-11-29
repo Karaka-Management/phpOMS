@@ -191,5 +191,5 @@ abstract class DataMapperAbstract
         return $value;
     }
 
-    abstract public function execute(...$options);
+    abstract public function execute(array ...$options) : mixed;
 }

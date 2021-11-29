@@ -36,7 +36,7 @@ class WriteMapper extends DataMapperAbstract
         return $this;
     }
 
-    public function execute(...$options) : mixed
+    public function execute(array ...$options) : mixed
     {
         switch($this->type) {
             case MapperType::CREATE:
