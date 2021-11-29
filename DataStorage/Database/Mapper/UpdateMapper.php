@@ -32,20 +32,20 @@ use phpOMS\Utils\ArrayUtils;
 class UpdateMapper extends DataMapperAbstract
 {
     public function update() : self
-	{
+    {
         $this->type = MapperType::UPDATE;
 
         return $this;
     }
 
     public function execute(...$options) : mixed
-	{
-		switch($this->type) {
+    {
+        switch($this->type) {
             case MapperType::UPDATE:
                 return $this->executeUpdate(...$options);
-			default:
-				return null;
-		}
+            default:
+                return null;
+        }
     }
 
     public function executeUpdate(mixed $obj) : mixed
@@ -267,7 +267,7 @@ class UpdateMapper extends DataMapperAbstract
     {
         foreach ($this->mapper::HAS_MANY as $member => $many) {
             if (isset($many['column']) || !isset($this->with[$member])) {
-            	continue;
+                continue;
             }
 
             $query = new Builder($this->db);

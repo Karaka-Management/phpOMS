@@ -30,20 +30,20 @@ use phpOMS\DataStorage\Database\Query\Builder;
 class DeleteMapper extends DataMapperAbstract
 {
     public function delete() : self
-	{
+    {
         $this->type = MapperType::DELETE;
 
         return $this;
     }
 
     public function execute(...$options) : mixed
-	{
-		switch($this->type) {
+    {
+        switch($this->type) {
             case MapperType::DELETE:
                 return $this->executeDelete(...$options);
-			default:
-				return null;
-		}
+            default:
+                return null;
+        }
     }
 
     public function executeDelete(mixed $obj) : mixed
@@ -168,7 +168,7 @@ class DeleteMapper extends DataMapperAbstract
             }
 
             if (isset($rel['column']) || !isset($this->with[$propertyName])) {
-            	continue;
+                continue;
             }
 
             $property = $refClass->getProperty($propertyName);

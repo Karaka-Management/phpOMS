@@ -29,43 +29,43 @@ class ReadMapper extends DataMapperAbstract
 {
     private $columns = [];
 
-	public function get() : self
-	{
+    public function get() : self
+    {
         $this->type = MapperType::GET;
 
         return $this;
-	}
+    }
 
-	public function getRaw() : self
-	{
+    public function getRaw() : self
+    {
         $this->type = MapperType::GET_RAW;
 
         return $this;
-	}
+    }
 
-	public function getAll() : self
-	{
+    public function getAll() : self
+    {
         $this->type = MapperType::GET_ALL;
 
         return $this;
-	}
+    }
 
-	public function count() : self
-	{
+    public function count() : self
+    {
         $this->type = MapperType::COUNT_MODELS;
 
         return $this;
-	}
+    }
 
-	public function getRandom() : self
-	{
+    public function getRandom() : self
+    {
         $this->type = MapperType::GET_RANDOM;
 
         return $this;
-	}
+    }
 
-	public function find() : self
-	{
+    public function find() : self
+    {
         $this->type = MapperType::FIND;
 
         return $this;
@@ -78,46 +78,46 @@ class ReadMapper extends DataMapperAbstract
         return $this;
     }
 
-	public function execute(...$options) : mixed
-	{
-		switch($this->type) {
+    public function execute(...$options) : mixed
+    {
+        switch($this->type) {
             case MapperType::GET:
                 return $options !== null
                     ? $this->executeGet(...$options)
                     : $this->executeGet();
-			case MapperType::GET_RAW:
-				return $options !== null
+            case MapperType::GET_RAW:
+                return $options !== null
                     ? $this->executeGetRaw(...$options)
                     : $this->executeGetRaw();
-			case MapperType::GET_ALL:
+            case MapperType::GET_ALL:
                 return $options !== null
                     ? $this->executeGetAll(...$options)
                     : $this->executeGetAll();
-			case MapperType::GET_RANDOM:
-				return $this->executeGetRaw();
-			case MapperType::COUNT_MODELS:
-				return $this->executeCount();
-			default:
-				return null;
-		}
+            case MapperType::GET_RANDOM:
+                return $this->executeGetRaw();
+            case MapperType::COUNT_MODELS:
+                return $this->executeCount();
+            default:
+                return null;
+        }
     }
 
     // @todo: consider to always return an array, this way we could remove executeGetAll
-	public function executeGet(Builder $query = null) : mixed
-	{
-		$primaryKeys = [];
+    public function executeGet(Builder $query = null) : mixed
+    {
+        $primaryKeys = [];
         $memberOfPrimaryField = $this->mapper::COLUMNS[$this->mapper::PRIMARYFIELD]['internal'];
         $emptyWhere = empty($this->where);
 
-		if (isset($this->where[$memberOfPrimaryField])) {
-			$keys = $this->where[$memberOfPrimaryField][0]['value'];
-			$primaryKeys = \array_merge(\is_array($keys) ? $keys : [$keys], $primaryKeys);
-		}
+        if (isset($this->where[$memberOfPrimaryField])) {
+            $keys = $this->where[$memberOfPrimaryField][0]['value'];
+            $primaryKeys = \array_merge(\is_array($keys) ? $keys : [$keys], $primaryKeys);
+        }
 
-		// Get initialized objects from memory cache.
-		$obj = [];
-		foreach ($primaryKeys as $index => $value) {
-			if (!$this->mapper::isInitialized($this->mapper::class, $value)) {
+        // Get initialized objects from memory cache.
+        $obj = [];
+        foreach ($primaryKeys as $index => $value) {
+            if (!$this->mapper::isInitialized($this->mapper::class, $value)) {
                 continue;
             }
 
@@ -126,32 +126,32 @@ class ReadMapper extends DataMapperAbstract
             unset($primaryKeys[$index]);
         }
 
-		// Get remaining objects (not available in memory cache) or remaining where clauses.
-		if (!empty($primaryKeys) || (!empty($this->where) || $emptyWhere)) {
-			$dbData = $this->executeGetRaw($query);
+        // Get remaining objects (not available in memory cache) or remaining where clauses.
+        if (!empty($primaryKeys) || (!empty($this->where) || $emptyWhere)) {
+            $dbData = $this->executeGetRaw($query);
 
-			foreach ($dbData as $row) {
-				$value       = $row[$this->mapper::PRIMARYFIELD . '_d' . $this->depth];
+            foreach ($dbData as $row) {
+                $value       = $row[$this->mapper::PRIMARYFIELD . '_d' . $this->depth];
                 $obj[$value] = $this->mapper::createBaseModel();
                 $this->mapper::addInitialized($this->mapper::class, $value, $obj[$value]);
 
                 $obj[$value] = $this->populateAbstract($row, $obj[$value]);
                 $this->loadHasManyRelations($obj[$value]);
-			}
-		}
+            }
+        }
 
-		$countResulsts = \count($obj);
+        $countResulsts = \count($obj);
 
-		if ($countResulsts === 0) {
+        if ($countResulsts === 0) {
             return $this->mapper::createNullModel();
         } elseif ($countResulsts === 1) {
             return \reset($obj);
         }
 
         return $obj;
-	}
+    }
 
-	public function executeGetRaw(Builder $query = null) : array
+    public function executeGetRaw(Builder $query = null) : array
     {
         $query ??= $this->getQuery($query);
 
@@ -173,15 +173,15 @@ class ReadMapper extends DataMapperAbstract
     }
 
     public function executeGetAll(Builder $query = null) : array
-	{
-		 $result = $this->executeGet($query);
+    {
+         $result = $this->executeGet($query);
 
         if (\is_object($result) && \stripos(\get_class($result), '\Null') !== false) {
             return [];
         }
 
         return !\is_array($result) ? [$result] : $result;
-	}
+    }
 
     /**
      * Count the number of elements
@@ -242,146 +242,146 @@ class ReadMapper extends DataMapperAbstract
 
         // where
         foreach ($this->where as $member => $values) {
-        	if(($col = $this->mapper::getColumnByMember($member)) !== null) {
-        		/* variable in model */
-        		foreach ($values as $index => $where) {
-        			// @todo: the has many, etc. if checks only work if it is a relation on the first level, if we have a deeper where condition nesting this fails
-        			if ($where['child'] !== '') {
-        				continue;
-        			}
+            if(($col = $this->mapper::getColumnByMember($member)) !== null) {
+                /* variable in model */
+                foreach ($values as $index => $where) {
+                    // @todo: the has many, etc. if checks only work if it is a relation on the first level, if we have a deeper where condition nesting this fails
+                    if ($where['child'] !== '') {
+                        continue;
+                    }
 
-        			$comparison = \is_array($where['value']) && \count($where['value']) > 1 ? 'in' : $where['logic'];
-        			$query->where($this->mapper::TABLE . '_d' . $this->depth . '.' . $col, $comparison, $where['value'], $where['comparison']);
-        		}
-        	} elseif (isset($this->mapper::HAS_MANY[$member])) {
-        		/* variable in has many */
-        		foreach ($values as $index => $where) {
-        			// @todo: the has many, etc. if checks only work if it is a relation on the first level, if we have a deeper where condition nesting this fails
-        			if ($where['child'] !== '') {
-        				continue;
-        			}
+                    $comparison = \is_array($where['value']) && \count($where['value']) > 1 ? 'in' : $where['logic'];
+                    $query->where($this->mapper::TABLE . '_d' . $this->depth . '.' . $col, $comparison, $where['value'], $where['comparison']);
+                }
+            } elseif (isset($this->mapper::HAS_MANY[$member])) {
+                /* variable in has many */
+                foreach ($values as $index => $where) {
+                    // @todo: the has many, etc. if checks only work if it is a relation on the first level, if we have a deeper where condition nesting this fails
+                    if ($where['child'] !== '') {
+                        continue;
+                    }
 
-        			$comparison = \is_array($where['value']) && \count($where['value']) > 1 ? 'in' : $where['logic'];
-	                $query->where($this->mapper::HAS_MANY[$member]['table'] . '_d' . $this->depth . '.' . $this->mapper::HAS_MANY[$member]['external'], $comparison, $where['value'], $where['comparison']);
+                    $comparison = \is_array($where['value']) && \count($where['value']) > 1 ? 'in' : $where['logic'];
+                    $query->where($this->mapper::HAS_MANY[$member]['table'] . '_d' . $this->depth . '.' . $this->mapper::HAS_MANY[$member]['external'], $comparison, $where['value'], $where['comparison']);
 
-	                $query->leftJoin($this->mapper::HAS_MANY[$member]['table'], $this->mapper::HAS_MANY[$member]['table'] . '_d' . $this->depth);
-	                if ($this->mapper::HAS_MANY[$member]['external'] !== null) {
-	                    $query->on(
-	                        $this->mapper::TABLE . '_d' . $this->depth . '.' . $this->mapper::HAS_MANY[$member][$this->mapper::PRIMARYFIELD], '=',
-	                        $this->mapper::HAS_MANY[$member]['table'] . '_d' . $this->depth . '.' . $this->mapper::HAS_MANY[$member]['self'], 'AND',
-	                        $this->mapper::HAS_MANY[$member]['table'] . '_d' . $this->depth
-	                    );
-	                } else {
-	                    $query->on(
-	                        $this->mapper::TABLE . '_d' . $this->depth . '.' . $this->mapper::PRIMARYFIELD, '=',
-	                        $this->mapper::HAS_MANY[$member]['table'] . '_d' . $this->depth . '.' . $this->mapper::HAS_MANY[$member]['self'], 'AND',
-	                        $this->mapper::HAS_MANY[$member]['table'] . '_d' . $this->depth
-	                    );
-	                }
-	            }
-        	} elseif (isset($this->mapper::BELONGS_TO[$member])) {
-        		/* variable in belogns to */
-        		foreach ($values as $index => $where) {
-        			// @todo: the has many, etc. if checks only work if it is a relation on the first level, if we have a deeper where condition nesting this fails
-        			if ($where['child'] !== '') {
-        				continue;
-        			}
+                    $query->leftJoin($this->mapper::HAS_MANY[$member]['table'], $this->mapper::HAS_MANY[$member]['table'] . '_d' . $this->depth);
+                    if ($this->mapper::HAS_MANY[$member]['external'] !== null) {
+                        $query->on(
+                            $this->mapper::TABLE . '_d' . $this->depth . '.' . $this->mapper::HAS_MANY[$member][$this->mapper::PRIMARYFIELD], '=',
+                            $this->mapper::HAS_MANY[$member]['table'] . '_d' . $this->depth . '.' . $this->mapper::HAS_MANY[$member]['self'], 'AND',
+                            $this->mapper::HAS_MANY[$member]['table'] . '_d' . $this->depth
+                        );
+                    } else {
+                        $query->on(
+                            $this->mapper::TABLE . '_d' . $this->depth . '.' . $this->mapper::PRIMARYFIELD, '=',
+                            $this->mapper::HAS_MANY[$member]['table'] . '_d' . $this->depth . '.' . $this->mapper::HAS_MANY[$member]['self'], 'AND',
+                            $this->mapper::HAS_MANY[$member]['table'] . '_d' . $this->depth
+                        );
+                    }
+                }
+            } elseif (isset($this->mapper::BELONGS_TO[$member])) {
+                /* variable in belogns to */
+                foreach ($values as $index => $where) {
+                    // @todo: the has many, etc. if checks only work if it is a relation on the first level, if we have a deeper where condition nesting this fails
+                    if ($where['child'] !== '') {
+                        continue;
+                    }
 
-        			$comparison = \is_array($where['value']) && \count($where['value']) > 1 ? 'in' : $where['logic'];
+                    $comparison = \is_array($where['value']) && \count($where['value']) > 1 ? 'in' : $where['logic'];
                     $query->where($this->mapper::TABLE . '_d' . $this->depth . '.' . $member, $comparison, $where['value'], $where['comparison']);
 
-	                $query->leftJoin($this->mapper::BELONGS_TO[$member]['mapper']::TABLE, $this->mapper::BELONGS_TO[$member]['mapper']::TABLE . '_d' . $this->depth)
-	                    ->on(
-	                        $this->mapper::TABLE . '_d' . $this->depth . '.' . $this->mapper::BELONGS_TO[$member]['external'], '=',
-	                        $this->mapper::BELONGS_TO[$member]['mapper']::TABLE . '_d' . $this->depth . '.' . $this->mapper::BELONGS_TO[$member]['mapper']::PRIMARYFIELD , 'AND',
-	                        $this->mapper::BELONGS_TO[$member]['mapper']::TABLE . '_d' . $this->depth
-	                    );
-	            }
-        	} elseif (isset($this->mapper::OWNS_ONE[$member])) {
-        		/* variable in owns one */
-        		foreach ($values as $index => $where) {
-        			// @todo: the has many, etc. if checks only work if it is a relation on the first level, if we have a deeper where condition nesting this fails
-        			if ($where['child'] !== '') {
-        				continue;
-        			}
+                    $query->leftJoin($this->mapper::BELONGS_TO[$member]['mapper']::TABLE, $this->mapper::BELONGS_TO[$member]['mapper']::TABLE . '_d' . $this->depth)
+                        ->on(
+                            $this->mapper::TABLE . '_d' . $this->depth . '.' . $this->mapper::BELONGS_TO[$member]['external'], '=',
+                            $this->mapper::BELONGS_TO[$member]['mapper']::TABLE . '_d' . $this->depth . '.' . $this->mapper::BELONGS_TO[$member]['mapper']::PRIMARYFIELD , 'AND',
+                            $this->mapper::BELONGS_TO[$member]['mapper']::TABLE . '_d' . $this->depth
+                        );
+                }
+            } elseif (isset($this->mapper::OWNS_ONE[$member])) {
+                /* variable in owns one */
+                foreach ($values as $index => $where) {
+                    // @todo: the has many, etc. if checks only work if it is a relation on the first level, if we have a deeper where condition nesting this fails
+                    if ($where['child'] !== '') {
+                        continue;
+                    }
 
-        			$comparison = \is_array($where['value']) && \count($where['value']) > 1 ? 'in' : $where['logic'];
-        			$query->where($this->mapper::TABLE . '_d' . $this->depth . '.' . $member, $comparison, $where['value'], $where['comparison']);
-        			$query->leftJoin($this->mapper::OWNS_ONE[$member]['mapper']::TABLE, $this->mapper::OWNS_ONE[$member]['mapper']::TABLE . '_d' . $this->depth)
-	                    ->on(
-	                        $this->mapper::TABLE . '_d' . $this->depth . '.' . $this->mapper::OWNS_ONE[$member]['external'], '=',
-	                        $this->mapper::OWNS_ONE[$member]['mapper']::TABLE . '_d' . $this->depth . '.' . $this->mapper::OWNS_ONE[$member]['mapper']::PRIMARYFIELD , 'AND',
-	                        $this->mapper::OWNS_ONE[$member]['mapper']::TABLE . '_d' . $this->depth
-	                    );
-        		}
-        	}
+                    $comparison = \is_array($where['value']) && \count($where['value']) > 1 ? 'in' : $where['logic'];
+                    $query->where($this->mapper::TABLE . '_d' . $this->depth . '.' . $member, $comparison, $where['value'], $where['comparison']);
+                    $query->leftJoin($this->mapper::OWNS_ONE[$member]['mapper']::TABLE, $this->mapper::OWNS_ONE[$member]['mapper']::TABLE . '_d' . $this->depth)
+                        ->on(
+                            $this->mapper::TABLE . '_d' . $this->depth . '.' . $this->mapper::OWNS_ONE[$member]['external'], '=',
+                            $this->mapper::OWNS_ONE[$member]['mapper']::TABLE . '_d' . $this->depth . '.' . $this->mapper::OWNS_ONE[$member]['mapper']::PRIMARYFIELD , 'AND',
+                            $this->mapper::OWNS_ONE[$member]['mapper']::TABLE . '_d' . $this->depth
+                        );
+                }
+            }
         }
 
         // load relations
         foreach ($this->with as $member => $data) {
-        	$rel = null;
-        	if ((isset($this->mapper::OWNS_ONE[$member]) || isset($this->mapper::BELONGS_TO[$member]))
-        		|| (!isset($this->mapper::HAS_MANY[$member]['external']) && isset($this->mapper::HAS_MANY[$member]['column']))
-        	) {
-        		$rel = $this->mapper::OWNS_ONE[$member] ?? ($this->mapper::BELONGS_TO[$member] ?? ($this->mapper::HAS_MANY[$member] ?? null));
-        	} else {
-        		break;
-        	}
+            $rel = null;
+            if ((isset($this->mapper::OWNS_ONE[$member]) || isset($this->mapper::BELONGS_TO[$member]))
+                || (!isset($this->mapper::HAS_MANY[$member]['external']) && isset($this->mapper::HAS_MANY[$member]['column']))
+            ) {
+                $rel = $this->mapper::OWNS_ONE[$member] ?? ($this->mapper::BELONGS_TO[$member] ?? ($this->mapper::HAS_MANY[$member] ?? null));
+            } else {
+                break;
+            }
 
-        	foreach ($data as $index => $with) {
-        		if ($with['child'] !== '') {
-        			continue;
-        		}
+            foreach ($data as $index => $with) {
+                if ($with['child'] !== '') {
+                    continue;
+                }
 
-	        	if (isset($this->mapper::OWNS_ONE[$member]) || isset($this->mapper::BELONGS_TO[$member])) {
-	        		$query->leftJoin($rel['mapper']::TABLE, $rel['mapper']::TABLE . '_d' . ($this->depth + 1))
-	                    ->on(
-	                        $this->mapper::TABLE . '_d' . $this->depth . '.' . $rel['external'], '=',
-	                        $rel['mapper']::TABLE . '_d' . ($this->depth + 1) . '.' . (
-	                            isset($rel['by']) ? $rel['mapper']::getColumnByMember($rel['by']) : $rel['mapper']::PRIMARYFIELD
-	                        ), 'and',
-	                        $rel['mapper']::TABLE . '_d' . ($this->depth + 1)
-	                    );
-	        	} elseif (!isset($this->mapper::HAS_MANY[$member]['external']) && isset($this->mapper::HAS_MANY[$member]['column'])) {
-	        		// get HasManyQuery (but only for elements which have a 'column' defined)
+                if (isset($this->mapper::OWNS_ONE[$member]) || isset($this->mapper::BELONGS_TO[$member])) {
+                    $query->leftJoin($rel['mapper']::TABLE, $rel['mapper']::TABLE . '_d' . ($this->depth + 1))
+                        ->on(
+                            $this->mapper::TABLE . '_d' . $this->depth . '.' . $rel['external'], '=',
+                            $rel['mapper']::TABLE . '_d' . ($this->depth + 1) . '.' . (
+                                isset($rel['by']) ? $rel['mapper']::getColumnByMember($rel['by']) : $rel['mapper']::PRIMARYFIELD
+                            ), 'and',
+                            $rel['mapper']::TABLE . '_d' . ($this->depth + 1)
+                        );
+                } elseif (!isset($this->mapper::HAS_MANY[$member]['external']) && isset($this->mapper::HAS_MANY[$member]['column'])) {
+                    // get HasManyQuery (but only for elements which have a 'column' defined)
 
-	        		// todo: handle self and self === null
-	                $query->leftJoin($rel['mapper']::TABLE, $rel['mapper']::TABLE . '_d' . ($this->depth + 1))
-	                    ->on(
-	                        $this->mapper::TABLE . '_d' . $this->depth . '.' . ($rel['external'] ?? $this->mapper::PRIMARYFIELD), '=',
-	                        $rel['mapper']::TABLE . '_d' . ($this->depth + 1) . '.' . (
-	                            isset($rel['by']) ? $rel['mapper']::getColumnByMember($rel['by']) : $rel['self']
-	                        ), 'and',
-	                        $rel['mapper']::TABLE . '_d' . ($this->depth + 1)
-	                    );
-	        	}
+                    // todo: handle self and self === null
+                    $query->leftJoin($rel['mapper']::TABLE, $rel['mapper']::TABLE . '_d' . ($this->depth + 1))
+                        ->on(
+                            $this->mapper::TABLE . '_d' . $this->depth . '.' . ($rel['external'] ?? $this->mapper::PRIMARYFIELD), '=',
+                            $rel['mapper']::TABLE . '_d' . ($this->depth + 1) . '.' . (
+                                isset($rel['by']) ? $rel['mapper']::getColumnByMember($rel['by']) : $rel['self']
+                            ), 'and',
+                            $rel['mapper']::TABLE . '_d' . ($this->depth + 1)
+                        );
+                }
 
                 /** @var self $relMapper */
-	        	$relMapper = $this->createRelationMapper($rel['mapper']::reader(db: $this->db), $member);
-	        	$relMapper->depth = $this->depth + 1;
+                $relMapper = $this->createRelationMapper($rel['mapper']::reader(db: $this->db), $member);
+                $relMapper->depth = $this->depth + 1;
 
-	        	$query = $relMapper->getQuery(
-	                $query,
-	                isset($rel['column']) ? [$rel['mapper']::getColumnByMember($rel['column']) => []] : []
-	            );
+                $query = $relMapper->getQuery(
+                    $query,
+                    isset($rel['column']) ? [$rel['mapper']::getColumnByMember($rel['column']) => []] : []
+                );
 
-	            break; // there is only one root element (one element with child === '')
-	        }
+                break; // there is only one root element (one element with child === '')
+            }
         }
 
         // handle sort, the column name order is very important. Therefore it cannot be done in the foreach loop above!
         foreach ($this->sort as $member => $data) {
-        	foreach ($data as $index => $sort) {
-	        	if (($column = $this->mapper::getColumnByMember($member)) === null
-	                || ($sort['child'] !== '')
-	            ) {
-	                continue;
-	            }
+            foreach ($data as $index => $sort) {
+                if (($column = $this->mapper::getColumnByMember($member)) === null
+                    || ($sort['child'] !== '')
+                ) {
+                    continue;
+                }
 
-	        	$query->orderBy($this->mapper::TABLE . '_d' . $this->depth . '.' . $column, $sort['order']);
+                $query->orderBy($this->mapper::TABLE . '_d' . $this->depth . '.' . $column, $sort['order']);
 
-	        	break; // there is only one root element (one element with child === '')
-	        }
+                break; // there is only one root element (one element with child === '')
+            }
         }
 
         // handle limit
@@ -390,13 +390,13 @@ class ReadMapper extends DataMapperAbstract
                 continue;
             }
 
-        	foreach ($data as $index => $limit) {
+            foreach ($data as $index => $limit) {
                 if ($limit['child'] === '') {
                     $query->limit($limit['limit']);
 
                     break 2; // there is only one root element (one element with child === '')
                 }
-	        }
+            }
         }
 
         return $query;
@@ -703,7 +703,7 @@ class ReadMapper extends DataMapperAbstract
             /** @var class-string<DataMapperFactory> $belongsToMapper */
             $belongsToMapper = $this->createRelationMapper($mapper::get($this->db), $member);
             $belongsToMapper->depth = $this->depth + 1;
-        	$belongsToMapper->where($this->mapper::BELONGS_TO[$member]['by'], $result[$mapper::getColumnByMember($this->mapper::BELONGS_TO[$member]['by']) . '_d' . $this->depth], '=');
+            $belongsToMapper->where($this->mapper::BELONGS_TO[$member]['by'], $result[$mapper::getColumnByMember($this->mapper::BELONGS_TO[$member]['by']) . '_d' . $this->depth], '=');
 
             return $belongsToMapper->execute();
         }
@@ -746,7 +746,7 @@ class ReadMapper extends DataMapperAbstract
         // there can be pseudo has many elements like localizations. They are has manies but these are already loaded with joins!
         foreach ($this->mapper::HAS_MANY as $member => $many) {
             if (isset($many['column']) || !isset($this->with[$member])) {
-            	continue;
+                continue;
             }
 
             $query = new Builder($this->db);
@@ -771,22 +771,22 @@ class ReadMapper extends DataMapperAbstract
             $result =  $sth->fetchAll(\PDO::FETCH_COLUMN);
 
             $objects = $this->createRelationMapper($many['mapper']::get(db: $this->db), $member)
-            	->where($many['mapper']::COLUMNS[$many['mapper']::PRIMARYFIELD]['internal'], $result, 'in')
+                ->where($many['mapper']::COLUMNS[$many['mapper']::PRIMARYFIELD]['internal'], $result, 'in')
                 ->execute();
 
             $refProp = $refClass->getProperty($member);
-	        if (!$refProp->isPublic()) {
-	            $refProp->setAccessible(true);
-	            $refProp->setValue($obj, !\is_array($objects) && !isset($this->mapper::HAS_MANY[$member]['conditional'])
-	                ? [$many['mapper']::getObjectId($objects) => $objects]
-	                : $objects
-	            );
-	            $refProp->setAccessible(false);
-	        } else {
-	            $obj->{$member} = !\is_array($objects) && !isset($this->mapper::HAS_MANY[$member]['conditional'])
-	                ? [$many['mapper']::getObjectId($objects) => $objects]
-	                : $objects;
-	        }
+            if (!$refProp->isPublic()) {
+                $refProp->setAccessible(true);
+                $refProp->setValue($obj, !\is_array($objects) && !isset($this->mapper::HAS_MANY[$member]['conditional'])
+                    ? [$many['mapper']::getObjectId($objects) => $objects]
+                    : $objects
+                );
+                $refProp->setAccessible(false);
+            } else {
+                $obj->{$member} = !\is_array($objects) && !isset($this->mapper::HAS_MANY[$member]['conditional'])
+                    ? [$many['mapper']::getObjectId($objects) => $objects]
+                    : $objects;
+            }
         }
     }
 }

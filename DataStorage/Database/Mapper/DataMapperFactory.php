@@ -27,7 +27,7 @@ use phpOMS\DataStorage\Database\Query\Builder;
  */
 class DataMapperFactory
 {
-	/**
+    /**
      * Datetime format of the database datetime
      *
      * This is only for the datetime stored in the database not the generated query.
@@ -38,7 +38,7 @@ class DataMapperFactory
      */
     public static string $datetimeFormat = 'Y-m-d H:i:s';
 
-	/**
+    /**
      * Primary field name.
      *
      * @var string
@@ -120,15 +120,15 @@ class DataMapperFactory
      */
     public const MODEL = '';
 
-	/**
+    /**
      * Database connection.
      *
      * @var ConnectionAbstract
      * @since 1.0.0
      */
-	public static ConnectionAbstract $db;
+    public static ConnectionAbstract $db;
 
-	/**
+    /**
      * Initialized objects for cross reference to reduce initialization costs
      *
      * @var array[]
@@ -136,7 +136,7 @@ class DataMapperFactory
      */
     protected static array $initObjects = [];
 
-	/**
+    /**
      * Constructor.
      *
      * @since 1.0.0
@@ -146,7 +146,7 @@ class DataMapperFactory
     {
     }
 
-	/**
+    /**
      * Clone.
      *
      * @return void
@@ -166,71 +166,71 @@ class DataMapperFactory
     }
 
     public static function reader(ConnectionAbstract $db = null) : ReadMapper
-	{
-		return new ReadMapper(new static(), $db ?? self::$db);
-	}
+    {
+        return new ReadMapper(new static(), $db ?? self::$db);
+    }
 
-	public static function get(ConnectionAbstract $db = null) : ReadMapper
-	{
-		return (new ReadMapper(new static(), $db ?? self::$db))->get();
-	}
+    public static function get(ConnectionAbstract $db = null) : ReadMapper
+    {
+        return (new ReadMapper(new static(), $db ?? self::$db))->get();
+    }
 
-	public static function getRaw(ConnectionAbstract $db = null) : ReadMapper
-	{
-		return (new ReadMapper(new static(), $db ?? self::$db))->getRaw();
-	}
+    public static function getRaw(ConnectionAbstract $db = null) : ReadMapper
+    {
+        return (new ReadMapper(new static(), $db ?? self::$db))->getRaw();
+    }
 
-	public static function getRandom(ConnectionAbstract $db = null) : ReadMapper
-	{
-		return (new ReadMapper(new static(), $db ?? self::$db))->getRandom();
-	}
+    public static function getRandom(ConnectionAbstract $db = null) : ReadMapper
+    {
+        return (new ReadMapper(new static(), $db ?? self::$db))->getRandom();
+    }
 
-	public static function count(ConnectionAbstract $db = null) : ReadMapper
-	{
-		return (new ReadMapper(new static(), $db ?? self::$db))->count();
-	}
+    public static function count(ConnectionAbstract $db = null) : ReadMapper
+    {
+        return (new ReadMapper(new static(), $db ?? self::$db))->count();
+    }
 
-	public static function getQuery(ConnectionAbstract $db = null) : Builder
-	{
-		return (new ReadMapper(new static(), $db ?? self::$db))->getQuery();
-	}
+    public static function getQuery(ConnectionAbstract $db = null) : Builder
+    {
+        return (new ReadMapper(new static(), $db ?? self::$db))->getQuery();
+    }
 
-	public static function getAll(ConnectionAbstract $db = null) : ReadMapper
-	{
-		return (new ReadMapper(new static(), $db ?? self::$db))->getAll();
+    public static function getAll(ConnectionAbstract $db = null) : ReadMapper
+    {
+        return (new ReadMapper(new static(), $db ?? self::$db))->getAll();
     }
 
     public static function writer(ConnectionAbstract $db = null) : WriteMapper
-	{
-		return new WriteMapper(new static(), $db ?? self::$db);
-	}
+    {
+        return new WriteMapper(new static(), $db ?? self::$db);
+    }
 
     public static function create(ConnectionAbstract $db = null) : WriteMapper
-	{
-		return (new WriteMapper(new static(), $db ?? self::$db))->create();
+    {
+        return (new WriteMapper(new static(), $db ?? self::$db))->create();
     }
 
     public static function updater(ConnectionAbstract $db = null) : UpdateMapper
-	{
-		return new UpdateMapper(new static(), $db ?? self::$db);
-	}
+    {
+        return new UpdateMapper(new static(), $db ?? self::$db);
+    }
 
-	public static function update(ConnectionAbstract $db = null) : UpdateMapper
-	{
-		return (new UpdateMapper(new static(), $db ?? self::$db))->update();
+    public static function update(ConnectionAbstract $db = null) : UpdateMapper
+    {
+        return (new UpdateMapper(new static(), $db ?? self::$db))->update();
     }
 
     public static function remover(ConnectionAbstract $db = null) : DeleteMapper
-	{
-		return new DeleteMapper(new static(), $db ?? self::$db);
-	}
+    {
+        return new DeleteMapper(new static(), $db ?? self::$db);
+    }
 
-	public static function delete(ConnectionAbstract $db = null) : DeleteMapper
-	{
-		return (new DeleteMapper(new static(), $db ?? self::$db))->delete();
-	}
+    public static function delete(ConnectionAbstract $db = null) : DeleteMapper
+    {
+        return (new DeleteMapper(new static(), $db ?? self::$db))->delete();
+    }
 
-	/**
+    /**
      * Add initialized object to local cache
      *
      * @param string $mapper Mapper name
@@ -317,7 +317,7 @@ class DataMapperFactory
         }
     }
 
-	/**
+    /**
      * Test if object is null object
      *
      * @param mixed $obj Object to check
@@ -382,7 +382,7 @@ class DataMapperFactory
         return empty(static::MODEL) ? \substr(static::class, 0, -6) : static::MODEL;
     }
 
-	/**
+    /**
      * Get id of object
      *
      * @param object           $obj      Model to create

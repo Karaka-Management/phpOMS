@@ -30,20 +30,20 @@ use phpOMS\Utils\ArrayUtils;
 class WriteMapper extends DataMapperAbstract
 {
     public function create() : self
-	{
+    {
         $this->type = MapperType::CREATE;
 
         return $this;
     }
 
     public function execute(...$options) : mixed
-	{
-		switch($this->type) {
+    {
+        switch($this->type) {
             case MapperType::CREATE:
                 return $this->executeCreate(...$options);
-			default:
-				return null;
-		}
+            default:
+                return null;
+        }
     }
 
     public function executeCreate(mixed $obj) : mixed

@@ -35,78 +35,78 @@ abstract class DataMapperAbstract
 
     protected array $with = [];
 
-	protected array $sort = [];
+    protected array $sort = [];
 
-	protected array $limit = [];
+    protected array $limit = [];
 
-	protected array $where = [];
+    protected array $where = [];
 
-	/**
-	 * Database connection.
-	 *
-	 * @var ConnectionAbstract
-	 * @since 1.0.0
-	 */
-	protected ConnectionAbstract $db;
+    /**
+     * Database connection.
+     *
+     * @var ConnectionAbstract
+     * @since 1.0.0
+     */
+    protected ConnectionAbstract $db;
 
-	public function __construct(DataMapperFactory $mapper, ConnectionAbstract $db)
-	{
-		$this->mapper = $mapper;
-		$this->db     = $db;
+    public function __construct(DataMapperFactory $mapper, ConnectionAbstract $db)
+    {
+        $this->mapper = $mapper;
+        $this->db     = $db;
     }
 
     // Only for relations, no impact on anything else
-	public function with(string $member) : self
-	{
-		$split       = \explode('/', $member);
-		$memberSplit = \array_shift($split);
+    public function with(string $member) : self
+    {
+        $split       = \explode('/', $member);
+        $memberSplit = \array_shift($split);
 
-		$this->with[$memberSplit ?? ''][] = [
-			'child' => \implode('/', $split),
-		];
+        $this->with[$memberSplit ?? ''][] = [
+            'child' => \implode('/', $split),
+        ];
 
-		return $this;
-	}
+        return $this;
+    }
 
-	public function sort(string $member, string $order = OrderType::DESC) : self
-	{
-		$split       = \explode('/', $member);
-		$memberSplit = \array_shift($split);
+    public function sort(string $member, string $order = OrderType::DESC) : self
+    {
+        $split       = \explode('/', $member);
+        $memberSplit = \array_shift($split);
 
-		$this->sort[$memberSplit ?? ''][] = [
-			'child' => \implode('/', $split),
-			'order' => $order,
-		];
+        $this->sort[$memberSplit ?? ''][] = [
+            'child' => \implode('/', $split),
+            'order' => $order,
+        ];
 
-		return $this;
-	}
+        return $this;
+    }
 
-	public function limit(int $limit = 0, string $member = '') : self
-	{
-		$split       = \explode('/', $member);
-		$memberSplit = \array_shift($split);
+    public function limit(int $limit = 0, string $member = '') : self
+    {
+        $split       = \explode('/', $member);
+        $memberSplit = \array_shift($split);
 
-		$this->limit[$memberSplit ?? ''][] = [
-			'child' => \implode('/', $split),
-			'limit' => $limit,
-		];
+        $this->limit[$memberSplit ?? ''][] = [
+            'child' => \implode('/', $split),
+            'limit' => $limit,
+        ];
 
-		return $this;
-	}
+        return $this;
+    }
 
-	public function where(string $member, mixed $value, string $logic = '=', string $comparison = 'AND') : self
-	{
-		$split       = \explode('/', $member);
-		$memberSplit = \array_shift($split);
+    public function where(string $member, mixed $value, string $logic = '=', string $comparison = 'AND') : self
+    {
+        $split       = \explode('/', $member);
+        $memberSplit = \array_shift($split);
 
-		$this->where[$memberSplit ?? ''][] = [
-			'child'      => \implode('/', $split),
-			'value'      => $value,
-			'logic'      => $logic,
-			'comparison' => $comparison,
-		];
+        $this->where[$memberSplit ?? ''][] = [
+            'child'      => \implode('/', $split),
+            'value'      => $value,
+            'logic'      => $logic,
+            'comparison' => $comparison,
+        ];
 
-		return $this;
+        return $this;
     }
 
     public function createRelationMapper(self $mapper, string $member) : self
@@ -153,7 +153,7 @@ abstract class DataMapperAbstract
             }
         }
 
-    	return $relMapper;
+        return $relMapper;
     }
 
     /**
@@ -191,5 +191,5 @@ abstract class DataMapperAbstract
         return $value;
     }
 
-	abstract public function execute(...$options);
+    abstract public function execute(...$options);
 }
