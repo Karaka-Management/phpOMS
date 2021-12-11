@@ -14,7 +14,6 @@ declare(strict_types=1);
 
 namespace phpOMS\DataStorage\Database\Mapper;
 
-use phpOMS\DataStorage\Database\Exception\InvalidMapperException;
 use phpOMS\DataStorage\Database\Query\Builder;
 
 /**
@@ -95,7 +94,7 @@ class DeleteMapper extends DataMapperAbstract
             $mapper = $relData['mapper'];
 
             /** @var self $relMapper */
-            $relMapper = $this->createRelationMapper($mapper::delete(db: $this->db), $member);
+            $relMapper        = $this->createRelationMapper($mapper::delete(db: $this->db), $member);
             $relMapper->depth = $this->depth + 1;
 
             $refProp = $refClass->getProperty($member);
@@ -121,7 +120,7 @@ class DeleteMapper extends DataMapperAbstract
                 continue;
             }
 
-            $objIds = [];
+            $objIds  = [];
             $refProp = $refClass->getProperty($member);
             if (!$refProp->isPublic()) {
                 $refProp->setAccessible(true);

@@ -158,7 +158,7 @@ class UpdateMapper extends DataMapperAbstract
         $mapper = $this->mapper::BELONGS_TO[$propertyName]['mapper'];
 
         /** @var self $relMapper */
-        $relMapper = $this->createRelationMapper($mapper::update(db: $this->db), $propertyName);
+        $relMapper        = $this->createRelationMapper($mapper::update(db: $this->db), $propertyName);
         $relMapper->depth = $this->depth + 1;
 
         return $relMapper->execute($obj);
@@ -174,7 +174,7 @@ class UpdateMapper extends DataMapperAbstract
         $mapper = $this->mapper::OWNS_ONE[$propertyName]['mapper'];
 
         /** @var self $relMapper */
-        $relMapper = $this->createRelationMapper($mapper::update(db: $this->db), $propertyName);
+        $relMapper        = $this->createRelationMapper($mapper::update(db: $this->db), $propertyName);
         $relMapper->depth = $this->depth + 1;
 
         return $relMapper->execute($obj);
@@ -230,7 +230,7 @@ class UpdateMapper extends DataMapperAbstract
                 // already in db
                 if (!empty($primaryKey)) {
                     /** @var self $relMapper */
-                    $relMapper = $this->createRelationMapper($mapper::update(db: $this->db), $propertyName);
+                    $relMapper        = $this->createRelationMapper($mapper::update(db: $this->db), $propertyName);
                     $relMapper->depth = $this->depth + 1;
 
                     $relMapper->execute($value);
@@ -277,7 +277,7 @@ class UpdateMapper extends DataMapperAbstract
                 ->from($many['table'])
                 ->where($many['table'] . '.' . $many['self'], '=', $objId);
 
-            if ($many['mapper']::TABLE !== $many['table']) {
+            if ($many['table'] !== $many['mapper']::TABLE) {
                 $query->leftJoin($many['mapper']::TABLE)
                     ->on($many['table'] . '.' . $src, '=', $many['mapper']::TABLE . '.' . $many['mapper']::PRIMARYFIELD);
             }
