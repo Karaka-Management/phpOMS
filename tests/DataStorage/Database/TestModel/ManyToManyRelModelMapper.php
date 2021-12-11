@@ -11,11 +11,12 @@
  * @link      https://orange-management.org
  */
 declare(strict_types=1);
+
 namespace phpOMS\tests\DataStorage\Database\TestModel;
 
-use phpOMS\DataStorage\Database\DataMapperAbstract;
+use phpOMS\DataStorage\Database\Mapper\DataMapperFactory;
 
-class ManyToManyRelModelMapper extends DataMapperAbstract
+class ManyToManyRelModelMapper extends DataMapperFactory
 {
     /**
      * Columns.
@@ -23,12 +24,12 @@ class ManyToManyRelModelMapper extends DataMapperAbstract
      * @var array<string, array{name:string, type:string, internal:string, autocomplete?:bool, readonly?:bool, writeonly?:bool, annotations?:array}>
      * @since 1.0.0
      */
-    protected static array $columns = [
+    public const COLUMNS = [
         'test_has_many_rel_id'     => ['name' => 'test_has_many_rel_id',     'type' => 'int',    'internal' => 'id'],
         'test_has_many_rel_string' => ['name' => 'test_has_many_rel_string', 'type' => 'string', 'internal' => 'string'],
     ];
 
-    protected static string $table = 'test_has_many_rel';
+    public const TABLE = 'test_has_many_rel';
 
-    protected static string $primaryField = 'test_has_many_rel_id';
+    public const PRIMARYFIELD ='test_has_many_rel_id';
 }

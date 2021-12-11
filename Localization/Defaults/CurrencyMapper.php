@@ -14,7 +14,7 @@ declare(strict_types=1);
 
 namespace phpOMS\Localization\Defaults;
 
-use phpOMS\DataStorage\Database\DataMapperAbstract;
+use phpOMS\DataStorage\Database\Mapper\DataMapperFactory;
 
 /**
  * Mapper class.
@@ -24,7 +24,7 @@ use phpOMS\DataStorage\Database\DataMapperAbstract;
  * @link    https://orange-management.org
  * @since   1.0.0
  */
-final class CurrencyMapper extends DataMapperAbstract
+final class CurrencyMapper extends DataMapperFactory
 {
     /**
      * Columns.
@@ -32,7 +32,7 @@ final class CurrencyMapper extends DataMapperAbstract
      * @var array<string, array{name:string, type:string, internal:string, autocomplete?:bool, readonly?:bool, writeonly?:bool, annotations?:array}>
      * @since 1.0.0
      */
-    protected static array $columns = [
+    public const COLUMNS = [
         'currency_id'        => ['name' => 'currency_id',        'type' => 'int',    'internal' => 'id'],
         'currency_name'      => ['name' => 'currency_name',      'type' => 'string', 'internal' => 'name'],
         'currency_code'      => ['name' => 'currency_code',      'type' => 'string', 'internal' => 'code'],
@@ -49,7 +49,7 @@ final class CurrencyMapper extends DataMapperAbstract
      * @var string
      * @since 1.0.0
      */
-    protected static string $table = 'currency';
+    public const TABLE = 'currency';
 
     /**
      * Primary field name.
@@ -57,5 +57,5 @@ final class CurrencyMapper extends DataMapperAbstract
      * @var string
      * @since 1.0.0
      */
-    protected static string $primaryField = 'currency_id';
+    public const PRIMARYFIELD ='currency_id';
 }

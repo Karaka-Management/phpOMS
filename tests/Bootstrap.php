@@ -15,7 +15,7 @@ if (\is_file('vendor/autoload.php')) {
 require_once __DIR__ . '/../Autoloader.php';
 
 use phpOMS\DataStorage\Database\DatabasePool;
-use phpOMS\DataStorage\Database\DataMapperAbstract;
+use phpOMS\DataStorage\Database\Mapper\DataMapperFactory;
 use phpOMS\DataStorage\Session\HttpSession;
 use phpOMS\Log\FileLogger;
 
@@ -358,7 +358,7 @@ $GLOBALS['dbpool']->create('update', $CONFIG['db']['core']['masters']['update'])
 $GLOBALS['dbpool']->create('delete', $CONFIG['db']['core']['masters']['delete']);
 $GLOBALS['dbpool']->create('schema', $CONFIG['db']['core']['masters']['schema']);
 
-DataMapperAbstract::setConnection($GLOBALS['dbpool']->get());
+DataMapperFactory::db($GLOBALS['dbpool']->get());
 
 $GLOBALS['frameworkpath'] = '/';
 

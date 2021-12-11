@@ -265,7 +265,7 @@ abstract class ModuleAbstract
         $id = 0;
 
         if (\is_string($mapper)) {
-            $id = $mapper::create($obj);
+            $id = $mapper::create()->execute($obj);
         } else {
             $mapper();
         }
@@ -305,7 +305,7 @@ abstract class ModuleAbstract
             $id = 0;
 
             if (\is_string($mapper)) {
-                $id = $mapper::create($obj);
+                $id = $mapper::create()->execute($obj);
             } else {
                 $mapper();
             }
@@ -344,7 +344,7 @@ abstract class ModuleAbstract
         $id = 0;
 
         if (\is_string($mapper)) {
-            $id = $mapper::update($new);
+            $id = $mapper::update()->execute($new);
         } else {
             $mapper();
         }
@@ -383,7 +383,7 @@ abstract class ModuleAbstract
         $id = 0;
 
         if (\is_string($mapper)) {
-            $id = $mapper::delete($obj);
+            $id = $mapper::delete()->execute($obj);
         } else {
             $mapper();
         }
@@ -421,7 +421,7 @@ abstract class ModuleAbstract
         $trigger = static::NAME . '-' . $trigger . '-relation-create';
 
         $this->app->eventManager->triggerSimilar('PRE:Module:' . $trigger, '', $rel1);
-        $mapper::createRelation($field, $rel1, $rel2);
+        $mapper::writer()->createRelationTable($field, \is_array($rel2) ? $rel2 : [$rel2], $rel1);
         $this->app->eventManager->triggerSimilar('POST:Module:' . $trigger, '',
             [
                 $account,
@@ -455,7 +455,7 @@ abstract class ModuleAbstract
         $trigger = static::NAME . '-' . $trigger . '-relation-delete';
 
         $this->app->eventManager->triggerSimilar('PRE:Module:' . $trigger, '', $rel1);
-        $mapper::deleteRelation($field, $rel1, $rel2);
+        $mapper::remover()->deleteRelationTable($field, \is_array($rel2) ? $rel2 : [$rel2], $rel1);
         $this->app->eventManager->triggerSimilar('POST:Module:' . $trigger, '',
             [
                 $account,

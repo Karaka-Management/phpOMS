@@ -36,7 +36,7 @@ class WriteMapper extends DataMapperAbstract
         return $this;
     }
 
-    public function execute(array ...$options) : mixed
+    public function execute(...$options) : mixed
     {
         switch($this->type) {
             case MapperType::CREATE:
@@ -181,15 +181,11 @@ class WriteMapper extends DataMapperAbstract
             } else {
                 $obj = $obj->{$this->mapper::BELONGS_TO[$propertyName]['by']};
             }
-
-            /** @var class-string<DataMapperFactory> $mapper */
-            $mapper     = $this->mapper::BELONGS_TO[$propertyName]['mapper']::getBelongsTo($this->mapper::BELONGS_TO[$propertyName]['by'])['mapper'];
-            $primaryKey = $mapper::getObjectId($obj);
-        } else {
-            /** @var class-string<DataMapperFactory> $mapper */
-            $mapper     = $this->mapper::BELONGS_TO[$propertyName]['mapper'];
-            $primaryKey = $mapper::getObjectId($obj);
         }
+
+        /** @var class-string<DataMapperFactory> $mapper */
+        $mapper     = $this->mapper::BELONGS_TO[$propertyName]['mapper'];
+        $primaryKey = $mapper::getObjectId($obj);
 
         // @todo: the $mapper::create() might cause a problem is 'by' is set. because we don't want to create this obj but the child obj.
         return empty($primaryKey) ? $mapper::create(db: $this->db)->execute($obj) : $primaryKey;
@@ -241,7 +237,7 @@ class WriteMapper extends DataMapperAbstract
                     $property->setAccessible(false);
                 }
 
-                // conditionals
+                // @todo: conditionals???
                 continue;
             }
 
@@ -274,28 +270,28 @@ class WriteMapper extends DataMapperAbstract
                 if (!isset($this->mapper::HAS_MANY[$propertyName]['external'])) {
                     $relProperty = $relReflectionClass->getProperty($internalName);
 
-                    if (!$isPublic) {
+                    if (!($isRelPublic = $relProperty->isPublic())) {
                         $relProperty->setAccessible(true);
                     }
 
                     // todo maybe consider to just set the column type to object, and then check for that (might be faster)
-                    if (isset($mapper::$belongsTo[$internalName])
-                        || isset($mapper::$ownsOne[$internalName])
+                    if (isset($mapper::BELONGS_TO[$internalName])
+                        || isset($mapper::OWNS_ONE[$internalName])
                     ) {
-                        if (!$isPublic) {
+                        if (!$isRelPublic) {
                             $relProperty->setValue($value,  $this->mapper::createNullModel($objId));
                         } else {
                             $value->{$internalName} =  $this->mapper::createNullModel($objId);
                         }
                     } else {
-                        if (!$isPublic) {
+                        if (!$isRelPublic) {
                             $relProperty->setValue($value, $objId);
                         } else {
                             $value->{$internalName} = $objId;
                         }
                     }
 
-                    if (!$isPublic) {
+                    if (!$isRelPublic) {
                         $relProperty->setAccessible(false);
                     }
                 }

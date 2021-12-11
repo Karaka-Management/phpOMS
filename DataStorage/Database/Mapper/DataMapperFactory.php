@@ -126,7 +126,7 @@ class DataMapperFactory
      * @var ConnectionAbstract
      * @since 1.0.0
      */
-    public static ConnectionAbstract $db;
+    protected static ConnectionAbstract $db;
 
     /**
      * Initialized objects for cross reference to reduce initialization costs
@@ -228,93 +228,6 @@ class DataMapperFactory
     public static function delete(ConnectionAbstract $db = null) : DeleteMapper
     {
         return (new DeleteMapper(new static(), $db ?? self::$db))->delete();
-    }
-
-    /**
-     * Add initialized object to local cache
-     *
-     * @param string $mapper Mapper name
-     * @param mixed  $id     Object id
-     * @param object $obj    Model to cache locally
-     *
-     * @return void
-     *
-     * @since 1.0.0
-     */
-    public static function addInitialized(string $mapper, mixed $id, object $obj = null) : void
-    {
-        if (!isset(self::$initObjects[$mapper])) {
-            self::$initObjects[$mapper] = [];
-        }
-
-        self::$initObjects[$mapper][$id] = [
-            'obj'      => $obj,
-        ];
-    }
-
-    /**
-     * Check if a object is initialized
-     *
-     * @param string $mapper Mapper name
-     * @param mixed  $id     Object id
-     *
-     * @return bool
-     *
-     * @since 1.0.0
-     */
-    public static function isInitialized(string $mapper, mixed $id) : bool
-    {
-        return !empty($id)
-            && isset(self::$initObjects[$mapper], self::$initObjects[$mapper][$id]);
-    }
-
-    /**
-     * Clear cache
-     *
-     * @return void
-     *
-     * @since 1.0.0
-     */
-    public static function clearCache() : void
-    {
-        self::$initObjects = [];
-    }
-
-
-    /**
-     * Get initialized object
-     *
-     * @param string $mapper Mapper name
-     * @param mixed  $id     Object id
-     *
-     * @return mixed
-     *
-     * @since 1.0.0
-     */
-    public static function getInitialized(string $mapper, mixed $id) : mixed
-    {
-        if (!self::isInitialized($mapper, $id)) {
-            return null;
-        }
-
-        return self::$initObjects[$mapper][$id]['obj'] ?? null;
-    }
-
-    /**
-     * Remove initialized object
-     *
-     * @param string $mapper Mapper name
-     * @param mixed  $id     Object id
-     *
-     * @return void
-     *
-     * @since 1.0.0
-     */
-    public static function removeInitialized(string $mapper, mixed $id) : void
-    {
-        if (isset(self::$initObjects[$mapper][$id])) {
-            unset(self::$initObjects[$mapper][$id]);
-        }
     }
 
     /**

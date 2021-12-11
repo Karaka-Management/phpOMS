@@ -38,7 +38,7 @@ class UpdateMapper extends DataMapperAbstract
         return $this;
     }
 
-    public function execute(array ...$options) : mixed
+    public function execute(...$options) : mixed
     {
         switch($this->type) {
             case MapperType::UPDATE:
@@ -60,8 +60,6 @@ class UpdateMapper extends DataMapperAbstract
         if ($this->mapper::isNullModel($obj)) {
             return $objId === 0 ? null : $objId;
         }
-
-        $this->mapper::addInitialized(static::class, $objId, $obj);
 
         $this->updateHasMany($refClass, $obj, $objId);
 
@@ -184,6 +182,7 @@ class UpdateMapper extends DataMapperAbstract
 
     private function updateHasMany(\ReflectionClass $refClass, object $obj, mixed $objId) : void
     {
+        // @todo: what if has_one has a has_many child (see readmapper, we already solved this here)
         if (empty($this->with) || empty($this->mapper::HAS_MANY)) {
             return;
         }

@@ -11,11 +11,12 @@
  * @link      https://orange-management.org
  */
 declare(strict_types=1);
+
 namespace phpOMS\tests\DataStorage\Database\TestModel;
 
-use phpOMS\DataStorage\Database\DataMapperAbstract;
+use phpOMS\DataStorage\Database\Mapper\DataMapperFactory;
 
-class BelongsToModelMapper extends DataMapperAbstract
+class BelongsToModelMapper extends DataMapperFactory
 {
     /**
      * Columns.
@@ -23,12 +24,12 @@ class BelongsToModelMapper extends DataMapperAbstract
      * @var array<string, array{name:string, type:string, internal:string, autocomplete?:bool, readonly?:bool, writeonly?:bool, annotations?:array}>
      * @since 1.0.0
      */
-    protected static array $columns = [
+    public const COLUMNS = [
         'test_belongs_to_one_id'     => ['name' => 'test_belongs_to_one_id',     'type' => 'int',    'internal' => 'id'],
         'test_belongs_to_one_string' => ['name' => 'test_belongs_to_one_string', 'type' => 'string', 'internal' => 'string'],
     ];
 
-    protected static string $table = 'test_belongs_to_one';
+    public const TABLE = 'test_belongs_to_one';
 
-    protected static string $primaryField = 'test_belongs_to_one_id';
+    public const PRIMARYFIELD ='test_belongs_to_one_id';
 }

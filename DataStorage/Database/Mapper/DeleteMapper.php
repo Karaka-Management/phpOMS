@@ -36,7 +36,7 @@ class DeleteMapper extends DataMapperAbstract
         return $this;
     }
 
-    public function execute(array ...$options) : mixed
+    public function execute(...$options) : mixed
     {
         switch($this->type) {
             case MapperType::DELETE:
@@ -59,58 +59,20 @@ class DeleteMapper extends DataMapperAbstract
             return null;
         }
 
-        $this->mapper::removeInitialized(static::class, $objId);
+        $this->deleteSingleRelation($obj, $refClass, $this->mapper::BELONGS_TO);
         $this->deleteHasMany($refClass, $obj, $objId);
-        $this->deleteModel($obj, $objId, $refClass);
+        $this->deleteModel($objId);
+        $this->deleteSingleRelation($obj, $refClass, $this->mapper::OWNS_ONE);
 
         return $objId;
     }
 
-    private function deleteModel(object $obj, mixed $objId, \ReflectionClass $refClass = null) : void
+    private function deleteModel(mixed $objId) : void
     {
         $query = new Builder($this->db);
         $query->delete()
             ->from($this->mapper::TABLE)
             ->where($this->mapper::TABLE . '.' . $this->mapper::PRIMARYFIELD, '=', $objId);
-
-        $refClass   = $refClass ?? new \ReflectionClass($obj);
-        $properties = $refClass->getProperties();
-
-        foreach ($properties as $property) {
-            $propertyName = $property->getName();
-
-            if (isset($this->mapper::HAS_MANY[$propertyName])) {
-                continue;
-            }
-
-            if (!($isPublic = $property->isPublic())) {
-                $property->setAccessible(true);
-            }
-
-            /**
-             * @todo Orange-Management/phpOMS#233
-             *  On delete the relations and relation tables need to be deleted first
-             *  The exception is of course the belongsTo relation.
-             */
-            foreach ($this->mapper::COLUMNS as $key => $column) {
-                $value = $isPublic ? $obj->{$propertyName} : $property->getValue($obj);
-                if (isset($this->mapper::OWNS_ONE[$propertyName])
-                        && $column['internal'] === $propertyName
-                ) {
-                    $this->deleteOwnsOne($propertyName, $value);
-                    break;
-                } elseif (isset($this->mapper::BELONGS_TO[$propertyName])
-                        && $column['internal'] === $propertyName
-                ) {
-                    $this->deleteBelongsTo($propertyName, $value);
-                    break;
-                }
-            }
-
-            if (!$isPublic) {
-                $property->setAccessible(false);
-            }
-        }
 
         $sth = $this->db->con->prepare($query->toSql());
         if ($sth !== false) {
@@ -118,67 +80,55 @@ class DeleteMapper extends DataMapperAbstract
         }
     }
 
-    private function deleteBelongsTo(string $propertyName, mixed $obj) : mixed
+    private function deleteSingleRelation(mixed $obj, \ReflectionClass $refClass, array $relation) : void
     {
-        if (!\is_object($obj)) {
-            return $obj;
+        if (empty($relation)) {
+            return;
         }
 
-        /** @var class-string<DataMapperFactory> $mapper */
-        $mapper = $this->mapper::BELONGS_TO[$propertyName]['mapper'];
+        foreach ($relation as $member => $relData) {
+            if (!isset($this->with[$member])) {
+                continue;
+            }
 
-         /** @var self $relMapper */
-        $relMapper = $this->createRelationMapper($mapper::delete(db: $this->db), $propertyName);
-        $relMapper->depth = $this->depth + 1;
+            /** @var class-string<DataMapperFactory> $mapper */
+            $mapper = $relData['mapper'];
 
-        return $relMapper->execute($obj);
-    }
+            /** @var self $relMapper */
+            $relMapper = $this->createRelationMapper($mapper::delete(db: $this->db), $member);
+            $relMapper->depth = $this->depth + 1;
 
-    private function deleteOwnsOne(string $propertyName, mixed $obj) : mixed
-    {
-        if (!\is_object($obj)) {
-            return $obj;
+            $refProp = $refClass->getProperty($member);
+            if (!$refProp->isPublic()) {
+                $refProp->setAccessible(true);
+                $relMapper->execute($refProp->getValue($obj));
+                $refProp->setAccessible(false);
+            } else {
+                $relMapper->execute($obj->{$member});
+            }
         }
-
-        /** @var class-string<DataMapperFactory> $mapper */
-        $mapper = $this->mapper::OWNS_ONE[$propertyName]['mapper'];
-
-        /**
-         * @todo Orange-Management/phpOMS#??? [p:low] [t:question] [d:expert]
-         *  Deleting a owned one object is not recommended since it can be owned by something else?
-         *  Or does owns one mean that nothing else can have a relation to this model?
-         */
-
-         /** @var self $relMapper */
-        $relMapper = $this->createRelationMapper($mapper::delete(db: $this->db), $propertyName);
-        $relMapper->depth = $this->depth + 1;
-
-        return $relMapper->execute($obj);
     }
 
     private function deleteHasMany(\ReflectionClass $refClass, object $obj, mixed $objId) : void
     {
-        if (empty($this->with) || empty($this->mapper::HAS_MANY)) {
+        if (empty($this->mapper::HAS_MANY)) {
             return;
         }
 
-        foreach ($this->mapper::HAS_MANY as $propertyName => $rel) {
-            if (!isset($this->mapper::HAS_MANY[$propertyName]['mapper'])) {
-                throw new InvalidMapperException();
-            }
-
-            if (isset($rel['column']) || !isset($this->with[$propertyName])) {
+        foreach ($this->mapper::HAS_MANY as $member => $rel) {
+            // always
+            if (!isset($this->with[$member]) && !isset($rel['external'])) {
                 continue;
             }
 
-            $property = $refClass->getProperty($propertyName);
-
-            if (!($isPublic = $property->isPublic())) {
-                $property->setAccessible(true);
-                $values = $property->getValue($obj);
-                $property->setAccessible(false);
+            $objIds = [];
+            $refProp = $refClass->getProperty($member);
+            if (!$refProp->isPublic()) {
+                $refProp->setAccessible(true);
+                $values = $refProp->getValue($obj);
+                $refProp->setAccessible(false);
             } else {
-                $values = $obj->{$propertyName};
+                $values = $obj->{$member};
             }
 
             if (!\is_array($values)) {
@@ -187,70 +137,55 @@ class DeleteMapper extends DataMapperAbstract
             }
 
             /** @var class-string<DataMapperFactory> $mapper */
-            $mapper             = $this->mapper::HAS_MANY[$propertyName]['mapper'];
-            $objsIds            = [];
+            $mapper             = $this->mapper::HAS_MANY[$member]['mapper'];
             $relReflectionClass = !empty($values) ? new \ReflectionClass(\reset($values)) : null;
 
-            foreach ($values as $key => &$value) {
+            foreach ($values as $key => $value) {
                 if (!\is_object($value)) {
                     // Is scalar => already in database
-                    $objsIds[$key] = $value;
+                    $objIds[$key] = $value;
 
                     continue;
                 }
 
-                $primaryKey = $mapper::getObjectId($value, $relReflectionClass);
-
-                // already in db
-                if (!empty($primaryKey)) {
-                    $objsIds[$key] = $mapper::delete(db: $this->db)->execute($value);
-
-                    continue;
-                }
-
-                /**
-                 * @todo Orange-Management/phpOMS#233
-                 *  On delete the relations and relation tables need to be deleted first
-                 *  The exception is of course the belongsTo relation.
-                 */
+                $objIds[$key] = $mapper::getObjectId($value, $relReflectionClass);
             }
 
-            $this->deleteRelationTable($propertyName, $objsIds, $objId);
+            // delete relation tables
+            if (isset($rel['external'])) {
+                $this->deleteRelationTable($member, $objIds, $objId);
+            } else {
+                // only delete related obj if it is NOT in a relation table
+                // if it is not in a relation table it must be directly related
+                // this means it CAN ONLY be related to this object and not others
+                foreach ($objIds as $id) {
+                    $mapper::delete(db: $this->db)->execute($id);
+                }
+            }
         }
     }
 
-    public function deleteRelation(string $member, mixed $id1, mixed $id2) : bool
+    public function deleteRelationTable(string $member, array $objIds = null, mixed $objId) : void
     {
-        if (!isset($this->mapper::HAS_MANY[$member]) || !isset($this->mapper::HAS_MANY[$member]['external'])) {
-            return false;
-        }
-
-        $this->mapper::removeInitialized(static::class, $id1);
-        $this->deleteRelationTable($member, \is_array($id2) ? $id2 : [$id2], $id1);
-
-        return true;
-    }
-
-    public function deleteRelationTable(string $propertyName, array $objsIds, mixed $objId) : void
-    {
-        if (empty($objsIds)
-            || $this->mapper::HAS_MANY[$propertyName]['table'] === $this->mapper::TABLE
-            || $this->mapper::HAS_MANY[$propertyName]['table'] === $this->mapper::HAS_MANY[$propertyName]['mapper']::TABLE
+        if ((empty($objIds) && $objIds !== null)
+            || $this->mapper::HAS_MANY[$member]['table'] === $this->mapper::TABLE
+            || $this->mapper::HAS_MANY[$member]['table'] === $this->mapper::HAS_MANY[$member]['mapper']::TABLE
         ) {
             return;
         }
 
-        foreach ($objsIds as $src) {
-            $relQuery = new Builder($this->db);
-            $relQuery->delete()
-                ->from($this->mapper::HAS_MANY[$propertyName]['table'])
-                ->where($this->mapper::HAS_MANY[$propertyName]['table'] . '.' . $this->mapper::HAS_MANY[$propertyName]['external'], '=', $src)
-                ->where($this->mapper::HAS_MANY[$propertyName]['table'] . '.' . $this->mapper::HAS_MANY[$propertyName]['self'], '=', $objId, 'and');
+        $relQuery = new Builder($this->db);
+        $relQuery->delete()
+            ->from($this->mapper::HAS_MANY[$member]['table'])
+            ->where($this->mapper::HAS_MANY[$member]['table'] . '.' . $this->mapper::HAS_MANY[$member]['self'], '=', $objId);
 
-            $sth = $this->db->con->prepare($relQuery->toSql());
-            if ($sth !== false) {
-                $sth->execute();
-            }
+        if ($objIds !== null) {
+            $relQuery->where($this->mapper::HAS_MANY[$member]['table'] . '.' . $this->mapper::HAS_MANY[$member]['external'], 'in', $objIds);
+        }
+
+        $sth = $this->db->con->prepare($relQuery->toSql());
+        if ($sth !== false) {
+            $sth->execute();
         }
     }
 }

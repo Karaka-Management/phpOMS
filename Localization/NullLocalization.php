@@ -24,4 +24,8 @@ namespace phpOMS\Localization;
  */
 final class NullLocalization extends Localization
 {
+    public function __construct(int $id = 0)
+    {
+        $this->id = $id;
+    }
 }

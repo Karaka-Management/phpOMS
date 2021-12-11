@@ -14,7 +14,7 @@ declare(strict_types=1);
 
 namespace phpOMS\Localization\Defaults;
 
-use phpOMS\DataStorage\Database\DataMapperAbstract;
+use phpOMS\DataStorage\Database\Mapper\DataMapperFactory;
 
 /**
  * Mapper class.
@@ -24,7 +24,7 @@ use phpOMS\DataStorage\Database\DataMapperAbstract;
  * @link    https://orange-management.org
  * @since   1.0.0
  */
-class CountryMapper extends DataMapperAbstract
+class CountryMapper extends DataMapperFactory
 {
     /**
      * Columns.
@@ -32,7 +32,7 @@ class CountryMapper extends DataMapperAbstract
      * @var array<string, array{name:string, type:string, internal:string, autocomplete?:bool, readonly?:bool, writeonly?:bool, annotations?:array}>
      * @since 1.0.0
      */
-    protected static array $columns = [
+    public const COLUMNS = [
         'country_id'        => ['name' => 'country_id',      'type' => 'int',    'internal' => 'id'],
         'country_name'      => ['name' => 'country_name',    'type' => 'string', 'internal' => 'name'],
         'country_code2'     => ['name' => 'country_code2',   'type' => 'string', 'internal' => 'code2'],
@@ -48,7 +48,7 @@ class CountryMapper extends DataMapperAbstract
      * @var string
      * @since 1.0.0
      */
-    protected static string $table = 'country';
+    public const TABLE = 'country';
 
     /**
      * Primary field name.
@@ -56,5 +56,5 @@ class CountryMapper extends DataMapperAbstract
      * @var string
      * @since 1.0.0
      */
-    protected static string $primaryField = 'country_id';
+    public const PRIMARYFIELD ='country_id';
 }

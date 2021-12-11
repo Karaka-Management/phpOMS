@@ -92,21 +92,21 @@ final class ModuleAbstractTest extends \PHPUnit\Framework\TestCase
             public function createRelationModel() : void
             {
                 $model = new ManyToManyRelModel();
-                ManyToManyRelModelMapper::create($model);
+                ManyToManyRelModelMapper::create()->execute($model);
             }
 
             public function createRelationDB() : void
             {
-                $model1 = BaseModelMapper::get(1);
-                $model2 = ManyToManyRelModelMapper::get(1);
+                $model1 = BaseModelMapper::get()->where('id', 1)->execute();
+                $model2 = ManyToManyRelModelMapper::get()->where('id', 1)->execute();
 
                 $this->createModelRelation(1, $model1->getId(), $model2->id, BaseModelMapper::class, 'hasManyRelations', '', '127.0.0.1');
             }
 
             public function deleteRelationDB() : void
             {
-                $model1 = BaseModelMapper::get(1);
-                $model2 = ManyToManyRelModelMapper::get(1);
+                $model1 = BaseModelMapper::get()->where('id', 1)->execute();
+                $model2 = ManyToManyRelModelMapper::get()->where('id', 1)->execute();
 
                 $this->deleteModelRelation(1, $model1->getId(), $model2->id, BaseModelMapper::class, 'hasManyRelations', '', '127.0.0.1');
             }
@@ -121,7 +121,7 @@ final class ModuleAbstractTest extends \PHPUnit\Framework\TestCase
             public function update() : void
             {
                 $old = new BaseModel();
-                BaseModelMapper::create($old);
+                BaseModelMapper::create()->execute($old);
 
                 $new         = clone $old;
                 $new->string = 'Updated';
@@ -131,7 +131,7 @@ final class ModuleAbstractTest extends \PHPUnit\Framework\TestCase
 
             public function delete() : void
             {
-                $model = BaseModelMapper::get(1);
+                $model = BaseModelMapper::get()->where('id', 1)->execute();
                 $this->deleteModel(1, $model, BaseModelMapper::class, '', '127.0.0.1');
             }
 
@@ -283,8 +283,6 @@ final class ModuleAbstractTest extends \PHPUnit\Framework\TestCase
      */
     private function dbSetup() : void
     {
-        BaseModelMapper::clearCache();
-
         $GLOBALS['dbpool']->get()->con->prepare(
             'CREATE TABLE `test_base` (
                 `test_base_id` int(11) NOT NULL AUTO_INCREMENT,
@@ -368,7 +366,6 @@ final class ModuleAbstractTest extends \PHPUnit\Framework\TestCase
         $GLOBALS['dbpool']->get()->con->prepare('DROP TABLE test_has_many_direct')->execute();
         $GLOBALS['dbpool']->get()->con->prepare('DROP TABLE test_has_many_rel')->execute();
         $GLOBALS['dbpool']->get()->con->prepare('DROP TABLE test_has_many_rel_relations')->execute();
-        BaseModelMapper::clearCache();
     }
 
     /**
@@ -381,7 +378,7 @@ final class ModuleAbstractTest extends \PHPUnit\Framework\TestCase
         $this->dbSetup();
 
         $this->module->create();
-        self::assertCount(1, BaseModelMapper::getAll());
+        self::assertCount(1, BaseModelMapper::getAll()->execute());
 
         $this->dbTeardown();
     }
@@ -396,7 +393,7 @@ final class ModuleAbstractTest extends \PHPUnit\Framework\TestCase
         $this->dbSetup();
 
         $this->module->createMultiple();
-        self::assertCount(2, BaseModelMapper::getAll());
+        self::assertCount(2, BaseModelMapper::getAll()->execute());
 
         $this->dbTeardown();
     }
@@ -411,7 +408,7 @@ final class ModuleAbstractTest extends \PHPUnit\Framework\TestCase
         $this->dbSetup();
 
         $this->module->update();
-        $updated = BaseModelMapper::get(1);
+        $updated = BaseModelMapper::get()->where('id', 1)->execute();
 
         self::assertEquals('Updated', $updated->string);
 
@@ -428,9 +425,9 @@ final class ModuleAbstractTest extends \PHPUnit\Framework\TestCase
         $this->dbSetup();
 
         $this->module->create();
-        self::assertCount(1, BaseModelMapper::getAll());
+        self::assertCount(1, BaseModelMapper::getAll()->execute());
         $this->module->delete();
-        self::assertCount(0, BaseModelMapper::getAll());
+        self::assertCount(0, BaseModelMapper::getAll()->execute());
 
         $this->dbTeardown();
     }
@@ -448,14 +445,12 @@ final class ModuleAbstractTest extends \PHPUnit\Framework\TestCase
         $this->module->createRelationModel();
         $this->module->createRelationDB();
 
-        $model = BaseModelMapper::get(1);
+        $model = BaseModelMapper::get()->with('hasManyRelations')->where('id', 1)->execute();
         self::assertCount(1, $model->hasManyRelations);
 
-        BaseModelMapper::clearCache();
         $this->module->deleteRelationDB();
-        BaseModelMapper::clearCache();
 
-        $model = BaseModelMapper::get(1);
+        $model = BaseModelMapper::get()->with('hasManyRelations')->where('id', 1)->execute();
 
         // count = 2 because the moduel automatically initializes 2 hasMany relationships in the __construct()
         // This actually means that the delete was successful, otherwise the hasManyRelations would have been overwritten with 1 relation (see above before the delete)

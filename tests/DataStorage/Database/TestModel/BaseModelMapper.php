@@ -11,11 +11,12 @@
  * @link      https://orange-management.org
  */
 declare(strict_types=1);
+
 namespace phpOMS\tests\DataStorage\Database\TestModel;
 
-use phpOMS\DataStorage\Database\DataMapperAbstract;
+use phpOMS\DataStorage\Database\Mapper\DataMapperFactory;
 
-class BaseModelMapper extends DataMapperAbstract
+class BaseModelMapper extends DataMapperFactory
 {
     /**
      * Columns.
@@ -23,7 +24,7 @@ class BaseModelMapper extends DataMapperAbstract
      * @var array<string, array{name:string, type:string, internal:string, autocomplete?:bool, readonly?:bool, writeonly?:bool, annotations?:array}>
      * @since 1.0.0
      */
-    protected static array $columns = [
+    public const COLUMNS = [
         'test_base_id'                => ['name' => 'test_base_id',                'type' => 'int',      'internal' => 'id'],
         'test_base_string'            => ['name' => 'test_base_string',            'type' => 'string',   'internal' => 'string', 'autocomplete' => true],
         'test_base_int'               => ['name' => 'test_base_int',               'type' => 'int',      'internal' => 'int'],
@@ -44,14 +45,14 @@ class BaseModelMapper extends DataMapperAbstract
      * @var array<string, array{mapper:string, external:string}>
      * @since 1.0.0
      */
-    protected static array $belongsTo = [
+    public const BELONGS_TO = [
         'belongsToOne' => [
             'mapper'     => BelongsToModelMapper::class,
             'external'   => 'test_base_belongs_to_one',
         ],
     ];
 
-    protected static array $ownsOne = [
+    public const OWNS_ONE = [
         'ownsOneSelf' => [
             'mapper'     => OwnsOneModelMapper::class,
             'external'   => 'test_base_owns_one_self',
@@ -64,7 +65,7 @@ class BaseModelMapper extends DataMapperAbstract
      * @var array<string, array{mapper:string, table:string, self?:?string, external?:?string, column?:string}>
      * @since 1.0.0
      */
-    protected static array $hasMany = [
+    public const HAS_MANY = [
         'hasManyDirect' => [
             'mapper'             => ManyToManyDirectModelMapper::class,
             'table'              => 'test_has_many_direct',
@@ -82,14 +83,13 @@ class BaseModelMapper extends DataMapperAbstract
             'table'             => 'test_conditional',
             'self'              => 'test_conditional_base',
             'column'            => 'title',
-            'conditional'       => true,
             'external'          => null,
         ],
     ];
 
-    protected static string $table = 'test_base';
+    public const TABLE = 'test_base';
 
-    protected static string $createdAt = 'test_base_datetime';
+    public const CREATED_AT = 'test_base_datetime';
 
-    protected static string $primaryField = 'test_base_id';
+    public const PRIMARYFIELD ='test_base_id';
 }

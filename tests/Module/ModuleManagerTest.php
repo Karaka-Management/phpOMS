@@ -172,7 +172,7 @@ final class ModuleManagerTest extends \PHPUnit\Framework\TestCase
         $module->id   = 'TestModule';
         $module->name = 'TestModule';
         $module->path = 'TestModule';
-        ModuleMapper::create($module);
+        ModuleMapper::create()->execute($module);
 
         self::assertTrue($this->moduleManager->deactivate('TestModule'));
         self::assertFalse($this->moduleManager->isActive('TestModule'));
@@ -181,7 +181,7 @@ final class ModuleManagerTest extends \PHPUnit\Framework\TestCase
 
         // this is normally done in the ApiController
         $module->setStatus(ModuleStatus::ACTIVE);
-        ModuleMapper::update($module);
+        ModuleMapper::update()->execute($module);
 
         $queryLoad = new Builder($this->app->dbPool->get('insert'));
         $queryLoad->insert('module_load_pid', 'module_load_type', 'module_load_from', 'module_load_for', 'module_load_file')
@@ -328,9 +328,8 @@ final class ModuleManagerTest extends \PHPUnit\Framework\TestCase
 
         self::assertFalse($this->moduleManager->uninstall('TestModule'));
 
-        $module = ModuleMapper::get('TestModule');
-        ModuleMapper::delete($module);
-        ModuleMapper::clearCache();
+        $module = ModuleMapper::get()->where('id', 'TestModule')->execute();
+        ModuleMapper::delete()->execute($module);
 
         self::assertFalse($this->moduleManager->isActive('TestModule'));
         self::assertFalse($this->moduleManager->isRunning('TestModule'));

@@ -17,7 +17,8 @@ namespace phpOMS\tests\Localization\Defaults;
 require_once __DIR__ . '/../../Autoloader.php';
 
 use phpOMS\DataStorage\Database\Connection\SQLiteConnection;
-use phpOMS\DataStorage\Database\DataMapperAbstract;
+use phpOMS\DataStorage\Database\Mapper\DataMapperFactory;
+use phpOMS\Localization\Defaults\Iban;
 use phpOMS\Localization\Defaults\IbanMapper;
 
 /**
@@ -35,7 +36,7 @@ final class IbanMapperTest extends \PHPUnit\Framework\TestCase
             'database'   => \realpath(__DIR__ . '/../../../Localization/Defaults/localization.sqlite'),
         ]);
 
-        DataMapperAbstract::setConnection($con);
+        DataMapperFactory::db($con);
     }
 
     /**
@@ -45,7 +46,8 @@ final class IbanMapperTest extends \PHPUnit\Framework\TestCase
      */
     public function testR() : void
     {
-        $obj = IbanMapper::get(22);
+        /** @var Iban $obj */
+        $obj = IbanMapper::get()->where('id', 22)->execute();
         self::assertEquals('DE', $obj->getCountry());
         self::assertEquals(22, $obj->getChars());
         self::assertEquals('18n', $obj->getBban());
@@ -54,6 +56,6 @@ final class IbanMapperTest extends \PHPUnit\Framework\TestCase
 
     public static function tearDownAfterClass() : void
     {
-        DataMapperAbstract::setConnection($GLOBALS['dbpool']->get());
+        DataMapperFactory::db($GLOBALS['dbpool']->get());
     }
 }

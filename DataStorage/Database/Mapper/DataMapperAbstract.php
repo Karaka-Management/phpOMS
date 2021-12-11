@@ -15,6 +15,7 @@ declare(strict_types=1);
 namespace phpOMS\DataStorage\Database\Mapper;
 
 use phpOMS\DataStorage\Database\Connection\ConnectionAbstract;
+use phpOMS\DataStorage\Database\Query\Builder;
 use phpOMS\DataStorage\Database\Query\OrderType;
 
 /**
@@ -41,6 +42,8 @@ abstract class DataMapperAbstract
 
     protected array $where = [];
 
+    protected ?Builder $query = null;
+
     /**
      * Database connection.
      *
@@ -53,6 +56,13 @@ abstract class DataMapperAbstract
     {
         $this->mapper = $mapper;
         $this->db     = $db;
+    }
+
+    public function query(Builder $query = null) : self
+    {
+        $this->query = $query;
+
+        return $this;
     }
 
     // Only for relations, no impact on anything else
@@ -191,5 +201,5 @@ abstract class DataMapperAbstract
         return $value;
     }
 
-    abstract public function execute(array ...$options) : mixed;
+    abstract public function execute(...$options) : mixed;
 }

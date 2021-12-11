@@ -19,7 +19,7 @@ use phpOMS\Account\AccountManager;
 use phpOMS\Application\ApplicationAbstract;
 use phpOMS\DataStorage\Cache\CachePool;
 use phpOMS\DataStorage\Database\DatabasePool;
-use phpOMS\DataStorage\Database\DataMapperAbstract;
+use phpOMS\DataStorage\Database\Mapper\DataMapperFactory;
 use phpOMS\DataStorage\Session\HttpSession;
 use phpOMS\Dispatcher\Dispatcher;
 use phpOMS\Event\EventManager;
@@ -42,7 +42,7 @@ $GLOBALS['dbpool']->create('schema', $config['db']['core']['masters']['schema'])
 $httpSession        = new HttpSession();
 $GLOBALS['session'] = $httpSession;
 
-DataMapperAbstract::setConnection($GLOBALS['dbpool']->get());
+DataMapperFactory::db($GLOBALS['dbpool']->get());
 
 $app = new class() extends ApplicationAbstract
 {

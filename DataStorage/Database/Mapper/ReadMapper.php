@@ -78,7 +78,7 @@ class ReadMapper extends DataMapperAbstract
         return $this;
     }
 
-    public function execute(array ...$options) : mixed
+    public function execute(...$options) : mixed
     {
         switch($this->type) {
             case MapperType::GET:
@@ -116,15 +116,6 @@ class ReadMapper extends DataMapperAbstract
 
         // Get initialized objects from memory cache.
         $obj = [];
-        foreach ($primaryKeys as $index => $value) {
-            if (!$this->mapper::isInitialized($this->mapper::class, $value)) {
-                continue;
-            }
-
-            $obj[$value] = $this->mapper::getInitialized($this->mapper::class, $value);
-            unset($this->where[$memberOfPrimaryField]);
-            unset($primaryKeys[$index]);
-        }
 
         // Get remaining objects (not available in memory cache) or remaining where clauses.
         if (!empty($primaryKeys) || (!empty($this->where) || $emptyWhere)) {
@@ -133,7 +124,6 @@ class ReadMapper extends DataMapperAbstract
             foreach ($dbData as $row) {
                 $value       = $row[$this->mapper::PRIMARYFIELD . '_d' . $this->depth];
                 $obj[$value] = $this->mapper::createBaseModel();
-                $this->mapper::addInitialized($this->mapper::class, $value, $obj[$value]);
 
                 $obj[$value] = $this->populateAbstract($row, $obj[$value]);
                 $this->loadHasManyRelations($obj[$value]);
@@ -153,7 +143,7 @@ class ReadMapper extends DataMapperAbstract
 
     public function executeGetRaw(Builder $query = null) : array
     {
-        $query ??= $this->getQuery($query);
+        $query ??= $this->getQuery();
 
         try {
             $results = false;
@@ -192,8 +182,7 @@ class ReadMapper extends DataMapperAbstract
      */
     public function executeCount() : int
     {
-        $query = $this->getQuery();
-        $query->select('COUNT(*)');
+        $query = $this->getQuery(null, ['COUNT(*)' => 'count']);
 
         return (int) $query->execute()->fetchColumn();
     }
@@ -225,14 +214,18 @@ class ReadMapper extends DataMapperAbstract
      */
     public function getQuery(Builder $query = null, array $columns = []) : Builder
     {
-        $query ??= new Builder($this->db);
+        $query ??= $this->query ?? new Builder($this->db, true);
         $columns = empty($columns)
             ? (empty($this->columns) ? $this->mapper::COLUMNS : $this->columns)
             : $columns;
 
         foreach ($columns as $key => $values) {
-            if ($values['writeonly'] ?? false === false) {
-                $query->selectAs($this->mapper::TABLE . '_d' . $this->depth . '.' . $key, $key . '_d' . $this->depth);
+            if (\is_string($values)) {
+                $query->selectAs($key, $values);
+            } else {
+                if (($values['writeonly'] ?? false) === false) {
+                    $query->selectAs($this->mapper::TABLE . '_d' . $this->depth . '.' . $key, $key . '_d' . $this->depth);
+                }
             }
         }
 
@@ -325,7 +318,7 @@ class ReadMapper extends DataMapperAbstract
             ) {
                 $rel = $this->mapper::OWNS_ONE[$member] ?? ($this->mapper::BELONGS_TO[$member] ?? ($this->mapper::HAS_MANY[$member] ?? null));
             } else {
-                break;
+                continue;
             }
 
             foreach ($data as $index => $with) {
@@ -644,11 +637,6 @@ class ReadMapper extends DataMapperAbstract
             return $mapper::createNullModel();
         }
 
-        $obj = $mapper::getInitialized($mapper, $result[$mapper::PRIMARYFIELD . '_d' . ($this->depth + 1)]);
-        if ($obj !== null) {
-            return $obj;
-        }
-
         /** @var class-string<DataMapperFactory> $ownsOneMapper */
         $ownsOneMapper = $this->createRelationMapper($mapper::get($this->db), $member);
         $ownsOneMapper->depth = $this->depth + 1;
@@ -703,14 +691,9 @@ class ReadMapper extends DataMapperAbstract
             /** @var class-string<DataMapperFactory> $belongsToMapper */
             $belongsToMapper = $this->createRelationMapper($mapper::get($this->db), $member);
             $belongsToMapper->depth = $this->depth + 1;
-            $belongsToMapper->where($this->mapper::BELONGS_TO[$member]['by'], $result[$mapper::getColumnByMember($this->mapper::BELONGS_TO[$member]['by']) . '_d' . $this->depth], '=');
+            $belongsToMapper->where($this->mapper::BELONGS_TO[$member]['by'], $result[$mapper::getColumnByMember($this->mapper::BELONGS_TO[$member]['by']) . '_d' . $this->depth + 1], '=');
 
             return $belongsToMapper->execute();
-        }
-
-        $obj = $mapper::getInitialized($mapper, $result[$mapper::PRIMARYFIELD . '_d' . ($this->depth + 1)]);
-        if ($obj !== null) {
-            return $obj;
         }
 
         /** @var class-string<DataMapperFactory> $belongsToMapper */
@@ -731,7 +714,7 @@ class ReadMapper extends DataMapperAbstract
      */
     public function loadHasManyRelations(mixed $obj) : void
     {
-        if (empty($this->with) || empty($this->mapper::HAS_MANY)) {
+        if (empty($this->with)) {
             return;
         }
 
@@ -740,52 +723,91 @@ class ReadMapper extends DataMapperAbstract
             return;
         }
 
-        $refClass = new \ReflectionClass($obj);
+        $refClass = null;
 
         // @todo: check if there are more cases where the relation is already loaded with joins etc.
         // there can be pseudo has many elements like localizations. They are has manies but these are already loaded with joins!
-        foreach ($this->mapper::HAS_MANY as $member => $many) {
-            if (isset($many['column']) || !isset($this->with[$member])) {
+        foreach ($this->with as $member => $withData) {
+            if (isset($this->mapper::HAS_MANY[$member])) {
+                $many = $this->mapper::HAS_MANY[$member];
+                if (isset($many['column'])) {
+                    continue;
+                }
+
+                $query = new Builder($this->db, true);
+                $src   = $many['external'] ?? $many['mapper']::PRIMARYFIELD;
+
+                // @todo: what if a specific column name is defined instead of primaryField for the join? Fix, it should be stored in 'column'
+                $query->select($many['table'] . '.' . $src)
+                    ->from($many['table'])
+                    ->where($many['table'] . '.' . $many['self'], '=', $primaryKey);
+
+                if ($many['mapper']::TABLE !== $many['table']) {
+                    $query->leftJoin($many['mapper']::TABLE)
+                        ->on($many['table'] . '.' . $src, '=', $many['mapper']::TABLE . '.' . $many['mapper']::PRIMARYFIELD);
+                }
+
+                $sth = $this->db->con->prepare($query->toSql());
+                if ($sth === false) {
+                    continue;
+                }
+
+                $sth->execute();
+                $result =  $sth->fetchAll(\PDO::FETCH_COLUMN);
+
+                if (empty($result)) {
+                    continue;
+                }
+
+                $objects = $this->createRelationMapper($many['mapper']::get(db: $this->db), $member)
+                    ->where($many['mapper']::COLUMNS[$many['mapper']::PRIMARYFIELD]['internal'], $result, 'in')
+                    ->execute();
+
+                if ($refClass === null) {
+                    $refClass = new \ReflectionClass($obj);
+                }
+
+                $refProp = $refClass->getProperty($member);
+                if (!$refProp->isPublic()) {
+                    $refProp->setAccessible(true);
+                    $refProp->setValue($obj, !\is_array($objects)
+                        ? [$many['mapper']::getObjectId($objects) => $objects]
+                        : $objects
+                    );
+                    $refProp->setAccessible(false);
+                } else {
+                    $obj->{$member} = !\is_array($objects)
+                        ? [$many['mapper']::getObjectId($objects) => $objects]
+                        : $objects;
+                }
+
                 continue;
-            }
+            } elseif (isset($this->mapper::OWNS_ONE[$member])
+                || isset($this->mapper::BELONGS_TO[$member])
+            ) {
+                $relation = isset($this->mapper::OWNS_ONE[$member])
+                    ? $this->mapper::OWNS_ONE[$member]
+                    : $this->mapper::BELONGS_TO[$member];
 
-            $query = new Builder($this->db);
-            $src   = $many['external'] ?? $many['mapper']::PRIMARYFIELD;
+                if (\count($withData) < 2) {
+                    continue;
+                }
 
-            // @todo: what if a specific column name is defined instead of primaryField for the join? Fix, it should be stored in 'column'
-            $query->select($many['table'] . '.' . $src)
-                ->from($many['table'])
-                ->where($many['table'] . '.' . $many['self'], '=', $primaryKey);
+                if ($refClass === null) {
+                    $refClass = new \ReflectionClass($obj);
+                }
 
-            if ($many['mapper']::TABLE !== $many['table']) {
-                $query->leftJoin($many['mapper']::TABLE)
-                    ->on($many['table'] . '.' . $src, '=', $many['mapper']::TABLE . '.' . $many['mapper']::PRIMARYFIELD);
-            }
+                /** @var ReadMapper $relMapper */
+                $relMapper = $this->createRelationMapper($relation['mapper']::reader($this->db), $member);
 
-            $sth = $this->db->con->prepare($query->toSql());
-            if ($sth === false) {
-                continue;
-            }
-
-            $sth->execute();
-            $result =  $sth->fetchAll(\PDO::FETCH_COLUMN);
-
-            $objects = $this->createRelationMapper($many['mapper']::get(db: $this->db), $member)
-                ->where($many['mapper']::COLUMNS[$many['mapper']::PRIMARYFIELD]['internal'], $result, 'in')
-                ->execute();
-
-            $refProp = $refClass->getProperty($member);
-            if (!$refProp->isPublic()) {
-                $refProp->setAccessible(true);
-                $refProp->setValue($obj, !\is_array($objects) && !isset($this->mapper::HAS_MANY[$member]['conditional'])
-                    ? [$many['mapper']::getObjectId($objects) => $objects]
-                    : $objects
-                );
-                $refProp->setAccessible(false);
-            } else {
-                $obj->{$member} = !\is_array($objects) && !isset($this->mapper::HAS_MANY[$member]['conditional'])
-                    ? [$many['mapper']::getObjectId($objects) => $objects]
-                    : $objects;
+                $refProp = $refClass->getProperty($member);
+                if (!$refProp->isPublic()) {
+                    $refProp->setAccessible(true);
+                    $relMapper->loadHasManyRelations($refProp->getValue($obj));
+                    $refProp->setAccessible(false);
+                } else {
+                    $relMapper->loadHasManyRelations($obj->{$member});
+                }
             }
         }
     }

@@ -17,7 +17,8 @@ namespace phpOMS\tests\Localization\Defaults;
 require_once __DIR__ . '/../../Autoloader.php';
 
 use phpOMS\DataStorage\Database\Connection\SQLiteConnection;
-use phpOMS\DataStorage\Database\DataMapperAbstract;
+use phpOMS\DataStorage\Database\Mapper\DataMapperFactory;
+use phpOMS\Localization\Defaults\City;
 use phpOMS\Localization\Defaults\CityMapper;
 
 /**
@@ -35,7 +36,7 @@ final class CityMapperTest extends \PHPUnit\Framework\TestCase
             'database'   => \realpath(__DIR__ . '/../../../Localization/Defaults/localization.sqlite'),
         ]);
 
-        DataMapperAbstract::setConnection($con);
+        DataMapperFactory::db($con);
     }
 
     /**
@@ -45,7 +46,8 @@ final class CityMapperTest extends \PHPUnit\Framework\TestCase
      */
     public function testR() : void
     {
-        $obj = CityMapper::get(101079);
+        /** @var City $obj */
+        $obj = CityMapper::get()->where('id', 101079)->execute();
         self::assertEquals('DE', $obj->getCountryCode());
         self::assertEquals('Frankfurt', $obj->getName());
         self::assertEquals(60322, $obj->getPostal());
@@ -57,6 +59,6 @@ final class CityMapperTest extends \PHPUnit\Framework\TestCase
 
     public static function tearDownAfterClass() : void
     {
-        DataMapperAbstract::setConnection($GLOBALS['dbpool']->get());
+        DataMapperFactory::db($GLOBALS['dbpool']->get());
     }
 }

@@ -17,7 +17,8 @@ namespace phpOMS\tests\Localization\Defaults;
 require_once __DIR__ . '/../../Autoloader.php';
 
 use phpOMS\DataStorage\Database\Connection\SQLiteConnection;
-use phpOMS\DataStorage\Database\DataMapperAbstract;
+use phpOMS\DataStorage\Database\Mapper\DataMapperFactory;
+use phpOMS\Localization\Defaults\Country;
 use phpOMS\Localization\Defaults\CountryMapper;
 
 /**
@@ -35,7 +36,7 @@ final class CountryMapperTest extends \PHPUnit\Framework\TestCase
             'database'   => \realpath(__DIR__ . '/../../../Localization/Defaults/localization.sqlite'),
         ]);
 
-        DataMapperAbstract::setConnection($con);
+        DataMapperFactory::db($con);
     }
 
     /**
@@ -45,7 +46,8 @@ final class CountryMapperTest extends \PHPUnit\Framework\TestCase
      */
     public function testR() : void
     {
-        $obj = CountryMapper::get(83);
+        /** @var Country $obj */
+        $obj = CountryMapper::get()->where('id', 83)->execute();
         self::assertEquals('Germany', $obj->getName());
         self::assertEquals('DE', $obj->getCode2());
         self::assertEquals('DEU', $obj->getCode3());
@@ -54,6 +56,6 @@ final class CountryMapperTest extends \PHPUnit\Framework\TestCase
 
     public static function tearDownAfterClass() : void
     {
-        DataMapperAbstract::setConnection($GLOBALS['dbpool']->get());
+        DataMapperFactory::db($GLOBALS['dbpool']->get());
     }
 }

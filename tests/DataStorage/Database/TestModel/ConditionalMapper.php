@@ -14,7 +14,7 @@ declare(strict_types=1);
 
 namespace phpOMS\tests\DataStorage\Database\TestModel;
 
-use phpOMS\DataStorage\Database\DataMapperAbstract;
+use phpOMS\DataStorage\Database\Mapper\DataMapperFactory;
 
 /**
  * Tag mapper class.
@@ -24,7 +24,7 @@ use phpOMS\DataStorage\Database\DataMapperAbstract;
  * @link    https://orange-management.org
  * @since   1.0.0
  */
-final class ConditionalMapper extends DataMapperAbstract
+final class ConditionalMapper extends DataMapperFactory
 {
     /**
      * Columns.
@@ -32,7 +32,7 @@ final class ConditionalMapper extends DataMapperAbstract
      * @var array<string, array{name:string, type:string, internal:string, autocomplete?:bool, readonly?:bool, writeonly?:bool, annotations?:array}>
      * @since 1.0.0
      */
-    protected static array $columns = [
+    public const COLUMNS = [
         'test_conditional_id'       => ['name' => 'test_conditional_id',       'type' => 'int',    'internal' => 'id'],
         'test_conditional_title'    => ['name' => 'test_conditional_title',    'type' => 'string', 'internal' => 'title', 'autocomplete' => true],
         'test_conditional_base'     => ['name' => 'test_conditional_base',      'type' => 'int',    'internal' => 'base'],
@@ -45,7 +45,7 @@ final class ConditionalMapper extends DataMapperAbstract
      * @var string
      * @since 1.0.0
      */
-    protected static string $table = 'test_conditional';
+    public const TABLE = 'test_conditional';
 
     /**
      * Primary field name.
@@ -53,5 +53,5 @@ final class ConditionalMapper extends DataMapperAbstract
      * @var string
      * @since 1.0.0
      */
-    protected static string $primaryField = 'test_conditional_id';
+    public const PRIMARYFIELD ='test_conditional_id';
 }

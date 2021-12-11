@@ -17,7 +17,8 @@ namespace phpOMS\tests\Localization\Defaults;
 require_once __DIR__ . '/../../Autoloader.php';
 
 use phpOMS\DataStorage\Database\Connection\SQLiteConnection;
-use phpOMS\DataStorage\Database\DataMapperAbstract;
+use phpOMS\DataStorage\Database\Mapper\DataMapperFactory;
+use phpOMS\Localization\Defaults\Currency;
 use phpOMS\Localization\Defaults\CurrencyMapper;
 
 /**
@@ -35,7 +36,7 @@ final class CurrencyMapperTest extends \PHPUnit\Framework\TestCase
             'database'   => \realpath(__DIR__ . '/../../../Localization/Defaults/localization.sqlite'),
         ]);
 
-        DataMapperAbstract::setConnection($con);
+        DataMapperFactory::db($con);
     }
 
     /**
@@ -45,7 +46,8 @@ final class CurrencyMapperTest extends \PHPUnit\Framework\TestCase
      */
     public function testR() : void
     {
-        $obj = CurrencyMapper::get(50);
+        /** @var Currency $obj */
+        $obj = CurrencyMapper::get()->where('id', 50)->execute();
         self::assertEquals('Euro', $obj->getName());
         self::assertEquals('EUR', $obj->getCode());
         self::assertEquals('978', $obj->getNumber());
@@ -57,6 +59,6 @@ final class CurrencyMapperTest extends \PHPUnit\Framework\TestCase
 
     public static function tearDownAfterClass() : void
     {
-        DataMapperAbstract::setConnection($GLOBALS['dbpool']->get());
+        DataMapperFactory::db($GLOBALS['dbpool']->get());
     }
 }

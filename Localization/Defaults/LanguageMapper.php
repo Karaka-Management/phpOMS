@@ -14,7 +14,7 @@ declare(strict_types=1);
 
 namespace phpOMS\Localization\Defaults;
 
-use phpOMS\DataStorage\Database\DataMapperAbstract;
+use phpOMS\DataStorage\Database\Mapper\DataMapperFactory;
 
 /**
  * Mapper class.
@@ -24,7 +24,7 @@ use phpOMS\DataStorage\Database\DataMapperAbstract;
  * @link    https://orange-management.org
  * @since   1.0.0
  */
-class LanguageMapper extends DataMapperAbstract
+class LanguageMapper extends DataMapperFactory
 {
     /**
      * Columns.
@@ -32,7 +32,7 @@ class LanguageMapper extends DataMapperAbstract
      * @var array<string, array{name:string, type:string, internal:string, autocomplete?:bool, readonly?:bool, writeonly?:bool, annotations?:array}>
      * @since 1.0.0
      */
-    protected static array $columns = [
+    public const COLUMNS = [
         'language_id'     => ['name' => 'language_id',     'type' => 'int',    'internal' => 'id'],
         'language_name'   => ['name' => 'language_name',   'type' => 'string', 'internal' => 'name'],
         'language_native' => ['name' => 'language_native', 'type' => 'string', 'internal' => 'native'],
@@ -47,7 +47,7 @@ class LanguageMapper extends DataMapperAbstract
      * @var string
      * @since 1.0.0
      */
-    protected static string $table = 'language';
+    public const TABLE = 'language';
 
     /**
      * Primary field name.
@@ -55,5 +55,5 @@ class LanguageMapper extends DataMapperAbstract
      * @var string
      * @since 1.0.0
      */
-    protected static string $primaryField = 'language_id';
+    public const PRIMARYFIELD ='language_id';
 }
