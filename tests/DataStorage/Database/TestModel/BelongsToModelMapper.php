@@ -29,7 +29,19 @@ class BelongsToModelMapper extends DataMapperFactory
         'test_belongs_to_one_string' => ['name' => 'test_belongs_to_one_string', 'type' => 'string', 'internal' => 'string'],
     ];
 
+    /**
+     * Primary table.
+     *
+     * @var string
+     * @since 1.0.0
+     */
     public const TABLE = 'test_belongs_to_one';
 
+    /**
+     * Primary field name.
+     *
+     * @var string
+     * @since 1.0.0
+     */
     public const PRIMARYFIELD ='test_belongs_to_one_id';
 }

@@ -21,16 +21,20 @@ use phpOMS\Utils\ArrayUtils;
 /**
  * Update mapper (CREATE).
  *
- * @todo: allow to define single fields which should be updated (e.g. only description)
- * @todo: allow to define where clause if no object is loaded yet
- *
  * @package phpOMS\DataStorage\Database\Mapper
  * @license OMS License 1.0
  * @link    https://orange-management.org
  * @since   1.0.0
  */
-class UpdateMapper extends DataMapperAbstract
+final class UpdateMapper extends DataMapperAbstract
 {
+    /**
+     * Create update mapper
+     *
+     * @return self
+     *
+     * @since 1.0.0
+     */
     public function update() : self
     {
         $this->type = MapperType::UPDATE;
@@ -38,22 +42,37 @@ class UpdateMapper extends DataMapperAbstract
         return $this;
     }
 
+    /**
+     * Execute mapper
+     *
+     * @param mixed ...$options Options to pass to update mapper
+     *
+     * @return mixed
+     *
+     * @since 1.0.0
+     */
     public function execute(...$options) : mixed
     {
         switch($this->type) {
             case MapperType::UPDATE:
+                /** @var object ...$options */
                 return $this->executeUpdate(...$options);
             default:
                 return null;
         }
     }
 
-    public function executeUpdate(mixed $obj) : mixed
+    /**
+     * Execute mapper
+     *
+     * @param object $obj Object to update
+     *
+     * @return mixed
+     *
+     * @since 1.0.0
+     */
+    public function executeUpdate(object $obj) : mixed
     {
-        if (!isset($obj)) {
-            return null;
-        }
-
         $refClass = new \ReflectionClass($obj);
         $objId    = $this->mapper::getObjectId($obj, $refClass);
 
@@ -72,6 +91,17 @@ class UpdateMapper extends DataMapperAbstract
         return $objId;
     }
 
+    /**
+     * Update model
+     *
+     * @param object           $obj      Object to update
+     * @param mixed            $objId    Id of the object to update
+     * @param \ReflectionClass $refClass Reflection of the object ot update
+     *
+     * @return void
+     *
+     * @since 1.0.0
+     */
     private function updateModel(object $obj, mixed $objId, \ReflectionClass $refClass = null) : void
     {
         // Model doesn't have anything to update
@@ -87,7 +117,8 @@ class UpdateMapper extends DataMapperAbstract
             $propertyName = \stripos($column['internal'], '/') !== false ? \explode('/', $column['internal'])[0] : $column['internal'];
             if (isset($this->mapper::HAS_MANY[$propertyName])
                 || $column['internal'] === $this->mapper::PRIMARYFIELD
-                || ($column['readonly'] ?? false === true)
+                || (($column['readonly'] ?? false) === true && !isset($this->with[$propertyName]))
+                || (($column['writeonly'] ?? false) === true && !isset($this->with[$propertyName]))
             ) {
                 continue;
             }
@@ -95,7 +126,7 @@ class UpdateMapper extends DataMapperAbstract
             $refClass = $refClass ?? new \ReflectionClass($obj);
             $property = $refClass->getProperty($propertyName);
 
-            if (!($isPublic = $property->isPublic())) {
+            if (!($property->isPublic())) {
                 $property->setAccessible(true);
                 $tValue = $property->getValue($obj);
                 $property->setAccessible(false);
@@ -104,26 +135,14 @@ class UpdateMapper extends DataMapperAbstract
             }
 
             if (isset($this->mapper::OWNS_ONE[$propertyName])) {
-                $id    = $this->updateOwnsOne($propertyName, $tValue);
+                $id    = \is_object($tValue) ? $this->updateOwnsOne($propertyName, $tValue) : $tValue;
                 $value = $this->parseValue($column['type'], $id);
 
-                /**
-                 * @todo Orange-Management/phpOMS#232
-                 *  If a model gets updated all it's relations are also updated.
-                 *  This should be prevented if the relations didn't change.
-                 *  No solution yet.
-                 */
                 $query->set([$this->mapper::TABLE . '.' . $column['name'] => $value]);
             } elseif (isset($this->mapper::BELONGS_TO[$propertyName])) {
-                $id    = $this->updateBelongsTo($propertyName, $tValue);
+                $id    = \is_object($tValue) ? $this->updateBelongsTo($propertyName, $tValue) : $tValue;
                 $value = $this->parseValue($column['type'], $id);
 
-                /**
-                 * @todo Orange-Management/phpOMS#232
-                 *  If a model gets updated all it's relations are also updated.
-                 *  This should be prevented if the relations didn't change.
-                 *  No solution yet.
-                 */
                 $query->set([$this->mapper::TABLE . '.' . $column['name'] => $value]);
             } elseif ($column['name'] !== $this->mapper::PRIMARYFIELD) {
                 if (\stripos($column['internal'], '/') !== false) {
@@ -143,46 +162,70 @@ class UpdateMapper extends DataMapperAbstract
                 $sth->execute();
             }
         } catch (\Throwable $t) {
+            // @codeCoverageIgnoreStart
             echo $t->getMessage();
             echo $query->toSql();
+            // @codeCoverageIgnoreEnd
         }
     }
 
-    private function updateBelongsTo(string $propertyName, mixed $obj) : mixed
+    /**
+     * Update belongs to
+     *
+     * @param string $propertyName Name of the property to update
+     * @param object $obj          Object to update
+     *
+     * @return mixed
+     *
+     * @since 1.0.0
+     */
+    private function updateBelongsTo(string $propertyName, object $obj) : mixed
     {
-        if (!\is_object($obj)) {
-            return $obj;
-        }
-
         /** @var class-string<DataMapperFactory> $mapper */
         $mapper = $this->mapper::BELONGS_TO[$propertyName]['mapper'];
 
         /** @var self $relMapper */
-        $relMapper = $this->createRelationMapper($mapper::update(db: $this->db), $propertyName);
+        $relMapper        = $this->createRelationMapper($mapper::update(db: $this->db), $propertyName);
         $relMapper->depth = $this->depth + 1;
 
         return $relMapper->execute($obj);
     }
 
-    private function updateOwnsOne(string $propertyName, mixed $obj) : mixed
+    /**
+     * Update owns one
+     *
+     * @param string $propertyName Name of the property to update
+     * @param object $obj          Object to update
+     *
+     * @return mixed
+     *
+     * @since 1.0.0
+     */
+    private function updateOwnsOne(string $propertyName, object $obj) : mixed
     {
-        if (!\is_object($obj)) {
-            return $obj;
-        }
-
         /** @var class-string<DataMapperFactory> $mapper */
         $mapper = $this->mapper::OWNS_ONE[$propertyName]['mapper'];
 
         /** @var self $relMapper */
-        $relMapper = $this->createRelationMapper($mapper::update(db: $this->db), $propertyName);
+        $relMapper        = $this->createRelationMapper($mapper::update(db: $this->db), $propertyName);
         $relMapper->depth = $this->depth + 1;
 
         return $relMapper->execute($obj);
     }
 
+    /**
+     * Update has many relations
+     *
+     * @param \ReflectionClass $refClass Reflection of the object containing the relations
+     * @param object           $obj      Object which contains the relations
+     * @param mixed            $objId    Object id which contains the relations
+     *
+     * @return void
+     *
+     * @since 1.0.0
+     */
     private function updateHasMany(\ReflectionClass $refClass, object $obj, mixed $objId) : void
     {
-        // @todo: what if has_one has a has_many child (see readmapper, we already solved this here)
         if (empty($this->with) || empty($this->mapper::HAS_MANY)) {
             return;
         }
@@ -230,7 +273,7 @@ class UpdateMapper extends DataMapperAbstract
                 // already in db
                 if (!empty($primaryKey)) {
                     /** @var self $relMapper */
-                    $relMapper = $this->createRelationMapper($mapper::update(db: $this->db), $propertyName);
+                    $relMapper        = $this->createRelationMapper($mapper::update(db: $this->db), $propertyName);
                     $relMapper->depth = $this->depth + 1;
 
                     $relMapper->execute($value);
@@ -255,13 +298,23 @@ class UpdateMapper extends DataMapperAbstract
                     }
                 }
 
-                $objsIds[$propertyName][$key] = $mapper::create(db: $this->db)->execute($value); // @todo: pass where
+                $objsIds[$propertyName][$key] = $mapper::create(db: $this->db)->execute($value);
             }
         }
 
         $this->updateRelationTable($objsIds, $objId);
     }
 
+    /**
+     * Update has many relations if the relation is handled in a relation table
+     *
+     * @param array $objsIds Objects which should be related to the parent object
+     * @param mixed $objId   Parent object id
+     *
+     * @return void
+     *
+     * @since 1.0.0
+     */
     private function updateRelationTable(array $objsIds, mixed $objId) : void
     {
         foreach ($this->mapper::HAS_MANY as $member => $many) {
@@ -288,7 +341,7 @@ class UpdateMapper extends DataMapperAbstract
             }
 
             $sth->execute();
-            $result =  $sth->fetchAll(\PDO::FETCH_COLUMN);
+            $result = $sth->fetchAll(\PDO::FETCH_COLUMN);
 
             $removes = \array_diff($result, \array_values($objsIds[$member] ?? []));
             $adds    = \array_diff(\array_values($objsIds[$member] ?? []), $result);

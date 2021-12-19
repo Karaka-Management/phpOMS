@@ -32,7 +32,7 @@ abstract class GrammarAbstract
      * @var string
      * @since 1.0.0
      */
-    protected string $comment = '--';
+    public string $comment = '--';
 
     /**
      * String quotes style.
@@ -40,7 +40,7 @@ abstract class GrammarAbstract
      * @var string
      * @since 1.0.0
      */
-    protected string $valueQuotes = '\'';
+    public string $valueQuotes = '\'';
 
     /**
      * System identifier.
@@ -48,7 +48,7 @@ abstract class GrammarAbstract
      * @var string
      * @since 1.0.0
      */
-    protected string $systemIdentifierStart = '"';
+    public string $systemIdentifierStart = '"';
 
     /**
      * System identifier.
@@ -56,7 +56,7 @@ abstract class GrammarAbstract
      * @var string
      * @since 1.0.0
      */
-    protected string $systemIdentifierEnd = '"';
+    public string $systemIdentifierEnd = '"';
 
     /**
      * And operator.
@@ -64,7 +64,7 @@ abstract class GrammarAbstract
      * @var string
      * @since 1.0.0
      */
-    protected string $and = 'AND';
+    public string $and = 'AND';
 
     /**
      * Or operator.
@@ -72,7 +72,7 @@ abstract class GrammarAbstract
      * @var string
      * @since 1.0.0
      */
-    protected string $or = 'OR';
+    public string $or = 'OR';
 
     /**
      * Special keywords.
@@ -80,7 +80,7 @@ abstract class GrammarAbstract
      * @var string[]
      * @since 1.0.0
      */
-    protected array $specialKeywords = [
+    public array $specialKeywords = [
         'COUNT(',
         'MAX(',
         'MIN(',
@@ -96,7 +96,7 @@ abstract class GrammarAbstract
      * @var string
      * @since 1.0.0
      */
-    protected string $datetimeFormat = 'Y-m-d H:i:s';
+    public string $datetimeFormat = 'Y-m-d H:i:s';
 
     /**
      * Set the datetime format

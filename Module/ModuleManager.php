@@ -639,9 +639,14 @@ final class ModuleManager
      *
      * @param string $module Module name
      *
-     * @return \phpOMS\Module\ModuleAbstract
+     * @return object|\phpOMS\Module\ModuleAbstract
      *
      * @throws \Exception
+     *
+     * @todo Remove docblock type hint hack "object".
+     *          The return type object is only used to stop the annoying warning that a method doesn't exist
+     *          if you chain call the methods part of the returned ModuleAbstract implementation.
+     *          Remove it once alternative inline type hinting is possible for the specific returned implementation
      *
      * @since 1.0.0
      */

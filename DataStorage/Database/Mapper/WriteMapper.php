@@ -27,8 +27,15 @@ use phpOMS\Utils\ArrayUtils;
  * @link    https://orange-management.org
  * @since   1.0.0
  */
-class WriteMapper extends DataMapperAbstract
+final class WriteMapper extends DataMapperAbstract
 {
+    /**
+     * Create create mapper
+     *
+     * @return self
+     *
+     * @since 1.0.0
+     */
     public function create() : self
     {
         $this->type = MapperType::CREATE;
@@ -36,22 +43,37 @@ class WriteMapper extends DataMapperAbstract
         return $this;
     }
 
+    /**
+     * Execute mapper
+     *
+     * @param mixed ...$options Model to create
+     *
+     * @return mixed
+     *
+     * @since 1.0.0
+     */
     public function execute(...$options) : mixed
     {
         switch($this->type) {
             case MapperType::CREATE:
+                /** @var object ...$options */
                 return $this->executeCreate(...$options);
             default:
                 return null;
         }
     }
 
-    public function executeCreate(mixed $obj) : mixed
+    /**
+     * Create object
+     *
+     * @param object $obj Object to create
+     *
+     * @return mixed
+     *
+     * @since 1.0.0
+     */
+    public function executeCreate(object $obj) : mixed
     {
-        if (!isset($obj)) {
-            return null;
-        }
-
         $refClass = new \ReflectionClass($obj);
 
         if ($this->mapper::isNullModel($obj)) {
@@ -72,6 +94,16 @@ class WriteMapper extends DataMapperAbstract
         return $objId;
     }
 
+    /**
+     * Create model
+     *
+     * @param object           $obj      Object to create
+     * @param \ReflectionClass $refClass Reflection of the object to create
+     *
+     * @return mixed
+     *
+     * @since 1.0.0
+     */
     private function createModel(object $obj, \ReflectionClass $refClass) : mixed
     {
         $query = new Builder($this->db);
@@ -93,12 +125,12 @@ class WriteMapper extends DataMapperAbstract
             }
 
             if (isset($this->mapper::OWNS_ONE[$propertyName])) {
-                $id    = $this->createOwnsOne($propertyName, $tValue);
+                $id    = \is_object($tValue) ? $this->createOwnsOne($propertyName, $tValue) : $tValue;
                 $value = $this->parseValue($column['type'], $id);
 
                 $query->insert($column['name'])->value($value);
             } elseif (isset($this->mapper::BELONGS_TO[$propertyName])) {
-                $id    = $this->createBelongsTo($propertyName, $tValue);
+                $id    = \is_object($tValue) ? $this->createBelongsTo($propertyName, $tValue) : $tValue;
                 $value = $this->parseValue($column['type'], $id);
 
                 $query->insert($column['name'])->value($value);
@@ -131,9 +163,12 @@ class WriteMapper extends DataMapperAbstract
             $sth = $this->db->con->prepare($query->toSql());
             $sth->execute();
         } catch (\Throwable $t) {
+            // @codeCoverageIgnoreStart
             \var_dump($t->getMessage());
             \var_dump($a = $query->toSql());
+
             return -1;
+            // @codeCoverageIgnoreEND
         }
 
         $objId = empty($id = $this->mapper::getObjectId($obj, $refClass)) ? $this->db->con->lastInsertId() : $id;
@@ -142,7 +177,17 @@ class WriteMapper extends DataMapperAbstract
         return $objId;
     }
 
-    private function createOwnsOne(string $propertyName, mixed $obj) : mixed
+    /**
+     * Create owns one model
+     *
+     * @param string $propertyName Name of the owns one property
+     * @param object $obj          Object which contains the owns one model
+     *
+     * @return mixed
+     *
+     * @since 1.0.0
+     */
+    private function createOwnsOne(string $propertyName, object $obj) : mixed
     {
         if (!\is_object($obj)) {
             return $obj;
@@ -159,7 +204,17 @@ class WriteMapper extends DataMapperAbstract
         return $primaryKey;
     }
 
-    private function createBelongsTo(string $propertyName, mixed $obj) : mixed
+    /**
+     * Create belongs to model
+     *
+     * @param string $propertyName Name of the belongs to property
+     * @param object $obj          Object which contains the belongs to model
+     *
+     * @return mixed
+     *
+     * @since 1.0.0
+     */
+    private function createBelongsTo(string $propertyName, object $obj) : mixed
     {
         if (!\is_object($obj)) {
             return $obj;
@@ -187,15 +242,26 @@ class WriteMapper extends DataMapperAbstract
         $mapper     = $this->mapper::BELONGS_TO[$propertyName]['mapper'];
         $primaryKey = $mapper::getObjectId($obj);
 
-        // @todo: the $mapper::create() might cause a problem is 'by' is set. because we don't want to create this obj but the child obj.
+        // @todo: the $mapper::create() might cause a problem if 'by' is set. because we don't want to create this obj but the child obj.
         return empty($primaryKey) ? $mapper::create(db: $this->db)->execute($obj) : $primaryKey;
     }
 
+    /**
+     * Create has many models
+     *
+     * @param \ReflectionClass $refClass Reflection of the object to create
+     * @param object           $obj      Object to create
+     * @param mixed            $objId    Id of the parent object
+     *
+     * @return void
+     *
+     * @since 1.0.0
+     */
     private function createHasMany(\ReflectionClass $refClass, object $obj, mixed $objId) : void
     {
         foreach ($this->mapper::HAS_MANY as $propertyName => $rel) {
             if (!isset($this->mapper::HAS_MANY[$propertyName]['mapper'])) {
-                throw new InvalidMapperException();
+                throw new InvalidMapperException(); // @codeCoverageIgnore
             }
 
             $property = $refClass->getProperty($propertyName);
@@ -303,6 +369,17 @@ class WriteMapper extends DataMapperAbstract
         }
     }
 
+    /**
+     * Create has many relations if the relation is handled in a relation table
+     *
+     * @param string $propertyName Property which contains the has many models
+     * @param array  $objsIds      Objects which should be related to the parent object
+     * @param mixed  $objId        Parent object id
+     *
+     * @return void
+     *
+     * @since 1.0.0
+     */
     public function createRelationTable(string $propertyName, array $objsIds, mixed $objId) : void
     {
         if (empty($objsIds) || !isset($this->mapper::HAS_MANY[$propertyName]['external'])) {
@@ -332,8 +409,10 @@ class WriteMapper extends DataMapperAbstract
                 $sth->execute();
             }
         } catch (\Throwable $e) {
+            // @codeCoverageIgnoreStart
             \var_dump($e->getMessage());
             \var_dump($relQuery->toSql());
+            // @codeCoverageIgnoreEnd
         }
     }
 }

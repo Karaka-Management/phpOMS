@@ -47,15 +47,15 @@ class BaseModelMapper extends DataMapperFactory
      */
     public const BELONGS_TO = [
         'belongsToOne' => [
-            'mapper'     => BelongsToModelMapper::class,
-            'external'   => 'test_base_belongs_to_one',
+            'mapper'   => BelongsToModelMapper::class,
+            'external' => 'test_base_belongs_to_one',
         ],
     ];
 
     public const OWNS_ONE = [
         'ownsOneSelf' => [
-            'mapper'     => OwnsOneModelMapper::class,
-            'external'   => 'test_base_owns_one_self',
+            'mapper'   => OwnsOneModelMapper::class,
+            'external' => 'test_base_owns_one_self',
         ],
     ];
 
@@ -67,29 +67,47 @@ class BaseModelMapper extends DataMapperFactory
      */
     public const HAS_MANY = [
         'hasManyDirect' => [
-            'mapper'             => ManyToManyDirectModelMapper::class,
-            'table'              => 'test_has_many_direct',
-            'self'               => 'test_has_many_direct_to',
-            'external'           => null,
+            'mapper'   => ManyToManyDirectModelMapper::class,
+            'table'    => 'test_has_many_direct',
+            'self'     => 'test_has_many_direct_to',
+            'external' => null,
         ],
         'hasManyRelations' => [
-            'mapper'         => ManyToManyRelModelMapper::class,
-            'table'          => 'test_has_many_rel_relations',
-            'external'       => 'test_has_many_rel_relations_src',
-            'self'           => 'test_has_many_rel_relations_dest',
+            'mapper'   => ManyToManyRelModelMapper::class,
+            'table'    => 'test_has_many_rel_relations',
+            'external' => 'test_has_many_rel_relations_src',
+            'self'     => 'test_has_many_rel_relations_dest',
         ],
         'conditional' => [
-            'mapper'            => ConditionalMapper::class,
-            'table'             => 'test_conditional',
-            'self'              => 'test_conditional_base',
-            'column'            => 'title',
-            'external'          => null,
+            'mapper'   => ConditionalMapper::class,
+            'table'    => 'test_conditional',
+            'self'     => 'test_conditional_base',
+            'column'   => 'title',
+            'external' => null,
         ],
     ];
 
+    /**
+     * Primary table.
+     *
+     * @var string
+     * @since 1.0.0
+     */
     public const TABLE = 'test_base';
 
+    /**
+     * Created at.
+     *
+     * @var string
+     * @since 1.0.0
+     */
     public const CREATED_AT = 'test_base_datetime';
 
+    /**
+     * Primary field name.
+     *
+     * @var string
+     * @since 1.0.0
+     */
     public const PRIMARYFIELD ='test_base_id';
 }

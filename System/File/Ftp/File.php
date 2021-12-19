@@ -125,28 +125,29 @@ class File extends FileAbstract implements FileInterface
     {
         $exists = self::exists($con, $path);
 
-        // @todo: consider to use the php://memory way, used in the seUpBeforeClass in the test
         if ((ContentPutMode::hasFlag($mode, ContentPutMode::APPEND) && $exists)
             || (ContentPutMode::hasFlag($mode, ContentPutMode::PREPEND) && $exists)
             || (ContentPutMode::hasFlag($mode, ContentPutMode::REPLACE) && $exists)
             || (!$exists && ContentPutMode::hasFlag($mode, ContentPutMode::CREATE))
         ) {
-            $tmpFile = 'file' . \mt_rand();
             if (ContentPutMode::hasFlag($mode, ContentPutMode::APPEND) && $exists) {
-                \file_put_contents($tmpFile, self::get($con, $path) . $content);
+                $content = self::get($con, $path) . $content;
             } elseif (ContentPutMode::hasFlag($mode, ContentPutMode::PREPEND) && $exists) {
-                \file_put_contents($tmpFile, $content . self::get($con, $path));
+                $content = $content . self::get($con, $path);
             } else {
                 if (!Directory::exists($con, \dirname($path))) {
                     Directory::create($con, \dirname($path), 0755, true);
                 }
-
-                \file_put_contents($tmpFile, $content);
             }
 
-            \ftp_put($con, $path, $tmpFile, \FTP_BINARY);
+            $fp = \fopen('php://memory', 'r+');
+            \fwrite($fp, $content);
+            \rewind($fp);
+
+            \ftp_fput($con, $path, $fp);
+            \fclose($fp);
+
             \ftp_chmod($con, 0755, $path);
-            \unlink($tmpFile);
 
             return true;
         }

@@ -25,10 +25,25 @@ use phpOMS\Utils\ArrayUtils;
  * @link    https://orange-management.org
  * @since   1.0.0
  */
-class ReadMapper extends DataMapperAbstract
+final class ReadMapper extends DataMapperAbstract
 {
-    private $columns = [];
+    /**
+     * Columns to load
+     *
+     * @var array
+     * @since 1.0.0
+     */
+    private array $columns = [];
 
+    /**
+     * Create get mapper
+     *
+     * This makes execute() return a single object or an array of object depending the result size
+     *
+     * @return self
+     *
+     * @since 1.0.0
+     */
     public function get() : self
     {
         $this->type = MapperType::GET;
@@ -36,6 +51,13 @@ class ReadMapper extends DataMapperAbstract
         return $this;
     }
 
+    /**
+     * Get raw result set
+     *
+     * @return self
+     *
+     * @since 1.0.0
+     */
     public function getRaw() : self
     {
         $this->type = MapperType::GET_RAW;
@@ -43,6 +65,15 @@ class ReadMapper extends DataMapperAbstract
         return $this;
     }
 
+    /**
+     * Create get mapper
+     *
+     * This makes execute() always return an array of objects (or an empty array)
+     *
+     * @return self
+     *
+     * @since 1.0.0
+     */
     public function getAll() : self
     {
         $this->type = MapperType::GET_ALL;
@@ -50,6 +81,13 @@ class ReadMapper extends DataMapperAbstract
         return $this;
     }
 
+    /**
+     * Create count mapper
+     *
+     * @return self
+     *
+     * @since 1.0.0
+     */
     public function count() : self
     {
         $this->type = MapperType::COUNT_MODELS;
@@ -57,6 +95,13 @@ class ReadMapper extends DataMapperAbstract
         return $this;
     }
 
+    /**
+     * Create random mapper
+     *
+     * @return self
+     *
+     * @since 1.0.0
+     */
     public function getRandom() : self
     {
         $this->type = MapperType::GET_RANDOM;
@@ -64,6 +109,13 @@ class ReadMapper extends DataMapperAbstract
         return $this;
     }
 
+    /**
+     * Create find mapper
+     *
+     * @return self
+     *
+     * @since 1.0.0
+     */
     public function find() : self
     {
         $this->type = MapperType::FIND;
@@ -71,6 +123,16 @@ class ReadMapper extends DataMapperAbstract
         return $this;
     }
 
+    /**
+     * Define the columns to load
+     *
+     * @param array $columns Columns to load
+     *
+     * @return self
+     *
+     * @since 1.0.0
+     * @todo: consider to accept properties instead and then check ::COLUMNS which contian the property and ADD that array into $this->columns. Maybe also consider a rename from columns() to property()
+     */
     public function columns(array $columns) : self
     {
         $this->columns = $columns;
@@ -78,18 +140,30 @@ class ReadMapper extends DataMapperAbstract
         return $this;
     }
 
+    /**
+     * Execute mapper
+     *
+     * @param mixed ...$options Options to pass to read mapper
+     *
+     * @return mixed
+     *
+     * @since 1.0.0
+     */
     public function execute(...$options) : mixed
     {
         switch($this->type) {
             case MapperType::GET:
+                /** @var null|Builder ...$options */
                 return $options !== null
                     ? $this->executeGet(...$options)
                     : $this->executeGet();
             case MapperType::GET_RAW:
+                /** @var null|Builder ...$options */
                 return $options !== null
                     ? $this->executeGetRaw(...$options)
                     : $this->executeGetRaw();
             case MapperType::GET_ALL:
+                /** @var null|Builder ...$options */
                 return $options !== null
                     ? $this->executeGetAll(...$options)
                     : $this->executeGetAll();
@@ -102,15 +176,24 @@ class ReadMapper extends DataMapperAbstract
         }
     }
 
-    // @todo: consider to always return an array, this way we could remove executeGetAll
+    /**
+     * Execute mapper
+     *
+     * @param null|Builder $query Query to use instead of the internally generated query (carefuly, this doesn't merge with the internal query. If you want to merge it use ->query() instead)
+     *
+     * @return object|array
+     *
+     * @todo: consider to always return an array, this way we could remove executeGetAll
+     * @since 1.0.0
+     */
     public function executeGet(Builder $query = null) : mixed
     {
-        $primaryKeys = [];
+        $primaryKeys          = [];
         $memberOfPrimaryField = $this->mapper::COLUMNS[$this->mapper::PRIMARYFIELD]['internal'];
-        $emptyWhere = empty($this->where);
+        $emptyWhere           = empty($this->where);
 
         if (isset($this->where[$memberOfPrimaryField])) {
-            $keys = $this->where[$memberOfPrimaryField][0]['value'];
+            $keys        = $this->where[$memberOfPrimaryField][0]['value'];
             $primaryKeys = \array_merge(\is_array($keys) ? $keys : [$keys], $primaryKeys);
         }
 
@@ -141,6 +224,15 @@ class ReadMapper extends DataMapperAbstract
         return $obj;
     }
 
+    /**
+     * Execute mapper
+     *
+     * @param null|Builder $query Query to use instead of the internally generated query (carefuly, this doesn't merge with the internal query. If you want to merge it use ->query() instead)
+     *
+     * @return array
+     *
+     * @since 1.0.0
+     */
     public function executeGetRaw(Builder $query = null) : array
     {
         $query ??= $this->getQuery();
@@ -162,6 +254,15 @@ class ReadMapper extends DataMapperAbstract
         return $results === false ? [] : $results;
     }
 
+    /**
+     * Execute mapper
+     *
+     * @param null|Builder $query Query to use instead of the internally generated query (carefuly, this doesn't merge with the internal query. If you want to merge it use ->query() instead)
+     *
+     * @return array
+     *
+     * @since 1.0.0
+     */
     public function executeGetAll(Builder $query = null) : array
     {
          $result = $this->executeGet($query);
@@ -205,8 +306,8 @@ class ReadMapper extends DataMapperAbstract
     /**
      * Get mapper specific builder
      *
-     * @param Builder $query     Query to fill
-     * @param array   $columns   Columns to use
+     * @param null|Builder $query   Query to fill
+     * @param array        $columns Columns to use
      *
      * @return Builder
      *
@@ -223,7 +324,7 @@ class ReadMapper extends DataMapperAbstract
             if (\is_string($values)) {
                 $query->selectAs($key, $values);
             } else {
-                if (($values['writeonly'] ?? false) === false) {
+                if (($values['writeonly'] ?? false) === false || isset($this->with[$values['internal']])) {
                     $query->selectAs($this->mapper::TABLE . '_d' . $this->depth . '.' . $key, $key . '_d' . $this->depth);
                 }
             }
@@ -235,9 +336,9 @@ class ReadMapper extends DataMapperAbstract
 
         // where
         foreach ($this->where as $member => $values) {
-            if(($col = $this->mapper::getColumnByMember($member)) !== null) {
+            if (($col = $this->mapper::getColumnByMember($member)) !== null) {
                 /* variable in model */
-                foreach ($values as $index => $where) {
+                foreach ($values as $where) {
                     // @todo: the has many, etc. if checks only work if it is a relation on the first level, if we have a deeper where condition nesting this fails
                     if ($where['child'] !== '') {
                         continue;
@@ -248,7 +349,8 @@ class ReadMapper extends DataMapperAbstract
                 }
             } elseif (isset($this->mapper::HAS_MANY[$member])) {
                 /* variable in has many */
-                foreach ($values as $index => $where) {
+                /* @todo: maybe needed in the future, but needs adjustment, doesn't make sense at the moment
+                foreach ($values as $where) {
                     // @todo: the has many, etc. if checks only work if it is a relation on the first level, if we have a deeper where condition nesting this fails
                     if ($where['child'] !== '') {
                         continue;
@@ -272,8 +374,10 @@ class ReadMapper extends DataMapperAbstract
                         );
                     }
                 }
+                */
             } elseif (isset($this->mapper::BELONGS_TO[$member])) {
                 /* variable in belogns to */
+                /* @todo: maybe needed in the future, but needs adjustment, doesn't make sense at the moment
                 foreach ($values as $index => $where) {
                     // @todo: the has many, etc. if checks only work if it is a relation on the first level, if we have a deeper where condition nesting this fails
                     if ($where['child'] !== '') {
@@ -290,8 +394,10 @@ class ReadMapper extends DataMapperAbstract
                             $this->mapper::BELONGS_TO[$member]['mapper']::TABLE . '_d' . $this->depth
                         );
                 }
+                */
             } elseif (isset($this->mapper::OWNS_ONE[$member])) {
                 /* variable in owns one */
+                /* @todo: maybe needed in the future, but needs adjustment, doesn't make sense at the moment
                 foreach ($values as $index => $where) {
                     // @todo: the has many, etc. if checks only work if it is a relation on the first level, if we have a deeper where condition nesting this fails
                     if ($where['child'] !== '') {
@@ -307,6 +413,7 @@ class ReadMapper extends DataMapperAbstract
                             $this->mapper::OWNS_ONE[$member]['mapper']::TABLE . '_d' . $this->depth
                         );
                 }
+                */
             }
         }
 
@@ -350,7 +457,7 @@ class ReadMapper extends DataMapperAbstract
                 }
 
                 /** @var self $relMapper */
-                $relMapper = $this->createRelationMapper($rel['mapper']::reader(db: $this->db), $member);
+                $relMapper        = $this->createRelationMapper($rel['mapper']::reader(db: $this->db), $member);
                 $relMapper->depth = $this->depth + 1;
 
                 $query = $relMapper->getQuery(
@@ -398,16 +505,14 @@ class ReadMapper extends DataMapperAbstract
     /**
      * Populate data.
      *
-     * @param array $result Query result set
-     * @param mixed $obj    Object to populate
+     * @param array  $result Query result set
+     * @param object $obj    Object to populate
      *
-     * @return mixed
-     *
-     * @throws \UnexpectedValueException
+     * @return object
      *
      * @since 1.0.0
      */
-    public function populateAbstract(array $result, mixed $obj) : mixed
+    public function populateAbstract(array $result, object $obj) : object
     {
         $refClass = new \ReflectionClass($obj);
 
@@ -627,8 +732,6 @@ class ReadMapper extends DataMapperAbstract
             }
         }
 
-        // @todo: MUST handle if member is in with here!!!
-
         if (isset($this->mapper::OWNS_ONE[$member]['column'])) {
             return $result[$mapper::getColumnByMember($this->mapper::OWNS_ONE[$member]['column']) . '_d' . $this->depth];
         }
@@ -637,8 +740,8 @@ class ReadMapper extends DataMapperAbstract
             return $mapper::createNullModel();
         }
 
-        /** @var class-string<DataMapperFactory> $ownsOneMapper */
-        $ownsOneMapper = $this->createRelationMapper($mapper::get($this->db), $member);
+        /** @var self $ownsOneMapper */
+        $ownsOneMapper        = $this->createRelationMapper($mapper::get($this->db), $member);
         $ownsOneMapper->depth = $this->depth + 1;
 
         return $ownsOneMapper->populateAbstract($result, $mapper::createBaseModel());
@@ -663,7 +766,7 @@ class ReadMapper extends DataMapperAbstract
         /** @var class-string<DataMapperFactory> $mapper */
         $mapper = $this->mapper::BELONGS_TO[$member]['mapper'];
 
-         if (!isset($this->with[$member])) {
+        if (!isset($this->with[$member])) {
             if (\array_key_exists($this->mapper::BELONGS_TO[$member]['external'] . '_d' . ($this->depth), $result)) {
                 return isset($this->mapper::BELONGS_TO[$member]['column'])
                     ? $result[$this->mapper::BELONGS_TO[$member]['external'] . '_d' . ($this->depth)]
@@ -672,8 +775,6 @@ class ReadMapper extends DataMapperAbstract
                 return $default;
             }
         }
-
-        // @todo: MUST handle if member is in with here!!! ???
 
         if (isset($this->mapper::BELONGS_TO[$member]['column'])) {
             return $result[$mapper::getColumnByMember($this->mapper::BELONGS_TO[$member]['column']) . '_d' . $this->depth];
@@ -688,16 +789,16 @@ class ReadMapper extends DataMapperAbstract
         //      you want the profile but the account id is referenced
         //      in this case you can get the profile by loading the profile based on the account reference column
         if (isset($this->mapper::BELONGS_TO[$member]['by'])) {
-            /** @var class-string<DataMapperFactory> $belongsToMapper */
-            $belongsToMapper = $this->createRelationMapper($mapper::get($this->db), $member);
+            /** @var self $belongsToMapper */
+            $belongsToMapper        = $this->createRelationMapper($mapper::get($this->db), $member);
             $belongsToMapper->depth = $this->depth + 1;
             $belongsToMapper->where($this->mapper::BELONGS_TO[$member]['by'], $result[$mapper::getColumnByMember($this->mapper::BELONGS_TO[$member]['by']) . '_d' . $this->depth + 1], '=');
 
             return $belongsToMapper->execute();
         }
 
-        /** @var class-string<DataMapperFactory> $belongsToMapper */
-        $belongsToMapper = $this->createRelationMapper($mapper::get($this->db), $member);
+        /** @var self $belongsToMapper */
+        $belongsToMapper        = $this->createRelationMapper($mapper::get($this->db), $member);
         $belongsToMapper->depth = $this->depth + 1;
 
         return $belongsToMapper->populateAbstract($result, $mapper::createBaseModel());
@@ -706,13 +807,13 @@ class ReadMapper extends DataMapperAbstract
     /**
      * Fill object with relations
      *
-     * @param mixed $obj       Object to fill
+     * @param object $obj Object to fill
      *
      * @return void
      *
      * @since 1.0.0
      */
-    public function loadHasManyRelations(mixed $obj) : void
+    public function loadHasManyRelations(object $obj) : void
     {
         if (empty($this->with)) {
             return;
@@ -770,15 +871,15 @@ class ReadMapper extends DataMapperAbstract
                 $refProp = $refClass->getProperty($member);
                 if (!$refProp->isPublic()) {
                     $refProp->setAccessible(true);
-                    $refProp->setValue($obj, !\is_array($objects)
+                    $refProp->setValue($obj, !\is_array($objects) && ($many['conditional'] ?? false) === false
                         ? [$many['mapper']::getObjectId($objects) => $objects]
-                        : $objects
+                        : $objects // if conditional === true the obj will be asigned (e.g. has many localizations but only one is loaded for the model)
                     );
                     $refProp->setAccessible(false);
                 } else {
-                    $obj->{$member} = !\is_array($objects)
+                    $obj->{$member} = !\is_array($objects) && ($many['conditional'] ?? false) === false
                         ? [$many['mapper']::getObjectId($objects) => $objects]
-                        : $objects;
+                        : $objects; // if conditional === true the obj will be asigned (e.g. has many localizations but only one is loaded for the model)
                 }
 
                 continue;

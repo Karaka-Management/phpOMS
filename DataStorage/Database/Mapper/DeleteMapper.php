@@ -14,7 +14,6 @@ declare(strict_types=1);
 
 namespace phpOMS\DataStorage\Database\Mapper;
 
-use phpOMS\DataStorage\Database\Exception\InvalidMapperException;
 use phpOMS\DataStorage\Database\Query\Builder;
 
 /**
@@ -27,8 +26,15 @@ use phpOMS\DataStorage\Database\Query\Builder;
  * @link    https://orange-management.org
  * @since   1.0.0
  */
-class DeleteMapper extends DataMapperAbstract
+final class DeleteMapper extends DataMapperAbstract
 {
+    /**
+     * Get delete mapper
+     *
+     * @return self
+     *
+     * @since 1.0.0
+     */
     public function delete() : self
     {
         $this->type = MapperType::DELETE;
@@ -36,22 +42,37 @@ class DeleteMapper extends DataMapperAbstract
         return $this;
     }
 
+    /**
+     * Execute mapper
+     *
+     * @param array ...$options Options to pass to the selete mapper
+     *
+     * @return mixed
+     *
+     * @since 1.0.0
+     */
     public function execute(...$options) : mixed
     {
         switch($this->type) {
             case MapperType::DELETE:
+                /** @var object[] ...$options */
                 return $this->executeDelete(...$options);
             default:
                 return null;
         }
     }
 
-    public function executeDelete(mixed $obj) : mixed
+    /**
+     * Execute mapper
+     *
+     * @param object $obj Object to delete
+     *
+     * @return mixed
+     *
+     * @since 1.0.0
+     */
+    public function executeDelete(object $obj) : mixed
     {
-        if ($obj === null) {
-            $obj = $this->mapper::get()->execute(); // todo: pass where conditions to read mapper
-        }
-
         $refClass = new \ReflectionClass($obj);
         $objId    = $this->mapper::getObjectId($obj, $refClass);
 
@@ -67,6 +88,15 @@ class DeleteMapper extends DataMapperAbstract
         return $objId;
     }
 
+    /**
+     * Delete model
+     *
+     * @param mixed $objId Object id to delete
+     *
+     * @return void
+     *
+     * @since 1.0.0
+     */
     private function deleteModel(mixed $objId) : void
     {
         $query = new Builder($this->db);
@@ -80,7 +110,18 @@ class DeleteMapper extends DataMapperAbstract
         }
     }
 
-    private function deleteSingleRelation(mixed $obj, \ReflectionClass $refClass, array $relation) : void
+    /**
+     * Delete ownsOne, belongsTo relations
+     *
+     * @param object           $obj      Object to delete
+     * @param \ReflectionClass $refClass Reflection of object to delete
+     * @param array            $relation Relation data (e.g. ::BELONGS_TO, ::OWNS_ONE)
+     *
+     * @return void
+     *
+     * @since 1.0.0
+     */
+    private function deleteSingleRelation(object $obj, \ReflectionClass $refClass, array $relation) : void
     {
         if (empty($relation)) {
             return;
@@ -95,7 +136,7 @@ class DeleteMapper extends DataMapperAbstract
             $mapper = $relData['mapper'];
 
             /** @var self $relMapper */
-            $relMapper = $this->createRelationMapper($mapper::delete(db: $this->db), $member);
+            $relMapper        = $this->createRelationMapper($mapper::delete(db: $this->db), $member);
             $relMapper->depth = $this->depth + 1;
 
             $refProp = $refClass->getProperty($member);
@@ -109,6 +150,17 @@ class DeleteMapper extends DataMapperAbstract
         }
     }
 
+    /**
+     * Delete hasMany
+     *
+     * @param \ReflectionClass $refClass Reflection of object to delete
+     * @param object           $obj      Object to delete
+     * @param mixed            $objId    Object id to delete
+     *
+     * @return void
+     *
+     * @since 1.0.0
+     */
     private function deleteHasMany(\ReflectionClass $refClass, object $obj, mixed $objId) : void
     {
         if (empty($this->mapper::HAS_MANY)) {
@@ -121,7 +173,7 @@ class DeleteMapper extends DataMapperAbstract
                 continue;
             }
 
-            $objIds = [];
+            $objIds  = [];
             $refProp = $refClass->getProperty($member);
             if (!$refProp->isPublic()) {
                 $refProp->setAccessible(true);
@@ -165,6 +217,17 @@ class DeleteMapper extends DataMapperAbstract
         }
     }
 
+    /**
+     * Delete has many relations if the relation is handled in a relation table
+     *
+     * @param string $member Property which contains the has many models
+     * @param array  $objIds Objects which are related to the parent object
+     * @param mixed  $objId  Parent object id
+     *
+     * @return void
+     *
+     * @since 1.0.0
+     */
     public function deleteRelationTable(string $member, array $objIds = null, mixed $objId) : void
     {
         if ((empty($objIds) && $objIds !== null)

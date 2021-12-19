@@ -29,7 +29,19 @@ class ManyToManyRelModelMapper extends DataMapperFactory
         'test_has_many_rel_string' => ['name' => 'test_has_many_rel_string', 'type' => 'string', 'internal' => 'string'],
     ];
 
+    /**
+     * Primary table.
+     *
+     * @var string
+     * @since 1.0.0
+     */
     public const TABLE = 'test_has_many_rel';
 
+    /**
+     * Primary field name.
+     *
+     * @var string
+     * @since 1.0.0
+     */
     public const PRIMARYFIELD ='test_has_many_rel_id';
 }

@@ -29,7 +29,19 @@ class OwnsOneModelMapper extends DataMapperFactory
         'test_owns_one_string' => ['name' => 'test_owns_one_string', 'type' => 'string', 'internal' => 'string'],
     ];
 
+    /**
+     * Primary table.
+     *
+     * @var string
+     * @since 1.0.0
+     */
     public const TABLE = 'test_owns_one';
 
+    /**
+     * Primary field name.
+     *
+     * @var string
+     * @since 1.0.0
+     */
     public const PRIMARYFIELD ='test_owns_one_id';
 }

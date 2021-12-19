@@ -1307,10 +1307,6 @@ class Builder extends BuilderAbstract
      */
     public function on(string | array $columns, string | array $operator = null, string | array $values = null, string | array $boolean = 'and', string $table = null) : self
     {
-        if ($operator !== null && !\is_array($operator) && !\in_array(\strtolower($operator), self::OPERATORS)) {
-            throw new \InvalidArgumentException('Unknown operator.');
-        }
-
         if (!\is_array($columns)) {
             $columns  = [$columns];
             $operator = [$operator];
@@ -1408,10 +1404,12 @@ class Builder extends BuilderAbstract
 
             $sth->execute();
         } catch (\Throwable $t) {
+            // @codeCoverageIgnoreStart
             \var_dump($t->getMessage());
             \var_dump($this->toSql());
 
             $sth = null;
+            // @codeCoverageIgnoreEnd
         }
 
         return $sth;

@@ -142,7 +142,7 @@ class DataMapperFactory
      * @since 1.0.0
      * @codeCoverageIgnore
      */
-    private function __construct()
+    final private function __construct()
     {
     }
 
@@ -158,73 +158,199 @@ class DataMapperFactory
     {
     }
 
-    public static function db(ConnectionAbstract $db = null) : string
+    /**
+     * Set default database connection
+     *
+     * @param ConnectionAbstract $db Database connection
+     *
+     * @return class-string<self>
+     *
+     * @since 1.0.0
+     */
+    public static function db(ConnectionAbstract $db) : string
     {
         self::$db = $db;
 
         return static::class;
     }
 
+    /**
+     * Create read mapper
+     *
+     * @param ConnectionAbstract $db Database connection
+     *
+     * @return ReadMapper
+     *
+     * @since 1.0.0
+     */
     public static function reader(ConnectionAbstract $db = null) : ReadMapper
     {
         return new ReadMapper(new static(), $db ?? self::$db);
     }
 
+    /**
+     * Create read mapper
+     *
+     * @param ConnectionAbstract $db Database connection
+     *
+     * @return ReadMapper
+     *
+     * @since 1.0.0
+     */
     public static function get(ConnectionAbstract $db = null) : ReadMapper
     {
         return (new ReadMapper(new static(), $db ?? self::$db))->get();
     }
 
+    /**
+     * Create read mapper
+     *
+     * @param ConnectionAbstract $db Database connection
+     *
+     * @return ReadMapper
+     *
+     * @since 1.0.0
+     */
     public static function getRaw(ConnectionAbstract $db = null) : ReadMapper
     {
         return (new ReadMapper(new static(), $db ?? self::$db))->getRaw();
     }
 
+    /**
+     * Create read mapper
+     *
+     * @param ConnectionAbstract $db Database connection
+     *
+     * @return ReadMapper
+     *
+     * @since 1.0.0
+     */
     public static function getRandom(ConnectionAbstract $db = null) : ReadMapper
     {
         return (new ReadMapper(new static(), $db ?? self::$db))->getRandom();
     }
 
+    /**
+     * Create read mapper
+     *
+     * @param ConnectionAbstract $db Database connection
+     *
+     * @return ReadMapper
+     *
+     * @since 1.0.0
+     */
     public static function count(ConnectionAbstract $db = null) : ReadMapper
     {
         return (new ReadMapper(new static(), $db ?? self::$db))->count();
     }
 
+    /**
+     * Create read mapper
+     *
+     * @param ConnectionAbstract $db Database connection
+     *
+     * @return Builder
+     *
+     * @since 1.0.0
+     */
     public static function getQuery(ConnectionAbstract $db = null) : Builder
     {
         return (new ReadMapper(new static(), $db ?? self::$db))->getQuery();
     }
 
+    /**
+     * Create read mapper
+     *
+     * @param ConnectionAbstract $db Database connection
+     *
+     * @return ReadMapper
+     *
+     * @since 1.0.0
+     */
     public static function getAll(ConnectionAbstract $db = null) : ReadMapper
     {
         return (new ReadMapper(new static(), $db ?? self::$db))->getAll();
     }
 
+    /**
+     * Create write mapper
+     *
+     * @param ConnectionAbstract $db Database connection
+     *
+     * @return WriteMapper
+     *
+     * @since 1.0.0
+     */
     public static function writer(ConnectionAbstract $db = null) : WriteMapper
     {
         return new WriteMapper(new static(), $db ?? self::$db);
     }
 
+    /**
+     * Create write mapper
+     *
+     * @param ConnectionAbstract $db Database connection
+     *
+     * @return WriteMapper
+     *
+     * @since 1.0.0
+     */
     public static function create(ConnectionAbstract $db = null) : WriteMapper
     {
         return (new WriteMapper(new static(), $db ?? self::$db))->create();
     }
 
+    /**
+     * Create update mapper
+     *
+     * @param ConnectionAbstract $db Database connection
+     *
+     * @return UpdateMapper
+     *
+     * @since 1.0.0
+     */
     public static function updater(ConnectionAbstract $db = null) : UpdateMapper
     {
         return new UpdateMapper(new static(), $db ?? self::$db);
     }
 
+    /**
+     * Create update mapper
+     *
+     * @param ConnectionAbstract $db Database connection
+     *
+     * @return UpdateMapper
+     *
+     * @since 1.0.0
+     */
     public static function update(ConnectionAbstract $db = null) : UpdateMapper
     {
         return (new UpdateMapper(new static(), $db ?? self::$db))->update();
     }
 
+    /**
+     * Create delete mapper
+     *
+     * @param ConnectionAbstract $db Database connection
+     *
+     * @return DeleteMapper
+     *
+     * @since 1.0.0
+     */
     public static function remover(ConnectionAbstract $db = null) : DeleteMapper
     {
         return new DeleteMapper(new static(), $db ?? self::$db);
     }
 
+    /**
+     * Create delete mapper
+     *
+     * @param ConnectionAbstract $db Database connection
+     *
+     * @return DeleteMapper
+     *
+     * @since 1.0.0
+     */
     public static function delete(ConnectionAbstract $db = null) : DeleteMapper
     {
         return (new DeleteMapper(new static(), $db ?? self::$db))->delete();
@@ -267,11 +393,11 @@ class DataMapperFactory
     /**
      * Create the empty base model
      *
-     * @return mixed
+     * @return object
      *
      * @since 1.0.0
      */
-    public static function createBaseModel() : mixed
+    public static function createBaseModel() : object
     {
         $class = empty(static::MODEL) ? \substr(static::class, 0, -6) : static::MODEL;
 
@@ -281,18 +407,6 @@ class DataMapperFactory
          *  This could be a simple initialize() function in the mapper where the default initialize() is the current defined empty initialization in the DataMapperAbstract.
          */
         return new $class();
-    }
-
-    /**
-     * Get model from mapper
-     *
-     * @return string
-     *
-     * @since 1.0.0
-     */
-    public static function getModelName() : string
-    {
-        return empty(static::MODEL) ? \substr(static::class, 0, -6) : static::MODEL;
     }
 
     /**

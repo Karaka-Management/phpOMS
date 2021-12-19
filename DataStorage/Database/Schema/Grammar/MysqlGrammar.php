@@ -33,7 +33,7 @@ class MysqlGrammar extends Grammar
      * @var string
      * @since 1.0.0
      */
-    protected string $systemIdentifierStart = '`';
+    public string $systemIdentifierStart = '`';
 
     /**
      * System identifier.
@@ -41,7 +41,7 @@ class MysqlGrammar extends Grammar
      * @var string
      * @since 1.0.0
      */
-    protected string $systemIdentifierEnd = '`';
+    public string $systemIdentifierEnd = '`';
 
     /**
      * Compile remove

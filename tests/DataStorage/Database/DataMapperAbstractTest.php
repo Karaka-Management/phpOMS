@@ -39,55 +39,7 @@ final class DataMapperAbstractTest extends \PHPUnit\Framework\TestCase
      */
     protected function setUp() : void
     {
-        $this->model      = new BaseModel();
-        $this->modelArray = [
-            'id'               => 0,
-            'string'           => 'Base',
-            'int'              => 11,
-            'bool'             => false,
-            'null'             => null,
-            'float'            => 1.3,
-            'json'             => [1, 2, 3],
-            'jsonSerializable' => new class() implements \JsonSerializable {
-                public function jsonSerialize()
-                {
-                    return [1, 2, 3];
-                }
-            },
-            'datetime'      => new \DateTime('2005-10-11'),
-            'datetime_null' => null,
-            'conditional'   => '',
-            'ownsOneSelf'   => [
-                'id'     => 0,
-                'string' => 'OwnsOne',
-            ],
-            'belongsToOne' => [
-                'id'     => 0,
-                'string' => 'BelongsTo',
-            ],
-            'hasManyDirect' => [
-                [
-                    'id'     => 0,
-                    'string' => 'ManyToManyDirect',
-                    'to'     => 0,
-                ],
-                [
-                    'id'     => 0,
-                    'string' => 'ManyToManyDirect',
-                    'to'     => 0,
-                ],
-            ],
-            'hasManyRelations' => [
-                [
-                    'id'     => 0,
-                    'string' => 'ManyToManyRel',
-                ],
-                [
-                    'id'     => 0,
-                    'string' => 'ManyToManyRel',
-                ],
-            ],
-        ];
+        $this->model = new BaseModel();
 
         $GLOBALS['dbpool']->get()->con->prepare(
             'CREATE TABLE `test_base` (
@@ -231,10 +183,17 @@ final class DataMapperAbstractTest extends \PHPUnit\Framework\TestCase
      */
     public function testRead() : void
     {
-        $id     = BaseModelMapper::create()->execute($this->model);
+        $id = BaseModelMapper::create()->execute($this->model);
 
         /** @var BaseModel $modelR */
-        $modelR = BaseModelMapper::get()->where('id', $id)->execute();
+        $modelR = BaseModelMapper::get()
+            ->with('belongsToOne')
+            ->with('ownsOneSelf')
+            ->with('hasManyDirect')
+            ->with('hasMnayRelations')
+            ->with('conditional')
+            ->where('id', $id)
+            ->execute();
 
         self::assertEquals($this->model->getId(), $modelR->getId());
         self::assertEquals($this->model->string, $modelR->string);
@@ -290,19 +249,6 @@ final class DataMapperAbstractTest extends \PHPUnit\Framework\TestCase
 
         $by = BaseModelMapper::get()->where('string', '456')->execute();
         self::assertEquals($model2->getId(), $by->getId());
-    }
-
-    public function testGetCached() : void
-    {
-        $id      = BaseModelMapper::create()->execute($this->model);
-
-        /** @var BaseModel $modelR */
-        $modelR  = BaseModelMapper::get()->where('id', $id)->execute();
-
-        /** @var BaseModel $modelR2 */
-        $modelR2 = BaseModelMapper::get()->where('id', $id)->execute();
-
-        self::assertEquals($modelR->getId(), $modelR2->getId());
     }
 
     public function testGetNewest() : void
@@ -415,7 +361,7 @@ final class DataMapperAbstractTest extends \PHPUnit\Framework\TestCase
     public function testUpdate() : void
     {
         $id     = BaseModelMapper::create()->execute($this->model);
-        $modelR = BaseModelMapper::get()->where('id', $id)->execute();
+        $modelR = BaseModelMapper::get()->with('hasManyDirect')->with('hasManyRelations')->where('id', $id)->execute();
 
         $modelR->string        = 'Update';
         $modelR->int           = '321';
@@ -425,7 +371,7 @@ final class DataMapperAbstractTest extends \PHPUnit\Framework\TestCase
         $modelR->datetime      = new \DateTime('now');
         $modelR->datetime_null = null;
 
-        $id2     = BaseModelMapper::update()->execute($modelR);
+        $id2     = BaseModelMapper::update()->with('hasManyDirect')->with('hasManyRelations')->execute($modelR);
         $modelR2 = BaseModelMapper::get()->where('id', $id2)->execute();
 
         self::assertEquals($modelR->string, $modelR2->string);
@@ -435,11 +381,6 @@ final class DataMapperAbstractTest extends \PHPUnit\Framework\TestCase
         self::assertEquals($modelR->null, $modelR2->null);
         self::assertEquals($modelR->datetime->format('Y-m-d'), $modelR2->datetime->format('Y-m-d'));
         self::assertNull($modelR2->datetime_null);
-
-        /**
-         * @todo Orange-Management/phpOMS#226
-         *  Test the update of a model with relations (update relations).
-         */
     }
 
     /**
@@ -454,17 +395,11 @@ final class DataMapperAbstractTest extends \PHPUnit\Framework\TestCase
      */
     public function testDelete() : void
     {
-        /*
         $id = BaseModelMapper::create()->execute($this->model);
-        BaseModelMapper::delete($this->model);
+        BaseModelMapper::delete()->with('belongsToOne')->with('ownsOneSelf')->with('hasManyRelations')->execute($this->model);
         $modelR = BaseModelMapper::get()->where('id', $id)->execute();
 
         self::assertInstanceOf('phpOMS\tests\DataStorage\Database\TestModel\NullBaseModel', $modelR);
-        */
-        /**
-         * @todo Orange-Management/phpOMS#225
-         *  Test the deletion of a model with relations (deleting relations).
-         */
     }
 
     public function testDeleteHasManyRelation() : void
@@ -481,5 +416,25 @@ final class DataMapperAbstractTest extends \PHPUnit\Framework\TestCase
         $base = BaseModelMapper::get()->with('hasManyRelations')->where('id', $id1)->execute();
 
         self::assertCount($count1 - 1, $base->hasManyRelations);
+    }
+
+    public function testReader() : void
+    {
+        self::assertInstanceOf('phpOMS\DataStorage\Database\Mapper\ReadMapper', BaseModelMapper::reader());
+    }
+
+    public function testWriter() : void
+    {
+        self::assertInstanceOf('phpOMS\DataStorage\Database\Mapper\WriteMapper', BaseModelMapper::writer());
+    }
+
+    public function testUpdater() : void
+    {
+        self::assertInstanceOf('phpOMS\DataStorage\Database\Mapper\UpdateMapper', BaseModelMapper::updater());
+    }
+
+    public function testRemover() : void
+    {
+        self::assertInstanceOf('phpOMS\DataStorage\Database\Mapper\DeleteMapper', BaseModelMapper::remover());
     }
 }

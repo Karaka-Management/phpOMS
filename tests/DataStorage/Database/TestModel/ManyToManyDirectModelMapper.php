@@ -29,7 +29,19 @@ class ManyToManyDirectModelMapper extends DataMapperFactory
         'test_has_many_direct_to'     => ['name' => 'test_has_many_direct_to',     'type' => 'int',    'internal' => 'to'],
     ];
 
+    /**
+     * Primary table.
+     *
+     * @var string
+     * @since 1.0.0
+     */
     public const TABLE = 'test_has_many_direct';
 
+    /**
+     * Primary field name.
+     *
+     * @var string
+     * @since 1.0.0
+     */
     public const PRIMARYFIELD ='test_has_many_direct_id';
 }
