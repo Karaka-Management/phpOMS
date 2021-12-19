@@ -330,7 +330,7 @@ final class UpdateMapper extends DataMapperAbstract
                 ->from($many['table'])
                 ->where($many['table'] . '.' . $many['self'], '=', $objId);
 
-            if ($many['mapper']::TABLE !== $many['table']) {
+            if ($many['table'] !== $many['mapper']::TABLE) {
                 $query->leftJoin($many['mapper']::TABLE)
                     ->on($many['table'] . '.' . $src, '=', $many['mapper']::TABLE . '.' . $many['mapper']::PRIMARYFIELD);
             }
