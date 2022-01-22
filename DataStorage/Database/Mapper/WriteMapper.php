@@ -109,19 +109,26 @@ final class WriteMapper extends DataMapperAbstract
         $query = new Builder($this->db);
         $query->into($this->mapper::TABLE);
 
+        $publicProperties = \get_object_vars($obj);
+
         foreach ($this->mapper::COLUMNS as $column) {
-            $propertyName = \stripos($column['internal'], '/') !== false ? \explode('/', $column['internal'])[0] : $column['internal'];
-            if (isset($this->mapper::HAS_MANY[$propertyName])) {
+            $propertyName = \stripos($column['internal'], '/') !== false
+                ? \explode('/', $column['internal'])[0]
+                : $column['internal'];
+
+            if (isset($this->mapper::HAS_MANY[$propertyName])
+                || ($column['name'] === $this->mapper::PRIMARYFIELD && $this->mapper::AUTOINCREMENT)
+            ) {
                 continue;
             }
 
-            $property = $refClass->getProperty($propertyName);
-            if (!$property->isPublic()) {
+            if (!isset($publicProperties[$propertyName])) {
+                $property = $refClass->getProperty($propertyName);
                 $property->setAccessible(true);
                 $tValue = $property->getValue($obj);
                 $property->setAccessible(false);
             } else {
-                $tValue = $obj->{$propertyName};
+                $tValue = $publicProperties[$propertyName];
             }
 
             if (isset($this->mapper::OWNS_ONE[$propertyName])) {
@@ -134,19 +141,11 @@ final class WriteMapper extends DataMapperAbstract
                 $value = $this->parseValue($column['type'], $id);
 
                 $query->insert($column['name'])->value($value);
-            } elseif ($column['name'] !== $this->mapper::PRIMARYFIELD || !empty($tValue)) {
+            } else {
                 if (\stripos($column['internal'], '/') !== false) {
                     $path   = \substr($column['internal'], \stripos($column['internal'], '/') + 1);
                     $tValue = ArrayUtils::getArray($path, $tValue, '/');
                 }
-
-                /*
-                if (($column['type'] === 'int' || $column['type'] === 'string')
-                    && \is_object($tValue) && \property_exists($tValue, 'id')
-                ) {
-                    $tValue =
-                }
-                */
 
                 $value = $this->parseValue($column['type'], $tValue);
 
@@ -265,7 +264,6 @@ final class WriteMapper extends DataMapperAbstract
             }
 
             $property = $refClass->getProperty($propertyName);
-
             if (!($isPublic = $property->isPublic())) {
                 $property->setAccessible(true);
                 $values = $property->getValue($obj);
@@ -281,10 +279,12 @@ final class WriteMapper extends DataMapperAbstract
 
             if (\is_object($values)) {
                 // conditionals
-                $relReflectionClass = new \ReflectionClass($values);
-                $relProperty        = $relReflectionClass->getProperty($internalName);
+                $publicProperties = \get_object_vars($values);
 
-                if (!$relProperty->isPublic()) {
+                if (!isset($publicProperties[$internalName])) {
+                    $relReflectionClass = new \ReflectionClass($values);
+                    $relProperty        = $relReflectionClass->getProperty($internalName);
+
                     $relProperty->setAccessible(true);
                     $relProperty->setValue($values, $objId);
                     $relProperty->setAccessible(false);

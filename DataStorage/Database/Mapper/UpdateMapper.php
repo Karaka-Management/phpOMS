@@ -343,6 +343,10 @@ final class UpdateMapper extends DataMapperAbstract
             $sth->execute();
             $result = $sth->fetchAll(\PDO::FETCH_COLUMN);
 
+            if ($result === false) {
+                return; // @codeCoverageIgnore
+            }
+
             $removes = \array_diff($result, \array_values($objsIds[$member] ?? []));
             $adds    = \array_diff(\array_values($objsIds[$member] ?? []), $result);
 

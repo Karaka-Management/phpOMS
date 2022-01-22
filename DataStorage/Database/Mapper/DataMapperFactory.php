@@ -401,11 +401,6 @@ class DataMapperFactory
     {
         $class = empty(static::MODEL) ? \substr(static::class, 0, -6) : static::MODEL;
 
-        /**
-         * @todo Orange-Management/phpOMS#67
-         *  Since some models require special initialization a model factory should be implemented.
-         *  This could be a simple initialize() function in the mapper where the default initialize() is the current defined empty initialization in the DataMapperAbstract.
-         */
         return new $class();
     }
 

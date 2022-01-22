@@ -16,9 +16,9 @@ namespace phpOMS\tests\DataStorage\Database\TestModel;
 
 class ManyToManyDirectModel
 {
-    public $id = 0;
+    public int $id = 0;
 
-    public $string = 'ManyToManyDirect';
+    public string $string = 'ManyToManyDirect';
 
     public int $to = 0;
 }

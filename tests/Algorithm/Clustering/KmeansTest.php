@@ -31,6 +31,9 @@ final class KmeansTest extends \PHPUnit\Framework\TestCase
      */
     public function testKmeans() : void
     {
+        $seed = \mt_rand(\PHP_INT_MIN, \PHP_INT_MAX);
+        \mt_srand($seed);
+
         $result = false;
 
         // due to the random nature this can be false sometimes?!

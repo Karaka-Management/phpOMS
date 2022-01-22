@@ -193,6 +193,26 @@ class Account implements \JsonSerializable, ArrayableInterface
     }
 
     /**
+     * Get ids of groups
+     *
+     * @return int[]
+     *
+     * @since 1.0.0
+     */
+    public function getGroupIds() : array
+    {
+        /*
+        $ids = [];
+        foreach ($this->groups as $group) {
+            $ids[] = $group->getId();
+        }
+
+        return $ids;
+        */
+        return \array_keys($this->groups);
+    }
+
+    /**
      * Add group.
      *
      * @param Group $group Group to add

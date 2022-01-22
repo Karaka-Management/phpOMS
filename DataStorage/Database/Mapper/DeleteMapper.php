@@ -19,8 +19,6 @@ use phpOMS\DataStorage\Database\Query\Builder;
 /**
  * Delete mapper (DELETE).
  *
- * @todo: allow to define where clause if no object is loaded yet
- *
  * @package phpOMS\DataStorage\Database\Mapper
  * @license OMS License 1.0
  * @link    https://orange-management.org

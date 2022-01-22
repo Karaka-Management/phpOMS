@@ -53,6 +53,7 @@ final class DataMapperAbstractTest extends \PHPUnit\Framework\TestCase
                 `test_base_owns_one_self` int(11) DEFAULT NULL,
                 `test_base_json` varchar(254) DEFAULT NULL,
                 `test_base_json_serializable` varchar(254) DEFAULT NULL,
+                `test_base_serializable` varchar(254) DEFAULT NULL,
                 `test_base_datetime` datetime DEFAULT NULL,
                 `test_base_datetime_null` datetime DEFAULT NULL, /* There was a bug where it returned the current date because new \DateTime(null) === current date which is wrong, we want null as value! */
                 PRIMARY KEY (`test_base_id`)
@@ -204,12 +205,9 @@ final class DataMapperAbstractTest extends \PHPUnit\Framework\TestCase
         self::assertEquals($this->model->datetime->format('Y-m-d'), $modelR->datetime->format('Y-m-d'));
         self::assertNull($modelR->datetime_null);
 
-        /**
-         * @todo Serializable and JsonSerializable data can be inserted and updated in the database but it's not possible to correctly populate a model with the data in its original format.
-         */
-        //self::assertEquals('123', $modelR->serializable);
-        //self::assertEquals($this->model->json, $modelR->json);
-        //self::assertEquals([1, 2, 3], $modelR->jsonSerializable);
+        self::assertEquals($this->model->json, $modelR->json);
+        self::assertEquals([1, 2, 3], $modelR->jsonSerializable);
+        self::assertEquals('123', $modelR->serializable->value);
 
         self::assertCount(2, $modelR->hasManyDirect);
         self::assertCount(2, $modelR->hasManyRelations);
@@ -364,7 +362,7 @@ final class DataMapperAbstractTest extends \PHPUnit\Framework\TestCase
         $modelR = BaseModelMapper::get()->with('hasManyDirect')->with('hasManyRelations')->where('id', $id)->execute();
 
         $modelR->string        = 'Update';
-        $modelR->int           = '321';
+        $modelR->int           = 321;
         $modelR->bool          = true;
         $modelR->float         = 3.15;
         $modelR->null          = null;

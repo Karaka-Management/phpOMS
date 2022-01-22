@@ -16,7 +16,7 @@ namespace phpOMS\tests\DataStorage\Database\TestModel;
 
 class OwnsOneModel
 {
-    public $id = 0;
+    public int $id = 0;
 
-    public $string = 'OwnsOne';
+    public string $string = 'OwnsOne';
 }

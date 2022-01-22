@@ -295,6 +295,7 @@ final class ModuleAbstractTest extends \PHPUnit\Framework\TestCase
                 `test_base_owns_one_self` int(11) DEFAULT NULL,
                 `test_base_json` varchar(254) DEFAULT NULL,
                 `test_base_json_serializable` varchar(254) DEFAULT NULL,
+                `test_base_serializable` varchar(254) DEFAULT NULL,
                 `test_base_datetime` datetime DEFAULT NULL,
                 `test_base_datetime_null` datetime DEFAULT NULL, /* There was a bug where it returned the current date because new \DateTime(null) === current date which is wrong, we want null as value! */
                 PRIMARY KEY (`test_base_id`)

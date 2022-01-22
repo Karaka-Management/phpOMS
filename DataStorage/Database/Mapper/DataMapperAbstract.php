@@ -350,7 +350,7 @@ abstract class DataMapperAbstract
             return (bool) $value;
         } elseif ($type === 'DateTime' || $type === 'DateTimeImmutable') {
             return $value === null ? null : $value->format($this->mapper::$datetimeFormat);
-        } elseif ($type === 'Json' || $value instanceof \JsonSerializable) {
+        } elseif ($type === 'Json') {
             return (string) \json_encode($value);
         } elseif ($type === 'Serializable') {
             return $value->serialize();

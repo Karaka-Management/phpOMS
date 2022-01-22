@@ -334,13 +334,15 @@ class Grammar extends GrammarAbstract
         } elseif (\is_int($value)) {
             return (string) $value;
         } elseif (\is_array($value)) {
-            $values = '';
+            $value  = \array_values($value);
+            $count  = \count($value) - 1;
+            $values = '(';
 
-            foreach ($value as $val) {
-                $values .= $this->compileValue($query, $val) . ', ';
+            for ($i = 0; $i < $count; ++$i) {
+                $values .= $this->compileValue($query, $value[$i]) . ', ';
             }
 
-            return '(' . \rtrim($values, ', ') . ')';
+            return $values . $this->compileValue($query, $value[$count]) . ')';
         } elseif ($value instanceof \DateTime) {
             return $query->quote($value->format($this->datetimeFormat));
         } elseif ($value === null) {
@@ -602,17 +604,18 @@ class Grammar extends GrammarAbstract
      */
     protected function compileInserts(Builder $query, array $columns) : string
     {
-        $cols = '';
+        $count = \count($columns) - 1;
 
-        foreach ($columns as $column) {
-            $cols .= $this->compileSystem($column) . ', ';
-        }
-
-        if ($cols === '') {
+        if ($count === -1) {
             return '';
         }
 
-        return '(' . \rtrim($cols, ', ') . ')';
+        $cols  = '(';
+        for ($i = 0; $i < $count; ++$i) {
+            $cols .= $this->compileSystem($columns[$i]) . ', ';
+        }
+
+        return $cols .= $this->compileSystem($columns[$count]) . ')';
     }
 
     /**
@@ -627,17 +630,18 @@ class Grammar extends GrammarAbstract
      */
     protected function compileValues(Builder $query, array $values) : string
     {
-        $vals = '';
-
-        foreach ($values as $value) {
-            $vals .= $this->compileValue($query, $value) . ', ';
-        }
-
-        if ($vals === '') {
+        $values = \array_values($values);
+        $count  = \count($values) - 1;
+        if ($count === -1) {
             return '';
         }
 
-        return 'VALUES ' . \rtrim($vals, ', ');
+        $vals = 'VALUES ';
+        for ($i = 0; $i < $count; ++$i) {
+            $vals .= $this->compileValue($query, $values[$i]) . ', ';
+        }
+
+        return $vals . $this->compileValue($query, $values[$count]);
     }
 
     /**

@@ -39,7 +39,7 @@ Please note if you are only interested in using the framework without the web ap
 
 #### End-User
 
-After installing the requirements and configuring the webserver for the correct path navigate to https://your_url.com/Install and follow the installation process. Afterwards you will be redirected to the installed backend.
+After installing the requirements and configuring the web server for the correct path navigate to https://your_url.com/Install and follow the installation process. Afterwards you will be redirected to the installed backend.
 
 For more detailed information please checkout the [Installation Guide](https://orange-management.org/dev/guide?page=setup/installation).
 

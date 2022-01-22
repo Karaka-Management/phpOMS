@@ -15,6 +15,7 @@ declare(strict_types=1);
 namespace phpOMS\DataStorage\Database\Mapper;
 
 use phpOMS\DataStorage\Database\Query\Builder;
+use phpOMS\DataStorage\Database\Query\Where;
 use phpOMS\Utils\ArrayUtils;
 
 /**
@@ -336,6 +337,13 @@ final class ReadMapper extends DataMapperAbstract
 
         // where
         foreach ($this->where as $member => $values) {
+            // handle where query
+            if ($member === '' && $values[0]['value'] instanceof Where) {
+                $query->where($values[0]['value'], boolean: $values[0]['comparison']);
+
+                continue;
+            }
+
             if (($col = $this->mapper::getColumnByMember($member)) !== null) {
                 /* variable in model */
                 foreach ($values as $where) {
@@ -445,7 +453,7 @@ final class ReadMapper extends DataMapperAbstract
                 } elseif (!isset($this->mapper::HAS_MANY[$member]['external']) && isset($this->mapper::HAS_MANY[$member]['column'])) {
                     // get HasManyQuery (but only for elements which have a 'column' defined)
 
-                    // todo: handle self and self === null
+                    // @todo: handle self and self === null
                     $query->leftJoin($rel['mapper']::TABLE, $rel['mapper']::TABLE . '_d' . ($this->depth + 1))
                         ->on(
                             $this->mapper::TABLE . '_d' . $this->depth . '.' . ($rel['external'] ?? $this->mapper::PRIMARYFIELD), '=',
@@ -531,7 +539,7 @@ final class ReadMapper extends DataMapperAbstract
 
             if (\stripos($def['internal'], '/') !== false) {
                 $hasPath = true;
-                $path    = \explode('/', $def['internal']);
+                $path    = \explode('/', \ltrim($def['internal'], '/'));
                 $member  = $path[0];
                 $refProp = $refClass->getProperty($path[0]);
 
@@ -565,7 +573,7 @@ final class ReadMapper extends DataMapperAbstract
                 }
 
                 if (!empty($value)) {
-                    // todo: find better solution. this was because of a bug with the sales billing list query depth = 4. The address was set (from the client, referral or creator) but then somehow there was a second address element which was all null and null cannot be asigned to a string variable (e.g. country). The problem with this solution is that if the model expects an initialization (e.g. at lest set the elements to null, '', 0 etc.) this is now not done.
+                    // @todo: find better solution. this was because of a bug with the sales billing list query depth = 4. The address was set (from the client, referral or creator) but then somehow there was a second address element which was all null and null cannot be asigned to a string variable (e.g. country). The problem with this solution is that if the model expects an initialization (e.g. at lest set the elements to null, '', 0 etc.) this is now not done.
                     $refProp->setValue($obj, $value);
                 }
             } elseif (isset($this->mapper::BELONGS_TO[$def['internal']])) {

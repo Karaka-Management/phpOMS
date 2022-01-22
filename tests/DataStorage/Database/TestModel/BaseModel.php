@@ -16,35 +16,35 @@ namespace phpOMS\tests\DataStorage\Database\TestModel;
 
 class BaseModel
 {
-    protected $id = 0;
+    protected int $id = 0;
 
-    public $string = 'Base';
+    public string $string = 'Base';
 
-    public $conditional = '';
+    public string $conditional = '';
 
-    public $int = 11;
+    public int $int = 11;
 
-    public $bool = false;
+    public bool $bool = false;
 
-    public $float = 1.3;
+    public float $float = 1.3;
 
     public $null = null;
 
-    public $datetime = null;
+    public \DateTime $datetime;
 
-    public $datetime_null = null;
+    public ?\DateTime $datetime_null = null;
 
-    public $hasManyDirect = [];
+    public array $hasManyDirect = [];
 
-    public $hasManyRelations = [];
+    public array $hasManyRelations = [];
 
     public $ownsOneSelf = 0;
 
     public $belongsToOne = 0;
 
-    public $serializable = null;
+    public ?object $serializable = null;
 
-    public $json = [1, 2, 3];
+    public array $json = [1, 2, 3];
 
     public $jsonSerializable = null;
 
@@ -66,6 +66,8 @@ class BaseModel
         $this->belongsToOne = new BelongsToModel();
 
         $this->serializable = new class() implements \Serializable {
+            public $value = '';
+
             public function serialize()
             {
                 return '123';
@@ -73,6 +75,7 @@ class BaseModel
 
             public function unserialize($data) : void
             {
+                $this->value = $data;
             }
         };
 

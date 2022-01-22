@@ -14,7 +14,9 @@ declare(strict_types=1);
 
 namespace phpOMS\Module;
 
+use Modules\Admin\Models\PermissionAbstractMapper;
 use phpOMS\Application\ApplicationAbstract;
+use phpOMS\DataStorage\Database\Query\Builder;
 use phpOMS\Message\RequestAbstract;
 use phpOMS\Message\ResponseAbstract;
 use phpOMS\System\MimeType;

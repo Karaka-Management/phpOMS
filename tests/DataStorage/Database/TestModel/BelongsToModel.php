@@ -16,7 +16,7 @@ namespace phpOMS\tests\DataStorage\Database\TestModel;
 
 class BelongsToModel
 {
-    public $id = 0;
+    public int $id = 0;
 
-    public $string = 'BelongsTo';
+    public string $string = 'BelongsTo';
 }

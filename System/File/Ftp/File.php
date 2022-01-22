@@ -141,6 +141,10 @@ class File extends FileAbstract implements FileInterface
             }
 
             $fp = \fopen('php://memory', 'r+');
+            if ($fp === false) {
+                return false; // @codeCoverageIgnore
+            }
+
             \fwrite($fp, $content);
             \rewind($fp);
 

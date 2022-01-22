@@ -123,16 +123,16 @@ abstract class GrammarAbstract
      */
     public function compileQuery(BuilderAbstract $query) : string
     {
-        return \trim(
-            \implode(' ',
-                \array_filter(
-                    $this->compileComponents($query),
-                    function ($value) {
-                        return (string) $value !== '';
-                    }
-                )
-            )
-        ) . ';';
+        $components  = $this->compileComponents($query);
+        $queryString = '';
+
+        foreach ($components as $component) {
+            if ($component !== '') {
+                $queryString .= $component . ' ';
+            }
+        }
+
+        return \substr($queryString, 0, -1) . ';';
     }
 
     /**
@@ -148,12 +148,11 @@ abstract class GrammarAbstract
      */
     protected function compileComponents(BuilderAbstract $query) : array
     {
-        $sql = [];
-
         if ($query->getType() === QueryType::RAW) {
             return [$query->raw];
         }
 
+        $sql        = [];
         $components = $this->getComponents($query->getType());
 
         /* Loop all possible query components and if they exist compile them. */
@@ -247,16 +246,24 @@ abstract class GrammarAbstract
             }
         }
 
-        $split      = \explode('.', $system);
-        $fullSystem = '';
+        // The following code could have been handled with \explode more elegantly but \explode needs more memory and more time
+        // Normally this wouldn't be a problem but in this case there are so many function calls to this routine,
+        // that it makes sense to make this "minor" improvement.
+        if (($pos = \stripos($system, '.')) !== false) {
+            $split = [\substr($system, 0, $pos), \substr($system, $pos + 1)];
 
-        foreach ($split as $key => $system) {
-            $fullSystem .= '.'
-                . ($system !== '*' ? $identifierStart : '')
-                . $system
-                . ($system !== '*' ? $identifierEnd : '');
+            return ($split[0] !== '*' ? $identifierStart : '')
+                . $split[0]
+                . ($split[0] !== '*' ? $identifierEnd : '')
+                . '.'
+                . ($split[1] !== '*' ? $identifierStart : '')
+                . $split[1]
+                . ($split[1] !== '*' ? $identifierEnd : '');
         }
 
-        return \ltrim($fullSystem, '.');
+
+        return ($system !== '*' ? $identifierStart : '')
+            . $system
+            . ($system !== '*' ? $identifierEnd : '');
     }
 }
