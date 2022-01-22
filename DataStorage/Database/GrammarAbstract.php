@@ -261,7 +261,6 @@ abstract class GrammarAbstract
                 . ($split[1] !== '*' ? $identifierEnd : '');
         }
 
-
         return ($system !== '*' ? $identifierStart : '')
             . $system
             . ($system !== '*' ? $identifierEnd : '');
