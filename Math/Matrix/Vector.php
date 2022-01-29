@@ -87,4 +87,24 @@ final class Vector extends Matrix
 
         return $this;
     }
+
+    /**
+     * Calculate the cross product
+     *
+     * @param self $vector 3 Vector
+     *
+     * @return Vector
+     *
+     * @since 1.0.0
+     */
+    public function cross3(self $vector) : self
+    {
+        $crossArray = [
+            $this->getV(1) * $vector->getV(2) - $this->getV(2) * $vector->getV(1),
+            $this->getV(2) * $vector->getV(0) - $this->getV(0) * $vector->getV(2),
+            $this->getV(0) * $vector->getV(1) - $this->getV(1) * $vector->getV(0),
+        ];
+
+        return self::fromArray($crossArray);
+    }
 }
