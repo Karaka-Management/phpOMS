@@ -63,7 +63,7 @@ class Neuron {
         $this->bias    = $bias;
     }
 
-    public function addInput($input, float $weight)
+    public function addInput($input, float $weight) : void
     {
         $this->inputs[]  = $input;
         $this->weights[] = $weight;
@@ -86,7 +86,6 @@ class Neuron {
         }
 
         return $output + $this->bias;
-
         // return $this->activationFunction($output + $this->bias);
     }
 }
