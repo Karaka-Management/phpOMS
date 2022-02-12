@@ -180,7 +180,9 @@ final class ReadMapper extends DataMapperAbstract
     /**
      * Execute mapper
      *
-     * @param null|Builder $query Query to use instead of the internally generated query (carefuly, this doesn't merge with the internal query. If you want to merge it use ->query() instead)
+     * @param null|Builder $query Query to use instead of the internally generated query
+     *                            Careful, this doesn't merge with the internal query.
+     *                            If you want to merge it use ->query() instead
      *
      * @return object|array
      *
@@ -228,7 +230,9 @@ final class ReadMapper extends DataMapperAbstract
     /**
      * Execute mapper
      *
-     * @param null|Builder $query Query to use instead of the internally generated query (carefuly, this doesn't merge with the internal query. If you want to merge it use ->query() instead)
+     * @param null|Builder $query Query to use instead of the internally generated query
+     *                            Careful, this doesn't merge with the internal query.
+     *                            If you want to merge it use ->query() instead
      *
      * @return array
      *
@@ -258,7 +262,9 @@ final class ReadMapper extends DataMapperAbstract
     /**
      * Execute mapper
      *
-     * @param null|Builder $query Query to use instead of the internally generated query (carefuly, this doesn't merge with the internal query. If you want to merge it use ->query() instead)
+     * @param null|Builder $query Query to use instead of the internally generated query
+     *                            Careful, this doesn't merge with the internal query.
+     *                            If you want to merge it use ->query() instead
      *
      * @return array
      *
@@ -541,8 +547,8 @@ final class ReadMapper extends DataMapperAbstract
                 $hasPath = true;
                 $path    = \explode('/', \ltrim($def['internal'], '/'));
                 $member  = $path[0];
-                $refProp = $refClass->getProperty($path[0]);
 
+                $refProp = $refClass->getProperty($path[0]);
                 if (!($isPublic = $refProp->isPublic())) {
                     $refProp->setAccessible(true);
                 }
