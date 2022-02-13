@@ -81,7 +81,7 @@ final class Thresholding
                 $count = ($x2 - $x1) * ($y2 - $y1);
                 $sum   = $intImg[$x2][$y2] - $intImg[$x2][$y1 - 1] - $intImg[$x1 - 1][$y2] + $intImg[$x1 - 1][$y1 - 1];
 
-                $rgb = \imagecolorat($im, $i, $j);
+                $rgb        = \imagecolorat($im, $i, $j);
                 $brightness = self::lightness($rgb);
 
                 $color = $brightness * $count <= ($sum * (100 - $t) / 100) ? $black : $white;
@@ -115,7 +115,7 @@ final class Thresholding
         $lG = $vG <= 0.04045 ? $vG / 12.92 : \pow((($vG + 0.055) / 1.055), 2.4);
         $lB = $vB <= 0.04045 ? $vB / 12.92 : \pow((($vB + 0.055) / 1.055), 2.4);
 
-        $y = 0.2126 * $lR + 0.7152 * $lG + 0.0722 * $lB;
+        $y     = 0.2126 * $lR + 0.7152 * $lG + 0.0722 * $lB;
         $lStar = $y <= 216 / 24389 ? $y * 24389 / 27 : \pow($y,(1 / 3)) * 116 - 16;
 
         return $lStar / 100;
