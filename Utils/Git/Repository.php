@@ -151,7 +151,7 @@ class Repository
         $branches = $this->run('branch');
         $result   = [];
 
-        foreach ($branches as $key => $branch) {
+        foreach ($branches as $branch) {
             $branch = \trim($branch, '* ');
 
             if ($branch !== '') {
@@ -232,7 +232,7 @@ class Repository
             return $lines;
         }
 
-        foreach ($lineArray as $key => $line) {
+        foreach ($lineArray as $line) {
             $temp = \preg_replace('/\s+/', ' ', \trim($line, ' '));
 
             if (!empty($temp)) {
