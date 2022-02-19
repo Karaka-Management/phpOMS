@@ -1,6 +1,6 @@
 <?php
 /**
- * Orange Management
+ * Karaka
  *
  * PHP Version 8.0
  *
@@ -8,7 +8,7 @@
  * @copyright Dennis Eichhorn
  * @license   OMS License 1.0
  * @version   1.0.0
- * @link      https://orange-management.org
+ * @link      https://karaka.app
  */
 declare(strict_types=1);
 
@@ -29,7 +29,7 @@ final class ThresholdingTest extends \PHPUnit\Framework\TestCase
      */
     public function testThresholding() : void
     {
-        Thresholding::integralThresholding(__DIR__ . '/img1.png', __DIR__ . '/test_img1.png');
-        Thresholding::integralThresholding(__DIR__ . '/img2.jpg', __DIR__ . '/test_img2.jpg');
+        Thresholding::integralThresholding(__DIR__ . '/img1.png', __DIR__ . '/test_img1_integral_thresholding.png');
+        Thresholding::integralThresholding(__DIR__ . '/img2.jpg', __DIR__ . '/test_img2_integral_thresholding.jpg');
     }
 }

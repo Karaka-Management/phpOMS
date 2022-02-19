@@ -1,6 +1,6 @@
 <?php
 /**
- * Orange Management
+ * Karaka
  *
  * PHP Version 8.0
  *
@@ -8,7 +8,7 @@
  * @copyright Dennis Eichhorn
  * @license   OMS License 1.0
  * @version   1.0.0
- * @link      https://orange-management.org
+ * @link      https://karaka.app
  */
 declare(strict_types=1);
 
@@ -32,12 +32,12 @@ trait MailHandlerSendmailTrait
 
         $mail                      = new Email();
         $mail->priority            = 1;
-        $mail->confirmationAddress = 'test1@orange-management.email';
-        $mail->setFrom('test1@orange-management.email', 'Dennis Eichhorn');
-        $mail->addTo('test@orange-management.email', 'Dennis Eichhorn');
-        $mail->addCC('test2@orange-management.email', 'Dennis Eichhorn');
-        $mail->addBCC('test3@orange-management.email', 'Dennis Eichhorn');
-        $mail->addReplyTo('test4@orange-management.email', 'Dennis Eichhorn');
+        $mail->confirmationAddress = 'test1@karaka.email';
+        $mail->setFrom('test1@karaka.email', 'Dennis Eichhorn');
+        $mail->addTo('test@karaka.email', 'Dennis Eichhorn');
+        $mail->addCC('test2@karaka.email', 'Dennis Eichhorn');
+        $mail->addBCC('test3@karaka.email', 'Dennis Eichhorn');
+        $mail->addReplyTo('test4@karaka.email', 'Dennis Eichhorn');
         $mail->subject = 'testSendTextWithSendmail';
         $mail->body    = "This is some content\n\Image: <img alt=\"image\" src=\"cid:cid1\">";
         $mail->altBody = 'Alt body';
@@ -59,12 +59,12 @@ trait MailHandlerSendmailTrait
 
         $mail                      = new Email();
         $mail->priority            = 1;
-        $mail->confirmationAddress = 'test1@orange-management.email';
-        $mail->setFrom('test1@orange-management.email', 'Dennis Eichhorn');
-        $mail->addTo('test@orange-management.email', 'Dennis Eichhorn');
-        $mail->addCC('test2@orange-management.email', 'Dennis Eichhorn');
-        $mail->addBCC('test3@orange-management.email', 'Dennis Eichhorn');
-        $mail->addReplyTo('test4@orange-management.email', 'Dennis Eichhorn');
+        $mail->confirmationAddress = 'test1@karaka.email';
+        $mail->setFrom('test1@karaka.email', 'Dennis Eichhorn');
+        $mail->addTo('test@karaka.email', 'Dennis Eichhorn');
+        $mail->addCC('test2@karaka.email', 'Dennis Eichhorn');
+        $mail->addBCC('test3@karaka.email', 'Dennis Eichhorn');
+        $mail->addReplyTo('test4@karaka.email', 'Dennis Eichhorn');
         $mail->subject = 'testSendHtmlWithSendmail';
         $message       = \file_get_contents(__DIR__ . '/files/utf8.html');
         $mail->charset = CharsetType::UTF_8;
@@ -91,9 +91,9 @@ trait MailHandlerSendmailTrait
 
         $mail                      = new Email();
         $mail->priority            = 1;
-        $mail->confirmationAddress = 'test1@orange-management.email';
-        $mail->setFrom('test1@orange-management.email', 'Dennis Eichhorn');
-        $mail->addTo('test@orange-management.email', 'Dennis Eichhorn');
+        $mail->confirmationAddress = 'test1@karaka.email';
+        $mail->setFrom('test1@karaka.email', 'Dennis Eichhorn');
+        $mail->addTo('test@karaka.email', 'Dennis Eichhorn');
         $mail->subject = 'testSendInlineWithSendmail';
         $mail->setHtml(true);
         $mail->msgHTML("<img alt=\"image\" src=\"cid:cid1\">");
@@ -112,9 +112,9 @@ trait MailHandlerSendmailTrait
 
         $mail                      = new Email();
         $mail->priority            = 1;
-        $mail->confirmationAddress = 'test1@orange-management.email';
-        $mail->setFrom('test1@orange-management.email', 'Dennis Eichhorn');
-        $mail->addTo('test@orange-management.email', 'Dennis Eichhorn');
+        $mail->confirmationAddress = 'test1@karaka.email';
+        $mail->setFrom('test1@karaka.email', 'Dennis Eichhorn');
+        $mail->addTo('test@karaka.email', 'Dennis Eichhorn');
         $mail->subject = 'testSendAttachmentWithSendmail';
         $mail->addAttachment(__DIR__ . '/files/logo.png', 'logo');
 
@@ -131,9 +131,9 @@ trait MailHandlerSendmailTrait
 
         $mail                      = new Email();
         $mail->priority            = 1;
-        $mail->confirmationAddress = 'test1@orange-management.email';
-        $mail->setFrom('test1@orange-management.email', 'Dennis Eichhorn');
-        $mail->addTo('test@orange-management.email', 'Dennis Eichhorn');
+        $mail->confirmationAddress = 'test1@karaka.email';
+        $mail->setFrom('test1@karaka.email', 'Dennis Eichhorn');
+        $mail->addTo('test@karaka.email', 'Dennis Eichhorn');
         $mail->subject = 'testSendAltWithSendmail';
         $mail->altBody = 'Alt body';
 
@@ -150,9 +150,9 @@ trait MailHandlerSendmailTrait
 
         $mail                      = new Email();
         $mail->priority            = 1;
-        $mail->confirmationAddress = 'test1@orange-management.email';
-        $mail->setFrom('test1@orange-management.email', 'Dennis Eichhorn');
-        $mail->addTo('test@orange-management.email', 'Dennis Eichhorn');
+        $mail->confirmationAddress = 'test1@karaka.email';
+        $mail->setFrom('test1@karaka.email', 'Dennis Eichhorn');
+        $mail->addTo('test@karaka.email', 'Dennis Eichhorn');
         $mail->subject = 'testSendAltInlineWithSendmail';
         $mail->altBody = 'Alt body';
         $mail->setHtml(true);
@@ -172,9 +172,9 @@ trait MailHandlerSendmailTrait
 
         $mail                      = new Email();
         $mail->priority            = 1;
-        $mail->confirmationAddress = 'test1@orange-management.email';
-        $mail->setFrom('test1@orange-management.email', 'Dennis Eichhorn');
-        $mail->addTo('test@orange-management.email', 'Dennis Eichhorn');
+        $mail->confirmationAddress = 'test1@karaka.email';
+        $mail->setFrom('test1@karaka.email', 'Dennis Eichhorn');
+        $mail->addTo('test@karaka.email', 'Dennis Eichhorn');
         $mail->subject = 'testSendAltAttachmentWithSendmail';
         $mail->altBody = 'Alt body';
         $mail->addAttachment(__DIR__ . '/files/logo.png', 'logo');
@@ -192,9 +192,9 @@ trait MailHandlerSendmailTrait
 
         $mail                      = new Email();
         $mail->priority            = 1;
-        $mail->confirmationAddress = 'test1@orange-management.email';
-        $mail->setFrom('test1@orange-management.email', 'Dennis Eichhorn');
-        $mail->addTo('test@orange-management.email', 'Dennis Eichhorn');
+        $mail->confirmationAddress = 'test1@karaka.email';
+        $mail->setFrom('test1@karaka.email', 'Dennis Eichhorn');
+        $mail->addTo('test@karaka.email', 'Dennis Eichhorn');
         $mail->subject = 'testSendPlainWithSendmail';
         $mail->body    = 'Body';
 
@@ -211,9 +211,9 @@ trait MailHandlerSendmailTrait
 
         $mail                      = new Email();
         $mail->priority            = 1;
-        $mail->confirmationAddress = 'test1@orange-management.email';
-        $mail->setFrom('test1@orange-management.email', 'Dennis Eichhorn');
-        $mail->addTo('test@orange-management.email', 'Dennis Eichhorn');
+        $mail->confirmationAddress = 'test1@karaka.email';
+        $mail->setFrom('test1@karaka.email', 'Dennis Eichhorn');
+        $mail->addTo('test@karaka.email', 'Dennis Eichhorn');
         $mail->subject         = 'testSendPlainDKIMWithSendmail';
         $mail->body            = 'Body';
         $mail->dkimPrivatePath = __DIR__ . '/dkim.pem';
@@ -231,13 +231,13 @@ trait MailHandlerSendmailTrait
 
         $mail                      = new Email();
         $mail->priority            = 1;
-        $mail->confirmationAddress = 'test1@orange-management.email';
-        $mail->setFrom('test1@orange-management.email', 'Dennis Eichhorn');
-        $mail->addTo('test@orange-management.email', 'Dennis Eichhorn');
+        $mail->confirmationAddress = 'test1@karaka.email';
+        $mail->setFrom('test1@karaka.email', 'Dennis Eichhorn');
+        $mail->addTo('test@karaka.email', 'Dennis Eichhorn');
         $mail->subject = 'testSendPlainDKIMSignWithSendmail';
         $mail->body    = 'Body';
 
-        $mail->dkimDomain      = 'orange-management.email';
+        $mail->dkimDomain      = 'karaka.email';
         $mail->dkimPrivatePath = __DIR__ . '/dkim.pem';
         $mail->dkimSelector    = 'phpOMS';
         $mail->dkimPass        = '';
@@ -255,9 +255,9 @@ trait MailHandlerSendmailTrait
 
         $mail                      = new Email();
         $mail->priority            = 1;
-        $mail->confirmationAddress = 'test1@orange-management.email';
-        $mail->setFrom('test1@orange-management.email', 'Dennis Eichhorn');
-        $mail->addTo('test@orange-management.email', 'Dennis Eichhorn');
+        $mail->confirmationAddress = 'test1@karaka.email';
+        $mail->setFrom('test1@karaka.email', 'Dennis Eichhorn');
+        $mail->addTo('test@karaka.email', 'Dennis Eichhorn');
         $mail->subject = 'testSendPlainSignWithSendmail';
         $mail->body    = 'Body';
 
@@ -279,15 +279,15 @@ trait MailHandlerSendmailTrait
 
         $mail                      = new Email();
         $mail->priority            = 1;
-        $mail->confirmationAddress = 'test1@orange-management.email';
-        $mail->setFrom('test1@orange-management.email', 'Dennis Eichhorn');
-        $mail->addTo('test@orange-management.email', 'Dennis Eichhorn');
+        $mail->confirmationAddress = 'test1@karaka.email';
+        $mail->setFrom('test1@karaka.email', 'Dennis Eichhorn');
+        $mail->addTo('test@karaka.email', 'Dennis Eichhorn');
         $mail->subject    = 'testSendICalAltWithSendmail';
         $mail->body       = 'Ical test';
         $mail->altBody    = 'Ical test';
         $mail->ical       = 'BEGIN:VCALENDAR'
             . "\r\nVERSION:2.0"
-            . "\r\nPRODID:-//phpOMS//Orange Management Calendar//EN"
+            . "\r\nPRODID:-//phpOMS//Karaka Calendar//EN"
             . $methodLine
             . "\r\nCALSCALE:GREGORIAN"
             . "\r\nX-MICROSOFT-CALSCALE:GREGORIAN"
@@ -334,16 +334,16 @@ trait MailHandlerSendmailTrait
 
         $mail                      = new Email();
         $mail->priority            = 1;
-        $mail->confirmationAddress = 'test1@orange-management.email';
-        $mail->setFrom('test1@orange-management.email', 'Dennis Eichhorn');
-        $mail->addTo('test@orange-management.email', 'Dennis Eichhorn');
+        $mail->confirmationAddress = 'test1@karaka.email';
+        $mail->setFrom('test1@karaka.email', 'Dennis Eichhorn');
+        $mail->addTo('test@karaka.email', 'Dennis Eichhorn');
         $mail->addAttachment(__DIR__ . '/files/logo.png', 'logo');
         $mail->subject    = 'testSendICalAltAttachmentWithSendmail';
         $mail->body       = 'Ical test';
         $mail->altBody    = 'Ical test';
         $mail->ical       = 'BEGIN:VCALENDAR'
             . "\r\nVERSION:2.0"
-            . "\r\nPRODID:-//phpOMS//Orange Management Calendar//EN"
+            . "\r\nPRODID:-//phpOMS//Karaka Calendar//EN"
             . $methodLine
             . "\r\nCALSCALE:GREGORIAN"
             . "\r\nX-MICROSOFT-CALSCALE:GREGORIAN"

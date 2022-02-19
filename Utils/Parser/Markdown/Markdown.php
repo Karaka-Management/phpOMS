@@ -1,6 +1,6 @@
 <?php
 /**
- * Orange Management
+ * Karaka
  *
  * PHP Version 8.0
  *
@@ -9,7 +9,7 @@
  * @license    OMS License 1.0
  * @license    Original license Emanuil Rusev, erusev.com (MIT)
  * @version    1.0.0
- * @link       https://orange-management.org
+ * @link       https://karaka.app
  */
 declare(strict_types=1);
 
@@ -23,7 +23,7 @@ use phpOMS\Uri\UriFactory;
  * @package    phpOMS\Utils\Parser\Markdown
  * @license    OMS License 1.0
  * @license    Original license Emanuil Rusev, erusev.com (MIT)
- * @link       https://orange-management.org
+ * @link       https://karaka.app
  * @since      1.0.0
  */
 class Markdown

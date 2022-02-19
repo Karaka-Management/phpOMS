@@ -1,6 +1,6 @@
 {
-    "name": "orange-management/phpoms",
-    "description": "PHP Framework for Orange Management.",
+    "name": "karaka/phpoms",
+    "description": "PHP Framework for Karaka.",
     "authors": [
         {
             "name": "Dennis Eichhorn",

@@ -1,6 +1,6 @@
 <?php
 /**
- * Orange Management
+ * Karaka
  *
  * PHP Version 8.0
  *
@@ -8,18 +8,20 @@
  * @copyright Dennis Eichhorn
  * @license   OMS License 1.0
  * @version   1.0.0
- * @link      https://orange-management.org
+ * @link      https://karaka.app
  */
 declare(strict_types=1);
 
 namespace phpOMS\Image;
+
+use phpOMS\Utils\ImageUtils;
 
 /**
  * Image thresholding
  *
  * @package phpOMS\Image
  * @license OMS License 1.0
- * @link    https://orange-management.org
+ * @link    https://karaka.app
  * @since   1.0.0
  */
 final class Thresholding
@@ -48,12 +50,12 @@ final class Thresholding
             $im = \imagecreatefromgif($inPath);
         }
 
-        $dim = \getimagesize($inPath);
+        $dim = [\imagesx($im), \imagesy($im)];
         $out = \imagecreate($dim[0], $dim[1]);
 
         $intImg = [[]];
 
-        $s = (int) $dim[0] / 24; // can be changed 8
+        $s = (int) $dim[0] / 96; // can be changed 8
         $t = 30; // can be changed 15
 
         for ($i = 0; $i < $dim[0]; ++$i) {
@@ -61,7 +63,7 @@ final class Thresholding
 
             for ($j = 0; $j < $dim[1]; ++$j) {
                 $rgb = \imagecolorat($im, $i, $j);
-                $sum += self::lightness($rgb);
+                $sum += ImageUtils::lightness($rgb);
 
                 $intImg[$i][$j] = $i === 0 ? $sum : $intImg[$i - 1][$j] + $sum;
             }
@@ -82,7 +84,7 @@ final class Thresholding
                 $sum   = $intImg[$x2][$y2] - $intImg[$x2][$y1 - 1] - $intImg[$x1 - 1][$y2] + $intImg[$x1 - 1][$y1 - 1];
 
                 $rgb        = \imagecolorat($im, $i, $j);
-                $brightness = self::lightness($rgb);
+                $brightness = ImageUtils::lightness($rgb);
 
                 $color = $brightness * $count <= ($sum * (100 - $t) / 100) ? $black : $white;
 
@@ -98,26 +100,7 @@ final class Thresholding
             \imagegif($out, $outPath);
         }
 
+        \imagedestroy($im);
         \imagedestroy($out);
-    }
-
-    private static function lightness(int $rgb) : float
-    {
-        $sR = ($rgb >> 16) & 0xFF;
-        $sG = ($rgb >> 8) & 0xFF;
-        $sB = $rgb & 0xFF;
-
-        $vR = $sR / 255;
-        $vG = $sG / 255;
-        $vB = $sB / 255;
-
-        $lR = $vR <= 0.04045 ? $vR / 12.92 : \pow((($vR + 0.055) / 1.055), 2.4);
-        $lG = $vG <= 0.04045 ? $vG / 12.92 : \pow((($vG + 0.055) / 1.055), 2.4);
-        $lB = $vB <= 0.04045 ? $vB / 12.92 : \pow((($vB + 0.055) / 1.055), 2.4);
-
-        $y     = 0.2126 * $lR + 0.7152 * $lG + 0.0722 * $lB;
-        $lStar = $y <= 216 / 24389 ? $y * 24389 / 27 : \pow($y,(1 / 3)) * 116 - 16;
-
-        return $lStar / 100;
     }
 }

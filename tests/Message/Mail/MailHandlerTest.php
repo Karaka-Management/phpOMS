@@ -1,6 +1,6 @@
 <?php
 /**
- * Orange Management
+ * Karaka
  *
  * PHP Version 8.0
  *
@@ -8,7 +8,7 @@
  * @copyright Dennis Eichhorn
  * @license   OMS License 1.0
  * @version   1.0.0
- * @link      https://orange-management.org
+ * @link      https://karaka.app
  */
 declare(strict_types=1);
 
@@ -42,10 +42,10 @@ final class MailHandlerTest extends \PHPUnit\Framework\TestCase
             'countryName'            => 'DE',
             'stateOrProvinceName'    => 'Hesse',
             'localityName'           => 'Frankfurt',
-            'organizationName'       => 'Orange Management',
+            'organizationName'       => 'Karaka',
             'organizationalUnitName' => 'Framework',
-            'commonName'             => 'Orange Management Test',
-            'emailAddress'           => 'test@orange-management.email',
+            'commonName'             => 'Karaka Test',
+            'emailAddress'           => 'test@karaka.email',
         ];
         $keyconfig = [
             'digest_alg'       => 'sha256',

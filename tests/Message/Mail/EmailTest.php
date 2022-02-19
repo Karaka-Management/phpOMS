@@ -1,6 +1,6 @@
 <?php
 /**
- * Orange Management
+ * Karaka
  *
  * PHP Version 8.0
  *
@@ -8,7 +8,7 @@
  * @copyright Dennis Eichhorn
  * @license   OMS License 1.0
  * @version   1.0.0
- * @link      https://orange-management.org
+ * @link      https://karaka.app
  */
 declare(strict_types=1);
 
@@ -49,8 +49,8 @@ final class EmailTestTest extends \PHPUnit\Framework\TestCase
 
     public function testFromInputOutput() : void
     {
-        self::assertTrue($this->mail->setFrom('test@orange-management.org', 'Test Name'));
-        self::assertEquals([0 => 'test@orange-management.org', 1 => 'Test Name'], $this->mail->getFrom());
+        self::assertTrue($this->mail->setFrom('test@karaka.app', 'Test Name'));
+        self::assertEquals([0 => 'test@karaka.app', 1 => 'Test Name'], $this->mail->getFrom());
     }
 
     public function testInvalidFromInputOutput() : void
@@ -72,13 +72,13 @@ final class EmailTestTest extends \PHPUnit\Framework\TestCase
 
     public function testAddTo() : void
     {
-        self::assertTrue($this->mail->addTo('test@orange-management.org', 'Test Name'));
-        self::assertTrue($this->mail->addTo('test2@orange-management.org', 'Test Name 2'));
+        self::assertTrue($this->mail->addTo('test@karaka.app', 'Test Name'));
+        self::assertTrue($this->mail->addTo('test2@karaka.app', 'Test Name 2'));
 
         self::assertEquals(
             [
-                'test@orange-management.org'  => ['test@orange-management.org', 'Test Name'],
-                'test2@orange-management.org' => ['test2@orange-management.org', 'Test Name 2'],
+                'test@karaka.app'  => ['test@karaka.app', 'Test Name'],
+                'test2@karaka.app' => ['test2@karaka.app', 'Test Name 2'],
             ],
             $this->mail->to
         );
@@ -92,13 +92,13 @@ final class EmailTestTest extends \PHPUnit\Framework\TestCase
 
     public function testAddCC() : void
     {
-        self::assertTrue($this->mail->addCC('test@orange-management.org', 'Test Name'));
-        self::assertTrue($this->mail->addCC('test2@orange-management.org', 'Test Name 2'));
+        self::assertTrue($this->mail->addCC('test@karaka.app', 'Test Name'));
+        self::assertTrue($this->mail->addCC('test2@karaka.app', 'Test Name 2'));
 
         self::assertEquals(
             [
-                'test@orange-management.org'  => ['test@orange-management.org', 'Test Name'],
-                'test2@orange-management.org' => ['test2@orange-management.org', 'Test Name 2'],
+                'test@karaka.app'  => ['test@karaka.app', 'Test Name'],
+                'test2@karaka.app' => ['test2@karaka.app', 'Test Name 2'],
             ],
             $this->mail->cc
         );
@@ -112,13 +112,13 @@ final class EmailTestTest extends \PHPUnit\Framework\TestCase
 
     public function testAddBCC() : void
     {
-        self::assertTrue($this->mail->addBCC('test@orange-management.org', 'Test Name'));
-        self::assertTrue($this->mail->addBCC('test2@orange-management.org', 'Test Name 2'));
+        self::assertTrue($this->mail->addBCC('test@karaka.app', 'Test Name'));
+        self::assertTrue($this->mail->addBCC('test2@karaka.app', 'Test Name 2'));
 
         self::assertEquals(
             [
-                'test@orange-management.org'  => ['test@orange-management.org', 'Test Name'],
-                'test2@orange-management.org' => ['test2@orange-management.org', 'Test Name 2'],
+                'test@karaka.app'  => ['test@karaka.app', 'Test Name'],
+                'test2@karaka.app' => ['test2@karaka.app', 'Test Name 2'],
             ],
             $this->mail->bcc
         );
@@ -132,13 +132,13 @@ final class EmailTestTest extends \PHPUnit\Framework\TestCase
 
     public function testAddReplyTo() : void
     {
-        self::assertTrue($this->mail->addReplyTo('test@orange-management.org', 'Test Name'));
-        self::assertTrue($this->mail->addReplyTo('test2@orange-management.org', 'Test Name 2'));
+        self::assertTrue($this->mail->addReplyTo('test@karaka.app', 'Test Name'));
+        self::assertTrue($this->mail->addReplyTo('test2@karaka.app', 'Test Name 2'));
 
         self::assertEquals(
             [
-                'test@orange-management.org'  => ['test@orange-management.org', 'Test Name'],
-                'test2@orange-management.org' => ['test2@orange-management.org', 'Test Name 2'],
+                'test@karaka.app'  => ['test@karaka.app', 'Test Name'],
+                'test2@karaka.app' => ['test2@karaka.app', 'Test Name 2'],
             ],
             $this->mail->replyTo
         );
@@ -157,8 +157,8 @@ final class EmailTestTest extends \PHPUnit\Framework\TestCase
 
     public function testAddrFormat() : void
     {
-        self::assertEquals('test@orange-management.org', $this->mail->addrFormat(['test@orange-management.org']));
-        self::assertEquals('Test Name <test@orange-management.org>', $this->mail->addrFormat(['test@orange-management.org', 'Test Name']));
+        self::assertEquals('test@karaka.app', $this->mail->addrFormat(['test@karaka.app']));
+        self::assertEquals('Test Name <test@karaka.app>', $this->mail->addrFormat(['test@karaka.app', 'Test Name']));
     }
 
     public function testCustomHeaderInputOutput() : void
@@ -176,23 +176,23 @@ final class EmailTestTest extends \PHPUnit\Framework\TestCase
     public function testEmailParsing() : void
     {
         self::assertEquals(
-            [['name' => 'Test Name', 'address' => 'test@orange-management.org']],
-            Email::parseAddresses('Test Name <test@orange-management.org>')
+            [['name' => 'Test Name', 'address' => 'test@karaka.app']],
+            Email::parseAddresses('Test Name <test@karaka.app>')
         );
 
         self::assertEquals(
-            [['name' => '', 'address' => 'test@orange-management.org']],
-            Email::parseAddresses('test@orange-management.org')
+            [['name' => '', 'address' => 'test@karaka.app']],
+            Email::parseAddresses('test@karaka.app')
         );
 
         self::assertEquals(
-            [['name' => 'Test Name', 'address' => 'test@orange-management.org']],
-            Email::parseAddresses('Test Name <test@orange-management.org>', false)
+            [['name' => 'Test Name', 'address' => 'test@karaka.app']],
+            Email::parseAddresses('Test Name <test@karaka.app>', false)
         );
 
         self::assertEquals(
-            [['name' => '', 'address' => 'test@orange-management.org']],
-            Email::parseAddresses('test@orange-management.org', false)
+            [['name' => '', 'address' => 'test@karaka.app']],
+            Email::parseAddresses('test@karaka.app', false)
         );
     }
 

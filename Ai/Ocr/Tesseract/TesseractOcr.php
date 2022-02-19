@@ -1,6 +1,6 @@
 <?php
 /**
- * Orange Management
+ * Karaka
  *
  * PHP Version 8.0
  *
@@ -8,7 +8,7 @@
  * @copyright Dennis Eichhorn
  * @license   OMS License 1.0
  * @version   1.0.0
- * @link      https://orange-management.org
+ * @link      https://karaka.app
  */
 declare(strict_types=1);
 
@@ -21,7 +21,7 @@ use phpOMS\System\File\PathException;
  *
  * @package phpOMS\Ai\Ocr\Tesseract
  * @license OMS License 1.0
- * @link    https://orange-management.org
+ * @link    https://karaka.app
  * @since   1.0.0
  */
 final class TesseractOcr
@@ -67,14 +67,14 @@ final class TesseractOcr
      */
     private function run(string $cmd) : array
     {
-        if (\strtolower((string) \substr(\PHP_OS, 0, 3)) == 'win') {
+        if (\strtolower((string) \substr(\PHP_OS, 0, 3)) === 'win') {
             $cmd = 'cd ' . \escapeshellarg(\dirname(self::$bin))
                 . ' && ' . \basename(self::$bin)
-                . ' -C ' . \escapeshellarg($this->path) . ' '
+                . ' '
                 . $cmd;
         } else {
             $cmd = \escapeshellarg(self::$bin)
-                . ' -C ' . \escapeshellarg($this->path) . ' '
+                . ' '
                 . $cmd;
         }
 
@@ -84,7 +84,7 @@ final class TesseractOcr
             2 => ['pipe', 'w'],
         ];
 
-        $resource = \proc_open($cmd, $desc, $pipes, $this->path, null);
+        $resource = \proc_open($cmd, $desc, $pipes, null, null);
 
         if ($resource === false) {
             throw new \Exception();
@@ -170,15 +170,17 @@ final class TesseractOcr
         $this->run(
             $image . ' '
             . ($temp = \tempnam(\sys_get_temp_dir(), 'ocr_'))
-            . '--psm ' . $psm . ' '
-            . '--oem ' . $oem . ' '
-            . '-l ' . \implode('+', $languages)
+            . ' --psm ' . $psm
+            . ' --oem ' . $oem
+            . ' -l ' . \implode('+', $languages)
         );
 
-        $parsed = \file_get_contents($temp);
+        $parsed = \file_get_contents($temp . '.txt');
+
+        // @todo: auto flip image if x% of text are garbage words?
 
         \unlink($temp);
 
-        return $parsed;
+        return \trim($parsed);
     }
 }

@@ -1,6 +1,6 @@
 <?php
 /**
- * Orange Management
+ * Karaka
  *
  * PHP Version 8.0
  *
@@ -8,7 +8,7 @@
  * @copyright Dennis Eichhorn
  * @license   OMS License 1.0
  * @version   1.0.0
- * @link      https://orange-management.org
+ * @link      https://karaka.app
  */
 declare(strict_types=1);
 
@@ -23,7 +23,7 @@ use phpOMS\Utils\ArrayUtils;
  *
  * @package phpOMS\DataStorage\Database\Mapper
  * @license OMS License 1.0
- * @link    https://orange-management.org
+ * @link    https://karaka.app
  * @since   1.0.0
  */
 final class ReadMapper extends DataMapperAbstract
@@ -245,7 +245,7 @@ final class ReadMapper extends DataMapperAbstract
         try {
             $results = false;
 
-            $sth = $this->db->con->prepare($query->toSql());
+            $sth = $this->db->con->prepare($a = $query->toSql());
             if ($sth !== false) {
                 $sth->execute();
                 $results = $sth->fetchAll(\PDO::FETCH_ASSOC);

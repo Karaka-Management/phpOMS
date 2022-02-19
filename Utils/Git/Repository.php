@@ -1,6 +1,6 @@
 <?php
 /**
- * Orange Management
+ * Karaka
  *
  * PHP Version 8.0
  *
@@ -8,7 +8,7 @@
  * @copyright Dennis Eichhorn
  * @license   OMS License 1.0
  * @version   1.0.0
- * @link      https://orange-management.org
+ * @link      https://karaka.app
  */
 declare(strict_types=1);
 
@@ -22,7 +22,7 @@ use phpOMS\Utils\StringUtils;
  *
  * @package phpOMS\Utils\Git
  * @license OMS License 1.0
- * @link    https://orange-management.org
+ * @link    https://karaka.app
  * @since   1.0.0
  * @codeCoverageIgnore
  */
@@ -175,7 +175,7 @@ class Repository
      */
     private function run(string $cmd) : array
     {
-        if (\strtolower((string) \substr(\PHP_OS, 0, 3)) == 'win') {
+        if (\strtolower((string) \substr(\PHP_OS, 0, 3)) === 'win') {
             $cmd = 'cd ' . \escapeshellarg(\dirname(Git::getBin()))
                 . ' && ' . \basename(Git::getBin())
                 . ' -C ' . \escapeshellarg($this->path) . ' '

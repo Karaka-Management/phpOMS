@@ -1,13 +1,13 @@
 <?php
 /**
- * Orange Management
+ * Karaka
  *
  * PHP Version 8.0
  *
  * @package   phpOMS\Message\Mail
  * @license   GLGPL 2.1 License
  * @version   1.0.0
- * @link      https://orange-management.org
+ * @link      https://karaka.app
  *
  * Extended based on:
  * GLGPL 2.1 License
@@ -23,7 +23,7 @@ namespace phpOMS\Message\Mail;
  *
  * @package phpOMS\Message\Mail
  * @license GLGPL 2.1 License
- * @link    https://orange-management.org
+ * @link    https://karaka.app
  * @since   1.0.0
  */
 class Smtp

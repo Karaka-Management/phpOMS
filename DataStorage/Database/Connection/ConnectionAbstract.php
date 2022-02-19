@@ -1,6 +1,6 @@
 <?php
 /**
- * Orange Management
+ * Karaka
  *
  * PHP Version 8.0
  *
@@ -8,7 +8,7 @@
  * @copyright Dennis Eichhorn
  * @license   OMS License 1.0
  * @version   1.0.0
- * @link      https://orange-management.org
+ * @link      https://karaka.app
  */
 declare(strict_types=1);
 
@@ -29,7 +29,7 @@ use phpOMS\DataStorage\Database\Schema\Grammar\Grammar as SchemaGrammar;
  *
  * @package phpOMS\DataStorage\Database\Connection
  * @license OMS License 1.0
- * @link    https://orange-management.org
+ * @link    https://karaka.app
  * @since   1.0.0
  */
 abstract class ConnectionAbstract implements ConnectionInterface

@@ -1,6 +1,6 @@
 <?php
 /**
- * Orange Management
+ * Karaka
  *
  * PHP Version 8.0
  *
@@ -8,7 +8,7 @@
  * @copyright Dennis Eichhorn
  * @license   OMS License 1.0
  * @version   1.0.0
- * @link      https://orange-management.org
+ * @link      https://karaka.app
  */
 declare(strict_types=1);
 
@@ -47,7 +47,7 @@ final class MetaTest extends \PHPUnit\Framework\TestCase
         self::assertEquals('', $this->meta->getProperty(''));
         self::assertEquals('', $this->meta->getItemprop(''));
         self::assertEquals([], $this->meta->getKeywords());
-        self::assertEquals('<meta name="generator" content="Orange Management">', $this->meta->render());
+        self::assertEquals('<meta name="generator" content="Karaka">', $this->meta->render());
     }
 
     /**
@@ -147,7 +147,7 @@ final class MetaTest extends \PHPUnit\Framework\TestCase
             . '<meta name="author" content="oms">'
             . '<meta name="description" content="some description">'
             . '<meta charset="utf-8">'
-            . '<meta name="generator" content="Orange Management">'
+            . '<meta name="generator" content="Karaka">'
             . '<meta property="og:title" content="TestProperty">'
             . '<meta itemprop="title" content="TestItemprop">'
             . '<meta name="title" content="TestName">',

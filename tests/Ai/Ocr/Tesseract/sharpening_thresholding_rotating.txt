@@ -1,0 +1,7 @@
+hat s Image Filtering in the Spatial Domain? —
+
+iftering is a technique for’ modifying or enhancing an image. For example, you can filter an image to emphasize certain
+tures. image processing operations implemented with filtering include smoothing, sharpening,
+
+ 
+

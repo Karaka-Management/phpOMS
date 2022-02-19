@@ -1,6 +1,6 @@
 <?php
 /**
- * Orange Management
+ * Karaka
  *
  * PHP Version 8.0
  *
@@ -8,7 +8,7 @@
  * @copyright Dennis Eichhorn
  * @license   OMS License 1.0
  * @version   1.0.0
- * @link      https://orange-management.org
+ * @link      https://karaka.app
  */
 declare(strict_types=1);
 
@@ -27,7 +27,7 @@ use phpOMS\DataStorage\Database\Query\Where;
  *
  * @package phpOMS\DataStorage\Database\Query\Grammar
  * @license OMS License 1.0
- * @link    https://orange-management.org
+ * @link    https://karaka.app
  * @since   1.0.0
  *
  * @todo Orange-Management/phpOMS#33
@@ -263,7 +263,7 @@ class Grammar extends GrammarAbstract
             $expression .= '(' . \rtrim($element['column']->toSql(), ';') . ')';
         }
 
-        if (isset($element['value'])) {
+        if (isset($element['value']) && (!empty($element['value']) || !\is_array($element['value']))) {
             $expression .= ' ' . \strtoupper($element['operator']) . ' ' . $this->compileValue($query, $element['value']);
         } elseif ($element['value'] === null && !($element['column'] instanceof Builder)) {
             $operator    = $element['operator'] === '=' ? 'IS' : 'IS NOT';

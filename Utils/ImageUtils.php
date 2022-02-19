@@ -1,6 +1,6 @@
 <?php
 /**
- * Orange Management
+ * Karaka
  *
  * PHP Version 8.0
  *
@@ -8,7 +8,7 @@
  * @copyright Dennis Eichhorn
  * @license   OMS License 1.0
  * @version   1.0.0
- * @link      https://orange-management.org
+ * @link      https://karaka.app
  */
 declare(strict_types=1);
 
@@ -21,7 +21,7 @@ namespace phpOMS\Utils;
  *
  * @package phpOMS\Utils
  * @license OMS License 1.0
- * @link    https://orange-management.org
+ * @link    https://karaka.app
  * @since   1.0.0
  */
 final class ImageUtils
@@ -51,5 +51,30 @@ final class ImageUtils
         $img = \str_replace(' ', '+', $img);
 
         return (string) \base64_decode($img);
+    }
+
+    public static function lightness(int $rgb) : float
+    {
+        $sR = ($rgb >> 16) & 0xFF;
+        $sG = ($rgb >> 8) & 0xFF;
+        $sB = $rgb & 0xFF;
+
+        return self::lightnessFromRgb($sR, $sG, $sB);
+    }
+
+    public static function lightnessFromRgb(int $r, int $g, int $b) : float
+    {
+        $vR = $r / 255;
+        $vG = $g / 255;
+        $vB = $b / 255;
+
+        $lR = $vR <= 0.04045 ? $vR / 12.92 : \pow((($vR + 0.055) / 1.055), 2.4);
+        $lG = $vG <= 0.04045 ? $vG / 12.92 : \pow((($vG + 0.055) / 1.055), 2.4);
+        $lB = $vB <= 0.04045 ? $vB / 12.92 : \pow((($vB + 0.055) / 1.055), 2.4);
+
+        $y     = 0.2126 * $lR + 0.7152 * $lG + 0.0722 * $lB;
+        $lStar = $y <= 216 / 24389 ? $y * 24389 / 27 : \pow($y,(1 / 3)) * 116 - 16;
+
+        return $lStar / 100;
     }
 }

@@ -1,6 +1,6 @@
 <?php
 /**
- * Orange Management
+ * Karaka
  *
  * PHP Version 8.0
  *
@@ -8,7 +8,7 @@
  * @copyright Dennis Eichhorn
  * @license   OMS License 1.0
  * @version   1.0.0
- * @link      https://orange-management.org
+ * @link      https://karaka.app
  */
 declare(strict_types=1);
 
@@ -22,7 +22,7 @@ use phpOMS\Views\ViewAbstract;
  *
  * @package phpOMS\Model\Html
  * @license OMS License 1.0
- * @link    https://orange-management.org
+ * @link    https://karaka.app
  * @since   1.0.0
  */
 final class Meta implements RenderableInterface
@@ -233,7 +233,7 @@ final class Meta implements RenderableInterface
         . (!empty($this->author) ? '<meta name="author" content="' . ViewAbstract::html($this->author) . '">' : '')
         . (!empty($this->description) ? '<meta name="description" content="' . ViewAbstract::html($this->description) . '">' : '')
         . (!empty($this->charset) ? '<meta charset="' . ViewAbstract::html($this->charset) . '">' : '')
-        . '<meta name="generator" content="Orange Management">'
+        . '<meta name="generator" content="Karaka">'
         . $this->renderProperty()
         . $this->renderItemprop()
         . $this->renderName();

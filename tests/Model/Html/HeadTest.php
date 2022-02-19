@@ -1,6 +1,6 @@
 <?php
 /**
- * Orange Management
+ * Karaka
  *
  * PHP Version 8.0
  *
@@ -8,7 +8,7 @@
  * @copyright Dennis Eichhorn
  * @license   OMS License 1.0
  * @version   1.0.0
- * @link      https://orange-management.org
+ * @link      https://karaka.app
  */
 declare(strict_types=1);
 
@@ -50,7 +50,7 @@ final class HeadTest extends \PHPUnit\Framework\TestCase
         self::assertEquals('', $this->head->renderScript());
         self::assertEquals('', $this->head->renderAssets());
         self::assertEquals('', $this->head->renderAssetsLate());
-        self::assertEquals('<meta name="generator" content="Orange Management">', $this->head->render());
+        self::assertEquals('<meta name="generator" content="Karaka">', $this->head->render());
     }
 
     /**
@@ -111,7 +111,7 @@ final class HeadTest extends \PHPUnit\Framework\TestCase
         $this->head->setScript('key', 'console.log("msg");');
 
         self::assertEquals(
-            '<meta name="generator" content="Orange Management">'
+            '<meta name="generator" content="Karaka">'
             . '<link rel="stylesheet" type="text/css" href="/path/styles.css">'
             . '<script src="/path/logic.js"></script>'
             . '<style>#test .class { color: #000; }</style>'
