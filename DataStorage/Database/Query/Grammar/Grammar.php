@@ -30,7 +30,7 @@ use phpOMS\DataStorage\Database\Query\Where;
  * @link    https://karaka.app
  * @since   1.0.0
  *
- * @todo Orange-Management/phpOMS#33
+ * @todo Karaka/phpOMS#33
  *  Implement missing grammar & builder functions
  *  Missing elements are e.g. sum, merge etc.
  */

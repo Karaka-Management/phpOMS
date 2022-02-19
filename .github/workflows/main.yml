@@ -34,7 +34,7 @@ jobs:
         if: steps.git-check.outputs.modified == 'true'
         run: |
           git config --global user.name 'Formatter Bot'
-          git config --global user.email 'formatter.bot@orange-management.email'
+          git config --global user.email 'formatter.bot@karaka.app'
           git remote set-url origin https://x-access-token:${{ secrets.GITHUB_TOKEN }}@github.com/${{ github.repository }}
           git commit -am "Automated formatting changes"
           git push
@@ -84,14 +84,14 @@ jobs:
       with:
           fetch-depth: 1
           ref: develop
-          repository: Orange-Management/Build
+          repository: Karaka/Build
           path: Build
     - name: Checkout Resource Repository
       uses: actions/checkout@master
       with:
           fetch-depth: 1
           ref: develop
-          repository: Orange-Management/Resources
+          repository: Karaka/Resources
           path: Resources
     - name: Setup PHP, with composer and extensions
       uses: shivammathur/setup-php@master
@@ -135,7 +135,7 @@ jobs:
       with:
           fetch-depth: 1
           ref: develop
-          repository: Orange-Management/Build
+          repository: Karaka/Build
           path: Build
     - name: Setup PHP, with composer and extensions
       uses: shivammathur/setup-php@master
@@ -177,7 +177,7 @@ jobs:
       with:
           fetch-depth: 1
           ref: develop
-          repository: Orange-Management/Build
+          repository: Karaka/Build
           path: Build
     - name: Setup PHP, with composer and extensions
       uses: shivammathur/setup-php@master
@@ -216,7 +216,7 @@ jobs:
       with:
           fetch-depth: 1
           ref: develop
-          repository: Orange-Management/Build
+          repository: Karaka/Build
           path: Build
     - name: Setup PHP, with composer and extensions
       uses: shivammathur/setup-php@master

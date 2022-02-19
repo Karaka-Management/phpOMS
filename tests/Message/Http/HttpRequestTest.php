@@ -383,7 +383,7 @@ final class HttpRequestTest extends \PHPUnit\Framework\TestCase
      */
     public function testRestRequest() : void
     {
-        $request = new HttpRequest(new HttpUri('https://raw.githubusercontent.com/Orange-Management/Orange-Management/develop/LICENSE.txt'));
+        $request = new HttpRequest(new HttpUri('https://raw.githubusercontent.com/Karaka-Management/Karaka/develop/LICENSE.txt'));
         $request->setMethod(RequestMethod::GET);
 
         self::assertEquals(

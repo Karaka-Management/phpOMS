@@ -45,7 +45,7 @@ For more detailed information please checkout the [Installation Guide](https://k
 
 #### Developer
 
-https://github.comkaraka-management/Developer-Guide/blob/develop/general/setup.md
+https://github.com/karaka-management/Developer-Guide/blob/develop/general/setup.md
 
 ## Philosophy
 

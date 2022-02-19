@@ -845,7 +845,7 @@ class Builder extends BuilderAbstract
     public function count(string $table = '*') : self
     {
         /**
-         * @todo Orange-Management/phpOMS#??? [p:low] [t:optimization] [d:medium]
+         * @todo Karaka/phpOMS#??? [p:low] [t:optimization] [d:medium]
          *  Don't do this as a string, create a new object $this->select(new Count($table)).
          *  The parser should be able to handle this much better
          */
