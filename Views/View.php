@@ -355,4 +355,9 @@ class View extends ViewAbstract
     {
         return $this->l11nManager->getDateTime($this->l11n, $datetime, $format);
     }
+
+    public function renderUserName(string $format, array $names) : string
+    {
+        return \trim(\preg_replace('/\s+/', ' ', \sprintf($format, ...$names)));;
+    }
 }

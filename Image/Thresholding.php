@@ -54,12 +54,8 @@ final class Thresholding
         $out = \imagecreate($dim[0], $dim[1]);
 
         $intImg = [[]];
-
-        $s = (int) $dim[0] / 96; // can be changed 8
-        $t = 30; // can be changed 15
-
         for ($i = 0; $i < $dim[0]; ++$i) {
-            $sum = 0;
+            $sum = 0.0;
 
             for ($j = 0; $j < $dim[1]; ++$j) {
                 $rgb = \imagecolorat($im, $i, $j);
@@ -69,16 +65,19 @@ final class Thresholding
             }
         }
 
+        $s = (int) ($dim[0] / 96.0); // can be changed 8
+        $t = 30; // can be changed 15
+
         $black = \imagecolorallocate($out, 0, 0, 0);
         $white = \imagecolorallocate($out, 255, 255, 255);
 
         for ($i = 0; $i < $dim[0]; ++$i) {
             for ($j = 0; $j < $dim[1]; ++$j) {
-                $x1 = \max(1, (int) ($i - $s / 2));
-                $x2 = \min((int) ($i + $s / 2), $dim[0] - 1);
+                $x1 = \max(1, (int) ($i - $s / 2.0));
+                $x2 = \min((int) ($i + $s / 2.0), $dim[0] - 1);
 
-                $y1 = \max(1, (int) ($j - $s / 2));
-                $y2 = \min((int) ($j + $s / 2), $dim[1] - 1);
+                $y1 = \max(1, (int) ($j - $s / 2.0));
+                $y2 = \min((int) ($j + $s / 2.0), $dim[1] - 1);
 
                 $count = ($x2 - $x1) * ($y2 - $y1);
                 $sum   = $intImg[$x2][$y2] - $intImg[$x2][$y1 - 1] - $intImg[$x1 - 1][$y2] + $intImg[$x1 - 1][$y1 - 1];
@@ -86,7 +85,7 @@ final class Thresholding
                 $rgb        = \imagecolorat($im, $i, $j);
                 $brightness = ImageUtils::lightness($rgb);
 
-                $color = $brightness * $count <= ($sum * (100 - $t) / 100) ? $black : $white;
+                $color = $brightness * $count <= ($sum * (100.0 - $t) / 100.0) ? $black : $white;
 
                 \imagesetpixel($out, $i, $j, $color);
             }

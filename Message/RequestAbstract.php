@@ -289,4 +289,9 @@ abstract class RequestAbstract implements MessageInterface
     {
         return $this->files;
     }
+
+    public function addFile(array $file) : void
+    {
+        $this->files[] = $file;
+    }
 }

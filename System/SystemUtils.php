@@ -146,4 +146,62 @@ final class SystemUtils
 
         return 'localhost.localdomain';
     }
+
+    public static function runProc(string $executable, string $cmd) : array
+    {
+        if (\strtolower((string) \substr(\PHP_OS, 0, 3)) === 'win') {
+            $cmd = 'cd ' . \escapeshellarg(\dirname($executable))
+                . ' && ' . \basename($executable)
+                . ' '
+                . $cmd;
+        } else {
+            $cmd = \escapeshellarg($executable)
+                . ' '
+                . $cmd;
+        }
+
+        $pipes = [];
+        $desc  = [
+            1 => ['pipe', 'w'],
+            2 => ['pipe', 'w'],
+        ];
+
+        $resource = \proc_open($cmd, $desc, $pipes, null, null);
+
+        if ($resource === false) {
+            throw new \Exception();
+        }
+
+        $stdout = \stream_get_contents($pipes[1]);
+        $stderr = \stream_get_contents($pipes[2]);
+
+        foreach ($pipes as $pipe) {
+            \fclose($pipe);
+        }
+
+        $status = \proc_close($resource);
+
+        if ($status == -1) {
+            throw new \Exception((string) $stderr);
+        }
+
+        $lines = \trim($stdout === false ? '' : $stdout);
+
+        $lineArray = \preg_split('/\r\n|\n|\r/', $lines);
+        $lines     = [];
+
+        if ($lineArray === false) {
+            return $lines;
+        }
+
+        foreach ($lineArray as $line) {
+            $temp = \preg_replace('/\s+/', ' ', \trim($line, ' '));
+
+            if (!empty($temp)) {
+                $lines[] = $temp;
+            }
+        }
+
+        return $lines;
+    }
 }

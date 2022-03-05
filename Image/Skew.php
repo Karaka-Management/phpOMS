@@ -65,7 +65,7 @@ final class Skew
 
         $avg /= $start[1] - $end[1];
 
-        $dimImMatrix = [$end[0] - $start[0], $end[1] - $start[1]];
+        $dimImMatrix = [\count($imMatrix), \count($imMatrix[0])];
         $bestScore = 0;
         $bestDegree = 0;
 
@@ -77,7 +77,7 @@ final class Skew
             $rotated = self::rotatePixelMatrix($imMatrix, $dimImMatrix, $i);
             $hist = [];
 
-            for ($j = 0; $j < $dimImMatrix[1]; ++$j) {
+            for ($j = 0; $j < $dimImMatrix[0]; ++$j) {
                 $hist[$j] = \array_sum($rotated[$j]);
 
                 // cleanup for score function
@@ -94,8 +94,6 @@ final class Skew
         }
 
         $im = \imagerotate($im, $bestDegree, 1);
-
-        // https://stackoverflow.com/questions/29981083/rotating-a-bit-matrix
 
         if (\strripos($outPath, 'png') !== false) {
             \imagepng($im, $outPath);
@@ -118,13 +116,13 @@ final class Skew
         $rotated = [[]];
 
         for ($i = 0; $i < $dim[0]; ++$i) {
-            $cY = $i - $dim[1] / 2.0; // center
+            $cY = $i - $dim[0] / 2.0; // center
 
             for ($j = 0; $j < $dim[1]; ++$j) {
-                $cX = $j - $dim[0] / 2.0; // center
+                $cX = $j - $dim[1] / 2.0; // center
 
-                $x = $cos * $cX + $sin * $cY + $dim[0] / 2.0;
-                $y = -$sin * $cX + $cos * $cY + $dim[1] / 2.0;
+                $x = $cos * $cX + $sin * $cY + $dim[1] / 2.0;
+                $y = -$sin * $cX + $cos * $cY + $dim[0] / 2.0;
 
                 $rotated[$i][$j] = self::getNearestValue($pixel, $dim, $x, $y);
             }
@@ -135,11 +133,11 @@ final class Skew
 
     private static function getNearestValue(array $pixel, array $dim, float $x, float $y) : int
     {
-        $xLow = \min((int) $x, $dim[0] - 1);
-        $xHigh = \min((int) \ceil($x), $dim[0] - 1);
+        $xLow = \min((int) $x, $dim[1] - 1);
+        $xHigh = \min((int) \ceil($x), $dim[1] - 1);
 
-        $yLow = \min((int) $y, $dim[1] - 1);
-        $yHigh = \min((int) \ceil($y), $dim[1] - 1);
+        $yLow = \min((int) $y, $dim[0] - 1);
+        $yHigh = \min((int) \ceil($y), $dim[0] - 1);
 
         $points = [
             [$xLow, $yLow],

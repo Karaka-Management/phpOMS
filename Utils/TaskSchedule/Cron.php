@@ -30,10 +30,11 @@ class Cron extends SchedulerAbstract
      */
     public function create(TaskAbstract $task) : void
     {
-        $this->run('-l > ' . __DIR__ . '/tmpcron.tmp');
-        \file_put_contents(__DIR__ . '/tmpcron.tmp', $task->__toString() . "\n", \FILE_APPEND);
-        $this->run(__DIR__ . '/tmpcron.tmp');
-        \unlink(__DIR__ . '/tmpcron.tmp');
+        $path = \tempnam(\sys_get_temp_dir(), 'cron_');
+        $this->run('-l > ' . $path);
+        \file_put_contents($path, $task->__toString() . "\n", \FILE_APPEND);
+        $this->run($path);
+        \unlink($path);
     }
 
     /**
@@ -41,10 +42,11 @@ class Cron extends SchedulerAbstract
      */
     public function update(TaskAbstract $task) : void
     {
-        $this->run('-l > ' . __DIR__ . '/tmpcron.tmp');
+        $path = \tempnam(\sys_get_temp_dir(), 'cron_');
+        $this->run('-l > ' . $path);
 
         $new = '';
-        $fp  = \fopen(__DIR__ . '/tmpcron.tmp', 'r+');
+        $fp  = \fopen($path, 'r+');
 
         if ($fp) {
             $line = \fgets($fp);
@@ -59,11 +61,11 @@ class Cron extends SchedulerAbstract
             }
 
             \fclose($fp);
-            \file_put_contents(__DIR__ . '/tmpcron.tmp', $new);
+            \file_put_contents($path, $new);
         }
 
-        $this->run(__DIR__ . '/tmpcron.tmp');
-        \unlink(__DIR__ . '/tmpcron.tmp');
+        $this->run($path);
+        \unlink($path);
     }
 
     /**
@@ -79,10 +81,11 @@ class Cron extends SchedulerAbstract
      */
     public function deleteByName(string $name) : void
     {
-        $this->run('-l > ' . __DIR__ . '/tmpcron.tmp');
+        $path = \tempnam(\sys_get_temp_dir(), 'cron_');
+        $this->run('-l > ' . $path);
 
         $new = '';
-        $fp  = \fopen(__DIR__ . '/tmpcron.tmp', 'r+');
+        $fp  = \fopen($path, 'r+');
 
         if ($fp) {
             $line = \fgets($fp);
@@ -97,11 +100,11 @@ class Cron extends SchedulerAbstract
             }
 
             \fclose($fp);
-            \file_put_contents(__DIR__ . '/tmpcron.tmp', $new);
+            \file_put_contents($path, $new);
         }
 
-        $this->run(__DIR__ . '/tmpcron.tmp');
-        \unlink(__DIR__ . '/tmpcron.tmp');
+        $this->run($path);
+        \unlink($path);
     }
 
     /**
@@ -109,10 +112,11 @@ class Cron extends SchedulerAbstract
      */
     public function getAll() : array
     {
-        $this->run('-l > ' . __DIR__ . '/tmpcron.tmp');
+        $path = \tempnam(\sys_get_temp_dir(), 'cron_');
+        $this->run('-l > ' . $path);
 
         $jobs = [];
-        $fp   = \fopen(__DIR__ . '/tmpcron.tmp', 'r+');
+        $fp   = \fopen($path, 'r+');
 
         if ($fp) {
             $line = \fgets($fp);
@@ -136,8 +140,8 @@ class Cron extends SchedulerAbstract
             \fclose($fp);
         }
 
-        $this->run(__DIR__ . '/tmpcron.tmp');
-        \unlink(__DIR__ . '/tmpcron.tmp');
+        $this->run($path);
+        \unlink($path);
 
         return $jobs;
     }
@@ -147,10 +151,11 @@ class Cron extends SchedulerAbstract
      */
     public function getAllByName(string $name, bool $exact = true) : array
     {
-        $this->run('-l > ' . __DIR__ . '/tmpcron.tmp');
+        $path = \tempnam(\sys_get_temp_dir(), 'cron_');
+        $this->run('-l > ' . $path);
 
         $jobs = [];
-        $fp   = \fopen(__DIR__ . '/tmpcron.tmp', 'r+');
+        $fp   = \fopen($path, 'r+');
 
         if ($fp) {
             $line = \fgets($fp);
@@ -168,8 +173,8 @@ class Cron extends SchedulerAbstract
             \fclose($fp);
         }
 
-        $this->run(__DIR__ . '/tmpcron.tmp');
-        \unlink(__DIR__ . '/tmpcron.tmp');
+        $this->run($path);
+        \unlink($path);
 
         return $jobs;
     }

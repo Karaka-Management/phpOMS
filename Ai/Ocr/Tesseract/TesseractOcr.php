@@ -15,6 +15,7 @@ declare(strict_types=1);
 namespace phpOMS\Ai\Ocr\Tesseract;
 
 use phpOMS\System\File\PathException;
+use phpOMS\System\SystemUtils;
 
 /**
  * Tesseract api
@@ -55,87 +56,6 @@ final class TesseractOcr
     }
 
     /**
-     * Run git command.
-     *
-     * @param string $cmd Command to run
-     *
-     * @return string[]
-     *
-     * @throws \Exception
-     *
-     * @since 1.0.0
-     */
-    private function run(string $cmd) : array
-    {
-        if (\strtolower((string) \substr(\PHP_OS, 0, 3)) === 'win') {
-            $cmd = 'cd ' . \escapeshellarg(\dirname(self::$bin))
-                . ' && ' . \basename(self::$bin)
-                . ' '
-                . $cmd;
-        } else {
-            $cmd = \escapeshellarg(self::$bin)
-                . ' '
-                . $cmd;
-        }
-
-        $pipes = [];
-        $desc  = [
-            1 => ['pipe', 'w'],
-            2 => ['pipe', 'w'],
-        ];
-
-        $resource = \proc_open($cmd, $desc, $pipes, null, null);
-
-        if ($resource === false) {
-            throw new \Exception();
-        }
-
-        $stdout = \stream_get_contents($pipes[1]);
-        $stderr = \stream_get_contents($pipes[2]);
-
-        foreach ($pipes as $pipe) {
-            \fclose($pipe);
-        }
-
-        $status = \proc_close($resource);
-
-        if ($status == -1) {
-            throw new \Exception((string) $stderr);
-        }
-
-        return $this->parseLines(\trim($stdout === false ? '' : $stdout));
-    }
-
-    /**
-     * Parse lines.
-     *
-     * @param string $lines Result of git command
-     *
-     * @return string[]
-     *
-     * @since 1.0.0
-     */
-    private function parseLines(string $lines) : array
-    {
-        $lineArray = \preg_split('/\r\n|\n|\r/', $lines);
-        $lines     = [];
-
-        if ($lineArray === false) {
-            return $lines;
-        }
-
-        foreach ($lineArray as $line) {
-            $temp = \preg_replace('/\s+/', ' ', \trim($line, ' '));
-
-            if (!empty($temp)) {
-                $lines[] = $temp;
-            }
-        }
-
-        return $lines;
-    }
-
-    /**
      * Prase image
      *
      * @param string $image     Image path
@@ -167,7 +87,8 @@ final class TesseractOcr
      */
     public function parseImage(string $image, array $languages = ['eng'], int $psm = 3, int $oem = 3) : string
     {
-        $this->run(
+        SystemUtils::runProc(
+            self::$bin,
             $image . ' '
             . ($temp = \tempnam(\sys_get_temp_dir(), 'ocr_'))
             . ' --psm ' . $psm

@@ -13,6 +13,8 @@ With Karaka you have one partner who can provide all the tools and software solu
   - [Installation](#installation)
     - [Requirements](#requirements)
     - [Setup](#setup)
+      - [End-User](#end-user)
+      - [Developer](#developer)
   - [Philosophy](#philosophy)
   - [Development Status](#development-status)
   - [Features](#features)
@@ -86,6 +88,7 @@ Features this framework provides are:
 * Utils (e.g. barcodes, comporession, unit converter, jobqueue, git, etc.)
 * Value validation
 * View management
+* Image processing
 * Stdlib (e.g. graph, map, queue, enum, etc.)
 
 ## Unit Tests

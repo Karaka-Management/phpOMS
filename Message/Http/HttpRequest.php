@@ -76,12 +76,7 @@ final class HttpRequest extends RequestAbstract
     {
         $this->header       = new HttpHeader();
         $this->header->l11n = $l11n ?? new Localization();
-
-        if ($uri !== null) {
-            $this->uri = $uri;
-        }
-
-        $this->init();
+        $this->uri = $uri ?? new HttpUri('');
     }
 
     /**
@@ -93,13 +88,11 @@ final class HttpRequest extends RequestAbstract
      *
      * @since 1.0.0
      */
-    private function init() : void
+    public function initRequest() : void
     {
-        if (!isset($this->uri)) {
-            $this->initCurrentRequest();
-            $this->lock();
-            self::cleanupGlobals();
-        }
+        $this->initCurrentRequest();
+        $this->lock();
+        self::cleanupGlobals();
 
         $this->data = \array_change_key_case($this->data, \CASE_LOWER);
     }
@@ -394,7 +387,10 @@ final class HttpRequest extends RequestAbstract
      */
     public static function createFromSuperglobals() : self
     {
-        return new self();
+        $request =  new self();
+        $request->initRequest();
+
+        return $request;
     }
 
     /**

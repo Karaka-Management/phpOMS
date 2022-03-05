@@ -198,11 +198,13 @@ final class UriFactory
     private static function unique(string $url) : string
     {
         // handle edge cases / normalization
+        /*
         $url = \str_replace(
                 ['=%', '=#', '=?'],
                 ['=%25', '=%23', '=%3F'],
                 $url
             );
+        */
 
         if (\stripos($url, '?') === false && ($pos = \stripos($url, '&')) !== false) {
             $url = \substr_replace($url, '?', $pos, 1);
