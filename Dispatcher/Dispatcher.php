@@ -65,6 +65,7 @@ final class Dispatcher implements DispatcherInterface
     public function dispatch(array | string | \Closure $controller, ...$data) : array
     {
         $views = [];
+        $data = $data !== null ? \array_values($data) : null;
 
         if (\is_array($controller) && isset($controller['dest'])) {
             if (!empty($controller['data'])) {

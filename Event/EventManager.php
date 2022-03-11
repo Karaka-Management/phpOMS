@@ -207,6 +207,12 @@ final class EventManager implements \Countable
             }
         }
 
+        if (!\is_array($data)) {
+            $data = [$data];
+        }
+
+        $data[':triggerGroup'] ??= $group;
+
         $triggerValue = false;
         foreach ($groups as $groupName => $ids) {
             foreach ($ids as $id) {
@@ -244,10 +250,18 @@ final class EventManager implements \Countable
 
         foreach ($this->callbacks[$group]['callbacks'] as $func) {
             if (\is_array($data)) {
-                $this->dispatcher->dispatch($func, ...$data);
+                $data[':triggerGroup'] ??= $group;
+                $data[':triggerId']    = $id;
             } else {
-                $this->dispatcher->dispatch($func, $data);
+                $data = [
+                    $data,
+                ];
+
+                $data[':triggerGroup'] ??= $group;
+                $data[':triggerId']    = $id;
             }
+
+            $this->dispatcher->dispatch($func, ...$data);
         }
 
         if ($this->callbacks[$group]['remove']) {
