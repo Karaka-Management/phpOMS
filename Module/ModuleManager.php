@@ -795,13 +795,13 @@ final class ModuleManager
     /**
      * Initialize all modules for a request.
      *
-     * @param HttpRequest $request Request
+     * @param RequestAbstract $request Request
      *
      * @return void
      *
      * @since 1.0.0
      */
-    public function initRequestModules(HttpRequest $request) : void
+    public function initRequestModules(RequestAbstract $request) : void
     {
         $toInit = $this->getRoutedModules($request);
         foreach ($toInit as $module) {
@@ -812,13 +812,13 @@ final class ModuleManager
     /**
      * Get modules that run on this page.
      *
-     * @param HttpRequest $request Request
+     * @param RequestAbstract $request Request
      *
      * @return string[]
      *
      * @since 1.0.0
      */
-    public function getRoutedModules(HttpRequest $request) : array
+    public function getRoutedModules(RequestAbstract $request) : array
     {
         $files   = $this->getUriLoad($request);
         $modules = [];
