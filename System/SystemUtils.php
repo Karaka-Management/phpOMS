@@ -147,17 +147,25 @@ final class SystemUtils
         return 'localhost.localdomain';
     }
 
-    public static function runProc(string $executable, string $cmd) : array
+    public static function runProc(string $executable, string $cmd, bool $async = false) : array
     {
         if (\strtolower((string) \substr(\PHP_OS, 0, 3)) === 'win') {
             $cmd = 'cd ' . \escapeshellarg(\dirname($executable))
                 . ' && ' . \basename($executable)
                 . ' '
                 . $cmd;
+
+            if ($async) {
+                $cmd .= ' > nul 2>&1';
+            }
         } else {
             $cmd = \escapeshellarg($executable)
                 . ' '
                 . $cmd;
+
+            if ($async) {
+                $cmd .= ' > /dev/null 2>&1';
+            }
         }
 
         $pipes = [];
