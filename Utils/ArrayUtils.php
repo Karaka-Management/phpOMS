@@ -269,6 +269,10 @@ final class ArrayUtils
      */
     public static function getArg(string $id, array $args) : ?string
     {
+        if (\is_numeric($id)) {
+            return $args[(int) $id] ?? null;
+        }
+
         if (($key = \array_search($id, $args)) === false || $key === \count($args) - 1) {
             return null;
         }
