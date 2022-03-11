@@ -14,8 +14,6 @@ declare(strict_types=1);
 
 namespace phpOMS\Uri;
 
-use phpOMS\Utils\StringUtils;
-
 /**
  * Console argument class.
  *
@@ -161,48 +159,12 @@ final class Argument implements UriInterface
     {
         $this->uri = $uri;
 
-        $this->setInternalPath($uri);
-        $this->setQuery($uri);
-        $this->setInternalFragment($uri);
-    }
+        $uriParts = \explode(' ', $uri);
 
-    /**
-     * Set path from uri.
-     *
-     * @param string $uri Uri to parse
-     *
-     * @return void
-     *
-     * @since 1.0.0
-     */
-    private function setInternalPath(string $uri) : void
-    {
-        $start = \stripos($uri, ':');
-
-        if ($start === false) {
-            return;
-        }
-
-        $end = \stripos($uri, ' ', $start + 1);
-
-        if ($end === false) {
-            $end = \strlen($uri); // @codeCoverageIgnore
-        }
-
-        $path       = $start < 8 ? \substr($uri, $start + 1, $end - $start - 1) : $uri;
-        $this->path = $path === false ? '' : \ltrim($path, ':');
-
-        if (StringUtils::endsWith($this->path, '.php')) {
-            $path = \substr($this->path, 0, -4);
-
-            if ($path === false) {
-                throw new \Exception(); // @codeCoverageIgnore
-            }
-
-            $this->path = $path;
-        }
-
+        $this->path = \array_shift($uriParts);
         $this->pathElements = \explode('/', \ltrim($this->path, '/'));
+
+        $this->setQuery(\implode(' ', $uriParts));
     }
 
     /**
@@ -214,20 +176,15 @@ final class Argument implements UriInterface
      *
      * @since 1.0.0
      */
-    private function setQuery(string $uri) : void
+    public function setQuery(string $uri) : void
     {
-        $result = \preg_match_all('/\?([a-zA-Z0-9]*)(=)([a-zA-Z0-9]*)/', $uri, $matches);
-
-        if ($result === false || empty($matches)) {
+        $result = \explode(' ', $uri);
+        if ($result === false) {
             return;
         }
 
-        foreach ($matches[1] as $key => $value) {
-            $this->query[$value] = $matches[3][$key];
-            $this->queryString  .= ' ?' . $value . '=' . $matches[3][$key];
-        }
-
-        $this->queryString = \ltrim($this->queryString);
+        $this->query       = $result;
+        $this->queryString = $uri;
     }
 
     /**
