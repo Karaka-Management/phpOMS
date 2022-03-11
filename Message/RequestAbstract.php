@@ -270,6 +270,8 @@ abstract class RequestAbstract implements MessageInterface
      */
     abstract public function getOrigin() : string;
 
+    abstract public function getRouteVerb() : int;
+
     /**
      * {@inheritdoc}
      */
