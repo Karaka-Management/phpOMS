@@ -25,6 +25,14 @@ namespace phpOMS\Math\Functions;
 final class Functions
 {
     /**
+     * Epsilon for float comparison.
+     *
+     * @var float
+     * @since 1.0.0
+     */
+    public const EPSILON = 4.88e-04;
+
+    /**
      * Constructor.
      *
      * @since 1.0.0
@@ -268,7 +276,7 @@ final class Functions
             $sum  += $term / (2 * $i + 1);
 
             ++$i;
-        } while ($sum !== 0.0 && \abs($term / $sum) > 0.0000001);
+        } while ($sum !== 0.0 && \abs($term / $sum) > self::EPSILON);
 
         return 2 / \sqrt(\M_PI) * $sum;
     }
@@ -311,7 +319,7 @@ final class Functions
             $n += 0.5;
             $q1 = $q2;
             $q2 = $b / $d;
-        } while (\abs($q1 - $q2) / $q2 > 0.0000001);
+        } while (\abs($q1 - $q2) / $q2 > self::EPSILON);
 
         return 1 / \sqrt(\M_PI) * \exp(-$value * $value) * $q2;
     }

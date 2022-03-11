@@ -30,6 +30,14 @@ use phpOMS\Math\Matrix\Exception\InvalidDimensionException;
 class Matrix implements \ArrayAccess, \Iterator
 {
     /**
+     * Epsilon for float comparison.
+     *
+     * @var float
+     * @since 1.0.0
+     */
+    public const EPSILON = 4.88e-04;
+
+    /**
      * Matrix.
      *
      * @var array<int, array<int, int|float>>
@@ -326,7 +334,7 @@ class Matrix implements \ArrayAccess, \Iterator
 
         for ($i = 0; $i < $nDim; ++$i) {
             for ($j = 0; $j < $mDim; ++$j) {
-                if (!$selected[$j] && \abs($matrix[$j][$i]) > 0.0001) {
+                if (!$selected[$j] && \abs($matrix[$j][$i]) > self::EPSILON) {
                     break;
                 }
             }
@@ -342,7 +350,7 @@ class Matrix implements \ArrayAccess, \Iterator
             }
 
             for ($k = 0; $k < $mDim; ++$k) {
-                if ($k !== $j && \abs($matrix[$k][$i]) > 0.0001) {
+                if ($k !== $j && \abs($matrix[$k][$i]) > self::EPSILON) {
                     for ($p = $i + 1; $p < $nDim; ++$p) {
                         $matrix[$k][$p] -= $matrix[$j][$p] * $matrix[$k][$i];
                     }

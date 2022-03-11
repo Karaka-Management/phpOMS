@@ -31,6 +31,14 @@ use phpOMS\Math\Geometry\Shape\D2\Triangle;
 final class EigenvalueDecomposition
 {
     /**
+     * Epsilon for float comparison.
+     *
+     * @var float
+     * @since 1.0.0
+     */
+    public const EPSILON = 4.88e-04;
+
+    /**
      * Dimension m
      *
      * @var int
@@ -279,14 +287,13 @@ final class EigenvalueDecomposition
 
         $f    = 0.0;
         $tst1 = 0.0;
-        $eps  = 0.00001;
 
         for ($l = 0; $l < $this->m; ++$l) {
             $tst1 = \max($tst1, \abs($this->D[$l]) + \abs($this->E[$l]));
             $m    = $l;
 
             while ($m < $this->m) {
-                if (\abs($this->E[$m]) <= $eps * $tst1) {
+                if (\abs($this->E[$m]) <= self::EPSILON * $tst1) {
                     break;
                 }
 
@@ -344,7 +351,7 @@ final class EigenvalueDecomposition
                     $p           = -$s * $s2 * $c3 * $el1 * $this->E[$l] / $dl1;
                     $this->E[$l] = $s * $p;
                     $this->D[$l] = $c * $p;
-                } while (\abs($this->E[$l]) > $eps * $tst1);
+                } while (\abs($this->E[$l]) > self::EPSILON * $tst1);
             }
 
             $this->D[$l] += $f;
@@ -506,7 +513,6 @@ final class EigenvalueDecomposition
         $n       = $nn - 1;
         $low     = 0;
         $high    = $nn - 1;
-        $eps     = 0.00001;
         $exshift = 0.0;
         $p       = 0;
         $q       = 0;
@@ -535,7 +541,7 @@ final class EigenvalueDecomposition
                     $s = $norm;
                 }
 
-                if (\abs($this->H[$l][$l - 1]) < $eps * $s) {
+                if (\abs($this->H[$l][$l - 1]) < self::EPSILON * $s) {
                     break;
                 }
 
@@ -656,7 +662,7 @@ final class EigenvalueDecomposition
                     $r /= $s;
 
                     if ($m === $l
-                        || \abs($this->H[$m][$m - 1]) * (\abs($q) + \abs($r)) < $eps * (\abs($p) * (\abs($this->H[$m - 1][$m - 1]) + \abs($z) + \abs($this->H[$m + 1][$m + 1])))
+                        || \abs($this->H[$m][$m - 1]) * (\abs($q) + \abs($r)) < self::EPSILON * (\abs($p) * (\abs($this->H[$m - 1][$m - 1]) + \abs($z) + \abs($this->H[$m + 1][$m + 1])))
                     ) {
                         break;
                     }
@@ -774,7 +780,7 @@ final class EigenvalueDecomposition
                         $l = $i;
 
                         if ($this->E[$i] == 0) {
-                            $this->H[$i][$n] = $w != 0 ? -$r / $w : -$r / ($eps * $norm);
+                            $this->H[$i][$n] = $w != 0 ? -$r / $w : -$r / (self::EPSILON * $norm);
                         } else {
                             $x                   = $this->H[$i][$i + 1];
                             $y                   = $this->H[$i + 1][$i];
@@ -785,7 +791,7 @@ final class EigenvalueDecomposition
                         }
 
                         $t = \abs($this->H[$i][$n]);
-                        if (($eps * $t) * $t > 1) {
+                        if ((self::EPSILON * $t) * $t > 1) {
                             for ($j = $i; $j <= $n; ++$j) {
                                 $this->H[$j][$n] = $this->H[$j][$n] / $t;
                             }
@@ -836,7 +842,7 @@ final class EigenvalueDecomposition
                             $vi = ($this->D[$i] - $p) * 2.0 * $q;
 
                             if ($vr == 0 & $vi == 0) {
-                                $vr = $eps * $norm * (\abs($w) + \abs($q) + \abs($x) + \abs($y) + \abs($z));
+                                $vr = self::EPSILON * $norm * (\abs($w) + \abs($q) + \abs($x) + \abs($y) + \abs($z));
                             }
 
                             $this->cdiv($x * $r - $z * $ra + $q * $sa, $x * $s - $z * $sa - $q * $ra, $vr, $vi);
@@ -855,7 +861,7 @@ final class EigenvalueDecomposition
                         }
 
                         $t = \max(\abs($this->H[$i][$n - 1]), \abs($this->H[$i][$n]));
-                        if (($eps * $t) * $t > 1) {
+                        if ((self::EPSILON * $t) * $t > 1) {
                             for ($j = $i; $j <= $n; ++$j) {
                                 $this->H[$j][$n - 1] = $this->H[$j][$n - 1] / $t;
                                 $this->H[$j][$n]     = $this->H[$j][$n] / $t;

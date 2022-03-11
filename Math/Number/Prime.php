@@ -25,6 +25,14 @@ namespace phpOMS\Math\Number;
 final class Prime
 {
     /**
+     * Epsilon for float comparison.
+     *
+     * @var float
+     * @since 1.0.0
+     */
+    public const EPSILON = 4.88e-04;
+
+    /**
      * Constructor.
      *
      * @since 1.0.0
@@ -47,7 +55,7 @@ final class Prime
     {
         $mersenne = \log($n + 1, 2);
 
-        return $mersenne - (int) $mersenne < 0.00001;
+        return $mersenne - (int) $mersenne < self::EPSILON;
     }
 
     /**

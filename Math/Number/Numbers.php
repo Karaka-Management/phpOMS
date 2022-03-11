@@ -24,6 +24,10 @@ namespace phpOMS\Math\Number;
  */
 final class Numbers
 {
+    public const SFLOAT = 1.175494351E-38;
+
+    public const EPSILON = 4.88e-04;
+
     /**
      * Constructor.
      *
@@ -94,7 +98,7 @@ final class Numbers
      */
     public static function isSquare(int $n) : bool
     {
-        return \abs(((int) \sqrt($n)) * ((int) \sqrt($n)) - $n) < 0.001;
+        return \abs(((int) \sqrt($n)) * ((int) \sqrt($n)) - $n) < self::EPSILON;
     }
 
     /**

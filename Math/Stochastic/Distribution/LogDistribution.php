@@ -26,6 +26,14 @@ use phpOMS\Math\Functions\Beta;
 final class LogDistribution
 {
     /**
+     * Epsilon for float comparison.
+     *
+     * @var float
+     * @since 1.0.0
+     */
+    public const EPSILON = 4.88e-04;
+
+    /**
      * Get probability mass function.
      *
      * @param float $p Value p
@@ -53,9 +61,9 @@ final class LogDistribution
     public static function getCdf(float $p, int $k) : float
     {
         // This is a workaround!
-        // Actually 0 should be used instead of 0.0001.
+        // Actually 0 should be used instead of self::EPSILON.
         // This is only used because the incomplete beta function doesn't work for p or q = 0
-        return 1 + Beta::incompleteBeta($p, $k + 1, 0.0001) / \log(1 - $p);
+        return 1 + Beta::incompleteBeta($p, $k + 1, self::EPSILON) / \log(1 - $p);
     }
 
     /**
