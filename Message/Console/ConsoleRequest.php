@@ -15,9 +15,12 @@ declare(strict_types=1);
 namespace phpOMS\Message\Console;
 
 use phpOMS\Localization\Localization;
+use phpOMS\Message\Http\RequestMethod;
 use phpOMS\Message\RequestAbstract;
+use phpOMS\Router\RouteVerb;
 use phpOMS\Uri\Argument;
 use phpOMS\Uri\UriInterface;
+use phpOMS\Utils\ArrayUtils;
 
 /**
  * Request class.
@@ -45,7 +48,7 @@ final class ConsoleRequest extends RequestAbstract
      * @var string
      * @since 1.0.0
      */
-    protected string $method;
+    protected string $method = RequestMethod::GET;
 
     /**
      * OS type.
@@ -73,6 +76,75 @@ final class ConsoleRequest extends RequestAbstract
     }
 
     /**
+     * Get data.
+     *
+     * @param string $key  Data key
+     * @param string $type Return type
+     *
+     * @return mixed
+     *
+     * @since 1.0.0
+     */
+    public function getData(string $key = null, string $type = null) : mixed
+    {
+        if ($key === null) {
+            return $this->data;
+        }
+
+        $key = '-' . \mb_strtolower($key);
+
+        if ($type === null) {
+            return ArrayUtils::getArg($key, $this->data);
+        }
+
+        switch ($type) {
+            case 'int':
+                return (int) ArrayUtils::getArg($key, $this->data);
+            case 'string':
+                return (string) ArrayUtils::getArg($key, $this->data);
+            case 'float':
+                return (float) ArrayUtils::getArg($key, $this->data);
+            case 'bool':
+                return (bool) ArrayUtils::getArg($key, $this->data);
+            default:
+                return ArrayUtils::getArg($key, $this->data);
+        }
+    }
+
+    /**
+     * Set request data.
+     *
+     * @param string $key       Data key
+     * @param mixed  $value     Value
+     * @param bool   $overwrite Overwrite data
+     *
+     * @return bool
+     *
+     * @since 1.0.0
+     */
+    public function setData(string $key, mixed $value, bool $overwrite = false) : bool
+    {
+        $key = '-' . \mb_strtolower($key);
+
+        $pos = -1;
+        if ($overwrite || ($pos = ArrayUtils::hasArg($key, $this->data)) !== -1) {
+            if ($pos === -1) {
+                $this->data[] = $key;
+                $this->data[] = $value;
+            } else {
+                $this->data[$pos]     = $key;
+                $this->data[$pos + 1] = $value;
+            }
+
+            $this->uri->setQuery(\implode(' ', $this->data));
+
+            return true;
+        }
+
+        return false;
+    }
+
+    /**
      * Init request.
      *
      * This is used in order to either initialize the current http request or a batch of GET requests
@@ -84,6 +156,7 @@ final class ConsoleRequest extends RequestAbstract
     private function init() : void
     {
         $this->header->l11n->setLanguage('en');
+        $this->data = $this->uri->getQueryArray();
     }
 
     /**
@@ -187,5 +260,28 @@ final class ConsoleRequest extends RequestAbstract
     public function getBody() : string
     {
         return '';
+    }
+
+    /**
+     * Get route verb.
+     *
+     * @return int
+     *
+     * @since 1.0.0
+     */
+    public function getRouteVerb() : int
+    {
+        switch ($this->getMethod()) {
+            case RequestMethod::GET:
+                return RouteVerb::GET;
+            case RequestMethod::PUT:
+                return RouteVerb::PUT;
+            case RequestMethod::POST:
+                return RouteVerb::SET;
+            case RequestMethod::DELETE:
+                return RouteVerb::DELETE;
+            default:
+                throw new \Exception();
+        }
     }
 }

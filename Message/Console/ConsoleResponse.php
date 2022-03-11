@@ -133,7 +133,7 @@ final class ConsoleResponse extends ResponseAbstract implements RenderableInterf
     {
         $render = '';
 
-        foreach ($this->response as $key => $response) {
+        foreach ($this->response as $response) {
             $render .= StringUtils::stringify($response);
         }
 
@@ -147,7 +147,7 @@ final class ConsoleResponse extends ResponseAbstract implements RenderableInterf
     {
         $result = [];
 
-        foreach ($this->response as $key => $response) {
+        foreach ($this->response as $response) {
             if ($response instanceof View) {
                 $result[] = $response->toArray();
             } elseif (\is_array($response) || \is_scalar($response)) {
