@@ -94,10 +94,42 @@ class PermissionAbstract implements \JsonSerializable
     /**
      * Permission.
      *
-     * @var int
+     * @var bool
      * @since 1.0.0
      */
-    protected int $permission = PermissionType::NONE;
+    protected bool $hasRead = false;
+
+    /**
+     * Permission.
+     *
+     * @var bool
+     * @since 1.0.0
+     */
+    protected bool $hasModify = false;
+
+    /**
+     * Permission.
+     *
+     * @var bool
+     * @since 1.0.0
+     */
+    protected bool $hasCreate = false;
+
+    /**
+     * Permission.
+     *
+     * @var bool
+     * @since 1.0.0
+     */
+    protected bool $hasDelete = false;
+
+    /**
+     * Permission.
+     *
+     * @var bool
+     * @since 1.0.0
+     */
+    protected bool $hasPermission = false;
 
     /**
      * Constructor.
@@ -123,14 +155,19 @@ class PermissionAbstract implements \JsonSerializable
         int $component = null,
         int $permission = PermissionType::NONE
     ) {
-        $this->unit       = $unit;
-        $this->app        = $app;
-        $this->module     = $module;
-        $this->from       = $from;
-        $this->type       = $type;
-        $this->element    = $element;
-        $this->component  = $component;
-        $this->permission = $permission;
+        $this->unit      = $unit;
+        $this->app       = $app;
+        $this->module    = $module;
+        $this->from      = $from;
+        $this->type      = $type;
+        $this->element   = $element;
+        $this->component = $component;
+
+        $this->hasRead       = ($permission & PermissionType::READ) === PermissionType::READ;
+        $this->hasCreate     = ($permission & PermissionType::CREATE) === PermissionType::CREATE;
+        $this->hasModify     = ($permission & PermissionType::MODIFY) === PermissionType::MODIFY;
+        $this->hasDelete     = ($permission & PermissionType::DELETE) === PermissionType::DELETE;
+        $this->hasPermission = ($permission & PermissionType::PERMISSION) === PermissionType::PERMISSION;
     }
 
     /**
@@ -336,7 +373,29 @@ class PermissionAbstract implements \JsonSerializable
      */
     public function getPermission() : int
     {
-        return $this->permission;
+        $permission = 0;
+
+        if ($this->hasRead) {
+            $permission |= PermissionType::READ;
+        }
+
+        if ($this->hasCreate) {
+            $permission |= PermissionType::CREATE;
+        }
+
+        if ($this->hasModify) {
+            $permission |= PermissionType::MODIFY;
+        }
+
+        if ($this->hasDelete) {
+            $permission |= PermissionType::DELETE;
+        }
+
+        if ($this->hasPermission) {
+            $permission |= PermissionType::PERMISSION;
+        }
+
+        return $permission;
     }
 
     /**
@@ -350,7 +409,11 @@ class PermissionAbstract implements \JsonSerializable
      */
     public function setPermission(int $permission = 0) : void
     {
-        $this->permission = $permission;
+        $this->hasRead       = ($permission & PermissionType::READ) === PermissionType::READ;
+        $this->hasCreate     = ($permission & PermissionType::CREATE) === PermissionType::CREATE;
+        $this->hasModify     = ($permission & PermissionType::MODIFY) === PermissionType::MODIFY;
+        $this->hasDelete     = ($permission & PermissionType::DELETE) === PermissionType::DELETE;
+        $this->hasPermission = ($permission & PermissionType::PERMISSION) === PermissionType::PERMISSION;
     }
 
     /**
@@ -364,7 +427,23 @@ class PermissionAbstract implements \JsonSerializable
      */
     public function addPermission(int $permission = 0) : void
     {
-        $this->permission |= $permission;
+        switch($permission) {
+            case PermissionType::READ:
+                $this->hasRead = true;
+                break;
+            case PermissionType::CREATE:
+                $this->hasCreate = true;
+                break;
+            case PermissionType::MODIFY:
+                $this->hasModify = true;
+                break;
+            case PermissionType::DELETE:
+                $this->hasDelete = true;
+                break;
+            case PermissionType::PERMISSION:
+                $this->hasPermission = true;
+                break;
+        };
     }
 
     /**
@@ -378,7 +457,7 @@ class PermissionAbstract implements \JsonSerializable
      */
     public function hasPermissionFlags(int $permission) : bool
     {
-        return ($this->permission & $permission) === $permission;
+        return ($this->getPermission() & $permission) === $permission;
     }
 
     /**
@@ -415,7 +494,7 @@ class PermissionAbstract implements \JsonSerializable
             && ($type === null || $this->type === null || $this->type === $type)
             && ($element === null || $this->element === null || $this->element === $element)
             && ($component === null || $this->component === null || $this->component === $component)
-            && ($this->permission & $permission) === $permission);
+            && ($this->getPermission() & $permission) === $permission);
     }
 
     /**
@@ -435,7 +514,7 @@ class PermissionAbstract implements \JsonSerializable
             && $this->type === $permission->getType()
             && $this->element === $permission->getElement()
             && $this->component === $permission->getComponent()
-            && $this->permission === $permission->getPermission();
+            && $this->getPermission() === $permission->getPermission();
     }
 
     /**
@@ -452,7 +531,7 @@ class PermissionAbstract implements \JsonSerializable
             'type'       => $this->type,
             'element'    => $this->element,
             'component'  => $this->component,
-            'permission' => $this->permission,
+            'permission' => $this->getPermission(),
         ];
     }
 }
