@@ -115,6 +115,34 @@ abstract class ViewAbstract implements RenderableInterface
     }
 
     /**
+     * Print cli output.
+     *
+     * @param ?string $text Text
+     *
+     * @return string
+     *
+     * @since 1.0.0
+     */
+    public function printCli(?string $text) : string
+    {
+        return $text === null ? '' : \escapeshellcmd($text);
+    }
+
+    /**
+     * Print cli output.
+     *
+     * @param ?string $text Text
+     *
+     * @return string
+     *
+     * @since 1.0.0
+     */
+    public static function cli(?string $text) : string
+    {
+        return $text === null ? '' : \escapeshellcmd($text);
+    }
+
+    /**
      * Returns all views
      *
      * @return View[]
