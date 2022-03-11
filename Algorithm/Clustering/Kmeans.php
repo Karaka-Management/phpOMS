@@ -25,6 +25,14 @@ namespace phpOMS\Algorithm\Clustering;
 final class Kmeans
 {
     /**
+     * Epsilon for float comparison.
+     *
+     * @var float
+     * @since 1.0.0
+     */
+    public const EPSILON = 4.88e-04;
+
+    /**
      * Metric to calculate the distance between two points
      *
      * @var \Closure
@@ -163,7 +171,7 @@ final class Kmeans
                 }
             }
 
-            if ($changed <= $n * 0.001 || $n * 0.001 < 2) {
+            if ($changed <= $n * self::EPSILON || $n * self::EPSILON < 2) {
                 break;
             }
         }
