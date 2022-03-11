@@ -85,6 +85,9 @@ final class SocketRouter implements RouterInterface
      *
      * @param string $route       Route regex
      * @param mixed  $destination Destination e.g. Module:function string or callback
+     * @param int    $verb        Request verb
+     * @param array  $validation  Validation patterns
+     * @param string $dataPattern Data patterns
      *
      * @return void
      *
@@ -93,6 +96,7 @@ final class SocketRouter implements RouterInterface
     public function add(
         string $route,
         mixed $destination,
+        int $verb = RouteVerb::GET,
         array $validation = [],
         string $dataPattern = ''
     ) : void
@@ -103,6 +107,7 @@ final class SocketRouter implements RouterInterface
 
         $this->routes[$route][] = [
             'dest'       => $destination,
+            'verb'       => $verb,
             'validation' => empty($validation) ? null : $validation,
             'pattern'    => empty($dataPattern) ? null : $dataPattern,
         ];
@@ -112,6 +117,7 @@ final class SocketRouter implements RouterInterface
      * Route request.
      *
      * @param string  $uri     Route
+     * @param int     $verb    Route verb
      * @param string  $app     Application name
      * @param int     $orgId   Organization id
      * @param Account $account Account
@@ -123,6 +129,7 @@ final class SocketRouter implements RouterInterface
      */
     public function route(
         string $uri,
+        int $verb = RouteVerb::GET,
         string $app = null,
         int $orgId = null,
         Account $account = null,
@@ -136,36 +143,41 @@ final class SocketRouter implements RouterInterface
             }
 
             foreach ($destination as $d) {
-                // if permission check is invalid
-                if ((isset($d['permission']) && !empty($d['permission']) && $account === null)
-                    || (isset($d['permission']) && !empty($d['permission'])
-                        && !$account?->hasPermission(
-                            $d['permission']['type'] ?? null, $orgId, $app, $d['permission']['module'] ?? null, $d['permission']['state'] ?? null
-                        )
-                    )
+                if ($d['verb'] === RouteVerb::ANY
+                    || $verb === RouteVerb::ANY
+                    || ($verb & $d['verb']) === $verb
                 ) {
-                    return $app !== null ? $this->route('/' . \strtolower($app) . '/e403') : $this->route('/e403');
-                }
+                    // if permission check is invalid
+                    if ((isset($d['permission']) && !empty($d['permission']) && $account === null)
+                        || (isset($d['permission']) && !empty($d['permission'])
+                            && !$account?->hasPermission(
+                                $d['permission']['type'] ?? null, $orgId, $app, $d['permission']['module'] ?? null, $d['permission']['state'] ?? null
+                            )
+                        )
+                    ) {
+                        return $app !== null ? $this->route('/' . \strtolower($app) . '/e403') : $this->route('/e403');
+                    }
 
-                // if validation check is invalid
-                if (isset($d['validation'])) {
-                    foreach ($d['validation'] as $name => $pattern) {
-                        if (!isset($data[$name]) || \preg_match($pattern, $data[$name]) !== 1) {
-                            return $app !== null ? $this->route('/' . \strtolower($app) . '/e403') : $this->route('/e403');
+                    // if validation check is invalid
+                    if (isset($d['validation'])) {
+                        foreach ($d['validation'] as $name => $pattern) {
+                            if (!isset($data[$name]) || \preg_match($pattern, $data[$name]) !== 1) {
+                                return $app !== null ? $this->route('/' . \strtolower($app) . '/e403') : $this->route('/e403');
+                            }
                         }
                     }
+
+                    $temp = ['dest' => $d['dest']];
+
+                    // fill data
+                    if (isset($d['pattern'])) {
+                        \preg_match($d['pattern'], $uri, $matches);
+
+                        $temp['data'] = $matches;
+                    }
+
+                    $bound[] = $temp;
                 }
-
-                $temp = ['dest' => $d['dest']];
-
-                // fill data
-                if (isset($d['pattern'])) {
-                    \preg_match($d['pattern'], $uri, $matches);
-
-                    $temp['data'] = $matches;
-                }
-
-                $bound[] = $temp;
             }
         }
 
