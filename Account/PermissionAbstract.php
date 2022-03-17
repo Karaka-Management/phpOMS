@@ -73,7 +73,7 @@ class PermissionAbstract implements \JsonSerializable
      * @var null|int
      * @since 1.0.0
      */
-    protected ?int $type = null;
+    protected ?int $category = null;
 
     /**
      * Element id.
@@ -138,7 +138,7 @@ class PermissionAbstract implements \JsonSerializable
      * @param null|string $app        App App to check  (null if all are acceptable)
      * @param null|string $module     Module Module to check  (null if all are acceptable)
      * @param null|string $from       Provided by which module
-     * @param null|int    $type       Type (e.g. customer) (null if all are acceptable)
+     * @param null|int    $category       Type (e.g. customer) (null if all are acceptable)
      * @param null|int    $element    (e.g. customer id) (null if all are acceptable)
      * @param null|int    $component  (e.g. address) (null if all are acceptable)
      * @param int         $permission Permission to check
@@ -150,7 +150,7 @@ class PermissionAbstract implements \JsonSerializable
         string $app = null,
         string $module = null,
         string $from = null,
-        int $type = null,
+        int $category = null,
         int $element = null,
         int $component = null,
         int $permission = PermissionType::NONE
@@ -159,7 +159,7 @@ class PermissionAbstract implements \JsonSerializable
         $this->app       = $app;
         $this->module    = $module;
         $this->from      = $from;
-        $this->type      = $type;
+        $this->category      = $category;
         $this->element   = $element;
         $this->component = $component;
 
@@ -287,29 +287,29 @@ class PermissionAbstract implements \JsonSerializable
     }
 
     /**
-     * Get type.
+     * Get category.
      *
      * @return null|int
      *
      * @since 1.0.0
      */
-    public function getType() : ?int
+    public function getCategory() : ?int
     {
-        return $this->type;
+        return $this->category;
     }
 
     /**
-     * Set type.
+     * Set category.
      *
-     * @param int $type Type
+     * @param int $category Category
      *
      * @return void
      *
      * @since 1.0.0
      */
-    public function setType(int $type = null) : void
+    public function setCategory(int $category = null) : void
     {
-        $this->type = $type;
+        $this->category = $category;
     }
 
     /**
@@ -469,7 +469,7 @@ class PermissionAbstract implements \JsonSerializable
      * @param null|int    $unit       Unit Unit to check (null if all are acceptable)
      * @param null|string $app        App App to check  (null if all are acceptable)
      * @param null|string $module     Module Module to check  (null if all are acceptable)
-     * @param null|int    $type       Type (e.g. customer) (null if all are acceptable)
+     * @param null|int    $category       Type (e.g. customer) (null if all are acceptable)
      * @param null|int    $element    (e.g. customer id) (null if all are acceptable)
      * @param null|int    $component  (e.g. address) (null if all are acceptable)
      *
@@ -482,7 +482,7 @@ class PermissionAbstract implements \JsonSerializable
         int $unit = null,
         string $app = null,
         string $module = null,
-        int $type = null,
+        int $category = null,
         int $element = null,
         int $component = null
     ) : bool
@@ -491,7 +491,7 @@ class PermissionAbstract implements \JsonSerializable
             (($unit === null || $this->unit === null || $this->unit === $unit)
             && ($app === null || $this->app === null || $this->app === $app)
             && ($module === null || $this->module === null || $this->module === $module)
-            && ($type === null || $this->type === null || $this->type === $type)
+            && ($category === null || $this->category === null || $this->category === $category)
             && ($element === null || $this->element === null || $this->element === $element)
             && ($component === null || $this->component === null || $this->component === $component)
             && ($this->getPermission() & $permission) === $permission);
@@ -511,7 +511,7 @@ class PermissionAbstract implements \JsonSerializable
         return $this->unit === $permission->getUnit()
             && $this->app === $permission->getApp()
             && $this->module === $permission->getModule()
-            && $this->type === $permission->getType()
+            && $this->category === $permission->getCategory()
             && $this->element === $permission->getElement()
             && $this->component === $permission->getComponent()
             && $this->getPermission() === $permission->getPermission();
@@ -528,7 +528,7 @@ class PermissionAbstract implements \JsonSerializable
             'app'        => $this->app,
             'module'     => $this->module,
             'from'       => $this->from,
-            'type'       => $this->type,
+            'category'       => $this->category,
             'element'    => $this->element,
             'component'  => $this->component,
             'permission' => $this->getPermission(),

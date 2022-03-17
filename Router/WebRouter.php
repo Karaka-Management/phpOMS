@@ -46,7 +46,7 @@ final class WebRouter implements RouterInterface
      *          'permission' => [ // optional
      *              'module' => '{NAME}',
      *              'type' => PermissionType::{TYPE},
-     *              'state' => PermissionState::{STATE},
+     *              'state' => PermissionCategory::{STATE},
      *          ],
      *          // define different destination for different verb
      *      ],
