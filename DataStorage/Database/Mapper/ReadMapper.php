@@ -442,7 +442,7 @@ final class ReadMapper extends DataMapperAbstract
                 continue;
             }
 
-            foreach ($data as $index => $with) {
+            foreach ($data as $with) {
                 if ($with['child'] !== '') {
                     continue;
                 }
@@ -485,7 +485,7 @@ final class ReadMapper extends DataMapperAbstract
 
         // handle sort, the column name order is very important. Therefore it cannot be done in the foreach loop above!
         foreach ($this->sort as $member => $data) {
-            foreach ($data as $index => $sort) {
+            foreach ($data as $sort) {
                 if (($column = $this->mapper::getColumnByMember($member)) === null
                     || ($sort['child'] !== '')
                 ) {
@@ -504,7 +504,7 @@ final class ReadMapper extends DataMapperAbstract
                 continue;
             }
 
-            foreach ($data as $index => $limit) {
+            foreach ($data as $limit) {
                 if ($limit['child'] === '') {
                     $query->limit($limit['limit']);
 

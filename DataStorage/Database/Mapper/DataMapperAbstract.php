@@ -285,7 +285,8 @@ abstract class DataMapperAbstract
 
         if (isset($this->sort[$member])) {
             foreach ($this->sort[$member] as $sort) {
-                if ($sort['child'] === '') {
+                // member = child element in this case
+                if ($member === '') {
                     continue;
                 }
 
@@ -305,7 +306,8 @@ abstract class DataMapperAbstract
 
         if (isset($this->limit[$member])) {
             foreach ($this->limit[$member] as $limit) {
-                if ($limit['child'] === '') {
+                // member = child element in this case
+                if ($member === '') {
                     continue;
                 }
 
