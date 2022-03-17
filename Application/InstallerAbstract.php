@@ -41,7 +41,7 @@ abstract class InstallerAbstract
     /**
      * Install app.
      *
-     * @param DatabasePool      $dbPool     Database instance
+     * @param ApplicationAbstract $app     Application
      * @param ApplicationInfo   $info       App info
      * @param SettingsInterface $cfgHandler Settings/Configuration handler
      *
@@ -49,10 +49,10 @@ abstract class InstallerAbstract
      *
      * @since 1.0.0
      */
-    public static function install(DatabasePool $dbPool, ApplicationInfo $info, SettingsInterface $cfgHandler) : void
+    public static function install(ApplicationAbstract $app, ApplicationInfo $info, SettingsInterface $cfgHandler) : void
     {
-        self::createTables($dbPool, $info);
-        self::activate($dbPool, $info);
+        self::createTables($app->dbPool, $info);
+        self::activate($app, $info);
         self::installTheme(static::PATH . '/..', 'Default');
     }
 
@@ -125,14 +125,14 @@ abstract class InstallerAbstract
     /**
      * Activate after install.
      *
-     * @param DatabasePool    $dbPool Database instance
+     * @param ApplicationAbstract $app     Application
      * @param ApplicationInfo $info   App info
      *
      * @return void
      *
      * @since 1.0.0
      */
-    protected static function activate(DatabasePool $dbPool, ApplicationInfo $info) : void
+    protected static function activate(ApplicationAbstract $app, ApplicationInfo $info) : void
     {
         if (($path = \realpath(static::PATH)) === false) {
             return; // @codeCoverageIgnore
@@ -147,7 +147,7 @@ abstract class InstallerAbstract
             throw new \UnexpectedValueException($class); // @codeCoverageIgnore
         }
 
-        $class::activate($dbPool, $info);
+        $class::activate($app, $info);
     }
 
     /**

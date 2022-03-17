@@ -398,7 +398,7 @@ final class ModuleManager
         }
 
         /** @var $class DeactivateAbstract */
-        $class::deactivate($this->app->dbPool, $info);
+        $class::deactivate($this->app, $info);
     }
 
     /**
@@ -450,7 +450,7 @@ final class ModuleManager
         }
 
         /** @var $class ActivateAbstract */
-        $class::activate($this->app->dbPool, $info);
+        $class::activate($this->app, $info);
     }
 
     /**
@@ -568,7 +568,7 @@ final class ModuleManager
             }
 
             /** @var $class UninstallerAbstract */
-            $class::uninstall($this->app->dbPool, $info);
+            $class::uninstall($this->app, $info);
 
             if (isset($this->installed[$module])) {
                 unset($this->installed[$module]);
@@ -607,7 +607,7 @@ final class ModuleManager
         }
 
         /** @var InstallerAbstract $class */
-        $class::install($this->app->dbPool, $info, $this->app->appSettings);
+        $class::install($this->app, $info, $this->app->appSettings);
     }
 
     /**
@@ -631,7 +631,7 @@ final class ModuleManager
         $from = \str_replace('/', '\\', $from);
 
         $class = $from . '\\Admin\\Install\\' . $for;
-        $class::install($this->modulePath, $this->app);
+        $class::install($this->app, $this->modulePath);
     }
 
     /**

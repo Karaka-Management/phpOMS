@@ -17,6 +17,7 @@ namespace phpOMS\tests\Module;
 require_once __DIR__ . '/../Autoloader.php';
 
 use Model\CoreSettings;
+use phpOMS\Application\ApplicationAbstract;
 use phpOMS\DataStorage\Database\DatabasePool;
 use phpOMS\Module\InstallerAbstract;
 use phpOMS\Module\ModuleInfo;
@@ -49,7 +50,7 @@ final class InstallerAbstractTest extends \PHPUnit\Framework\TestCase
     	$this->expectException(\UnexpectedValueException::class);
 
     	$this->installer::install(
-    		new DatabasePool(),
+    		new class() extends ApplicationAbstract {},
     		new ModuleInfo(__DIR__),
     		new CoreSettings()
     	);

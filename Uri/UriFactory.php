@@ -229,7 +229,7 @@ final class UriFactory
             \parse_str($urlStructure['query'], $urlStructure['query']);
 
             foreach ($urlStructure['query'] as $para => $query) {
-                if ($query === '' && \stripos($url, $para . '=') !== false) {
+                if (($query === '' && \stripos($url, $para . '=') !== false) || $query === '---') {
                     unset($urlStructure['query'][$para]);
                 }
             }
@@ -249,7 +249,7 @@ final class UriFactory
             . (isset($urlStructure['path']) && !empty($urlStructure['path'])
                 ? $urlStructure['path'] : '')
             . (isset($urlStructure['query']) && !empty($urlStructure['query'])
-                ? '?' . \http_build_query($urlStructure['query']) : '')
+                ? '?' . \rtrim(\str_replace('=&', '&', \http_build_query($urlStructure['query'])), '=') : '')
             . (isset($urlStructure['fragment']) && !empty($urlStructure['fragment'])
                 ? '#' . \str_replace('\#', '#', $urlStructure['fragment']) : '');
 
@@ -288,7 +288,7 @@ final class UriFactory
         $parsed = \preg_replace_callback('(\{[\/#\?%@\.\$][a-zA-Z0-9\-]*\})', function ($match) use ($toMatch) {
             $match = \substr($match[0], 1, \strlen($match[0]) - 2);
 
-            return $toMatch[$match] ?? self::$uri[$match] ?? '';
+            return $toMatch[$match] ?? self::$uri[$match] ?? '---';
         }, $uri);
 
         return self::unique($parsed ?? '');

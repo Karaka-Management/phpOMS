@@ -14,6 +14,7 @@ declare(strict_types=1);
 
 namespace phpOMS\Module;
 
+use phpOMS\Application\ApplicationAbstract;
 use phpOMS\DataStorage\Database\DatabasePool;
 use phpOMS\DataStorage\Database\Query\Builder;
 use phpOMS\DataStorage\Database\Schema\Builder as SchemaBuilder;
@@ -39,31 +40,31 @@ abstract class UninstallerAbstract
     /**
      * Install module.
      *
-     * @param DatabasePool $dbPool Database instance
+     * @param ApplicationAbstract $app     Application
      * @param ModuleInfo   $info   Module info
      *
      * @return void
      *
      * @since 1.0.0
      */
-    public static function uninstall(DatabasePool $dbPool, ModuleInfo $info) : void
+    public static function uninstall(ApplicationAbstract $app, ModuleInfo $info) : void
     {
-        self::deactivate($dbPool, $info);
-        self::dropTables($dbPool, $info);
-        self::unregisterFromDatabase($dbPool, $info);
+        self::deactivate($app, $info);
+        self::dropTables($app->dbPool, $info);
+        self::unregisterFromDatabase($app->dbPool, $info);
     }
 
     /**
      * Activate after install.
      *
-     * @param DatabasePool $dbPool Database instance
+     * @param ApplicationAbstract $app     Application
      * @param ModuleInfo   $info   Module info
      *
      * @return void
      *
      * @since 1.0.0
      */
-    protected static function deactivate(DatabasePool $dbPool, ModuleInfo $info) : void
+    protected static function deactivate(ApplicationAbstract $app, ModuleInfo $info) : void
     {
         if (($path = \realpath(static::PATH)) === false) {
             return; // @codeCoverageIgnore
@@ -74,7 +75,7 @@ abstract class UninstallerAbstract
 
         /** @var StatusAbstract $class */
         $class = \str_replace('/', '\\', $classPath);
-        $class::deactivate($dbPool, $info);
+        $class::deactivate($app, $info);
     }
 
     /**

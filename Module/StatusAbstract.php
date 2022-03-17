@@ -14,6 +14,7 @@ declare(strict_types=1);
 
 namespace phpOMS\Module;
 
+use phpOMS\Application\ApplicationAbstract;
 use phpOMS\Application\ApplicationInfo;
 use phpOMS\DataStorage\Database\DatabasePool;
 use phpOMS\System\File\Local\Directory;
@@ -46,14 +47,14 @@ abstract class StatusAbstract
     /**
      * Deactivate module.
      *
-     * @param DatabasePool $dbPool Database instance
+     * @param ApplicationAbstract $app Application
      * @param ModuleInfo   $info   Module info
      *
      * @return void
      *
      * @since 1.0.0
      */
-    public static function activate(DatabasePool $dbPool, ModuleInfo $info) : void
+    public static function activate(ApplicationAbstract $app, ModuleInfo $info) : void
     {
         self::activateRoutes($info);
         self::activateHooks($info);
@@ -176,14 +177,14 @@ abstract class StatusAbstract
     /**
      * Deactivate module.
      *
-     * @param DatabasePool $dbPool Database instance
+     * @param ApplicationAbstract $app Application
      * @param ModuleInfo   $info   Module info
      *
      * @return void
      *
      * @since 1.0.0
      */
-    public static function deactivate(DatabasePool $dbPool, ModuleInfo $info) : void
+    public static function deactivate(ApplicationAbstract $app, ModuleInfo $info) : void
     {
         self::deactivateRoutes($info);
         self::deactivateHooks($info);
