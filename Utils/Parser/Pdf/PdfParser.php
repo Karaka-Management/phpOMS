@@ -81,7 +81,7 @@ class PdfParser
                 SystemUtils::runProc(
                     __DIR__ . '/../../../cOMS/Tools/InvoicePreprocessing/App',
                     \escapeshellarg($file) . ' '
-                        .  \escapeshellarg($file)
+                        . \escapeshellarg($file)
                 );
 
                 $ocr = new TesseractOcr();

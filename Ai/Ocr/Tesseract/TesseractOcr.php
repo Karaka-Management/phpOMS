@@ -91,6 +91,7 @@ final class TesseractOcr
             self::$bin,
             $image . ' '
             . ($temp = \tempnam(\sys_get_temp_dir(), 'ocr_'))
+            . ' -c preserve_interword_spaces=1'
             . ' --psm ' . $psm
             . ' --oem ' . $oem
             . ' -l ' . \implode('+', $languages)

@@ -156,7 +156,7 @@ final class SystemUtils
                 . $cmd;
 
             if ($async) {
-                $cmd .= ' > nul 2>&1';
+                $cmd .= ' > nul 2>&1 &';
             }
         } else {
             $cmd = \escapeshellarg($executable)
@@ -164,7 +164,7 @@ final class SystemUtils
                 . $cmd;
 
             if ($async) {
-                $cmd .= ' > /dev/null 2>&1';
+                $cmd .= ' > /dev/null 2>&1 &';
             }
         }
 
@@ -180,8 +180,16 @@ final class SystemUtils
             throw new \Exception();
         }
 
-        $stdout = \stream_get_contents($pipes[1]);
-        $stderr = \stream_get_contents($pipes[2]);
+        $stdout = '';
+        $stderr = '';
+
+        if ($async) {
+            \stream_set_blocking($pipes[1], false);
+            \stream_set_blocking($pipes[2], false);
+        } else {
+            $stdout = \stream_get_contents($pipes[1]);
+            $stderr = \stream_get_contents($pipes[2]);
+        }
 
         foreach ($pipes as $pipe) {
             \fclose($pipe);
