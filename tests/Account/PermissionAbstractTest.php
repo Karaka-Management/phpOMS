@@ -118,16 +118,16 @@ final class PermissionAbstractTest extends \PHPUnit\Framework\TestCase
     }
 
     /**
-     * @testdox The type can be set and returned correctly
+     * @testdox The category can be set and returned correctly
      * @covers phpOMS\Account\PermissionAbstract
      * @group framework
      */
-    public function testTypeInputOutput() : void
+    public function testCategoryInputOutput() : void
     {
         $perm = new class() extends PermissionAbstract {};
 
-        $perm->setType(4);
-        self::assertEquals(4, $perm->getType());
+        $perm->setCategory(4);
+        self::assertEquals(4, $perm->getCategory());
     }
 
     /**
