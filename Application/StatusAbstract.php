@@ -42,14 +42,14 @@ abstract class StatusAbstract
     /**
      * Deactivate app.
      *
-     * @param DatabasePool    $dbPool Database instance
+     * @param ApplicationAbstract $app Application
      * @param ApplicationInfo $info   Module info
      *
      * @return void
      *
      * @since 1.0.0
      */
-    public static function activate(DatabasePool $dbPool, ApplicationInfo $info) : void
+    public static function activate(ApplicationAbstract $app, ApplicationInfo $info) : void
     {
         self::activateRoutes($info);
         self::activateHooks($info);
