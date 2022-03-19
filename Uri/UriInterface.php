@@ -175,11 +175,13 @@ interface UriInterface
     /**
      * Get route representation of uri.
      *
+     * @param bool $ignoreOffset Ignore internal offset
+     *
      * @return string
      *
      * @since 1.0.0
      */
-    public function getRoute() : string;
+    public function getRoute(bool $ignoreOffset = false) : string;
 
     /**
      * Set uri.

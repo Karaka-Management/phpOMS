@@ -204,6 +204,10 @@ final class HttpUri implements UriInterface
         }
 
         $this->pathElements = \explode('/', \trim($this->path, '/'));
+
+        $path = \array_slice($this->pathElements, $this->pathOffset);
+        $this->offsetPath = '/' . \implode('/', $path);
+
         $this->queryString  = $url['query'] ?? '';
 
         if (!empty($this->queryString)) {
@@ -278,6 +282,9 @@ final class HttpUri implements UriInterface
     public function setPathOffset(int $offset = 0) : void
     {
         $this->pathOffset = $offset;
+
+        $path = \array_slice($this->pathElements, $this->pathOffset);
+        $this->offsetPath = '/' . \implode('/', $path);
     }
 
     /**
@@ -302,7 +309,7 @@ final class HttpUri implements UriInterface
     /**
      * {@inheritdoc}
      */
-    public function getPath() : string
+    public function getPath(int $offset = 0) : string
     {
         return $this->path;
     }
@@ -314,6 +321,9 @@ final class HttpUri implements UriInterface
     {
         $this->path         = $path;
         $this->pathElements = \explode('/', \ltrim($this->path, '/'));
+
+        $path = \array_slice($this->pathElements, $this->pathOffset);
+        $this->offsetPath = '/' . \implode('/', $path);
     }
 
     /**
@@ -331,10 +341,12 @@ final class HttpUri implements UriInterface
     /**
      * {@inheritdoc}
      */
-    public function getRoute() : string
+    public function getRoute(bool $ignoreOffset = false) : string
     {
+        $path = $ignoreOffset ? $this->path : $this->offsetPath;
+
         $query = $this->getQuery();
-        return $this->path . (!empty($query) ? '?' . $this->getQuery() : '');
+        return $path . (!empty($query) ? '?' . $this->getQuery() : '');
     }
 
     /**

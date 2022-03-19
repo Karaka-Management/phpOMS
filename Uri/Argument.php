@@ -109,6 +109,14 @@ final class Argument implements UriInterface
     private string $path = '';
 
     /**
+     * Uri path with offset.
+     *
+     * @var string
+     * @since 1.0.0
+     */
+    private string $offsetPath = '';
+
+    /**
      * Uri query.
      *
      * @var array<string, mixed>
@@ -163,6 +171,9 @@ final class Argument implements UriInterface
 
         $this->path = \array_shift($uriParts);
         $this->pathElements = \explode('/', \ltrim($this->path, '/'));
+
+        $path = \array_slice($this->pathElements, $this->pathOffset);
+        $this->offsetPath = '/' . \implode('/', $path);
 
         $this->setQuery(\implode(' ', $uriParts));
     }
@@ -235,6 +246,9 @@ final class Argument implements UriInterface
     public function setPathOffset(int $offset = 0) : void
     {
         $this->pathOffset = $offset;
+
+        $path = \array_slice($this->pathElements, $this->pathOffset);
+        $this->offsetPath = '/' . \implode('/', $path);
     }
 
     /**
@@ -252,6 +266,9 @@ final class Argument implements UriInterface
     {
         $this->path         = $path;
         $this->pathElements = \explode('/', \ltrim($this->path, '/'));
+
+        $path = \array_slice($this->pathElements, $this->pathOffset);
+        $this->offsetPath = '/' . \implode('/', $path);
     }
 
     /**
@@ -269,10 +286,12 @@ final class Argument implements UriInterface
     /**
      * {@inheritdoc}
      */
-    public function getRoute() : string
+    public function getRoute(bool $ignoreOffset = false) : string
     {
+        $path = $ignoreOffset ? $this->path : $this->offsetPath;
+
         $query = $this->getQuery();
-        return $this->path . (!empty($query) ? ' ' . $this->getQuery() : '');
+        return $path . (!empty($query) ? ' ' . $this->getQuery() : '');
     }
 
     /**
