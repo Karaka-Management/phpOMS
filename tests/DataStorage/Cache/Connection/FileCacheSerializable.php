@@ -14,16 +14,16 @@ declare(strict_types=1);
 
 namespace phpOMS\tests\DataStorage\Cache\Connection;
 
-class FileCacheSerializable implements \Serializable
+class FileCacheSerializable
 {
     public $val = 'asdf';
 
-    public function serialize()
+    public function __serialize()
     {
-        return 'abc';
+        return ['abc'];
     }
 
-    public function unserialize($val) : void
+    public function __unserialize($val) : void
     {
         $this->val = $val;
     }

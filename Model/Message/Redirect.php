@@ -24,7 +24,7 @@ use phpOMS\Contract\ArrayableInterface;
  * @link    https://karaka.app
  * @since   1.0.0
  */
-final class Redirect implements \JsonSerializable, \Serializable, ArrayableInterface
+final class Redirect implements \JsonSerializable, ArrayableInterface
 {
     /**
      * Message type.
@@ -103,13 +103,13 @@ final class Redirect implements \JsonSerializable, \Serializable, ArrayableInter
     /**
      * Render message.
      *
-     * @return string
+     * @return array
      *
      * @since 1.0.0
      */
-    public function serialize() : string
+    public function __serialize() : array
     {
-        return $this->__toString();
+        return $this->toArray();
     }
 
     /**
@@ -123,7 +123,7 @@ final class Redirect implements \JsonSerializable, \Serializable, ArrayableInter
     /**
      * {@inheritdoc}
      */
-    public function unserialize($raw) : void
+    public function __unserialize($raw) : void
     {
         $unserialized = \json_decode($raw, true);
 

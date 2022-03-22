@@ -30,12 +30,6 @@ final class ArrayParserTest extends \PHPUnit\Framework\TestCase
      */
     public function testParser() : void
     {
-        $serializable = new class() implements \Serializable {
-            public function serialize() { return 2; }
-
-            public function unserialize($raw) : void {}
-        };
-
         $jsonSerialize = new class() implements \JsonSerializable {
             public function jsonSerialize() { return [6, 7]; }
         };
@@ -50,7 +44,6 @@ final class ArrayParserTest extends \PHPUnit\Framework\TestCase
                 0 => 'a',
                 1 => 'b',
             ],
-            5 => $serializable,
             6 => $jsonSerialize,
         ];
 
@@ -64,7 +57,6 @@ final class ArrayParserTest extends \PHPUnit\Framework\TestCase
                 0 => 'a',
                 1 => 'b',
             ],
-            5 => $serializable->serialize(),
             6 => $jsonSerialize->jsonSerialize(),
         ];
 

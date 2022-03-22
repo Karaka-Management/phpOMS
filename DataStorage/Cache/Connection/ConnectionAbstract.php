@@ -164,8 +164,6 @@ abstract class ConnectionAbstract implements ConnectionInterface
             return CacheValueType::_ARRAY;
         } elseif ($value === null) {
             return CacheValueType::_NULL;
-        } elseif ($value instanceof \Serializable) {
-            return CacheValueType::_SERIALIZABLE;
         } elseif ($value instanceof \JsonSerializable) {
             return CacheValueType::_JSONSERIALIZABLE;
         }

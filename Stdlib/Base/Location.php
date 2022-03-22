@@ -24,7 +24,7 @@ use phpOMS\Localization\ISO3166TwoEnum;
  * @link    https://karaka.app
  * @since   1.0.0
  */
-class Location implements \JsonSerializable, \Serializable
+class Location implements \JsonSerializable
 {
     /**
      * Location id
@@ -183,9 +183,9 @@ class Location implements \JsonSerializable, \Serializable
     /**
      * {@inheritdoc}
      */
-    public function serialize() : string
+    public function __serialize() : array
     {
-        return (string) \json_encode($this->jsonSerialize());
+        return $this->toArray();
     }
 
     /**
@@ -214,7 +214,7 @@ class Location implements \JsonSerializable, \Serializable
     /**
      * {@inheritdoc}
      */
-    public function unserialize($serialized) : void
+    public function __unserialize($serialized) : void
     {
         $data = \json_decode($serialized, true);
 

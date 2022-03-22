@@ -24,7 +24,7 @@ use phpOMS\Validation\Finance\IbanEnum;
  * @link    https://karaka.app
  * @since   1.0.0
  */
-class Iban implements \Serializable
+class Iban
 {
     /**
      * Iban.
@@ -254,9 +254,9 @@ class Iban implements \Serializable
     /**
      * {@inheritdoc}
      */
-    public function serialize() : string
+    public function __serialize() : array
     {
-        return $this->prettyPrint();
+        return [$this->prettyPrint()];
     }
 
     /**
@@ -280,7 +280,7 @@ class Iban implements \Serializable
      * @return void
      * @since 5.1.0
      */
-    public function unserialize($serialized) : void
+    public function __unserialize($serialized) : void
     {
         $this->parse($serialized);
     }

@@ -26,7 +26,7 @@ use phpOMS\Message\HeaderAbstract;
  * @link    https://karaka.app
  * @since   1.0.0
  */
-class SocketHeader extends HeaderAbstract implements \Serializable
+class SocketHeader extends HeaderAbstract
 {
     private $sendFrom = null;
 
@@ -199,9 +199,9 @@ class SocketHeader extends HeaderAbstract implements \Serializable
      *
      * @since 1.0.0
      */
-    public function serialize() : string
+    public function __serialize() : array
     {
-        return $this->__toString();
+        return [];
     }
 
     /**
@@ -225,7 +225,7 @@ class SocketHeader extends HeaderAbstract implements \Serializable
      *
      * @since 1.0.0
      */
-    public function unserialize($string) : void
+    public function __unserialize($string) : void
     {
     }
 

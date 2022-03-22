@@ -34,7 +34,7 @@ abstract class CacheValueType extends Enum
 
     public const _ARRAY = 2; /* Data is array */
 
-    public const _SERIALIZABLE = 3; /* Data implements \Serializable */
+    public const _SERIALIZABLE = 3; /* Data implements __serialize and __unserialize() */
 
     public const _FLOAT = 4; /* Data is float */
 
