@@ -134,7 +134,7 @@ final class HttpRequest extends RequestAbstract
             // Tested but coverage doesn't show up
             $input = \file_get_contents('php://input');
 
-            if ($input === false || empty($input)) {
+            if ($input === false || empty($input) || $input === 'null') {
                 return;
             }
 
