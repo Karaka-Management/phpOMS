@@ -115,7 +115,7 @@ final class Redirect implements \JsonSerializable, \Serializable, ArrayableInter
     /**
      * {@inheritdoc}
      */
-    public function jsonSerialize()
+    public function jsonSerialize() : mixed
     {
         return $this->toArray();
     }

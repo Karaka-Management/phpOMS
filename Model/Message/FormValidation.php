@@ -69,7 +69,7 @@ final class FormValidation implements \JsonSerializable, \Serializable, Arrayabl
     /**
      * {@inheritdoc}
      */
-    public function jsonSerialize()
+    public function jsonSerialize() : mixed
     {
         return $this->toArray();
     }

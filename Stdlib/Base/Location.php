@@ -191,7 +191,7 @@ class Location implements \JsonSerializable, \Serializable
     /**
      * {@inheritdoc}
      */
-    public function jsonSerialize()
+    public function jsonSerialize() : mixed
     {
         return $this->toArray();
     }

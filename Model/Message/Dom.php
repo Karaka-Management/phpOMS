@@ -137,7 +137,7 @@ final class Dom implements \Serializable, ArrayableInterface
     /**
      * {@inheritdoc}
      */
-    public function jsonSerialize()
+    public function jsonSerialize() : mixed
     {
         return $this->toArray();
     }

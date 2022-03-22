@@ -173,7 +173,7 @@ final class Notify implements \JsonSerializable, \Serializable, ArrayableInterfa
     /**
      * {@inheritdoc}
      */
-    public function jsonSerialize()
+    public function jsonSerialize() : mixed
     {
         return $this->toArray();
     }

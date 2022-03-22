@@ -21,7 +21,7 @@ class FileCacheJsonSerializable implements \JsonSerializable
     /**
      * {@inheritdoc}
      */
-    public function jsonSerialize()
+    public function jsonSerialize() : mixed
     {
         return 'abc';
     }
