@@ -24,7 +24,7 @@ use phpOMS\Stdlib\Base\Exception\InvalidEnumValue;
  * @link    https://karaka.app
  * @since   1.0.0
  */
-class PriorityQueue implements \Countable
+class PriorityQueue implements \Countable, \Serializable
 {
     /**
      * Queue type.
@@ -313,9 +313,9 @@ class PriorityQueue implements \Countable
     /**
      * {@inheritdoc}
      */
-    public function __serialize() : string
+    public function serialize() : string
     {
-        return \json_encode($this->queue);
+        return (string) \json_encode($this->queue);
     }
 
     /**
@@ -327,7 +327,7 @@ class PriorityQueue implements \Countable
      *
      * @since 1.0.0
      */
-    public function __unserialize($data) : void
+    public function unserialize($data) : void
     {
         $this->queue = \json_decode($data, true);
     }

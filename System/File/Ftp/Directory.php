@@ -728,7 +728,7 @@ class Directory extends FileAbstract implements DirectoryInterface
     /**
      * {@inheritdoc}
      */
-    public function offsetExists(mixed $offset) : bool
+    public function offsetExists($offset) : bool
     {
         $offset = isset($this->nodes[$offset]) ? $offset : $this->path . '/' . $offset;
 

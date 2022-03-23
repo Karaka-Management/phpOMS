@@ -65,15 +65,15 @@ class BaseModel
         $this->ownsOneSelf  = new OwnsOneModel();
         $this->belongsToOne = new BelongsToModel();
 
-        $this->serializable = new class() {
+        $this->serializable = new class() implements \Serializable {
             public $value = '';
 
-            public function __serialize()
+            public function serialize()
             {
-                return ['123'];
+                return '123';
             }
 
-            public function __unserialize($data) : void
+            public function unserialize($data) : void
             {
                 $this->value = $data;
             }

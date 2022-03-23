@@ -359,6 +359,8 @@ class Grammar extends GrammarAbstract
             $encoded = \json_encode($value);
 
             return $encoded ? $encoded : 'NULL';
+        } elseif ($value instanceof \Serializable) {
+            return $value->serialize();
         } elseif ($value instanceof Parameter) {
             return $value->__toString();
         } else {

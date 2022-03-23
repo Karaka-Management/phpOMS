@@ -200,6 +200,8 @@ final class StringUtils
             $encoded = \json_encode($element, $option !== null ? $option : 0);
 
             return $encoded ? $encoded : null;
+        } elseif ($element instanceof \Serializable) {
+            return $element->serialize();
         } elseif (\is_string($element)) {
             return $element;
         } elseif (\is_int($element) || \is_float($element)) {

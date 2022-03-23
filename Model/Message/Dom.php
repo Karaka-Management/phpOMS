@@ -24,7 +24,7 @@ use phpOMS\Contract\ArrayableInterface;
  * @link    https://karaka.app
  * @since   1.0.0
  */
-final class Dom implements ArrayableInterface
+final class Dom implements \Serializable, ArrayableInterface
 {
     /**
      * Message type.
@@ -129,9 +129,9 @@ final class Dom implements ArrayableInterface
      *
      * @since 1.0.0
      */
-    public function __serialize() : string
+    public function serialize() : string
     {
-        return \json_encode($this->toArray());
+        return $this->__toString();
     }
 
     /**
@@ -145,7 +145,7 @@ final class Dom implements ArrayableInterface
     /**
      * {@inheritdoc}
      */
-    public function __unserialize($raw) : void
+    public function unserialize($raw) : void
     {
         $unserialized = \json_decode($raw, true);
 

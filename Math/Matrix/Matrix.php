@@ -736,7 +736,7 @@ class Matrix implements \ArrayAccess, \Iterator
     /**
      * {@inheritdoc}
      */
-    public function offsetExists(mixed $offset) : bool
+    public function offsetExists($offset) : bool
     {
         $row = (int) ($offset / $this->m);
 

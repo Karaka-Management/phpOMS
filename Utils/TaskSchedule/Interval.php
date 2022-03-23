@@ -22,7 +22,7 @@ namespace phpOMS\Utils\TaskSchedule;
  * @link    https://karaka.app
  * @since   1.0.0
  */
-class Interval
+class Interval implements \Serializable
 {
     /**
      * Start of the task.
@@ -113,7 +113,7 @@ class Interval
         $this->start = $start ?? new \DateTime('now');
 
         if ($interval !== null) {
-            $this->__unserialize($interval);
+            $this->unserialize($interval);
         }
     }
 
@@ -524,9 +524,9 @@ class Interval
      *
      * @since 1.0.0
      */
-    public function __serialize() : string
+    public function serialize() : string
     {
-        return \json_encode([
+        $serialized = \json_encode([
             'start'       => $this->start->format('Y-m-d H:i:s'),
             'end'         => $this->end === null ? null : $this->end->format('Y-m-d H:i:s'),
             'maxDuration' => $this->maxDuration,
@@ -536,6 +536,8 @@ class Interval
             'dayOfWeek'   => $this->dayOfWeek,
             'year'        => $this->year,
         ]);
+
+        return $serialized === false ? '{}' : $serialized;
     }
 
     /**
@@ -547,7 +549,7 @@ class Interval
      *
      * @since 1.0.0
      */
-    public function __unserialize($serialized) : void
+    public function unserialize($serialized) : void
     {
         $data = \json_decode($serialized, true);
 

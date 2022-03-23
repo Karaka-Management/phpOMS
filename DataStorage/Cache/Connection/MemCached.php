@@ -94,7 +94,7 @@ final class MemCached extends ConnectionAbstract
             return;
         }
 
-        if (!(\is_scalar($value) || $value === null || \is_array($value) || $value instanceof \JsonSerializable) {
+        if (!(\is_scalar($value) || $value === null || \is_array($value) || $value instanceof \JsonSerializable || $value instanceof \Serializable)) {
             throw new \InvalidArgumentException();
         }
 
@@ -110,7 +110,7 @@ final class MemCached extends ConnectionAbstract
             return false;
         }
 
-        if (!(\is_scalar($value) || $value === null || \is_array($value) || $value instanceof \JsonSerializable) {
+        if (!(\is_scalar($value) || $value === null || \is_array($value) || $value instanceof \JsonSerializable || $value instanceof \Serializable)) {
             throw new \InvalidArgumentException();
         }
 

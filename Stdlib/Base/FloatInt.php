@@ -22,7 +22,7 @@ namespace phpOMS\Stdlib\Base;
  * @link    https://karaka.app
  * @since   1.0.0
  */
-class FloatInt
+class FloatInt implements \Serializable
 {
     /**
      * Max amount of decimals.
@@ -306,7 +306,7 @@ class FloatInt
      *
      * @since 1.0.0
      */
-    public function __serialize() : string
+    public function serialize() : string
     {
         return (string) $this->getInt();
     }
@@ -320,7 +320,7 @@ class FloatInt
      *
      * @since 1.0.0
      */
-    public function __unserialize($value) : void
+    public function unserialize($value) : void
     {
         $this->setInt((int) $value);
     }

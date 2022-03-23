@@ -77,6 +77,8 @@ class ArrayParser
             return \rtrim(\rtrim(\number_format($value, 5, '.', ''), '0'), '.');
         } elseif (\is_scalar($value)) {
             return (string) $value;
+        } elseif ($value instanceof \Serializable) {
+            return self::parseVariable($value->serialize());
         } elseif ($value instanceof \JsonSerializable) {
             return self::parseVariable($value->jsonSerialize());
         } else {

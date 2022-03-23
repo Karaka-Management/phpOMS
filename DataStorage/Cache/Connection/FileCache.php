@@ -27,7 +27,7 @@ use phpOMS\System\File\Local\File;
  * This implementation uses the hard drive as cache by saving data to the disc as text files.
  * The text files follow a defined strucuture which allows this implementation to parse the cached data.
  *
- * Allowed datatypes: null, int, bool, float, string, \DateTime, \JsonSerializable
+ * Allowed datatypes: null, int, bool, float, string, \DateTime, \JsonSerializable, \Serializable
  * File structure:
  *      data type (1 byte)
  *      delimiter (1 byte)
