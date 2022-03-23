@@ -71,13 +71,13 @@ final class Reload implements \JsonSerializable, ArrayableInterface
     /**
      * Render message.
      *
-     * @return array
+     * @return string
      *
      * @since 1.0.0
      */
-    public function __serialize() : array
+    public function __serialize() : string
     {
-        return $this->toArray();
+        return \json_encode($this->toArray());
     }
 
     /**

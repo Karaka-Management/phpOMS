@@ -254,9 +254,9 @@ class Iban
     /**
      * {@inheritdoc}
      */
-    public function __serialize() : array
+    public function __serialize() : string
     {
-        return [$this->prettyPrint()];
+        return $this->prettyPrint();
     }
 
     /**

@@ -231,7 +231,7 @@ final class FileCache extends ConnectionAbstract
         } elseif ($type === CacheValueType::_ARRAY) {
             return (string) \json_encode($value);
         } elseif ($type === CacheValueType::_SERIALIZABLE) {
-            return \get_class($value) . self::DELIM . $value->serialize();
+            return \get_class($value) . self::DELIM . $value->__serialize();
         } elseif ($type === CacheValueType::_JSONSERIALIZABLE) {
             return \get_class($value) . self::DELIM . ((string) \json_encode($value->jsonSerialize()));
         } elseif ($type === CacheValueType::_NULL) {
@@ -351,7 +351,7 @@ final class FileCache extends ConnectionAbstract
                 }
 
                 $obj = new $namespace();
-                $obj->unserialize(\substr($raw, $namespaceEnd + 1));
+                $obj->__unserialize(\substr($raw, $namespaceEnd + 1));
 
                 return $obj;
             default:

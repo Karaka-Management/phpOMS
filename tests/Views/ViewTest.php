@@ -410,10 +410,10 @@ final class ViewTest extends \PHPUnit\Framework\TestCase
     public function testSerialize() : void
     {
         $view = new View();
-        self::assertEquals('[]', $view->serialize());
+        self::assertEquals('[]', $view->__serialize());
 
         $view->setTemplate('/phpOMS/tests/Views/testTemplate');
-        self::assertEquals('<strong>Test</strong>', $view->serialize());
+        self::assertEquals('<strong>Test</strong>', $view->__serialize());
     }
 
     /**
@@ -476,7 +476,7 @@ final class ViewTest extends \PHPUnit\Framework\TestCase
         $view = new View($this->app->l11nManager);
         $view->setTemplate('something.txt');
 
-        self::assertEquals('', $view->serialize());
+        self::assertEquals('', $view->__serialize());
     }
 
     /**

@@ -306,9 +306,9 @@ class FloatInt
      *
      * @since 1.0.0
      */
-    public function __serialize() : array
+    public function __serialize() : string
     {
-        return [$this->getInt()];
+        return (string) $this->getInt();
     }
 
     /**

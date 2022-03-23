@@ -313,9 +313,9 @@ class PriorityQueue implements \Countable
     /**
      * {@inheritdoc}
      */
-    public function __serialize() : array
+    public function __serialize() : string
     {
-        return $this->queue;
+        return \json_encode($this->queue);
     }
 
     /**

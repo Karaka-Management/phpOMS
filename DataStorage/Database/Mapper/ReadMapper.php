@@ -632,7 +632,7 @@ final class ReadMapper extends DataMapperAbstract
                 if ($member === null || $value === null) {
                     $obj->{$def['internal']} = $value;
                 } else {
-                    $member->unserialize($value);
+                    $member->__unserialize($value);
                 }
             }
 
@@ -706,7 +706,7 @@ final class ReadMapper extends DataMapperAbstract
                 $refProp->setValue($obj, \json_decode($value, true));
             } elseif ($def['mapper']::COLUMNS[$column]['type'] === 'Serializable') {
                 $member = $isPublic ? $obj->{$member} : $refProp->getValue($obj);
-                $member->unserialize($value);
+                $member->__unserialize($value);
             }
 
             if (!$isPublic) {

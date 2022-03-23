@@ -113,7 +113,7 @@ class Interval
         $this->start = $start ?? new \DateTime('now');
 
         if ($interval !== null) {
-            $this->unserialize($interval);
+            $this->__unserialize($interval);
         }
     }
 
@@ -520,13 +520,13 @@ class Interval
     /**
      * Create string representation.
      *
-     * @return array
+     * @return string
      *
      * @since 1.0.0
      */
-    public function __serialize() : array
+    public function __serialize() : string
     {
-        return [
+        return \json_encode([
             'start'       => $this->start->format('Y-m-d H:i:s'),
             'end'         => $this->end === null ? null : $this->end->format('Y-m-d H:i:s'),
             'maxDuration' => $this->maxDuration,
@@ -535,7 +535,7 @@ class Interval
             'dayOfMonth'  => $this->dayOfMonth,
             'dayOfWeek'   => $this->dayOfWeek,
             'year'        => $this->year,
-        ];
+        ]);
     }
 
     /**

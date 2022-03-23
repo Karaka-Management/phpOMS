@@ -245,7 +245,7 @@ final class MemCached extends ConnectionAbstract
                 }
 
                 $obj = new $namespace();
-                $obj->unserialize(\substr($raw, $namespaceEnd + 1));
+                $obj->__unserialize(\substr($raw, $namespaceEnd + 1));
 
                 return $obj;
             default:

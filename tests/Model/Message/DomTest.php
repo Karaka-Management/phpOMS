@@ -79,7 +79,7 @@ final class DomTest extends \PHPUnit\Framework\TestCase
             'selector' => '#sel',
             'action'   => DomAction::SHOW,
             'content'  => 'msg',
-        ]), $obj->serialize());
+        ]), $obj->__serialize());
 
         self::assertEquals([
             'type'     => 'dom',
@@ -90,7 +90,7 @@ final class DomTest extends \PHPUnit\Framework\TestCase
         ], $obj->jsonSerialize());
 
         $obj2 = new Dom();
-        $obj2->unserialize($obj->serialize());
+        $obj2->__unserialize($obj->__serialize());
         self::assertEquals($obj, $obj2);
     }
 }

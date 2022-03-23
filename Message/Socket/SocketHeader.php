@@ -199,9 +199,9 @@ class SocketHeader extends HeaderAbstract
      *
      * @since 1.0.0
      */
-    public function __serialize() : array
+    public function __serialize() : string
     {
-        return [];
+        return '';
     }
 
     /**

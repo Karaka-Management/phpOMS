@@ -60,10 +60,10 @@ final class IbanTest extends \PHPUnit\Framework\TestCase
         $iban              = new Iban($strRepresentation);
 
         self::assertEquals($strRepresentation, $iban->prettyPrint());
-        self::assertEquals($strRepresentation, $iban->serialize());
+        self::assertEquals($strRepresentation, $iban->__serialize());
 
-        $iban->unserialize('dE226008000009600280 00');
-        self::assertEquals('DE22 6008 0000 0960 0280 00', $iban->serialize());
+        $iban->__unserialize('dE226008000009600280 00');
+        self::assertEquals('DE22 6008 0000 0960 0280 00', $iban->__serialize());
     }
 
     /**

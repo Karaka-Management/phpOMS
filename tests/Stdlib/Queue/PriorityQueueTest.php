@@ -187,9 +187,9 @@ final class PriorityQueueTest extends \PHPUnit\Framework\TestCase
         $queue->insert('c', -1);
 
         $queue2 = new PriorityQueue();
-        $queue2->unserialize($queue->serialize());
+        $queue2->__unserialize($queue->__serialize());
 
-        self::assertEquals($queue->serialize(), $queue2->serialize());
+        self::assertEquals($queue->__serialize(), $queue2->__serialize());
     }
 
     /**
