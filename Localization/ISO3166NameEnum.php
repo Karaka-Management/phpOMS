@@ -525,4 +525,6 @@ class ISO3166NameEnum extends Enum
     public const _ZWE = 'Zimbabwe';
 
     public const _XKK = 'Kosovo';
+
+    public const _XXX = 'XXX';
 }

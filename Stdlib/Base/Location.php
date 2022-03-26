@@ -14,6 +14,7 @@ declare(strict_types=1);
 
 namespace phpOMS\Stdlib\Base;
 
+use phpOMS\Contract\SerializableInterface;
 use phpOMS\Localization\ISO3166TwoEnum;
 
 /**
@@ -24,7 +25,7 @@ use phpOMS\Localization\ISO3166TwoEnum;
  * @link    https://karaka.app
  * @since   1.0.0
  */
-class Location implements \JsonSerializable, \Serializable
+class Location implements \JsonSerializable, SerializableInterface
 {
     /**
      * Location id
@@ -56,7 +57,7 @@ class Location implements \JsonSerializable, \Serializable
      * @var string
      * @since 1.0.0
      */
-    protected string $country = ISO3166TwoEnum::_USA;
+    protected string $country = ISO3166TwoEnum::_XXX;
 
     /**
      * Street & district.

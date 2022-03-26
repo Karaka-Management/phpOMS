@@ -14,7 +14,7 @@ declare(strict_types=1);
 
 namespace phpOMS\Model\Message;
 
-use phpOMS\Contract\ArrayableInterface;
+use phpOMS\Contract\SerializableInterface;
 
 /**
  * FormValidation class.
@@ -24,7 +24,7 @@ use phpOMS\Contract\ArrayableInterface;
  * @link    https://karaka.app
  * @since   1.0.0
  */
-final class FormValidation implements \JsonSerializable, \Serializable, ArrayableInterface
+final class FormValidation implements \JsonSerializable, SerializableInterface
 {
     /**
      * Message type.

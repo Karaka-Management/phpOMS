@@ -14,6 +14,7 @@ declare(strict_types=1);
 
 namespace phpOMS\DataStorage\Database\Query\Grammar;
 
+use phpOMS\Contract\SerializableInterface;
 use phpOMS\DataStorage\Database\GrammarAbstract;
 use phpOMS\DataStorage\Database\Query\Builder;
 use phpOMS\DataStorage\Database\Query\Column;
@@ -359,7 +360,7 @@ class Grammar extends GrammarAbstract
             $encoded = \json_encode($value);
 
             return $encoded ? $encoded : 'NULL';
-        } elseif ($value instanceof \Serializable) {
+        } elseif ($value instanceof SerializableInterface) {
             return $value->serialize();
         } elseif ($value instanceof Parameter) {
             return $value->__toString();

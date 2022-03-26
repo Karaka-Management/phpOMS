@@ -14,6 +14,8 @@ declare(strict_types=1);
 
 namespace phpOMS\Stdlib\Base;
 
+use phpOMS\Contract\SerializableInterface;
+
 /**
  * FloatInt class.
  *
@@ -22,7 +24,7 @@ namespace phpOMS\Stdlib\Base;
  * @link    https://karaka.app
  * @since   1.0.0
  */
-class FloatInt implements \Serializable
+class FloatInt implements SerializableInterface
 {
     /**
      * Max amount of decimals.

@@ -418,7 +418,7 @@ final class RedisCache extends ConnectionAbstract
         } elseif ($type === CacheValueType::_ARRAY) {
             return (string) \json_encode($value);
         } elseif ($type === CacheValueType::_SERIALIZABLE) {
-            return \get_class($value) . self::DELIM . $value->__serialize();
+            return \get_class($value) . self::DELIM . $value->serialize();
         } elseif ($type === CacheValueType::_JSONSERIALIZABLE) {
             return \get_class($value) . self::DELIM . ((string) \json_encode($value->jsonSerialize()));
         } elseif ($type === CacheValueType::_NULL) {
@@ -475,7 +475,7 @@ final class RedisCache extends ConnectionAbstract
                 }
 
                 $obj = new $namespace();
-                $obj->__unserialize(\substr($raw, $namespaceEnd + 1));
+                $obj->unserialize(\substr($raw, $namespaceEnd + 1));
 
                 return $obj;
             default:

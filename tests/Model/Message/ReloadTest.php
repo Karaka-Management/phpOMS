@@ -55,14 +55,14 @@ final class ReloadTest extends \PHPUnit\Framework\TestCase
         $obj = new Reload(5);
 
         self::assertEquals(['type' => 'reload', 'time' => 5], $obj->toArray());
-        self::assertEquals(\json_encode(['type' => 'reload', 'time' => 5]), $obj->__serialize());
+        self::assertEquals(\json_encode(['type' => 'reload', 'time' => 5]), $obj->serialize());
         self::assertEquals(['type' => 'reload', 'time' => 5], $obj->jsonSerialize());
 
         $obj->setDelay(6);
         self::assertEquals(['type' => 'reload', 'time' => 6], $obj->toArray());
 
         $obj2 = new Reload();
-        $obj2->__unserialize($obj->__serialize());
+        $obj2->unserialize($obj->serialize());
         self::assertEquals($obj, $obj2);
     }
 }

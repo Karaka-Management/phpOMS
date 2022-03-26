@@ -14,6 +14,8 @@ declare(strict_types=1);
 
 namespace phpOMS\Utils\Parser\Php;
 
+use phpOMS\Contract\SerializableInterface;
+
 /**
  * Array parser class.
  *
@@ -77,7 +79,7 @@ class ArrayParser
             return \rtrim(\rtrim(\number_format($value, 5, '.', ''), '0'), '.');
         } elseif (\is_scalar($value)) {
             return (string) $value;
-        } elseif ($value instanceof \Serializable) {
+        } elseif ($value instanceof SerializableInterface) {
             return self::parseVariable($value->serialize());
         } elseif ($value instanceof \JsonSerializable) {
             return self::parseVariable($value->jsonSerialize());

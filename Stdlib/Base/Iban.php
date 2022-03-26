@@ -14,6 +14,7 @@ declare(strict_types=1);
 
 namespace phpOMS\Stdlib\Base;
 
+use phpOMS\Contract\SerializableInterface;
 use phpOMS\Validation\Finance\IbanEnum;
 
 /**
@@ -24,7 +25,7 @@ use phpOMS\Validation\Finance\IbanEnum;
  * @link    https://karaka.app
  * @since   1.0.0
  */
-class Iban implements \Serializable
+class Iban implements SerializableInterface
 {
     /**
      * Iban.

@@ -525,4 +525,6 @@ class ISO3166TwoEnum extends Enum
     public const _ZWE = 'ZW';
 
     public const _XKK = 'XK';
+
+    public const _XXX = 'XX';
 }

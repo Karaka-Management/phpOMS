@@ -14,7 +14,6 @@ declare(strict_types=1);
 
 namespace phpOMS\Account;
 
-use phpOMS\Contract\ArrayableInterface;
 use phpOMS\Localization\Localization;
 use phpOMS\Stdlib\Base\Exception\InvalidEnumValue;
 use phpOMS\Validation\Network\Email;
@@ -30,7 +29,7 @@ use phpOMS\Validation\Network\Email;
  * @link    https://karaka.app
  * @since   1.0.0
  */
-class Account implements \JsonSerializable, ArrayableInterface
+class Account implements \JsonSerializable
 {
     /**
      * Id.

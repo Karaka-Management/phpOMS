@@ -15,6 +15,7 @@ declare(strict_types=1);
 namespace phpOMS\Utils;
 
 use phpOMS\Contract\RenderableInterface;
+use phpOMS\Contract\SerializableInterface;
 
 /**
  * String utils class.
@@ -200,7 +201,7 @@ final class StringUtils
             $encoded = \json_encode($element, $option !== null ? $option : 0);
 
             return $encoded ? $encoded : null;
-        } elseif ($element instanceof \Serializable) {
+        } elseif ($element instanceof SerializableInterface) {
             return $element->serialize();
         } elseif (\is_string($element)) {
             return $element;

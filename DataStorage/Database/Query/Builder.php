@@ -15,6 +15,7 @@ declare(strict_types=1);
 namespace phpOMS\DataStorage\Database\Query;
 
 use phpOMS\Algorithm\Graph\DependencyResolver;
+use phpOMS\Contract\SerializableInterface;
 use phpOMS\DataStorage\Database\BuilderAbstract;
 use phpOMS\DataStorage\Database\Connection\ConnectionAbstract;
 
@@ -1454,7 +1455,7 @@ class Builder extends BuilderAbstract
             return $column;
         } elseif ($column instanceof Column) {
             return $column->getColumn();
-        } elseif ($column instanceof \Serializable) {
+        } elseif ($column instanceof SerializableInterface) {
             return $column->serialize();
         } elseif ($column instanceof self) {
             return \md5($column->toSql());

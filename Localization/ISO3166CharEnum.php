@@ -523,4 +523,6 @@ class ISO3166CharEnum extends Enum
     public const _ZMB = 'ZMB';
 
     public const _ZWE = 'ZWE';
+
+    public const _XXX = 'XXX';
 }

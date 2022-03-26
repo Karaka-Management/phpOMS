@@ -14,6 +14,7 @@ declare(strict_types=1);
 
 namespace phpOMS\Stdlib\Queue;
 
+use phpOMS\Contract\SerializableInterface;
 use phpOMS\Stdlib\Base\Exception\InvalidEnumValue;
 
 /**
@@ -24,7 +25,7 @@ use phpOMS\Stdlib\Base\Exception\InvalidEnumValue;
  * @link    https://karaka.app
  * @since   1.0.0
  */
-class PriorityQueue implements \Countable, \Serializable
+class PriorityQueue implements \Countable, SerializableInterface
 {
     /**
      * Queue type.

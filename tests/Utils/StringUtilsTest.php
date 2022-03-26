@@ -15,6 +15,7 @@ declare(strict_types=1);
 namespace phpOMS\tests\Utils;
 
 use phpOMS\Contract\RenderableInterface;
+use phpOMS\Contract\SerializableInterface;
 use phpOMS\Utils\StringUtils;
 
 require_once __DIR__ . '/../Autoloader.php';
@@ -130,8 +131,8 @@ final class StringUtilsTest extends \PHPUnit\Framework\TestCase
 
         self::assertEquals('["abc"]', StringUtils::stringify(['abc']));
 
-        self::assertEquals('abc', StringUtils::stringify(new class() implements \Serializable {
-            public function serialize()
+        self::assertEquals('abc', StringUtils::stringify(new class() implements SerializableInterface {
+            public function serialize() : string
             {
                 return 'abc';
             }

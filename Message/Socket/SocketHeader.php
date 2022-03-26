@@ -14,6 +14,7 @@ declare(strict_types=1);
 
 namespace phpOMS\Message\Socket;
 
+use phpOMS\Contract\SerializableInterface;
 use phpOMS\Message\HeaderAbstract;
 
 /**
@@ -26,7 +27,7 @@ use phpOMS\Message\HeaderAbstract;
  * @link    https://karaka.app
  * @since   1.0.0
  */
-class SocketHeader extends HeaderAbstract implements \Serializable
+class SocketHeader extends HeaderAbstract implements SerializableInterface
 {
     private $sendFrom = null;
 

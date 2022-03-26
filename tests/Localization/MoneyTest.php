@@ -102,7 +102,7 @@ final class MoneyTest extends \PHPUnit\Framework\TestCase
     public function testMoneySerialization() : void
     {
         $money = new Money('999.23');
-        self::assertEquals(9992300, $money->__serialize());
+        self::assertEquals(9992300, $money->serialize());
     }
 
     /**
@@ -112,7 +112,7 @@ final class MoneyTest extends \PHPUnit\Framework\TestCase
     public function testMoneyUnserialization() : void
     {
         $money = new Money('999.23');
-        $money->__unserialize(3331234);
+        $money->unserialize(3331234);
         self::assertEquals('333.12', $money->getAmount());
     }
 

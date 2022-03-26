@@ -53,4 +53,6 @@ abstract class ExtensionType extends Enum
     public const DIRECTORY = 2048;
 
     public const WORD = 4096;
+
+    public const REFERENCE = 8192;
 }

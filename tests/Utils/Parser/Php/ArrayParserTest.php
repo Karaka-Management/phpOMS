@@ -14,6 +14,7 @@ declare(strict_types=1);
 
 namespace phpOMS\tests\Utils\Parser\Php;
 
+use phpOMS\Contract\SerializableInterface;
 use phpOMS\Utils\Parser\Php\ArrayParser;
 
 /**
@@ -30,8 +31,8 @@ final class ArrayParserTest extends \PHPUnit\Framework\TestCase
      */
     public function testParser() : void
     {
-        $serializable = new class() implements \Serializable {
-            public function serialize() { return 2; }
+        $serializable = new class() implements SerializableInterface {
+            public function serialize() : string { return '2'; }
 
             public function unserialize($raw) : void {}
         };

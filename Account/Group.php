@@ -14,7 +14,6 @@ declare(strict_types=1);
 
 namespace phpOMS\Account;
 
-use phpOMS\Contract\ArrayableInterface;
 use phpOMS\Stdlib\Base\Exception\InvalidEnumValue;
 
 /**
@@ -25,7 +24,7 @@ use phpOMS\Stdlib\Base\Exception\InvalidEnumValue;
  * @link    https://karaka.app
  * @since   1.0.0
  */
-class Group implements \JsonSerializable, ArrayableInterface
+class Group implements \JsonSerializable
 {
     /**
      * Group id.

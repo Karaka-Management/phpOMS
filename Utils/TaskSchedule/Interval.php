@@ -14,6 +14,8 @@ declare(strict_types=1);
 
 namespace phpOMS\Utils\TaskSchedule;
 
+use phpOMS\Contract\SerializableInterface;
+
 /**
  * Interval class for tasks.
  *
@@ -22,7 +24,7 @@ namespace phpOMS\Utils\TaskSchedule;
  * @link    https://karaka.app
  * @since   1.0.0
  */
-class Interval implements \Serializable
+class Interval implements SerializableInterface
 {
     /**
      * Start of the task.

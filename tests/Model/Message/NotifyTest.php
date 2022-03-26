@@ -84,7 +84,7 @@ final class NotifyTest extends \PHPUnit\Framework\TestCase
             'msg'   => 'msg',
             'title' => 'title',
             'level' => NotifyType::ERROR,
-        ]), $obj->__serialize());
+        ]), $obj->serialize());
 
         self::assertEquals([
             'type'  => 'notify',
@@ -96,7 +96,7 @@ final class NotifyTest extends \PHPUnit\Framework\TestCase
         ], $obj->jsonSerialize());
 
         $obj2 = new Notify();
-        $obj2->__unserialize($obj->__serialize());
+        $obj2->unserialize($obj->serialize());
         self::assertEquals($obj, $obj2);
     }
 }

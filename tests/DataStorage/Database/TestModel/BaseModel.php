@@ -14,6 +14,8 @@ declare(strict_types=1);
 
 namespace phpOMS\tests\DataStorage\Database\TestModel;
 
+use phpOMS\Contract\SerializableInterface;
+
 class BaseModel
 {
     protected int $id = 0;
@@ -65,10 +67,10 @@ class BaseModel
         $this->ownsOneSelf  = new OwnsOneModel();
         $this->belongsToOne = new BelongsToModel();
 
-        $this->serializable = new class() implements \Serializable {
+        $this->serializable = new class() implements SerializableInterface {
             public $value = '';
 
-            public function serialize()
+            public function serialize() : string
             {
                 return '123';
             }

@@ -523,4 +523,6 @@ class ISO3166NumEnum extends Enum
     public const _ZMB = '894';
 
     public const _ZWE = '716';
+
+    public const _XXX = '000';
 }

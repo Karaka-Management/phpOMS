@@ -48,6 +48,8 @@ final class FileUtils
 
     public const SYSTEM_EXTENSION = ['bak', 'dll', 'sys', 'tmp', 'msi', 'so', 'exe', 'bin', 'iso'];
 
+    public const REFERENCE = ['reference'];
+
     /**
      * Constructor.
      *
@@ -93,6 +95,8 @@ final class FileUtils
             return ExtensionType::SPREADSHEET;
         } elseif (\in_array($extension, self::DIRECTORY)) {
             return ExtensionType::DIRECTORY;
+        } elseif (\in_array($extension, self::REFERENCE)) {
+            return ExtensionType::REFERENCE;
         }
 
         return ExtensionType::UNKNOWN;

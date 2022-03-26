@@ -14,6 +14,7 @@ declare(strict_types=1);
 
 namespace phpOMS\DataStorage\Cache\Connection;
 
+use phpOMS\Contract\SerializableInterface;
 use phpOMS\DataStorage\Cache\CacheStatus;
 use phpOMS\DataStorage\Cache\CacheType;
 
@@ -164,7 +165,7 @@ abstract class ConnectionAbstract implements ConnectionInterface
             return CacheValueType::_ARRAY;
         } elseif ($value === null) {
             return CacheValueType::_NULL;
-        } elseif ($value instanceof \Serializable) {
+        } elseif ($value instanceof SerializableInterface) {
             return CacheValueType::_SERIALIZABLE;
         } elseif ($value instanceof \JsonSerializable) {
             return CacheValueType::_JSONSERIALIZABLE;

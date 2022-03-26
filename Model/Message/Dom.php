@@ -14,7 +14,7 @@ declare(strict_types=1);
 
 namespace phpOMS\Model\Message;
 
-use phpOMS\Contract\ArrayableInterface;
+use phpOMS\Contract\SerializableInterface;
 
 /**
  * Dom class.
@@ -24,7 +24,7 @@ use phpOMS\Contract\ArrayableInterface;
  * @link    https://karaka.app
  * @since   1.0.0
  */
-final class Dom implements \Serializable, ArrayableInterface
+final class Dom implements SerializableInterface
 {
     /**
      * Message type.

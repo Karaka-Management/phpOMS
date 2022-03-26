@@ -355,7 +355,7 @@ abstract class DataMapperAbstract
         } elseif ($type === 'Json') {
             return (string) \json_encode($value);
         } elseif ($type === 'Serializable') {
-            return $value->__serialize();
+            return $value->serialize();
         } elseif (\is_object($value) && \method_exists($value, 'getId')) {
             return $value->getId();
         }

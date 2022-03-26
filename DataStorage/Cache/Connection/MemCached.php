@@ -14,6 +14,7 @@ declare(strict_types=1);
 
 namespace phpOMS\DataStorage\Cache\Connection;
 
+use phpOMS\Contract\SerializableInterface;
 use phpOMS\DataStorage\Cache\CacheStatus;
 use phpOMS\DataStorage\Cache\CacheType;
 use phpOMS\DataStorage\Cache\Exception\InvalidConnectionConfigException;
@@ -94,7 +95,7 @@ final class MemCached extends ConnectionAbstract
             return;
         }
 
-        if (!(\is_scalar($value) || $value === null || \is_array($value) || $value instanceof \JsonSerializable || $value instanceof \Serializable)) {
+        if (!(\is_scalar($value) || $value === null || \is_array($value) || $value instanceof \JsonSerializable || $value instanceof SerializableInterface)) {
             throw new \InvalidArgumentException();
         }
 
@@ -110,7 +111,7 @@ final class MemCached extends ConnectionAbstract
             return false;
         }
 
-        if (!(\is_scalar($value) || $value === null || \is_array($value) || $value instanceof \JsonSerializable || $value instanceof \Serializable)) {
+        if (!(\is_scalar($value) || $value === null || \is_array($value) || $value instanceof \JsonSerializable || $value instanceof SerializableInterface)) {
             throw new \InvalidArgumentException();
         }
 
@@ -245,7 +246,7 @@ final class MemCached extends ConnectionAbstract
                 }
 
                 $obj = new $namespace();
-                $obj->__unserialize(\substr($raw, $namespaceEnd + 1));
+                $obj->unserialize(\substr($raw, $namespaceEnd + 1));
 
                 return $obj;
             default:

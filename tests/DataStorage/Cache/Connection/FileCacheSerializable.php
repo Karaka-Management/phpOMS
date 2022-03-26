@@ -14,11 +14,13 @@ declare(strict_types=1);
 
 namespace phpOMS\tests\DataStorage\Cache\Connection;
 
-class FileCacheSerializable implements \Serializable
+use phpOMS\Contract\SerializableInterface;
+
+class FileCacheSerializable implements SerializableInterface
 {
     public $val = 'asdf';
 
-    public function serialize()
+    public function serialize() : string
     {
         return 'abc';
     }

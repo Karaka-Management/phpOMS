@@ -51,7 +51,7 @@ final class IntervalTest extends \PHPUnit\Framework\TestCase
                 'dayOfMonth'  => [],
                 'dayOfWeek'   => [],
                 'year'        => [],
-            ]), $interval->__serialize()
+            ]), $interval->serialize()
         );
     }
 
@@ -307,7 +307,7 @@ final class IntervalTest extends \PHPUnit\Framework\TestCase
             'dayOfMonth'  => [['start' => 1, 'end' => 3, 'step' => 2]],
             'dayOfWeek'   => [['start' => 1, 'end' => 3, 'step' => 2]],
             'year'        => [['start' => 1, 'end' => 3, 'step' => 2]],
-        ]), $interval->__serialize());
+        ]), $interval->serialize());
     }
 
     /**
@@ -327,7 +327,7 @@ final class IntervalTest extends \PHPUnit\Framework\TestCase
         $interval->addDayOfMonth(1, 3, 2);
         $interval->addDayOfWeek(1, 3, 2);
 
-        $interval2 = new Interval(null, $interval->__serialize());
+        $interval2 = new Interval(null, $interval->serialize());
 
         self::assertEquals('2015-08-14', $interval2->getStart()->format('Y-m-d'));
         self::assertEquals('2018-10-30', $interval2->getEnd()->format('Y-m-d'));
