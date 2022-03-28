@@ -111,6 +111,13 @@ final class ConsoleRequest extends RequestAbstract
         }
     }
 
+    public function hasData(string $key) : bool
+    {
+        $key = '-' . \mb_strtolower($key);
+
+        return ArrayUtils::hasArg($key, $this->data) > -1;
+    }
+
     /**
      * Set request data.
      *

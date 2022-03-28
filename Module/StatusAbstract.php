@@ -16,7 +16,6 @@ namespace phpOMS\Module;
 
 use phpOMS\Application\ApplicationAbstract;
 use phpOMS\Application\ApplicationInfo;
-use phpOMS\DataStorage\Database\DatabasePool;
 use phpOMS\System\File\Local\Directory;
 use phpOMS\System\File\Local\File;
 use phpOMS\System\File\PathException;

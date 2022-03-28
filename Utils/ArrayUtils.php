@@ -292,11 +292,9 @@ final class ArrayUtils
      */
     public static function hasArg(string $id, array $args) : int
     {
-        if (($key = \array_search($id, $args)) === false) {
-            return -1;
-        }
-
-        return (int) $key;
+        return ($key = \array_search($id, $args)) === false
+            ? -1
+            : (int) $key;
     }
 
     /**
