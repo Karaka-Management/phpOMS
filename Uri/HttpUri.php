@@ -111,6 +111,14 @@ final class HttpUri implements UriInterface
     private string $path;
 
     /**
+     * Uri path with offset.
+     *
+     * @var string
+     * @since 1.0.0
+     */
+    private string $offsetPath = '';
+
+    /**
      * Uri query.
      *
      * @var array<string, string>
@@ -205,10 +213,10 @@ final class HttpUri implements UriInterface
 
         $this->pathElements = \explode('/', \trim($this->path, '/'));
 
-        $path = \array_slice($this->pathElements, $this->pathOffset);
+        $path             = \array_slice($this->pathElements, $this->pathOffset);
         $this->offsetPath = '/' . \implode('/', $path);
 
-        $this->queryString  = $url['query'] ?? '';
+        $this->queryString = $url['query'] ?? '';
 
         if (!empty($this->queryString)) {
             \parse_str($this->queryString, $this->query);
@@ -283,7 +291,7 @@ final class HttpUri implements UriInterface
     {
         $this->pathOffset = $offset;
 
-        $path = \array_slice($this->pathElements, $this->pathOffset);
+        $path             = \array_slice($this->pathElements, $this->pathOffset);
         $this->offsetPath = '/' . \implode('/', $path);
     }
 
@@ -322,7 +330,7 @@ final class HttpUri implements UriInterface
         $this->path         = $path;
         $this->pathElements = \explode('/', \ltrim($this->path, '/'));
 
-        $path = \array_slice($this->pathElements, $this->pathOffset);
+        $path             = \array_slice($this->pathElements, $this->pathOffset);
         $this->offsetPath = '/' . \implode('/', $path);
     }
 
@@ -361,6 +369,16 @@ final class HttpUri implements UriInterface
         }
 
         return $this->queryString;
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function setQuery(string $uri) : void
+    {
+        \parse_str($uri, $this->query);
+
+        $this->query = \array_change_key_case($this->query, \CASE_LOWER);
     }
 
     /**

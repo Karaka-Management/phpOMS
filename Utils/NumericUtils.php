@@ -60,10 +60,10 @@ final class NumericUtils
         }
 
         if ($a < 0) {
-            $a = ($a >> 1);
+            $a  = ($a >> 1);
             $a &= 0x7fffffff;
             $a |= 0x40000000;
-            $a = ($a >> ($b - 1));
+            $a  = ($a >> ($b - 1));
         } else {
             $a = ($a >> $b);
         }

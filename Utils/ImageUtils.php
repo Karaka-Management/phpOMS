@@ -53,6 +53,15 @@ final class ImageUtils
         return (string) \base64_decode($img);
     }
 
+    /**
+     * Calculate the lightness from an RGB value as integer
+     *
+     * @param int $rgb RGB value represented as integer
+     *
+     * @return float
+     *
+     * @since 1.0.0
+     */
     public static function lightness(int $rgb) : float
     {
         $sR = ($rgb >> 16) & 0xFF;
@@ -62,6 +71,17 @@ final class ImageUtils
         return self::lightnessFromRgb($sR, $sG, $sB);
     }
 
+    /**
+     * Calculate lightess from rgb values
+     *
+     * @param int $r Red
+     * @param int $g Green
+     * @param int $b Blue
+     *
+     * @return float
+     *
+     * @since 1.0.0
+     */
     public static function lightnessFromRgb(int $r, int $g, int $b) : float
     {
         $vR = $r / 255.0;

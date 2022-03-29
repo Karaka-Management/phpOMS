@@ -42,9 +42,9 @@ abstract class InstallerAbstract
     /**
      * Install module.
      *
-     * @param ApplicationAbstract $app     Application
-     * @param ModuleInfo        $info       Module info
-     * @param SettingsInterface $cfgHandler Settings/Configuration handler
+     * @param ApplicationAbstract $app        Application
+     * @param ModuleInfo          $info       Module info
+     * @param SettingsInterface   $cfgHandler Settings/Configuration handler
      *
      * @return void
      *
@@ -87,8 +87,8 @@ abstract class InstallerAbstract
     /**
      * Activate after install.
      *
-     * @param ApplicationAbstract $app     Application
-     * @param ModuleInfo   $info   Module info
+     * @param ApplicationAbstract $app  Application
+     * @param ModuleInfo          $info Module info
      *
      * @return void
      *

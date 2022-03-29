@@ -46,8 +46,8 @@ abstract class StatusAbstract
     /**
      * Deactivate module.
      *
-     * @param ApplicationAbstract $app Application
-     * @param ModuleInfo   $info   Module info
+     * @param ApplicationAbstract $app  Application
+     * @param ModuleInfo          $info Module info
      *
      * @return void
      *
@@ -176,8 +176,8 @@ abstract class StatusAbstract
     /**
      * Deactivate module.
      *
-     * @param ApplicationAbstract $app Application
-     * @param ModuleInfo   $info   Module info
+     * @param ApplicationAbstract $app  Application
+     * @param ModuleInfo          $info Module info
      *
      * @return void
      *

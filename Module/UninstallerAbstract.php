@@ -40,8 +40,8 @@ abstract class UninstallerAbstract
     /**
      * Install module.
      *
-     * @param ApplicationAbstract $app     Application
-     * @param ModuleInfo   $info   Module info
+     * @param ApplicationAbstract $app  Application
+     * @param ModuleInfo          $info Module info
      *
      * @return void
      *
@@ -57,8 +57,8 @@ abstract class UninstallerAbstract
     /**
      * Activate after install.
      *
-     * @param ApplicationAbstract $app     Application
-     * @param ModuleInfo   $info   Module info
+     * @param ApplicationAbstract $app  Application
+     * @param ModuleInfo          $info Module info
      *
      * @return void
      *

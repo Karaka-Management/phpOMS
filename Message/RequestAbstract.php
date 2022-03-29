@@ -267,9 +267,18 @@ abstract class RequestAbstract implements MessageInterface
      * Get the origin request source (IPv4/IPv6)
      *
      * @return string
+     *
+     * @since 1.0.0
      */
     abstract public function getOrigin() : string;
 
+    /**
+     * Get the route verb
+     *
+     * @return int
+     *
+     * @since 1.0.0
+     */
     abstract public function getRouteVerb() : int;
 
     /**
@@ -292,6 +301,15 @@ abstract class RequestAbstract implements MessageInterface
         return $this->files;
     }
 
+    /**
+     * Add file to request
+     *
+     * @param array $file File data to add (Array here means one file with multiple information e.g. name, path, size)
+     *
+     * @return void
+     *
+     * @since 1.0.0
+     */
     public function addFile(array $file) : void
     {
         $this->files[] = $file;

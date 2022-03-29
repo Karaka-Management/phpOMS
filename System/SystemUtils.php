@@ -147,6 +147,13 @@ final class SystemUtils
         return 'localhost.localdomain';
     }
 
+    /**
+     * Execute a command
+     *
+     * @param string $executable Path or name of the executable
+     * @param string $cmd        Command to execute
+     * @param bool   $async      Execute async
+     */
     public static function runProc(string $executable, string $cmd, bool $async = false) : array
     {
         if (\strtolower((string) \substr(\PHP_OS, 0, 3)) === 'win') {

@@ -41,9 +41,9 @@ abstract class InstallerAbstract
     /**
      * Install app.
      *
-     * @param ApplicationAbstract $app     Application
-     * @param ApplicationInfo   $info       App info
-     * @param SettingsInterface $cfgHandler Settings/Configuration handler
+     * @param ApplicationAbstract $app        Application
+     * @param ApplicationInfo     $info       App info
+     * @param SettingsInterface   $cfgHandler Settings/Configuration handler
      *
      * @return void
      *
@@ -125,8 +125,8 @@ abstract class InstallerAbstract
     /**
      * Activate after install.
      *
-     * @param ApplicationAbstract $app     Application
-     * @param ApplicationInfo $info   App info
+     * @param ApplicationAbstract $app  Application
+     * @param ApplicationInfo     $info App info
      *
      * @return void
      *

@@ -138,7 +138,7 @@ class PermissionAbstract implements \JsonSerializable
      * @param null|string $app        App App to check  (null if all are acceptable)
      * @param null|string $module     Module Module to check  (null if all are acceptable)
      * @param null|string $from       Provided by which module
-     * @param null|int    $category       Type (e.g. customer) (null if all are acceptable)
+     * @param null|int    $category   Category (e.g. customer) (null if all are acceptable)
      * @param null|int    $element    (e.g. customer id) (null if all are acceptable)
      * @param null|int    $component  (e.g. address) (null if all are acceptable)
      * @param int         $permission Permission to check
@@ -159,7 +159,7 @@ class PermissionAbstract implements \JsonSerializable
         $this->app       = $app;
         $this->module    = $module;
         $this->from      = $from;
-        $this->category      = $category;
+        $this->category  = $category;
         $this->element   = $element;
         $this->component = $component;
 
@@ -469,7 +469,7 @@ class PermissionAbstract implements \JsonSerializable
      * @param null|int    $unit       Unit Unit to check (null if all are acceptable)
      * @param null|string $app        App App to check  (null if all are acceptable)
      * @param null|string $module     Module Module to check  (null if all are acceptable)
-     * @param null|int    $category       Type (e.g. customer) (null if all are acceptable)
+     * @param null|int    $category   Category (e.g. customer) (null if all are acceptable)
      * @param null|int    $element    (e.g. customer id) (null if all are acceptable)
      * @param null|int    $component  (e.g. address) (null if all are acceptable)
      *

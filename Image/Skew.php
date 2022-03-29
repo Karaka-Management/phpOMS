@@ -14,8 +14,6 @@ declare(strict_types=1);
 
 namespace phpOMS\Image;
 
-use phpOMS\Utils\ImageUtils;
-
 /**
  * Skew image
  *
@@ -29,10 +27,11 @@ final class Skew
     /**
      * Automatically rotate image based on projection profile
      *
-     * @param string $inPath  Binary input image (black/white)
-     * @param string $outPath Output image
-     * @param array  $start   Start coordinates for analysis (e.g. ignore top/border of image)
-     * @param array  $end     End coordinates for analysis (e.g. ignore bottom/border of image)
+     * @param string $inPath    Binary input image (black/white)
+     * @param string $outPath   Output image
+     * @param int    $maxDegree Max degree to consider for rotation
+     * @param array  $start     Start coordinates for analysis (e.g. ignore top/border of image)
+     * @param array  $end       End coordinates for analysis (e.g. ignore bottom/border of image)
      */
     public static function autoRotate(string $inPath, string $outPath, int $maxDegree = 45, array $start = [], array $end = []) : void
     {
@@ -43,6 +42,10 @@ final class Skew
             $im = \imagecreatefromjpeg($inPath);
         } else {
             $im = \imagecreatefromgif($inPath);
+        }
+
+        if ($im == false) {
+            return;
         }
 
         $dim = [\imagesx($im), \imagesy($im)];
@@ -59,15 +62,15 @@ final class Skew
         for ($i = $start[0]; $i < $end[0]; ++$i) {
             for ($j = $start[1]; $j < $end[1]; ++$j) {
                 $imMatrix[$j - $start[1]][$i - $start[0]] = \imagecolorat($im, $i, $j) < 0.5 ? 1 : 0;
-                $avg += $imMatrix[$j - $start[1]][$i - $start[0]];
+                $avg                                     += $imMatrix[$j - $start[1]][$i - $start[0]];
             }
         }
 
         $avg /= $start[1] - $end[1];
 
         $dimImMatrix = [\count($imMatrix), \count($imMatrix[0])];
-        $bestScore = 0;
-        $bestDegree = 0;
+        $bestScore   = 0;
+        $bestDegree  = 0;
 
         for ($i = -$maxDegree; $i < $maxDegree; $i += 1) {
             if ($i === 0) {
@@ -75,7 +78,7 @@ final class Skew
             }
 
             $rotated = self::rotatePixelMatrix($imMatrix, $dimImMatrix, $i);
-            $hist = [];
+            $hist    = [];
 
             for ($j = 0; $j < $dimImMatrix[0]; ++$j) {
                 $hist[$j] = \array_sum($rotated[$j]);
@@ -88,12 +91,15 @@ final class Skew
 
             $score = \array_sum($hist);
             if ($bestScore < $score) {
-                $bestScore = $score;
+                $bestScore  = $score;
                 $bestDegree = $i;
             }
         }
 
         $im = \imagerotate($im, $bestDegree, 1);
+        if ($im == false) {
+            return;
+        }
 
         if (\strripos($outPath, 'png') !== false) {
             \imagepng($im, $outPath);
@@ -106,6 +112,17 @@ final class Skew
         \imagedestroy($im);
     }
 
+    /**
+     * Rotate the pixel matrix by a certain degree
+     *
+     * @param array $pixel Pixel matrix (0 index = y, 1 index = x)
+     * @param array $dim   Matrix dimension (0 index = y, 1 index = x)
+     * @param int   $deg   Degree to rotate
+     *
+     * @return array
+     *
+     * @since 1.0.0
+     */
     public static function rotatePixelMatrix(array $pixel, array $dim, int $deg) : array
     {
         $rad = \deg2rad($deg);
@@ -131,12 +148,24 @@ final class Skew
         return $rotated;
     }
 
+    /**
+     * Find the closes pixel based on floating points
+     *
+     * @param array $pixel Pixel matrix (0 index = y, 1 index = x)
+     * @param array $dim   Matrix dimension (0 index = y, 1 index = x)
+     * @param float $x     X coordinate
+     * @param float $y     Y coordinate
+     *
+     * @return int
+     *
+     * @since 1.0.0
+     */
     private static function getNearestValue(array $pixel, array $dim, float $x, float $y) : int
     {
-        $xLow = \min((int) $x, $dim[1] - 1);
+        $xLow  = \min((int) $x, $dim[1] - 1);
         $xHigh = \min((int) \ceil($x), $dim[1] - 1);
 
-        $yLow = \min((int) $y, $dim[0] - 1);
+        $yLow  = \min((int) $y, $dim[0] - 1);
         $yHigh = \min((int) \ceil($y), $dim[0] - 1);
 
         $points = [

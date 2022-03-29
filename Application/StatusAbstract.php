@@ -42,8 +42,8 @@ abstract class StatusAbstract
     /**
      * Deactivate app.
      *
-     * @param ApplicationAbstract $app Application
-     * @param ApplicationInfo $info   Module info
+     * @param ApplicationAbstract $app  Application
+     * @param ApplicationInfo     $info Module info
      *
      * @return void
      *

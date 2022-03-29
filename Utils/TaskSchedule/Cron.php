@@ -31,6 +31,10 @@ class Cron extends SchedulerAbstract
     public function create(TaskAbstract $task) : void
     {
         $path = \tempnam(\sys_get_temp_dir(), 'cron_');
+        if ($path === false) {
+            throw new \Exception();
+        }
+
         $this->run('-l > ' . $path);
         \file_put_contents($path, $task->__toString() . "\n", \FILE_APPEND);
         $this->run($path);
@@ -43,6 +47,10 @@ class Cron extends SchedulerAbstract
     public function update(TaskAbstract $task) : void
     {
         $path = \tempnam(\sys_get_temp_dir(), 'cron_');
+        if ($path === false) {
+            throw new \Exception();
+        }
+
         $this->run('-l > ' . $path);
 
         $new = '';
@@ -82,6 +90,10 @@ class Cron extends SchedulerAbstract
     public function deleteByName(string $name) : void
     {
         $path = \tempnam(\sys_get_temp_dir(), 'cron_');
+        if ($path === false) {
+            throw new \Exception();
+        }
+
         $this->run('-l > ' . $path);
 
         $new = '';
@@ -113,6 +125,10 @@ class Cron extends SchedulerAbstract
     public function getAll() : array
     {
         $path = \tempnam(\sys_get_temp_dir(), 'cron_');
+        if ($path === false) {
+            throw new \Exception();
+        }
+
         $this->run('-l > ' . $path);
 
         $jobs = [];
@@ -152,6 +168,10 @@ class Cron extends SchedulerAbstract
     public function getAllByName(string $name, bool $exact = true) : array
     {
         $path = \tempnam(\sys_get_temp_dir(), 'cron_');
+        if ($path === false) {
+            throw new \Exception();
+        }
+
         $this->run('-l > ' . $path);
 
         $jobs = [];

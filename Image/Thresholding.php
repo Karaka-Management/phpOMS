@@ -50,8 +50,15 @@ final class Thresholding
             $im = \imagecreatefromgif($inPath);
         }
 
+        if ($im == false) {
+            return;
+        }
+
         $dim = [\imagesx($im), \imagesy($im)];
         $out = \imagecreate($dim[0], $dim[1]);
+        if ($out == false) {
+            return;
+        }
 
         $intImg = [[]];
         for ($i = 0; $i < $dim[0]; ++$i) {
@@ -59,6 +66,10 @@ final class Thresholding
 
             for ($j = 0; $j < $dim[1]; ++$j) {
                 $rgb = \imagecolorat($im, $i, $j);
+                if ($rgb === false) {
+                    $rgb = 0;
+                }
+
                 $sum += ImageUtils::lightness($rgb);
 
                 $intImg[$i][$j] = $i === 0 ? $sum : $intImg[$i - 1][$j] + $sum;
@@ -71,6 +82,10 @@ final class Thresholding
         $black = \imagecolorallocate($out, 0, 0, 0);
         $white = \imagecolorallocate($out, 255, 255, 255);
 
+        if ($black === false || $white === false) {
+            return;
+        }
+
         for ($i = 0; $i < $dim[0]; ++$i) {
             for ($j = 0; $j < $dim[1]; ++$j) {
                 $x1 = \max(1, (int) ($i - $s / 2.0));
@@ -82,7 +97,11 @@ final class Thresholding
                 $count = ($x2 - $x1) * ($y2 - $y1);
                 $sum   = $intImg[$x2][$y2] - $intImg[$x2][$y1 - 1] - $intImg[$x1 - 1][$y2] + $intImg[$x1 - 1][$y1 - 1];
 
-                $rgb        = \imagecolorat($im, $i, $j);
+                $rgb = \imagecolorat($im, $i, $j);
+                if ($rgb === false) {
+                    $rgb = 0;
+                }
+
                 $brightness = ImageUtils::lightness($rgb);
 
                 $color = $brightness * $count <= ($sum * (100.0 - $t) / 100.0) ? $black : $white;

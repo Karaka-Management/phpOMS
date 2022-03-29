@@ -76,7 +76,7 @@ final class HttpRequest extends RequestAbstract
     {
         $this->header       = new HttpHeader();
         $this->header->l11n = $l11n ?? new Localization();
-        $this->uri = $uri ?? new HttpUri('');
+        $this->uri          = $uri ?? new HttpUri('');
     }
 
     /**

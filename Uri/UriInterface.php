@@ -135,6 +135,17 @@ interface UriInterface
     public function getPathElements() : array;
 
     /**
+     * Set query from uri.
+     *
+     * @param string $uri Uri to parse
+     *
+     * @return void
+     *
+     * @since 1.0.0
+     */
+    public function setQuery(string $uri) : void;
+
+    /**
      * Get query.
      *
      * @param string $key Query key
@@ -148,7 +159,7 @@ interface UriInterface
     /**
      * Get query array.
      *
-     * @return array<string, string>
+     * @return string[]
      *
      * @since 1.0.0
      */

@@ -251,14 +251,14 @@ final class EventManager implements \Countable
         foreach ($this->callbacks[$group]['callbacks'] as $func) {
             if (\is_array($data)) {
                 $data[':triggerGroup'] ??= $group;
-                $data[':triggerId']    = $id;
+                $data[':triggerId']      = $id;
             } else {
                 $data = [
                     $data,
                 ];
 
                 $data[':triggerGroup'] ??= $group;
-                $data[':triggerId']    = $id;
+                $data[':triggerId']      = $id;
             }
 
             $this->dispatcher->dispatch($func, ...$data);

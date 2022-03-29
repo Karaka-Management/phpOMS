@@ -87,10 +87,15 @@ final class TesseractOcr
      */
     public function parseImage(string $image, array $languages = ['eng'], int $psm = 3, int $oem = 3) : string
     {
+        $temp = \tempnam(\sys_get_temp_dir(), 'ocr_');
+        if ($temp === false) {
+            return '';
+        }
+
         SystemUtils::runProc(
             self::$bin,
             $image . ' '
-            . ($temp = \tempnam(\sys_get_temp_dir(), 'ocr_'))
+            . $temp
             . ' -c preserve_interword_spaces=1'
             . ' --psm ' . $psm
             . ' --oem ' . $oem
@@ -98,6 +103,9 @@ final class TesseractOcr
         );
 
         $parsed = \file_get_contents($temp . '.txt');
+        if ($parsed === false) {
+            return '';
+        }
 
         // @todo: auto flip image if x% of text are garbage words?
 

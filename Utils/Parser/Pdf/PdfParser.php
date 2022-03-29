@@ -39,34 +39,47 @@ class PdfParser
      */
     public static function pdf2text(string $path) : string
     {
-        $text = '';
+        $text   = '';
         $tmpDir = \sys_get_temp_dir();
+
+        $out = \tempnam($tmpDir, 'pdf_');
+        if ($out === false) {
+            return '';
+        }
 
         SystemUtils::runProc(
             '/usr/bin/pdftotext', '-layout '
                 . \escapeshellarg($path) . ' '
-                .  \escapeshellarg($out = \tempnam($tmpDir, 'pdf_'))
+                .  \escapeshellarg($out)
         );
 
         $text = \file_get_contents($out);
         \unlink($out);
 
+        if ($text === false) {
+            $text = '';
+        }
+
         if (\strlen($text) < 256) {
+            $out = \tempnam($tmpDir, 'pdf_');
+            if ($out === false) {
+                return '';
+            }
+
             SystemUtils::runProc(
                 '/usr/bin/pdftoppm',
                 '-jpeg -r 300 '
                     . \escapeshellarg($path) . ' '
-                    .  \escapeshellarg($out = \tempnam($tmpDir, 'pdf_'))
+                    .  \escapeshellarg($out)
             );
 
             $files = \glob($out . '*');
             if ($files === false) {
-                return $text;
+                return $text === false ? '' : $text;
             }
 
             foreach ($files as $file) {
-                if (
-                    !StringUtils::endsWith($file, '.jpg')
+                if (!StringUtils::endsWith($file, '.jpg')
                     && !StringUtils::endsWith($file, '.png')
                     && !StringUtils::endsWith($file, '.gif')
                 ) {
@@ -84,7 +97,7 @@ class PdfParser
                         . \escapeshellarg($file)
                 );
 
-                $ocr = new TesseractOcr();
+                $ocr  = new TesseractOcr();
                 $text = $ocr->parseImage($file);
 
                 \unlink($file);

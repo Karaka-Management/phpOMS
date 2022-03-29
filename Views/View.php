@@ -356,8 +356,20 @@ class View extends ViewAbstract
         return $this->l11nManager->getDateTime($this->l11n, $datetime, $format);
     }
 
+    /**
+     * Render user name based on format
+     *
+     * @param string $format Format used in printf
+     * @param array  $names  Names to render according to the format
+     *
+     * @return string
+     *
+     * @since 1.0.0
+     */
     public function renderUserName(string $format, array $names) : string
     {
-        return \trim(\preg_replace('/\s+/', ' ', \sprintf($format, ...$names)));;
+        $name = \preg_replace('/\s+/', ' ', \sprintf($format, ...$names));
+
+        return $name === null ? '' : \trim($name);
     }
 }

@@ -611,7 +611,7 @@ class Grammar extends GrammarAbstract
             return '';
         }
 
-        $cols  = '(';
+        $cols = '(';
         for ($i = 0; $i < $count; ++$i) {
             $cols .= $this->compileSystem($columns[$i]) . ', ';
         }

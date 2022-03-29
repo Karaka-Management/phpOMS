@@ -27,6 +27,23 @@ namespace phpOMS\Contract;
  */
 interface SerializableInterface
 {
+    /**
+     * Serialize object
+     *
+     * @return string
+     *
+     * @since 1.0.0
+     */
     public function serialize() : string;
+
+    /**
+     * Fill object with data
+     *
+     * @param mixed $data Date to unserialize
+     *
+     * @return void
+     *
+     * @since 1.0.0
+     */
     public function unserialize($data) : void;
 }

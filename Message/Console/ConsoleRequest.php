@@ -111,6 +111,9 @@ final class ConsoleRequest extends RequestAbstract
         }
     }
 
+    /**
+     * {@inheritdoc}
+     */
     public function hasData(string $key) : bool
     {
         $key = '-' . \mb_strtolower($key);

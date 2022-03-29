@@ -86,15 +86,19 @@ final class Kernel
             $im = \imagecreatefromgif($inPath);
         }
 
+        if ($im == false) {
+            return;
+        }
+
         if (\count($kernel) === 3) {
             \imageconvolution($im, $kernel, 1, 0);
         } else {
             // @todo: implement @see https://rosettacode.org/wiki/Image_convolution
             // @todo: not working yet
-            $dim = [\imagesx($im), \imagesy($im)];
+            $dim  = [\imagesx($im), \imagesy($im)];
             $kDim = [\count($kernel[1]), \count($kernel)]; // @todo: is the order correct? mhh...
 
-            $kWidthRadius = NumericUtils::uRightShift($kDim[0], 1);
+            $kWidthRadius  = NumericUtils::uRightShift($kDim[0], 1);
             $kHeightRadius = NumericUtils::uRightShift($kDim[1], 1);
 
             for ($i = $dim[0] - 1; $i >= 0; --$i) {

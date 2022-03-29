@@ -119,7 +119,7 @@ final class Argument implements UriInterface
     /**
      * Uri query.
      *
-     * @var array<string, mixed>
+     * @var array<int, mixed>
      * @since 1.0.0
      */
     private array $query = [];
@@ -172,23 +172,17 @@ final class Argument implements UriInterface
         // Handle no path information only data
         $uriParts = \stripos($uriParts[0], '-') === 0 ? ['/', $uriParts[0]] : $uriParts;
 
-        $this->path = \array_shift($uriParts);
+        $this->path         = \count($uriParts) === 0 ? '' : \array_shift($uriParts);
         $this->pathElements = \explode('/', \ltrim($this->path, '/'));
 
-        $path = \array_slice($this->pathElements, $this->pathOffset);
+        $path             = \array_slice($this->pathElements, $this->pathOffset);
         $this->offsetPath = '/' . \implode('/', $path);
 
         $this->setQuery(\implode(' ', $uriParts));
     }
 
     /**
-     * Set query from uri.
-     *
-     * @param string $uri Uri to parse
-     *
-     * @return void
-     *
-     * @since 1.0.0
+     * {@inheritdoc}
      */
     public function setQuery(string $uri) : void
     {
@@ -250,7 +244,7 @@ final class Argument implements UriInterface
     {
         $this->pathOffset = $offset;
 
-        $path = \array_slice($this->pathElements, $this->pathOffset);
+        $path             = \array_slice($this->pathElements, $this->pathOffset);
         $this->offsetPath = '/' . \implode('/', $path);
     }
 
@@ -270,7 +264,7 @@ final class Argument implements UriInterface
         $this->path         = $path;
         $this->pathElements = \explode('/', \ltrim($this->path, '/'));
 
-        $path = \array_slice($this->pathElements, $this->pathOffset);
+        $path             = \array_slice($this->pathElements, $this->pathOffset);
         $this->offsetPath = '/' . \implode('/', $path);
     }
 
