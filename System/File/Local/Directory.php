@@ -359,7 +359,7 @@ final class Directory extends FileAbstract implements DirectoryInterface
 
         if (!\is_dir($to)) {
             self::create($to, 0755, true);
-        } elseif ($overwrite && \is_dir($to)) {
+        } elseif ($overwrite) {
             self::delete($to);
             self::create($to, 0755, true);
         }

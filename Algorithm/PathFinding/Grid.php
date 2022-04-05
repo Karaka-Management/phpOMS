@@ -71,9 +71,11 @@ class Grid
         foreach ($gridArray as $y => $yRow) {
             foreach ($yRow as $x => $xElement) {
                 if ($xElement === 0 || $xElement === 1 || $xElement === 2) {
+                    /** @var \phpOMS\Algorithm\PathFinding\Node $empty */
                     $empty = new $node($x, $y, 1.0, true);
                     $grid->setNode($x, $y, $empty);
                 } elseif ($xElement === 9) {
+                    /** @var \phpOMS\Algorithm\PathFinding\Node $wall */
                     $wall = new $node($x, $y, 1.0, false);
                     $grid->setNode($x, $y, $wall);
                 }

@@ -262,10 +262,6 @@ abstract class StatusAbstract
             return;
         }
 
-        if (!\is_file($destRoutePath)) {
-            throw new PathException($destRoutePath); // @codeCoverageIgnore
-        }
-
         if (!\is_writable($destRoutePath)) {
             throw new PermissionException($destRoutePath); // @codeCoverageIgnore
         }

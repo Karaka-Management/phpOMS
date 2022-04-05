@@ -131,10 +131,8 @@ final class FileUtils
 
             if ($part !== '..' || empty($path)) {
                 $path[] = $part;
-            } elseif (!empty($path)) {
-                \array_pop($path);
             } else {
-                throw new PathException($origPath); // @codeCoverageIgnore
+                \array_pop($path);
             }
         }
 

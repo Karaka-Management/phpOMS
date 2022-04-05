@@ -278,7 +278,7 @@ final class L11nManager
      */
     public function getCurrency(Localization $l11n, int | float $currency, string $format = null, string $symbol = null, int $divide = 1) : string
     {
-        $language = $l11n->getLanguage() ?? 'en';
+        $language = $l11n->getLanguage();
         $symbol ??= $l11n->getCurrency();
 
         if (\is_float($currency)) {
@@ -299,7 +299,7 @@ final class L11nManager
             (int) ($currency / $divide),
             $l11n->getThousands(),
             $l11n->getDecimal(),
-            $symbol ?? $l11n->getCurrency(),
+            $symbol,
             (int) $l11n->getCurrencyFormat()
         );
 

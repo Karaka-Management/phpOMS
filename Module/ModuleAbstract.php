@@ -59,7 +59,7 @@ abstract class ModuleAbstract
     /**
      * Module id.
      *
-     * @var string
+     * @var int
      * @since 1.0.0
      */
     public const ID = 0;

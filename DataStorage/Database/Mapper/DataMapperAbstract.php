@@ -156,7 +156,7 @@ abstract class DataMapperAbstract
         $split       = \explode('/', $member);
         $memberSplit = \array_shift($split);
 
-        $this->with[$memberSplit ?? ''][] = [
+        $this->with[$memberSplit][] = [
             'child' => \implode('/', $split),
         ];
 
@@ -178,7 +178,7 @@ abstract class DataMapperAbstract
         $split       = \explode('/', $member);
         $memberSplit = \array_shift($split);
 
-        $this->sort[$memberSplit ?? ''][] = [
+        $this->sort[$memberSplit][] = [
             'child' => \implode('/', $split),
             'order' => $order,
         ];
@@ -201,7 +201,7 @@ abstract class DataMapperAbstract
         $split       = \explode('/', $member);
         $memberSplit = \array_shift($split);
 
-        $this->offset[$memberSplit ?? ''][] = [
+        $this->offset[$memberSplit][] = [
             'child'  => \implode('/', $split),
             'offset' => $offset,
         ];
@@ -224,7 +224,7 @@ abstract class DataMapperAbstract
         $split       = \explode('/', $member);
         $memberSplit = \array_shift($split);
 
-        $this->limit[$memberSplit ?? ''][] = [
+        $this->limit[$memberSplit][] = [
             'child' => \implode('/', $split),
             'limit' => $limit,
         ];
@@ -249,7 +249,7 @@ abstract class DataMapperAbstract
         $split       = \explode('/', $member);
         $memberSplit = \array_shift($split);
 
-        $this->where[$memberSplit ?? ''][] = [
+        $this->where[$memberSplit][] = [
             'child'      => \implode('/', $split),
             'value'      => $value,
             'logic'      => $logic,

@@ -55,7 +55,7 @@ abstract class Enum
     {
         $reflect = new \ReflectionClass(static::class);
 
-        return $reflect->getConstants() ?? [];
+        return $reflect->getConstants();
     }
 
     /**

@@ -704,7 +704,8 @@ class Matrix implements \ArrayAccess, \Iterator
      */
     public function offsetGet($offset)
     {
-        $row = (int) ($offset / $this->m);
+        $offset = (int) $offset;
+        $row    = (int) ($offset / $this->m);
 
         return $this->matrix[$row][$offset - $row * $this->n];
     }
@@ -738,7 +739,8 @@ class Matrix implements \ArrayAccess, \Iterator
      */
     public function offsetExists($offset) : bool
     {
-        $row = (int) ($offset / $this->m);
+        $offset = (int) $offset;
+        $row    = (int) ($offset / $this->m);
 
         return isset($this->matrix[$row][$offset - $row * $this->n]);
     }
@@ -756,7 +758,8 @@ class Matrix implements \ArrayAccess, \Iterator
      */
     public function offsetSet($offset, $value) : void
     {
-        $row                                           = (int) ((int) $offset / $this->m);
+        $offset                                        = (int) $offset;
+        $row                                           = (int) ($offset / $this->m);
         $this->matrix[$row][$offset - $row * $this->n] = $value;
     }
 
@@ -765,7 +768,8 @@ class Matrix implements \ArrayAccess, \Iterator
      */
     public function offsetUnset($offset) : void
     {
-        $row = (int) ($offset / $this->m);
+        $offset = (int) $offset;
+        $row    = (int) ($offset / $this->m);
         unset($this->matrix[$row][$offset - $row * $this->n]);
     }
 }

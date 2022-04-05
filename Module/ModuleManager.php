@@ -202,7 +202,11 @@ final class ModuleManager
                 $content = \file_get_contents($path);
                 $json    = \json_decode($content === false ? '[]' : $content, true);
 
-                $this->active[$json['name']['internal']] = $json === false ? [] : $json;
+                if ($json === false) {
+                    return [];
+                }
+
+                $this->active[$json['name']['internal']] = $json;
             }
         }
 
@@ -646,7 +650,8 @@ final class ModuleManager
      * @todo Remove docblock type hint hack "object".
      *          The return type object is only used to stop the annoying warning that a method doesn't exist
      *          if you chain call the methods part of the returned ModuleAbstract implementation.
-     *          Remove it once alternative inline type hinting is possible for the specific returned implementation
+     *          Remove it once alternative inline type hinting is possible for the specific returned implementation.
+     *          This also causes phpstan type inspection errors, which we have to live with or ignore in the settings
      *
      * @since 1.0.0
      */

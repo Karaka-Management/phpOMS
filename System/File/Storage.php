@@ -59,11 +59,13 @@ final class Storage
     {
         if (isset(self::$registered[$env])) {
             if (\is_string(self::$registered[$env])) {
+                /** @var StorageAbstract $instance */
                 $instance               = new self::$registered[$env]();
                 self::$registered[$env] = $instance;
             } elseif (self::$registered[$env] instanceof StorageAbstract
                 || self::$registered[$env] instanceof ContainerInterface
             ) {
+                /** @var StorageAbstract $instance */
                 $instance = self::$registered[$env];
             } else {
                 throw new \Exception('Invalid type');
@@ -71,10 +73,11 @@ final class Storage
         } else {
             $stg = $env;
             $env = \ucfirst(\strtolower($env));
+            /** @var StorageAbstract $env */
             $env = __NAMESPACE__ . '\\' . $env . '\\' . $env . 'Storage';
 
             try {
-                /** @var StorageAbstract $env */
+                /** @var StorageAbstract $instance */
                 $instance = new $env();
 
                 self::$registered[$stg] = $instance;

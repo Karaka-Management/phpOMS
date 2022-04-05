@@ -297,7 +297,7 @@ final class Argument implements UriInterface
     public function getQuery(string $key = null) : string
     {
         if ($key !== null) {
-            $key = \strtolower($key);
+            $key = (int) \strtolower($key);
 
             return $this->query[$key] ?? '';
         }

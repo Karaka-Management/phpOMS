@@ -214,7 +214,7 @@ class View extends ViewAbstract
         /** @var string $theme */
         $theme = $theme ?? $this->theme;
 
-        return $this->l11nManager->getText($this->l11n->getLanguage() ?? 'en', $module, $theme, $translation);
+        return $this->l11nManager->getText($this->l11n->getLanguage(), $module, $theme, $translation);
     }
 
     /**

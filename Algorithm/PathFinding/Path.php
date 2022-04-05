@@ -54,14 +54,6 @@ class Path
     private array $expandedNodes = [];
 
     /**
-     * Path length
-     *
-     * @var float
-     * @since 1.0.0
-     */
-    private float $length = 0.0;
-
-    /**
      * Cosntructor.
      *
      * @param Grid $grid Grid this path belongs to

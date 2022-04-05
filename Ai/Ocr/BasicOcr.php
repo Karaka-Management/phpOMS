@@ -107,12 +107,12 @@ final class BasicOcr
         if (($read = \fread($fp, 4)) === false || ($unpack = \unpack('N', $read)) === false) {
             return []; // @codeCoverageIgnore
         }
-        $numberOfRows = $unpack[1];
+        $numberOfRows = (int) $unpack[1];
 
         if (($read = \fread($fp, 4)) === false || ($unpack = \unpack('N', $read)) === false) {
             return []; // @codeCoverageIgnore
         }
-        $numberOfColumns = $unpack[1];
+        $numberOfColumns = (int) $unpack[1];
 
         $images = [];
         for ($i = 0; $i < $numberOfImages; ++$i) {

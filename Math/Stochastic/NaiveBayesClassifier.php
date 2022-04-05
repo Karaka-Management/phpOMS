@@ -35,14 +35,6 @@ final class NaiveBayesClassifier
     private array $dict = [];
 
     /**
-     * Dictionary changed.
-     *
-     * @var bool
-     * @since 1.0.0
-     */
-    private bool $changed = true;
-
-    /**
      * Cached probabilities.
      *
      * @var array

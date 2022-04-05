@@ -155,19 +155,13 @@ final class ReadMapper extends DataMapperAbstract
         switch($this->type) {
             case MapperType::GET:
                 /** @var null|Builder ...$options */
-                return $options !== null
-                    ? $this->executeGet(...$options)
-                    : $this->executeGet();
+                return $this->executeGet(...$options);
             case MapperType::GET_RAW:
                 /** @var null|Builder ...$options */
-                return $options !== null
-                    ? $this->executeGetRaw(...$options)
-                    : $this->executeGetRaw();
+                return $this->executeGetRaw(...$options);
             case MapperType::GET_ALL:
                 /** @var null|Builder ...$options */
-                return $options !== null
-                    ? $this->executeGetAll(...$options)
-                    : $this->executeGetAll();
+                return $this->executeGetAll(...$options);
             case MapperType::GET_RANDOM:
                 return $this->executeGetRaw();
             case MapperType::COUNT_MODELS:
@@ -361,9 +355,9 @@ final class ReadMapper extends DataMapperAbstract
                     $comparison = \is_array($where['value']) && \count($where['value']) > 1 ? 'in' : $where['logic'];
                     $query->where($this->mapper::TABLE . '_d' . $this->depth . '.' . $col, $comparison, $where['value'], $where['comparison']);
                 }
-            } elseif (isset($this->mapper::HAS_MANY[$member])) {
-                /* variable in has many */
-                /* @todo: maybe needed in the future, but needs adjustment, doesn't make sense at the moment
+            } /* elseif (isset($this->mapper::HAS_MANY[$member])) {
+                // variable in has many
+                // @todo: maybe needed in the future, but needs adjustment, doesn't make sense at the moment
                 foreach ($values as $where) {
                     // @todo: the has many, etc. if checks only work if it is a relation on the first level, if we have a deeper where condition nesting this fails
                     if ($where['child'] !== '') {
@@ -388,10 +382,10 @@ final class ReadMapper extends DataMapperAbstract
                         );
                     }
                 }
-                */
-            } elseif (isset($this->mapper::BELONGS_TO[$member])) {
-                /* variable in belogns to */
-                /* @todo: maybe needed in the future, but needs adjustment, doesn't make sense at the moment
+
+            } */ /* elseif (isset($this->mapper::BELONGS_TO[$member])) {
+                // variable in belogns to
+                // @todo: maybe needed in the future, but needs adjustment, doesn't make sense at the moment
                 foreach ($values as $index => $where) {
                     // @todo: the has many, etc. if checks only work if it is a relation on the first level, if we have a deeper where condition nesting this fails
                     if ($where['child'] !== '') {
@@ -408,10 +402,9 @@ final class ReadMapper extends DataMapperAbstract
                             $this->mapper::BELONGS_TO[$member]['mapper']::TABLE . '_d' . $this->depth
                         );
                 }
-                */
-            } elseif (isset($this->mapper::OWNS_ONE[$member])) {
-                /* variable in owns one */
-                /* @todo: maybe needed in the future, but needs adjustment, doesn't make sense at the moment
+            } */ /* elseif (isset($this->mapper::OWNS_ONE[$member])) {
+                // variable in owns one
+                // @todo: maybe needed in the future, but needs adjustment, doesn't make sense at the moment
                 foreach ($values as $index => $where) {
                     // @todo: the has many, etc. if checks only work if it is a relation on the first level, if we have a deeper where condition nesting this fails
                     if ($where['child'] !== '') {
@@ -427,8 +420,7 @@ final class ReadMapper extends DataMapperAbstract
                             $this->mapper::OWNS_ONE[$member]['mapper']::TABLE . '_d' . $this->depth
                         );
                 }
-                */
-            }
+            } */
         }
 
         // load relations
@@ -806,7 +798,11 @@ final class ReadMapper extends DataMapperAbstract
             /** @var self $belongsToMapper */
             $belongsToMapper        = $this->createRelationMapper($mapper::get($this->db), $member);
             $belongsToMapper->depth = $this->depth + 1;
-            $belongsToMapper->where($this->mapper::BELONGS_TO[$member]['by'], $result[$mapper::getColumnByMember($this->mapper::BELONGS_TO[$member]['by']) . '_d' . $this->depth + 1], '=');
+            $belongsToMapper->where(
+                $this->mapper::BELONGS_TO[$member]['by'],
+                $result[$mapper::getColumnByMember($this->mapper::BELONGS_TO[$member]['by']) . '_d' . ($this->depth + 1)],
+                '='
+            );
 
             return $belongsToMapper->execute();
         }

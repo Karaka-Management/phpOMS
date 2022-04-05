@@ -257,8 +257,8 @@ final class EventManager implements \Countable
                     $data,
                 ];
 
-                $data[':triggerGroup'] ??= $group;
-                $data[':triggerId']      = $id;
+                $data[':triggerGroup'] = $group;
+                $data[':triggerId']    = $id;
             }
 
             $this->dispatcher->dispatch($func, ...$data);

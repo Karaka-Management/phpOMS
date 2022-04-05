@@ -95,7 +95,7 @@ class Repository
 
         $this->path = \realpath($path);
 
-        if (\is_dir($this->path . '/.git') && \is_dir($this->path . '/.git')) {
+        if (\is_dir($this->path . '/.git')) {
             $this->bare = false;
         } elseif (\is_file($this->path . '/config')) { // Is this a bare repo?
             $parseIni = \parse_ini_file($this->path . '/config');
@@ -903,7 +903,7 @@ class Repository
 
         $commit = new Commit($matches[0]);
         $commit->setAuthor(new Author(\trim($author[0] ?? ''), \rtrim($author[1] ?? '', '>')));
-        $commit->setDate(new \DateTime(\trim($date ?? 'now')));
+        $commit->setDate(new \DateTime(\trim($date)));
         $commit->setMessage($lines[3]);
         $commit->setTag(new Tag());
         $commit->setRepository($this);

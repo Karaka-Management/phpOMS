@@ -93,7 +93,7 @@ final class SystemUtils
             $freeArr  = \explode("\n", $free);
             $mem      = \explode(' ', $freeArr[1]);
             $mem      = \array_values(\array_filter($mem));
-            $memUsage = $mem[2] / $mem[1] * 100;
+            $memUsage = ((float) ($mem[2] ?? 0.0)) / ((float) ($mem[1] ?? 1.0)) * 100;
         }
 
         return (int) $memUsage;
