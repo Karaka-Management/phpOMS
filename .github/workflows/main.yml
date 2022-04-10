@@ -91,7 +91,7 @@ jobs:
       with:
           fetch-depth: 1
           ref: develop
-          repository: Karaka/Resources
+          repository: Karaka-Management/Resources
           path: Resources
     - name: Setup PHP, with composer and extensions
       uses: shivammathur/setup-php@master
