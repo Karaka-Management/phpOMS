@@ -18,7 +18,6 @@ require_once __DIR__ . '/../Autoloader.php';
 
 use Model\CoreSettings;
 use phpOMS\Application\ApplicationAbstract;
-use phpOMS\DataStorage\Database\DatabasePool;
 use phpOMS\Module\InstallerAbstract;
 use phpOMS\Module\ModuleInfo;
 

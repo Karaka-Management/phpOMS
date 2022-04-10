@@ -245,7 +245,7 @@ final class ReadMapper extends DataMapperAbstract
                 $results = $sth->fetchAll(\PDO::FETCH_ASSOC);
             }
         } catch (\Throwable $t) {
-            $results = false;
+            $results     = false;
             \var_dump($q = $query->toSql());
             \var_dump($t->getMessage());
         }

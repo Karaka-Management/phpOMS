@@ -18,7 +18,6 @@ use phpOMS\Application\ApplicationAbstract;
 use phpOMS\Application\ApplicationInfo;
 use phpOMS\Autoloader;
 use phpOMS\DataStorage\Database\Query\Builder;
-use phpOMS\Message\Http\HttpRequest;
 use phpOMS\Message\RequestAbstract;
 use phpOMS\Module\Exception\InvalidModuleException;
 

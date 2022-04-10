@@ -68,7 +68,7 @@ class BaseModel
         $this->belongsToOne = new BelongsToModel();
 
         $this->serializable = new class() implements SerializableInterface {
-            public $value = '';
+            public $value   = '';
 
             public function serialize() : string
             {

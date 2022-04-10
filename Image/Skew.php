@@ -72,7 +72,7 @@ final class Skew
         $bestScore   = 0;
         $bestDegree  = 0;
 
-        for ($i = -$maxDegree; $i < $maxDegree; $i += 1) {
+        for ($i = -$maxDegree; $i < $maxDegree; ++$i) {
             if ($i === 0) {
                 continue;
             }

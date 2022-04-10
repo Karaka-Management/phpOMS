@@ -443,7 +443,7 @@ class PermissionAbstract implements \JsonSerializable
             case PermissionType::PERMISSION:
                 $this->hasPermission = true;
                 break;
-        };
+        }
     }
 
     /**
@@ -523,15 +523,15 @@ class PermissionAbstract implements \JsonSerializable
     public function jsonSerialize() : mixed
     {
         return [
-            'id'         => $this->id,
-            'unit'       => $this->unit,
-            'app'        => $this->app,
-            'module'     => $this->module,
-            'from'       => $this->from,
+            'id'             => $this->id,
+            'unit'           => $this->unit,
+            'app'            => $this->app,
+            'module'         => $this->module,
+            'from'           => $this->from,
             'category'       => $this->category,
-            'element'    => $this->element,
-            'component'  => $this->component,
-            'permission' => $this->getPermission(),
+            'element'        => $this->element,
+            'component'      => $this->component,
+            'permission'     => $this->getPermission(),
         ];
     }
 }

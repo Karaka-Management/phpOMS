@@ -20,7 +20,6 @@ use phpOMS\System\File\Local\LocalStorage;
 use phpOMS\System\File\PathException;
 use phpOMS\System\OperatingSystem;
 use phpOMS\System\SystemType;
-use phpOMS\System\SystemUtils;
 use phpOMS\Utils\IO\Zip\Zip;
 use phpOMS\Utils\StringUtils;
 
