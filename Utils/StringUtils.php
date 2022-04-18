@@ -252,42 +252,29 @@ final class StringUtils
             return '<del>' . $old . '</del>';
         }
 
-        $diff     = self::computeLCSDiff($splitOld, $splitNew);
-        $diffval  = $diff['values'];
-        $diffmask = $diff['mask'];
+        $diff = self::computeLCSDiff($splitOld, $splitNew);
 
-        $n      = \count($diffval);
-        $pmc    = 0;
+        $n      = \count($diff['values']);
         $result = '';
 
         for ($i = 0; $i < $n; ++$i) {
-            $mc = $diffmask[$i];
+            $mc = $diff['mask'][$i];
 
-            if ($mc !== $pmc) {
-                switch ($pmc) {
-                    case -1:
-                        $result = (!empty($delim) ? \rtrim($result, $delim) : $result) . '</del>' . $delim;
-                        break;
-                    case 1:
-                        $result = (!empty($delim) ? \rtrim($result, $delim) : $result) . '</ins>' . $delim;
-                        break;
-                }
-
+            if ($mc !== 0) {
                 switch ($mc) {
                     case -1:
-                        $result = (!empty($delim) && ($pmc === 1 || $pmc === -1) ? \rtrim($result, $delim) : $result) . '<del>';
+                        $result .= '<del>' . $diff['values'][$i] . '</del>' . $delim;
                         break;
                     case 1:
-                        $result = (!empty($delim) && ($pmc === 1 || $pmc === -1) ? \rtrim($result, $delim) : $result) . '<ins>';
+                        $result .= '<ins>' . $diff['values'][$i] . '</ins>' . $delim;
                         break;
                 }
+            } else {
+                $result .= $diff['values'][$i] . $delim;
             }
-
-            $result .= $diffval[$i] . (!empty($delim) ? $delim : '');
-            $pmc     = $mc;
         }
 
-        $result = (!empty($delim) ? \rtrim($result, $delim) : $result);
+        $result = \rtrim($result, $delim);
 
         switch ($pmc) {
             case -1:

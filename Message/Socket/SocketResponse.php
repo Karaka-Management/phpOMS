@@ -167,7 +167,7 @@ final class SocketResponse extends ResponseAbstract implements RenderableInterfa
             } elseif ($response === null) {
                 continue;
             } else {
-                FileLogger::getInstance('', false)
+                FileLogger::getInstance()
                     ->error(
                         FileLogger::MSG_FULL, [
                             'message' => 'Unknown type.',

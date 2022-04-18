@@ -208,7 +208,7 @@ final class SystemUtils
             throw new \Exception((string) $stderr);
         }
 
-        $lines = \trim($stdout === false ? '' : $stdout);
+        $lines = \trim($stdout === false ? '' : (empty($stdout) ? $stderr : $stdout));
 
         $lineArray = \preg_split('/\r\n|\n|\r/', $lines);
         $lines     = [];

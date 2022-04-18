@@ -583,12 +583,13 @@ class Email implements MessageInterface
      *
      * @param string $addrstr Address line
      * @param bool   $useImap Use imap for parsing
+     * @param string $charset Charset for email
      *
      * @return array
      *
      * @since 1.0.0
      */
-    public static function parseAddresses(string $addrstr, bool $useimap = true) : array
+    public static function parseAddresses(string $addrstr, bool $useimap = true, string $charset = CharsetType::ISO_8859_1) : array
     {
         $addresses = [];
         if ($useimap && \function_exists('imap_rfc822_parse_adrlist')) {
@@ -597,6 +598,16 @@ class Email implements MessageInterface
                 if (($address->host !== '.SYNTAX-ERROR.')
                     && EmailValidator::isValid($address->mailbox . '@' . $address->host)
                 ) {
+                    if (\property_exists($address, 'personal')
+                        && \preg_match('/^=\?.*\?=$/s', $address->personal)
+                    ) {
+                        $origCharset = \mb_internal_encoding();
+                        \mb_internal_encoding($charset);
+                        $address->personal = \str_replace('_', '=20', $address->personal);
+                        $address->personal = \mb_decode_mimeheader($address->personal);
+                        \mb_internal_encoding($origCharset);
+                    }
+
                     $addresses[] = [
                         'name'    => (\property_exists($address, 'personal') ? $address->personal : ''),
                         'address' => $address->mailbox . '@' . $address->host,
@@ -623,7 +634,7 @@ class Email implements MessageInterface
 
                 if (EmailValidator::isValid($email)) {
                     $addresses[] = [
-                        'name'    => \trim(\str_replace(['"', "'"], '', $name)),
+                        'name'    => \trim($name, '\'" '),
                         'address' => $email,
                     ];
                 }
@@ -745,7 +756,12 @@ class Email implements MessageInterface
 
         // Only allow a custom message Id if it conforms to RFC 5322 section 3.6.4
         // https://tools.ietf.org/html/rfc5322#section-3.6.4
-        $this->messageId = $this->messageId !== '' && \preg_match('/^<.*@.*>$/', $this->messageId)
+        $this->messageId = $this->messageId !== ''
+            && \preg_match('/^<((([a-z\d!#$%&\'*+\/=?^_`{|}~-]+(\.[a-z\d!#$%&\'*+\/=?^_`{|}~-]+)*)' .
+        '|("(([\x01-\x08\x0B\x0C\x0E-\x1F\x7F]|[\x21\x23-\x5B\x5D-\x7E])' .
+        '|(\\[\x01-\x09\x0B\x0C\x0E-\x7F]))*"))@(([a-z\d!#$%&\'*+\/=?^_`{|}~-]+' .
+        '(\.[a-z\d!#$%&\'*+\/=?^_`{|}~-]+)*)|(\[(([\x01-\x08\x0B\x0C\x0E-\x1F\x7F]' .
+        '|[\x21-\x5A\x5E-\x7E])|(\\[\x01-\x09\x0B\x0C\x0E-\x7F]))*\])))>$/Di', $this->messageId)
             ? $this->messageId
             : \sprintf('<%s@%s>', $this->uniqueid, $this->hostname);
 
@@ -895,7 +911,10 @@ class Email implements MessageInterface
 
         $errorcode = 0;
         if (\defined('INTL_IDNA_VARIANT_UTS46')) {
-            $punycode = \idn_to_ascii($domain, $errorcode, \INTL_IDNA_VARIANT_UTS46);
+            $punycode = \idn_to_ascii(
+                $domain,
+                \IDNA_DEFAULT | \IDNA_USE_STD3_RULES | \IDNA_CHECK_BIDI | \IDNA_CHECK_CONTEXTJ | \IDNA_NONTRANSITIONAL_TO_ASCII,
+                \INTL_IDNA_VARIANT_UTS46);
         } else {
             $punycode = \idn_to_ascii($domain, $errorcode);
         }

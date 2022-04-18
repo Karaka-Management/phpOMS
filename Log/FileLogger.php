@@ -219,7 +219,7 @@ final class FileLogger implements LoggerInterface
     {
         $replace = [];
         foreach ($context as $key => $val) {
-            $replace['{' . $key . '}'] = $val;
+            $replace['{' . $key . '}'] = \str_replace(["\r\n", "\r", "\n"], ' ', (string) $val);
         }
 
         $backtrace = \debug_backtrace();
@@ -231,7 +231,7 @@ final class FileLogger implements LoggerInterface
             }
         }
 
-        $backtrace = \json_encode($backtrace);
+        $backtrace = \str_replace(["\r\n", "\r", "\n"], ' ', \json_encode($backtrace));
 
         $replace['{backtrace}'] = $backtrace;
         $replace['{datetime}']  = \sprintf('%--19s', (new \DateTimeImmutable('NOW'))->format('Y-m-d H:i:s'));

@@ -47,7 +47,7 @@ abstract class Hostname extends ValidatorAbstract
 
         if (empty($value)
             || \strlen($value) > 256
-            || !\preg_match('/^([a-zA-Z\d.-]*|\[[a-fA-F\d:]+])$/', $value)
+            || !\preg_match('/^([a-zA-Z\d.-]*|\[[a-fA-F\d:]+\])$/', $value)
         ) {
             return false;
         } elseif (\strlen($value) > 2 && \substr($value, 0, 1) === '[' && \substr($value, -1, 1) === ']') {

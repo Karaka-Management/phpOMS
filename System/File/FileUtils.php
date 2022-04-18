@@ -255,12 +255,16 @@ final class FileUtils
      */
     public static function isAccessible(string $path) : bool
     {
+        if (!self::isPermittedPath($path)) {
+            return false;
+        }
+
         $readable = \is_file($path);
         if (\strpos($path, '\\\\') !== 0) {
             $readable = $readable && \is_readable($path);
         }
 
-        return self::isPermittedPath($path) && $readable;
+        return $readable;
     }
 
     /**
@@ -274,6 +278,6 @@ final class FileUtils
      */
     public static function isPermittedPath(string $path) : bool
     {
-        return !\preg_match('#^[a-z]+://#i', $path);
+        return !\preg_match('#^[a-z][a-z\d+.-]*://#i', $path);
     }
 }

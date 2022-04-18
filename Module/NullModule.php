@@ -35,7 +35,7 @@ final class NullModule extends ModuleAbstract
     /** {@inheritdoc} */
     public static function __callStatic(string $name, array $arguments) : void
     {
-        FileLogger::getInstance('', false)
+        FileLogger::getInstance()
             ->error(
                 FileLogger::MSG_FULL, [
                     'message' => 'Expected module/controller but got NullModule.',

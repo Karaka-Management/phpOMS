@@ -99,12 +99,7 @@ class SchemaMapper
     public function getFields(string $table) : array
     {
         $builder = new Builder($this->db);
-        $tNames  = $builder->selectFields($table)->execute()->fetchAll(\PDO::FETCH_ASSOC);
-
-        $fields = [];
-        foreach ($tNames as $name) {
-            $fields[] = \array_values($name);
-        }
+        $fields  = $builder->selectFields($table)->execute()->fetchAll(\PDO::FETCH_ASSOC);
 
         return $fields;
     }

@@ -51,10 +51,10 @@ abstract class TaskAbstract
     /**
      * Status of the task
      *
-     * @var string
+     * @var int
      * @since 1.0.0
      */
-    protected string $status = '';
+    protected int $status = TaskStatus::ACTIVE;
 
     /**
      * Next runtime
@@ -173,11 +173,11 @@ abstract class TaskAbstract
     /**
      * Get status.
      *
-     * @return string
+     * @return int
      *
      * @since 1.0.0
      */
-    public function getStatus() : string
+    public function getStatus() : int
     {
         return $this->status;
     }
@@ -185,13 +185,13 @@ abstract class TaskAbstract
     /**
      * Set status.
      *
-     * @param string $status Status
+     * @param int $status Status
      *
      * @return void
      *
      * @since 1.0.0
      */
-    public function setStatus(string $status) : void
+    public function setStatus(int $status) : void
     {
         $this->status = $status;
     }

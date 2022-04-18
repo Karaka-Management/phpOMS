@@ -233,7 +233,7 @@ class View extends ViewAbstract
         $match = '/Modules/';
 
         if (($start = \strripos($this->template, $match)) === false) {
-            throw new InvalidModuleException($this->template);
+            $this->module = '0';
         }
 
         $start = $start + \strlen($match);
@@ -266,7 +266,7 @@ class View extends ViewAbstract
         $match = '/Theme/';
 
         if (($start = \strripos($this->template, $match)) === false) {
-            throw new InvalidThemeException($this->template);
+            $this->theme = '0';
         }
 
         $start       = $start + \strlen($match);

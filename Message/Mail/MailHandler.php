@@ -385,6 +385,7 @@ class MailHandler
             $params = \sprintf('-f%s', $mail->sender);
         }
 
+        $oldFrom = '';
         if (!empty($mail->sender) && EmailValidator::isValid($mail->sender)) {
             $oldFrom = \ini_get('sendmail_from');
             \ini_set('sendmail_from', $mail->sender);
@@ -392,7 +393,7 @@ class MailHandler
 
         $result = $this->mailPassthru($to, $mail, $header, $params);
 
-        if (isset($oldFrom)) {
+        if (!empty($oldFrom)) {
             \ini_set('sendmail_from', $oldFrom);
         }
 
@@ -417,8 +418,8 @@ class MailHandler
         $subject = $mail->encodeHeader(\trim(\str_replace(["\r", "\n"], '', $mail->subject)));
 
         return !$this->useMailOptions || $params === null
-            ? \mail($to, $subject, $mail->body, $header)
-            : \mail($to, $subject, $mail->body, $header, $params);
+            ? \mail($to, $subject, $mail->bodyMime, $header)
+            : \mail($to, $subject, $mail->bodyMime, $header, $params);
     }
 
     /**

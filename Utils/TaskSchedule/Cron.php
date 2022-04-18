@@ -35,6 +35,10 @@ class Cron extends SchedulerAbstract
             throw new \Exception();
         }
 
+        if (!empty($this->getAllByName($task->getId()))) {
+            return;
+        }
+
         $this->run('-l > ' . $path);
         \file_put_contents($path, $task->__toString() . "\n", \FILE_APPEND);
         $this->run($path);
@@ -180,11 +184,16 @@ class Cron extends SchedulerAbstract
         if ($fp) {
             $line = \fgets($fp);
             while ($line !== false) {
-                if ($line[0] !== '#' && \stripos($line, '# name="' . $name) !== false) {
+                if (($comment = \stripos($line, '# name="' . $name)) !== false) {
+                    $interval = \array_slice(\explode(' ', $line), 0, 5);
+
                     $elements   = [];
-                    $elements[] = $name;
-                    $elements   = \array_merge($elements, \explode(' ', $line));
-                    $jobs[]     = CronJob::createWith($elements);
+                    $elements[] = \trim(\substr($line, $comment + 8, \stripos($line, '"', $comment + 9) - $comment - 8));
+                    $elements   = \array_merge($elements, $interval);
+                    $elements[] = \trim(\substr($line, $len = (\strlen(\implode(' ', $interval)) + 1), $comment - $len - 1));
+
+                    $jobs[] = $job = CronJob::createWith($elements);
+                    $job->setStatus($line[0] === '#' ? TaskStatus::INACTIVE : TaskStatus::ACTIVE);
                 }
 
                 $line = \fgets($fp);
