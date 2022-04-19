@@ -2,7 +2,7 @@
 /**
  * Karaka
  *
- * PHP Version 8.0
+ * PHP Version 8.1
  *
  * @package   phpOMS\Message
  * @copyright Dennis Eichhorn
@@ -80,7 +80,7 @@ abstract class RequestAbstract implements MessageInterface
      * @param string $key  Data key
      * @param string $type Return type
      *
-     * @return mixed
+     * @return null|int|string|float|bool
      *
      * @since 1.0.0
      */

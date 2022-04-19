@@ -2,7 +2,7 @@
 /**
  * Karaka
  *
- * PHP Version 8.0
+ * PHP Version 8.1
  *
  * @package   phpOMS\Utils
  * @copyright Dennis Eichhorn
@@ -198,6 +198,10 @@ final class StringUtils
     public static function stringify(mixed $element, mixed $option = null) : ?string
     {
         if ($element instanceof \JsonSerializable || \is_array($element)) {
+            if ($option !== null && !\is_int($option)) {
+                return null;
+            }
+
             $encoded = \json_encode($element, $option !== null ? $option : 0);
 
             return $encoded ? $encoded : null;
@@ -215,7 +219,7 @@ final class StringUtils
             return $element->format('Y-m-d H:i:s');
         } elseif ($element instanceof RenderableInterface) {
             return $element->render();
-        } elseif (\method_exists($element, '__toString')) {
+        } elseif (\is_object($element) && \method_exists($element, '__toString')) {
             return $element->__toString();
         }
 
@@ -256,6 +260,7 @@ final class StringUtils
 
         $n      = \count($diff['values']);
         $result = '';
+        $mc     = 0;
 
         for ($i = 0; $i < $n; ++$i) {
             $mc = $diff['mask'][$i];
@@ -276,7 +281,7 @@ final class StringUtils
 
         $result = \rtrim($result, $delim);
 
-        switch ($pmc) {
+        switch ($mc) {
             case -1:
                 $result .= '</del>';
                 break;

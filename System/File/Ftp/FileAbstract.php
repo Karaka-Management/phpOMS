@@ -2,7 +2,7 @@
 /**
  * Karaka
  *
- * PHP Version 8.0
+ * PHP Version 8.1
  *
  * @package   phpOMS\System\File\Ftp
  * @copyright Dennis Eichhorn
@@ -31,10 +31,10 @@ abstract class FileAbstract implements FtpContainerInterface
     /**
      * Ftp connection
      *
-     * @var resource
+     * @var \FTP\Connection
      * @since 1.0.0
      */
-    protected $con;
+    protected \FTP\Connection $con;
 
     /**
      * Ftp uri

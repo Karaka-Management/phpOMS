@@ -2,7 +2,7 @@
 /**
  * Karaka
  *
- * PHP Version 8.0
+ * PHP Version 8.1
  *
  * @package   phpOMS\DataStorage\Database\Query
  * @copyright Dennis Eichhorn
@@ -14,6 +14,7 @@ declare(strict_types=1);
 
 namespace phpOMS\DataStorage\Database\Query;
 
+use PDOStatement;
 use phpOMS\Algorithm\Graph\DependencyResolver;
 use phpOMS\Contract\SerializableInterface;
 use phpOMS\DataStorage\Database\BuilderAbstract;
@@ -1388,11 +1389,11 @@ class Builder extends BuilderAbstract
     /**
      * Execute query.
      *
-     * @return mixed
+     * @return ?PDOStatement
      *
      * @since 1.0.0
      */
-    public function execute() : mixed
+    public function execute() : ?PDOStatement
     {
         try {
             $sth = $this->connection->con->prepare($this->toSql());

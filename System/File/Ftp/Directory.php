@@ -2,7 +2,7 @@
 /**
  * Karaka
  *
- * PHP Version 8.0
+ * PHP Version 8.1
  *
  * @package   phpOMS\System\File\Ftp
  * @copyright Dennis Eichhorn
@@ -128,16 +128,16 @@ class Directory extends FileAbstract implements DirectoryInterface
     /**
      * List all files in directory.
      *
-     * @param resource $con       FTP connection
-     * @param string   $path      Path
-     * @param string   $filter    Filter
-     * @param bool     $recursive Recursive list
+     * @param \FTP\Connection $con       FTP connection
+     * @param string          $path      Path
+     * @param string          $filter    Filter
+     * @param bool            $recursive Recursive list
      *
      * @return string[]
      *
      * @since 1.0.0
      */
-    public static function list($con, string $path, string $filter = '*', bool $recursive = false) : array
+    public static function list(\FTP\Connection $con, string $path, string $filter = '*', bool $recursive = false) : array
     {
         if (!self::exists($con, $path)) {
             return [];
@@ -166,7 +166,7 @@ class Directory extends FileAbstract implements DirectoryInterface
     /**
      * {@inheritdoc}
      */
-    public static function exists($con, string $path) : bool
+    public static function exists(\FTP\Connection $con, string $path) : bool
     {
         return File::exists($con, $path);
     }
@@ -174,16 +174,16 @@ class Directory extends FileAbstract implements DirectoryInterface
     /**
      * Create directory
      *
-     * @param resource $con        FTP connection
-     * @param string   $path       Path of the resource
-     * @param int      $permission Permission
-     * @param bool     $recursive  Create recursive in case of subdirectories
+     * @param \FTP\Connection $con        FTP connection
+     * @param string          $path       Path of the resource
+     * @param int             $permission Permission
+     * @param bool            $recursive  Create recursive in case of subdirectories
      *
      * @return bool
      *
      * @since 1.0.0
      */
-    public static function create($con, string $path, int $permission = 0755, bool $recursive = false) : bool
+    public static function create(\FTP\Connection $con, string $path, int $permission = 0755, bool $recursive = false) : bool
     {
         if (self::exists($con, $path)) {
             return false;
@@ -218,7 +218,7 @@ class Directory extends FileAbstract implements DirectoryInterface
     /**
      * {@inheritdoc}
      */
-    public static function size($con, string $dir, bool $recursive = true) : int
+    public static function size(\FTP\Connection $con, string $dir, bool $recursive = true) : int
     {
         if (!self::exists($con, $dir)) {
             return -1;
@@ -245,7 +245,7 @@ class Directory extends FileAbstract implements DirectoryInterface
     /**
      * {@inheritdoc}
      */
-    public static function count($con, string $path, bool $recursive = true, array $ignore = []) : int
+    public static function count(\FTP\Connection $con, string $path, bool $recursive = true, array $ignore = []) : int
     {
         if (!self::exists($con, $path)) {
             return -1;
@@ -275,7 +275,7 @@ class Directory extends FileAbstract implements DirectoryInterface
     /**
      * {@inheritdoc}
      */
-    public static function delete($con, string $path) : bool
+    public static function delete(\FTP\Connection $con, string $path) : bool
     {
         $path = \rtrim($path, '\\/');
 
@@ -307,7 +307,7 @@ class Directory extends FileAbstract implements DirectoryInterface
     /**
      * {@inheritdoc}
      */
-    public static function created($con, string $path) : \DateTime
+    public static function created(\FTP\Connection $con, string $path) : \DateTime
     {
         return self::changed($con, $path);
     }
@@ -315,7 +315,7 @@ class Directory extends FileAbstract implements DirectoryInterface
     /**
      * {@inheritdoc}
      */
-    public static function changed($con, string $path) : \DateTime
+    public static function changed(\FTP\Connection $con, string $path) : \DateTime
     {
         if (!self::exists($con, $path)) {
             throw new PathException($path);
@@ -332,7 +332,7 @@ class Directory extends FileAbstract implements DirectoryInterface
     /**
      * {@inheritdoc}
      */
-    public static function owner($con, string $path) : string
+    public static function owner(\FTP\Connection $con, string $path) : string
     {
         if (!self::exists($con, $path)) {
             throw new PathException($path);
@@ -344,14 +344,14 @@ class Directory extends FileAbstract implements DirectoryInterface
     /**
      * Get detailed file/dir list.
      *
-     * @param resource $con  FTP connection
-     * @param string   $path Path of the resource
+     * @param \FTP\Connection $con  FTP connection
+     * @param string          $path Path of the resource
      *
      * @return array<string, array{permission:int, number:string, user:string, group:string, size:string, month:string, day:string, time:string, type:string}>
      *
      * @since 1.0.0
      */
-    public static function parseRawList($con, string $path) : array
+    public static function parseRawList(\FTP\Connection $con, string $path) : array
     {
         $listData = \ftp_rawlist($con, $path);
         $names    = \ftp_nlist($con, $path);
@@ -392,7 +392,7 @@ class Directory extends FileAbstract implements DirectoryInterface
     /**
      * {@inheritdoc}
      */
-    public static function permission($con, string $path) : int
+    public static function permission(\FTP\Connection $con, string $path) : int
     {
         if (!self::exists($con, $path)) {
             return -1;
@@ -404,7 +404,7 @@ class Directory extends FileAbstract implements DirectoryInterface
     /**
      * {@inheritdoc}
      */
-    public static function copy($con, string $from, string $to, bool $overwrite = false) : bool
+    public static function copy(\FTP\Connection $con, string $from, string $to, bool $overwrite = false) : bool
     {
         if (!self::exists($con, $from)
             || (!$overwrite && self::exists($con, $to))
@@ -434,15 +434,15 @@ class Directory extends FileAbstract implements DirectoryInterface
     /**
      * Download file.
      *
-     * @param resource $con  FTP connection
-     * @param string   $from Path of the resource to copy
-     * @param string   $to   Path of the resource to copy to
+     * @param \FTP\Connection $con  FTP connection
+     * @param string          $from Path of the resource to copy
+     * @param string          $to   Path of the resource to copy to
      *
      * @return bool True on success and false on failure
      *
      * @since 1.0.0
      */
-    public static function get($con, string $from, string $to) : bool
+    public static function get(\FTP\Connection $con, string $from, string $to) : bool
     {
         if (!self::exists($con, $from)) {
             return false;
@@ -467,15 +467,15 @@ class Directory extends FileAbstract implements DirectoryInterface
     /**
      * Upload file.
      *
-     * @param resource $con  FTP connection
-     * @param string   $from Path of the resource to copy
-     * @param string   $to   Path of the resource to copy to
+     * @param \FTP\Connection $con  FTP connection
+     * @param string          $from Path of the resource to copy
+     * @param string          $to   Path of the resource to copy to
      *
      * @return bool True on success and false on failure
      *
      * @since 1.0.0
      */
-    public static function put($con, string $from, string $to) : bool
+    public static function put(\FTP\Connection $con, string $from, string $to) : bool
     {
         if (!\is_dir($from)) {
             return false;
@@ -514,16 +514,16 @@ class Directory extends FileAbstract implements DirectoryInterface
     /**
      * Move resource to different location.
      *
-     * @param resource $con       FTP connection
-     * @param string   $from      Path of the resource to move
-     * @param string   $to        Path of the resource to move to
-     * @param bool     $overwrite Overwrite/replace existing file
+     * @param \FTP\Connection $con       FTP connection
+     * @param string          $from      Path of the resource to move
+     * @param string          $to        Path of the resource to move to
+     * @param bool            $overwrite Overwrite/replace existing file
      *
      * @return bool True on success and false on failure
      *
      * @since 1.0.0
      */
-    public static function move($con, string $from, string $to, bool $overwrite = false) : bool
+    public static function move(\FTP\Connection $con, string $from, string $to, bool $overwrite = false) : bool
     {
         if (!self::exists($con, $from)
             || (!$overwrite && self::exists($con, $to))
@@ -752,7 +752,7 @@ class Directory extends FileAbstract implements DirectoryInterface
     /**
      * {@inheritdoc}
      */
-    public function offsetGet($offset)
+    public function offsetGet(mixed $offset) : mixed
     {
         if (isset($this->nodes[$offset]) && $this->nodes[$offset] instanceof self) {
             $this->nodes[$offset]->index();
@@ -799,17 +799,17 @@ class Directory extends FileAbstract implements DirectoryInterface
     /**
      * List all files by extension directory.
      *
-     * @param resource $con       FTP connection
-     * @param string   $path      Path
-     * @param string   $extension Extension
-     * @param string   $exclude   Pattern to exclude
-     * @param bool     $recursive Recursive
+     * @param \FTP\Connection $con       FTP connection
+     * @param string          $path      Path
+     * @param string          $extension Extension
+     * @param string          $exclude   Pattern to exclude
+     * @param bool            $recursive Recursive
      *
      * @return array<array|string>
      *
      * @since 1.0.0
      */
-    public static function listByExtension($con, string $path, string $extension = '', string $exclude = '', bool $recursive = false) : array
+    public static function listByExtension(\FTP\Connection $con, string $path, string $extension = '', string $exclude = '', bool $recursive = false) : array
     {
         $list = [];
         $path = \rtrim($path, '\\/');

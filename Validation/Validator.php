@@ -2,7 +2,7 @@
 /**
  * Karaka
  *
- * PHP Version 8.0
+ * PHP Version 8.1
  *
  * @package   phpOMS\Validation
  * @copyright Dennis Eichhorn
@@ -65,20 +65,20 @@ final class Validator extends ValidatorAbstract
     /**
      * Validate variable by type.
      *
-     * @param mixed           $var        Variable to validate
+     * @param object|string   $var        Variable to validate
      * @param string|string[] $constraint Array of allowed types
      *
      * @return bool
      *
      * @since 1.0.0
      */
-    public static function isType(mixed $var, string | array $constraint) : bool
+    public static function isType(object | string $var, string | array $constraint) : bool
     {
         if (!\is_array($constraint)) {
             $constraint = [$constraint];
         }
 
-        foreach ($constraint as $key => $value) {
+        foreach ($constraint as $value) {
             if (!\is_a($var, $value)) {
                 return false;
             }

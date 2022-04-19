@@ -2,7 +2,7 @@
 /**
  * Karaka
  *
- * PHP Version 8.0
+ * PHP Version 8.1
  *
  * @package   phpOMS\DataStorage\Database
  * @copyright Dennis Eichhorn
@@ -207,7 +207,7 @@ abstract class GrammarAbstract
         foreach ($elements as $key => $element) {
             if (\is_string($element) && $element !== '*') {
                 $expression .= $this->compileSystem($element) . (\is_string($key) ? ' as ' . $key : '') . ', ';
-            } elseif (\is_string($element) && $element === '*') {
+            } elseif ($element === '*') {
                 $expression .= '*, ';
             } elseif ($element instanceof \Closure) {
                 $expression .= $element() . (\is_string($key) ? ' as ' . $key : '') . ', ';

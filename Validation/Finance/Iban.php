@@ -2,7 +2,7 @@
 /**
  * Karaka
  *
- * PHP Version 8.0
+ * PHP Version 8.1
  *
  * @package   phpOMS\Validation\Finance
  * @copyright Dennis Eichhorn
@@ -31,6 +31,10 @@ final class Iban extends ValidatorAbstract
      */
     public static function isValid(mixed $value, array $constraints = null) : bool
     {
+        if (!\is_string($value)) {
+            return false;
+        }
+
         $value = \str_replace(' ', '', \strtolower($value));
 
         $temp = \substr($value, 0, 2);

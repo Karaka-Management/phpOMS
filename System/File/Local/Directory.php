@@ -2,7 +2,7 @@
 /**
  * Karaka
  *
- * PHP Version 8.0
+ * PHP Version 8.1
  *
  * @package   phpOMS\System\File\Local
  * @copyright Dennis Eichhorn
@@ -96,6 +96,7 @@ final class Directory extends FileAbstract implements DirectoryInterface
             $iterator = new \RegexIterator($iterator, '/' . $filter . '/i', \RecursiveRegexIterator::GET_MATCH);
         }
 
+        /** @var \DirectoryIterator $iterator */
         foreach ($iterator as $item) {
             if (!$recursive && $item->isDot()) {
                 continue;
@@ -135,6 +136,7 @@ final class Directory extends FileAbstract implements DirectoryInterface
                 \RecursiveIteratorIterator::SELF_FIRST)
             : new \DirectoryIterator($path);
 
+        /** @var \DirectoryIterator $iterator */
         foreach ($iterator as $item) {
             if (!$recursive && $item->isDot()) {
                 continue;
@@ -364,6 +366,7 @@ final class Directory extends FileAbstract implements DirectoryInterface
             self::create($to, 0755, true);
         }
 
+        /** @var \DirectoryIterator $item */
         foreach ($iterator = new \RecursiveIteratorIterator(
             new \RecursiveDirectoryIterator($from, \RecursiveDirectoryIterator::SKIP_DOTS),
             \RecursiveIteratorIterator::SELF_FIRST) as $item
@@ -641,7 +644,7 @@ final class Directory extends FileAbstract implements DirectoryInterface
     /**
      * {@inheritdoc}
      */
-    public function offsetGet($offset)
+    public function offsetGet(mixed $offset) : mixed
     {
         if (isset($this->nodes[$offset]) && $this->nodes[$offset] instanceof self) {
             $this->nodes[$offset]->index();

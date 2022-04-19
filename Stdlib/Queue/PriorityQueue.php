@@ -2,7 +2,7 @@
 /**
  * Karaka
  *
- * PHP Version 8.0
+ * PHP Version 8.1
  *
  * @package   phpOMS\Stdlib\Queue
  * @copyright Dennis Eichhorn
@@ -328,7 +328,7 @@ class PriorityQueue implements \Countable, SerializableInterface
      *
      * @since 1.0.0
      */
-    public function unserialize($data) : void
+    public function unserialize(mixed $data) : void
     {
         $this->queue = \json_decode($data, true);
     }

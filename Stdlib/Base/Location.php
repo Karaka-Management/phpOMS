@@ -2,7 +2,7 @@
 /**
  * Karaka
  *
- * PHP Version 8.0
+ * PHP Version 8.1
  *
  * @package   phpOMS\Stdlib\Base
  * @copyright Dennis Eichhorn
@@ -215,9 +215,13 @@ class Location implements \JsonSerializable, SerializableInterface
     /**
      * {@inheritdoc}
      */
-    public function unserialize($serialized) : void
+    public function unserialize(mixed $serialized) : void
     {
         $data = \json_decode($serialized, true);
+
+        if (!\is_array($data)) {
+            return;
+        }
 
         $this->postal  = $data['postal'];
         $this->city    = $data['city'];

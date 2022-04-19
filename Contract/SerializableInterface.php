@@ -2,7 +2,7 @@
 /**
  * Karaka
  *
- * PHP Version 8.0
+ * PHP Version 8.1
  *
  * @package   phpOMS\Contract
  * @copyright Dennis Eichhorn
@@ -39,11 +39,11 @@ interface SerializableInterface
     /**
      * Fill object with data
      *
-     * @param mixed $data Date to unserialize
+     * @param null|int|float|string|bool $data Date to unserialize
      *
      * @return void
      *
      * @since 1.0.0
      */
-    public function unserialize($data) : void;
+    public function unserialize(mixed $data) : void;
 }

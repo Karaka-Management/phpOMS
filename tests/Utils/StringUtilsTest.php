@@ -2,7 +2,7 @@
 /**
  * Karaka
  *
- * PHP Version 8.0
+ * PHP Version 8.1
  *
  * @package   tests
  * @copyright Dennis Eichhorn
@@ -137,7 +137,7 @@ final class StringUtilsTest extends \PHPUnit\Framework\TestCase
                 return 'abc';
             }
 
-            public function unserialize($val) : void
+            public function unserialize(mixed $val) : void
             {
             }
         }));

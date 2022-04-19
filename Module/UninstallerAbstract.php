@@ -2,7 +2,7 @@
 /**
  * Karaka
  *
- * PHP Version 8.0
+ * PHP Version 8.1
  *
  * @package   phpOMS\Module
  * @copyright Dennis Eichhorn
@@ -102,6 +102,10 @@ abstract class UninstallerAbstract
 
         $definitions = \json_decode($content, true);
         $builder     = new SchemaBuilder($dbPool->get('schema'));
+
+        if (!\is_array($definitions)) {
+            return;
+        }
 
         foreach ($definitions as $name => $definition) {
             $builder->dropTable($name ?? '');

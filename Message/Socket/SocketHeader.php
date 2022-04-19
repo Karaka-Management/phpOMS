@@ -2,7 +2,7 @@
 /**
  * Karaka
  *
- * PHP Version 8.0
+ * PHP Version 8.1
  *
  * @package   phpOMS\Message\Socket
  * @copyright Dennis Eichhorn
@@ -226,7 +226,7 @@ class SocketHeader extends HeaderAbstract implements SerializableInterface
      *
      * @since 1.0.0
      */
-    public function unserialize($string) : void
+    public function unserialize(mixed $string) : void
     {
     }
 

@@ -2,7 +2,7 @@
 /**
  * Karaka
  *
- * PHP Version 8.0
+ * PHP Version 8.1
  *
  * @package   phpOMS\Utils\IO\Zip
  * @copyright Dennis Eichhorn
@@ -62,6 +62,7 @@ class Zip implements ArchiveInterface
             $relative = \str_replace('\\', '/', $relative);
 
             if (\is_dir($source)) {
+                /** @var string[] $files */
                 $files = new \RecursiveIteratorIterator(
                     new \RecursiveDirectoryIterator($source, \FilesystemIterator::CURRENT_AS_PATHNAME),
                     \RecursiveIteratorIterator::SELF_FIRST

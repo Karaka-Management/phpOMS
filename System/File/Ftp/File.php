@@ -2,7 +2,7 @@
 /**
  * Karaka
  *
- * PHP Version 8.0
+ * PHP Version 8.1
  *
  * @package   phpOMS\System\File\Ftp
  * @copyright Dennis Eichhorn
@@ -39,12 +39,12 @@ class File extends FileAbstract implements FileInterface
     /**
      * Create ftp connection
      *
-     * @param HttpUri       $uri Ftp uri/path including username and password
-     * @param null|resource $con Connection
+     * @param HttpUri         $uri Ftp uri/path including username and password
+     * @param \FTP\Connection $con Connection
      *
      * @since 1.0.0
      */
-    public function __construct(HttpUri $uri, $con = null)
+    public function __construct(HttpUri $uri, \FTP\Connection $con = null)
     {
         $this->uri = $uri;
         $this->con = $con ?? self::ftpConnect($this->uri);
@@ -95,7 +95,7 @@ class File extends FileAbstract implements FileInterface
     /**
      * {@inheritdoc}
      */
-    public static function exists($con, string $path) : bool
+    public static function exists(\FTP\Connection $con, string $path) : bool
     {
         if ($path === '/') {
             return true;
@@ -121,7 +121,7 @@ class File extends FileAbstract implements FileInterface
     /**
      * {@inheritdoc}
      */
-    public static function put($con, string $path, string $content, int $mode = ContentPutMode::REPLACE | ContentPutMode::CREATE) : bool
+    public static function put(\FTP\Connection $con, string $path, string $content, int $mode = ContentPutMode::REPLACE | ContentPutMode::CREATE) : bool
     {
         $exists = self::exists($con, $path);
 
@@ -162,7 +162,7 @@ class File extends FileAbstract implements FileInterface
     /**
      * {@inheritdoc}
      */
-    public static function get($con, string $path) : string
+    public static function get(\FTP\Connection $con, string $path) : string
     {
         if (!self::exists($con, $path)) {
             throw new PathException($path);
@@ -185,7 +185,7 @@ class File extends FileAbstract implements FileInterface
     /**
      * {@inheritdoc}
      */
-    public static function count($con, string $path, bool $recursive = true, array $ignore = []) : int
+    public static function count(\FTP\Connection $con, string $path, bool $recursive = true, array $ignore = []) : int
     {
         return 1;
     }
@@ -193,7 +193,7 @@ class File extends FileAbstract implements FileInterface
     /**
      * {@inheritdoc}
      */
-    public static function set($con, string $path, string $content) : bool
+    public static function set(\FTP\Connection $con, string $path, string $content) : bool
     {
         return self::put($con, $path, $content, ContentPutMode::REPLACE | ContentPutMode::CREATE);
     }
@@ -201,7 +201,7 @@ class File extends FileAbstract implements FileInterface
     /**
      * {@inheritdoc}
      */
-    public static function append($con, string $path, string $content) : bool
+    public static function append(\FTP\Connection $con, string $path, string $content) : bool
     {
         return self::put($con, $path, $content, ContentPutMode::APPEND | ContentPutMode::CREATE);
     }
@@ -233,7 +233,7 @@ class File extends FileAbstract implements FileInterface
     /**
      * {@inheritdoc}
      */
-    public static function created($con, string $path) : \DateTime
+    public static function created(\FTP\Connection $con, string $path) : \DateTime
     {
         return self::changed($con, $path);
     }
@@ -241,7 +241,7 @@ class File extends FileAbstract implements FileInterface
     /**
      * {@inheritdoc}
      */
-    public static function changed($con, string $path) : \DateTime
+    public static function changed(\FTP\Connection $con, string $path) : \DateTime
     {
         if (!self::exists($con, $path)) {
             throw new PathException($path);
@@ -258,7 +258,7 @@ class File extends FileAbstract implements FileInterface
     /**
      * {@inheritdoc}
      */
-    public static function size($con, string $path, bool $recursive = true) : int
+    public static function size(\FTP\Connection $con, string $path, bool $recursive = true) : int
     {
         if (!self::exists($con, $path)) {
             return -1;
@@ -270,7 +270,7 @@ class File extends FileAbstract implements FileInterface
     /**
      * {@inheritdoc}
      */
-    public static function owner($con, string $path) : string
+    public static function owner(\FTP\Connection $con, string $path) : string
     {
         if (!self::exists($con, $path)) {
             throw new PathException($path);
@@ -282,7 +282,7 @@ class File extends FileAbstract implements FileInterface
     /**
      * {@inheritdoc}
      */
-    public static function permission($con, string $path) : int
+    public static function permission(\FTP\Connection $con, string $path) : int
     {
         if (!self::exists($con, $path)) {
             return -1;
@@ -322,7 +322,7 @@ class File extends FileAbstract implements FileInterface
     /**
      * {@inheritdoc}
      */
-    public static function copy($con, string $from, string $to, bool $overwrite = false) : bool
+    public static function copy(\FTP\Connection $con, string $from, string $to, bool $overwrite = false) : bool
     {
         if (!self::exists($con, $from)
             || (!$overwrite && self::exists($con, $to))
@@ -343,7 +343,7 @@ class File extends FileAbstract implements FileInterface
     /**
      * {@inheritdoc}
      */
-    public static function move($con, string $from, string $to, bool $overwrite = false) : bool
+    public static function move(\FTP\Connection $con, string $from, string $to, bool $overwrite = false) : bool
     {
         $result = self::copy($con, $from, $to, $overwrite);
 
@@ -359,7 +359,7 @@ class File extends FileAbstract implements FileInterface
     /**
      * {@inheritdoc}
      */
-    public static function delete($con, string $path) : bool
+    public static function delete(\FTP\Connection $con, string $path) : bool
     {
         if (!self::exists($con, $path)) {
             return false;
@@ -371,7 +371,7 @@ class File extends FileAbstract implements FileInterface
     /**
      * {@inheritdoc}
      */
-    public static function create($con, string $path) : bool
+    public static function create(\FTP\Connection $con, string $path) : bool
     {
         return self::put($con, $path, '', ContentPutMode::CREATE);
     }

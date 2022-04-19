@@ -2,7 +2,7 @@
 /**
  * Karaka
  *
- * PHP Version 8.0
+ * PHP Version 8.1
  *
  * @package   phpOMS\Validation\Base
  * @copyright Dennis Eichhorn
@@ -32,6 +32,10 @@ abstract class Json extends ValidatorAbstract
      */
     public static function isValid(mixed $value, array $constraints = null) : bool
     {
+        if (!\is_string($value)) {
+            return false;
+        }
+
         \json_decode($value);
 
         return \json_last_error() == \JSON_ERROR_NONE;

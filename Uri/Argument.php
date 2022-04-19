@@ -2,7 +2,7 @@
 /**
  * Karaka
  *
- * PHP Version 8.0
+ * PHP Version 8.1
  *
  * @package   phpOMS\Uri
  * @copyright Dennis Eichhorn
@@ -119,7 +119,7 @@ final class Argument implements UriInterface
     /**
      * Uri query.
      *
-     * @var array<int, mixed>
+     * @var array<int, string>
      * @since 1.0.0
      */
     private array $query = [];

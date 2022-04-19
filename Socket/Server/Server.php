@@ -2,7 +2,7 @@
 /**
  * Karaka
  *
- * PHP Version 8.0
+ * PHP Version 8.1
  *
  * @package   phpOMS\Socket\Server
  * @copyright Dennis Eichhorn
@@ -272,7 +272,9 @@ class Server extends SocketAbstract
         $this->app->logger->debug('Connecting client...');
         $this->app->accountManager->add(new NullAccount(1));
         $this->clientManager->add($client = new ClientConnection(new NullAccount(1), $socket));
-        $this->conn[$client->getId()]     = $socket;
+
+        $this->conn[$client->getId()] = $socket;
+
         $this->app->logger->debug('Connected client.');
     }
 

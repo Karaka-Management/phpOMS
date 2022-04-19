@@ -2,7 +2,7 @@
 /**
  * Karaka
  *
- * PHP Version 8.0
+ * PHP Version 8.1
  *
  * @package   phpOMS\Math\Matrix
  * @copyright Dennis Eichhorn
@@ -702,7 +702,7 @@ class Matrix implements \ArrayAccess, \Iterator
     /**
      * {@inheritdoc}
      */
-    public function offsetGet($offset)
+    public function offsetGet(mixed $offset) : mixed
     {
         $offset = (int) $offset;
         $row    = (int) ($offset / $this->m);

@@ -2,7 +2,7 @@
 /**
  * Karaka
  *
- * PHP Version 8.0
+ * PHP Version 8.1
  *
  * @package   phpOMS\Algorithm\PathFinding
  * @copyright Dennis Eichhorn
@@ -14,6 +14,8 @@ declare(strict_types=1);
 
 namespace phpOMS\Algorithm\PathFinding;
 
+use phpOMS\Stdlib\Base\HeapItemInterface;
+
 /**
  * Node on grid.
  *
@@ -22,7 +24,7 @@ namespace phpOMS\Algorithm\PathFinding;
  * @link    https://karaka.app
  * @since   1.0.0
  */
-class Node
+class Node implements HeapItemInterface
 {
     /**
      * X-Coordinate.
@@ -127,7 +129,7 @@ class Node
      *
      * @since 1.0.0
      */
-    public function isEqual(self $node) : bool
+    public function isEqual(HeapItemInterface $node) : bool
     {
         return $this->x === $node->getX() && $this->y === $node->getY();
     }

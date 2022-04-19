@@ -2,7 +2,7 @@
 /**
  * Karaka
  *
- * PHP Version 8.0
+ * PHP Version 8.1
  *
  * @package   phpOMS\Stdlib\Base
  * @copyright Dennis Eichhorn
@@ -281,7 +281,7 @@ class Iban implements SerializableInterface
      * @return void
      * @since 5.1.0
      */
-    public function unserialize($serialized) : void
+    public function unserialize(mixed $serialized) : void
     {
         $this->parse($serialized);
     }

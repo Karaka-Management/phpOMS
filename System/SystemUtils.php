@@ -2,7 +2,7 @@
 /**
  * Karaka
  *
- * PHP Version 8.0
+ * PHP Version 8.1
  *
  * @package   phpOMS\System
  * @copyright Dennis Eichhorn
@@ -208,7 +208,13 @@ final class SystemUtils
             throw new \Exception((string) $stderr);
         }
 
-        $lines = \trim($stdout === false ? '' : (empty($stdout) ? $stderr : $stdout));
+        $lines = \trim(
+            $stdout === false
+                ? ''
+                : (empty($stdout)
+                    ? ($stderr === false ? '' : $stderr)
+                    : $stdout)
+            );
 
         $lineArray = \preg_split('/\r\n|\n|\r/', $lines);
         $lines     = [];

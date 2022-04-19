@@ -2,7 +2,7 @@
 /**
  * Karaka
  *
- * PHP Version 8.0
+ * PHP Version 8.1
  *
  * @package   phpOMS\DataStorage\Database
  * @copyright Dennis Eichhorn
@@ -58,12 +58,16 @@ class SchemaMapper
      */
     public function getTables() : array
     {
+        $tables  = [];
         $builder = new Builder($this->db);
 
         /** @var array<int, string[]> $tNames */
-        $tNames = $builder->selectTables()->execute()->fetchAll(\PDO::FETCH_ASSOC);
+        $tNames = $builder->selectTables()->execute()?->fetchAll(\PDO::FETCH_ASSOC);
 
-        $tables = [];
+        if ($tNames === null) {
+            return $tables;
+        }
+
         foreach ($tNames as $name) {
             $tables[] = \array_values($name)[0];
         }
@@ -99,9 +103,9 @@ class SchemaMapper
     public function getFields(string $table) : array
     {
         $builder = new Builder($this->db);
-        $fields  = $builder->selectFields($table)->execute()->fetchAll(\PDO::FETCH_ASSOC);
+        $fields  = $builder->selectFields($table)->execute()?->fetchAll(\PDO::FETCH_ASSOC);
 
-        return $fields;
+        return $fields === null ? [] : $fields;
     }
 
     /**

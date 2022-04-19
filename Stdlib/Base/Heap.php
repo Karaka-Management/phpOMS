@@ -2,7 +2,7 @@
 /**
  * Karaka
  *
- * PHP Version 8.0
+ * PHP Version 8.1
  *
  * @package   phpOMS\Stdlib\Base
  * @copyright Dennis Eichhorn
@@ -35,7 +35,7 @@ class Heap
     /**
      * Heap items
      *
-     * @var array<int, mixed>
+     * @var array<int, HeapItemInterface>
      * @since 1.0.0
      */
     private array $nodes = [];
@@ -57,14 +57,14 @@ class Heap
     /**
      * Insert item into sorted heap at correct position
      *
-     * @param mixed $x  Element to insert
-     * @param int   $lo Lower bound
+     * @param HeapItemInterface $x  Element to insert
+     * @param int               $lo Lower bound
      *
      * @return void
      *
      * @since 1.0.0
      */
-    public function insort(mixed $x, int $lo = 0) : void
+    public function insort(HeapItemInterface $x, int $lo = 0) : void
     {
         $hi = \count($this->nodes);
 
@@ -83,13 +83,13 @@ class Heap
     /**
      * Push item onto the heap
      *
-     * @param mixed $item Item to add to the heap
+     * @param HeapItemInterface $item Item to add to the heap
      *
      * @return void;
      *
      * @since 1.0.0
      */
-    public function push(mixed $item) : void
+    public function push(HeapItemInterface $item) : void
     {
         $this->nodes[] = $item;
         $this->siftDown(0, \count($this->nodes) - 1);
@@ -98,17 +98,22 @@ class Heap
     /**
      * Pop the smallest item off the heap
      *
-     * @return mixed
+     * @return null|HeapItemInterface
      *
      * @since 1.0.0
      */
-    public function pop() : mixed
+    public function pop() : ?HeapItemInterface
     {
         $last = \array_pop($this->nodes);
+        if ($last === null) {
+            return null;
+        }
+
         if (empty($this->nodes)) {
             return $last;
         }
 
+        /** @var HeapItemInterface $last */
         $item           = $this->nodes[0];
         $this->nodes[0] = $last;
         $this->siftUp(0);
@@ -119,11 +124,11 @@ class Heap
     /**
      * Get first item without popping
      *
-     * @return mixed
+     * @return HeapItemInterface
      *
      * @since 1.0.0
      */
-    public function peek() : mixed
+    public function peek() : HeapItemInterface
     {
         return $this->nodes[0];
     }
@@ -131,20 +136,16 @@ class Heap
     /**
      * Contains item?
      *
-     * @param mixed $item Item to check
+     * @param HeapItemInterface $item Item to check
      *
      * @return bool
      *
      * @since 1.0.0
      */
-    public function contains(mixed $item) : bool
+    public function contains(HeapItemInterface $item) : bool
     {
-        foreach ($this->nodes as $key => $node) {
-            if (\is_scalar($item)) {
-                if ($node === $item) {
-                    return true;
-                }
-            } elseif ($item->isEqual($node)) {
+        foreach ($this->nodes as $node) {
+            if ($item->isEqual($node)) {
                 return true;
             }
         }
@@ -155,13 +156,13 @@ class Heap
     /**
      * Pop a item and push a new one (replace with a new one)
      *
-     * @param mixed $new New item
+     * @param HeapItemInterface $new New item
      *
-     * @return mixed popped item
+     * @return HeapItemInterface popped item
      *
      * @since 1.0.0
      */
-    public function replace(mixed $new) : mixed
+    public function replace(HeapItemInterface $new) : HeapItemInterface
     {
         $old            = $this->nodes[0];
         $this->nodes[0] = $new;
@@ -173,13 +174,13 @@ class Heap
     /**
      * Push item and pop one
      *
-     * @param mixed $item New item
+     * @param HeapItemInterface $item New item
      *
-     * @return mixed popped item
+     * @return HeapItemInterface popped item
      *
      * @since 1.0.0
      */
-    public function pushpop(mixed $item) : mixed
+    public function pushpop(HeapItemInterface $item) : HeapItemInterface
     {
         if (!empty($this->nodes) && ($this->compare)($this->nodes[0], $item) < 0) {
             $temp           = $item;
@@ -214,13 +215,13 @@ class Heap
      *
      * This is called after changing an item
      *
-     * @param mixed $item Item to update
+     * @param HeapItemInterface $item Item to update
      *
      * @return bool
      *
      * @since 1.0.0
      */
-    public function update(mixed $item) : bool
+    public function update(HeapItemInterface $item) : bool
     {
         $pos = null;
         foreach ($this->nodes as $key => $node) {

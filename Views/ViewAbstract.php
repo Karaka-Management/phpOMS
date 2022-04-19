@@ -2,7 +2,7 @@
 /**
  * Karaka
  *
- * PHP Version 8.0
+ * PHP Version 8.1
  *
  * @package   phpOMS\Views
  * @copyright Dennis Eichhorn
@@ -272,7 +272,7 @@ abstract class ViewAbstract implements RenderableInterface
 
             $path = $this->template;
             if (!\is_file($path)) {
-                throw new PathException($path);
+                return '';
             }
 
             /** @noinspection PhpIncludeInspection */
@@ -291,9 +291,9 @@ abstract class ViewAbstract implements RenderableInterface
             }
 
             $ob = '';
-        } finally {
-            return $ob;
         }
+
+        return $ob;
     }
 
     /**
@@ -313,16 +313,16 @@ abstract class ViewAbstract implements RenderableInterface
         try {
             $path = $this->template;
             if (!\is_file($path)) {
-                throw new PathException($path);
+                return '';
             }
 
             /** @noinspection PhpIncludeInspection */
             $ob = include $path;
         } catch (\Throwable $e) {
             $ob = '';
-        } finally {
-            return $ob;
         }
+
+        return $ob;
     }
 
     /**
@@ -335,7 +335,7 @@ abstract class ViewAbstract implements RenderableInterface
      * @since 1.0.0
      * @codeCoverageIgnore
      */
-    public function unserialize($raw) : void
+    public function unserialize(mixed $raw) : void
     {
     }
 }

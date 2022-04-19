@@ -2,7 +2,7 @@
 /**
  * Karaka
  *
- * PHP Version 8.0
+ * PHP Version 8.1
  *
  * @package   tests
  * @copyright Dennis Eichhorn
@@ -14,7 +14,9 @@ declare(strict_types=1);
 
 namespace phpOMS\tests\Stdlib\Base;
 
-final class HeapItem
+use phpOMS\Stdlib\Base\HeapItemInterface;
+
+final class HeapItem implements HeapItemInterface
 {
     private int $value = 0;
 
@@ -38,7 +40,7 @@ final class HeapItem
         return $this->value;
     }
 
-    public function isEqual(self $item) : bool
+    public function isEqual(HeapItemInterface $item) : bool
     {
         return $this->value === $item->getValue();
     }

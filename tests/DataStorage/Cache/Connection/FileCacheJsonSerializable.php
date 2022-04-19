@@ -2,7 +2,7 @@
 /**
  * Karaka
  *
- * PHP Version 8.0
+ * PHP Version 8.1
  *
  * @package   tests
  * @copyright Dennis Eichhorn
@@ -26,7 +26,7 @@ class FileCacheJsonSerializable implements \JsonSerializable
         return 'abc';
     }
 
-    public function unserialize($val) : void
+    public function unserialize(mixed $val) : void
     {
         $this->val = \json_decode($val, true);
     }

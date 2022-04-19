@@ -2,7 +2,7 @@
 /**
  * Karaka
  *
- * PHP Version 8.0
+ * PHP Version 8.1
  *
  * @package   phpOMS\Validation\Network
  * @copyright Dennis Eichhorn
@@ -44,6 +44,10 @@ abstract class Hostname extends ValidatorAbstract
     public static function isValid(mixed $value, array $constraints = null) : bool
     {
         //return \filter_var(\gethostbyname($value), \FILTER_VALIDATE_IP) !== false;
+
+        if (!\is_string($value)) {
+            return false;
+        }
 
         if (empty($value)
             || \strlen($value) > 256

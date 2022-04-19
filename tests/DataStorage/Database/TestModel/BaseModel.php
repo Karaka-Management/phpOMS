@@ -2,7 +2,7 @@
 /**
  * Karaka
  *
- * PHP Version 8.0
+ * PHP Version 8.1
  *
  * @package   tests
  * @copyright Dennis Eichhorn
@@ -75,7 +75,7 @@ class BaseModel
                 return '123';
             }
 
-            public function unserialize($data) : void
+            public function unserialize(mixed $data) : void
             {
                 $this->value = $data;
             }

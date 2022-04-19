@@ -2,7 +2,7 @@
 /**
  * Karaka
  *
- * PHP Version 8.0
+ * PHP Version 8.1
  *
  * @package   phpOMS\Algorithm\PathFinding
  * @copyright Dennis Eichhorn
@@ -54,7 +54,7 @@ final class AStar implements PathFinderInterface
         $startNode->setF(0.0);
         $startNode->setOpened(true);
 
-        $openList = new Heap(function(AStarNode $node1, AStarNode $node2) {
+        $openList = new Heap(function (AStarNode $node1, AStarNode $node2) {
             return $node1->getF() - $node2->getF();
         });
 
@@ -63,6 +63,11 @@ final class AStar implements PathFinderInterface
 
         while (!$openList->isEmpty()) {
             $node = $openList->pop();
+            if ($node === null) {
+                break;
+            }
+
+            /** @var AStarNode $node */
             $node->setClosed(true);
 
             if ($node->isEqual($endNode)) {

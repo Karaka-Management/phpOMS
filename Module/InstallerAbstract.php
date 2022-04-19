@@ -2,7 +2,7 @@
 /**
  * Karaka
  *
- * PHP Version 8.0
+ * PHP Version 8.1
  *
  * @package   phpOMS\Module
  * @copyright Dennis Eichhorn
@@ -78,6 +78,7 @@ abstract class InstallerAbstract
             return; // @codeCoverageIgnore
         }
 
+        /** @var array[] $definitions */
         $definitions = \json_decode($content, true);
         foreach ($definitions as $definition) {
             SchemaBuilder::createFromSchema($definition, $dbPool->get('schema'))->execute();

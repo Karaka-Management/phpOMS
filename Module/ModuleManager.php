@@ -2,7 +2,7 @@
 /**
  * Karaka
  *
- * PHP Version 8.0
+ * PHP Version 8.1
  *
  * @package   phpOMS\Module
  * @copyright Dennis Eichhorn
@@ -165,6 +165,10 @@ final class ModuleManager
                 ->andWhere('module.module_status', '=', ModuleStatus::ACTIVE)
                 ->execute();
 
+            if ($sth === null) {
+                return [];
+            }
+
             $this->uriLoad = $sth->fetchAll(\PDO::FETCH_GROUP);
         }
 
@@ -188,6 +192,10 @@ final class ModuleManager
                 ->from('module')
                 ->where('module.module_status', '=', ModuleStatus::ACTIVE)
                 ->execute();
+
+            if ($sth === null) {
+                return [];
+            }
 
             $active = $sth->fetchAll(\PDO::FETCH_COLUMN);
 
@@ -315,6 +323,10 @@ final class ModuleManager
                 ->from('module')
                 ->where('module_status', '!=', ModuleStatus::AVAILABLE)
                 ->execute();
+
+            if ($sth === null) {
+                return [];
+            }
 
             $installed = $sth->fetchAll(\PDO::FETCH_COLUMN);
 

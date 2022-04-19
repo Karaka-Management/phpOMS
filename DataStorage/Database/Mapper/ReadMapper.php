@@ -2,7 +2,7 @@
 /**
  * Karaka
  *
- * PHP Version 8.0
+ * PHP Version 8.1
  *
  * @package   phpOMS\DataStorage\Database\Mapper
  * @copyright Dennis Eichhorn
@@ -245,7 +245,8 @@ final class ReadMapper extends DataMapperAbstract
                 $results = $sth->fetchAll(\PDO::FETCH_ASSOC);
             }
         } catch (\Throwable $t) {
-            $results     = false;
+            $results = false;
+
             \var_dump($q = $query->toSql());
             \var_dump($t->getMessage());
         }

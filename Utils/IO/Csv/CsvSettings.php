@@ -2,7 +2,7 @@
 /**
  * Karaka
  *
- * PHP Version 8.0
+ * PHP Version 8.1
  *
  * @package   phpOMS\Utils\IO\Csv
  * @copyright Dennis Eichhorn
@@ -27,7 +27,7 @@ class CsvSettings
     /**
      * Get csv file delimiter based on file content.
      *
-     * @param mixed    $file       File resource
+     * @param resource $file       File resource
      * @param int      $checkLines Lines to check for evaluation
      * @param string[] $delimiters Potential delimiters
      *

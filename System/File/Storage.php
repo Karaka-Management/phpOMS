@@ -2,7 +2,7 @@
 /**
  * Karaka
  *
- * PHP Version 8.0
+ * PHP Version 8.1
  *
  * @package   phpOMS\System\File
  * @copyright Dennis Eichhorn
@@ -76,14 +76,10 @@ final class Storage
             /** @var StorageAbstract $env */
             $env = __NAMESPACE__ . '\\' . $env . '\\' . $env . 'Storage';
 
-            try {
-                /** @var StorageAbstract $instance */
-                $instance = new $env();
+            /** @var StorageAbstract $instance */
+            $instance = new $env();
 
-                self::$registered[$stg] = $instance;
-            } catch (\Throwable $e) {
-                throw new \Exception();
-            }
+            self::$registered[$stg] = $instance;
         }
 
         return $instance;

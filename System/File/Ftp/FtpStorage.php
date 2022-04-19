@@ -2,7 +2,7 @@
 /**
  * Karaka
  *
- * PHP Version 8.0
+ * PHP Version 8.1
  *
  * @package   phpOMS\System\File\Ftp
  * @copyright Dennis Eichhorn
@@ -32,21 +32,21 @@ class FtpStorage extends StorageAbstract
     /**
      * Connection
      *
-     * @var resource
+     * @var \FTP\Connection
      * @since 1.0.0
      */
-    private static $con = null;
+    private static \FTP\Connection $con;
 
     /**
      * Set connection
      *
-     * @param resource $con Connection
+     * @param \FTP\Connection $con Connection
      *
      * @return void
      *
      * @since 1.0.0
      */
-    public static function with($con) : void
+    public static function with(\FTP\Connection $con) : void
     {
         self::$con = $con;
     }

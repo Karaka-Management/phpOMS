@@ -2,7 +2,7 @@
 /**
  * Karaka
  *
- * PHP Version 8.0
+ * PHP Version 8.1
  *
  * @package   phpOMS\Model\Message
  * @copyright Dennis Eichhorn
@@ -77,9 +77,13 @@ final class FormValidation implements \JsonSerializable, SerializableInterface
     /**
      * {@inheritdoc}
      */
-    public function unserialize($raw) : void
+    public function unserialize(mixed $raw) : void
     {
         $unserialized = \json_decode($raw, true);
+
+        if ($unserialized === false) {
+            return;
+        }
 
         $this->validation = $unserialized['validation'] ?? [];
     }

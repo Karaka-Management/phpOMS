@@ -2,7 +2,7 @@
 /**
  * Karaka
  *
- * PHP Version 8.0
+ * PHP Version 8.1
  *
  * @package   phpOMS\Utils\IO\Spreadsheet
  * @copyright Dennis Eichhorn

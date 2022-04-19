@@ -2,7 +2,7 @@
 /**
  * Karaka
  *
- * PHP Version 8.0
+ * PHP Version 8.1
  *
  * @package   phpOMS\Utils\TaskSchedule
  * @copyright Dennis Eichhorn
@@ -551,8 +551,9 @@ class Interval implements SerializableInterface
      *
      * @since 1.0.0
      */
-    public function unserialize($serialized) : void
+    public function unserialize(mixed $serialized) : void
     {
+        /** @var array $data */
         $data = \json_decode($serialized, true);
 
         $this->start       = new \DateTime($data['start']);

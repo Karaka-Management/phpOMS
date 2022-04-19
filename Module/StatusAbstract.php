@@ -2,7 +2,7 @@
 /**
  * Karaka
  *
- * PHP Version 8.0
+ * PHP Version 8.1
  *
  * @package   phpOMS\Module
  * @copyright Dennis Eichhorn
@@ -152,6 +152,8 @@ abstract class StatusAbstract
         /** @var Directory|File $child */
         foreach ($directories as $child) {
             if ($child instanceof Directory) {
+
+                /** @var File $file */
                 foreach ($child as $file) {
                     if (!\is_dir(__DIR__ . '/../../' . $child->getName() . '/' . \basename($file->getName(), '.php'))
                         || ($appInfo !== null && \basename($file->getName(), '.php') !== $appInfo->getInternalName())
@@ -221,6 +223,8 @@ abstract class StatusAbstract
         /** @var Directory|File $child */
         foreach ($directories as $child) {
             if ($child instanceof Directory) {
+
+                /** @var File $file */
                 foreach ($child as $file) {
                     if (!\is_dir(__DIR__ . '/../../' . $child->getName() . '/' . \basename($file->getName(), '.php'))
                         || ($appInfo !== null && \basename($file->getName(), '.php') !== $appInfo->getInternalName())

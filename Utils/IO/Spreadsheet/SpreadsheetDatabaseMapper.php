@@ -2,7 +2,7 @@
 /**
  * Karaka
  *
- * PHP Version 8.0
+ * PHP Version 8.1
  *
  * @package   phpOMS\Utils\IO\Spreadsheet
  * @copyright Dennis Eichhorn
@@ -129,14 +129,14 @@ class SpreadsheetDatabaseMapper implements IODatabaseMapper
         $sheetCount = $sheet->getSheetCount();
 
         foreach ($queries as $key => $query) {
-            $results = $query->execute()->fetchAll(\PDO::FETCH_ASSOC);
+            $results = $query->execute()?->fetchAll(\PDO::FETCH_ASSOC);
 
             if ($key > $sheetCount - 1) {
                 $sheet->createSheet($key);
             }
 
             $workSheet = $sheet->setActiveSheetIndex($key);
-            $rows      = \count($results);
+            $rows      = $results === null ? 0 : \count($results);
 
             if ($rows < 1) {
                 break;

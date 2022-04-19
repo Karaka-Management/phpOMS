@@ -2,7 +2,7 @@
 /**
  * Karaka
  *
- * PHP Version 8.0
+ * PHP Version 8.1
  *
  * @package   phpOMS\Utils\Barcode
  * @copyright Dennis Eichhorn
@@ -219,7 +219,7 @@ abstract class C128Abstract
     /**
      * Get image reference
      *
-     * @return mixed
+     * @return \GdImage
      *
      * @since 1.0.0
      */
@@ -317,7 +317,7 @@ abstract class C128Abstract
      *
      * @param string $codeString Code string to render
      *
-     * @return mixed
+     * @return \GdImage
      *
      * @since 1.0.0
      */

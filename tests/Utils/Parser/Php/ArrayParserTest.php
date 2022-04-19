@@ -2,7 +2,7 @@
 /**
  * Karaka
  *
- * PHP Version 8.0
+ * PHP Version 8.1
  *
  * @package   tests
  * @copyright Dennis Eichhorn
@@ -34,7 +34,7 @@ final class ArrayParserTest extends \PHPUnit\Framework\TestCase
         $serializable = new class() implements SerializableInterface {
             public function serialize() : string { return '2'; }
 
-            public function unserialize($raw) : void {}
+            public function unserialize(mixed $raw) : void {}
         };
 
         $jsonSerialize = new class() implements \JsonSerializable {

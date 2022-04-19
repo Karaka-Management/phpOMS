@@ -2,7 +2,7 @@
 /**
  * Karaka
  *
- * PHP Version 8.0
+ * PHP Version 8.1
  *
  * @package   phpOMS\Algorithm\PathFinding
  * @copyright Dennis Eichhorn
@@ -13,6 +13,8 @@
 declare(strict_types=1);
 
 namespace phpOMS\Algorithm\PathFinding;
+
+use phpOMS\Stdlib\Base\HeapItemInterface;
 
 /**
  * Node on grid.

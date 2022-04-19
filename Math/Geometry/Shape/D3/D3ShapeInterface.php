@@ -2,7 +2,7 @@
 /**
  * Karaka
  *
- * PHP Version 8.0
+ * PHP Version 8.1
  *
  * @package   phpOMS\Math\Geometry\Shape\D3
  * @copyright Dennis Eichhorn

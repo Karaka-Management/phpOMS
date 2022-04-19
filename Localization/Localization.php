@@ -2,7 +2,7 @@
 /**
  * Karaka
  *
- * PHP Version 8.0
+ * PHP Version 8.1
  *
  * @package   phpOMS\Localization
  * @copyright Dennis Eichhorn
@@ -268,7 +268,12 @@ class Localization implements \JsonSerializable
                 break; // @codeCoverageIgnore
             }
 
-            $this->importLocale(\json_decode($fileContent, true));
+            $json = \json_decode($fileContent, true);
+            if ($json === false) {
+                return;
+            }
+
+            $this->importLocale($json);
 
             return;
         }
@@ -278,13 +283,18 @@ class Localization implements \JsonSerializable
             return; // @codeCoverageIgnore
         }
 
-        $this->importLocale(\json_decode($fileContent, true));
+        $json = \json_decode($fileContent, true);
+        if ($json === false) {
+            return;
+        }
+
+        $this->importLocale($json);
     }
 
     /**
      * Load localization from locale
      *
-     * @param array<string, mixed> $locale Locale data
+     * @param array<string, int|string|array> $locale Locale data
      *
      * @return void
      *

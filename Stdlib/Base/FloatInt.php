@@ -2,7 +2,7 @@
 /**
  * Karaka
  *
- * PHP Version 8.0
+ * PHP Version 8.1
  *
  * @package   phpOMS\Stdlib
  * @copyright Dennis Eichhorn
@@ -316,13 +316,13 @@ class FloatInt implements SerializableInterface
     /**
      * Unserialize.
      *
-     * @param mixed $value Value to unserialize
+     * @param int|string $value Value to unserialize
      *
      * @return void
      *
      * @since 1.0.0
      */
-    public function unserialize($value) : void
+    public function unserialize(mixed $value) : void
     {
         $this->setInt((int) $value);
     }

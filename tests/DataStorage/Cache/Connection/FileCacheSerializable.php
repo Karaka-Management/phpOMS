@@ -2,7 +2,7 @@
 /**
  * Karaka
  *
- * PHP Version 8.0
+ * PHP Version 8.1
  *
  * @package   tests
  * @copyright Dennis Eichhorn
@@ -25,7 +25,7 @@ class FileCacheSerializable implements SerializableInterface
         return 'abc';
     }
 
-    public function unserialize($val) : void
+    public function unserialize(mixed $val) : void
     {
         $this->val = $val;
     }
