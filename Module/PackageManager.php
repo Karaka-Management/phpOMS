@@ -123,7 +123,7 @@ final class PackageManager
 
         $contents   = \file_get_contents($this->extractPath . '/info.json');
         $info       = \json_decode($contents === false ? '[]' : $contents, true);
-        $this->info = $info === false ? [] : $info;
+        $this->info = !\is_array($info) ? [] : $info;
     }
 
     /**

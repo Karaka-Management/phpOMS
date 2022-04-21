@@ -41,28 +41,12 @@ final class Kmeans
     private \Closure $metric;
 
     /**
-     * Amount of different clusters
-     *
-     * @var int
-     * @since 1.0.0
-     */
-    private int $clusters = 1;
-
-    /**
      * Points of the cluster centers
      *
      * @var PointInterface[]
      * @since 1.0.0
      */
     private $clusterCenters = [];
-
-    /**
-     * Points to clusterize
-     *
-     * @var PointInterface[]
-     * @since 1.0.0
-     */
-    private array $points = [];
 
     /**
      * Constructor
@@ -75,9 +59,7 @@ final class Kmeans
      */
     public function __construct(array $points, int $clusters, \Closure $metric = null)
     {
-        $this->points   = $points;
-        $this->clusters = $clusters;
-        $this->metric   = $metric ?? function (PointInterface $a, PointInterface $b) {
+        $this->metric = $metric ?? function (PointInterface $a, PointInterface $b) {
             $aCoordinates = $a->getCoordinates();
             $bCoordinates = $b->getCoordinates();
 

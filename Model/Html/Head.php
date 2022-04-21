@@ -55,14 +55,6 @@ final class Head implements RenderableInterface
     private array $assets = [];
 
     /**
-     * Is the header set?
-     *
-     * @var bool
-     * @since 1.0.0
-     */
-    private bool $hasContent = false;
-
-    /**
      * Page meta.
      *
      * @var Meta

@@ -107,11 +107,15 @@ final class BasicOcr
         if (($read = \fread($fp, 4)) === false || ($unpack = \unpack('N', $read)) === false) {
             return []; // @codeCoverageIgnore
         }
+
+        /** @var int<0, max> $numberOfRows */
         $numberOfRows = (int) $unpack[1];
 
         if (($read = \fread($fp, 4)) === false || ($unpack = \unpack('N', $read)) === false) {
             return []; // @codeCoverageIgnore
         }
+
+        /** @var int<0, max> $numberOfColumns */
         $numberOfColumns = (int) $unpack[1];
 
         $images = [];

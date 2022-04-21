@@ -139,7 +139,7 @@ final class HttpRequest extends RequestAbstract
             }
 
             $json = \json_decode($input, true);
-            if ($json === false || $json === null) {
+            if (!\is_array($json)) {
                 throw new \Exception('Is not valid json ' . $input);
             }
 

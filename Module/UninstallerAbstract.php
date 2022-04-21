@@ -108,7 +108,7 @@ abstract class UninstallerAbstract
         }
 
         foreach ($definitions as $name => $definition) {
-            $builder->dropTable($name ?? '');
+            $builder->dropTable($name);
         }
 
         $builder->execute();

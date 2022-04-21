@@ -72,7 +72,7 @@ final class FileSessionHandler implements \SessionHandlerInterface, \SessionIdIn
      *
      * @since 1.0.0
      */
-    public function open($savePath, $sessionName)
+    public function open(string $savePath, string $sessionName) : bool
     {
         $this->savePath = $savePath;
 
@@ -96,17 +96,17 @@ final class FileSessionHandler implements \SessionHandlerInterface, \SessionIdIn
      *
      * @param string $id Session id
      *
-     * @return string
+     * @return false|string
      *
      * @since 1.0.0
      */
-    public function read($id)
+    public function read(string $id) : string|false
     {
         if (!\is_file($this->savePath . '/sess_' . $id)) {
             return '';
         }
 
-        return (string) \file_get_contents($this->savePath . '/sess_' . $id);
+        return \file_get_contents($this->savePath . '/sess_' . $id);
     }
 
     /**
@@ -119,7 +119,7 @@ final class FileSessionHandler implements \SessionHandlerInterface, \SessionIdIn
      *
      * @since 1.0.0
      */
-    public function write($id, $data)
+    public function write(string $id, string $data) : bool
     {
         return \file_put_contents($this->savePath . '/sess_' . $id, $data) === false ? false : true;
     }
@@ -133,7 +133,7 @@ final class FileSessionHandler implements \SessionHandlerInterface, \SessionIdIn
      *
      * @since 1.0.0
      */
-    public function destroy($id)
+    public function destroy(string $id) : bool
     {
         $file = $this->savePath . '/sess_' . $id;
         if (\is_file($file)) {
@@ -148,16 +148,16 @@ final class FileSessionHandler implements \SessionHandlerInterface, \SessionIdIn
      *
      * @param int $maxlifetime Maximum session data life time
      *
-     * @return bool
+     * @return int|false
      *
      * @since 1.0.0
      */
-    public function gc($maxlifetime)
+    public function gc(int $maxlifetime) : int|false
     {
         $files = \glob("{$this->savePath}/sess_*");
 
         if ($files === false) {
-            return false;
+            return 0;
         }
 
         foreach ($files as $file) {
@@ -166,6 +166,6 @@ final class FileSessionHandler implements \SessionHandlerInterface, \SessionIdIn
             }
         }
 
-        return true;
+        return 1;
     }
 }

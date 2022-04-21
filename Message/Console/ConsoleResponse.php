@@ -115,6 +115,7 @@ final class ConsoleResponse extends ResponseAbstract implements RenderableInterf
             }
         }
 
+        /** @var array{0:bool} $data */
         return $this->getRaw($data[0] ?? false);
     }
 

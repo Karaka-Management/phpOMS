@@ -183,9 +183,12 @@ final class Notify implements \JsonSerializable, SerializableInterface
      */
     public function unserialize(mixed $raw) : void
     {
-        $unserialized = \json_decode($raw, true);
+        if (!\is_string($raw)) {
+            return;
+        }
 
-        if ($unserialized === false) {
+        $unserialized = \json_decode($raw, true);
+        if (!\is_array($unserialized)) {
             return;
         }
 

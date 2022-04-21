@@ -22,7 +22,8 @@ namespace phpOMS\Ai\NeuralNetwork;
  * @link    https://karaka.app
  * @since   1.0.0
  */
-class Neuron {
+class Neuron
+{
     /**
      * Neuron inputs
      *

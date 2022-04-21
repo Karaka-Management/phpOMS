@@ -94,6 +94,7 @@ final class ConsoleRequest extends RequestAbstract
         $key = '-' . \mb_strtolower($key);
 
         if ($type === null) {
+            /** @var string[] $this->data */
             return ArrayUtils::getArg($key, $this->data);
         }
 

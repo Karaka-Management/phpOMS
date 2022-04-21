@@ -143,6 +143,7 @@ final class WriteMapper extends DataMapperAbstract
                 $query->insert($column['name'])->value($value);
             } else {
                 if (\stripos($column['internal'], '/') !== false) {
+                    /** @var array $tValue */
                     $path   = \substr($column['internal'], \stripos($column['internal'], '/') + 1);
                     $tValue = ArrayUtils::getArray($path, $tValue, '/');
                 }

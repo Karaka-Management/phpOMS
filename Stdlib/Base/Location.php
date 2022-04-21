@@ -217,6 +217,10 @@ class Location implements \JsonSerializable, SerializableInterface
      */
     public function unserialize(mixed $serialized) : void
     {
+        if (!\is_string($serialized)) {
+            return;
+        }
+
         $data = \json_decode($serialized, true);
 
         if (!\is_array($data)) {

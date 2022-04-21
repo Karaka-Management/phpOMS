@@ -27,8 +27,8 @@ interface LoggerInterface
     /**
      * System is unusable.
      *
-     * @param string               $message Logging message schema
-     * @param array<string, mixed> $context Context to log
+     * @param string                                    $message Logging message schema
+     * @param array<string, null|int|bool|float|string> $context Context to log
      *
      * @return void
      */
@@ -40,8 +40,8 @@ interface LoggerInterface
      * Example: Entire website down, database unavailable, etc. This should
      * trigger the SMS alerts and wake you up.
      *
-     * @param string               $message Logging message schema
-     * @param array<string, mixed> $context Context to log
+     * @param string                                    $message Logging message schema
+     * @param array<string, null|int|bool|float|string> $context Context to log
      *
      * @return void
      */
@@ -52,8 +52,8 @@ interface LoggerInterface
      *
      * Example: Application component unavailable, unexpected exception.
      *
-     * @param string               $message Logging message schema
-     * @param array<string, mixed> $context Context to log
+     * @param string                                    $message Logging message schema
+     * @param array<string, null|int|bool|float|string> $context Context to log
      *
      * @return void
      */
@@ -63,8 +63,8 @@ interface LoggerInterface
      * Runtime errors that do not require immediate action but should typically
      * be logged and monitored.
      *
-     * @param string               $message Logging message schema
-     * @param array<string, mixed> $context Context to log
+     * @param string                                    $message Logging message schema
+     * @param array<string, null|int|bool|float|string> $context Context to log
      *
      * @return void
      */
@@ -76,8 +76,8 @@ interface LoggerInterface
      * Example: Use of deprecated APIs, poor use of an API, undesirable things
      * that are not necessarily wrong.
      *
-     * @param string               $message Logging message schema
-     * @param array<string, mixed> $context Context to log
+     * @param string                                    $message Logging message schema
+     * @param array<string, null|int|bool|float|string> $context Context to log
      *
      * @return void
      */
@@ -86,8 +86,8 @@ interface LoggerInterface
     /**
      * Normal but significant events.
      *
-     * @param string               $message Logging message schema
-     * @param array<string, mixed> $context Context to log
+     * @param string                                    $message Logging message schema
+     * @param array<string, null|int|bool|float|string> $context Context to log
      *
      * @return void
      */
@@ -98,8 +98,8 @@ interface LoggerInterface
      *
      * Example: User logs in, SQL logs.
      *
-     * @param string               $message Logging message schema
-     * @param array<string, mixed> $context Context to log
+     * @param string                                    $message Logging message schema
+     * @param array<string, null|int|bool|float|string> $context Context to log
      *
      * @return void
      */
@@ -108,8 +108,8 @@ interface LoggerInterface
     /**
      * Detailed debug information.
      *
-     * @param string               $message Logging message schema
-     * @param array<string, mixed> $context Context to log
+     * @param string                                    $message Logging message schema
+     * @param array<string, null|int|bool|float|string> $context Context to log
      *
      * @return void
      */
@@ -118,9 +118,9 @@ interface LoggerInterface
     /**
      * Logs with an arbitrary level.
      *
-     * @param string               $level   Log level/severeness
-     * @param string               $message Logging message schema
-     * @param array<string, mixed> $context Context to log
+     * @param string                                    $level   Log level/severeness
+     * @param string                                    $message Logging message schema
+     * @param array<string, null|int|bool|float|string> $context Context to log
      *
      * @return void
      */

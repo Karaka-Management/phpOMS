@@ -207,9 +207,9 @@ final class FileLogger implements LoggerInterface
     /**
      * Interpolate context
      *
-     * @param string                $message Log schema
-     * @param array<string, string> $context Context to log
-     * @param string                $level   Log level
+     * @param string                                    $message Log schema
+     * @param array<string, null|int|bool|float|string> $context Context to log
+     * @param string                                    $level   Log level
      *
      * @return string
      *
@@ -231,7 +231,12 @@ final class FileLogger implements LoggerInterface
             }
         }
 
-        $backtrace = \str_replace(["\r\n", "\r", "\n"], ' ', \json_encode($backtrace));
+        $encodedBacktrace = \json_encode($backtrace);
+        if (!\is_string($encodedBacktrace)) {
+            $encodedBacktrace = '';
+        }
+
+        $backtrace = \str_replace(["\r\n", "\r", "\n"], ' ', $encodedBacktrace);
 
         $replace['{backtrace}'] = $backtrace;
         $replace['{datetime}']  = \sprintf('%--19s', (new \DateTimeImmutable('NOW'))->format('Y-m-d H:i:s'));

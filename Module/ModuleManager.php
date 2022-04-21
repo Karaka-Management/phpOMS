@@ -207,12 +207,13 @@ final class ModuleManager
                 }
 
                 $content = \file_get_contents($path);
-                $json    = \json_decode($content === false ? '[]' : $content, true);
 
-                if ($json === false) {
-                    return [];
+                $json = \json_decode($content === false ? '[]' : $content, true);
+                if (!\is_array($json)) {
+                    return $this->active;
                 }
 
+                /** @var array{name:array{internal:string}} $json */
                 $this->active[$json['name']['internal']] = $json;
             }
         }
@@ -325,9 +326,10 @@ final class ModuleManager
                 ->execute();
 
             if ($sth === null) {
-                return [];
+                return $this->installed;
             }
 
+            /** @var string[] $installed */
             $installed = $sth->fetchAll(\PDO::FETCH_COLUMN);
 
             foreach ($installed as $module) {
@@ -754,6 +756,7 @@ final class ModuleManager
         if (!isset($this->running[$class])) {
             if (Autoloader::exists($class) !== false) {
                 try {
+                    /** @var ModuleAbstract $obj */
                     $obj                  = new $class($this->app);
                     $this->running[$name] = $obj;
                     $this->registerRequesting($obj);

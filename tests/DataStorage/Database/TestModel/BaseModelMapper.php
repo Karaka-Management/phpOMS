@@ -43,7 +43,7 @@ class BaseModelMapper extends DataMapperFactory
     /**
      * Belongs to.
      *
-     * @var array<string, array{mapper:string, external:string}>
+     * @var array<string, array{mapper:string, external:string, column?:string, by?:string}>
      * @since 1.0.0
      */
     public const BELONGS_TO = [

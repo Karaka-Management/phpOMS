@@ -27,7 +27,7 @@ interface HeapItemInterface
     /**
      * Compare heap items
      *
-     * @param HeapItemInterface $item
+     * @param HeapItemInterface $item Heap item
      *
      * @return bool
      *

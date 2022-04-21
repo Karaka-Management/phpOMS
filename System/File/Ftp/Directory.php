@@ -55,16 +55,15 @@ class Directory extends FileAbstract implements DirectoryInterface
      *
      * @param HttpUri $http Uri
      *
-     * @return mixed
+     * @return null|\FTP\Connection
      *
      * @since 1.0.0
      */
-    public static function ftpConnect(HttpUri $http) : mixed
+    public static function ftpConnect(HttpUri $http) : ?\FTP\Connection
     {
         $con = \ftp_connect($http->host, $http->port, 10);
-
         if ($con === false) {
-            return false;
+            return null;
         }
 
         \ftp_login($con, $http->user, $http->pass);
@@ -79,14 +78,14 @@ class Directory extends FileAbstract implements DirectoryInterface
     /**
      * Constructor.
      *
-     * @param HttpUri       $uri        Uri
-     * @param string        $filter     Filter
-     * @param bool          $initialize Should get initialized during construction
-     * @param null|resource $con        Connection
+     * @param HttpUri         $uri        Uri
+     * @param string          $filter     Filter
+     * @param bool            $initialize Should get initialized during construction
+     * @param \FTP\Connection $con        Connection
      *
      * @since 1.0.0
      */
-    public function __construct(HttpUri $uri, string $filter = '*', bool $initialize = true, $con = null)
+    public function __construct(HttpUri $uri, string $filter = '*', bool $initialize = true, \FTP\Connection $con = null)
     {
         $this->uri = $uri;
         $this->con = $con ?? self::ftpConnect($uri);
@@ -715,7 +714,7 @@ class Directory extends FileAbstract implements DirectoryInterface
     /**
      * {@inheritdoc}
      */
-    public function offsetSet($offset, $value) : void
+    public function offsetSet(mixed $offset, mixed $value) : void
     {
         if ($offset === null || !isset($this->nodes[$offset])) {
             $this->addNode($value);
@@ -728,7 +727,7 @@ class Directory extends FileAbstract implements DirectoryInterface
     /**
      * {@inheritdoc}
      */
-    public function offsetExists($offset) : bool
+    public function offsetExists(mixed $offset) : bool
     {
         $offset = isset($this->nodes[$offset]) ? $offset : $this->path . '/' . $offset;
 
@@ -738,7 +737,7 @@ class Directory extends FileAbstract implements DirectoryInterface
     /**
      * {@inheritdoc}
      */
-    public function offsetUnset($offset) : void
+    public function offsetUnset(mixed $offset) : void
     {
         $offset = isset($this->nodes[$offset]) ? $offset : $this->path . '/' . $offset;
 

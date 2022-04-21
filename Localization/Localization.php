@@ -269,7 +269,7 @@ class Localization implements \JsonSerializable
             }
 
             $json = \json_decode($fileContent, true);
-            if ($json === false) {
+            if (!\is_array($json)) {
                 return;
             }
 
@@ -284,7 +284,7 @@ class Localization implements \JsonSerializable
         }
 
         $json = \json_decode($fileContent, true);
-        if ($json === false) {
+        if (!\is_array($json)) {
             return;
         }
 
@@ -294,7 +294,7 @@ class Localization implements \JsonSerializable
     /**
      * Load localization from locale
      *
-     * @param array<string, int|string|array> $locale Locale data
+     * @param array{language?:string, country?:string, currency?:array{code?:string}, thousand?:string, angle?:string, temperatur?:string, weight?:array, speed?:array, length?:array, area?:array, volume?:array, precision?:array, timezone?:string, datetime?:array} $locale Locale data
      *
      * @return void
      *

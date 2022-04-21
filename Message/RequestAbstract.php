@@ -37,7 +37,7 @@ abstract class RequestAbstract implements MessageInterface
     /**
      * Request data.
      *
-     * @var array
+     * @var array<int|string, mixed>
      * @since 1.0.0
      */
     protected array $data = [];
@@ -80,7 +80,7 @@ abstract class RequestAbstract implements MessageInterface
      * @param string $key  Data key
      * @param string $type Return type
      *
-     * @return null|int|string|float|bool
+     * @return mixed
      *
      * @since 1.0.0
      */
@@ -133,7 +133,7 @@ abstract class RequestAbstract implements MessageInterface
 
         $json = \json_decode($this->data[$key], true);
 
-        return $json === false ? [] : $json ?? [];
+        return !\is_array($json) ? [] : $json;
     }
 
     /**
@@ -180,7 +180,7 @@ abstract class RequestAbstract implements MessageInterface
     {
         $data = [];
         foreach ($this->data as $key => $value) {
-            if (\preg_match('/' . $regex . '/', $key) === 1) {
+            if (\preg_match('/' . $regex . '/', (string) $key) === 1) {
                 $data[$key] = $value;
             }
         }

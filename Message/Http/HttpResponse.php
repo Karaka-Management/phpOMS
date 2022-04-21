@@ -94,7 +94,9 @@ final class HttpResponse extends ResponseAbstract implements RenderableInterface
      */
     public function getJsonData() : array
     {
-        return \json_decode($this->getRaw(), true) ?? [];
+        $json = \json_decode($this->getRaw(), true);
+
+        return !\is_array($json) ? [] : $json;
     }
 
     /**
@@ -115,6 +117,7 @@ final class HttpResponse extends ResponseAbstract implements RenderableInterface
             }
         }
 
+        /** @var array{0:bool} $data */
         return $this->getRaw(\stripos($type ?? '', MimeType::M_HTML) !== false ? ($data[0] ?? false) : false);
     }
 

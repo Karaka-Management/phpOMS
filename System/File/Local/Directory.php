@@ -541,8 +541,12 @@ final class Directory extends FileAbstract implements DirectoryInterface
     /**
      * {@inheritdoc}
      */
-    public function offsetSet($offset, $value) : void
+    public function offsetSet(mixed $offset, mixed $value) : void
     {
+        if (!($value instanceof ContainerInterface)) {
+            return;
+        }
+
         if ($offset === null || !isset($this->nodes[$offset])) {
             $this->addNode($value);
         } else {
@@ -554,7 +558,7 @@ final class Directory extends FileAbstract implements DirectoryInterface
     /**
      * {@inheritdoc}
      */
-    public function offsetExists($offset) : bool
+    public function offsetExists(mixed $offset) : bool
     {
         $offset = isset($this->nodes[$offset]) ? $offset : $this->path . '/' . $offset;
 
@@ -564,7 +568,7 @@ final class Directory extends FileAbstract implements DirectoryInterface
     /**
      * {@inheritdoc}
      */
-    public function offsetUnset($offset) : void
+    public function offsetUnset(mixed $offset) : void
     {
         $offset = isset($this->nodes[$offset]) ? $offset : $this->path . '/' . $offset;
 

@@ -1395,8 +1395,13 @@ class Builder extends BuilderAbstract
      */
     public function execute() : ?PDOStatement
     {
+        $sth = null;
+
         try {
             $sth = $this->connection->con->prepare($this->toSql());
+            if ($sth === false) {
+                return null;
+            }
 
             foreach ($this->binds as $key => $bind) {
                 $type = self::getBindParamType($bind);

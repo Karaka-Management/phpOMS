@@ -287,7 +287,7 @@ final class ReadMapper extends DataMapperAbstract
     {
         $query = $this->getQuery(null, ['COUNT(*)' => 'count']);
 
-        return (int) $query->execute()->fetchColumn();
+        return (int) $query->execute()?->fetchColumn();
     }
 
     /**

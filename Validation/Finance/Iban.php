@@ -50,7 +50,9 @@ final class Iban extends ValidatorAbstract
             return false;
         }
 
-        $layout = \str_replace(' ', '', IbanEnum::getByName($enumName));
+        /** @var string $enumVal */
+        $enumVal = IbanEnum::getByName($enumName);
+        $layout  = \str_replace(' ', '', $enumVal);
 
         if (\strlen($value) !== \strlen($layout)) {
             self::$error = IbanErrorType::INVALID_LENGTH;

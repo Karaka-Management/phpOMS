@@ -130,6 +130,9 @@ class SpreadsheetDatabaseMapper implements IODatabaseMapper
 
         foreach ($queries as $key => $query) {
             $results = $query->execute()?->fetchAll(\PDO::FETCH_ASSOC);
+            if ($results === null) {
+                continue;
+            }
 
             if ($key > $sheetCount - 1) {
                 $sheet->createSheet($key);

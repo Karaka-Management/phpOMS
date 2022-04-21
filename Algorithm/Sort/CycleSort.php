@@ -79,11 +79,11 @@ final class CycleSort implements SortInterface
                     }
                 }
 
-                while ($item->equals($list[$pos])) {
+                while (isset($list[$pos]) && $item->equals($list[$pos])) {
                     ++$pos;
                 }
 
-                if (!$item->equals($list[$pos])) {
+                if (isset($list[$pos])) {
                     $old        = $list[$pos];
                     $list[$pos] = $item;
                     $item       = $old;

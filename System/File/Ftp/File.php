@@ -71,16 +71,15 @@ class File extends FileAbstract implements FileInterface
      *
      * @param HttpUri $http Uri
      *
-     * @return mixed
+     * @return null|\FTP\Connection
      *
      * @since 1.0.0
      */
-    public static function ftpConnect(HttpUri $http) : mixed
+    public static function ftpConnect(HttpUri $http) : ?\FTP\Connection
     {
         $con = \ftp_connect($http->host, $http->port, 10);
-
         if ($con === false) {
-            return false;
+            return null;
         }
 
         \ftp_login($con, $http->user, $http->pass);
@@ -209,7 +208,7 @@ class File extends FileAbstract implements FileInterface
     /**
      * {@inheritdoc}
      */
-    public static function prepend($con, string $path, string $content) : bool
+    public static function prepend(\FTP\Connection $con, string $path, string $content) : bool
     {
         return self::put($con, $path, $content, ContentPutMode::PREPEND | ContentPutMode::CREATE);
     }

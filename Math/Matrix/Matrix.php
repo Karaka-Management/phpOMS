@@ -704,6 +704,10 @@ class Matrix implements \ArrayAccess, \Iterator
      */
     public function offsetGet(mixed $offset) : mixed
     {
+        if (!\is_int($offset)) {
+            return 0;
+        }
+
         $offset = (int) $offset;
         $row    = (int) ($offset / $this->m);
 
@@ -737,8 +741,12 @@ class Matrix implements \ArrayAccess, \Iterator
     /**
      * {@inheritdoc}
      */
-    public function offsetExists($offset) : bool
+    public function offsetExists(mixed $offset) : bool
     {
+        if (!\is_int($offset)) {
+            return false;
+        }
+
         $offset = (int) $offset;
         $row    = (int) ($offset / $this->m);
 
@@ -756,8 +764,12 @@ class Matrix implements \ArrayAccess, \Iterator
     /**
      * {@inheritdoc}
      */
-    public function offsetSet($offset, $value) : void
+    public function offsetSet(mixed $offset, mixed $value) : void
     {
+        if (!\is_int($offset) || !\is_numeric($value)) {
+            return;
+        }
+
         $offset                                        = (int) $offset;
         $row                                           = (int) ($offset / $this->m);
         $this->matrix[$row][$offset - $row * $this->n] = $value;
@@ -766,8 +778,12 @@ class Matrix implements \ArrayAccess, \Iterator
     /**
      * {@inheritdoc}
      */
-    public function offsetUnset($offset) : void
+    public function offsetUnset(mixed $offset) : void
     {
+        if (!\is_int($offset)) {
+            return;
+        }
+
         $offset = (int) $offset;
         $row    = (int) ($offset / $this->m);
         unset($this->matrix[$row][$offset - $row * $this->n]);

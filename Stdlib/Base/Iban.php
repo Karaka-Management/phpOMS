@@ -115,9 +115,12 @@ class Iban implements SerializableInterface
     private function getSequence(string $sequence) : string
     {
         $country = $this->getCountry();
-        $layout  = \str_replace(' ', '', IbanEnum::getByName('C_' . $country));
-        $start   = \stripos($layout, $sequence);
-        $end     = \strrpos($layout, $sequence);
+
+        /** @var string $iban */
+        $iban   = IbanEnum::getByName('C_' . $country);
+        $layout = \str_replace(' ', '', $iban);
+        $start  = \stripos($layout, $sequence);
+        $end    = \strrpos($layout, $sequence);
 
         if ($start === false || $end === false) {
             return '';
