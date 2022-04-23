@@ -138,7 +138,7 @@ final class ConsoleResponse extends ResponseAbstract implements RenderableInterf
             $render .= StringUtils::stringify($response);
         }
 
-        return $render;
+        return $optimize ? \trim($render) : $render;
     }
 
     /**

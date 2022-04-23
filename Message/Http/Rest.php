@@ -89,7 +89,8 @@ final class Rest
                 $boundary = '----' . \uniqid();
                 $data     = self::createMultipartData($boundary, $request->getData());
 
-                // @todo: replace boundary/ with the correct boundary= in the future. Currently this cannot be done due to a bug. If we do it now the server cannot correclty populate php://input
+                // @todo: replace boundary/ with the correct boundary= in the future.
+                //        Currently this cannot be done due to a bug. If we do it now the server cannot correclty populate php://input
                 $headers['content-type']   = 'Content-Type: multipart/form-data; boundary/' . $boundary;
                 $headers['content-length'] = 'Content-Length: ' . \strlen($data);
 

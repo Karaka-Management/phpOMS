@@ -149,7 +149,10 @@ final class NaiveBayesClassifier
                 }
             } else {
                 $p = (1 / \sqrt(2 * \M_PI * $this->probabilities['criteria'][$criteria]['attr'][$attr]['variance'])
-                        * \exp(-($value - $this->probabilities['criteria'][$criteria]['attr'][$attr]['mean']) ** 2 / (2 * $this->probabilities['criteria'][$criteria]['attr'][$attr]['variance'])))
+                        * \exp(-($value - $this->probabilities['criteria'][$criteria]['attr'][$attr]['mean']) ** 2
+                            / (2 * $this->probabilities['criteria'][$criteria]['attr'][$attr]['variance'])
+                        )
+                    )
                     * ($this->probabilities['criteria'][$criteria]['count'] / $this->probabilities['count'])
                     / $this->probabilities['attr'][$attr]['data'];
 
@@ -177,14 +180,20 @@ final class NaiveBayesClassifier
             foreach ($subDict as $attr => $valueArray) {
                 if ($valueArray['type'] === 2) {
                     $this->probabilities['criteria'][$criteria]['attr'][$attr]['mean']     = Average::arithmeticMean($this->dict[$criteria][$attr]['data']);
-                    $this->probabilities['criteria'][$criteria]['attr'][$attr]['variance'] = MeasureOfDispersion::sampleVariance($this->dict[$criteria][$attr]['data'], $this->probabilities['criteria'][$criteria]['attr'][$attr]['mean']);
+                    $this->probabilities['criteria'][$criteria]['attr'][$attr]['variance'] = MeasureOfDispersion::sampleVariance(
+                        $this->dict[$criteria][$attr]['data'],
+                        $this->probabilities['criteria'][$criteria]['attr'][$attr]['mean']
+                    );
 
                     if (!isset($this->probabilities['attr'][$attr])) {
                         $this->probabilities['attr'][$attr] = ['data' => 0.0];
                     }
 
                     $this->probabilities['attr'][$attr]['data'] += (1 / \sqrt(2 * \M_PI * $this->probabilities['criteria'][$criteria]['attr'][$attr]['variance'])
-                            * \exp(-($toMatch[$attr] - $this->probabilities['criteria'][$criteria]['attr'][$attr]['mean']) ** 2 / (2 * $this->probabilities['criteria'][$criteria]['attr'][$attr]['variance'])))
+                            * \exp(-($toMatch[$attr] - $this->probabilities['criteria'][$criteria]['attr'][$attr]['mean']) ** 2
+                                / (2 * $this->probabilities['criteria'][$criteria]['attr'][$attr]['variance'])
+                            )
+                        )
                         * ($this->probabilities['criteria'][$criteria]['count'] / $this->probabilities['count']);
                 } else {
                     if (!isset($this->probabilities['attr'][$attr])) {

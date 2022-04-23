@@ -145,7 +145,8 @@ final class Metrics
      * @param array $purchaseProbability Purchase probabilities for different periods
      * @param array $payoffs             Payoff vector (first element = payoff - cost, other elements = -cost, last element = 0)
      *
-     * @return Matrix A vector which shows in row i the return of the customer if he didn't buy i - 1 times before (=recency of the customer = how many periods has it been since he bought the last time)
+     * @return Matrix A vector which shows in row i the return of the customer if he didn't buy i - 1 times before
+     *                (=recency of the customer = how many periods has it been since he bought the last time)
      *
      * @since 1.0.0
      */
