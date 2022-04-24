@@ -87,7 +87,7 @@ final class L11nManager
     public function loadLanguage(string $language, string $from, array $translation) : void
     {
         if (!isset($translation[$from])) {
-            throw new \UnexpectedValueException($from);
+            return;
         }
 
         $this->language[$language][$from] = !isset($this->language[$language][$from])
