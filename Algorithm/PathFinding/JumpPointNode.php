@@ -14,8 +14,6 @@ declare(strict_types=1);
 
 namespace phpOMS\Algorithm\PathFinding;
 
-use phpOMS\Stdlib\Base\HeapItemInterface;
-
 /**
  * Node on grid.
  *

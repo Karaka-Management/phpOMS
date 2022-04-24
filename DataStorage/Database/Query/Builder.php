@@ -14,7 +14,6 @@ declare(strict_types=1);
 
 namespace phpOMS\DataStorage\Database\Query;
 
-use PDOStatement;
 use phpOMS\Algorithm\Graph\DependencyResolver;
 use phpOMS\Contract\SerializableInterface;
 use phpOMS\DataStorage\Database\BuilderAbstract;
@@ -1389,11 +1388,11 @@ class Builder extends BuilderAbstract
     /**
      * Execute query.
      *
-     * @return ?PDOStatement
+     * @return ?\PDOStatement
      *
      * @since 1.0.0
      */
-    public function execute() : ?PDOStatement
+    public function execute() : ?\PDOStatement
     {
         $sth = null;
 

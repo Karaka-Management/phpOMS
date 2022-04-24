@@ -152,7 +152,6 @@ abstract class StatusAbstract
         /** @var Directory|File $child */
         foreach ($directories as $child) {
             if ($child instanceof Directory) {
-
                 /** @var File $file */
                 foreach ($child as $file) {
                     if (!\is_dir(__DIR__ . '/../../' . $child->getName() . '/' . \basename($file->getName(), '.php'))
@@ -223,7 +222,6 @@ abstract class StatusAbstract
         /** @var Directory|File $child */
         foreach ($directories as $child) {
             if ($child instanceof Directory) {
-
                 /** @var File $file */
                 foreach ($child as $file) {
                     if (!\is_dir(__DIR__ . '/../../' . $child->getName() . '/' . \basename($file->getName(), '.php'))

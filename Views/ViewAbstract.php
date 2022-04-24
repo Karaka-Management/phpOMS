@@ -15,7 +15,6 @@ declare(strict_types=1);
 namespace phpOMS\Views;
 
 use phpOMS\Contract\RenderableInterface;
-use phpOMS\System\File\PathException;
 
 /**
  * View Abstract.
