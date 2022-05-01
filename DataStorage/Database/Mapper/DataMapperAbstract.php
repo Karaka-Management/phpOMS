@@ -178,10 +178,26 @@ abstract class DataMapperAbstract
         $split       = \explode('/', $member);
         $memberSplit = \array_shift($split);
 
-        $this->sort[$memberSplit][] = [
-            'child' => \implode('/', $split),
-            'order' => $order,
-        ];
+        $child       = \implode('/', $split);
+        $overwritten = false;
+
+        if (isset($this->sort[$memberSplit])) {
+            foreach ($this->sort[$memberSplit] as $key => $element) {
+                if ($element['child'] === $child) {
+                    $this->sort[$memberSplit][$key]['order'] = $order;
+                    $overwritten                             = true;
+
+                    break;
+                }
+            }
+        }
+
+        if (!$overwritten) {
+            $this->sort[$memberSplit][] = [
+                'child' => \implode('/', $split),
+                'order' => $order,
+            ];
+        }
 
         return $this;
     }
@@ -201,10 +217,26 @@ abstract class DataMapperAbstract
         $split       = \explode('/', $member);
         $memberSplit = \array_shift($split);
 
-        $this->offset[$memberSplit][] = [
-            'child'  => \implode('/', $split),
-            'offset' => $offset,
-        ];
+        $child       = \implode('/', $split);
+        $overwritten = false;
+
+        if (isset($this->offset[$memberSplit])) {
+            foreach ($this->offset[$memberSplit] as $key => $element) {
+                if ($element['child'] === $child) {
+                    $this->offset[$memberSplit][$key]['offset'] = $offset;
+                    $overwritten                                = true;
+
+                    break;
+                }
+            }
+        }
+
+        if (!$overwritten) {
+            $this->offset[$memberSplit][] = [
+                'child'  => \implode('/', $split),
+                'offset' => $offset,
+            ];
+        }
 
         return $this;
     }
@@ -224,10 +256,26 @@ abstract class DataMapperAbstract
         $split       = \explode('/', $member);
         $memberSplit = \array_shift($split);
 
-        $this->limit[$memberSplit][] = [
-            'child' => \implode('/', $split),
-            'limit' => $limit,
-        ];
+        $child       = \implode('/', $split);
+        $overwritten = false;
+
+        if (isset($this->limit[$memberSplit])) {
+            foreach ($this->limit[$memberSplit] as $key => $element) {
+                if ($element['child'] === $child) {
+                    $this->limit[$memberSplit][$key]['limit'] = $limit;
+                    $overwritten                              = true;
+
+                    break;
+                }
+            }
+        }
+
+        if (!$overwritten) {
+            $this->limit[$memberSplit][] = [
+                'child' => \implode('/', $split),
+                'limit' => $limit,
+            ];
+        }
 
         return $this;
     }
