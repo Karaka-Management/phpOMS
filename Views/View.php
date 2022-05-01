@@ -77,7 +77,7 @@ class View extends ViewAbstract
      * @var null|string
      * @since 1.0.0
      */
-    protected ?string $theme = null;
+    public ?string $theme = null;
 
     /**
      * Module name.
@@ -85,7 +85,7 @@ class View extends ViewAbstract
      * @var null|string
      * @since 1.0.0
      */
-    protected ?string $module = null;
+    public ?string $module = null;
 
     /**
      * Constructor.

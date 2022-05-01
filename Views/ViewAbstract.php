@@ -32,7 +32,7 @@ abstract class ViewAbstract implements RenderableInterface
      * @var string
      * @since 1.0.0
      */
-    private const BASE_PATH = __DIR__ . '/../..';
+    protected const BASE_PATH = __DIR__ . '/../..';
 
     /**
      * Output is buffered
@@ -262,6 +262,11 @@ abstract class ViewAbstract implements RenderableInterface
      */
     public function render(...$data) : string
     {
+        return $this->renderTemplate($this->template, ...$data);
+    }
+
+    protected function renderTemplate(string $template, ...$data) : string
+    {
         $ob = '';
 
         try {
@@ -269,7 +274,7 @@ abstract class ViewAbstract implements RenderableInterface
                 \ob_start();
             }
 
-            $path = $this->template;
+            $path = $template;
             if (!\is_file($path)) {
                 return '';
             }
