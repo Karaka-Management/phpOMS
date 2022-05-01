@@ -366,11 +366,12 @@ final class Directory extends FileAbstract implements DirectoryInterface
             self::create($to, 0755, true);
         }
 
-        /** @var \DirectoryIterator $item */
-        foreach ($iterator = new \RecursiveIteratorIterator(
+        $iterator = new \RecursiveIteratorIterator(
             new \RecursiveDirectoryIterator($from, \RecursiveDirectoryIterator::SKIP_DOTS),
-            \RecursiveIteratorIterator::SELF_FIRST) as $item
-        ) {
+            \RecursiveIteratorIterator::SELF_FIRST);
+
+        /** @var \DirectoryIterator $item */
+        foreach ($iterator as $item) {
             /** @var \RecursiveDirectoryIterator $iterator */
             $subPath = $iterator->getSubPathname();
 
