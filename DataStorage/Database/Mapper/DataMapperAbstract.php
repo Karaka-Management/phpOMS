@@ -402,6 +402,8 @@ abstract class DataMapperAbstract
             return $value === null ? null : $value->format($this->mapper::$datetimeFormat);
         } elseif ($type === 'Json') {
             return (string) \json_encode($value);
+        } elseif ($type === 'compress') {
+            return (string) \gzdeflate($value);
         } elseif ($type === 'Serializable') {
             return $value->serialize();
         } elseif (\is_object($value) && \method_exists($value, 'getId')) {

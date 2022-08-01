@@ -11,6 +11,7 @@
  * @link      https://karaka.app
  */
 declare(strict_types=1);
+
 namespace phpOMS\Math\Geometry\Shape\D3;
 
 use phpOMS\Math\Geometry\Shape\D2\Polygon;

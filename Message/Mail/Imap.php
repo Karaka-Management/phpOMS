@@ -227,6 +227,45 @@ class Imap implements MailBoxInterface
     }
 
     /**
+     * {@inheritdoc}
+     */
+    public function countUnseen(string $box) : int
+    {
+        if ($this->box !== $box) {
+            \imap_reopen($this->mailbox, '{' . $this->host . ':' . $this->port . $this->flags . '}' . $box);
+            $this->box = $box;
+        }
+
+        return \count(\imap_search($this->mailbox, 'UNSEEN'));
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function search(
+        string $box,
+        string $subject = '',
+        string $body = '',
+        string $to = '',
+        string $cc = '',
+        string $from = '',
+        string $bcc = '',
+        \DateTime $before = null,
+        \DateTime $since = null,
+        \DateTime $on = null,
+        bool $deleted = false,
+        bool $flagged = false
+    ) : array
+    {
+        if ($this->box !== $box) {
+            \imap_reopen($this->mailbox, '{' . $this->host . ':' . $this->port . $this->flags . '}' . $box);
+            $this->box = $box;
+        }
+
+        return [];
+    }
+
+    /**
      * Copy message to another mailbox
      *
      * @param string|array $messages Messages to copy

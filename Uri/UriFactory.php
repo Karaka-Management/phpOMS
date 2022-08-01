@@ -286,7 +286,7 @@ final class UriFactory
         }
 
         $parsed = \preg_replace_callback(
-            '(\{[\/#\?%@\.\$][a-zA-Z0-9\-]*\})',
+            '(\{[\/#\?%@\.\$][a-zA-Z0-9_\-]*\})',
             function ($match) use ($toMatch) : string {
                 $match = \substr($match[0], 1, \strlen($match[0]) - 2);
 

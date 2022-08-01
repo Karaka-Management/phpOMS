@@ -132,9 +132,29 @@ final class HttpRequest extends RequestAbstract
         if (\stripos($_SERVER['CONTENT_TYPE'], 'application/json') !== false) {
             // @codeCoverageIgnoreStart
             // Tested but coverage doesn't show up
-            $input = \file_get_contents('php://input');
+            $stream = \fopen('php://input', 'r');
+            if ($stream === false) {
+                return;
+            }
 
-            if ($input === false || empty($input) || $input === 'null') {
+            $input = '';
+            $size  = 0;
+
+            while (($lineRaw = \fgets($stream, 1024)) !== false) {
+                // Limit json data to 1MB
+                if ($size > 1000000) {
+                    \fclose($stream);
+
+                    return;
+                }
+
+                $input += $lineRaw;
+                $size  += \strlen($lineRaw);
+            }
+
+            \fclose($stream);
+
+            if (empty($input)) {
                 return;
             }
 
@@ -148,9 +168,29 @@ final class HttpRequest extends RequestAbstract
         } elseif (\stripos($_SERVER['CONTENT_TYPE'], 'application/x-www-form-urlencoded') !== false) {
             // @codeCoverageIgnoreStart
             // Tested but coverage doesn't show up
-            $content = \file_get_contents('php://input');
+            $stream = \fopen('php://input', 'r');
+            if ($stream === false) {
+                return;
+            }
 
-            if ($content === false || empty($content)) {
+            $content = '';
+            $size    = 0;
+
+            while (($lineRaw = \fgets($stream, 1024)) !== false) {
+                // Limit json data to 1MB
+                if ($size > 1000000) {
+                    \fclose($stream);
+
+                    return;
+                }
+
+                $content += $lineRaw;
+                $size    += \strlen($lineRaw);
+            }
+
+            \fclose($stream);
+
+            if (empty($content)) {
                 return;
             }
 

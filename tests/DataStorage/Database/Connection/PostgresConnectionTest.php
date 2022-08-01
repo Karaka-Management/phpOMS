@@ -11,6 +11,7 @@
  * @link      https://karaka.app
  */
 declare(strict_types=1);
+
 namespace phpOMS\tests\DataStorage\Database\Connection;
 
 use phpOMS\DataStorage\Database\Connection\PostgresConnection;

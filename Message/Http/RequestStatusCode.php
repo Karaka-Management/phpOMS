@@ -11,6 +11,7 @@
  * @link      https://karaka.app
  */
 declare(strict_types=1);
+
 namespace phpOMS\Message\Http;
 
 use phpOMS\Stdlib\Base\Enum;

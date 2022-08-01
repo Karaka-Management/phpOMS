@@ -111,20 +111,6 @@ final class ReadMapper extends DataMapperAbstract
     }
 
     /**
-     * Create find mapper
-     *
-     * @return self
-     *
-     * @since 1.0.0
-     */
-    public function find() : self
-    {
-        $this->type = MapperType::FIND;
-
-        return $this;
-    }
-
-    /**
      * Define the columns to load
      *
      * @param array $columns Columns to load
@@ -589,7 +575,13 @@ final class ReadMapper extends DataMapperAbstract
                 }
 
                 $refProp->setValue($obj, $value);
-            } elseif (\in_array($def['type'], ['string', 'int', 'float', 'bool'])) {
+            } elseif (\in_array($def['type'], ['string', 'compress', 'int', 'float', 'bool'])) {
+                if ($value !== null && $def['type'] === 'compress') {
+                    $def['type']  = 'string';
+
+                    $value = \gzinflate($value);
+                }
+
                 if ($value !== null || $refProp->getValue($obj) !== null) {
                     \settype($value, $def['type']);
                 }

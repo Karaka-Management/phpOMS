@@ -16,6 +16,8 @@ namespace phpOMS\DataStorage\Database\Mapper;
 
 use phpOMS\DataStorage\Database\Connection\ConnectionAbstract;
 use phpOMS\DataStorage\Database\Query\Builder;
+use phpOMS\DataStorage\Database\Query\OrderType;
+use phpOMS\DataStorage\Database\Query\Where;
 
 /**
  * Mapper factory.
@@ -476,5 +478,224 @@ class DataMapperFactory
         }
 
         return null;
+    }
+
+    /**
+     * Find data.
+     *
+     * @param string             $search       Search string
+     * @param DataMapperAbstract $mapper       Mapper to populate
+     * @param int                $id           Pivot element id
+     * @param string             $secondaryId  Secondary id which becomes necessary for sorted results.
+     * @param string             $type         Page type (p = get previous elements, n = get next elements)
+     * @param int                $pageLimit    Limit result set
+     * @param string             $sortBy       Model member name to sort by
+     * @param string             $sortOrder    Sort order
+     * @param array              $searchFields Fields to search in. ([] = all) @todo: maybe change to all which have autocomplete = true defined?
+     * @param array              $filters      Additional search filters applied ['type', 'value1', 'logic1', 'value2', 'logic2']
+     *
+     * @return array{hasPrevious:bool, hasNext:bool, data:object[]}
+     *
+     * @since 1.0.0
+     */
+    public static function find(
+        string $search = null,
+        DataMapperAbstract $mapper = null,
+        int $id = 0,
+        string $secondaryId = '',
+        string $type = null,
+        int $pageLimit = 25,
+        string $sortBy = null,
+        string $sortOrder = OrderType::DESC,
+        array $searchFields = [],
+        array $filters = []
+    ) : array {
+        $mapper  ??= static::getAll();
+        $sortOrder = \strtoupper($sortOrder);
+
+        $data = [];
+
+        $type        = $id === 0 ? null : $type;
+        $hasPrevious = false;
+        $hasNext     = false;
+
+        $primarySortField = static::COLUMNS[static::PRIMARYFIELD]['internal'];
+
+        $sortBy = empty($sortBy) || static::getColumnByMember($sortBy) === null ? $primarySortField : $sortBy;
+
+        $sortById    = $sortBy === $primarySortField;
+        $secondaryId = $sortById ? $id : $secondaryId;
+
+        foreach ($filters as $key => $filter) {
+            $mapper->where($key, '%' . $filter['value1'] . '%', $filter['logic1'] ?? 'like');
+
+            if (!empty($filter['value2'])) {
+                $mapper->where($key, '%' . $filter['value2'] . '%', $filter['logic2'] ?? 'like');
+            }
+        }
+
+        if (!empty($search)) {
+            $where   = new Where(static::$db);
+            $counter = 0;
+
+            if (empty($searchFields)) {
+                foreach (static::COLUMNS as $column) {
+                    $searchFields[] = $column['internal'];
+                }
+            }
+
+            foreach ($searchFields as $searchField) {
+                if (($column = static::getColumnByMember($searchField)) === null) {
+                    continue;
+                }
+
+                $where->where($column, 'like', '%' . $search . '%', 'OR');
+                ++$counter;
+            }
+
+            if ($counter > 0) {
+                $mapper->where('', $where);
+            }
+        }
+
+        // @todo: how to handle columns which are NOT members (columns which are manipulated)
+        //          Maybe pass callback array which can handle these cases?
+
+        if ($type === 'p') {
+            $cloned = clone $mapper;
+            $mapper->sort(
+                    $sortBy,
+                    $sortOrder === OrderType::DESC ? OrderType::ASC : OrderType::DESC
+                )
+                ->where($sortBy, $secondaryId, $sortOrder === OrderType::DESC ? '>=' : '<=')
+                ->limit($pageLimit + 2);
+
+            if (!$sortById) {
+                $where = new Where(static::$db);
+                $where->where(static::PRIMARYFIELD, '>=', $id)
+                    ->orWhere(
+                        static::getColumnByMember($sortBy),
+                        $sortOrder === OrderType::DESC ? '>' : '<',
+                        $secondaryId
+                    );
+
+                $mapper->where('', $where)
+                    ->sort($primarySortField, OrderType::ASC);
+            }
+
+            $data = $mapper->execute();
+
+            if (($count = \count($data)) < 2) {
+                $cloned->sort($sortBy, $sortOrder)
+                    ->limit($pageLimit + 1);
+
+                if (!$sortById) {
+                    $where = new Where(static::$db);
+                    $where->where(static::PRIMARYFIELD, '<=', $id)
+                        ->orWhere(
+                            static::getColumnByMember($sortBy),
+                            $sortOrder === OrderType::DESC ? '<' : '>',
+                            $secondaryId
+                        );
+
+                    $cloned->where('', $where)
+                        ->sort($primarySortField, OrderType::DESC);
+                }
+
+                $data = $mapper->execute();
+
+                $hasNext = $count > $pageLimit;
+                if ($hasNext) {
+                    \array_pop($data);
+                    --$count;
+                }
+            } else {
+                if (\reset($data)->getId() === $id) {
+                    \array_shift($data);
+                    $hasNext = true;
+                    --$count;
+                }
+
+                if ($count > $pageLimit) {
+                    if (!$hasNext) { // @todo: can be maybe removed?
+                        \array_pop($data);
+                        $hasNext = true;
+                        --$count;
+                    }
+
+                    if ($count > $pageLimit) {
+                        $hasPrevious = true;
+                        \array_pop($data);
+                    }
+                }
+
+                $data = \array_reverse($data);
+            }
+        } elseif ($type === 'n') {
+            $mapper->sort($sortBy, $sortOrder)
+                ->where($sortBy, $secondaryId, $sortOrder === OrderType::DESC ? '<=' : '>=')
+                ->limit($pageLimit + 2);
+
+            if (!$sortById) {
+                $where = new Where(static::$db);
+                $where->where(static::PRIMARYFIELD, '<=', $id)
+                    ->orWhere(
+                        static::getColumnByMember($sortBy),
+                        $sortOrder === OrderType::DESC ? '<' : '>',
+                        $secondaryId
+                    );
+
+                $mapper->where('', $where)
+                    ->sort($primarySortField, OrderType::DESC);
+            }
+
+            $data  = $mapper->execute();
+            $count = \count($data);
+
+            if ($count < 1) {
+                return [
+                    'hasPrevious' => false,
+                    'hasNext'     => false,
+                    'data'        => [],
+                ];
+            }
+
+            if (\reset($data)->getId() === $id) {
+                \array_shift($data);
+                $hasPrevious = true;
+                --$count;
+            }
+
+            if ($count > $pageLimit) {
+                \array_pop($data);
+                $hasNext = true;
+                --$count;
+            }
+
+            if ($count > $pageLimit) {
+                \array_pop($data);
+                --$count;
+            }
+        } else {
+            $mapper = $mapper->sort($sortBy, $sortOrder)
+                ->limit($pageLimit + 1);
+
+            if (!$sortById) {
+                $mapper = $mapper->sort($primarySortField, OrderType::DESC);
+            }
+
+            $data = $mapper->execute();
+
+            $hasNext = ($count = \count($data)) > $pageLimit;
+            if ($hasNext) {
+                \array_pop($data);
+            }
+        }
+
+        return [
+            'hasPrevious' => $hasPrevious,
+            'hasNext'     => $hasNext,
+            'data'        => $data,
+        ];
     }
 }

@@ -65,6 +65,52 @@ interface MailBoxInterface
     public function countRecent(string $box) : int;
 
     /**
+     * Count unseen mail in mailbox
+     *
+     * @param string $box Box to count the mail in
+     *
+     * @return int
+     *
+     * @since 1.0.0
+     */
+    public function countUnseen(string $box) : int;
+
+    /**
+     * Get messages by search criterium
+     *
+     * @param string    $box     Box to count the mail in
+     * @param string    $subject Subject
+     * @param string    $body    Body
+     * @param string    $to      To
+     * @param string    $cc      CC
+     * @param string    $from    From
+     * @param string    $bcc     BCC
+     * @param \DateTime $before  Message before
+     * @param \DateTime $sicne   Message since
+     * @param \DateTime $on      Message on date
+     * @param bool      $deleted Message is deleted
+     * @param bool      $flagged Message is flagged (false = any message)
+     *
+     * @return array
+     *
+     * @since 1.0.0
+     */
+    public function search(
+        string $box,
+        string $subject = '',
+        string $body = '',
+        string $to = '',
+        string $cc = '',
+        string $from = '',
+        string $bcc = '',
+        \DateTime $before = null,
+        \DateTime $since = null,
+        \DateTime $on = null,
+        bool $deleted = false,
+        bool $flagged = false
+    ) : array;
+
+    /**
      * Get all message headers from a mailbox
      *
      * @param string $box Mailbox
