@@ -486,7 +486,7 @@ class DataMapperFactory
      * @param string             $search       Search string
      * @param DataMapperAbstract $mapper       Mapper to populate
      * @param int                $id           Pivot element id
-     * @param string             $secondaryId  Secondary id which becomes necessary for sorted results.
+     * @param string             $secondaryId  secondary id which becomes necessary for sorted results
      * @param string             $type         Page type (p = get previous elements, n = get next elements)
      * @param int                $pageLimit    Limit result set
      * @param string             $sortBy       Model member name to sort by
