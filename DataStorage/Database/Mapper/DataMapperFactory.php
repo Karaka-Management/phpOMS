@@ -598,11 +598,12 @@ class DataMapperFactory
                             $secondaryId
                         );
 
-                    $cloned->where('', $where)
+                    $cloned
+                        ->where('', $where)
                         ->sort($primarySortField, OrderType::DESC);
                 }
 
-                $data = $mapper->execute();
+                $data = $cloned->execute();
 
                 $hasNext = $count > $pageLimit;
                 if ($hasNext) {
@@ -632,7 +633,7 @@ class DataMapperFactory
                 $data = \array_reverse($data);
             }
         } elseif ($type === 'n') {
-            $mapper->sort($sortBy, $sortOrder)
+            $mapper = $mapper->sort($sortBy, $sortOrder)
                 ->where($sortBy, $secondaryId, $sortOrder === OrderType::DESC ? '<=' : '>=')
                 ->limit($pageLimit + 2);
 
@@ -645,7 +646,8 @@ class DataMapperFactory
                         $secondaryId
                     );
 
-                $mapper->where('', $where)
+                $mapper = $mapper
+                    ->where('', $where)
                     ->sort($primarySortField, OrderType::DESC);
             }
 
@@ -677,11 +679,11 @@ class DataMapperFactory
                 --$count;
             }
         } else {
-            $mapper = $mapper->sort($sortBy, $sortOrder)
+            $mapper->sort($sortBy, $sortOrder)
                 ->limit($pageLimit + 1);
 
             if (!$sortById) {
-                $mapper = $mapper->sort($primarySortField, OrderType::DESC);
+                $mapper->sort($primarySortField, OrderType::DESC);
             }
 
             $data = $mapper->execute();

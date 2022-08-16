@@ -91,7 +91,6 @@ final class HttpRequest extends RequestAbstract
     public function initRequest() : void
     {
         $this->initCurrentRequest();
-        $this->lock();
         self::cleanupGlobals();
 
         $this->data = \array_change_key_case($this->data, \CASE_LOWER);

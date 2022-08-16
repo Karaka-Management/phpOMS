@@ -98,7 +98,7 @@ final class FileLogger implements LoggerInterface
      *
      * @since 1.0.0
      */
-    public function __construct(string $lpath, bool $verbose = false)
+    public function __construct(string $lpath = '', bool $verbose = false)
     {
         $path          = \realpath(empty($lpath) ? __DIR__ . '/../../' : $lpath);
         $this->verbose = $verbose;
@@ -126,17 +126,17 @@ final class FileLogger implements LoggerInterface
     /**
      * Returns instance.
      *
-     * @param string $path    Logging path
+     * @param string $lpath   Logging path
      * @param bool   $verbose Verbose logging
      *
      * @return FileLogger
      *
      * @since 1.0.0
      */
-    public static function getInstance(string $path = '', bool $verbose = false) : self
+    public static function getInstance(string $lpath = '', bool $verbose = false) : self
     {
         if (!isset(self::$instance)) {
-            self::$instance = new self($path, $verbose);
+            self::$instance = new self($lpath, $verbose);
         }
 
         return self::$instance;
