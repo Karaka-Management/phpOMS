@@ -326,7 +326,7 @@ final class StringUtils
             for ($j = 0; $j < $n2; ++$j) {
                 $dm[$i][$j] = $from[$i] === $to[$j]
                     ? $dm[$i - 1][$j - 1] + 1
-                    : \max($$dm[$i - 1][$j], $dm[$i][$j - 1]);
+                    : \max(${$dm}[$i - 1][$j], $dm[$i][$j - 1]);
             }
         }
 
