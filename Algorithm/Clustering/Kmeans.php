@@ -101,6 +101,18 @@ final class Kmeans
     }
 
     /**
+     * Get cluster centroids
+     *
+     * @return array
+     *
+     * @since 1.0.0
+     */
+    public function getCentroids() : array
+    {
+        return $this->clusterCenters;
+    }
+
+    /**
      * Generate the clusters of the points
      *
      * @param PointInterface[] $points   Points to cluster
@@ -149,7 +161,7 @@ final class Kmeans
 
                 if ($min !== $point->group) {
                     ++$changed;
-                    $point->group = ($min);
+                    $point->group = $min;
                 }
             }
 
@@ -159,7 +171,7 @@ final class Kmeans
         }
 
         foreach ($clusterCenters as $key => $center) {
-            $center->group = ($key);
+            $center->group = $key;
             $center->name  = (string) $key;
         }
 

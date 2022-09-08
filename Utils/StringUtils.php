@@ -314,10 +314,6 @@ final class StringUtils
         $n1 = \count($from);
         $n2 = \count($to);
 
-        if ($n1 < 1 || $n2 < 1) {
-            throw new \Exception(); // @codeCoverageIgnore
-        }
-
         for ($j = -1; $j < $n2; ++$j) {
             $dm[-1][$j] = 0;
         }
@@ -328,14 +324,9 @@ final class StringUtils
 
         for ($i = 0; $i < $n1; ++$i) {
             for ($j = 0; $j < $n2; ++$j) {
-                if ($from[$i] === $to[$j]) {
-                    $ad         = $dm[$i - 1][$j - 1];
-                    $dm[$i][$j] = $ad + 1;
-                } else {
-                    $a1         = $dm[$i - 1][$j];
-                    $a2         = $dm[$i][$j - 1];
-                    $dm[$i][$j] = \max($a1, $a2);
-                }
+                $dm[$i][$j] = $from[$i] === $to[$j]
+                    ? $dm[$i - 1][$j - 1] + 1
+                    : \max($$dm[$i - 1][$j], $dm[$i][$j - 1]);
             }
         }
 
