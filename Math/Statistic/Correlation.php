@@ -39,6 +39,8 @@ final class Correlation
      *
      * Example: ([4, 5, 9, 1, 3], [4, 5, 9, 1, 3])
      *
+     * @latex \rho_{XY} = \frac{cov(X, Y)}{\sigma_X \sigma_Y}
+     *
      * @param array<int|float> $x Values
      * @param array<int|float> $y Values
      *
@@ -55,6 +57,8 @@ final class Correlation
      * Calculage bravais person correlation coefficient.
      *
      * Example: ([4, 5, 9, 1, 3], [4, 5, 9, 1, 3])
+     *
+     * @latex \rho_{XY} = \frac{cov(X, Y)}{\sigma_X \sigma_Y}
      *
      * @param array<int|float> $x Values
      * @param array<int|float> $y Values

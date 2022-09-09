@@ -212,7 +212,7 @@ final class MeasureOfDispersion
      *
      * Example: ([4, 5, 9, 1, 3], [4, 5, 9, 1, 3])
      *
-     * @latex \sigma_{XY} = cov(X, Y) = \sum_{i = 1}^{N}\frac{\left(x_{i} - \bar{X}\right) \left(y_{i} - \bar{Y}\right)}{N - 1}
+     * @latex cov(X,Y) = \frac{1}{N} \sum_{i = 1}^{N}\left(x_{i} - \bar{X}\right)\left(y_{i} - \bar{Y}\right)
      *
      * @param array<int, int|float> $x     Values
      * @param array<int, int|float> $y     Values
@@ -255,7 +255,7 @@ final class MeasureOfDispersion
      *
      * Example: ([4, 5, 9, 1, 3], [4, 5, 9, 1, 3])
      *
-     * @latex \sigma_{XY} = cov(X, Y) = \sum_{i = 1}^{N}\frac{\left(x_{i} - \bar{X}\right) \left(y_{i} - \bar{Y}\right)}{N - 1}
+     * @latex cov(X,Y) = \frac{1}{N - 1} \sum_{i = 1}^{N}\left(x_{i} - \bar{X}\right)\left(y_{i} - \bar{Y}\right)
      *
      * @param array<int, int|float> $x     Values
      * @param array<int, int|float> $y     Values

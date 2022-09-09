@@ -172,6 +172,8 @@ final class Average
      *
      * Example: ([1, 2, 2, 3, 4, 4, 2])
      *
+     * @latex \mu = mean = \frac{1}{n}\sum_{i=1}^{n}a_i
+     *
      * @param array<int, int|float> $values Values
      * @param int                   $offset Offset for outlier
      *

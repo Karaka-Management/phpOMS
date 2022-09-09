@@ -77,6 +77,8 @@ final class ChiSquaredDistribution
     /**
      * Test hypthesis.
      *
+     * Goodness of fit test.
+     *
      * @param array $dataset      Values
      * @param array $expected     Expected values based on probability
      * @param float $significance Significance

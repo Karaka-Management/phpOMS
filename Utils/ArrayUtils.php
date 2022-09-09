@@ -76,6 +76,20 @@ final class ArrayUtils
     }
 
     /**
+     * Calculate the range of the array
+     *
+     * @param int[]|float[] $values Numeric values
+     *
+     * @return int|float Range of the array
+     *
+     * @since 1.0.0
+     */
+    public static function range(array $values) : int|float
+    {
+        return \max($values) - \min($values);
+    }
+
+    /**
      * Set element in array by path
      *
      * @param string $path      Path to element
