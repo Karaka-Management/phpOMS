@@ -265,7 +265,7 @@ class Builder extends QueryBuilder
      */
     public function field(
         string $name, string $type, $default = null,
-        bool $isNullable = true, bool $isPrimary = false, $isUnique = false, bool $autoincrement = false,
+        bool $isNullable = true, bool $isPrimary = false, bool $isUnique = false, bool $autoincrement = false,
         string $foreignTable = null, string $foreignKey = null
     ) : self {
         $this->createFields[$name] = [
