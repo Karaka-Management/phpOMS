@@ -208,9 +208,11 @@ jobs:
         submodules: recursive
         token: ${{ secrets.GH_TOKEN }}
     - name: Lint Code Base
-      uses: github/super-linter@v4
+      uses: github/super-linter/slim@v4
       env:
         VALIDATE_ALL_CODEBASE: false
+        VALIDATE_PHP: true
+        VALIDATE_PHP_BUILTIN: true
         DEFAULT_BRANCH: develop
         GITHUB_TOKEN: ${{ secrets.GH_TOKEN }}
   custom:
