@@ -12,6 +12,7 @@
       <directory>./Build</directory>
       <directory>./Resources</directory>
       <directory>*vendor*</directory>
+      <directory>*Testapp*</directory>
       <directory>./vendor</directory>
       <directory>../vendor</directory>
     </exclude>
