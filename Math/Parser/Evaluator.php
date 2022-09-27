@@ -129,8 +129,10 @@ final class Evaluator
 
                 while ($o2 !== false && \strpbrk($o2, '^*/+-') !== false
                     && (($operators[$o1]['order'] === -1 && $operators[$o1]['precedence'] <= $operators[$o2]['precedence'])
-                        || ($operators[$o1]['order'] === 1 && $operators[$o1]['precedence'] < $operators[$o2]['precedence']))
+                        /*|| ($operators[$o1]['order'] === 1 && $operators[$o1]['precedence'] < $operators[$o2]['precedence'])*/)
                 ) {
+                    // The commented part above is always FALSE because this equation always compares 4 < 2|3|4.
+                    // Only uncomment if the opperators array changes.
                     $output[] = \array_pop($stack);
                     $o2       = \end($stack);
                 }

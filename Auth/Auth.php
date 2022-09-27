@@ -51,7 +51,7 @@ final class Auth
     {
         $uid = $session->get('UID');
 
-        return empty($uid) ? 0 : $uid;
+        return (int) (empty($uid) ? 0 : $uid);
     }
 
     /**

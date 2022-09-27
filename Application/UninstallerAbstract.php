@@ -94,6 +94,7 @@ abstract class UninstallerAbstract
             return; // @codeCoverageIgnore
         }
 
+        /** @var array<string, string> $definitions */
         $definitions = \json_decode($content, true);
         $builder     = new SchemaBuilder($dbPool->get('schema'));
 
