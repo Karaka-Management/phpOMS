@@ -102,14 +102,22 @@ final class TesseractOcr
             . ' -l ' . \implode('+', $languages)
         );
 
-        $parsed = \file_get_contents($temp . '.txt');
+        $filepath = \is_file($temp . '.txt')
+            ? $temp . '.txt'
+            : $temp;
+
+        if (!\is_file($filepath)) {
+            return '';
+        }
+
+        $parsed = \file_get_contents($filepath);
         if ($parsed === false) {
             return '';
         }
 
         // @todo: auto flip image if x% of text are garbage words?
 
-        \unlink($temp);
+        \unlink($filepath);
 
         return \trim($parsed);
     }

@@ -24,6 +24,18 @@ use phpOMS\Image\Thresholding;
  */
 final class TesseractOcrTest extends \PHPUnit\Framework\TestCase
 {
+    /**
+     * {@inheritdoc}
+     */
+    protected function setUp() : void
+    {
+        if (!\is_file('/usr/bin/tesseract')) {
+            $this->markTestSkipped(
+              'Couldn\'t find tesseract'
+            );
+        }
+    }
+
     private function outputTest(string $name, float $m1, float $m2) : void
     {
         if (false) {
