@@ -206,13 +206,13 @@ jobs:
       with:
         fetch-depth: 0
         submodules: recursive
-        token: ${{ secrets.GH_PAT }}
+        token: ${{ secrets.GH_TOKEN }}
     - name: Lint Code Base
       uses: github/super-linter@v4
       env:
         VALIDATE_ALL_CODEBASE: false
         DEFAULT_BRANCH: develop
-        GITHUB_TOKEN: ${{ secrets.GH_PAT }}
+        GITHUB_TOKEN: ${{ secrets.GH_TOKEN }}
   custom:
     runs-on: ubuntu-latest
     if: "!contains(github.event.head_commit.message, 'NO_CI')"
