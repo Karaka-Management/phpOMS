@@ -46,7 +46,7 @@ final class Evaluator
         $stack   = [];
         $postfix = self::shuntingYard($equation);
 
-        foreach ($postfix as $i => $value) {
+        foreach ($postfix as $value) {
             if (\is_numeric($value)) {
                 $stack[] = $value;
             } else {

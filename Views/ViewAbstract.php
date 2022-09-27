@@ -269,7 +269,7 @@ abstract class ViewAbstract implements RenderableInterface
      * Render a template file
      *
      * @param string $template Template path
-     * @param mixed  ...$data   Data to pass to renderer
+     * @param mixed  ...$data  Data to pass to renderer
      *
      * @return string
      *

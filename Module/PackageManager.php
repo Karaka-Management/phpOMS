@@ -306,9 +306,11 @@ final class PackageManager
                 $cmd = $path;
             }
 
+            /*
             if ($cmd !== '') {
                 // @todo implement
             }
+            */
         }
     }
 

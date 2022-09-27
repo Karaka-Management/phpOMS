@@ -274,10 +274,10 @@ final class ArrayUtils
      *
      * Useful for parsing command line parsing
      *
-     * @param string         $id   Id to find
-     * @param int[]|string[] $args CLI command list
+     * @param string   $id   Id to find
+     * @param string[] $args CLI command list
      *
-     * @return string
+     * @return null|string
      *
      * @since 1.0.0
      */
@@ -297,8 +297,8 @@ final class ArrayUtils
     /**
      * Check if flag is set
      *
-     * @param string         $id   Id to find
-     * @param int[]|string[] $args CLI command list
+     * @param string   $id   Id to find
+     * @param string[] $args CLI command list
      *
      * @return int
      *

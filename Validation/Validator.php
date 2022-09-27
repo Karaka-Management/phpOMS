@@ -79,7 +79,7 @@ final class Validator extends ValidatorAbstract
         }
 
         foreach ($constraint as $value) {
-            if (!\is_a($var, $value)) {
+            if (!\is_a($var, $value, true)) {
                 return false;
             }
         }

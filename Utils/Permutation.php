@@ -101,7 +101,7 @@ final class Permutation
      * Permutate based on transposition key.
      *
      * @param array|string $toPermute To permutate
-     * @param array        $key       Permutation keys
+     * @param int[]        $key       Permutation keys
      *
      * @return string|array
      *

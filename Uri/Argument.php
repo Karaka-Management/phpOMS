@@ -204,6 +204,7 @@ final class Argument implements UriInterface
      *
      * @since 1.0.0
      */
+    /*
     private function setInternalFragment(string $uri) : void
     {
         $result = \preg_match('/#([a-zA-Z0-9]*)/', $uri, $matches);
@@ -212,6 +213,7 @@ final class Argument implements UriInterface
             $this->fragment = $matches[1] ?? '';
         }
     }
+    */
 
     /**
      * {@inheritdoc}
