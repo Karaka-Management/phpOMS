@@ -89,7 +89,7 @@ class Neuron
      */
     public function output() : float
     {
-        $length = \count($this->intputs);
+        $length = \count($this->inputs);
         $output = 0.0;
 
         for ($i = 0; $i < $length; ++$i) {

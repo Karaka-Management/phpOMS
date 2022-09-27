@@ -1374,13 +1374,11 @@ class Builder extends BuilderAbstract
      *
      * Merging query in order to remove database query volume
      *
-     * @param Builder $query Query
-     *
      * @return Builder
      *
      * @since 1.0.0
      */
-    public function merge(self $query) : self
+    public function merge() : self
     {
         return clone($this);
     }
