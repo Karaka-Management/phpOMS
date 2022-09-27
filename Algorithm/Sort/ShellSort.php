@@ -45,7 +45,7 @@ final class ShellSort implements SortInterface
             return $list;
         }
 
-        for ($i = $n / 2; $i > 0; $i = (int) ($i / 2)) {
+        for ($i = (int) ($n / 2); $i > 0; $i = (int) ($i / 2)) {
             for ($j = $i; $j < $n; ++$j) {
                 $temp = $list[$j];
 

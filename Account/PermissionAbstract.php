@@ -395,7 +395,7 @@ class PermissionAbstract implements \JsonSerializable
             $permission |= PermissionType::PERMISSION;
         }
 
-        return $permission;
+        return $permission === 0 ? PermissionType::NONE : $permission;
     }
 
     /**

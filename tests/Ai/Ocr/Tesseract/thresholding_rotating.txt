@@ -1,4 +1,4 @@
-What Is Image Filtering in the Spatial Domain? |
+What Is Image Filtering in the Spatial Domain?                            |
 
 Filtering is a technique for modifying or enhancing an image. For example, you can filter an image to emphasize certain
 features or remove other features. Image processing operations implemented with filtering include smoothing, sharpening,

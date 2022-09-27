@@ -63,7 +63,7 @@ final class Continuous
     public static function solve(array $items, BackpackInterface $backpack) : BackpackInterface
     {
         /* @phpstan-ignore-next-line */
-        \usort($items, ['self', '\phpOMS\Algorithm\Knapsack\continuousComparator']);
+        \usort($items, ['self', 'continuousComparator']);
 
         $availableSpace = $backpack->getMaxCost();
 

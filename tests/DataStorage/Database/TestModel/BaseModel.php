@@ -82,7 +82,7 @@ class BaseModel
         };
 
         $this->jsonSerializable = new class() implements \JsonSerializable {
-            public function jsonSerialize()
+            public function jsonSerialize() : mixed
             {
                 return [1, 2, 3];
             }

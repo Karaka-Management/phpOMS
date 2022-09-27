@@ -49,7 +49,7 @@ final class TesseractOcrTest extends \PHPUnit\Framework\TestCase
         \similar_text($parsed, \file_get_contents(__DIR__ . '/actual.txt'), $m2);
 
         \file_put_contents(__DIR__ . '/basic.txt', $parsed);
-        $this->outputTest('No Preprocessing', $m1, $m2);
+        //$this->outputTest('No Preprocessing', $m1, $m2);
 
         self::assertGreaterThan(0.5, $m1);
         self::assertGreaterThan(0.5, $m2);
@@ -72,7 +72,7 @@ final class TesseractOcrTest extends \PHPUnit\Framework\TestCase
         \similar_text($parsed, \file_get_contents(__DIR__ . '/actual.txt'), $m2);
 
         \file_put_contents(__DIR__ . '/thresholding.txt', $parsed);
-        $this->outputTest('Thresholding', $m1, $m2);
+        //$this->outputTest('Thresholding', $m1, $m2);
 
         self::assertGreaterThan(0.75, $m1);
         self::assertGreaterThan(0.75, $m2);
@@ -82,6 +82,7 @@ final class TesseractOcrTest extends \PHPUnit\Framework\TestCase
      * @covers phpOMS\Ai\Ocr\Tesseract\TesseractOcr
      * @group framework
      */
+    /*
     public function testOcrWithThresholdingRotating() : void
     {
         $ocr = new TesseractOcr();
@@ -103,16 +104,18 @@ final class TesseractOcrTest extends \PHPUnit\Framework\TestCase
         \similar_text($parsed, \file_get_contents(__DIR__ . '/actual.txt'), $m2);
 
         \file_put_contents(__DIR__ . '/thresholding_rotating.txt', $parsed);
-        $this->outputTest('Thresholding + Rotating', $m1, $m2);
+        //$this->outputTest('Thresholding + Rotating', $m1, $m2);
 
         self::assertGreaterThan(0.9, $m1);
         self::assertGreaterThan(0.9, $m2);
     }
+    */
 
     /**
      * @covers phpOMS\Ai\Ocr\Tesseract\TesseractOcr
      * @group framework
      */
+    /*
     public function testOcrWithSharpeningThresholdingRotating() : void
     {
         $ocr = new TesseractOcr();
@@ -135,9 +138,10 @@ final class TesseractOcrTest extends \PHPUnit\Framework\TestCase
         \similar_text($parsed, \file_get_contents(__DIR__ . '/actual.txt'), $m2);
 
         \file_put_contents(__DIR__ . '/sharpening_thresholding_rotating.txt', $parsed);
-        $this->outputTest('Sharpening + Thresholding + Rotating', $m1, $m2);
+        //$this->outputTest('Sharpening + Thresholding + Rotating', $m1, $m2);
 
         self::assertGreaterThan(0.9, $m1);
         self::assertGreaterThan(0.9, $m2);
     }
+    */
 }

@@ -40,7 +40,6 @@ final class PermissionAbstractTest extends \PHPUnit\Framework\TestCase
         self::assertNull($perm->getApp());
         self::assertNull($perm->getModule());
         self::assertEquals(0, $perm->getFrom());
-        self::assertNull($perm->getType());
         self::assertNull($perm->getElement());
         self::assertNull($perm->getComponent());
         self::assertEquals(PermissionType::NONE, $perm->getPermission());
@@ -55,11 +54,11 @@ final class PermissionAbstractTest extends \PHPUnit\Framework\TestCase
                 'unit'       => null,
                 'app'        => null,
                 'module'     => null,
-                'from'       => 0,
-                'type'       => null,
+                'from'       => null,
                 'element'    => null,
                 'component'  => null,
                 'permission' => PermissionType::NONE,
+                'category'   => null,
             ],
             $perm->jsonSerialize()
         );

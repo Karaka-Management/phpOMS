@@ -30,12 +30,19 @@ final class BuilderTest extends \PHPUnit\Framework\TestCase
 {
     public function dbConnectionProvider() : array
     {
-        return [
+        $cons = [
             [new MysqlConnection($GLOBALS['CONFIG']['db']['core']['masters']['admin'])],
             [new PostgresConnection($GLOBALS['CONFIG']['db']['core']['postgresql']['admin'])],
             [new SQLiteConnection($GLOBALS['CONFIG']['db']['core']['sqlite']['admin'])],
             [new SqlServerConnection($GLOBALS['CONFIG']['db']['core']['mssql']['admin'])],
         ];
+
+        $cons[0][0]->connect();
+        $cons[1][0]->connect();
+        $cons[2][0]->connect();
+        $cons[3][0]->connect();
+
+        return $cons;
     }
 
     /**
@@ -45,6 +52,12 @@ final class BuilderTest extends \PHPUnit\Framework\TestCase
      */
     public function testSelect($con) : void
     {
+        if (!$con->isInitialized()) {
+            self::markTestSkipped();
+
+            return;
+        }
+
         $iS = $con->getGrammar()->systemIdentifierStart;
         $iE = $con->getGrammar()->systemIdentifierEnd;
 
@@ -143,6 +156,12 @@ final class BuilderTest extends \PHPUnit\Framework\TestCase
      */
     public function testOrder($con) : void
     {
+        if (!$con->isInitialized()) {
+            self::markTestSkipped();
+
+            return;
+        }
+
         $iS = $con->getGrammar()->systemIdentifierStart;
         $iE = $con->getGrammar()->systemIdentifierEnd;
 
@@ -184,6 +203,12 @@ final class BuilderTest extends \PHPUnit\Framework\TestCase
      */
     public function testOffsetLimit($con) : void
     {
+        if (!$con->isInitialized()) {
+            self::markTestSkipped();
+
+            return;
+        }
+
         $iS = $con->getGrammar()->systemIdentifierStart;
         $iE = $con->getGrammar()->systemIdentifierEnd;
 
@@ -205,6 +230,12 @@ final class BuilderTest extends \PHPUnit\Framework\TestCase
      */
     public function testGroup($con) : void
     {
+        if (!$con->isInitialized()) {
+            self::markTestSkipped();
+
+            return;
+        }
+
         $iS = $con->getGrammar()->systemIdentifierStart;
         $iE = $con->getGrammar()->systemIdentifierEnd;
 
@@ -234,6 +265,12 @@ final class BuilderTest extends \PHPUnit\Framework\TestCase
      */
     public function testWheres($con) : void
     {
+        if (!$con->isInitialized()) {
+            self::markTestSkipped();
+
+            return;
+        }
+
         $iS = $con->getGrammar()->systemIdentifierStart;
         $iE = $con->getGrammar()->systemIdentifierEnd;
 
@@ -315,6 +352,12 @@ final class BuilderTest extends \PHPUnit\Framework\TestCase
      */
     public function testJoins($con) : void
     {
+        if (!$con->isInitialized()) {
+            self::markTestSkipped();
+
+            return;
+        }
+
         $iS = $con->getGrammar()->systemIdentifierStart;
         $iE = $con->getGrammar()->systemIdentifierEnd;
 
@@ -396,6 +439,12 @@ final class BuilderTest extends \PHPUnit\Framework\TestCase
      */
     public function testInsert($con) : void
     {
+        if (!$con->isInitialized()) {
+            self::markTestSkipped();
+
+            return;
+        }
+
         $iS = $con->getGrammar()->systemIdentifierStart;
         $iE = $con->getGrammar()->systemIdentifierEnd;
 
@@ -433,6 +482,12 @@ final class BuilderTest extends \PHPUnit\Framework\TestCase
      */
     public function testDelete($con) : void
     {
+        if (!$con->isInitialized()) {
+            self::markTestSkipped();
+
+            return;
+        }
+
         $iS = $con->getGrammar()->systemIdentifierStart;
         $iE = $con->getGrammar()->systemIdentifierEnd;
 
@@ -454,6 +509,12 @@ final class BuilderTest extends \PHPUnit\Framework\TestCase
      */
     public function testUpdate($con) : void
     {
+        if (!$con->isInitialized()) {
+            self::markTestSkipped();
+
+            return;
+        }
+
         $iS = $con->getGrammar()->systemIdentifierStart;
         $iE = $con->getGrammar()->systemIdentifierEnd;
 
@@ -480,6 +541,12 @@ final class BuilderTest extends \PHPUnit\Framework\TestCase
      */
     public function testRawInputOutput($con) : void
     {
+        if (!$con->isInitialized()) {
+            self::markTestSkipped();
+
+            return;
+        }
+
         $iS = $con->getGrammar()->systemIdentifierStart;
         $iE = $con->getGrammar()->systemIdentifierEnd;
 
@@ -494,6 +561,12 @@ final class BuilderTest extends \PHPUnit\Framework\TestCase
      */
     public function testReadOnlyRawSelect($con) : void
     {
+        if (!$con->isInitialized()) {
+            self::markTestSkipped();
+
+            return;
+        }
+
         $iS = $con->getGrammar()->systemIdentifierStart;
         $iE = $con->getGrammar()->systemIdentifierEnd;
 
@@ -508,6 +581,12 @@ final class BuilderTest extends \PHPUnit\Framework\TestCase
      */
     public function testReadOnlyRawDrop($con) : void
     {
+        if (!$con->isInitialized()) {
+            self::markTestSkipped();
+
+            return;
+        }
+
         $iS = $con->getGrammar()->systemIdentifierStart;
         $iE = $con->getGrammar()->systemIdentifierEnd;
 
@@ -524,6 +603,12 @@ final class BuilderTest extends \PHPUnit\Framework\TestCase
      */
     public function testReadOnlyRawDelete($con) : void
     {
+        if (!$con->isInitialized()) {
+            self::markTestSkipped();
+
+            return;
+        }
+
         $iS = $con->getGrammar()->systemIdentifierStart;
         $iE = $con->getGrammar()->systemIdentifierEnd;
 
@@ -540,6 +625,12 @@ final class BuilderTest extends \PHPUnit\Framework\TestCase
      */
     public function testReadOnlyRawCreate($con) : void
     {
+        if (!$con->isInitialized()) {
+            self::markTestSkipped();
+
+            return;
+        }
+
         $iS = $con->getGrammar()->systemIdentifierStart;
         $iE = $con->getGrammar()->systemIdentifierEnd;
 
@@ -556,6 +647,12 @@ final class BuilderTest extends \PHPUnit\Framework\TestCase
      */
     public function testReadOnlyRawAlter($con) : void
     {
+        if (!$con->isInitialized()) {
+            self::markTestSkipped();
+
+            return;
+        }
+
         $iS = $con->getGrammar()->systemIdentifierStart;
         $iE = $con->getGrammar()->systemIdentifierEnd;
 
@@ -572,6 +669,12 @@ final class BuilderTest extends \PHPUnit\Framework\TestCase
      */
     public function testReadOnlyInsert($con) : void
     {
+        if (!$con->isInitialized()) {
+            self::markTestSkipped();
+
+            return;
+        }
+
         $iS = $con->getGrammar()->systemIdentifierStart;
         $iE = $con->getGrammar()->systemIdentifierEnd;
 
@@ -588,6 +691,12 @@ final class BuilderTest extends \PHPUnit\Framework\TestCase
      */
     public function testReadOnlyUpdate($con) : void
     {
+        if (!$con->isInitialized()) {
+            self::markTestSkipped();
+
+            return;
+        }
+
         $iS = $con->getGrammar()->systemIdentifierStart;
         $iE = $con->getGrammar()->systemIdentifierEnd;
 
@@ -604,6 +713,12 @@ final class BuilderTest extends \PHPUnit\Framework\TestCase
      */
     public function testReadOnlyDelete($con) : void
     {
+        if (!$con->isInitialized()) {
+            self::markTestSkipped();
+
+            return;
+        }
+
         $iS = $con->getGrammar()->systemIdentifierStart;
         $iE = $con->getGrammar()->systemIdentifierEnd;
 
@@ -620,6 +735,12 @@ final class BuilderTest extends \PHPUnit\Framework\TestCase
      */
     public function testInvalidSelectParameter($con) : void
     {
+        if (!$con->isInitialized()) {
+            self::markTestSkipped();
+
+            return;
+        }
+
         $iS = $con->getGrammar()->systemIdentifierStart;
         $iE = $con->getGrammar()->systemIdentifierEnd;
 
@@ -636,6 +757,12 @@ final class BuilderTest extends \PHPUnit\Framework\TestCase
      */
     public function testInvalidFromParameter($con) : void
     {
+        if (!$con->isInitialized()) {
+            self::markTestSkipped();
+
+            return;
+        }
+
         $iS = $con->getGrammar()->systemIdentifierStart;
         $iE = $con->getGrammar()->systemIdentifierEnd;
 
@@ -652,6 +779,12 @@ final class BuilderTest extends \PHPUnit\Framework\TestCase
      */
     public function testInvalidGroupByParameter($con) : void
     {
+        if (!$con->isInitialized()) {
+            self::markTestSkipped();
+
+            return;
+        }
+
         $iS = $con->getGrammar()->systemIdentifierStart;
         $iE = $con->getGrammar()->systemIdentifierEnd;
 
@@ -668,6 +801,12 @@ final class BuilderTest extends \PHPUnit\Framework\TestCase
      */
     public function testInvalidWhereOperator($con) : void
     {
+        if (!$con->isInitialized()) {
+            self::markTestSkipped();
+
+            return;
+        }
+
         $iS = $con->getGrammar()->systemIdentifierStart;
         $iE = $con->getGrammar()->systemIdentifierEnd;
 
@@ -684,6 +823,12 @@ final class BuilderTest extends \PHPUnit\Framework\TestCase
      */
     public function testInvalidJoinOperator($con) : void
     {
+        if (!$con->isInitialized()) {
+            self::markTestSkipped();
+
+            return;
+        }
+
         $iS = $con->getGrammar()->systemIdentifierStart;
         $iE = $con->getGrammar()->systemIdentifierEnd;
 

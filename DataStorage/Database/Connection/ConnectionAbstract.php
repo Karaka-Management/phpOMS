@@ -185,6 +185,18 @@ abstract class ConnectionAbstract implements ConnectionInterface
     }
 
     /**
+     * Checks if the connection is initialized
+     *
+     * @return bool
+     *
+     * @since 1.0.0
+     */
+    public function isInitialized() : bool
+    {
+        return isset($this->con);
+    }
+
+    /**
      * Get values
      *
      * @param string $name Variable name

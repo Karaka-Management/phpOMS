@@ -115,6 +115,8 @@ final class ApplicationManagerTest extends \PHPUnit\Framework\TestCase
         self::assertEquals($r1 = include __DIR__ . '/Testapp/Admin/Install/Application/Routes.php', $r2 = include __DIR__ . '/Apps/Testapp/Routes.php');
         self::assertEquals($h1 = include __DIR__ . '/Testapp/Admin/Install/Application/Hooks.php', $h2 = include __DIR__ . '/Apps/Testapp/Hooks.php');
 
+        $this->appManager->uninstall(__DIR__ . '/Apps/Testapp');
+
         Directory::delete(__DIR__ . '/Apps/Testapp');
     }
 

@@ -12,7 +12,7 @@
  */
 declare(strict_types=1);
 
-namespace phpOMS\tests\Application\Apps\{APPNAME}\Admin;
+namespace phpOMS\tests\Application\Apps\Testapp\Admin;
 
 use phpOMS\Application\StatusAbstract;
 
