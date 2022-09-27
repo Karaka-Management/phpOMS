@@ -105,7 +105,7 @@ final class ConsoleResponse extends ResponseAbstract implements RenderableInterf
      *
      * @since 1.0.0
      */
-    public function render(...$data) : string
+    public function render(mixed ...$data) : string
     {
         $types = $this->header->get('Content-Type');
 

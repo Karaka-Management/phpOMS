@@ -218,7 +218,7 @@ final class HttpResponseTest extends \PHPUnit\Framework\TestCase
     public function testMinimizedRender() : void
     {
         $this->response->set('view', new class() extends \phpOMS\Views\View {
-            public function render(...$data) : string
+            public function render(mixed ...$data) : string
             {
                 return " view_string  with <div> text</div>  that has \n whitespaces and \n\nnew lines\n ";
             }
@@ -236,7 +236,7 @@ final class HttpResponseTest extends \PHPUnit\Framework\TestCase
     public function testInvalidMinimizedRender() : void
     {
         $this->response->set('view', new class() extends \phpOMS\Views\View {
-            public function render(...$data) : string
+            public function render(mixed ...$data) : string
             {
                 return " view_string  with <div> text</div>  that has \n whitespaces and \n\nnew lines\n ";
             }

@@ -49,7 +49,7 @@ final class DeleteMapper extends DataMapperAbstract
      *
      * @since 1.0.0
      */
-    public function execute(...$options) : mixed
+    public function execute(mixed ...$options) : mixed
     {
         switch($this->type) {
             case MapperType::DELETE:

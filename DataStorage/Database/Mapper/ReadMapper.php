@@ -136,7 +136,7 @@ final class ReadMapper extends DataMapperAbstract
      *
      * @since 1.0.0
      */
-    public function execute(...$options) : mixed
+    public function execute(mixed ...$options) : mixed
     {
         switch($this->type) {
             case MapperType::GET:
@@ -577,7 +577,7 @@ final class ReadMapper extends DataMapperAbstract
                 $refProp->setValue($obj, $value);
             } elseif (\in_array($def['type'], ['string', 'compress', 'int', 'float', 'bool'])) {
                 if ($value !== null && $def['type'] === 'compress') {
-                    $def['type']  = 'string';
+                    $def['type'] = 'string';
 
                     $value = \gzinflate($value);
                 }

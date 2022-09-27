@@ -279,7 +279,7 @@ class Builder extends BuilderAbstract
      *
      * @since 1.0.0
      */
-    public function select(...$columns) : self
+    public function select(mixed ...$columns) : self
     {
         $this->type = QueryType::SELECT;
 
@@ -323,7 +323,7 @@ class Builder extends BuilderAbstract
      *
      * @since 1.0.0
      */
-    public function random(...$columns) : self
+    public function random(mixed ...$columns) : self
     {
         $this->select(...$columns);
 
@@ -498,7 +498,7 @@ class Builder extends BuilderAbstract
      *
      * @since 1.0.0
      */
-    public function from(...$tables) : self
+    public function from(mixed ...$tables) : self
     {
         /** @var mixed[] $tables */
         /** @var mixed $table */
@@ -665,7 +665,7 @@ class Builder extends BuilderAbstract
      *
      * @since 1.0.0
      */
-    public function groupBy(...$columns) : self
+    public function groupBy(mixed ...$columns) : self
     {
         /** @var mixed[] $columns */
         /** @var mixed $column */
@@ -908,7 +908,7 @@ class Builder extends BuilderAbstract
      *
      * @since 1.0.0
      */
-    public function insert(...$columns) : self
+    public function insert(mixed ...$columns) : self
     {
         if ($this->isReadOnly) {
             throw new \Exception();
@@ -948,7 +948,7 @@ class Builder extends BuilderAbstract
      *
      * @since 1.0.0
      */
-    public function values(...$values) : self
+    public function values(mixed ...$values) : self
     {
         $this->values[] = $values;
 
@@ -1003,7 +1003,7 @@ class Builder extends BuilderAbstract
      *
      * @since 1.0.0
      */
-    public function sets(...$sets) : self
+    public function sets(mixed ...$sets) : self
     {
         $this->sets[$sets[0]] = $sets[1] ?? null;
 
@@ -1037,7 +1037,7 @@ class Builder extends BuilderAbstract
      *
      * @since 1.0.0
      */
-    public function update(...$tables) : self
+    public function update(mixed ...$tables) : self
     {
         if ($this->isReadOnly) {
             throw new \Exception();

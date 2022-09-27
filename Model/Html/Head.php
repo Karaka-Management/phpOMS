@@ -140,7 +140,7 @@ final class Head implements RenderableInterface
      *
      * @since 1.0.0
      */
-    public function render(...$data) : string
+    public function render(mixed ...$data) : string
     {
         $head  = '';
         $head .= $this->meta->render();

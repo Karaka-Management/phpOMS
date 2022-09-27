@@ -227,7 +227,7 @@ final class Meta implements RenderableInterface
     /**
      * {@inheritdoc}
      */
-    public function render(...$data) : string
+    public function render(mixed ...$data) : string
     {
         return (\count($this->keywords) > 0 ? '<meta name="keywords" content="' . ViewAbstract::html(\implode(',', $this->keywords)) . '">' : '')
         . (!empty($this->author) ? '<meta name="author" content="' . ViewAbstract::html($this->author) . '">' : '')

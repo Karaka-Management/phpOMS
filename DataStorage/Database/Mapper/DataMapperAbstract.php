@@ -422,5 +422,5 @@ abstract class DataMapperAbstract
      *
      * @since 1.0.0
      */
-    abstract public function execute(...$options) : mixed;
+    abstract public function execute(mixed ...$options) : mixed;
 }

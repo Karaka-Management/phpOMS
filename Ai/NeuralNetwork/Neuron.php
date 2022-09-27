@@ -64,7 +64,17 @@ class Neuron
         $this->bias    = $bias;
     }
 
-    public function addInput($input, float $weight) : void
+    /**
+     * Add neuron input
+     *
+     * @param mixed $input  Input
+     * @param float $weight Weight of input
+     *
+     * @return void
+     *
+     * @since 1.0.0
+     */
+    public function addInput(mixed $input, float $weight) : void
     {
         $this->inputs[]  = $input;
         $this->weights[] = $weight;

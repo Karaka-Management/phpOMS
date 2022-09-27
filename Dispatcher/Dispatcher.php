@@ -62,7 +62,7 @@ final class Dispatcher implements DispatcherInterface
     /**
      * {@inheritdoc}
      */
-    public function dispatch(array | string | \Closure $controller, ...$data) : array
+    public function dispatch(array | string | \Closure $controller, mixed ...$data) : array
     {
         $views = [];
         $data  = \array_values($data);

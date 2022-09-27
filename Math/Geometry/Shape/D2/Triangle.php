@@ -85,7 +85,7 @@ final class Triangle implements D2ShapeInterface
      *
      * @since 1.0.0
      */
-    public static function getHypot(...$vec) : float
+    public static function getHypot(mixed ...$vec) : float
     {
         $hypot = 0.0;
         foreach ($vec as $val) {

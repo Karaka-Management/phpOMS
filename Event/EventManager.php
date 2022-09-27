@@ -70,7 +70,7 @@ final class EventManager implements \Countable
             /**
              * {@inheritdoc}
              */
-            public function dispatch(array | string | \Closure $func, ...$data) : array
+            public function dispatch(array | string | \Closure $func, mixed ...$data) : array
             {
                 if (!($func instanceof \Closure)) {
                     return [];

@@ -260,12 +260,22 @@ abstract class ViewAbstract implements RenderableInterface
      *
      * @since 1.0.0
      */
-    public function render(...$data) : string
+    public function render(mixed ...$data) : string
     {
         return $this->renderTemplate($this->template, ...$data);
     }
 
-    protected function renderTemplate(string $template, ...$data) : string
+    /**
+     * Render a template file
+     *
+     * @param string $template Template path
+     * @param mixed  ...$data   Data to pass to renderer
+     *
+     * @return string
+     *
+     * @since 1.0.0
+     */
+    protected function renderTemplate(string $template, mixed ...$data) : string
     {
         $ob = '';
 
@@ -310,7 +320,7 @@ abstract class ViewAbstract implements RenderableInterface
      *
      * @since 1.0.0
      */
-    public function build(...$data) : mixed
+    public function build(mixed ...$data) : mixed
     {
         $ob = '';
 
