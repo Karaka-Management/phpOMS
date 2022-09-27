@@ -676,6 +676,7 @@ final class ModuleManager
             $this->initModule($module, $appName);
         }
 
+        /* @phpstan-ignore-next-line */
         return $this->running[$name] ?? new NullModule();
     }
 

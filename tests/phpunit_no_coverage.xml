@@ -25,7 +25,7 @@
       <exclude>./vendor</exclude>
       <exclude>./Build</exclude>
       <exclude>./Resources</exclude>
-      <exclude>./Application/Testapp*</exclude>
+      <exclude>*Testapp*</exclude>
     </testsuite>
   </testsuites>
   <groups>

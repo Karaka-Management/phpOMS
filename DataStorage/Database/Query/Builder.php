@@ -273,7 +273,7 @@ class Builder extends BuilderAbstract
     /**
      * Select.
      *
-     * @param array ...$columns Columns
+     * @param mixed ...$columns Columns
      *
      * @return Builder
      *

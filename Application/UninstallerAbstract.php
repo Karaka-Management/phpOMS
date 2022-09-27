@@ -99,7 +99,7 @@ abstract class UninstallerAbstract
         $builder     = new SchemaBuilder($dbPool->get('schema'));
 
         foreach ($definitions as $name => $definition) {
-            $builder->dropTable($name ?? '');
+            $builder->dropTable($name);
         }
 
         $builder->execute();

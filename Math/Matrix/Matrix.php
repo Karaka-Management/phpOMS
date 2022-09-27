@@ -548,7 +548,7 @@ class Matrix implements \ArrayAccess, \Iterator
             }
         }
 
-        $newMatrix->setMatrix($newMatrixArr);
+        $newMatrix->setMatrix($newMatrixArr); /* @phpstan-ignore-line */
 
         return $newMatrix;
     }
@@ -725,7 +725,7 @@ class Matrix implements \ArrayAccess, \Iterator
     /**
      * {@inheritdoc}
      */
-    public function key()
+    public function key() : mixed
     {
         return $this->position;
     }
@@ -772,7 +772,7 @@ class Matrix implements \ArrayAccess, \Iterator
 
         $offset                                        = (int) $offset;
         $row                                           = (int) ($offset / $this->m);
-        $this->matrix[$row][$offset - $row * $this->n] = $value;
+        $this->matrix[$row][$offset - $row * $this->n] = $value; /* @phpstan-ignore-line */
     }
 
     /**

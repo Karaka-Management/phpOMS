@@ -31,10 +31,10 @@ abstract class FileAbstract implements FtpContainerInterface
     /**
      * Ftp connection
      *
-     * @var \FTP\Connection
+     * @var null|\FTP\Connection
      * @since 1.0.0
      */
-    protected \FTP\Connection $con;
+    protected ?\FTP\Connection $con = null;
 
     /**
      * Ftp uri
@@ -209,6 +209,10 @@ abstract class FileAbstract implements FtpContainerInterface
      */
     public function index() : void
     {
+        if ($this->con === null) {
+            return;
+        }
+
         $mtime = \ftp_mdtm($this->con, $this->path);
         $ctime = \ftp_mdtm($this->con, $this->path);
 

@@ -51,7 +51,7 @@ class File extends FileAbstract implements FileInterface
 
         parent::__construct($uri->getPath());
 
-        if (self::exists($this->con, $this->path)) {
+        if ($this->con !== null && self::exists($this->con, $this->path)) {
             $this->index();
         }
     }
@@ -62,6 +62,10 @@ class File extends FileAbstract implements FileInterface
     public function index() : void
     {
         parent::index();
+
+        if ($this->con === null) {
+            return;
+        }
 
         $this->size = (int) \ftp_size($this->con, $this->path);
     }
@@ -408,6 +412,10 @@ class File extends FileAbstract implements FileInterface
      */
     public function isExisting() : bool
     {
+        if ($this->con === null) {
+            return false;
+        }
+
         return self::exists($this->con, $this->path);
     }
 
@@ -425,7 +433,7 @@ class File extends FileAbstract implements FileInterface
         $uri = clone $this->uri;
         $uri->setPath(self::parent($this->path));
 
-        return new Directory($uri, '*', true, $this->con);
+        return new Directory($uri, true, $this->con);
     }
 
     /**
@@ -437,6 +445,10 @@ class File extends FileAbstract implements FileInterface
      */
     public function createNode() : bool
     {
+        if ($this->con === null) {
+            return false;
+        }
+
         return self::create($this->con, $this->uri->getPath());
     }
 
@@ -452,6 +464,10 @@ class File extends FileAbstract implements FileInterface
      */
     public function copyNode(string $to, bool $overwrite = false) : bool
     {
+        if ($this->con === null) {
+            return false;
+        }
+
         return self::copy($this->con, $this->path, $to, $overwrite);
     }
 
@@ -467,6 +483,10 @@ class File extends FileAbstract implements FileInterface
      */
     public function moveNode(string $to, bool $overwrite = false) : bool
     {
+        if ($this->con === null) {
+            return false;
+        }
+
         return self::move($this->con, $this->path, $to, $overwrite);
     }
 
@@ -479,6 +499,10 @@ class File extends FileAbstract implements FileInterface
      */
     public function deleteNode() : bool
     {
+        if ($this->con === null) {
+            return false;
+        }
+
         return self::delete($this->con, $this->path);
     }
 
@@ -494,6 +518,10 @@ class File extends FileAbstract implements FileInterface
      */
     public function putContent(string $content, int $mode = ContentPutMode::APPEND | ContentPutMode::CREATE) : bool
     {
+        if ($this->con === null) {
+            return false;
+        }
+
         return self::put($this->con, $this->path, $content, $mode);
     }
 
@@ -554,6 +582,10 @@ class File extends FileAbstract implements FileInterface
      */
     public function getContent() : string
     {
+        if ($this->con === null) {
+            return '';
+        }
+
         return self::get($this->con, $this->path);
     }
 
@@ -611,6 +643,6 @@ class File extends FileAbstract implements FileInterface
         $uri = clone $this->uri;
         $uri->setPath(self::dirpath($this->path));
 
-        return new Directory($uri, '*', true, $this->con);
+        return new Directory($uri, true, $this->con);
     }
 }

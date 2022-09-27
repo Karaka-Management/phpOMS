@@ -94,20 +94,25 @@ final class ConsoleRequest extends RequestAbstract
         $key = '-' . \mb_strtolower($key);
 
         if ($type === null) {
-            /** @var string[] $this->data */
+            /* @phpstan-ignore-next-line */
             return ArrayUtils::getArg($key, $this->data);
         }
 
         switch ($type) {
             case 'int':
+                /* @phpstan-ignore-next-line */
                 return (int) ArrayUtils::getArg($key, $this->data);
             case 'string':
+                /* @phpstan-ignore-next-line */
                 return (string) ArrayUtils::getArg($key, $this->data);
             case 'float':
+                /* @phpstan-ignore-next-line */
                 return (float) ArrayUtils::getArg($key, $this->data);
             case 'bool':
+                /* @phpstan-ignore-next-line */
                 return (bool) ArrayUtils::getArg($key, $this->data);
             default:
+                /* @phpstan-ignore-next-line */
                 return ArrayUtils::getArg($key, $this->data);
         }
     }
@@ -119,6 +124,7 @@ final class ConsoleRequest extends RequestAbstract
     {
         $key = '-' . \mb_strtolower($key);
 
+        /* @phpstan-ignore-next-line */
         return ArrayUtils::hasArg($key, $this->data) > -1;
     }
 
@@ -136,8 +142,9 @@ final class ConsoleRequest extends RequestAbstract
     public function setData(string $key, mixed $value, bool $overwrite = false) : bool
     {
         $key = '-' . \mb_strtolower($key);
-
         $pos = -1;
+
+        /* @phpstan-ignore-next-line */
         if ($overwrite || ($pos = ArrayUtils::hasArg($key, $this->data)) !== -1) {
             if ($pos === -1) {
                 $this->data[] = $key;

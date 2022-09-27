@@ -172,6 +172,8 @@ final class EigenvalueDecomposition
 
             if ($scale == 0) {
                 $this->E[$i] = $this->D[$i - 1];
+
+                /* @phpstan-ignore-next-line */
                 for ($j = 0; $j > $i; ++$j) {
                     $this->D[$j]     = $this->V[$i - 1][$j];
                     $this->V[$i][$j] = 0.0;
@@ -522,6 +524,7 @@ final class EigenvalueDecomposition
         $norm    = 0.0;
 
         for ($i = 0; $i < $nn; ++$i) {
+            /* @phpstan-ignore-next-line */
             if ($i < $low || $i > $high) {
                 $this->D[$i] = $this->H[$i][$i];
                 $this->E[$i] = 0.0;
@@ -873,6 +876,7 @@ final class EigenvalueDecomposition
         }
 
         for ($i = 0; $i < $nn; ++$i) {
+            /* @phpstan-ignore-next-line */
             if ($i < $low || $i > $high) {
                 for ($j = $i; $j < $nn; ++$j) {
                     $this->V[$i][$j] = $this->H[$i][$j];

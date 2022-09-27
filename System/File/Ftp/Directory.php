@@ -40,7 +40,7 @@ class Directory extends FileAbstract implements DirectoryInterface
      * @var string
      * @since 1.0.0
      */
-    private string $filter = '*';
+    //private string $filter = '*';
 
     /**
      * Directory nodes (files and directories).
@@ -79,21 +79,20 @@ class Directory extends FileAbstract implements DirectoryInterface
      * Constructor.
      *
      * @param HttpUri         $uri        Uri
-     * @param string          $filter     Filter
      * @param bool            $initialize Should get initialized during construction
      * @param \FTP\Connection $con        Connection
      *
      * @since 1.0.0
      */
-    public function __construct(HttpUri $uri, string $filter = '*', bool $initialize = true, \FTP\Connection $con = null)
+    public function __construct(HttpUri $uri, bool $initialize = true, \FTP\Connection $con = null)
     {
         $this->uri = $uri;
         $this->con = $con ?? self::ftpConnect($uri);
 
-        $this->filter = \ltrim($filter, '\\/');
+        //$this->filter = \ltrim($filter, '\\/');
         parent::__construct($uri->getPath());
 
-        if ($initialize && self::exists($this->con, $this->path)) {
+        if ($initialize && $this->con !== null && self::exists($this->con, $this->path)) {
             $this->index();
         }
     }
@@ -110,6 +109,10 @@ class Directory extends FileAbstract implements DirectoryInterface
         $this->isInitialized = true;
         parent::index();
 
+        if ($this->con === null) {
+            return;
+        }
+
         $list = self::list($this->con, $this->path);
 
         foreach ($list as $filename) {
@@ -117,7 +120,7 @@ class Directory extends FileAbstract implements DirectoryInterface
                 $uri = clone $this->uri;
                 $uri->setPath($filename);
 
-                $file = \ftp_size($this->con, $filename) === -1 ? new self($uri, '*', false, $this->con) : new File($uri, $this->con);
+                $file = \ftp_size($this->con, $filename) === -1 ? new self($uri, false, $this->con) : new File($uri, $this->con);
 
                 $this->addNode($file);
             }
@@ -604,6 +607,10 @@ class Directory extends FileAbstract implements DirectoryInterface
      */
     public function createNode() : bool
     {
+        if ($this->con === null) {
+            return false;
+        }
+
         return self::create($this->con, $this->path, $this->permission, true);
     }
 
@@ -629,10 +636,7 @@ class Directory extends FileAbstract implements DirectoryInterface
         $uri = clone $this->uri;
         $uri->setPath(self::parent($this->path));
 
-        return new self(
-            $uri,
-            '*', true, $this->con
-        );
+        return new self($uri, true, $this->con);
     }
 
     /**
@@ -640,6 +644,10 @@ class Directory extends FileAbstract implements DirectoryInterface
      */
     public function copyNode(string $to, bool $overwrite = false) : bool
     {
+        if ($this->con === null) {
+            return false;
+        }
+
         return self::copy($this->con, $this->path, $to, $overwrite);
     }
 
@@ -648,6 +656,10 @@ class Directory extends FileAbstract implements DirectoryInterface
      */
     public function moveNode(string $to, bool $overwrite = false) : bool
     {
+        if ($this->con === null) {
+            return false;
+        }
+
         return self::move($this->con, $this->path, $to, $overwrite);
     }
 
@@ -656,6 +668,10 @@ class Directory extends FileAbstract implements DirectoryInterface
      */
     public function deleteNode() : bool
     {
+        if ($this->con === null) {
+            return false;
+        }
+
         // @todo: update parent
 
         return self::delete($this->con, $this->path);
@@ -716,6 +732,7 @@ class Directory extends FileAbstract implements DirectoryInterface
      */
     public function offsetSet(mixed $offset, mixed $value) : void
     {
+        /** @var \phpOMS\System\File\ContainerInterface $value */
         if ($offset === null || !isset($this->nodes[$offset])) {
             $this->addNode($value);
         } else {

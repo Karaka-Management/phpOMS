@@ -61,7 +61,7 @@ class Address implements \JsonSerializable
     /**
      * {@inheritdoc}
      */
-    public function jsonSerialize(int $option = 0)
+    public function jsonSerialize() : mixed
     {
         return $this->toArray();
     }

@@ -131,7 +131,7 @@ abstract class RequestAbstract implements MessageInterface
             return [];
         }
 
-        $json = \json_decode($this->data[$key], true);
+        $json = \json_decode($this->data[$key], true); /** @phpstan-ignore-line */
 
         return !\is_array($json) ? [] : $json;
     }
@@ -154,6 +154,7 @@ abstract class RequestAbstract implements MessageInterface
             return [];
         }
 
+        /* @phpstan-ignore-next-line */
         $list = \explode($delim, $this->data[$key]);
 
         if ($list === false) {

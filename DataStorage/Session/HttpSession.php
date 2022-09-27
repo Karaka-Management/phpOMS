@@ -126,7 +126,7 @@ final class HttpSession implements SessionInterface
             $this->set('CSRF', $csrf, false);
         }
 
-        UriFactory::setQuery('$CSRF', $csrf);
+        UriFactory::setQuery('$CSRF', $csrf); /* @phpstan-ignore-line */
     }
 
     /**

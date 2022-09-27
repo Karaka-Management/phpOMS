@@ -330,6 +330,6 @@ class PriorityQueue implements \Countable, SerializableInterface
      */
     public function unserialize(mixed $data) : void
     {
-        $this->queue = \json_decode($data, true);
+        $this->queue = \json_decode($data, true); /* @phpstan-ignore-line */
     }
 }
