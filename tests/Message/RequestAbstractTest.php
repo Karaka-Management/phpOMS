@@ -43,6 +43,11 @@ final class RequestAbstractTest extends \PHPUnit\Framework\TestCase
             {
                 return '';
             }
+
+            public function getRouteVerb() : int
+            {
+                return 0;
+            }
         };
     }
 

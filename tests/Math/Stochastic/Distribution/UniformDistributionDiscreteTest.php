@@ -113,7 +113,10 @@ final class UniformDistributionDiscreteTest extends \PHPUnit\Framework\TestCase
         $b = 4;
         $n = $b - $a + 1;
 
-        self::assertEquals(-(6 * ($n ** 2 + 1)) / (5 * ($n ** 2 - 1)), UniformDistributionDiscrete::getExKurtosis($a, $b));
+        self::assertEqualsWithDelta(
+            -(6 * ($n ** 2 + 1)) / (5 * ($n ** 2 - 1)),
+            UniformDistributionDiscrete::getExKurtosis($a, $b), 0.1
+        );
     }
 
     /**

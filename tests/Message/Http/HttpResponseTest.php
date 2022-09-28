@@ -147,7 +147,7 @@ final class HttpResponseTest extends \PHPUnit\Framework\TestCase
         $this->response->set('bool', $data[4]);
         $this->response->set('float', $data[5]);
         $this->response->set('jsonSerializable', new class() implements \JsonSerializable {
-            public function jsonSerialize()
+            public function jsonSerialize() : mixed
             {
                 return 'json_string';
             }
@@ -186,7 +186,7 @@ final class HttpResponseTest extends \PHPUnit\Framework\TestCase
         $this->response->set('bool', $data[4]);
         $this->response->set('float', $data[5]);
         $this->response->set('jsonSerializable', new class() implements \JsonSerializable {
-            public function jsonSerialize()
+            public function jsonSerialize() : mixed
             {
                 return 'json_string';
             }

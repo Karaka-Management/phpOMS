@@ -193,7 +193,7 @@ abstract class ConnectionAbstract implements ConnectionInterface
      */
     public function isInitialized() : bool
     {
-        return isset($this->con);
+        return isset($this->con) && !($this->con instanceof NullPDO);
     }
 
     /**
