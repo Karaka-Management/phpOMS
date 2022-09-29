@@ -61,6 +61,10 @@ final class FtpStorageTest extends \PHPUnit\Framework\TestCase
             self::$con = null;
         }
 
+        if (self::$con === null) {
+            return;
+        }
+
         FtpStorage::with(self::$con);
     }
 
