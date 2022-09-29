@@ -93,11 +93,6 @@ final class ConsoleRequest extends RequestAbstract
 
         $key = '-' . \mb_strtolower($key);
 
-        if ($type === null) {
-            /* @phpstan-ignore-next-line */
-            return ArrayUtils::getArg($key, $this->data);
-        }
-
         switch ($type) {
             case 'int':
                 /* @phpstan-ignore-next-line */
@@ -145,7 +140,7 @@ final class ConsoleRequest extends RequestAbstract
         $pos = -1;
 
         /* @phpstan-ignore-next-line */
-        if ($overwrite || ($pos = ArrayUtils::hasArg($key, $this->data)) !== -1) {
+        if (($pos = ArrayUtils::hasArg($key, $this->data)) === -1 || $overwrite) {
             if ($pos === -1) {
                 $this->data[] = $key;
                 $this->data[] = $value;

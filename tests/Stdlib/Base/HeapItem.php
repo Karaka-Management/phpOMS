@@ -42,6 +42,7 @@ final class HeapItem implements HeapItemInterface
 
     public function isEqual(HeapItemInterface $item) : bool
     {
+        /** @var self $item */
         return $this->value === $item->getValue();
     }
 }

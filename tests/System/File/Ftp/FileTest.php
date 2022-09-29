@@ -720,7 +720,9 @@ final class FileTest extends \PHPUnit\Framework\TestCase
         self::assertTrue($file->setContent('test'));
         self::assertEquals('test', $file->getContent());
 
-        \unlink($testFile);
+        if (\is_file($testFile)) {
+            \unlink($testFile);
+        }
     }
 
     /**
@@ -739,7 +741,9 @@ final class FileTest extends \PHPUnit\Framework\TestCase
         self::assertTrue($file->setContent('test2'));
         self::assertEquals('test2', $file->getContent());
 
-        \unlink($testFile);
+        if (\is_file($testFile)) {
+            \unlink($testFile);
+        }
     }
 
     /**
@@ -758,7 +762,9 @@ final class FileTest extends \PHPUnit\Framework\TestCase
         self::assertTrue($file->appendContent('2'));
         self::assertEquals('test2', $file->getContent());
 
-        \unlink($testFile);
+        if (\is_file($testFile)) {
+            \unlink($testFile);
+        }
     }
 
     /**
@@ -777,7 +783,9 @@ final class FileTest extends \PHPUnit\Framework\TestCase
         self::assertTrue($file->prependContent('2'));
         self::assertEquals('2test', $file->getContent());
 
-        \unlink($testFile);
+        if (\is_file($testFile)) {
+            \unlink($testFile);
+        }
     }
 
     /**
@@ -810,7 +818,9 @@ final class FileTest extends \PHPUnit\Framework\TestCase
         $now = new \DateTime('now');
         self::assertEquals($now->format('Y-m-d'), $file->getCreatedAt()->format('Y-m-d'));
 
-        \unlink($testFile);
+        if (\is_file($testFile)) {
+            \unlink($testFile);
+        }
     }
 
     /**
@@ -831,7 +841,9 @@ final class FileTest extends \PHPUnit\Framework\TestCase
         $now = new \DateTime('now');
         self::assertEquals($now->format('Y-m-d'), $file->getChangedAt()->format('Y-m-d'));
 
-        \unlink($testFile);
+        if (\is_file($testFile)) {
+            \unlink($testFile);
+        }
     }
 
     /**
@@ -934,7 +946,9 @@ final class FileTest extends \PHPUnit\Framework\TestCase
         $file->createNode();
         self::assertTrue(\is_file($testFile));
 
-        \unlink($testFile);
+        if (\is_file($testFile)) {
+            \unlink($testFile);
+        }
     }
 
     /**
@@ -956,6 +970,10 @@ final class FileTest extends \PHPUnit\Framework\TestCase
 
         \clearstatcache();
         self::assertFalse(\is_file($testFile));
+
+        if (\is_file($testFile)) {
+            \unlink($testFile);
+        }
     }
 
     /**
@@ -976,8 +994,13 @@ final class FileTest extends \PHPUnit\Framework\TestCase
         self::assertTrue(\is_file($testFile));
         self::assertTrue(\is_file(__DIR__ . '/test2.txt'));
 
-        \unlink($testFile);
-        \unlink(__DIR__ . '/test2.txt');
+        if (\is_file($testFile)) {
+            \unlink($testFile);
+        }
+
+        if (\is_file(__DIR__ . '/test2.txt')) {
+            \unlink(__DIR__ . '/test2.txt');
+        }
     }
 
     /**
@@ -998,7 +1021,9 @@ final class FileTest extends \PHPUnit\Framework\TestCase
         self::assertFalse(\is_file($testFile));
         self::assertTrue(\is_file(__DIR__ . '/test2.txt'));
 
-        \unlink(__DIR__ . '/test2.txt');
+        if (\is_file(__DIR__ . '/test2.txt')) {
+            \unlink(__DIR__ . '/test2.txt');
+        }
     }
 
     /**

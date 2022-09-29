@@ -219,10 +219,8 @@ abstract class FileAbstract implements FtpContainerInterface
         $this->createdAt = (new \DateTimeImmutable())->setTimestamp($mtime === false ? 0 : $mtime);
         $this->changedAt->setTimestamp($ctime === false ? 0 : $ctime);
 
-        $owner = \fileowner($this->path);
-
-        $this->owner      = $owner === false ? 0 : $owner;
-        $this->permission = (int) \substr(\sprintf('%o', \fileperms($this->path)), -4);
+        $this->owner      = 0;
+        $this->permission = 0;
 
         $this->isInitialized = true;
     }

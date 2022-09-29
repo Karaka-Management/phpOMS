@@ -290,13 +290,13 @@ final class UriFactory
             function ($match) use ($toMatch) : string {
                 $match = \substr($match[0], 1, \strlen($match[0]) - 2);
 
-                return $toMatch[$match]
+                return (string) ($toMatch[$match]
                     ?? (self::$uri[$match] ?? (
                         ($match[0] ?? '') === '?'
                             ? '---' // only do this for query parameters
                             : ''
                         )
-                    );
+                    ));
             },
             $uri
         );

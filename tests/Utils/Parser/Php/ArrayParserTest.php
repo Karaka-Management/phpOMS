@@ -38,7 +38,7 @@ final class ArrayParserTest extends \PHPUnit\Framework\TestCase
         };
 
         $jsonSerialize = new class() implements \JsonSerializable {
-            public function jsonSerialize() { return [6, 7]; }
+            public function jsonSerialize() : mixed { return [6, 7]; }
         };
 
         $array = [

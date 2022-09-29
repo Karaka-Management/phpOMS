@@ -15,6 +15,7 @@ declare(strict_types=1);
 namespace phpOMS\Message\Socket;
 
 use phpOMS\Dispatcher\Dispatcher;
+use phpOMS\Router\RouteVerb;
 use phpOMS\Router\SocketRouter;
 
 /**
@@ -76,7 +77,7 @@ class PacketManager
         $response = new SocketResponse();
 
         $this->dispatcher->dispatch(
-            $this->router->route($data, 'Socket', 1, $client->getAccount()),
+            $this->router->route($data, RouteVerb::ANY, 'Socket', 1, $client->getAccount()),
             $request,
             $response
         );

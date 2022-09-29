@@ -190,24 +190,4 @@ final class L11nManagerTest extends \PHPUnit\Framework\TestCase
         self::assertEquals('2020.01.01 01:45', $this->l11nManager->getDateTime($l11n, $date, 'long'));
         self::assertEquals('', $this->l11nManager->getDateTime($l11n, null, 'long'));
     }
-
-    /**
-     * @testdox Loading language for an invalid module throws Exception
-     * @covers phpOMS\Localization\L11nManager
-     * @group framework
-     */
-    public function testInvalidModule() : void
-    {
-        $this->expectException(\Exception::class);
-
-        $expected = [
-            'en' => [
-                'Admin' => [
-                    'Test' => 'Test string',
-                ],
-            ],
-        ];
-
-        $this->l11nManager->loadLanguage('en', 'doesNotExist', $expected);
-    }
 }

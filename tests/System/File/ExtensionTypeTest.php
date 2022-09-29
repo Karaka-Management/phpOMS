@@ -27,7 +27,7 @@ final class ExtensionTypeTest extends \PHPUnit\Framework\TestCase
      */
     public function testEnumCount() : void
     {
-        self::assertCount(13, ExtensionType::getConstants());
+        self::assertCount(14, ExtensionType::getConstants());
     }
 
     /**
@@ -58,5 +58,6 @@ final class ExtensionTypeTest extends \PHPUnit\Framework\TestCase
         self::assertEquals(1024, ExtensionType::EXECUTABLE);
         self::assertEquals(2048, ExtensionType::DIRECTORY);
         self::assertEquals(4096, ExtensionType::WORD);
+        self::assertEquals(8192, ExtensionType::REFERENCE);
     }
 }

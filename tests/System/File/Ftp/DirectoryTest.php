@@ -86,7 +86,7 @@ final class DirectoryTest extends \PHPUnit\Framework\TestCase
      */
     public function testInvalidConnection() : void
     {
-        self::assertFalse(Directory::ftpConnect(new HttpUri('ftp://karaka.app:21')));
+        self::assertEquals(null, Directory::ftpConnect(new HttpUri('ftp://karaka.app:21')));
     }
 
     /**

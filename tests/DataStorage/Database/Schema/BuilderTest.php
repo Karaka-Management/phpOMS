@@ -85,7 +85,7 @@ final class BuilderTest extends \PHPUnit\Framework\TestCase
     public function testMysqlCreateTable() : void
     {
         $query = new Builder($this->con);
-        $sql   = 'CREATE TABLE `user_roles` (`user_id` INT NOT NULL AUTO_INCREMENT, `role_id` VARCHAR(10) DEFAULT \'1\' NULL, PRIMARY KEY (`user_id`), FOREIGN KEY (`user_id`) REFERENCES `users` (`ext1_id`), FOREIGN KEY (`role_id`) REFERENCES `roles` (`ext2_id`)) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 AUTO_INCREMENT=1;';
+        $sql   = 'CREATE TABLE IF NOT EXISTS `user_roles` (`user_id` INT NOT NULL AUTO_INCREMENT, `role_id` VARCHAR(10) DEFAULT \'1\' NULL, PRIMARY KEY (`user_id`), FOREIGN KEY (`user_id`) REFERENCES `users` (`ext1_id`), FOREIGN KEY (`role_id`) REFERENCES `roles` (`ext2_id`)) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 AUTO_INCREMENT=1;';
         self::assertEquals(
             $sql,
             $query->createTable('user_roles')
@@ -98,7 +98,7 @@ final class BuilderTest extends \PHPUnit\Framework\TestCase
     public function testMysqlAlter() : void
     {/*
         $query = new Builder($this->con);
-        $sql   = 'CREATE TABLE `user_roles` (`user_id` INT NOT NULL AUTO_INCREMENT, `role_id` VARCHAR(10) DEFAULT \'1\' NULL, PRIMARY KEY (`user_id`), FOREIGN KEY (`user_id`) REFERENCES `users` (`ext1_id`), FOREIGN KEY (`role_id`) REFERENCES `roles` (`ext2_id`)) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 AUTO_INCREMENT=1;';
+        $sql   = 'CREATE TABLE IF NOT EXISTS `user_roles` (`user_id` INT NOT NULL AUTO_INCREMENT, `role_id` VARCHAR(10) DEFAULT \'1\' NULL, PRIMARY KEY (`user_id`), FOREIGN KEY (`user_id`) REFERENCES `users` (`ext1_id`), FOREIGN KEY (`role_id`) REFERENCES `roles` (`ext2_id`)) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 AUTO_INCREMENT=1;';
         self::assertEquals(
             $sql,
             $query->createTable('user_roles')

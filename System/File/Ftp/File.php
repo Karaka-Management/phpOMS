@@ -148,10 +148,22 @@ class File extends FileAbstract implements FileInterface
                 return false; // @codeCoverageIgnore
             }
 
-            \fwrite($fp, $content);
+            $status = \fwrite($fp, $content);
+            if ($status === false) {
+                \fclose($fp);
+
+                return false;
+            }
+
             \rewind($fp);
 
-            \ftp_fput($con, $path, $fp);
+            $status = @\ftp_fput($con, $path, $fp);
+            if ($status === false) {
+                \fclose($fp);
+
+                return false;
+            }
+
             \fclose($fp);
 
             \ftp_chmod($con, 0755, $path);
@@ -168,7 +180,7 @@ class File extends FileAbstract implements FileInterface
     public static function get(\FTP\Connection $con, string $path) : string
     {
         if (!self::exists($con, $path)) {
-            throw new PathException($path);
+            return '';
         }
 
         $fp = \fopen('php://temp', 'r+');
@@ -177,7 +189,7 @@ class File extends FileAbstract implements FileInterface
         }
 
         $content = '';
-        if (\ftp_fget($con, $fp, $path, \FTP_BINARY, 0)) {
+        if (@\ftp_fget($con, $fp, $path, \FTP_BINARY, 0)) {
             \rewind($fp);
             $content = \stream_get_contents($fp);
         }

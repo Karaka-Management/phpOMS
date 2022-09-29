@@ -143,7 +143,7 @@ final class SocketRouter implements RouterInterface
             }
 
             foreach ($destination as $d) {
-                if ($d['verb'] === RouteVerb::ANY
+                if ((!isset($d['verb']) || $d['verb'] === RouteVerb::ANY)
                     || $verb === RouteVerb::ANY
                     || ($verb & $d['verb']) === $verb
                 ) {

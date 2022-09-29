@@ -31,14 +31,23 @@ final class HeapTest extends \PHPUnit\Framework\TestCase
     public function testHeapify() : void
     {
         $heap = new Heap();
-        $heap->heapify([3, 2, 6, 1, 5, 4]);
+        $heap->heapify(
+            [
+                new HeapItem(3),
+                new HeapItem(2),
+                new HeapItem(6),
+                new HeapItem(1),
+                new HeapItem(5),
+                new HeapItem(4)
+            ]
+        );
 
-        self::assertEquals(1, $heap->pop());
-        self::assertEquals(2, $heap->pop());
-        self::assertEquals(3, $heap->pop());
-        self::assertEquals(4, $heap->pop());
-        self::assertEquals(5, $heap->pop());
-        self::assertEquals(6, $heap->pop());
+        self::assertEquals(1, $heap->pop()->getValue());
+        self::assertEquals(2, $heap->pop()->getValue());
+        self::assertEquals(3, $heap->pop()->getValue());
+        self::assertEquals(4, $heap->pop()->getValue());
+        self::assertEquals(5, $heap->pop()->getValue());
+        self::assertEquals(6, $heap->pop()->getValue());
     }
 
     /**
@@ -50,7 +59,7 @@ final class HeapTest extends \PHPUnit\Framework\TestCase
     {
         $heap = new Heap();
         for ($i = 1; $i < 6; ++$i) {
-            $heap->push($i);
+            $heap->push(new HeapItem($i));
         }
 
         self::assertEquals(5, $heap->size());
@@ -64,15 +73,23 @@ final class HeapTest extends \PHPUnit\Framework\TestCase
     public function testInsort() : void
     {
         $heap = new Heap();
-        $heap->heapify([3, 6, 1, 5, 4]);
-        $heap->insort(2);
+        $heap->heapify(
+            [
+                new HeapItem(3),
+                new HeapItem(6),
+                new HeapItem(1),
+                new HeapItem(5),
+                new HeapItem(4)
+            ]
+        );
+        $heap->insort(new HeapItem(2));
 
-        self::assertEquals(1, $heap->pop());
-        self::assertEquals(2, $heap->pop());
-        self::assertEquals(3, $heap->pop());
-        self::assertEquals(4, $heap->pop());
-        self::assertEquals(5, $heap->pop());
-        self::assertEquals(6, $heap->pop());
+        self::assertEquals(1, $heap->pop()->getValue());
+        self::assertEquals(2, $heap->pop()->getValue());
+        self::assertEquals(3, $heap->pop()->getValue());
+        self::assertEquals(4, $heap->pop()->getValue());
+        self::assertEquals(5, $heap->pop()->getValue());
+        self::assertEquals(6, $heap->pop()->getValue());
     }
 
     /**
@@ -84,12 +101,12 @@ final class HeapTest extends \PHPUnit\Framework\TestCase
     {
         $heap = new Heap();
         for ($i = 0; $i < 10; ++$i) {
-            $heap->push(\mt_rand());
+            $heap->push(new HeapItem(\mt_rand(0, 100)));
         }
 
         $sorted = [];
         while (!$heap->isEmpty()) {
-            $sorted[] = $heap->pop();
+            $sorted[] = $heap->pop()->getValue();
         }
 
         $sortedFunction = $sorted;
@@ -107,7 +124,7 @@ final class HeapTest extends \PHPUnit\Framework\TestCase
     {
         $heap = new Heap(function($a, $b) { return ($a <=> $b) * -1; });
         for ($i = 0; $i < 10; ++$i) {
-            $heap->push(\mt_rand());
+            $heap->push(new HeapItem(\mt_rand(0, 100)));
         }
 
         $sorted = [];
@@ -130,10 +147,19 @@ final class HeapTest extends \PHPUnit\Framework\TestCase
     {
         $heap = new Heap();
         for ($i = 1; $i < 6; ++$i) {
-            $heap->push($i);
+            $heap->push(new HeapItem($i));
         }
 
-        self::assertEquals([1, 2, 3, 4, 5], $heap->toArray());
+        self::assertEquals(
+            [
+                new HeapItem(1),
+                new HeapItem(2),
+                new HeapItem(3),
+                new HeapItem(4),
+                new HeapItem(5)
+            ],
+            $heap->toArray()
+        );
     }
 
     /**
@@ -145,11 +171,20 @@ final class HeapTest extends \PHPUnit\Framework\TestCase
     {
         $heap = new Heap();
         for ($i = 1; $i < 6; ++$i) {
-            $heap->push($i);
+            $heap->push(new HeapItem($i));
         }
 
-        self::assertEquals(1, $heap->replace(3));
-        self::assertEquals([2, 3, 3, 4, 5], $heap->toArray());
+        self::assertEquals(1, $heap->replace(new HeapItem(3))->getValue());
+        self::assertEquals(
+            [
+                new HeapItem(2),
+                new HeapItem(3),
+                new HeapItem(3),
+                new HeapItem(4),
+                new HeapItem(5)
+            ],
+            $heap->toArray()
+        );
     }
 
     /**
@@ -161,14 +196,23 @@ final class HeapTest extends \PHPUnit\Framework\TestCase
     {
         $heap = new Heap();
         for ($i = 1; $i < 6; ++$i) {
-            $heap->push($i);
+            $heap->push(new HeapItem($i));
         }
 
-        self::assertEquals(1, $heap->pushpop(6));
+        self::assertEquals(1, $heap->pushpop(new HeapItem(6))->getValue());
 
         $heapArray = $heap->toArray();
         \sort($heapArray);
-        self::assertEquals([2, 3, 4, 5, 6], $heapArray);
+        self::assertEquals(
+            [
+                new HeapItem(2),
+                new HeapItem(3),
+                new HeapItem(4),
+                new HeapItem(5),
+                new HeapItem(6)
+            ],
+            $heapArray
+        );
     }
 
     /**
@@ -180,16 +224,16 @@ final class HeapTest extends \PHPUnit\Framework\TestCase
     {
         $heap = new Heap();
         for ($i = 1; $i < 6; ++$i) {
-            $heap->push($i);
+            $heap->push(new HeapItem($i));
         }
 
-        self::assertTrue($heap->contains(1));
-        self::assertTrue($heap->contains(2));
-        self::assertTrue($heap->contains(3));
-        self::assertTrue($heap->contains(4));
-        self::assertTrue($heap->contains(5));
-        self::assertFalse($heap->contains(0));
-        self::assertFalse($heap->contains(6));
+        self::assertTrue($heap->contains(new HeapItem(1)));
+        self::assertTrue($heap->contains(new HeapItem(2)));
+        self::assertTrue($heap->contains(new HeapItem(3)));
+        self::assertTrue($heap->contains(new HeapItem(4)));
+        self::assertTrue($heap->contains(new HeapItem(5)));
+        self::assertFalse($heap->contains(new HeapItem(0)));
+        self::assertFalse($heap->contains(new HeapItem(6)));
     }
 
     /**
@@ -251,14 +295,14 @@ final class HeapTest extends \PHPUnit\Framework\TestCase
     {
         $heap = new Heap();
 
-        $heap->push(1);
-        self::assertEquals(1, $heap->peek());
+        $heap->push($a = new HeapItem(1));
+        self::assertEquals($a, $heap->peek());
 
-        $heap->push(2);
-        self::assertEquals(1, $heap->peek());
+        $heap->push($b = new HeapItem(2));
+        self::assertEquals($a, $heap->peek());
 
         $heap->pop();
-        self::assertEquals(2, $heap->peek());
+        self::assertEquals($b, $heap->peek());
     }
 
     /**
@@ -269,12 +313,12 @@ final class HeapTest extends \PHPUnit\Framework\TestCase
     public function testNSmallest() : void
     {
         $heap = new Heap();
-        $heap->push(1);
-        $heap->push(3);
-        $heap->push(1);
-        $heap->push(4);
+        $heap->push(new HeapItem(1));
+        $heap->push(new HeapItem(3));
+        $heap->push(new HeapItem(1));
+        $heap->push(new HeapItem(4));
 
-        self::assertEquals([1, 1, 3], $heap->getNSmallest(3));
+        self::assertEquals([new HeapItem(1), new HeapItem(1), new HeapItem(3)], $heap->getNSmallest(3));
     }
 
     /**
@@ -285,13 +329,13 @@ final class HeapTest extends \PHPUnit\Framework\TestCase
     public function testNLargest() : void
     {
         $heap = new Heap();
-        $heap->push(1);
-        $heap->push(3);
-        $heap->push(1);
-        $heap->push(4);
-        $heap->push(4);
+        $heap->push(new HeapItem(1));
+        $heap->push(new HeapItem(3));
+        $heap->push(new HeapItem(1));
+        $heap->push(new HeapItem(4));
+        $heap->push(new HeapItem(4));
 
-        self::assertEquals([4, 4, 3], $heap->getNLargest(3));
+        self::assertEquals([new HeapItem(4), new HeapItem(4), new HeapItem(3)], $heap->getNLargest(3));
     }
 
     /**
@@ -303,7 +347,7 @@ final class HeapTest extends \PHPUnit\Framework\TestCase
     {
         $heap = new Heap();
         for ($i = 1; $i < 6; ++$i) {
-            $heap->push($i);
+            $heap->push(new HeapItem($i));
         }
 
         $heap->clear();
@@ -321,7 +365,7 @@ final class HeapTest extends \PHPUnit\Framework\TestCase
         self::assertTrue($heap->isEmpty());
 
         for ($i = 1; $i < 6; ++$i) {
-            $heap->push($i);
+            $heap->push(new HeapItem($i));
         }
 
         self::assertFalse($heap->isEmpty());

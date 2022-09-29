@@ -43,9 +43,9 @@ class Schedule extends TaskAbstract
          * @todo Karaka/phpOMS#231
          *  Use the interval for generating a schedule
          */
-        $job = new self($jobData[1], $jobData[8], 'asdf');
+        $job = new self($jobData[1], $jobData[8], $jobData[7]);
 
-        $job->setStatus($jobData[3]);
+        $job->setStatus((int) $jobData[3]);
 
         if (DateTime::isValid($jobData[2])) {
             $job->setNextRunTime(new \DateTime($jobData[2]));

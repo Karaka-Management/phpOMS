@@ -186,6 +186,13 @@ final class Argument implements UriInterface
      */
     public function setQuery(string $uri) : void
     {
+        if ($uri === '') {
+            $this->query       = [];
+            $this->queryString = $uri;
+
+            return;
+        }
+
         $result = \explode(' ', $uri);
         if ($result === false) {
             return;

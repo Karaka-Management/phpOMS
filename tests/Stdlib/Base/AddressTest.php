@@ -59,7 +59,7 @@ final class AddressTest extends \PHPUnit\Framework\TestCase
             'location'  => [
                 'postal'  => '',
                 'city'    => '',
-                'country' => 'US',
+                'country' => 'XX',
                 'address' => '',
                 'state'   => '',
                 'geo'     => [
@@ -123,7 +123,7 @@ final class AddressTest extends \PHPUnit\Framework\TestCase
             'location'  => [
                 'postal'  => '',
                 'city'    => '',
-                'country' => 'US',
+                'country' => 'XX',
                 'address' => '',
                 'state'   => '',
                 'geo'     => [
@@ -153,7 +153,7 @@ final class AddressTest extends \PHPUnit\Framework\TestCase
             'location'  => [
                 'postal'  => '',
                 'city'    => '',
-                'country' => 'US',
+                'country' => 'XX',
                 'address' => '',
                 'state'   => '',
                 'geo'     => [

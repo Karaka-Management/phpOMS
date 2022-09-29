@@ -16,6 +16,7 @@ namespace phpOMS\tests\Utils\TaskSchedule;
 
 use phpOMS\Utils\TaskSchedule\TaskAbstract;
 use phpOMS\Utils\TaskSchedule\TaskFactory;
+use phpOMS\Utils\TaskSchedule\TaskStatus;
 
 /**
  * @testdox phpOMS\tests\Utils\TaskSchedule\TaskAbstractTest: Job/task abstraction
@@ -53,7 +54,7 @@ final class TaskAbstractTest extends \PHPUnit\Framework\TestCase
     {
         self::assertEquals('', $this->class->getId());
         self::assertEquals('', $this->class->getCommand());
-        self::assertEquals('', $this->class->getStatus());
+        self::assertEquals(TaskStatus::ACTIVE, $this->class->getStatus());
         self::assertInstanceOf('\DateTime', $this->class->getNextRunTime());
         self::assertInstanceOf('\DateTime', $this->class->getLastRuntime());
         self::assertEquals('', $this->class->getComment());
@@ -89,8 +90,8 @@ final class TaskAbstractTest extends \PHPUnit\Framework\TestCase
      */
     public function testStatusInputOutput() : void
     {
-        $this->class->setStatus('Status');
-        self::assertEquals('Status', $this->class->getStatus());
+        $this->class->setStatus(TaskStatus::FINISHED);
+        self::assertEquals(TaskStatus::FINISHED, $this->class->getStatus());
     }
 
     /**

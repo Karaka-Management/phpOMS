@@ -123,7 +123,7 @@ final class StringUtilsTest extends \PHPUnit\Framework\TestCase
     public function testStringify() : void
     {
         self::assertEquals('"abc"', StringUtils::stringify(new class() implements \JsonSerializable {
-            public function jsonSerialize()
+            public function jsonSerialize() : mixed
             {
                 return 'abc';
             }

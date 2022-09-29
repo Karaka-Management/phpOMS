@@ -147,7 +147,7 @@ final class HttpRequest extends RequestAbstract
                     return;
                 }
 
-                $input += $lineRaw;
+                $input .= $lineRaw;
                 $size  += \strlen($lineRaw);
             }
 
@@ -183,7 +183,7 @@ final class HttpRequest extends RequestAbstract
                     return;
                 }
 
-                $content += $lineRaw;
+                $content .= $lineRaw;
                 $size    += \strlen($lineRaw);
             }
 

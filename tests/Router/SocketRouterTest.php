@@ -17,6 +17,7 @@ namespace phpOMS\tests\Router;
 use phpOMS\Account\Account;
 use phpOMS\Account\PermissionAbstract;
 use phpOMS\Account\PermissionType;
+use phpOMS\Router\RouteVerb;
 use phpOMS\Router\SocketRouter;
 
 require_once __DIR__ . '/../Autoloader.php';
@@ -139,6 +140,7 @@ final class SocketRouterTest extends \PHPUnit\Framework\TestCase
         self::assertEquals(
             [['dest' => '\Modules\Admin\Controller:viewSettingsGeneral']],
             $this->router->route('backend_admin -settings=general -t 123',
+                RouteVerb::GET,
                 null,
                 null,
                 $account
@@ -196,6 +198,7 @@ final class SocketRouterTest extends \PHPUnit\Framework\TestCase
         self::assertNotEquals(
             [['dest' => '\Modules\Admin\Controller:viewSettingsGeneral']],
             $this->router->route('backend_admin -settings=general -t 123',
+                RouteVerb::GET,
                 null,
                 null,
                 $account2
@@ -213,12 +216,12 @@ final class SocketRouterTest extends \PHPUnit\Framework\TestCase
         $this->router->add(
             '^.*backends_admin -settings=general.*$',
             'Controller:test',
-            ['test_pattern' => '/^[a-z]*$/']
+            validation: ['test_pattern' => '/^[a-z]*$/']
         );
 
         self::assertEquals(
             [['dest' => 'Controller:test']],
-            $this->router->route('backends_admin -settings=general -t 123', null, null, null, ['test_pattern' => 'abcdef'])
+            $this->router->route('backends_admin -settings=general -t 123', RouteVerb::GET, null, null, null, ['test_pattern' => 'abcdef'])
         );
     }
 
@@ -232,12 +235,12 @@ final class SocketRouterTest extends \PHPUnit\Framework\TestCase
         $this->router->add(
             '^.*backends_admin -settings=general.*$',
             'Controller:test',
-            ['test_pattern' => '/^[a-z]*$/']
+            validation: ['test_pattern' => '/^[a-z]*$/']
         );
 
         self::assertNotEquals(
             [['dest' => 'Controller:test']],
-            $this->router->route('backends_admin -settings=general -t 123', null, null, null, ['test_pattern' => '123'])
+            $this->router->route('backends_admin -settings=general -t 123', RouteVerb::GET, null, null, null, ['test_pattern' => '123'])
         );
     }
 
@@ -251,8 +254,7 @@ final class SocketRouterTest extends \PHPUnit\Framework\TestCase
         $this->router->add(
             '^.*-settings=general.*$',
             'Controller:test',
-            [],
-            '/^.*?(settings)=([a-z]*).*?$/'
+            dataPattern: '/^.*?(settings)=([a-z]*).*?$/'
         );
 
         self::assertEquals(

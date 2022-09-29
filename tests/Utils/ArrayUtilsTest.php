@@ -290,8 +290,8 @@ final class ArrayUtilsTest extends \PHPUnit\Framework\TestCase
         self::assertEquals([4, 9, 16], ArrayUtils::power([2, 3, 4], 2));
         self::assertEquals([8, 27, 64], ArrayUtils::power([2, 3, 4], 3));
 
-        self::assertEqualsWithDelta([2.0, 3.0, 4.0], ArrayUtils::power([4, 9, 16], 1 / 2), 0.0);
-        self::assertEqualsWithDelta([2.0, 3.0, 4.0], ArrayUtils::power([8, 27, 64], 1 / 3), 0.0);
+        self::assertEqualsWithDelta([2.0, 3.0, 4.0], ArrayUtils::power([4, 9, 16], 1 / 2), 0.01);
+        self::assertEqualsWithDelta([2.0, 3.0, 4.0], ArrayUtils::power([8, 27, 64], 1 / 3), 0.01);
     }
 
     /**

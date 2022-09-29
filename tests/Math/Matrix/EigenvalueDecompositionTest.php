@@ -145,6 +145,9 @@ final class EigenvalueDecompositionTest extends \PHPUnit\Framework\TestCase
      * @covers phpOMS\Math\Matrix\EigenvalueDecomposition
      * @group framework
      */
+    /*
+    Testing for this makes little sense, since this can change depending on the algorithm, precision etc.
+    It's much more important to check the identity A = VDV' which is done in the test "testCompositeNonSymmetric"
     public function testNonSymmetricMatrixV() : void
     {
         $A = new Matrix();
@@ -162,6 +165,7 @@ final class EigenvalueDecompositionTest extends \PHPUnit\Framework\TestCase
             [1 / \sqrt(6), -1 / \sqrt(14), -16 / \sqrt(293)],
         ], $eig->getV()->toArray(), 0.2);
     }
+    */
 
     /**
      * @testdox The D matrix of the decomposition can be calculated for a none-symmetric matrix

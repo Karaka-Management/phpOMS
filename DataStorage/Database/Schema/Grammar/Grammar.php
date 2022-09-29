@@ -194,7 +194,8 @@ class Grammar extends QueryGrammar
      */
     private function addConstraint(array $add) : string
     {
-        return 'ADD' . (isset($add['constraint']) ? 'CONSTRAINT ' . $add['constraint'] : '') . ' FOREIGN KEY (' .  $this->expressionizeTableColumn([$add['key']]) . ') REFERENCES '
+        return 'ADD' . (isset($add['constraint']) ? ' CONSTRAINT ' . $add['constraint'] : '')
+            . ' FOREIGN KEY (' .  $this->expressionizeTableColumn([$add['key']]) . ') REFERENCES '
             . $this->expressionizeTableColumn([$add['foreignTable']])
             . ' (' . $this->expressionizeTableColumn([$add['foreignKey']]) . ')';
     }
@@ -211,7 +212,7 @@ class Grammar extends QueryGrammar
      */
     protected function compileCreateTable(BuilderAbstract $query, string $table) : string
     {
-        return 'CREATE TABLE ' . $this->expressionizeTableColumn([$table]);
+        return 'CREATE TABLE IF NOT EXISTS ' . $this->expressionizeTableColumn([$table]);
     }
 
     /**

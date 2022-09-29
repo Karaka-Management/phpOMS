@@ -45,7 +45,7 @@ final class ScheduleTest extends \PHPUnit\Framework\TestCase
      */
     public function testCreateJobWithData() : void
     {
-        $job = Schedule::createWith(['hostname', 'testname', '2018-06-02', 'Ready', 'Background', 'N/A', '1', '', 'testcmd', '/var/usr', 'comment']);
-        self::assertEquals('/tn testname asdf testcmd', $job->__toString());
+        $job = Schedule::createWith(['hostname', 'testname', '2018-06-02', 'Ready', 'Background', 'N/A', '1', 'INTERVAL', 'testcmd', '/var/usr', 'comment']);
+        self::assertEquals('/tn testname INTERVAL testcmd', $job->__toString());
     }
 }

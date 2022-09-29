@@ -1,0 +1,29 @@
+{
+    "app": {
+        "name": "app",
+        "fields": {
+            "app_id": {
+                "name": "app_id",
+                "type": "INT",
+                "null": false,
+                "primary": true,
+                "autoincrement": true
+            },
+            "app_name": {
+                "name": "app_name",
+                "type": "VARCHAR(50)",
+                "null": false
+            },
+            "app_theme": {
+                "name": "app_theme",
+                "type": "VARCHAR(255)",
+                "null": false
+            },
+            "app_status": {
+                "name": "app_status",
+                "type": "TINYINT",
+                "null": false
+            }
+        }
+    }
+}

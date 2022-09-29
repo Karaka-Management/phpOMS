@@ -91,7 +91,7 @@ class TaskScheduler extends SchedulerAbstract
             unset($lines[0]);
 
             $jobs = [];
-            foreach ($lines as $key => $line) {
+            foreach ($lines as $line) {
                 $line = \str_getcsv($line);
 
                 if (\stripos($line[1], $name) !== false) {

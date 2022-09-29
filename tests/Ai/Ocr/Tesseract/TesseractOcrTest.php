@@ -95,6 +95,9 @@ final class TesseractOcrTest extends \PHPUnit\Framework\TestCase
      * @group framework
      */
     /*
+    @todo somehow this suddenly takes a long time.
+    Might be because a php version update resulting in float 32->64bit changes?
+    Fix it, it was working with php 8.0
     public function testOcrWithThresholdingRotating() : void
     {
         $ocr = new TesseractOcr();

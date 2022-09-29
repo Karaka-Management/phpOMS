@@ -24,6 +24,7 @@ use phpOMS\Dispatcher\Dispatcher;
 use phpOMS\Module\ModuleManager;
 use phpOMS\Router\WebRouter;
 use phpOMS\System\File\Local\Directory;
+use phpOMS\DataStorage\Database\Schema\Builder as SchemaBuilder;
 
 /**
  * @testdox phpOMS\tests\Application\ApplicationManagerTest: Application manager
@@ -33,6 +34,15 @@ use phpOMS\System\File\Local\Directory;
 final class ApplicationManagerTest extends \PHPUnit\Framework\TestCase
 {
     protected ApplicationManager $appManager;
+
+    public static function setUpBeforeClass() : void
+    {
+        // Setup basic structure needed for applications
+        $definitions = \json_decode(\file_get_contents(__DIR__ . '/db.json'), true);
+        foreach ($definitions as $definition) {
+            SchemaBuilder::createFromSchema($definition, $GLOBALS['dbpool']->get())->execute();
+        }
+    }
 
     /**
      * {@inheritdoc}
@@ -94,7 +104,7 @@ final class ApplicationManagerTest extends \PHPUnit\Framework\TestCase
         self::assertTrue(isset($providing['Testapp']));
         self::assertTrue(\in_array('Navigation', $providing['Testapp']));
 
-        $this->appManager->uninstall(__DIR__ . '/Apps/Testapp');
+        self::assertTrue($this->appManager->uninstall(__DIR__ . '/Apps/Testapp'));
         self::assertFalse(\is_dir(__DIR__ . '/Apps/Testapp'));
     }
 
@@ -112,8 +122,15 @@ final class ApplicationManagerTest extends \PHPUnit\Framework\TestCase
         self::assertTrue($this->appManager->install(__DIR__ . '/Testapp', __DIR__ . '/Apps/Testapp'));
 
         $this->appManager->reInit(__DIR__ . '/Apps/Testapp');
-        self::assertEquals($r1 = include __DIR__ . '/Testapp/Admin/Install/Application/Routes.php', $r2 = include __DIR__ . '/Apps/Testapp/Routes.php');
-        self::assertEquals($h1 = include __DIR__ . '/Testapp/Admin/Install/Application/Hooks.php', $h2 = include __DIR__ . '/Apps/Testapp/Hooks.php');
+        self::assertEquals(
+            $r1 = include __DIR__ . '/Testapp/Admin/Install/Application/Routes.php',
+            $r2 = include __DIR__ . '/Apps/Testapp/Routes.php'
+        );
+
+        self::assertEquals(
+            $h1 = include __DIR__ . '/Testapp/Admin/Install/Application/Hooks.php',
+            $h2 = include __DIR__ . '/Apps/Testapp/Hooks.php'
+        );
 
         $this->appManager->uninstall(__DIR__ . '/Apps/Testapp');
 

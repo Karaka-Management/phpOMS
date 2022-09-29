@@ -15,6 +15,7 @@ declare(strict_types=1);
 namespace phpOMS\Message\Socket;
 
 use phpOMS\Message\RequestAbstract;
+use phpOMS\Router\RouteVerb;
 
 /**
  * Request class.
@@ -74,5 +75,13 @@ final class SocketRequest extends RequestAbstract
     public function getBody() : string
     {
         return '';
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function getRouteVerb() : int
+    {
+        return RouteVerb::ANY;
     }
 }

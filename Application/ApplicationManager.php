@@ -150,7 +150,7 @@ final class ApplicationManager
 
             // @var class-string<UninstallerAbstract> $class
             $class = \str_replace('/', '\\', $classPath);
-            $class::uninstall($this->app, $info, $this->app->appSettings);
+            $class::uninstall($this->app->dbPool, $info, $this->app->appSettings);
 
             $this->uninstallFiles($source);
 

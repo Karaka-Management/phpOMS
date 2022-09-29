@@ -58,33 +58,6 @@ final class CreditCard extends ValidatorAbstract
         }
 
         // If the total mod 10 equals 0, the value is valid
-        return ($total % 10 == 0) ? true : false;
-    }
-
-    /**
-     * Luhn algorithm or mod 10 algorithm is used to verify credit cards.
-     *
-     * @param string $num credit card number
-     *
-     * @return bool returns true if the number is a valid credit card and false if it isn't
-     *
-     * @since 1.0.0
-     */
-    public static function luhnTest(string $num) : bool
-    {
-        $len = \strlen($num);
-        $sum = 0;
-
-        for ($i = $len - 1; $i >= 0; --$i) {
-            $ord = \ord($num[$i]);
-
-            if (($len - 1) & $i) {
-                $sum += $ord;
-            } else {
-                $sum += $ord / 5 + (2 * $ord) % 10;
-            }
-        }
-
-        return $sum % 10 == 0;
+        return $total % 10 === 0;
     }
 }

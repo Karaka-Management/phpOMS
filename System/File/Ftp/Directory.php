@@ -207,7 +207,11 @@ class Directory extends FileAbstract implements DirectoryInterface
                     return false;
                 }
 
-                \ftp_mkdir($con, $part);
+                $status = @\ftp_mkdir($con, $part);
+                if ($status === false) {
+                    return false;
+                }
+
                 \ftp_chmod($con, $permission, $part);
             }
 
@@ -414,17 +418,29 @@ class Directory extends FileAbstract implements DirectoryInterface
             return false;
         }
 
-        $tempName = 'temp' . \mt_rand();
-        \mkdir($tempName);
-        $download = self::get($con, $from, $tempName . '/' . self::name($from));
-
-        if (!$download) {
+        $tempName = \tempnam(\sys_get_temp_dir(), 'omsftp_');
+        $status   = @\mkdir($tempName);
+        if ($status === false) {
             return false;
         }
 
-        $upload = self::put($con, \realpath($tempName) . '/' . self::name($from), $to);
+        $download = self::get($con, $from, $tempName . '/' . self::name($from));
+
+        if (!$download) {
+            if ($status !== false) {
+                LocalDirectory::delete($tempName);
+            }
+
+            return false;
+        }
+
+        $upload = self::put($con, $tempName . '/' . self::name($from), $to);
 
         if (!$upload) {
+            if ($status !== false) {
+                LocalDirectory::delete($tempName);
+            }
+
             return false;
         }
 
