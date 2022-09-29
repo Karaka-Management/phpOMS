@@ -172,7 +172,7 @@ class Smtp
 
         if ($streamok) {
             $socketContext = \stream_context_create($options);
-            $connection    = \stream_socket_client($host . ':' . $port, $errno, $errstr, $timeout, \STREAM_CLIENT_CONNECT, $socketContext);
+            $connection    = @\stream_socket_client($host . ':' . $port, $errno, $errstr, $timeout, \STREAM_CLIENT_CONNECT, $socketContext);
         } else {
             //Fall back to fsockopen which should work in more places, but is missing some features
             $connection = \fsockopen($host, $port, $errno, $errstr, $timeout);
@@ -313,11 +313,11 @@ class Smtp
                 return $this->sendCommand('Username', \base64_encode($response), 235);
             case 'XOAUTH2':
                 //The OAuth instance must be set up prior to requesting auth.
-                if ($OAuth === null) {
+                if ($oauth === null) {
                     return false;
                 }
 
-                $oauth = $OAuth->getOauth64();
+                $oauth = $oauth->getOauth64();
                 if (!$this->sendCommand('AUTH', 'AUTH XOAUTH2 ' . $oauth, 235)) {
                     return false;
                 }

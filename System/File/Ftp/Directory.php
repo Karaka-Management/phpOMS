@@ -419,7 +419,11 @@ class Directory extends FileAbstract implements DirectoryInterface
         }
 
         $tempName = \tempnam(\sys_get_temp_dir(), 'omsftp_');
-        $status   = @\mkdir($tempName);
+        if ($tempName === false) {
+            return false;
+        }
+
+        $status = @\mkdir($tempName);
         if ($status === false) {
             return false;
         }
