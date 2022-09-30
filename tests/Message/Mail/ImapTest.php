@@ -33,6 +33,12 @@ final class ImapTest extends \PHPUnit\Framework\TestCase
      */
     protected function setUp() : void
     {
+        if (!\extension_loaded('imap')) {
+            $this->markTestSkipped(
+              'The imap extension is not available.'
+            );
+        }
+
         $this->handler        = new Imap('testuser', 'testuser', 143);
         $this->handler->host  = '127.0.0.1';
         $this->handler->flags = '/imap/notls/norsh/novalidate-cert';

@@ -33,6 +33,12 @@ final class Pop3Test extends \PHPUnit\Framework\TestCase
      */
     protected function setUp() : void
     {
+        if (!\extension_loaded('imap')) {
+            $this->markTestSkipped(
+              'The imap extension is not available.'
+            );
+        }
+
         $this->handler        = new Pop3('testuser', 'testuser', 110);
         $this->handler->host  = '127.0.0.1';
         $this->handler->flags = '/pop3/notls';
