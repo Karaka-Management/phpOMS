@@ -421,4 +421,8 @@ function phpServe() : void
     });
 }
 
-\phpServe();
+try {
+    \phpServe();
+} catch(Throwable $t) {
+    echo $t->getMessage();
+}
