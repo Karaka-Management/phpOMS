@@ -45,7 +45,7 @@ final class MailHandlerTest extends \PHPUnit\Framework\TestCase
             'organizationName'       => 'Karaka',
             'organizationalUnitName' => 'Framework',
             'commonName'             => 'Karaka Test',
-            'emailAddress'           => 'test@karaka.email',
+            'emailAddress'           => 'test@jingga.app',
         ];
         $keyconfig = [
             'digest_alg'       => 'sha256',

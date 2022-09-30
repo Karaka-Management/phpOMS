@@ -72,7 +72,7 @@ final class ArgumentTest extends \PHPUnit\Framework\TestCase
         self::assertEquals(':modules/admin/test/path.php', $obj->getPath());
         self::assertEquals(':modules', $obj->getPathElement(0));
         self::assertEquals(
-            [':modules', 'admin', 'test', 'path'],
+            [':modules', 'admin', 'test', 'path.php'],
             $obj->getPathElements()
         );
     }
@@ -185,7 +185,7 @@ final class ArgumentTest extends \PHPUnit\Framework\TestCase
 
         self::assertEquals('?para1=abc ?para2=2 #frag', $obj->getQuery());
         self::assertEquals(['?para1=abc', '?para2=2', '#frag'], $obj->getQueryArray());
-        self::assertEquals('2', $obj->getQuery('para2'));
+        self::assertEquals('?para1=abc', $obj->getQuery('1'));
     }
 
     /**

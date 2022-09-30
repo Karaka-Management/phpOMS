@@ -237,8 +237,11 @@ class View extends ViewAbstract
         }
 
         $start = $start + \strlen($match);
-        $end   = \strpos($this->template, '/', $start);
+        if (\strlen($this->template) < $start) {
+            throw new InvalidModuleException($this->template);
+        }
 
+        $end = \strpos($this->template, '/', $start);
         if ($end === false) {
             throw new InvalidModuleException($this->template);
         }
@@ -269,8 +272,16 @@ class View extends ViewAbstract
             $this->theme = '0';
         }
 
-        $start       = $start + \strlen($match);
-        $end         = \strpos($this->template, '/', $start);
+        $start = $start + \strlen($match);
+        if (\strlen($this->template) < $start) {
+            throw new InvalidModuleException($this->template);
+        }
+
+        $end = \strpos($this->template, '/', $start);
+        if ($end === false) {
+            throw new InvalidModuleException($this->template);
+        }
+
         $this->theme = \substr($this->template, $start, $end - $start);
 
         if ($this->theme === false) {

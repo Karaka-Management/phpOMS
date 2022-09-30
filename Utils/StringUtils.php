@@ -290,7 +290,8 @@ final class StringUtils
                 break;
         }
 
-        return \str_replace(['<ins></ins>', '<del></del>'], ['', ''], $result);
+        // @todo: this should not be necessary
+        return \str_replace(['<ins></ins>', '<del></del>', '</ins><ins>', '</del><del>'], ['', '', '', ''], $result);
     }
 
     /**

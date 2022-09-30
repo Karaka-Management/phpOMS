@@ -36,12 +36,12 @@ trait MailHandlerMailTrait
 
         $mail                      = new Email();
         $mail->priority            = 1;
-        $mail->confirmationAddress = 'test1@karaka.email';
-        $mail->setFrom('test1@karaka.email', 'Dennis Eichhorn');
-        $mail->addTo('test@karaka.email', 'Dennis Eichhorn');
-        $mail->addCC('test2@karaka.email', 'Dennis Eichhorn');
-        $mail->addBCC('test3@karaka.email', 'Dennis Eichhorn');
-        $mail->addReplyTo('test4@karaka.email', 'Dennis Eichhorn');
+        $mail->confirmationAddress = 'test1@jingga.app';
+        $mail->setFrom('test1@jingga.app', 'Dennis Eichhorn');
+        $mail->addTo('test@jingga.app', 'Dennis Eichhorn');
+        $mail->addCC('test2@jingga.app', 'Dennis Eichhorn');
+        $mail->addBCC('test3@jingga.app', 'Dennis Eichhorn');
+        $mail->addReplyTo('test4@jingga.app', 'Dennis Eichhorn');
         $mail->subject = 'testSendTextWithMail';
         $mail->body    = "This is some content\n\Image: <img alt=\"image\" src=\"cid:cid1\">";
         $mail->altBody = 'Alt body';
@@ -65,12 +65,12 @@ trait MailHandlerMailTrait
 
         $mail                      = new Email();
         $mail->priority            = 1;
-        $mail->confirmationAddress = 'test1@karaka.email';
-        $mail->setFrom('test1@karaka.email', 'Dennis Eichhorn');
-        $mail->addTo('test@karaka.email', 'Dennis Eichhorn');
-        $mail->addCC('test2@karaka.email', 'Dennis Eichhorn');
-        $mail->addBCC('test3@karaka.email', 'Dennis Eichhorn');
-        $mail->addReplyTo('test4@karaka.email', 'Dennis Eichhorn');
+        $mail->confirmationAddress = 'test1@jingga.app';
+        $mail->setFrom('test1@jingga.app', 'Dennis Eichhorn');
+        $mail->addTo('test@jingga.app', 'Dennis Eichhorn');
+        $mail->addCC('test2@jingga.app', 'Dennis Eichhorn');
+        $mail->addBCC('test3@jingga.app', 'Dennis Eichhorn');
+        $mail->addReplyTo('test4@jingga.app', 'Dennis Eichhorn');
         $mail->subject = 'testSendHtmlWithMail';
         $message       = \file_get_contents(__DIR__ . '/files/utf8.html');
         $mail->charset = CharsetType::UTF_8;
@@ -99,9 +99,9 @@ trait MailHandlerMailTrait
 
         $mail                      = new Email();
         $mail->priority            = 1;
-        $mail->confirmationAddress = 'test1@karaka.email';
-        $mail->setFrom('test1@karaka.email', 'Dennis Eichhorn');
-        $mail->addTo('test@karaka.email', 'Dennis Eichhorn');
+        $mail->confirmationAddress = 'test1@jingga.app';
+        $mail->setFrom('test1@jingga.app', 'Dennis Eichhorn');
+        $mail->addTo('test@jingga.app', 'Dennis Eichhorn');
         $mail->subject = 'testSendInlineWithMail';
         $mail->setHtml(true);
         $mail->msgHTML("<img alt=\"image\" src=\"cid:cid1\">");
@@ -122,9 +122,9 @@ trait MailHandlerMailTrait
 
         $mail                      = new Email();
         $mail->priority            = 1;
-        $mail->confirmationAddress = 'test1@karaka.email';
-        $mail->setFrom('test1@karaka.email', 'Dennis Eichhorn');
-        $mail->addTo('test@karaka.email', 'Dennis Eichhorn');
+        $mail->confirmationAddress = 'test1@jingga.app';
+        $mail->setFrom('test1@jingga.app', 'Dennis Eichhorn');
+        $mail->addTo('test@jingga.app', 'Dennis Eichhorn');
         $mail->subject = 'testSendAttachmentWithMail';
         $mail->addAttachment(__DIR__ . '/files/logo.png', 'logo');
 
@@ -143,9 +143,9 @@ trait MailHandlerMailTrait
 
         $mail                      = new Email();
         $mail->priority            = 1;
-        $mail->confirmationAddress = 'test1@karaka.email';
-        $mail->setFrom('test1@karaka.email', 'Dennis Eichhorn');
-        $mail->addTo('test@karaka.email', 'Dennis Eichhorn');
+        $mail->confirmationAddress = 'test1@jingga.app';
+        $mail->setFrom('test1@jingga.app', 'Dennis Eichhorn');
+        $mail->addTo('test@jingga.app', 'Dennis Eichhorn');
         $mail->subject = 'testSendAltWithMail';
         $mail->altBody = 'Alt body';
 
@@ -164,9 +164,9 @@ trait MailHandlerMailTrait
 
         $mail                      = new Email();
         $mail->priority            = 1;
-        $mail->confirmationAddress = 'test1@karaka.email';
-        $mail->setFrom('test1@karaka.email', 'Dennis Eichhorn');
-        $mail->addTo('test@karaka.email', 'Dennis Eichhorn');
+        $mail->confirmationAddress = 'test1@jingga.app';
+        $mail->setFrom('test1@jingga.app', 'Dennis Eichhorn');
+        $mail->addTo('test@jingga.app', 'Dennis Eichhorn');
         $mail->subject = 'testSendAltInlineWithMail';
         $mail->altBody = 'Alt body';
         $mail->setHtml(true);
@@ -188,9 +188,9 @@ trait MailHandlerMailTrait
 
         $mail                      = new Email();
         $mail->priority            = 1;
-        $mail->confirmationAddress = 'test1@karaka.email';
-        $mail->setFrom('test1@karaka.email', 'Dennis Eichhorn');
-        $mail->addTo('test@karaka.email', 'Dennis Eichhorn');
+        $mail->confirmationAddress = 'test1@jingga.app';
+        $mail->setFrom('test1@jingga.app', 'Dennis Eichhorn');
+        $mail->addTo('test@jingga.app', 'Dennis Eichhorn');
         $mail->subject = 'testSendAltAttachmentWithMail';
         $mail->altBody = 'Alt body';
         $mail->addAttachment(__DIR__ . '/files/logo.png', 'logo');
@@ -210,9 +210,9 @@ trait MailHandlerMailTrait
 
         $mail                      = new Email();
         $mail->priority            = 1;
-        $mail->confirmationAddress = 'test1@karaka.email';
-        $mail->setFrom('test1@karaka.email', 'Dennis Eichhorn');
-        $mail->addTo('test@karaka.email', 'Dennis Eichhorn');
+        $mail->confirmationAddress = 'test1@jingga.app';
+        $mail->setFrom('test1@jingga.app', 'Dennis Eichhorn');
+        $mail->addTo('test@jingga.app', 'Dennis Eichhorn');
         $mail->subject = 'testSendPlainWithMail';
         $mail->body    = 'Body';
 
@@ -231,9 +231,9 @@ trait MailHandlerMailTrait
 
         $mail                      = new Email();
         $mail->priority            = 1;
-        $mail->confirmationAddress = 'test1@karaka.email';
-        $mail->setFrom('test1@karaka.email', 'Dennis Eichhorn');
-        $mail->addTo('test@karaka.email', 'Dennis Eichhorn');
+        $mail->confirmationAddress = 'test1@jingga.app';
+        $mail->setFrom('test1@jingga.app', 'Dennis Eichhorn');
+        $mail->addTo('test@jingga.app', 'Dennis Eichhorn');
         $mail->subject         = 'testSendPlainDKIMWithMail';
         $mail->body            = 'Body';
         $mail->dkimPrivatePath = __DIR__ . '/dkim.pem';
@@ -253,13 +253,13 @@ trait MailHandlerMailTrait
 
         $mail                      = new Email();
         $mail->priority            = 1;
-        $mail->confirmationAddress = 'test1@karaka.email';
-        $mail->setFrom('test1@karaka.email', 'Dennis Eichhorn');
-        $mail->addTo('test@karaka.email', 'Dennis Eichhorn');
+        $mail->confirmationAddress = 'test1@jingga.app';
+        $mail->setFrom('test1@jingga.app', 'Dennis Eichhorn');
+        $mail->addTo('test@jingga.app', 'Dennis Eichhorn');
         $mail->subject = 'testSendPlainDKIMSignWithMail';
         $mail->body    = 'Body';
 
-        $mail->dkimDomain      = 'karaka.email';
+        $mail->dkimDomain      = 'jingga.app';
         $mail->dkimPrivatePath = __DIR__ . '/dkim.pem';
         $mail->dkimSelector    = 'phpOMS';
         $mail->dkimPass        = '';
@@ -279,9 +279,9 @@ trait MailHandlerMailTrait
 
         $mail                      = new Email();
         $mail->priority            = 1;
-        $mail->confirmationAddress = 'test1@karaka.email';
-        $mail->setFrom('test1@karaka.email', 'Dennis Eichhorn');
-        $mail->addTo('test@karaka.email', 'Dennis Eichhorn');
+        $mail->confirmationAddress = 'test1@jingga.app';
+        $mail->setFrom('test1@jingga.app', 'Dennis Eichhorn');
+        $mail->addTo('test@jingga.app', 'Dennis Eichhorn');
         $mail->subject = 'testSendPlainSignWithMail';
         $mail->body    = 'Body';
 
@@ -305,9 +305,9 @@ trait MailHandlerMailTrait
 
         $mail                      = new Email();
         $mail->priority            = 1;
-        $mail->confirmationAddress = 'test1@karaka.email';
-        $mail->setFrom('test1@karaka.email', 'Dennis Eichhorn');
-        $mail->addTo('test@karaka.email', 'Dennis Eichhorn');
+        $mail->confirmationAddress = 'test1@jingga.app';
+        $mail->setFrom('test1@jingga.app', 'Dennis Eichhorn');
+        $mail->addTo('test@jingga.app', 'Dennis Eichhorn');
         $mail->subject    = 'testSendICalAltWithMail';
         $mail->body       = 'Ical test';
         $mail->altBody    = 'Ical test';
@@ -362,9 +362,9 @@ trait MailHandlerMailTrait
 
         $mail                      = new Email();
         $mail->priority            = 1;
-        $mail->confirmationAddress = 'test1@karaka.email';
-        $mail->setFrom('test1@karaka.email', 'Dennis Eichhorn');
-        $mail->addTo('test@karaka.email', 'Dennis Eichhorn');
+        $mail->confirmationAddress = 'test1@jingga.app';
+        $mail->setFrom('test1@jingga.app', 'Dennis Eichhorn');
+        $mail->addTo('test@jingga.app', 'Dennis Eichhorn');
         $mail->addAttachment(__DIR__ . '/files/logo.png', 'logo');
         $mail->subject    = 'testSendICalAltAttachmentWithMail';
         $mail->body       = 'Ical test';
