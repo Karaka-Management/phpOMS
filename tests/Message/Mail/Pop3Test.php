@@ -48,6 +48,7 @@ final class Pop3Test extends \PHPUnit\Framework\TestCase
                 self::markTestSkipped();
             }
         } catch (\Throwable $t) {
+            echo $t->getMessage();
             self::markTestSkipped();
         }
     }
