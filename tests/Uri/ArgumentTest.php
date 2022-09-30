@@ -185,7 +185,7 @@ final class ArgumentTest extends \PHPUnit\Framework\TestCase
 
         self::assertEquals('?para1=abc ?para2=2 #frag', $obj->getQuery());
         self::assertEquals(['?para1=abc', '?para2=2', '#frag'], $obj->getQueryArray());
-        self::assertEquals('?para1=abc', $obj->getQuery('1'));
+        self::assertEquals('?para2=2', $obj->getQuery('1'));
     }
 
     /**

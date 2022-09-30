@@ -291,7 +291,11 @@ final class StringUtils
         }
 
         // @todo: this should not be necessary
-        return \str_replace(['<ins></ins>', '<del></del>', '</ins><ins>', '</del><del>'], ['', '', '', ''], $result);
+        return \str_replace(
+            ['</del></del>', '</ins></ins>', '<ins></ins>', '<del></del>', '</ins><ins>', '</del><del>', '</ins> <del>', '</del> <ins>'],
+            ['', '', '', '', '', '', '</ins><del>', '</del><ins>'],
+            $result
+        );
     }
 
     /**

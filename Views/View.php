@@ -274,12 +274,12 @@ class View extends ViewAbstract
 
         $start = $start + \strlen($match);
         if (\strlen($this->template) < $start) {
-            throw new InvalidModuleException($this->template);
+            throw new InvalidThemeException($this->template);
         }
 
         $end = \strpos($this->template, '/', $start);
         if ($end === false) {
-            throw new InvalidModuleException($this->template);
+            throw new InvalidThemeException($this->template);
         }
 
         $this->theme = \substr($this->template, $start, $end - $start);
