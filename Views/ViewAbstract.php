@@ -300,9 +300,8 @@ abstract class ViewAbstract implements RenderableInterface
                 $ob = (string) \json_encode($includeData);
             }
         } catch (\Throwable $e) {
-            $ob = '';
             if ($this->isBuffered) {
-                $ob = \ob_get_clean();
+                $ob .= (string) \ob_get_clean();
             }
         }
 
