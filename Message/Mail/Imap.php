@@ -91,7 +91,7 @@ class Imap implements MailBoxInterface
         $this->password   = $pass;
         $this->port       = $port;
         $this->encryption = $encryption;
-        $this->flags .= $this->encryption !== EncryptionType::NONE ? '/ssl' : '';
+        $this->flags     .= $this->encryption !== EncryptionType::NONE ? '/ssl' : '';
     }
 
     /**
@@ -127,7 +127,11 @@ class Imap implements MailBoxInterface
      */
     public function getBoxes() : array
     {
-        $list = \imap_list($this->mailbox, $reference = '{' . $this->host . ':' . $this->port . '}', '*');
+        $list = \imap_list(
+            $this->mailbox,
+            $reference = '{' . $this->host . ':' . $this->port . '}',
+            '*'
+        );
         if (!\is_array($list)) {
             return []; // @codeCoverageIgnore
         }
@@ -292,7 +296,12 @@ class Imap implements MailBoxInterface
      */
     public function moveMail(string | array $messages, string $box) : bool
     {
-        return \imap_mail_copy($this->mailbox, !\is_string($messages) ? \implode(',', $messages) : $messages, '{' . $this->host . ':' . $this->port . '}' . $box);
+        return \imap_mail_copy(
+            $this->mailbox,
+            !\is_string($messages)
+                ? \implode(',', $messages)
+                : $messages, '{' . $this->host . ':' . $this->port . '}' . $box
+        );
     }
 
     /**
@@ -306,7 +315,7 @@ class Imap implements MailBoxInterface
      */
     public function deleteMail(int $msg) : bool
     {
-        return \imap_delete($this->mailbox, $msg);
+        return \imap_delete($this->mailbox, (string) $msg);
     }
 
     /**
