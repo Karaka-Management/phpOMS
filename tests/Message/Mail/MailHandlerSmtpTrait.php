@@ -33,9 +33,9 @@ trait MailHandlerSmtpTrait
         $smtp                = new Smtp();
         $this->handler->smtp = $smtp;
 
-        if ($this->handler->mailerTool !== ''
-            && !\file_exists(\explode(' ', $this->handler->mailerTool)[0])
-            && ($this->handler->smtp === null || !$this->handler->smtpConnect($this->handler->smtpOptions))
+        if (($this->handler->mailerTool !== ''
+            && !\file_exists(\explode(' ', $this->handler->mailerTool)[0]))
+            || (!$this->handler->smtpConnect($this->handler->smtpOptions))
         ) {
             self::markTestSkipped();
         }
@@ -69,9 +69,9 @@ trait MailHandlerSmtpTrait
         $smtp                = new Smtp();
         $this->handler->smtp = $smtp;
 
-        if ($this->handler->mailerTool !== ''
-            && !\file_exists(\explode(' ', $this->handler->mailerTool)[0])
-            && ($this->handler->smtp === null || !$this->handler->smtpConnect($this->handler->smtpOptions))
+        if (($this->handler->mailerTool !== ''
+            && !\file_exists(\explode(' ', $this->handler->mailerTool)[0]))
+            || (!$this->handler->smtpConnect($this->handler->smtpOptions))
         ) {
             self::markTestSkipped();
         }
@@ -110,9 +110,9 @@ trait MailHandlerSmtpTrait
         $smtp                = new Smtp();
         $this->handler->smtp = $smtp;
 
-        if ($this->handler->mailerTool !== ''
-            && !\file_exists(\explode(' ', $this->handler->mailerTool)[0])
-            && ($this->handler->smtp === null || !$this->handler->smtpConnect($this->handler->smtpOptions))
+        if (($this->handler->mailerTool !== ''
+            && !\file_exists(\explode(' ', $this->handler->mailerTool)[0]))
+            || (!$this->handler->smtpConnect($this->handler->smtpOptions))
         ) {
             self::markTestSkipped();
         }
@@ -140,9 +140,9 @@ trait MailHandlerSmtpTrait
         $smtp                = new Smtp();
         $this->handler->smtp = $smtp;
 
-        if ($this->handler->mailerTool !== ''
-            && !\file_exists(\explode(' ', $this->handler->mailerTool)[0])
-            && ($this->handler->smtp === null || !$this->handler->smtpConnect($this->handler->smtpOptions))
+        if (($this->handler->mailerTool !== ''
+            && !\file_exists(\explode(' ', $this->handler->mailerTool)[0]))
+            || (!$this->handler->smtpConnect($this->handler->smtpOptions))
         ) {
             self::markTestSkipped();
         }
@@ -168,9 +168,9 @@ trait MailHandlerSmtpTrait
         $smtp                = new Smtp();
         $this->handler->smtp = $smtp;
 
-        if ($this->handler->mailerTool !== ''
-            && !\file_exists(\explode(' ', $this->handler->mailerTool)[0])
-            && ($this->handler->smtp === null || !$this->handler->smtpConnect($this->handler->smtpOptions))
+        if (($this->handler->mailerTool !== ''
+            && !\file_exists(\explode(' ', $this->handler->mailerTool)[0]))
+            || (!$this->handler->smtpConnect($this->handler->smtpOptions))
         ) {
             self::markTestSkipped();
         }
@@ -196,9 +196,9 @@ trait MailHandlerSmtpTrait
         $smtp                = new Smtp();
         $this->handler->smtp = $smtp;
 
-        if ($this->handler->mailerTool !== ''
-            && !\file_exists(\explode(' ', $this->handler->mailerTool)[0])
-            && ($this->handler->smtp === null || !$this->handler->smtpConnect($this->handler->smtpOptions))
+        if (($this->handler->mailerTool !== ''
+            && !\file_exists(\explode(' ', $this->handler->mailerTool)[0]))
+            || (!$this->handler->smtpConnect($this->handler->smtpOptions))
         ) {
             self::markTestSkipped();
         }
@@ -227,9 +227,9 @@ trait MailHandlerSmtpTrait
         $smtp                = new Smtp();
         $this->handler->smtp = $smtp;
 
-        if ($this->handler->mailerTool !== ''
-            && !\file_exists(\explode(' ', $this->handler->mailerTool)[0])
-            && ($this->handler->smtp === null || !$this->handler->smtpConnect($this->handler->smtpOptions))
+        if (($this->handler->mailerTool !== ''
+            && !\file_exists(\explode(' ', $this->handler->mailerTool)[0]))
+            || (!$this->handler->smtpConnect($this->handler->smtpOptions))
         ) {
             self::markTestSkipped();
         }
@@ -256,9 +256,9 @@ trait MailHandlerSmtpTrait
         $smtp                = new Smtp();
         $this->handler->smtp = $smtp;
 
-        if ($this->handler->mailerTool !== ''
-            && !\file_exists(\explode(' ', $this->handler->mailerTool)[0])
-            && ($this->handler->smtp === null || !$this->handler->smtpConnect($this->handler->smtpOptions))
+        if (($this->handler->mailerTool !== ''
+            && !\file_exists(\explode(' ', $this->handler->mailerTool)[0]))
+            || (!$this->handler->smtpConnect($this->handler->smtpOptions))
         ) {
             self::markTestSkipped();
         }
@@ -284,9 +284,9 @@ trait MailHandlerSmtpTrait
         $smtp                = new Smtp();
         $this->handler->smtp = $smtp;
 
-        if ($this->handler->mailerTool !== ''
-            && !\file_exists(\explode(' ', $this->handler->mailerTool)[0])
-            && ($this->handler->smtp === null || !$this->handler->smtpConnect($this->handler->smtpOptions))
+        if (($this->handler->mailerTool !== ''
+            && !\file_exists(\explode(' ', $this->handler->mailerTool)[0]))
+            || (!$this->handler->smtpConnect($this->handler->smtpOptions))
         ) {
             self::markTestSkipped();
         }
@@ -313,9 +313,9 @@ trait MailHandlerSmtpTrait
         $smtp                = new Smtp();
         $this->handler->smtp = $smtp;
 
-        if ($this->handler->mailerTool !== ''
-            && !\file_exists(\explode(' ', $this->handler->mailerTool)[0])
-            && ($this->handler->smtp === null || !$this->handler->smtpConnect($this->handler->smtpOptions))
+        if (($this->handler->mailerTool !== ''
+            && !\file_exists(\explode(' ', $this->handler->mailerTool)[0]))
+            || (!$this->handler->smtpConnect($this->handler->smtpOptions))
         ) {
             self::markTestSkipped();
         }
@@ -346,9 +346,9 @@ trait MailHandlerSmtpTrait
         $smtp                = new Smtp();
         $this->handler->smtp = $smtp;
 
-        if ($this->handler->mailerTool !== ''
-            && !\file_exists(\explode(' ', $this->handler->mailerTool)[0])
-            && ($this->handler->smtp === null || !$this->handler->smtpConnect($this->handler->smtpOptions))
+        if (($this->handler->mailerTool !== ''
+            && !\file_exists(\explode(' ', $this->handler->mailerTool)[0]))
+            || (!$this->handler->smtpConnect($this->handler->smtpOptions))
         ) {
             self::markTestSkipped();
         }
@@ -379,9 +379,9 @@ trait MailHandlerSmtpTrait
         $smtp                = new Smtp();
         $this->handler->smtp = $smtp;
 
-        if ($this->handler->mailerTool !== ''
-            && !\file_exists(\explode(' ', $this->handler->mailerTool)[0])
-            && ($this->handler->smtp === null || !$this->handler->smtpConnect($this->handler->smtpOptions))
+        if (($this->handler->mailerTool !== ''
+            && !\file_exists(\explode(' ', $this->handler->mailerTool)[0]))
+            || (!$this->handler->smtpConnect($this->handler->smtpOptions))
         ) {
             self::markTestSkipped();
         }
@@ -443,9 +443,9 @@ trait MailHandlerSmtpTrait
         $smtp                = new Smtp();
         $this->handler->smtp = $smtp;
 
-        if ($this->handler->mailerTool !== ''
-            && !\file_exists(\explode(' ', $this->handler->mailerTool)[0])
-            && ($this->handler->smtp === null || !$this->handler->smtpConnect($this->handler->smtpOptions))
+        if (($this->handler->mailerTool !== ''
+            && !\file_exists(\explode(' ', $this->handler->mailerTool)[0]))
+            || (!$this->handler->smtpConnect($this->handler->smtpOptions))
         ) {
             self::markTestSkipped();
         }

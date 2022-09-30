@@ -48,7 +48,7 @@ final class InstallerAbstractTest extends \PHPUnit\Framework\TestCase
      */
     public function testInvalidModuleInstall() : void
     {
-        $this->expectException(\UnexpectedValueException::class);
+        $this->expectException(\Error::class);
 
         $app = new class() extends ApplicationAbstract {};
         $app->dbPool = $GLOBALS['dbpool'];
