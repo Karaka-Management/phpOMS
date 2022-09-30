@@ -110,7 +110,7 @@ class Imap implements MailBoxInterface
      */
     public function connectInbox() : bool
     {
-        $this->mailbox = ($tmp = \imap_open(
+        $this->mailbox = ($tmp = @\imap_open(
             '{' . $this->host . ':' . $this->port . $this->flags . '}',
             $this->username, $this->password
         )) === false ? null : $tmp;
