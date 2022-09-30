@@ -19,6 +19,11 @@ use phpOMS\DataStorage\Database\Mapper\DataMapperFactory;
 use phpOMS\DataStorage\Session\HttpSession;
 use phpOMS\Log\FileLogger;
 
+var_dump($_SERVER);
+var_dump(php_uname());
+var_dump(getenv());
+var_dump(ini_get_all());
+
 // Initialize file logger with correct path
 $tmp = FileLogger::getInstance(__DIR__ . '/../Logs');
 
