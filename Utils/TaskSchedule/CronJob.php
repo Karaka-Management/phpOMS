@@ -29,7 +29,9 @@ class CronJob extends TaskAbstract
      */
     public function __toString() : string
     {
-        return $this->command . ' # name="' . $this->id . '" ' . $this->comment;
+        return $this->id === '' || $this->command === ''
+            ? ''
+            : $this->interval . ' ' . $this->command . ' # name="' . $this->id . '" ' . $this->comment;
     }
 
     /**
