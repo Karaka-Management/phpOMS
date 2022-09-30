@@ -39,6 +39,12 @@ final class Pop3Test extends \PHPUnit\Framework\TestCase
             );
         }
 
+        if ($GLOBALS['is_github']) {
+            $this->markTestSkipped(
+              'Imap is not working in github actions'
+            );
+        }
+
         $this->handler        = new Pop3('testuser', 'testuser', 110);
         $this->handler->host  = '127.0.0.1';
         $this->handler->flags = '/pop3/notls';

@@ -39,6 +39,12 @@ final class ImapTest extends \PHPUnit\Framework\TestCase
             );
         }
 
+        if ($GLOBALS['is_github']) {
+            $this->markTestSkipped(
+              'Imap is not working in github actions'
+            );
+        }
+
         $this->handler        = new Imap('testuser', 'testuser', 143);
         $this->handler->host  = '127.0.0.1';
         $this->handler->flags = '/imap/notls/norsh/novalidate-cert';
