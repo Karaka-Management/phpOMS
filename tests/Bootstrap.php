@@ -423,6 +423,6 @@ function phpServe() : void
 
 try {
     \phpServe();
-} catch(Throwable $t) {
+} catch(\Throwable $t) {
     echo $t->getMessage();
 }
