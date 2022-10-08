@@ -1,4 +1,5 @@
-<?php declare(strict_types=1);
+<?php
+declare(strict_types=1);
 return [
     '^.*/backend/admin/settings/csrf.*$' => [
         0 => [
