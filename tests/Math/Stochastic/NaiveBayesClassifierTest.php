@@ -69,7 +69,7 @@ final class NaiveBayesClassifierTest extends \PHPUnit\Framework\TestCase
 
         self::assertEqualsWithDelta(
             0.6,
-            $filter->match('play', ['weather' => ['Sunny']], 1),
+            $filter->matchCriteria('play', ['weather' => ['Sunny']], 1),
             0.01
         );
     }
@@ -86,7 +86,7 @@ final class NaiveBayesClassifierTest extends \PHPUnit\Framework\TestCase
 
         self::assertEqualsWithDelta(
             0.999988,
-            $filter->match('female', ['height' => 6, 'weight' => 130, 'foot' => 8]),
+            $filter->matchCriteria('female', ['height' => 6, 'weight' => 130, 'foot' => 8]),
             0.01
         );
     }

@@ -123,7 +123,7 @@ final class NaiveBayesClassifier
      *
      * @since 1.0.0
      */
-    public function match(string $criteria, array $toMatch, int $minimum = 3) : float
+    public function matchCriteria(string $criteria, array $toMatch, int $minimum = 3) : float
     {
         $this->preCalculateProbabilities($toMatch);
 
