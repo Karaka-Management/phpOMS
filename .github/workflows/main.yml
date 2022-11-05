@@ -93,6 +93,12 @@ jobs:
           ref: develop
           repository: Karaka-Management/Resources
           path: Resources
+    - name: Run the action
+        uses: potatoqualitee/mssqlsuite@v1.5.1
+        with:
+          install: sqlengine, sqlclient, sqlpackage, localdb
+          version: 2017
+          sa-password: R00troot
     - name: Setup PHP, with composer and extensions
       uses: shivammathur/setup-php@master
       with:

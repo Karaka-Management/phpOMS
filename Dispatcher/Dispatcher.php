@@ -129,7 +129,7 @@ final class Dispatcher implements DispatcherInterface
 
             $views[$controller] = $data === null ? $function() : $function(...$data);
         } elseif ($c === 2) {
-            $obj = $this->getController($dispatch[0]);
+            $obj                = $this->getController($dispatch[0]);
             $views[$controller] = $data === null
                 ? $obj->{$dispatch[1]}()
                 : $obj->{$dispatch[1]}(...$data);
