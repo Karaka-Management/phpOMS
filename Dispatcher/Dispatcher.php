@@ -129,8 +129,10 @@ final class Dispatcher implements DispatcherInterface
 
             $views[$controller] = $data === null ? $function() : $function(...$data);
         } elseif ($c === 2) {
-            $this->getController($dispatch[0]);
-            $views[$controller] = $data === null ? $this->controllers[$dispatch[0]]->{$dispatch[1]}() : $this->controllers[$dispatch[0]]->{$dispatch[1]}(...$data);
+            $obj = $this->getController($dispatch[0]);
+            $views[$controller] = $data === null
+                ? $obj->{$dispatch[1]}()
+                : $obj->{$dispatch[1]}(...$data);
         } else {
             throw new \UnexpectedValueException('Unexpected function.');
         }
@@ -196,14 +198,14 @@ final class Dispatcher implements DispatcherInterface
     /**
      * Set controller by alias.
      *
-     * @param ModuleAbstract $controller Controller
-     * @param string         $name       Controller string
+     * @param object $controller Controller
+     * @param string $name       Controller string
      *
      * @return void
      *
      * @since 1.0.0
      */
-    public function set(ModuleAbstract $controller, string $name) : void
+    public function set(object $controller, string $name) : void
     {
         $this->controllers[$name] = $controller;
     }
