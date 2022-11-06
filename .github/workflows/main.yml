@@ -104,7 +104,7 @@ jobs:
       uses: shivammathur/setup-php@master
       with:
           php-version: ${{ matrix.php-versions }}
-          extensions: mbstring, gd, zip, dom, mysql, pgsql, sqlite, bcmath, redis, memcached
+          extensions: mbstring, gd, zip, dom, mysql, pgsql, sqlite, bcmath, redis, memcached, sqlsrv
           ini-values: opcache.jit_buffer_size=256M, opcache.jit=1235, pcre.jit=1
           coverage: pcov
     - name: Get Composer Cache Directory
