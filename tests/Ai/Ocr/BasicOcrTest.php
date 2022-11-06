@@ -38,7 +38,7 @@ final class BasicOcrTest extends \PHPUnit\Framework\TestCase
                 ['label' => 0, 'prob' => 1], ['label' => 0, 'prob' => 1], ['label' => 0, 'prob' => 1],
                 ['label' => 4, 'prob' => 2 / 3], ['label' => 9, 'prob' => 1 / 3], ['label' => 4, 'prob' => 2 / 3],
             ],
-            $ocr->match(__DIR__ . '/t10k-images-idx3-ubyte', 3, 5)
+            $ocr->matchImage(__DIR__ . '/t10k-images-idx3-ubyte', 3, 5)
         );
     }
 

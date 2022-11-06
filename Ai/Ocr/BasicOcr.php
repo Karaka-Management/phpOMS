@@ -248,7 +248,7 @@ final class BasicOcr
      *
      * @since 1.0.0
      */
-    public function match(string $path, int $comparison = 3, int $limit = 0) : array
+    public function matchImage(string $path, int $comparison = 3, int $limit = 0) : array
     {
         // @todo: implement image reading if it isn't an mnist file
         $Xtest = $this->readImages($path, $limit);
