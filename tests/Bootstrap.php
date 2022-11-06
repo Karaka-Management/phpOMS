@@ -236,7 +236,7 @@ $CONFIG = [
             'mssql' => [
                 'admin'  => [
                     'db'             => 'mssql', /* db type */
-                    'host'           => '127.0.0.1', /* db host address */
+                    'host'           => 'localhost', /* db host address */
                     'port'           => '1433', /* db host port */
                     'login'          => 'sa', /* db login name */
                     'password'       => 'c0MplicatedP@ssword', /* db login password */
@@ -246,7 +246,7 @@ $CONFIG = [
                 ],
                 'insert'  => [
                     'db'             => 'mssql', /* db type */
-                    'host'           => '127.0.0.1', /* db host address */
+                    'host'           => 'localhost', /* db host address */
                     'port'           => '1433', /* db host port */
                     'login'          => 'sa', /* db login name */
                     'password'       => 'c0MplicatedP@ssword', /* db login password */
@@ -256,7 +256,7 @@ $CONFIG = [
                 ],
                 'select'  => [
                     'db'             => 'mssql', /* db type */
-                    'host'           => '127.0.0.1', /* db host address */
+                    'host'           => 'localhost', /* db host address */
                     'port'           => '1433', /* db host port */
                     'login'          => 'sa', /* db login name */
                     'password'       => 'c0MplicatedP@ssword', /* db login password */
@@ -266,7 +266,7 @@ $CONFIG = [
                 ],
                 'update'  => [
                     'db'             => 'mssql', /* db type */
-                    'host'           => '127.0.0.1', /* db host address */
+                    'host'           => 'localhost', /* db host address */
                     'port'           => '1433', /* db host port */
                     'login'          => 'sa', /* db login name */
                     'password'       => 'c0MplicatedP@ssword', /* db login password */
@@ -276,7 +276,7 @@ $CONFIG = [
                 ],
                 'delete'  => [
                     'db'             => 'mssql', /* db type */
-                    'host'           => '127.0.0.1', /* db host address */
+                    'host'           => 'localhost', /* db host address */
                     'port'           => '1433', /* db host port */
                     'login'          => 'sa', /* db login name */
                     'password'       => 'c0MplicatedP@ssword', /* db login password */
@@ -286,7 +286,7 @@ $CONFIG = [
                 ],
                 'schema'  => [
                     'db'             => 'mssql', /* db type */
-                    'host'           => '127.0.0.1', /* db host address */
+                    'host'           => 'localhost', /* db host address */
                     'port'           => '1433', /* db host port */
                     'login'          => 'sa', /* db login name */
                     'password'       => 'c0MplicatedP@ssword', /* db login password */

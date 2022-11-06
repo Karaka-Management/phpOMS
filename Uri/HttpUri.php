@@ -384,9 +384,9 @@ final class HttpUri implements UriInterface
     /**
      * {@inheritdoc}
      */
-    public function getPathElement(int $pos = 0) : string
+    public function getPathElement(int $pos = 0, bool $useOffset = true) : string
     {
-        return $this->pathElements[$pos + $this->pathOffset] ?? '';
+        return $this->pathElements[$pos + ($useOffset ? $this->pathOffset : 0)] ?? '';
     }
 
     /**

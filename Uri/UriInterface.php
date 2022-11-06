@@ -117,13 +117,14 @@ interface UriInterface
     /**
      * Get path element.
      *
-     * @param int $pos Position of the path
+     * @param int $pos       Position of the path
+     * @param int $useOffset Uses internal path offset
      *
      * @return string
      *
      * @since 1.0.0
      */
-    public function getPathElement(int $pos = 0) : string;
+    public function getPathElement(int $pos = 0, bool $useOffset = true) : string;
 
     /**
      * Get path elements.
