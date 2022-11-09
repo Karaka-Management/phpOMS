@@ -44,4 +44,12 @@ final class NullModule extends ModuleAbstract
                 ]
             );
     }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function jsonSerialize() : mixed
+    {
+        return ['id' => $this->id];
+    }
 }

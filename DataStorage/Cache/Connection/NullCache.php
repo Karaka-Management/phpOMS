@@ -157,4 +157,12 @@ final class NullCache extends ConnectionAbstract
     {
         return true;
     }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function jsonSerialize() : mixed
+    {
+        return ['id' => $this->id];
+    }
 }

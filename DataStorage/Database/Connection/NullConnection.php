@@ -30,4 +30,12 @@ final class NullConnection extends ConnectionAbstract
     public function connect(array $dbdata = null) : void
     {
     }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function jsonSerialize() : mixed
+    {
+        return ['id' => $this->id];
+    }
 }
