@@ -124,7 +124,7 @@ final class Dispatcher implements DispatcherInterface
             $function = $dispatch[0] . '::' . $dispatch[2];
 
             if (!\is_callable($function)) {
-                throw new \Exception();
+                throw new \Exception('Endpoint "'. $function .'" is not callable!');
             }
 
             $views[$controller] = $data === null ? $function() : $function(...$data);

@@ -15,6 +15,7 @@ declare(strict_types=1);
 namespace phpOMS\Router;
 
 use phpOMS\Account\Account;
+use phpOMS\Account\NullAccount;
 
 /**
  * Router class for web routes.
@@ -155,15 +156,16 @@ final class WebRouter implements RouterInterface
                 ) {
                     // if csrf is required but not set
                     if (isset($d['csrf']) && $d['csrf'] && $csrf === null) {
-                        return $app !== null
-                            ? $this->route('/' . \strtolower($app) . '/e403', $csrf, $verb)
-                            : $this->route('/e403', $csrf, $verb);
+                        return ['dest' => RouteStatus::INVALID_CSRF];
                     }
 
                     // if permission check is invalid
-                    if ((isset($d['permission']) && !empty($d['permission']) && $account === null)
-                        || (isset($d['permission']) && !empty($d['permission'])
-                            && !$account?->hasPermission(
+                    if  (isset($d['permission']) && !empty($d['permission'])
+                        && ($account === null || $account instanceof NullAccount)
+                    ) {
+                        return ['dest' => RouteStatus::NOT_LOGGED_IN];
+                    } elseif (isset($d['permission']) && !empty($d['permission'])
+                        && !($account?->hasPermission(
                                 $d['permission']['type'] ?? 0,
                                 $d['permission']['unit'] ?? $orgId,
                                 $app,
@@ -172,18 +174,14 @@ final class WebRouter implements RouterInterface
                             )
                         )
                     ) {
-                        return $app !== null
-                            ? $this->route('/' . \strtolower($app) . '/e403', $csrf, $verb)
-                            : $this->route('/e403', $csrf, $verb);
+                        return ['dest' => RouteStatus::INVALID_PERMISSIONS];
                     }
 
                     // if validation check is invalid
                     if (isset($d['validation'])) {
                         foreach ($d['validation'] as $name => $validation) {
                             if (!isset($data[$name]) || \preg_match($validation, $data[$name]) !== 1) {
-                                return $app !== null
-                                    ? $this->route('/' . \strtolower($app) . '/e403', $csrf, $verb)
-                                    : $this->route('/e403', $csrf, $verb);
+                                return ['dest' => RouteStatus::INVALID_DATA];
                             }
                         }
                     }

@@ -15,6 +15,7 @@ declare(strict_types=1);
 namespace phpOMS\Router;
 
 use phpOMS\Account\Account;
+use phpOMS\Account\NullAccount;
 
 /**
  * Router class for socket routes.
@@ -148,21 +149,28 @@ final class SocketRouter implements RouterInterface
                     || ($verb & $d['verb']) === $verb
                 ) {
                     // if permission check is invalid
-                    if ((isset($d['permission']) && !empty($d['permission']) && $account === null)
-                        || (isset($d['permission']) && !empty($d['permission'])
-                            && !$account?->hasPermission(
-                                $d['permission']['type'] ?? null, $orgId, $app, $d['permission']['module'] ?? null, $d['permission']['state'] ?? null
+                    if  (isset($d['permission']) && !empty($d['permission'])
+                        && ($account === null || $account instanceof NullAccount)
+                    ) {
+                        return ['dest' => RouteStatus::NOT_LOGGED_IN];
+                    } elseif (isset($d['permission']) && !empty($d['permission'])
+                        && !($account?->hasPermission(
+                                $d['permission']['type'] ?? 0,
+                                $d['permission']['unit'] ?? $orgId,
+                                $app,
+                                $d['permission']['module'] ?? null,
+                                $d['permission']['state'] ?? null
                             )
                         )
                     ) {
-                        return $app !== null ? $this->route('/' . \strtolower($app) . '/e403') : $this->route('/e403');
+                        return ['dest' => RouteStatus::INVALID_PERMISSIONS];
                     }
 
                     // if validation check is invalid
                     if (isset($d['validation'])) {
                         foreach ($d['validation'] as $name => $pattern) {
                             if (!isset($data[$name]) || \preg_match($pattern, $data[$name]) !== 1) {
-                                return $app !== null ? $this->route('/' . \strtolower($app) . '/e403') : $this->route('/e403');
+                                return ['dest' => RouteStatus::INVALID_DATA];
                             }
                         }
                     }
