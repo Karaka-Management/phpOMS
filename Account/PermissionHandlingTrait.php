@@ -33,14 +33,6 @@ trait PermissionHandlingTrait
     protected array $permissions = [];
 
     /**
-     * Amount of permissions.
-     *
-     * @var int
-     * @since 1.0.0
-     */
-    private int $pLength = 0;
-
-    /**
      * Set permissions.
      *
      * The method accepts an array of permissions. All existing permissions are replaced.
@@ -54,7 +46,6 @@ trait PermissionHandlingTrait
     public function setPermissions(array $permissions) : void
     {
         $this->permissions = $permissions;
-        $this->pLength     = \count($this->permissions);
     }
 
     /**
@@ -77,8 +68,6 @@ trait PermissionHandlingTrait
                 $this->permissions[] = $permission;
             }
         }
-
-        $this->pLength = \count($this->permissions);
     }
 
     /**
@@ -95,7 +84,6 @@ trait PermissionHandlingTrait
     public function addPermission(PermissionAbstract $permission) : void
     {
         $this->permissions[] = $permission;
-        ++$this->pLength;
     }
 
     /**
@@ -137,7 +125,7 @@ trait PermissionHandlingTrait
      * @param null|int    $unit       Unit Unit to check (null if all are acceptable)
      * @param null|string $app        App App to check  (null if all are acceptable)
      * @param null|string $module     Module Module to check  (null if all are acceptable)
-     * @param null|int    $type       Type (e.g. customer) (null if all are acceptable)
+     * @param null|int    $category   Type (e.g. customer) (null if all are acceptable)
      * @param null|int    $element    (e.g. customer id) (null if all are acceptable)
      * @param null|int    $component  (e.g. address) (null if all are acceptable)
      *
@@ -150,7 +138,7 @@ trait PermissionHandlingTrait
         int $unit = null,
         string $app = null,
         string $module = null,
-        int $type = null,
+        int $category = null,
         int $element = null,
         int $component = null
     ) : bool
@@ -158,7 +146,7 @@ trait PermissionHandlingTrait
         $app = $app !== null ? \strtolower($app) : $app;
 
         foreach ($this->permissions as $p) {
-            if ($p->hasPermission($permission, $unit, $app, $module, $type, $element, $component)) {
+            if ($p->hasPermission($permission, $unit, $app, $module, $category, $element, $component)) {
                 return true;
             }
         }

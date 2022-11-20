@@ -38,16 +38,16 @@ final class WebRouter implements RouterInterface
     /**
      * Add routes from file.
      *
-     * Files need to return a php array of the following structure:
+     * Files need to return a php array of the following structure (see PermissionHandlingTrait):
      * return [
      *      '{REGEX_PATH}' => [
-     *          'dest' => '{DESTINATION_NAMESPACE:method}', // can also be static by using :: between namespace and function name
+     *          'dest' => '{DESTINATION_NAMESPACE:method}', // use :: for static functions
      *          'verb' => RouteVerb::{VERB},
      *          'csrf' => true,
      *          'permission' => [ // optional
      *              'module' => '{NAME}',
      *              'type' => PermissionType::{TYPE},
-     *              'state' => PermissionCategory::{STATE},
+     *              'category' => PermissionCategory::{STATE},
      *          ],
      *          // define different destination for different verb
      *      ],
@@ -160,7 +160,7 @@ final class WebRouter implements RouterInterface
                     }
 
                     // if permission check is invalid
-                    if  (isset($d['permission']) && !empty($d['permission'])
+                    if (isset($d['permission']) && !empty($d['permission'])
                         && ($account === null || $account instanceof NullAccount)
                     ) {
                         return ['dest' => RouteStatus::NOT_LOGGED_IN];
@@ -170,7 +170,7 @@ final class WebRouter implements RouterInterface
                                 $d['permission']['unit'] ?? $orgId,
                                 $app,
                                 $d['permission']['module'] ?? null,
-                                $d['permission']['state'] ?? null
+                                $d['permission']['category'] ?? null
                             )
                         )
                     ) {
