@@ -166,6 +166,7 @@ final class WriteMapper extends DataMapperAbstract
             // @codeCoverageIgnoreStart
             \var_dump($t->getMessage());
             \var_dump($a = $query->toSql());
+            \var_dump(\debug_backtrace());
 
             return -1;
             // @codeCoverageIgnoreEND
