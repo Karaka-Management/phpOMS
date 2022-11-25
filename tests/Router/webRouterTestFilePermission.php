@@ -12,7 +12,7 @@ return [
             'permission' => [
                 'module' => 'TEST',
                 'type'   => PermissionType::READ,
-                'state'  => 1,
+                'category'  => 1,
             ],
         ],
     ],
