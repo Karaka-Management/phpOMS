@@ -173,7 +173,6 @@ final class ReadMapper extends DataMapperAbstract
     {
         $primaryKeys          = [];
         $memberOfPrimaryField = $this->mapper::COLUMNS[$this->mapper::PRIMARYFIELD]['internal'];
-        $emptyWhere           = empty($this->where);
 
         if (isset($this->where[$memberOfPrimaryField])) {
             $keys        = $this->where[$memberOfPrimaryField][0]['value'];
@@ -184,16 +183,14 @@ final class ReadMapper extends DataMapperAbstract
         $obj = [];
 
         // Get remaining objects (not available in memory cache) or remaining where clauses.
-        if (!empty($primaryKeys) || (!empty($this->where) || $emptyWhere)) {
-            $dbData = $this->executeGetRaw($query);
+        $dbData = $this->executeGetRaw($query);
 
-            foreach ($dbData as $row) {
-                $value       = $row[$this->mapper::PRIMARYFIELD . '_d' . $this->depth];
-                $obj[$value] = $this->mapper::createBaseModel();
+        foreach ($dbData as $row) {
+            $value       = $row[$this->mapper::PRIMARYFIELD . '_d' . $this->depth];
+            $obj[$value] = $this->mapper::createBaseModel();
 
-                $obj[$value] = $this->populateAbstract($row, $obj[$value]);
-                $this->loadHasManyRelations($obj[$value]);
-            }
+            $obj[$value] = $this->populateAbstract($row, $obj[$value]);
+            $this->loadHasManyRelations($obj[$value]);
         }
 
         $countResulsts = \count($obj);
@@ -320,6 +317,31 @@ final class ReadMapper extends DataMapperAbstract
 
         if (empty($query->from)) {
             $query->fromAs($this->mapper::TABLE, $this->mapper::TABLE . '_d' . $this->depth);
+        }
+
+        // Join tables manually without using "with()" (NOT has many/owns one etc.)
+        // This is necessary for special cases, e.g. when joining in the other direction
+        // Example: Show all profiles who have written a news article.
+        //          "with()" only allows to go from articles to accounts but we want to go the other way
+        foreach ($this->join as $member => $values) {
+            if (($col = $this->mapper::getColumnByMember($member)) !== null) {
+                /* variable in model */
+                foreach ($values as $join) {
+                    // @todo: the has many, etc. if checks only work if it is a relation on the first level, if we have a deeper where condition nesting this fails
+                    if ($join['child'] !== '') {
+                        continue;
+                    }
+
+                    $query->join($join['mapper']::TABLE, $join['type'], $join['mapper']::TABLE . '_d' . ($this->depth + 1))
+                        ->on(
+                            $this->mapper::TABLE . '_d' . $this->depth . '.' . $col,
+                            '=',
+                            $join['mapper']::TABLE . '_d' . ($this->depth + 1) . '.' . $join['mapper']::getColumnByMember($join['value']),
+                            'and',
+                            $join['mapper']::TABLE . '_d' . ($this->depth + 1)
+                        );
+                }
+            }
         }
 
         // where

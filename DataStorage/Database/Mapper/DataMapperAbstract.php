@@ -96,6 +96,14 @@ abstract class DataMapperAbstract
     protected array $where = [];
 
     /**
+     * Join conditions
+     *
+     * @var array
+     * @since 1.0.0
+     */
+    protected array $join = [];
+
+    /**
      * Base query which is merged with the query in the mapper
      *
      * Sometimes you want to merge two queries together.
@@ -305,6 +313,86 @@ abstract class DataMapperAbstract
         ];
 
         return $this;
+    }
+
+    /**
+     * Define the joining data
+     *
+     * @param string $member Property name to filter by
+     * @param string $mapper Mapper
+     * @param mixed  $value  Filter value
+     * @param string $logic  Comparison logic (e.g. =, in, ...)
+     * @param string $type   Join type (e.g. left, right, inner)
+     *
+     * @return static
+     *
+     * @since 1.0.0
+     */
+    public function join(string $member, string $mapper, mixed $value, string $logic = '=', string $type = 'left') : self
+    {
+        $split       = \explode('/', $member);
+        $memberSplit = \array_shift($split);
+
+        $this->join[$memberSplit][] = [
+            'child' => \implode('/', $split),
+            'mapper' => $mapper,
+            'value' => $value,
+            'logic' => $logic,
+            'type'  => $type,
+        ];
+
+        return $this;
+    }
+
+    /**
+     * Define the joining data
+     *
+     * @param string $member Property name to filter by
+     * @param string $mapper Mapper
+     * @param mixed  $value  Filter value
+     * @param string $logic  Comparison logic (e.g. =, in, ...)
+     *
+     * @return static
+     *
+     * @since 1.0.0
+     */
+    public function leftJoin(string $member, string $mapper, mixed $value, string $logic = '=') : self
+    {
+        return $this->join($member, $mapper, $value, $logic, 'left');
+    }
+
+    /**
+     * Define the joining data
+     *
+     * @param string $member Property name to filter by
+     * @param string $mapper Mapper
+     * @param mixed  $value  Filter value
+     * @param string $logic  Comparison logic (e.g. =, in, ...)
+     *
+     * @return static
+     *
+     * @since 1.0.0
+     */
+    public function rightJoin(string $member, string $mapper, mixed $value, string $logic = '=') : self
+    {
+        return $this->join($member, $mapper, $value, $logic, 'right');
+    }
+
+    /**
+     * Define the joining data
+     *
+     * @param string $member Property name to filter by
+     * @param string $mapper Mapper
+     * @param mixed  $value  Filter value
+     * @param string $logic  Comparison logic (e.g. =, in, ...)
+     *
+     * @return static
+     *
+     * @since 1.0.0
+     */
+    public function innerJoin(string $member, string $mapper, mixed $value, string $logic = '=') : self
+    {
+        return $this->join($member, $mapper, $value, $logic, 'inner');
     }
 
     /**
