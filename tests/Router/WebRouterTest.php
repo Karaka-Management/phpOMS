@@ -19,6 +19,7 @@ use phpOMS\Account\PermissionAbstract;
 use phpOMS\Account\PermissionType;
 use phpOMS\Autoloader;
 use phpOMS\Message\Http\HttpRequest;
+use phpOMS\Router\RouteStatus;
 use phpOMS\Router\RouteVerb;
 use phpOMS\Router\WebRouter;
 use phpOMS\Uri\HttpUri;
@@ -195,7 +196,7 @@ final class WebRouterTest extends \PHPUnit\Framework\TestCase
         self::assertTrue($this->router->importFromFile(__DIR__ . '/webRouteTestCsrf.php'));
 
         self::assertEquals(
-            [],
+            ['dest' => RouteStatus::INVALID_CSRF],
             $this->router->route(
                 (new HttpRequest(
                     new HttpUri('http://test.com/backend/admin/settings/csrf/something?test')

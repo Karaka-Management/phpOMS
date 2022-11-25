@@ -29,6 +29,9 @@ final class SkewTest extends \PHPUnit\Framework\TestCase
      */
     public function testSkew() : void
     {
+        /* Disabled because of very slow performance (244 seconds) */
+        self::markTestSkipped();
+
         Skew::autoRotate(
             __DIR__ . '/binary_tilted.png',
             __DIR__ . '/test_binary_untilted.png',
