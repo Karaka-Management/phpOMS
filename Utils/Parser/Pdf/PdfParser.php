@@ -29,6 +29,22 @@ use phpOMS\Utils\StringUtils;
 class PdfParser
 {
     /**
+     * PDFToText path.
+     *
+     * @var string
+     * @var 1.0.0
+     */
+    public static $pdftotext = '/usr/bin/pdftotext';
+
+    /**
+     * PDFToPPM path.
+     *
+     * @var string
+     * @var 1.0.0
+     */
+    public static $pdftoppm = '/usr/bin/pdftoppm';
+
+    /**
      * Pdf to text
      *
      * @param string $path Pdf path
@@ -37,7 +53,7 @@ class PdfParser
      *
      * @since 1.0.0
      */
-    public static function pdf2text(string $path) : string
+    public static function pdf2text(string $path, string $optimizer = '') : string
     {
         $text   = '';
         $tmpDir = \sys_get_temp_dir();
@@ -47,11 +63,13 @@ class PdfParser
             return '';
         }
 
-        SystemUtils::runProc(
-            '/usr/bin/pdftotext', '-layout '
-                . \escapeshellarg($path) . ' '
-                .  \escapeshellarg($out)
-        );
+        if (\is_file(self::$pdftotext)) {
+            SystemUtils::runProc(
+                self::$pdftotext, '-layout '
+                    . \escapeshellarg($path) . ' '
+                    . \escapeshellarg($out)
+            );
+        }
 
         $text = \file_get_contents($out);
         \unlink($out);
@@ -66,12 +84,14 @@ class PdfParser
                 return '';
             }
 
-            SystemUtils::runProc(
-                '/usr/bin/pdftoppm',
-                '-jpeg -r 300 '
-                    . \escapeshellarg($path) . ' '
-                    .  \escapeshellarg($out)
-            );
+            if (\is_file(self::$pdftoppm)) {
+                SystemUtils::runProc(
+                    self::$pdftoppm,
+                    '-jpeg -r 300 '
+                        . \escapeshellarg($path) . ' '
+                        . \escapeshellarg($out)
+                );
+            }
 
             $files = \glob($out . '*');
             if ($files === false) {
@@ -91,11 +111,13 @@ class PdfParser
                 Skew::autoRotate($file, $file, 10);
                 */
 
-                SystemUtils::runProc(
-                    __DIR__ . '/../../../cOMS/Tools/InvoicePreprocessing/App',
-                    \escapeshellarg($file) . ' '
+                if (!empty($optimizer) && \is_file($optimizer)) {
+                    SystemUtils::runProc(
+                        $optimizer,
+                        \escapeshellarg($file) . ' '
                         . \escapeshellarg($file)
-                );
+                    );
+                }
 
                 $ocr  = new TesseractOcr();
                 $text = $ocr->parseImage($file);
