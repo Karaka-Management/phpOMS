@@ -86,7 +86,7 @@ final class Kernel
             $im = \imagecreatefromgif($inPath);
         }
 
-        if ($im == false) {
+        if ($im === false) {
             return;
         }
 

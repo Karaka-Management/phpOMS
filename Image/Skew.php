@@ -44,7 +44,7 @@ final class Skew
             $im = \imagecreatefromgif($inPath);
         }
 
-        if ($im == false) {
+        if ($im === false) {
             return;
         }
 
@@ -97,7 +97,7 @@ final class Skew
         }
 
         $im = \imagerotate($im, $bestDegree, 1);
-        if ($im == false) {
+        if ($im === false) {
             return;
         }
 

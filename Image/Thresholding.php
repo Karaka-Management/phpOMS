@@ -50,7 +50,7 @@ final class Thresholding
             $im = \imagecreatefromgif($inPath);
         }
 
-        if ($im == false) {
+        if ($im === false) {
             return;
         }
 
