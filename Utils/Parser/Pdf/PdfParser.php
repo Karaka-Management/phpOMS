@@ -34,7 +34,7 @@ class PdfParser
      * @var string
      * @var 1.0.0
      */
-    public static $pdftotext = '/usr/bin/pdftotext';
+    public static string $pdftotext = '/usr/bin/pdftotext';
 
     /**
      * PDFToPPM path.
@@ -42,7 +42,7 @@ class PdfParser
      * @var string
      * @var 1.0.0
      */
-    public static $pdftoppm = '/usr/bin/pdftoppm';
+    public static string $pdftoppm = '/usr/bin/pdftoppm';
 
     /**
      * Pdf to text

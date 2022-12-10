@@ -129,7 +129,7 @@ final class WebRouter implements RouterInterface
      * @param Account $account Account
      * @param array   $data    Validation
      *
-     * @return array[]
+     * @return array
      *
      * @since 1.0.0
      */

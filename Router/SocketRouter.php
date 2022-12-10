@@ -124,7 +124,7 @@ final class SocketRouter implements RouterInterface
      * @param Account $account Account
      * @param array   $data    Data
      *
-     * @return array[]
+     * @return array
      *
      * @since 1.0.0
      */
@@ -149,7 +149,7 @@ final class SocketRouter implements RouterInterface
                     || ($verb & $d['verb']) === $verb
                 ) {
                     // if permission check is invalid
-                    if  (isset($d['permission']) && !empty($d['permission'])
+                    if (isset($d['permission']) && !empty($d['permission'])
                         && ($account === null || $account instanceof NullAccount)
                     ) {
                         return ['dest' => RouteStatus::NOT_LOGGED_IN];
