@@ -16,8 +16,9 @@ namespace phpOMS\tests\Module;
 
 require_once __DIR__ . '/../Autoloader.php';
 
-use Model\CoreSettings;
 use phpOMS\Application\ApplicationAbstract;
+use phpOMS\Config\OptionsTrait;
+use phpOMS\Config\SettingsInterface;
 use phpOMS\Module\InstallerAbstract;
 use phpOMS\Module\ModuleInfo;
 
@@ -56,7 +57,30 @@ final class InstallerAbstractTest extends \PHPUnit\Framework\TestCase
     	$this->installer::install(
     		$app,
     		new ModuleInfo(__DIR__),
-    		new CoreSettings()
+    		new class () implements SettingsInterface {
+                use OptionsTrait;
+
+                public function get(
+                    mixed $ids = null,
+                    string | array $names = null,
+                    int $app = null,
+                    string $module = null,
+                    int $group = null,
+                    int $account = null
+                ) : mixed
+                {
+                    return null;
+                }
+
+                public function set(array $options, bool $store = false) : void
+                {}
+
+                public function save(array $options = []) : void
+                {}
+
+                public function create(array $options = []) : void
+                {}
+            }
     	);
     }
 }
