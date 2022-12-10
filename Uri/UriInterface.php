@@ -117,8 +117,8 @@ interface UriInterface
     /**
      * Get path element.
      *
-     * @param int $pos       Position of the path
-     * @param int $useOffset Uses internal path offset
+     * @param int  $pos       Position of the path
+     * @param bool $useOffset Uses internal path offset
      *
      * @return string
      *
