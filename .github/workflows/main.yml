@@ -88,7 +88,7 @@ jobs:
         show-log: true
         collation: Latin1_General_BIN
     - name: Run sqlcmd
-      run: sqlcmd -S localhost -U sa -P c0MplicatedP@ssword -d tempdb -Q "SELECT @@version;"
+      run: sqlcmd -S localhost -U sa -P c0MplicatedP@ssword -Q "CREATE DATABASE oms;"
     - name: Checkout Build Repository
       uses: actions/checkout@main
       with:
