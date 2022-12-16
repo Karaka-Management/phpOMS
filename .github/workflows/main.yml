@@ -81,14 +81,14 @@ jobs:
         fetch-depth: 1
     - name: Setup mssql
       uses: potatoqualitee/mssqlsuite@v1.7
-        with:
-          install: sqlengine, sqlclient, sqlpackage, localdb
-          version: 2017
-          sa-password: c0MplicatedP@ssword
-          show-log: true
-          collation: Latin1_General_BIN
-      - name: Run sqlcmd
-        run: sqlcmd -S localhost -U sa -P c0MplicatedP@ssword -d tempdb -Q "SELECT @@version;"
+      with:
+        install: sqlengine, sqlpackage
+        version: 2017
+        sa-password: c0MplicatedP@ssword
+        show-log: true
+        collation: Latin1_General_BIN
+    - name: Run sqlcmd
+      run: sqlcmd -S localhost -U sa -P c0MplicatedP@ssword -d tempdb -Q "SELECT @@version;"
     - name: Checkout Build Repository
       uses: actions/checkout@main
       with:
