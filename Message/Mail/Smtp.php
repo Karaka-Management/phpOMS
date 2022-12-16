@@ -7,7 +7,7 @@
  * @package   phpOMS\Message\Mail
  * @license   GLGPL 2.1 License
  * @version   1.0.0
- * @link      https://karaka.app
+ * @link      https://jingga.app
  *
  * Extended based on:
  * GLGPL 2.1 License
@@ -23,7 +23,7 @@ namespace phpOMS\Message\Mail;
  *
  * @package phpOMS\Message\Mail
  * @license GLGPL 2.1 License
- * @link    https://karaka.app
+ * @link    https://jingga.app
  * @since   1.0.0
  */
 class Smtp

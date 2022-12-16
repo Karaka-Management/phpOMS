@@ -8,7 +8,7 @@
  * @copyright Dennis Eichhorn
  * @license   OMS License 1.0
  * @version   1.0.0
- * @link      https://karaka.app
+ * @link      https://jingga.app
  *
  * Extended based on:
  * MIT License
@@ -24,7 +24,7 @@ namespace phpOMS\Algorithm\PathFinding;
  *
  * @package phpOMS\Algorithm\PathFinding
  * @license OMS License 1.0
- * @link    https://karaka.app
+ * @link    https://jingga.app
  * @since   1.0.0
  */
 class Grid

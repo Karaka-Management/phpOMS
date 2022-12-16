@@ -9,7 +9,7 @@
  * @copyright JAMA - https://math.nist.gov/javanumerics/jama/
  * @license   OMS License 1.0
  * @version   1.0.0
- * @link      https://karaka.app
+ * @link      https://jingga.app
  */
 declare(strict_types=1);
 
@@ -25,7 +25,7 @@ use phpOMS\Math\Geometry\Shape\D2\Triangle;
  *
  * @package phpOMS\Math\Matrix
  * @license OMS License 1.0
- * @link    https://karaka.app
+ * @link    https://jingga.app
  * @since   1.0.0
  */
 final class EigenvalueDecomposition

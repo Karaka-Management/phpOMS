@@ -8,7 +8,7 @@
  * @copyright Dennis Eichhorn
  * @license   OMS License 1.0
  * @version   1.0.0
- * @link      https://karaka.app
+ * @link      https://jingga.app
  *
  * Extended based on:
  * GLGPL 2.1 License
@@ -31,7 +31,7 @@ use phpOMS\Validation\Network\Email as EmailValidator;
  *
  * @package phpOMS\Message\Mail
  * @license OMS License 1.0
- * @link    https://karaka.app
+ * @link    https://jingga.app
  * @since   1.0.0
  */
 class Email implements MessageInterface
