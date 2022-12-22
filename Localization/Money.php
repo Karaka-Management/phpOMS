@@ -96,4 +96,15 @@ final class Money extends FloatInt
     {
         return ($this->position === 0 && !empty($this->symbol) ? $this->symbol . ' ' : '') . $this->getAmount($decimals) . ($this->position === 1 ? ' ' . $this->symbol : '');
     }
+
+    /**
+     * Get currency symbol
+     *
+     * @return string
+     * @since 1.0.0
+     */
+    public function getCurrencySymbol() : string
+    {
+        return $this->symbol;
+    }
 }
