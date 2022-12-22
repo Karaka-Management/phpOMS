@@ -57,7 +57,7 @@ final class Autoloader
      */
     public static function addPath(string $path) : void
     {
-        self::$paths[] = $path;
+        self::$paths[] = \rtrim($path, '/\\') . '/';
     }
 
     /**
