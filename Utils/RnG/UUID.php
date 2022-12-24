@@ -34,6 +34,7 @@ final class UUID
      */
     public static function default(int $length = 16) : string
     {
+        /** @phpstan-ignore-next-line */
         if ($length < 8) {
             throw new \InvalidArgumentException();
         }
