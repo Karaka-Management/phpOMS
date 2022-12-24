@@ -139,7 +139,9 @@ final class SocketRouterTest extends \PHPUnit\Framework\TestCase
 
         self::assertEquals(
             [['dest' => '\Modules\Admin\Controller:viewSettingsGeneral']],
-            $this->router->route('backend_admin -settings=general -t 123',
+            $this->router->route(
+                'backend_admin -settings=general -t 123',
+                null,
                 RouteVerb::GET,
                 null,
                 null,
@@ -197,7 +199,9 @@ final class SocketRouterTest extends \PHPUnit\Framework\TestCase
 
         self::assertNotEquals(
             [['dest' => '\Modules\Admin\Controller:viewSettingsGeneral']],
-            $this->router->route('backend_admin -settings=general -t 123',
+            $this->router->route(
+                'backend_admin -settings=general -t 123',
+                null,
                 RouteVerb::GET,
                 null,
                 null,
@@ -221,7 +225,7 @@ final class SocketRouterTest extends \PHPUnit\Framework\TestCase
 
         self::assertEquals(
             [['dest' => 'Controller:test']],
-            $this->router->route('backends_admin -settings=general -t 123', RouteVerb::GET, null, null, null, ['test_pattern' => 'abcdef'])
+            $this->router->route('backends_admin -settings=general -t 123', null, RouteVerb::GET, null, null, null, ['test_pattern' => 'abcdef'])
         );
     }
 
@@ -240,7 +244,7 @@ final class SocketRouterTest extends \PHPUnit\Framework\TestCase
 
         self::assertNotEquals(
             [['dest' => 'Controller:test']],
-            $this->router->route('backends_admin -settings=general -t 123', RouteVerb::GET, null, null, null, ['test_pattern' => '123'])
+            $this->router->route('backends_admin -settings=general -t 123', null, RouteVerb::GET, null, null, null, ['test_pattern' => '123'])
         );
     }
 
