@@ -69,16 +69,19 @@ final class ArticleCorrelationAffinity
         // create the random variables
         foreach ($orders as $items) {
             foreach ($possibleItems as $item) {
-                $this->items[$item][] = $items[$item];
+                $this->items[$item][] = $considerQuantity ? $items[$item] : (int) ($items[$item] > 0);
             }
         }
 
         // create the affinity table
         foreach ($possibleItems as $item1) {
             foreach ($possibleItems as $item2) {
-                if ($item1 !== $item2 && !isset($this->affinity[$item1][$item2]) && !isset($this->affinity[$item2][$item1])) {
+                if ($item1 !== $item2
+                    && !isset($this->affinity[$item1][$item2])
+                    && !isset($this->affinity[$item2][$item1])
+                ) {
                     $this->affinity[$item1][$item2] = Correlation::bravaisPersonCorrelationCoefficientPopulation($this->items[$item1], $this->items[$item2]);
-                    $this->affinity[$item2][$item1] = $this->affinity[$item1][$item2];
+                    $this->affinity[$item2][$item1] = $this->affinity[$item1][$item2]; // php automatically creates references!
                 }
             }
         }
