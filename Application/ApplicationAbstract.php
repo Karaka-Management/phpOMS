@@ -67,6 +67,14 @@ class ApplicationAbstract
     protected string $appName = '';
 
     /**
+     * App id.
+     *
+     * @var int
+     * @since 1.0.0
+     */
+    protected int $appId = 0;
+
+    /**
      * Organization id.
      *
      * @var int
