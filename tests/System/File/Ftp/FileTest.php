@@ -615,7 +615,7 @@ final class FileTest extends \PHPUnit\Framework\TestCase
     public function testStaticOwner() : void
     {
         $dirTestPath = __DIR__ . '/dirtest/test.txt';
-        self::assertNotEmpty(File::owner(self::$con, $dirTestPath));
+        self::assertTrue(!empty(File::owner(self::$con, $dirTestPath)));
     }
 
     /**
@@ -658,15 +658,13 @@ final class FileTest extends \PHPUnit\Framework\TestCase
     }
 
     /**
-     * @testdox Reading the content of a none-existing file throws a PathException
+     * @testdox Reading the content of a none-existing file returns an empty string
      * @covers phpOMS\System\File\Ftp\File<extended>
      * @group framework
      */
     public function testInvalidGetPath() : void
     {
-        $this->expectException(\phpOMS\System\File\PathException::class);
-
-        File::get(self::$con, __DIR__ . '/invalid.txt');
+        self::assertEquals('', File::get(self::$con, __DIR__ . '/invalid.txt'));
     }
 
     /**
@@ -855,7 +853,7 @@ final class FileTest extends \PHPUnit\Framework\TestCase
         $testFile = __DIR__ . '/dirtest/test.txt';
         $file     = new File(new HttpUri(self::BASE . $testFile), self::$con);
 
-        self::assertNotEmpty($file->getOwner());
+        self::assertTrue(!empty($file->getOwner()));
     }
 
     /**

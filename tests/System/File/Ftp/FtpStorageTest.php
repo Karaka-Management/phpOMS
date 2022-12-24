@@ -1005,15 +1005,13 @@ final class FtpStorageTest extends \PHPUnit\Framework\TestCase
     }
 
     /**
-     * @testdox Reading the content of a none-existing file throws a PathException
+     * @testdox Reading the content of a none-existing file returns an empty result
      * @covers phpOMS\System\File\Ftp\FtpStorage<extended>
      * @group framework
      */
     public function testInvalidGetPathFile() : void
     {
-        $this->expectException(\phpOMS\System\File\PathException::class);
-
-        FtpStorage::get(__DIR__ . '/invalid.txt');
+        self::assertEquals('', FtpStorage::get(__DIR__ . '/invalid.txt'));
     }
 
     /**

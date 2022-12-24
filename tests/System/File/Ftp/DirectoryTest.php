@@ -482,7 +482,7 @@ final class DirectoryTest extends \PHPUnit\Framework\TestCase
     public function testStaticOwner() : void
     {
         $dirTestPath = __DIR__ . '/dirtest';
-        self::assertNotEmpty(Directory::owner(self::$con, $dirTestPath));
+        self::assertTrue(!empty(Directory::owner(self::$con, $dirTestPath)));
     }
 
     /**
@@ -823,7 +823,7 @@ final class DirectoryTest extends \PHPUnit\Framework\TestCase
     {
         $dir = new Directory(new HttpUri(self::BASE . __DIR__ . '/dirtest'), true, self::$con);
 
-        self::assertNotEmpty($dir->getOwner());
+        self::assertTrue(!empty($dir->getOwner()));
     }
 
     /**
