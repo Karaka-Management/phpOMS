@@ -115,7 +115,12 @@ final class Currency
             self::$ecbCurrencies = [];
 
             foreach ($node as $key => $value) {
-                self::$ecbCurrencies[\strtoupper((string) $value->attributes()['currency'])] = (float) $value->attributes()['rate'];
+                /** @var null|array<string, string|int|float> $attributes */
+                if (($attributes = $value->attributes()) === null) {
+                    continue;
+                }
+
+                self::$ecbCurrencies[\strtoupper((string) ($attributes['currency']))] = (float) ($attributes['rate']);
             }
         } catch (\Throwable $t) {
             self::$ecbCurrencies = []; // @codeCoverageIgnore
