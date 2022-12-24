@@ -43,7 +43,7 @@ final class DeleteMapper extends DataMapperAbstract
     /**
      * Execute mapper
      *
-     * @param array ...$options Options to pass to the selete mapper
+     * @param mixed ...$options Options to pass to the selete mapper
      *
      * @return mixed
      *

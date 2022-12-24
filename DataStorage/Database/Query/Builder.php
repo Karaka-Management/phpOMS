@@ -900,7 +900,7 @@ class Builder extends BuilderAbstract
     /**
      * Insert into columns.
      *
-     * @param array ...$columns Columns
+     * @param mixed ...$columns Columns
      *
      * @return Builder
      *
@@ -942,7 +942,7 @@ class Builder extends BuilderAbstract
     /**
      * Values to insert.
      *
-     * @param array ...$values Values
+     * @param mixed ...$values Values
      *
      * @return Builder
      *
