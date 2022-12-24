@@ -14,6 +14,8 @@ declare(strict_types=1);
 
 namespace phpOMS\Router;
 
+use phpOMS\Account\Account;
+
 /**
  * Router interface.
  *
@@ -42,4 +44,52 @@ interface RouterInterface
      * @since 1.0.0
      */
     public function clear() : void;
+
+    /**
+     * Add route.
+     *
+     * @param string $route       Route regex
+     * @param mixed  $destination Destination e.g. Module:function string or callback
+     * @param int    $verb        Request verb
+     * @param bool   $csrf        Is CSRF token required
+     * @param array  $validation  Validation patterns
+     * @param string $dataPattern Data patterns
+     *
+     * @return void
+     *
+     * @since 1.0.0
+     */
+    public function add(
+        string $route,
+        mixed $destination,
+        int $verb = RouteVerb::GET,
+        bool $csrf = false,
+        array $validation = [],
+        string $dataPattern = ''
+    ) : void;
+
+    /**
+     * Route request.
+     *
+     * @param string  $uri     Route
+     * @param string  $csrf    CSRF token
+     * @param int     $verb    Route verb
+     * @param string  $app     Application name
+     * @param int     $orgId   Organization id
+     * @param Account $account Account
+     * @param array   $data    Data
+     *
+     * @return array
+     *
+     * @since 1.0.0
+     */
+    public function route(
+        string $uri,
+        string $csrf = null,
+        int $verb = RouteVerb::GET,
+        string $app = null,
+        int $orgId = null,
+        Account $account = null,
+        array $data = null
+    ) : array;
 }

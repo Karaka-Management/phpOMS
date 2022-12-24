@@ -82,22 +82,13 @@ final class SocketRouter implements RouterInterface
     }
 
     /**
-     * Add route.
-     *
-     * @param string $route       Route regex
-     * @param mixed  $destination Destination e.g. Module:function string or callback
-     * @param int    $verb        Request verb
-     * @param array  $validation  Validation patterns
-     * @param string $dataPattern Data patterns
-     *
-     * @return void
-     *
-     * @since 1.0.0
+     * {@inheritdoc}
      */
     public function add(
         string $route,
         mixed $destination,
         int $verb = RouteVerb::GET,
+        bool $csrf = false,
         array $validation = [],
         string $dataPattern = ''
     ) : void
@@ -109,27 +100,18 @@ final class SocketRouter implements RouterInterface
         $this->routes[$route][] = [
             'dest'       => $destination,
             'verb'       => $verb,
+            'csrf'       => $csrf,
             'validation' => empty($validation) ? null : $validation,
             'pattern'    => empty($dataPattern) ? null : $dataPattern,
         ];
     }
 
     /**
-     * Route request.
-     *
-     * @param string  $uri     Route
-     * @param int     $verb    Route verb
-     * @param string  $app     Application name
-     * @param int     $orgId   Organization id
-     * @param Account $account Account
-     * @param array   $data    Data
-     *
-     * @return array
-     *
-     * @since 1.0.0
+     * {@inheritdoc}
      */
     public function route(
         string $uri,
+        string $csrf = null,
         int $verb = RouteVerb::GET,
         string $app = null,
         int $orgId = null,
@@ -148,6 +130,11 @@ final class SocketRouter implements RouterInterface
                     || $verb === RouteVerb::ANY
                     || ($verb & $d['verb']) === $verb
                 ) {
+                    // if csrf is required but not set
+                    if (isset($d['csrf']) && $d['csrf'] && $csrf === null) {
+                        return ['dest' => RouteStatus::INVALID_CSRF];
+                    }
+
                     // if permission check is invalid
                     if (isset($d['permission']) && !empty($d['permission'])
                         && ($account === null || $account instanceof NullAccount)
