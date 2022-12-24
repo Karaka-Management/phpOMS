@@ -97,4 +97,66 @@ final class ImageUtils
 
         return $lStar / 100.0;
     }
+
+    /**
+     * Resize image file
+     *
+     * @param string $srcPath Source path
+     * @param string $dstPath Destination path
+     * @param int    $width   New width
+     * @param int    $height  New image width
+     * @param bool   $crop    Crop image
+     *
+     * @return void
+     * @since 1.0.0
+     */
+    public static function resize(string $srcPath, string $dstPath, int $width, int $height, bool $crop = false) : void
+    {
+        /** @var array $imageDim */
+        $imageDim = \getimagesize($srcPath);
+
+        if (($imageDim[0] ?? -1) >= $width && ($imageDim[1] ?? -1) >= $height) {
+            return;
+        }
+
+        $ratio = $imageDim[0] / $imageDim[1];
+        if ($crop) {
+            if ($imageDim[0] > $imageDim[1]) {
+                $imageDim[0] = (int) \ceil($imageDim[0] - ($imageDim[0] * \abs($ratio - $width / $height)));
+            } else {
+                $imageDim[1] = (int) \ceil($imageDim[1] - ($imageDim[1] * \abs($ratio - $width / $height)));
+            }
+        } else {
+            if ($width / $height > $ratio) {
+                $width = (int) ($height * $ratio);
+            } else {
+                $height = (int) ($width / $ratio);
+            }
+        }
+
+        $src = null;
+        if (\stripos($srcPath, '.jpg') !== false || \stripos($srcPath, '.jpeg') !== false) {
+            $src = \imagecreatefromjpeg($srcPath);
+        } elseif (\stripos($srcPath, '.png') !== false) {
+            $src = \imagecreatefrompng($srcPath);
+        } elseif (\stripos($srcPath, '.gif') !== false) {
+            $src = \imagecreatefromgif($srcPath);
+        }
+
+        $dst = \imagecreatetruecolor($width, $height);
+
+        if ($src === null || $src === false || $dst === null || $dst === false) {
+            throw new \InvalidArgumentException();
+        }
+
+        \imagecopyresampled($dst, $src, 0, 0, 0, 0, $width, $height, $imageDim[0], $imageDim[1]);
+
+        if (\stripos($srcPath, '.jpg') || \stripos($srcPath, '.jpeg')) {
+            \imagejpeg($dst, $dstPath);
+        } elseif (\stripos($srcPath, '.png')) {
+            \imagepng($dst, $dstPath);
+        } elseif (\stripos($srcPath, '.gif')) {
+            \imagegif($dst, $dstPath);
+        }
+    }
 }
