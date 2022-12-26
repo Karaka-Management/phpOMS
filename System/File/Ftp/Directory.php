@@ -355,6 +355,10 @@ class Directory extends FileAbstract implements DirectoryInterface
      */
     public function getOwner() : string
     {
+        if ($this->con === null) {
+            return '';
+        }
+
         $this->owner = self::parseRawList($this->con, self::parent($this->path))[$this->path]['user'];
 
         return $this->owner;
@@ -425,6 +429,10 @@ class Directory extends FileAbstract implements DirectoryInterface
      */
     public function getPermission() : int
     {
+        if ($this->con === null) {
+            return 0;
+        }
+
         $this->permission = self::parseRawList($this->con, self::parent($this->path))[$this->path]['permission'];
 
         return $this->permission;
