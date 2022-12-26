@@ -418,18 +418,14 @@ class Directory extends FileAbstract implements DirectoryInterface
             return false;
         }
 
-        $tempName = \tempnam(\sys_get_temp_dir(), 'omsftp_');
-        if ($tempName === false) {
-            return false;
-        }
+        $tempName = \sys_get_temp_dir() . '/' . \uniqid('omsftp_');
+        $status   = @\mkdir($tempName);
 
-        $status = @\mkdir($tempName);
         if ($status === false) {
             return false;
         }
 
         $download = self::get($con, $from, $tempName . '/' . self::name($from));
-
         if (!$download) {
             if ($status !== false) {
                 LocalDirectory::delete($tempName);
@@ -439,7 +435,6 @@ class Directory extends FileAbstract implements DirectoryInterface
         }
 
         $upload = self::put($con, $tempName . '/' . self::name($from), $to);
-
         if (!$upload) {
             if ($status !== false) {
                 LocalDirectory::delete($tempName);

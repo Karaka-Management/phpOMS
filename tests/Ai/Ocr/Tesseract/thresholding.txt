@@ -17,7 +17,6 @@ Convolution
 Linear filtering of an image is accomplished through an operation called convolution. Convolution is a neightornood
 
 Operation in which each output pixel is the weighted sum of neighboring input pixels. The matrix of weights is called the
-ion kernel that has been rotated 120 cegrees.
 
 For example, suppose the image is
 
