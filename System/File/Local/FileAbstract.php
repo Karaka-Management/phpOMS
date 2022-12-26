@@ -79,10 +79,10 @@ abstract class FileAbstract implements LocalContainerInterface
     /**
      * Owner.
      *
-     * @var int
+     * @var string
      * @since 1.0.0
      */
-    protected int $owner = 0;
+    protected string $owner = '';
 
     /**
      * Permission.
@@ -220,7 +220,7 @@ abstract class FileAbstract implements LocalContainerInterface
     /**
      * {@inheritdoc}
      */
-    public function getOwner() : int
+    public function getOwner() : string
     {
         return $this->owner;
     }
@@ -246,7 +246,7 @@ abstract class FileAbstract implements LocalContainerInterface
 
         $owner = \fileowner($this->path);
 
-        $this->owner      = $owner === false ? 0 : $owner;
+        $this->owner      = $owner === false ? '' : (string) $owner;
         $this->permission = (int) \substr(\sprintf('%o', \fileperms($this->path)), -4);
 
         $this->isInitialized = true;

@@ -277,22 +277,25 @@ abstract class ViewAbstract implements RenderableInterface
      */
     protected function renderTemplate(string $template, mixed ...$data) : string
     {
-        $ob = '';
+        $obLevel = 0;
+        $ob      = '';
 
         try {
-            if ($this->isBuffered) {
-                \ob_start();
-            }
-
             $path = $template;
             if (!\is_file($path)) {
                 return '';
+            }
+
+            if ($this->isBuffered) {
+                ++$obLevel;
+                \ob_start();
             }
 
             /** @noinspection PhpIncludeInspection */
             $includeData = include $path;
 
             if ($this->isBuffered) {
+                --$obLevel;
                 $ob = (string) \ob_get_clean();
             }
 
@@ -300,7 +303,7 @@ abstract class ViewAbstract implements RenderableInterface
                 $ob = (string) \json_encode($includeData);
             }
         } catch (\Throwable $e) {
-            if ($this->isBuffered) {
+            if ($obLevel > 0 && $this->isBuffered) {
                 $ob .= (string) \ob_get_clean();
             }
         }

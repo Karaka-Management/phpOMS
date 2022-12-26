@@ -86,7 +86,10 @@ class File extends FileAbstract implements FileInterface
             return null;
         }
 
-        \ftp_login($con, $http->user, $http->pass);
+        $status = \ftp_login($con, $http->user, $http->pass);
+        if ($status === false) {
+            return null;
+        }
 
         if ($http->getPath() !== '') {
             @\ftp_chdir($con, $http->getPath());
@@ -297,6 +300,16 @@ class File extends FileAbstract implements FileInterface
     /**
      * {@inheritdoc}
      */
+    public function getOwner() : string
+    {
+        $this->owner = Directory::parseRawList($this->con, self::dirpath($this->path))[$this->path]['user'];
+
+        return $this->owner;
+    }
+
+    /**
+     * {@inheritdoc}
+     */
     public static function permission(\FTP\Connection $con, string $path) : int
     {
         if (!self::exists($con, $path)) {
@@ -304,6 +317,16 @@ class File extends FileAbstract implements FileInterface
         }
 
         return Directory::parseRawList($con, self::dirpath($path))[$path]['permission'];
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function getPermission() : int
+    {
+        $this->permission = Directory::parseRawList($this->con, self::dirpath($this->path))[$this->path]['permission'];
+
+        return $this->permission;
     }
 
     /**

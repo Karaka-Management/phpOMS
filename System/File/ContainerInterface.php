@@ -151,11 +151,11 @@ interface ContainerInterface
     /**
      * Get the owner id of the resource.
      *
-     * @return int
+     * @return string
      *
      * @since 1.0.0
      */
-    public function getOwner() : int;
+    public function getOwner() : string;
 
     /**
      * Get the permissions id of the resource.

@@ -66,7 +66,10 @@ class Directory extends FileAbstract implements DirectoryInterface
             return null;
         }
 
-        \ftp_login($con, $http->user, $http->pass);
+        $status = \ftp_login($con, $http->user, $http->pass);
+        if ($status === false) {
+            return null;
+        }
 
         if ($http->getPath() !== '') {
             @\ftp_chdir($con, $http->getPath());
@@ -348,6 +351,16 @@ class Directory extends FileAbstract implements DirectoryInterface
     }
 
     /**
+     * {@inheritdoc}
+     */
+    public function getOwner() : string
+    {
+        $this->owner = self::parseRawList($this->con, self::parent($this->path))[$this->path]['user'];
+
+        return $this->owner;
+    }
+
+    /**
      * Get detailed file/dir list.
      *
      * @param \FTP\Connection $con  FTP connection
@@ -405,6 +418,16 @@ class Directory extends FileAbstract implements DirectoryInterface
         }
 
         return self::parseRawList($con, self::parent($path))[$path]['permission'];
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function getPermission() : int
+    {
+        $this->permission = self::parseRawList($this->con, self::parent($this->path))[$this->path]['permission'];
+
+        return $this->permission;
     }
 
     /**

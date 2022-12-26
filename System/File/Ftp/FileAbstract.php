@@ -95,10 +95,10 @@ abstract class FileAbstract implements FtpContainerInterface
     /**
      * Owner.
      *
-     * @var int
+     * @var string
      * @since 1.0.0
      */
-    protected int $owner = 0;
+    protected string $owner = '';
 
     /**
      * Permission.
@@ -191,7 +191,7 @@ abstract class FileAbstract implements FtpContainerInterface
     /**
      * {@inheritdoc}
      */
-    public function getOwner() : int
+    public function getOwner() : string
     {
         return $this->owner;
     }
@@ -219,7 +219,7 @@ abstract class FileAbstract implements FtpContainerInterface
         $this->createdAt = (new \DateTimeImmutable())->setTimestamp($mtime === false ? 0 : $mtime);
         $this->changedAt->setTimestamp($ctime === false ? 0 : $ctime);
 
-        $this->owner      = 0;
+        $this->owner      = '';
         $this->permission = 0;
 
         $this->isInitialized = true;
