@@ -131,14 +131,6 @@ class DataMapperFactory
     protected static ConnectionAbstract $db;
 
     /**
-     * Initialized objects for cross reference to reduce initialization costs
-     *
-     * @var array[]
-     * @since 1.0.0
-     */
-    protected static array $initObjects = [];
-
-    /**
      * Constructor.
      *
      * @since 1.0.0
