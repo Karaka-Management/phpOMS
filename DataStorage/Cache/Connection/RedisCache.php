@@ -305,7 +305,7 @@ final class RedisCache extends ConnectionAbstract
             return false;
         }
 
-        return $this->flushDb();
+        return true;
     }
 
     /**

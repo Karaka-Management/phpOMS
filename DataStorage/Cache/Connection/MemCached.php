@@ -280,7 +280,7 @@ final class MemCached extends ConnectionAbstract
             return false;
         }
 
-        return $this->flushAll();
+        return true;
     }
 
     /**

@@ -14,8 +14,11 @@ declare(strict_types=1);
 
 namespace phpOMS\DataStorage\Session;
 
+use phpOMS\DataStorage\Cache\Connection\ConnectionAbstract;
+use phpOMS\DataStorage\Cache\CacheStatus;
+
 /**
- * File session handler.
+ * Cache session handler.
  *
  * @package phpOMS\DataStorage\Session
  * @license OMS License 1.0
@@ -24,30 +27,35 @@ namespace phpOMS\DataStorage\Session;
  *
  * @SuppressWarnings(PHPMD.Superglobals)
  */
-final class FileSessionHandler implements \SessionHandlerInterface, \SessionIdInterface
+final class CacheSessionHandler implements \SessionHandlerInterface, \SessionIdInterface
 {
     /**
-     * File path for session
+     * Cache connection
      *
-     * @var string
+     * @var ConnectionAbstract
      * @since 1.0.0
      */
-    private string $savePath;
+    private ConnectionAbstract $con;
+
+    /**
+     * Expiration time
+     *
+     * @var int
+     * @since 1.0.0
+     */
+    private int $expire = 3600;
 
     /**
      * Constructor
      *
-     * @param string $path Path of the session data
+     * @param ConnectionAbstract $con ConnectionAbstract
      *
      * @since 1.0.0
      */
-    public function __construct(string $path)
+    public function __construct(ConnectionAbstract $con, int $expire = 3600)
     {
-        $this->savePath = $path;
-
-        if (\realpath($path) === false) {
-            \mkdir($path, 0755, true);
-        }
+        $this->con    = $con;
+        $this->expire = $expire;
     }
 
     /**
@@ -74,13 +82,15 @@ final class FileSessionHandler implements \SessionHandlerInterface, \SessionIdIn
      */
     public function open(string $savePath, string $sessionName) : bool
     {
-        $this->savePath = $savePath;
+        if ($con->getStatus() !== CacheStatus::OK) {
+            $con->connect();
+        }
 
-        return \is_dir($this->savePath);
+        return $con->getStatus() === CacheStatus::OK;
     }
 
     /**
-     * Close the session
+     * Closing the cache connection doesn't happen in here and must be implemented in the application
      *
      * @return bool
      *
@@ -92,7 +102,7 @@ final class FileSessionHandler implements \SessionHandlerInterface, \SessionIdIn
     }
 
     /**
-     * Read the session data
+     * Read the session data (also prolongs the expire)
      *
      * @param string $id Session id
      *
@@ -102,11 +112,15 @@ final class FileSessionHandler implements \SessionHandlerInterface, \SessionIdIn
      */
     public function read(string $id) : string|false
     {
-        if (!\is_file($this->savePath . '/sess_' . $id)) {
-            return '';
+        $data = $this->con->get($id);
+
+        if ($data === null) {
+            return false;
         }
 
-        return \file_get_contents($this->savePath . '/sess_' . $id);
+        $this->con->updateExpire($this->expire);
+
+        return $data;
     }
 
     /**
@@ -121,7 +135,9 @@ final class FileSessionHandler implements \SessionHandlerInterface, \SessionIdIn
      */
     public function write(string $id, string $data) : bool
     {
-        return \file_put_contents($this->savePath . '/sess_' . $id, $data) === false ? false : true;
+        $this->con->set($id, $data, -1);
+
+        return true;
     }
 
     /**
@@ -135,10 +151,7 @@ final class FileSessionHandler implements \SessionHandlerInterface, \SessionIdIn
      */
     public function destroy(string $id) : bool
     {
-        $file = $this->savePath . '/sess_' . $id;
-        if (\is_file($file)) {
-            \unlink($file);
-        }
+        $this->con->delete($id);
 
         return true;
     }
@@ -154,18 +167,6 @@ final class FileSessionHandler implements \SessionHandlerInterface, \SessionIdIn
      */
     public function gc(int $maxlifetime) : int|false
     {
-        $files = \glob("{$this->savePath}/sess_*");
-
-        if ($files === false) {
-            return 0;
-        }
-
-        foreach ($files as $file) {
-            if (\filemtime($file) + $maxlifetime < \time() && \is_file($file)) {
-                \unlink($file);
-            }
-        }
-
-        return 1;
+        (int) $this->con->flush($maxlifetime);
     }
 }

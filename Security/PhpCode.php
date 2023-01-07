@@ -39,7 +39,7 @@ final class PhpCode
         'ftp_rawlist', 'highlight_file', 'ini_alter', 'ini_get_all', 'ini_restore', 'inject_code', 'mysql_pconnect',
         'openlog', 'php_uname', 'phpAds_remoteInfo', 'phpAds_XmlRpc', 'phpAds_xmlrpcDecode',
         'phpAds_xmlrpcEncode', 'popen', 'posix_getpwuid', 'posix_kill', 'posix_mkfifo', 'posix_setpgid', 'posix_setsid',
-        'posix_setuid', 'posix_uname', 'proc_close', 'proc_get_status', 'shell_exec',
+        'posix_setuid', 'posix_uname', 'proc_close', 'proc_get_status', 'shell_exec', 'serialize', 'unserialize', '__serialize', '__unserialize',
     ];
 
     /**

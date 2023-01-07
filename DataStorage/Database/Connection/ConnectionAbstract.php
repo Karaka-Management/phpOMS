@@ -213,4 +213,25 @@ abstract class ConnectionAbstract implements ConnectionInterface
 
         return isset($this->{$name}) ? $this->{$name} : null;
     }
+
+    /**
+     * Start a transaction
+     *
+     * @since 1.0.0
+     */
+    abstract public function beginTransaction() : void;
+
+    /**
+     * Roll back a transaction
+     *
+     * @since 1.0.0
+     */
+    abstract public function rollBack() : void;
+
+    /**
+     * Commit a transaction
+     *
+     * @since 1.0.0
+     */
+    abstract public function commit() : void;
 }

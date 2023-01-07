@@ -112,10 +112,16 @@ final class ImageUtils
      */
     public static function resize(string $srcPath, string $dstPath, int $width, int $height, bool $crop = false) : void
     {
+        if (!\is_file($srcPath)) {
+            return;
+        }
+
         /** @var array $imageDim */
         $imageDim = \getimagesize($srcPath);
 
-        if (($imageDim[0] ?? -1) >= $width && ($imageDim[1] ?? -1) >= $height) {
+        if ((($imageDim[0] ?? -1) >= $width && ($imageDim[1] ?? -1) >= $height)
+            || ($imageDim[0] === 0 || $imageDim[1] === 0)
+        ) {
             return;
         }
 
@@ -158,5 +164,133 @@ final class ImageUtils
         } elseif (\stripos($srcPath, '.gif')) {
             \imagegif($dst, $dstPath);
         }
+
+        \imagedestroy($src);
+        \imagedestroy($dst);
+    }
+
+    /**
+     * Get difference between two images
+     *
+     * @param string $img1 Path to first image
+     * @param string $img2 Path to second image
+     * @param string $out  Output path for difference image (empty = no difference image is created)
+     * @param int    $diff Difference image type (0 = only show differences of img2, 1 = make differences red/green colored)
+     *
+     * @return int Amount of pixel differences
+     *
+     */
+    public static function difference(string $img1, string $img2, string $out = '', int $diff = 0) : int
+    {
+        $src1 = null;
+        if (\stripos($img1, '.jpg') !== false || \stripos($img1, '.jpeg') !== false) {
+            $src1 = \imagecreatefromjpeg($img1);
+        } elseif (\stripos($img1, '.png') !== false) {
+            $src1 = \imagecreatefrompng($img1);
+        } elseif (\stripos($img1, '.gif') !== false) {
+            $src1 = \imagecreatefromgif($img1);
+        }
+
+        $src2 = null;
+        if (\stripos($img2, '.jpg') !== false || \stripos($img2, '.jpeg') !== false) {
+            $src2 = \imagecreatefromjpeg($img2);
+        } elseif (\stripos($img2, '.png') !== false) {
+            $src2 = \imagecreatefrompng($img2);
+        } elseif (\stripos($img2, '.gif') !== false) {
+            $src2 = \imagecreatefromgif($img2);
+        }
+
+        if ($src1 === null || $src2 === null) {
+            return 0;
+        }
+
+        $imageDim1 = [\imagesx($src1), \imagesy($src1)];
+        $imageDim2 = [\imagesx($src2), \imagesy($src2)];
+
+        $newDim = [\max($imageDim1[0], $imageDim2[0]), \max($imageDim1[1], $imageDim2[1])];
+
+        $diff = empty($out) ? -1 : $out;
+
+        if ($diff !== -1) {
+            $dst = $diff === 0
+                ? \imagecreatetruecolor($newDim[0], $newDim[1])
+                : \imagecrop($src2, ['x' => 0, 'y' => 0, 'width' => $imageDim2[0], 'height' => $imageDim2[1]]);
+
+            $alpha = \imagecolorallocatealpha($dst, 255, 255, 255, 127);
+            if ($diff === 0) {
+                \imagefill($dst, 0, 0, $alpha);
+            }
+
+            $red   = \imagecolorallocate($dst, 255, 0, 0);
+            $green = \imagecolorallocate($dst, 0, 255, 0);
+        }
+
+        $difference = 0;
+
+        for ($i = 0; $i < $newDim[0]; ++$i) {
+            for ($j = 0; $j < $newDim[1]; ++$j) {
+                if ($i >= $imageDim1[0] || $j >= $imageDim1[1]) {
+                    if ($diff === 0) {
+                        \imagesetpixel($dst, $i, $j, $green);
+                    } elseif ($diff === 1) {
+                        if ($i >= $imageDim2[0] || $j >= $imageDim2[1]) {
+                            \imagesetpixel($dst, $i, $j, $green);
+                        } else {
+                            $color2 = \imagecolerat($src2, $i, $j);
+                            \imagesetpixel($dst, $i, $j, $color2);
+                        }
+                    }
+
+                    ++$difference;
+                    continue;
+                }
+
+                if ($i >= $imageDim2[0] || $j >= $imageDim2[1]) {
+                    if ($diff === 0) {
+                        \imagesetpixel($dst, $i, $j, $red);
+                    } elseif ($diff === 1) {
+                        if ($i >= $imageDim1[0] || $j >= $imageDim1[1]) {
+                            \imagesetpixel($dst, $i, $j, $red);
+                        } else {
+                            $color1 = \imagecolerat($src1, $i, $j);
+                            \imagesetpixel($dst, $i, $j, $color1);
+                        }
+                    }
+
+                    ++$difference;
+                    continue;
+                }
+
+                $color1 = \imagecolerat($src1, $i, $j);
+                $color2 = \imagecolerat($src2, $i, $j);
+
+                if ($color1 !== $color2) {
+                    ++$difference;
+
+                    if ($diff === 0) {
+                        \imagesetpixel($dst, $i, $j, $color2);
+                    } elseif ($diff === 1) {
+                        \imagesetpixel($dst, $i, $j, $green);
+                    }
+                }
+            }
+        }
+
+        if ($diff !== -1) {
+            if (\stripos($out, '.jpg') || \stripos($out, '.jpeg')) {
+                \imagejpeg($dst, $out);
+            } elseif (\stripos($out, '.png')) {
+                \imagesavealpha($dst, true);
+                \imagepng($dst, $out);
+            } elseif (\stripos($out, '.gif')) {
+                \imagegif($dst, $out);
+            }
+
+            \imagedestroy($src1);
+            \imagedestroy($src2);
+            \imagedestroy($dest);
+        }
+
+        return $difference;
     }
 }

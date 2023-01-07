@@ -88,4 +88,28 @@ final class SqlServerConnection extends ConnectionAbstract
             $this->dbdata['password'] = '****';
         }
     }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function beginTransaction() : void
+    {
+        $this->con->beginTransaction();
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function rollBack() : void
+    {
+        $this->con->rollBack();
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function commit() : void
+    {
+        $this->con->commit();
+    }
 }

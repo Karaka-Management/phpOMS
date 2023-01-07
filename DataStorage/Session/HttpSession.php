@@ -98,7 +98,9 @@ final class HttpSession implements SessionInterface
             // @codeCoverageIgnoreEnd
         }
 
-        if ($this->inactivityInterval > 0 && ($this->inactivityInterval + ($_SESSION['lastActivity'] ?? 0) < \time())) {
+        if ($this->inactivityInterval > 0
+            && ($this->inactivityInterval + ($_SESSION['lastActivity'] ?? 0) < \time())
+        ) {
             $this->destroy(); // @codeCoverageIgnore
         }
 

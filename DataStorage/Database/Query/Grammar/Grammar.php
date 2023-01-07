@@ -305,13 +305,13 @@ class Grammar extends GrammarAbstract
     /**
      * Compile column query.
      *
-     * @param column $column Where query
+     * @param Column $column Where query
      *
      * @return string
      *
      * @since 1.0.0
      */
-    protected function compileColumnQuery(column $column) : string
+    protected function compileColumnQuery(Column $column) : string
     {
         return $column->toSql();
     }

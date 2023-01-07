@@ -290,22 +290,31 @@ final class Directory extends FileAbstract implements DirectoryInterface
             return false;
         }
 
-        $files = \scandir($path);
+        $counter = 0;
+        $files   = \scandir($path);
 
-        if ($files === false) {
-            return false; // @codeCoverageIgnore
-        }
-
-        /* Removing . and .. */
-        unset($files[1]);
-        unset($files[0]);
-
-        foreach ($files as $file) {
-            if (\is_dir($path . '/' . $file)) {
-                self::delete($path . '/' . $file);
-            } else {
-                \unlink($path . '/' . $file);
+        do {
+            if ($files === false) {
+                return false; // @codeCoverageIgnore
             }
+
+            foreach ($files as $file) {
+                if ($file === '.' || $file === '..') {
+                    continue;
+                }
+
+                if (\is_dir($path . '/' . $file)) {
+                    self::delete($path . '/' . $file);
+                } else {
+                    \unlink($path . '/' . $file);
+                }
+            }
+
+            ++$counter;
+        } while ($counter < 3 && \count($files = \scandir($path)) > 2);
+
+        if (\count(\scandir($path)) > 2) {
+            return false;
         }
 
         \rmdir($path);

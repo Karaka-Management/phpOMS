@@ -61,6 +61,20 @@ final class Autoloader
     }
 
     /**
+     * Check if a path is already in the path list
+     *
+     * @param string $path Absolute base path with / at the end
+     *
+     * @return bool
+     *
+     * @since 1.0.0
+     */
+    public static function inPaths(string $path) : bool
+    {
+        return \in_array(\rtrim($path, '/\\') . '/', self::$paths);
+    }
+
+    /**
      * Find include paths for class
      *
      * @param string $class Class name

@@ -38,4 +38,25 @@ final class NullConnection extends ConnectionAbstract
     {
         return ['id' => $this->id];
     }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function beginTransaction() : void
+    {
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function rollBack() : void
+    {
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function commit() : void
+    {
+    }
 }

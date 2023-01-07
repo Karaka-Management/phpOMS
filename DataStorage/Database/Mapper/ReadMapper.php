@@ -324,23 +324,25 @@ final class ReadMapper extends DataMapperAbstract
         // Example: Show all profiles who have written a news article.
         //          "with()" only allows to go from articles to accounts but we want to go the other way
         foreach ($this->join as $member => $values) {
-            if (($col = $this->mapper::getColumnByMember($member)) !== null) {
-                /* variable in model */
-                foreach ($values as $join) {
-                    // @todo: the has many, etc. if checks only work if it is a relation on the first level, if we have a deeper where condition nesting this fails
-                    if ($join['child'] !== '') {
-                        continue;
-                    }
+            if (($col = $this->mapper::getColumnByMember($member)) === null) {
+                continue;
+            }
 
-                    $query->join($join['mapper']::TABLE, $join['type'], $join['mapper']::TABLE . '_d' . ($this->depth + 1))
-                        ->on(
-                            $this->mapper::TABLE . '_d' . $this->depth . '.' . $col,
-                            '=',
-                            $join['mapper']::TABLE . '_d' . ($this->depth + 1) . '.' . $join['mapper']::getColumnByMember($join['value']),
-                            'and',
-                            $join['mapper']::TABLE . '_d' . ($this->depth + 1)
-                        );
+            /* variable in model */
+            foreach ($values as $join) {
+                // @todo: the has many, etc. if checks only work if it is a relation on the first level, if we have a deeper where condition nesting this fails
+                if ($join['child'] !== '') {
+                    continue;
                 }
+
+                $query->join($join['mapper']::TABLE, $join['type'], $join['mapper']::TABLE . '_d' . ($this->depth + 1))
+                    ->on(
+                        $this->mapper::TABLE . '_d' . $this->depth . '.' . $col,
+                        '=',
+                        $join['mapper']::TABLE . '_d' . ($this->depth + 1) . '.' . $join['mapper']::getColumnByMember($join['value']),
+                        'and',
+                        $join['mapper']::TABLE . '_d' . ($this->depth + 1)
+                    );
             }
         }
 
@@ -354,7 +356,13 @@ final class ReadMapper extends DataMapperAbstract
             }
 
             if (($col = $this->mapper::getColumnByMember($member)) !== null) {
+                // In case alternative where values are allowed
+                // This is different from normal or conditions as these are exclusive or conditions
+                // This means they are only selected IFF the previous where clause fails
+                $alt = [];
+
                 /* variable in model */
+                $previous = null;
                 foreach ($values as $where) {
                     // @todo: the has many, etc. if checks only work if it is a relation on the first level, if we have a deeper where condition nesting this fails
                     if ($where['child'] !== '') {
@@ -362,74 +370,44 @@ final class ReadMapper extends DataMapperAbstract
                     }
 
                     $comparison = \is_array($where['value']) && \count($where['value']) > 1 ? 'in' : $where['logic'];
-                    $query->where($this->mapper::TABLE . '_d' . $this->depth . '.' . $col, $comparison, $where['value'], $where['comparison']);
-                }
-            } /* elseif (isset($this->mapper::HAS_MANY[$member])) {
-                // variable in has many
-                // @todo: maybe needed in the future, but needs adjustment, doesn't make sense at the moment
-                foreach ($values as $where) {
-                    // @todo: the has many, etc. if checks only work if it is a relation on the first level, if we have a deeper where condition nesting this fails
-                    if ($where['child'] !== '') {
-                        continue;
-                    }
+                    if ($where['comparison'] === 'ALT') {
+                        // This uses an alternative value if the previous value(s) in the where clause don't exist (e.g. for localized results where you allow a user language, alternatively a primary language, and then alternatively any language if the first two don't exist).
 
-                    $comparison = \is_array($where['value']) && \count($where['value']) > 1 ? 'in' : $where['logic'];
-                    $query->where($this->mapper::HAS_MANY[$member]['table'] . '_d' . $this->depth . '.' . $this->mapper::HAS_MANY[$member]['external'], $comparison, $where['value'], $where['comparison']);
+                        // is first value
+                        if (empty($alt)) {
+                            $alt[] = $previous['value'];
+                        }
 
-                    $query->leftJoin($this->mapper::HAS_MANY[$member]['table'], $this->mapper::HAS_MANY[$member]['table'] . '_d' . $this->depth);
-                    if ($this->mapper::HAS_MANY[$member]['external'] !== null) {
-                        $query->on(
-                            $this->mapper::TABLE . '_d' . $this->depth . '.' . $this->mapper::HAS_MANY[$member][$this->mapper::PRIMARYFIELD], '=',
-                            $this->mapper::HAS_MANY[$member]['table'] . '_d' . $this->depth . '.' . $this->mapper::HAS_MANY[$member]['self'], 'AND',
-                            $this->mapper::HAS_MANY[$member]['table'] . '_d' . $this->depth
-                        );
+                        /*
+                        select * from table_name
+                            where // where starts here
+                                field1 = 'value1' // comes from normal where
+                                or ( // where1 starts here
+                                    field1 = 'default'
+                                    and NOT EXISTS ( // where2 starts here
+                                        select 1 from table_name where field1 = 'value1'
+                                    )
+                                )
+                        */
+                        $where1 = new Where($query->db);
+                        $where1->where($this->mapper::TABLE . '_d' . $this->depth . '.' . $col, $comparison, $where['value'], 'and');
+
+                        $where2 = new Builder($query->db);
+                        $where2->select('1')
+                            ->from($this->mapper::TABLE . '_d' . $this->depth)
+                            ->where($this->mapper::TABLE . '_d' . $this->depth . '.' . $col, 'in', $alt);
+
+                        $where1->where($this->mapper::TABLE . '_d' . $this->depth . '.' . $col, 'not exists', $where2, 'and');
+
+                        $query->where($this->mapper::TABLE . '_d' . $this->depth . '.' . $col, $comparison, $where1, 'or');
+
+                        $alt[] = $where['value'];
                     } else {
-                        $query->on(
-                            $this->mapper::TABLE . '_d' . $this->depth . '.' . $this->mapper::PRIMARYFIELD, '=',
-                            $this->mapper::HAS_MANY[$member]['table'] . '_d' . $this->depth . '.' . $this->mapper::HAS_MANY[$member]['self'], 'AND',
-                            $this->mapper::HAS_MANY[$member]['table'] . '_d' . $this->depth
-                        );
+                        $previous = $where;
+                        $query->where($this->mapper::TABLE . '_d' . $this->depth . '.' . $col, $comparison, $where['value'], $where['comparison']);
                     }
                 }
-
-            } */ /* elseif (isset($this->mapper::BELONGS_TO[$member])) {
-                // variable in belogns to
-                // @todo: maybe needed in the future, but needs adjustment, doesn't make sense at the moment
-                foreach ($values as $index => $where) {
-                    // @todo: the has many, etc. if checks only work if it is a relation on the first level, if we have a deeper where condition nesting this fails
-                    if ($where['child'] !== '') {
-                        continue;
-                    }
-
-                    $comparison = \is_array($where['value']) && \count($where['value']) > 1 ? 'in' : $where['logic'];
-                    $query->where($this->mapper::TABLE . '_d' . $this->depth . '.' . $member, $comparison, $where['value'], $where['comparison']);
-
-                    $query->leftJoin($this->mapper::BELONGS_TO[$member]['mapper']::TABLE, $this->mapper::BELONGS_TO[$member]['mapper']::TABLE . '_d' . $this->depth)
-                        ->on(
-                            $this->mapper::TABLE . '_d' . $this->depth . '.' . $this->mapper::BELONGS_TO[$member]['external'], '=',
-                            $this->mapper::BELONGS_TO[$member]['mapper']::TABLE . '_d' . $this->depth . '.' . $this->mapper::BELONGS_TO[$member]['mapper']::PRIMARYFIELD , 'AND',
-                            $this->mapper::BELONGS_TO[$member]['mapper']::TABLE . '_d' . $this->depth
-                        );
-                }
-            } */ /* elseif (isset($this->mapper::OWNS_ONE[$member])) {
-                // variable in owns one
-                // @todo: maybe needed in the future, but needs adjustment, doesn't make sense at the moment
-                foreach ($values as $index => $where) {
-                    // @todo: the has many, etc. if checks only work if it is a relation on the first level, if we have a deeper where condition nesting this fails
-                    if ($where['child'] !== '') {
-                        continue;
-                    }
-
-                    $comparison = \is_array($where['value']) && \count($where['value']) > 1 ? 'in' : $where['logic'];
-                    $query->where($this->mapper::TABLE . '_d' . $this->depth . '.' . $member, $comparison, $where['value'], $where['comparison']);
-                    $query->leftJoin($this->mapper::OWNS_ONE[$member]['mapper']::TABLE, $this->mapper::OWNS_ONE[$member]['mapper']::TABLE . '_d' . $this->depth)
-                        ->on(
-                            $this->mapper::TABLE . '_d' . $this->depth . '.' . $this->mapper::OWNS_ONE[$member]['external'], '=',
-                            $this->mapper::OWNS_ONE[$member]['mapper']::TABLE . '_d' . $this->depth . '.' . $this->mapper::OWNS_ONE[$member]['mapper']::PRIMARYFIELD , 'AND',
-                            $this->mapper::OWNS_ONE[$member]['mapper']::TABLE . '_d' . $this->depth
-                        );
-                }
-            } */
+            }
         }
 
         // load relations

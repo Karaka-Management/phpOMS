@@ -3,15 +3,15 @@
         "name": "[a-z\\_]+",
         "fields": {
             ".*": {
-                "name": "[a-z\\_]+",
+                "name": "[a-z0-9\\_]+",
                 "type": "[A-Z0-9\\(\\)]+",
                 ".*?default": ".*",
                 ".*?null": "1|0",
                 ".*?primary": "1|0",
                 ".*?unique": "1|0",
                 ".*?autoincrement": "1|0",
-                ".*?foreignTable": "[a-z\\_]+",
-                ".*?foreignKey": "[a-z\\_]+",
+                ".*?foreignTable": "[a-z0-9\\_]+",
+                ".*?foreignKey": "[a-z0-9\\_]+",
                 ".*?annotations": ".*"
             }
         }
