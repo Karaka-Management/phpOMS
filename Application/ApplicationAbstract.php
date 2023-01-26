@@ -36,7 +36,7 @@ use phpOMS\Router\RouterInterface;
  * and afterwards read only.
  *
  * @property string                                       $appName
- * @property int                                          $orgId
+ * @property int                                          $unitId
  * @property \phpOMS\DataStorage\Database\DatabasePool    $dbPool
  * @property \phpOMS\Localization\L11nManager             $l11nManager
  * @property \phpOMS\Localization\Localization            $l11nServer
@@ -80,7 +80,7 @@ class ApplicationAbstract
      * @var int
      * @since 1.0.0
      */
-    protected int $orgId = 0;
+    protected int $unitId = 0;
 
     /**
      * App theme.
