@@ -12,10 +12,10 @@
  */
 declare(strict_types=1);
 
-namespace phpOMS\tests\Message\Console;
+namespace phpOMS\tests\Message\Cli;
 
 use phpOMS\Localization\Localization;
-use phpOMS\Message\Console\ConsoleRequest;
+use phpOMS\Message\Cli\CliRequest;
 use phpOMS\Message\Http\OSType;
 use phpOMS\Message\Http\RequestMethod;
 use phpOMS\Uri\Argument;
@@ -23,37 +23,37 @@ use phpOMS\Uri\Argument;
 /**
  * @internal
  */
-final class ConsoleRequestTest extends \PHPUnit\Framework\TestCase
+final class CliRequestTest extends \PHPUnit\Framework\TestCase
 {
-    private ConsoleRequest $request;
+    private CliRequest $request;
 
     /**
      * {@inheritdoc}
      */
     protected function setUp() : void
     {
-        $this->request = new ConsoleRequest(new Argument('get:some/test/path'), $l11n = new Localization());
+        $this->request = new CliRequest(new Argument('get:some/test/path'), $l11n = new Localization());
     }
 
     /**
-     * @covers phpOMS\Message\Console\ConsoleRequest
+     * @covers phpOMS\Message\Cli\CliRequest
      * @group framework
      */
     public function testDefault() : void
     {
-        $request = new ConsoleRequest();
+        $request = new CliRequest();
         self::assertEquals('en', $request->getLanguage());
         self::assertEquals(OSType::LINUX, $request->getOS());
         self::assertEquals('127.0.0.1', $request->getOrigin());
         self::assertEmpty($request->getBody());
-        self::assertInstanceOf('\phpOMS\Message\Console\ConsoleHeader', $request->header);
+        self::assertInstanceOf('\phpOMS\Message\Cli\CliHeader', $request->header);
         self::assertEquals('', $request->__toString());
         self::assertFalse($request->hasData('key'));
         self::assertNull($request->getData('key'));
     }
 
     /**
-     * @covers phpOMS\Message\Console\ConsoleRequest
+     * @covers phpOMS\Message\Cli\CliRequest
      * @group framework
      */
     public function testOSInputOutput() : void
@@ -63,7 +63,7 @@ final class ConsoleRequestTest extends \PHPUnit\Framework\TestCase
     }
 
     /**
-     * @covers phpOMS\Message\Console\ConsoleRequest
+     * @covers phpOMS\Message\Cli\CliRequest
      * @group framework
      */
     public function testMethodInputOutput() : void
@@ -73,7 +73,7 @@ final class ConsoleRequestTest extends \PHPUnit\Framework\TestCase
     }
 
     /**
-     * @covers phpOMS\Message\Console\ConsoleRequest
+     * @covers phpOMS\Message\Cli\CliRequest
      * @group framework
      */
     public function testInputOutputUriString() : void
@@ -83,12 +83,12 @@ final class ConsoleRequestTest extends \PHPUnit\Framework\TestCase
 
     /**
      * @testdox The url hashes for the different paths get correctly generated
-     * @covers phpOMS\Message\Console\ConsoleRequest
+     * @covers phpOMS\Message\Cli\CliRequest
      * @group framework
      */
     public function testHashingInputOutput() : void
     {
-        $request = new ConsoleRequest(new Argument(':test/path ?para1=abc ?para2=2 #frag'), $l11n = new Localization());
+        $request = new CliRequest(new Argument(':test/path ?para1=abc ?para2=2 #frag'), $l11n = new Localization());
 
         $request->createRequestHashs(0);
         self::assertEquals([
@@ -100,7 +100,7 @@ final class ConsoleRequestTest extends \PHPUnit\Framework\TestCase
     }
 
     /**
-     * @covers phpOMS\Message\Console\ConsoleRequest
+     * @covers phpOMS\Message\Cli\CliRequest
      * @group framework
      */
     public function testInputOutputL11n() : void
@@ -110,7 +110,7 @@ final class ConsoleRequestTest extends \PHPUnit\Framework\TestCase
     }
 
     /**
-     * @covers phpOMS\Message\Console\ConsoleRequest
+     * @covers phpOMS\Message\Cli\CliRequest
      * @group framework
      */
     public function testDataInputOutput() : void
@@ -121,7 +121,7 @@ final class ConsoleRequestTest extends \PHPUnit\Framework\TestCase
     }
 
     /**
-     * @covers phpOMS\Message\Console\ConsoleRequest
+     * @covers phpOMS\Message\Cli\CliRequest
      * @group framework
      */
     public function testHasData() : void
@@ -131,7 +131,7 @@ final class ConsoleRequestTest extends \PHPUnit\Framework\TestCase
     }
 
     /**
-     * @covers phpOMS\Message\Console\ConsoleRequest
+     * @covers phpOMS\Message\Cli\CliRequest
      * @group framework
      */
     public function testInvalidOverwrite() : void
@@ -142,7 +142,7 @@ final class ConsoleRequestTest extends \PHPUnit\Framework\TestCase
     }
 
     /**
-     * @covers phpOMS\Message\Console\ConsoleRequest
+     * @covers phpOMS\Message\Cli\CliRequest
      * @group framework
      */
     public function testOverwrite() : void
@@ -154,19 +154,19 @@ final class ConsoleRequestTest extends \PHPUnit\Framework\TestCase
     }
 
     /**
-     * @covers phpOMS\Message\Console\ConsoleRequest
+     * @covers phpOMS\Message\Cli\CliRequest
      * @group framework
      */
     public function testToString() : void
     {
-        $request = new ConsoleRequest(new Argument('get:some/test/path'));
+        $request = new CliRequest(new Argument('get:some/test/path'));
         self::assertEquals('get:some/test/path', $request->__toString());
 
         $request->setData('test', 'data');
         $request->setData('test2', 3);
         self::assertEquals('get:some/test/path', $request->__toString());
 
-        $request = new ConsoleRequest(new Argument('get:some/test/path?test=var'));
+        $request = new CliRequest(new Argument('get:some/test/path?test=var'));
         self::assertEquals('get:some/test/path?test=var', $request->__toString());
     }
 }

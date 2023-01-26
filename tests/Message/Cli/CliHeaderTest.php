@@ -12,29 +12,29 @@
  */
 declare(strict_types=1);
 
-namespace phpOMS\tests\Message\Console;
+namespace phpOMS\tests\Message\Cli;
 
 use phpOMS\Localization\Localization;
-use phpOMS\Message\Console\ConsoleHeader;
+use phpOMS\Message\Cli\CliHeader;
 use phpOMS\Message\Http\RequestStatusCode;
 
 /**
  * @internal
  */
-final class ConsoleHeaderTest extends \PHPUnit\Framework\TestCase
+final class CliHeaderTest extends \PHPUnit\Framework\TestCase
 {
-    private ConsoleHeader $header;
+    private CliHeader $header;
 
     /**
      * {@inheritdoc}
      */
     protected function setUp() : void
     {
-        $this->header = new ConsoleHeader();
+        $this->header = new CliHeader();
     }
 
     /**
-     * @covers phpOMS\Message\Console\ConsoleHeader
+     * @covers phpOMS\Message\Cli\CliHeader
      * @group framework
      */
     public function testDefaults() : void
@@ -51,7 +51,7 @@ final class ConsoleHeaderTest extends \PHPUnit\Framework\TestCase
     }
 
     /**
-     * @covers phpOMS\Message\Console\ConsoleHeader
+     * @covers phpOMS\Message\Cli\CliHeader
      * @group framework
      */
     public function testValueInputOutput() : void
@@ -61,7 +61,7 @@ final class ConsoleHeaderTest extends \PHPUnit\Framework\TestCase
     }
 
     /**
-     * @covers phpOMS\Message\Console\ConsoleHeader
+     * @covers phpOMS\Message\Cli\CliHeader
      * @group framework
      */
     public function testHasKey() : void
@@ -71,7 +71,7 @@ final class ConsoleHeaderTest extends \PHPUnit\Framework\TestCase
     }
 
     /**
-     * @covers phpOMS\Message\Console\ConsoleHeader
+     * @covers phpOMS\Message\Cli\CliHeader
      * @group framework
      */
     public function testInvalidOverwrite() : void
@@ -82,7 +82,7 @@ final class ConsoleHeaderTest extends \PHPUnit\Framework\TestCase
     }
 
     /**
-     * @covers phpOMS\Message\Console\ConsoleHeader
+     * @covers phpOMS\Message\Cli\CliHeader
      * @group framework
      */
     public function testOverwrite() : void
@@ -93,7 +93,7 @@ final class ConsoleHeaderTest extends \PHPUnit\Framework\TestCase
     }
 
     /**
-     * @covers phpOMS\Message\Console\ConsoleHeader
+     * @covers phpOMS\Message\Cli\CliHeader
      * @group framework
      */
     public function testRemove() : void
@@ -106,7 +106,7 @@ final class ConsoleHeaderTest extends \PHPUnit\Framework\TestCase
 
     /**
      * @testdox The header can generate default http headers based on status codes
-     * @covers phpOMS\Message\Console\ConsoleHeader<extended>
+     * @covers phpOMS\Message\Cli\CliHeader<extended>
      * @group framework
      */
     public function testHeaderGeneration() : void
@@ -116,7 +116,7 @@ final class ConsoleHeaderTest extends \PHPUnit\Framework\TestCase
     }
 
     /**
-     * @covers phpOMS\Message\Console\ConsoleHeader
+     * @covers phpOMS\Message\Cli\CliHeader
      * @group framework
      */
     public function testAccount() : void
@@ -126,7 +126,7 @@ final class ConsoleHeaderTest extends \PHPUnit\Framework\TestCase
     }
 
     /**
-     * @covers phpOMS\Message\Console\ConsoleHeader
+     * @covers phpOMS\Message\Cli\CliHeader
      * @group framework
      */
     public function testLockedHeaderSet() : void
@@ -137,7 +137,7 @@ final class ConsoleHeaderTest extends \PHPUnit\Framework\TestCase
     }
 
     /**
-     * @covers phpOMS\Message\Console\ConsoleHeader
+     * @covers phpOMS\Message\Cli\CliHeader
      * @group framework
      */
     public function testLockedHeaderRemove() : void

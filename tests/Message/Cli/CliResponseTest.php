@@ -12,48 +12,48 @@
  */
 declare(strict_types=1);
 
-namespace phpOMS\tests\Message\Console;
+namespace phpOMS\tests\Message\Cli;
 
 use phpOMS\Localization\Localization;
-use phpOMS\Message\Console\ConsoleResponse;
+use phpOMS\Message\Cli\CliResponse;
 use phpOMS\System\MimeType;
 
 /**
  * @internal
  */
-final class ConsoleResponseTest extends \PHPUnit\Framework\TestCase
+final class CliResponseTest extends \PHPUnit\Framework\TestCase
 {
-    protected ConsoleResponse $response;
+    protected CliResponse $response;
 
     /**
      * {@inheritdoc}
      */
     protected function setUp() : void
     {
-        $this->response = new ConsoleResponse();
+        $this->response = new CliResponse();
     }
 
     /**
-     * @covers phpOMS\Message\Console\ConsoleResponse
+     * @covers phpOMS\Message\Cli\CliResponse
      * @group framework
      */
     public function testDefault() : void
     {
-        $this->response = new ConsoleResponse(new Localization());
+        $this->response = new CliResponse(new Localization());
         self::assertEquals('', $this->response->getBody());
         self::assertEquals('', $this->response->render());
         self::assertEquals([], $this->response->toArray());
         self::assertInstanceOf('\phpOMS\Localization\Localization', $this->response->header->l11n);
-        self::assertInstanceOf('\phpOMS\Message\Console\ConsoleHeader', $this->response->header);
+        self::assertInstanceOf('\phpOMS\Message\Cli\CliHeader', $this->response->header);
     }
 
     /**
-     * @covers phpOMS\Message\Console\ConsoleResponse
+     * @covers phpOMS\Message\Cli\CliResponse
      * @group framework
      */
     public function testSetGet() : void
     {
-        $this->response = new ConsoleResponse(new Localization());
+        $this->response = new CliResponse(new Localization());
 
         $this->response->setResponse(['a' => 1]);
         self::assertTrue($this->response->remove('a'));
@@ -62,7 +62,7 @@ final class ConsoleResponseTest extends \PHPUnit\Framework\TestCase
 
     /**
      * @testdox Response data can be turned into an array
-     * @covers phpOMS\Message\Console\ConsoleResponse<extended>
+     * @covers phpOMS\Message\Cli\CliResponse<extended>
      * @group framework
      */
     public function testToArray() : void
@@ -101,7 +101,7 @@ final class ConsoleResponseTest extends \PHPUnit\Framework\TestCase
 
     /**
      * @testdox A response with json as content-type is automatically rendered as json data
-     * @covers phpOMS\Message\Console\ConsoleResponse<extended>
+     * @covers phpOMS\Message\Cli\CliResponse<extended>
      * @group framework
      */
     public function testJsonRender() : void
@@ -141,7 +141,7 @@ final class ConsoleResponseTest extends \PHPUnit\Framework\TestCase
 
     /**
      * @testdox Invalid response data results in an empty array
-     * @covers phpOMS\Message\Console\ConsoleResponse<extended>
+     * @covers phpOMS\Message\Cli\CliResponse<extended>
      * @group framework
      */
     public function testInvalidResponseDataToArray() : void
@@ -152,7 +152,7 @@ final class ConsoleResponseTest extends \PHPUnit\Framework\TestCase
 
     /**
      * @testdox Invalid response data results in an empty render
-     * @covers phpOMS\Message\Console\ConsoleResponse<extended>
+     * @covers phpOMS\Message\Cli\CliResponse<extended>
      * @group framework
      */
     public function testInvalidResponseDataRender() : void

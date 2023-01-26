@@ -4,7 +4,7 @@
  *
  * PHP Version 8.1
  *
- * @package   phpOMS\Message\Console
+ * @package   phpOMS\Message\Cli
  * @copyright Dennis Eichhorn
  * @license   OMS License 1.0
  * @version   1.0.0
@@ -12,21 +12,21 @@
  */
 declare(strict_types=1);
 
-namespace phpOMS\Message\Console;
+namespace phpOMS\Message\Cli;
 
 use phpOMS\Message\HeaderAbstract;
 
 /**
  * Response class.
  *
- * @package phpOMS\Message\Console
+ * @package phpOMS\Message\Cli
  * @license OMS License 1.0
  * @link    https://jingga.app
  * @since   1.0.0
  *
  * @SuppressWarnings(PHPMD.Superglobals)
  */
-final class ConsoleHeader extends HeaderAbstract
+final class CliHeader extends HeaderAbstract
 {
     /**
      * Protocol version.

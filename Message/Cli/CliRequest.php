@@ -4,7 +4,7 @@
  *
  * PHP Version 8.1
  *
- * @package   phpOMS\Message\Console
+ * @package   phpOMS\Message\Cli
  * @copyright Dennis Eichhorn
  * @license   OMS License 1.0
  * @version   1.0.0
@@ -12,7 +12,7 @@
  */
 declare(strict_types=1);
 
-namespace phpOMS\Message\Console;
+namespace phpOMS\Message\Cli;
 
 use phpOMS\Localization\Localization;
 use phpOMS\Message\Http\RequestMethod;
@@ -25,14 +25,14 @@ use phpOMS\Utils\ArrayUtils;
 /**
  * Request class.
  *
- * @package phpOMS\Message\Console
+ * @package phpOMS\Message\Cli
  * @license OMS License 1.0
  * @link    https://jingga.app
  * @since   1.0.0
  *
  * @SuppressWarnings(PHPMD.Superglobals)
  */
-final class ConsoleRequest extends RequestAbstract
+final class CliRequest extends RequestAbstract
 {
     /**
      * Uri.
@@ -68,7 +68,7 @@ final class ConsoleRequest extends RequestAbstract
      */
     public function __construct(UriInterface $uri = null, Localization $l11n = null)
     {
-        $this->header       = new ConsoleHeader();
+        $this->header       = new CliHeader();
         $this->header->l11n = $l11n ?? new Localization();
 
         $this->uri = $uri ?? new Argument();
