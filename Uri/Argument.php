@@ -15,7 +15,7 @@ declare(strict_types=1);
 namespace phpOMS\Uri;
 
 /**
- * Console argument class.
+ * Cli argument class.
  *
  * Considers arguments used in ca CLI as uri
  *
