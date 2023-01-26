@@ -157,7 +157,9 @@ final class EventManager implements \Countable
     }
 
     /**
-     * Trigger event based on regex for group and/or id
+     * Trigger event based on regex for group and/or id.
+     *
+     * This tigger function allows the group to be a regex in either this function call or in the definition of the group.
      *
      * @param string $group Name of the event (can be regex)
      * @param string $id    Sub-requirement for event (can be regex)
@@ -308,7 +310,7 @@ final class EventManager implements \Countable
             return false; // @codeCoverageIgnore
         }
 
-        foreach ($this->groups[$group] as $id => $ok) {
+        foreach ($this->groups[$group] as $ok) {
             if (!$ok) {
                 return true;
             }
