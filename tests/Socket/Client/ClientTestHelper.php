@@ -51,7 +51,7 @@ $app = new class() extends ApplicationAbstract
 
 $app->logger         = FileLogger::getInstance(__DIR__ . '/server.log', true);
 $app->dbPool         = $GLOBALS['dbpool'];
-$app->orgId          = 1;
+$app->unitId          = 1;
 $app->cachePool      = new CachePool($app->dbPool);
 $app->accountManager = new AccountManager($GLOBALS['session']);
 $app->appSettings    = new CoreSettings($app->dbPool->get());

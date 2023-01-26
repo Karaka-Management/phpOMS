@@ -61,7 +61,7 @@ final class ClientTest extends \PHPUnit\Framework\TestCase
 
         $this->app->logger         = new FileLogger(__DIR__ . '/client.log', false);
         $this->app->dbPool         = $GLOBALS['dbpool'];
-        $this->app->orgId          = 1;
+        $this->app->unitId          = 1;
         $this->app->cachePool      = new CachePool($this->app->dbPool);
         $this->app->accountManager = new AccountManager($GLOBALS['session']);
         $this->app->appSettings    = new CoreSettings();
