@@ -187,7 +187,7 @@ final class ReadMapper extends DataMapperAbstract
 
         foreach ($dbData as $row) {
             $value       = $row[$this->mapper::PRIMARYFIELD . '_d' . $this->depth];
-            $obj[$value] = $this->mapper::createBaseModel();
+            $obj[$value] = $this->mapper::createBaseModel($row);
 
             $obj[$value] = $this->populateAbstract($row, $obj[$value]);
             $this->loadHasManyRelations($obj[$value]);
@@ -743,7 +743,7 @@ final class ReadMapper extends DataMapperAbstract
         $ownsOneMapper        = $this->createRelationMapper($mapper::get($this->db), $member);
         $ownsOneMapper->depth = $this->depth + 1;
 
-        return $ownsOneMapper->populateAbstract($result, $mapper::createBaseModel());
+        return $ownsOneMapper->populateAbstract($result, $mapper::createBaseModel($result));
     }
 
     /**
@@ -804,7 +804,7 @@ final class ReadMapper extends DataMapperAbstract
         $belongsToMapper        = $this->createRelationMapper($mapper::get($this->db), $member);
         $belongsToMapper->depth = $this->depth + 1;
 
-        return $belongsToMapper->populateAbstract($result, $mapper::createBaseModel());
+        return $belongsToMapper->populateAbstract($result, $mapper::createBaseModel($result));
     }
 
     /**

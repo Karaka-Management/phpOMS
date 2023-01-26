@@ -85,7 +85,7 @@ class DataMapperFactory
      *
      * Relation is defined in current mapper
      *
-     * @var array<string, array{mapper:string, external:string, by?:string, column?:string, conditional?:bool}>
+     * @var array<string, array{mapper:class-string, external:string, by?:string, column?:string, conditional?:bool}>
      * @since 1.0.0
      */
     public const OWNS_ONE = [];
@@ -93,7 +93,7 @@ class DataMapperFactory
     /**
      * Belongs to.
      *
-     * @var array<string, array{mapper:string, external:string, column?:string, by?:string}>
+     * @var array<string, array{mapper:class-string, external:string, column?:string, by?:string}>
      * @since 1.0.0
      */
     public const BELONGS_TO = [];
@@ -109,7 +109,7 @@ class DataMapperFactory
     /**
      * Parent column.
      *
-     * @var string
+     * @var class-string
      * @since 1.0.0
      */
     public const PARENT = '';
@@ -117,10 +117,18 @@ class DataMapperFactory
     /**
      * Model to use by the mapper.
      *
-     * @var string
+     * @var class-string
      * @since 1.0.0
      */
     public const MODEL = '';
+
+    /**
+     * Model factory to use by the mapper.
+     *
+     * @var class-string
+     * @since 1.0.0
+     */
+    public const FACTORY = '';
 
     /**
      * Database connection.
@@ -387,15 +395,21 @@ class DataMapperFactory
     /**
      * Create the empty base model
      *
+     * @param null|array $data Data to use for initialization
+     *
      * @return object
      *
      * @since 1.0.0
      */
-    public static function createBaseModel() : object
+    public static function createBaseModel(array $data = null) : object
     {
-        $class = empty(static::MODEL) ? \substr(static::class, 0, -6) : static::MODEL;
+        if (empty(static::FACTORY)) {
+            $class = empty(static::MODEL) ? \substr(static::class, 0, -6) : static::MODEL;
 
-        return new $class();
+            return new $class();
+        }
+
+        return static::FACTORY::createWith($data);
     }
 
     /**
