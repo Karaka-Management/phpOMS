@@ -215,7 +215,7 @@ abstract class ModuleAbstract
         string $status,
         string $title,
         string $message,
-        $obj
+        mixed $obj
     ) : void
     {
         $response->header->set('Content-Type', MimeType::M_JSON . '; charset=utf-8', true);
