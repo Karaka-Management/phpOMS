@@ -94,7 +94,16 @@ final class CookieJar
      *
      * @since 1.0.0
      */
-    public function set(string $id, mixed $value, int $expire = 86400, string $path = '/', string $domain = null, bool $secure = false, bool $httpOnly = true, bool $overwrite = true) : bool
+    public function set(
+        string $id,
+        mixed $value,
+        int $expire = 86400,
+        string $path = '/',
+        string $domain = null,
+        bool $secure = false,
+        bool $httpOnly = true,
+        bool $overwrite = true
+    ) : bool
     {
         if ($overwrite || !isset($this->cookies[$id])) {
             $this->cookies[$id] = [
