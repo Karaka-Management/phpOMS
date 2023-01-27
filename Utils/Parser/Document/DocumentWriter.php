@@ -16,6 +16,7 @@ namespace phpOMS\Utils\Parser\Document;
 
 use PhpOffice\PhpWord\PhpWord;
 use PhpOffice\PhpWord\Settings;
+use PhpOffice\PhpWord\Writer\PDF\AbstractRenderer;
 use PhpOffice\PhpWord\Writer\WriterInterface;
 
 class DocumentWriter extends AbstractRenderer implements WriterInterface
@@ -25,19 +26,19 @@ class DocumentWriter extends AbstractRenderer implements WriterInterface
      *
      * @param string $filename Name of the file to save as
      */
-    public function toPdfString($filename = null): void
+    public function toPdfString($filename = null): string
     {
         //  PDF settings
-        $paperSize = strtoupper('A4');
+        $paperSize   = strtoupper('A4');
         $orientation = strtoupper('portrait');
 
         //  Create PDF
-        $pdf = $pdf = new \Mpdf\Mpdf();
+        $pdf = new \Mpdf\Mpdf();
         $pdf->_setPageSize($paperSize, $orientation);
         $pdf->addPage($orientation);
 
         // Write document properties
-        $phpWord = $this->getPhpWord();
+        $phpWord  = $this->getPhpWord();
         $docProps = $phpWord->getDocInfo();
         $pdf->setTitle($docProps->getTitle());
         $pdf->setAuthor($docProps->getCreator());

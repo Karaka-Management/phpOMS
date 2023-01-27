@@ -414,6 +414,7 @@ final class WriteMapper extends DataMapperAbstract
             // @codeCoverageIgnoreStart
             \var_dump($e->getMessage());
             \var_dump($relQuery->toSql());
+            \var_dump(\debug_backtrace());
             // @codeCoverageIgnoreEnd
         }
     }

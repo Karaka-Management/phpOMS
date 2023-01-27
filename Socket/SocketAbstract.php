@@ -51,7 +51,7 @@ abstract class SocketAbstract implements SocketInterface
     /**
      * Socket.
      *
-     * @var null|resource
+     * @var null|\Socket
      * @since 1.0.0
      */
     protected $sock;

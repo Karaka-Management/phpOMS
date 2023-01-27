@@ -755,7 +755,9 @@ final class ModuleManager
         $name  = $this->generateModuleName($module);
 
         if (!isset($this->running[$class])) {
-            if (Autoloader::exists($class) !== false) {
+            if (Autoloader::exists($class) !== false
+                || Autoloader::exists($class = '\\Modules\\' . $module . '\\Controller\\Controller') !== false
+            ) {
                 try {
                     /** @var ModuleAbstract $obj */
                     $obj                  = new $class($this->app);

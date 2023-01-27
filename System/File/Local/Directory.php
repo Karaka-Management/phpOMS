@@ -293,11 +293,11 @@ final class Directory extends FileAbstract implements DirectoryInterface
         $counter = 0;
         $files   = \scandir($path);
 
-        do {
-            if ($files === false) {
-                return false; // @codeCoverageIgnore
-            }
+        if ($files === false) {
+            return false; // @codeCoverageIgnore
+        }
 
+        do {
             foreach ($files as $file) {
                 if ($file === '.' || $file === '..') {
                     continue;
@@ -311,9 +311,11 @@ final class Directory extends FileAbstract implements DirectoryInterface
             }
 
             ++$counter;
-        } while ($counter < 3 && \count($files = \scandir($path)) > 2);
+            $files = \scandir($path);
+        } while ($files !== false && $counter < 3 && \count($files) > 2);
 
-        if (\count(\scandir($path)) > 2) {
+        $files = \scandir($path);
+        if ($files === false || \count($files) > 2) {
             return false;
         }
 

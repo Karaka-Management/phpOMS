@@ -200,7 +200,9 @@ final class ImageUtils
             $src2 = \imagecreatefromgif($img2);
         }
 
-        if ($src1 === null || $src2 === null) {
+        if ($src1 === null || $src2 === null
+            || $src1 === false || $src2 === false
+        ) {
             return 0;
         }
 
@@ -216,13 +218,25 @@ final class ImageUtils
                 ? \imagecreatetruecolor($newDim[0], $newDim[1])
                 : \imagecrop($src2, ['x' => 0, 'y' => 0, 'width' => $imageDim2[0], 'height' => $imageDim2[1]]);
 
+            if ($dst === false) {
+                return 0;
+            }
+
             $alpha = \imagecolorallocatealpha($dst, 255, 255, 255, 127);
+            if ($alpha === false) {
+                return 0;
+            }
+
             if ($diff === 0) {
                 \imagefill($dst, 0, 0, $alpha);
             }
 
             $red   = \imagecolorallocate($dst, 255, 0, 0);
             $green = \imagecolorallocate($dst, 0, 255, 0);
+
+            if ($red === false || $green === false) {
+                return 0;
+            }
         }
 
         $difference = 0;
@@ -236,7 +250,7 @@ final class ImageUtils
                         if ($i >= $imageDim2[0] || $j >= $imageDim2[1]) {
                             \imagesetpixel($dst, $i, $j, $green);
                         } else {
-                            $color2 = \imagecolerat($src2, $i, $j);
+                            $color2 = \imagecolorat($src2, $i, $j);
                             \imagesetpixel($dst, $i, $j, $color2);
                         }
                     }
@@ -252,7 +266,7 @@ final class ImageUtils
                         if ($i >= $imageDim1[0] || $j >= $imageDim1[1]) {
                             \imagesetpixel($dst, $i, $j, $red);
                         } else {
-                            $color1 = \imagecolerat($src1, $i, $j);
+                            $color1 = \imagecolorat($src1, $i, $j);
                             \imagesetpixel($dst, $i, $j, $color1);
                         }
                     }
@@ -261,10 +275,10 @@ final class ImageUtils
                     continue;
                 }
 
-                $color1 = \imagecolerat($src1, $i, $j);
-                $color2 = \imagecolerat($src2, $i, $j);
+                $color1 = \imagecolorat($src1, $i, $j);
+                $color2 = \imagecolorat($src2, $i, $j);
 
-                if ($color1 !== $color2) {
+                if ($color1 !== $color2 && $color1 !== false && $color2 !== null) {
                     ++$difference;
 
                     if ($diff === 0) {
@@ -288,7 +302,7 @@ final class ImageUtils
 
             \imagedestroy($src1);
             \imagedestroy($src2);
-            \imagedestroy($dest);
+            \imagedestroy($dst);
         }
 
         return $difference;

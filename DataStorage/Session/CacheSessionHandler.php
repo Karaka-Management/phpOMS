@@ -14,8 +14,8 @@ declare(strict_types=1);
 
 namespace phpOMS\DataStorage\Session;
 
-use phpOMS\DataStorage\Cache\Connection\ConnectionAbstract;
 use phpOMS\DataStorage\Cache\CacheStatus;
+use phpOMS\DataStorage\Cache\Connection\ConnectionAbstract;
 
 /**
  * Cache session handler.
@@ -82,11 +82,11 @@ final class CacheSessionHandler implements \SessionHandlerInterface, \SessionIdI
      */
     public function open(string $savePath, string $sessionName) : bool
     {
-        if ($con->getStatus() !== CacheStatus::OK) {
-            $con->connect();
+        if ($this->con->getStatus() !== CacheStatus::OK) {
+            $this->con->connect();
         }
 
-        return $con->getStatus() === CacheStatus::OK;
+        return $this->con->getStatus() === CacheStatus::OK;
     }
 
     /**
@@ -120,7 +120,7 @@ final class CacheSessionHandler implements \SessionHandlerInterface, \SessionIdI
 
         $this->con->updateExpire($this->expire);
 
-        return $data;
+        return (string) $data;
     }
 
     /**
@@ -167,6 +167,6 @@ final class CacheSessionHandler implements \SessionHandlerInterface, \SessionIdI
      */
     public function gc(int $maxlifetime) : int|false
     {
-        (int) $this->con->flush($maxlifetime);
+        return (int) $this->con->flush($maxlifetime);
     }
 }

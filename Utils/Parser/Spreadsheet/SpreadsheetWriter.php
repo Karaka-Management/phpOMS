@@ -33,20 +33,20 @@ class SpreadsheetWriter extends Pdf
         $pdf = new \Mpdf\Mpdf();
 
         //  Check for paper size and page orientation
-        $setup = $this->spreadsheet->getSheet($this->getSheetIndex() ?? 0)->getPageSetup();
-        $orientation = $this->getOrientation() ?? $setup->getOrientation();
-        $orientation = ($orientation === PageSetup::ORIENTATION_LANDSCAPE) ? 'L' : 'P';
+        $setup          = $this->spreadsheet->getSheet($this->getSheetIndex() ?? 0)->getPageSetup();
+        $orientation    = $this->getOrientation() ?? $setup->getOrientation();
+        $orientation    = ($orientation === PageSetup::ORIENTATION_LANDSCAPE) ? 'L' : 'P';
         $printPaperSize = $this->getPaperSize() ?? $setup->getPaperSize();
-        $paperSize = self::$paperSizes[$printPaperSize] ?? PageSetup::getPaperSizeDefault();
+        $paperSize      = self::$paperSizes[$printPaperSize] ?? PageSetup::getPaperSizeDefault();
 
         $ortmp = $orientation;
         $pdf->_setPageSize($paperSize, $ortmp);
         $pdf->DefOrientation = $orientation;
         $pdf->AddPageByArray([
-            'orientation' => $orientation,
-            'margin-left' => $this->inchesToMm($this->spreadsheet->getActiveSheet()->getPageMargins()->getLeft()),
-            'margin-right' => $this->inchesToMm($this->spreadsheet->getActiveSheet()->getPageMargins()->getRight()),
-            'margin-top' => $this->inchesToMm($this->spreadsheet->getActiveSheet()->getPageMargins()->getTop()),
+            'orientation'   => $orientation,
+            'margin-left'   => $this->inchesToMm($this->spreadsheet->getActiveSheet()->getPageMargins()->getLeft()),
+            'margin-right'  => $this->inchesToMm($this->spreadsheet->getActiveSheet()->getPageMargins()->getRight()),
+            'margin-top'    => $this->inchesToMm($this->spreadsheet->getActiveSheet()->getPageMargins()->getTop()),
             'margin-bottom' => $this->inchesToMm($this->spreadsheet->getActiveSheet()->getPageMargins()->getBottom()),
         ]);
 
@@ -57,8 +57,9 @@ class SpreadsheetWriter extends Pdf
         $pdf->SetKeywords($this->spreadsheet->getProperties()->getKeywords());
         $pdf->SetCreator($this->spreadsheet->getProperties()->getCreator());
 
-        $html = $this->generateHTMLAll();
+        $html         = $this->generateHTMLAll();
         $bodyLocation = strpos($html, Html::BODY_LINE);
+
         // Make sure first data presented to Mpdf includes body tag
         //   so that Mpdf doesn't parse it as content. Issue 2432.
         if ($bodyLocation !== false) {
@@ -66,6 +67,7 @@ class SpreadsheetWriter extends Pdf
             $pdf->WriteHTML(substr($html, 0, $bodyLocation));
             $html = substr($html, $bodyLocation);
         }
+
         foreach (\array_chunk(\explode(PHP_EOL, $html), 1000) as $lines) {
             $pdf->WriteHTML(\implode(PHP_EOL, $lines));
         }

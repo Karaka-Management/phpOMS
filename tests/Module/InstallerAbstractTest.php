@@ -39,8 +39,6 @@ final class InstallerAbstractTest extends \PHPUnit\Framework\TestCase
     	$this->installer = new class() extends InstallerAbstract
     	{
         };
-
-        $this->installer->dbPool = $GLOBALS['dbpool'];
     }
 
     /**
@@ -63,6 +61,7 @@ final class InstallerAbstractTest extends \PHPUnit\Framework\TestCase
                 public function get(
                     mixed $ids = null,
                     string | array $names = null,
+                    int $unit = null,
                     int $app = null,
                     string $module = null,
                     int $group = null,

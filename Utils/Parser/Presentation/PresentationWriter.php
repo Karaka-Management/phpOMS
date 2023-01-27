@@ -300,7 +300,7 @@ class PresentationWriter
 
     protected function getConstantName($class, $search, $startWith = '')
     {
-        $fooClass = new \ReflectionClass($class);
+        $fooClass  = new \ReflectionClass($class);
         $constants = $fooClass->getConstants();
         $constName = null;
         foreach ($constants as $key => $value) {
