@@ -1395,7 +1395,7 @@ class Builder extends BuilderAbstract
         $sth = null;
 
         try {
-            $sth = $this->connection->con->prepare($this->toSql());
+            $sth = $this->connection->con->prepare($a = $this->toSql());
             if ($sth === false) {
                 return null;
             }

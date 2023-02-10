@@ -32,7 +32,7 @@ final class Money extends FloatInt
      * @var int
      * @since 1.0.0
      */
-    private int $position = 1;
+    private int $position = 0;
 
     /**
      * Currency symbol.
@@ -53,11 +53,8 @@ final class Money extends FloatInt
      *
      * @since 1.0.0
      */
-    public function __construct(int | float | string $value = 0, string $thousands = ',', string $decimal = '.', string $symbol = '', int $position = 0)
+    public function __construct(int | float | string $value = 0, string $thousands = ',', string $decimal = '.')
     {
-        $this->symbol   = $symbol;
-        $this->position = $position;
-
         parent::__construct($value, $thousands, $decimal);
     }
 
@@ -92,9 +89,11 @@ final class Money extends FloatInt
      *
      * @since 1.0.0
      */
-    public function getCurrency(?int $decimals = 2) : string
+    public function getCurrency(?int $decimals = 2, int $position = null, string $symbol = null) : string
     {
-        return ($this->position === 0 && !empty($this->symbol) ? $this->symbol . ' ' : '') . $this->getAmount($decimals) . ($this->position === 1 ? ' ' . $this->symbol : '');
+        return (($position ?? $this->position) === 0 && !empty($symbol ?? $this->symbol) ? ($symbol ?? $this->symbol) . ' ' : '' )
+            . $this->getAmount($decimals)
+            . (($position ?? $this->position) === 1 && !empty($symbol ?? $this->symbol) ? ' ' . ($smbol ?? $this->symbol) : '');
     }
 
     /**

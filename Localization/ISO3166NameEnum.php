@@ -452,7 +452,7 @@ class ISO3166NameEnum extends Enum
 
     public const _SJM = 'Svalbard and Jan Mayen';
 
-    public const _SWZ = 'Swaziland';
+    public const _SWZ = 'Eswatini';
 
     public const _SWE = 'Sweden';
 

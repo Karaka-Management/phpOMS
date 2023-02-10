@@ -160,7 +160,7 @@ final class WriteMapper extends DataMapperAbstract
         }
 
         try {
-            $sth = $this->db->con->prepare($query->toSql());
+            $sth = $this->db->con->prepare($a = $query->toSql());
             $sth->execute();
         } catch (\Throwable $t) {
             // @codeCoverageIgnoreStart

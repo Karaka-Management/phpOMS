@@ -349,6 +349,7 @@ final class EventManager implements \Countable
     {
         if (isset($this->callbacks[$group])) {
             unset($this->callbacks[$group]);
+
             return true;
         }
 
@@ -368,6 +369,7 @@ final class EventManager implements \Countable
     {
         if (isset($this->groups[$group])) {
             unset($this->groups[$group]);
+
             return true;
         }
 

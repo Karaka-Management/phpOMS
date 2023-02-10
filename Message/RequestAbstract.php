@@ -304,6 +304,23 @@ abstract class RequestAbstract implements MessageInterface
         return $this->files;
     }
 
+    public function getFile(string $name) : array
+    {
+        return $this->files[$name] ?? [];
+    }
+
+    /**
+     * Has files.
+     *
+     * @return bool
+     *
+     * @since 1.0.0
+     */
+    public function hasFiles() : bool
+    {
+        return !empty($this->files);
+    }
+
     /**
      * Add file to request
      *

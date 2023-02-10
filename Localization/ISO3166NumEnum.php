@@ -525,4 +525,6 @@ class ISO3166NumEnum extends Enum
     public const _ZWE = '716';
 
     public const _XXX = '000';
+
+    use ISO3166RegionTrait;
 }

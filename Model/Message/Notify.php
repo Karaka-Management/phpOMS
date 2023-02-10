@@ -40,7 +40,7 @@ final class Notify implements \JsonSerializable, SerializableInterface
      * @var string
      * @since 1.0.0
      */
-    private string $title = '';
+    public string $title = '';
 
     /**
      * Message.
@@ -48,7 +48,7 @@ final class Notify implements \JsonSerializable, SerializableInterface
      * @var string
      * @since 1.0.0
      */
-    private string $message = '';
+    public string $message = '';
 
     /**
      * Delay in ms.
@@ -56,7 +56,7 @@ final class Notify implements \JsonSerializable, SerializableInterface
      * @var int
      * @since 1.0.0
      */
-    private int $delay = 0;
+    public int $delay = 0;
 
     /**
      * Stay in ms.
@@ -64,7 +64,7 @@ final class Notify implements \JsonSerializable, SerializableInterface
      * @var int
      * @since 1.0.0
      */
-    private int $stay = 0;
+    public int $stay = 0;
 
     /**
      * Level or type.
@@ -72,7 +72,7 @@ final class Notify implements \JsonSerializable, SerializableInterface
      * @var int
      * @since 1.0.0
      */
-    private int $level = NotifyType::INFO;
+    public string $level = NotifyType::INFO;
 
     /**
      * Constructor.
@@ -82,80 +82,10 @@ final class Notify implements \JsonSerializable, SerializableInterface
      *
      * @since 1.0.0
      */
-    public function __construct(string $msg = '', int $level = NotifyType::INFO)
+    public function __construct(string $msg = '', string $level = NotifyType::INFO)
     {
         $this->message = $msg;
         $this->level   = $level;
-    }
-
-    /**
-     * Set delay.
-     *
-     * @param int $delay Delay in ms
-     *
-     * @return void
-     *
-     * @since 1.0.0
-     */
-    public function setDelay(int $delay) : void
-    {
-        $this->delay = $delay;
-    }
-
-    /**
-     * Set delay.
-     *
-     * @param int $stay Stay in ms
-     *
-     * @return void
-     *
-     * @since 1.0.0
-     */
-    public function setStay(int $stay) : void
-    {
-        $this->stay = $stay;
-    }
-
-    /**
-     * Set title.
-     *
-     * @param string $title Title
-     *
-     * @return void
-     *
-     * @since 1.0.0
-     */
-    public function setTitle(string $title) : void
-    {
-        $this->title = $title;
-    }
-
-    /**
-     * Set message.
-     *
-     * @param string $message Message
-     *
-     * @return void
-     *
-     * @since 1.0.0
-     */
-    public function setMessage(string $message) : void
-    {
-        $this->message = $message;
-    }
-
-    /**
-     * Set level/type.
-     *
-     * @param int $level Notification type/level
-     *
-     * @return void
-     *
-     * @since 1.0.0
-     */
-    public function setLevel(int $level) : void
-    {
-        $this->level = $level;
     }
 
     /**

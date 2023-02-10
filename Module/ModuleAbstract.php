@@ -340,7 +340,9 @@ abstract class ModuleAbstract
      */
     protected function updateModel(int $account, mixed $old, mixed $new, string | \Closure $mapper, string $trigger, string $ip) : void
     {
-        $this->app->eventManager->triggerSimilar('PRE:Module:' . static::NAME . '-' . $trigger . '-update', '', $old);
+        $trigger = static::NAME . '-' . $trigger . '-update';
+
+        $this->app->eventManager->triggerSimilar('PRE:Module:' . $trigger, '', $old);
         $id = 0;
 
         if (\is_string($mapper)) {
@@ -349,7 +351,7 @@ abstract class ModuleAbstract
             $mapper();
         }
 
-        $this->app->eventManager->triggerSimilar('POST:Module:' . static::NAME . '-' . $trigger . '-update', '',
+        $this->app->eventManager->triggerSimilar('POST:Module:' . $trigger, '',
             [
                 $account,
                 $old, $new,
@@ -405,7 +407,7 @@ abstract class ModuleAbstract
      * Create a model relation
      *
      * @param int    $account Account id
-     * @param mixed  $rel1    Object relation1
+     * @param mixed  $rel1    Object relation1 (parent object)
      * @param mixed  $rel2    Object relation2
      * @param string $mapper  Object mapper
      * @param string $field   Relation field
@@ -416,7 +418,15 @@ abstract class ModuleAbstract
      *
      * @since 1.0.0
      */
-    protected function createModelRelation(int $account, mixed $rel1, mixed $rel2, string $mapper, string $field, string $trigger, string $ip) : void
+    protected function createModelRelation(
+        int $account,
+        mixed $rel1,
+        mixed $rel2,
+        string $mapper,
+        string $field,
+        string $trigger,
+        string $ip
+    ) : void
     {
         $trigger = static::NAME . '-' . $trigger . '-relation-create';
 

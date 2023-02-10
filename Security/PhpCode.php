@@ -92,7 +92,8 @@ final class PhpCode
      */
     public static function hasUnicode(string $source) : bool
     {
-        return (bool) \preg_match('/[^\x00-\x7f]/', $source);
+        return ((bool) \preg_match("/[\x00-\x7f]/", $source))
+            || ((bool) \preg_match('/(0|\\)x([a-fA-F0-9]){2}/', $source));
     }
 
     /**

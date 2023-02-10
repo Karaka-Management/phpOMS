@@ -389,10 +389,10 @@ final class ReadMapper extends DataMapperAbstract
                                     )
                                 )
                         */
-                        $where1 = new Where($query->db);
+                        $where1 = new Where($this->db);
                         $where1->where($this->mapper::TABLE . '_d' . $this->depth . '.' . $col, $comparison, $where['value'], 'and');
 
-                        $where2 = new Builder($query->db);
+                        $where2 = new Builder($this->db);
                         $where2->select('1')
                             ->from($this->mapper::TABLE . '_d' . $this->depth)
                             ->where($this->mapper::TABLE . '_d' . $this->depth . '.' . $col, 'in', $alt);

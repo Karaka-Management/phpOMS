@@ -296,11 +296,11 @@ abstract class ViewAbstract implements RenderableInterface
 
             if ($this->isBuffered) {
                 --$obLevel;
-                $ob = (string) \ob_get_clean();
+                $ob .= (string) \ob_get_clean();
             }
 
             if (\is_array($includeData)) {
-                $ob = (string) \json_encode($includeData);
+                $ob .= (string) \json_encode($includeData);
             }
         } catch (\Throwable $e) {
             if ($obLevel > 0 && $this->isBuffered) {
