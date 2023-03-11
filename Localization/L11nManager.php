@@ -172,13 +172,12 @@ final class L11nManager
      * @param string      $module      Module name
      * @param string      $theme       Theme
      * @param string      $translation Text
-     * @param null|string $app         App name
      *
      * @return string In case the language element couldn't be found 'ERROR' will be returned
      *
      * @since 1.0.0
      */
-    public function getText(string $code, string $module, string $theme, string $translation, string $app = null) : string
+    public function getText(string $code, string $module, string $theme, string $translation) : string
     {
         if (isset($this->language[$code][$module][$translation])) {
             return $this->language[$code][$module][$translation];
@@ -186,7 +185,7 @@ final class L11nManager
 
         try {
             /** @var ModuleAbstract $class */
-            $class = '\Modules\\' . $module . '\\Controller\\' . ($app ?? $this->appName) . 'Controller';
+            $class = '\Modules\\' . $module . '\\Controller\\Controller';
 
             /** @var string $class */
             if (!Autoloader::exists($class)) {

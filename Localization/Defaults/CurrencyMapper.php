@@ -57,5 +57,5 @@ final class CurrencyMapper extends DataMapperFactory
      * @var string
      * @since 1.0.0
      */
-    public const PRIMARYFIELD ='currency_id';
+    public const PRIMARYFIELD = 'currency_id';
 }

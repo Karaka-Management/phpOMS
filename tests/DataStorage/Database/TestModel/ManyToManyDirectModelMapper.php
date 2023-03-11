@@ -44,5 +44,5 @@ class ManyToManyDirectModelMapper extends DataMapperFactory
      * @var string
      * @since 1.0.0
      */
-    public const PRIMARYFIELD ='test_has_many_direct_id';
+    public const PRIMARYFIELD = 'test_has_many_direct_id';
 }

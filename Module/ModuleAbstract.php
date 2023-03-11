@@ -277,7 +277,7 @@ abstract class ModuleAbstract
                 StringUtils::intHash(\is_string($mapper) ? $mapper : \get_class($mapper)), $trigger,
                 static::NAME,
                 (string) $id,
-                '',
+                null,
                 $ip,
             ]
         );
@@ -317,7 +317,7 @@ abstract class ModuleAbstract
                     StringUtils::intHash(\is_string($mapper) ? $mapper : \get_class($mapper)), $trigger,
                     static::NAME,
                     (string) $id,
-                    '',
+                    null,
                     $ip,
                 ]
             );
@@ -358,7 +358,7 @@ abstract class ModuleAbstract
                 StringUtils::intHash(\is_string($mapper) ? $mapper : \get_class($mapper)), $trigger,
                 static::NAME,
                 (string) $id,
-                '',
+                null,
                 $ip,
             ]
         );
@@ -397,7 +397,7 @@ abstract class ModuleAbstract
                 StringUtils::intHash(\is_string($mapper) ? $mapper : \get_class($mapper)), $trigger,
                 static::NAME,
                 (string) $id,
-                '',
+                null,
                 $ip,
             ]
         );
@@ -435,11 +435,11 @@ abstract class ModuleAbstract
         $this->app->eventManager->triggerSimilar('POST:Module:' . $trigger, '',
             [
                 $account,
-                $rel1, $rel2,
+                '', [$rel1 => $rel2],
                 StringUtils::intHash($mapper), $trigger,
                 static::NAME,
-                '0',
-                '',
+                null,
+                null,
                 $ip,
             ]
         );
@@ -469,11 +469,11 @@ abstract class ModuleAbstract
         $this->app->eventManager->triggerSimilar('POST:Module:' . $trigger, '',
             [
                 $account,
-                $rel1, $rel2,
+                [$rel1 => $rel2], '',
                 StringUtils::intHash($mapper), $trigger,
                 static::NAME,
-                '0',
-                '',
+                null,
+                null,
                 $ip,
             ]
         );

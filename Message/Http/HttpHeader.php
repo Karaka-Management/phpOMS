@@ -233,7 +233,10 @@ final class HttpHeader extends HeaderAbstract
 
         foreach ($this->header as $name => $arr) {
             foreach ($arr as $value) {
-                \header($name . ': ' . $value);
+                \header(empty($name)
+                    ? $value
+                    : $name . ': ' . $value
+                );
             }
         }
 
@@ -248,6 +251,9 @@ final class HttpHeader extends HeaderAbstract
     public function generate(int $code) : void
     {
         switch ($code) {
+            case RequestStatusCode::R_400:
+                $this->generate400();
+                break;
             case RequestStatusCode::R_403:
                 $this->generate403();
                 break;
@@ -275,9 +281,23 @@ final class HttpHeader extends HeaderAbstract
      *
      * @since 1.0.0
      */
+    private function generate400() : void
+    {
+        $this->set('', 'HTTP/1.0 400 Bad Request');
+        $this->set('Status', 'Status: HTTP/1.0 400 Bad Request');
+        \http_response_code(403);
+    }
+
+    /**
+     * Generate predefined header.
+     *
+     * @return void
+     *
+     * @since 1.0.0
+     */
     private function generate403() : void
     {
-        $this->set('HTTP', 'HTTP/1.0 403 Forbidden');
+        $this->set('', 'HTTP/1.0 403 Forbidden');
         $this->set('Status', 'Status: HTTP/1.0 403 Forbidden');
         \http_response_code(403);
     }
@@ -291,7 +311,7 @@ final class HttpHeader extends HeaderAbstract
      */
     private function generate404() : void
     {
-        $this->set('HTTP', 'HTTP/1.0 404 Not Found');
+        $this->set('', 'HTTP/1.0 404 Not Found');
         $this->set('Status', 'Status: HTTP/1.0 404 Not Found');
         \http_response_code(404);
     }
@@ -305,7 +325,7 @@ final class HttpHeader extends HeaderAbstract
      */
     private function generate406() : void
     {
-        $this->set('HTTP', 'HTTP/1.0 406 Not acceptable');
+        $this->set('', 'HTTP/1.0 406 Not acceptable');
         $this->set('Status', 'Status: 406 Not acceptable');
         \http_response_code(406);
     }
@@ -331,7 +351,7 @@ final class HttpHeader extends HeaderAbstract
      */
     private function generate503() : void
     {
-        $this->set('HTTP', 'HTTP/1.0 503 Service Temporarily Unavailable');
+        $this->set('', 'HTTP/1.0 503 Service Temporarily Unavailable');
         $this->set('Status', 'Status: 503 Service Temporarily Unavailable');
         $this->set('Retry-After', 'Retry-After: 300');
         \http_response_code(503);
@@ -346,7 +366,7 @@ final class HttpHeader extends HeaderAbstract
      */
     private function generate500() : void
     {
-        $this->set('HTTP', 'HTTP/1.0 500 Internal Server Error');
+        $this->set('', 'HTTP/1.0 500 Internal Server Error');
         $this->set('Status', 'Status: 500 Internal Server Error');
         $this->set('Retry-After', 'Retry-After: 300');
         \http_response_code(500);

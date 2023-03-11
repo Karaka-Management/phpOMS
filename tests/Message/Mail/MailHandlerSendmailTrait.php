@@ -40,7 +40,7 @@ trait MailHandlerSendmailTrait
         $mail->addReplyTo('test4@jingga.app', 'Dennis Eichhorn');
         $mail->subject = 'testSendTextWithSendmail';
         $mail->body    = "This is some content\n\Image: <img alt=\"image\" src=\"cid:cid1\">";
-        $mail->altBody = 'Alt body';
+        $mail->bodyAlt = 'Alt body';
         $mail->addAttachment(__DIR__ . '/files/logo.png', 'logo');
         $mail->addEmbeddedImage(__DIR__ . '/files/logo.png', 'cid1');
         $mail->addStringAttachment('String content', 'string_content_file.txt');
@@ -135,7 +135,7 @@ trait MailHandlerSendmailTrait
         $mail->setFrom('test1@jingga.app', 'Dennis Eichhorn');
         $mail->addTo('test@jingga.app', 'Dennis Eichhorn');
         $mail->subject = 'testSendAltWithSendmail';
-        $mail->altBody = 'Alt body';
+        $mail->bodyAlt = 'Alt body';
 
         self::assertTrue($this->handler->send($mail));
     }
@@ -154,7 +154,7 @@ trait MailHandlerSendmailTrait
         $mail->setFrom('test1@jingga.app', 'Dennis Eichhorn');
         $mail->addTo('test@jingga.app', 'Dennis Eichhorn');
         $mail->subject = 'testSendAltInlineWithSendmail';
-        $mail->altBody = 'Alt body';
+        $mail->bodyAlt = 'Alt body';
         $mail->setHtml(true);
         $mail->msgHTML("<img alt=\"image\" src=\"cid:cid1\">");
         $mail->addEmbeddedImage(__DIR__ . '/files/logo.png', 'cid1');
@@ -176,7 +176,7 @@ trait MailHandlerSendmailTrait
         $mail->setFrom('test1@jingga.app', 'Dennis Eichhorn');
         $mail->addTo('test@jingga.app', 'Dennis Eichhorn');
         $mail->subject = 'testSendAltAttachmentWithSendmail';
-        $mail->altBody = 'Alt body';
+        $mail->bodyAlt = 'Alt body';
         $mail->addAttachment(__DIR__ . '/files/logo.png', 'logo');
 
         self::assertTrue($this->handler->send($mail));
@@ -284,7 +284,7 @@ trait MailHandlerSendmailTrait
         $mail->addTo('test@jingga.app', 'Dennis Eichhorn');
         $mail->subject    = 'testSendICalAltWithSendmail';
         $mail->body       = 'Ical test';
-        $mail->altBody    = 'Ical test';
+        $mail->bodyAlt    = 'Ical test';
         $mail->ical       = 'BEGIN:VCALENDAR'
             . "\r\nVERSION:2.0"
             . "\r\nPRODID:-//phpOMS//Karaka Calendar//EN"
@@ -340,7 +340,7 @@ trait MailHandlerSendmailTrait
         $mail->addAttachment(__DIR__ . '/files/logo.png', 'logo');
         $mail->subject    = 'testSendICalAltAttachmentWithSendmail';
         $mail->body       = 'Ical test';
-        $mail->altBody    = 'Ical test';
+        $mail->bodyAlt    = 'Ical test';
         $mail->ical       = 'BEGIN:VCALENDAR'
             . "\r\nVERSION:2.0"
             . "\r\nPRODID:-//phpOMS//Karaka Calendar//EN"

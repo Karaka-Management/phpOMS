@@ -260,7 +260,7 @@ final class ModuleManager
      */
     public function isRunning(string $module) : bool
     {
-        $name = $this->generateModuleName($module);
+        $name = '\\Modules\\' . $module . '\\Controller\\' . ($ctlName ?? $this->app->appName) . 'Controller';
 
         return isset($this->running[$name]);
     }
@@ -654,8 +654,10 @@ final class ModuleManager
     /**
      * Get module instance.
      *
+     * This also returns inactive or uninstalled modules if they are still in the modules directory.
+     *
      * @param string $module  Module name
-     * @param string $appName Application name (null = current)
+     * @param string $ctlName Controller name (null = current)
      *
      * @return object|\phpOMS\Module\ModuleAbstract
      *
@@ -669,11 +671,11 @@ final class ModuleManager
      *
      * @since 1.0.0
      */
-    public function get(string $module, string $appName = null) : ModuleAbstract
+    public function get(string $module, string $ctlName = null) : ModuleAbstract
     {
-        $name = $this->generateModuleName($module, $appName);
-        if (!\array_key_exists($name, $this->running)) {
-            $this->initModule($module, $appName);
+        $name = '\\Modules\\' . $module . '\\Controller\\' . ($ctlName ?? $this->app->appName) . 'Controller';
+        if (!isset($this->running[$name])) {
+            $this->initModuleController($module, $ctlName);
         }
 
         /* @phpstan-ignore-next-line */
@@ -683,30 +685,10 @@ final class ModuleManager
     /**
      * Initialize module.
      *
-     * @param array|string $modules Module name
-     * @param string       $appName Application name (null = current app)
-     *
-     * @return void
-     *
-     * @throws \InvalidArgumentException
-     *
-     * @since 1.0.0
-     */
-    public function initModule(string | array $modules, string $appName = null) : void
-    {
-        $modules = (array) $modules;
-        foreach ($modules as $module) {
-            $this->initModuleController($module, $appName);
-        }
-    }
-
-    /**
-     * Initialize module.
-     *
      * Also registers controller in the dispatcher
      *
      * @param string $module  Module
-     * @param string $appName Application name (null = current app)
+     * @param string $ctlName Controller name (null = current app)
      *
      * @return void
      *
@@ -714,45 +696,29 @@ final class ModuleManager
      *
      * @since 1.0.0
      */
-    private function initModuleController(string $module, string $appName = null) : void
+    private function initModuleController(string $module, string $ctlName = null) : void
     {
-        $name                 = $this->generateModuleName($module, $appName);
-        $this->running[$name] = $this->getModuleInstance($module, $appName);
+        $name                 = '\\Modules\\' . $module . '\\Controller\\' . ($ctlName ?? $this->app->appName) . 'Controller';
+        $this->running[$name] = $this->getModuleInstance($module, $ctlName);
 
         if ($this->app->dispatcher !== null) {
-            $this->app->dispatcher->set($this->running[$name], '\Modules\\Controller\\' . $module . '\\' . ($appName ?? $this->app->appName) . 'Controller');
+            $this->app->dispatcher->set($this->running[$name], $name);
         }
-    }
-
-    /**
-     * Generate internal module name for caching
-     *
-     * @param string $module  Module
-     * @param string $appName Application name (null = current app)
-     *
-     * @return string Application and module name dependant name
-     *
-     * @since 1.0.0
-     */
-    private function generateModuleName(string $module, string $appName = null) : string
-    {
-        return '\\Modules\\' . $module . '\\Controller\\' . ($appName ?? $this->app->appName) . 'Controller';
     }
 
     /**
      * Gets and initializes modules.
      *
      * @param string $module  Module ID
-     * @param string $appName Application name (null = current app)
+     * @param string $ctlName Controller name (null = current app)
      *
      * @return ModuleAbstract
      *
      * @since 1.0.0
      */
-    public function getModuleInstance(string $module, string $appName = null) : ModuleAbstract
+    public function getModuleInstance(string $module, string $ctlName = null) : ModuleAbstract
     {
-        $class = '\\Modules\\' . $module . '\\Controller\\' . ($appName ?? $this->app->appName) . 'Controller';
-        $name  = $this->generateModuleName($module);
+        $class = '\\Modules\\' . $module . '\\Controller\\' . ($ctlName ?? $this->app->appName) . 'Controller';
 
         if (!isset($this->running[$class])) {
             if (Autoloader::exists($class) !== false
@@ -761,18 +727,16 @@ final class ModuleManager
                 try {
                     /** @var ModuleAbstract $obj */
                     $obj                  = new $class($this->app);
-                    $this->running[$name] = $obj;
-                    $this->registerRequesting($obj);
-                    $this->registerProvided($obj);
+                    $this->running[$class] = $obj;
                 } catch (\Throwable $e) {
-                    $this->running[$name] = new NullModule();
+                    $this->running[$class] = new NullModule();
                 }
             } else {
-                $this->running[$name] = new NullModule();
+                $this->running[$class] = new NullModule();
             }
         }
 
-        return $this->running[$name];
+        return $this->running[$class];
     }
 
     /**
@@ -790,7 +754,7 @@ final class ModuleManager
         $name       = '';
 
         foreach ($providings as $providing) {
-            $name = $this->generateModuleName($providing);
+            $name = '\\Modules\\' . $providing . '\\Controller\\' . $this->app->appName . 'Controller';
 
             if (isset($this->running[$name])) {
                 $this->running[$name]->addReceiving($obj->getName());
@@ -811,7 +775,7 @@ final class ModuleManager
      */
     private function registerProvided(ModuleAbstract $obj) : void
     {
-        $name = $this->generateModuleName($obj->getName());
+        $name = '\\Modules\\' . $obj->getName() . '\\Controller\\' . $this->app->appName . 'Controller';
         if (isset($this->providing[$name])) {
             foreach ($this->providing[$name] as $providing) {
                 $obj->addReceiving($providing);
@@ -823,17 +787,17 @@ final class ModuleManager
      * Initialize all modules for a request.
      *
      * @param RequestAbstract $request Request
-     * @param string          $appName Application name (null = current app)
+     * @param string          $ctlName Controller name (null = current app)
      *
      * @return void
      *
      * @since 1.0.0
      */
-    public function initRequestModules(RequestAbstract $request, string $appName = null) : void
+    public function initRequestModules(RequestAbstract $request, string $ctlName = null) : void
     {
         $toInit = $this->getRoutedModules($request);
         foreach ($toInit as $module) {
-            $this->initModuleController($module, $appName);
+            $this->initModuleController($module, $ctlName);
         }
     }
 

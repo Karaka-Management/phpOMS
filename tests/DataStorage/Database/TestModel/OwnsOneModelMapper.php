@@ -43,5 +43,5 @@ class OwnsOneModelMapper extends DataMapperFactory
      * @var string
      * @since 1.0.0
      */
-    public const PRIMARYFIELD ='test_owns_one_id';
+    public const PRIMARYFIELD = 'test_owns_one_id';
 }

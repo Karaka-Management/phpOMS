@@ -56,5 +56,5 @@ class CountryMapper extends DataMapperFactory
      * @var string
      * @since 1.0.0
      */
-    public const PRIMARYFIELD ='country_id';
+    public const PRIMARYFIELD = 'country_id';
 }

@@ -74,17 +74,6 @@ final class ModuleManagerTest extends \PHPUnit\Framework\TestCase
     }
 
     /**
-     * @testdox Invalid module initializations returns a null module
-     * @covers phpOMS\Module\ModuleManager
-     * @group framework
-     */
-    public function testUnknownModuleInit() : void
-    {
-        $this->moduleManager->initModule('doesNotExist');
-        self::assertInstanceOf('\phpOMS\Module\NullModule', $this->moduleManager->get('doesNotExist'));
-    }
-
-    /**
      * @testdox Unknown modules return a null module
      * @covers phpOMS\Module\ModuleManager
      * @group framework

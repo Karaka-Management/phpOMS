@@ -53,5 +53,5 @@ final class ConditionalMapper extends DataMapperFactory
      * @var string
      * @since 1.0.0
      */
-    public const PRIMARYFIELD ='test_conditional_id';
+    public const PRIMARYFIELD = 'test_conditional_id';
 }

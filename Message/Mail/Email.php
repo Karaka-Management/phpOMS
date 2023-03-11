@@ -111,6 +111,14 @@ class Email implements MessageInterface
     protected string $uniqueid = '';
 
     /**
+     * Hostname coming from the mail handler.
+     *
+     * @var string
+     * @since 1.0.0
+     */
+    public string $hostname = '';
+
+    /**
      * Mailer for sending message
      *
      * @var string
@@ -147,7 +155,7 @@ class Email implements MessageInterface
      *
      * @var string
      */
-    public string $confirmAddress = '';
+    public string $confirmationAddress = '';
 
     /**
      * Mail to.
@@ -212,6 +220,14 @@ class Email implements MessageInterface
      * @since 1.0.0
      */
     public string $bodyAlt = '';
+
+    /**
+     * Ical body.
+     *
+     * @var string
+     * @since 1.0.0
+     */
+    public string $ical = '';
 
     /**
      * Mail mime.
@@ -308,14 +324,6 @@ class Email implements MessageInterface
      * @since 1.0.0
      */
     public int $priority = 0;
-
-    /**
-     * Should confirm reading
-     *
-     * @var bool
-     * @since 1.0.0
-     */
-    protected bool $confirmReading = false;
 
     /**
      * The S/MIME certificate file path.
@@ -662,7 +670,7 @@ class Email implements MessageInterface
             return false;
         }
 
-        if (!empty($this->altBody)) {
+        if (!empty($this->bodyAlt)) {
             $this->contentType = MimeType::M_ALT;
         }
 
@@ -773,8 +781,8 @@ class Email implements MessageInterface
 
         $result .= 'X-Mailer: ' . self::XMAILER . self::$LE;
 
-        if ($this->confirmAddress !== '') {
-            $result .= 'Disposition-Notification-To: ' . '<' . $this->confirmAddress . '>' . self::$LE;
+        if ($this->confirmationAddress !== '') {
+            $result .= 'Disposition-Notification-To: ' . '<' . $this->confirmationAddress . '>' . self::$LE;
         }
 
         // Add custom headers
@@ -1393,7 +1401,7 @@ class Email implements MessageInterface
     protected function setMessageType() : void
     {
         $type = [];
-        if (!empty($this->altBody)) {
+        if (!empty($this->bodyAlt)) {
             $type[] = 'alt';
         }
 
@@ -1485,7 +1493,7 @@ class Email implements MessageInterface
             case 'alt_inline':
             case 'alt_attach':
             case 'alt_inline_attach':
-                $this->altBody = $this->wrapText($this->altBody, $this->wordWrap);
+                $this->bodyAlt = $this->wrapText($this->bodyAlt, $this->wordWrap);
                 break;
             default:
                 $this->body = $this->wrapText($this->body, $this->wordWrap);
@@ -1622,7 +1630,7 @@ class Email implements MessageInterface
 
                     return $str === $encoded && !\preg_match('/[^A-Za-z0-9!#$%&\'*+\/=?^_`{|}~ -]/', $str)
                         ? $encoded
-                        : "\"${encoded}\"";
+                        : '"' . $encoded . '"';
                 }
 
                 $matchcount = \preg_match_all('/[^\040\041\043-\133\135-\176]/', $str, $matches);
@@ -1668,13 +1676,13 @@ class Email implements MessageInterface
                     $maxLen -= $maxLen % 4;
                     $encoded = \trim(\chunk_split($encoded, $maxLen, "\n"));
                 }
-                $encoded = \preg_replace('/^(.*)$/m', ' =?' . $charset . "?${encoding}?\\1?=", $encoded);
+                $encoded = \preg_replace('/^(.*)$/m', ' =?' . $charset . '?' . $encoding . '?\\1?=', $encoded);
                 break;
             case 'Q':
                 $encoded = $this->encodeQ($str, $position);
                 $encoded = $this->wrapText($encoded, $maxLen, true);
                 $encoded = \str_replace('=' . self::$LE, "\n", \trim($encoded));
-                $encoded = \preg_replace('/^(.*)$/m', ' =?' . $charset . "?${encoding}?\\1?=", $encoded);
+                $encoded = \preg_replace('/^(.*)$/m', ' =?' . $charset . '?' . $encoding . '?\\1?=', $encoded);
                 break;
             default:
                 return $str;

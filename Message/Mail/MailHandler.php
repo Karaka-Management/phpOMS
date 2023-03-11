@@ -162,7 +162,7 @@ class MailHandler
      * @var OAuth
      * @since 1.0.0
      */
-    public mixed $oauth;
+    public mixed $oauth = null;
 
     /**
      * Server timeout
@@ -439,14 +439,17 @@ class MailHandler
             return false;
         }
 
-        $smtpFrom = $mail->sender === '' ? $mail->from : $mail->sender;
+        $mail->hostname = $this->hostname;
+
+        $smtpFrom = $mail->sender === '' ? $mail->getFrom()[0] : $mail->sender;
 
         if (!$this->smtp->mail($smtpFrom)) {
             return false;
         }
 
         $badRcpt = [];
-        foreach ([$mail->to, $mail->cc, $mail->bcc] as $togroup) {
+        $receivers = [$mail->to, $mail->cc, $mail->bcc];
+        foreach ($receivers as $togroup) {
             foreach ($togroup as $to) {
                 if (!$this->smtp->recipient($to[0], $this->dsn)) {
                     $badRcpt[] = $to[0];
@@ -556,14 +559,13 @@ class MailHandler
                 $hello = !empty($this->helo) ? $this->helo : SystemUtils::getHostname();
 
                 $this->smtp->hello($hello);
-                $tls = $this->useAutoTLS && $sslExt && $secure !== 'ssl' && $this->smtp->getServerExt('STARTTLS')
-                    ? true : $tls;
-
-                $this->smtp->hello($hello);
 
                 //Automatically enable TLS encryption
-                $tls = $this->useAutoTLS && $sslExt && $secure !== EncryptionType::SMTPS && $this->smtp->getServerExt('STARTTLS')
-                    ? true : $tls;
+                $tls = $this->useAutoTLS
+                    && $sslExt
+                    && $secure !== EncryptionType::SMTPS
+                    && $this->smtp->getServerExt('STARTTLS') === '1'
+                        ? true : $tls;
 
                 if ($tls) {
                     if (!$this->smtp->startTLS()) {
@@ -574,6 +576,7 @@ class MailHandler
                     $this->smtp->hello($hello);
                 }
 
+                // @todo: is useSMTPAuth really necessary or can't we just check if smtp is defined?
                 return !($this->useSMTPAuth
                         && !$this->smtp->authenticate($this->username, $this->password, $this->authType, $this->oauth)
                     );

@@ -55,5 +55,5 @@ class LanguageMapper extends DataMapperFactory
      * @var string
      * @since 1.0.0
      */
-    public const PRIMARYFIELD ='language_id';
+    public const PRIMARYFIELD = 'language_id';
 }

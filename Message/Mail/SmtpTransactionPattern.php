@@ -39,4 +39,10 @@ abstract class SmtpTransactionPattern extends Enum
     public const SENDGRID = '/[\d]{3} Ok: queued as (.*)/';
 
     public const CAMPAIGNMONITOR = '/[\d]{3} 2.0.0 OK:([a-zA-Z\d]{48})/';
+
+    public const HARAKA = '/[\d]{3} Message Queued \((.*)\)/';
+
+    public const ZONEMTA = '/[\d]{3} Message queued as (.*)/';
+
+    public const MAILJET = '/[\d]{3} OK queued as (.*)/';
 }

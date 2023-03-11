@@ -72,6 +72,7 @@ final class UnhandledHandler
 
         $logger->error(FileLogger::MSG_FULL, [
             'message' => 'Undefined error',
+            'str'     => $errstr,
             'line'    => $errline,
             'file'    => $errfile,
         ]);

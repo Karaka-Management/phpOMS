@@ -54,5 +54,5 @@ class IbanMapper extends DataMapperFactory
      * @var string
      * @since 1.0.0
      */
-    public const PRIMARYFIELD ='iban_id';
+    public const PRIMARYFIELD = 'iban_id';
 }

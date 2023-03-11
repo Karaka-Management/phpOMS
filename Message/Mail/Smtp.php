@@ -205,7 +205,7 @@ class Smtp
      */
     public function startTLS() : bool
     {
-        if (!$this->sendCommand('STARTTLS', 'STARTTLS', 220)) {
+        if (!$this->sendCommand('STARTTLS', 'STARTTLS', [220])) {
             return false;
         }
 
@@ -257,7 +257,7 @@ class Smtp
                 $authtype = '';
             }
 
-            if ($authtype !== '') {
+            if ($authtype === '') {
                 //If no auth mechanism is specified, attempt to use these, in this order
                 //Try CRAM-MD5 first as it's more secure than the others
                 foreach (['CRAM-MD5', 'LOGIN', 'PLAIN', 'XOAUTH2'] as $method) {
@@ -282,10 +282,10 @@ class Smtp
         switch ($authtype) {
             case 'PLAIN':
                 // Start authentication
-                if (!$this->sendCommand('AUTH', 'AUTH PLAIN', 334)
+                if (!$this->sendCommand('AUTH', 'AUTH PLAIN', [334])
                     || !$this->sendCommand('User & Password',
                             \base64_encode("\0" . $username . "\0" . $password),
-                            235
+                            [235]
                         )
                 ) {
                     return false;
@@ -293,16 +293,16 @@ class Smtp
                 break;
             case 'LOGIN':
                 // Start authentication
-                if (!$this->sendCommand('AUTH', 'AUTH LOGIN', 334)
-                    || !$this->sendCommand('Username', \base64_encode($username), 334)
-                    || !$this->sendCommand('Password', \base64_encode($password), 235)
+                if (!$this->sendCommand('AUTH', 'AUTH LOGIN', [334])
+                    || !$this->sendCommand('Username', \base64_encode($username), [334])
+                    || !$this->sendCommand('Password', \base64_encode($password), [235])
                 ) {
                     return false;
                 }
                 break;
             case 'CRAM-MD5':
                 // Start authentication
-                if (!$this->sendCommand('AUTH CRAM-MD5', 'AUTH CRAM-MD5', 334)) {
+                if (!$this->sendCommand('AUTH CRAM-MD5', 'AUTH CRAM-MD5', [334])) {
                     return false;
                 }
 
@@ -310,7 +310,7 @@ class Smtp
                 $response  = $username . ' ' . $this->hmac($challenge, $password);
 
                 // send encoded credentials
-                return $this->sendCommand('Username', \base64_encode($response), 235);
+                return $this->sendCommand('Username', \base64_encode($response), [235]);
             case 'XOAUTH2':
                 //The OAuth instance must be set up prior to requesting auth.
                 if ($oauth === null) {
@@ -318,7 +318,7 @@ class Smtp
                 }
 
                 $oauth = $oauth->getOauth64();
-                if (!$this->sendCommand('AUTH', 'AUTH XOAUTH2 ' . $oauth, 235)) {
+                if (!$this->sendCommand('AUTH', 'AUTH XOAUTH2 ' . $oauth, [235])) {
                     return false;
                 }
                 break;
@@ -411,7 +411,7 @@ class Smtp
      */
     public function data($msg_data, int $maxLineLength = 998) : bool
     {
-        if (!$this->sendCommand('DATA', 'DATA', 354)) {
+        if (!$this->sendCommand('DATA', 'DATA', [354])) {
             return false;
         }
 
@@ -425,7 +425,7 @@ class Smtp
          * process all lines before a blank line as headers.
          */
         $field     = \substr($lines[0], 0, \strpos($lines[0], ':'));
-        $inHeaders = (!empty($field) && \strpos($field, ' ') === false);
+        $inHeaders = !empty($field) && \strpos($field, ' ') === false;
 
         foreach ($lines as $line) {
             $linesOut = [];
@@ -462,7 +462,7 @@ class Smtp
 
         $tmpTimeLimit     = $this->timeLimit;
         $this->timeLimit *= 2;
-        $result           = $this->sendCommand('DATA END', '.', 250);
+        $result           = $this->sendCommand('DATA END', '.', [250]);
 
         $this->recordLastTransactionId();
 
@@ -486,7 +486,7 @@ class Smtp
             return true;
         }
 
-        if (\substr($this->heloRply, 0, 3) == '421') {
+        if (\substr($this->heloRply, 0, 3) === '421') {
             return false;
         }
 
@@ -505,7 +505,7 @@ class Smtp
      */
     protected function sendHello(string $hello, string $host) : bool
     {
-        $status         = $this->sendCommand($hello, $hello . ' ' . $host, 250);
+        $status         = $this->sendCommand($hello, $hello . ' ' . $host, [250]);
         $this->heloRply = $this->lastReply;
 
         if ($status) {
@@ -539,28 +539,30 @@ class Smtp
             }
 
             $fields = \explode(' ', $s);
-            if (!empty($fields)) {
-                if (!$n) {
-                    $name   = $type;
-                    $fields = $fields[0];
-                } else {
-                    $name = \array_shift($fields);
-                    switch ($name) {
-                        case 'SIZE':
-                            $fields = ($fields ? $fields[0] : 0);
-                            break;
-                        case 'AUTH':
-                            if (!\is_array($fields)) {
-                                $fields = [];
-                            }
-                            break;
-                        default:
-                            $fields = true;
-                    }
-                }
-
-                $this->serverCaps[$name] = $fields;
+            if (empty($fields)) {
+                continue;
             }
+
+            if (!$n) {
+                $name   = $type;
+                $fields = $fields[0];
+            } else {
+                $name = \array_shift($fields);
+                switch ($name) {
+                    case 'SIZE':
+                        $fields = ($fields ? $fields[0] : 0);
+                        break;
+                    case 'AUTH':
+                        if (!\is_array($fields)) {
+                            $fields = [];
+                        }
+                        break;
+                    default:
+                        $fields = true;
+                }
+            }
+
+            $this->serverCaps[$name] = $fields;
         }
     }
 
@@ -577,7 +579,7 @@ class Smtp
     {
         $useVerp = ($this->doVerp ? ' XVERP' : '');
 
-        return $this->sendCommand('MAIL FROM', 'MAIL FROM:<' . $from . '>' . $useVerp, 250);
+        return $this->sendCommand('MAIL FROM', 'MAIL FROM:<' . $from . '>' . $useVerp, [250]);
     }
 
     /**
@@ -589,7 +591,7 @@ class Smtp
      */
     public function quit() : bool
     {
-        $status = $this->sendCommand('QUIT', 'QUIT', 221);
+        $status = $this->sendCommand('QUIT', 'QUIT', [221]);
         if ($status) {
             $this->close();
         }
@@ -612,12 +614,14 @@ class Smtp
         if ($dsn === '') {
             $rcpt = 'RCPT TO:<' . $address . '>';
         } else {
+            $dsn    = \strtoupper($dsn);
             $notify = [];
 
             if (\strpos($dsn, 'NEVER') !== false) {
                 $notify[] = 'NEVER';
             } else {
-                foreach (['SUCCESS', 'FAILURE', 'DELAY'] as $value) {
+                $values = ['SUCCESS', 'FAILURE', 'DELAY'];
+                foreach ($values as $value) {
                     if (\strpos($dsn, $value) !== false) {
                         $notify[] = $value;
                     }
@@ -639,7 +643,7 @@ class Smtp
      */
     public function reset() : bool
     {
-        return $this->sendCommand('RSET', 'RSET', 250);
+        return $this->sendCommand('RSET', 'RSET', [250]);
     }
 
     /**
@@ -647,20 +651,20 @@ class Smtp
      *
      * @param string    $command       The command name - not sent to the server
      * @param string    $commandstring The actual command to send
-     * @param int|array $expect        One or more expected integer success codes
+     * @param int[]     $expect        One or more expected integer success codes
      *
      * @return bool
      *
      * @since 1.0.0
      */
-    protected function sendCommand(string $command, string $commandstring, int | array $expect) : bool
+    protected function sendCommand(string $command, string $commandstring, array $expect) : bool
     {
         if (!$this->isConnected()) {
             return false;
         }
 
-        if ((\strpos($commandstring, "\n") !== false)
-            || (\strpos($commandstring, "\r") !== false)
+        if (\strpos($commandstring, "\n") !== false
+            || \strpos($commandstring, "\r") !== false
         ) {
             return false;
         }
@@ -671,23 +675,13 @@ class Smtp
 
         $matches = [];
         if (\preg_match('/^([\d]{3})[ -](?:([\d]\\.[\d]\\.[\d]{1,2}) )?/', $this->lastReply, $matches)) {
-            $code   = (int) $matches[1];
-            $codeEx = \count($matches) > 2 ? $matches[2] : null;
-
-            // Cut off error code from each response line
-            $detail = \preg_replace(
-                "/{$code}[ -]" .
-                ($codeEx ? \str_replace('.', '\\.', $codeEx) . ' ' : '') . '/m',
-                '',
-                $this->lastReply
-            );
+            $code = (int) $matches[1];
         } else {
             // Fall back to simple parsing if regex fails
-            $code   = (int) \substr($this->lastReply, 0, 3);
-            $detail = \substr($this->lastReply, 4);
+            $code = (int) \substr($this->lastReply, 0, 3);
         }
 
-        if (!\in_array($code, (array) $expect, true)) {
+        if (!\in_array($code, $expect, true)) {
             return false;
         }
 
@@ -706,7 +700,7 @@ class Smtp
      */
     public function sendAndMail(string $from) : bool
     {
-        return $this->sendCommand('SAML', "SAML FROM:${from}", 250);
+        return $this->sendCommand('SAML', 'SAML FROM:' . $from, [250]);
     }
 
     /**
@@ -720,7 +714,7 @@ class Smtp
      */
     public function verify(string $name) : bool
     {
-        return $this->sendCommand('VRFY', "VRFY ${name}", [250, 251]);
+        return $this->sendCommand('VRFY', 'VRFY ' . $name, [250, 251]);
     }
 
     /**
@@ -733,7 +727,7 @@ class Smtp
      */
     public function noop() : bool
     {
-        return $this->sendCommand('NOOP', 'NOOP', 250);
+        return $this->sendCommand('NOOP', 'NOOP', [250]);
     }
 
     /**
@@ -770,27 +764,27 @@ class Smtp
      *
      * @param string $name Name of SMTP extension
      *
-     * @return bool
+     * @return string
      *
      * @since 1.0.0
      */
-    public function getServerExt(string $name) : bool
+    public function getServerExt(string $name) : string
     {
         if (empty($this->serverCaps)) {
             // HELO/EHLO has not been sent
-            return false;
+            return '';
         }
 
         if (!isset($this->serverCaps[$name])) {
             if ($name === 'HELO') {
                 // Server name
-                //return $this->serverCaps['EHLO'];
+                return $this->serverCaps['EHLO'];
             }
 
-            return false;
+            return '';
         }
 
-        return isset($this->serverCaps[$name]);
+        return (string) ($this->serverCaps[$name] ?? '');
     }
 
     /**
@@ -833,8 +827,10 @@ class Smtp
         while (\is_resource($this->con) && !\feof($this->con)) {
             $n = \stream_select($selR, $selW, $selW, $this->timeLimit);
             if ($n === false) {
-                if ($tries < 3) {
+                if ($tries < 10) {
+                    \sleep(1);
                     ++$tries;
+
                     continue;
                 } else {
                     break;
@@ -884,7 +880,7 @@ class Smtp
 
             foreach ($patterns as $pattern) {
                 $matches = [];
-                if (\preg_match($pattern, $reply, $matches)) {
+                if (\preg_match($pattern, $reply, $matches) === 1) {
                     $this->lastSmtpTransactionId = \trim($matches[1]);
                     break;
                 }
