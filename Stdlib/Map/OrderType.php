@@ -6,7 +6,7 @@
  *
  * @package   phpOMS\Stdlib\Map
  * @copyright Dennis Eichhorn
- * @license   OMS License 1.0
+ * @license   OMS License 2.0
  * @version   1.0.0
  * @link      https://jingga.app
  */
@@ -22,7 +22,7 @@ use phpOMS\Stdlib\Base\Enum;
  * Specifies if keys in the map can be ordered in any way or need to match the exact order.
  *
  * @package phpOMS\Stdlib\Map
- * @license OMS License 1.0
+ * @license OMS License 2.0
  * @link    https://jingga.app
  * @since   1.0.0
  */

@@ -6,7 +6,7 @@
  *
  * @package   phpOMS\Security
  * @copyright Dennis Eichhorn
- * @license   OMS License 1.0
+ * @license   OMS License 2.0
  * @version   1.0.0
  * @link      https://jingga.app
  */
@@ -21,7 +21,7 @@ namespace phpOMS\Security;
  * Additionally this can also be used in order verify that the source code is not altered compared to some expected source code.
  *
  * @package phpOMS\Security
- * @license OMS License 1.0
+ * @license OMS License 2.0
  * @link    https://jingga.app
  * @since   1.0.0
  */
@@ -93,7 +93,7 @@ final class PhpCode
     public static function hasUnicode(string $source) : bool
     {
         return ((bool) \preg_match("/[\x01-\x7f]/", $source))
-            || ((bool) \preg_match('/(0|\\)x([a-fA-F0-9]){2}/', $source));
+            || ((bool) \preg_match("/(0|\\\)x([a-fA-F0-9]){2}/", $source));
     }
 
     /**

@@ -6,7 +6,7 @@
  *
  * @package   phpOMS\DataStorage\Database
  * @copyright Dennis Eichhorn
- * @license   OMS License 1.0
+ * @license   OMS License 2.0
  * @version   1.0.0
  * @link      https://jingga.app
  */
@@ -22,7 +22,7 @@ use phpOMS\Stdlib\Base\Enum;
  * Relations which can be used in order to specifiy how the DataMapper is supposed to work (level of detail)
  *
  * @package phpOMS\DataStorage\Database
- * @license OMS License 1.0
+ * @license OMS License 2.0
  * @link    https://jingga.app
  * @since   1.0.0
  */

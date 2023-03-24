@@ -1,29 +1,51 @@
 <?php
-
+/**
+ * Karaka
+ *
+ * PHP Version 8.1
+ *
+ * @package   phpOMS\Localization\LanguageDetection
+ * @author    Patrick Schur <patrick_schur@outlook.de>
+ * @copyright Patrick Schur
+ * @license   https://opensource.org/licenses/mit-license.html MIT
+ * @link      https://github.com/patrickschur/language-detection
+ */
 declare(strict_types = 1);
 
 namespace phpOMS\Localization\LanguageDetection;
 
 /**
- * Class LanguageResult
+ * Langauge match result
  *
- * @copyright Patrick Schur
+ * @package phpOMS\Localization\LanguageDetection
  * @license https://opensource.org/licenses/mit-license.html MIT
- * @author Patrick Schur <patrick_schur@outlook.de>
- * @package LanguageDetection
+ * @link    https://github.com/patrickschur/language-detection
+ * @since   1.0.0
  */
 class LanguageResult implements \JsonSerializable, \IteratorAggregate, \ArrayAccess
 {
-    const THRESHOLD = .025;
-
     /**
-     * @var array
+     * Match threshold
+     *
+     * @var int
+     * @since 1.0.0
      */
-    private $result = [];
+    private const THRESHOLD = .025;
 
     /**
-     * LanguageResult constructor.
-     * @param array $result
+     * Match values per language
+     *
+     * @var float[]
+     * @sicne 1.0.0
+     */
+    private array $result = [];
+
+    /**
+     * Constructor.
+     *
+     * @param array $result Langauge match results
+     *
+     * @since 1.0.0
      */
     public function __construct(array $result = [])
     {
@@ -31,8 +53,7 @@ class LanguageResult implements \JsonSerializable, \IteratorAggregate, \ArrayAcc
     }
 
     /**
-     * @param mixed $offset
-     * @return bool
+     * {@inheritdoc}
      */
     public function offsetExists($offset): bool
     {
@@ -40,8 +61,7 @@ class LanguageResult implements \JsonSerializable, \IteratorAggregate, \ArrayAcc
     }
 
     /**
-     * @param mixed $offset
-     * @return mixed|null
+     * {@inheritdoc}
      */
     public function offsetGet($offset): ?float
     {
@@ -49,9 +69,7 @@ class LanguageResult implements \JsonSerializable, \IteratorAggregate, \ArrayAcc
     }
 
     /**
-     * @param mixed $offset
-     * @param mixed $value
-     * @return void
+     * {@inheritdoc}
      */
     public function offsetSet($offset, $value): void
     {
@@ -63,7 +81,7 @@ class LanguageResult implements \JsonSerializable, \IteratorAggregate, \ArrayAcc
     }
 
     /**
-     * @param mixed $offset
+     * {@inheritdoc}
      */
     public function offsetUnset($offset): void
     {
@@ -71,7 +89,7 @@ class LanguageResult implements \JsonSerializable, \IteratorAggregate, \ArrayAcc
     }
 
     /**
-     * @return array
+     * {@inheritdoc}
      */
     public function jsonSerialize(): array
     {
@@ -79,7 +97,11 @@ class LanguageResult implements \JsonSerializable, \IteratorAggregate, \ArrayAcc
     }
 
     /**
+     * Stringify
+     *
      * @return string
+     *
+     * @since 1.0.0
      */
     public function __toString(): string
     {
@@ -87,8 +109,13 @@ class LanguageResult implements \JsonSerializable, \IteratorAggregate, \ArrayAcc
     }
 
     /**
-     * @param \string[] ...$whitelist
+     * Only return whitelisted results
+     *
+     * @param \string[] ...$whitelist List of whitelisted languages
+     *
      * @return LanguageResult
+     *
+     * @since 1.0.0
      */
     public function whitelist(string ...$whitelist): LanguageResult
     {
@@ -96,8 +123,13 @@ class LanguageResult implements \JsonSerializable, \IteratorAggregate, \ArrayAcc
     }
 
     /**
-     * @param \string[] ...$blacklist
+     * Remove blacklisted languages
+     *
+     * @param \string[] ...$blacklist List of blacklist languages
+     *
      * @return LanguageResult
+     *
+     * @since 1.0.0
      */
     public function blacklist(string ...$blacklist): LanguageResult
     {
@@ -105,7 +137,11 @@ class LanguageResult implements \JsonSerializable, \IteratorAggregate, \ArrayAcc
     }
 
     /**
+     * Get languages results
+     *
      * @return array
+     *
+     * @since 1.0.0
      */
     public function close(): array
     {
@@ -113,12 +149,15 @@ class LanguageResult implements \JsonSerializable, \IteratorAggregate, \ArrayAcc
     }
 
     /**
+     * Get results based on internally defined threshold
+     *
      * @return LanguageResult
+     *
+     * @since 1.0.0
      */
     public function bestResults(): LanguageResult
     {
-        if (!\count($this->result))
-        {
+        if (!\count($this->result)) {
             return new LanguageResult;
         }
 
@@ -130,7 +169,7 @@ class LanguageResult implements \JsonSerializable, \IteratorAggregate, \ArrayAcc
     }
 
     /**
-     * @return \ArrayIterator
+     * {@inheritdoc}
      */
     public function getIterator(): \ArrayIterator
     {
@@ -138,9 +177,14 @@ class LanguageResult implements \JsonSerializable, \IteratorAggregate, \ArrayAcc
     }
 
     /**
-     * @param int $offset
-     * @param int|null $length
+     * Get results A to B
+     *
+     * @param int      $offset Zero indexed start value
+     * @param null|int $length Number of results
+     *
      * @return LanguageResult
+     *
+     * @since 1.0.0
      */
     public function limit(int $offset, int $length = null): LanguageResult
     {

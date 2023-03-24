@@ -6,7 +6,7 @@
  *
  * @package   phpOMS\Version
  * @copyright Dennis Eichhorn
- * @license   OMS License 1.0
+ * @license   OMS License 2.0
  * @version   1.0.0
  * @link      https://jingga.app
  */
@@ -20,7 +20,7 @@ namespace phpOMS\Version;
  * Responsible for handling versions
  *
  * @package phpOMS\Version
- * @license OMS License 1.0
+ * @license OMS License 2.0
  * @link    https://jingga.app
  * @since   1.0.0
  */

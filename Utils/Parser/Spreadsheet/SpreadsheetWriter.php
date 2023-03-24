@@ -6,7 +6,7 @@
  *
  * @package   phpOMS\Utils\Parser\Spreadsheet
  * @copyright Dennis Eichhorn
- * @license   OMS License 1.0
+ * @license   OMS License 2.0
  * @version   1.0.0
  * @link      https://jingga.app
  */
@@ -18,15 +18,32 @@ use PhpOffice\PhpSpreadsheet\Worksheet\PageSetup;
 use PhpOffice\PhpSpreadsheet\Writer\Html;
 use PhpOffice\PhpSpreadsheet\Writer\Pdf;
 
+/**
+ * Spreadsheet writer
+ *
+ * @package phpOMS\Utils\Parser\Spreadsheet
+ * @license OMS License 2.0
+ * @link    https://jingga.app
+ * @since   1.0.0
+ */
 class SpreadsheetWriter extends Pdf
 {
-    /** @var bool */
-    protected $isMPdf = true;
+    /**
+     * Render Pdf
+     *
+     * @todo: can be removed?
+     *
+     * @var bool
+     * @since 1.0.0
+     */
+    protected bool $isMPdf = true;
 
     /**
      * Save Spreadsheet to file.
      *
-     * @param string $filename Name of the file to save as
+     * @return string
+     *
+     * @since 1.0.0
      */
     public function toPdfString(): string
     {
@@ -44,10 +61,10 @@ class SpreadsheetWriter extends Pdf
         $pdf->DefOrientation = $orientation;
         $pdf->AddPageByArray([
             'orientation'   => $orientation,
-            'margin-left'   => $this->inchesToMm($this->spreadsheet->getActiveSheet()->getPageMargins()->getLeft()),
-            'margin-right'  => $this->inchesToMm($this->spreadsheet->getActiveSheet()->getPageMargins()->getRight()),
-            'margin-top'    => $this->inchesToMm($this->spreadsheet->getActiveSheet()->getPageMargins()->getTop()),
-            'margin-bottom' => $this->inchesToMm($this->spreadsheet->getActiveSheet()->getPageMargins()->getBottom()),
+            'margin-left'   => $this->spreadsheet->getActiveSheet()->getPageMargins()->getLeft() * 25.4,
+            'margin-right'  => $this->spreadsheet->getActiveSheet()->getPageMargins()->getRight() * 25.4,
+            'margin-top'    => $this->spreadsheet->getActiveSheet()->getPageMargins()->getTop() * 25.4,
+            'margin-bottom' => $this->spreadsheet->getActiveSheet()->getPageMargins()->getBottom() * 25.4,
         ]);
 
         //  Document info
@@ -77,17 +94,5 @@ class SpreadsheetWriter extends Pdf
         parent::restoreStateAfterSave();
 
         return $html;
-    }
-
-    /**
-     * Convert inches to mm.
-     *
-     * @param float $inches
-     *
-     * @return float
-     */
-    private function inchesToMm($inches)
-    {
-        return $inches * 25.4;
     }
 }

@@ -6,7 +6,7 @@
  *
  * @package   phpOMS\Math\Geometry\Shape\D2
  * @copyright Dennis Eichhorn
- * @license   OMS License 1.0
+ * @license   OMS License 2.0
  * @version   1.0.0
  * @link      https://jingga.app
  */
@@ -18,7 +18,7 @@ namespace phpOMS\Math\Geometry\Shape\D2;
  * Trapezoid shape.
  *
  * @package phpOMS\Math\Geometry\Shape\D2
- * @license OMS License 1.0
+ * @license OMS License 2.0
  * @link    https://jingga.app
  * @since   1.0.0
  */

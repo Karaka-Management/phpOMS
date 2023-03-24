@@ -6,7 +6,7 @@
  *
  * @package   phpOMS\Utils\Parser\Presentation
  * @copyright Dennis Eichhorn
- * @license   OMS License 1.0
+ * @license   OMS License 2.0
  * @version   1.0.0
  * @link      https://jingga.app
  */
@@ -33,21 +33,48 @@ use PhpOffice\PhpPresentation\Style\Color;
  * Presentation parser class.
  *
  * @package phpOMS\Utils\Parser\Presentation
- * @license OMS License 1.0
+ * @license OMS License 2.0
  * @link    https://jingga.app
  * @since   1.0.0
  */
 class PresentationWriter
 {
-    protected $oPhpPresentation;
-    protected $htmlOutput;
+    /**
+     * Presentation object
+     *
+     * @var Presentation
+     * @since 1.0.0
+     */
+    protected PhpPresentation $oPhpPresentation;
 
+    /**
+     * Html output
+     *
+     * @var string
+     * @since 1.0.0
+     */
+    protected string $htmlOutput = '';
+
+    /**
+     * Constructor
+     *
+     * @param PhpPresentation $oPHPPpt Presentation object
+     *
+     * @since 1.0.0
+     */
     public function __construct(PhpPresentation $oPHPPpt)
     {
         $this->oPhpPresentation = $oPHPPpt;
     }
 
-    public function renderHtml()
+    /**
+     * Render presentation
+     *
+     * @return string
+     *
+     * @since 1.0.0
+     */
+    public function renderHtml() : string
     {
         $this->append('<div class="container-fluid pptTree">');
         $this->append('<div class="row">');
@@ -67,12 +94,30 @@ class PresentationWriter
         return $this->htmlOutput;
     }
 
-    protected function append($sHTML)
+    /**
+     * Add html to output
+     *
+     * @param string $sHTML Html
+     *
+     * @return void
+     *
+     * @since 1.0.0
+     */
+    protected function append(string $sHTML) : void
     {
         $this->htmlOutput .= $sHTML;
     }
 
-    protected function displayPhpPresentation(PhpPresentation $oPHPPpt)
+    /**
+     * Constructor
+     *
+     * @param PhpPresentation $oPHPPpt Presentation object
+     *
+     * @return void
+     *
+     * @since 1.0.0
+     */
+    protected function displayPhpPresentation(PhpPresentation $oPHPPpt) : void
     {
         $this->append('<li><span><i class="fa fa-folder-open"></i> PhpPresentation</span>');
         $this->append('<ul>');
@@ -102,7 +147,16 @@ class PresentationWriter
         $this->append('</li>');
     }
 
-    protected function displayShape(AbstractShape $shape)
+    /**
+     * Render a shape
+     *
+     * @param AbstractShape $shape Shape to render
+     *
+     * @return void
+     *
+     * @since 1.0.0
+     */
+    protected function displayShape(AbstractShape $shape) : void
     {
         if ($shape instanceof Drawing\Gd) {
             $this->append('<li><span class="shape" id="div' . $shape->getHashCode() . '">Shape "Drawing\Gd"</span></li>');
@@ -119,7 +173,16 @@ class PresentationWriter
         }
     }
 
-    protected function displayPhpPresentationInfo(PhpPresentation $oPHPPpt)
+    /**
+     * Render a shape
+     *
+     * @param PhpPresentation $oPHPPpt Presentation object
+     *
+     * @return void
+     *
+     * @since 1.0.0
+     */
+    protected function displayPhpPresentationInfo(PhpPresentation $oPHPPpt) : void
     {
         $this->append('<div class="infoBlk" id="divPhpPresentationInfo">');
         $this->append('<dl>');
@@ -185,7 +248,16 @@ class PresentationWriter
         }
     }
 
-    protected function displayShapeInfo(AbstractShape $oShape)
+    /**
+     * Render a shape info
+     *
+     * @param AbstractShape $oShape Shape to render
+     *
+     * @return void
+     *
+     * @since 1.0.0
+     */
+    protected function displayShapeInfo(AbstractShape $oShape) : void
     {
         $this->append('<div class="infoBlk" id="div' . $oShape->getHashCode() . 'Info">');
         $this->append('<dl>');
@@ -298,14 +370,25 @@ class PresentationWriter
         $this->append('</div>');
     }
 
-    protected function getConstantName($class, $search, $startWith = '')
+    /**
+     * Find constant
+     *
+     * @param string $class     Class to search in
+     * @param string $search    Value to search for
+     * @param string $startWith Constant name it starts with
+     *
+     * @return void
+     *
+     * @since 1.0.0
+     */
+    protected function getConstantName(string $class, string $search, string $startWith = '') : string
     {
         $fooClass  = new \ReflectionClass($class);
         $constants = $fooClass->getConstants();
-        $constName = null;
+        $constName = '';
         foreach ($constants as $key => $value) {
             if ($value == $search) {
-                if (empty($startWith) || (!empty($startWith) && 0 === strpos($key, $startWith))) {
+                if (empty($startWith) || (!empty($startWith) && \strpos($key, $startWith) === 0)) {
                     $constName = $key;
                 }
                 break;

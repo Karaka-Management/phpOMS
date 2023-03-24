@@ -6,7 +6,7 @@
  *
  * @package   phpOMS\Utils\Parser\Document
  * @copyright Dennis Eichhorn
- * @license   OMS License 1.0
+ * @license   OMS License 2.0
  * @version   1.0.0
  * @link      https://jingga.app
  */
@@ -18,10 +18,10 @@ use PhpOffice\PhpWord\IOFactory;
 use PhpOffice\PhpWord\Writer\HTML;
 
 /**
- * Presentation parser class.
+ * Document parser class.
  *
  * @package phpOMS\Utils\Parser\Document
- * @license OMS License 1.0
+ * @license OMS License 2.0
  * @link    https://jingga.app
  * @since   1.0.0
  */

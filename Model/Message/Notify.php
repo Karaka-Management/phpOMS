@@ -6,7 +6,7 @@
  *
  * @package   phpOMS\Model\Message
  * @copyright Dennis Eichhorn
- * @license   OMS License 1.0
+ * @license   OMS License 2.0
  * @version   1.0.0
  * @link      https://jingga.app
  */
@@ -20,7 +20,7 @@ use phpOMS\Contract\SerializableInterface;
  * Notify class.
  *
  * @package phpOMS\Model\Message
- * @license OMS License 1.0
+ * @license OMS License 2.0
  * @link    https://jingga.app
  * @since   1.0.0
  */
@@ -69,7 +69,7 @@ final class Notify implements \JsonSerializable, SerializableInterface
     /**
      * Level or type.
      *
-     * @var int
+     * @var string
      * @since 1.0.0
      */
     public string $level = NotifyType::INFO;
@@ -78,7 +78,7 @@ final class Notify implements \JsonSerializable, SerializableInterface
      * Constructor.
      *
      * @param string $msg   Message
-     * @param int    $level Message level
+     * @param string $level Message level
      *
      * @since 1.0.0
      */

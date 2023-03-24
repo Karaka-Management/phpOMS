@@ -6,7 +6,7 @@
  *
  * @package   phpOMS\Utils\Barcode
  * @copyright Dennis Eichhorn
- * @license   OMS License 1.0
+ * @license   OMS License 2.0
  * @version   1.0.0
  * @link      https://jingga.app
  */
@@ -18,14 +18,14 @@ namespace phpOMS\Utils\Barcode;
  * Codebar class.
  *
  * @package phpOMS\Utils\Barcode
- * @license OMS License 1.0
+ * @license OMS License 2.0
  * @link    https://jingga.app
  * @since   1.0.0
  *
  * @SuppressWarnings(PHPMD.CamelCasePropertyName)
  * @SuppressWarnings(PHPMD.CamelCaseVariableName)
  */
-class Codebar extends C128Abstract
+class Codebar extends BarAbstract
 {
     /**
      * Char array.

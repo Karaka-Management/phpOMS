@@ -6,7 +6,7 @@
  *
  * @package   tests
  * @copyright Dennis Eichhorn
- * @license   OMS License 1.0
+ * @license   OMS License 2.0
  * @version   1.0.0
  * @link      https://jingga.app
  */
@@ -51,7 +51,7 @@ final class ViewTest extends \PHPUnit\Framework\TestCase
             protected string $appName = 'Api';
         };
 
-        $this->app->l11nManager = new L11nManager($this->app->appName);
+        $this->app->l11nManager = new L11nManager();
         $this->app->dbPool      = $this->dbPool;
     }
 

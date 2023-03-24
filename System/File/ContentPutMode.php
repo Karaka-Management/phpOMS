@@ -6,7 +6,7 @@
  *
  * @package   phpOMS\System\File
  * @copyright Dennis Eichhorn
- * @license   OMS License 1.0
+ * @license   OMS License 2.0
  * @version   1.0.0
  * @link      https://jingga.app
  */
@@ -22,7 +22,7 @@ use phpOMS\Stdlib\Base\Enum;
  * Defines how the content manipulation should be handled.
  *
  * @package phpOMS\System\File
- * @license OMS License 1.0
+ * @license OMS License 2.0
  * @link    https://jingga.app
  * @since   1.0.0
  */

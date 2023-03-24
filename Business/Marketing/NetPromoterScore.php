@@ -6,7 +6,7 @@
  *
  * @package   phpOMS\Business\Marketing
  * @copyright Dennis Eichhorn
- * @license   OMS License 1.0
+ * @license   OMS License 2.0
  * @version   1.0.0
  * @link      https://jingga.app
  */
@@ -21,7 +21,7 @@ namespace phpOMS\Business\Marketing;
  * Instead of customers the NPS can also be transferred to non-customers.
  *
  * @package phpOMS\Business\Marketing
- * @license OMS License 1.0
+ * @license OMS License 2.0
  * @link    https://jingga.app
  * @since   1.0.0
  */

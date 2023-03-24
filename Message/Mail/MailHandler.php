@@ -117,14 +117,6 @@ class MailHandler
     public bool $useAutoTLS = true;
 
     /**
-     * Use smtp auth
-     *
-     * @var bool
-     * @since 1.0.0
-     */
-    public bool $useSMTPAuth = false;
-
-    /**
      * Options passed when connecting via SMTP.
      *
      * @var array
@@ -459,7 +451,7 @@ class MailHandler
 
         // Only send the DATA command if we have viable recipients
         if ((\count($mail->to) + \count($mail->cc) + \count($mail->bcc) > \count($badRcpt))
-            && !$this->smtp->data($header . $mail->body, self::MAX_LINE_LENGTH)
+            && !$this->smtp->data($header . $mail->bodyMime, self::MAX_LINE_LENGTH)
         ) {
             return false;
         }
@@ -576,10 +568,9 @@ class MailHandler
                     $this->smtp->hello($hello);
                 }
 
-                // @todo: is useSMTPAuth really necessary or can't we just check if smtp is defined?
-                return !($this->useSMTPAuth
-                        && !$this->smtp->authenticate($this->username, $this->password, $this->authType, $this->oauth)
-                    );
+                return $this->smtp === null
+                    ? false
+                    : $this->smtp->authenticate($this->username, $this->password, $this->authType, $this->oauth);
             }
         }
 

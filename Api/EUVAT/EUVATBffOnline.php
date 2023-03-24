@@ -6,7 +6,7 @@
  *
  * @package   phpOMS\Api\EUVAT
  * @copyright Dennis Eichhorn
- * @license   OMS License 1.0
+ * @license   OMS License 2.0
  * @version   1.0.0
  * @link      https://jingga.app
  */
@@ -23,7 +23,7 @@ use phpOMS\Uri\HttpUri;
  * Check EU VAT.
  *
  * @package phpOMS\Api\EUVAT
- * @license OMS License 1.0
+ * @license OMS License 2.0
  * @link    https://jingga.app
  * @since   1.0.0
  */
@@ -42,34 +42,50 @@ final class EUVATBffOnline implements EUVATInterface
     /**
      * {@inheritdoc}
      */
-    public static function validate(string $ownVAT, string $otherVAT) : int
+    public static function validate(string $otherVAT, string $ownVAT = '') : array
     {
         $request = new HttpRequest(new HttpUri('https://evatr.bff-online.de/evatrRPC?UstId_1=' . $ownVAT . '&UstId_2=' . $otherVAT));
         $request->setMethod(RequestMethod::GET);
 
+        $result = [
+            'status' => -1,
+            'vat'   => 'C',
+            'name'   => '',
+            'city'   => '',
+            'postal' => '',
+            'address' => '',
+            'body' => '',
+        ];
+
         $matches = [];
         try {
             $body = Rest::request($request)->getBody();
-
+            $result['body'] = $body;
 
             \preg_match('/ErrorCode.*?(\d+)/s', $body, $matches);
 
-            if ((int) ($matches[1] ?? 1) === 200) {
-                return 0;
+            switch ((int) ($matches[1] ?? 1)) {
+                case 200:
+                    $result['vat'] = 'A';
+                    break;
+                default:
+                    $result['vat'] = 'B';
             }
+
+            $result['status'] = 0;
         } catch (\Throwable $t) {
-            return -1;
+            return $result;
         }
 
-        return (int) ($matches[1] ?? 1);
+        return $result;
     }
 
     /**
      * {@inheritdoc}
      */
     public static function validateQualified(
-        string $ownVAT,
         string $otherVAT,
+        string $ownVAT,
         string $otherName,
         string $otherCity,
         string $otherPostal,
@@ -78,56 +94,57 @@ final class EUVATBffOnline implements EUVATInterface
     {
         $result = [
             'status' => -1,
-            'name'   => false,
-            'city'   => false,
-            'postal' => false,
-            'street' => false,
-            'response' => '',
+            'vat'   => 'C',
+            'name'   => 'C',
+            'city'   => 'C',
+            'postal' => 'C',
+            'address' => 'C',
+            'body' => '',
         ];
 
         if (empty($ownVAT)) {
             return $result;
         }
 
-        $request = new HttpRequest(new HttpUri('https://evatr.bff-online.de/evatrRPC?UstId_1=' . $ownVAT . '&UstId_2=' . $otherVAT . '&Firmenname=' . \urlencode($otherName) . '&Ort=' . \urlencode($otherCity) . '&PLZ=' . \urlencode($otherPostal) . '&Strasse=' . \urlencode($otherStreet)));
+        $request = new HttpRequest(new HttpUri(
+            'https://evatr.bff-online.de/evatrRPC?UstId_1=' . $ownVAT . '&UstId_2=' . $otherVAT . '&Firmenname=' . \urlencode($otherName) . '&Ort=' . \urlencode($otherCity) . '&PLZ=' . \urlencode($otherPostal) . '&Strasse=' . \urlencode($otherStreet))
+        );
         $request->setMethod(RequestMethod::GET);
 
         try {
             $body = Rest::request($request)->getBody();
-
-            $result['response'] = $body;
+            $result['body'] = $body;
 
             $matches = [];
             \preg_match('/ErrorCode.*?(\d+)/s', $body, $matches);
-            if ((int) ($matches[1] ?? 1) === 200) {
-                $result['status'] = 0;
+
+            switch ((int) ($matches[1] ?? 1)) {
+                case 200:
+                    $result['vat'] = 'A';
+                    break;
+                default:
+                    $result['vat'] = 'B';
             }
 
             $matches = [];
             \preg_match('/Erg_PLZ.*?<string>(A|B|C|D)/s', $body, $matches);
-            if (($matches[1] ?? 'B') === 'A' || ($matches[1] ?? 'B') === 'D') {
-                $result['postal'] = true;
-            }
+            $result['postal'] = $matches[1] ?? 'B';
 
             $matches = [];
             \preg_match('/Erg_Ort.*?<string>(A|B|C|D)/s', $body, $matches);
-            if (($matches[1] ?? 'B') === 'A' || ($matches[1] ?? 'B') === 'D') {
-                $result['city'] = true;
-            }
+            $result['city'] = $matches[1] ?? 'B';
 
             $matches = [];
             \preg_match('/Erg_Str.*?<string>(A|B|C|D)/s', $body, $matches);
-            if (($matches[1] ?? 'B') === 'A' || ($matches[1] ?? 'B') === 'D') {
-                $result['street'] = true;
-            }
+            $result['address'] = $matches[1] ?? 'B';
 
             $matches = [];
             \preg_match('/Erg_Name.*?<string>(A|B|C|D)/s', $body, $matches);
-            if (($matches[1] ?? 'B') === 'A' || ($matches[1] ?? 'B') === 'D') {
-                $result['street'] = true;
-            }
+            $result['name'] = $matches[1] ?? 'B';
+
+            $result['status'] = 0;
         } catch (\Throwable $t) {
-            return [];
+            return $result;
         }
 
         return $result;

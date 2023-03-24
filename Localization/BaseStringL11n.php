@@ -6,7 +6,7 @@
  *
  * @package   phpOMS\Localization
  * @copyright Dennis Eichhorn
- * @license   OMS License 1.0
+ * @license   OMS License 2.0
  * @version   1.0.0
  * @link      https://jingga.app
  */
@@ -21,7 +21,7 @@ use phpOMS\Localization\ISO3166TwoEnum;
  * String l11n class.
  *
  * @package phpOMS\Localization
- * @license OMS License 1.0
+ * @license OMS License 2.0
  * @link    https://jingga.app
  * @since   1.0.0
  */

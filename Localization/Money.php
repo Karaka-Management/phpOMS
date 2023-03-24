@@ -6,7 +6,7 @@
  *
  * @package   phpOMS\Localization
  * @copyright Dennis Eichhorn
- * @license   OMS License 1.0
+ * @license   OMS License 2.0
  * @version   1.0.0
  * @link      https://jingga.app
  */
@@ -20,7 +20,7 @@ use phpOMS\Stdlib\Base\FloatInt;
  * Money class.
  *
  * @package phpOMS\Localization
- * @license OMS License 1.0
+ * @license OMS License 2.0
  * @link    https://jingga.app
  * @since   1.0.0
  */
@@ -41,22 +41,6 @@ final class Money extends FloatInt
      * @since 1.0.0
      */
     private string $symbol = ISO4217SymbolEnum::_USD;
-
-    /**
-     * Constructor.
-     *
-     * @param int|float|string $value     Value
-     * @param string           $thousands Thousands separator
-     * @param string           $decimal   Decimal separator
-     * @param string           $symbol    Currency symbol
-     * @param int              $position  Symbol position
-     *
-     * @since 1.0.0
-     */
-    public function __construct(int | float | string $value = 0, string $thousands = ',', string $decimal = '.')
-    {
-        parent::__construct($value, $thousands, $decimal);
-    }
 
     /**
      * Set localization.
@@ -93,7 +77,7 @@ final class Money extends FloatInt
     {
         return (($position ?? $this->position) === 0 && !empty($symbol ?? $this->symbol) ? ($symbol ?? $this->symbol) . ' ' : '' )
             . $this->getAmount($decimals)
-            . (($position ?? $this->position) === 1 && !empty($symbol ?? $this->symbol) ? ' ' . ($smbol ?? $this->symbol) : '');
+            . (($position ?? $this->position) === 1 && !empty($symbol ?? $this->symbol) ? ' ' . ($symbol ?? $this->symbol) : '');
     }
 
     /**

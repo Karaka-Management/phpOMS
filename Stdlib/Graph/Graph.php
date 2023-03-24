@@ -6,7 +6,7 @@
  *
  * @package   phpOMS\Stdlib\Graph
  * @copyright Dennis Eichhorn
- * @license   OMS License 1.0
+ * @license   OMS License 2.0
  * @version   1.0.0
  * @link      https://jingga.app
  */
@@ -18,7 +18,7 @@ namespace phpOMS\Stdlib\Graph;
  * Graph class.
  *
  * @package phpOMS\Stdlib\Graph
- * @license OMS License 1.0
+ * @license OMS License 2.0
  * @link    https://jingga.app
  * @since   1.0.0
  */
@@ -120,21 +120,16 @@ class Graph
      */
     public function isDirected() : bool
     {
-        return $this->isDirected;
-    }
+        foreach ($this->nodes as $node) {
+            $edges = $node->getEdges();
+            foreach ($edges as $edge) {
+                if ($edge->isDirected) {
+                    return true;
+                }
+            }
+        }
 
-    /**
-     * Set graph directed
-     *
-     * @param bool $directed Is directed?
-     *
-     * @return void
-     *
-     * @since 1.0.0
-     */
-    public function setDirected(bool $directed) : void
-    {
-        $this->isDirected = $directed;
+        return false;
     }
 
     /**
@@ -150,7 +145,7 @@ class Graph
         $costs = 0;
 
         foreach ($edges as $edge) {
-            $costs += $edge->getWeight();
+            $costs += $edge->weight;
         }
 
         return $costs;
@@ -171,10 +166,10 @@ class Graph
             $nodeEdges = $node->getEdges();
 
             foreach ($nodeEdges as $edge) {
-                if (!isset($edges[$edge->getNode1()->getId() . ':' . $edge->getNode2()->getId()])
-                    && !isset($edges[$edge->getNode2()->getId() . ':' . $edge->getNode1()->getId()])
+                if (!isset($edges[$edge->node1->getId() . ':' . $edge->node2->getId()])
+                    && !isset($edges[$edge->node2->getId() . ':' . $edge->node1->getId()])
                 ) {
-                    $edges[$edge->getNode1()->getId() . ':' . $edge->getNode2()->getId()] = $edge;
+                    $edges[$edge->node1->getId() . ':' . $edge->node2->getId()] = $edge;
                 }
             }
         }
@@ -202,8 +197,8 @@ class Graph
             $nodeEdges = $node->getEdges();
 
             foreach ($nodeEdges as $edge) {
-                if (($edge->getNode1()->getId() === $id1 || $edge->getNode1()->getId() === $id2)
-                    && ($edge->getNode2()->getId() === $id1 || $edge->getNode2()->getId() === $id2)
+                if (($edge->node1->getId() === $id1 || $edge->node1->getId() === $id2)
+                    && ($edge->node2->getId() === $id1 || $edge->node2->getId() === $id2)
                 ) {
                     return $edge;
                 }
@@ -273,7 +268,7 @@ class Graph
 
         $edges = $this->nodes[$id]->getEdges();
         foreach ($edges as $edge) {
-            $neighbor = !$edge->getNode1()->isEqual($node) ? $edge->getNode1() : $edge->getNode2();
+            $neighbor = !$edge->node1->isEqual($node) ? $edge->node1 : $edge->node2;
 
             if (!isset($visited[$neighbor->getId()]) || !$visited[$neighbor->getId()]) {
                 $parent[$neighbor->getId()] = $node;
@@ -306,21 +301,21 @@ class Graph
         \usort($edges, Edge::class . '::compare');
 
         foreach ($edges as $edge) {
-            if ($graph->hasNode($edge->getNode1()->getId())
-                && $graph->hasNode($edge->getNode2()->getId())
+            if ($graph->hasNode($edge->node1->getId())
+                && $graph->hasNode($edge->node2->getId())
             ) {
                 continue;
             }
 
             /** @var Node $node1 */
-            $node1 = $graph->hasNode($edge->getNode1()->getId())
-                ? $graph->getNode($edge->getNode1()->getId())
-                : clone $edge->getNode1();
+            $node1 = $graph->hasNode($edge->node1->getId())
+                ? $graph->getNode($edge->node1->getId())
+                : clone $edge->node1;
 
             /** @var Node $node2 */
-            $node2 = $graph->hasNode($edge->getNode2()->getId())
-                ? $graph->getNode($edge->getNode2()->getId())
-                : clone $edge->getNode2();
+            $node2 = $graph->hasNode($edge->node2->getId())
+                ? $graph->getNode($edge->node2->getId())
+                : clone $edge->node2;
 
             if (!$graph->hasNode($node1->getId())) {
                 $node1->removeEdges();
@@ -333,11 +328,10 @@ class Graph
             }
 
             $node1->setNodeRelative($node2)
-                ->setWeight($this->getEdge(
+                ->weight = $this->getEdge(
                         $node1->getId(),
                         $node2->getId()
-                    )?->getWeight() ?? 0.0
-                );
+                    )?->weight ?? 0.0;
         }
 
         return $graph;
@@ -472,19 +466,53 @@ class Graph
      */
     public function getFloydWarshallShortestPath() : array
     {
-        return [];
-    }
+        $distances = [];
+        foreach ($this->nodes as $k) {
+            foreach ($this->nodes as $i) {
+                foreach ($this->nodes as $j) {
+                    if (!isset($distances[$i->getId()])) {
+                        $distances[$i->getId()] = [];
 
-    /**
-     * Get shortest path using Dijkstra algorithm.
-     *
-     * @return array
-     *
-     * @since 1.0.0
-     */
-    public function getDijkstraShortestPath() : array
-    {
-        return [];
+                        foreach ($this->nodes as $node) {
+                            if ($i->isEqual($node)) {
+                                $distances[$i->getId()][$node->getId()] = 0;
+                            } else {
+                                $edge = $i->getEdgeByNeighbor($node);
+
+                                $distances[$i->getId()][$node->getId()] = $edge === null
+                                    ? null
+                                    : $edge->weight;
+                            }
+                        }
+                    }
+
+                    if (!isset($distances[$k->getId()])) {
+                        $distances[$k->getId()] = [];
+
+                        foreach ($this->nodes as $node) {
+                            if ($k->isEqual($node)) {
+                                $distances[$k->getId()][$node->getId()] = 0;
+                            } else {
+                                $edge = $k->getEdgeByNeighbor($node);
+
+                                $distances[$k->getId()][$node->getId()] = $edge === null
+                                    ? null
+                                    : $edge->weight;
+                            }
+                        }
+                    }
+
+                    if ($distances[$i->getId()][$k->getId()] !== null
+                        && $distances[$k->getId()][$j->getId()] !== null
+                        && $distances[$i->getId()][$j->getId()] > $distances[$i->getId()][$k->getId()] + $distances[$k->getId()][$j->getId()]
+                    ) {
+                        $distances[$i->getId()][$j->getId()] = $distances[$i->getId()][$k->getId()] + $distances[$k->getId()][$j->getId()];
+                    }
+                }
+            }
+        }
+
+        return $distances;
     }
 
     /**
@@ -500,7 +528,7 @@ class Graph
      *
      * @since 1.0.0
      */
-    private function depthFirstTraversal(
+    private function pathBetweenNodesDfs(
         Node $node1,
         Node $node2 = null,
         array &$visited,
@@ -518,7 +546,7 @@ class Graph
         foreach ($neighbors as $neighbor) {
             if (!isset($visited[$neighbor->getId()]) || !$visited[$neighbor->getId()]) {
                 $path[] = $neighbor;
-                $this->depthFirstTraversal($neighbor, $node2, $visited, $path, $paths);
+                $this->pathBetweenNodesDfs($neighbor, $node2, $visited, $path, $paths);
                 \array_pop($path);
             }
         }
@@ -537,7 +565,7 @@ class Graph
      *
      * @since 1.0.0
      */
-    public function findAllReachableNodesDFS(int | string | Node $node1) : array
+    public function findAllReachableNodesDfs(int | string | Node $node1) : array
     {
         $nodes = [];
 
@@ -593,7 +621,40 @@ class Graph
      */
     public function longestPath() : array
     {
-        return [];
+        $longestPath = [];
+        $visited     = [];
+        $path        = [];
+
+        foreach ($this->nodes as $node) {
+            $visited[$node->getId()] = false;
+            $this->longestPathDfs($node, $visited, $path, $longestPath);
+        }
+
+        return $longestPath;
+    }
+
+    private function longestPathDfs(Node $node, &$visited, &$path, &$longestPath)
+    {
+        $visited[$node->getId()] = true;
+        $path[] = $node;
+
+        $edges = $node->getEdges();
+        foreach ($edges as $edge) {
+            $adj = $edge->node1->isEqual($node)
+                    ? $edge->node2
+                    : $edge->node1;
+
+            if (!$visited[$adj->getId()]) {
+                $this->longestPathDfs($adj, $visited, $path, $longestPath);
+            }
+        }
+
+        if (\count($path) > \count($longestPath)) {
+            $longestPath = $path;
+        }
+
+        \array_pop($path);
+        $visited[$node->getId()] = false;
     }
 
     /**
@@ -625,7 +686,7 @@ class Graph
         $paths   = [];
         $visited = [];
 
-        $this->depthFirstTraversal($node1, $node2, $visited, $path, $paths);
+        $this->pathBetweenNodesDfs($node1, $node2, $visited, $path, $paths);
 
         return $paths;
     }
@@ -685,7 +746,7 @@ class Graph
                     continue;
                 }
 
-                $edges[$key] += $node1->getEdgeByNeighbor($node)->getWeight();
+                $edges[$key] += $node1->getEdgeByNeighbor($node)->weight;
                 ++$nodeCount;
             }
 
@@ -741,7 +802,7 @@ class Graph
                     continue;
                 }
 
-                $edges[$key] += $node1->getEdgeByNeighbor($node)->getWeight();
+                $edges[$key] += $node1->getEdgeByNeighbor($node)->weight;
                 ++$nodeCount;
             }
 
@@ -827,7 +888,37 @@ class Graph
      */
     public function getGirth() : int
     {
-        return 0;
+        $girth = \PHP_INT_MAX;
+
+        foreach ($this->nodes as $i) {
+            $stack = [$i];
+
+            foreach ($this->nodes as $node) {
+                $distances[$node->getId()] = \PHP_INT_MAX;
+            }
+
+            $distances[$i->getId()] = 0;
+
+            while (!empty($stack)) {
+                $current = \array_shift($queue);
+
+                foreach ($this->nodes as $j) {
+                    // Has neighbour
+                    if ($this->nodes[$current->getId()]->hasNeighbor($j)) {
+                        if ($distances[$j->getId()] === \PHP_INT_MAX) {
+                            $distances[$j->getId()] = $distances[$current->getId()] + 1;
+                            $stack[]                = $j;
+                        } elseif (!$j->isEqual($i) && !$j->isEqual($current)
+                            && $distances[$j->getId()] >= $distances[$current->getId()]
+                        ) {
+                            $girs = \min($girth, $distances[$current->getId()] + $distances[$j->getId()] + 1);
+                        }
+                    }
+                }
+            }
+        }
+
+        return $girth;
     }
 
     /**
@@ -839,31 +930,56 @@ class Graph
      */
     public function getCircuitRank() : int
     {
-        return 0;
+        $adjMatrix = [];
+        foreach ($this->nodes as $node) {
+            $adjMatrix[$node->getId()] = $node->getEdges();
+        }
+
+        $rank = 0;
+        foreach ($this->nodes as $i) {
+            $visited = [];
+            foreach ($this->nodes as $node) {
+                $visited[$node->getId()] = false;
+            }
+
+            if ($this->cycleDfs($adjMatrix, $i, null, $visited)) {
+                ++$rank;
+            }
+        }
+
+        return $rank;
     }
 
-    /**
-     * Get the graph node connectivity
-     *
-     * @return int
-     *
-     * @since 1.0.0
-     */
-    public function getNodeConnectivity() : int
+    private function cycleDfs(array $adjMatrix, Node $current, ?Node $previous, &$visited) : bool
     {
-        return 0;
-    }
+        $visited[$current->getId()] = true;
+        foreach ($adjMatrix[$current->getId()] as $edge) {
+            if ($edge->isDirected) {
+                if ($edge->node2->isEqual(($current))) {
+                    continue;
+                }
 
-    /**
-     * Get the graph edge connectivity
-     *
-     * @return int
-     *
-     * @since 1.0.0
-     */
-    public function getEdgeConnectivity() : int
-    {
-        return 0;
+                $next = $edge->node2;
+            } else {
+                $next = $edge->node1->isEqual($current)
+                    ? $edge->node2
+                    : $edge->node1;
+            }
+
+            if ($next->isEqual($previous)) {
+                continue;
+            }
+
+            if ($visited[$next->getId()]) {
+                return true;
+            }
+
+            if ($this->cycleDfs($adjMatrix, $next, $current, $visited)) {
+                return true;
+            }
+        }
+
+        return false;
     }
 
     /**
@@ -873,15 +989,173 @@ class Graph
      *
      * @since 1.0.0
      */
-    public function isConnected() : bool
+    public function isConnected(int | string | Node $node1 = null, int | string | Node $node2 = null) : bool
     {
         if (empty($this->nodes)) {
             return true;
         }
 
-        $nodes = $this->findAllReachableNodesDFS(\reset($this->nodes));
+        if ($node1 === null || $node2 === null) {
+            $visited = [];
+            foreach ($this->nodes as $node) {
+                $visited[] = false;
+            }
 
-        return \count($nodes) === \count($this->nodes);
+            $node                    = \reset($this->nodes);
+            $visited[$node->getId()] = true;
+            $stack                   = [$node];
+
+            while (!empty($stack)) {
+                $node = \array_pop($stack);
+
+                $edges = $node->getEdges();
+                foreach ($edges as $edge) {
+                    if ($edge->isDirected) {
+                        if ($edge->node2->isEqual(($node))) {
+                            continue;
+                        }
+
+                        $adj = $edge->node2;
+                    } else {
+                        $adj = $edge->node1->isEqual($node)
+                            ? $edge->node2
+                            : $edge->node1;
+                    }
+
+                    if (!$visited[$adj->getId()]) {
+                        $visited[$adj->getId()] = true;
+
+                        $stack[] = $adj;
+                    }
+                }
+            }
+
+            return !\in_array(false, $visited);
+        }
+
+        $visited = [];
+        foreach ($this->nodes as $node) {
+            $visited[$node->getId()] = false;
+        }
+
+        $stack = [$node1];
+        while (!empty($stack)) {
+            $node = \array_shift($stack);
+
+            if ($node->isEqual($node2)) {
+                return true;
+            }
+
+            if (!$visited[$node->getId()]) {
+                $visited[$node->getId()] = true;
+
+                $edges = $node->getEdges();
+                foreach ($edges as $edge) {
+                    if ($edge->isDirected) {
+                        if ($edge->node2->isEqual(($node))) {
+                            continue;
+                        }
+
+                        $stack[] = $edge->node2;
+                    } else {
+                        $stack = $edge->node1->isEqual($node)
+                            ? $edge->node2
+                            : $edge->node1;
+                    }
+                }
+            }
+        }
+
+        return false;
+    }
+
+    /**
+     * Is the graph strongly connected?
+     *
+     * @return bool
+     *
+     * @since 1.0.0
+     */
+    public function isStronglyConnected()
+    {
+        $visited = [];
+        foreach ($this->nodes as $node) {
+            $visited[] = false;
+        }
+
+        $node                    = \reset($this->nodes);
+        $visited[$node->getId()] = true;
+        $stack                   = [$node];
+
+        while (!empty($stack)) {
+            $node = \array_pop($stack);
+
+            $edges = $node->getEdges();
+            foreach ($edges as $edge) {
+                if ($edge->isDirected) {
+                    if ($edge->node2->isEqual(($node))) {
+                        continue;
+                    }
+
+                    $adj = $edge->node2;
+                } else {
+                    $adj = $edge->node1->isEqual($node)
+                        ? $edge->node2
+                        : $edge->node1;
+                }
+
+                if (!$visited[$adj->getId()]) {
+                    $visited[$adj->getId()] = true;
+
+                    $stack[] = $adj;
+                }
+            }
+        }
+
+        if (\in_array(false, $visited)) {
+            return false;
+        }
+
+        if (!$this->isDirected) {
+            return true;
+        }
+
+        // Test connectivity in reverse
+        $visited = [];
+        foreach ($this->nodes as $node) {
+            $visited[] = false;
+        }
+
+        $node                    = \reset($this->nodes);
+        $visited[$node->getId()] = true;
+        $stack                   = [$node];
+
+        while (!empty($stack)) {
+            $node = \array_pop($stack);
+
+            $edges = $node->getEdges();
+            foreach ($edges as $edge) {
+                if ($edge->isDirected) {
+                    if (!$edge->node2->isEqual(($node))) {
+                        continue;
+                    }
+
+                    $adj = $edge->node1;
+                } else {
+                    $adj = $edge->node1->isEqual($node)
+                        ? $edge->node2
+                        : $edge->node1;
+                }
+
+                if (!$visited[$adj->getId()]) {
+                    $visited[$adj->getId()] = true;
+
+                    $stack[] = $adj;
+                }
+            }
+        }
+
+        return !\in_array(false, $visited);
     }
 
     /**
@@ -891,8 +1165,39 @@ class Graph
      *
      * @since 1.0.0
      */
-    public function isBipartite() : bool
+    public function isBipartite(int | string | Node $node1) : bool
     {
+        if (!($node1 instanceof Node)) {
+            $node1 = $this->getNode($node1);
+        }
+
+        foreach ($this->nodes as $node) {
+            $colors[$node->getId()] = 0;
+        }
+
+        $colors[$node1->getId()] = 1;
+
+        $stack = [];
+        \array_push($stack, $node1);
+
+        while (!empty($stack)) {
+            $node = \array_pop($stack);
+
+            $edges = $node->getEdges();
+            foreach ($edges as $edge) {
+                $adj = $edge->node1->isEqual($node)
+                    ? $edge->node2
+                    : $edge->node1;
+
+                if ($colors[$adj->getId()] === -1) {
+                    $colors[$adj->getId()] = 1 - $colors[$node->getId()];
+                    \array_push($stack, $adj);
+                } elseif ($colors[$adj->getId()] === $colors[$node->getId()]) {
+                    return false;
+                }
+            }
+        }
+
         return true;
     }
 
@@ -903,8 +1208,20 @@ class Graph
      *
      * @since 1.0.0
      */
-    public function isTriangleFree() : bool
+    public function hasTriangles() : bool
     {
-        return true;
+        foreach ($this->nodes as $i) {
+            foreach ($this->nodes as $j) {
+                if ($this->getEdge($i->getId(), $j->getId()) !== null) {
+                    foreach ($this->nodes as $k) {
+                        if ($this->getEdge($j->getId(), $k->getId()) && $this->getEdge($k->getId(), $i->getId())) {
+                            return true;
+                        }
+                    }
+                }
+            }
+        }
+
+        return false;
     }
 }

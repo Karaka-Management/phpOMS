@@ -6,7 +6,7 @@
  *
  * @package   phpOMS\Message
  * @copyright Dennis Eichhorn
- * @license   OMS License 1.0
+ * @license   OMS License 2.0
  * @version   1.0.0
  * @link      https://jingga.app
  */
@@ -20,7 +20,7 @@ use phpOMS\Uri\UriInterface;
  * Request class.
  *
  * @package phpOMS\Message
- * @license OMS License 1.0
+ * @license OMS License 2.0
  * @link    https://jingga.app
  * @since   1.0.0
  */
@@ -97,7 +97,7 @@ abstract class RequestAbstract implements MessageInterface
         }
 
         if ($type === null) {
-            return $this->data[$key] ?? null;
+            return $this->data[$key];
         }
 
         switch ($type) {
@@ -110,10 +110,90 @@ abstract class RequestAbstract implements MessageInterface
             case 'bool':
                 return (bool) $this->data[$key];
             case 'DateTime':
-                return new \DateTime($this->data[$key]);
+                return new \DateTime((string) $this->data[$key]);
             default:
                 return $this->data[$key];
         }
+    }
+
+    /**
+     * Get data.
+     *
+     * @param string $key Data key
+     *
+     * @return null|string
+     *
+     * @since 1.0.0
+     */
+    public function getDataString(string $key) : ?string
+    {
+        $key = \mb_strtolower($key);
+
+        return isset($this->data[$key]) ? (string) $this->data[$key] : null;
+    }
+
+    /**
+     * Get data.
+     *
+     * @param string $key Data key
+     *
+     * @return null|int
+     *
+     * @since 1.0.0
+     */
+    public function getDataInt(string $key) : ?int
+    {
+        $key = \mb_strtolower($key);
+
+        return isset($this->data[$key]) ? (int) $this->data[$key] : null;
+    }
+
+    /**
+     * Get data.
+     *
+     * @param string $key Data key
+     *
+     * @return null|float
+     *
+     * @since 1.0.0
+     */
+    public function getDataFloat(string $key) : ?float
+    {
+        $key = \mb_strtolower($key);
+
+        return isset($this->data[$key]) ? (float) $this->data[$key] : null;
+    }
+
+    /**
+     * Get data.
+     *
+     * @param string $key Data key
+     *
+     * @return null|bool
+     *
+     * @since 1.0.0
+     */
+    public function getDataBool(string $key) : ?bool
+    {
+        $key = \mb_strtolower($key);
+
+        return isset($this->data[$key]) ? (bool) $this->data[$key] : null;
+    }
+
+    /**
+     * Get data.
+     *
+     * @param string $key Data key
+     *
+     * @return null|\DateTime
+     *
+     * @since 1.0.0
+     */
+    public function getDataDateTime(string $key) : ?\DateTime
+    {
+        $key = \mb_strtolower($key);
+
+        return !empty($this->data[$key] ?? null) ? new \DateTime((string) $this->data[$key]) : null;
     }
 
     /**
@@ -202,7 +282,9 @@ abstract class RequestAbstract implements MessageInterface
      */
     public function hasData(string $key) : bool
     {
-        return isset($this->data[$key]);
+        $key = \mb_strtolower($key);
+
+        return isset($this->data[$key]) && !empty($this->data[$key]);
     }
 
     /**

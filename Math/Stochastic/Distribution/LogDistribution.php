@@ -6,7 +6,7 @@
  *
  * @package   phpOMS\Math\Stochastic\Distribution
  * @copyright Dennis Eichhorn
- * @license   OMS License 1.0
+ * @license   OMS License 2.0
  * @version   1.0.0
  * @link      https://jingga.app
  */
@@ -20,7 +20,7 @@ use phpOMS\Math\Functions\Beta;
  * Log distribution.
  *
  * @package phpOMS\Math\Stochastic\Distribution
- * @license OMS License 1.0
+ * @license OMS License 2.0
  * @link    https://jingga.app
  * @since   1.0.0
  */
@@ -36,6 +36,8 @@ final class LogDistribution
 
     /**
      * Get probability mass function.
+     *
+     * @latex -\frac{1}{\log(1-p)} \cdot \frac{p^k}{k}
      *
      * @param float $p Value p
      * @param int   $k Value k
@@ -70,6 +72,8 @@ final class LogDistribution
     /**
      * Get expected value.
      *
+     * @latex -\frac{1}{\log(1-p)} \cdot \frac{p}{1-p}
+     *
      * @param float $p Value p
      *
      * @return float
@@ -96,6 +100,8 @@ final class LogDistribution
     /**
      * Get variance.
      *
+     * @latex -\frac{p^2 + p\log(1-p)}{(1-p)^2\log(1-p)^2}
+     *
      * @param float $p Value p
      *
      * @return float
@@ -111,6 +117,8 @@ final class LogDistribution
     /**
      * Get standard deviation.
      *
+     * @latex \sqrt{-\frac{p^2 + p\log(1-p)}{(1-p)^2\log(1-p)^2}}
+     *
      * @param float $p Value p
      *
      * @return float
@@ -124,6 +132,8 @@ final class LogDistribution
 
     /**
      * Get moment generating function.
+     *
+     * @latex \frac{\log(1-p\exp(t))}{\log(1-p)}
      *
      * @param float $p Value p
      * @param float $t Value t

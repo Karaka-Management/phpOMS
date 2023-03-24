@@ -6,7 +6,7 @@
  *
  * @package   phpOMS
  * @copyright Dennis Eichhorn
- * @license   OMS License 1.0
+ * @license   OMS License 2.0
  * @version   1.0.0
  * @link      https://jingga.app
  */
@@ -20,7 +20,7 @@ use phpOMS\Log\FileLogger;
  * Default exception and error handler.
  *
  * @package phpOMS
- * @license OMS License 1.0
+ * @license OMS License 2.0
  * @link    https://jingga.app
  * @since   1.0.0
  */
@@ -93,13 +93,15 @@ final class UnhandledHandler
         $e = \error_get_last();
         \error_clear_last();
 
-        if ($e !== null) {
-            $logger = FileLogger::getInstance(__DIR__ . '/../Logs');
-            $logger->warning(FileLogger::MSG_FULL, [
-                'message' => $e['message'],
-                'line'    => $e['line'],
-                'file'    => $e['file'],
-            ]);
+        if ($e === null) {
+            return;
         }
+
+        $logger = FileLogger::getInstance(__DIR__ . '/../Logs');
+        $logger->warning(FileLogger::MSG_FULL, [
+            'message' => $e['message'],
+            'line'    => $e['line'],
+            'file'    => $e['file'],
+        ]);
     }
 }

@@ -6,7 +6,7 @@
  *
  * @package   phpOMS\Stdlib\Queue
  * @copyright Dennis Eichhorn
- * @license   OMS License 1.0
+ * @license   OMS License 2.0
  * @version   1.0.0
  * @link      https://jingga.app
  */
@@ -21,7 +21,7 @@ use phpOMS\Stdlib\Base\Exception\InvalidEnumValue;
  * Priority queue class.
  *
  * @package phpOMS\Stdlib\Queue
- * @license OMS License 1.0
+ * @license OMS License 2.0
  * @link    https://jingga.app
  * @since   1.0.0
  */
@@ -115,9 +115,9 @@ class PriorityQueue implements \Countable, SerializableInterface
     {
         switch($this->type) {
             case PriorityMode::FIFO:
-                return $this->getInsertFIFO($priority);
+                return $this->getInsertFIFO();
             case PriorityMode::LIFO:
-                return $this->getInsertLIFO($priority);
+                return $this->getInsertLIFO();
             case PriorityMode::HIGHEST:
                 return $this->getInsertHighest($priority);
             case PriorityMode::LOWEST:
@@ -130,13 +130,11 @@ class PriorityQueue implements \Countable, SerializableInterface
     /**
      * Get insert position
      *
-     * @param float $priority Priority of new element
-     *
      * @return int
      *
      * @since 1.0.0
      */
-    private function getInsertFIFO(float $priority) : int
+    private function getInsertFIFO() : int
     {
         return 0;
     }
@@ -144,13 +142,11 @@ class PriorityQueue implements \Countable, SerializableInterface
     /**
      * Get insert position
      *
-     * @param float $priority Priority of new element
-     *
      * @return int
      *
      * @since 1.0.0
      */
-    private function getInsertLIFO(float $priority) : int
+    private function getInsertLIFO() : int
     {
         return \count($this->queue);
     }

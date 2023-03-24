@@ -6,7 +6,7 @@
  *
  * @package   phpOMS\Message\Mail
  * @copyright Dennis Eichhorn
- * @license   OMS License 1.0
+ * @license   OMS License 2.0
  * @version   1.0.0
  * @link      https://jingga.app
  *
@@ -30,7 +30,7 @@ use phpOMS\Validation\Network\Email as EmailValidator;
  * Mail class.
  *
  * @package phpOMS\Message\Mail
- * @license OMS License 1.0
+ * @license OMS License 2.0
  * @link    https://jingga.app
  * @since   1.0.0
  */
@@ -85,14 +85,6 @@ class Email implements MessageInterface
     protected static string $LE = "\r\n";
 
     /**
-     * Mail id.
-     *
-     * @var string
-     * @since 1.0.0
-     */
-    protected string $id = '';
-
-    /**
      * Message id.
      *
      * Format <id@domain>. If empty this is automatically generated.
@@ -129,18 +121,10 @@ class Email implements MessageInterface
     /**
      * Mail from.
      *
-     * @var string
+     * @var array
      * @since 1.0.0
      */
-    protected string $from = '';
-
-    /**
-     * Mail from.
-     *
-     * @var string
-     * @since 1.0.0
-     */
-    protected string $fromName = '';
+    protected array $from = [];
 
     /**
      * Return path/bounce address
@@ -429,18 +413,6 @@ class Email implements MessageInterface
     public string $dkimPrivateKey = '';
 
     /**
-     * Constructor.
-     *
-     * @param string $id Id
-     *
-     * @since 1.0.0
-     */
-    public function __construct(string $id = '')
-    {
-        $this->id = $id;
-    }
-
-    /**
      * Set the From and FromName.
      *
      * @param string $address Email address
@@ -459,8 +431,7 @@ class Email implements MessageInterface
             return false;
         }
 
-        $this->from     = $address;
-        $this->fromName = $name;
+        $this->from = [$address, $name];
 
         if (empty($this->sender)) {
             $this->sender = $address;
@@ -471,10 +442,7 @@ class Email implements MessageInterface
 
     public function getFrom() : array
     {
-        return [
-            $this->from,
-            $this->fromName,
-        ];
+        return $this->from;
     }
 
     /**
@@ -637,12 +605,12 @@ class Email implements MessageInterface
                     ];
                 }
             } else {
-                list($name, $email) = \explode('<', $address);
-                $email              = \trim(\str_replace('>', '', $email));
+                $addr  = \explode('<', $address);
+                $email = \trim(\str_replace('>', '', $addr[1]));
 
                 if (EmailValidator::isValid($email)) {
                     $addresses[] = [
-                        'name'    => \trim($name, '\'" '),
+                        'name'    => \trim($addr[0], '\'" '),
                         'address' => $email,
                     ];
                 }
@@ -735,7 +703,7 @@ class Email implements MessageInterface
                 : 'To: undisclosed-recipients:;' . self::$LE;
         }
 
-        $result .= $this->addrAppend('From', [[\trim($this->from), $this->fromName]]);
+        $result .= $this->addrAppend('From', [$this->from]);
 
         // sendmail and mail() extract Cc from the header before sending
         if (\count($this->cc) > 0) {
@@ -790,7 +758,7 @@ class Email implements MessageInterface
             $result .= \trim($header[0]) . ': ' . $this->encodeHeader(\trim($header[1])) . self::$LE;
         }
 
-        if (!empty($this->signKeyFile)) {
+        if (empty($this->signKeyFile)) {
             $result .= 'MIME-Version: 1.0' . self::$LE;
             $result .= $this->getMailMime();
         }
@@ -966,9 +934,9 @@ class Email implements MessageInterface
         $body           = '';
         $this->uniqueid = $this->generateId();
 
-        $this->boundary[1] = 'b1_' . $this->uniqueid;
-        $this->boundary[2] = 'b2_' . $this->uniqueid;
-        $this->boundary[3] = 'b3_' . $this->uniqueid;
+        $this->boundary[1] = 'b1=_' . $this->uniqueid;
+        $this->boundary[2] = 'b2=_' . $this->uniqueid;
+        $this->boundary[3] = 'b3=_' . $this->uniqueid;
 
         if (!empty($this->signKeyFile)) {
             $body .= $this->getMailMime() . self::$LE;
@@ -1015,7 +983,7 @@ class Email implements MessageInterface
         }
 
         //Use this as a preamble in all multipart message types
-        $mimePre = 'This is a multi-part message in MIME format.' . self::$LE . self::$LE;
+        $mimePre = '';
         switch ($this->messageType) {
             case 'inline':
                 $body .= $mimePre;

@@ -6,7 +6,7 @@
  *
  * @package   phpOMS\Stdlib\Graph
  * @copyright Dennis Eichhorn
- * @license   OMS License 1.0
+ * @license   OMS License 2.0
  * @version   1.0.0
  * @link      https://jingga.app
  */
@@ -18,7 +18,7 @@ namespace phpOMS\Stdlib\Graph;
  * Node class.
  *
  * @package phpOMS\Stdlib\Graph
- * @license OMS License 1.0
+ * @license OMS License 2.0
  * @link    https://jingga.app
  * @since   1.0.0
  */
@@ -130,7 +130,7 @@ class Node
         $edge = new Edge($this, $node, 0.0, $isDirected);
         $this->setEdge($edge, $key);
 
-        if (!$edge->isDirected()) {
+        if (!$edge->isDirected) {
             $node->setEdge($edge);
         }
 
@@ -172,6 +172,17 @@ class Node
         return $this->edges[$key] ?? null;
     }
 
+    public function hasNeighbor(self $node) : bool
+    {
+        foreach ($this->edges as $edge) {
+            if ($edge->node1->isEqual($node) || $edge->node2->isEqual($node)) {
+                return true;
+            }
+        }
+
+        return false;
+    }
+
     /**
      * Get graph edge by neighbor.
      *
@@ -184,7 +195,7 @@ class Node
     public function getEdgeByNeighbor(self $node) : ?Edge
     {
         foreach ($this->edges as $edge) {
-            if ($edge->getNode1()->isEqual($node) || $edge->getNode2()->isEqual($node)) {
+            if ($edge->node1->isEqual($node) || $edge->node2->isEqual($node)) {
                 return $edge;
             }
         }

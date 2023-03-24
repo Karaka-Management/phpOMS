@@ -6,7 +6,7 @@
  *
  * @package    phpOMS\Utils\Parser\Markdown
  * @copyright  Dennis Eichhorn
- * @license    OMS License 1.0
+ * @license    OMS License 2.0
  * @license    Original license Emanuil Rusev, erusev.com (MIT)
  * @version    1.0.0
  * @link       https://jingga.app
@@ -21,7 +21,7 @@ use phpOMS\Uri\UriFactory;
  * Markdown parser class.
  *
  * @package    phpOMS\Utils\Parser\Markdown
- * @license    OMS License 1.0
+ * @license    OMS License 2.0
  * @license    Original license Emanuil Rusev, erusev.com (MIT)
  * @link       https://jingga.app
  * @since      1.0.0

@@ -6,7 +6,7 @@
  *
  * @package   phpOMS\Math\Statistic
  * @copyright Dennis Eichhorn
- * @license   OMS License 1.0
+ * @license   OMS License 2.0
  * @version   1.0.0
  * @link      https://jingga.app
  */
@@ -18,7 +18,7 @@ namespace phpOMS\Math\Statistic;
  * Basic statistic functions.
  *
  * @package phpOMS\Math\Statistic
- * @license OMS License 1.0
+ * @license OMS License 2.0
  * @link    https://jingga.app
  * @since   1.0.0
  */
@@ -50,7 +50,7 @@ final class Basic
         $freaquency = [];
         $sum        = 1;
 
-        if (!($isArray = \is_array(\reset($values)))) {
+        if (!(\is_array(\reset($values)))) {
             $sum = \array_sum($values);
         }
 

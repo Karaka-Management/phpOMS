@@ -6,7 +6,7 @@
  *
  * @package   phpOMS\Views
  * @copyright Dennis Eichhorn
- * @license   OMS License 1.0
+ * @license   OMS License 2.0
  * @version   1.0.0
  * @link      https://jingga.app
  */
@@ -25,7 +25,7 @@ use phpOMS\Module\Exception\InvalidThemeException;
  * Basic view which can be used as basis for specific implementations.
  *
  * @package phpOMS\Views
- * @license OMS License 1.0
+ * @license OMS License 2.0
  * @link    https://jingga.app
  * @since   1.0.0
  */
@@ -98,7 +98,7 @@ class View extends ViewAbstract
      */
     public function __construct(L11nManager $l11n = null, RequestAbstract $request = null, ResponseAbstract $response = null)
     {
-        $this->l11nManager = $l11n ?? new L11nManager('Error');
+        $this->l11nManager = $l11n ?? new L11nManager();
         $this->request     = $request;
         $this->response    = $response;
         $this->l11n        = $response !== null ? $response->header->l11n : new Localization();

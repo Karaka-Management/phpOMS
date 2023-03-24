@@ -6,7 +6,7 @@
  *
  * @package   phpOMS\Localization
  * @copyright Dennis Eichhorn
- * @license   OMS License 1.0
+ * @license   OMS License 2.0
  * @version   1.0.0
  * @link      https://jingga.app
  */
@@ -17,10 +17,10 @@ namespace phpOMS\Localization;
 use phpOMS\Stdlib\Base\Enum;
 
 /**
- * Country codes ISO list.
+ * Country codes ISO 3166-1 list.
  *
  * @package phpOMS\Localization
- * @license OMS License 1.0
+ * @license OMS License 2.0
  * @link    https://jingga.app
  * @since   1.0.0
  */
@@ -523,6 +523,8 @@ class ISO3166NumEnum extends Enum
     public const _ZMB = '894';
 
     public const _ZWE = '716';
+
+    public const _XXK = '688'; // Same as Serbia, since there is no code for Kosovo
 
     public const _XXX = '000';
 

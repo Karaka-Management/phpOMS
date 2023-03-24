@@ -6,7 +6,7 @@
  *
  * @package   phpOMS\Utils\Barcode
  * @copyright Dennis Eichhorn
- * @license   OMS License 1.0
+ * @license   OMS License 2.0
  * @version   1.0.0
  * @link      https://jingga.app
  */
@@ -20,14 +20,14 @@ use phpOMS\Stdlib\Base\Exception\InvalidEnumValue;
  * Code 128 abstract class.
  *
  * @package phpOMS\Utils\Barcode
- * @license OMS License 1.0
+ * @license OMS License 2.0
  * @link    https://jingga.app
  * @since   1.0.0
  *
  * @SuppressWarnings(PHPMD.CamelCasePropertyName)
  * @SuppressWarnings(PHPMD.CamelCaseVariableName)
  */
-abstract class C128Abstract
+abstract class BarAbstract extends CodeAbstract
 {
     /**
      * Checksum.
@@ -62,38 +62,6 @@ abstract class C128Abstract
     protected static string $CODE_END = '';
 
     /**
-     * Orientation.
-     *
-     * @var int
-     * @since 1.0.0
-     */
-    protected int $orientation = 0;
-
-    /**
-     * Barcode dimension.
-     *
-     * @var int[]
-     * @since 1.0.0
-     */
-    protected array $dimension = ['width' => 0, 'height' => 0];
-
-    /**
-     * Barcode dimension.
-     *
-     * @var int
-     * @since 1.0.0
-     */
-    protected int $margin = 10;
-
-    /**
-     * Content to encrypt.
-     *
-     * @var string
-     * @since 1.0.0
-     */
-    protected string $content = '';
-
-    /**
      * Show text below barcode.
      *
      * @var bool
@@ -102,166 +70,13 @@ abstract class C128Abstract
     protected bool $showText = true;
 
     /**
-     * Background color.
-     *
-     * @var int[]
-     * @since 1.0.0
-     */
-    protected array $background = ['r' => 0, 'g' => 0, 'b' => 0, 'a' => 0];
-
-    /**
-     * Front color.
-     *
-     * @var int[]
-     * @since 1.0.0
-     */
-    protected array $front = ['r' => 0, 'g' => 0, 'b' => 0, 'a' => 0];
-
-    /**
-     * Constructor
-     *
-     * @param string $content     Content to encrypt
-     * @param int    $width       Barcode width
-     * @param int    $height      Barcode height
-     * @param int    $orientation Orientation of the barcode
-     *
-     * @since 1.0.0
-     */
-    public function __construct(string $content = '', int $width = 100, int $height = 20, int $orientation = OrientationType::HORIZONTAL)
-    {
-        $this->setContent($content);
-        $this->setDimension($width, $height);
-        $this->setOrientation($orientation);
-    }
-
-    /**
-     * Set barcode dimensions
-     *
-     * @param int $width  Barcode width
-     * @param int $height Barcode height
-     *
-     * @return void
-     *
-     * @since 1.0.0
-     */
-    public function setDimension(int $width, int $height) : void
-    {
-        if ($width < 0) {
-            throw new \OutOfBoundsException((string) $width);
-        }
-
-        if ($height < 0) {
-            throw new \OutOfBoundsException((string) $height);
-        }
-
-        $this->dimension['width']  = $width;
-        $this->dimension['height'] = $height;
-    }
-
-    /**
-     * Set barcode margins
-     *
-     * @param int $margin Barcode margin
-     *
-     * @return void
-     *
-     * @since 1.0.0
-     */
-    public function setMargin(int $margin) : void
-    {
-        $this->margin = $margin;
-    }
-
-    /**
-     * Set barcode orientation
-     *
-     * @param int $orientation Barcode orientation
-     *
-     * @return void
-     *
-     * @since 1.0.0
-     */
-    public function setOrientation(int $orientation) : void
-    {
-        if (!OrientationType::isValidValue($orientation)) {
-            throw new InvalidEnumValue($orientation);
-        }
-
-        $this->orientation = $orientation;
-    }
-
-    /**
-     * Get content
-     *
-     * @return string Returns the string representation of the code
-     *
-     * @since 1.0.0
-     */
-    public function getContent() : string
-    {
-        return $this->content;
-    }
-
-    /**
-     * Set content to encrypt
-     *
-     * @param string $content Barcode content
-     *
-     * @return void
-     *
-     * @since 1.0.0
-     */
-    public function setContent(string $content) : void
-    {
-        $this->content = $content;
-    }
-
-    /**
-     * Get image reference
-     *
-     * @return \GdImage
-     *
-     * @since 1.0.0
+     * {@inheritdoc}
      */
     public function get() : mixed
     {
         $codeString = static::$CODE_START . $this->generateCodeString() . static::$CODE_END;
 
         return $this->createImage($codeString);
-    }
-
-    /**
-     * Save to file
-     *
-     * @param string $file File path/name
-     *
-     * @return void
-     *
-     * @since 1.0.0
-     */
-    public function saveToPngFile(string $file) : void
-    {
-        $res = $this->get();
-
-        \imagepng($res, $file);
-        \imagedestroy($res);
-    }
-
-    /**
-     * Save to file
-     *
-     * @param string $file File path/name
-     *
-     * @return void
-     *
-     * @since 1.0.0
-     */
-    public function saveToJpgFile(string $file) : void
-    {
-        $res = $this->get();
-
-        \imagejpeg($res, $file);
-        \imagedestroy($res);
     }
 
     /**
@@ -295,21 +110,22 @@ abstract class C128Abstract
      */
     protected function generateCodeString() : string
     {
-        $keys       = \array_keys(static::$CODEARRAY);
-        $values     = \array_flip($keys);
-        $codeString = '';
-        $length     = \strlen($this->content);
-        $checksum   = static::$CHECKSUM;
+        if ($this->codestring === '') {
+            $keys     = \array_keys(static::$CODEARRAY);
+            $values   = \array_flip($keys);
+            $length   = \strlen($this->content);
+            $checksum = static::$CHECKSUM;
 
-        for ($pos = 1; $pos <= $length; ++$pos) {
-            $activeKey   = \substr($this->content, ($pos - 1), 1);
-            $codeString .= static::$CODEARRAY[$activeKey];
-            $checksum   += $values[$activeKey] * $pos;
+            for ($pos = 1; $pos <= $length; ++$pos) {
+                $activeKey   = \substr($this->content, ($pos - 1), 1);
+                $this->codestring .= static::$CODEARRAY[$activeKey];
+                $checksum   += $values[$activeKey] * $pos;
+            }
+
+            $this->codestring .= static::$CODEARRAY[$keys[($checksum - ((int) ($checksum / 103) * 103))]];
         }
 
-        $codeString .= static::$CODEARRAY[$keys[($checksum - ((int) ($checksum / 103) * 103))]];
-
-        return $codeString;
+        return $this->codestring;
     }
 
     /**
@@ -332,14 +148,15 @@ abstract class C128Abstract
 
         $black    = \imagecolorallocate($image, 0, 0, 0);
         $white    = \imagecolorallocate($image, 255, 255, 255);
-        $location = 0;
-        $length   = \strlen($codeString);
 
         if ($white === false || $black === false) {
             throw new \Exception(); // @codeCoverageIgnore
         }
 
         \imagefill($image, 0, 0, $white);
+
+        $location = 0;
+        $length   = \strlen($codeString);
 
         for ($position = 1; $position <= $length; ++$position) {
             $cur_size = $location + (int) (\substr($codeString, ($position - 1), 1));
@@ -351,7 +168,7 @@ abstract class C128Abstract
                     0 + $this->margin,
                     $cur_size + $this->margin,
                     $dimensions['height'] - $this->margin - 1,
-                    ($position % 2 == 0 ? $white : $black)
+                    ($position % 2 === 0 ? $white : $black)
                 );
             } else {
                 \imagefilledrectangle(
@@ -360,7 +177,7 @@ abstract class C128Abstract
                     $location + $this->margin,
                     $dimensions['width'] - $this->margin - 1,
                     $cur_size + $this->margin,
-                    ($position % 2 == 0 ? $white : $black)
+                    ($position % 2 === 0 ? $white : $black)
                 );
             }
 

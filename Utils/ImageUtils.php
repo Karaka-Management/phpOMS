@@ -6,7 +6,7 @@
  *
  * @package   phpOMS\Utils
  * @copyright Dennis Eichhorn
- * @license   OMS License 1.0
+ * @license   OMS License 2.0
  * @version   1.0.0
  * @link      https://jingga.app
  */
@@ -20,7 +20,7 @@ namespace phpOMS\Utils;
  * This class provides static helper functionalities for images.
  *
  * @package phpOMS\Utils
- * @license OMS License 1.0
+ * @license OMS License 2.0
  * @link    https://jingga.app
  * @since   1.0.0
  */
@@ -212,6 +212,7 @@ final class ImageUtils
         $newDim = [\max($imageDim1[0], $imageDim2[0]), \max($imageDim1[1], $imageDim2[1])];
 
         $diff = empty($out) ? -1 : $out;
+        $dst  = false;
 
         if ($diff !== -1) {
             $dst = $diff === 0
@@ -290,7 +291,7 @@ final class ImageUtils
             }
         }
 
-        if ($diff !== -1) {
+        if ($dst !== false) {
             if (\stripos($out, '.jpg') || \stripos($out, '.jpeg')) {
                 \imagejpeg($dst, $out);
             } elseif (\stripos($out, '.png')) {

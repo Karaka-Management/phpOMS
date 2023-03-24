@@ -6,7 +6,7 @@
  *
  * @package   phpOMS\Localization
  * @copyright Dennis Eichhorn
- * @license   OMS License 1.0
+ * @license   OMS License 2.0
  * @version   1.0.0
  * @link      https://jingga.app
  */
@@ -22,7 +22,7 @@ use phpOMS\Module\ModuleAbstract;
  * Localization class.
  *
  * @package phpOMS\Localization
- * @license OMS License 1.0
+ * @license OMS License 2.0
  * @link    https://jingga.app
  * @since   1.0.0
  */
@@ -35,24 +35,6 @@ final class L11nManager
      * @since 1.0.0
      */
     private array $language = [];
-
-    /**
-     * App Name.
-     *
-     * @var string
-     * @since 1.0.0
-     */
-    private string $appName;
-
-    /**
-     * Construct.
-     *
-     * @since 1.0.0
-     */
-    public function __construct(string $appName)
-    {
-        $this->appName = $appName;
-    }
 
     /**
      * Verify if language is loaded.
@@ -168,10 +150,10 @@ final class L11nManager
     /**
      * Get translation.
      *
-     * @param string      $code        Language code
-     * @param string      $module      Module name
-     * @param string      $theme       Theme
-     * @param string      $translation Text
+     * @param string $code        Language code
+     * @param string $module      Module name
+     * @param string $theme       Theme
+     * @param string $translation Text
      *
      * @return string In case the language element couldn't be found 'ERROR' will be returned
      *
@@ -294,8 +276,8 @@ final class L11nManager
             }
         }
 
-        $money = new Money(
-            (int) ($currency / $divide),
+        $money = new Money((int) ($currency / $divide));
+        $money->setLocalization(
             $l11n->getThousands(),
             $l11n->getDecimal(),
             $symbol,

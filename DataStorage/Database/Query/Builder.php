@@ -6,7 +6,7 @@
  *
  * @package   phpOMS\DataStorage\Database\Query
  * @copyright Dennis Eichhorn
- * @license   OMS License 1.0
+ * @license   OMS License 2.0
  * @version   1.0.0
  * @link      https://jingga.app
  */
@@ -23,7 +23,7 @@ use phpOMS\DataStorage\Database\Connection\ConnectionAbstract;
  * Database query builder.
  *
  * @package phpOMS\DataStorage\Database\Query
- * @license OMS License 1.0
+ * @license OMS License 2.0
  * @link    https://jingga.app
  * @since   1.0.0
  */
@@ -846,7 +846,7 @@ class Builder extends BuilderAbstract
     public function count(string $table = '*') : self
     {
         /**
-         * @todo Karaka/phpOMS#??? [p:low] [t:optimization] [d:medium]
+         * @todo
          *  Don't do this as a string, create a new object $this->select(new Count($table)).
          *  The parser should be able to handle this much better
          */

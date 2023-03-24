@@ -6,7 +6,7 @@
  *
  * @package   phpOMS\Utils
  * @copyright Dennis Eichhorn
- * @license   OMS License 1.0
+ * @license   OMS License 2.0
  * @version   1.0.0
  * @link      https://jingga.app
  */
@@ -20,7 +20,7 @@ namespace phpOMS\Utils;
  * This class helps to compare two strings
  *
  * @package phpOMS\Utils
- * @license OMS License 1.0
+ * @license OMS License 2.0
  * @link    https://jingga.app
  * @since   1.0.0
  */

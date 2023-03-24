@@ -6,7 +6,7 @@
  *
  * @package   phpOMS\Security
  * @copyright Dennis Eichhorn
- * @license   OMS License 1.0
+ * @license   OMS License 2.0
  * @version   1.0.0
  * @link      https://jingga.app
  */
@@ -18,7 +18,7 @@ namespace phpOMS\Security;
  * Php encryption wrapper class.
  *
  * @package phpOMS\Security
- * @license OMS License 1.0
+ * @license OMS License 2.0
  * @link    https://jingga.app
  * @since   1.0.0
  */
@@ -42,7 +42,7 @@ final class EncryptionHelper
      * Encrypt a message with a shared key
      *
      * @param string $message Message to encrypt
-     * @param string $key     Shared key used for encryption
+     * @param string $keyHex  Shared key as hex string used for encryption
      *
      * @return string
      *

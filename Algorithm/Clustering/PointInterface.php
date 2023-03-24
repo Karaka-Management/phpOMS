@@ -6,7 +6,7 @@
  *
  * @package   phpOMS\Algorithm\Clustering
  * @copyright Dennis Eichhorn
- * @license   OMS License 1.0
+ * @license   OMS License 2.0
  * @version   1.0.0
  * @link      https://jingga.app
  */
@@ -22,7 +22,7 @@ namespace phpOMS\Algorithm\Clustering;
  * @property string $name  Name
  *
  * @package phpOMS\Algorithm\Clustering;
- * @license OMS License 1.0
+ * @license OMS License 2.0
  * @link    https://jingga.app
  * @since   1.0.0
  */

@@ -6,7 +6,7 @@
  *
  * @package   phpOMS\Message\Http
  * @copyright Dennis Eichhorn
- * @license   OMS License 1.0
+ * @license   OMS License 2.0
  * @version   1.0.0
  * @link      https://jingga.app
  */
@@ -28,7 +28,7 @@ use phpOMS\Views\View;
  * @property \phpOMS\Message\Http\HttpHeader $header Http header
  *
  * @package phpOMS\Message\Http
- * @license OMS License 1.0
+ * @license OMS License 2.0
  * @link    https://jingga.app
  * @since   1.0.0
  */
@@ -118,7 +118,11 @@ final class HttpResponse extends ResponseAbstract implements RenderableInterface
         }
 
         /** @var array{0:bool} $data */
-        return $this->getRaw(\stripos($type ?? '', MimeType::M_HTML) !== false ? ($data[0] ?? false) : false);
+        return $this->getRaw(
+            \stripos($type ?? '', MimeType::M_HTML) !== false
+                ? ($data[0] ?? false)
+                : false
+        );
     }
 
     /**
@@ -136,6 +140,7 @@ final class HttpResponse extends ResponseAbstract implements RenderableInterface
     {
         $render = '';
         foreach ($this->response as $response) {
+            // @note: Api functions return void -> null, this is where the null value is "ignored"/rendered as ''
             $render .= StringUtils::stringify($response);
         }
 

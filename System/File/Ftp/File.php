@@ -6,7 +6,7 @@
  *
  * @package   phpOMS\System\File\Ftp
  * @copyright Dennis Eichhorn
- * @license   OMS License 1.0
+ * @license   OMS License 2.0
  * @version   1.0.0
  * @link      https://jingga.app
  */
@@ -30,7 +30,7 @@ use phpOMS\Uri\HttpUri;
  * All static implementations require a path/uri in the following form: ftp://user:pass@domain.com/path/subpath...
  *
  * @package phpOMS\System\File\Ftp
- * @license OMS License 1.0
+ * @license OMS License 2.0
  * @link    https://jingga.app
  * @since   1.0.0
  */

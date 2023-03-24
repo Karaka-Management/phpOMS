@@ -6,7 +6,7 @@
  *
  * @package   phpOMS\Module
  * @copyright Dennis Eichhorn
- * @license   OMS License 1.0
+ * @license   OMS License 2.0
  * @version   1.0.0
  * @link      https://jingga.app
  */
@@ -27,7 +27,7 @@ use phpOMS\Module\Exception\InvalidModuleException;
  * General module functionality such as listings and initialization.
  *
  * @package phpOMS\Module
- * @license OMS License 1.0
+ * @license OMS License 2.0
  * @link    https://jingga.app
  * @since   1.0.0
  */
@@ -40,16 +40,6 @@ final class ModuleManager
      * @since 1.0.0
      */
     private array $running = [];
-
-    /**
-     * All modules another module is providing for.
-     *
-     * This is important to inform other modules what kind of information they can receive from other modules.
-     *
-     * @var array<string, string[]>
-     * @since 1.0.0
-     */
-    private array $providing = [];
 
     /**
      * Application instance.
@@ -252,13 +242,14 @@ final class ModuleManager
     /**
      * Is module active
      *
-     * @param string $module Module name
+     * @param string      $module  Module name
+     * @param null|string $ctlName Controller name
      *
      * @return bool
      *
      * @since 1.0.0
      */
-    public function isRunning(string $module) : bool
+    public function isRunning(string $module, string $ctlName = null) : bool
     {
         $name = '\\Modules\\' . $module . '\\Controller\\' . ($ctlName ?? $this->app->appName) . 'Controller';
 
@@ -726,7 +717,7 @@ final class ModuleManager
             ) {
                 try {
                     /** @var ModuleAbstract $obj */
-                    $obj                  = new $class($this->app);
+                    $obj                   = new $class($this->app);
                     $this->running[$class] = $obj;
                 } catch (\Throwable $e) {
                     $this->running[$class] = new NullModule();
@@ -737,50 +728,6 @@ final class ModuleManager
         }
 
         return $this->running[$class];
-    }
-
-    /**
-     * Load modules this module is requesting from
-     *
-     * @param ModuleAbstract $obj Current module
-     *
-     * @return void
-     *
-     * @since 1.0.0
-     */
-    private function registerRequesting(ModuleAbstract $obj) : void
-    {
-        $providings = $obj->getProviding();
-        $name       = '';
-
-        foreach ($providings as $providing) {
-            $name = '\\Modules\\' . $providing . '\\Controller\\' . $this->app->appName . 'Controller';
-
-            if (isset($this->running[$name])) {
-                $this->running[$name]->addReceiving($obj->getName());
-            } else {
-                $this->providing[$name][] = $obj->getName();
-            }
-        }
-    }
-
-    /**
-     * Register modules this module is receiving from
-     *
-     * @param ModuleAbstract $obj Current module
-     *
-     * @return void
-     *
-     * @since 1.0.0
-     */
-    private function registerProvided(ModuleAbstract $obj) : void
-    {
-        $name = '\\Modules\\' . $obj->getName() . '\\Controller\\' . $this->app->appName . 'Controller';
-        if (isset($this->providing[$name])) {
-            foreach ($this->providing[$name] as $providing) {
-                $obj->addReceiving($providing);
-            }
-        }
     }
 
     /**

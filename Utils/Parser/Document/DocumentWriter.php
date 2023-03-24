@@ -6,7 +6,7 @@
  *
  * @package   phpOMS\Utils\Parser\Document
  * @copyright Dennis Eichhorn
- * @license   OMS License 1.0
+ * @license   OMS License 2.0
  * @version   1.0.0
  * @link      https://jingga.app
  */
@@ -19,12 +19,24 @@ use PhpOffice\PhpWord\Settings;
 use PhpOffice\PhpWord\Writer\PDF\AbstractRenderer;
 use PhpOffice\PhpWord\Writer\WriterInterface;
 
+/**
+ * Save word document
+ *
+ * @package phpOMS\Utils\Parser\Document
+ * @license OMS License 2.0
+ * @link    https://jingga.app
+ * @since   1.0.0
+ */
 class DocumentWriter extends AbstractRenderer implements WriterInterface
 {
     /**
      * Save PhpWord to file.
      *
      * @param string $filename Name of the file to save as
+     *
+     * @return string
+     *
+     * @since 1.0.0
      */
     public function toPdfString($filename = null): string
     {

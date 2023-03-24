@@ -6,7 +6,7 @@
  *
  * @package   phpOMS\Dispatcher
  * @copyright Dennis Eichhorn
- * @license   OMS License 1.0
+ * @license   OMS License 2.0
  * @version   1.0.0
  * @link      https://jingga.app
  */
@@ -23,7 +23,7 @@ use phpOMS\System\File\PathException;
  * Dispatcher class.
  *
  * @package phpOMS\Dispatcher
- * @license OMS License 1.0
+ * @license OMS License 2.0
  * @link    https://jingga.app
  * @since   1.0.0
  */
@@ -78,6 +78,9 @@ final class Dispatcher implements DispatcherInterface
             $controller = $controller['dest'];
         }
 
+        // Php void functions always return null.
+        // In a different language the Api functions would reguire a return type
+        // If null is returned (i.e. void functions) these get ignored later in the response renderer as null is not "rendered"
         if (\is_string($controller)) {
             $views += $this->dispatchString($controller, $data);
         } elseif (\is_array($controller)) {

@@ -6,7 +6,7 @@
  *
  * @package   phpOMS\Math\Statistic
  * @copyright Dennis Eichhorn
- * @license   OMS License 1.0
+ * @license   OMS License 2.0
  * @version   1.0.0
  * @link      https://jingga.app
  */
@@ -21,7 +21,7 @@ use phpOMS\Math\Matrix\Exception\InvalidDimensionException;
  * Measure of dispersion.
  *
  * @package phpOMS\Math\Statistic
- * @license OMS License 1.0
+ * @license OMS License 2.0
  * @link    https://jingga.app
  * @since   1.0.0
  */

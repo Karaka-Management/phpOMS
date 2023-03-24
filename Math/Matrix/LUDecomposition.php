@@ -7,7 +7,7 @@
  * @package   phpOMS\Math\Matrix
  * @copyright Dennis Eichhorn
  * @copyright JAMA - https://math.nist.gov/javanumerics/jama/
- * @license   OMS License 1.0
+ * @license   OMS License 2.0
  * @version   1.0.0
  * @link      https://jingga.app
  */
@@ -23,7 +23,7 @@ use phpOMS\Math\Matrix\Exception\InvalidDimensionException;
  * A(piv,:) = L*U
  *
  * @package phpOMS\Math\Matrix
- * @license OMS License 1.0
+ * @license OMS License 2.0
  * @link    https://jingga.app
  * @since   1.0.0
  */

@@ -6,7 +6,7 @@
  *
  * @package   phpOMS\Localization
  * @copyright Dennis Eichhorn
- * @license   OMS License 1.0
+ * @license   OMS License 2.0
  * @version   1.0.0
  * @link      https://jingga.app
  */
@@ -14,8 +14,25 @@ declare(strict_types=1);
 
 namespace phpOMS\Localization;
 
+/**
+ * ISO 3166 regional grouping
+ *
+ * @package phpOMS\Localization
+ * @license OMS License 2.0
+ * @link    https://jingga.app
+ * @since   1.0.0
+ */
 trait ISO3166RegionTrait
 {
+    /**
+     * Get countries in a region
+     *
+     * @param string $region Region name
+     *
+     * @return array
+     *
+     * @since 1.0.0
+     */
     public static function getRegion(string $region) : array
     {
         $region = \strtolower($region);
@@ -85,7 +102,7 @@ trait ISO3166RegionTrait
             case 'south-europe':
                 return [
                     self::_ALB, self::_AND, self::_BIH, self::_HRV, self::_GIB,
-                    self::_GRC, self::_ITA, self::_XKK, self::_MLT, self::_MNE,
+                    self::_GRC, self::_ITA, self::_XXK, self::_MLT, self::_MNE,
                     self::_MKD, self::_PRT, self::_SMR, self::_SRB, self::_SVN,
                     self::_ESP, self::_VAT,
                 ];

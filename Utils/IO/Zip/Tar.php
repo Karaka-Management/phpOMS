@@ -6,7 +6,7 @@
  *
  * @package   phpOMS\Utils\IO\Zip
  * @copyright Dennis Eichhorn
- * @license   OMS License 1.0
+ * @license   OMS License 2.0
  * @version   1.0.0
  * @link      https://jingga.app
  */
@@ -27,7 +27,7 @@ use phpOMS\System\File\Local\Directory;
  * bug? https://bugs.php.net/bug.php?id=75101
  *
  * @package phpOMS\Utils\IO\Zip
- * @license OMS License 1.0
+ * @license OMS License 2.0
  * @link    https://jingga.app
  * @since   1.0.0
  */

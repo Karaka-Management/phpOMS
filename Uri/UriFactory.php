@@ -6,7 +6,7 @@
  *
  * @package   phpOMS\Uri
  * @copyright Dennis Eichhorn
- * @license   OMS License 1.0
+ * @license   OMS License 2.0
  * @version   1.0.0
  * @link      https://jingga.app
  */
@@ -20,7 +20,7 @@ namespace phpOMS\Uri;
  * Used in order to create a uri
  *
  * @package phpOMS\Uri
- * @license OMS License 1.0
+ * @license OMS License 2.0
  * @link    https://jingga.app
  * @since   1.0.0
  */
@@ -56,6 +56,20 @@ final class UriFactory
     public static function getQuery(string $key) : ?string
     {
         return self::$uri[$key] ?? null;
+    }
+
+    /**
+     * Has query replacement.
+     *
+     * @param string $key Replacement key
+     *
+     * @return bool
+     *
+     * @since 1.0.0
+     */
+    public static function hasQuery(string $key) : bool
+    {
+        return isset(self::$uri[$key]);
     }
 
     /**
@@ -116,7 +130,7 @@ final class UriFactory
         self::setQuery('/scheme', $uri->scheme);
         self::setQuery('/host', $uri->host);
         self::setQuery('/port', (string) $uri->port);
-        self::setQuery('/base', \rtrim($uri->getBase(), '/'));
+        self::setQuery('/tld', \rtrim($uri->getBase(), '/'));
         self::setQuery('/rootPath', $uri->getRootPath());
         self::setQuery('?', '?' . $uri->getQuery());
         self::setQuery('%', $uri->__toString());

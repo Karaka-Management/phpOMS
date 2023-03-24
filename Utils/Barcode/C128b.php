@@ -6,7 +6,7 @@
  *
  * @package   phpOMS\Utils\Barcode
  * @copyright Dennis Eichhorn
- * @license   OMS License 1.0
+ * @license   OMS License 2.0
  * @version   1.0.0
  * @link      https://jingga.app
  */
@@ -18,14 +18,14 @@ namespace phpOMS\Utils\Barcode;
  * Code 128b class.
  *
  * @package phpOMS\Utils\Barcode
- * @license OMS License 1.0
+ * @license OMS License 2.0
  * @link    https://jingga.app
  * @since   1.0.0
  *
  * @SuppressWarnings(PHPMD.CamelCasePropertyName)
  * @SuppressWarnings(PHPMD.CamelCaseVariableName)
  */
-class C128b extends C128Abstract
+class C128b extends BarAbstract
 {
     /**
      * Checksum.

@@ -6,7 +6,7 @@
  *
  * @package   phpOMS\Message\Http
  * @copyright Dennis Eichhorn
- * @license   OMS License 1.0
+ * @license   OMS License 2.0
  * @version   1.0.0
  * @link      https://jingga.app
  */
@@ -22,7 +22,7 @@ use phpOMS\Stdlib\Base\Enum;
  * OS Types which could be useful in order to create statistics or deliver OS specific content.
  *
  * @package phpOMS\Message\Http
- * @license OMS License 1.0
+ * @license OMS License 2.0
  * @link    https://jingga.app
  * @since   1.0.0
  */

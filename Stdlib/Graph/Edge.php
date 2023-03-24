@@ -6,7 +6,7 @@
  *
  * @package   phpOMS\Stdlib\Graph
  * @copyright Dennis Eichhorn
- * @license   OMS License 1.0
+ * @license   OMS License 2.0
  * @version   1.0.0
  * @link      https://jingga.app
  */
@@ -18,7 +18,7 @@ namespace phpOMS\Stdlib\Graph;
  * Edge class.
  *
  * @package phpOMS\Stdlib\Graph
- * @license OMS License 1.0
+ * @license OMS License 2.0
  * @link    https://jingga.app
  * @since   1.0.0
  */
@@ -32,7 +32,7 @@ class Edge
      * @var Node
      * @since 1.0.0
      */
-    private Node $node1;
+    public Node $node1;
 
     /**
      * Node2.
@@ -42,7 +42,7 @@ class Edge
      * @var Node
      * @since 1.0.0
      */
-    private Node $node2;
+    public Node $node2;
 
     /**
      * Is graph/edge directed
@@ -50,7 +50,7 @@ class Edge
      * @var bool
      * @since 1.0.0
      */
-    private bool $isDirected = false;
+    public bool $isDirected = false;
 
     /**
      * Edge weight
@@ -58,7 +58,7 @@ class Edge
      * @var float
      * @since 1.0.0
      */
-    private float $weight = 1.0;
+    public float $weight = 1.0;
 
     /**
      * Constructor.
@@ -91,68 +91,6 @@ class Edge
     }
 
     /**
-     * Set weight
-     *
-     * @param float $weight Weight
-     *
-     * @return void
-     *
-     * @since 1.0.0
-     */
-    public function setWeight(float $weight) : void
-    {
-        $this->weight = $weight;
-    }
-
-    /**
-     * Get node of the edge.
-     *
-     * @return Node
-     *
-     * @since 1.0.0
-     */
-    public function getNode1() : Node
-    {
-        return $this->node1;
-    }
-
-    /**
-     * Get node of the edge.
-     *
-     * @return Node
-     *
-     * @since 1.0.0
-     */
-    public function getNode2() : Node
-    {
-        return $this->node2;
-    }
-
-    /**
-     * Get weight
-     *
-     * @return float
-     *
-     * @since 1.0.0
-     */
-    public function getWeight() : float
-    {
-        return $this->weight;
-    }
-
-    /**
-     * Is directed edge
-     *
-     * @return bool
-     *
-     * @since 1.0.0
-     */
-    public function isDirected() : bool
-    {
-        return $this->isDirected;
-    }
-
-    /**
      * Compare edge weights
      *
      * @param Edge $e1 Edge 1
@@ -164,6 +102,6 @@ class Edge
      */
     public static function compare(self $e1, self $e2) : int
     {
-        return $e1->getWeight() <=> $e2->getWeight();
+        return $e1->weight <=> $e2->weight;
     }
 }
