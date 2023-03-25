@@ -81,6 +81,14 @@ final class Head implements RenderableInterface
     private array $script = [];
 
     /**
+     * Tags bound to this page instance.
+     *
+     * @var array
+     * @since 1.0.0
+     */
+    private array $tags = [];
+
+    /**
      * Constructor.
      *
      * @since 1.0.0
@@ -91,7 +99,7 @@ final class Head implements RenderableInterface
     }
 
     /**
-     * Set page title.
+     * Add asset.
      *
      * @param int    $type Asset type
      * @param string $uri  Asset uri
@@ -103,6 +111,21 @@ final class Head implements RenderableInterface
     public function addAsset(int $type, string $uri, array $attributes = []) : void
     {
         $this->assets[$uri] = ['type' => $type, 'attributes' => $attributes];
+    }
+
+    /**
+     * Add tag.
+     *
+     * @param int    $type Asset type
+     * @param string $uri  Asset uri
+     *
+     * @return void
+     *
+     * @since 1.0.0
+     */
+    public function addTag(string $tag, string $content, array $attributes = []) : void
+    {
+        $this->tags[] = ['tag' => $tag, 'content' => $content, 'attributes' => $attributes];
     }
 
     /**
@@ -292,6 +315,29 @@ final class Head implements RenderableInterface
 
                 $rendered .= '></script>';
             }
+        }
+
+        return $rendered;
+    }
+
+    /**
+     * Render tags.
+     *
+     * @return string
+     *
+     * @since 1.0.0
+     */
+    public function renderTags() : string
+    {
+        $rendered = '';
+        foreach ($this->tags as $tag) {
+            $rendered .= '<' . $tag['tag'];
+
+            foreach ($tag['attributes'] as $key => $attribute) {
+                $rendered .= ' ' . $key . '="' . $attribute . '"';
+            }
+
+            $rendered .= '>' . $tag['content'] . '</' . $tag['tag'] . '>';
         }
 
         return $rendered;
