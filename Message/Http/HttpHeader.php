@@ -231,6 +231,8 @@ final class HttpHeader extends HeaderAbstract
             throw new \Exception('Already locked');
         }
 
+        $this->generate($this->status);
+
         foreach ($this->header as $name => $arr) {
             foreach ($arr as $value) {
                 \header(empty($name)
@@ -251,8 +253,14 @@ final class HttpHeader extends HeaderAbstract
     public function generate(int $code) : void
     {
         switch ($code) {
+            case RequestStatusCode::R_200:
+                $this->generate200();
+                break;
             case RequestStatusCode::R_400:
                 $this->generate400();
+                break;
+            case RequestStatusCode::R_401:
+                $this->generate401();
                 break;
             case RequestStatusCode::R_403:
                 $this->generate403();
@@ -281,11 +289,39 @@ final class HttpHeader extends HeaderAbstract
      *
      * @since 1.0.0
      */
+    private function generate200() : void
+    {
+        $this->set('', 'HTTP/1.0 200 OK');
+        $this->set('Status', 'Status: HTTP/1.0 200 OK');
+        \http_response_code(200);
+    }
+
+    /**
+     * Generate predefined header.
+     *
+     * @return void
+     *
+     * @since 1.0.0
+     */
     private function generate400() : void
     {
         $this->set('', 'HTTP/1.0 400 Bad Request');
         $this->set('Status', 'Status: HTTP/1.0 400 Bad Request');
-        \http_response_code(403);
+        \http_response_code(400);
+    }
+
+    /**
+     * Generate predefined header.
+     *
+     * @return void
+     *
+     * @since 1.0.0
+     */
+    private function generate401() : void
+    {
+        $this->set('', 'HTTP/1.0 401 Unauthorized');
+        $this->set('Status', 'Status: HTTP/1.0 401 Unauthorized');
+        \http_response_code(401);
     }
 
     /**
