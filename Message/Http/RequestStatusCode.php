@@ -64,6 +64,8 @@ abstract class RequestStatusCode extends Enum
 
     public const R_307 = 307;
 
+    public const R_308 = 308;
+
     public const R_400 = 400;
 
     public const R_401 = 401;
@@ -102,6 +104,8 @@ abstract class RequestStatusCode extends Enum
 
     public const R_418 = 418;
 
+    public const R_421 = 421;
+
     public const R_422 = 422;
 
     public const R_423 = 423;
@@ -112,9 +116,17 @@ abstract class RequestStatusCode extends Enum
 
     public const R_426 = 426;
 
+    public const R_428 = 428;
+
+    public const R_429 = 429;
+
+    public const R_431 = 431;
+
     public const R_449 = 449;
 
     public const R_450 = 450;
+
+    public const R_451 = 451;
 
     public const R_500 = 500;
 
@@ -132,7 +144,11 @@ abstract class RequestStatusCode extends Enum
 
     public const R_507 = 507;
 
+    public const R_508 = 508;
+
     public const R_509 = 509;
 
     public const R_510 = 510;
+
+    public const R_511 = 511;
 }

@@ -102,6 +102,8 @@ abstract class RequestStatus extends Enum
 
     public const R_418 = 'I\'m a teapot';
 
+    public const R_421 = 'Misdirected Request';
+
     public const R_422 = 'Unprocessable Entity';
 
     public const R_423 = 'Locked';
@@ -111,6 +113,8 @@ abstract class RequestStatus extends Enum
     public const R_425 = 'Unordered Collection';
 
     public const R_426 = 'Upgrade Required';
+
+    public const R_431 = 'Request Header Fields Too Large';
 
     public const R_449 = 'Retry With';
 
@@ -135,4 +139,6 @@ abstract class RequestStatus extends Enum
     public const R_509 = 'Bandwidth Limit Exceeded';
 
     public const R_510 = 'Not Extended';
+
+    public const R_511 = 'Network Authentication Required';
 }

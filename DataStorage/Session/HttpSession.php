@@ -183,9 +183,8 @@ final class HttpSession implements SessionInterface
         }
 
         $_SESSION = $this->sessionData;
-        \session_write_close();
 
-        return true;
+        return \session_write_close();
     }
 
     /**
