@@ -633,6 +633,18 @@ class Graph
         return $longestPath;
     }
 
+    /**
+     * Perform depth first traversal
+     *
+     * @param Node  $node         Graph node
+     * @param array $visited      Is the node already visited
+     * @param array $path         Array of nodes (a path through the graph = connected nodes)
+     * @param array $longestPath  Array of nodes (longest path through the graph = connected nodes)
+     *
+     * @return void
+     *
+     * @since 1.0.0
+     */
     private function longestPathDfs(Node $node, &$visited, &$path, &$longestPath)
     {
         $visited[$node->getId()] = true;

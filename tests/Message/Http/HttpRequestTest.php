@@ -59,7 +59,7 @@ final class HttpRequestTest extends \PHPUnit\Framework\TestCase
         self::assertEquals('', $request->__toString());
         self::assertFalse($request->hasData('key'));
         self::assertNull($request->getData('key'));
-        self::assertEquals('en', $request->getRequestLanguage());
+        self::assertEquals('en', $request->getCountry());
         self::assertEquals('en_US', $request->getLocale());
     }
 

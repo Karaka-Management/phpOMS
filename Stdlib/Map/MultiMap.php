@@ -166,7 +166,7 @@ final class MultiMap implements \Countable
      */
     private function garbageCollectValues() : void
     {
-        foreach ($this->values as $valueKey => $value) {
+        foreach ($this->values as $valueKey => $_) {
             if (!\in_array($valueKey, $this->keys)) {
                 unset($this->values[$valueKey]);
             }

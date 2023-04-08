@@ -101,8 +101,9 @@ final class Head implements RenderableInterface
     /**
      * Add asset.
      *
-     * @param int    $type Asset type
-     * @param string $uri  Asset uri
+     * @param int    $type       Asset type
+     * @param string $uri        Asset uri
+     * @param array  $attributes Asset attributes
      *
      * @return void
      *
@@ -116,8 +117,9 @@ final class Head implements RenderableInterface
     /**
      * Add tag.
      *
-     * @param int    $type Asset type
-     * @param string $uri  Asset uri
+     * @param int    $type       Asset type
+     * @param string $content    Asset content
+     * @param array  $attributes Asset attributes
      *
      * @return void
      *

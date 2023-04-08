@@ -48,18 +48,18 @@ final class EUVATBffOnline implements EUVATInterface
         $request->setMethod(RequestMethod::GET);
 
         $result = [
-            'status' => -1,
-            'vat'   => 'C',
-            'name'   => '',
-            'city'   => '',
-            'postal' => '',
+            'status'  => -1,
+            'vat'     => 'C',
+            'name'    => '',
+            'city'    => '',
+            'postal'  => '',
             'address' => '',
-            'body' => '',
+            'body'    => '',
         ];
 
         $matches = [];
         try {
-            $body = Rest::request($request)->getBody();
+            $body           = Rest::request($request)->getBody();
             $result['body'] = $body;
 
             \preg_match('/ErrorCode.*?(\d+)/s', $body, $matches);
@@ -93,13 +93,13 @@ final class EUVATBffOnline implements EUVATInterface
     ) : array
     {
         $result = [
-            'status' => -1,
-            'vat'   => 'C',
-            'name'   => 'C',
-            'city'   => 'C',
-            'postal' => 'C',
+            'status'  => -1,
+            'vat'     => 'C',
+            'name'    => 'C',
+            'city'    => 'C',
+            'postal'  => 'C',
             'address' => 'C',
-            'body' => '',
+            'body'    => '',
         ];
 
         if (empty($ownVAT)) {
@@ -112,7 +112,7 @@ final class EUVATBffOnline implements EUVATInterface
         $request->setMethod(RequestMethod::GET);
 
         try {
-            $body = Rest::request($request)->getBody();
+            $body           = Rest::request($request)->getBody();
             $result['body'] = $body;
 
             $matches = [];

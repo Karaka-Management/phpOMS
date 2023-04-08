@@ -12,9 +12,27 @@
  */
 declare(strict_types=1);
 
+/**
+ * iCal parser.
+ *
+ * @package phpOMS\Utils\Parser\Calendar
+ * @license OMS License 2.0
+ * @link    https://jingga.app
+ * @since   1.0.0
+ */
 class ICalParser
 {
-    public static function parse(string $data) {
+    /**
+     * Parse iCal data
+     *
+     * @param string $data iCal data
+     *
+     * @return array
+     *
+     * @since 1.0.0
+     */
+    public static function parse(string $data) : array
+    {
         \preg_match_all('/BEGIN:VEVENT(.*?)END:VEVENT/s', $data, $matches, PREG_SET_ORDER);
 
         $eventList = [];
@@ -54,8 +72,19 @@ class ICalParser
 
             $eventList[] = $event;
         }
+
+        return $eventList;
     }
 
+    /**
+     * Parse rrule
+     *
+     * @param string $rruleString rrule string
+     *
+     * @return array
+     *
+     * @since 1.0.0
+     */
     private static function parseRRule($rruleString) : array
     {
         $rrule = [];

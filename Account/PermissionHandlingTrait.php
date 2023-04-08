@@ -123,7 +123,7 @@ trait PermissionHandlingTrait
      *
      * @param int         $permission Permission to check
      * @param null|int    $unit       Unit Unit to check (null if all are acceptable)
-     * @param null|string $app        App App to check  (null if all are acceptable)
+     * @param null|int $app        App App to check  (null if all are acceptable)
      * @param null|string $module     Module Module to check  (null if all are acceptable)
      * @param null|int    $category   Type (e.g. customer) (null if all are acceptable)
      * @param null|int    $element    (e.g. customer id) (null if all are acceptable)
@@ -136,15 +136,13 @@ trait PermissionHandlingTrait
     public function hasPermission(
         int $permission,
         int $unit = null,
-        string $app = null,
+        int $app = null,
         string $module = null,
         int $category = null,
         int $element = null,
         int $component = null
     ) : bool
     {
-        $app = $app !== null ? \strtolower($app) : $app;
-
         foreach ($this->permissions as $p) {
             if ($p->hasPermission($permission, $unit, $app, $module, $category, $element, $component)) {
                 return true;

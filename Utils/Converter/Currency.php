@@ -114,7 +114,7 @@ final class Currency
             $node                = $xml->Cube->Cube->Cube;
             self::$ecbCurrencies = [];
 
-            foreach ($node as $key => $value) {
+            foreach ($node as $value) {
                 /** @var null|array<string, string|int|float> $attributes */
                 if (($attributes = $value->attributes()) === null) {
                     continue;

@@ -108,14 +108,14 @@ abstract class NgramParser
             }
         }
 
-        if (!\count($tokens)) {
+        if (empty($tokens)) {
             return [];
         }
 
         $tokens = \array_merge(...$tokens);
         unset($tokens['_']);
 
-        \arsort($tokens, SORT_NUMERIC);
+        \arsort($tokens, \SORT_NUMERIC);
 
         return \array_slice(
             \array_keys($tokens),

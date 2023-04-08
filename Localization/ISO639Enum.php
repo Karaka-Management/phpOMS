@@ -118,6 +118,8 @@ class ISO639Enum extends Enum
 
     public const _FJ = 'Fijian';
 
+    public const _FIL = 'Filipino';
+
     public const _FO = 'Faroese';
 
     public const _FR = 'French';
@@ -393,4 +395,6 @@ class ISO639Enum extends Enum
     public const _ZH = 'Chinese';
 
     public const _ZU = 'Zulu';
+
+    use ISO639CountryTrait;
 }

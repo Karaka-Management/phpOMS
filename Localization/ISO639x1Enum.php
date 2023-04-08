@@ -74,6 +74,8 @@ class ISO639x1Enum extends Enum
 
     public const _BG = 'bg';
 
+    public const _MS = 'ms';
+
     public const _MY = 'my';
 
     public const _CA = 'ca';
@@ -85,6 +87,8 @@ class ISO639x1Enum extends Enum
     public const _NY = 'ny';
 
     public const _CV = 'cv';
+
+    public const _KU = 'ku';
 
     public const _KW = 'kw';
 
@@ -119,6 +123,8 @@ class ISO639x1Enum extends Enum
     public const _FJ = 'fj';
 
     public const _FI = 'fi';
+
+    public const _FIL = 'fil';
 
     public const _FR = 'fr';
 
@@ -262,6 +268,8 @@ class ISO639x1Enum extends Enum
 
     public const _OS = 'os';
 
+    public const _PA = 'pa';
+
     public const _PI = 'pi';
 
     public const _FA = 'fa';
@@ -322,6 +330,8 @@ class ISO639x1Enum extends Enum
 
     public const _TE = 'te';
 
+    public const _TG = 'tg';
+
     public const _TH = 'th';
 
     public const _TI = 'ti';
@@ -348,6 +358,8 @@ class ISO639x1Enum extends Enum
 
     public const _UR = 'ur';
 
+    public const _UZ = 'uz';
+
     public const _VE = 've';
 
     public const _VI = 'vi';
@@ -373,4 +385,6 @@ class ISO639x1Enum extends Enum
     public const _ZU = 'zu';
 
     public const _ZH = 'zh';
+
+    use ISO639CountryTrait;
 }

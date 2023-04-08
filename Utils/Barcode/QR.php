@@ -794,7 +794,7 @@ class QR extends TwoDAbstract
     {
         $b       = 0;
         $bitMask = [];
-        $bitMask = $this->generateMaskNo($maskNo, $width, $s, $d);
+        $bitMask = $this->generateMaskNo($maskNo, $width, $s);
 
         if ($maskGenOnly) {
             return 0;

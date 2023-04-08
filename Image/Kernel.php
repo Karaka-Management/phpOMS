@@ -93,28 +93,42 @@ final class Kernel
         if (\count($kernel) === 3) {
             \imageconvolution($im, $kernel, 1, 0);
         } else {
-            // @todo: implement @see https://rosettacode.org/wiki/Image_convolution
-            // @todo: not working yet
             $dim  = [\imagesx($im), \imagesy($im)];
-            $kDim = [\count($kernel[1]), \count($kernel)]; // @todo: is the order correct? mhh...
+            $kDim = [\count($kernel[1]), \count($kernel)];
 
             $kWidthRadius  = NumericUtils::uRightShift($kDim[0], 1);
             $kHeightRadius = NumericUtils::uRightShift($kDim[1], 1);
 
-            for ($i = $dim[0] - 1; $i >= 0; --$i) {
-                for ($j = $dim[1] - 1; $j >= 0; --$j) {
-                    $newPixel = 0;
+            for ($y = 0; $y < $dim[1]; ++$y) {
+                for ($x = 0; $x < $dim[0]; ++$x) {
+                    $newR = 0;
+                    $newG = 0;
+                    $newB = 0;
 
-                    for ($ki = $kDim[0] - 1; $ki >= 0; --$ki) {
-                        for ($kj = $kDim[1] - 1; $kj >= 0; --$kj) {
-                            $newPixel += $kernel[$ki][$kj] * \imagecolorat($im,
-                                \min(\max($i + $ki - $kWidthRadius, 0), $dim[0] - 1),
-                                \min(\max($j + $kj - $kHeightRadius, 0), $dim[1] - 1)
+                    for ($ky = 0; $ky < $kDim[0]; ++$ky) {
+                        for ($kx = 0; $kx < $kDim[1]; ++$kx) {
+                            $pixel =  \imagecolorat($im,
+                                \min(\max($x + $kx - $kWidthRadius, 0), $dim[0] - 1),
+                                \min(\max($y + $ky - $kHeightRadius, 0), $dim[1] - 1)
                             );
+
+                            // old
+                            $r = ($pixel >> 16) & 0xFF;
+                            $g = ($pixel >> 8) & 0xFF;
+                            $b = $pixel & 0xFF;
+
+                            // new
+                            $newR += $r * $kernel[$ky][$kx];
+                            $newG += $g * $kernel[$ky][$kx];
+                            $newB += $b * $kernel[$ky][$kx];
                         }
                     }
 
-                    \imagesetpixel($im, $i, $j, (int) $newPixel);
+                    $newR = \max(0, \min(255, $newR));
+                    $newG = \max(0, \min(255, $newG));
+                    $newB = \max(0, \min(255, $newB));
+
+                    \imagesetpixel($im, $x, $y, (int) (($newR << 16) + ($newG << 8) | $newB));
                 }
             }
         }

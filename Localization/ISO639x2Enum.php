@@ -120,6 +120,8 @@ class ISO639x2Enum extends Enum
 
     public const _FI = 'fin';
 
+    public const _FIL = 'fil';
+
     public const _FR = 'fra';
 
     public const _FF = 'ful';
@@ -393,4 +395,6 @@ class ISO639x2Enum extends Enum
     public const _ZA = 'zha';
 
     public const _ZU = 'zul';
+
+    use ISO639CountryTrait;
 }

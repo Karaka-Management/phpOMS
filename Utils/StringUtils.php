@@ -290,7 +290,7 @@ final class StringUtils
                 break;
         }
 
-        // @todo: this should not be necessary
+        // @todo: This should not be necessary but the algorithm above allows for weird combinations.
         return \str_replace(
             ['</del></del>', '</ins></ins>', '<ins></ins>', '<del></del>', '</ins><ins>', '</del><del>', '</ins> <del>', '</del> <ins>'],
             ['</del>', '</ins>', '', '', '', '', '</ins><del>', '</del><ins>'],

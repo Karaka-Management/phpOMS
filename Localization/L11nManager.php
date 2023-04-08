@@ -17,6 +17,7 @@ namespace phpOMS\Localization;
 use phpOMS\Autoloader;
 use phpOMS\Log\FileLogger;
 use phpOMS\Module\ModuleAbstract;
+use phpOMS\Stdlib\Base\FloatInt;
 
 /**
  * Localization class.
@@ -206,22 +207,31 @@ final class L11nManager
     /**
      * Print a numeric value
      *
-     * @param Localization $l11n    Localization
-     * @param int|float    $numeric Numeric value to print
-     * @param null|string  $format  Format type to use
+     * @param Localization       $l11n    Localization
+     * @param int|float|FloatInt $numeric Numeric value to print
+     * @param null|string        $format  Format type to use
      *
      * @return string
      *
      * @since 1.0.0
      */
-    public function getNumeric(Localization $l11n, int | float $numeric, string $format = null) : string
+    public function getNumeric(Localization $l11n, int | float | FloatInt $numeric, string $format = null) : string
     {
-        return \number_format(
-            $numeric,
-            $l11n->getPrecision()[$format ?? 'medium'],
-            $l11n->getDecimal(),
-            $l11n->getThousands()
+        if (!($numeric instanceof FloatInt)) {
+            return \number_format(
+                $numeric,
+                $l11n->getPrecision()[$format ?? 'medium'],
+                $l11n->getDecimal(),
+                $l11n->getThousands()
+            );
+        }
+
+        $numeric->setLocalization(
+            $l11n->getThousands(),
+            $l11n->getDecimal()
         );
+
+        return $numeric->getAmount($l11n->getPrecision()[$format ?? 'medium']);
     }
 
     /**
@@ -247,17 +257,23 @@ final class L11nManager
     /**
      * Print a currency
      *
-     * @param Localization $l11n     Localization
-     * @param int|float    $currency Currency value to print
-     * @param null|string  $format   Format type to use
-     * @param null|string  $symbol   Currency name/symbol
-     * @param int          $divide   Divide currency by divisor
+     * @param Localization    $l11n      Localization
+     * @param int|float|Money $currency  Currency value to print
+     * @param null|string     $symbol    Currency name/symbol
+     * @param null|string     $format    Format type to use
+     * @param int             $divide    Divide currency by divisor
      *
      * @return string
      *
      * @since 1.0.0
      */
-    public function getCurrency(Localization $l11n, int | float $currency, string $format = null, string $symbol = null, int $divide = 1) : string
+    public function getCurrency(
+        Localization $l11n,
+        int | float | Money $currency,
+        string $symbol = null,
+        string $format = null,
+        int $divide = 1
+    ) : string
     {
         $language = $l11n->getLanguage();
         $symbol ??= $l11n->getCurrency();
@@ -266,7 +282,7 @@ final class L11nManager
             $currency = (int) ($currency * \pow(10, Money::MAX_DECIMALS));
         }
 
-        if (!empty($symbol)) {
+        if ($divide > 1 && !empty($symbol)) {
             if ($divide === 1000) {
                 $symbol = $this->getHtml($language, '0', '0', 'CurrencyK') . $symbol;
             } elseif ($divide === 1000000) {
@@ -276,7 +292,10 @@ final class L11nManager
             }
         }
 
-        $money = new Money((int) ($currency / $divide));
+        $money = !($currency instanceof Money)
+            ? new Money((int) ($currency / $divide))
+            : $currency;
+
         $money->setLocalization(
             $l11n->getThousands(),
             $l11n->getDecimal(),

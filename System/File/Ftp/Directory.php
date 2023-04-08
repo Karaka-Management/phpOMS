@@ -391,6 +391,8 @@ class Directory extends FileAbstract implements DirectoryInterface
                 continue;
             }
 
+            $e = [];
+
             list(
                 $e['permission'],
                 $e['number'],

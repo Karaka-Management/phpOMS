@@ -201,7 +201,7 @@ final class NaiveBayesClassifier
                         $this->probabilities['attr'][$attr] = ['data' => []];
                     }
 
-                    foreach ($valueArray['data'] as $word => $count) {
+                    foreach ($valueArray['data'] as $word => $_) {
                         if (!isset($this->dict[$criteria][$attr]['data'][$word])) {
                             continue;
                         }

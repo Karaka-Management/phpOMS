@@ -34,7 +34,16 @@ final class Forensics
     {
     }
 
-    public static function benfordAnalysis(array $data)
+    /**
+     * Perform the Benford analysis
+     *
+     * @param array $data Data to analyze
+     *
+     * @return array
+     *
+     * @since 1.0.0
+     */
+    public static function benfordAnalysis(array $data) : array
     {
         $digits = \array_fill(1, 9, 0);
         $size   = \count($data);
@@ -52,6 +61,13 @@ final class Forensics
         return $results;
     }
 
+    /**
+     * Calculate the general Benford distribution
+     *
+     * @return array
+     *
+     * @since 1.0.0
+     */
     public static function expectedBenfordDistribution() : array
     {
         $expected = [];

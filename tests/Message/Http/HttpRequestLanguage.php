@@ -7,4 +7,4 @@ use phpOMS\Message\Http\HttpRequest;
 
 $request = HttpRequest::createFromSuperglobals();
 
-echo $request->getRequestLanguage();
+echo $request->getCountry();

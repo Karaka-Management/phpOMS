@@ -172,6 +172,15 @@ class Node
         return $this->edges[$key] ?? null;
     }
 
+    /**
+     * Check if the node has a certain neighbor
+     *
+     * @param Node $node Neighbor node
+     *
+     * @return bool
+     *
+     * @since 1.0.0
+     */
     public function hasNeighbor(self $node) : bool
     {
         foreach ($this->edges as $edge) {

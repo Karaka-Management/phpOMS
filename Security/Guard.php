@@ -52,4 +52,29 @@ final class Guard
     {
         return \stripos(FileUtils::absolute($path), FileUtils::absolute(empty($base) ? self::$BASE_PATH : $base)) === 0;
     }
+
+    /**
+     * Remove slashes from a string or array
+     *
+     * @param string|array $data Data to unslash
+     *
+     * @return string|array
+     *
+     * @since 1.0.0
+     */
+    public static function unslash(string | array $data) : string|array
+    {
+        if (\is_array($data)) {
+            $result = [];
+            foreach ($data as $key => $value) {
+                $result[$key] = self::unslash($value);
+            }
+
+            return $result;
+        } elseif (\is_string($data)) {
+            return \stripslashes($data);
+        }
+
+        return $data;
+    }
 }

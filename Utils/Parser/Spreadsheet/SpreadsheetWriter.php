@@ -29,16 +29,6 @@ use PhpOffice\PhpSpreadsheet\Writer\Pdf;
 class SpreadsheetWriter extends Pdf
 {
     /**
-     * Render Pdf
-     *
-     * @todo: can be removed?
-     *
-     * @var bool
-     * @since 1.0.0
-     */
-    protected bool $isMPdf = true;
-
-    /**
      * Save Spreadsheet to file.
      *
      * @return string
@@ -47,6 +37,8 @@ class SpreadsheetWriter extends Pdf
      */
     public function toPdfString(): string
     {
+        $this->isMPdf = true;
+
         $pdf = new \Mpdf\Mpdf();
 
         //  Check for paper size and page orientation

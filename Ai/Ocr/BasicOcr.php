@@ -70,7 +70,7 @@ final class BasicOcr
     }
 
     /**
-     * Reat image from path
+     * Read image from path
      *
      * @param string $path  Image to read
      * @param int    $limit Limit
@@ -93,7 +93,8 @@ final class BasicOcr
         if (($read = \fread($fp, 4)) === false || ($unpack = \unpack('N', $read)) === false) {
             return []; // @codeCoverageIgnore
         }
-        $magicNumber = $unpack[1];
+
+        // $magicNumber = $unpack[1];
 
         if (($read = \fread($fp, 4)) === false || ($unpack = \unpack('N', $read)) === false) {
             return []; // @codeCoverageIgnore
@@ -125,6 +126,7 @@ final class BasicOcr
             ) {
                 return []; // @codeCoverageIgnore
             }
+
             $images[] = \array_values($unpack);
         }
 
@@ -237,6 +239,53 @@ final class BasicOcr
         return $dist;
     }
 
+    public static function imagesToMNIST(array $images, string $out, int $resolution) : void
+    {
+        $out = \fopen($out, 'wb');
+
+        \fwrite($out, \pack('N', 2051));
+        \fwrite($out, \pack('N', 1));
+        \fwrite($out, \pack('N', $resolution));
+        \fwrite($out, \pack('N', $resolution));
+
+        foreach ($images as $in) {
+            $im  = \imagecreatefromstring(\file_get_contents($in));
+            $new = \imagescale($im, $resolution, $resolution);
+
+            // Convert the image to grayscale and normalize the pixel values
+            $mnist = [];
+            for ($i = 0; $i < $resolution; ++$i) {
+                for ($j = 0; $j < $resolution; ++$j) {
+                    $pixel = \imagecolorat($new, $j, $i);
+                    $gray  = \round((0.299 * (($pixel >> 16) & 0xFF) + 0.587 * (($pixel >> 8) & 0xFF) + 0.114 * ($pixel & 0xFF)) / 255, 3);
+
+                    \array_push($mnist, $gray);
+                }
+            }
+
+            for ($i = 0; $i < \count($mnist); $i++) {
+                \fwrite($out, \pack('C', \round($mnist[$i] * 255)));
+            }
+        }
+
+        \fclose($out);
+    }
+
+    public static function labelsToMNIST(array $data, string $out) : void
+    {
+        // Only allows single char labels
+        $out = \fopen($out, 'wb');
+
+        \fwrite($out, \pack('N', 2049));
+        \fwrite($out, \pack('N', 1));
+
+        foreach ($data as $e) {
+            \fwrite($out, \pack('C', $e));
+        }
+
+        \fclose($out);
+    }
+
     /**
      * Categorize an unknown image
      *
@@ -250,7 +299,6 @@ final class BasicOcr
      */
     public function matchImage(string $path, int $comparison = 3, int $limit = 0) : array
     {
-        // @todo: implement image reading if it isn't an mnist file
         $Xtest = $this->readImages($path, $limit);
 
         return $this->kNearest($this->Xtrain, $this->ytrain, $Xtest, $comparison);

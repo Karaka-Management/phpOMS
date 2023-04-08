@@ -74,7 +74,7 @@ interface RouterInterface
      * @param string  $uri     Route
      * @param string  $csrf    CSRF token
      * @param int     $verb    Route verb
-     * @param string  $app     Application name
+     * @param int     $app     Application name
      * @param int     $unitId  Organization id
      * @param Account $account Account
      * @param array   $data    Data
@@ -87,7 +87,7 @@ interface RouterInterface
         string $uri,
         string $csrf = null,
         int $verb = RouteVerb::GET,
-        string $app = null,
+        int $app = null,
         int $unitId = null,
         Account $account = null,
         array $data = null

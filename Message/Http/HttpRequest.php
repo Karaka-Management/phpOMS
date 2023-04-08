@@ -17,6 +17,7 @@ namespace phpOMS\Message\Http;
 use phpOMS\Localization\Localization;
 use phpOMS\Message\RequestAbstract;
 use phpOMS\Router\RouteVerb;
+use phpOMS\Security\Guard;
 use phpOMS\Uri\HttpUri;
 use phpOMS\Uri\UriInterface;
 
@@ -94,6 +95,7 @@ final class HttpRequest extends RequestAbstract
         self::cleanupGlobals();
 
         $this->data = \array_change_key_case($this->data, \CASE_LOWER);
+        $this->data = Guard::unslash($this->data);
     }
 
     /**
@@ -106,9 +108,10 @@ final class HttpRequest extends RequestAbstract
     private function initCurrentRequest() : void
     {
         $this->uri   = HttpUri::fromCurrent();
-        $this->data  = $_GET + $_POST;
+        $this->data  = $_POST + $_GET;
         $this->files = $_FILES;
         $this->header->l11n->setLanguage($this->getRequestLanguage());
+        $this->header->l11n->setCountry($this->getRequestCountry());
 
         $this->initNonGetData();
     }
@@ -382,6 +385,31 @@ final class HttpRequest extends RequestAbstract
     }
 
     /**
+     * Get request language
+     *
+     * @return string
+     *
+     * @since 1.0.0
+     */
+    public function getRequestCountry() : string
+    {
+        if (!isset($_SERVER['HTTP_ACCEPT_LANGUAGE'])) {
+            return '';
+        }
+
+        // @codeCoverageIgnoreStart
+        $components   = \explode(';', $_SERVER['HTTP_ACCEPT_LANGUAGE']);
+        $locals       = \stripos($components[0], ',') !== false
+            ? $locals = \explode(',', $components[0])
+            : $components;
+
+        $firstLocalComponents = \explode('-', $locals[0]);
+        // @codeCoverageIgnoreEnd
+
+        return \strtoupper($firstLocalComponents[1] ?? ''); // @codeCoverageIgnore
+    }
+
+    /**
      * Get request locale
      *
      * @return string
@@ -396,7 +424,9 @@ final class HttpRequest extends RequestAbstract
 
         // @codeCoverageIgnoreStart
         $components = \explode(';', $_SERVER['HTTP_ACCEPT_LANGUAGE']);
-        $locals     = \stripos($components[0], ',') !== false ? $locals = \explode(',', $components[0]) : $components;
+        $locals     = \stripos($components[0], ',') !== false
+            ? $locals = \explode(',', $components[0])
+            : $components;
         // @codeCoverageIgnoreEnd
 
         return \str_replace('-', '_', $locals[0]); // @codeCoverageIgnore

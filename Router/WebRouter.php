@@ -115,7 +115,7 @@ final class WebRouter implements RouterInterface
         string $uri,
         string $csrf = null,
         int $verb = RouteVerb::GET,
-        string $app = null,
+        int $app = null,
         int $unitId = null,
         Account $account = null,
         array $data = null

@@ -337,6 +337,18 @@ abstract class RequestAbstract implements MessageInterface
     }
 
     /**
+     * Get request language.
+     *
+     * @return string
+     *
+     * @since 1.0.0
+     */
+    public function getCountry() : string
+    {
+        return $this->header->l11n->getCountry();
+    }
+
+    /**
      * Get request hash.
      *
      * @return string[]

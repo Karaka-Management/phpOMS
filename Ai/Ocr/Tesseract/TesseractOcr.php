@@ -115,8 +115,6 @@ final class TesseractOcr
             return '';
         }
 
-        // @todo: auto flip image if x% of text are garbage words?
-
         \unlink($filepath);
 
         return \trim($parsed);

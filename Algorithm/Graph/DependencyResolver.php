@@ -37,7 +37,7 @@ final class DependencyResolver
     {
         $resolved   = [];
         $unresolved = [];
-        foreach ($graph as $table => $dependency) {
+        foreach ($graph as $table => $_) {
             self::dependencyResolve($table, $graph, $resolved, $unresolved);
         }
 

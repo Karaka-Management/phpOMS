@@ -86,7 +86,7 @@ final class UriFactory
         if ($identifier === '*') {
             self::$uri = [];
         } else {
-            foreach (self::$uri as $key => $value) {
+            foreach (self::$uri as $key => $_) {
                 if (\stripos($key, $identifier) === 0) {
                     unset(self::$uri[$key]);
                 }

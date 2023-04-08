@@ -96,6 +96,8 @@ final class HttpSession implements SessionInterface
             ]);
             \session_start();
             // @codeCoverageIgnoreEnd
+        } else {
+            throw new \Exception('Bad application workflow');
         }
 
         if ($this->inactivityInterval > 0

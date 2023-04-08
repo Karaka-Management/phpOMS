@@ -46,10 +46,10 @@ class PermissionAbstract implements \JsonSerializable
     /**
      * App name.
      *
-     * @var null|string
+     * @var null|int
      * @since 1.0.0
      */
-    protected ?string $app = null;
+    protected ?int $app = null;
 
     /**
      * Module id.
@@ -135,7 +135,7 @@ class PermissionAbstract implements \JsonSerializable
      * Constructor.
      *
      * @param null|int    $unit       Unit to check (null if all are acceptable)
-     * @param null|string $app        App to check  (null if all are acceptable)
+     * @param null|int    $app        App to check  (null if all are acceptable)
      * @param null|string $module     Module Module to check  (null if all are acceptable)
      * @param null|string $from       Provided by which module
      * @param null|int    $category   Category (e.g. customer) (null if all are acceptable)
@@ -147,7 +147,7 @@ class PermissionAbstract implements \JsonSerializable
      */
     public function __construct(
         int $unit = null,
-        string $app = null,
+        int $app = null,
         string $module = null,
         string $from = null,
         int $category = null,
@@ -211,11 +211,11 @@ class PermissionAbstract implements \JsonSerializable
     /**
      * Get app name.
      *
-     * @return null|string
+     * @return null|int
      *
      * @since 1.0.0
      */
-    public function getApp() : ?string
+    public function getApp() : ?int
     {
         return $this->app;
     }
@@ -223,13 +223,13 @@ class PermissionAbstract implements \JsonSerializable
     /**
      * Set app name.
      *
-     * @param string $app App name
+     * @param int $app App name
      *
      * @return void
      *
      * @since 1.0.0
      */
-    public function setApp(string $app = null) : void
+    public function setApp(int $app = null) : void
     {
         $this->app = $app;
     }
@@ -467,7 +467,7 @@ class PermissionAbstract implements \JsonSerializable
      *
      * @param int         $permission Permission to check
      * @param null|int    $unit       Unit Unit to check (null if all are acceptable)
-     * @param null|string $app        App App to check  (null if all are acceptable)
+     * @param null|int    $app        App App to check  (null if all are acceptable)
      * @param null|string $module     Module Module to check  (null if all are acceptable)
      * @param null|int    $category   Category (e.g. customer) (null if all are acceptable)
      * @param null|int    $element    (e.g. customer id) (null if all are acceptable)
@@ -480,7 +480,7 @@ class PermissionAbstract implements \JsonSerializable
     public function hasPermission(
         int $permission,
         int $unit = null,
-        string $app = null,
+        int $app = null,
         string $module = null,
         int $category = null,
         int $element = null,

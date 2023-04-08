@@ -39,7 +39,7 @@ class WhitespaceTokenizer
             function ($word) {
                 return "_{$word}_";
             },
-            \preg_split('/[^\pL]+(?<![\x27\x60\x{2019}])/u', $str, -1, PREG_SPLIT_NO_EMPTY)
+            \preg_split('/[^\pL]+(?<![\x27\x60\x{2019}])/u', $str, -1, \PREG_SPLIT_NO_EMPTY)
         );
     }
 }

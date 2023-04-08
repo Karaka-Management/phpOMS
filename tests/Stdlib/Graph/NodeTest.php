@@ -135,7 +135,7 @@ final class NodeTest extends \PHPUnit\Framework\TestCase
 
         self::assertInstanceOf(Edge::class, $edge = $node1->setNodeRelative($node2, null, false));
         self::assertCount(1, $node2->getEdges());
-        self::assertFalse($edge->isDirected());
+        self::assertFalse($edge->isDirected);
     }
 
     /**
@@ -173,7 +173,7 @@ final class NodeTest extends \PHPUnit\Framework\TestCase
         $node1->setNodeRelative($node2);
         $node1->setNodeRelative($node3);
 
-        self::assertEquals('C', $node1->getEdgeByNeighbor($node3)->getNode2()->getId());
+        self::assertEquals('C', $node1->getEdgeByNeighbor($node3)->node2->getId());
         self::assertNull($node1->getEdgeByNeighbor($node4));
     }
 }

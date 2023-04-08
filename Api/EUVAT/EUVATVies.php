@@ -68,6 +68,11 @@ final class EUVATVies implements EUVATInterface
             $result['body'] = $body;
 
             $json = \json_decode($body, true);
+
+            if ($json === false) {
+                return $result;
+            }
+
             $result = \array_merge($result, self::parseResponse($json));
 
             $result['status'] = $json['userError'] === 'VALID' ? 0 : -1;
@@ -91,13 +96,13 @@ final class EUVATVies implements EUVATInterface
     ) : array
     {
         $result = [
-            'status' => -1,
-            'vat'   => 'C',
-            'name'   => 'C',
-            'city'   => 'C',
-            'postal' => 'C',
+            'status'  => -1,
+            'vat'     => 'C',
+            'name'    => 'C',
+            'city'    => 'C',
+            'postal'  => 'C',
             'address' => 'C',
-            'body' => '',
+            'body'    => '',
         ];
 
         $request = new HttpRequest(
@@ -110,10 +115,15 @@ final class EUVATVies implements EUVATInterface
         $request->setMethod(RequestMethod::GET);
 
         try {
-            $body = Rest::request($request)->getBody();
+            $body           = Rest::request($request)->getBody();
             $result['body'] = $body;
 
             $json = \json_decode($body, true);
+
+            if ($json === false) {
+                return $result;
+            }
+
             $result = \array_merge($result, self::parseResponse($json));
 
             if ($otherName === '') {
@@ -167,14 +177,14 @@ final class EUVATVies implements EUVATInterface
     private static function parseResponse(array $json) : array
     {
         $result = [
-            'vat' => '',
-            'name' => '',
-            'city' => '',
-            'postal' => '',
+            'vat'     => '',
+            'name'    => '',
+            'city'    => '',
+            'postal'  => '',
             'address' => '',
         ];
 
-        $result['vat'] = $json['isValid'] ? 'A' : 'B';
+        $result['vat']  = $json['isValid'] ? 'A' : 'B';
         $result['name'] = $json['isValid'];
 
         $result['city'] = \stripos($json['address'], "\n") !== false
@@ -194,9 +204,9 @@ final class EUVATVies implements EUVATInterface
             : $json['address'];
 
 
-        $result['name'] = $result['name'] === '---' ? '' : $result['name'];
-        $result['city'] = $result['city'] === '---' ? '' : $result['city'];
-        $result['postal'] = $result['postal'] === '---' ? '' : $result['postal'];
+        $result['name']    = $result['name'] === '---' ? '' : $result['name'];
+        $result['city']    = $result['city'] === '---' ? '' : $result['city'];
+        $result['postal']  = $result['postal'] === '---' ? '' : $result['postal'];
         $result['address'] = $result['address'] === '---' ? '' : $result['address'];
 
         return $result;

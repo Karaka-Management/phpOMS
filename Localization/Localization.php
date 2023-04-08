@@ -42,7 +42,7 @@ class Localization implements \JsonSerializable
      * @var string
      * @since 1.0.0
      */
-    protected string $country = ISO3166TwoEnum::_USA;
+    protected string $country = ISO3166TwoEnum::_XXX;
 
     /**
      * Timezone.
@@ -338,14 +338,12 @@ class Localization implements \JsonSerializable
      *
      * @return void
      *
-     * @throws InvalidEnumValue This exception is thrown if the country is invalid
-     *
      * @since 1.0.0
      */
     public function setCountry(string $country) : void
     {
         if (!ISO3166TwoEnum::isValidValue($country)) {
-            throw new InvalidEnumValue($country);
+            $this->country = '';
         }
 
         $this->country = $country;

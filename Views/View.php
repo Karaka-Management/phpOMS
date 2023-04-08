@@ -16,10 +16,12 @@ namespace phpOMS\Views;
 
 use phpOMS\Localization\L11nManager;
 use phpOMS\Localization\Localization;
+use phpOMS\Localization\Money;
 use phpOMS\Message\RequestAbstract;
 use phpOMS\Message\ResponseAbstract;
 use phpOMS\Module\Exception\InvalidModuleException;
 use phpOMS\Module\Exception\InvalidThemeException;
+use phpOMS\Stdlib\Base\FloatInt;
 
 /**
  * Basic view which can be used as basis for specific implementations.
@@ -308,14 +310,14 @@ class View extends ViewAbstract
     /**
      * Print a numeric value
      *
-     * @param int|float   $numeric Numeric value to print
-     * @param null|string $format  Format type to use
+     * @param int|float|FloatInt $numeric Numeric value to print
+     * @param null|string        $format  Format type to use
      *
      * @return string
      *
      * @since 1.0.0
      */
-    public function getNumeric(int | float $numeric, string $format = null) : string
+    public function getNumeric(int | float | FloatInt $numeric, string $format = null) : string
     {
         return $this->l11nManager->getNumeric($this->l11n, $numeric, $format);
     }
@@ -338,18 +340,24 @@ class View extends ViewAbstract
     /**
      * Print a currency
      *
-     * @param int|float   $currency Currency value to print
-     * @param null|string $format   Format type to use
-     * @param null|string $symbol   Currency name/symbol
-     * @param int         $divide   Divide currency by divisor
+     * @param int|float|Money $currency Currency value to print
+     * @param int             $precision Precision
+     * @param null|string     $symbol    Currency name/symbol
+     * @param null|string     $format    Format type to use
+     * @param int             $divide    Divide currency by divisor
      *
      * @return string
      *
      * @since 1.0.0
      */
-    public function getCurrency(int | float $currency, string $format = null, string $symbol = null, int $divide = 1) : string
+    public function getCurrency(
+        int | float | Money $currency,
+        string $symbol = null,
+        string $format = null,
+        int $divide = 1
+    ) : string
     {
-        return $this->l11nManager->getCurrency($this->l11n, $currency, $format, $symbol, $divide);
+        return $this->l11nManager->getCurrency($this->l11n, $currency, $symbol, $format, $divide);
     }
 
     /**
