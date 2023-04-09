@@ -123,7 +123,7 @@ trait PermissionHandlingTrait
      *
      * @param int         $permission Permission to check
      * @param null|int    $unit       Unit Unit to check (null if all are acceptable)
-     * @param null|int $app        App App to check  (null if all are acceptable)
+     * @param null|int    $app        App App to check  (null if all are acceptable)
      * @param null|string $module     Module Module to check  (null if all are acceptable)
      * @param null|int    $category   Type (e.g. customer) (null if all are acceptable)
      * @param null|int    $element    (e.g. customer id) (null if all are acceptable)

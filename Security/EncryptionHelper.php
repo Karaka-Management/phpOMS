@@ -51,15 +51,19 @@ final class EncryptionHelper
     public static function encryptShared(string $message, string $keyHex) : string
     {
         $secretKey  = \sodium_hex2bin($keyHex);
-        $nonce      = random_bytes(SODIUM_CRYPTO_SECRETBOX_NONCEBYTES);
+        $nonce      = \random_bytes(SODIUM_CRYPTO_SECRETBOX_NONCEBYTES);
         $ciphertext = \sodium_crypto_secretbox($message, $nonce, $secretKey);
 
         $result = \sodium_bin2base64($nonce . $ciphertext, SODIUM_BASE64_VARIANT_ORIGINAL);
 
-        \sodium_memzero($message);
         \sodium_memzero($nonce);
         \sodium_memzero($secretKey);
+        \sodium_memzero($ciphertext);
+
+        /*
+        \sodium_memzero($message);
         \sodium_memzero($keyHex);
+        */
 
         return $result;
     }
@@ -87,6 +91,10 @@ final class EncryptionHelper
         \sodium_memzero($nonce);
         \sodium_memzero($secretKey);
         \sodium_memzero($ciphertext);
+
+        /*
+        \sodium_memzero($keyHex);
+        */
 
         return $plaintext === false ? '' : $plaintext;
     }
@@ -133,15 +141,22 @@ final class EncryptionHelper
         $publicKey  = \sodium_hex2bin($publicKeyHex);
 
         $key        = \sodium_crypto_box_keypair_from_secretkey_and_publickey($privateKey, $publicKey);
-        $nonce      = random_bytes(SODIUM_CRYPTO_BOX_NONCEBYTES);
+        $nonce      = \random_bytes(SODIUM_CRYPTO_BOX_NONCEBYTES);
         $ciphertext = \sodium_crypto_box($message, $nonce, $key);
 
         $result = \sodium_bin2base64($nonce . $ciphertext, SODIUM_BASE64_VARIANT_ORIGINAL);
 
-        \sodium_memzero($message);
+        \sodium_memzero($key);
         \sodium_memzero($nonce);
-        \sodium_memzero($secretKey);
-        \sodium_memzero($secretKeyHex);
+        \sodium_memzero($ciphertext);
+        \sodium_memzero($privateKey);
+        \sodium_memzero($publicKey);
+
+        /*
+        \sodium_memzero($message);
+        \sodium_memzero($privateKeyHex);
+        \sodium_memzero($publicKeyHex);
+        */
 
         return $result;
     }
@@ -174,6 +189,13 @@ final class EncryptionHelper
         \sodium_memzero($ciphertext);
         \sodium_memzero($nonce);
         \sodium_memzero($privateKey);
+        \sodium_memzero($publicKey);
+
+        /*
+        \sodium_memzero($message);
+        \sodium_memzero($privateKeyHex);
+        \sodium_memzero($publicKeyHex);
+        */
 
         return $plaintext === false ? '' : $plaintext;
     }

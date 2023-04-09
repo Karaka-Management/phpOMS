@@ -117,9 +117,9 @@ final class Head implements RenderableInterface
     /**
      * Add tag.
      *
-     * @param int    $type       Asset type
-     * @param string $content    Asset content
-     * @param array  $attributes Asset attributes
+     * @param string $tag        Html tag type
+     * @param string $content    Tag content
+     * @param array  $attributes Tag attributes
      *
      * @return void
      *

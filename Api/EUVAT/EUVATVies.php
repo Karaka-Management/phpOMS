@@ -44,15 +44,6 @@ final class EUVATVies implements EUVATInterface
      */
     public static function validate(string $otherVAT, string $ownVAT = '') : array
     {
-        $request = new HttpRequest(
-            new HttpUri(
-                'https://ec.europa.eu/taxation_customs/vies/rest-api/ms/' . \substr($otherVAT, 0, 2) . '/vat/' . \substr($otherVAT, 2) . (
-                    $ownVAT !== '' ? '?requesterMemberStateCode=' . \substr($ownVAT, 0, 2) . '&requesterNumber=' . \substr($ownVAT, 2) : ''
-                )
-            )
-        );
-        $request->setMethod(RequestMethod::GET);
-
         $result = [
             'status' => -1,
             'vat'   => 'C',
@@ -63,12 +54,25 @@ final class EUVATVies implements EUVATInterface
             'body' => '',
         ];
 
+        if (empty($otherVAT)) {
+            return $result;
+        }
+
+        $request = new HttpRequest(
+            new HttpUri(
+                'https://ec.europa.eu/taxation_customs/vies/rest-api/ms/' . \substr($otherVAT, 0, 2) . '/vat/' . \substr($otherVAT, 2) . (
+                    $ownVAT !== '' ? '?requesterMemberStateCode=' . \substr($ownVAT, 0, 2) . '&requesterNumber=' . \substr($ownVAT, 2) : ''
+                )
+            )
+        );
+        $request->setMethod(RequestMethod::GET);
+
         try {
-            $body = Rest::request($request)->getBody();
+            $body           = Rest::request($request)->getBody();
             $result['body'] = $body;
 
+            /** @var array $json */
             $json = \json_decode($body, true);
-
             if ($json === false) {
                 return $result;
             }
@@ -105,10 +109,16 @@ final class EUVATVies implements EUVATInterface
             'body'    => '',
         ];
 
+        if (empty($otherVAT)) {
+            return $result;
+        }
+
         $request = new HttpRequest(
             new HttpUri(
                 'https://ec.europa.eu/taxation_customs/vies/rest-api/ms/' . \substr($otherVAT, 0, 2) . '/vat/' . \substr($otherVAT, 2) . (
-                    $ownVAT !== '' ? '?requesterMemberStateCode=' . \substr($ownVAT, 0, 2) . '&requesterNumber=' . \substr($ownVAT, 2) : ''
+                    $ownVAT !== ''
+                        ? '?requesterMemberStateCode=' . \substr($ownVAT, 0, 2) . '&requesterNumber=' . \substr($ownVAT, 2)
+                        : ''
                 )
             )
         );
@@ -118,8 +128,8 @@ final class EUVATVies implements EUVATInterface
             $body           = Rest::request($request)->getBody();
             $result['body'] = $body;
 
+             /** @var array $json */
             $json = \json_decode($body, true);
-
             if ($json === false) {
                 return $result;
             }
@@ -158,7 +168,9 @@ final class EUVATVies implements EUVATInterface
 
             if ($otherStreet === '') {
                 $result['address'] = 'D';
-            } elseif (\stripos($result['address'], $otherStreet) !== false && \levenshtein($otherStreet, $result['address'], insertion_cost: 0) / \strlen($result['address']) < 0.2) {
+            } elseif (\stripos($result['address'], $otherStreet) !== false
+                && \levenshtein($otherStreet, $result['address'], insertion_cost: 0) / \strlen($result['address']) < 0.2
+            ) {
                 $result['address'] = 'A';
             } elseif ($result['address'] === '') {
                 $result['address'] = 'C';
@@ -174,6 +186,15 @@ final class EUVATVies implements EUVATInterface
         return $result;
     }
 
+    /**
+     * Parse response.
+     *
+     * @param array $json JSON response
+     *
+     * @return array
+     *
+     * @since 1.0.0
+     */
     private static function parseResponse(array $json) : array
     {
         $result = [

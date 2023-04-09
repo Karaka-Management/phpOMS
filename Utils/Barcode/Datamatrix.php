@@ -122,6 +122,9 @@ class Datamatrix extends TwoDAbstract
 
     public int $encoding = self::ENC_ASCII;
 
+    /**
+     * {@inheritdoc}
+     */
     public function generateCodeArray() : array
     {
         $this->codearray = [];
@@ -749,7 +752,7 @@ class Datamatrix extends TwoDAbstract
                         // check for extended character
                         if ($chr & 0x80) {
                             if ($enc === self::ENC_X12) {
-                                return false;
+                                return [];
                             }
 
                             $chr       = ($chr & 0x7f);
@@ -775,7 +778,7 @@ class Datamatrix extends TwoDAbstract
                                 $temp_cw[] = 2; // shift 3
                                 $shiftset  = self::CHARSET['S3T'];
                             } else {
-                                return false;
+                                return [];
                             }
 
                             $temp_cw[] = $shiftset[$chr];

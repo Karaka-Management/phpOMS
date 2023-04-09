@@ -14,6 +14,8 @@ declare(strict_types=1);
 
 namespace phpOMS\Message\Http;
 
+use phpOMS\Localization\ISO3166TwoEnum;
+use phpOMS\Localization\ISO639x1Enum;
 use phpOMS\Localization\Localization;
 use phpOMS\Message\RequestAbstract;
 use phpOMS\Router\RouteVerb;
@@ -381,11 +383,13 @@ final class HttpRequest extends RequestAbstract
         $firstLocalComponents = \explode('-', $locals[0]);
         // @codeCoverageIgnoreEnd
 
-        return \strtolower($firstLocalComponents[0]); // @codeCoverageIgnore
+        $language = \strtolower($firstLocalComponents[0]);
+
+        return ISO639x1Enum::isValidValue($language) ? $language : 'en';
     }
 
     /**
-     * Get request language
+     * Get request country
      *
      * @return string
      *
@@ -406,7 +410,9 @@ final class HttpRequest extends RequestAbstract
         $firstLocalComponents = \explode('-', $locals[0]);
         // @codeCoverageIgnoreEnd
 
-        return \strtoupper($firstLocalComponents[1] ?? ''); // @codeCoverageIgnore
+        $country = \strtoupper($firstLocalComponents[1] ?? '');
+
+        return ISO3166TwoEnum::isValidValue($country) ? $country : 'US';
     }
 
     /**
@@ -423,8 +429,8 @@ final class HttpRequest extends RequestAbstract
         }
 
         // @codeCoverageIgnoreStart
-        $components = \explode(';', $_SERVER['HTTP_ACCEPT_LANGUAGE']);
-        $locals     = \stripos($components[0], ',') !== false
+        $components   = \explode(';', $_SERVER['HTTP_ACCEPT_LANGUAGE']);
+        $locals       = \stripos($components[0], ',') !== false
             ? $locals = \explode(',', $components[0])
             : $components;
         // @codeCoverageIgnoreEnd

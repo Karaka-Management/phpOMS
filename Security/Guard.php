@@ -56,9 +56,11 @@ final class Guard
     /**
      * Remove slashes from a string or array
      *
-     * @param string|array $data Data to unslash
+     * @template T of string|array
      *
-     * @return string|array
+     * @param T $data Data to unslash
+     *
+     * @return (T is string ? string : array)
      *
      * @since 1.0.0
      */

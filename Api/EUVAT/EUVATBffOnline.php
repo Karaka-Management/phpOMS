@@ -44,9 +44,6 @@ final class EUVATBffOnline implements EUVATInterface
      */
     public static function validate(string $otherVAT, string $ownVAT = '') : array
     {
-        $request = new HttpRequest(new HttpUri('https://evatr.bff-online.de/evatrRPC?UstId_1=' . $ownVAT . '&UstId_2=' . $otherVAT));
-        $request->setMethod(RequestMethod::GET);
-
         $result = [
             'status'  => -1,
             'vat'     => 'C',
@@ -56,6 +53,17 @@ final class EUVATBffOnline implements EUVATInterface
             'address' => '',
             'body'    => '',
         ];
+
+        if (empty($otherVAT) || empty($ownVAT)) {
+            return $result;
+        }
+
+        $request = new HttpRequest(
+            new HttpUri(
+                'https://evatr.bff-online.de/evatrRPC?UstId_1=' . $ownVAT . '&UstId_2=' . $otherVAT
+            )
+        );
+        $request->setMethod(RequestMethod::GET);
 
         $matches = [];
         try {
@@ -102,7 +110,7 @@ final class EUVATBffOnline implements EUVATInterface
             'body'    => '',
         ];
 
-        if (empty($ownVAT)) {
+        if (empty($otherVAT) || empty($ownVAT)) {
             return $result;
         }
 

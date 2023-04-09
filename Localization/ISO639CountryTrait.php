@@ -124,13 +124,10 @@ trait ISO639CountryTrait
                 return [self::_FR, self::_AR];
             case ISO3166TwoEnum::_CHL:
                 return [self::_ES];
-            break;
             case ISO3166TwoEnum::_CHN:
                 return [self::_ZH];
-            break;
             case ISO3166TwoEnum::_CXR:
                 return [self::_EN];
-            break;
             case ISO3166TwoEnum::_CCK:
                 return [self::_EN];
             case ISO3166TwoEnum::_COL:

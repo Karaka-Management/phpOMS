@@ -636,10 +636,10 @@ class Graph
     /**
      * Perform depth first traversal
      *
-     * @param Node  $node         Graph node
-     * @param array $visited      Is the node already visited
-     * @param array $path         Array of nodes (a path through the graph = connected nodes)
-     * @param array $longestPath  Array of nodes (longest path through the graph = connected nodes)
+     * @param Node  $node        Graph node
+     * @param array $visited     Is the node already visited
+     * @param array $path        Array of nodes (a path through the graph = connected nodes)
+     * @param array $longestPath Array of nodes (longest path through the graph = connected nodes)
      *
      * @return void
      *
@@ -648,7 +648,7 @@ class Graph
     private function longestPathDfs(Node $node, &$visited, &$path, &$longestPath)
     {
         $visited[$node->getId()] = true;
-        $path[] = $node;
+        $path[]                  = $node;
 
         $edges = $node->getEdges();
         foreach ($edges as $edge) {
@@ -912,7 +912,7 @@ class Graph
             $distances[$i->getId()] = 0;
 
             while (!empty($stack)) {
-                $current = \array_shift($queue);
+                $current = \array_shift($stack);
 
                 foreach ($this->nodes as $j) {
                     // Has neighbour
@@ -923,7 +923,10 @@ class Graph
                         } elseif (!$j->isEqual($i) && !$j->isEqual($current)
                             && $distances[$j->getId()] >= $distances[$current->getId()]
                         ) {
-                            $girs = \min($girth, $distances[$current->getId()] + $distances[$j->getId()] + 1);
+                            $girth = \min(
+                                $girth,
+                                $distances[$current->getId()] + $distances[$j->getId()] + 1
+                            );
                         }
                     }
                 }
@@ -962,6 +965,18 @@ class Graph
         return $rank;
     }
 
+    /**
+     * Get the graph circuit rank
+     *
+     * @param array $adjMatrix Adjacency matrix
+     * @param Node  $current   Current node
+     * @param Node  $previous  Previous node
+     * @param array $visited   Visited nodes
+     *
+     * @return bool
+     *
+     * @since 1.0.0
+     */
     private function cycleDfs(array $adjMatrix, Node $current, ?Node $previous, &$visited) : bool
     {
         $visited[$current->getId()] = true;
@@ -1090,6 +1105,10 @@ class Graph
      */
     public function isStronglyConnected()
     {
+        if (empty($this->nodes)) {
+            return true;
+        }
+
         $visited = [];
         foreach ($this->nodes as $node) {
             $visited[] = false;
@@ -1181,6 +1200,10 @@ class Graph
     {
         if (!($node1 instanceof Node)) {
             $node1 = $this->getNode($node1);
+        }
+
+        if ($node1 === null) {
+            return true;
         }
 
         foreach ($this->nodes as $node) {

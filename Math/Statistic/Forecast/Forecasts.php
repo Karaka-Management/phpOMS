@@ -40,25 +40,38 @@ final class Forecasts
         return [$forecast - $interval * $standardDeviation, $forecast + $interval * $standardDeviation];
     }
 
+    /**
+     * Simple seasonal forecast.
+     *
+     * @param array<int|float> $history     History
+     * @param int              $periods     Number of periods to forecast
+     * @param int              $seasonality Seasonality
+     *
+     * @return array<int|float>
+     *
+     * @since 1.0.0
+     */
     public static function simpleSeasonalForecast(array $history, int $periods, int $seasonality = 1) : array
     {
-        $avg = \array_sum($history) / \count($history);
+        $size = \count($history);
+        $avg  = \array_sum($history) / $size;
 
         $variance = 0;
         foreach ($history as $sale) {
             $variance += \pow($sale - $avg, 2);
         }
 
-        $variance /= \count($history);
+        $variance    /= $size;
         $stdDeviation = \sqrt($variance);
 
         // Calculate the seasonal index for each period
         $seasonalIndex = [];
         for ($i = 0; $i < $seasonality; $i++) {
             $seasonalIndex[$i] = 0;
-            $count = 0;
+            $count             = 0;
 
-            for ($j = $i; $j < \count($history); $j += $seasonality) {
+
+            for ($j = $i; $j < $size; $j += $seasonality) {
                 $seasonalIndex[$i] += $history[$j];
                 $count++;
             }
@@ -73,7 +86,7 @@ final class Forecasts
         $forecast = [];
         for ($i = 1; $i <= $periods; $i++) {
             $seasonalMultiplier = $seasonalIndex[($i - 1) % $seasonality];
-            $forecast[] = $avg * $seasonalMultiplier + ($stdDeviation * $i);
+            $forecast[]         = $avg * $seasonalMultiplier + ($stdDeviation * $i);
         }
 
         return $forecast;

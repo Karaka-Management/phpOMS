@@ -25,12 +25,36 @@ namespace phpOMS\Utils\Barcode;
  */
 class QR extends TwoDAbstract
 {
+    /**
+     * Error correction level.
+     *
+     * @var int
+     * @since 1.0.0
+     */
     public const QR_ECLEVEL_L = 0;
 
+    /**
+     * Error correction level.
+     *
+     * @var int
+     * @since 1.0.0
+     */
     public const QR_ECLEVEL_M = 1;
 
+    /**
+     * Error correction level.
+     *
+     * @var int
+     * @since 1.0.0
+     */
     public const QR_ECLEVEL_Q = 2;
 
+    /**
+     * Error correction level.
+     *
+     * @var int
+     * @since 1.0.0
+     */
     public const QR_ECLEVEL_H = 3;
 
     private const QRCODEDEFS = true;
@@ -79,7 +103,9 @@ class QR extends TwoDAbstract
 
     /**
      * Alphabet-numeric convesion table.
-     * @protected
+     *
+     * @var array
+     * @since 1.0.0
      */
     private const AN_TABLE = [
         -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1,
@@ -95,7 +121,9 @@ class QR extends TwoDAbstract
     /**
      * Array Table of the capacity of symbols.
      * See Table 1 (pp.13) and Table 12-16 (pp.30-36), JIS X0510:2004.
-     * @protected
+     *
+     * @var array
+     * @since 1.0.0
      */
     private const CAPACITY = [
         [  0,    0, 0, [  0,    0,    0,    0]], //
@@ -143,7 +171,9 @@ class QR extends TwoDAbstract
 
     /**
      * Array Length indicator.
-     * @protected
+     *
+     * @var array
+     * @since 1.0.0
      */
     private const LENGTH_TABLE_BITS = [
         [10, 12, 14],
@@ -155,7 +185,9 @@ class QR extends TwoDAbstract
     /**
      * Array Table of the error correction code (Reed-Solomon block).
      * See Table 12-16 (pp.30-36), JIS X0510:2004.
-     * @protected
+     *
+     * @var array
+     * @since 1.0.0
      */
     private const ECC_TABLE = [
         [[ 0,  0], [ 0,  0], [ 0,  0], [ 0,  0]], //
@@ -205,7 +237,9 @@ class QR extends TwoDAbstract
      * Array Positions of alignment patterns.
      * This array includes only the second and the third position of the alignment patterns. Rest of them can be calculated from the distance between them.
      * See Table 1 in Appendix E (pp.71) of JIS X0510:2004.
-     * @protected
+     *
+     * @var array
+     * @since 1.0.0
      */
     private const ALIGNMENT_PATTERN = [
         [ 0,  0],
@@ -223,7 +257,9 @@ class QR extends TwoDAbstract
      * Array Version information pattern (BCH coded).
      * See Table 1 in Appendix D (pp.68) of JIS X0510:2004.
      * size: [QRSPEC_VERSION_MAX - 6]
-     * @protected
+     *
+     * @var array
+     * @since 1.0.0
      */
     private const VERSION_PATTERN = [
         0x07c94, 0x085bc, 0x09a99, 0x0a4d3, 0x0bbf6, 0x0c762, 0x0d847, 0x0e60d,
@@ -235,7 +271,9 @@ class QR extends TwoDAbstract
 
     /**
      * Array Format information
-     * @protected
+     *
+     * @var array
+     * @since 1.0.0
      */
     private const FORMAT_INFO = [
         [0x77c4, 0x72f3, 0x7daa, 0x789d, 0x662f, 0x6318, 0x6c41, 0x6976],
@@ -262,152 +300,210 @@ class QR extends TwoDAbstract
         "\xc1\xc1\xc1\xc1\xc1\xc1\xc1",
     ];
 
+    /**
+     * Version.
+     *
+     * @var int
+     * @since 1.0.0
+     */
     protected int $version = 0;
 
     /**
      * Levels of error correction. See definitions for possible values.
-     * @protected
+     *
+     * @var int
+     * @since 1.0.0
      */
     public int $level = self::QR_ECLEVEL_L;
 
     /**
      * Encoding mode.
-     * @protected
+     *
+     * @var int
+     * @since 1.0.0
      */
     protected int $hint = self::QR_MODE_8B;
 
     /**
      * Boolean flag, if true the input string will be converted to uppercase.
-     * @protected
+     *
+     * @var bool
+     * @since 1.0.0
      */
     protected bool $casesensitive = true;
 
     /**
      * Structured QR code (not supported yet).
-     * @protected
+     *
+     * @var int
+     * @since 1.0.0
      */
     protected int $structured = 0;
 
     /**
      * Mask data.
-     * @protected
+     *
+     * @var array
+     * @since 1.0.0
      */
     protected array $data = [];
 
     /**
      * Width.
-     * @protected
+     *
+     * @var int
+     * @since 1.0.0
      */
     protected int $width = 0;
 
     /**
      * Frame.
-     * @protected
+     *
+     * @var array
+     * @since 1.0.0
      */
     protected array $frame = [];
 
     /**
      * X position of bit.
-     * @protected
+     *
+     * @var int
+     * @since 1.0.0
      */
     protected int $x = 0;
 
     /**
      * Y position of bit.
-     * @protected
+     *
+     * @var int
+     * @since 1.0.0
      */
     protected int $y = 0;
 
     /**
      * Direction.
-     * @protected
+     *
+     * @var int
+     * @since 1.0.0
      */
     protected int $dir = 0;
 
     /**
      * Single bit value.
-     * @protected
+     *
+     * @var int
+     * @since 1.0.0
      */
     protected int $bit = 0;
 
     /**
      * Data code.
-     * @protected
+     *
+     * @var array
+     * @since 1.0.0
      */
     protected array $datacode = [];
 
     /**
      * Error correction code.
-     * @protected
+     *
+     * @var array
+     * @since 1.0.0
      */
     protected array $ecccode = [];
 
     /**
      * Blocks.
-     * @protected
+     *
+     * @var int
+     *
+     * @since 1.0.0
      */
     protected int $blocks = 0;
 
     /**
      * Reed-Solomon blocks.
-     * @protected
+     *
+     * @var array
+     * @since 1.0.0
      */
     protected array $rsblocks = []; //of RSblock
 
     /**
      * Counter.
-     * @protected
+     *
+     * @var int
+     * @since 1.0.0
      */
     protected int $count = 0;
 
     /**
      * Data length.
-     * @protected
+     *
+     * @var int
+     * @since 1.0.0
      */
     protected int $dataLength = 0;
 
     /**
      * Error correction length.
-     * @protected
+     *
+     * @var int
+     * @since 1.0.0
      */
     protected int $eccLength = 0;
 
     /**
      * Value b1.
-     * @protected
+     *
+     * @var int
+     * @since 1.0.0
      */
     protected int $b1 = 0;
 
     /**
      * Run length.
-     * @protected
+     *
+     * @var array
+     * @since 1.0.0
      */
     protected array $runLength = [];
 
     /**
      * Input data string.
-     * @protected
+     *
+     * @var string
+     * @since 1.0.0
      */
     protected string $dataStr = '';
 
     /**
      * Input items.
-     * @protected
+     *
+     * @var array
+     * @since 1.0.0
      */
     protected array $items = [];
 
     /**
      * Reed-Solomon items.
-     * @protected
+     *
+     * @var array
+     * @since 1.0.0
      */
     protected array $rsitems = [];
 
     /**
      * Array of frames.
-     * @protected
+     *
+     * @var array
+     * @since 1.0.0
      */
     protected array $frames = [];
 
+    /**
+     * {@inheritdoc}
+     */
     public function generateCodeArray() : array
     {
         $this->codearray = [];
@@ -432,6 +528,10 @@ class QR extends TwoDAbstract
 
     /**
      * Convert the frame in binary form
+     *
+     * @return array
+     *
+     * @since 1.0.0
      */
     protected function binarize(array $frame) : array
     {
@@ -449,6 +549,10 @@ class QR extends TwoDAbstract
 
     /**
      * Encode the input string to QR code
+     *
+     * @return void
+     *
+     * @since 1.0.0
      */
     protected function encodeString(string $string) : void
     {
@@ -467,6 +571,10 @@ class QR extends TwoDAbstract
 
     /**
      * Encode mask
+     *
+     * @return void
+     *
+     * @since 1.0.0
      */
     protected function encodeMask(int $mask) : void
     {
@@ -535,6 +643,10 @@ class QR extends TwoDAbstract
 
     /**
      * Get frame value at specified position
+     *
+     * @return int
+     *
+     * @since 1.0.0
      */
     protected function getFrameAt(array $at) : int
     {
@@ -543,6 +655,10 @@ class QR extends TwoDAbstract
 
     /**
      * Return the next frame position
+     *
+     * @return array
+     *
+     * @since 1.0.0
      */
     protected function getNextPosition() : array
     {
@@ -608,6 +724,10 @@ class QR extends TwoDAbstract
 
     /**
      * Initialize code.
+     *
+     * @return int
+     *
+     * @since 1.0.0
      */
     protected function init(array $spec) : int
     {
@@ -665,7 +785,11 @@ class QR extends TwoDAbstract
     }
 
     /**
-     * Return Reed-Solomon block code.
+     * Return Reed-Solomon block
+     *
+     * @return int
+     *
+     * @since 1.0.0code.
      */
     protected function getCode() : int
     {
@@ -693,6 +817,10 @@ class QR extends TwoDAbstract
 
     /**
      * Write Format Information on frame and returns the number of black bits
+     *
+     * @return int
+     *
+     * @since 1.0.0
      */
     protected function writeFormatInformation(int $width, array &$frame, int $mask, int $level) : int
     {
@@ -742,6 +870,10 @@ class QR extends TwoDAbstract
 
     /**
      * Return bitmask
+     *
+     * @return array
+     *
+     * @since 1.0.0
      */
     protected function generateMaskNo(int $maskNo, int $width, array $frame) : array
     {
@@ -789,6 +921,10 @@ class QR extends TwoDAbstract
 
     /**
      * makeMaskNo
+     *
+     * @return int
+     *
+     * @since 1.0.0
      */
     protected function makeMaskNo(int $maskNo, int $width, array $s, array &$d, bool $maskGenOnly = false) : int
     {
@@ -816,6 +952,10 @@ class QR extends TwoDAbstract
 
     /**
      * makeMask
+     *
+     * @return array
+     *
+     * @since 1.0.0
      */
     protected function makeMask(int $width, array $frame, int $maskNo, int $level) : array
     {
@@ -828,6 +968,10 @@ class QR extends TwoDAbstract
 
     /**
      * calcN1N3
+     *
+     * @return int
+     *
+     * @since 1.0.0
      */
     protected function calcN1N3(int $length) : int
     {
@@ -861,6 +1005,10 @@ class QR extends TwoDAbstract
 
     /**
      * evaluateSymbol
+     *
+     * @return int
+     *
+     * @since 1.0.0
      */
     protected function evaluateSymbol(int $width, array $frame) : int
     {
@@ -930,6 +1078,10 @@ class QR extends TwoDAbstract
 
     /**
      * mask
+     *
+     * @return array
+     *
+     * @since 1.0.0
      */
     protected function mask(int $width, array $frame, int $level) : array
     {
@@ -958,8 +1110,8 @@ class QR extends TwoDAbstract
             $demerit += $this->evaluateSymbol($width, $mask);
 
             if ($demerit < $minDemerit) {
-                $minDemerit  = $demerit;
-                $bestMask    = $mask;
+                $minDemerit = $demerit;
+                $bestMask   = $mask;
             }
         }
 
@@ -968,6 +1120,10 @@ class QR extends TwoDAbstract
 
     /**
      * Return true if the character at specified position is a number
+     *
+     * @return bool
+     *
+     * @since 1.0.0
      */
     protected function isdigitat(string $str, int $pos) : bool
     {
@@ -980,6 +1136,10 @@ class QR extends TwoDAbstract
 
     /**
      * Return true if the character at specified position is an alphanumeric character
+     *
+     * @return bool
+     *
+     * @since 1.0.0
      */
     protected function isalnumat(string $str, int $pos) : bool
     {
@@ -992,6 +1152,10 @@ class QR extends TwoDAbstract
 
     /**
      * identifyMode
+     *
+     * @return int
+     *
+     * @since 1.0.0
      */
     protected function identifyMode(int $pos) : int
     {
@@ -1022,6 +1186,10 @@ class QR extends TwoDAbstract
 
     /**
      * eatNum
+     *
+     * @return int
+     *
+     * @since 1.0.0
      */
     protected function eatNum() : int
     {
@@ -1061,6 +1229,10 @@ class QR extends TwoDAbstract
 
     /**
      * eatAn
+     *
+     * @return int
+     *
+     * @since 1.0.0
      */
     protected function eatAn() : int
     {
@@ -1107,6 +1279,10 @@ class QR extends TwoDAbstract
 
     /**
      * eatKanji
+     *
+     * @return int
+     *
+     * @since 1.0.0
      */
     protected function eatKanji() : int
     {
@@ -1123,6 +1299,10 @@ class QR extends TwoDAbstract
 
     /**
      * eat8
+     *
+     * @return int
+     *
+     * @since 1.0.0
      */
     protected function eat8() : int
     {
@@ -1180,6 +1360,10 @@ class QR extends TwoDAbstract
 
     /**
      * splitString
+     *
+     * @return int
+     *
+     * @since 1.0.0
      */
     protected function splitString() : int
     {
@@ -1193,11 +1377,9 @@ class QR extends TwoDAbstract
                     $length = $this->eatAn();
                     break;
                 case self::QR_MODE_KJ:
-                    if ($this->hint === self::QR_MODE_KJ) {
-                        $length = $this->eatKanji();
-                    } else {
-                        $length = $this->eat8();
-                    }
+                    $length = $this->hint === self::QR_MODE_KJ
+                        ? $this->eatKanji()
+                        : $this->eat8();
                     break;
                 default:
                     $length = $this->eat8();
@@ -1220,6 +1402,10 @@ class QR extends TwoDAbstract
 
     /**
      * toUpper
+     *
+     * @return string
+     *
+     * @since 1.0.0
      */
     protected function toUpper() : string
     {
@@ -1227,11 +1413,14 @@ class QR extends TwoDAbstract
         $p         = 0;
 
         while ($p < $stringLen) {
-            $mode = $this->identifyMode(\strlen(\substr($this->dataStr, $p)), $this->hint);
+            $mode = $this->identifyMode(\strlen(\substr($this->dataStr, $p))/*, $this->hint*/);
+
             if ($mode === self::QR_MODE_KJ) {
                 $p += 2;
             } else {
-                if (\ord($this->dataStr[$p]) >= \ord('a') && \ord($this->dataStr[$p]) <= \ord('z')) {
+                if (\ord($this->dataStr[$p]) >= \ord('a')
+                    && \ord($this->dataStr[$p]) <= \ord('z')
+                ) {
                     $this->dataStr[$p] = \chr(\ord($this->dataStr[$p]) - 32);
                 }
 
@@ -1243,6 +1432,10 @@ class QR extends TwoDAbstract
 
     /**
      * newInputItem
+     *
+     * @return array
+     *
+     * @since 1.0.0
      */
     protected function newInputItem(int $mode, int $size, array $data, array $bstream = []) : array
     {
@@ -1266,6 +1459,10 @@ class QR extends TwoDAbstract
 
     /**
      * encodeModeNum
+     *
+     * @return array
+     *
+     * @since 1.0.0
      */
     protected function encodeModeNum(array $inputitem, int $version) : array
     {
@@ -1300,6 +1497,10 @@ class QR extends TwoDAbstract
 
     /**
      * encodeModeAn
+     *
+     * @return array
+     *
+     * @since 1.0.0
      */
     protected function encodeModeAn(array $inputitem, int $version) : array
     {
@@ -1327,6 +1528,10 @@ class QR extends TwoDAbstract
 
     /**
      * encodeMode8
+     *
+     * @return array
+     *
+     * @since 1.0.0
      */
     protected function encodeMode8(array $inputitem, int $version) : array
     {
@@ -1343,6 +1548,10 @@ class QR extends TwoDAbstract
 
     /**
      * encodeModeKanji
+     *
+     * @return array
+     *
+     * @since 1.0.0
      */
     protected function encodeModeKanji(array $inputitem, int $version) : array
     {
@@ -1370,6 +1579,10 @@ class QR extends TwoDAbstract
 
     /**
      * encodeModeStructure
+     *
+     * @return array
+     *
+     * @since 1.0.0
      */
     protected function encodeModeStructure(array $inputitem) : array
     {
@@ -1384,6 +1597,10 @@ class QR extends TwoDAbstract
 
     /**
      * encodeBitStream
+     *
+     * @return array
+     *
+     * @since 1.0.0
      */
     protected function encodeBitStream(array $inputitem, int $version) : array
     {
@@ -1425,6 +1642,10 @@ class QR extends TwoDAbstract
     /**
      * Append data to an input object.
      * The data is copied and appended to the input object.
+     *
+     * @return array
+     *
+     * @since 1.0.0
      */
     protected function appendNewInputItem(array $items, int $mode, int $size, array $data) : array
     {
@@ -1439,6 +1660,10 @@ class QR extends TwoDAbstract
 
     /**
      * insertStructuredAppendHeader
+     *
+     * @return array
+     *
+     * @since 1.0.0
      */
     protected function insertStructuredAppendHeader(array $items, int $size, int $index, int $parity) : array
     {
@@ -1446,7 +1671,7 @@ class QR extends TwoDAbstract
             || $index <= 0
             || $index > self::MAX_STRUCTURED_SYMBOLS
         ) {
-            return -1;
+            return [];
         }
 
         $buf   = [$size, $index, $parity];
@@ -1459,6 +1684,10 @@ class QR extends TwoDAbstract
 
     /**
      * calcParity
+     *
+     * @return int
+     *
+     * @since 1.0.0
      */
     protected function calcParity(array $items) : int
     {
@@ -1476,6 +1705,10 @@ class QR extends TwoDAbstract
 
     /**
      * checkModeNum
+     *
+     * @return bool
+     *
+     * @since 1.0.0
      */
     protected function checkModeNum(int $size, array $data) : bool
     {
@@ -1490,6 +1723,10 @@ class QR extends TwoDAbstract
 
     /**
      * Look up the alphabet-numeric conversion table (see JIS X0510:2004, pp.19).
+     *
+     * @return int
+     *
+     * @since 1.0.0
      */
     protected function lookAnTable(int $c) : int
     {
@@ -1498,6 +1735,10 @@ class QR extends TwoDAbstract
 
     /**
      * checkModeAn
+     *
+     * @return bool
+     *
+     * @since 1.0.0
      */
     protected function checkModeAn(int $size, array $data) : bool
     {
@@ -1512,6 +1753,10 @@ class QR extends TwoDAbstract
 
     /**
      * estimateBitsModeNum
+     *
+     * @return int
+     *
+     * @since 1.0.0
      */
     protected function estimateBitsModeNum(int $size) : int
     {
@@ -1532,6 +1777,10 @@ class QR extends TwoDAbstract
 
     /**
      * estimateBitsModeAn
+     *
+     * @return int
+     *
+     * @since 1.0.0
      */
     protected function estimateBitsModeAn(int $size) : int
     {
@@ -1545,6 +1794,10 @@ class QR extends TwoDAbstract
 
     /**
      * estimateBitsMode8
+     *
+     * @return int
+     *
+     * @since 1.0.0
      */
     protected function estimateBitsMode8(int $size) : int
     {
@@ -1553,6 +1806,10 @@ class QR extends TwoDAbstract
 
     /**
      * estimateBitsModeKanji
+     *
+     * @return int
+     *
+     * @since 1.0.0
      */
     protected function estimateBitsModeKanji(int $size) : int
     {
@@ -1561,6 +1818,10 @@ class QR extends TwoDAbstract
 
     /**
      * checkModeKanji
+     *
+     * @return bool
+     *
+     * @since 1.0.0
      */
     protected function checkModeKanji(int $size, array $data) : bool
     {
@@ -1580,6 +1841,10 @@ class QR extends TwoDAbstract
 
     /**
      * Validate the input data.
+     *
+     * @return bool
+     *
+     * @since 1.0.0
      */
     protected function check(int $mode, int $size, array $data) : bool
     {
@@ -1605,6 +1870,10 @@ class QR extends TwoDAbstract
 
     /**
      * estimateBitStreamSize
+     *
+     * @return int
+     *
+     * @since 1.0.0
      */
     protected function estimateBitStreamSize(array $items, int $version) : int
     {
@@ -1644,6 +1913,10 @@ class QR extends TwoDAbstract
 
     /**
      * estimateVersion
+     *
+     * @return int
+     *
+     * @since 1.0.0
      */
     protected function estimateVersion(array $items) : int
     {
@@ -1665,6 +1938,10 @@ class QR extends TwoDAbstract
 
     /**
      * lengthOfCode
+     *
+     * @return int
+     *
+     * @since 1.0.0
      */
     protected function lengthOfCode(int $mode, int $version, int $bits) : int
     {
@@ -1720,6 +1997,10 @@ class QR extends TwoDAbstract
 
     /**
      * createBitStream
+     *
+     * @return array
+     *
+     * @since 1.0.0
      */
     protected function createBitStream(array $items) : array
     {
@@ -1735,6 +2016,10 @@ class QR extends TwoDAbstract
 
     /**
      * convertData
+     *
+     * @return array
+     *
+     * @since 1.0.0
      */
     protected function convertData(array $items) : array
     {
@@ -1767,6 +2052,10 @@ class QR extends TwoDAbstract
 
     /**
      * Append Padding Bit to bitstream
+     *
+     * @return array
+     *
+     * @since 1.0.0
      */
     protected function appendPaddingBit(array $bstream) : array
     {
@@ -1807,6 +2096,10 @@ class QR extends TwoDAbstract
 
     /**
      * mergeBitStream
+     *
+     * @return array
+     *
+     * @since 1.0.0
      */
     protected function mergeBitStream(array $items) : array
     {
@@ -1825,6 +2118,10 @@ class QR extends TwoDAbstract
 
     /**
      * Returns a stream of bits.
+     *
+     * @return array
+     *
+     * @since 1.0.0
      */
     protected function getBitStream(array $items) : array
     {
@@ -1835,6 +2132,10 @@ class QR extends TwoDAbstract
 
     /**
      * Pack all bit streams padding bits into a byte array.
+     *
+     * @return array
+     *
+     * @since 1.0.0
      */
     protected function getByteStream(array $items) : array
     {
@@ -1845,6 +2146,10 @@ class QR extends TwoDAbstract
 
     /**
      * Return an array with zeros
+     *
+     * @return array
+     *
+     * @since 1.0.0
      */
     protected function allocate(int $setLength) : array
     {
@@ -1853,6 +2158,10 @@ class QR extends TwoDAbstract
 
     /**
      * Return new bitstream from number
+     *
+     * @return array
+     *
+     * @since 1.0.0
      */
     protected function newFromNum(int $bits, int $num) : array
     {
@@ -1869,6 +2178,10 @@ class QR extends TwoDAbstract
 
     /**
      * Return new bitstream from bytes
+     *
+     * @return array
+     *
+     * @since 1.0.0
      */
     protected function newFromBytes(int $size, array $data) : array
     {
@@ -1891,6 +2204,10 @@ class QR extends TwoDAbstract
 
     /**
      * Append one bitstream to another
+     *
+     * @return array
+     *
+     * @since 1.0.0
      */
     protected function appendBitstream(array $bitstream, array $append) : array
     {
@@ -1907,6 +2224,10 @@ class QR extends TwoDAbstract
 
     /**
      * Append one bitstream created from number to another
+     *
+     * @return array
+     *
+     * @since 1.0.0
      */
     protected function appendNum(array $bitstream, int $bits, int $num) : array
     {
@@ -1921,6 +2242,10 @@ class QR extends TwoDAbstract
 
     /**
      * Append one bitstream created from bytes to another
+     *
+     * @return array
+     *
+     * @since 1.0.0
      */
     protected function appendBytes(array $bitstream, int $size, array $data) : array
     {
@@ -1935,6 +2260,10 @@ class QR extends TwoDAbstract
 
     /**
      * Convert bitstream to bytes
+     *
+     * @return array
+     *
+     * @since 1.0.0
      */
     protected function bitstreamToByte(array $bstream) : array
     {
@@ -1976,6 +2305,10 @@ class QR extends TwoDAbstract
 
     /**
      * Replace a value on the array at the specified position
+     *
+     * @return array
+     *
+     * @since 1.0.0
      */
     protected function qrstrset(array $srctab, int $x, int $y, string $repl, int $replLen = 0) : array
     {
@@ -1991,6 +2324,10 @@ class QR extends TwoDAbstract
 
     /**
      * Return a version number that satisfies the input code length.
+     *
+     * @return int
+     *
+     * @since 1.0.0
      */
     protected function getMinimumVersion(int $size, int $level) : int
     {
@@ -2007,6 +2344,10 @@ class QR extends TwoDAbstract
 
     /**
      * Return the size of length indicator for the mode and version.
+     *
+     * @return int
+     *
+     * @since 1.0.0
      */
     protected function lengthIndicator(int $mode, int $version) : int
     {
@@ -2027,6 +2368,10 @@ class QR extends TwoDAbstract
 
     /**
      * Return the maximum length for the mode and version.
+     *
+     * @return int
+     *
+     * @since 1.0.0
      */
     protected function maximumWords(int $mode, int $version) : int
     {
@@ -2054,6 +2399,10 @@ class QR extends TwoDAbstract
 
     /**
      * Return an array of ECC specification.
+     *
+     * @return array
+     *
+     * @since 1.0.0
      */
     protected function getEccSpec(int $version, int $level, array $spec) : array
     {
@@ -2085,6 +2434,10 @@ class QR extends TwoDAbstract
 
     /**
      * Put an alignment marker.
+     *
+     * @return array
+     *
+     * @since 1.0.0
      */
     protected function putAlignmentMarker(array $frame, int $ox, int $oy) : array
     {
@@ -2100,6 +2453,10 @@ class QR extends TwoDAbstract
 
     /**
      * Put an alignment pattern.
+     *
+     * @return array
+     *
+     * @since 1.0.0
      */
     protected function putAlignmentPattern(int $version, array $frame, int $width) : array
     {
@@ -2148,6 +2505,10 @@ class QR extends TwoDAbstract
 
     /**
      * Put a finder pattern.
+     *
+     * @return array
+     *
+     * @since 1.0.0
      */
     protected function putFinderPattern(array $frame, int $ox, int $oy) : array
     {
@@ -2160,6 +2521,10 @@ class QR extends TwoDAbstract
 
     /**
      * Return a copy of initialized frame.
+     *
+     * @return array
+     *
+     * @since 1.0.0
      */
     protected function createFrame(int $version) : array
     {
@@ -2239,6 +2604,10 @@ class QR extends TwoDAbstract
 
     /**
      * Set new frame for the specified version.
+     *
+     * @return array
+     *
+     * @since 1.0.0
      */
     protected function newFrame(int $version) : array
     {
@@ -2259,6 +2628,10 @@ class QR extends TwoDAbstract
 
     /**
      * Initialize a Reed-Solomon codec and add it to existing rsitems
+     *
+     * @return array
+     *
+     * @since 1.0.0
      */
     protected function init_rs(int $symsize, int $gfpoly, int $fcr, int $prim, int $nroots, int $pad) : array
     {
@@ -2280,6 +2653,10 @@ class QR extends TwoDAbstract
 
     /**
      * modnn
+     *
+     * @return int
+     *
+     * @since 1.0.0
      */
     protected function modnn(array $rs, int $x) : int
     {
@@ -2293,6 +2670,10 @@ class QR extends TwoDAbstract
 
     /**
      * Initialize a Reed-Solomon codec and returns an array of values.
+     *
+     * @return array
+     *
+     * @since 1.0.0
      */
     protected function init_rs_char(int $symsize, int $gfpoly, int $fcr, int $prim, int $nroots, int $pad) : array
     {
@@ -2381,6 +2762,10 @@ class QR extends TwoDAbstract
 
     /**
      * Encode a Reed-Solomon codec and returns the parity array
+     *
+     * @return array
+     *
+     * @since 1.0.0
      */
     protected function encode_rs_char(array $rs, array $data, array $parity) : array
     {

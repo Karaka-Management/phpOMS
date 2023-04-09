@@ -20,11 +20,19 @@ use PhpOffice\PhpPresentation\DocumentLayout;
 use PhpOffice\PhpPresentation\IOFactory;
 use PhpOffice\PhpPresentation\PhpPresentation;
 use PhpOffice\PhpPresentation\Shape\Drawing;
+use PhpOffice\PhpPresentation\Shape\Drawing\AbstractDrawingAdapter;
+use PhpOffice\PhpPresentation\Shape\Drawing\Base64;
+use PhpOffice\PhpPresentation\Shape\Drawing\File;
+use PhpOffice\PhpPresentation\Shape\Drawing\Gd;
+use PhpOffice\PhpPresentation\Shape\Drawing\ZipFile;
 use PhpOffice\PhpPresentation\Shape\Group;
 use PhpOffice\PhpPresentation\Shape\RichText;
 use PhpOffice\PhpPresentation\Shape\RichText\BreakElement;
 use PhpOffice\PhpPresentation\Shape\RichText\TextElement;
 use PhpOffice\PhpPresentation\Slide;
+use PhpOffice\PhpPresentation\Slide\AbstractBackground;
+use PhpOffice\PhpPresentation\Slide\Background\Color as BackgroundColor;
+use PhpOffice\PhpPresentation\Slide\Background\Image;
 use PhpOffice\PhpPresentation\Style\Alignment;
 use PhpOffice\PhpPresentation\Style\Bullet;
 use PhpOffice\PhpPresentation\Style\Color;
@@ -122,10 +130,12 @@ class PresentationWriter
         $this->append('<li><span><i class="fa fa-folder-open"></i> PhpPresentation</span>');
         $this->append('<ul>');
         $this->append('<li><span class="shape" id="divPhpPresentation"><i class="fa fa-info-circle"></i> Info "PhpPresentation"</span></li>');
+
         foreach ($oPHPPpt->getAllSlides() as $oSlide) {
             $this->append('<li><span><i class="fa fa-minus-square"></i> Slide</span>');
             $this->append('<ul>');
             $this->append('<li><span class="shape" id="div' . $oSlide->getHashCode() . '"><i class="fa fa-info-circle"></i> Info "Slide"</span></li>');
+
             foreach ($oSlide->getShapeCollection() as $oShape) {
                 if ($oShape instanceof Group) {
                     $this->append('<li><span><i class="fa fa-minus-square"></i> Shape "Group"</span>');
@@ -140,9 +150,11 @@ class PresentationWriter
                     $this->displayShape($oShape);
                 }
             }
+
             $this->append('</ul>');
             $this->append('</li>');
         }
+
         $this->append('</ul>');
         $this->append('</li>');
     }
@@ -158,13 +170,13 @@ class PresentationWriter
      */
     protected function displayShape(AbstractShape $shape) : void
     {
-        if ($shape instanceof Drawing\Gd) {
+        if ($shape instanceof Gd) {
             $this->append('<li><span class="shape" id="div' . $shape->getHashCode() . '">Shape "Drawing\Gd"</span></li>');
-        } elseif ($shape instanceof Drawing\File) {
+        } elseif ($shape instanceof File) {
             $this->append('<li><span class="shape" id="div' . $shape->getHashCode() . '">Shape "Drawing\File"</span></li>');
-        } elseif ($shape instanceof Drawing\Base64) {
+        } elseif ($shape instanceof Base64) {
             $this->append('<li><span class="shape" id="div' . $shape->getHashCode() . '">Shape "Drawing\Base64"</span></li>');
-        } elseif ($shape instanceof Drawing\ZipFile) {
+        } elseif ($shape instanceof ZipFile) {
             $this->append('<li><span class="shape" id="div' . $shape->getHashCode() . '">Shape "Drawing\Zip"</span></li>');
         } elseif ($shape instanceof RichText) {
             $this->append('<li><span class="shape" id="div' . $shape->getHashCode() . '">Shape "RichText"</span></li>');
@@ -214,15 +226,17 @@ class PresentationWriter
             $this->append('<dt>Extent X</dt><dd>' . $oSlide->getExtentX() . '</dd>');
             $this->append('<dt>Extent Y</dt><dd>' . $oSlide->getExtentY() . '</dd>');
             $oBkg = $oSlide->getBackground();
-            if ($oBkg instanceof Slide\AbstractBackground) {
-                if ($oBkg instanceof Slide\Background\Color) {
+
+            if ($oBkg instanceof AbstractBackground) {
+                if ($oBkg instanceof BackgroundColor) {
                     $this->append('<dt>Background Color</dt><dd>#' . $oBkg->getColor()->getRGB() . '</dd>');
                 }
-                if ($oBkg instanceof Slide\Background\Image) {
+                if ($oBkg instanceof Image) {
                     $sBkgImgContents = file_get_contents($oBkg->getPath());
-                    $this->append('<dt>Background Image</dt><dd><img src="data:image/png;base64,' . base64_encode($sBkgImgContents) . '"></dd>');
+                    $this->append('<dt>Background Image</dt><dd><img src="data:image/png;base64,' . \base64_encode($sBkgImgContents) . '"></dd>');
                 }
             }
+
             $oNote = $oSlide->getNote();
             if ($oNote->getShapeCollection()->count() > 0) {
                 $this->append('<dt>Notes</dt>');
@@ -269,7 +283,8 @@ class PresentationWriter
         $this->append('<dt>Rotation</dt><dd>' . $oShape->getRotation() . '°</dd>');
         $this->append('<dt>Hyperlink</dt><dd>' . ucfirst(var_export($oShape->hasHyperlink(), true)) . '</dd>');
         $this->append('<dt>Fill</dt>');
-        if (is_null($oShape->getFill())) {
+
+        if ($oShape->getFill() === null) {
             $this->append('<dd>None</dd>');
         } else {
             switch ($oShape->getFill()->getFillType()) {
@@ -284,9 +299,11 @@ class PresentationWriter
                     break;
             }
         }
+
         $this->append('<dt>Border</dt><dd>@Todo</dd>');
         $this->append('<dt>IsPlaceholder</dt><dd>' . ($oShape->isPlaceholder() ? 'true' : 'false') . '</dd>');
-        if ($oShape instanceof Drawing\Gd) {
+
+        if ($oShape instanceof Gd) {
             $this->append('<dt>Name</dt><dd>' . $oShape->getName() . '</dd>');
             $this->append('<dt>Description</dt><dd>' . $oShape->getDescription() . '</dd>');
             ob_start();
@@ -294,12 +311,14 @@ class PresentationWriter
             $sShapeImgContents = ob_get_contents();
             ob_end_clean();
             $this->append('<dt>Mime-Type</dt><dd>' . $oShape->getMimeType() . '</dd>');
-            $this->append('<dt>Image</dt><dd><img src="data:' . $oShape->getMimeType() . ';base64,' . base64_encode($sShapeImgContents) . '"></dd>');
+            $this->append('<dt>Image</dt><dd><img src="data:' . $oShape->getMimeType() . ';base64,' . \base64_encode($sShapeImgContents) . '"></dd>');
+
             if ($oShape->hasHyperlink()) {
                 $this->append('<dt>Hyperlink URL</dt><dd>' . $oShape->getHyperlink()->getUrl() . '</dd>');
                 $this->append('<dt>Hyperlink Tooltip</dt><dd>' . $oShape->getHyperlink()->getTooltip() . '</dd>');
             }
-        } elseif ($oShape instanceof Drawing\AbstractDrawingAdapter) {
+
+        } elseif ($oShape instanceof AbstractDrawingAdapter) {
             $this->append('<dt>Name</dt><dd>' . $oShape->getName() . '</dd>');
             $this->append('<dt>Description</dt><dd>' . $oShape->getDescription() . '</dd>');
         } elseif ($oShape instanceof RichText) {
@@ -307,6 +326,7 @@ class PresentationWriter
             $this->append('<dt>Inset (T / R / B / L)</dt><dd>' . $oShape->getInsetTop() . 'px / ' . $oShape->getInsetRight() . 'px / ' . $oShape->getInsetBottom() . 'px / ' . $oShape->getInsetLeft() . 'px</dd>');
             $this->append('<dt>Text</dt>');
             $this->append('<dd>');
+
             foreach ($oShape->getParagraphs() as $oParagraph) {
                 $this->append('Paragraph<dl>');
                 $this->append('<dt>Alignment Horizontal</dt><dd> Alignment::' . $this->getConstantName('\PhpOffice\PhpPresentation\Style\Alignment', $oParagraph->getAlignment()->getHorizontal()) . '</dd>');
@@ -315,19 +335,24 @@ class PresentationWriter
                 $this->append('<dt>Alignment Indent</dt><dd>' . $oParagraph->getAlignment()->getIndent() . ' px</dd>');
                 $this->append('<dt>Alignment Level</dt><dd>' . $oParagraph->getAlignment()->getLevel() . '</dd>');
                 $this->append('<dt>Bullet Style</dt><dd> Bullet::' . $this->getConstantName('\PhpOffice\PhpPresentation\Style\Bullet', $oParagraph->getBulletStyle()->getBulletType()) . '</dd>');
+
                 if (Bullet::TYPE_NONE != $oParagraph->getBulletStyle()->getBulletType()) {
                     $this->append('<dt>Bullet Font</dt><dd>' . $oParagraph->getBulletStyle()->getBulletFont() . '</dd>');
                     $this->append('<dt>Bullet Color</dt><dd>' . $oParagraph->getBulletStyle()->getBulletColor()->getARGB() . '</dd>');
                 }
+
                 if (Bullet::TYPE_BULLET == $oParagraph->getBulletStyle()->getBulletType()) {
                     $this->append('<dt>Bullet Char</dt><dd>' . $oParagraph->getBulletStyle()->getBulletChar() . '</dd>');
                 }
+
                 if (Bullet::TYPE_NUMERIC == $oParagraph->getBulletStyle()->getBulletType()) {
                     $this->append('<dt>Bullet Start At</dt><dd>' . $oParagraph->getBulletStyle()->getBulletNumericStartAt() . '</dd>');
                     $this->append('<dt>Bullet Style</dt><dd>' . $oParagraph->getBulletStyle()->getBulletNumericStyle() . '</dd>');
                 }
+
                 $this->append('<dt>Line Spacing</dt><dd>' . $oParagraph->getLineSpacing() . '</dd>');
                 $this->append('<dt>RichText</dt><dd><dl>');
+
                 foreach ($oParagraph->getRichTextElements() as $oRichText) {
                     if ($oRichText instanceof BreakElement) {
                         $this->append('<dt><i>Break</i></dt>');
@@ -337,6 +362,7 @@ class PresentationWriter
                         } else {
                             $this->append('<dt><i>Run</i></dt>');
                         }
+
                         $this->append('<dd>' . $oRichText->getText());
                         $this->append('<dl>');
                         $this->append('<dt>Font Name</dt><dd>' . $oRichText->getFont()->getName() . '</dd>');
@@ -350,22 +376,25 @@ class PresentationWriter
                         $this->append('<abbr title="SubScript">SubScript</abbr> : ' . ($oRichText->getFont()->isSubScript() ? 'Y' : 'N') . ' - ');
                         $this->append('<abbr title="SuperScript">SuperScript</abbr> : ' . ($oRichText->getFont()->isSuperScript() ? 'Y' : 'N'));
                         $this->append('</dd>');
+
                         if ($oRichText instanceof TextElement) {
                             if ($oRichText->hasHyperlink()) {
                                 $this->append('<dt>Hyperlink URL</dt><dd>' . $oRichText->getHyperlink()->getUrl() . '</dd>');
                                 $this->append('<dt>Hyperlink Tooltip</dt><dd>' . $oRichText->getHyperlink()->getTooltip() . '</dd>');
                             }
                         }
+
                         $this->append('</dl>');
                         $this->append('</dd>');
                     }
                 }
+
                 $this->append('</dl></dd></dl>');
             }
+
             $this->append('</dd>');
-        } else {
-            // Add another shape
         }
+
         $this->append('</dl>');
         $this->append('</div>');
     }
@@ -377,7 +406,7 @@ class PresentationWriter
      * @param string $search    Value to search for
      * @param string $startWith Constant name it starts with
      *
-     * @return void
+     * @return string
      *
      * @since 1.0.0
      */
@@ -386,11 +415,13 @@ class PresentationWriter
         $fooClass  = new \ReflectionClass($class);
         $constants = $fooClass->getConstants();
         $constName = '';
+
         foreach ($constants as $key => $value) {
             if ($value == $search) {
                 if (empty($startWith) || (!empty($startWith) && \strpos($key, $startWith) === 0)) {
                     $constName = $key;
                 }
+
                 break;
             }
         }

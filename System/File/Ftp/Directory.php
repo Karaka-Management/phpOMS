@@ -391,7 +391,16 @@ class Directory extends FileAbstract implements DirectoryInterface
                 continue;
             }
 
-            $e = [];
+            $e = [
+                'permission' => '',
+                'number' => '',
+                'user' => '',
+                'group' => '',
+                'size' => '',
+                'month' => '',
+                'day' => '',
+                'time' => '',
+            ];
 
             list(
                 $e['permission'],

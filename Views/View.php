@@ -341,10 +341,9 @@ class View extends ViewAbstract
      * Print a currency
      *
      * @param int|float|Money $currency Currency value to print
-     * @param int             $precision Precision
-     * @param null|string     $symbol    Currency name/symbol
-     * @param null|string     $format    Format type to use
-     * @param int             $divide    Divide currency by divisor
+     * @param null|string     $symbol   Currency name/symbol
+     * @param null|string     $format   Format type to use
+     * @param int             $divide   Divide currency by divisor
      *
      * @return string
      *

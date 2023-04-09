@@ -12,6 +12,8 @@
  */
 declare(strict_types=1);
 
+namespace phpOMS\Utils\Parser\Calendar;
+
 /**
  * iCal parser.
  *

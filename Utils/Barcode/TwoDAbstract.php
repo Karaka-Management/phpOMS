@@ -35,7 +35,14 @@ abstract class TwoDAbstract extends CodeAbstract
         return $this->createImage($codeArray);
     }
 
-    public abstract function generateCodeArray() : array;
+    /**
+     * Generate code array
+     *
+     * @return array
+     *
+     * @since 1.0.0
+     */
+    abstract public function generateCodeArray() : array;
 
     /**
      * Create barcode image

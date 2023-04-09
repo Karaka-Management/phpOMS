@@ -1133,5 +1133,4 @@ final class HttpHeader extends HeaderAbstract
         $this->set('Status', 'Status: HTTP/1.0 599 Network connect timeout error');
         \http_response_code(599);
     }
-
 }

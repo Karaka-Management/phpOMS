@@ -239,31 +239,66 @@ final class BasicOcr
         return $dist;
     }
 
+    /**
+     * Create MNIST file from images
+     *
+     * @param string[] $images     Images
+     * @param string   $out        Output file
+     * @param int      $resolution Resolution of the iomages
+     *
+     * @return void
+     *
+     * @since 1.0.0
+     */
     public static function imagesToMNIST(array $images, string $out, int $resolution) : void
     {
         $out = \fopen($out, 'wb');
+        if ($out === false) {
+            return; // @codeCoverageIgnore
+        }
 
         \fwrite($out, \pack('N', 2051));
         \fwrite($out, \pack('N', 1));
         \fwrite($out, \pack('N', $resolution));
         \fwrite($out, \pack('N', $resolution));
 
+        $size = $resolution * $resolution;
+
         foreach ($images as $in) {
-            $im  = \imagecreatefromstring(\file_get_contents($in));
+            $inString = \file_get_contents($in);
+            if ($inString === false) {
+                continue;
+            }
+
+            $im = \imagecreatefromstring($inString);
+            if ($im === false) {
+                continue;
+            }
+
             $new = \imagescale($im, $resolution, $resolution);
+            if ($new === false) {
+                continue;
+            }
 
             // Convert the image to grayscale and normalize the pixel values
             $mnist = [];
             for ($i = 0; $i < $resolution; ++$i) {
                 for ($j = 0; $j < $resolution; ++$j) {
                     $pixel = \imagecolorat($new, $j, $i);
-                    $gray  = \round((0.299 * (($pixel >> 16) & 0xFF) + 0.587 * (($pixel >> 8) & 0xFF) + 0.114 * ($pixel & 0xFF)) / 255, 3);
+                    $gray  = \round(
+                        (
+                            0.299 * (($pixel >> 16) & 0xFF)
+                            + 0.587 * (($pixel >> 8) & 0xFF)
+                            + 0.114 * ($pixel & 0xFF)
+                        ) / 255,
+                        3
+                    );
 
                     \array_push($mnist, $gray);
                 }
             }
 
-            for ($i = 0; $i < \count($mnist); $i++) {
+            for ($i = 0; $i < $size; $i++) {
                 \fwrite($out, \pack('C', \round($mnist[$i] * 255)));
             }
         }
@@ -271,10 +306,23 @@ final class BasicOcr
         \fclose($out);
     }
 
+    /**
+     * Convert labels to MNIST format
+     *
+     * @param string[] $data Labels (one char per label)
+     * @param string   $out  Output path
+     *
+     * @return void
+     *
+     * @since 1.0.0
+     */
     public static function labelsToMNIST(array $data, string $out) : void
     {
         // Only allows single char labels
         $out = \fopen($out, 'wb');
+        if ($out === false) {
+            return; // @codeCoverageIgnore
+        }
 
         \fwrite($out, \pack('N', 2049));
         \fwrite($out, \pack('N', 1));

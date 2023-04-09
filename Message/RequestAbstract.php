@@ -119,6 +119,18 @@ abstract class RequestAbstract implements MessageInterface
     /**
      * Get data.
      *
+     * @return array
+     *
+     * @since 1.0.0
+     */
+    public function getDataArray() : array
+    {
+        return $this->data;
+    }
+
+    /**
+     * Get data.
+     *
      * @param string $key Data key
      *
      * @return null|string
@@ -398,6 +410,15 @@ abstract class RequestAbstract implements MessageInterface
         return $this->files;
     }
 
+    /**
+     * Get files by name.
+     *
+     * @param string $name File name
+     *
+     * @return array
+     *
+     * @since 1.0.0
+     */
     public function getFile(string $name) : array
     {
         return $this->files[$name] ?? [];
