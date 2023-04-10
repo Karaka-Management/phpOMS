@@ -26,6 +26,8 @@ use phpOMS\DataStorage\Database\Query\Where;
  * @license OMS License 2.0
  * @link    https://jingga.app
  * @since   1.0.0
+ *
+ * @template T
  */
 class DataMapperFactory
 {
@@ -117,7 +119,7 @@ class DataMapperFactory
     /**
      * Model to use by the mapper.
      *
-     * @var class-string
+     * @var class-string<T>
      * @since 1.0.0
      */
     public const MODEL = '';
@@ -195,13 +197,16 @@ class DataMapperFactory
      *
      * @param ConnectionAbstract $db Database connection
      *
-     * @return ReadMapper
+     * @return ReadMapper<T>
      *
      * @since 1.0.0
      */
     public static function get(ConnectionAbstract $db = null) : ReadMapper
     {
-        return (new ReadMapper(new static(), $db ?? self::$db))->get();
+        /** @var ReadMapper<T> $reader */
+        $reader = new ReadMapper(new static(), $db ?? self::$db);
+
+        return $reader->get();
     }
 
     /**
@@ -215,7 +220,10 @@ class DataMapperFactory
      */
     public static function getRaw(ConnectionAbstract $db = null) : ReadMapper
     {
-        return (new ReadMapper(new static(), $db ?? self::$db))->getRaw();
+        /** @var ReadMapper<T> $reader */
+        $reader = new ReadMapper(new static(), $db ?? self::$db);
+
+        return $reader->getRaw();
     }
 
     /**
@@ -271,7 +279,10 @@ class DataMapperFactory
      */
     public static function getAll(ConnectionAbstract $db = null) : ReadMapper
     {
-        return (new ReadMapper(new static(), $db ?? self::$db))->getAll();
+        /** @var ReadMapper<T> $reader */
+        $reader = new ReadMapper(new static(), $db ?? self::$db);
+
+        return $reader->getAll();
     }
 
     /**

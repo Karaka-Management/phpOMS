@@ -25,6 +25,8 @@ use phpOMS\Utils\ArrayUtils;
  * @license OMS License 2.0
  * @link    https://jingga.app
  * @since   1.0.0
+ *
+ * @template R
  */
 final class ReadMapper extends DataMapperAbstract
 {
@@ -132,7 +134,7 @@ final class ReadMapper extends DataMapperAbstract
      *
      * @param mixed ...$options Options to pass to read mapper
      *
-     * @return mixed
+     * @return R
      *
      * @since 1.0.0
      */
@@ -164,7 +166,7 @@ final class ReadMapper extends DataMapperAbstract
      *                            Careful, this doesn't merge with the internal query.
      *                            If you want to merge it use ->query() instead
      *
-     * @return object|array
+     * @return R
      *
      * @since 1.0.0
      */
