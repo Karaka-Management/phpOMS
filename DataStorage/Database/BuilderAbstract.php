@@ -28,6 +28,14 @@ use phpOMS\DataStorage\Database\Query\QueryType;
 abstract class BuilderAbstract
 {
     /**
+     * Is read only.
+     *
+     * @var bool
+     * @since 1.0.0
+     */
+    protected bool $isReadOnly = false;
+
+    /**
      * Grammar.
      *
      * @var GrammarAbstract
@@ -105,4 +113,13 @@ abstract class BuilderAbstract
      * @since 1.0.0
      */
     abstract public function toSql() : string;
+
+    /**
+     * Execute query.
+     *
+     * @return ?\PDOStatement
+     *
+     * @since 1.0.0
+     */
+    abstract public function execute() : ?\PDOStatement;
 }

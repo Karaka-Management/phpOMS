@@ -21,7 +21,7 @@ use phpOMS\Application\UninstallerAbstract;
 use phpOMS\DataStorage\Database\DatabasePool;
 
 /**
- * @testdox phpOMS\tests\Application\UninstallerAbstractTest: Abstract module
+ * @testdox phpOMS\tests\Application\UninstallerAbstractTest: Abstract application uninstaller
  *
  * @internal
  */
@@ -41,6 +41,7 @@ final class UninstallerAbstractTest extends \PHPUnit\Framework\TestCase
     }
 
     /**
+     * @testdox A missing database schema will not perform any database operations
      * @covers phpOMS\Application\UninstallerAbstract
      * @group framework
      */

@@ -199,7 +199,7 @@ final class ModuleManagerTest extends \PHPUnit\Framework\TestCase
     }
 
     /**
-     * @testdox A module can be re-initialized
+     * @testdox A none-existing module cannot be re-initialized
      * @covers phpOMS\Module\ModuleManager
      * @group framework
      */
@@ -251,6 +251,11 @@ final class ModuleManagerTest extends \PHPUnit\Framework\TestCase
         self::assertTrue($this->moduleManager->isRunning('TestModule'));
     }
 
+    /**
+     * @testdox Getting language files for an invalid module returns an empty array
+     * @covers phpOMS\Module\ModuleManager
+     * @group framework
+     */
     public function testGetLanguageForInvalidRequest() : void
     {
         $request = new HttpRequest(new HttpUri('http://127.0.0.1/en/error/invalid'));
@@ -259,12 +264,6 @@ final class ModuleManagerTest extends \PHPUnit\Framework\TestCase
         TestUtils::setMember($request, 'hash', ['asdf']);
 
         self::assertEquals([], $this->moduleManager->getLanguageFiles($request));
-    }
-
-    public function testGetActiveModulesWithInvalidBasePath() : void
-    {
-        $this->moduleManager = new ModuleManager($this->app, __DIR__ . '/invalid');
-        self::assertEquals([], $this->moduleManager->getActiveModules(false));
     }
 
     /**
@@ -279,19 +278,24 @@ final class ModuleManagerTest extends \PHPUnit\Framework\TestCase
         self::assertNotEmpty($installed);
     }
 
+    /**
+     * @testdox A module can be checked if it is installed
+     * @covers phpOMS\Module\ModuleManager
+     * @group framework
+     */
     public function testIsInstalled() : void
     {
         self::assertTrue($this->moduleManager->isInstalled('TestModule'));
     }
 
+    /**
+     * @testdox Installing an already installed module doesn't perform anything
+     * @covers phpOMS\Module\ModuleManager
+     * @group framework
+     */
     public function testInstallingAlreadyInstalledModule() : void
     {
         self::assertTrue($this->moduleManager->install('TestModule'));
-    }
-
-    public function testAvailableModules() : void
-    {
-        self::assertEquals([], $this->moduleManager->getAvailableModules());
     }
 
     /**
@@ -325,6 +329,7 @@ final class ModuleManagerTest extends \PHPUnit\Framework\TestCase
     }
 
     /**
+     * @testdox A empty or invalid module path returns an empty array on module getter functions.
      * @covers phpOMS\Module\ModuleManager
      * @group framework
      */
@@ -334,9 +339,11 @@ final class ModuleManagerTest extends \PHPUnit\Framework\TestCase
 
         self::assertEquals([], $moduleManager->getAllModules());
         self::assertEquals([], $moduleManager->getInstalledModules());
+        self::assertEquals([], $moduleManager->getActiveModules(false));
     }
 
     /**
+     * @testdox A invalid module name cannot be installed
      * @covers phpOMS\Module\ModuleManager
      * @group framework
      */
@@ -346,6 +353,7 @@ final class ModuleManagerTest extends \PHPUnit\Framework\TestCase
     }
 
     /**
+     * @testdox A invalid module name cannot be uninstalled
      * @covers phpOMS\Module\ModuleManager
      * @group framework
      */

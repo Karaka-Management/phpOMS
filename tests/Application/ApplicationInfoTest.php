@@ -26,7 +26,7 @@ use phpOMS\Application\ApplicationInfo;
 final class ApplicationInfoTest extends \PHPUnit\Framework\TestCase
 {
     /**
-     * @testdox A info file can be correctly loaded
+     * @testdox An application info file can be correctly loaded
      * @covers phpOMS\Application\ApplicationInfo
      * @group framework
      */

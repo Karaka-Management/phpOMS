@@ -23,7 +23,7 @@ use phpOMS\Module\InstallerAbstract;
 use phpOMS\Module\ModuleInfo;
 
 /**
- * @testdox phpOMS\tests\Module\InstallerAbstractTest: Abstract module
+ * @testdox phpOMS\tests\Module\InstallerAbstractTest: Abstract module installer
  *
  * @internal
  */
@@ -42,6 +42,7 @@ final class InstallerAbstractTest extends \PHPUnit\Framework\TestCase
     }
 
     /**
+     * @testdox Invalid or missing module status file throws exception during installation
      * @covers phpOMS\Module\InstallerAbstract
      * @group framework
      */

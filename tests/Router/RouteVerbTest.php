@@ -19,11 +19,13 @@ require_once __DIR__ . '/../Autoloader.php';
 use phpOMS\Router\RouteVerb;
 
 /**
+ * @testdox phpOMS\tests\WebRouter\RouteVerbTest: Route verb enum
  * @internal
  */
 final class RouteVerbTest extends \PHPUnit\Framework\TestCase
 {
     /**
+     * @testdox The route verb enum has the correct values
      * @group framework
      * @coversNothing
      */
@@ -37,10 +39,11 @@ final class RouteVerbTest extends \PHPUnit\Framework\TestCase
     }
 
     /**
+     * @testdox The route verb enum has only unique values
      * @group framework
      * @coversNothing
      */
-    public function testEnumUnique() : void
+    public function testUnique() : void
     {
         $values = RouteVerb::getConstants();
         self::assertEquals(\count($values), \array_sum(\array_count_values($values)));

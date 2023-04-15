@@ -19,11 +19,13 @@ require_once __DIR__ . '/../Autoloader.php';
 use phpOMS\Localization\ISO639x2Enum;
 
 /**
+ * @testdox phpOMS\tests\Localization\ISO639x2EnumTest: ISO 639-2 language codes
  * @internal
  */
 final class ISO639x2EnumTest extends \PHPUnit\Framework\TestCase
 {
     /**
+     * @testdox The ISO 639-2 language code enum has the correct format of language codes
      * @group framework
      * @coversNothing
      */
@@ -41,6 +43,15 @@ final class ISO639x2EnumTest extends \PHPUnit\Framework\TestCase
         }
 
         self::assertTrue($ok);
-        self::assertEquals(\count($enum), \count(\array_unique($enum)));
+    }
+
+    /**
+     * @testdox The ISO 639-2 enum has only unique values
+     * @group framework
+     * @coversNothing
+     */
+    public function testUnique() : void
+    {
+        self::assertEquals(ISO639x2Enum::getConstants(), \array_unique(ISO639x2Enum::getConstants()));
     }
 }

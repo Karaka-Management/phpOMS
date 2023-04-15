@@ -286,6 +286,8 @@ abstract class RequestAbstract implements MessageInterface
     /**
      * Check if has data.
      *
+     * The following empty values are considered as not set (null, '', 0)
+     *
      * @param string $key Data key
      *
      * @return bool
@@ -296,7 +298,10 @@ abstract class RequestAbstract implements MessageInterface
     {
         $key = \mb_strtolower($key);
 
-        return isset($this->data[$key]) && !empty($this->data[$key]);
+        return isset($this->data[$key])
+            && $this->data[$key] !== ''
+            && $this->data[$key] !== 0
+            && $this->data[$key] !== null;
     }
 
     /**

@@ -31,7 +31,6 @@ final class CityMapperTest extends \PHPUnit\Framework\TestCase
     public static function setUpBeforeClass() : void
     {
         $con = new SqliteConnection([
-            'prefix'     => '',
             'db'         => 'sqlite',
             'database'   => \realpath(__DIR__ . '/../../../Localization/Defaults/localization.sqlite'),
         ]);

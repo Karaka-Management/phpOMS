@@ -19,7 +19,7 @@ require_once __DIR__ . '/../Autoloader.php';
 use phpOMS\Application\InstallerAbstract;
 
 /**
- * @testdox phpOMS\tests\Application\InstallerAbstractTest: Application installer
+ * @testdox phpOMS\tests\Application\InstallerAbstractTest: Abstract application installer
  *
  * @internal
  */
@@ -38,6 +38,7 @@ final class InstallerAbstractTest extends \PHPUnit\Framework\TestCase
     }
 
     /**
+     * @testdox An invalid theme cannot be installed
      * @covers phpOMS\Application\InstallerAbstract
      * @group framework
      */

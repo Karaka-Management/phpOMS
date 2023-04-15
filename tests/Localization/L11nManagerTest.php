@@ -27,6 +27,7 @@ require_once __DIR__ . '/../Autoloader.php';
 final class L11nManagerTest extends \PHPUnit\Framework\TestCase
 {
     protected L11nManager $l11nManager;
+    protected L11nManager $l11nManager2;
 
     /**
      * {@inheritdoc}
@@ -118,7 +119,7 @@ final class L11nManagerTest extends \PHPUnit\Framework\TestCase
     }
 
     /**
-     * @testdox Language data can be loaded from a file
+     * @testdox Multiple languages can be loaded from a file
      * @covers phpOMS\Localization\L11nManager
      * @group framework
      */

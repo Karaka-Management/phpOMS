@@ -19,11 +19,13 @@ require_once __DIR__ . '/../Autoloader.php';
 use phpOMS\System\MimeType;
 
 /**
+ * @testdox phpOMS\tests\System\MimeTypeTest: MimeType
  * @internal
  */
 final class MimeTypeTest extends \PHPUnit\Framework\TestCase
 {
     /**
+     * @testdox The mime type enum vales have the correct format
      * @group framework
      * @coversNothing
      */
@@ -31,7 +33,7 @@ final class MimeTypeTest extends \PHPUnit\Framework\TestCase
     {
         $enums = MimeType::getConstants();
 
-        foreach ($enums as $key => $value) {
+        foreach ($enums as $value) {
             if (\stripos($value, '/') === false) {
                 self::assertFalse(true);
             }
@@ -41,6 +43,7 @@ final class MimeTypeTest extends \PHPUnit\Framework\TestCase
     }
 
     /**
+     * @testdox The mime type enum vales can be retreived by extension
      * @covers phpOMS\System\MimeType
      * @group framework
      */
@@ -50,6 +53,7 @@ final class MimeTypeTest extends \PHPUnit\Framework\TestCase
     }
 
     /**
+     * @testdox A unknown extension returns application/octet-stream
      * @covers phpOMS\System\MimeType
      * @group framework
      */

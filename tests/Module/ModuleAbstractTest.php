@@ -218,7 +218,7 @@ final class ModuleAbstractTest extends \PHPUnit\Framework\TestCase
     }
 
     /**
-     * @testdox A invalid language or theme returns in an empty localization/language dataset
+     * @testdox A module can load its own localization/language dataset
      * @covers phpOMS\Module\ModuleAbstract<extended>
      * @group framework
      */
@@ -459,6 +459,11 @@ final class ModuleAbstractTest extends \PHPUnit\Framework\TestCase
         $this->dbTeardown();
     }
 
+    /**
+     * @testdox The model CRUD functions can be called with a closure
+     * @covers phpOMS\Module\ModuleAbstract<extended>
+     * @group framework
+     */
     public function testModelFunctionsWithClosure() : void
     {
         $output = $this->module->createWithCallable();

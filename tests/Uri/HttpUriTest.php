@@ -56,7 +56,7 @@ final class HttpUriTest extends \PHPUnit\Framework\TestCase
     }
 
     /**
-     * @testdox The url schema can be parsed correctly from a url
+     * @testdox The url schema can be parsed correctly from a url and overwritten
      * @covers phpOMS\Uri\HttpUri
      * @group framework
      */
@@ -71,6 +71,7 @@ final class HttpUriTest extends \PHPUnit\Framework\TestCase
     }
 
     /**
+     * @testdox The port can be parsed correctly from a url and overwritten
      * @covers phpOMS\Uri\HttpUri
      * @group framework
      */
@@ -191,6 +192,7 @@ final class HttpUriTest extends \PHPUnit\Framework\TestCase
     }
 
     /**
+     * @testdox A path can be overwritten
      * @covers phpOMS\Uri\HttpUri
      * @group framework
      */
@@ -203,6 +205,7 @@ final class HttpUriTest extends \PHPUnit\Framework\TestCase
     }
 
     /**
+     * @testdox The path elements can be parsed from a url and overwritten
      * @covers phpOMS\Uri\HttpUri
      * @group framework
      */

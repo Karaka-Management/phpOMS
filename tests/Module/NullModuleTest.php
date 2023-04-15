@@ -43,6 +43,8 @@ final class NullModuleTest extends \PHPUnit\Framework\TestCase
     }
 
     /**
+     * @testdox The null module is an instance of the module abstract
+     * @covers phpOMS\Module\NullModule
      * @group framework
      */
     public function testModule() : void

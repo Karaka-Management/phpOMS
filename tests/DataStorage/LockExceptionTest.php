@@ -19,11 +19,13 @@ require_once __DIR__ . '/../Autoloader.php';
 use phpOMS\DataStorage\LockException;
 
 /**
+ * @testdox phpOMS\tests\DataStorage\LockExceptionTest: Lock exception
  * @internal
  */
 final class LockExceptionTest extends \PHPUnit\Framework\TestCase
 {
     /**
+     * @testdox The lock exception is an instance of the runtime exception
      * @covers phpOMS\DataStorage\LockException
      * @group framework
      */

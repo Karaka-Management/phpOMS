@@ -19,11 +19,13 @@ require_once __DIR__ . '/../Autoloader.php';
 use phpOMS\Localization\ISO4217SubUnitEnum;
 
 /**
+ * @testdox phpOMS\tests\Localization\ISO4217SubUnitEnumTest: ISO 4217 currency codes
  * @internal
  */
 final class ISO4217SubUnitEnumTest extends \PHPUnit\Framework\TestCase
 {
     /**
+     * @testdox The ISO 4217 currency code enum has the correct format of currency sub units
      * @group framework
      * @coversNothing
      */

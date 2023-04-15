@@ -48,7 +48,7 @@ final class DispatcherTest extends \PHPUnit\Framework\TestCase
     }
 
     /**
-     * @testdox The dispatcher has the expected member variables
+     * @testdox The dispatcher has the expected attributes
      * @covers phpOMS\Dispatcher\Dispatcher
      * @group framework
      */
@@ -57,13 +57,18 @@ final class DispatcherTest extends \PHPUnit\Framework\TestCase
         self::assertObjectHasAttribute('controllers', $this->app->dispatcher);
     }
 
+    /**
+     * @testdox A route can be added and dispatched
+     * @covers phpOMS\Dispatcher\Dispatcher
+     * @group framework
+     */
     public function testControllerInputOutput() : void
     {
         $this->app->dispatcher->set(new class() extends ModuleAbstract {
- public string $name = 'test';
+            public string $name = 'test';
 
- public function testFunction() { return $this->name; }
- }, 'test');
+            public function testFunction() { return $this->name; }
+        }, 'test');
 
         $localization = new Localization();
 
@@ -199,6 +204,7 @@ final class DispatcherTest extends \PHPUnit\Framework\TestCase
     }
 
     /**
+     * @testdox The dispatcher can pass additional data to the destination
      * @covers phpOMS\Dispatcher\Dispatcher
      * @group framework
      */

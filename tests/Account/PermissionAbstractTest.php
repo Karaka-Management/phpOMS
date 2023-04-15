@@ -86,8 +86,8 @@ final class PermissionAbstractTest extends \PHPUnit\Framework\TestCase
     {
         $perm = new class() extends PermissionAbstract {};
 
-        $perm->setApp('Test');
-        self::assertEquals('Test', $perm->getApp());
+        $perm->setApp(2);
+        self::assertEquals(2, $perm->getApp());
     }
 
     /**

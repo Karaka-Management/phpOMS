@@ -78,6 +78,7 @@ final class ArgumentTest extends \PHPUnit\Framework\TestCase
     }
 
     /**
+     * @testdox The path can be set and returned
      * @covers phpOMS\Uri\Argument
      * @group framework
      */
@@ -87,66 +88,6 @@ final class ArgumentTest extends \PHPUnit\Framework\TestCase
 
         $obj->setPath('modules/admin/new/path');
         self::assertEquals('modules/admin/new/path', $obj->getPath());
-    }
-
-    /**
-     * @covers phpOMS\Uri\Argument
-     * @group framework
-     */
-    public function testSchemeInputOutput() : void
-    {
-        $obj = new Argument(':modules/admin/test/path.php ?para1=abc ?para2=2 #frag');
-
-        $obj->scheme = 'scheme';
-        self::assertEquals('scheme', $obj->scheme);
-    }
-
-    /**
-     * @covers phpOMS\Uri\Argument
-     * @group framework
-     */
-    public function testUserInputOutput() : void
-    {
-        $obj = new Argument(':modules/admin/test/path.php ?para1=abc ?para2=2 #frag');
-
-        $obj->user = 'user';
-        self::assertEquals('user', $obj->user);
-    }
-
-    /**
-     * @covers phpOMS\Uri\Argument
-     * @group framework
-     */
-    public function testPassInputOutput() : void
-    {
-        $obj = new Argument(':modules/admin/test/path.php ?para1=abc ?para2=2 #frag');
-
-        $obj->pass = 'pass';
-        self::assertEquals('pass', $obj->pass);
-    }
-
-    /**
-     * @covers phpOMS\Uri\Argument
-     * @group framework
-     */
-    public function testHostInputOutput() : void
-    {
-        $obj = new Argument(':modules/admin/test/path.php ?para1=abc ?para2=2 #frag');
-
-        $obj->host = 'host';
-        self::assertEquals('host', $obj->host);
-    }
-
-    /**
-     * @covers phpOMS\Uri\Argument
-     * @group framework
-     */
-    public function testPortInputOutput() : void
-    {
-        $obj = new Argument(':modules/admin/test/path.php ?para1=abc ?para2=2 #frag');
-
-        $obj->port = 123;
-        self::assertEquals(123, $obj->port);
     }
 
     /**

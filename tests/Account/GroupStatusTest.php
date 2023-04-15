@@ -19,11 +19,13 @@ require_once __DIR__ . '/../Autoloader.php';
 use phpOMS\Account\GroupStatus;
 
 /**
+ * @testdox phpOMS\tests\Account\GroupStatus: Group status
  * @internal
  */
 final class GroupStatusTest extends \PHPUnit\Framework\TestCase
 {
     /**
+     * @testdox The group status enum has the correct number of status codes
      * @group framework
      * @coversNothing
      */
@@ -33,6 +35,7 @@ final class GroupStatusTest extends \PHPUnit\Framework\TestCase
     }
 
     /**
+     * @testdox The group status enum has only unique values
      * @group framework
      * @coversNothing
      */
@@ -42,6 +45,7 @@ final class GroupStatusTest extends \PHPUnit\Framework\TestCase
     }
 
     /**
+     * @testdox The group status enum has the correct values
      * @group framework
      * @coversNothing
      */

@@ -240,7 +240,7 @@ final class UriFactoryTest extends \PHPUnit\Framework\TestCase
     }
 
     /**
-     * @testdox In case of missing ? for  query the builder automatically fixes it
+     * @testdox A normal url will not be changed
      * @covers phpOMS\Uri\UriFactory
      * @group framework
      */

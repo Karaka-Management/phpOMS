@@ -85,6 +85,7 @@ final class ApplicationManagerTest extends \PHPUnit\Framework\TestCase
     }
 
     /**
+     * @testdox An application can be installed and uninstalled
      * @covers phpOMS\Application\ApplicationManager
      * @covers phpOMS\Application\InstallerAbstract
      * @covers phpOMS\Application\StatusAbstract
@@ -110,6 +111,7 @@ final class ApplicationManagerTest extends \PHPUnit\Framework\TestCase
     }
 
     /**
+     * @testdox An application can be re-initialized
      * @testdox A module can be re-initialized
      * @covers phpOMS\Application\ApplicationManager
      * @covers phpOMS\Application\InstallerAbstract
@@ -139,6 +141,7 @@ final class ApplicationManagerTest extends \PHPUnit\Framework\TestCase
     }
 
     /**
+     * @testdox A invalid application path results in no installation
      * @covers phpOMS\Application\ApplicationManager
      * @group framework
      */
@@ -149,6 +152,7 @@ final class ApplicationManagerTest extends \PHPUnit\Framework\TestCase
     }
 
     /**
+     * @testdox A missing installation file results in no installation
      * @covers phpOMS\Application\ApplicationManager
      * @group framework
      */
@@ -158,6 +162,7 @@ final class ApplicationManagerTest extends \PHPUnit\Framework\TestCase
     }
 
     /**
+     * @testdox A missing info file results in no installation
      * @covers phpOMS\Application\ApplicationManager
      * @group framework
      */
@@ -167,6 +172,7 @@ final class ApplicationManagerTest extends \PHPUnit\Framework\TestCase
     }
 
     /**
+     * @testdox A invalid application path results in no uninstallation
      * @covers phpOMS\Application\ApplicationManager
      * @group framework
      */
@@ -177,6 +183,7 @@ final class ApplicationManagerTest extends \PHPUnit\Framework\TestCase
     }
 
     /**
+     * @testdox A missing uninstallation file results in no uninstallation
      * @covers phpOMS\Application\ApplicationManager
      * @group framework
      */

@@ -14,12 +14,10 @@ declare(strict_types=1);
 
 namespace phpOMS\DataStorage\Database\Query\Grammar;
 
-use phpOMS\Contract\SerializableInterface;
+use phpOMS\DataStorage\Database\BuilderAbstract;
 use phpOMS\DataStorage\Database\GrammarAbstract;
 use phpOMS\DataStorage\Database\Query\Builder;
-use phpOMS\DataStorage\Database\Query\Column;
 use phpOMS\DataStorage\Database\Query\From;
-use phpOMS\DataStorage\Database\Query\Parameter;
 use phpOMS\DataStorage\Database\Query\QueryType;
 use phpOMS\DataStorage\Database\Query\Where;
 
@@ -37,94 +35,113 @@ use phpOMS\DataStorage\Database\Query\Where;
  */
 class Grammar extends GrammarAbstract
 {
-    /**
-     * Select components.
-     *
-     * @var string[]
-     * @since 1.0.0
-     */
-    protected array $selectComponents = [
-        'aggregate',
-        'selects',
-        'from',
-        'joins',
-        'wheres',
-        'havings',
-        'groups',
-        'orders',
-        'limit',
-        'offset',
-        'unions',
-        'lock',
-    ];
-
-    /**
-     * Insert components.
-     *
-     * @var string[]
-     * @since 1.0.0
-     */
-    protected array $insertComponents = [
-        'into',
-        'inserts',
-        'values',
-    ];
-
-    /**
-     * Update components.
-     *
-     * @var string[]
-     * @since 1.0.0
-     */
-    protected array $updateComponents = [
-        'updates',
-        'sets',
-        'wheres',
-    ];
-
-    /**
-     * Update components.
-     *
-     * @var string[]
-     * @since 1.0.0
-     */
-    protected array $deleteComponents = [
-        'deletes',
-        'from',
-        'wheres',
-    ];
-
-    /**
-     * Random components.
-     *
-     * @var string[]
-     * @since 1.0.0
-     */
-    protected array $randomComponents = [
-        'random',
-    ];
-
-    /**
+     /**
      * {@inheritdoc}
      */
-    protected function getComponents(int $type) : array
+    protected function compileComponents(BuilderAbstract $query) : array
     {
-        switch ($type) {
+        /** @var Builder $query */
+
+        $sql = [];
+        switch ($query->getType()) {
             case QueryType::SELECT:
-                return $this->selectComponents;
+                // $sql[] = $this->compileAggregate($query, $query->aggregate);
+                if (!empty($query->selects)) {
+                    $sql[] = $this->compileSelects($query, $query->selects);
+                }
+
+                if (!empty($query->from)) {
+                    $sql[] = $this->compileFrom($query, $query->from);
+                }
+
+                if (!empty($query->joins)) {
+                    $sql[] = $this->compileJoins($query, $query->joins);
+                }
+
+                if (!empty($query->wheres)) {
+                    $sql[] = $this->compileWheres($query, $query->wheres);
+                }
+
+                // $sql[] = $this->compileHavings($query, $query->havings);
+
+                if (!empty($query->groups)) {
+                    $sql[] = $this->compileGroups($query, $query->groups);
+                }
+
+                if (!empty($query->orders)) {
+                    $sql[] = $this->compileOrders($query, $query->orders);
+                }
+
+                if (!empty($query->limit)) {
+                    $sql[] = $this->compileLimit($query, $query->limit);
+                }
+
+                if (!empty($query->offset)) {
+                    $sql[] = $this->compileOffset($query, $query->offset);
+                }
+
+                if (!empty($query->unions)) {
+                    $sql[] = $this->compileUnions($query, $query->unions);
+                }
+
+                if (!empty($query->lock)) {
+                    $sql[] = $this->compileLock($query, $query->lock);
+                }
+
+                break;
             case QueryType::INSERT:
-                return $this->insertComponents;
+                if (!empty($query->into)) {
+                    $sql[] = $this->compileInto($query, $query->into);
+                }
+
+                if (!empty($query->inserts)) {
+                    $sql[] = $this->compileInserts($query, $query->inserts);
+                }
+
+                if (!empty($query->values)) {
+                    $sql[] = $this->compileValues($query, $query->values);
+                }
+
+                break;
             case QueryType::UPDATE:
-                return $this->updateComponents;
+                if (!empty($query->updates)) {
+                    $sql[] = $this->compileUpdates($query, $query->updates);
+                }
+
+                if (!empty($query->sets)) {
+                    $sql[] = $this->compileSets($query, $query->sets);
+                }
+
+                if (!empty($query->wheres)) {
+                    $sql[] = $this->compileWheres($query, $query->wheres);
+                }
+
+                break;
             case QueryType::DELETE:
-                return $this->deleteComponents;
+                if (!empty($query->deletes)) {
+                    $sql[] = $this->compileDeletes($query, $query->deletes);
+                }
+
+                if (!empty($query->from)) {
+                    $sql[] = $this->compileFrom($query, $query->from);
+                }
+
+                if (!empty($query->wheres)) {
+                    $sql[] = $this->compileWheres($query, $query->wheres);
+                }
+
+                break;
             case QueryType::RANDOM:
-                return $this->randomComponents;
+                $sql[] = $this->compileRandom($query, $query->random);
+
+                break;
             case queryType::NONE:
                 return [];
             default:
                 throw new \InvalidArgumentException('Unknown query type.');
         }
+
+        return $sql;
     }
 
     /**
@@ -146,6 +163,11 @@ class Grammar extends GrammarAbstract
         }
 
         return ($query->distinct ? 'SELECT DISTINCT ' : 'SELECT ') . $expression;
+    }
+
+    protected function compileRandom(Builder $query, array $columns) : string
+    {
+        return '';
     }
 
     /**
@@ -285,7 +307,7 @@ class Grammar extends GrammarAbstract
      */
     protected function compileWhereQuery(Where $where) : string
     {
-        return $where->toSql();
+        return $where->toSql()[0];
     }
 
     /**
@@ -299,74 +321,7 @@ class Grammar extends GrammarAbstract
      */
     protected function compileFromQuery(From $from) : string
     {
-        return $from->toSql();
-    }
-
-    /**
-     * Compile column query.
-     *
-     * @param Column $column Where query
-     *
-     * @return string
-     *
-     * @since 1.0.0
-     */
-    protected function compileColumnQuery(Column $column) : string
-    {
-        return $column->toSql();
-    }
-
-    /**
-     * Compile value.
-     *
-     * @param Builder $query Query builder
-     * @param mixed   $value Value
-     *
-     * @return string returns a string representation of the value
-     *
-     * @throws \InvalidArgumentException throws this exception if the value to compile is not supported by this function
-     *
-     * @since 1.0.0
-     */
-    protected function compileValue(Builder $query, mixed $value) : string
-    {
-        if (\is_string($value)) {
-            return $query->quote($value);
-        } elseif (\is_int($value)) {
-            return (string) $value;
-        } elseif (\is_array($value)) {
-            $value  = \array_values($value);
-            $count  = \count($value) - 1;
-            $values = '(';
-
-            for ($i = 0; $i < $count; ++$i) {
-                $values .= $this->compileValue($query, $value[$i]) . ', ';
-            }
-
-            return $values . $this->compileValue($query, $value[$count]) . ')';
-        } elseif ($value instanceof \DateTime) {
-            return $query->quote($value->format($this->datetimeFormat));
-        } elseif ($value === null) {
-            return 'NULL';
-        } elseif (\is_bool($value)) {
-            return (string) ((int) $value);
-        } elseif (\is_float($value)) {
-            return \rtrim(\rtrim(\number_format($value, 5, '.', ''), '0'), '.');
-        } elseif ($value instanceof Column) {
-            return '(' . \rtrim($this->compileColumnQuery($value), ';') . ')';
-        } elseif ($value instanceof Builder) {
-            return '(' . \rtrim($value->toSql(), ';') . ')';
-        } elseif ($value instanceof \JsonSerializable) {
-            $encoded = \json_encode($value);
-
-            return $encoded ? $encoded : 'NULL';
-        } elseif ($value instanceof SerializableInterface) {
-            return $value->serialize();
-        } elseif ($value instanceof Parameter) {
-            return $value->__toString();
-        } else {
-            throw new \InvalidArgumentException(\gettype($value));
-        }
+        return $from->toSql()[0];
     }
 
     /**
@@ -538,8 +493,7 @@ class Grammar extends GrammarAbstract
      */
     protected function compileOrders(Builder $query, array $orders) : string
     {
-        $expression    = '';
-        $lastOrderType = '';
+        $expression = '';
 
         foreach ($orders as $column => $order) {
             $expression .= $this->compileSystem($column) . ' ' . $order . ', ';

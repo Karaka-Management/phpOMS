@@ -293,10 +293,12 @@ final class ModuleManager
      *
      * @since 1.0.0
      */
+    /*
     public function getAvailableModules() : array
     {
         return [];
     }
+    *
 
     /**
      * Get all installed modules.

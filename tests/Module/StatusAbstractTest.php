@@ -20,7 +20,7 @@ use phpOMS\Module\ModuleInfo;
 use phpOMS\Module\StatusAbstract;
 
 /**
- * @testdox phpOMS\tests\Module\StatusAbstractTest: Abstract module
+ * @testdox phpOMS\tests\Module\StatusAbstractTest: Abstract module status
  *
  * @internal
  */
@@ -40,6 +40,7 @@ final class StatusAbstractTest extends \PHPUnit\Framework\TestCase
     }
 
     /**
+     * A invalid module path cannot be activated
      * @covers phpOMS\Module\StatusAbstract
      * @group framework
      */

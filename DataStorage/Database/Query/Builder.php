@@ -38,14 +38,6 @@ class Builder extends BuilderAbstract
     public static bool $log = false;
 
     /**
-     * Is read only.
-     *
-     * @var bool
-     * @since 1.0.0
-     */
-    protected bool $isReadOnly = false;
-
-    /**
      * Columns.
      *
      * @var array
@@ -354,11 +346,7 @@ class Builder extends BuilderAbstract
     }
 
     /**
-     * Parsing to sql string.
-     *
-     * @return string
-     *
-     * @since 1.0.0
+     * {@inheritdoc}
      */
     public function toSql() : string
     {
@@ -386,7 +374,7 @@ class Builder extends BuilderAbstract
     {
         // create dependencies
         $dependencies = [];
-        foreach ($this->joins as $table => $join) {
+        foreach ($this->joins as $table => $_) {
             $dependencies[$table] = [];
 
             foreach ($this->ons[$table] as $on) {
@@ -1384,18 +1372,14 @@ class Builder extends BuilderAbstract
     }
 
     /**
-     * Execute query.
-     *
-     * @return ?\PDOStatement
-     *
-     * @since 1.0.0
+     * {@inheritdoc}
      */
     public function execute() : ?\PDOStatement
     {
         $sth = null;
 
         try {
-            $sth = $this->connection->con->prepare($a = $this->toSql());
+            $sth = $this->connection->con->prepare($this->toSql());
             if ($sth === false) {
                 return null;
             }

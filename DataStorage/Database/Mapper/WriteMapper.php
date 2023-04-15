@@ -106,62 +106,67 @@ final class WriteMapper extends DataMapperAbstract
      */
     private function createModel(object $obj, \ReflectionClass $refClass) : mixed
     {
-        $query = new Builder($this->db);
-        $query->into($this->mapper::TABLE);
+        try {
+            $query = new Builder($this->db);
+            $query->into($this->mapper::TABLE);
 
-        $publicProperties = \get_object_vars($obj);
+            $publicProperties = \get_object_vars($obj);
 
-        foreach ($this->mapper::COLUMNS as $column) {
-            $propertyName = \stripos($column['internal'], '/') !== false
-                ? \explode('/', $column['internal'])[0]
-                : $column['internal'];
+            foreach ($this->mapper::COLUMNS as $column) {
+                $propertyName = \stripos($column['internal'], '/') !== false
+                    ? \explode('/', $column['internal'])[0]
+                    : $column['internal'];
 
-            if (isset($this->mapper::HAS_MANY[$propertyName])
-                || ($column['name'] === $this->mapper::PRIMARYFIELD && $this->mapper::AUTOINCREMENT)
-            ) {
-                continue;
-            }
-
-            if (!isset($publicProperties[$propertyName])) {
-                $property = $refClass->getProperty($propertyName);
-                $property->setAccessible(true);
-                $tValue = $property->getValue($obj);
-                $property->setAccessible(false);
-            } else {
-                $tValue = $publicProperties[$propertyName];
-            }
-
-            if (isset($this->mapper::OWNS_ONE[$propertyName])) {
-                $id    = \is_object($tValue) ? $this->createOwnsOne($propertyName, $tValue) : $tValue;
-                $value = $this->parseValue($column['type'], $id);
-
-                $query->insert($column['name'])->value($value);
-            } elseif (isset($this->mapper::BELONGS_TO[$propertyName])) {
-                $id    = \is_object($tValue) ? $this->createBelongsTo($propertyName, $tValue) : $tValue;
-                $value = $this->parseValue($column['type'], $id);
-
-                $query->insert($column['name'])->value($value);
-            } else {
-                if (\stripos($column['internal'], '/') !== false) {
-                    /** @var array $tValue */
-                    $path   = \substr($column['internal'], \stripos($column['internal'], '/') + 1);
-                    $tValue = ArrayUtils::getArray($path, $tValue, '/');
+                if (isset($this->mapper::HAS_MANY[$propertyName])
+                    || ($column['name'] === $this->mapper::PRIMARYFIELD && $this->mapper::AUTOINCREMENT)
+                ) {
+                    continue;
                 }
 
-                $value = $this->parseValue($column['type'], $tValue);
+                if (!isset($publicProperties[$propertyName])) {
+                    $property = $refClass->getProperty($propertyName);
+                    $property->setAccessible(true);
+                    $tValue = $property->getValue($obj);
+                    $property->setAccessible(false);
+                } else {
+                    $tValue = $publicProperties[$propertyName];
+                }
 
-                $query->insert($column['name'])->value($value);
+                if (isset($this->mapper::OWNS_ONE[$propertyName])) {
+                    $id    = \is_object($tValue) ? $this->createOwnsOne($propertyName, $tValue) : $tValue;
+                    $value = $this->parseValue($column['type'], $id);
+
+                    $query->insert($column['name'])->value($value);
+                } elseif (isset($this->mapper::BELONGS_TO[$propertyName])) {
+                    $id    = \is_object($tValue) ? $this->createBelongsTo($propertyName, $tValue) : $tValue;
+                    $value = $this->parseValue($column['type'], $id);
+
+                    $query->insert($column['name'])->value($value);
+                } else {
+                    if (\stripos($column['internal'], '/') !== false) {
+                        /** @var array $tValue */
+                        $path   = \substr($column['internal'], \stripos($column['internal'], '/') + 1);
+                        $tValue = ArrayUtils::getArray($path, $tValue, '/');
+                    }
+
+                    $value = $this->parseValue($column['type'], $tValue);
+
+                    $query->insert($column['name'])->value($value);
+                }
             }
-        }
 
-        // if a table only has a single column = primary key column. This must be done otherwise the query is empty
-        if ($query->getType() === QueryType::NONE) {
-            $query->insert($this->mapper::PRIMARYFIELD)->value(0);
-        }
+            // if a table only has a single column = primary key column. This must be done otherwise the query is empty
+            if ($query->getType() === QueryType::NONE) {
+                $query->insert($this->mapper::PRIMARYFIELD)->value(0);
+            }
 
-        try {
             $sth = $this->db->con->prepare($a = $query->toSql());
             $sth->execute();
+
+            $objId = empty($id = $this->mapper::getObjectId($obj, $refClass)) ? $this->db->con->lastInsertId() : $id;
+            \settype($objId, $this->mapper::COLUMNS[$this->mapper::PRIMARYFIELD]['type']);
+
+            return $objId;
         } catch (\Throwable $t) {
             // @codeCoverageIgnoreStart
             \var_dump($t->getMessage());
@@ -171,11 +176,6 @@ final class WriteMapper extends DataMapperAbstract
             return -1;
             // @codeCoverageIgnoreEND
         }
-
-        $objId = empty($id = $this->mapper::getObjectId($obj, $refClass)) ? $this->db->con->lastInsertId() : $id;
-        \settype($objId, $this->mapper::COLUMNS[$this->mapper::PRIMARYFIELD]['type']);
-
-        return $objId;
     }
 
     /**
@@ -384,28 +384,28 @@ final class WriteMapper extends DataMapperAbstract
      */
     public function createRelationTable(string $propertyName, array $objsIds, mixed $objId) : void
     {
-        if (empty($objsIds) || !isset($this->mapper::HAS_MANY[$propertyName]['external'])) {
-            return;
-        }
-
-        $relQuery = new Builder($this->db);
-        $relQuery->into($this->mapper::HAS_MANY[$propertyName]['table'])
-            ->insert($this->mapper::HAS_MANY[$propertyName]['external'], $this->mapper::HAS_MANY[$propertyName]['self']);
-
-        foreach ($objsIds as $src) {
-            if (\is_object($src)) {
-                $mapper = (\stripos($mapper = \get_class($src), '\Null') !== false
-                    ? \str_replace('\Null', '\\', $mapper)
-                    : $mapper)
-                    . 'Mapper';
-
-                $src = $mapper::getObjectId($src);
+        try {
+            if (empty($objsIds) || !isset($this->mapper::HAS_MANY[$propertyName]['external'])) {
+                return;
             }
 
-            $relQuery->values($src, $objId);
-        }
+            $relQuery = new Builder($this->db);
+            $relQuery->into($this->mapper::HAS_MANY[$propertyName]['table'])
+                ->insert($this->mapper::HAS_MANY[$propertyName]['external'], $this->mapper::HAS_MANY[$propertyName]['self']);
 
-        try {
+            foreach ($objsIds as $src) {
+                if (\is_object($src)) {
+                    $mapper = (\stripos($mapper = \get_class($src), '\Null') !== false
+                        ? \str_replace('\Null', '\\', $mapper)
+                        : $mapper)
+                        . 'Mapper';
+
+                    $src = $mapper::getObjectId($src);
+                }
+
+                $relQuery->values($src, $objId);
+            }
+
             $sth = $this->db->con->prepare($relQuery->toSql());
             if ($sth !== false) {
                 $sth->execute();

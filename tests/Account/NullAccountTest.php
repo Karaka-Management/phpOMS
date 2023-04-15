@@ -19,11 +19,13 @@ require_once __DIR__ . '/../Autoloader.php';
 use phpOMS\Account\NullAccount;
 
 /**
+ * @testdox phpOMS\tests\Account\NullAccount: Null account
  * @internal
  */
 final class NullAccountTest extends \PHPUnit\Framework\TestCase
 {
     /**
+     * @testdox The null account is an instance of the account class
      * @covers phpOMS\Account\NullAccount
      * @group framework
      */
@@ -33,6 +35,7 @@ final class NullAccountTest extends \PHPUnit\Framework\TestCase
     }
 
     /**
+     * @testdox The null account can get initialized with an id
      * @covers phpOMS\Account\NullAccount
      * @group framework
      */

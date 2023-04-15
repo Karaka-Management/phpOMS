@@ -14,6 +14,10 @@ declare(strict_types=1);
 
 namespace phpOMS\DataStorage\Database;
 
+use phpOMS\Contract\SerializableInterface;
+use phpOMS\DataStorage\Database\Query\Builder;
+use phpOMS\DataStorage\Database\Query\Column;
+use phpOMS\DataStorage\Database\Query\Parameter;
 use phpOMS\DataStorage\Database\Query\QueryType;
 
 /**
@@ -135,6 +139,11 @@ abstract class GrammarAbstract
         return \substr($queryString, 0, -1) . ';';
     }
 
+    public function compilePostQuerys(BuilderAbstract $query) : array
+    {
+        return [];
+    }
+
     /**
      * Compile components.
      *
@@ -146,37 +155,7 @@ abstract class GrammarAbstract
      *
      * @since 1.0.0
      */
-    protected function compileComponents(BuilderAbstract $query) : array
-    {
-        if ($query->getType() === QueryType::RAW) {
-            return [$query->raw];
-        }
-
-        $sql        = [];
-        $components = $this->getComponents($query->getType());
-
-        /* Loop all possible query components and if they exist compile them. */
-        foreach ($components as $component) {
-            if (isset($query->{$component}) && !empty($query->{$component})) {
-                $sql[$component] = $this->{'compile' . \ucfirst($component)}($query, $query->{$component});
-            }
-        }
-
-        return $sql;
-    }
-
-    /**
-     * Get query components based on query type.
-     *
-     * @param int $type Query type
-     *
-     * @return array Array of components to build query
-     *
-     * @throws \InvalidArgumentException Throws this exception if the query type is undefined
-     *
-     * @since 1.0.0
-     */
-    abstract protected function getComponents(int $type) : array;
+    abstract protected function compileComponents(BuilderAbstract $query) : array;
 
     /**
      * Get date format.
@@ -264,5 +243,72 @@ abstract class GrammarAbstract
         return ($system !== '*' ? $identifierStart : '')
             . $system
             . ($system !== '*' ? $identifierEnd : '');
+    }
+
+    /**
+     * Compile value.
+     *
+     * @param BuilderAbstract $query Query builder
+     * @param mixed   $value Value
+     *
+     * @return string returns a string representation of the value
+     *
+     * @throws \InvalidArgumentException throws this exception if the value to compile is not supported by this function
+     *
+     * @since 1.0.0
+     */
+    protected function compileValue(BuilderAbstract $query, mixed $value) : string
+    {
+        if (\is_string($value)) {
+            return $query->quote($value);
+        } elseif (\is_int($value)) {
+            return (string) $value;
+        } elseif (\is_array($value)) {
+            $value  = \array_values($value);
+            $count  = \count($value) - 1;
+            $values = '(';
+
+            for ($i = 0; $i < $count; ++$i) {
+                $values .= $this->compileValue($query, $value[$i]) . ', ';
+            }
+
+            return $values . $this->compileValue($query, $value[$count]) . ')';
+        } elseif ($value instanceof \DateTime) {
+            return $query->quote($value->format($this->datetimeFormat));
+        } elseif ($value === null) {
+            return 'NULL';
+        } elseif (\is_bool($value)) {
+            return (string) ((int) $value);
+        } elseif (\is_float($value)) {
+            return \rtrim(\rtrim(\number_format($value, 5, '.', ''), '0'), '.');
+        } elseif ($value instanceof Column) {
+            return '(' . \rtrim($this->compileColumnQuery($value), ';') . ')';
+        } elseif ($value instanceof BuilderAbstract) {
+            return '(' . \rtrim($value->toSql(), ';') . ')';
+        } elseif ($value instanceof \JsonSerializable) {
+            $encoded = \json_encode($value);
+
+            return $encoded ? $encoded : 'NULL';
+        } elseif ($value instanceof SerializableInterface) {
+            return $value->serialize();
+        } elseif ($value instanceof Parameter) {
+            return $value->__toString();
+        } else {
+            throw new \InvalidArgumentException(\gettype($value));
+        }
+    }
+
+    /**
+     * Compile column query.
+     *
+     * @param Column $column Where query
+     *
+     * @return string
+     *
+     * @since 1.0.0
+     */
+    protected function compileColumnQuery(Column $column) : string
+    {
+        return $column->toSql();
     }
 }

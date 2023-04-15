@@ -282,7 +282,7 @@ final class FinanceFormulasTest extends \PHPUnit\Framework\TestCase
     }
 
     /**
-     * @testdox Balance / P&L ratios are correct (e.g. inventory turnover, net profit margin)
+     * @testdox Various ratios are correct (e.g. interest coverage, quick ratio, rate of inflation)
      * @covers phpOMS\Business\Finance\FinanceFormulas
      * @group framework
      */

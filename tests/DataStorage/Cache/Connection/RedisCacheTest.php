@@ -20,7 +20,7 @@ use phpOMS\DataStorage\Cache\Connection\RedisCache;
 use phpOMS\Utils\TestUtils;
 
 /**
- * @testdox phpOMS\tests\DataStorage\Cache\Connection\RedisCacheTest: Redis cache connection
+ * @testdox phpOMS\tests\DataStorage\Cache\Connection\RedisCache: Redis cache connection
  *
  * @internal
  */

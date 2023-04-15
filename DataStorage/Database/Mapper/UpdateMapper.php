@@ -104,59 +104,59 @@ final class UpdateMapper extends DataMapperAbstract
      */
     private function updateModel(object $obj, mixed $objId, \ReflectionClass $refClass = null) : void
     {
-        // Model doesn't have anything to update
-        if (\count($this->mapper::COLUMNS) < 2) {
-            return;
-        }
-
-        $query = new Builder($this->db);
-        $query->update($this->mapper::TABLE)
-            ->where($this->mapper::TABLE . '.' . $this->mapper::PRIMARYFIELD, '=', $objId);
-
-        foreach ($this->mapper::COLUMNS as $column) {
-            $propertyName = \stripos($column['internal'], '/') !== false ? \explode('/', $column['internal'])[0] : $column['internal'];
-            if (isset($this->mapper::HAS_MANY[$propertyName])
-                || $column['internal'] === $this->mapper::PRIMARYFIELD
-                || (($column['readonly'] ?? false) === true && !isset($this->with[$propertyName]))
-                || (($column['writeonly'] ?? false) === true && !isset($this->with[$propertyName]))
-            ) {
-                continue;
+        try {
+            // Model doesn't have anything to update
+            if (\count($this->mapper::COLUMNS) < 2) {
+                return;
             }
 
-            $refClass = $refClass ?? new \ReflectionClass($obj);
-            $property = $refClass->getProperty($propertyName);
+            $query = new Builder($this->db);
+            $query->update($this->mapper::TABLE)
+                ->where($this->mapper::TABLE . '.' . $this->mapper::PRIMARYFIELD, '=', $objId);
 
-            if (!($property->isPublic())) {
-                $property->setAccessible(true);
-                $tValue = $property->getValue($obj);
-                $property->setAccessible(false);
-            } else {
-                $tValue = $obj->{$propertyName};
-            }
-
-            if (isset($this->mapper::OWNS_ONE[$propertyName])) {
-                $id    = \is_object($tValue) ? $this->updateOwnsOne($propertyName, $tValue) : $tValue;
-                $value = $this->parseValue($column['type'], $id);
-
-                $query->set([$this->mapper::TABLE . '.' . $column['name'] => $value]);
-            } elseif (isset($this->mapper::BELONGS_TO[$propertyName])) {
-                $id    = \is_object($tValue) ? $this->updateBelongsTo($propertyName, $tValue) : $tValue;
-                $value = $this->parseValue($column['type'], $id);
-
-                $query->set([$this->mapper::TABLE . '.' . $column['name'] => $value]);
-            } elseif ($column['name'] !== $this->mapper::PRIMARYFIELD) {
-                if (\stripos($column['internal'], '/') !== false) {
-                    $path   = \substr($column['internal'], \stripos($column['internal'], '/') + 1);
-                    $tValue = ArrayUtils::getArray($path, $tValue, '/');
+            foreach ($this->mapper::COLUMNS as $column) {
+                $propertyName = \stripos($column['internal'], '/') !== false ? \explode('/', $column['internal'])[0] : $column['internal'];
+                if (isset($this->mapper::HAS_MANY[$propertyName])
+                    || $column['internal'] === $this->mapper::PRIMARYFIELD
+                    || (($column['readonly'] ?? false) === true && !isset($this->with[$propertyName]))
+                    || (($column['writeonly'] ?? false) === true && !isset($this->with[$propertyName]))
+                ) {
+                    continue;
                 }
 
-                $value = $this->parseValue($column['type'], $tValue);
+                $refClass = $refClass ?? new \ReflectionClass($obj);
+                $property = $refClass->getProperty($propertyName);
 
-                $query->set([$this->mapper::TABLE . '.' . $column['name'] => $value]);
+                if (!($property->isPublic())) {
+                    $property->setAccessible(true);
+                    $tValue = $property->getValue($obj);
+                    $property->setAccessible(false);
+                } else {
+                    $tValue = $obj->{$propertyName};
+                }
+
+                if (isset($this->mapper::OWNS_ONE[$propertyName])) {
+                    $id    = \is_object($tValue) ? $this->updateOwnsOne($propertyName, $tValue) : $tValue;
+                    $value = $this->parseValue($column['type'], $id);
+
+                    $query->set([$this->mapper::TABLE . '.' . $column['name'] => $value]);
+                } elseif (isset($this->mapper::BELONGS_TO[$propertyName])) {
+                    $id    = \is_object($tValue) ? $this->updateBelongsTo($propertyName, $tValue) : $tValue;
+                    $value = $this->parseValue($column['type'], $id);
+
+                    $query->set([$this->mapper::TABLE . '.' . $column['name'] => $value]);
+                } elseif ($column['name'] !== $this->mapper::PRIMARYFIELD) {
+                    if (\stripos($column['internal'], '/') !== false) {
+                        $path   = \substr($column['internal'], \stripos($column['internal'], '/') + 1);
+                        $tValue = ArrayUtils::getArray($path, $tValue, '/');
+                    }
+
+                    $value = $this->parseValue($column['type'], $tValue);
+
+                    $query->set([$this->mapper::TABLE . '.' . $column['name'] => $value]);
+                }
             }
-        }
 
-        try {
             $sth = $this->db->con->prepare($query->toSql());
             if ($sth !== false) {
                 $sth->execute();

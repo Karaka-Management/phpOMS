@@ -19,7 +19,7 @@ require_once __DIR__ . '/../Autoloader.php';
 use phpOMS\Application\StatusAbstract;
 
 /**
- * @testdox phpOMS\tests\Application\StatusAbstractTest: Application status
+ * @testdox phpOMS\tests\Application\StatusAbstractTest: Abstract application status
  *
  * @internal
  */
@@ -39,6 +39,7 @@ final class StatusAbstractTest extends \PHPUnit\Framework\TestCase
     }
 
     /**
+     * @testdox A invalid application path cannot be activated
      * @covers phpOMS\Application\StatusAbstract
      * @group framework
      */

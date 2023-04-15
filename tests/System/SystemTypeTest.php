@@ -19,11 +19,13 @@ require_once __DIR__ . '/../Autoloader.php';
 use phpOMS\System\SystemType;
 
 /**
+ * @testdox phpOMS\tests\System\SystemTypeTest: System type
  * @internal
  */
 final class SystemTypeTest extends \PHPUnit\Framework\TestCase
 {
     /**
+     * @testdox The system type enum has the correct amount of values
      * @group framework
      * @coversNothing
      */
@@ -33,6 +35,7 @@ final class SystemTypeTest extends \PHPUnit\Framework\TestCase
     }
 
     /**
+     * @testdox The system type enum has only unique values
      * @group framework
      * @coversNothing
      */
@@ -42,6 +45,7 @@ final class SystemTypeTest extends \PHPUnit\Framework\TestCase
     }
 
     /**
+     * @testdox The system type enum has the correct values
      * @group framework
      * @coversNothing
      */

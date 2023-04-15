@@ -16,6 +16,8 @@ namespace phpOMS\DataStorage\Database\Schema\Grammar;
 
 use phpOMS\DataStorage\Database\BuilderAbstract;
 use phpOMS\DataStorage\Database\Query\Builder;
+use phpOMS\DataStorage\Database\Schema\Builder as SchemaBuilder;
+use phpOMS\DataStorage\Database\Schema\QueryType;
 
 /**
  * Database query grammar.
@@ -44,6 +46,44 @@ class MysqlGrammar extends Grammar
     public string $systemIdentifierEnd = '`';
 
     /**
+     * {@inheritdoc}
+     */
+    public function compilePostQueries(BuilderAbstract $query): array
+    {
+        /** @var SchemaBuilder $query */
+
+        $sql = [];
+        switch ($query->getType()) {
+            case QueryType::CREATE_TABLE:
+                foreach ($query->createFields as $name => $field) {
+                    if (isset($field['meta']['multi_autoincrement'])) {
+                        $tmpSql = 'CREATE TRIGGER update_' . $name
+                            . ' BEFORE INSERT ON ' . $query->createTable
+                            . ' FOR EACH ROW BEGIN'
+                            . ' SET NEW.' . $name . ' = ('
+                                . 'SELECT COALESCE(MAX(' . $name . '), 0) + 1'
+                                . ' FROM ' . $query->createTable
+                                . ' WHERE';
+
+                        foreach ($field['meta']['multi_autoincrement'] as $index => $autoincrement) {
+                            $tmpSql .= ($index > 0 ? ' AND' : '' ) . ' ' . $autoincrement . ' = NEW.' . $autoincrement;
+                        }
+
+                        $tmpSql .= ' LIMIT 1); END;';
+
+                        $sql[] = $tmpSql;
+                    }
+                }
+
+                break;
+            default:
+                return [];
+        }
+
+        return $sql;
+    }
+
+    /**
      * Compile remove
      *
      * @param Builder $query  Builder
@@ -63,14 +103,14 @@ class MysqlGrammar extends Grammar
     /**
      * Compile from.
      *
-     * @param Builder $query Builder
+     * @param SchemaBuilder $query Builder
      * @param array   $table Tables
      *
      * @return string
      *
      * @since 1.0.0
      */
-    protected function compileSelectTables(Builder $query, array $table) : string
+    protected function compileSelectTables(SchemaBuilder $query, array $table) : string
     {
         $builder = new Builder($query->getConnection());
         $builder->select('table_name')
@@ -83,14 +123,14 @@ class MysqlGrammar extends Grammar
     /**
      * Compile from.
      *
-     * @param Builder $query Builder
+     * @param SchemaBuilder $query Builder
      * @param string  $table Tables
      *
      * @return string
      *
      * @since 1.0.0
      */
-    protected function compileSelectFields(Builder $query, string $table) : string
+    protected function compileSelectFields(SchemaBuilder $query, string $table) : string
     {
         $builder = new Builder($query->getConnection());
         $builder->select('*')
@@ -104,14 +144,14 @@ class MysqlGrammar extends Grammar
     /**
      * Compile create table fields query.
      *
-     * @param Builder $query  Query
+     * @param SchemaBuilder $query  Query
      * @param array   $fields Fields to create
      *
      * @return string
      *
      * @since 1.0.0
      */
-    protected function compileCreateFields(Builder $query, array $fields) : string
+    protected function compileCreateFields(SchemaBuilder $query, array $fields) : string
     {
         $fieldQuery = '';
         $keys       = '';
@@ -119,34 +159,36 @@ class MysqlGrammar extends Grammar
         foreach ($fields as $name => $field) {
             $fieldQuery .= ' ' . $this->expressionizeTableColumn([$name]) . ' ' . $field['type'];
 
-            if (isset($field['default']) || ($field['default'] === null && isset($field['null']) && $field['null'])) {
+            if (isset($field['default']) || ($field['default'] === null && ($field['null'] ?? false))) {
                 $fieldQuery .= ' DEFAULT ' . $this->compileValue($query, $field['default']);
             }
 
-            if (isset($field['null'])) {
+            if ($field['null'] ?? false) {
                 $fieldQuery .= ' ' . ($field['null'] ? '' : 'NOT ') . 'NULL';
             }
 
-            if (isset($field['autoincrement']) && $field['autoincrement']) {
+            if ($field['autoincrement'] ?? false) {
                 $fieldQuery .= ' AUTO_INCREMENT';
             }
 
             $fieldQuery .= ',';
 
-            if (isset($field['primary']) && $field['primary']) {
+            if ($field['primary'] ?? false) {
                 $keys .= ' PRIMARY KEY (' .  $this->expressionizeTableColumn([$name]) . '),';
             }
 
-            if (isset($field['unique']) && $field['unique']) {
+            if ($field['unique'] ?? false) {
                 $keys .= ' UNIQUE KEY (' .  $this->expressionizeTableColumn([$name]) . '),';
             }
 
-            if (isset($field['foreignTable'], $field['foreignKey'])
-                && !empty($field['foreignTable']) && !empty($field['foreignKey'])
-            ) {
+            if (isset($field['foreignTable'], $field['foreignKey'])) {
                 $keys .= ' FOREIGN KEY (' .  $this->expressionizeTableColumn([$name]) . ') REFERENCES '
                     . $this->expressionizeTableColumn([$field['foreignTable']])
                     . ' (' . $this->expressionizeTableColumn([$field['foreignKey']]) . '),';
+            }
+
+            if (isset($field['meta']['multi_autoincrement'])) {
+                $query->hasPostQuery = true;
             }
         }
 

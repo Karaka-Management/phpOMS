@@ -19,15 +19,17 @@ require_once __DIR__ . '/../Autoloader.php';
 use phpOMS\Localization\ISO4217Enum;
 
 /**
+ * @testdox phpOMS\tests\Localization\ISO4217EnumTest: ISO 4217 currency codes
  * @internal
  */
 final class ISO4217EnumTest extends \PHPUnit\Framework\TestCase
 {
     /**
+     * @testdox The ISO 4217 currency code enum has only unique values
      * @group framework
      * @coversNothing
      */
-    public function testEnums() : void
+    public function testUnique() : void
     {
         $enum = ISO4217Enum::getConstants();
         self::assertEquals(\count($enum), \count(\array_unique($enum)));

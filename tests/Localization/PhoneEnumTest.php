@@ -19,11 +19,13 @@ require_once __DIR__ . '/../Autoloader.php';
 use phpOMS\Localization\PhoneEnum;
 
 /**
+ * @testdox phpOMS\tests\Localization\PhoneEnumTest: Country phone codes
  * @internal
  */
 final class PhoneEnumTest extends \PHPUnit\Framework\TestCase
 {
     /**
+     * @testdox The phone enum has the correct format of country phone numbers
      * @group framework
      * @coversNothing
      */

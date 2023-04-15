@@ -19,11 +19,13 @@ require_once __DIR__ . '/../Autoloader.php';
 use phpOMS\System\CharsetType;
 
 /**
+ * @testdox phpOMS\tests\System\CharsetTypeTest: Character set type enum
  * @internal
  */
 final class CharsetTypeTest extends \PHPUnit\Framework\TestCase
 {
     /**
+     * @testdox The character set type enum has the correct amount of values
      * @group framework
      * @coversNothing
      */
@@ -33,6 +35,7 @@ final class CharsetTypeTest extends \PHPUnit\Framework\TestCase
     }
 
     /**
+     * @testdox The character set type enum has only unique values
      * @group framework
      * @coversNothing
      */
@@ -42,6 +45,7 @@ final class CharsetTypeTest extends \PHPUnit\Framework\TestCase
     }
 
     /**
+     * @testdox The character set type enum has the correct values
      * @group framework
      * @coversNothing
      */

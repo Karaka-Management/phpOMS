@@ -20,11 +20,13 @@ use phpOMS\System\OperatingSystem;
 use phpOMS\System\SystemType;
 
 /**
+ * @testdox phpOMS\tests\System\OperatingSystemTest: Operating system
  * @internal
  */
 final class OperatingSystemTest extends \PHPUnit\Framework\TestCase
 {
     /**
+     * @testdox The current operating system can be returned
      * @covers phpOMS\System\OperatingSystem
      * @group framework
      */

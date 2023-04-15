@@ -15,7 +15,8 @@ declare(strict_types=1);
 namespace phpOMS\DataStorage\Database\Schema\Grammar;
 
 use phpOMS\DataStorage\Database\BuilderAbstract;
-use phpOMS\DataStorage\Database\Query\Grammar\Grammar as QueryGrammar;
+use phpOMS\DataStorage\Database\GrammarAbstract;
+use phpOMS\DataStorage\Database\Schema\Builder as SchemaBuilder;
 use phpOMS\DataStorage\Database\Schema\QueryType;
 
 /**
@@ -26,95 +27,101 @@ use phpOMS\DataStorage\Database\Schema\QueryType;
  * @link    https://jingga.app
  * @since   1.0.0
  */
-class Grammar extends QueryGrammar
+class Grammar extends GrammarAbstract
 {
-    /**
-     * Drop components.
-     *
-     * @var string[]
-     * @since 1.0.0
-     */
-    protected array $dropDatabaseComponents = [
-        'dropDatabase',
-    ];
-
-    /**
-     * Drop components.
-     *
-     * @var string[]
-     * @since 1.0.0
-     */
-    protected array $dropTableComponents = [
-        'dropTable',
-    ];
-
-    /**
-     * Select tables components.
-     *
-     * @var string[]
-     * @since 1.0.0
-     */
-    protected array $createTablesComponents = [
-        'createTable',
-        'createFields',
-        'createTableSettings',
-    ];
-
-    /**
-     * Select tables components.
-     *
-     * @var string[]
-     * @since 1.0.0
-     */
-    protected array $tablesComponents = [
-        'selectTables',
-    ];
-
-    /**
-     * Select field components.
-     *
-     * @var string[]
-     * @since 1.0.0
-     */
-    protected array $fieldsComponents = [
-        'selectFields',
-    ];
-
-    /**
-     * Alter components.
-     *
-     * @var string[]
-     * @since 1.0.0
-     */
-    protected array $alterComponents = [
-        'alterTable',
-        'alterColumn',
-        'alterAdd',
-        'alterRename',
-        'alterRemove',
-    ];
-
     /**
      * {@inheritdoc}
      */
-    protected function getComponents(int $type) : array
+    protected function compileComponents(BuilderAbstract $query) : array
     {
-        switch ($type) {
+        /** @var SchemaBuilder $query */
+
+        $sql = [];
+        switch ($query->getType()) {
             case QueryType::DROP_DATABASE:
-                return $this->dropDatabaseComponents;
+                if (empty($query->dropDatabase)) {
+                    break;
+                }
+
+                $sql[] = $this->compileDropDatabase($query, $query->dropDatabase);
+
+                break;
             case QueryType::TABLES:
-                return $this->tablesComponents;
+                if (empty($query->selectTables)) {
+                    break;
+                }
+
+                $sql[] = $this->compileSelectTables($query, $query->selectTables);
+
+                break;
             case QueryType::FIELDS:
-                return $this->fieldsComponents;
+                if (empty($query->selectFields)) {
+                    break;
+                }
+
+                $sql[] = $this->compileSelectFields($query, $query->selectFields);
+
+                break;
             case QueryType::CREATE_TABLE:
-                return $this->createTablesComponents;
+                if (empty($query->createTable)) {
+                    break;
+                }
+
+                $sql[] = $this->compileCreateTable($query, $query->createTable);
+                $sql[] = $this->compileCreateFields($query, $query->createFields);
+
+                if (empty($query->createTableSettings)) {
+                    break;
+                }
+
+                $sql[] = $this->compileCreateTableSettings($query, $query->createTableSettings);
+
+                break;
             case QueryType::DROP_TABLE:
-                return $this->dropTableComponents;
+                if (empty($query->dropTable)) {
+                    break;
+                }
+
+                $sql[] = $this->compileDropTable($query, $query->dropTable);
+
+                break;
             case QueryType::ALTER:
-                return $this->alterComponents;
+                $sql[] = $this->compileAlterTable($query, $query->alterTable);
+                $sql[] = $this->compileAlterColumn($query, $query->alterColumn);
+                $sql[] = $this->compileAlterAdd($query, $query->alterAdd);
+                // $sql[] = $this->compileAlterRename($query, $query->alterRename);
+                // $sql[] = $this->compileAlterRemove($query, $query->alterRemove);
+
+                break;
+            case QueryType::RAW:
+                $sql[] = $query->raw;
+
+                break;
             default:
-                return parent::getComponents($type);
+                return [];
         }
+
+        return $sql;
+    }
+
+    protected function compileSelectTables(SchemaBuilder $query, array $tables) : string
+    {
+        return '';
+    }
+
+    protected function compileSelectFields(SchemaBuilder $query, string $table) : string
+    {
+        return '';
+    }
+
+    protected function compileCreateFields(SchemaBuilder $query, array $fields) : string
+    {
+        return '';
+    }
+
+    public function compilePostQueries(BuilderAbstract $query): array
+    {
+        return [];
     }
 
     /**

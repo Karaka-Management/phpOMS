@@ -19,11 +19,13 @@ require_once __DIR__ . '/../Autoloader.php';
 use phpOMS\Account\AccountType;
 
 /**
+ * @testdox phpOMS\tests\Account\AccountType: Account type
  * @internal
  */
 final class AccountTypeTest extends \PHPUnit\Framework\TestCase
 {
     /**
+     * @testdox The account type enum has the correct number of type codes
      * @group framework
      * @coversNothing
      */
@@ -33,6 +35,7 @@ final class AccountTypeTest extends \PHPUnit\Framework\TestCase
     }
 
     /**
+     * @testdox The account type enum has only unique values
      * @group framework
      * @coversNothing
      */
@@ -42,6 +45,7 @@ final class AccountTypeTest extends \PHPUnit\Framework\TestCase
     }
 
     /**
+     * @testdox The account type enum has the correct values
      * @group framework
      * @coversNothing
      */

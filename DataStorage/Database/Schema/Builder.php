@@ -14,8 +14,8 @@ declare(strict_types=1);
 
 namespace phpOMS\DataStorage\Database\Schema;
 
+use phpOMS\DataStorage\Database\BuilderAbstract;
 use phpOMS\DataStorage\Database\Connection\ConnectionAbstract;
-use phpOMS\DataStorage\Database\Query\Builder as QueryBuilder;
 
 /**
  * Database query builder.
@@ -24,8 +24,10 @@ use phpOMS\DataStorage\Database\Query\Builder as QueryBuilder;
  * @license OMS License 2.0
  * @link    https://jingga.app
  * @since   1.0.0
+ *
+ * @property \phpOMS\DataStorage\Database\Schema\Grammar $grammar Grammar.
  */
-class Builder extends QueryBuilder
+class Builder extends BuilderAbstract
 {
     /**
      * Table to create.
@@ -109,6 +111,8 @@ class Builder extends QueryBuilder
      */
     public array $alterAdd = [];
 
+    public bool $hasPostQuery = false;
+
     /**
      * Constructor.
      *
@@ -157,7 +161,8 @@ class Builder extends QueryBuilder
             $builder->field(
                 $name, $def['type'], $def['default'] ?? null,
                 $def['null'] ?? true, $def['primary'] ?? false, $def['unique'] ?? false, $def['autoincrement'] ?? false,
-                $def['foreignTable'] ?? null, $def['foreignKey'] ?? null
+                $def['foreignTable'] ?? null, $def['foreignKey'] ?? null,
+                $def
             );
         }
 
@@ -258,6 +263,7 @@ class Builder extends QueryBuilder
      * @param bool   $autoincrement Autoincrements
      * @param string $foreignTable  Foreign table (in case of foreign key)
      * @param string $foreignKey    Foreign key
+     * @param array  $meta          Meta data
      *
      * @return self
      *
@@ -266,7 +272,7 @@ class Builder extends QueryBuilder
     public function field(
         string $name, string $type, $default = null,
         bool $isNullable = true, bool $isPrimary = false, bool $isUnique = false, bool $autoincrement = false,
-        string $foreignTable = null, string $foreignKey = null
+        string $foreignTable = null, string $foreignKey = null, array $meta = []
     ) : self {
         $this->createFields[$name] = [
             'name'          => $name,
@@ -278,6 +284,7 @@ class Builder extends QueryBuilder
             'autoincrement' => $autoincrement,
             'foreignTable'  => $foreignTable,
             'foreignKey'    => $foreignKey,
+            'meta'          => $meta,
         ];
 
         return $this;
@@ -323,11 +330,41 @@ class Builder extends QueryBuilder
     }
 
     /**
-     * Parsing to string.
-     *
-     * @return string
-     *
-     * @since 1.0.0
+     * {@inheritdoc}
+     */
+    public function execute() : ?\PDOStatement
+    {
+        $sth = null;
+
+        try {
+            $sth = $this->connection->con->prepare($this->toSql());
+            if ($sth === false) {
+                return null;
+            }
+
+            $sth->execute();
+
+            if ($this->hasPostQuery) {
+                $sqls = $this->grammar->compilePostQueries($this);
+
+                foreach ($sqls as $sql) {
+                    $this->connection->con->exec($sql);
+                }
+            }
+        } catch (\Throwable $t) {
+            // @codeCoverageIgnoreStart
+            \var_dump($t->getMessage());
+            \var_dump($this->toSql());
+
+            $sth = null;
+            // @codeCoverageIgnoreEnd
+        }
+
+        return $sth;
+    }
+
+    /**
+     * {@inheritdoc}
      */
     public function toSql() : string
     {

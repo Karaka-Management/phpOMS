@@ -19,11 +19,13 @@ require_once __DIR__ . '/../Autoloader.php';
 use phpOMS\Log\LogLevel;
 
 /**
+ * @testdox phpOMS\tests\Log\LogLevelTest: Log level enum
  * @internal
  */
 final class LogLevelTest extends \PHPUnit\Framework\TestCase
 {
     /**
+     * @testdox The log level enum has the correct number of log levels
      * @group framework
      * @coversNothing
      */
@@ -33,6 +35,7 @@ final class LogLevelTest extends \PHPUnit\Framework\TestCase
     }
 
     /**
+     * @testdox The log level enum has only unique values
      * @group framework
      * @coversNothing
      */
@@ -42,6 +45,7 @@ final class LogLevelTest extends \PHPUnit\Framework\TestCase
     }
 
     /**
+     * @testdox The log level enum has the correct values
      * @group framework
      * @coversNothing
      */

@@ -245,7 +245,7 @@ final class AccountTest extends \PHPUnit\Framework\TestCase
         $account->addPermission(new class() extends PermissionAbstract {});
         self::assertCount(1, $account->getPermissions());
 
-        self::assertFalse($account->hasPermission(PermissionType::READ, 1, 'a', 'a', 1, 1, 1));
+        self::assertFalse($account->hasPermission(PermissionType::READ, 1, 2, 'a', 1, 1, 1));
         self::assertTrue($account->hasPermission(PermissionType::NONE));
     }
 

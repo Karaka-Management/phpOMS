@@ -19,11 +19,13 @@ require_once __DIR__ . '/../Autoloader.php';
 use phpOMS\Asset\AssetType;
 
 /**
+ * @testdox phpOMS\tests\Asset\AssetType: Asset type
  * @internal
  */
 final class AssetTypeTest extends \PHPUnit\Framework\TestCase
 {
     /**
+     * @testdox The asset type enum has the correct number of status codes
      * @group framework
      * @coversNothing
      */
@@ -33,6 +35,7 @@ final class AssetTypeTest extends \PHPUnit\Framework\TestCase
     }
 
     /**
+     * @testdox The asset type enum has only unique values
      * @group framework
      * @coversNothing
      */
@@ -42,6 +45,7 @@ final class AssetTypeTest extends \PHPUnit\Framework\TestCase
     }
 
     /**
+     * @testdox The asset type enum has the correct values
      * @group framework
      * @coversNothing
      */

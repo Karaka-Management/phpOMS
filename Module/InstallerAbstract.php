@@ -80,6 +80,11 @@ abstract class InstallerAbstract
 
         /** @var array[] $definitions */
         $definitions = \json_decode($content, true);
+
+        if (!\is_array($definitions)) {
+            return; // @codeCoverageIgnore
+        }
+
         foreach ($definitions as $definition) {
             SchemaBuilder::createFromSchema($definition, $dbPool->get('schema'))->execute();
         }

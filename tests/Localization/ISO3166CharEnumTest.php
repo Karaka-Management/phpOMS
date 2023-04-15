@@ -19,11 +19,13 @@ require_once __DIR__ . '/../Autoloader.php';
 use phpOMS\Localization\ISO3166CharEnum;
 
 /**
+ * @testdox phpOMS\tests\Localization\ISO3166CharEnumTest: ISO 3166 country codes
  * @internal
  */
 final class ISO3166CharEnumTest extends \PHPUnit\Framework\TestCase
 {
     /**
+     * @testdox The ISO 3166 country code enum has the correct format of country codes
      * @group framework
      * @coversNothing
      */
@@ -41,6 +43,15 @@ final class ISO3166CharEnumTest extends \PHPUnit\Framework\TestCase
         }
 
         self::assertTrue($ok);
-        self::assertEquals(\count($enum), \count(\array_unique($enum)));
+    }
+
+    /**
+     * @testdox The ISO 3166 enum has only unique values
+     * @group framework
+     * @coversNothing
+     */
+    public function testUnique() : void
+    {
+        self::assertEquals(ISO3166CharEnum::getConstants(), \array_unique(ISO3166CharEnum::getConstants()));
     }
 }

@@ -19,11 +19,13 @@ require_once __DIR__ . '/../Autoloader.php';
 use phpOMS\Localization\ISO4217DecimalEnum;
 
 /**
+ * @testdox phpOMS\tests\Localization\ISO4217DecimalEnumTest: ISO 4217 currency codes
  * @internal
  */
 final class ISO4217DecimalEnumTest extends \PHPUnit\Framework\TestCase
 {
     /**
+     * @testdox The ISO 4217 currency code enum has the correct format of currency decimal places
      * @group framework
      * @coversNothing
      */
