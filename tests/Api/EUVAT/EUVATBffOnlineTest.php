@@ -30,10 +30,9 @@ final class EUVATBffOnlineTest extends \PHPUnit\Framework\TestCase
      */
     public function testValidateInvalidId() : void
     {
-        $bff = new EUVATBffOnline();
-        $status = $bff->validate('DE123456789', 'DE123456789');
+        $status = EUVATBffOnline::validate('DE123456789', 'DE123456789');
 
         self::assertEquals(0, $status['status']);
-        self::assertEquals('C', $status['vat']);
+        self::assertEquals('B', $status['vat']);
     }
 }

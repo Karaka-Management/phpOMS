@@ -46,7 +46,7 @@ final class EUVATBffOnline implements EUVATInterface
     {
         $result = [
             'status'  => -1,
-            'vat'     => 'C',
+            'vat'     => 'B',
             'name'    => '',
             'city'    => '',
             'postal'  => '',
@@ -102,7 +102,7 @@ final class EUVATBffOnline implements EUVATInterface
     {
         $result = [
             'status'  => -1,
-            'vat'     => 'C',
+            'vat'     => 'B',
             'name'    => 'C',
             'city'    => 'C',
             'postal'  => 'C',

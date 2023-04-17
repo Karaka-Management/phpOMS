@@ -77,7 +77,7 @@ class PacketManager
         $response = new SocketResponse();
 
         $this->dispatcher->dispatch(
-            $this->router->route($data, null, RouteVerb::ANY, 'Socket', 1, $client->getAccount()),
+            $this->router->route($data, null, RouteVerb::ANY, 2, 1, $client->getAccount()),
             $request,
             $response
         );

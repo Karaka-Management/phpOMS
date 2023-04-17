@@ -136,7 +136,7 @@ final class GroupTest extends \PHPUnit\Framework\TestCase
         $group->addPermission(new class() extends PermissionAbstract {});
         self::assertCount(1, $group->getPermissions());
 
-        self::assertFalse($group->hasPermission(PermissionType::READ, 1, 'a', 'a', 1, 1, 1));
+        self::assertFalse($group->hasPermission(PermissionType::READ, 1, null, 'a', 1, 1, 1));
         self::assertTrue($group->hasPermission(PermissionType::NONE));
     }
 

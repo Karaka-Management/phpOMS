@@ -14,12 +14,12 @@ declare(strict_types=1);
 
 namespace phpOMS\tests\Utils\Barcode;
 
-use phpOMS\Utils\Barcode\C128Abstract;
+use phpOMS\Utils\Barcode\BarAbstract;
 
 /**
  * @internal
  */
-final class C128AbstractTest extends \PHPUnit\Framework\TestCase
+final class BarAbstractTest extends \PHPUnit\Framework\TestCase
 {
     protected $obj = null;
 
@@ -28,7 +28,7 @@ final class C128AbstractTest extends \PHPUnit\Framework\TestCase
      */
     protected function setUp() : void
     {
-        $this->obj = new class() extends C128Abstract {};
+        $this->obj = new class() extends BarAbstract {};
     }
 
     /**

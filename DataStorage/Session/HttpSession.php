@@ -15,6 +15,7 @@ declare(strict_types=1);
 namespace phpOMS\DataStorage\Session;
 
 use phpOMS\DataStorage\LockException;
+use phpOMS\Log\FileLogger;
 use phpOMS\Uri\UriFactory;
 
 /**
@@ -97,7 +98,14 @@ final class HttpSession implements SessionInterface
             \session_start();
             // @codeCoverageIgnoreEnd
         } else {
-            throw new \Exception('Bad application workflow');
+            $logger = FileLogger::getInstance();
+            $logger->error(
+                FileLogger::MSG_FULL, [
+                    'message' => 'Bad application flow.',
+                    'line'    => __LINE__,
+                    'file'    => self::class,
+                ]
+            );
         }
 
         if ($this->inactivityInterval > 0

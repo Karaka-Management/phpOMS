@@ -135,7 +135,11 @@ class Grammar extends GrammarAbstract
                 $sql[] = $this->compileRandom($query, $query->random);
 
                 break;
-            case queryType::NONE:
+            case QueryType::RAW:
+                $sql[] = $query->raw;
+
+                break;
+            case QueryType::NONE:
                 return [];
             default:
                 throw new \InvalidArgumentException('Unknown query type.');

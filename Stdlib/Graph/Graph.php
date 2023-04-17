@@ -73,16 +73,17 @@ class Graph
     /**
      * Define a relationship between two nodes
      *
-     * @param Node $node1 First node
-     * @param Node $node2 Second node
+     * @param Node $node1    First node
+     * @param Node $node2    Second node
+     * @param bool $directed Is directed
      *
      * @return Edge
      *
      * @since 1.0.0
      */
-    public function setNodeRelative(Node $node1, Node $node2) : Edge
+    public function setNodeRelative(Node $node1, Node $node2, bool $directed = false) : Edge
     {
-        return $node1->setNodeRelative($node2, null, true);
+        return $node1->setNodeRelative($node2, null, $directed);
     }
 
     /**

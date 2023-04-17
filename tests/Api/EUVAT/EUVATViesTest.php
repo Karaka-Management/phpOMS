@@ -30,10 +30,9 @@ final class EUVATViesTest extends \PHPUnit\Framework\TestCase
      */
     public function testValidateInvalidId() : void
     {
-        $vies = new EUVATVies();
-        $status = $vies->validate('DE123456789');
+        $status = EUVATVies::validate('DE123456789');
 
         self::assertEquals(0, $status['status']);
-        self::assertEquals('C', $status['vat']);
+        self::assertEquals('B', $status['vat']);
     }
 }

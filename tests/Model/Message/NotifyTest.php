@@ -62,11 +62,11 @@ final class NotifyTest extends \PHPUnit\Framework\TestCase
     public function testSetGet() : void
     {
         $obj = new Notify('message', NotifyType::WARNING);
-        $obj->setDelay(3);
-        $obj->setStay(5);
-        $obj->setLevel(NotifyType::ERROR);
-        $obj->setMessage('msg');
-        $obj->setTitle('title');
+        $obj->delay = 3;
+        $obj->stay = 5;
+        $obj->level = NotifyType::ERROR;
+        $obj->message ='msg';
+        $obj->title = 'title';
 
         self::assertEquals([
             'type'  => 'notify',

@@ -49,18 +49,14 @@ final class GraphTest extends \PHPUnit\Framework\TestCase
         self::assertEquals(0, $this->graph->getSize());
         self::assertEquals(0, $this->graph->getGirth());
         self::assertEquals(0, $this->graph->getCircuitRank());
-        self::assertEquals(0, $this->graph->getNodeConnectivity());
-        self::assertEquals(0, $this->graph->getEdgeConnectivity());
 
         self::assertTrue($this->graph->isConnected());
-        self::assertTrue($this->graph->isBipartite());
-        self::assertTrue($this->graph->isTriangleFree());
+        self::assertTrue($this->graph->isBipartite(1));
         self::assertFalse($this->graph->isDirected());
         self::assertFalse($this->graph->hasCycle());
 
         self::assertEquals([], $this->graph->getBridges());
         self::assertEquals([], $this->graph->getFloydWarshallShortestPath());
-        self::assertEquals([], $this->graph->getDijkstraShortestPath());
         self::assertEquals([], $this->graph->longestPath());
         self::assertEquals([], $this->graph->longestPathBetweenNodes('invalid1', 'invalid2'));
         self::assertEquals([], $this->graph->shortestPathBetweenNodes('invalid1', 'invalid2'));
@@ -76,10 +72,9 @@ final class GraphTest extends \PHPUnit\Framework\TestCase
      * @covers phpOMS\Stdlib\Graph\Graph
      * @group framework
      */
-    public function testDirectedInputOutput() : void
+    public function testDirectedOutput() : void
     {
-        $this->graph->setDirected(true);
-        self::assertTrue($this->graph->isDirected());
+        self::assertFalse($this->graph->isDirected());
     }
 
     /**
@@ -143,8 +138,8 @@ final class GraphTest extends \PHPUnit\Framework\TestCase
 
         $bridges = $this->graph->getBridges();
         self::assertCount(1, $bridges);
-        self::assertEquals('1', $bridges[0]->getNode1()->getId());
-        self::assertEquals('6', $bridges[0]->getNode2()->getId());
+        self::assertEquals('1', $bridges[0]->node1->getId());
+        self::assertEquals('6', $bridges[0]->node2->getId());
     }
 
     /**
@@ -265,12 +260,12 @@ final class GraphTest extends \PHPUnit\Framework\TestCase
 
         self::assertEquals(
             $node1->getId(),
-            $this->graph->getEdge($node1->getId(), $node3->getId())->getNode1()->getId()
+            $this->graph->getEdge($node1->getId(), $node3->getId())->node1->getId()
         );
 
         self::assertEquals(
             $node3->getId(),
-            $this->graph->getEdge($node1->getId(), $node3->getId())->getNode2()->getId()
+            $this->graph->getEdge($node1->getId(), $node3->getId())->node2->getId()
         );
 
         self::assertNull($this->graph->getEdge('invalid1', 'invalid2'));
@@ -310,8 +305,6 @@ final class GraphTest extends \PHPUnit\Framework\TestCase
      */
     public function testDirectedCycle() : void
     {
-        $this->graph->setDirected(true);
-
         $node0 = new Node('0');
         $node1 = new Node('1');
         $node2 = new Node('2');
@@ -322,10 +315,10 @@ final class GraphTest extends \PHPUnit\Framework\TestCase
         $this->graph->setNode($node2);
         $this->graph->setNode($node3);
 
-        $this->graph->setNodeRelative($node0, $node1);
-        $this->graph->setNodeRelative($node1, $node2);
-        $this->graph->setNodeRelative($node2, $node3);
-        $this->graph->setNodeRelative($node1, $node3);
+        $this->graph->setNodeRelative($node0, $node1, true);
+        $this->graph->setNodeRelative($node1, $node2, true);
+        $this->graph->setNodeRelative($node2, $node3, true);
+        $this->graph->setNodeRelative($node1, $node3, true);
 
         self::assertFalse($this->graph->hasCycle());
 
@@ -350,8 +343,8 @@ final class GraphTest extends \PHPUnit\Framework\TestCase
         $this->graph->setNode($node2);
         $this->graph->setNode($node3);
 
-        $node0->setNodeRelative($node1)->setWeight(2.0);
-        $node2->setNodeRelative($node3)->setWeight(3.0);
+        $node0->setNodeRelative($node1)->weight = 2.0;
+        $node2->setNodeRelative($node3)->weight = 3.0;
 
         self::assertEquals(5.0, $this->graph->getCost());
     }
@@ -377,18 +370,18 @@ final class GraphTest extends \PHPUnit\Framework\TestCase
         $this->graph->setNode($node5);
         $this->graph->setNode($node6);
 
-        $node1->setNodeRelative($node5)->setWeight(4.0);
-        $node1->setNodeRelative($node4)->setWeight(1.0);
-        $node1->setNodeRelative($node2)->setWeight(2.0);
+        $node1->setNodeRelative($node5)->weight = 4.0;
+        $node1->setNodeRelative($node4)->weight = 1.0;
+        $node1->setNodeRelative($node2)->weight = 2.0;
 
-        $node2->setNodeRelative($node3)->setWeight(3.0);
-        $node2->setNodeRelative($node4)->setWeight(3.0);
-        $node2->setNodeRelative($node6)->setWeight(7.0);
+        $node2->setNodeRelative($node3)->weight = 3.0;
+        $node2->setNodeRelative($node4)->weight = 3.0;
+        $node2->setNodeRelative($node6)->weight = 7.0;
 
-        $node3->setNodeRelative($node4)->setWeight(5.0);
-        $node3->setNodeRelative($node6)->setWeight(8.0);
+        $node3->setNodeRelative($node4)->weight = 5.0;
+        $node3->setNodeRelative($node6)->weight = 8.0;
 
-        $node4->setNodeRelative($node5)->setWeight(9.0);
+        $node4->setNodeRelative($node5)->weight = 9.0;
 
         $minimalSpanningTree = $this->graph->getKruskalMinimalSpanningTree();
         $nodes               = $minimalSpanningTree->getNodes();

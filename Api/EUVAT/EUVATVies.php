@@ -46,7 +46,7 @@ final class EUVATVies implements EUVATInterface
     {
         $result = [
             'status' => -1,
-            'vat'   => 'C',
+            'vat'   => 'B',
             'name'   => '',
             'city'   => '',
             'postal' => '',
@@ -101,7 +101,7 @@ final class EUVATVies implements EUVATInterface
     {
         $result = [
             'status'  => -1,
-            'vat'     => 'C',
+            'vat'     => 'B',
             'name'    => 'C',
             'city'    => 'C',
             'postal'  => 'C',
@@ -137,13 +137,16 @@ final class EUVATVies implements EUVATInterface
             $result = \array_merge($result, self::parseResponse($json));
 
             if ($otherName === '') {
-                $result['name'] = 'D';
-            } elseif (\stripos($result['name'], $otherName) !== false && \strlen($otherName) / \strlen($result['name']) > 0.8 || \levenshtein($otherName, $result['name']) / \strlen($result['name']) < 0.2) {
+                $result['name'] = 'C';
+            } elseif ((\stripos($result['name'], $otherName) !== false
+                    && \strlen($otherName) / \strlen($result['name']) > 0.8)
+                || \levenshtein($otherName, $result['name']) / \strlen($result['name']) < 0.2
+            ) {
                 $result['name'] = 'A';
             } elseif ($result['name'] === '') {
                 $result['name'] = 'C';
             } else {
-                $result['name'] = 'C';
+                $result['name'] = 'B';
             }
 
             if ($otherCity === '') {
@@ -153,7 +156,7 @@ final class EUVATVies implements EUVATInterface
             } elseif ($result['city'] === '') {
                 $result['city'] = 'C';
             } else {
-                $result['city'] = 'C';
+                $result['city'] = 'B';
             }
 
             if ($otherPostal === '') {
@@ -163,7 +166,7 @@ final class EUVATVies implements EUVATInterface
             } elseif ($result['postal'] === '') {
                 $result['postal'] = 'C';
             } else {
-                $result['postal'] = 'C';
+                $result['postal'] = 'B';
             }
 
             if ($otherStreet === '') {
@@ -175,7 +178,7 @@ final class EUVATVies implements EUVATInterface
             } elseif ($result['address'] === '') {
                 $result['address'] = 'C';
             } else {
-                $result['address'] = 'C';
+                $result['address'] = 'B';
             }
 
             $result['status'] = $json['userError'] === 'VALID' ? 0 : -1;

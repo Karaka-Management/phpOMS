@@ -59,7 +59,7 @@ $app->moduleManager  = new ModuleManager($app, __DIR__ . '/../../../../Modules/'
 $app->dispatcher     = new Dispatcher($app);
 $app->eventManager   = new EventManager($app->dispatcher);
 $app->eventManager->importFromFile(__DIR__ . '/../../../Socket/Hooks.php');
-$app->l11nManager    = new L11nManager($app->appName);
+$app->l11nManager    = new L11nManager();
 $app->router         = new SocketRouter();
 
 $socket = new Server($app);
