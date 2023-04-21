@@ -211,4 +211,12 @@ abstract class SchedulerAbstract
      * @since 1.0.0
      */
     abstract public function getAllByName(string $name, bool $exact = true) : array;
+
+    /**+
+     * Reload the jobs
+     * 
+     * @return void
+     * @since 1.0.0
+     */
+    abstract public function reload() : void;
 }

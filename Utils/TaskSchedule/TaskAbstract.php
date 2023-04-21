@@ -38,7 +38,7 @@ abstract class TaskAbstract
      * @var string
      * @since 1.0.0
      */
-    protected string $command = '';
+    public string $command = '';
 
     /**
      * Run interval
@@ -46,7 +46,7 @@ abstract class TaskAbstract
      * @var string
      * @since 1.0.0
      */
-    protected string $interval = '';
+    public string $interval = '';
 
     /**
      * Status of the task
@@ -78,7 +78,7 @@ abstract class TaskAbstract
      * @var string
      * @since 1.0.0
      */
-    protected string $comment = '';
+    public string $comment = '';
 
     /**
      * Constructor

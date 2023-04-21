@@ -14,6 +14,8 @@ declare(strict_types=1);
 
 namespace phpOMS\Utils\TaskSchedule;
 
+use phpOMS\System\SystemUtils;
+
 /**
  * Cron class.
  *
@@ -206,5 +208,13 @@ class Cron extends SchedulerAbstract
         \unlink($path);
 
         return $jobs;
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function reload() : void
+    {
+        SystemUtils::runProc('service', 'cron reload');
     }
 }
