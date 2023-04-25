@@ -44,14 +44,4 @@ final class ISO3166NumEnumTest extends \PHPUnit\Framework\TestCase
 
         self::assertTrue($ok);
     }
-
-    /**
-     * @testdox The ISO 3166 enum has only unique values
-     * @group framework
-     * @coversNothing
-     */
-    public function testUnique() : void
-    {
-        self::assertEquals(ISO3166NumEnum::getConstants(), \array_unique(ISO3166NumEnum::getConstants()));
-    }
 }

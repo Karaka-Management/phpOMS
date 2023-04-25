@@ -415,8 +415,7 @@ final class HttpHeader extends HeaderAbstract
     private function generate100() : void
     {
         $this->set('', 'HTTP/1.0 100 Continue');
-        $this->set('Status', 'Status: HTTP/1.0 100 Continue');
-        \http_response_code(100);
+        $this->set('Status', '100 Continue');
     }
 
     /**
@@ -429,8 +428,7 @@ final class HttpHeader extends HeaderAbstract
     private function generate102() : void
     {
         $this->set('', 'HTTP/1.0 102 Processing');
-        $this->set('Status', 'Status: HTTP/1.0 102 Processing');
-        \http_response_code(102);
+        $this->set('Status', '102 Processing');
     }
 
     /**
@@ -443,8 +441,7 @@ final class HttpHeader extends HeaderAbstract
     private function generate200() : void
     {
         $this->set('', 'HTTP/1.0 200 OK');
-        $this->set('Status', 'Status: HTTP/1.0 200 OK');
-        \http_response_code(200);
+        $this->set('Status', '200 OK');
     }
 
     /**
@@ -457,8 +454,7 @@ final class HttpHeader extends HeaderAbstract
     private function generate201() : void
     {
         $this->set('', 'HTTP/1.0 201 Created');
-        $this->set('Status', 'Status: HTTP/1.0 201 Created');
-        \http_response_code(201);
+        $this->set('Status', '201 Created');
     }
 
     /**
@@ -471,8 +467,7 @@ final class HttpHeader extends HeaderAbstract
     private function generate202() : void
     {
         $this->set('', 'HTTP/1.0 202 Accepted');
-        $this->set('Status', 'Status: HTTP/1.0 202 Accepted');
-        \http_response_code(202);
+        $this->set('Status', '202 Accepted');
     }
 
     /**
@@ -485,8 +480,7 @@ final class HttpHeader extends HeaderAbstract
     private function generate204() : void
     {
         $this->set('', 'HTTP/1.0 204 No Content');
-        $this->set('Status', 'Status: HTTP/1.0 204 No Content');
-        \http_response_code(204);
+        $this->set('Status', '204 No Content');
     }
 
     /**
@@ -499,8 +493,7 @@ final class HttpHeader extends HeaderAbstract
     private function generate205() : void
     {
         $this->set('', 'HTTP/1.0 205 Reset Content');
-        $this->set('Status', 'Status: HTTP/1.0 205 Reset Content');
-        \http_response_code(205);
+        $this->set('Status', '205 Reset Content');
     }
 
     /**
@@ -513,8 +506,7 @@ final class HttpHeader extends HeaderAbstract
     private function generate206() : void
     {
         $this->set('', 'HTTP/1.0 206 Partial Content');
-        $this->set('Status', 'Status: HTTP/1.0 206 Partial Content');
-        \http_response_code(206);
+        $this->set('Status', '206 Partial Content');
     }
 
     /**
@@ -527,8 +519,7 @@ final class HttpHeader extends HeaderAbstract
     private function generate301() : void
     {
         $this->set('', 'HTTP/1.0 301 Moved Permanently');
-        $this->set('Status', 'Status: HTTP/1.0 301 Moved Permanently');
-        \http_response_code(301);
+        $this->set('Status', '301 Moved Permanently');
     }
 
     /**
@@ -541,8 +532,7 @@ final class HttpHeader extends HeaderAbstract
     private function generate302() : void
     {
         $this->set('', 'HTTP/1.0 302 Found');
-        $this->set('Status', 'Status: HTTP/1.0 302 Found');
-        \http_response_code(302);
+        $this->set('Status', '302 Found');
     }
 
     /**
@@ -555,8 +545,7 @@ final class HttpHeader extends HeaderAbstract
     private function generate303() : void
     {
         $this->set('', 'HTTP/1.0 303 See Other');
-        $this->set('Status', 'Status: HTTP/1.0 303 See Other');
-        \http_response_code(303);
+        $this->set('Status', '303 See Other');
     }
 
     /**
@@ -569,8 +558,7 @@ final class HttpHeader extends HeaderAbstract
     private function generate304() : void
     {
         $this->set('', 'HTTP/1.0 304 Not Modified');
-        $this->set('Status', 'Status: HTTP/1.0 304 Not Modified');
-        \http_response_code(304);
+        $this->set('Status', '304 Not Modified');
     }
 
     /**
@@ -583,8 +571,7 @@ final class HttpHeader extends HeaderAbstract
     private function generate307() : void
     {
         $this->set('', 'HTTP/1.0 307 Temporary Redirect');
-        $this->set('Status', 'Status: HTTP/1.0 307 Temporary Redirect');
-        \http_response_code(307);
+        $this->set('Status', '307 Temporary Redirect');
     }
 
     /**
@@ -597,8 +584,7 @@ final class HttpHeader extends HeaderAbstract
     private function generate308() : void
     {
         $this->set('', 'HTTP/1.0 308 Permanent Redirect');
-        $this->set('Status', 'Status: HTTP/1.0 308 Permanent Redirect');
-        \http_response_code(308);
+        $this->set('Status', '308 Permanent Redirect');
     }
 
     /**
@@ -611,8 +597,7 @@ final class HttpHeader extends HeaderAbstract
     private function generate400() : void
     {
         $this->set('', 'HTTP/1.0 400 Bad Request');
-        $this->set('Status', 'Status: HTTP/1.0 400 Bad Request');
-        \http_response_code(400);
+        $this->set('Status', '400 Bad Request');
     }
 
     /**
@@ -625,8 +610,7 @@ final class HttpHeader extends HeaderAbstract
     private function generate401() : void
     {
         $this->set('', 'HTTP/1.0 401 Unauthorized');
-        $this->set('Status', 'Status: HTTP/1.0 401 Unauthorized');
-        \http_response_code(401);
+        $this->set('Status', '401 Unauthorized');
     }
 
     /**
@@ -639,8 +623,7 @@ final class HttpHeader extends HeaderAbstract
     private function generate402() : void
     {
         $this->set('', 'HTTP/1.0 402 Payment Required');
-        $this->set('Status', 'Status: HTTP/1.0 402 Payment Required');
-        \http_response_code(402);
+        $this->set('Status', '402 Payment Required');
     }
 
     /**
@@ -653,8 +636,7 @@ final class HttpHeader extends HeaderAbstract
     private function generate403() : void
     {
         $this->set('', 'HTTP/1.0 403 Forbidden');
-        $this->set('Status', 'Status: HTTP/1.0 403 Forbidden');
-        \http_response_code(403);
+        $this->set('Status', '403 Forbidden');
     }
 
     /**
@@ -667,8 +649,7 @@ final class HttpHeader extends HeaderAbstract
     private function generate404() : void
     {
         $this->set('', 'HTTP/1.0 404 Not Found');
-        $this->set('Status', 'Status: HTTP/1.0 404 Not Found');
-        \http_response_code(404);
+        $this->set('Status', '404 Not Found');
     }
 
     /**
@@ -681,8 +662,7 @@ final class HttpHeader extends HeaderAbstract
     private function generate405() : void
     {
         $this->set('', 'HTTP/1.0 405 Method Not Allowed');
-        $this->set('Status', 'Status: HTTP/1.0 405 Method Not Allowed');
-        \http_response_code(405);
+        $this->set('Status', '405 Method Not Allowed');
     }
 
     /**
@@ -695,8 +675,7 @@ final class HttpHeader extends HeaderAbstract
     private function generate406() : void
     {
         $this->set('', 'HTTP/1.0 406 Not acceptable');
-        $this->set('Status', 'Status: 406 Not acceptable');
-        \http_response_code(406);
+        $this->set('Status', '406 Not acceptable');
     }
 
     /**
@@ -709,8 +688,7 @@ final class HttpHeader extends HeaderAbstract
     private function generate407() : void
     {
         $this->set('', 'HTTP/1.0 407 Proxy Authentication Required');
-        $this->set('Status', 'Status: HTTP/1.0 407 Proxy Authentication Required');
-        \http_response_code(407);
+        $this->set('Status', '407 Proxy Authentication Required');
     }
 
     /**
@@ -723,8 +701,7 @@ final class HttpHeader extends HeaderAbstract
     private function generate408() : void
     {
         $this->set('', 'HTTP/1.0 408 Request Timeout');
-        $this->set('Status', 'Status: HTTP/1.0 408 Request Timeout');
-        \http_response_code(408);
+        $this->set('Status', '408 Request Timeout');
     }
 
     /**
@@ -737,8 +714,7 @@ final class HttpHeader extends HeaderAbstract
     private function generate409() : void
     {
         $this->set('', 'HTTP/1.0 409 Conflict');
-        $this->set('Status', 'Status: HTTP/1.0 409 Conflict');
-        \http_response_code(409);
+        $this->set('Status', '409 Conflict');
     }
 
     /**
@@ -751,8 +727,7 @@ final class HttpHeader extends HeaderAbstract
     private function generate410() : void
     {
         $this->set('', 'HTTP/1.0 410 Gone');
-        $this->set('Status', 'Status: HTTP/1.0 410 Gone');
-        \http_response_code(410);
+        $this->set('Status', '410 Gone');
     }
 
     /**
@@ -765,8 +740,7 @@ final class HttpHeader extends HeaderAbstract
     private function generate411() : void
     {
         $this->set('', 'HTTP/1.0 411 Length Required');
-        $this->set('Status', 'Status: HTTP/1.0 411 Length Required');
-        \http_response_code(411);
+        $this->set('Status', '411 Length Required');
     }
 
     /**
@@ -779,8 +753,7 @@ final class HttpHeader extends HeaderAbstract
     private function generate412() : void
     {
         $this->set('', 'HTTP/1.0 412 Precondition Failed');
-        $this->set('Status', 'Status: HTTP/1.0 412 Precondition Failed');
-        \http_response_code(412);
+        $this->set('Status', '412 Precondition Failed');
     }
 
     /**
@@ -793,8 +766,7 @@ final class HttpHeader extends HeaderAbstract
     private function generate413() : void
     {
         $this->set('', 'HTTP/1.0 413 Request Entity Too Large');
-        $this->set('Status', 'Status: HTTP/1.0 413 Request Entity Too Large');
-        \http_response_code(413);
+        $this->set('Status', '413 Request Entity Too Large');
     }
 
     /**
@@ -807,8 +779,7 @@ final class HttpHeader extends HeaderAbstract
     private function generate414() : void
     {
         $this->set('', 'HTTP/1.0 414 Request-URI Too Long');
-        $this->set('Status', 'Status: HTTP/1.0 414 Request-URI Too Long');
-        \http_response_code(414);
+        $this->set('Status', '414 Request-URI Too Long');
     }
 
     /**
@@ -821,8 +792,7 @@ final class HttpHeader extends HeaderAbstract
     private function generate415() : void
     {
         $this->set('', 'HTTP/1.0 415 Unsupported Media Type');
-        $this->set('Status', 'Status: HTTP/1.0 415 Unsupported Media Type');
-        \http_response_code(415);
+        $this->set('Status', '415 Unsupported Media Type');
     }
 
     /**
@@ -835,8 +805,7 @@ final class HttpHeader extends HeaderAbstract
     private function generate416() : void
     {
         $this->set('', 'HTTP/1.0 416 Requested Range Not Satisfiable');
-        $this->set('Status', 'Status: HTTP/1.0 416 Requested Range Not Satisfiable');
-        \http_response_code(416);
+        $this->set('Status', '416 Requested Range Not Satisfiable');
     }
 
     /**
@@ -849,8 +818,7 @@ final class HttpHeader extends HeaderAbstract
     private function generate417() : void
     {
         $this->set('', 'HTTP/1.0 417 Expectation Failed');
-        $this->set('Status', 'Status: HTTP/1.0 417 Expectation Failed');
-        \http_response_code(417);
+        $this->set('Status', '417 Expectation Failed');
     }
 
     /**
@@ -863,8 +831,7 @@ final class HttpHeader extends HeaderAbstract
     private function generate421() : void
     {
         $this->set('', 'HTTP/1.0 421 Misdirected Request');
-        $this->set('Status', 'Status: HTTP/1.0 421 Misdirected Request');
-        \http_response_code(421);
+        $this->set('Status', '421 Misdirected Request');
     }
 
     /**
@@ -877,8 +844,7 @@ final class HttpHeader extends HeaderAbstract
     private function generate422() : void
     {
         $this->set('', 'HTTP/1.0 422 Unprocessable Entity');
-        $this->set('Status', 'Status: HTTP/1.0 422 Unprocessable Entity');
-        \http_response_code(422);
+        $this->set('Status', '422 Unprocessable Entity');
     }
 
     /**
@@ -891,8 +857,7 @@ final class HttpHeader extends HeaderAbstract
     private function generate423() : void
     {
         $this->set('', 'HTTP/1.0 423 Locked');
-        $this->set('Status', 'Status: HTTP/1.0 423 Locked');
-        \http_response_code(423);
+        $this->set('Status', '423 Locked');
     }
 
     /**
@@ -905,8 +870,7 @@ final class HttpHeader extends HeaderAbstract
     private function generate424() : void
     {
         $this->set('', 'HTTP/1.0 424 Failed Dependency');
-        $this->set('Status', 'Status: HTTP/1.0 424 Failed Dependency');
-        \http_response_code(424);
+        $this->set('Status', '424 Failed Dependency');
     }
 
     /**
@@ -919,8 +883,7 @@ final class HttpHeader extends HeaderAbstract
     private function generate425() : void
     {
         $this->set('', 'HTTP/1.0 425 Too Early');
-        $this->set('Status', 'Status: HTTP/1.0 425 Too Early');
-        \http_response_code(425);
+        $this->set('Status', '425 Too Early');
     }
 
     /**
@@ -933,8 +896,7 @@ final class HttpHeader extends HeaderAbstract
     private function generate426() : void
     {
         $this->set('', 'HTTP/1.0 426 Upgrade Required');
-        $this->set('Status', 'Status: HTTP/1.0 426 Upgrade Required');
-        \http_response_code(426);
+        $this->set('Status', '426 Upgrade Required');
     }
 
     /**
@@ -947,8 +909,7 @@ final class HttpHeader extends HeaderAbstract
     private function generate428() : void
     {
         $this->set('', 'HTTP/1.0 428 Precondition Required');
-        $this->set('Status', 'Status: HTTP/1.0 428 Precondition Required');
-        \http_response_code(428);
+        $this->set('Status', '428 Precondition Required');
     }
 
     /**
@@ -961,8 +922,7 @@ final class HttpHeader extends HeaderAbstract
     private function generate429() : void
     {
         $this->set('', 'HTTP/1.0 429 Too Many Requests');
-        $this->set('Status', 'Status: HTTP/1.0 429 Too Many Requests');
-        \http_response_code(429);
+        $this->set('Status', '429 Too Many Requests');
     }
 
     /**
@@ -975,8 +935,7 @@ final class HttpHeader extends HeaderAbstract
     private function generate431() : void
     {
         $this->set('', 'HTTP/1.0 431 Request Header Fields Too Large');
-        $this->set('Status', 'Status: HTTP/1.0 431 Request Header Fields Too Large');
-        \http_response_code(431);
+        $this->set('Status', '431 Request Header Fields Too Large');
     }
 
     /**
@@ -989,8 +948,7 @@ final class HttpHeader extends HeaderAbstract
     private function generate451() : void
     {
         $this->set('', 'HTTP/1.0 451 Unavailable For Legal Reasons');
-        $this->set('Status', 'Status: HTTP/1.0 451 Unavailable For Legal Reasons');
-        \http_response_code(451);
+        $this->set('Status', '451 Unavailable For Legal Reasons');
     }
 
     /**
@@ -1003,8 +961,7 @@ final class HttpHeader extends HeaderAbstract
     private function generate500() : void
     {
         $this->set('', 'HTTP/1.0 500 Internal Server Error');
-        $this->set('Status', 'Status: HTTP/1.0 500 Internal Server Error');
-        \http_response_code(500);
+        $this->set('Status', '500 Internal Server Error');
     }
 
     /**
@@ -1017,8 +974,7 @@ final class HttpHeader extends HeaderAbstract
     private function generate501() : void
     {
         $this->set('', 'HTTP/1.0 501 Not Implemented');
-        $this->set('Status', 'Status: HTTP/1.0 501 Not Implemented');
-        \http_response_code(501);
+        $this->set('Status', '501 Not Implemented');
     }
 
     /**
@@ -1031,8 +987,7 @@ final class HttpHeader extends HeaderAbstract
     private function generate502() : void
     {
         $this->set('', 'HTTP/1.0 502 Bad Gateway');
-        $this->set('Status', 'Status: HTTP/1.0 502 Bad Gateway');
-        \http_response_code(502);
+        $this->set('Status', '502 Bad Gateway');
     }
 
     /**
@@ -1045,9 +1000,8 @@ final class HttpHeader extends HeaderAbstract
     private function generate503() : void
     {
         $this->set('', 'HTTP/1.0 503 Service Temporarily Unavailable');
-        $this->set('Status', 'Status: 503 Service Temporarily Unavailable');
+        $this->set('Status', '503 Service Temporarily Unavailable');
         $this->set('Retry-After', 'Retry-After: 300');
-        \http_response_code(503);
     }
 
     /**
@@ -1060,8 +1014,7 @@ final class HttpHeader extends HeaderAbstract
     private function generate504() : void
     {
         $this->set('', 'HTTP/1.0 504 Gateway Timeout');
-        $this->set('Status', 'Status: HTTP/1.0 504 Gateway Timeout');
-        \http_response_code(504);
+        $this->set('Status', '504 Gateway Timeout');
     }
 
     /**
@@ -1074,8 +1027,7 @@ final class HttpHeader extends HeaderAbstract
     private function generate507() : void
     {
         $this->set('', 'HTTP/1.0 507 Insufficient Storage');
-        $this->set('Status', 'Status: HTTP/1.0 507 Insufficient Storage');
-        \http_response_code(507);
+        $this->set('Status', '507 Insufficient Storage');
     }
 
     /**
@@ -1088,8 +1040,7 @@ final class HttpHeader extends HeaderAbstract
     private function generate508() : void
     {
         $this->set('', 'HTTP/1.0 508 Loop Detected');
-        $this->set('Status', 'Status: HTTP/1.0 508 Loop Detected');
-        \http_response_code(508);
+        $this->set('Status', '508 Loop Detected');
     }
 
     /**
@@ -1102,8 +1053,7 @@ final class HttpHeader extends HeaderAbstract
     private function generate511() : void
     {
         $this->set('', 'HTTP/1.0 511 Network Authentication Required');
-        $this->set('Status', 'Status: HTTP/1.0 511 Network Authentication Required');
-        \http_response_code(511);
+        $this->set('Status', '511 Network Authentication Required');
     }
 
     /**
@@ -1116,8 +1066,7 @@ final class HttpHeader extends HeaderAbstract
     private function generate598() : void
     {
         $this->set('', 'HTTP/1.0 598 Network read timeout error');
-        $this->set('Status', 'Status: HTTP/1.0 598 Network read timeout error');
-        \http_response_code(598);
+        $this->set('Status', '598 Network read timeout error');
     }
 
     /**
@@ -1130,7 +1079,6 @@ final class HttpHeader extends HeaderAbstract
     private function generate599() : void
     {
         $this->set('', 'HTTP/1.0 599 Network connect timeout error');
-        $this->set('Status', 'Status: HTTP/1.0 599 Network connect timeout error');
-        \http_response_code(599);
+        $this->set('Status', '599 Network connect timeout error');
     }
 }

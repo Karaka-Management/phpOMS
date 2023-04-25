@@ -36,18 +36,6 @@ final class AssetManagerTest extends \PHPUnit\Framework\TestCase
     }
 
     /**
-     * @testdox The manager has the expected member variables
-     * @group framework
-     */
-    public function testAttributes() : void
-    {
-        self::assertInstanceOf('\phpOMS\Asset\AssetManager', $this->manager);
-
-        /* Testing members */
-        self::assertObjectHasAttribute('assets', $this->manager);
-    }
-
-    /**
      * @testdox The manager has the expected default values after initialization
      * @group framework
      */

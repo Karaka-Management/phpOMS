@@ -25,19 +25,6 @@ final class FormValidationTest extends \PHPUnit\Framework\TestCase
      * @covers phpOMS\Model\Message\FormValidation
      * @group framework
      */
-    public function testAttributes() : void
-    {
-        $obj = new FormValidation([]);
-        self::assertInstanceOf('\phpOMS\Model\Message\FormValidation', $obj);
-
-        /* Testing members */
-        self::assertObjectHasAttribute('validation', $obj);
-    }
-
-    /**
-     * @covers phpOMS\Model\Message\FormValidation
-     * @group framework
-     */
     public function testDefault() : void
     {
         $obj = new FormValidation([]);

@@ -339,6 +339,10 @@ final class PackageManager
      */
     private function authenticate(string $signedHash, string $rawHash) : bool
     {
+        if ($signedHash === '' || $rawHash === '') {
+            return false;
+        }
+
         try {
             return \sodium_crypto_sign_verify_detached($signedHash, $rawHash, $this->publicKey);
         } catch(\Throwable $t) {

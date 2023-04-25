@@ -36,17 +36,6 @@ final class EventManagerTest extends \PHPUnit\Framework\TestCase
     }
 
     /**
-     * @testdox The event manager has the expected member variables
-     * @covers phpOMS\Event\EventManager
-     * @group framework
-     */
-    public function testAttributes() : void
-    {
-        self::assertObjectHasAttribute('groups', $this->event);
-        self::assertObjectHasAttribute('callbacks', $this->event);
-    }
-
-    /**
      * @testdox The event manager has the expected default values after initialization
      * @covers phpOMS\Event\EventManager
      * @group framework

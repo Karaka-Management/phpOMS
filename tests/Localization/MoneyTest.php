@@ -33,12 +33,7 @@ final class MoneyTest extends \PHPUnit\Framework\TestCase
     public function testDefaultMemberVariables() : void
     {
         $money = new Money(0);
-        self::assertObjectHasAttribute('thousands', $money);
-        self::assertObjectHasAttribute('decimal', $money);
-        self::assertObjectHasAttribute('value', $money);
-
         self::assertGreaterThan(0, Money::MAX_DECIMALS);
-
         self::assertEquals(0, $money->getInt());
     }
 

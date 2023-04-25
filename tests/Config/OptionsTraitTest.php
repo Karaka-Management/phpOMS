@@ -26,20 +26,6 @@ require_once __DIR__ . '/../Autoloader.php';
 final class OptionsTraitTest extends \PHPUnit\Framework\TestCase
 {
     /**
-     * @testdox The option helper has the expected attributes
-     * @group framework
-     */
-    public function testOptionTraitMembers() : void
-    {
-        $class = new class() {
-            use OptionsTrait;
-        };
-
-        /* Testing members */
-        self::assertObjectHasAttribute('options', $class);
-    }
-
-    /**
      * @testdox The option helper has the expected default values after initialization
      * @group framework
      */

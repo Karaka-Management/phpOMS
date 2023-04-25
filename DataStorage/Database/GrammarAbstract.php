@@ -15,10 +15,8 @@ declare(strict_types=1);
 namespace phpOMS\DataStorage\Database;
 
 use phpOMS\Contract\SerializableInterface;
-use phpOMS\DataStorage\Database\Query\Builder;
 use phpOMS\DataStorage\Database\Query\Column;
 use phpOMS\DataStorage\Database\Query\Parameter;
-use phpOMS\DataStorage\Database\Query\QueryType;
 
 /**
  * Grammar.
@@ -139,6 +137,17 @@ abstract class GrammarAbstract
         return \substr($queryString, 0, -1) . ';';
     }
 
+    /**
+     * Compile post querys.
+     *
+     * These are queries, which should be run after the main query (e.g. table alters, trigger definitions etc.)
+     *
+     * @param BuilderAbstract $query Builder
+     *
+     * @return string[]
+     *
+     * @since 1.0.0
+     */
     public function compilePostQuerys(BuilderAbstract $query) : array
     {
         return [];
@@ -249,7 +258,7 @@ abstract class GrammarAbstract
      * Compile value.
      *
      * @param BuilderAbstract $query Query builder
-     * @param mixed   $value Value
+     * @param mixed           $value Value
      *
      * @return string returns a string representation of the value
      *

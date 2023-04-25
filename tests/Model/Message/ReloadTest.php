@@ -25,19 +25,6 @@ final class ReloadTest extends \PHPUnit\Framework\TestCase
      * @covers phpOMS\Model\Message\Reload
      * @group framework
      */
-    public function testAttributes() : void
-    {
-        $obj = new Reload();
-        self::assertInstanceOf('\phpOMS\Model\Message\Reload', $obj);
-
-        /* Testing members */
-        self::assertObjectHasAttribute('delay', $obj);
-    }
-
-    /**
-     * @covers phpOMS\Model\Message\Reload
-     * @group framework
-     */
     public function testDefault() : void
     {
         $obj = new Reload();

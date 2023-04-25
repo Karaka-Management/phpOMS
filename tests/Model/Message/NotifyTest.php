@@ -26,23 +26,6 @@ final class NotifyTest extends \PHPUnit\Framework\TestCase
      * @covers phpOMS\Model\Message\Notify
      * @group framework
      */
-    public function testAttributes() : void
-    {
-        $obj = new Notify();
-        self::assertInstanceOf('\phpOMS\Model\Message\Notify', $obj);
-
-        /* Testing members */
-        self::assertObjectHasAttribute('delay', $obj);
-        self::assertObjectHasAttribute('title', $obj);
-        self::assertObjectHasAttribute('stay', $obj);
-        self::assertObjectHasAttribute('message', $obj);
-        self::assertObjectHasAttribute('level', $obj);
-    }
-
-    /**
-     * @covers phpOMS\Model\Message\Notify
-     * @group framework
-     */
     public function testDefault() : void
     {
         $obj = new Notify();

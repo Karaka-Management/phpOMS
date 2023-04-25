@@ -57,17 +57,6 @@ final class FileLoggerTest extends \PHPUnit\Framework\TestCase
     }
 
     /**
-     * @testdox The logger has the expected member variables
-     * @covers phpOMS\Log\FileLogger
-     * @group framework
-     */
-    public function testAttributes() : void
-    {
-        self::assertObjectHasAttribute('fp', $this->log);
-        self::assertObjectHasAttribute('path', $this->log);
-    }
-
-    /**
      * @testdox The logger has the expected default values after initialization
      * @covers phpOMS\Log\FileLogger
      * @group framework

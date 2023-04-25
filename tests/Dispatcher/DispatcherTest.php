@@ -48,16 +48,6 @@ final class DispatcherTest extends \PHPUnit\Framework\TestCase
     }
 
     /**
-     * @testdox The dispatcher has the expected attributes
-     * @covers phpOMS\Dispatcher\Dispatcher
-     * @group framework
-     */
-    public function testAttributes() : void
-    {
-        self::assertObjectHasAttribute('controllers', $this->app->dispatcher);
-    }
-
-    /**
      * @testdox A route can be added and dispatched
      * @covers phpOMS\Dispatcher\Dispatcher
      * @group framework

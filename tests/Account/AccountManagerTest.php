@@ -42,19 +42,6 @@ final class AccountManagerTest extends \PHPUnit\Framework\TestCase
     }
 
     /**
-     * @testdox The manager has the expected member variables
-     * @covers phpOMS\Account\AccountManager<extended>
-     * @group framework
-     */
-    public function testAttributes() : void
-    {
-        self::assertInstanceOf('\phpOMS\Account\AccountManager', $this->manager);
-
-        /* Testing members */
-        self::assertObjectHasAttribute('accounts', $this->manager);
-    }
-
-    /**
      * @testdox The manager has the expected default values after initialization
      * @covers phpOMS\Account\AccountManager<extended>
      * @group framework

@@ -69,7 +69,11 @@ final class Guard
         if (\is_array($data)) {
             $result = [];
             foreach ($data as $key => $value) {
-                $result[$key] = self::unslash($value);
+                if (\is_string($value) || \is_array($value)) {
+                    $result[$key] = self::unslash($value);
+                } else {
+                    $result[$key] = $value;
+                }
             }
 
             return $result;

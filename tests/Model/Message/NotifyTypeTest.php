@@ -27,7 +27,7 @@ final class NotifyTypeTest extends \PHPUnit\Framework\TestCase
      */
     public function testEnumCount() : void
     {
-        self::assertCount(5, NotifyType::getConstants());
+        self::assertCount(7, NotifyType::getConstants());
     }
 
     /**
@@ -45,10 +45,10 @@ final class NotifyTypeTest extends \PHPUnit\Framework\TestCase
      */
     public function testEnums() : void
     {
-        self::assertEquals(0, NotifyType::BINARY);
-        self::assertEquals(1, NotifyType::INFO);
-        self::assertEquals(2, NotifyType::WARNING);
-        self::assertEquals(3, NotifyType::ERROR);
-        self::assertEquals(4, NotifyType::FATAL);
+        self::assertEquals('binary', NotifyType::BINARY);
+        self::assertEquals('info', NotifyType::INFO);
+        self::assertEquals('warning', NotifyType::WARNING);
+        self::assertEquals('error', NotifyType::ERROR);
+        self::assertEquals('fatal', NotifyType::FATAL);
     }
 }

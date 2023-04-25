@@ -35,7 +35,7 @@ class LanguageResult implements \JsonSerializable, \IteratorAggregate, \ArrayAcc
     /**
      * Match values per language
      *
-     * @var float[]
+     * @var array<int|float, int|float>
      * @sicne 1.0.0
      */
     private array $result = [];

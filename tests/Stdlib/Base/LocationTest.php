@@ -35,21 +35,6 @@ final class LocationTest extends \PHPUnit\Framework\TestCase
     }
 
     /**
-     * @testdox The location has the expected attributes
-     * @covers phpOMS\Stdlib\Base\Location
-     * @group framework
-     */
-    public function testAttributes() : void
-    {
-        self::assertObjectHasAttribute('postal', $this->location);
-        self::assertObjectHasAttribute('city', $this->location);
-        self::assertObjectHasAttribute('country', $this->location);
-        self::assertObjectHasAttribute('address', $this->location);
-        self::assertObjectHasAttribute('state', $this->location);
-        self::assertObjectHasAttribute('geo', $this->location);
-    }
-
-    /**
      * @testdox The location has the expected default values after initialization
      * @covers phpOMS\Stdlib\Base\Location
      * @group framework

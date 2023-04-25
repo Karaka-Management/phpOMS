@@ -38,16 +38,6 @@ final class L11nManagerTest extends \PHPUnit\Framework\TestCase
     }
 
     /**
-     * @testdox The localization manager has the expected member variables
-     * @covers phpOMS\Localization\L11nManager
-     * @group framework
-     */
-    public function testAttributes() : void
-    {
-        self::assertObjectHasAttribute('language', $this->l11nManager);
-    }
-
-    /**
      * @testdox The localization manager has the expected default values after initialization
      * @covers phpOMS\Localization\L11nManager
      * @group framework

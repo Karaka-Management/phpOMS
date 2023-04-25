@@ -102,4 +102,11 @@ class TaskScheduler extends SchedulerAbstract
 
         return $jobs;
     }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function reload() : void
+    {
+    }
 }

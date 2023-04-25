@@ -356,6 +356,20 @@ final class Complex
     }
 
     /**
+     * Calculate the magnitude of the complex number
+     *
+     * @param int $power Power
+     *
+     * @return int|float
+     *
+     * @since 1.0.0
+     */
+    public function magnitued(int $power = 2) : int | float
+    {
+        return \pow($this->re, $power) + \pow($this->im, $power);
+    }
+
+    /**
      * Div opperator
      *
      * @param int|float|self $value Value to div

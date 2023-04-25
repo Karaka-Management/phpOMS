@@ -214,6 +214,9 @@ final class ImageUtils
         $diff = empty($out) ? -1 : $out;
         $dst  = false;
 
+        $red   = 0;
+        $green = 0;
+
         if ($diff !== -1) {
             $dst = $diff === 0
                 ? \imagecreatetruecolor($newDim[0], $newDim[1])
@@ -246,12 +249,20 @@ final class ImageUtils
             for ($j = 0; $j < $newDim[1]; ++$j) {
                 if ($i >= $imageDim1[0] || $j >= $imageDim1[1]) {
                     if ($diff === 0) {
+                        /** @var \GdImage $dst */
                         \imagesetpixel($dst, $i, $j, $green);
                     } elseif ($diff === 1) {
                         if ($i >= $imageDim2[0] || $j >= $imageDim2[1]) {
+                            /** @var \GdImage $dst */
                             \imagesetpixel($dst, $i, $j, $green);
                         } else {
                             $color2 = \imagecolorat($src2, $i, $j);
+
+                            if ($color2 === false) {
+                                continue;
+                            }
+
+                            /** @var \GdImage $dst */
                             \imagesetpixel($dst, $i, $j, $color2);
                         }
                     }
@@ -262,12 +273,20 @@ final class ImageUtils
 
                 if ($i >= $imageDim2[0] || $j >= $imageDim2[1]) {
                     if ($diff === 0) {
+                        /** @var \GdImage $dst */
                         \imagesetpixel($dst, $i, $j, $red);
                     } elseif ($diff === 1) {
                         if ($i >= $imageDim1[0] || $j >= $imageDim1[1]) {
+                            /** @var \GdImage $dst */
                             \imagesetpixel($dst, $i, $j, $red);
                         } else {
                             $color1 = \imagecolorat($src1, $i, $j);
+
+                            if ($color1 === false) {
+                                continue;
+                            }
+
+                            /** @var \GdImage $dst */
                             \imagesetpixel($dst, $i, $j, $color1);
                         }
                     }
@@ -279,12 +298,14 @@ final class ImageUtils
                 $color1 = \imagecolorat($src1, $i, $j);
                 $color2 = \imagecolorat($src2, $i, $j);
 
-                if ($color1 !== $color2 && $color1 !== false && $color2 !== null) {
+                if ($color1 !== $color2 && $color1 !== false && $color2 !== false) {
                     ++$difference;
 
                     if ($diff === 0) {
+                        /** @var \GdImage $dst */
                         \imagesetpixel($dst, $i, $j, $color2);
                     } elseif ($diff === 1) {
+                        /** @var \GdImage $dst */
                         \imagesetpixel($dst, $i, $j, $green);
                     }
                 }

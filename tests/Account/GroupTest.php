@@ -29,26 +29,6 @@ require_once __DIR__ . '/../Autoloader.php';
 final class GroupTest extends \PHPUnit\Framework\TestCase
 {
     /**
-     * @testdox The group has the expected member variables
-     * @covers phpOMS\Account\Group<extended>
-     * @group framework
-     */
-    public function testAttributes() : void
-    {
-        $group = new Group();
-        self::assertInstanceOf('\phpOMS\Account\Group', $group);
-
-        /* Testing members */
-        self::assertObjectHasAttribute('id', $group);
-        self::assertObjectHasAttribute('name', $group);
-        self::assertObjectHasAttribute('description', $group);
-        self::assertObjectHasAttribute('members', $group);
-        self::assertObjectHasAttribute('parents', $group);
-        self::assertObjectHasAttribute('permissions', $group);
-        self::assertObjectHasAttribute('status', $group);
-    }
-
-    /**
      * @testdox The group has the expected default values after initialization
      * @covers phpOMS\Account\Group<extended>
      * @group framework

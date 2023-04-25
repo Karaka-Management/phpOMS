@@ -104,21 +104,60 @@ class Grammar extends GrammarAbstract
         return $sql;
     }
 
+    /**
+     * Compile the select tables.
+     *
+     * @param SchemaBuilder $query  Query
+     * @param array         $tables Tables
+     *
+     * @return string
+     *
+     * @since 1.0.0
+     */
     protected function compileSelectTables(SchemaBuilder $query, array $tables) : string
     {
         return '';
     }
 
+    /**
+     * Compile the select fields from table.
+     *
+     * @param SchemaBuilder $query Query
+     * @param array         $table Table
+     *
+     * @return string
+     *
+     * @since 1.0.0
+     */
     protected function compileSelectFields(SchemaBuilder $query, string $table) : string
     {
         return '';
     }
 
+    /**
+     * Compile the create fields.
+     *
+     * @param SchemaBuilder $query  Query
+     * @param array         $fields Fields
+     *
+     * @return string
+     *
+     * @since 1.0.0
+     */
     protected function compileCreateFields(SchemaBuilder $query, array $fields) : string
     {
         return '';
     }
 
+    /**
+     * Compile the select tables.
+     *
+     * @param SchemaBuilder $query Query
+     *
+     * @return string
+     *
+     * @since 1.0.0
+     */
     public function compilePostQueries(BuilderAbstract $query): array
     {
         return [];

@@ -104,7 +104,7 @@ class MysqlGrammar extends Grammar
      * Compile from.
      *
      * @param SchemaBuilder $query Builder
-     * @param array   $table Tables
+     * @param array         $table Tables
      *
      * @return string
      *
@@ -124,7 +124,7 @@ class MysqlGrammar extends Grammar
      * Compile from.
      *
      * @param SchemaBuilder $query Builder
-     * @param string  $table Tables
+     * @param string        $table Tables
      *
      * @return string
      *
@@ -145,7 +145,7 @@ class MysqlGrammar extends Grammar
      * Compile create table fields query.
      *
      * @param SchemaBuilder $query  Query
-     * @param array   $fields Fields to create
+     * @param array         $fields Fields to create
      *
      * @return string
      *

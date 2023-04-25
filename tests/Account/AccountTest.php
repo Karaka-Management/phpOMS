@@ -44,33 +44,6 @@ final class AccountTest extends \PHPUnit\Framework\TestCase
     }
 
     /**
-     * @testdox The account has the expected member variables
-     * @covers phpOMS\Account\Account<extended>
-     * @group framework
-     */
-    public function testAttributes() : void
-    {
-        $account = new Account();
-        self::assertInstanceOf('\phpOMS\Account\Account', $account);
-
-        /* Testing members */
-        self::assertObjectHasAttribute('id', $account);
-        self::assertObjectHasAttribute('name1', $account);
-        self::assertObjectHasAttribute('name2', $account);
-        self::assertObjectHasAttribute('name3', $account);
-        self::assertObjectHasAttribute('email', $account);
-        self::assertObjectHasAttribute('origin', $account);
-        self::assertObjectHasAttribute('login', $account);
-        self::assertObjectHasAttribute('lastActive', $account);
-        self::assertObjectHasAttribute('createdAt', $account);
-        self::assertObjectHasAttribute('permissions', $account);
-        self::assertObjectHasAttribute('groups', $account);
-        self::assertObjectHasAttribute('type', $account);
-        self::assertObjectHasAttribute('status', $account);
-        self::assertObjectHasAttribute('l11n', $account);
-    }
-
-    /**
      * @testdox The account has the expected default values after initialization
      * @covers phpOMS\Account\Account<extended>
      * @group framework

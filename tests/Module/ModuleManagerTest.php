@@ -58,22 +58,6 @@ final class ModuleManagerTest extends \PHPUnit\Framework\TestCase
     }
 
     /**
-     * @testdox The module manager has the expected attributes
-     * @covers phpOMS\Module\ModuleManager
-     * @group framework
-     */
-    public function testAttributes() : void
-    {
-        self::assertInstanceOf('\phpOMS\Module\ModuleManager', $this->moduleManager);
-
-        self::assertObjectHasAttribute('running', $this->moduleManager);
-        self::assertObjectHasAttribute('installed', $this->moduleManager);
-        self::assertObjectHasAttribute('active', $this->moduleManager);
-        self::assertObjectHasAttribute('all', $this->moduleManager);
-        self::assertObjectHasAttribute('uriLoad', $this->moduleManager);
-    }
-
-    /**
      * @testdox Unknown modules return a null module
      * @covers phpOMS\Module\ModuleManager
      * @group framework

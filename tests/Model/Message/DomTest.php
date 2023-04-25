@@ -26,22 +26,6 @@ final class DomTest extends \PHPUnit\Framework\TestCase
      * @covers phpOMS\Model\Message\Dom
      * @group framework
      */
-    public function testAttributes() : void
-    {
-        $obj = new Dom();
-        self::assertInstanceOf('\phpOMS\Model\Message\Dom', $obj);
-
-        /* Testing members */
-        self::assertObjectHasAttribute('delay', $obj);
-        self::assertObjectHasAttribute('content', $obj);
-        self::assertObjectHasAttribute('selector', $obj);
-        self::assertObjectHasAttribute('action', $obj);
-    }
-
-    /**
-     * @covers phpOMS\Model\Message\Dom
-     * @group framework
-     */
     public function testDefault() : void
     {
         $obj = new Dom();

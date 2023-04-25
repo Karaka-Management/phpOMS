@@ -27,7 +27,7 @@ final class RequestStatusCodeTest extends \PHPUnit\Framework\TestCase
      */
     public function testEnumCount() : void
     {
-        self::assertCount(55, RequestStatusCode::getConstants());
+        self::assertCount(63, RequestStatusCode::getConstants());
     }
 
     /**

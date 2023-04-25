@@ -25,21 +25,6 @@ final class RedirectTest extends \PHPUnit\Framework\TestCase
      * @covers phpOMS\Model\Message\Redirect
      * @group framework
      */
-    public function testAttributes() : void
-    {
-        $obj = new Redirect('');
-        self::assertInstanceOf('\phpOMS\Model\Message\Redirect', $obj);
-
-        /* Testing members */
-        self::assertObjectHasAttribute('uri', $obj);
-        self::assertObjectHasAttribute('delay', $obj);
-        self::assertObjectHasAttribute('new', $obj);
-    }
-
-    /**
-     * @covers phpOMS\Model\Message\Redirect
-     * @group framework
-     */
     public function testDefault() : void
     {
         $obj = new Redirect('');

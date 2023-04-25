@@ -771,10 +771,10 @@ class Datamatrix extends TwoDAbstract
                             } elseif (isset($chr, self::CHARSET['SH2'][$chr])) {
                                 $temp_cw[] = 1; // shift 2
                                 $shiftset  = self::CHARSET['SH2'];
-                            } elseif (($enc === self::ENC_C40) && isset(self::CHARSET['S3C'][$chr])) {
+                            } elseif ($enc === self::ENC_C40 && isset(self::CHARSET['S3C'][$chr])) {
                                 $temp_cw[] = 2; // shift 3
                                 $shiftset  = self::CHARSET['S3C'];
-                            } elseif (($enc === self::ENC_TXT) && isset(self::CHARSET['S3T'][$chr])) {
+                            } elseif ($enc === self::ENC_TXT && isset(self::CHARSET['S3T'][$chr])) {
                                 $temp_cw[] = 2; // shift 3
                                 $shiftset  = self::CHARSET['S3T'];
                             } else {
