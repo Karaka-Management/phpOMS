@@ -37,7 +37,7 @@ class Account implements \JsonSerializable
      * @var int
      * @since 1.0.0
      */
-    protected int $id = 0;
+    public int $id = 0;
 
     /**
      * Names.
@@ -69,7 +69,7 @@ class Account implements \JsonSerializable
      * @var string
      * @since 1.0.0
      */
-    protected string $email = '';
+    public string $email = '';
 
     /**
      * Ip.
@@ -79,7 +79,7 @@ class Account implements \JsonSerializable
      * @var string
      * @since 1.0.0
      */
-    protected string $origin = '';
+    public string $origin = '';
 
     /**
      * Login.
@@ -95,7 +95,7 @@ class Account implements \JsonSerializable
      * @var \DateTime
      * @since 1.0.0
      */
-    protected \DateTime $lastActive;
+    public \DateTime $lastActive;
 
     /**
      * Last activity.
@@ -111,7 +111,7 @@ class Account implements \JsonSerializable
      * @var Group[]
      * @since 1.0.0
      */
-    protected array $groups = [];
+    public array $groups = [];
 
     /**
      * Password.
@@ -119,7 +119,7 @@ class Account implements \JsonSerializable
      * @var string
      * @since 1.0.0
      */
-    protected string $password = '';
+    public string $password = '';
 
     /**
      * Account type.
@@ -127,7 +127,7 @@ class Account implements \JsonSerializable
      * @var int
      * @since 1.0.0
      */
-    protected int $type = AccountType::USER;
+    public int $type = AccountType::USER;
 
     /**
      * Account status.
@@ -135,7 +135,7 @@ class Account implements \JsonSerializable
      * @var int
      * @since 1.0.0
      */
-    protected int $status = AccountStatus::INACTIVE;
+    public int $status = AccountStatus::INACTIVE;
 
     /**
      * Localization.
@@ -146,6 +146,31 @@ class Account implements \JsonSerializable
     public Localization $l11n;
 
     use PermissionHandlingTrait;
+
+    public function hasPermission(
+        int $permission,
+        int $unit = null,
+        int $app = null,
+        string $module = null,
+        int $category = null,
+        int $element = null,
+        int $component = null
+    ) : bool
+    {
+        foreach ($this->groups as $group) {
+            if ($group->hasPermission($permission, $unit, $app, $module, $category, $element, $component)) {
+                return true;
+            }
+        }
+
+        foreach ($this->permissions as $p) {
+            if ($p->hasPermission($permission, $unit, $app, $module, $category, $element, $component)) {
+                return true;
+            }
+        }
+
+        return false;
+    }
 
     /**
      * Constructor.
@@ -203,7 +228,7 @@ class Account implements \JsonSerializable
         /*
         $ids = [];
         foreach ($this->groups as $group) {
-            $ids[] = $group->getId();
+            $ids[] = $group->id;
         }
 
         return $ids;
@@ -237,7 +262,7 @@ class Account implements \JsonSerializable
     public function hasGroup(int $id) : bool
     {
         foreach ($this->groups as $group) {
-            if ($group->getId() === $id) {
+            if ($group->id === $id) {
                 return true;
             }
         }

@@ -40,7 +40,7 @@ class FloatInt implements SerializableInterface
      * @var string
      * @since 1.0.0
      */
-    protected string $thousands = ',';
+    public string $thousands = ',';
 
     /**
      * Decimal separator.
@@ -48,7 +48,7 @@ class FloatInt implements SerializableInterface
      * @var string
      * @since 1.0.0
      */
-    protected string $decimal = '.';
+    public string $decimal = '.';
 
     /**
      * Value.
@@ -56,7 +56,7 @@ class FloatInt implements SerializableInterface
      * @var int
      * @since 1.0.0
      */
-    protected int $value = 0;
+    public int $value = 0;
 
     /**
      * Constructor.

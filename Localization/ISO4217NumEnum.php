@@ -381,4 +381,16 @@ class ISO4217NumEnum extends Enum
     public const _ZAR = '710';
 
     public const _ZMW = '967';
+
+    public const _GHC = '936';
+
+    public const _LTL = '440';
+
+    public const _LVL = '428';
+
+    public const _TRL = '949';
+
+    public const _ZMK = '894';
+
+    public const _ZWL = '932';
 }

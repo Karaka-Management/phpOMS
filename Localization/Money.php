@@ -90,4 +90,12 @@ final class Money extends FloatInt
     {
         return $this->symbol;
     }
+
+    public static function fromFloatInt(FloatInt $value) : self
+    {
+        $money = new self();
+        $money->value = $value->value;
+
+        return $money;
+    }
 }

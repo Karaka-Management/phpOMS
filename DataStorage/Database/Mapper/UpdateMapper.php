@@ -74,7 +74,7 @@ final class UpdateMapper extends DataMapperAbstract
     public function executeUpdate(object $obj) : mixed
     {
         $refClass = new \ReflectionClass($obj);
-        $objId    = $this->mapper::getObjectId($obj, $refClass);
+        $objId    = $this->mapper::getObjectId($obj);
 
         if ($this->mapper::isNullModel($obj)) {
             return $objId === 0 ? null : $objId;
@@ -128,9 +128,7 @@ final class UpdateMapper extends DataMapperAbstract
                 $property = $refClass->getProperty($propertyName);
 
                 if (!($property->isPublic())) {
-                    $property->setAccessible(true);
                     $tValue = $property->getValue($obj);
-                    $property->setAccessible(false);
                 } else {
                     $tValue = $obj->{$propertyName};
                 }
@@ -244,9 +242,7 @@ final class UpdateMapper extends DataMapperAbstract
             $property = $refClass->getProperty($propertyName);
 
             if (!($isPublic = $property->isPublic())) {
-                $property->setAccessible(true);
                 $values = $property->getValue($obj);
-                $property->setAccessible(false);
             } else {
                 $values = $obj->{$propertyName};
             }
@@ -268,7 +264,7 @@ final class UpdateMapper extends DataMapperAbstract
                     continue;
                 }
 
-                $primaryKey = $mapper::getObjectId($value, $relReflectionClass);
+                $primaryKey = $mapper::getObjectId($value);
 
                 // already in db
                 if (!empty($primaryKey)) {
@@ -290,9 +286,7 @@ final class UpdateMapper extends DataMapperAbstract
                     $relProperty = $relReflectionClass->getProperty($mapper::COLUMNS[$this->mapper::HAS_MANY[$propertyName]['self']]['internal']);
 
                     if (!$isPublic) {
-                        $relProperty->setAccessible(true);
                         $relProperty->setValue($value, $objId);
-                        $relProperty->setAccessible(false);
                     } else {
                         $value->{$mapper::COLUMNS[$this->mapper::HAS_MANY[$propertyName]['self']]['internal']} = $objId;
                     }

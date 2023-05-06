@@ -193,10 +193,17 @@ abstract class GrammarAbstract
         $expression = '';
 
         foreach ($elements as $key => $element) {
-            if (\is_string($element) && $element !== '*') {
-                $expression .= $this->compileSystem($element) . (\is_string($key) ? ' as ' . $key : '') . ', ';
-            } elseif ($element === '*') {
-                $expression .= '*, ';
+            if (\is_string($element)) {
+                // @note: Replaced $this->compileSystem with $element
+                // This causes problems for tables or columns which use keywords such as count,
+                // but they are rare and should be handled somewhere else if it actually is such a case
+                if (\in_array($element, ['group', 'id', 'where', 'order'])) {
+                    $expression .= $this->compileSystem($element)
+                        . (\is_string($key) ? ' as ' . $key : '') . ', ';
+                } else {
+                    $expression .= $element
+                        . (\is_string($key) ? ' as ' . $key : '') . ', ';
+                }
             } elseif ($element instanceof \Closure) {
                 $expression .= $element() . (\is_string($key) ? ' as ' . $key : '') . ', ';
             } elseif ($element instanceof BuilderAbstract) {
@@ -226,7 +233,7 @@ abstract class GrammarAbstract
         $identifierEnd   = $this->systemIdentifierEnd;
 
         foreach ($this->specialKeywords as $keyword) {
-            if (\strrpos($system, $keyword, -\strlen($system)) !== false) {
+            if (\stripos($system, $keyword) !== false) {
                 $identifierStart = '';
                 $identifierEnd   = '';
 
@@ -240,18 +247,25 @@ abstract class GrammarAbstract
         if (($pos = \stripos($system, '.')) !== false) {
             $split = [\substr($system, 0, $pos), \substr($system, $pos + 1)];
 
-            return ($split[0] !== '*' ? $identifierStart : '')
-                . $split[0]
-                . ($split[0] !== '*' ? $identifierEnd : '')
+            $identifierTwoStart = $identifierStart;
+            $identifierTwoEnd   = $identifierEnd;
+
+            if ($split[1] === '*') {
+                $identifierTwoStart = '';
+                $identifierTwoEnd   = '';
+            }
+
+            return $identifierStart . $split[0] . $identifierEnd
                 . '.'
-                . ($split[1] !== '*' ? $identifierStart : '')
-                . $split[1]
-                . ($split[1] !== '*' ? $identifierEnd : '');
+                . $identifierTwoStart . $split[1] . $identifierTwoEnd;
         }
 
-        return ($system !== '*' ? $identifierStart : '')
-            . $system
-            . ($system !== '*' ? $identifierEnd : '');
+        if ($system === '*') {
+            $identifierStart = '';
+            $identifierEnd   = '';
+        }
+
+        return $identifierStart . $system . $identifierEnd;
     }
 
     /**

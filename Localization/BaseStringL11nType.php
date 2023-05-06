@@ -30,7 +30,7 @@ class BaseStringL11nType implements \JsonSerializable
      * @var int
      * @since 1.0.0
      */
-    protected int $id = 0;
+    public int $id = 0;
 
     /**
      * Identifier for the l11n type.

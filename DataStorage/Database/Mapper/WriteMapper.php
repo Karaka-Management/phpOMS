@@ -77,12 +77,12 @@ final class WriteMapper extends DataMapperAbstract
         $refClass = new \ReflectionClass($obj);
 
         if ($this->mapper::isNullModel($obj)) {
-            $objId = $this->mapper::getObjectId($obj, $refClass);
+            $objId = $this->mapper::getObjectId($obj);
 
             return $objId === 0 ? null : $objId;
         }
 
-        if (!empty($id = $this->mapper::getObjectId($obj, $refClass)) && $this->mapper::AUTOINCREMENT) {
+        if (!empty($id = $this->mapper::getObjectId($obj)) && $this->mapper::AUTOINCREMENT) {
             $objId = $id;
         } else {
             $objId = $this->createModel($obj, $refClass);
@@ -163,7 +163,7 @@ final class WriteMapper extends DataMapperAbstract
             $sth = $this->db->con->prepare($a = $query->toSql());
             $sth->execute();
 
-            $objId = empty($id = $this->mapper::getObjectId($obj, $refClass)) ? $this->db->con->lastInsertId() : $id;
+            $objId = empty($id = $this->mapper::getObjectId($obj)) ? $this->db->con->lastInsertId() : $id;
             \settype($objId, $this->mapper::COLUMNS[$this->mapper::PRIMARYFIELD]['type']);
 
             return $objId;
@@ -231,9 +231,7 @@ final class WriteMapper extends DataMapperAbstract
             $refProp  = $refClass->getProperty($this->mapper::BELONGS_TO[$propertyName]['by']);
 
             if (!$refProp->isPublic()) {
-                $refProp->setAccessible(true);
                 $obj = $refProp->getValue($obj);
-                $refProp->setAccessible(false);
             } else {
                 $obj = $obj->{$this->mapper::BELONGS_TO[$propertyName]['by']};
             }
@@ -267,7 +265,6 @@ final class WriteMapper extends DataMapperAbstract
 
             $property = $refClass->getProperty($propertyName);
             if (!($isPublic = $property->isPublic())) {
-                $property->setAccessible(true);
                 $values = $property->getValue($obj);
             } else {
                 $values = $obj->{$propertyName};
@@ -294,23 +291,11 @@ final class WriteMapper extends DataMapperAbstract
                     $values->{$internalName} = $objId;
                 }
 
-                if (!$isPublic) {
-                    $property->setAccessible(false);
-                }
-
                 $mapper::create(db: $this->db)->execute($values);
                 continue;
             } elseif (!\is_array($values)) {
-                if (!$isPublic) {
-                    $property->setAccessible(false);
-                }
-
                 // @todo: conditionals???
                 continue;
-            }
-
-            if (!$isPublic) {
-                $property->setAccessible(false);
             }
 
             $objsIds            = [];
@@ -325,7 +310,7 @@ final class WriteMapper extends DataMapperAbstract
                 }
 
                 /** @var \ReflectionClass $relReflectionClass */
-                $primaryKey = $mapper::getObjectId($value, $relReflectionClass);
+                $primaryKey = $mapper::getObjectId($value);
 
                 // already in db
                 if (!empty($primaryKey)) {
@@ -337,10 +322,7 @@ final class WriteMapper extends DataMapperAbstract
                 // Setting relation value (id) for relation (since the relation is not stored in an extra relation table)
                 if (!isset($this->mapper::HAS_MANY[$propertyName]['external'])) {
                     $relProperty = $relReflectionClass->getProperty($internalName);
-
-                    if (!($isRelPublic = $relProperty->isPublic())) {
-                        $relProperty->setAccessible(true);
-                    }
+                    $isRelPublic = $relProperty->isPublic();
 
                     // todo maybe consider to just set the column type to object, and then check for that (might be faster)
                     if (isset($mapper::BELONGS_TO[$internalName])

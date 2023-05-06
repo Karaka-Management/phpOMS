@@ -155,8 +155,8 @@ final class L11nManagerTest extends \PHPUnit\Framework\TestCase
     public function testGetCurrency() : void
     {
         $l11n = Localization::fromLanguage('en');
-        self::assertEquals('USD 1.23', $this->l11nManager->getCurrency($l11n, 1.2345, 'medium'));
-        self::assertEquals('USD 1.235', $this->l11nManager->getCurrency($l11n, 1.2345, 'long'));
+        self::assertEquals('USD 1.23', $this->l11nManager->getCurrency($l11n, 1.2345, 'USD'));
+        self::assertEquals('USD 1.235', $this->l11nManager->getCurrency($l11n, 1.2345, 'USD'));
 
         $this->l11nManager->loadLanguage('en', '0', ['0' => ['CurrencyK' => 'K']]);
         $this->l11nManager->loadLanguage('en', '0', ['0' => ['CurrencyM' => 'M']]);

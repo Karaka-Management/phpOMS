@@ -40,6 +40,8 @@ class ISO4217SubUnitEnum extends Enum
 
     public const _AUD = 100;
 
+    public const _AOA = 100;
+
     public const _AWG = 100;
 
     public const _BAM = 100;
@@ -101,6 +103,8 @@ class ISO4217SubUnitEnum extends Enum
     public const _DZD = 100;
 
     public const _EGP = 100;
+
+    public const _GGP = 100;
 
     public const _ERN = 100;
 
@@ -333,4 +337,70 @@ class ISO4217SubUnitEnum extends Enum
     public const _ZMK = 100;
 
     public const _ZWL = 100;
+
+    public const _GHC = 100;
+
+    public const _IMP = 100;
+
+    public const _JEP = 100;
+
+    public const _TRL = 100;
+
+    public const _TVD = 100;
+
+    public const _ZWD = 100;
+
+    public const _BOV = 100;
+
+    public const _CHE = 100;
+
+    public const _CHW = 100;
+
+    public const _CLF = 10000;
+
+    public const _COU = 100;
+
+    public const _ETB = 100;
+
+    public const _MXV = 100;
+
+    public const _USN = 100;
+
+    public const _USS = 100;
+
+    public const _UYI = 0;
+
+    public const _XAG = 0;
+
+    public const _XAU = 0;
+
+    public const _XBA = 0;
+
+    public const _XBB = 0;
+
+    public const _XBC = 0;
+
+    public const _XBD = 0;
+
+    public const _XDR = 0;
+
+    public const _XFU = 0;
+
+    public const _XPD = 0;
+
+    public const _XPT = 0;
+
+    public const _XSU = 0;
+
+    public const _XTS = 0;
+
+    public const _XUA = 0;
+
+    public const _ZMW = 100;
+
+    public const _AZN = 100;
+
+    public const _CRC = 100;
+
+    public const _GIP = 100;
 }

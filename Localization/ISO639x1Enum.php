@@ -186,6 +186,8 @@ class ISO639x1Enum extends Enum
 
     public const _KR = 'kr';
 
+    public const _KS = 'ks';
+
     public const _KK = 'kk';
 
     public const _KM = 'km';
@@ -215,6 +217,8 @@ class ISO639x1Enum extends Enum
     public const _LO = 'lo';
 
     public const _LT = 'lt';
+
+    public const _LU = 'lu';
 
     public const _LV = 'lv';
 
@@ -294,6 +298,8 @@ class ISO639x1Enum extends Enum
 
     public const _SC = 'sc';
 
+    public const _SD = 'sd';
+
     public const _SE = 'se';
 
     public const _SM = 'sm';
@@ -350,9 +356,13 @@ class ISO639x1Enum extends Enum
 
     public const _TS = 'ts';
 
+    public const _TT = 'tt';
+
     public const _TW = 'tw';
 
     public const _TY = 'ty';
+
+    public const _UG = 'ug';
 
     public const _UK = 'uk';
 

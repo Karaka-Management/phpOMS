@@ -32,7 +32,7 @@ class Group implements \JsonSerializable
      * @var int
      * @since 1.0.0
      */
-    protected int $id = 0;
+    public int $id = 0;
 
     /**
      * Group name.
@@ -56,7 +56,7 @@ class Group implements \JsonSerializable
      * @var array
      * @since 1.0.0
      */
-    protected array $members = [];
+    public array $members = [];
 
     /**
      * Parents.
@@ -64,7 +64,7 @@ class Group implements \JsonSerializable
      * @var int[]
      * @since 1.0.0
      */
-    protected array $parents = [];
+    public array $parents = [];
 
     /**
      * Group status.
@@ -72,7 +72,7 @@ class Group implements \JsonSerializable
      * @var int
      * @since 1.0.0
      */
-    protected int $status = GroupStatus::INACTIVE;
+    public int $status = GroupStatus::INACTIVE;
 
     use PermissionHandlingTrait;
 

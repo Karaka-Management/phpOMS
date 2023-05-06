@@ -26,11 +26,17 @@ use phpOMS\Stdlib\Base\Enum;
  */
 class ISO4217CharEnum extends Enum
 {
+    public const _AED = 'AED';
+
     public const _ALL = 'ALL';
+
+    public const _AMD = 'AMD';
 
     public const _AFN = 'AFN';
 
     public const _ARS = 'ARS';
+
+    public const _AOA = 'AOA';
 
     public const _AWG = 'AWG';
 
@@ -89,8 +95,6 @@ class ISO4217CharEnum extends Enum
     public const _EGP = 'EGP';
 
     public const _SVC = 'SVC';
-
-    public const _EEK = 'EEK';
 
     public const _EUR = 'EUR';
 
@@ -253,4 +257,150 @@ class ISO4217CharEnum extends Enum
     public const _YER = 'YER';
 
     public const _ZWD = 'ZWD';
+
+    public const _ZMK = 'ZMK';
+
+    public const _ZWL = 'ZWL';
+
+    public const _BDT = 'BDT';
+
+    public const _BHD = 'BHD';
+
+    public const _BIF = 'BIF';
+
+    public const _BOV = 'BOV';
+
+    public const _BTN = 'BTN';
+
+    public const _CDF = 'CDF';
+
+    public const _CHE = 'CHE';
+
+    public const _CHW = 'CHW';
+
+    public const _CLF = 'CLF';
+
+    public const _COU = 'COU';
+
+    public const _CUC = 'CUC';
+
+    public const _CVE = 'CVE';
+
+    public const _DJF = 'DJF';
+
+    public const _DZD = 'DZD';
+
+    public const _ERN = 'ERN';
+
+    public const _ETB = 'ETB';
+
+    public const _GEL = 'GEL';
+
+    public const _GHS = 'GHS';
+
+    public const _GMD = 'GMD';
+
+    public const _GNF = 'GNF';
+
+    public const _HTG = 'HTG';
+
+    public const _IQD = 'IQD';
+
+    public const _JOD = 'JOD';
+
+    public const _KMF = 'KMF';
+
+    public const _KWD = 'KWD';
+
+    public const _LSL = 'LSL';
+
+    public const _LYD = 'LYD';
+
+    public const _MAD = 'MAD';
+
+    public const _MDL = 'MDL';
+
+    public const _MGA = 'MGA';
+
+    public const _MMK = 'MMK';
+
+    public const _MOP = 'MOP';
+
+    public const _MRO = 'MRO';
+
+    public const _MVR = 'MVR';
+
+    public const _MWK = 'MWK';
+
+    public const _MXV = 'MXV';
+
+    public const _PGK = 'PGK';
+
+    public const _RWF = 'RWF';
+
+    public const _SDG = 'SDG';
+
+    public const _SLL = 'SLL';
+
+    public const _SSP = 'SSP';
+
+    public const _STD = 'STD';
+
+    public const _SZL = 'SZL';
+
+    public const _TJS = 'TJS';
+
+    public const _TMT = 'TMT';
+
+    public const _TND = 'TND';
+
+    public const _TOP = 'TOP';
+
+    public const _TZS = 'TZS';
+
+    public const _UGX = 'UGX';
+
+    public const _USN = 'USN';
+
+    public const _USS = 'USS';
+
+    public const _UYI = 'UYI';
+
+    public const _VUV = 'VUV';
+
+    public const _WST = 'WST';
+
+    public const _XAF = 'XAF';
+
+    public const _XAG = 'XAG';
+
+    public const _XAU = 'XAU';
+
+    public const _XBA = 'XBA';
+
+    public const _XBB = 'XBB';
+
+    public const _XBC = 'XBC';
+
+    public const _XBD = 'XBD';
+
+    public const _XDR = 'XDR';
+
+    public const _XFU = 'XFU';
+
+    public const _XOF = 'XOF';
+
+    public const _XPD = 'XPD';
+
+    public const _XPF = 'XPF';
+
+    public const _XPT = 'XPT';
+
+    public const _XSU = 'XSU';
+
+    public const _XTS = 'XTS';
+
+    public const _XUA = 'XUA';
+
+    public const _ZMW = 'ZMW';
 }

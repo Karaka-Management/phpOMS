@@ -14,8 +14,8 @@ declare(strict_types=1);
 
 namespace phpOMS\tests\phpOMS\Model\Message;
 
+use phpOMS\Message\NotificationLevel;
 use phpOMS\Model\Message\Notify;
-use phpOMS\Model\Message\NotifyType;
 
 /**
  * @internal
@@ -35,7 +35,7 @@ final class NotifyTest extends \PHPUnit\Framework\TestCase
         self::assertEquals('', $obj->toArray()['title']);
         self::assertEquals('', $obj->toArray()['msg']);
         self::assertEquals(0, $obj->toArray()['stay']);
-        self::assertEquals(NotifyType::INFO, $obj->toArray()['level']);
+        self::assertEquals(NotificationLevel::INFO, $obj->toArray()['level']);
     }
 
     /**
@@ -44,10 +44,10 @@ final class NotifyTest extends \PHPUnit\Framework\TestCase
      */
     public function testSetGet() : void
     {
-        $obj = new Notify('message', NotifyType::WARNING);
+        $obj = new Notify('message', NotificationLevel::WARNING);
         $obj->delay = 3;
         $obj->stay = 5;
-        $obj->level = NotifyType::ERROR;
+        $obj->level = NotificationLevel::ERROR;
         $obj->message ='msg';
         $obj->title = 'title';
 
@@ -57,7 +57,7 @@ final class NotifyTest extends \PHPUnit\Framework\TestCase
             'stay'  => 5,
             'msg'   => 'msg',
             'title' => 'title',
-            'level' => NotifyType::ERROR,
+            'level' => NotificationLevel::ERROR,
         ], $obj->toArray());
 
         self::assertEquals(\json_encode([
@@ -66,7 +66,7 @@ final class NotifyTest extends \PHPUnit\Framework\TestCase
             'stay'  => 5,
             'msg'   => 'msg',
             'title' => 'title',
-            'level' => NotifyType::ERROR,
+            'level' => NotificationLevel::ERROR,
         ]), $obj->serialize());
 
         self::assertEquals([
@@ -75,7 +75,7 @@ final class NotifyTest extends \PHPUnit\Framework\TestCase
             'stay'  => 5,
             'msg'   => 'msg',
             'title' => 'title',
-            'level' => NotifyType::ERROR,
+            'level' => NotificationLevel::ERROR,
         ], $obj->jsonSerialize());
 
         $obj2 = new Notify();

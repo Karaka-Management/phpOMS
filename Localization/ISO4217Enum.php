@@ -26,7 +26,11 @@ use phpOMS\Stdlib\Base\Enum;
  */
 class ISO4217Enum extends Enum
 {
+    public const _AED = 'United Arab Emirates, Dirham';
+
     public const _ALL = 'Albania, Leke';
+
+    public const _AMD = 'Armenian, Dram';
 
     public const _AFN = 'Afghanistan, Afghanis';
 
@@ -37,6 +41,8 @@ class ISO4217Enum extends Enum
     public const _AUD = 'Australia, Dollars';
 
     public const _AZN = 'Azerbaijan, New Manats';
+
+    public const _AOA = 'Angolan, Kwanza';
 
     public const _BSD = 'Bahamas, Dollars';
 
@@ -89,8 +95,6 @@ class ISO4217Enum extends Enum
     public const _EGP = 'Egypt, Pounds';
 
     public const _SVC = 'El Salvador, Colones';
-
-    public const _EEK = 'Estonia, Krooni';
 
     public const _EUR = 'Euro';
 
@@ -253,4 +257,150 @@ class ISO4217Enum extends Enum
     public const _YER = 'Yemen, Rials';
 
     public const _ZWD = 'Zimbabwe, Zimbabwe Dollars';
+
+    public const _ZMK = 'Zambian, Kwacha';
+
+    public const _ZWL = 'Zimbabwean, Dollar';
+
+    public const _BDT = 'Bangladeshi, Taka';
+
+    public const _BHD = 'Bahraini, Dinar';
+
+    public const _BIF = 'Burundian, Franc';
+
+    public const _BOV = 'Bolivian, Mvdol';
+
+    public const _BTN = 'Bhutanes,e Ngultrum';
+
+    public const _CDF = 'Congolese, Franc';
+
+    public const _CHE = 'WIR Euro (complementary currency)';
+
+    public const _CHW = 'WIR Franc (complementary currency)';
+
+    public const _CLF = 'Unidad de Fomento (funds code)';
+
+    public const _COU = 'Unidad de Valor Real (UVR) (funds code)';
+
+    public const _CUC = 'Cuban convertible, Peso';
+
+    public const _CVE = 'Cape Verdean, Escudo';
+
+    public const _DJF = 'Djiboutian, Franc';
+
+    public const _DZD = 'Algerian, Dinar';
+
+    public const _ERN = 'Eritrean, Nakfa';
+
+    public const _ETB = 'Ethiopian, Birr';
+
+    public const _GEL = 'Georgian, Lari';
+
+    public const _GHS = 'Ghanaian, Cedi';
+
+    public const _GMD = 'Gambian, Dalasi';
+
+    public const _GNF = 'Guinean, Franc';
+
+    public const _HTG = 'Haitian, Gourde';
+
+    public const _IQD = 'Iraqi, Dinar';
+
+    public const _JOD = 'Jordanian, Dinar';
+
+    public const _KMF = 'Comorian, Franc';
+
+    public const _KWD = 'Kuwaiti, Dinar';
+
+    public const _LSL = 'Lesotho, Loti';
+
+    public const _LYD = 'Libyan, Dinar';
+
+    public const _MAD = 'Moroccan, Dirham';
+
+    public const _MDL = 'Moldovan, Leu';
+
+    public const _MGA = 'Malagasy, Ariary';
+
+    public const _MMK = 'Burmese, Kyat';
+
+    public const _MOP = 'Macanese, Pataca';
+
+    public const _MRO = 'Mauritanian, Ouguiya';
+
+    public const _MVR = 'Maldivian, Rufiyaa';
+
+    public const _MWK = 'Malawian, Kwacha';
+
+    public const _MXV = 'Mexican, Investment Unit';
+
+    public const _PGK = 'Papua New Guinean, Kina';
+
+    public const _RWF = 'Rwandan, Franc';
+
+    public const _SDG = 'Sudanese, Pound';
+
+    public const _SLL = 'Sierra Leonean, Leone';
+
+    public const _SSP = 'South Sudanese, Pound';
+
+    public const _STD = 'São Tomé and Príncipe, Dobra';
+
+    public const _SZL = 'Swazi, Lilangeni';
+
+    public const _TJS = 'Tajikistani, Somoni';
+
+    public const _TMT = 'Turkmenistani, Manat';
+
+    public const _TND = 'Tunisian, Dinar';
+
+    public const _TOP = 'Tongan, Paʻanga';
+
+    public const _TZS = 'Tanzanian, Shilling';
+
+    public const _UGX = 'Ugandan, Shilling';
+
+    public const _USN = 'United States dollar (next day) (funds code)';
+
+    public const _USS = 'United States dollar (same day) (funds code)';
+
+    public const _UYI = 'Uruguay Peso en Unidades Indexadas (URUIURUI) (funds code)';
+
+    public const _VUV = 'Vanuatu, Vatu';
+
+    public const _WST = 'Samoan, Tala';
+
+    public const _XAF = 'Central African, CFA Franc';
+
+    public const _XAG = 'Silver (one troy ounce)';
+
+    public const _XAU = 'Gold (one troy ounce)';
+
+    public const _XBA = 'European, Composite Unit (EURCO) (bond market unit)';
+
+    public const _XBB = 'European, Monetary Unit (E.M.U.-6) (bond market unit)';
+
+    public const _XBC = 'European, Unit of Account 9 (E.U.A.-9) (bond market unit)';
+
+    public const _XBD = 'European, Unit of Account 17 (E.U.A.-17) (bond market unit)';
+
+    public const _XDR = 'Special drawing rights';
+
+    public const _XFU = 'UIC franc (special settlement currency)';
+
+    public const _XOF = 'West African, CFA franc';
+
+    public const _XPD = 'Palladium';
+
+    public const _XPF = 'CFP franc';
+
+    public const _XPT = 'Platinum';
+
+    public const _XSU = 'Sucre';
+
+    public const _XTS = 'Testing Currency Code';
+
+    public const _XUA = 'ADB Unit of Account';
+
+    public const _ZMW = 'Zambian, kwacha';
 }

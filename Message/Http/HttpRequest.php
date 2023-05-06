@@ -368,22 +368,11 @@ final class HttpRequest extends RequestAbstract
      *
      * @since 1.0.0
      */
-    public function getRequestLanguage() : string
+    private function getRequestLanguage() : string
     {
-        if (!isset($_SERVER['HTTP_ACCEPT_LANGUAGE'])) {
-            return 'en';
-        }
-
-        // @codeCoverageIgnoreStart
-        $components   = \explode(';', $_SERVER['HTTP_ACCEPT_LANGUAGE']);
-        $locals       = \stripos($components[0], ',') !== false
-            ? $locals = \explode(',', $components[0])
-            : $components;
-
-        $firstLocalComponents = \explode('-', $locals[0]);
-        // @codeCoverageIgnoreEnd
-
-        $language = \strtolower($firstLocalComponents[0]);
+        $locale               = $this->getLocale();
+        $firstLocalComponents = \explode('_', $locale);
+        $language             = \strtolower($firstLocalComponents[0]);
 
         return ISO639x1Enum::isValidValue($language) ? $language : 'en';
     }
@@ -395,22 +384,11 @@ final class HttpRequest extends RequestAbstract
      *
      * @since 1.0.0
      */
-    public function getRequestCountry() : string
+    private function getRequestCountry() : string
     {
-        if (!isset($_SERVER['HTTP_ACCEPT_LANGUAGE'])) {
-            return '';
-        }
-
-        // @codeCoverageIgnoreStart
-        $components   = \explode(';', $_SERVER['HTTP_ACCEPT_LANGUAGE']);
-        $locals       = \stripos($components[0], ',') !== false
-            ? $locals = \explode(',', $components[0])
-            : $components;
-
-        $firstLocalComponents = \explode('-', $locals[0]);
-        // @codeCoverageIgnoreEnd
-
-        $country = \strtoupper($firstLocalComponents[1] ?? '');
+        $locale               = $this->getLocale();
+        $firstLocalComponents = \explode('_', $locale);
+        $country              = \strtoupper($firstLocalComponents[1] ?? '');
 
         return ISO3166TwoEnum::isValidValue($country) ? $country : 'US';
     }
@@ -424,6 +402,10 @@ final class HttpRequest extends RequestAbstract
      */
     public function getLocale() : string
     {
+        if (!empty($this->locale)) {
+            return $this->locale = $this->header->l11n->getLanguage() . '_' . $this->header->l11n->getCountry();
+        }
+
         if (!isset($_SERVER['HTTP_ACCEPT_LANGUAGE'])) {
             return 'en_US';
         }
@@ -435,7 +417,9 @@ final class HttpRequest extends RequestAbstract
             : $components;
         // @codeCoverageIgnoreEnd
 
-        return \str_replace('-', '_', $locals[0]); // @codeCoverageIgnore
+        $this->locale = \str_replace('-', '_', $locals[0]); // @codeCoverageIgnore
+
+        return $this->locale;
     }
 
     /**

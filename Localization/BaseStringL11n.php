@@ -33,7 +33,7 @@ class BaseStringL11n implements \JsonSerializable
      * @var int
      * @since 1.0.0
      */
-    protected int $id = 0;
+    public int $id = 0;
 
     /**
      * Name.
@@ -63,7 +63,7 @@ class BaseStringL11n implements \JsonSerializable
      * @var string
      * @since 1.0.0
      */
-    protected string $language = ISO639x1Enum::_EN;
+    public string $language = ISO639x1Enum::_EN;
 
     /**
      * Country.
@@ -71,7 +71,7 @@ class BaseStringL11n implements \JsonSerializable
      * @var string
      * @since 1.0.0
      */
-    protected string $country = ISO3166TwoEnum::_USA;
+    public string $country = ISO3166TwoEnum::_USA;
 
     /**
      * Content.

@@ -16,6 +16,7 @@ namespace phpOMS\DataStorage\Database\Mapper;
 
 use phpOMS\DataStorage\Database\Connection\ConnectionAbstract;
 use phpOMS\DataStorage\Database\Query\Builder;
+use phpOMS\DataStorage\Database\Query\JoinType;
 use phpOMS\DataStorage\Database\Query\OrderType;
 
 /**
@@ -102,6 +103,14 @@ abstract class DataMapperAbstract
      * @since 1.0.0
      */
     protected array $join = [];
+
+    /**
+     * Join conditions
+     *
+     * @var array
+     * @since 1.0.0
+     */
+    protected array $on = [];
 
     /**
      * Base query which is merged with the query in the mapper
@@ -328,7 +337,7 @@ abstract class DataMapperAbstract
      *
      * @since 1.0.0
      */
-    public function join(string $member, string $mapper, mixed $value, string $logic = '=', string $type = 'left') : self
+    public function join(string $member, string $mapper, mixed $value, string $logic = '=', string $type = JoinType::LEFT_JOIN) : self
     {
         $split       = \explode('/', $member);
         $memberSplit = \array_shift($split);
@@ -339,6 +348,19 @@ abstract class DataMapperAbstract
             'value' => $value,
             'logic' => $logic,
             'type'  => $type,
+        ];
+
+        return $this;
+    }
+
+    public function on(string $member, mixed $value, string $logic = '=', string $connector = 'AND', string $relation = '') : self
+    {
+        $this->on[$relation][] = [
+            'child'      => '',
+            'member'     => $member,
+            'value'      => $value,
+            'logic'      => $logic,
+            'comparison' => $connector,
         ];
 
         return $this;
@@ -358,7 +380,7 @@ abstract class DataMapperAbstract
      */
     public function leftJoin(string $member, string $mapper, mixed $value, string $logic = '=') : self
     {
-        return $this->join($member, $mapper, $value, $logic, 'left');
+        return $this->join($member, $mapper, $value, $logic, JoinType::LEFT_JOIN);
     }
 
     /**
@@ -375,7 +397,7 @@ abstract class DataMapperAbstract
      */
     public function rightJoin(string $member, string $mapper, mixed $value, string $logic = '=') : self
     {
-        return $this->join($member, $mapper, $value, $logic, 'right');
+        return $this->join($member, $mapper, $value, $logic, JoinType::RIGHT_JOIN);
     }
 
     /**
@@ -392,7 +414,7 @@ abstract class DataMapperAbstract
      */
     public function innerJoin(string $member, string $mapper, mixed $value, string $logic = '=') : self
     {
-        return $this->join($member, $mapper, $value, $logic, 'inner');
+        return $this->join($member, $mapper, $value, $logic, JoinType::INNER_JOIN);
     }
 
     /**
@@ -458,6 +480,26 @@ abstract class DataMapperAbstract
                 }
 
                 $relMapper->where($where['child'], $where['value'], $where['logic'], $where['comparison']);
+            }
+        }
+
+        if (isset($this->join[$member])) {
+            foreach ($this->join[$member] as $join) {
+                if ($join['child'] === '') {
+                    continue;
+                }
+
+                $relMapper->join($join['child'], $join['mapper'], $join['value'], $join['logic'], $join['type']);
+            }
+        }
+
+        if (isset($this->on[$member])) {
+            foreach ($this->on[$member] as $on) {
+                if ($on['child'] === '') {
+                    continue;
+                }
+
+                $relMapper->on($on['child'], $on['value'], $on['logic'], $on['comparison'], $on['field']);
             }
         }
 

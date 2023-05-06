@@ -39,7 +39,8 @@ abstract class Enum
      */
     public static function isValidValue(mixed $value) : bool
     {
-        $constants = self::getConstants();
+        $reflect   = new \ReflectionClass(static::class);
+        $constants = $reflect->getConstants();
 
         return \in_array($value, $constants, true);
     }
@@ -67,7 +68,8 @@ abstract class Enum
      */
     public static function getRandom() : mixed
     {
-        $constants = self::getConstants();
+        $reflect   = new \ReflectionClass(static::class);
+        $constants = $reflect->getConstants();
         $keys      = \array_keys($constants);
 
         return $constants[$keys[\mt_rand(0, \count($constants) - 1)]];
@@ -104,9 +106,10 @@ abstract class Enum
      */
     public static function getName(string $value) : bool | int | string
     {
-        $arr = self::getConstants();
+        $reflect   = new \ReflectionClass(static::class);
+        $constants = $reflect->getConstants();
 
-        return \array_search($value, $arr);
+        return \array_search($value, $constants);
     }
 
     /**

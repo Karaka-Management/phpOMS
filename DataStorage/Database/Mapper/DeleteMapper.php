@@ -72,7 +72,7 @@ final class DeleteMapper extends DataMapperAbstract
     public function executeDelete(object $obj) : mixed
     {
         $refClass = new \ReflectionClass($obj);
-        $objId    = $this->mapper::getObjectId($obj, $refClass);
+        $objId    = $this->mapper::getObjectId($obj);
 
         if (empty($objId)) {
             return null;
@@ -139,9 +139,7 @@ final class DeleteMapper extends DataMapperAbstract
 
             $refProp = $refClass->getProperty($member);
             if (!$refProp->isPublic()) {
-                $refProp->setAccessible(true);
                 $relMapper->execute($refProp->getValue($obj));
-                $refProp->setAccessible(false);
             } else {
                 $relMapper->execute($obj->{$member});
             }
@@ -174,9 +172,7 @@ final class DeleteMapper extends DataMapperAbstract
             $objIds  = [];
             $refProp = $refClass->getProperty($member);
             if (!$refProp->isPublic()) {
-                $refProp->setAccessible(true);
                 $values = $refProp->getValue($obj);
-                $refProp->setAccessible(false);
             } else {
                 $values = $obj->{$member};
             }
@@ -198,7 +194,7 @@ final class DeleteMapper extends DataMapperAbstract
                     continue;
                 }
 
-                $objIds[$key] = $mapper::getObjectId($value, $relReflectionClass);
+                $objIds[$key] = $mapper::getObjectId($value);
             }
 
             // delete relation tables

@@ -269,7 +269,7 @@ final class L11nManager
      */
     public function getCurrency(
         Localization $l11n,
-        int | float | Money $currency,
+        int | float | Money | FloatInt $currency,
         string $symbol = null,
         string $format = null,
         int $divide = 1
@@ -290,6 +290,10 @@ final class L11nManager
             } elseif ($divide === 1000000000) {
                 $symbol = $this->getHtml($language, '0', '0', 'CurrencyB') . $symbol;
             }
+        }
+
+        if ($currency instanceof FloatInt) {
+            $currency = $currency->value;
         }
 
         $money = !($currency instanceof Money)

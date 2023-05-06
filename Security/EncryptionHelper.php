@@ -68,6 +68,45 @@ final class EncryptionHelper
         return $result;
     }
 
+    public static function encryptFile(string $in, string $out, string $keyHex) : bool
+    {
+        $fpSource  = \fopen($in, 'r+');
+        $fpEncoded = \fopen($out . '.tmp', 'w');
+
+        if ($fpSource === false || $fpEncoded === false) {
+            return false;
+        }
+
+        $secretKey  = \sodium_hex2bin($keyHex);
+        $nonce      = \random_bytes(SODIUM_CRYPTO_SECRETBOX_NONCEBYTES);
+
+        while (($buffer = \fgets($fpSource, 4096)) !== false) {
+            $ciphertext = \sodium_crypto_secretbox($buffer, $nonce, $keyHex);
+
+            \fwrite($fpEncoded, $ciphertext);
+        }
+
+        \fclose($fpSource);
+        \fclose($fpEncoded);
+
+        if ($in === $out) {
+            \unlink($in);
+        }
+
+        \rename($out . '.tmp', $out);
+
+        \sodium_memzero($nonce);
+        \sodium_memzero($secretKey);
+        \sodium_memzero($ciphertext);
+
+        /*
+        \sodium_memzero($message);
+        \sodium_memzero($keyHex);
+        */
+
+        return true;
+    }
+
     /**
      * Decrypt an encrypted message
      *
@@ -80,6 +119,10 @@ final class EncryptionHelper
      */
     public static function decryptShared(string $encrypted, string $keyHex) : string
     {
+        if ($encrypted === '' || $keyHex === '') {
+            return $encrypted;
+        }
+
         $secretKey = \sodium_hex2bin($keyHex);
 
         $ciphertext = \sodium_base642bin($encrypted, SODIUM_BASE64_VARIANT_ORIGINAL);
@@ -97,6 +140,47 @@ final class EncryptionHelper
         */
 
         return $plaintext === false ? '' : $plaintext;
+    }
+
+    public static function decryptFile(string $in, string $out, string $keyHex) : bool
+    {
+        $fpSource  = \fopen($in, 'r+');
+        $fpDecoded = \fopen($out . '.tmp', 'w');
+
+        if ($fpSource === false || $fpDecoded === false) {
+            return false;
+        }
+
+        $secretKey = \sodium_hex2bin($keyHex);
+
+        while (($buffer = \fgets($fpSource, 4096)) !== false) {
+            $ciphertext = \sodium_base642bin($buffer, SODIUM_BASE64_VARIANT_ORIGINAL);
+            $nonce      = \mb_substr($ciphertext, 0, SODIUM_CRYPTO_SECRETBOX_NONCEBYTES, '8bit');
+            $ciphertext = \mb_substr($ciphertext, SODIUM_CRYPTO_SECRETBOX_NONCEBYTES, null, '8bit');
+
+            $plaintext = \sodium_crypto_secretbox_open($ciphertext, $nonce, $secretKey);
+
+            \fwrite($fpDecoded, $plaintext);
+        }
+
+        \fclose($fpSource);
+        \fclose($fpDecoded);
+
+        if ($in === $out) {
+            \unlink($in);
+        }
+
+        \rename($out . '.tmp', $out);
+
+        \sodium_memzero($nonce);
+        \sodium_memzero($secretKey);
+        \sodium_memzero($ciphertext);
+
+        /*
+        \sodium_memzero($keyHex);
+        */
+
+        return true;
     }
 
     /**
@@ -174,6 +258,10 @@ final class EncryptionHelper
      */
     public static function decryptSecret(string $encrypted, string $privateKeyHex, string $publicKeyHex) : string
     {
+        if ($encrypted === '' || $privateKeyHex === '' || $publicKeyHex === '') {
+            return $encrypted;
+        }
+
         $privateKey = \sodium_hex2bin($privateKeyHex);
         $publicKey  = \sodium_hex2bin($publicKeyHex);
 

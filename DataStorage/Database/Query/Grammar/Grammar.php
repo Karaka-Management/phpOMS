@@ -452,6 +452,7 @@ class Grammar extends GrammarAbstract
             $expression .= '(' . \rtrim($this->compileWhereQuery($element['column']), ';') . ')';
         }
 
+        // @todo: on doesn't allow values as value (only table column names). This is bad and needs to be fixed!
         if (isset($element['value'])) {
             $expression .= ' ' . \strtoupper($element['operator']) . ' ' . $this->compileSystem($element['value']);
         } else {

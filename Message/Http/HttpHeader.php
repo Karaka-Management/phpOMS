@@ -62,18 +62,23 @@ final class HttpHeader extends HeaderAbstract
             return false;
         }
 
-        $key = \strtolower($key);
-        if (self::isSecurityHeader($key) && isset($this->header[$key])) {
+        $key    = \strtolower($key);
+        $exists = isset($this->header[$key]);
+
+        if (!$overwrite && $exists) {
             return false;
         }
 
-        if (!$overwrite && isset($this->header[$key])) {
+        if ($exists && self::isSecurityHeader($key)) {
             return false;
         }
 
-        unset($this->header[$key]);
+        if ($exists && $overwrite) {
+            unset($this->header[$key]);
+            $exists = false;
+        }
 
-        if (!isset($this->header[$key])) {
+        if (!$exists) {
             $this->header[$key] = [];
         }
 

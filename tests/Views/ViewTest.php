@@ -170,8 +170,8 @@ final class ViewTest extends \PHPUnit\Framework\TestCase
     public function testGetCurrency() : void
     {
         $view = new View($this->app->l11nManager, null, new HttpResponse(Localization::fromLanguage('en')));
-        self::assertEquals('USD 1.23', $view->getCurrency(1.2345, 'medium'));
-        self::assertEquals('USD 1.235', $view->getCurrency(1.2345, 'long'));
+        self::assertEquals('USD 1.23', $view->getCurrency(1.2345, 'USD'));
+        self::assertEquals('USD 1.235', $view->getCurrency(1.2345, 'USD'));
 
         $this->app->l11nManager->loadLanguage('en', '0', ['0' => ['CurrencyK' => 'K']]);
         self::assertEquals('K$ 12.345', $view->getCurrency(12345.0, 'long', '$', 1000));

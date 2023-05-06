@@ -137,7 +137,7 @@ final class SocketRouter implements RouterInterface
 
                     // if permission check is invalid
                     if (isset($d['permission']) && !empty($d['permission'])
-                        && ($account === null || $account instanceof NullAccount)
+                        && ($account === null || $account->getId() === 0)
                     ) {
                         return ['dest' => RouteStatus::NOT_LOGGED_IN];
                     } elseif (isset($d['permission']) && !empty($d['permission'])

@@ -42,7 +42,7 @@ class Localization implements \JsonSerializable
      * @var string
      * @since 1.0.0
      */
-    protected string $country = ISO3166TwoEnum::_XXX;
+    public string $country = ISO3166TwoEnum::_XXX;
 
     /**
      * Timezone.
@@ -50,7 +50,7 @@ class Localization implements \JsonSerializable
      * @var string
      * @since 1.0.0
      */
-    protected string $timezone = 'America/New_York';
+    public string $timezone = 'America/New_York';
 
     /**
      * Language ISO code.
@@ -58,7 +58,7 @@ class Localization implements \JsonSerializable
      * @var string
      * @since 1.0.0
      */
-    protected string $language = ISO639x1Enum::_EN;
+    public string $language = ISO639x1Enum::_EN;
 
     /**
      * Currency.
@@ -66,7 +66,7 @@ class Localization implements \JsonSerializable
      * @var string
      * @since 1.0.0
      */
-    protected string $currency = ISO4217CharEnum::_USD;
+    public string $currency = ISO4217CharEnum::_USD;
 
     /**
      * Currency format.
@@ -74,7 +74,7 @@ class Localization implements \JsonSerializable
      * @var string
      * @since 1.0.0
      */
-    protected string $currencyFormat = '0';
+    public string $currencyFormat = '0';
 
     /**
      * Number format.
@@ -82,7 +82,7 @@ class Localization implements \JsonSerializable
      * @var string
      * @since 1.0.0
      */
-    protected string $decimal = '.';
+    public string $decimal = '.';
 
     /**
      * Number format.
@@ -90,7 +90,7 @@ class Localization implements \JsonSerializable
      * @var string
      * @since 1.0.0
      */
-    protected string $thousands = ',';
+    public string $thousands = ',';
 
     /**
      * Angle type.
@@ -98,7 +98,7 @@ class Localization implements \JsonSerializable
      * @var string
      * @since 1.0.0
      */
-    protected string $angle = AngleType::DEGREE;
+    public string $angle = AngleType::DEGREE;
 
     /**
      * Temperature type.
@@ -106,7 +106,7 @@ class Localization implements \JsonSerializable
      * @var string
      * @since 1.0.0
      */
-    protected string $temperature = TemperatureType::CELSIUS;
+    public string $temperature = TemperatureType::CELSIUS;
 
     /**
      * Precision.
@@ -114,7 +114,7 @@ class Localization implements \JsonSerializable
      * @var array<string, int>
      * @since 1.0.0
      */
-    protected array $precision = [];
+    public array $precision = [];
 
     /**
      * Time format.
@@ -122,7 +122,7 @@ class Localization implements \JsonSerializable
      * @var array<string, string>
      * @since 1.0.0
      */
-    protected array $datetime = [];
+    public array $datetime = [];
 
     /**
      * Weight.
@@ -130,7 +130,7 @@ class Localization implements \JsonSerializable
      * @var array<string, string>
      * @since 1.0.0
      */
-    protected array $weight = [];
+    public array $weight = [];
 
     /**
      * Speed.
@@ -138,7 +138,7 @@ class Localization implements \JsonSerializable
      * @var array<string, string>
      * @since 1.0.0
      */
-    protected array $speed = [];
+    public array $speed = [];
 
     /**
      * Length.
@@ -146,7 +146,7 @@ class Localization implements \JsonSerializable
      * @var array<string, string>
      * @since 1.0.0
      */
-    protected array $length = [];
+    public array $length = [];
 
     /**
      * Area.
@@ -154,7 +154,7 @@ class Localization implements \JsonSerializable
      * @var array<string, string>
      * @since 1.0.0
      */
-    protected array $area = [];
+    public array $area = [];
 
     /**
      * Volume.
@@ -162,7 +162,7 @@ class Localization implements \JsonSerializable
      * @var array<string, string>
      * @since 1.0.0
      */
-    protected array $volume = [];
+    public array $volume = [];
 
     /**
      * Country id.
@@ -170,7 +170,7 @@ class Localization implements \JsonSerializable
      * @var int
      * @since 1.0.0
      */
-    protected int $id = 0;
+    public int $id = 0;
 
     /**
      * Get id
@@ -273,7 +273,21 @@ class Localization implements \JsonSerializable
                 return;
             }
 
-            $this->importLocale($json);
+            $this->language    = $json['language'] ?? 'en';
+            $this->country     = $json['country'] ?? 'US';
+            $this->currency    = $json['currency']['code'] ?? ISO4217Enum::_USD;
+            $this->thousands   = $json['thousand'] ?? ',';
+            $this->decimal     = $json['decimal'] ?? '.';
+            $this->angle       = $json['angle'] ?? AngleType::DEGREE;
+            $this->temperature = $json['temperature'] ?? TemperatureType::CELSIUS;
+            $this->weight      = $json['weight'] ?? [];
+            $this->speed       = $json['speed'] ?? [];
+            $this->length      = $json['length'] ?? [];
+            $this->area        = $json['area'] ?? [];
+            $this->volume      = $json['volume'] ?? [];
+            $this->precision   = $json['precision'] ?? [];
+            $this->timezone    = $json['timezone'] ?? 'America/New_York';
+            $this->datetime    = $json['datetime'] ?? [];
 
             return;
         }
@@ -288,7 +302,21 @@ class Localization implements \JsonSerializable
             return;
         }
 
-        $this->importLocale($json);
+        $this->language    = $json['language'] ?? 'en';
+        $this->country     = $json['country'] ?? 'US';
+        $this->currency    = $json['currency']['code'] ?? ISO4217Enum::_USD;
+        $this->thousands   = $json['thousand'] ?? ',';
+        $this->decimal     = $json['decimal'] ?? '.';
+        $this->angle       = $json['angle'] ?? AngleType::DEGREE;
+        $this->temperature = $json['temperature'] ?? TemperatureType::CELSIUS;
+        $this->weight      = $json['weight'] ?? [];
+        $this->speed       = $json['speed'] ?? [];
+        $this->length      = $json['length'] ?? [];
+        $this->area        = $json['area'] ?? [];
+        $this->volume      = $json['volume'] ?? [];
+        $this->precision   = $json['precision'] ?? [];
+        $this->timezone    = $json['timezone'] ?? 'America/New_York';
+        $this->datetime    = $json['datetime'] ?? [];
     }
 
     /**

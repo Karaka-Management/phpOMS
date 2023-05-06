@@ -34,6 +34,8 @@ final class UriFactory
      */
     private static array $uri = [];
 
+    private static ?\Closure $replaceFunction = null;
+
     /**
      * Constructor.
      *
@@ -299,9 +301,8 @@ final class UriFactory
             return $uri;
         }
 
-        $parsed = \preg_replace_callback(
-            '(\{[\/#\?%@\.\$][a-zA-Z0-9_\-]*\})',
-            function ($match) use ($toMatch) : string {
+        if (self::$replaceFunction === null) {
+            self::$replaceFunction = static function ($match) use ($toMatch) : string {
                 $match = \substr($match[0], 1, \strlen($match[0]) - 2);
 
                 return (string) ($toMatch[$match]
@@ -311,7 +312,12 @@ final class UriFactory
                             : ''
                         )
                     ));
-            },
+            };
+        }
+
+        $parsed = \preg_replace_callback(
+            '(\{[\/#\?%@\.\$][a-zA-Z0-9_\-]*\})',
+            self::$replaceFunction,
             $uri
         );
 

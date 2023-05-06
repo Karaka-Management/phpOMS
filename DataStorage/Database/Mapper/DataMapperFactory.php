@@ -427,28 +427,17 @@ class DataMapperFactory
      * Get id of object
      *
      * @param object           $obj      Model to create
-     * @param \ReflectionClass $refClass Reflection class
      * @param string           $member   Member name for the id, if it is not the primary key
      *
      * @return mixed
      *
      * @since 1.0.0
      */
-    public static function getObjectId(object $obj, \ReflectionClass $refClass = null, string $member = null) : mixed
+    public static function getObjectId(object $obj, string $member = null) : mixed
     {
-        $refClass   ??= new \ReflectionClass($obj);
         $propertyName = $member ?? static::COLUMNS[static::PRIMARYFIELD]['internal'];
-        $refProp      = $refClass->getProperty($propertyName);
 
-        if (!$refProp->isPublic()) {
-            $refProp->setAccessible(true);
-            $objectId = $refProp->getValue($obj);
-            $refProp->setAccessible(false);
-        } else {
-            $objectId = $obj->{$propertyName};
-        }
-
-        return $objectId;
+        return $obj->{$propertyName};
     }
 
     /**
@@ -469,9 +458,7 @@ class DataMapperFactory
 
         \settype($objId, static::COLUMNS[static::PRIMARYFIELD]['type']);
         if (!$refProp->isPublic()) {
-            $refProp->setAccessible(true);
             $refProp->setValue($obj, $objId);
-            $refProp->setAccessible(false);
         } else {
             $obj->{$propertyName} = $objId;
         }
@@ -615,8 +602,7 @@ class DataMapperFactory
                             $secondaryId
                         );
 
-                    $cloned
-                        ->where('', $where)
+                    $cloned->where('', $where)
                         ->sort($primarySortField, OrderType::DESC);
                 }
 

@@ -201,8 +201,8 @@ final class UriFactoryTest extends \PHPUnit\Framework\TestCase
      */
     public function testDuplicatedQueryElements() : void
     {
-        $uri      = 'http://www.test-uri.com/path/here?id=123&ab=c&id=456#fragi';
-        $expected = 'http://www.test-uri.com/path/here?id=456&ab=c#fragi';
+        $uri      = '/path/here?id=123&ab=c&id=456#fragi';
+        $expected = '/path/here?id=456&ab=c#fragi';
 
         UriFactory::setupUriBuilder(new HttpUri($uri));
 
@@ -216,9 +216,9 @@ final class UriFactoryTest extends \PHPUnit\Framework\TestCase
      */
     public function testVariableUnescape() : void
     {
-        $uri       = 'http://www.test-uri.com/path/here?id=123&ab=c#fragi';
+        $uri       = '/path/here?id=123&ab=c#fragi';
         $escaped   = '{/base}{/rootPath}{/}?id=\{\?id\}&ab={?ab}#{#}';
-        $unescaped = 'http://www.test-uri.com/path/here?id={?id}&ab=c#fragi';
+        $unescaped = '/path/here?id={?id}&ab=c#fragi';
 
         UriFactory::setupUriBuilder(new HttpUri($uri));
 
@@ -232,7 +232,7 @@ final class UriFactoryTest extends \PHPUnit\Framework\TestCase
      */
     public function testMissingQueryIdentifier() : void
     {
-        $uri = 'http://www.test-uri.com/path/here?id=123&ab=c#fragi';
+        $uri = '/path/here?id=123&ab=c#fragi';
 
         UriFactory::setupUriBuilder(new HttpUri($uri));
 

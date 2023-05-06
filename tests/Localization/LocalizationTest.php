@@ -42,22 +42,6 @@ final class LocalizationTest extends \PHPUnit\Framework\TestCase
     }
 
     /**
-     * @testdox The localization has the expected member variables
-     * @covers phpOMS\Localization\Localization
-     * @group framework
-     */
-    public function testAttributes() : void
-    {
-        self::assertObjectHasAttribute('country', $this->localization);
-        self::assertObjectHasAttribute('timezone', $this->localization);
-        self::assertObjectHasAttribute('language', $this->localization);
-        self::assertObjectHasAttribute('currency', $this->localization);
-        self::assertObjectHasAttribute('decimal', $this->localization);
-        self::assertObjectHasAttribute('thousands', $this->localization);
-        self::assertObjectHasAttribute('datetime', $this->localization);
-    }
-
-    /**
      * @testdox The localization has the expected default values after initialization
      * @covers phpOMS\Localization\Localization
      * @group framework

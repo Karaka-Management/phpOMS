@@ -26,6 +26,9 @@ use phpOMS\Utils\ArrayUtils;
  * @link    https://jingga.app
  * @since   1.0.0
  *
+ * @todo    Add memory cache per read mapper parent call (These should be cached: attribute types, file types, etc.)
+ * @todo    Add getArray functions to get array instead of object
+ *
  * @template R
  */
 final class ReadMapper extends DataMapperAbstract
@@ -330,20 +333,57 @@ final class ReadMapper extends DataMapperAbstract
             }
 
             /* variable in model */
+            // @todo: join handling is extremely ugly, needs to be refactored
             foreach ($values as $join) {
                 // @todo: the has many, etc. if checks only work if it is a relation on the first level, if we have a deeper where condition nesting this fails
                 if ($join['child'] !== '') {
                     continue;
                 }
 
-                $query->join($join['mapper']::TABLE, $join['type'], $join['mapper']::TABLE . '_d' . ($this->depth + 1))
-                    ->on(
-                        $this->mapper::TABLE . '_d' . $this->depth . '.' . $col,
-                        '=',
-                        $join['mapper']::TABLE . '_d' . ($this->depth + 1) . '.' . $join['mapper']::getColumnByMember($join['value']),
-                        'and',
-                        $join['mapper']::TABLE . '_d' . ($this->depth + 1)
-                    );
+                if (isset($join['mapper']::HAS_MANY[$join['value']])) {
+                    if (isset($join['mapper']::HAS_MANY[$join['value']]['external'])) {
+                        // join with relation table
+                        $query->join($join['mapper']::HAS_MANY[$join['value']]['table'], $join['type'], $join['mapper']::HAS_MANY[$join['value']]['table'] . '_d' . ($this->depth + 1))
+                            ->on(
+                                $this->mapper::TABLE . '_d' . $this->depth . '.' . $col,
+                                '=',
+                                $join['mapper']::HAS_MANY[$join['value']]['table'] . '_d' . ($this->depth + 1) . '.' . $join['mapper']::HAS_MANY[$join['value']]['external'],
+                                'AND',
+                                $join['mapper']::HAS_MANY[$join['value']]['table'] . '_d' . ($this->depth + 1)
+                            );
+
+                        // join with model table
+                        $query->join($join['mapper']::TABLE, $join['type'], $join['mapper']::TABLE . '_d' . ($this->depth + 1))
+                            ->on(
+                                $join['mapper']::HAS_MANY[$join['value']]['table'] . '_d' . ($this->depth + 1) . '.' . $join['mapper']::HAS_MANY[$join['value']]['self'],
+                                '=',
+                                $join['mapper']::TABLE . '_d' . ($this->depth + 1) . '.' . $join['mapper']::PRIMARYFIELD,
+                                'AND',
+                                $join['mapper']::TABLE . '_d' . ($this->depth + 1)
+                            );
+
+                        if (isset($this->on[$join['value']])) {
+                            foreach ($this->on[$join['value']] as $on) {
+                                $query->where(
+                                    $join['mapper']::TABLE . '_d' . ($this->depth + 1) . '.' . $join['mapper']::getColumnByMember($on['member']),
+                                    '=',
+                                    $on['value'],
+                                    'AND'
+                                );
+                            }
+                        }
+                    }
+                } else {
+                    $query->join($join['mapper']::TABLE, $join['type'], $join['mapper']::TABLE . '_d' . ($this->depth + 1))
+                        ->on(
+                            $this->mapper::TABLE . '_d' . $this->depth . '.' . $col,
+                            '=',
+                            $join['mapper']::TABLE . '_d' . ($this->depth + 1) . '.' . $join['mapper']::getColumnByMember($join['value']),
+                            'AND',
+                            $join['mapper']::TABLE . '_d' . ($this->depth + 1)
+                        );
+                }
+
             }
         }
 
@@ -356,57 +396,59 @@ final class ReadMapper extends DataMapperAbstract
                 continue;
             }
 
-            if (($col = $this->mapper::getColumnByMember($member)) !== null) {
-                // In case alternative where values are allowed
-                // This is different from normal or conditions as these are exclusive or conditions
-                // This means they are only selected IFF the previous where clause fails
-                $alt = [];
+            if (($col = $this->mapper::getColumnByMember($member)) === null) {
+                continue;
+            }
 
-                /* variable in model */
-                $previous = null;
-                foreach ($values as $where) {
-                    // @todo: the has many, etc. if checks only work if it is a relation on the first level, if we have a deeper where condition nesting this fails
-                    if ($where['child'] !== '') {
-                        continue;
+            // In case alternative where values are allowed
+            // This is different from normal or conditions as these are exclusive or conditions
+            // This means they are only selected IFF the previous where clause fails
+            $alt = [];
+
+            /* variable in model */
+            $previous = null;
+            foreach ($values as $where) {
+                // @todo: the has many, etc. if checks only work if it is a relation on the first level, if we have a deeper where condition nesting this fails
+                if ($where['child'] !== '') {
+                    continue;
+                }
+
+                $comparison = \is_array($where['value']) && \count($where['value']) > 1 ? 'in' : $where['logic'];
+                if ($where['comparison'] === 'ALT') {
+                    // This uses an alternative value if the previous value(s) in the where clause don't exist (e.g. for localized results where you allow a user language, alternatively a primary language, and then alternatively any language if the first two don't exist).
+
+                    // is first value
+                    if (empty($alt)) {
+                        $alt[] = $previous['value'];
                     }
 
-                    $comparison = \is_array($where['value']) && \count($where['value']) > 1 ? 'in' : $where['logic'];
-                    if ($where['comparison'] === 'ALT') {
-                        // This uses an alternative value if the previous value(s) in the where clause don't exist (e.g. for localized results where you allow a user language, alternatively a primary language, and then alternatively any language if the first two don't exist).
-
-                        // is first value
-                        if (empty($alt)) {
-                            $alt[] = $previous['value'];
-                        }
-
-                        /*
-                        select * from table_name
-                            where // where starts here
-                                field1 = 'value1' // comes from normal where
-                                or ( // where1 starts here
-                                    field1 = 'default'
-                                    and NOT EXISTS ( // where2 starts here
-                                        select 1 from table_name where field1 = 'value1'
-                                    )
+                    /*
+                    select * from table_name
+                        where // where starts here
+                            field1 = 'value1' // comes from normal where
+                            or ( // where1 starts here
+                                field1 = 'default'
+                                and NOT EXISTS ( // where2 starts here
+                                    select 1 from table_name where field1 = 'value1'
                                 )
-                        */
-                        $where1 = new Where($this->db);
-                        $where1->where($this->mapper::TABLE . '_d' . $this->depth . '.' . $col, $comparison, $where['value'], 'and');
+                            )
+                    */
+                    $where1 = new Where($this->db);
+                    $where1->where($this->mapper::TABLE . '_d' . $this->depth . '.' . $col, $comparison, $where['value'], 'and');
 
-                        $where2 = new Builder($this->db);
-                        $where2->select('1')
-                            ->from($this->mapper::TABLE . '_d' . $this->depth)
-                            ->where($this->mapper::TABLE . '_d' . $this->depth . '.' . $col, 'in', $alt);
+                    $where2 = new Builder($this->db);
+                    $where2->select('1')
+                        ->from($this->mapper::TABLE . '_d' . $this->depth)
+                        ->where($this->mapper::TABLE . '_d' . $this->depth . '.' . $col, 'in', $alt);
 
-                        $where1->where($this->mapper::TABLE . '_d' . $this->depth . '.' . $col, 'not exists', $where2, 'and');
+                    $where1->where($this->mapper::TABLE . '_d' . $this->depth . '.' . $col, 'not exists', $where2, 'and');
 
-                        $query->where($this->mapper::TABLE . '_d' . $this->depth . '.' . $col, $comparison, $where1, 'or');
+                    $query->where($this->mapper::TABLE . '_d' . $this->depth . '.' . $col, $comparison, $where1, 'or');
 
-                        $alt[] = $where['value'];
-                    } else {
-                        $previous = $where;
-                        $query->where($this->mapper::TABLE . '_d' . $this->depth . '.' . $col, $comparison, $where['value'], $where['comparison']);
-                    }
+                    $alt[] = $where['value'];
+                } else {
+                    $previous = $where;
+                    $query->where($this->mapper::TABLE . '_d' . $this->depth . '.' . $col, $comparison, $where['value'], $where['comparison']);
                 }
             }
         }
@@ -529,20 +571,15 @@ final class ReadMapper extends DataMapperAbstract
                 $member  = $path[0];
 
                 $refProp = $refClass->getProperty($path[0]);
-                if (!($isPublic = $refProp->isPublic())) {
-                    $refProp->setAccessible(true);
-                }
+                $isPublic = $refProp->isPublic();
+                $aValue    = $isPublic ? $obj->{$path[0]} : $refProp->getValue($obj);
 
                 \array_shift($path);
                 $arrayPath = \implode('/', $path);
-                $aValue    = $isPublic ? $obj->{$path[0]} : $refProp->getValue($obj);
             } else {
-                $refProp = $refClass->getProperty($def['internal']);
-                $member  = $def['internal'];
-
-                if (!($isPublic = $refProp->isPublic())) {
-                    $refProp->setAccessible(true);
-                }
+                $refProp  = $refClass->getProperty($def['internal']);
+                $isPublic = $refProp->isPublic();
+                $member   = $def['internal'];
             }
 
             if (isset($this->mapper::OWNS_ONE[$def['internal']])) {
@@ -621,10 +658,6 @@ final class ReadMapper extends DataMapperAbstract
                     $member->unserialize($value);
                 }
             }
-
-            if (!$isPublic) {
-                $refProp->setAccessible(false);
-            }
         }
 
         foreach ($this->mapper::HAS_MANY as $member => $def) {
@@ -641,23 +674,17 @@ final class ReadMapper extends DataMapperAbstract
             $arrayPath = '/';
 
             if (\stripos($member, '/') !== false) {
-                $hasPath = true;
-                $path    = \explode('/', $member);
-                $refProp = $refClass->getProperty($path[0]);
-
-                if (!($isPublic = $refProp->isPublic())) {
-                    $refProp->setAccessible(true);
-                }
+                $hasPath  = true;
+                $path     = \explode('/', $member);
+                $refProp  = $refClass->getProperty($path[0]);
+                $isPublic = $refProp->isPublic();
 
                 \array_shift($path);
                 $arrayPath = \implode('/', $path);
                 $aValue    = $isPublic ? $obj->{$path[0]} : $refProp->getValue($obj);
             } else {
                 $refProp = $refClass->getProperty($member);
-
-                if (!($isPublic = $refProp->isPublic())) {
-                    $refProp->setAccessible(true);
-                }
+                $isPublic = $refProp->isPublic();
             }
 
             if (\in_array($def['mapper']::COLUMNS[$column]['type'], ['string', 'int', 'float', 'bool'])) {
@@ -693,10 +720,6 @@ final class ReadMapper extends DataMapperAbstract
             } elseif ($def['mapper']::COLUMNS[$column]['type'] === 'Serializable') {
                 $member = $isPublic ? $obj->{$member} : $refProp->getValue($obj);
                 $member->unserialize($value);
-            }
-
-            if (!$isPublic) {
-                $refProp->setAccessible(false);
             }
         }
 
@@ -874,12 +897,10 @@ final class ReadMapper extends DataMapperAbstract
 
                 $refProp = $refClass->getProperty($member);
                 if (!$refProp->isPublic()) {
-                    $refProp->setAccessible(true);
                     $refProp->setValue($obj, !\is_array($objects) && ($many['conditional'] ?? false) === false
                         ? [$many['mapper']::getObjectId($objects) => $objects]
                         : $objects // if conditional === true the obj will be asigned (e.g. has many localizations but only one is loaded for the model)
                     );
-                    $refProp->setAccessible(false);
                 } else {
                     $obj->{$member} = !\is_array($objects) && ($many['conditional'] ?? false) === false
                         ? [$many['mapper']::getObjectId($objects) => $objects]
@@ -907,9 +928,7 @@ final class ReadMapper extends DataMapperAbstract
 
                 $refProp = $refClass->getProperty($member);
                 if (!$refProp->isPublic()) {
-                    $refProp->setAccessible(true);
                     $relMapper->loadHasManyRelations($refProp->getValue($obj));
-                    $refProp->setAccessible(false);
                 } else {
                     $relMapper->loadHasManyRelations($obj->{$member});
                 }

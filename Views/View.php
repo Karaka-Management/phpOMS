@@ -350,7 +350,7 @@ class View extends ViewAbstract
      * @since 1.0.0
      */
     public function getCurrency(
-        int | float | Money $currency,
+        int | float | Money | FloatInt $currency,
         string $symbol = null,
         string $format = null,
         int $divide = 1

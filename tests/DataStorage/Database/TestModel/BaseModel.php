@@ -18,7 +18,7 @@ use phpOMS\Contract\SerializableInterface;
 
 class BaseModel
 {
-    protected int $id = 0;
+    public int $id = 0;
 
     public string $string = 'Base';
 

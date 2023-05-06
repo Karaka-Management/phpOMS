@@ -381,4 +381,28 @@ class ISO4217DecimalEnum extends Enum
     public const _ZAR = 2;
 
     public const _ZMW = 2;
+
+    public const _GGP = 2;
+
+    public const _GHC = 2;
+
+    public const _IMP = 2;
+
+    public const _JEP = 2;
+
+    public const _LTL = 2;
+
+    public const _LVL = 2;
+
+    public const _SVC = 2;
+
+    public const _TRL = 2;
+
+    public const _TVD = 2;
+
+    public const _ZWD = 2;
+
+    public const _ZMK = 2;
+
+    public const _ZWL = 2;
 }

@@ -67,6 +67,14 @@ abstract class RequestAbstract implements MessageInterface
     public HeaderAbstract $header;
 
     /**
+     * Local
+     *
+     * @var string
+     * @since 1.0.0
+     */
+    protected string $locale = '';
+
+    /**
      * Request hash.
      *
      * @var string[]
@@ -141,7 +149,11 @@ abstract class RequestAbstract implements MessageInterface
     {
         $key = \mb_strtolower($key);
 
-        return isset($this->data[$key]) ? (string) $this->data[$key] : null;
+        if (($this->data[$key] ?? '') === '') {
+            return null;
+        }
+
+        return (string) $this->data[$key];
     }
 
     /**
@@ -157,7 +169,11 @@ abstract class RequestAbstract implements MessageInterface
     {
         $key = \mb_strtolower($key);
 
-        return isset($this->data[$key]) ? (int) $this->data[$key] : null;
+        if (($this->data[$key] ?? '') === '') {
+            return null;
+        }
+
+        return (int) $this->data[$key];
     }
 
     /**
@@ -173,7 +189,11 @@ abstract class RequestAbstract implements MessageInterface
     {
         $key = \mb_strtolower($key);
 
-        return isset($this->data[$key]) ? (float) $this->data[$key] : null;
+        if (($this->data[$key] ?? '') === '') {
+            return null;
+        }
+
+        return (float) $this->data[$key];
     }
 
     /**
@@ -189,7 +209,11 @@ abstract class RequestAbstract implements MessageInterface
     {
         $key = \mb_strtolower($key);
 
-        return isset($this->data[$key]) ? (bool) $this->data[$key] : null;
+        if (($this->data[$key] ?? '') === '') {
+            return null;
+        }
+
+        return (bool) $this->data[$key];
     }
 
     /**
@@ -221,7 +245,7 @@ abstract class RequestAbstract implements MessageInterface
     {
         $key = \mb_strtolower($key);
 
-        if (!isset($this->data[$key])) {
+        if (($this->data[$key] ?? '') === '') {
             return [];
         }
 
@@ -244,7 +268,7 @@ abstract class RequestAbstract implements MessageInterface
     {
         $key = \mb_strtolower($key);
 
-        if (!isset($this->data[$key])) {
+        if (($this->data[$key] ?? '') === '') {
             return [];
         }
 

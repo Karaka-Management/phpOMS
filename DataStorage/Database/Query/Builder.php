@@ -378,6 +378,10 @@ class Builder extends BuilderAbstract
             $dependencies[$table] = [];
 
             foreach ($this->ons[$table] as $on) {
+                if (!\is_string($on)) {
+                    continue;
+                }
+
                 if (\stripos($on['column'], '.')) {
                     $dependencies[$table][] = \explode('.', $on['column'])[0];
                 }
@@ -1294,7 +1298,7 @@ class Builder extends BuilderAbstract
      *
      * @since 1.0.0
      */
-    public function on(string | array $columns, string | array $operator = null, string | array $values = null, string | array $boolean = 'and', string $table = null) : self
+    public function on(string | array $columns, string | array $operator = null, mixed $values = null, string | array $boolean = 'and', string $table = null) : self
     {
         if (!\is_array($columns)) {
             $columns  = [$columns];

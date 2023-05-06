@@ -76,6 +76,10 @@ abstract class SchedulerAbstract
      */
     public static function guessBin() : bool
     {
+        if (self::$bin !== '') {
+            return true;
+        }
+
         $paths = [
             'c:/WINDOWS/system32/schtasks.exe',
             'd:/WINDOWS/system32/schtasks.exe',
@@ -135,7 +139,7 @@ abstract class SchedulerAbstract
 
         $status = \proc_close($resource);
 
-        if ($status === -1) {
+        if ($status === -1 || $stderr !== '') {
             throw new \Exception((string) $stderr);
         }
 
@@ -214,7 +218,7 @@ abstract class SchedulerAbstract
 
     /**+
      * Reload the jobs
-     * 
+     *
      * @return void
      * @since 1.0.0
      */

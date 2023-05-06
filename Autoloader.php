@@ -118,7 +118,7 @@ final class Autoloader
 
         foreach (self::$paths as $path) {
             if (\is_file($file = $path . $class . '.php')) {
-                include $file;
+                include_once $file;
 
                 return;
             }
