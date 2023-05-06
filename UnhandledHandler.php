@@ -44,6 +44,8 @@ final class UnhandledHandler
             'line'    => $e->getLine(),
             'file'    => $e->getFile(),
         ]);
+
+        $_SERVER = [];
     }
 
     /**
@@ -65,6 +67,8 @@ final class UnhandledHandler
         if (!(\error_reporting() & $errno)) {
             \error_clear_last();
 
+            $_SERVER = [];
+
             return false;
         }
 
@@ -76,6 +80,8 @@ final class UnhandledHandler
             'line'    => $errline,
             'file'    => $errfile,
         ]);
+
+        $_SERVER = [];
 
         return true;
     }
@@ -94,6 +100,8 @@ final class UnhandledHandler
         \error_clear_last();
 
         if ($e === null) {
+            $_SERVER = [];
+
             return;
         }
 
@@ -103,5 +111,7 @@ final class UnhandledHandler
             'line'    => $e['line'],
             'file'    => $e['file'],
         ]);
+
+        $_SERVER = [];
     }
 }
