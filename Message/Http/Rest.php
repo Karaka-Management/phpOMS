@@ -119,6 +119,13 @@ final class Rest
                 $header = \explode(':', $header, 2);
 
                 if (\count($header) < 2) {
+                    $response->header->set('', $line = \trim($header[0]));
+
+                    if (\stripos(\strtoupper($line), 'HTTP/') === 0) {
+                        $statusCode = \explode(' ', $line, 3);
+                        $response->header->status = (int) $statusCode[1];
+                    }
+
                     return $length;
                 }
 
@@ -137,7 +144,12 @@ final class Rest
 
         \curl_close($curl);
 
-        $response->set('', \substr(\is_bool($result) ? '' : $result, $len === false ? 0 : $len));
+        $raw = \substr(\is_bool($result) ? '' : $result, $len === false ? 0 : $len);
+        if (\stripos(\implode('', $response->header->get('content-type')), MimeType::M_JSON) !== false) {
+            $response->setResponse(\json_decode($raw, true));
+        } else {
+            $response->set('', $raw);
+        }
 
         return $response;
     }
