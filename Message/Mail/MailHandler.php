@@ -170,7 +170,7 @@ class MailHandler
      * @var string
      * @since 1.0.0
      */
-    public string $dsn = DsnNotificationLevel:NONE;
+    public string $dsn = DsnNotificationType::NONE;
 
     /**
      * Keep connection alive.

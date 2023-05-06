@@ -609,7 +609,7 @@ class Smtp
      *
      * @since 1.0.0
      */
-    public function recipient(string $address, string $dsn = DsnNotificationLevel:NONE) : bool
+    public function recipient(string $address, string $dsn = DsnNotificationType::NONE) : bool
     {
         if ($dsn === '') {
             $rcpt = 'RCPT TO:<' . $address . '>';
