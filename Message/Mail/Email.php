@@ -2090,7 +2090,6 @@ class Email implements MessageInterface
         $this->bodyAlt     = self::normalizeBreaks($this->html2text($message, $advanced), self::$LE);
 
         if (empty($this->bodyAlt)) {
-            // @todo: localize
             $this->bodyAlt = 'This is an HTML-only message. To view it, activate HTML in your email application.' . self::$LE;
         }
 
