@@ -32,6 +32,8 @@ use phpOMS\Uri\UriInterface;
  * @since   1.0.0
  *
  * @SuppressWarnings(PHPMD.Superglobals)
+ *
+ * @property HttpHeader $header
  */
 final class HttpRequest extends RequestAbstract
 {
@@ -112,6 +114,7 @@ final class HttpRequest extends RequestAbstract
         $this->uri   = HttpUri::fromCurrent();
         $this->data  = $_POST + $_GET;
         $this->files = $_FILES;
+        $this->header->initCurrentRequest();
         $this->header->l11n->setLanguage($this->getRequestLanguage());
         $this->header->l11n->setCountry($this->getRequestCountry());
 

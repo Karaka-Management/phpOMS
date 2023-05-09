@@ -53,6 +53,11 @@ final class HttpHeader extends HeaderAbstract
      */
     public int $status = RequestStatusCode::R_200;
 
+    public function initCurrentRequest() : void
+    {
+        $this->header = self::getAllHeaders();
+    }
+
     /**
      * {@inheritdoc}
      */
@@ -159,15 +164,28 @@ final class HttpHeader extends HeaderAbstract
                     \str_replace(
                         ' ',
                         '-',
-                        \ucwords(
-                            \strtolower(
-                                \str_replace('_', ' ', \substr($name, 5))
-                            )
+                        \strtolower(
+                            \str_replace('_', ' ', \substr($name, 5))
                         )
                     )
                 ] = $value;
             }
         }
+
+        $temp = [];
+        foreach (self::$serverHeaders as $key => $value) {
+            $key = \strtolower($key);
+            if (!isset($temp[$key])) {
+                $temp[$key] = [];
+            }
+
+            $values = \explode(',', $value);
+            foreach ($values as $val) {
+                $temp[$key][] = \trim($val);
+            }
+        }
+
+        self::$serverHeaders = $temp;
 
         return self::$serverHeaders;
     }

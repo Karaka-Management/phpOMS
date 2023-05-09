@@ -19,6 +19,7 @@ use phpOMS\Localization\Localization;
 use phpOMS\Log\FileLogger;
 use phpOMS\Message\ResponseAbstract;
 use phpOMS\System\MimeType;
+use phpOMS\Utils\ArrayUtils;
 use phpOMS\Utils\StringUtils;
 use phpOMS\Views\View;
 
@@ -114,15 +115,18 @@ final class HttpResponse extends ResponseAbstract implements RenderableInterface
         foreach ($types as $type) {
             if (\stripos($type, MimeType::M_JSON) !== false) {
                 return (string) \json_encode($this->jsonSerialize());
+            } elseif (\stripos($type, MimeType::M_CSV) !== false) {
+                return ArrayUtils::arrayToCsv($this->toArray());
+            } elseif (\stripos($type, MimeType::M_XML) !== false) {
+                return ArrayUtils::arrayToXml($this->toArray());
+            } elseif (\stripos($type, MimeType::M_HTML) !== false) {
+                /** @var array{0:bool} $data */
+                return $this->getRaw($data[0] ?? false);
             }
         }
 
         /** @var array{0:bool} $data */
-        return $this->getRaw(
-            \stripos($type ?? '', MimeType::M_HTML) !== false
-                ? ($data[0] ?? false)
-                : false
-        );
+        return $this->getRaw($data[0] ?? false);
     }
 
     /**

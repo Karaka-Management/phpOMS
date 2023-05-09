@@ -270,6 +270,30 @@ final class ArrayUtils
     }
 
     /**
+     * Convert array to xml string.
+     *
+     * @param array             $data Data to convert
+     * @param \SimpleXMLElement $xml  XML parent
+     *
+     * @return string
+     *
+     * @since 1.0.0
+     */
+    public static function arrayToXml(array $data, \SimpleXMLElement $xml = null) : string
+    {
+        $xml ??= new \SimpleXMLElement('<root/>');
+
+        foreach ($data as $key => $value) {
+            if (is_array($value)) {
+                self::arrayToXml($value, $xml->addChild($key));
+            } else {
+                $xml->addChild($key, \htmlspecialchars($value));
+            }
+        }
+        return $xml->asXML();
+    }
+
+    /**
      * Get array value by argument id.
      *
      * Useful for parsing command line parsing
