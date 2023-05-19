@@ -24,7 +24,7 @@ use phpOMS\Uri\HttpUri;
  */
 final class DirectoryTest extends \PHPUnit\Framework\TestCase
 {
-    public const BASE = 'ftp://test:123456@127.0.0.1:20';
+    public const BASE = 'ftp://test:123456@127.0.0.1:21';
 
     private static $con = null;
 
@@ -39,17 +39,17 @@ final class DirectoryTest extends \PHPUnit\Framework\TestCase
         }
 
         try {
-            $mkdir = \ftp_mkdir(self::$con, '0xFF');
-            \ftp_rmdir(self::$con, '0xFF');
+            $mkdir = \ftp_mkdir(self::$con, __DIR__ . '/0xFF');
+            \ftp_rmdir(self::$con, __DIR__ . '/0xFF');
 
             $f = \fopen('php://memory', 'r+');
-            \fwrite($f, '0x00');
+            \fwrite($f, __DIR__ . '/0x00');
             \rewind($f);
 
-            $put = \ftp_fput(self::$con, '0x00', $f);
+            $put = \ftp_fput(self::$con, __DIR__ . '/0x00', $f);
             \fclose($f);
 
-            \ftp_delete(self::$con, '0x00');
+            \ftp_delete(self::$con, __DIR__ . '/0x00');
 
             if (!$mkdir || !$put) {
                 throw new \Exception();
