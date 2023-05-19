@@ -24,4 +24,11 @@ namespace phpOMS\Account;
  */
 final class NullAccount extends Account
 {
+    /**
+     * {@inheritdoc}
+     */
+    public function jsonSerialize() : mixed
+    {
+        return ['id' => $this->id];
+    }
 }

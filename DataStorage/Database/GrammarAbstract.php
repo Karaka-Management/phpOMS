@@ -194,16 +194,8 @@ abstract class GrammarAbstract
 
         foreach ($elements as $key => $element) {
             if (\is_string($element)) {
-                // @note: Replaced $this->compileSystem with $element
-                // This causes problems for tables or columns which use keywords such as count,
-                // but they are rare and should be handled somewhere else if it actually is such a case
-                if (\in_array($element, ['group', 'id', 'where', 'order'])) {
-                    $expression .= $this->compileSystem($element)
-                        . (\is_string($key) ? ' as ' . $key : '') . ', ';
-                } else {
-                    $expression .= $element
-                        . (\is_string($key) ? ' as ' . $key : '') . ', ';
-                }
+                $expression .= $this->compileSystem($element)
+                    . (\is_string($key) ? ' as ' . $key : '') . ', ';
             } elseif ($element instanceof \Closure) {
                 $expression .= $element() . (\is_string($key) ? ' as ' . $key : '') . ', ';
             } elseif ($element instanceof BuilderAbstract) {

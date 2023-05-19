@@ -38,7 +38,7 @@ class Graph
      * @var bool
      * @since 1.0.0
      */
-    protected bool $isDirected = false;
+    public bool $isDirected = false;
 
     /**
      * Set node to graph.
@@ -628,6 +628,9 @@ class Graph
 
         foreach ($this->nodes as $node) {
             $visited[$node->getId()] = false;
+        }
+
+        foreach ($this->nodes as $node) {
             $this->longestPathDfs($node, $visited, $path, $longestPath);
         }
 
@@ -875,21 +878,18 @@ class Graph
      */
     public function getDiameter() : int
     {
-        $diameter = 0;
+        $paths = $this->getFloydWarshallShortestPath();
+        $count = [];
 
-        foreach ($this->nodes as $node1) {
-            foreach ($this->nodes as $node2) {
-                if ($node1 === $node2) {
-                    continue;
-                }
-
-                /** @var int $diameter */
-                $diameter = \max($diameter, $this->getFloydWarshallShortestPath());
-            }
+        if (empty($paths)) {
+            return 0;
         }
 
-        /** @var int $diameter */
-        return $diameter;
+        foreach ($paths as $path) {
+            $count[] = \count($path);
+        }
+
+        return \max($count);
     }
 
     /**
@@ -994,7 +994,7 @@ class Graph
                     : $edge->node1;
             }
 
-            if ($next->isEqual($previous)) {
+            if ($previous !== null && $next->isEqual($previous)) {
                 continue;
             }
 
@@ -1197,20 +1197,13 @@ class Graph
      *
      * @since 1.0.0
      */
-    public function isBipartite(int | string | Node $node1) : bool
+    public function isBipartite() : bool
     {
-        if (!($node1 instanceof Node)) {
-            $node1 = $this->getNode($node1);
-        }
-
-        if ($node1 === null) {
-            return true;
-        }
-
         foreach ($this->nodes as $node) {
             $colors[$node->getId()] = 0;
         }
 
+        $node1 = \reset($this->nodes);
         $colors[$node1->getId()] = 1;
 
         $stack = [];

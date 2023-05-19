@@ -99,6 +99,7 @@ class BaseStringL11n implements \JsonSerializable
         $this->content  = $content;
         $this->language = $language;
         $this->country  = $country;
+        $this->type     = new NullBaseStringL11nType();
     }
 
     /**

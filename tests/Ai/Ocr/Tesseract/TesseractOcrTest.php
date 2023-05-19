@@ -18,6 +18,7 @@ use phpOMS\Ai\Ocr\Tesseract\TesseractOcr;
 use phpOMS\Image\Kernel;
 use phpOMS\Image\Skew;
 use phpOMS\Image\Thresholding;
+use phpOMS\System\File\PathException;
 
 /**
  * @internal
@@ -65,6 +66,13 @@ final class TesseractOcrTest extends \PHPUnit\Framework\TestCase
 
         self::assertGreaterThan(0.5, $m1);
         self::assertGreaterThan(0.5, $m2);
+    }
+
+    public function testInvalidOcrPath() : void
+    {
+        $this->expectException(PathException::class);
+
+        $ocr = new TesseractOcr('/invalid/path');
     }
 
     /**

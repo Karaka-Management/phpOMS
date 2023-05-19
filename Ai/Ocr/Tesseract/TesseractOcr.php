@@ -87,7 +87,7 @@ final class TesseractOcr
      */
     public function parseImage(string $image, array $languages = ['eng'], int $psm = 3, int $oem = 3) : string
     {
-        $temp = \tempnam(\sys_get_temp_dir(), 'ocr_');
+        $temp = \tempnam(\sys_get_temp_dir(), 'oms_ocr_');
         if ($temp === false) {
             return '';
         }
@@ -107,15 +107,24 @@ final class TesseractOcr
             : $temp;
 
         if (!\is_file($filepath)) {
+            // @codeCoverageIgnoreStart
+            \unlink($temp);
+
             return '';
+            // @codeCoverageIgnoreEnd
         }
 
         $parsed = \file_get_contents($filepath);
         if ($parsed === false) {
+            // @codeCoverageIgnoreStart
+            \unlink($temp);
+
             return '';
+            // @codeCoverageIgnoreEnd
         }
 
         \unlink($filepath);
+        \unlink($temp);
 
         return \trim($parsed);
     }

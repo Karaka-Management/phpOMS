@@ -124,11 +124,11 @@ final class Kernel
                         }
                     }
 
-                    $newR = \max(0, \min(255, $newR));
-                    $newG = \max(0, \min(255, $newG));
-                    $newB = \max(0, \min(255, $newB));
+                    $newR = (int) \max(0, \min(255, $newR));
+                    $newG = (int) \max(0, \min(255, $newG));
+                    $newB = (int) \max(0, \min(255, $newB));
 
-                    \imagesetpixel($im, $x, $y, (int) (($newR << 16) + ($newG << 8) | $newB));
+                    \imagesetpixel($im, $x, $y, (int) (($newR << 16) | ($newG << 8) | $newB));
                 }
             }
         }

@@ -80,7 +80,7 @@ final class Currency
         $to         = \strtoupper($to);
 
         if (!isset($currencies[$to])) {
-            throw new \InvalidArgumentException('Currency doesn\'t exists');
+            return -1.0;
         }
 
         return $value * $currencies[$to];
@@ -147,7 +147,7 @@ final class Currency
         $from       = \strtoupper($from);
 
         if (!isset($currencies[$from])) {
-            throw new \InvalidArgumentException('Currency doesn\'t exists');
+            return -1.0;
         }
 
         return $value / $currencies[$from];
@@ -172,8 +172,10 @@ final class Currency
         $from       = \strtoupper($from);
         $to         = \strtoupper($to);
 
-        if ((!isset($currencies[$from]) && $from !== ISO4217CharEnum::_EUR) || (!isset($currencies[$to]) && $to !== ISO4217CharEnum::_EUR)) {
-            throw new \InvalidArgumentException('Currency doesn\'t exists');
+        if ((!isset($currencies[$from]) && $from !== ISO4217CharEnum::_EUR)
+            || (!isset($currencies[$to]) && $to !== ISO4217CharEnum::_EUR)
+        ) {
+           return -1.0;
         }
 
         if ($from !== ISO4217CharEnum::_EUR) {

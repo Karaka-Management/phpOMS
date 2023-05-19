@@ -74,7 +74,16 @@ final class GraphTest extends \PHPUnit\Framework\TestCase
      */
     public function testDirectedOutput() : void
     {
-        self::assertFalse($this->graph->isDirected());
+        $node0 = new Node('0');
+        $node1 = new Node('1');
+
+        $this->graph->setNode($node0);
+        $this->graph->setNode($node1);
+
+        $node0->setNodeRelative($node1, isDirected: true);
+
+        $this->graph->isDirected = false;
+        self::assertTrue($this->graph->isDirected());
     }
 
     /**
@@ -319,6 +328,8 @@ final class GraphTest extends \PHPUnit\Framework\TestCase
         $this->graph->setNodeRelative($node1, $node2, true);
         $this->graph->setNodeRelative($node2, $node3, true);
         $this->graph->setNodeRelative($node1, $node3, true);
+
+        $this->graph->isDirected = true;
 
         self::assertFalse($this->graph->hasCycle());
 
@@ -602,6 +613,86 @@ final class GraphTest extends \PHPUnit\Framework\TestCase
      * @covers phpOMS\Stdlib\Graph\Graph
      * @group framework
      */
+    public function testShortestPathFloydWarshall() : void
+    {
+        $node0 = new Node('0');
+        $node1 = new Node('1');
+        $node2 = new Node('2');
+        $node3 = new Node('3');
+        $node4 = new Node('4');
+        $node5 = new Node('5');
+        $node6 = new Node('6');
+
+        $this->graph->setNode($node0);
+        $this->graph->setNode($node1);
+        $this->graph->setNode($node2);
+        $this->graph->setNode($node3);
+        $this->graph->setNode($node4);
+        $this->graph->setNode($node5);
+        $this->graph->setNode($node6);
+
+        $node0->setNodeRelative($node1);
+        $node0->setNodeRelative($node2);
+        $node1->setNodeRelative($node2);
+        $node1->setNodeRelative($node3);
+        $node1->setNodeRelative($node4);
+        $node3->setNodeRelative($node5);
+        $node4->setNodeRelative($node5);
+
+        $paths = $this->graph->getFloydWarshallShortestPath($node0, $node5);
+        self::assertGreaterThan(1, $paths);
+    }
+
+    /**
+     *     1 - 3 - 5
+     *   / |\     /
+     * 0   | \   /
+     *   \ |  \ /
+     *     2   4   6
+     *
+     * @covers phpOMS\Stdlib\Graph\Graph
+     * @group framework
+     */
+    public function testLongestPathsDfs() : void
+    {
+        $node0 = new Node('0');
+        $node1 = new Node('1');
+        $node2 = new Node('2');
+        $node3 = new Node('3');
+        $node4 = new Node('4');
+        $node5 = new Node('5');
+        $node6 = new Node('6');
+
+        $this->graph->setNode($node0);
+        $this->graph->setNode($node1);
+        $this->graph->setNode($node2);
+        $this->graph->setNode($node3);
+        $this->graph->setNode($node4);
+        $this->graph->setNode($node5);
+        $this->graph->setNode($node6);
+
+        $node0->setNodeRelative($node1);
+        $node0->setNodeRelative($node2);
+        $node1->setNodeRelative($node2);
+        $node1->setNodeRelative($node3);
+        $node1->setNodeRelative($node4);
+        $node3->setNodeRelative($node5);
+        $node4->setNodeRelative($node5);
+
+        $paths = $this->graph->longestPath($node0, $node5);
+        self::assertGreaterThan(1, $paths);
+    }
+
+    /**
+     *     1 - 3 - 5
+     *   / |\     /
+     * 0   | \   /
+     *   \ |  \ /
+     *     2   4   6
+     *
+     * @covers phpOMS\Stdlib\Graph\Graph
+     * @group framework
+     */
     public function testUnconnectedGraph() : void
     {
         $node0 = new Node('0');
@@ -680,8 +771,6 @@ final class GraphTest extends \PHPUnit\Framework\TestCase
      */
     public function testDiameter() : void
     {
-        self::markTestIncomplete();
-
         $node0 = new Node('0');
         $node1 = new Node('1');
         $node2 = new Node('2');
@@ -704,6 +793,213 @@ final class GraphTest extends \PHPUnit\Framework\TestCase
         $node3->setNodeRelative($node5);
         $node4->setNodeRelative($node5);
 
-        self::assertEquals(0, $this->graph->getDiameter());
+        self::assertGreaterThan(3, $this->graph->getDiameter());
+    }
+
+    /**
+     *     1 - 3 - 5
+     *   / |\     /
+     * 0   | \   /
+     *   \ |  \ /
+     *     2   4
+     *
+     * @covers phpOMS\Stdlib\Graph\Graph
+     * @group framework
+     */
+    public function testGirth() : void
+    {
+        $node0 = new Node('0');
+        $node1 = new Node('1');
+        $node2 = new Node('2');
+        $node3 = new Node('3');
+        $node4 = new Node('4');
+        $node5 = new Node('5');
+
+        $this->graph->setNode($node0);
+        $this->graph->setNode($node1);
+        $this->graph->setNode($node2);
+        $this->graph->setNode($node3);
+        $this->graph->setNode($node4);
+        $this->graph->setNode($node5);
+
+        $node0->setNodeRelative($node1);
+        $node0->setNodeRelative($node2);
+        $node1->setNodeRelative($node2);
+        $node1->setNodeRelative($node3);
+        $node1->setNodeRelative($node4);
+        $node3->setNodeRelative($node5);
+        $node4->setNodeRelative($node5);
+
+        self::assertGreaterThan(3, $this->graph->getGirth());
+    }
+
+    /**
+     *     1 - 3 - 5
+     *   / |\     /
+     * 0   | \   /
+     *   \ |  \ /
+     *     2   4
+     *
+     * @covers phpOMS\Stdlib\Graph\Graph
+     * @group framework
+     */
+    public function testCircuitRank() : void
+    {
+        $node0 = new Node('0');
+        $node1 = new Node('1');
+        $node2 = new Node('2');
+        $node3 = new Node('3');
+        $node4 = new Node('4');
+        $node5 = new Node('5');
+
+        $this->graph->setNode($node0);
+        $this->graph->setNode($node1);
+        $this->graph->setNode($node2);
+        $this->graph->setNode($node3);
+        $this->graph->setNode($node4);
+        $this->graph->setNode($node5);
+
+        $node0->setNodeRelative($node1);
+        $node0->setNodeRelative($node2);
+        $node1->setNodeRelative($node2);
+        $node1->setNodeRelative($node3);
+        $node1->setNodeRelative($node4);
+        $node3->setNodeRelative($node5);
+        $node4->setNodeRelative($node5);
+
+        self::assertGreaterThan(2, $this->graph->getCircuitRank());
+    }
+
+    /**
+     *     1 - 3 - 5
+     *   / |\     /
+     * 0   | \   /
+     *   \ |  \ /
+     *     2   4
+     *
+     * @covers phpOMS\Stdlib\Graph\Graph
+     * @group framework
+     */
+    public function testStronglyConnected() : void
+    {
+        $node0 = new Node('0');
+        $node1 = new Node('1');
+        $node2 = new Node('2');
+        $node3 = new Node('3');
+        $node4 = new Node('4');
+        $node5 = new Node('5');
+
+        $this->graph->setNode($node0);
+        $this->graph->setNode($node1);
+        $this->graph->setNode($node2);
+        $this->graph->setNode($node3);
+        $this->graph->setNode($node4);
+        $this->graph->setNode($node5);
+
+        $node0->setNodeRelative($node1);
+        $node0->setNodeRelative($node2);
+        $node1->setNodeRelative($node2);
+        $node1->setNodeRelative($node3);
+        $node1->setNodeRelative($node4);
+        $node3->setNodeRelative($node5);
+        $node4->setNodeRelative($node5);
+
+        self::assertTrue($this->graph->isStronglyConnected());
+    }
+
+    /**
+     *     0 - 1 - 2
+     *
+     * @covers phpOMS\Stdlib\Graph\Graph
+     * @group framework
+     */
+    public function testInvalidStronglyConnected() : void
+    {
+        $node0 = new Node('0');
+        $node1 = new Node('1');
+        $node2 = new Node('2');
+
+        $this->graph->setNode($node0);
+        $this->graph->setNode($node1);
+        $this->graph->setNode($node2);
+
+        $node0->setNodeRelative($node1);
+        $node1->setNodeRelative($node2);
+
+        self::assertFalse($this->graph->isStronglyConnected());
+    }
+
+    /**
+     *     1 - 3 - 5
+     *   / |\     /
+     * 0   | \   /
+     *   \ |  \ /
+     *     2   4
+     *
+     * @covers phpOMS\Stdlib\Graph\Graph
+     * @group framework
+     */
+    public function testBipartite() : void
+    {
+        $node0 = new Node('0');
+        $node1 = new Node('1');
+        $node2 = new Node('2');
+        $node3 = new Node('3');
+        $node4 = new Node('4');
+        $node5 = new Node('5');
+
+        $this->graph->setNode($node0);
+        $this->graph->setNode($node1);
+        $this->graph->setNode($node2);
+        $this->graph->setNode($node3);
+        $this->graph->setNode($node4);
+        $this->graph->setNode($node5);
+
+        $node0->setNodeRelative($node1);
+        $node0->setNodeRelative($node2);
+        $node1->setNodeRelative($node2);
+        $node1->setNodeRelative($node3);
+        $node1->setNodeRelative($node4);
+        $node3->setNodeRelative($node5);
+        $node4->setNodeRelative($node5);
+
+        self::assertTrue($this->graph->isBipartite());
+    }
+
+    /**
+     *     1 - 3 - 5
+     *   / |\     /
+     * 0   | \   /
+     *   \ |  \ /
+     *     2   4
+     *
+     * @covers phpOMS\Stdlib\Graph\Graph
+     * @group framework
+     */
+    public function testTriangles() : void
+    {
+        $node0 = new Node('0');
+        $node1 = new Node('1');
+        $node2 = new Node('2');
+        $node3 = new Node('3');
+        $node4 = new Node('4');
+        $node5 = new Node('5');
+
+        $this->graph->setNode($node0);
+        $this->graph->setNode($node1);
+        $this->graph->setNode($node2);
+        $this->graph->setNode($node3);
+        $this->graph->setNode($node4);
+        $this->graph->setNode($node5);
+
+        $node0->setNodeRelative($node1);
+        $node0->setNodeRelative($node2);
+        $node1->setNodeRelative($node2);
+        $node1->setNodeRelative($node3);
+        $node1->setNodeRelative($node4);
+        $node3->setNodeRelative($node5);
+        $node4->setNodeRelative($node5);
+
+        self::assertTrue($this->graph->hasTriangles());
     }
 }

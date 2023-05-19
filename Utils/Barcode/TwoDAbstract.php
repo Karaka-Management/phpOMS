@@ -115,10 +115,10 @@ abstract class TwoDAbstract extends CodeAbstract
         $matrixDimension = \max(\count($codeArray), \count(\reset($codeArray)));
         $imageDimension  = \max($this->dimension['width'], $this->dimension['width']);
 
-        $multiplier = (int) ($imageDimension - 2 * $this->margin) / $matrixDimension;
+        $multiplier = (int) (($imageDimension - 2 * $this->margin) / $matrixDimension);
 
-        $dimensions['width']  = $matrixDimension * $multiplier + 2 * $this->margin;
-        $dimensions['height'] = $matrixDimension * $multiplier + 2 * $this->margin;
+        $dimensions['width']  = (int) ($matrixDimension * $multiplier + 2 * $this->margin);
+        $dimensions['height'] = (int) ($matrixDimension * $multiplier + 2 * $this->margin);
 
         return $dimensions;
     }

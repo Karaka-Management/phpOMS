@@ -44,4 +44,20 @@ final class ISO3166NumEnumTest extends \PHPUnit\Framework\TestCase
 
         self::assertTrue($ok);
     }
+
+    public function testRegion() : void
+    {
+        $regions = [
+            'europe', 'asia', 'america', 'oceania', 'africa', 'eu', 'euro',
+            'north-europe', 'south-europe', 'east-europe', 'west-europe',
+            'middle-east', 'south-america', 'north-america', 'central-asia',
+            'south-asia', 'southeast-asia', 'east-asia', 'west-asia',
+            'central-africa', 'east-africa', 'north-africa', 'south-africa',
+            'west-africe', 'australia', 'polynesia', 'melanesia', 'antarctica',
+        ];
+
+        foreach ($regions as $region) {
+            self::assertGreaterThan(0, \count(ISO3166NumEnum::getRegion($region)));
+        }
+    }
 }

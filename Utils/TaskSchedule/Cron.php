@@ -38,6 +38,8 @@ class Cron extends SchedulerAbstract
         }
 
         if (!empty($this->getAllByName($task->getId()))) {
+            \unlink($path);
+
             return;
         }
 

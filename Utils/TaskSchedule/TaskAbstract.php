@@ -30,7 +30,7 @@ abstract class TaskAbstract
      * @var string
      * @since 1.0.0
      */
-    protected string $id = '';
+    public string $id = '';
 
     /**
      * Command used for creating the task

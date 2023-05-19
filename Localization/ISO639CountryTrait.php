@@ -38,6 +38,8 @@ trait ISO639CountryTrait
         switch (\strtoupper($country)) {
             case ISO3166TwoEnum::_AFG:
                 return [self::_PS, self::_UZ, self::_TK];
+            case ISO3166TwoEnum::_ATA:
+                return [self::_RU, self::_EN];
             case ISO3166TwoEnum::_ALA:
                 return [self::_SV];
             case ISO3166TwoEnum::_ALB:
@@ -95,7 +97,7 @@ trait ISO639CountryTrait
             case ISO3166TwoEnum::_BWA:
                 return [self::_EN, self::_TN];
             case ISO3166TwoEnum::_BVT:
-                return [];
+                return [self::_NO];
             case ISO3166TwoEnum::_BRA:
                 return [self::_PT];
             case ISO3166TwoEnum::_IOT:
@@ -308,6 +310,8 @@ trait ISO639CountryTrait
                 return [self::_FR];
             case ISO3166TwoEnum::_MLT:
                 return [self::_MT, self::_EN];
+            case ISO3166TwoEnum::_MKD:
+                return [self::_MK];
             case ISO3166TwoEnum::_MHL:
                 return [self::_MH, self::_EN];
             case ISO3166TwoEnum::_MTQ:

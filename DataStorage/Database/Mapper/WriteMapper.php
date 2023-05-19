@@ -258,13 +258,13 @@ final class WriteMapper extends DataMapperAbstract
      */
     private function createHasMany(\ReflectionClass $refClass, object $obj, mixed $objId) : void
     {
-        foreach ($this->mapper::HAS_MANY as $propertyName => $rel) {
+        foreach ($this->mapper::HAS_MANY as $propertyName => $_) {
             if (!isset($this->mapper::HAS_MANY[$propertyName]['mapper'])) {
                 throw new InvalidMapperException(); // @codeCoverageIgnore
             }
 
             $property = $refClass->getProperty($propertyName);
-            if (!($isPublic = $property->isPublic())) {
+            if (!$property->isPublic()) {
                 $values = $property->getValue($obj);
             } else {
                 $values = $obj->{$propertyName};

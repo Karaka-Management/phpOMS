@@ -189,23 +189,11 @@ final class HttpHeaderTest extends \PHPUnit\Framework\TestCase
      */
     public function testHeaderGeneration() : void
     {
-        $this->header->generate(RequestStatusCode::R_403);
-        self::assertEquals(403, \http_response_code());
-
-        $this->header->generate(RequestStatusCode::R_404);
-        self::assertEquals(404, \http_response_code());
-
-        $this->header->generate(RequestStatusCode::R_406);
-        self::assertEquals(406, \http_response_code());
-
-        $this->header->generate(RequestStatusCode::R_407);
-        self::assertEquals(407, \http_response_code());
-
-        $this->header->generate(RequestStatusCode::R_503);
-        self::assertEquals(503, \http_response_code());
-
-        $this->header->generate(RequestStatusCode::R_500);
-        self::assertEquals(500, \http_response_code());
+        $consts = RequestStatusCode::getConstants();
+        foreach ($consts as $status) {
+            $this->header->generate($status);
+            self::assertTrue(\stripos($this->header->get('status')[0], (string) $status) !== false);
+        }
     }
 
     public function testGetAllHeaders() : void
@@ -215,11 +203,11 @@ final class HttpHeaderTest extends \PHPUnit\Framework\TestCase
         $tmp = $_SERVER;
 
         $_SERVER = \json_decode($dummyHeaders, true);
-        self::assertEquals('127.0.0.1', $this->header->getAllHeaders()['Host']);
+        self::assertEquals('127.0.0.1', $this->header->getAllHeaders()['host'] ?? '');
 
         // If headers are loaded once, only the cached version is used!
         $_SERVER = \json_decode('{"HTTP_HOST": "invalid"}', true);
-        self::assertEquals('127.0.0.1', $this->header->getAllHeaders()['Host']);
+        self::assertEquals('127.0.0.1', $this->header->getAllHeaders()['host'] ?? '');
 
         $_SERVER = $tmp;
     }

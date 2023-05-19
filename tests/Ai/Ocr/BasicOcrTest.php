@@ -42,6 +42,27 @@ final class BasicOcrTest extends \PHPUnit\Framework\TestCase
         );
     }
 
+    public function testCustomMnistFiles() : void
+    {
+        $ocr = new BasicOcr();
+        $ocr->trainWith(__DIR__ . '/train-images-idx3-ubyte', __DIR__ . '/train-labels-idx1-ubyte', 1000);
+
+        if (\is_file(__DIR__ . '/test-image-ubyte')) {
+            \unlink(__DIR__ . '/test-image-ubyte');
+            \unlink(__DIR__ . '/test-label-ubyte');
+        }
+
+        BasicOcr::imagesToMNIST([__DIR__ . '/3.jpg'], __DIR__ . '/test-image-ubyte', 28);
+        BasicOcr::labelsToMNIST(['3'], __DIR__ . '/test-label-ubyte');
+
+        self::assertEquals(3, $ocr->matchImage(__DIR__ . '/test-image-ubyte', 3, 5)[0]['label']);
+
+        if (\is_file(__DIR__ . '/test-image-ubyte')) {
+            \unlink(__DIR__ . '/test-image-ubyte');
+            \unlink(__DIR__ . '/test-label-ubyte');
+        }
+    }
+
     /**
      * @covers phpOMS\Ai\Ocr\BasicOcr
      * @group framework

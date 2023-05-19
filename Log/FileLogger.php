@@ -100,7 +100,7 @@ final class FileLogger implements LoggerInterface
      */
     public function __construct(string $lpath = '', bool $verbose = false)
     {
-        $path          = \realpath(empty($lpath) ? __DIR__ . '/../../' : $lpath);
+        $path          = \realpath(empty($lpath) ? __DIR__ . '/../../Logs/' : $lpath);
         $this->verbose = $verbose;
 
         $this->path = \is_dir($lpath) || \strpos($lpath, '.') === false

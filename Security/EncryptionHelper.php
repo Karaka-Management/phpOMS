@@ -70,8 +70,8 @@ final class EncryptionHelper
 
     public static function encryptFile(string $in, string $out, string $keyHex) : bool
     {
-        $fpSource  = \fopen($in, 'r+');
-        $fpEncoded = \fopen($out . '.tmp', 'w');
+        $fpSource  = \fopen($in, 'rb');
+        $fpEncoded = \fopen($out . '.tmp', 'wb');
 
         if ($fpSource === false || $fpEncoded === false) {
             return false;
@@ -80,10 +80,13 @@ final class EncryptionHelper
         $secretKey  = \sodium_hex2bin($keyHex);
         $nonce      = \random_bytes(SODIUM_CRYPTO_SECRETBOX_NONCEBYTES);
 
-        while (($buffer = \fgets($fpSource, 4096)) !== false) {
-            $ciphertext = \sodium_crypto_secretbox($buffer, $nonce, $keyHex);
+        \fwrite($fpEncoded, $nonce);
 
-            \fwrite($fpEncoded, $ciphertext);
+        while (!\feof($fpSource)) {
+            $buffer = \fread($fpSource, 4096);
+            $ciphertext = \sodium_crypto_secretbox($buffer, $nonce, $secretKey);
+
+            fwrite($fpEncoded, $ciphertext);
         }
 
         \fclose($fpSource);
@@ -144,21 +147,25 @@ final class EncryptionHelper
 
     public static function decryptFile(string $in, string $out, string $keyHex) : bool
     {
-        $fpSource  = \fopen($in, 'r+');
-        $fpDecoded = \fopen($out . '.tmp', 'w');
+        $fpSource  = \fopen($in, 'rb');
+        $fpDecoded = \fopen($out . '.tmp', 'wb');
 
         if ($fpSource === false || $fpDecoded === false) {
             return false;
         }
 
         $secretKey = \sodium_hex2bin($keyHex);
+        $nonce = \fread($fpSource, SODIUM_CRYPTO_SECRETBOX_NONCEBYTES);
 
-        while (($buffer = \fgets($fpSource, 4096)) !== false) {
-            $ciphertext = \sodium_base642bin($buffer, SODIUM_BASE64_VARIANT_ORIGINAL);
-            $nonce      = \mb_substr($ciphertext, 0, SODIUM_CRYPTO_SECRETBOX_NONCEBYTES, '8bit');
-            $ciphertext = \mb_substr($ciphertext, SODIUM_CRYPTO_SECRETBOX_NONCEBYTES, null, '8bit');
+        while (!\feof($fpSource)) {
+            $buffer     = \fread($fpSource, 4096);
+            $ciphertext = \mb_substr($buffer, SODIUM_CRYPTO_SECRETBOX_NONCEBYTES, null, '8bit');
 
             $plaintext = \sodium_crypto_secretbox_open($ciphertext, $nonce, $secretKey);
+
+            if ($plaintext === false) {
+                return false;
+            }
 
             \fwrite($fpDecoded, $plaintext);
         }

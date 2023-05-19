@@ -14,13 +14,53 @@ declare(strict_types=1);
 
 namespace phpOMS\tests\Utils\Barcode;
 
+use phpOMS\Utils\Barcode\Datamatrix;
+
 /**
  * @internal
  */
 final class DatamatrixTest extends \PHPUnit\Framework\TestCase
 {
-    public function testPlaceholder() : void
+    protected function setUp() : void
     {
-        self::markTestIncomplete();
+        if (!\extension_loaded('gd')) {
+            $this->markTestSkipped(
+              'The GD extension is not available.'
+            );
+        }
+    }
+
+    /**
+     * @covers phpOMS\Utils\Barcode\Datamatrix<extended>
+     * @group framework
+     */
+    public function testImagePng() : void
+    {
+        $path = __DIR__ . '/datamatrix.png';
+        if (\is_file($path)) {
+            \unlink($path);
+        }
+
+        $img = new Datamatrix('https://jingga.app', 200, 50);
+        $img->saveToPngFile($path);
+
+        self::assertFileExists($path);
+    }
+
+    /**
+     * @covers phpOMS\Utils\Barcode\Datamatrix<extended>
+     * @group framework
+     */
+    public function testImageJpg() : void
+    {
+        $path = __DIR__ . '/datamatrix.jpg';
+        if (\is_file($path)) {
+            \unlink($path);
+        }
+
+        $img = new Datamatrix('https://jingga.app', 200, 50);
+        $img->saveToJpgFile($path);
+
+        self::assertFileExists($path);
     }
 }

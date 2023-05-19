@@ -35,4 +35,12 @@ final class EUVATBffOnlineTest extends \PHPUnit\Framework\TestCase
         self::assertEquals(0, $status['status']);
         self::assertEquals('B', $status['vat']);
     }
+
+    public function testValidateQualifiedInvalidId() : void
+    {
+        $status = EUVATBffOnline::validateQualified('DE123456789', 'DE123456789', 'TestName', 'TestStreet', 'TestCity', 'TestPostcode');
+
+        self::assertEquals(0, $status['status']);
+        self::assertEquals('B', $status['vat']);
+    }
 }

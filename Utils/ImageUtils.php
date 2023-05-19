@@ -119,9 +119,7 @@ final class ImageUtils
         /** @var array $imageDim */
         $imageDim = \getimagesize($srcPath);
 
-        if ((($imageDim[0] ?? -1) >= $width && ($imageDim[1] ?? -1) >= $height)
-            || ($imageDim[0] === 0 || $imageDim[1] === 0)
-        ) {
+        if ($imageDim[0] === 0 || $imageDim[1] === 0) {
             return;
         }
 
@@ -153,6 +151,13 @@ final class ImageUtils
 
         if ($src === null || $src === false || $dst === null || $dst === false) {
             throw new \InvalidArgumentException();
+        }
+
+        if (\stripos($srcPath, '.png')) {
+            \imagealphablending($dst, false);
+            $transparent = \imagecolorallocatealpha($dst, 0, 0, 0, 127);
+            \imagefill($dst, 0, 0, $transparent);
+            \imagesavealpha($dst, true);
         }
 
         \imagecopyresampled($dst, $src, 0, 0, 0, 0, $width, $height, $imageDim[0], $imageDim[1]);
@@ -211,7 +216,7 @@ final class ImageUtils
 
         $newDim = [\max($imageDim1[0], $imageDim2[0]), \max($imageDim1[1], $imageDim2[1])];
 
-        $diff = empty($out) ? -1 : $out;
+        $diff = empty($out) ? -1 : $diff;
         $dst  = false;
 
         $red   = 0;
@@ -243,10 +248,12 @@ final class ImageUtils
             }
         }
 
+        $diffArea   = 5;
         $difference = 0;
 
         for ($i = 0; $i < $newDim[0]; ++$i) {
             for ($j = 0; $j < $newDim[1]; ++$j) {
+                // Dimension difference
                 if ($i >= $imageDim1[0] || $j >= $imageDim1[1]) {
                     if ($diff === 0) {
                         /** @var \GdImage $dst */
@@ -271,6 +278,7 @@ final class ImageUtils
                     continue;
                 }
 
+                // Dimension difference
                 if ($i >= $imageDim2[0] || $j >= $imageDim2[1]) {
                     if ($diff === 0) {
                         /** @var \GdImage $dst */
@@ -295,10 +303,14 @@ final class ImageUtils
                     continue;
                 }
 
+                // Get average color at current pixel position with a 10 pixel area
+                $color1Avg = self::getAverageColor($src1, $i, $j, $imageDim2[0], $imageDim2[1], $diffArea);
+                $color2Avg = self::getAverageColor($src2, $i, $j, $newDim[0], $newDim[1], $diffArea);
+
                 $color1 = \imagecolorat($src1, $i, $j);
                 $color2 = \imagecolorat($src2, $i, $j);
 
-                if ($color1 !== $color2 && $color1 !== false && $color2 !== false) {
+                if (\abs($color1Avg - $color2Avg) / $color1Avg > 0.05 && $color1Avg > 0 && $color2Avg > 0) {
                     ++$difference;
 
                     if ($diff === 0) {
@@ -328,5 +340,28 @@ final class ImageUtils
         }
 
         return $difference;
+    }
+
+    private static function getAverageColor($src, $x, $y, $width, $height, $area = 10) : int
+    {
+        $colors = [];
+
+        for ($i = $x - $area; $i < $x + $area; ++$i) {
+            for ($j = $y - $area; $j < $y + $area; ++$j) {
+                if ($i < 0 || $j < 0 || $i >= $width || $j >= $height) {
+                    continue;
+                }
+
+                $color = \imagecolorat($src, $i, $j);
+
+                if ($color === false) {
+                    continue;
+                }
+
+                $colors[] = $color;
+            }
+        }
+
+        return (int) (\array_sum($colors) / \count($colors));
     }
 }

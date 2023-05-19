@@ -58,7 +58,7 @@ class PdfParser
         $text   = '';
         $tmpDir = \sys_get_temp_dir();
 
-        $out = \tempnam($tmpDir, 'pdf_');
+        $out = \tempnam($tmpDir, 'oms_pdf_');
         if ($out === false) {
             return '';
         }
@@ -79,7 +79,7 @@ class PdfParser
         }
 
         if (\strlen($text) < 256) {
-            $out = \tempnam($tmpDir, 'pdf_');
+            $out = \tempnam($tmpDir, 'oms_pdf_');
             if ($out === false) {
                 return '';
             }
@@ -95,6 +95,8 @@ class PdfParser
 
             $files = \glob($out . '*');
             if ($files === false) {
+                \unlink($out);
+
                 return $text === false ? '' : $text;
             }
 
@@ -124,6 +126,8 @@ class PdfParser
 
                 \unlink($file);
             }
+
+            \unlink($out);
         }
 
         return $text;

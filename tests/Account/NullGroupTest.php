@@ -44,4 +44,10 @@ final class NullGroupTest extends \PHPUnit\Framework\TestCase
         $null = new NullGroup(2);
         self::assertEquals(2, $null->getId());
     }
+
+    public function testJsonSerialization() : void
+    {
+        $null = new NullGroup(2);
+        self::assertEquals(['id' => 2], $null->jsonSerialize());
+    }
 }

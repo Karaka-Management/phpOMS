@@ -15,6 +15,7 @@ declare(strict_types=1);
 namespace phpOMS\Model\Message;
 
 use phpOMS\Contract\SerializableInterface;
+use phpOMS\Message\NotificationLevel;
 
 /**
  * Notify class.
@@ -72,7 +73,7 @@ final class Notify implements \JsonSerializable, SerializableInterface
      * @var string
      * @since 1.0.0
      */
-    public string $level = NotifyType::INFO;
+    public string $level = NotificationLevel::INFO;
 
     /**
      * Constructor.
@@ -82,7 +83,7 @@ final class Notify implements \JsonSerializable, SerializableInterface
      *
      * @since 1.0.0
      */
-    public function __construct(string $msg = '', string $level = NotifyType::INFO)
+    public function __construct(string $msg = '', string $level = NotificationLevel::INFO)
     {
         $this->message = $msg;
         $this->level   = $level;

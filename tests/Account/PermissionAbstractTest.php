@@ -188,6 +188,26 @@ final class PermissionAbstractTest extends \PHPUnit\Framework\TestCase
         self::assertFalse($perm1->isEqual($perm2));
     }
 
+    public function testFullPermissions() : void
+    {
+        $perm = new class() extends PermissionAbstract {};
+
+        $perm->addPermission(PermissionType::READ);
+        $perm->addPermission(PermissionType::CREATE);
+        $perm->addPermission(PermissionType::MODIFY);
+        $perm->addPermission(PermissionType::DELETE);
+        $perm->addPermission(PermissionType::PERMISSION);
+
+        self::assertEquals(
+            PermissionType::READ
+            | PermissionType::CREATE
+            | PermissionType::MODIFY
+            | PermissionType::DELETE
+            | PermissionType::PERMISSION,
+            $perm->getPermission()
+        );
+    }
+
     /**
      * @testdox Correct permissions are validated
      * @covers phpOMS\Account\PermissionAbstract

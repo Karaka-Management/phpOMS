@@ -298,6 +298,29 @@ final class DataMapperAbstractTest extends \PHPUnit\Framework\TestCase
         self::assertEquals($model3->string, \end($found)->string);
     }
 
+    public function testFind2() : void
+    {
+        $model1 = clone $this->model;
+        $model2 = clone $this->model;
+        $model3 = clone $this->model;
+
+        $model1->string = 'abc';
+        $model2->string = 'abcdef';
+        $model3->string = 'zyx';
+
+        BaseModelMapper::create()->execute($model1);
+        BaseModelMapper::create()->execute($model2);
+        BaseModelMapper::create()->execute($model3);
+
+        $list = BaseModelMapper::find(
+            search: 'abc',
+            mapper: BaseModelMapper::getAll(),
+            searchFields: ['string']
+        );
+
+        self::assertEquals(2, \count($list));
+    }
+
     /**
      * @covers phpOMS\DataStorage\Database\Mapper\DataMapperAbstract
      * @covers phpOMS\DataStorage\Database\Mapper\DataMapperFactory

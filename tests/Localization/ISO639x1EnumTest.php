@@ -16,6 +16,7 @@ namespace phpOMS\tests\Localization;
 
 require_once __DIR__ . '/../Autoloader.php';
 
+use phpOMS\Localization\ISO3166TwoEnum;
 use phpOMS\Localization\ISO639x1Enum;
 
 /**
@@ -53,5 +54,14 @@ final class ISO639x1EnumTest extends \PHPUnit\Framework\TestCase
     public function testUnique() : void
     {
         self::assertEquals(ISO639x1Enum::getConstants(), \array_unique(ISO639x1Enum::getConstants()));
+    }
+
+    public function testLanguage() : void
+    {
+        $enum = ISO3166TwoEnum::getConstants();
+
+        foreach ($enum as $code) {
+            self::assertGreaterThan(0, \count(ISO639x1Enum::languageFromCountry($code)), 'Failed for code: ' . $code);
+        }
     }
 }

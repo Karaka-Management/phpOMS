@@ -58,7 +58,6 @@ final class EUVat extends ValidatorAbstract
         'SWE' => '/^(SE)([0-9]{10}[0-9]{2})$/i',
         'SVN' => '/^(SI)([0-9]{8})$/',
         'SVK' => '/^(SK)([0-9][10])$/',
-        'HRV' => '/^(HR)([0-9][11])$/',
     ];
 
     /**

@@ -222,6 +222,18 @@ final class AccountTest extends \PHPUnit\Framework\TestCase
         self::assertTrue($account->hasPermission(PermissionType::NONE));
     }
 
+    public function testGroupPmerissionExists() : void
+    {
+        $account = new Account();
+        $group = new NullGroup(2);
+
+        $perm = new class() extends PermissionAbstract {};
+        $perm->addPermission(PermissionType::CREATE);
+
+        $group->addPermission($perm);
+        $account->hasPermission(PermissionType::READ);
+    }
+
     /**
      * @testdox Account permissions can be removed
      * @covers phpOMS\Account\Account<extended>

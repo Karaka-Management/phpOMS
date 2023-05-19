@@ -25,6 +25,32 @@ use phpOMS\Utils\ImageUtils;
  */
 final class ImageUtilsTest extends \PHPUnit\Framework\TestCase
 {
+    public function testLightness() : void
+    {
+        self::assertEquals(0.0, ImageUtils::lightness(0));
+        self::assertEquals(1.0, ImageUtils::lightness(16777216));
+    }
+
+    public function testLightnessFromRgb() : void
+    {
+        self::assertEquals(0.0, ImageUtils::lightnessFromRgb(0, 0, 0));
+        self::assertEquals(1.0, ImageUtils::lightnessFromRgb(255, 255, 255));
+    }
+
+    public function testResize() : void
+    {
+        ImageUtils::resize(__DIR__ . '/logo.png', __DIR__ . '/logo_resized.png', 256, 256);
+        self::assertTrue(\is_file(__DIR__ . '/logo_resized.png'));
+    }
+
+    public function testDifference() : void
+    {
+        $diff = ImageUtils::difference(__DIR__ . '/img1.png', __DIR__ . '/img2.png', __DIR__ . '/diff1.png', 0);
+        $diff = ImageUtils::difference(__DIR__ . '/img1.png', __DIR__ . '/img2.png', __DIR__ . '/diff2.png', 1);
+
+        self::assertGreaterThan(0, $diff);
+    }
+
     /**
      * @testdox Base64 image data can be decoded to an image
      * @covers phpOMS\Utils\ImageUtils

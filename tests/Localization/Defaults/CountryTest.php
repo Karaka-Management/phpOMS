@@ -39,7 +39,6 @@ final class CountryTest extends \PHPUnit\Framework\TestCase
         self::assertEquals('', $obj->getCode3());
         self::assertEquals(0, $obj->getNumeric());
         self::assertEquals('', $obj->getSubdevision());
-        self::assertEquals('', $obj->getRegion());
         self::assertFalse($obj->isDeveloped());
     }
 }

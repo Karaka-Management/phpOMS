@@ -27,21 +27,19 @@ final class SkewTest extends \PHPUnit\Framework\TestCase
     /**
      * @testdox A image can be automatically unskewed
      * @group framework
+     * @group slow
      * @covers phpOMS\Image\Skew
      */
     public function testSkew() : void
     {
-        /* Disabled because of very slow performance (244 seconds) */
-        self::markTestSkipped();
-
         Skew::autoRotate(
-            __DIR__ . '/binary_tilted.png',
-            __DIR__ . '/test_binary_untilted.png',
+            __DIR__ . '/tilted.jpg',
+            __DIR__ . '/test_binary_untilted.jpg',
             10,
             [150, 75],
             [1700, 900]
         );
 
-        self::assertTrue(\is_file(__DIR__ . '/test_binary_untilted.png'));
+        self::assertTrue(\is_file(__DIR__ . '/test_binary_untilted.jpg'));
     }
 }

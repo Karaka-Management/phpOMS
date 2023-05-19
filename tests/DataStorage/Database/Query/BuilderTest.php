@@ -117,8 +117,12 @@ final class BuilderTest extends \PHPUnit\Framework\TestCase
     {
         $con = new MysqlConnection($GLOBALS['CONFIG']['db']['core']['masters']['admin']);
 
+        $iS = $con->getGrammar()->systemIdentifierStart;
+        $iE = $con->getGrammar()->systemIdentifierEnd;
+
         $query = new Builder($con);
-        $sql   = 'SELECT `a`.`test` FROM `a` as b WHERE `a`.`test` = 1 ORDER BY \rand() LIMIT 1;';
+        $sql   = 'SELECT [a].[test] FROM [a] as b WHERE [a].[test] = 1 ORDER BY \rand() LIMIT 1;';
+        $sql   = \str_replace(['[', ']'], [$iS, $iE], $sql);
         self::assertEquals($sql, $query->random('a.test')->fromAs('a', 'b')->where('a.test', '=', 1)->toSql());
     }
 
@@ -126,8 +130,12 @@ final class BuilderTest extends \PHPUnit\Framework\TestCase
     {
         $con = new PostgresConnection($GLOBALS['CONFIG']['db']['core']['postgresql']['admin']);
 
+        $iS = $con->getGrammar()->systemIdentifierStart;
+        $iE = $con->getGrammar()->systemIdentifierEnd;
+
         $query = new Builder($con);
-        $sql   = 'SELECT "a"."test" FROM "a" as b ORDER BY RANDOM() LIMIT 1;';
+        $sql   = 'SELECT [a].[test] FROM [a] as b ORDER BY RANDOM() LIMIT 1;';
+        $sql   = \str_replace(['[', ']'], [$iS, $iE], $sql);
         self::assertEquals($sql, $query->random('a.test')->fromAs('a', 'b')->where('a.test', '=', 1)->toSql());
     }
 
@@ -135,8 +143,12 @@ final class BuilderTest extends \PHPUnit\Framework\TestCase
     {
         $con = new SQLiteConnection($GLOBALS['CONFIG']['db']['core']['sqlite']['admin']);
 
+        $iS = $con->getGrammar()->systemIdentifierStart;
+        $iE = $con->getGrammar()->systemIdentifierEnd;
+
         $query = new Builder($con);
-        $sql   = 'SELECT `a`.`test` FROM `a` as b ORDER BY RANDOM() LIMIT 1;';
+        $sql   = 'SELECT [a].[test] FROM [a] as b ORDER BY RANDOM() LIMIT 1;';
+        $sql   = \str_replace(['[', ']'], [$iS, $iE], $sql);
         self::assertEquals($sql, $query->random('a.test')->fromAs('a', 'b')->where('a.test', '=', 1)->toSql());
     }
 
@@ -144,8 +156,12 @@ final class BuilderTest extends \PHPUnit\Framework\TestCase
     {
         $con = new SqlServerConnection($GLOBALS['CONFIG']['db']['core']['mssql']['admin']);
 
+        $iS = $con->getGrammar()->systemIdentifierStart;
+        $iE = $con->getGrammar()->systemIdentifierEnd;
+
         $query = new Builder($con);
         $sql   = 'SELECT TOP 1 [a].[test] FROM [a] as b ORDER BY IDX FETCH FIRST 1 ROWS ONLY;';
+        $sql   = \str_replace(['[', ']'], [$iS, $iE], $sql);
         self::assertEquals($sql, $query->random('a.test')->fromAs('a', 'b')->where('a.test', '=', 1)->toSql());
     }
 

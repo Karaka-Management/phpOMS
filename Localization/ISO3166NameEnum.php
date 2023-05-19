@@ -527,4 +527,6 @@ class ISO3166NameEnum extends Enum
     public const _XXK = 'Kosovo';
 
     public const _XXX = 'XXX';
+
+    use ISO3166RegionTrait;
 }
