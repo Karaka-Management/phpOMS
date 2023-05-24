@@ -324,7 +324,6 @@ abstract class RequestAbstract implements MessageInterface
 
         return isset($this->data[$key])
             && $this->data[$key] !== ''
-            && $this->data[$key] !== 0
             && $this->data[$key] !== null;
     }
 
@@ -351,6 +350,11 @@ abstract class RequestAbstract implements MessageInterface
         }
 
         return false;
+    }
+
+    public function fromData(array $data) : void
+    {
+        $this->data = $data;
     }
 
     /**
