@@ -57,7 +57,7 @@ class Location implements \JsonSerializable, SerializableInterface
      * @var string
      * @since 1.0.0
      */
-    protected string $country = ISO3166TwoEnum::_XXX;
+    public string $country = ISO3166TwoEnum::_XXX;
 
     /**
      * Street & district.
@@ -73,7 +73,7 @@ class Location implements \JsonSerializable, SerializableInterface
      * @var int
      * @since 1.0.0
      */
-    protected int $type = AddressType::HOME;
+    public int $type = AddressType::HOME;
 
     /**
      * State.
@@ -83,13 +83,9 @@ class Location implements \JsonSerializable, SerializableInterface
      */
     public string $state = '';
 
-    /**
-     * Geo coordinates.
-     *
-     * @var float[]
-     * @since 1.0.0
-     */
-    protected array $geo = ['lat' => 0, 'long' => 0];
+    public float $lat = 0.0;
+
+    public float $lon = 0.0;
 
     /**
      * Get location id
@@ -156,32 +152,6 @@ class Location implements \JsonSerializable, SerializableInterface
     }
 
     /**
-     * Get geo location
-     *
-     * @return float[]
-     *
-     * @since 1.0.0
-     */
-    public function getGeo() : array
-    {
-        return $this->geo;
-    }
-
-    /**
-     * Set geo location
-     *
-     * @param float[] $geo Geo location lat/long
-     *
-     * @return void
-     *
-     * @since 1.0.0
-     */
-    public function setGeo(array $geo) : void
-    {
-        $this->geo = $geo;
-    }
-
-    /**
      * {@inheritdoc}
      */
     public function serialize() : string
@@ -208,7 +178,6 @@ class Location implements \JsonSerializable, SerializableInterface
             'country' => $this->country,
             'address' => $this->address,
             'state'   => $this->state,
-            'geo'     => $this->geo,
         ];
     }
 
@@ -232,6 +201,5 @@ class Location implements \JsonSerializable, SerializableInterface
         $this->country = $data['country'];
         $this->address = $data['address'];
         $this->state   = $data['state'];
-        $this->geo     = $data['geo'];
     }
 }
