@@ -15,6 +15,7 @@ declare(strict_types=1);
 namespace phpOMS\Module;
 
 use phpOMS\Application\ApplicationAbstract;
+use phpOMS\Message\NotificationLevel;
 use phpOMS\Message\RequestAbstract;
 use phpOMS\Message\ResponseAbstract;
 use phpOMS\System\MimeType;
@@ -223,6 +224,201 @@ abstract class ModuleAbstract
             'status'   => $status,
             'title'    => $title,
             'message'  => $message,
+            'response' => $obj,
+        ]);
+    }
+
+    public function createStandardCreateResponse(
+        RequestAbstract $request,
+        ResponseAbstract $response,
+        mixed $obj
+    ) : void
+    {
+        $response->header->set('Content-Type', MimeType::M_JSON . '; charset=utf-8', true);
+        $response->set($request->uri->__toString(), [
+            'status'   => NotificationLevel::OK,
+            'title'    => '',
+            'message'  => $this->app->l11nManager->getText($response->getLanguage(), '0', '0', 'SuccessfulCreate'),
+            'response' => $obj,
+        ]);
+    }
+
+    public function createStandardUpdateResponse(
+        RequestAbstract $request,
+        ResponseAbstract $response,
+        mixed $obj
+    ) : void
+    {
+        $response->header->set('Content-Type', MimeType::M_JSON . '; charset=utf-8', true);
+        $response->set($request->uri->__toString(), [
+            'status'   => NotificationLevel::OK,
+            'title'    => '',
+            'message'  => $this->app->l11nManager->getText($response->getLanguage(), '0', '0', 'SuccessfulUpdate'),
+            'response' => $obj,
+        ]);
+    }
+
+    public function createStandardDeleteResponse(
+        RequestAbstract $request,
+        ResponseAbstract $response,
+        mixed $obj
+    ) : void
+    {
+        $response->header->set('Content-Type', MimeType::M_JSON . '; charset=utf-8', true);
+        $response->set($request->uri->__toString(), [
+            'status'   => NotificationLevel::OK,
+            'title'    => '',
+            'message'  => $this->app->l11nManager->getText($response->getLanguage(), '0', '0', 'SuccessfulDelete'),
+            'response' => $obj,
+        ]);
+    }
+
+    public function createStandardRemoveResponse(
+        RequestAbstract $request,
+        ResponseAbstract $response,
+        mixed $obj
+    ) : void
+    {
+        $response->header->set('Content-Type', MimeType::M_JSON . '; charset=utf-8', true);
+        $response->set($request->uri->__toString(), [
+            'status'   => NotificationLevel::OK,
+            'title'    => '',
+            'message'  => $this->app->l11nManager->getText($response->getLanguage(), '0', '0', 'SuccessfulRemove'),
+            'response' => $obj,
+        ]);
+    }
+
+    public function createStandardReturnResponse(
+        RequestAbstract $request,
+        ResponseAbstract $response,
+        mixed $obj
+    ) : void
+    {
+        $response->header->set('Content-Type', MimeType::M_JSON . '; charset=utf-8', true);
+        $response->set($request->uri->__toString(), [
+            'status'   => NotificationLevel::OK,
+            'title'    => '',
+            'message'  => $this->app->l11nManager->getText($response->getLanguage(), '0', '0', 'SuccessfulReturn'),
+            'response' => $obj,
+        ]);
+    }
+
+    public function createStandardAddResponse(
+        RequestAbstract $request,
+        ResponseAbstract $response,
+        mixed $obj
+    ) : void
+    {
+        $response->header->set('Content-Type', MimeType::M_JSON . '; charset=utf-8', true);
+        $response->set($request->uri->__toString(), [
+            'status'   => NotificationLevel::OK,
+            'title'    => '',
+            'message'  => $this->app->l11nManager->getText($response->getLanguage(), '0', '0', 'SuccessfulAdd'),
+            'response' => $obj,
+        ]);
+    }
+
+    public function createInvalidCreateResponse(
+        RequestAbstract $request,
+        ResponseAbstract $response,
+        mixed $obj
+    ) : void
+    {
+        $response->header->set('Content-Type', MimeType::M_JSON . '; charset=utf-8', true);
+        $response->set($request->uri->__toString(), [
+            'status'   => NotificationLevel::WARNING,
+            'title'    => '',
+            'message'  => $this->app->l11nManager->getText($response->getLanguage(), '0', '0', 'InvalidCreate'),
+            'response' => $obj,
+        ]);
+    }
+
+    public function createInvalidUpdateResponse(
+        RequestAbstract $request,
+        ResponseAbstract $response,
+        mixed $obj
+    ) : void
+    {
+        $response->header->set('Content-Type', MimeType::M_JSON . '; charset=utf-8', true);
+        $response->set($request->uri->__toString(), [
+            'status'   => NotificationLevel::WARNING,
+            'title'    => '',
+            'message'  => $this->app->l11nManager->getText($response->getLanguage(), '0', '0', 'InvalidUpdate'),
+            'response' => $obj,
+        ]);
+    }
+
+    public function createInvalidDeleteResponse(
+        RequestAbstract $request,
+        ResponseAbstract $response,
+        mixed $obj
+    ) : void
+    {
+        $response->header->set('Content-Type', MimeType::M_JSON . '; charset=utf-8', true);
+        $response->set($request->uri->__toString(), [
+            'status'   => NotificationLevel::WARNING,
+            'title'    => '',
+            'message'  => $this->app->l11nManager->getText($response->getLanguage(), '0', '0', 'InvalidDelete'),
+            'response' => $obj,
+        ]);
+    }
+
+    public function createInvalidRemoveResponse(
+        RequestAbstract $request,
+        ResponseAbstract $response,
+        mixed $obj
+    ) : void
+    {
+        $response->header->set('Content-Type', MimeType::M_JSON . '; charset=utf-8', true);
+        $response->set($request->uri->__toString(), [
+            'status'   => NotificationLevel::WARNING,
+            'title'    => '',
+            'message'  => $this->app->l11nManager->getText($response->getLanguage(), '0', '0', 'InvalidRemove'),
+            'response' => $obj,
+        ]);
+    }
+
+    public function createInvalidReturnResponse(
+        RequestAbstract $request,
+        ResponseAbstract $response,
+        mixed $obj
+    ) : void
+    {
+        $response->header->set('Content-Type', MimeType::M_JSON . '; charset=utf-8', true);
+        $response->set($request->uri->__toString(), [
+            'status'   => NotificationLevel::WARNING,
+            'title'    => '',
+            'message'  => $this->app->l11nManager->getText($response->getLanguage(), '0', '0', 'InvalidReturn'),
+            'response' => $obj,
+        ]);
+    }
+
+    public function createInvalidAddResponse(
+        RequestAbstract $request,
+        ResponseAbstract $response,
+        mixed $obj
+    ) : void
+    {
+        $response->header->set('Content-Type', MimeType::M_JSON . '; charset=utf-8', true);
+        $response->set($request->uri->__toString(), [
+            'status'   => NotificationLevel::WARNING,
+            'title'    => '',
+            'message'  => $this->app->l11nManager->getText($response->getLanguage(), '0', '0', 'InvalidAdd'),
+            'response' => $obj,
+        ]);
+    }
+
+    public function createInvalidPermissionResponse(
+        RequestAbstract $request,
+        ResponseAbstract $response,
+        mixed $obj
+    ) : void
+    {
+        $response->header->set('Content-Type', MimeType::M_JSON . '; charset=utf-8', true);
+        $response->set($request->uri->__toString(), [
+            'status'   => NotificationLevel::WARNING,
+            'title'    => '',
+            'message'  => $this->app->l11nManager->getText($response->getLanguage(), '0', '0', 'InvalidPermission'),
             'response' => $obj,
         ]);
     }
