@@ -132,12 +132,15 @@ final class Skew
 
         $rotated = [[]];
 
+        $cXArr = [];
+        for ($j = 0; $j < $dim[1]; ++$j) {
+            $cXArr[] = $j - $dim[1] / 2.0; // center
+        }
+
         for ($i = 0; $i < $dim[0]; ++$i) {
             $cY = $i - $dim[0] / 2.0; // center
 
-            for ($j = 0; $j < $dim[1]; ++$j) {
-                $cX = $j - $dim[1] / 2.0; // center
-
+            foreach ($cXArr as $j => $cX) {
                 $x = $cos * $cX + $sin * $cY + $dim[1] / 2.0;
                 $y = -$sin * $cX + $cos * $cY + $dim[0] / 2.0;
 
@@ -162,11 +165,11 @@ final class Skew
      */
     private static function getNearestValue(array $pixel, array $dim, float $x, float $y) : int
     {
-        $xLow  = \min((int) $x, $dim[1] - 1);
-        $xHigh = \min((int) \ceil($x), $dim[1] - 1);
+        $xLow  = ($x < 0) ? 0 : (($x > ($dim[1] - 1)) ? ($dim[1] - 1) : (int) $x);
+        $xHigh = ($xLow == ($dim[1] - 1)) ? $xLow : ($xLow + 1);
 
-        $yLow  = \min((int) $y, $dim[0] - 1);
-        $yHigh = \min((int) \ceil($y), $dim[0] - 1);
+        $yLow  = ($y < 0) ? 0 : (($y > ($dim[0] - 1)) ? ($dim[0] - 1) : (int) $y);
+        $yHigh = ($yLow == ($dim[0] - 1)) ? $yLow : ($yLow + 1);
 
         $points = [
             [$xLow, $yLow],

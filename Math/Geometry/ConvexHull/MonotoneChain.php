@@ -56,7 +56,11 @@ final class MonotoneChain
 
         // Lower hull
         for ($i = 0; $i < $n; ++$i) {
-            while ($k >= 2 && self::cross($result[$k - 2], $result[$k - 1], $points[$i]) <= 0) {
+            while ($k >= 2
+                && ($result[$k - 1]['x'] - $result[$k - 2]['x']) * ($points[$i]['y'] - $result[$k - 2]['y'])
+                    - ($result[$k - 1]['y'] - $result[$k - 2]['y']) * ($points[$i]['x'] - $result[$k - 2]['x']
+                ) <= 0
+            ) {
                 --$k;
             }
 
@@ -65,7 +69,11 @@ final class MonotoneChain
 
         // Upper hull
         for ($i = $n - 2, $t = $k + 1; $i >= 0; --$i) {
-            while ($k >= $t && self::cross($result[$k - 2], $result[$k - 1], $points[$i]) <= 0) {
+            while ($k >= $t
+                && ($result[$k - 1]['x'] - $result[$k - 2]['x']) * ($points[$i]['y'] - $result[$k - 2]['y'])
+                    - ($result[$k - 1]['y'] - $result[$k - 2]['y']) * ($points[$i]['x'] - $result[$k - 2]['x']
+                ) <= 0
+            ) {
                 --$k;
             }
 
@@ -76,22 +84,6 @@ final class MonotoneChain
 
         /** @return array<int, array{x:int|float, y:int|float}> */
         return \array_slice($result, 0, $k - 1);
-    }
-
-    /**
-     * Counter clock wise turn?
-     *
-     * @param array{x:int|float, y:int|float} $a Point a
-     * @param array{x:int|float, y:int|float} $b Point b
-     * @param array{x:int|float, y:int|float} $c Point c
-     *
-     * @return float
-     *
-     * @since 1.0.0
-     */
-    private static function cross(array $a, array $b, array $c) : float
-    {
-        return ($b['x'] - $a['x']) * ($c['y'] - $a['y']) - ($b['y'] - $a['y']) * ($c['x'] - $a['x']);
     }
 
     /**
