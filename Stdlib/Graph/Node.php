@@ -250,11 +250,9 @@ class Node
         foreach ($this->edges as $edge) {
             $nodes = $edge->getNodes();
 
-            if ($nodes[0] !== null && !$this->isEqual($nodes[0])) {
-                $neighbors[] = $nodes[0];
-            } else {
-                $neighbors[] = $nodes[1];
-            }
+            $neighbors[] = $nodes[0] !== null && !$this->isEqual($nodes[0])
+                ? $nodes[0]
+                : $nodes[1];
         }
 
         return $neighbors;

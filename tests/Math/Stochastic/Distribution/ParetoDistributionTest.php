@@ -74,7 +74,7 @@ final class ParetoDistributionTest extends \PHPUnit\Framework\TestCase
      */
     public function testExKurtosis() : void
     {
-        self::assertEqualsWithDelta(35.666666666666664, ParetoDistribution::getExKurtosis(6, 5), 0.001);
+        self::assertEqualsWithDelta(35.666666666666664, ParetoDistribution::getExKurtosis(6), 0.001);
         self::assertEquals(0.0, ParetoDistribution::getExKurtosis(4));
     }
 
@@ -84,7 +84,7 @@ final class ParetoDistributionTest extends \PHPUnit\Framework\TestCase
      */
     public function testSkewness() : void
     {
-        self::assertEqualsWithDelta(3.810317377662722, ParetoDistribution::getSkewness(6, 5), 0.001);
+        self::assertEqualsWithDelta(3.810317377662722, ParetoDistribution::getSkewness(6), 0.001);
         self::assertEquals(0.0, ParetoDistribution::getSkewness(3));
     }
 

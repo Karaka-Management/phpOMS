@@ -41,7 +41,7 @@ final class DependencyResolver
             self::dependencyResolve($table, $graph, $resolved, $unresolved);
         }
 
-        return !empty($unresolved) ? null : $resolved;
+        return empty($unresolved) ? $resolved : null;
     }
 
     /**

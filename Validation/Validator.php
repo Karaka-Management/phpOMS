@@ -51,7 +51,7 @@ final class Validator extends ValidatorAbstract
                 throw new \BadFunctionCallException();
             }
 
-            $valid = !empty($settings) ? $callback($var, ...$settings) : $callback($var);
+            $valid = empty($settings) ? $callback($var) : $callback($var, ...$settings);
             $valid = (StringUtils::endsWith($test, 'Not') ? !$valid : $valid);
 
             if (!$valid) {
@@ -102,11 +102,7 @@ final class Validator extends ValidatorAbstract
     {
         $length = \strlen($var);
 
-        if ($length <= $max && $length >= $min) {
-            return true;
-        }
-
-        return false;
+        return $length <= $max && $length >= $min;
     }
 
     /**
@@ -136,7 +132,7 @@ final class Validator extends ValidatorAbstract
      */
     public static function matches(string $var, string $pattern) : bool
     {
-        return (\preg_match($pattern, $var) === 1 ? true : false);
+        return \preg_match($pattern, $var) === 1;
     }
 
     /**
@@ -152,10 +148,6 @@ final class Validator extends ValidatorAbstract
      */
     public static function hasLimit(int | float $var, int | float $min = 0, int | float $max = \PHP_INT_MAX) : bool
     {
-        if ($var <= $max && $var >= $min) {
-            return true;
-        }
-
-        return false;
+        return $var <= $max && $var >= $min;
     }
 }

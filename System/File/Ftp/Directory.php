@@ -469,18 +469,14 @@ class Directory extends FileAbstract implements DirectoryInterface
 
         $download = self::get($con, $from, $tempName . '/' . self::name($from));
         if (!$download) {
-            if ($status !== false) {
-                LocalDirectory::delete($tempName);
-            }
+            LocalDirectory::delete($tempName);
 
             return false;
         }
 
         $upload = self::put($con, $tempName . '/' . self::name($from), $to);
         if (!$upload) {
-            if ($status !== false) {
-                LocalDirectory::delete($tempName);
-            }
+            LocalDirectory::delete($tempName);
 
             return false;
         }

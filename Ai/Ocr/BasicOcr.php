@@ -294,7 +294,7 @@ final class BasicOcr
                         3
                     );
 
-                    \array_push($mnist, $gray);
+                    $mnist[] = $gray;
                 }
             }
 

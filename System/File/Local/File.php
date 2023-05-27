@@ -93,7 +93,7 @@ final class File extends FileAbstract implements FileInterface
 
                 return true;
             }
-        } catch (\Throwable $e) {
+        } catch (\Throwable $_) {
             return false; // @codeCoverageIgnore
         }
 

@@ -34,9 +34,9 @@ try {
     handleSocketError($sock);
 
     $msgs = [
-        'handshake' . "\r", // this needs to happen first (of course the submitted handshake data needs to be implemented correctl. just sending this is of course bad!)
-        'help' . "\r",
-        'shutdown' . "\r",
+        "handshake\r", // this needs to happen first (of course the submitted handshake data needs to be implemented correctl. just sending this is of course bad!)
+        "help\r",
+        "shutdown\r",
     ];
 
     foreach ($msgs as $msg) {
@@ -60,8 +60,8 @@ try {
 
     handleSocketError($sock);
     \socket_close($sock);
-} catch (\Throwable $e) {
-    \file_put_contents(__DIR__ . '/client.log', $e->getMessage(), \FILE_APPEND);
+} catch (\Throwable $t) {
+    \file_put_contents(__DIR__ . '/client.log', $t->getMessage(), \FILE_APPEND);
 }
 
 handleSocketError($sock);

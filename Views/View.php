@@ -238,7 +238,7 @@ class View extends ViewAbstract
             $this->module = '0';
         }
 
-        $start = $start + \strlen($match);
+        $start += \strlen($match);
         if (\strlen($this->template) < $start) {
             throw new InvalidModuleException($this->template);
         }
@@ -274,7 +274,7 @@ class View extends ViewAbstract
             $this->theme = '0';
         }
 
-        $start = $start + \strlen($match);
+        $start += \strlen($match);
         if (\strlen($this->template) < $start) {
             throw new InvalidThemeException($this->template);
         }

@@ -247,7 +247,7 @@ final class Average
         $count     = \count($values);
         $middleval = (int) \floor(($count - 1) / 2);
 
-        if ($count % 2) {
+        if ($count % 2 !== 0) {
             $median = $values[$middleval];
         } else {
             $low    = $values[$middleval];

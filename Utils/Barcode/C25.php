@@ -94,7 +94,7 @@ class C25 extends BarAbstract
 
         for ($posX = 1; $posX <= $length; ++$posX) {
             for ($posY = 0; $posY < $arrayLength; ++$posY) {
-                if (\substr($this->content, ($posX - 1), 1) == self::$CODEARRAY[$posY]) {
+                if (\substr($this->content, ($posX - 1), 1) === self::$CODEARRAY[$posY]) {
                     $temp[$posX] = self::$CODEARRAY2[$posY];
                 }
             }

@@ -190,12 +190,12 @@ class Path
 
             if ($e2 > -$dy) {
                 $err -= $dy;
-                $x0   = $x0 + $sx;
+                $x0  += $sx;
             }
 
             if ($e2 < $dx) {
                 $err += $dx;
-                $y0   = $y0 + $sy;
+                $y0  += $sy;
             }
 
             $node = $this->grid->getNode($x0, $y0);

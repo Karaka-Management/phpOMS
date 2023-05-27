@@ -159,7 +159,7 @@ final class Prime
 
         while ($number * $number < $n) {
             for ($i = $number; $i <= $n; $i += $number) {
-                if ($i == $number) {
+                if ($i === $number) {
                     continue;
                 }
 

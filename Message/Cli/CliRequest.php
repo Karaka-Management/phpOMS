@@ -91,7 +91,7 @@ final class CliRequest extends RequestAbstract
             return $this->data;
         }
 
-        $key = '-' . \mb_strtolower($key);
+        $key = \mb_strtolower($key);
 
         switch ($type) {
             case 'int':
@@ -106,6 +106,8 @@ final class CliRequest extends RequestAbstract
             case 'bool':
                 /* @phpstan-ignore-next-line */
                 return (bool) ArrayUtils::getArg($key, $this->data);
+            case 'DateTime':
+                return new \DateTime((string) ArrayUtils::getArg($key, $this->data));
             default:
                 /* @phpstan-ignore-next-line */
                 return ArrayUtils::getArg($key, $this->data);
@@ -113,11 +115,109 @@ final class CliRequest extends RequestAbstract
     }
 
     /**
+     * Get data.
+     *
+     * @param string $key Data key
+     *
+     * @return null|string
+     *
+     * @since 1.0.0
+     */
+    public function getDataString(string $key) : ?string
+    {
+        $key = \mb_strtolower($key);
+
+        if (ArrayUtils::hasArg($key, $this->data) === -1) {
+            return null;
+        }
+
+        return (string) ArrayUtils::getArg($key, $this->data);
+    }
+
+    /**
+     * Get data.
+     *
+     * @param string $key Data key
+     *
+     * @return null|int
+     *
+     * @since 1.0.0
+     */
+    public function getDataInt(string $key) : ?int
+    {
+        $key = \mb_strtolower($key);
+
+        if (ArrayUtils::hasArg($key, $this->data) === -1) {
+            return null;
+        }
+
+        return (int) ArrayUtils::getArg($key, $this->data);
+    }
+
+    /**
+     * Get data.
+     *
+     * @param string $key Data key
+     *
+     * @return null|float
+     *
+     * @since 1.0.0
+     */
+    public function getDataFloat(string $key) : ?float
+    {
+        $key = \mb_strtolower($key);
+
+        if (ArrayUtils::hasArg($key, $this->data) === -1) {
+            return null;
+        }
+
+        return (float) ArrayUtils::getArg($key, $this->data);
+    }
+
+    /**
+     * Get data.
+     *
+     * @param string $key Data key
+     *
+     * @return null|bool
+     *
+     * @since 1.0.0
+     */
+    public function getDataBool(string $key) : ?bool
+    {
+        $key = \mb_strtolower($key);
+
+        if (ArrayUtils::hasArg($key, $this->data) === -1) {
+            return null;
+        }
+
+        return (bool) ArrayUtils::getArg($key, $this->data);
+    }
+
+    /**
+     * Get data.
+     *
+     * @param string $key Data key
+     *
+     * @return null|\DateTime
+     *
+     * @since 1.0.0
+     */
+    public function getDataDateTime(string $key) : ?\DateTime
+    {
+        $key = \mb_strtolower($key);
+
+        return empty($this->data[$key] ?? null)
+            ? null
+            : new \DateTime((string) ArrayUtils::getArg($key, $this->data));
+    }
+
+    /**
      * {@inheritdoc}
      */
     public function hasData(string $key) : bool
     {
-        $key = '-' . \mb_strtolower($key);
+        $key = \mb_strtolower($key);
 
         /* @phpstan-ignore-next-line */
         return ArrayUtils::hasArg($key, $this->data) > -1;
@@ -136,7 +236,7 @@ final class CliRequest extends RequestAbstract
      */
     public function setData(string $key, mixed $value, bool $overwrite = false) : bool
     {
-        $key = '-' . \mb_strtolower($key);
+        $key = \mb_strtolower($key);
         $pos = -1;
 
         /* @phpstan-ignore-next-line */

@@ -69,12 +69,7 @@ abstract class Json extends ValidatorAbstract
             }
         }
 
-        $isValid = self::isValidSource($templatePaths, $sourcePaths);
-        if (!$isValid) {
-            return false;
-        }
-
-        return true;
+        return self::isValidSource($templatePaths, $sourcePaths);
     }
 
     /**
@@ -164,10 +159,8 @@ abstract class Json extends ValidatorAbstract
             $completePaths[$key] = $value;
         }
 
-        foreach ($completePaths as $tPath => $tValue) {
-            $sourceIsComplete = false;
-
-            foreach ($source as $sPath => $sValue) {
+        foreach ($completePaths as $tPath => $_) {
+            foreach ($source as $sPath => $_) {
                 if ($tPath === $sPath
                     || \preg_match('~' . \str_replace('/', '\\/', $tPath) . '~', $sPath) === 1
                 ) {
@@ -177,7 +170,7 @@ abstract class Json extends ValidatorAbstract
             }
         }
 
-        return \count($completePaths) === 0;
+        return empty($completePaths);
     }
 
     /**

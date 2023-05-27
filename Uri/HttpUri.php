@@ -354,7 +354,7 @@ final class HttpUri implements UriInterface
         $path = $ignoreOffset ? $this->path : $this->offsetPath;
 
         $query = $this->getQuery();
-        return $path . (!empty($query) ? '?' . $this->getQuery() : '');
+        return $path . (empty($query) ? '' : '?' . $this->getQuery());
     }
 
     /**

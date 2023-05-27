@@ -166,10 +166,10 @@ final class Skew
     private static function getNearestValue(array $pixel, array $dim, float $x, float $y) : int
     {
         $xLow  = ($x < 0) ? 0 : (($x > ($dim[1] - 1)) ? ($dim[1] - 1) : (int) $x);
-        $xHigh = ($xLow == ($dim[1] - 1)) ? $xLow : ($xLow + 1);
+        $xHigh = ($xLow === $dim[1] - 1) ? $xLow : ($xLow + 1);
 
         $yLow  = ($y < 0) ? 0 : (($y > ($dim[0] - 1)) ? ($dim[0] - 1) : (int) $y);
-        $yHigh = ($yLow == ($dim[0] - 1)) ? $yLow : ($yLow + 1);
+        $yHigh = ($yLow === $dim[0] - 1) ? $yLow : ($yLow + 1);
 
         $points = [
             [$xLow, $yLow],

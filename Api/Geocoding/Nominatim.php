@@ -40,7 +40,7 @@ final class Nominatim
 
         $request = new HttpRequest(
             new HttpUri(
-                $URL . '&country=' . \urlencode($country) . '&city=' . \urlencode($city) . ($address = '' ? '' : '&street=' . \urlencode($address))
+                $URL . '&country=' . \urlencode($country) . '&city=' . \urlencode($city) . ($address === '' ? '' : '&street=' . \urlencode($address))
             )
         );
         $request->setMethod(RequestMethod::GET);

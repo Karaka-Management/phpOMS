@@ -634,7 +634,7 @@ class Email implements MessageInterface
         $this->header = '';
         $this->mailer = $mailer;
 
-        if (\count($this->to) + \count($this->cc) + \count($this->bcc) < 1) {
+        if (empty($this->to) && empty($this->cc) && empty($this->bcc)) {
             return false;
         }
 
@@ -652,9 +652,9 @@ class Email implements MessageInterface
         $this->headerMime .= $tempheaders;
 
         if ($this->mailer === SubmitType::MAIL) {
-            $this->header .= \count($this->to) > 0
-                ? $this->createAddressList('To', $this->to)
-                : 'Subject: undisclosed-recipients:;' . self::$LE;
+            $this->header .= empty($this->to)
+                ? 'Subject: undisclosed-recipients:;' . self::$LE
+                : $this->createAddressList('To', $this->to);
 
             $this->header .= 'Subject: ' . $this->encodeHeader(\trim(\str_replace(["\r", "\n"], '', $this->subject))) . self::$LE;
         }
@@ -691,22 +691,21 @@ class Email implements MessageInterface
      */
     private function createHeader() : string
     {
-        $result  = '';
-        $result .= 'Date : ' . ($this->messageDate === null
+        $result = 'Date : ' . ($this->messageDate === null
                 ? (new \DateTime('now'))->format('D, j M Y H:i:s O')
                 : $this->messageDate->format('D, j M Y H:i:s O'))
             . self::$LE;
 
         if ($this->mailer !== SubmitType::MAIL) {
-            $result .= \count($this->to) > 0
-                ? $this->addrAppend('To', $this->to)
-                : 'To: undisclosed-recipients:;' . self::$LE;
+            $result .= empty($this->to)
+                ? 'To: undisclosed-recipients:;' . self::$LE
+                : $this->addrAppend('To', $this->to);
         }
 
         $result .= $this->addrAppend('From', [$this->from]);
 
         // sendmail and mail() extract Cc from the header before sending
-        if (\count($this->cc) > 0) {
+        if (!empty($this->cc)) {
             $result .= $this->addrAppend('Cc', $this->cc);
         }
 
@@ -714,12 +713,12 @@ class Email implements MessageInterface
         if (($this->mailer === SubmitType::MAIL
                 || $this->mailer === SubmitType::SENDMAIL
                 || $this->mailer === SubmitType::QMAIL)
-            && \count($this->bcc) > 0
+            && !empty($this->bcc)
         ) {
             $result .= $this->addrAppend('Bcc', $this->bcc);
         }
 
-        if (\count($this->replyTo) > 0) {
+        if (!empty($this->replyTo)) {
             $result .= $this->addrAppend('Reply-To', $this->replyTo);
         }
 
@@ -1206,7 +1205,7 @@ class Email implements MessageInterface
 
             $bString = $attachment[5];
             $string  = $bString ? $attachment[0] : '';
-            $path    = !$bString ? $attachment[0] : '';
+            $path    = $bString ? '' : $attachment[0];
 
             $inclHash = \hash('sha256', \serialize($attachment));
             if (\in_array($inclHash, $incl, true)) {
@@ -1228,16 +1227,16 @@ class Email implements MessageInterface
             $mime[]        = \sprintf('--%s%s', $boundary, self::$LE);
 
             //Only include a filename property if we have one
-            $mime[] = !empty($name)
-                ? \sprintf('Content-Type: %s; name=%s%s',
+            $mime[] = empty($name)
+                ? \sprintf('Content-Type: %s%s',
+                        $type,
+                        self::$LE
+                    )
+                : \sprintf('Content-Type: %s; name=%s%s',
                         $type,
                         self::quotedString($this->encodeHeader(\trim(\str_replace(["\r", "\n"], '', $name)))),
                         self::$LE
-                    )
-                : \sprintf('Content-Type: %s%s',
-                    $type,
-                    self::$LE
-                );
+                    );
 
             // RFC1341 part 5 says 7bit is assumed if not specified
             if ($encoding !== EncodingType::E_7BIT) {
@@ -1252,13 +1251,14 @@ class Email implements MessageInterface
             // Allow for bypassing the Content-Disposition header
             if (!empty($disposition)) {
                 $encodedName = $this->encodeHeader(\trim(\str_replace(["\r", "\n"], '', $name)));
-                    $mime[]  = !empty($encodedName)
-                        ? \sprintf('Content-Disposition: %s; filename=%s%s',
+                    $mime[]  = empty($encodedName)
+                        ? \sprintf('Content-Disposition: %s%s', $disposition, self::$LE . self::$LE)
+                        : \sprintf('Content-Disposition: %s; filename=%s%s',
                                 $disposition,
                                 self::quotedString($encodedName),
                                 self::$LE . self::$LE
-                            )
-                        : \sprintf('Content-Disposition: %s%s', $disposition, self::$LE . self::$LE);
+            )               ;
+
             } else {
                 $mime[] = self::$LE;
             }
@@ -1312,13 +1312,8 @@ class Email implements MessageInterface
         }
 
         $fileBuffer = \file_get_contents($path);
-        if ($fileBuffer === false) {
-            return ''; // @codeCoverageIgnore
-        }
 
-        $fileBuffer = $this->encodeString($fileBuffer, $encoding);
-
-        return $fileBuffer;
+        return $fileBuffer === false ? '' : $this->encodeString($fileBuffer, $encoding);
     }
 
     /**
@@ -2199,19 +2194,17 @@ class Email implements MessageInterface
             return '';
         }
 
-        $privKeyStr = !empty($this->dkimPrivateKey)
-            ? $this->dkimPrivateKey
-            : \file_get_contents($this->dkimPrivatePath);
+        $privKeyStr = empty($this->dkimPrivateKey)
+            ? \file_get_contents($this->dkimPrivatePath)
+            : $this->dkimPrivateKey;
 
-        $privKey = $this->dkimPass !== ''
-            ? \openssl_pkey_get_private($privKeyStr, $this->dkimPass)
-            : \openssl_pkey_get_private($privKeyStr);
+        $privKey = $this->dkimPass === ''
+            ? \openssl_pkey_get_private($privKeyStr)
+            : \openssl_pkey_get_private($privKeyStr, $this->dkimPass);
 
-        if (\openssl_sign($signHeader, $signature, $privKey, 'sha256WithRSAEncryption')) {
-            return \base64_encode($signature);
-        }
-
-        return '';
+        return \openssl_sign($signHeader, $signature, $privKey, 'sha256WithRSAEncryption')
+            ? \base64_encode($signature)
+            : '';
     }
 
     /**
@@ -2361,7 +2354,7 @@ class Email implements MessageInterface
         }
 
         $copiedHeaderFields = '';
-        if ($this->dkimCopyHeader && \count($copiedHeaders) > 0) {
+        if ($this->dkimCopyHeader && !empty($copiedHeaders)) {
             $copiedHeaderFields = ' z=';
             $first              = true;
 

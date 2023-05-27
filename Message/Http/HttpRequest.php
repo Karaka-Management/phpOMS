@@ -267,11 +267,9 @@ final class HttpRequest extends RequestAbstract
                             $lastLine = $lineRaw;
                         }
 
-                        if ($lastLine !== null) {
-                            if (\fwrite($outFP, \rtrim($lastLine, "\r\n")) === false) {
-                                $this->files[$name]['error'] = \UPLOAD_ERR_CANT_WRITE;
-                                return;
-                            }
+                        if ($lastLine !== null && \fwrite($outFP, \rtrim($lastLine, "\r\n")) === false) {
+                            $this->files[$name]['error'] = \UPLOAD_ERR_CANT_WRITE;
+                            return;
                         }
 
                         \fclose($outFP);

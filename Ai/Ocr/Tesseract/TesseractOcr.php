@@ -92,15 +92,19 @@ final class TesseractOcr
             return '';
         }
 
-        SystemUtils::runProc(
-            self::$bin,
-            $image . ' '
-            . $temp
-            . ' -c preserve_interword_spaces=1'
-            . ' --psm ' . $psm
-            . ' --oem ' . $oem
-            . ' -l ' . \implode('+', $languages)
-        );
+        try {
+            SystemUtils::runProc(
+                self::$bin,
+                $image . ' '
+                . $temp
+                . ' -c preserve_interword_spaces=1'
+                . ' --psm ' . $psm
+                . ' --oem ' . $oem
+                . ' -l ' . \implode('+', $languages)
+            );
+        } catch (\Throwable $_) {
+            return '';
+        }
 
         $filepath = \is_file($temp . '.txt')
             ? $temp . '.txt'

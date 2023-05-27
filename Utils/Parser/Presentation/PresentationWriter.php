@@ -15,11 +15,8 @@ declare(strict_types=1);
 namespace phpOMS\Utils\Parser\Presentation;
 
 use PhpOffice\PhpPresentation\AbstractShape;
-use PhpOffice\PhpPresentation\Autoloader;
 use PhpOffice\PhpPresentation\DocumentLayout;
-use PhpOffice\PhpPresentation\IOFactory;
 use PhpOffice\PhpPresentation\PhpPresentation;
-use PhpOffice\PhpPresentation\Shape\Drawing;
 use PhpOffice\PhpPresentation\Shape\Drawing\AbstractDrawingAdapter;
 use PhpOffice\PhpPresentation\Shape\Drawing\Base64;
 use PhpOffice\PhpPresentation\Shape\Drawing\File;
@@ -29,13 +26,10 @@ use PhpOffice\PhpPresentation\Shape\Group;
 use PhpOffice\PhpPresentation\Shape\RichText;
 use PhpOffice\PhpPresentation\Shape\RichText\BreakElement;
 use PhpOffice\PhpPresentation\Shape\RichText\TextElement;
-use PhpOffice\PhpPresentation\Slide;
 use PhpOffice\PhpPresentation\Slide\AbstractBackground;
 use PhpOffice\PhpPresentation\Slide\Background\Color as BackgroundColor;
 use PhpOffice\PhpPresentation\Slide\Background\Image;
-use PhpOffice\PhpPresentation\Style\Alignment;
 use PhpOffice\PhpPresentation\Style\Bullet;
-use PhpOffice\PhpPresentation\Style\Color;
 
 /**
  * Presentation parser class.
@@ -377,11 +371,9 @@ class PresentationWriter
                         $this->append('<abbr title="SuperScript">SuperScript</abbr> : ' . ($oRichText->getFont()->isSuperScript() ? 'Y' : 'N'));
                         $this->append('</dd>');
 
-                        if ($oRichText instanceof TextElement) {
-                            if ($oRichText->hasHyperlink()) {
-                                $this->append('<dt>Hyperlink URL</dt><dd>' . $oRichText->getHyperlink()->getUrl() . '</dd>');
-                                $this->append('<dt>Hyperlink Tooltip</dt><dd>' . $oRichText->getHyperlink()->getTooltip() . '</dd>');
-                            }
+                        if ($oRichText instanceof TextElement && $oRichText->hasHyperlink()) {
+                            $this->append('<dt>Hyperlink URL</dt><dd>' . $oRichText->getHyperlink()->getUrl() . '</dd>');
+                            $this->append('<dt>Hyperlink Tooltip</dt><dd>' . $oRichText->getHyperlink()->getTooltip() . '</dd>');
                         }
 
                         $this->append('</dl>');

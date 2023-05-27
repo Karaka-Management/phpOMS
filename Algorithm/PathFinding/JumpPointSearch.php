@@ -355,19 +355,19 @@ final class JumpPointSearch implements PathFinderInterface
                 if (!$grid->isWalkable($x + 1, $y)) {
                     $neighbors[] = $grid->getNode($x + 1, $y + $dy);
                 }
+
                 if (!$grid->isWalkable($x - 1, $y)) {
                     $neighbors[] = $grid->getNode($x - 1, $y + $dy);
                 }
             }
-        } else {
-            if ($grid->isWalkable($x + $dx, $y)) {
-                $neighbors[] = $grid->getNode($x + $dx, $y);
-                if (!$grid->isWalkable($x, $y + 1)) {
-                    $neighbors[] = $grid->getNode($x + $dx, $y + 1);
-                }
-                if (!$grid->isWalkable($x, $y - 1)) {
-                    $neighbors[] = $grid->getNode($x + $dx, $y - 1);
-                }
+        } elseif ($grid->isWalkable($x + $dx, $y)) {
+            $neighbors[] = $grid->getNode($x + $dx, $y);
+            if (!$grid->isWalkable($x, $y + 1)) {
+                $neighbors[] = $grid->getNode($x + $dx, $y + 1);
+            }
+
+            if (!$grid->isWalkable($x, $y - 1)) {
+                $neighbors[] = $grid->getNode($x + $dx, $y - 1);
             }
         }
 
@@ -598,12 +598,10 @@ final class JumpPointSearch implements PathFinderInterface
             ) {
                 return $node;
             }
-        } else {
-            if (($grid->isWalkable($x + 1, $y + $dy) && !$grid->isWalkable($x + 1, $y))
-                || ($grid->isWalkable($x - 1, $y + $dy) && !$grid->isWalkable($x - 1, $y))
-            ) {
-                return $node;
-            }
+        } elseif (($grid->isWalkable($x + 1, $y + $dy) && !$grid->isWalkable($x + 1, $y))
+            || ($grid->isWalkable($x - 1, $y + $dy) && !$grid->isWalkable($x - 1, $y))
+        ) {
+            return $node;
         }
 
         return self::jumpDiagonal($grid->getNode($x + $dx, $y + $dy), $node, $endNode, $grid);
@@ -658,12 +656,10 @@ final class JumpPointSearch implements PathFinderInterface
             ) {
                 return $node;
             }
-        } else {
-            if (($grid->isWalkable($x + 1, $y + $dy) && !$grid->isWalkable($x + 1, $y))
-                || ($grid->isWalkable($x - 1, $y + $dy) && !$grid->isWalkable($x - 1, $y))
-            ) {
-                return $node;
-            }
+        } elseif (($grid->isWalkable($x + 1, $y + $dy) && !$grid->isWalkable($x + 1, $y))
+            || ($grid->isWalkable($x - 1, $y + $dy) && !$grid->isWalkable($x - 1, $y))
+        ) {
+            return $node;
         }
 
         if ($grid->isWalkable($x + $dx, $y) || $grid->isWalkable($x, $y + $dy)) {

@@ -77,7 +77,7 @@ final class RedisCache extends ConnectionAbstract
 
         try {
             $this->con->ping();
-        } catch (\Throwable $e) {
+        } catch (\Throwable $_) {
             $this->status = CacheStatus::FAILURE;
             return;
         }
@@ -301,11 +301,7 @@ final class RedisCache extends ConnectionAbstract
      */
     public function flush(int $expire = 0) : bool
     {
-        if ($this->status !== CacheStatus::OK) {
-            return false;
-        }
-
-        return true;
+        return $this->status === CacheStatus::OK;
     }
 
     /**

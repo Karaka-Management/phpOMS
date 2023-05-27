@@ -48,7 +48,7 @@ final class NumericUtils
     {
         if ($b >= 32 || $b < -32) {
             $m = (int) ($b / 32);
-            $b = $b - ($m * 32);
+            $b -= $m * 32;
         }
 
         if ($b < 0) {
@@ -60,12 +60,12 @@ final class NumericUtils
         }
 
         if ($a < 0) {
-            $a  = ($a >> 1);
+            $a >>= 1;
             $a &= 0x7fffffff;
             $a |= 0x40000000;
-            $a  = ($a >> ($b - 1));
+            $a >>= $b - 1;
         } else {
-            $a = ($a >> $b);
+            $a >>= $b;
         }
 
         return $a;

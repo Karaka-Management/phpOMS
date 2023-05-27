@@ -157,14 +157,14 @@ class LanguageResult implements \JsonSerializable, \IteratorAggregate, \ArrayAcc
      */
     public function bestResults(): LanguageResult
     {
-        if (!\count($this->result)) {
+        if (empty($this->result)) {
             return new LanguageResult;
         }
 
         $first = \array_values($this->result)[0];
 
         return new LanguageResult(\array_filter($this->result, function ($value) use ($first) {
-            return ($first - $value) <= self::THRESHOLD ? true : false;
+            return ($first - $value) <= self::THRESHOLD;
         }));
     }
 

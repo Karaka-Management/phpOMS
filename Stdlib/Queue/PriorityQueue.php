@@ -87,7 +87,7 @@ class PriorityQueue implements \Countable, SerializableInterface
             $key = \mt_rand();
         } while (isset($this->queue[$key]));
 
-        if (\count($this->queue) === 0) {
+        if (empty($this->queue)) {
             $this->queue[$key] = ['data' => $data, 'priority' => $priority];
         } else {
             $pos = $this->getInsertPosition($priority);

@@ -833,11 +833,7 @@ class Repository
             $end = new \DateTime('now');
         }
 
-        if ($author === null) {
-            $author = '';
-        } else {
-            $author = ' --author=' . \escapeshellarg($author->name) . '';
-        }
+        $author = $author === null ? '' : ' --author=' . \escapeshellarg($author->name) . '';
 
         $lines = $this->run(
             'git log --before="' . $end->format('Y-m-d')
@@ -890,11 +886,7 @@ class Repository
         }
 
         $author = \explode(':', $lines[1] ?? '');
-        if (\count($author) < 2) {
-            $author = ['none', 'none'];
-        } else {
-            $author = \explode('<', \trim($author[1] ?? ''));
-        }
+        $author = \count($author) < 2 ? ['none', 'none'] : \explode('<', \trim($author[1] ?? ''));
 
         $date = \substr($lines[2] ?? '', 6);
         if ($date === false) {

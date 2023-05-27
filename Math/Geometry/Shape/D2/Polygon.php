@@ -212,9 +212,8 @@ final class Polygon implements D2ShapeInterface
         }
 
         $surface += $this->coord[$count - 1]['x'] * $this->coord[0]['y'] - $this->coord[0]['x'] * $this->coord[$count - 1]['y'];
-        $surface /= 2;
 
-        return $surface;
+        return $surface / 2;
     }
 
     /**

@@ -183,8 +183,6 @@ final class Rest
                 . $content . "\r\n";
         }
 
-        $data .= '--' . $delim . "--\r\n";
-
-        return $data;
+        return $data . ('--' . $delim . "--\r\n");
     }
 }

@@ -77,10 +77,8 @@ final class CholeskyDecomposition
                     } else {
                         $this->isSpd = false;
                     }
-                } else {
-                    if ($this->L[$i][$i] !== 0) {
-                        $this->L[$j][$i] = $sum / $this->L[$i][$i];
-                    }
+                } elseif ($this->L[$i][$i] !== 0) {
+                    $this->L[$j][$i] = $sum / $this->L[$i][$i];
                 }
             }
 

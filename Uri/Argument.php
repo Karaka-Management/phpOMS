@@ -172,7 +172,7 @@ final class Argument implements UriInterface
         // Handle no path information only data
         $uriParts = \stripos($uriParts[0], '-') === 0 ? ['/', $uriParts[0]] : $uriParts;
 
-        $this->path         = \count($uriParts) === 0 ? '' : \array_shift($uriParts);
+        $this->path         = empty($uriParts) ? '' : \array_shift($uriParts);
         $this->pathElements = \explode('/', \ltrim($this->path, '/'));
 
         $path             = \array_slice($this->pathElements, $this->pathOffset);
@@ -297,7 +297,7 @@ final class Argument implements UriInterface
         $path = $ignoreOffset ? $this->path : $this->offsetPath;
 
         $query = $this->getQuery();
-        return $path . (!empty($query) ? ' ' . $this->getQuery() : '');
+        return $path . (empty($query) ? '' : ' ' . $this->getQuery());
     }
 
     /**

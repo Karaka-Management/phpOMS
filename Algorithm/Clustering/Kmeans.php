@@ -138,11 +138,7 @@ final class Kmeans
             foreach ($points as $point) {
                 $clusterPoint = $clusterCenters[$point->group];
 
-                // this should ensure that clusterPoint and therfore the center group is never 0. But this is not true.
-                $clusterPoint->group = (
-                    $clusterPoint->group + 1
-                );
-
+                ++$clusterPoint->group;
                 for ($i = 0; $i < $coordinates; ++$i) {
                     $clusterPoint->setCoordinate($i, $clusterPoint->getCoordinate($i) + $point->getCoordinate($i));
                 }

@@ -330,6 +330,7 @@ final class ArrayUtils
      */
     public static function hasArg(string $id, array $args) : int
     {
+        $t = \array_search($id, $args);
         return ($key = \array_search($id, $args)) === false
             ? -1
             : (int) $key;

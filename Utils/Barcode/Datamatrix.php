@@ -214,11 +214,7 @@ class Datamatrix extends TwoDAbstract
                         // braw bits by case
                         if ($r === 0) {
                             // top finder pattern
-                            if ($c % 2) {
-                                $this->codearray[$row][$col] = false;
-                            } else {
-                                $this->codearray[$row][$col] = true;
-                            }
+                            $this->codearray[$row][$col] = $c % 2 === 0;
                         } elseif ($r === $rdri) {
                             // bottom finder pattern
                             $this->codearray[$row][$col] = true;
@@ -227,11 +223,7 @@ class Datamatrix extends TwoDAbstract
                             $this->codearray[$row][$col] = true;
                         } elseif ($c === $rdci) {
                             // right finder pattern
-                            if ($r % 2) {
-                                $this->codearray[$row][$col] = true;
-                            } else {
-                                $this->codearray[$row][$col] = false;
-                            }
+                            $this->codearray[$row][$col] = $r % 2;
                         } else { // data bit
                             if ($places[$i] < 2) {
                                 $this->codearray[$row][$col] = (bool) $places[$i];
@@ -240,7 +232,7 @@ class Datamatrix extends TwoDAbstract
                                 $cw_id = (\floor($places[$i] / 10) - 1);
                                 // codeword BIT mask
                                 $cw_bit                      = \pow(2, (8 - ($places[$i] % 10)));
-                                $this->codearray[$row][$col] = (($cw[$cw_id] & $cw_bit) === 0) ? false : true;
+                                $this->codearray[$row][$col] = ($cw[$cw_id] & $cw_bit) !== 0;
                             }
 
                             ++$i;
@@ -701,7 +693,7 @@ class Datamatrix extends TwoDAbstract
                             && $this->isCharMode(\ord($data[$pos + 1]), self::ENC_ASCII_NUM))
                     ) {
                         // 1. If the next data sequence is at least 2 consecutive digits, encode the next two digits as a double digit in ASCII mode.
-                        $cw[] = (intval(substr($data, $pos, 2)) + 130);
+                        $cw[] = ((int) substr($data, $pos, 2) + 130);
                         ++$cw_num;
                         $pos += 2;
                     } else {
@@ -750,12 +742,12 @@ class Datamatrix extends TwoDAbstract
                         ++$epos;
 
                         // check for extended character
-                        if ($chr & 0x80) {
+                        if (($chr & 0x80) !== 0) {
                             if ($enc === self::ENC_X12) {
                                 return [];
                             }
 
-                            $chr       = ($chr & 0x7f);
+                            $chr      &= 0x7f;
                             $temp_cw[] = 1; // shift 2
                             $temp_cw[] = 30; // upper shift
                             $p        += 2;
@@ -855,17 +847,15 @@ class Datamatrix extends TwoDAbstract
                             $pos            = $epos;
                             $enc            = self::ENC_ASCII;
                             $this->encoding = $enc;
-                        } else {
+                        } elseif ($enc !== self::ENC_ASCII) {
                             // switch to ASCII encoding
-                            if ($enc !== self::ENC_ASCII) {
-                                $enc            = self::ENC_ASCII;
-                                $this->encoding = $enc;
-                                $cw[]           = $this->getSwitchEncodingCodeword($enc);
+                            $enc            = self::ENC_ASCII;
+                            $this->encoding = $enc;
+                            $cw[]           = $this->getSwitchEncodingCodeword($enc);
 
-                                ++$cw_num;
+                            ++$cw_num;
 
-                                $pos = ($epos - $p);
-                            }
+                            $pos = ($epos - $p);
                         }
                     }
                     break;
@@ -1023,9 +1013,8 @@ class Datamatrix extends TwoDAbstract
         $marr = $this->placeModule($marr, $nrow, $ncol, $row - 1, $col,   $chr, 5);
         $marr = $this->placeModule($marr, $nrow, $ncol, $row,   $col - 2, $chr, 6);
         $marr = $this->placeModule($marr, $nrow, $ncol, $row,   $col - 1, $chr, 7);
-        $marr = $this->placeModule($marr, $nrow, $ncol, $row,   $col,   $chr, 8);
 
-        return $marr;
+        return $this->placeModule($marr, $nrow, $ncol, $row,   $col,   $chr, 8);
     }
 
     /**
@@ -1040,9 +1029,8 @@ class Datamatrix extends TwoDAbstract
         $marr = $this->placeModule($marr, $nrow, $ncol, 0,       $ncol - 1, $chr, 5);
         $marr = $this->placeModule($marr, $nrow, $ncol, 1,       $ncol - 1, $chr, 6);
         $marr = $this->placeModule($marr, $nrow, $ncol, 2,       $ncol - 1, $chr, 7);
-        $marr = $this->placeModule($marr, $nrow, $ncol, 3,       $ncol - 1, $chr, 8);
 
-        return $marr;
+        return $this->placeModule($marr, $nrow, $ncol, 3,       $ncol - 1, $chr, 8);
     }
 
     /**
@@ -1057,9 +1045,8 @@ class Datamatrix extends TwoDAbstract
         $marr = $this->placeModule($marr, $nrow, $ncol, 0,       $ncol - 3, $chr, 5);
         $marr = $this->placeModule($marr, $nrow, $ncol, 0,       $ncol - 2, $chr, 6);
         $marr = $this->placeModule($marr, $nrow, $ncol, 0,       $ncol - 1, $chr, 7);
-        $marr = $this->placeModule($marr, $nrow, $ncol, 1,       $ncol - 1, $chr, 8);
 
-        return $marr;
+        return $this->placeModule($marr, $nrow, $ncol, 1,       $ncol - 1, $chr, 8);
     }
 
     /**
@@ -1074,9 +1061,8 @@ class Datamatrix extends TwoDAbstract
         $marr = $this->placeModule($marr, $nrow, $ncol, 0,       $ncol - 1, $chr, 5);
         $marr = $this->placeModule($marr, $nrow, $ncol, 1,       $ncol - 1, $chr, 6);
         $marr = $this->placeModule($marr, $nrow, $ncol, 2,       $ncol - 1, $chr, 7);
-        $marr = $this->placeModule($marr, $nrow, $ncol, 3,       $ncol - 1, $chr, 8);
 
-        return $marr;
+        return $this->placeModule($marr, $nrow, $ncol, 3,       $ncol - 1, $chr, 8);
     }
 
     /**
@@ -1091,9 +1077,8 @@ class Datamatrix extends TwoDAbstract
         $marr = $this->placeModule($marr, $nrow, $ncol, 0,       $ncol - 1, $chr, 5);
         $marr = $this->placeModule($marr, $nrow, $ncol, 1,       $ncol - 3, $chr, 6);
         $marr = $this->placeModule($marr, $nrow, $ncol, 1,       $ncol - 2, $chr, 7);
-        $marr = $this->placeModule($marr, $nrow, $ncol, 1,       $ncol - 1, $chr, 8);
 
-        return $marr;
+        return $this->placeModule($marr, $nrow, $ncol, 1,       $ncol - 1, $chr, 8);
     }
 
     /**

@@ -73,9 +73,9 @@ final class L11nManager
             return;
         }
 
-        $this->language[$language][$from] = !isset($this->language[$language][$from])
-            ? $translation[$from]
-            : $translation[$from] + $this->language[$language][$from];
+        $this->language[$language][$from] = isset($this->language[$language][$from])
+            ? $translation[$from] + $this->language[$language][$from]
+            : $translation[$from];
     }
 
     /**
@@ -176,7 +176,7 @@ final class L11nManager
             }
 
             $this->loadLanguage($code, $module, $class::getLocalization($code, $theme));
-        } catch (\Throwable $e) {
+        } catch (\Throwable $_) {
             // @codeCoverageIgnoreStart
             FileLogger::getInstance()->warning(FileLogger::MSG_FULL, [
                 'message' => 'Undefined translation for \'' . $code . '/' . $module . '/' . $translation . '\'.',
@@ -296,9 +296,9 @@ final class L11nManager
             $currency = $currency->value;
         }
 
-        $money = !($currency instanceof Money)
-            ? new Money((int) ($currency / $divide))
-            : $currency;
+        $money = $currency instanceof Money
+            ? $currency
+            : new Money((int) ($currency / $divide));
 
         $money->setLocalization(
             $l11n->getThousands(),

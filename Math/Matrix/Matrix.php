@@ -375,7 +375,7 @@ class Matrix implements \ArrayAccess, \Iterator
     public function setMatrix(array $matrix) : self
     {
         $this->m      = \count($matrix);
-        $this->n      = !\is_array($matrix[0] ?? 1) ? 1 : \count($matrix[0]);
+        $this->n      = \is_array($matrix[0] ?? 1) ? \count($matrix[0]) : 1;
         $this->matrix = $matrix;
 
         return $this;
@@ -619,7 +619,7 @@ class Matrix implements \ArrayAccess, \Iterator
                 }
             }
 
-            if ($max) {
+            if ($max !== 0) {
                 $sign      = -$sign;
                 $temp      = $arr[$i];
                 $arr[$i]   = $arr[$max];

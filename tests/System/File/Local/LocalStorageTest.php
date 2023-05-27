@@ -71,7 +71,7 @@ final class LocalStorageTest extends \PHPUnit\Framework\TestCase
     public function testStaticSubdirDirectory() : void
     {
         $dirPath = __DIR__ . '/test/sub/path';
-        self::assertTrue(LocalStorage::create($dirPath, 0755, true));
+        self::assertTrue(LocalStorage::create($dirPath));
         self::assertTrue(LocalStorage::exists($dirPath));
 
         \rmdir(__DIR__ . '/test/sub/path');

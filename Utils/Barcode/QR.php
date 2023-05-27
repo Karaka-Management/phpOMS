@@ -540,7 +540,7 @@ class QR extends TwoDAbstract
         foreach ($frame as $row => $cols) {
             $len = \strlen($cols);
             for ($i = 0; $i < $len; ++$i) {
-                $bin[$row][$i] = \ord($frame[$row][$i]) & 1 ? true : false;
+                $bin[$row][$i] = \ord($frame[$row][$i]) & 1;
             }
         }
 
@@ -613,7 +613,7 @@ class QR extends TwoDAbstract
             for ($j = 0; $j < 8; ++$j) {
                 $addr                                = $this->getNextPosition();
                 $this->frame[$addr['y']][$addr['x']] = 0x02 | (($bit & $code) !== 0);
-                $bit                                 = $bit >> 1;
+                $bit                               >>= 1;
             }
         }
 
@@ -694,16 +694,14 @@ class QR extends TwoDAbstract
                         $y = 9;
                     }
                 }
-            } else {
-                if ($y === $w) {
-                    $y         = $w - 1;
-                    $x        -= 2;
-                    $this->dir = -1;
+            } elseif ($y === $w) {
+                $y         = $w - 1;
+                $x        -= 2;
+                $this->dir = -1;
 
-                    if ($x === 6) {
-                        --$x;
-                        $y -= 8;
-                    }
+                if ($x === 6) {
+                    --$x;
+                    $y -= 8;
                 }
             }
 
@@ -830,7 +828,7 @@ class QR extends TwoDAbstract
             : self::FORMAT_INFO[$level][$mask];
 
         for ($i = 0; $i < 8; ++$i) {
-            if ($format & 1) {
+            if (($format & 1) !== 0) {
                 $blacks += 2;
                 $v       = 0x85;
             } else {
@@ -844,11 +842,11 @@ class QR extends TwoDAbstract
                 $frame[$i + 1][8] = \chr($v);
             }
 
-            $format = $format >> 1;
+            $format >>= 1;
         }
 
         for ($i = 0; $i < 7; ++$i) {
-            if ($format & 1) {
+            if (($format & 1) !== 0) {
                 $blacks += 2;
                 $v       = 0x85;
             } else {
@@ -862,7 +860,7 @@ class QR extends TwoDAbstract
                 $frame[8][6 - $i] = \chr($v);
             }
 
-            $format = $format >> 1;
+            $format >>= 1;
         }
 
         return $blacks;
@@ -880,7 +878,7 @@ class QR extends TwoDAbstract
         $bitMask = \array_fill(0, $width, \array_fill(0, $width, 0));
         for ($y = 0; $y < $width; ++$y) {
             for ($x = 0; $x < $width; ++$x) {
-                if (\ord($frame[$y][$x]) & 0x80) {
+                if ((\ord($frame[$y][$x]) & 0x80) !== 0) {
                     $bitMask[$y][$x] = 0;
                 } else {
                     $maskFunc = 0;
@@ -981,20 +979,20 @@ class QR extends TwoDAbstract
                 $demerit += (self::N1 + ($this->runLength[$i] - 5));
             }
 
-            if ($i & 1) {
-                if (($i >= 3) && ($i < ($length - 2)) && ($this->runLength[$i] % 3 === 0)) {
-                    $fact = (int) ($this->runLength[$i] / 3);
+            if (($i & 1) !== 0 && (($i >= 3)
+                && ($i < ($length - 2)) && ($this->runLength[$i] % 3 === 0))
+            ) {
+                $fact = (int) ($this->runLength[$i] / 3);
 
-                    if (($this->runLength[$i - 2] === $fact)
-                        && ($this->runLength[$i - 1] === $fact)
-                        && ($this->runLength[$i + 1] === $fact)
-                        && ($this->runLength[$i + 2] === $fact)
-                    ) {
-                        if (($this->runLength[$i - 3] < 0) || ($this->runLength[$i - 3] >= (4 * $fact))) {
-                            $demerit += self::N3;
-                        } elseif (($i + 3) >= $length || $this->runLength[$i + 3] >= (4 * $fact)) {
-                            $demerit += self::N3;
-                        }
+                if (($this->runLength[$i - 2] === $fact)
+                    && ($this->runLength[$i - 1] === $fact)
+                    && ($this->runLength[$i + 1] === $fact)
+                    && ($this->runLength[$i + 2] === $fact)
+                ) {
+                    if (($this->runLength[$i - 3] < 0) || ($this->runLength[$i - 3] >= (4 * $fact))) {
+                        $demerit += self::N3;
+                    } elseif (($i + 3) >= $length || $this->runLength[$i + 3] >= (4 * $fact)) {
+                        $demerit += self::N3;
                     }
                 }
             }
@@ -1029,7 +1027,7 @@ class QR extends TwoDAbstract
                     $b22 = \ord($frameY[$x]) & \ord($frameY[$x - 1]) & \ord($frameYM[$x]) & \ord($frameYM[$x - 1]);
                     $w22 = \ord($frameY[$x]) | \ord($frameY[$x - 1]) | \ord($frameYM[$x]) | \ord($frameYM[$x - 1]);
 
-                    if (($b22 | ($w22 ^ 1)) & 1) {
+                    if ((($b22 | ($w22 ^ 1)) & 1) !== 0) {
                         $demerit += self::N2;
                     }
                 }
@@ -1039,7 +1037,7 @@ class QR extends TwoDAbstract
                     $head                   = 1;
                     $this->runLength[$head] = 1;
                 } elseif ($x > 0) {
-                    if ((\ord($frameY[$x]) ^ \ord($frameY[$x - 1])) & 1) {
+                    if (((\ord($frameY[$x]) ^ \ord($frameY[$x - 1])) & 1) !== 0) {
                         ++$head;
                         $this->runLength[$head] = 1;
                     } else {
@@ -1061,7 +1059,7 @@ class QR extends TwoDAbstract
                     $head                   = 1;
                     $this->runLength[$head] = 1;
                 } elseif ($y > 0) {
-                    if ((\ord($frame[$y][$x]) ^ \ord($frame[$y - 1][$x])) & 1) {
+                    if (((\ord($frame[$y][$x]) ^ \ord($frame[$y - 1][$x])) & 1) !== 0) {
                         ++$head;
                         $this->runLength[$head] = 1;
                     } else {
@@ -1292,9 +1290,8 @@ class QR extends TwoDAbstract
         }
 
         $this->items = $this->appendNewInputItem($this->items, self::QR_MODE_KJ, $p, \str_split($this->dataStr));
-        $run         = $p;
 
-        return $run;
+        return $p;
     }
 
     /**
@@ -1517,7 +1514,7 @@ class QR extends TwoDAbstract
             $inputitem['bstream'] = $this->appendNum($inputitem['bstream'], 11, $val);
         }
 
-        if ($inputitem['size'] & 1) {
+        if (($inputitem['size'] & 1) !== 0) {
             $val = $this->lookAnTable(\ord($inputitem['data'][($words * 2)]));
 
             $inputitem['bstream'] = $this->appendNum($inputitem['bstream'], 6, $val);
@@ -1785,7 +1782,7 @@ class QR extends TwoDAbstract
     protected function estimateBitsModeAn(int $size) : int
     {
         $bits = (int) ($size * 5.5); // (size / 2 ) * 11
-        if ($size & 1) {
+        if (($size & 1) !== 0) {
             $bits += 6;
         }
 
@@ -1825,7 +1822,7 @@ class QR extends TwoDAbstract
      */
     protected function checkModeKanji(int $size, array $data) : bool
     {
-        if ($size & 1) {
+        if (($size & 1) !== 0) {
             return false;
         }
 
@@ -2085,7 +2082,7 @@ class QR extends TwoDAbstract
             $padbuf = [];
 
             for ($i = 0; $i < $padlen; ++$i) {
-                $padbuf[$i] = ($i & 1) ? 0x11 : 0xec;
+                $padbuf[$i] = (($i & 1) !== 0) ? 0x11 : 0xec;
             }
 
             $padding = $this->appendBytes($padding, $padlen, $padbuf);
@@ -2169,8 +2166,8 @@ class QR extends TwoDAbstract
         $mask    = 1 << ($bits - 1);
 
         for ($i = 0; $i < $bits; ++$i) {
-            $bstream[$i] = ($num & $mask) ? 1 : 0;
-            $mask        = $mask >> 1;
+            $bstream[$i] = (($num & $mask) !== 0) ? 1 : 0;
+            $mask >>= 1;
         }
 
         return $bstream;
@@ -2192,8 +2189,8 @@ class QR extends TwoDAbstract
             $mask = 0x80;
 
             for ($j = 0; $j < 8; ++$j) {
-                $bstream[$p] = ($data[$i] & $mask) ? 1 : 0;
-                $mask        = $mask >> 1;
+                $bstream[$p] = (($data[$i] & $mask) !== 0) ? 1 : 0;
+                $mask >>= 1;
 
                 ++$p;
             }
@@ -2280,7 +2277,7 @@ class QR extends TwoDAbstract
             $v = 0;
 
             for ($j = 0; $j < 8; ++$j) {
-                $v  = $v << 1;
+                $v <<= 1;
                 $v |= $bstream[$p];
                 ++$p;
             }
@@ -2288,11 +2285,11 @@ class QR extends TwoDAbstract
             $data[$i] = $v;
         }
 
-        if ($size & 7) {
+        if (($size & 7) !== 0) {
             $v = 0;
 
             for ($j = 0; $j < ($size & 7); ++$j) {
-                $v  = $v << 1;
+                $v <<= 1;
                 $v |= $bstream[$p];
                 ++$p;
             }
@@ -2470,11 +2467,10 @@ class QR extends TwoDAbstract
             : (int) (($width - self::ALIGNMENT_PATTERN[$version][0]) / $d + 2);
 
         if ($w * $w - 3 === 1) {
-            $x     = self::ALIGNMENT_PATTERN[$version][0];
-            $y     = self::ALIGNMENT_PATTERN[$version][0];
-            $frame = $this->putAlignmentMarker($frame, $x, $y);
+            $x = self::ALIGNMENT_PATTERN[$version][0];
+            $y = self::ALIGNMENT_PATTERN[$version][0];
 
-            return $frame;
+            return $this->putAlignmentMarker($frame, $x, $y);
         }
 
         $cx = self::ALIGNMENT_PATTERN[$version][0];
@@ -2583,7 +2579,7 @@ class QR extends TwoDAbstract
             for ($x = 0; $x<6; ++$x) {
                 for ($y = 0; $y<3; ++$y) {
                     $frame[($width - 11)+$y][$x] = \chr(0x88 | ($v & 1));
-                    $v                           = $v >> 1;
+                    $v >>= 1;
                 }
             }
 
@@ -2591,7 +2587,7 @@ class QR extends TwoDAbstract
             for ($y = 0; $y < 6; ++$y) {
                 for ($x = 0; $x < 3; ++$x) {
                     $frame[$y][$x + ($width - 11)] = \chr(0x88 | ($v & 1));
-                    $v                             = $v >> 1;
+                    $v >>= 1;
                 }
             }
         }
@@ -2709,7 +2705,7 @@ class QR extends TwoDAbstract
             $rs['alpha_to'][$i]  = $sr;
             $sr                <<= 1;
 
-            if ($sr & (1 << $symsize)) {
+            if (($sr & (1 << $symsize)) !== 0) {
                 $sr ^= $gfpoly;
             }
 

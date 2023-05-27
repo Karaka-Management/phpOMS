@@ -1206,8 +1206,7 @@ class Graph
         $node1 = \reset($this->nodes);
         $colors[$node1->getId()] = 1;
 
-        $stack = [];
-        \array_push($stack, $node1);
+        $stack = [$node1];
 
         while (!empty($stack)) {
             $node = \array_pop($stack);
@@ -1220,7 +1219,7 @@ class Graph
 
                 if ($colors[$adj->getId()] === -1) {
                     $colors[$adj->getId()] = 1 - $colors[$node->getId()];
-                    \array_push($stack, $adj);
+                    $stack[]               = $adj;
                 } elseif ($colors[$adj->getId()] === $colors[$node->getId()]) {
                     return false;
                 }

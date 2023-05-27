@@ -127,7 +127,7 @@ final class FtpStorageTest extends \PHPUnit\Framework\TestCase
     public function testStaticSubdirDirectory() : void
     {
         $dirPath = __DIR__ . '/test/sub/path';
-        self::assertTrue(FtpStorage::create($dirPath, 0755, true));
+        self::assertTrue(FtpStorage::create($dirPath));
         self::assertTrue(FtpStorage::exists($dirPath));
 
         Directory::delete(self::$con, __DIR__ . '/test/sub/path');

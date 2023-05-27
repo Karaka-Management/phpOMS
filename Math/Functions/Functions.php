@@ -345,19 +345,11 @@ final class Functions
 
         for ($n = 0; $n < 20; ++$n) {
             foreach ($a as $key => $value) {
-                if ($n === 0) {
-                    $aProd[$n][$key] = 1;
-                } else {
-                    $aProd[$n][$key] = $aProd[$n - 1][$key] * ($value + $n - 1);
-                }
+                $aProd[$n][$key] = $n === 0 ? 1 : $aProd[$n - 1][$key] * ($value + $n - 1);
             }
 
             foreach ($b as $key => $value) {
-                if ($n === 0) {
-                    $bProd[$n][$key] = 1;
-                } else {
-                    $bProd[$n][$key] = $bProd[$n - 1][$key] * ($value + $n - 1);
-                }
+                $bProd[$n][$key] = $n === 0 ? 1 : $bProd[$n - 1][$key] * ($value + $n - 1);
             }
 
             $temp = \array_product($aProd[$n]) / \array_product($bProd[$n]);

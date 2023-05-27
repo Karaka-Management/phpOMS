@@ -104,7 +104,7 @@ class Client extends SocketAbstract
                 // socket_strerror(socket_last_error());
                 //}
 
-                if (\count($read) > 0) {
+                if (!empty($read)) {
                     $data = \socket_read($this->sock, 1024);
 
                     \var_dump($data);
@@ -126,7 +126,7 @@ class Client extends SocketAbstract
                 if ($errorCounter > 10) {
                     $this->run = false;
                 }
-            } catch (\Throwable $e) {
+            } catch (\Throwable $_) {
                 $this->run = false;
             }
         }

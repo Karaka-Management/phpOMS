@@ -86,9 +86,7 @@ class SchemaMapper
      */
     public function getTable(string $name) : Table
     {
-        $table = new Table();
-
-        return $table;
+        return new Table();
     }
 
     /**
@@ -120,8 +118,6 @@ class SchemaMapper
      */
     public function getField(string $table, string $name) : Field
     {
-        $field = new Field();
-
-        return $field;
+        return new Field();
     }
 }

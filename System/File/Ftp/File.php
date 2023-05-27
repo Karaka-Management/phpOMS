@@ -137,13 +137,11 @@ class File extends FileAbstract implements FileInterface
             || (!$exists && ContentPutMode::hasFlag($mode, ContentPutMode::CREATE))
         ) {
             if (ContentPutMode::hasFlag($mode, ContentPutMode::APPEND) && $exists) {
-                $content = self::get($con, $path) . $content;
+                $content .= self::get($con, $path);
             } elseif (ContentPutMode::hasFlag($mode, ContentPutMode::PREPEND) && $exists) {
                 $content = $content . self::get($con, $path);
-            } else {
-                if (!Directory::exists($con, \dirname($path))) {
-                    Directory::create($con, \dirname($path), 0755, true);
-                }
+            } elseif (!Directory::exists($con, \dirname($path))) {
+                Directory::create($con, \dirname($path), 0755, true);
             }
 
             $fp = \fopen('php://memory', 'r+');

@@ -229,7 +229,9 @@ abstract class RequestAbstract implements MessageInterface
     {
         $key = \mb_strtolower($key);
 
-        return !empty($this->data[$key] ?? null) ? new \DateTime((string) $this->data[$key]) : null;
+        return empty($this->data[$key] ?? null)
+            ? null
+            : new \DateTime((string) $this->data[$key]);
     }
 
     /**
@@ -251,7 +253,7 @@ abstract class RequestAbstract implements MessageInterface
 
         $json = \json_decode($this->data[$key], true); /** @phpstan-ignore-line */
 
-        return !\is_array($json) ? [] : $json;
+        return \is_array($json) ? $json : [];
     }
 
     /**

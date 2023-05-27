@@ -83,9 +83,9 @@ final class Evaluator
      */
     private static function parseValue(int | float | string $value) : int | float
     {
-        return !\is_string($value)
-            ? $value
-            : (\stripos($value, '.') === false ? (int) $value : (float) $value);
+        return \is_string($value)
+            ? (\stripos($value, '.') === false ? (int) $value : (float) $value)
+            : $value;
     }
 
     /**
@@ -149,7 +149,7 @@ final class Evaluator
             }
         }
 
-        while (\count($stack) > 0) {
+        while (!empty($stack)) {
             $output[] = \array_pop($stack);
         }
 

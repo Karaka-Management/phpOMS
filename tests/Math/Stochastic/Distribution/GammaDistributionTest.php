@@ -142,7 +142,7 @@ final class GammaDistributionTest extends \PHPUnit\Framework\TestCase
      */
     public function testExKurtosis() : void
     {
-        self::assertEqualsWithDelta(3, GammaDistribution::getExKurtosis(2, 4), 0.001);
+        self::assertEqualsWithDelta(3, GammaDistribution::getExKurtosis(2), 0.001);
     }
 
     /**
@@ -151,7 +151,7 @@ final class GammaDistributionTest extends \PHPUnit\Framework\TestCase
      */
     public function testSkewness() : void
     {
-        self::assertEqualsWithDelta(\sqrt(2), GammaDistribution::getSkewness(2, 4), 0.001);
+        self::assertEqualsWithDelta(\sqrt(2), GammaDistribution::getSkewness(2), 0.001);
     }
 
     /**

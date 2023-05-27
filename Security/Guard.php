@@ -50,7 +50,10 @@ final class Guard
      */
     public static function isSafePath(string $path, string $base = '') : bool
     {
-        return \stripos(FileUtils::absolute($path), FileUtils::absolute(empty($base) ? self::$BASE_PATH : $base)) === 0;
+        return \stripos(
+            FileUtils::absolute($path),
+            FileUtils::absolute(empty($base) ? self::$BASE_PATH : $base)
+        ) === 0;
     }
 
     /**
@@ -69,11 +72,9 @@ final class Guard
         if (\is_array($data)) {
             $result = [];
             foreach ($data as $key => $value) {
-                if (\is_string($value) || \is_array($value)) {
-                    $result[$key] = self::unslash($value);
-                } else {
-                    $result[$key] = $value;
-                }
+                $result[$key] = \is_string($value) || \is_array($value)
+                    ? self::unslash($value)
+                    : $value;
             }
 
             return $result;

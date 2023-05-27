@@ -130,12 +130,10 @@ final class ImageUtils
             } else {
                 $imageDim[1] = (int) \ceil($imageDim[1] - ($imageDim[1] * \abs($ratio - $width / $height)));
             }
+        } elseif ($width / $height > $ratio) {
+            $width = (int) ($height * $ratio);
         } else {
-            if ($width / $height > $ratio) {
-                $width = (int) ($height * $ratio);
-            } else {
-                $height = (int) ($width / $ratio);
-            }
+            $height = (int) ($width / $ratio);
         }
 
         $src = null;

@@ -95,24 +95,24 @@ final class ClientTest extends \PHPUnit\Framework\TestCase
         $socket = new Client($this->app);
         $socket->create('127.0.0.1', $GLOBALS['CONFIG']['socket']['master']['port']);
 
-        $socket->addPacket('handshake' . "\r");
-        $socket->addPacket('help' . "\r");
-        $socket->addPacket('shutdown' . "\r");
+        $socket->addPacket("handshake\r");
+        $socket->addPacket("help\r");
+        $socket->addPacket("shutdown\r");
 
         $this->app->router->add('^shutdown$', function() use ($socket) : void { $socket->shutdown(); });
 
         $socket->run();
 
         self::assertEquals(
-            'Creating socket...' . "\n"
-            . 'Binding socket...' . "\n"
-            . 'Start listening...' . "\n"
-            . 'Is running...' . "\n"
-            . 'Connecting client...' . "\n"
-            . 'Connected client.' . "\n"
-            . 'Doing handshake...' . "\n"
-            . 'Handshake succeeded.' . "\n"
-            . 'Is shutdown...' . "\n",
+            "Creating socket...\n"
+            . "Binding socket...\n"
+            . "Start listening...\n"
+            . "Is running...\n"
+            . "Connecting client...\n"
+            . "Connected client.\n"
+            . "Doing handshake...\n"
+            . "Handshake succeeded.\n"
+            . "Is shutdown...\n",
             \file_get_contents(__DIR__ . '/server.log')
         );
 

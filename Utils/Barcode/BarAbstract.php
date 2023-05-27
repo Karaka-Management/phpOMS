@@ -202,7 +202,7 @@ abstract class BarAbstract extends CodeAbstract
         $length     = \strlen($codeString);
 
         for ($i = 1; $i <= $length; ++$i) {
-            $codeLength = $codeLength + (int) (\substr($codeString, ($i - 1), 1));
+            $codeLength += (int) (\substr($codeString, ($i - 1), 1));
         }
 
         return $codeLength;

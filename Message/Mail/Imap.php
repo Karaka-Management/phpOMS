@@ -281,7 +281,7 @@ class Imap implements MailBoxInterface
      */
     public function copyMail(string | array $messages, string $box) : bool
     {
-        return \imap_mail_copy($this->mailbox, !\is_string($messages) ? \implode(',', $messages) : $messages, '{' . $this->host . ':' . $this->port . '}' . $box);
+        return \imap_mail_copy($this->mailbox, \is_string($messages) ? $messages : \implode(',', $messages), '{' . $this->host . ':' . $this->port . '}' . $box);
     }
 
     /**
@@ -298,9 +298,9 @@ class Imap implements MailBoxInterface
     {
         return \imap_mail_copy(
             $this->mailbox,
-            !\is_string($messages)
-                ? \implode(',', $messages)
-                : $messages, '{' . $this->host . ':' . $this->port . '}' . $box
+            \is_string($messages)
+                ? $messages
+                : \implode(',', $messages), '{' . $this->host . ':' . $this->port . '}' . $box
         );
     }
 

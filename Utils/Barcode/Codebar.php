@@ -81,7 +81,7 @@ class Codebar extends BarAbstract
 
         for ($posX = 1; $posX <= $length; ++$posX) {
             for ($posY = 0; $posY < $lenCodearr; ++$posY) {
-                if (\substr($this->content, ($posX - 1), 1) == self::$CODEARRAY[$posY]) {
+                if (\substr($this->content, ($posX - 1), 1) === self::$CODEARRAY[$posY]) {
                     $codeString .= self::$CODEARRAY2[$posY] . '1';
                 }
             }

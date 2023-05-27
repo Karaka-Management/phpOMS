@@ -64,7 +64,7 @@ final class UnhandledHandler
     {
         $logger = FileLogger::getInstance(__DIR__ . '/../Logs');
 
-        if (!(\error_reporting() & $errno)) {
+        if ((\error_reporting() & $errno) === 0) {
             \error_clear_last();
 
             $_SERVER = [];

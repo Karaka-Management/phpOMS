@@ -183,8 +183,7 @@ final class DeleteMapper extends DataMapperAbstract
             }
 
             /** @var class-string<DataMapperFactory> $mapper */
-            $mapper             = $this->mapper::HAS_MANY[$member]['mapper'];
-            $relReflectionClass = !empty($values) ? new \ReflectionClass(\reset($values)) : null;
+            $mapper = $this->mapper::HAS_MANY[$member]['mapper'];
 
             foreach ($values as $key => $value) {
                 if (!\is_object($value)) {

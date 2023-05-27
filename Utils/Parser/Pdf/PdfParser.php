@@ -64,11 +64,17 @@ class PdfParser
         }
 
         if (\is_file(self::$pdftotext)) {
-            SystemUtils::runProc(
-                self::$pdftotext, '-layout '
-                    . \escapeshellarg($path) . ' '
-                    . \escapeshellarg($out)
-            );
+            try {
+                SystemUtils::runProc(
+                    self::$pdftotext, '-layout '
+                        . \escapeshellarg($path) . ' '
+                        . \escapeshellarg($out)
+                );
+            } catch (\Throwable $_) {
+                \unlink($out);
+
+                return '';
+            }
         }
 
         $text = \file_get_contents($out);
@@ -78,57 +84,71 @@ class PdfParser
             $text = '';
         }
 
-        if (\strlen($text) < 256) {
-            $out = \tempnam($tmpDir, 'oms_pdf_');
-            if ($out === false) {
-                return '';
-            }
+        if (\strlen($text) > 255) {
+            return $text;
+        }
 
-            if (\is_file(self::$pdftoppm)) {
+        $out = \tempnam($tmpDir, 'oms_pdf_');
+        if ($out === false) {
+            return '';
+        }
+
+        if (\is_file(self::$pdftoppm)) {
+            try {
                 SystemUtils::runProc(
                     self::$pdftoppm,
                     '-jpeg -r 300 '
                         . \escapeshellarg($path) . ' '
                         . \escapeshellarg($out)
                 );
-            }
-
-            $files = \glob($out . '*');
-            if ($files === false) {
+            } catch (\Throwable $_) {
                 \unlink($out);
 
-                return $text === false ? '' : $text;
+                return '';
+            }
+        }
+
+        $files = \glob($out . '*');
+        if ($files === false) {
+            \unlink($out);
+
+            return $text === false ? '' : $text;
+        }
+
+        foreach ($files as $file) {
+            if (!StringUtils::endsWith($file, '.jpg')
+                && !StringUtils::endsWith($file, '.png')
+                && !StringUtils::endsWith($file, '.gif')
+            ) {
+                continue;
             }
 
-            foreach ($files as $file) {
-                if (!StringUtils::endsWith($file, '.jpg')
-                    && !StringUtils::endsWith($file, '.png')
-                    && !StringUtils::endsWith($file, '.gif')
-                ) {
-                    continue;
-                }
+            /* Too slow
+            Thresholding::integralThresholding($file, $file);
+            Skew::autoRotate($file, $file, 10);
+            */
 
-                /* Too slow
-                Thresholding::integralThresholding($file, $file);
-                Skew::autoRotate($file, $file, 10);
-                */
-
-                if (!empty($optimizer) && \is_file($optimizer)) {
+            if (!empty($optimizer) && \is_file($optimizer)) {
+                try {
                     SystemUtils::runProc(
                         $optimizer,
                         \escapeshellarg($file) . ' '
                         . \escapeshellarg($file)
                     );
+                } catch (\Throwable $_) {
+                    \unlink($file);
+
+                    continue;
                 }
-
-                $ocr  = new TesseractOcr();
-                $text = $ocr->parseImage($file);
-
-                \unlink($file);
             }
 
-            \unlink($out);
+            $ocr  = new TesseractOcr();
+            $text = $ocr->parseImage($file);
+
+            \unlink($file);
         }
+
+        \unlink($out);
 
         return $text;
     }

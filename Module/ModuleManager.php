@@ -384,7 +384,7 @@ final class ModuleManager
             $this->deactivateModule($info);
 
             return true;
-        } catch (\Exception $e) {
+        } catch (\Exception $_) {
             return false; // @codeCoverageIgnore
         }
     }
@@ -436,7 +436,7 @@ final class ModuleManager
             $this->activateModule($info);
 
             return true;
-        } catch (\Exception $e) {
+        } catch (\Exception $_) {
             return false; // @codeCoverageIgnore
         }
     }
@@ -714,14 +714,14 @@ final class ModuleManager
         $class = '\\Modules\\' . $module . '\\Controller\\' . ($ctlName ?? $this->app->appName) . 'Controller';
 
         if (!isset($this->running[$class])) {
-            if (Autoloader::exists($class) !== false
-                || Autoloader::exists($class = '\\Modules\\' . $module . '\\Controller\\Controller') !== false
+            if (Autoloader::exists($class)
+                || Autoloader::exists($class = '\\Modules\\' . $module . '\\Controller\\Controller')
             ) {
                 try {
                     /** @var ModuleAbstract $obj */
                     $obj                   = new $class($this->app);
                     $this->running[$class] = $obj;
-                } catch (\Throwable $e) {
+                } catch (\Throwable $_) {
                     $this->running[$class] = new NullModule();
                 }
             } else {

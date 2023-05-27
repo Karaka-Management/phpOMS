@@ -92,19 +92,15 @@ class C128c extends BarAbstract
         $checkPos   = 1;
 
         for ($pos = 1; $pos <= $length; $pos += 2) {
-            if ($pos + 1 <= $length) {
-                $activeKey = \substr($this->content, ($pos - 1), 2);
-            } else {
-                $activeKey = \substr($this->content, ($pos - 1), 1) . '0';
-            }
+            $activeKey = $pos + 1 <= $length
+                ? \substr($this->content, ($pos - 1), 2)
+                : \substr($this->content, ($pos - 1), 1) . '0';
 
             $codeString .= self::$CODEARRAY[$activeKey];
             $checksum   += $values[$activeKey] * $checkPos;
             ++$checkPos;
         }
 
-        $codeString .= self::$CODEARRAY[$keys[($checksum - ((int) ($checksum / 103) * 103))]];
-
-        return $codeString;
+        return $codeString . self::$CODEARRAY[$keys[($checksum - ((int) ($checksum / 103) * 103))]];
     }
 }

@@ -57,7 +57,7 @@ final class QRDecomposition
     /**
      * R diagonal
      *
-     * @var array
+     * @var array<int, int|float>
      * @since 1.0.0
      */
     private array $Rdiag = [];
@@ -124,7 +124,7 @@ final class QRDecomposition
     public function isFullRank() : bool
     {
         for ($j = 0; $j < $this->n; ++$j) {
-            if ($this->Rdiag[$j] == 0) {
+            if (\abs($this->Rdiag[$j]) < Matrix::EPSILON) {
                 return false;
             }
         }
@@ -147,7 +147,7 @@ final class QRDecomposition
             for ($j = 0; $j < $this->n; ++$j) {
                 if ($i < $j) {
                     $R[$i][$j] = $this->QR[$i][$j];
-                } elseif ($i == $j) {
+                } elseif ($i === $j) {
                     $R[$i][$j] = $this->Rdiag[$i];
                 } else {
                     $R[$i][$j] = 0.0;

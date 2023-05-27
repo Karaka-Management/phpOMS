@@ -81,7 +81,7 @@ final class FileLoggerTest extends \PHPUnit\Framework\TestCase
         }
 
         $instance = FileLogger::getInstance(__DIR__ . '/named.log', false);
-        TestUtils::getMember($instance, 'instance', null);
+        TestUtils::getMember($instance, 'instance');
 
         $log = FileLogger::getInstance(__DIR__ . '/named.log', false);
         self::assertInstanceOf(FileLogger::class, $log);

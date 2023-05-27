@@ -239,8 +239,8 @@ final class StringUtils
      */
     public static function createDiffMarkup(string $old, string $new, string $delim = '') : string
     {
-        $splitOld = !empty($delim) ? \explode($delim, $old) : \str_split($old);
-        $splitNew = !empty($delim) ? \explode($delim, $new) : \str_split($new);
+        $splitOld = empty($delim) ? \str_split($old) : \explode($delim, $old);
+        $splitNew = empty($delim) ? \str_split($new) : \explode($delim, $new);
 
         if ($splitOld === false
             || (empty($old) && !empty($new))
@@ -398,10 +398,10 @@ final class StringUtils
      *
      * @since 1.0.0
      */
-    public static function isShellSafe(string $string)
+    public static function isShellSafe(string $string) : bool
     {
         if (\escapeshellcmd($string) !== $string
-            || !\in_array(\escapeshellarg($string), ["'${string}'", "\"${string}\""])
+            || !\in_array(\escapeshellarg($string), ["'{$string}'", "\"{$string}\""])
         ) {
             return false;
         }

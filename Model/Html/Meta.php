@@ -229,10 +229,10 @@ final class Meta implements RenderableInterface
      */
     public function render(mixed ...$data) : string
     {
-        return (\count($this->keywords) > 0 ? '<meta name="keywords" content="' . ViewAbstract::html(\implode(',', $this->keywords)) . '">' : '')
-        . (!empty($this->author) ? '<meta name="author" content="' . ViewAbstract::html($this->author) . '">' : '')
-        . (!empty($this->description) ? '<meta name="description" content="' . ViewAbstract::html($this->description) . '">' : '')
-        . (!empty($this->charset) ? '<meta charset="' . ViewAbstract::html($this->charset) . '">' : '')
+        return (empty($this->keywords) ? '' : '<meta name="keywords" content="' . ViewAbstract::html(\implode(',', $this->keywords)) . '">')
+        . (empty($this->author) ? '' : '<meta name="author" content="' . ViewAbstract::html($this->author) . '">')
+        . (empty($this->description) ? '' : '<meta name="description" content="' . ViewAbstract::html($this->description) . '">')
+        . (empty($this->charset) ? '' : '<meta charset="' . ViewAbstract::html($this->charset) . '">')
         . '<meta name="generator" content="Karaka">'
         . $this->renderProperty()
         . $this->renderItemprop()

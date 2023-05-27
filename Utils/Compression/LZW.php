@@ -44,7 +44,7 @@ class LZW implements CompressionInterface
             $wc = $w . $c;
 
             if (\array_key_exists($w . $c, $dictionary)) {
-                $w = $w . $c;
+                $w .= $c;
             } else {
                 $result[]        = $dictionary[$w];
                 $dictionary[$wc] = $dictSize++;
@@ -69,7 +69,7 @@ class LZW implements CompressionInterface
         $entry      = '';
         $dictSize   = 256;
 
-        if ($compressed === [] || $compressed === [''] || $compressed === false) {
+        if (empty($compressed) || $compressed === ['']) {
             return '';
         }
 

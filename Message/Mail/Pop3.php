@@ -277,7 +277,7 @@ class Pop3 implements MailBoxInterface
      */
     public function copyMail(string | array $messages, string $box) : bool
     {
-        return \imap_mail_copy($this->mailbox, !\is_string($messages) ? \implode(',', $messages) : $messages, '{' . $this->host . ':' . $this->port . $this->flags . '}' . $box);
+        return \imap_mail_copy($this->mailbox, \is_string($messages) ? $messages : \implode(',', $messages), '{' . $this->host . ':' . $this->port . $this->flags . '}' . $box);
     }
 
     /**
@@ -292,7 +292,7 @@ class Pop3 implements MailBoxInterface
      */
     public function moveMail(string | array $messages, string $box) : bool
     {
-        return \imap_mail_copy($this->mailbox, !\is_string($messages) ? \implode(',', $messages) : $messages, '{' . $this->host . ':' . $this->port . $this->flags . '}' . $box);
+        return \imap_mail_copy($this->mailbox, \is_string($messages) ? $messages : \implode(',', $messages), '{' . $this->host . ':' . $this->port . $this->flags . '}' . $box);
     }
 
     /**

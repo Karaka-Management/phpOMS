@@ -392,9 +392,9 @@ final class WriteMapper extends DataMapperAbstract
             if ($sth !== false) {
                 $sth->execute();
             }
-        } catch (\Throwable $e) {
+        } catch (\Throwable $t) {
             // @codeCoverageIgnoreStart
-            \var_dump($e->getMessage());
+            \var_dump($t->getMessage());
             \var_dump($relQuery->toSql());
             \var_dump(\debug_backtrace());
             // @codeCoverageIgnoreEnd

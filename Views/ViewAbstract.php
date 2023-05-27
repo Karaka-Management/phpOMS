@@ -302,7 +302,7 @@ abstract class ViewAbstract implements RenderableInterface
             if (\is_array($includeData)) {
                 $ob .= (string) \json_encode($includeData);
             }
-        } catch (\Throwable $e) {
+        } catch (\Throwable $_) {
             if ($obLevel > 0 && $this->isBuffered) {
                 $ob .= (string) \ob_get_clean();
             }
@@ -333,7 +333,7 @@ abstract class ViewAbstract implements RenderableInterface
 
             /** @noinspection PhpIncludeInspection */
             $ob = include $path;
-        } catch (\Throwable $e) {
+        } catch (\Throwable $_) {
             $ob = '';
         }
 

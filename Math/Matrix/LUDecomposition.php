@@ -119,10 +119,10 @@ final class LUDecomposition
                     $this->LU[$j][$k] = $t;
                 }
 
-                $k             = $this->piv[$p];
-                $this->piv[$p] = $this->piv[$j];
-                $this->piv[$j] = $k;
-                $this->pivSign = $this->pivSign * -1;
+                $k              = $this->piv[$p];
+                $this->piv[$p]  = $this->piv[$j];
+                $this->piv[$j]  = $k;
+                $this->pivSign *= -1;
             }
 
             if (($j < $this->m) && ($this->LU[$j][$j] != 0.0)) {
@@ -148,7 +148,7 @@ final class LUDecomposition
             for ($j = 0; $j < $this->n; ++$j) {
                 if ($i > $j) {
                     $L[$i][$j] = $this->LU[$i][$j];
-                } elseif ($i == $j) {
+                } elseif ($i === $j) {
                     $L[$i][$j] = 1.0;
                 } else {
                     $L[$i][$j] = 0.0;
@@ -175,11 +175,7 @@ final class LUDecomposition
 
         for ($i = 0; $i < $this->n; ++$i) {
             for ($j = 0; $j < $this->n; ++$j) {
-                if ($i <= $j) {
-                    $U[$i][$j] = $this->LU[$i][$j] ?? 0;
-                } else {
-                    $U[$i][$j] = 0.0;
-                }
+                $U[$i][$j] = $i <= $j ? $this->LU[$i][$j] ?? 0 : 0.0;
             }
         }
 

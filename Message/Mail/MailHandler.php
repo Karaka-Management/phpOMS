@@ -548,7 +548,7 @@ class MailHandler
             }
 
             if ($this->smtp->connect($prefix . $host, $port, $this->timeout, $options)) {
-                $hello = !empty($this->helo) ? $this->helo : SystemUtils::getHostname();
+                $hello = empty($this->helo) ? SystemUtils::getHostname() : $this->helo;
 
                 $this->smtp->hello($hello);
 

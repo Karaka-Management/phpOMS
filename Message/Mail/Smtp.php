@@ -543,7 +543,7 @@ class Smtp
                 continue;
             }
 
-            if (!$n) {
+            if ($n === 0) {
                 $name   = $type;
                 $fields = $fields[0];
             } else {
@@ -681,11 +681,7 @@ class Smtp
             $code = (int) \substr($this->lastReply, 0, 3);
         }
 
-        if (!\in_array($code, $expect, true)) {
-            return false;
-        }
-
-        return true;
+        return \in_array($code, $expect, true);
     }
 
     /**

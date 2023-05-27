@@ -97,7 +97,7 @@ final class HttpResponse extends ResponseAbstract implements RenderableInterface
     {
         $json = \json_decode($this->getRaw(), true);
 
-        return !\is_array($json) ? [] : $json;
+        return \is_array($json) ? $json : [];
     }
 
     /**
