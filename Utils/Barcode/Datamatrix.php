@@ -490,7 +490,7 @@ class Datamatrix extends TwoDAbstract
                 $numch[self::ENC_ASCII]  = \ceil($numch[self::ENC_ASCII]);
                 $numch[self::ENC_ASCII] += 2;
             } else {
-                $numch[self::ENC_ASCII]  = \ceil($numch[self::ENC_ASCII]);
+                $numch[self::ENC_ASCII] = \ceil($numch[self::ENC_ASCII]);
                 ++$numch[self::ENC_ASCII];
             }
 

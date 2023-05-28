@@ -22,7 +22,8 @@ declare(strict_types=1);
  * @link    https://jingga.app
  * @since   1.0.0
  */
-class Simplex {
+class Simplex
+{
     private array $function = [];
 
     private string $functionType = '';

@@ -298,7 +298,7 @@ final class ModuleManager
     {
         return [];
     }
-    *
+    */
 
     /**
      * Get all installed modules.
