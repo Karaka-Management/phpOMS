@@ -114,7 +114,7 @@ trait ISO3166RegionTrait
             case 'west-europe':
                 return [
                     self::_AUT, self::_BEL, self::_FRA, self::_DEU, self::_LIE,
-                    self::_LUX, self::_NLD, self::_MCO, self::_CHE
+                    self::_LUX, self::_NLD, self::_MCO, self::_CHE,
                 ];
             case 'middle-east':
                 return [

@@ -26,7 +26,7 @@ final class ForensicsTest extends \PHPUnit\Framework\TestCase
     public function testBenfordAnalysis() : void
     {
         $surface = [];
-        $fp = \fopen(__DIR__ . '/lakes.txt', 'r');
+        $fp      = \fopen(__DIR__ . '/lakes.txt', 'r');
         while (($line = \fgets($fp)) !== false) {
             $surface[] = (int) $line;
         }

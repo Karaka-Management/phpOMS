@@ -10,7 +10,7 @@
  * @license   https://opensource.org/licenses/mit-license.html MIT
  * @link      https://github.com/patrickschur/language-detection
  */
-declare(strict_types = 1);
+declare(strict_types=1);
 
 namespace phpOMS\Localization\LanguageDetection;
 
@@ -74,7 +74,7 @@ class Language extends NgramParser
      *
      * @since 1.0.0
      */
-    public function detect(string $str): LanguageResult
+    public function detect(string $str) : LanguageResult
     {
         $str     = \mb_strtolower($str);
         $samples = $this->getNgrams($str);

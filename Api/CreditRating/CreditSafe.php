@@ -173,23 +173,23 @@ final class CreditSafe implements CreditRatingInterface
         $request->header->set('Authorization', $token);
 
         $request->setData('contactInfo', [
-            'name' => $ownName,
+            'name'    => $ownName,
             'company' => [
-                'name' => $ownCompanyName,
+                'name'   => $ownCompanyName,
                 'number' => $ownCompanyRegistrationNo,
             ],
-            'emailAddress' => $ownEmail,
+            'emailAddress'   => $ownEmail,
             'searchCriteria' => [
-                'name' => $name,
+                'name'    => $name,
                 'address' => [
-                    'simple' => empty($address) ? null : $address,
+                    'simple'   => empty($address) ? null : $address,
                     'postcode' => empty($postal) ? null : $postal,
-                    'city' => empty($city) ? null : $city,
+                    'city'     => empty($city) ? null : $city,
                 ],
-                'regNo' => empty($$localRegistrationNo) ? null : $$localRegistrationNo,
-                'vatNo' => empty($vatNo) ? null : $vatNo,
+                'regNo'       => empty(${$localRegistrationNo}) ? null : ${$localRegistrationNo},
+                'vatNo'       => empty($vatNo) ? null : $vatNo,
                 'countryCode' => $country,
-            ]
+            ],
         ]);
 
         $response = Rest::request($request);

@@ -39,6 +39,6 @@ final class UUID
             throw new \InvalidArgumentException();
         }
 
-        return pack('Q', \time()) . ($length > 8 ? \random_bytes($length - 8) : '');
+        return \pack('Q', \time()) . ($length > 8 ? \random_bytes($length - 8) : '');
     }
 }

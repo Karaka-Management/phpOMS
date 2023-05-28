@@ -175,7 +175,7 @@ class PresentationWriter
         } elseif ($shape instanceof RichText) {
             $this->append('<li><span class="shape" id="div' . $shape->getHashCode() . '">Shape "RichText"</span></li>');
         } else {
-            var_dump($shape);
+            \var_dump($shape);
         }
     }
 
@@ -226,7 +226,7 @@ class PresentationWriter
                     $this->append('<dt>Background Color</dt><dd>#' . $oBkg->getColor()->getRGB() . '</dd>');
                 }
                 if ($oBkg instanceof Image) {
-                    $sBkgImgContents = file_get_contents($oBkg->getPath());
+                    $sBkgImgContents = \file_get_contents($oBkg->getPath());
                     $this->append('<dt>Background Image</dt><dd><img src="data:image/png;base64,' . \base64_encode($sBkgImgContents) . '"></dd>');
                 }
             }
@@ -275,7 +275,7 @@ class PresentationWriter
         $this->append('<dt>Height</dt><dd>' . $oShape->getHeight() . '</dd>');
         $this->append('<dt>Width</dt><dd>' . $oShape->getWidth() . '</dd>');
         $this->append('<dt>Rotation</dt><dd>' . $oShape->getRotation() . '°</dd>');
-        $this->append('<dt>Hyperlink</dt><dd>' . ucfirst(var_export($oShape->hasHyperlink(), true)) . '</dd>');
+        $this->append('<dt>Hyperlink</dt><dd>' . \ucfirst(\var_export($oShape->hasHyperlink(), true)) . '</dd>');
         $this->append('<dt>Fill</dt>');
 
         if ($oShape->getFill() === null) {
@@ -300,10 +300,10 @@ class PresentationWriter
         if ($oShape instanceof Gd) {
             $this->append('<dt>Name</dt><dd>' . $oShape->getName() . '</dd>');
             $this->append('<dt>Description</dt><dd>' . $oShape->getDescription() . '</dd>');
-            ob_start();
-            call_user_func($oShape->getRenderingFunction(), $oShape->getImageResource());
-            $sShapeImgContents = ob_get_contents();
-            ob_end_clean();
+            \ob_start();
+            \call_user_func($oShape->getRenderingFunction(), $oShape->getImageResource());
+            $sShapeImgContents = \ob_get_contents();
+            \ob_end_clean();
             $this->append('<dt>Mime-Type</dt><dd>' . $oShape->getMimeType() . '</dd>');
             $this->append('<dt>Image</dt><dd><img src="data:' . $oShape->getMimeType() . ';base64,' . \base64_encode($sShapeImgContents) . '"></dd>');
 
@@ -311,12 +311,11 @@ class PresentationWriter
                 $this->append('<dt>Hyperlink URL</dt><dd>' . $oShape->getHyperlink()->getUrl() . '</dd>');
                 $this->append('<dt>Hyperlink Tooltip</dt><dd>' . $oShape->getHyperlink()->getTooltip() . '</dd>');
             }
-
         } elseif ($oShape instanceof AbstractDrawingAdapter) {
             $this->append('<dt>Name</dt><dd>' . $oShape->getName() . '</dd>');
             $this->append('<dt>Description</dt><dd>' . $oShape->getDescription() . '</dd>');
         } elseif ($oShape instanceof RichText) {
-            $this->append('<dt># of paragraphs</dt><dd>' . count($oShape->getParagraphs()) . '</dd>');
+            $this->append('<dt># of paragraphs</dt><dd>' . \count($oShape->getParagraphs()) . '</dd>');
             $this->append('<dt>Inset (T / R / B / L)</dt><dd>' . $oShape->getInsetTop() . 'px / ' . $oShape->getInsetRight() . 'px / ' . $oShape->getInsetBottom() . 'px / ' . $oShape->getInsetLeft() . 'px</dd>');
             $this->append('<dt>Text</dt>');
             $this->append('<dd>');
@@ -330,16 +329,16 @@ class PresentationWriter
                 $this->append('<dt>Alignment Level</dt><dd>' . $oParagraph->getAlignment()->getLevel() . '</dd>');
                 $this->append('<dt>Bullet Style</dt><dd> Bullet::' . $this->getConstantName('\PhpOffice\PhpPresentation\Style\Bullet', $oParagraph->getBulletStyle()->getBulletType()) . '</dd>');
 
-                if (Bullet::TYPE_NONE != $oParagraph->getBulletStyle()->getBulletType()) {
+                if ($oParagraph->getBulletStyle()->getBulletType() != Bullet::TYPE_NONE) {
                     $this->append('<dt>Bullet Font</dt><dd>' . $oParagraph->getBulletStyle()->getBulletFont() . '</dd>');
                     $this->append('<dt>Bullet Color</dt><dd>' . $oParagraph->getBulletStyle()->getBulletColor()->getARGB() . '</dd>');
                 }
 
-                if (Bullet::TYPE_BULLET == $oParagraph->getBulletStyle()->getBulletType()) {
+                if ($oParagraph->getBulletStyle()->getBulletType() == Bullet::TYPE_BULLET) {
                     $this->append('<dt>Bullet Char</dt><dd>' . $oParagraph->getBulletStyle()->getBulletChar() . '</dd>');
                 }
 
-                if (Bullet::TYPE_NUMERIC == $oParagraph->getBulletStyle()->getBulletType()) {
+                if ($oParagraph->getBulletStyle()->getBulletType() == Bullet::TYPE_NUMERIC) {
                     $this->append('<dt>Bullet Start At</dt><dd>' . $oParagraph->getBulletStyle()->getBulletNumericStartAt() . '</dd>');
                     $this->append('<dt>Bullet Style</dt><dd>' . $oParagraph->getBulletStyle()->getBulletNumericStyle() . '</dd>');
                 }

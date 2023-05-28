@@ -15,7 +15,6 @@ declare(strict_types=1);
 namespace phpOMS\Router;
 
 use phpOMS\Account\Account;
-use phpOMS\Account\NullAccount;
 
 /**
  * Router class for web routes.

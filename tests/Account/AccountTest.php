@@ -225,7 +225,7 @@ final class AccountTest extends \PHPUnit\Framework\TestCase
     public function testGroupPmerissionExists() : void
     {
         $account = new Account();
-        $group = new NullGroup(2);
+        $group   = new NullGroup(2);
 
         $perm = new class() extends PermissionAbstract {};
         $perm->addPermission(PermissionType::CREATE);

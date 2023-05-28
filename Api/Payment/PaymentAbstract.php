@@ -24,7 +24,7 @@ namespace phpOMS\Api\Payment;
  */
 abstract class PaymentAbstract
 {
-        /**
+    /**
      * Create/execute a charge
      *
      * @param int    $customer Customer id

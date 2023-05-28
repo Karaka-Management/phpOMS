@@ -10,7 +10,7 @@
  * @license   https://opensource.org/licenses/mit-license.html MIT
  * @link      https://github.com/patrickschur/language-detection
  */
-declare(strict_types = 1);
+declare(strict_types=1);
 
 namespace phpOMS\Localization\LanguageDetection;
 
@@ -85,7 +85,7 @@ abstract class NgramParser
      *
      * @since 1.0.0
      */
-    protected function getNgrams(string $str): array
+    protected function getNgrams(string $str) : array
     {
         $tokens = [];
 

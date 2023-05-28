@@ -66,14 +66,13 @@ final class Forecasts
 
         // Calculate the seasonal index for each period
         $seasonalIndex = [];
-        for ($i = 0; $i < $seasonality; $i++) {
+        for ($i = 0; $i < $seasonality; ++$i) {
             $seasonalIndex[$i] = 0;
             $count             = 0;
 
-
             for ($j = $i; $j < $size; $j += $seasonality) {
                 $seasonalIndex[$i] += $history[$j];
-                $count++;
+                ++$count;
             }
 
             if ($count > 0) {
@@ -84,7 +83,7 @@ final class Forecasts
 
         // Forecast the next periods
         $forecast = [];
-        for ($i = 1; $i <= $periods; $i++) {
+        for ($i = 1; $i <= $periods; ++$i) {
             $seasonalMultiplier = $seasonalIndex[($i - 1) % $seasonality];
             $forecast[]         = $avg * $seasonalMultiplier + ($stdDeviation * $i);
         }

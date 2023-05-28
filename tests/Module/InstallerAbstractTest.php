@@ -50,7 +50,7 @@ final class InstallerAbstractTest extends \PHPUnit\Framework\TestCase
     {
         $this->expectException(\UnexpectedValueException::class);
 
-        $app = new class() extends ApplicationAbstract {};
+        $app         = new class() extends ApplicationAbstract {};
         $app->dbPool = $GLOBALS['dbpool'];
 
     	$this->installer::install(

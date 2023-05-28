@@ -35,7 +35,7 @@ class ICalParser
      */
     public static function parse(string $data) : array
     {
-        \preg_match_all('/BEGIN:VEVENT(.*?)END:VEVENT/s', $data, $matches, PREG_SET_ORDER);
+        \preg_match_all('/BEGIN:VEVENT(.*?)END:VEVENT/s', $data, $matches, \PREG_SET_ORDER);
 
         $eventList = [];
 
@@ -67,7 +67,7 @@ class ICalParser
             $event['location'] = $locationMatch[1];
 
             // Check if this event is recurring
-            if (preg_match('/RRULE:(.*?)\r\n/', $match[1], $rruleMatch)) {
+            if (\preg_match('/RRULE:(.*?)\r\n/', $match[1], $rruleMatch)) {
                 $rrule = self::parseRRule($rruleMatch[1]);
                 $event = \array_merge($event, $rrule);
             }

@@ -75,7 +75,7 @@ final class Money extends FloatInt
      */
     public function getCurrency(?int $decimals = 2, int $position = null, string $symbol = null) : string
     {
-        return (($position ?? $this->position) === 0 && !empty($symbol ?? $this->symbol) ? ($symbol ?? $this->symbol) . ' ' : '' )
+        return (($position ?? $this->position) === 0 && !empty($symbol ?? $this->symbol) ? ($symbol ?? $this->symbol) . ' ' : '')
             . $this->getAmount($decimals)
             . (($position ?? $this->position) === 1 && !empty($symbol ?? $this->symbol) ? ' ' . ($symbol ?? $this->symbol) : '');
     }

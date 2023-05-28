@@ -481,7 +481,7 @@ class Datamatrix extends TwoDAbstract
 
             // get char
             $chr = \ord($data[$pos + $charscount]);
-            $charscount++;
+            ++$charscount;
 
             // STEP L
             if ($this->isCharMode($chr, self::ENC_ASCII_NUM)) {
@@ -491,7 +491,7 @@ class Datamatrix extends TwoDAbstract
                 $numch[self::ENC_ASCII] += 2;
             } else {
                 $numch[self::ENC_ASCII]  = \ceil($numch[self::ENC_ASCII]);
-                $numch[self::ENC_ASCII] += 1;
+                ++$numch[self::ENC_ASCII];
             }
 
             // STEP M
@@ -534,7 +534,7 @@ class Datamatrix extends TwoDAbstract
             if ($this->isCharMode($chr, self::ENC_BASE256)) {
                 $numch[self::ENC_BASE256] += 4;
             } else {
-                $numch[self::ENC_BASE256] += 1;
+                ++$numch[self::ENC_BASE256];
             }
 
             // STEP R
@@ -693,7 +693,7 @@ class Datamatrix extends TwoDAbstract
                             && $this->isCharMode(\ord($data[$pos + 1]), self::ENC_ASCII_NUM))
                     ) {
                         // 1. If the next data sequence is at least 2 consecutive digits, encode the next two digits as a double digit in ASCII mode.
-                        $cw[] = ((int) substr($data, $pos, 2) + 130);
+                        $cw[] = ((int) \substr($data, $pos, 2) + 130);
                         ++$cw_num;
                         $pos += 2;
                     } else {
@@ -906,19 +906,19 @@ class Datamatrix extends TwoDAbstract
                             $tcw = (($temp_cw[0] & 0x3F) << 2) + (($temp_cw[1] & 0x30) >> 4);
                             if ($tcw > 0) {
                                 $cw[] = $tcw;
-                                $cw_num++;
+                                ++$cw_num;
                             }
 
                             $tcw = (($temp_cw[1] & 0x0F) << 4) + (($temp_cw[2] & 0x3C) >> 2);
                             if ($tcw > 0) {
                                 $cw[] = $tcw;
-                                $cw_num++;
+                                ++$cw_num;
                             }
 
                             $tcw = (($temp_cw[2] & 0x03) << 6) + ($temp_cw[3] & 0x3F);
                             if ($tcw > 0) {
                                 $cw[] = $tcw;
-                                $cw_num++;
+                                ++$cw_num;
                             }
 
                             $temp_cw      = [];

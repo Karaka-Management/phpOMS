@@ -27,6 +27,7 @@ require_once __DIR__ . '/../Autoloader.php';
 final class L11nManagerTest extends \PHPUnit\Framework\TestCase
 {
     protected L11nManager $l11nManager;
+
     protected L11nManager $l11nManager2;
 
     /**

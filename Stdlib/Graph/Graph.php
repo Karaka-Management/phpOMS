@@ -649,7 +649,7 @@ class Graph
      *
      * @since 1.0.0
      */
-    private function longestPathDfs(Node $node, &$visited, &$path, &$longestPath)
+    private function longestPathDfs(Node $node, &$visited, &$path, &$longestPath) : void
     {
         $visited[$node->getId()] = true;
         $path[]                  = $node;

@@ -649,9 +649,9 @@ class Smtp
     /**
      * Send a command to an SMTP server and check its return code.
      *
-     * @param string    $command       The command name - not sent to the server
-     * @param string    $commandstring The actual command to send
-     * @param int[]     $expect        One or more expected integer success codes
+     * @param string $command       The command name - not sent to the server
+     * @param string $commandstring The actual command to send
+     * @param int[]  $expect        One or more expected integer success codes
      *
      * @return bool
      *

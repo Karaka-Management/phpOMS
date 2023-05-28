@@ -439,7 +439,7 @@ class MailHandler
             return false;
         }
 
-        $badRcpt = [];
+        $badRcpt   = [];
         $receivers = [$mail->to, $mail->cc, $mail->bcc];
         foreach ($receivers as $togroup) {
             foreach ($togroup as $to) {

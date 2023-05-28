@@ -298,7 +298,7 @@ final class BasicOcr
                 }
             }
 
-            for ($i = 0; $i < $size; $i++) {
+            for ($i = 0; $i < $size; ++$i) {
                 \fwrite($out, \pack('C', \round($mnist[$i] * 255)));
             }
         }

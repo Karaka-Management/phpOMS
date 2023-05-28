@@ -10,7 +10,7 @@
  * @license   https://opensource.org/licenses/mit-license.html MIT
  * @link      https://github.com/patrickschur/language-detection
  */
-declare(strict_types = 1);
+declare(strict_types=1);
 
 namespace phpOMS\Localization\LanguageDetection\Tokenizer;
 
@@ -33,7 +33,7 @@ class WhitespaceTokenizer
      *
      * @since 1.0.0
      */
-    public function tokenize(string $str): array
+    public function tokenize(string $str) : array
     {
         return \array_map(
             function ($word) {

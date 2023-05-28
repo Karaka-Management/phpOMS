@@ -16,7 +16,6 @@ namespace phpOMS\Dispatcher;
 
 use phpOMS\Application\ApplicationAbstract;
 use phpOMS\Autoloader;
-use phpOMS\Module\ModuleAbstract;
 use phpOMS\System\File\PathException;
 
 /**

@@ -51,10 +51,10 @@ final class EncryptionHelper
     public static function encryptShared(string $message, string $keyHex) : string
     {
         $secretKey  = \sodium_hex2bin($keyHex);
-        $nonce      = \random_bytes(SODIUM_CRYPTO_SECRETBOX_NONCEBYTES);
+        $nonce      = \random_bytes(\SODIUM_CRYPTO_SECRETBOX_NONCEBYTES);
         $ciphertext = \sodium_crypto_secretbox($message, $nonce, $secretKey);
 
-        $result = \sodium_bin2base64($nonce . $ciphertext, SODIUM_BASE64_VARIANT_ORIGINAL);
+        $result = \sodium_bin2base64($nonce . $ciphertext, \SODIUM_BASE64_VARIANT_ORIGINAL);
 
         \sodium_memzero($nonce);
         \sodium_memzero($secretKey);
@@ -89,7 +89,7 @@ final class EncryptionHelper
         }
 
         $secretKey = \sodium_hex2bin($keyHex);
-        $nonce     = \random_bytes(SODIUM_CRYPTO_SECRETBOX_NONCEBYTES);
+        $nonce     = \random_bytes(\SODIUM_CRYPTO_SECRETBOX_NONCEBYTES);
 
         \fwrite($fpEncoded, $nonce);
 
@@ -97,7 +97,7 @@ final class EncryptionHelper
             $buffer     = \fread($fpSource, 4096);
             $ciphertext = \sodium_crypto_secretbox($buffer, $nonce, $secretKey);
 
-            fwrite($fpEncoded, $ciphertext);
+            \fwrite($fpEncoded, $ciphertext);
         }
 
         \fclose($fpSource);
@@ -139,9 +139,9 @@ final class EncryptionHelper
 
         $secretKey = \sodium_hex2bin($keyHex);
 
-        $ciphertext = \sodium_base642bin($encrypted, SODIUM_BASE64_VARIANT_ORIGINAL);
-        $nonce      = \mb_substr($ciphertext, 0, SODIUM_CRYPTO_SECRETBOX_NONCEBYTES, '8bit');
-        $ciphertext = \mb_substr($ciphertext, SODIUM_CRYPTO_SECRETBOX_NONCEBYTES, null, '8bit');
+        $ciphertext = \sodium_base642bin($encrypted, \SODIUM_BASE64_VARIANT_ORIGINAL);
+        $nonce      = \mb_substr($ciphertext, 0, \SODIUM_CRYPTO_SECRETBOX_NONCEBYTES, '8bit');
+        $ciphertext = \mb_substr($ciphertext, \SODIUM_CRYPTO_SECRETBOX_NONCEBYTES, null, '8bit');
 
         $plaintext = \sodium_crypto_secretbox_open($ciphertext, $nonce, $secretKey);
 
@@ -166,11 +166,11 @@ final class EncryptionHelper
         }
 
         $secretKey = \sodium_hex2bin($keyHex);
-        $nonce     = \fread($fpSource, SODIUM_CRYPTO_SECRETBOX_NONCEBYTES);
+        $nonce     = \fread($fpSource, \SODIUM_CRYPTO_SECRETBOX_NONCEBYTES);
 
         while (!\feof($fpSource)) {
             $buffer     = \fread($fpSource, 4096);
-            $ciphertext = \mb_substr($buffer, SODIUM_CRYPTO_SECRETBOX_NONCEBYTES, null, '8bit');
+            $ciphertext = \mb_substr($buffer, \SODIUM_CRYPTO_SECRETBOX_NONCEBYTES, null, '8bit');
 
             $plaintext = \sodium_crypto_secretbox_open($ciphertext, $nonce, $secretKey);
 
@@ -243,10 +243,10 @@ final class EncryptionHelper
         $publicKey  = \sodium_hex2bin($publicKeyHex);
 
         $key        = \sodium_crypto_box_keypair_from_secretkey_and_publickey($privateKey, $publicKey);
-        $nonce      = \random_bytes(SODIUM_CRYPTO_BOX_NONCEBYTES);
+        $nonce      = \random_bytes(\SODIUM_CRYPTO_BOX_NONCEBYTES);
         $ciphertext = \sodium_crypto_box($message, $nonce, $key);
 
-        $result = \sodium_bin2base64($nonce . $ciphertext, SODIUM_BASE64_VARIANT_ORIGINAL);
+        $result = \sodium_bin2base64($nonce . $ciphertext, \SODIUM_BASE64_VARIANT_ORIGINAL);
 
         \sodium_memzero($key);
         \sodium_memzero($nonce);
@@ -283,9 +283,9 @@ final class EncryptionHelper
         $privateKey = \sodium_hex2bin($privateKeyHex);
         $publicKey  = \sodium_hex2bin($publicKeyHex);
 
-        $message    = \sodium_base642bin($encrypted, SODIUM_BASE64_VARIANT_ORIGINAL);
-        $nonce      = \mb_substr($message, 0, SODIUM_CRYPTO_BOX_NONCEBYTES, '8bit');
-        $ciphertext = \mb_substr($message, SODIUM_CRYPTO_BOX_NONCEBYTES, null, '8bit');
+        $message    = \sodium_base642bin($encrypted, \SODIUM_BASE64_VARIANT_ORIGINAL);
+        $nonce      = \mb_substr($message, 0, \SODIUM_CRYPTO_BOX_NONCEBYTES, '8bit');
+        $ciphertext = \mb_substr($message, \SODIUM_CRYPTO_BOX_NONCEBYTES, null, '8bit');
 
         $key = \sodium_crypto_box_keypair_from_secretkey_and_publickey($privateKey, $publicKey);
 

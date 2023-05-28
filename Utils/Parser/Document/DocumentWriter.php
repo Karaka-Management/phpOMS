@@ -38,11 +38,11 @@ class DocumentWriter extends AbstractRenderer implements WriterInterface
      *
      * @since 1.0.0
      */
-    public function toPdfString($filename = null): string
+    public function toPdfString($filename = null) : string
     {
         //  PDF settings
-        $paperSize   = strtoupper('A4');
-        $orientation = strtoupper('portrait');
+        $paperSize   = \strtoupper('A4');
+        $orientation = \strtoupper('portrait');
 
         //  Create PDF
         $pdf = new \Mpdf\Mpdf();

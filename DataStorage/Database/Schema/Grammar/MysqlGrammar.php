@@ -48,7 +48,7 @@ class MysqlGrammar extends Grammar
     /**
      * {@inheritdoc}
      */
-    public function compilePostQueries(BuilderAbstract $query): array
+    public function compilePostQueries(BuilderAbstract $query) : array
     {
         /** @var SchemaBuilder $query */
 
@@ -66,7 +66,7 @@ class MysqlGrammar extends Grammar
                                 . ' WHERE';
 
                         foreach ($field['meta']['multi_autoincrement'] as $index => $autoincrement) {
-                            $tmpSql .= ($index > 0 ? ' AND' : '' ) . ' ' . $autoincrement . ' = NEW.' . $autoincrement;
+                            $tmpSql .= ($index > 0 ? ' AND' : '') . ' ' . $autoincrement . ' = NEW.' . $autoincrement;
                         }
 
                         $tmpSql .= ' LIMIT 1); END;';

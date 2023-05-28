@@ -158,7 +158,7 @@ class Grammar extends GrammarAbstract
      *
      * @since 1.0.0
      */
-    public function compilePostQueries(BuilderAbstract $query): array
+    public function compilePostQueries(BuilderAbstract $query) : array
     {
         return [];
     }

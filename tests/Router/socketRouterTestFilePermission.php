@@ -8,8 +8,8 @@ return [
         0 => [
             'dest'       => '\Modules\Admin\Controller:viewSettingsGeneral',
             'permission' => [
-                'module' => 'TEST',
-                'type'   => PermissionType::READ,
+                'module'    => 'TEST',
+                'type'      => PermissionType::READ,
                 'category'  => 1,
             ],
         ],

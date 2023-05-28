@@ -29,7 +29,7 @@ final class EncryptionHelperTest extends \PHPUnit\Framework\TestCase
     {
         $plain = 'This is a test message.';
 
-        $key = EncryptionHelper::createSharedKey();
+        $key       = EncryptionHelper::createSharedKey();
         $encrypted = EncryptionHelper::encryptShared($plain, $key);
 
         self::assertNotEquals($plain, $encrypted);
@@ -40,7 +40,7 @@ final class EncryptionHelperTest extends \PHPUnit\Framework\TestCase
     {
         $plain = 'This is a test message.';
 
-        $keys = EncryptionHelper::createPairedKey();
+        $keys      = EncryptionHelper::createPairedKey();
         $encrypted = EncryptionHelper::encryptSecret($plain, $keys['alicePrivate'], $keys['bobPublic']);
 
         self::assertNotEquals($plain, $encrypted);
@@ -65,7 +65,7 @@ final class EncryptionHelperTest extends \PHPUnit\Framework\TestCase
             \file_get_contents(__DIR__ . '/encrytped.txt')
         );
 
-        self::assertTrue( EncryptionHelper::decryptFile(__DIR__ . '/encrytped.txt', __DIR__ . '/decrypted.txt', $key));
+        self::assertTrue(EncryptionHelper::decryptFile(__DIR__ . '/encrytped.txt', __DIR__ . '/decrypted.txt', $key));
 
         self::assertEquals(
             \file_get_contents(__DIR__ . '/plain.txt'),

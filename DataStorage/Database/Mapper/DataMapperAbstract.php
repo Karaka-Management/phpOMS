@@ -343,11 +343,11 @@ abstract class DataMapperAbstract
         $memberSplit = \array_shift($split);
 
         $this->join[$memberSplit][] = [
-            'child' => \implode('/', $split),
+            'child'  => \implode('/', $split),
             'mapper' => $mapper,
-            'value' => $value,
-            'logic' => $logic,
-            'type'  => $type,
+            'value'  => $value,
+            'logic'  => $logic,
+            'type'   => $type,
         ];
 
         return $this;

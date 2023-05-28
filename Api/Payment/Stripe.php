@@ -14,8 +14,6 @@ declare(strict_types=1);
 
 namespace phpOMS\Api\Payment;
 
-use Stripe\StripeClient;
-
 /**
  * Strip generator.
  *

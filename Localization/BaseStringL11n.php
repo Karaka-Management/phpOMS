@@ -14,9 +14,6 @@ declare(strict_types=1);
 
 namespace phpOMS\Localization;
 
-use phpOMS\Localization\ISO639x1Enum;
-use phpOMS\Localization\ISO3166TwoEnum;
-
 /**
  * String l11n class.
  *

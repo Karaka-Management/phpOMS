@@ -10,7 +10,7 @@
  * @license   https://opensource.org/licenses/mit-license.html MIT
  * @link      https://github.com/patrickschur/language-detection
  */
-declare(strict_types = 1);
+declare(strict_types=1);
 
 namespace phpOMS\Localization\LanguageDetection;
 
@@ -33,7 +33,7 @@ class Trainer extends NgramParser
      *
      * @since 1.0.0
      */
-    public function learn(string $dirname = '')
+    public function learn(string $dirname = '') : void
     {
         if (empty($dirname)) {
             $dirname = __DIR__ . '/resources/*/*.txt';
@@ -55,7 +55,7 @@ class Trainer extends NgramParser
 
             \file_put_contents(
                 \substr_replace($txt->getPathname(), 'php', -3),
-                \sprintf("<?php\n\nreturn %s;\n", var_export([ $txt->getBasename('.txt') => $this->getNgrams($content) ], true))
+                \sprintf("<?php\n\nreturn %s;\n", \var_export([$txt->getBasename('.txt') => $this->getNgrams($content)], true))
             );
         }
     }

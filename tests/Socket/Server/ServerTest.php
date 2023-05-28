@@ -59,15 +59,15 @@ final class ServerTest extends \PHPUnit\Framework\TestCase
             protected string $appName = 'Socket';
         };
 
-        $this->app->logger         = new FileLogger(__DIR__ . '/server.log', false);
-        $this->app->dbPool         = $GLOBALS['dbpool'];
+        $this->app->logger          = new FileLogger(__DIR__ . '/server.log', false);
+        $this->app->dbPool          = $GLOBALS['dbpool'];
         $this->app->unitId          = 1;
-        $this->app->cachePool      = new CachePool($this->app->dbPool);
-        $this->app->accountManager = new AccountManager($GLOBALS['session']);
-        $this->app->appSettings    = new CoreSettings();
-        $this->app->moduleManager  = new ModuleManager($this->app, __DIR__ . '/../../../../Modules/');
-        $this->app->dispatcher     = new Dispatcher($this->app);
-        $this->app->eventManager   = new EventManager($this->app->dispatcher);
+        $this->app->cachePool       = new CachePool($this->app->dbPool);
+        $this->app->accountManager  = new AccountManager($GLOBALS['session']);
+        $this->app->appSettings     = new CoreSettings();
+        $this->app->moduleManager   = new ModuleManager($this->app, __DIR__ . '/../../../../Modules/');
+        $this->app->dispatcher      = new Dispatcher($this->app);
+        $this->app->eventManager    = new EventManager($this->app->dispatcher);
         $this->app->eventManager->importFromFile(__DIR__ . '/../../../Socket/Hooks.php');
         $this->app->l11nManager    = new L11nManager();
         $this->app->router         = new SocketRouter();

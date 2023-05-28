@@ -35,7 +35,7 @@ use phpOMS\DataStorage\Database\Query\Where;
  */
 class Grammar extends GrammarAbstract
 {
-     /**
+    /**
      * {@inheritdoc}
      */
     protected function compileComponents(BuilderAbstract $query) : array

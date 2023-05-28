@@ -14,8 +14,6 @@ declare(strict_types=1);
 
 namespace phpOMS\Utils\Barcode;
 
-use phpOMS\Stdlib\Base\Exception\InvalidEnumValue;
-
 /**
  * Code 128 abstract class.
  *

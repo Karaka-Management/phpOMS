@@ -49,15 +49,15 @@ $app = new class() extends ApplicationAbstract
     protected string $appName = 'Socket';
 };
 
-$app->logger         = FileLogger::getInstance(__DIR__ . '/server.log', true);
-$app->dbPool         = $GLOBALS['dbpool'];
+$app->logger          = FileLogger::getInstance(__DIR__ . '/server.log', true);
+$app->dbPool          = $GLOBALS['dbpool'];
 $app->unitId          = 1;
-$app->cachePool      = new CachePool($app->dbPool);
-$app->accountManager = new AccountManager($GLOBALS['session']);
-$app->appSettings    = new CoreSettings($app->dbPool->get());
-$app->moduleManager  = new ModuleManager($app, __DIR__ . '/../../../../Modules/');
-$app->dispatcher     = new Dispatcher($app);
-$app->eventManager   = new EventManager($app->dispatcher);
+$app->cachePool       = new CachePool($app->dbPool);
+$app->accountManager  = new AccountManager($GLOBALS['session']);
+$app->appSettings     = new CoreSettings($app->dbPool->get());
+$app->moduleManager   = new ModuleManager($app, __DIR__ . '/../../../../Modules/');
+$app->dispatcher      = new Dispatcher($app);
+$app->eventManager    = new EventManager($app->dispatcher);
 $app->eventManager->importFromFile(__DIR__ . '/../../../Socket/Hooks.php');
 $app->l11nManager    = new L11nManager();
 $app->router         = new SocketRouter();

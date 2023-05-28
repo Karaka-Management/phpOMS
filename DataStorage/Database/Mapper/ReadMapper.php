@@ -383,7 +383,6 @@ final class ReadMapper extends DataMapperAbstract
                             $join['mapper']::TABLE . '_d' . ($this->depth + 1)
                         );
                 }
-
             }
         }
 

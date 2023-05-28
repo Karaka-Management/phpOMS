@@ -1257,8 +1257,7 @@ class Email implements MessageInterface
                                 $disposition,
                                 self::quotedString($encodedName),
                                 self::$LE . self::$LE
-            )               ;
-
+            );
             } else {
                 $mime[] = self::$LE;
             }

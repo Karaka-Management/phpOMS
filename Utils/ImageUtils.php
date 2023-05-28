@@ -181,7 +181,6 @@ final class ImageUtils
      * @param int    $diff Difference image type (0 = only show differences of img2, 1 = make differences red/green colored)
      *
      * @return int Amount of pixel differences
-     *
      */
     public static function difference(string $img1, string $img2, string $out = '', int $diff = 0) : int
     {
@@ -343,12 +342,12 @@ final class ImageUtils
     /**
      * Calculate the average color of an image at a specific position
      *
-     * @param resource $src   Image resource
-     * @param int      $x     X position
-     * @param int      $y     Y position
-     * @param int      $width Image width
+     * @param resource $src    Image resource
+     * @param int      $x      X position
+     * @param int      $y      Y position
+     * @param int      $width  Image width
      * @param int      $height Image height
-     * @param int      $area  Area to calculate average color
+     * @param int      $area   Area to calculate average color
      *
      * @return int
      *

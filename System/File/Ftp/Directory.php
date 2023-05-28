@@ -393,13 +393,13 @@ class Directory extends FileAbstract implements DirectoryInterface
 
             $e = [
                 'permission' => '',
-                'number' => '',
-                'user' => '',
-                'group' => '',
-                'size' => '',
-                'month' => '',
-                'day' => '',
-                'time' => '',
+                'number'     => '',
+                'user'       => '',
+                'group'      => '',
+                'size'       => '',
+                'month'      => '',
+                'day'        => '',
+                'time'       => '',
             ];
 
             list(

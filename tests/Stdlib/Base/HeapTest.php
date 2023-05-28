@@ -38,7 +38,7 @@ final class HeapTest extends \PHPUnit\Framework\TestCase
                 new HeapItem(6),
                 new HeapItem(1),
                 new HeapItem(5),
-                new HeapItem(4)
+                new HeapItem(4),
             ]
         );
 
@@ -79,7 +79,7 @@ final class HeapTest extends \PHPUnit\Framework\TestCase
                 new HeapItem(6),
                 new HeapItem(1),
                 new HeapItem(5),
-                new HeapItem(4)
+                new HeapItem(4),
             ]
         );
         $heap->insort(new HeapItem(2));
@@ -156,7 +156,7 @@ final class HeapTest extends \PHPUnit\Framework\TestCase
                 new HeapItem(2),
                 new HeapItem(3),
                 new HeapItem(4),
-                new HeapItem(5)
+                new HeapItem(5),
             ],
             $heap->toArray()
         );
@@ -181,7 +181,7 @@ final class HeapTest extends \PHPUnit\Framework\TestCase
                 new HeapItem(3),
                 new HeapItem(3),
                 new HeapItem(4),
-                new HeapItem(5)
+                new HeapItem(5),
             ],
             $heap->toArray()
         );
@@ -209,7 +209,7 @@ final class HeapTest extends \PHPUnit\Framework\TestCase
                 new HeapItem(3),
                 new HeapItem(4),
                 new HeapItem(5),
-                new HeapItem(6)
+                new HeapItem(6),
             ],
             $heapArray
         );

@@ -45,13 +45,13 @@ final class EUVATVies implements EUVATInterface
     public static function validate(string $otherVAT, string $ownVAT = '') : array
     {
         $result = [
-            'status' => -1,
-            'vat'   => 'B',
-            'name'   => '',
-            'city'   => '',
-            'postal' => '',
+            'status'  => -1,
+            'vat'     => 'B',
+            'name'    => '',
+            'city'    => '',
+            'postal'  => '',
             'address' => '',
-            'body' => '',
+            'body'    => '',
         ];
 
         if (empty($otherVAT)) {
@@ -128,7 +128,7 @@ final class EUVATVies implements EUVATInterface
             $body           = Rest::request($request)->getBody();
             $result['body'] = $body;
 
-             /** @var array $json */
+            /** @var array $json */
             $json = \json_decode($body, true);
             if ($json === false) {
                 return $result;
@@ -226,7 +226,6 @@ final class EUVATVies implements EUVATInterface
         $result['address'] = \stripos($json['address'], "\n") !== false
             ? \substr($json['address'], 0, \stripos($json['address'], "\n") - 1)
             : $json['address'];
-
 
         $result['name']    = $result['name'] === '---' ? '' : $result['name'];
         $result['city']    = $result['city'] === '---' ? '' : $result['city'];

@@ -88,7 +88,7 @@ final class FileTest extends \PHPUnit\Framework\TestCase
      */
     public function testInvalidConnection() : void
     {
-        self::assertEquals(null, File::ftpConnect(new HttpUri('ftp://karaka.app:21')));
+        self::assertNull(File::ftpConnect(new HttpUri('ftp://karaka.app:21')));
     }
 
     /**

@@ -10,7 +10,7 @@
  * @license   https://opensource.org/licenses/mit-license.html MIT
  * @link      https://github.com/patrickschur/language-detection
  */
-declare(strict_types = 1);
+declare(strict_types=1);
 
 namespace phpOMS\Localization\LanguageDetection;
 
@@ -22,7 +22,7 @@ namespace phpOMS\Localization\LanguageDetection;
  * @link    https://github.com/patrickschur/language-detection
  * @since   1.0.0
  */
-class LanguageResult implements \JsonSerializable, \IteratorAggregate, \ArrayAccess
+class LanguageResult implements \ArrayAccess, \IteratorAggregate, \JsonSerializable
 {
     /**
      * Match threshold
@@ -55,7 +55,7 @@ class LanguageResult implements \JsonSerializable, \IteratorAggregate, \ArrayAcc
     /**
      * {@inheritdoc}
      */
-    public function offsetExists($offset): bool
+    public function offsetExists($offset) : bool
     {
         return isset($this->result[$offset]);
     }
@@ -63,7 +63,7 @@ class LanguageResult implements \JsonSerializable, \IteratorAggregate, \ArrayAcc
     /**
      * {@inheritdoc}
      */
-    public function offsetGet($offset): ?float
+    public function offsetGet($offset) : ?float
     {
         return $this->result[$offset] ?? null;
     }
@@ -71,9 +71,9 @@ class LanguageResult implements \JsonSerializable, \IteratorAggregate, \ArrayAcc
     /**
      * {@inheritdoc}
      */
-    public function offsetSet($offset, $value): void
+    public function offsetSet($offset, $value) : void
     {
-        if (null === $offset) {
+        if ($offset === null) {
             $this->result[] = $value;
         } else {
             $this->result[$offset] = $value;
@@ -83,7 +83,7 @@ class LanguageResult implements \JsonSerializable, \IteratorAggregate, \ArrayAcc
     /**
      * {@inheritdoc}
      */
-    public function offsetUnset($offset): void
+    public function offsetUnset($offset) : void
     {
         unset($this->result[$offset]);
     }
@@ -91,7 +91,7 @@ class LanguageResult implements \JsonSerializable, \IteratorAggregate, \ArrayAcc
     /**
      * {@inheritdoc}
      */
-    public function jsonSerialize(): array
+    public function jsonSerialize() : array
     {
         return $this->result;
     }
@@ -103,7 +103,7 @@ class LanguageResult implements \JsonSerializable, \IteratorAggregate, \ArrayAcc
      *
      * @since 1.0.0
      */
-    public function __toString(): string
+    public function __toString() : string
     {
         return (string) \key($this->result);
     }
@@ -117,9 +117,9 @@ class LanguageResult implements \JsonSerializable, \IteratorAggregate, \ArrayAcc
      *
      * @since 1.0.0
      */
-    public function whitelist(string ...$whitelist): LanguageResult
+    public function whitelist(string ...$whitelist) : self
     {
-        return new LanguageResult(\array_intersect_key($this->result, \array_flip($whitelist)));
+        return new self(\array_intersect_key($this->result, \array_flip($whitelist)));
     }
 
     /**
@@ -131,9 +131,9 @@ class LanguageResult implements \JsonSerializable, \IteratorAggregate, \ArrayAcc
      *
      * @since 1.0.0
      */
-    public function blacklist(string ...$blacklist): LanguageResult
+    public function blacklist(string ...$blacklist) : self
     {
-        return new LanguageResult(\array_diff_key($this->result, \array_flip($blacklist)));
+        return new self(\array_diff_key($this->result, \array_flip($blacklist)));
     }
 
     /**
@@ -143,7 +143,7 @@ class LanguageResult implements \JsonSerializable, \IteratorAggregate, \ArrayAcc
      *
      * @since 1.0.0
      */
-    public function close(): array
+    public function close() : array
     {
         return $this->result;
     }
@@ -155,15 +155,15 @@ class LanguageResult implements \JsonSerializable, \IteratorAggregate, \ArrayAcc
      *
      * @since 1.0.0
      */
-    public function bestResults(): LanguageResult
+    public function bestResults() : self
     {
         if (empty($this->result)) {
-            return new LanguageResult;
+            return new self();
         }
 
         $first = \array_values($this->result)[0];
 
-        return new LanguageResult(\array_filter($this->result, function ($value) use ($first) {
+        return new self(\array_filter($this->result, function ($value) use ($first) {
             return ($first - $value) <= self::THRESHOLD;
         }));
     }
@@ -171,7 +171,7 @@ class LanguageResult implements \JsonSerializable, \IteratorAggregate, \ArrayAcc
     /**
      * {@inheritdoc}
      */
-    public function getIterator(): \ArrayIterator
+    public function getIterator() : \ArrayIterator
     {
         return new \ArrayIterator($this->result);
     }
@@ -186,8 +186,8 @@ class LanguageResult implements \JsonSerializable, \IteratorAggregate, \ArrayAcc
      *
      * @since 1.0.0
      */
-    public function limit(int $offset, int $length = null): LanguageResult
+    public function limit(int $offset, int $length = null) : self
     {
-        return new LanguageResult(\array_slice($this->result, $offset, $length));
+        return new self(\array_slice($this->result, $offset, $length));
     }
 }

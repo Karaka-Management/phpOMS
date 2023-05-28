@@ -60,7 +60,7 @@ final class EdgeTest extends \PHPUnit\Framework\TestCase
         $edge = new Edge(new Node('7'), new Node('8'), 2.0, true);
         self::assertEquals(2.0, $edge->weight);
 
-        $edge = new Edge(new Node('7'), new Node('8'), 1.0);
+        $edge         = new Edge(new Node('7'), new Node('8'), 1.0);
         $edge->weight = 3.0;
         self::assertEquals(3.0, $edge->weight);
     }

@@ -10,8 +10,8 @@ return [
             'dest'       => '\Modules\Admin\Controller:viewSettingsGeneral',
             'verb'       => RouteVerb::GET,
             'permission' => [
-                'module' => 'TEST',
-                'type'   => PermissionType::READ,
+                'module'    => 'TEST',
+                'type'      => PermissionType::READ,
                 'category'  => 1,
             ],
         ],

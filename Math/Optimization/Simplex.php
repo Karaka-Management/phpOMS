@@ -24,41 +24,42 @@ declare(strict_types=1);
  */
 class Simplex {
     private array $function = [];
+
     private string $functionType = '';
+
     private int|float $functionLimit = 0.0;
 
     private array $constraints = [];
+
     private array $constraintsType = [];
+
     private array $constraintsLimit = [];
 
     private array $slackForm = [];
 
     private array $nonbasicSolution = [];
+
     private array $basicSolution = [];
 
-    public function setFunction(array $function)
+    public function setFunction(array $function) : void
     {
-
     }
 
-    public function addConstraint(array $function, string $type, float $limit)
+    public function addConstraint(array $function, string $type, float $limit) : void
     {
-
     }
 
-    private function pivot(int $x, int $y)
+    private function pivot(int $x, int $y) : void
     {
-
     }
 
-    private function iterateSimplex()
+    private function iterateSimplex() : void
     {
-
     }
 
     private function initialize() : bool
     {
-        $k = -1;
+        $k        = -1;
         $minLimit = -1;
 
         $m = \count($this->constraints);
@@ -66,7 +67,7 @@ class Simplex {
 
         for ($i = 0; $i < $m; ++$i) {
             if ($k === -1 || $this->constraintsLimit[$i] < $minLimit) {
-                $k = $i;
+                $k        = $i;
                 $minLimit = $this->constraintsLimit[$i];
             }
         }
@@ -94,11 +95,11 @@ class Simplex {
         }
 
         $oldFunction = $this->function;
-        $oldLimit = $this->functionLimit;
+        $oldLimit    = $this->functionLimit;
 
         // Auxiliary function
         $this->function[$n - 1] = -1;
-        $this->functionLimit = 0;
+        $this->functionLimit    = 0;
 
         for ($j = 0; $j < $n - 1; ++$j) {
             $this->function[$j] = 0;
@@ -142,8 +143,8 @@ class Simplex {
             $this->constraints[$i][$zNonBasic] = $this->constraints[$i][$n - 1];
         }
 
-        $tmp = $this->nonbasicSolution[$n - 1];
-        $this->nonbasicSolution[$n - 1] = $this->nonbasicSolution[$zNonBasic];
+        $tmp                                = $this->nonbasicSolution[$n - 1];
+        $this->nonbasicSolution[$n - 1]     = $this->nonbasicSolution[$zNonBasic];
         $this->nonbasicSolution[$zNonBasic] = $tmp;
 
         --$n;

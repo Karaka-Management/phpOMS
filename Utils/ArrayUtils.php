@@ -284,7 +284,7 @@ final class ArrayUtils
         $xml ??= new \SimpleXMLElement('<root/>');
 
         foreach ($data as $key => $value) {
-            if (is_array($value)) {
+            if (\is_array($value)) {
                 self::arrayToXml($value, $xml->addChild($key));
             } else {
                 $xml->addChild($key, \htmlspecialchars($value));
