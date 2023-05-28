@@ -2587,7 +2587,7 @@ class QR extends TwoDAbstract
             for ($y = 0; $y < 6; ++$y) {
                 for ($x = 0; $x < 3; ++$x) {
                     $frame[$y][$x + ($width - 11)] = \chr(0x88 | ($v & 1));
-                    $v                            >>= 1;
+                    $v                           >>= 1;
                 }
             }
         }
@@ -2703,7 +2703,7 @@ class QR extends TwoDAbstract
         for ($i = 0; $i < $rs['nn']; ++$i) {
             $rs['index_of'][$sr] = $i;
             $rs['alpha_to'][$i]  = $sr;
-            $sr <<= 1;
+            $sr                <<= 1;
 
             if (($sr & (1 << $symsize)) !== 0) {
                 $sr ^= $gfpoly;
