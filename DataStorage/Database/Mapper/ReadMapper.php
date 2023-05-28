@@ -570,9 +570,9 @@ final class ReadMapper extends DataMapperAbstract
                 $path    = \explode('/', \ltrim($def['internal'], '/'));
                 $member  = $path[0];
 
-                $refProp = $refClass->getProperty($path[0]);
+                $refProp  = $refClass->getProperty($path[0]);
                 $isPublic = $refProp->isPublic();
-                $aValue    = $isPublic ? $obj->{$path[0]} : $refProp->getValue($obj);
+                $aValue   = $isPublic ? $obj->{$path[0]} : $refProp->getValue($obj);
 
                 \array_shift($path);
                 $arrayPath = \implode('/', $path);
@@ -683,7 +683,7 @@ final class ReadMapper extends DataMapperAbstract
                 $arrayPath = \implode('/', $path);
                 $aValue    = $isPublic ? $obj->{$path[0]} : $refProp->getValue($obj);
             } else {
-                $refProp = $refClass->getProperty($member);
+                $refProp  = $refClass->getProperty($member);
                 $isPublic = $refProp->isPublic();
             }
 

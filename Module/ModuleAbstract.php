@@ -228,6 +228,17 @@ abstract class ModuleAbstract
         ]);
     }
 
+    /**
+     * Create standard model create response.
+     *
+     * @param RequestAbstract  $request  Request
+     * @param ResponseAbstract $response Response
+     * @param mixed            $obj      Response object
+     *
+     * @return void
+     *
+     * @since 1.0.0
+     */
     public function createStandardCreateResponse(
         RequestAbstract $request,
         ResponseAbstract $response,
@@ -243,6 +254,17 @@ abstract class ModuleAbstract
         ]);
     }
 
+    /**
+     * Create standard model update response.
+     *
+     * @param RequestAbstract  $request  Request
+     * @param ResponseAbstract $response Response
+     * @param mixed            $obj      Response object
+     *
+     * @return void
+     *
+     * @since 1.0.0
+     */
     public function createStandardUpdateResponse(
         RequestAbstract $request,
         ResponseAbstract $response,
@@ -258,6 +280,17 @@ abstract class ModuleAbstract
         ]);
     }
 
+    /**
+     * Create standard model delete response.
+     *
+     * @param RequestAbstract  $request  Request
+     * @param ResponseAbstract $response Response
+     * @param mixed            $obj      Response object
+     *
+     * @return void
+     *
+     * @since 1.0.0
+     */
     public function createStandardDeleteResponse(
         RequestAbstract $request,
         ResponseAbstract $response,
@@ -273,6 +306,17 @@ abstract class ModuleAbstract
         ]);
     }
 
+    /**
+     * Create standard model remove response.
+     *
+     * @param RequestAbstract  $request  Request
+     * @param ResponseAbstract $response Response
+     * @param mixed            $obj      Response object
+     *
+     * @return void
+     *
+     * @since 1.0.0
+     */
     public function createStandardRemoveResponse(
         RequestAbstract $request,
         ResponseAbstract $response,
@@ -288,6 +332,17 @@ abstract class ModuleAbstract
         ]);
     }
 
+    /**
+     * Create standard model return response.
+     *
+     * @param RequestAbstract  $request  Request
+     * @param ResponseAbstract $response Response
+     * @param mixed            $obj      Response object
+     *
+     * @return void
+     *
+     * @since 1.0.0
+     */
     public function createStandardReturnResponse(
         RequestAbstract $request,
         ResponseAbstract $response,
@@ -303,6 +358,17 @@ abstract class ModuleAbstract
         ]);
     }
 
+    /**
+     * Create standard model relation add response.
+     *
+     * @param RequestAbstract  $request  Request
+     * @param ResponseAbstract $response Response
+     * @param mixed            $obj      Response object
+     *
+     * @return void
+     *
+     * @since 1.0.0
+     */
     public function createStandardAddResponse(
         RequestAbstract $request,
         ResponseAbstract $response,
@@ -318,6 +384,17 @@ abstract class ModuleAbstract
         ]);
     }
 
+    /**
+     * Create invalid model create response.
+     *
+     * @param RequestAbstract  $request  Request
+     * @param ResponseAbstract $response Response
+     * @param mixed            $obj      Response object
+     *
+     * @return void
+     *
+     * @since 1.0.0
+     */
     public function createInvalidCreateResponse(
         RequestAbstract $request,
         ResponseAbstract $response,
@@ -333,6 +410,17 @@ abstract class ModuleAbstract
         ]);
     }
 
+    /**
+     * Create invalid model update response.
+     *
+     * @param RequestAbstract  $request  Request
+     * @param ResponseAbstract $response Response
+     * @param mixed            $obj      Response object
+     *
+     * @return void
+     *
+     * @since 1.0.0
+     */
     public function createInvalidUpdateResponse(
         RequestAbstract $request,
         ResponseAbstract $response,
@@ -348,6 +436,17 @@ abstract class ModuleAbstract
         ]);
     }
 
+    /**
+     * Create invalid model delete response.
+     *
+     * @param RequestAbstract  $request  Request
+     * @param ResponseAbstract $response Response
+     * @param mixed            $obj      Response object
+     *
+     * @return void
+     *
+     * @since 1.0.0
+     */
     public function createInvalidDeleteResponse(
         RequestAbstract $request,
         ResponseAbstract $response,
@@ -363,6 +462,17 @@ abstract class ModuleAbstract
         ]);
     }
 
+    /**
+     * Create invalid model relation remove response.
+     *
+     * @param RequestAbstract  $request  Request
+     * @param ResponseAbstract $response Response
+     * @param mixed            $obj      Response object
+     *
+     * @return void
+     *
+     * @since 1.0.0
+     */
     public function createInvalidRemoveResponse(
         RequestAbstract $request,
         ResponseAbstract $response,
@@ -378,6 +488,17 @@ abstract class ModuleAbstract
         ]);
     }
 
+    /**
+     * Create invalid model return response.
+     *
+     * @param RequestAbstract  $request  Request
+     * @param ResponseAbstract $response Response
+     * @param mixed            $obj      Response object
+     *
+     * @return void
+     *
+     * @since 1.0.0
+     */
     public function createInvalidReturnResponse(
         RequestAbstract $request,
         ResponseAbstract $response,
@@ -393,6 +514,17 @@ abstract class ModuleAbstract
         ]);
     }
 
+    /**
+     * Create invalid model relation create response.
+     *
+     * @param RequestAbstract  $request  Request
+     * @param ResponseAbstract $response Response
+     * @param mixed            $obj      Response object
+     *
+     * @return void
+     *
+     * @since 1.0.0
+     */
     public function createInvalidAddResponse(
         RequestAbstract $request,
         ResponseAbstract $response,
@@ -408,6 +540,17 @@ abstract class ModuleAbstract
         ]);
     }
 
+    /**
+     * Create invalid model permission response.
+     *
+     * @param RequestAbstract  $request  Request
+     * @param ResponseAbstract $response Response
+     * @param mixed            $obj      Response object
+     *
+     * @return void
+     *
+     * @since 1.0.0
+     */
     public function createInvalidPermissionResponse(
         RequestAbstract $request,
         ResponseAbstract $response,

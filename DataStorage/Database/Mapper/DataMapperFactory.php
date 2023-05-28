@@ -426,8 +426,8 @@ class DataMapperFactory
     /**
      * Get id of object
      *
-     * @param object           $obj      Model to create
-     * @param string           $member   Member name for the id, if it is not the primary key
+     * @param object $obj    Model to create
+     * @param string $member Member name for the id, if it is not the primary key
      *
      * @return mixed
      *

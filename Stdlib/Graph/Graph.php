@@ -1203,7 +1203,7 @@ class Graph
             $colors[$node->getId()] = 0;
         }
 
-        $node1 = \reset($this->nodes);
+        $node1                   = \reset($this->nodes);
         $colors[$node1->getId()] = 1;
 
         $stack = [$node1];

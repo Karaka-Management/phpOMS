@@ -122,7 +122,7 @@ final class Rest
                     $response->header->set('', $line = \trim($header[0]));
 
                     if (\stripos(\strtoupper($line), 'HTTP/') === 0) {
-                        $statusCode = \explode(' ', $line, 3);
+                        $statusCode               = \explode(' ', $line, 3);
                         $response->header->status = (int) $statusCode[1];
                     }
 

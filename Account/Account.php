@@ -147,6 +147,21 @@ class Account implements \JsonSerializable
 
     use PermissionHandlingTrait;
 
+    /**
+     * Has permission.
+     *
+     * @param int         $permission Permission
+     * @param int|null    $unit       Unit
+     * @param int|null    $app        App
+     * @param string|null $module     Module
+     * @param int|null    $category   Category
+     * @param int|null    $element    Element
+     * @param int|null    $component  Component
+     *
+     * @return bool
+     *
+     * @since 1.0.0
+     */
     public function hasPermission(
         int $permission,
         int $unit = null,

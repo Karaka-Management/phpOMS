@@ -54,7 +54,7 @@ final class Nominatim
             \usleep((int) (1000000 - ($time - self::$lastRun) + 100));
         }
 
-        $body = Rest::request($request)->getBody();
+        $body           = Rest::request($request)->getBody();
         $result['body'] = $body;
 
         /** @var array $json */

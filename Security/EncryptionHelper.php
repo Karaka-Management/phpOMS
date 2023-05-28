@@ -68,6 +68,17 @@ final class EncryptionHelper
         return $result;
     }
 
+    /**
+     * Encrypt a file with a shared key
+     *
+     * @param string $in     File to encrypt
+     * @param string $out    Encrypted file
+     * @param string $keyHex Shared key as hex string used for encryption
+     *
+     * @return bool
+     *
+     * @since 1.0.0
+     */
     public static function encryptFile(string $in, string $out, string $keyHex) : bool
     {
         $fpSource  = \fopen($in, 'rb');
@@ -77,13 +88,13 @@ final class EncryptionHelper
             return false;
         }
 
-        $secretKey  = \sodium_hex2bin($keyHex);
-        $nonce      = \random_bytes(SODIUM_CRYPTO_SECRETBOX_NONCEBYTES);
+        $secretKey = \sodium_hex2bin($keyHex);
+        $nonce     = \random_bytes(SODIUM_CRYPTO_SECRETBOX_NONCEBYTES);
 
         \fwrite($fpEncoded, $nonce);
 
         while (!\feof($fpSource)) {
-            $buffer = \fread($fpSource, 4096);
+            $buffer     = \fread($fpSource, 4096);
             $ciphertext = \sodium_crypto_secretbox($buffer, $nonce, $secretKey);
 
             fwrite($fpEncoded, $ciphertext);
@@ -155,7 +166,7 @@ final class EncryptionHelper
         }
 
         $secretKey = \sodium_hex2bin($keyHex);
-        $nonce = \fread($fpSource, SODIUM_CRYPTO_SECRETBOX_NONCEBYTES);
+        $nonce     = \fread($fpSource, SODIUM_CRYPTO_SECRETBOX_NONCEBYTES);
 
         while (!\feof($fpSource)) {
             $buffer     = \fread($fpSource, 4096);

@@ -354,6 +354,15 @@ abstract class RequestAbstract implements MessageInterface
         return false;
     }
 
+    /**
+     * Create from data array
+     *
+     * @param array $data Data array
+     *
+     * @return void
+     *
+     * @since 1.0.0
+     */
     public function fromData(array $data) : void
     {
         $this->data = $data;

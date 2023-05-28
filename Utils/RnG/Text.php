@@ -195,7 +195,7 @@ class Text
             }
 
             /* Handle comma */
-            $posComma  = [];
+            $posComma = [];
 
             if (\mt_rand(0, 100) <= $probComma * 100 && $sentenceLength >= 2 * $minCommaSpacing) {
                 $posComma[]    = \mt_rand($minCommaSpacing, $sentenceLength - $minCommaSpacing);

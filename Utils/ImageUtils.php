@@ -340,6 +340,20 @@ final class ImageUtils
         return $difference;
     }
 
+    /**
+     * Calculate the average color of an image at a specific position
+     *
+     * @param resource $src   Image resource
+     * @param int      $x     X position
+     * @param int      $y     Y position
+     * @param int      $width Image width
+     * @param int      $height Image height
+     * @param int      $area  Area to calculate average color
+     *
+     * @return int
+     *
+     * @since 1.0.0
+     */
     private static function getAverageColor($src, $x, $y, $width, $height, $area = 10) : int
     {
         $colors = [];

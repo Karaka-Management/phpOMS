@@ -2167,7 +2167,7 @@ class QR extends TwoDAbstract
 
         for ($i = 0; $i < $bits; ++$i) {
             $bstream[$i] = (($num & $mask) !== 0) ? 1 : 0;
-            $mask >>= 1;
+            $mask      >>= 1;
         }
 
         return $bstream;
@@ -2190,7 +2190,7 @@ class QR extends TwoDAbstract
 
             for ($j = 0; $j < 8; ++$j) {
                 $bstream[$p] = (($data[$i] & $mask) !== 0) ? 1 : 0;
-                $mask >>= 1;
+                     $mask >>= 1;
 
                 ++$p;
             }
@@ -2278,7 +2278,7 @@ class QR extends TwoDAbstract
 
             for ($j = 0; $j < 8; ++$j) {
                 $v <<= 1;
-                $v |= $bstream[$p];
+                $v  |= $bstream[$p];
                 ++$p;
             }
 
@@ -2290,7 +2290,7 @@ class QR extends TwoDAbstract
 
             for ($j = 0; $j < ($size & 7); ++$j) {
                 $v <<= 1;
-                $v |= $bstream[$p];
+                $v  |= $bstream[$p];
                 ++$p;
             }
 
@@ -2579,7 +2579,7 @@ class QR extends TwoDAbstract
             for ($x = 0; $x<6; ++$x) {
                 for ($y = 0; $y<3; ++$y) {
                     $frame[($width - 11)+$y][$x] = \chr(0x88 | ($v & 1));
-                    $v >>= 1;
+                    $v                         >>= 1;
                 }
             }
 
@@ -2587,7 +2587,7 @@ class QR extends TwoDAbstract
             for ($y = 0; $y < 6; ++$y) {
                 for ($x = 0; $x < 3; ++$x) {
                     $frame[$y][$x + ($width - 11)] = \chr(0x88 | ($v & 1));
-                    $v >>= 1;
+                    $v                           >>= 1;
                 }
             }
         }

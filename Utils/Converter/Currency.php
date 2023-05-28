@@ -175,7 +175,7 @@ final class Currency
         if ((!isset($currencies[$from]) && $from !== ISO4217CharEnum::_EUR)
             || (!isset($currencies[$to]) && $to !== ISO4217CharEnum::_EUR)
         ) {
-           return -1.0;
+            return -1.0;
         }
 
         if ($from !== ISO4217CharEnum::_EUR) {

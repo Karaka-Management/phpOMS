@@ -53,6 +53,13 @@ final class HttpHeader extends HeaderAbstract
      */
     public int $status = RequestStatusCode::R_200;
 
+    /**
+     * Init header from current request.
+     *
+     * @return void
+     *
+     * @since 1.0.0
+     */
     public function initCurrentRequest() : void
     {
         $this->header = self::getAllHeaders();
