@@ -104,7 +104,7 @@ abstract class ResponseAbstract implements \JsonSerializable, MessageInterface
             return ISO639x1Enum::_EN;
         }
 
-        return $this->header->l11n->getLanguage();
+        return $this->header->l11n->language;
     }
 
     /**

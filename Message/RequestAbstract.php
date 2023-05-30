@@ -381,30 +381,6 @@ abstract class RequestAbstract implements MessageInterface
     }
 
     /**
-     * Get request language.
-     *
-     * @return string
-     *
-     * @since 1.0.0
-     */
-    public function getLanguage() : string
-    {
-        return $this->header->l11n->getLanguage();
-    }
-
-    /**
-     * Get request language.
-     *
-     * @return string
-     *
-     * @since 1.0.0
-     */
-    public function getCountry() : string
-    {
-        return $this->header->l11n->getCountry();
-    }
-
-    /**
      * Get request hash.
      *
      * @return string[]
@@ -440,44 +416,6 @@ abstract class RequestAbstract implements MessageInterface
     public function __toString() : string
     {
         return $this->uri->__toString();
-    }
-
-    /**
-     * Get files.
-     *
-     * @return array
-     *
-     * @since 1.0.0
-     */
-    public function getFiles() : array
-    {
-        return $this->files;
-    }
-
-    /**
-     * Get files by name.
-     *
-     * @param string $name File name
-     *
-     * @return array
-     *
-     * @since 1.0.0
-     */
-    public function getFile(string $name) : array
-    {
-        return $this->files[$name] ?? [];
-    }
-
-    /**
-     * Has files.
-     *
-     * @return bool
-     *
-     * @since 1.0.0
-     */
-    public function hasFiles() : bool
-    {
-        return !empty($this->files);
     }
 
     /**

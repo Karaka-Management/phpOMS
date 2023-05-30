@@ -348,18 +348,6 @@ class Localization implements \JsonSerializable
     }
 
     /**
-     * Get country
-     *
-     * @return string
-     *
-     * @since 1.0.0
-     */
-    public function getCountry() : string
-    {
-        return $this->country;
-    }
-
-    /**
      * Set country name
      *
      * @param string $country Contry name
@@ -407,18 +395,6 @@ class Localization implements \JsonSerializable
         }
 
         $this->timezone = $timezone;
-    }
-
-    /**
-     * Get language
-     *
-     * @return string
-     *
-     * @since 1.0.0
-     */
-    public function getLanguage() : string
-    {
-        return $this->language;
     }
 
     /**

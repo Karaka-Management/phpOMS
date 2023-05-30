@@ -56,7 +56,7 @@ final class ResponseAbstractTest extends \PHPUnit\Framework\TestCase
     {
         self::assertNull($this->response->get('asdf'));
         self::assertEquals('', $this->response->getBody());
-        self::assertTrue(ISO639x1Enum::isValidValue($this->response->getLanguage()));
+        self::assertTrue(ISO639x1Enum::isValidValue($this->response->header->l11n->language));
     }
 
     /**

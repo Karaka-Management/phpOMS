@@ -39,7 +39,7 @@ class View extends ViewAbstract
      * @var array<string, mixed>
      * @since 1.0.0
      */
-    protected array $data = [];
+    public array $data = [];
 
     /**
      * View Localization.
@@ -47,7 +47,7 @@ class View extends ViewAbstract
      * @var Localization
      * @since 1.0.0
      */
-    protected Localization $l11n;
+    public Localization $l11n;
 
     /**
      * Application.
@@ -55,7 +55,7 @@ class View extends ViewAbstract
      * @var L11nManager
      * @since 1.0.0
      */
-    protected L11nManager $l11nManager;
+    public L11nManager $l11nManager;
 
     /**
      * Request.
@@ -216,7 +216,7 @@ class View extends ViewAbstract
         /** @var string $theme */
         $theme = $theme ?? $this->theme;
 
-        return $this->l11nManager->getText($this->l11n->getLanguage(), $module, $theme, $translation);
+        return $this->l11nManager->getText($this->l11n->language, $module, $theme, $translation);
     }
 
     /**

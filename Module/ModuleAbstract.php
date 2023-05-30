@@ -71,7 +71,7 @@ abstract class ModuleAbstract
      * @var string[]
      * @since 1.0.0
      */
-    protected static array $providing = [];
+    public static array $providing = [];
 
     /**
      * Dependencies.
@@ -79,7 +79,7 @@ abstract class ModuleAbstract
      * @var string[]
      * @since 1.0.0
      */
-    protected static array $dependencies = [];
+    public static array $dependencies = [];
 
     /**
      * Receiving modules from?
@@ -87,7 +87,7 @@ abstract class ModuleAbstract
      * @var string[]
      * @since 1.0.0
      */
-    protected array $receiving = [];
+    public array $receiving = [];
 
     /**
      * Application instance.
@@ -249,7 +249,7 @@ abstract class ModuleAbstract
         $response->data[$request->uri->__toString()] = [
             'status'   => NotificationLevel::OK,
             'title'    => '',
-            'message'  => $this->app->l11nManager->getText($response->getLanguage(), '0', '0', 'SuccessfulCreate'),
+            'message'  => $this->app->l11nManager->getText($response->header->l11n->language, '0', '0', 'SuccessfulCreate'),
             'response' => $obj,
         ];
     }
@@ -275,7 +275,7 @@ abstract class ModuleAbstract
         $response->data[$request->uri->__toString()] = [
             'status'   => NotificationLevel::OK,
             'title'    => '',
-            'message'  => $this->app->l11nManager->getText($response->getLanguage(), '0', '0', 'SuccessfulUpdate'),
+            'message'  => $this->app->l11nManager->getText($response->header->l11n->language, '0', '0', 'SuccessfulUpdate'),
             'response' => $obj,
         ];
     }
@@ -301,7 +301,7 @@ abstract class ModuleAbstract
         $response->data[$request->uri->__toString()] = [
             'status'   => NotificationLevel::OK,
             'title'    => '',
-            'message'  => $this->app->l11nManager->getText($response->getLanguage(), '0', '0', 'SuccessfulDelete'),
+            'message'  => $this->app->l11nManager->getText($response->header->l11n->language, '0', '0', 'SuccessfulDelete'),
             'response' => $obj,
         ];
     }
@@ -327,7 +327,7 @@ abstract class ModuleAbstract
         $response->data[$request->uri->__toString()] = [
             'status'   => NotificationLevel::OK,
             'title'    => '',
-            'message'  => $this->app->l11nManager->getText($response->getLanguage(), '0', '0', 'SuccessfulRemove'),
+            'message'  => $this->app->l11nManager->getText($response->header->l11n->language, '0', '0', 'SuccessfulRemove'),
             'response' => $obj,
         ];
     }
@@ -353,7 +353,7 @@ abstract class ModuleAbstract
         $response->data[$request->uri->__toString()] = [
             'status'   => NotificationLevel::OK,
             'title'    => '',
-            'message'  => $this->app->l11nManager->getText($response->getLanguage(), '0', '0', 'SuccessfulReturn'),
+            'message'  => $this->app->l11nManager->getText($response->header->l11n->language, '0', '0', 'SuccessfulReturn'),
             'response' => $obj,
         ];
     }
@@ -379,7 +379,7 @@ abstract class ModuleAbstract
         $response->data[$request->uri->__toString()] = [
             'status'   => NotificationLevel::OK,
             'title'    => '',
-            'message'  => $this->app->l11nManager->getText($response->getLanguage(), '0', '0', 'SuccessfulAdd'),
+            'message'  => $this->app->l11nManager->getText($response->header->l11n->language, '0', '0', 'SuccessfulAdd'),
             'response' => $obj,
         ];
     }
@@ -405,7 +405,7 @@ abstract class ModuleAbstract
         $response->data[$request->uri->__toString()] = [
             'status'   => NotificationLevel::WARNING,
             'title'    => '',
-            'message'  => $this->app->l11nManager->getText($response->getLanguage(), '0', '0', 'InvalidCreate'),
+            'message'  => $this->app->l11nManager->getText($response->header->l11n->language, '0', '0', 'InvalidCreate'),
             'response' => $obj,
         ];
     }
@@ -431,7 +431,7 @@ abstract class ModuleAbstract
         $response->data[$request->uri->__toString()] = [
             'status'   => NotificationLevel::WARNING,
             'title'    => '',
-            'message'  => $this->app->l11nManager->getText($response->getLanguage(), '0', '0', 'InvalidUpdate'),
+            'message'  => $this->app->l11nManager->getText($response->header->l11n->language, '0', '0', 'InvalidUpdate'),
             'response' => $obj,
         ];
     }
@@ -457,7 +457,7 @@ abstract class ModuleAbstract
         $response->data[$request->uri->__toString()] = [
             'status'   => NotificationLevel::WARNING,
             'title'    => '',
-            'message'  => $this->app->l11nManager->getText($response->getLanguage(), '0', '0', 'InvalidDelete'),
+            'message'  => $this->app->l11nManager->getText($response->header->l11n->language, '0', '0', 'InvalidDelete'),
             'response' => $obj,
         ];
     }
@@ -483,7 +483,7 @@ abstract class ModuleAbstract
         $response->data[$request->uri->__toString()] = [
             'status'   => NotificationLevel::WARNING,
             'title'    => '',
-            'message'  => $this->app->l11nManager->getText($response->getLanguage(), '0', '0', 'InvalidRemove'),
+            'message'  => $this->app->l11nManager->getText($response->header->l11n->language, '0', '0', 'InvalidRemove'),
             'response' => $obj,
         ];
     }
@@ -509,7 +509,7 @@ abstract class ModuleAbstract
         $response->data[$request->uri->__toString()] = [
             'status'   => NotificationLevel::WARNING,
             'title'    => '',
-            'message'  => $this->app->l11nManager->getText($response->getLanguage(), '0', '0', 'InvalidReturn'),
+            'message'  => $this->app->l11nManager->getText($response->header->l11n->language, '0', '0', 'InvalidReturn'),
             'response' => $obj,
         ];
     }
@@ -535,7 +535,7 @@ abstract class ModuleAbstract
         $response->data[$request->uri->__toString()] = [
             'status'   => NotificationLevel::WARNING,
             'title'    => '',
-            'message'  => $this->app->l11nManager->getText($response->getLanguage(), '0', '0', 'InvalidAdd'),
+            'message'  => $this->app->l11nManager->getText($response->header->l11n->language, '0', '0', 'InvalidAdd'),
             'response' => $obj,
         ];
     }
@@ -561,7 +561,7 @@ abstract class ModuleAbstract
         $response->data[$request->uri->__toString()] = [
             'status'   => NotificationLevel::WARNING,
             'title'    => '',
-            'message'  => $this->app->l11nManager->getText($response->getLanguage(), '0', '0', 'InvalidPermission'),
+            'message'  => $this->app->l11nManager->getText($response->header->l11n->language, '0', '0', 'InvalidPermission'),
             'response' => $obj,
         ];
     }
@@ -580,7 +580,7 @@ abstract class ModuleAbstract
     protected function fillJsonRawResponse(RequestAbstract $request, ResponseAbstract $response, mixed $obj) : void
     {
         $response->header->set('Content-Type', MimeType::M_JSON . '; charset=utf-8', true);
-        $response->data[$request->uri->__toString()] = $obj);
+        $response->data[$request->uri->__toString()] = $obj;
     }
 
     /**
