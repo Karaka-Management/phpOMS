@@ -127,18 +127,6 @@ abstract class RequestAbstract implements MessageInterface
     /**
      * Get data.
      *
-     * @return array
-     *
-     * @since 1.0.0
-     */
-    public function getDataArray() : array
-    {
-        return $this->data;
-    }
-
-    /**
-     * Get data.
-     *
      * @param string $key Data key
      *
      * @return null|string
