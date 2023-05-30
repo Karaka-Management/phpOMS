@@ -40,7 +40,7 @@ abstract class RequestAbstract implements MessageInterface
      * @var array<int|string, mixed>
      * @since 1.0.0
      */
-    protected array $data = [];
+    public array $data = [];
 
     /**
      * Files data.
@@ -48,7 +48,7 @@ abstract class RequestAbstract implements MessageInterface
      * @var array
      * @since 1.0.0
      */
-    protected array $files = [];
+    public array $files = [];
 
     /**
      * Request lock.

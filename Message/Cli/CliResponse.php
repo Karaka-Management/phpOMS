@@ -65,7 +65,7 @@ final class CliResponse extends ResponseAbstract implements RenderableInterface
      */
     public function setResponse(array $response) : void
     {
-        $this->response = $response;
+        $this->data = $response;
     }
 
     /**
@@ -79,8 +79,8 @@ final class CliResponse extends ResponseAbstract implements RenderableInterface
      */
     public function remove(string $id) : bool
     {
-        if (isset($this->response[$id])) {
-            unset($this->response[$id]);
+        if (isset($this->data[$id])) {
+            unset($this->data[$id]);
 
             return true;
         }
@@ -134,7 +134,7 @@ final class CliResponse extends ResponseAbstract implements RenderableInterface
     {
         $render = '';
 
-        foreach ($this->response as $response) {
+        foreach ($this->data as $response) {
             $render .= StringUtils::stringify($response);
         }
 
@@ -148,7 +148,7 @@ final class CliResponse extends ResponseAbstract implements RenderableInterface
     {
         $result = [];
 
-        foreach ($this->response as $response) {
+        foreach ($this->data as $response) {
             if ($response instanceof View) {
                 $result[] = $response->toArray();
             } elseif (\is_array($response) || \is_scalar($response)) {

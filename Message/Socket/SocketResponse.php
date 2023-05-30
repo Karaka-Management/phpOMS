@@ -42,7 +42,7 @@ final class SocketResponse extends ResponseAbstract implements RenderableInterfa
      */
     public function setResponse(array $response) : void
     {
-        $this->response = $response;
+        $this->data = $response;
     }
 
     /**
@@ -56,8 +56,8 @@ final class SocketResponse extends ResponseAbstract implements RenderableInterfa
      */
     public function remove($id) : bool
     {
-        if (isset($this->response[$id])) {
-            unset($this->response[$id]);
+        if (isset($this->data[$id])) {
+            unset($this->data[$id]);
 
             return true;
         }
@@ -118,7 +118,7 @@ final class SocketResponse extends ResponseAbstract implements RenderableInterfa
     {
         $render = '';
 
-        foreach ($this->response as $key => $response) {
+        foreach ($this->data as $key => $response) {
             $render .= StringUtils::stringify($response);
         }
 
@@ -157,7 +157,7 @@ final class SocketResponse extends ResponseAbstract implements RenderableInterfa
     {
         $result = [];
 
-        foreach ($this->response as $response) {
+        foreach ($this->data as $response) {
             if ($response instanceof View) {
                 $result[] = $response->toArray();
             } elseif (\is_array($response) || \is_scalar($response)) {

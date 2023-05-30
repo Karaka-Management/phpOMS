@@ -220,12 +220,12 @@ abstract class ModuleAbstract
     ) : void
     {
         $response->header->set('Content-Type', MimeType::M_JSON . '; charset=utf-8', true);
-        $response->set($request->uri->__toString(), [
+        $response->data[$request->uri->__toString()] = [
             'status'   => $status,
             'title'    => $title,
             'message'  => $message,
             'response' => $obj,
-        ]);
+        ];
     }
 
     /**
@@ -246,12 +246,12 @@ abstract class ModuleAbstract
     ) : void
     {
         $response->header->set('Content-Type', MimeType::M_JSON . '; charset=utf-8', true);
-        $response->set($request->uri->__toString(), [
+        $response->data[$request->uri->__toString()] = [
             'status'   => NotificationLevel::OK,
             'title'    => '',
             'message'  => $this->app->l11nManager->getText($response->getLanguage(), '0', '0', 'SuccessfulCreate'),
             'response' => $obj,
-        ]);
+        ];
     }
 
     /**
@@ -272,12 +272,12 @@ abstract class ModuleAbstract
     ) : void
     {
         $response->header->set('Content-Type', MimeType::M_JSON . '; charset=utf-8', true);
-        $response->set($request->uri->__toString(), [
+        $response->data[$request->uri->__toString()] = [
             'status'   => NotificationLevel::OK,
             'title'    => '',
             'message'  => $this->app->l11nManager->getText($response->getLanguage(), '0', '0', 'SuccessfulUpdate'),
             'response' => $obj,
-        ]);
+        ];
     }
 
     /**
@@ -298,12 +298,12 @@ abstract class ModuleAbstract
     ) : void
     {
         $response->header->set('Content-Type', MimeType::M_JSON . '; charset=utf-8', true);
-        $response->set($request->uri->__toString(), [
+        $response->data[$request->uri->__toString()] = [
             'status'   => NotificationLevel::OK,
             'title'    => '',
             'message'  => $this->app->l11nManager->getText($response->getLanguage(), '0', '0', 'SuccessfulDelete'),
             'response' => $obj,
-        ]);
+        ];
     }
 
     /**
@@ -324,12 +324,12 @@ abstract class ModuleAbstract
     ) : void
     {
         $response->header->set('Content-Type', MimeType::M_JSON . '; charset=utf-8', true);
-        $response->set($request->uri->__toString(), [
+        $response->data[$request->uri->__toString()] = [
             'status'   => NotificationLevel::OK,
             'title'    => '',
             'message'  => $this->app->l11nManager->getText($response->getLanguage(), '0', '0', 'SuccessfulRemove'),
             'response' => $obj,
-        ]);
+        ];
     }
 
     /**
@@ -350,12 +350,12 @@ abstract class ModuleAbstract
     ) : void
     {
         $response->header->set('Content-Type', MimeType::M_JSON . '; charset=utf-8', true);
-        $response->set($request->uri->__toString(), [
+        $response->data[$request->uri->__toString()] = [
             'status'   => NotificationLevel::OK,
             'title'    => '',
             'message'  => $this->app->l11nManager->getText($response->getLanguage(), '0', '0', 'SuccessfulReturn'),
             'response' => $obj,
-        ]);
+        ];
     }
 
     /**
@@ -376,12 +376,12 @@ abstract class ModuleAbstract
     ) : void
     {
         $response->header->set('Content-Type', MimeType::M_JSON . '; charset=utf-8', true);
-        $response->set($request->uri->__toString(), [
+        $response->data[$request->uri->__toString()] = [
             'status'   => NotificationLevel::OK,
             'title'    => '',
             'message'  => $this->app->l11nManager->getText($response->getLanguage(), '0', '0', 'SuccessfulAdd'),
             'response' => $obj,
-        ]);
+        ];
     }
 
     /**
@@ -402,12 +402,12 @@ abstract class ModuleAbstract
     ) : void
     {
         $response->header->set('Content-Type', MimeType::M_JSON . '; charset=utf-8', true);
-        $response->set($request->uri->__toString(), [
+        $response->data[$request->uri->__toString()] = [
             'status'   => NotificationLevel::WARNING,
             'title'    => '',
             'message'  => $this->app->l11nManager->getText($response->getLanguage(), '0', '0', 'InvalidCreate'),
             'response' => $obj,
-        ]);
+        ];
     }
 
     /**
@@ -428,12 +428,12 @@ abstract class ModuleAbstract
     ) : void
     {
         $response->header->set('Content-Type', MimeType::M_JSON . '; charset=utf-8', true);
-        $response->set($request->uri->__toString(), [
+        $response->data[$request->uri->__toString()] = [
             'status'   => NotificationLevel::WARNING,
             'title'    => '',
             'message'  => $this->app->l11nManager->getText($response->getLanguage(), '0', '0', 'InvalidUpdate'),
             'response' => $obj,
-        ]);
+        ];
     }
 
     /**
@@ -454,12 +454,12 @@ abstract class ModuleAbstract
     ) : void
     {
         $response->header->set('Content-Type', MimeType::M_JSON . '; charset=utf-8', true);
-        $response->set($request->uri->__toString(), [
+        $response->data[$request->uri->__toString()] = [
             'status'   => NotificationLevel::WARNING,
             'title'    => '',
             'message'  => $this->app->l11nManager->getText($response->getLanguage(), '0', '0', 'InvalidDelete'),
             'response' => $obj,
-        ]);
+        ];
     }
 
     /**
@@ -480,12 +480,12 @@ abstract class ModuleAbstract
     ) : void
     {
         $response->header->set('Content-Type', MimeType::M_JSON . '; charset=utf-8', true);
-        $response->set($request->uri->__toString(), [
+        $response->data[$request->uri->__toString()] = [
             'status'   => NotificationLevel::WARNING,
             'title'    => '',
             'message'  => $this->app->l11nManager->getText($response->getLanguage(), '0', '0', 'InvalidRemove'),
             'response' => $obj,
-        ]);
+        ];
     }
 
     /**
@@ -506,12 +506,12 @@ abstract class ModuleAbstract
     ) : void
     {
         $response->header->set('Content-Type', MimeType::M_JSON . '; charset=utf-8', true);
-        $response->set($request->uri->__toString(), [
+        $response->data[$request->uri->__toString()] = [
             'status'   => NotificationLevel::WARNING,
             'title'    => '',
             'message'  => $this->app->l11nManager->getText($response->getLanguage(), '0', '0', 'InvalidReturn'),
             'response' => $obj,
-        ]);
+        ];
     }
 
     /**
@@ -532,12 +532,12 @@ abstract class ModuleAbstract
     ) : void
     {
         $response->header->set('Content-Type', MimeType::M_JSON . '; charset=utf-8', true);
-        $response->set($request->uri->__toString(), [
+        $response->data[$request->uri->__toString()] = [
             'status'   => NotificationLevel::WARNING,
             'title'    => '',
             'message'  => $this->app->l11nManager->getText($response->getLanguage(), '0', '0', 'InvalidAdd'),
             'response' => $obj,
-        ]);
+        ];
     }
 
     /**
@@ -558,12 +558,12 @@ abstract class ModuleAbstract
     ) : void
     {
         $response->header->set('Content-Type', MimeType::M_JSON . '; charset=utf-8', true);
-        $response->set($request->uri->__toString(), [
+        $response->data[$request->uri->__toString()] = [
             'status'   => NotificationLevel::WARNING,
             'title'    => '',
             'message'  => $this->app->l11nManager->getText($response->getLanguage(), '0', '0', 'InvalidPermission'),
             'response' => $obj,
-        ]);
+        ];
     }
 
     /**
@@ -580,7 +580,7 @@ abstract class ModuleAbstract
     protected function fillJsonRawResponse(RequestAbstract $request, ResponseAbstract $response, mixed $obj) : void
     {
         $response->header->set('Content-Type', MimeType::M_JSON . '; charset=utf-8', true);
-        $response->set($request->uri->__toString(), $obj);
+        $response->data[$request->uri->__toString()] = $obj);
     }
 
     /**
