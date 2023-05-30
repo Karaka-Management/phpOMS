@@ -43,7 +43,7 @@ final class HttpRequestTest extends \PHPUnit\Framework\TestCase
 
         $_SERVER['HTTP_USER_AGENT'] = OSType::UNKNOWN . BrowserType::UNKNOWN;
 
-        self::assertEquals('en', $request->getLanguage());
+        self::assertEquals('en', $request->header->l11n->language);
         self::assertFalse($request->isMobile());
         self::assertEquals(BrowserType::UNKNOWN, $request->getBrowser());
         self::assertEquals(OSType::UNKNOWN, $request->getOS());
@@ -51,7 +51,7 @@ final class HttpRequestTest extends \PHPUnit\Framework\TestCase
         self::assertFalse(HttpRequest::isHttps());
         self::assertEquals([], $request->getHash());
         self::assertEmpty($request->getBody());
-        self::assertEmpty($request->getFiles());
+        self::assertEmpty($request->files);
         self::assertEquals(RouteVerb::GET, $request->getRouteVerb());
         self::assertEquals(RequestMethod::GET, $request->getMethod());
         self::assertInstanceOf('\phpOMS\Message\Http\HttpHeader', $request->header);
@@ -59,7 +59,7 @@ final class HttpRequestTest extends \PHPUnit\Framework\TestCase
         self::assertEquals('', $request->__toString());
         self::assertFalse($request->hasData('key'));
         self::assertNull($request->getData('key'));
-        self::assertEquals('en', $request->getCountry());
+        self::assertEquals('en', $request->header->l11n->country);
         self::assertEquals('en_US', $request->getLocale());
     }
 
@@ -162,7 +162,7 @@ final class HttpRequestTest extends \PHPUnit\Framework\TestCase
         $request->header->l11n = new Localization();
         $request->header->l11n->setLanguage(ISO639x1Enum::_DE);
 
-        self::assertEquals(ISO639x1Enum::_DE, $request->getLanguage());
+        self::assertEquals(ISO639x1Enum::_DE, $request->header->l11n->language);
     }
 
     /**

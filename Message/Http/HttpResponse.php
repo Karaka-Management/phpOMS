@@ -59,7 +59,7 @@ final class HttpResponse extends ResponseAbstract implements RenderableInterface
      */
     public function setResponse(array $response) : void
     {
-        $this->response = $response;
+        $this->data = $response;
     }
 
     /**
@@ -73,8 +73,8 @@ final class HttpResponse extends ResponseAbstract implements RenderableInterface
      */
     public function remove(string $id) : bool
     {
-        if (isset($this->response[$id])) {
-            unset($this->response[$id]);
+        if (isset($this->data[$id])) {
+            unset($this->data[$id]);
 
             return true;
         }
@@ -143,7 +143,7 @@ final class HttpResponse extends ResponseAbstract implements RenderableInterface
     private function getRaw(bool $optimize = false) : string
     {
         $render = '';
-        foreach ($this->response as $response) {
+        foreach ($this->data as $response) {
             // @note: Api functions return void -> null, this is where the null value is "ignored"/rendered as ''
             $render .= StringUtils::stringify($response);
         }
@@ -183,7 +183,7 @@ final class HttpResponse extends ResponseAbstract implements RenderableInterface
     {
         $result = [];
 
-        foreach ($this->response as $response) {
+        foreach ($this->data as $response) {
             if ($response instanceof View) {
                 $result[] = $response->toArray();
             } elseif (\is_array($response) || \is_scalar($response)) {

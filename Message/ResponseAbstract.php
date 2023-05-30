@@ -32,7 +32,7 @@ abstract class ResponseAbstract implements \JsonSerializable, MessageInterface
      * @var array
      * @since 1.0.0
      */
-    protected array $response = [];
+    public array $data = [];
 
     /**
      * Header.
@@ -53,7 +53,7 @@ abstract class ResponseAbstract implements \JsonSerializable, MessageInterface
      */
     public function get(mixed $id) : mixed
     {
-        return $this->response[$id] ?? null;
+        return $this->data[$id] ?? null;
     }
 
     /**
@@ -69,9 +69,7 @@ abstract class ResponseAbstract implements \JsonSerializable, MessageInterface
      */
     public function set(mixed $key, mixed $response, bool $overwrite = false) : void
     {
-        // This is not working since the key contains :: from http://
-        //$this->response = ArrayUtils::setArray((string) $key, $this->response, $response, ':', $overwrite);
-        $this->response[$key] = $response;
+        $this->data[$key] = $response;
     }
 
     /**
@@ -106,7 +104,7 @@ abstract class ResponseAbstract implements \JsonSerializable, MessageInterface
             return ISO639x1Enum::_EN;
         }
 
-        return $this->header->l11n->getLanguage();
+        return $this->header->l11n->language;
     }
 
     /**

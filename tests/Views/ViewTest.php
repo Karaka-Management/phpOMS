@@ -83,7 +83,7 @@ final class ViewTest extends \PHPUnit\Framework\TestCase
     public function testHasData() : void
     {
         $view = new View($this->app->l11nManager);
-        $view->addData('a', 1);
+        $view->data['a'] = 1;
 
         self::assertTrue($view->hasData('a'));
         self::assertFalse($view->hasData('b'));
@@ -201,7 +201,7 @@ final class ViewTest extends \PHPUnit\Framework\TestCase
     {
         $view = new View($this->app->l11nManager);
 
-        $view->setData('key', 'value');
+        $view->data['key'] = 'value';
         self::assertEquals('value', $view->getData('key'));
     }
 
@@ -214,7 +214,7 @@ final class ViewTest extends \PHPUnit\Framework\TestCase
     {
         $view = new View($this->app->l11nManager);
 
-        self::assertTrue($view->addData('key2', 'valu2'));
+        self::assertTrue($view->data['key2'] = 'valu2');
         self::assertEquals('valu2', $view->getData('key2'));
     }
 
@@ -227,8 +227,8 @@ final class ViewTest extends \PHPUnit\Framework\TestCase
     {
         $view = new View($this->app->l11nManager);
 
-        $view->addData('key2', 'valu2');
-        self::assertFalse($view->addData('key2', 'valu3'));
+        $view->data['key2'] = 'valu2';
+        self::assertFalse($view->data['key2'] = 'valu3');
         self::assertEquals('valu2', $view->getData('key2'));
     }
 
@@ -241,7 +241,7 @@ final class ViewTest extends \PHPUnit\Framework\TestCase
     {
         $view = new View($this->app->l11nManager);
 
-        $view->addData('key2', 'valu2');
+        $view->data['key2'] = 'valu2';
         self::assertTrue($view->removeData('key2'));
     }
 

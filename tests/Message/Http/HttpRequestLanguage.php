@@ -7,4 +7,4 @@ use phpOMS\Message\Http\HttpRequest;
 
 $request = HttpRequest::createFromSuperglobals();
 
-echo $request->getCountry();
+echo $request->header->l11n->country;

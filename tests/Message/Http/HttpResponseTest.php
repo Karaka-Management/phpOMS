@@ -115,7 +115,7 @@ final class HttpResponseTest extends \PHPUnit\Framework\TestCase
         $this->response->header->l11n = new Localization();
         $this->response->header->l11n->setLanguage(ISO639x1Enum::_DE);
 
-        self::assertEquals(ISO639x1Enum::_DE, $this->response->getLanguage());
+        self::assertEquals(ISO639x1Enum::_DE, $this->response->header->l11n->language);
     }
 
     /**

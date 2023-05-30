@@ -275,7 +275,7 @@ final class L11nManager
         int $divide = 1
     ) : string
     {
-        $language = $l11n->getLanguage();
+        $language = $l11n->language;
         $symbol ??= $l11n->getCurrency();
 
         if (\is_float($currency)) {

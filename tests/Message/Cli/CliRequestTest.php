@@ -42,7 +42,7 @@ final class CliRequestTest extends \PHPUnit\Framework\TestCase
     public function testDefault() : void
     {
         $request = new CliRequest();
-        self::assertEquals('en', $request->getLanguage());
+        self::assertEquals('en', $request->header->l11n->language);
         self::assertEquals(OSType::LINUX, $request->getOS());
         self::assertEquals('127.0.0.1', $request->getOrigin());
         self::assertEmpty($request->getBody());
