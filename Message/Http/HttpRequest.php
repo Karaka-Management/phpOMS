@@ -404,7 +404,7 @@ final class HttpRequest extends RequestAbstract
     public function getLocale() : string
     {
         if (!empty($this->locale)) {
-            return $this->locale = $this->header->l11n->language . '_' . $this->header->l11n->getCountry();
+            return $this->locale = $this->header->l11n->language . '_' . $this->header->l11n->country;
         }
 
         if (!isset($_SERVER['HTTP_ACCEPT_LANGUAGE'])) {

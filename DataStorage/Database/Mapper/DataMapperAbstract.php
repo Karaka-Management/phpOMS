@@ -353,6 +353,18 @@ abstract class DataMapperAbstract
         return $this;
     }
 
+    /**
+     * Define the joining data
+     *
+     * @param string $member    Property name to filter by
+     * @param mixed  $value     Filter value
+     * @param string $logic     Comparison logic (e.g. =, in, ...)
+     * @param string $connector Filter connector (e.g. AND, OR, ...)
+     *
+     * @return self
+     *
+     * @since 1.0.0
+     */
     public function on(string $member, mixed $value, string $logic = '=', string $connector = 'AND', string $relation = '') : self
     {
         $this->on[$relation][] = [

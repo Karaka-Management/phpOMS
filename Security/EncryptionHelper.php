@@ -156,6 +156,17 @@ final class EncryptionHelper
         return $plaintext === false ? '' : $plaintext;
     }
 
+    /**
+     * Decrypt an encrypted file
+     *
+     * @param string $in     Encrypted file
+     * @param string $out    Decrypted file
+     * @param string $keyHex Shared key in hex
+     *
+     * @return bool
+     *
+     * @since 1.0.0
+     */
     public static function decryptFile(string $in, string $out, string $keyHex) : bool
     {
         $fpSource  = \fopen($in, 'rb');

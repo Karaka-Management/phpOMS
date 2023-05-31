@@ -2725,14 +2725,15 @@ class QR extends TwoDAbstract
         $rs['gfpoly']  = $gfpoly;
 
         // Find prim-th root of 1, used in decoding
-        for ($iprim=1; ($iprim % $prim) !== 0; $iprim += $rs['nn']) {
-             // intentional empty-body loop!
+        $iprim = 1;
+        while ($iprim % $prim !== 0) {
+            $iprim += $rs['nn'];
         }
 
         $rs['iprim']      = (int) ($iprim / $prim);
         $rs['genpoly'][0] = 1;
 
-        for ($i = 0,$root = $fcr * $prim; $i < $nroots; $i++, $root += $prim) {
+        for ($i = 0, $root = $fcr * $prim; $i < $nroots; ++$i, $root += $prim) {
             $rs['genpoly'][$i + 1] = 1;
 
             // Multiply rs->genpoly[] by  @**(root + x)

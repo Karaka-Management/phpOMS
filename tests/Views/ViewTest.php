@@ -82,7 +82,7 @@ final class ViewTest extends \PHPUnit\Framework\TestCase
      */
     public function testHasData() : void
     {
-        $view = new View($this->app->l11nManager);
+        $view            = new View($this->app->l11nManager);
         $view->data['a'] = 1;
 
         self::assertTrue($view->hasData('a'));
