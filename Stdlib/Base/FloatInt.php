@@ -184,6 +184,44 @@ class FloatInt implements SerializableInterface
     }
 
     /**
+     * Get money.
+     *
+     * @param null|int $decimals Precision (null = auto decimals)
+     *
+     * @return string
+     *
+     * @throws \Exception this exception is thrown if an internal substr error occurs
+     *
+     * @since 1.0.0
+     */
+    public function getFloat(?int $decimals = 2) : string
+    {
+        $isNegative = $this->value < 0 ? 1 : 0;
+
+        $value = $this->value === 0
+            ? \str_repeat('0', self::MAX_DECIMALS)
+            : (string) \round($this->value, -self::MAX_DECIMALS + $decimals);
+
+        $left = \substr($value, 0, -self::MAX_DECIMALS + $isNegative);
+
+        /** @var string $left */
+        $left  = $left === false ? '0' : $left;
+        $right = \substr($value, -self::MAX_DECIMALS + $isNegative);
+
+        if ($right === false) {
+            throw new \Exception(); // @codeCoverageIgnore
+        }
+
+        if ($decimals === null) {
+            $decimals = \strlen(\rtrim($right, '0'));
+        }
+
+        return $decimals > 0
+            ? \number_format((float) $left, 0, $this->decimal, '') . $this->decimal . \substr($right, 0, $decimals)
+            : \str_pad($left, 1, '0');
+    }
+
+    /**
      * Add money.
      *
      * @param int|float|string|FloatInt $value Value to add
