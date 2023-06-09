@@ -94,6 +94,9 @@ final class CliRequest extends RequestAbstract
         $key = \mb_strtolower($key);
 
         switch ($type) {
+            case null:
+                /* @phpstan-ignore-next-line */
+                return ArrayUtils::getArg($key, $this->data);
             case 'int':
                 /* @phpstan-ignore-next-line */
                 return (int) ArrayUtils::getArg($key, $this->data);

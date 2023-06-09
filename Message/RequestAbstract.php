@@ -99,16 +99,13 @@ abstract class RequestAbstract implements MessageInterface
         }
 
         $key = \mb_strtolower($key);
-
         if (!isset($this->data[$key])) {
             return null;
         }
 
-        if ($type === null) {
-            return $this->data[$key];
-        }
-
         switch ($type) {
+            case null:
+                return $this->data[$key];
             case 'int':
                 return (int) $this->data[$key];
             case 'string':
