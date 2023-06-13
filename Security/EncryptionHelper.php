@@ -94,7 +94,11 @@ final class EncryptionHelper
         \fwrite($fpEncoded, $nonce);
 
         while (!\feof($fpSource)) {
-            $buffer     = \fread($fpSource, 4096);
+            $buffer = \fread($fpSource, 4096);
+            if ($buffer === false) {
+                continue;
+            }
+
             $ciphertext = \sodium_crypto_secretbox($buffer, $nonce, $secretKey);
 
             \fwrite($fpEncoded, $ciphertext);
@@ -179,11 +183,18 @@ final class EncryptionHelper
         $secretKey = \sodium_hex2bin($keyHex);
         $nonce     = \fread($fpSource, \SODIUM_CRYPTO_SECRETBOX_NONCEBYTES);
 
-        while (!\feof($fpSource)) {
-            $buffer     = \fread($fpSource, 4096);
-            $ciphertext = \mb_substr($buffer, \SODIUM_CRYPTO_SECRETBOX_NONCEBYTES, null, '8bit');
+        if ($nonce === false) {
+            $nonce = '';
+        }
 
-            $plaintext = \sodium_crypto_secretbox_open($ciphertext, $nonce, $secretKey);
+        while (!\feof($fpSource)) {
+            $buffer = \fread($fpSource, 4096);
+            if ($buffer === false) {
+                continue;
+            }
+
+            $ciphertext = \mb_substr($buffer, \SODIUM_CRYPTO_SECRETBOX_NONCEBYTES, null, '8bit');
+            $plaintext  = \sodium_crypto_secretbox_open($ciphertext, $nonce, $secretKey);
 
             if ($plaintext === false) {
                 return false;

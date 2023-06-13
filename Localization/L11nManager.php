@@ -257,11 +257,11 @@ final class L11nManager
     /**
      * Print a currency
      *
-     * @param Localization    $l11n     Localization
-     * @param int|float|Money $currency Currency value to print
-     * @param null|string     $symbol   Currency name/symbol
-     * @param null|string     $format   Format type to use
-     * @param int             $divide   Divide currency by divisor
+     * @param Localization             $l11n     Localization
+     * @param int|float|FloatInt|Money $currency Currency value to print
+     * @param null|string              $symbol   Currency name/symbol
+     * @param null|string              $format   Format type to use
+     * @param int                      $divide   Divide currency by divisor
      *
      * @return string
      *
@@ -292,13 +292,14 @@ final class L11nManager
             }
         }
 
-        if ($currency instanceof FloatInt) {
-            $currency = $currency->value;
+        $money = null;
+        if ($currency instanceof Money) {
+            $money = $currency;
+        } elseif ($currency instanceof FloatInt) {
+            $money = new Money((int) ($currency->value / $divide));
+        } else {
+            $money = new Money((int) ($currency / $divide));
         }
-
-        $money = $currency instanceof Money
-            ? $currency
-            : new Money((int) ($currency / $divide));
 
         $money->setLocalization(
             $l11n->getThousands(),

@@ -214,7 +214,7 @@ class Datamatrix extends TwoDAbstract
                         // braw bits by case
                         if ($r === 0) {
                             // top finder pattern
-                            $this->codearray[$row][$col] = $c % 2 === 0;
+                            $this->codearray[$row][$col] = ($c % 2) === 0;
                         } elseif ($r === $rdri) {
                             // bottom finder pattern
                             $this->codearray[$row][$col] = true;
@@ -223,17 +223,17 @@ class Datamatrix extends TwoDAbstract
                             $this->codearray[$row][$col] = true;
                         } elseif ($c === $rdci) {
                             // right finder pattern
-                            $this->codearray[$row][$col] = $r % 2;
-                        } else { // data bit
-                            if ($places[$i] < 2) {
-                                $this->codearray[$row][$col] = (bool) $places[$i];
-                            } else {
-                                // codeword ID
-                                $cw_id = (\floor($places[$i] / 10) - 1);
-                                // codeword BIT mask
-                                $cw_bit                      = \pow(2, (8 - ($places[$i] % 10)));
-                                $this->codearray[$row][$col] = ($cw[$cw_id] & $cw_bit) !== 0;
-                            }
+                            $this->codearray[$row][$col] = ($r % 2) === 0;
+                        } elseif ($places[$i] < 2) { // data bit
+                            $this->codearray[$row][$col] = (bool) $places[$i];
+
+                            ++$i;
+                        } else {
+                            // codeword ID
+                            $cw_id = (int) (\floor($places[$i] / 10) - 1);
+                            // codeword BIT mask
+                            $cw_bit                      = \pow(2, (8 - ($places[$i] % 10)));
+                            $this->codearray[$row][$col] = ($cw[$cw_id] & $cw_bit) !== 0;
 
                             ++$i;
                         }
@@ -967,11 +967,9 @@ class Datamatrix extends TwoDAbstract
                         $cw_num += 2;
                     }
 
-                    if (!empty($temp_cw)) {
-                        // add B256 field
-                        foreach ($temp_cw as $p => $cht) {
-                            $cw[] = $this->get255StateCodeword($cht, ($cw_num + $p + 1));
-                        }
+                    // add B256 field
+                    foreach ($temp_cw as $p => $cht) {
+                        $cw[] = $this->get255StateCodeword($cht, ($cw_num + $p + 1));
                     }
 
                     break;
@@ -1099,19 +1097,13 @@ class Datamatrix extends TwoDAbstract
             if (($row === $nrow) && ($col === 0)) {
                 $marr = $this->placeCornerA($marr, $nrow, $ncol, $chr);
                 ++$chr;
-            }
-
-            if (($row === ($nrow - 2)) && ($col === 0) && ($ncol % 4)) {
+            } elseif (($row === ($nrow - 2)) && ($col === 0) && ($ncol % 4)) {
                 $marr = $this->placeCornerB($marr, $nrow, $ncol, $chr);
                 ++$chr;
-            }
-
-            if (($row === ($nrow - 2)) && ($col === 0) && (($ncol % 8) === 4)) {
+            } elseif (($row === ($nrow - 2)) && ($col === 0) && (($ncol % 8) === 4)) {
                 $marr = $this->placeCornerC($marr, $nrow, $ncol, $chr);
                 ++$chr;
-            }
-
-            if (($row === ($nrow + 4)) && ($col === 2) && (!($ncol % 8))) {
+            } elseif (($row === ($nrow + 4)) && ($col === 2) && (!($ncol % 8))) {
                 $marr = $this->placeCornerD($marr, $nrow, $ncol, $chr);
                 ++$chr;
             }

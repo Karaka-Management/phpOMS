@@ -924,7 +924,7 @@ class Graph
                         } elseif (!$j->isEqual($i) && !$j->isEqual($current)
                             && $distances[$j->getId()] >= $distances[$current->getId()]
                         ) {
-                            $girth = \min(
+                            $girth = (int) \min(
                                 $girth,
                                 $distances[$current->getId()] + $distances[$j->getId()] + 1
                             );
@@ -1199,6 +1199,10 @@ class Graph
      */
     public function isBipartite() : bool
     {
+        if (empty($this->nodes)) {
+            return true;
+        }
+
         foreach ($this->nodes as $node) {
             $colors[$node->getId()] = 0;
         }

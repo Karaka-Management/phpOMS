@@ -290,7 +290,7 @@ final class ArrayUtils
                 $xml->addChild($key, \htmlspecialchars($value));
             }
         }
-        return $xml->asXML();
+        return (string) $xml->asXML();
     }
 
     /**
@@ -298,14 +298,16 @@ final class ArrayUtils
      *
      * Useful for parsing command line parsing
      *
-     * @param string   $id   Id to find
-     * @param string[] $args CLI command list
+     * @template T
      *
-     * @return null|string
+     * @param string               $id   Id to find
+     * @param array<string|int, T> $args CLI command list
+     *
+     * @return null|T
      *
      * @since 1.0.0
      */
-    public static function getArg(string $id, array $args) : ?string
+    public static function getArg(string $id, array $args) : mixed
     {
         if (\is_numeric($id)) {
             return $args[(int) $id] ?? null;
@@ -321,8 +323,8 @@ final class ArrayUtils
     /**
      * Check if flag is set
      *
-     * @param string   $id   Id to find
-     * @param string[] $args CLI command list
+     * @param string                   $id   Id to find
+     * @param array<string|int, mixed> $args CLI command list
      *
      * @return int
      *

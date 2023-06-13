@@ -94,7 +94,7 @@ class TaskScheduler extends SchedulerAbstract
             foreach ($lines as $line) {
                 $line = \str_getcsv($line);
 
-                if (\stripos($line[1], $name) !== false) {
+                if (\stripos($line[1] ?? '', $name) !== false) {
                     $jobs[] = Schedule::createWith($line);
                 }
             }

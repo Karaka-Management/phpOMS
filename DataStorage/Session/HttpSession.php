@@ -44,7 +44,7 @@ final class HttpSession implements SessionInterface
      * @var array<string, mixed>
      * @since 1.0.0
      */
-    private array $sessionData = [];
+    public array $data = [];
 
     /**
      * Session ID.
@@ -52,7 +52,7 @@ final class HttpSession implements SessionInterface
      * @var string
      * @since 1.0.0
      */
-    private string $sid;
+    public string $sid;
 
     /**
      * Inactivity Interval.
@@ -60,7 +60,7 @@ final class HttpSession implements SessionInterface
      * @var int
      * @since 1.0.0
      */
-    private int $inactivityInterval = 0;
+    public int $inactivityInterval = 0;
 
     /**
      * Constructor.
@@ -114,10 +114,10 @@ final class HttpSession implements SessionInterface
             $this->destroy(); // @codeCoverageIgnore
         }
 
-        $this->sessionData                 = $_SESSION ?? [];
-        $_SESSION                          = null;
-        $this->sessionData['lastActivity'] = \time();
-        $this->sid                         = (string) \session_id();
+        $this->data                 = $_SESSION ?? [];
+        $_SESSION                   = null;
+        $this->data['lastActivity'] = \time();
+        $this->sid                  = (string) \session_id();
 
         $this->setCsrfProtection();
     }
@@ -146,8 +146,8 @@ final class HttpSession implements SessionInterface
      */
     public function set(string $key, mixed $value, bool $overwrite = false) : bool
     {
-        if (!$this->isLocked && ($overwrite || !isset($this->sessionData[$key]))) {
-            $this->sessionData[$key] = $value;
+        if (!$this->isLocked && ($overwrite || !isset($this->data[$key]))) {
+            $this->data[$key] = $value;
 
             return true;
         }
@@ -160,7 +160,7 @@ final class HttpSession implements SessionInterface
      */
     public function get(string $key) : mixed
     {
-        return $this->sessionData[$key] ?? null;
+        return $this->data[$key] ?? null;
     }
 
     /**
@@ -192,7 +192,7 @@ final class HttpSession implements SessionInterface
             return false;
         }
 
-        $_SESSION = $this->sessionData;
+        $_SESSION = $this->data;
 
         return \session_write_close();
     }
@@ -202,8 +202,8 @@ final class HttpSession implements SessionInterface
      */
     public function remove(string $key) : bool
     {
-        if (!$this->isLocked && isset($this->sessionData[$key])) {
-            unset($this->sessionData[$key]);
+        if (!$this->isLocked && isset($this->data[$key])) {
+            unset($this->data[$key]);
 
             return true;
         }
@@ -239,7 +239,7 @@ final class HttpSession implements SessionInterface
     {
         if (\session_status() !== \PHP_SESSION_NONE) {
             \session_destroy();
-            $this->sessionData = [];
+            $this->data = [];
             \session_start();
         }
     }

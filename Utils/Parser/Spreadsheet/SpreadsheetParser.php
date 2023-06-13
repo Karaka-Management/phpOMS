@@ -42,11 +42,15 @@ class SpreadsheetParser
             $spreadsheet = IOFactory::load($path);
 
             $sheetCount = $spreadsheet->getSheetCount();
+            $csv        = [];
+
             for ($i = 0; $i < $sheetCount; ++$i) {
                 $csv[] = $spreadsheet->getSheet($i)->toArray(null, true, true, true);
             }
 
-            return \json_encode($csv);
+            $json = \json_encode($csv);
+
+            return $json === false ? '' : $json;
         } elseif ($output === 'pdf') {
             $spreadsheet = IOFactory::load($path);
 

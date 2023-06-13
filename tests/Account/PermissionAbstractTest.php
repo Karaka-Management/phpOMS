@@ -35,13 +35,13 @@ final class PermissionAbstractTest extends \PHPUnit\Framework\TestCase
     {
         $perm = new class() extends PermissionAbstract {};
 
-        self::assertEquals(0, $perm->getId());
-        self::assertNull($perm->getUnit());
-        self::assertNull($perm->getApp());
-        self::assertNull($perm->getModule());
-        self::assertEquals(0, $perm->getFrom());
-        self::assertNull($perm->getElement());
-        self::assertNull($perm->getComponent());
+        self::assertEquals(0, $perm->id);
+        self::assertNull($perm->unit);
+        self::assertNull($perm->app);
+        self::assertNull($perm->module);
+        self::assertEquals(0, $perm->from);
+        self::assertNull($perm->element);
+        self::assertNull($perm->component);
         self::assertEquals(PermissionType::NONE, $perm->getPermission());
         self::assertTrue($perm->hasPermission(PermissionType::NONE));
         self::assertTrue($perm->hasPermissionFlags(PermissionType::NONE));
@@ -65,97 +65,6 @@ final class PermissionAbstractTest extends \PHPUnit\Framework\TestCase
     }
 
     /**
-     * @testdox The unit can be set and returned correctly
-     * @covers phpOMS\Account\PermissionAbstract
-     * @group framework
-     */
-    public function testUnitInputOutput() : void
-    {
-        $perm = new class() extends PermissionAbstract {};
-
-        $perm->setUnit(1);
-        self::assertEquals(1, $perm->getUnit());
-    }
-
-    /**
-     * @testdox The app can be set and returned correctly
-     * @covers phpOMS\Account\PermissionAbstract
-     * @group framework
-     */
-    public function testAppInputOutput() : void
-    {
-        $perm = new class() extends PermissionAbstract {};
-
-        $perm->setApp(2);
-        self::assertEquals(2, $perm->getApp());
-    }
-
-    /**
-     * @testdox The module can be set and returned correctly
-     * @covers phpOMS\Account\PermissionAbstract
-     * @group framework
-     */
-    public function testModuleInputOutput() : void
-    {
-        $perm = new class() extends PermissionAbstract {};
-
-        $perm->setModule('2');
-        self::assertEquals('2', $perm->getModule());
-    }
-
-    /**
-     * @testdox The from can be set and returned correctly
-     * @covers phpOMS\Account\PermissionAbstract
-     * @group framework
-     */
-    public function testFromInputOutput() : void
-    {
-        $perm = new class() extends PermissionAbstract {};
-
-        $perm->setFrom('3');
-        self::assertEquals('3', $perm->getFrom());
-    }
-
-    /**
-     * @testdox The category can be set and returned correctly
-     * @covers phpOMS\Account\PermissionAbstract
-     * @group framework
-     */
-    public function testCategoryInputOutput() : void
-    {
-        $perm = new class() extends PermissionAbstract {};
-
-        $perm->setCategory(4);
-        self::assertEquals(4, $perm->getCategory());
-    }
-
-    /**
-     * @testdox The element can be set and returned correctly
-     * @covers phpOMS\Account\PermissionAbstract
-     * @group framework
-     */
-    public function testElementInputOutput() : void
-    {
-        $perm = new class() extends PermissionAbstract {};
-
-        $perm->setElement(5);
-        self::assertEquals(5, $perm->getElement());
-    }
-
-    /**
-     * @testdox The component can be set and returned correctly
-     * @covers phpOMS\Account\PermissionAbstract
-     * @group framework
-     */
-    public function testComponentInputOutput() : void
-    {
-        $perm = new class() extends PermissionAbstract {};
-
-        $perm->setComponent(6);
-        self::assertEquals(6, $perm->getComponent());
-    }
-
-    /**
      * @testdox The permission can be set and returned correctly
      * @covers phpOMS\Account\PermissionAbstract
      * @group framework
@@ -176,13 +85,13 @@ final class PermissionAbstractTest extends \PHPUnit\Framework\TestCase
     public function testEqualPermissions() : void
     {
         $perm1 = new class() extends PermissionAbstract {};
-        $perm1->setUnit(1);
+        $perm1->unit = 1;
         $perm1->setPermission(PermissionType::READ);
 
         self::assertTrue($perm1->isEqual($perm1));
 
         $perm2 = new class() extends PermissionAbstract {};
-        $perm2->setUnit(1);
+        $perm2->unit = 1;
         $perm2->setPermission(PermissionType::CREATE);
 
         self::assertFalse($perm1->isEqual($perm2));

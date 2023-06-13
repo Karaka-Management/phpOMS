@@ -111,9 +111,9 @@ class LanguageResult implements \ArrayAccess, \IteratorAggregate, \JsonSerializa
     /**
      * Only return whitelisted results
      *
-     * @param \string[] ...$whitelist List of whitelisted languages
+     * @param string[] ...$whitelist List of whitelisted languages
      *
-     * @return LanguageResult
+     * @return self
      *
      * @since 1.0.0
      */
@@ -125,9 +125,9 @@ class LanguageResult implements \ArrayAccess, \IteratorAggregate, \JsonSerializa
     /**
      * Remove blacklisted languages
      *
-     * @param \string[] ...$blacklist List of blacklist languages
+     * @param string[] ...$blacklist List of blacklist languages
      *
-     * @return LanguageResult
+     * @return self
      *
      * @since 1.0.0
      */
@@ -151,7 +151,7 @@ class LanguageResult implements \ArrayAccess, \IteratorAggregate, \JsonSerializa
     /**
      * Get results based on internally defined threshold
      *
-     * @return LanguageResult
+     * @return self
      *
      * @since 1.0.0
      */
@@ -182,7 +182,7 @@ class LanguageResult implements \ArrayAccess, \IteratorAggregate, \JsonSerializa
      * @param int      $offset Zero indexed start value
      * @param null|int $length Number of results
      *
-     * @return LanguageResult
+     * @return self
      *
      * @since 1.0.0
      */

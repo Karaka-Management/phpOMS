@@ -154,6 +154,11 @@ final class ImageUtils
         if (\stripos($srcPath, '.png')) {
             \imagealphablending($dst, false);
             $transparent = \imagecolorallocatealpha($dst, 0, 0, 0, 127);
+
+            if ($transparent === false) {
+                throw new \InvalidArgumentException();
+            }
+
             \imagefill($dst, 0, 0, $transparent);
             \imagesavealpha($dst, true);
         }
@@ -342,7 +347,7 @@ final class ImageUtils
     /**
      * Calculate the average color of an image at a specific position
      *
-     * @param resource $src    Image resource
+     * @param \GdImage $src    Image resource
      * @param int      $x      X position
      * @param int      $y      Y position
      * @param int      $width  Image width

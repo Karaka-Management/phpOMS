@@ -40,7 +40,7 @@ final class HttpHeader extends HeaderAbstract
     /**
      * Server headers.
      *
-     * @var string[]
+     * @var array
      * @since 1.0.0
      */
     private static $serverHeaders = [];

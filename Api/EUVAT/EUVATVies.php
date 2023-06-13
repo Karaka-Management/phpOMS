@@ -172,7 +172,7 @@ final class EUVATVies implements EUVATInterface
             if ($otherStreet === '') {
                 $result['address'] = 'D';
             } elseif (\stripos($result['address'], $otherStreet) !== false
-                && \levenshtein($otherStreet, $result['address'], insertion_cost: 0) / \strlen($result['address']) < 0.2
+                && \levenshtein($otherStreet, $result['address'], 0) / \strlen($result['address']) < 0.2
             ) {
                 $result['address'] = 'A';
             } elseif ($result['address'] === '') {

@@ -169,6 +169,16 @@ class Grammar extends GrammarAbstract
         return ($query->distinct ? 'SELECT DISTINCT ' : 'SELECT ') . $expression;
     }
 
+    /**
+     * Get random entry
+     *
+     * @param Builder $query   Builder
+     * @param array   $columns Columns
+     *
+     * @return string
+     *
+     * @since 1.0.0
+     */
     protected function compileRandom(Builder $query, array $columns) : string
     {
         return '';

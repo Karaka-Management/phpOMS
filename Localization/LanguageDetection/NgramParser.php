@@ -88,8 +88,9 @@ abstract class NgramParser
     protected function getNgrams(string $str) : array
     {
         $tokens = [];
+        $words  = $this->tokenize($str);
 
-        foreach ($this->tokenize($str) as $word) {
+        foreach ($words as $word) {
             $l   = \mb_strlen($word);
             $tmp = 0;
 

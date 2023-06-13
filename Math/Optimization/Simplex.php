@@ -12,7 +12,7 @@
  */
 declare(strict_types=1);
 
-// https://github.com/PetarV-/Algorithms/blob/master/Mathematical%20Algorithms/Simplex%20Algorithm.cpp
+namespace phpOMS\Math\Optimization;
 
 /**
  * Simplex class.
@@ -20,6 +20,7 @@ declare(strict_types=1);
  * @package phpOMS\Math\Optimization
  * @license OMS License 2.0
  * @link    https://jingga.app
+ * @link    https://github.com/PetarV-/Algorithms/blob/master/Mathematical%20Algorithms/Simplex%20Algorithm.cpp
  * @since   1.0.0
  */
 class Simplex
@@ -42,22 +43,66 @@ class Simplex
 
     private array $basicSolution = [];
 
+    /**
+     * Define the function to optimize
+     *
+     * @param array $function Function to optimize
+     *
+     * @return void
+     *
+     * @since 1.0.0
+     */
     public function setFunction(array $function) : void
     {
     }
 
+    /**
+     * Add function constraint
+     *
+     * @param array  $function Constraint function
+     * @param string $type     Constraint type
+     * @param float  $limit    Constraint
+     *
+     * @return void
+     *
+     * @since 1.0.0
+     */
     public function addConstraint(array $function, string $type, float $limit) : void
     {
     }
 
+    /**
+     * Pivot element
+     *
+     * @param int $x X-Pivot
+     * @param int $y Y-Pivot
+     *
+     * @return void
+     *
+     * @since 1.0.0
+     */
     private function pivot(int $x, int $y) : void
     {
     }
 
+    /**
+     * Perform simplex iteration
+     *
+     * @return void
+     *
+     * @since 1.0.0
+     */
     private function iterateSimplex() : void
     {
     }
 
+    /**
+     * Initialize simplex algorithm
+     *
+     * @return bool
+     *
+     * @since 1.0.0
+     */
     private function initialize() : bool
     {
         $k        = -1;
@@ -198,6 +243,13 @@ class Simplex
         return true;
     }
 
+    /**
+     * Solve the optimization
+     *
+     * @return array
+     *
+     * @since 1.0.0
+     */
     public function solve() : array
     {
         if (!$this->initialize()) {

@@ -89,7 +89,7 @@ class SmartDateTime extends \DateTime
      *
      * @since 1.0.0
      */
-    public function createModify(int $y, int $m = 0, int $d = 0, int $calendar = \CAL_GREGORIAN) : self
+    public function createModify(int $y = 0, int $m = 0, int $d = 0, int $calendar = \CAL_GREGORIAN) : self
     {
         $dt = clone $this;
         $dt->smartModify($y, $m, $d, $calendar);
@@ -109,20 +109,18 @@ class SmartDateTime extends \DateTime
      *
      * @since 1.0.0
      */
-    public function smartModify(int $y, int $m = 0, int $d = 0, int $calendar = \CAL_GREGORIAN) : self
+    public function smartModify(int $y = 0, int $m = 0, int $d = 0, int $calendar = \CAL_GREGORIAN) : self
     {
-        $yearChange  = (int) \floor(((int) $this->format('m') - 1 + $m) / 12);
-        $yearChange  = ((int) $this->format('m') - 1 + $m) < 0 && ((int) $this->format('m') - 1 + $m) % 12 === 0 ? $yearChange - 1 : $yearChange;
-        $yearNew     = (int) $this->format('Y') + $y + $yearChange;
-        $monthNew    = ((int) $this->format('m') + $m) % 12;
-        $monthNew    = $monthNew === 0 ? 12 : ($monthNew < 0 ? 12 + $monthNew : $monthNew);
+        $yearChange = (int) \floor(((int) $this->format('m') - 1 + $m) / 12);
+        $yearNew    = (int) $this->format('Y') + $y + $yearChange;
+
+        $monthNew = ((int) $this->format('m') + $m - 1) % 12 + 1;
+
         $dayMonthOld = \cal_days_in_month($calendar, (int) $this->format('m'), (int) $this->format('Y'));
         $dayMonthNew = \cal_days_in_month($calendar, $monthNew, $yearNew);
         $dayOld      = (int) $this->format('d');
 
-        if ($dayOld > $dayMonthNew) {
-            $dayNew = $dayMonthNew;
-        } elseif ($dayOld < $dayMonthNew && $dayOld === $dayMonthOld) {
+        if ($dayOld > $dayMonthNew || $dayOld === $dayMonthOld) {
             $dayNew = $dayMonthNew;
         } else {
             $dayNew = $dayOld;

@@ -433,7 +433,7 @@ class MailHandler
 
         $mail->hostname = $this->hostname;
 
-        $smtpFrom = $mail->sender === '' ? $mail->getFrom()[0] : $mail->sender;
+        $smtpFrom = $mail->sender === '' ? $mail->from[0] : $mail->sender;
 
         if (!$this->smtp->mail($smtpFrom)) {
             return false;

@@ -41,7 +41,7 @@ class PermissionAbstract implements \JsonSerializable
      * @var null|int
      * @since 1.0.0
      */
-    protected ?int $unit = null;
+    public ?int $unit = null;
 
     /**
      * App name.
@@ -49,7 +49,7 @@ class PermissionAbstract implements \JsonSerializable
      * @var null|int
      * @since 1.0.0
      */
-    protected ?int $app = null;
+    public ?int $app = null;
 
     /**
      * Module id.
@@ -57,7 +57,7 @@ class PermissionAbstract implements \JsonSerializable
      * @var null|string
      * @since 1.0.0
      */
-    protected ?string $module = null;
+    public ?string $module = null;
 
     /**
      * Providing module id.
@@ -65,7 +65,7 @@ class PermissionAbstract implements \JsonSerializable
      * @var string
      * @since 1.0.0
      */
-    protected ?string $from = null;
+    public ?string $from = null;
 
     /**
      * Type.
@@ -73,7 +73,7 @@ class PermissionAbstract implements \JsonSerializable
      * @var null|int
      * @since 1.0.0
      */
-    protected ?int $category = null;
+    public ?int $category = null;
 
     /**
      * Element id.
@@ -81,7 +81,7 @@ class PermissionAbstract implements \JsonSerializable
      * @var null|int
      * @since 1.0.0
      */
-    protected ?int $element = null;
+    public ?int $element = null;
 
     /**
      * Component id.
@@ -89,7 +89,7 @@ class PermissionAbstract implements \JsonSerializable
      * @var null|int
      * @since 1.0.0
      */
-    protected ?int $component = null;
+    public ?int $component = null;
 
     /**
      * Permission.
@@ -97,7 +97,7 @@ class PermissionAbstract implements \JsonSerializable
      * @var bool
      * @since 1.0.0
      */
-    protected bool $hasRead = false;
+    public bool $hasRead = false;
 
     /**
      * Permission.
@@ -105,7 +105,7 @@ class PermissionAbstract implements \JsonSerializable
      * @var bool
      * @since 1.0.0
      */
-    protected bool $hasModify = false;
+    public bool $hasModify = false;
 
     /**
      * Permission.
@@ -113,7 +113,7 @@ class PermissionAbstract implements \JsonSerializable
      * @var bool
      * @since 1.0.0
      */
-    protected bool $hasCreate = false;
+    public bool $hasCreate = false;
 
     /**
      * Permission.
@@ -121,7 +121,7 @@ class PermissionAbstract implements \JsonSerializable
      * @var bool
      * @since 1.0.0
      */
-    protected bool $hasDelete = false;
+    public bool $hasDelete = false;
 
     /**
      * Permission.
@@ -129,7 +129,7 @@ class PermissionAbstract implements \JsonSerializable
      * @var bool
      * @since 1.0.0
      */
-    protected bool $hasPermission = false;
+    public bool $hasPermission = false;
 
     /**
      * Constructor.
@@ -168,200 +168,6 @@ class PermissionAbstract implements \JsonSerializable
         $this->hasModify     = ($permission & PermissionType::MODIFY) === PermissionType::MODIFY;
         $this->hasDelete     = ($permission & PermissionType::DELETE) === PermissionType::DELETE;
         $this->hasPermission = ($permission & PermissionType::PERMISSION) === PermissionType::PERMISSION;
-    }
-
-    /**
-     * Get permission id.
-     *
-     * @return int Retunrs the id of the permission
-     *
-     * @since 1.0.0
-     */
-    public function getId() : int
-    {
-        return $this->id;
-    }
-
-    /**
-     * Get unit id.
-     *
-     * @return null|int
-     *
-     * @since 1.0.0
-     */
-    public function getUnit() : ?int
-    {
-        return $this->unit;
-    }
-
-    /**
-     * Set unit id.
-     *
-     * @param null|int $unit Unit
-     *
-     * @return void
-     *
-     * @since 1.0.0
-     */
-    public function setUnit(int $unit = null) : void
-    {
-        $this->unit = $unit;
-    }
-
-    /**
-     * Get app name.
-     *
-     * @return null|int
-     *
-     * @since 1.0.0
-     */
-    public function getApp() : ?int
-    {
-        return $this->app;
-    }
-
-    /**
-     * Set app name.
-     *
-     * @param int $app App name
-     *
-     * @return void
-     *
-     * @since 1.0.0
-     */
-    public function setApp(int $app = null) : void
-    {
-        $this->app = $app;
-    }
-
-    /**
-     * Get module id.
-     *
-     * @return null|string
-     *
-     * @since 1.0.0
-     */
-    public function getModule() : ?string
-    {
-        return $this->module;
-    }
-
-    /**
-     * Set module id.
-     *
-     * @param string $module Module
-     *
-     * @return void
-     *
-     * @since 1.0.0
-     */
-    public function setModule(string $module = null) : void
-    {
-        $this->module = $module;
-    }
-
-    /**
-     * Get providing module id.
-     *
-     * @return null|string Returns the module responsible for setting this permission
-     *
-     * @since 1.0.0
-     */
-    public function getFrom() : ?string
-    {
-        return $this->from;
-    }
-
-    /**
-     * Set providing module id.
-     *
-     * @param null|string $from Providing module
-     *
-     * @return void
-     *
-     * @since 1.0.0
-     */
-    public function setFrom(string $from = null) : void
-    {
-        $this->from = $from;
-    }
-
-    /**
-     * Get category.
-     *
-     * @return null|int
-     *
-     * @since 1.0.0
-     */
-    public function getCategory() : ?int
-    {
-        return $this->category;
-    }
-
-    /**
-     * Set category.
-     *
-     * @param int $category Category
-     *
-     * @return void
-     *
-     * @since 1.0.0
-     */
-    public function setCategory(int $category = null) : void
-    {
-        $this->category = $category;
-    }
-
-    /**
-     * Get element id.
-     *
-     * @return null|int
-     *
-     * @since 1.0.0
-     */
-    public function getElement() : ?int
-    {
-        return $this->element;
-    }
-
-    /**
-     * Set element id.
-     *
-     * @param int $element Element id
-     *
-     * @return void
-     *
-     * @since 1.0.0
-     */
-    public function setElement(int $element = null) : void
-    {
-        $this->element = $element;
-    }
-
-    /**
-     * Get component id.
-     *
-     * @return null|int
-     *
-     * @since 1.0.0
-     */
-    public function getComponent() : ?int
-    {
-        return $this->component;
-    }
-
-    /**
-     * Set component id.
-     *
-     * @param int $component Component
-     *
-     * @return void
-     *
-     * @since 1.0.0
-     */
-    public function setComponent(int $component = null) : void
-    {
-        $this->component = $component;
     }
 
     /**
@@ -508,12 +314,12 @@ class PermissionAbstract implements \JsonSerializable
      */
     public function isEqual(self $permission) : bool
     {
-        return $this->unit === $permission->getUnit()
-            && $this->app === $permission->getApp()
-            && $this->module === $permission->getModule()
-            && $this->category === $permission->getCategory()
-            && $this->element === $permission->getElement()
-            && $this->component === $permission->getComponent()
+        return $this->unit === $permission->unit
+            && $this->app === $permission->app
+            && $this->module === $permission->module
+            && $this->category === $permission->category
+            && $this->element === $permission->element
+            && $this->component === $permission->component
             && $this->getPermission() === $permission->getPermission();
     }
 

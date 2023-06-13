@@ -271,8 +271,8 @@ final class CliRequest extends RequestAbstract
      */
     private function init() : void
     {
-        $this->header->l11n->setLanguage('en');
-        $this->data = $this->uri->getQueryArray();
+        $this->header->l11n->language = 'en';
+        $this->data                   = $this->uri->getQueryArray();
     }
 
     /**

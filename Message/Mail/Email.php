@@ -92,7 +92,7 @@ class Email implements MessageInterface
      * @var string
      * @since 1.0.0
      */
-    protected string $messageId = '';
+    public string $messageId = '';
 
     /**
      * Unique ID used for message ID and boundaries.
@@ -100,7 +100,7 @@ class Email implements MessageInterface
      * @var string
      * @since 1.0.0
      */
-    protected string $uniqueid = '';
+    public string $uniqueid = '';
 
     /**
      * Hostname coming from the mail handler.
@@ -116,7 +116,7 @@ class Email implements MessageInterface
      * @var string
      * @since 1.0.0
      */
-    protected string $mailer = SubmitType::MAIL;
+    public string $mailer = SubmitType::MAIL;
 
     /**
      * Mail from.
@@ -124,7 +124,7 @@ class Email implements MessageInterface
      * @var array
      * @since 1.0.0
      */
-    protected array $from = [];
+    public array $from = [];
 
     /**
      * Return path/bounce address
@@ -438,11 +438,6 @@ class Email implements MessageInterface
         }
 
         return true;
-    }
-
-    public function getFrom() : array
-    {
-        return $this->from;
     }
 
     /**

@@ -146,7 +146,12 @@ final class Rest
 
         $raw = \substr(\is_bool($result) ? '' : $result, $len === false ? 0 : $len);
         if (\stripos(\implode('', $response->header->get('content-type')), MimeType::M_JSON) !== false) {
-            $response->setResponse(\json_decode($raw, true));
+            $temp = \json_decode($raw, true);
+            if (!\is_array($temp)) {
+                $temp = [];
+            }
+
+            $response->setResponse($temp);
         } else {
             $response->set('', $raw);
         }

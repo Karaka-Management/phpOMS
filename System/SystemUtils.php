@@ -140,8 +140,8 @@ final class SystemUtils
             return $_SERVER['SERVER_NAME'];
         } elseif (($result = \gethostname()) !== false) {
             return $result;
-        } elseif (\php_uname('n') !== false) {
-            return \php_uname('n');
+        } elseif (!empty($hostname = \php_uname('n'))) {
+            return $hostname;
         }
 
         return 'localhost.localdomain';

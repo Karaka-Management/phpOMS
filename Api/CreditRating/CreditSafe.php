@@ -29,9 +29,18 @@ use phpOMS\Uri\HttpUri;
  */
 final class CreditSafe implements CreditRatingInterface
 {
+    /**
+     * CreditSafe API link
+     *
+     * @var string
+     * @since 1.0.0
+     */
     public const API_URL = 'https://connect.creditsafe.com/v1';
     //public const API_URL = 'https://connect.sandbox.creditsafe.com/v1';
 
+    /**
+     * {@inheritdoc}
+     */
     public function auth(string $username, string $password) : string
     {
         $url = '/authenticate';
@@ -46,6 +55,9 @@ final class CreditSafe implements CreditRatingInterface
             : '';
     }
 
+    /**
+     * {@inheritdoc}
+     */
     public function findCompanies(
         string $token,
         string $name = '',
@@ -59,11 +71,11 @@ final class CreditSafe implements CreditRatingInterface
         string $vatNo = '',
         string $localRegistrationNo = '',
         array $countries = [],
-        int $threashold = 0,
+        int $threshold = 0,
     ) : array
     {
         $url = '/companies';
-        if ($threashold > 0) {
+        if ($threshold > 0) {
             $url .= '/matches';
         }
 
@@ -76,8 +88,8 @@ final class CreditSafe implements CreditRatingInterface
         $request->setData('pageSize', 100);
         $request->setData('language', 'en');
 
-        if ($threashold > 0) {
-            $request->setData('matchThreshold', $threashold);
+        if ($threshold > 0) {
+            $request->setData('matchThreshold', $threshold);
             $request->setData('country', \implode(',', $countries));
         } else {
             $request->setData('countries', empty($countries) ? 'PLC' : \implode(',', $countries));
@@ -128,6 +140,9 @@ final class CreditSafe implements CreditRatingInterface
         return $response->get('companies') ?? ($response->get('matchedCompanies') ?? []);
     }
 
+    /**
+     * {@inheritdoc}
+     */
     public function creditReport(string $token, string $id, string $template = 'full', string $language = 'en') : array
     {
         $url = '/companies/' . $id;
@@ -146,6 +161,9 @@ final class CreditSafe implements CreditRatingInterface
         return $response->get('report') ?? [];
     }
 
+    /**
+     * {@inheritdoc}
+     */
     public function investigate(
         string $token,
         string $ownName = '',
@@ -197,6 +215,9 @@ final class CreditSafe implements CreditRatingInterface
         return $response->get('orderID') ?? '';
     }
 
+    /**
+     * {@inheritdoc}
+     */
     public function showInvestigations(string $token, \DateTime $start) : array
     {
         $url = '/freshinvestigations';
@@ -215,6 +236,9 @@ final class CreditSafe implements CreditRatingInterface
         return $response->get('orders') ?? [];
     }
 
+    /**
+     * {@inheritdoc}
+     */
     public function getInvestigation(string $token, string $id) : array
     {
         $url = '/freshinvestigations/' . $id;
