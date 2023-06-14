@@ -26,11 +26,15 @@ use phpOMS\Stdlib\Base\Enum;
  */
 abstract class DepreciationType extends Enum
 {
-    public const STAIGHT_LINE = 1;
+    public const NONE = 1;
 
-    public const DECLINING_BALANCE = 2;
+    public const STAIGHT_LINE = 2;
 
-    public const SUM_OF_THE_YEAR = 3;
+    public const DECLINING_BALANCE = 3;
 
-    public const UNITS_OF_PRODUCTION = 4;
+    public const SUM_OF_THE_YEAR = 4;
+
+    public const UNITS_OF_PRODUCTION = 5;
+
+    public const MANUAL = 6;
 }
