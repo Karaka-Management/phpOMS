@@ -78,6 +78,9 @@ class PermissionAbstract implements \JsonSerializable
     /**
      * Element id.
      *
+     * null === all
+     * int === specific
+     *
      * @var null|int
      * @since 1.0.0
      */
@@ -85,6 +88,10 @@ class PermissionAbstract implements \JsonSerializable
 
     /**
      * Component id.
+     *
+     * null === all
+     * int === specific
+     * 0 === own data
      *
      * @var null|int
      * @since 1.0.0
@@ -116,6 +123,14 @@ class PermissionAbstract implements \JsonSerializable
     public bool $hasCreate = false;
 
     /**
+     * Default create permissions
+     *
+     * @var null|string
+     * @since 1.0.0
+     */
+    public ?string $defaultCPermissions = null;
+
+    /**
      * Permission.
      *
      * @var bool
@@ -130,6 +145,14 @@ class PermissionAbstract implements \JsonSerializable
      * @since 1.0.0
      */
     public bool $hasPermission = false;
+
+    /**
+     * Default permission permissions
+     *
+     * @var null|string
+     * @since 1.0.0
+     */
+    public ?string $defaultPPermissions = null;
 
     /**
      * Constructor.
