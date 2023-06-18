@@ -26,8 +26,9 @@ use phpOMS\Utils\ArrayUtils;
  * @link    https://jingga.app
  * @since   1.0.0
  *
- * @todo    Add memory cache per read mapper parent call (These should be cached: attribute types, file types, etc.)
- * @todo    Add getArray functions to get array instead of object
+ * @todo Add memory cache per read mapper parent call (These should be cached: attribute types, file types, etc.)
+ * @todo Add getArray functions to get array instead of object
+ * @todo Allow to define columns in all functions instead of members?
  *
  * @template R
  */
@@ -862,37 +863,17 @@ final class ReadMapper extends DataMapperAbstract
                 }
 
                 $objectMapper = $this->createRelationMapper($many['mapper']::get(db: $this->db), $member);
-                if ($many['external'] === null) {
+                if ($many['external'] === null/* same as $many['table'] !== $many['mapper']::TABLE */) {
                     $objectMapper->where($many['mapper']::COLUMNS[$many['self']]['internal'], $primaryKey);
                 } else {
-                    // @todo: don't do this, even in a many-many relationship I should be able to use joins which the above if branch effectively is!
-
                     $query = new Builder($this->db, true);
-                    $src   = $many['external'] ?? $many['mapper']::PRIMARYFIELD;
-
-                    // @todo: what if a specific column name is defined instead of primaryField for the join? Fix, it should be stored in 'column'
-                    $query->select($many['table'] . '.' . $src)
-                        ->from($many['table'])
+                    $query->leftJoin($many['table'])
+                        ->on($many['mapper']::TABLE . '_d1.' . $many['mapper']::PRIMARYFIELD, '=', $many['table'] . '.' . $many['external'])
                         ->where($many['table'] . '.' . $many['self'], '=', $primaryKey);
 
-                    if ($many['table'] !== $many['mapper']::TABLE) {
-                        $query->leftJoin($many['mapper']::TABLE)
-                            ->on($many['table'] . '.' . $src, '=', $many['mapper']::TABLE . '.' . $many['mapper']::PRIMARYFIELD);
-                    }
-
-                    $sth = $this->db->con->prepare($query->toSql());
-                    if ($sth === false) {
-                        continue;
-                    }
-
-                    $sth->execute();
-                    $result = $sth->fetchAll(\PDO::FETCH_COLUMN);
-
-                    if (empty($result)) {
-                        continue;
-                    }
-
-                    $objectMapper->where($many['mapper']::COLUMNS[$many['mapper']::PRIMARYFIELD]['internal'], $result, 'IN')->execute();
+                    // Cannot use join, because join only works on members and we don't have members for a relation table
+                    // This is why we need to create a "base" query which contians the join on table columns
+                    $objectMapper->query($query);
                 }
 
                 $objects = $objectMapper->execute();
