@@ -861,34 +861,41 @@ final class ReadMapper extends DataMapperAbstract
                     continue;
                 }
 
-                $query = new Builder($this->db, true);
-                $src   = $many['external'] ?? $many['mapper']::PRIMARYFIELD;
+                $objectMapper = $this->createRelationMapper($many['mapper']::get(db: $this->db), $member);
+                if ($many['external'] === null) {
+                    $objectMapper->where($many['mapper']::COLUMNS[$many['self']]['internal'], $primaryKey);
+                } else {
+                    // @todo: don't do this, even in a many-many relationship I should be able to use joins which the above if branch effectively is!
 
-                // @todo: what if a specific column name is defined instead of primaryField for the join? Fix, it should be stored in 'column'
-                $query->select($many['table'] . '.' . $src)
-                    ->from($many['table'])
-                    ->where($many['table'] . '.' . $many['self'], '=', $primaryKey);
+                    $query = new Builder($this->db, true);
+                    $src   = $many['external'] ?? $many['mapper']::PRIMARYFIELD;
 
-                if ($many['table'] !== $many['mapper']::TABLE) {
-                    $query->leftJoin($many['mapper']::TABLE)
-                        ->on($many['table'] . '.' . $src, '=', $many['mapper']::TABLE . '.' . $many['mapper']::PRIMARYFIELD);
+                    // @todo: what if a specific column name is defined instead of primaryField for the join? Fix, it should be stored in 'column'
+                    $query->select($many['table'] . '.' . $src)
+                        ->from($many['table'])
+                        ->where($many['table'] . '.' . $many['self'], '=', $primaryKey);
+
+                    if ($many['table'] !== $many['mapper']::TABLE) {
+                        $query->leftJoin($many['mapper']::TABLE)
+                            ->on($many['table'] . '.' . $src, '=', $many['mapper']::TABLE . '.' . $many['mapper']::PRIMARYFIELD);
+                    }
+
+                    $sth = $this->db->con->prepare($query->toSql());
+                    if ($sth === false) {
+                        continue;
+                    }
+
+                    $sth->execute();
+                    $result = $sth->fetchAll(\PDO::FETCH_COLUMN);
+
+                    if (empty($result)) {
+                        continue;
+                    }
+
+                    $objectMapper->where($many['mapper']::COLUMNS[$many['mapper']::PRIMARYFIELD]['internal'], $result, 'IN')->execute();
                 }
 
-                $sth = $this->db->con->prepare($query->toSql());
-                if ($sth === false) {
-                    continue;
-                }
-
-                $sth->execute();
-                $result =  $sth->fetchAll(\PDO::FETCH_COLUMN);
-
-                if (empty($result)) {
-                    continue;
-                }
-
-                $objects = $this->createRelationMapper($many['mapper']::get(db: $this->db), $member)
-                    ->where($many['mapper']::COLUMNS[$many['mapper']::PRIMARYFIELD]['internal'], $result, 'in')
-                    ->execute();
+                $objects = $objectMapper->execute();
 
                 if ($refClass === null) {
                     $refClass = new \ReflectionClass($obj);
