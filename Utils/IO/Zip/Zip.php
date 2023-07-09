@@ -123,7 +123,7 @@ class Zip implements ArchiveInterface
             $zip->extractTo($destination . '/');
 
             return $zip->close();
-        } catch (\Throwable $t) {
+        } catch (\Throwable $_) {
             return false;
         }
     }

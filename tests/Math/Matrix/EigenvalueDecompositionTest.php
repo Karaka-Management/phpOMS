@@ -386,7 +386,7 @@ final class EigenvalueDecompositionTest extends \PHPUnit\Framework\TestCase
                 $eig = new EigenvalueDecomposition($A);
                 ++$c;
             } while (true);
-        } catch (\Throwable $t) {
+        } catch (\Throwable $_) {
             var_dump($c);
             var_dump($array);
         }

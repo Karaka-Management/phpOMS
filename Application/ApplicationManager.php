@@ -121,7 +121,7 @@ final class ApplicationManager
             $class::install($this->app, $info, $this->app->appSettings);
 
             return true;
-        } catch (\Throwable $t) {
+        } catch (\Throwable $_) {
             return false; // @codeCoverageIgnore
         }
     }
@@ -155,7 +155,7 @@ final class ApplicationManager
             $this->uninstallFiles($source);
 
             return true;
-        } catch (\Throwable $t) {
+        } catch (\Throwable $_) {
             return false; // @codeCoverageIgnore
         }
     }

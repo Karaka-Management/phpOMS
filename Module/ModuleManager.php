@@ -523,19 +523,19 @@ final class ModuleManager
 
             /* Install providing but only if receiving module is already installed */
             $providing = $info->getProviding();
-            foreach ($providing as $key => $version) {
+            foreach ($providing as $key => $_) {
                 if (isset($installed[$key])) {
                     $this->installProviding('/Modules/' . $module, $key);
                 }
             }
 
             /* Install receiving and applications */
-            foreach ($this->installed as $key => $value) {
+            foreach ($this->installed as $key => $_) {
                 $this->installProviding('/Modules/' . $key, $module);
             }
 
             return true;
-        } catch (\Throwable $t) {
+        } catch (\Throwable $_) {
             return false; // @codeCoverageIgnore
         }
     }
@@ -593,7 +593,7 @@ final class ModuleManager
             }
 
             return true;
-        } catch (\Throwable $t) {
+        } catch (\Throwable $_) {
             return false; // @codeCoverageIgnore
         }
     }

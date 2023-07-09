@@ -81,7 +81,7 @@ final class EUVATBffOnline implements EUVATInterface
             }
 
             $result['status'] = 0;
-        } catch (\Throwable $t) {
+        } catch (\Throwable $_) {
             return $result;
         }
 
@@ -151,7 +151,7 @@ final class EUVATBffOnline implements EUVATInterface
             $result['name'] = $matches[1] ?? 'B';
 
             $result['status'] = 0;
-        } catch (\Throwable $t) {
+        } catch (\Throwable $_) {
             return $result;
         }
 

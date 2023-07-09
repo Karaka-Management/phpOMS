@@ -2023,8 +2023,28 @@ abstract class MimeType extends Enum
     {
         try {
             return (string) (self::getByName('M_' . \strtoupper($extension)) ?? 'application/octet-stream');
-        } catch (\Throwable $t) {
+        } catch (\Throwable $_) {
             return 'application/octet-stream';
+        }
+    }
+
+    public static function mimeToExtension(string $mime) : ?string
+    {
+        switch($mime) {
+            case self::M_PDF:
+                return 'pdf';
+            case self::M_JPEG:
+            case self::M_JPG:
+                return 'jpg';
+            case self::M_BMP:
+                return 'bmp';
+            case self::M_GIF:
+                return 'gif';
+            case self::M_HTML:
+            case self::M_HTM:
+                return 'htm';
+            default:
+                return null;
         }
     }
 }

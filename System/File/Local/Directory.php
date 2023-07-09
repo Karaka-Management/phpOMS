@@ -490,7 +490,7 @@ final class Directory extends FileAbstract implements DirectoryInterface
 
             try {
                 \mkdir($path, $permission, $recursive);
-            } catch (\Throwable $t) {
+            } catch (\Throwable $_) {
                 return false; // @codeCoverageIgnore
             }
 

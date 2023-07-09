@@ -80,7 +80,7 @@ final class EUVATVies implements EUVATInterface
             $result = \array_merge($result, self::parseResponse($json));
 
             $result['status'] = $json['userError'] === 'VALID' ? 0 : -1;
-        } catch (\Throwable $t) {
+        } catch (\Throwable $_) {
             return $result;
         }
 
@@ -182,7 +182,7 @@ final class EUVATVies implements EUVATInterface
             }
 
             $result['status'] = $json['userError'] === 'VALID' ? 0 : -1;
-        } catch (\Throwable $t) {
+        } catch (\Throwable $_) {
             return $result;
         }
 

@@ -120,7 +120,7 @@ class Tar implements ArchiveInterface
             $tar->extractTo($destination . '/');
 
             return true;
-        } catch (\Throwable $t) {
+        } catch (\Throwable $_) {
             return false;
         }
     }

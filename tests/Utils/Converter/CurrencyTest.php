@@ -42,7 +42,7 @@ final class CurrencyTest extends \PHPUnit\Framework\TestCase
 
                 Rest::request($request)->getBody();
                 self::$reachable = true;
-            } catch (\Throwable $t) {
+            } catch (\Throwable $_) {
                 self::$reachable = false;
             }
         }

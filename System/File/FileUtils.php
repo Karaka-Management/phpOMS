@@ -280,4 +280,14 @@ final class FileUtils
     {
         return !\preg_match('#^[a-z][a-z\d+.-]*://#i', $path);
     }
+
+    public static function makeSafeFileName(string $name) : string
+    {
+        $name = \preg_replace("/[^A-Za-z0-9\-_.]/", '_', $name);
+        $name = \preg_replace("/_+/", '_', $name);
+        $name = \trim($name, '_');
+        $name = \strtolower($name);
+
+        return $name;
+    }
 }

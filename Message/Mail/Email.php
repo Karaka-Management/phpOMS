@@ -1115,7 +1115,7 @@ class Email implements MessageInterface
                             \PKCS7_DETACHED,
                             $this->signExtracertFiles
                         );
-            } catch (\Throwable $t) {
+            } catch (\Throwable $_) {
                 $sign = false;
             }
 

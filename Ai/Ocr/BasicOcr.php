@@ -95,6 +95,8 @@ final class BasicOcr
         }
 
         // $magicNumber = $unpack[1];
+        // 2051 === image data (should always be this)
+        // 2049 === label data
 
         if (($read = \fread($fp, 4)) === false || ($unpack = \unpack('N', $read)) === false) {
             return []; // @codeCoverageIgnore
@@ -159,7 +161,10 @@ final class BasicOcr
         if (($read = \fread($fp, 4)) === false || ($unpack = \unpack('N', $read)) === false) {
             return []; // @codeCoverageIgnore
         }
-        $magicNumber = $unpack[1];
+
+        // $magicNumber = $unpack[1];
+        // 2051 === image data
+        // 2049 === label data (should always be this)
 
         if (($read = \fread($fp, 4)) === false || ($unpack = \unpack('N', $read)) === false) {
             return []; // @codeCoverageIgnore
@@ -258,7 +263,7 @@ final class BasicOcr
         }
 
         \fwrite($out, \pack('N', 2051));
-        \fwrite($out, \pack('N', 1));
+        \fwrite($out, \pack('N', \count($images)));
         \fwrite($out, \pack('N', $resolution));
         \fwrite($out, \pack('N', $resolution));
 
@@ -299,7 +304,7 @@ final class BasicOcr
             }
 
             for ($i = 0; $i < $size; ++$i) {
-                \fwrite($out, \pack('C', \round($mnist[$i] * 255)));
+                \fwrite($out, \pack('C', (int) \round($mnist[$i] * 255)));
             }
         }
 
@@ -325,7 +330,7 @@ final class BasicOcr
         }
 
         \fwrite($out, \pack('N', 2049));
-        \fwrite($out, \pack('N', 1));
+        \fwrite($out, \pack('N', \count($data)));
 
         foreach ($data as $e) {
             \fwrite($out, \pack('C', $e));

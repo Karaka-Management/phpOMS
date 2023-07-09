@@ -122,7 +122,7 @@ final class Currency
 
                 self::$ecbCurrencies[\strtoupper((string) ($attributes['currency']))] = (float) ($attributes['rate']);
             }
-        } catch (\Throwable $t) {
+        } catch (\Throwable $_) {
             self::$ecbCurrencies = []; // @codeCoverageIgnore
         }
 

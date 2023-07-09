@@ -877,6 +877,9 @@ final class ReadMapper extends DataMapperAbstract
                 }
 
                 $objects = $objectMapper->execute();
+                if (empty($objects) || (!\is_array($objects) && $objects->id === 0)) {
+                    continue;
+                }
 
                 if ($refClass === null) {
                     $refClass = new \ReflectionClass($obj);

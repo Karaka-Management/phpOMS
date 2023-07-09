@@ -57,7 +57,7 @@ final class FtpStorageTest extends \PHPUnit\Framework\TestCase
             if (!$mkdir || !$put) {
                 throw new \Exception();
             }
-        } catch (\Throwable $t) {
+        } catch (\Throwable $_) {
             self::$con = null;
         }
 
