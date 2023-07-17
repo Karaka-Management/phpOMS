@@ -396,5 +396,5 @@ class ISO639x2Enum extends Enum
 
     public const _ZU = 'zul';
 
-    use ISO639CountryTrait;
+    use ISO639Trait;
 }

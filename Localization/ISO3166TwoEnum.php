@@ -528,5 +528,5 @@ class ISO3166TwoEnum extends Enum
 
     public const _XXX = 'XX';
 
-    use ISO3166RegionTrait;
+    use ISO3166Trait;
 }

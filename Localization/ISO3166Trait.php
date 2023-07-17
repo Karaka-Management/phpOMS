@@ -22,8 +22,15 @@ namespace phpOMS\Localization;
  * @link    https://jingga.app
  * @since   1.0.0
  */
-trait ISO3166RegionTrait
+trait ISO3166Trait
 {
+    public static function getBy2Code(string $code)
+    {
+        $code3 = ISO3166TwoEnum::getName($code);
+
+        return self::getByName($code3);
+    }
+
     /**
      * Get countries in a region
      *

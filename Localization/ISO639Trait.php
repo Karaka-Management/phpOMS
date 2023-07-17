@@ -22,12 +22,17 @@ namespace phpOMS\Localization;
  * @link    https://jingga.app
  * @since   1.0.0
  */
-trait ISO639CountryTrait
+trait ISO639Trait
 {
+    public static function getBy2Code(string $code)
+    {
+        return self::getByName('_' . \strtoupper($code));
+    }
+
     /**
      * Get language from country.
      *
-     * @param string $country Country
+     * @param string $country Country 2 code
      *
      * @return array
      *

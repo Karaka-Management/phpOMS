@@ -1,0 +1,38 @@
+<?php
+/**
+ * Jingga
+ *
+ * PHP Version 8.1
+ *
+ * @package   phpOMS\Utils\Formatter
+ * @copyright Dennis Eichhorn
+ * @license   OMS License 2.0
+ * @version   1.0.0
+ * @link      https://jingga.app
+ */
+declare(strict_types=1);
+
+namespace phpOMS\Utils\Formatter;
+
+/**
+ * Gray encoding class
+ *
+ * @package phpOMS\Utils\Formatter
+ * @license OMS License 2.0
+ * @link    https://jingga.app
+ * @since   1.0.0
+ */
+class HtmlFormatter
+{
+    public static function format(string $text) : string
+    {
+        $dom = new \DOMDocument();
+
+        $dom->loadHTML($text);
+
+        $dom->preserveWhiteSpace = false;
+        $dom->formatOutput = true;
+
+        return $dom->saveXML($dom->documentElement);
+    }
+}

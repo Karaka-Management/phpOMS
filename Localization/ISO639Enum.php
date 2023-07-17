@@ -396,5 +396,5 @@ class ISO639Enum extends Enum
 
     public const _ZU = 'Zulu';
 
-    use ISO639CountryTrait;
+    use ISO639Trait;
 }

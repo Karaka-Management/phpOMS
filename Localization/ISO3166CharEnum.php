@@ -528,5 +528,5 @@ class ISO3166CharEnum extends Enum
 
     public const _XXX = 'XXX';
 
-    use ISO3166RegionTrait;
+    use ISO3166Trait;
 }

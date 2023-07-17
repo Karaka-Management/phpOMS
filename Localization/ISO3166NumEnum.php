@@ -528,5 +528,5 @@ class ISO3166NumEnum extends Enum
 
     public const _XXX = '000';
 
-    use ISO3166RegionTrait;
+    use ISO3166Trait;
 }
