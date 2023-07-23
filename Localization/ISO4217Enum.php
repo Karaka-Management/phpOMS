@@ -26,253 +26,253 @@ use phpOMS\Stdlib\Base\Enum;
  */
 class ISO4217Enum extends Enum
 {
-    public const _AED = 'United Arab Emirates, Dirham';
+    public const _AED = 'Dirham, United Arab Emirates';
 
-    public const _ALL = 'Albania, Leke';
+    public const _ALL = 'Leke, Albania';
 
-    public const _AMD = 'Armenian, Dram';
+    public const _AMD = 'Dram, Armenian';
 
-    public const _AFN = 'Afghanistan, Afghanis';
+    public const _AFN = 'Afghanis, Afghanistan';
 
-    public const _ARS = 'Argentina, Pesos';
+    public const _ARS = 'Pesos, Argentina';
 
-    public const _AWG = 'Aruba, Guilders';
+    public const _AWG = 'Guilders, Aruba';
 
-    public const _AUD = 'Australia, Dollars';
+    public const _AUD = 'Dollars, Australia';
 
-    public const _AZN = 'Azerbaijan, New Manats';
+    public const _AZN = 'New Manats, Azerbaijan';
 
-    public const _AOA = 'Angolan, Kwanza';
+    public const _AOA = 'Kwanza, Angolan';
 
-    public const _BSD = 'Bahamas, Dollars';
+    public const _BSD = 'Dollars, Bahamas';
 
-    public const _BBD = 'Barbados, Dollars';
+    public const _BBD = 'Dollars, Barbados';
 
-    public const _BYR = 'Belarus, Rubles';
+    public const _BYR = 'Rubles, Belarus';
 
-    public const _BZD = 'Belize, Dollars';
+    public const _BZD = 'Dollars, Belize';
 
-    public const _BMD = 'Bermuda, Dollars';
+    public const _BMD = 'Dollars, Bermuda';
 
-    public const _BOB = 'Bolivia, Bolivianos';
+    public const _BOB = 'Bolivianos, Bolivia';
 
-    public const _BAM = 'Bosnia and Herzegovina, Convertible Marka';
+    public const _BAM = 'Convertible Marka, Bosnia and Herzegovina';
 
-    public const _BWP = 'Botswana, Pulas';
+    public const _BWP = 'Pulas, Botswana';
 
-    public const _BGN = 'Bulgaria, Leva';
+    public const _BGN = 'Leva, Bulgaria';
 
-    public const _BRL = 'Brazil, Reais';
+    public const _BRL = 'Reais, Brazil';
 
-    public const _BND = 'Brunei Darussalam, Dollars';
+    public const _BND = 'Dollars, Brunei Darussalam';
 
-    public const _KHR = 'Cambodia, Riels';
+    public const _KHR = 'Riels, Cambodia';
 
-    public const _CAD = 'Canada, Dollars';
+    public const _CAD = 'Dollars, Canada';
 
-    public const _KYD = 'Cayman Islands, Dollars';
+    public const _KYD = 'Dollars, Cayman Islands';
 
-    public const _CLP = 'Chile, Pesos';
+    public const _CLP = 'Pesos, Chile';
 
-    public const _CNY = 'China, Yuan Renminbi';
+    public const _CNY = 'Yuan Renminbi, China';
 
-    public const _COP = 'Colombia, Pesos';
+    public const _COP = 'Pesos, Colombia';
 
-    public const _CRC = 'Costa Rica, Colón';
+    public const _CRC = 'Colón, Costa Rica';
 
-    public const _HRK = 'Croatia, Kuna';
+    public const _HRK = 'Kuna, Croatia';
 
-    public const _CUP = 'Cuba, Pesos';
+    public const _CUP = 'Pesos, Cuba';
 
-    public const _CZK = 'Czech Republic, Koruny';
+    public const _CZK = 'Koruny, Czech Republic';
 
-    public const _DKK = 'Denmark, Kroner';
+    public const _DKK = 'Kroner, Denmark';
 
-    public const _DOP = 'Dominican Republic, Pesos';
+    public const _DOP = 'Pesos, Dominican Republic';
 
-    public const _XCD = 'East Caribbean, Dollars';
+    public const _XCD = 'Dollars, East Caribbean';
 
-    public const _EGP = 'Egypt, Pounds';
+    public const _EGP = 'Pounds, Egypt';
 
-    public const _SVC = 'El Salvador, Colones';
+    public const _SVC = 'Colones, El Salvador';
 
     public const _EUR = 'Euro';
 
-    public const _FKP = 'Falkland Islands, Pounds';
+    public const _FKP = 'Pounds, Falkland Islands';
 
-    public const _FJD = 'Fiji, Dollars';
+    public const _FJD = 'Dollars, Fiji';
 
-    public const _GHC = 'Ghana, Cedis';
+    public const _GHC = 'Cedis, Ghana';
 
-    public const _GIP = 'Gibraltar, Pounds';
+    public const _GIP = 'Pounds, Gibraltar';
 
-    public const _GTQ = 'Guatemala, Quetzales';
+    public const _GTQ = 'Quetzales, Guatemala';
 
-    public const _GGP = 'Guernsey, Pounds';
+    public const _GGP = 'Pounds, Guernsey';
 
-    public const _GYD = 'Guyana, Dollars';
+    public const _GYD = 'Dollars, Guyana';
 
-    public const _HNL = 'Honduras, Lempiras';
+    public const _HNL = 'Lempiras, Honduras';
 
-    public const _HKD = 'Hong Kong, Dollars';
+    public const _HKD = 'Dollars, Hong Kong';
 
-    public const _HUF = 'Hungary, Forint';
+    public const _HUF = 'Forint, Hungary';
 
-    public const _ISK = 'Iceland, Kronur';
+    public const _ISK = 'Kronur, Iceland';
 
-    public const _INR = 'India, Rupees';
+    public const _INR = 'Rupees, India';
 
-    public const _IDR = 'Indonesia, Rupiahs';
+    public const _IDR = 'Rupiahs, Indonesia';
 
-    public const _IRR = 'Iran, Rials';
+    public const _IRR = 'Rials, Iran';
 
-    public const _IMP = 'Isle of Man, Pounds';
+    public const _IMP = 'Pounds, Isle of Man';
 
-    public const _ILS = 'Israel, New Shekels';
+    public const _ILS = 'New Shekels, Israel';
 
-    public const _JMD = 'Jamaica, Dollars';
+    public const _JMD = 'Dollars, Jamaica';
 
-    public const _JPY = 'Japan, Yen';
+    public const _JPY = 'Yen, Japan';
 
-    public const _JEP = 'Jersey, Pounds';
+    public const _JEP = 'Pounds, Jersey';
 
-    public const _KZT = 'Kazakhstan, Tenge';
+    public const _KZT = 'Tenge, Kazakhstan';
 
     public const _KES = 'Kenyan Shilling';
 
-    public const _KGS = 'Kyrgyzstan, Soms';
+    public const _KGS = 'Soms, Kyrgyzstan';
 
-    public const _LAK = 'Laos, Kips';
+    public const _LAK = 'Kips, Laos';
 
-    public const _LVL = 'Latvia, Lati';
+    public const _LVL = 'Lati, Latvia';
 
-    public const _LBP = 'Lebanon, Pounds';
+    public const _LBP = 'Pounds, Lebanon';
 
-    public const _LRD = 'Liberia, Dollars';
+    public const _LRD = 'Dollars, Liberia';
 
-    public const _LTL = 'Lithuania, Litai';
+    public const _LTL = 'Litai, Lithuania';
 
-    public const _MKD = 'Macedonia, Denars';
+    public const _MKD = 'Denars, Macedonia';
 
-    public const _MYR = 'Malaysia, Ringgits';
+    public const _MYR = 'Ringgits, Malaysia';
 
-    public const _MUR = 'Mauritius, Rupees';
+    public const _MUR = 'Rupees, Mauritius';
 
-    public const _MXN = 'Mexico, Pesos';
+    public const _MXN = 'Pesos, Mexico';
 
-    public const _MNT = 'Mongolia, Tugriks';
+    public const _MNT = 'Tugriks, Mongolia';
 
-    public const _MZN = 'Mozambique, Meticais';
+    public const _MZN = 'Meticais, Mozambique';
 
-    public const _NAD = 'Namibia, Dollars';
+    public const _NAD = 'Dollars, Namibia';
 
-    public const _NPR = 'Nepal, Rupees';
+    public const _NPR = 'Rupees, Nepal';
 
-    public const _ANG = 'Netherlands Antilles, Guilders';
+    public const _ANG = 'Guilders, Netherlands Antilles';
 
-    public const _NZD = 'New Zealand, Dollars';
+    public const _NZD = 'Dollars, New Zealand';
 
-    public const _NIO = 'Nicaragua, Cordobas';
+    public const _NIO = 'Cordobas, Nicaragua';
 
-    public const _NGN = 'Nigeria, Nairas';
+    public const _NGN = 'Nairas, Nigeria';
 
-    public const _KPW = 'North Korea, Won';
+    public const _KPW = 'Won, North Korea';
 
-    public const _NOK = 'Norway, Krone';
+    public const _NOK = 'Krone, Norway';
 
-    public const _OMR = 'Oman, Rials';
+    public const _OMR = 'Rials, Oman';
 
-    public const _PKR = 'Pakistan, Rupees';
+    public const _PKR = 'Rupees, Pakistan';
 
-    public const _PAB = 'Panama, Balboa';
+    public const _PAB = 'Balboa, Panama';
 
-    public const _PYG = 'Paraguay, Guarani';
+    public const _PYG = 'Guarani, Paraguay';
 
-    public const _PEN = 'Peru, Nuevos Soles';
+    public const _PEN = 'Nuevos Soles, Peru';
 
-    public const _PHP = 'Philippines, Pesos';
+    public const _PHP = 'Pesos, Philippines';
 
-    public const _PLN = 'Poland, Zlotych';
+    public const _PLN = 'Zlotych, Poland';
 
-    public const _QAR = 'Qatar, Rials';
+    public const _QAR = 'Rials, Qatar';
 
-    public const _RON = 'Romania, New Lei';
+    public const _RON = 'New Lei, Romania';
 
-    public const _RUB = 'Russia, Rubles';
+    public const _RUB = 'Rubles, Russia';
 
-    public const _SHP = 'Saint Helena, Pounds';
+    public const _SHP = 'Pounds, Saint Helena';
 
-    public const _SAR = 'Saudi Arabia, Riyals';
+    public const _SAR = 'Riyals, Saudi Arabia';
 
-    public const _RSD = 'Serbia, Dinars';
+    public const _RSD = 'Dinars, Serbia';
 
-    public const _SCR = 'Seychelles, Rupees';
+    public const _SCR = 'Rupees, Seychelles';
 
-    public const _SGD = 'Singapore, Dollars';
+    public const _SGD = 'Dollars, Singapore';
 
-    public const _SBD = 'Solomon Islands, Dollars';
+    public const _SBD = 'Dollars, Solomon Islands';
 
-    public const _SOS = 'Somalia, Shillings';
+    public const _SOS = 'Shillings, Somalia';
 
-    public const _ZAR = 'South Africa, Rand';
+    public const _ZAR = 'Rand, South Africa';
 
-    public const _KRW = 'South Korea, Won';
+    public const _KRW = 'Won, South Korea';
 
-    public const _LKR = 'Sri Lanka, Rupees';
+    public const _LKR = 'Rupees, Sri Lanka';
 
-    public const _SEK = 'Sweden, Kronor';
+    public const _SEK = 'Kronor, Sweden';
 
-    public const _CHF = 'Switzerland, Francs';
+    public const _CHF = 'Francs, Switzerland';
 
-    public const _SRD = 'Suriname, Dollars';
+    public const _SRD = 'Dollars, Suriname';
 
-    public const _SYP = 'Syria, Pounds';
+    public const _SYP = 'Pounds, Syria';
 
-    public const _TWD = 'Taiwan, New Dollars';
+    public const _TWD = 'New Dollars, Taiwan';
 
-    public const _THB = 'Thailand, Baht';
+    public const _THB = 'Baht, Thailand';
 
-    public const _TTD = 'Trinidad and Tobago, Dollars';
+    public const _TTD = 'Dollars, Trinidad and Tobago';
 
-    public const _TRY = 'Turkey, Lira';
+    public const _TRY = 'Lira, Turkey';
 
-    public const _TRL = 'Turkey, Liras';
+    public const _TRL = 'Liras, Turkey';
 
-    public const _TVD = 'Tuvalu, Dollars';
+    public const _TVD = 'Dollars, Tuvalu';
 
-    public const _UAH = 'Ukraine, Hryvnia';
+    public const _UAH = 'Hryvnia, Ukraine';
 
-    public const _GBP = 'United Kingdom, Pounds';
+    public const _GBP = 'Pounds, United Kingdom';
 
-    public const _USD = 'United States of America, Dollars';
+    public const _USD = 'Dollars, United States of America';
 
-    public const _UYU = 'Uruguay, Pesos';
+    public const _UYU = 'Pesos, Uruguay';
 
-    public const _UZS = 'Uzbekistan, Sums';
+    public const _UZS = 'Sums, Uzbekistan';
 
-    public const _VEF = 'Venezuela, Bolivares Fuertes';
+    public const _VEF = 'Bolivares Fuertes, Venezuela';
 
-    public const _VND = 'Vietnam, Dong';
+    public const _VND = 'Dong, Vietnam';
 
-    public const _YER = 'Yemen, Rials';
+    public const _YER = 'Rials, Yemen';
 
-    public const _ZWD = 'Zimbabwe, Zimbabwe Dollars';
+    public const _ZWD = 'Zimbabwe Dollars, Zimbabwe';
 
-    public const _ZMK = 'Zambian, Kwacha';
+    public const _ZMK = 'Kwacha, Zambian';
 
-    public const _ZWL = 'Zimbabwean, Dollar';
+    public const _ZWL = 'Dollar, Zimbabwean';
 
-    public const _BDT = 'Bangladeshi, Taka';
+    public const _BDT = 'Taka, Bangladeshi';
 
-    public const _BHD = 'Bahraini, Dinar';
+    public const _BHD = 'Dinar, Bahraini';
 
-    public const _BIF = 'Burundian, Franc';
+    public const _BIF = 'Franc, Burundian';
 
-    public const _BOV = 'Bolivian, Mvdol';
+    public const _BOV = 'Mvdol, Bolivian';
 
     public const _BTN = 'Bhutanes,e Ngultrum';
 
-    public const _CDF = 'Congolese, Franc';
+    public const _CDF = 'Franc, Congolese';
 
     public const _CHE = 'WIR Euro (complementary currency)';
 
@@ -282,83 +282,83 @@ class ISO4217Enum extends Enum
 
     public const _COU = 'Unidad de Valor Real (UVR) (funds code)';
 
-    public const _CUC = 'Cuban convertible, Peso';
+    public const _CUC = 'Peso, Cuban convertible';
 
-    public const _CVE = 'Cape Verdean, Escudo';
+    public const _CVE = 'Escudo, Cape Verdean';
 
-    public const _DJF = 'Djiboutian, Franc';
+    public const _DJF = 'Franc, Djiboutian';
 
-    public const _DZD = 'Algerian, Dinar';
+    public const _DZD = 'Dinar, Algerian';
 
-    public const _ERN = 'Eritrean, Nakfa';
+    public const _ERN = 'Nakfa, Eritrean';
 
-    public const _ETB = 'Ethiopian, Birr';
+    public const _ETB = 'Birr, Ethiopian';
 
-    public const _GEL = 'Georgian, Lari';
+    public const _GEL = 'Lari, Georgian';
 
-    public const _GHS = 'Ghanaian, Cedi';
+    public const _GHS = 'Cedi, Ghanaian';
 
-    public const _GMD = 'Gambian, Dalasi';
+    public const _GMD = 'Dalasi, Gambian';
 
-    public const _GNF = 'Guinean, Franc';
+    public const _GNF = 'Franc, Guinean';
 
-    public const _HTG = 'Haitian, Gourde';
+    public const _HTG = 'Gourde, Haitian';
 
-    public const _IQD = 'Iraqi, Dinar';
+    public const _IQD = 'Dinar, Iraqi';
 
-    public const _JOD = 'Jordanian, Dinar';
+    public const _JOD = 'Dinar, Jordanian';
 
-    public const _KMF = 'Comorian, Franc';
+    public const _KMF = 'Franc, Comorian';
 
-    public const _KWD = 'Kuwaiti, Dinar';
+    public const _KWD = 'Dinar, Kuwaiti';
 
-    public const _LSL = 'Lesotho, Loti';
+    public const _LSL = 'Loti, Lesotho';
 
-    public const _LYD = 'Libyan, Dinar';
+    public const _LYD = 'Dinar, Libyan';
 
-    public const _MAD = 'Moroccan, Dirham';
+    public const _MAD = 'Dirham, Moroccan';
 
-    public const _MDL = 'Moldovan, Leu';
+    public const _MDL = 'Leu, Moldovan';
 
-    public const _MGA = 'Malagasy, Ariary';
+    public const _MGA = 'Ariary, Malagasy';
 
-    public const _MMK = 'Burmese, Kyat';
+    public const _MMK = 'Kyat, Burmese';
 
-    public const _MOP = 'Macanese, Pataca';
+    public const _MOP = 'Pataca, Macanese';
 
-    public const _MRO = 'Mauritanian, Ouguiya';
+    public const _MRO = 'Ouguiya, Mauritanian';
 
-    public const _MVR = 'Maldivian, Rufiyaa';
+    public const _MVR = 'Rufiyaa, Maldivian';
 
-    public const _MWK = 'Malawian, Kwacha';
+    public const _MWK = 'Kwacha, Malawian';
 
-    public const _MXV = 'Mexican, Investment Unit';
+    public const _MXV = 'Investment Unit, Mexican';
 
-    public const _PGK = 'Papua New Guinean, Kina';
+    public const _PGK = 'Kina, Papua New Guinean';
 
-    public const _RWF = 'Rwandan, Franc';
+    public const _RWF = 'Franc, Rwandan';
 
-    public const _SDG = 'Sudanese, Pound';
+    public const _SDG = 'Pound, Sudanese';
 
-    public const _SLL = 'Sierra Leonean, Leone';
+    public const _SLL = 'Leone, Sierra Leonean';
 
-    public const _SSP = 'South Sudanese, Pound';
+    public const _SSP = 'Pound, South Sudanese';
 
-    public const _STD = 'São Tomé and Príncipe, Dobra';
+    public const _STD = 'Dobra, São Tomé and Príncipe';
 
-    public const _SZL = 'Swazi, Lilangeni';
+    public const _SZL = 'Lilangeni, Swazi';
 
-    public const _TJS = 'Tajikistani, Somoni';
+    public const _TJS = 'Somoni, Tajikistani';
 
-    public const _TMT = 'Turkmenistani, Manat';
+    public const _TMT = 'Manat, Turkmenistani';
 
-    public const _TND = 'Tunisian, Dinar';
+    public const _TND = 'Dinar, Tunisian';
 
-    public const _TOP = 'Tongan, Paʻanga';
+    public const _TOP = 'Paʻanga, Tongan';
 
-    public const _TZS = 'Tanzanian, Shilling';
+    public const _TZS = 'Shilling, Tanzanian';
 
-    public const _UGX = 'Ugandan, Shilling';
+    public const _UGX = 'Shilling, Ugandan';
 
     public const _USN = 'United States dollar (next day) (funds code)';
 
@@ -366,29 +366,29 @@ class ISO4217Enum extends Enum
 
     public const _UYI = 'Uruguay Peso en Unidades Indexadas (URUIURUI) (funds code)';
 
-    public const _VUV = 'Vanuatu, Vatu';
+    public const _VUV = 'Vatu, Vanuatu';
 
-    public const _WST = 'Samoan, Tala';
+    public const _WST = 'Tala, Samoan';
 
-    public const _XAF = 'Central African, CFA Franc';
+    public const _XAF = 'CFA Franc, Central African';
 
     public const _XAG = 'Silver (one troy ounce)';
 
     public const _XAU = 'Gold (one troy ounce)';
 
-    public const _XBA = 'European, Composite Unit (EURCO) (bond market unit)';
+    public const _XBA = 'Composite Unit (EURCO) (bond market unit), European';
 
-    public const _XBB = 'European, Monetary Unit (E.M.U.-6) (bond market unit)';
+    public const _XBB = 'Monetary Unit (E.M.U.-6) (bond market unit), European';
 
-    public const _XBC = 'European, Unit of Account 9 (E.U.A.-9) (bond market unit)';
+    public const _XBC = 'Unit of Account 9 (E.U.A.-9) (bond market unit), European';
 
-    public const _XBD = 'European, Unit of Account 17 (E.U.A.-17) (bond market unit)';
+    public const _XBD = 'Unit of Account 17 (E.U.A.-17) (bond market unit), European';
 
     public const _XDR = 'Special drawing rights';
 
     public const _XFU = 'UIC franc (special settlement currency)';
 
-    public const _XOF = 'West African, CFA franc';
+    public const _XOF = 'CFA franc, West African';
 
     public const _XPD = 'Palladium';
 
@@ -402,5 +402,5 @@ class ISO4217Enum extends Enum
 
     public const _XUA = 'ADB Unit of Account';
 
-    public const _ZMW = 'Zambian, kwacha';
+    public const _ZMW = 'kwacha, Zambian';
 }

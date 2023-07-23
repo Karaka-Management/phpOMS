@@ -64,7 +64,7 @@ class ISO639Enum extends Enum
 
     public const _BN = 'Bengali';
 
-    public const _BO = 'Tibetan Standard, Tibetan, Central';
+    public const _BO = 'Tibetan'; // Tibetan Standard, Tibetan, Central
 
     public const _BR = 'Breton';
 
@@ -82,7 +82,7 @@ class ISO639Enum extends Enum
 
     public const _CS = 'Czech';
 
-    public const _CU = 'Old Church Slavonic, Church Slavic, Church Slavonic, Old Bulgarian, Old Slavonic';
+    public const _CU = 'Slavonic'; // Old Church Slavonic, Church Slavic, Church Slavonic, Old Bulgarian, Old Slavonic
 
     public const _CV = 'Chuvash';
 
@@ -302,7 +302,7 @@ class ISO639Enum extends Enum
 
     public const _RW = 'Kinyarwanda';
 
-    public const _SA = 'Sanskrit (Sa?sk?ta)';
+    public const _SA = 'Sanskrit (Saṃskṛta)';
 
     public const _SC = 'Sardinian';
 

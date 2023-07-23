@@ -288,7 +288,7 @@ class ISO3166NameEnum extends Enum
 
     public const _MAC = 'Macao';
 
-    public const _MKD = 'Macedonia (the former Yugoslav Republic of)';
+    public const _MKD = 'Macedonia';
 
     public const _MDG = 'Madagascar';
 
