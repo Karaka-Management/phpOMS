@@ -453,6 +453,7 @@ abstract class ModuleAbstract
         mixed $obj
     ) : void
     {
+        // @todo: consider to set different status code? (also for other createInvalid() functions)
         $response->header->set('Content-Type', MimeType::M_JSON . '; charset=utf-8', true);
         $response->data[$request->uri->__toString()] = [
             'status'   => NotificationLevel::WARNING,
