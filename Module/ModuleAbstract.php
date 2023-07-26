@@ -199,6 +199,13 @@ abstract class ModuleAbstract
     /**
      * Fills the response object
      *
+     * The response object contains the following data:
+     *
+     *  * status = Response status
+     *  * title = Response title (e.g. for frontend reporting)
+     *  * message = Response message (e.g. for frontend reporting)
+     *  * response = Response object (e.g. for validation/frontend reporting/form validation)
+     *
      * @param RequestAbstract  $request  Request
      * @param ResponseAbstract $response Response
      * @param string           $status   Response status
@@ -231,6 +238,13 @@ abstract class ModuleAbstract
     /**
      * Create standard model create response.
      *
+     * The response object contains the following data:
+     *
+     *  * status = Response status
+     *  * title = Response title (e.g. for frontend reporting)
+     *  * message = Response message (e.g. for frontend reporting)
+     *  * response = Response object (e.g. for validation/frontend reporting/form validation)
+     *
      * @param RequestAbstract  $request  Request
      * @param ResponseAbstract $response Response
      * @param mixed            $obj      Response object
@@ -256,6 +270,13 @@ abstract class ModuleAbstract
 
     /**
      * Create standard model update response.
+     *
+     * The response object contains the following data:
+     *
+     *  * status = Response status
+     *  * title = Response title (e.g. for frontend reporting)
+     *  * message = Response message (e.g. for frontend reporting)
+     *  * response = Response object (e.g. for validation/frontend reporting/form validation)
      *
      * @param RequestAbstract  $request  Request
      * @param ResponseAbstract $response Response
@@ -283,6 +304,13 @@ abstract class ModuleAbstract
     /**
      * Create standard model delete response.
      *
+     * The response object contains the following data:
+     *
+     *  * status = Response status
+     *  * title = Response title (e.g. for frontend reporting)
+     *  * message = Response message (e.g. for frontend reporting)
+     *  * response = Response object (e.g. for validation/frontend reporting/form validation)
+     *
      * @param RequestAbstract  $request  Request
      * @param ResponseAbstract $response Response
      * @param mixed            $obj      Response object
@@ -308,6 +336,13 @@ abstract class ModuleAbstract
 
     /**
      * Create standard model remove response.
+     *
+     * The response object contains the following data:
+     *
+     *  * status = Response status
+     *  * title = Response title (e.g. for frontend reporting)
+     *  * message = Response message (e.g. for frontend reporting)
+     *  * response = Response object (e.g. for validation/frontend reporting/form validation)
      *
      * @param RequestAbstract  $request  Request
      * @param ResponseAbstract $response Response
@@ -335,6 +370,13 @@ abstract class ModuleAbstract
     /**
      * Create standard model return response.
      *
+     * The response object contains the following data:
+     *
+     *  * status = Response status
+     *  * title = Response title (e.g. for frontend reporting)
+     *  * message = Response message (e.g. for frontend reporting)
+     *  * response = Response object (e.g. for validation/frontend reporting/form validation)
+     *
      * @param RequestAbstract  $request  Request
      * @param ResponseAbstract $response Response
      * @param mixed            $obj      Response object
@@ -360,6 +402,13 @@ abstract class ModuleAbstract
 
     /**
      * Create standard model relation add response.
+     *
+     * The response object contains the following data:
+     *
+     *  * status = Response status
+     *  * title = Response title (e.g. for frontend reporting)
+     *  * message = Response message (e.g. for frontend reporting)
+     *  * response = Response object (e.g. for validation/frontend reporting/form validation)
      *
      * @param RequestAbstract  $request  Request
      * @param ResponseAbstract $response Response
@@ -387,6 +436,13 @@ abstract class ModuleAbstract
     /**
      * Create invalid model create response.
      *
+     * The response object contains the following data:
+     *
+     *  * status = Response status
+     *  * title = Response title (e.g. for frontend reporting)
+     *  * message = Response message (e.g. for frontend reporting)
+     *  * response = Response object (e.g. for validation/frontend reporting/form validation)
+     *
      * @param RequestAbstract  $request  Request
      * @param ResponseAbstract $response Response
      * @param mixed            $obj      Response object
@@ -413,6 +469,13 @@ abstract class ModuleAbstract
     /**
      * Create invalid model update response.
      *
+     * The response object contains the following data:
+     *
+     *  * status = Response status
+     *  * title = Response title (e.g. for frontend reporting)
+     *  * message = Response message (e.g. for frontend reporting)
+     *  * response = Response object (e.g. for validation/frontend reporting/form validation)
+     *
      * @param RequestAbstract  $request  Request
      * @param ResponseAbstract $response Response
      * @param mixed            $obj      Response object
@@ -438,6 +501,13 @@ abstract class ModuleAbstract
 
     /**
      * Create invalid model delete response.
+     *
+     * The response object contains the following data:
+     *
+     *  * status = Response status
+     *  * title = Response title (e.g. for frontend reporting)
+     *  * message = Response message (e.g. for frontend reporting)
+     *  * response = Response object (e.g. for validation/frontend reporting/form validation)
      *
      * @param RequestAbstract  $request  Request
      * @param ResponseAbstract $response Response
@@ -466,6 +536,13 @@ abstract class ModuleAbstract
     /**
      * Create invalid model relation remove response.
      *
+     * The response object contains the following data:
+     *
+     *  * status = Response status
+     *  * title = Response title (e.g. for frontend reporting)
+     *  * message = Response message (e.g. for frontend reporting)
+     *  * response = Response object (e.g. for validation/frontend reporting/form validation)
+     *
      * @param RequestAbstract  $request  Request
      * @param ResponseAbstract $response Response
      * @param mixed            $obj      Response object
@@ -491,6 +568,13 @@ abstract class ModuleAbstract
 
     /**
      * Create invalid model return response.
+     *
+     * The response object contains the following data:
+     *
+     *  * status = Response status
+     *  * title = Response title (e.g. for frontend reporting)
+     *  * message = Response message (e.g. for frontend reporting)
+     *  * response = Response object (e.g. for validation/frontend reporting/form validation)
      *
      * @param RequestAbstract  $request  Request
      * @param ResponseAbstract $response Response
@@ -518,6 +602,13 @@ abstract class ModuleAbstract
     /**
      * Create invalid model relation create response.
      *
+     * The response object contains the following data:
+     *
+     *  * status = Response status
+     *  * title = Response title (e.g. for frontend reporting)
+     *  * message = Response message (e.g. for frontend reporting)
+     *  * response = Response object (e.g. for validation/frontend reporting/form validation)
+     *
      * @param RequestAbstract  $request  Request
      * @param ResponseAbstract $response Response
      * @param mixed            $obj      Response object
@@ -543,6 +634,13 @@ abstract class ModuleAbstract
 
     /**
      * Create invalid model permission response.
+     *
+     * The response object contains the following data:
+     *
+     *  * status = Response status
+     *  * title = Response title (e.g. for frontend reporting)
+     *  * message = Response message (e.g. for frontend reporting)
+     *  * response = Response object (e.g. for validation/frontend reporting/form validation)
      *
      * @param RequestAbstract  $request  Request
      * @param ResponseAbstract $response Response
@@ -587,6 +685,10 @@ abstract class ModuleAbstract
     /**
      * Create a model
      *
+     *  1. Execute pre DB interaction event
+     *  2. Create model in DB
+     *  3. Execute post DB interaction event (e.g. generates an audit log)
+     *
      * @param int               $account Account id
      * @param mixed             $obj     Response object
      * @param string | \Closure $mapper  Object mapper
@@ -625,6 +727,10 @@ abstract class ModuleAbstract
 
     /**
      * Create a model
+     *
+     *  1. Execute pre DB interaction event
+     *  2. Create model in DB
+     *  3. Execute post DB interaction event (e.g. generates an audit log)
      *
      * @param int               $account Account id
      * @param array             $objs    Response object
@@ -667,6 +773,10 @@ abstract class ModuleAbstract
     /**
      * Update a model
      *
+     *  1. Execute pre DB interaction event
+     *  2. Update model in DB
+     *  3. Execute post DB interaction event (e.g. generates an audit log)
+     *
      * @param int               $account Account id
      * @param mixed             $old     Response object old
      * @param mixed             $new     Response object new
@@ -707,6 +817,10 @@ abstract class ModuleAbstract
     /**
      * Delete a model
      *
+     *  1. Execute pre DB interaction event
+     *  2. Delete model in DB
+     *  3. Execute post DB interaction event (e.g. generates an audit log)
+     *
      * @param int               $account Account id
      * @param mixed             $obj     Response object
      * @param string | \Closure $mapper  Object mapper
@@ -745,6 +859,10 @@ abstract class ModuleAbstract
 
     /**
      * Create a model relation
+     *
+     *  1. Execute pre DB interaction event
+     *  2. Create model relation in DB
+     *  3. Execute post DB interaction event (e.g. generates an audit log)
      *
      * @param int    $account Account id
      * @param mixed  $rel1    Object relation1 (parent object)
@@ -786,7 +904,11 @@ abstract class ModuleAbstract
     }
 
     /**
-     * Create a model relation
+     * Delete a model relation
+     *
+     *  1. Execute pre DB interaction event
+     *  2. Delete model in DB
+     *  3. Execute post DB interaction event (e.g. generates an audit log)
      *
      * @param int    $account Account id
      * @param mixed  $rel1    Object relation1

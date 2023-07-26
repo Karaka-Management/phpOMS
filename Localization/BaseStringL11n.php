@@ -44,6 +44,7 @@ class BaseStringL11n implements \JsonSerializable
     // maybe we can always use $type and remove $name.
     // This would require some smart mapper adjustment where the name is part of the l11n model,
     // maybe use the path definition in the mapper which is used by arrays (e.g. type/name)
+    // More maybe: $name might have been intended as internal value? -> Makes no sense because only string
     public ?BaseStringL11nType $type = null;
 
     /**
