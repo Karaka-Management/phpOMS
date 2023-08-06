@@ -51,6 +51,8 @@ abstract class TwoDAbstract extends CodeAbstract
      *
      * @return \GdImage
      *
+     * @throws \Exception
+     *
      * @since 1.0.0
      */
     protected function createImage(array $codeArray) : mixed

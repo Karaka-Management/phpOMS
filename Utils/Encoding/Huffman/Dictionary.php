@@ -131,7 +131,7 @@ final class Dictionary
      *
      * @return void
      *
-     * @throws \Exception
+     * @throws \InvalidArgumentException
      *
      * @since 1.0.0
      */
@@ -169,7 +169,7 @@ final class Dictionary
      *
      * @return string
      *
-     * @throws \Exception
+     * @throws \InvalidArgumentException
      *
      * @since 1.0.0
      */

@@ -355,6 +355,8 @@ final class FileLogger implements LoggerInterface
 
     /**
      * {@inheritdoc}
+     *
+     * @throws InvalidEnumValue
      */
     public function log(string $level, string $message, array $context = []) : void
     {

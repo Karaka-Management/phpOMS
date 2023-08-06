@@ -62,6 +62,8 @@ final class RedisCache extends ConnectionAbstract
      *
      * @return void
      *
+     * @throws InvalidConnectionConfigException
+     *
      * @since 1.0.0
      */
     public function connect(array $data = null) : void

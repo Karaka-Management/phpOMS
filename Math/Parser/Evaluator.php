@@ -31,8 +31,6 @@ final class Evaluator
      *
      * @return null|float
      *
-     * @throws \Exception
-     *
      * @since 1.0.0
      */
     public static function evaluate(string $equation) : ?float

@@ -16,6 +16,8 @@ namespace phpOMS\DataStorage\Session;
 
 use phpOMS\DataStorage\LockException;
 use phpOMS\Log\FileLogger;
+use phpOMS\Message\RequestAbstract;
+use phpOMS\Session\JWT;
 use phpOMS\Uri\UriFactory;
 
 /**
@@ -68,8 +70,6 @@ final class HttpSession implements SessionInterface
      * @param int    $liftetime          Session life time
      * @param string $sid                Session id
      * @param int    $inactivityInterval Interval for session activity
-     *
-     * @throws LockException throws this exception if the session is alrady locked for further interaction
      *
      * @since 1.0.0
      */
@@ -139,6 +139,29 @@ final class HttpSession implements SessionInterface
         }
 
         UriFactory::setQuery('$CSRF', $csrf); /* @phpstan-ignore-line */
+    }
+
+    public function populateFromRequest(string $secret, RequestAbstract $request) : void
+    {
+        $authentication = $request->header->get('Authorization');
+        if (\count($authentication) !== 1) {
+            return;
+        }
+
+        $explode = \explode(' ', $authentication[0]);
+        if (\count($explode) !== 2) {
+            return;
+        }
+
+        $token  = \trim($explode[1]);
+        $header = JWT::getHeader($token);
+
+        if (($header['typ'] ?? '') !== 'jwt' || !JWT::validateJWT($secret, $token)) {
+            return;
+        }
+
+        $payload = JWT::getPayload($token);
+        $this->set('UID', (int) ($payload['uid'] ?? 0));
     }
 
     /**

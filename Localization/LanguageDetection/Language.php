@@ -38,6 +38,8 @@ class Language extends NgramParser
      * @param array  $lang    List of ISO 639-1 codes, that should be used in the detection phase
      * @param string $dirname Name of the directory where the translations files are located
      *
+     * @throws \InvalidArgumentException
+     *
      * @since 1.0.0
      */
     public function __construct(array $lang = [], string $dirname = '')

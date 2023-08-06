@@ -70,6 +70,8 @@ final class MemCached extends ConnectionAbstract
      *
      * @return void
      *
+     * @throws InvalidConnectionConfigException
+     *
      * @since 1.0.0
      */
     public function connect(array $data = null) : void
@@ -88,6 +90,8 @@ final class MemCached extends ConnectionAbstract
 
     /**
      * {@inheritdoc}
+     *
+     * @throws \InvalidArgumentException
      */
     public function set(int | string $key, mixed $value, int $expire = -1) : void
     {
@@ -104,6 +108,8 @@ final class MemCached extends ConnectionAbstract
 
     /**
      * {@inheritdoc}
+     *
+     * @throws \InvalidArgumentException
      */
     public function add(int | string $key, mixed $value, int $expire = -1) : bool
     {

@@ -148,6 +148,8 @@ final class PackageManager
      *
      * @return string Hash value of files
      *
+     * @throws \Exception
+     *
      * @since 1.0.0
      */
     private function hashFiles() : string

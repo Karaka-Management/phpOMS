@@ -376,8 +376,6 @@ final class Complex
      *
      * @return Complex
      *
-     * @throws \InvalidArgumentException This exception is thrown if the argument has an invalid type
-     *
      * @since 1.0.0
      */
     public function div(int | float | self $value) : self

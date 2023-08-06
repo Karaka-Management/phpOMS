@@ -606,6 +606,8 @@ class Localization implements \JsonSerializable
      *
      * @return void
      *
+     * @throws InvalidEnumValue
+     *
      * @since 1.0.0
      */
     public function setTemperature(string $temperature) : void

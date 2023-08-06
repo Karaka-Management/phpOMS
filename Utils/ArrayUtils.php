@@ -45,6 +45,8 @@ final class ArrayUtils
      *
      * @return array
      *
+     * @throws \Exception
+     *
      * @since 1.0.0
      */
     public static function unsetArray(string $path, array $data, string $delim = '/') : array
@@ -505,6 +507,9 @@ final class ArrayUtils
      * @param array $value2 Value 2 is a matrix or vector (cannot be a matrix if value1 is a vector)
      *
      * @return array
+     *
+     * @throws InvalidDimensionException
+     * @throws \InvalidArgumentException
      *
      * @since 1.0.0
      */

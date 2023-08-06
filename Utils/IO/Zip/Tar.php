@@ -38,7 +38,7 @@ class Tar implements ArchiveInterface
      */
     public static function pack(string | array $sources, string $destination, bool $overwrite = false) : bool
     {
-        $destination = FileUtils::absolute(\str_replace('\\', '/', $destination));
+        $destination = FileUtils::absolute(\strtr($destination, '\\', '/'));
         if ((!$overwrite && \is_file($destination))
             || \is_dir($destination)
         ) {
@@ -59,8 +59,8 @@ class Tar implements ArchiveInterface
                 $source = $relative;
             }
 
-            $source   = FileUtils::absolute(\str_replace('\\', '/', $source));
-            $relative = \str_replace('\\', '/', $relative);
+            $source   = FileUtils::absolute(\strtr($source, '\\', '/'));
+            $relative = \strtr($relative, '\\', '/');
 
             if (\is_dir($source)) {
                 /** @var string[] $files */
@@ -70,7 +70,7 @@ class Tar implements ArchiveInterface
                 );
 
                 foreach ($files as $file) {
-                    $file = \str_replace('\\', '/', $file);
+                    $file = \strtr($file, '\\', '/');
 
                     /* Ignore . and .. */
                     if (($pos = \mb_strrpos($file, '/')) === false
@@ -113,7 +113,7 @@ class Tar implements ArchiveInterface
         }
 
         try {
-            $destination = \str_replace('\\', '/', $destination);
+            $destination = \strtr($destination, '\\', '/');
             $destination = \rtrim($destination, '/');
             $tar         = new \PharData($source);
 

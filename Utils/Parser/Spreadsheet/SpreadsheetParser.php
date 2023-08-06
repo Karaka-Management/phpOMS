@@ -58,6 +58,8 @@ class SpreadsheetParser
             $spreadsheet->getActiveSheet()->getPageSetup()->setOrientation(PageSetup::ORIENTATION_LANDSCAPE);
 
             IOFactory::registerWriter('custom', \phpOMS\Utils\Parser\Spreadsheet\SpreadsheetWriter::class);
+
+            /** @var \phpOMS\Utils\Parser\Spreadsheet\SpreadsheetWriter $writer */
             $writer = IOFactory::createWriter($spreadsheet, 'custom');
 
             return $writer->toPdfString();
@@ -65,6 +67,7 @@ class SpreadsheetParser
             $spreadsheet = IOFactory::load($path);
 
             IOFactory::registerWriter('custom', \phpOMS\Utils\Parser\Spreadsheet\SpreadsheetWriter::class);
+            /** @var \phpOMS\Utils\Parser\Spreadsheet\SpreadsheetWriter $writer */
             $writer = IOFactory::createWriter($spreadsheet, 'custom');
 
             return $writer->generateHtmlAll();

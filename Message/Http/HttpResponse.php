@@ -136,8 +136,6 @@ final class HttpResponse extends ResponseAbstract implements RenderableInterface
      *
      * @return string
      *
-     * @throws \Exception
-     *
      * @since 1.0.0
      */
     private function getRaw(bool $optimize = false) : string

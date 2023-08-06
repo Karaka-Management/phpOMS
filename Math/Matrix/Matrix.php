@@ -368,8 +368,6 @@ class Matrix implements \ArrayAccess, \Iterator
      *
      * @return Matrix
      *
-     * @throws \Exception
-     *
      * @since 1.0.0
      */
     public function setMatrix(array $matrix) : self
@@ -423,6 +421,8 @@ class Matrix implements \ArrayAccess, \Iterator
      * @param Matrix $matrix Matrix to add
      *
      * @return Matrix
+     *
+     * @throws InvalidDimensionException
      *
      * @since 1.0.0
      */
@@ -520,6 +520,8 @@ class Matrix implements \ArrayAccess, \Iterator
      * @param Matrix $matrix Matrix to multiply with
      *
      * @return Matrix
+     *
+     * @throws InvalidDimensionException
      *
      * @since 1.0.0
      */

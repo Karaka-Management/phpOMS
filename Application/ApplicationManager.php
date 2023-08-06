@@ -66,6 +66,8 @@ final class ApplicationManager
      *
      * @return ApplicationInfo
      *
+     * @throws PathException
+     *
      * @since 1.0.0
      */
     private function loadInfo(string $appPath) : ApplicationInfo
@@ -117,7 +119,7 @@ final class ApplicationManager
             $classPath = \substr($path . '/Admin/Installer', (int) \strlen((string) \realpath(__DIR__ . '/../../')));
 
             // @var class-string<InstallerAbstract> $class
-            $class = \str_replace('/', '\\', $classPath);
+            $class = \strtr($classPath, '/', '\\');
             $class::install($this->app, $info, $this->app->appSettings);
 
             return true;
@@ -149,7 +151,7 @@ final class ApplicationManager
             $classPath = \substr($path . '/Admin/Uninstaller', (int) \strlen((string) \realpath(__DIR__ . '/../../')));
 
             // @var class-string<UninstallerAbstract> $class
-            $class = \str_replace('/', '\\', $classPath);
+            $class = \strtr($classPath, '/', '\\');
             $class::uninstall($this->app->dbPool, $info, $this->app->appSettings);
 
             $this->uninstallFiles($source);
@@ -182,7 +184,7 @@ final class ApplicationManager
 
         // @var class-string<InstallerAbstract> $class
         $classPath = \substr($path . '/Admin/Installer', (int) \strlen((string) \realpath(__DIR__ . '/../../')));
-        $class     = \str_replace('/', '\\', $classPath);
+        $class     = \strtr($classPath, '/', '\\');
 
         /** @var $class InstallerAbstract */
         $class::reInit($info);

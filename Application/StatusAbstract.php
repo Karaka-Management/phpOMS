@@ -61,8 +61,6 @@ abstract class StatusAbstract
      *
      * @return void
      *
-     * @throws PermissionException
-     *
      * @since 1.0.0
      */
     public static function activateRoutes(ApplicationInfo $appInfo = null) : void
@@ -76,8 +74,6 @@ abstract class StatusAbstract
      * @param ApplicationInfo $appInfo Application info
      *
      * @return void
-     *
-     * @throws PermissionException
      *
      * @since 1.0.0
      */
@@ -94,6 +90,7 @@ abstract class StatusAbstract
      *
      * @return void
      *
+     * @throws PathException
      * @throws PermissionException
      *
      * @since 1.0.0
@@ -131,9 +128,6 @@ abstract class StatusAbstract
      *
      * @return void
      *
-     * @throws PathException
-     * @throws PermissionException
-     *
      * @since 1.0.0
      */
     public static function clearRoutes() : void
@@ -145,9 +139,6 @@ abstract class StatusAbstract
      * Clear all hooks.
      *
      * @return void
-     *
-     * @throws PathException
-     * @throws PermissionException
      *
      * @since 1.0.0
      */

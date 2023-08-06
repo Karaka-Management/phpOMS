@@ -118,6 +118,8 @@ abstract class FileAbstract implements LocalContainerInterface
 
     /**
      * {@inheritdoc}
+     *
+     * @throws PathException
      */
     public static function created(string $path) : \DateTime
     {
@@ -132,6 +134,8 @@ abstract class FileAbstract implements LocalContainerInterface
 
     /**
      * {@inheritdoc}
+     *
+     * @throws PathException
      */
     public static function changed(string $path) : \DateTime
     {

@@ -180,7 +180,7 @@ final class FtpStorageTest extends \PHPUnit\Framework\TestCase
     {
         $dirPath = __DIR__ . '/test';
 
-        self::assertEquals(\str_replace('\\', '/', \realpath(__DIR__)), FtpStorage::parent($dirPath));
+        self::assertEquals(\strtr(\realpath(__DIR__), '\\', '/'), FtpStorage::parent($dirPath));
     }
 
     /**
@@ -664,7 +664,7 @@ final class FtpStorageTest extends \PHPUnit\Framework\TestCase
     {
         $testFile = __DIR__ . '/test.txt';
 
-        self::assertEquals(\str_replace('\\', '/', \realpath(__DIR__ . '/../')), FtpStorage::parent($testFile));
+        self::assertEquals(\strtr(\realpath(__DIR__ . '/../'), '\\', '/'), FtpStorage::parent($testFile));
     }
 
     /**

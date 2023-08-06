@@ -32,7 +32,7 @@ final class RepositoryTest extends \PHPUnit\Framework\TestCase
     {
         $repo = new Repository(\realpath(__DIR__ . '/../../../'));
         self::assertTrue($repo->getName() === 'phpOMS' || $repo->getName() === 'build');
-        self::assertEquals(\str_replace('\\', '/', \realpath(__DIR__ . '/../../../.git')), \str_replace('\\', '/', $repo->getDirectoryPath()));
+        self::assertEquals(\strtr(\realpath(__DIR__ . '/../../../.git'), '\\', '/'), \strtr($repo->getDirectoryPath(), '\\', '/'));
         self::assertEquals(\realpath(__DIR__ . '/../../../'), $repo->getPath());
     }
 }

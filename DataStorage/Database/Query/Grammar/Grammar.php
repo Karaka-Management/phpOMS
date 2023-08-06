@@ -37,6 +37,8 @@ class Grammar extends GrammarAbstract
 {
     /**
      * {@inheritdoc}
+     *
+     * @throws \InvalidArgumentException
      */
     protected function compileComponents(BuilderAbstract $query) : array
     {

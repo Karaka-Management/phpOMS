@@ -323,6 +323,8 @@ class Directory extends FileAbstract implements DirectoryInterface
 
     /**
      * {@inheritdoc}
+     *
+     * @throws PathException
      */
     public static function changed(\FTP\Connection $con, string $path) : \DateTime
     {
@@ -340,6 +342,8 @@ class Directory extends FileAbstract implements DirectoryInterface
 
     /**
      * {@inheritdoc}
+     *
+     * @throws PathException
      */
     public static function owner(\FTP\Connection $con, string $path) : string
     {

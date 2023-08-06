@@ -133,7 +133,7 @@ final class DirectoryTest extends \PHPUnit\Framework\TestCase
     {
         $dirPath = __DIR__ . '/test';
 
-        self::assertEquals(\str_replace('\\', '/', \realpath(__DIR__)), Directory::parent($dirPath));
+        self::assertEquals(\strtr(\realpath(__DIR__), '\\', '/'), Directory::parent($dirPath));
     }
 
     /**

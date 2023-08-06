@@ -63,8 +63,6 @@ final class L11nManager
      *
      * @return void
      *
-     * @throws \UnexpectedValueException this exception is thrown when no language definitions for the defined source `$from` exist
-     *
      * @since 1.0.0
      */
     public function loadLanguage(string $language, string $from, array $translation) : void

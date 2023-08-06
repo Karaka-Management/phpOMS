@@ -124,6 +124,8 @@ abstract class CodeAbstract
      *
      * @return void
      *
+     * @throws \OutOfBoundsException
+     *
      * @since 1.0.0
      */
     public function setDimension(int $width, int $height) : void
@@ -160,6 +162,8 @@ abstract class CodeAbstract
      * @param int $orientation Barcode orientation
      *
      * @return void
+     *
+     * @throws InvalidEnumValue
      *
      * @since 1.0.0
      */

@@ -61,6 +61,8 @@ class LZW implements CompressionInterface
 
     /**
      * {@inheritdoc}
+     *
+     * @throws \Exception
      */
     public function decompress(string $compressed) : string
     {

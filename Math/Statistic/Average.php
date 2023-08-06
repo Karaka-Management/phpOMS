@@ -337,6 +337,8 @@ final class Average
      *
      * @return float
      *
+     * @throws ZeroDivisionException
+     *
      * @since 1.0.0
      */
     public static function angleMean(array $angles, int $offset = 0) : float
@@ -375,6 +377,8 @@ final class Average
      * @param int                   $offset Offset for outlier
      *
      * @return float
+     *
+     * @throws ZeroDivisionException
      *
      * @since 1.0.0
      */

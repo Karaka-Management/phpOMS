@@ -220,6 +220,8 @@ final class UpdateMapper extends DataMapperAbstract
      *
      * @return void
      *
+     * @throws InvalidMapperException
+     *
      * @since 1.0.0
      */
     private function updateHasMany(\ReflectionClass $refClass, object $obj, mixed $objId) : void

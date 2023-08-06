@@ -63,34 +63,34 @@ final class BuilderTest extends \PHPUnit\Framework\TestCase
 
         $query = new Builder($con);
         $sql   = 'SELECT [a].[test] FROM [a] WHERE [a].[test] = 1;';
-        $sql   = \str_replace(['[', ']'], [$iS, $iE], $sql);
+        $sql   = \strtr($sql, '[]', $iS . $iE);
         self::assertEquals($sql, $query->select('a.test')->from('a')->where('a.test', '=', 1)->toSql());
 
         $query = new Builder($con);
         $sql   = 'SELECT [a].[test] as t FROM [a] as b WHERE [a].[test] = 1;';
-        $sql   = \str_replace(['[', ']'], [$iS, $iE], $sql);
+        $sql   = \strtr($sql, '[]', $iS . $iE);
         self::assertEquals($sql, $query->selectAs('a.test', 't')->fromAs('a', 'b')->where('a.test', '=', 1)->toSql());
 
         $query = new Builder($con);
         $sql   = 'SELECT DISTINCT [a].[test] FROM [a] WHERE [a].[test] = 1;';
-        $sql   = \str_replace(['[', ']'], [$iS, $iE], $sql);
+        $sql   = \strtr($sql, '[]', $iS . $iE);
         self::assertEquals($sql, $query->select('a.test')->distinct()->from('a')->where('a.test', '=', 1)->toSql());
 
         $query = new Builder($con);
         $sql   = 'SELECT [a].[test], [b].[test] FROM [a], [b] WHERE [a].[test] = \'abc\';';
-        $sql   = \str_replace(['[', ']'], [$iS, $iE], $sql);
+        $sql   = \strtr($sql, '[]', $iS . $iE);
         self::assertEquals($sql, $query->select('a.test', 'b.test')->from('a', 'b')->where('a.test', '=', 'abc')->toSql());
 
         $query    = new Builder($con);
         $datetime = new \DateTime('now');
         $sql      = 'SELECT [a].[test], [b].[test] FROM [a], [b] WHERE [a].[test] = \'' . $datetime->format('Y-m-d H:i:s')
         . '\';';
-        $sql      = \str_replace(['[', ']'], [$iS, $iE], $sql);
+        $sql      = \strtr($sql, '[]', $iS . $iE);
         self::assertEquals($sql, $query->select('a.test', 'b.test')->from('a', 'b')->where('a.test', '=', $datetime)->toSql());
 
         $query = new Builder($con);
         $sql   = 'SELECT [a].[test], [b].[test] FROM [a], [b] WHERE [a].[test] = \'abc\' ORDER BY [a].[test] ASC, [b].[test] DESC;';
-        $sql   = \str_replace(['[', ']'], [$iS, $iE], $sql);
+        $sql   = \strtr($sql, '[]', $iS . $iE);
         self::assertEquals($sql,
             $query->select('a.test', 'b.test')
                 ->from('a', 'b')
@@ -101,7 +101,7 @@ final class BuilderTest extends \PHPUnit\Framework\TestCase
 
         $query = new Builder($con);
         $sql   = 'SELECT [a].[test], [b].[test] FROM [a], [b] WHERE [a].[test] = :abcValue ORDER BY [a].[test] ASC, [b].[test] DESC;';
-        $sql   = \str_replace(['[', ']'], [$iS, $iE], $sql);
+        $sql   = \strtr($sql, '[]', $iS . $iE);
         self::assertEquals($sql,
             $query->select('a.test', 'b.test')
                 ->from('a', 'b')
@@ -122,7 +122,7 @@ final class BuilderTest extends \PHPUnit\Framework\TestCase
 
         $query = new Builder($con);
         $sql   = 'SELECT [a].[test] FROM [a] as b WHERE [a].[test] = 1 ORDER BY \rand() LIMIT 1;';
-        $sql   = \str_replace(['[', ']'], [$iS, $iE], $sql);
+        $sql   = \strtr($sql, '[]', $iS . $iE);
         self::assertEquals($sql, $query->random('a.test')->fromAs('a', 'b')->where('a.test', '=', 1)->toSql());
     }
 
@@ -135,7 +135,7 @@ final class BuilderTest extends \PHPUnit\Framework\TestCase
 
         $query = new Builder($con);
         $sql   = 'SELECT [a].[test] FROM [a] as b ORDER BY RANDOM() LIMIT 1;';
-        $sql   = \str_replace(['[', ']'], [$iS, $iE], $sql);
+        $sql   = \strtr($sql, '[]', $iS . $iE);
         self::assertEquals($sql, $query->random('a.test')->fromAs('a', 'b')->where('a.test', '=', 1)->toSql());
     }
 
@@ -148,7 +148,7 @@ final class BuilderTest extends \PHPUnit\Framework\TestCase
 
         $query = new Builder($con);
         $sql   = 'SELECT [a].[test] FROM [a] as b ORDER BY RANDOM() LIMIT 1;';
-        $sql   = \str_replace(['[', ']'], [$iS, $iE], $sql);
+        $sql   = \strtr($sql, '[]', $iS . $iE);
         self::assertEquals($sql, $query->random('a.test')->fromAs('a', 'b')->where('a.test', '=', 1)->toSql());
     }
 
@@ -161,7 +161,7 @@ final class BuilderTest extends \PHPUnit\Framework\TestCase
 
         $query = new Builder($con);
         $sql   = 'SELECT TOP 1 [a].[test] FROM [a] as b ORDER BY IDX FETCH FIRST 1 ROWS ONLY;';
-        $sql   = \str_replace(['[', ']'], [$iS, $iE], $sql);
+        $sql   = \strtr($sql, '[]', $iS . $iE);
         self::assertEquals($sql, $query->random('a.test')->fromAs('a', 'b')->where('a.test', '=', 1)->toSql());
     }
 
@@ -183,32 +183,32 @@ final class BuilderTest extends \PHPUnit\Framework\TestCase
 
         $query = new Builder($con);
         $sql   = 'SELECT [a].[test] FROM [a] WHERE [a].[test] = 1 ORDER BY [a].[test] DESC;';
-        $sql   = \str_replace(['[', ']'], [$iS, $iE], $sql);
+        $sql   = \strtr($sql, '[]', $iS . $iE);
         self::assertEquals($sql, $query->select('a.test')->from('a')->where('a.test', '=', 1)->newest('a.test')->toSql());
 
         $query = new Builder($con);
         $sql   = 'SELECT [a].[test] FROM [a] WHERE [a].[test] = 1 ORDER BY [a].[test] ASC;';
-        $sql   = \str_replace(['[', ']'], [$iS, $iE], $sql);
+        $sql   = \strtr($sql, '[]', $iS . $iE);
         self::assertEquals($sql, $query->select('a.test')->from('a')->where('a.test', '=', 1)->oldest('a.test')->toSql());
 
         $query = new Builder($con);
         $sql   = 'SELECT [a].[test] FROM [a] WHERE [a].[test] = 1 ORDER BY [a].[test] DESC;';
-        $sql   = \str_replace(['[', ']'], [$iS, $iE], $sql);
+        $sql   = \strtr($sql, '[]', $iS . $iE);
         self::assertEquals($sql, $query->select('a.test')->from('a')->where('a.test', '=', 1)->orderBy('a.test', 'DESC')->toSql());
 
         $query = new Builder($con);
         $sql   = 'SELECT [a].[test] FROM [a] WHERE [a].[test] = 1 ORDER BY [a].[test] ASC;';
-        $sql   = \str_replace(['[', ']'], [$iS, $iE], $sql);
+        $sql   = \strtr($sql, '[]', $iS . $iE);
         self::assertEquals($sql, $query->select('a.test')->from('a')->where('a.test', '=', 1)->orderBy('a.test', 'ASC')->toSql());
 
         $query = new Builder($con);
         $sql   = 'SELECT [a].[test] FROM [a] WHERE [a].[test] = 1 ORDER BY [a].[test] DESC, [a].[test2] DESC;';
-        $sql   = \str_replace(['[', ']'], [$iS, $iE], $sql);
+        $sql   = \strtr($sql, '[]', $iS . $iE);
         self::assertEquals($sql, $query->select('a.test')->from('a')->where('a.test', '=', 1)->orderBy(['a.test', 'a.test2'], ['DESC', 'DESC'])->toSql());
 
         $query = new Builder($con);
         $sql   = 'SELECT [a].[test] FROM [a] WHERE [a].[test] = 1 ORDER BY [a].[test] ASC, [a].[test2] ASC;';
-        $sql   = \str_replace(['[', ']'], [$iS, $iE], $sql);
+        $sql   = \strtr($sql, '[]', $iS . $iE);
         self::assertEquals($sql, $query->select('a.test')->from('a')->where('a.test', '=', 1)->orderBy(['a.test', 'a.test2'], 'ASC')->toSql());
     }
 
@@ -230,12 +230,12 @@ final class BuilderTest extends \PHPUnit\Framework\TestCase
 
         $query = new Builder($con);
         $sql   = 'SELECT [a].[test] FROM [a] WHERE [a].[test] = 1 LIMIT 3;';
-        $sql   = \str_replace(['[', ']'], [$iS, $iE], $sql);
+        $sql   = \strtr($sql, '[]', $iS . $iE);
         self::assertEquals($sql, $query->select('a.test')->from('a')->where('a.test', '=', 1)->limit(3)->toSql());
 
         $query = new Builder($con);
         $sql   = 'SELECT [a].[test] FROM [a] WHERE [a].[test] = 1 OFFSET 3;';
-        $sql   = \str_replace(['[', ']'], [$iS, $iE], $sql);
+        $sql   = \strtr($sql, '[]', $iS . $iE);
         self::assertEquals($sql, $query->select('a.test')->from('a')->where('a.test', '=', 1)->offset(3)->toSql());
     }
 
@@ -257,12 +257,12 @@ final class BuilderTest extends \PHPUnit\Framework\TestCase
 
         $query = new Builder($con);
         $sql   = 'SELECT [a].[test] FROM [a] WHERE [a].[test] = 1 GROUP BY [a];';
-        $sql   = \str_replace(['[', ']'], [$iS, $iE], $sql);
+        $sql   = \strtr($sql, '[]', $iS . $iE);
         self::assertEquals($sql, $query->select('a.test')->from('a')->where('a.test', '=', 1)->groupBy('a')->toSql());
 
         $query = new Builder($con);
         $sql   = 'SELECT [a].[test] FROM [a] WHERE [a].[test] = 1 GROUP BY [a], [b];';
-        $sql   = \str_replace(['[', ']'], [$iS, $iE], $sql);
+        $sql   = \strtr($sql, '[]', $iS . $iE);
         self::assertEquals($sql, $query->select('a.test')->from('a')->where('a.test', '=', 1)->groupBy('a')->groupBy('b')->toSql());
 
         $query = new Builder($con);
@@ -270,7 +270,7 @@ final class BuilderTest extends \PHPUnit\Framework\TestCase
 
         $query = new Builder($con);
         $sql   = 'SELECT [a].[test] FROM [a] WHERE [a].[test] = :test GROUP BY [a], [b];';
-        $sql   = \str_replace(['[', ']'], [$iS, $iE], $sql);
+        $sql   = \strtr($sql, '[]', $iS . $iE);
         self::assertEquals($sql, $query->select('a.test')->from('a')->where('a.test', '=', new Parameter('test'))->groupBy('a', 'b')->toSql());
     }
 
@@ -292,72 +292,72 @@ final class BuilderTest extends \PHPUnit\Framework\TestCase
 
         $query = new Builder($con);
         $sql   = 'SELECT [a].[test] FROM [a] WHERE [a].[test] = 1;';
-        $sql   = \str_replace(['[', ']'], [$iS, $iE], $sql);
+        $sql   = \strtr($sql, '[]', $iS . $iE);
         self::assertEquals($sql, $query->select('a.test')->from('a')->where('a.test', '=', 1)->toSql());
 
         $query = new Builder($con);
         $sql   = 'SELECT [a].[test] FROM [a] WHERE [a].[test] = 0;';
-        $sql   = \str_replace(['[', ']'], [$iS, $iE], $sql);
+        $sql   = \strtr($sql, '[]', $iS . $iE);
         self::assertEquals($sql, $query->select('a.test')->from('a')->where('a.test', '=', false)->toSql());
 
         $query = new Builder($con);
         $sql   = 'SELECT [a].[test] FROM [a] WHERE [a].[test] = 1;';
-        $sql   = \str_replace(['[', ']'], [$iS, $iE], $sql);
+        $sql   = \strtr($sql, '[]', $iS . $iE);
         self::assertEquals($sql, $query->select('a.test')->from('a')->where('a.test', '=', true)->toSql());
 
         $query = new Builder($con);
         $sql   = 'SELECT [a].[test] FROM [a] WHERE [a].[test] = \'string\';';
-        $sql   = \str_replace(['[', ']'], [$iS, $iE], $sql);
+        $sql   = \strtr($sql, '[]', $iS . $iE);
         self::assertEquals($sql, $query->select('a.test')->from('a')->where('a.test', '=', 'string')->toSql());
 
         $query = new Builder($con);
         $sql   = 'SELECT [a].[test] FROM [a] WHERE [a].[test] = 1.23;';
-        $sql   = \str_replace(['[', ']'], [$iS, $iE], $sql);
+        $sql   = \strtr($sql, '[]', $iS . $iE);
         self::assertEquals($sql, $query->select('a.test')->from('a')->where('a.test', '=', 1.23)->toSql());
 
         $query = new Builder($con);
         $sql   = 'SELECT [a].[test] FROM [a] WHERE [a].[test] = 1 AND [a].[test2] = 2;';
-        $sql   = \str_replace(['[', ']'], [$iS, $iE], $sql);
+        $sql   = \strtr($sql, '[]', $iS . $iE);
         self::assertEquals($sql, $query->select('a.test')->from('a')->where('a.test', '=', 1)->where('a.test2', '=', 2, 'and')->toSql());
 
         $query = new Builder($con);
         $sql   = 'SELECT [a].[test] FROM [a] WHERE [a].[test] = 1 AND [a].[test2] = 2;';
-        $sql   = \str_replace(['[', ']'], [$iS, $iE], $sql);
+        $sql   = \strtr($sql, '[]', $iS . $iE);
         self::assertEquals($sql, $query->select('a.test')->from('a')->where('a.test', '=', 1)->andWhere('a.test2', '=', 2)->toSql());
 
         $query = new Builder($con);
         $sql   = 'SELECT [a].[test] FROM [a] WHERE [a].[test] = 1 OR [a].[test2] = 2;';
-        $sql   = \str_replace(['[', ']'], [$iS, $iE], $sql);
+        $sql   = \strtr($sql, '[]', $iS . $iE);
         self::assertEquals($sql, $query->select('a.test')->from('a')->where('a.test', '=', 1)->where('a.test2', '=', 2, 'or')->toSql());
 
         $query = new Builder($con);
         $sql   = 'SELECT [a].[test] FROM [a] WHERE [a].[test] = 1 OR [a].[test2] = 2;';
-        $sql   = \str_replace(['[', ']'], [$iS, $iE], $sql);
+        $sql   = \strtr($sql, '[]', $iS . $iE);
         self::assertEquals($sql, $query->select('a.test')->from('a')->where('a.test', '=', 1)->orWhere('a.test2', '=', 2)->toSql());
 
         $query = new Builder($con);
         $sql   = 'SELECT [a].[test] FROM [a] WHERE [a].[test] = 1 OR [a].[test2] IS NULL;';
-        $sql   = \str_replace(['[', ']'], [$iS, $iE], $sql);
+        $sql   = \strtr($sql, '[]', $iS . $iE);
         self::assertEquals($sql, $query->select('a.test')->from('a')->where('a.test', '=', 1)->whereNull('a.test2', 'or')->toSql());
 
         $query = new Builder($con);
         $sql   = 'SELECT [a].[test] FROM [a] WHERE [a].[test] = 1 OR [a].[test2] IS NOT NULL;';
-        $sql   = \str_replace(['[', ']'], [$iS, $iE], $sql);
+        $sql   = \strtr($sql, '[]', $iS . $iE);
         self::assertEquals($sql, $query->select('a.test')->from('a')->where('a.test', '=', 1)->whereNotNull('a.test2', 'or')->toSql());
 
         $query = new Builder($con);
         $sql   = 'SELECT [a].[test] FROM [a] WHERE [a].[test] = 1 OR [a].[test2] IN (1, 2, 3);';
-        $sql   = \str_replace(['[', ']'], [$iS, $iE], $sql);
+        $sql   = \strtr($sql, '[]', $iS . $iE);
         self::assertEquals($sql, $query->select('a.test')->from('a')->where('a.test', '=', 1)->whereIn('a.test2', [1, 2, 3], 'or')->toSql());
 
         $query = new Builder($con);
         $sql   = 'SELECT [a].[test] FROM [a] WHERE [a].[test] = 1 OR [a].[test2] IN (\'a\', \'b\', \'c\');';
-        $sql   = \str_replace(['[', ']'], [$iS, $iE], $sql);
+        $sql   = \strtr($sql, '[]', $iS . $iE);
         self::assertEquals($sql, $query->select('a.test')->from('a')->where('a.test', '=', 1)->whereIn('a.test2', ['a', 'b', 'c'], 'or')->toSql());
 
         $query = new Builder($con);
         $sql   = 'SELECT [a].[test] FROM [a] WHERE [a].[test] = :testWhere OR [a].[test2] IN (\'a\', :bValue, \'c\');';
-        $sql   = \str_replace(['[', ']'], [$iS, $iE], $sql);
+        $sql   = \strtr($sql, '[]', $iS . $iE);
         self::assertEquals($sql, $query->select('a.test')->from('a')->where('a.test', '=', new Parameter('testWhere'))->whereIn('a.test2', ['a', new Parameter('bValue'), 'c'], 'or')->toSql());
     }
 
@@ -379,72 +379,72 @@ final class BuilderTest extends \PHPUnit\Framework\TestCase
 
         $query = new Builder($con);
         $sql   = 'SELECT [a].[test] FROM [a] JOIN [b] ON [a].[id] = [b].[id] WHERE [a].[test] = 1;';
-        $sql   = \str_replace(['[', ']'], [$iS, $iE], $sql);
+        $sql   = \strtr($sql, '[]', $iS . $iE);
         self::assertEquals($sql, $query->select('a.test')->from('a')->join('b')->on('a.id', '=', 'b.id')->where('a.test', '=', 1)->toSql());
 
         $query = new Builder($con);
         $sql   = 'SELECT [a].[test] FROM [a] JOIN [b] ON [a].[id] = [b].[id] OR [a].[id2] = [b].[id2] WHERE [a].[test] = 1;';
-        $sql   = \str_replace(['[', ']'], [$iS, $iE], $sql);
+        $sql   = \strtr($sql, '[]', $iS . $iE);
         self::assertEquals($sql, $query->select('a.test')->from('a')->join('b')->on('a.id', '=', 'b.id')->orOn('a.id2', '=', 'b.id2')->where('a.test', '=', 1)->toSql());
 
         $query = new Builder($con);
         $sql   = 'SELECT [a].[test] FROM [a] JOIN [b] ON [a].[id] = [b].[id] AND [a].[id2] = [b].[id2] WHERE [a].[test] = 1;';
-        $sql   = \str_replace(['[', ']'], [$iS, $iE], $sql);
+        $sql   = \strtr($sql, '[]', $iS . $iE);
         self::assertEquals($sql, $query->select('a.test')->from('a')->join('b')->on('a.id', '=', 'b.id')->andOn('a.id2', '=', 'b.id2')->where('a.test', '=', 1)->toSql());
 
         $query = new Builder($con);
         $sql   = 'SELECT [a].[test] FROM [a] LEFT JOIN [b] ON [a].[id] = [b].[id] WHERE [a].[test] = 1;';
-        $sql   = \str_replace(['[', ']'], [$iS, $iE], $sql);
+        $sql   = \strtr($sql, '[]', $iS . $iE);
         self::assertEquals($sql, $query->select('a.test')->from('a')->leftJoin('b')->on('a.id', '=', 'b.id')->where('a.test', '=', 1)->toSql());
 
         $query = new Builder($con);
         $sql   = 'SELECT [a].[test] FROM [a] LEFT OUTER JOIN [b] ON [a].[id] = [b].[id] WHERE [a].[test] = 1;';
-        $sql   = \str_replace(['[', ']'], [$iS, $iE], $sql);
+        $sql   = \strtr($sql, '[]', $iS . $iE);
         self::assertEquals($sql, $query->select('a.test')->from('a')->leftOuterJoin('b')->on('a.id', '=', 'b.id')->where('a.test', '=', 1)->toSql());
 
         $query = new Builder($con);
         $sql   = 'SELECT [a].[test] FROM [a] LEFT INNER JOIN [b] ON [a].[id] = [b].[id] WHERE [a].[test] = 1;';
-        $sql   = \str_replace(['[', ']'], [$iS, $iE], $sql);
+        $sql   = \strtr($sql, '[]', $iS . $iE);
         self::assertEquals($sql, $query->select('a.test')->from('a')->leftInnerJoin('b')->on('a.id', '=', 'b.id')->where('a.test', '=', 1)->toSql());
 
         $query = new Builder($con);
         $sql   = 'SELECT [a].[test] FROM [a] RIGHT JOIN [b] ON [a].[id] = [b].[id] WHERE [a].[test] = 1;';
-        $sql   = \str_replace(['[', ']'], [$iS, $iE], $sql);
+        $sql   = \strtr($sql, '[]', $iS . $iE);
         self::assertEquals($sql, $query->select('a.test')->from('a')->rightJoin('b')->on('a.id', '=', 'b.id')->where('a.test', '=', 1)->toSql());
 
         $query = new Builder($con);
         $sql   = 'SELECT [a].[test] FROM [a] RIGHT OUTER JOIN [b] ON [a].[id] = [b].[id] WHERE [a].[test] = 1;';
-        $sql   = \str_replace(['[', ']'], [$iS, $iE], $sql);
+        $sql   = \strtr($sql, '[]', $iS . $iE);
         self::assertEquals($sql, $query->select('a.test')->from('a')->rightOuterJoin('b')->on('a.id', '=', 'b.id')->where('a.test', '=', 1)->toSql());
 
         $query = new Builder($con);
         $sql   = 'SELECT [a].[test] FROM [a] RIGHT INNER JOIN [b] ON [a].[id] = [b].[id] WHERE [a].[test] = 1;';
-        $sql   = \str_replace(['[', ']'], [$iS, $iE], $sql);
+        $sql   = \strtr($sql, '[]', $iS . $iE);
         self::assertEquals($sql, $query->select('a.test')->from('a')->rightInnerJoin('b')->on('a.id', '=', 'b.id')->where('a.test', '=', 1)->toSql());
 
         $query = new Builder($con);
         $sql   = 'SELECT [a].[test] FROM [a] OUTER JOIN [b] ON [a].[id] = [b].[id] WHERE [a].[test] = 1;';
-        $sql   = \str_replace(['[', ']'], [$iS, $iE], $sql);
+        $sql   = \strtr($sql, '[]', $iS . $iE);
         self::assertEquals($sql, $query->select('a.test')->from('a')->outerJoin('b')->on('a.id', '=', 'b.id')->where('a.test', '=', 1)->toSql());
 
         $query = new Builder($con);
         $sql   = 'SELECT [a].[test] FROM [a] INNER JOIN [b] ON [a].[id] = [b].[id] WHERE [a].[test] = 1;';
-        $sql   = \str_replace(['[', ']'], [$iS, $iE], $sql);
+        $sql   = \strtr($sql, '[]', $iS . $iE);
         self::assertEquals($sql, $query->select('a.test')->from('a')->innerJoin('b')->on('a.id', '=', 'b.id')->where('a.test', '=', 1)->toSql());
 
         $query = new Builder($con);
         $sql   = 'SELECT [a].[test] FROM [a] CROSS JOIN [b] ON [a].[id] = [b].[id] WHERE [a].[test] = 1;';
-        $sql   = \str_replace(['[', ']'], [$iS, $iE], $sql);
+        $sql   = \strtr($sql, '[]', $iS . $iE);
         self::assertEquals($sql, $query->select('a.test')->from('a')->crossJoin('b')->on('a.id', '=', 'b.id')->where('a.test', '=', 1)->toSql());
 
         $query = new Builder($con);
         $sql   = 'SELECT [a].[test] FROM [a] FULL JOIN [b] ON [a].[id] = [b].[id] WHERE [a].[test] = 1;';
-        $sql   = \str_replace(['[', ']'], [$iS, $iE], $sql);
+        $sql   = \strtr($sql, '[]', $iS . $iE);
         self::assertEquals($sql, $query->select('a.test')->from('a')->fullJoin('b')->on('a.id', '=', 'b.id')->where('a.test', '=', 1)->toSql());
 
         $query = new Builder($con);
         $sql   = 'SELECT [a].[test] FROM [a] FULL OUTER JOIN [b] ON [a].[id] = [b].[id] WHERE [a].[test] = 1;';
-        $sql   = \str_replace(['[', ']'], [$iS, $iE], $sql);
+        $sql   = \strtr($sql, '[]', $iS . $iE);
         self::assertEquals($sql, $query->select('a.test')->from('a')->fullOuterJoin('b')->on('a.id', '=', 'b.id')->where('a.test', '=', 1)->toSql());
     }
 
@@ -466,28 +466,28 @@ final class BuilderTest extends \PHPUnit\Framework\TestCase
 
         $query = new Builder($con);
         $sql   = 'INSERT INTO [a] VALUES (1, \'test\');';
-        $sql   = \str_replace(['[', ']'], [$iS, $iE], $sql);
+        $sql   = \strtr($sql, '[]', $iS . $iE);
         self::assertEquals($sql, $query->insert()->into('a')->values(1, 'test')->toSql());
 
         $query = new Builder($con);
         $sql   = 'INSERT INTO [a] VALUES (1, \'test\');';
-        $sql   = \str_replace(['[', ']'], [$iS, $iE], $sql);
+        $sql   = \strtr($sql, '[]', $iS . $iE);
         self::assertEquals($sql, $query->insert()->into('a')->value([1, 'test'])->toSql());
 
         $query = new Builder($con);
         $sql   = 'INSERT INTO [a] ([test], [test2]) VALUES (1, \'test\');';
-        $sql   = \str_replace(['[', ']'], [$iS, $iE], $sql);
+        $sql   = \strtr($sql, '[]', $iS . $iE);
         self::assertEquals($sql, $query->insert('test', 'test2')->into('a')->values(1, 'test')->toSql());
         self::assertEquals([[1, 'test']], $query->getValues());
 
         $query = new Builder($con);
         $sql   = 'INSERT INTO [a] ([test], [test2]) VALUES (1, \'test\'), (2, \'test2\');';
-        $sql   = \str_replace(['[', ']'], [$iS, $iE], $sql);
+        $sql   = \strtr($sql, '[]', $iS . $iE);
         self::assertEquals($sql, $query->insert('test', 'test2')->into('a')->values(1, 'test')->values(2, 'test2')->toSql());
 
         $query = new Builder($con);
         $sql   = 'INSERT INTO [a] ([test], [test2]) VALUES (:test, :test2);';
-        $sql   = \str_replace(['[', ']'], [$iS, $iE], $sql);
+        $sql   = \strtr($sql, '[]', $iS . $iE);
         self::assertEquals($sql, $query->insert('test', 'test2')->into('a')->values(new Parameter('test'), new Parameter('test2'))->toSql());
     }
 
@@ -509,12 +509,12 @@ final class BuilderTest extends \PHPUnit\Framework\TestCase
 
         $query = new Builder($con);
         $sql   = 'DELETE FROM [a] WHERE [a].[test] = 1;';
-        $sql   = \str_replace(['[', ']'], [$iS, $iE], $sql);
+        $sql   = \strtr($sql, '[]', $iS . $iE);
         self::assertEquals($sql, $query->delete()->from('a')->where('a.test', '=', 1)->toSql());
 
         $query = new Builder($con);
         $sql   = 'DELETE FROM [a] WHERE [a].[test] = :testVal;';
-        $sql   = \str_replace(['[', ']'], [$iS, $iE], $sql);
+        $sql   = \strtr($sql, '[]', $iS . $iE);
         self::assertEquals($sql, $query->delete()->from('a')->where('a.test', '=', new Parameter('testVal'))->toSql());
     }
 
@@ -536,17 +536,17 @@ final class BuilderTest extends \PHPUnit\Framework\TestCase
 
         $query = new Builder($con);
         $sql   = 'UPDATE [a] SET [a].[test] = 1, [a].[test2] = 2 WHERE [a].[test] = 1;';
-        $sql   = \str_replace(['[', ']'], [$iS, $iE], $sql);
+        $sql   = \strtr($sql, '[]', $iS . $iE);
         self::assertEquals($sql, $query->update('a')->set(['a.test' => 1])->set(['a.test2' => 2])->where('a.test', '=', 1)->toSql());
 
         $query = new Builder($con);
         $sql   = 'UPDATE [a] SET [a].[test] = 1, [a].[test2] = 2 WHERE [a].[test] = 1;';
-        $sql   = \str_replace(['[', ']'], [$iS, $iE], $sql);
+        $sql   = \strtr($sql, '[]', $iS . $iE);
         self::assertEquals($sql, $query->update('a')->sets('a.test', 1)->sets('a.test2', 2)->where('a.test', '=', 1)->toSql());
 
         $query = new Builder($con);
         $sql   = 'UPDATE [a] SET [a].[test] = 1, [a].[test2] = :test2 WHERE [a].[test] = :test3;';
-        $sql   = \str_replace(['[', ']'], [$iS, $iE], $sql);
+        $sql   = \strtr($sql, '[]', $iS . $iE);
         self::assertEquals($sql, $query->update('a')->set(['a.test' => 1])->set(['a.test2' => new Parameter('test2')])->where('a.test', '=', new Parameter('test3'))->toSql());
     }
 

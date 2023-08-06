@@ -206,6 +206,9 @@ final class QRDecomposition
      *
      * @return Matrix
      *
+     * @throws InvalidDimensionException
+     * @throws \Exception
+     *
      * @since 1.0.0
      */
     public function solve(Matrix $B) : Matrix

@@ -85,7 +85,7 @@ abstract class EnumArray
      *
      * @return mixed
      *
-     * @throws \Exception
+     * @throws \OutOfBoundsException
      *
      * @since 1.0.0
      */

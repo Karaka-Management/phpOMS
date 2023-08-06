@@ -47,6 +47,8 @@ final class MetricsND
      *
      * @return float
      *
+     * @throws InvalidDimensionException
+     *
      * @since 1.0.0
      */
     public static function manhattan(array $a, array $b) : float
@@ -73,6 +75,8 @@ final class MetricsND
      *
      * @return float
      *
+     * @throws InvalidDimensionException
+     *
      * @since 1.0.0
      */
     public static function euclidean(array $a, array $b) : float
@@ -98,6 +102,8 @@ final class MetricsND
      * @param array<int|string, int|float> $b n-D array
      *
      * @return float
+     *
+     * @throws InvalidDimensionException
      *
      * @since 1.0.0
      */
@@ -126,6 +132,8 @@ final class MetricsND
      *
      * @return float
      *
+     * @throws InvalidDimensionException
+     *
      * @since 1.0.0
      */
     public static function minkowski(array $a, array $b, int $lambda) : float
@@ -152,6 +160,8 @@ final class MetricsND
      *
      * @return float
      *
+     * @throws InvalidDimensionException
+     *
      * @since 1.0.0
      */
     public static function canberra(array $a, array $b) : float
@@ -177,6 +187,8 @@ final class MetricsND
      * @param array<int|string, int|float> $b n-D array
      *
      * @return float
+     *
+     * @throws InvalidDimensionException
      *
      * @since 1.0.0
      */
@@ -205,6 +217,8 @@ final class MetricsND
      * @param array<int|string, int|float> $b n-D array
      *
      * @return float
+     *
+     * @throws InvalidDimensionException
      *
      * @since 1.0.0
      */
@@ -235,6 +249,8 @@ final class MetricsND
      * @param array<int|string, int|float> $b n-D array
      *
      * @return int
+     *
+     * @throws InvalidDimensionException
      *
      * @since 1.0.0
      */

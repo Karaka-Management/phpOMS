@@ -102,7 +102,7 @@ final class Directory extends FileAbstract implements DirectoryInterface
                 continue;
             }
 
-            $list[] = \substr(\str_replace('\\', '/', $iterator->getPathname()), \strlen($path) + 1);
+            $list[] = \substr(\strtr($iterator->getPathname(), '\\', '/'), \strlen($path) + 1);
         }
 
         /** @var string[] $list */
@@ -147,7 +147,7 @@ final class Directory extends FileAbstract implements DirectoryInterface
             if ((empty($extension) || $item->getExtension() === $extension)
                 && (empty($exclude) || (!(bool) \preg_match('/' . $exclude . '/', $subPath)))
             ) {
-                $list[] = \str_replace('\\', '/', $subPath);
+                $list[] = \strtr($subPath, '\\', '/');
             }
         }
 
@@ -329,7 +329,7 @@ final class Directory extends FileAbstract implements DirectoryInterface
      */
     public static function parent(string $path) : string
     {
-        $path = \explode('/', \str_replace('\\', '/', $path));
+        $path = \explode('/', \strtr($path, '\\', '/'));
         \array_pop($path);
 
         return \implode('/', $path);
@@ -337,6 +337,8 @@ final class Directory extends FileAbstract implements DirectoryInterface
 
     /**
      * {@inheritdoc}
+     *
+     * @throws PathException
      */
     public static function owner(string $path) : int
     {

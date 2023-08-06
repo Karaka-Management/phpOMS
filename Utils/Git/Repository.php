@@ -288,8 +288,6 @@ class Repository
      *
      * @return string
      *
-     * @throws \Exception
-     *
      * @since 1.0.0
      */
     public function add(string | array $files = '*') : string
@@ -446,7 +444,7 @@ class Repository
     {
         if (empty($this->name)) {
             $path       = $this->getDirectoryPath();
-            $path       = \str_replace('\\', '/', $path);
+            $path       = \strtr($path, '\\', '/');
             $path       = \explode('/', $path);
             $this->name = $path[\count($path) - ($this->bare ? 1 : 2)];
         }
@@ -633,8 +631,6 @@ class Repository
      *
      * @return int
      *
-     * @throws \Exception
-     *
      * @since 1.0.0
      */
     public function countFiles() : int
@@ -650,8 +646,6 @@ class Repository
      * @param string[] $extensions Extensions whitelist
      *
      * @return int
-     *
-     * @throws \Exception
      *
      * @since 1.0.0
      */

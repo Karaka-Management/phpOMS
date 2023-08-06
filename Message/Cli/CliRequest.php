@@ -383,6 +383,8 @@ final class CliRequest extends RequestAbstract
      *
      * @return int
      *
+     * @throws \Exception
+     *
      * @since 1.0.0
      */
     public function getRouteVerb() : int

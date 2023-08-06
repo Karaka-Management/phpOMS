@@ -547,6 +547,8 @@ final class ModuleManager
      *
      * @return bool
      *
+     * @throws InvalidModuleException
+     *
      * @since 1.0.0
      */
     public function uninstall(string $module) : bool
@@ -638,7 +640,7 @@ final class ModuleManager
             return;
         }
 
-        $from = \str_replace('/', '\\', $from);
+        $from = \strtr($from, '/', '\\');
 
         $class = $from . '\\Admin\\Install\\' . $for;
         $class::install($this->app, $this->modulePath);
@@ -653,8 +655,6 @@ final class ModuleManager
      * @param string $ctlName Controller name (null = current)
      *
      * @return object|\phpOMS\Module\ModuleAbstract
-     *
-     * @throws \Exception
      *
      * @todo Remove docblock type hint hack "object".
      *          The return type object is only used to stop the annoying warning that a method doesn't exist
@@ -684,8 +684,6 @@ final class ModuleManager
      * @param string $ctlName Controller name (null = current app)
      *
      * @return void
-     *
-     * @throws \Exception
      *
      * @since 1.0.0
      */

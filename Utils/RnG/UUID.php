@@ -30,6 +30,9 @@ final class UUID
      * @param int<8, max> $length Result length in bytes
      *
      * @return string
+     *
+     * @throws \InvalidArgumentException
+     *
      * @since 1.0.0
      */
     public static function default(int $length = 16) : string

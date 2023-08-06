@@ -110,8 +110,6 @@ final class SocketResponse extends ResponseAbstract implements RenderableInterfa
      *
      * @return string
      *
-     * @throws \Exception
-     *
      * @since 1.0.0
      */
     private function getRaw(bool $optimize = false) : string

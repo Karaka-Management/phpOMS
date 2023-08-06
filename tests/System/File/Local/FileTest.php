@@ -297,7 +297,7 @@ final class FileTest extends \PHPUnit\Framework\TestCase
     {
         $testFile = __DIR__ . '/test.txt';
 
-        self::assertEquals(\str_replace('\\', '/', \realpath(__DIR__ . '/../')), File::parent($testFile));
+        self::assertEquals(\strtr(\realpath(__DIR__ . '/../'), '\\', '/'), File::parent($testFile));
     }
 
     /**

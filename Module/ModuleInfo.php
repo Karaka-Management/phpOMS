@@ -96,6 +96,8 @@ final class ModuleInfo
      *
      * @return void
      *
+     * @throws PathException
+     *
      * @since 1.0.0
      */
     public function update() : void
@@ -115,6 +117,8 @@ final class ModuleInfo
      * @param string $delim Delimiter of path
      *
      * @return void
+     *
+     * @throws \InvalidArgumentException
      *
      * @since 1.0.0
      */

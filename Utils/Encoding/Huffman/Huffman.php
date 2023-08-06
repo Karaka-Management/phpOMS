@@ -107,6 +107,8 @@ final class Huffman
      *
      * @return string
      *
+     * @throws \Exception
+     *
      * @since 1.0.0
      */
     public function decode(string $raw) : string

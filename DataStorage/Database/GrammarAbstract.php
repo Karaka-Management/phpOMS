@@ -186,6 +186,8 @@ abstract class GrammarAbstract
      *
      * @return string
      *
+     * @throws \InvalidArgumentException
+     *
      * @since 1.0.0
      */
     protected function expressionizeTableColumn(array $elements, bool $column = true) : string

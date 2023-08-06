@@ -28,6 +28,8 @@ final class LogLevelRegression extends RegressionAbstract
 {
     /**
      * {@inheritdoc}
+     *
+     * @throws InvalidDimensionException
      */
     public static function getRegression(array $x, array $y) : array
     {

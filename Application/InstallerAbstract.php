@@ -134,6 +134,8 @@ abstract class InstallerAbstract
      *
      * @return void
      *
+     * @throws \UnexpectedValueException
+     *
      * @since 1.0.0
      */
     protected static function activate(ApplicationAbstract $app, ApplicationInfo $info) : void
@@ -145,7 +147,7 @@ abstract class InstallerAbstract
         $classPath = \substr($path . '/Status', (int) \strlen((string) \realpath(__DIR__ . '/../../')));
 
         // @var class-string<StatusAbstract> $class
-        $class = \str_replace('/', '\\', $classPath);
+        $class = \strtr($classPath, '/', '\\');
 
         if (!Autoloader::exists($class)) {
             throw new \UnexpectedValueException($class); // @codeCoverageIgnore
@@ -161,6 +163,8 @@ abstract class InstallerAbstract
      *
      * @return void
      *
+     * @throws \UnexpectedValueException
+     *
      * @since 1.0.0
      */
     public static function reInit(ApplicationInfo $info) : void
@@ -172,7 +176,7 @@ abstract class InstallerAbstract
         $classPath = \substr($path . '/Status', (int) \strlen((string) \realpath(__DIR__ . '/../../')));
 
         // @var class-string<StatusAbstract> $class
-        $class = \str_replace('/', '\\', $classPath);
+        $class = \strtr($classPath, '/', '\\');
 
         if (!Autoloader::exists($class)) {
             throw new \UnexpectedValueException($class); // @codeCoverageIgnore

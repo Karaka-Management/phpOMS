@@ -148,7 +148,7 @@ final class Integer
      *
      * @return int[]
      *
-     * @throws \Exception This exception is thrown if the value is not odd
+     * @throws \InvalidArgumentException This exception is thrown if the value is not odd
      *
      * @since 1.0.0
      */

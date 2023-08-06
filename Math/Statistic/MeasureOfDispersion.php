@@ -265,7 +265,6 @@ final class MeasureOfDispersion
      * @return float
      *
      * @throws ZeroDivisionException     This exception is thrown if the size of the x array is less than 2
-     * @throws InvalidDimensionException This exception is thrown if x and y have different dimensions
      *
      * @since 1.0.0
      */

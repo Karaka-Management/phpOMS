@@ -80,7 +80,7 @@ final class PostgresConnection extends ConnectionAbstract
             $this->con->setAttribute(\PDO::ATTR_ERRMODE, \PDO::ERRMODE_EXCEPTION);
 
             $this->status = DatabaseStatus::OK;
-        } catch (\PDOException $e) {
+        } catch (\PDOException $_) {
             $this->con    = new NullPDO();
             $this->status = DatabaseStatus::MISSING_DATABASE;
         } finally {

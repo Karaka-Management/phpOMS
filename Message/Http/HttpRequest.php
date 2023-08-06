@@ -418,7 +418,7 @@ final class HttpRequest extends RequestAbstract
             : $components;
         // @codeCoverageIgnoreEnd
 
-        $this->locale = \str_replace('-', '_', $locals[0]); // @codeCoverageIgnore
+        $this->locale = \strtr($locals[0], '-', '_'); // @codeCoverageIgnore
 
         return $this->locale;
     }
@@ -660,6 +660,8 @@ final class HttpRequest extends RequestAbstract
      * Get route verb.
      *
      * @return int
+     *
+     * @throws \Exception
      *
      * @since 1.0.0
      */

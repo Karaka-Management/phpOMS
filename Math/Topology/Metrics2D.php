@@ -201,6 +201,8 @@ final class Metrics2D
      *
      * @return int
      *
+     * @throws InvalidDimensionException
+     *
      * @since 1.0.0
      */
     public static function hamming(array $a, array $b) : int
@@ -230,6 +232,8 @@ final class Metrics2D
      * @param array<int, int|float> $b Array with same elements but different order
      *
      * @return int
+     *
+     * @throws InvalidDimensionException
      *
      * @since 1.0.0
      */

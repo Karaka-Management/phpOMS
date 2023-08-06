@@ -254,6 +254,8 @@ final class WriteMapper extends DataMapperAbstract
      *
      * @return void
      *
+     * @throws InvalidMapperException
+     *
      * @since 1.0.0
      */
     private function createHasMany(\ReflectionClass $refClass, object $obj, mixed $objId) : void

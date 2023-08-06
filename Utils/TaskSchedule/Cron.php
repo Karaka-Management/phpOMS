@@ -29,6 +29,8 @@ class Cron extends SchedulerAbstract
 {
     /**
      * {@inheritdoc}
+     *
+     * @throws \Exception
      */
     public function create(TaskAbstract $task) : void
     {
@@ -51,6 +53,8 @@ class Cron extends SchedulerAbstract
 
     /**
      * {@inheritdoc}
+     *
+     * @throws \Exception
      */
     public function update(TaskAbstract $task) : void
     {
@@ -94,6 +98,8 @@ class Cron extends SchedulerAbstract
 
     /**
      * {@inheritdoc}
+     *
+     * @throws \Exception
      */
     public function deleteByName(string $name) : void
     {
@@ -129,6 +135,8 @@ class Cron extends SchedulerAbstract
 
     /**
      * {@inheritdoc}
+     *
+     * @throws \Exception
      */
     public function getAll() : array
     {
@@ -172,6 +180,8 @@ class Cron extends SchedulerAbstract
 
     /**
      * {@inheritdoc}
+     *
+     * @throws \Exception
      */
     public function getAllByName(string $name, bool $exact = true) : array
     {

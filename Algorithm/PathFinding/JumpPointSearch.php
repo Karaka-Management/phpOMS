@@ -503,6 +503,8 @@ final class JumpPointSearch implements PathFinderInterface
      *
      * @return null|JumpPointNode
      *
+     * @throws \Exception
+     *
      * @since 1.0.0
      */
     private static function jumpStraight(?JumpPointNode $node, ?JumpPointNode $pNode, JumpPointNode $endNode, Grid $grid) : ?JumpPointNode

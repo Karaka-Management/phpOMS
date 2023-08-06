@@ -77,6 +77,8 @@ final class BasicOcr
      *
      * @return array
      *
+     * @throws PathException
+     *
      * @since 1.0.0
      */
     private function readImages(string $path, int $limit = 0) : array
@@ -144,6 +146,8 @@ final class BasicOcr
      * @param int    $limit Limit
      *
      * @return array
+     *
+     * @throws PathException
      *
      * @since 1.0.0
      */

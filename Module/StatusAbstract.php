@@ -67,8 +67,6 @@ abstract class StatusAbstract
      *
      * @return void
      *
-     * @throws PermissionException
-     *
      * @since 1.0.0
      */
     public static function activateRoutes(ModuleInfo $info, ApplicationInfo $appInfo = null) : void
@@ -84,6 +82,7 @@ abstract class StatusAbstract
      *
      * @return void
      *
+     * @throws PathException
      * @throws PermissionException
      *
      * @since 1.0.0
@@ -124,8 +123,6 @@ abstract class StatusAbstract
      *
      * @return void
      *
-     * @throws PermissionException
-     *
      * @since 1.0.0
      */
     public static function activateHooks(ModuleInfo $info, ApplicationInfo $appInfo = null) : void
@@ -140,8 +137,6 @@ abstract class StatusAbstract
      * @param null|ApplicationInfo $appInfo Application info
      *
      * @return void
-     *
-     * @throws PermissionException
      *
      * @since 1.0.0
      */

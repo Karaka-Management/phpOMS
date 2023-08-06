@@ -43,6 +43,8 @@ final class Measurement
      *
      * @return float
      *
+     * @throws \InvalidArgumentException
+     *
      * @since 1.0.0
      */
     public static function convertTemperature(float $value, string $from = TemperatureType::FAHRENHEIT, string $to = TemperatureType::CELSIUS) : float
@@ -89,6 +91,8 @@ final class Measurement
      *
      * @return float
      *
+     * @throws \InvalidArgumentException
+     *
      * @since 1.0.0
      */
     private static function normalizeTemperature(float $value, string $from) : float
@@ -132,6 +136,8 @@ final class Measurement
      * @param string $to    Output weight
      *
      * @return float
+     *
+     * @throws \InvalidArgumentException
      *
      * @since 1.0.0
      */
@@ -197,6 +203,8 @@ final class Measurement
      *
      * @return float
      *
+     * @throws \InvalidArgumentException
+     *
      * @since 1.0.0
      */
     private static function normalizeWeight(float $value, string $from) : float
@@ -258,6 +266,8 @@ final class Measurement
      * @param string $to    Output length
      *
      * @return float
+     *
+     * @throws \InvalidArgumentException
      *
      * @since 1.0.0
      */
@@ -347,6 +357,8 @@ final class Measurement
      *
      * @return float
      *
+     * @throws \InvalidArgumentException
+     *
      * @since 1.0.0
      */
     private static function normalizeLength(float $value, string $from) : float
@@ -433,6 +445,8 @@ final class Measurement
      *
      * @return float
      *
+     * @throws \InvalidArgumentException
+     *
      * @since 1.0.0
      */
     public static function convertArea(float $value, string $from = AreaType::SQUARE_METERS, string $to = AreaType::SQUARE_KILOMETERS) : float
@@ -494,6 +508,8 @@ final class Measurement
      *
      * @return float
      *
+     * @throws \InvalidArgumentException
+     *
      * @since 1.0.0
      */
     private static function normalizeArea(float $value, string $from) : float
@@ -552,6 +568,8 @@ final class Measurement
      * @param string $to    Output volume
      *
      * @return float
+     *
+     * @throws \InvalidArgumentException
      *
      * @since 1.0.0
      */
@@ -689,6 +707,8 @@ final class Measurement
      *
      * @return float
      *
+     * @throws \InvalidArgumentException
+     *
      * @since 1.0.0
      */
     private static function normalizeVolume(float $value, string $from) : float
@@ -823,6 +843,8 @@ final class Measurement
      *
      * @return float
      *
+     * @throws \InvalidArgumentException
+     *
      * @since 1.0.0
      */
     public static function convertSpeed(float $value, string $from = SpeedType::KILOMETERS_PER_HOUR, string $to = SpeedType::KILOMETERS_PER_HOUR) : float
@@ -947,6 +969,8 @@ final class Measurement
      *
      * @return float
      *
+     * @throws \InvalidArgumentException
+     *
      * @since 1.0.0
      */
     private static function normalizeSpeed(float $value, string $from) : float
@@ -1069,6 +1093,8 @@ final class Measurement
      *
      * @return float
      *
+     * @throws \InvalidArgumentException
+     *
      * @since 1.0.0
      */
     public static function convertTime(float $value, string $from = TimeType::SECONDS, string $to = TimeType::HOURS) : float
@@ -1118,6 +1144,8 @@ final class Measurement
      *
      * @return float
      *
+     * @throws \InvalidArgumentException
+     *
      * @since 1.0.0
      */
     private static function normalizeTime(float $value, string $from) : float
@@ -1164,6 +1192,8 @@ final class Measurement
      * @param string $to    Output weight
      *
      * @return float
+     *
+     * @throws \InvalidArgumentException
      *
      * @since 1.0.0
      */
@@ -1217,6 +1247,8 @@ final class Measurement
      *
      * @return float
      *
+     * @throws \InvalidArgumentException
+     *
      * @since 1.0.0
      */
     private static function normalizeAngle(float $value, string $from) : float
@@ -1266,6 +1298,8 @@ final class Measurement
      * @param string $to    Output weight
      *
      * @return float
+     *
+     * @throws \InvalidArgumentException
      *
      * @since 1.0.0
      */
@@ -1327,6 +1361,8 @@ final class Measurement
      *
      * @return float
      *
+     * @throws \InvalidArgumentException
+     *
      * @since 1.0.0
      */
     private static function normalizePressure(float $value, string $from) : float
@@ -1385,6 +1421,8 @@ final class Measurement
      *
      * @return float
      *
+     * @throws \InvalidArgumentException
+     *
      * @since 1.0.0
      */
     public static function convertEnergy(float $value, string $from = EnergyPowerType::JOULS, string $to = EnergyPowerType::KILOWATT_HOUERS) : float
@@ -1432,6 +1470,8 @@ final class Measurement
      *
      * @return float
      *
+     * @throws \InvalidArgumentException
+     *
      * @since 1.0.0
      */
     private static function normalizeEnergy(float $value, string $from) : float
@@ -1477,6 +1517,8 @@ final class Measurement
      * @param string $to    Output weight
      *
      * @return float
+     *
+     * @throws \InvalidArgumentException
      *
      * @since 1.0.0
      */
@@ -1529,6 +1571,8 @@ final class Measurement
      * @param string $from  Input weight
      *
      * @return float
+     *
+     * @throws \InvalidArgumentException
      *
      * @since 1.0.0
      */

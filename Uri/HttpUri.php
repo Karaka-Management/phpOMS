@@ -172,6 +172,8 @@ final class HttpUri implements UriInterface
 
     /**
      * {@inheritdoc}
+     *
+     * @throws \Exception
      */
     public function set(string $uri) : void
     {

@@ -31,7 +31,7 @@ class Gz implements ArchiveInterface
      */
     public static function pack(string | array $source, string $destination, bool $overwrite = false) : bool
     {
-        $destination = \str_replace('\\', '/', $destination);
+        $destination = \strtr($destination, '\\', '/');
         if ($destination === false
             || \is_array($source)
             || (!$overwrite && \is_file($destination))
@@ -61,7 +61,7 @@ class Gz implements ArchiveInterface
      */
     public static function unpack(string $source, string $destination) : bool
     {
-        $destination = \str_replace('\\', '/', $destination);
+        $destination = \strtr($destination, '\\', '/');
         if (\is_file($destination) || !\is_file($source)) {
             return false;
         }

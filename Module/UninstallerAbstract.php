@@ -74,7 +74,7 @@ abstract class UninstallerAbstract
         $classPath = \substr($path . '/Status', \strlen((string) \realpath(__DIR__ . '/../../')));
 
         /** @var StatusAbstract $class */
-        $class = \str_replace('/', '\\', $classPath);
+        $class = \strtr($classPath, '/', '\\');
         $class::deactivate($app, $info);
     }
 

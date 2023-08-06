@@ -153,6 +153,12 @@ final class SystemUtils
      * @param string $executable Path or name of the executable
      * @param string $cmd        Command to execute
      * @param bool   $async      Execute async
+     *
+     * @return array
+     *
+     * @throws \Exception
+     *
+     * @since 1.0.0
      */
     public static function runProc(string $executable, string $cmd, bool $async = false) : array
     {

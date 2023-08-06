@@ -68,7 +68,7 @@ abstract class UninstallerAbstract
     {
         $classPath = \substr(\realpath(static::PATH) . '/Status', \strlen(\realpath(__DIR__ . '/../../')));
 
-        $class = \str_replace('/', '\\', $classPath);
+        $class = \strtr($classPath, '/', '\\');
         $class::deactivate($dbPool, $info);
     }*/
 

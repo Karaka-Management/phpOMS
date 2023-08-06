@@ -70,8 +70,6 @@ final class Currency
      *
      * @return float
      *
-     * @throws \InvalidArgumentException This exception is thrown if the currency to convert to doesn't exist
-     *
      * @since 1.0.0
      */
     public static function fromEurTo(float $value, string $to) : float
@@ -137,8 +135,6 @@ final class Currency
      *
      * @return float
      *
-     * @throws \InvalidArgumentException This exception is thrown if the currency to convert from doesn't exist
-     *
      * @since 1.0.0
      */
     public static function fromToEur(float $value, string $from) : float
@@ -161,8 +157,6 @@ final class Currency
      * @param string $to    Output currency
      *
      * @return float
-     *
-     * @throws \InvalidArgumentException This exception is thrown if either the from or to currency doesn't exist
      *
      * @since 1.0.0
      */

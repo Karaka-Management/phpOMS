@@ -107,6 +107,8 @@ final class File extends FileAbstract implements FileInterface
      *
      * @return string Content of file
      *
+     * @throws PathException
+     *
      * @since 1.0.0
      */
     public static function get(string $path) : string
@@ -217,6 +219,8 @@ final class File extends FileAbstract implements FileInterface
 
     /**
      * {@inheritdoc}
+     *
+     * @throws PathException
      */
     public static function owner(string $path) : int
     {

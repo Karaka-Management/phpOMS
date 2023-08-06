@@ -87,7 +87,7 @@ final class Autoloader
     {
         $found = [];
         $class = \ltrim($class, '\\');
-        $class = \str_replace(['_', '\\'], '/', $class);
+        $class = \strtr($class, '_\\', '//');
 
         foreach (self::$paths as $path) {
             if (\is_file($file = $path . $class . '.php')) {
@@ -107,14 +107,12 @@ final class Autoloader
      *
      * @return void
      *
-     * @throws AutoloadException Throws this exception if the class to autoload doesn't exist. This could also be related to a wrong namespace/file path correlation.
-     *
      * @since 1.0.0
      */
     public static function defaultAutoloader(string $class) : void
     {
         $class = \ltrim($class, '\\');
-        $class = \str_replace(['_', '\\'], '/', $class);
+        $class = \strtr($class, '_\\', '//');
 
         foreach (self::$paths as $path) {
             if (\is_file($file = $path . $class . '.php')) {
@@ -139,7 +137,7 @@ final class Autoloader
     public static function exists(string $class) : bool
     {
         $class = \ltrim($class, '\\');
-        $class = \str_replace(['_', '\\'], '/', $class);
+        $class = \strtr($class, '_\\', '//');
 
         foreach (self::$paths as $path) {
             if (\is_file($path . $class . '.php')) {

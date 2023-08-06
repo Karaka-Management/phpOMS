@@ -31,6 +31,8 @@ class Trainer extends NgramParser
      *
      * @return void
      *
+     * @throws \InvalidArgumentException
+     *
      * @since 1.0.0
      */
     public function learn(string $dirname = '') : void

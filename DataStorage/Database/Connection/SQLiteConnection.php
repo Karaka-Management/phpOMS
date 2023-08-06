@@ -62,6 +62,8 @@ final class SQLiteConnection extends ConnectionAbstract
      *
      * @return void
      *
+     * @throws \PDOException
+     *
      * @since 1.0.0
      */
     public function connect(array $dbdata = null) : void
@@ -90,7 +92,7 @@ final class SQLiteConnection extends ConnectionAbstract
             $this->con->setAttribute(\PDO::ATTR_ERRMODE, \PDO::ERRMODE_EXCEPTION);
 
             $this->status = DatabaseStatus::OK;
-        } catch (\PDOException $e) {
+        } catch (\PDOException $_) {
             $this->con    = new NullPDO();
             $this->status = DatabaseStatus::MISSING_DATABASE;
         } finally {

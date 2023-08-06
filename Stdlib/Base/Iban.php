@@ -54,6 +54,8 @@ class Iban implements SerializableInterface
      *
      * @return void
      *
+     * @throws \InvalidArgumentException
+     *
      * @since 1.0.0
      */
     private function parse(string $iban) : void

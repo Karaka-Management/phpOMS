@@ -1677,7 +1677,7 @@ class Email implements MessageInterface
         }
 
         if (\preg_match_all("/[{$pattern}]/", $encoded, $matches) !== false) {
-            return \str_replace(' ', '_', $encoded);
+            return \strtr($encoded, ' ', '_');
         }
 
         $matches = [];
@@ -1696,7 +1696,7 @@ class Email implements MessageInterface
 
         // Replace spaces with _ (more readable than =20)
         // RFC 2047 section 4.2(2)
-        return \str_replace(' ', '_', $encoded);
+        return \strtr($encoded, ' ', '_');
     }
 
     /**

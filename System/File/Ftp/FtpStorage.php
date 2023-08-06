@@ -63,6 +63,8 @@ class FtpStorage extends StorageAbstract
 
     /**
      * {@inheritdoc}
+     *
+     * @throws PathException
      */
     public static function put(string $path, string $content, int $mode = 0) : bool
     {
@@ -75,6 +77,8 @@ class FtpStorage extends StorageAbstract
 
     /**
      * {@inheritdoc}
+     *
+     * @throws PathException
      */
     public static function get(string $path) : string
     {
@@ -97,6 +101,8 @@ class FtpStorage extends StorageAbstract
 
     /**
      * {@inheritdoc}
+     *
+     * @throws PathException
      */
     public static function list(string $path, string $filter = '*', bool $recursive = false) : array
     {
@@ -109,6 +115,8 @@ class FtpStorage extends StorageAbstract
 
     /**
      * {@inheritdoc}
+     *
+     * @throws PathException
      */
     public static function set(string $path, string $content) : bool
     {
@@ -121,6 +129,8 @@ class FtpStorage extends StorageAbstract
 
     /**
      * {@inheritdoc}
+     *
+     * @throws PathException
      */
     public static function append(string $path, string $content) : bool
     {
@@ -133,6 +143,8 @@ class FtpStorage extends StorageAbstract
 
     /**
      * {@inheritdoc}
+     *
+     * @throws PathException
      */
     public static function prepend(string $path, string $content) : bool
     {
@@ -145,6 +157,8 @@ class FtpStorage extends StorageAbstract
 
     /**
      * {@inheritdoc}
+     *
+     * @throws PathException
      */
     public static function extension(string $path) : string
     {

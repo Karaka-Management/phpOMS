@@ -269,6 +269,8 @@ class Builder extends BuilderAbstract
      *
      * @return Builder
      *
+     * @throws \InvalidArgumentException
+     *
      * @since 1.0.0
      */
     public function select(mixed ...$columns) : self
@@ -488,6 +490,8 @@ class Builder extends BuilderAbstract
      *
      * @return Builder
      *
+     * @throws \InvalidArgumentException
+     *
      * @since 1.0.0
      */
     public function from(mixed ...$tables) : self
@@ -654,6 +658,8 @@ class Builder extends BuilderAbstract
      * @param mixed ...$columns Grouping result
      *
      * @return Builder
+     *
+     * @throws \InvalidArgumentException
      *
      * @since 1.0.0
      */
@@ -1026,6 +1032,7 @@ class Builder extends BuilderAbstract
      * @return Builder
      *
      * @throws \Exception
+     * @throws \InvalidArgumentException
      *
      * @since 1.0.0
      */
@@ -1295,6 +1302,8 @@ class Builder extends BuilderAbstract
      * @param null|string       $table    Table this belongs to
      *
      * @return Builder
+     *
+     * @throws \InvalidArgumentException
      *
      * @since 1.0.0
      */

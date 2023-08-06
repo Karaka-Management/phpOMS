@@ -108,6 +108,9 @@ final class ImageUtils
      * @param bool   $crop    Crop image
      *
      * @return void
+     *
+     * @throws \InvalidArgumentException
+     *
      * @since 1.0.0
      */
     public static function resize(string $srcPath, string $dstPath, int $width, int $height, bool $crop = false) : void

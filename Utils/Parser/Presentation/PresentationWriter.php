@@ -44,7 +44,7 @@ class PresentationWriter
     /**
      * Presentation object
      *
-     * @var Presentation
+     * @var PhpPresentation
      * @since 1.0.0
      */
     protected PhpPresentation $oPhpPresentation;
@@ -213,7 +213,6 @@ class PresentationWriter
             $this->append('<div class="infoBlk" id="div' . $oSlide->getHashCode() . 'Info">');
             $this->append('<dl>');
             $this->append('<dt>HashCode</dt><dd>' . $oSlide->getHashCode() . '</dd>');
-            $this->append('<dt>Slide Layout</dt><dd>Layout::' . $this->getConstantName('\PhpOffice\PhpPresentation\Slide\Layout', $oSlide->getSlideLayout()) . '</dd>');
 
             $this->append('<dt>Offset X</dt><dd>' . $oSlide->getOffsetX() . '</dd>');
             $this->append('<dt>Offset Y</dt><dd>' . $oSlide->getOffsetY() . '</dd>');

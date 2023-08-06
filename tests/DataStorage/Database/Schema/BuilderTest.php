@@ -62,7 +62,7 @@ final class BuilderTest extends \PHPUnit\Framework\TestCase
 
         $query = new Builder($con);
         $sql   = 'DROP DATABASE [test];';
-        $sql   = \str_replace(['[', ']'], [$iS, $iE], $sql);
+        $sql   = \strtr($sql, '[]', $iS . $iE);
         self::assertEquals($sql, $query->dropDatabase('test')->toSql());
     }
 
@@ -84,7 +84,7 @@ final class BuilderTest extends \PHPUnit\Framework\TestCase
 
         $query = new Builder($con);
         $sql   = 'DROP TABLE [test];';
-        $sql   = \str_replace(['[', ']'], [$iS, $iE], $sql);
+        $sql   = \strtr($sql, '[]', $iS . $iE);
         self::assertEquals($sql, $query->dropTable('test')->toSql());
     }
 
@@ -106,7 +106,7 @@ final class BuilderTest extends \PHPUnit\Framework\TestCase
 
         $query = new Builder($con);
         $sql   = 'SELECT [table_name] FROM [information_schema].[tables] WHERE [table_schema] = \'' . $GLOBALS['CONFIG']['db']['core']['masters']['admin']['database']. '\';';
-        $sql   = \str_replace(['[', ']'], [$iS, $iE], $sql);
+        $sql   = \strtr($sql, '[]', $iS . $iE);
         self::assertEquals($sql, $query->selectTables()->toSql());
     }
 
@@ -128,7 +128,7 @@ final class BuilderTest extends \PHPUnit\Framework\TestCase
 
         $query = new Builder($con);
         $sql   = 'SELECT * FROM [information_schema].[columns] WHERE [table_schema] = \'' . $GLOBALS['CONFIG']['db']['core']['masters']['admin']['database']. '\' AND table_name = \'test\';';
-        $sql   = \str_replace(['[', ']'], [$iS, $iE], $sql);
+        $sql   = \strtr($sql, '[]', $iS . $iE);
         self::assertEquals($sql, $query->selectFields('test')->toSql());
     }
 
@@ -150,7 +150,7 @@ final class BuilderTest extends \PHPUnit\Framework\TestCase
 
         $query = new Builder($con);
         $sql   = 'CREATE TABLE IF NOT EXISTS [user_roles] (user_id INT AUTO_INCREMENT, role_id VARCHAR(10) DEFAULT \'1\' NULL, PRIMARY KEY (user_id), FOREIGN KEY (user_id) REFERENCES users (ext1_id), FOREIGN KEY (role_id) REFERENCES roles (ext2_id)) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 AUTO_INCREMENT=1;';
-        $sql   = \str_replace(['[', ']'], [$iS, $iE], $sql);
+        $sql   = \strtr($sql, '[]', $iS . $iE);
         self::assertEquals(
             $sql,
             $query->createTable('user_roles')
@@ -174,7 +174,7 @@ final class BuilderTest extends \PHPUnit\Framework\TestCase
 
         $query = new Builder($con);
         $sql   = 'CREATE TABLE IF NOT EXISTS user_roles (user_id INT NOT NULL AUTO_INCREMENT, role_id VARCHAR(10) DEFAULT \'1\' NULL, PRIMARY KEY (user_id), FOREIGN KEY (user_id) REFERENCES users (ext1_id), FOREIGN KEY (role_id) REFERENCES roles (ext2_id)) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 AUTO_INCREMENT=1;';
-        $sql   = \str_replace(['[', ']'], [$iS, $iE], $sql);
+        $sql   = \strtr($sql, '[]', $iS . $iE);
         self::assertEquals(
             $sql,
             $query->createTable('user_roles')
@@ -204,7 +204,7 @@ final class BuilderTest extends \PHPUnit\Framework\TestCase
 
         $query = new Builder($con);
         $sql   = 'DROP TABLE [test], [test_foreign];';
-        $sql   = \str_replace(['[', ']'], [$iS, $iE], $sql);
+        $sql   = \strtr($sql, '[]', $iS . $iE);
 
         self::assertEquals(
             $sql,

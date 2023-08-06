@@ -168,12 +168,12 @@ final class HttpHeader extends HeaderAbstract
             $part = \substr($name, 0, 5);
             if ($part === 'HTTP_') {
                 self::$serverHeaders[
-                    \str_replace(
-                        ' ',
-                        '-',
+                    \strtr(
                         \strtolower(
-                            \str_replace('_', ' ', \substr($name, 5))
-                        )
+                            \strtr(\substr($name, 5), '_', ' ')
+                        ),
+                        ' ',
+                        '-'
                     )
                 ] = $value;
             }
@@ -251,6 +251,8 @@ final class HttpHeader extends HeaderAbstract
      * Push all headers.
      *
      * @return void
+     *
+     * @throws \Exception
      *
      * @since 1.0.0
      * @codeCoverageIgnore

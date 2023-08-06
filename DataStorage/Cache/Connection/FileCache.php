@@ -87,6 +87,12 @@ final class FileCache extends ConnectionAbstract
      * Connect to cache
      *
      * @param null|array{0:string} $data Cache data (path to cache directory)
+     *
+     * @return void
+     *
+     * @throws InvalidConnectionConfigException
+     *
+     * @since 1.0.0
      */
     public function connect(array $data = null) : void
     {

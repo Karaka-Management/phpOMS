@@ -124,7 +124,7 @@ final class LocalStorageTest extends \PHPUnit\Framework\TestCase
     {
         $dirPath = __DIR__ . '/test';
 
-        self::assertEquals(\str_replace('\\', '/', \realpath(__DIR__)), LocalStorage::parent($dirPath));
+        self::assertEquals(\strtr(\realpath(__DIR__), '\\', '/'), LocalStorage::parent($dirPath));
     }
 
     /**
@@ -604,7 +604,7 @@ final class LocalStorageTest extends \PHPUnit\Framework\TestCase
     {
         $testFile = __DIR__ . '/test.txt';
 
-        self::assertEquals(\str_replace('\\', '/', \realpath(__DIR__ . '/../')), LocalStorage::parent($testFile));
+        self::assertEquals(\strtr(\realpath(__DIR__ . '/../'), '\\', '/'), LocalStorage::parent($testFile));
     }
 
     /**
