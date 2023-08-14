@@ -81,16 +81,16 @@ final class Rest
 
             // handle different content types
             $contentType = $requestHeaders['content-type'] ?? [];
-            if ($request->getData() !== null && (empty($contentType) || \in_array(MimeType::M_POST, $contentType))) {
+            if (empty($contentType) || \in_array(MimeType::M_POST, $contentType)) {
                 /* @phpstan-ignore-next-line */
-                \curl_setopt($curl, \CURLOPT_POSTFIELDS, \http_build_query($request->getData()));
-            } elseif ($request->getData() !== null && \in_array(MimeType::M_JSON, $contentType)) {
-                \curl_setopt($curl, \CURLOPT_POSTFIELDS, \json_encode($request->getData()));
-            } elseif ($request->getData() !== null && \in_array(MimeType::M_MULT, $contentType)) {
+                \curl_setopt($curl, \CURLOPT_POSTFIELDS, \http_build_query($request->data));
+            } elseif (\in_array(MimeType::M_JSON, $contentType)) {
+                \curl_setopt($curl, \CURLOPT_POSTFIELDS, \json_encode($request->data));
+            } elseif (\in_array(MimeType::M_MULT, $contentType)) {
                 $boundary = '----' . \uniqid();
 
                 /* @phpstan-ignore-next-line */
-                $data = self::createMultipartData($boundary, $request->getData());
+                $data = self::createMultipartData($boundary, $request->data);
 
                 // @todo: Replace boundary/ with the correct boundary= in the future.
                 //        Currently this cannot be done due to a bug. If we do it now the server cannot correclty populate php://input
