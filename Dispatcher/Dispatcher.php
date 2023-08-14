@@ -61,7 +61,7 @@ final class Dispatcher implements DispatcherInterface
     /**
      * {@inheritdoc}
      */
-    public function dispatch(array | string | \Closure $controller, mixed ...$data) : array
+    public function dispatch(array | string | Callable $controller, mixed ...$data) : array
     {
         $views = [];
         $data  = \array_values($data);
@@ -165,14 +165,14 @@ final class Dispatcher implements DispatcherInterface
     /**
      * Dispatch closure.
      *
-     * @param \Closure   $controller Controller string
+     * @param Callable   $controller Controller string
      * @param null|array $data       Data
      *
      * @return mixed
      *
      * @since 1.0.0
      */
-    private function dispatchClosure(\Closure $controller, array $data = null) : mixed
+    private function dispatchClosure(Callable $controller, array $data = null) : mixed
     {
         return $data === null ? $controller($this->app) : $controller($this->app, ...$data);
     }

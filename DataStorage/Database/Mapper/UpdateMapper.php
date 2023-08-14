@@ -137,12 +137,12 @@ final class UpdateMapper extends DataMapperAbstract
                     $id    = \is_object($tValue) ? $this->updateOwnsOne($propertyName, $tValue) : $tValue;
                     $value = $this->parseValue($column['type'], $id);
 
-                    $query->set([$this->mapper::TABLE . '.' . $column['name'] => $value]);
+                    $query->set([$column['name'] => $value]);
                 } elseif (isset($this->mapper::BELONGS_TO[$propertyName])) {
                     $id    = \is_object($tValue) ? $this->updateBelongsTo($propertyName, $tValue) : $tValue;
                     $value = $this->parseValue($column['type'], $id);
 
-                    $query->set([$this->mapper::TABLE . '.' . $column['name'] => $value]);
+                    $query->set([$column['name'] => $value]);
                 } elseif ($column['name'] !== $this->mapper::PRIMARYFIELD) {
                     if (\stripos($column['internal'], '/') !== false) {
                         $path   = \substr($column['internal'], \stripos($column['internal'], '/') + 1);
@@ -151,11 +151,14 @@ final class UpdateMapper extends DataMapperAbstract
 
                     $value = $this->parseValue($column['type'], $tValue);
 
-                    $query->set([$this->mapper::TABLE . '.' . $column['name'] => $value]);
+                    $query->set([$column['name'] => $value]);
                 }
             }
 
-            $sth = $this->db->con->prepare($query->toSql());
+            // @todo:
+            // @bug: Sqlite doesn't allow table_name.column_name in set queries for whatver reason.
+
+            $sth = $this->db->con->prepare($a = $query->toSql());
             if ($sth !== false) {
                 $sth->execute();
             }

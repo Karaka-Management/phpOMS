@@ -70,9 +70,9 @@ final class EventManager implements \Countable
             /**
              * {@inheritdoc}
              */
-            public function dispatch(array | string | \Closure $func, mixed ...$data) : array
+            public function dispatch(array | string | Callable $func, mixed ...$data) : array
             {
-                if (!($func instanceof \Closure)) {
+                if (!\is_callable($func)) {
                     return [];
                 }
 
@@ -136,7 +136,7 @@ final class EventManager implements \Countable
      * Attach new event
      *
      * @param string          $group    Name of the event (unique)
-     * @param string|\Closure $callback Callback or route for the event
+     * @param string|Callable $callback Callback or route for the event
      * @param bool            $remove   Remove event after triggering it?
      * @param bool            $reset    Reset event after triggering it? Remove must be false!
      *
@@ -144,7 +144,7 @@ final class EventManager implements \Countable
      *
      * @since 1.0.0
      */
-    public function attach(string $group, string | \Closure $callback, bool $remove = false, bool $reset = false) : bool
+    public function attach(string $group, string | Callable $callback, bool $remove = false, bool $reset = false) : bool
     {
         if (!isset($this->callbacks[$group])) {
             $this->callbacks[$group] = ['remove' => $remove, 'reset' => $reset, 'callbacks' => []];

@@ -35,10 +35,10 @@ final class Kmeans
     /**
      * Metric to calculate the distance between two points
      *
-     * @var \Closure
+     * @var Callable
      * @since 1.0.0
      */
-    private \Closure $metric;
+    private Callable $metric;
 
     /**
      * Points of the cluster centers
@@ -53,11 +53,11 @@ final class Kmeans
      *
      * @param PointInterface[] $points   Points to cluster
      * @param int<0, max>      $clusters Amount of clusters
-     * @param null|\Closure    $metric   metric to use for the distance between two points
+     * @param null|Callable    $metric   metric to use for the distance between two points
      *
      * @since 1.0.0
      */
-    public function __construct(array $points, int $clusters, \Closure $metric = null)
+    public function __construct(array $points, int $clusters, Callable $metric = null)
     {
         $this->metric = $metric ?? function (PointInterface $a, PointInterface $b) {
             $aCoordinates = $a->getCoordinates();

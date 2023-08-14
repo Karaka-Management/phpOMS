@@ -27,7 +27,7 @@ interface DispatcherInterface
     /**
      * Dispatch controller.
      *
-     * @param array|\Closure|string $controller Controller
+     * @param array|Callable|string $controller Controller
      * @param mixed                 ...$data    Data
      *
      * @return array Returns array of all dispatched results
@@ -36,5 +36,5 @@ interface DispatcherInterface
      *
      * @since 1.0.0
      */
-    public function dispatch(array | string | \Closure $controller, mixed ...$data) : array;
+    public function dispatch(array | string | Callable $controller, mixed ...$data) : array;
 }
