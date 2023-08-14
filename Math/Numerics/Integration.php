@@ -31,13 +31,13 @@ final class Integration
      * @param float    $from Start interval
      * @param float    $to   End interval
      * @param float    $n    Steps
-     * @param \Closure $func Function to integrate
+     * @param Callable $func Function to integrate
      *
      * @return float
      *
      * @since 1.0.0
      */
-    public static function intLeftRect(float $from, float $to, float $n, \Closure $func) : float
+    public static function intLeftRect(float $from, float $to, float $n, Callable $func) : float
     {
         $h   = ($to - $from) / $n;
         $sum = 0.0;
@@ -55,13 +55,13 @@ final class Integration
      * @param float    $from Start interval
      * @param float    $to   End interval
      * @param float    $n    Steps
-     * @param \Closure $func Function to integrate
+     * @param Callable $func Function to integrate
      *
      * @return float
      *
      * @since 1.0.0
      */
-    public static function intRightRect(float $from, float $to, float $n, \Closure $func) : float
+    public static function intRightRect(float $from, float $to, float $n, Callable $func) : float
     {
         $h   = ($to - $from) / $n;
         $sum = 0.0;
@@ -79,13 +79,13 @@ final class Integration
      * @param float    $from Start interval
      * @param float    $to   End interval
      * @param float    $n    Steps
-     * @param \Closure $func Function to integrate
+     * @param Callable $func Function to integrate
      *
      * @return float
      *
      * @since 1.0.0
      */
-    public static function intMiddleRect(float $from, float $to, float $n, \Closure $func) : float
+    public static function intMiddleRect(float $from, float $to, float $n, Callable $func) : float
     {
         $h   = ($to - $from) / $n;
         $sum = 0.0;
@@ -103,13 +103,13 @@ final class Integration
      * @param float    $from Start interval
      * @param float    $to   End interval
      * @param float    $n    Steps
-     * @param \Closure $func Function to integrate
+     * @param Callable $func Function to integrate
      *
      * @return float
      *
      * @since 1.0.0
      */
-    public static function intTrapezium(float $from, float $to, float $n, \Closure $func) : float
+    public static function intTrapezium(float $from, float $to, float $n, Callable $func) : float
     {
         $h   = ($to - $from) / $n;
         $sum = $func($from) + $func($to);
@@ -127,13 +127,13 @@ final class Integration
      * @param float    $from Start interval
      * @param float    $to   End interval
      * @param float    $n    Steps
-     * @param \Closure $func Function to integrate
+     * @param Callable $func Function to integrate
      *
      * @return float
      *
      * @since 1.0.0
      */
-    public static function intSimpson(float $from, float $to, float $n, \Closure $func) : float
+    public static function intSimpson(float $from, float $to, float $n, Callable $func) : float
     {
         $h    = ($to - $from) / $n;
         $sum1 = 0.0;
