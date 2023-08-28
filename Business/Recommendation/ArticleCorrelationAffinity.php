@@ -4,7 +4,7 @@
  *
  * PHP Version 8.1
  *
- * @package   phpOMS\Business\Marketing
+ * @package   phpOMS\Business\Recommendation
  * @copyright Dennis Eichhorn
  * @license   OMS License 2.0
  * @version   1.0.0
@@ -12,16 +12,16 @@
  */
 declare(strict_types=1);
 
-namespace phpOMS\Business\Marketing;
+namespace phpOMS\Business\Recommendation;
 
 use phpOMS\Math\Statistic\Correlation;
 
 /**
- * Marketing ArticleAffinity
+ * Article Affinity
  *
- * This class provided basic marketing metric calculations
+ * You can consider this as a "purchased with" or "customers also purchased" algorithm
  *
- * @package phpOMS\Business\Marketing
+ * @package phpOMS\Business\Recommendation
  * @license OMS License 2.0
  * @link    https://jingga.app
  * @since   1.0.0

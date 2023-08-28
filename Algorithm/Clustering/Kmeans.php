@@ -14,6 +14,8 @@ declare(strict_types=1);
 
 namespace phpOMS\Algorithm\Clustering;
 
+use phpOMS\Math\Topology\MetricsND;
+
 /**
  * Clustering points
  *
@@ -21,6 +23,7 @@ namespace phpOMS\Algorithm\Clustering;
  * @license OMS License 2.0
  * @link    https://jingga.app
  * @since   1.0.0
+ * @see     ./clustering_overview.png
  */
 final class Kmeans
 {
@@ -35,10 +38,10 @@ final class Kmeans
     /**
      * Metric to calculate the distance between two points
      *
-     * @var Callable
+     * @var \Closure
      * @since 1.0.0
      */
-    private Callable $metric;
+    private \Closure $metric;
 
     /**
      * Points of the cluster centers
@@ -51,29 +54,20 @@ final class Kmeans
     /**
      * Constructor
      *
-     * @param PointInterface[] $points   Points to cluster
-     * @param int<0, max>      $clusters Amount of clusters
-     * @param null|Callable    $metric   metric to use for the distance between two points
+     * @param null|\Closure    $metric   metric to use for the distance between two points
      *
      * @since 1.0.0
      */
-    public function __construct(array $points, int $clusters, Callable $metric = null)
+    public function __construct(\Closure $metric = null)
     {
         $this->metric = $metric ?? function (PointInterface $a, PointInterface $b) {
-            $aCoordinates = $a->getCoordinates();
-            $bCoordinates = $b->getCoordinates();
+            $aCoordinates = $a->coordinates;
+            $bCoordinates = $b->coordinates;
 
-            $n   = \count($aCoordinates);
-            $sum = 0;
-
-            for ($i = 0; $i < $n; ++$i) {
-                $sum = ($aCoordinates[$i] - $bCoordinates[$i]) * ($aCoordinates[$i] - $bCoordinates[$i]);
-            }
-
-            return $sum;
+            return MetricsND::euclidean($aCoordinates, $bCoordinates);
         };
 
-        $this->generateClusters($points, $clusters);
+        //$this->generateClusters($points, $clusters);
     }
 
     /**
@@ -81,7 +75,7 @@ final class Kmeans
      *
      * @param PointInterface $point Point to find the cluster for
      *
-     * @return null|PointInterface
+     * @return null|PointInterface Cluster center point
      *
      * @since 1.0.0
      */
@@ -122,11 +116,11 @@ final class Kmeans
      *
      * @since 1.0.0
      */
-    private function generateClusters(array $points, int $clusters) : void
+    public function generateClusters(array $points, int $clusters) : void
     {
         $n              = \count($points);
         $clusterCenters = $this->kpp($points, $clusters);
-        $coordinates    = \count($points[0]->getCoordinates());
+        $coordinates    = \count($points[0]->coordinates);
 
         while (true) {
             foreach ($clusterCenters as $center) {

@@ -93,6 +93,32 @@ final class MetricsND
         return \sqrt($dist);
     }
 
+    public static function cosine(array $a, array $b) : float
+    {
+        $dotProduct = 0;
+        for ($i = 0; $i < \count($a); $i++) {
+            $dotProduct += $a[$i] * $b[$i];
+        }
+
+        $sumOfSquares = 0;
+        foreach ($a as $value) {
+            $sumOfSquares += $value * $value;
+        }
+        $magnitude1 = \sqrt($sumOfSquares);
+
+        $sumOfSquares = 0;
+        foreach ($b as $value) {
+            $sumOfSquares += $value * $value;
+        }
+        $magnitude2 = \sqrt($sumOfSquares);
+
+        if ($magnitude1 === 0 || $magnitude2 === 0) {
+            return \PHP_FLOAT_MAX;
+        }
+
+        return $dotProduct / ($magnitude1 * $magnitude2);
+    }
+
     /**
      * Chebyshev metric.
      *

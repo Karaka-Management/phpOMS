@@ -30,7 +30,7 @@ class Point implements PointInterface
      * @var array<int, int|float>
      * @sicne 1.0.0
      */
-    private array $coordinates = [];
+    public array $coordinates = [];
 
     /**
      * Group or cluster this point belongs to
@@ -84,5 +84,10 @@ class Point implements PointInterface
     public function setCoordinate(int $index, int | float $value) : void
     {
         $this->coordinates[$index] = $value;
+    }
+
+    public function isEquals(PointInterface $point) : bool
+    {
+        return $this->name === $point->name && $this->coordinates === $point->coordinates;
     }
 }

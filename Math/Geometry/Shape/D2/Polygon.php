@@ -61,7 +61,7 @@ final class Polygon implements D2ShapeInterface
      *
      * @param array{x:int|float, y:int|float} $point Point location
      *
-     * @return int
+     * @return int -1 inside polygon 0 on vertice 1 outside
      *
      * @since 1.0.0
      */

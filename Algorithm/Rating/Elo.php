@@ -31,7 +31,7 @@ final class Elo
 
     public int $MIN_ELO = 100;
 
-    public function rating(int $elo, array $oElo, array $s)
+    public function rating(int $elo, array $oElo, array $s) : array
     {
         $eloNew = $elo;
         foreach ($oElo as $idx => $o) {

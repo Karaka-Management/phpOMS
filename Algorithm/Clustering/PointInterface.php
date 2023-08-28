@@ -59,4 +59,6 @@ interface PointInterface
      * @since 1.0.0
      */
     public function setCoordinate(int $index, int | float $value) : void;
+
+    public function isEquals(self $point) : bool;
 }

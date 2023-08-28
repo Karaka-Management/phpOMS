@@ -88,6 +88,32 @@ final class Vector extends Matrix
         return $this;
     }
 
+    public function cosine(self $v) : float
+    {
+        $dotProduct = 0;
+        for ($i = 0; $i < \count($this->matrix); $i++) {
+            $dotProduct += $this->matrix[$i][0] * $v[$i];
+        }
+
+        $sumOfSquares = 0;
+        foreach ($this->matrix as $value) {
+            $sumOfSquares += $value[0] * $value[0];
+        }
+        $magnitude1 = \sqrt($sumOfSquares);
+
+        $sumOfSquares = 0;
+        foreach ($v->matrix as $value) {
+            $sumOfSquares += $value[0] * $value[0];
+        }
+        $magnitude2 = \sqrt($sumOfSquares);
+
+        if ($magnitude1 === 0 || $magnitude2 === 0) {
+            return \PHP_FLOAT_MAX;
+        }
+
+        return $dotProduct / ($magnitude1 * $magnitude2);
+    }
+
     /**
      * Calculate the cross product
      *

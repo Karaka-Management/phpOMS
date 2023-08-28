@@ -43,7 +43,7 @@ class Matrix implements \ArrayAccess, \Iterator
      * @var array<int, array<int, int|float>>
      * @since 1.0.0
      */
-    protected array $matrix = [];
+    public array $matrix = [];
 
     /**
      * Columns.
@@ -436,7 +436,7 @@ class Matrix implements \ArrayAccess, \Iterator
         $newMatrixArr = $this->matrix;
 
         foreach ($newMatrixArr as $i => $vector) {
-            foreach ($vector as $j => $value) {
+            foreach ($vector as $j => $_) {
                 $newMatrixArr[$i][$j] += $matrixArr[$i][$j];
             }
         }
@@ -689,6 +689,178 @@ class Matrix implements \ArrayAccess, \Iterator
     {
         $L = new LUDecomposition($this);
         return $L->det();
+    }
+
+    public function dot(self $B) : self
+    {
+        $value1 = $this->matrix;
+        $value2 = $B->getMatrix();
+
+        $m1 = \count($value1);
+        $n1 = ($isMatrix1 = \is_array($value1[0])) ? \count($value1[0]) : 1;
+
+        $m2 = \count($value2);
+        $n2 = ($isMatrix2 = \is_array($value2[0])) ? \count($value2[0]) : 1;
+
+        $result = null;
+
+        if ($isMatrix1 && $isMatrix2) {
+            if ($m2 !== $n1) {
+                throw new InvalidDimensionException($m2 . 'x' . $n2 . ' not compatible with ' . $m1 . 'x' . $n1);
+            }
+
+            $result = [[]];
+            for ($i = 0; $i < $m1; ++$i) { // Row of 1
+                for ($c = 0; $c < $n2; ++$c) { // Column of 2
+                    $temp = 0;
+
+                    for ($j = 0; $j < $m2; ++$j) { // Row of 2
+                        $temp += $value1[$i][$j] * $value2[$j][$c];
+                    }
+
+                    $result[$i][$c] = $temp;
+                }
+            }
+        } elseif (!$isMatrix1 && !$isMatrix2) {
+            if ($m1 !== $m2) {
+                throw new InvalidDimensionException($m1 . 'x' . $m2);
+            }
+
+            $result = 0;
+            for ($i = 0; $i < $m1; ++$i) {
+                /** @var array $value1 */
+                /** @var array $value2 */
+                $result += $value1[$i] * $value2[$i];
+            }
+        } elseif ($isMatrix1 && !$isMatrix2) {
+            $result = [];
+            for ($i = 0; $i < $m1; ++$i) { // Row of 1
+                $temp = 0;
+
+                for ($c = 0; $c < $m2; ++$c) { // Row of 2
+                    /** @var array $value2 */
+                    $temp += $value1[$i][$c] * $value2[$c];
+                }
+
+                $result[$i] = $temp;
+            }
+        } else {
+            throw new \InvalidArgumentException();
+        }
+
+        return self::fromArray($result);
+    }
+
+    public function sum(int $axis = -1)
+    {
+        if ($axis === -1) {
+            $sum = 0;
+
+            foreach ($this->matrix as $row) {
+                $sum += \array_sum($row);
+            }
+
+            return $sum;
+        } elseif ($axis === 0) {
+            $sum = [];
+            foreach ($this->matrix as $row) {
+                foreach ($row as $idx2 => $value) {
+                    if (!isset($sum[$idx2])) {
+                        $sum[$idx2] = 0;
+                    }
+
+                    $sum[$idx2] += $value;
+                }
+            }
+
+            return self::fromArray($sum);
+        } elseif ($axis === 1) {
+            $sum = [];
+            foreach ($this->matrix as $idx => $row) {
+                $sum[$idx] = \array_sum($row);
+            }
+
+            return self::fromArray($sum);
+        }
+
+        return new self();
+    }
+
+    public function isDiagonal() : bool
+    {
+        if ($this->m !== $this->n) {
+            return false;
+        }
+
+        for ($i = 0; $i < $this->m; ++$i) {
+            for ($j = 0; $j < $this->n; ++$j) {
+                if ($i !== $j && \abs($this->matrix[$i][$j]) > self::EPSILON) {
+                    return false;
+                }
+            }
+        }
+
+        return true;
+    }
+
+    public function pow(int | float $exponent) : self
+    {
+        if ($this->isDiagonal()) {
+            $matrix = [];
+
+            for ($i = 0; $i < $this->m; $i++) {
+                $row = [];
+                for ($j = 0; $j < $this->m; $j++) {
+                    if ($i === $j) {
+                        $row[] = \pow($this->matrix[$i][$j], $exponent);
+                    } else {
+                        $row[] = 0;
+                    }
+                }
+
+                $matrix[] = $row;
+            }
+
+            return self::fromArray($matrix);
+        } elseif (\is_int($exponent)) {
+            if ($this->m !== $this->n) {
+                throw new InvalidDimensionException($this->m . 'x' . $this->n);
+            }
+
+            $matrix = new IdentityMatrix($this->m);
+            for ($i = 0; $i < $exponent; ++$i) {
+                $matrix = $matrix->mult($this);
+            }
+
+            return $matrix;
+        } else {
+            // @todo: implement
+            throw new \Exception('Not yet implemented');
+        }
+    }
+
+    public function exp(int $iterations = 10) : self
+    {
+        if ($this->m !== $this->n) {
+            throw new InvalidDimensionException($this->m . 'x' . $this->n);
+        }
+
+        $identity = new IdentityMatrix($this->m);
+        $matrix   = $identity;
+
+        $factorial = 1;
+        $pow       = $matrix;
+
+        for ($i = 1; $i <= $iterations; ++$i) {
+            $factorial *= $i;
+            $coeff      = 1 / $factorial;
+
+            $term   = $pow->mult($coeff);
+            $matrix = $matrix->add($term);
+            $pow    = $pow->mult($matrix); // @todo: maybe wrong order?
+        }
+
+        return $matrix;
     }
 
     /**
