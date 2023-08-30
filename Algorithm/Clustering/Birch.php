@@ -20,8 +20,8 @@ namespace phpOMS\Algorithm\Clustering;
  * @package phpOMS\Algorithm\Clustering
  * @license OMS License 2.0
  * @link    https://jingga.app
- * @since   1.0.0
  * @see     ./clustering_overview.png
+ * @since   1.0.0
  *
  * @todo Implement
  */

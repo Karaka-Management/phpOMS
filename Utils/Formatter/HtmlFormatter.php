@@ -15,7 +15,7 @@ declare(strict_types=1);
 namespace phpOMS\Utils\Formatter;
 
 /**
- * Gray encoding class
+ * Html code formatter
  *
  * @package phpOMS\Utils\Formatter
  * @license OMS License 2.0
@@ -24,6 +24,15 @@ namespace phpOMS\Utils\Formatter;
  */
 class HtmlFormatter
 {
+    /**
+     * Format html code
+     *
+     * @param string $text Html code
+     *
+     * @return string
+     *
+     * @since 1.0.0
+     */
     public static function format(string $text) : string
     {
         $dom = new \DOMDocument();

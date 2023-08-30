@@ -23,13 +23,35 @@ use phpOMS\Math\Topology\MetricsND;
  * @package phpOMS\Algorithm\Clustering
  * @license OMS License 2.0
  * @link    https://jingga.app
- * @since   1.0.0
  * @see     ./clustering_overview.png
+ * @since   1.0.0
  */
 final class MeanShift
 {
+    /**
+     * Min distance for clustering
+     *
+     * As long as a point is further away as the min distance the shifting is performed
+     *
+     * @var float
+     * @since 1.0.0
+     */
+    public const MIN_DISTANCE = 0.001;
+
+    /**
+     * Kernel function
+     *
+     * @var \Closure
+     * @since 1.0.0
+     */
     private \Closure $kernel;
 
+    /**
+     * Metric function
+     *
+     * @var \Closure
+     * @since 1.0.0
+     */
     private \Closure $metric;
 
     private array $points;
@@ -60,13 +82,21 @@ final class MeanShift
      */
     private $clusterCenters = [];
 
-    public const MIN_DISTANCE = 0.000001;
-    public const GROUP_DISTANCE_TOLERANCE = .1;
+    /**
+     * Max distance to cluster to be still considered part of cluster
+     *
+     * @var float
+     * @since 1.0.0
+     */
+    public float $groupDistanceTolerance = 0.1;
 
     /**
      * Constructor
      *
-     * @param null|\Closure    $metric   metric to use for the distance between two points
+     * Both the metric and kernel function need to be of the same dimension.
+     *
+     * @param null|\Closure $metric Metric to use for the distance between two points
+     * @param null|\Closure $kernel Kernel
      *
      * @since 1.0.0
      */
@@ -84,10 +114,20 @@ final class MeanShift
         };
     }
 
+    /**
+     * Generate the clusters of the points
+     *
+     * @param PointInterface[] $points    Points to cluster
+     * @param array<int|float> $bandwidth Bandwidth(s)
+     *
+     * @return void
+     *
+     * @since 1.0.0
+     */
     public function generateClusters(array $points, array $bandwidth) : void
     {
         $shiftPoints = $points;
-        $maxMinDist = 1;
+        $maxMinDist  = 1;
 
         $stillShifting = \array_fill(0, \count($points), true);
 
@@ -101,10 +141,10 @@ final class MeanShift
                     continue;
                 }
 
-                $pNew = $shiftPoints[$i];
+                $pNew      = $shiftPoints[$i];
                 $pNewStart = $pNew;
-                $pNew = $this->shiftPoint($pNew, $points, $bandwidth);
-                $dist = ($this->metric)($pNew, $pNewStart);
+                $pNew      = $this->shiftPoint($pNew, $points, $bandwidth);
+                $dist      = ($this->metric)($pNew, $pNewStart);
 
                 if ($dist > $maxMinDist) {
                     $maxMinDist = $dist;
@@ -124,6 +164,17 @@ final class MeanShift
         $this->clusterCenters = $shiftPoints;
     }
 
+    /**
+     * Perform shift on a point
+     *
+     * @param PointInterface   $point     Point to shift
+     * @param PointInterface   $points    Array of all points
+     * @param array<int|float> $bandwidth Bandwidth(s)
+     *
+     * @return PointInterface
+     *
+     * @since 1.0.0
+     */
     private function shiftPoint(PointInterface $point, array $points, array $bandwidth) : PointInterface
     {
         $scaleFactor = 0.0;
@@ -131,7 +182,7 @@ final class MeanShift
         $shifted = clone $point;
 
         foreach ($points as $pTemp) {
-            $dist = ($this->metric)($point, $pTemp);
+            $dist   = ($this->metric)($point, $pTemp);
             $weight = ($this->kernel)($dist, $bandwidth);
 
             foreach ($point->coordinates as $idx => $_) {
@@ -152,6 +203,15 @@ final class MeanShift
         return $shifted;
     }
 
+    /**
+     * Group points together into clusters
+     *
+     * @param PointInterface[] $points Array of points to assign to groups
+     *
+     * @return array
+     *
+     * @since 1.0.0
+     */
     private function groupPoints(array $points) : array
     {
         $groupAssignment = [];
@@ -163,11 +223,12 @@ final class MeanShift
 
             if ($nearestGroupIndex === -1) {
                 // create new group
-                $groups[] = [$point];
+                $groups[]          = [$point];
                 $groupAssignment[] = $groupIndex;
+
                 ++$groupIndex;
             } else {
-                $groupAssignment[] = $nearestGroupIndex;
+                $groupAssignment[]            = $nearestGroupIndex;
                 $groups[$nearestGroupIndex][] = $point;
             }
         }
@@ -175,16 +236,27 @@ final class MeanShift
         return $groupAssignment;
     }
 
+    /**
+     * Find the closest cluster/group of a point
+     *
+     * @param PointInterface   $point Point to find the cluster for
+     * @param PointInterface[] $group Clusters
+     *
+     * @return int
+     *
+     * @since 1.0.0
+     */
     private function findNearestGroup(PointInterface $point, array $groups) : int
     {
         $nearestGroupIndex = -1;
-        $index = 0;
+        $index             = 0;
 
         foreach ($groups as $group) {
             $distanceToGroup = $this->distanceToGroup($point, $group);
 
-            if ($distanceToGroup < self::GROUP_DISTANCE_TOLERANCE) {
+            if ($distanceToGroup < $this->groupDistanceTolerance) {
                 $nearestGroupIndex = $index;
+
                 break;
             }
 
@@ -194,6 +266,16 @@ final class MeanShift
         return $nearestGroupIndex;
     }
 
+    /**
+     * Find distance of point to best cluster/group
+     *
+     * @param PointInterface   $point Point to find the cluster for
+     * @param PointInterface[] $group Clusters
+     *
+     * @return float Distance
+     *
+     * @since 1.0.0
+     */
     private function distanceToGroup(PointInterface $point, array $group) : float
     {
         $minDistance = \PHP_FLOAT_MAX;

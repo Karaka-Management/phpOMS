@@ -24,8 +24,8 @@ use phpOMS\Math\Topology\MetricsND;
  * @package phpOMS\Algorithm\Clustering
  * @license OMS License 2.0
  * @link    https://jingga.app
- * @since   1.0.0
  * @see     ./clustering_overview.png
+ * @since   1.0.0
  *
  * @todo Expand to n dimensions
  */
@@ -66,13 +66,19 @@ final class DBSCAN
     /**
      * Clusters
      *
-     * Array of clusters containing point ids
+     * Array of points assigned to a cluster
      *
-     * @var array
+     * @var array<int, array{x:float, y:float}>
      * @since 1.0.0
      */
     private array $clusters = [];
 
+    /**
+     * Convex hull of all clusters
+     *
+     * @var array<array>
+     * @since 1.0.0
+     */
     private array $convexHulls = [];
 
     /**
@@ -85,12 +91,20 @@ final class DBSCAN
      */
     private array $clusteredPoints = [];
 
+    /**
+     * Distance matrix
+     *
+     * Distances between points
+     *
+     * @var array<float[]>
+     * @since 1.0.0
+     */
     private array $distanceMatrix = [];
 
     /**
      * Constructor
      *
-     * @param null|\Closure    $metric   metric to use for the distance between two points
+     * @param null|\Closure $metric metric to use for the distance between two points
      *
      * @since 1.0.0
      */
@@ -104,50 +118,88 @@ final class DBSCAN
         };
     }
 
-    private function expandCluster(PointInterface $point, array $neighbors, int $c, float $epsilon, int $minPoints) : void
-	{
-		$this->clusters[$c][] = $point;
-		$this->clusteredPoints[] = $point;
-		$nPoint = reset($neighbors);
+    /**
+     * Expand cluster with additional point and potential neighbors.
+     *
+     * @param PointInterface $point     Point to add to a cluster
+     * @param array          $neighbors Neighbors of point
+     * @param int            $c         Cluster id
+     * @param float          $epsilon   Max distance
+     * @param int            $minPoints Min amount of points required for a cluster
+     *
+     * @return void
+     *
+     * @since 1.0.0
+     */
+    private function expandCluster(
+        PointInterface $point,
+        array $neighbors,
+        int $c,
+        float $epsilon,
+        int $minPoints
+    ) : void
+    {
+        $this->clusters[$c][]    = $point;
+        $this->clusteredPoints[] = $point;
+        $nPoint                  = reset($neighbors);
 
-		while ($nPoint) {
-			$neighbors2 = $this->findNeighbors($nPoint, $epsilon);
+        while ($nPoint) {
+            $neighbors2 = $this->findNeighbors($nPoint, $epsilon);
 
-			if (\count($neighbors2) >= $minPoints) {
-				foreach ($neighbors2 as $nPoint2) {
-					if (!isset($neighbors[$nPoint2->name])) {
-						$neighbors[$nPoint2->name] = $nPoint2;
-					}
-				}
-			}
+            if (\count($neighbors2) >= $minPoints) {
+                foreach ($neighbors2 as $nPoint2) {
+                    if (!isset($neighbors[$nPoint2->name])) {
+                        $neighbors[$nPoint2->name] = $nPoint2;
+                    }
+                }
+            }
 
-			if (!\in_array($nPoint->name, $this->clusteredPoints)) {
-				$this->clusters[$c][] = $nPoint;
-				$this->clusteredPoints[] = $nPoint;
-			}
+            if (!\in_array($nPoint->name, $this->clusteredPoints)) {
+                $this->clusters[$c][]    = $nPoint;
+                $this->clusteredPoints[] = $nPoint;
+            }
 
-			$nPoint = next($neighbors);
-		}
-	}
+            $nPoint = next($neighbors);
+        }
+    }
 
-	private function findNeighbors(PointInterface $point, float $epsilon) : array
-	{
-		$neighbors = [];
-		foreach ($this->points as $point2) {
-			if ($point->isEquals($point2)) {
+    /**
+     * Find neighbors of a point
+     *
+     * @param PointInterface $point  Base point for potential neighbors
+     * @param float          $epsion Max distance to neighbor
+     *
+     * @return array
+     *
+     * @since 1.0.0
+     */
+    private function findNeighbors(PointInterface $point, float $epsilon) : array
+    {
+        $neighbors = [];
+        foreach ($this->points as $point2) {
+            if ($point->isEquals($point2)) {
                 $distance = isset($this->distanceMatrix[$point->name])
                     ? $this->distanceMatrix[$point->name][$point2->name]
                     : $this->distanceMatrix[$point2->name][$point->name];
 
-				if ($distance < $epsilon) {
-					$neighbors[$point2->name] = $point2;
-				}
-			}
-		}
+                if ($distance < $epsilon) {
+                    $neighbors[$point2->name] = $point2;
+                }
+            }
+        }
 
-		return $neighbors;
-	}
+        return $neighbors;
+    }
 
+    /**
+     * Generate distances between points
+     *
+     * @param array $points Array of all points
+     *
+     * @return float[]
+     *
+     * @since 1.0.0
+     */
     private function generateDistanceMatrix(array $points) : array
     {
         $distances = [];
@@ -161,6 +213,15 @@ final class DBSCAN
         return $distances;
     }
 
+    /**
+     * Find the cluster for a point
+     *
+     * @param PointInterface $point Point to find the cluster for
+     *
+     * @return int Cluster id
+     *
+     * @since 1.0.0
+     */
     public function cluster(PointInterface $point) : int
     {
         if ($this->convexHulls === []) {
@@ -193,28 +254,40 @@ final class DBSCAN
         return -1;
     }
 
-	public function generateClusters(array $points, float $epsilon, int $minPoints) : void
-	{
-		$this->noisePoints = [];
-		$this->clusters = [];
-		$this->clusteredPoints = [];
-        $this->points = $points;
-        $this->convexHulls = [];
+    /**
+     * Generate the clusters of the points
+     *
+     * @param PointInterface[] $points    Points to cluster
+     * @param float            $epsilon   Max distance
+     * @param int              $minPoints Min amount of points required for a cluster
+     *
+     * @return void
+     *
+     * @since 1.0.0
+     */
+    public function generateClusters(array $points, float $epsilon, int $minPoints) : void
+    {
+        $this->noisePoints     = [];
+        $this->clusters        = [];
+        $this->clusteredPoints = [];
+        $this->points          = $points;
+        $this->convexHulls     = [];
 
         $this->distanceMatrix = $this->generateDistanceMatrix($points);
 
-		$c = 0;
-		$this->clusters[$c] = [];
-		foreach ($this->points as $point) {
-			$neighbors = $this->findNeighbors($point, $epsilon);
+        $c                  = 0;
+        $this->clusters[$c] = [];
 
-			if (\count($neighbors) < $minPoints) {
-				$this->noisePoints[] = $point->name;
-			} elseif (!\in_array($point->name, $this->clusteredPoints)) {
-				$this->expandCluster($point->name, $neighbors, $c, $epsilon, $minPoints);
-				++$c;
-				$this->clusters[$c] = [];
-			}
-		}
-	}
+        foreach ($this->points as $point) {
+            $neighbors = $this->findNeighbors($point, $epsilon);
+
+            if (\count($neighbors) < $minPoints) {
+                $this->noisePoints[] = $point->name;
+            } elseif (!\in_array($point->name, $this->clusteredPoints)) {
+                $this->expandCluster($point, $neighbors, $c, $epsilon, $minPoints);
+                ++$c;
+                $this->clusters[$c] = [];
+            }
+        }
+    }
 }

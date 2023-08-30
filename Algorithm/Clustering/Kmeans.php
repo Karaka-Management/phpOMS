@@ -22,8 +22,8 @@ use phpOMS\Math\Topology\MetricsND;
  * @package phpOMS\Algorithm\Clustering
  * @license OMS License 2.0
  * @link    https://jingga.app
- * @since   1.0.0
  * @see     ./clustering_overview.png
+ * @since   1.0.0
  */
 final class Kmeans
 {
@@ -54,7 +54,7 @@ final class Kmeans
     /**
      * Constructor
      *
-     * @param null|\Closure    $metric   metric to use for the distance between two points
+     * @param null|\Closure $metric metric to use for the distance between two points
      *
      * @since 1.0.0
      */

@@ -104,7 +104,17 @@ final class NormalDistribution
         return 0.5 * Functions::getErf(-($x - $mu) / ($sig * \sqrt(2)));
     }
 
-    // AKA Quantile function and sometimes PPF
+    /**
+     * Inverse cumulative distribution function / AKA Quantile function / PPF
+     *
+     * @param float $x   Value x
+     * @param float $mu  Mean
+     * @param float $sig Sigma
+     *
+     * @return float
+     *
+     * @since 1.0.0
+     */
     public static function getICdf(float $x, float $mu, float $sig) : float
     {
         return $mu - $sig * \sqrt(2) * Functions::getInvErfc(2 * $x);

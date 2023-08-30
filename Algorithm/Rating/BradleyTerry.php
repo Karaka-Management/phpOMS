@@ -25,14 +25,10 @@ namespace phpOMS\Algorithm\Rating;
  */
 final class BradleyTerry
 {
-    public int $K = 32;
-
-    public int $DEFAULT_ELO = 1500;
-
-    public int $MIN_ELO = 100;
-
-    // history = matrix of past victories/performance against other teams (diagonal is empty)
     /**
+     * Rate the strongest to the weakest team based on historic performances (wins/losses)
+     *
+     * The following example contains match results (matrix) of teams A-D facing each other (each point is a victory).
      * @example rating(
      *     [
      *          'A' => ['A' => 0, 'B' => 2, 'C' => 0, 'D' => 1],
@@ -40,8 +36,15 @@ final class BradleyTerry
      *          'C' => ['A' => 0, 'B' => 3, 'C' => 0, 'D' => 1],
      *          'D' => ['A' => 4, 'B' => 0, 'C' => 3, 'D' => 0],
      *      ],
-     *      20
-     *  ) // [0.139, 0.226, 0.143, 0.492]
+     *      10
+     *  ) // [0.640, 1.043, 0.660, 2.270] -> D is strongest
+     *
+     * @param array[] $history    Historic results
+     * @param int     $iterations Iterations for estimation
+     *
+     * @return float[] Array of "strength" scores (highest = strongest)
+     *
+     * @since 1.0.0
      */
     public function rating(array $history, int $iterations = 20) : array
     {

@@ -25,6 +25,17 @@ namespace phpOMS\Algorithm\Optimization;
  */
 class GeneticOptimization
 {
+    /**
+     * Constructor
+     *
+     * @since 1.0.0
+     * @codeCoverageIgnore
+     */
+    private function __construct()
+    {
+    }
+
+    /*
     // Fitness function (may require to pass solution space as \Closure variable)
     // E.g.
     // highest value of some sorts (e.g. profit)
@@ -36,7 +47,6 @@ class GeneticOptimization
         return $x;
     }
 
-    // Mutation
     public static function mutate($parameters, $mutationRate)
     {
         for ($i = 0; $i < \count($parameters); $i++) {
@@ -64,9 +74,27 @@ class GeneticOptimization
 
         return [$child1, $child2];
     }
+    */
 
-    // the fitness and mutation functions may need to be able to create the object to optimize and/or validate
-    // @todo maybe a crossover function must be provided to find and create the crossover (sometimes there are dependencies between parameters)
+    /**
+     * Perform optimization
+     *
+     * @example See unit test for example use case
+     *
+     * @param array<array> $population   List of all elements with ther parameters (i.e. list of "objects" as arrays).
+     *                                   The constraints are defined as array values.
+     * @param \Closure     $fitness      Fitness function calculates score/feasability of solution
+     * @param \Closure     $mutate       Mutation function to change the parameters of an "object"
+     * @param \Closure     $crossover    Crossover function to exchange parameter values between "objects".
+     *                                   Sometimes single parameters can be exchanged but sometimes interdependencies exist between parameters which is why this function is required.
+     * @param int          $generations  Number of generations to create
+     * @param float        $mutationRate Rate at which parameters are changed.
+     *                                   How this is used depends on the mutate function.
+     *
+     * @return array{solutions:array, fitnesses:float[]}
+     *
+     * @since 1.0.0
+     */
     public static function optimize(
         array $population,
         \Closure $fitness,

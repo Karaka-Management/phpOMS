@@ -19,7 +19,7 @@ use phpOMS\Math\Matrix\IdentityMatrix;
 use phpOMS\Math\Matrix\Matrix;
 
 /**
- * Metrics.
+ * Kernels.
  *
  * @package phpOMS\Math\Topology
  * @license OMS License 2.0
@@ -38,6 +38,16 @@ final class KernelsND
     {
     }
 
+    /**
+     * Gaussian kernel
+     *
+     * @param array<float|int> $distances  Distances
+     * @param array<float|int> $bandwidths Bandwidths
+     *
+     * @return array
+     *
+     * @since 1.0.0
+     */
     public static function gaussianKernel(array $distances, array $bandwidths) : array
     {
         $dim = \count($bandwidths);

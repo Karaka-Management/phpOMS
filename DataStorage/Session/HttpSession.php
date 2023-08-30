@@ -141,6 +141,18 @@ final class HttpSession implements SessionInterface
         UriFactory::setQuery('$CSRF', $csrf); /* @phpstan-ignore-line */
     }
 
+    /**
+     * Populate the session from the request.
+     *
+     * This is only used when the session data is stored in the request itself (e.g. JWT)
+     *
+     * @param string          $secret  Secret to validate the request
+     * @param RequestAbstract $request Request
+     *
+     * @return void
+     *
+     * @since 1.0.0
+     */
     public function populateFromRequest(string $secret, RequestAbstract $request) : void
     {
         $authentication = $request->header->get('Authorization');

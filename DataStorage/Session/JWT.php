@@ -35,9 +35,9 @@ final class JWT
     /**
      * Create JWT signature part
      *
-     * @param string                                                 $secret  Secret (at least 256 bit)
-     * @var array{alg:string, typ:string}                            $header  Header
-     * @var array{sub:string, ?uid:string, ?name:string, iat:string} $payload Payload
+     * @param string                                                   $secret  Secret (at least 256 bit)
+     * @param array{alg:string, typ:string}                            $header  Header
+     * @param array{sub:string, ?uid:string, ?name:string, iat:string} $payload Payload
      *
      * @return string hmac(Header64 . Payload64, secret)
      *
@@ -60,11 +60,13 @@ final class JWT
     /**
      * Create JWT token
      *
-     * @param string                                                 $secret  Secret (at least 256 bit)
-     * @var array{alg:string, typ:string}                            $header  Header
-     * @var array{sub:string, ?uid:string, ?name:string, iat:string} $payload Payload
+     * @param string                                                   $secret  Secret (at least 256 bit)
+     * @param array{alg:string, typ:string}                            $header  Header
+     * @param array{sub:string, ?uid:string, ?name:string, iat:string} $payload Payload
      *
      * @return string Header64 . Payload64 . hmac(Header64 . Payload64, secret)
+     *
+     * @since 1.0.0
      */
     public static function createJWT(string $secret, array $header = [], array $payload = []) : string
     {
@@ -75,6 +77,15 @@ final class JWT
         return $header64 . $payload64 . Base64Url::encode($signature);
     }
 
+    /**
+     * Get the header from the jwt string
+     *
+     * @param string $jwt JWT string
+     *
+     * @return array
+     *
+     * @since 1.0.0
+     */
     public static function getHeader(string $jwt) : array
     {
         $explode = \explode('.', $jwt);
@@ -90,6 +101,15 @@ final class JWT
         }
     }
 
+    /**
+     * Get the payload from the jwt string
+     *
+     * @param string $jwt JWT string
+     *
+     * @return array
+     *
+     * @since 1.0.0
+     */
     public static function getPayload(string $jwt) : array
     {
         $explode = \explode('.', $jwt);
@@ -112,6 +132,8 @@ final class JWT
      * @param string $jwt JWT token [Header64 . Payload64 . hmac(Header64 . Payload64, secret)]
      *
      * @return bool
+     *
+     * @since 1.0.0
      */
     public static function validateJWT(string $secret, string $jwt) : bool
     {

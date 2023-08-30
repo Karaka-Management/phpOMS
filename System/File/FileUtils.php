@@ -281,6 +281,15 @@ final class FileUtils
         return !\preg_match('#^[a-z][a-z\d+.-]*://#i', $path);
     }
 
+    /**
+     * Turn a string into a safe file name (sanitize a string)
+     *
+     * @param string $name String to sanitize for file name usage
+     *
+     * @return string
+     *
+     * @since 1.0.0
+     */
     public static function makeSafeFileName(string $name) : string
     {
         $name = \preg_replace("/[^A-Za-z0-9\-_.]/", '_', $name);

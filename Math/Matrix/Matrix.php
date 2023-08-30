@@ -688,9 +688,19 @@ class Matrix implements \ArrayAccess, \Iterator
     public function det() : float
     {
         $L = new LUDecomposition($this);
+
         return $L->det();
     }
 
+    /**
+     * Dot product
+     *
+     * @param self $B Matrix
+     *
+     * @return self
+     *
+     * @since 1.0.0
+     */
     public function dot(self $B) : self
     {
         $value1 = $this->matrix;
@@ -751,7 +761,16 @@ class Matrix implements \ArrayAccess, \Iterator
         return self::fromArray($result);
     }
 
-    public function sum(int $axis = -1)
+    /**
+     * Sum the elements in the matrix
+     *
+     * @param int $axis Axis (-1 -> all dimensions, 0 -> columns, 1 -> rows)
+     *
+     * @return int|float|self Returns int or float for axis -1
+     *
+     * @since 1.0.0
+     */
+    public function sum(int $axis = -1) : int|float|self
     {
         if ($axis === -1) {
             $sum = 0;
@@ -786,6 +805,13 @@ class Matrix implements \ArrayAccess, \Iterator
         return new self();
     }
 
+    /**
+     * Is matrix a diagonal matrix
+     *
+     * @return bool
+     *
+     * @since 1.0.0
+     */
     public function isDiagonal() : bool
     {
         if ($this->m !== $this->n) {
@@ -803,6 +829,17 @@ class Matrix implements \ArrayAccess, \Iterator
         return true;
     }
 
+    /**
+     * Calculate the power of a matrix
+     *
+     * @param int|float $exponent Exponent
+     *
+     * @return self
+     *
+     * @throws InvalidDimensionException
+     *
+     * @since 1.0.0
+     */
     public function pow(int | float $exponent) : self
     {
         if ($this->isDiagonal()) {
@@ -839,6 +876,15 @@ class Matrix implements \ArrayAccess, \Iterator
         }
     }
 
+    /**
+     * Calculate e^M
+     *
+     * @param int $iterations Iterations for approximation
+     *
+     * @return self
+     *
+     * @since 1.0.0
+     */
     public function exp(int $iterations = 10) : self
     {
         if ($this->m !== $this->n) {

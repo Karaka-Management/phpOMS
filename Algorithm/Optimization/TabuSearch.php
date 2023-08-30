@@ -25,31 +25,65 @@ namespace phpOMS\Algorithm\Optimization;
  */
 class TabuSearch
 {
+    /**
+     * Constructor
+     *
+     * @since 1.0.0
+     * @codeCoverageIgnore
+     */
+    private function __construct()
+    {
+    }
+
+    /*
     // Define your fitness function here
     public static function fitness($solution) {
         // Calculate and return the fitness of the solution
         // This function should be tailored to your specific problem
-        return /* ... */;
+        return $solution;
     }
 
     // Define your neighborhood generation function here
     public static function generateNeighbor($currentSolution) {
         // Generate a neighboring solution based on the current solution
         // This function should be tailored to your specific problem
-        return /* ... */;
+        return $currentSolution;
     }
+    */
 
-    // Define the Tabu Search algorithm
-    public static function optimize($initialSolution, \Closure $fitness, \Closure $neighbor, $tabuListSize, $maxIterations) {
+    /**
+     * Perform optimization
+     *
+     * @example See unit test for example use case
+     *
+     * @param array    $initialSolution List of all elements with ther parameters (i.e. list of "objects" as arrays).
+     *                                  The constraints are defined as array values.
+     * @param \Closure $fitness         Fitness function calculates score/feasability of solution
+     * @param \Closure $neighbor        Neighbor function to find a new solution/neighbor
+     * @param int      $tabuListSize    ????
+     * @param int      $iterations      Number of iterations
+     *
+     * @return array
+     *
+     * @since 1.0.0
+     */
+    public static function optimize(
+        array $initialSolution,
+        \Closure $fitness,
+        \Closure $neighbor,
+        int $tabuListSize,
+        int $iterations
+    ) : array
+    {
         $currentSolution = $initialSolution;
-        $bestSolution = $currentSolution;
-        $bestFitness = \PHP_FLOAT_MIN;
-        $tabuList = [];
+        $bestSolution    = $currentSolution;
+        $bestFitness     = \PHP_FLOAT_MIN;
+        $tabuList        = [];
 
-        for ($iteration = 0; $iteration < $maxIterations; ++$iteration) {
+        for ($i = 0; $i < $iterations; ++$i) {
             $neighbors = [];
             for ($i = 0; $i < $tabuListSize; ++$i) {
-                $neighbor = ($neighbor)($currentSolution);
+                $neighbor    = ($neighbor)($currentSolution);
                 $neighbors[] = $neighbor;
             }
 
@@ -77,7 +111,7 @@ class TabuSearch
 
             if (($score = ($fitness)($bestNeighbor)) > $bestFitness) {
                 $bestSolution = $bestNeighbor;
-                $bestFitness = $score;
+                $bestFitness  = $score;
             }
         }
 

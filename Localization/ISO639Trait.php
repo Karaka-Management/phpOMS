@@ -24,7 +24,16 @@ namespace phpOMS\Localization;
  */
 trait ISO639Trait
 {
-    public static function getBy2Code(string $code)
+    /**
+     * Get value by 2 code
+     *
+     * @param string $code 2-code
+     *
+     * @return mixed
+     *
+     * @since 1.0.0
+     */
+    public static function getBy2Code(string $code) : mixed
     {
         return self::getByName('_' . \strtoupper($code));
     }

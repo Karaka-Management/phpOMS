@@ -88,10 +88,19 @@ final class Vector extends Matrix
         return $this;
     }
 
+    /**
+     * Angle between two vectors
+     *
+     * @param self $v Vector
+     *
+     * @return float
+     *
+     * @since 1.0.0
+     */
     public function cosine(self $v) : float
     {
         $dotProduct = 0;
-        for ($i = 0; $i < \count($this->matrix); $i++) {
+        for ($i = 0; $i < $this->m; ++$i) {
             $dotProduct += $this->matrix[$i][0] * $v[$i];
         }
 

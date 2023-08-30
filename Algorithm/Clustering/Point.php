@@ -86,6 +86,9 @@ class Point implements PointInterface
         $this->coordinates[$index] = $value;
     }
 
+    /**
+     * {@inheritdoc}
+     */
     public function isEquals(PointInterface $point) : bool
     {
         return $this->name === $point->name && $this->coordinates === $point->coordinates;

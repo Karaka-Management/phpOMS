@@ -2028,6 +2028,16 @@ abstract class MimeType extends Enum
         }
     }
 
+    /**
+     * Get the file extension from a mime
+     *
+     * @param string $mime Mime
+     *
+     * @return null|string
+     *
+     * @since 1.0.0
+     * @todo continue implementation
+     */
     public static function mimeToExtension(string $mime) : ?string
     {
         switch($mime) {

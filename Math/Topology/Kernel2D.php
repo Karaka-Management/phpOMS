@@ -16,7 +16,7 @@ declare(strict_types=1);
 namespace phpOMS\Math\Topology;
 
 /**
- * Metrics.
+ * Kernels.
  *
  * @package phpOMS\Math\Topology
  * @license OMS License 2.0
@@ -35,6 +35,16 @@ final class Kernels2D
     {
     }
 
+    /**
+     * Uniform kernel.
+     *
+     * @param float $distance  Distance
+     * @param float $bandwidth Bandwidth
+     *
+     * @return float
+     *
+     * @since 1.0.0
+     */
     public static function uniformKernel(float $distance, float $bandwidth) : float
     {
         return \abs($distance) <= $bandwidth / 2
@@ -42,6 +52,16 @@ final class Kernels2D
             : 0.0;
     }
 
+    /**
+     * Triangular kernel.
+     *
+     * @param float $distance  Distance
+     * @param float $bandwidth Bandwidth
+     *
+     * @return float
+     *
+     * @since 1.0.0
+     */
     public static function triangularKernel(float $distance, float $bandwidth) : float
     {
         return \abs($distance) <= $bandwidth / 2
@@ -49,6 +69,16 @@ final class Kernels2D
             : 0.0;
     }
 
+    /**
+     * Epanechnikov kernel.
+     *
+     * @param float $distance  Distance
+     * @param float $bandwidth Bandwidth
+     *
+     * @return float
+     *
+     * @since 1.0.0
+     */
     public static function epanechnikovKernel(float $distance, float $bandwidth) : float
     {
         if (\abs($distance) <= $bandwidth) {
@@ -60,6 +90,16 @@ final class Kernels2D
         }
     }
 
+    /**
+     * Quartic kernel.
+     *
+     * @param float $distance  Distance
+     * @param float $bandwidth Bandwidth
+     *
+     * @return float
+     *
+     * @since 1.0.0
+     */
     public static function quarticKernel(float $distance, float $bandwidth) : float
     {
         if (\abs($distance) <= $bandwidth) {
@@ -71,6 +111,16 @@ final class Kernels2D
         }
     }
 
+    /**
+     * Triweight kernel.
+     *
+     * @param float $distance  Distance
+     * @param float $bandwidth Bandwidth
+     *
+     * @return float
+     *
+     * @since 1.0.0
+     */
     public static function triweightKernel(float $distance, float $bandwidth) : float
     {
         if (\abs($distance) <= $bandwidth) {
@@ -82,6 +132,16 @@ final class Kernels2D
         }
     }
 
+    /**
+     * Tricube kernel.
+     *
+     * @param float $distance  Distance
+     * @param float $bandwidth Bandwidth
+     *
+     * @return float
+     *
+     * @since 1.0.0
+     */
     public static function tricubeKernel(float $distance, float $bandwidth) : float
     {
         if (\abs($distance) <= $bandwidth) {
@@ -93,11 +153,31 @@ final class Kernels2D
         }
     }
 
+    /**
+     * Gaussian kernel.
+     *
+     * @param float $distance  Distance
+     * @param float $bandwidth Bandwidth
+     *
+     * @return float
+     *
+     * @since 1.0.0
+     */
     public static function gaussianKernel(float $distance, float $bandwidth) : float
     {
         return \exp(-($distance * $distance) / (2 * $bandwidth * $bandwidth)) / ($bandwidth * \sqrt(2 * \M_PI));
     }
 
+    /**
+     * Cosine kernel.
+     *
+     * @param float $distance  Distance
+     * @param float $bandwidth Bandwidth
+     *
+     * @return float
+     *
+     * @since 1.0.0
+     */
     public static function cosineKernel(float $distance, float $bandwidth) : float
     {
         return \abs($distance) <= $bandwidth
@@ -105,6 +185,16 @@ final class Kernels2D
             : 0.0;
     }
 
+    /**
+     * Logistic kernel.
+     *
+     * @param float $distance  Distance
+     * @param float $bandwidth Bandwidth
+     *
+     * @return float
+     *
+     * @since 1.0.0
+     */
     public static function logisticKernel(float $distance, float $bandwidth) : float
     {
         return 1 / (\exp($distance / $bandwidth) + 2 + \exp(-$distance / $bandwidth));

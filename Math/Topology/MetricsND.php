@@ -93,8 +93,24 @@ final class MetricsND
         return \sqrt($dist);
     }
 
+    /**
+     * Cosine metric.
+     *
+     * @param array<int|string, int|float> $a n-D array
+     * @param array<int|string, int|float> $b n-D array
+     *
+     * @return float
+     *
+     * @throws InvalidDimensionException
+     *
+     * @since 1.0.0
+     */
     public static function cosine(array $a, array $b) : float
     {
+        if (\count($a) !== \count($b)) {
+            throw new InvalidDimensionException(\count($a) . 'x' . \count($b));
+        }
+
         $dotProduct = 0;
         for ($i = 0; $i < \count($a); $i++) {
             $dotProduct += $a[$i] * $b[$i];

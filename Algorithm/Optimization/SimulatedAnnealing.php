@@ -25,6 +25,17 @@ namespace phpOMS\Algorithm\Optimization;
  */
 class SimulatedAnnealing
 {
+    /**
+     * Constructor
+     *
+     * @since 1.0.0
+     * @codeCoverageIgnore
+     */
+    private function __construct()
+    {
+    }
+
+    /*
     public static function costFunction($x)
     {
         return $x;
@@ -44,24 +55,43 @@ class SimulatedAnnealing
 
         return $newGeneration;
     }
+    */
 
     // Simulated Annealing algorithm
     // @todo allow to create a solution space (currently all soluctions need to be in space)
     // @todo: currently only replacing generations, not altering them
+    /**
+     * Perform optimization
+     *
+     * @example See unit test for example use case
+     *
+     * @param array    $space              List of all elements with ther parameters (i.e. list of "objects" as arrays).
+     *                                     The constraints are defined as array values.
+     * @param int      $initialTemperature Starting temperature
+     * @param \Closure $costFunction       Fitness function calculates score/feasability of solution
+     * @param \Closure $neighbor           Neighbor function to find a new solution/neighbor
+     * @param float    $coolingRate        Rate at which cooling takes place
+     * @param int      $iterations         Number of iterations
+     *
+     * @return array{solutions:array, costs:float[]}
+     *
+     * @since 1.0.0
+     */
     function optimize(
         array $space,
         int $initialTemperature,
         \Closure $costFunction,
         \Closure $neighbor,
-        $coolingRate = 0.98,
-        $numIterations = 1000
-    ) {
-        $parameterCount = \count($space);
+        float $coolingRate = 0.98,
+        int $iterations = 1000
+    ) : array
+    {
+        $parameterCount    = \count($space);
         $currentGeneration = \reset($space);
 
         $currentCost = ($costFunction)($currentGeneration);
 
-        for ($i = 0; $i < $numIterations; $i++) {
+        for ($i = 0; $i < $iterations; ++$i) {
             $newGeneration = ($neighbor)($currentGeneration, $parameterCount);
 
             $newCost = ($costFunction)($newGeneration);
@@ -78,7 +108,7 @@ class SimulatedAnnealing
 
         return [
             'solutions' => $currentGeneration,
-            'costs' => $currentCost
+            'costs'     => $currentCost
         ];
     }
 }

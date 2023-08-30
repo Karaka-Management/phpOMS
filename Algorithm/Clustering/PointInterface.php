@@ -60,5 +60,14 @@ interface PointInterface
      */
     public function setCoordinate(int $index, int | float $value) : void;
 
+    /**
+     * Check if two points are equal
+     *
+     * @param self $point Point to compare with
+     *
+     * @return bool
+     *
+     * @since 1.0.0
+     */
     public function isEquals(self $point) : bool;
 }

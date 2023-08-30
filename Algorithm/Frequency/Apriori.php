@@ -15,7 +15,9 @@ declare(strict_types=1);
 namespace phpOMS\Algorithm\CoinMatching;
 
 /**
- * Matching a value with a set of coins
+ * Apriori algorithm.
+ *
+ * The algorithm cheks how often a set exists in a given set of sets.
  *
  * @package phpOMS\Algorithm\CoinMatching
  * @license OMS License 2.0
@@ -24,7 +26,27 @@ namespace phpOMS\Algorithm\CoinMatching;
  */
 final class Apriori
 {
-    private static function generateSubsets(array $arr) {
+    /**
+     * Constructor
+     *
+     * @since 1.0.0
+     * @codeCoverageIgnore
+     */
+    private function __construct()
+    {
+    }
+
+    /**
+     * Generate all possible subsets
+     *
+     * @param array $arr Array of eleements
+     *
+     * @return array<array>
+     *
+     * @since 1.0.0
+     */
+    private static function generateSubsets(array $arr) : array
+    {
         $subsets = [[]];
 
         foreach ($arr as $element) {
@@ -44,13 +66,15 @@ final class Apriori
     }
 
     /**
-     * $transactions = array(
-            array('milk', 'bread', 'eggs'),
-            array('milk', 'bread'),
-            array('milk', 'eggs'),
-            array('bread', 'eggs'),
-            array('milk')
-        );
+     * Performs the apriori algorithm.
+     *
+     * The algorithm cheks how often a set exists in a given set of sets.
+     *
+     * @param array<array> $sets Sets of a set (e.g. [[1,2,3,4], [1,2], [1]])
+     *
+     * @return array<array>
+     *
+     * @since 1.0.0
      */
     public static function apriori(array $sets) : array
     {

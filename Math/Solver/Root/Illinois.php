@@ -15,27 +15,48 @@ declare(strict_types=1);
 namespace phpOMS\Math\Solver\Root;
 
 /**
- * Basic math function evaluation.
+ * Find the root of a function.
  *
  * @package phpOMS\Math\Solver\Root
  * @license OMS License 2.0
  * @link    https://jingga.app
  * @since   1.0.0
- *
- * @todo: implement
  */
 final class Illinois
 {
+    /**
+     * Epsilon for float comparison.
+     *
+     * @var float
+     * @since 1.0.0
+     */
     public const EPSILON = 1e-6;
 
-    public static function bisection(Callable $func, float $a, float $b, $maxIterations = 100) {
+    /**
+     * Perform bisection to find the root of a function
+     *
+     * Iteratively searches for root between two points on the x-axis
+     *
+     * @param Callable $func          Function defintion
+     * @param float    $a             Start value
+     * @param float    $b             End value
+     * @param int      $maxIterations Maximum amount of iterations
+     *
+     * @throws \Exception
+     *
+     * @return float
+     *
+     * @since 1.0.0
+     */
+    public static function root(Callable $func, float $a, float $b, int $maxIterations = 100) : float
+    {
         if ($func($a) * $func($b) >= 0) {
             throw new \Exception("Function values at endpoints must have opposite signs.");
         }
 
-        $c = $b;
+        $c         = $b;
         $iteration = 0;
-        $sign = 1;
+        $sign      = 1;
 
         while (($y = \abs($func($c))) > self::EPSILON && $iteration < $maxIterations) {
             $fa = $func($a);
