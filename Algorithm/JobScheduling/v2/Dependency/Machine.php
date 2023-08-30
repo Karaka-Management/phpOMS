@@ -29,6 +29,4 @@ class Machine
     public MachineType $type;
 
     public array $idle = [];
-
-
 }

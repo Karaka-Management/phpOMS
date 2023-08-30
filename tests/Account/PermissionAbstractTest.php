@@ -84,13 +84,13 @@ final class PermissionAbstractTest extends \PHPUnit\Framework\TestCase
      */
     public function testEqualPermissions() : void
     {
-        $perm1 = new class() extends PermissionAbstract {};
+        $perm1       = new class() extends PermissionAbstract {};
         $perm1->unit = 1;
         $perm1->setPermission(PermissionType::READ);
 
         self::assertTrue($perm1->isEqual($perm1));
 
-        $perm2 = new class() extends PermissionAbstract {};
+        $perm2       = new class() extends PermissionAbstract {};
         $perm2->unit = 1;
         $perm2->setPermission(PermissionType::CREATE);
 

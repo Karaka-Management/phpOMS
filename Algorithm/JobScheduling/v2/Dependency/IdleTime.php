@@ -33,6 +33,4 @@ class IdleTime
     public int $interval = 0;
 
     public int $duration = 0; // in seconds
-
-
 }

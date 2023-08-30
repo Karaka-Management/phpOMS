@@ -845,9 +845,9 @@ class Matrix implements \ArrayAccess, \Iterator
         if ($this->isDiagonal()) {
             $matrix = [];
 
-            for ($i = 0; $i < $this->m; $i++) {
+            for ($i = 0; $i < $this->m; ++$i) {
                 $row = [];
-                for ($j = 0; $j < $this->m; $j++) {
+                for ($j = 0; $j < $this->m; ++$j) {
                     if ($i === $j) {
                         $row[] = \pow($this->matrix[$i][$j], $exponent);
                     } else {

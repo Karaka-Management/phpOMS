@@ -36,5 +36,5 @@ interface DispatcherInterface
      *
      * @since 1.0.0
      */
-    public function dispatch(array | string | Callable $controller, mixed ...$data) : array;
+    public function dispatch(array | string | callable $controller, mixed ...$data) : array;
 }

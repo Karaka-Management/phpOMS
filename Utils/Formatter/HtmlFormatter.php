@@ -40,7 +40,7 @@ class HtmlFormatter
         $dom->loadHTML($text);
 
         $dom->preserveWhiteSpace = false;
-        $dom->formatOutput = true;
+        $dom->formatOutput       = true;
 
         return $dom->saveXML($dom->documentElement);
     }

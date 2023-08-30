@@ -48,7 +48,7 @@ final class RegulaFalsi
      *
      * @since 1.0.0
      */
-    public static function root(Callable $func, float $a, float $b, int $maxIterations = 100) : float
+    public static function root(callable $func, float $a, float $b, int $maxIterations = 100) : float
     {
         if ($func($a) * $func($b) >= 0) {
             throw new \Exception("Function values at endpoints must have opposite signs.");

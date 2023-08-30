@@ -166,7 +166,7 @@ final class Glicko1
 
         return [
             'elo' => (int) \max((int) $r, $this->MIN_ELO),
-            'rd' => (int) \max($RD_, $this->MIN_RD)
+            'rd'  => (int) \max($RD_, $this->MIN_RD),
         ];
     }
 }

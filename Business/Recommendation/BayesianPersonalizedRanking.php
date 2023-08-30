@@ -28,18 +28,21 @@ namespace phpOMS\Business\Recommendation;
 final class BayesianPersonalizedRanking
 {
     private int $numFactors;
+
     private float $learningRate;
+
     private float $regularization;
 
     private array $userFactors = [];
+
     private array $itemFactors = [];
 
     // num_factors determines the dimensionality of the latent factor space.
     // learning_rate controls the step size for updating the latent factors during optimization.
     // regularization prevents overfitting by adding a penalty for large parameter values.
     public function __construct(int $numFactors, float $learningRate, float $regularization) {
-        $this->numFactors = $numFactors;
-        $this->learningRate = $learningRate;
+        $this->numFactors     = $numFactors;
+        $this->learningRate   = $learningRate;
         $this->regularization = $regularization;
     }
 
@@ -55,7 +58,7 @@ final class BayesianPersonalizedRanking
     public function predict($userId, $itemId) {
         $userFactor = $this->userFactors[$userId];
         $itemFactor = $this->itemFactors[$itemId];
-        $score = 0;
+        $score      = 0;
 
         for ($i = 0; $i < $this->numFactors; ++$i) {
             $score += $userFactor[$i] * $itemFactor[$i];
@@ -64,7 +67,7 @@ final class BayesianPersonalizedRanking
         return $score;
     }
 
-    public function updateFactors($userId, $posItemId, $negItemId) {
+    public function updateFactors($userId, $posItemId, $negItemId) : void {
         if (!isset($this->userFactors[$userId])) {
             $this->userFactors[$userId] = $this->generateRandomFactors();
         }
@@ -77,17 +80,17 @@ final class BayesianPersonalizedRanking
             $this->itemFactors[$negItemId] = $this->generateRandomFactors();
         }
 
-        $userFactor = $this->userFactors[$userId];
+        $userFactor    = $this->userFactors[$userId];
         $posItemFactor = $this->itemFactors[$posItemId];
         $negItemFactor = $this->itemFactors[$negItemId];
 
         for ($i = 0; $i < $this->numFactors; ++$i) {
-            $userFactor[$i] += $this->learningRate * ($posItemFactor[$i] - $negItemFactor[$i]) - $this->regularization * $userFactor[$i];
+            $userFactor[$i]    += $this->learningRate * ($posItemFactor[$i] - $negItemFactor[$i]) - $this->regularization * $userFactor[$i];
             $posItemFactor[$i] += $this->learningRate * $userFactor[$i] - $this->regularization * $posItemFactor[$i];
             $negItemFactor[$i] += $this->learningRate * (-$userFactor[$i]) - $this->regularization * $negItemFactor[$i];
         }
 
-        $this->userFactors[$userId] = $userFactor;
+        $this->userFactors[$userId]    = $userFactor;
         $this->itemFactors[$posItemId] = $posItemFactor;
         $this->itemFactors[$negItemId] = $negItemFactor;
     }

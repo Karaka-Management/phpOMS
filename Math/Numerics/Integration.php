@@ -37,7 +37,7 @@ final class Integration
      *
      * @since 1.0.0
      */
-    public static function intLeftRect(float $from, float $to, float $n, Callable $func) : float
+    public static function intLeftRect(float $from, float $to, float $n, callable $func) : float
     {
         $h   = ($to - $from) / $n;
         $sum = 0.0;
@@ -61,7 +61,7 @@ final class Integration
      *
      * @since 1.0.0
      */
-    public static function intRightRect(float $from, float $to, float $n, Callable $func) : float
+    public static function intRightRect(float $from, float $to, float $n, callable $func) : float
     {
         $h   = ($to - $from) / $n;
         $sum = 0.0;
@@ -85,7 +85,7 @@ final class Integration
      *
      * @since 1.0.0
      */
-    public static function intMiddleRect(float $from, float $to, float $n, Callable $func) : float
+    public static function intMiddleRect(float $from, float $to, float $n, callable $func) : float
     {
         $h   = ($to - $from) / $n;
         $sum = 0.0;
@@ -109,7 +109,7 @@ final class Integration
      *
      * @since 1.0.0
      */
-    public static function intTrapezium(float $from, float $to, float $n, Callable $func) : float
+    public static function intTrapezium(float $from, float $to, float $n, callable $func) : float
     {
         $h   = ($to - $from) / $n;
         $sum = $func($from) + $func($to);
@@ -133,7 +133,7 @@ final class Integration
      *
      * @since 1.0.0
      */
-    public static function intSimpson(float $from, float $to, float $n, Callable $func) : float
+    public static function intSimpson(float $from, float $to, float $n, callable $func) : float
     {
         $h    = ($to - $from) / $n;
         $sum1 = 0.0;

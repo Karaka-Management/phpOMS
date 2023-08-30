@@ -14,7 +14,6 @@ declare(strict_types=1);
 
 namespace phpOMS\DataStorage\Session;
 
-use phpOMS\DataStorage\LockException;
 use phpOMS\Log\FileLogger;
 use phpOMS\Message\RequestAbstract;
 use phpOMS\Session\JWT;

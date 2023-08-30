@@ -9,7 +9,6 @@
  * @license   OMS License 2.0
  * @version   1.0.0
  * @link      https://jingga.app
- *
  */
 declare(strict_types=1);
 
@@ -77,7 +76,7 @@ class SimulatedAnnealing
      *
      * @since 1.0.0
      */
-    function optimize(
+    public function optimize(
         array $space,
         int $initialTemperature,
         \Closure $costFunction,
@@ -96,19 +95,19 @@ class SimulatedAnnealing
 
             $newCost = ($costFunction)($newGeneration);
 
-            $temperature = $initialTemperature * pow($coolingRate, $i);
+            $temperature = $initialTemperature * \pow($coolingRate, $i);
 
             if ($newCost < $currentCost
                 || \mt_rand() / \mt_getrandmax() < \exp(($currentCost - $newCost) / $temperature)
             ) {
                 $currentGeneration = $newGeneration;
-                $currentCost = $newCost;
+                $currentCost       = $newCost;
             }
         }
 
         return [
             'solutions' => $currentGeneration,
-            'costs'     => $currentCost
+            'costs'     => $currentCost,
         ];
     }
 }

@@ -112,7 +112,7 @@ final class MetricsND
         }
 
         $dotProduct = 0;
-        for ($i = 0; $i < \count($a); $i++) {
+        for ($i = 0; $i < \count($a); ++$i) {
             $dotProduct += $a[$i] * $b[$i];
         }
 

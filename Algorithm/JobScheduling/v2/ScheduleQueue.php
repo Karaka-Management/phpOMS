@@ -144,6 +144,4 @@ final class ScheduleQueue
     {
         unset($this->queue[$id]);
     }
-
-
 }

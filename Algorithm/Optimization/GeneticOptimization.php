@@ -9,7 +9,6 @@
  * @license   OMS License 2.0
  * @version   1.0.0
  * @link      https://jingga.app
- *
  */
 declare(strict_types=1);
 
@@ -108,7 +107,7 @@ class GeneticOptimization
         $parameterCount = \count(\reset($population));
 
         // Genetic Algorithm Loop
-        for ($generation = 0; $generation < $generations; $generation++) {
+        for ($generation = 0; $generation < $generations; ++$generation) {
             $fitnessScores = [];
             foreach ($population as $parameters) {
                 $fitnessScores[] = ($fitness)($parameters);
@@ -116,7 +115,7 @@ class GeneticOptimization
 
             // Select parents for crossover based on fitness scores
             $parents = [];
-            for ($i = 0; $i < $populationSize; $i++) {
+            for ($i = 0; $i < $populationSize; ++$i) {
                 do {
                     $parentIndex1 = \array_rand($population);
                     $parentIndex2 = \array_rand($population);

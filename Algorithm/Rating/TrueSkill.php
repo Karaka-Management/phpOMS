@@ -41,7 +41,6 @@ class TrueSkill
 
     public function __construct()
     {
-
     }
 
     // Draw margin = epsilon
@@ -104,15 +103,15 @@ class TrueSkill
     private function vDraw(float $t, float $epsilon) : float
     {
         $tAbs = \abs($t);
-        $a = $epsilon - $tAbs;
-        $b = -$epsilon - $tAbs;
+        $a    = $epsilon - $tAbs;
+        $b    = -$epsilon - $tAbs;
 
-        $aPdf = NormalDistribution::getPdf($a, 0.0, 1.0);
-        $bPdf = NormalDistribution::getPdf($b, 0.0, 1.0);
+        $aPdf  = NormalDistribution::getPdf($a, 0.0, 1.0);
+        $bPdf  = NormalDistribution::getPdf($b, 0.0, 1.0);
         $numer = $bPdf - $aPdf;
 
-        $aCdf = NormalDistribution::getCdf($a, 0.0, 1.0);
-        $bCdf = NormalDistribution::getCdf($b, 0.0, 1.0);
+        $aCdf  = NormalDistribution::getCdf($a, 0.0, 1.0);
+        $bCdf  = NormalDistribution::getCdf($b, 0.0, 1.0);
         $denom = $aCdf - $bCdf;
 
         return $numer / $denom;
@@ -156,28 +155,24 @@ class TrueSkill
         $v = $this->vDraw($t, $epsilon);
 
         return $v * $v
-            + (($epsilon - $t) * NormalDistribution::getPdf($epsilon - $tAbs, 0.0, 1.0) + ($epsilon + $tAbs) *  NormalDistribution::getPdf($epsilon + $tAbs, 0.0, 1.0))
-                / (NormalDistribution::getCdf($epsilon - $tAbs, 0.0, 1.0) -  NormalDistribution::getCdf(-$epsilon - $tAbs, 0.0, 1.0));
+            + (($epsilon - $t) * NormalDistribution::getPdf($epsilon - $tAbs, 0.0, 1.0) + ($epsilon + $tAbs) * NormalDistribution::getPdf($epsilon + $tAbs, 0.0, 1.0))
+                / (NormalDistribution::getCdf($epsilon - $tAbs, 0.0, 1.0) - NormalDistribution::getCdf(-$epsilon - $tAbs, 0.0, 1.0));
     }
 
-    private function buildRatingLayer()
+    private function buildRatingLayer() : void
     {
-
     }
 
-    private function buildPerformanceLayer()
+    private function buildPerformanceLayer() : void
     {
-
     }
 
-    private function buildTeamPerformanceLayer()
+    private function buildTeamPerformanceLayer() : void
     {
-
     }
 
-    private function buildTruncLayer()
+    private function buildTruncLayer() : void
     {
-
     }
 
     private function factorGraphBuilders()
@@ -191,44 +186,37 @@ class TrueSkill
         // Trunc layer
 
         return [
-            'rating_layer' => $ratingLayer,
-            'performance_layer' => $ratingLayer,
+            'rating_layer'           => $ratingLayer,
+            'performance_layer'      => $ratingLayer,
             'team_performance_layer' => $ratingLayer,
-            'trunc_layer' => $ratingLayer,
+            'trunc_layer'            => $ratingLayer,
         ];
     }
 
-    public function rating()
+    public function rating() : void
     {
         // Start values
-        $mu = 25;
+        $mu    = 25;
         $sigma = $mu / 3;
-        $beta = $sigma / 2;
-        $tau = $sigma / 100;
+        $beta  = $sigma / 2;
+        $tau   = $sigma / 100;
         $Pdraw = 0.1;
 
         $alpha = 0.25;
 
         // Partial update
         $sigmaPartial = $sigmaOld * $sigmaNew / \sqrt($alpha * $sigmaOld * $sigmaOld - ($alpha - 1) * $sigmaNew * $sigmaNew);
-        $muPartial = $muOld * ($alpha - 1) * $sigmaNew * $sigmaNew - $muNew * $alpha * $sigmaOld * $sigmaOld
+        $muPartial    = $muOld * ($alpha - 1) * $sigmaNew * $sigmaNew - $muNew * $alpha * $sigmaOld * $sigmaOld
             / (($alpha - 1) * $sigmaNew * $sigmaNew - $alpha * $sigmaOld * $sigmaOld);
-
 
         // New
         $tau = $pi * $mu;
 
-        $P = NormalDistribution::getCdf(($s1 - $s2) / (\sqrt(2) * $beta));
+        $P     = NormalDistribution::getCdf(($s1 - $s2) / (\sqrt(2) * $beta));
         $Delta = $alpha * $beta * \sqrt($pi) * (($y + 1) / 2 - $P);
 
         $K = NormalDistribution::getCdf();
 
-
-
-
-
         $pi = 1 / ($sigma * $sigma);
     }
-
-
 }

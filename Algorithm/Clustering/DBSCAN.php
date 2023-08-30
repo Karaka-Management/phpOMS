@@ -141,7 +141,7 @@ final class DBSCAN
     {
         $this->clusters[$c][]    = $point;
         $this->clusteredPoints[] = $point;
-        $nPoint                  = reset($neighbors);
+        $nPoint                  = \reset($neighbors);
 
         while ($nPoint) {
             $neighbors2 = $this->findNeighbors($nPoint, $epsilon);
@@ -159,7 +159,7 @@ final class DBSCAN
                 $this->clusteredPoints[] = $nPoint;
             }
 
-            $nPoint = next($neighbors);
+            $nPoint = \next($neighbors);
         }
     }
 
@@ -242,7 +242,7 @@ final class DBSCAN
             if (Polygon::isPointInPolygon(
                     [
                         'x' => \reset($point->coordinates),
-                        'y' => \end($point->coordinates)
+                        'y' => \end($point->coordinates),
                     ],
                     $hull
                 ) <= 0

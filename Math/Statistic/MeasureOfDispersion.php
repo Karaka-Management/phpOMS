@@ -264,7 +264,7 @@ final class MeasureOfDispersion
      *
      * @return float
      *
-     * @throws ZeroDivisionException     This exception is thrown if the size of the x array is less than 2
+     * @throws ZeroDivisionException This exception is thrown if the size of the x array is less than 2
      *
      * @since 1.0.0
      */

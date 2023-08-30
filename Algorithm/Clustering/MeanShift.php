@@ -160,7 +160,7 @@ final class MeanShift
 
         // @todo create an array of noisePoints like in the DBSCAN. That array can be empty or not depending on the bandwidth defined
 
-        $this->clusters = $this->groupPoints($shiftPoints);
+        $this->clusters       = $this->groupPoints($shiftPoints);
         $this->clusterCenters = $shiftPoints;
     }
 
@@ -215,8 +215,8 @@ final class MeanShift
     private function groupPoints(array $points) : array
     {
         $groupAssignment = [];
-        $groups = [];
-        $groupIndex = 0;
+        $groups          = [];
+        $groupIndex      = 0;
 
         foreach ($points as $point) {
             $nearestGroupIndex = $this->findNearestGroup($point, $groups);

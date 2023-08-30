@@ -65,7 +65,7 @@ final class Kernels2D
     public static function triangularKernel(float $distance, float $bandwidth) : float
     {
         return \abs($distance) <= $bandwidth / 2
-            ? 1 - abs($distance) / ($bandwidth / 2)
+            ? 1 - \abs($distance) / ($bandwidth / 2)
             : 0.0;
     }
 
