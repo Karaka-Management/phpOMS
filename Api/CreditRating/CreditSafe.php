@@ -51,7 +51,7 @@ final class CreditSafe implements CreditRatingInterface
         $response = Rest::request($request);
 
         return $response->header->status === 200
-            ? ($response->get('token') ?? '')
+            ? ($response->getDataString('token') ?? '')
             : '';
     }
 
@@ -212,7 +212,7 @@ final class CreditSafe implements CreditRatingInterface
 
         $response = Rest::request($request);
 
-        return $response->get('orderID') ?? '';
+        return $response->getDataString('orderID') ?? '';
     }
 
     /**

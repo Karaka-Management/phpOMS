@@ -312,13 +312,17 @@ final class ImageUtils
                 $color1Avg = self::getAverageColor($src1, $i, $j, $imageDim2[0], $imageDim2[1], $diffArea);
                 $color2Avg = self::getAverageColor($src2, $i, $j, $newDim[0], $newDim[1], $diffArea);
 
-                $color1 = \imagecolorat($src1, $i, $j);
+                //$color1 = \imagecolorat($src1, $i, $j);
                 $color2 = \imagecolorat($src2, $i, $j);
 
                 if (\abs($color1Avg - $color2Avg) / $color1Avg > 0.05 && $color1Avg > 0 && $color2Avg > 0) {
                     ++$difference;
 
                     if ($diff === 0) {
+                        if ($color2 === false) {
+                            continue;
+                        }
+
                         /** @var \GdImage $dst */
                         \imagesetpixel($dst, $i, $j, $color2);
                     } elseif ($diff === 1) {

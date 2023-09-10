@@ -107,12 +107,12 @@ final class MetricsND
      */
     public static function cosine(array $a, array $b) : float
     {
-        if (\count($a) !== \count($b)) {
+        if (($length = \count($a)) !== \count($b)) {
             throw new InvalidDimensionException(\count($a) . 'x' . \count($b));
         }
 
         $dotProduct = 0;
-        for ($i = 0; $i < \count($a); ++$i) {
+        for ($i = 0; $i < $length; ++$i) {
             $dotProduct += $a[$i] * $b[$i];
         }
 
@@ -128,7 +128,7 @@ final class MetricsND
         }
         $magnitude2 = \sqrt($sumOfSquares);
 
-        if ($magnitude1 === 0 || $magnitude2 === 0) {
+        if ($magnitude1 == 0 || $magnitude2 == 0) {
             return \PHP_FLOAT_MAX;
         }
 

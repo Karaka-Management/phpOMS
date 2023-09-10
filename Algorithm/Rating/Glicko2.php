@@ -123,13 +123,13 @@ final class Glicko2
 
         // Step 1:
         $g = [];
-        foreach ($oRd as $rd) {
-            $g[] = 1 / \sqrt(1 + 3 * $rd * $rd / (\M_PI * \M_PI));
+        foreach ($oRd as $idx => $rd) {
+            $g[$idx] = 1 / \sqrt(1 + 3 * $rd * $rd / (\M_PI * \M_PI));
         }
 
         $E = [];
         foreach ($oElo as $idx => $elo) {
-            $E[] = 1 / (1 + \exp(-$g[$idx] * ($elo - $elo)));
+            $E[$idx] = 1 / (1 + \exp(-$g[$idx] * ($elo - $elo)));
         }
 
         $v = 0;

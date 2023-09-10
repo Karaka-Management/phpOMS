@@ -171,11 +171,15 @@ final class EventManager implements \Countable
      */
     public function triggerSimilar(string $group, string $id = '', mixed $data = null) : bool
     {
+        if (empty($this->callbacks)) {
+            return false;
+        }
+
         $groupIsRegex = \stripos($group, '/') === 0;
         $idIsRegex    = \stripos($id, '/') === 0;
 
         $groups = [];
-        foreach ($this->groups as $groupName => $value) {
+        foreach ($this->groups as $groupName => $_) {
             $groupNameIsRegex = \stripos($groupName, '/') === 0;
 
             if ($groupIsRegex) {
@@ -189,8 +193,8 @@ final class EventManager implements \Countable
             }
         }
 
-        foreach ($groups as $groupName => $groupValues) {
-            foreach ($this->groups[$groupName] as $idName => $value) {
+        foreach ($groups as $groupName => $_) {
+            foreach ($this->groups[$groupName] as $idName => $_2) {
                 $idNameIsRegex = \stripos($idName, '/') === 0;
 
                 if ($idIsRegex) {

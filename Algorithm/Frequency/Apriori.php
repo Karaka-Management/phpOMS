@@ -72,7 +72,7 @@ final class Apriori
      *
      * @param array<array> $sets Sets of a set (e.g. [[1,2,3,4], [1,2], [1]])
      *
-     * @return array<array>
+     * @return array
      *
      * @since 1.0.0
      */

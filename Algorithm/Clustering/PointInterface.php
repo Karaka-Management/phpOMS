@@ -18,8 +18,9 @@ namespace phpOMS\Algorithm\Clustering;
 /**
  * Point interface.
  *
- * @property int    $group Group
- * @property string $name  Name
+ * @property int    $group       Group
+ * @property string $name        Name
+ * @property array  $coordinates Coordinates
  *
  * @package phpOMS\Algorithm\Clustering;
  * @license OMS License 2.0

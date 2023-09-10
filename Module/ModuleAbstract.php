@@ -697,6 +697,8 @@ abstract class ModuleAbstract
      *
      * @return void
      *
+     * @todo find a way to offload this to the cli in a different process (same for other similar functions)
+     *
      * @since 1.0.0
      */
     protected function createModel(int $account, mixed $obj, string | \Closure $mapper, string $trigger, string $ip) : void
@@ -712,17 +714,18 @@ abstract class ModuleAbstract
             $mapper();
         }
 
-        $this->app->eventManager->triggerSimilar('POST:Module:' . $trigger, '',
-            [
-                $account,
-                null, $obj,
-                StringUtils::intHash(\is_string($mapper) ? $mapper : \get_class($mapper)), $trigger,
-                static::NAME,
-                (string) $id,
-                null,
-                $ip,
-            ]
-        );
+        $data = [
+            $account,
+            null, $obj,
+            StringUtils::intHash(\is_string($mapper) ? $mapper : \get_class($mapper)), $trigger,
+            static::NAME,
+            (string) $id,
+            null,
+            $ip,
+        ];
+
+        $this->app->moduleManager->get('Auditor', 'Api')->eventLogCreate(...$data);
+        $this->app->eventManager->triggerSimilar('POST:Module:' . $trigger, '', $data);
     }
 
     /**
@@ -756,17 +759,18 @@ abstract class ModuleAbstract
                 $mapper();
             }
 
-            $this->app->eventManager->triggerSimilar('POST:Module:' . $trigger, '',
-                [
-                    $account,
-                    null, $obj,
-                    StringUtils::intHash(\is_string($mapper) ? $mapper : \get_class($mapper)), $trigger,
-                    static::NAME,
-                    (string) $id,
-                    null,
-                    $ip,
-                ]
-            );
+            $data = [
+                $account,
+                null, $obj,
+                StringUtils::intHash(\is_string($mapper) ? $mapper : \get_class($mapper)), $trigger,
+                static::NAME,
+                (string) $id,
+                null,
+                $ip,
+            ];
+
+            $this->app->moduleManager->get('Auditor', 'Api')->eventLogCreate(...$data);
+            $this->app->eventManager->triggerSimilar('POST:Module:' . $trigger, '', $data);
         }
     }
 
@@ -801,17 +805,18 @@ abstract class ModuleAbstract
             $mapper();
         }
 
-        $this->app->eventManager->triggerSimilar('POST:Module:' . $trigger, '',
-            [
-                $account,
-                $old, $new,
-                StringUtils::intHash(\is_string($mapper) ? $mapper : \get_class($mapper)), $trigger,
-                static::NAME,
-                (string) $id,
-                null,
-                $ip,
-            ]
-        );
+        $data = [
+            $account,
+            $old, $new,
+            StringUtils::intHash(\is_string($mapper) ? $mapper : \get_class($mapper)), $trigger,
+            static::NAME,
+            (string) $id,
+            null,
+            $ip,
+        ];
+
+        $this->app->moduleManager->get('Auditor', 'Api')->eventLogUpdate(...$data);
+        $this->app->eventManager->triggerSimilar('POST:Module:' . $trigger, '', $data);
     }
 
     /**
@@ -844,17 +849,18 @@ abstract class ModuleAbstract
             $mapper();
         }
 
-        $this->app->eventManager->triggerSimilar('POST:Module:' . $trigger, '',
-            [
-                $account,
-                $obj,  null,
-                StringUtils::intHash(\is_string($mapper) ? $mapper : \get_class($mapper)), $trigger,
-                static::NAME,
-                (string) $id,
-                null,
-                $ip,
-            ]
-        );
+        $data = [
+            $account,
+            $obj,  null,
+            StringUtils::intHash(\is_string($mapper) ? $mapper : \get_class($mapper)), $trigger,
+            static::NAME,
+            (string) $id,
+            null,
+            $ip,
+        ];
+
+        $this->app->moduleManager->get('Auditor', 'Api')->eventLogDelete(...$data);
+        $this->app->eventManager->triggerSimilar('POST:Module:' . $trigger, '', $data);
     }
 
     /**
@@ -890,17 +896,19 @@ abstract class ModuleAbstract
 
         $this->app->eventManager->triggerSimilar('PRE:Module:' . $trigger, '', $rel1);
         $mapper::writer()->createRelationTable($field, \is_array($rel2) ? $rel2 : [$rel2], $rel1);
-        $this->app->eventManager->triggerSimilar('POST:Module:' . $trigger, '',
-            [
-                $account,
-                '', [$rel1 => $rel2],
-                StringUtils::intHash($mapper), $trigger,
-                static::NAME,
-                null,
-                null,
-                $ip,
-            ]
-        );
+
+        $data = [
+            $account,
+            '', [$rel1 => $rel2],
+            StringUtils::intHash($mapper), $trigger,
+            static::NAME,
+            null,
+            null,
+            $ip,
+        ];
+
+        $this->app->moduleManager->get('Auditor', 'Api')->eventLogRelationCreate(...$data);
+        $this->app->eventManager->triggerSimilar('POST:Module:' . $trigger, '', $data);
     }
 
     /**
@@ -928,16 +936,18 @@ abstract class ModuleAbstract
 
         $this->app->eventManager->triggerSimilar('PRE:Module:' . $trigger, '', $rel1);
         $mapper::remover()->deleteRelationTable($field, \is_array($rel2) ? $rel2 : [$rel2], $rel1);
-        $this->app->eventManager->triggerSimilar('POST:Module:' . $trigger, '',
-            [
-                $account,
-                [$rel1 => $rel2], '',
-                StringUtils::intHash($mapper), $trigger,
-                static::NAME,
-                null,
-                null,
-                $ip,
-            ]
-        );
+
+        $data = [
+            $account,
+            [$rel1 => $rel2], '',
+            StringUtils::intHash($mapper), $trigger,
+            static::NAME,
+            null,
+            null,
+            $ip,
+        ];
+
+        $this->app->moduleManager->get('Auditor', 'Api')->eventLogRelationDelete(...$data);
+        $this->app->eventManager->triggerSimilar('POST:Module:' . $trigger, '', $data);
     }
 }

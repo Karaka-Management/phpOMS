@@ -166,8 +166,8 @@ final class DBSCAN
     /**
      * Find neighbors of a point
      *
-     * @param PointInterface $point  Base point for potential neighbors
-     * @param float          $epsion Max distance to neighbor
+     * @param PointInterface $point   Base point for potential neighbors
+     * @param float          $epsilon Max distance to neighbor
      *
      * @return array
      *
@@ -210,6 +210,7 @@ final class DBSCAN
             }
         }
 
+        /** @var float[] $distances */
         return $distances;
     }
 
@@ -228,10 +229,7 @@ final class DBSCAN
             foreach ($this->clusters as $c => $cluster) {
                 $points = [];
                 foreach ($cluster as $p) {
-                    $points[] = [
-                        'x' => \reset($p->coordinates),
-                        'y' => \end($p->coordinates),
-                    ];
+                    $points[] = $p->coordinates;
                 }
 
                 $this->convexHulls[$c] = MonotoneChain::createConvexHull($points);
@@ -239,14 +237,7 @@ final class DBSCAN
         }
 
         foreach ($this->convexHulls as $c => $hull) {
-            if (Polygon::isPointInPolygon(
-                    [
-                        'x' => \reset($point->coordinates),
-                        'y' => \end($point->coordinates),
-                    ],
-                    $hull
-                ) <= 0
-            ) {
+            if (Polygon::isPointInPolygon($point->coordinates, $hull) <= 0) {
                 return $c;
             }
         }

@@ -42,6 +42,8 @@ class HtmlFormatter
         $dom->preserveWhiteSpace = false;
         $dom->formatOutput       = true;
 
-        return $dom->saveXML($dom->documentElement);
+        $formatted = $dom->saveXML($dom->documentElement);
+
+        return $formatted === false ? '' : $formatted;
     }
 }

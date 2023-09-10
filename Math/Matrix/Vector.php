@@ -99,7 +99,7 @@ final class Vector extends Matrix
      */
     public function cosine(self $v) : float
     {
-        $dotProduct = 0;
+        $dotProduct = 0.0;
         for ($i = 0; $i < $this->m; ++$i) {
             $dotProduct += $this->matrix[$i][0] * $v[$i];
         }
@@ -110,7 +110,7 @@ final class Vector extends Matrix
         }
         $magnitude1 = \sqrt($sumOfSquares);
 
-        $sumOfSquares = 0;
+        $sumOfSquares = 0.0;
         foreach ($v->matrix as $value) {
             $sumOfSquares += $value[0] * $value[0];
         }

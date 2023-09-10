@@ -61,7 +61,7 @@ final class Glicko1
      *
      * @see calculateC();
      *
-     * @var int
+     * @var float
      * @since 1.0.0
      */
     public float $DEFAULT_C = 34.6;
@@ -127,7 +127,6 @@ final class Glicko1
     ) : array
     {
         // Step 1:
-        $s   = [];
         $E   = [];
         $gRD = [];
 
@@ -145,8 +144,8 @@ final class Glicko1
         // Step 2:
         foreach ($oElo as $id => $e) {
             $gRD_t = 1 / (\sqrt(1 + 3 * self::Q * self::Q * $oRd[$id] * $oRd[$id] / (\M_PI * \M_PI)));
-            $gRD[] = $gRD_t;
-            $E[]   = 1 / (1 + \pow(10, $gRD_t * ($elo - $e) / -400));
+            $gRD[$id] = $gRD_t;
+            $E[$id]   = 1 / (1 + \pow(10, $gRD_t * ($elo - $e) / -400));
         }
 
         $d = 0;

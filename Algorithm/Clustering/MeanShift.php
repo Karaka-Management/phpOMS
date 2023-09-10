@@ -239,8 +239,8 @@ final class MeanShift
     /**
      * Find the closest cluster/group of a point
      *
-     * @param PointInterface   $point Point to find the cluster for
-     * @param PointInterface[] $group Clusters
+     * @param PointInterface          $point  Point to find the cluster for
+     * @param array<PointInterface[]> $groups Clusters
      *
      * @return int
      *

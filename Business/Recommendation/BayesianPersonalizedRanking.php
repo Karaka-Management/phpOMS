@@ -20,8 +20,8 @@ namespace phpOMS\Business\Recommendation;
  * @package phpOMS\Business\Recommendation
  * @license OMS License 2.0
  * @link    https://jingga.app
- * @since   1.0.0
  * @see     https://arxiv.org/ftp/arxiv/papers/1205/1205.2618.pdf
+ * @since   1.0.0
  *
  * @todo Implement, current implementation probably wrong
  */
@@ -40,13 +40,15 @@ final class BayesianPersonalizedRanking
     // num_factors determines the dimensionality of the latent factor space.
     // learning_rate controls the step size for updating the latent factors during optimization.
     // regularization prevents overfitting by adding a penalty for large parameter values.
-    public function __construct(int $numFactors, float $learningRate, float $regularization) {
+    public function __construct(int $numFactors, float $learningRate, float $regularization)
+    {
         $this->numFactors     = $numFactors;
         $this->learningRate   = $learningRate;
         $this->regularization = $regularization;
     }
 
-    private function generateRandomFactors() {
+    private function generateRandomFactors()
+    {
         $factors = [];
         for ($i = 0; $i < $this->numFactors; ++$i) {
             $factors[$i] = \mt_rand() / \mt_getrandmax();
@@ -67,7 +69,8 @@ final class BayesianPersonalizedRanking
         return $score;
     }
 
-    public function updateFactors($userId, $posItemId, $negItemId) : void {
+    public function updateFactors($userId, $posItemId, $negItemId) : void
+    {
         if (!isset($this->userFactors[$userId])) {
             $this->userFactors[$userId] = $this->generateRandomFactors();
         }

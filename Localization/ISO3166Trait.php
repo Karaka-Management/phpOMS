@@ -35,6 +35,7 @@ trait ISO3166Trait
      */
     public static function getBy2Code(string $code) : mixed
     {
+        /** @var string $code3 */
         $code3 = ISO3166TwoEnum::getName($code);
 
         return self::getByName($code3);

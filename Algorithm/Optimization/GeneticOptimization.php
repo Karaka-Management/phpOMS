@@ -143,8 +143,8 @@ class GeneticOptimization
 
         $fitnesses = [];
 
-        foreach ($population as $parameters) {
-            $fitnesses[$population] = ($fitness)($parameters);
+        foreach ($population as $key => $parameters) {
+            $fitnesses[$key] = ($fitness)($parameters);
         }
 
         \asort($fitnesses);

@@ -81,7 +81,7 @@ class TabuSearch
 
         for ($i = 0; $i < $iterations; ++$i) {
             $neighbors = [];
-            for ($i = 0; $i < $tabuListSize; ++$i) {
+            for ($j = 0; $j < $tabuListSize; ++$j) {
                 $neighbor    = ($neighbor)($currentSolution);
                 $neighbors[] = $neighbor;
             }

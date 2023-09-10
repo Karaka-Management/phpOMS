@@ -20,8 +20,8 @@ namespace phpOMS\Algorithm\Rating;
  * @package phpOMS\Algorithm\Rating
  * @license OMS License 2.0
  * @link    https://jingga.app
- * @since   1.0.0
  * @see     https://en.wikipedia.org/wiki/Bradley%E2%80%93Terry_model
+ * @since   1.0.0
  */
 final class BradleyTerry
 {

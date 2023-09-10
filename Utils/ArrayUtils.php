@@ -319,7 +319,9 @@ final class ArrayUtils
             return null;
         }
 
-        return \trim($args[(int) $key + 1], '" ');
+        $value = $args[(int) $key + 1];
+
+        return \is_string($value) ? \trim($value, '" ') : $value;
     }
 
     /**
