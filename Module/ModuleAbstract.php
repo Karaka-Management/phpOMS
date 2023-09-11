@@ -98,6 +98,14 @@ abstract class ModuleAbstract
     protected ApplicationAbstract $app;
 
     /**
+     * Is module active.
+     *
+     * @var bool
+     * @since 1.0.0
+     */
+    public bool $active = true;
+
+    /**
      * Constructor.
      *
      * @param null|ApplicationAbstract $app Application instance
