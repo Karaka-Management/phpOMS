@@ -255,9 +255,9 @@ final class ReadMapper extends DataMapperAbstract
      */
     public function executeGetAll(Builder $query = null) : array
     {
-         $result = $this->executeGet($query);
+        $result = $this->executeGet($query);
 
-        if (\is_object($result) && \stripos(\get_class($result), '\Null') !== false) {
+        if (\is_object($result) && \stripos(\get_class($result), 'Null') < 2) {
             return [];
         }
 
