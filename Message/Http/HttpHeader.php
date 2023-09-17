@@ -145,6 +145,41 @@ final class HttpHeader extends HeaderAbstract
         return $_SERVER['SERVER_PROTOCOL'] ?? 'HTTP/1.1';
     }
 
+    public function getReferer() : string
+    {
+        return $_SERVER['HTTP_REFERER'] ?? '';
+    }
+
+    public function getRequestTime() : int
+    {
+        return (int) ($_SERVER['REQUEST_TIME'] ?? \time());
+    }
+
+    public function getRequestIp() : string
+    {
+        return $_SERVER['HTTP_X_FORWARDED_FOR'] ?? $_SERVER['REMOTE_ADDR'] ?? '';
+    }
+
+    public function getBrowserName() {
+        $userAgent = $_SERVER['HTTP_USER_AGENT'];
+
+        if (\strpos($userAgent, 'Opera') !== false || \strpos($userAgent, 'OPR/') !== false) {
+            return 'Opera';
+        } elseif (\strpos($userAgent, 'Edge') !== false) {
+            return 'Microsoft Edge';
+        } elseif (\strpos($userAgent, 'Chrome') !== false) {
+            return 'Google Chrome';
+        } elseif (\strpos($userAgent, 'Safari') !== false) {
+            return 'Safari';
+        } elseif (\strpos($userAgent, 'Firefox') !== false) {
+            return 'Mozilla Firefox';
+        } elseif (\strpos($userAgent, 'MSIE') !== false || \strpos($userAgent, 'Trident/7') !== false) {
+            return 'Internet Explorer';
+        }
+
+        return 'Unknown';
+    }
+
     /**
      * Get all headers for apache and nginx
      *

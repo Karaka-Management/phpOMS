@@ -108,7 +108,7 @@ final class HttpUri implements UriInterface
      * @var string
      * @since 1.0.0
      */
-    private string $path;
+    public string $path;
 
     /**
      * Uri path with offset.

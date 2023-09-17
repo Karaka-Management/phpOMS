@@ -24,6 +24,8 @@ namespace phpOMS\Uri;
  * @property array  $fragments Fragments
  * @property string $user      User
  * @property string $pass      Password
+ * @property string $uri       Uri
+ * @property string $path      Path
  *
  * @package phpOMS\Uri
  * @license OMS License 2.0
