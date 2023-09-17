@@ -235,8 +235,8 @@ final class ReadMapper extends DataMapperAbstract
         } catch (\Throwable $t) {
             $results = false;
 
-            \var_dump($q = $query->toSql());
-            \var_dump($t->getMessage());
+            $q = $query->toSql(); // @debug
+            $m = $t->getMessage(); // @debug
         }
 
         return $results === false ? [] : $results;

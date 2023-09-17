@@ -169,9 +169,9 @@ final class WriteMapper extends DataMapperAbstract
             return $objId;
         } catch (\Throwable $t) {
             // @codeCoverageIgnoreStart
-            \var_dump($t->getMessage());
-            \var_dump($a = $query->toSql());
-            \var_dump(\debug_backtrace());
+            $a = $t->getMessage(); // @debug
+            $b = $query->toSql(); // @debug
+            $c = \debug_backtrace(); // @debug
 
             return -1;
             // @codeCoverageIgnoreEND
@@ -396,9 +396,9 @@ final class WriteMapper extends DataMapperAbstract
             }
         } catch (\Throwable $t) {
             // @codeCoverageIgnoreStart
-            \var_dump($t->getMessage());
-            \var_dump($relQuery->toSql());
-            \var_dump(\debug_backtrace());
+            $a = $t->getMessage(); // @debug
+            $b = $relQuery->toSql(); // @debug
+            $c = \debug_backtrace(); // @debug
             // @codeCoverageIgnoreEnd
         }
     }
