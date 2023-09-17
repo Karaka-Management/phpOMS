@@ -60,7 +60,7 @@ final class HttpUri implements UriInterface
      * @var string
      * @since 1.0.0
      */
-    private string $uri;
+    public string $uri;
 
     /**
      * Uri scheme.

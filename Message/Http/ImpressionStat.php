@@ -12,7 +12,7 @@
  */
 declare(strict_types=1);
 
-namespace phpOMS\Message\Statistic;
+namespace phpOMS\Message\Http;
 
 use phpOMS\Localization\ISO3166TwoEnum;
 use phpOMS\Localization\ISO639x1Enum;
@@ -34,9 +34,7 @@ class ImpressionStat
 
     public string $country = ISO3166TwoEnum::_XXX;
 
-    public int $datetime = 0;
-
-    public string $browser = '';
+    public \DateTime $datetime;
 
     public string $host = '';
 
@@ -56,7 +54,7 @@ class ImpressionStat
         $this->host      = $request->uri->host;
         $this->path      = \substr($request->uri->path, 0, 255);
         $this->address   = $request->header->getRequestIp();
-        $this->datetime  = $request->header->getRequestTime();
+        $this->datetime  = new \DateTime('@' . $request->header->getRequestTime());
         $this->referer   = \substr($request->header->getReferer(), 0, 255);
         $this->userAgent = $request->header->getBrowserName();
     }
@@ -65,8 +63,8 @@ class ImpressionStat
     {
         return [
             'address'  => $this->address,
-            'date'     => \date('d-m-y', $this->datetime),
-            'hour'     => \date('H', $this->datetime),
+            'date'     => $this->datetime->format('Y-m-d'),
+            'hour'     => $this->datetime->format('H'),
             'host'     => $this->host,
             'path'     => $this->path,
             'uri'      => $this->uri,
@@ -74,7 +72,7 @@ class ImpressionStat
             'language' => $this->language,
             'country'  => $this->country,
             'referer'  => $this->referer,
-            'datetime' => $this->datetime,
+            'datetime' => $this->datetime->getTimestamp(),
         ];
     }
 }
