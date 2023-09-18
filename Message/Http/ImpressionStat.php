@@ -46,6 +46,8 @@ class ImpressionStat
 
     public string $userAgent = '';
 
+    public array $meta = [];
+
     public function __construct(HttpRequest $request)
     {
         $this->language  = $request->header->l11n->language;
@@ -73,6 +75,7 @@ class ImpressionStat
             'country'  => $this->country,
             'referer'  => $this->referer,
             'datetime' => $this->datetime->getTimestamp(),
+            'meta'     => $this->meta,
         ];
     }
 }

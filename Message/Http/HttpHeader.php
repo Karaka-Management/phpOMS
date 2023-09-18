@@ -165,7 +165,7 @@ final class HttpHeader extends HeaderAbstract
 
         if (\strpos($userAgent, 'Opera') !== false || \strpos($userAgent, 'OPR/') !== false) {
             return 'Opera';
-        } elseif (\strpos($userAgent, 'Edge') !== false) {
+        } elseif (\strpos($userAgent, 'Edge') !== false || \strpos($userAgent, 'Edg/') !== false) {
             return 'Microsoft Edge';
         } elseif (\strpos($userAgent, 'Chrome') !== false) {
             return 'Google Chrome';
