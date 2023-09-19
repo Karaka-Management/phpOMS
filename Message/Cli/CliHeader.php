@@ -159,6 +159,11 @@ final class CliHeader extends HeaderAbstract
         }
     }
 
+    public function getRequestTime() : int
+    {
+        return $this->timestamp;
+    }
+
     /**
      * Generate predefined header.
      *

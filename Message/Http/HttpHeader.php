@@ -152,7 +152,7 @@ final class HttpHeader extends HeaderAbstract
 
     public function getRequestTime() : int
     {
-        return (int) ($_SERVER['REQUEST_TIME'] ?? \time());
+        return (int) ($_SERVER['REQUEST_TIME'] ?? $this->timestamp);
     }
 
     public function getRequestIp() : string

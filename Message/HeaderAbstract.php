@@ -58,6 +58,8 @@ abstract class HeaderAbstract
      */
     public int $status = 0;
 
+    public int $timestamp = 0;
+
     /**
      * Constructor.
      *
@@ -66,6 +68,7 @@ abstract class HeaderAbstract
     public function __construct()
     {
         $this->l11n = new Localization();
+        $this->timestamp = \time();
     }
 
     /**
@@ -146,6 +149,8 @@ abstract class HeaderAbstract
      * @since 1.0.0
      */
     abstract public function has(string $key) : bool;
+
+    abstract public function getRequestTime() : int;
 
     /**
      * Push all headers.
