@@ -52,9 +52,9 @@ final class Elo
     /**
      * Calculate the elo rating
      *
-     * @param int   $elo  Current player elo
-     * @param int[] $oElo Current elo of all opponents
-     * @param int[] $s    Match results against the opponents (1 = victor, 0 = loss, 0.5 = draw)
+     * @param int     $elo  Current player elo
+     * @param int[]   $oElo Current elo of all opponents
+     * @param float[] $s    Match results against the opponents (1 = victor, 0 = loss, 0.5 = draw)
      *
      * @return array{elo:int}
      *
@@ -67,11 +67,11 @@ final class Elo
             $expected = 1 / (1 + 10 ** (($o - $elo) / 400));
             $r        = $this->K * ($s[$idx] - $expected);
 
-            $eloNew += $r;
+            $eloNew += (int) \round($r);
         }
 
         return [
-            'elo' => (int) \max((int) $eloNew, $this->MIN_ELO),
+            'elo' => (int) \max($eloNew, $this->MIN_ELO),
         ];
     }
 }

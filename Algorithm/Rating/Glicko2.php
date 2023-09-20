@@ -31,6 +31,16 @@ use phpOMS\Math\Solver\Root\Bisection;
 final class Glicko2
 {
     /**
+     * Glicko scale factor
+     *
+     * @latex Q = 400 / ln(10)
+     *
+     * @var int
+     * @since 1.0.0
+     */
+    private const Q = 173.7177927613;
+
+    /**
      * Constraint for the volatility over time (smaller = stronger constraint)
      *
      * @var float
@@ -90,8 +100,8 @@ final class Glicko2
      * @param int     $elo    Current player "elo"
      * @param int     $rdOld  Current player deviation (RD)
      * @param float   $volOld Last match date used to calculate the time difference (can be days, months, ... depending on your match interval)
-     * @param float[] $s      Match results (1 = victor, 0 = loss, 0.5 = draw)
      * @param int[]   $oElo   Opponent "elo"
+     * @param float[] $s      Match results (1 = victor, 0 = loss, 0.5 = draw)
      * @param int[]   $oRd    Opponent deviation (RD)
      *
      * @return array{elo:int, rd:int, vol:float}
@@ -102,23 +112,23 @@ final class Glicko2
         int $elo = 1500,
         int $rdOld = 50,
         float $volOld = 0.06,
-        array $s = [],
         array $oElo = [],
+        array $s = [],
         array $oRd = []
     ) : array
     {
         $tau = $this->tau;
 
         // Step 0:
-        $rdOld = $rdOld / 173.7178;
-        $elo   = ($elo - $this->DEFAULT_ELO) / 173.7178;
+        $rdOld = $rdOld / self::Q;
+        $elo   = ($elo - $this->DEFAULT_ELO) / self::Q;
 
         foreach ($oElo as $idx => $value) {
-            $oElo[$idx] = ($value - $this->DEFAULT_ELO) / 173.7178;
+            $oElo[$idx] = ($value - $this->DEFAULT_ELO) / self::Q;
         }
 
         foreach ($oRd as $idx => $value) {
-            $oRd[$idx] = $value / 173.7178;
+            $oRd[$idx] = $value / self::Q;
         }
 
         // Step 1:
@@ -128,8 +138,8 @@ final class Glicko2
         }
 
         $E = [];
-        foreach ($oElo as $idx => $elo) {
-            $E[$idx] = 1 / (1 + \exp(-$g[$idx] * ($elo - $elo)));
+        foreach ($oElo as $idx => $oe) {
+            $E[$idx] = 1 / (1 + \exp(-$g[$idx] * ($elo - $oe)));
         }
 
         $v = 0;
@@ -159,8 +169,8 @@ final class Glicko2
         $r  = $elo + $RD ** 2 * $tDelta;
 
         // Undo step 0:
-        $RD = 173.7178 * $RD;
-        $r  = 173.7178 * $r + $this->DEFAULT_ELO;
+        $RD = self::Q * $RD;
+        $r  = self::Q * $r + $this->DEFAULT_ELO;
 
         return [
             'elo' => (int) \max($r, $this->MIN_ELO),

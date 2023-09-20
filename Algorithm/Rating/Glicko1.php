@@ -108,8 +108,8 @@ final class Glicko1
      * @param int     $rdOld         Current player deviation (RD)
      * @param int     $lastMatchDate Last match date used to calculate the time difference (can be days, months, ... depending on your match interval)
      * @param int     $matchDate     Match date (usually day)
-     * @param float[] $s             Match results (1 = victor, 0 = loss, 0.5 = draw)
      * @param int[]   $oElo          Opponent "elo"
+     * @param float[] $s             Match results (1 = victor, 0 = loss, 0.5 = draw)
      * @param int[]   $oRd           Opponent deviation (RD)
      *
      * @return array{elo:int, rd:int}
@@ -121,8 +121,8 @@ final class Glicko1
         int $rdOld = 50,
         int $lastMatchDate = 0,
         int $matchDate = 0,
-        array $s = [],
         array $oElo = [],
+        array $s = [],
         array $oRd = []
     ) : array
     {
