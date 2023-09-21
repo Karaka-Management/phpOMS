@@ -3161,7 +3161,7 @@ class Markdown
             $id = strtolower($matches[1]);
 
             $Data = array(
-                'url' => $matches[2],
+                'url' => UriFactory::build($matches[2]),
                 'title' => isset($matches[3]) ? $matches[3] : null,
             );
 
