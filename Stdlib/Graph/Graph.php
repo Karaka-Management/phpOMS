@@ -583,7 +583,7 @@ class Graph
 
         while (!empty($stack)) {
             $cNode = \array_pop($stack);
-            if (isset($visited[$cNode->getId()]) && $visited[$cNode->getId()]) {
+            if (isset($visited[$cNode->getId()])) {
                 continue;
             }
 
@@ -592,7 +592,7 @@ class Graph
 
             $neighbors = $cNode->getNeighbors();
             foreach ($neighbors as $neighbor) {
-                if (!isset($visited[$neighbor->getId()]) || !$visited[$neighbor->getId()]) {
+                if (!isset($visited[$neighbor->getId()])) {
                     $stack[] = $neighbor;
                 }
             }

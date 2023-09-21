@@ -48,7 +48,8 @@ final class KmeansTest extends \PHPUnit\Framework\TestCase
                 new Point([3.5, 4.5], '7'),
             ];
 
-            $kmeans = new Kmeans($points, 2);
+            $kmeans = new Kmeans();
+            $kmeans->generateClusters($points, 2);
 
             if ($kmeans->cluster($points[0])->group === 0
                 && $kmeans->cluster($points[1])->group === 0

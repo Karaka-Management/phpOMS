@@ -311,17 +311,21 @@ final class ArrayUtils
      */
     public static function getArg(string $id, array $args) : mixed
     {
+        $key = 0;
         if (\is_numeric($id)) {
-            return $args[(int) $id] ?? null;
+            $key = ((int) $id) - 1;
+        } else {
+            if (($key = \array_search($id, $args)) === false || $key === \count($args) - 1) {
+                return null;
+            }
+
+            $key  = (int) $key;
+            $args = \array_values($args);
         }
 
-        if (($key = \array_search($id, $args)) === false || $key === \count($args) - 1) {
-            return null;
-        }
+        $value = $args[$key + 1] ?? null;
 
-        $value = $args[(int) $key + 1];
-
-        return \is_string($value) ? \trim($value, '" ') : $value;
+        return \is_string($value) ? \trim($value, '\'" ') : $value;
     }
 
     /**
@@ -336,7 +340,6 @@ final class ArrayUtils
      */
     public static function hasArg(string $id, array $args) : int
     {
-        $t = \array_search($id, $args);
         return ($key = \array_search($id, $args)) === false
             ? -1
             : (int) $key;

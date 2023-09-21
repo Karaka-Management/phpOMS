@@ -106,7 +106,9 @@ final class JWT
             return [];
         }
 
-        return \json_decode(Base64Url::decode($explode[0]), true);
+        $json = \json_decode(Base64Url::decode($explode[0]), true);
+
+        return \is_array($json) ? $json : [];
     }
 
     /**
@@ -126,7 +128,9 @@ final class JWT
             return [];
         }
 
-        return \json_decode(Base64Url::decode($explode[1]), true);
+        $json = \json_decode(Base64Url::decode($explode[1]), true);
+
+        return \is_array($json) ? $json : [];
     }
 
     /**
@@ -150,6 +154,11 @@ final class JWT
         try {
             $header    = \json_decode(Base64Url::decode($explode[0]), true);
             $payload   = \json_decode(Base64Url::decode($explode[1]), true);
+
+            if (!\is_array($header) || !\is_array($payload)) {
+                return false;
+            }
+
             $signature = self::createSignature($secret, $header, $payload);
 
             return \hash_equals($signature, $explode[2]);

@@ -68,7 +68,7 @@ final class DBSCAN
      *
      * Array of points assigned to a cluster
      *
-     * @var array<int, array{x:float, y:float}>
+     * @var array<int, array>
      * @since 1.0.0
      */
     private array $clusters = [];
@@ -232,6 +232,7 @@ final class DBSCAN
                     $points[] = $p->coordinates;
                 }
 
+                // @todo: this is only good for 2D. Fix this for ND.
                 $this->convexHulls[$c] = MonotoneChain::createConvexHull($points);
             }
         }

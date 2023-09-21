@@ -73,6 +73,7 @@ class LanguageResult implements \ArrayAccess, \IteratorAggregate, \JsonSerializa
      */
     public function offsetSet($offset, $value) : void
     {
+        /** @var float|int $value */
         if ($offset === null) {
             $this->result[] = $value;
         } else {

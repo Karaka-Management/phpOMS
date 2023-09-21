@@ -697,11 +697,11 @@ class Matrix implements \ArrayAccess, \Iterator
      *
      * @param self $B Matrix
      *
-     * @return self
+     * @return int|float|self
      *
      * @since 1.0.0
      */
-    public function dot(self $B) : self
+    public function dot(self $B) : int|float|self
     {
         $value1 = $this->matrix;
         $value2 = $B->getMatrix();
@@ -731,6 +731,8 @@ class Matrix implements \ArrayAccess, \Iterator
                     $result[$i][$c] = $temp;
                 }
             }
+
+            return self::fromArray($result);
         } elseif (!$isMatrix1 && !$isMatrix2) {
             if ($m1 !== $m2) {
                 throw new InvalidDimensionException($m1 . 'x' . $m2);
@@ -742,6 +744,8 @@ class Matrix implements \ArrayAccess, \Iterator
                 /** @var array $value2 */
                 $result += $value1[$i] * $value2[$i];
             }
+
+            return $result;
         } elseif ($isMatrix1 && !$isMatrix2) {
             $result = [];
             for ($i = 0; $i < $m1; ++$i) { // Row of 1
@@ -754,11 +758,11 @@ class Matrix implements \ArrayAccess, \Iterator
 
                 $result[$i] = $temp;
             }
-        } else {
-            throw new \InvalidArgumentException();
+
+            return self::fromArray($result);
         }
 
-        return self::fromArray($result);
+        throw new \InvalidArgumentException();
     }
 
     /**

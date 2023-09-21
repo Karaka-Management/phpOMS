@@ -101,7 +101,7 @@ final class Vector extends Matrix
     {
         $dotProduct = 0.0;
         for ($i = 0; $i < $this->m; ++$i) {
-            $dotProduct += $this->matrix[$i][0] * $v[$i];
+            $dotProduct += $this->matrix[$i][0] * $v[$i][0];
         }
 
         $sumOfSquares = 0;
@@ -116,7 +116,7 @@ final class Vector extends Matrix
         }
         $magnitude2 = \sqrt($sumOfSquares);
 
-        if ($magnitude1 === 0 || $magnitude2 === 0) {
+        if ($magnitude1 === 0.0 || $magnitude2 === 0.0) {
             return \PHP_FLOAT_MAX;
         }
 
