@@ -35,6 +35,7 @@ final class MysqlGrammarTest extends \PHPUnit\Framework\TestCase
     protected function setUp() : void
     {
         $this->con = new MysqlConnection($GLOBALS['CONFIG']['db']['core']['masters']['admin']);
+        $this->con->connect();
     }
 
     /**

@@ -96,12 +96,15 @@ abstract class NgramParser
 
             for ($i = $this->minLength; $i <= $this->maxLength; ++$i) {
                 for ($j = 0; ($i + $j - 1) < $l; ++$j, ++$tmp) {
-                    $tmp = &$tokens[$i][\mb_substr($word, $j, $i)];
+                    if (!isset($tokens[$i][$char = \mb_substr($word, $j, $i)])) {
+                        $tokens[$i][$char] = 0;
+                    }
+
+                    $tmp = &$tokens[$i][$char];
                 }
             }
         }
 
-        /** @phpstan-ignore-next-line */
         foreach ($tokens as $i => $token) {
             $sum = \array_sum($token);
 
@@ -110,14 +113,12 @@ abstract class NgramParser
             }
         }
 
-        /** @phpstan-ignore-next-line */
         if (empty($tokens)) {
             return [];
         }
 
         $tokens = \array_merge(...$tokens);
 
-        /** @phpstan-ignore-next-line */
         if (isset($tokens['_'])) {
             unset($tokens['_']);
         }
