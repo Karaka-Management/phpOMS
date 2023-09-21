@@ -848,11 +848,7 @@ class Matrix implements \ArrayAccess, \Iterator
             for ($i = 0; $i < $this->m; ++$i) {
                 $row = [];
                 for ($j = 0; $j < $this->m; ++$j) {
-                    if ($i === $j) {
-                        $row[] = \pow($this->matrix[$i][$j], $exponent);
-                    } else {
-                        $row[] = 0;
-                    }
+                    $row[] = $i === $j ? \pow($this->matrix[$i][$j], $exponent) : 0;
                 }
 
                 $matrix[] = $row;

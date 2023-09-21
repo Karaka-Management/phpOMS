@@ -57,7 +57,7 @@ final class GammaTest extends \PHPUnit\Framework\TestCase
         ];
 
         for ($i = 1; $i <= 10; ++$i) {
-            if (!(\abs($spouge[$i - 1] - Gamma::spougeApproximation($i / 3)) < 0.01)) {
+            if (\abs($spouge[$i - 1] - Gamma::spougeApproximation($i / 3)) >= 0.01) {
                 self::assertTrue(false);
             }
         }
@@ -77,7 +77,7 @@ final class GammaTest extends \PHPUnit\Framework\TestCase
         ];
 
         for ($i = 1; $i <= 10; ++$i) {
-            if (!(\abs($stirling[$i - 1] - Gamma::stirlingApproximation($i / 3)) < 0.01)) {
+            if (\abs($stirling[$i - 1] - Gamma::stirlingApproximation($i / 3)) >= 0.01) {
                 self::assertTrue(false);
             }
         }
@@ -97,7 +97,7 @@ final class GammaTest extends \PHPUnit\Framework\TestCase
         ];
 
         for ($i = 1; $i <= 10; ++$i) {
-            if (!(\abs($gsl[$i - 1] - Gamma::lanczosApproximationReal($i / 3)) < 0.01)) {
+            if (\abs($gsl[$i - 1] - Gamma::lanczosApproximationReal($i / 3)) >= 0.01) {
                 self::assertTrue(false);
             }
         }
@@ -117,7 +117,7 @@ final class GammaTest extends \PHPUnit\Framework\TestCase
         ];
 
         for ($i = 1; $i <= 10; ++$i) {
-            if (!(\abs($gsl[$i - 1] - Gamma::logGamma($i)) < 0.01)) {
+            if (\abs($gsl[$i - 1] - Gamma::logGamma($i)) >= 0.01) {
                 self::assertTrue(false);
             }
         }

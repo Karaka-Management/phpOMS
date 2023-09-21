@@ -83,11 +83,11 @@ class Grammar extends GrammarAbstract
                 }
 
                 if (!empty($query->unions)) {
-                    $sql[] = $this->compileUnions($query, $query->unions);
+                    $sql[] = $this->compileUnions();
                 }
 
                 if (!empty($query->lock)) {
-                    $sql[] = $this->compileLock($query, $query->lock);
+                    $sql[] = $this->compileLock();
                 }
 
                 break;
@@ -399,9 +399,7 @@ class Grammar extends GrammarAbstract
             $expression .= $this->compileOn($query, $query->ons[$join['alias'] ?? $table]) . ' ';
         }
 
-        $expression = \rtrim($expression, ', ');
-
-        return $expression;
+        return \rtrim($expression, ', ');
     }
 
     /**

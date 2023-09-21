@@ -153,10 +153,7 @@ final class CliHeader extends HeaderAbstract
      */
     public function generate(int $code) : void
     {
-        switch ($code) {
-            default:
-                $this->generate500();
-        }
+        $this->generate500();
     }
 
     public function getRequestTime() : int

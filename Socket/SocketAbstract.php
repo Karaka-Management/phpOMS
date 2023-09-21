@@ -81,7 +81,7 @@ abstract class SocketAbstract implements SocketInterface
      */
     public function close() : void
     {
-        if (isset($this->sock)) {
+        if ($this->sock !== null) {
             \socket_shutdown($this->sock, 2);
             \socket_close($this->sock);
             $this->sock = null;

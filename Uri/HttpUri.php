@@ -437,6 +437,6 @@ final class HttpUri implements UriInterface
      */
     public function getUserInfo() : string
     {
-        return $this->user . (!empty($this->pass) ? ':' . $this->pass : '');
+        return $this->user . (empty($this->pass) ? '' : ':' . $this->pass);
     }
 }

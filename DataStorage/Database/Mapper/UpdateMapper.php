@@ -118,8 +118,8 @@ final class UpdateMapper extends DataMapperAbstract
                 $propertyName = \stripos($column['internal'], '/') !== false ? \explode('/', $column['internal'])[0] : $column['internal'];
                 if (isset($this->mapper::HAS_MANY[$propertyName])
                     || $column['internal'] === $this->mapper::PRIMARYFIELD
-                    || (($column['readonly'] ?? false) === true && !isset($this->with[$propertyName]))
-                    || (($column['writeonly'] ?? false) === true && !isset($this->with[$propertyName]))
+                    || (($column['readonly'] ?? false) && !isset($this->with[$propertyName]))
+                    || (($column['writeonly'] ?? false) && !isset($this->with[$propertyName]))
                 ) {
                     continue;
                 }
@@ -127,11 +127,7 @@ final class UpdateMapper extends DataMapperAbstract
                 $refClass = $refClass ?? new \ReflectionClass($obj);
                 $property = $refClass->getProperty($propertyName);
 
-                if (!($property->isPublic())) {
-                    $tValue = $property->getValue($obj);
-                } else {
-                    $tValue = $obj->{$propertyName};
-                }
+                $tValue = $property->isPublic() ? $obj->{$propertyName} : $property->getValue($obj);
 
                 if (isset($this->mapper::OWNS_ONE[$propertyName])) {
                     $id    = \is_object($tValue) ? $this->updateOwnsOne($propertyName, $tValue) : $tValue;
@@ -246,11 +242,7 @@ final class UpdateMapper extends DataMapperAbstract
 
             $property = $refClass->getProperty($propertyName);
 
-            if (!($isPublic = $property->isPublic())) {
-                $values = $property->getValue($obj);
-            } else {
-                $values = $obj->{$propertyName};
-            }
+            $values = ($isPublic = $property->isPublic()) ? $obj->{$propertyName} : $property->getValue($obj);
 
             if (!\is_array($values) || empty($values)) {
                 continue;

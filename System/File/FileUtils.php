@@ -295,8 +295,7 @@ final class FileUtils
         $name = \preg_replace("/[^A-Za-z0-9\-_.]/", '_', $name);
         $name = \preg_replace("/_+/", '_', $name ?? '');
         $name = \trim($name ?? '', '_');
-        $name = \strtolower($name);
 
-        return $name;
+        return \strtolower($name);
     }
 }

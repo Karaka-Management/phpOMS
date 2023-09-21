@@ -114,7 +114,9 @@ final class Weighted
             return $jobs;
         }
 
-        \usort($jobs, [self::class, 'sortByEnd']);
+        \usort($jobs, function (\phpOMS\Algorithm\JobScheduling\JobInterface $j1, \phpOMS\Algorithm\JobScheduling\JobInterface $j2) : int {
+            return self::sortByEnd($j1, $j2);
+        });
 
         $valueTable = [$jobs[0]->getValue()];
 

@@ -49,10 +49,7 @@ final class JWT
         $payload64 = Base64Url::encode(\json_encode($payload));
 
         $algorithm = '';
-        switch (\strtolower($header['alg'])) {
-            default:
-                $algorithm = 'sha256';
-        }
+        $algorithm = 'sha256';
 
         return \hash_hmac($algorithm, $header64 . '.' . $payload64, $secret, false);
     }

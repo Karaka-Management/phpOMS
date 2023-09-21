@@ -263,7 +263,7 @@ final class ReadMapper extends DataMapperAbstract
             return [];
         }
 
-        return !\is_array($result) ? [$result] : $result;
+        return \is_array($result) ? $result : [$result];
     }
 
     /**
@@ -315,10 +315,8 @@ final class ReadMapper extends DataMapperAbstract
         foreach ($columns as $key => $values) {
             if (\is_string($values)) {
                 $query->selectAs($key, $values);
-            } else {
-                if (($values['writeonly'] ?? false) === false || isset($this->with[$values['internal']])) {
-                    $query->selectAs($this->mapper::TABLE . '_d' . $this->depth . '.' . $key, $key . '_d' . $this->depth);
-                }
+            } elseif (($values['writeonly'] ?? false) === false || isset($this->with[$values['internal']])) {
+                $query->selectAs($this->mapper::TABLE . '_d' . $this->depth . '.' . $key, $key . '_d' . $this->depth);
             }
         }
 

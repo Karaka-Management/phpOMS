@@ -230,11 +230,7 @@ final class WriteMapper extends DataMapperAbstract
             $refClass = new \ReflectionClass($obj);
             $refProp  = $refClass->getProperty($this->mapper::BELONGS_TO[$propertyName]['by']);
 
-            if (!$refProp->isPublic()) {
-                $obj = $refProp->getValue($obj);
-            } else {
-                $obj = $obj->{$this->mapper::BELONGS_TO[$propertyName]['by']};
-            }
+            $obj = $refProp->isPublic() ? $obj->{$this->mapper::BELONGS_TO[$propertyName]['by']} : $refProp->getValue($obj);
         }
 
         /** @var class-string<DataMapperFactory> $mapper */
@@ -266,11 +262,7 @@ final class WriteMapper extends DataMapperAbstract
             }
 
             $property = $refClass->getProperty($propertyName);
-            if (!$property->isPublic()) {
-                $values = $property->getValue($obj);
-            } else {
-                $values = $obj->{$propertyName};
-            }
+            $values = $property->isPublic() ? $obj->{$propertyName} : $property->getValue($obj);
 
             /** @var class-string<DataMapperFactory> $mapper */
             $mapper       = $this->mapper::HAS_MANY[$propertyName]['mapper'];
@@ -301,7 +293,7 @@ final class WriteMapper extends DataMapperAbstract
             }
 
             $objsIds            = [];
-            $relReflectionClass = !empty($values) ? new \ReflectionClass(\reset($values)) : null;
+            $relReflectionClass = empty($values) ? null : new \ReflectionClass(\reset($values));
 
             foreach ($values as $key => $value) {
                 if (!\is_object($value)) {
@@ -328,19 +320,16 @@ final class WriteMapper extends DataMapperAbstract
 
                     // todo maybe consider to just set the column type to object, and then check for that (might be faster)
                     if (isset($mapper::BELONGS_TO[$internalName])
-                        || isset($mapper::OWNS_ONE[$internalName])
-                    ) {
+                        || isset($mapper::OWNS_ONE[$internalName])) {
                         if (!$isRelPublic) {
                             $relProperty->setValue($value,  $this->mapper::createNullModel($objId));
                         } else {
                             $value->{$internalName} =  $this->mapper::createNullModel($objId);
                         }
+                    } elseif (!$isRelPublic) {
+                        $relProperty->setValue($value, $objId);
                     } else {
-                        if (!$isRelPublic) {
-                            $relProperty->setValue($value, $objId);
-                        } else {
-                            $value->{$internalName} = $objId;
-                        }
+                        $value->{$internalName} = $objId;
                     }
 
                     if (!$isRelPublic) {

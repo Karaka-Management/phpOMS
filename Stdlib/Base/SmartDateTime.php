@@ -120,11 +120,7 @@ class SmartDateTime extends \DateTime
         $dayMonthNew = \cal_days_in_month($calendar, $monthNew, $yearNew);
         $dayOld      = (int) $this->format('d');
 
-        if ($dayOld > $dayMonthNew || $dayOld === $dayMonthOld) {
-            $dayNew = $dayMonthNew;
-        } else {
-            $dayNew = $dayOld;
-        }
+        $dayNew = $dayOld > $dayMonthNew || $dayOld === $dayMonthOld ? $dayMonthNew : $dayOld;
 
         $this->setDate($yearNew, $monthNew, $dayNew);
 

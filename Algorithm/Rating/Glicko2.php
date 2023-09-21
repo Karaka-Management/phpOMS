@@ -120,7 +120,7 @@ final class Glicko2
         $tau = $this->tau;
 
         // Step 0:
-        $rdOld = $rdOld / self::Q;
+        $rdOld /= self::Q;
         $elo   = ($elo - $this->DEFAULT_ELO) / self::Q;
 
         foreach ($oElo as $idx => $value) {

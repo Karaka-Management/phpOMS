@@ -207,8 +207,7 @@ final class MemoryCF
         }
 
         \asort($matches);
-        $matches = \array_reverse($matches, true);
 
-        return $matches;
+        return \array_reverse($matches, true);
     }
 }

@@ -85,7 +85,7 @@ final class DispatcherTest extends \PHPUnit\Framework\TestCase
         self::assertTrue(
             !empty(
                 $this->app->dispatcher->dispatch(
-                    function($req, $resp, $data = null) { return true; },
+                    function($req, $resp, $data = null): bool { return true; },
                     new HttpRequest(new HttpUri(''), $localization),
                     new HttpResponse($localization)
                 )
@@ -95,7 +95,7 @@ final class DispatcherTest extends \PHPUnit\Framework\TestCase
         self::assertTrue(
             !empty(
                 $this->app->dispatcher->dispatch(
-                    function($req) { return true; }
+                    function($req): bool { return true; }
                 )
             )
         );
@@ -182,7 +182,7 @@ final class DispatcherTest extends \PHPUnit\Framework\TestCase
             !empty(
                 $this->app->dispatcher->dispatch(
                     [
-                        function($app, $req, $resp, $data = null) { return true; },
+                        function($app, $req, $resp, $data = null): bool { return true; },
                         'phpOMS\tests\Dispatcher\TestController:testFunction',
                         'phpOMS\tests\Dispatcher\TestController::testFunctionStatic',
                     ],

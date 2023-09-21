@@ -51,7 +51,7 @@ final class GraphTest extends \PHPUnit\Framework\TestCase
         self::assertEquals(0, $this->graph->getCircuitRank());
 
         self::assertTrue($this->graph->isConnected());
-        self::assertTrue($this->graph->isBipartite(1));
+        self::assertTrue($this->graph->isBipartite());
         self::assertFalse($this->graph->isDirected());
         self::assertFalse($this->graph->hasCycle());
 
@@ -639,7 +639,7 @@ final class GraphTest extends \PHPUnit\Framework\TestCase
         $node3->setNodeRelative($node5);
         $node4->setNodeRelative($node5);
 
-        $paths = $this->graph->getFloydWarshallShortestPath($node0, $node5);
+        $paths = $this->graph->getFloydWarshallShortestPath();
         self::assertGreaterThan(1, $paths);
     }
 
@@ -679,7 +679,7 @@ final class GraphTest extends \PHPUnit\Framework\TestCase
         $node3->setNodeRelative($node5);
         $node4->setNodeRelative($node5);
 
-        $paths = $this->graph->longestPath($node0, $node5);
+        $paths = $this->graph->longestPath();
         self::assertGreaterThan(1, $paths);
     }
 

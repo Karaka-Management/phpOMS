@@ -80,9 +80,14 @@ final class FormElementGenerator
 
         $element .= ($json['subtype'] === 'checkbox' || $json['subtype'] === 'radio') && $json['default']['checked'] ? ' checked' : '';
         $element .= '>';
-        $element .= $json['subtype'] === 'checkbox' || $json['subtype'] === 'radio' ? '<label for="' . $json['attributes']['id'] . '">' . ($lang[$json['default']['content']] ?? $json['default']['content']) . '</label>' : '';
 
-        return $element;
+        return $element
+            . ($json['subtype'] === 'checkbox' || $json['subtype'] === 'radio'
+                ? '<label for="' . $json['attributes']['id'] . '">'
+                    . ($lang[$json['default']['content']] ?? $json['default']['content'])
+                    . '</label>'
+                : ''
+            );
     }
 
     /**
@@ -108,12 +113,12 @@ final class FormElementGenerator
         $value ??= $json['default']['value'];
 
         foreach ($json['options'] as $val => $text) {
-            $element .= '<option value="' . $val . '"' . (isset($json['default']) && $val === $value ? ' selected' : '') . '>' . ($lang[$text] ?? $text) .  '</option>';
+            $element .= '<option value="' . $val . '"' . (isset($json['default']) && $val === $value ? ' selected' : '') . '>'
+                . ($lang[$text] ?? $text)
+                .  '</option>';
         }
 
-        $element .= '</select>';
-
-        return $element;
+        return $element . '</select>';
     }
 
     /**
@@ -137,9 +142,8 @@ final class FormElementGenerator
 
         $element .= '>';
         $element .= isset($json['default']) ? $value : '';
-        $element .= '</textarea>';
 
-        return $element;
+        return $element . '</textarea>';
     }
 
     /**
@@ -161,8 +165,7 @@ final class FormElementGenerator
 
         $element .= '>';
         $element .= $lang[$json['default']['value']] ?? $json['default']['value'];
-        $element .= '</label>';
 
-        return $element;
+        return $element . '</label>';
     }
 }

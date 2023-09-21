@@ -325,19 +325,12 @@ class Markdown
                 $methodName = 'block' . $CurrentBlock['type'] . 'Continue';
                 $Block      = $this->{$methodName}($Line, $CurrentBlock);
 
-                if (isset($Block))
-                {
+                if (isset($Block)) {
                     $CurrentBlock = $Block;
-
                     continue;
-                }
-                else
-                {
-                    if ($this->isBlockCompletable($CurrentBlock['type']))
-                    {
-                        $methodName   = 'block' . $CurrentBlock['type'] . 'Complete';
-                        $CurrentBlock = $this->{$methodName}($CurrentBlock);
-                    }
+                } elseif ($this->isBlockCompletable($CurrentBlock['type'])) {
+                    $methodName   = 'block' . $CurrentBlock['type'] . 'Complete';
+                    $CurrentBlock = $this->{$methodName}($CurrentBlock);
                 }
             }
 
@@ -450,12 +443,12 @@ class Markdown
         return $Component['element'];
     }
 
-    protected function isBlockContinuable($Type)
+    protected function isBlockContinuable($Type): bool
     {
         return \method_exists($this, 'block' . $Type . 'Continue');
     }
 
-    protected function isBlockCompletable($Type)
+    protected function isBlockCompletable($Type): bool
     {
         return \method_exists($this, 'block' . $Type . 'Complete');
     }
@@ -474,7 +467,7 @@ class Markdown
         {
             $text = \substr($Line['body'], 4);
 
-            $Block = [
+            return [
                 'element' => [
                     'name'    => 'pre',
                     'element' => [
@@ -483,8 +476,6 @@ class Markdown
                     ],
                 ],
             ];
-
-            return $Block;
         }
     }
 
@@ -604,7 +595,7 @@ class Markdown
             $Element['attributes'] = ['class' => "language-{$language}"];
         }
 
-        $Block = [
+        return [
             'char'         => $marker,
             'openerLength' => $openerLength,
             'element'      => [
@@ -612,8 +603,6 @@ class Markdown
                 'element' => $Element,
             ],
         ];
-
-        return $Block;
     }
 
     protected function blockFencedCodeContinue($Line, $Block)
@@ -656,11 +645,9 @@ class Markdown
         {
             $this->DefinitionData['Abbreviation'][$matches[1]] = $matches[2];
 
-            $Block = [
+            return [
                 'hidden' => true,
             ];
-
-            return $Block;
         }
     }
 
@@ -671,13 +658,11 @@ class Markdown
     {
         if (\preg_match('/^\[\^(.+?)\]:[ ]?(.*)$/', $Line['text'], $matches))
         {
-            $Block = [
+            return [
                 'label'  => $matches[1],
                 'text'   => $matches[2],
                 'hidden' => true,
             ];
-
-            return $Block;
         }
     }
 
@@ -747,18 +732,14 @@ class Markdown
 
         $Block['element'] = $Element;
 
-        $Block = $this->addDdElement($Line, $Block);
-
-        return $Block;
+        return $this->addDdElement($Line, $Block);
     }
 
     protected function blockDefinitionListContinue($Line, array $Block)
     {
         if ($Line['text'][0] === ':')
         {
-            $Block = $this->addDdElement($Line, $Block);
-
-            return $Block;
+            return $this->addDdElement($Line, $Block);
         }
         else
         {
@@ -918,7 +899,7 @@ class Markdown
                 'name'    => 'li',
                 'handler' => [
                     'function'    => 'li',
-                    'argument'    => !empty($matches[3]) ? [$matches[3]] : [],
+                    'argument'    => empty($matches[3]) ? [] : [$matches[3]],
                     'destination' => 'elements',
                 ],
             ];
@@ -1038,7 +1019,7 @@ class Markdown
     {
         if (\preg_match('/^>[ ]?+(.*+)/', $Line['text'], $matches))
         {
-            $Block = [
+            return [
                 'element' => [
                     'name'    => 'blockquote',
                     'handler' => [
@@ -1048,8 +1029,6 @@ class Markdown
                     ],
                 ],
             ];
-
-            return $Block;
         }
     }
 
@@ -1084,13 +1063,11 @@ class Markdown
 
         if (\substr_count($Line['text'], $marker) >= 3 && \rtrim($Line['text'], " {$marker}") === '')
         {
-            $Block = [
+            return [
                 'element' => [
                     'name' => 'hr',
                 ],
             ];
-
-            return $Block;
         }
     }
 
@@ -1307,9 +1284,8 @@ class Markdown
         $DOMDocument->documentElement->nodeValue = 'placeholder\x1A';
 
         $markup = $DOMDocument->saveHTML($DOMDocument->documentElement);
-        $markup = \str_replace('placeholder\x1A', $elementText, $markup);
 
-        return $markup;
+        return \str_replace('placeholder\x1A', $elementText, $markup);
     }
 
     #
@@ -1329,11 +1305,9 @@ class Markdown
 
             $this->DefinitionData['Reference'][$id] = $Data;
 
-            $Block = [
+            return [
                 'element' => [],
             ];
-
-            return $Block;
         }
     }
 
@@ -1892,7 +1866,7 @@ class Markdown
         {
             if (\preg_match('/^\s*\[(.*?)\]/', $remainder, $matches))
             {
-                $definition = \strlen($matches[1]) ? $matches[1] : $Element['handler']['argument'];
+                $definition = \strlen($matches[1]) !== 0 ? $matches[1] : $Element['handler']['argument'];
                 $definition = \strtolower($definition);
 
                 $extent += \strlen($matches[0]);
@@ -2053,7 +2027,7 @@ class Markdown
 
     protected function inlineUrl($Excerpt)
     {
-        if ($this->urlsLinked !== true || ! isset($Excerpt['text'][2]) || $Excerpt['text'][2] !== '/')
+        if (!$this->urlsLinked || ! isset($Excerpt['text'][2]) || $Excerpt['text'][2] !== '/')
         {
             return;
         }
@@ -2063,7 +2037,7 @@ class Markdown
         ) {
             $url = $matches[0][0];
 
-            $Inline = [
+            return [
                 'extent'   => \strlen($matches[0][0]),
                 'position' => $matches[0][1],
                 'element'  => [
@@ -2074,8 +2048,6 @@ class Markdown
                     ],
                 ],
             ];
-
-            return $Inline;
         }
     }
 
@@ -2183,9 +2155,7 @@ class Markdown
             $Element['element'] = $this->elementsApplyRecursiveDepthFirst($closure, $Element['element']);
         }
 
-        $Element = $closure($Element);
-
-        return $Element;
+        return $closure($Element);
     }
 
     protected function elementsApplyRecursive($closure, array $Elements)
@@ -2269,17 +2239,12 @@ class Markdown
             elseif (isset($Element['element']))
             {
                 $markup .= $this->element($Element['element']);
+            } elseif (!$permitRawHtml) {
+                $markup .= self::escape($text, true);
             }
             else
             {
-                if (!$permitRawHtml)
-                {
-                    $markup .= self::escape($text, true);
-                }
-                else
-                {
-                    $markup .= $text;
-                }
+                $markup .= $text;
             }
 
             $markup .= $hasName ? '</' . $Element['name'] . '>' : '';
@@ -2292,7 +2257,7 @@ class Markdown
         return $markup;
     }
 
-    protected function elements(array $Elements)
+    protected function elements(array $Elements): string
     {
         $markup = '';
 
@@ -2309,15 +2274,13 @@ class Markdown
                 ? $Element['autobreak'] : isset($Element['name'])
             );
             // (autobreak === false) covers both sides of an element
-            $autoBreak = !$autoBreak ? $autoBreak : $autoBreakNext;
+            $autoBreak = $autoBreak ? $autoBreakNext : $autoBreak;
 
             $markup .= ($autoBreak ? "\n" : '') . $this->element($Element);
             $autoBreak = $autoBreakNext;
         }
 
-        $markup .= $autoBreak ? "\n" : '';
-
-        return $markup;
+        return $markup . ($autoBreak ? "\n" : '');
     }
 
     # ~
@@ -2377,9 +2340,7 @@ class Markdown
     {
         $parsedown = new self();
 
-        $markup = $parsedown->text($text);
-
-        return $markup;
+        return $parsedown->text($text);
     }
 
     protected function sanitiseElement(array $Element)
@@ -2440,7 +2401,7 @@ class Markdown
     # Static Methods
     #
 
-    protected static function escape($text, $allowQuotes = false)
+    protected static function escape($text, $allowQuotes = false): string
     {
         return \htmlspecialchars($text, $allowQuotes ? \ENT_NOQUOTES : \ENT_QUOTES, 'UTF-8');
     }

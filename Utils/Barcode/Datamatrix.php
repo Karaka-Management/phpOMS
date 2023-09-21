@@ -613,8 +613,7 @@ class Datamatrix extends TwoDAbstract
 
                             if ($this->isCharMode($tmpchr, self::ENC_X12)) {
                                 return self::ENC_X12;
-                            } elseif (!($this->isCharMode($tmpchr, self::ENC_X12)
-                                || $this->isCharMode($tmpchr, self::ENC_C40))
+                            } elseif (!$this->isCharMode($tmpchr, self::ENC_X12) && !$this->isCharMode($tmpchr, self::ENC_C40)
                             ) {
                                 break;
                             }

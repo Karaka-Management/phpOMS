@@ -160,7 +160,7 @@ final class HttpHeader extends HeaderAbstract
         return $_SERVER['HTTP_X_FORWARDED_FOR'] ?? $_SERVER['REMOTE_ADDR'] ?? '';
     }
 
-    public function getBrowserName() {
+    public function getBrowserName(): string {
         $userAgent = $_SERVER['HTTP_USER_AGENT'];
 
         if (\strpos($userAgent, 'Opera') !== false || \strpos($userAgent, 'OPR/') !== false) {

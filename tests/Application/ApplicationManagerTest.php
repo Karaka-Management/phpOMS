@@ -178,8 +178,8 @@ final class ApplicationManagerTest extends \PHPUnit\Framework\TestCase
      */
     public function testInvalidSourceUninstallPath() : void
     {
-        self::assertFalse($this->appManager->uninstall(__DIR__ . '/invalid', __DIR__));
-        self::assertFalse($this->appManager->uninstall(__DIR__, __DIR__));
+        self::assertFalse($this->appManager->uninstall(__DIR__ . '/invalid'));
+        self::assertFalse($this->appManager->uninstall(__DIR__));
     }
 
     /**

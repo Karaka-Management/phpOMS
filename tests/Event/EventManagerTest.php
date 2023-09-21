@@ -52,7 +52,7 @@ final class EventManagerTest extends \PHPUnit\Framework\TestCase
      */
     public function testAdd() : void
     {
-        self::assertTrue($this->event->attach('group', function() { return true; }, false, false));
+        self::assertTrue($this->event->attach('group', function(): bool { return true; }, false, false));
         self::assertEquals(1, $this->event->count());
     }
 
@@ -63,7 +63,7 @@ final class EventManagerTest extends \PHPUnit\Framework\TestCase
      */
     public function testClear() : void
     {
-        self::assertTrue($this->event->attach('group', function() { return true; }, false, false));
+        self::assertTrue($this->event->attach('group', function(): bool { return true; }, false, false));
         self::assertEquals(1, $this->event->count());
         $this->event->clear();
 
@@ -77,8 +77,8 @@ final class EventManagerTest extends \PHPUnit\Framework\TestCase
      */
     public function testAddMultiple() : void
     {
-        self::assertTrue($this->event->attach('group', function() { return true; }, false, false));
-        self::assertTrue($this->event->attach('group', function() { return true; }, false, false));
+        self::assertTrue($this->event->attach('group', function(): bool { return true; }, false, false));
+        self::assertTrue($this->event->attach('group', function(): bool { return true; }, false, false));
         self::assertEquals(1, $this->event->count());
     }
 
@@ -185,7 +185,7 @@ final class EventManagerTest extends \PHPUnit\Framework\TestCase
      */
     public function testReset() : void
     {
-        self::assertTrue($this->event->attach('group', function() { return true; }, false, true));
+        self::assertTrue($this->event->attach('group', function(): bool { return true; }, false, true));
         $this->event->addGroup('group', 'id1');
         $this->event->addGroup('group', 'id2');
 
@@ -201,7 +201,7 @@ final class EventManagerTest extends \PHPUnit\Framework\TestCase
      */
     public function testNoReset() : void
     {
-        self::assertTrue($this->event->attach('group', function() { return true; }, false, false));
+        self::assertTrue($this->event->attach('group', function(): bool { return true; }, false, false));
         $this->event->addGroup('group', 'id1');
         $this->event->addGroup('group', 'id2');
 
@@ -217,7 +217,7 @@ final class EventManagerTest extends \PHPUnit\Framework\TestCase
      */
     public function testDetach() : void
     {
-        $this->event->attach('group', function() { return true; }, false, true);
+        $this->event->attach('group', function(): bool { return true; }, false, true);
         $this->event->addGroup('group', 'id1');
         $this->event->addGroup('group', 'id2');
 
@@ -234,7 +234,7 @@ final class EventManagerTest extends \PHPUnit\Framework\TestCase
      */
     public function testInvalidDetach() : void
     {
-        $this->event->attach('group', function() { return true; }, false, true);
+        $this->event->attach('group', function(): bool { return true; }, false, true);
         $this->event->addGroup('group', 'id1');
         $this->event->addGroup('group', 'id2');
 
@@ -249,8 +249,8 @@ final class EventManagerTest extends \PHPUnit\Framework\TestCase
      */
     public function testRemove() : void
     {
-        self::assertTrue($this->event->attach('group1', function() { return true; }, true, false));
-        self::assertTrue($this->event->attach('group2', function() { return true; }, true, false));
+        self::assertTrue($this->event->attach('group1', function(): bool { return true; }, true, false));
+        self::assertTrue($this->event->attach('group2', function(): bool { return true; }, true, false));
 
         self::assertEquals(2, $this->event->count());
         $this->event->trigger('group1');

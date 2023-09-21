@@ -269,7 +269,7 @@ class Graph
 
         $edges = $this->nodes[$id]->getEdges();
         foreach ($edges as $edge) {
-            $neighbor = !$edge->node1->isEqual($node) ? $edge->node1 : $edge->node2;
+            $neighbor = $edge->node1->isEqual($node) ? $edge->node2 : $edge->node1;
 
             if (!isset($visited[$neighbor->getId()]) || !$visited[$neighbor->getId()]) {
                 $parent[$neighbor->getId()] = $node;
@@ -583,7 +583,7 @@ class Graph
 
         while (!empty($stack)) {
             $cNode = \array_pop($stack);
-            if (isset($visited[$cNode->getId()]) && $visited[$cNode->getId()] === true) {
+            if (isset($visited[$cNode->getId()]) && $visited[$cNode->getId()]) {
                 continue;
             }
 
@@ -592,7 +592,7 @@ class Graph
 
             $neighbors = $cNode->getNeighbors();
             foreach ($neighbors as $neighbor) {
-                if (!isset($visited[$neighbor->getId()]) || $visited[$neighbor->getId()] === false) {
+                if (!isset($visited[$neighbor->getId()]) || !$visited[$neighbor->getId()]) {
                     $stack[] = $neighbor;
                 }
             }
