@@ -84,7 +84,6 @@ abstract class NgramParser
      * @return array
      *
      * @since 1.0.0
-     * @phpstan-ignore
      */
     protected function getNgrams(string $str) : array
     {
@@ -102,6 +101,7 @@ abstract class NgramParser
             }
         }
 
+        /** @phpstan-ignore-next-line */
         foreach ($tokens as $i => $token) {
             $sum = \array_sum($token);
 
@@ -110,12 +110,14 @@ abstract class NgramParser
             }
         }
 
+        /** @phpstan-ignore-next-line */
         if (empty($tokens)) {
             return [];
         }
 
         $tokens = \array_merge(...$tokens);
 
+        /** @phpstan-ignore-next-line */
         if (isset($tokens['_'])) {
             unset($tokens['_']);
         }

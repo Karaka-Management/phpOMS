@@ -42,8 +42,6 @@ final class DataMapperAbstractTest extends \PHPUnit\Framework\TestCase
     {
         $this->model = new BaseModel();
 
-        var_dump($GLOBALS['dbpool']->get());
-
         $GLOBALS['dbpool']->get()->con->prepare(
             'CREATE TABLE `test_base` (
                 `test_base_id` int(11) NOT NULL AUTO_INCREMENT,
