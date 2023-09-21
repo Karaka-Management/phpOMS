@@ -548,6 +548,8 @@ trait ISO639Trait
                 return [self::_AR];
             case ISO3166TwoEnum::_ZMB:
                 return [self::_EN];
+            case ISO3166TwoEnum::_XXK:
+                return [self::_BS, self::_TR];
             case ISO3166TwoEnum::_ZWE:
                 return [self::_EN, self::_SN, self::_ND];
             default:

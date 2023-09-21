@@ -41,7 +41,7 @@ final class ISO639EnumTest extends \PHPUnit\Framework\TestCase
         $enum = ISO3166TwoEnum::getConstants();
 
         foreach ($enum as $code) {
-            self::assertGreaterThan(0, \count(ISO639Enum::languageFromCountry($code)), 'Failed for code: ' . $code);
+            self::assertGreaterThan(0, \count(ISO639Enum::languageFromCountry($code)), 'Failed for ' . $code);
         }
     }
 }

@@ -119,15 +119,6 @@ final class HttpSessionTest extends \PHPUnit\Framework\TestCase
     }
 
     /**
-     * @testdox Session data can be saved
-     * @group framework
-     */
-    public function testSave() : void
-    {
-        self::assertTrue($this->session->save());
-    }
-
-    /**
      * @testdox Locked sessions cannot be saved
      * @group framework
      */

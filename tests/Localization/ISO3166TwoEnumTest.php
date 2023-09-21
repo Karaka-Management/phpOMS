@@ -67,7 +67,7 @@ final class ISO3166TwoEnumTest extends \PHPUnit\Framework\TestCase
         ];
 
         foreach ($regions as $region) {
-            self::assertGreaterThan(0, \count(ISO3166TwoEnum::getRegion($region)));
+            self::assertGreaterThan(0, \count(ISO3166TwoEnum::getRegion($region)), 'Failed for ' . $region);
         }
     }
 }

@@ -220,9 +220,9 @@ jobs:
     - name: Setup Composer
       run: composer install
     - name: phpcs
-      run: |
-        vendor/bin/phpcs --severity=1 ./ --standard="Build/Config/phpcs.xml" -s --report=full
-        vendor/bin/rector process --dry-run --config Build/Config/rector.php ./
+      run: vendor/bin/phpcs --severity=1 ./ --standard="Build/Config/phpcs.xml" -s --report=full
+    - name: rector
+      run: vendor/bin/rector process --dry-run --config Build/Config/rector.php ./
 #  linting:
 #    runs-on: ubuntu-latest
 #    if: "!contains(github.event.head_commit.message, 'NO_CI')"

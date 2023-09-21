@@ -49,7 +49,7 @@ final class BuilderTest extends \PHPUnit\Framework\TestCase
      * @group framework
      * @dataProvider dbConnectionProvider
      */
-    public function testMysqlDrop($con) : void
+    public function testDrop($con) : void
     {
         if (!$con->isInitialized()) {
             self::markTestSkipped();
@@ -71,7 +71,7 @@ final class BuilderTest extends \PHPUnit\Framework\TestCase
      * @group framework
      * @dataProvider dbConnectionProvider
      */
-    public function testMysqlDropTable($con) : void
+    public function testDropTable($con) : void
     {
         if (!$con->isInitialized()) {
             self::markTestSkipped();
@@ -93,7 +93,7 @@ final class BuilderTest extends \PHPUnit\Framework\TestCase
      * @group framework
      * @dataProvider dbConnectionProvider
      */
-    public function testMysqlShowTables($con) : void
+    public function testShowTables($con) : void
     {
         if (!$con->isInitialized()) {
             self::markTestSkipped();
@@ -115,7 +115,7 @@ final class BuilderTest extends \PHPUnit\Framework\TestCase
      * @group framework
      * @dataProvider dbConnectionProvider
      */
-    public function testMysqlShowFields($con) : void
+    public function testShowFields($con) : void
     {
         if (!$con->isInitialized()) {
             self::markTestSkipped();
@@ -137,7 +137,7 @@ final class BuilderTest extends \PHPUnit\Framework\TestCase
      * @group framework
      * @dataProvider dbConnectionProvider
      */
-    public function testMysqlCreateTable($con) : void
+    public function testCreateTable($con) : void
     {
         if (!$con->isInitialized()) {
             self::markTestSkipped();
@@ -149,7 +149,7 @@ final class BuilderTest extends \PHPUnit\Framework\TestCase
         $iE = $con->getGrammar()->systemIdentifierEnd;
 
         $query = new Builder($con);
-        $sql   = 'CREATE TABLE IF NOT EXISTS [user_roles] (user_id INT AUTO_INCREMENT, role_id VARCHAR(10) DEFAULT \'1\' NULL, PRIMARY KEY (user_id), FOREIGN KEY (user_id) REFERENCES users (ext1_id), FOREIGN KEY (role_id) REFERENCES roles (ext2_id)) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 AUTO_INCREMENT=1;';
+        $sql   = 'CREATE TABLE IF NOT EXISTS [user_roles] ([user_id] INT AUTO_INCREMENT, [role_id] VARCHAR(10) DEFAULT \'1\' NULL, PRIMARY KEY ([user_id]), FOREIGN KEY ([user_id]) REFERENCES [users] ([ext1_id]), FOREIGN KEY ([role_id]) REFERENCES [roles] ([ext2_id])) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 AUTO_INCREMENT=1;';
         $sql   = \strtr($sql, '[]', $iS . $iE);
         self::assertEquals(
             $sql,
@@ -161,7 +161,7 @@ final class BuilderTest extends \PHPUnit\Framework\TestCase
     }
 
     /*
-    public function testMysqlAlter($con) : void
+    public function testAlter($con) : void
     {
         if (!$con->isInitialized()) {
             self::markTestSkipped();
@@ -191,7 +191,7 @@ final class BuilderTest extends \PHPUnit\Framework\TestCase
      * @group framework
      * @dataProvider dbConnectionProvider
      */
-    public function testMysqlCreateFromSchema($con) : void
+    public function testCreateFromSchema($con) : void
     {
         if (!$con->isInitialized()) {
             self::markTestSkipped();

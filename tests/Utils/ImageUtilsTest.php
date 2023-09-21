@@ -28,7 +28,7 @@ final class ImageUtilsTest extends \PHPUnit\Framework\TestCase
     public function testLightness() : void
     {
         self::assertEquals(0.0, ImageUtils::lightness(0));
-        self::assertEquals(1.0, ImageUtils::lightness(16777216));
+        self::assertEquals(1.0, ImageUtils::lightness(16777215));
     }
 
     public function testLightnessFromRgb() : void

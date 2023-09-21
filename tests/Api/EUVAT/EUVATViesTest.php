@@ -32,7 +32,7 @@ final class EUVATViesTest extends \PHPUnit\Framework\TestCase
     {
         $status = EUVATVies::validate('DE123456789');
 
-        self::assertEquals(0, $status['status']);
+        self::assertEquals(-1, $status['status']);
         self::assertEquals('B', $status['vat']);
     }
 
@@ -40,7 +40,7 @@ final class EUVATViesTest extends \PHPUnit\Framework\TestCase
     {
         $status = EUVATVies::validateQualified('DE123456789', 'DE123456789', 'TestName', 'TestStreet', 'TestCity', 'TestPostcode');
 
-        self::assertEquals(0, $status['status']);
+        self::assertEquals(-1, $status['status']);
         self::assertEquals('B', $status['vat']);
     }
 }

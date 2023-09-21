@@ -32,6 +32,6 @@ final class ISO4217SymbolEnumTest extends \PHPUnit\Framework\TestCase
     public function testEnums() : void
     {
         $enum = ISO4217SymbolEnum::getConstants();
-        self::assertCount(109, $enum);
+        self::assertCount(188, $enum);
     }
 }

@@ -171,7 +171,7 @@ final class ViewTest extends \PHPUnit\Framework\TestCase
     {
         $view = new View($this->app->l11nManager, null, new HttpResponse(Localization::fromLanguage('en')));
         self::assertEquals('USD 1.23', $view->getCurrency(1.2345, 'USD'));
-        self::assertEquals('USD 1.235', $view->getCurrency(1.2345, 'USD'));
+        self::assertEquals('USD 1.235', $view->getCurrency(1.2345, 'USD', 'long'));
 
         $this->app->l11nManager->loadLanguage('en', '0', ['0' => ['CurrencyK' => 'K']]);
         self::assertEquals('K$ 12.345', $view->getCurrency(12345.0, 'long', '$', 1000));
@@ -214,21 +214,7 @@ final class ViewTest extends \PHPUnit\Framework\TestCase
     {
         $view = new View($this->app->l11nManager);
 
-        self::assertTrue($view->data['key2'] = 'valu2');
-        self::assertEquals('valu2', $view->getData('key2'));
-    }
-
-    /**
-     * @testdox View data cannot be added if it already exists
-     * @covers phpOMS\Views\View<extended>
-     * @group framework
-     */
-    public function testInvalidDataOverwrite() : void
-    {
-        $view = new View($this->app->l11nManager);
-
         $view->data['key2'] = 'valu2';
-        self::assertFalse($view->data['key2'] = 'valu3');
         self::assertEquals('valu2', $view->getData('key2'));
     }
 
@@ -243,6 +229,7 @@ final class ViewTest extends \PHPUnit\Framework\TestCase
 
         $view->data['key2'] = 'valu2';
         self::assertTrue($view->removeData('key2'));
+        self::assertEquals(null, $view->getData('key2'));
     }
 
     /**

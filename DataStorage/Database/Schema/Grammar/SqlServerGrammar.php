@@ -14,6 +14,9 @@ declare(strict_types=1);
 
 namespace phpOMS\DataStorage\Database\Schema\Grammar;
 
+use phpOMS\DataStorage\Database\Query\Builder;
+use phpOMS\DataStorage\Database\Schema\Builder as SchemaBuilder;
+
 /**
  * Database query grammar.
  *
@@ -39,4 +42,46 @@ class SqlServerGrammar extends Grammar
      * @since 1.0.0
      */
     public string $systemIdentifierEnd = ']';
+
+    /**
+     * Compile from.
+     *
+     * @param SchemaBuilder $query Builder
+     * @param array         $table Tables
+     *
+     * @return string
+     *
+     * @since 1.0.0
+     */
+    protected function compileSelectTables(SchemaBuilder $query, array $table) : string
+    {
+        $builder = new Builder($query->getConnection());
+        $builder->select('table_name')
+            ->from('sys.tables')
+            ->innerJoin('sys.schemas')
+            ->on('sys.tables.schema_id', '=', 'sys.schemas.schema_id');
+
+        return \rtrim($builder->toSql(), ';');
+    }
+
+    /**
+     * Compile from.
+     *
+     * @param SchemaBuilder $query Builder
+     * @param string        $table Tables
+     *
+     * @return string
+     *
+     * @since 1.0.0
+     */
+    protected function compileSelectFields(SchemaBuilder $query, string $table) : string
+    {
+        $builder = new Builder($query->getConnection());
+        $builder->select('*')
+            ->from('information_schema.columns')
+            ->where('table_schema', '=', $query->getConnection()->getDatabase())
+            ->andWhere('table_name', '=', $table);
+
+        return \rtrim($builder->toSql(), ';');
+    }
 }

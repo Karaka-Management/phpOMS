@@ -36,7 +36,7 @@ final class ISO4217SubUnitEnumTest extends \PHPUnit\Framework\TestCase
         $enum = ISO4217SubUnitEnum::getConstants();
 
         foreach ($enum as $code) {
-            if ($code < 0 || $code > 1000) {
+            if ($code < 0 || $code > 10000 || $code % 10 !== 0) {
                 $ok = false;
                 break;
             }

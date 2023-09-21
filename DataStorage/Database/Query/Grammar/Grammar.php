@@ -292,7 +292,6 @@ class Grammar extends GrammarAbstract
         }
 
         if (\is_string($element['column'])) {
-            // @todo: check if column contains special name which needs to be escaped
             $expression .= $this->compileSystem($element['column']);
         } elseif ($element['column'] instanceof \Closure) {
             $expression .= $element['column']();
@@ -489,8 +488,7 @@ class Grammar extends GrammarAbstract
         $expression = '';
 
         foreach ($groups as $group) {
-            // @todo: check special names
-            $expression .= $group . ', ';
+            $expression .= $this->compileSystem($group) . ', ';
         }
 
         $expression = \rtrim($expression, ', ');
@@ -581,8 +579,6 @@ class Grammar extends GrammarAbstract
         if ($count === -1) {
             return '';
         }
-
-        // @todo: check special names
 
         $cols = '(';
         for ($i = 0; $i < $count; ++$i) {

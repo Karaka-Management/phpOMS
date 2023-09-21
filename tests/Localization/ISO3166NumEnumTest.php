@@ -57,7 +57,7 @@ final class ISO3166NumEnumTest extends \PHPUnit\Framework\TestCase
         ];
 
         foreach ($regions as $region) {
-            self::assertGreaterThan(0, \count(ISO3166NumEnum::getRegion($region)));
+            self::assertGreaterThan(0, \count(ISO3166NumEnum::getRegion($region)), 'Failed for ' . $region);
         }
     }
 }

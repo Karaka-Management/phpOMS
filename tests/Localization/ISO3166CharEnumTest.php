@@ -67,7 +67,7 @@ final class ISO3166CharEnumTest extends \PHPUnit\Framework\TestCase
         ];
 
         foreach ($regions as $region) {
-            self::assertGreaterThan(0, \count(ISO3166CharEnum::getRegion($region)));
+            self::assertGreaterThan(0, \count(ISO3166CharEnum::getRegion($region)), 'Failed for ' . $region);
         }
     }
 }

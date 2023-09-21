@@ -32,7 +32,7 @@ final class BarAbstractTest extends \PHPUnit\Framework\TestCase
     }
 
     /**
-     * @covers phpOMS\Utils\Barcode\C128Abstract<extended>
+     * @covers phpOMS\Utils\Barcode\CodeAbstract<extended>
      * @group framework
      */
     public function testSetGet() : void
@@ -42,7 +42,7 @@ final class BarAbstractTest extends \PHPUnit\Framework\TestCase
     }
 
     /**
-     * @covers phpOMS\Utils\Barcode\C128Abstract<extended>
+     * @covers phpOMS\Utils\Barcode\CodeAbstract<extended>
      * @group framework
      */
     public function testInvalidDimensionWidth() : void
@@ -53,7 +53,7 @@ final class BarAbstractTest extends \PHPUnit\Framework\TestCase
     }
 
     /**
-     * @covers phpOMS\Utils\Barcode\C128Abstract<extended>
+     * @covers phpOMS\Utils\Barcode\CodeAbstract<extended>
      * @group framework
      */
     public function testInvalidDimensionHeight() : void
@@ -64,7 +64,7 @@ final class BarAbstractTest extends \PHPUnit\Framework\TestCase
     }
 
     /**
-     * @covers phpOMS\Utils\Barcode\C128Abstract<extended>
+     * @covers phpOMS\Utils\Barcode\CodeAbstract<extended>
      * @group framework
      */
     public function testInvalidOrientation() : void

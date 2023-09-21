@@ -28,14 +28,18 @@ use phpOMS\Localization\Defaults\CityMapper;
  */
 final class CityMapperTest extends \PHPUnit\Framework\TestCase
 {
+    private static SQLiteConnection $con;
+
     public static function setUpBeforeClass() : void
     {
-        $con = new SqliteConnection([
+        self::$con = new SqliteConnection([
             'db'         => 'sqlite',
             'database'   => \realpath(__DIR__ . '/../../../Localization/Defaults/localization.sqlite'),
         ]);
 
-        DataMapperFactory::db($con);
+        self::$con->connect();
+
+        DataMapperFactory::db(self::$con);
     }
 
     /**
@@ -58,6 +62,7 @@ final class CityMapperTest extends \PHPUnit\Framework\TestCase
 
     public static function tearDownAfterClass() : void
     {
+        self::$con->close();
         DataMapperFactory::db($GLOBALS['dbpool']->get());
     }
 }

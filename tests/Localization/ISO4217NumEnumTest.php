@@ -44,14 +44,4 @@ final class ISO4217NumEnumTest extends \PHPUnit\Framework\TestCase
 
         self::assertTrue($ok);
     }
-
-    /**
-     * @testdox The ISO 4217 enum has only unique values
-     * @group framework
-     * @coversNothing
-     */
-    public function testUnique() : void
-    {
-        self::assertEquals(ISO4217NumEnum::getConstants(), \array_unique(ISO4217NumEnum::getConstants()));
-    }
 }

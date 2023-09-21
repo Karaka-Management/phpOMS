@@ -178,6 +178,8 @@ class Location implements \JsonSerializable, SerializableInterface
             'country' => $this->country,
             'address' => $this->address,
             'state'   => $this->state,
+            'lat'     => $this->lat,
+            'lon'     => $this->lon,
         ];
     }
 
@@ -201,5 +203,7 @@ class Location implements \JsonSerializable, SerializableInterface
         $this->country = $data['country'];
         $this->address = $data['address'];
         $this->state   = $data['state'];
+        $this->lat     = $data['lat'];
+        $this->lon     = $data['lon'];
     }
 }

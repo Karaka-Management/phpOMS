@@ -226,13 +226,9 @@ abstract class GrammarAbstract
         $identifierStart = $this->systemIdentifierStart;
         $identifierEnd   = $this->systemIdentifierEnd;
 
-        foreach ($this->specialKeywords as $keyword) {
-            if (\stripos($system, $keyword) !== false) {
-                $identifierStart = '';
-                $identifierEnd   = '';
-
-                break;
-            }
+        if (\stripos($system, '(') !== false) {
+            $identifierStart = '';
+            $identifierEnd   = '';
         }
 
         // The following code could have been handled with \explode more elegantly but \explode needs more memory and more time

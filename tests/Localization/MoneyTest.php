@@ -86,7 +86,7 @@ final class MoneyTest extends \PHPUnit\Framework\TestCase
     public function testMoneyLocalization() : void
     {
         $money = new Money(12345678);
-        self::assertEquals('€ 9.992,30', $money->setInt(99923000)->setLocalization('.', ',')->getCurrency());
+        self::assertEquals('€ 9.992,30', $money->setInt(99923000)->setLocalization('.', ',')->getCurrency(symbol: '€'));
     }
 
     /**

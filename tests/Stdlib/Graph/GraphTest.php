@@ -47,7 +47,7 @@ final class GraphTest extends \PHPUnit\Framework\TestCase
         self::assertEquals(0, $this->graph->getDiameter());
         self::assertEquals(0, $this->graph->getOrder());
         self::assertEquals(0, $this->graph->getSize());
-        self::assertEquals(0, $this->graph->getGirth());
+        self::assertEquals(\PHP_INT_MAX, $this->graph->getGirth());
         self::assertEquals(0, $this->graph->getCircuitRank());
 
         self::assertTrue($this->graph->isConnected());

@@ -359,7 +359,7 @@ class Localization implements \JsonSerializable
     public function setCountry(string $country) : void
     {
         if (!ISO3166TwoEnum::isValidValue($country)) {
-            $this->country = '';
+            throw new InvalidEnumValue($country);
         }
 
         $this->country = $country;
