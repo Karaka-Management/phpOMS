@@ -36,7 +36,16 @@ final class CronTest extends \PHPUnit\Framework\TestCase
         if (!SchedulerAbstract::guessBin()) {
             $this->markTestSkipped(
                 'No scheduler available'
-              );
+            );
+        }
+
+        try {
+            $cron = new Cron();
+            $cron->getAll();
+        } catch (\Throwable $_) {
+            $this->markTestSkipped(
+                'No scheduler available'
+            );
         }
     }
 

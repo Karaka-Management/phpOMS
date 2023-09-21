@@ -36,7 +36,7 @@ final class TaskSchedulerTest extends \PHPUnit\Framework\TestCase
         if (!SchedulerAbstract::guessBin()) {
             $this->markTestSkipped(
                 'No scheduler available'
-              );
+            );
         }
     }
 
