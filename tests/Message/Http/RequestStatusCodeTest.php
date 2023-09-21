@@ -27,7 +27,7 @@ final class RequestStatusCodeTest extends \PHPUnit\Framework\TestCase
      */
     public function testEnumCount() : void
     {
-        self::assertCount(63, RequestStatusCode::getConstants());
+        self::assertCount(59, RequestStatusCode::getConstants());
     }
 
     /**
@@ -82,14 +82,11 @@ final class RequestStatusCodeTest extends \PHPUnit\Framework\TestCase
         self::assertEquals(415, RequestStatusCode::R_415);
         self::assertEquals(416, RequestStatusCode::R_416);
         self::assertEquals(417, RequestStatusCode::R_417);
-        self::assertEquals(418, RequestStatusCode::R_418);
         self::assertEquals(422, RequestStatusCode::R_422);
         self::assertEquals(423, RequestStatusCode::R_423);
         self::assertEquals(424, RequestStatusCode::R_424);
         self::assertEquals(425, RequestStatusCode::R_425);
         self::assertEquals(426, RequestStatusCode::R_426);
-        self::assertEquals(449, RequestStatusCode::R_449);
-        self::assertEquals(450, RequestStatusCode::R_450);
         self::assertEquals(500, RequestStatusCode::R_500);
         self::assertEquals(501, RequestStatusCode::R_501);
         self::assertEquals(502, RequestStatusCode::R_502);
@@ -98,7 +95,6 @@ final class RequestStatusCodeTest extends \PHPUnit\Framework\TestCase
         self::assertEquals(505, RequestStatusCode::R_505);
         self::assertEquals(506, RequestStatusCode::R_506);
         self::assertEquals(507, RequestStatusCode::R_507);
-        self::assertEquals(509, RequestStatusCode::R_509);
         self::assertEquals(510, RequestStatusCode::R_510);
     }
 }
