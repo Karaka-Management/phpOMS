@@ -47,10 +47,8 @@ final class LocationTest extends \PHPUnit\Framework\TestCase
             'country' => 'XX',
             'address' => '',
             'state'   => '',
-            'geo'     => [
-                'lat'  => 0,
-                'long' => 0,
-            ],
+            'lat'     => 0.0,
+            'lon'     => 0.0,
         ];
 
         self::assertEquals('', $this->location->postal);
@@ -60,7 +58,6 @@ final class LocationTest extends \PHPUnit\Framework\TestCase
         self::assertEquals('', $this->location->state);
         self::assertEquals(0, $this->location->getId());
         self::assertEquals(AddressType::HOME, $this->location->getType());
-        self::assertEquals(['lat' => 0, 'long' => 0], $this->location->getGeo());
         self::assertEquals($expected, $this->location->toArray());
         self::assertEquals($expected, $this->location->jsonSerialize());
     }
@@ -132,17 +129,6 @@ final class LocationTest extends \PHPUnit\Framework\TestCase
     }
 
     /**
-     * @testdox The geo location can be set and returned
-     * @covers phpOMS\Stdlib\Base\Location
-     * @group framework
-     */
-    public function testGeoInputOutput() : void
-    {
-        $this->location->setGeo(['lat' => 12.1, 'long' => 11.2,]);
-        self::assertEquals(['lat' => 12.1, 'long' => 11.2], $this->location->getGeo());
-    }
-
-    /**
      * @testdox The location can be turned into an array
      * @covers phpOMS\Stdlib\Base\Location
      * @group framework
@@ -155,10 +141,8 @@ final class LocationTest extends \PHPUnit\Framework\TestCase
             'country' => 'Country',
             'address' => 'Some address here',
             'state'   => 'This is a state 123',
-            'geo'     => [
-                'lat'  => 12.1,
-                'long' => 11.2,
-            ],
+            'lat'     => 12.1,
+            'lon'     => 11.2,
         ];
 
         $this->location->postal = '0123456789';
@@ -166,8 +150,9 @@ final class LocationTest extends \PHPUnit\Framework\TestCase
         $this->location->city    = 'city';
         $this->location->address = 'Some address here';
         $this->location->state   = 'This is a state 123';
+        $this->location->lat     = 12.1;
+        $this->location->lon     = 11.2;
         $this->location->setCountry('Country');
-        $this->location->setGeo(['lat' => 12.1, 'long' => 11.2,]);
 
         self::assertEquals($expected, $this->location->toArray());
     }
@@ -185,10 +170,8 @@ final class LocationTest extends \PHPUnit\Framework\TestCase
             'country' => 'Country',
             'address' => 'Some address here',
             'state'   => 'This is a state 123',
-            'geo'     => [
-                'lat'  => 12.1,
-                'long' => 11.2,
-            ],
+            'lat'     => 12.1,
+            'lon'    => 11.2,
         ];
 
         $this->location->postal = '0123456789';
@@ -196,8 +179,9 @@ final class LocationTest extends \PHPUnit\Framework\TestCase
         $this->location->city    = 'city';
         $this->location->address = 'Some address here';
         $this->location->state   = 'This is a state 123';
+        $this->location->lat     = 12.1;
+        $this->location->lon     = 11.2;
         $this->location->setCountry('Country');
-        $this->location->setGeo(['lat' => 12.1, 'long' => 11.2,]);
 
         self::assertEquals($expected, $this->location->jsonSerialize());
         self::assertEquals(\json_encode($this->location->jsonSerialize()), $this->location->serialize());
@@ -216,10 +200,8 @@ final class LocationTest extends \PHPUnit\Framework\TestCase
             'country' => 'Country',
             'address' => 'Some address here',
             'state'   => 'This is a state 123',
-            'geo'     => [
-                'lat'  => 12.1,
-                'long' => 11.2,
-            ],
+            'lat'     => 12.1,
+            'lon'     => 11.2,
         ];
 
         $this->location->unserialize(\json_encode($expected));
