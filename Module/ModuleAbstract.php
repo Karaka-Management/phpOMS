@@ -125,8 +125,8 @@ abstract class ModuleAbstract
         $this->app = $app ?? new class() extends ApplicationAbstract {};
 
         if (self::$auditor === null && static::ID !== 1006200000) {
-            self::$auditor = $this->app?->moduleManager->get('Auditor', 'Api');
-            self::$auditor = static::$auditor::ID === 0 ? null : self::$auditor;
+            self::$auditor = $this->app->moduleManager?->get('Auditor', 'Api');
+            self::$auditor = self::$auditor === null || self::$auditor::ID === 0 ? null : self::$auditor;
         }
     }
 
