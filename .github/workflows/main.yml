@@ -40,17 +40,6 @@ jobs:
         restore-keys: ${{ runner.os }}-composer-
     - name: Setup Composer
       run: composer install
-    - name: Checkout Repository
-      uses: actions/checkout@main
-      with:
-        fetch-depth: 1
-    - name: Checkout Build Repository
-      uses: actions/checkout@main
-      with:
-        fetch-depth: 1
-        ref: develop
-        repository: Karaka-Management/Build
-        path: Build
     - name: Autoformat
       run: |
         ls -la ./

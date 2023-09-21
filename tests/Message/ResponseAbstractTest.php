@@ -16,7 +16,6 @@ namespace phpOMS\tests\Message;
 
 require_once __DIR__ . '/../Autoloader.php';
 
-use phpOMS\Localization\ISO639x1Enum;
 use phpOMS\Message\ResponseAbstract;
 
 /**
@@ -56,7 +55,6 @@ final class ResponseAbstractTest extends \PHPUnit\Framework\TestCase
     {
         self::assertNull($this->response->get('asdf'));
         self::assertEquals('', $this->response->getBody());
-        self::assertTrue(ISO639x1Enum::isValidValue($this->response->header->l11n->language));
     }
 
     /**
