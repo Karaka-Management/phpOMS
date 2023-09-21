@@ -14,6 +14,8 @@
         "phpmd/phpmd": ">=2.9",
         "phpstan/phpstan": ">=1.8.6",
         "phan/phan": ">=3.2.6",
+        "phploc/phploc": "^7.0",
+        "phpmetrics/phpmetrics": "^2.8",
         "rector/rector": "^0.16.0"
     },
     "minimum-stability": "dev",
