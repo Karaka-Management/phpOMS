@@ -1501,7 +1501,7 @@ class Markdown
         return $block;
     }
 
-    protected function checkboxUnchecked($text): string
+    protected function checkboxUnchecked($text) : string
     {
         if ($this->markupEscaped || $this->safeMode) {
             $text = self::escape($text);
@@ -1510,7 +1510,7 @@ class Markdown
         return '<input type="checkbox" disabled /> '.$this->format($text);
     }
 
-    protected function checkboxChecked($text): string
+    protected function checkboxChecked($text) : string
     {
         if ($this->markupEscaped || $this->safeMode) {
             $text = self::escape($text);
@@ -1743,7 +1743,7 @@ class Markdown
      * Get only the text from a markdown string.
      * It parses to HTML once then trims the tags to get the text.
      */
-    protected function fetchText($text): string
+    protected function fetchText($text) : string
     {
         return \trim(\strip_tags($this->line($text)));
     }
@@ -1781,7 +1781,7 @@ class Markdown
             $this->firstHeadLevel = $level;
         }
         $cutIndent = $this->firstHeadLevel - 1;
-        $level = $cutIndent > $level ? 1 : $level - $cutIndent;
+        $level     = $cutIndent > $level ? 1 : $level - $cutIndent;
 
         $indent = \str_repeat('  ', $level);
 
@@ -1862,7 +1862,7 @@ class Markdown
 
             // Get the first char before the marker
             $beforeMarkerPosition = $markerPosition - 1;
-            $charBeforeMarker = $beforeMarkerPosition >= 0 ? $text[$markerPosition - 1] : '';
+            $charBeforeMarker     = $beforeMarkerPosition >= 0 ? $text[$markerPosition - 1] : '';
 
             $Excerpt = ['text' => $excerpt, 'context' => $text, 'before' => $charBeforeMarker];
 
@@ -2823,12 +2823,12 @@ class Markdown
         return $Component['element'];
     }
 
-    protected function isBlockContinuable($Type): bool
+    protected function isBlockContinuable($Type) : bool
     {
         return \method_exists($this, 'block' . $Type . 'Continue');
     }
 
-    protected function isBlockCompletable($Type): bool
+    protected function isBlockCompletable($Type) : bool
     {
         return \method_exists($this, 'block' . $Type . 'Complete');
     }
@@ -3966,7 +3966,7 @@ class Markdown
         return $markup;
     }
 
-    protected function elements(array $Elements): string
+    protected function elements(array $Elements) : string
     {
         $markup = '';
 
@@ -3999,7 +3999,7 @@ class Markdown
         $Elements = $this->linesElements($lines);
 
         if (! \in_array('', $lines)
-            && isset($Elements[0]) && isset($Elements[0]['name'])
+            && isset($Elements[0], $Elements[0]['name'])
             && $Elements[0]['name'] === 'p'
         ) {
             unset($Elements[0]['name']);
@@ -4110,7 +4110,7 @@ class Markdown
     # Static Methods
     #
 
-    protected static function escape(string $text, bool $allowQuotes = false): string
+    protected static function escape(string $text, bool $allowQuotes = false) : string
     {
         return \htmlspecialchars($text, $allowQuotes ? \ENT_NOQUOTES : \ENT_QUOTES, 'UTF-8');
     }
