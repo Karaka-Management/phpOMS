@@ -57,6 +57,11 @@ final class HeaderAbstractTest extends \PHPUnit\Framework\TestCase
             {
                 return true;
             }
+
+            public function getRequestTime() : int
+            {
+                return 0;
+            }
         };
     }
 
