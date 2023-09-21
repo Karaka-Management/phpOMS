@@ -45,6 +45,8 @@ class SpreadsheetDatabaseMapper implements IODatabaseMapper
      */
     private string $path = '';
 
+    private const ALPHABET = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z'];
+
     /**
      * Constructor.
      *
@@ -57,6 +59,37 @@ class SpreadsheetDatabaseMapper implements IODatabaseMapper
     {
         $this->con  = $con;
         $this->path = $path;
+    }
+
+    /**
+     * Turn ints into spreadsheet column names
+     *
+     * @param int $num Column number
+     *
+     * @return string
+     *
+     * @since 1.0.0
+     */
+    private static function intToString(int $num) : string
+    {
+        if ($num < 0) {
+            return false;
+        }
+
+        $result = '';
+
+        while ($num >= 0) {
+            $remainder = $num % 26;
+            $result    = self::ALPHABET[$remainder] . $result;
+
+            if ($num < 26) {
+                break;
+            }
+
+            $num = (int) \floor($num / 26);
+        }
+
+        return $result;
     }
 
     /**
@@ -86,7 +119,7 @@ class SpreadsheetDatabaseMapper implements IODatabaseMapper
 
             // get column titles
             $column = 1;
-            while (!empty($value = $workSheet->getCellByColumnAndRow($column, 1)->getCalculatedValue())) {
+            while (!empty($value = $workSheet->getCell(self::intToString($column) . 1)->getCalculatedValue())) {
                 $titles[] = $value;
                 ++$column;
             }
@@ -98,10 +131,10 @@ class SpreadsheetDatabaseMapper implements IODatabaseMapper
             $query->insert(...$titles)->into($table);
 
             $line = 2;
-            while (!empty($row = $workSheet->getCellByColumnAndRow(1, $line)->getCalculatedValue())) {
+            while (!empty($row = $workSheet->getCell('A' . $line)->getCalculatedValue())) {
                 $cells = [];
                 for ($j = 1; $j <= $columns; ++$j) {
-                    $cells[] = $workSheet->getCellByColumnAndRow($j, $line)->getCalculatedValue();
+                    $cells[] = $row;
                 }
 
                 ++$line;
@@ -150,7 +183,7 @@ class SpreadsheetDatabaseMapper implements IODatabaseMapper
 
             // set column titles
             for ($i = 1; $i <= $colCount; ++$i) {
-                $workSheet->setCellValueByColumnAndRow($i, 1, $columns[$i - 1]);
+                $workSheet->setCellValue(self::intToString($i) . 1, $columns[$i - 1]);
             }
 
             // set data
@@ -158,7 +191,7 @@ class SpreadsheetDatabaseMapper implements IODatabaseMapper
             foreach ($results as $result) {
                 $col = 1;
                 foreach ($result as $value) {
-                    $workSheet->setCellValueByColumnAndRow($col, $row, $value);
+                    $workSheet->setCellValue(self::intToString($col) . $row, $value);
                     ++$col;
                 }
 
@@ -202,7 +235,7 @@ class SpreadsheetDatabaseMapper implements IODatabaseMapper
 
             // get column titles
             $column = 1;
-            while (!empty($value = $workSheet->getCellByColumnAndRow($column, 1)->getCalculatedValue())) {
+            while (!empty($value = $workSheet->getCell(self::intToString($column) . 1)->getCalculatedValue())) {
                 $titles[] = $value;
                 ++$column;
             }
@@ -211,15 +244,15 @@ class SpreadsheetDatabaseMapper implements IODatabaseMapper
 
             // update data
             $line = 2;
-            while (!empty($row = $workSheet->getCellByColumnAndRow(1, $line)->getCalculatedValue())) {
+            while (!empty($row = $workSheet->getCell('A' . $line)->getCalculatedValue())) {
                 $query = new Builder($this->con);
                 $query->update($table)->into($table);
 
                 for ($j = 2; $j <= $columns; ++$j) {
-                    $query->sets($titles[$j - 1], $workSheet->getCellByColumnAndRow($j, $line)->getCalculatedValue());
+                    $query->sets($titles[$j - 1], $workSheet->getCell(self::intToString($j) . $line)->getCalculatedValue());
                 }
 
-                $query->where($titles[0], '=', $workSheet->getCellByColumnAndRow(1, $line)->getCalculatedValue());
+                $query->where($titles[0], '=', $workSheet->getCell('A' . $line)->getCalculatedValue());
                 $query->execute();
 
                 ++$line;
