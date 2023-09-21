@@ -49,9 +49,9 @@ final class LocalizationTest extends \PHPUnit\Framework\TestCase
     public function testDefault() : void
     {
         self::assertEquals(0, $this->localization->getId());
-        self::assertTrue(ISO3166TwoEnum::isValidValue($this->localization->getCountry()));
+        self::assertTrue(ISO3166TwoEnum::isValidValue($this->localization->country));
         self::assertTrue(TimeZoneEnumArray::isValidValue($this->localization->getTimezone()));
-        self::assertTrue(ISO639x1Enum::isValidValue($this->localization->getLanguage()));
+        self::assertTrue(ISO639x1Enum::isValidValue($this->localization->language));
         self::assertTrue(ISO4217CharEnum::isValidValue($this->localization->getCurrency()));
         self::assertEquals('0', $this->localization->getCurrencyFormat());
         self::assertEquals('.', $this->localization->getDecimal());
@@ -146,7 +146,7 @@ final class LocalizationTest extends \PHPUnit\Framework\TestCase
     public function testCountryInputOutput() : void
     {
         $this->localization->setCountry(ISO3166TwoEnum::_USA);
-        self::assertEquals(ISO3166TwoEnum::_USA, $this->localization->getCountry());
+        self::assertEquals(ISO3166TwoEnum::_USA, $this->localization->country);
     }
 
     /**
@@ -168,7 +168,7 @@ final class LocalizationTest extends \PHPUnit\Framework\TestCase
     public function testLanguageInputOutput() : void
     {
         $this->localization->setLanguage(ISO639x1Enum::_DE);
-        self::assertEquals(ISO639x1Enum::_DE, $this->localization->getLanguage());
+        self::assertEquals(ISO639x1Enum::_DE, $this->localization->language);
     }
 
     /**

@@ -109,7 +109,8 @@ abstract class NgramParser
             $sum = \array_sum($token);
 
             foreach ($token as $j => $value) {
-                $tokens[$i][$j] = $value / $sum;
+                /** @phpstan-ignore-next-line */
+                $tokens[$i][$j] = $sum === 0 ? 0 : $value / $sum;
             }
         }
 
