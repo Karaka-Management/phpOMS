@@ -35,8 +35,8 @@ final class JWT
     /**
      * Create JWT signature part
      *
-     * @param string                        $secret Secret (at least 256 bit)
-     * @param array{alg:string, typ:string} $header Header
+     * @param string                                                   $secret  Secret (at least 256 bit)
+     * @param array{alg:string, typ:string}                            $header  Header
      * @param array{sub:string, ?uid:string, ?name:string, iat:string} $payload Payload
      *
      * @return string hmac(Header64 . Payload64, secret)
@@ -60,8 +60,8 @@ final class JWT
     /**
      * Create JWT token
      *
-     * @param string                        $secret Secret (at least 256 bit)
-     * @param array{alg:string, typ:string} $header Header
+     * @param string                                                   $secret  Secret (at least 256 bit)
+     * @param array{alg:string, typ:string}                            $header  Header
      * @param array{sub:string, ?uid:string, ?name:string, iat:string} $payload Payload
      *
      * @return string Header64 . Payload64 . hmac(Header64 . Payload64, secret)
