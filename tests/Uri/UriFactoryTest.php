@@ -188,10 +188,10 @@ final class UriFactoryTest extends \PHPUnit\Framework\TestCase
 
         UriFactory::setupUriBuilder(new HttpUri($uri));
 
-        self::assertEquals($uri, UriFactory::build('{/base}{/rootPath}{/}?id={?id}&ab={?ab}#{#}'));
+        self::assertEquals($uri, UriFactory::build('{/tld}{/rootPath}{/}?id={?id}&ab={?ab}#{#}'));
         self::assertEquals($uri, UriFactory::build('{/scheme}://{/host}{/rootPath}{/}?id={?id}&ab={?ab}#{#}'));
         self::assertEquals($uri, UriFactory::build('{%}'));
-        self::assertEquals($uri, UriFactory::build('{/base}{/rootPath}{/}?{?}#{#}'));
+        self::assertEquals($uri, UriFactory::build('{/tld}{/rootPath}{/}?{?}#{#}'));
     }
 
     /**

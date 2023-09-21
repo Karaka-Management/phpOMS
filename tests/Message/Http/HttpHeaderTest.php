@@ -192,7 +192,7 @@ final class HttpHeaderTest extends \PHPUnit\Framework\TestCase
         $consts = RequestStatusCode::getConstants();
         foreach ($consts as $status) {
             $this->header->generate($status);
-            self::assertTrue(\stripos($this->header->get('status')[0], (string) $status) !== false);
+            self::assertTrue(\stripos($this->header->get('status')[0], (string) $status) !== false, 'Failed for ' . $status);
         }
     }
 

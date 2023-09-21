@@ -830,7 +830,7 @@ final class GraphTest extends \PHPUnit\Framework\TestCase
         $node3->setNodeRelative($node5);
         $node4->setNodeRelative($node5);
 
-        self::assertGreaterThan(3, $this->graph->getGirth());
+        self::assertEquals(3, $this->graph->getGirth());
     }
 
     /**

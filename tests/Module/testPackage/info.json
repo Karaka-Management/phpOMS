@@ -5,7 +5,7 @@
     "update": [
         {
             "download": {
-                "https://raw.githubusercontent.com/Jingga-Management/Jingga/develop/README.md": "README.md"
+                "https://raw.githubusercontent.com/Karaka-Management/Karaka/develop/README.md": "README.md"
             },
             "move": {
                 "toMove": "moveHere"

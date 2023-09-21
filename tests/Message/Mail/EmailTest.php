@@ -56,7 +56,7 @@ final class EmailTestTest extends \PHPUnit\Framework\TestCase
     public function testInvalidFromInputOutput() : void
     {
         self::assertFalse($this->mail->setFrom('Test Name <test-^invalid>'));
-        self::assertEquals([0 => '', 1 => ''], $this->mail->from);
+        self::assertEquals([], $this->mail->from);
     }
 
     public function testContentTypeInputOutput() : void

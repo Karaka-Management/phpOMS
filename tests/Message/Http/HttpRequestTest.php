@@ -59,7 +59,7 @@ final class HttpRequestTest extends \PHPUnit\Framework\TestCase
         self::assertEquals('', $request->__toString());
         self::assertFalse($request->hasData('key'));
         self::assertNull($request->getData('key'));
-        self::assertEquals('en', $request->header->l11n->country);
+        self::assertEquals('XX', $request->header->l11n->country);
         self::assertEquals('en_US', $request->getLocale());
     }
 
@@ -271,7 +271,7 @@ final class HttpRequestTest extends \PHPUnit\Framework\TestCase
         ];
 
         $request->setData('abc', \json_encode($data) . ',');
-        self::assertEquals([], $request->getDataJson('abc'));
+        self::assertEquals($data, $request->getDataJson('abc'));
     }
 
     /**

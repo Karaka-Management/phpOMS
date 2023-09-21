@@ -150,8 +150,7 @@ final class BuilderTest extends \PHPUnit\Framework\TestCase
             $sql = 'SELECT * FROM pragma_table_info(\'test\') WHERE pragma_table_info(\'test\') = \'test\';';
         }
 
-        $sql   = '';
-        $sql   = \strtr($sql, '[]', $iS . $iE);
+        $sql = \strtr($sql, '[]', $iS . $iE);
         self::assertEquals($sql, $query->selectFields('test')->toSql());
     }
 
@@ -173,8 +172,19 @@ final class BuilderTest extends \PHPUnit\Framework\TestCase
 
         // @todo: fix, this is not correct for sqlite
         $query = new Builder($con);
-        $sql   = 'CREATE TABLE IF NOT EXISTS [user_roles] ([user_id] INT AUTO_INCREMENT, [role_id] VARCHAR(10) DEFAULT \'1\' NULL, PRIMARY KEY ([user_id]), FOREIGN KEY ([user_id]) REFERENCES [users] ([ext1_id]), FOREIGN KEY ([role_id]) REFERENCES [roles] ([ext2_id])) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 AUTO_INCREMENT=1;';
-        $sql   = \strtr($sql, '[]', $iS . $iE);
+
+        $sql = '';
+        if ($con instanceof MysqlConnection) {
+            $sql = 'CREATE TABLE IF NOT EXISTS [user_roles] ([user_id] INT AUTO_INCREMENT, [role_id] VARCHAR(10) DEFAULT \'1\' NULL, PRIMARY KEY ([user_id]), FOREIGN KEY ([user_id]) REFERENCES [users] ([ext1_id]), FOREIGN KEY ([role_id]) REFERENCES [roles] ([ext2_id])) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 AUTO_INCREMENT=1;';
+        } elseif ($con instanceof PostgresConnection) {
+            $sql = 'CREATE TABLE IF NOT EXISTS [user_roles] ([user_id] INT AUTO_INCREMENT, [role_id] VARCHAR(10) DEFAULT \'1\' NULL, PRIMARY KEY ([user_id]), FOREIGN KEY ([user_id]) REFERENCES [users] ([ext1_id]), FOREIGN KEY ([role_id]) REFERENCES [roles] ([ext2_id]));';
+        } elseif ($con instanceof SqlServerConnection) {
+            $sql = 'CREATE TABLE IF NOT EXISTS [user_roles] ([user_id] INT AUTO_INCREMENT, [role_id] VARCHAR(10) DEFAULT \'1\' NULL, PRIMARY KEY ([user_id]), FOREIGN KEY ([user_id]) REFERENCES [users] ([ext1_id]), FOREIGN KEY ([role_id]) REFERENCES [roles] ([ext2_id]));';
+        } elseif ($con instanceof SQLiteConnection) {
+            $sql = 'CREATE TABLE IF NOT EXISTS [user_roles] ([user_id] INT AUTO_INCREMENT, [role_id] VARCHAR(10) DEFAULT \'1\' NULL, PRIMARY KEY ([user_id]), FOREIGN KEY ([user_id]) REFERENCES [users] ([ext1_id]), FOREIGN KEY ([role_id]) REFERENCES [roles] ([ext2_id]));';
+        }
+
+        $sql = \strtr($sql, '[]', $iS . $iE);
         self::assertEquals(
             $sql,
             $query->createTable('user_roles')

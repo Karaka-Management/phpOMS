@@ -104,6 +104,8 @@ class SpreadsheetDatabaseMapper implements IODatabaseMapper
                     $cells[] = $row;
                 }
 
+                var_dump($cells);
+
                 ++$line;
 
                 $query->values(...$cells);

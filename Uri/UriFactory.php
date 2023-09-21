@@ -34,6 +34,12 @@ final class UriFactory
      */
     private static array $uri = [];
 
+    /**
+     * Function for parsing urls
+     *
+     * @var null|\Closure
+     * @since 1.0.0
+     */
     private static ?\Closure $replaceFunction = null;
 
     /**

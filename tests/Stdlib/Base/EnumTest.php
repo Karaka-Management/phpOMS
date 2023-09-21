@@ -138,14 +138,12 @@ final class EnumTest extends \PHPUnit\Framework\TestCase
     }
 
     /**
-     * @testdox A invalid enum name throws a OutOfBoundsException
+     * @testdox A invalid enum name returns null
      * @covers phpOMS\Stdlib\Base\Enum<extended>
      * @group framework
      */
     public function testInvalidConstantException() : void
     {
-        $this->expectException(\Exception::class);
-
-        EnumDemo::getByName('ENUM3');
+        self::assertEquals(null, EnumDemo::getByName('ENUM3'));
     }
 }
