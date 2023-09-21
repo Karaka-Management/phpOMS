@@ -37,7 +37,7 @@ final class ForensicsTest extends \PHPUnit\Framework\TestCase
         self::assertEqualsWithDelta(0.249, $analysis[2], 0.01);
         self::assertEqualsWithDelta(0.164, $analysis[3], 0.01);
         self::assertEqualsWithDelta(0.102, $analysis[4], 0.01);
-        self::assertEqualsWithDelta(0.102, $analysis[5], 0.01);
+        self::assertEqualsWithDelta(0.073, $analysis[5], 0.01);
         self::assertEqualsWithDelta(0.059, $analysis[6], 0.01);
         self::assertEqualsWithDelta(0.044, $analysis[7], 0.01);
         self::assertEqualsWithDelta(0.032, $analysis[8], 0.01);

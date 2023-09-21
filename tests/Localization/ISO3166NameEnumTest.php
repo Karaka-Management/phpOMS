@@ -43,7 +43,7 @@ final class ISO3166NameEnumTest extends \PHPUnit\Framework\TestCase
             'middle-east', 'south-america', 'north-america', 'central-asia',
             'south-asia', 'southeast-asia', 'east-asia', 'west-asia',
             'central-africa', 'east-africa', 'north-africa', 'south-africa',
-            'west-africe', 'australia', 'polynesia', 'melanesia', 'antarctica',
+            'west-africa', 'australia', 'polynesia', 'melanesia', 'antarctica',
         ];
 
         foreach ($regions as $region) {

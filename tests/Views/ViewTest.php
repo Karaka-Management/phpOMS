@@ -174,8 +174,8 @@ final class ViewTest extends \PHPUnit\Framework\TestCase
         self::assertEquals('USD 1.235', $view->getCurrency(1.2345, 'USD', 'long'));
 
         $this->app->l11nManager->loadLanguage('en', '0', ['0' => ['CurrencyK' => 'K']]);
-        self::assertEquals('K$ 12.345', $view->getCurrency(12345.0, 'long', '$', 1000));
-        self::assertEquals('KUSD 12.345', $view->getCurrency(12345.0, 'long', null, 1000));
+        self::assertEquals('K$ 12.345', $view->getCurrency(12345.0, '$', 'long', 1000));
+        self::assertEquals('KUSD 12.345', $view->getCurrency(12345.0, null, 'long', 1000));
     }
 
     /**

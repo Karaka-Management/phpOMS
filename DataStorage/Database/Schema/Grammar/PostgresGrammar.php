@@ -67,4 +67,58 @@ class PostgresGrammar extends Grammar
 
         return \rtrim($builder->toSql(), ';');
     }
+
+    /**
+     * Compile create table fields query.
+     *
+     * @param SchemaBuilder $query  Query
+     * @param array         $fields Fields to create
+     *
+     * @return string
+     *
+     * @since 1.0.0
+     */
+    protected function compileCreateFields(SchemaBuilder $query, array $fields) : string
+    {
+        $fieldQuery = '';
+        $keys       = '';
+
+        foreach ($fields as $name => $field) {
+            $fieldQuery .= ' ' . $this->expressionizeTableColumn([$name]) . ' ' . $field['type'];
+
+            if (isset($field['default']) || ($field['default'] === null && ($field['null'] ?? false))) {
+                $fieldQuery .= ' DEFAULT ' . $this->compileValue($query, $field['default']);
+            }
+
+            if ($field['null'] ?? false) {
+                $fieldQuery .= ' ' . ($field['null'] ? '' : 'NOT ') . 'NULL';
+            }
+
+            if ($field['autoincrement'] ?? false) {
+                $fieldQuery .= ' AUTO_INCREMENT';
+            }
+
+            $fieldQuery .= ',';
+
+            if ($field['primary'] ?? false) {
+                $keys .= ' PRIMARY KEY (' .  $this->expressionizeTableColumn([$name]) . '),';
+            }
+
+            if ($field['unique'] ?? false) {
+                $keys .= ' UNIQUE KEY (' .  $this->expressionizeTableColumn([$name]) . '),';
+            }
+
+            if (isset($field['foreignTable'], $field['foreignKey'])) {
+                $keys .= ' FOREIGN KEY (' .  $this->expressionizeTableColumn([$name]) . ') REFERENCES '
+                    . $this->expressionizeTableColumn([$field['foreignTable']])
+                    . ' (' . $this->expressionizeTableColumn([$field['foreignKey']]) . '),';
+            }
+
+            if (isset($field['meta']['multi_autoincrement'])) {
+                $query->hasPostQuery = true;
+            }
+        }
+
+        return '(' . \ltrim(\rtrim($fieldQuery . $keys, ','), ' ') . ')';
+    }
 }
