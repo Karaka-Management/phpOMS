@@ -129,6 +129,17 @@ interface UriInterface
     public function getPathElement(int $pos = 0, bool $useOffset = true) : string;
 
     /**
+     * Get the value after a key
+     *
+     * @param string $key Key to search for in path
+     *
+     * @return string
+     *
+     * @since 1.0.0
+     */
+    public function getPathKey(string $key) : string;
+
+    /**
      * Get path elements.
      *
      * @return string[]

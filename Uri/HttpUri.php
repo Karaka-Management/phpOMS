@@ -394,6 +394,20 @@ final class HttpUri implements UriInterface
     /**
      * {@inheritdoc}
      */
+    public function getPathKey(string $key) : string
+    {
+        foreach ($this->pathElements as $index => $element) {
+            if ($element === $key) {
+                return $this->pathElements[$index + 1] ?? '';
+            }
+        }
+
+        return '';
+    }
+
+    /**
+     * {@inheritdoc}
+     */
     public function getPathElements() : array
     {
         return $this->pathElements;
