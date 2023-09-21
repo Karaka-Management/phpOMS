@@ -16,6 +16,8 @@ namespace phpOMS\tests\Stdlib\Base;
 
 use phpOMS\Stdlib\Base\SmartDateTime;
 
+require_once __DIR__ . '/../../Autoloader.php';
+
 /**
  * @testdox phpOMS\tests\Stdlib\Base\SmartDateTimeTest: DateTime type with additional functionality
  *
