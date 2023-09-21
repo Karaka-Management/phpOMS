@@ -105,7 +105,7 @@ abstract class ResponseAbstract implements \JsonSerializable, MessageInterface
      *
      * @param string $key Data key
      *
-     * @return ?array
+     * @return null|array
      *
      * @since 1.0.0
      */
