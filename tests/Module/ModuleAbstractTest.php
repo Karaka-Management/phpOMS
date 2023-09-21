@@ -21,6 +21,7 @@ use phpOMS\Event\EventManager;
 use phpOMS\Message\Http\HttpRequest;
 use phpOMS\Message\Http\HttpResponse;
 use phpOMS\Module\ModuleAbstract;
+use phpOMS\Module\ModuleManager;
 use phpOMS\tests\DataStorage\Database\TestModel\BaseModel;
 use phpOMS\tests\DataStorage\Database\TestModel\BaseModelMapper;
 use phpOMS\tests\DataStorage\Database\TestModel\ManyToManyRelModel;
@@ -55,8 +56,9 @@ final class ModuleAbstractTest extends \PHPUnit\Framework\TestCase
 
             public function __construct()
             {
-                $this->app               = new class() extends ApplicationAbstract {};
-                $this->app->eventManager = new EventManager();
+                $this->app                = new class() extends ApplicationAbstract {};
+                $this->app->eventManager  = new EventManager();
+                $this->app->moduleManager = new ModuleManager($this->app, __DIR__);
             }
 
             public function fillJson(HttpRequest $request, HttpResponse $response, string $status, string $title, string $message, array $data) : void

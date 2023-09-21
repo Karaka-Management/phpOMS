@@ -106,6 +106,14 @@ abstract class ModuleAbstract
     public bool $active = true;
 
     /**
+     * Auditor for logging.
+     *
+     * @var null|ModuleAbstract
+     * @since 1.0.0
+     */
+    public static ?ModuleAbstract $auditor = null;
+
+    /**
      * Constructor.
      *
      * @param null|ApplicationAbstract $app Application instance
@@ -115,6 +123,11 @@ abstract class ModuleAbstract
     public function __construct(ApplicationAbstract $app = null)
     {
         $this->app = $app ?? new class() extends ApplicationAbstract {};
+
+        if (self::$auditor === null && static::ID !== 1006200000) {
+            self::$auditor = $this->app?->moduleManager->get('Auditor', 'Api');
+            self::$auditor = static::$auditor::ID === 0 ? null : self::$auditor;
+        }
     }
 
     /**
@@ -732,7 +745,8 @@ abstract class ModuleAbstract
             $ip,
         ];
 
-        $this->app->moduleManager->get('Auditor', 'Api')->eventLogCreate(...$data);
+        /** @phpstan-ignore-next-line */
+        self::$auditor?->eventLogCreate(...$data);
         $this->app->eventManager->triggerSimilar('POST:Module:' . $trigger, '', $data);
     }
 
@@ -777,7 +791,8 @@ abstract class ModuleAbstract
                 $ip,
             ];
 
-            $this->app->moduleManager->get('Auditor', 'Api')->eventLogCreate(...$data);
+            /** @phpstan-ignore-next-line */
+            self::$auditor?->eventLogCreate(...$data);
             $this->app->eventManager->triggerSimilar('POST:Module:' . $trigger, '', $data);
         }
     }
@@ -823,7 +838,8 @@ abstract class ModuleAbstract
             $ip,
         ];
 
-        $this->app->moduleManager->get('Auditor', 'Api')->eventLogUpdate(...$data);
+        /** @phpstan-ignore-next-line */
+        self::$auditor?->eventLogUpdate(...$data);
         $this->app->eventManager->triggerSimilar('POST:Module:' . $trigger, '', $data);
     }
 
@@ -867,7 +883,8 @@ abstract class ModuleAbstract
             $ip,
         ];
 
-        $this->app->moduleManager->get('Auditor', 'Api')->eventLogDelete(...$data);
+        /** @phpstan-ignore-next-line */
+        self::$auditor?->eventLogDelete(...$data);
         $this->app->eventManager->triggerSimilar('POST:Module:' . $trigger, '', $data);
     }
 
@@ -915,7 +932,8 @@ abstract class ModuleAbstract
             $ip,
         ];
 
-        $this->app->moduleManager->get('Auditor', 'Api')->eventLogRelationCreate(...$data);
+        /** @phpstan-ignore-next-line */
+        self::$auditor?->eventLogRelationCreate(...$data);
         $this->app->eventManager->triggerSimilar('POST:Module:' . $trigger, '', $data);
     }
 
@@ -955,7 +973,8 @@ abstract class ModuleAbstract
             $ip,
         ];
 
-        $this->app->moduleManager->get('Auditor', 'Api')->eventLogRelationDelete(...$data);
+        /** @phpstan-ignore-next-line */
+        self::$auditor?->eventLogRelationDelete(...$data);
         $this->app->eventManager->triggerSimilar('POST:Module:' . $trigger, '', $data);
     }
 }
