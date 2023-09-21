@@ -126,7 +126,7 @@ final class SystemUtils
                 return -1;
             }
 
-            $cpuUsage = $loadavg[0] * 100 / $nproc;
+            $cpuUsage = ((float) ($loadavg[0] ?? 0.0)) * 100 / $nproc;
         }
 
         return (int) $cpuUsage;
