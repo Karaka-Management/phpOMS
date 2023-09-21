@@ -229,7 +229,7 @@ final class ViewTest extends \PHPUnit\Framework\TestCase
 
         $view->data['key2'] = 'valu2';
         self::assertTrue($view->removeData('key2'));
-        self::assertEquals(null, $view->getData('key2'));
+        self::assertNull($view->getData('key2'));
     }
 
     /**
