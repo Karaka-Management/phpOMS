@@ -51,7 +51,7 @@ final class ModuleAbstractTest extends \PHPUnit\Framework\TestCase
 
             public const ID = 2;
 
-            protected static array $dependencies = [1, 2];
+            public static array $dependencies = [1, 2];
 
             public function __construct()
             {
