@@ -19,8 +19,12 @@ use phpOMS\Uri\UriFactory;
  * Markdown parser class.
  *
  * @package    phpOMS\Utils\Parser\Markdown
- * @license    Original license Emanuil Rusev, erusev.com (MIT)
+ * @license    Original & extra license Emanuil Rusev, erusev.com (MIT)
+ * @license    Extended license Benjamin Hoegh (MIT)
  * @link       https://jingga.app
+ * @see        https://github.com/erusev/parsedown
+ * @see        https://github.com/erusev/parsedown-extra
+ * @see        https://github.com/BenjaminHoegh/ParsedownExtended
  * @since      1.0.0
  */
 class Markdown
