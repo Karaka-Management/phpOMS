@@ -540,7 +540,7 @@ class Builder extends BuilderAbstract
      *
      * @since 1.0.0
      */
-    public function where(string | array | Builder $columns, string | array $operator = null, mixed $values = null, string | array $boolean = 'and') : self
+    public function where(string | array | self $columns, string | array $operator = null, mixed $values = null, string | array $boolean = 'and') : self
     {
         if (!\is_array($columns)) {
             $columns  = [$columns];
@@ -595,7 +595,7 @@ class Builder extends BuilderAbstract
      *
      * @since 1.0.0
      */
-    public function orWhere(string | array | Builder $where, string | array $operator = null, mixed $values = null) : self
+    public function orWhere(string | array | self $where, string | array $operator = null, mixed $values = null) : self
     {
         return $this->where($where, $operator, $values, 'or');
     }

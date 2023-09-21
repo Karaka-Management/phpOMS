@@ -38,7 +38,7 @@ final class Glicko1Test extends \PHPUnit\Framework\TestCase
         self::assertEquals(
             [
                 'elo' => 1648,
-                'rd' => 186,
+                'rd'  => 186,
             ],
             $rating->rating(1500, 200, 0, 0, [1800], [1.0], [150])
         );
@@ -46,7 +46,7 @@ final class Glicko1Test extends \PHPUnit\Framework\TestCase
         self::assertEquals(
             [
                 'elo' => 1717,
-                'rd' => 144,
+                'rd'  => 144,
             ],
             $rating->rating(1800, 150, 0, 0, [1500], [0.0], [200])
         );
@@ -55,7 +55,7 @@ final class Glicko1Test extends \PHPUnit\Framework\TestCase
         self::assertEquals(
             [
                 'elo' => 1637,
-                'rd' => 186,
+                'rd'  => 186,
             ],
             $rating->rating(1500, 200, 0, 0, [1800], [1.0], [200])
         );
@@ -63,7 +63,7 @@ final class Glicko1Test extends \PHPUnit\Framework\TestCase
         self::assertEquals(
             [
                 'elo' => 1662,
-                'rd' => 186,
+                'rd'  => 186,
             ],
             $rating->rating(1800, 200, 0, 0, [1500], [0.0], [200])
         );
@@ -72,7 +72,7 @@ final class Glicko1Test extends \PHPUnit\Framework\TestCase
         self::assertEquals(
             [
                 'elo' => 1621,
-                'rd' => 177,
+                'rd'  => 177,
             ],
             $rating->rating(1550, 200, 0, 0, [1500], [1.0], [150])
         );
@@ -80,7 +80,7 @@ final class Glicko1Test extends \PHPUnit\Framework\TestCase
         self::assertEquals(
             [
                 'elo' => 1428,
-                'rd' => 177,
+                'rd'  => 177,
             ],
             $rating->rating(1500, 200, 0, 0, [1550], [0.0], [150])
         );
@@ -89,7 +89,7 @@ final class Glicko1Test extends \PHPUnit\Framework\TestCase
         self::assertEquals(
             [
                 'elo' => 1539,
-                'rd' => 177,
+                'rd'  => 177,
             ],
             $rating->rating(1550, 200, 0, 0, [1500], [0.5], [150])
         );
@@ -97,7 +97,7 @@ final class Glicko1Test extends \PHPUnit\Framework\TestCase
         self::assertEquals(
             [
                 'elo' => 1510,
-                'rd' => 177,
+                'rd'  => 177,
             ],
             $rating->rating(1500, 200, 0, 0, [1550], [0.5], [150])
         );
@@ -106,7 +106,7 @@ final class Glicko1Test extends \PHPUnit\Framework\TestCase
         self::assertEquals(
             [
                 'elo' => 2401,
-                'rd' => 199,
+                'rd'  => 199,
             ],
             $rating->rating(2400, 200, 0, 0, [1500], [1.0], [150])
         );
@@ -114,7 +114,7 @@ final class Glicko1Test extends \PHPUnit\Framework\TestCase
         self::assertEquals(
             [
                 'elo' => 1498,
-                'rd' => 199,
+                'rd'  => 199,
             ],
             $rating->rating(1500, 200, 0, 0, [2400], [0.0], [150])
         );
@@ -132,7 +132,7 @@ final class Glicko1Test extends \PHPUnit\Framework\TestCase
         self::assertEquals(
             [
                 'elo' => 1464,
-                'rd' => 151,
+                'rd'  => 151,
             ],
             $rating->rating(1500, 200, 0, 0, [1400, 1550, 1700], [1.0, 0.0, 0.0], [30, 100, 300])
         );

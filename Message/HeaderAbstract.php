@@ -67,7 +67,7 @@ abstract class HeaderAbstract
      */
     public function __construct()
     {
-        $this->l11n = new Localization();
+        $this->l11n      = new Localization();
         $this->timestamp = \time();
     }
 

@@ -38,8 +38,8 @@ final class Glicko2Test extends \PHPUnit\Framework\TestCase
         self::assertEqualsWithDelta(
             [
                 'elo' => 1649,
-                'rd' => 186,
-                'vol' => 0.06
+                'rd'  => 186,
+                'vol' => 0.06,
             ],
             $rating->rating(1500, 200, 0.06, [1800], [1.0], [150]),
             0.0001
@@ -48,8 +48,8 @@ final class Glicko2Test extends \PHPUnit\Framework\TestCase
         self::assertEqualsWithDelta(
             [
                 'elo' => 1717,
-                'rd' => 144,
-                'vol' => 0.06
+                'rd'  => 144,
+                'vol' => 0.06,
             ],
             $rating->rating(1800, 150, 0.06, [1500], [0.0], [200]),
             0.0001
@@ -59,8 +59,8 @@ final class Glicko2Test extends \PHPUnit\Framework\TestCase
         self::assertEqualsWithDelta(
             [
                 'elo' => 1638,
-                'rd' => 187,
-                'vol' => 0.06
+                'rd'  => 187,
+                'vol' => 0.06,
             ],
             $rating->rating(1500, 200, 0.06, [1800], [1.0], [200]),
             0.0001
@@ -69,8 +69,8 @@ final class Glicko2Test extends \PHPUnit\Framework\TestCase
         self::assertEqualsWithDelta(
             [
                 'elo' => 1661,
-                'rd' => 187,
-                'vol' => 0.06
+                'rd'  => 187,
+                'vol' => 0.06,
             ],
             $rating->rating(1800, 200, 0.06, [1500], [0.0], [200]),
             0.0001
@@ -80,8 +80,8 @@ final class Glicko2Test extends \PHPUnit\Framework\TestCase
         self::assertEqualsWithDelta(
             [
                 'elo' => 1621,
-                'rd' => 177,
-                'vol' => 0.06
+                'rd'  => 177,
+                'vol' => 0.06,
             ],
             $rating->rating(1550, 200, 0.06, [1500], [1.0], [150]),
             0.0001
@@ -90,8 +90,8 @@ final class Glicko2Test extends \PHPUnit\Framework\TestCase
         self::assertEqualsWithDelta(
             [
                 'elo' => 1428,
-                'rd' => 177,
-                'vol' => 0.06
+                'rd'  => 177,
+                'vol' => 0.06,
             ],
             $rating->rating(1500, 200, 0.06, [1550], [0.0], [150]),
             0.0001
@@ -101,8 +101,8 @@ final class Glicko2Test extends \PHPUnit\Framework\TestCase
         self::assertEqualsWithDelta(
             [
                 'elo' => 1539,
-                'rd' => 177,
-                'vol' => 0.06
+                'rd'  => 177,
+                'vol' => 0.06,
             ],
             $rating->rating(1550, 200, 0.06, [1500], [0.5], [150]),
             0.0001
@@ -111,8 +111,8 @@ final class Glicko2Test extends \PHPUnit\Framework\TestCase
         self::assertEqualsWithDelta(
             [
                 'elo' => 1510,
-                'rd' => 177,
-                'vol' => 0.06
+                'rd'  => 177,
+                'vol' => 0.06,
             ],
             $rating->rating(1500, 200, 0.06, [1550], [0.5], [150]),
             0.0001
@@ -122,8 +122,8 @@ final class Glicko2Test extends \PHPUnit\Framework\TestCase
         self::assertEqualsWithDelta(
             [
                 'elo' => 2401,
-                'rd' => 199,
-                'vol' => 0.06
+                'rd'  => 199,
+                'vol' => 0.06,
             ],
             $rating->rating(2400, 200, 0.06, [1500], [1.0], [150]),
             0.0001
@@ -132,8 +132,8 @@ final class Glicko2Test extends \PHPUnit\Framework\TestCase
         self::assertEqualsWithDelta(
             [
                 'elo' => 1498,
-                'rd' => 199,
-                'vol' => 0.06
+                'rd'  => 199,
+                'vol' => 0.06,
             ],
             $rating->rating(1500, 200, 0.06, [2400], [0.0], [150]),
             0.0001
@@ -152,8 +152,8 @@ final class Glicko2Test extends \PHPUnit\Framework\TestCase
         self::assertEqualsWithDelta(
             [
                 'elo' => 1464,
-                'rd' => 151,
-                'vol' => 0.059999
+                'rd'  => 151,
+                'vol' => 0.059999,
             ],
             $rating->rating(1500, 200, 0.06, [1400, 1550, 1700], [1.0, 0.0, 0.0], [30, 100, 300]),
             0.0001

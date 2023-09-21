@@ -143,7 +143,7 @@ final class Glicko1
 
         // Step 2:
         foreach ($oElo as $id => $e) {
-            $gRD_t = 1 / (\sqrt(1 + 3 * self::Q * self::Q * $oRd[$id] * $oRd[$id] / (\M_PI * \M_PI)));
+            $gRD_t    = 1 / (\sqrt(1 + 3 * self::Q * self::Q * $oRd[$id] * $oRd[$id] / (\M_PI * \M_PI)));
             $gRD[$id] = $gRD_t;
             $E[$id]   = 1 / (1 + \pow(10, $gRD_t * ($elo - $e) / -400));
         }

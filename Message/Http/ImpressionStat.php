@@ -16,7 +16,6 @@ namespace phpOMS\Message\Http;
 
 use phpOMS\Localization\ISO3166TwoEnum;
 use phpOMS\Localization\ISO639x1Enum;
-use phpOMS\Message\Http\HttpRequest;
 
 /**
  * Request statistic class.
