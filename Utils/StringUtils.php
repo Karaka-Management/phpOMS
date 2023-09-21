@@ -32,6 +32,14 @@ use phpOMS\Contract\SerializableInterface;
 final class StringUtils
 {
     /**
+     * Alphabet list
+     *
+     * @var string[]
+     * @since 1.0.0
+     */
+    private const ALPHABET = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z'];
+
+    /**
      * Constructor.
      *
      * This class is purely static and is preventing any initialization
@@ -417,5 +425,36 @@ final class StringUtils
         }
 
         return true;
+    }
+
+    /**
+     * Turn ints into spreadsheet column names
+     *
+     * @param int $num Column number
+     *
+     * @return string
+     *
+     * @since 1.0.0
+     */
+    public static function intToAlphabet(int $num) : string
+    {
+        if ($num < 0) {
+            return false;
+        }
+
+        $result = '';
+
+        while ($num >= 0) {
+            $remainder = $num % 26;
+            $result    = self::ALPHABET[$remainder] . $result;
+
+            if ($num < 26) {
+                break;
+            }
+
+            $num = (int) \floor($num / 26);
+        }
+
+        return $result;
     }
 }

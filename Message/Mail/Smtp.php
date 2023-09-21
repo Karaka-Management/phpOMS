@@ -545,12 +545,12 @@ class Smtp
 
             if ($n === 0) {
                 $name   = $type;
-                $fields = $fields[0];
+                $fields = ($fields === false ? 0 : $fields[0]);
             } else {
                 $name = \array_shift($fields);
                 switch ($name) {
                     case 'SIZE':
-                        $fields = ($fields ? $fields[0] : 0);
+                        $fields = ($fields === false ? 0 : $fields[0]);
                         break;
                     case 'AUTH':
                         if (!\is_array($fields)) {
