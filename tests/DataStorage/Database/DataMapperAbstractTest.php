@@ -318,9 +318,7 @@ final class DataMapperAbstractTest extends \PHPUnit\Framework\TestCase
             searchFields: ['string']
         );
 
-        var_dump($list);
-
-        self::assertEquals(2, \count($list));
+        self::assertEquals(2, \count($list['data']));
     }
 
     /**

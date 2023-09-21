@@ -33,15 +33,15 @@ final class ForensicsTest extends \PHPUnit\Framework\TestCase
 
         $analysis = Forensics::benfordAnalysis($surface);
 
-        self::assertEqualsWithDelta(0.3181, $analysis[1], 0.01);
-        self::assertEqualsWithDelta(0.2055, $analysis[2], 0.01);
-        self::assertEqualsWithDelta(0.1251, $analysis[3], 0.01);
-        self::assertEqualsWithDelta(0.929, $analysis[4], 0.01);
-        self::assertEqualsWithDelta(0.661, $analysis[5], 0.01);
-        self::assertEqualsWithDelta(0.617, $analysis[6], 0.01);
-        self::assertEqualsWithDelta(0.500, $analysis[7], 0.01);
-        self::assertEqualsWithDelta(0.447, $analysis[8], 0.01);
-        self::assertEqualsWithDelta(0.357, $analysis[9], 0.01);
+        self::assertEqualsWithDelta(0.250, $analysis[1], 0.01);
+        self::assertEqualsWithDelta(0.249, $analysis[2], 0.01);
+        self::assertEqualsWithDelta(0.164, $analysis[3], 0.01);
+        self::assertEqualsWithDelta(0.102, $analysis[4], 0.01);
+        self::assertEqualsWithDelta(0.102, $analysis[5], 0.01);
+        self::assertEqualsWithDelta(0.059, $analysis[6], 0.01);
+        self::assertEqualsWithDelta(0.044, $analysis[7], 0.01);
+        self::assertEqualsWithDelta(0.032, $analysis[8], 0.01);
+        self::assertEqualsWithDelta(0.027, $analysis[9], 0.01);
     }
 
     public function testExpectedBenfordDistribution() : void
@@ -51,11 +51,11 @@ final class ForensicsTest extends \PHPUnit\Framework\TestCase
         self::assertEqualsWithDelta(0.301, $dist[1], 0.01);
         self::assertEqualsWithDelta(0.1761, $dist[2], 0.01);
         self::assertEqualsWithDelta(0.1249, $dist[3], 0.01);
-        self::assertEqualsWithDelta(0.969, $dist[4], 0.01);
-        self::assertEqualsWithDelta(0.792, $dist[5], 0.01);
-        self::assertEqualsWithDelta(0.669, $dist[6], 0.01);
-        self::assertEqualsWithDelta(0.580, $dist[7], 0.01);
-        self::assertEqualsWithDelta(0.512, $dist[8], 0.01);
-        self::assertEqualsWithDelta(0.458, $dist[9], 0.01);
+        self::assertEqualsWithDelta(0.0969, $dist[4], 0.01);
+        self::assertEqualsWithDelta(0.0792, $dist[5], 0.01);
+        self::assertEqualsWithDelta(0.0669, $dist[6], 0.01);
+        self::assertEqualsWithDelta(0.0580, $dist[7], 0.01);
+        self::assertEqualsWithDelta(0.0512, $dist[8], 0.01);
+        self::assertEqualsWithDelta(0.0458, $dist[9], 0.01);
     }
 }
