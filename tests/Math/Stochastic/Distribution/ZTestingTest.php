@@ -14,6 +14,8 @@ declare(strict_types=1);
 
 namespace phpOMS\tests\Math\Stochastic\Distribution;
 
+include_once __DIR__ . '/../../../Autoloader.php';
+
 use phpOMS\Math\Statistic\Average;
 use phpOMS\Math\Statistic\MeasureOfDispersion;
 use phpOMS\Math\Stochastic\Distribution\ZTesting;

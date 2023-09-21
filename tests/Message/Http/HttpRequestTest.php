@@ -265,7 +265,7 @@ final class HttpRequestTest extends \PHPUnit\Framework\TestCase
         $request = new HttpRequest(new HttpUri(''));
 
         $data = [
-            1, 2, 3,
+            0 => 1, 1 => 2, 2 => 3,
             'a' => 'b',
             'b' => [4, 5],
         ];

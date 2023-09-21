@@ -98,10 +98,10 @@ class SpreadsheetDatabaseMapper implements IODatabaseMapper
             $query->insert(...$titles)->into($table);
 
             $line = 2;
-            while (!empty($row = $workSheet->getCell('A' . $line)->getCalculatedValue())) {
+            while (!empty($workSheet->getCell('A' . $line)->getCalculatedValue())) {
                 $cells = [];
                 for ($j = 1; $j <= $columns; ++$j) {
-                    $cells[] = $row;
+                    $cells[] = $workSheet->getCell(StringUtils::intToAlphabet($j) . $line)->getCalculatedValue();
                 }
 
                 var_dump($cells);

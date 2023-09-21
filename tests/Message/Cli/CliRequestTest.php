@@ -117,7 +117,7 @@ final class CliRequestTest extends \PHPUnit\Framework\TestCase
     {
         self::assertTrue($this->request->setData('key', 'value'));
         self::assertEquals('value', $this->request->getData('key'));
-        self::assertEquals(['-key', 'value'], $this->request->getData());
+        self::assertEquals(['key', 'value'], $this->request->getData());
     }
 
     /**

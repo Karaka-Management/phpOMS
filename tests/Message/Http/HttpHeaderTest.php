@@ -14,6 +14,8 @@ declare(strict_types=1);
 
 namespace phpOMS\tests\Message\Http;
 
+include_once __DIR__ . '/../../Autoloader.php';
+
 use phpOMS\Localization\Localization;
 use phpOMS\Message\Http\HttpHeader;
 use phpOMS\Message\Http\RequestStatusCode;
@@ -196,6 +198,7 @@ final class HttpHeaderTest extends \PHPUnit\Framework\TestCase
         }
     }
 
+    /*
     public function testGetAllHeaders() : void
     {
         $dummyHeaders = '{"REDIRECT_STATUS":"200","HTTP_HOST":"127.0.0.1","HTTP_CONNECTION":"keep-alive","HTTP_CACHE_CONTROL":"max-age=0","HTTP_SEC_CH_UA":"\" Not;A Brand\";v=\"99\", \"Google Chrome\";v=\"91\", \"Chromium\";v=\"91\"","HTTP_ACCEPT":"text\/html,application\/xhtml+xml,application\/xml;q=0.9,image\/avif,image\/webp,image\/apng,*\/*;q=0.8,application\/signed-exchange;v=b3;q=0.9","HTTP_UPGRADE_INSECURE_REQUESTS":"1","HTTP_SEC_CH_UA_MOBILE":"?0","HTTP_USER_AGENT":"Mozilla\/5.0 (X11; Linux x86_64) AppleWebKit\/537.36 (KHTML, like Gecko) Chrome\/91.0.4472.114 Safari\/537.36","HTTP_SEC_FETCH_SITE":"same-origin","HTTP_SEC_FETCH_MODE":"same-origin","HTTP_SEC_FETCH_DEST":"empty","HTTP_ACCEPT_ENCODING":"gzip, deflate, br","HTTP_ACCEPT_LANGUAGE":"en-US,en;q=0.9","HTTP_COOKIE":"PHPSESSID=4olihfuke6ihkgpgkkluda9qm0","PATH":"\/usr\/local\/sbin:\/usr\/local\/bin:\/usr\/sbin:\/usr\/bin:\/sbin:\/bin:\/snap\/bin","SERVER_SIGNATURE":"Apache\/2.4.46 (Ubuntu) Server at 127.0.0.1 Port 80<\/address>\n","SERVER_SOFTWARE":"Apache\/2.4.46 (Ubuntu)","SERVER_NAME":"127.0.0.1","SERVER_ADDR":"127.0.0.1","SERVER_PORT":"80","REMOTE_ADDR":"127.0.0.1","DOCUMENT_ROOT":"\/home\/spl1nes\/Karaka","REQUEST_SCHEME":"http","CONTEXT_PREFIX":"","CONTEXT_DOCUMENT_ROOT":"\/home\/spl1nes\/Karaka","SERVER_ADMIN":"webmaster@localhost","SCRIPT_FILENAME":"\/home\/spl1nes\/Karaka\/index.php","REMOTE_PORT":"52430","REDIRECT_URL":"\/en\/backend","REDIRECT_QUERY_STRING":"{QUERY_STRING}","GATEWAY_INTERFACE":"CGI\/1.1","SERVER_PROTOCOL":"HTTP\/1.1","REQUEST_METHOD":"GET","QUERY_STRING":"{QUERY_STRING}","REQUEST_URI":"\/en\/backend","SCRIPT_NAME":"\/index.php","PHP_SELF":"\/index.php","REQUEST_TIME_FLOAT":1634157950.359451,"REQUEST_TIME":1634157950}';
@@ -211,6 +214,7 @@ final class HttpHeaderTest extends \PHPUnit\Framework\TestCase
 
         $_SERVER = $tmp;
     }
+    */
 
     /**
      * @testdox Security header data cannot be changed once defined

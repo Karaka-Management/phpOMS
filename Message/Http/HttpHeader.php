@@ -346,206 +346,242 @@ final class HttpHeader extends HeaderAbstract
     {
         switch ($code) {
             case RequestStatusCode::R_100:
-                $this->set('', 'HTTP/1.0 100 Continue');
-                $this->set('Status', '100 Continue');
+                $this->set('', 'HTTP/1.0 100 Continue', true);
+                $this->set('Status', '100 Continue', true);
+                break;
+            case RequestStatusCode::R_101:
+                $this->set('', 'HTTP/1.0 101 Switching protocols', true);
+                $this->set('Status', '101 Switching protocols', true);
                 break;
             case RequestStatusCode::R_102:
-                $this->set('', 'HTTP/1.0 102 Processing');
-                $this->set('Status', '102 Processing');
+                $this->set('', 'HTTP/1.0 102 Processing', true);
+                $this->set('Status', '102 Processing', true);
                 break;
             case RequestStatusCode::R_200:
-                $this->set('', 'HTTP/1.0 200 OK');
-                $this->set('Status', '200 OK');
+                $this->set('', 'HTTP/1.0 200 OK', true);
+                $this->set('Status', '200 OK', true);
                 break;
             case RequestStatusCode::R_201:
-                $this->set('', 'HTTP/1.0 201 Created');
-                $this->set('Status', '201 Created');
+                $this->set('', 'HTTP/1.0 201 Created', true);
+                $this->set('Status', '201 Created', true);
                 break;
             case RequestStatusCode::R_202:
-                $this->set('', 'HTTP/1.0 202 Accepted');
-                $this->set('Status', '202 Accepted');
+                $this->set('', 'HTTP/1.0 202 Accepted', true);
+                $this->set('Status', '202 Accepted', true);
+                break;
+            case RequestStatusCode::R_203:
+                $this->set('', 'HTTP/1.0 203 Non-Authoritative Information', true);
+                $this->set('Status', '203 Non-Authoritative Information', true);
                 break;
             case RequestStatusCode::R_204:
-                $this->set('', 'HTTP/1.0 204 No Content');
-                $this->set('Status', '204 No Content');
+                $this->set('', 'HTTP/1.0 204 No Content', true);
+                $this->set('Status', '204 No Content', true);
                 break;
             case RequestStatusCode::R_205:
-                $this->set('', 'HTTP/1.0 205 Reset Content');
-                $this->set('Status', '205 Reset Content');
+                $this->set('', 'HTTP/1.0 205 Reset Content', true);
+                $this->set('Status', '205 Reset Content', true);
                 break;
             case RequestStatusCode::R_206:
-                $this->set('', 'HTTP/1.0 206 Partial Content');
-                $this->set('Status', '206 Partial Content');
+                $this->set('', 'HTTP/1.0 206 Partial Content', true);
+                $this->set('Status', '206 Partial Content', true);
+                break;
+            case RequestStatusCode::R_207:
+                $this->set('', 'HTTP/1.0 207 Multi-Status', true);
+                $this->set('Status', '207 Multi-Status', true);
+                break;
+            case RequestStatusCode::R_300:
+                $this->set('', 'HTTP/1.0 300 Multiple Choices', true);
+                $this->set('Status', '300 Multiple Choices', true);
                 break;
             case RequestStatusCode::R_301:
-                $this->set('', 'HTTP/1.0 301 Moved Permanently');
-                $this->set('Status', '301 Moved Permanently');
+                $this->set('', 'HTTP/1.0 301 Moved Permanently', true);
+                $this->set('Status', '301 Moved Permanently', true);
                 break;
             case RequestStatusCode::R_302:
-                $this->set('', 'HTTP/1.0 302 Found');
-                $this->set('Status', '302 Found');
+                $this->set('', 'HTTP/1.0 302 Found', true);
+                $this->set('Status', '302 Found', true);
                 break;
             case RequestStatusCode::R_303:
-                $this->set('', 'HTTP/1.0 303 See Other');
-                $this->set('Status', '303 See Other');
+                $this->set('', 'HTTP/1.0 303 See Other', true);
+                $this->set('Status', '303 See Other', true);
                 break;
             case RequestStatusCode::R_304:
-                $this->set('', 'HTTP/1.0 304 Not Modified');
-                $this->set('Status', '304 Not Modified');
+                $this->set('', 'HTTP/1.0 304 Not Modified', true);
+                $this->set('Status', '304 Not Modified', true);
+                break;
+            case RequestStatusCode::R_305:
+                $this->set('', 'HTTP/1.0 305 Use Proxy', true);
+                $this->set('Status', '305 Use Proxy', true);
+                break;
+            case RequestStatusCode::R_306:
+                $this->set('', 'HTTP/1.0 306 Switch Proxy', true);
+                $this->set('Status', '306 Switch Proxy', true);
                 break;
             case RequestStatusCode::R_307:
-                $this->set('', 'HTTP/1.0 307 Temporary Redirect');
-                $this->set('Status', '307 Temporary Redirect');
+                $this->set('', 'HTTP/1.0 307 Temporary Redirect', true);
+                $this->set('Status', '307 Temporary Redirect', true);
                 break;
             case RequestStatusCode::R_308:
-                $this->set('', 'HTTP/1.0 308 Permanent Redirect');
-                $this->set('Status', '308 Permanent Redirect');
+                $this->set('', 'HTTP/1.0 308 Permanent Redirect', true);
+                $this->set('Status', '308 Permanent Redirect', true);
                 break;
             case RequestStatusCode::R_400:
-                $this->set('', 'HTTP/1.0 400 Bad Request');
-                $this->set('Status', '400 Bad Request');
+                $this->set('', 'HTTP/1.0 400 Bad Request', true);
+                $this->set('Status', '400 Bad Request', true);
                 break;
             case RequestStatusCode::R_401:
-                $this->set('', 'HTTP/1.0 401 Unauthorized');
-                $this->set('Status', '401 Unauthorized');
+                $this->set('', 'HTTP/1.0 401 Unauthorized', true);
+                $this->set('Status', '401 Unauthorized', true);
                 break;
             case RequestStatusCode::R_402:
-                $this->set('', 'HTTP/1.0 402 Payment Required');
-                $this->set('Status', '402 Payment Required');
+                $this->set('', 'HTTP/1.0 402 Payment Required', true);
+                $this->set('Status', '402 Payment Required', true);
                 break;
             case RequestStatusCode::R_403:
-                $this->set('', 'HTTP/1.0 403 Forbidden');
-                $this->set('Status', '403 Forbidden');
+                $this->set('', 'HTTP/1.0 403 Forbidden', true);
+                $this->set('Status', '403 Forbidden', true);
                 break;
             case RequestStatusCode::R_404:
-                $this->set('', 'HTTP/1.0 404 Not Found');
-                $this->set('Status', '404 Not Found');
+                $this->set('', 'HTTP/1.0 404 Not Found', true);
+                $this->set('Status', '404 Not Found', true);
                 break;
             case RequestStatusCode::R_405:
-                $this->set('', 'HTTP/1.0 405 Method Not Allowed');
-                $this->set('Status', '405 Method Not Allowed');
+                $this->set('', 'HTTP/1.0 405 Method Not Allowed', true);
+                $this->set('Status', '405 Method Not Allowed', true);
                 break;
             case RequestStatusCode::R_406:
-                $this->set('', 'HTTP/1.0 406 Not acceptable');
-                $this->set('Status', '406 Not acceptable');
+                $this->set('', 'HTTP/1.0 406 Not acceptable', true);
+                $this->set('Status', '406 Not acceptable', true);
                 break;
             case RequestStatusCode::R_407:
-                $this->set('', 'HTTP/1.0 407 Proxy Authentication Required');
-                $this->set('Status', '407 Proxy Authentication Required');
+                $this->set('', 'HTTP/1.0 407 Proxy Authentication Required', true);
+                $this->set('Status', '407 Proxy Authentication Required', true);
                 break;
             case RequestStatusCode::R_408:
-                $this->set('', 'HTTP/1.0 408 Request Timeout');
-                $this->set('Status', '408 Request Timeout');
+                $this->set('', 'HTTP/1.0 408 Request Timeout', true);
+                $this->set('Status', '408 Request Timeout', true);
                 break;
             case RequestStatusCode::R_409:
-                $this->set('', 'HTTP/1.0 409 Conflict');
-                $this->set('Status', '409 Conflict');
+                $this->set('', 'HTTP/1.0 409 Conflict', true);
+                $this->set('Status', '409 Conflict', true);
                 break;
             case RequestStatusCode::R_410:
-                $this->set('', 'HTTP/1.0 410 Gone');
-                $this->set('Status', '410 Gone');
+                $this->set('', 'HTTP/1.0 410 Gone', true);
+                $this->set('Status', '410 Gone', true);
                 break;
             case RequestStatusCode::R_411:
-                $this->set('', 'HTTP/1.0 411 Length Required');
-                $this->set('Status', '411 Length Required');
+                $this->set('', 'HTTP/1.0 411 Length Required', true);
+                $this->set('Status', '411 Length Required', true);
                 break;
             case RequestStatusCode::R_412:
-                $this->set('', 'HTTP/1.0 412 Precondition Failed');
-                $this->set('Status', '412 Precondition Failed');
+                $this->set('', 'HTTP/1.0 412 Precondition Failed', true);
+                $this->set('Status', '412 Precondition Failed', true);
                 break;
             case RequestStatusCode::R_413:
-                $this->set('', 'HTTP/1.0 413 Request Entity Too Large');
-                $this->set('Status', '413 Request Entity Too Large');
+                $this->set('', 'HTTP/1.0 413 Request Entity Too Large', true);
+                $this->set('Status', '413 Request Entity Too Large', true);
                 break;
             case RequestStatusCode::R_414:
-                $this->set('', 'HTTP/1.0 414 Request-URI Too Long');
-                $this->set('Status', '414 Request-URI Too Long');
+                $this->set('', 'HTTP/1.0 414 Request-URI Too Long', true);
+                $this->set('Status', '414 Request-URI Too Long', true);
                 break;
             case RequestStatusCode::R_415:
-                $this->set('', 'HTTP/1.0 415 Unsupported Media Type');
-                $this->set('Status', '415 Unsupported Media Type');
+                $this->set('', 'HTTP/1.0 415 Unsupported Media Type', true);
+                $this->set('Status', '415 Unsupported Media Type', true);
                 break;
             case RequestStatusCode::R_416:
-                $this->set('', 'HTTP/1.0 416 Requested Range Not Satisfiable');
-                $this->set('Status', '416 Requested Range Not Satisfiable');
+                $this->set('', 'HTTP/1.0 416 Requested Range Not Satisfiable', true);
+                $this->set('Status', '416 Requested Range Not Satisfiable', true);
                 break;
             case RequestStatusCode::R_417:
-                $this->set('', 'HTTP/1.0 417 Expectation Failed');
-                $this->set('Status', '417 Expectation Failed');
+                $this->set('', 'HTTP/1.0 417 Expectation Failed', true);
+                $this->set('Status', '417 Expectation Failed', true);
                 break;
             case RequestStatusCode::R_421:
-                $this->set('', 'HTTP/1.0 421 Misdirected Request');
-                $this->set('Status', '421 Misdirected Request');
+                $this->set('', 'HTTP/1.0 421 Misdirected Request', true);
+                $this->set('Status', '421 Misdirected Request', true);
                 break;
             case RequestStatusCode::R_422:
-                $this->set('', 'HTTP/1.0 422 Unprocessable Entity');
-                $this->set('Status', '422 Unprocessable Entity');
+                $this->set('', 'HTTP/1.0 422 Unprocessable Entity', true);
+                $this->set('Status', '422 Unprocessable Entity', true);
                 break;
             case RequestStatusCode::R_423:
-                $this->set('', 'HTTP/1.0 423 Locked');
-                $this->set('Status', '423 Locked');
+                $this->set('', 'HTTP/1.0 423 Locked', true);
+                $this->set('Status', '423 Locked', true);
                 break;
             case RequestStatusCode::R_424:
-                $this->set('', 'HTTP/1.0 424 Failed Dependency');
-                $this->set('Status', '424 Failed Dependency');
+                $this->set('', 'HTTP/1.0 424 Failed Dependency', true);
+                $this->set('Status', '424 Failed Dependency', true);
                 break;
             case RequestStatusCode::R_425:
-                $this->set('', 'HTTP/1.0 425 Too Early');
-                $this->set('Status', '425 Too Early');
+                $this->set('', 'HTTP/1.0 425 Too Early', true);
+                $this->set('Status', '425 Too Early', true);
                 break;
             case RequestStatusCode::R_426:
-                $this->set('', 'HTTP/1.0 426 Upgrade Required');
-                $this->set('Status', '426 Upgrade Required');
+                $this->set('', 'HTTP/1.0 426 Upgrade Required', true);
+                $this->set('Status', '426 Upgrade Required', true);
                 break;
             case RequestStatusCode::R_428:
-                $this->set('', 'HTTP/1.0 428 Precondition Required');
-                $this->set('Status', '428 Precondition Required');
+                $this->set('', 'HTTP/1.0 428 Precondition Required', true);
+                $this->set('Status', '428 Precondition Required', true);
                 break;
             case RequestStatusCode::R_429:
-                $this->set('', 'HTTP/1.0 429 Too Many Requests');
-                $this->set('Status', '429 Too Many Requests');
+                $this->set('', 'HTTP/1.0 429 Too Many Requests', true);
+                $this->set('Status', '429 Too Many Requests', true);
                 break;
             case RequestStatusCode::R_431:
-                $this->set('', 'HTTP/1.0 431 Request Header Fields Too Large');
-                $this->set('Status', '431 Request Header Fields Too Large');
+                $this->set('', 'HTTP/1.0 431 Request Header Fields Too Large', true);
+                $this->set('Status', '431 Request Header Fields Too Large', true);
                 break;
             case RequestStatusCode::R_451:
-                $this->set('', 'HTTP/1.0 451 Unavailable For Legal Reasons');
-                $this->set('Status', '451 Unavailable For Legal Reasons');
+                $this->set('', 'HTTP/1.0 451 Unavailable For Legal Reasons', true);
+                $this->set('Status', '451 Unavailable For Legal Reasons', true);
                 break;
             case RequestStatusCode::R_501:
-                $this->set('', 'HTTP/1.0 501 Not Implemented');
-                $this->set('Status', '501 Not Implemented');
+                $this->set('', 'HTTP/1.0 501 Not Implemented', true);
+                $this->set('Status', '501 Not Implemented', true);
                 break;
             case RequestStatusCode::R_502:
-                $this->set('', 'HTTP/1.0 502 Bad Gateway');
-                $this->set('Status', '502 Bad Gateway');
+                $this->set('', 'HTTP/1.0 502 Bad Gateway', true);
+                $this->set('Status', '502 Bad Gateway', true);
                 break;
             case RequestStatusCode::R_503:
-                $this->set('', 'HTTP/1.0 503 Service Temporarily Unavailable');
-                $this->set('Status', '503 Service Temporarily Unavailable');
-                $this->set('Retry-After', 'Retry-After: 300');
+                $this->set('', 'HTTP/1.0 503 Service Temporarily Unavailable', true);
+                $this->set('Status', '503 Service Temporarily Unavailable', true);
+                $this->set('Retry-After', 'Retry-After: 300', true);
                 break;
             case RequestStatusCode::R_504:
-                $this->set('', 'HTTP/1.0 504 Gateway Timeout');
-                $this->set('Status', '504 Gateway Timeout');
+                $this->set('', 'HTTP/1.0 504 Gateway Timeout', true);
+                $this->set('Status', '504 Gateway Timeout', true);
+                break;
+            case RequestStatusCode::R_505:
+                $this->set('', 'HTTP/1.0 505 HTTP Version Not Supported', true);
+                $this->set('Status', '505 HTTP Version Not Supported', true);
+                break;
+            case RequestStatusCode::R_506:
+                $this->set('', 'HTTP/1.0 506 HTTP Variant Also Negotiates', true);
+                $this->set('Status', '506 HTTP Variant Also Negotiates', true);
                 break;
             case RequestStatusCode::R_507:
-                $this->set('', 'HTTP/1.0 507 Insufficient Storage');
-                $this->set('Status', '507 Insufficient Storage');
+                $this->set('', 'HTTP/1.0 507 Insufficient Storage', true);
+                $this->set('Status', '507 Insufficient Storage', true);
                 break;
             case RequestStatusCode::R_508:
-                $this->set('', 'HTTP/1.0 508 Loop Detected');
-                $this->set('Status', '508 Loop Detected');
+                $this->set('', 'HTTP/1.0 508 Loop Detected', true);
+                $this->set('Status', '508 Loop Detected', true);
+                break;
+            case RequestStatusCode::R_510:
+                $this->set('', 'HTTP/1.0 510 Not Extended', true);
+                $this->set('Status', '510 Not Extended', true);
                 break;
             case RequestStatusCode::R_511:
-                $this->set('', 'HTTP/1.0 511 Network Authentication Required');
-                $this->set('Status', '511 Network Authentication Required');
+                $this->set('', 'HTTP/1.0 511 Network Authentication Required', true);
+                $this->set('Status', '511 Network Authentication Required', true);
                 break;
             case RequestStatusCode::R_500:
             default:
-                $this->set('', 'HTTP/1.0 500 Internal Server Error');
-                $this->set('Status', '500 Internal Server Error');
+                $this->set('', 'HTTP/1.0 500 Internal Server Error', true);
+                $this->set('Status', '500 Internal Server Error', true);
         }
     }
 }

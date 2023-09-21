@@ -101,7 +101,7 @@ final class NormalDistribution
      */
     public static function getCdf(float $x, float $mu, float $sig) : float
     {
-        return 0.5 * Functions::getErf(-($x - $mu) / ($sig * \sqrt(2)));
+        return 0.5 * (1 + Functions::getErf(($x - $mu) / ($sig * \sqrt(2))));
     }
 
     /**

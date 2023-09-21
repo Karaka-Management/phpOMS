@@ -52,7 +52,6 @@ final class RestTest extends \PHPUnit\Framework\TestCase
         $request = new HttpRequest(new HttpUri('http://httpbin.org/post'));
         $request->setMethod(RequestMethod::POST);
         self::assertTrue($request->setData('pdata', 'abc'));
-        var_dump(REST::request($request)->getJsonData());
         self::assertEquals('abc', REST::request($request)->getJsonData()['form']['pdata'] ?? '');
     }
 
