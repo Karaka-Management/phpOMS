@@ -16,17 +16,17 @@ namespace phpOMS\tests\Dispatcher;
 
 class TestController
 {
-    public function testFunction($req, $resp, $data = null): bool
+    public function testFunction($req, $resp, $data = null) : bool
     {
         return true;
     }
 
-    public function testFunctionNoPara(): bool
+    public function testFunctionNoPara() : bool
     {
         return true;
     }
 
-    public static function testFunctionStatic($req, $resp, $data = null): bool
+    public static function testFunctionStatic($req, $resp, $data = null) : bool
     {
         return true;
     }

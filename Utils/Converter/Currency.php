@@ -105,7 +105,7 @@ final class Currency
         try {
             $xml = new \SimpleXMLElement(Rest::request($request)->getBody());
 
-            if (!(property_exists($xml, 'Cube') && $xml->Cube !== null)) {
+            if (!(\property_exists($xml, 'Cube') && $xml->Cube !== null)) {
                 throw new \Exception('Invalid xml path'); // @codeCoverageIgnore
             }
 
