@@ -15,6 +15,7 @@ declare(strict_types=1);
 namespace phpOMS\tests\Utils\TaskSchedule;
 
 use phpOMS\Utils\TaskSchedule\Schedule;
+use phpOMS\Utils\TaskSchedule\SchedulerAbstract;
 use phpOMS\Utils\TaskSchedule\TaskScheduler;
 
 /**
@@ -30,6 +31,12 @@ final class TaskSchedulerTest extends \PHPUnit\Framework\TestCase
             $this->markTestSkipped(
               'The OS is not windows.'
             );
+        }
+
+        if (!SchedulerAbstract::guessBin()) {
+            $this->markTestSkipped(
+                'No scheduler available'
+              );
         }
     }
 

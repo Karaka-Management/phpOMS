@@ -16,6 +16,7 @@ namespace phpOMS\tests\Utils\TaskSchedule;
 
 use phpOMS\Utils\TaskSchedule\Cron;
 use phpOMS\Utils\TaskSchedule\CronJob;
+use phpOMS\Utils\TaskSchedule\SchedulerAbstract;
 
 /**
  * @testdox phpOMS\tests\Utils\TaskSchedule\CronTest: Cron handler
@@ -30,6 +31,12 @@ final class CronTest extends \PHPUnit\Framework\TestCase
             $this->markTestSkipped(
               'The OS is not linux.'
             );
+        }
+
+        if (!SchedulerAbstract::guessBin()) {
+            $this->markTestSkipped(
+                'No scheduler available'
+              );
         }
     }
 
