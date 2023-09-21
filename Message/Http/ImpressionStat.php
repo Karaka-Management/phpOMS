@@ -27,26 +27,93 @@ use phpOMS\Localization\ISO639x1Enum;
  */
 class ImpressionStat
 {
+    /**
+     * Request ip
+     *
+     * @var string
+     * @since 1.0.0
+     */
     public string $address = '';
 
+    /**
+     * Request language
+     *
+     * @var string
+     * @since 1.0.0
+     */
     public string $language = ISO639x1Enum::_EN;
 
+    /**
+     * Request country
+     *
+     * @var string
+     * @since 1.0.0
+     */
     public string $country = ISO3166TwoEnum::_XXX;
 
+    /**
+     * Request time
+     *
+     * @var \DateTime
+     * @since 1.0.0
+     */
     public \DateTime $datetime;
 
+    /**
+     * Request host/domain
+     *
+     * @var string
+     * @since 1.0.0
+     */
     public string $host = '';
 
+    /**
+     * Request path
+     *
+     * @var string
+     * @since 1.0.0
+     */
     public string $path = '';
 
+    /**
+     * Request full uri
+     *
+     * @var string
+     * @since 1.0.0
+     */
     public string $uri = '';
 
+    /**
+     * Request referer link
+     *
+     * @var string
+     * @since 1.0.0
+     */
     public string $referer = '';
 
+    /**
+     * Request browser/agent
+     *
+     * @var string
+     * @since 1.0.0
+     */
     public string $userAgent = '';
 
+    /**
+     * Additional custom meta data to be stored
+     *
+     * @var string
+     * @since 1.0.0
+     */
     public array $meta = [];
 
+    /**
+     * Constructor.
+     *
+     * @param HttpRequest $request Http request object
+     *
+     * @since 1.0.0
+     */
     public function __construct(HttpRequest $request)
     {
         $this->language  = $request->header->l11n->language;
@@ -60,6 +127,13 @@ class ImpressionStat
         $this->userAgent = $request->header->getBrowserName();
     }
 
+    /**
+     * Turn object to array
+     *
+     * @return array
+     *
+     * @since 1.0.0
+     */
     public function toArray() : array
     {
         return [

@@ -171,7 +171,7 @@ final class DeleteMapper extends DataMapperAbstract
 
             $objIds  = [];
             $refProp = $refClass->getProperty($member);
-            $values = $refProp->isPublic() ? $obj->{$member} : $refProp->getValue($obj);
+            $values  = $refProp->isPublic() ? $obj->{$member} : $refProp->getValue($obj);
 
             if (!\is_array($values)) {
                 // conditionals

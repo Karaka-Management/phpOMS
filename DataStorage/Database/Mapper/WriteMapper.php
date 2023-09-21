@@ -262,7 +262,7 @@ final class WriteMapper extends DataMapperAbstract
             }
 
             $property = $refClass->getProperty($propertyName);
-            $values = $property->isPublic() ? $obj->{$propertyName} : $property->getValue($obj);
+            $values   = $property->isPublic() ? $obj->{$propertyName} : $property->getValue($obj);
 
             /** @var class-string<DataMapperFactory> $mapper */
             $mapper       = $this->mapper::HAS_MANY[$propertyName]['mapper'];

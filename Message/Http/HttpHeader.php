@@ -145,22 +145,47 @@ final class HttpHeader extends HeaderAbstract
         return $_SERVER['SERVER_PROTOCOL'] ?? 'HTTP/1.1';
     }
 
+    /**
+     * Get the referer link
+     *
+     * @return string
+     *
+     * @since 1.0.0
+     */
     public function getReferer() : string
     {
         return $_SERVER['HTTP_REFERER'] ?? '';
     }
 
+    /**
+     * {@inheritdoc}
+     */
     public function getRequestTime() : int
     {
         return (int) ($_SERVER['REQUEST_TIME'] ?? $this->timestamp);
     }
 
+    /**
+     * Get the ip of the requester
+     *
+     * @return string
+     *
+     * @since 1.0.0
+     */
     public function getRequestIp() : string
     {
         return $_SERVER['HTTP_X_FORWARDED_FOR'] ?? $_SERVER['REMOTE_ADDR'] ?? '';
     }
 
-    public function getBrowserName(): string {
+    /**
+     * Get the browser/agent name of the request
+     *
+     * @return string
+     *
+     * @since 1.0.0
+     */
+    public function getBrowserName(): string
+    {
         $userAgent = $_SERVER['HTTP_USER_AGENT'];
 
         if (\strpos($userAgent, 'Opera') !== false || \strpos($userAgent, 'OPR/') !== false) {

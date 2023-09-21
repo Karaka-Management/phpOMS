@@ -150,6 +150,13 @@ abstract class HeaderAbstract
      */
     abstract public function has(string $key) : bool;
 
+    /**
+     * Get time of the request
+     *
+     * @return int
+     *
+     * @since 1.0.0
+     */
     abstract public function getRequestTime() : int;
 
     /**
