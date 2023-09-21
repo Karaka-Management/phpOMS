@@ -14,6 +14,8 @@ declare(strict_types=1);
 
 namespace phpOMS\tests\Utils\Parser\Markdown;
 
+include_once __DIR__ . '/../../../Autoloader.php';
+
 use phpOMS\System\File\Local\Directory;
 use phpOMS\Utils\Parser\Markdown\Markdown;
 
@@ -41,5 +43,13 @@ final class MarkdownTest extends \PHPUnit\Framework\TestCase
         }
 
         self::assertTrue(true);
+    }
+
+    public function testSafeMode() : void
+    {
+        $parser = new Markdown();
+        $parser->setSafeMode(true);
+
+        self::assertTrue(\file_get_contents(__DIR__ . '/manualdata/xss_bad_url.html') === ($parsed = $parser->text(\file_get_contents(__DIR__ . '/manualdata/xss_bad_url.md'))), $parsed);
     }
 }
