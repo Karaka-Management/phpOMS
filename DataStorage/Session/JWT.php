@@ -152,13 +152,15 @@ final class JWT
         }
 
         try {
-            $header    = \json_decode(Base64Url::decode($explode[0]), true);
-            $payload   = \json_decode(Base64Url::decode($explode[1]), true);
+            $header  = \json_decode(Base64Url::decode($explode[0]), true);
+            $payload = \json_decode(Base64Url::decode($explode[1]), true);
 
             if (!\is_array($header) || !\is_array($payload)) {
                 return false;
             }
 
+            /** @var array{alg:string, typ:string} $header */
+            /** @var array{sub:string, uid?:string, name?:string, iat:string} $payload */
             $signature = self::createSignature($secret, $header, $payload);
 
             return \hash_equals($signature, $explode[2]);

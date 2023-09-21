@@ -101,7 +101,7 @@ final class Vector extends Matrix
     {
         $dotProduct = 0.0;
         for ($i = 0; $i < $this->m; ++$i) {
-            $dotProduct += $this->matrix[$i][0] * $v[$i][0];
+            $dotProduct += $this->matrix[$i][0] * $v->matrix[$i][0];
         }
 
         $sumOfSquares = 0;

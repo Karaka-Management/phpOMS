@@ -12,12 +12,12 @@
  */
 declare(strict_types=1);
 
-namespace phpOMS\tests\Business\Marketing;
+namespace phpOMS\tests\Business\Recommendation;
 
-use phpOMS\Business\Marketing\ArticleCorrelationAffinity;
+use phpOMS\Business\Recommendation\ArticleCorrelationAffinity;
 
 /**
- * @testdox phpOMS\tests\Business\Marketing\ArticleCorrelationAffinityTest: Article affinity/correlation
+ * @testdox phpOMS\tests\Business\Recommendation\ArticleCorrelationAffinityTest: Article affinity/correlation
  *
  * @internal
  */

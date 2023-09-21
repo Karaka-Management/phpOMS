@@ -305,7 +305,7 @@ final class ArrayUtils
      * @param string               $id   Id to find
      * @param array<string|int, T> $args CLI command list
      *
-     * @return null|T
+     * @return mixed
      *
      * @since 1.0.0
      */

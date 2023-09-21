@@ -101,7 +101,7 @@ abstract class NgramParser
             }
         }
 
-        /** @var array $tokens */
+        /** @var array|non-empty-array $tokens */
         foreach ($tokens as $i => $token) {
             $sum = \array_sum($token);
 

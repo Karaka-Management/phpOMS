@@ -697,11 +697,11 @@ class Matrix implements \ArrayAccess, \Iterator
      *
      * @param self $B Matrix
      *
-     * @return int|float|self
+     * @return self
      *
      * @since 1.0.0
      */
-    public function dot(self $B) : int|float|self
+    public function dot(self $B) : self
     {
         $value1 = $this->matrix;
         $value2 = $B->getMatrix();
@@ -745,7 +745,7 @@ class Matrix implements \ArrayAccess, \Iterator
                 $result += $value1[$i] * $value2[$i];
             }
 
-            return $result;
+            return self::fromArray([[$result]]);
         } elseif ($isMatrix1 && !$isMatrix2) {
             $result = [];
             for ($i = 0; $i < $m1; ++$i) { // Row of 1
