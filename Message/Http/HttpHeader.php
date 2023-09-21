@@ -184,7 +184,7 @@ final class HttpHeader extends HeaderAbstract
      *
      * @since 1.0.0
      */
-    public function getBrowserName(): string
+    public function getBrowserName() : string
     {
         $userAgent = $_SERVER['HTTP_USER_AGENT'];
 

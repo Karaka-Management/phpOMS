@@ -171,7 +171,7 @@ final class LocationTest extends \PHPUnit\Framework\TestCase
             'address' => 'Some address here',
             'state'   => 'This is a state 123',
             'lat'     => 12.1,
-            'lon'    => 11.2,
+            'lon'     => 11.2,
         ];
 
         $this->location->postal = '0123456789';

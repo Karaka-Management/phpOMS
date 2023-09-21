@@ -16,7 +16,6 @@ namespace phpOMS\tests\Localization;
 
 require_once __DIR__ . '/../Autoloader.php';
 
-use phpOMS\Localization\ISO4217SymbolEnum;
 use phpOMS\Localization\Money;
 
 /**

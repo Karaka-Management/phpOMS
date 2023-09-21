@@ -443,12 +443,12 @@ class Markdown
         return $Component['element'];
     }
 
-    protected function isBlockContinuable($Type): bool
+    protected function isBlockContinuable($Type) : bool
     {
         return \method_exists($this, 'block' . $Type . 'Continue');
     }
 
-    protected function isBlockCompletable($Type): bool
+    protected function isBlockCompletable($Type) : bool
     {
         return \method_exists($this, 'block' . $Type . 'Complete');
     }
@@ -2257,7 +2257,7 @@ class Markdown
         return $markup;
     }
 
-    protected function elements(array $Elements): string
+    protected function elements(array $Elements) : string
     {
         $markup = '';
 
@@ -2401,7 +2401,7 @@ class Markdown
     # Static Methods
     #
 
-    protected static function escape($text, $allowQuotes = false): string
+    protected static function escape($text, $allowQuotes = false) : string
     {
         return \htmlspecialchars($text, $allowQuotes ? \ENT_NOQUOTES : \ENT_QUOTES, 'UTF-8');
     }
