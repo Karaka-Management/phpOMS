@@ -86,8 +86,7 @@ final class LUDecomposition
             $this->piv[$i] = $i;
         }
 
-        $this->pivSign = 1;
-        $LUrowi        = $LUcolj = [];
+        $LUrowi = $LUcolj = [];
 
         for ($j = 0; $j < $this->n; ++$j) {
             for ($i = 0; $i < $this->m; ++$i) {

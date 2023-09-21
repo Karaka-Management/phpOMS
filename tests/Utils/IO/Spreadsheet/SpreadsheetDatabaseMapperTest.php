@@ -55,6 +55,7 @@ final class SpreadsheetDatabaseMapperTest extends \PHPUnit\Framework\TestCase
         \copy(__DIR__ . '/backup.db', __DIR__ . '/spreadsheet.db');
 
         $this->sqlite = new SQLiteConnection(['db' => 'sqlite', 'database' => __DIR__ . '/spreadsheet.db']);
+        $this->sqlite->connect();
     }
 
     protected function tearDown() : void
@@ -62,6 +63,8 @@ final class SpreadsheetDatabaseMapperTest extends \PHPUnit\Framework\TestCase
         if (\is_file(__DIR__ . '/spreadsheet.db')) {
             \unlink(__DIR__ . '/spreadsheet.db');
         }
+
+        $this->sqlite->close();
     }
 
     /**

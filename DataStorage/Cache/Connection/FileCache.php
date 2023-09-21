@@ -301,7 +301,7 @@ final class FileCache extends ConnectionAbstract
         $cacheExpire = \substr($raw, $expireStart + 1, $expireEnd - ($expireStart + 1));
         $cacheExpire = ($cacheExpire === -1) ? $created : (int) $cacheExpire;
 
-        if ($cacheExpire >= 0 && $created + $cacheExpire + ($expire > 0 ? $expire : 0) < $now) {
+        if ($cacheExpire >= 0 && $created + $cacheExpire + \max(0, $expire) < $now) {
             $this->delete($key);
 
             return null;
@@ -435,7 +435,6 @@ final class FileCache extends ConnectionAbstract
             return false; // @codeCoverageIgnore
         }
 
-        $type        = (int) $raw[0];
         $expireStart = (int) \strpos($raw, self::DELIM);
         $expireEnd   = (int) \strpos($raw, self::DELIM, $expireStart + 1);
 
@@ -446,7 +445,7 @@ final class FileCache extends ConnectionAbstract
         $cacheExpire = \substr($raw, $expireStart + 1, $expireEnd - ($expireStart + 1));
         $cacheExpire = ($cacheExpire === -1) ? $created : (int) $cacheExpire;
 
-        if ($cacheExpire >= 0 && $created + $cacheExpire + ($expire > 0 ? $expire : 0) < $now) {
+        if ($cacheExpire >= 0 && $created + $cacheExpire + \max(0, $expire) < $now) {
             File::delete($path);
 
             return false;
@@ -470,7 +469,6 @@ final class FileCache extends ConnectionAbstract
         }
 
         $created = File::created($path)->getTimestamp();
-        $now     = \time();
 
         $raw = \file_get_contents($path);
         if ($raw === false) {
@@ -509,7 +507,6 @@ final class FileCache extends ConnectionAbstract
         }
 
         $created = File::created($path)->getTimestamp();
-        $now     = \time();
 
         $raw = \file_get_contents($path);
         if ($raw === false) {
