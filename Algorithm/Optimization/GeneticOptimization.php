@@ -104,7 +104,7 @@ class GeneticOptimization
     ) : array
     {
         $populationSize = \count($population);
-        $parameterCount = \count(\reset($population));
+        $parameterCount = $populationSize === 0 ? 0 : \count(\reset($population));
 
         // Genetic Algorithm Loop
         for ($generation = 0; $generation < $generations; ++$generation) {

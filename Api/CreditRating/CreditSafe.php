@@ -137,7 +137,7 @@ final class CreditSafe implements CreditRatingInterface
 
         $response = Rest::request($request);
 
-        return $response->get('companies') ?? ($response->get('matchedCompanies') ?? []);
+        return $response->getDataArray('companies') ?? ($response->getDataArray('matchedCompanies') ?? []);
     }
 
     /**
@@ -158,7 +158,7 @@ final class CreditSafe implements CreditRatingInterface
 
         $response = Rest::request($request);
 
-        return $response->get('report') ?? [];
+        return $response->getDataArray('report') ?? [];
     }
 
     /**
@@ -233,7 +233,7 @@ final class CreditSafe implements CreditRatingInterface
 
         $response = Rest::request($request);
 
-        return $response->get('orders') ?? [];
+        return $response->getDataArray('orders') ?? [];
     }
 
     /**

@@ -105,6 +105,26 @@ abstract class ResponseAbstract implements \JsonSerializable, MessageInterface
      *
      * @param string $key Data key
      *
+     * @return ?array
+     *
+     * @since 1.0.0
+     */
+    public function getDataArray(string $key) : ?array
+    {
+        $key = \mb_strtolower($key);
+
+        if (($this->data[$key] ?? '') === '' || !\is_array($this->data[$key])) {
+            return null;
+        }
+
+        return $this->data[$key];
+    }
+
+    /**
+     * Get data.
+     *
+     * @param string $key Data key
+     *
      * @return null|int
      *
      * @since 1.0.0

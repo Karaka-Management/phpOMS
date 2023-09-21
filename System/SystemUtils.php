@@ -121,7 +121,12 @@ final class SystemUtils
                 return -1;
             }
 
-            $cpuUsage = $loadavg[0] * 100 / \exec('nproc');
+            $nproc = (int) \exec('nproc');
+            if ($nproc === 0) {
+                return 0;
+            }
+
+            $cpuUsage = $loadavg[0] * 100 / $nproc;
         }
 
         return (int) $cpuUsage;

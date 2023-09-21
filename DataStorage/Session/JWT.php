@@ -37,7 +37,7 @@ final class JWT
      *
      * @param string                                                   $secret  Secret (at least 256 bit)
      * @param array{alg:string, typ:string}                            $header  Header
-     * @param array{sub:string, ?uid:string, ?name:string, iat:string} $payload Payload
+     * @param array{sub:string, uid?:string, name?:string, iat:string} $payload Payload
      *
      * @return string hmac(Header64 . Payload64, secret)
      *
@@ -45,8 +45,15 @@ final class JWT
      */
     private static function createSignature(string $secret, array $header, array $payload) : string
     {
-        $header64  = Base64Url::encode(\json_encode($header));
-        $payload64 = Base64Url::encode(\json_encode($payload));
+        $headerJson  = \json_encode($header);
+        $payloadJson = \json_encode($payload);
+
+        if (!\is_string($headerJson) || !\is_string($payloadJson)) {
+            return '';
+        }
+
+        $header64  = Base64Url::encode($headerJson);
+        $payload64 = Base64Url::encode($payloadJson);
 
         $algorithm = '';
         $algorithm = 'sha256';
@@ -59,7 +66,7 @@ final class JWT
      *
      * @param string                                                   $secret  Secret (at least 256 bit)
      * @param array{alg:string, typ:string}                            $header  Header
-     * @param array{sub:string, ?uid:string, ?name:string, iat:string} $payload Payload
+     * @param array{sub:string, uid?:string, name?:string, iat:string} $payload Payload
      *
      * @return string Header64 . Payload64 . hmac(Header64 . Payload64, secret)
      *
@@ -67,8 +74,16 @@ final class JWT
      */
     public static function createJWT(string $secret, array $header, array $payload) : string
     {
-        $header64  = Base64Url::encode(\json_encode($header));
-        $payload64 = Base64Url::encode(\json_encode($payload));
+        $headerJson  = \json_encode($header);
+        $payloadJson = \json_encode($payload);
+
+        if (!\is_string($headerJson) || !\is_string($payloadJson)) {
+            return '';
+        }
+
+        $header64  = Base64Url::encode($headerJson);
+        $payload64 = Base64Url::encode($payloadJson);
+
         $signature = self::createSignature($secret, $header, $payload);
 
         return $header64 . $payload64 . Base64Url::encode($signature);
@@ -87,7 +102,7 @@ final class JWT
     {
         $explode = \explode('.', $jwt);
 
-        if ($explode !== 3) {
+        if (\count($explode) !== 3) {
             return [];
         }
 
@@ -107,7 +122,7 @@ final class JWT
     {
         $explode = \explode('.', $jwt);
 
-        if ($explode !== 3) {
+        if (\count($explode) !== 3) {
             return [];
         }
 
@@ -128,7 +143,7 @@ final class JWT
     {
         $explode = \explode('.', $jwt);
 
-        if ($explode !== 3) {
+        if (\count($explode) !== 3) {
             return false;
         }
 

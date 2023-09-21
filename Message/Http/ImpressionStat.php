@@ -102,7 +102,7 @@ class ImpressionStat
     /**
      * Additional custom meta data to be stored
      *
-     * @var string
+     * @var array
      * @since 1.0.0
      */
     public array $meta = [];
