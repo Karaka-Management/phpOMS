@@ -113,7 +113,7 @@ final class SystemUtils
         if (\stristr(\PHP_OS, 'WIN') !== false) {
             $cpuUsage = null;
             \exec('wmic cpu get LoadPercentage', $cpuUsage);
-            $cpuUsage = (int) ($cpuUsage[1] ?? 0);
+            $cpuUsage = (int) ($cpuUsage[1] ?? -1);
         } elseif (\stristr(\PHP_OS, 'LINUX') !== false) {
             $loadavg = \sys_getloadavg();
 
@@ -123,7 +123,7 @@ final class SystemUtils
 
             $nproc = (int) \exec('nproc');
             if ($nproc === 0) {
-                return 0;
+                return -1;
             }
 
             $cpuUsage = $loadavg[0] * 100 / $nproc;
