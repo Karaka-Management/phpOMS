@@ -84,6 +84,7 @@ abstract class NgramParser
      * @return array
      *
      * @since 1.0.0
+     * @phpstan-ignore
      */
     protected function getNgrams(string $str) : array
     {
@@ -101,7 +102,6 @@ abstract class NgramParser
             }
         }
 
-        /** @var array|non-empty-array $tokens */
         foreach ($tokens as $i => $token) {
             $sum = \array_sum($token);
 
@@ -115,7 +115,10 @@ abstract class NgramParser
         }
 
         $tokens = \array_merge(...$tokens);
-        unset($tokens['_']);
+
+        if (isset($tokens['_'])) {
+            unset($tokens['_']);
+        }
 
         \arsort($tokens, \SORT_NUMERIC);
 

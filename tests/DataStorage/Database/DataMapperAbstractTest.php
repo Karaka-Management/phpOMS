@@ -33,7 +33,7 @@ final class DataMapperAbstractTest extends \PHPUnit\Framework\TestCase
 {
     protected BaseModel $model;
 
-    protected array     $modelArray;
+    protected array $modelArray;
 
     /**
      * {@inheritdoc}
@@ -41,6 +41,8 @@ final class DataMapperAbstractTest extends \PHPUnit\Framework\TestCase
     protected function setUp() : void
     {
         $this->model = new BaseModel();
+
+        var_dump($GLOBALS['dbpool']->get());
 
         $GLOBALS['dbpool']->get()->con->prepare(
             'CREATE TABLE `test_base` (

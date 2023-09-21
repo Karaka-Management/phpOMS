@@ -58,6 +58,7 @@ final class KernelsND
 
         $cov = $bandwithMatrix->mult($identityMatrix);
 
+        /** @phpstan-ignore-next-line */
         $exponent = $distnaceMatrix->dot($cov->inverse())->mult($distnaceMatrix)->sum(1)->mult(-0.5);
 
         return $exponent->exp()->mult((1 / \pow(2 * \M_PI, $dim / 2)) * \pow($cov->det(), 0.5))->matrix;
