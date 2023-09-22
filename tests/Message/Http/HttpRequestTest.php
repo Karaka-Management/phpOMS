@@ -270,7 +270,7 @@ final class HttpRequestTest extends \PHPUnit\Framework\TestCase
             'b' => [4, 5],
         ];
 
-        $request->setData('abc', \json_encode($data) . ',');
+        $request->setData('abc', \json_encode($data));
         self::assertEquals($data, $request->getDataJson('abc'));
     }
 

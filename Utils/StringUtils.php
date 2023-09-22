@@ -422,7 +422,7 @@ final class StringUtils
     /**
      * Turn ints into spreadsheet column names
      *
-     * @param int $num Column number
+     * @param int $num Column number (1 = A)
      *
      * @return string
      *
@@ -437,7 +437,7 @@ final class StringUtils
         $result = '';
         while ($num >= 0) {
             $remainder = $num % 26;
-            $result    = \chr(65 + $remainder) . $result;
+            $result    = \chr(64 + $remainder) . $result;
 
             if ($num < 26) {
                 break;
