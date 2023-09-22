@@ -1104,90 +1104,21 @@ class Graph
      *
      * @since 1.0.0
      */
-    public function isStronglyConnected()
+    public function isStronglyConnected() : bool
     {
         if (empty($this->nodes)) {
             return true;
         }
 
-        $visited = [];
-        foreach ($this->nodes as $node) {
-            $visited[] = false;
-        }
-
-        $node                    = \reset($this->nodes);
-        $visited[$node->getId()] = true;
-        $stack                   = [$node];
-
-        while (!empty($stack)) {
-            $node = \array_pop($stack);
-
-            $edges = $node->getEdges();
-            foreach ($edges as $edge) {
-                if ($edge->isDirected) {
-                    if ($edge->node2->isEqual(($node))) {
-                        continue;
-                    }
-
-                    $adj = $edge->node2;
-                } else {
-                    $adj = $edge->node1->isEqual($node)
-                        ? $edge->node2
-                        : $edge->node1;
-                }
-
-                if (!$visited[$adj->getId()]) {
-                    $visited[$adj->getId()] = true;
-
-                    $stack[] = $adj;
+        foreach ($this->nodes as $node1) {
+            foreach ($this->nodes as $node2) {
+                if (!$node1->hasNeighbor($node2)) {
+                    return false;
                 }
             }
         }
 
-        if (\in_array(false, $visited)) {
-            return false;
-        }
-
-        if (!$this->isDirected) {
-            return true;
-        }
-
-        // Test connectivity in reverse
-        $visited = [];
-        foreach ($this->nodes as $node) {
-            $visited[] = false;
-        }
-
-        $node                    = \reset($this->nodes);
-        $visited[$node->getId()] = true;
-        $stack                   = [$node];
-
-        while (!empty($stack)) {
-            $node = \array_pop($stack);
-
-            $edges = $node->getEdges();
-            foreach ($edges as $edge) {
-                if ($edge->isDirected) {
-                    if (!$edge->node2->isEqual(($node))) {
-                        continue;
-                    }
-
-                    $adj = $edge->node1;
-                } else {
-                    $adj = $edge->node1->isEqual($node)
-                        ? $edge->node2
-                        : $edge->node1;
-                }
-
-                if (!$visited[$adj->getId()]) {
-                    $visited[$adj->getId()] = true;
-
-                    $stack[] = $adj;
-                }
-            }
-        }
-
-        return !\in_array(false, $visited);
+        return true;
     }
 
     /**

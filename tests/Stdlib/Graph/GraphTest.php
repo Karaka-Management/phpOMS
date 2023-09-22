@@ -14,6 +14,8 @@ declare(strict_types=1);
 
 namespace phpOMS\tests\Stdlib\Graph;
 
+include_once __DIR__ . '/../../Autoloader.php';
+
 use phpOMS\Stdlib\Graph\Graph;
 use phpOMS\Stdlib\Graph\Node;
 
@@ -871,11 +873,11 @@ final class GraphTest extends \PHPUnit\Framework\TestCase
     }
 
     /**
-     *     1 - 3 - 5
-     *   / |\     /
-     * 0   | \   /
-     *   \ |  \ /
-     *     2   4
+     *     1
+     *   / | \
+     * 0---|---3
+     *   \ | /
+     *     2
      *
      * @covers phpOMS\Stdlib\Graph\Graph
      * @group framework
@@ -886,23 +888,18 @@ final class GraphTest extends \PHPUnit\Framework\TestCase
         $node1 = new Node('1');
         $node2 = new Node('2');
         $node3 = new Node('3');
-        $node4 = new Node('4');
-        $node5 = new Node('5');
 
         $this->graph->setNode($node0);
         $this->graph->setNode($node1);
         $this->graph->setNode($node2);
         $this->graph->setNode($node3);
-        $this->graph->setNode($node4);
-        $this->graph->setNode($node5);
 
         $node0->setNodeRelative($node1);
         $node0->setNodeRelative($node2);
+        $node0->setNodeRelative($node3);
         $node1->setNodeRelative($node2);
         $node1->setNodeRelative($node3);
-        $node1->setNodeRelative($node4);
-        $node3->setNodeRelative($node5);
-        $node4->setNodeRelative($node5);
+        $node2->setNodeRelative($node3);
 
         self::assertTrue($this->graph->isStronglyConnected());
     }

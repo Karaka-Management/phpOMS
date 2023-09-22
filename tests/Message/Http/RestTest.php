@@ -14,6 +14,8 @@ declare(strict_types=1);
 
 namespace phpOMS\tests\Message\Http;
 
+include_once __DIR__ . '/../../Autoloader.php';
+
 use phpOMS\Message\Http\HttpRequest;
 use phpOMS\Message\Http\RequestMethod;
 use phpOMS\Message\Http\Rest;
@@ -49,10 +51,10 @@ final class RestTest extends \PHPUnit\Framework\TestCase
      */
     public function testPost() : void
     {
-        $request = new HttpRequest(new HttpUri('http://httpbin.org/post'));
+        $request = new HttpRequest(new HttpUri('https://httpbin.org/post'));
         $request->setMethod(RequestMethod::POST);
         self::assertTrue($request->setData('pdata', 'abc'));
-        self::assertEquals('abc', REST::request($request)->getJsonData()['form']['pdata'] ?? '');
+        self::assertEquals('abc', REST::request($request)->get('form')['pdata'] ?? '');
     }
 
     /**
@@ -62,10 +64,10 @@ final class RestTest extends \PHPUnit\Framework\TestCase
      */
     public function testPut() : void
     {
-        $request = new HttpRequest(new HttpUri('http://httpbin.org/put'));
+        $request = new HttpRequest(new HttpUri('https://httpbin.org/put'));
         $request->setMethod(RequestMethod::PUT);
         self::assertTrue($request->setData('pdata', 'abc'));
-        self::assertEquals('abc', REST::request($request)->getJsonData()['form']['pdata'] ?? '');
+        self::assertEquals('abc', REST::request($request)->get('form')['pdata'] ?? '');
     }
 
     /**
@@ -75,10 +77,10 @@ final class RestTest extends \PHPUnit\Framework\TestCase
      */
     public function testDelete() : void
     {
-        $request = new HttpRequest(new HttpUri('http://httpbin.org/delete'));
+        $request = new HttpRequest(new HttpUri('https://httpbin.org/delete'));
         $request->setMethod(RequestMethod::DELETE);
         self::assertTrue($request->setData('ddata', 'abc'));
-        self::assertEquals('abc', REST::request($request)->getJsonData()['form']['ddata'] ?? '');
+        self::assertEquals('abc', REST::request($request)->get('form')['ddata'] ?? '');
     }
 
     /**
@@ -88,10 +90,10 @@ final class RestTest extends \PHPUnit\Framework\TestCase
      */
     public function testGet() : void
     {
-        $request = new HttpRequest(new HttpUri('http://httpbin.org/get'));
+        $request = new HttpRequest(new HttpUri('https://httpbin.org/get'));
         $request->setMethod(RequestMethod::GET);
         self::assertTrue($request->setData('gdata', 'abc'));
-        self::assertEquals('abc', REST::request($request)->getJsonData()['args']['gdata'] ?? '');
+        self::assertEquals('abc', REST::request($request)->get('args')['gdata'] ?? '');
     }
 
     /**
