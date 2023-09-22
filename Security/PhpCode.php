@@ -92,8 +92,18 @@ final class PhpCode
      */
     public static function hasUnicode(string $source) : bool
     {
-        return ((bool) \preg_match("/[\x01-\x7f]/", $source))
-            || ((bool) \preg_match("/(0|\\\)x([a-fA-F0-9]){2}/", $source));
+        $length = \mb_strlen($source, 'UTF-8');
+
+        for ($i = 0; $i < $length; ++$i) {
+            $char = \mb_substr($source, $i, 1, 'UTF-8');
+            $codePoint = \ord($char);
+
+            if ($codePoint > 127) {
+                return true;
+            }
+        }
+
+        return false;
     }
 
     /**

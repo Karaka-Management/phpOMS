@@ -104,8 +104,6 @@ class SpreadsheetDatabaseMapper implements IODatabaseMapper
                     $cells[] = $workSheet->getCell(StringUtils::intToAlphabet($j) . $line)->getCalculatedValue();
                 }
 
-                \var_dump($cells);
-
                 ++$line;
 
                 $query->values(...$cells);

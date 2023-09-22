@@ -193,7 +193,9 @@ final class EncryptionHelper
                 continue;
             }
 
-            $ciphertext = \mb_substr($buffer, \SODIUM_CRYPTO_SECRETBOX_NONCEBYTES, null, '8bit');
+            // $ciphertext = \mb_substr($buffer, \SODIUM_CRYPTO_SECRETBOX_NONCEBYTES, null, '8bit'); Not required due to previous nonce fread
+
+            $ciphertext = $buffer;
             $plaintext  = \sodium_crypto_secretbox_open($ciphertext, $nonce, $secretKey);
 
             if ($plaintext === false) {

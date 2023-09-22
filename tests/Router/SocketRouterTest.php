@@ -15,6 +15,7 @@ declare(strict_types=1);
 namespace phpOMS\tests\Router;
 
 use phpOMS\Account\Account;
+use phpOMS\Account\NullAccount;
 use phpOMS\Account\PermissionAbstract;
 use phpOMS\Account\PermissionType;
 use phpOMS\Router\RouteVerb;
@@ -134,7 +135,7 @@ final class SocketRouterTest extends \PHPUnit\Framework\TestCase
             PermissionType::READ
         ) extends PermissionAbstract {};
 
-        $account = new Account();
+        $account = new NullAccount(1);
         $account->addPermission($perm);
 
         self::assertEquals(
