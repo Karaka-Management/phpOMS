@@ -58,6 +58,12 @@ abstract class HeaderAbstract
      */
     public int $status = 0;
 
+    /**
+     * Response timestamp.
+     *
+     * @var int
+     * @since 1.0.0
+     */
     public int $timestamp = 0;
 
     /**
@@ -157,7 +163,10 @@ abstract class HeaderAbstract
      *
      * @since 1.0.0
      */
-    abstract public function getRequestTime() : int;
+    public function getRequestTime() : int
+    {
+        return $this->timestamp;
+    }
 
     /**
      * Push all headers.
