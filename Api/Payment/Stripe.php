@@ -58,7 +58,6 @@ final class Stripe extends PaymentAbstract
      */
     public function addPaymentMethod(int $customer, mixed $paymentMethod) : void
     {
-        $this->con->paymentMethods->attach();
     }
 
     /**

@@ -92,6 +92,9 @@ class SpreadsheetDatabaseMapper implements IODatabaseMapper
             }
 
             $columns = \count($titles);
+            if ($columns === 0) {
+                continue;
+            }
 
             // insert data
             $query = new Builder($this->con);
@@ -208,10 +211,13 @@ class SpreadsheetDatabaseMapper implements IODatabaseMapper
             }
 
             $columns = \count($titles);
+            if ($columns === 0) {
+                continue;
+            }
 
             // update data
             $line = 2;
-            while (!empty($row = $workSheet->getCell('A' . $line)->getCalculatedValue())) {
+            while (!empty($workSheet->getCell('A' . $line)->getCalculatedValue())) {
                 $query = new Builder($this->con);
                 $query->update($table)->into($table);
 
