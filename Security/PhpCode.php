@@ -95,7 +95,7 @@ final class PhpCode
         $length = \mb_strlen($source, 'UTF-8');
 
         for ($i = 0; $i < $length; ++$i) {
-            $char = \mb_substr($source, $i, 1, 'UTF-8');
+            $char      = \mb_substr($source, $i, 1, 'UTF-8');
             $codePoint = \ord($char);
 
             if ($codePoint > 127) {
