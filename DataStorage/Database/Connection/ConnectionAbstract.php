@@ -193,7 +193,7 @@ abstract class ConnectionAbstract implements ConnectionInterface
      */
     public function isInitialized() : bool
     {
-        return $this->con !== null && !($this->con instanceof NullPDO);
+        return !($this->con instanceof NullPDO);
     }
 
     /**
@@ -207,10 +207,6 @@ abstract class ConnectionAbstract implements ConnectionInterface
      */
     public function __get(string $name) : mixed
     {
-        if ($name === 'con' && $this->con === null) {
-            $this->connect($this->dbdata);
-        }
-
         return isset($this->{$name}) ? $this->{$name} : null;
     }
 

@@ -32,12 +32,4 @@ final class NullPDO extends \PDO
     public function __construct()
     {
     }
-
-    /**
-     * {@inheritdoc}
-     */
-    public function jsonSerialize() : mixed
-    {
-        return ['id' => $this->id];
-    }
 }
