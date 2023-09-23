@@ -312,7 +312,7 @@ final class ModuleManager
     public function getInstalledModules(bool $useCache = true) : array
     {
         if (empty($this->installed) || !$useCache) {
-            $query = new Builder($this->app->dbPool->get('select'));
+            $query = new Builder($this->app->dbPool->get());
             $sth   = $query->select('module.module_path')
                 ->from('module')
                 ->where('module_status', '!=', ModuleStatus::AVAILABLE)
@@ -348,7 +348,7 @@ final class ModuleManager
      */
     public function loadInfo(string $module) : ?ModuleInfo
     {
-        $path = \realpath($oldPath = $this->modulePath . $module . '/info.json');
+        $path = \realpath($this->modulePath . $module . '/info.json');
         if ($path === false) {
             return null;
         }

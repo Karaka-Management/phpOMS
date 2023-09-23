@@ -24,8 +24,6 @@ namespace phpOMS\Api\Payment;
  */
 final class Stripe extends PaymentAbstract
 {
-    private \Stripe\StripeClient $con;
-
     /**
      * Constructor.
      *
@@ -35,7 +33,6 @@ final class Stripe extends PaymentAbstract
      */
     public function __construct(string $apiKey)
     {
-        $this->con = new \Stripe\StripeClient($apiKey);
     }
 
     /**
