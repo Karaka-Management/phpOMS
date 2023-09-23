@@ -25,17 +25,6 @@ namespace phpOMS\Api\Payment;
 final class Stripe extends PaymentAbstract
 {
     /**
-     * Constructor.
-     *
-     * @param string $apiKey Api key
-     *
-     * @since 1.0.0
-     */
-    public function __construct(string $apiKey)
-    {
-    }
-
-    /**
      * {@inheritdoc}
      */
     public function createCharge(int $customer, Charge $charge) : void {}

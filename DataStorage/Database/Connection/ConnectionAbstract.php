@@ -180,6 +180,7 @@ abstract class ConnectionAbstract implements ConnectionInterface
      */
     public function close() : void
     {
+        var_dump("closed");
         $this->con    = new NullPDO();
         $this->status = DatabaseStatus::CLOSED;
     }
