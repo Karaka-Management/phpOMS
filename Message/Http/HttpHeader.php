@@ -186,7 +186,7 @@ final class HttpHeader extends HeaderAbstract
      */
     public function getBrowserName() : string
     {
-        $userAgent = $_SERVER['HTTP_USER_AGENT'];
+        $userAgent = $_SERVER['HTTP_USER_AGENT'] ?? '';
 
         if (\strpos($userAgent, 'Opera') !== false || \strpos($userAgent, 'OPR/') !== false) {
             return 'Opera';

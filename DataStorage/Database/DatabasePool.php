@@ -14,6 +14,7 @@ declare(strict_types=1);
 
 namespace phpOMS\DataStorage\Database;
 
+use Mpdf\Tag\P;
 use phpOMS\DataStorage\Database\Connection\ConnectionAbstract;
 use phpOMS\DataStorage\Database\Connection\ConnectionFactory;
 use phpOMS\DataStorage\Database\Connection\NullConnection;
@@ -74,11 +75,12 @@ final class DatabasePool implements DataStoragePoolInterface
             return new NullConnection();
         }
 
-        if (empty($key)) {
-            return \reset($this->pool);
+        $con = empty($key) ? \reset($this->pool) : $this->pool[$key];
+        if ($con->status !== DatabaseStatus::OK) {
+            $con->connect();
         }
 
-        return $this->pool[$key];
+        return $con;
     }
 
     /**
