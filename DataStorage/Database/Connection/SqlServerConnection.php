@@ -67,7 +67,6 @@ final class SqlServerConnection extends ConnectionAbstract
         ) {
             $this->status             = DatabaseStatus::FAILURE;
             $this->dbdata['password'] = '****';
-            //throw new InvalidConnectionConfigException((string) \json_encode($this->dbdata));
 
             return;
         }
