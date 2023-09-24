@@ -14,7 +14,6 @@ declare(strict_types=1);
 
 namespace phpOMS\DataStorage\Database;
 
-use Mpdf\Tag\P;
 use phpOMS\DataStorage\Database\Connection\ConnectionAbstract;
 use phpOMS\DataStorage\Database\Connection\ConnectionFactory;
 use phpOMS\DataStorage\Database\Connection\NullConnection;
