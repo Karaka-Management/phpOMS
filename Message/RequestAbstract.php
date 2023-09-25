@@ -133,7 +133,6 @@ abstract class RequestAbstract implements MessageInterface
     public function getDataString(string $key) : ?string
     {
         $key = \mb_strtolower($key);
-
         if (($this->data[$key] ?? '') === '') {
             return null;
         }
@@ -153,7 +152,6 @@ abstract class RequestAbstract implements MessageInterface
     public function getDataInt(string $key) : ?int
     {
         $key = \mb_strtolower($key);
-
         if (($this->data[$key] ?? '') === '') {
             return null;
         }
@@ -173,7 +171,6 @@ abstract class RequestAbstract implements MessageInterface
     public function getDataFloat(string $key) : ?float
     {
         $key = \mb_strtolower($key);
-
         if (($this->data[$key] ?? '') === '') {
             return null;
         }
@@ -193,7 +190,6 @@ abstract class RequestAbstract implements MessageInterface
     public function getDataBool(string $key) : ?bool
     {
         $key = \mb_strtolower($key);
-
         if (($this->data[$key] ?? '') === '') {
             return null;
         }
@@ -231,13 +227,11 @@ abstract class RequestAbstract implements MessageInterface
     public function getDataJson(string $key) : array
     {
         $key = \mb_strtolower($key);
-
         if (($this->data[$key] ?? '') === '') {
             return [];
         }
 
         $json = \json_decode($this->data[$key], true); /** @phpstan-ignore-line */
-
         if ($json === null) {
             $json = $this->data[$key];
         }
@@ -258,14 +252,12 @@ abstract class RequestAbstract implements MessageInterface
     public function getDataList(string $key, string $delim = ',') : array
     {
         $key = \mb_strtolower($key);
-
         if (($this->data[$key] ?? '') === '') {
             return [];
         }
 
         /* @phpstan-ignore-next-line */
         $list = \explode($delim, $this->data[$key]);
-
         if ($list === false) {
             return []; // @codeCoverageIgnore
         }
