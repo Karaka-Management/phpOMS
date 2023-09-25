@@ -4,7 +4,7 @@
  *
  * PHP Version 8.1
  *
- * @package   Tests\PHPUnit
+ * @package   tests
  * @copyright Dennis Eichhorn
  * @license   OMS License 2.0
  * @version   1.0.0
@@ -12,14 +12,14 @@
  */
 declare(strict_types=1);
 
-namespace Tests\PHPUnit;
+namespace tests;
 
-\spl_autoload_register('\Tests\PHPUnit\Autoloader::defaultAutoloader');
+\spl_autoload_register('\tests\Autoloader::defaultAutoloader');
 
 /**
  * Autoloader class.
  *
- * @package Tests\PHPUnit
+ * @package tests\PHPUnit
  * @license OMS License 2.0
  * @link    https://jingga.app
  * @since   1.0.0
@@ -27,11 +27,46 @@ namespace Tests\PHPUnit;
 class Autoloader
 {
     /**
+     * Base paths for autoloading
+     *
+     * @var string[]
+     * @since 1.0.0
+     */
+    private static $paths = [
+        __DIR__ . '/../',
+        __DIR__ . '/../../',
+    ];
+
+    /**
+     * Constructor.
+     *
+     * @since 1.0.0
+     * @codeCoverageIgnore
+     */
+    private function __construct()
+    {
+    }
+
+    /**
+     * Add base path for autoloading
+     *
+     * @param string $path Absolute base path with / at the end
+     *
+     * @return void
+     *
+     * @since 1.0.0
+     */
+    public static function addPath(string $path) : void
+    {
+        self::$paths[] = \rtrim($path, '/\\') . '/';
+    }
+
+    /**
      * Loading classes by namespace + class name.
      *
      * @param string $class Class path
      *
-     * @example Autoloader::defaultAutoloader('\Tests\PHPUnit\Autoloader') // void
+     * @example Autoloader::defaultAutoloader('\phpOMS\Autoloader') // void
      *
      * @return void
      *
@@ -39,33 +74,29 @@ class Autoloader
      */
     public static function defaultAutoloader(string $class) : void
     {
-        $class = \ltrim($class, '\\');
-        $class = \strtr($class, '_\\', '//');
+        $class  = \ltrim($class, '\\');
+        $class  = \strtr($class, '_\\', '//');
+        $class2 = $class;
 
-        if (!\is_file($path = __DIR__ . '/../../' . $class . '.php')) {
-            return;
+        $pos = \stripos($class, '/');
+        if ($pos !== false) {
+            $pos = \stripos($class, '/', $pos + 1);
+
+            if ($pos !== false) {
+                $class2 = \substr($class, $pos + 1);
+            }
         }
 
-        /** @noinspection PhpIncludeInspection */
-        include_once $path;
-    }
+        foreach (self::$paths as $path) {
+            if (\is_file($file = $path . $class2 . '.php')) {
+                include_once $file;
 
-    /**
-     * Check if class exists.
-     *
-     * @param string $class Class path
-     *
-     * @example Autoloader::exists('\Tests\PHPUnit\Autoloader') // true
-     *
-     * @return bool
-     *
-     * @since 1.0.0
-     */
-    public static function exists(string $class) : bool
-    {
-        $class = \ltrim($class, '\\');
-        $class = \strtr($class, '_\\', '//');
+                return;
+            } elseif (\is_file($file = $path . $class . '.php')) {
+                include_once $file;
 
-        return \is_file(__DIR__ . '/../../' . $class . '.php');
+                return;
+            }
+        }
     }
 }
