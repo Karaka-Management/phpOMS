@@ -78,7 +78,7 @@ class Autoloader
         $class  = \strtr($class, '_\\', '//');
 
         if (\stripos($class, 'Web/Backend')) {
-            $class = \str_replace('Web', 'Install/Application', $class);
+            $class = \str_replace('Web/', 'Install/Application/', $class);
         }
 
         $class2 = $class;
