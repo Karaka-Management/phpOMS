@@ -288,7 +288,7 @@ final class Head implements RenderableInterface
                 foreach ($asset['attributes'] as $key => $attribute) {
                     $rendered .= \is_string($key)
                         ? ' ' . $key . '="' . $attribute . '"'
-                        : ' ' . $attribute . '"';
+                        : ' ' . $attribute;
                 }
 
                 $rendered .= '></script>';
