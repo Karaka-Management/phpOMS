@@ -77,10 +77,6 @@ final class HttpHeader extends HeaderAbstract
         $key    = \strtolower($key);
         $exists = isset($this->header[$key]);
 
-        if (!$overwrite && $exists) {
-            return false;
-        }
-
         if ($exists && self::isSecurityHeader($key)) {
             return false;
         }
@@ -326,11 +322,12 @@ final class HttpHeader extends HeaderAbstract
         $this->generate($this->status);
 
         foreach ($this->header as $name => $arr) {
-            foreach ($arr as $value) {
-                \header(empty($name)
-                    ? $value
-                    : $name . ': ' . $value
-                );
+            if (empty($name)) {
+                foreach ($arr as $value) {
+                    \header($value);
+                }
+            } else {
+                \header($name . ': ' . \implode(';', $arr));
             }
         }
 
