@@ -1027,7 +1027,7 @@ class Builder extends BuilderAbstract
     /**
      * Update columns.
      *
-     * @param mixed ...$tables Column names to update
+     * @param mixed ...$columns Column names to update
      *
      * @return Builder
      *
@@ -1036,7 +1036,7 @@ class Builder extends BuilderAbstract
      *
      * @since 1.0.0
      */
-    public function update(mixed ...$tables) : self
+    public function update(mixed ...$columns) : self
     {
         if ($this->isReadOnly) {
             throw new \Exception();
@@ -1044,11 +1044,11 @@ class Builder extends BuilderAbstract
 
         $this->type = QueryType::UPDATE;
 
-        /** @var mixed[] $tables */
+        /** @var mixed[] $columns */
         /** @var mixed $table */
-        foreach ($tables as $table) {
-            if (\is_string($table) || $table instanceof self) {
-                $this->updates[] = $table;
+        foreach ($columns as $column) {
+            if (\is_string($column) || $column instanceof self) {
+                $this->updates[] = $column;
             } else {
                 throw new \InvalidArgumentException();
             }

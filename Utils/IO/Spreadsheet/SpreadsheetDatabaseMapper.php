@@ -133,7 +133,7 @@ class SpreadsheetDatabaseMapper implements IODatabaseMapper
 
         foreach ($queries as $key => $query) {
             $results = $query->execute()?->fetchAll(\PDO::FETCH_ASSOC);
-            if ($results === null) {
+            if (!\is_array($results)) {
                 continue;
             }
 
@@ -142,7 +142,7 @@ class SpreadsheetDatabaseMapper implements IODatabaseMapper
             }
 
             $workSheet = $sheet->setActiveSheetIndex($key);
-            $rows      = $results === null ? 0 : \count($results);
+            $rows      = \count($results);
 
             if ($rows < 1) {
                 break;
@@ -215,17 +215,19 @@ class SpreadsheetDatabaseMapper implements IODatabaseMapper
                 continue;
             }
 
+            $idCol = (string) \array_shift($titles);
+
             // update data
             $line = 2;
             while (!empty($workSheet->getCell('A' . $line)->getCalculatedValue())) {
                 $query = new Builder($this->con);
-                $query->update($table)->into($table);
+                $query->update($titles)->into($table);
 
                 for ($j = 2; $j <= $columns; ++$j) {
-                    $query->sets($titles[$j - 1], $workSheet->getCell(StringUtils::intToAlphabet($j) . $line)->getCalculatedValue());
+                    $query->sets((string) $titles[$j - 2], $workSheet->getCell(StringUtils::intToAlphabet($j) . $line)->getCalculatedValue());
                 }
 
-                $query->where((string) $titles[0], '=', $workSheet->getCell('A' . $line)->getCalculatedValue());
+                $query->where($idCol, '=', $workSheet->getCell('A' . $line)->getCalculatedValue());
                 $query->execute();
 
                 ++$line;
