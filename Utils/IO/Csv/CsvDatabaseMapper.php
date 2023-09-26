@@ -17,7 +17,6 @@ namespace phpOMS\Utils\IO\Csv;
 use phpOMS\DataStorage\Database\Connection\ConnectionAbstract;
 use phpOMS\DataStorage\Database\Query\Builder;
 use phpOMS\Utils\IO\IODatabaseMapper;
-use phpOMS\Utils\StringUtils;
 
 /**
  * Csv database mapper.
