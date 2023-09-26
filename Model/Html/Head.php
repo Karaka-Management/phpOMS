@@ -281,7 +281,15 @@ final class Head implements RenderableInterface
         $rendered = '';
         foreach ($this->assets as $uri => $asset) {
             if ($asset['type'] === AssetType::CSS) {
-                $rendered .= '<link rel="stylesheet" type="text/css" href="' . $uri . '">';
+                $rendered .= '<link rel="stylesheet" type="text/css" href="' . $uri . '"';
+
+                foreach ($asset['attributes'] as $key => $attribute) {
+                    $rendered .= \is_string($key)
+                        ? ' ' . $key . '="' . $attribute . '"'
+                        : ' ' . $attribute;
+                }
+
+                $rendered .= '>';
             } elseif ($asset['type'] === AssetType::JS) {
                 $rendered .= '<script src="' . $uri . '"';
 
