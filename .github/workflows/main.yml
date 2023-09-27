@@ -4,7 +4,7 @@ on: [push, pull_request]
 
 jobs:
   general_module_workflow:
-    uses: Karaka-Management/Karaka/.github/workflows/module.yml@develop
+    uses: Karaka-Management/Karaka/.github/workflows/php_template.yml@develop
     secrets:
       GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       GH_PAT: ${{ secrets.GH_PAT }}
