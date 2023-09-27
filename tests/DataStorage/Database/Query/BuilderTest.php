@@ -719,7 +719,7 @@ final class BuilderTest extends \PHPUnit\Framework\TestCase
         $this->expectException(\Exception::class);
 
         $query = new Builder($con, true);
-        $query->update();
+        $query->update('table');
     }
 
     /**

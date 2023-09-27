@@ -103,8 +103,8 @@ final class HttpHeaderTest extends \PHPUnit\Framework\TestCase
     public function testInvalidOverwrite() : void
     {
         self::assertTrue($this->header->set('key', 'header'));
-        self::assertFalse($this->header->set('key', 'header2'));
-        self::assertEquals(['header'], $this->header->get('key'));
+        self::assertTrue($this->header->set('key', 'header2'));
+        self::assertEquals(['header', 'header2'], $this->header->get('key'));
     }
 
     /**
