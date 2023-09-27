@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<phpunit xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" bootstrap="Bootstrap.php" colors="true" columns="120" stopOnError="true" stopOnFailure="false" stopOnIncomplete="false" stopOnSkipped="false" beStrictAboutTestsThatDoNotTestAnything="false" xsi:noNamespaceSchemaLocation="https://schema.phpunit.de/9.3/phpunit.xsd">
+  <coverage includeUncoveredFiles="true" processUncoveredFiles="false">
+    <exclude>
+      <directory>../*/tests*</directory>
+      <directory suffix="tpl.php">../*</directory>
+      <directory suffix="lang.php">../*</directory>
+      <directory suffix="Test.php">../*</directory>
+      <directory>./Build</directory>
+      <directory>./Resources</directory>
+      <directory>*vendor*</directory>
+      <directory>*Testapp*</directory>
+      <directory>./vendor</directory>
+      <directory>../vendor</directory>
+      <directory>../Localization/LanguageDetection/resources</directory>
+    </exclude>
+    <report>
+      <clover outputFile="coverage.xml"/>
+      <html outputDirectory="../tests" lowUpperBound="75" highLowerBound="95"/>
+    </report>
+  </coverage>
+  <testsuites>
+    <testsuite name="phpOMS">
+      <directory>../tests*</directory>
+      <exclude>Module/ModuleManagerTest.php</exclude>
+      <exclude>./tests</exclude>
+      <exclude>./vendor</exclude>
+      <exclude>./Build</exclude>
+      <exclude>./Resources</exclude>
+      <exclude>*Testapp*</exclude>
+    </testsuite>
+  </testsuites>
+  <groups>
+    <exclude>
+      <group>volume</group>
+      <group>maybe</group>
+      <group>slow</group>
+    </exclude>
+  </groups>
+  <logging>
+    <junit outputFile="../tests/junit_php.xml"/>
+    <testdoxHtml outputFile="../tests/index.html"/>
+    <testdoxText outputFile="../tests/testdox.txt"/>
+  </logging>
+  <php>
+    <const name="WEB_SERVER_HOST" value="localhost"/>
+    <const name="WEB_SERVER_PORT" value="1234"/>
+    <const name="WEB_SERVER_DOCROOT" value="./"/>
+  </php>
+</phpunit>
