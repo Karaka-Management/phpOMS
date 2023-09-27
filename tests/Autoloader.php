@@ -14,7 +14,7 @@ declare(strict_types=1);
 
 namespace phpOMS\tests;
 
-\spl_autoload_register('\phpOMS\tests\Autoloader::defaultAutoloader');
+\spl_autoload_register('\tests\Autoloader::defaultAutoloader');
 
 /**
  * Autoloader class.
