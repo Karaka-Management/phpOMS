@@ -32,6 +32,15 @@ final class SqlServerConnectionTest extends \PHPUnit\Framework\TestCase
               'The Sqlsrv extension is not available.'
             );
         }
+
+        $ssql = new SqlServerConnection($GLOBALS['CONFIG']['db']['core']['mssql']['admin']);
+        $ssql->connect();
+        if ($ssql->getStatus() !== DatabaseStatus::OK) {
+            $this->markTestSkipped(
+                'The Sqlsrv extension is not available.'
+              );
+        }
+        $ssql->close();
     }
 
     /**
@@ -49,6 +58,7 @@ final class SqlServerConnectionTest extends \PHPUnit\Framework\TestCase
         self::assertEquals((int) $GLOBALS['CONFIG']['db']['core']['mssql']['admin']['port'], $ssql->getPort());
         self::assertInstanceOf('\phpOMS\DataStorage\Database\Query\Grammar\SqlServerGrammar', $ssql->getGrammar());
         self::assertEquals(DatabaseType::SQLSRV, $ssql->getType());
+        $ssql->close();
     }
 
     /**
@@ -63,6 +73,7 @@ final class SqlServerConnectionTest extends \PHPUnit\Framework\TestCase
         $ssql = new SqlServerConnection($db);
         $ssql->connect();
         self::assertEquals(DatabaseStatus::FAILURE, $ssql->getStatus());
+        $ssql->close();
     }
 
     /**
@@ -77,6 +88,7 @@ final class SqlServerConnectionTest extends \PHPUnit\Framework\TestCase
         $ssql = new SqlServerConnection($db);
         $ssql->connect();
         self::assertEquals(DatabaseStatus::FAILURE, $ssql->getStatus());
+        $ssql->close();
     }
 
     /**
@@ -91,6 +103,7 @@ final class SqlServerConnectionTest extends \PHPUnit\Framework\TestCase
         $ssql = new SqlServerConnection($db);
         $ssql->connect();
         self::assertEquals(DatabaseStatus::FAILURE, $ssql->getStatus());
+        $ssql->close();
     }
 
     /**
@@ -105,6 +118,7 @@ final class SqlServerConnectionTest extends \PHPUnit\Framework\TestCase
         $ssql = new SqlServerConnection($db);
         $ssql->connect();
         self::assertEquals(DatabaseStatus::FAILURE, $ssql->getStatus());
+        $ssql->close();
     }
 
     /**
@@ -119,6 +133,7 @@ final class SqlServerConnectionTest extends \PHPUnit\Framework\TestCase
         $ssql = new SqlServerConnection($db);
         $ssql->connect();
         self::assertEquals(DatabaseStatus::FAILURE, $ssql->getStatus());
+        $ssql->close();
     }
 
     /**
@@ -133,6 +148,7 @@ final class SqlServerConnectionTest extends \PHPUnit\Framework\TestCase
         $ssql = new SqlServerConnection($db);
         $ssql->connect();
         self::assertEquals(DatabaseStatus::FAILURE, $ssql->getStatus());
+        $ssql->close();
     }
 
     /**
@@ -147,6 +163,7 @@ final class SqlServerConnectionTest extends \PHPUnit\Framework\TestCase
         $ssql     = new SqlServerConnection($db);
         $ssql->connect();
         self::assertEquals(DatabaseStatus::FAILURE, $ssql->getStatus());
+        $ssql->close();
     }
 
     /**
@@ -161,5 +178,6 @@ final class SqlServerConnectionTest extends \PHPUnit\Framework\TestCase
         $ssql = new SqlServerConnection($db);
         $ssql->connect();
         self::assertEquals(DatabaseStatus::FAILURE, $ssql->getStatus());
+        $ssql->close();
     }
 }

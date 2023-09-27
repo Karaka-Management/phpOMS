@@ -50,6 +50,7 @@ final class PostgresConnectionTest extends \PHPUnit\Framework\TestCase
         self::assertEquals((int) $GLOBALS['CONFIG']['db']['core']['postgresql']['admin']['port'], $psql->getPort());
         self::assertInstanceOf('\phpOMS\DataStorage\Database\Query\Grammar\PostgresGrammar', $psql->getGrammar());
         self::assertEquals(DatabaseType::PGSQL, $psql->getType());
+        $psql->close();
     }
 
     /**
@@ -64,6 +65,7 @@ final class PostgresConnectionTest extends \PHPUnit\Framework\TestCase
         $psql = new PostgresConnection($db);
         $psql->connect();
         self::assertEquals(DatabaseStatus::FAILURE, $psql->getStatus());
+        $psql->close();
     }
 
     /**
@@ -78,6 +80,7 @@ final class PostgresConnectionTest extends \PHPUnit\Framework\TestCase
         $psql = new PostgresConnection($db);
         $psql->connect();
         self::assertEquals(DatabaseStatus::FAILURE, $psql->getStatus());
+        $psql->close();
     }
 
     /**
@@ -92,6 +95,7 @@ final class PostgresConnectionTest extends \PHPUnit\Framework\TestCase
         $psql = new PostgresConnection($db);
         $psql->connect();
         self::assertEquals(DatabaseStatus::FAILURE, $psql->getStatus());
+        $psql->close();
     }
 
     /**
@@ -106,6 +110,7 @@ final class PostgresConnectionTest extends \PHPUnit\Framework\TestCase
         $psql = new PostgresConnection($db);
         $psql->connect();
         self::assertEquals(DatabaseStatus::FAILURE, $psql->getStatus());
+        $psql->close();
     }
 
     /**
@@ -120,6 +125,7 @@ final class PostgresConnectionTest extends \PHPUnit\Framework\TestCase
         $psql = new PostgresConnection($db);
         $psql->connect();
         self::assertEquals(DatabaseStatus::FAILURE, $psql->getStatus());
+        $psql->close();
     }
 
     /**
@@ -134,6 +140,7 @@ final class PostgresConnectionTest extends \PHPUnit\Framework\TestCase
         $psql = new PostgresConnection($db);
         $psql->connect();
         self::assertEquals(DatabaseStatus::FAILURE, $psql->getStatus());
+        $psql->close();
     }
 
     /**
@@ -148,6 +155,7 @@ final class PostgresConnectionTest extends \PHPUnit\Framework\TestCase
         $psql     = new PostgresConnection($db);
         $psql->connect();
         self::assertEquals(DatabaseStatus::FAILURE, $psql->getStatus());
+        $psql->close();
     }
 
     /**
@@ -160,8 +168,9 @@ final class PostgresConnectionTest extends \PHPUnit\Framework\TestCase
         $db             = $GLOBALS['CONFIG']['db']['core']['masters']['admin'];
         $db['database'] = 'invalid';
 
-        $mysql = new PostgresConnection($db);
-        $mysql->connect();
-        self::assertEquals(DatabaseStatus::MISSING_DATABASE, $mysql->getStatus());
+        $psql = new PostgresConnection($db);
+        $psql->connect();
+        self::assertEquals(DatabaseStatus::MISSING_DATABASE, $psql->getStatus());
+        $psql->close();
     }
 }

@@ -47,6 +47,7 @@ final class SQLiteConnectionTest extends \PHPUnit\Framework\TestCase
         self::assertEquals($GLOBALS['CONFIG']['db']['core']['sqlite']['admin']['database'], $sqlite->getDatabase());
         self::assertInstanceOf('\phpOMS\DataStorage\Database\Query\Grammar\SQLiteGrammar', $sqlite->getGrammar());
         self::assertEquals(DatabaseType::SQLITE, $sqlite->getType());
+        $sqlite->close();
     }
 
     /**
@@ -61,6 +62,7 @@ final class SQLiteConnectionTest extends \PHPUnit\Framework\TestCase
         $sqlite = new SQLiteConnection($db);
         $sqlite->connect();
         self::assertEquals(DatabaseStatus::FAILURE, $sqlite->getStatus());
+        $sqlite->close();
     }
 
     /**
@@ -76,6 +78,7 @@ final class SQLiteConnectionTest extends \PHPUnit\Framework\TestCase
         $sqlite = new SQLiteConnection($db);
         $sqlite->connect();
         self::assertEquals(DatabaseStatus::MISSING_DATABASE, $sqlite->getStatus());
+        $sqlite->close();
     }
 
     /**
@@ -90,6 +93,7 @@ final class SQLiteConnectionTest extends \PHPUnit\Framework\TestCase
         $sqlite = new SQLiteConnection($db);
         $sqlite->connect();
         self::assertEquals(DatabaseStatus::FAILURE, $sqlite->getStatus());
+        $sqlite->close();
     }
 
     /**
@@ -105,6 +109,7 @@ final class SQLiteConnectionTest extends \PHPUnit\Framework\TestCase
         $sqlite = new SQLiteConnection($db);
         $sqlite->connect();
         self::assertEquals(DatabaseStatus::MISSING_DATABASE, $sqlite->getStatus());
+        $sqlite->close();
     }
 
     /*

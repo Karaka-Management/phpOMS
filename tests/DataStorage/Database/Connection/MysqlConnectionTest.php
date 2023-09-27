@@ -50,6 +50,7 @@ final class MysqlConnectionTest extends \PHPUnit\Framework\TestCase
         self::assertEquals((int) $GLOBALS['CONFIG']['db']['core']['masters']['admin']['port'], $mysql->getPort());
         self::assertInstanceOf('\phpOMS\DataStorage\Database\Query\Grammar\MysqlGrammar', $mysql->getGrammar());
         self::assertEquals(DatabaseType::MYSQL, $mysql->getType());
+        $mysql->close();
     }
 
     /**
@@ -65,6 +66,7 @@ final class MysqlConnectionTest extends \PHPUnit\Framework\TestCase
         $mysql = new MysqlConnection($db);
         $mysql->connect();
         self::assertEquals(DatabaseStatus::FAILURE, $mysql->getStatus());
+        $mysql->close();
     }
 
     /**
@@ -80,6 +82,7 @@ final class MysqlConnectionTest extends \PHPUnit\Framework\TestCase
         $mysql = new MysqlConnection($db);
         $mysql->connect();
         self::assertEquals(DatabaseStatus::FAILURE, $mysql->getStatus());
+        $mysql->close();
     }
 
     /**
@@ -95,6 +98,7 @@ final class MysqlConnectionTest extends \PHPUnit\Framework\TestCase
         $mysql = new MysqlConnection($db);
         $mysql->connect();
         self::assertEquals(DatabaseStatus::FAILURE, $mysql->getStatus());
+        $mysql->close();
     }
 
     /**
@@ -110,6 +114,7 @@ final class MysqlConnectionTest extends \PHPUnit\Framework\TestCase
         $mysql = new MysqlConnection($db);
         $mysql->connect();
         self::assertEquals(DatabaseStatus::FAILURE, $mysql->getStatus());
+        $mysql->close();
     }
 
     /**
@@ -125,6 +130,7 @@ final class MysqlConnectionTest extends \PHPUnit\Framework\TestCase
         $mysql = new MysqlConnection($db);
         $mysql->connect();
         self::assertEquals(DatabaseStatus::FAILURE, $mysql->getStatus());
+        $mysql->close();
     }
 
     /**
@@ -140,6 +146,7 @@ final class MysqlConnectionTest extends \PHPUnit\Framework\TestCase
         $mysql = new MysqlConnection($db);
         $mysql->connect();
         self::assertEquals(DatabaseStatus::FAILURE, $mysql->getStatus());
+        $mysql->close();
     }
 
     /**
@@ -155,6 +162,7 @@ final class MysqlConnectionTest extends \PHPUnit\Framework\TestCase
         $mysql = new MysqlConnection($db);
         $mysql->connect();
         self::assertEquals(DatabaseStatus::FAILURE, $mysql->getStatus());
+        $mysql->close();
     }
 
     /**
@@ -170,5 +178,6 @@ final class MysqlConnectionTest extends \PHPUnit\Framework\TestCase
         $mysql = new MysqlConnection($db);
         $mysql->connect();
         self::assertEquals(DatabaseStatus::MISSING_DATABASE, $mysql->getStatus());
+        $mysql->close();
     }
 }
