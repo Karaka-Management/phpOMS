@@ -73,6 +73,9 @@ class CsvDatabaseMapper implements IODatabaseMapper
 
         // get column titles
         $titles = \fgetcsv($fp, 4096);
+        if ($titles === false) {
+            return;
+        }
 
         $columns = \count($titles);
         if ($columns === 0) {
@@ -149,6 +152,9 @@ class CsvDatabaseMapper implements IODatabaseMapper
 
         // get column titles
         $titles = \fgetcsv($fp, 4096);
+        if ($titles === false) {
+            return;
+        }
 
         $columns = \count($titles);
         if ($columns === 0) {
