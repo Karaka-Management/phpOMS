@@ -11,6 +11,7 @@
                 ".*?primary": "1|0",
                 ".*?unique": "1|0",
                 ".*?autoincrement": "1|0",
+                ".*?multi_autoincrement": [".*"],
                 ".*?foreignTable": "[a-z0-9\\_]+",
                 ".*?foreignKey": "[a-z0-9\\_]+",
                 ".*?annotations": ".*",
