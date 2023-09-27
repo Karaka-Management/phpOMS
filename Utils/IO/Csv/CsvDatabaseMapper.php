@@ -166,7 +166,7 @@ class CsvDatabaseMapper implements IODatabaseMapper
         // update data
         while (($cells = \fgetcsv($fp)) !== false) {
             $query = new Builder($this->con);
-            $query->update(...$titles)->into($table);
+            $query->update($table);
 
             for ($j = 2; $j <= $columns; ++$j) {
                 $query->sets((string) $titles[$j - 2], $cells[$j - 1]);

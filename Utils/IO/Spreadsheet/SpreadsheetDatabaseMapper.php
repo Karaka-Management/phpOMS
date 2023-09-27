@@ -221,7 +221,7 @@ class SpreadsheetDatabaseMapper implements IODatabaseMapper
             $line = 2;
             while (!empty($workSheet->getCell('A' . $line)->getCalculatedValue())) {
                 $query = new Builder($this->con);
-                $query->update(...$titles)->into($table);
+                $query->update($table);
 
                 for ($j = 2; $j <= $columns; ++$j) {
                     $query->sets((string) $titles[$j - 2], $workSheet->getCell(StringUtils::intToAlphabet($j) . $line)->getCalculatedValue());
