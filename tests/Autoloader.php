@@ -12,9 +12,9 @@
  */
 declare(strict_types=1);
 
-namespace tests;
+namespace phpOMS\tests;
 
-\spl_autoload_register('\tests\Autoloader::defaultAutoloader');
+\spl_autoload_register('\phpOMS\tests\Autoloader::defaultAutoloader');
 
 /**
  * Autoloader class.
@@ -79,6 +79,8 @@ class Autoloader
 
         if (\stripos($class, 'Web/Backend') !== false || \stripos($class, 'Web/Api') !== false) {
             $class = \str_replace('Web/', 'Install/Application/', $class);
+        } elseif (\stripos($class, 'Autoloader.php')) {
+            $class = 'tests/Autoloader.php';
         }
 
         $class2 = $class;
