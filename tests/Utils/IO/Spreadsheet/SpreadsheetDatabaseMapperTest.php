@@ -33,6 +33,7 @@ final class SpreadsheetDatabaseMapperTest extends \PHPUnit\Framework\TestCase
     {
         Autoloader::addPath(__DIR__ . '/../../../../../Resources/');
         Autoloader::addPath(__DIR__ . '/../../../../Resources/');
+        Autoloader::addPath(__DIR__ . '/../../../../MainRepository/Resources/');
     }
 
     /**
