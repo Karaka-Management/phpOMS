@@ -75,7 +75,7 @@ final class DatabasePool implements DataStoragePoolInterface
         }
 
         $con = empty($key) ? \reset($this->pool) : $this->pool[$key];
-        if ($con->status !== DatabaseStatus::OK) {
+        if ($con->getStatus() !== DatabaseStatus::OK) {
             $con->connect();
         }
 
