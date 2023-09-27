@@ -14,7 +14,7 @@ declare(strict_types=1);
 
 namespace phpOMS\tests\Utils\IO\Spreadsheet;
 
-use phpOMS\Autoloader;
+use phpOMS\tests\Autoloader;
 use phpOMS\DataStorage\Database\Connection\SQLiteConnection;
 use phpOMS\DataStorage\Database\Query\Builder;
 use phpOMS\Utils\IO\Spreadsheet\SpreadsheetDatabaseMapper;
@@ -213,10 +213,10 @@ final class SpreadsheetDatabaseMapperTest extends \PHPUnit\Framework\TestCase
         $data    = $builder->select('insert_1.*')->from('insert_1')->execute()->fetchAll(\PDO::FETCH_ASSOC);
         self::assertEquals(
             [
-                ['id' => '1', 'int' => '2', 'decimal' => '2.0', 'bool' => '1', 'varchar' => 'Line 1', 'datetime' => '43631'],
-                ['id' => '2', 'int' => '4', 'decimal' => '9.1', 'bool' => '1', 'varchar' => 'Line 2 updated', 'datetime' => '43831'],
-                ['id' => '3', 'int' => '6', 'decimal' => '2.12', 'bool' => '1', 'varchar' => 'Line 3', 'datetime' => '40426'],
-                ['id' => '4', 'int' => '8', 'decimal' => '9.123', 'bool' => '0', 'varchar' => 'Line 4 updated', 'datetime' => '43831'],
+                ['id' => 1, 'int' => 2, 'decimal' => 2.0, 'bool' => 1, 'varchar' => 'Line 1', 'datetime' => '43631'],
+                ['id' => 2, 'int' => 4, 'decimal' => 9.1, 'bool' => 1, 'varchar' => 'Line 2 updated', 'datetime' => '43831'],
+                ['id' => 3, 'int' => 6, 'decimal' => 2.12, 'bool' => 1, 'varchar' => 'Line 3', 'datetime' => '40426'],
+                ['id' => 4, 'int' => 8, 'decimal' => 9.123, 'bool' => 0, 'varchar' => 'Line 4 updated', 'datetime' => '43831'],
             ],
             $data
         );
@@ -225,10 +225,10 @@ final class SpreadsheetDatabaseMapperTest extends \PHPUnit\Framework\TestCase
         $data    = $builder->select('insert_2.*')->from('insert_2')->execute()->fetchAll(\PDO::FETCH_ASSOC);
         self::assertEquals(
             [
-                ['id' => '1', 'int' => '2', 'decimal' => '2.0', 'bool' => '1', 'varchar' => 'Line 1', 'datetime' => '43631'],
-                ['id' => '2', 'int' => '4', 'decimal' => '9.1', 'bool' => '1', 'varchar' => 'Line 2 updated', 'datetime' => '43831'],
-                ['id' => '3', 'int' => '6', 'decimal' => '2.12', 'bool' => '1', 'varchar' => 'Line 3', 'datetime' => '40426'],
-                ['id' => '4', 'int' => '8', 'decimal' => '9.123', 'bool' => '0', 'varchar' => 'Line 4 updated', 'datetime' => '43831'],
+                ['id' => 1, 'int' => 2, 'decimal' => 2.0, 'bool' => 1, 'varchar' => 'Line 1', 'datetime' => '43631'],
+                ['id' => 2, 'int' => 4, 'decimal' => 9.1, 'bool' => 1, 'varchar' => 'Line 2 updated', 'datetime' => '43831'],
+                ['id' => 3, 'int' => 6, 'decimal' => 2.12, 'bool' => 1, 'varchar' => 'Line 3', 'datetime' => '40426'],
+                ['id' => 4, 'int' => 8, 'decimal' => 9.123, 'bool' => 0, 'varchar' => 'Line 4 updated', 'datetime' => '43831'],
             ],
             $data
         );
@@ -275,10 +275,10 @@ final class SpreadsheetDatabaseMapperTest extends \PHPUnit\Framework\TestCase
         $data    = $builder->select('insert_1.*')->from('insert_1')->execute()->fetchAll(\PDO::FETCH_ASSOC);
         self::assertEquals(
             [
-                ['id' => '1', 'int' => '2', 'decimal' => '2.0', 'bool' => '1', 'varchar' => 'Line 1', 'datetime' => '43631'],
-                ['id' => '2', 'int' => '4', 'decimal' => '9.1', 'bool' => '1', 'varchar' => 'Line 2 updated', 'datetime' => '43831'],
-                ['id' => '3', 'int' => '6', 'decimal' => '2.12', 'bool' => '1', 'varchar' => 'Line 3', 'datetime' => '40426'],
-                ['id' => '4', 'int' => '8', 'decimal' => '9.123', 'bool' => '0', 'varchar' => 'Line 4 updated', 'datetime' => '43831'],
+                ['id' => 1, 'int' => 2, 'decimal' => 2.0, 'bool' => 1, 'varchar' => 'Line 1', 'datetime' => '43631'],
+                ['id' => 2, 'int' => 4, 'decimal' => 9.1, 'bool' => 1, 'varchar' => 'Line 2 updated', 'datetime' => '43831'],
+                ['id' => 3, 'int' => 6, 'decimal' => 2.12, 'bool' => 1, 'varchar' => 'Line 3', 'datetime' => '40426'],
+                ['id' => 4, 'int' => 8, 'decimal' => 9.123, 'bool' => 0, 'varchar' => 'Line 4 updated', 'datetime' => '43831'],
             ],
             $data
         );
@@ -287,10 +287,10 @@ final class SpreadsheetDatabaseMapperTest extends \PHPUnit\Framework\TestCase
         $data    = $builder->select('insert_2.*')->from('insert_2')->execute()->fetchAll(\PDO::FETCH_ASSOC);
         self::assertEquals(
             [
-                ['id' => '1', 'int' => '2', 'decimal' => '2.0', 'bool' => '1', 'varchar' => 'Line 1', 'datetime' => '43631'],
-                ['id' => '2', 'int' => '4', 'decimal' => '9.1', 'bool' => '1', 'varchar' => 'Line 2 updated', 'datetime' => '43831'],
-                ['id' => '3', 'int' => '6', 'decimal' => '2.12', 'bool' => '1', 'varchar' => 'Line 3', 'datetime' => '40426'],
-                ['id' => '4', 'int' => '8', 'decimal' => '9.123', 'bool' => '0', 'varchar' => 'Line 4 updated', 'datetime' => '43831'],
+                ['id' => 1, 'int' => 2, 'decimal' => 2.0, 'bool' => 1, 'varchar' => 'Line 1', 'datetime' => '43631'],
+                ['id' => 2, 'int' => 4, 'decimal' => 9.1, 'bool' => 1, 'varchar' => 'Line 2 updated', 'datetime' => '43831'],
+                ['id' => 3, 'int' => 6, 'decimal' => 2.12, 'bool' => 1, 'varchar' => 'Line 3', 'datetime' => '40426'],
+                ['id' => 4, 'int' => 8, 'decimal' => 9.123, 'bool' => 0, 'varchar' => 'Line 4 updated', 'datetime' => '43831'],
             ],
             $data
         );
@@ -337,10 +337,10 @@ final class SpreadsheetDatabaseMapperTest extends \PHPUnit\Framework\TestCase
         $data    = $builder->select('insert_1.*')->from('insert_1')->execute()->fetchAll(\PDO::FETCH_ASSOC);
         self::assertEquals(
             [
-                ['id' => '1', 'int' => '2', 'decimal' => '2.0', 'bool' => '1', 'varchar' => 'Line 1', 'datetime' => '43631'],
-                ['id' => '2', 'int' => '4', 'decimal' => '9.1', 'bool' => '1', 'varchar' => 'Line 2 updated', 'datetime' => '43831'],
-                ['id' => '3', 'int' => '6', 'decimal' => '2.12', 'bool' => '1', 'varchar' => 'Line 3', 'datetime' => '40426'],
-                ['id' => '4', 'int' => '8', 'decimal' => '9.123', 'bool' => '0', 'varchar' => 'Line 4 updated', 'datetime' => '43831'],
+                ['id' => 1, 'int' => 2, 'decimal' => 2.0, 'bool' => 1, 'varchar' => 'Line 1', 'datetime' => '43631'],
+                ['id' => 2, 'int' => 4, 'decimal' => 9.1, 'bool' => 1, 'varchar' => 'Line 2 updated', 'datetime' => '43831'],
+                ['id' => 3, 'int' => 6, 'decimal' => 2.12, 'bool' => 1, 'varchar' => 'Line 3', 'datetime' => '40426'],
+                ['id' => 4, 'int' => 8, 'decimal' => 9.123, 'bool' => 0, 'varchar' => 'Line 4 updated', 'datetime' => '43831'],
             ],
             $data
         );
@@ -349,10 +349,10 @@ final class SpreadsheetDatabaseMapperTest extends \PHPUnit\Framework\TestCase
         $data    = $builder->select('insert_2.*')->from('insert_2')->execute()->fetchAll(\PDO::FETCH_ASSOC);
         self::assertEquals(
             [
-                ['id' => '1', 'int' => '2', 'decimal' => '2.0', 'bool' => '1', 'varchar' => 'Line 1', 'datetime' => '43631'],
-                ['id' => '2', 'int' => '4', 'decimal' => '9.1', 'bool' => '1', 'varchar' => 'Line 2 updated', 'datetime' => '43831'],
-                ['id' => '3', 'int' => '6', 'decimal' => '2.12', 'bool' => '1', 'varchar' => 'Line 3', 'datetime' => '40426'],
-                ['id' => '4', 'int' => '8', 'decimal' => '9.123', 'bool' => '0', 'varchar' => 'Line 4 updated', 'datetime' => '43831'],
+                ['id' => 1, 'int' => 2, 'decimal' => 2.0, 'bool' => 1, 'varchar' => 'Line 1', 'datetime' => '43631'],
+                ['id' => 2, 'int' => 4, 'decimal' => 9.1, 'bool' => 1, 'varchar' => 'Line 2 updated', 'datetime' => '43831'],
+                ['id' => 3, 'int' => 6, 'decimal' => 2.12, 'bool' => 1, 'varchar' => 'Line 3', 'datetime' => '40426'],
+                ['id' => 4, 'int' => 8, 'decimal' => 9.123, 'bool' => 0, 'varchar' => 'Line 4 updated', 'datetime' => '43831'],
             ],
             $data
         );
