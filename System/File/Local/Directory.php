@@ -305,7 +305,7 @@ final class Directory extends FileAbstract implements DirectoryInterface
 
                 if (\is_dir($path . '/' . $file)) {
                     self::delete($path . '/' . $file);
-                } else {
+                } elseif (\is_writable($path . '/' . $file)) {
                     \unlink($path . '/' . $file);
                 }
             }
