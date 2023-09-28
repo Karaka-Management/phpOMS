@@ -97,7 +97,7 @@ class Autoloader
         }
 
         foreach (self::$paths as $path) {
-            if (\is_file($file = $path . $class2 . '.php') && \stripos($file, $class3) !== false) {
+            if (($file = \realpath($path . $class2 . '.php')) !== false && \stripos($file, $class3) !== false) {
                 include_once $file;
 
                 return;
