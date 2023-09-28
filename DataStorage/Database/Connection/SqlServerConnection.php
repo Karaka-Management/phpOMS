@@ -60,6 +60,10 @@ final class SqlServerConnection extends ConnectionAbstract
      */
     public function connect(array $dbdata = null) : void
     {
+        if ($this->status === DatabaseStatus::OK) {
+            return;
+        }
+
         $this->dbdata = $dbdata ?? $this->dbdata;
 
         if (!isset($this->dbdata['db'], $this->dbdata['host'], $this->dbdata['port'], $this->dbdata['database'], $this->dbdata['login'], $this->dbdata['password'])

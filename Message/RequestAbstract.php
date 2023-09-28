@@ -257,7 +257,7 @@ abstract class RequestAbstract implements MessageInterface
         }
 
         /* @phpstan-ignore-next-line */
-        $list = \explode($delim, $this->data[$key]);
+        $list = \explode($delim, (string) $this->data[$key]);
         if ($list === false) {
             return []; // @codeCoverageIgnore
         }
