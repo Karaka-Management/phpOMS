@@ -154,14 +154,19 @@ final class UpdateMapper extends DataMapperAbstract
             // @todo:
             // @bug: Sqlite doesn't allow table_name.column_name in set queries for whatver reason.
 
-            $sth = $this->db->con->prepare($a = $query->toSql());
+            $sth = $this->db->con->prepare($query->toSql());
             if ($sth !== false) {
                 $sth->execute();
             }
         } catch (\Throwable $t) {
             // @codeCoverageIgnoreStart
-            echo $t->getMessage();
-            echo $query->toSql();
+            \phpOMS\Log\FileLogger::getInstance()->error(
+                \phpOMS\Log\FileLogger::MSG_FULL, [
+                    'message' => $t->getMessage() . ':' . $query->toSql(),
+                    'line'    => __LINE__,
+                    'file'    => self::class,
+                ]
+            );
             // @codeCoverageIgnoreEnd
         }
     }

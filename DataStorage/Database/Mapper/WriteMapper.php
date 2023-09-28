@@ -160,7 +160,7 @@ final class WriteMapper extends DataMapperAbstract
                 $query->insert($this->mapper::PRIMARYFIELD)->value(0);
             }
 
-            $sth = $this->db->con->prepare($a = $query->toSql());
+            $sth = $this->db->con->prepare($query->toSql());
             $sth->execute();
 
             $objId = empty($id = $this->mapper::getObjectId($obj)) ? $this->db->con->lastInsertId() : $id;
@@ -169,9 +169,13 @@ final class WriteMapper extends DataMapperAbstract
             return $objId;
         } catch (\Throwable $t) {
             // @codeCoverageIgnoreStart
-            $a = $t->getMessage(); // @debug
-            $b = $query->toSql(); // @debug
-            $c = \debug_backtrace(); // @debug
+            \phpOMS\Log\FileLogger::getInstance()->error(
+                \phpOMS\Log\FileLogger::MSG_FULL, [
+                    'message' => $t->getMessage() . ':' . $query->toSql(),
+                    'line'    => __LINE__,
+                    'file'    => self::class,
+                ]
+            );
 
             return -1;
             // @codeCoverageIgnoreEND
@@ -385,9 +389,13 @@ final class WriteMapper extends DataMapperAbstract
             }
         } catch (\Throwable $t) {
             // @codeCoverageIgnoreStart
-            $a = $t->getMessage(); // @debug
-            $b = $relQuery->toSql(); // @debug
-            $c = \debug_backtrace(); // @debug
+            \phpOMS\Log\FileLogger::getInstance()->error(
+                \phpOMS\Log\FileLogger::MSG_FULL, [
+                    'message' => $t->getMessage() . ':' . $relQuery->toSql(),
+                    'line'    => __LINE__,
+                    'file'    => self::class,
+                ]
+            );
             // @codeCoverageIgnoreEnd
         }
     }

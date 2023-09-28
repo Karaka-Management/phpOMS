@@ -235,8 +235,13 @@ final class ReadMapper extends DataMapperAbstract
         } catch (\Throwable $t) {
             $results = false;
 
-            $q = $query->toSql(); // @debug
-            $m = $t->getMessage(); // @debug
+            \phpOMS\Log\FileLogger::getInstance()->error(
+                \phpOMS\Log\FileLogger::MSG_FULL, [
+                    'message' => $t->getMessage() . ':' . $query->toSql(),
+                    'line'    => __LINE__,
+                    'file'    => self::class,
+                ]
+            );
         }
 
         return $results === false ? [] : $results;

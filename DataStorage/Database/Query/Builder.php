@@ -1397,8 +1397,13 @@ class Builder extends BuilderAbstract
             $sth->execute();
         } catch (\Throwable $t) {
             // @codeCoverageIgnoreStart
-            \var_dump($t->getMessage());
-            \var_dump($this->toSql());
+            \phpOMS\Log\FileLogger::getInstance()->error(
+                \phpOMS\Log\FileLogger::MSG_FULL, [
+                    'message' => $t->getMessage() . ':' . $this->toSql(),
+                    'line'    => __LINE__,
+                    'file'    => self::class,
+                ]
+            );
 
             $sth = null;
             // @codeCoverageIgnoreEnd
