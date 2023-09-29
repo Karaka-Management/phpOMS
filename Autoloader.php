@@ -83,7 +83,7 @@ final class Autoloader
     /**
      * Add base path for autoloading
      *
-     * @param string $amp  Namespace start
+     * @param string $map  Namespace start
      * @param string $path Absolute base path with / at the end
      *
      * @return void
@@ -112,7 +112,7 @@ final class Autoloader
     /**
      * Check if a namespace map is already in the classpath list
      *
-     * @param string $amp  Namespace start
+     * @param string $map Namespace start
      *
      * @return bool
      *
