@@ -219,7 +219,7 @@ final class HttpRequest extends RequestAbstract
             while (($lineRaw = \fgets($stream)) !== false) {
                 // @codeCoverageIgnoreStart
                 // Tested but coverage doesn't show up
-                if (\strpos($lineRaw, '--') === 0) {
+                if (\str_starts_with($lineRaw, '--')) {
                     if ($boundary === null) {
                         $boundary = \rtrim($lineRaw);
                     }
@@ -254,7 +254,7 @@ final class HttpRequest extends RequestAbstract
                         $lastLine = null;
                         while (($lineRaw = \fgets($stream, 4096)) !== false) {
                             if ($lastLine !== null) {
-                                if ($boundary === null || \strpos($lineRaw, $boundary) === 0) {
+                                if ($boundary === null || \str_starts_with($lineRaw, $boundary)) {
                                     break;
                                 }
 
@@ -284,7 +284,7 @@ final class HttpRequest extends RequestAbstract
                         $fullValue = '';
                         $lastLine  = null;
 
-                        while (($lineRaw = \fgets($stream)) !== false && $boundary !== null && \strpos($lineRaw, $boundary) !== 0) {
+                        while (($lineRaw = \fgets($stream)) !== false && $boundary !== null && !\str_starts_with($lineRaw, $boundary)) {
                             if ($lastLine !== null) {
                                 $fullValue .= $lastLine;
                             }

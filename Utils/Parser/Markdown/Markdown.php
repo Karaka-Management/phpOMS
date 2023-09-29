@@ -2895,7 +2895,7 @@ class Markdown
             return;
         }
 
-        if (\strpos($Line['text'], '<!--') === 0)
+        if (\str_starts_with($Line['text'], '<!--'))
         {
             $Block = [
                 'element' => [

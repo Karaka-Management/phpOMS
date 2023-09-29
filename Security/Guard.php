@@ -50,10 +50,10 @@ final class Guard
      */
     public static function isSafePath(string $path, string $base = '') : bool
     {
-        return \stripos(
+        return \str_starts_with(
             FileUtils::absolute($path),
             FileUtils::absolute(empty($base) ? self::$BASE_PATH : $base)
-        ) === 0;
+        );
     }
 
     /**

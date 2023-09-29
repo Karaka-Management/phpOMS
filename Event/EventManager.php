@@ -175,12 +175,12 @@ final class EventManager implements \Countable
             return false;
         }
 
-        $groupIsRegex = \stripos($group, '/') === 0;
-        $idIsRegex    = \stripos($id, '/') === 0;
+        $groupIsRegex = \str_starts_with($group, '/');
+        $idIsRegex    = \str_starts_with($id, '/');
 
         $groups = [];
         foreach ($this->groups as $groupName => $_) {
-            $groupNameIsRegex = \stripos($groupName, '/') === 0;
+            $groupNameIsRegex = \str_starts_with($groupName, '/');
 
             if ($groupIsRegex) {
                 if (\preg_match($group, $groupName) === 1) {
@@ -195,7 +195,7 @@ final class EventManager implements \Countable
 
         foreach ($groups as $groupName => $_) {
             foreach ($this->groups[$groupName] as $idName => $_2) {
-                $idNameIsRegex = \stripos($idName, '/') === 0;
+                $idNameIsRegex = \str_starts_with($idName, '/');
 
                 if ($idIsRegex) {
                     if (\preg_match($id, $idName) === 1) {

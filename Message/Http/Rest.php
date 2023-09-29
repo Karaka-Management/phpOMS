@@ -121,7 +121,7 @@ final class Rest
                 if (\count($header) < 2) {
                     $response->header->set('', $line = \trim($header[0]));
 
-                    if (\stripos(\strtoupper($line), 'HTTP/') === 0) {
+                    if (\str_starts_with(\strtoupper($line), 'HTTP/')) {
                         $statusCode               = \explode(' ', $line, 3);
                         $response->header->status = (int) $statusCode[1];
                     }

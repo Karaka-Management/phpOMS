@@ -263,7 +263,7 @@ final class ReadMapper extends DataMapperAbstract
         $result = $this->executeGet($query);
 
         if (\is_object($result)
-            && (\stripos($class = \get_class($result), 'Null') === 0 || \stripos($class, '\Null') !== false)
+            && (\str_starts_with($class = \get_class($result), 'Null') || \stripos($class, '\Null') !== false)
         ) {
             return [];
         }

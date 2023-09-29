@@ -2036,7 +2036,7 @@ class Email implements MessageInterface
 
                 if (!empty($basedir)
                     && (\strpos($url, '..') === false)
-                    && \strpos($url, 'cid:') !== 0
+                    && !\str_starts_with($url, 'cid:')
                     && !\preg_match('#^[a-z][a-z0-9+.-]*:?//#i', $url)
                 ) {
                     $filename  = FileUtils::mb_pathinfo($url, \PATHINFO_BASENAME);

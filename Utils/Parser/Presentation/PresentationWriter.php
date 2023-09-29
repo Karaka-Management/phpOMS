@@ -415,7 +415,7 @@ class PresentationWriter
 
         foreach ($constants as $key => $value) {
             if ($value === $search) {
-                if ($startWith === '' || \strpos($key, $startWith) === 0) {
+                if ($startWith === '' || \str_starts_with($key, $startWith)) {
                     $constName = $key;
                 }
 

@@ -143,7 +143,7 @@ final class Numeric
         $result = 0;
 
         foreach (self::ROMANS as $key => $value) {
-            while (\strpos($roman, $key) === 0) {
+            while (\str_starts_with($roman, $key)) {
                 $result += $value;
                 $temp    = \substr($roman, \strlen($key));
 

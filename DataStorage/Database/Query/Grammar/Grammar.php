@@ -297,7 +297,7 @@ class Grammar extends GrammarAbstract
             $expression .= $element['column']();
         } elseif ($element['column'] instanceof Where) {
             $where       = \rtrim($this->compileWhereQuery($element['column']), ';');
-            $expression .= '(' . (\stripos($where, 'WHERE ') === 0 ? \substr($where, 6) : $where) . ')';
+            $expression .= '(' . (\str_starts_with($where, 'WHERE ') ? \substr($where, 6) : $where) . ')';
         } elseif ($element['column'] instanceof Builder) {
             $expression .= '(' . \rtrim($element['column']->toSql(), ';') . ')';
         }

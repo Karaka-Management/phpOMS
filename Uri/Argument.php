@@ -170,7 +170,7 @@ final class Argument implements UriInterface
         $uriParts = \explode(' ', $uri);
 
         // Handle no path information only data
-        $uriParts = \stripos($uriParts[0], '-') === 0 ? ['/', $uriParts[0]] : $uriParts;
+        $uriParts = \str_starts_with($uriParts[0], '-') ? ['/', $uriParts[0]] : $uriParts;
 
         $this->path         = empty($uriParts) ? '' : \array_shift($uriParts);
         $this->pathElements = \explode('/', \ltrim($this->path, '/'));

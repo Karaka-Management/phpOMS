@@ -95,7 +95,7 @@ final class UriFactory
             self::$uri = [];
         } else {
             foreach (self::$uri as $key => $_) {
-                if (\stripos($key, $identifier) === 0) {
+                if (\str_starts_with($key, $identifier)) {
                     unset(self::$uri[$key]);
                 }
             }
