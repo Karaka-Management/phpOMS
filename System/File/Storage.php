@@ -14,6 +14,8 @@ declare(strict_types=1);
 
 namespace phpOMS\System\File;
 
+use phpOMS\Autoloader;
+
 /**
  * Filesystem class.
  *
@@ -71,15 +73,18 @@ final class Storage
                 throw new \Exception('Invalid type');
             }
         } else {
-            $stg = $env;
-            $env = \ucfirst(\strtolower($env));
-            /** @var StorageAbstract $env */
-            $env = __NAMESPACE__ . '\\' . $env . '\\' . $env . 'Storage';
+            $stg = \ucfirst(\strtolower($env));
+            $stg = __NAMESPACE__ . '\\' . $stg . '\\' . $stg . 'Storage';
 
+            if (!Autoloader::exists($stg)) {
+                throw new \Exception('Invalid type');
+            }
+
+            /** @var StorageAbstract $stg */
             /** @var StorageAbstract $instance */
-            $instance = new $env();
+            $instance = new $stg();
 
-            self::$registered[$stg] = $instance;
+            self::$registered[$env] = $instance;
         }
 
         return $instance;
