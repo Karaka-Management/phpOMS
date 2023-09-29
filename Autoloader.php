@@ -27,6 +27,14 @@ namespace phpOMS;
 final class Autoloader
 {
     /**
+     * Use class map before paths
+     *
+     * @var bool
+     * @since 1.0.0
+     */
+    public static bool $useClassMap = true;
+
+    /**
      * Base paths for autoloading
      *
      * @var string[]
@@ -34,6 +42,18 @@ final class Autoloader
      */
     private static $paths = [
         __DIR__ . '/../',
+    ];
+
+    /**
+     * Base paths for autoloading
+     *
+     * @var string[]
+     * @since 1.0.0
+     */
+    private static $classmap = [
+        'phpOMS'  => __DIR__ . '/../',
+        'Modules' => __DIR__ . '/../',
+        'Models'  => __DIR__ . '/../',
     ];
 
     /**
@@ -61,6 +81,21 @@ final class Autoloader
     }
 
     /**
+     * Add base path for autoloading
+     *
+     * @param string $amp  Namespace start
+     * @param string $path Absolute base path with / at the end
+     *
+     * @return void
+     *
+     * @since 1.0.0
+     */
+    public static function addClassMap(string $map, string $path) : void
+    {
+        self::$classmap[$map] = \rtrim($path, '/\\') . '/';
+    }
+
+    /**
      * Check if a path is already in the path list
      *
      * @param string $path Absolute base path with / at the end
@@ -72,6 +107,20 @@ final class Autoloader
     public static function inPaths(string $path) : bool
     {
         return \in_array(\rtrim($path, '/\\') . '/', self::$paths);
+    }
+
+    /**
+     * Check if a namespace map is already in the classpath list
+     *
+     * @param string $amp  Namespace start
+     *
+     * @return bool
+     *
+     * @since 1.0.0
+     */
+    public static function inClassMap(string $map) : bool
+    {
+        return isset(self::$classmap[$map]);
     }
 
     /**
@@ -113,6 +162,29 @@ final class Autoloader
     {
         $class = \ltrim($class, '\\');
         $class = \strtr($class, '_\\', '//');
+
+        if (self::$useClassMap) {
+            $nspacePos = \strpos($class, '/');
+            $subclass  = $nspacePos === false ? '' : \substr($class, 0, $nspacePos);
+
+            if (isset(self::$classmap[$subclass])) {
+                include_once self::$classmap[$subclass] . $class . '.php';
+
+                return;
+            }
+
+            /*
+            if (!isset($valid[$subclass])) {
+                foreach (self::$classmap as $map => $path) {
+                    if (\str_starts_with($class, $map)) {
+                        include_once $path . $class . '.php';
+
+                        return;
+                    }
+                }
+            }
+            */
+        }
 
         foreach (self::$paths as $path) {
             if (\is_file($file = $path . $class . '.php')) {
