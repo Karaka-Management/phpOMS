@@ -413,7 +413,11 @@ class File extends FileAbstract implements FileInterface
             return false;
         }
 
-        return \ftp_delete($con, $path);
+        try {
+            return \ftp_delete($con, $path);
+        } catch (\Throwable $_) {
+            return false;
+        }
     }
 
     /**
