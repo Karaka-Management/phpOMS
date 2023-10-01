@@ -7,7 +7,10 @@ declare(strict_types=1);
 \error_reporting(\E_ALL);
 \setlocale(\LC_ALL, 'en_US.UTF-8');
 
-require_once __DIR__ . '/../vendor/autoload.php';
+if (\is_file(__DIR__ . '/../vendor/autoload.php')) {
+    require_once __DIR__ . '/../vendor/autoload.php';
+}
+
 require_once __DIR__ . '/Autoloader.php';
 
 use phpOMS\DataStorage\Database\DatabasePool;
