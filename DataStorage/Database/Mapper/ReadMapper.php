@@ -555,7 +555,7 @@ final class ReadMapper extends DataMapperAbstract
      */
     public function populateAbstract(array $result, object $obj) : object
     {
-        $refClass = new \ReflectionClass($obj);
+        $refClass = null;
 
         foreach ($this->mapper::COLUMNS as $column => $def) {
             $alias = $column . '_d' . $this->depth;
@@ -569,28 +569,42 @@ final class ReadMapper extends DataMapperAbstract
             $hasPath   = false;
             $aValue    = [];
             $arrayPath = '';
+            $refProp   = null;
+            $isPrivate = $def['private'] ?? false;
+            $member    = '';
+
+            if ($isPrivate && $refClass === null) {
+                $refClass = new \ReflectionClass($obj);
+            }
 
             if (\stripos($def['internal'], '/') !== false) {
                 $hasPath = true;
                 $path    = \explode('/', \ltrim($def['internal'], '/'));
                 $member  = $path[0];
 
-                $refProp  = $refClass->getProperty($path[0]);
-                $isPublic = $refProp->isPublic();
-                $aValue   = $isPublic ? $obj->{$path[0]} : $refProp->getValue($obj);
+                if ($isPrivate) {
+                    $refProp = $refClass->getProperty($path[0]);
+                    $aValue  = $refProp->getValue($obj);
+                } else {
+                    $aValue = $obj->{$path[0]};
+                }
 
                 \array_shift($path);
                 $arrayPath = \implode('/', $path);
             } else {
-                $refProp  = $refClass->getProperty($def['internal']);
-                $isPublic = $refProp->isPublic();
-                $member   = $def['internal'];
+                if ($isPrivate) {
+                    $refProp = $refClass->getProperty($def['internal']);
+                }
+
+                $member = $def['internal'];
             }
 
             if (isset($this->mapper::OWNS_ONE[$def['internal']])) {
                 $default = null;
-                if (!isset($this->with[$member]) && $refProp->isInitialized($obj)) {
-                    $default = $isPublic ? $obj->{$def['internal']} : $refProp->getValue($obj);
+                if (!isset($this->with[$member])
+                    && ($isPrivate ? $refProp->isInitialized($obj) : isset($obj->{$member}))
+                ) {
+                    $default = $isPrivate ? $refProp->getValue($obj) : $obj->{$member};
                 }
 
                 $value = $this->populateOwnsOne($def['internal'], $result, $default);
@@ -600,14 +614,16 @@ final class ReadMapper extends DataMapperAbstract
                     $this->mapper::OWNS_ONE[$def['internal']]['mapper']::reader(db: $this->db)->loadHasManyRelations($value);
                 }
 
-                if (!empty($value)) {
+                if (empty($value)) {
                     // @todo: find better solution. this was because of a bug with the sales billing list query depth = 4. The address was set (from the client, referral or creator) but then somehow there was a second address element which was all null and null cannot be asigned to a string variable (e.g. country). The problem with this solution is that if the model expects an initialization (e.g. at lest set the elements to null, '', 0 etc.) this is now not done.
-                    $refProp->setValue($obj, $value);
+                    $value = $isPrivate ? $refProp->getValue($obj) : $obj->{$member};
                 }
             } elseif (isset($this->mapper::BELONGS_TO[$def['internal']])) {
                 $default = null;
-                if (!isset($this->with[$member]) && $refProp->isInitialized($obj)) {
-                    $default = $isPublic ? $obj->{$def['internal']} : $refProp->getValue($obj);
+                if (!isset($this->with[$member])
+                    && ($isPrivate ? $refProp->isInitialized($obj) : isset($obj->{$member}))
+                ) {
+                    $default = $isPrivate ? $refProp->getValue($obj) : $obj->{$member};
                 }
 
                 $value = $this->populateBelongsTo($def['internal'], $result, $default);
@@ -616,8 +632,6 @@ final class ReadMapper extends DataMapperAbstract
                 if (\is_object($value) && isset($this->mapper::BELONGS_TO[$def['internal']]['mapper'])) {
                     $this->mapper::BELONGS_TO[$def['internal']]['mapper']::reader(db: $this->db)->loadHasManyRelations($value);
                 }
-
-                $refProp->setValue($obj, $value);
             } elseif (\in_array($def['type'], ['string', 'compress', 'int', 'float', 'bool'])) {
                 if ($value !== null && $def['type'] === 'compress') {
                     $def['type'] = 'string';
@@ -625,43 +639,43 @@ final class ReadMapper extends DataMapperAbstract
                     $value = \gzinflate($value);
                 }
 
-                if ($value !== null || $refProp->getValue($obj) !== null) {
+                $mValue = $isPrivate ? $refProp->getValue($obj) : $obj->{$member};
+                if ($value !== null || $mValue !== null) {
                     \settype($value, $def['type']);
                 }
 
                 if ($hasPath) {
                     $value = ArrayUtils::setArray($arrayPath, $aValue, $value, '/', true);
                 }
-
-                $refProp->setValue($obj, $value);
             } elseif ($def['type'] === 'DateTime') {
-                $value = $value === null ? null : new \DateTime($value);
+                $value ??= new \DateTime($value);
                 if ($hasPath) {
                     $value = ArrayUtils::setArray($arrayPath, $aValue, $value, '/', true);
                 }
-
-                $refProp->setValue($obj, $value);
             } elseif ($def['type'] === 'DateTimeImmutable') {
-                $value = $value === null ? null : new \DateTimeImmutable($value);
+                $value ??= new \DateTimeImmutable($value);
                 if ($hasPath) {
                     $value = ArrayUtils::setArray($arrayPath, $aValue, $value, '/', true);
                 }
-
-                $refProp->setValue($obj, $value);
             } elseif ($def['type'] === 'Json') {
                 if ($hasPath) {
                     $value = ArrayUtils::setArray($arrayPath, $aValue, $value, '/', true);
                 }
 
-                $refProp->setValue($obj, \json_decode($value, true));
+                $value = \json_decode($value, true);
             } elseif ($def['type'] === 'Serializable') {
-                $member = $isPublic ? $obj->{$def['internal']} : $refProp->getValue($obj);
+                $mObj = $isPrivate ? $refProp->getValue($obj) : $obj->{$member};
 
-                if ($member === null || $value === null) {
-                    $obj->{$def['internal']} = $value;
-                } else {
-                    $member->unserialize($value);
+                if ($mObj !== null && $value !== null) {
+                    $mObj->unserialize($value);
+                    $value = $mObj;
                 }
+            }
+
+            if ($isPrivate) {
+                $refProp->setValue($obj, $value);
+            } else {
+                $obj->{$member} = $value;
             }
         }
 
@@ -677,54 +691,68 @@ final class ReadMapper extends DataMapperAbstract
             $hasPath   = false;
             $aValue    = null;
             $arrayPath = '/';
+            $refProp   = null;
+            $isPrivate = $def['private'] ?? false;
+
+            if ($isPrivate && $refClass === null) {
+                $refClass = new \ReflectionClass($obj);
+            }
 
             if (\stripos($member, '/') !== false) {
                 $hasPath  = true;
                 $path     = \explode('/', $member);
-                $refProp  = $refClass->getProperty($path[0]);
-                $isPublic = $refProp->isPublic();
+                $member   = $path[0];
+
+                if ($isPrivate) {
+                    $refProp = $refClass->getProperty($path[0]);
+                }
 
                 \array_shift($path);
                 $arrayPath = \implode('/', $path);
-                $aValue    = $isPublic ? $obj->{$path[0]} : $refProp->getValue($obj);
-            } else {
+                $aValue    = $isPrivate ? $refProp->getValue($obj) : $obj->{$path[0]};
+            } elseif ($isPrivate) {
                 $refProp  = $refClass->getProperty($member);
-                $isPublic = $refProp->isPublic();
             }
 
             if (\in_array($def['mapper']::COLUMNS[$column]['type'], ['string', 'int', 'float', 'bool'])) {
-                if ($value !== null || $refProp->getValue($obj) !== null) {
+                if ($value !== null
+                    || ($isPrivate ? $refProp->getValue($obj) !== null : $obj->{$member} !== null)
+                ) {
                     \settype($value, $def['mapper']::COLUMNS[$column]['type']);
                 }
 
                 if ($hasPath) {
                     $value = ArrayUtils::setArray($arrayPath, $aValue, $value, '/', true);
                 }
-
-                $refProp->setValue($obj, $value);
             } elseif ($def['mapper']::COLUMNS[$column]['type'] === 'DateTime') {
-                $value = $value === null ? null : new \DateTime($value);
+                $value ??= new \DateTime($value);
                 if ($hasPath) {
                     $value = ArrayUtils::setArray($arrayPath, $aValue, $value, '/', true);
                 }
-
-                $refProp->setValue($obj, $value);
             } elseif ($def['mapper']::COLUMNS[$column]['type'] === 'DateTimeImmutable') {
-                $value = $value === null ? null : new \DateTimeImmutable($value);
+                $value ??= new \DateTimeImmutable($value);
                 if ($hasPath) {
                     $value = ArrayUtils::setArray($arrayPath, $aValue, $value, '/', true);
                 }
-
-                $refProp->setValue($obj, $value);
             } elseif ($def['mapper']::COLUMNS[$column]['type'] === 'Json') {
                 if ($hasPath) {
                     $value = ArrayUtils::setArray($arrayPath, $aValue, $value, '/', true);
                 }
 
-                $refProp->setValue($obj, \json_decode($value, true));
+                $value = \json_decode($value, true);
             } elseif ($def['mapper']::COLUMNS[$column]['type'] === 'Serializable') {
-                $member = $isPublic ? $obj->{$member} : $refProp->getValue($obj);
-                $member->unserialize($value);
+                $mObj = $isPrivate ? $refProp->getValue($obj) : $obj->{$member};
+
+                if ($mObj !== null && $value !== null) {
+                    $mObj->unserialize($value);
+                    $value = $mObj;
+                }
+            }
+
+            if ($isPrivate) {
+                $refProp->setValue($obj, $value);
+            } else {
+                $obj->{$member} = $value;
             }
         }
 
@@ -867,6 +895,8 @@ final class ReadMapper extends DataMapperAbstract
                     continue;
                 }
 
+                $isPrivate = $withData['private'] ?? false;
+
                 $objectMapper = $this->createRelationMapper($many['mapper']::get(db: $this->db), $member);
                 if ($many['external'] === null/* same as $many['table'] !== $many['mapper']::TABLE */) {
                     $objectMapper->where($many['mapper']::COLUMNS[$many['self']]['internal'], $primaryKey);
@@ -886,12 +916,12 @@ final class ReadMapper extends DataMapperAbstract
                     continue;
                 }
 
-                if ($refClass === null) {
-                    $refClass = new \ReflectionClass($obj);
-                }
+                if ($isPrivate) {
+                    if ($refClass === null) {
+                        $refClass = new \ReflectionClass($obj);
+                    }
 
-                $refProp = $refClass->getProperty($member);
-                if (!$refProp->isPublic()) {
+                    $refProp = $refClass->getProperty($member);
                     $refProp->setValue($obj, !\is_array($objects) && ($many['conditional'] ?? false) === false
                         ? [$many['mapper']::getObjectId($objects) => $objects]
                         : $objects // if conditional === true the obj will be asigned (e.g. has many localizations but only one is loaded for the model)
@@ -914,15 +944,16 @@ final class ReadMapper extends DataMapperAbstract
                     continue;
                 }
 
-                if ($refClass === null) {
-                    $refClass = new \ReflectionClass($obj);
-                }
-
                 /** @var ReadMapper $relMapper */
                 $relMapper = $this->createRelationMapper($relation['mapper']::reader($this->db), $member);
 
-                $refProp = $refClass->getProperty($member);
-                if (!$refProp->isPublic()) {
+                $isPrivate = $withData['private'] ?? false;
+                if ($isPrivate) {
+                    if ($refClass === null) {
+                        $refClass = new \ReflectionClass($obj);
+                    }
+
+                    $refProp = $refClass->getProperty($member);
                     $relMapper->loadHasManyRelations($refProp->getValue($obj));
                 } else {
                     $relMapper->loadHasManyRelations($obj->{$member});

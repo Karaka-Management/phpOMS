@@ -71,17 +71,17 @@ final class DeleteMapper extends DataMapperAbstract
      */
     public function executeDelete(object $obj) : mixed
     {
-        $refClass = new \ReflectionClass($obj);
+        $refClass = null;
         $objId    = $this->mapper::getObjectId($obj);
 
         if (empty($objId)) {
             return null;
         }
 
-        $this->deleteSingleRelation($obj, $refClass, $this->mapper::BELONGS_TO);
-        $this->deleteHasMany($refClass, $obj, $objId);
+        $this->deleteSingleRelation($obj, $this->mapper::BELONGS_TO, $refClass);
+        $this->deleteHasMany($obj, $objId, $refClass);
         $this->deleteModel($objId);
-        $this->deleteSingleRelation($obj, $refClass, $this->mapper::OWNS_ONE);
+        $this->deleteSingleRelation($obj, $this->mapper::OWNS_ONE, $refClass);
 
         return $objId;
     }
@@ -111,15 +111,15 @@ final class DeleteMapper extends DataMapperAbstract
     /**
      * Delete ownsOne, belongsTo relations
      *
-     * @param object           $obj      Object to delete
-     * @param \ReflectionClass $refClass Reflection of object to delete
-     * @param array            $relation Relation data (e.g. ::BELONGS_TO, ::OWNS_ONE)
+     * @param object                $obj      Object to delete
+     * @param array                 $relation Relation data (e.g. ::BELONGS_TO, ::OWNS_ONE)
+     * @param null|\ReflectionClass $refClass Reflection of object to delete
      *
      * @return void
      *
      * @since 1.0.0
      */
-    private function deleteSingleRelation(object $obj, \ReflectionClass $refClass, array $relation) : void
+    private function deleteSingleRelation(object $obj, array $relation, \ReflectionClass &$refClass = null) : void
     {
         if (empty($relation)) {
             return;
@@ -137,27 +137,36 @@ final class DeleteMapper extends DataMapperAbstract
             $relMapper        = $this->createRelationMapper($mapper::delete(db: $this->db), $member);
             $relMapper->depth = $this->depth + 1;
 
-            $refProp = $refClass->getProperty($member);
-            if (!$refProp->isPublic()) {
-                $relMapper->execute($refProp->getValue($obj));
+            $isPrivate = $relData['private'] ?? false;
+
+            $value = null;
+            if ($isPrivate) {
+                if ($refClass === null) {
+                    $refClass = new \ReflectionClass($obj);
+                }
+
+                $refProp = $refClass->getProperty($member);
+                $value   = $refProp->getValue($obj);
             } else {
-                $relMapper->execute($obj->{$member});
+                $value = $obj->{$member};
             }
+
+            $relMapper->execute($value);
         }
     }
 
     /**
      * Delete hasMany
      *
-     * @param \ReflectionClass $refClass Reflection of object to delete
-     * @param object           $obj      Object to delete
-     * @param mixed            $objId    Object id to delete
+     * @param object                $obj      Object to delete
+     * @param mixed                 $objId    Object id to delete
+     * @param null|\ReflectionClass $refClass Reflection of object to delete
      *
      * @return void
      *
      * @since 1.0.0
      */
-    private function deleteHasMany(\ReflectionClass $refClass, object $obj, mixed $objId) : void
+    private function deleteHasMany(object $obj, mixed $objId, \ReflectionClass &$refClass = null) : void
     {
         if (empty($this->mapper::HAS_MANY)) {
             return;
@@ -169,9 +178,20 @@ final class DeleteMapper extends DataMapperAbstract
                 continue;
             }
 
-            $objIds  = [];
-            $refProp = $refClass->getProperty($member);
-            $values  = $refProp->isPublic() ? $obj->{$member} : $refProp->getValue($obj);
+            $objIds    = [];
+            $isPrivate = $rel['private'] ?? false;
+
+            $values = null;
+            if ($isPrivate) {
+                if ($refClass === null) {
+                    $refClass = new \ReflectionClass($obj);
+                }
+
+                $refProp = $refClass->getProperty($member);
+                $values  = $refProp->getValue($obj);
+            } else {
+                $values = $obj->{$member};
+            }
 
             if (!\is_array($values)) {
                 // conditionals
