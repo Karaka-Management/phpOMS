@@ -648,12 +648,12 @@ final class ReadMapper extends DataMapperAbstract
                     $value = ArrayUtils::setArray($arrayPath, $aValue, $value, '/', true);
                 }
             } elseif ($def['type'] === 'DateTime') {
-                $value ??= new \DateTime($value);
+                $value = $value === null ? null : new \DateTime($value);
                 if ($hasPath) {
                     $value = ArrayUtils::setArray($arrayPath, $aValue, $value, '/', true);
                 }
             } elseif ($def['type'] === 'DateTimeImmutable') {
-                $value ??= new \DateTimeImmutable($value);
+                $value = $value === null ? null : new \DateTimeImmutable($value);
                 if ($hasPath) {
                     $value = ArrayUtils::setArray($arrayPath, $aValue, $value, '/', true);
                 }
