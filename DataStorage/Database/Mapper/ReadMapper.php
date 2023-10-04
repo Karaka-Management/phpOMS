@@ -103,6 +103,20 @@ final class ReadMapper extends DataMapperAbstract
     }
 
     /**
+     * Create count mapper
+     *
+     * @return self
+     *
+     * @since 1.0.0
+     */
+    public function exists() : self
+    {
+        $this->type = MapperType::MODEL_EXISTS;
+
+        return $this;
+    }
+
+    /**
      * Create random mapper
      *
      * @return self
@@ -158,6 +172,8 @@ final class ReadMapper extends DataMapperAbstract
                 return $this->executeGetRaw();
             case MapperType::COUNT_MODELS:
                 return $this->executeCount();
+            case MapperType::MODEL_EXISTS:
+                return $this->executeExists();
             default:
                 return null;
         }
@@ -227,7 +243,7 @@ final class ReadMapper extends DataMapperAbstract
         try {
             $results = false;
 
-            $sth = $this->db->con->prepare($a = $query->toSql());
+            $sth = $this->db->con->prepare($query->toSql());
             if ($sth !== false) {
                 $sth->execute();
                 $results = $sth->fetchAll(\PDO::FETCH_ASSOC);
@@ -283,6 +299,20 @@ final class ReadMapper extends DataMapperAbstract
         $query = $this->getQuery(null, ['COUNT(*)' => 'count']);
 
         return (int) $query->execute()?->fetchColumn();
+    }
+
+    /**
+     * Check if any element exists
+     *
+     * @return int
+     *
+     * @since 1.0.0
+     */
+    public function executeExists() : bool
+    {
+        $query = $this->getQuery(null, ['1']);
+
+        return ($query->execute()?->fetchColumn() ?? 0) > 0;
     }
 
     /**

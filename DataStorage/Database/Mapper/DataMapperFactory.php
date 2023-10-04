@@ -259,6 +259,20 @@ class DataMapperFactory
      *
      * @param ConnectionAbstract $db Database connection
      *
+     * @return ReadMapper
+     *
+     * @since 1.0.0
+     */
+    public static function exists(ConnectionAbstract $db = null) : ReadMapper
+    {
+        return (new ReadMapper(new static(), $db ?? self::$db))->exists();
+    }
+
+    /**
+     * Create read mapper
+     *
+     * @param ConnectionAbstract $db Database connection
+     *
      * @return Builder
      *
      * @since 1.0.0

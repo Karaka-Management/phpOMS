@@ -38,6 +38,8 @@ abstract class MapperType extends Enum
 
     public const COUNT_MODELS = 12;
 
+    public const MODEL_EXISTS = 13;
+
     // -------------------------------------------- //
 
     public const CREATE = 1001;
