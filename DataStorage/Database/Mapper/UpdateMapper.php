@@ -73,14 +73,14 @@ final class UpdateMapper extends DataMapperAbstract
      */
     public function executeUpdate(object $obj) : mixed
     {
-        $refClass = new \ReflectionClass($obj);
+        $refClass = null;
         $objId    = $this->mapper::getObjectId($obj);
 
         if ($this->mapper::isNullModel($obj)) {
             return $objId === 0 ? null : $objId;
         }
 
-        $this->updateHasMany($refClass, $obj, $objId);
+        $this->updateHasMany($obj, $objId, $refClass);
 
         if (empty($objId)) {
             return $this->mapper::create(db: $this->db)->execute($obj);
@@ -102,7 +102,7 @@ final class UpdateMapper extends DataMapperAbstract
      *
      * @since 1.0.0
      */
-    private function updateModel(object $obj, mixed $objId, \ReflectionClass $refClass = null) : void
+    private function updateModel(object $obj, mixed $objId, \ReflectionClass &$refClass = null) : void
     {
         try {
             // Model doesn't have anything to update
@@ -124,10 +124,20 @@ final class UpdateMapper extends DataMapperAbstract
                     continue;
                 }
 
-                $refClass = $refClass ?? new \ReflectionClass($obj);
-                $property = $refClass->getProperty($propertyName);
+                $isPrivate = $column['private'] ?? false;
+                $property  = null;
+                $tValue    = null;
 
-                $tValue = $property->isPublic() ? $obj->{$propertyName} : $property->getValue($obj);
+                if ($isPrivate) {
+                    if ($refClass === null) {
+                        $refClass = new \ReflectionClass($obj);
+                    }
+
+                    $property = $refClass->getProperty($propertyName);
+                    $tValue   = $property->getValue($obj);
+                } else {
+                    $tValue = $obj->{$propertyName};
+                }
 
                 if (isset($this->mapper::OWNS_ONE[$propertyName])) {
                     $id    = \is_object($tValue) ? $this->updateOwnsOne($propertyName, $tValue) : $tValue;
@@ -218,9 +228,9 @@ final class UpdateMapper extends DataMapperAbstract
     /**
      * Update has many relations
      *
-     * @param \ReflectionClass $refClass Reflection of the object containing the relations
-     * @param object           $obj      Object which contains the relations
-     * @param mixed            $objId    Object id which contains the relations
+     * @param object                $obj      Object which contains the relations
+     * @param mixed                 $objId    Object id which contains the relations
+     * @param null|\ReflectionClass $refClass Reflection of the object containing the relations
      *
      * @return void
      *
@@ -228,7 +238,7 @@ final class UpdateMapper extends DataMapperAbstract
      *
      * @since 1.0.0
      */
-    private function updateHasMany(\ReflectionClass $refClass, object $obj, mixed $objId) : void
+    private function updateHasMany(object $obj, mixed $objId, \ReflectionClass &$refClass = null) : void
     {
         if (empty($this->with) || empty($this->mapper::HAS_MANY)) {
             return;
@@ -245,17 +255,33 @@ final class UpdateMapper extends DataMapperAbstract
                 throw new InvalidMapperException();
             }
 
-            $property = $refClass->getProperty($propertyName);
+            $isPrivate = $rel['private'] ?? false;
+            $property  = null;
+            $values    = null;
 
-            $values = ($isPublic = $property->isPublic()) ? $obj->{$propertyName} : $property->getValue($obj);
+            if ($isPrivate) {
+                if ($refClass === null) {
+                    $refClass = new \ReflectionClass($obj);
+                }
+
+                $property = $refClass->getProperty($propertyName);
+                $values   = $property->getValue($obj);
+            } else {
+                $values = $obj->{$propertyName};
+            }
 
             if (!\is_array($values) || empty($values)) {
                 continue;
             }
 
             /** @var class-string<DataMapperFactory> $mapper */
-            $mapper                 = $this->mapper::HAS_MANY[$propertyName]['mapper'];
-            $relReflectionClass     = new \ReflectionClass(\reset($values));
+            $mapper       = $this->mapper::HAS_MANY[$propertyName]['mapper'];
+            $isPrivateRel = $this->mapper::HAS_MANY[$propertyName]['private'] ?? false;
+
+            if ($isPrivateRel) {
+                $relReflectionClass = new \ReflectionClass(\reset($values));
+            }
+
             $objsIds[$propertyName] = [];
 
             foreach ($values as $key => &$value) {
@@ -285,9 +311,8 @@ final class UpdateMapper extends DataMapperAbstract
                 if ($this->mapper::HAS_MANY[$propertyName]['table'] === $this->mapper::HAS_MANY[$propertyName]['mapper']::TABLE
                     && isset($mapper::COLUMNS[$this->mapper::HAS_MANY[$propertyName]['self']])
                 ) {
-                    $relProperty = $relReflectionClass->getProperty($mapper::COLUMNS[$this->mapper::HAS_MANY[$propertyName]['self']]['internal']);
-
-                    if (!$isPublic) {
+                    if ($isPrivateRel) {
+                        $relProperty = $relReflectionClass->getProperty($mapper::COLUMNS[$this->mapper::HAS_MANY[$propertyName]['self']]['internal']);
                         $relProperty->setValue($value, $objId);
                     } else {
                         $value->{$mapper::COLUMNS[$this->mapper::HAS_MANY[$propertyName]['self']]['internal']} = $objId;

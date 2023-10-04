@@ -548,8 +548,8 @@ abstract class DataMapperAbstract
             return (string) \gzdeflate($value);
         } elseif ($type === 'Serializable') {
             return $value->serialize();
-        } elseif (\is_object($value) && \method_exists($value, 'getId')) {
-            return $value->getId();
+        } elseif (\is_object($value) && isset($value->id)) {
+            return $value->id;
         }
 
         return $value;

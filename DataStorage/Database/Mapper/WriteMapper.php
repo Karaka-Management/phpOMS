@@ -74,7 +74,7 @@ final class WriteMapper extends DataMapperAbstract
      */
     public function executeCreate(object $obj) : mixed
     {
-        $refClass = new \ReflectionClass($obj);
+        $refClass = null;
 
         if ($this->mapper::isNullModel($obj)) {
             $objId = $this->mapper::getObjectId($obj);
@@ -86,10 +86,10 @@ final class WriteMapper extends DataMapperAbstract
             $objId = $id;
         } else {
             $objId = $this->createModel($obj, $refClass);
-            $this->mapper::setObjectId($refClass, $obj, $objId);
+            $this->mapper::setObjectId($obj, $objId, $refClass);
         }
 
-        $this->createHasMany($refClass, $obj, $objId);
+        $this->createHasMany($obj, $objId, $refClass);
 
         return $objId;
     }
@@ -97,20 +97,18 @@ final class WriteMapper extends DataMapperAbstract
     /**
      * Create model
      *
-     * @param object           $obj      Object to create
-     * @param \ReflectionClass $refClass Reflection of the object to create
+     * @param object                $obj      Object to create
+     * @param null|\ReflectionClass $refClass Reflection of the object to create
      *
      * @return mixed
      *
      * @since 1.0.0
      */
-    private function createModel(object $obj, \ReflectionClass $refClass) : mixed
+    private function createModel(object $obj, \ReflectionClass &$refClass = null) : mixed
     {
         try {
             $query = new Builder($this->db);
             $query->into($this->mapper::TABLE);
-
-            $publicProperties = \get_object_vars($obj);
 
             foreach ($this->mapper::COLUMNS as $column) {
                 $propertyName = \stripos($column['internal'], '/') !== false
@@ -123,13 +121,16 @@ final class WriteMapper extends DataMapperAbstract
                     continue;
                 }
 
-                if (!isset($publicProperties[$propertyName])) {
+                $tValue = null;
+                if ($column['private'] ?? false) {
+                    if ($refClass === null) {
+                        $refClass = new \ReflectionClass($obj);
+                    }
+
                     $property = $refClass->getProperty($propertyName);
-                    $property->setAccessible(true);
-                    $tValue = $property->getValue($obj);
-                    $property->setAccessible(false);
+                    $tValue   = $property->getValue($obj);
                 } else {
-                    $tValue = $publicProperties[$propertyName];
+                    $tValue = $obj->{$propertyName};
                 }
 
                 if (isset($this->mapper::OWNS_ONE[$propertyName])) {
@@ -231,10 +232,13 @@ final class WriteMapper extends DataMapperAbstract
         if (isset($this->mapper::BELONGS_TO[$propertyName]['by'])) {
             // has by (obj is stored as a different model e.g. model = profile but reference/db is account)
 
-            $refClass = new \ReflectionClass($obj);
-            $refProp  = $refClass->getProperty($this->mapper::BELONGS_TO[$propertyName]['by']);
-
-            $obj = $refProp->isPublic() ? $obj->{$this->mapper::BELONGS_TO[$propertyName]['by']} : $refProp->getValue($obj);
+            if ($this->mapper::BELONGS_TO[$propertyName]['private']) {
+                $refClass = new \ReflectionClass($obj);
+                $refProp  = $refClass->getProperty($this->mapper::BELONGS_TO[$propertyName]['by']);
+                $obj      = $refProp->getValue($obj);
+            } else {
+                $obj = $obj->{$this->mapper::BELONGS_TO[$propertyName]['by']};
+            }
         }
 
         /** @var class-string<DataMapperFactory> $mapper */
@@ -248,9 +252,9 @@ final class WriteMapper extends DataMapperAbstract
     /**
      * Create has many models
      *
-     * @param \ReflectionClass $refClass Reflection of the object to create
-     * @param object           $obj      Object to create
-     * @param mixed            $objId    Id of the parent object
+     * @param object                $obj      Object to create
+     * @param mixed                 $objId    Id of the parent object
+     * @param null|\ReflectionClass $refClass Reflection of the object to create
      *
      * @return void
      *
@@ -258,15 +262,27 @@ final class WriteMapper extends DataMapperAbstract
      *
      * @since 1.0.0
      */
-    private function createHasMany(\ReflectionClass $refClass, object $obj, mixed $objId) : void
+    private function createHasMany(object $obj, mixed $objId, \ReflectionClass &$refClass = null) : void
     {
-        foreach ($this->mapper::HAS_MANY as $propertyName => $_) {
+        foreach ($this->mapper::HAS_MANY as $propertyName => $rel) {
             if (!isset($this->mapper::HAS_MANY[$propertyName]['mapper'])) {
                 throw new InvalidMapperException(); // @codeCoverageIgnore
             }
 
-            $property = $refClass->getProperty($propertyName);
-            $values   = $property->isPublic() ? $obj->{$propertyName} : $property->getValue($obj);
+            $isPrivate = $rel['private'] ?? false;
+            $property  = null;
+            $values    = null;
+
+            if ($isPrivate) {
+                if ($refClass === null) {
+                    $refClass = new \ReflectionClass($obj);
+                }
+
+                $property = $refClass->getProperty($propertyName);
+                $values   = $property->getValue($obj);
+            } else {
+                $values = $obj->{$propertyName};
+            }
 
             /** @var class-string<DataMapperFactory> $mapper */
             $mapper       = $this->mapper::HAS_MANY[$propertyName]['mapper'];
@@ -274,17 +290,16 @@ final class WriteMapper extends DataMapperAbstract
                 ? $mapper::COLUMNS[$this->mapper::HAS_MANY[$propertyName]['self']]['internal']
                 : 'ERROR';
 
+            // @todo: this or $isRelPrivate is wrong, don't know which one.
+            $isInternalPrivate =$mapper::COLUMNS[$this->mapper::HAS_MANY[$propertyName]['self']]['private'] ?? false;
+
             if (\is_object($values)) {
                 // conditionals
-                $publicProperties = \get_object_vars($values);
-
-                if (!isset($publicProperties[$internalName])) {
+                if ($isInternalPrivate) {
                     $relReflectionClass = new \ReflectionClass($values);
                     $relProperty        = $relReflectionClass->getProperty($internalName);
 
-                    $relProperty->setAccessible(true);
                     $relProperty->setValue($values, $objId);
-                    $relProperty->setAccessible(false);
                 } else {
                     $values->{$internalName} = $objId;
                 }
@@ -297,7 +312,8 @@ final class WriteMapper extends DataMapperAbstract
             }
 
             $objsIds            = [];
-            $relReflectionClass = empty($values) ? null : new \ReflectionClass(\reset($values));
+            $isRelPrivate       = $mapper::COLUMNS[$this->mapper::HAS_MANY[$propertyName]['self']]['private'] ?? false;
+            $relReflectionClass = $isRelPrivate && !empty($values) ? new \ReflectionClass(\reset($values)) : null;
 
             foreach ($values as $key => $value) {
                 if (!\is_object($value)) {
@@ -307,7 +323,6 @@ final class WriteMapper extends DataMapperAbstract
                     continue;
                 }
 
-                /** @var \ReflectionClass $relReflectionClass */
                 $primaryKey = $mapper::getObjectId($value);
 
                 // already in db
@@ -319,25 +334,23 @@ final class WriteMapper extends DataMapperAbstract
 
                 // Setting relation value (id) for relation (since the relation is not stored in an extra relation table)
                 if (!isset($this->mapper::HAS_MANY[$propertyName]['external'])) {
-                    $relProperty = $relReflectionClass->getProperty($internalName);
-                    $isRelPublic = $relProperty->isPublic();
+                    $relProperty = null;
+                    if ($isRelPrivate) {
+                        $relProperty = $relReflectionClass->getProperty($internalName);
+                    }
 
                     // todo maybe consider to just set the column type to object, and then check for that (might be faster)
                     if (isset($mapper::BELONGS_TO[$internalName])
                         || isset($mapper::OWNS_ONE[$internalName])) {
-                        if (!$isRelPublic) {
+                        if ($isRelPrivate) {
                             $relProperty->setValue($value,  $this->mapper::createNullModel($objId));
                         } else {
                             $value->{$internalName} =  $this->mapper::createNullModel($objId);
                         }
-                    } elseif (!$isRelPublic) {
+                    } elseif ($isRelPrivate) {
                         $relProperty->setValue($value, $objId);
                     } else {
                         $value->{$internalName} = $objId;
-                    }
-
-                    if (!$isRelPublic) {
-                        $relProperty->setAccessible(false);
                     }
                 }
 
