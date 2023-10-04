@@ -60,6 +60,14 @@ class ImpressionStat
     public \DateTime $datetime;
 
     /**
+     * Request time
+     *
+     * @var null|\DateTime
+     * @since 1.0.0
+     */
+    public ?\DateTime $end = null;
+
+    /**
      * Request host/domain
      *
      * @var string
@@ -148,6 +156,7 @@ class ImpressionStat
             'country'  => $this->country,
             'referer'  => $this->referer,
             'datetime' => $this->datetime->getTimestamp(),
+            'end'      => $this->end?->getTimestamp(),
             'meta'     => $this->meta,
         ];
     }
