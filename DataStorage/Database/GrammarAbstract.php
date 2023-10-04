@@ -226,16 +226,16 @@ abstract class GrammarAbstract
         $identifierStart = $this->systemIdentifierStart;
         $identifierEnd   = $this->systemIdentifierEnd;
 
-        if (\stripos($system, '(') !== false) {
-            $identifierStart = '';
-            $identifierEnd   = '';
-        }
+        // @todo: maybe the if/elseif has to get swapped in order. There could be a count(table.name) for example
+        if ((\stripos($system, '.')) !== false) {
+            // The following code could have been handled with \explode more elegantly but \explode needs more memory and more time
+            // Normally this wouldn't be a problem but in this case there are so many function calls to this routine,
+            // that it makes sense to make this "minor" improvement.
 
-        // The following code could have been handled with \explode more elegantly but \explode needs more memory and more time
-        // Normally this wouldn't be a problem but in this case there are so many function calls to this routine,
-        // that it makes sense to make this "minor" improvement.
-        if (($pos = \stripos($system, '.')) !== false) {
-            $split = [\substr($system, 0, $pos), \substr($system, $pos + 1)];
+            // This is actually slower than \explode(), despite knowing the first index
+            //$split = [\substr($system, 0, $pos), \substr($system, $pos + 1)];
+
+            $split = \explode('.', $system);
 
             $identifierTwoStart = $identifierStart;
             $identifierTwoEnd   = $identifierEnd;
@@ -248,9 +248,10 @@ abstract class GrammarAbstract
             return $identifierStart . $split[0] . $identifierEnd
                 . '.'
                 . $identifierTwoStart . $split[1] . $identifierTwoEnd;
-        }
-
-        if ($system === '*') {
+        } elseif ($system === '*'
+            || \stripos($system, '(') !== false
+            || \is_numeric($system)
+        ) {
             $identifierStart = '';
             $identifierEnd   = '';
         }
