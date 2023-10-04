@@ -8,3 +8,4 @@ jobs:
     secrets:
       GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       GH_PAT: ${{ secrets.GH_PAT }}
+      CODECOV_TOKEN: ${{ secrets.CODECOV_TOKEN }}

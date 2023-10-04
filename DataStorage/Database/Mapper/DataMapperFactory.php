@@ -426,38 +426,53 @@ class DataMapperFactory
     /**
      * Get id of object
      *
-     * @param object $obj    Model to create
-     * @param string $member Member name for the id, if it is not the primary key
+     * @param object                $obj      Model to create
+     * @param string                $member   Member name for the id, if it is not the primary key
+     * @param null|\ReflectionClass $refClass Reflection class
      *
      * @return mixed
      *
      * @since 1.0.0
      */
-    public static function getObjectId(object $obj, string $member = null) : mixed
+    public static function getObjectId(object $obj, string $member = null, \ReflectionClass &$refClass = null) : mixed
     {
         $propertyName = $member ?? static::COLUMNS[static::PRIMARYFIELD]['internal'];
 
-        return $obj->{$propertyName};
+        if (static::COLUMNS[static::PRIMARYFIELD]['private'] ?? false) {
+            if ($refClass === null) {
+                $refClass = new \ReflectionClass($obj);
+            }
+
+            $refProp = $refClass->getProperty($propertyName);
+
+            return $refProp->getValue($obj);
+        } else {
+            return $obj->{$propertyName};
+        }
     }
 
     /**
      * Set id to model
      *
-     * @param \ReflectionClass $refClass Reflection class
-     * @param object           $obj      Object to create
-     * @param mixed            $objId    Id to set
+     * @param object                $obj      Object to create
+     * @param mixed                 $objId    Id to set
+     * @param null|\ReflectionClass $refClass Reflection class
      *
      * @return void
      *
      * @since 1.0.0
      */
-    public static function setObjectId(\ReflectionClass $refClass, object $obj, mixed $objId) : void
+    public static function setObjectId(object $obj, mixed $objId, \ReflectionClass &$refClass = null) : void
     {
         $propertyName = static::COLUMNS[static::PRIMARYFIELD]['internal'];
-        $refProp      = $refClass->getProperty($propertyName);
-
         \settype($objId, static::COLUMNS[static::PRIMARYFIELD]['type']);
-        if (!$refProp->isPublic()) {
+
+        if (static::COLUMNS[static::PRIMARYFIELD]['private'] ?? false) {
+            if ($refClass === null) {
+                $refClass = new \ReflectionClass($obj);
+            }
+
+            $refProp = $refClass->getProperty($propertyName);
             $refProp->setValue($obj, $objId);
         } else {
             $obj->{$propertyName} = $objId;
