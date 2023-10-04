@@ -699,9 +699,9 @@ final class ReadMapper extends DataMapperAbstract
             }
 
             if (\stripos($member, '/') !== false) {
-                $hasPath  = true;
-                $path     = \explode('/', $member);
-                $member   = $path[0];
+                $hasPath = true;
+                $path    = \explode('/', $member);
+                $member  = $path[0];
 
                 if ($isPrivate) {
                     $refProp = $refClass->getProperty($path[0]);
@@ -711,7 +711,7 @@ final class ReadMapper extends DataMapperAbstract
                 $arrayPath = \implode('/', $path);
                 $aValue    = $isPrivate ? $refProp->getValue($obj) : $obj->{$path[0]};
             } elseif ($isPrivate) {
-                $refProp  = $refClass->getProperty($member);
+                $refProp = $refClass->getProperty($member);
             }
 
             if (\in_array($def['mapper']::COLUMNS[$column]['type'], ['string', 'int', 'float', 'bool'])) {
