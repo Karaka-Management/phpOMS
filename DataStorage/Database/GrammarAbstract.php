@@ -202,7 +202,9 @@ abstract class GrammarAbstract
                 $expression .= $element() . (\is_string($key) ? ' as ' . $key : '') . ', ';
             } elseif ($element instanceof BuilderAbstract) {
                 $expression .= $element->toSql() . (\is_string($key) ? ' as ' . $key : '') . ', ';
-            } else {
+            } elseif (\is_int($element)) {
+                $expression .= $element . ', ';
+            }else {
                 throw new \InvalidArgumentException();
             }
         }
@@ -226,15 +228,18 @@ abstract class GrammarAbstract
         $identifierStart = $this->systemIdentifierStart;
         $identifierEnd   = $this->systemIdentifierEnd;
 
-        // @todo: maybe the if/elseif has to get swapped in order. There could be a count(table.name) for example
-        if ((\stripos($system, '.')) !== false) {
-            // The following code could have been handled with \explode more elegantly but \explode needs more memory and more time
-            // Normally this wouldn't be a problem but in this case there are so many function calls to this routine,
-            // that it makes sense to make this "minor" improvement.
-
+        // The order of this if/elseif statement is important!!!
+        if ($system === '*'
+            || \stripos($system, '(') !== false
+            || \is_numeric($system)
+        ) {
+            $identifierStart = '';
+            $identifierEnd   = '';
+        } elseif ((\stripos($system, '.')) !== false) {
             // This is actually slower than \explode(), despite knowing the first index
             //$split = [\substr($system, 0, $pos), \substr($system, $pos + 1)];
 
+            // Faster! But might requires more memory?
             $split = \explode('.', $system);
 
             $identifierTwoStart = $identifierStart;
@@ -248,12 +253,6 @@ abstract class GrammarAbstract
             return $identifierStart . $split[0] . $identifierEnd
                 . '.'
                 . $identifierTwoStart . $split[1] . $identifierTwoEnd;
-        } elseif ($system === '*'
-            || \stripos($system, '(') !== false
-            || \is_numeric($system)
-        ) {
-            $identifierStart = '';
-            $identifierEnd   = '';
         }
 
         return $identifierStart . $system . $identifierEnd;

@@ -214,6 +214,23 @@ class DataMapperFactory
      *
      * @param ConnectionAbstract $db Database connection
      *
+     * @return ReadMapper<T>
+     *
+     * @since 1.0.0
+     */
+    public static function yield(ConnectionAbstract $db = null) : ReadMapper
+    {
+        /** @var ReadMapper<T> $reader */
+        $reader = new ReadMapper(new static(), $db ?? self::$db);
+
+        return $reader->yield();
+    }
+
+    /**
+     * Create read mapper
+     *
+     * @param ConnectionAbstract $db Database connection
+     *
      * @return ReadMapper
      *
      * @since 1.0.0
@@ -266,6 +283,20 @@ class DataMapperFactory
     public static function exists(ConnectionAbstract $db = null) : ReadMapper
     {
         return (new ReadMapper(new static(), $db ?? self::$db))->exists();
+    }
+
+    /**
+     * Create read mapper
+     *
+     * @param ConnectionAbstract $db Database connection
+     *
+     * @return ReadMapper
+     *
+     * @since 1.0.0
+     */
+    public static function has(ConnectionAbstract $db = null) : ReadMapper
+    {
+        return (new ReadMapper(new static(), $db ?? self::$db))->has();
     }
 
     /**

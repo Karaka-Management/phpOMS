@@ -280,11 +280,7 @@ class Builder extends BuilderAbstract
         /** @var mixed[] $columns */
         /** @var mixed $column */
         foreach ($columns as $column) {
-            if (\is_string($column) || $column instanceof self) {
-                $this->selects[] = $column;
-            } else {
-                throw new \InvalidArgumentException();
-            }
+            $this->selects[] = $column;
         }
 
         return $this;

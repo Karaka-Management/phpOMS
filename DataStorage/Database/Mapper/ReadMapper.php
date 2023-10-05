@@ -59,6 +59,22 @@ final class ReadMapper extends DataMapperAbstract
     }
 
     /**
+     * Create yield mapper
+     *
+     * This makes execute() return a single object or an array of object depending the result size
+     *
+     * @return self
+     *
+     * @since 1.0.0
+     */
+    public function yield() : self
+    {
+        $this->type = MapperType::GET_YIELD;
+
+        return $this;
+    }
+
+    /**
      * Get raw result set
      *
      * @return self
@@ -103,7 +119,7 @@ final class ReadMapper extends DataMapperAbstract
     }
 
     /**
-     * Create count mapper
+     * Create exists mapper
      *
      * @return self
      *
@@ -112,6 +128,20 @@ final class ReadMapper extends DataMapperAbstract
     public function exists() : self
     {
         $this->type = MapperType::MODEL_EXISTS;
+
+        return $this;
+    }
+
+    /**
+     * Create has mapper
+     *
+     * @return self
+     *
+     * @since 1.0.0
+     */
+    public function has() : self
+    {
+        $this->type = MapperType::MODEL_HAS_RELATION;
 
         return $this;
     }
@@ -162,6 +192,9 @@ final class ReadMapper extends DataMapperAbstract
             case MapperType::GET:
                 /** @var null|Builder ...$options */
                 return $this->executeGet(...$options);
+            case MapperType::GET_YIELD:
+                /** @var null|Builder ...$options */
+                return $this->executeGetYield(...$options);
             case MapperType::GET_RAW:
                 /** @var null|Builder ...$options */
                 return $this->executeGetRaw(...$options);
@@ -174,6 +207,8 @@ final class ReadMapper extends DataMapperAbstract
                 return $this->executeCount();
             case MapperType::MODEL_EXISTS:
                 return $this->executeExists();
+            case MapperType::MODEL_HAS_RELATION:
+                return $this->executeHas();
             default:
                 return null;
         }
@@ -204,9 +239,13 @@ final class ReadMapper extends DataMapperAbstract
         $obj = [];
 
         // Get remaining objects (not available in memory cache) or remaining where clauses.
-        $dbData = $this->executeGetRaw($query);
+        //$dbData = $this->executeGetRaw($query);
 
-        foreach ($dbData as $row) {
+        foreach ($this->executeGetRawYield($query) as $row) {
+            if ($row === []) {
+                continue;
+            }
+
             $value       = $row[$this->mapper::PRIMARYFIELD . '_d' . $this->depth];
             $obj[$value] = $this->mapper::createBaseModel($row);
 
@@ -223,6 +262,34 @@ final class ReadMapper extends DataMapperAbstract
         }
 
         return $obj;
+    }
+
+    /**
+     * Execute mapper
+     *
+     * @param null|Builder $query Query to use instead of the internally generated query
+     *                            Careful, this doesn't merge with the internal query.
+     *                            If you want to merge it use ->query() instead
+     *
+     * @since 1.0.0
+     */
+    public function executeGetYield(Builder $query = null)
+    {
+        $primaryKeys          = [];
+        $memberOfPrimaryField = $this->mapper::COLUMNS[$this->mapper::PRIMARYFIELD]['internal'];
+
+        if (isset($this->where[$memberOfPrimaryField])) {
+            $keys        = $this->where[$memberOfPrimaryField][0]['value'];
+            $primaryKeys = \array_merge(\is_array($keys) ? $keys : [$keys], $primaryKeys);
+        }
+
+        foreach ($this->executeGetRawYield($query) as $row) {
+            $obj = $this->mapper::createBaseModel($row);
+            $obj = $this->populateAbstract($row, $obj);
+            $this->loadHasManyRelations($obj);
+
+            yield $obj;
+        }
     }
 
     /**
@@ -274,6 +341,47 @@ final class ReadMapper extends DataMapperAbstract
      *
      * @since 1.0.0
      */
+    public function executeGetRawYield(Builder $query = null)
+    {
+        $query ??= $this->getQuery();
+
+        try {
+            $sth = $this->db->con->prepare($query->toSql());
+            if ($sth === false) {
+                yield [];
+
+                return;
+            }
+
+            $sth->execute();
+
+            while ($row = $sth->fetch(\PDO::FETCH_ASSOC)) {
+                yield $row;
+            }
+        } catch (\Throwable $t) {
+            \phpOMS\Log\FileLogger::getInstance()->error(
+                \phpOMS\Log\FileLogger::MSG_FULL, [
+                    'message' => $t->getMessage() . ':' . $query->toSql(),
+                    'line'    => __LINE__,
+                    'file'    => self::class,
+                ]
+            );
+
+            yield [];
+        }
+    }
+
+    /**
+     * Execute mapper
+     *
+     * @param null|Builder $query Query to use instead of the internally generated query
+     *                            Careful, this doesn't merge with the internal query.
+     *                            If you want to merge it use ->query() instead
+     *
+     * @return array
+     *
+     * @since 1.0.0
+     */
     public function executeGetAll(Builder $query = null) : array
     {
         $result = $this->executeGet($query);
@@ -304,15 +412,31 @@ final class ReadMapper extends DataMapperAbstract
     /**
      * Check if any element exists
      *
-     * @return int
+     * @return bool
      *
      * @since 1.0.0
      */
     public function executeExists() : bool
     {
-        $query = $this->getQuery(null, ['1']);
+        $query = $this->getQuery(null, [1]);
 
         return ($query->execute()?->fetchColumn() ?? 0) > 0;
+    }
+
+    /**
+     * Check if any element exists
+     *
+     * @return bool
+     *
+     * @since 1.0.0
+     */
+    public function executeHas() : bool
+    {
+        $obj = isset($this->where[$this->mapper::COLUMNS[$this->mapper::PRIMARYFIELD]['internal']])
+            ? $this->mapper::createNullModel($this->where[$this->mapper::COLUMNS[$this->mapper::PRIMARYFIELD]['internal']][0]['value'])
+            : $this->columns([1])->executeGet();
+
+        return $this->hasManyRelations($obj);
     }
 
     /**
@@ -348,10 +472,18 @@ final class ReadMapper extends DataMapperAbstract
             : $columns;
 
         foreach ($columns as $key => $values) {
-            if (\is_string($values)) {
-                $query->selectAs($key, $values);
+            if (\is_string($values) || \is_int($values)) {
+                if (\is_int($key)) {
+                    $query->select($values);
+                } else {
+                    $query->selectAs($key, $values);
+                }
             } elseif (($values['writeonly'] ?? false) === false || isset($this->with[$values['internal']])) {
-                $query->selectAs($this->mapper::TABLE . '_d' . $this->depth . '.' . $key, $key . '_d' . $this->depth);
+                if (\is_int($key)) {
+                    $query->select($key);
+                } else {
+                    $query->selectAs($this->mapper::TABLE . '_d' . $this->depth . '.' . $key, $key . '_d' . $this->depth);
+                }
             }
         }
 
@@ -472,7 +604,7 @@ final class ReadMapper extends DataMapperAbstract
                     $where1->where($this->mapper::TABLE . '_d' . $this->depth . '.' . $col, $comparison, $where['value'], 'and');
 
                     $where2 = new Builder($this->db);
-                    $where2->select('1')
+                    $where2->select('1') // @todo: why is this in quotes?
                         ->from($this->mapper::TABLE . '_d' . $this->depth)
                         ->where($this->mapper::TABLE . '_d' . $this->depth . '.' . $col, 'in', $alt);
 
@@ -987,6 +1119,89 @@ final class ReadMapper extends DataMapperAbstract
                     $relMapper->loadHasManyRelations($refProp->getValue($obj));
                 } else {
                     $relMapper->loadHasManyRelations($obj->{$member});
+                }
+            }
+        }
+    }
+
+    /**
+     * Checks if object has certain relations
+     *
+     * @param object $obj Object to check
+     *
+     * @return bool
+     *
+     * @since 1.0.0
+     */
+    public function hasManyRelations(object $obj) : bool
+    {
+        if (empty($this->with)) {
+            return true;
+        }
+
+        $primaryKey = $this->mapper::getObjectId($obj);
+        if (empty($primaryKey)) {
+            return false;
+        }
+
+        $refClass = null;
+
+        // @todo: check if there are more cases where the relation is already loaded with joins etc.
+        // there can be pseudo has many elements like localizations. They are has manies but these are already loaded with joins!
+        foreach ($this->with as $member => $withData) {
+            if (isset($this->mapper::HAS_MANY[$member])) {
+                $many = $this->mapper::HAS_MANY[$member];
+                if (isset($many['column'])) {
+                    continue;
+                }
+
+                // @todo: withData doesn't store this directly, it is in [0]['private] ?!?!
+                $isPrivate = $withData['private'] ?? false;
+
+                $objectMapper = $this->createRelationMapper($many['mapper']::exists(db: $this->db), $member);
+                if ($many['external'] === null/* same as $many['table'] !== $many['mapper']::TABLE */) {
+                    $objectMapper->where($many['mapper']::COLUMNS[$many['self']]['internal'], $primaryKey);
+                } else {
+                    $query = new Builder($this->db, true);
+                    $query->leftJoin($many['table'])
+                        ->on($many['mapper']::TABLE . '_d1.' . $many['mapper']::PRIMARYFIELD, '=', $many['table'] . '.' . $many['external'])
+                        ->where($many['table'] . '.' . $many['self'], '=', $primaryKey);
+
+                    // Cannot use join, because join only works on members and we don't have members for a relation table
+                    // This is why we need to create a "base" query which contians the join on table columns
+                    $objectMapper->query($query);
+                }
+
+                $objects = $objectMapper->execute();
+                if (empty($objects) || $objects === false) {
+                    return false;
+                }
+
+                return true;
+            } elseif (isset($this->mapper::OWNS_ONE[$member])
+                || isset($this->mapper::BELONGS_TO[$member])
+            ) {
+                $relation = isset($this->mapper::OWNS_ONE[$member])
+                    ? $this->mapper::OWNS_ONE[$member]
+                    : $this->mapper::BELONGS_TO[$member];
+
+                if (\count($withData) < 2) {
+                    continue;
+                }
+
+                /** @var ReadMapper $relMapper */
+                $relMapper = $this->createRelationMapper($relation['mapper']::reader($this->db), $member);
+
+                $isPrivate = $withData['private'] ?? false;
+                if ($isPrivate) {
+                    if ($refClass === null) {
+                        $refClass = new \ReflectionClass($obj);
+                    }
+
+                    $refProp = $refClass->getProperty($member);
+                    return $relMapper->hasManyRelations($refProp->getValue($obj));
+                } else {
+                    return $relMapper->hasManyRelations($obj->{$member});
                 }
             }
         }
