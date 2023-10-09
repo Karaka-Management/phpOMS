@@ -58,7 +58,7 @@ final class HttpResponseTest extends \PHPUnit\Framework\TestCase
     public function testResponseInputOutput() : void
     {
         $this->response->setResponse(['a' => 1]);
-        self::assertEquals(1, $this->response->get('a'));
+        self::assertEquals(1, $this->response->getData('a'));
     }
 
     /**

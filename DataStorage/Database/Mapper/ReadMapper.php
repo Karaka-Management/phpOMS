@@ -119,6 +119,20 @@ final class ReadMapper extends DataMapperAbstract
     }
 
     /**
+     * Create sum mapper
+     *
+     * @return self
+     *
+     * @since 1.0.0
+     */
+    public function sum() : self
+    {
+        $this->type = MapperType::SUM_MODELS;
+
+        return $this;
+    }
+
+    /**
      * Create exists mapper
      *
      * @return self
@@ -205,6 +219,8 @@ final class ReadMapper extends DataMapperAbstract
                 return $this->executeGetRaw();
             case MapperType::COUNT_MODELS:
                 return $this->executeCount();
+            case MapperType::SUM_MODELS:
+                return $this->executeSum();
             case MapperType::MODEL_EXISTS:
                 return $this->executeExists();
             case MapperType::MODEL_HAS_RELATION:
@@ -404,9 +420,33 @@ final class ReadMapper extends DataMapperAbstract
      */
     public function executeCount() : int
     {
-        $query = $this->getQuery(null, ['COUNT(*)' => 'count']);
+        $query = $this->getQuery(
+            null,
+            [
+                'COUNT(' . (empty($this->columns) ? '*' : \implode($this->columns)) . ')' => 'count'
+            ]
+        );
 
         return (int) $query->execute()?->fetchColumn();
+    }
+
+    /**
+     * Sum the number of elements
+     *
+     * @return int
+     *
+     * @since 1.0.0
+     */
+    public function executeSum() : int|float
+    {
+        $query = $this->getQuery(
+            null,
+            [
+                'SUM(' . (empty($this->columns) ? '*' : \implode($this->columns)) . ')' => 'sum'
+            ]
+        );
+
+        return $query->execute()?->fetchColumn();
     }
 
     /**

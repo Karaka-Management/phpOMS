@@ -53,7 +53,7 @@ final class ResponseAbstractTest extends \PHPUnit\Framework\TestCase
      */
     public function testDefault() : void
     {
-        self::assertNull($this->response->get('asdf'));
+        self::assertNull($this->response->getData('asdf'));
         self::assertEquals('', $this->response->getBody());
     }
 
@@ -75,6 +75,6 @@ final class ResponseAbstractTest extends \PHPUnit\Framework\TestCase
     public function testDataInputOutput() : void
     {
         $this->response->set('asdf', false);
-        self::assertFalse($this->response->get('asdf'));
+        self::assertFalse($this->response->getData('asdf'));
     }
 }

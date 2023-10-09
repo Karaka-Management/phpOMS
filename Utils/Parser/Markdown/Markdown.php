@@ -291,7 +291,7 @@ class Markdown
         if (\strpos($Excerpt['text'], '>') !== false
             && \preg_match("/^<((mailto:)?{$commonMarkEmail})>/i", $Excerpt['text'], $matches)
         ){
-            $url = $matches[1];
+            $url = UriFactory::build($matches[1]);
 
             if (!isset($matches[2]))
             {
@@ -496,7 +496,7 @@ class Markdown
         if (\strpos($Excerpt['context'], 'http') !== false
             && \preg_match('/\bhttps?+:[\/]{2}[^\s<]+\b\/*+/ui', $Excerpt['context'], $matches, \PREG_OFFSET_CAPTURE)
         ) {
-            $url = $matches[0][0];
+            $url = UriFactory::build($matches[0][0]);
 
             return [
                 'extent'   => \strlen($matches[0][0]),
@@ -521,7 +521,7 @@ class Markdown
 
         if (\strpos($Excerpt['text'], '>') !== false && \preg_match('/^<(\w++:\/{2}[^ >]++)>/i', $Excerpt['text'], $matches))
         {
-            $url = $matches[1];
+            $url = UriFactory::build($matches[1]);
 
             return [
                 'extent'  => \strlen($matches[0]),
@@ -3727,7 +3727,7 @@ class Markdown
 
         if (\preg_match('/^[(]\s*+((?:[^ ()]++|[(][^ )]+[)])++)(?:[ ]+("[^"]*+"|\'[^\']*+\'))?\s*+[)]/', $remainder, $matches))
         {
-            $Element['attributes']['href'] = $matches[1];
+            $Element['attributes']['href'] = UriFactory::build($matches[1]);
 
             if (isset($matches[2]))
             {

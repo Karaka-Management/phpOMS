@@ -280,6 +280,20 @@ class DataMapperFactory
      *
      * @since 1.0.0
      */
+    public static function sum(ConnectionAbstract $db = null) : ReadMapper
+    {
+        return (new ReadMapper(new static(), $db ?? self::$db))->sum();
+    }
+
+    /**
+     * Create read mapper
+     *
+     * @param ConnectionAbstract $db Database connection
+     *
+     * @return ReadMapper
+     *
+     * @since 1.0.0
+     */
     public static function exists(ConnectionAbstract $db = null) : ReadMapper
     {
         return (new ReadMapper(new static(), $db ?? self::$db))->exists();

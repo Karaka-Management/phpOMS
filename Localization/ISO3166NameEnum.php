@@ -78,7 +78,7 @@ class ISO3166NameEnum extends Enum
 
     public const _BTN = 'Bhutan';
 
-    public const _BOL = 'Bolivia (Plurinational State of)';
+    public const _BOL = 'Bolivia';
 
     public const _BES = 'Bonaire, Sint Eustatius and Saba';
 
@@ -234,7 +234,7 @@ class ISO3166NameEnum extends Enum
 
     public const _IDN = 'Indonesia';
 
-    public const _IRN = 'Iran (Islamic Republic of)';
+    public const _IRN = 'Iran';
 
     public const _IRQ = 'Iraq';
 
@@ -260,9 +260,9 @@ class ISO3166NameEnum extends Enum
 
     public const _KIR = 'Kiribati';
 
-    public const _PRK = 'Korea (Democratic People\'s Republic of)';
+    public const _PRK = 'North Korea';
 
-    public const _KOR = 'Korea (Republic of)';
+    public const _KOR = 'South Korea';
 
     public const _KWT = 'Kuwait';
 
@@ -314,9 +314,9 @@ class ISO3166NameEnum extends Enum
 
     public const _MEX = 'Mexico';
 
-    public const _FSM = 'Micronesia (Federated States of)';
+    public const _FSM = 'Micronesia';
 
-    public const _MDA = 'Moldova (Republic of)';
+    public const _MDA = 'Moldova';
 
     public const _MCO = 'Monaco';
 
@@ -364,7 +364,7 @@ class ISO3166NameEnum extends Enum
 
     public const _PLW = 'Palau';
 
-    public const _PSE = 'Palestine, State of';
+    public const _PSE = 'Palestine';
 
     public const _PAN = 'Panama';
 
@@ -460,11 +460,11 @@ class ISO3166NameEnum extends Enum
 
     public const _SYR = 'Syrian Arab Republic';
 
-    public const _TWN = 'Taiwan, Province of China[a]';
+    public const _TWN = 'Taiwan';
 
     public const _TJK = 'Tajikistan';
 
-    public const _TZA = 'Tanzania, United Republic of';
+    public const _TZA = 'Tanzania';
 
     public const _THA = 'Thailand';
 
@@ -494,7 +494,7 @@ class ISO3166NameEnum extends Enum
 
     public const _ARE = 'United Arab Emirates';
 
-    public const _GBR = 'United Kingdom of Great Britain and Northern Ireland';
+    public const _GBR = 'United Kingdom';
 
     public const _USA = 'United States of America';
 
@@ -506,7 +506,7 @@ class ISO3166NameEnum extends Enum
 
     public const _VUT = 'Vanuatu';
 
-    public const _VEN = 'Venezuela (Bolivarian Republic of)';
+    public const _VEN = 'Venezuela';
 
     public const _VNM = 'Viet Nam';
 

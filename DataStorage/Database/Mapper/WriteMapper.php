@@ -232,7 +232,7 @@ final class WriteMapper extends DataMapperAbstract
         if (isset($this->mapper::BELONGS_TO[$propertyName]['by'])) {
             // has by (obj is stored as a different model e.g. model = profile but reference/db is account)
 
-            if ($this->mapper::BELONGS_TO[$propertyName]['private']) {
+            if ($this->mapper::BELONGS_TO[$propertyName]['private'] ?? false) {
                 $refClass = new \ReflectionClass($obj);
                 $refProp  = $refClass->getProperty($this->mapper::BELONGS_TO[$propertyName]['by']);
                 $obj      = $refProp->getValue($obj);
@@ -339,9 +339,10 @@ final class WriteMapper extends DataMapperAbstract
                         $relProperty = $relReflectionClass->getProperty($internalName);
                     }
 
-                    // todo maybe consider to just set the column type to object, and then check for that (might be faster)
+                    // @todo maybe consider to just set the column type to object, and then check for that (might be faster)
                     if (isset($mapper::BELONGS_TO[$internalName])
-                        || isset($mapper::OWNS_ONE[$internalName])) {
+                        || isset($mapper::OWNS_ONE[$internalName])
+                    ) {
                         if ($isRelPrivate) {
                             $relProperty->setValue($value,  $this->mapper::createNullModel($objId));
                         } else {

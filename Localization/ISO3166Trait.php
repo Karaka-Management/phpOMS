@@ -37,8 +37,42 @@ trait ISO3166Trait
     {
         /** @var string $code3 */
         $code3 = ISO3166TwoEnum::getName($code);
+        if ($code3 === false) {
+            $code3 = '';
+        }
 
         return self::getByName($code3);
+    }
+
+    /**
+     * Get countries in a region
+     *
+     * @param string $region Region name
+     *
+     * @return array
+     *
+     * @since 1.0.0
+     */
+    public static function getSubregions(string $region) : array
+    {
+        $region = \strtolower($region);
+
+        switch ($region) {
+            case 'continents':
+                return ['Europe', 'Asia', 'America', 'Oceania', 'Africa'];
+            case 'europe':
+                return ['North-Europe', 'South-Europe', 'East-Europe', 'West-Europe'];
+            case 'asia':
+                return ['Central-Asia', 'South-Asia', 'Southeast-Asia', 'East-Asia', 'West-Asia'];
+            case 'america':
+                return ['North-america', 'South-america', 'Central-america', 'Caribbean'];
+            case 'oceania':
+                return ['Australia', 'Polynesia', 'Melanesia', 'Micronesia', 'Antarctica'];
+            case 'africa':
+                return ['North-Africa', 'South-Africa', 'East-Africa', 'West-Africa', 'Central-Africa'];
+            default:
+                return [$region];
+        }
     }
 
     /**
@@ -55,6 +89,14 @@ trait ISO3166Trait
         $region = \strtolower($region);
 
         switch ($region) {
+            case 'continents':
+                return \array_merge(
+                    self::getRegion('europe'),
+                    self::getRegion('asia'),
+                    self::getRegion('america'),
+                    self::getRegion('oceania'),
+                    self::getRegion('africa')
+                );
             case 'europe':
                 return \array_merge(
                     self::getRegion('north-europe'),
@@ -83,7 +125,7 @@ trait ISO3166Trait
                     self::getRegion('polynesia'),
                     self::getRegion('melanesia'),
                     self::getRegion('micronesia'),
-                    self::getRegion('antartica')
+                    self::getRegion('antarctica')
                 );
             case 'africa':
                 return \array_merge(

@@ -359,4 +359,48 @@ class SmartDateTime extends \DateTime
 
         return $days;
     }
+
+    public static function startOfYear(int $month = 1) : \DateTime
+    {
+        return new \DateTime(\date('Y') . '-' . \sprintf('%02d', $month) . '-01');
+    }
+
+    public static function endOfYear(int $month = 1) : \DateTime
+    {
+        return new \DateTime(\date('Y') . '-' . self::calculateMonthIndex(13 - $month, $month) . '-31');
+    }
+
+    public static function startOfMonth() : \DateTime
+    {
+        return new \DateTime(\date('Y-m') . '-01');
+    }
+
+    public static function endOfMonth() : \DateTime
+    {
+        return new \DateTime(\date('Y-m-t'));
+    }
+
+    public static function monthDiff(\DateTime $d1, \DateTime $d2) : int
+    {
+        $interval = $d1->diff($d2);
+
+        return ($interval->y * 12) + $interval->m;
+    }
+
+    /**
+     * Calculates the current month index based on the start of the fiscal year.
+     *
+     * @param int $month Current month
+     * @param int $start Start of the fiscal year (01 = January)
+     *
+     * @return int
+     *
+     * @since 1.0.0;
+     */
+    public static function calculateMonthIndex(int $month, int $start = 1) : int
+    {
+        $mod = ($month - $start);
+
+        return \abs(($mod < 0 ? 12 + $mod : $mod) % 12) + 1;
+    }
 }

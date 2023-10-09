@@ -70,9 +70,8 @@ abstract class Enum
     {
         $reflect   = new \ReflectionClass(static::class);
         $constants = $reflect->getConstants();
-        $keys      = \array_keys($constants);
 
-        return $constants[$keys[\mt_rand(0, \count($constants) - 1)]];
+        return $constants[\array_rand($constants, 1)];
     }
 
     /**
