@@ -125,8 +125,7 @@ final class HttpResponse extends ResponseAbstract implements RenderableInterface
             }
         }
 
-        /** @var array{0:bool} $data */
-        return $this->getRaw($data[0] ?? false);
+        return $this->getRaw(false);
     }
 
     /**

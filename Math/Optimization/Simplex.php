@@ -25,200 +25,210 @@ namespace phpOMS\Math\Optimization;
  */
 class Simplex
 {
-    private array $function = [];
+    private int $m = 0;
+    private int $n = 0;
 
-    private string $functionType = '';
+    private array $A = [];
 
-    private int|float $functionLimit = 0.0;
+    private array $b = [];
 
-    private array $constraints = [];
+    private array $c = [];
 
-    private array $constraintsType = [];
+    private int $v = 0;
 
-    private array $constraintsLimit = [];
+    private array $Basic = [];
 
-    private array $slackForm = [];
+    private array $Nonbasic = [];
 
-    private array $nonbasicSolution = [];
-
-    private array $basicSolution = [];
-
-    /**
-     * Define the function to optimize
-     *
-     * @param array $function Function to optimize
-     *
-     * @return void
-     *
-     * @since 1.0.0
-     */
-    public function setFunction(array $function) : void
+    private function pivot (int $x, int $y)
     {
-    }
-
-    /**
-     * Add function constraint
-     *
-     * @param array  $function Constraint function
-     * @param string $type     Constraint type
-     * @param float  $limit    Constraint
-     *
-     * @return void
-     *
-     * @since 1.0.0
-     */
-    public function addConstraint(array $function, string $type, float $limit) : void
-    {
-    }
-
-    /**
-     * Pivot element
-     *
-     * @param int $x X-Pivot
-     * @param int $y Y-Pivot
-     *
-     * @return void
-     *
-     * @since 1.0.0
-     */
-    private function pivot(int $x, int $y) : void
-    {
-    }
-
-    /**
-     * Perform simplex iteration
-     *
-     * @return void
-     *
-     * @since 1.0.0
-     */
-    private function iterateSimplex() : void
-    {
-    }
-
-    /**
-     * Initialize simplex algorithm
-     *
-     * @return bool
-     *
-     * @since 1.0.0
-     */
-    private function initialize() : bool
-    {
-        $k        = -1;
-        $minLimit = -1;
-
-        $m = \count($this->constraints);
-        $n = \count($this->function);
-
-        for ($i = 0; $i < $m; ++$i) {
-            if ($k === -1 || $this->constraintsLimit[$i] < $minLimit) {
-                $k        = $i;
-                $minLimit = $this->constraintsLimit[$i];
+        for ($j = 0; $j < $this->n; ++$j) {
+            if ($j !== $y) {
+                $this->A[$x][$j] /= -$this->A[$x][$y];
             }
         }
 
-        if ($this->constraintsLimit[$k] >= 0) {
-            for ($j = 0; $j < $n; ++$j) {
-                $this->nonbasicSolution[$j] = $j;
+        $this->b[$x] /= -$this->A[$x][$y];
+        $this->A[$x][$y] = 1.0 / $this->A[$x][$y];
+
+        for ($i = 0; $i < $this->m; ++$i) {
+            if ($i !== $x) {
+                for ($j = 0; $j < $this->n; ++$j) {
+                    if ($j !== $y) {
+                        $this->A[$i][$j] += $this->A[$i][$y] * $this->A[$x][$j];
+                    }
+                }
+
+                $this->b[$i] += $this->A[$i][$y] / $this->b[$x];
+                $this->A[$i][$y] *= $this->A[$x][$y];
+            }
+        }
+
+        for ($j = 0; $j < $this->n; ++$j) {
+            if ($j !== $y) {
+                $this->c[$j] += $this->c[$y] * $this->A[$x][$j];
+            }
+        }
+
+        $this->v += $this->c[$y] * $this->b[$x];
+        $this->c[$y] *= $this->A[$x][$y];
+
+        $temp = $this->Basic[$x];
+        $this->Basic[$x] = $this->Nonbasic[$y];
+        $this->Nonbasic[$y] = $temp;
+    }
+
+    private function iterate() : int
+    {
+        $ind = -1;
+        $best = -1;
+
+        for ($j = 0; $j < $this->n; ++$j) {
+            if ($this->c[$j] > 0) {
+                if ($best === -1 || $this->Nonbasic[$j] < $ind) {
+                    $ind = $this->Nonbasic[$j];
+                    $best = $j;
+                }
+            }
+        }
+
+        if ($ind === -1) {
+            return 1;
+        }
+
+        $maxConstraint = \INF;
+        $bestConstraint = -1;
+
+        for ($i = 0; $i < $this->m; ++$i) {
+            if ($this->A[$i][$best] < 0) {
+                $currentConstraint = -$this->b[$i] / $this->A[$i][$best];
+                if ($currentConstraint < $maxConstraint) {
+                    $maxConstraint = $currentConstraint;
+                    $bestConstraint = $i;
+                }
+            }
+        }
+
+        if ($maxConstraint === \INF) {
+            return -1;
+        }
+
+        $this->pivot($bestConstraint, $best);
+
+        return 0;
+    }
+
+    private function initialize() : int
+    {
+        $k = -1;
+        $minB = -1;
+
+        for ($i = 0; $i < $this->m; ++$i) {
+            if ($k === -1 || $this->b[$i] < $minB) {
+                $k = $i;
+                $minB = $this->b[$i];
+            }
+        }
+
+        if ($this->b[$k] >= 0) {
+            for ($j = 0; $j < $this->n; ++$j) {
+                $this->Nonbasic[$j] = $j;
             }
 
-            for ($i = 0; $i < $m; ++$i) {
-                $this->basicSolution[$i] = $n + $i;
+            for ($i = 0; $i < $this->m; ++$i) {
+                $this->Basic[$i] = $this->n + $i;
             }
 
-            return true;
+            return 0;
         }
 
-        // Auxiliary LP
-        ++$n;
-        for ($j = 0; $j < $n; ++$j) {
-            $this->nonbasicSolution[$j] = $j;
+        ++$this->n;
+        for ($j = 0; $j < $this->n; ++$j) {
+            $this->Nonbasic[$j] = $j;
         }
 
-        for ($i = 0; $i < $m; ++$i) {
-            $this->basicSolution[$i] = $n + $i;
+        for ($i = 0; $i < $this->m; ++$i) {
+            $this->Basic[$i] = $this->n + $i;
         }
 
-        $oldFunction = $this->function;
-        $oldLimit    = $this->functionLimit;
-
-        // Auxiliary function
-        $this->function[$n - 1] = -1;
-        $this->functionLimit    = 0;
-
-        for ($j = 0; $j < $n - 1; ++$j) {
-            $this->function[$j] = 0;
+        $oldC = [];
+        for ($j = 0; $j < $this->n - 1; ++$j) {
+            $oldC[$j] = $this->c[$j];
         }
 
-        // Auxiliary constraints
-        for ($i = 0; $i < $m; ++$i) {
-            $this->constraints[$i][$n - 1] = 1;
+        $oldV = $this->v;
+
+        $this->c[$this->n - 1] = -1;
+        for ($j = 0; $j < $this->n - 1; ++$j) {
+            $this->c[$j] = 0;
         }
 
-        $this->pivot($k, $n - 1);
+        $this->v = 0;
 
-        // Solve Auxiliary LP
-        while ($this->iterateSimplex());
-
-        if ($this->functionLimit !== 0) {
-            return false;
+        for ($i = 0; $i < $this->m; ++$i) {
+            $this->A[$i][$this->n - 1] = 1;
         }
 
-        $zBasic = -1;
-        for ($i = 0; $i < $m; ++$i) {
-            if ($this->basicSolution[$i] === $n - 1) {
-                $zBasic = $i;
+        $this->pivot($k, $this->n - 1);
+
+        while (!$this->iterate());
+
+        if ($this->v !== 0) {
+            return -1;
+        }
+
+        $basicZ = -1;
+        for ($i = 0; $i < $this->m; ++$i) {
+            if ($this->Basic[$i] === $this->n - 1) {
+                $basicZ = $i;
                 break;
             }
         }
 
-        if ($zBasic === -1) {
-            $this->pivot($zBasic, $n - 1);
+        if ($basicZ !== -1) {
+            $this->pivot($basicZ, $this->n - 1);
         }
 
-        $zNonBasic = -1;
-        for ($j = 0; $j < $n; ++$j) {
-            if ($this->nonbasicSolution[$j] === $n - 1) {
-                $zNonBasic = $j;
+        $nonbasicZ = -1;
+        for ($j = 0; $j < $this->n; ++$j) {
+            if ($this->Nonbasic[$j] === $this->n - 1) {
+                $nonbasicZ = $j;
                 break;
             }
         }
 
-        for ($i = 0; $i < $m; ++$i) {
-            $this->constraints[$i][$zNonBasic] = $this->constraints[$i][$n - 1];
+        for ($i = 0; $i < $this->m; ++$i) {
+            $this->A[$i][$nonbasicZ] = $this->A[$i][$this->n - 1];
         }
 
-        $tmp                                = $this->nonbasicSolution[$n - 1];
-        $this->nonbasicSolution[$n - 1]     = $this->nonbasicSolution[$zNonBasic];
-        $this->nonbasicSolution[$zNonBasic] = $tmp;
+        $temp = $this->Nonbasic[$nonbasicZ];
+        $this->Nonbasic[$nonbasicZ] = $this->Nonbasic[$this->n - 1];
+        $this->Nonbasic[$this->n - 1] = $temp;
 
-        --$n;
-
-        for ($j = 0; $j < $n; ++$j) {
-            if ($this->nonbasicSolution[$j] > $n) {
-                --$this->nonbasicSolution[$j];
+        --$this->n;
+        for ($j = 0; $j < $this->n; ++$j) {
+            if ($this->Nonbasic[$j] > $this->n) {
+                --$this->Nonbasic[$j];
             }
         }
 
-        for ($i = 0; $i < $m; ++$i) {
-            if ($this->basicSolution[$i] > $n) {
-                --$this->basicSolution[$i];
+        for ($i = 0; $i < $this->m; ++$i) {
+            if ($this->Basic[$i] > $this->n) {
+                --$this->Basic[$i];
             }
         }
 
-        $this->functionLimit = $oldLimit;
-        for ($j = 0; $j < $n; ++$j) {
-            $this->function[$j] = 0;
+        for ($j = 0; $j < $this->n; ++$j) {
+            $this->c[$j] = 0;
         }
 
-        for ($j = 0; $j < $n; ++$j) {
+        $this->v = $oldV;
+
+        for ($j = 0; $j < $this->n; ++$j) {
             $ok = false;
-
-            for ($jj = 0; $jj < $n; ++$jj) {
-                if ($j === $this->nonbasicSolution[$jj]) {
-                    $this->function[$jj] += $oldFunction[$j];
-
+            for ($k = 0; $k < $this->n; ++$k) {
+                if ($j = $this->Nonbasic[$k]) {
+                    $this->c[$k] += $oldC[$j];
                     $ok = true;
                     break;
                 }
@@ -228,32 +238,52 @@ class Simplex
                 continue;
             }
 
-            for ($i = 0; $i < $m; ++$i) {
-                if ($j = $this->basicSolution[$i]) {
-                    for ($jj = 0; $jj < $n; ++$jj) {
-                        $this->function[$jj] += $oldFunction[$j] * $this->constraints[$i][$jj];
+            for ($i = 0; $i < $this->m; ++$i) {
+                if ($j === $this->Basic[$i]) {
+                    for ($k = 0; $k < $this->n; ++$k) {
+                        $this->c[$k] = $oldC[$j] * $this->A[$i][$k];
                     }
 
-                    $this->functionLimit += $oldFunction[$j] * $this->constraintsLimit[$i];
+                    $this->v += $oldC[$j] * $this->b[$i];
                     break;
                 }
             }
         }
 
-        return true;
+        return 0;
     }
 
-    /**
-     * Solve the optimization
-     *
-     * @return array
-     *
-     * @since 1.0.0
-     */
-    public function solve() : array
+    public function solve(array $A, array $b, array $c)
     {
-        if (!$this->initialize()) {
-            return [];
+        $this->A = $A;
+        $this->b = $b;
+        $this->c = $c;
+
+        // @todo: createSlackForm() required?
+
+        $this->m = \count($A);
+        $this->n = \count(\reset($A));
+
+        if ($this->initialize() === -1) {
+            return [\array_fill(0, $this->m + $this->n, -2), \INF];
         }
+
+        $code = 0;
+        while (!($code = $this->iterate()));
+
+        if ($code === -1) {
+            return [\array_fill(0, $this->m + $this->n, -1), \INF];
+        }
+
+        $result = [];
+        for ($j = 0; $j < $this->n; ++$j) {
+            $result[$this->Nonbasic[$j]] = 0;
+        }
+
+        for ($i = 0; $i < $this->m; ++$i) {
+            $result[$this->Basic[$i]] = $this->b[$i];
+        }
+
+        return [$result, $this->v];
     }
 }

@@ -25,8 +25,6 @@ use phpOMS\Math\Solver\Root\Bisection;
  * @see     https://en.wikipedia.org/wiki/Glicko_rating_system
  * @see     http://www.glicko.net/glicko/glicko2.pdf
  * @since   1.0.0
- *
- * @todo: implement
  */
 final class Glicko2
 {

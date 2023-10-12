@@ -695,11 +695,14 @@ class DataMapperFactory
                 }
 
                 if ($count > $pageLimit) {
-                    if (!$hasNext) { // @todo: can be maybe removed?
+                    // @todo: can be maybe removed?
+                    /*
+                    if (!$hasNext) {
                         \array_pop($data);
                         $hasNext = true;
                         --$count;
                     }
+                    */
 
                     if ($count > $pageLimit) {
                         $hasPrevious = true;

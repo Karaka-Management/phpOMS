@@ -257,6 +257,7 @@ final class ReadMapper extends DataMapperAbstract
         // Get remaining objects (not available in memory cache) or remaining where clauses.
         //$dbData = $this->executeGetRaw($query);
 
+        $ids = [];
         foreach ($this->executeGetRawYield($query) as $row) {
             if ($row === []) {
                 continue;
@@ -266,6 +267,15 @@ final class ReadMapper extends DataMapperAbstract
             $obj[$value] = $this->mapper::createBaseModel($row);
 
             $obj[$value] = $this->populateAbstract($row, $obj[$value]);
+
+            $ids[] = $value;
+
+            // @todo: This is too slow, since it creates a query for every $row x relation type.
+            // Pulling it out would be nice.
+            // The problem with solving this is that in a many-to-many relationship a relation table is used
+            // BUT the relation data is not available in the object itself meaning after retrieving the object
+            // it cannot get assigned to the correct parent object.
+            // Other relation types are easy because either the parent or child object contain the relation info.
             $this->loadHasManyRelations($obj[$value]);
         }
 

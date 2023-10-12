@@ -110,7 +110,7 @@ final class Kmeans
      * Generate the clusters of the points
      *
      * @param PointInterface[] $points   Points to cluster
-     * @param int<0, max>      $clusters Amount of clusters
+     * @param int<1, max>      $clusters Amount of clusters
      *
      * @return void
      *
@@ -140,8 +140,7 @@ final class Kmeans
 
             foreach ($clusterCenters as $center) {
                 for ($i = 0; $i < $coordinates; ++$i) {
-                    // @todo Invalid center coodinate value in like 5 % of the runs
-                    $center->setCoordinate($i, $center->getCoordinate($i) / ($center->group === 0 ? 1 : $center->group));
+                    $center->setCoordinate($i, $center->getCoordinate($i) / $center->group);
                 }
             }
 
@@ -149,7 +148,7 @@ final class Kmeans
             foreach ($points as $point) {
                 $min = $this->nearestClusterCenter($point, $clusterCenters)[0];
 
-                if ($min !== $point->group) {
+                if ($clusters !== $point->group) {
                     ++$changed;
                     $point->group = $min;
                 }
@@ -208,29 +207,40 @@ final class Kmeans
     private function kpp(array $points, int $n) : array
     {
         $clusters = [clone $points[\array_rand($points, 1)]];
-        $d        = \array_fill(0, $n, 0.0);
+
+        $d = \array_fill(0, $n, 0.0);
 
         for ($i = 1; $i < $n; ++$i) {
             $sum = 0;
 
             foreach ($points as $key => $point) {
-                $d[$key] = $this->nearestClusterCenter($point, \array_slice($clusters, 0, 5))[1];
+                $d[$key] = $this->nearestClusterCenter($point, $clusters)[1];
                 $sum    += $d[$key];
             }
 
             $sum *= \mt_rand(0, \mt_getrandmax()) / \mt_getrandmax();
 
+            $found = false;
             foreach ($d as $key => $di) {
                 $sum -= $di;
 
-                if ($sum <= 0) {
-                    $clusters[$i] = clone $points[$key];
+                // The in array check is important to avoid duplicate cluster centers
+                if ($sum <= 0 && !\in_array($c = $points[$key], $clusters)) {
+                    $clusters[$i] = clone $c;
+                    $found        = true;
+                }
+            }
+
+            while (!$found) {
+                if (!\in_array($c = $points[\array_rand($points)], $clusters)) {
+                    $clusters[$i] = clone $c;
+                    $found        = true;
                 }
             }
         }
 
         foreach ($points as $point) {
-            $point->group = ($this->nearestClusterCenter($point, $clusters)[0]);
+            $point->group = $this->nearestClusterCenter($point, $clusters)[0];
         }
 
         return $clusters;

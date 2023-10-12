@@ -28,10 +28,6 @@ use phpOMS\DataStorage\Database\Query\Where;
  * @license OMS License 2.0
  * @link    https://jingga.app
  * @since   1.0.0
- *
- * @todo Karaka/phpOMS#33
- *  Implement missing grammar & builder functions
- *  Missing elements are e.g. sum, merge etc.
  */
 class Grammar extends GrammarAbstract
 {
