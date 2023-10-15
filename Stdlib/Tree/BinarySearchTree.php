@@ -257,7 +257,9 @@ class BinarySearchTree
                 }
             }
 
-            $temp->parent = $node?->parent;
+            if ($temp !== null) {
+                $temp->parent = $node->parent;
+            }
 
             $node = null;
 
@@ -278,7 +280,9 @@ class BinarySearchTree
                 }
             }
 
-            $temp->parent = $node?->parent;
+            if ($temp !== null) {
+                $temp->parent = $node->parent;
+            }
 
             $node = null;
 
