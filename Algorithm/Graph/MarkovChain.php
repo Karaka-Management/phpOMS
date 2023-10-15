@@ -130,22 +130,21 @@ final class MarkovChain
 
             $prob  = \mt_rand(1, 100) / 100;
             $cProb = 0.0;
-            $found = false;
             $val   = null;
+            $new   = null;
 
             foreach (($this->data[$keyString] ?? []) as $val => $p) {
                 $cProb += $p;
 
                 if ($prob <= $cProb) {
                     $new   = $val;
-                    $found = true;
 
                     break;
                 }
             }
 
             // Couldn't find possible key
-            if (!$found) {
+            if ($new === null) {
                 $new = $orderValues[\array_rand($orderValues)];
             }
 

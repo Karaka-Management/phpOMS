@@ -66,11 +66,14 @@ final class GrahamScan
 
         $c = $points[1];
 
+        /** @var array<int, array{x:int|float, y:int|float}> $subpoints */
         $subpoints = \array_slice($points, 2, $count);
-        \usort($subpoints, function (array $a, array $b) use ($c) : bool {
-            return atan2($a['y'] - $c['y'], $a['x'] - $c['x']) < atan2( $b['y'] -  $c['y'],  $b['x'] - $c['x']);
+        \usort($subpoints, function (array $a, array $b) use ($c) : int {
+            // @todo: Might be wrong order of comparison
+            return \atan2($a['y'] - $c['y'], $a['x'] - $c['x']) <=> \atan2( $b['y'] -  $c['y'],  $b['x'] - $c['x']);
         });
 
+        /** @var array<int, array{x:int|float, y:int|float}> $points */
         $points    = \array_merge([$points[0], $points[1]], $subpoints);
         $points[0] = $points[$count];
 
@@ -103,9 +106,9 @@ final class GrahamScan
     /**
      * Counterclockwise rotation
      *
-     * @param float[] $a Vector
-     * @param float[] $b Vector
-     * @param float[] $c Vector
+     * @param array<x:int|float, y:int|float> $a Vector
+     * @param array<x:int|float, y:int|float> $b Vector
+     * @param array<x:int|float, y:int|float> $c Vector
      *
      * @return int|float
      *

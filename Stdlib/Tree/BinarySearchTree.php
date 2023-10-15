@@ -27,7 +27,7 @@ class BinarySearchTree
     /**
      * Root node
      *
-     * @param null|Node
+     * @var null|Node
      * @since 1.0.0
      */
     public ?Node $root = null;
@@ -62,9 +62,9 @@ class BinarySearchTree
         $comparison = $this->root->compare($data);
 
         if ($comparison > 0) {
-            return $this->root->left->search($data);
+            return $this->root->left?->search($data);
         } elseif ($comparison < 0) {
-            return $this->root->right->search($data);
+            return $this->root->right?->search($data);
         }
 
         return $this->root;
@@ -126,7 +126,7 @@ class BinarySearchTree
         }
 
         $top = $node->parent;
-        while ($top !== Null && $top->compare($node->data)) {
+        while ($top !== null && $top->compare($node->data)) {
             $node = $top;
             $top  = $top->parent;
         }
@@ -272,7 +272,7 @@ class BinarySearchTree
 
             return;
         } else {
-            $temp = $this->successor($node);
+            $temp       = $this->successor($node);
             $node->key  = $temp->key;
             $node->data = $temp->data;
 

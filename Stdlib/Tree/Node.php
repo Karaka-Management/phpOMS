@@ -82,7 +82,7 @@ class Node
      */
     public function __construct(string $key, mixed $data = null)
     {
-        $this->key = $key;
+        $this->key  = $key;
         $this->data = $data;
     }
 
