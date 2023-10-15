@@ -38,7 +38,7 @@ class Language
      * @var string
      * @since 1.0.0
      */
-    protected string $name = '';
+    public string $name = '';
 
     /**
      * Language native.
@@ -46,7 +46,7 @@ class Language
      * @var string
      * @since 1.0.0
      */
-    protected string $native = '';
+    public string $native = '';
 
     /**
      * Language code.
@@ -54,7 +54,7 @@ class Language
      * @var string
      * @since 1.0.0
      */
-    protected string $code2 = '';
+    public string $code2 = '';
 
     /**
      * Language code.
@@ -62,7 +62,7 @@ class Language
      * @var string
      * @since 1.0.0
      */
-    protected string $code3 = '';
+    public string $code3 = '';
 
     /**
      * Language code.
@@ -70,7 +70,7 @@ class Language
      * @var string
      * @since 1.0.0
      */
-    protected string $code3Native = '';
+    public string $code3Native = '';
 
     /**
      * Get id
