@@ -180,7 +180,7 @@ class BinarySearchTree
         }
 
         $current = $this->root;
-        while (true) {
+        while ($current !== null) {
             $comparison = $node->compare($current->data);
 
             if ($comparison < 0) {
@@ -226,9 +226,13 @@ class BinarySearchTree
     {
         if ($node->left === null && $node->right === null) {
             if ($node->parent !== null) {
-                if ($node->parent->left !== null && $node->parent->left->root->compare($node->data) === 0) {
+                if ($node->parent->left !== null
+                    && $node->parent->left->root?->compare($node->data) === 0
+                ) {
                     $node->parent->left = null;
-                } elseif ($node->parent->right !== null && $node->parent->right->root->compare($node) === 0) {
+                } elseif ($node->parent->right !== null
+                    && $node->parent->right->root->compare($node) === 0
+                ) {
                     $node->parent->right = null;
                 }
             }
@@ -242,9 +246,13 @@ class BinarySearchTree
         if ($node->left === null) {
             $temp = $node->right->root;
             if ($node->parent !== null) {
-                if ($node->parent->left !== null && $node->parent->left->root->compare($node->data) === 0) {
+                if ($node->parent->left !== null
+                    && $node->parent->left->root?->compare($node->data) === 0
+                ) {
                     $node->parent->left = $temp->tree;
-                } elseif ($node->parent->right !== null && $node->parent->right->root->compare($node->data) === 0) {
+                } elseif ($node->parent->right !== null
+                    && $node->parent->right->root?->compare($node->data) === 0
+                ) {
                     $node->parent->right = $temp->tree;
                 }
             }
@@ -259,9 +267,13 @@ class BinarySearchTree
         if ($node->right === null) {
             $temp = $node->left->root;
             if ($node->parent !== null) {
-                if ($node->parent->left !== null && $node->parent->left->root->compare($node->data) === 0) {
+                if ($node->parent->left !== null
+                    && $node->parent->left->root?->compare($node->data) === 0
+                ) {
                     $node->parent->left = $temp->tree;
-                } elseif ($node->parent->right !== null && $node->parent->right->root->compare($node->data) === 0) {
+                } elseif ($node->parent->right !== null
+                    && $node->parent->right->root?->compare($node->data) === 0
+                ) {
                     $node->parent->right = $temp->tree;
                 }
             }
