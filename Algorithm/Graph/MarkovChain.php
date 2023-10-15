@@ -137,7 +137,7 @@ final class MarkovChain
                 $cProb += $p;
 
                 if ($prob <= $cProb) {
-                    $new   = $val;
+                    $new = $val;
 
                     break;
                 }
@@ -177,7 +177,7 @@ final class MarkovChain
 
         $prob = 1.0;
         for ($i = $this->order; $i < $length; ++$i) {
-            $prob *= $this->data[\implode($key)][$path[$i]] ?? 0.0;
+            $prob *= $this->data[\implode(' ', $key)][$path[$i]] ?? 0.0;
 
             $key[] = $path[$i];
             \array_shift($key);

@@ -185,7 +185,7 @@ class BinarySearchTree
 
             if ($comparison < 0) {
                 if ($current->left === null) {
-                    $BST         = new BinarySearchTree();
+                    $BST         = new self();
                     $new         = new Node($node->key, $node->data);
                     $new->parent = $current;
                     $new->tree   = $BST;
@@ -197,7 +197,7 @@ class BinarySearchTree
                 }
             } elseif ($comparison > 0) {
                 if ($current->right === null) {
-                    $BST         = new BinarySearchTree();
+                    $BST         = new self();
                     $new         = new Node($node->key, $node->data);
                     $new->parent = $current;
                     $new->tree   = $BST;

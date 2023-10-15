@@ -433,7 +433,7 @@ final class ReadMapper extends DataMapperAbstract
         $query = $this->getQuery(
             null,
             [
-                'COUNT(' . (empty($this->columns) ? '*' : \implode($this->columns)) . ')' => 'count'
+                'COUNT(' . (empty($this->columns) ? '*' : \implode(',', $this->columns)) . ')' => 'count',
             ]
         );
 
@@ -452,7 +452,7 @@ final class ReadMapper extends DataMapperAbstract
         $query = $this->getQuery(
             null,
             [
-                'SUM(' . (empty($this->columns) ? '*' : \implode($this->columns)) . ')' => 'sum'
+                'SUM(' . (empty($this->columns) ? '*' : \implode(',', $this->columns)) . ')' => 'sum',
             ]
         );
 

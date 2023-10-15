@@ -26,6 +26,7 @@ namespace phpOMS\Math\Optimization;
 class Simplex
 {
     private int $m = 0;
+
     private int $n = 0;
 
     private array $A = [];
@@ -40,7 +41,7 @@ class Simplex
 
     private array $Nonbasic = [];
 
-    private function pivot (int $x, int $y)
+    private function pivot (int $x, int $y) : void
     {
         for ($j = 0; $j < $this->n; ++$j) {
             if ($j !== $y) {
@@ -73,20 +74,20 @@ class Simplex
         $this->v += $this->c[$y] * $this->b[$x];
         $this->c[$y] *= $this->A[$x][$y];
 
-        $temp = $this->Basic[$x];
-        $this->Basic[$x] = $this->Nonbasic[$y];
+        $temp               = $this->Basic[$x];
+        $this->Basic[$x]    = $this->Nonbasic[$y];
         $this->Nonbasic[$y] = $temp;
     }
 
     private function iterate() : int
     {
-        $ind = -1;
+        $ind  = -1;
         $best = -1;
 
         for ($j = 0; $j < $this->n; ++$j) {
             if ($this->c[$j] > 0) {
                 if ($best === -1 || $this->Nonbasic[$j] < $ind) {
-                    $ind = $this->Nonbasic[$j];
+                    $ind  = $this->Nonbasic[$j];
                     $best = $j;
                 }
             }
@@ -96,14 +97,14 @@ class Simplex
             return 1;
         }
 
-        $maxConstraint = \INF;
+        $maxConstraint  = \INF;
         $bestConstraint = -1;
 
         for ($i = 0; $i < $this->m; ++$i) {
             if ($this->A[$i][$best] < 0) {
                 $currentConstraint = -$this->b[$i] / $this->A[$i][$best];
                 if ($currentConstraint < $maxConstraint) {
-                    $maxConstraint = $currentConstraint;
+                    $maxConstraint  = $currentConstraint;
                     $bestConstraint = $i;
                 }
             }
@@ -120,12 +121,12 @@ class Simplex
 
     private function initialize() : int
     {
-        $k = -1;
+        $k    = -1;
         $minB = -1;
 
         for ($i = 0; $i < $this->m; ++$i) {
             if ($k === -1 || $this->b[$i] < $minB) {
-                $k = $i;
+                $k    = $i;
                 $minB = $this->b[$i];
             }
         }
@@ -201,8 +202,8 @@ class Simplex
             $this->A[$i][$nonbasicZ] = $this->A[$i][$this->n - 1];
         }
 
-        $temp = $this->Nonbasic[$nonbasicZ];
-        $this->Nonbasic[$nonbasicZ] = $this->Nonbasic[$this->n - 1];
+        $temp                         = $this->Nonbasic[$nonbasicZ];
+        $this->Nonbasic[$nonbasicZ]   = $this->Nonbasic[$this->n - 1];
         $this->Nonbasic[$this->n - 1] = $temp;
 
         --$this->n;

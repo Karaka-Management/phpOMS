@@ -70,7 +70,7 @@ final class GrahamScan
         $subpoints = \array_slice($points, 2, $count);
         \usort($subpoints, function (array $a, array $b) use ($c) : int {
             // @todo: Might be wrong order of comparison
-            return \atan2($a['y'] - $c['y'], $a['x'] - $c['x']) <=> \atan2( $b['y'] -  $c['y'],  $b['x'] - $c['x']);
+            return \atan2($a['y'] - $c['y'], $a['x'] - $c['x']) <=> \atan2($b['y'] - $c['y'],  $b['x'] - $c['x']);
         });
 
         /** @var array<int, array{x:int|float, y:int|float}> $points */
@@ -106,9 +106,9 @@ final class GrahamScan
     /**
      * Counterclockwise rotation
      *
-     * @param array<x:int|float, y:int|float> $a Vector
-     * @param array<x:int|float, y:int|float> $b Vector
-     * @param array<x:int|float, y:int|float> $c Vector
+     * @param array{x:int|float, y:int|float} $a Vector
+     * @param array{x:int|float, y:int|float} $b Vector
+     * @param array{x:int|float, y:int|float} $c Vector
      *
      * @return int|float
      *
