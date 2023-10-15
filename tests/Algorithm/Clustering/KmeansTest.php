@@ -17,7 +17,7 @@ namespace phpOMS\tests\Algorithm\Clustering;
 use phpOMS\Algorithm\Clustering\Kmeans;
 use phpOMS\Algorithm\Clustering\Point;
 
-include __DIR__ . '/../../Autoloader.php';
+include_once __DIR__ . '/../../Autoloader.php';
 
 /**
  * @testdox phpOMS\tests\Algorithm\Clustering\KmeansTest: Clustering points/elements with the K-means algorithm
