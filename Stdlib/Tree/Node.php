@@ -15,7 +15,7 @@ declare(strict_types=1);
 namespace phpOMS\Stdlib\Tree;
 
 /**
- * Priority queue class.
+ * Tree node class.
  *
  * @package phpOMS\Stdlib\Tree
  * @license OMS License 2.0
@@ -24,24 +24,77 @@ namespace phpOMS\Stdlib\Tree;
  */
 class Node
 {
+    /**
+     * Key of the node
+     *
+     * @var string
+     * @since 1.0.0
+     */
     public string $key = '';
 
+    /**
+     * Data of the node
+     *
+     * @var mixed
+     * @since 1.0.0
+     */
     public mixed $data = null;
 
+    /**
+     * Sub-tree to the left
+     *
+     * @var null|BinarySearchTree
+     * @since 1.0.0
+     */
     public ?BinarySearchTree $left = null;
 
+    /**
+     * Sub-tree to the right
+     *
+     * @var null|BinarySearchTree
+     * @since 1.0.0
+     */
     public ?BinarySearchTree $right = null;
 
+    /**
+     * Parent node
+     *
+     * @var null|Node
+     * @since 1.0.0
+     */
     public ?self $parent = null;
 
+    /**
+     * Parent tree
+     *
+     * @var null|BinarySearchTree
+     * @since 1.0.0
+     */
     public ?BinarySearchTree $tree = null;
 
+    /**
+     * Constructor.
+     *
+     * @param string $key  Node key
+     * @param mixed  $data Node data
+     *
+     * @since 1.0.0
+     */
     public function __construct(string $key, mixed $data = null)
     {
         $this->key = $key;
         $this->data = $data;
     }
 
+    /**
+     * Compare node data
+     *
+     * @param mixed $data Node data to compare with
+     *
+     * @return -1|0|1
+     *
+     * @since 1.0.0
+     */
     public function compare(mixed $data) : int
     {
         return $this->data <=> $data;

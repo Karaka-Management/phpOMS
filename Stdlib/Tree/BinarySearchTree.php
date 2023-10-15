@@ -24,13 +24,35 @@ namespace phpOMS\Stdlib\Tree;
  */
 class BinarySearchTree
 {
+    /**
+     * Root node
+     *
+     * @param null|Node
+     * @since 1.0.0
+     */
     public ?Node $root = null;
 
+    /**
+     * Constructor.
+     *
+     * @param null|Node $root Root node
+     *
+     * @since 1.0.0
+     */
     public function __construct(Node $root = null)
     {
         $this->root = $root;
     }
 
+    /**
+     * Search node by data
+     *
+     * @param mixed $data Data to search for
+     *
+     * @return null|Node
+     *
+     * @since 1.0.0
+     */
     public function search(mixed $data) : ?Node
     {
         if ($this->root === null) {
@@ -48,6 +70,13 @@ class BinarySearchTree
         return $this->root;
     }
 
+    /**
+     * Find the smallest node
+     *
+     * @return null|Node
+     *
+     * @since 1.0.0
+     */
     public function minimum() : ?Node
     {
         if ($this->root === null) {
@@ -61,6 +90,13 @@ class BinarySearchTree
         return $this->root->left->minimum();
     }
 
+    /**
+     * Find the largest node
+     *
+     * @return null|Node
+     *
+     * @since 1.0.0
+     */
     public function maximum() : ?Node
     {
         if ($this->root === null) {
@@ -74,6 +110,15 @@ class BinarySearchTree
         return $this->root->right->minimum();
     }
 
+    /**
+     * Find the predecessor of a node
+     *
+     * @param Node $node Node
+     *
+     * @return null|Node
+     *
+     * @since 1.0.0
+     */
     public function predecessor(Node $node) : ?Node
     {
         if ($node->left !== null) {
@@ -83,12 +128,21 @@ class BinarySearchTree
         $top = $node->parent;
         while ($top !== Null && $top->compare($node->data)) {
             $node = $top;
-            $top = $top->parent;
+            $top  = $top->parent;
         }
 
         return $top;
     }
 
+    /**
+     * Find the successor of a node
+     *
+     * @param Node $node Node
+     *
+     * @return null|Node
+     *
+     * @since 1.0.0
+     */
     public function successor(Node $node) : ?Node
     {
         if ($node->right !== null) {
@@ -98,18 +152,27 @@ class BinarySearchTree
         $top = $node->parent;
         while ($top !== null && $top->compare($node->data)) {
             $node = $top;
-            $top = $top->parent;
+            $top  = $top->parent;
         }
 
         return $top;
     }
 
+    /**
+     * Insert a node
+     *
+     * @param Node $node Node
+     *
+     * @return void
+     *
+     * @since 1.0.0
+     */
     public function insert(Node $node) : void
     {
         if ($this->root === null) {
-            $new = new Node($node->key, $node->data);
+            $new         = new Node($node->key, $node->data);
             $new->parent = null;
-            $new->tree = $this;
+            $new->tree   = $this;
 
             $this->root = $new;
 
@@ -122,24 +185,24 @@ class BinarySearchTree
 
             if ($comparison < 0) {
                 if ($current->left === null) {
-                    $BST = new BinarySearchTree();
-                    $new = new Node($node->key, $node->data);
+                    $BST         = new BinarySearchTree();
+                    $new         = new Node($node->key, $node->data);
                     $new->parent = $current;
-                    $new->tree = $BST;
+                    $new->tree   = $BST;
 
-                    $BST->root = $new;
+                    $BST->root     = $new;
                     $current->left = $BST;
                 } else {
                     $current = $current->left->root;
                 }
             } elseif ($comparison > 0) {
                 if ($current->right === null) {
-                    $BST = new BinarySearchTree();
-                    $new = new Node($node->key, $node->data);
+                    $BST         = new BinarySearchTree();
+                    $new         = new Node($node->key, $node->data);
                     $new->parent = $current;
-                    $new->tree = $BST;
+                    $new->tree   = $BST;
 
-                    $BST->root = $new;
+                    $BST->root      = $new;
                     $current->right = $BST;
                 } else {
                     $current = $current->right->root;
@@ -150,6 +213,15 @@ class BinarySearchTree
         }
     }
 
+    /**
+     * Delete a node
+     *
+     * @param Node $node Node
+     *
+     * @return void
+     *
+     * @since 1.0.0
+     */
     public function delete(Node &$node) : void
     {
         if ($node->left === null && $node->right === null) {
@@ -201,7 +273,7 @@ class BinarySearchTree
             return;
         } else {
             $temp = $this->successor($node);
-            $node->key = $temp->key;
+            $node->key  = $temp->key;
             $node->data = $temp->data;
 
             $this->delete($temp);

@@ -60,18 +60,16 @@ final class GrahamScan
             }
         }
 
-        $temp = $points[1];
-        $points[1] = $points[$min];
+        $temp         = $points[1];
+        $points[1]    = $points[$min];
         $points[$min] = $temp;
 
         $c = $points[1];
 
         $subpoints = \array_slice($points, 2, $count);
-        \usort($subpoints, function (array $a, array $b) use ($c) : bool
-            {
-                return atan2($a['y'] - $c['y'], $a['x'] - $c['x']) < atan2( $b['y'] -  $c['y'],  $b['x'] - $c['x']);
-            }
-        );
+        \usort($subpoints, function (array $a, array $b) use ($c) : bool {
+            return atan2($a['y'] - $c['y'], $a['x'] - $c['x']) < atan2( $b['y'] -  $c['y'],  $b['x'] - $c['x']);
+        });
 
         $points    = \array_merge([$points[0], $points[1]], $subpoints);
         $points[0] = $points[$count];
@@ -88,9 +86,9 @@ final class GrahamScan
                 }
             }
 
-            $temp = $points[$i];
+            $temp              = $points[$i];
             $points[$size + 1] = $points[$i];
-            $points[$i] = $points[$size + 1];
+            $points[$i]        = $points[$size + 1];
             ++$size;
         }
 
@@ -102,7 +100,18 @@ final class GrahamScan
         return $hull;
     }
 
-    public static function ccw(array $a, array $b, array $c)
+    /**
+     * Counterclockwise rotation
+     *
+     * @param float[] $a Vector
+     * @param float[] $b Vector
+     * @param float[] $c Vector
+     *
+     * @return int|float
+     *
+     * @since 1.0.0
+     */
+    public static function ccw(array $a, array $b, array $c) : int|float
     {
         return (($b['x'] - $a['x']) * ($c['y'] - $a['y']) - ($b['y'] - $a['y']) * ($c['x'] - $a['x']));
     }

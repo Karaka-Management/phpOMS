@@ -107,6 +107,16 @@ final class MarkovChain
         $this->data = $values;
     }
 
+    /**
+     * Generate a markov chain based on the training data.
+     *
+     * @param int   $length Length of the markov chain
+     * @param array $start  Start values of the markov chain
+     *
+     * @return array
+     *
+     * @since 1.0.0
+     */
     public function generate(int $length, array $start = null) : array
     {
         $orderKeys   = \array_keys($this->data);
@@ -148,6 +158,15 @@ final class MarkovChain
         return $output;
     }
 
+    /**
+     * Calculate the probability for a certain markov chain.
+     *
+     * @param array $path Markov chain
+     *
+     * @return float
+     *
+     * @since 1.0.0
+     */
     public function pathProbability(array $path) : float
     {
         $length = \count($path);
@@ -168,6 +187,16 @@ final class MarkovChain
         return $prob;
     }
 
+    /**
+     * Calculate the probability for a certain state change in a markov chain
+     *
+     * @param array $state Current state of the markov chain
+     * @param mixed $next  Next markov state
+     *
+     * @return float
+     *
+     * @since 1.0.0
+     */
     public function stepProbability(array $state, mixed $next) : float
     {
         if (\count($state) !== $this->order) {

@@ -204,7 +204,7 @@ abstract class GrammarAbstract
                 $expression .= $element->toSql() . (\is_string($key) ? ' as ' . $key : '') . ', ';
             } elseif (\is_int($element)) {
                 $expression .= $element . ', ';
-            }else {
+            } else {
                 throw new \InvalidArgumentException();
             }
         }
