@@ -695,19 +695,8 @@ class DataMapperFactory
                 }
 
                 if ($count > $pageLimit) {
-                    // @todo: can be maybe removed?
-                    /*
-                    if (!$hasNext) {
-                        \array_pop($data);
-                        $hasNext = true;
-                        --$count;
-                    }
-                    */
-
-                    if ($count > $pageLimit) {
-                        $hasPrevious = true;
-                        \array_pop($data);
-                    }
+                    $hasPrevious = true;
+                    \array_pop($data);
                 }
 
                 $data = \array_reverse($data);
