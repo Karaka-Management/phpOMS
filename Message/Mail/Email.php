@@ -2277,7 +2277,7 @@ class Email implements MessageInterface
             'subject',
             'reply-to',
             'message-id',
-            'content-type',
+            'Content-Type',
             'mime-version',
             'x-mailer',
         ];

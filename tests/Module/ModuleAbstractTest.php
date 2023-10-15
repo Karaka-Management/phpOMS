@@ -258,7 +258,7 @@ final class ModuleAbstractTest extends \PHPUnit\Framework\TestCase
                 'message'  => 'Test Message!',
                 'response' => [1, 'test string', 'bool' => true],
             ],
-            $response->get('')
+            $response->getData('')
         );
     }
 
@@ -276,7 +276,7 @@ final class ModuleAbstractTest extends \PHPUnit\Framework\TestCase
 
         self::assertEquals(
             [1, 'test string', 'bool' => true],
-            $response->get('')
+            $response->getData('')
         );
     }
 

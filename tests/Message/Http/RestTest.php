@@ -54,7 +54,7 @@ final class RestTest extends \PHPUnit\Framework\TestCase
         $request = new HttpRequest(new HttpUri('https://httpbin.org/post'));
         $request->setMethod(RequestMethod::POST);
         self::assertTrue($request->setData('pdata', 'abc'));
-        self::assertEquals('abc', REST::request($request)->get('form')['pdata'] ?? '');
+        self::assertEquals('abc', REST::request($request)->getData('form')['pdata'] ?? '');
     }
 
     /**
@@ -67,7 +67,7 @@ final class RestTest extends \PHPUnit\Framework\TestCase
         $request = new HttpRequest(new HttpUri('https://httpbin.org/put'));
         $request->setMethod(RequestMethod::PUT);
         self::assertTrue($request->setData('pdata', 'abc'));
-        self::assertEquals('abc', REST::request($request)->get('form')['pdata'] ?? '');
+        self::assertEquals('abc', REST::request($request)->getData('form')['pdata'] ?? '');
     }
 
     /**
@@ -80,7 +80,7 @@ final class RestTest extends \PHPUnit\Framework\TestCase
         $request = new HttpRequest(new HttpUri('https://httpbin.org/delete'));
         $request->setMethod(RequestMethod::DELETE);
         self::assertTrue($request->setData('ddata', 'abc'));
-        self::assertEquals('abc', REST::request($request)->get('form')['ddata'] ?? '');
+        self::assertEquals('abc', REST::request($request)->getData('form')['ddata'] ?? '');
     }
 
     /**
@@ -93,7 +93,7 @@ final class RestTest extends \PHPUnit\Framework\TestCase
         $request = new HttpRequest(new HttpUri('https://httpbin.org/get'));
         $request->setMethod(RequestMethod::GET);
         self::assertTrue($request->setData('gdata', 'abc'));
-        self::assertEquals('abc', REST::request($request)->get('args')['gdata'] ?? '');
+        self::assertEquals('abc', REST::request($request)->getData('args')['gdata'] ?? '');
     }
 
     /**

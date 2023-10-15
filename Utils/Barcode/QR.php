@@ -1091,7 +1091,7 @@ class QR extends TwoDAbstract
             $howManuOut = 8 - (self::QR_FIND_FROM_RANDOM % 9);
             for ($i = 0; $i < $howManuOut; ++$i) {
                 // @note: This is why the same content can result in different QR codes
-                $remPos = \mt_rand(0, \count($checked_masks) - 1);
+                $remPos = \array_rand($checked_masks, 1);
                 unset($checked_masks[$remPos]);
                 $checked_masks = \array_values($checked_masks);
             }

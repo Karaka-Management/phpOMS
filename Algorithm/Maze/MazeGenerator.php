@@ -81,7 +81,7 @@ class MazeGenerator
             if (!empty($neighbors)) {
                 --$n;
 
-                $next                                  = $neighbors[\mt_rand(0, \count($neighbors) - 1)];
+                $next                                  = $neighbors[\array_rand($neighbors, 1)];
                 $unvisited[$next[0] + 1][$next[1] + 1] = false;
 
                 if ($next[0] === $pos[0]) {

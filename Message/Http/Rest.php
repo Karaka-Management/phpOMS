@@ -80,7 +80,7 @@ final class Rest
             \curl_setopt($curl, \CURLOPT_POST, 1);
 
             // handle different content types
-            $contentType = $requestHeaders['content-type'] ?? [];
+            $contentType = $requestHeaders['Content-Type'] ?? [];
             if (empty($contentType) || \in_array(MimeType::M_POST, $contentType)) {
                 /* @phpstan-ignore-next-line */
                 \curl_setopt($curl, \CURLOPT_POSTFIELDS, \http_build_query($request->data));
@@ -94,7 +94,7 @@ final class Rest
 
                 // @todo: Replace boundary/ with the correct boundary= in the future.
                 //        Currently this cannot be done due to a bug. If we do it now the server cannot correclty populate php://input
-                $headers['content-type']   = 'Content-Type: multipart/form-data; boundary/' . $boundary;
+                $headers['Content-Type']   = 'Content-Type: multipart/form-data; boundary/' . $boundary;
                 $headers['content-length'] = 'Content-Length: ' . \strlen($data);
 
                 \curl_setopt($curl, \CURLOPT_HTTPHEADER, $headers);
@@ -145,7 +145,7 @@ final class Rest
         \curl_close($curl);
 
         $raw = \substr(\is_bool($result) ? '' : $result, $len === false ? 0 : $len);
-        if (\stripos(\implode('', $response->header->get('content-type')), MimeType::M_JSON) !== false) {
+        if (\stripos(\implode('', $response->header->get('Content-Type')), MimeType::M_JSON) !== false) {
             $temp = \json_decode($raw, true);
             if (!\is_array($temp)) {
                 $temp = [];

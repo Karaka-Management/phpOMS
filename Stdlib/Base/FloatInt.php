@@ -158,17 +158,15 @@ class FloatInt implements SerializableInterface
      */
     public function getAmount(?int $decimals = 2) : string
     {
-        $isNegative = $this->value < 0 ? 1 : 0;
-
         $value = $this->value === 0
             ? \str_repeat('0', self::MAX_DECIMALS)
             : (string) \round($this->value, -self::MAX_DECIMALS + $decimals);
 
-        $left = \substr($value, 0, -self::MAX_DECIMALS + $isNegative);
+        $left = \substr($value, 0, -self::MAX_DECIMALS);
 
         /** @var string $left */
         $left  = $left === false ? '0' : $left;
-        $right = \substr($value, -self::MAX_DECIMALS + $isNegative);
+        $right = \substr($value, -self::MAX_DECIMALS);
 
         if ($right === false) {
             throw new \Exception(); // @codeCoverageIgnore

@@ -59,8 +59,8 @@ class File
             $source = self::$extensions;
         }
 
-        $key = \mt_rand(0, \count($source) - 1);
+        $key = \array_rand($source, 1);
 
-        return $source[$key][\mt_rand(0, \count($source[$key]) - 1)];
+        return $source[$key][\array_rand($source[$key], 1)];
     }
 }

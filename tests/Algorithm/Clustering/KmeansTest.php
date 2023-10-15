@@ -17,6 +17,8 @@ namespace phpOMS\tests\Algorithm\Clustering;
 use phpOMS\Algorithm\Clustering\Kmeans;
 use phpOMS\Algorithm\Clustering\Point;
 
+include_once __DIR__ . '/../../Autoloader.php';
+
 /**
  * @testdox phpOMS\tests\Algorithm\Clustering\KmeansTest: Clustering points/elements with the K-means algorithm
  *
@@ -33,6 +35,9 @@ final class KmeansTest extends \PHPUnit\Framework\TestCase
     {
         $seed = \mt_rand(\PHP_INT_MIN, \PHP_INT_MAX);
         \mt_srand($seed);
+
+        // The following seed + putting the loop to 1 would fail the test
+        //\mt_srand(1788576141);
 
         $result = false;
 

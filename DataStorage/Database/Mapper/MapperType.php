@@ -28,6 +28,8 @@ abstract class MapperType extends Enum
 {
     public const GET = 1;
 
+    public const GET_YIELD = 2;
+
     public const GET_ALL = 4;
 
     public const FIND = 7;
@@ -37,6 +39,12 @@ abstract class MapperType extends Enum
     public const GET_RANDOM = 11;
 
     public const COUNT_MODELS = 12;
+
+    public const SUM_MODELS = 13;
+
+    public const MODEL_EXISTS = 14;
+
+    public const MODEL_HAS_RELATION = 15;
 
     // -------------------------------------------- //
 

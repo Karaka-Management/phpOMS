@@ -458,8 +458,6 @@ abstract class MimeType extends Enum
 
     public const M_EVY = 'application/x-envoy';
 
-    public const M_EXE = 'application/x-msdownload';
-
     public const M_EXI = 'application/exi';
 
     public const M_EXT = 'application/vnd.novadigm.ext';
@@ -2010,6 +2008,20 @@ abstract class MimeType extends Enum
 
     public const M_123 = 'application/vnd.lotus-1-2-3';
 
+    public const M_PEXE = 'vnd.microsoft.portable-executable';
+
+    public const M_EXE = 'application/exe';
+
+    public const M_DEXE = 'application/dos-exe';
+
+    public const M_XEXE = 'application/x-winexe';
+
+    public const M_MDEXE = 'application/msdos-windows';
+
+    public const M_MSP = 'application/x-msdos-program';
+
+    public const M_XMDEXE = 'application/x-msdownload';
+
     /**
      * Get mime from file extension
      *
@@ -2036,7 +2048,6 @@ abstract class MimeType extends Enum
      * @return null|string
      *
      * @since 1.0.0
-     * @todo continue implementation
      */
     public static function mimeToExtension(string $mime) : ?string
     {
@@ -2046,6 +2057,10 @@ abstract class MimeType extends Enum
             case self::M_JPEG:
             case self::M_JPG:
                 return 'jpg';
+            case self::M_PNG:
+                return 'png';
+            case self::M_SVG:
+                return 'svg';
             case self::M_BMP:
                 return 'bmp';
             case self::M_GIF:
@@ -2053,6 +2068,51 @@ abstract class MimeType extends Enum
             case self::M_HTML:
             case self::M_HTM:
                 return 'htm';
+            case self::M_DOCX:
+                return 'docx';
+            case self::M_DOC:
+                return 'doc';
+            case self::M_ODT:
+                return 'odt';
+            case self::M_XLSX:
+                return 'xlsx';
+            case self::M_XLA:
+            case self::M_XLS:
+                return 'xls';
+            case self::M_ODS:
+                return 'ods';
+            case self::M_PPTX:
+                return 'pptx';
+            case self::M_PPT:
+                return 'ppt';
+            case self::M_ODP:
+                return 'odp';
+            case self::M_CSV:
+                return 'csv';
+            case self::M_XML:
+                return 'xml';
+            case self::M_JSON:
+                return 'json';
+            case self::M_ZIP:
+                return 'zip';
+            case self::M_7Z:
+                return '7z';
+            case self::M_RAR:
+                return 'rar';
+            case self::M_TAR:
+                return 'tar';
+            case self::M_MP3:
+                return 'mp3';
+            case self::M_MP4:
+                return 'mp4';
+            case self::M_PEXE:
+            case self::M_EXE:
+            case self::M_DEXE:
+            case self::M_XEXE:
+            case self::M_MDEXE:
+            case self::M_MSP:
+            case self::M_XMDEXE:
+                return 'exe';
             default:
                 return null;
         }

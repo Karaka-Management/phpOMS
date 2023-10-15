@@ -38,7 +38,7 @@ class Iban
      * @var string
      * @since 1.0.0
      */
-    protected string $country = '';
+    public string $country = '';
 
     /**
      * Iban chars.
@@ -46,7 +46,7 @@ class Iban
      * @var int
      * @since 1.0.0
      */
-    protected int $chars = 2;
+    public int $chars = 2;
 
     /**
      * Iban bban.
@@ -54,7 +54,7 @@ class Iban
      * @var string
      * @since 1.0.0
      */
-    protected string $bban = '';
+    public string $bban = '';
 
     /**
      * Iban fields.
@@ -62,7 +62,7 @@ class Iban
      * @var string
      * @since 1.0.0
      */
-    protected string $fields = '';
+    public string $fields = '';
 
     /**
      * Get iban country
