@@ -763,7 +763,7 @@ final class BuilderTest extends \PHPUnit\Framework\TestCase
         $this->expectException(\InvalidArgumentException::class);
 
         $query = new Builder($con, true);
-        $query->select(false);
+        $query->select(new class {});
     }
 
     /**

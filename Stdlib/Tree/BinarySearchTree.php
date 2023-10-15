@@ -231,7 +231,7 @@ class BinarySearchTree
                 ) {
                     $node->parent->left = null;
                 } elseif ($node->parent->right !== null
-                    && $node->parent->right->root->compare($node) === 0
+                    && $node->parent->right->root?->compare($node->data) === 0
                 ) {
                     $node->parent->right = null;
                 }

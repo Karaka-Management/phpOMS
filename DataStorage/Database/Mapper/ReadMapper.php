@@ -1223,11 +1223,8 @@ final class ReadMapper extends DataMapperAbstract
                 }
 
                 $objects = $objectMapper->execute();
-                if (empty($objects) || $objects === false) {
-                    return false;
-                }
 
-                return true;
+                return !empty($objects) && $objects !== false;
             } elseif (isset($this->mapper::OWNS_ONE[$member])
                 || isset($this->mapper::BELONGS_TO[$member])
             ) {

@@ -85,11 +85,11 @@ class Simplex
         $best = -1;
 
         for ($j = 0; $j < $this->n; ++$j) {
-            if ($this->c[$j] > 0) {
-                if ($best === -1 || $this->Nonbasic[$j] < $ind) {
-                    $ind  = $this->Nonbasic[$j];
-                    $best = $j;
-                }
+            if ($this->c[$j] > 0
+                && ($best === -1 || $this->Nonbasic[$j] < $ind)
+            ) {
+                $ind  = $this->Nonbasic[$j];
+                $best = $j;
             }
         }
 

@@ -55,7 +55,9 @@ final class GrahamScan
         $points = \array_merge([null], $points);
 
         for ($i = 2; $i < $count; ++$i) {
-            if ($points[$i]['y'] < $points[$min]['y'] || ($points[$i]['y'] == $points[$min]['y'] && $points[$i]['x'] < $points[$min]['x'])) {
+            if ($points[$i]['y'] < $points[$min]['y']
+                || ($points[$i]['y'] === $points[$min]['y'] && $points[$i]['x'] < $points[$min]['x'])
+            ) {
                 $min = $i;
             }
         }
