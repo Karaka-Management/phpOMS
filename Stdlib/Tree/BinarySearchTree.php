@@ -249,15 +249,15 @@ class BinarySearchTree
                 if ($node->parent->left !== null
                     && $node->parent->left->root?->compare($node->data) === 0
                 ) {
-                    $node->parent->left = $temp->tree;
+                    $node->parent->left = $temp?->tree;
                 } elseif ($node->parent->right !== null
                     && $node->parent->right->root?->compare($node->data) === 0
                 ) {
-                    $node->parent->right = $temp->tree;
+                    $node->parent->right = $temp?->tree;
                 }
             }
 
-            $temp->parent = $node->parent;
+            $temp->parent = $node?->parent;
 
             $node = null;
 
@@ -270,21 +270,20 @@ class BinarySearchTree
                 if ($node->parent->left !== null
                     && $node->parent->left->root?->compare($node->data) === 0
                 ) {
-                    $node->parent->left = $temp->tree;
+                    $node->parent->left = $temp?->tree;
                 } elseif ($node->parent->right !== null
                     && $node->parent->right->root?->compare($node->data) === 0
                 ) {
-                    $node->parent->right = $temp->tree;
+                    $node->parent->right = $temp?->tree;
                 }
             }
 
-            $temp->parent = $node->parent;
+            $temp->parent = $node?->parent;
 
             $node = null;
 
             return;
-        } else {
-            $temp       = $this->successor($node);
+        } elseif (($temp = $this->successor($node)) !== null) {
             $node->key  = $temp->key;
             $node->data = $temp->data;
 
