@@ -917,15 +917,14 @@ class Matrix implements \ArrayAccess, \Iterator
         $matrix   = $identity;
 
         $factorial = 1;
-        $pow       = $matrix;
+        $pow       = clone $matrix;
 
         for ($i = 1; $i <= $iterations; ++$i) {
             $factorial *= $i;
             $coeff      = 1 / $factorial;
 
-            $term   = $pow->mult($coeff);
-            $matrix = $matrix->add($term);
-            $pow    = $pow->mult($matrix); // @todo: maybe wrong order?
+            $term   = clone $pow->mult($this);
+            $matrix = $matrix->add($term->mult($coeff));
         }
 
         return $matrix;

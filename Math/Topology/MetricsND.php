@@ -111,8 +111,8 @@ final class MetricsND
         }
 
         $dotProduct = 0;
-        for ($i = 0; $i < $length; ++$i) {
-            $dotProduct += $a[$i] * $b[$i];
+        foreach ($a as $id => $_) {
+            $dotProduct += $a[$id] * $b[$id];
         }
 
         $sumOfSquares = 0;
