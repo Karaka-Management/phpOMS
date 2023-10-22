@@ -25,91 +25,91 @@ final class Kernel2DTest extends \PHPUnit\Framework\TestCase
 {
     public function testUniform() : void
     {
-        self::assertEquals(0.5, Kernel2D::uniformKernel(1, 0));
-        self::assertEquals(0.5, Kernel2D::uniformKernel(1, -1));
+        self::assertEquals(0.5, Kernel2D::uniformKernel(0, 1));
+        self::assertEquals(0.5, Kernel2D::uniformKernel(-1, 1));
         self::assertEquals(0.5, Kernel2D::uniformKernel(1, 1));
 
-        self::assertEquals(0.0, Kernel2D::uniformKernel(1, 2));
-        self::assertEquals(0.0, Kernel2D::uniformKernel(1, -2));
+        self::assertEquals(0.0, Kernel2D::uniformKernel(2, 1));
+        self::assertEquals(0.0, Kernel2D::uniformKernel(-2, 1));
     }
 
     public function testTriangle() : void
     {
-        self::assertEquals(1.0, Kernel2D::triangularKernel(1, 0));
-        self::assertEquals(0.0, Kernel2D::triangularKernel(1, -1));
+        self::assertEquals(1.0, Kernel2D::triangularKernel(0, 1));
+        self::assertEquals(0.0, Kernel2D::triangularKernel(-1, 1));
         self::assertEquals(0.0, Kernel2D::triangularKernel(1, 1));
 
-        self::assertEquals(0.0, Kernel2D::triangularKernel(1, 2));
-        self::assertEquals(0.0, Kernel2D::triangularKernel(1, -2));
+        self::assertEquals(0.0, Kernel2D::triangularKernel(2, 1));
+        self::assertEquals(0.0, Kernel2D::triangularKernel(-2, 1));
     }
 
     public function testEpanechnikov() : void
     {
-        self::assertEquals(3 / 4, Kernel2D::epanechnikovKernel(1, 0));
-        self::assertEquals(0.0, Kernel2D::epanechnikovKernel(1, -1));
+        self::assertEquals(3 / 4, Kernel2D::epanechnikovKernel(0, 1));
+        self::assertEquals(0.0, Kernel2D::epanechnikovKernel(-1, 1));
         self::assertEquals(0.0, Kernel2D::epanechnikovKernel(1, 1));
 
-        self::assertEquals(0.0, Kernel2D::epanechnikovKernel(1, 2));
-        self::assertEquals(0.0, Kernel2D::epanechnikovKernel(1, -2));
+        self::assertEquals(0.0, Kernel2D::epanechnikovKernel(2, 1));
+        self::assertEquals(0.0, Kernel2D::epanechnikovKernel(-2, 1));
     }
 
     public function testQuartic() : void
     {
-        self::assertEquals(15 / 6, Kernel2D::quarticKernel(1, 0));
-        self::assertEquals(0.0, Kernel2D::quarticKernel(1, -1));
+        self::assertEquals(15 / 6, Kernel2D::quarticKernel(0, 1));
+        self::assertEquals(0.0, Kernel2D::quarticKernel(-1, 1));
         self::assertEquals(0.0, Kernel2D::quarticKernel(1, 1));
 
-        self::assertEquals(0.0, Kernel2D::quarticKernel(1, 2));
-        self::assertEquals(0.0, Kernel2D::quarticKernel(1, -2));
+        self::assertEquals(0.0, Kernel2D::quarticKernel(2, 1));
+        self::assertEquals(0.0, Kernel2D::quarticKernel(-2, 1));
     }
 
     public function testTriweight() : void
     {
-        self::assertEquals(35 / 32, Kernel2D::triweightKernel(1, 0));
-        self::assertEquals(0.0, Kernel2D::triweightKernel(1, -1));
+        self::assertEquals(35 / 32, Kernel2D::triweightKernel(0, 1));
+        self::assertEquals(0.0, Kernel2D::triweightKernel(-1, 1));
         self::assertEquals(0.0, Kernel2D::triweightKernel(1, 1));
 
-        self::assertEquals(0.0, Kernel2D::triweightKernel(1, 2));
-        self::assertEquals(0.0, Kernel2D::triweightKernel(1, -2));
+        self::assertEquals(0.0, Kernel2D::triweightKernel(2, 1));
+        self::assertEquals(0.0, Kernel2D::triweightKernel(-2, 1));
     }
 
     public function testTricube() : void
     {
-        self::assertEquals(70 / 81, Kernel2D::tricubeKernel(1, 0));
-        self::assertEquals(0.0, Kernel2D::tricubeKernel(1, -1));
+        self::assertEquals(70 / 81, Kernel2D::tricubeKernel(0, 1));
+        self::assertEquals(0.0, Kernel2D::tricubeKernel(-1, 1));
         self::assertEquals(0.0, Kernel2D::tricubeKernel(1, 1));
 
-        self::assertEquals(0.0, Kernel2D::tricubeKernel(1, 2));
-        self::assertEquals(0.0, Kernel2D::tricubeKernel(1, -2));
+        self::assertEquals(0.0, Kernel2D::tricubeKernel(2, 1));
+        self::assertEquals(0.0, Kernel2D::tricubeKernel(-2, 1));
     }
 
     public function testGaussian() : void
     {
-        self::assertEquals(1 / \sqrt(2 * \M_PI), Kernel2D::gaussianKernel(1, 0));
-        self::assertEquals(0.0, Kernel2D::gaussianKernel(1, -1));
+        self::assertEquals(1 / \sqrt(2 * \M_PI), Kernel2D::gaussianKernel(0, 1));
+        self::assertEquals(0.0, Kernel2D::gaussianKernel(-1, 1));
         self::assertEquals(0.0, Kernel2D::gaussianKernel(1, 1));
 
-        self::assertEquals(0.0, Kernel2D::gaussianKernel(1, 2));
-        self::assertEquals(0.0, Kernel2D::gaussianKernel(1, -2));
+        self::assertEquals(0.0, Kernel2D::gaussianKernel(2, 1));
+        self::assertEquals(0.0, Kernel2D::gaussianKernel(-2, 1));
     }
 
     public function testCosine() : void
     {
-        self::assertEquals(\M_PI / 4, Kernel2D::cosineKernel(1, 0));
-        self::assertEquals(0.0, Kernel2D::cosineKernel(1, -1));
+        self::assertEquals(\M_PI / 4, Kernel2D::cosineKernel(0, 1));
+        self::assertEquals(0.0, Kernel2D::cosineKernel(-1, 1));
         self::assertEquals(0.0, Kernel2D::cosineKernel(1, 1));
 
-        self::assertEquals(0.0, Kernel2D::cosineKernel(1, 2));
-        self::assertEquals(0.0, Kernel2D::cosineKernel(1, -2));
+        self::assertEquals(0.0, Kernel2D::cosineKernel(2, 1));
+        self::assertEquals(0.0, Kernel2D::cosineKernel(-2, 1));
     }
 
     public function testLogistic() : void
     {
-        self::assertEquals(0.5, Kernel2D::logisticKernel(1, 0));
-        self::assertEquals(0.0, Kernel2D::logisticKernel(1, -1));
+        self::assertEquals(0.5, Kernel2D::logisticKernel(0, 1));
+        self::assertEquals(0.0, Kernel2D::logisticKernel(-1, 1));
         self::assertEquals(0.0, Kernel2D::logisticKernel(1, 1));
 
-        self::assertEquals(0.0, Kernel2D::logisticKernel(1, 2));
-        self::assertEquals(0.0, Kernel2D::logisticKernel(1, -2));
+        self::assertEquals(0.0, Kernel2D::logisticKernel(2, 1));
+        self::assertEquals(0.0, Kernel2D::logisticKernel(-2, 1));
     }
 }

@@ -17,6 +17,8 @@ namespace phpOMS\Math\Topology;
 /**
  * Kernels.
  *
+ * The bandwidth in the following functions is equivalent with sigma.
+ *
  * @package phpOMS\Math\Topology
  * @license OMS License 2.0
  * @link    https://jingga.app
