@@ -89,27 +89,27 @@ final class Kernel2DTest extends \PHPUnit\Framework\TestCase
         self::assertEqualsWithDelta(0.24197072451914, Kernel2D::gaussianKernel(-1, 2), 0.001);
         self::assertEqualsWithDelta(0.24197072451914, Kernel2D::gaussianKernel(1, 2), 0.001);
 
-        self::assertEqualsWithDelta(0.004431848411938, Kernel2D::gaussianKernel(2, 2), 0.001);
-        self::assertEqualsWithDelta(0.004431848411938, Kernel2D::gaussianKernel(-2, 2), 0.001);
+        self::assertEqualsWithDelta(0.004431848411938, Kernel2D::gaussianKernel(3, 2), 0.001);
+        self::assertEqualsWithDelta(0.004431848411938, Kernel2D::gaussianKernel(-3, 2), 0.001);
     }
 
     public function testCosine() : void
     {
-        self::assertEquals(\M_PI / 4, Kernel2D::cosineKernel(0, 2));
-        self::assertEquals(0.0, Kernel2D::cosineKernel(-1, 2));
-        self::assertEquals(0.0, Kernel2D::cosineKernel(1, 2));
+        self::assertEqualsWithDelta(\M_PI / 4, Kernel2D::cosineKernel(0, 2), 0.001);
+        self::assertEqualsWithDelta(0.0, Kernel2D::cosineKernel(-1, 2), 0.001);
+        self::assertEqualsWithDelta(0.0, Kernel2D::cosineKernel(1, 2), 0.001);
 
-        self::assertEquals(0.0, Kernel2D::cosineKernel(2, 2));
-        self::assertEquals(0.0, Kernel2D::cosineKernel(-2, 2));
+        self::assertEqualsWithDelta(0.0, Kernel2D::cosineKernel(2, 2), 0.001);
+        self::assertEqualsWithDelta(0.0, Kernel2D::cosineKernel(-2, 2), 0.001);
     }
 
     public function testLogistic() : void
     {
-        self::assertEquals(0.25, Kernel2D::logisticKernel(0, 2));
-        self::assertEquals(0.0, Kernel2D::logisticKernel(-1, 2));
-        self::assertEquals(0.0, Kernel2D::logisticKernel(1, 2));
+        self::assertEqualsWithDelta(0.25, Kernel2D::logisticKernel(0, 2), 0.001);
+        self::assertEqualsWithDelta(0.19661193324148, Kernel2D::logisticKernel(-1, 2), 0.001);
+        self::assertEqualsWithDelta(0.19661193324148, Kernel2D::logisticKernel(1, 2), 0.001);
 
-        self::assertEquals(0.0, Kernel2D::logisticKernel(2, 2));
-        self::assertEquals(0.0, Kernel2D::logisticKernel(-2, 2));
+        self::assertEqualsWithDelta(0.10499358540351, Kernel2D::logisticKernel(2, 2), 0.001);
+        self::assertEqualsWithDelta(0.10499358540351, Kernel2D::logisticKernel(-2, 2), 0.001);
     }
 }
