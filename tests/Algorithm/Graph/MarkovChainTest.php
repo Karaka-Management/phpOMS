@@ -61,7 +61,7 @@ final class MarkovChainTest extends \PHPUnit\Framework\TestCase
      */
     public function testStepProbability() : void
     {
-        $markov = new MarkovChain();
+        $markov = new MarkovChain(2);
         $markov->setTraining(
             [
                 'A A' => ['A' => 0.18, 'D' => 0.6, 'G' => 0.22],
@@ -85,7 +85,7 @@ final class MarkovChainTest extends \PHPUnit\Framework\TestCase
      */
     public function testPathProbability() : void
     {
-        $markov = new MarkovChain();
+        $markov = new MarkovChain(2);
         $markov->setTraining(
             [
                 'A A' => ['A' => 0.18, 'D' => 0.6, 'G' => 0.22],

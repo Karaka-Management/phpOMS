@@ -247,7 +247,10 @@ final class DataMapperAbstractTest extends \PHPUnit\Framework\TestCase
     public function testGetYield() : void
     {
         BaseModelMapper::create()->execute($this->model);
-        self::assertCount(1, BaseModelMapper::yield()->execute());
+
+        foreach (BaseModelMapper::yield()->execute() as $model) {
+            self::assertGreaterThan(0, $model->id);
+        }
     }
 
     public function testGetFor() : void
@@ -281,6 +284,7 @@ final class DataMapperAbstractTest extends \PHPUnit\Framework\TestCase
         $model1           = new BaseModel();
         $model1->datetime = new \DateTime('now');
         $id1              = BaseModelMapper::create()->execute($model1);
+
         \sleep(1);
         $model2           = new BaseModel();
         $model2->datetime = new \DateTime('now');

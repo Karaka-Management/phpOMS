@@ -28,7 +28,23 @@ final class AprioriTest extends \PHPUnit\Framework\TestCase
     public function testApriori() : void
     {
         self::assertEquals(
-            [],
+            [
+                'theta' => 2,
+                'epsilon' => 2,
+                'epsilon:theta' => 0,
+                'beta' => 4,
+                'beta:theta' => 2,
+                'beta:epsilon' => 2,
+                'beta:epsilon:theta' => 0,
+                'alpha' => 4,
+                'alpha:theta' => 2,
+                'alpha:epsilon' => 2,
+                'alpha:epsilon:theta' => 0,
+                'alpha:beta' => 4,
+                'alpha:beta:theta' => 2,
+                'alpha:beta:epsilon' => 2,
+                'alpha:beta:epsilon:theta' => 0,
+            ],
             Apriori::apriori([
                 ['alpha', 'beta', 'epsilon'],
                 ['alpha', 'beta', 'theta'],

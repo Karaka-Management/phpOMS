@@ -91,6 +91,7 @@ final class Apriori
 
         $totalSet = \array_unique($totalSet);
         \sort($totalSet);
+        \sort($subset);
 
         // Combinations of items
         $combinations = self::generateSubsets($totalSet);
@@ -99,6 +100,10 @@ final class Apriori
         $table = [];
         foreach ($combinations as &$c) {
             \sort($c);
+            if (!empty($subset) && $c !== $subset) {
+                continue;
+            }
+
             $table[\implode(':', $c)] = 0;
         }
 

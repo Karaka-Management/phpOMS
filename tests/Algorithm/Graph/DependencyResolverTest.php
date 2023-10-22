@@ -34,12 +34,12 @@ final class DependencyResolverTest extends \PHPUnit\Framework\TestCase
     {
         self::assertEquals(
             null,
-            DependencyResolver::resolve([0 => [1, 2], 1 => [0, 2]])
+            DependencyResolver::resolve([0 => [1, 2], 1 => [0, 2], 2 => []])
         );
 
         self::assertEquals(
             [0, 1, 2, 3],
-            DependencyResolver::resolve([0 => [1, 2], 1 => [2, 3]])
+            DependencyResolver::resolve([0 => [1, 2], 1 => [2, 3], 2 => [], 3 => []])
         );
     }
 }

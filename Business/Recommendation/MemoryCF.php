@@ -87,7 +87,7 @@ final class MemoryCF
      *
      * @since 1.0.0
      */
-    public function euclideanDistance(array $ranking, array $rankings) : array
+    private function euclideanDistance(array $ranking, array $rankings) : array
     {
         $distances = [];
         foreach ($rankings as $idx => $r) {
@@ -107,7 +107,7 @@ final class MemoryCF
      *
      * @since 1.0.0
      */
-    public function cosineDistance(array $ranking, array $rankings) : array
+    private function cosineDistance(array $ranking, array $rankings) : array
     {
         $distances = [];
         foreach ($rankings as $idx => $r) {
