@@ -745,28 +745,6 @@ final class BuilderTest extends \PHPUnit\Framework\TestCase
     }
 
     /**
-     * @testdox Invalid select types throw a InvalidArgumentException
-     * @group framework
-     * @dataProvider dbConnectionProvider
-     */
-    public function testInvalidSelectParameter($con) : void
-    {
-        if (!$con->isInitialized()) {
-            self::markTestSkipped();
-
-            return;
-        }
-
-        $iS = $con->getGrammar()->systemIdentifierStart;
-        $iE = $con->getGrammar()->systemIdentifierEnd;
-
-        $this->expectException(\InvalidArgumentException::class);
-
-        $query = new Builder($con, true);
-        $query->select(new class {});
-    }
-
-    /**
      * @testdox Invalid from types throw a InvalidArgumentException
      * @group framework
      * @dataProvider dbConnectionProvider

@@ -2008,7 +2008,7 @@ abstract class MimeType extends Enum
 
     public const M_123 = 'application/vnd.lotus-1-2-3';
 
-    public const M_PEXE = 'vnd.microsoft.portable-executable';
+    public const M_PEXE = 'application/vnd.microsoft.portable-executable';
 
     public const M_EXE = 'application/exe';
 

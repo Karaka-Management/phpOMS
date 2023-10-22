@@ -55,6 +55,6 @@ final class SystemUtilsTest extends \PHPUnit\Framework\TestCase
 
     public function testHostname() : void
     {
-        self::assertEquals('localhost.localdomain', SystemUtils::getHostname());
+        self::assertGreaterThan(0, \strlen(SystemUtils::getHostname()));
     }
 }

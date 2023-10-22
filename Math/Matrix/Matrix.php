@@ -714,76 +714,31 @@ class Matrix implements \ArrayAccess, \Iterator
         $value2 = $B->toArray();
 
         $m1 = \count($value1);
-        $n1 = ($isMatrix1 = !($this instanceof Vector)) ? \count($value1[0]) : 1;
+        $n1 = \count($value1[0]);
 
         $m2 = \count($value2);
-        $n2 = ($isMatrix2 = !($B instanceof Vector)) ? \count($value2[0]) : 1;
+        $n2 = \count($value2[0]);
 
         $result = null;
 
-        if ($isMatrix1 && $isMatrix2) {
-            if ($m2 !== $n1) {
-                throw new InvalidDimensionException($m2 . 'x' . $n2 . ' not compatible with ' . $m1 . 'x' . $n1);
-            }
-
-            $result = [[]];
-            for ($i = 0; $i < $m1; ++$i) { // Row of 1
-                for ($c = 0; $c < $n2; ++$c) { // Column of 2
-                    $temp = 0;
-
-                    for ($j = 0; $j < $m2; ++$j) { // Row of 2
-                        $temp += $value1[$i][$j] * $value2[$j][$c];
-                    }
-
-                    $result[$i][$c] = $temp;
-                }
-            }
-
-            return self::fromArray($result);
-        } elseif (!$isMatrix1 && !$isMatrix2) {
-            if ($m1 !== $m2) {
-                throw new InvalidDimensionException($m1 . 'x' . $m2);
-            }
-
-            $result = 0;
-            for ($i = 0; $i < $m1; ++$i) {
-                /** @var array $value1 */
-                /** @var array $value2 */
-                $result += $value1[$i] * $value2[$i];
-            }
-
-            return self::fromArray([[$result]]);
-        } elseif ($isMatrix1 && !$isMatrix2) {
-            $result = [];
-            for ($i = 0; $i < $m1; ++$i) { // Row of 1
-                $temp = 0;
-
-                for ($c = 0; $c < $m2; ++$c) { // Row of 2
-                    /** @var array $value2 */
-                    $temp += $value1[$i][$c] * $value2[$c];
-                }
-
-                $result[$i] = $temp;
-            }
-
-            return self::fromArray($result);
-        } elseif (!$isMatrix1 && $isMatrix2) {
-            $result = [];
-            for ($i = 0; $i < $m1; ++$i) { // Row of 1
-                $temp = 0;
-
-                for ($c = 0; $c < $m2; ++$c) { // Row of 2
-                    /** @var array $value1 */
-                    $temp += $value2[$i][$c] * $value1[$c];
-                }
-
-                $result[$i] = $temp;
-            }
-
-            return self::fromArray($result);
+        if ($m2 !== $n1) {
+            throw new InvalidDimensionException($m2 . 'x' . $n2 . ' not compatible with ' . $m1 . 'x' . $n1);
         }
 
-        throw new \InvalidArgumentException();
+        $result = [[]];
+        for ($i = 0; $i < $m1; ++$i) { // Row of 1
+            for ($c = 0; $c < $n2; ++$c) { // Column of 2
+                $temp = 0;
+
+                for ($j = 0; $j < $m2; ++$j) { // Row of 2
+                    $temp += $value1[$i][$j] * $value2[$j][$c];
+                }
+
+                $result[$i][$c] = $temp;
+            }
+        }
+
+        return self::fromArray($result);
     }
 
     /**
