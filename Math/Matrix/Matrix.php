@@ -772,14 +772,14 @@ class Matrix implements \ArrayAccess, \Iterator
                 }
             }
 
-            return self::fromArray($sum);
+            return Vector::fromArray($sum);
         } elseif ($axis === 1) {
             $sum = [];
             foreach ($this->matrix as $idx => $row) {
                 $sum[$idx] = \array_sum($row);
             }
 
-            return self::fromArray($sum);
+            return Vector::fromArray($sum);
         }
 
         return new self();
