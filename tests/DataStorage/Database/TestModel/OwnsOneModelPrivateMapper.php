@@ -16,7 +16,7 @@ namespace phpOMS\tests\DataStorage\Database\TestModel;
 
 use phpOMS\DataStorage\Database\Mapper\DataMapperFactory;
 
-class OwnsOneModelMapper extends DataMapperFactory
+class OwnsOneModelPrivateMapper extends DataMapperFactory
 {
     /**
      * Columns.
