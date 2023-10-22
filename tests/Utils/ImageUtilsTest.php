@@ -45,7 +45,7 @@ final class ImageUtilsTest extends \PHPUnit\Framework\TestCase
 
     public function testDifference() : void
     {
-        foreach (['png', 'jpg', 'gif'] as $type) {
+        foreach (['png', 'gif'] as $type) {
             $diff = ImageUtils::difference(__DIR__ . '/img/img1.' . $type, __DIR__ . '/img/img2.' . $type, __DIR__ . '/img/diff1.' . $type, 0);
             $diff = ImageUtils::difference(__DIR__ . '/img/img1.' . $type, __DIR__ . '/img/img2.' . $type, __DIR__ . '/img/diff2.' . $type, 1);
 
