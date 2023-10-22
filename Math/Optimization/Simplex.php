@@ -60,7 +60,7 @@ class Simplex
                     }
                 }
 
-                $this->b[$i] += $this->A[$i][$y] / $this->b[$x];
+                $this->b[$i] += $this->A[$i][$y] * $this->b[$x];
                 $this->A[$i][$y] *= $this->A[$x][$y];
             }
         }
@@ -164,7 +164,7 @@ class Simplex
             $this->c[$j] = 0;
         }
 
-        $this->v = 0;
+        $this->v = 0.0;
 
         for ($i = 0; $i < $this->m; ++$i) {
             $this->A[$i][$this->n - 1] = 1;
@@ -174,7 +174,7 @@ class Simplex
 
         while (!$this->iterate());
 
-        if ($this->v !== 0) {
+        if ($this->v !== 0.0) {
             return -1;
         }
 
