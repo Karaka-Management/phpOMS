@@ -40,6 +40,8 @@ class BaseModelMapper extends DataMapperFactory
         'test_base_datetime_null'     => ['name' => 'test_base_datetime_null',     'type' => 'DateTime', 'internal' => 'datetime_null'],
         'test_base_owns_one_self'     => ['name' => 'test_base_owns_one_self',     'type' => 'int',      'internal' => 'ownsOneSelf'],
         'test_base_belongs_to_one'    => ['name' => 'test_base_belongs_to_one',    'type' => 'int',      'internal' => 'belongsToOne'],
+        'test_base_owns_one_self'     => ['name' => 'test_base_owns_one_self',     'type' => 'int',      'internal' => 'ownsOneSelfPrivate', 'private' => true],
+        'test_base_belongs_to_one'    => ['name' => 'test_base_belongs_to_one',    'type' => 'int',      'internal' => 'belongsToOnePrivate', 'private' => true],
     ];
 
     /**
@@ -56,7 +58,6 @@ class BaseModelMapper extends DataMapperFactory
         'belongsToOnePrivate' => [
             'mapper'   => BelongsToModelMapper::class,
             'external' => 'test_base_belongs_to_one',
-            'private'  => true,
         ],
     ];
 
@@ -68,7 +69,6 @@ class BaseModelMapper extends DataMapperFactory
         'ownsOneSelfPrivate' => [
             'mapper'   => OwnsOneModelMapper::class,
             'external' => 'test_base_owns_one_self',
-            'private'  => true
         ],
     ];
 
