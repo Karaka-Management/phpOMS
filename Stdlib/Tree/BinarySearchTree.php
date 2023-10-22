@@ -53,7 +53,7 @@ class BinarySearchTree
      *
      * @since 1.0.0
      */
-    public function search(mixed $data) : ?Node
+    public function &search(mixed $data) : ?Node
     {
         if ($this->root === null) {
             return null;
