@@ -498,8 +498,8 @@ final class MatrixTest extends \PHPUnit\Framework\TestCase
         $v1 = Vector::fromArray([1, 3, -5])->transpose();
 
         self::assertEquals(
-            3,
-            $v1->dot(Vector::fromArray([4, -2, -1]))
+            [[3]],
+            $v1->dot(Vector::fromArray([4, -2, -1]))->toArray()
         );
     }
 
@@ -580,7 +580,7 @@ final class MatrixTest extends \PHPUnit\Framework\TestCase
 
         self::assertEquals(
             [12, 15, 18],
-            $m->sum(0)
+            $m->sum(0)->toVectorArray()
         );
     }
 
@@ -594,7 +594,7 @@ final class MatrixTest extends \PHPUnit\Framework\TestCase
 
         self::assertEquals(
             [6, 15, 24],
-            $m->sum(1)
+            $m->sum(1)->toVectorArray()
         );
     }
 
@@ -614,7 +614,7 @@ final class MatrixTest extends \PHPUnit\Framework\TestCase
             [0, 0, -8],
         ]);
 
-        self::assertFalse($m->isDiagonal());
+        self::assertTrue($m->isDiagonal());
     }
 
     public function testPow() : void

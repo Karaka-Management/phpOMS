@@ -714,10 +714,10 @@ class Matrix implements \ArrayAccess, \Iterator
         $value2 = $B->toArray();
 
         $m1 = \count($value1);
-        $n1 = ($isMatrix1 = \is_array($value1[0])) ? \count($value1[0]) : 1;
+        $n1 = ($isMatrix1 = !($this instanceof Vector)) ? \count($value1[0]) : 1;
 
         $m2 = \count($value2);
-        $n2 = ($isMatrix2 = \is_array($value2[0])) ? \count($value2[0]) : 1;
+        $n2 = ($isMatrix2 = !($B instanceof Vector)) ? \count($value2[0]) : 1;
 
         $result = null;
 
@@ -907,6 +907,8 @@ class Matrix implements \ArrayAccess, \Iterator
 
     /**
      * Calculate e^M
+     *
+     * The algorithm uses a taylor series.
      *
      * @param int $iterations Iterations for approximation
      *
