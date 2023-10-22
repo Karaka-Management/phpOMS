@@ -50,7 +50,7 @@ final class DataMapperAbstractTest extends \PHPUnit\Framework\TestCase
             'CREATE TABLE `test_base` (
                 `test_base_id` int(11) NOT NULL AUTO_INCREMENT,
                 `test_base_string` varchar(254) NOT NULL,
-                `test_base_compress` varchar(254) NOT NULL,
+                `test_base_compress` BLOB NOT NULL,
                 `test_base_pstring` varchar(254) NOT NULL,
                 `test_base_int` int(11) NOT NULL,
                 `test_base_bool` tinyint(1) DEFAULT NULL,
@@ -180,6 +180,8 @@ final class DataMapperAbstractTest extends \PHPUnit\Framework\TestCase
         $GLOBALS['dbpool']->get()->con->prepare('DROP TABLE test_has_many_rel_relationsp')->execute();
         $GLOBALS['dbpool']->get()->con->prepare('DROP TABLE test_belongs_to_onep')->execute();
         $GLOBALS['dbpool']->get()->con->prepare('DROP TABLE test_owns_onep')->execute();
+
+        \phpOMS\Log\FileLogger::getInstance()->verbose = false;
     }
 
     /**
