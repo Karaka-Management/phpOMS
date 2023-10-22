@@ -386,7 +386,7 @@ final class DataMapperAbstractTest extends \PHPUnit\Framework\TestCase
     public function testRandom() : void
     {
         $id = BaseModelMapper::create()->execute($this->model);
-        self::assertEquals($id, BaseModelMApper::getRandom()->execute()->id);
+        self::assertEquals($id, BaseModelMApper::getRandom()->limit(1)->execute()->id);
     }
 
     /**

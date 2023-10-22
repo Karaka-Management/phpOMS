@@ -461,7 +461,7 @@ final class ReadMapper extends DataMapperAbstract
             return 0;
         }
 
-        return \stripos($result, '.') ? (float) $result : (int) $result;
+        return \stripos($result, '.') === false ? (int) $result : (float) $result;
     }
 
     /**
