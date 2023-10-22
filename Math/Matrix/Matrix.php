@@ -569,7 +569,7 @@ class Matrix implements \ArrayAccess, \Iterator
         $newMatrixArr = $this->matrix;
 
         foreach ($newMatrixArr as $i => $vector) {
-            foreach ($vector as $j => $value) {
+            foreach ($vector as $j => $_) {
                 $newMatrixArr[$i][$j] *= $scalar;
             }
         }
@@ -913,21 +913,20 @@ class Matrix implements \ArrayAccess, \Iterator
             throw new InvalidDimensionException($this->m . 'x' . $this->n);
         }
 
-        $identity = new IdentityMatrix($this->m);
-        $matrix   = $identity;
+        $sum = new IdentityMatrix($this->m);
 
         $factorial = 1;
-        $pow       = clone $matrix;
+        $pow       = clone $sum;
 
         for ($i = 1; $i <= $iterations; ++$i) {
             $factorial *= $i;
             $coeff      = 1 / $factorial;
 
-            $term   = clone $pow->mult($this);
-            $matrix = $matrix->add($term->mult($coeff));
+            $pow = $pow->mult($this);
+            $sum = $sum->add($pow->mult($coeff));
         }
 
-        return $matrix;
+        return $sum;
     }
 
     /**

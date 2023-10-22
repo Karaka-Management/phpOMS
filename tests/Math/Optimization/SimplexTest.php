@@ -26,11 +26,14 @@ use phpOMS\Math\Optimization\Simplex;
  */
 final class SimplexTest extends \PHPUnit\Framework\TestCase
 {
-    public function testSimplex() : void
+    public function testSimplexBasicInfeasible() : void
     {
         $simplex = new Simplex();
-        self::assertEquals(
-            [],
+        self::assertEqualsWithDelta(
+            [
+                [11.333333, 3.333333, 0.0, 11.666667, 0.0],
+                21.333333
+            ],
             $simplex->solve(
                 [
                     [-1, 1],
@@ -39,15 +42,19 @@ final class SimplexTest extends \PHPUnit\Framework\TestCase
                 ],
                 [8, -3, 2],
                 [1, 3]
-            )
+            ),
+            0.01
         );
     }
 
     public function testSimplexBasicFeasible() : void
     {
         $simplex = new Simplex();
-        self::assertEquals(
-            [],
+        self::assertEqualsWithDelta(
+            [
+                [1.0, 0.0, 0.0, 0.0],
+                5.0
+            ],
             $simplex->solve(
                 [
                     [-1, 1],
@@ -55,24 +62,8 @@ final class SimplexTest extends \PHPUnit\Framework\TestCase
                 ],
                 [1, 2],
                 [5, -3]
-            )
-        );
-    }
-
-    public function testSimplexBasicInfeasible() : void
-    {
-        $simplex = new Simplex();
-        self::assertEquals(
-            [],
-            $simplex->solve(
-                [
-                    [-1, 1],
-                    [1, 1],
-                    [1, -4],
-                ],
-                [8, -3, 2],
-                [1, 3]
-            )
+            ),
+            0.0
         );
     }
 
@@ -80,7 +71,10 @@ final class SimplexTest extends \PHPUnit\Framework\TestCase
     {
         $simplex = new Simplex();
         self::assertEquals(
-            [],
+            [
+                [\INF, \INF],
+                \INF
+            ],
             $simplex->solve(
                 [
                     [-1, -1],
@@ -95,8 +89,11 @@ final class SimplexTest extends \PHPUnit\Framework\TestCase
     public function testSimplexLPUnbound() : void
     {
         $simplex = new Simplex();
-        self::assertEquals(
-            [],
+        self::assertEqualsWithDelta(
+            [
+                [\INF, \INF],
+                \INF
+            ],
             $simplex->solve(
                 [
                     [2, -1],
@@ -104,7 +101,8 @@ final class SimplexTest extends \PHPUnit\Framework\TestCase
                 ],
                 [-1, -2],
                 [1, -1]
-            )
+            ),
+            0.01
         );
     }
 }

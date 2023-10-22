@@ -106,7 +106,7 @@ final class MetricsND
      */
     public static function cosine(array $a, array $b) : float
     {
-        if (($length = \count($a)) !== \count($b)) {
+        if (\count($a) !== \count($b)) {
             throw new InvalidDimensionException(\count($a) . 'x' . \count($b));
         }
 
