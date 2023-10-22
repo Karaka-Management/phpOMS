@@ -216,7 +216,7 @@ final class ReadMapper extends DataMapperAbstract
                 /** @var null|Builder ...$options */
                 return $this->executeGetAll(...$options);
             case MapperType::GET_RANDOM:
-                return $this->executeGetRaw();
+                return $this->executeRandom();
             case MapperType::COUNT_MODELS:
                 return $this->executeCount();
             case MapperType::SUM_MODELS:
