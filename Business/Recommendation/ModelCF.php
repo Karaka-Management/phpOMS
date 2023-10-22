@@ -64,10 +64,11 @@ final class ModelCF
             foreach ($items as $iid => $itemrow) {
                 $matrix[$uid][$iid] = 0.0;
 
-                foreach ($userrow as $user) {
-                    foreach ($itemrow as $item) {
-                        $matrix[$uid][$iid] += $user * $item;
-                    }
+                $userrow = \array_values($userrow);
+                $itemrow = \array_values($itemrow);
+
+                foreach ($userrow as $idx => $user) {
+                    $matrix[$uid][$iid] += $user * $itemrow[$idx];
                 }
             }
         }
