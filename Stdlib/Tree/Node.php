@@ -100,6 +100,13 @@ class Node
         return $this->data <=> $data;
     }
 
+    /**
+     * To array
+     *
+     * @return array
+     *
+     * @since 1.0.0
+     */
     public function toArray() : array
     {
         return [

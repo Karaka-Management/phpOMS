@@ -456,6 +456,8 @@ final class ReadMapper extends DataMapperAbstract
             ]
         );
 
+        var_dump($query->execute()?->fetchColumn());
+
         return $query->execute()?->fetchColumn();
     }
 

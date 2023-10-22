@@ -243,8 +243,12 @@ class BinarySearchTree
         }
 
         $temp = null;
-        if ($node->left === null) {
+        if ($node->right !== null) {
             $temp = $node->right->root;
+            if ($temp === null) {
+                return;
+            }
+
             if ($node->parent !== null) {
                 if ($node->parent->left !== null
                     && $node->parent->left->root?->compare($node->data) === 0
@@ -264,8 +268,12 @@ class BinarySearchTree
             return;
         }
 
-        if ($node->right === null) {
+        if ($node->left !== null) {
             $temp = $node->left->root;
+            if ($temp === null) {
+                return;
+            }
+
             if ($node->parent !== null) {
                 if ($node->parent->left !== null
                     && $node->parent->left->root?->compare($node->data) === 0
@@ -291,6 +299,13 @@ class BinarySearchTree
         }
     }
 
+    /**
+     * To array
+     *
+     * @return array
+     *
+     * @since 1.0.0
+     */
     public function toArray() : array
     {
         return $this->root?->toArray() ?? ['key' => null, 0 => null, 1 => null];

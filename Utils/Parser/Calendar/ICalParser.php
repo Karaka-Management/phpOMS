@@ -67,7 +67,7 @@ class ICalParser
             $event['location'] = $locationMatch[1];
 
             \preg_match('/GEO:(.*?)\r\n/', $match[1], $geo);
-            $temp = \explode(';', $geo[1]);
+            $temp         = \explode(';', $geo[1]);
             $event['geo'] = [
                 'lat' => (float) $temp[0],
                 'lon' => (float) $temp[1],
