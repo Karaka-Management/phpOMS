@@ -889,7 +889,9 @@ class Matrix implements \ArrayAccess, \Iterator
         $eig = new EigenvalueDecomposition($this);
 
         $d = $eig->getD();
-        for ($i = 0; $d->getM(); ++$i) {
+        $m = $d->getM();
+
+        for ($i = 0; $i < $m; ++$i) {
             $d->matrix[$i][$i] = \pow($d->matrix[$i][$i], $exponent);
         }
 
