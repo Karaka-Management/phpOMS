@@ -742,7 +742,7 @@ class Matrix implements \ArrayAccess, \Iterator
     }
 
     /**
-     * Sum the elements in the matrix
+     * Sum the elements in the matrix.
      *
      * @param int $axis Axis (-1 -> all dimensions, 0 -> columns, 1 -> rows)
      *
