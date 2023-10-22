@@ -35,7 +35,7 @@ class Simplex
 
     private array $c = [];
 
-    private int $v = 0;
+    private float $v = 0.0;
 
     private array $Basic = [];
 
@@ -228,7 +228,7 @@ class Simplex
         for ($j = 0; $j < $this->n; ++$j) {
             $ok = false;
             for ($k = 0; $k < $this->n; ++$k) {
-                if ($j = $this->Nonbasic[$k]) {
+                if ($j === $this->Nonbasic[$k]) {
                     $this->c[$k] += $oldC[$j];
                     $ok = true;
                     break;
