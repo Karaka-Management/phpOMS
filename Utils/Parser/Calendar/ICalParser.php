@@ -42,42 +42,42 @@ class ICalParser
         foreach ($matches as $match) {
             $event = [];
 
-            \preg_match('/UID:(.*?)\r\n/', $match[1], $uidMatch);
+            \preg_match('/UID:(.*?)\n/', $match[1], $uidMatch);
             $event['uid'] = \DateTime::createFromFormat('Ymd\THis', $uidMatch[1]);
 
-            \preg_match('/STATUS:(.*?)\r\n/', $match[1], $statusMatch);
+            \preg_match('/STATUS:(.*?)\n/', $match[1], $statusMatch);
             $event['status'] = \DateTime::createFromFormat('Ymd\THis', $statusMatch[1]);
 
-            \preg_match('/DTSTART:(.*?)\r\n/', $match[1], $startMatch);
+            \preg_match('/DTSTART:(.*?)\n/', $match[1], $startMatch);
             $event['start'] = \DateTime::createFromFormat('Ymd\THis', $startMatch[1]);
 
-            \preg_match('/DTEND:(.*?)\r\n/', $match[1], $endMatch);
+            \preg_match('/DTEND:(.*?)\n/', $match[1], $endMatch);
             $event['end'] = \DateTime::createFromFormat('Ymd\THis', $endMatch[1]);
 
-            \preg_match('/ORGANIZER:(.*?)\r\n/', $match[1], $organizerMatch);
-            $event['organizer'] = \DateTime::createFromFormat('Ymd\THis', $organizerMatch[1]);
+            \preg_match('/ORGANIZER:(.*?)\n/', $match[1], $organizerMatch);
+            $event['organizer'] = $organizerMatch[1] ?? '';
 
-            \preg_match('/SUMMARY:(.*?)\r\n/', $match[1], $summaryMatch);
-            $event['summary'] = $summaryMatch[1];
+            \preg_match('/SUMMARY:(.*?)\n/', $match[1], $summaryMatch);
+            $event['summary'] = $summaryMatch[1] ?? '';
 
-            \preg_match('/DESCRIPTION:(.*?)\r\n/', $match[1], $descriptionMatch);
-            $event['description'] = $descriptionMatch[1];
+            \preg_match('/DESCRIPTION:(.*?)\n/', $match[1], $descriptionMatch);
+            $event['description'] = $descriptionMatch[1] ?? '';
 
-            \preg_match('/LOCATION:(.*?)\r\n/', $match[1], $locationMatch);
-            $event['location'] = $locationMatch[1];
+            \preg_match('/LOCATION:(.*?)\n/', $match[1], $locationMatch);
+            $event['location'] = $locationMatch[1] ?? '';
 
-            \preg_match('/GEO:(.*?)\r\n/', $match[1], $geo);
+            \preg_match('/GEO:(.*?)\n/', $match[1], $geo);
             $temp         = \explode(';', $geo[1]);
             $event['geo'] = [
                 'lat' => (float) $temp[0],
                 'lon' => (float) $temp[1],
             ];
 
-            \preg_match('/URL:(.*?)\r\n/', $match[1], $url);
-            $event['url'] = $url[1];
+            \preg_match('/URL:(.*?)\n/', $match[1], $url);
+            $event['url'] = $url[1] ?? '';
 
             // Check if this event is recurring
-            if (\preg_match('/RRULE:(.*?)\r\n/', $match[1], $rruleMatch)) {
+            if (\preg_match('/RRULE:(.*?)\n/', $match[1], $rruleMatch)) {
                 $rrule = self::parseRRule($rruleMatch[1]);
                 $event = \array_merge($event, $rrule);
             }
