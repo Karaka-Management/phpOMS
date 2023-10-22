@@ -76,6 +76,6 @@ final class RegulaFalsi
             ++$iteration;
         }
 
-        return ($a + $b) / 2;
+        return $c;
     }
 }

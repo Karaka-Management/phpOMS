@@ -87,6 +87,6 @@ final class Illinois
             ++$iteration;
         }
 
-        return ($a + $b) / 2;
+        return $c;
     }
 }
