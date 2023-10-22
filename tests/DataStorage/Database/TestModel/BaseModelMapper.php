@@ -40,8 +40,8 @@ class BaseModelMapper extends DataMapperFactory
         'test_base_datetime_null'     => ['name' => 'test_base_datetime_null',     'type' => 'DateTime', 'internal' => 'datetime_null'],
         'test_base_owns_one_self'     => ['name' => 'test_base_owns_one_self',     'type' => 'int',      'internal' => 'ownsOneSelf'],
         'test_base_belongs_to_one'    => ['name' => 'test_base_belongs_to_one',    'type' => 'int',      'internal' => 'belongsToOne'],
-        'test_base_owns_one_self'     => ['name' => 'test_base_owns_one_self',     'type' => 'int',      'internal' => 'ownsOneSelfPrivate', 'private' => true],
-        'test_base_belongs_to_one'    => ['name' => 'test_base_belongs_to_one',    'type' => 'int',      'internal' => 'belongsToOnePrivate', 'private' => true],
+        'test_base_owns_onep_self'     => ['name' => 'test_base_owns_onep_self',     'type' => 'int',      'internal' => 'ownsOneSelfPrivate', 'private' => true],
+        'test_base_belongs_top_one'    => ['name' => 'test_base_belongs_top_one',    'type' => 'int',      'internal' => 'belongsToOnePrivate', 'private' => true],
     ];
 
     /**
@@ -57,8 +57,8 @@ class BaseModelMapper extends DataMapperFactory
             'private'  => true,
         ],
         'belongsToOnePrivate' => [
-            'mapper'   => BelongsToModelMapper::class,
-            'external' => 'test_base_belongs_to_one',
+            'mapper'   => BelongsToModelPrivateMapper::class,
+            'external' => 'test_base_belongs_top_one',
             'private'  => true,
         ],
     ];
@@ -69,8 +69,8 @@ class BaseModelMapper extends DataMapperFactory
             'external' => 'test_base_owns_one_self',
         ],
         'ownsOneSelfPrivate' => [
-            'mapper'   => OwnsOneModelMapper::class,
-            'external' => 'test_base_owns_one_self',
+            'mapper'   => OwnsOneModelPrivateMapper::class,
+            'external' => 'test_base_owns_onep_self',
         ],
     ];
 
@@ -101,17 +101,17 @@ class BaseModelMapper extends DataMapperFactory
             'external' => null,
         ],
         'hasManyDirectPrivate' => [
-            'mapper'   => ManyToManyDirectModelMapper::class,
-            'table'    => 'test_has_many_direct',
-            'self'     => 'test_has_many_direct_to',
+            'mapper'   => ManyToManyDirectModelPrivateMapper::class,
+            'table'    => 'test_has_many_directp',
+            'self'     => 'test_has_many_directp_to',
             'external' => null,
             'private'  => true,
         ],
         'hasManyRelationsPrivate' => [
-            'mapper'   => ManyToManyRelModelMapper::class,
-            'table'    => 'test_has_many_rel_relations',
-            'external' => 'test_has_many_rel_relations_src',
-            'self'     => 'test_has_many_rel_relations_dest',
+            'mapper'   => ManyToManyRelModelPrivateMapper::class,
+            'table'    => 'test_has_many_rel_relationsp',
+            'external' => 'test_has_many_rel_relationsp_src',
+            'self'     => 'test_has_many_rel_relationsp_dest',
             'private'  => true
         ],
     ];
