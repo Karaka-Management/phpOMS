@@ -54,10 +54,12 @@ class BaseModelMapper extends DataMapperFactory
         'belongsToOne' => [
             'mapper'   => BelongsToModelMapper::class,
             'external' => 'test_base_belongs_to_one',
+            'private'  => true,
         ],
         'belongsToOnePrivate' => [
             'mapper'   => BelongsToModelMapper::class,
             'external' => 'test_base_belongs_to_one',
+            'private'  => true,
         ],
     ];
 

@@ -26,17 +26,23 @@ require_once __DIR__ . '/../../Autoloader.php';
 final class DependencyResolverTest extends \PHPUnit\Framework\TestCase
 {
     /**
-     * @testdox A value is matched with the minimum quantity of available coins.
      * @covers phpOMS\Algorithm\Graph\DependencyResolver
      * @group framework
      */
-    public function testResolve() : void
+    public function testResolveCircular() : void
     {
         self::assertEquals(
             null,
             DependencyResolver::resolve([0 => [1, 2], 1 => [0, 2], 2 => []])
         );
+    }
 
+    /**
+     * @covers phpOMS\Algorithm\Graph\DependencyResolver
+     * @group framework
+     */
+    public function testResolve() : void
+    {
         self::assertEquals(
             [0, 1, 2, 3],
             DependencyResolver::resolve([0 => [1, 2], 1 => [2, 3], 2 => [], 3 => []])

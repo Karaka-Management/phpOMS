@@ -70,8 +70,8 @@ final class Apriori
      *
      * The algorithm cheks how often a set exists in a given set of sets.
      *
-     * @param array<array> $sets   Sets of a set (e.g. [[1,2,3,4], [1,2], [1]])
-     * @param array        $subset Subset to check for (empty array -> all subsets are checked)
+     * @param array<string[]> $sets   Sets of a set (e.g. [[1,2,3,4], [1,2], [1]])
+     * @param string[]        $subset Subset to check for (empty array -> all subsets are checked)
      *
      * @return array
      *
