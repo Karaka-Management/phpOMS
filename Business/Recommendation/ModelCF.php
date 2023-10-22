@@ -49,15 +49,29 @@ final class ModelCF
      * the multiplication gives a score of how much the user may like that movie.
      * A segnificant amount of attributes are required to calculate a good match
      *
-     * @param Matrix $users A mxa matrix where each "m" defines how much the user likes a certain attribute type and "a" defines different users
-     * @param Matrix $items A bxm matrix where each "b" defines a item and "m" defines how much it belongs to a certain attribute type
+     * @param array<int|string, array<int|float>> $users A mxa matrix where each "m" defines how much the user likes a certain attribute type and "a" defines different users
+     * @param array<int|string, array<int|float>> $items A bxm matrix where each "b" defines a item and "m" defines how much it belongs to a certain attribute type
      *
      * @return array
      *
      * @since 1.0.0
      */
-    public static function score(Matrix $users, Matrix $items) : array
+    public static function score(array $users, array $items) : array
     {
-        return $users->mult($items)->getMatrix();
+        $matrix = [];
+
+        foreach ($users as $uid => $userrow) {
+            foreach ($items as $iid => $itemrow) {
+                $matrix[$uid][$iid] = 0.0;
+
+                foreach ($userrow as $user) {
+                    foreach ($itemrow as $item) {
+                        $matrix[$uid][$iid] += $user * $item;
+                    }
+                }
+            }
+        }
+
+        return $matrix;
     }
 }

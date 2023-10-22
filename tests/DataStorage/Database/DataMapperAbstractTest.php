@@ -169,6 +169,12 @@ final class DataMapperAbstractTest extends \PHPUnit\Framework\TestCase
         $GLOBALS['dbpool']->get()->con->prepare('DROP TABLE test_has_many_direct')->execute();
         $GLOBALS['dbpool']->get()->con->prepare('DROP TABLE test_has_many_rel')->execute();
         $GLOBALS['dbpool']->get()->con->prepare('DROP TABLE test_has_many_rel_relations')->execute();
+
+        $GLOBALS['dbpool']->get()->con->prepare('DROP TABLE test_has_many_directp')->execute();
+        $GLOBALS['dbpool']->get()->con->prepare('DROP TABLE test_has_many_relp')->execute();
+        $GLOBALS['dbpool']->get()->con->prepare('DROP TABLE test_has_many_rel_relationsp')->execute();
+        $GLOBALS['dbpool']->get()->con->prepare('DROP TABLE test_belongs_to_onep')->execute();
+        $GLOBALS['dbpool']->get()->con->prepare('DROP TABLE test_owns_onep')->execute();
     }
 
     /**
