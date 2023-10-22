@@ -527,12 +527,12 @@ final class MatrixTest extends \PHPUnit\Framework\TestCase
 
     public function testDotVectorMatrix() : void
     {
-        $v = Vector::fromArray([3, 4]);
+        $v = Vector::fromArray([3, 4])->transpose();
 
         self::assertEquals(
             [11, 39, 53],
             $v->dot(
-                MAtrix::fromArray([
+                Matrix::fromArray([
                     [1, 5, 7],
                     [2, 6, 8],
                 ])
