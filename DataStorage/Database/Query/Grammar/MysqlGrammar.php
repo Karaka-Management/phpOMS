@@ -60,6 +60,6 @@ class MysqlGrammar extends Grammar
             $expression = '*';
         }
 
-        return 'SELECT ' . $expression . ' ' . $this->compileFrom($query, $query->from) . ' ' . $this->compileWheres($query, $query->wheres) . ' ORDER BY \rand() ' . $this->compileLimit($query, $query->limit ?? 1);
+        return 'SELECT ' . $expression . ' ' . $this->compileFrom($query, $query->from) . ' ' . $this->compileWheres($query, $query->wheres) . ' ORDER BY RAND() ' . $this->compileLimit($query, $query->limit ?? 1);
     }
 }

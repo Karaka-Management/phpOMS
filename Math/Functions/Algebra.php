@@ -86,6 +86,17 @@ final class Algebra
 
                 $result[$i] = $temp;
             }
+        } elseif (!$isMatrix1 && $isMatrix2) {
+            $result = [];
+            for ($i = 0; $i < $m1; ++$i) { // Row of 1
+                $temp = 0;
+
+                for ($c = 0; $c < $m2; ++$c) { // Row of 2
+                    $temp += $value2[$i][$c] * $value1[$c];
+                }
+
+                $result[$i] = $temp;
+            }
         } else {
             throw new \InvalidArgumentException();
         }
