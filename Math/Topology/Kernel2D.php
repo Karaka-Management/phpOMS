@@ -104,7 +104,7 @@ final class Kernel2D
     public static function quarticKernel(float $distance, float $bandwidth) : float
     {
         if (\abs($distance) <= $bandwidth / 2) {
-            $u = \abs($distance) / ($bandwidth / 2);
+            $u = $distance / ($bandwidth / 2);
 
             return (15 / 16) * (1 - $u * $u) * (1 - $u * $u) / ($bandwidth / 2);
         } else {
@@ -125,7 +125,7 @@ final class Kernel2D
     public static function triweightKernel(float $distance, float $bandwidth) : float
     {
         if (\abs($distance) <= $bandwidth / 2) {
-            $u = \abs($distance) / ($bandwidth / 2);
+            $u = $distance / ($bandwidth / 2);
 
             return (35 / 32) * (1 - $u * $u) * (1 - $u * $u) * (1 - $u * $u) / ($bandwidth / 2);
         } else {
@@ -166,7 +166,7 @@ final class Kernel2D
      */
     public static function gaussianKernel(float $distance, float $bandwidth) : float
     {
-        return \exp(-($distance * $distance) / (2 * $bandwidth * $bandwidth)) / ($bandwidth * \sqrt(2 * \M_PI));
+        return \exp(-($distance * $distance) / (2 * $bandwidth * $bandwidth / 4)) / ($bandwidth / 2 * \sqrt(2 * \M_PI));
     }
 
     /**
@@ -182,7 +182,7 @@ final class Kernel2D
     public static function cosineKernel(float $distance, float $bandwidth) : float
     {
         return \abs($distance) <= $bandwidth / 2
-            ? (\M_PI / 4) * \cos(\M_PI * $distance / $bandwidth) / ($bandwidth / 2)
+            ? \M_PI / 4 * \cos(\M_PI / 2 * ($distance / ($bandwidth / 2)))
             : 0.0;
     }
 

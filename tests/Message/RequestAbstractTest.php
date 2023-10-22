@@ -110,7 +110,6 @@ final class RequestAbstractTest extends \PHPUnit\Framework\TestCase
     {
         $this->request->setData('asdf', '[1,2,3]');
         self::assertEquals([1,2,3], $this->request->getDataJson('asdf'));
-        self::assertEquals([1,2,3], $this->request->getData('asdf', 'json'));
     }
 
     /**

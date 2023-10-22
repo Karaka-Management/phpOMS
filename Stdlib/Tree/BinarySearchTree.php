@@ -53,7 +53,7 @@ class BinarySearchTree
      *
      * @since 1.0.0
      */
-    public function &search(mixed $data) : ?Node
+    public function search(mixed $data) : ?Node
     {
         if ($this->root === null) {
             return null;
@@ -222,7 +222,7 @@ class BinarySearchTree
      *
      * @since 1.0.0
      */
-    public function delete(Node &$node) : void
+    public function delete(Node $node) : void
     {
         if ($node->left === null && $node->right === null) {
             if ($node->parent !== null) {
@@ -237,7 +237,7 @@ class BinarySearchTree
                 }
             }
 
-            $node = null;
+            //$node = null;
 
             return;
         }
@@ -263,7 +263,7 @@ class BinarySearchTree
 
             $temp->parent = $node->parent;
 
-            $node = null;
+            //$node = null;
 
             return;
         }
@@ -288,7 +288,7 @@ class BinarySearchTree
 
             $temp->parent = $node->parent;
 
-            $node = null;
+            //$node = null;
 
             return;
         } elseif (($temp = $this->successor($node)) !== null) {

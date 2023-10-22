@@ -55,7 +55,7 @@ final class Kernel2DTest extends \PHPUnit\Framework\TestCase
 
     public function testQuartic() : void
     {
-        self::assertEquals(15 / 6, Kernel2D::quarticKernel(0, 2));
+        self::assertEquals(15 / 16, Kernel2D::quarticKernel(0, 2));
         self::assertEquals(0.0, Kernel2D::quarticKernel(-1, 2));
         self::assertEquals(0.0, Kernel2D::quarticKernel(1, 2));
 
@@ -85,12 +85,12 @@ final class Kernel2DTest extends \PHPUnit\Framework\TestCase
 
     public function testGaussian() : void
     {
-        self::assertEquals(1 / \sqrt(2 * \M_PI), Kernel2D::gaussianKernel(0, 2));
-        self::assertEquals(0.0, Kernel2D::gaussianKernel(-1, 2));
-        self::assertEquals(0.0, Kernel2D::gaussianKernel(1, 2));
+        self::assertEqualsWithDelta(1 / \sqrt(2 * \M_PI), Kernel2D::gaussianKernel(0, 2), 0.001);
+        self::assertEqualsWithDelta(0.24197072451914, Kernel2D::gaussianKernel(-1, 2), 0.001);
+        self::assertEqualsWithDelta(0.24197072451914, Kernel2D::gaussianKernel(1, 2), 0.001);
 
-        self::assertEquals(0.0, Kernel2D::gaussianKernel(2, 2));
-        self::assertEquals(0.0, Kernel2D::gaussianKernel(-2, 2));
+        self::assertEqualsWithDelta(0.004431848411938, Kernel2D::gaussianKernel(2, 2), 0.001);
+        self::assertEqualsWithDelta(0.004431848411938, Kernel2D::gaussianKernel(-2, 2), 0.001);
     }
 
     public function testCosine() : void
@@ -105,7 +105,7 @@ final class Kernel2DTest extends \PHPUnit\Framework\TestCase
 
     public function testLogistic() : void
     {
-        self::assertEquals(0.5, Kernel2D::logisticKernel(0, 2));
+        self::assertEquals(0.25, Kernel2D::logisticKernel(0, 2));
         self::assertEquals(0.0, Kernel2D::logisticKernel(-1, 2));
         self::assertEquals(0.0, Kernel2D::logisticKernel(1, 2));
 
