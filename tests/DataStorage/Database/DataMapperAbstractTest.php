@@ -14,6 +14,8 @@ declare(strict_types=1);
 
 namespace phpOMS\tests\DataStorage\Database;
 
+include_once __DIR__ . '/../../Autoloader.php';
+
 use phpOMS\DataStorage\Database\Query\OrderType;
 use phpOMS\tests\DataStorage\Database\TestModel\BaseModel;
 use phpOMS\tests\DataStorage\Database\TestModel\BaseModelMapper;
@@ -42,10 +44,13 @@ final class DataMapperAbstractTest extends \PHPUnit\Framework\TestCase
     {
         $this->model = new BaseModel();
 
+        \phpOMS\Log\FileLogger::getInstance()->verbose = true;
+
         $GLOBALS['dbpool']->get()->con->prepare(
             'CREATE TABLE `test_base` (
                 `test_base_id` int(11) NOT NULL AUTO_INCREMENT,
                 `test_base_string` varchar(254) NOT NULL,
+                `test_base_compress` varchar(254) NOT NULL,
                 `test_base_pstring` varchar(254) NOT NULL,
                 `test_base_int` int(11) NOT NULL,
                 `test_base_bool` tinyint(1) DEFAULT NULL,

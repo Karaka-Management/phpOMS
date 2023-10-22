@@ -27,9 +27,9 @@ final class ModelCFTest extends \PHPUnit\Framework\TestCase
     {
         self::assertEquals(
             [
-                [],
-                [],
-                [],
+                [14.0, 12.0, 10.0],
+                [17.0, 11.0, 10.0],
+                [15.0, 15.0, 12.0],
             ],
             ModelCF::score(
                 [

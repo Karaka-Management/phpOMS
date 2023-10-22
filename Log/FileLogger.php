@@ -60,7 +60,7 @@ final class FileLogger implements LoggerInterface
      * @var bool
      * @since 1.0.0
      */
-    protected bool $verbose = false;
+    public bool $verbose = false;
 
     /**
      * The file pointer for the logging.

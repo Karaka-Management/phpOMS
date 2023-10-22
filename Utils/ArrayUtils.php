@@ -455,6 +455,26 @@ final class ArrayUtils
     }
 
     /**
+     * Get a column of 2D matrix.
+     *
+     * @param array<array> $matrix Matrix
+     * @param mixed        $index  Column index to return
+     *
+     * @return array
+     *
+     * @since 1.0.0
+     */
+    public static function column(array $matrix, mixed $index) : array
+    {
+        $column = [];
+        foreach ($matrix as $id => $row) {
+            $column[$id] = $row[$index];
+        }
+
+        return $column;
+    }
+
+    /**
      * Sqrt all values in array.
      *
      * @param array<int|float> $values Values to sqrt
