@@ -121,7 +121,7 @@ final class BuilderTest extends \PHPUnit\Framework\TestCase
         $iE = $con->getGrammar()->systemIdentifierEnd;
 
         $query = new Builder($con);
-        $sql   = 'SELECT [a].[test] FROM [a] as b WHERE [a].[test] = 1 ORDER BY \rand() LIMIT 1;';
+        $sql   = 'SELECT [a].[test] FROM [a] as b WHERE [a].[test] = 1 ORDER BY RAND() LIMIT 1;';
         $sql   = \strtr($sql, '[]', $iS . $iE);
         self::assertEquals($sql, $query->random('a.test')->fromAs('a', 'b')->where('a.test', '=', 1)->toSql());
     }

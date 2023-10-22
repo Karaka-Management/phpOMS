@@ -760,6 +760,20 @@ class Matrix implements \ArrayAccess, \Iterator
             }
 
             return self::fromArray($result);
+        } elseif (!$isMatrix1 && $isMatrix2) {
+            $result = [];
+            for ($i = 0; $i < $m1; ++$i) { // Row of 1
+                $temp = 0;
+
+                for ($c = 0; $c < $m2; ++$c) { // Row of 2
+                    /** @var array $value1 */
+                    $temp += $value2[$i][$c] * $value1[$c];
+                }
+
+                $result[$i] = $temp;
+            }
+
+            return self::fromArray($result);
         }
 
         throw new \InvalidArgumentException();
