@@ -285,21 +285,27 @@ final class ModuleAbstractTest extends \PHPUnit\Framework\TestCase
      */
     private function dbSetup() : void
     {
+        \phpOMS\Log\FileLogger::getInstance()->verbose = true;
+
         $GLOBALS['dbpool']->get()->con->prepare(
             'CREATE TABLE `test_base` (
                 `test_base_id` int(11) NOT NULL AUTO_INCREMENT,
                 `test_base_string` varchar(254) NOT NULL,
+                `test_base_compress` BLOB NOT NULL,
+                `test_base_pstring` varchar(254) NOT NULL,
                 `test_base_int` int(11) NOT NULL,
                 `test_base_bool` tinyint(1) DEFAULT NULL,
                 `test_base_null` int(11) DEFAULT NULL,
                 `test_base_float` decimal(5, 4) DEFAULT NULL,
                 `test_base_belongs_to_one` int(11) DEFAULT NULL,
+                `test_base_belongs_top_one` int(11) DEFAULT NULL,
                 `test_base_owns_one_self` int(11) DEFAULT NULL,
+                `test_base_owns_onep_self` int(11) DEFAULT NULL,
                 `test_base_json` varchar(254) DEFAULT NULL,
                 `test_base_json_serializable` varchar(254) DEFAULT NULL,
                 `test_base_serializable` varchar(254) DEFAULT NULL,
                 `test_base_datetime` datetime DEFAULT NULL,
-                `test_base_datetime_null` datetime DEFAULT NULL, /* There was a bug where it returned the current date because new \DateTime(null) === current date which is wrong, we want null as value! */
+                `test_base_datetime_null` datetime DEFAULT NULL,
                 PRIMARY KEY (`test_base_id`)
             )ENGINE=InnoDB  DEFAULT CHARSET=utf8mb4 AUTO_INCREMENT=1;'
         )->execute();
@@ -355,6 +361,49 @@ final class ModuleAbstractTest extends \PHPUnit\Framework\TestCase
                 PRIMARY KEY (`test_has_many_rel_relations_id`)
             )ENGINE=InnoDB  DEFAULT CHARSET=utf8mb4 AUTO_INCREMENT=1;'
         )->execute();
+
+        // private
+        $GLOBALS['dbpool']->get()->con->prepare(
+            'CREATE TABLE `test_has_many_directp` (
+                `test_has_many_directp_id` int(11) NOT NULL AUTO_INCREMENT,
+                `test_has_many_directp_string` varchar(254) NOT NULL,
+                `test_has_many_directp_to` int(11) NOT NULL,
+                PRIMARY KEY (`test_has_many_directp_id`)
+            )ENGINE=InnoDB  DEFAULT CHARSET=utf8mb4 AUTO_INCREMENT=1;'
+        )->execute();
+
+        $GLOBALS['dbpool']->get()->con->prepare(
+            'CREATE TABLE `test_has_many_relp` (
+                `test_has_many_relp_id` int(11) NOT NULL AUTO_INCREMENT,
+                `test_has_many_relp_string` varchar(254) NOT NULL,
+                PRIMARY KEY (`test_has_many_relp_id`)
+            )ENGINE=InnoDB  DEFAULT CHARSET=utf8mb4 AUTO_INCREMENT=1;'
+        )->execute();
+
+        $GLOBALS['dbpool']->get()->con->prepare(
+            'CREATE TABLE `test_has_many_rel_relationsp` (
+                `test_has_many_rel_relationsp_id` int(11) NOT NULL AUTO_INCREMENT,
+                `test_has_many_rel_relationsp_src` int(11) NOT NULL,
+                `test_has_many_rel_relationsp_dest` int(11) NOT NULL,
+                PRIMARY KEY (`test_has_many_rel_relationsp_id`)
+            )ENGINE=InnoDB  DEFAULT CHARSET=utf8mb4 AUTO_INCREMENT=1;'
+        )->execute();
+
+        $GLOBALS['dbpool']->get()->con->prepare(
+            'CREATE TABLE `test_belongs_to_onep` (
+                `test_belongs_to_onep_id` int(11) NOT NULL AUTO_INCREMENT,
+                `test_belongs_to_onep_string` varchar(254) NOT NULL,
+                PRIMARY KEY (`test_belongs_to_onep_id`)
+            )ENGINE=InnoDB  DEFAULT CHARSET=utf8mb4 AUTO_INCREMENT=1;'
+        )->execute();
+
+        $GLOBALS['dbpool']->get()->con->prepare(
+            'CREATE TABLE `test_owns_onep` (
+                `test_owns_onep_id` int(11) NOT NULL AUTO_INCREMENT,
+                `test_owns_onep_string` varchar(254) NOT NULL,
+                PRIMARY KEY (`test_owns_onep_id`)
+            )ENGINE=InnoDB  DEFAULT CHARSET=utf8mb4 AUTO_INCREMENT=1;'
+        )->execute();
     }
 
     /**
@@ -369,6 +418,14 @@ final class ModuleAbstractTest extends \PHPUnit\Framework\TestCase
         $GLOBALS['dbpool']->get()->con->prepare('DROP TABLE test_has_many_direct')->execute();
         $GLOBALS['dbpool']->get()->con->prepare('DROP TABLE test_has_many_rel')->execute();
         $GLOBALS['dbpool']->get()->con->prepare('DROP TABLE test_has_many_rel_relations')->execute();
+
+        $GLOBALS['dbpool']->get()->con->prepare('DROP TABLE test_has_many_directp')->execute();
+        $GLOBALS['dbpool']->get()->con->prepare('DROP TABLE test_has_many_relp')->execute();
+        $GLOBALS['dbpool']->get()->con->prepare('DROP TABLE test_has_many_rel_relationsp')->execute();
+        $GLOBALS['dbpool']->get()->con->prepare('DROP TABLE test_belongs_to_onep')->execute();
+        $GLOBALS['dbpool']->get()->con->prepare('DROP TABLE test_owns_onep')->execute();
+
+        \phpOMS\Log\FileLogger::getInstance()->verbose = false;
     }
 
     /**

@@ -47,7 +47,7 @@ final class MultipleLinearRegression extends RegressionAbstract
         $Y = new Matrix(\count($y));
         $Y->setMatrix($y);
 
-        return $XT->mult($X)->inverse()->mult($XT)->mult($Y)->getMatrix();
+        return $XT->mult($X)->inverse()->mult($XT)->mult($Y)->toArray();
     }
 
     /**

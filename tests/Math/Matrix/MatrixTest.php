@@ -69,7 +69,7 @@ final class MatrixTest extends \PHPUnit\Framework\TestCase
      */
     public function testMultMatrix() : void
     {
-        self::assertEquals([[0, -5], [-6, -7]], $this->C->getMatrix());
+        self::assertEquals([[0, -5], [-6, -7]], $this->C->toArray());
     }
 
     /**
@@ -79,7 +79,7 @@ final class MatrixTest extends \PHPUnit\Framework\TestCase
      */
     public function testMultMatrixScalar() : void
     {
-        self::assertEquals([[0, -10], [-12, -14]], $this->C->mult(2)->getMatrix());
+        self::assertEquals([[0, -10], [-12, -14]], $this->C->mult(2)->toArray());
     }
 
     /**
@@ -291,7 +291,7 @@ final class MatrixTest extends \PHPUnit\Framework\TestCase
      */
     public function testUpperTriangular() : void
     {
-        self::assertEquals([[-6, -7], [0, -5]], $this->C->upperTriangular()->getMatrix());
+        self::assertEquals([[-6, -7], [0, -5]], $this->C->upperTriangular()->toArray());
     }
 
     /**
@@ -301,8 +301,8 @@ final class MatrixTest extends \PHPUnit\Framework\TestCase
     public function testLowerTriangular() : void
     {
         self::markTestIncomplete();
-        //self::assertEquals([], $this->C->lowerTriangular()->getMatrix());
-        //self::assertEquals([], $this->C->diagonalize()->getMatrix());
+        //self::assertEquals([], $this->C->lowerTriangular()->toArray());
+        //self::assertEquals([], $this->C->diagonalize()->toArray());
     }
 
     /**
@@ -536,7 +536,7 @@ final class MatrixTest extends \PHPUnit\Framework\TestCase
                     [1, 5, 7],
                     [2, 6, 8],
                 ])
-            )->toArray()
+            )->toVectorArray()
         );
     }
 
@@ -552,7 +552,7 @@ final class MatrixTest extends \PHPUnit\Framework\TestCase
             [11, 39, 53],
             $m->dot(
                 Vector::fromArray([3, 4])
-            )->toArray()
+            )->toVectorArray()
         );
     }
 

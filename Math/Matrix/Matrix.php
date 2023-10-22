@@ -163,18 +163,6 @@ class Matrix implements \ArrayAccess, \Iterator
     }
 
     /**
-     * Get matrix array.
-     *
-     * @return array<int, array<int, mixed>>
-     *
-     * @since 1.0.0
-     */
-    public function getMatrix() : array
-    {
-        return $this->matrix;
-    }
-
-    /**
      * Get sub matrix array.
      *
      * @param int $iRow Start row
@@ -451,7 +439,7 @@ class Matrix implements \ArrayAccess, \Iterator
             throw new InvalidDimensionException($matrix->getM() . 'x' . $matrix->getN());
         }
 
-        $matrixArr    = $matrix->getMatrix();
+        $matrixArr    = $matrix->toArray();
         $newMatrixArr = $this->matrix;
 
         foreach ($newMatrixArr as $i => $vector) {
@@ -553,9 +541,9 @@ class Matrix implements \ArrayAccess, \Iterator
             throw new InvalidDimensionException($mDim . 'x' . $nDim);
         }
 
-        $matrixArr    = $matrix->getMatrix();
+        $matrixArr    = $matrix->toArray();
         $newMatrix    = new self($this->m, $nDim);
-        $newMatrixArr = $newMatrix->getMatrix();
+        $newMatrixArr = $newMatrix->toArray();
 
         for ($i = 0; $i < $this->m; ++$i) { // Row of $this
             for ($c = 0; $c < $nDim; ++$c) { // Column of $matrix
@@ -723,7 +711,7 @@ class Matrix implements \ArrayAccess, \Iterator
     public function dot(self $B) : self
     {
         $value1 = $this->matrix;
-        $value2 = $B->getMatrix();
+        $value2 = $B->toArray();
 
         $m1 = \count($value1);
         $n1 = ($isMatrix1 = \is_array($value1[0])) ? \count($value1[0]) : 1;
