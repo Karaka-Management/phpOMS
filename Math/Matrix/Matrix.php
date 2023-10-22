@@ -884,10 +884,16 @@ class Matrix implements \ArrayAccess, \Iterator
             }
 
             return $matrix;
-        } else {
-            // @todo: implement
-            throw new \Exception('Not yet implemented');
         }
+
+        $eig = new EigenvalueDecomposition($this);
+
+        $d = $eig->getD();
+        for ($i = 0; $d->getM(); ++$i) {
+            $d->matrix[$i][$i] = \pow($d->matrix[$i][$i], $exponent);
+        }
+
+        return $eig->getV()->mult($d)->mult($eig->getV()->inverse());
     }
 
     /**

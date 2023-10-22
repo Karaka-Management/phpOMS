@@ -646,8 +646,24 @@ final class MatrixTest extends \PHPUnit\Framework\TestCase
                 [80.25, 96.75, 113.25],
                 [120.75, 146.25, 171.75],
             ],
-            $m->pow(2.5)->toArray(),
+            $m->pow(2)->toArray(),
             0.1
+        );
+
+        $m = Matrix::fromArray([
+            [1, 1, 1],
+            [1, 2, 3],
+            [1, 3, 6],
+        ]);
+
+        self::assertEqualsWithDelta(
+            [
+                [0.8901, 0.5882, 0.3684],
+                [0.5882, 1.2035, 1.3799],
+                [0.3684, 1.3799, 3.1167],
+            ],
+            $m->pow(2 / 3)->toArray(),
+            0.01
         );
     }
 
