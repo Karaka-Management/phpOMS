@@ -100,7 +100,7 @@ final class RequestAbstractTest extends \PHPUnit\Framework\TestCase
     public function testDataAllInputOutput() : void
     {
         $this->request->setData('asdf', false);
-        self::assertFalse(['asdf' => false], $this->request->getData());
+        self::assertEquals(['asdf' => false], $this->request->getData());
     }
 
     /**

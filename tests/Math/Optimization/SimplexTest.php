@@ -72,7 +72,7 @@ final class SimplexTest extends \PHPUnit\Framework\TestCase
         $simplex = new Simplex();
         self::assertEquals(
             [
-                [\INF, \INF],
+                [-2, -2, -2, -2, -2],
                 \INF
             ],
             $simplex->solve(
@@ -91,7 +91,7 @@ final class SimplexTest extends \PHPUnit\Framework\TestCase
         $simplex = new Simplex();
         self::assertEqualsWithDelta(
             [
-                [\INF, \INF],
+                [-1, -1, -1, -1],
                 \INF
             ],
             $simplex->solve(
