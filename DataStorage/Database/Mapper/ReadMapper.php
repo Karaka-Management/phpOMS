@@ -443,7 +443,7 @@ final class ReadMapper extends DataMapperAbstract
     /**
      * Sum the number of elements
      *
-     * @return int
+     * @return int|float
      *
      * @since 1.0.0
      */
@@ -456,9 +456,12 @@ final class ReadMapper extends DataMapperAbstract
             ]
         );
 
-        var_dump($query->execute()?->fetchColumn());
+        $result = $query->execute()?->fetchColumn();
+        if (empty($result)) {
+            return 0;
+        }
 
-        return $query->execute()?->fetchColumn();
+        return \stripos($result, '.') ? (float) $result : (int) $result;
     }
 
     /**
