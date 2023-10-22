@@ -31,13 +31,12 @@ final class ICalParserTest extends \PHPUnit\Framework\TestCase
         foreach ($files as $file) {
             $data = \explode('.', $file);
 
-            if ($data[1] === 'ical'
-                && (\json_decode(\file_get_contents(__DIR__ . '/data/' . $data[0] . '.json'), true) !== ($parsed = ICalParser::parse(\file_get_contents(__DIR__ . '/data/' . $data[0] . '.ical'))))
-            ) {
-                self::assertTrue(false, $file . "\n\n" . $parsed);
+            if ($data[1] === 'ical') {
+                self::assertEquals(
+                    \json_decode(\file_get_contents(__DIR__ . '/data/' . $data[0] . '.json'), true),
+                    ICalParser::parse(\file_get_contents(__DIR__ . '/data/' . $data[0] . '.ical'))
+                );
             }
         }
-
-        self::assertTrue(true);
     }
 }

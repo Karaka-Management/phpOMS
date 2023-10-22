@@ -43,16 +43,16 @@ class ICalParser
             $event = [];
 
             \preg_match('/UID:(.*?)\n/', $match[1], $uidMatch);
-            $event['uid'] = \DateTime::createFromFormat('Ymd\THis', $uidMatch[1]);
+            $event['uid'] = \DateTime::createFromFormat('Ymd\THis', $uidMatch[1] ?? '');
 
             \preg_match('/STATUS:(.*?)\n/', $match[1], $statusMatch);
-            $event['status'] = \DateTime::createFromFormat('Ymd\THis', $statusMatch[1]);
+            $event['status'] = \DateTime::createFromFormat('Ymd\THis', $statusMatch[1] ?? '');
 
             \preg_match('/DTSTART:(.*?)\n/', $match[1], $startMatch);
-            $event['start'] = \DateTime::createFromFormat('Ymd\THis', $startMatch[1]);
+            $event['start'] = \DateTime::createFromFormat('Ymd\THis', $startMatch[1] ?? '');
 
             \preg_match('/DTEND:(.*?)\n/', $match[1], $endMatch);
-            $event['end'] = \DateTime::createFromFormat('Ymd\THis', $endMatch[1]);
+            $event['end'] = \DateTime::createFromFormat('Ymd\THis', $endMatch[1] ?? '');
 
             \preg_match('/ORGANIZER:(.*?)\n/', $match[1], $organizerMatch);
             $event['organizer'] = $organizerMatch[1] ?? '';
@@ -102,17 +102,17 @@ class ICalParser
         $rrule = [];
 
         \preg_match('/FREQ=(.*?);/', $rruleString, $freqMatch);
-        $rrule['freq'] = $freqMatch[1];
+        $rrule['freq'] = $freqMatch[1] ?? '';
 
         \preg_match('/INTERVAL=(.*?);/', $rruleString, $intervalMatch);
-        $rrule['interval'] = (int) $intervalMatch[1];
+        $rrule['interval'] = (int) ($intervalMatch[1] ?? 0);
 
         if (\preg_match('/COUNT=(.*?);/', $rruleString, $countMatch)) {
-            $rrule['count'] = (int) $countMatch[1];
+            $rrule['count'] = (int) ($countMatch[1] ?? 0);
         }
 
         if (\preg_match('/UNTIL=(.*?);/', $rruleString, $untilMatch)) {
-            $rrule['until'] = \DateTime::createFromFormat('Ymd\THis', $untilMatch[1]);
+            $rrule['until'] = \DateTime::createFromFormat('Ymd\THis', $untilMatch[1] ?? '');
         }
 
         return $rrule;
