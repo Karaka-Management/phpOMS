@@ -149,8 +149,8 @@ final class RequestAbstractTest extends \PHPUnit\Framework\TestCase
     public function testDataDateTimeInputOutput() : void
     {
         $this->request->setData('asdf', '2023-01-01');
-        self::assertEquals((new \DateTime('2023-01-01'))->format('Y-m-d'), $this->request->getDataDateTime('asdf'));
-        self::assertEquals((new \DateTime('2023-01-01'))->format('Y-m-d'), $this->request->getData('asdf', 'float'));
+        self::assertEquals((new \DateTime('2023-01-01'))->format('Y-m-d'), $this->request->getDataDateTime('asdf')->format('Y-m-d'));
+        self::assertEquals((new \DateTime('2023-01-01'))->format('Y-m-d'), $this->request->getData('asdf', 'DateTime')->format('Y-m-d'));
     }
 
     public function testDataInvalidTypeInputOutput() : void

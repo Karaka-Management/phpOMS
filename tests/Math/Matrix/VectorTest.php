@@ -78,7 +78,7 @@ final class VectorTest extends \PHPUnit\Framework\TestCase
     {
         self::assertEquals(
             [-15, -2, 39],
-            Vector::fromArray([3, -3, 1])->cross3(Vector::fromArray([4, 9, 2]))->toArray()
+            Vector::fromArray([3, -3, 1])->cross3(Vector::fromArray([4, 9, 2]))->toVectorArray()
         );
     }
 }

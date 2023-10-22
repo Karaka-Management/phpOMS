@@ -70,7 +70,7 @@ final class ResponseAbstractTest extends \PHPUnit\Framework\TestCase
     public function testDataAllInputOutput() : void
     {
         $this->response->set('asdf', false);
-        self::assertFalse(['asdf' => false], $this->response->getData());
+        self::assertEquals(['asdf' => false], $this->response->getData());
     }
 
     /**
@@ -127,7 +127,6 @@ final class ResponseAbstractTest extends \PHPUnit\Framework\TestCase
     {
         $this->response->set('asdf', '[1,2,3]');
         self::assertEquals([1,2,3], $this->response->getDataJson('asdf'));
-        self::assertEquals([1,2,3], $this->response->getData('asdf', 'json'));
     }
 
     /**

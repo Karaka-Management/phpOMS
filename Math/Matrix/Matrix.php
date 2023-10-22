@@ -298,6 +298,25 @@ class Matrix implements \ArrayAccess, \Iterator
     }
 
     /**
+     * Get matrix as 1D array.
+     *
+     * @return array<int, int|float>
+     *
+     * @since 1.0.0
+     */
+    public function toVectorArray() : array
+    {
+        $result = [];
+        for ($i = 0; $i < $this->m; ++$i) {
+            for ($j = 0; $j < $this->n; ++$j) {
+                $result[] = $this->matrix[$i][$j];
+            }
+        }
+
+        return $result;
+    }
+
+    /**
      * Is symmetric.
      *
      * @return bool
