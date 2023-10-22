@@ -65,4 +65,20 @@ final class VectorTest extends \PHPUnit\Framework\TestCase
 
         self::assertEquals(5, $vec->getM());
     }
+
+    public function testCosine() : void
+    {
+        $v1 = Vector::fromArray([3, 4, 0]);
+        $v2 = Vector::fromArray([4, 4, 2]);
+
+        self::assertEqualsWithDelta(14 / 15, $v1->cosine($v2), 0.1);
+    }
+
+    public function testCross3() : void
+    {
+        self::assertEquals(
+            [-15, -2, 39],
+            Vector::fromArray([3, -3, 1])->cross3(Vector::fromArray([4, 9, 2]))->toArray()
+        );
+    }
 }

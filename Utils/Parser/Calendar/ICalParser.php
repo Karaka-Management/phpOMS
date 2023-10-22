@@ -66,6 +66,16 @@ class ICalParser
             \preg_match('/LOCATION:(.*?)\r\n/', $match[1], $locationMatch);
             $event['location'] = $locationMatch[1];
 
+            \preg_match('/GEO:(.*?)\r\n/', $match[1], $geo);
+            $temp = \explode(';', $geo[1]);
+            $event['geo'] = [
+                'lat' => (float) $temp[0],
+                'lon' => (float) $temp[1],
+            ];
+
+            \preg_match('/URL:(.*?)\r\n/', $match[1], $url);
+            $event['url'] = $url[1];
+
             // Check if this event is recurring
             if (\preg_match('/RRULE:(.*?)\r\n/', $match[1], $rruleMatch)) {
                 $rrule = self::parseRRule($rruleMatch[1]);

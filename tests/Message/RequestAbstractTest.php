@@ -96,4 +96,78 @@ final class RequestAbstractTest extends \PHPUnit\Framework\TestCase
         $this->request->setData('key5', 1);
         self::assertEquals(1, $this->request->getData('key5', 'invalid'));
     }
+
+    public function testDataAllInputOutput() : void
+    {
+        $this->request->set('asdf', false);
+        self::assertFalse(['asdf' => false], $this->request->getData());
+    }
+
+    /**
+     * @group framework
+     */
+    public function testDataJsonInputOutput() : void
+    {
+        $this->request->set('asdf', '[1,2,3]');
+        self::assertEquals([1,2,3], $this->request->getDataJson('asdf'));
+        self::assertEquals([1,2,3], $this->request->getData('asdf', 'json'));
+    }
+
+    /**
+     * @group framework
+     */
+    public function testDataStringInputOutput() : void
+    {
+        $this->request->set('asdf', 1);
+        self::assertEquals('1', $this->request->getDataString('asdf'));
+        self::assertEquals('1', $this->request->getData('asdf', 'string'));
+    }
+
+    /**
+     * @group framework
+     */
+    public function testDataBoolInputOutput() : void
+    {
+        $this->request->set('asdf', 1);
+        self::assertEquals(true, $this->request->getDataBool('asdf'));
+        self::assertEquals(true, $this->request->getData('asdf', 'bool'));
+    }
+
+    /**
+     * @group framework
+     */
+    public function testDataFloatInputOutput() : void
+    {
+        $this->request->set('asdf', 1);
+        self::assertEquals(1.0, $this->request->getDataFloat('asdf'));
+        self::assertEquals(1.0, $this->request->getData('asdf', 'float'));
+    }
+
+    /**
+     * @group framework
+     */
+    public function testDataDateTimeInputOutput() : void
+    {
+        $this->request->set('asdf', '2023-01-01');
+        self::assertEquals((new \DateTime('2023-01-01'))->format('Y-m-d'), $this->request->getDataDateTime('asdf'));
+        self::assertEquals((new \DateTime('2023-01-01'))->format('Y-m-d'), $this->request->getData('asdf', 'float'));
+    }
+
+    public function testDataInvalidTypeInputOutput() : void
+    {
+        $this->request->set('asdf', 1);
+        self::assertEquals(1, $this->request->getData('asdf', 'invalid'));
+    }
+
+    /**
+     * @group framework
+     */
+    public function testInvalidDataTypeInputOutput() : void
+    {
+        self::assertEquals(null, $this->request->getDataString('a'));
+        self::assertEquals(null, $this->request->getDataBool('a'));
+        self::assertEquals(null, $this->request->getDataInt('a'));
+        self::assertEquals(null, $this->request->getDataFloat('a'));
+        self::assertEquals(null, $this->request->getDataDateTime('a'));
+    }
 }

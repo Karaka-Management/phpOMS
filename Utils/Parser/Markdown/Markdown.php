@@ -190,7 +190,7 @@ class Markdown
         // method.
         $html = $this->body($text);
 
-        if (isset($this->options['toc']) && $this->options['toc'] == false) {
+        if (isset($this->options['toc']) && $this->options['toc'] === false) {
             return $html;
         }
 

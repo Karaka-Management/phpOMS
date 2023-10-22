@@ -891,6 +891,7 @@ final class ReadMapper extends DataMapperAbstract
             }
         }
 
+        // @todo: How is this allowed? at the bottom we set $obj->hasMany = value. A has many should be always an array?!
         foreach ($this->mapper::HAS_MANY as $member => $def) {
             $column = $def['mapper']::getColumnByMember($def['column'] ?? $member);
             $alias  = $column . '_d' . ($this->depth + 1);
@@ -926,33 +927,39 @@ final class ReadMapper extends DataMapperAbstract
                 $refProp = $refClass->getProperty($member);
             }
 
-            if (\in_array($def['mapper']::COLUMNS[$column]['type'], ['string', 'int', 'float', 'bool'])) {
+            $type = $def['mapper']::COLUMNS[$column]['type'];
+            if (\in_array($type, ['string', 'compress', 'int', 'float', 'bool'])) {
+                if ($value !== null && $type === 'compress') {
+                    $type  = 'string';
+                    $value = \gzinflate($value);
+                }
+
                 if ($value !== null
                     || ($isPrivate ? $refProp->getValue($obj) !== null : $obj->{$member} !== null)
                 ) {
-                    \settype($value, $def['mapper']::COLUMNS[$column]['type']);
+                    \settype($value, $type);
                 }
 
                 if ($hasPath) {
                     $value = ArrayUtils::setArray($arrayPath, $aValue, $value, '/', true);
                 }
-            } elseif ($def['mapper']::COLUMNS[$column]['type'] === 'DateTime') {
+            } elseif ($type === 'DateTime') {
                 $value ??= new \DateTime($value);
                 if ($hasPath) {
                     $value = ArrayUtils::setArray($arrayPath, $aValue, $value, '/', true);
                 }
-            } elseif ($def['mapper']::COLUMNS[$column]['type'] === 'DateTimeImmutable') {
+            } elseif ($type === 'DateTimeImmutable') {
                 $value ??= new \DateTimeImmutable($value);
                 if ($hasPath) {
                     $value = ArrayUtils::setArray($arrayPath, $aValue, $value, '/', true);
                 }
-            } elseif ($def['mapper']::COLUMNS[$column]['type'] === 'Json') {
+            } elseif ($type === 'Json') {
                 if ($hasPath) {
                     $value = ArrayUtils::setArray($arrayPath, $aValue, $value, '/', true);
                 }
 
                 $value = \json_decode($value, true);
-            } elseif ($def['mapper']::COLUMNS[$column]['type'] === 'Serializable') {
+            } elseif ($type === 'Serializable') {
                 $mObj = $isPrivate ? $refProp->getValue($obj) : $obj->{$member};
 
                 if ($mObj !== null && $value !== null) {

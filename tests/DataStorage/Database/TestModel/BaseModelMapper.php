@@ -27,6 +27,8 @@ class BaseModelMapper extends DataMapperFactory
     public const COLUMNS = [
         'test_base_id'                => ['name' => 'test_base_id',                'type' => 'int',      'internal' => 'id'],
         'test_base_string'            => ['name' => 'test_base_string',            'type' => 'string',   'internal' => 'string', 'autocomplete' => true],
+        'test_base_compress'            => ['name' => 'test_base_compress',            'type' => 'compress',   'internal' => 'compress',],
+        'test_base_pstring'            => ['name' => 'test_base_pstring',            'type' => 'pstring',   'internal' => 'pstring', 'private' => true],
         'test_base_int'               => ['name' => 'test_base_int',               'type' => 'int',      'internal' => 'int'],
         'test_base_bool'              => ['name' => 'test_base_bool',              'type' => 'bool',     'internal' => 'bool'],
         'test_base_null'              => ['name' => 'test_base_null',              'type' => 'int',      'internal' => 'null'],
@@ -51,12 +53,22 @@ class BaseModelMapper extends DataMapperFactory
             'mapper'   => BelongsToModelMapper::class,
             'external' => 'test_base_belongs_to_one',
         ],
+        'belongsToOnePrivate' => [
+            'mapper'   => BelongsToModelMapper::class,
+            'external' => 'test_base_belongs_to_one',
+            'private'  => true,
+        ],
     ];
 
     public const OWNS_ONE = [
         'ownsOneSelf' => [
             'mapper'   => OwnsOneModelMapper::class,
             'external' => 'test_base_owns_one_self',
+        ],
+        'ownsOneSelfPrivate' => [
+            'mapper'   => OwnsOneModelMapper::class,
+            'external' => 'test_base_owns_one_self',
+            'private'  => true
         ],
     ];
 
@@ -85,6 +97,20 @@ class BaseModelMapper extends DataMapperFactory
             'self'     => 'test_conditional_base',
             'column'   => 'title',
             'external' => null,
+        ],
+        'hasManyDirectPrivate' => [
+            'mapper'   => ManyToManyDirectModelMapper::class,
+            'table'    => 'test_has_many_direct',
+            'self'     => 'test_has_many_direct_to',
+            'external' => null,
+            'private'  => true,
+        ],
+        'hasManyRelationsPrivate' => [
+            'mapper'   => ManyToManyRelModelMapper::class,
+            'table'    => 'test_has_many_rel_relations',
+            'external' => 'test_has_many_rel_relations_src',
+            'self'     => 'test_has_many_rel_relations_dest',
+            'private'  => true
         ],
     ];
 

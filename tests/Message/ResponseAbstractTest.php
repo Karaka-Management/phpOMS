@@ -67,6 +67,12 @@ final class ResponseAbstractTest extends \PHPUnit\Framework\TestCase
         self::assertEquals([1], $this->response->jsonSerialize());
     }
 
+    public function testDataAllInputOutput() : void
+    {
+        $this->response->set('asdf', false);
+        self::assertFalse(['asdf' => false], $this->response->getData());
+    }
+
     /**
      * @testdox Data can be set and returned for the response
      * @covers phpOMS\Message\ResponseAbstract
@@ -76,5 +82,83 @@ final class ResponseAbstractTest extends \PHPUnit\Framework\TestCase
     {
         $this->response->set('asdf', false);
         self::assertFalse($this->response->getData('asdf'));
+    }
+
+    /**
+     * @testdox Data can be set and returned for the response
+     * @covers phpOMS\Message\ResponseAbstract
+     * @group framework
+     */
+    public function testDataStringInputOutput() : void
+    {
+        $this->response->set('asdf', 1);
+        self::assertEquals('1', $this->response->getDataString('asdf'));
+        self::assertEquals('1', $this->response->getData('asdf', 'string'));
+    }
+
+    /**
+     * @testdox Data can be set and returned for the response
+     * @covers phpOMS\Message\ResponseAbstract
+     * @group framework
+     */
+    public function testDataBoolInputOutput() : void
+    {
+        $this->response->set('asdf', 1);
+        self::assertEquals(true, $this->response->getDataBool('asdf'));
+        self::assertEquals(true, $this->response->getData('asdf', 'bool'));
+    }
+
+    /**
+     * @testdox Data can be set and returned for the response
+     * @covers phpOMS\Message\ResponseAbstract
+     * @group framework
+     */
+    public function testDataFloatInputOutput() : void
+    {
+        $this->response->set('asdf', 1);
+        self::assertEquals(1.0, $this->response->getDataFloat('asdf'));
+        self::assertEquals(1.0, $this->response->getData('asdf', 'float'));
+    }
+
+    /**
+     * @group framework
+     */
+    public function testDataJsonInputOutput() : void
+    {
+        $this->response->set('asdf', '[1,2,3]');
+        self::assertEquals([1,2,3], $this->response->getDataJson('asdf'));
+        self::assertEquals([1,2,3], $this->response->getData('asdf', 'json'));
+    }
+
+    /**
+     * @testdox Data can be set and returned for the response
+     * @covers phpOMS\Message\ResponseAbstract
+     * @group framework
+     */
+    public function testDataDateTimeInputOutput() : void
+    {
+        $this->response->set('asdf', '2023-01-01');
+        self::assertEquals((new \DateTime('2023-01-01'))->format('Y-m-d'), $this->response->getDataDateTime('asdf'));
+        self::assertEquals((new \DateTime('2023-01-01'))->format('Y-m-d'), $this->response->getData('asdf', 'float'));
+    }
+
+    public function testDataInvalidTypeInputOutput() : void
+    {
+        $this->response->set('asdf', 1);
+        self::assertEquals(1, $this->response->getData('asdf', 'invalid'));
+    }
+
+    /**
+     * @testdox Data can be set and returned for the response
+     * @covers phpOMS\Message\ResponseAbstract
+     * @group framework
+     */
+    public function testInvalidDataTypeInputOutput() : void
+    {
+        self::assertEquals(null, $this->response->getDataString('a'));
+        self::assertEquals(null, $this->response->getDataBool('a'));
+        self::assertEquals(null, $this->response->getDataInt('a'));
+        self::assertEquals(null, $this->response->getDataFloat('a'));
+        self::assertEquals(null, $this->response->getDataDateTime('a'));
     }
 }

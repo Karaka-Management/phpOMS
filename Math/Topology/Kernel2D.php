@@ -22,7 +22,7 @@ namespace phpOMS\Math\Topology;
  * @link    https://jingga.app
  * @since   1.0.0
  */
-final class Kernels2D
+final class Kernel2D
 {
     /**
      * Constructor

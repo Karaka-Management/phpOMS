@@ -99,4 +99,13 @@ class Node
     {
         return $this->data <=> $data;
     }
+
+    public function toArray() : array
+    {
+        return [
+            'key' => $this->key,
+            0 => $this->left?->toArray(),
+            1 => $this->right?->toArray(),
+        ];
+    }
 }

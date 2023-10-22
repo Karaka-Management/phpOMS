@@ -38,15 +38,13 @@ class DocumentParser
      */
     public static function parseDocument(string $path, string $output = 'html') : string
     {
-        if ($output === 'html') {
-            $doc = IOFactory::load($path);
+        $doc = IOFactory::load($path);
 
+        if ($output === 'html') {
             $writer = new HTML($doc);
 
             return $writer->getContent();
         } elseif ($output === 'pdf') {
-            $doc = IOFactory::load($path);
-
             $writer = new DocumentWriter($doc);
 
             return $writer->toPdfString();

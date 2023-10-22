@@ -391,7 +391,7 @@ class Builder extends BuilderAbstract
         }
 
         // add from to existing dependencies
-        foreach ($this->from as $table => $from) {
+        foreach ($this->from as $table => $_) {
             $dependencies[$table] = [];
         }
 

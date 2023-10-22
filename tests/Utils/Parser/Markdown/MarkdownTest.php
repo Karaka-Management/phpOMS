@@ -52,4 +52,34 @@ final class MarkdownTest extends \PHPUnit\Framework\TestCase
 
         self::assertTrue(\file_get_contents(__DIR__ . '/manualdata/xss_bad_url.html') === ($parsed = $parser->text(\file_get_contents(__DIR__ . '/manualdata/xss_bad_url.md'))), $parsed);
     }
+
+    public function testTablespan() : void
+    {
+        $parser = new Markdown([
+            'tables' => [
+                'tablespan' => true
+            ]
+        ]);
+
+        self::assertTrue(\file_get_contents(__DIR__ . '/manualdata/tablespan.html') === ($parsed = $parser->text(\file_get_contents(__DIR__ . '/manualdata/tablespan.md'))), $parsed);
+    }
+
+    public function testMath() : void
+    {
+        $parser = new Markdown([
+            'math' => true
+        ]);
+
+        self::assertTrue(\file_get_contents(__DIR__ . '/manualdata/katex.html') === ($parsed = $parser->text(\file_get_contents(__DIR__ . '/manualdata/katex.md'))), $parsed);
+    }
+
+    public function testTOC() : void
+    {
+        $parser = new Markdown([
+            'toc' => true
+        ]);
+
+        self::assertTrue(\file_get_contents(__DIR__ . '/manualdata/toc.html') === ($parsed = $parser->text(\file_get_contents(__DIR__ . '/manualdata/toc.md'))), $parsed);
+        self::assertTrue('' === $parser->contentsList());
+    }
 }

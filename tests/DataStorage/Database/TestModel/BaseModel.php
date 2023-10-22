@@ -22,6 +22,10 @@ class BaseModel
 
     public string $string = 'Base';
 
+    public string $compress = 'Uncompressed';
+
+    private string $pstring = 'Private';
+
     public string $conditional = '';
 
     public int $int = 11;
@@ -40,9 +44,17 @@ class BaseModel
 
     public array $hasManyRelations = [];
 
+    private array $hasManyDirectPrivate = [];
+
+    private array $hasManyRelationsPrivate = [];
+
     public $ownsOneSelf = 0;
 
     public $belongsToOne = 0;
+
+    private $ownsOneSelfPrivate = 0;
+
+    private $belongsToOnePrivate = 0;
 
     public ?object $serializable = null;
 
@@ -60,6 +72,16 @@ class BaseModel
         ];
 
         $this->hasManyRelations = [
+            new ManyToManyRelModel(),
+            new ManyToManyRelModel(),
+        ];
+
+        $this->hasManyDirectPrivate = [
+            new ManyToManyDirectModel(),
+            new ManyToManyDirectModel(),
+        ];
+
+        $this->hasManyRelationsPrivate = [
             new ManyToManyRelModel(),
             new ManyToManyRelModel(),
         ];
@@ -87,6 +109,11 @@ class BaseModel
                 return [1, 2, 3];
             }
         };
+    }
+
+    public function getPString() : string
+    {
+        return $this->pstring;
     }
 
     public function getId() : int

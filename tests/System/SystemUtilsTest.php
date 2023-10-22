@@ -52,4 +52,9 @@ final class SystemUtilsTest extends \PHPUnit\Framework\TestCase
     {
         self::assertGreaterThan(0, SystemUtils::getCpuUsage());
     }
+
+    public function testHostname() : void
+    {
+        self::assertEquals('localhost.localdomain', SystemUtils::getHostname());
+    }
 }

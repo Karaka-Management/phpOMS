@@ -290,4 +290,9 @@ class BinarySearchTree
             $this->delete($temp);
         }
     }
+
+    public function toArray() : array
+    {
+        return $this->root?->toArray() ?? ['key' => null, 0 => null, 1 => null];
+    }
 }

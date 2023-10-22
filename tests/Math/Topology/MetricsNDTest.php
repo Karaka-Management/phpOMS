@@ -93,6 +93,20 @@ final class MetricsNDTest extends \PHPUnit\Framework\TestCase
     }
 
     /**
+     * @testdox The cosine distance can be calculated
+     * @covers phpOMS\Math\Topology\MetricsND
+     * @group framework
+     */
+    public function testCosine() : void
+    {
+        self::assertEqualsWithDelta(
+            14 / 15,
+            MetricsND::cosine(['x' => 3, 'y' => 4, 'z' => 0], ['x' => 4, 'y' => 4, 'z' => 2]),
+            0.1
+        );
+    }
+
+    /**
      * @testdox The bray-curtis distance can be calculated
      * @covers phpOMS\Math\Topology\MetricsND
      * @group framework
@@ -191,6 +205,18 @@ final class MetricsNDTest extends \PHPUnit\Framework\TestCase
         $this->expectException(\phpOMS\Math\Matrix\Exception\InvalidDimensionException::class);
 
         MetricsND::canberra([3, 6, 4], [4, 6, 8, 3]);
+    }
+
+    /**
+     * @testdox Different dimension sizes for the coordinates in the cosine metric throw a InvalidDimensionException
+     * @covers phpOMS\Math\Topology\MetricsND
+     * @group framework
+     */
+    public function testInvalidCosineDimension() : void
+    {
+        $this->expectException(\phpOMS\Math\Matrix\Exception\InvalidDimensionException::class);
+
+        MetricsND::cosine([3, 6, 4], [4, 6, 8, 3]);
     }
 
     /**

@@ -34,13 +34,16 @@ final class Nominatim
     /**
      * {@inheritdoc}
      */
-    public static function geocoding(string $country, string $city, string $address = '') : array
+    public static function geocoding(string $country, string $city, string $address = '', string $postal = '') : array
     {
         $URL = 'https://nominatim.openstreetmap.org/search.php?format=jsonv2';
 
         $request = new HttpRequest(
             new HttpUri(
-                $URL . '&country=' . \urlencode($country) . '&city=' . \urlencode($city) . ($address === '' ? '' : '&street=' . \urlencode($address))
+                $URL . '&country=' . \urlencode($country)
+                . '&city=' . \urlencode($city)
+                . ($address === '' ? '' : '&street=' . \urlencode($address))
+                . ($postal === '' ? '' : '&postalcode=' . \urlencode($postal))
             )
         );
         $request->setMethod(RequestMethod::GET);

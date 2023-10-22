@@ -38,9 +38,9 @@ class SpreadsheetParser
      */
     public static function parseSpreadsheet(string $path, string $output = 'json') : string
     {
-        if ($output === 'json') {
-            $spreadsheet = IOFactory::load($path);
+        $spreadsheet = IOFactory::load($path);
 
+        if ($output === 'json') {
             $sheetCount = $spreadsheet->getSheetCount();
             $csv        = [];
 
@@ -52,8 +52,6 @@ class SpreadsheetParser
 
             return $json === false ? '' : $json;
         } elseif ($output === 'pdf') {
-            $spreadsheet = IOFactory::load($path);
-
             $spreadsheet->getActiveSheet()->setShowGridLines(false);
             $spreadsheet->getActiveSheet()->getPageSetup()->setOrientation(PageSetup::ORIENTATION_LANDSCAPE);
 
@@ -64,8 +62,6 @@ class SpreadsheetParser
 
             return $writer->toPdfString();
         } elseif ($output === 'html') {
-            $spreadsheet = IOFactory::load($path);
-
             IOFactory::registerWriter('custom', \phpOMS\Utils\Parser\Spreadsheet\SpreadsheetWriter::class);
             /** @var \phpOMS\Utils\Parser\Spreadsheet\SpreadsheetWriter $writer */
             $writer = IOFactory::createWriter($spreadsheet, 'custom');

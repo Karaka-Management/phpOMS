@@ -492,4 +492,181 @@ final class MatrixTest extends \PHPUnit\Framework\TestCase
 
         $A->mult($B);
     }
+
+    public function testDotVectors() : void
+    {
+        $v1 = Vector::fromArray([1, 3, -5]);
+
+        self::assertEquals(
+            3,
+            $v1->dot(Vector::fromArray([4, -2, -1]))
+        );
+    }
+
+    public function testDotMatrices() : void
+    {
+        $m = Matrix::fromArray([
+            [1, 2, 3],
+            [4, 5, 6],
+        ]);
+
+        self::assertEquals(
+            [
+                [58, 64],
+                [139, 154],
+            ],
+            $m->dot(
+                Matrix::fromArray([
+                    [7, 8],
+                    [9, 10],
+                    [11, 12],
+                ])
+            )->toArray()
+        );
+    }
+
+    public function testDotVectorMatrix() : void
+    {
+        $v = Vector::fromArray([3, 4]);
+
+        self::assertEquals(
+            [11, 39, 53],
+            $v->dot(
+                MAtrix::fromArray([
+                    [1, 5, 7],
+                    [2, 6, 8],
+                ])
+            )->toArray()
+        );
+    }
+
+    public function testDotMatrixVector() : void
+    {
+        $m = Matrix::fromArray([
+            [1, 2],
+            [5, 6],
+            [7, 8],
+        ]);
+
+        self::assertEquals(
+            [11, 39, 53],
+            $m->dot(
+                Vector::fromArray([3, 4])
+            )->toArray()
+        );
+    }
+
+    public function testSumAll() : void
+    {
+        $m = Matrix::fromArray([
+            [1, 2, 3],
+            [4, 5, 6],
+            [7, 8, 9],
+        ]);
+
+        self::assertEquals(
+            45,
+            $m->sum(-1)
+        );
+    }
+
+    public function testSumColumns() : void
+    {
+        $m = Matrix::fromArray([
+            [1, 2, 3],
+            [4, 5, 6],
+            [7, 8, 9],
+        ]);
+
+        self::assertEquals(
+            [12, 15, 18],
+            $m->sum(0)
+        );
+    }
+
+    public function testSumRows() : void
+    {
+        $m = Matrix::fromArray([
+            [1, 2, 3],
+            [4, 5, 6],
+            [7, 8, 9],
+        ]);
+
+        self::assertEquals(
+            [6, 15, 24],
+            $m->sum(1)
+        );
+    }
+
+    public function testDiaglonal() : void
+    {
+        $m = Matrix::fromArray([
+            [1, 2, 3],
+            [4, 5, 6],
+            [7, 8, 9],
+        ]);
+
+        self::assertFalse($m->isDiagonal());
+
+        $m = Matrix::fromArray([
+            [1, 0, 0],
+            [0, 5, 0],
+            [0, 0, -8],
+        ]);
+
+        self::assertFalse($m->isDiagonal());
+    }
+
+    public function testPow() : void
+    {
+        $m = Matrix::fromArray([
+            [1, 2, 3],
+            [4, 5, 6],
+            [7, 8, 9],
+        ]);
+
+        self::assertEquals(
+            [
+                [30, 36, 42],
+                [66, 81, 96],
+                [102, 126, 150],
+            ],
+            $m->pow(2)->toArray()
+        );
+
+        $m = Matrix::fromArray([
+            [1.5, 2.5, 3.5],
+            [4.5, 5.5, 6.5],
+            [7.5, 8.5, 9.5],
+        ]);
+
+        self::assertEqualsWithDelta(
+            [
+                [39.75, 47.25, 54.75],
+                [80.25, 96.75, 113.25],
+                [120.75, 146.25, 171.75],
+            ],
+            $m->pow(2.5)->toArray(),
+            0.1
+        );
+    }
+
+    public function testExp() : void
+    {
+        $m = Matrix::fromArray([
+            [1, 2, 3],
+            [4, 5, 6],
+            [7, 8, 9],
+        ]);
+
+        self::assertEqualsWithDelta(
+            [
+                [1118906.6994131860386, 1374815.062935806540981, 1630724.426458427043361],
+                [2533881.041898971697907, 3113415.03138055427637, 3692947.020862136854833],
+                [3948856.384384757357213, 4852012.999825302011759, 5755170.615265846666304],
+            ],
+            $m->exp()->toArray(),
+            0.1
+        );
+    }
 }

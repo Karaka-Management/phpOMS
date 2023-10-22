@@ -28,7 +28,7 @@ final class BetaTest extends \PHPUnit\Framework\TestCase
      * @covers phpOMS\Math\Functions\Beta
      * @group framework
      */
-    public function beta() : void
+    public function testBeta() : void
     {
         self::assertEqualsWithDelta(1.0, Beta::beta(0, 3), 0.001);
         self::assertEqualsWithDelta(4.4776093, Beta::beta(1.5, 0.2), 0.001);
