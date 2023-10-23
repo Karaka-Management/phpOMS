@@ -507,6 +507,10 @@ final class MatrixTest extends \PHPUnit\Framework\TestCase
         );
     }
 
+    /**
+     * @covers phpOMS\Math\Matrix\Matrix
+     * @group framework
+     */
     public function testDotMatrices() : void
     {
         $m = Matrix::fromArray([
