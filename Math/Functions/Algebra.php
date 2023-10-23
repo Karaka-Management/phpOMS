@@ -48,6 +48,10 @@ final class Algebra
         $n2 = ($isMatrix2 = \is_array($value2[0])) ? \count($value2[0]) : 1;
 
         if (!$isMatrix1 && $isMatrix2) {
+            $temp   = $value1;
+            $value1 = $value1;
+            $value2 = $temp;
+
             $m1 = \count($value1);
             $n1 = ($isMatrix1 = \is_array($value1[0])) ? \count($value1[0]) : 1;
 

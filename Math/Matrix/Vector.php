@@ -127,7 +127,7 @@ final class Vector extends Matrix
     /**
      * Calculate the eucledian dot product
      *
-     * @param selft $vector Vector
+     * @param self $vector Vector
      *
      * @return float
      *
