@@ -41,10 +41,33 @@ final class BinarySearchTreeTest extends \PHPUnit\Framework\TestCase
                 'key' => 'D',
                 0 => [
                     'key' => 'A',
-                    [0 => null, 1 => null]
+                    0 => null,
+                    1 => null
                 ],
                 1 => [
-
+                    'key' => 'I',
+                    0 => null,
+                    1 => [
+                        'key' => 'N',
+                        0 => null,
+                        1 => [
+                            'key' => 'O',
+                            0 => null,
+                            1 => [
+                                'key' => 'S',
+                                0 => [
+                                    'key' => 'R',
+                                    0 => null,
+                                    1 => null
+                                ],
+                                1 => [
+                                    'key' => 'U',
+                                    0 => null,
+                                    1 => null
+                                ],
+                            ],
+                        ],
+                    ],
                 ],
             ],
             $bst->toArray()

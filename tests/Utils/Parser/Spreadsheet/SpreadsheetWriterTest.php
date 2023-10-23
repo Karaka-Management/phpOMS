@@ -29,7 +29,11 @@ final class SpreadsheetWriterTest extends \PHPUnit\Framework\TestCase
         $sheet = IOFactory::load(__DIR__ . '/data/Excel.xlsx');
         $writer = new SpreadsheetWriter($sheet);
 
-        $pdf = $writer->toPdfString(__DIR__ . '/data/Mpdf.pdf');
-        self::assertTrue(\is_file(__DIR__ . '/data/Mpdf.pdf'));
+        $pdf = $writer->toPdfString(__DIR__ . '/data/ExcelMpdf.pdf');
+        self::assertFalse(\is_file(__DIR__ . '/data/ExcelMpdf.pdf'));
+
+        \file_put_contents(__DIR__ . '/data/ExcelMpdf.pdf', $pdf);
+        self::assertTrue(\is_file(__DIR__ . '/data/ExcelMpdf.pdf'));
+        self::assertGreaterThan(100, \strlen(\file_get_contents(__DIR__ . '/data/ExcelMpdf.pdf')));
     }
 }
