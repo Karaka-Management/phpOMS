@@ -3914,7 +3914,7 @@ class Markdown
                         continue;
                     }
 
-                    $markup .= " {$name}=\"".self::escape($value).'"';
+                    $markup .= " {$name}=\"".self::escape((string) $value).'"';
                 }
             }
         }
