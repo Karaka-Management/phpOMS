@@ -27,7 +27,7 @@ use phpOMS\Math\Matrix\Exception\InvalidDimensionException;
 final class Algebra
 {
     /**
-     * Get the dot product of two arrays
+     * Get the product of two arrays
      *
      * @param array $value1 Value 1 is a matrix or a vector
      * @param array $value2 Value 2 is a matrix or vector (cannot be a matrix if value1 is a vector)
@@ -39,13 +39,21 @@ final class Algebra
      *
      * @since 1.0.0
      */
-    public static function dot(array $value1, array $value2) : int|float|array
+    public static function mult(array $value1, array $value2) : int|float|array
     {
         $m1 = \count($value1);
         $n1 = ($isMatrix1 = \is_array($value1[0])) ? \count($value1[0]) : 1;
 
         $m2 = \count($value2);
         $n2 = ($isMatrix2 = \is_array($value2[0])) ? \count($value2[0]) : 1;
+
+        if (!$isMatrix1 && $isMatrix2) {
+            $m1 = \count($value1);
+            $n1 = ($isMatrix1 = \is_array($value1[0])) ? \count($value1[0]) : 1;
+
+            $m2 = \count($value2);
+            $n2 = ($isMatrix2 = \is_array($value2[0])) ? \count($value2[0]) : 1;
+        }
 
         $result = null;
 
@@ -91,6 +99,37 @@ final class Algebra
         }
 
         return $result;
+    }
+
+    /**
+     * Calculate the eucledian dot product
+     *
+     * @param array $value1 Vector 1
+     * @param array $value2 Vector 2
+     *
+     * @return float
+     *
+     * @since 1.0.0
+     */
+    public function dot(array $value1, array $value2) : float
+    {
+        $length = \count($value1);
+        $m1     = 0;
+        $m2     = 0;
+        $prod   = 0;
+
+        for ($i = 0; $i < $length; ++$i) {
+            $m1   += $value1[$i] * $value1[$i];
+            $m2   += $value2[$i] * $value2[$i];
+            $prod += $value1[$i] * $value2[$i];
+        }
+
+        $m1 = \sqrt($m1);
+        $m2 = \sqrt($m2);
+
+        $cos = $prod / ($m1 * $m2);
+
+        return $m1 * $m2 * $cos;
     }
 
     /**

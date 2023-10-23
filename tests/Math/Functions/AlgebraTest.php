@@ -23,22 +23,22 @@ use phpOMS\Math\Functions\Algebra;
  */
 final class AlgebraTest extends \PHPUnit\Framework\TestCase
 {
-    public function testDotVectors() : void
+    public function testMultVectors() : void
     {
         self::assertEquals(
             3,
-            Algebra::dot([1, 3, -5], [4, -2, -1])
+            Algebra::mult([1, 3, -5], [4, -2, -1])
         );
     }
 
-    public function testDotMatrices() : void
+    public function testMultMatrices() : void
     {
         self::assertEquals(
             [
                 [58, 64],
                 [139, 154],
             ],
-            Algebra::dot(
+            Algebra::mult(
                 [
                     [1, 2, 3],
                     [4, 5, 6],
@@ -52,11 +52,11 @@ final class AlgebraTest extends \PHPUnit\Framework\TestCase
         );
     }
 
-    public function testDotVectorMatrix() : void
+    public function testMultVectorMatrix() : void
     {
         self::assertEquals(
             [11, 39, 53],
-            Algebra::dot(
+            Algebra::mult(
                 [3, 4],
                 [
                     [1, 5, 7],
@@ -66,11 +66,11 @@ final class AlgebraTest extends \PHPUnit\Framework\TestCase
         );
     }
 
-    public function testDotMatrixVector() : void
+    public function testMultMatrixVector() : void
     {
         self::assertEquals(
             [11, 39, 53],
-            Algebra::dot(
+            Algebra::mult(
                 [
                     [1, 2],
                     [5, 6],

@@ -123,6 +123,65 @@ final class Vector extends Matrix
         return $dotProduct / ($magnitude1 * $magnitude2);
     }
 
+
+    /**
+     * Calculate the eucledian dot product
+     *
+     * @param selft $vector Vector
+     *
+     * @return float
+     *
+     * @since 1.0.0
+     */
+    public function dot(self $vector) : float
+    {
+        $length = $this->m;
+        $m1     = 0;
+        $m2     = 0;
+        $prod   = 0;
+
+        for ($i = 0; $i < $length; ++$i) {
+            $m1   += $this->matrix[$i][0] * $this->matrix[$i][0];
+            $m2   += $vector->matrix[$i][0] * $vector->matrix[$i][0];
+            $prod += $this->matrix[$i][0] * $vector->matrix[$i][0];
+        }
+
+        $m1 = \sqrt($m1);
+        $m2 = \sqrt($m2);
+
+        $cos = $prod / ($m1 * $m2);
+
+        return $m1 * $m2 * $cos;
+    }
+
+    /**
+     * Calculate the angle between two vectors
+     *
+     * @param self $vector Vector
+     *
+     * @return float
+     *
+     * @since 1.0.0
+     */
+    public function angle(self $vector) : float
+    {
+        $length = $this->m;
+        $m1     = 0;
+        $m2     = 0;
+        $prod   = 0;
+
+        for ($i = 0; $i < $length; ++$i) {
+            $m1   += $this->matrix[$i][0] * $this->matrix[$i][0];
+            $m2   += $vector->matrix[$i][0] * $vector->matrix[$i][0];
+            $prod += $this->matrix[$i][0] * $vector->matrix[$i][0];
+        }
+
+        $m1 = \sqrt($m1);
+        $m2 = \sqrt($m2);
+
+        return \acos($prod / ($m1 * $m2));
+    }
+
     /**
      * Calculate the cross product
      *
