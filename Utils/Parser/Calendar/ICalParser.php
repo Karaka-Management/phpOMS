@@ -69,8 +69,8 @@ class ICalParser
             \preg_match('/GEO:(.*?)\n/', $match[1], $geo);
             $temp         = \explode(';', $geo[1]);
             $event['geo'] = [
-                'lat' => (float) $temp[0],
-                'lon' => (float) $temp[1],
+                'lat' => (float) \trim($temp[0] ?? '0'),
+                'lon' => (float) \trim($temp[1] ?? '0'),
             ];
 
             \preg_match('/URL:(.*?)\n/', $match[1], $url);
