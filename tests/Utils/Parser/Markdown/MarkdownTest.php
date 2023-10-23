@@ -87,11 +87,11 @@ final class MarkdownTest extends \PHPUnit\Framework\TestCase
         $parser = new Markdown([
             'toc' => true
         ]);
+        $parser->text(\file_get_contents(__DIR__ . '/manualdata/toc.md'));
 
         self::assertEquals(
             \file_get_contents(__DIR__ . '/manualdata/toc.html'),
-            $parser->text(\file_get_contents(__DIR__ . '/manualdata/toc.md'))
+            $parser->contentsList()
         );
-        self::assertEquals('', $parser->contentsList());
     }
 }
