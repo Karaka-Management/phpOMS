@@ -493,6 +493,10 @@ final class MatrixTest extends \PHPUnit\Framework\TestCase
         $A->mult($B);
     }
 
+    /**
+     * @covers phpOMS\Math\Matrix\Matrix
+     * @group framework
+     */
     public function testDotVectors() : void
     {
         $v1 = Vector::fromArray([1, 3, -5])->transpose();
