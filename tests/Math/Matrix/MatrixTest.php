@@ -533,6 +533,10 @@ final class MatrixTest extends \PHPUnit\Framework\TestCase
         );
     }
 
+    /**
+     * @covers phpOMS\Math\Matrix\Matrix
+     * @group framework
+     */
     public function testDotVectorMatrix() : void
     {
         $v = Vector::fromArray([3, 4])->transpose();
