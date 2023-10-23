@@ -50,7 +50,10 @@ final class MarkdownTest extends \PHPUnit\Framework\TestCase
         $parser = new Markdown();
         $parser->setSafeMode(true);
 
-        self::assertTrue(\file_get_contents(__DIR__ . '/manualdata/xss_bad_url.html') === ($parsed = $parser->text(\file_get_contents(__DIR__ . '/manualdata/xss_bad_url.md'))), $parsed);
+        self::assertEquals(
+            \file_get_contents(__DIR__ . '/manualdata/xss_bad_url.html'),
+            $parser->text(\file_get_contents(__DIR__ . '/manualdata/xss_bad_url.md'))
+        );
     }
 
     public function testTablespan() : void
@@ -61,7 +64,10 @@ final class MarkdownTest extends \PHPUnit\Framework\TestCase
             ]
         ]);
 
-        self::assertTrue(\file_get_contents(__DIR__ . '/manualdata/tablespan.html') === ($parsed = $parser->text(\file_get_contents(__DIR__ . '/manualdata/tablespan.md'))), $parsed);
+        self::assertEquals(
+            \file_get_contents(__DIR__ . '/manualdata/tablespan.html'),
+            $parser->text(\file_get_contents(__DIR__ . '/manualdata/tablespan.md'))
+        );
     }
 
     public function testMath() : void
@@ -70,7 +76,10 @@ final class MarkdownTest extends \PHPUnit\Framework\TestCase
             'math' => true
         ]);
 
-        self::assertTrue(\file_get_contents(__DIR__ . '/manualdata/katex.html') === ($parsed = $parser->text(\file_get_contents(__DIR__ . '/manualdata/katex.md'))), $parsed);
+        self::assertEquals(
+            \file_get_contents(__DIR__ . '/manualdata/katex.html'),
+            $parser->text(\file_get_contents(__DIR__ . '/manualdata/katex.md'))
+        );
     }
 
     public function testTOC() : void
@@ -79,7 +88,10 @@ final class MarkdownTest extends \PHPUnit\Framework\TestCase
             'toc' => true
         ]);
 
-        self::assertTrue(\file_get_contents(__DIR__ . '/manualdata/toc.html') === ($parsed = $parser->text(\file_get_contents(__DIR__ . '/manualdata/toc.md'))), $parsed);
-        self::assertTrue('' === $parser->contentsList());
+        self::assertEquals(
+            \file_get_contents(__DIR__ . '/manualdata/toc.html'),
+            $parser->text(\file_get_contents(__DIR__ . '/manualdata/toc.md'))
+        );
+        self::assertEquals('', $parser->contentsList());
     }
 }

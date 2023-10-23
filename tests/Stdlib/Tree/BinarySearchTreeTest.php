@@ -35,6 +35,16 @@ final class BinarySearchTreeTest extends \PHPUnit\Framework\TestCase
         $bst->insert(new Node('A', 'A'));
         $bst->insert(new Node('U', 'U'));
         $bst->insert(new Node('R', 'R'));
+
+        self::assertEquals(
+            [
+                'key' => 'D',
+                0 => ['key' => 'I'],
+                1 => ['key' => 'I'],
+            ],
+            $bst->toArray()
+        );
+
         $bst->delete($bst->search('I'));
         $bst->insert(new Node('Z', 'Z'));
 
