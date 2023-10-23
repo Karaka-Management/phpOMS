@@ -700,48 +700,6 @@ class Matrix implements \ArrayAccess, \Iterator
     }
 
     /**
-     * Dot product
-     *
-     * @param self $B Matrix
-     *
-     * @return self
-     *
-     * @since 1.0.0
-     */
-    public function dot(self $B) : self
-    {
-        $value1 = $this->matrix;
-        $value2 = $B->toArray();
-
-        $m1 = \count($value1);
-        $n1 = \count($value1[0]);
-
-        $m2 = \count($value2);
-        $n2 = \count($value2[0]);
-
-        $result = null;
-
-        if ($m2 !== $n1) {
-            throw new InvalidDimensionException($m2 . 'x' . $n2 . ' not compatible with ' . $m1 . 'x' . $n1);
-        }
-
-        $result = [[]];
-        for ($i = 0; $i < $m1; ++$i) { // Row of 1
-            for ($c = 0; $c < $n2; ++$c) { // Column of 2
-                $temp = 0;
-
-                for ($j = 0; $j < $m2; ++$j) { // Row of 2
-                    $temp += $value1[$i][$j] * $value2[$j][$c];
-                }
-
-                $result[$i][$c] = $temp;
-            }
-        }
-
-        return self::fromArray($result);
-    }
-
-    /**
      * Sum the elements in the matrix.
      *
      * @param int $axis Axis (-1 -> all dimensions, 0 -> columns, 1 -> rows)
