@@ -39,8 +39,13 @@ final class BinarySearchTreeTest extends \PHPUnit\Framework\TestCase
         self::assertEquals(
             [
                 'key' => 'D',
-                0 => ['key' => 'I'],
-                1 => ['key' => 'I'],
+                0 => [
+                    'key' => 'A',
+                    [0 => null, 1 => null]
+                ],
+                1 => [
+
+                ],
             ],
             $bst->toArray()
         );

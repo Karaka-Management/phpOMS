@@ -113,17 +113,13 @@ class ICalParser
         \preg_match('/BYMONTHDAY=(.*?);/', $rruleString, $monthdayMatch);
         $rrule['bymonthday'] = $monthdayMatch[1] ?? null;
 
-        if (\preg_match('/COUNT=(.*?);/', $rruleString, $countMatch)) {
-            $rrule['count'] = (int) ($countMatch[1] ?? 0);
-        } else {
-            $rrule['count'] = null;
-        }
+        $rrule['count'] = \preg_match('/COUNT=(.*?);/', $rruleString, $countMatch)
+            ? (int) ($countMatch[1] ?? 0)
+            : null;
 
-        if (\preg_match('/UNTIL=(.*?);/', $rruleString, $untilMatch)) {
-            $rrule['until'] = $untilMatch[1] ?? null;
-        } else {
-            $rrule['until'] = null;
-        }
+        $rrule['until'] = \preg_match('/UNTIL=(.*?);/', $rruleString, $untilMatch)
+            ? $untilMatch[1] ?? null
+            : null;
 
         return $rrule;
     }

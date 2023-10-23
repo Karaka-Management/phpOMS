@@ -30,6 +30,10 @@ final class DocumentWriterTest extends \PHPUnit\Framework\TestCase
         $writer = new DocumentWriter($doc);
 
         $pdf = $writer->toPdfString(__DIR__ . '/data/Mpdf.pdf');
+        self::assertFalse(\is_file(__DIR__ . '/data/Mpdf.pdf'));
+
+        \file_put_contents(__DIR__ . '/data/Mpdf.pdf', $pdf);
         self::assertTrue(\is_file(__DIR__ . '/data/Mpdf.pdf'));
+        self::assertGreaterThan(100, \strlen(\file_get_contents(__DIR__ . '/data/Mpdf.pdf')));
     }
 }
