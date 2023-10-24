@@ -44,7 +44,7 @@ final class DependencyResolverTest extends \PHPUnit\Framework\TestCase
     public function testResolve() : void
     {
         self::assertEquals(
-            [0, 1, 2, 3],
+            [2, 3, 1, 0],
             DependencyResolver::resolve([0 => [1, 2], 1 => [2, 3], 2 => [], 3 => []])
         );
     }
