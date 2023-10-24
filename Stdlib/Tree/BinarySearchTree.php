@@ -192,6 +192,8 @@ class BinarySearchTree
 
                     $BST->root     = $new;
                     $current->left = $BST;
+
+                    return;
                 } else {
                     $current = $current->left->root;
                 }
@@ -204,12 +206,14 @@ class BinarySearchTree
 
                     $BST->root      = $new;
                     $current->right = $BST;
+
+                    return;
                 } else {
                     $current = $current->right->root;
                 }
+            } else {
+                return;
             }
-
-            return;
         }
     }
 
@@ -308,6 +312,6 @@ class BinarySearchTree
      */
     public function toArray() : array
     {
-        return $this->root?->toArray() ?? ['key' => null, 0 => null, 1 => null];
+        return $this->root?->toArray() ?? null;
     }
 }

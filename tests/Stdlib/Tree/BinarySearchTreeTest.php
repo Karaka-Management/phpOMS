@@ -14,6 +14,8 @@ declare(strict_types=1);
 
 namespace phpOMS\tests\Stdlib\Tree;
 
+include_once __DIR__ . '/../../Autoloader.php';
+
 use phpOMS\Stdlib\Tree\BinarySearchTree;
 use phpOMS\Stdlib\Tree\Node;
 
@@ -24,7 +26,7 @@ use phpOMS\Stdlib\Tree\Node;
  */
 final class BinarySearchTreeTest extends \PHPUnit\Framework\TestCase
 {
-    public function testBST() : void
+    public function testInsert() : void
     {
         $bst = new BinarySearchTree();
         $bst->insert(new Node('D', 'D'));
@@ -72,19 +74,74 @@ final class BinarySearchTreeTest extends \PHPUnit\Framework\TestCase
             ],
             $bst->toArray()
         );
+    }
 
+    public function testSearch() : void
+    {
+        $bst = new BinarySearchTree();
+        $bst->insert(new Node('D', 'D'));
+        $bst->insert(new Node('I', 'I'));
+        $bst->insert(new Node('N', 'N'));
+        $bst->insert(new Node('O', 'O'));
+        $bst->insert(new Node('S', 'S'));
+        $bst->insert(new Node('A', 'A'));
+        $bst->insert(new Node('U', 'U'));
+        $bst->insert(new Node('R', 'R'));
+
+        self::assertEquals('S', $bst->search('S')->key);
+        self::assertEquals('U', $bst->search('U')->key);
+        self::assertEquals('R', $bst->search('R')->key);
+    }
+
+    public function testDelete() : void
+    {
+        $bst = new BinarySearchTree();
+        $bst->insert(new Node('D', 'D'));
+        $bst->insert(new Node('I', 'I'));
+        $bst->insert(new Node('N', 'N'));
+        $bst->insert(new Node('O', 'O'));
+        $bst->insert(new Node('S', 'S'));
+        $bst->insert(new Node('A', 'A'));
+        $bst->insert(new Node('U', 'U'));
+        $bst->insert(new Node('R', 'R'));
         $bst->delete($bst->search('I'));
         $bst->insert(new Node('Z', 'Z'));
-
-        // @todo: this breaks stuff, why?
-        //$bst->delete($bst->search('S'));
-        //$bst->insert(new Node('T', 'T'));
+        $bst->delete($bst->search('S'));
+        $bst->insert(new Node('T', 'T'));
 
         self::assertEquals(
             [
                 'key' => 'D',
-                0 => ['key' => 'I'],
-                1 => ['key' => 'I'],
+                0 => [
+                    'key' => 'A',
+                    0 => null,
+                    1 => null
+                ],
+                1 => [
+                    'key' => 'N',
+                    0 => null,
+                    1 => [
+                        'key' => 'O',
+                        0 => null,
+                        1 => [
+                            'key' => 'R',
+                            0 => null,
+                            1 => [
+                                'key' => 'U',
+                                0 => [
+                                    'key' => 'T',
+                                    0 => null,
+                                    1 => null
+                                ],
+                                1 => [
+                                    'key' => 'Z',
+                                    0 => null,
+                                    1 => null
+                                ],
+                            ],
+                        ],
+                    ],
+                ],
             ],
             $bst->toArray()
         );
