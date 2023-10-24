@@ -9,6 +9,7 @@
  * @license   OMS License 2.0
  * @version   1.0.0
  * @link      https://jingga.app
+ * @link      https://github.com/PetarV-/Algorithms/blob/master/Data%20Structures/Binary%20Search%20Tree.cpp
  */
 declare(strict_types=1);
 
@@ -229,19 +230,19 @@ class BinarySearchTree
     public function delete(Node $node) : void
     {
         if ($node->left === null && $node->right === null) {
-            if ($node->parent !== null) {
-                if ($node->parent->left !== null
-                    && $node->parent->left->root?->compare($node->data) === 0
-                ) {
-                    $node->parent->left = null;
-                } elseif ($node->parent->right !== null
-                    && $node->parent->right->root?->compare($node->data) === 0
-                ) {
-                    $node->parent->right = null;
-                }
+            if ($node->parent === null) {
+                return;
             }
 
-            //$node = null;
+            if ($node->parent->left !== null
+                && $node->parent->left->root?->compare($node->data) === 0
+            ) {
+                $node->parent->left = null;
+            } elseif ($node->parent->right !== null
+                && $node->parent->right->root?->compare($node->data) === 0
+            ) {
+                $node->parent->right = null;
+            }
 
             return;
         }
