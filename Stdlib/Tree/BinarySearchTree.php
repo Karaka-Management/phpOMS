@@ -247,7 +247,7 @@ class BinarySearchTree
         }
 
         $temp = null;
-        if ($node->right !== null) {
+        if ($node->left === null) {
             $temp = $node->right->root;
             if ($temp === null) {
                 return;
@@ -272,7 +272,7 @@ class BinarySearchTree
             return;
         }
 
-        if ($node->left !== null) {
+        if ($node->right === null) {
             $temp = $node->left->root;
             if ($temp === null) {
                 return;
@@ -306,11 +306,11 @@ class BinarySearchTree
     /**
      * To array
      *
-     * @return array
+     * @return null|array
      *
      * @since 1.0.0
      */
-    public function toArray() : array
+    public function toArray() : ?array
     {
         return $this->root?->toArray() ?? null;
     }
