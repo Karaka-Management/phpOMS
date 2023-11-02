@@ -316,7 +316,7 @@ class Matrix implements \ArrayAccess, \Iterator
         $isSymmetric = true;
         for ($j = 0; ($j < $this->m) & $isSymmetric; ++$j) {
             for ($i = 0; ($i < $this->n) & $isSymmetric; ++$i) {
-                $isSymmetric = ($this->matrix[$i][$j] === $this->matrix[$j][$i]);
+                $isSymmetric = \abs($this->matrix[$i][$j] - $this->matrix[$j][$i]) < self::EPSILON;
             }
         }
 

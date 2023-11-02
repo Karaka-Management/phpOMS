@@ -2088,7 +2088,7 @@ class Markdown
 
             $Block['element']['attributes'] = $this->parseAttributeData($attributeString);
 
-            $Block['element']['handler']['argument'] = \substr($Block['element']['handler']['argument'], 0, $matches[0][1]);
+            $Block['element']['handler']['argument'] = \substr($Block['element']['handler']['argument'], 0, (int) $matches[0][1]);
         }
 
         return $Block;
@@ -2207,7 +2207,7 @@ class Markdown
 
             $Block['element']['attributes'] = $this->parseAttributeData($attributeString);
 
-            $Block['element']['handler']['argument'] = \substr($Block['element']['handler']['argument'], 0, $matches[0][1]);
+            $Block['element']['handler']['argument'] = \substr($Block['element']['handler']['argument'], 0, (int) $matches[0][1]);
         }
 
         return $Block;
@@ -4022,7 +4022,7 @@ class Markdown
 
         while (\preg_match($regexp, $text, $matches, \PREG_OFFSET_CAPTURE))
         {
-            $offset = $matches[0][1];
+            $offset = (int) $matches[0][1];
             $before = \substr($text, 0, $offset);
             $after  = \substr($text, $offset + \strlen($matches[0][0]));
 
