@@ -66,21 +66,22 @@ final class Rest
                 break;
             case RequestMethod::POST:
                 \curl_setopt($curl, \CURLOPT_CUSTOMREQUEST, 'POST');
+                \curl_setopt($curl, \CURLOPT_POST, 1);
                 break;
             case RequestMethod::PUT:
                 \curl_setopt($curl, \CURLOPT_CUSTOMREQUEST, 'PUT');
+                \curl_setopt($curl, \CURLOPT_POST, 1);
                 break;
             case RequestMethod::DELETE:
                 \curl_setopt($curl, \CURLOPT_CUSTOMREQUEST, 'DELETE');
+                \curl_setopt($curl, \CURLOPT_POST, 1);
                 break;
         }
 
         // handle none-get
-        if ($request->getMethod() !== RequestMethod::GET) {
-            \curl_setopt($curl, \CURLOPT_POST, 1);
-
+        if ($request->getMethod() !== RequestMethod::GET && !empty($request->data)) {
             // handle different content types
-            $contentType = $requestHeaders['Content-Type'] ?? [];
+            $contentType = $request->header->get('content-type');
             if (empty($contentType) || \in_array(MimeType::M_POST, $contentType)) {
                 /* @phpstan-ignore-next-line */
                 \curl_setopt($curl, \CURLOPT_POSTFIELDS, \http_build_query($request->data));
