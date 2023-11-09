@@ -53,7 +53,7 @@ final class Vector extends Matrix
      */
     public function setV(int $m, int | float $value) : void
     {
-        parent::set($m , 0, $value);
+        $this->matrix[$m][0] = $value;
     }
 
     /**
@@ -67,7 +67,7 @@ final class Vector extends Matrix
      */
     public function getV(int $m) : int | float
     {
-        return parent::get($m, 0);
+        return $this->matrix[$m][0];
     }
 
     /**
@@ -82,7 +82,7 @@ final class Vector extends Matrix
     public function setMatrixV(array $vector) : self
     {
         foreach ($vector as $key => $value) {
-            $this->setV($key, $value);
+            $this->matrix[$key][0] = $value;
         }
 
         return $this;
@@ -194,9 +194,9 @@ final class Vector extends Matrix
     public function cross3(self $vector) : self
     {
         $crossArray = [
-            $this->getV(1) * $vector->getV(2) - $this->getV(2) * $vector->getV(1),
-            $this->getV(2) * $vector->getV(0) - $this->getV(0) * $vector->getV(2),
-            $this->getV(0) * $vector->getV(1) - $this->getV(1) * $vector->getV(0),
+            $this->matrix[1][0] * $vector->matrix[2][0] - $this->matrix[2][0] * $vector->matrix[1][0],
+            $this->matrix[2][0] * $vector->matrix[0][0] - $this->matrix[0][0] * $vector->matrix[2][0],
+            $this->matrix[0][0] * $vector->matrix[1][0] - $this->matrix[1][0] * $vector->matrix[0][0],
         ];
 
         return self::fromArray($crossArray);

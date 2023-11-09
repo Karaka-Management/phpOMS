@@ -82,9 +82,7 @@ class Matrix implements \ArrayAccess, \Iterator
         $this->n = $n;
         $this->m = $m;
 
-        for ($i = 0; $i < $m; ++$i) {
-            $this->matrix[$i] = \array_fill(0, $n, 0);
-        }
+        $this->matrix = \array_fill(0, $m, \array_fill(0, $n, 0));
     }
 
     /**
@@ -492,7 +490,7 @@ class Matrix implements \ArrayAccess, \Iterator
         $newMatrixArr = $this->matrix;
 
         foreach ($newMatrixArr as $i => $vector) {
-            foreach ($vector as $j => $value) {
+            foreach ($vector as $j => $_) {
                 $newMatrixArr[$i][$j] += $scalar;
             }
         }
@@ -542,24 +540,44 @@ class Matrix implements \ArrayAccess, \Iterator
         }
 
         $matrixArr    = $matrix->toArray();
-        $newMatrix    = new self($this->m, $nDim);
-        $newMatrixArr = $newMatrix->toArray();
+        $newMatrixArr = \array_fill(0, $this->m, \array_fill(0, $nDim, 0));
 
-        for ($i = 0; $i < $this->m; ++$i) { // Row of $this
-            for ($c = 0; $c < $nDim; ++$c) { // Column of $matrix
-                $temp = 0;
-
-                for ($j = 0; $j < $mDim; ++$j) { // Row of $matrix
-                    $temp += ($this->matrix[$i][$j] ?? 0) * ($matrixArr[$j][$c] ?? 0);
+        if ($mDim > 10 || $nDim > 10) {
+            // Standard transposed for iteration over rows -> higher cache hit
+            $transposedMatrixArr = array();
+            for ($k = 0; $k < $mDim; ++$k) {
+                for ($j = 0; $j < $nDim; ++$j) {
+                    $transposedMatrixArr[$k][$j] = $matrixArr[$j][$k];
                 }
+            }
 
-                $newMatrixArr[$i][$c] = $temp;
+            for ($i = 0; $i < $this->m; ++$i) {
+                for ($j = 0; $j < $this->n; ++$j) {
+                    $temp = 0;
+
+                    for ($k = 0; $k < $mDim; ++$k) {
+                        $temp += $this->matrix[$i][$k] * $transposedMatrixArr[$i][$k];
+                    }
+
+                    $newMatrixArr[$i][$j] = $temp;
+                }
+            }
+        } else {
+            // Standard
+            for ($i = 0; $i < $this->m; ++$i) {
+                for ($j = 0; $j < $nDim; ++$j) {
+                    $temp = 0;
+
+                    for ($k = 0; $k < $mDim; ++$k) {
+                        $temp += $this->matrix[$i][$k] * $matrixArr[$k][$j];
+                    }
+
+                    $newMatrixArr[$i][$j] = $temp;
+                }
             }
         }
 
-        $newMatrix->setMatrix($newMatrixArr); /* @phpstan-ignore-line */
-
-        return $newMatrix;
+        return self::fromArray($newMatrixArr);
     }
 
     /**
