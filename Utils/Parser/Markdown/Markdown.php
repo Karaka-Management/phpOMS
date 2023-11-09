@@ -40,6 +40,83 @@ class Markdown
     public const version = '1.8.0-beta-7';
 
     /**
+     * Special markdown characters
+     *
+     * @var string[]
+     * @since 1.0.0
+     */
+    protected array $specialCharacters = [
+        '\\', '`', '*', '_', '{', '}', '[', ']', '(', ')', '>', '#', '+', '-', '.', '!', '|', '?', '"', "'", '<',
+    ];
+
+    /**
+     * Regexes for html strong
+     *
+     * @var array<string, string>
+     * @since 1.0.0
+     */
+    protected array $strongRegex = [
+        '*' => '/^[*]{2}((?:\\\\\*|[^*]|[*][^*]*+[*])+?)[*]{2}(?![*])/s',
+    ];
+
+    /**
+     * Regexes for html underline
+     *
+     * @var array<string, string>
+     * @since 1.0.0
+     */
+    protected array $underlineRegex = [
+        '_' => '/^__((?:\\\\_|[^_]|_[^_]*+_)+?)__(?!_)/us',
+    ];
+
+    /**
+     * Regexes for html emphasizes
+     *
+     * @var array<string, string>
+     * @since 1.0.0
+     */
+    protected array $emRegex = [
+        '*' => '/^[*]((?:\\\\\*|[^*]|[*][*][^*]+?[*][*])+?)[*](?![*])/s',
+        '_' => '/^_((?:\\\\_|[^_]|__[^_]*__)+?)_(?!_)\b/us',
+    ];
+
+    /**
+     * Regex for html attributes
+     *
+     * @var string
+     * @since 1.0.0
+     */
+    protected string $regexHtmlAttribute = '[a-zA-Z_:][\w:.-]*+(?:\s*+=\s*+(?:[^"\'=<>`\s]+|"[^"]*+"|\'[^\']*+\'))?+';
+
+    /**
+     * Elements without closing
+     *
+     * @var string[]
+     * @since 1.0.0
+     */
+    protected array $voidElements = [
+        'area', 'base', 'br', 'col', 'command', 'embed', 'hr', 'img', 'input', 'link', 'meta', 'param', 'source',
+    ];
+
+    /**
+     * Text elements
+     *
+     * @var string[]
+     * @since 1.0.0
+     */
+    protected array $textLevelElements = [
+        'a', 'br', 'bdo', 'abbr', 'blink', 'nextid', 'acronym', 'basefont',
+        'b', 'em', 'big', 'cite', 'small', 'spacer', 'listing',
+        'i', 'rp', 'del', 'code',          'strike', 'marquee',
+        'q', 'rt', 'ins', 'font',          'strong',
+        's', 'tt', 'kbd', 'mark',
+        'u', 'xm', 'sub', 'nobr',
+                   'sup', 'ruby',
+                   'var', 'span',
+                   'wbr', 'time',
+    ];
+
+    /**
      * Parsing options
      *
      * @var array
@@ -48,12 +125,94 @@ class Markdown
     private array $options = [];
 
     /**
+     * Definition data
+     *
+     * E.g. abbreviations, footnotes
+     *
+     * @var array
+     * @since 1.0.0
+     */
+    protected array $definitionData = [];
+
+    // TOC: start
+    /**
      * Table of content id
      *
      * @var string
      * @since 1.0.0
      */
     private string $idToc = '';
+
+    /**
+     * TOC array after parsing headers
+     *
+     * @var array{text:string, id:string, level:string}
+     * @since 1.0.0
+     */
+    protected $contentsListArray = [];
+
+    /**
+     * TOC string after parsing headers
+     *
+     * @var string
+     * @since 1.0.0
+     */
+    protected $contentsListString = '';
+
+    /**
+     * First head level
+     *
+     * @var int
+     * @since 1.0.0
+     */
+    protected int $firstHeadLevel = 0;
+    // TOC: end
+
+    /**
+     * Is header blacklist (for table of contents/TOC) initialized
+     *
+     * @var bool
+     * @since 1.0.0
+     */
+    protected $isBlacklistInitialized = false;
+
+    /**
+     * Header duplicates (same header text)
+     *
+     * @var array<string, int>
+     * @since 1.0.0
+     */
+    protected $anchorDuplicates = [];
+
+    /**
+     * Instances
+     *
+     * @var array<string, self>
+     * @since 1.0.0
+     */
+    private static $instances = [];
+
+    /**
+     * Create instance for static use
+     *
+     * @param string $name Instance name
+     *
+     * @return self
+     *
+     * @since 1.0.0
+     */
+    public static function instance(string $name = 'default') : self
+    {
+        if (isset(self::$instances[$name])) {
+            return self::$instances[$name];
+        }
+
+        $instance = new static();
+
+        self::$instances[$name] = $instance;
+
+        return $instance;
+    }
 
     /**
      * Constructor.
@@ -168,7 +327,7 @@ class Markdown
         $markup = \preg_replace('/<\/dl>\s+<dl>\s+/', '', $markup);
 
         // Add footnotes
-        if (isset($this->DefinitionData['Footnote'])) {
+        if (isset($this->definitionData['Footnote'])) {
             $Element = $this->buildFootnoteElement();
             $markup .= "\n" . $this->element($Element);
         }
@@ -352,14 +511,14 @@ class Markdown
         $marker = $excerpt['text'][0];
 
         if ($excerpt['text'][1] === $marker
-            && isset($this->StrongRegex[$marker]) && \preg_match($this->StrongRegex[$marker], $excerpt['text'], $matches)
+            && isset($this->strongRegex[$marker]) && \preg_match($this->strongRegex[$marker], $excerpt['text'], $matches)
         ) {
             $emphasis = 'strong';
         } elseif ($excerpt['text'][1] === $marker
-            && isset($this->UnderlineRegex[$marker]) && \preg_match($this->UnderlineRegex[$marker], $excerpt['text'], $matches)
+            && isset($this->underlineRegex[$marker]) && \preg_match($this->underlineRegex[$marker], $excerpt['text'], $matches)
         ) {
             $emphasis = 'u';
-        } elseif (\preg_match($this->EmRegex[$marker], $excerpt['text'], $matches)) {
+        } elseif (\preg_match($this->emRegex[$marker], $excerpt['text'], $matches)) {
             $emphasis = 'em';
         } else {
             return null;
@@ -1454,7 +1613,7 @@ class Markdown
 
         if (isset($this->options['abbreviations']['predefine'])) {
             foreach ($this->options['abbreviations']['predefine'] as $abbreviations => $description) {
-                $this->DefinitionData['Abbreviation'][$abbreviations] = $description;
+                $this->definitionData['Abbreviation'][$abbreviations] = $description;
             }
         }
 
@@ -1970,7 +2129,7 @@ class Markdown
             return $this->idToc;
         }
 
-        return self::ID_ATTRIBUTE_DEFAULT;
+        return 'toc';
     }
 
     /**
@@ -2288,7 +2447,7 @@ class Markdown
     {
         if (\preg_match('/^\*\[(.+?)\]:[ ]*(.+?)[ ]*$/', $Line['text'], $matches))
         {
-            $this->DefinitionData['Abbreviation'][$matches[1]] = $matches[2];
+            $this->definitionData['Abbreviation'][$matches[1]] = $matches[2];
 
             return [
                 'hidden' => true,
@@ -2335,7 +2494,7 @@ class Markdown
 
     protected function blockFootnoteComplete($Block)
     {
-        $this->DefinitionData['Footnote'][$Block['label']] = [
+        $this->definitionData['Footnote'][$Block['label']] = [
             'text'   => $Block['text'],
             'count'  => null,
             'number' => null,
@@ -2558,25 +2717,25 @@ class Markdown
         {
             $name = $matches[1];
 
-            if (!isset($this->DefinitionData['Footnote'][$name]))
+            if (!isset($this->definitionData['Footnote'][$name]))
             {
                 return;
             }
 
-            ++$this->DefinitionData['Footnote'][$name]['count'];
+            ++$this->definitionData['Footnote'][$name]['count'];
 
-            if (!isset($this->DefinitionData['Footnote'][$name]['number']))
+            if (!isset($this->definitionData['Footnote'][$name]['number']))
             {
-                $this->DefinitionData['Footnote'][$name]['number'] = ++ $this->footnoteCount; // » &
+                $this->definitionData['Footnote'][$name]['number'] = ++ $this->footnoteCount; // » &
             }
 
             $Element = [
                 'name'       => 'sup',
-                'attributes' => ['id' => 'fnref'.$this->DefinitionData['Footnote'][$name]['count'].':'.$name],
+                'attributes' => ['id' => 'fnref'.$this->definitionData['Footnote'][$name]['count'].':'.$name],
                 'element'    => [
                     'name'       => 'a',
                     'attributes' => ['href' => '#fn:'.$name, 'class' => 'footnote-ref'],
-                    'text'       => $this->DefinitionData['Footnote'][$name]['number'],
+                    'text'       => $this->definitionData['Footnote'][$name]['number'],
                 ],
             ];
 
@@ -2625,9 +2784,9 @@ class Markdown
     {
         $Inline = $this->inlineTextParent($text);
 
-        if (isset($this->DefinitionData['Abbreviation']))
+        if (isset($this->definitionData['Abbreviation']))
         {
-            foreach ($this->DefinitionData['Abbreviation'] as $abbreviation => $meaning)
+            foreach ($this->definitionData['Abbreviation'] as $abbreviation => $meaning)
             {
                 $this->currentAbreviation = $abbreviation;
                 $this->currentMeaning     = $meaning;
@@ -2688,20 +2847,20 @@ class Markdown
             ],
         ];
 
-        \uasort($this->DefinitionData['Footnote'], 'self::sortFootnotes');
+        \uasort($this->definitionData['Footnote'], 'self::sortFootnotes');
 
-        foreach ($this->DefinitionData['Footnote'] as $definitionId => $DefinitionData)
+        foreach ($this->definitionData['Footnote'] as $definitionId => $definitionData)
         {
-            if (!isset($DefinitionData['number']))
+            if (!isset($definitionData['number']))
             {
                 continue;
             }
 
-            $text = $DefinitionData['text'];
+            $text = $definitionData['text'];
 
             $textElements = $this->textElements($text);
 
-            $numbers = \range(1, $DefinitionData['count']);
+            $numbers = \range(1, $definitionData['count']);
 
             $backLinkElements = [];
 
@@ -2864,7 +3023,7 @@ class Markdown
     protected function textElements($text)
     {
         // make sure no definitions are set
-        $this->DefinitionData = [];
+        $this->definitionData = [];
 
         // standardize line breaks
         $text = \str_replace(["\r\n", "\r"], "\n", $text);
@@ -3601,7 +3760,7 @@ class Markdown
                 'title' => isset($matches[3]) ? $matches[3] : null,
             ];
 
-            $this->DefinitionData['Reference'][$id] = $Data;
+            $this->definitionData['Reference'][$id] = $Data;
 
             return [
                 'element' => [],
@@ -4025,12 +4184,12 @@ class Markdown
                 $definition = \strtolower($Element['handler']['argument']);
             }
 
-            if (!isset($this->DefinitionData['Reference'][$definition]))
+            if (!isset($this->definitionData['Reference'][$definition]))
             {
                 return;
             }
 
-            $Definition = $this->DefinitionData['Reference'][$definition];
+            $Definition = $this->definitionData['Reference'][$definition];
 
             $Element['attributes']['href']  = $Definition['url'];
             $Element['attributes']['title'] = $Definition['title'];
@@ -4401,78 +4560,4 @@ class Markdown
             return \strtolower(\substr($string, 0, $len)) === \strtolower($needle);
         }
     }
-
-    public static function instance($name = 'default')
-    {
-        if (isset(self::$instances[$name]))
-        {
-            return self::$instances[$name];
-        }
-
-        $instance = new static();
-
-        self::$instances[$name] = $instance;
-
-        return $instance;
-    }
-
-    private static $instances = [];
-
-    //
-    // Fields
-    //
-
-    protected $DefinitionData;
-
-    public const ID_ATTRIBUTE_DEFAULT = 'toc';
-
-    protected $tagToc = '[toc]';
-
-    protected $contentsListArray = [];
-
-    protected $contentsListString = '';
-
-    protected $firstHeadLevel = 0;
-
-    protected $isBlacklistInitialized = false;
-
-    protected $anchorDuplicates = [];
-
-    //
-    // Read-Only
-
-    protected $specialCharacters = [
-        '\\', '`', '*', '_', '{', '}', '[', ']', '(', ')', '>', '#', '+', '-', '.', '!', '|', '?', '"', "'", '<',
-    ];
-
-    protected $StrongRegex = [
-        '*' => '/^[*]{2}((?:\\\\\*|[^*]|[*][^*]*+[*])+?)[*]{2}(?![*])/s',
-    ];
-
-    protected $UnderlineRegex = [
-        '_' => '/^__((?:\\\\_|[^_]|_[^_]*+_)+?)__(?!_)/us',
-    ];
-
-    protected $EmRegex = [
-        '*' => '/^[*]((?:\\\\\*|[^*]|[*][*][^*]+?[*][*])+?)[*](?![*])/s',
-        '_' => '/^_((?:\\\\_|[^_]|__[^_]*__)+?)_(?!_)\b/us',
-    ];
-
-    protected $regexHtmlAttribute = '[a-zA-Z_:][\w:.-]*+(?:\s*+=\s*+(?:[^"\'=<>`\s]+|"[^"]*+"|\'[^\']*+\'))?+';
-
-    protected $voidElements = [
-        'area', 'base', 'br', 'col', 'command', 'embed', 'hr', 'img', 'input', 'link', 'meta', 'param', 'source',
-    ];
-
-    protected $textLevelElements = [
-        'a', 'br', 'bdo', 'abbr', 'blink', 'nextid', 'acronym', 'basefont',
-        'b', 'em', 'big', 'cite', 'small', 'spacer', 'listing',
-        'i', 'rp', 'del', 'code',          'strike', 'marquee',
-        'q', 'rt', 'ins', 'font',          'strong',
-        's', 'tt', 'kbd', 'mark',
-        'u', 'xm', 'sub', 'nobr',
-                   'sup', 'ruby',
-                   'var', 'span',
-                   'wbr', 'time',
-    ];
 }
