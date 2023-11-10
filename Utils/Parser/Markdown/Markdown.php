@@ -513,7 +513,7 @@ class Markdown
         }
 
         // Embedding
-        $state = $this->options['embedding'] ?? false;
+        $state = $this->options['embeding'] ?? false;
         if ($state !== false) {
             $this->inlineTypes['['][] = 'Embeding';
             $this->inlineMarkerList .= '[';
@@ -1251,65 +1251,89 @@ class Markdown
      */
     protected function inlineEmbeding(array $excerpt) : ?array
     {
-        if (!($this->options['embedding'] ?? false)
-            || \preg_match('/\[video.*src="([^"]*)".*\]/', $excerpt['text'], $matches) !== 1
+        if (!($this->options['embeding'] ?? false)
+            || (($video = (\preg_match('/\[video.*src="([^"]*)".*\]/', $excerpt['text'], $matches) !== 1))
+                && ($audio = (\preg_match('/\[audio.*src="([^"]*)".*\]/', $excerpt['text'], $matches) !== 1)))
         ) {
             return null;
         }
 
+        $video = !$video;
+        $audio = !$audio;
+
         $url  = $matches[1];
-        $type = '';
+        if ($video) {
+            $type = '';
 
-        $needles = ['youtube', 'vimeo', 'dailymotion'];
-        foreach ($needles as $needle) {
-            if (\strpos($url, $needle) !== false) {
-                $type = $needle;
+            $needles = ['youtube', 'vimeo', 'dailymotion'];
+            foreach ($needles as $needle) {
+                if (\strpos($url, $needle) !== false) {
+                    $type = $needle;
+                }
             }
+
+            switch ($type) {
+                case 'youtube':
+                    $element = 'iframe';
+                    $attributes = [
+                        'src' => preg_replace('/.*\?v=([^\&\]]*).*/', 'https://www.youtube.com/embed/$1', $url),
+                        'frameborder' => '0',
+                        'allow' => 'autoplay',
+                        'allowfullscreen' => '',
+                        'sandbox' => 'allow-same-origin allow-scripts allow-forms'
+                    ];
+                    break;
+                case 'vimeo':
+                    $element = 'iframe';
+                    $attributes = [
+                        'src' => preg_replace('/(?:https?:\/\/(?:[\w]{3}\.|player\.)*vimeo\.com(?:[\/\w:]*(?:\/videos)?)?\/([0-9]+)[^\s]*)/', 'https://player.vimeo.com/video/$1', $url),
+                        'frameborder' => '0',
+                        'allow' => 'autoplay',
+                        'allowfullscreen' => '',
+                        'sandbox' => 'allow-same-origin allow-scripts allow-forms'
+                    ];
+                    break;
+                case 'dailymotion':
+                    $element = 'iframe';
+                    $attributes = [
+                        'src' => $url,
+                        'frameborder' => '0',
+                        'allow' => 'autoplay',
+                        'allowfullscreen' => '',
+                        'sandbox' => 'allow-same-origin allow-scripts allow-forms'
+                    ];
+                    break;
+                default:
+                    $element    = 'video';
+                    $attributes = [
+                        'src' => UriFactory::build($url),
+                        'controls' => ''
+                    ];
+            }
+
+            return [
+                'extent' => \strlen($matches[0]),
+                'element' => [
+                    'name' => $element,
+                    'text' => $matches[1],
+                    'attributes' => $attributes
+                ],
+            ];
+        } elseif ($audio) {
+            return [
+                'extent' => \strlen($matches[0]),
+                'element' => [
+                    'name' => 'audio',
+                    'text' => $matches[1],
+                    'attributes' => [
+                        'src' => UriFactory::build($url),
+                        'controls' => ''
+                    ]
+                ],
+            ];
         }
 
-        switch ($type) {
-            case 'youtube':
-                $element = 'iframe';
-                $attributes = [
-                    'src' => preg_replace('/.*\?v=([^\&\]]*).*/', 'https://www.youtube.com/embed/$1', $url),
-                    'frameborder' => '0',
-                    'allow' => 'autoplay',
-                    'allowfullscreen' => '',
-                    'sandbox' => 'allow-same-origin allow-scripts allow-forms'
-                ];
-                break;
-            case 'vimeo':
-                $element = 'iframe';
-                $attributes = [
-                    'src' => preg_replace('/(?:https?:\/\/(?:[\w]{3}\.|player\.)*vimeo\.com(?:[\/\w:]*(?:\/videos)?)?\/([0-9]+)[^\s]*)/', 'https://player.vimeo.com/video/$1', $url),
-                    'frameborder' => '0',
-                    'allow' => 'autoplay',
-                    'allowfullscreen' => '',
-                    'sandbox' => 'allow-same-origin allow-scripts allow-forms'
-                ];
-                break;
-            case 'dailymotion':
-                $element = 'iframe';
-                $attributes = [
-                    'src' => $url,
-                    'frameborder' => '0',
-                    'allow' => 'autoplay',
-                    'allowfullscreen' => '',
-                    'sandbox' => 'allow-same-origin allow-scripts allow-forms'
-                ];
-                break;
-            default:
-                $element = 'video';
-        }
-
-        return [
-            'extent' => strlen($matches[0]),
-            'element' => [
-                'name' => $element,
-                'text' => $matches[1],
-                'attributes' => $attributes
-            ],
-        ];
+        return null;
     }
 
     /**
