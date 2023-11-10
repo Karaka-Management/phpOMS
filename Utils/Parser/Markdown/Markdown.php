@@ -1252,16 +1252,13 @@ class Markdown
     protected function inlineEmbeding(array $excerpt) : ?array
     {
         if (!($this->options['embeding'] ?? false)
-            || (($video = (\preg_match('/\[video.*src="([^"]*)".*\]/', $excerpt['text'], $matches) !== 1))
-                && ($audio = (\preg_match('/\[audio.*src="([^"]*)".*\]/', $excerpt['text'], $matches) !== 1)))
+            || (!($video = (\preg_match('/\[video.*src="([^"]*)".*\]/', $excerpt['text'], $matches) === 1))
+                && !($audio = (\preg_match('/\[audio.*src="([^"]*)".*\]/', $excerpt['text'], $matches) === 1)))
         ) {
             return null;
         }
 
-        $video = !$video;
-        $audio = !$audio;
-
-        $url  = $matches[1];
+        $url = $matches[1];
         if ($video) {
             $type = '';
 
@@ -1276,7 +1273,7 @@ class Markdown
                 case 'youtube':
                     $element = 'iframe';
                     $attributes = [
-                        'src' => preg_replace('/.*\?v=([^\&\]]*).*/', 'https://www.youtube.com/embed/$1', $url),
+                        'src' => \preg_replace('/.*\?v=([^\&\]]*).*/', 'https://www.youtube.com/embed/$1', $url),
                         'frameborder' => '0',
                         'allow' => 'autoplay',
                         'allowfullscreen' => '',
@@ -1286,7 +1283,7 @@ class Markdown
                 case 'vimeo':
                     $element = 'iframe';
                     $attributes = [
-                        'src' => preg_replace('/(?:https?:\/\/(?:[\w]{3}\.|player\.)*vimeo\.com(?:[\/\w:]*(?:\/videos)?)?\/([0-9]+)[^\s]*)/', 'https://player.vimeo.com/video/$1', $url),
+                        'src' => \preg_replace('/(?:https?:\/\/(?:[\w]{3}\.|player\.)*vimeo\.com(?:[\/\w:]*(?:\/videos)?)?\/([0-9]+)[^\s]*)/', 'https://player.vimeo.com/video/$1', $url),
                         'frameborder' => '0',
                         'allow' => 'autoplay',
                         'allowfullscreen' => '',
