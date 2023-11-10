@@ -98,6 +98,7 @@ class Markdown
      */
     protected array $emRegex = [
         '*' => '/^[*]((?:\\\\\*|[^*]|[*][*][^*]+?[*][*])+?)[*](?![*])/s',
+        '_' => '/^[_]((?:\\\\\_|[^_]|[_][_][^_]+?[_][_])+?)[_](?![_])/s',
     ];
 
     /**
@@ -1529,6 +1530,10 @@ class Markdown
             case 'paypal':
                 $src = 'Resources/icons/company/paypal.svg';
                 break;
+            case 'linkedin':
+                $src = 'Resources/icons/company/linkedin.svg';
+                break;
+
         }
 
         return [
