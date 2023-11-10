@@ -423,22 +423,19 @@ class Markdown
         $this->options['toc'] = $this->options['toc'] ?? false;
 
         // Marks
-        $state = $this->options['mark'] ?? true;
-        if ($state !== false) {
+        if ($this->options['mark'] ?? true) {
             $this->inlineTypes['='][] = 'mark';
             $this->inlineMarkerList  .= '=';
         }
 
         // Keystrokes
-        $state = $this->options['keystrokes'] ?? true;
-        if ($state !== false) {
+        if ($this->options['keystrokes'] ?? true) {
             $this->inlineTypes['['][] = 'Keystrokes';
             $this->inlineMarkerList  .= '[';
         }
 
         // Inline Math
-        $state = $this->options['math'] ?? false;
-        if ($state !== false) {
+        if ($this->options['math'] ?? false) {
             $this->inlineTypes['\\'][] = 'Math';
             $this->inlineMarkerList   .= '\\';
             $this->inlineTypes['$'][]  = 'Math';
@@ -446,28 +443,24 @@ class Markdown
         }
 
         // Superscript
-        $state = $this->options['sup'] ?? false;
-        if ($state !== false) {
+        if ($this->options['sup'] ?? false) {
             $this->inlineTypes['^'][] = 'Superscript';
             $this->inlineMarkerList  .= '^';
         }
 
         // Subscript
-        $state = $this->options['sub'] ?? false;
-        if ($state !== false) {
+        if ($this->options['sub'] ?? false) {
             $this->inlineTypes['~'][] = 'Subscript';
         }
 
         // Emojis
-        $state = $this->options['emojis'] ?? true;
-        if ($state !== false) {
+        if ($this->options['emojis'] ?? true) {
             $this->inlineTypes[':'][] = 'Emojis';
             $this->inlineMarkerList  .= ':';
         }
 
         // Typographer
-        $state = $this->options['typographer'] ?? false;
-        if ($state !== false) {
+        if ($this->options['typographer'] ?? false) {
             $this->inlineTypes['('][] = 'Typographer';
             $this->inlineMarkerList  .= '(';
             $this->inlineTypes['.'][] = 'Typographer';
@@ -481,8 +474,7 @@ class Markdown
         }
 
         // Smartypants
-        $state = $this->options['smarty'] ?? false;
-        if ($state !== false) {
+        if ($this->options['smarty'] ?? false) {
             $this->inlineTypes['<'][] = 'Smartypants';
             $this->inlineMarkerList  .= '<';
             $this->inlineTypes['>'][] = 'Smartypants';
@@ -500,21 +492,18 @@ class Markdown
         }
 
         // Block Math
-        $state = $this->options['math'] ?? false;
-        if ($state !== false) {
+        if ($this->options['math'] ?? false) {
             $this->blockTypes['\\'][] = 'Math';
             $this->blockTypes['$'][]  = 'Math';
         }
 
         // Task
-        $state = $this->options['lists']['tasks'] ?? true;
-        if ($state !== false) {
+        if ($this->options['lists']['tasks'] ?? true) {
             $this->blockTypes['['][] = 'Checkbox';
         }
 
-        // Embedding
-        $state = $this->options['embeding'] ?? false;
-        if ($state !== false) {
+        // Embeding
+        if ($this->options['embeding'] ?? false) {
             $this->inlineTypes['['][] = 'Embeding';
             $this->inlineMarkerList .= '[';
         }
