@@ -448,19 +448,17 @@ class Markdown
         // Keystrokes
         if ($this->options['keystrokes'] ?? true) {
             $this->inlineTypes['['][] = 'Keystrokes';
-            $this->inlineMarkerList  .= '[';
         }
 
         // Spoiler
         if ($this->options['spoiler'] ?? false) {
             $this->inlineTypes['>'][] = 'Spoiler';
-            $this->inlineMarkerList  .= '=';
+            $this->inlineMarkerList  .= '>';
         }
 
         // Inline Math
         if ($this->options['math'] ?? false) {
             $this->inlineTypes['\\'][] = 'Math';
-            $this->inlineMarkerList   .= '\\';
             $this->inlineTypes['$'][]  = 'Math';
             $this->inlineMarkerList   .= '$';
         }
@@ -479,7 +477,6 @@ class Markdown
         // Emojis
         if ($this->options['emojis'] ?? true) {
             $this->inlineTypes[':'][] = 'Emojis';
-            $this->inlineMarkerList  .= ':';
         }
 
         // Typographer
@@ -491,7 +488,6 @@ class Markdown
             $this->inlineTypes['+'][] = 'Typographer';
             $this->inlineMarkerList  .= '+';
             $this->inlineTypes['!'][] = 'Typographer';
-            $this->inlineMarkerList  .= '!';
             $this->inlineTypes['?'][] = 'Typographer';
             $this->inlineMarkerList  .= '?';
         }
@@ -515,25 +511,21 @@ class Markdown
         // Embeding
         if ($this->options['embeding'] ?? false) {
             $this->inlineTypes['['][] = 'Embeding';
-            $this->inlineMarkerList .= '[';
         }
 
         // Map
         if ($this->options['map'] ?? false) {
             $this->inlineTypes['['][] = 'Map';
-            $this->inlineMarkerList .= '[';
         }
 
         // Address
         if ($this->options['address'] ?? false) {
             $this->inlineTypes['['][] = 'Address';
-            $this->inlineMarkerList .= '[';
         }
 
         // Contact
         if ($this->options['contact'] ?? false) {
             $this->inlineTypes['['][] = 'Contact';
-            $this->inlineMarkerList .= '[';
         }
     }
 
@@ -1493,7 +1485,7 @@ class Markdown
     protected function inlineContact(array $excerpt) : ?array
     {
         if (!($this->options['contact'] ?? false)
-            || (\preg_match('/\[contact.*?([a-zA-Z]+)="([a-zA-Z0-9\-_]+)"\]/', $excerpt['text'], $matches) !== 1)
+            || (\preg_match('/\[contact.*?([a-zA-Z]+)="(.*?)"\]/', $excerpt['text'], $matches) !== 1)
         ) {
             return null;
         }
@@ -2749,7 +2741,7 @@ class Markdown
                 while ($rowNo + $rowspan < $rowCount
                     && $index < \count($rows[$rowNo + $rowspan]['elements'])
                     && $rows[$rowNo + $rowspan]['elements'][$index]['handler']['argument'] === '^'
-                    && (isset($element['attributes']['colspan']) && $element['attributes']['colspan'] ?? null) === ($rows[$rowNo + $rowspan]['elements'][$index]['attributes']['colspan'] ?? null)
+                    && ($element['attributes']['colspan'] ?? null) === ($rows[$rowNo + $rowspan]['elements'][$index]['attributes']['colspan'] ?? null)
                 ) {
                     $rows[$rowNo + $rowspan]['elements'][$index]['merged'] = true;
                     ++$rowspan;
