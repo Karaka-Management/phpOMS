@@ -2749,7 +2749,7 @@ class Markdown
                 while ($rowNo + $rowspan < $rowCount
                     && $index < \count($rows[$rowNo + $rowspan]['elements'])
                     && $rows[$rowNo + $rowspan]['elements'][$index]['handler']['argument'] === '^'
-                    && ($element['attributes']['colspan'] ?: null) === ($rows[$rowNo + $rowspan]['elements'][$index]['attributes']['colspan'] ?: null)
+                    && (isset($element['attributes']['colspan']) && $element['attributes']['colspan'] ?? null) === ($rows[$rowNo + $rowspan]['elements'][$index]['attributes']['colspan'] ?? null)
                 ) {
                     $rows[$rowNo + $rowspan]['elements'][$index]['merged'] = true;
                     ++$rowspan;
