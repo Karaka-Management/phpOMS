@@ -1,4 +1,4 @@
-_underscore_, *asterisk*, _one two_, *three four*, _a_, *b*
+__underscore__, *asterisk*, _one two_, *three four*, _a_, *b*
 
 **strong** and *em* and **strong** and *em*
 

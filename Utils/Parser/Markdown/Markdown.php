@@ -32,6 +32,23 @@ use phpOMS\Uri\UriFactory;
  * @see        https://github.com/BenjaminHoegh/ParsedownExtended
  * @see        https://github.com/doowzs/parsedown-extreme
  * @since      1.0.0
+ *
+ * @todo: Add
+ *  2. Calendar (own widget)
+ *  3. Event (own widget)
+ *  4. Tasks (own widget)
+ *  5. Vote/Survey (own widget)
+ *  6. Website link/embed widgets (facebook, linkedIn, twitter, ...)
+ *  7. User/Supplier/Client/Employee (own widget, should make use of schema)
+ *  8. Address (own widget, should make use of schema)
+ *  9. Contact (own widget, should make use of schema)
+ * 10. Item (own widget, should make use of schema)
+ * 11. Progress radial
+ * 12. Timeline horizontal/vertical/matrix
+ * 14. Tabs horizontal/vertical
+ * 15. Checklist (own widget)
+ * 16. Gallery
+ * 17. Form (own widget)
  */
 class Markdown
 {
@@ -70,7 +87,7 @@ class Markdown
      * @since 1.0.0
      */
     protected array $underlineRegex = [
-        '_' => '/^__((?:\\\\_|[^_]|_[^_]*+_)+?)__(?!_)/us',
+        '_' => '/^[_]{2}((?:\\\\\_|[^_]|[_][^_]_+[_])+?)[_]{2}(?![_])/s',
     ];
 
     /**
@@ -81,7 +98,6 @@ class Markdown
      */
     protected array $emRegex = [
         '*' => '/^[*]((?:\\\\\*|[^*]|[*][*][^*]+?[*][*])+?)[*](?![*])/s',
-        '_' => '/^_((?:\\\\_|[^_]|__[^_]*__)+?)_(?!_)\b/us',
     ];
 
     /**
@@ -275,7 +291,7 @@ class Markdown
      * @since 1.0.0
      */
     private const CONTINUABLE = [
-        'Code', 'Comment', 'FencedCode', 'List', 'Quote', 'Table', 'Math', 'Checkbox', 'Footnote', 'DefinitionList', 'Markup'
+        'Code', 'Comment', 'FencedCode', 'List', 'Quote', 'Table', 'Math', 'Spoiler', 'Checkbox', 'Footnote', 'DefinitionList', 'Markup'
     ];
 
     /**
@@ -285,7 +301,7 @@ class Markdown
      * @since 1.0.0
      */
     private const COMPLETABLE = [
-        'Math', 'Table', 'Checkbox', 'Footnote', 'Markup', 'Code', 'FencedCode', 'List'
+        'Math', 'Spoiler', 'Table', 'Checkbox', 'Footnote', 'Markup', 'Code', 'FencedCode', 'List'
     ];
 
     /**
@@ -424,7 +440,7 @@ class Markdown
 
         // Marks
         if ($this->options['mark'] ?? true) {
-            $this->inlineTypes['='][] = 'mark';
+            $this->inlineTypes['='][] = 'Mark';
             $this->inlineMarkerList  .= '=';
         }
 
@@ -432,6 +448,12 @@ class Markdown
         if ($this->options['keystrokes'] ?? true) {
             $this->inlineTypes['['][] = 'Keystrokes';
             $this->inlineMarkerList  .= '[';
+        }
+
+        // Spoiler
+        if ($this->options['spoiler'] ?? false) {
+            $this->inlineTypes['>'][] = 'Spoiler';
+            $this->inlineMarkerList  .= '=';
         }
 
         // Inline Math
@@ -473,38 +495,43 @@ class Markdown
             $this->inlineMarkerList  .= '?';
         }
 
-        // Smartypants
-        if ($this->options['smarty'] ?? false) {
-            $this->inlineTypes['<'][] = 'Smartypants';
-            $this->inlineMarkerList  .= '<';
-            $this->inlineTypes['>'][] = 'Smartypants';
-            $this->inlineMarkerList  .= '>';
-            $this->inlineTypes['-'][] = 'Smartypants';
-            $this->inlineMarkerList  .= '-';
-            $this->inlineTypes['.'][] = 'Smartypants';
-            $this->inlineMarkerList  .= '.';
-            $this->inlineTypes["'"][] = 'Smartypants';
-            $this->inlineMarkerList  .= "'";
-            $this->inlineTypes['"'][] = 'Smartypants';
-            $this->inlineMarkerList  .= '"';
-            $this->inlineTypes['`'][] = 'Smartypants';
-            $this->inlineMarkerList  .= '`';
-        }
-
         // Block Math
         if ($this->options['math'] ?? false) {
             $this->blockTypes['\\'][] = 'Math';
             $this->blockTypes['$'][]  = 'Math';
         }
 
-        // Task
-        if ($this->options['lists']['tasks'] ?? true) {
+        // Block Spoiler
+        if ($this->options['spoiler'] ?? false) {
+            $this->blockTypes['?'][] = 'Spoiler';
+        }
+
+        // Checkbox
+        if ($this->options['lists']['checkbox'] ?? true) {
             $this->blockTypes['['][] = 'Checkbox';
         }
 
         // Embeding
         if ($this->options['embeding'] ?? false) {
             $this->inlineTypes['['][] = 'Embeding';
+            $this->inlineMarkerList .= '[';
+        }
+
+        // Map
+        if ($this->options['map'] ?? false) {
+            $this->inlineTypes['['][] = 'Map';
+            $this->inlineMarkerList .= '[';
+        }
+
+        // Address
+        if ($this->options['address'] ?? false) {
+            $this->inlineTypes['['][] = 'Address';
+            $this->inlineMarkerList .= '[';
+        }
+
+        // Contact
+        if ($this->options['contact'] ?? false) {
+            $this->inlineTypes['['][] = 'Contact';
             $this->inlineMarkerList .= '[';
         }
     }
@@ -518,7 +545,7 @@ class Markdown
      *
      * @since 1.0.0
      */
-    public static function parse($text) : string
+    public static function parse(string $text) : string
     {
         $parsedown = new self();
 
@@ -1205,6 +1232,30 @@ class Markdown
         ];
     }
 
+    /**
+     * Handle marks
+     *
+     * @param array{text:string, context:string, before:string} $excerpt Inline data
+     *
+     * @return null|array{extent:int, element:array}
+     *
+     * @since 1.0.0
+     */
+    protected function inlineSpoiler(array $excerpt) : ?array
+    {
+        if (\preg_match('/^>!(.*?)!</us', $excerpt['text'], $matches) !== 1) {
+            return null;
+        }
+
+        return [
+            'extent'  => \strlen($matches[0]),
+            'element' => [
+                'name' => 'mark',
+                'text' => $matches[2],
+            ],
+        ];
+    }
+
    /**
      * Handle keystrokes
      *
@@ -1323,6 +1374,232 @@ class Markdown
     }
 
     /**
+     * Handle map
+     *
+     * @param array{text:string, context:string, before:string} $excerpt Inline data
+     *
+     * @return null|array{extent:int, element:array}
+     *
+     * @since 1.0.0
+     */
+    protected function inlineMap(array $excerpt) : ?array
+    {
+        if (!($this->options['map'] ?? false)
+            || (\preg_match('/\[map(?:\s+(?:name="([^"]+)"|country="([^"]+)"|city="([^"]+)"|zip="([^"]+)"|address="([^"]+)"|lat="([^"]+)"|lon="([^"]+)")){0,3}\]/', $excerpt['text'], $matches) !== 1)
+        ) {
+            return null;
+        }
+
+        $name    = $matches[1];
+        $country = $matches[2];
+        $city    = $matches[3];
+        $zip     = $matches[4];
+        $address = $matches[5];
+
+        $lat = empty($matches[6]) ? '' : (float) $matches[6];
+        $lon = empty($matches[7]) ? '' : (float) $matches[7];
+
+        if ($lat === '' || $lon === '') {
+            [$lat, $lon] = \phpOMS\Api\Geocoding\Nominatim::geocoding($country, $city, $address, $zip);
+        }
+
+        return [
+            'extent' => \strlen($matches[0]),
+            'element' => [
+                'name' => 'div',
+                'text' => '',
+                'attributes' => [
+                    'id' => '-' . \bin2hex(\random_bytes(4)),
+                    'class' => 'map',
+                    'data-lat' => $lat,
+                    'data-lon' => $lon,
+                ]
+            ],
+        ];
+    }
+
+    /**
+     * Handle address
+     *
+     * @param array{text:string, context:string, before:string} $excerpt Inline data
+     *
+     * @return null|array{extent:int, element:array}
+     *
+     * @since 1.0.0
+     */
+    protected function inlineAddress(array $excerpt) : ?array
+    {
+        if (!($this->options['address'] ?? false)
+            || (\preg_match('/\[addr(?:\s+(?:name="([^"]+)"|country="([^"]+)"|city="([^"]+)"|zip="([^"]+)"|address="([^"]+)")){0,3}\]/', $excerpt['text'], $matches) !== 1)
+        ) {
+            return null;
+        }
+
+        $name    = $matches[1];
+        $country = $matches[2];
+        $city    = $matches[3];
+        $zip     = $matches[4];
+        $address = $matches[5];
+
+        return [
+            'extent' => \strlen($matches[0]),
+            'element' => [
+                'name' => 'div',
+                //'text' => '',
+                'attributes' => [
+                    'class' => 'addressWidget',
+                ],
+                'elements' => [
+                    [
+                        'name' => 'span',
+                        'text' => $name,
+                        'attributes' => ['class' => 'addressWidget-name'],
+                    ],
+                    [
+                        'name' => 'span',
+                        'text' => $address,
+                        'attributes' => ['class' => 'addressWidget-address'],
+                    ],
+                    [
+                        'name' => 'span',
+                        'text' => $zip,
+                        'attributes' => ['class' => 'addressWidget-zip'],
+                    ],
+                    [
+                        'name' => 'span',
+                        'text' => $city,
+                        'attributes' => ['class' => 'addressWidget-city'],
+                    ],
+                    [
+                        'name' => 'span',
+                        'text' => $country,
+                        'attributes' => ['class' => 'addressWidget-country'],
+                    ],
+                ],
+            ],
+        ];
+    }
+
+    /**
+     * Handle contact
+     *
+     * @param array{text:string, context:string, before:string} $excerpt Inline data
+     *
+     * @return null|array{extent:int, element:array}
+     *
+     * @since 1.0.0
+     */
+    protected function inlineContact(array $excerpt) : ?array
+    {
+        if (!($this->options['contact'] ?? false)
+            || (\preg_match('/\[contact.*?([a-zA-Z]+)="([a-zA-Z0-9\-_]+)"\]/', $excerpt['text'], $matches) !== 1)
+        ) {
+            return null;
+        }
+
+        $src = '';
+        switch ($matches[1]) {
+            case 'email':
+                $src = 'Resources/icons/company/email.svg';
+                break;
+            case 'phone':
+                $src = 'Resources/icons/company/phone.svg';
+                break;
+            case 'twitter':
+                $src = 'Resources/icons/company/twitter.svg';
+                break;
+            case 'instagram':
+                $src = 'Resources/icons/company/instagram.svg';
+                break;
+            case 'discord':
+                $src = 'Resources/icons/company/discord.svg';
+                break;
+            case 'slack':
+                $src = 'Resources/icons/company/slack.svg';
+                break;
+            case 'teams':
+                $src = 'Resources/icons/company/teams.svg';
+                break;
+            case 'facebook':
+                $src = 'Resources/icons/company/facebook.svg';
+                break;
+            case 'youtube':
+                $src = 'Resources/icons/company/youtube.svg';
+                break;
+            case 'paypal':
+                $src = 'Resources/icons/company/paypal.svg';
+                break;
+        }
+
+        return [
+            'extent' => \strlen($matches[0]),
+            'element' => [
+                'name' => 'a',
+                //'text' => '',
+                'attributes' => [
+                    'class' => 'contactWidget',
+                    'href'  => '',
+                ],
+                'elements' => [
+                    [
+                        'name' => 'img',
+                        'attributes' => [
+                            'class' => 'contactWidget-icon',
+                            'src'   => $src
+                        ],
+                    ],
+                    [
+                        'name' => 'span',
+                        'text' => $matches[2],
+                        'attributes' => ['class' => 'contactWidget-contact'],
+                    ]
+                ],
+
+            ],
+        ];
+    }
+
+    /**
+     * Handle progress
+     *
+     * @param array{text:string, context:string, before:string} $excerpt Inline data
+     *
+     * @return null|array{extent:int, element:array}
+     *
+     * @since 1.0.0
+     */
+    protected function inlineProgress(array $excerpt) : ?array
+    {
+        if (!($this->options['progress'] ?? false)
+            || (\preg_match('/\[progress(?:\s+(?:type="([^"]+)"|percent="([^"]+)"|value="([^"]+)")){0,3}\]/', $excerpt['text'], $matches) !== 1)
+        ) {
+            return null;
+        }
+
+        // $type = $matches[1] ?? 'meter';
+        $percent = $matches[2] ?? ($matches[3]);
+        $value   = $matches[3] ?? $matches[2];
+
+        if ($percent === ''
+            || $value === ''
+        ) {
+            return null;
+        }
+
+        return [
+            'extent' => \strlen($matches[0]),
+            'element' => [
+                'name' => 'progress',
+                //'text' => '',
+                'attributes' => [
+                    'value' => $value,
+                    'max' => '100',
+                ]
+            ],
+        ];
+    }
+
+    /**
      * Handle super script
      *
      * @param array{text:string, context:string, before:string} $excerpt Inline data
@@ -1404,140 +1681,6 @@ class Markdown
                 'rawHtml' => \preg_replace(\array_keys($substitutions), \array_values($substitutions), $matches[0]),
             ],
         ];
-    }
-
-    /**
-     * Handle smartypants
-     *
-     * @param array{text:string, context:string, before:string} $excerpt Inline data
-     *
-     * @return null|array{extent:int, element:array}
-     *
-     * @since 1.0.0
-     */
-    protected function inlineSmartypants(array $excerpt) : ?array
-    {
-        if (\preg_match('/(``)(?!\s)([^"\'`]{1,})(\'\')|(\")(?!\s)([^\"]{1,})(\")|(\')(?!\s)([^\']{1,})(\')|(<{2})(?!\s)([^<>]{1,})(>{2})|(\.{3})|(-{3})|(-{2})/i', $excerpt['text'], $matches) !== 1) {
-            return null;
-        }
-
-        // Substitutions
-        $backtickDoublequoteOpen  = $this->options['smarty']['substitutions']['left-double-quote'] ?? '&ldquo;';
-        $backtickDoublequoteClose = $this->options['smarty']['substitutions']['right-double-quote'] ?? '&rdquo;';
-
-        $smartDoublequoteOpen  = $this->options['smarty']['substitutions']['left-double-quote'] ?? '&ldquo;';
-        $smartDoublequoteClose = $this->options['smarty']['substitutions']['right-double-quote'] ?? '&rdquo;';
-        $smartSinglequoteOpen  = $this->options['smarty']['substitutions']['left-single-quote'] ?? '&lsquo;';
-        $smartSinglequoteClose = $this->options['smarty']['substitutions']['right-single-quote'] ?? '&rsquo;';
-
-        $leftAngleQuote  = $this->options['smarty']['substitutions']['left-angle-quote'] ?? '&laquo;';
-        $rightAngleQuote = $this->options['smarty']['substitutions']['right-angle-quote'] ?? '&raquo;';
-
-        $matches = \array_values(\array_filter($matches));
-
-        // Smart backticks
-        $smartBackticks = $this->options['smarty']['smart_backticks'] ?? false;
-
-        if ($smartBackticks && $matches[1] === '``') {
-            $length = \strlen(\trim($excerpt['before']));
-            if ($length > 0) {
-                return null;
-            }
-
-            return [
-                'extent'  => \strlen($matches[0]),
-                'element' => [
-                    'text' => \html_entity_decode($backtickDoublequoteOpen).$matches[2].\html_entity_decode($backtickDoublequoteClose),
-                ],
-            ];
-        }
-
-        // Smart quotes
-        $smartQuotes = $this->options['smarty']['smart_quotes'] ?? true;
-
-        if ($smartQuotes) {
-            if ($matches[1] === "'") {
-                $length = \strlen(\trim($excerpt['before']));
-                if ($length > 0) {
-                    return null;
-                }
-
-                return [
-                    'extent'  => \strlen($matches[0]),
-                    'element' => [
-                        'text' => \html_entity_decode($smartSinglequoteOpen).$matches[2].\html_entity_decode($smartSinglequoteClose),
-                    ],
-                ];
-            }
-
-            if ($matches[1] === '"') {
-                $length = \strlen(\trim($excerpt['before']));
-                if ($length > 0) {
-                    return null;
-                }
-
-                return [
-                    'extent'  => \strlen($matches[0]),
-                    'element' => [
-                        'text' => \html_entity_decode($smartDoublequoteOpen).$matches[2].\html_entity_decode($smartDoublequoteClose),
-                    ],
-                ];
-            }
-        }
-
-        // Smart angled quotes
-        $smartAngledQuotes = $this->options['smarty']['smart_angled_quotes'] ?? true;
-
-        if ($smartAngledQuotes && $matches[1] === '<<') {
-            $length = \strlen(\trim($excerpt['before']));
-            if ($length > 0) {
-                return null;
-            }
-
-            return [
-                'extent'  => \strlen($matches[0]),
-                'element' => [
-                    'text' => \html_entity_decode($leftAngleQuote).$matches[2].\html_entity_decode($rightAngleQuote),
-                ],
-            ];
-        }
-
-        // Smart dashes
-        $smartDashes = $this->options['smarty']['smart_dashes'] ?? true;
-
-        if ($smartDashes) {
-            if ($matches[1] === '---') {
-                return [
-                    'extent'  => \strlen($matches[0]),
-                    'element' => [
-                        'rawHtml' => $this->options['smarty']['substitutions']['mdash'] ?? '&mdash;',
-                    ],
-                ];
-            }
-
-            if ($matches[1] === '--') {
-                return [
-                    'extent'  => \strlen($matches[0]),
-                    'element' => [
-                        'rawHtml' => $this->options['smarty']['substitutions']['ndash'] ?? '&ndash;',
-                    ],
-                ];
-            }
-        }
-
-        // Smart ellipses
-        $smartEllipses = $this->options['smarty']['smart_ellipses'] ?? true;
-
-        if ($smartEllipses && $matches[1] === '...') {
-            return [
-                'extent'  => \strlen($matches[0]),
-                'element' => [
-                    'rawHtml' => $this->options['smarty']['substitutions']['ellipses'] ?? '&hellip;',
-                ],
-            ];
-        }
-
-        return null;
     }
 
     /**
@@ -1832,7 +1975,7 @@ class Markdown
             return null;
         }
 
-        list($name, $pattern) = $line['text'][0] <= '-' ? ['ul', '[*+-]'] : ['ol', '[0-9]{1,9}+[.\)]'];
+        [$name, $pattern] = $line['text'][0] <= '-' ? ['ul', '[*+-]'] : ['ol', '[0-9]{1,9}+[.\)]'];
 
         if (\preg_match('/^(' . $pattern . '([ ]++|$))(.*+)/', $line['text'], $matches) !== 1) {
             return null;
@@ -2320,6 +2463,7 @@ class Markdown
 
             return $block;
         }
+
         if (\preg_match('/^(?<!\\\\)(\$\$)$/', $line['text']) && $block['end'] === '$$') {
             $block['complete']        = true;
             $block['math']            = true;
@@ -2455,6 +2599,57 @@ class Markdown
         }
 
         return null;
+    }
+
+    /**
+     * Continue block spoiler
+     *
+     * @param array{body:string, indent:int, text:string} $line Line data
+     * @param null|array                                  $_    Current block (unused parameter)
+     *
+     * @return null|array
+     *
+     * @since 1.0.0
+     */
+    protected function blockSpoiler(array $line, array $_ = null) : ?array
+    {
+        if (!($this->options['code']['blocks'] ?? true)
+            || !($this->options['code'] ?? true)
+        ) {
+            return null;
+        }
+
+        $marker       = $line['text'][0];
+        $openerLength = \strspn($line['text'], $marker);
+
+        if ($openerLength < 3) {
+            return null;
+        }
+
+        $summary = \trim(\preg_replace('/^\?{3}([^\s]+)(.+)?/s', '$1', $line['text']));
+
+        $infostring = \trim(\substr($line['text'], $openerLength), "\t ");
+        if (\strpos($infostring, '?') !== false) {
+            return null;
+        }
+
+        return [
+            'char'         => $marker,
+            'openerLength' => $openerLength,
+            'element'      => [
+                'name'    => 'details',
+                'elements' => [
+                    [
+                        'name' => 'summary',
+                        'text' => $summary,
+                    ],
+                    [
+                        'name' => 'span', // @todo: check if without span possible
+                        'text' => '',
+                    ]
+                ],
+            ],
+        ];
     }
 
     /**
@@ -2639,9 +2834,13 @@ class Markdown
      */
     protected function blockCheckboxComplete(array $block) : array
     {
+        if ($this->markupEscaped || $this->safeMode) {
+            $text = \htmlspecialchars($block['text'], \ENT_QUOTES, 'UTF-8');
+        }
+
         $html = $block['handler'] === 'unchecked'
-            ? $this->checkboxUnchecked($block['text'])
-            : $this->checkboxChecked($block['text']);
+            ? '<input type="checkbox" disabled /> ' . $this->formatOnce($text)
+            : '<input type="checkbox" checked disabled /> ' . $this->formatOnce($text);
 
         $block['element'] = [
             'rawHtml'                => $html,
@@ -2649,42 +2848,6 @@ class Markdown
         ];
 
         return $block;
-    }
-
-    /**
-     * Generate unchecked checkbox html
-     *
-     * @param string Checkbox text
-     *
-     * @return string
-     *
-     * @since 1.0.0
-     */
-    protected function checkboxUnchecked(string $text) : string
-    {
-        if ($this->markupEscaped || $this->safeMode) {
-            $text = \htmlspecialchars($text, \ENT_QUOTES, 'UTF-8');
-        }
-
-        return '<input type="checkbox" disabled /> ' . $this->formatOnce($text);
-    }
-
-    /**
-     * Generate checked checkbox html
-     *
-     * @param string Checkbox text
-     *
-     * @return string
-     *
-     * @since 1.0.0
-     */
-    protected function checkboxChecked(string $text) : string
-    {
-        if ($this->markupEscaped || $this->safeMode) {
-            $text = \htmlspecialchars($text, \ENT_QUOTES, 'UTF-8');
-        }
-
-        return '<input type="checkbox" checked disabled /> ' . $this->formatOnce($text);
     }
 
     /**
@@ -3259,24 +3422,21 @@ class Markdown
 
         ++$this->definitionData['Footnote'][$name]['count'];
 
-        if (!isset($this->definitionData['Footnote'][$name]['number']))
-        {
+        if (!isset($this->definitionData['Footnote'][$name]['number'])) {
             $this->definitionData['Footnote'][$name]['number'] = ++ $this->footnoteCount; // » &
         }
 
-        $element = [
-            'name'       => 'sup',
-            'attributes' => ['id' => 'fnref' . $this->definitionData['Footnote'][$name]['count'] . ':' . $name],
-            'element'    => [
-                'name'       => 'a',
-                'attributes' => ['href' => '#fn:' . $name, 'class' => 'footnote-ref'],
-                'text'       => $this->definitionData['Footnote'][$name]['number'],
-            ],
-        ];
-
         return [
             'extent'  => \strlen($matches[0]),
-            'element' => $element,
+            'element' => [
+                'name'       => 'sup',
+                'attributes' => ['id' => 'fnref' . $this->definitionData['Footnote'][$name]['count'] . ':' . $name],
+                'element'    => [
+                    'name'       => 'a',
+                    'attributes' => ['href' => '#fn:' . $name, 'class' => 'footnote-ref'],
+                    'text'       => $this->definitionData['Footnote'][$name]['number'],
+                ],
+            ]
         ];
     }
 
@@ -3849,6 +4009,57 @@ class Markdown
     }
 
     /**
+     * Continue block spoiler
+     *
+     * @param array{body:string, indent:int, text:string} $line  Line data
+     * @param array                                       $block Current block
+     *
+     * @return null|array
+     *
+     * @since 1.0.0
+     */
+    protected function blockSpoilerContinue(array $line, array $block) : ?array
+    {
+        if (isset($block['complete'])) {
+            return null;
+        }
+
+        if (isset($block['interrupted'])) {
+            $block['element']['element']['text'] .= \str_repeat("\n", $block['interrupted']);
+
+            unset($block['interrupted']);
+        }
+
+        if (($len = \strspn($line['text'], $block['char'])) >= $block['openerLength']
+            && \rtrim(\substr($line['text'], $len), ' ') === ''
+        ) {
+            $block['element']['element']['text'] = \substr($block['element']['element']['text'], 1);
+
+            $block['complete'] = true;
+
+            return $block;
+        }
+
+        $block['element']['element']['text'] .= "\n" . $line['body'];
+
+        return $block;
+    }
+
+    /**
+     * Complete block spoiler
+     *
+     * @param array $block Current block
+     *
+     * @return array
+     *
+     * @since 1.0.0
+     */
+    protected function blockSpoilerComplete(array $block) : array
+    {
+        return $block;
+    }
+
+    /**
      * Continue block list
      *
      * @param array{body:string, indent:int, text:string} $line  Line data
@@ -4130,10 +4341,10 @@ class Markdown
                 return null;
             }
 
-            $Definition = $this->definitionData['Reference'][$definition];
+            $definition = $this->definitionData['Reference'][$definition];
 
-            $element['attributes']['href']  = $Definition['url'];
-            $element['attributes']['title'] = $Definition['title'];
+            $element['attributes']['href']  = $definition['url'];
+            $element['attributes']['title'] = $definition['title'];
         }
 
         return [

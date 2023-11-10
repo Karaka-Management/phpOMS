@@ -70,6 +70,95 @@ final class MarkdownTest extends \PHPUnit\Framework\TestCase
         );
     }
 
+    public function testMap() : void
+    {
+        $parser = new Markdown([
+            'map' => true
+        ]);
+
+        self::assertEquals(
+            \file_get_contents(__DIR__ . '/manualdata/map.html'),
+            $parser->text(\file_get_contents(__DIR__ . '/manualdata/map.md'))
+        );
+    }
+
+    public function testContact() : void
+    {
+        $parser = new Markdown([
+            'contact' => true
+        ]);
+
+        self::assertEquals(
+            \file_get_contents(__DIR__ . '/manualdata/contact.html'),
+            $parser->text(\file_get_contents(__DIR__ . '/manualdata/contact.md'))
+        );
+    }
+
+    public function testTypographer() : void
+    {
+        $parser = new Markdown([
+            'typographer' => true
+        ]);
+
+        self::assertEquals(
+            \file_get_contents(__DIR__ . '/manualdata/typographer.html'),
+            $parser->text(\file_get_contents(__DIR__ . '/manualdata/typographer.md'))
+        );
+    }
+
+    public function testAddress() : void
+    {
+        $parser = new Markdown([
+            'address' => true
+        ]);
+
+        self::assertEquals(
+            \file_get_contents(__DIR__ . '/manualdata/address.html'),
+            $parser->text(\file_get_contents(__DIR__ . '/manualdata/address.md'))
+        );
+    }
+
+    public function testProgress() : void
+    {
+        $parser = new Markdown([
+            'progress' => true
+        ]);
+
+        self::assertEquals(
+            \file_get_contents(__DIR__ . '/manualdata/progress.html'),
+            $parser->text(\file_get_contents(__DIR__ . '/manualdata/progress.md'))
+        );
+    }
+
+    public function testSpoiler() : void
+    {
+        $parser = new Markdown([
+            'spoiler' => true
+        ]);
+
+        self::assertEquals(
+            \file_get_contents(__DIR__ . '/manualdata/spoiler.html'),
+            $parser->text(\file_get_contents(__DIR__ . '/manualdata/spoiler.md'))
+        );
+
+        self::assertEquals(
+            \file_get_contents(__DIR__ . '/manualdata/spoiler_block.html'),
+            $parser->text(\file_get_contents(__DIR__ . '/manualdata/spoiler_block.md'))
+        );
+    }
+
+    public function testEmbed() : void
+    {
+        $parser = new Markdown([
+            'embeding' => true
+        ]);
+
+        self::assertEquals(
+            \file_get_contents(__DIR__ . '/manualdata/embed.html'),
+            $parser->text(\file_get_contents(__DIR__ . '/manualdata/embed.md'))
+        );
+    }
+
     public function testMath() : void
     {
         $parser = new Markdown([
