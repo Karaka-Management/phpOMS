@@ -511,6 +511,13 @@ class Markdown
         if ($state !== false) {
             $this->blockTypes['['][] = 'Checkbox';
         }
+
+        // Embedding
+        $state = $this->options['embedding'] ?? false;
+        if ($state !== false) {
+            $this->inlineTypes['['][] = 'Embeding';
+            $this->inlineMarkerList .= '[';
+        }
     }
 
     /**
@@ -1229,6 +1236,78 @@ class Markdown
             'element' => [
                 'name' => 'kbd',
                 'text' => $matches[1],
+            ],
+        ];
+    }
+
+    /**
+     * Handle embeding
+     *
+     * @param array{text:string, context:string, before:string} $excerpt Inline data
+     *
+     * @return null|array{extent:int, element:array}
+     *
+     * @since 1.0.0
+     */
+    protected function inlineEmbeding(array $excerpt) : ?array
+    {
+        if (!($this->options['embedding'] ?? false)
+            || \preg_match('/\[video.*src="([^"]*)".*\]/', $excerpt['text'], $matches) !== 1
+        ) {
+            return null;
+        }
+
+        $url  = $matches[1];
+        $type = '';
+
+        $needles = ['youtube', 'vimeo', 'dailymotion'];
+        foreach ($needles as $needle) {
+            if (\strpos($url, $needle) !== false) {
+                $type = $needle;
+            }
+        }
+
+        switch ($type) {
+            case 'youtube':
+                $element = 'iframe';
+                $attributes = [
+                    'src' => preg_replace('/.*\?v=([^\&\]]*).*/', 'https://www.youtube.com/embed/$1', $url),
+                    'frameborder' => '0',
+                    'allow' => 'autoplay',
+                    'allowfullscreen' => '',
+                    'sandbox' => 'allow-same-origin allow-scripts allow-forms'
+                ];
+                break;
+            case 'vimeo':
+                $element = 'iframe';
+                $attributes = [
+                    'src' => preg_replace('/(?:https?:\/\/(?:[\w]{3}\.|player\.)*vimeo\.com(?:[\/\w:]*(?:\/videos)?)?\/([0-9]+)[^\s]*)/', 'https://player.vimeo.com/video/$1', $url),
+                    'frameborder' => '0',
+                    'allow' => 'autoplay',
+                    'allowfullscreen' => '',
+                    'sandbox' => 'allow-same-origin allow-scripts allow-forms'
+                ];
+                break;
+            case 'dailymotion':
+                $element = 'iframe';
+                $attributes = [
+                    'src' => $url,
+                    'frameborder' => '0',
+                    'allow' => 'autoplay',
+                    'allowfullscreen' => '',
+                    'sandbox' => 'allow-same-origin allow-scripts allow-forms'
+                ];
+                break;
+            default:
+                $element = 'video';
+        }
+
+        return [
+            'extent' => strlen($matches[0]),
+            'element' => [
+                'name' => $element,
+                'text' => $matches[1],
+                'attributes' => $attributes
             ],
         ];
     }
