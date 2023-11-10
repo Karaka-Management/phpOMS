@@ -48,7 +48,7 @@ final class MarkdownTest extends \PHPUnit\Framework\TestCase
     public function testSafeMode() : void
     {
         $parser = new Markdown();
-        $parser->setSafeMode(true);
+        $parser->safeMode = true;
 
         self::assertEquals(
             \file_get_contents(__DIR__ . '/manualdata/xss_bad_url.html'),
