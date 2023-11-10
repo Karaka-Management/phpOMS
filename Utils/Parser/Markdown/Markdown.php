@@ -16,7 +16,6 @@ declare(strict_types=1);
 
 namespace phpOMS\Utils\Parser\Markdown;
 
-use NullElo;
 use phpOMS\Uri\UriFactory;
 
 /**
@@ -42,7 +41,7 @@ class Markdown
      * @var string
      * @since 1.0.0
      */
-    public const version = '1.8.0-beta-7';
+    public const VERSION = '1.8.0-beta-7';
 
     /**
      * Special markdown characters
@@ -267,6 +266,26 @@ class Markdown
      */
     protected array $unmarkedBlockTypes = [
         'Code',
+    ];
+
+    /**
+     * Is continuable
+     *
+     * @var string[]
+     * @since 1.0.0
+     */
+    private const CONTINUABLE = [
+        'Code', 'Comment', 'FencedCode', 'List', 'Quote', 'Table', 'Math', 'Checkbox', 'Footnote', 'DefinitionList', 'Markup'
+    ];
+
+    /**
+     * Is completable
+     *
+     * @var string[]
+     * @since 1.0.0
+     */
+    private const COMPLETABLE = [
+        'Math', 'Table', 'Checkbox', 'Footnote', 'Markup', 'Code', 'FencedCode', 'List'
     ];
 
     /**
@@ -3242,7 +3261,7 @@ class Markdown
             $this->currentMeaning     = $meaning;
 
             $inline['element'] = $this->elementApplyRecursiveDepthFirst(
-                [$this, 'insertAbreviation'],
+                'insertAbreviation',
                 $inline['element']
             );
         }
@@ -3519,7 +3538,7 @@ class Markdown
                 if (isset($block)) {
                     $currentBlock = $block;
                     continue;
-                } elseif ($this->isBlockCompletable($currentBlock['type'])) {
+                } elseif (\in_array($currentBlock['type'], self::COMPLETABLE)) {
                     $methodName   = 'block' . $currentBlock['type'] . 'Complete';
                     $currentBlock = $this->{$methodName}($currentBlock);
                 }
@@ -3548,7 +3567,7 @@ class Markdown
                         $block['identified'] = true;
                     }
 
-                    if ($this->isBlockContinuable($blockType)) {
+                    if (\in_array($blockType, self::CONTINUABLE)) {
                         $block['continuable'] = true;
                     }
 
@@ -3585,7 +3604,7 @@ class Markdown
             }
         }
 
-        if (isset($currentBlock['continuable']) && $this->isBlockCompletable($currentBlock['type'])) {
+        if (isset($currentBlock['continuable']) && \in_array($currentBlock['type'], self::COMPLETABLE)) {
             $methodName   = 'block' . $currentBlock['type'] . 'Complete';
             $currentBlock = $this->{$methodName}($currentBlock);
         }
@@ -3617,38 +3636,6 @@ class Markdown
         }
 
         return $block['element'];
-    }
-
-    /**
-     * Can the block continue?
-     *
-     * @param string $type Block type
-     *
-     * @return bool
-     *
-     * @todo Consider to create lookup table
-     *
-     * @since 1.0.0
-     */
-    protected function isBlockContinuable(string $type) : bool
-    {
-        return \method_exists($this, 'block' . $type . 'Continue');
-    }
-
-    /**
-     * Is the block finished
-     *
-     * @param string $type Block type
-     *
-     * @return bool
-     *
-     * @todo Consider to create lookup table
-     *
-     * @since 1.0.0
-     */
-    protected function isBlockCompletable($type) : bool
-    {
-        return \method_exists($this, 'block' . $type . 'Complete');
     }
 
     /**
@@ -4141,28 +4128,28 @@ class Markdown
     /*
     protected function handleElementRecursive(array $element)
     {
-        return $this->elementApplyRecursive([$this, 'handle'], $element);
+        return $this->elementApplyRecursive('handle', $element);
     }
 
     protected function handleElementsRecursive(array $elements)
     {
-        return $this->elementsApplyRecursive([$this, 'handle'], $elements);
+        return $this->elementsApplyRecursive('handle', $elements);
     }
     */
 
     /**
      * Handle element recursiveley
      *
-     * @param \Closure $closure Closure for handling element
-     * @param array    $element Element to handle
+     * @param string|\Closure $closure Closure for handling element
+     * @param array           $element Element to handle
      *
      * @return array
      *
      * @since 1.0.0
      */
-    protected function elementApplyRecursive(\Closure $closure, array $element) : array
+    protected function elementApplyRecursive(string|\Closure $closure, array $element) : array
     {
-        $element = $closure($element);
+        $element = \is_string($closure) ? $this->{$closure}($element) : $closure($element);
 
         if (isset($element['elements'])) {
             //$element['elements'] = $this->elementsApplyRecursive($closure, $element['elements']);
@@ -4179,14 +4166,14 @@ class Markdown
     /**
      * Handle element recursiveley
      *
-     * @param \Closure $closure Closure for handling element
-     * @param array    $element Element to handle
+     * @param string|\Closure $closure Closure for handling element
+     * @param array           $element Element to handle
      *
      * @return array
      *
      * @since 1.0.0
      */
-    protected function elementApplyRecursiveDepthFirst(\Closure $closure, array $element) : array
+    protected function elementApplyRecursiveDepthFirst(string|\Closure $closure, array $element) : array
     {
         if (isset($element['elements'])) {
             //$element['elements'] = $this->elementsApplyRecursiveDepthFirst($closure, $element['elements']);
@@ -4200,7 +4187,7 @@ class Markdown
             }
         }
 
-        return $closure($element);
+        return \is_string($closure) ? $this->{$closure}($element) : $closure($element);
     }
 
     /*
