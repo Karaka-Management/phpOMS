@@ -30,7 +30,7 @@ final class Illinois
      * @var float
      * @since 1.0.0
      */
-    public const EPSILON = 1e-6;
+    public const EPSILON = 4.88e-04;
 
     /**
      * Constructor.
