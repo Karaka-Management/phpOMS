@@ -805,7 +805,7 @@ class Markdown
     protected function inlineImage(array $excerpt) : ?array
     {
         if (!($this->options['images'] ?? true)
-            || !isset($excerpt['text'][1]) || $excerpt['text'][1] !== '['
+            || !\str_starts_with($excerpt['text'], '![')
         ) {
             return null;
         }
@@ -904,8 +904,7 @@ class Markdown
     protected function inlineStrikethrough(array $excerpt) : ?array
     {
         if (!($this->options['strikethroughs'] ?? true)
-            || !isset($excerpt['text'][1])
-            || $excerpt['text'][1] !== '~'
+            || !\str_starts_with($excerpt['text'], '~~')
             || \preg_match('/^~~(?=\S)(.+?)(?<=\S)~~/', $excerpt['text'], $matches) !== 1
         ) {
             return null;
@@ -936,7 +935,7 @@ class Markdown
     protected function inlineUrl(array $excerpt) : ?array
     {
         if (!($this->options['links'] ?? true)
-            || $this->urlsLinked !== true || !isset($excerpt['text'][2]) || $excerpt['text'][2] !== '/'
+            || $this->urlsLinked !== true || !\str_starts_with($excerpt['text'], '://')
             || \strpos($excerpt['context'], 'http') === false
             || \preg_match('/\bhttps?+:[\/]{2}[^\s<]+\b\/*+/ui', $excerpt['context'], $matches, \PREG_OFFSET_CAPTURE) !== 1
         ) {
@@ -1242,8 +1241,7 @@ class Markdown
      */
     protected function inlineMark(array $excerpt) : ?array
     {
-        if (!isset($excerpt['text'][1])
-            || $excerpt['text'][1] !== '='
+        if (!\str_starts_with($excerpt['text'], '==')
             || \preg_match('/^(==)([^=]*?)(==)/', $excerpt['text'], $matches) !== 1
         ) {
             return null;
@@ -1269,8 +1267,7 @@ class Markdown
      */
     protected function inlineSpoiler(array $excerpt) : ?array
     {
-        if (!isset($excerpt['text'][1])
-            || $excerpt['text'][1] !== '!'
+        if (!\str_starts_with($excerpt['text'], '>!')
             || \preg_match('/^>!(.*?)!</us', $excerpt['text'], $matches) !== 1
         ) {
             return null;
@@ -1310,8 +1307,7 @@ class Markdown
      */
     protected function inlineKeystrokes(array $excerpt) : ?array
     {
-        if (!isset($excerpt['text'][1])
-            || $excerpt['text'][1] !== '['
+        if (!str_starts_with($excerpt['text'], '[[')
             || \preg_match('/^(?<!\[)(?:\[\[([^\[\]]*|[\[\]])\]\])(?!\])/s', $excerpt['text'], $matches) !== 1
         ) {
             return null;
