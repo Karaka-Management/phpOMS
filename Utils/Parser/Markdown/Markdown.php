@@ -1338,8 +1338,7 @@ class Markdown
     protected function inlineEmbeding(array $excerpt) : ?array
     {
         if (!($this->options['embeding'] ?? false)
-            || !isset($excerpt['text'][1])
-            || ($excerpt['text'][1] !== 'v' && $excerpt['text'][1] !== 'a')
+            || !(\str_starts_with($excerpt['text'], '[video') || \str_starts_with($excerpt['text'], '[audio'))
             || (!($video = (\preg_match('/\[video.*src="([^"]*)".*\]/', $excerpt['text'], $matches) === 1))
                 && !($audio = (\preg_match('/\[audio.*src="([^"]*)".*\]/', $excerpt['text'], $matches) === 1)))
         ) {
@@ -1433,8 +1432,7 @@ class Markdown
     protected function inlineMap(array $excerpt) : ?array
     {
         if (!($this->options['map'] ?? false)
-            || !isset($excerpt['text'][1])
-            || $excerpt['text'][1] !== 'm'
+            || !\str_starts_with($excerpt['text'], '[map')
             || (\preg_match('/\[map(?:\s+(?:name="([^"]+)"|country="([^"]+)"|city="([^"]+)"|zip="([^"]+)"|address="([^"]+)"|lat="([^"]+)"|lon="([^"]+)")){0,7}\]/', $excerpt['text'], $matches) !== 1)
         ) {
             return null;
@@ -1480,8 +1478,7 @@ class Markdown
     protected function inlineAddress(array $excerpt) : ?array
     {
         if (!($this->options['address'] ?? false)
-            || !isset($excerpt['text'][1])
-            || $excerpt['text'][1] !== 'a'
+            || !\str_starts_with($excerpt['text'], '[addr')
             || (\preg_match('/\[addr(?:\s+(?:name="([^"]+)"|country="([^"]+)"|city="([^"]+)"|zip="([^"]+)"|address="([^"]+)")){0,5}\]/', $excerpt['text'], $matches) !== 1)
         ) {
             return null;
@@ -1544,8 +1541,7 @@ class Markdown
     protected function inlineContact(array $excerpt) : ?array
     {
         if (!($this->options['contact'] ?? false)
-            || !isset($excerpt['text'][1])
-            || $excerpt['text'][1] !== 'c'
+            || !\str_starts_with($excerpt['text'], '[contact')
             || (\preg_match('/\[contact.*?([a-zA-Z]+)="(.*?)"\]/', $excerpt['text'], $matches) !== 1)
         ) {
             return null;
@@ -1629,8 +1625,7 @@ class Markdown
     protected function inlineProgress(array $excerpt) : ?array
     {
         if (!($this->options['progress'] ?? false)
-            || !isset($excerpt['text'][1])
-            || $excerpt['text'][1] !== 'p'
+            || !\str_starts_with($excerpt['text'], '[progress')
             || (\preg_match('/\[progress(?:\s+(?:type="([^"]+)"|percent="([^"]+)"|value="([^"]+)")){0,3}\]/', $excerpt['text'], $matches) !== 1)
         ) {
             return null;
