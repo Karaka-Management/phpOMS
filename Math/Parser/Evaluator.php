@@ -25,6 +25,16 @@ namespace phpOMS\Math\Parser;
 final class Evaluator
 {
     /**
+     * Constructor.
+     *
+     * @since 1.0.0
+     * @codeCoverageIgnore
+     */
+    private function __construct()
+    {
+    }
+
+    /**
      * Evaluate function.
      *
      * @param string $equation Formula to evaluate

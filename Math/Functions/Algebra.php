@@ -27,6 +27,16 @@ use phpOMS\Math\Matrix\Exception\InvalidDimensionException;
 final class Algebra
 {
     /**
+     * Constructor.
+     *
+     * @since 1.0.0
+     * @codeCoverageIgnore
+     */
+    private function __construct()
+    {
+    }
+
+    /**
      * Get the product of two arrays
      *
      * @param array $value1 Value 1 is a matrix or a vector

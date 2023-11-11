@@ -26,7 +26,7 @@ use phpOMS\Utils\StringUtils;
  * @link    https://jingga.app
  * @since   1.0.0
  */
-class PdfParser
+final class PdfParser
 {
     /**
      * PDFToText path.
@@ -43,6 +43,16 @@ class PdfParser
      * @var 1.0.0
      */
     public static string $pdftoppm = '/usr/bin/pdftoppm';
+
+    /**
+     * Constructor.
+     *
+     * @since 1.0.0
+     * @codeCoverageIgnore
+     */
+    private function __construct()
+    {
+    }
 
     /**
      * Pdf to text

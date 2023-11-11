@@ -26,8 +26,18 @@ use phpOMS\Contract\SerializableInterface;
  * @link    https://jingga.app
  * @since   1.0.0
  */
-class ArrayParser
+final class ArrayParser
 {
+    /**
+     * Constructor.
+     *
+     * @since 1.0.0
+     * @codeCoverageIgnore
+     */
+    private function __construct()
+    {
+    }
+
     /**
      * Serializing array (recursively).
      *

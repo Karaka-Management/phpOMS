@@ -25,6 +25,16 @@ namespace phpOMS\Math\Numerics;
 final class Integration
 {
     /**
+     * Constructor.
+     *
+     * @since 1.0.0
+     * @codeCoverageIgnore
+     */
+    private function __construct()
+    {
+    }
+
+    /**
      * Integrate function by using rectangles from the left side
      *
      * @param float    $from Start interval

@@ -25,6 +25,16 @@ namespace phpOMS\Image;
 final class Skew
 {
     /**
+     * Constructor.
+     *
+     * @since 1.0.0
+     * @codeCoverageIgnore
+     */
+    private function __construct()
+    {
+    }
+
+    /**
      * Automatically rotate image based on projection profile
      *
      * @param string $inPath    Binary input image (black/white)

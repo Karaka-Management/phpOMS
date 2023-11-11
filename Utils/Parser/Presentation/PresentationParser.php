@@ -24,8 +24,18 @@ use PhpOffice\PhpPresentation\IOFactory;
  * @link    https://jingga.app
  * @since   1.0.0
  */
-class PresentationParser
+final class PresentationParser
 {
+    /**
+     * Constructor.
+     *
+     * @since 1.0.0
+     * @codeCoverageIgnore
+     */
+    private function __construct()
+    {
+    }
+
     /**
      * Presentation to string
      *

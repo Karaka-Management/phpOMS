@@ -31,8 +31,18 @@ use phpOMS\System\File\Local\Directory;
  * @link    https://jingga.app
  * @since   1.0.0
  */
-class Tar implements ArchiveInterface
+final class Tar implements ArchiveInterface
 {
+    /**
+     * Constructor.
+     *
+     * @since 1.0.0
+     * @codeCoverageIgnore
+     */
+    private function __construct()
+    {
+    }
+
     /**
      * {@inheritdoc}
      */

@@ -22,8 +22,18 @@ namespace phpOMS\Utils\Parser\Calendar;
  * @link    https://jingga.app
  * @since   1.0.0
  */
-class ICalParser
+final class ICalParser
 {
+    /**
+     * Constructor.
+     *
+     * @since 1.0.0
+     * @codeCoverageIgnore
+     */
+    private function __construct()
+    {
+    }
+
     /**
      * Parse iCal data
      *

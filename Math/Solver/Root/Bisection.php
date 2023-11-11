@@ -33,6 +33,16 @@ final class Bisection
     public const EPSILON = 1e-6;
 
     /**
+     * Constructor.
+     *
+     * @since 1.0.0
+     * @codeCoverageIgnore
+     */
+    private function __construct()
+    {
+    }
+
+    /**
      * Perform bisection to find the root of a function
      *
      * Iteratively searches for root between two points on the x-axis

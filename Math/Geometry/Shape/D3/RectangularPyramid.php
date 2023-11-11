@@ -25,6 +25,16 @@ namespace phpOMS\Math\Geometry\Shape\D3;
 final class RectangularPyramid implements D3ShapeInterface
 {
     /**
+     * Constructor.
+     *
+     * @since 1.0.0
+     * @codeCoverageIgnore
+     */
+    private function __construct()
+    {
+    }
+
+    /**
      * Volume
      *
      * @param float $a Edge

@@ -22,7 +22,7 @@ namespace phpOMS\Utils\RnG;
  * @link    https://jingga.app
  * @since   1.0.0
  */
-class Name
+final class Name
 {
     private static array $names = [
         'western' => [
@@ -480,6 +480,16 @@ class Name
             ],
         ],
     ];
+
+    /**
+     * Constructor.
+     *
+     * @since 1.0.0
+     * @codeCoverageIgnore
+     */
+    private function __construct()
+    {
+    }
 
     /**
      * Get a random string.

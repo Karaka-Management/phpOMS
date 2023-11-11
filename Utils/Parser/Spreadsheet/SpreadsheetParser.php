@@ -25,8 +25,18 @@ use PhpOffice\PhpSpreadsheet\Worksheet\PageSetup;
  * @link    https://jingga.app
  * @since   1.0.0
  */
-class SpreadsheetParser
+final class SpreadsheetParser
 {
+    /**
+     * Constructor.
+     *
+     * @since 1.0.0
+     * @codeCoverageIgnore
+     */
+    private function __construct()
+    {
+    }
+
     /**
      * Spreadsheet to string
      *

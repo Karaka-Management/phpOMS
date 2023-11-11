@@ -22,7 +22,7 @@ namespace phpOMS\Utils\RnG;
  * @link    https://jingga.app
  * @since   1.0.0
  */
-class Text
+final class Text
 {
     /**
      * Vocabulary.

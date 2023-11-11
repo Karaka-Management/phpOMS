@@ -22,7 +22,7 @@ namespace phpOMS\Utils\RnG;
  * @link    https://jingga.app
  * @since   1.0.0
  */
-class File
+final class File
 {
     /**
      * Extensions.
@@ -43,6 +43,16 @@ class File
         ['rss'], ['pkg'], ['pdf'], ['mpg'], ['mov'], ['jar'],
         ['flv'], ['fla'], ['deb'], ['py'], ['pl'],
     ];
+
+    /**
+     * Constructor.
+     *
+     * @since 1.0.0
+     * @codeCoverageIgnore
+     */
+    private function __construct()
+    {
+    }
 
     /**
      * Get a random file extension.

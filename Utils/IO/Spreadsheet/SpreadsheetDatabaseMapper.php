@@ -27,7 +27,7 @@ use phpOMS\Utils\StringUtils;
  * @link    https://jingga.app
  * @since   1.0.0
  */
-class SpreadsheetDatabaseMapper implements IODatabaseMapper
+final class SpreadsheetDatabaseMapper implements IODatabaseMapper
 {
     /**
      * Database connection

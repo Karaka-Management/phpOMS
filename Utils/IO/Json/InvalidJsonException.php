@@ -22,7 +22,7 @@ namespace phpOMS\Utils\IO\Json;
  * @link    https://jingga.app
  * @since   1.0.0
  */
-class InvalidJsonException extends \UnexpectedValueException
+final class InvalidJsonException extends \UnexpectedValueException
 {
     /**
      * Constructor.
