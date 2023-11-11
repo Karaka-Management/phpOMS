@@ -98,7 +98,7 @@ class Markdown
      */
     protected array $emRegex = [
         '*' => '/^[*]((?:\\\\\*|[^*]|[*][*][^*]+?[*][*])+?)[*](?![*])/s',
-        '_' => '/^[_]((?:\\\\\_|[^_]|[_][_][^_]+?[_][_])+?)[_](?![_])/s',
+        '_' => '/^_((?:\\\\_|[^_]|__[^_]*__)+?)_(?!_)\b/us',
     ];
 
     /**
@@ -170,7 +170,7 @@ class Markdown
      * @var string
      * @since 1.0.0
      */
-    protected string $inlineMarkerList = '!*_&[:<`~\\';
+    protected string $inlineMarkerList = '!*_&[:<`~';
 
     /**
      * Uses strict mode?
@@ -527,6 +527,14 @@ class Markdown
         if ($this->options['contact'] ?? false) {
             $this->inlineTypes['['][] = 'Contact';
         }
+
+        // Progress
+        if ($this->options['progress'] ?? false) {
+            $this->inlineTypes['['][] = 'Progress';
+        }
+
+        // Escaping needs to happen at the end
+        $this->inlineMarkerList .= '\\';
     }
 
     /**
@@ -694,7 +702,7 @@ class Markdown
         $commonMarkEmail = '[a-zA-Z0-9.!#$%&\'*+\/=?^_`{|}~-]++@' . $hostnameLabel . '(?:\.' . $hostnameLabel . ')*';
 
         if (\strpos($excerpt['text'], '>') === false
-            || \preg_match('/^<((mailto:)?{' . $commonMarkEmail . '})>/i', $excerpt['text'], $matches) !== 1
+            || \preg_match('/^<((mailto:)?' . $commonMarkEmail . ')>/i', $excerpt['text'], $matches) !== 1
         ) {
             return null;
         }
@@ -1243,8 +1251,22 @@ class Markdown
         return [
             'extent'  => \strlen($matches[0]),
             'element' => [
-                'name' => 'mark',
-                'text' => $matches[2],
+                'name' => 'span',
+                'attributes' => [
+                    'class' => 'spoiler'
+                ],
+                'elements' => [
+                    [
+                        'name' => 'input',
+                        'attributes' => [
+                            'type' => 'checkbox'
+                        ]
+                    ],
+                    [
+                        'name' => 'span',
+                        'text' => $matches[1],
+                    ]
+                ]
             ],
         ];
     }
@@ -1378,7 +1400,7 @@ class Markdown
     protected function inlineMap(array $excerpt) : ?array
     {
         if (!($this->options['map'] ?? false)
-            || (\preg_match('/\[map(?:\s+(?:name="([^"]+)"|country="([^"]+)"|city="([^"]+)"|zip="([^"]+)"|address="([^"]+)"|lat="([^"]+)"|lon="([^"]+)")){0,3}\]/', $excerpt['text'], $matches) !== 1)
+            || (\preg_match('/\[map(?:\s+(?:name="([^"]+)"|country="([^"]+)"|city="([^"]+)"|zip="([^"]+)"|address="([^"]+)"|lat="([^"]+)"|lon="([^"]+)")){0,7}\]/', $excerpt['text'], $matches) !== 1)
         ) {
             return null;
         }
@@ -1389,8 +1411,8 @@ class Markdown
         $zip     = $matches[4];
         $address = $matches[5];
 
-        $lat = empty($matches[6]) ? '' : (float) $matches[6];
-        $lon = empty($matches[7]) ? '' : (float) $matches[7];
+        $lat = $matches[6];
+        $lon = $matches[7];
 
         if ($lat === '' || $lon === '') {
             [$lat, $lon] = \phpOMS\Api\Geocoding\Nominatim::geocoding($country, $city, $address, $zip);
@@ -1402,7 +1424,7 @@ class Markdown
                 'name' => 'div',
                 'text' => '',
                 'attributes' => [
-                    'id' => '-' . \bin2hex(\random_bytes(4)),
+                    'id' => 'i' . \bin2hex(\random_bytes(4)),
                     'class' => 'map',
                     'data-lat' => $lat,
                     'data-lon' => $lon,
@@ -1423,7 +1445,7 @@ class Markdown
     protected function inlineAddress(array $excerpt) : ?array
     {
         if (!($this->options['address'] ?? false)
-            || (\preg_match('/\[addr(?:\s+(?:name="([^"]+)"|country="([^"]+)"|city="([^"]+)"|zip="([^"]+)"|address="([^"]+)")){0,3}\]/', $excerpt['text'], $matches) !== 1)
+            || (\preg_match('/\[addr(?:\s+(?:name="([^"]+)"|country="([^"]+)"|city="([^"]+)"|zip="([^"]+)"|address="([^"]+)")){0,5}\]/', $excerpt['text'], $matches) !== 1)
         ) {
             return null;
         }
@@ -1573,9 +1595,9 @@ class Markdown
             return null;
         }
 
-        // $type = $matches[1] ?? 'meter';
-        $percent = $matches[2] ?? ($matches[3]);
-        $value   = $matches[3] ?? $matches[2];
+        // $type = empty($matches[1]) ? 'meter' : $matches[1];
+        $percent = empty($matches[2]) ? $matches[3] : $matches[2];
+        $value   = empty($matches[3]) ? $matches[2] : $matches[3];
 
         if ($percent === ''
             || $value === ''
@@ -1587,7 +1609,7 @@ class Markdown
             'extent' => \strlen($matches[0]),
             'element' => [
                 'name' => 'progress',
-                //'text' => '',
+                'text' => '',
                 'attributes' => [
                     'value' => $value,
                     'max' => '100',
@@ -1725,7 +1747,7 @@ class Markdown
     protected function inlineEscapeSequence(array $excerpt) : ?array
     {
         if (!isset($excerpt['text'][1])
-            || \in_array($excerpt['text'][1], $this->specialCharacters)
+            || !\in_array($excerpt['text'][1], $this->specialCharacters)
         ) {
             return null;
         }
@@ -2315,7 +2337,7 @@ class Markdown
         foreach ($headerCells as $index => $headerCell) {
             $headerCell = \trim($headerCell);
 
-            $HeaderElement = [
+            $headerElement = [
                 'name'    => 'th',
                 'handler' => [
                     'function'    => 'lineElements',
@@ -2327,12 +2349,12 @@ class Markdown
             if (isset($alignments[$index])) {
                 $alignment = $alignments[$index];
 
-                $HeaderElement['attributes'] = [
+                $headerElement['attributes'] = [
                     'style' => "text-align: {$alignment};",
                 ];
             }
 
-            $headerElements [] = $HeaderElement;
+            $headerElements[] = $headerElement;
         }
 
         $block = [
@@ -2623,7 +2645,7 @@ class Markdown
             return null;
         }
 
-        $summary = \trim(\preg_replace('/^\?{3}([^\s]+)(.+)?/s', '$1', $line['text']));
+        $summary = \trim(\preg_replace('/^\?{3}(.+)?/s', '$1', $line['text']));
 
         $infostring = \trim(\substr($line['text'], $openerLength), "\t ");
         if (\strpos($infostring, '?') !== false) {
@@ -2635,16 +2657,19 @@ class Markdown
             'openerLength' => $openerLength,
             'element'      => [
                 'name'    => 'details',
-                'elements' => [
-                    [
-                        'name' => 'summary',
-                        'text' => $summary,
+                'element' => [
+                    'text' => '',
+                    'elements' => [
+                        [
+                            'name' => 'summary',
+                            'text' => $summary,
+                        ],
+                        [
+                            'name' => 'span', // @todo: check if without span possible
+                            'text' => '',
+                        ]
                     ],
-                    [
-                        'name' => 'span', // @todo: check if without span possible
-                        'text' => '',
-                    ]
-                ],
+                ]
             ],
         ];
     }
@@ -2831,8 +2856,9 @@ class Markdown
      */
     protected function blockCheckboxComplete(array $block) : array
     {
+        $text = $block['text'];
         if ($this->markupEscaped || $this->safeMode) {
-            $text = \htmlspecialchars($block['text'], \ENT_QUOTES, 'UTF-8');
+            $text = \htmlspecialchars($text, \ENT_QUOTES, 'UTF-8');
         }
 
         $html = $block['handler'] === 'unchecked'
@@ -4037,7 +4063,7 @@ class Markdown
             return $block;
         }
 
-        $block['element']['element']['text'] .= "\n" . $line['body'];
+        $block['element']['element']['elements'][1]['text'] .= "\n" . $line['body'];
 
         return $block;
     }
