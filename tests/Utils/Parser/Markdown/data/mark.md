@@ -1,1 +1,1 @@
-==Mark test==
+Text with ==Mark test== inline.

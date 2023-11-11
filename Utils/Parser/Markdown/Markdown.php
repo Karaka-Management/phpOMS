@@ -406,6 +406,25 @@ class Markdown
     private static $instances = [];
 
     /**
+     * Clean up state
+     *
+     * @return void
+     *
+     * @since 1.0.0
+     */
+    public function clean() : void
+    {
+        $this->definitionData     = [];
+        $this->contentsListArray  = [];
+        $this->contentsListString = '';
+        $this->firstHeadLevel     = 0;
+        $this->anchorDuplicates   = [];
+        $this->footnoteCount      = 0;
+        $this->currentAbreviation = '';
+        $this->currentMeaning     = '';
+    }
+
+    /**
      * Create instance for static use
      *
      * @param string $name Instance name
@@ -414,9 +433,12 @@ class Markdown
      *
      * @since 1.0.0
      */
-    public static function instance(string $name = 'default') : self
+    public static function getInstance(string $name = 'default') : self
     {
         if (isset(self::$instances[$name])) {
+            $obj = self::$instances[$name];
+            $obj->clean();
+
             return self::$instances[$name];
         }
 
@@ -548,7 +570,7 @@ class Markdown
      */
     public static function parse(string $text) : string
     {
-        $parsedown = new self();
+        $parsedown = self::getInstance();
 
         return $parsedown->text($text);
     }
@@ -1220,7 +1242,10 @@ class Markdown
      */
     protected function inlineMark(array $excerpt) : ?array
     {
-        if (\preg_match('/^(==)([^=]*?)(==)/', $excerpt['text'], $matches) !== 1) {
+        if (!isset($excerpt['text'][1])
+            || $excerpt['text'][1] !== '='
+            || \preg_match('/^(==)([^=]*?)(==)/', $excerpt['text'], $matches) !== 1
+        ) {
             return null;
         }
 
@@ -1244,7 +1269,10 @@ class Markdown
      */
     protected function inlineSpoiler(array $excerpt) : ?array
     {
-        if (\preg_match('/^>!(.*?)!</us', $excerpt['text'], $matches) !== 1) {
+        if (!isset($excerpt['text'][1])
+            || $excerpt['text'][1] !== '!'
+            || \preg_match('/^>!(.*?)!</us', $excerpt['text'], $matches) !== 1
+        ) {
             return null;
         }
 
@@ -1282,7 +1310,10 @@ class Markdown
      */
     protected function inlineKeystrokes(array $excerpt) : ?array
     {
-        if (\preg_match('/^(?<!\[)(?:\[\[([^\[\]]*|[\[\]])\]\])(?!\])/s', $excerpt['text'], $matches) !== 1) {
+        if (!isset($excerpt['text'][1])
+            || $excerpt['text'][1] !== '['
+            || \preg_match('/^(?<!\[)(?:\[\[([^\[\]]*|[\[\]])\]\])(?!\])/s', $excerpt['text'], $matches) !== 1
+        ) {
             return null;
         }
 
@@ -1307,6 +1338,8 @@ class Markdown
     protected function inlineEmbeding(array $excerpt) : ?array
     {
         if (!($this->options['embeding'] ?? false)
+            || !isset($excerpt['text'][1])
+            || ($excerpt['text'][1] !== 'v' && $excerpt['text'][1] !== 'a')
             || (!($video = (\preg_match('/\[video.*src="([^"]*)".*\]/', $excerpt['text'], $matches) === 1))
                 && !($audio = (\preg_match('/\[audio.*src="([^"]*)".*\]/', $excerpt['text'], $matches) === 1)))
         ) {
@@ -1400,6 +1433,8 @@ class Markdown
     protected function inlineMap(array $excerpt) : ?array
     {
         if (!($this->options['map'] ?? false)
+            || !isset($excerpt['text'][1])
+            || $excerpt['text'][1] !== 'm'
             || (\preg_match('/\[map(?:\s+(?:name="([^"]+)"|country="([^"]+)"|city="([^"]+)"|zip="([^"]+)"|address="([^"]+)"|lat="([^"]+)"|lon="([^"]+)")){0,7}\]/', $excerpt['text'], $matches) !== 1)
         ) {
             return null;
@@ -1445,6 +1480,8 @@ class Markdown
     protected function inlineAddress(array $excerpt) : ?array
     {
         if (!($this->options['address'] ?? false)
+            || !isset($excerpt['text'][1])
+            || $excerpt['text'][1] !== 'a'
             || (\preg_match('/\[addr(?:\s+(?:name="([^"]+)"|country="([^"]+)"|city="([^"]+)"|zip="([^"]+)"|address="([^"]+)")){0,5}\]/', $excerpt['text'], $matches) !== 1)
         ) {
             return null;
@@ -1507,6 +1544,8 @@ class Markdown
     protected function inlineContact(array $excerpt) : ?array
     {
         if (!($this->options['contact'] ?? false)
+            || !isset($excerpt['text'][1])
+            || $excerpt['text'][1] !== 'c'
             || (\preg_match('/\[contact.*?([a-zA-Z]+)="(.*?)"\]/', $excerpt['text'], $matches) !== 1)
         ) {
             return null;
@@ -1590,6 +1629,8 @@ class Markdown
     protected function inlineProgress(array $excerpt) : ?array
     {
         if (!($this->options['progress'] ?? false)
+            || !isset($excerpt['text'][1])
+            || $excerpt['text'][1] !== 'p'
             || (\preg_match('/\[progress(?:\s+(?:type="([^"]+)"|percent="([^"]+)"|value="([^"]+)")){0,3}\]/', $excerpt['text'], $matches) !== 1)
         ) {
             return null;
