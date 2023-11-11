@@ -4435,14 +4435,6 @@ class Markdown
         return null;
     }
 
-    /*
-    protected function unmarkedText($text)
-    {
-        $inline = $this->inlineText($text);
-        return $this->element($inline['element']);
-    }
-    */
-
     /**
      * Handle "handler"
      *
@@ -4484,18 +4476,6 @@ class Markdown
         return $element;
     }
 
-    /*
-    protected function handleElementRecursive(array $element)
-    {
-        return $this->elementApplyRecursive('handle', $element);
-    }
-
-    protected function handleElementsRecursive(array $elements)
-    {
-        return $this->elementsApplyRecursive('handle', $elements);
-    }
-    */
-
     /**
      * Handle element recursiveley
      *
@@ -4535,12 +4515,10 @@ class Markdown
     protected function elementApplyRecursiveDepthFirst(string|\Closure $closure, array $element) : array
     {
         if (isset($element['elements'])) {
-            //$element['elements'] = $this->elementsApplyRecursiveDepthFirst($closure, $element['elements']);
             foreach ($element['elements'] as &$e) {
                 $e = $this->elementApplyRecursiveDepthFirst($closure, $e);
             }
         } elseif (isset($element['element'])) {
-            //$element['element'] = $this->elementsApplyRecursiveDepthFirst($closure, $element['element']);
             foreach ($element['element'] as &$e) {
                 $e = $this->elementApplyRecursiveDepthFirst($closure, $e);
             }
@@ -4548,27 +4526,6 @@ class Markdown
 
         return \is_string($closure) ? $this->{$closure}($element) : $closure($element);
     }
-
-    /*
-    protected function elementsApplyRecursive($closure, array $elements)
-    {
-        foreach ($elements as &$element) {
-            $element = $this->elementApplyRecursive($closure, $element);
-        }
-
-        return $elements;
-    }
-
-
-    protected function elementsApplyRecursiveDepthFirst($closure, array $elements)
-    {
-        foreach ($elements as &$element) {
-            $element = $this->elementApplyRecursiveDepthFirst($closure, $element);
-        }
-
-        return $elements;
-    }
-    */
 
     /**
      * Render element
