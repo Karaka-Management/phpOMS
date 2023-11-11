@@ -34,21 +34,21 @@ use phpOMS\Uri\UriFactory;
  * @since      1.0.0
  *
  * @todo: Add
- *  2. Calendar (own widget)
- *  3. Event (own widget)
- *  4. Tasks (own widget)
- *  5. Vote/Survey (own widget)
- *  6. Website link/embed widgets (facebook, linkedIn, twitter, ...)
- *  7. User/Supplier/Client/Employee (own widget, should make use of schema)
- *  8. Address (own widget, should make use of schema)
- *  9. Contact (own widget, should make use of schema)
- * 10. Item (own widget, should make use of schema)
- * 11. Progress radial
- * 12. Timeline horizontal/vertical/matrix
- * 14. Tabs horizontal/vertical
- * 15. Checklist (own widget)
- * 16. Gallery
- * 17. Form (own widget)
+ *  1. Calendar (own widget)
+ *  2. Event (own widget)
+ *  3. Tasks (own widget)
+ *  4. Vote/Survey (own widget)
+ *  5. Website link/embed widgets (facebook, linkedIn, twitter, ...)
+ *  6. User/Supplier/Client/Employee (own widget, should make use of schema)
+ *  7. Address (own widget, should make use of schema)
+ *  8. Contact (own widget, should make use of schema)
+ *  9. Item (own widget, should make use of schema)
+ * 10. Progress radial
+ * 11. Timeline horizontal/vertical/matrix
+ * 12. Tabs horizontal/vertical
+ * 13. Checklist (own widget)
+ * 14. Gallery
+ * 15. Form (own widget)
  */
 class Markdown
 {
