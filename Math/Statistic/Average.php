@@ -27,27 +27,69 @@ use phpOMS\Math\Matrix\Exception\InvalidDimensionException;
  */
 final class Average
 {
-    public const MA3 = [1 / 3, 1 / 3];
+    /**
+     * Moving average weights
+     *
+     * @var float[]
+     * @since 1.0.0
+     */
+    public const MA3 = [1 / 3, 1 / 3, 1 / 3];
 
-    public const MA5 = [0.2, 0.2, 0.2];
+    /**
+     * Moving average weights
+     *
+     * @var float[]
+     * @since 1.0.0
+     */
+    public const MA5 = [0.2, 0.2, 0.2, 0.2, 0.2];
 
-    public const MA2X12 = [5 / 6, 5 / 6, 5 / 6, 5 / 6, 5 / 6, 5 / 6, 0.42];
+    /**
+     * Moving average weights
+     *
+     * @var float[]
+     * @since 1.0.0
+     */
+    public const MAS15 = [-0.009, -0.019, -0.016, 0.009, 2 / 3, 0.144, 0.209, 0.231, 0.209, 0.144, 2 / 3, 0.009, -0.016, -0.019, -0.009];
 
-    public const MA3X3 = [1 / 3, 2 / 9, 1 / 9];
+    /**
+     * Moving average weights
+     *
+     * @var float[]
+     * @since 1.0.0
+     */
+    public const MAS21 = [-0.003, -0.009, -0.014, -0.014, -0.006, 0.017, 0.51, 0.37, 0.134, 0.163, 0.171, 0.163, 0.134, 0.37, 0.51, 0.017, -0.006, -0.014, -0.014, -0.009, -0.003];
 
-    public const MA3X5 = [0.2, 0.2, 2 / 15, 4 / 6];
+    /**
+     * Moving average weights
+     *
+     * @var float[]
+     * @since 1.0.0
+     */
+    public const MAH5 = [-0.73, 0.294, 0.558, 0.294, -0.73];
 
-    public const MAS15 = [0.231, 0.209, 0.144, 2 / 3, 0.009, -0.016, -0.019, -0.009];
+    /**
+     * Moving average weights
+     *
+     * @var float[]
+     * @since 1.0.0
+     */
+    public const MAH9 = [-0.041, -0.01, 0.119, 0.267, 0.330, 0.267, 0.119, -0.010, -0.041];
 
-    public const MAS21 = [0.171, 0.163, 0.134, 0.37, 0.51, 0.017, -0.006, -0.014, -0.014, -0.009, -0.003];
+    /**
+     * Moving average weights
+     *
+     * @var float[]
+     * @since 1.0.0
+     */
+    public const MAH13 = [-0.019, -0.028, 0, 0.66, 0.147, 0.214, 0.240, 0.214, 0.147, 0.66, 0, -0.028, -0.019];
 
-    public const MAH5 = [0.558, 0.294, -0.73];
-
-    public const MAH9 = [0.330, 0.267, 0.119, -0.010, -0.041];
-
-    public const MAH13 = [0.240, 0.214, 0.147, 0.66, 0, -0.028, -0.019];
-
-    public const MAH23 = [0.148, 0.138, 0.122, 0.097, 0.068, 0.039, 0.013, -0.005, -0.015, -0.016, -0.011, -0.004];
+    /**
+     * Moving average weights
+     *
+     * @var float[]
+     * @since 1.0.0
+     */
+    public const MAH23 = [-0.004, -0.011, -0.016, -0.015, -0.005, 0.013, 0.039, 0.068, 0.097, 0.122, 0.138, 0.148, 0.138, 0.122, 0.097, 0.068, 0.039, 0.013, -0.005, -0.015, -0.016, -0.011, -0.004];
 
     /**
      * Constructor.

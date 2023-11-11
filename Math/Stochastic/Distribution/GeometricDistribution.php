@@ -25,6 +25,16 @@ namespace phpOMS\Math\Stochastic\Distribution;
 final class GeometricDistribution
 {
     /**
+     * Constructor.
+     *
+     * @since 1.0.0
+     * @codeCoverageIgnore
+     */
+    private function __construct()
+    {
+    }
+
+    /**
      * Get probability mass function.
      *
      * @param float $p Value p

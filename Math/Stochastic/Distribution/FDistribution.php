@@ -27,6 +27,16 @@ use phpOMS\Math\Functions\Beta;
 final class FDistribution
 {
     /**
+     * Constructor.
+     *
+     * @since 1.0.0
+     * @codeCoverageIgnore
+     */
+    private function __construct()
+    {
+    }
+
+    /**
      * Get probability density function.
      *
      * @param float $x  Value x

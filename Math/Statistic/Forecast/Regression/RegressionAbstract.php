@@ -28,6 +28,16 @@ use phpOMS\Math\Statistic\Average;
 abstract class RegressionAbstract
 {
     /**
+     * Constructor.
+     *
+     * @since 1.0.0
+     * @codeCoverageIgnore
+     */
+    private function __construct()
+    {
+    }
+
+    /**
      * Get linear regression based on scatter plot.
      *
      * @latex y = b_{0} + b_{1} \cdot x

@@ -35,6 +35,16 @@ final class LogDistribution
     public const EPSILON = 4.88e-04;
 
     /**
+     * Constructor.
+     *
+     * @since 1.0.0
+     * @codeCoverageIgnore
+     */
+    private function __construct()
+    {
+    }
+
+    /**
      * Get probability mass function.
      *
      * @latex -\frac{1}{\log(1-p)} \cdot \frac{p^k}{k}

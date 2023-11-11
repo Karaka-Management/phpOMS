@@ -25,6 +25,16 @@ namespace phpOMS\Math\Statistic\Forecast;
 final class Forecasts
 {
     /**
+     * Constructor.
+     *
+     * @since 1.0.0
+     * @codeCoverageIgnore
+     */
+    private function __construct()
+    {
+    }
+
+    /**
      * Get forecast/prediction interval.
      *
      * @param float $forecast          Forecast value

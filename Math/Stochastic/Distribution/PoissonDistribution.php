@@ -28,6 +28,16 @@ use phpOMS\Math\Functions\Gamma;
 final class PoissonDistribution
 {
     /**
+     * Constructor.
+     *
+     * @since 1.0.0
+     * @codeCoverageIgnore
+     */
+    private function __construct()
+    {
+    }
+
+    /**
      * Get density.
      *
      * Formula: e^(k * ln(lambda) - lambda - \log(gamma(k+1))

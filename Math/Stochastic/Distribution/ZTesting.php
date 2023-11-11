@@ -31,14 +31,30 @@ use phpOMS\Math\Statistic\MeasureOfDispersion;
  */
 final class ZTesting
 {
+    /**
+     * Percentile table
+     *
+     * @var array<string, float>
+     * @since 1.0.0
+     */
     public const TABLE = [
-        '2.58' => 0.99,
-        '2.33' => 0.98,
-        '1.96' => 0.95,
-        '1.64' => 0.90,
-        '1.44' => 0.85,
-        '1.28' => 0.80,
+        '0.99' => 2.58,
+        '0.98' => 2.33,
+        '0.95' => 1.96,
+        '0.90' => 1.64,
+        '0.85' => 1.44,
+        '0.80' => 1.28,
     ];
+
+    /**
+     * Constructor.
+     *
+     * @since 1.0.0
+     * @codeCoverageIgnore
+     */
+    private function __construct()
+    {
+    }
 
     /**
      * Test hypthesis.
@@ -58,8 +74,8 @@ final class ZTesting
 
         $zSignificance = 0.0;
         foreach (self::TABLE as $key => $value) {
-            if ($significance === $value) {
-                $zSignificance = (float) $key;
+            if ($significance === (float) $key) {
+                $zSignificance = $value;
             }
         }
 

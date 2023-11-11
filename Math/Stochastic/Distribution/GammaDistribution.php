@@ -27,6 +27,16 @@ use phpOMS\Math\Functions\Gamma;
 final class GammaDistribution
 {
     /**
+     * Constructor.
+     *
+     * @since 1.0.0
+     * @codeCoverageIgnore
+     */
+    private function __construct()
+    {
+    }
+
+    /**
      * Get probability density function for shape and scale.
      *
      * @param float $x     Value x

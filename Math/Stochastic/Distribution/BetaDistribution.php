@@ -28,6 +28,16 @@ use phpOMS\Math\Functions\Functions;
 final class BetaDistribution
 {
     /**
+     * Constructor.
+     *
+     * @since 1.0.0
+     * @codeCoverageIgnore
+     */
+    private function __construct()
+    {
+    }
+
+    /**
      * Get expected value.
      *
      * @param float $alpha Alpha
