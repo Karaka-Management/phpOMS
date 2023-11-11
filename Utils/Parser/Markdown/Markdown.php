@@ -4149,7 +4149,7 @@ class Markdown
 
             unset($block['li']);
 
-            $text = isset($matches[1]) ? $matches[1] : '';
+            $text = $matches[1] ?? '';
 
             $block['indent'] = $line['indent'];
 
@@ -4487,7 +4487,6 @@ class Markdown
         $element = \is_string($closure) ? $this->{$closure}($element) : $closure($element);
 
         if (isset($element['elements'])) {
-            //$element['elements'] = $this->elementsApplyRecursive($closure, $element['elements']);
             foreach ($element['elements'] as &$e) {
                 $e = $this->elementApplyRecursive($closure, $e);
             }
