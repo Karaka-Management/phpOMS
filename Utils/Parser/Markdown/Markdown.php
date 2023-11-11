@@ -58,7 +58,7 @@ class Markdown
      * @var string
      * @since 1.0.0
      */
-    public const VERSION = '1.8.0-beta-7';
+    public const VERSION = '2.0.0';
 
     /**
      * Special markdown characters
