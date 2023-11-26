@@ -25,6 +25,16 @@ namespace phpOMS\Utils\Encoding;
 final class Gray
 {
     /**
+     * Constructor.
+     *
+     * @since 1.0.0
+     * @codeCoverageIgnore
+     */
+    private function __construct()
+    {
+    }
+
+    /**
      * Encode source text
      *
      * @param int $source Source to encode

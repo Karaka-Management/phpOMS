@@ -25,6 +25,16 @@ namespace phpOMS\Utils\Encoding;
 final class XorEncoding
 {
     /**
+     * Constructor.
+     *
+     * @since 1.0.0
+     * @codeCoverageIgnore
+     */
+    private function __construct()
+    {
+    }
+
+    /**
      * Decode text
      *
      * @param string $raw Source to encode

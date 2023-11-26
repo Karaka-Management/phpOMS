@@ -675,8 +675,8 @@ class Markdown
      */
     protected function inlineCode(array $excerpt) : ?array
     {
-        if (($this->options['code']['inline'] ?? true) !== true
-            || ($this->options['code'] ?? true) !== true
+        if (!($this->options['code']['inline'] ?? true)
+            || !($this->options['code'] ?? true)
         ) {
             return null;
         }

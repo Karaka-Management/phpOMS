@@ -25,6 +25,16 @@ namespace phpOMS\Utils\Encoding;
 final class Base64Url
 {
     /**
+     * Constructor.
+     *
+     * @since 1.0.0
+     * @codeCoverageIgnore
+     */
+    private function __construct()
+    {
+    }
+
+    /**
      * Encode source text
      *
      * @param string $source Source to encode
