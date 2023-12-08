@@ -141,7 +141,7 @@ final class HttpResponse extends ResponseAbstract implements RenderableInterface
     {
         $render = '';
         foreach ($this->data as $response) {
-            // @note: Api functions return void -> null, this is where the null value is "ignored"/rendered as ''
+            // @note Api functions return void -> null, this is where the null value is "ignored"/rendered as ''
             $render .= StringUtils::stringify($response);
         }
 

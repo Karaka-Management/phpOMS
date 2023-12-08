@@ -569,7 +569,7 @@ class DataMapperFactory
      * @param int                $pageLimit    Limit result set
      * @param string             $sortBy       Model member name to sort by
      * @param string             $sortOrder    Sort order
-     * @param array              $searchFields Fields to search in. ([] = all) @todo: maybe change to all which have autocomplete = true defined?
+     * @param array              $searchFields Fields to search in. ([] = all) @todo maybe change to all which have autocomplete = true defined?
      * @param array              $filters      Additional search filters applied ['type', 'value1', 'logic1', 'value2', 'logic2']
      *
      * @return array{hasPrevious:bool, hasNext:bool, data:object[]}
@@ -636,7 +636,7 @@ class DataMapperFactory
             }
         }
 
-        // @todo: how to handle columns which are NOT members (columns which are manipulated)
+        // @todo how to handle columns which are NOT members (columns which are manipulated)
         //          Maybe pass callback array which can handle these cases?
 
         if ($type === 'p') {

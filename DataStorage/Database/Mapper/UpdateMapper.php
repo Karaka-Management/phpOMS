@@ -161,9 +161,6 @@ final class UpdateMapper extends DataMapperAbstract
                 }
             }
 
-            // @todo:
-            // @bug: Sqlite doesn't allow table_name.column_name in set queries for whatver reason.
-
             $sth = $this->db->con->prepare($query->toSql());
             if ($sth !== false) {
                 $sth->execute();
@@ -346,7 +343,7 @@ final class UpdateMapper extends DataMapperAbstract
             $query = new Builder($this->db);
             $src   = $many['external'] ?? $many['mapper']::PRIMARYFIELD;
 
-            // @todo: what if a specific column name is defined instead of primaryField for the join? Fix, it should be stored in 'column'
+            // @todo what if a specific column name is defined instead of primaryField for the join? Fix, it should be stored in 'column'
             $query->select($many['table'] . '.' . $src)
                 ->from($many['table'])
                 ->where($many['table'] . '.' . $many['self'], '=', $objId);

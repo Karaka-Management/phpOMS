@@ -40,7 +40,7 @@ class BaseStringL11n implements \JsonSerializable
      */
     public string $name = '';
 
-    // @todo: this feels like $name and $type accomplish the same thing
+    // @todo this feels like $name and $type accomplish the same thing
     // maybe we can always use $type and remove $name.
     // This would require some smart mapper adjustment where the name is part of the l11n model,
     // maybe use the path definition in the mapper which is used by arrays (e.g. type/name)

@@ -245,7 +245,7 @@ final class WriteMapper extends DataMapperAbstract
         $mapper     = $this->mapper::BELONGS_TO[$propertyName]['mapper'];
         $primaryKey = $mapper::getObjectId($obj);
 
-        // @todo: the $mapper::create() might cause a problem if 'by' is set. because we don't want to create this obj but the child obj.
+        // @todo the $mapper::create() might cause a problem if 'by' is set. because we don't want to create this obj but the child obj.
         return empty($primaryKey) ? $mapper::create(db: $this->db)->execute($obj) : $primaryKey;
     }
 
@@ -290,7 +290,7 @@ final class WriteMapper extends DataMapperAbstract
                 ? $mapper::COLUMNS[$this->mapper::HAS_MANY[$propertyName]['self']]['internal']
                 : 'ERROR';
 
-            // @todo: this or $isRelPrivate is wrong, don't know which one.
+            // @todo this or $isRelPrivate is wrong, don't know which one.
             $isInternalPrivate =$mapper::COLUMNS[$this->mapper::HAS_MANY[$propertyName]['self']]['private'] ?? false;
 
             if (\is_object($values)) {
@@ -307,7 +307,7 @@ final class WriteMapper extends DataMapperAbstract
                 $mapper::create(db: $this->db)->execute($values);
                 continue;
             } elseif (!\is_array($values)) {
-                // @todo: conditionals???
+                // @todo conditionals???
                 continue;
             }
 

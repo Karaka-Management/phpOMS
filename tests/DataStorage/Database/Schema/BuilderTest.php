@@ -170,7 +170,7 @@ final class BuilderTest extends \PHPUnit\Framework\TestCase
         $iS = $con->getGrammar()->systemIdentifierStart;
         $iE = $con->getGrammar()->systemIdentifierEnd;
 
-        // @todo: fix, this is not correct for sqlite
+        // @todo fix, this is not correct for sqlite
         $query = new Builder($con);
 
         $sql = '';

@@ -265,37 +265,32 @@ final class StringUtils
         for ($i = 0; $i < $n; ++$i) {
             $mc = $diff['mask'][$i];
 
-            if ($mc !== 0) {
-                switch ($mc) {
-                    case -1:
-                        $result .= '<del>' . $diff['values'][$i] . '</del>' . $delim;
-                        break;
-                    case 1:
-                        $result .= '<ins>' . $diff['values'][$i] . '</ins>' . $delim;
-                        break;
-                }
-            } else {
-                $result .= $diff['values'][$i] . $delim;
+            $previousMC = $diff['mask'][$i - 1] ?? 0;
+            $nextMC     = $diff['mask'][$i + 1] ?? 0;
+
+            switch ($mc) {
+                case -1:
+                    $result .= ($previousMC === -1 ? '' : '<del>')
+                        . $diff['values'][$i]
+                        . ($nextMC === -1 ? '' : '</del>')
+                        . $delim;
+
+                    break;
+                case 1:
+                    $result .= ($previousMC === 1 ? '' : '<ins>')
+                        . $diff['values'][$i]
+                        . ($nextMC === -1 ? '' : '</ins>')
+                        . $delim;
+
+                    break;
+                default:
+                    $result .= $diff['values'][$i] . $delim;
             }
         }
 
         $result = \rtrim($result, $delim);
 
-        switch ($mc) {
-            case -1:
-                $result .= '</del>';
-                break;
-            case 1:
-                $result .= '</ins>';
-                break;
-        }
-
-        // @todo: This should not be necessary but the algorithm above allows for weird combinations.
-        return \str_replace(
-            ['</del></del>', '</ins></ins>', '<ins></ins>', '<del></del>', '</ins><ins>', '</del><del>', '</ins> <del>', '</del> <ins>'],
-            ['</del>', '</ins>', '', '', '', '', '</ins><del>', '</del><ins>'],
-            $result
-        );
+        return $result;
     }
 
     /**

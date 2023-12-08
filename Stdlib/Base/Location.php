@@ -68,6 +68,16 @@ class Location implements \JsonSerializable, SerializableInterface
     public string $address = '';
 
     /**
+     * Address addition.
+     *
+     * e.g. 2nd floor
+     *
+     * @var string
+     * @since 1.0.0
+     */
+    public string $addressAddition = '';
+
+    /**
      * Address type
      *
      * @var int

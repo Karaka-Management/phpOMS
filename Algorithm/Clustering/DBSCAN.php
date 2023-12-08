@@ -29,7 +29,7 @@ use phpOMS\Math\Topology\MetricsND;
  *
  * @todo Expand to n dimensions
  */
-final class DBSCAN
+final class DBSCAN implements ClusteringInterface
 {
     /**
      * Epsilon for float comparison.
@@ -64,11 +64,19 @@ final class DBSCAN
     private array $points = [];
 
     /**
+     * Points of the cluster centers
+     *
+     * @var PointInterface[]
+     * @since 1.0.0
+     */
+    private array $clusterCenters = [];
+
+    /**
      * Clusters
      *
      * Array of points assigned to a cluster
      *
-     * @var array<int, array>
+     * @var array<int, PointInterface[]>
      * @since 1.0.0
      */
     private array $clusters = [];
@@ -215,15 +223,9 @@ final class DBSCAN
     }
 
     /**
-     * Find the cluster for a point
-     *
-     * @param PointInterface $point Point to find the cluster for
-     *
-     * @return int Cluster id
-     *
-     * @since 1.0.0
+     * {@inheritdoc}
      */
-    public function cluster(PointInterface $point) : int
+    public function cluster(PointInterface $point) : ?PointInterface
     {
         if ($this->convexHulls === []) {
             foreach ($this->clusters as $c => $cluster) {
@@ -232,18 +234,18 @@ final class DBSCAN
                     $points[] = $p->coordinates;
                 }
 
-                // @todo: this is only good for 2D. Fix this for ND.
+                // @todo this is only good for 2D. Fix this for ND.
                 $this->convexHulls[$c] = MonotoneChain::createConvexHull($points);
             }
         }
 
         foreach ($this->convexHulls as $c => $hull) {
             if (Polygon::isPointInPolygon($point->coordinates, $hull) <= 0) {
-                return $c;
+                return $hull;
             }
         }
 
-        return -1;
+        return null;
     }
 
     /**
@@ -281,5 +283,49 @@ final class DBSCAN
                 $this->clusters[$c] = [];
             }
         }
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function getCentroids() : array
+    {
+        if (!empty($this->clusterCenters)) {
+            return $this->clusterCenters;
+        }
+
+        $dim = \count(\reset($this->points)->getCoordinates());
+        foreach ($this->clusters as $cluster) {
+            $middle = \array_fill(0, $dim, 0);
+            foreach ($cluster as $point) {
+                for ($i = 0; $i < $dim; ++$i) {
+                    $middle[$i] += $point->getCoordinate($i);
+                }
+            }
+
+            for ($i = 0; $i < $dim; ++$i) {
+                $middle[$i] /= \count($cluster);
+            }
+
+            $this->clusterCenters = new Point($middle);
+        }
+
+        return $this->clusterCenters;
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function getNoise() : array
+    {
+        return $this->noisePoints;
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function getClusters() : array
+    {
+        return $this->clusters;
     }
 }

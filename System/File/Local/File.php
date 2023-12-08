@@ -471,7 +471,7 @@ final class File extends FileAbstract implements FileInterface
      */
     public function getParent() : ContainerInterface
     {
-        return new Directory(self::parent($this->path));
+        return $this->parent ?? new Directory(self::parent($this->path));
     }
 
     /**
@@ -483,7 +483,7 @@ final class File extends FileAbstract implements FileInterface
      */
     public function getDirectory() : ContainerInterface
     {
-        return new Directory(self::dirpath($this->path));
+        return $this->parent ?? new Directory(self::dirpath($this->path));
     }
 
     /**
@@ -491,7 +491,16 @@ final class File extends FileAbstract implements FileInterface
      */
     public function copyNode(string $to, bool $overwrite = false) : bool
     {
-        return self::copy($this->path, $to, $overwrite);
+        $newParent = $this->findNode($to);
+
+        $state = self::copy($this->path, $to, $overwrite);
+
+        /** @var null|Directory $newParent */
+        if ($newParent !== null) {
+            $newParent->addNode(new self($to));
+        }
+
+        return $state;
     }
 
     /**
@@ -499,7 +508,10 @@ final class File extends FileAbstract implements FileInterface
      */
     public function moveNode(string $to, bool $overwrite = false) : bool
     {
-        return self::move($this->path, $to, $overwrite);
+        $state = $this->copyNode($to, $overwrite);
+        $state = $state && $this->deleteNode();
+
+        return $state;
     }
 
     /**
@@ -507,6 +519,10 @@ final class File extends FileAbstract implements FileInterface
      */
     public function deleteNode() : bool
     {
+        if (isset($this->parent)) {
+            unset($this->parent->nodes[$this->getBasename()]);
+        }
+
         return self::delete($this->path);
     }
 

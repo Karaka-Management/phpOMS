@@ -370,8 +370,8 @@ final class Simplex
         $this->b = $b;
         $this->c = $c;
 
-        // @todo: createSlackForm() required?
-        // @todo: create minimize
+        // @todo createSlackForm() required?
+        // @todo create minimize
 
         $this->m = \count($A);
         $this->n = \count(\reset($A));

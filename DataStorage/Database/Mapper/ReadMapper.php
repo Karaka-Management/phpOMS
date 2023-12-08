@@ -182,11 +182,28 @@ final class ReadMapper extends DataMapperAbstract
      * @return self
      *
      * @since 1.0.0
-     * @todo: consider to accept properties instead and then check ::COLUMNS which contian the property and ADD that array into $this->columns. Maybe also consider a rename from columns() to property()
      */
     public function columns(array $columns) : self
     {
         $this->columns = $columns;
+
+        return $this;
+    }
+
+    /**
+     * Define the properties to load
+     *
+     * @param array $properties Properties to load
+     *
+     * @return self
+     *
+     * @since 1.0.0
+     */
+    public function properties(array $properties) : self
+    {
+        foreach ($properties as $property) {
+            $this->columns[] = $this->mapper::getColumnByMember($property);
+        }
 
         return $this;
     }
@@ -270,7 +287,7 @@ final class ReadMapper extends DataMapperAbstract
 
             $ids[] = $value;
 
-            // @todo: This is too slow, since it creates a query for every $row x relation type.
+            // @todo This is too slow, since it creates a query for every $row x relation type.
             // Pulling it out would be nice.
             // The problem with solving this is that in a many-to-many relationship a relation table is used
             // BUT the relation data is not available in the object itself meaning after retrieving the object
@@ -332,18 +349,15 @@ final class ReadMapper extends DataMapperAbstract
     public function executeGetRaw(Builder $query = null) : array
     {
         $query ??= $this->getQuery();
+        $results = false;
 
         try {
-            $results = false;
-
             $sth = $this->db->con->prepare($query->toSql());
             if ($sth !== false) {
                 $sth->execute();
                 $results = $sth->fetchAll(\PDO::FETCH_ASSOC);
             }
         } catch (\Throwable $t) {
-            $results = false;
-
             \phpOMS\Log\FileLogger::getInstance()->error(
                 \phpOMS\Log\FileLogger::MSG_FULL, [
                     'message' => $t->getMessage() . ':' . $query->toSql(),
@@ -556,9 +570,9 @@ final class ReadMapper extends DataMapperAbstract
             }
 
             /* variable in model */
-            // @todo: join handling is extremely ugly, needs to be refactored
+            // @todo join handling is extremely ugly, needs to be refactored
             foreach ($values as $join) {
-                // @todo: the has many, etc. if checks only work if it is a relation on the first level, if we have a deeper where condition nesting this fails
+                // @todo the has many, etc. if checks only work if it is a relation on the first level, if we have a deeper where condition nesting this fails
                 if ($join['child'] !== '') {
                     continue;
                 }
@@ -630,7 +644,7 @@ final class ReadMapper extends DataMapperAbstract
             /* variable in model */
             $previous = null;
             foreach ($values as $where) {
-                // @todo: the has many, etc. if checks only work if it is a relation on the first level, if we have a deeper where condition nesting this fails
+                // @todo the has many, etc. if checks only work if it is a relation on the first level, if we have a deeper where condition nesting this fails
                 if ($where['child'] !== '') {
                     continue;
                 }
@@ -659,7 +673,7 @@ final class ReadMapper extends DataMapperAbstract
                     $where1->where($this->mapper::TABLE . '_d' . $this->depth . '.' . $col, $comparison, $where['value'], 'and');
 
                     $where2 = new Builder($this->db);
-                    $where2->select('1') // @todo: why is this in quotes?
+                    $where2->select(1)
                         ->from($this->mapper::TABLE . '_d' . $this->depth)
                         ->where($this->mapper::TABLE . '_d' . $this->depth . '.' . $col, 'in', $alt);
 
@@ -703,7 +717,7 @@ final class ReadMapper extends DataMapperAbstract
                 } elseif (!isset($this->mapper::HAS_MANY[$member]['external']) && isset($this->mapper::HAS_MANY[$member]['column'])) {
                     // get HasManyQuery (but only for elements which have a 'column' defined)
 
-                    // @todo: handle self and self === null
+                    // @todo handle self and self === null
                     $query->leftJoin($rel['mapper']::TABLE, $rel['mapper']::TABLE . '_d' . ($this->depth + 1))
                         ->on(
                             $this->mapper::TABLE . '_d' . $this->depth . '.' . ($rel['external'] ?? $this->mapper::PRIMARYFIELD), '=',
@@ -832,7 +846,7 @@ final class ReadMapper extends DataMapperAbstract
                 }
 
                 if (empty($value)) {
-                    // @todo: find better solution. this was because of a bug with the sales billing list query depth = 4. The address was set (from the client, referral or creator) but then somehow there was a second address element which was all null and null cannot be asigned to a string variable (e.g. country). The problem with this solution is that if the model expects an initialization (e.g. at lest set the elements to null, '', 0 etc.) this is now not done.
+                    // @todo find better solution. this was because of a bug with the sales billing list query depth = 4. The address was set (from the client, referral or creator) but then somehow there was a second address element which was all null and null cannot be asigned to a string variable (e.g. country). The problem with this solution is that if the model expects an initialization (e.g. at lest set the elements to null, '', 0 etc.) this is now not done.
                     $value = $isPrivate ? $refProp->getValue($obj) : $obj->{$member};
                 }
             } elseif (isset($this->mapper::BELONGS_TO[$def['internal']])) {
@@ -896,7 +910,7 @@ final class ReadMapper extends DataMapperAbstract
             }
         }
 
-        // @todo: How is this allowed? at the bottom we set $obj->hasMany = value. A has many should be always an array?!
+        // @todo How is this allowed? at the bottom we set $obj->hasMany = value. A has many should be always an array?!
         foreach ($this->mapper::HAS_MANY as $member => $def) {
             $column = $def['mapper']::getColumnByMember($def['column'] ?? $member);
             $alias  = $column . '_d' . ($this->depth + 1);
@@ -992,8 +1006,8 @@ final class ReadMapper extends DataMapperAbstract
      *
      * @return mixed
      *
-     * @todo: in the future we could pass not only the $id ref but all of the data as a join!!! and save an additional select!!!
-     * @todo: parent and child elements however must be loaded because they are not loaded
+     * @todo in the future we could pass not only the $id ref but all of the data as a join!!! and save an additional select!!!
+     * @todo parent and child elements however must be loaded because they are not loaded
      *
      * @since 1.0.0
      */
@@ -1036,8 +1050,8 @@ final class ReadMapper extends DataMapperAbstract
      *
      * @return mixed
      *
-     * @todo: in the future we could pass not only the $id ref but all of the data as a join!!! and save an additional select!!!
-     * @todo: only the belongs to model gets populated the children of the belongsto model are always null models. either this function needs to call the get for the children, it should call get for the belongs to right away like the has many, or i find a way to recursevily load the data for all sub models and then populate that somehow recursively, probably too complex.
+     * @todo in the future we could pass not only the $id ref but all of the data as a join!!! and save an additional select!!!
+     * @todo only the belongs to model gets populated the children of the belongsto model are always null models. either this function needs to call the get for the children, it should call get for the belongs to right away like the has many, or i find a way to recursevily load the data for all sub models and then populate that somehow recursively, probably too complex.
      *
      * @since 1.0.0
      */
@@ -1110,7 +1124,7 @@ final class ReadMapper extends DataMapperAbstract
 
         $refClass = null;
 
-        // @todo: check if there are more cases where the relation is already loaded with joins etc.
+        // @todo check if there are more cases where the relation is already loaded with joins etc.
         // there can be pseudo has many elements like localizations. They are has manies but these are already loaded with joins!
         foreach ($this->with as $member => $withData) {
             if (isset($this->mapper::HAS_MANY[$member])) {
@@ -1122,7 +1136,7 @@ final class ReadMapper extends DataMapperAbstract
                 $isPrivate = $withData['private'] ?? false;
 
                 $objectMapper = $this->createRelationMapper($many['mapper']::get(db: $this->db), $member);
-                if ($many['external'] === null/* same as $many['table'] !== $many['mapper']::TABLE */) {
+                if ($many['external'] === null) {
                     $objectMapper->where($many['mapper']::COLUMNS[$many['self']]['internal'], $primaryKey);
                 } else {
                     $query = new Builder($this->db, true);
@@ -1208,7 +1222,7 @@ final class ReadMapper extends DataMapperAbstract
 
         $refClass = null;
 
-        // @todo: check if there are more cases where the relation is already loaded with joins etc.
+        // @todo check if there are more cases where the relation is already loaded with joins etc.
         // there can be pseudo has many elements like localizations. They are has manies but these are already loaded with joins!
         foreach ($this->with as $member => $withData) {
             if (isset($this->mapper::HAS_MANY[$member])) {
@@ -1217,7 +1231,7 @@ final class ReadMapper extends DataMapperAbstract
                     continue;
                 }
 
-                // @todo: withData doesn't store this directly, it is in [0]['private] ?!?!
+                // @todo withData doesn't store this directly, it is in [0]['private] ?!?!
                 $isPrivate = $withData['private'] ?? false;
 
                 $objectMapper = $this->createRelationMapper($many['mapper']::exists(db: $this->db), $member);

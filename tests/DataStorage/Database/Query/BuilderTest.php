@@ -535,19 +535,19 @@ final class BuilderTest extends \PHPUnit\Framework\TestCase
         $iE = $con->getGrammar()->systemIdentifierEnd;
 
         $query = new Builder($con);
-        $sql   = 'UPDATE [a] SET [a].[test] = 1, [a].[test2] = 2 WHERE [a].[test] = 1;';
+        $sql   = 'UPDATE [a] SET [test] = 1, [test2] = 2 WHERE [a].[test] = 1;';
         $sql   = \strtr($sql, '[]', $iS . $iE);
-        self::assertEquals($sql, $query->update('a')->set(['a.test' => 1])->set(['a.test2' => 2])->where('a.test', '=', 1)->toSql());
+        self::assertEquals($sql, $query->update('a')->set(['test' => 1])->set(['test2' => 2])->where('a.test', '=', 1)->toSql());
 
         $query = new Builder($con);
-        $sql   = 'UPDATE [a] SET [a].[test] = 1, [a].[test2] = 2 WHERE [a].[test] = 1;';
+        $sql   = 'UPDATE [a] SET [test] = 1, [test2] = 2 WHERE [a].[test] = 1;';
         $sql   = \strtr($sql, '[]', $iS . $iE);
-        self::assertEquals($sql, $query->update('a')->sets('a.test', 1)->sets('a.test2', 2)->where('a.test', '=', 1)->toSql());
+        self::assertEquals($sql, $query->update('a')->sets('test', 1)->sets('test2', 2)->where('a.test', '=', 1)->toSql());
 
         $query = new Builder($con);
-        $sql   = 'UPDATE [a] SET [a].[test] = 1, [a].[test2] = :test2 WHERE [a].[test] = :test3;';
+        $sql   = 'UPDATE [a] SET [test] = 1, [test2] = :test2 WHERE [a].[test] = :test3;';
         $sql   = \strtr($sql, '[]', $iS . $iE);
-        self::assertEquals($sql, $query->update('a')->set(['a.test' => 1])->set(['a.test2' => new Parameter('test2')])->where('a.test', '=', new Parameter('test3'))->toSql());
+        self::assertEquals($sql, $query->update('a')->set(['test' => 1])->set(['test2' => new Parameter('test2')])->where('a.test', '=', new Parameter('test3'))->toSql());
     }
 
     /**

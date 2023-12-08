@@ -25,7 +25,7 @@ use phpOMS\Math\Topology\MetricsND;
  * @see     ./clustering_overview.png
  * @since   1.0.0
  */
-final class Kmeans
+final class Kmeans implements ClusteringInterface
 {
     /**
      * Epsilon for float comparison.
@@ -49,7 +49,23 @@ final class Kmeans
      * @var PointInterface[]
      * @since 1.0.0
      */
-    private $clusterCenters = [];
+    private array $clusterCenters = [];
+
+    /**
+     * Points of the clusters
+     *
+     * @var PointInterface[]
+     * @since 1.0.0
+     */
+    private array $clusters = [];
+
+    /**
+     * Points
+     *
+     * @var PointInterface[]
+     * @since 1.0.0
+     */
+    private array $points = [];
 
     /**
      * Constructor
@@ -66,18 +82,10 @@ final class Kmeans
 
             return MetricsND::euclidean($aCoordinates, $bCoordinates);
         };
-
-        //$this->generateClusters($points, $clusters);
     }
 
     /**
-     * Find the cluster for a point
-     *
-     * @param PointInterface $point Point to find the cluster for
-     *
-     * @return null|PointInterface Cluster center point
-     *
-     * @since 1.0.0
+     * {@inheritdoc}
      */
     public function cluster(PointInterface $point) : ?PointInterface
     {
@@ -95,15 +103,19 @@ final class Kmeans
     }
 
     /**
-     * Get cluster centroids
-     *
-     * @return array
-     *
-     * @since 1.0.0
+     * {@inheritdoc}
      */
     public function getCentroids() : array
     {
         return $this->clusterCenters;
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function getNoise() : array
+    {
+        return [];
     }
 
     /**
@@ -118,6 +130,7 @@ final class Kmeans
      */
     public function generateClusters(array $points, int $clusters) : void
     {
+        $this->points   = $points;
         $n              = \count($points);
         $clusterCenters = $this->kpp($points, $clusters);
         $coordinates    = \count($points[0]->coordinates);
@@ -244,5 +257,22 @@ final class Kmeans
         }
 
         return $clusters;
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function getClusters() : array
+    {
+        if (!empty($this->clusters)) {
+            return $this->clusters;
+        }
+
+        foreach ($this->points as $point) {
+            $c = $this->cluster($point);
+            $this->clusters[$c] = $point;
+        }
+
+        return $this->clusters;
     }
 }

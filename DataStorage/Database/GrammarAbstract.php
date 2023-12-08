@@ -198,6 +198,9 @@ abstract class GrammarAbstract
             if (\is_string($element)) {
                 $expression .= $this->compileSystem($element)
                     . (\is_string($key) ? ' as ' . $key : '') . ', ';
+            } elseif (\is_int($element)) {
+                // example: select 1
+                $expression .= $element . ', ';
             } elseif ($element instanceof \Closure) {
                 $expression .= $element() . (\is_string($key) ? ' as ' . $key : '') . ', ';
             } elseif ($element instanceof BuilderAbstract) {

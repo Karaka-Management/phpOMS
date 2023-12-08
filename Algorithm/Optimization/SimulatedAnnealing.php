@@ -58,7 +58,7 @@ class SimulatedAnnealing
 
     // Simulated Annealing algorithm
     // @todo allow to create a solution space (currently all soluctions need to be in space)
-    // @todo: currently only replacing generations, not altering them
+    // @todo currently only replacing generations, not altering them
     /**
      * Perform optimization
      *

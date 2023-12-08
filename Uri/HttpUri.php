@@ -383,6 +383,21 @@ final class HttpUri implements UriInterface
         $this->query = \array_change_key_case($this->query, \CASE_LOWER);
     }
 
+    public function addQuery(string $key, mixed $value = null)
+    {
+        $key = \strtolower($key);
+        $this->query[$key] = $value;
+
+        $toAdd = (empty($this->queryString) ? '?' : '&')
+            . $key
+            . ($value === null ? '' : '=' . ((string) $value));
+
+        $this->queryString .= $toAdd;
+
+        // @todo handle existing string at the end of uri (e.g. #fragment)
+        $this->uri .= $toAdd;
+    }
+
     /**
      * {@inheritdoc}
      */

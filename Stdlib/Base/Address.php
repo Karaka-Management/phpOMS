@@ -22,15 +22,23 @@ namespace phpOMS\Stdlib\Base;
  * @link    https://jingga.app
  * @since   1.0.0
  */
-class Address implements \JsonSerializable
+class Address extends Location
 {
+    /**
+     * Model id.
+     *
+     * @var int
+     * @since 1.0.0
+     */
+    public int $id = 0;
+
     /**
      * Name of the receiver.
      *
      * @var string
      * @since 1.0.0
      */
-    public string $recipient = '';
+    public string $name = '';
 
     /**
      * Sub of the address.
@@ -39,24 +47,6 @@ class Address implements \JsonSerializable
      * @since 1.0.0
      */
     public string $fao = '';
-
-    /**
-     * Location.
-     *
-     * @var Location
-     * @since 1.0.0
-     */
-    public Location $location;
-
-    /**
-     * Constructor.
-     *
-     * @since 1.0.0
-     */
-    public function __construct()
-    {
-        $this->location = new Location();
-    }
 
     /**
      * {@inheritdoc}
@@ -71,10 +61,12 @@ class Address implements \JsonSerializable
      */
     public function toArray() : array
     {
-        return [
-            'recipient' => $this->recipient,
-            'fao'       => $this->fao,
-            'location'  => $this->location->toArray(),
-        ];
+        return \array_merge (
+            [
+                'name' => $this->name,
+                'fao'  => $this->fao,
+            ],
+            parent::toArray()
+        );
     }
 }

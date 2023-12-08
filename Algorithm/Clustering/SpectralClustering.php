@@ -25,6 +25,6 @@ namespace phpOMS\Algorithm\Clustering;
  *
  * @todo Implement
  */
-final class SpectralClustering
+final class SpectralClustering implements ClusteringInterface
 {
 }

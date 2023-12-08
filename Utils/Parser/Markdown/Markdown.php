@@ -33,7 +33,7 @@ use phpOMS\Uri\UriFactory;
  * @see        https://github.com/doowzs/parsedown-extreme
  * @since      1.0.0
  *
- * @todo: Add
+ * @todo Add
  *  1. Calendar (own widget)
  *  2. Event (own widget)
  *  3. Tasks (own widget)
@@ -2567,7 +2567,7 @@ class Markdown
             return null;
         }
 
-        // @todo: We are parsing the language here and further down. Shouldn't one time be enough?
+        // @todo We are parsing the language here and further down. Shouldn't one time be enough?
         // Both variations seem to result in the same result?!
         $language = \trim(\preg_replace('/^`{3}([^\s]+)(.+)?/s', '$1', $line['text']));
 
@@ -2697,7 +2697,7 @@ class Markdown
                             'text' => $summary,
                         ],
                         [
-                            'name' => 'span', // @todo: check if without span possible
+                            'name' => 'span', // @todo check if without span possible
                             'text' => '',
                         ]
                     ],

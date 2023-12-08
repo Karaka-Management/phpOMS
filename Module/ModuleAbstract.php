@@ -108,7 +108,7 @@ abstract class ModuleAbstract
     /**
      * Auditor for logging.
      *
-     * @var null|ModuleAbstract
+     * @var null|\Modules\Auditor\Controller\ApiController
      * @since 1.0.0
      */
     public static ?ModuleAbstract $auditor = null;
@@ -884,6 +884,33 @@ abstract class ModuleAbstract
         /** @phpstan-ignore-next-line */
         self::$auditor?->eventLogDelete(...$data);
         $this->app->eventManager->triggerSimilar('POST:Module:' . $trigger, '', $data);
+    }
+
+    /**
+     * Soft delete a model (only marks model as deleted)
+     *
+     *  1. Execute pre DB interaction event
+     *  2. Set model status to deleted in DB
+     *  3. Execute post DB interaction event (e.g. generates an audit log)
+     *
+     * @param int               $account Account id
+     * @param mixed             $obj     Response object
+     * @param string | \Closure $mapper  Object mapper
+     * @param string            $trigger Trigger for the event manager
+     * @param string            $ip      Ip
+     *
+     * @return void
+     *
+     * @feature Implement softDelete functionality.
+     *          Models which have a soft delete cannot be used, read or modified unless a person has soft delete permissions
+     *          In addition to DELETE permisstions we now need SOFTDELETE as well.
+     *          There also needs to be an undo function for this soft delete
+     *          In a backend environment a soft delete would be very helpful!!!
+     *
+     * @since 1.0.0
+     */
+    protected function softDeleteModel(int $account, mixed $obj, string | \Closure $mapper, string $trigger, string $ip) : void
+    {
     }
 
     /**

@@ -80,16 +80,16 @@ final class Elo
      *
      * @param int  $elo1 Elo of the player we want to calculate the win probability for
      * @param int  $elo2 Opponent elo
-     * @param bool $draw Is a draw possible?
+     * @param bool $canDraw Is a draw possible?
      *
      * @return float
      *
      * @since 1.0.0
      */
-    public function winProbability(int $elo1, int $elo2, bool $draw = false) : float
+    public function winProbability(int $elo1, int $elo2, bool $canDraw = false) : float
     {
-        return $draw
-            ? -1.0 // @todo: implement
+        return $canDraw
+            ? -1.0 // @todo implement
             : 1 / (1 + \pow(10, ($elo2 - $elo1) / 400));
     }
 
@@ -105,6 +105,6 @@ final class Elo
      */
     public function drawProbability(int $elo1, int $elo2) : float
     {
-        return -1.0; // @todo: implement
+        return -1.0; // @todo implement
     }
 }

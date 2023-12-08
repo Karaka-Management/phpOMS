@@ -117,6 +117,14 @@ abstract class FileAbstract implements FtpContainerInterface
     protected bool $isInitialized = false;
 
     /**
+     * Parent element
+     *
+     * @var null|Directory
+     * @since 1.0.0
+     */
+    protected ?Directory $parent = null;
+
+    /**
      * Constructor.
      *
      * @param string $path Path
@@ -223,5 +231,69 @@ abstract class FileAbstract implements FtpContainerInterface
         $this->permission = 0;
 
         $this->isInitialized = true;
+    }
+
+    /**
+     * Find an existing node in the node tree
+     *
+     * @param string $path Path of the node
+     *
+     * @return null|Directory
+     *
+     * @since 1.0.0
+     */
+    public function findNode(string $path) : ?Directory
+    {
+        // Change parent element
+        $currentPath = \explode('/', \trim($this->path, '/'));
+        $newPath     = \explode('/', \trim($path, '/'));
+
+        // Remove last element which is the current name
+        $currentName = \array_pop($currentPath);
+        $newName     = \array_pop($newPath);
+
+        $currentParentName = \end($currentPath);
+        $newParentName     = \end($newPath);
+
+        $currentLength = \count($currentPath);
+        $newLength     = \count($newPath);
+
+        $max       = \max($currentLength, $newLength);
+        $newParent = $this;
+
+        // Evaluate path similarity
+        for ($i = 0; $i < $max; ++$i) {
+            if (!isset($currentPath[$i]) || !isset($newPath[$i])
+                || $currentPath[$i] !== $newPath[$i]
+            ) {
+                break;
+            }
+        }
+
+        // Walk parent path
+        for ($j = $currentLength - $i; $j > 0; --$j) {
+            if ($newParent->parent === null) {
+                // No pwarent found
+
+                $newParent = null;
+                break;
+            }
+
+            $newParent = $newParent->parent;
+        }
+
+        // Walk child path if new path even is in child path
+        for ($j = $i; $i < $newLength; ++$j) {
+            if (!isset($newParent->nodes[$newPath[$j]])) {
+                // Path tree is not defined that deep -> no updating needed
+
+                $newParent = null;
+                break;
+            }
+
+            $newParent = $newParent->nodes[$newPath[$j]];
+        }
+
+        return $newParent;
     }
 }

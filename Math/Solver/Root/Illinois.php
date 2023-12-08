@@ -76,7 +76,7 @@ final class Illinois
                 return $c;
             }
 
-            // @todo: c might be wrong, could be that if and else must be switched
+            // @todo c might be wrong, could be that if and else must be switched
             // @see https://en.wikipedia.org/wiki/Regula_falsi#The_Illinois_algorithm
             if ($y * $fa < 0) {
                 $c = $sign === (int) ($y >= 0)
