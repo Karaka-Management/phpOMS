@@ -61,7 +61,7 @@ class Address extends Location
      */
     public function toArray() : array
     {
-        return \array_merge (
+        return \array_merge(
             [
                 'name' => $this->name,
                 'fao'  => $this->fao,

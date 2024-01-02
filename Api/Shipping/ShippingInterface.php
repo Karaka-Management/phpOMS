@@ -15,7 +15,6 @@ declare(strict_types=1);
 namespace phpOMS\Api\Shipping;
 
 use phpOMS\Message\Http\HttpRequest;
-use phpOMS\Message\Http\HttpResponse;
 
 /**
  * Shipping interface.
@@ -32,7 +31,7 @@ use phpOMS\Message\Http\HttpResponse;
  *
  * @todo implement Sender, Receiver, Package, Transit, Tracking classes for better type hinting instead of arrays
  *
- * @property string    $ENV ('live' = live environment, 'test' or 'sandbox' = test environment)
+ * @property string    $ENV           ('live' = live environment, 'test' or 'sandbox' = test environment)
  * @property string    $client
  * @property string    $token
  * @property string    $refreshToken
@@ -93,7 +92,7 @@ interface ShippingInterface
      *
      * @param string      $login    Login name/email
      * @param string      $password Password
-     * @param HttpRequest $redirect Redirect request after the user successfully logged in.
+     * @param HttpRequest $redirect redirect request after the user successfully logged in
      *
      * @return int Returns auth status
      *
@@ -131,7 +130,7 @@ interface ShippingInterface
      *
      * @param array $sender   Sender
      * @param array $shipFrom Ship from location (sometimes sender != pickup location)
-     * @param array $recevier Receiver
+     * @param array $receiver Receiver
      * @param array $package  Package
      * @param array $data     Shipping data
      *
@@ -150,7 +149,7 @@ interface ShippingInterface
     /**
      * Cancel shipment.
      *
-     * @param string $shipment   Shipment id
+     * @param string   $shipment Shipment id
      * @param string[] $packages Packed ids (if a shipment consists of multiple packages)
      *
      * @return bool

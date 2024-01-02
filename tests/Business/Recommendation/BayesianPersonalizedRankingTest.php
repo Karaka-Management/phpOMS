@@ -14,8 +14,6 @@ declare(strict_types=1);
 
 namespace phpOMS\tests\Business\Recommendation;
 
-use phpOMS\Business\Recommendation\BayesianPersonalizedRanking;
-
 /**
  * @testdox phpOMS\tests\Business\Recommendation\BayesianPersonalizedRankingTest: Article affinity/correlation
  *

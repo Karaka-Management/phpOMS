@@ -128,8 +128,8 @@ final class RequestAbstractTest extends \PHPUnit\Framework\TestCase
     public function testDataBoolInputOutput() : void
     {
         $this->request->setData('asdf', 1);
-        self::assertEquals(true, $this->request->getDataBool('asdf'));
-        self::assertEquals(true, $this->request->getData('asdf', 'bool'));
+        self::assertTrue($this->request->getDataBool('asdf'));
+        self::assertTrue($this->request->getData('asdf', 'bool'));
     }
 
     /**
@@ -163,10 +163,10 @@ final class RequestAbstractTest extends \PHPUnit\Framework\TestCase
      */
     public function testInvalidDataTypeInputOutput() : void
     {
-        self::assertEquals(null, $this->request->getDataString('a'));
-        self::assertEquals(null, $this->request->getDataBool('a'));
-        self::assertEquals(null, $this->request->getDataInt('a'));
-        self::assertEquals(null, $this->request->getDataFloat('a'));
-        self::assertEquals(null, $this->request->getDataDateTime('a'));
+        self::assertNull($this->request->getDataString('a'));
+        self::assertNull($this->request->getDataBool('a'));
+        self::assertNull($this->request->getDataInt('a'));
+        self::assertNull($this->request->getDataFloat('a'));
+        self::assertNull($this->request->getDataDateTime('a'));
     }
 }

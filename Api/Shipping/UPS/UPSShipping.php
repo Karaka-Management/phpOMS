@@ -20,6 +20,7 @@ use phpOMS\Api\Shipping\ShippingInterface;
 use phpOMS\Message\Http\HttpRequest;
 use phpOMS\Message\Http\RequestMethod;
 use phpOMS\Message\Http\Rest;
+use phpOMS\System\MimeType;
 use phpOMS\Uri\HttpUri;
 
 /**
@@ -177,7 +178,7 @@ final class UPSShipping implements ShippingInterface
         $request = new HttpRequest(new HttpUri($uri));
         $request->setMethod(RequestMethod::POST);
         $request->setData('grant_type', 'client_credentials');
-        $request->header->set('Content-Type', 'application/x-www-form-urlencoded');
+        $request->header->set('Content-Type', MimeType::M_POST);
         $request->header->set('x-merchant-id', $client);
         $request->header->set('Authorization', 'Basic ' . \base64_encode($login . ':' . $password));
 
@@ -255,7 +256,7 @@ final class UPSShipping implements ShippingInterface
         //          Personally I don't see why a redirect is required or even helpful. Will try without it!
         $request->setData('grant_type', 'authorization_code');
         $request->setData('code', $code);
-        $request->header->set('Content-Type', 'application/x-www-form-urlencoded');
+        $request->header->set('Content-Type', MimeType::M_POST);
         $request->header->set('Authorization', 'Basic ' . \base64_encode($login . ':' . $password));
 
         $this->expire        = new \DateTime('now');
@@ -306,7 +307,7 @@ final class UPSShipping implements ShippingInterface
         $request = new HttpRequest(new HttpUri($uri));
 
         $request->setMethod(RequestMethod::POST);
-        $request->header->set('Content-Type', 'application/x-www-form-urlencoded');
+        $request->header->set('Content-Type', MimeType::M_POST);
         $request->header->set('Authorization', 'Basic ' . \base64_encode($this->login . ':' . $this->password));
 
         $request->setData('grant_type', 'refresh_token');
@@ -367,7 +368,7 @@ final class UPSShipping implements ShippingInterface
         $request = new HttpRequest(new HttpUri($uri));
 
         $request->setMethod(RequestMethod::POST);
-        $request->header->set('Content-Type', 'application/json');
+        $request->header->set('Content-Type', MimeType::M_JSON);
         $request->header->set('Authorization', 'Bearer ' . $this->token);
         $request->header->set('transId', ((string) \microtime(true)) . '-' . \bin2hex(\random_bytes(6)));
         $request->header->set('transactionSrc', 'jingga');
@@ -402,10 +403,10 @@ final class UPSShipping implements ShippingInterface
 
         foreach ($services as $service) {
             $transits[] = [
-                'serviceLevel' => $service['serviceLevel'],
-                'deliveryDate' => new \DateTime($service['deliveryDaye']),
+                'serviceLevel'     => $service['serviceLevel'],
+                'deliveryDate'     => new \DateTime($service['deliveryDaye']),
                 'deliveryDateFrom' => null,
-                'deliveryDateTo' => null,
+                'deliveryDateTo'   => null,
             ];
         }
 
@@ -440,9 +441,9 @@ final class UPSShipping implements ShippingInterface
                 'SubVersion'    => '2205',
             ],
             'Shipment' => [
-                'Description' => $package['description'],
+                'Description'            => $package['description'],
                 'DocumentsOnlyIndicator' => '0',
-                'Shipper' => [
+                'Shipper'                => [
                     'Name'                    => \substr($sender['name'], 0, 35),
                     'AttentionName'           => \substr($sender['fao'], 0, 35),
                     'CompanyDisplayableName'  => \substr($sender['name'], 0, 35),
@@ -452,7 +453,7 @@ final class UPSShipping implements ShippingInterface
                     ],
                     'ShipperNumber' => $sender['number'],
                     'EMailAddress'  => \substr($sender['email'], 0, 50),
-                    'Address' => [
+                    'Address'       => [
                         'AddressLine'       => \substr($sender['address'], 0, 35),
                         'City'              => \substr($sender['city'], 0, 30),
                         'StateProvinceCode' => \substr($sender['state'], 0, 5),
@@ -470,7 +471,7 @@ final class UPSShipping implements ShippingInterface
                     ],
                     'ShipperNumber' => $receiver['number'],
                     'EMailAddress'  => \substr($receiver['email'], 0, 50),
-                    'Address' => [
+                    'Address'       => [
                         'AddressLine'       => \substr($receiver['address'], 0, 35),
                         'City'              => \substr($receiver['city'], 0, 30),
                         'StateProvinceCode' => \substr($receiver['state'], 0, 5),
@@ -497,7 +498,7 @@ final class UPSShipping implements ShippingInterface
                 'CostCenter'                => \substr($package['costcenter'], 0, 30),
                 'PackageID'                 => \substr($package['id'], 0, 30),
                 'PackageIDBarcodeIndicator' => '1',
-                'Package'                   => []
+                'Package'                   => [],
             ],
             'LabelSpecification' => [
                 'LabelImageFormat' => [
@@ -507,13 +508,13 @@ final class UPSShipping implements ShippingInterface
                 'LabelStockSize' => [
                     'Height' => $data['label_height'],
                     'Width'  => $data['label_width'],
-                ]
+                ],
             ],
             'ReceiptSpecification' => [
                 'ImageFormat' => [
                     'Code'        => $data['receipt_code'],
                     'Description' => \substr($data['receipt_description'], 0, 35),
-                ]
+                ],
             ],
         ];
 
@@ -521,13 +522,13 @@ final class UPSShipping implements ShippingInterface
         foreach ($package['packages'] as $p) {
             $packages[] = [
                 'Description' => \substr($p['description'], 0, 35),
-                'Packaging' => [
+                'Packaging'   => [
                     'Code'        => $p['package_code'],
-                    'Description' => $p['package_description']
+                    'Description' => $p['package_description'],
                 ],
                 'Dimensions' => [
                     'UnitOfMeasurement' => [
-                        'Code' => $p['package_dim_unit'], // IN or CM or 00 or 01
+                        'Code'        => $p['package_dim_unit'], // IN or CM or 00 or 01
                         'Description' => \substr($p['package_dim_unit_description'], 0, 35),
                     ],
                     'Length' => $p['length'],
@@ -547,7 +548,7 @@ final class UPSShipping implements ShippingInterface
                         'Description' => \substr($p['package_weight_unit_description'], 0, 35),
                     ],
                     'Weight' => $p['weight'],
-                ]
+                ],
 
             ];
         }
@@ -566,7 +567,7 @@ final class UPSShipping implements ShippingInterface
                 ],
                 'ShipperNumber' => $shipFrom['number'],
                 'EMailAddress'  => \substr($shipFrom['email'], 0, 50),
-                'Address' => [
+                'Address'       => [
                     'AddressLine'       => \substr($shipFrom['address'], 0, 35),
                     'City'              => \substr($shipFrom['city'], 0, 30),
                     'StateProvinceCode' => \substr($shipFrom['state'], 0, 5),
@@ -586,7 +587,7 @@ final class UPSShipping implements ShippingInterface
         $result = $response->getDataArray('ShipmentResponse') ?? [];
 
         $shipment = [
-            'id' => $result['ShipmentResults']['ShipmentIdentificationNumber'] ?? '',
+            'id'    => $result['ShipmentResults']['ShipmentIdentificationNumber'] ?? '',
             'costs' => [
                 'service'        => $result['ShipmentResults']['ShipmentCharges']['BaseServiceCharge']['MonetaryValue'] ?? null,
                 'transportation' => $result['ShipmentResults']['ShipmentCharges']['TransportationCharges']['MonetaryValue'] ?? null,
@@ -598,38 +599,38 @@ final class UPSShipping implements ShippingInterface
                 'currency'       => $result['ShipmentResults']['ShipmentCharges']['TotalCharges']['CurrencyCode'] ?? null,
             ],
             'packages' => [],
-            'label' => [
-                'code'  => '',
-                'url'   => $result['ShipmentResults']['LabelURL'] ?? '',
+            'label'    => [
+                'code'    => '',
+                'url'     => $result['ShipmentResults']['LabelURL'] ?? '',
                 'barcode' => $result['ShipmentResults']['BarCodeImage'] ?? '',
-                'local' => $result['ShipmentResults']['LocalLanguageLabelURL'] ?? '',
+                'local'   => $result['ShipmentResults']['LocalLanguageLabelURL'] ?? '',
                 'data'    => '',
             ],
             'receipt' => [
                 'code'  => '',
                 'url'   => $result['ShipmentResults']['ReceiptURL'] ?? '',
                 'local' => $result['ShipmentResults']['LocalLanguageReceiptURL'] ?? '',
-                'data' => '',
-            ]
+                'data'  => '',
+            ],
             // @todo dangerous goods paper image
         ];
 
         $packages = [];
         foreach ($result['ShipmentResults']['Packages'] as $package) {
             $packages[] = [
-                'id' => $package['TrackingNumber'],
+                'id'    => $package['TrackingNumber'],
                 'label' => [
-                    'code'    => $package['ShippingLabel']['ImageFormat']['Code'],
+                    'code'     => $package['ShippingLabel']['ImageFormat']['Code'],
                     'url'      => '',
-                    'barcode' => $package['PDF417'],
-                    'image'   => $package['ShippingLabel']['GraphicImage'],
-                    'browser' => $package['HTMLImage'],
-                    'data'    => '',
+                    'barcode'  => $package['PDF417'],
+                    'image'    => $package['ShippingLabel']['GraphicImage'],
+                    'browser'  => $package['HTMLImage'],
+                    'data'     => '',
                 ],
                 'receipt' => [
                     'code'  => $package['ShippingReceipt']['ImageFormat']['Code'],
                     'image' => $package['ShippingReceipt']['ImageFormat']['GraphicImage'],
-                ]
+                ],
             ];
         }
 
@@ -707,9 +708,9 @@ final class UPSShipping implements ShippingInterface
                 $activities = [];
                 foreach ($package['activity'] as $activity) {
                     $activities[] = [
-                        'date' => new \DateTime($activity['date'] . ' ' . $activity['time']),
+                        'date'        => new \DateTime($activity['date'] . ' ' . $activity['time']),
                         'description' => '',
-                        'location' => [
+                        'location'    => [
                             'address' => [
                                 $activity['location']['address']['addressLine1'],
                                 $activity['location']['address']['addressLine2'],
@@ -725,7 +726,7 @@ final class UPSShipping implements ShippingInterface
                             'code'        => $activity['status']['code'],
                             'statusCode'  => $activity['status']['statusCode'],
                             'description' => $activity['status']['description'],
-                        ]
+                        ],
                     ];
                 }
 
@@ -745,7 +746,7 @@ final class UPSShipping implements ShippingInterface
                         'signature' => $package['deliveryInformation']['signature'],
                         'location'  => $package['deliveryInformation']['location'],
                         'date'      => '',
-                    ]
+                    ],
                 ];
             }
 

@@ -288,9 +288,7 @@ final class StringUtils
             }
         }
 
-        $result = \rtrim($result, $delim);
-
-        return $result;
+        return \rtrim($result, $delim);
     }
 
     /**

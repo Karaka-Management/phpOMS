@@ -16,8 +16,8 @@ namespace phpOMS\tests\Utils\Parser\Presentation;
 
 include_once __DIR__ . '/../../../Autoloader.php';
 
-use phpOMS\Utils\Parser\Presentation\PresentationWriter;
 use PhpOffice\PhpPresentation\IOFactory;
+use phpOMS\Utils\Parser\Presentation\PresentationWriter;
 
 /**
  * @internal
@@ -31,7 +31,7 @@ final class PresentationWriterTest extends \PHPUnit\Framework\TestCase
         $writer = new PresentationWriter($presentation);
 
         self::assertTrue(
-            abs(\strlen(\file_get_contents(__DIR__ . '/data/Powerpoint.html'))
+            \abs(\strlen(\file_get_contents(__DIR__ . '/data/Powerpoint.html'))
             - \strlen($writer->renderHtml())) < 100
         );
     }

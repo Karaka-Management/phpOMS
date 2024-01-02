@@ -115,7 +115,7 @@ class SmartDateTime extends \DateTime
         $yearNew    = (int) $this->format('Y') + $y + $yearChange;
 
         $monthNew = (int) $this->format('m') + $m;
-        $monthNew = $monthNew < 0
+        $monthNew = $monthNew <= 0
             ? 12 + ($monthNew - 1) % 12 + 1
             : ($monthNew - 1) % 12 + 1;
 
@@ -444,5 +444,33 @@ class SmartDateTime extends \DateTime
         $mod = ($month - $start);
 
         return \abs(($mod < 0 ? 12 + $mod : $mod) % 12) + 1;
+    }
+
+    public static function formatDuration(int $duration) : string
+    {
+        $days = \floor($duration / (24 * 3600));
+        $hours = \floor(($duration % (24 * 3600)) / 3600);
+        $minutes = \floor(($duration % 3600) / 60);
+        $seconds = $duration % 60;
+
+        $result = '';
+
+        if ($days > 0) {
+            $result .= \sprintf('%02dd', $days);
+        }
+
+        if ($hours > 0) {
+            $result .= \sprintf('%02dh', $hours);
+        }
+
+        if ($minutes > 0) {
+            $result .= \sprintf('%02dm', $minutes);
+        }
+
+        if ($seconds > 0) {
+            $result .= \sprintf('%02ds', $seconds);
+        }
+
+        return \rtrim($result, ' ');
     }
 }

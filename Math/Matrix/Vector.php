@@ -123,7 +123,6 @@ final class Vector extends Matrix
         return $dotProduct / ($magnitude1 * $magnitude2);
     }
 
-
     /**
      * Calculate the eucledian dot product
      *

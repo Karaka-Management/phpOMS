@@ -549,9 +549,8 @@ class File extends FileAbstract implements FileInterface
         }
 
         $state = $this->copyNode($to, $overwrite);
-        $state = $state && $this->deleteNode();
 
-        return $state;
+        return $state && $this->deleteNode();
     }
 
     /**

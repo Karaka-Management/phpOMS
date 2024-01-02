@@ -15,10 +15,6 @@ declare(strict_types=1);
 namespace phpOMS\Api\Shipping\RoyalMail;
 
 use phpOMS\Api\Shipping\ShippingInterface;
-use phpOMS\Message\Http\HttpRequest;
-use phpOMS\Message\Http\RequestMethod;
-use phpOMS\Message\Http\Rest;
-use phpOMS\Uri\HttpUri;
 
 /**
  * Shipment api.

@@ -138,6 +138,17 @@ final class Autoloader
         $class = \ltrim($class, '\\');
         $class = \strtr($class, '_\\', '//');
 
+        if (self::$useClassMap) {
+            $nspacePos = \strpos($class, '/');
+            $subclass  = $nspacePos === false ? '' : \substr($class, 0, $nspacePos);
+
+            if (isset(self::$classmap[$subclass])) {
+                $found[] = self::$classmap[$subclass] . $class . '.php';
+
+                return $found;
+            }
+        }
+
         foreach (self::$paths as $path) {
             if (\is_file($file = $path . $class . '.php')) {
                 $found[] = $file;

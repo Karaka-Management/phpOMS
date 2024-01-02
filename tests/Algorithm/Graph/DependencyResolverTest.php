@@ -31,8 +31,7 @@ final class DependencyResolverTest extends \PHPUnit\Framework\TestCase
      */
     public function testResolveCircular() : void
     {
-        self::assertEquals(
-            null,
+        self::assertNull(
             DependencyResolver::resolve([0 => [1, 2], 1 => [0, 2], 2 => []])
         );
     }

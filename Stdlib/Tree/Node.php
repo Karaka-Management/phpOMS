@@ -111,8 +111,8 @@ class Node
     {
         return [
             'key' => $this->key,
-            0 => $this->left?->toArray(),
-            1 => $this->right?->toArray(),
+            0     => $this->left?->toArray(),
+            1     => $this->right?->toArray(),
         ];
     }
 }

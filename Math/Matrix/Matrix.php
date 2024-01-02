@@ -544,7 +544,7 @@ class Matrix implements \ArrayAccess, \Iterator
 
         if ($mDim > 10 || $nDim > 10) {
             // Standard transposed for iteration over rows -> higher cache hit
-            $transposedMatrixArr = array();
+            $transposedMatrixArr = [];
             for ($k = 0; $k < $mDim; ++$k) {
                 for ($j = 0; $j < $nDim; ++$j) {
                     $transposedMatrixArr[$k][$j] = $matrixArr[$j][$k];

@@ -104,8 +104,8 @@ final class ResponseAbstractTest extends \PHPUnit\Framework\TestCase
     public function testDataBoolInputOutput() : void
     {
         $this->response->set('asdf', 1);
-        self::assertEquals(true, $this->response->getDataBool('asdf'));
-        self::assertEquals(true, $this->response->getData('asdf', 'bool'));
+        self::assertTrue($this->response->getDataBool('asdf'));
+        self::assertTrue($this->response->getData('asdf', 'bool'));
     }
 
     /**
@@ -154,10 +154,10 @@ final class ResponseAbstractTest extends \PHPUnit\Framework\TestCase
      */
     public function testInvalidDataTypeInputOutput() : void
     {
-        self::assertEquals(null, $this->response->getDataString('a'));
-        self::assertEquals(null, $this->response->getDataBool('a'));
-        self::assertEquals(null, $this->response->getDataInt('a'));
-        self::assertEquals(null, $this->response->getDataFloat('a'));
-        self::assertEquals(null, $this->response->getDataDateTime('a'));
+        self::assertNull($this->response->getDataString('a'));
+        self::assertNull($this->response->getDataBool('a'));
+        self::assertNull($this->response->getDataInt('a'));
+        self::assertNull($this->response->getDataFloat('a'));
+        self::assertNull($this->response->getDataDateTime('a'));
     }
 }

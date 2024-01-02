@@ -41,31 +41,31 @@ final class BinarySearchTreeTest extends \PHPUnit\Framework\TestCase
         self::assertEquals(
             [
                 'key' => 'D',
-                0 => [
+                0     => [
                     'key' => 'A',
-                    0 => null,
-                    1 => null
+                    0     => null,
+                    1     => null,
                 ],
                 1 => [
                     'key' => 'I',
-                    0 => null,
-                    1 => [
+                    0     => null,
+                    1     => [
                         'key' => 'N',
-                        0 => null,
-                        1 => [
+                        0     => null,
+                        1     => [
                             'key' => 'O',
-                            0 => null,
-                            1 => [
+                            0     => null,
+                            1     => [
                                 'key' => 'S',
-                                0 => [
+                                0     => [
                                     'key' => 'R',
-                                    0 => null,
-                                    1 => null
+                                    0     => null,
+                                    1     => null,
                                 ],
                                 1 => [
                                     'key' => 'U',
-                                    0 => null,
-                                    1 => null
+                                    0     => null,
+                                    1     => null,
                                 ],
                             ],
                         ],
@@ -112,32 +112,32 @@ final class BinarySearchTreeTest extends \PHPUnit\Framework\TestCase
         self::assertEquals(
             [
                 'key' => 'D',
-                0 => [
+                0     => [
                     'key' => 'A',
-                    0 => null,
-                    1 => null
+                    0     => null,
+                    1     => null,
                 ],
                 1 => [
                     'key' => 'N',
-                    0 => null,
-                    1 => [
+                    0     => null,
+                    1     => [
                         'key' => 'O',
-                        0 => null,
-                        1 => [
+                        0     => null,
+                        1     => [
                             'key' => 'U',
-                            0 => [
+                            0     => [
                                 'key' => 'R',
-                                0 => null,
-                                1 => [
+                                0     => null,
+                                1     => [
                                     'key' => 'T',
-                                    0 => null,
-                                    1 => null
-                                ]
+                                    0     => null,
+                                    1     => null,
+                                ],
                             ],
                             1 => [
                                 'key' => 'Z',
-                                0 => null,
-                                1 => null
+                                0     => null,
+                                1     => null,
                             ],
                         ],
                     ],

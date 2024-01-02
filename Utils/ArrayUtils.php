@@ -14,8 +14,6 @@ declare(strict_types=1);
 
 namespace phpOMS\Utils;
 
-use phpOMS\Math\Matrix\Exception\InvalidDimensionException;
-
 /**
  * Array utils.
  *

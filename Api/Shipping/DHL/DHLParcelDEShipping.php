@@ -21,6 +21,7 @@ use phpOMS\Localization\ISO3166CharEnum;
 use phpOMS\Message\Http\HttpRequest;
 use phpOMS\Message\Http\RequestMethod;
 use phpOMS\Message\Http\Rest;
+use phpOMS\System\MimeType;
 use phpOMS\Uri\HttpUri;
 
 /**
@@ -258,7 +259,7 @@ final class DHLParcelDEShipping implements ShippingInterface
 
         $request = new HttpRequest(new HttpUri($uri));
         $request->setMethod(RequestMethod::GET);
-        $request->header->set('Accept', 'application/json');
+        $request->header->set('Accept', MimeType::M_JSON);
         $request->header->set('dhl-api-key', $key);
 
         $response = Rest::request($request);
@@ -312,7 +313,7 @@ final class DHLParcelDEShipping implements ShippingInterface
 
         $request = new HttpRequest($httpUri);
         $request->setMethod(RequestMethod::POST);
-        $request->header->set('Content-Type', 'application/json');
+        $request->header->set('Content-Type', MimeType::M_JSON);
         $request->header->set('Accept-Language', 'en-US');
         $request->header->set('Authorization', 'Basic ' . \base64_encode($this->login . ':' . $this->password));
 
@@ -320,42 +321,42 @@ final class DHLParcelDEShipping implements ShippingInterface
 
         $shipments = [
             [
-                'product' => 'V01PAK', // V53WPAK, V53WPAK
+                'product'       => 'V01PAK', // V53WPAK, V53WPAK
                 'billingNumber' => $data['costcenter'], // @todo maybe dhl number, check
-                'refNo' => $package['id'],
-                'shipper' => [
-                    'name1' => $sender['name'],
-                    'addressStreet' => $sender['address'],
+                'refNo'         => $package['id'],
+                'shipper'       => [
+                    'name1'                         => $sender['name'],
+                    'addressStreet'                 => $sender['address'],
                     'additionalAddressInformation1' => $sender['address_addition'],
-                    'postalCode' => $sender['zip'],
-                    'city' => $sender['city'],
-                    'country' => ISO3166CharEnum::getBy2Code($sender['country_code']),
-                    'email' => $sender['email'],
-                    'phone' => $sender['phone'],
+                    'postalCode'                    => $sender['zip'],
+                    'city'                          => $sender['city'],
+                    'country'                       => ISO3166CharEnum::getBy2Code($sender['country_code']),
+                    'email'                         => $sender['email'],
+                    'phone'                         => $sender['phone'],
                 ],
                 'consignee' => [
-                    'name1' => $receiver['name'],
-                    'addressStreet' => $receiver['address'],
+                    'name1'                         => $receiver['name'],
+                    'addressStreet'                 => $receiver['address'],
                     'additionalAddressInformation1' => $receiver['address_addition'],
-                    'postalCode' => $receiver['zip'],
-                    'city' => $receiver['city'],
-                    'country' => ISO3166CharEnum::getBy2Code($receiver['country_code']),
-                    'email' => $receiver['email'],
-                    'phone' => $receiver['phone'],
+                    'postalCode'                    => $receiver['zip'],
+                    'city'                          => $receiver['city'],
+                    'country'                       => ISO3166CharEnum::getBy2Code($receiver['country_code']),
+                    'email'                         => $receiver['email'],
+                    'phone'                         => $receiver['phone'],
                 ],
                 'details' => [
                     'dim' => [
-                        'uom' => 'mm',
+                        'uom'    => 'mm',
                         'height' => $package['height'],
                         'length' => $package['length'],
-                        'width' => $package['width'],
+                        'width'  => $package['width'],
                     ],
                     'weight' => [
-                        'uom' => 'g',
+                        'uom'   => 'g',
                         'value' => $package['weight'],
                     ],
-                ]
-            ]
+                ],
+            ],
         ];
 
         $request->setData('shipments', $shipments);
@@ -368,23 +369,23 @@ final class DHLParcelDEShipping implements ShippingInterface
         $result = $response->getDataArray('items') ?? [];
 
         $labelUri = new HttpUri($result[0]['label']['url']);
-        $label = $this->label($labelUri->getQuery('token'));
+        $label    = $this->label($labelUri->getQuery('token'));
 
         return [
-            'id' => $result[0]['shipmentNo'],
+            'id'    => $result[0]['shipmentNo'],
             'label' => [
                 'code' => $result[0]['label']['format'],
                 'url'  => $result[0]['label']['url'],
                 'data' => $label['data'],
             ],
             'packages' => [
-                'id' => $result[0]['shipmentNo'],
+                'id'    => $result[0]['shipmentNo'],
                 'label' => [
                     'code' => $result[0]['label']['format'],
                     'url'  => $result[0]['label']['url'],
                     'data' => $label['data'],
-                ]
-            ]
+                ],
+            ],
         ];
     }
 
@@ -445,23 +446,23 @@ final class DHLParcelDEShipping implements ShippingInterface
         $result = $response->getDataArray('items') ?? [];
 
         $labelUri = new HttpUri($result[0]['label']['url']);
-        $label = $this->label($labelUri->getQuery('token'));
+        $label    = $this->label($labelUri->getQuery('token'));
 
         return [
-            'id' => $result[0]['shipmentNo'],
+            'id'    => $result[0]['shipmentNo'],
             'label' => [
                 'code' => $result[0]['label']['format'],
                 'url'  => $result[0]['label']['url'],
                 'data' => $label['data'],
             ],
             'packages' => [
-                'id' => $result[0]['shipmentNo'],
+                'id'    => $result[0]['shipmentNo'],
                 'label' => [
                     'code' => $result[0]['label']['format'],
                     'url'  => $result[0]['label']['url'],
                     'data' => $label['data'],
-                ]
-            ]
+                ],
+            ],
         ];
     }
 
@@ -484,7 +485,7 @@ final class DHLParcelDEShipping implements ShippingInterface
 
         $request = new HttpRequest($httpUri);
         $request->setMethod(RequestMethod::GET);
-        $request->header->set('Content-Type', 'application/pdf');
+        $request->header->set('Content-Type', MimeType::M_PDF);
 
         $response = Rest::request($request);
         if ($response->header->status !== 200) {
@@ -519,7 +520,7 @@ final class DHLParcelDEShipping implements ShippingInterface
         $request = new HttpRequest($httpUri);
 
         $request->setMethod(RequestMethod::GET);
-        $request->header->set('accept', 'application/json');
+        $request->header->set('accept', MimeType::M_JSON);
         $request->header->set('dhl-api-key', $this->apiKey);
 
         $response = Rest::request($request);
@@ -528,7 +529,7 @@ final class DHLParcelDEShipping implements ShippingInterface
         }
 
         $shipments = $response->getDataArray('shipments') ?? [];
-        $tracking = [];
+        $tracking  = [];
 
         // @todo add general shipment status (not just for individual packages)
 
@@ -539,9 +540,9 @@ final class DHLParcelDEShipping implements ShippingInterface
             $activities = [];
             foreach ($package['events'] as $activity) {
                 $activities[] = [
-                    'date' => new \DateTime($activity['timestamp']),
+                    'date'        => new \DateTime($activity['timestamp']),
                     'description' => $activity['description'],
-                    'location' => [
+                    'location'    => [
                         'address' => [
                             $activity['location']['address']['streetAddress'],
                             $activity['location']['address']['addressLocality'],
@@ -556,7 +557,7 @@ final class DHLParcelDEShipping implements ShippingInterface
                         'code'        => $activity['statusCode'],
                         'statusCode'  => $activity['statusCode'],
                         'description' => $activity['status'],
-                    ]
+                    ],
                 ];
             }
 
@@ -575,8 +576,8 @@ final class DHLParcelDEShipping implements ShippingInterface
                     'by'        => $package['details']['proofOfDelivery']['familyName'],
                     'signature' => $package['details']['proofOfDelivery']['signatureUrl'],
                     'location'  => '',
-                    'date'      => $package['details']['proofOfDelivery']['timestamp']
-                ]
+                    'date'      => $package['details']['proofOfDelivery']['timestamp'],
+                ],
             ];
 
             $tracking[] = $packages;
@@ -615,10 +616,10 @@ final class DHLParcelDEShipping implements ShippingInterface
         }
 
         return [
-            'date' => $response->getDataDateTime('manifestDate'),
-            'b64' => $response->getDataArray('manifest')['b64'],
-            'zpl2' => $response->getDataArray('manifest')['zpl2'],
-            'url' => $response->getDataArray('manifest')['url'],
+            'date'   => $response->getDataDateTime('manifestDate'),
+            'b64'    => $response->getDataArray('manifest')['b64'],
+            'zpl2'   => $response->getDataArray('manifest')['zpl2'],
+            'url'    => $response->getDataArray('manifest')['url'],
             'format' => $response->getDataArray('manifest')['printFormat'],
         ];
     }
@@ -644,7 +645,7 @@ final class DHLParcelDEShipping implements ShippingInterface
 
         $request = new HttpRequest($httpUri);
         $request->setMethod(RequestMethod::POST);
-        $request->header->set('Content-Type', 'application/json');
+        $request->header->set('Content-Type', MimeType::M_JSON);
         $request->header->set('Authorization', 'Basic ' . \base64_encode($this->login . ':' . $this->password));
 
         if (!empty($shipment)) {

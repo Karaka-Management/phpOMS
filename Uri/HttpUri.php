@@ -383,9 +383,19 @@ final class HttpUri implements UriInterface
         $this->query = \array_change_key_case($this->query, \CASE_LOWER);
     }
 
-    public function addQuery(string $key, mixed $value = null)
+    /**
+     * Add query parameter
+     *
+     * @param string $key   Parameter key
+     * @param mixed  $value Value (null = omitted)
+     *
+     * @return void
+     *
+     * @since 1.0.0
+     */
+    public function addQuery(string $key, mixed $value = null) : void
     {
-        $key = \strtolower($key);
+        $key               = \strtolower($key);
         $this->query[$key] = $value;
 
         $toAdd = (empty($this->queryString) ? '?' : '&')

@@ -125,7 +125,7 @@ final class Kernel
     /**
      * Apply kernel matrix
      *
-     * @param string $inParth Image file path
+     * @param string $inPath  Image file path
      * @param string $outPath Image output path
      * @param array  $kernel  Kernel matrix
      *

@@ -536,9 +536,14 @@ final class ReadMapper extends DataMapperAbstract
     public function getQuery(Builder $query = null, array $columns = []) : Builder
     {
         $query ??= $this->query ?? new Builder($this->db, true);
-        $columns = empty($columns)
-            ? (empty($this->columns) ? $this->mapper::COLUMNS : $this->columns)
-            : $columns;
+
+        if (empty($columns) && $this->type < MapperType::COUNT_MODELS) {
+            if (empty($this->columns)) {
+                $columns = $this->mapper::COLUMNS;
+            } else {
+                $columns = $this->columns;
+            }
+        }
 
         foreach ($columns as $key => $values) {
             if (\is_string($values) || \is_int($values)) {
@@ -731,6 +736,7 @@ final class ReadMapper extends DataMapperAbstract
                 /** @var self $relMapper */
                 $relMapper        = $this->createRelationMapper($rel['mapper']::reader(db: $this->db), $member);
                 $relMapper->depth = $this->depth + 1;
+                $relMapper->type  = $this->type;
 
                 $query = $relMapper->getQuery(
                     $query,
@@ -846,7 +852,7 @@ final class ReadMapper extends DataMapperAbstract
                 }
 
                 if (empty($value)) {
-                    // @todo find better solution. this was because of a bug with the sales billing list query depth = 4. The address was set (from the client, referral or creator) but then somehow there was a second address element which was all null and null cannot be asigned to a string variable (e.g. country). The problem with this solution is that if the model expects an initialization (e.g. at lest set the elements to null, '', 0 etc.) this is now not done.
+                    // @todo find better solution. this was because of a bug with the sales billing list query depth = 4. The address was set (from the client, referral or creator) but then somehow there was a second address element which was all null and null cannot be assigned to a string variable (e.g. country). The problem with this solution is that if the model expects an initialization (e.g. at lest set the elements to null, '', 0 etc.) this is now not done.
                     $value = $isPrivate ? $refProp->getValue($obj) : $obj->{$member};
                 }
             } elseif (isset($this->mapper::BELONGS_TO[$def['internal']])) {
@@ -912,10 +918,16 @@ final class ReadMapper extends DataMapperAbstract
 
         // @todo How is this allowed? at the bottom we set $obj->hasMany = value. A has many should be always an array?!
         foreach ($this->mapper::HAS_MANY as $member => $def) {
+            if (!isset($this->with[$member])
+                || !isset($def['column']) // @todo is this required? The code below indicates that this might be stupid
+            ) {
+                continue;
+            }
+
             $column = $def['mapper']::getColumnByMember($def['column'] ?? $member);
             $alias  = $column . '_d' . ($this->depth + 1);
 
-            if (!\array_key_exists($alias, $result) || !isset($def['column'])) {
+            if (!\array_key_exists($alias, $result)) {
                 continue;
             }
 
@@ -1145,7 +1157,7 @@ final class ReadMapper extends DataMapperAbstract
                         ->where($many['table'] . '.' . $many['self'], '=', $primaryKey);
 
                     // Cannot use join, because join only works on members and we don't have members for a relation table
-                    // This is why we need to create a "base" query which contians the join on table columns
+                    // This is why we need to create a "base" query which contains the join on table columns
                     $objectMapper->query($query);
                 }
 
@@ -1162,12 +1174,12 @@ final class ReadMapper extends DataMapperAbstract
                     $refProp = $refClass->getProperty($member);
                     $refProp->setValue($obj, !\is_array($objects) && ($many['conditional'] ?? false) === false
                         ? [$many['mapper']::getObjectId($objects) => $objects]
-                        : $objects // if conditional === true the obj will be asigned (e.g. has many localizations but only one is loaded for the model)
+                        : $objects // if conditional === true the obj will be assigned (e.g. has many localizations but only one is loaded for the model)
                     );
                 } else {
                     $obj->{$member} = !\is_array($objects) && ($many['conditional'] ?? false) === false
                         ? [$many['mapper']::getObjectId($objects) => $objects]
-                        : $objects; // if conditional === true the obj will be asigned (e.g. has many localizations but only one is loaded for the model)
+                        : $objects; // if conditional === true the obj will be assigned (e.g. has many localizations but only one is loaded for the model)
                 }
 
                 continue;
@@ -1244,7 +1256,7 @@ final class ReadMapper extends DataMapperAbstract
                         ->where($many['table'] . '.' . $many['self'], '=', $primaryKey);
 
                     // Cannot use join, because join only works on members and we don't have members for a relation table
-                    // This is why we need to create a "base" query which contians the join on table columns
+                    // This is why we need to create a "base" query which contains the join on table columns
                     $objectMapper->query($query);
                 }
 

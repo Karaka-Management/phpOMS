@@ -509,9 +509,8 @@ final class File extends FileAbstract implements FileInterface
     public function moveNode(string $to, bool $overwrite = false) : bool
     {
         $state = $this->copyNode($to, $overwrite);
-        $state = $state && $this->deleteNode();
 
-        return $state;
+        return $state && $this->deleteNode();
     }
 
     /**

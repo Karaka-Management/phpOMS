@@ -131,7 +131,7 @@ final class Simplex
             }
         }
 
-        $this->b[$x] /= -$this->A[$x][$y];
+        $this->b[$x]    /= -$this->A[$x][$y];
         $this->A[$x][$y] = 1.0 / $this->A[$x][$y];
 
         for ($i = 0; $i < $this->m; ++$i) {
@@ -142,7 +142,7 @@ final class Simplex
                     }
                 }
 
-                $this->b[$i] += $this->A[$i][$y] * $this->b[$x];
+                $this->b[$i]     += $this->A[$i][$y] * $this->b[$x];
                 $this->A[$i][$y] *= $this->A[$x][$y];
             }
         }
@@ -153,7 +153,7 @@ final class Simplex
             }
         }
 
-        $this->v += $this->c[$y] * $this->b[$x];
+        $this->v     += $this->c[$y] * $this->b[$x];
         $this->c[$y] *= $this->A[$x][$y];
 
         $temp               = $this->basic[$x];
@@ -329,7 +329,7 @@ final class Simplex
             for ($k = 0; $k < $this->n; ++$k) {
                 if ($j === $this->nonbasic[$k]) {
                     $this->c[$k] += $oldC[$j];
-                    $ok = true;
+                    $ok           = true;
                     break;
                 }
             }
@@ -357,10 +357,10 @@ final class Simplex
      * Solve simplex problem
      *
      * @param array<int, array<int|float>> $A Bounding equations
-     * @param int[]|float[]             $b Boundings for equations
-     * @param int[]|float[]             $c Equation to maximize
+     * @param int[]|float[]                $b Boundings for equations
+     * @param int[]|float[]                $c Equation to maximize
      *
-     * @return array{0:array<int|float>, 1:float}
+     * @return array<void>|array{0:array<int|float>, 1:float}
      *
      * @since 1.0.0
      */
@@ -374,6 +374,10 @@ final class Simplex
         // @todo create minimize
 
         $this->m = \count($A);
+        if ($this->m < 1) {
+            return [];
+        }
+
         $this->n = \count(\reset($A));
 
         if ($this->initialize() === -1) {

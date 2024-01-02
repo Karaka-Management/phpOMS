@@ -213,7 +213,6 @@ final class SystemUtils
         }
 
         $status = \proc_close($resource);
-
         if ($status == -1) {
             throw new \Exception((string) $stderr);
         }

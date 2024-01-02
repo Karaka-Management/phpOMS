@@ -32,7 +32,7 @@ final class SimplexTest extends \PHPUnit\Framework\TestCase
         self::assertEqualsWithDelta(
             [
                 [11.333333, 3.333333, 0.0, 11.666667, 0.0],
-                21.333333
+                21.333333,
             ],
             $simplex->solve(
                 [
@@ -53,7 +53,7 @@ final class SimplexTest extends \PHPUnit\Framework\TestCase
         self::assertEqualsWithDelta(
             [
                 [1.0, 0.0, 0.0, 0.0],
-                5.0
+                5.0,
             ],
             $simplex->solve(
                 [
@@ -73,7 +73,7 @@ final class SimplexTest extends \PHPUnit\Framework\TestCase
         self::assertEquals(
             [
                 [-2, -2, -2, -2, -2],
-                \INF
+                \INF,
             ],
             $simplex->solve(
                 [
@@ -92,7 +92,7 @@ final class SimplexTest extends \PHPUnit\Framework\TestCase
         self::assertEqualsWithDelta(
             [
                 [-1, -1, -1, -1],
-                \INF
+                \INF,
             ],
             $simplex->solve(
                 [

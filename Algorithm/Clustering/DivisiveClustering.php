@@ -14,8 +14,6 @@ declare(strict_types=1);
 
 namespace phpOMS\Algorithm\Clustering;
 
-use phpOMS\Math\Topology\MetricsND;
-
 /**
  * Clustering points
  *

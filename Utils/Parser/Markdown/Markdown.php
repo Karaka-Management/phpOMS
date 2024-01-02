@@ -292,7 +292,7 @@ class Markdown
      * @since 1.0.0
      */
     private const CONTINUABLE = [
-        'Code', 'Comment', 'FencedCode', 'List', 'Quote', 'Table', 'Math', 'Spoiler', 'Checkbox', 'Footnote', 'DefinitionList', 'Markup'
+        'Code', 'Comment', 'FencedCode', 'List', 'Quote', 'Table', 'Math', 'Spoiler', 'Checkbox', 'Footnote', 'DefinitionList', 'Markup',
     ];
 
     /**
@@ -302,7 +302,7 @@ class Markdown
      * @since 1.0.0
      */
     private const COMPLETABLE = [
-        'Math', 'Spoiler', 'Table', 'Checkbox', 'Footnote', 'Markup', 'Code', 'FencedCode', 'List'
+        'Math', 'Spoiler', 'Table', 'Checkbox', 'Footnote', 'Markup', 'Code', 'FencedCode', 'List',
     ];
 
     /**
@@ -598,7 +598,7 @@ class Markdown
         // Add footnotes
         if (isset($this->definitionData['Footnote'])) {
             $element = $this->buildFootnoteElement();
-            $html .= "\n" . $this->element($element);
+            $html   .= "\n" . $this->element($element);
         }
 
         return $this->decodeToCTagFromHash($html); // Unescape the ToC tag
@@ -935,7 +935,7 @@ class Markdown
     protected function inlineUrl(array $excerpt) : ?array
     {
         if (!($this->options['links'] ?? true)
-            || $this->urlsLinked !== true || !\str_starts_with($excerpt['text'], '://')
+            || !$this->urlsLinked || !\str_starts_with($excerpt['text'], '://')
             || \strpos($excerpt['context'], 'http') === false
             || \preg_match('/\bhttps?+:[\/]{2}[^\s<]+\b\/*+/ui', $excerpt['context'], $matches, \PREG_OFFSET_CAPTURE) !== 1
         ) {
@@ -1276,27 +1276,27 @@ class Markdown
         return [
             'extent'  => \strlen($matches[0]),
             'element' => [
-                'name' => 'span',
+                'name'       => 'span',
                 'attributes' => [
-                    'class' => 'spoiler'
+                    'class' => 'spoiler',
                 ],
                 'elements' => [
                     [
-                        'name' => 'input',
+                        'name'       => 'input',
                         'attributes' => [
-                            'type' => 'checkbox'
-                        ]
+                            'type' => 'checkbox',
+                        ],
                     ],
                     [
                         'name' => 'span',
                         'text' => $matches[1],
-                    ]
-                ]
+                    ],
+                ],
             ],
         ];
     }
 
-   /**
+    /**
      * Handle keystrokes
      *
      * @param array{text:string, context:string, before:string} $excerpt Inline data
@@ -1307,7 +1307,7 @@ class Markdown
      */
     protected function inlineKeystrokes(array $excerpt) : ?array
     {
-        if (!str_starts_with($excerpt['text'], '[[')
+        if (!\str_starts_with($excerpt['text'], '[[')
             || \preg_match('/^(?<!\[)(?:\[\[([^\[\]]*|[\[\]])\]\])(?!\])/s', $excerpt['text'], $matches) !== 1
         ) {
             return null;
@@ -1354,61 +1354,61 @@ class Markdown
 
             switch ($type) {
                 case 'youtube':
-                    $element = 'iframe';
+                    $element    = 'iframe';
                     $attributes = [
-                        'src' => \preg_replace('/.*\?v=([^\&\]]*).*/', 'https://www.youtube.com/embed/$1', $url),
-                        'frameborder' => '0',
-                        'allow' => 'autoplay',
+                        'src'             => \preg_replace('/.*\?v=([^\&\]]*).*/', 'https://www.youtube.com/embed/$1', $url),
+                        'frameborder'     => '0',
+                        'allow'           => 'autoplay',
                         'allowfullscreen' => '',
-                        'sandbox' => 'allow-same-origin allow-scripts allow-forms'
+                        'sandbox'         => 'allow-same-origin allow-scripts allow-forms',
                     ];
                     break;
                 case 'vimeo':
-                    $element = 'iframe';
+                    $element    = 'iframe';
                     $attributes = [
-                        'src' => \preg_replace('/(?:https?:\/\/(?:[\w]{3}\.|player\.)*vimeo\.com(?:[\/\w:]*(?:\/videos)?)?\/([0-9]+)[^\s]*)/', 'https://player.vimeo.com/video/$1', $url),
-                        'frameborder' => '0',
-                        'allow' => 'autoplay',
+                        'src'             => \preg_replace('/(?:https?:\/\/(?:[\w]{3}\.|player\.)*vimeo\.com(?:[\/\w:]*(?:\/videos)?)?\/([0-9]+)[^\s]*)/', 'https://player.vimeo.com/video/$1', $url),
+                        'frameborder'     => '0',
+                        'allow'           => 'autoplay',
                         'allowfullscreen' => '',
-                        'sandbox' => 'allow-same-origin allow-scripts allow-forms'
+                        'sandbox'         => 'allow-same-origin allow-scripts allow-forms',
                     ];
                     break;
                 case 'dailymotion':
-                    $element = 'iframe';
+                    $element    = 'iframe';
                     $attributes = [
-                        'src' => $url,
-                        'frameborder' => '0',
-                        'allow' => 'autoplay',
+                        'src'             => $url,
+                        'frameborder'     => '0',
+                        'allow'           => 'autoplay',
                         'allowfullscreen' => '',
-                        'sandbox' => 'allow-same-origin allow-scripts allow-forms'
+                        'sandbox'         => 'allow-same-origin allow-scripts allow-forms',
                     ];
                     break;
                 default:
                     $element    = 'video';
                     $attributes = [
-                        'src' => UriFactory::build($url),
-                        'controls' => ''
+                        'src'      => UriFactory::build($url),
+                        'controls' => '',
                     ];
             }
 
             return [
-                'extent' => \strlen($matches[0]),
+                'extent'  => \strlen($matches[0]),
                 'element' => [
-                    'name' => $element,
-                    'text' => $matches[1],
-                    'attributes' => $attributes
+                    'name'       => $element,
+                    'text'       => $matches[1],
+                    'attributes' => $attributes,
                 ],
             ];
         } elseif ($audio) {
             return [
-                'extent' => \strlen($matches[0]),
+                'extent'  => \strlen($matches[0]),
                 'element' => [
-                    'name' => 'audio',
-                    'text' => $matches[1],
+                    'name'       => 'audio',
+                    'text'       => $matches[1],
                     'attributes' => [
-                        'src' => UriFactory::build($url),
-                        'controls' => ''
-                    ]
+                        'src'      => UriFactory::build($url),
+                        'controls' => '',
+                    ],
                 ],
             ];
         }
@@ -1448,16 +1448,16 @@ class Markdown
         }
 
         return [
-            'extent' => \strlen($matches[0]),
+            'extent'  => \strlen($matches[0]),
             'element' => [
-                'name' => 'div',
-                'text' => '',
+                'name'       => 'div',
+                'text'       => '',
                 'attributes' => [
-                    'id' => 'i' . \bin2hex(\random_bytes(4)),
-                    'class' => 'map',
+                    'id'       => 'i' . \bin2hex(\random_bytes(4)),
+                    'class'    => 'map',
                     'data-lat' => $lat,
                     'data-lon' => $lon,
-                ]
+                ],
             ],
         ];
     }
@@ -1487,7 +1487,7 @@ class Markdown
         $address = $matches[5];
 
         return [
-            'extent' => \strlen($matches[0]),
+            'extent'  => \strlen($matches[0]),
             'element' => [
                 'name' => 'div',
                 //'text' => '',
@@ -1496,28 +1496,28 @@ class Markdown
                 ],
                 'elements' => [
                     [
-                        'name' => 'span',
-                        'text' => $name,
+                        'name'       => 'span',
+                        'text'       => $name,
                         'attributes' => ['class' => 'addressWidget-name'],
                     ],
                     [
-                        'name' => 'span',
-                        'text' => $address,
+                        'name'       => 'span',
+                        'text'       => $address,
                         'attributes' => ['class' => 'addressWidget-address'],
                     ],
                     [
-                        'name' => 'span',
-                        'text' => $zip,
+                        'name'       => 'span',
+                        'text'       => $zip,
                         'attributes' => ['class' => 'addressWidget-zip'],
                     ],
                     [
-                        'name' => 'span',
-                        'text' => $city,
+                        'name'       => 'span',
+                        'text'       => $city,
                         'attributes' => ['class' => 'addressWidget-city'],
                     ],
                     [
-                        'name' => 'span',
-                        'text' => $country,
+                        'name'       => 'span',
+                        'text'       => $country,
                         'attributes' => ['class' => 'addressWidget-country'],
                     ],
                 ],
@@ -1578,11 +1578,10 @@ class Markdown
             case 'linkedin':
                 $src = 'Resources/icons/company/linkedin.svg';
                 break;
-
         }
 
         return [
-            'extent' => \strlen($matches[0]),
+            'extent'  => \strlen($matches[0]),
             'element' => [
                 'name' => 'a',
                 //'text' => '',
@@ -1592,17 +1591,17 @@ class Markdown
                 ],
                 'elements' => [
                     [
-                        'name' => 'img',
+                        'name'       => 'img',
                         'attributes' => [
                             'class' => 'contactWidget-icon',
-                            'src'   => $src
+                            'src'   => $src,
                         ],
                     ],
                     [
-                        'name' => 'span',
-                        'text' => $matches[2],
+                        'name'       => 'span',
+                        'text'       => $matches[2],
                         'attributes' => ['class' => 'contactWidget-contact'],
-                    ]
+                    ],
                 ],
 
             ],
@@ -1638,14 +1637,14 @@ class Markdown
         }
 
         return [
-            'extent' => \strlen($matches[0]),
+            'extent'  => \strlen($matches[0]),
             'element' => [
-                'name' => 'progress',
-                'text' => '',
+                'name'       => 'progress',
+                'text'       => '',
                 'attributes' => [
                     'value' => $value,
-                    'max' => '100',
-                ]
+                    'max'   => '100',
+                ],
             ],
         ];
     }
@@ -1789,7 +1788,7 @@ class Markdown
             || ($state && !\preg_match('/^(?<!\\\\)(?<!\\\\\()\\\\\((.{2,}?)(?<!\\\\\()\\\\\)(?!\\\\\))/s', $excerpt['text']))
         ) {
             return [
-                'extent' => 2,
+                'extent'  => 2,
                 'element' => [
                     'rawHtml' => $excerpt['text'][1],
                 ],
@@ -1968,7 +1967,7 @@ class Markdown
             ],
         ];
 
-        if (preg_match('/[ #]*{(' . $this->regexAttribute . '+)}[ ]*$/', $block['element']['handler']['argument'], $matches, \PREG_OFFSET_CAPTURE)) {
+        if (\preg_match('/[ #]*{(' . $this->regexAttribute . '+)}[ ]*$/', $block['element']['handler']['argument'], $matches, \PREG_OFFSET_CAPTURE)) {
             $attributeString = $matches[1][0];
 
             $block['element']['attributes']          = $this->parseAttributeData($attributeString);
@@ -2038,8 +2037,7 @@ class Markdown
 
             $matches[1] = \substr($matches[1], 0, -$contentIndent);
             $matches[3] = \str_repeat(' ', $contentIndent) . $matches[3];
-        }
-        elseif ($contentIndent === 0) {
+        } elseif ($contentIndent === 0) {
             $matches[1] .= ' ';
         }
 
@@ -2107,7 +2105,6 @@ class Markdown
         ) {
             return null;
         }
-
 
         return [
             'element' => [
@@ -2690,7 +2687,7 @@ class Markdown
             'element'      => [
                 'name'    => 'details',
                 'element' => [
-                    'text' => '',
+                    'text'     => '',
                     'elements' => [
                         [
                             'name' => 'summary',
@@ -2699,9 +2696,9 @@ class Markdown
                         [
                             'name' => 'span', // @todo check if without span possible
                             'text' => '',
-                        ]
+                        ],
                     ],
-                ]
+                ],
             ],
         ];
     }
@@ -3153,8 +3150,12 @@ class Markdown
         //     - [Header3](#Header3)
         //   - [Header2-2](#Header2-2)
         // ...
-        $this->contentsListString .= \str_repeat('  ', $this->firstHeadLevel - 1 > $level ? 1 : $level - ($this->firstHeadLevel - 1))
-            . ' - ' . '[' . $text . '](#' . $id . ')' . \PHP_EOL;
+        $this->contentsListString .= \str_repeat(
+            '  ',
+            $this->firstHeadLevel - 1 > $level
+                ? 1
+                : $level - ($this->firstHeadLevel - 1)
+        ) . ' - [' . $text . '](#' . $id . ")\n";
     }
 
     /**
@@ -3179,15 +3180,17 @@ class Markdown
 
         $newStr = $str;
 
-        if ($count = $this->anchorDuplicates[$str]) {
-            $newStr .= '-' . $count;
+        if (($count = $this->anchorDuplicates[$str]) === 0) {
+            return $newStr;
+        }
 
-            // increment until conversion doesn't produce new duplicates anymore
-            if (isset($this->anchorDuplicates[$newStr])) {
-                $newStr = $this->incrementAnchorId($str);
-            } else {
-                $this->anchorDuplicates[$newStr] = 0;
-            }
+        $newStr .= '-' . $count;
+
+        // increment until conversion doesn't produce new duplicates anymore
+        if (isset($this->anchorDuplicates[$newStr])) {
+            $newStr = $this->incrementAnchorId($str);
+        } else {
+            $this->anchorDuplicates[$newStr] = 0;
         }
 
         return $newStr;
@@ -3491,7 +3494,7 @@ class Markdown
                     'attributes' => ['href' => '#fn:' . $name, 'class' => 'footnote-ref'],
                     'text'       => $this->definitionData['Footnote'][$name]['number'],
                 ],
-            ]
+            ],
         ];
     }
 
@@ -3559,8 +3562,7 @@ class Markdown
             return $inline;
         }
 
-        foreach ($this->definitionData['Abbreviation'] as $abbreviation => $meaning)
-        {
+        foreach ($this->definitionData['Abbreviation'] as $abbreviation => $meaning) {
             $this->currentAbreviation = $abbreviation;
             $this->currentMeaning     = $meaning;
 
@@ -4725,7 +4727,7 @@ class Markdown
     /**
      * Sanitize url in attribute
      *
-     * @param array $element    Element to sanitize
+     * @param array  $element   Element to sanitize
      * @param string $attribute Attribute to sanitize
      *
      * @return array

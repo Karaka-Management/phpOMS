@@ -69,13 +69,12 @@ final class AgglomerativeClustering implements ClusteringInterface
         };
 
         $this->linkage = $linkage ?? function (array $a, array $b, array $distances) {
-            return AgglomerativeClustering::averageDistanceLinkage($a, $b, $distances);
+            return self::averageDistanceLinkage($a, $b, $distances);
         };
     }
 
     /**
      * Maximum/Complete-Linkage clustering
-     *
      */
     public static function maximumDistanceLinkage(array $setA, array $setB, array $distances) : float
     {
@@ -93,7 +92,6 @@ final class AgglomerativeClustering implements ClusteringInterface
 
     /**
      * Minimum/Single-Linkage clustering
-     *
      */
     public static function minimumDistanceLinkage(array $setA, array $setB, array $distances) : float
     {
@@ -111,7 +109,6 @@ final class AgglomerativeClustering implements ClusteringInterface
 
     /**
      * Unweighted average linkage clustering (UPGMA)
-     *
      */
     public static function averageDistanceLinkage(array $setA, array $setB, array $distances) : float
     {
@@ -122,6 +119,4 @@ final class AgglomerativeClustering implements ClusteringInterface
 
         return $distance / \count($setA) / \count($setB);
     }
-
-
 }

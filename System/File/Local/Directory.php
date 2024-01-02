@@ -660,9 +660,8 @@ final class Directory extends FileAbstract implements DirectoryInterface
     public function moveNode(string $to, bool $overwrite = false) : bool
     {
         $state = $this->copyNode($to, $overwrite);
-        $state = $state && $this->deleteNode();
 
-        return $state;
+        return $state && $this->deleteNode();
     }
 
     /**

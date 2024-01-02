@@ -220,6 +220,47 @@ abstract class RequestAbstract implements MessageInterface
      *
      * @param string $key Data key
      *
+     * @return null|\DateTime
+     *
+     * @since 1.0.0
+     */
+    public function getDataDateTimeFromTimestamp(string $key) : ?\DateTime
+    {
+        $key = \mb_strtolower($key);
+
+        if (empty($this->data[$key] ?? null)) {
+            return null;
+        }
+
+        $dt = new \DateTime();
+        $dt->setTimestamp((int) $this->data[$key]);
+
+        return $dt;
+    }
+
+    /**
+     * Get data.
+     *
+     * @param string $key Data key
+     *
+     * @return null|int
+     *
+     * @since 1.0.0
+     */
+    public function getDataTimestampFromDateTime(string $key) : ?int
+    {
+        $key = \mb_strtolower($key);
+
+        return empty($this->data[$key] ?? null)
+            ? null
+            : \strtotime((string) $this->data[$key]);
+    }
+
+    /**
+     * Get data.
+     *
+     * @param string $key Data key
+     *
      * @return array
      *
      * @since 1.0.0

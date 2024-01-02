@@ -26,7 +26,7 @@ final class SpreadsheetWriterTest extends \PHPUnit\Framework\TestCase
 {
     public function testParsing() : void
     {
-        $sheet = IOFactory::load(__DIR__ . '/data/Excel.xlsx');
+        $sheet  = IOFactory::load(__DIR__ . '/data/Excel.xlsx');
         $writer = new SpreadsheetWriter($sheet);
 
         $pdf = $writer->toPdfString(__DIR__ . '/data/ExcelMpdf.pdf');

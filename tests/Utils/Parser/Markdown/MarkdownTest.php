@@ -47,7 +47,7 @@ final class MarkdownTest extends \PHPUnit\Framework\TestCase
 
     public function testSafeMode() : void
     {
-        $parser = new Markdown();
+        $parser           = new Markdown();
         $parser->safeMode = true;
 
         self::assertEquals(
@@ -60,8 +60,8 @@ final class MarkdownTest extends \PHPUnit\Framework\TestCase
     {
         $parser = new Markdown([
             'tables' => [
-                'tablespan' => true
-            ]
+                'tablespan' => true,
+            ],
         ]);
 
         self::assertEquals(
@@ -73,7 +73,7 @@ final class MarkdownTest extends \PHPUnit\Framework\TestCase
     public function testMap() : void
     {
         $parser = new Markdown([
-            'map' => true
+            'map' => true,
         ]);
 
         self::assertLessThan(9,
@@ -87,7 +87,7 @@ final class MarkdownTest extends \PHPUnit\Framework\TestCase
     public function testContact() : void
     {
         $parser = new Markdown([
-            'contact' => true
+            'contact' => true,
         ]);
 
         self::assertEquals(
@@ -99,7 +99,7 @@ final class MarkdownTest extends \PHPUnit\Framework\TestCase
     public function testTypographer() : void
     {
         $parser = new Markdown([
-            'typographer' => true
+            'typographer' => true,
         ]);
 
         self::assertEquals(
@@ -111,7 +111,7 @@ final class MarkdownTest extends \PHPUnit\Framework\TestCase
     public function testAddress() : void
     {
         $parser = new Markdown([
-            'address' => true
+            'address' => true,
         ]);
 
         self::assertEquals(
@@ -123,7 +123,7 @@ final class MarkdownTest extends \PHPUnit\Framework\TestCase
     public function testProgress() : void
     {
         $parser = new Markdown([
-            'progress' => true
+            'progress' => true,
         ]);
 
         self::assertEquals(
@@ -135,7 +135,7 @@ final class MarkdownTest extends \PHPUnit\Framework\TestCase
     public function testEmbed() : void
     {
         $parser = new Markdown([
-            'embeding' => true
+            'embeding' => true,
         ]);
 
         self::assertEquals(
@@ -147,7 +147,7 @@ final class MarkdownTest extends \PHPUnit\Framework\TestCase
     public function testMath() : void
     {
         $parser = new Markdown([
-            'math' => true
+            'math' => true,
         ]);
 
         self::assertEquals(
@@ -159,7 +159,7 @@ final class MarkdownTest extends \PHPUnit\Framework\TestCase
     public function testTOC() : void
     {
         $parser = new Markdown([
-            'toc' => true
+            'toc' => true,
         ]);
         $parser->text(\file_get_contents(__DIR__ . '/manualdata/toc.md'));
 
@@ -172,7 +172,7 @@ final class MarkdownTest extends \PHPUnit\Framework\TestCase
     public function testSpoiler() : void
     {
         $parser = new Markdown([
-            'spoiler' => true
+            'spoiler' => true,
         ]);
 
         self::assertEquals(

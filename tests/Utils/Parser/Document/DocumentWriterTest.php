@@ -26,7 +26,7 @@ final class DocumentWriterTest extends \PHPUnit\Framework\TestCase
 {
     public function testParsing() : void
     {
-        $doc = IOFactory::load(__DIR__ . '/data/Word.docx');
+        $doc    = IOFactory::load(__DIR__ . '/data/Word.docx');
         $writer = new DocumentWriter($doc);
 
         $pdf = $writer->toPdfString(__DIR__ . '/data/WordMpdf.pdf');

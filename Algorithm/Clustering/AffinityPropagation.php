@@ -49,12 +49,24 @@ final class AffinityPropagation implements ClusteringInterface
 
     private array $availabilityMatrix = [];
 
+    /**
+     * Original points used for clusters
+     *
+     * @var PointInterface[]
+     * @since 1.0.0
+     */
     private array $points = [];
 
     /**
-     * @param PointInterface[] $points
+     * Create similarity matrix from points
+     *
+     * @param PointInterface[] $points Points to create the similarity matrix for
+     *
+     * @return array<int, array<int, int|float>>
+     *
+     * @since 1.0.0
      */
-    private function createSimilarityMatrix(array $points)
+    private function createSimilarityMatrix(array $points) : array
     {
         $n                = \count($points);
         $coordinates      = \count($points[0]->coordinates);
@@ -63,7 +75,6 @@ final class AffinityPropagation implements ClusteringInterface
         $temp = [];
         for ($i = 0; $i < $n - 1; ++$i) {
             for ($j = $i + 1; $j < $n; ++$j) {
-
                 $sum = 0.0;
                 for ($c = 0; $c < $coordinates; ++$c) {
                     $sum += ($points[$i]->getCoordinate($c) - $points[$j]->getCoordinate($c)) * ($points[$i]->getCoordinate($c) - $points[$j]->getCoordinate($c));
@@ -71,7 +82,7 @@ final class AffinityPropagation implements ClusteringInterface
 
                 $similarityMatrix[$i][$j] = -$sum;
                 $similarityMatrix[$j][$i] = -$sum;
-                $temp[] = $similarityMatrix[$i][$j];
+                $temp[]                   = $similarityMatrix[$i][$j];
             }
         }
 
@@ -89,14 +100,24 @@ final class AffinityPropagation implements ClusteringInterface
         return $similarityMatrix;
     }
 
+    /**
+     * Generate clusters for points
+     *
+     * @param PointInterface[] $points     Points to cluster
+     * @param int              $iterations Iterations for cluster generation
+     *
+     * @return void
+     *
+     * @since 1.0.0
+     */
     public function generateClusters(array $points, int $iterations = 100) : void
     {
         $this->points = $points;
-        $n = \count($points);
+        $n            = \count($points);
 
-        $this->similarityMatrix = $this->createSimilarityMatrix($points);
+        $this->similarityMatrix     = $this->createSimilarityMatrix($points);
         $this->responsibilityMatrix = clone $this->similarityMatrix;
-        $this->availabilityMatrix = clone $this->similarityMatrix;
+        $this->availabilityMatrix   = clone $this->similarityMatrix;
 
         for ($c = 0; $c < $iterations; ++$c) {
             for ($i = 0; $i < $n; ++$i) {
@@ -127,7 +148,7 @@ final class AffinityPropagation implements ClusteringInterface
                             $sum += \max(0.0, $this->responsibilityMatrix[$j][$k]);
                         }
 
-                        for ($j = $j + 1; $j < $n; ++$j) {
+                        for ($j += 1; $j < $n; ++$j) {
                             $sum += \max(0.0, $this->responsibilityMatrix[$j][$k]);
                         }
 
@@ -164,15 +185,25 @@ final class AffinityPropagation implements ClusteringInterface
         }
     }
 
-    private function findNearestGroup(array $similarityMatrix, int $point, int $clusterCount) : int
+    /**
+     * Find the nearest group for a point
+     *
+     * @param array<int, array<int, int|float> $similarityMatrix Similarity matrix
+     * @param int                              $point            Point id in the similarity matrix to compare
+     *
+     * @return int
+     *
+     * @since 1.0.0
+     */
+    private function findNearestGroup(array $similarityMatrix, int $point) : int
     {
         $maxSim = \PHP_INT_MIN;
-        $group = 0;
+        $group  = 0;
 
         foreach ($this->clusterCenters as $c => $_) {
             if ($similarityMatrix[$point][$c] > $maxSim) {
                 $maxSim = $similarityMatrix[$point][$c];
-                $group = $c;
+                $group  = $c;
             }
         }
 
@@ -192,7 +223,6 @@ final class AffinityPropagation implements ClusteringInterface
         $c = $this->findNearestGroup(
             $similarityMatrix,
             \count($points) - 1,
-            \count($this->clusterCenters)
         );
 
         return $this->clusterCenters[$c];
@@ -207,10 +237,9 @@ final class AffinityPropagation implements ClusteringInterface
             return $this->clusters;
         }
 
-        $clusterCount = \count($this->clusterCenters);
         $n = \count($this->points);
         for ($i = 0; $i < $n; ++$i) {
-            $group = $this->findNearestGroup($this->points, $i, $clusterCount);
+            $group = $this->findNearestGroup($this->points, $i);
 
             $this->clusters[$group] = $this->points[$i];
         }

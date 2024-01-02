@@ -20,6 +20,7 @@ use phpOMS\Api\Shipping\ShippingInterface;
 use phpOMS\Message\Http\HttpRequest;
 use phpOMS\Message\Http\RequestMethod;
 use phpOMS\Message\Http\Rest;
+use phpOMS\System\MimeType;
 use phpOMS\Uri\HttpUri;
 
 /**
@@ -192,7 +193,7 @@ final class DHLInternationalShipping implements ShippingInterface
         $request = new HttpRequest(new HttpUri($uri));
         $request->setMethod(RequestMethod::GET);
 
-        $request->header->set('Content-Type', 'application/json');
+        $request->header->set('Content-Type', MimeType::M_JSON);
         $request->header->set('Accept', '*/*');
         $request->header->set('Authorization', 'Basic ' . \base64_encode($login . ':' . $password));
 
@@ -274,14 +275,18 @@ final class DHLInternationalShipping implements ShippingInterface
         array $data
     ) : array
     {
-
     }
 
+    /**
+     * {@inheritdoc}
+     */
     public function cancel(string $shipment, array $packages = []) : bool
     {
-
     }
 
+    /**
+     * {@inheritdoc}
+     */
     public function track(string $shipment) : array
     {
         $base = self::$ENV === 'live' ? self::LIVE_URL : self::SANDBOX2_URL;
@@ -302,7 +307,7 @@ final class DHLInternationalShipping implements ShippingInterface
         $request = new HttpRequest($httpUri);
 
         $request->setMethod(RequestMethod::GET);
-        $request->header->set('accept', 'application/json');
+        $request->header->set('accept', MimeType::M_JSON);
         $request->header->set('dhl-api-key', $this->apiKey);
 
         $response = Rest::request($request);
@@ -311,7 +316,7 @@ final class DHLInternationalShipping implements ShippingInterface
         }
 
         $shipments = $response->getDataArray('shipments') ?? [];
-        $tracking = [];
+        $tracking  = [];
 
         // @todo add general shipment status (not just for individual packages)
 
@@ -322,9 +327,9 @@ final class DHLInternationalShipping implements ShippingInterface
             $activities = [];
             foreach ($package['events'] as $activity) {
                 $activities[] = [
-                    'date' => new \DateTime($activity['timestamp']),
+                    'date'        => new \DateTime($activity['timestamp']),
                     'description' => $activity['description'],
-                    'location' => [
+                    'location'    => [
                         'address' => [
                             $activity['location']['address']['streetAddress'],
                             $activity['location']['address']['addressLocality'],
@@ -339,7 +344,7 @@ final class DHLInternationalShipping implements ShippingInterface
                         'code'        => $activity['statusCode'],
                         'statusCode'  => $activity['statusCode'],
                         'description' => $activity['status'],
-                    ]
+                    ],
                 ];
             }
 
@@ -358,8 +363,8 @@ final class DHLInternationalShipping implements ShippingInterface
                     'by'        => $package['details']['proofOfDelivery']['familyName'],
                     'signature' => $package['details']['proofOfDelivery']['signatureUrl'],
                     'location'  => '',
-                    'date'      => $package['details']['proofOfDelivery']['timestamp']
-                ]
+                    'date'      => $package['details']['proofOfDelivery']['timestamp'],
+                ],
             ];
 
             $tracking[] = $packages;
@@ -379,10 +384,20 @@ final class DHLInternationalShipping implements ShippingInterface
      */
     public function label(string $shipment) : array
     {
+        return [];
     }
 
+    /**
+     * Finalize shipments (no further changes possible)
+     *
+     * @param string[] $shipment Shipments to finalize
+     *
+     * @return bool
+     *
+     * @since 1.0.0
+     */
     public function finalize(array $shipment = []) : bool
     {
-
+        return true;
     }
 }

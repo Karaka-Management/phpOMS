@@ -78,8 +78,8 @@ final class Elo
     /**
      * Calculate an approximated win probability based on elo points.
      *
-     * @param int  $elo1 Elo of the player we want to calculate the win probability for
-     * @param int  $elo2 Opponent elo
+     * @param int  $elo1    Elo of the player we want to calculate the win probability for
+     * @param int  $elo2    Opponent elo
      * @param bool $canDraw Is a draw possible?
      *
      * @return float

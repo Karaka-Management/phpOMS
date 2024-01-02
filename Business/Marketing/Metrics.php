@@ -137,7 +137,7 @@ final class Metrics
     }
 
     /**
-     * Calculate the profitability of customers based on their purchase behaviour
+     * Calculate the profitability of customers based on their purchase behavior
      *
      * The basis for the calculation is the migration model using a markov chain
      *
