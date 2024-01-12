@@ -282,7 +282,6 @@ final class ReadMapper extends DataMapperAbstract
 
             $value       = $row[$this->mapper::PRIMARYFIELD . '_d' . $this->depth];
             $obj[$value] = $this->mapper::createBaseModel($row);
-
             $obj[$value] = $this->populateAbstract($row, $obj[$value]);
 
             $ids[] = $value;
@@ -293,14 +292,16 @@ final class ReadMapper extends DataMapperAbstract
             // BUT the relation data is not available in the object itself meaning after retrieving the object
             // it cannot get assigned to the correct parent object.
             // Other relation types are easy because either the parent or child object contain the relation info.
-            $this->loadHasManyRelations($obj[$value]);
+            // One solution could be to always pass an array
+            if (!empty($this->with)) {
+                $this->loadHasManyRelations($obj[$value]);
+            }
         }
 
-        $countResulsts = \count($obj);
-
-        if ($countResulsts === 0) {
+        $countResults = \count($obj);
+        if ($countResults === 0) {
             return $this->mapper::createNullModel();
-        } elseif ($countResulsts === 1) {
+        } elseif ($countResults === 1) {
             return \reset($obj);
         }
 
@@ -329,7 +330,10 @@ final class ReadMapper extends DataMapperAbstract
         foreach ($this->executeGetRawYield($query) as $row) {
             $obj = $this->mapper::createBaseModel($row);
             $obj = $this->populateAbstract($row, $obj);
-            $this->loadHasManyRelations($obj);
+
+            if (!empty($this->with)) {
+                $this->loadHasManyRelations($obj);
+            }
 
             yield $obj;
         }
@@ -565,7 +569,7 @@ final class ReadMapper extends DataMapperAbstract
             $query->fromAs($this->mapper::TABLE, $this->mapper::TABLE . '_d' . $this->depth);
         }
 
-        // Join tables manually without using "with()" (NOT has many/owns one etc.)
+        // Join tables manually without using "with()" (NOT hasMany/owns one etc.)
         // This is necessary for special cases, e.g. when joining in the other direction
         // Example: Show all profiles who have written a news article.
         //          "with()" only allows to go from articles to accounts but we want to go the other way
@@ -577,7 +581,7 @@ final class ReadMapper extends DataMapperAbstract
             /* variable in model */
             // @todo join handling is extremely ugly, needs to be refactored
             foreach ($values as $join) {
-                // @todo the has many, etc. if checks only work if it is a relation on the first level, if we have a deeper where condition nesting this fails
+                // @todo the hasMany, etc. if checks only work if it is a relation on the first level, if we have a deeper where condition nesting this fails
                 if ($join['child'] !== '') {
                     continue;
                 }
@@ -649,12 +653,12 @@ final class ReadMapper extends DataMapperAbstract
             /* variable in model */
             $previous = null;
             foreach ($values as $where) {
-                // @todo the has many, etc. if checks only work if it is a relation on the first level, if we have a deeper where condition nesting this fails
+                // @todo the hasMany, etc. if checks only work if it is a relation on the first level, if we have a deeper where condition nesting this fails
                 if ($where['child'] !== '') {
                     continue;
                 }
 
-                $comparison = \is_array($where['value']) && \count($where['value']) > 1 ? 'in' : $where['logic'];
+                $comparison = \is_array($where['value']) && \count($where['value']) > 1 ? 'IN' : $where['logic'];
                 if ($where['comparison'] === 'ALT') {
                     // This uses an alternative value if the previous value(s) in the where clause don't exist (e.g. for localized results where you allow a user language, alternatively a primary language, and then alternatively any language if the first two don't exist).
 
@@ -759,6 +763,7 @@ final class ReadMapper extends DataMapperAbstract
                 $query->orderBy($this->mapper::TABLE . '_d' . $this->depth . '.' . $column, $sort['order']);
 
                 break; // there is only one root element (one element with child === '')
+                // @todo Is this true? sort can have multiple sort components!!!
             }
         }
 
@@ -846,7 +851,7 @@ final class ReadMapper extends DataMapperAbstract
 
                 $value = $this->populateOwnsOne($def['internal'], $result, $default);
 
-                // loads has many relations. other relations are loaded in the populateOwnsOne
+                // loads hasMany relations. other relations are loaded in the populateOwnsOne
                 if (\is_object($value) && isset($this->mapper::OWNS_ONE[$def['internal']]['mapper'])) {
                     $this->mapper::OWNS_ONE[$def['internal']]['mapper']::reader(db: $this->db)->loadHasManyRelations($value);
                 }
@@ -865,7 +870,7 @@ final class ReadMapper extends DataMapperAbstract
 
                 $value = $this->populateBelongsTo($def['internal'], $result, $default);
 
-                // loads has many relations. other relations are loaded in the populateBelongsTo
+                // loads hasMany relations. other relations are loaded in the populateBelongsTo
                 if (\is_object($value) && isset($this->mapper::BELONGS_TO[$def['internal']]['mapper'])) {
                     $this->mapper::BELONGS_TO[$def['internal']]['mapper']::reader(db: $this->db)->loadHasManyRelations($value);
                 }
@@ -916,7 +921,7 @@ final class ReadMapper extends DataMapperAbstract
             }
         }
 
-        // @todo How is this allowed? at the bottom we set $obj->hasMany = value. A has many should be always an array?!
+        // @todo How is this allowed? at the bottom we set $obj->hasMany = value. A hasMany should be always an array?!
         foreach ($this->mapper::HAS_MANY as $member => $def) {
             if (!isset($this->with[$member])
                 || !isset($def['column']) // @todo is this required? The code below indicates that this might be stupid
@@ -1063,7 +1068,7 @@ final class ReadMapper extends DataMapperAbstract
      * @return mixed
      *
      * @todo in the future we could pass not only the $id ref but all of the data as a join!!! and save an additional select!!!
-     * @todo only the belongs to model gets populated the children of the belongsto model are always null models. either this function needs to call the get for the children, it should call get for the belongs to right away like the has many, or i find a way to recursevily load the data for all sub models and then populate that somehow recursively, probably too complex.
+     * @todo only the belongs to model gets populated the children of the belongsto model are always null models. either this function needs to call the get for the children, it should call get for the belongs to right away like the hasMany, or i find a way to recursevily load the data for all sub models and then populate that somehow recursively, probably too complex.
      *
      * @since 1.0.0
      */
@@ -1129,6 +1134,9 @@ final class ReadMapper extends DataMapperAbstract
             return;
         }
 
+        // @todo only accept array and then perform this work on the array here
+        // this allows us to better load data for all objects at the same time!
+
         $primaryKey = $this->mapper::getObjectId($obj);
         if (empty($primaryKey)) {
             return;
@@ -1137,7 +1145,7 @@ final class ReadMapper extends DataMapperAbstract
         $refClass = null;
 
         // @todo check if there are more cases where the relation is already loaded with joins etc.
-        // there can be pseudo has many elements like localizations. They are has manies but these are already loaded with joins!
+        // there can be pseudo hasMany elements like localizations. They are hasMany but these are already loaded with joins!
         foreach ($this->with as $member => $withData) {
             if (isset($this->mapper::HAS_MANY[$member])) {
                 $many = $this->mapper::HAS_MANY[$member];
@@ -1174,12 +1182,12 @@ final class ReadMapper extends DataMapperAbstract
                     $refProp = $refClass->getProperty($member);
                     $refProp->setValue($obj, !\is_array($objects) && ($many['conditional'] ?? false) === false
                         ? [$many['mapper']::getObjectId($objects) => $objects]
-                        : $objects // if conditional === true the obj will be assigned (e.g. has many localizations but only one is loaded for the model)
+                        : $objects // if conditional === true the obj will be assigned (e.g. hasMany localizations but only one is loaded for the model)
                     );
                 } else {
                     $obj->{$member} = !\is_array($objects) && ($many['conditional'] ?? false) === false
                         ? [$many['mapper']::getObjectId($objects) => $objects]
-                        : $objects; // if conditional === true the obj will be assigned (e.g. has many localizations but only one is loaded for the model)
+                        : $objects; // if conditional === true the obj will be assigned (e.g. hasMany localizations but only one is loaded for the model)
                 }
 
                 continue;
@@ -1235,7 +1243,7 @@ final class ReadMapper extends DataMapperAbstract
         $refClass = null;
 
         // @todo check if there are more cases where the relation is already loaded with joins etc.
-        // there can be pseudo has many elements like localizations. They are has manies but these are already loaded with joins!
+        // there can be pseudo hasMany elements like localizations. They are has manies but these are already loaded with joins!
         foreach ($this->with as $member => $withData) {
             if (isset($this->mapper::HAS_MANY[$member])) {
                 $many = $this->mapper::HAS_MANY[$member];

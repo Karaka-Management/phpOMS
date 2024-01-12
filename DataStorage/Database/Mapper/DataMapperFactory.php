@@ -109,14 +109,6 @@ class DataMapperFactory
     public const TABLE = '';
 
     /**
-     * Parent column.
-     *
-     * @var class-string
-     * @since 1.0.0
-     */
-    public const PARENT = '';
-
-    /**
      * Model to use by the mapper.
      *
      * @var class-string<T>

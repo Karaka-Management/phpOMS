@@ -89,4 +89,8 @@ class RegionEnum extends Enum
     public const ANTARCTICA = 'Antarctica';
 
     public const CONTINENTS = 'Continents';
+
+    public const DOMESTIC = 'Domestic';
+
+    public const EXPORT = 'Export';
 }

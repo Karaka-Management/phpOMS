@@ -16,6 +16,7 @@ namespace phpOMS\DataStorage\Database;
 
 use phpOMS\Contract\SerializableInterface;
 use phpOMS\DataStorage\Database\Query\Column;
+use phpOMS\DataStorage\Database\Query\ColumnName;
 use phpOMS\DataStorage\Database\Query\Parameter;
 
 /**
@@ -299,6 +300,8 @@ abstract class GrammarAbstract
             return \rtrim(\rtrim(\number_format($value, 5, '.', ''), '0'), '.');
         } elseif ($value instanceof Column) {
             return '(' . \rtrim($this->compileColumnQuery($value), ';') . ')';
+        } elseif ($value instanceof ColumnName) {
+            return $this->compileSystem($value->name);
         } elseif ($value instanceof BuilderAbstract) {
             return '(' . \rtrim($value->toSql(), ';') . ')';
         } elseif ($value instanceof \JsonSerializable) {

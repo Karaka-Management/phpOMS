@@ -17,6 +17,7 @@ namespace phpOMS\DataStorage\Database\Query\Grammar;
 use phpOMS\DataStorage\Database\BuilderAbstract;
 use phpOMS\DataStorage\Database\GrammarAbstract;
 use phpOMS\DataStorage\Database\Query\Builder;
+use phpOMS\DataStorage\Database\Query\ColumnName;
 use phpOMS\DataStorage\Database\Query\From;
 use phpOMS\DataStorage\Database\Query\QueryType;
 use phpOMS\DataStorage\Database\Query\Where;
@@ -273,7 +274,7 @@ class Grammar extends GrammarAbstract
      *
      * @param array   $element Element data
      * @param Builder $query   Query builder
-     * @param bool    $first   Is first element (usefull for nesting)
+     * @param bool    $first   Is first element (useful for nesting)
      *
      * @return string
      *
@@ -459,6 +460,7 @@ class Grammar extends GrammarAbstract
         }
 
         // @todo on doesn't allow string values as value (only table column names). This is bad and needs to be fixed!
+        //  Solution could be to use ColumnName as internal object and then pass it to compileValue in all cases
         // Other types such as int etc. are kind of possible
         if (isset($element['value'])) {
             $expression .= ' ' . \strtoupper($element['operator']) . ' '

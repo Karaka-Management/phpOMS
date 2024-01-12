@@ -183,18 +183,6 @@ final class Autoloader
 
                 return;
             }
-
-            /*
-            if (!isset($valid[$subclass])) {
-                foreach (self::$classmap as $map => $path) {
-                    if (\str_starts_with($class, $map)) {
-                        include_once $path . $class . '.php';
-
-                        return;
-                    }
-                }
-            }
-            */
         }
 
         foreach (self::$paths as $path) {

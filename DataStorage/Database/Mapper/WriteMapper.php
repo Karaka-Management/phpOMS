@@ -286,12 +286,10 @@ final class WriteMapper extends DataMapperAbstract
 
             /** @var class-string<DataMapperFactory> $mapper */
             $mapper       = $this->mapper::HAS_MANY[$propertyName]['mapper'];
-            $internalName = isset($mapper::COLUMNS[$this->mapper::HAS_MANY[$propertyName]['self']])
-                ? $mapper::COLUMNS[$this->mapper::HAS_MANY[$propertyName]['self']]['internal']
-                : 'ERROR';
+            $internalName = $mapper::COLUMNS[$this->mapper::HAS_MANY[$propertyName]['self']]['internal'] ?? 'ERROR-BAD-SELF';
 
             // @todo this or $isRelPrivate is wrong, don't know which one.
-            $isInternalPrivate =$mapper::COLUMNS[$this->mapper::HAS_MANY[$propertyName]['self']]['private'] ?? false;
+            $isInternalPrivate = $mapper::COLUMNS[$this->mapper::HAS_MANY[$propertyName]['self']]['private'] ?? false;
 
             if (\is_object($values)) {
                 // conditionals
@@ -306,7 +304,9 @@ final class WriteMapper extends DataMapperAbstract
 
                 $mapper::create(db: $this->db)->execute($values);
                 continue;
-            } elseif (!\is_array($values)) {
+            }
+
+            if (!\is_array($values)) {
                 // @todo conditionals???
                 continue;
             }

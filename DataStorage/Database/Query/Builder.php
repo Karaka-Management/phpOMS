@@ -231,6 +231,8 @@ class Builder extends BuilderAbstract
         'similar to',
         'not similar to',
         'in',
+        'exists',
+        'not exists',
     ];
 
     /**
