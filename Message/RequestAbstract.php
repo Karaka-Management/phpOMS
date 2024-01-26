@@ -92,7 +92,7 @@ abstract class RequestAbstract implements MessageInterface
      *
      * @since 1.0.0
      */
-    public function getData(string $key = null, string $type = null) : mixed
+    public function getData(?string $key = null, ?string $type = null) : mixed
     {
         if ($key === null) {
             return $this->data;

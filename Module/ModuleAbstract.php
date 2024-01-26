@@ -120,7 +120,7 @@ abstract class ModuleAbstract
      *
      * @since 1.0.0
      */
-    public function __construct(ApplicationAbstract $app = null)
+    public function __construct(?ApplicationAbstract $app = null)
     {
         $this->app = $app ?? new class() extends ApplicationAbstract {};
 
@@ -903,7 +903,7 @@ abstract class ModuleAbstract
      *
      * @feature Implement softDelete functionality.
      *          Models which have a soft delete cannot be used, read or modified unless a person has soft delete permissions
-     *          In addition to DELETE permisstions we now need SOFTDELETE as well.
+     *          In addition to DELETE permissions we now need SOFTDELETE as well.
      *          There also needs to be an undo function for this soft delete
      *          In a backend environment a soft delete would be very helpful!!!
      *

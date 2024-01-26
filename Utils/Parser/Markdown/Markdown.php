@@ -464,7 +464,7 @@ class Markdown
         // Marks
         if ($this->options['mark'] ?? true) {
             $this->inlineTypes['='][] = 'Mark';
-            $this->inlineMarkerList  .= '=';
+            $this->inlineMarkerList .= '=';
         }
 
         // Keystrokes
@@ -475,20 +475,20 @@ class Markdown
         // Spoiler
         if ($this->options['spoiler'] ?? false) {
             $this->inlineTypes['>'][] = 'Spoiler';
-            $this->inlineMarkerList  .= '>';
+            $this->inlineMarkerList .= '>';
         }
 
         // Inline Math
         if ($this->options['math'] ?? false) {
             $this->inlineTypes['\\'][] = 'Math';
             $this->inlineTypes['$'][]  = 'Math';
-            $this->inlineMarkerList   .= '$';
+            $this->inlineMarkerList .= '$';
         }
 
         // Superscript
         if ($this->options['sup'] ?? false) {
             $this->inlineTypes['^'][] = 'Superscript';
-            $this->inlineMarkerList  .= '^';
+            $this->inlineMarkerList .= '^';
         }
 
         // Subscript
@@ -504,14 +504,14 @@ class Markdown
         // Typographer
         if ($this->options['typographer'] ?? false) {
             $this->inlineTypes['('][] = 'Typographer';
-            $this->inlineMarkerList  .= '(';
+            $this->inlineMarkerList .= '(';
             $this->inlineTypes['.'][] = 'Typographer';
-            $this->inlineMarkerList  .= '.';
+            $this->inlineMarkerList .= '.';
             $this->inlineTypes['+'][] = 'Typographer';
-            $this->inlineMarkerList  .= '+';
+            $this->inlineMarkerList .= '+';
             $this->inlineTypes['!'][] = 'Typographer';
             $this->inlineTypes['?'][] = 'Typographer';
-            $this->inlineMarkerList  .= '?';
+            $this->inlineMarkerList .= '?';
         }
 
         // Block Math
@@ -598,7 +598,7 @@ class Markdown
         // Add footnotes
         if (isset($this->definitionData['Footnote'])) {
             $element = $this->buildFootnoteElement();
-            $html   .= "\n" . $this->element($element);
+            $html .= "\n" . $this->element($element);
         }
 
         return $this->decodeToCTagFromHash($html); // Unescape the ToC tag
@@ -1808,7 +1808,7 @@ class Markdown
      *
      * @since 1.0.0
      */
-    protected function blockFootnote(array $line, array $_ = null) : ?array
+    protected function blockFootnote(array $line, ?array $_ = null) : ?array
     {
         return ($this->options['footnotes'] ?? true)
             && \preg_match('/^\[\^(.+?)\]:[ ]?(.*)$/', $line['text'], $matches) == 1
@@ -1830,7 +1830,7 @@ class Markdown
      *
      * @since 1.0.0
      */
-    protected function blockDefinitionList(array $line, array $block = null) : ?array
+    protected function blockDefinitionList(array $line, ?array $block = null) : ?array
     {
         if (!($this->options['definition_lists'] ?? true)
             || $block === null
@@ -1872,7 +1872,7 @@ class Markdown
      *
      * @since 1.0.0
      */
-    protected function blockCode(array $line, array $block = null) : ?array
+    protected function blockCode(array $line, ?array $block = null) : ?array
     {
         if (!($this->options['code']['blocks'] ?? true)
             || !($this->options['code'] ?? true)
@@ -1905,7 +1905,7 @@ class Markdown
      *
      * @since 1.0.0
      */
-    protected function blockComment(array $line, array $_ = null) : ?array
+    protected function blockComment(array $line, ?array $_ = null) : ?array
     {
         if (!($this->options['comments'] ?? true)
             || $this->markupEscaped || $this->safeMode
@@ -1938,7 +1938,7 @@ class Markdown
      *
      * @since 1.0.0
      */
-    protected function blockHeader(array $line, array $_ = null) : ?array
+    protected function blockHeader(array $line, ?array $_ = null) : ?array
     {
         if (!($this->options['headings'] ?? true)) {
             return null;
@@ -2019,7 +2019,7 @@ class Markdown
      *
      * @since 1.0.0
      */
-    protected function blockList(array $line, array $block = null) : ?array
+    protected function blockList(array $line, ?array $block = null) : ?array
     {
         if (!($this->options['lists'] ?? true)) {
             return null;
@@ -2098,7 +2098,7 @@ class Markdown
      *
      * @since 1.0.0
      */
-    protected function blockQuote(array $line, array $_ = null) : ?array
+    protected function blockQuote(array $line, ?array $_ = null) : ?array
     {
         if (!($this->options['qoutes'] ?? true)
             || \preg_match('/^>[ ]?+(.*+)/', $line['text'], $matches) !== 1
@@ -2128,7 +2128,7 @@ class Markdown
      *
      * @since 1.0.0
      */
-    protected function blockRule(array $line, array $_ = null) : ?array
+    protected function blockRule(array $line, ?array $_ = null) : ?array
     {
         if (!($this->options['thematic_breaks'] ?? true)) {
             return null;
@@ -2156,7 +2156,7 @@ class Markdown
      *
      * @since 1.0.0
      */
-    protected function blockSetextHeader(array $line, array $block = null) : ?array
+    protected function blockSetextHeader(array $line, ?array $block = null) : ?array
     {
         if (!($this->options['headings'] ?? true)
             || $block === null
@@ -2223,7 +2223,7 @@ class Markdown
      *
      * @since 1.0.0
      */
-    protected function blockMarkup(array $line, array $_ = null) : ?array
+    protected function blockMarkup(array $line, ?array $_ = null) : ?array
     {
         if (!($this->options['markup'] ?? true)
             || $this->markupEscaped || $this->safeMode
@@ -2278,7 +2278,7 @@ class Markdown
      *
      * @since 1.0.0
      */
-    protected function blockReference(array $line, array $_ = null) : ?array
+    protected function blockReference(array $line, ?array $_ = null) : ?array
     {
         if (!($this->options['references'] ?? true)
             || \strpos($line['text'], ']') === false
@@ -2310,7 +2310,7 @@ class Markdown
      *
      * @since 1.0.0
      */
-    protected function blockTable(array $line, array $block = null) : ?array
+    protected function blockTable(array $line, ?array $block = null) : ?array
     {
         if (!($this->options['tables'] ?? true)
             || $block === null || $block['type'] !== 'Paragraph' || isset($block['interrupted'])
@@ -2422,7 +2422,7 @@ class Markdown
      *
      * @since 1.0.0
      */
-    protected function blockAbbreviation(array $line, array $_ = null) : ?array
+    protected function blockAbbreviation(array $line, ?array $_ = null) : ?array
     {
         if (!($this->options['abbreviations'] ?? true)) {
             return null;
@@ -2459,7 +2459,7 @@ class Markdown
      *
      * @since 1.0.0
      */
-    protected function blockMath(array $line, array $_ = null) : ?array
+    protected function blockMath(array $line, ?array $_ = null) : ?array
     {
         $block = [
             'element' => [
@@ -2549,7 +2549,7 @@ class Markdown
      *
      * @since 1.0.0
      */
-    protected function blockFencedCode(array $line, array $_ = null) : ?array
+    protected function blockFencedCode(array $line, ?array $_ = null) : ?array
     {
         if (!($this->options['code']['blocks'] ?? true)
             || !($this->options['code'] ?? true)
@@ -2659,7 +2659,7 @@ class Markdown
      *
      * @since 1.0.0
      */
-    protected function blockSpoiler(array $line, array $_ = null) : ?array
+    protected function blockSpoiler(array $line, ?array $_ = null) : ?array
     {
         if (!($this->options['code']['blocks'] ?? true)
             || !($this->options['code'] ?? true)
@@ -2836,7 +2836,7 @@ class Markdown
      *
      * @since 1.0.0
      */
-    protected function blockCheckbox(array $line, array $_ = null) : ?array
+    protected function blockCheckbox(array $line, ?array $_ = null) : ?array
     {
         $text      = \trim($line['text']);
         $beginLine = \substr($text, 0, 4);
@@ -3384,7 +3384,7 @@ class Markdown
         }
 
         if (isset($block['interrupted'])) {
-            $block['dd']['handler']['function']  = 'textElements';
+            $block['dd']['handler']['function'] = 'textElements';
             $block['dd']['handler']['argument'] .= "\n\n";
 
             $block['dd']['handler']['destination'] = 'elements';
@@ -3743,7 +3743,7 @@ class Markdown
             $elementText = "\n" . $this->text($elementText) . "\n";
         } else {
             foreach ($dom->documentElement->childNodes as $node) {
-                $nodeMarkup   = $dom->saveHTML($node);
+                $nodeMarkup = $dom->saveHTML($node);
                 $elementText .= $node instanceof \DOMElement && !\in_array($node->nodeName, $this->textLevelElements)
                     ? $this->processTag($nodeMarkup)
                     : $nodeMarkup;
@@ -4618,7 +4618,7 @@ class Markdown
             // (autobreak === false) covers both sides of an element
             $autoBreak = $autoBreak ? $autoBreakNext : $autoBreak;
 
-            $markup   .= ($autoBreak ? "\n" : '') . $this->element($element);
+            $markup .= ($autoBreak ? "\n" : '') . $this->element($element);
             $autoBreak = $autoBreakNext;
         }
 

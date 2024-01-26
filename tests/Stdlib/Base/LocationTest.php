@@ -53,11 +53,11 @@ final class LocationTest extends \PHPUnit\Framework\TestCase
 
         self::assertEquals('', $this->location->postal);
         self::assertEquals('', $this->location->city);
-        self::assertEquals('XX', $this->location->getCountry());
+        self::assertEquals('XX', $this->location->country);
         self::assertEquals('', $this->location->address);
         self::assertEquals('', $this->location->state);
-        self::assertEquals(0, $this->location->getId());
-        self::assertEquals(AddressType::HOME, $this->location->getType());
+        self::assertEquals(0, $this->location->id);
+        self::assertEquals(AddressType::HOME, $this->location->type);
         self::assertEquals($expected, $this->location->toArray());
         self::assertEquals($expected, $this->location->jsonSerialize());
     }
@@ -71,17 +71,6 @@ final class LocationTest extends \PHPUnit\Framework\TestCase
     {
         $this->location->postal = '0123456789';
         self::assertEquals('0123456789', $this->location->postal);
-    }
-
-    /**
-     * @testdox The type can be set and returned
-     * @covers phpOMS\Stdlib\Base\Location
-     * @group framework
-     */
-    public function testTypeInputOutput() : void
-    {
-        $this->location->setType(AddressType::BUSINESS);
-        self::assertEquals(AddressType::BUSINESS, $this->location->getType());
     }
 
     /**
@@ -103,7 +92,7 @@ final class LocationTest extends \PHPUnit\Framework\TestCase
     public function testCountryInputOutput() : void
     {
         $this->location->setCountry('Country');
-        self::assertEquals('Country', $this->location->getCountry());
+        self::assertEquals('Country', $this->location->country);
     }
 
     /**
@@ -145,8 +134,8 @@ final class LocationTest extends \PHPUnit\Framework\TestCase
             'lon'     => 11.2,
         ];
 
-        $this->location->postal = '0123456789';
-        $this->location->setType(AddressType::BUSINESS);
+        $this->location->postal  = '0123456789';
+        $this->location->type    = AddressType::BUSINESS;
         $this->location->city    = 'city';
         $this->location->address = 'Some address here';
         $this->location->state   = 'This is a state 123';
@@ -174,8 +163,8 @@ final class LocationTest extends \PHPUnit\Framework\TestCase
             'lon'     => 11.2,
         ];
 
-        $this->location->postal = '0123456789';
-        $this->location->setType(AddressType::BUSINESS);
+        $this->location->postal  = '0123456789';
+        $this->location->type    = AddressType::BUSINESS;
         $this->location->city    = 'city';
         $this->location->address = 'Some address here';
         $this->location->state   = 'This is a state 123';

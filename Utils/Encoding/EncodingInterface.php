@@ -36,9 +36,9 @@ interface EncodingInterface
     public static function encode(mixed $source);
 
     /**
-     * Dedecodes text
+     * Decodes text
      *
-     * @param string $decoded encoded text to dedecode
+     * @param string $decoded encoded text to decode
      *
      * @return string
      *

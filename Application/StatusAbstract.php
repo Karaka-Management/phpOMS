@@ -63,7 +63,7 @@ abstract class StatusAbstract
      *
      * @since 1.0.0
      */
-    public static function activateRoutes(ApplicationInfo $appInfo = null) : void
+    public static function activateRoutes(?ApplicationInfo $appInfo = null) : void
     {
         self::installRoutesHooks(static::PATH . '/../Routes.php', static::PATH . '/../Admin/Install/Application/Routes.php');
     }
@@ -77,7 +77,7 @@ abstract class StatusAbstract
      *
      * @since 1.0.0
      */
-    public static function activateHooks(ApplicationInfo $appInfo = null) : void
+    public static function activateHooks(?ApplicationInfo $appInfo = null) : void
     {
         self::installRoutesHooks(static::PATH . '/../Hooks.php', static::PATH . '/../Admin/Install/Application/Hooks.php');
     }

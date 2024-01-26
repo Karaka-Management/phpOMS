@@ -113,7 +113,7 @@ final class ModuleManager
      *
      * @since 1.0.0
      */
-    public function getLanguageFiles(RequestAbstract $request, string $app = null) : array
+    public function getLanguageFiles(RequestAbstract $request, ?string $app = null) : array
     {
         $files = $this->getUriLoad($request);
         if (!isset($files['5'])) {
@@ -249,7 +249,7 @@ final class ModuleManager
      *
      * @since 1.0.0
      */
-    public function isRunning(string $module, string $ctlName = null) : bool
+    public function isRunning(string $module, ?string $ctlName = null) : bool
     {
         $name = '\\Modules\\' . $module . '\\Controller\\' . ($ctlName ?? $this->app->appName) . 'Controller';
 
@@ -475,7 +475,7 @@ final class ModuleManager
      *
      * @since 1.0.0
      */
-    public function reInit(string $module, ApplicationInfo $appInfo = null) : void
+    public function reInit(string $module, ?ApplicationInfo $appInfo = null) : void
     {
         $info = $this->loadInfo($module);
         if ($info === null) {
@@ -664,7 +664,7 @@ final class ModuleManager
      *
      * @since 1.0.0
      */
-    public function get(string $module, string $ctlName = null) : ModuleAbstract
+    public function get(string $module, ?string $ctlName = null) : ModuleAbstract
     {
         $name = '\\Modules\\' . $module . '\\Controller\\' . ($ctlName ?? $this->app->appName) . 'Controller';
         if (!isset($this->running[$name])) {
@@ -687,7 +687,7 @@ final class ModuleManager
      *
      * @since 1.0.0
      */
-    private function initModuleController(string $module, string $ctlName = null) : void
+    private function initModuleController(string $module, ?string $ctlName = null) : void
     {
         $name                 = '\\Modules\\' . $module . '\\Controller\\' . ($ctlName ?? $this->app->appName) . 'Controller';
         $this->running[$name] = $this->getModuleInstance($module, $ctlName);
@@ -707,7 +707,7 @@ final class ModuleManager
      *
      * @since 1.0.0
      */
-    public function getModuleInstance(string $module, string $ctlName = null) : ModuleAbstract
+    public function getModuleInstance(string $module, ?string $ctlName = null) : ModuleAbstract
     {
         $class = '\\Modules\\' . $module . '\\Controller\\' . ($ctlName ?? $this->app->appName) . 'Controller';
 
@@ -740,7 +740,7 @@ final class ModuleManager
      *
      * @since 1.0.0
      */
-    public function initRequestModules(RequestAbstract $request, string $ctlName = null) : void
+    public function initRequestModules(RequestAbstract $request, ?string $ctlName = null) : void
     {
         $toInit = $this->getRoutedModules($request);
         foreach ($toInit as $module) {

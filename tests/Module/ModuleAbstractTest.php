@@ -26,7 +26,6 @@ use phpOMS\tests\DataStorage\Database\TestModel\BaseModel;
 use phpOMS\tests\DataStorage\Database\TestModel\BaseModelMapper;
 use phpOMS\tests\DataStorage\Database\TestModel\ManyToManyRelModel;
 use phpOMS\tests\DataStorage\Database\TestModel\ManyToManyRelModelMapper;
-use phpOMS\Uri\HttpUri;
 
 /**
  * @testdox phpOMS\tests\Module\ModuleAbstractTest: Abstract module
@@ -102,7 +101,7 @@ final class ModuleAbstractTest extends \PHPUnit\Framework\TestCase
                 $model1 = BaseModelMapper::get()->where('id', 1)->execute();
                 $model2 = ManyToManyRelModelMapper::get()->where('id', 1)->execute();
 
-                $this->createModelRelation(1, $model1->getId(), $model2->id, BaseModelMapper::class, 'hasManyRelations', '', '127.0.0.1');
+                $this->createModelRelation(1, $model1->id, $model2->id, BaseModelMapper::class, 'hasManyRelations', '', '127.0.0.1');
             }
 
             public function deleteRelationDB() : void
@@ -110,7 +109,7 @@ final class ModuleAbstractTest extends \PHPUnit\Framework\TestCase
                 $model1 = BaseModelMapper::get()->where('id', 1)->execute();
                 $model2 = ManyToManyRelModelMapper::get()->where('id', 1)->execute();
 
-                $this->deleteModelRelation(1, $model1->getId(), $model2->id, BaseModelMapper::class, 'hasManyRelations', '', '127.0.0.1');
+                $this->deleteModelRelation(1, $model1->id, $model2->id, BaseModelMapper::class, 'hasManyRelations', '', '127.0.0.1');
             }
 
             public function creates() : void
@@ -246,7 +245,7 @@ final class ModuleAbstractTest extends \PHPUnit\Framework\TestCase
      */
     public function testFillJson() : void
     {
-        $request  = new HttpRequest(new HttpUri(''));
+        $request  = new HttpRequest();
         $response = new HttpResponse();
 
         $this->module->fillJson($request, $response, 'OK', 'Test Title', 'Test Message!', [1, 'test string', 'bool' => true]);
@@ -269,7 +268,7 @@ final class ModuleAbstractTest extends \PHPUnit\Framework\TestCase
      */
     public function testFillJsonRaw() : void
     {
-        $request  = new HttpRequest(new HttpUri(''));
+        $request  = new HttpRequest();
         $response = new HttpResponse();
 
         $this->module->fillJsonRaw($request, $response, [1, 'test string', 'bool' => true]);

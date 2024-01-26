@@ -135,6 +135,26 @@ trait ISO3166Trait
                     self::getRegion('west-africa'),
                     self::getRegion('central-africa')
                 );
+            case 'nato':
+                return [
+                    self::_ALB, self::_BEL, self::_BGR, self::_CAN, self::_HRV,
+                    self::_CZE, self::_DNK, self::_EST, self::_FRA, self::_DEU,
+                    self::_GRC, self::_HUN, self::_ISL, self::_ITA, self::_LVA,
+                    self::_LTU, self::_LUX, self::_MNE, self::_NLD, self::_MKD,
+                    self::_NOR, self::_POL, self::_PRT, self::_ROU, self::_SVK,
+                    self::_SVN, self::_ESP, self::_TUR, self::_GBR, self::_USA,
+                    self::_SWE,
+                ];
+            case 'oecd':
+                return [
+                    self::_AUS, self::_NZL, self::_AUT, self::_NOR, self::_BEL,
+                    self::_POL, self::_CAN, self::_PRT, self::_CHL, self::_SVK,
+                    self::_DNK, self::_ESP, self::_EST, self::_SWE, self::_FIN,
+                    self::_CHE, self::_FRA, self::_TUR, self::_DEU, self::_GBR,
+                    self::_GRC, self::_USA, self::_HUN, self::_ISL, self::_IRL,
+                    self::_ISR, self::_ITA, self::_JPN, self::_KOR, self::_LUX,
+                    self::_MEX, self::_NLD, self::_CZE, self::_SVN,
+                ];
             case 'eu':
                 return [
                     self::_AUT, self::_BEL, self::_BGR, self::_HRV, self::_CYP,
@@ -150,6 +170,16 @@ trait ISO3166Trait
                     self::_FIN, self::_FRA, self::_DEU, self::_GRC, self::_IRL,
                     self::_ITA, self::_LVA, self::_LTU, self::_LUX, self::_MLT,
                     self::_NLD, self::_PRT, self::_SVK, self::_SVN, self::_ESP,
+                ];
+            case 'schengen':
+                return [
+                    self::_AUT, self::_BEL, self::_HRV,
+                    self::_CZE, self::_DNK, self::_EST, self::_FIN, self::_FRA,
+                    self::_DEU, self::_GRC, self::_HUN, self::_ITA,
+                    self::_LVA, self::_LTU, self::_LUX, self::_MLT, self::_NLD,
+                    self::_POL, self::_PRT, self::_SVK, self::_SVN,
+                    self::_ESP, self::_SWE,
+                    self::_ISL, self::_NOR, self::_CHE, self::_LIE,
                 ];
             case 'north-europe':
                 return [
@@ -284,6 +314,19 @@ trait ISO3166Trait
             case 'antarctica':
                 return [
                     self::_ATA, self::_ATF,
+                ];
+            case 'dach':
+                return [
+                    self::_DEU, self::_AUT, self::_CHE,
+                ];
+            case 'g8':
+                return [
+                    self::_USA, self::_GBR, self::_FRA, self::_DEU, self::_ITA,
+                    self::_CAN, self::_RUS, self::_JAP,
+                ];
+            case 'p5':
+                return [
+                    self::_USA, self::_GBR, self::_FRA, self::_RUS, self::_CHN,
                 ];
             default:
                 return [];

@@ -49,7 +49,7 @@ class Language extends NgramParser
         } elseif (!\is_dir($dirname) || !\is_readable($dirname)) {
             throw new \InvalidArgumentException('Provided directory could not be found or is not readable');
         } else {
-            $dirname  = \rtrim($dirname, '/');
+            $dirname = \rtrim($dirname, '/');
             $dirname .= '/*/*.php';
         }
 
@@ -93,8 +93,8 @@ class Language extends NgramParser
 
             foreach ($samples as $v) {
                 if (isset($value[$v])) {
-                    $x    = $index++ - $value[$v];
-                    $y    = $x >> (\PHP_INT_SIZE * 8);
+                    $x = $index++ - $value[$v];
+                    $y = $x >> (\PHP_INT_SIZE * 8);
                     $sum += ($x + $y) ^ $y;
 
                     continue;

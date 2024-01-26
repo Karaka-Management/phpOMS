@@ -118,10 +118,10 @@ final class Huffman
         }
 
         $binary    = '';
-        $rawLenght = \strlen($raw);
+        $rawLength = \strlen($raw);
         $source    = '';
 
-        for ($i = 0; $i < $rawLenght; ++$i) {
+        for ($i = 0; $i < $rawLength; ++$i) {
             $decbin = \decbin(\ord($raw[$i]));
 
             while (\strlen($decbin) < 8) {
@@ -141,7 +141,7 @@ final class Huffman
                 }
             }
 
-            if ($i + 1 === $rawLenght) {
+            if ($i + 1 === $rawLength) {
                 $pos = \strrpos($decbin, '1');
 
                 if ($pos === false) {

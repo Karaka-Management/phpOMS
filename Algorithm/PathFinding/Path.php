@@ -152,7 +152,7 @@ class Path
     }
 
     /**
-     * Find nodes in bettween two nodes.
+     * Find nodes in between two nodes.
      *
      * The path may only contain the jump points or pivot points.
      * In order to get every node it needs to be expanded.
@@ -190,7 +190,7 @@ class Path
 
             if ($e2 > -$dy) {
                 $err -= $dy;
-                $x0  += $sx;
+                $x0 += $sx;
             }
 
             if ($e2 < $dx) {

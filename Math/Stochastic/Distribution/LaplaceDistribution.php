@@ -139,7 +139,7 @@ final class LaplaceDistribution
     /**
      * Get moment generating function.
      *
-     * @param float $t  Valute t
+     * @param float $t  Value t
      * @param float $mu Mean
      * @param float $b  Value b
      *

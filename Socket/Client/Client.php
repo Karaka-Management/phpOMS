@@ -147,7 +147,7 @@ class Client extends SocketAbstract
     }
 
     /**
-     * Add packet to be handeld
+     * Add packet to be handled
      *
      * @param mixed $packet Packet to handle
      *

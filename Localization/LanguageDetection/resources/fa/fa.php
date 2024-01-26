@@ -1,8 +1,7 @@
 <?php declare(strict_types=1);
 
 return [
-  'fa' =>
-  [
+  'fa' => [
     0   => 'ا',
     1   => 'ی',
     2   => 'د',

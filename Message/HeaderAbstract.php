@@ -143,7 +143,7 @@ abstract class HeaderAbstract
      *
      * @since 1.0.0
      */
-    abstract public function get(string $key = null) : array;
+    abstract public function get(?string $key = null) : array;
 
     /**
      * Header has key?

@@ -257,8 +257,7 @@ final class UriFactory
             }
         }
 
-        $escaped =
-            (isset($urlStructure['scheme']) && !empty($urlStructure['scheme'])
+        $escaped = (isset($urlStructure['scheme']) && !empty($urlStructure['scheme'])
                 ? $urlStructure['scheme'] . '://' : '')
             . (isset($urlStructure['username'])
                 ? $urlStructure['username'] . ':' : '')

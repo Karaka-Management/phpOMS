@@ -258,7 +258,7 @@ final class ReadMapper extends DataMapperAbstract
      *
      * @since 1.0.0
      */
-    public function executeGet(Builder $query = null) : mixed
+    public function executeGet(?Builder $query = null) : mixed
     {
         $primaryKeys          = [];
         $memberOfPrimaryField = $this->mapper::COLUMNS[$this->mapper::PRIMARYFIELD]['internal'];
@@ -293,7 +293,7 @@ final class ReadMapper extends DataMapperAbstract
             // it cannot get assigned to the correct parent object.
             // Other relation types are easy because either the parent or child object contain the relation info.
             // One solution could be to always pass an array
-            if (!empty($this->with)) {
+            if (!empty($this->with) && !empty($value)) {
                 $this->loadHasManyRelations($obj[$value]);
             }
         }
@@ -317,7 +317,7 @@ final class ReadMapper extends DataMapperAbstract
      *
      * @since 1.0.0
      */
-    public function executeGetYield(Builder $query = null)
+    public function executeGetYield(?Builder $query = null)
     {
         $primaryKeys          = [];
         $memberOfPrimaryField = $this->mapper::COLUMNS[$this->mapper::PRIMARYFIELD]['internal'];
@@ -350,7 +350,7 @@ final class ReadMapper extends DataMapperAbstract
      *
      * @since 1.0.0
      */
-    public function executeGetRaw(Builder $query = null) : array
+    public function executeGetRaw(?Builder $query = null) : array
     {
         $query ??= $this->getQuery();
         $results = false;
@@ -385,7 +385,7 @@ final class ReadMapper extends DataMapperAbstract
      *
      * @since 1.0.0
      */
-    public function executeGetRawYield(Builder $query = null)
+    public function executeGetRawYield(?Builder $query = null)
     {
         $query ??= $this->getQuery();
 
@@ -426,7 +426,7 @@ final class ReadMapper extends DataMapperAbstract
      *
      * @since 1.0.0
      */
-    public function executeGetAll(Builder $query = null) : array
+    public function executeGetAll(?Builder $query = null) : array
     {
         $result = $this->executeGet($query);
 
@@ -537,7 +537,7 @@ final class ReadMapper extends DataMapperAbstract
      *
      * @since 1.0.0
      */
-    public function getQuery(Builder $query = null, array $columns = []) : Builder
+    public function getQuery(?Builder $query = null, array $columns = []) : Builder
     {
         $query ??= $this->query ?? new Builder($this->db, true);
 
@@ -1243,7 +1243,7 @@ final class ReadMapper extends DataMapperAbstract
         $refClass = null;
 
         // @todo check if there are more cases where the relation is already loaded with joins etc.
-        // there can be pseudo hasMany elements like localizations. They are has manies but these are already loaded with joins!
+        // there can be pseudo hasMany elements like localizations. They are hasMany but these are already loaded with joins!
         foreach ($this->with as $member => $withData) {
             if (isset($this->mapper::HAS_MANY[$member])) {
                 $many = $this->mapper::HAS_MANY[$member];

@@ -14,8 +14,6 @@ declare(strict_types=1);
 
 namespace phpOMS\Account;
 
-use phpOMS\Stdlib\Base\Exception\InvalidEnumValue;
-
 /**
  * Account group class.
  *
@@ -86,38 +84,6 @@ class Group implements \JsonSerializable
     public function getId() : int
     {
         return $this->id;
-    }
-
-    /**
-     * Get group status.
-     *
-     * @return int Group status
-     *
-     * @since 1.0.0
-     */
-    public function getStatus() : int
-    {
-        return $this->status;
-    }
-
-    /**
-     * Set group status.
-     *
-     * @param int $status Group status
-     *
-     * @return void
-     *
-     * @throws InvalidEnumValue This exception is thrown if an invalid status is used
-     *
-     * @since 1.0.0
-     */
-    public function setStatus(int $status) : void
-    {
-        if (!GroupStatus::isValidValue($status)) {
-            throw new InvalidEnumValue($status);
-        }
-
-        $this->status = $status;
     }
 
     /**

@@ -123,8 +123,8 @@ final class SpreadsheetDatabaseMapper implements IODatabaseMapper
     {
         $sheet = new \PhpOffice\PhpSpreadsheet\Spreadsheet();
         $sheet->getProperties()
-            ->setCreator('Karaka')
-            ->setLastModifiedBy('Karaka')
+            ->setCreator('Jingga')
+            ->setLastModifiedBy('Jingga')
             ->setTitle('Database export')
             ->setSubject('Database export')
             ->setDescription('This document is automatically generated from a database export.');

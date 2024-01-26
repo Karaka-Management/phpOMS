@@ -1,8 +1,7 @@
 <?php declare(strict_types=1);
 
 return [
-  'uz' =>
-  [
+  'uz' => [
     0   => 'а',
     1   => 'и',
     2   => 'л',

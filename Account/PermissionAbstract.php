@@ -169,13 +169,13 @@ class PermissionAbstract implements \JsonSerializable
      * @since 1.0.0
      */
     public function __construct(
-        int $unit = null,
-        int $app = null,
-        string $module = null,
-        string $from = null,
-        int $category = null,
-        int $element = null,
-        int $component = null,
+        ?int $unit = null,
+        ?int $app = null,
+        ?string $module = null,
+        ?string $from = null,
+        ?int $category = null,
+        ?int $element = null,
+        ?int $component = null,
         int $permission = PermissionType::NONE
     ) {
         $this->unit      = $unit;
@@ -308,12 +308,12 @@ class PermissionAbstract implements \JsonSerializable
      */
     public function hasPermission(
         int $permission,
-        int $unit = null,
-        int $app = null,
-        string $module = null,
-        int $category = null,
-        int $element = null,
-        int $component = null
+        ?int $unit = null,
+        ?int $app = null,
+        ?string $module = null,
+        ?int $category = null,
+        ?int $element = null,
+        ?int $component = null
     ) : bool
     {
         return $permission === PermissionType::NONE ||
@@ -352,15 +352,15 @@ class PermissionAbstract implements \JsonSerializable
     public function jsonSerialize() : mixed
     {
         return [
-            'id'             => $this->id,
-            'unit'           => $this->unit,
-            'app'            => $this->app,
-            'module'         => $this->module,
-            'from'           => $this->from,
-            'category'       => $this->category,
-            'element'        => $this->element,
-            'component'      => $this->component,
-            'permission'     => $this->getPermission(),
+            'id'         => $this->id,
+            'unit'       => $this->unit,
+            'app'        => $this->app,
+            'module'     => $this->module,
+            'from'       => $this->from,
+            'category'   => $this->category,
+            'element'    => $this->element,
+            'component'  => $this->component,
+            'permission' => $this->getPermission(),
         ];
     }
 }

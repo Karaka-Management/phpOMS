@@ -102,7 +102,7 @@ final class Numbers
     }
 
     /**
-     * Count trailling zeros
+     * Count trailing zeros
      *
      * @param int $n Number to test
      *

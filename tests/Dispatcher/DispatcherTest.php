@@ -39,7 +39,7 @@ final class DispatcherTest extends \PHPUnit\Framework\TestCase
      */
     protected function setUp() : void
     {
-        $this->app                    = new class() extends ApplicationAbstract {
+        $this->app = new class() extends ApplicationAbstract {
             protected string $appName = 'Api';
         };
 

@@ -97,7 +97,7 @@ class C128c extends BarAbstract
                 : \substr($this->content, ($pos - 1), 1) . '0';
 
             $codeString .= self::$CODEARRAY[$activeKey];
-            $checksum   += $values[$activeKey] * $checkPos;
+            $checksum += $values[$activeKey] * $checkPos;
             ++$checkPos;
         }
 

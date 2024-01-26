@@ -51,7 +51,7 @@ abstract class ResponseAbstract implements \JsonSerializable, MessageInterface
      *
      * @since 1.0.0
      */
-    public function getData(mixed $key = null, string $type = null) : mixed
+    public function getData(mixed $key = null, ?string $type = null) : mixed
     {
         if ($key === null) {
             return $this->data;

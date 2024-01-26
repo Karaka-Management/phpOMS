@@ -17,11 +17,11 @@ namespace phpOMS\Math\Optimization;
 /**
  * Simplex class.
  *
- * The Simplex algorithm aims to solve a linear program - optimising a linear function subject
+ * The Simplex algorithm aims to solve a linear program - optimizing a linear function subject
  * to linear constraints. As such it is useful for a very wide range of applications.
  *
  * N.B. The linear program has to be given in *slack form*, which is as follows:
- * maximise
+ * maximize
  *     c_1 * x_1 + c_2 * x_2 + ... + c_n * x_n + v
  * subj. to
  *     a_11 * x_1 + a_12 * x_2 + ... + a_1n * x_n + b_1 = s_1
@@ -131,7 +131,7 @@ final class Simplex
             }
         }
 
-        $this->b[$x]    /= -$this->A[$x][$y];
+        $this->b[$x] /= -$this->A[$x][$y];
         $this->A[$x][$y] = 1.0 / $this->A[$x][$y];
 
         for ($i = 0; $i < $this->m; ++$i) {
@@ -142,7 +142,7 @@ final class Simplex
                     }
                 }
 
-                $this->b[$i]     += $this->A[$i][$y] * $this->b[$x];
+                $this->b[$i] += $this->A[$i][$y] * $this->b[$x];
                 $this->A[$i][$y] *= $this->A[$x][$y];
             }
         }
@@ -153,7 +153,7 @@ final class Simplex
             }
         }
 
-        $this->v     += $this->c[$y] * $this->b[$x];
+        $this->v += $this->c[$y] * $this->b[$x];
         $this->c[$y] *= $this->A[$x][$y];
 
         $temp               = $this->basic[$x];
@@ -329,7 +329,7 @@ final class Simplex
             for ($k = 0; $k < $this->n; ++$k) {
                 if ($j === $this->nonbasic[$k]) {
                     $this->c[$k] += $oldC[$j];
-                    $ok           = true;
+                    $ok = true;
                     break;
                 }
             }

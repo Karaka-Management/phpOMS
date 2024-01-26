@@ -36,7 +36,7 @@ final class LockException extends \RuntimeException
      *
      * @since 1.0.0
      */
-    public function __construct(string $message, int $code = 0, \Exception $previous = null)
+    public function __construct(string $message, int $code = 0, ?\Exception $previous = null)
     {
         parent::__construct('Interaction with "' . $message . '" already locked.', $code, $previous);
     }

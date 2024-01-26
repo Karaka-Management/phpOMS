@@ -119,7 +119,7 @@ final class DeleteMapper extends DataMapperAbstract
      *
      * @since 1.0.0
      */
-    private function deleteSingleRelation(object $obj, array $relation, \ReflectionClass &$refClass = null) : void
+    private function deleteSingleRelation(object $obj, array $relation, ?\ReflectionClass &$refClass = null) : void
     {
         if (empty($relation)) {
             return;
@@ -166,7 +166,7 @@ final class DeleteMapper extends DataMapperAbstract
      *
      * @since 1.0.0
      */
-    private function deleteHasMany(object $obj, mixed $objId, \ReflectionClass &$refClass = null) : void
+    private function deleteHasMany(object $obj, mixed $objId, ?\ReflectionClass &$refClass = null) : void
     {
         if (empty($this->mapper::HAS_MANY)) {
             return;
@@ -237,7 +237,7 @@ final class DeleteMapper extends DataMapperAbstract
      *
      * @since 1.0.0
      */
-    public function deleteRelationTable(string $member, array $objIds = null, mixed $objId) : void
+    public function deleteRelationTable(string $member, ?array $objIds = null, mixed $objId) : void
     {
         if ((empty($objIds) && $objIds !== null)
             || $this->mapper::HAS_MANY[$member]['table'] === $this->mapper::TABLE

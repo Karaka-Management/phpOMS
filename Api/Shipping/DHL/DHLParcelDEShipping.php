@@ -175,8 +175,8 @@ final class DHLParcelDEShipping implements ShippingInterface
      */
     public function authLogin(
         string $login, string $password,
-        string $client = null,
-        string $payload = null
+        ?string $client = null,
+        ?string $payload = null
     ) : int
     {
         $this->apiKey   = $client ?? $this->client;
@@ -221,7 +221,7 @@ final class DHLParcelDEShipping implements ShippingInterface
      */
     public function authRedirectLogin(
         string $client,
-        string $redirect = null,
+        ?string $redirect = null,
         array $payload = []
     ) : HttpRequest
     {
@@ -562,17 +562,17 @@ final class DHLParcelDEShipping implements ShippingInterface
             }
 
             $packages[] = [
-                'status'   => [
+                'status' => [
                     'code'        => $package['status']['statusCode'],
                     'statusCode'  => $package['status']['statusCode'],
                     'description' => $package['status']['status'],
                 ],
-                'deliveryDate'        => new \DateTime($package['estimatedTimeOfDelivery']),
-                'count'               => $package['details']['totalNumberOfPieces'],
-                'weight'              => $package['details']['weight']['weight'],
-                'weight_unit'         => 'g',
-                'activities'          => $activities,
-                'received'            => [
+                'deliveryDate' => new \DateTime($package['estimatedTimeOfDelivery']),
+                'count'        => $package['details']['totalNumberOfPieces'],
+                'weight'       => $package['details']['weight']['weight'],
+                'weight_unit'  => 'g',
+                'activities'   => $activities,
+                'received'     => [
                     'by'        => $package['details']['proofOfDelivery']['familyName'],
                     'signature' => $package['details']['proofOfDelivery']['signatureUrl'],
                     'location'  => '',
@@ -595,7 +595,7 @@ final class DHLParcelDEShipping implements ShippingInterface
      *
      * @since 1.0.0
      */
-    public function getManifest(\DateTime $date = null) : array
+    public function getManifest(?\DateTime $date = null) : array
     {
         $base = self::$ENV === 'live' ? self::LIVE_URL : self::SANDBOX_URL;
         $uri  = $base . '/parcel/de/shipping/' . self::API_VERSION .'/manifest';

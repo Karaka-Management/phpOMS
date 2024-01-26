@@ -74,7 +74,7 @@ final class Kmeans implements ClusteringInterface
      *
      * @since 1.0.0
      */
-    public function __construct(\Closure $metric = null)
+    public function __construct(?\Closure $metric = null)
     {
         $this->metric = $metric ?? function (PointInterface $a, PointInterface $b) {
             $aCoordinates = $a->coordinates;
@@ -228,7 +228,7 @@ final class Kmeans implements ClusteringInterface
 
             foreach ($points as $key => $point) {
                 $d[$key] = $this->nearestClusterCenter($point, $clusters)[1];
-                $sum    += $d[$key];
+                $sum += $d[$key];
             }
 
             $sum *= \mt_rand(0, \mt_getrandmax()) / \mt_getrandmax();

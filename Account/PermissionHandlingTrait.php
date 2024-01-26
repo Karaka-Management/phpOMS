@@ -135,12 +135,12 @@ trait PermissionHandlingTrait
      */
     public function hasPermission(
         int $permission,
-        int $unit = null,
-        int $app = null,
-        string $module = null,
-        int $category = null,
-        int $element = null,
-        int $component = null
+        ?int $unit = null,
+        ?int $app = null,
+        ?string $module = null,
+        ?int $category = null,
+        ?int $element = null,
+        ?int $component = null
     ) : bool
     {
         foreach ($this->permissions as $p) {

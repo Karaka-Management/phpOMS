@@ -188,8 +188,8 @@ final class Directory extends FileAbstract implements DirectoryInterface
      */
     public function addNode(ContainerInterface $node) : self
     {
-        $this->count                      += $node->getCount();
-        $this->size                       += $node->getSize();
+        $this->count += $node->getCount();
+        $this->size  += $node->getSize();
         $this->nodes[$node->getBasename()] = $node;
 
         $node->createNode();
@@ -465,7 +465,7 @@ final class Directory extends FileAbstract implements DirectoryInterface
      *
      * @since 1.0.0
      */
-    public function isExisting(string $name = null) : bool
+    public function isExisting(?string $name = null) : bool
     {
         if ($name === null) {
             return \is_dir($this->path);

@@ -248,12 +248,12 @@ final class Polygon implements D2ShapeInterface
         $count      = \count($this->coord);
 
         for ($i = 0; $i < $count - 1; ++$i) {
-            $mult             = ($this->coord[$i]['x'] * $this->coord[$i + 1]['y'] - $this->coord[$i + 1]['x'] * $this->coord[$i]['y']);
+            $mult = ($this->coord[$i]['x'] * $this->coord[$i + 1]['y'] - $this->coord[$i + 1]['x'] * $this->coord[$i]['y']);
             $barycenter['x'] += ($this->coord[$i]['x'] + $this->coord[$i + 1]['x']) * $mult;
             $barycenter['y'] += ($this->coord[$i]['y'] + $this->coord[$i + 1]['y']) * $mult;
         }
 
-        $mult             = ($this->coord[$count - 1]['x'] * $this->coord[0]['y'] - $this->coord[0]['x'] * $this->coord[$count - 1]['y']);
+        $mult = ($this->coord[$count - 1]['x'] * $this->coord[0]['y'] - $this->coord[0]['x'] * $this->coord[$count - 1]['y']);
         $barycenter['x'] += ($this->coord[$count - 1]['x'] + $this->coord[0]['x']) * $mult;
         $barycenter['y'] += ($this->coord[$count - 1]['y'] + $this->coord[0]['y']) * $mult;
 

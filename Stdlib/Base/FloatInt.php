@@ -145,6 +145,20 @@ class FloatInt implements SerializableInterface
         return $this;
     }
 
+    public function getNormalizedValue() : float
+    {
+        return $this->value / \pow(10, self::MAX_DECIMALS);
+    }
+
+    public function guessScalarValue() : int|float
+    {
+        $divider = \pow(10, self::MAX_DECIMALS);
+
+        return $this->value % $divider === 0
+            ? (int) ($this->value / $divider)
+            : (float) ($this->value / $divider);
+    }
+
     /**
      * Get money.
      *

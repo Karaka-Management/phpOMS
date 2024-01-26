@@ -17,7 +17,7 @@ namespace phpOMS\Algorithm\Frequency;
 /**
  * Apriori algorithm.
  *
- * The algorithm cheks how often a set exists in a given set of sets.
+ * The algorithm checks how often a set exists in a given set of sets.
  *
  * @package phpOMS\Algorithm\Frequency
  * @license OMS License 2.0
@@ -39,7 +39,7 @@ final class Apriori
     /**
      * Generate all possible subsets
      *
-     * @param array $arr Array of eleements
+     * @param array $arr Array of elements
      *
      * @return array<array>
      *

@@ -46,6 +46,27 @@ abstract class Enum
     }
 
     /**
+     * Check enum value.
+     *
+     * Checking if a given value is part of this enum
+     *
+     * @param mixed $value Value to check
+     *
+     * @return mixed
+     *
+     * @since 1.0.0
+     */
+    public static function tryFromValue(mixed $value) : mixed
+    {
+        $reflect   = new \ReflectionClass(static::class);
+        $constants = $reflect->getConstants();
+
+        return \in_array($value, $constants, true)
+            ? $value
+            : null;
+    }
+
+    /**
      * Getting all constants of this enum.
      *
      * @return array

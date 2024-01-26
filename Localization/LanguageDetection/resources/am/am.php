@@ -1,8 +1,7 @@
 <?php declare(strict_types=1);
 
 return [
-  'am' =>
-  [
+  'am' => [
     0   => 'ን',
     1   => 'ት',
     2   => 'ት_',

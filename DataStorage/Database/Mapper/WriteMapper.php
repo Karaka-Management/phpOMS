@@ -74,20 +74,16 @@ final class WriteMapper extends DataMapperAbstract
      */
     public function executeCreate(object $obj) : mixed
     {
-        $refClass = null;
-
-        if ($this->mapper::isNullModel($obj)) {
-            $objId = $this->mapper::getObjectId($obj);
-
+        $objId = $this->mapper::getObjectId($obj);
+        if ((!empty($objId) && $this->mapper::AUTOINCREMENT)
+            || $this->mapper::isNullModel($obj)
+        ) {
             return $objId === 0 ? null : $objId;
         }
 
-        if (!empty($id = $this->mapper::getObjectId($obj)) && $this->mapper::AUTOINCREMENT) {
-            $objId = $id;
-        } else {
-            $objId = $this->createModel($obj, $refClass);
-            $this->mapper::setObjectId($obj, $objId, $refClass);
-        }
+        $refClass = null;
+        $objId    = $this->createModel($obj, $refClass);
+        $this->mapper::setObjectId($obj, $objId, $refClass);
 
         $this->createHasMany($obj, $objId, $refClass);
 
@@ -104,7 +100,7 @@ final class WriteMapper extends DataMapperAbstract
      *
      * @since 1.0.0
      */
-    private function createModel(object $obj, \ReflectionClass &$refClass = null) : mixed
+    private function createModel(object $obj, ?\ReflectionClass &$refClass = null) : mixed
     {
         try {
             $query = new Builder($this->db);
@@ -246,7 +242,9 @@ final class WriteMapper extends DataMapperAbstract
         $primaryKey = $mapper::getObjectId($obj);
 
         // @todo the $mapper::create() might cause a problem if 'by' is set. because we don't want to create this obj but the child obj.
-        return empty($primaryKey) ? $mapper::create(db: $this->db)->execute($obj) : $primaryKey;
+        return empty($primaryKey)
+            ? $mapper::create(db: $this->db)->execute($obj)
+            : $primaryKey;
     }
 
     /**
@@ -262,7 +260,7 @@ final class WriteMapper extends DataMapperAbstract
      *
      * @since 1.0.0
      */
-    private function createHasMany(object $obj, mixed $objId, \ReflectionClass &$refClass = null) : void
+    private function createHasMany(object $obj, mixed $objId, ?\ReflectionClass &$refClass = null) : void
     {
         foreach ($this->mapper::HAS_MANY as $propertyName => $rel) {
             if (!isset($this->mapper::HAS_MANY[$propertyName]['mapper'])) {
@@ -346,7 +344,7 @@ final class WriteMapper extends DataMapperAbstract
                         if ($isRelPrivate) {
                             $relProperty->setValue($value,  $this->mapper::createNullModel($objId));
                         } else {
-                            $value->{$internalName} =  $this->mapper::createNullModel($objId);
+                            $value->{$internalName} = $this->mapper::createNullModel($objId);
                         }
                     } elseif ($isRelPrivate) {
                         $relProperty->setValue($value, $objId);

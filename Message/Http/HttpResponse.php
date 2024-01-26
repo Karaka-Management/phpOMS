@@ -42,7 +42,7 @@ final class HttpResponse extends ResponseAbstract implements RenderableInterface
      *
      * @since 1.0.0
      */
-    public function __construct(Localization $l11n = null)
+    public function __construct(?Localization $l11n = null)
     {
         $this->header       = new HttpHeader();
         $this->header->l11n = $l11n ?? new Localization();
@@ -103,7 +103,7 @@ final class HttpResponse extends ResponseAbstract implements RenderableInterface
     /**
      * Generate response based on header.
      *
-     * @param mixed ...$data Data passt to render function. (0 => bool: $optimize)
+     * @param mixed ...$data Data passed to render function. (0 => bool: $optimize)
      *
      * @return string
      *

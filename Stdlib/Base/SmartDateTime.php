@@ -52,7 +52,7 @@ class SmartDateTime extends \DateTime
      *
      * @since 1.0.0
      */
-    public function __construct(string $datetime = 'now', \DateTimeZone $timezone = null)
+    public function __construct(string $datetime = 'now', ?\DateTimeZone $timezone = null)
     {
         $parsed = \str_replace(
             ['Y', 'm', 'd'],
@@ -448,8 +448,8 @@ class SmartDateTime extends \DateTime
 
     public static function formatDuration(int $duration) : string
     {
-        $days = \floor($duration / (24 * 3600));
-        $hours = \floor(($duration % (24 * 3600)) / 3600);
+        $days    = \floor($duration / (24 * 3600));
+        $hours   = \floor(($duration % (24 * 3600)) / 3600);
         $minutes = \floor(($duration % 3600) / 60);
         $seconds = $duration % 60;
 

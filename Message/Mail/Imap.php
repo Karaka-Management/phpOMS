@@ -91,7 +91,7 @@ class Imap implements MailBoxInterface
         $this->password   = $pass;
         $this->port       = $port;
         $this->encryption = $encryption;
-        $this->flags     .= $this->encryption !== EncryptionType::NONE ? '/ssl' : '';
+        $this->flags .= $this->encryption !== EncryptionType::NONE ? '/ssl' : '';
     }
 
     /**
@@ -254,9 +254,9 @@ class Imap implements MailBoxInterface
         string $cc = '',
         string $from = '',
         string $bcc = '',
-        \DateTime $before = null,
-        \DateTime $since = null,
-        \DateTime $on = null,
+        ?\DateTime $before = null,
+        ?\DateTime $since = null,
+        ?\DateTime $on = null,
         bool $deleted = false,
         bool $flagged = false
     ) : array

@@ -538,7 +538,7 @@ class Builder extends BuilderAbstract
      *
      * @since 1.0.0
      */
-    public function where(string | array | self $columns, string | array $operator = null, mixed $values = null, string | array $boolean = 'and') : self
+    public function where(string | array | self $columns, string | array|null $operator = null, mixed $values = null, string | array $boolean = 'and') : self
     {
         if (!\is_array($columns)) {
             $columns  = [$columns];
@@ -577,7 +577,7 @@ class Builder extends BuilderAbstract
      *
      * @since 1.0.0
      */
-    public function andWhere(string | array | Where $where, string | array $operator = null, mixed $values = null) : self
+    public function andWhere(string | array | Where $where, string | array|null $operator = null, mixed $values = null) : self
     {
         return $this->where($where, $operator, $values, 'and');
     }
@@ -593,7 +593,7 @@ class Builder extends BuilderAbstract
      *
      * @since 1.0.0
      */
-    public function orWhere(string | array | self $where, string | array $operator = null, mixed $values = null) : self
+    public function orWhere(string | array | self $where, string | array|null $operator = null, mixed $values = null) : self
     {
         return $this->where($where, $operator, $values, 'or');
     }
@@ -976,7 +976,7 @@ class Builder extends BuilderAbstract
     {
         \end($this->values);
 
-        $key   = \key($this->values);
+        $key = \key($this->values);
         $key ??= 0;
 
         if (\is_array($value)) {
@@ -1097,7 +1097,7 @@ class Builder extends BuilderAbstract
      *
      * @since 1.0.0
      */
-    public function join(string | self $table, string $type = JoinType::JOIN, string $alias = null) : self
+    public function join(string | self $table, string $type = JoinType::JOIN, ?string $alias = null) : self
     {
         $this->joins[$alias ?? $table] = ['type' => $type, 'table' => $table, 'alias' => $alias];
 
@@ -1114,7 +1114,7 @@ class Builder extends BuilderAbstract
      *
      * @since 1.0.0
      */
-    public function leftJoin(string | self $table, string $alias = null) : self
+    public function leftJoin(string | self $table, ?string $alias = null) : self
     {
         return $this->join($table, JoinType::LEFT_JOIN, $alias);
     }
@@ -1129,7 +1129,7 @@ class Builder extends BuilderAbstract
      *
      * @since 1.0.0
      */
-    public function leftOuterJoin(string | self $table, string $alias = null) : self
+    public function leftOuterJoin(string | self $table, ?string $alias = null) : self
     {
         return $this->join($table, JoinType::LEFT_OUTER_JOIN, $alias);
     }
@@ -1144,7 +1144,7 @@ class Builder extends BuilderAbstract
      *
      * @since 1.0.0
      */
-    public function leftInnerJoin(string | self $table, string $alias = null) : self
+    public function leftInnerJoin(string | self $table, ?string $alias = null) : self
     {
         return $this->join($table, JoinType::LEFT_INNER_JOIN, $alias);
     }
@@ -1159,7 +1159,7 @@ class Builder extends BuilderAbstract
      *
      * @since 1.0.0
      */
-    public function rightJoin(string | self $table, string $alias = null) : self
+    public function rightJoin(string | self $table, ?string $alias = null) : self
     {
         return $this->join($table, JoinType::RIGHT_JOIN, $alias);
     }
@@ -1174,7 +1174,7 @@ class Builder extends BuilderAbstract
      *
      * @since 1.0.0
      */
-    public function rightOuterJoin(string | self $table, string $alias = null) : self
+    public function rightOuterJoin(string | self $table, ?string $alias = null) : self
     {
         return $this->join($table, JoinType::RIGHT_OUTER_JOIN, $alias);
     }
@@ -1189,7 +1189,7 @@ class Builder extends BuilderAbstract
      *
      * @since 1.0.0
      */
-    public function rightInnerJoin(string | self $table, string $alias = null) : self
+    public function rightInnerJoin(string | self $table, ?string $alias = null) : self
     {
         return $this->join($table, JoinType::RIGHT_INNER_JOIN, $alias);
     }
@@ -1204,7 +1204,7 @@ class Builder extends BuilderAbstract
      *
      * @since 1.0.0
      */
-    public function outerJoin(string | self $table, string $alias = null) : self
+    public function outerJoin(string | self $table, ?string $alias = null) : self
     {
         return $this->join($table, JoinType::OUTER_JOIN, $alias);
     }
@@ -1219,7 +1219,7 @@ class Builder extends BuilderAbstract
      *
      * @since 1.0.0
      */
-    public function innerJoin(string | self $table, string $alias = null) : self
+    public function innerJoin(string | self $table, ?string $alias = null) : self
     {
         return $this->join($table, JoinType::INNER_JOIN, $alias);
     }
@@ -1234,7 +1234,7 @@ class Builder extends BuilderAbstract
      *
      * @since 1.0.0
      */
-    public function crossJoin(string | self $table, string $alias = null) : self
+    public function crossJoin(string | self $table, ?string $alias = null) : self
     {
         return $this->join($table, JoinType::CROSS_JOIN, $alias);
     }
@@ -1249,7 +1249,7 @@ class Builder extends BuilderAbstract
      *
      * @since 1.0.0
      */
-    public function fullJoin(string | self $table, string $alias = null) : self
+    public function fullJoin(string | self $table, ?string $alias = null) : self
     {
         return $this->join($table, JoinType::FULL_JOIN, $alias);
     }
@@ -1264,7 +1264,7 @@ class Builder extends BuilderAbstract
      *
      * @since 1.0.0
      */
-    public function fullOuterJoin(string | self $table, string $alias = null) : self
+    public function fullOuterJoin(string | self $table, ?string $alias = null) : self
     {
         return $this->join($table, JoinType::FULL_OUTER_JOIN, $alias);
     }
@@ -1296,7 +1296,7 @@ class Builder extends BuilderAbstract
      *
      * @since 1.0.0
      */
-    public function on(string | array $columns, string | array $operator = null, mixed $values = null, string | array $boolean = 'and', string $table = null) : self
+    public function on(string | array $columns, string | array|null $operator = null, mixed $values = null, string | array $boolean = 'and', ?string $table = null) : self
     {
         if (!\is_array($columns)) {
             $columns  = [$columns];
@@ -1307,7 +1307,7 @@ class Builder extends BuilderAbstract
 
         $joinCount = \count($this->joins) - 1;
         $i         = 0;
-        $table   ??= \array_keys($this->joins)[$joinCount];
+        $table ??= \array_keys($this->joins)[$joinCount];
 
         foreach ($columns as $column) {
             if (isset($operator[$i]) && !\in_array(\strtolower($operator[$i]), self::OPERATORS)) {
@@ -1338,7 +1338,7 @@ class Builder extends BuilderAbstract
      *
      * @since 1.0.0
      */
-    public function orOn(string | array $columns, string | array $operator = null, string | array $values = null) : self
+    public function orOn(string | array $columns, string | array|null $operator = null, string | array|null $values = null) : self
     {
         return $this->on($columns, $operator, $values, 'or');
     }
@@ -1354,7 +1354,7 @@ class Builder extends BuilderAbstract
      *
      * @since 1.0.0
      */
-    public function andOn(string | array $columns, string | array $operator = null, string | array $values = null) : self
+    public function andOn(string | array $columns, string | array|null $operator = null, string | array|null $values = null) : self
     {
         return $this->on($columns, $operator, $values, 'and');
     }

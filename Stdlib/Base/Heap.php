@@ -47,7 +47,7 @@ class Heap
      *
      * @since 1.0.0
      */
-    public function __construct(\Closure $compare = null)
+    public function __construct(?\Closure $compare = null)
     {
         $this->compare = $compare ?? function($a, $b) {
             return $a <=> $b;

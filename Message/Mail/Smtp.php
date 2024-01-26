@@ -460,9 +460,9 @@ class Smtp
             }
         }
 
-        $tmpTimeLimit     = $this->timeLimit;
+        $tmpTimeLimit = $this->timeLimit;
         $this->timeLimit *= 2;
-        $result           = $this->sendCommand('DATA END', '.', [250]);
+        $result = $this->sendCommand('DATA END', '.', [250]);
 
         $this->recordLastTransactionId();
 
@@ -833,7 +833,7 @@ class Smtp
                 }
             }
 
-            $str   = \fgets($this->con, self::MAX_REPLY_LENGTH);
+            $str = \fgets($this->con, self::MAX_REPLY_LENGTH);
             $data .= $str;
 
             // If response is only 3 chars (not valid, but RFC5321 S4.2 says it must be handled),

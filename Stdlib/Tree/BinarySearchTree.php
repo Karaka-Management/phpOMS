@@ -40,7 +40,7 @@ class BinarySearchTree
      *
      * @since 1.0.0
      */
-    public function __construct(Node $root = null)
+    public function __construct(?Node $root = null)
     {
         $this->root = $root;
     }

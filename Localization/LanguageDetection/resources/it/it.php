@@ -1,8 +1,7 @@
 <?php declare(strict_types=1);
 
 return [
-  'it' =>
-  [
+  'it' => [
     0   => 'i',
     1   => 'e',
     2   => 'a',

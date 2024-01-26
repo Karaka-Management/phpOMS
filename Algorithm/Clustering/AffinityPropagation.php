@@ -148,7 +148,7 @@ final class AffinityPropagation implements ClusteringInterface
                             $sum += \max(0.0, $this->responsibilityMatrix[$j][$k]);
                         }
 
-                        for ($j += 1; $j < $n; ++$j) {
+                        for (++$j; $j < $n; ++$j) {
                             $sum += \max(0.0, $this->responsibilityMatrix[$j][$k]);
                         }
 
@@ -189,7 +189,7 @@ final class AffinityPropagation implements ClusteringInterface
      * Find the nearest group for a point
      *
      * @param array<int, array<int, int|float> $similarityMatrix Similarity matrix
-     * @param int                              $point            Point id in the similarity matrix to compare
+     * @param int $point Point id in the similarity matrix to compare
      *
      * @return int
      *

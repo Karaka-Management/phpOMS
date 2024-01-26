@@ -38,14 +38,14 @@ final class GroupTest extends \PHPUnit\Framework\TestCase
         $group = new Group();
 
         /* Testing default values */
-        self::assertIsInt($group->getId());
-        self::assertEquals(0, $group->getId());
+        self::assertIsInt($group->id);
+        self::assertEquals(0, $group->id);
 
         self::assertIsString($group->name);
         self::assertEquals('', $group->name);
 
-        self::assertIsInt($group->getStatus());
-        self::assertEquals(GroupStatus::INACTIVE, $group->getStatus());
+        self::assertIsInt($group->status);
+        self::assertEquals(GroupStatus::INACTIVE, $group->status);
 
         self::assertIsString($group->description);
         self::assertEquals('', $group->description);
@@ -137,37 +137,5 @@ final class GroupTest extends \PHPUnit\Framework\TestCase
 
         $group->removePermission($perm);
         self::assertCount(0, $group->getPermissions());
-    }
-
-    /**
-     * @testdox The default status of the group can be changed to a different valid status
-     * @covers phpOMS\Account\Group<extended>
-     * @group framework
-     */
-    public function testChangeStatus() : void
-    {
-        $group = new Group();
-
-        $group->setStatus(GroupStatus::ACTIVE);
-        self::assertEquals(GroupStatus::ACTIVE, $group->getStatus());
-    }
-
-    /**
-     * @testdox A group can only have valid group status
-     * @covers phpOMS\Account\Group<extended>
-     * @group framework
-     */
-    public function testStatusException() : void
-    {
-        $this->expectException(\phpOMS\Stdlib\Base\Exception\InvalidEnumValue::class);
-
-        $group = new Group();
-
-        $rand = 0;
-        do {
-            $rand = \mt_rand(\PHP_INT_MIN, \PHP_INT_MAX);
-        } while (GroupStatus::isValidValue($rand));
-
-        $group->setStatus($rand);
     }
 }

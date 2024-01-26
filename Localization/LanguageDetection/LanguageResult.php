@@ -36,7 +36,7 @@ class LanguageResult implements \ArrayAccess, \IteratorAggregate, \JsonSerializa
      * Match values per language
      *
      * @var array<int|float, int|float>
-     * @sicne 1.0.0
+     * @since 1.0.0
      */
     private array $result = [];
 
@@ -188,7 +188,7 @@ class LanguageResult implements \ArrayAccess, \IteratorAggregate, \JsonSerializa
      *
      * @since 1.0.0
      */
-    public function limit(int $offset, int $length = null) : self
+    public function limit(int $offset, ?int $length = null) : self
     {
         return new self(\array_slice($this->result, $offset, $length));
     }

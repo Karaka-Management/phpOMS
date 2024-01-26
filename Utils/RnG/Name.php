@@ -216,7 +216,7 @@ final class Name
                 'Zula', 'Catrina', 'Hazeline', 'Lillian', 'Reanne', 'Zuri', 'Catriona', 'Heather', 'Lillie', 'Rebecca',
                 'Zyana', 'Cayla', 'Heaven',
             ],
-            'male'   => [
+            'male' => [
                 'Aaron', 'Clay', 'Gino', 'Laurie', 'Richard', 'Abdul', 'Clayton', 'Giorgio', 'Lawrence', 'Richie',
                 'Abdullah', 'Clement', 'Giovanni', 'Lawson', 'Rick', 'Abe', 'Cliff', 'Glen', 'Layne', 'Rickey', 'Abel',
                 'Clifford', 'Glenn', 'Layton', 'Rickie', 'Abraham', 'Clifton', 'Glyndwr', 'Leaf', 'Ricky', 'Abram',

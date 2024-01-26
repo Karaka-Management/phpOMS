@@ -59,7 +59,7 @@ final class AgglomerativeClustering implements ClusteringInterface
      *
      * @since 1.0.0
      */
-    public function __construct(\Closure $metric = null, \Closure $linkage = null)
+    public function __construct(?\Closure $metric = null, ?\Closure $linkage = null)
     {
         $this->metric = $metric ?? function (PointInterface $a, PointInterface $b) {
             $aCoordinates = $a->coordinates;

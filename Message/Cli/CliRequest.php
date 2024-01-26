@@ -66,7 +66,7 @@ final class CliRequest extends RequestAbstract
      *
      * @since 1.0.0
      */
-    public function __construct(UriInterface $uri = null, Localization $l11n = null)
+    public function __construct(?UriInterface $uri = null, ?Localization $l11n = null)
     {
         $this->header       = new CliHeader();
         $this->header->l11n = $l11n ?? new Localization();
@@ -85,7 +85,7 @@ final class CliRequest extends RequestAbstract
      *
      * @since 1.0.0
      */
-    public function getData(string $key = null, string $type = null) : mixed
+    public function getData(?string $key = null, ?string $type = null) : mixed
     {
         if ($key === null) {
             return $this->data;

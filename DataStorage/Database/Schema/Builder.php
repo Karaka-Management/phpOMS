@@ -272,7 +272,7 @@ class Builder extends BuilderAbstract
     public function field(
         string $name, string $type, $default = null,
         bool $isNullable = true, bool $isPrimary = false, bool $isUnique = false, bool $autoincrement = false,
-        string $foreignTable = null, string $foreignKey = null, array $meta = []
+        ?string $foreignTable = null, ?string $foreignKey = null, array $meta = []
     ) : self {
         $this->createFields[$name] = [
             'name'          => $name,
@@ -318,7 +318,7 @@ class Builder extends BuilderAbstract
      *
      * @since 1.0.0
      */
-    public function addConstraint(string $key, string $foreignTable, string $foreignKey, string $constraint = null) : self
+    public function addConstraint(string $key, string $foreignTable, string $foreignKey, ?string $constraint = null) : self
     {
         $this->alterAdd['type']         = 'CONSTRAINT';
         $this->alterAdd['key']          = $key;

@@ -69,7 +69,7 @@ abstract class StatusAbstract
      *
      * @since 1.0.0
      */
-    public static function activateRoutes(ModuleInfo $info, ApplicationInfo $appInfo = null) : void
+    public static function activateRoutes(ModuleInfo $info, ?ApplicationInfo $appInfo = null) : void
     {
         self::activateRoutesHooks($info, $appInfo, 'Routes');
     }
@@ -125,7 +125,7 @@ abstract class StatusAbstract
      *
      * @since 1.0.0
      */
-    public static function activateHooks(ModuleInfo $info, ApplicationInfo $appInfo = null) : void
+    public static function activateHooks(ModuleInfo $info, ?ApplicationInfo $appInfo = null) : void
     {
         self::activateRoutesHooks($info, $appInfo, 'Hooks');
     }
@@ -140,7 +140,7 @@ abstract class StatusAbstract
      *
      * @since 1.0.0
      */
-    public static function activateRoutesHooks(ModuleInfo $info, ApplicationInfo $appInfo = null, string $type) : void
+    public static function activateRoutesHooks(ModuleInfo $info, ?ApplicationInfo $appInfo = null, string $type) : void
     {
         $directories = new Directory(static::PATH . '/' . $type);
 
@@ -195,7 +195,7 @@ abstract class StatusAbstract
      *
      * @since 1.0.0
      */
-    public static function deactivateRoutes(ModuleInfo $info, ApplicationInfo $appInfo = null) : void
+    public static function deactivateRoutes(ModuleInfo $info, ?ApplicationInfo $appInfo = null) : void
     {
         self::deactivateRoutesHooks($info, $appInfo, 'Routes');
     }
@@ -210,7 +210,7 @@ abstract class StatusAbstract
      *
      * @since 1.0.0
      */
-    public static function deactivateRoutesHooks(ModuleInfo $info, ApplicationInfo $appInfo = null, string $type) : void
+    public static function deactivateRoutesHooks(ModuleInfo $info, ?ApplicationInfo $appInfo = null, string $type) : void
     {
         $directories = new Directory(static::PATH . '/'. $type);
 
@@ -283,7 +283,7 @@ abstract class StatusAbstract
      *
      * @since 1.0.0
      */
-    public static function deactivateHooks(ModuleInfo $info, ApplicationInfo $appInfo = null) : void
+    public static function deactivateHooks(ModuleInfo $info, ?ApplicationInfo $appInfo = null) : void
     {
         self::deactivateRoutesHooks($info, $appInfo, 'Hooks');
     }

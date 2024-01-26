@@ -49,18 +49,18 @@ $app = new class() extends ApplicationAbstract
     protected string $appName = 'Socket';
 };
 
-$app->logger          = FileLogger::getInstance(__DIR__ . '/server.log', true);
-$app->dbPool          = $GLOBALS['dbpool'];
-$app->unitId          = 1;
-$app->cachePool       = new CachePool($app->dbPool);
-$app->accountManager  = new AccountManager($GLOBALS['session']);
-$app->appSettings     = new CoreSettings($app->dbPool->get());
-$app->moduleManager   = new ModuleManager($app, __DIR__ . '/../../../../Modules/');
-$app->dispatcher      = new Dispatcher($app);
-$app->eventManager    = new EventManager($app->dispatcher);
+$app->logger         = FileLogger::getInstance(__DIR__ . '/server.log', true);
+$app->dbPool         = $GLOBALS['dbpool'];
+$app->unitId         = 1;
+$app->cachePool      = new CachePool($app->dbPool);
+$app->accountManager = new AccountManager($GLOBALS['session']);
+$app->appSettings    = new CoreSettings($app->dbPool->get());
+$app->moduleManager  = new ModuleManager($app, __DIR__ . '/../../../../Modules/');
+$app->dispatcher     = new Dispatcher($app);
+$app->eventManager   = new EventManager($app->dispatcher);
 $app->eventManager->importFromFile(__DIR__ . '/../../../Socket/Hooks.php');
-$app->l11nManager    = new L11nManager();
-$app->router         = new SocketRouter();
+$app->l11nManager = new L11nManager();
+$app->router      = new SocketRouter();
 
 $socket = new Server($app);
 $socket->create('127.0.0.1', $config['socket']['master']['port']);

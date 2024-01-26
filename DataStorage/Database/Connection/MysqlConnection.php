@@ -58,7 +58,7 @@ final class MysqlConnection extends ConnectionAbstract
     /**
      * {@inheritdoc}
      */
-    public function connect(array $dbdata = null) : void
+    public function connect(?array $dbdata = null) : void
     {
         if ($this->status === DatabaseStatus::OK) {
             return;

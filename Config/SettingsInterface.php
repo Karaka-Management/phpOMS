@@ -45,12 +45,12 @@ interface SettingsInterface extends OptionsInterface
      */
     public function get(
         mixed $ids = null,
-        string | array $names = null,
-        int $unit = null,
-        int $app = null,
-        string $module = null,
-        int $group = null,
-        int $account = null
+        string | array|null $names = null,
+        ?int $unit = null,
+        ?int $app = null,
+        ?string $module = null,
+        ?int $group = null,
+        ?int $account = null
     ) : mixed;
 
     /**

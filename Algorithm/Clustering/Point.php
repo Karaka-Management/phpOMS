@@ -28,7 +28,7 @@ class Point implements PointInterface
      * Coordinates of the point
      *
      * @var array<int, int|float>
-     * @sicne 1.0.0
+     * @since 1.0.0
      */
     public array $coordinates = [];
 

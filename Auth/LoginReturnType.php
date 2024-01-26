@@ -28,7 +28,7 @@ use phpOMS\Stdlib\Base\Enum;
  */
 abstract class LoginReturnType extends Enum
 {
-    public const OK = 0; /* Everything is ok and the user got authed */
+    public const OK = 0; /* Everything is ok and the user got authenticated */
 
     public const FAILURE = -1; /* Authentication resulted in a unexpected failure */
 

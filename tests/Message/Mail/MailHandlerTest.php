@@ -42,9 +42,9 @@ final class MailHandlerTest extends \PHPUnit\Framework\TestCase
             'countryName'            => 'DE',
             'stateOrProvinceName'    => 'Hesse',
             'localityName'           => 'Frankfurt',
-            'organizationName'       => 'Karaka',
+            'organizationName'       => 'Jingga',
             'organizationalUnitName' => 'Framework',
-            'commonName'             => 'Karaka Test',
+            'commonName'             => 'Jingga Test',
             'emailAddress'           => 'test@jingga.app',
         ];
         $keyconfig = [

@@ -63,7 +63,7 @@ final class File
      *
      * @since 1.0.0
      */
-    public static function generateExtension(array $source = null) : string
+    public static function generateExtension(?array $source = null) : string
     {
         if ($source === null) {
             $source = self::$extensions;

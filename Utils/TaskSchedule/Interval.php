@@ -110,7 +110,7 @@ class Interval implements SerializableInterface
      *
      * @since 1.0.0
      */
-    public function __construct(\DateTime $start = null, string $interval = null)
+    public function __construct(?\DateTime $start = null, ?string $interval = null)
     {
         $this->start = $start ?? new \DateTime('now');
 
@@ -225,7 +225,7 @@ class Interval implements SerializableInterface
      *
      * @since 1.0.0
      */
-    public function setMinute(int $index, int $start = null, int $end = null, int $step = null) : void
+    public function setMinute(int $index, ?int $start = null, ?int $end = null, ?int $step = null) : void
     {
         $this->minute[$index] = [
             'start' => $start,
@@ -245,7 +245,7 @@ class Interval implements SerializableInterface
      *
      * @since 1.0.0
      */
-    public function addMinute(int $start = null, int $end = null, int $step = null) : void
+    public function addMinute(?int $start = null, ?int $end = null, ?int $step = null) : void
     {
         $this->minute[] = [
             'start' => $start,
@@ -278,7 +278,7 @@ class Interval implements SerializableInterface
      *
      * @since 1.0.0
      */
-    public function setHour(int $index, int $start = null, int $end = null, int $step = null) : void
+    public function setHour(int $index, ?int $start = null, ?int $end = null, ?int $step = null) : void
     {
         $this->hour[$index] = [
             'start' => $start,
@@ -298,7 +298,7 @@ class Interval implements SerializableInterface
      *
      * @since 1.0.0
      */
-    public function addHour(int $start = null, int $end = null, int $step = null) : void
+    public function addHour(?int $start = null, ?int $end = null, ?int $step = null) : void
     {
         $this->hour[] = [
             'start' => $start,
@@ -331,7 +331,7 @@ class Interval implements SerializableInterface
      *
      * @since 1.0.0
      */
-    public function setDayOfMonth(int $index, int $start = null, int $end = null, int $step = null) : void
+    public function setDayOfMonth(int $index, ?int $start = null, ?int $end = null, ?int $step = null) : void
     {
         $this->dayOfMonth[$index] = [
             'start' => $start,
@@ -351,7 +351,7 @@ class Interval implements SerializableInterface
      *
      * @since 1.0.0
      */
-    public function addDayOfMonth(int $start = null, int $end = null, int $step = null) : void
+    public function addDayOfMonth(?int $start = null, ?int $end = null, ?int $step = null) : void
     {
         $this->dayOfMonth[] = [
             'start' => $start,
@@ -384,7 +384,7 @@ class Interval implements SerializableInterface
      *
      * @since 1.0.0
      */
-    public function setDayOfWeek(int $index, int $start = null, int $end = null, int $step = null) : void
+    public function setDayOfWeek(int $index, ?int $start = null, ?int $end = null, ?int $step = null) : void
     {
         $this->dayOfWeek[$index] = [
             'start' => $start,
@@ -404,7 +404,7 @@ class Interval implements SerializableInterface
      *
      * @since 1.0.0
      */
-    public function addDayOfWeek(int $start = null, int $end = null, int $step = null) : void
+    public function addDayOfWeek(?int $start = null, ?int $end = null, ?int $step = null) : void
     {
         $this->dayOfWeek[] = [
             'start' => $start,
@@ -437,7 +437,7 @@ class Interval implements SerializableInterface
      *
      * @since 1.0.0
      */
-    public function setMonth(int $index, int $start = null, int $end = null, int $step = null) : void
+    public function setMonth(int $index, ?int $start = null, ?int $end = null, ?int $step = null) : void
     {
         $this->month[$index] = [
             'start' => $start,
@@ -457,7 +457,7 @@ class Interval implements SerializableInterface
      *
      * @since 1.0.0
      */
-    public function addMonth(int $start = null, int $end = null, int $step = null) : void
+    public function addMonth(?int $start = null, ?int $end = null, ?int $step = null) : void
     {
         $this->month[] = [
             'start' => $start,
@@ -490,7 +490,7 @@ class Interval implements SerializableInterface
      *
      * @since 1.0.0
      */
-    public function setYear(int $index, int $start = null, int $end = null, int $step = null) : void
+    public function setYear(int $index, ?int $start = null, ?int $end = null, ?int $step = null) : void
     {
         $this->year[$index] = [
             'start' => $start,
@@ -510,7 +510,7 @@ class Interval implements SerializableInterface
      *
      * @since 1.0.0
      */
-    public function addYear(int $start = null, int $end = null, int $step = null) : void
+    public function addYear(?int $start = null, ?int $end = null, ?int $step = null) : void
     {
         $this->year[] = [
             'start' => $start,

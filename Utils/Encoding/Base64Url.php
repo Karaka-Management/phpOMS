@@ -52,9 +52,9 @@ final class Base64Url
     }
 
     /**
-     * Dedecodes text
+     * Decodes text
      *
-     * @param string $b64 Encoded value to dedecode
+     * @param string $b64 Encoded value to decode
      *
      * @return string
      *

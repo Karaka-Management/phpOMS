@@ -860,7 +860,7 @@ class Matrix implements \ArrayAccess, \Iterator
 
         for ($i = 1; $i <= $iterations; ++$i) {
             $factorial *= $i;
-            $coeff      = 1 / $factorial;
+            $coeff = 1 / $factorial;
 
             $pow = $pow->mult($this);
             $sum = $sum->add($pow->mult($coeff));

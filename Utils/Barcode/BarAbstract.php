@@ -115,9 +115,9 @@ abstract class BarAbstract extends CodeAbstract
             $checksum = static::$CHECKSUM;
 
             for ($pos = 1; $pos <= $length; ++$pos) {
-                $activeKey         = \substr($this->content, ($pos - 1), 1);
+                $activeKey = \substr($this->content, ($pos - 1), 1);
                 $this->codestring .= static::$CODEARRAY[$activeKey];
-                $checksum         += $values[$activeKey] * $pos;
+                $checksum += $values[$activeKey] * $pos;
             }
 
             $this->codestring .= static::$CODEARRAY[$keys[($checksum - ((int) ($checksum / 103) * 103))]];

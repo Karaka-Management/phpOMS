@@ -197,7 +197,7 @@ final class DataMapperAbstractTest extends \PHPUnit\Framework\TestCase
     public function testCreate() : void
     {
         self::assertGreaterThan(0, BaseModelMapper::create()->execute($this->model));
-        self::assertGreaterThan(0, $this->model->getId());
+        self::assertGreaterThan(0, $this->model->id);
     }
 
     public function testCreateNullModel() : void
@@ -212,9 +212,9 @@ final class DataMapperAbstractTest extends \PHPUnit\Framework\TestCase
     public function testCreateAlreadyCreatedModel() : void
     {
         self::assertGreaterThan(0, $id = BaseModelMapper::create()->execute($this->model));
-        self::assertGreaterThan(0, $this->model->getId());
+        self::assertGreaterThan(0, $this->model->id);
         self::assertEquals($id, BaseModelMapper::create()->execute($this->model));
-        self::assertEquals($id, $this->model->getId());
+        self::assertEquals($id, $this->model->id);
     }
 
     public function testCreateHasManyRelation() : void
@@ -256,7 +256,7 @@ final class DataMapperAbstractTest extends \PHPUnit\Framework\TestCase
             ->where('id', $id)
             ->execute();
 
-        self::assertEquals($this->model->getId(), $modelR->getId());
+        self::assertEquals($this->model->id, $modelR->id);
         self::assertEquals($this->model->string, $modelR->string);
         self::assertEquals($this->model->compress, $modelR->compress);
         self::assertEquals($this->model->getPString(), $modelR->getPString());
@@ -334,7 +334,7 @@ final class DataMapperAbstractTest extends \PHPUnit\Framework\TestCase
         $id2 = BaseModelMapper::create()->execute($model2);
 
         $by = BaseModelMapper::get()->where('string', '456')->execute();
-        self::assertEquals($model2->getId(), $by->getId());
+        self::assertEquals($model2->id, $by->id);
     }
 
     public function testGetNewest() : void
@@ -349,7 +349,7 @@ final class DataMapperAbstractTest extends \PHPUnit\Framework\TestCase
         $id2              = BaseModelMapper::create()->execute($model2);
 
         $newest = BaseModelMapper::getAll()->sort('id', OrderType::DESC)->limit(1)->execute();
-        self::assertEquals($id2, \reset($newest)->getId());
+        self::assertEquals($id2, \reset($newest)->id);
     }
 
     public function testGetNullModel() : void

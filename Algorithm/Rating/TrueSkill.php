@@ -50,11 +50,11 @@ class TrueSkill
     private float $drawProbability = 0.0;
 
     public function __construct(
-        float $mu = null,
-        float $sigma = null,
-        float $beta = null,
-        float $tau = null,
-        float $drawProbability = null)
+        ?float $mu = null,
+        ?float $sigma = null,
+        ?float $beta = null,
+        ?float $tau = null,
+        ?float $drawProbability = null)
     {
         $this->mu              = $mu ?? self::DEFAULT_MU;
         $this->sigma           = $sigma ?? self::DEFAULT_SIGMA;

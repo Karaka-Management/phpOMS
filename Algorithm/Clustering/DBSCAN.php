@@ -116,7 +116,7 @@ final class DBSCAN implements ClusteringInterface
      *
      * @since 1.0.0
      */
-    public function __construct(\Closure $metric = null)
+    public function __construct(?\Closure $metric = null)
     {
         $this->metric = $metric ?? function (PointInterface $a, PointInterface $b) {
             $aCoordinates = $a->coordinates;

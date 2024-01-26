@@ -72,7 +72,7 @@ final class Skew
         for ($i = $start[0]; $i < $end[0]; ++$i) {
             for ($j = $start[1]; $j < $end[1]; ++$j) {
                 $imMatrix[$j - $start[1]][$i - $start[0]] = \imagecolorat($im, $i, $j) < 0.5 ? 1 : 0;
-                $avg                                     += $imMatrix[$j - $start[1]][$i - $start[0]];
+                $avg += $imMatrix[$j - $start[1]][$i - $start[0]];
             }
         }
 

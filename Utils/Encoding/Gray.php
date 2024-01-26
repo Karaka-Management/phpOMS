@@ -49,9 +49,9 @@ final class Gray
     }
 
     /**
-     * Dedecodes text
+     * Decodes text
      *
-     * @param int $gray encoded value to dedecode
+     * @param int $gray encoded value to decode
      *
      * @return int
      *

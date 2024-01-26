@@ -106,7 +106,7 @@ final class PageRank
      *
      * @since 1.0.0
      */
-    public function calculateRanks(int $iterations = 20, array $startRank = null) : array
+    public function calculateRanks(int $iterations = 20, ?array $startRank = null) : array
     {
         if ($startRank !== null) {
             $this->pageRanks = $startRank;

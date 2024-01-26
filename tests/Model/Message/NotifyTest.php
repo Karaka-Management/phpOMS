@@ -48,7 +48,7 @@ final class NotifyTest extends \PHPUnit\Framework\TestCase
         $obj->delay   = 3;
         $obj->stay    = 5;
         $obj->level   = NotificationLevel::ERROR;
-        $obj->message ='msg';
+        $obj->message = 'msg';
         $obj->title   = 'title';
 
         self::assertEquals([

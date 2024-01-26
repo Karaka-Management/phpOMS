@@ -97,7 +97,7 @@ final class Text
      *
      * @since 1.0.0
      */
-    public function generateText(int $length, array $words = null) : string
+    public function generateText(int $length, ?array $words = null) : string
     {
         if ($length === 0) {
             return '';
@@ -249,7 +249,7 @@ final class Text
                 $paragraphLength = $length - $i;
             }
 
-            $i          += $paragraphLength;
+            $i += $paragraphLength;
             $paragraph[] = $i;
         }
 

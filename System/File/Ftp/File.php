@@ -44,7 +44,7 @@ class File extends FileAbstract implements FileInterface
      *
      * @since 1.0.0
      */
-    public function __construct(HttpUri $uri, \FTP\Connection $con = null)
+    public function __construct(HttpUri $uri, ?\FTP\Connection $con = null)
     {
         $this->uri = $uri;
         $this->con = $con ?? self::ftpConnect($this->uri);

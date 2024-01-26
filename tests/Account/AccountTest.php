@@ -53,8 +53,8 @@ final class AccountTest extends \PHPUnit\Framework\TestCase
         $account = new Account();
 
         /* Testing default values */
-        self::assertIsInt($account->getId());
-        self::assertEquals(0, $account->getId());
+        self::assertIsInt($account->id);
+        self::assertEquals(0, $account->id);
 
         self::assertInstanceOf('\phpOMS\Localization\Localization', $account->l11n);
 
@@ -74,11 +74,11 @@ final class AccountTest extends \PHPUnit\Framework\TestCase
         self::assertIsString($account->getEmail());
         self::assertEquals('', $account->getEmail());
 
-        self::assertIsInt($account->getStatus());
-        self::assertEquals(AccountStatus::INACTIVE, $account->getStatus());
+        self::assertIsInt($account->status);
+        self::assertEquals(AccountStatus::INACTIVE, $account->status);
 
-        self::assertIsInt($account->getType());
-        self::assertEquals(AccountType::USER, $account->getType());
+        self::assertIsInt($account->type);
+        self::assertEquals(AccountType::USER, $account->type);
 
         self::assertEquals([], $account->getPermissions());
         self::assertFalse($account->hasGroup(2));
@@ -143,34 +143,6 @@ final class AccountTest extends \PHPUnit\Framework\TestCase
 
         $account->setEmail('d.duck@duckburg.com');
         self::assertEquals('d.duck@duckburg.com', $account->getEmail());
-    }
-
-    /**
-     * @testdox The default status of the account can be changed to a different valid status
-     * @covers phpOMS\Account\Account<extended>
-     * @group framework
-     */
-    public function testChangeStatus() : void
-    {
-        $account = new Account();
-        $account->generatePassword('abcd');
-
-        $account->setStatus(AccountStatus::ACTIVE);
-        self::assertEquals(AccountStatus::ACTIVE, $account->getStatus());
-    }
-
-    /**
-     * @testdox The default type of the account can be changed to a different valid type
-     * @covers phpOMS\Account\Account<extended>
-     * @group framework
-     */
-    public function testChangeType() : void
-    {
-        $account = new Account();
-        $account->generatePassword('abcd');
-
-        $account->setType(AccountType::GROUP);
-        self::assertEquals(AccountType::GROUP, $account->getType());
     }
 
     /**
@@ -292,41 +264,5 @@ final class AccountTest extends \PHPUnit\Framework\TestCase
 
         $account = new Account();
         $account->setEmail('d.duck!@#%@duckburg');
-    }
-
-    /**
-     * @testdox An account can only have valid account status
-     * @group framework
-     */
-    public function testStatusException() : void
-    {
-        $this->expectException(\phpOMS\Stdlib\Base\Exception\InvalidEnumValue::class);
-
-        $account = new Account();
-
-        $rand = 0;
-        do {
-            $rand = \mt_rand(\PHP_INT_MIN, \PHP_INT_MAX);
-        } while (AccountStatus::isValidValue($rand));
-
-        $account->setStatus($rand);
-    }
-
-    /**
-     * @testdox An account can only have valid account types
-     * @group framework
-     */
-    public function testTypeException() : void
-    {
-        $this->expectException(\phpOMS\Stdlib\Base\Exception\InvalidEnumValue::class);
-
-        $account = new Account();
-
-        $rand = 0;
-        do {
-            $rand = \mt_rand(\PHP_INT_MIN, \PHP_INT_MAX);
-        } while (AccountType::isValidValue($rand));
-
-        $account->setType($rand);
     }
 }

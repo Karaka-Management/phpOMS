@@ -279,7 +279,7 @@ final class ArrayUtils
      *
      * @since 1.0.0
      */
-    public static function arrayToXml(array $data, \SimpleXMLElement $xml = null) : string
+    public static function arrayToXml(array $data, ?\SimpleXMLElement $xml = null) : string
     {
         $xml ??= new \SimpleXMLElement('<root/>');
 

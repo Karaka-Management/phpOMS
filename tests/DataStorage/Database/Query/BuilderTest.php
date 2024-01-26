@@ -85,7 +85,7 @@ final class BuilderTest extends \PHPUnit\Framework\TestCase
         $datetime = new \DateTime('now');
         $sql      = 'SELECT [a].[test], [b].[test] FROM [a], [b] WHERE [a].[test] = \'' . $datetime->format('Y-m-d H:i:s')
         . '\';';
-        $sql      = \strtr($sql, '[]', $iS . $iE);
+        $sql = \strtr($sql, '[]', $iS . $iE);
         self::assertEquals($sql, $query->select('a.test', 'b.test')->from('a', 'b')->where('a.test', '=', $datetime)->toSql());
 
         $query = new Builder($con);

@@ -1,8 +1,7 @@
 <?php declare(strict_types=1);
 
 return [
-  'hi' =>
-  [
+  'hi' => [
     0   => '_क_',
     1   => 'क_',
     2   => '_क',

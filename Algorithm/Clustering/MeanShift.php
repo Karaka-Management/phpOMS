@@ -102,7 +102,7 @@ final class MeanShift implements ClusteringInterface
      *
      * @since 1.0.0
      */
-    public function __construct(\Closure $metric = null, \Closure $kernel = null)
+    public function __construct(?\Closure $metric = null, ?\Closure $kernel = null)
     {
         $this->metric = $metric ?? function (PointInterface $a, PointInterface $b) {
             $aCoordinates = $a->coordinates;

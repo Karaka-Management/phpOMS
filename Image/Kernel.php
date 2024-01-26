@@ -169,7 +169,7 @@ final class Kernel
 
                     for ($ky = 0; $ky < $kDim[0]; ++$ky) {
                         for ($kx = 0; $kx < $kDim[1]; ++$kx) {
-                            $pixel =  \imagecolorat($im,
+                            $pixel = \imagecolorat($im,
                                 \min(\max($x + $kx - $kWidthRadius, 0), $dim[0] - 1),
                                 \min(\max($y + $ky - $kHeightRadius, 0), $dim[1] - 1)
                             );

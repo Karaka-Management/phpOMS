@@ -50,7 +50,7 @@ final class Phone
         bool $isInt = true,
         string $struct = '+$1 ($2) $3-$4',
         array $size = [null, [3, 4], [3, 5], [3, 8],],
-        array $countries = null
+        ?array $countries = null
     ) : string
     {
         $numberString = $struct;

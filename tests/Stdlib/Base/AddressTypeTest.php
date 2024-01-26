@@ -27,7 +27,7 @@ final class AddressTypeTest extends \PHPUnit\Framework\TestCase
      */
     public function testEnumCount() : void
     {
-        self::assertCount(8, AddressType::getconstants());
+        self::assertCount(8, AddressType::getConstants());
     }
 
     /**
@@ -50,7 +50,6 @@ final class AddressTypeTest extends \PHPUnit\Framework\TestCase
         self::assertEquals(3, AddressType::SHIPPING);
         self::assertEquals(4, AddressType::BILLING);
         self::assertEquals(5, AddressType::WORK);
-        self::assertEquals(6, AddressType::CONTRACT);
         self::assertEquals(7, AddressType::OTHER);
         self::assertEquals(8, AddressType::EDUCATION);
     }

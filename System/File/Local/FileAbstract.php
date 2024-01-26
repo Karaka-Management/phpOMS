@@ -304,7 +304,7 @@ abstract class FileAbstract implements LocalContainerInterface
         // Walk parent path
         for ($j = $currentLength - $i; $j > 0; --$j) {
             if ($newParent->parent === null) {
-                // No pwarent found
+                // No parent found
 
                 $newParent = null;
                 break;

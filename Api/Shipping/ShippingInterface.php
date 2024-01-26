@@ -44,7 +44,7 @@ use phpOMS\Message\Http\HttpRequest;
 interface ShippingInterface
 {
     /**
-     * Create request for authentication using login and passowrd
+     * Create request for authentication using login and password
      *
      * @param string $login    Login name/email
      * @param string $password Password
@@ -57,8 +57,8 @@ interface ShippingInterface
      */
     public function authLogin(
         string $login, string $password,
-        string $client = null,
-        string $payload = null
+        ?string $client = null,
+        ?string $payload = null
     ) : int;
 
     /**
@@ -71,7 +71,7 @@ interface ShippingInterface
      * Use tokenFromRedirect() to parse the token from the redirect after successful login.
      *
      * @param string      $client   Client information (e.g. client id)
-     * @param null|string $redirect Redirect page after successfull login
+     * @param null|string $redirect Redirect page after successful login
      * @param array       $payload  Other payload data
      *
      * @return HttpRequest Request which should be used to create the redirect (e.g. header("Location: $request->uri"))
@@ -83,7 +83,7 @@ interface ShippingInterface
      */
     public function authRedirectLogin(
         string $client,
-        string $redirect = null,
+        ?string $redirect = null,
         array $payload = []
     ) : HttpRequest;
 

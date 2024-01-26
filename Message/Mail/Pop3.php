@@ -250,9 +250,9 @@ class Pop3 implements MailBoxInterface
         string $cc = '',
         string $from = '',
         string $bcc = '',
-        \DateTime $before = null,
-        \DateTime $since = null,
-        \DateTime $on = null,
+        ?\DateTime $before = null,
+        ?\DateTime $since = null,
+        ?\DateTime $on = null,
         bool $deleted = false,
         bool $flagged = false
     ) : array

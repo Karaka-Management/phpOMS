@@ -1,8 +1,7 @@
 <?php declare(strict_types=1);
 
 return [
-  'hr' =>
-  [
+  'hr' => [
     0   => 'a',
     1   => 'o',
     2   => 'i',

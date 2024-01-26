@@ -66,13 +66,13 @@ final class HttpSession implements SessionInterface
     /**
      * Constructor.
      *
-     * @param int    $liftetime          Session life time
+     * @param int    $lifetime           Session life time
      * @param string $sid                Session id
      * @param int    $inactivityInterval Interval for session activity
      *
      * @since 1.0.0
      */
-    public function __construct(int $liftetime = 3600, string $sid = '', int $inactivityInterval = 0)
+    public function __construct(int $lifetime = 3600, string $sid = '', int $inactivityInterval = 0)
     {
         if (\session_id()) {
             \session_write_close(); // @codeCoverageIgnore
@@ -86,8 +86,17 @@ final class HttpSession implements SessionInterface
 
         if (\session_status() !== \PHP_SESSION_ACTIVE && !\headers_sent()) {
             // @codeCoverageIgnoreStart
+            // samesite: Strict results in losing sessions in some situations when working with iframe
+            // This can happen when the iframe content uses relative links
+            //      -> loads iframe page
+            //      -> iframe page references relative resources (css, js, ...)
+            //      -> client browser tries to load resources
+            //      -> client browser loads current app based on relative link but without session cookie
+            //      -> creates new session cookie for page (not authenticated yet)
+            //      -> loses authentication on iframe parent
+            // samesite: None would solve that but is way too dangerous.
             \session_set_cookie_params([
-                'lifetime' => $liftetime,
+                'lifetime' => $lifetime,
                 'path'     => '/',
                 'domain'   => '',
                 'secure'   => false,
@@ -97,8 +106,7 @@ final class HttpSession implements SessionInterface
             \session_start();
             // @codeCoverageIgnoreEnd
         } else {
-            $logger = FileLogger::getInstance();
-            $logger->error(
+            FileLogger::getInstance()->error(
                 FileLogger::MSG_FULL, [
                     'message' => 'Bad application flow.',
                     'line'    => __LINE__,

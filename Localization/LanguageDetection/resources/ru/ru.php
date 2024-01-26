@@ -1,8 +1,7 @@
 <?php declare(strict_types=1);
 
 return [
-  'ru' =>
-  [
+  'ru' => [
     0   => 'о',
     1   => 'е',
     2   => 'и',

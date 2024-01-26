@@ -245,7 +245,7 @@ class Grammar extends GrammarAbstract
      *
      * @param Builder $query  Builder
      * @param array   $wheres Where elmenets
-     * @param bool    $first  Is first element (usefull for nesting)
+     * @param bool    $first  Is first element (useful for nesting)
      *
      * @return string
      *
@@ -258,7 +258,7 @@ class Grammar extends GrammarAbstract
         foreach ($wheres as $where) {
             foreach ($where as $element) {
                 $expression .= $this->compileWhereElement($element, $query, $first);
-                $first       = false;
+                $first = false;
             }
         }
 
@@ -293,7 +293,7 @@ class Grammar extends GrammarAbstract
         } elseif ($element['column'] instanceof \Closure) {
             $expression .= $element['column']();
         } elseif ($element['column'] instanceof Where) {
-            $where       = \rtrim($this->compileWhereQuery($element['column']), ';');
+            $where = \rtrim($this->compileWhereQuery($element['column']), ';');
             $expression .= '(' . (\str_starts_with($where, 'WHERE ') ? \substr($where, 6) : $where) . ')';
         } elseif ($element['column'] instanceof Builder) {
             $expression .= '(' . \rtrim($element['column']->toSql(), ';') . ')';
@@ -302,7 +302,7 @@ class Grammar extends GrammarAbstract
         if (isset($element['value']) && (!empty($element['value']) || !\is_array($element['value']))) {
             $expression .= ' ' . \strtoupper($element['operator']) . ' ' . $this->compileValue($query, $element['value']);
         } elseif ($element['value'] === null && !($element['column'] instanceof Builder)) {
-            $operator    = $element['operator'] === '=' ? 'IS' : 'IS NOT';
+            $operator = $element['operator'] === '=' ? 'IS' : 'IS NOT';
             $expression .= ' ' . $operator . ' ' . $this->compileValue($query, $element['value']);
         }
 
@@ -415,7 +415,7 @@ class Grammar extends GrammarAbstract
 
         foreach ($ons as $on) {
             $expression .= $this->compileOnElement($on, $query, $first);
-            $first       = false;
+            $first = false;
         }
 
         if ($expression === '') {
@@ -430,7 +430,7 @@ class Grammar extends GrammarAbstract
      *
      * @param array   $element Element data
      * @param Builder $query   Query builder
-     * @param bool    $first   Is first element (usefull for nesting)
+     * @param bool    $first   Is first element (useful for nesting)
      *
      * @return string
      *
@@ -466,7 +466,7 @@ class Grammar extends GrammarAbstract
             $expression .= ' ' . \strtoupper($element['operator']) . ' '
                 . (\is_string($element['value']) ? $this->compileSystem($element['value']) : $element['value']);
         } else {
-            $operator    = $element['operator'] === '=' ? 'IS' : 'IS NOT';
+            $operator = $element['operator'] === '=' ? 'IS' : 'IS NOT';
             $expression .= ' ' . $operator . ' ' . $this->compileValue($query, $element['value']);
         }
 

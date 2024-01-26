@@ -163,7 +163,7 @@ final class BetaDistribution
     }
 
     /**
-     * Get prdobability distribution function.
+     * Get probability distribution function.
      *
      * @param float $x     Value
      * @param float $alpha Alpha

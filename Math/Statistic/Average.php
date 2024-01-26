@@ -132,7 +132,7 @@ final class Average
      *
      * @since 1.0.0
      */
-    public static function totalMovingAverage(array $x, int $order, array $weight = null, bool $symmetric = false) : array
+    public static function totalMovingAverage(array $x, int $order, ?array $weight = null, bool $symmetric = false) : array
     {
         $periods = (int) ($order / ($symmetric ? 2 : 1));
         $count   = \count($x) - ($symmetric ? $periods : 0);
@@ -160,7 +160,7 @@ final class Average
      *
      * @since 1.0.0
      */
-    public static function movingAverage(array $x, int $t, int $order, array $weight = null, bool $symmetric = false) : float
+    public static function movingAverage(array $x, int $t, int $order, ?array $weight = null, bool $symmetric = false) : float
     {
         $periods = (int) ($order / ($symmetric ? 2 : 1));
         $count   = \count($x);
@@ -169,7 +169,7 @@ final class Average
             throw new \Exception('Periods');
         }
 
-        $t    += 2;
+        $t += 2;
         $end   = $symmetric ? $t + $periods - 1 : $t - 1;
         $start = $t - 1 - $periods;
 

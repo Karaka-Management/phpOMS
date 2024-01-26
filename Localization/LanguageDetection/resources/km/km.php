@@ -1,8 +1,7 @@
 <?php declare(strict_types=1);
 
 return [
-  'km' =>
-  [
+  'km' => [
     0   => '_រ',
     1   => 'រ',
     2   => '_ន_',

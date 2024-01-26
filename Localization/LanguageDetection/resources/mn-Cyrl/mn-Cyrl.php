@@ -1,8 +1,7 @@
 <?php declare(strict_types=1);
 
 return [
-  'mn-Cyrl' =>
-  [
+  'mn-Cyrl' => [
     0   => 'а',
     1   => 'э',
     2   => 'л',

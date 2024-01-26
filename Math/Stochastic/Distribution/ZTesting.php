@@ -93,7 +93,7 @@ final class ZTesting
      *
      * @since 1.0.0
      */
-    public static function zTest(float $value, array $data, float $sigma = null) : float
+    public static function zTest(float $value, array $data, ?float $sigma = null) : float
     {
         $sigma ??= MeasureOfDispersion::standardDeviationSample($data);
 

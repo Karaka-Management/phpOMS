@@ -99,7 +99,7 @@ final class CookieJar
         mixed $value,
         int $expire = 86400,
         string $path = '/',
-        string $domain = null,
+        ?string $domain = null,
         bool $secure = false,
         bool $httpOnly = true,
         bool $overwrite = true

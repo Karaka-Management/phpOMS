@@ -348,7 +348,7 @@ final class Functions
 
         for ($j = 0; $j < 2; ++$j) {
             $err = self::getErfc($x) - $pp;
-            $x  += $err / (1.12837916709551257 * \exp(-($x * $x)) - $x * $err);
+            $x += $err / (1.12837916709551257 * \exp(-($x * $x)) - $x * $err);
         }
 
         return ($p < 1.0? $x : -$x);

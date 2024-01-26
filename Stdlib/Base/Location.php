@@ -110,32 +110,6 @@ class Location implements \JsonSerializable, SerializableInterface
     }
 
     /**
-     * Get location type
-     *
-     * @return int
-     *
-     * @since 1.0.0
-     */
-    public function getType() : int
-    {
-        return $this->type;
-    }
-
-    /**
-     * Set location type
-     *
-     * @param int $type Location type
-     *
-     * @return void
-     *
-     * @since 1.0.0
-     */
-    public function setType(int $type) : void
-    {
-        $this->type = $type;
-    }
-
-    /**
      * Get country code
      *
      * @return string

@@ -33,8 +33,8 @@ final class IbanMapperTest extends \PHPUnit\Framework\TestCase
     public static function setUpBeforeClass() : void
     {
         self::$con = new SqliteConnection([
-            'db'         => 'sqlite',
-            'database'   => \realpath(__DIR__ . '/../../../Localization/Defaults/localization.sqlite'),
+            'db'       => 'sqlite',
+            'database' => \realpath(__DIR__ . '/../../../Localization/Defaults/localization.sqlite'),
         ]);
 
         self::$con->connect();
@@ -51,7 +51,7 @@ final class IbanMapperTest extends \PHPUnit\Framework\TestCase
     {
         /** @var Iban $obj */
         $obj = IbanMapper::get()->where('id', 22)->execute();
-        self::assertEquals('DE', $obj->getCountry());
+        self::assertEquals('DE', $obj->country);
         self::assertEquals(22, $obj->getChars());
         self::assertEquals('18n', $obj->getBban());
         self::assertEquals('DEkk bbbb bbbb cccc cccc cc', $obj->getFields());

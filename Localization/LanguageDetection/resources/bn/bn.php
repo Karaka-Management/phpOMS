@@ -1,8 +1,7 @@
 <?php declare(strict_types=1);
 
 return [
-  'bn' =>
-  [
+  'bn' => [
     0   => '_র_',
     1   => '_র',
     2   => 'র_',

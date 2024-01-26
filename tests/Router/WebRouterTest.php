@@ -142,7 +142,7 @@ final class WebRouterTest extends \PHPUnit\Framework\TestCase
      */
     public function testDynamicRouteAdding() : void
     {
-        $this->router->add('^.*/backends/admin/settings/general.*$', 'Controller:test', RouteVerb::GET | RouteVerb::SET);
+        $this->router->add('^.*/backends/admin/settings/general(\?.*$|$)', 'Controller:test', RouteVerb::GET | RouteVerb::SET);
         self::assertEquals(
             [['dest' => 'Controller:test']],
             $this->router->route(
@@ -318,7 +318,7 @@ final class WebRouterTest extends \PHPUnit\Framework\TestCase
     public function testDataValidation() : void
     {
         $this->router->add(
-            '^.*/backends/admin/settings/general.*$',
+            '^.*/backends/admin/settings/general(\?.*$|$)',
             'Controller:test',
             RouteVerb::GET | RouteVerb::SET,
             false,
@@ -335,14 +335,14 @@ final class WebRouterTest extends \PHPUnit\Framework\TestCase
     }
 
     /**
-     * @testdox A data validation pattern invalidates missmatches
+     * @testdox A data validation pattern invalidates miss-matches
      * @covers phpOMS\Router\WebRouter
      * @group framework
      */
     public function testInvalidDataValidation() : void
     {
         $this->router->add(
-            '^.*/backends/admin/settings/general.*$',
+            '^.*/backends/admin/settings/general(\?.*$|$)',
             'Controller:test',
             RouteVerb::GET | RouteVerb::SET,
             false,
@@ -366,7 +366,7 @@ final class WebRouterTest extends \PHPUnit\Framework\TestCase
     public function testDataFromPattern() : void
     {
         $this->router->add(
-            '^.*/backends/admin.*$',
+            '^.*/backends/admin(\?.*$|$)',
             'Controller:test',
             RouteVerb::GET | RouteVerb::SET,
             false,

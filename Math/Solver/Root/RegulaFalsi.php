@@ -47,7 +47,7 @@ final class RegulaFalsi
      *
      * Iteratively searches for root between two points on the x-axis
      *
-     * @param Callable $func          Function defintion
+     * @param Callable $func          Function definition
      * @param float    $a             Start value
      * @param float    $b             End value
      * @param int      $maxIterations Maximum amount of iterations

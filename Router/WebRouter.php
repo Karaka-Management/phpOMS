@@ -112,12 +112,12 @@ final class WebRouter implements RouterInterface
      */
     public function route(
         string $uri,
-        string $csrf = null,
+        ?string $csrf = null,
         int $verb = RouteVerb::GET,
-        int $app = null,
-        int $unitId = null,
-        Account $account = null,
-        array $data = null
+        ?int $app = null,
+        ?int $unitId = null,
+        ?Account $account = null,
+        ?array $data = null
     ) : array
     {
         $bound = [];
@@ -138,7 +138,7 @@ final class WebRouter implements RouterInterface
 
                     // if permission check is invalid
                     if (isset($d['permission']) && !empty($d['permission'])
-                        && ($account === null || $account->getId() === 0)
+                        && ($account === null || $account->id === 0)
                     ) {
                         return ['dest' => RouteStatus::NOT_LOGGED_IN];
                     } elseif (isset($d['permission']) && !empty($d['permission'])

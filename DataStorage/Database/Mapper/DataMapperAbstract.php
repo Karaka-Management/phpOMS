@@ -152,7 +152,7 @@ abstract class DataMapperAbstract
      *
      * @since 1.0.0
      */
-    public function query(Builder $query = null) : self
+    public function query(?Builder $query = null) : self
     {
         $this->query = $query;
 

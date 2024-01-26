@@ -1,8 +1,7 @@
 <?php declare(strict_types=1);
 
 return [
-  'ta' =>
-  [
+  'ta' => [
     0   => '_க_',
     1   => '_ம_',
     2   => '_க',

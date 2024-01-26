@@ -102,7 +102,7 @@ final class UpdateMapper extends DataMapperAbstract
      *
      * @since 1.0.0
      */
-    private function updateModel(object $obj, mixed $objId, \ReflectionClass &$refClass = null) : void
+    private function updateModel(object $obj, mixed $objId, ?\ReflectionClass &$refClass = null) : void
     {
         try {
             // Model doesn't have anything to update
@@ -193,6 +193,14 @@ final class UpdateMapper extends DataMapperAbstract
         /** @var class-string<DataMapperFactory> $mapper */
         $mapper = $this->mapper::BELONGS_TO[$propertyName]['mapper'];
 
+        if (!isset($this->with[$propertyName])) {
+            $id = $mapper::getObjectId($obj);
+
+            return empty($id) && $mapper::isNullModel($obj)
+                ? null
+                : $id;
+        }
+
         /** @var self $relMapper */
         $relMapper        = $this->createRelationMapper($mapper::update(db: $this->db), $propertyName);
         $relMapper->depth = $this->depth + 1;
@@ -215,6 +223,14 @@ final class UpdateMapper extends DataMapperAbstract
         /** @var class-string<DataMapperFactory> $mapper */
         $mapper = $this->mapper::OWNS_ONE[$propertyName]['mapper'];
 
+        if (!isset($this->with[$propertyName])) {
+            $id = $mapper::getObjectId($obj);
+
+            return empty($id) && $mapper::isNullModel($obj)
+                ? null
+                : $id;
+        }
+
         /** @var self $relMapper */
         $relMapper        = $this->createRelationMapper($mapper::update(db: $this->db), $propertyName);
         $relMapper->depth = $this->depth + 1;
@@ -235,7 +251,7 @@ final class UpdateMapper extends DataMapperAbstract
      *
      * @since 1.0.0
      */
-    private function updateHasMany(object $obj, mixed $objId, \ReflectionClass &$refClass = null) : void
+    private function updateHasMany(object $obj, mixed $objId, ?\ReflectionClass &$refClass = null) : void
     {
         if (empty($this->with) || empty($this->mapper::HAS_MANY)) {
             return;

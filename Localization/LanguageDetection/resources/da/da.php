@@ -1,8 +1,7 @@
 <?php declare(strict_types=1);
 
 return [
-  'da' =>
-  [
+  'da' => [
     0   => 'e',
     1   => 'r',
     2   => 'n',

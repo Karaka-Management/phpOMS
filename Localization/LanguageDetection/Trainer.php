@@ -42,7 +42,7 @@ class Trainer extends NgramParser
         } elseif (!\is_dir($dirname) || !\is_readable($dirname)) {
             throw new \InvalidArgumentException('Provided directory could not be found or is not readable');
         } else {
-            $dirname  = \rtrim($dirname, '/');
+            $dirname = \rtrim($dirname, '/');
             $dirname .= '/*/*.txt';
         }
 

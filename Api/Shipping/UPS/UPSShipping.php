@@ -164,8 +164,8 @@ final class UPSShipping implements ShippingInterface
      */
     public function authLogin(
         string $login, string $password,
-        string $client = null,
-        string $payload = null
+        ?string $client = null,
+        ?string $payload = null
     ) : int
     {
         $this->client   = $client ?? $this->client;
@@ -215,7 +215,7 @@ final class UPSShipping implements ShippingInterface
      */
     public function authRedirectLogin(
         string $client,
-        string $redirect = null,
+        ?string $redirect = null,
         array $payload = []
     ) : HttpRequest
     {
@@ -557,7 +557,7 @@ final class UPSShipping implements ShippingInterface
 
         // Only required if shipper != shipFrom (e.g. pickup location != shipper)
         if (!empty($shipFrom)) {
-            $body['Shipment']['ShipFrom'] =  [
+            $body['Shipment']['ShipFrom'] = [
                 'Name'                    => \substr($shipFrom['name'], 0, 35),
                 'AttentionName'           => \substr($shipFrom['fao'], 0, 35),
                 'CompanyDisplayableName'  => \substr($shipFrom['name'], 0, 35),
@@ -620,12 +620,12 @@ final class UPSShipping implements ShippingInterface
             $packages[] = [
                 'id'    => $package['TrackingNumber'],
                 'label' => [
-                    'code'     => $package['ShippingLabel']['ImageFormat']['Code'],
-                    'url'      => '',
-                    'barcode'  => $package['PDF417'],
-                    'image'    => $package['ShippingLabel']['GraphicImage'],
-                    'browser'  => $package['HTMLImage'],
-                    'data'     => '',
+                    'code'    => $package['ShippingLabel']['ImageFormat']['Code'],
+                    'url'     => '',
+                    'barcode' => $package['PDF417'],
+                    'image'   => $package['ShippingLabel']['GraphicImage'],
+                    'browser' => $package['HTMLImage'],
+                    'data'    => '',
                 ],
                 'receipt' => [
                     'code'  => $package['ShippingReceipt']['ImageFormat']['Code'],
@@ -731,17 +731,17 @@ final class UPSShipping implements ShippingInterface
                 }
 
                 $packages[] = [
-                    'status'   => [
+                    'status' => [
                         'code'        => $package['status']['code'],
                         'statusCode'  => $package['status']['statusCode'],
                         'description' => $package['status']['description'],
                     ],
-                    'deliveryDate'        => new \DateTime($package['deliveryDate'] . ' ' . $package['deliveryTime']['endTime']),
-                    'count'               => $package['packageCount'],
-                    'weight'              => $package['weight']['weight'],
-                    'weight_unit'         => $package['weight']['unitOfMeasurement'],
-                    'activities'          => $activities,
-                    'received'            => [
+                    'deliveryDate' => new \DateTime($package['deliveryDate'] . ' ' . $package['deliveryTime']['endTime']),
+                    'count'        => $package['packageCount'],
+                    'weight'       => $package['weight']['weight'],
+                    'weight_unit'  => $package['weight']['unitOfMeasurement'],
+                    'activities'   => $activities,
+                    'received'     => [
                         'by'        => $package['deliveryInformation']['receivedBy'],
                         'signature' => $package['deliveryInformation']['signature'],
                         'location'  => $package['deliveryInformation']['location'],

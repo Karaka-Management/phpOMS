@@ -95,7 +95,7 @@ final class MultiMap implements \Countable
             // prevent adding elements if keys are just ordered differently
             if ($this->orderType === OrderType::LOOSE) {
                 /** @var array<string[]> $keysToTest */
-                $keysToTest = Permutation::permut($keys, [], false);
+                $keysToTest = Permutation::permuteAll($keys, [], false);
 
                 foreach ($keysToTest as $test) {
                     $key = \implode(':', $test);
@@ -219,7 +219,7 @@ final class MultiMap implements \Countable
         if (\is_array($key)) {
             if ($this->orderType === OrderType::LOOSE) {
                 /** @var array<string[]> $keys */
-                $keys = Permutation::permut($key, [], false);
+                $keys = Permutation::permuteAll($key, [], false);
 
                 foreach ($keys as $key => $value) {
                     $key = \implode(':', $value);
@@ -273,7 +273,7 @@ final class MultiMap implements \Countable
 
         if ($this->orderType !== OrderType::STRICT) {
             /** @var array<string[]> $permutation */
-            $permutation = Permutation::permut($key, [], false);
+            $permutation = Permutation::permuteAll($key, [], false);
 
             foreach ($permutation as $permut) {
                 if ($this->setSingle(\implode(':', $permut), $value)) {
@@ -344,7 +344,7 @@ final class MultiMap implements \Countable
         }
 
         /** @var array $keys */
-        $keys  = Permutation::permut($key, [], false);
+        $keys  = Permutation::permuteAll($key, [], false);
         $found = false;
 
         foreach ($keys as $key => $value) {
@@ -487,7 +487,7 @@ final class MultiMap implements \Countable
         if ($this->orderType === OrderType::LOOSE) {
             $key = \is_array($key) ? $key : [$key];
 
-            return Permutation::permut($key, [], false);
+            return Permutation::permuteAll($key, [], false);
         }
 
         return [];

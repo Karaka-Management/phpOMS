@@ -51,7 +51,7 @@ interface StreamInterface
      *
      * @since 1.0.0
      */
-    public function getMetaData(string $key = null);
+    public function getMetaData(?string $key = null);
 
     /**
      * Get the stream resource
@@ -72,7 +72,7 @@ interface StreamInterface
      *
      * @since 1.0.0
      */
-    public function setStream($stream, int $size = null) : self;
+    public function setStream($stream, ?int $size = null) : self;
 
     /**
      * Detach the current stream resource
@@ -264,7 +264,7 @@ interface StreamInterface
      *
      * @since 1.0.0
      */
-    public function readLine(int $maxLength = null) : ?string;
+    public function readLine(?int $maxLength = null) : ?string;
 
     /**
      * Set custom data on the stream

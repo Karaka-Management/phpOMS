@@ -71,8 +71,8 @@ final class AccountManager implements \Countable
         if ($id === 0) {
             $account = new Account(Auth::authenticate($this->session));
 
-            if (!isset($this->accounts[$account->getId()])) {
-                $this->accounts[$account->getId()] = $account;
+            if (!isset($this->accounts[$account->id])) {
+                $this->accounts[$account->id] = $account;
             }
 
             return $account;
@@ -92,8 +92,8 @@ final class AccountManager implements \Countable
      */
     public function add(Account $account) : bool
     {
-        if (!isset($this->accounts[$account->getId()])) {
-            $this->accounts[$account->getId()] = $account;
+        if (!isset($this->accounts[$account->id])) {
+            $this->accounts[$account->id] = $account;
 
             return true;
         }

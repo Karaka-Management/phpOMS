@@ -1,8 +1,7 @@
 <?php declare(strict_types=1);
 
 return [
-  'ja' =>
-  [
+  'ja' => [
     0   => 'の',
     1   => 'る',
     2   => 'に',

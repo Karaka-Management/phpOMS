@@ -179,8 +179,8 @@ final class DHLInternationalShipping implements ShippingInterface
      */
     public function authLogin(
         string $login, string $password,
-        string $client = null,
-        string $payload = null
+        ?string $client = null,
+        ?string $payload = null
     ) : int
     {
         $this->client   = $client ?? $this->client;
@@ -230,7 +230,7 @@ final class DHLInternationalShipping implements ShippingInterface
      */
     public function authRedirectLogin(
         string $client,
-        string $redirect = null,
+        ?string $redirect = null,
         array $payload = []
     ) : HttpRequest
     {
@@ -349,17 +349,17 @@ final class DHLInternationalShipping implements ShippingInterface
             }
 
             $packages[] = [
-                'status'   => [
+                'status' => [
                     'code'        => $package['status']['statusCode'],
                     'statusCode'  => $package['status']['statusCode'],
                     'description' => $package['status']['status'],
                 ],
-                'deliveryDate'        => new \DateTime($package['estimatedTimeOfDelivery']),
-                'count'               => $package['details']['totalNumberOfPieces'],
-                'weight'              => $package['details']['weight']['weight'],
-                'weight_unit'         => 'g',
-                'activities'          => $activities,
-                'received'            => [
+                'deliveryDate' => new \DateTime($package['estimatedTimeOfDelivery']),
+                'count'        => $package['details']['totalNumberOfPieces'],
+                'weight'       => $package['details']['weight']['weight'],
+                'weight_unit'  => 'g',
+                'activities'   => $activities,
+                'received'     => [
                     'by'        => $package['details']['proofOfDelivery']['familyName'],
                     'signature' => $package['details']['proofOfDelivery']['signatureUrl'],
                     'location'  => '',

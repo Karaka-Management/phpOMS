@@ -1,8 +1,7 @@
 <?php declare(strict_types=1);
 
 return [
-  'ka' =>
-  [
+  'ka' => [
     0   => 'ა',
     1   => 'ი',
     2   => 'ე',

@@ -29,7 +29,7 @@ abstract class DateTime extends ValidatorAbstract
     /**
      * {@inheritdoc}
      */
-    public static function isValid(mixed $value, array $constraints = null) : bool
+    public static function isValid(mixed $value, ?array $constraints = null) : bool
     {
         if (!\is_string($value)) {
             return false;

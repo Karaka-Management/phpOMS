@@ -38,7 +38,7 @@ final class Validator extends ValidatorAbstract
      *
      * @since 1.0.0
      */
-    public static function isValid(mixed $var, array $constraints = null) : bool
+    public static function isValid(mixed $var, ?array $constraints = null) : bool
     {
         if ($constraints === null) {
             return true;

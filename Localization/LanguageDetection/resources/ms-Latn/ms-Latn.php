@@ -1,8 +1,7 @@
 <?php declare(strict_types=1);
 
 return [
-  'ms-Latn' =>
-  [
+  'ms-Latn' => [
     0   => 'a',
     1   => 'n',
     2   => 'e',

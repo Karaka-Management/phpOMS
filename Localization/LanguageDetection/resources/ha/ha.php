@@ -1,8 +1,7 @@
 <?php declare(strict_types=1);
 
 return [
-  'ha' =>
-  [
+  'ha' => [
     0   => 'a',
     1   => 'ɛ',
     2   => 'i',

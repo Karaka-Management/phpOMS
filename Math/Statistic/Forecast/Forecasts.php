@@ -71,7 +71,7 @@ final class Forecasts
             $variance += \pow($sale - $avg, 2);
         }
 
-        $variance    /= $size;
+        $variance /= $size;
         $stdDeviation = \sqrt($variance);
 
         // Calculate the seasonal index for each period

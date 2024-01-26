@@ -117,7 +117,7 @@ final class MarkovChain
      *
      * @since 1.0.0
      */
-    public function generate(int $length, array $start = null) : array
+    public function generate(int $length, ?array $start = null) : array
     {
         $orderKeys   = \array_keys($this->data);
         $orderValues = \array_keys(\reset($this->data));

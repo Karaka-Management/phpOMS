@@ -39,9 +39,9 @@ abstract class Hostname extends ValidatorAbstract
     /**
      * {@inheritdoc}
      *
-     * A IPv6 string MUST be in [...] to be sucessfully validated
+     * A IPv6 string MUST be in [...] to be successfully validated
      */
-    public static function isValid(mixed $value, array $constraints = null) : bool
+    public static function isValid(mixed $value, ?array $constraints = null) : bool
     {
         //return \filter_var(\gethostbyname($value), \FILTER_VALIDATE_IP) !== false;
 
