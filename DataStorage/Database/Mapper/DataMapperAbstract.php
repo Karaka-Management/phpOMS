@@ -62,7 +62,7 @@ abstract class DataMapperAbstract
      * @var array
      * @since 1.0.0
      */
-    protected array $with = [];
+    public array $with = [];
 
     /**
      * Sort order

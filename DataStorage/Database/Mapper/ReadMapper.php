@@ -854,13 +854,10 @@ final class ReadMapper extends DataMapperAbstract
 
                 $value = $this->populateOwnsOne($def['internal'], $result, $default);
 
-                // loads hasMany relations. other relations are loaded in the populateOwnsOne
-                if (\is_object($value) && isset($this->mapper::OWNS_ONE[$def['internal']]['mapper'])) {
-                    $this->mapper::OWNS_ONE[$def['internal']]['mapper']::reader(db: $this->db)->loadHasManyRelationsTest([$value]);
-                }
-
                 if (empty($value)) {
-                    // @todo find better solution. this was because of a bug with the sales billing list query depth = 4. The address was set (from the client, referral or creator) but then somehow there was a second address element which was all null and null cannot be assigned to a string variable (e.g. country). The problem with this solution is that if the model expects an initialization (e.g. at lest set the elements to null, '', 0 etc.) this is now not done.
+                    // @todo find better solution. this was because of a bug with the sales billing list query depth = 4.
+                    // The address was set (from the client, referral or creator) but then somehow there was a second address element which was all null and null cannot be assigned to a string variable (e.g. country).
+                    // The problem with this solution is that if the model expects an initialization (e.g. at lest set the elements to null, '', 0 etc.) this is now not done.
                     $value = $isPrivate ? $refProp->getValue($obj) : $obj->{$member};
                 }
             } elseif (isset($this->mapper::BELONGS_TO[$def['internal']])) {
@@ -872,11 +869,6 @@ final class ReadMapper extends DataMapperAbstract
                 }
 
                 $value = $this->populateBelongsTo($def['internal'], $result, $default);
-
-                // loads hasMany relations. other relations are loaded in the populateBelongsTo
-                if (\is_object($value) && isset($this->mapper::BELONGS_TO[$def['internal']]['mapper'])) {
-                    $this->mapper::BELONGS_TO[$def['internal']]['mapper']::reader(db: $this->db)->loadHasManyRelationsTest([$value]);
-                }
             } elseif (\in_array($def['type'], ['string', 'compress', 'int', 'float', 'bool'])) {
                 if ($value !== null && $def['type'] === 'compress') {
                     $def['type'] = 'string';
