@@ -388,7 +388,7 @@ final class UpdateMapper extends DataMapperAbstract
                 $this->mapper::remover(db: $this->db)->deleteRelationTable($member, $removes, $objId);
             }
 
-            if (!empty($adds)) {
+            if (!empty($adds) && isset($this->mapper::HAS_MANY[$member]['external'])) {
                 $this->mapper::writer(db: $this->db)->createRelationTable($member, $adds, $objId);
             }
         }

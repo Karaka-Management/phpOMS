@@ -942,6 +942,10 @@ abstract class ModuleAbstract
         string $ip
     ) : void
     {
+        if (empty($rel1) || empty($rel2)) {
+            return;
+        }
+
         $trigger = static::NAME . '-' . $trigger . '-relation-create';
 
         $this->app->eventManager->triggerSimilar('PRE:Module:' . $trigger, '', $rel1);

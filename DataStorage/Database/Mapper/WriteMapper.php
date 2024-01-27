@@ -353,10 +353,17 @@ final class WriteMapper extends DataMapperAbstract
                     }
                 }
 
+                // @todo This inserts one element at a time. SQL allows to insert multiple rows.
+                // The problem with this is, that we then need to manually calculate the objIds
+                // since lastInsertId returns the first generated id.
+                // However, the current use case in Jingga only rarely has multiple hasMany during the creation
+                // since we are calling the API individually.
                 $objsIds[$key] = $mapper::create(db: $this->db)->execute($value);
             }
 
-            $this->createRelationTable($propertyName, $objsIds, $objId);
+            if (!empty($objsIds) && isset($this->mapper::HAS_MANY[$propertyName]['external'])) {
+                $this->createRelationTable($propertyName, $objsIds, $objId);
+            }
         }
     }
 
@@ -374,9 +381,11 @@ final class WriteMapper extends DataMapperAbstract
     public function createRelationTable(string $propertyName, array $objsIds, mixed $objId) : void
     {
         try {
+            /* This check got pulled out to avoid function call to begin with
             if (empty($objsIds) || !isset($this->mapper::HAS_MANY[$propertyName]['external'])) {
                 return;
             }
+            */
 
             $relQuery = new Builder($this->db);
             $relQuery->into($this->mapper::HAS_MANY[$propertyName]['table'])
