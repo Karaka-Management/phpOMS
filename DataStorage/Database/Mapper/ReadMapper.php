@@ -269,43 +269,46 @@ final class ReadMapper extends DataMapperAbstract
         }
 
         // Get initialized objects from memory cache.
-        $obj = [];
+        $objs = [];
+        $indexed = [];
 
         // Get remaining objects (not available in memory cache) or remaining where clauses.
         //$dbData = $this->executeGetRaw($query);
 
-        $ids = [];
         foreach ($this->executeGetRawYield($query) as $row) {
             if ($row === []) {
                 continue;
             }
 
             $value       = $row[$this->mapper::PRIMARYFIELD . '_d' . $this->depth];
-            $obj[$value] = $this->mapper::createBaseModel($row);
-            $obj[$value] = $this->populateAbstract($row, $obj[$value]);
+            $objs[$value] = $this->mapper::createBaseModel($row);
+            $objs[$value] = $this->populateAbstract($row, $objs[$value]);
 
-            $ids[] = $value;
+            if (!empty($this->indexedBy) && isset($row[$this->indexedBy . '_d' . $this->depth])) {
+                if (!isset($indexed[$row[$this->indexedBy . '_d' . $this->depth]])) {
+                    $indexed[$row[$this->indexedBy . '_d' . $this->depth]] = [];
+                }
 
-            // @todo This is too slow, since it creates a query for every $row x relation type.
-            // Pulling it out would be nice.
-            // The problem with solving this is that in a many-to-many relationship a relation table is used
-            // BUT the relation data is not available in the object itself meaning after retrieving the object
-            // it cannot get assigned to the correct parent object.
-            // Other relation types are easy because either the parent or child object contain the relation info.
-            // One solution could be to always pass an array
-            if (!empty($this->with) && !empty($value)) {
-                $this->loadHasManyRelations($obj[$value]);
+                $indexed[$row[$this->indexedBy . '_d' . $this->depth]][] = $objs[$value];
             }
         }
 
-        $countResults = \count($obj);
+        if (!empty($this->with) && !empty($objs)) {
+            $this->loadHasManyRelationsTest($objs);
+        }
+
+        if (!empty($this->indexedBy)) {
+            return $indexed;
+        }
+
+        $countResults = \count($objs);
         if ($countResults === 0) {
             return $this->mapper::createNullModel();
         } elseif ($countResults === 1) {
-            return \reset($obj);
+            return \reset($objs);
         }
 
-        return $obj;
+        return $objs;
     }
 
     /**
@@ -332,7 +335,7 @@ final class ReadMapper extends DataMapperAbstract
             $obj = $this->populateAbstract($row, $obj);
 
             if (!empty($this->with)) {
-                $this->loadHasManyRelations($obj);
+                $this->loadHasManyRelationsTest([$obj]);
             }
 
             yield $obj;
@@ -853,7 +856,7 @@ final class ReadMapper extends DataMapperAbstract
 
                 // loads hasMany relations. other relations are loaded in the populateOwnsOne
                 if (\is_object($value) && isset($this->mapper::OWNS_ONE[$def['internal']]['mapper'])) {
-                    $this->mapper::OWNS_ONE[$def['internal']]['mapper']::reader(db: $this->db)->loadHasManyRelations($value);
+                    $this->mapper::OWNS_ONE[$def['internal']]['mapper']::reader(db: $this->db)->loadHasManyRelationsTest([$value]);
                 }
 
                 if (empty($value)) {
@@ -872,7 +875,7 @@ final class ReadMapper extends DataMapperAbstract
 
                 // loads hasMany relations. other relations are loaded in the populateBelongsTo
                 if (\is_object($value) && isset($this->mapper::BELONGS_TO[$def['internal']]['mapper'])) {
-                    $this->mapper::BELONGS_TO[$def['internal']]['mapper']::reader(db: $this->db)->loadHasManyRelations($value);
+                    $this->mapper::BELONGS_TO[$def['internal']]['mapper']::reader(db: $this->db)->loadHasManyRelationsTest([$value]);
                 }
             } elseif (\in_array($def['type'], ['string', 'compress', 'int', 'float', 'bool'])) {
                 if ($value !== null && $def['type'] === 'compress') {
@@ -1128,7 +1131,7 @@ final class ReadMapper extends DataMapperAbstract
      *
      * @since 1.0.0
      */
-    public function loadHasManyRelations(object $obj) : void
+    public function loadHasManyRelationsOld(object $obj) : void
     {
         if (empty($this->with)) {
             return;
@@ -1169,6 +1172,16 @@ final class ReadMapper extends DataMapperAbstract
                     $objectMapper->query($query);
                 }
 
+                // @todo This right here is the problem for performing this on an array of primary keys.
+                // In case of a relation table there is no relation info available in the obj or the objects
+                // Since we don't retrieve the relation table information (we only use it in the select) we cannot assign
+                // the objects to the correct parent obj. For this reason we need to perform the loadHasManyRelations on an individual
+                // obj.
+                // Maybe we split this function in owns_one/belongs_to and hasMany. This way we could at least perform the action on an array
+                // for owns_one/belongs_to.
+                // Idea: somehow make the query->execute() return an array indexed by the key the object belongs to? This however would result
+                // not in a simple [array] but an array => array.
+                // For this we might have to create an internal function or variable called ->indexedBy(whatever_column_to_use_for_index)
                 $objects = $objectMapper->execute();
                 if (empty($objects) || (!\is_array($objects) && $objects->id === 0)) {
                     continue;
@@ -1212,9 +1225,147 @@ final class ReadMapper extends DataMapperAbstract
                     }
 
                     $refProp = $refClass->getProperty($member);
-                    $relMapper->loadHasManyRelations($refProp->getValue($obj));
+                    $relMapper->loadHasManyRelationsOld($refProp->getValue($obj));
                 } else {
-                    $relMapper->loadHasManyRelations($obj->{$member});
+                    $relMapper->loadHasManyRelationsOld($obj->{$member});
+                }
+            }
+        }
+    }
+
+    /**
+     * Fill object with relations
+     *
+     * @param object[] $objs Object to fill
+     *
+     * @return void
+     *
+     * @since 1.0.0
+     */
+    public function loadHasManyRelationsTest(array $objs) : void
+    {
+        if (empty($this->with)) {
+            return;
+        }
+
+        // @todo only accept array and then perform this work on the array here
+        // this allows us to better load data for all objects at the same time!
+
+        $primaryKeys = [];
+        foreach ($objs as $idx => $obj) {
+            $key = $this->mapper::getObjectId($obj);
+
+            if (!empty($key)) {
+                $primaryKeys[$idx] = $key;
+            }
+        }
+
+        if (empty($primaryKeys)) {
+            return;
+        }
+
+        $refClass = null;
+
+        $cachedKeys = [];
+
+        // @todo check if there are more cases where the relation is already loaded with joins etc.
+        // there can be pseudo hasMany elements like localizations. They are hasMany but these are already loaded with joins!
+        foreach ($this->with as $member => $withData) {
+            if (isset($this->mapper::HAS_MANY[$member])) {
+                $many = $this->mapper::HAS_MANY[$member];
+                if (isset($many['column'])) {
+                    continue;
+                }
+
+                $isPrivate = $withData['private'] ?? false;
+
+                $objectMapper = $this->createRelationMapper($many['mapper']::get(db: $this->db), $member);
+                if ($many['external'] === null) {
+                    $objectMapper->where($many['mapper']::COLUMNS[$many['self']]['internal'], $primaryKeys);
+                    $objectMapper->indexedBy($many['self']);
+                } else {
+                    $query = new Builder($this->db, true);
+                    $query
+                        ->selectAs($many['table'] . '.' . $many['self'], $many['self'] . '_d' . $this->depth)
+                        ->leftJoin($many['table'])
+                        ->on($many['mapper']::TABLE . '_d1.' . $many['mapper']::PRIMARYFIELD, '=', $many['table'] . '.' . $many['external'])
+                        ->where($many['table'] . '.' . $many['self'], 'IN', $primaryKeys);
+
+                    // Cannot use join, because join only works on members and we don't have members for a relation table
+                    // This is why we need to create a "base" query which contains the join on table columns
+                    $objectMapper->query($query);
+                    $objectMapper->indexedBy($many['self']);
+                }
+
+                $objects = $objectMapper->execute();
+                if (empty($objects) || !\is_array($objects)) {
+                    continue;
+                }
+
+                if ($isPrivate) {
+                    if ($refClass === null) {
+                        $refClass = new \ReflectionClass($obj);
+                    }
+
+                    foreach ($primaryKeys as $idx => $key) {
+                        if (!isset($objects[$key])) {
+                            continue;
+                        }
+
+                        $refProp = $refClass->getProperty($member);
+                        $refProp->setValue($objs[$idx], !\is_array($objects[$key]) && ($many['conditional'] ?? false) === false
+                            ? [$many['mapper']::getObjectId($objects[$key]) => $objects[$key]]
+                            : $objects[$key] // if conditional === true the obj will be assigned (e.g. hasMany localizations but only one is loaded for the model)
+                        );
+                    }
+                } else {
+                    foreach ($primaryKeys as $idx => $key) {
+                        if (!isset($objects[$key])) {
+                            continue;
+                        }
+
+                        $objs[$idx]->{$member} = !\is_array($objects[$key]) && ($many['conditional'] ?? false) === false
+                            ? [$many['mapper']::getObjectId($objects[$key]) => $objects[$key]]
+                            : $objects[$key]; // if conditional === true the obj will be assigned (e.g. hasMany localizations but only one is loaded for the model)
+                    }
+                }
+
+                continue;
+            } elseif (isset($this->mapper::OWNS_ONE[$member])
+                || isset($this->mapper::BELONGS_TO[$member])
+            ) {
+                $relation = isset($this->mapper::OWNS_ONE[$member])
+                    ? $this->mapper::OWNS_ONE[$member]
+                    : $this->mapper::BELONGS_TO[$member];
+
+                if (\count($withData) < 2) {
+                    continue;
+                }
+
+                /** @var ReadMapper $relMapper */
+                $relMapper = $this->createRelationMapper($relation['mapper']::reader($this->db), $member);
+
+                $isPrivate = $withData['private'] ?? false;
+                if ($isPrivate) {
+                    if ($refClass === null) {
+                        $refClass = new \ReflectionClass($obj);
+                    }
+
+                    $refProp = $refClass->getProperty($member);
+
+                    $tempObjs = [];
+                    foreach ($objs as $obj) {
+                        $tempObjs[] = $refProp->getValue($obj);
+                    }
+
+                    $relMapper->loadHasManyRelationsTest($tempObjs);
+                } else {
+                    $tempObjs = [];
+                    foreach ($objs as $obj) {
+                        $tempObjs[] = $obj->{$member};
+                    }
+
+                    $relMapper->loadHasManyRelationsTest($tempObjs);
                 }
             }
         }

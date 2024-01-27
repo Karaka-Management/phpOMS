@@ -143,6 +143,15 @@ abstract class DataMapperAbstract
         $this->db     = $db;
     }
 
+    protected string $indexedBy = '';
+
+    public function indexedBy(string $index) : self
+    {
+        $this->indexedBy = $index;
+
+        return $this;
+    }
+
     /**
      * Define a query which is merged with the internal query generation.
      *
