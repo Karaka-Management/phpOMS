@@ -322,7 +322,7 @@ trait ISO3166Trait
             case 'g8':
                 return [
                     self::_USA, self::_GBR, self::_FRA, self::_DEU, self::_ITA,
-                    self::_CAN, self::_RUS, self::_JAP,
+                    self::_CAN, self::_RUS, self::_JPN,
                 ];
             case 'p5':
                 return [

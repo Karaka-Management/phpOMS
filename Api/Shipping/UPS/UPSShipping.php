@@ -150,7 +150,6 @@ final class UPSShipping implements ShippingInterface
     /**
      * Refresh token expiration.
      *
-     * @var \DateTime
      * @since 1.0.0
      */
     public function __construct()
@@ -179,7 +178,11 @@ final class UPSShipping implements ShippingInterface
         $request->setMethod(RequestMethod::POST);
         $request->setData('grant_type', 'client_credentials');
         $request->header->set('Content-Type', MimeType::M_POST);
-        $request->header->set('x-merchant-id', $client);
+
+        if ($client !== null) {
+            $request->header->set('x-merchant-id', $client);
+        }
+
         $request->header->set('Authorization', 'Basic ' . \base64_encode($login . ':' . $password));
 
         $this->expire = new \DateTime('now');
@@ -198,7 +201,7 @@ final class UPSShipping implements ShippingInterface
                 $status = AuthStatus::LIMIT_EXCEEDED;
                 break;
             case 200:
-                $this->token = $response->getData('access_token') ?? '';
+                $this->token = $response->getDataString('access_token') ?? '';
                 $this->expire->setTimestamp($this->expire->getTimestamp() + ((int) $response->getData('expires_in')));
 
                 $status = AuthStatus::OK;
@@ -276,8 +279,8 @@ final class UPSShipping implements ShippingInterface
                 $status = AuthStatus::LIMIT_EXCEEDED;
                 break;
             case 200:
-                $this->token        = $response->getData('access_token') ?? '';
-                $this->refreshToken = $response->getData('refresh_token') ?? '';
+                $this->token        = $response->getDataString('access_token') ?? '';
+                $this->refreshToken = $response->getDataString('refresh_token') ?? '';
 
                 $this->expire->setTimestamp($this->expire->getTimestamp() + ((int) $response->getData('expires_in')));
                 $this->refreshExpire->setTimestamp($this->refreshExpire->getTimestamp() + ((int) $response->getData('refresh_token_expires_in')));
@@ -330,8 +333,8 @@ final class UPSShipping implements ShippingInterface
                 $status = AuthStatus::LIMIT_EXCEEDED;
                 break;
             case 200:
-                $this->token        = $response->getData('access_token') ?? '';
-                $this->refreshToken = $response->getData('refresh_token') ?? '';
+                $this->token        = $response->getDataString('access_token') ?? '';
+                $this->refreshToken = $response->getDataString('refresh_token') ?? '';
 
                 $this->expire->setTimestamp($this->expire->getTimestamp() + ((int) $response->getData('expires_in')));
                 $this->refreshExpire->setTimestamp($this->refreshExpire->getTimestamp() + ((int) $response->getData('refresh_token_expires_in')));
@@ -398,7 +401,7 @@ final class UPSShipping implements ShippingInterface
             return [];
         }
 
-        $services = $response->getDataArray('services');
+        $services = $response->getDataArray('services') ?? [];
         $transits = [];
 
         foreach ($services as $service) {
@@ -665,7 +668,7 @@ final class UPSShipping implements ShippingInterface
             return false;
         }
 
-        return ($response->getData('VoidShipmentResponse')['Response']['ResponseStatus']['Code'] ?? '0') === '1';
+        return ($response->getDataArray('VoidShipmentResponse')['Response']['ResponseStatus']['Code'] ?? '0') === '1';
     }
 
     /**

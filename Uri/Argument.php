@@ -119,7 +119,7 @@ final class Argument implements UriInterface
     /**
      * Uri query.
      *
-     * @var array<int, string>
+     * @var array<int|string, null|string>
      * @since 1.0.0
      */
     private array $query = [];

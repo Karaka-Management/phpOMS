@@ -507,7 +507,7 @@ final class DHLParcelDEShipping implements ShippingInterface
 
         $httpUri = new HttpUri($uri);
         $httpUri->addQuery('trackingnumber', $shipment);
-        $httpUri->addQuery('limit', 10);
+        $httpUri->addQuery('limit', '10');
 
         // @todo implement: express, parcel-de, ecommerce, dgf, parcel-uk, post-de, sameday, freight, parcel-nl, parcel-pl, dsc, ecommerce-europe, svb
         //$httpUri->addQuery('service', '');

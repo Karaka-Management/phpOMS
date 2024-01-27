@@ -46,10 +46,10 @@ interface ShippingInterface
     /**
      * Create request for authentication using login and password
      *
-     * @param string $login    Login name/email
-     * @param string $password Password
-     * @param string $client   Client id
-     * @param array  $payload  Other payload data
+     * @param string      $login    Login name/email
+     * @param string      $password Password
+     * @param null|string $client   Client id
+     * @param null|string $payload  Other payload data
      *
      * @return int Returns auth status
      *

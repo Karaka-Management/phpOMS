@@ -251,9 +251,11 @@ abstract class RequestAbstract implements MessageInterface
     {
         $key = \mb_strtolower($key);
 
-        return empty($this->data[$key] ?? null)
+        $timestamp = empty($this->data[$key] ?? null)
             ? null
-            : \strtotime((string) $this->data[$key]);
+            : (int) \strtotime((string) $this->data[$key]);
+
+        return $timestamp === false ? null : $timestamp;
     }
 
     /**

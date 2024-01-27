@@ -213,7 +213,7 @@ final class DHLInternationalShipping implements ShippingInterface
                 $status = AuthStatus::LIMIT_EXCEEDED;
                 break;
             case 200:
-                $this->token = $response->getData('access_token') ?? '';
+                $this->token = $response->getDataString('access_token') ?? '';
                 $this->expire->setTimestamp($this->expire->getTimestamp() + ((int) $response->getData('expires_in')));
 
                 $status = AuthStatus::OK;
@@ -275,6 +275,7 @@ final class DHLInternationalShipping implements ShippingInterface
         array $data
     ) : array
     {
+        return [];
     }
 
     /**
@@ -282,6 +283,7 @@ final class DHLInternationalShipping implements ShippingInterface
      */
     public function cancel(string $shipment, array $packages = []) : bool
     {
+        return false;
     }
 
     /**
@@ -294,7 +296,7 @@ final class DHLInternationalShipping implements ShippingInterface
 
         $httpUri = new HttpUri($uri);
         $httpUri->addQuery('trackingnumber', $shipment);
-        $httpUri->addQuery('limit', 10);
+        $httpUri->addQuery('limit', '10');
 
         // @todo implement: express, parcel-de, ecommerce, dgf, parcel-uk, post-de, sameday, freight, parcel-nl, parcel-pl, dsc, ecommerce-europe, svb
         //$httpUri->addQuery('service', '');

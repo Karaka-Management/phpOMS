@@ -173,7 +173,7 @@ interface UriInterface
     /**
      * Get query array.
      *
-     * @return string[]
+     * @return array<int|string, null|string>
      *
      * @since 1.0.0
      */

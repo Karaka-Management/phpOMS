@@ -45,7 +45,7 @@ class Schedule extends TaskAbstract
          */
         $job = new self($jobData[1], $jobData[8], $jobData[7]);
 
-        $job->setStatus((int) $jobData[3]);
+        $job->status = (int) $jobData[3];
 
         if (DateTime::isValid($jobData[2])) {
             $job->setNextRunTime(new \DateTime($jobData[2]));

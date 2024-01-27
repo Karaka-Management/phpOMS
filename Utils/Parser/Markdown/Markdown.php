@@ -530,9 +530,9 @@ class Markdown
             $this->blockTypes['['][] = 'Checkbox';
         }
 
-        // Embeding
-        if ($this->options['embeding'] ?? false) {
-            $this->inlineTypes['['][] = 'Embeding';
+        // Embedding
+        if ($this->options['embedding'] ?? false) {
+            $this->inlineTypes['['][] = 'Embedding';
         }
 
         // Map
@@ -649,19 +649,17 @@ class Markdown
      */
     public function contentsList($typeReturn = 'html') : string
     {
-        if (\strtolower($typeReturn) === 'html') {
-            $result = '';
-            if (!empty($this->contentsListString)) {
-                // Parses the ToC list in markdown to HTML
-                $result = $this->body($this->contentsListString);
-            }
-
-            return $result;
-        } elseif (\strtolower($typeReturn) === 'json') {
+        if (\strtolower($typeReturn) === 'json') {
             return \json_encode($this->contentsListArray);
         }
 
-        return $this->contentsList('html');
+        $result = '';
+        if (!empty($this->contentsListString)) {
+            // Parses the ToC list in markdown to HTML
+            $result = $this->body($this->contentsListString);
+        }
+
+        return $result;
     }
 
     /**
@@ -1323,7 +1321,7 @@ class Markdown
     }
 
     /**
-     * Handle embeding
+     * Handle embedding
      *
      * @param array{text:string, context:string, before:string} $excerpt Inline data
      *
@@ -1331,9 +1329,9 @@ class Markdown
      *
      * @since 1.0.0
      */
-    protected function inlineEmbeding(array $excerpt) : ?array
+    protected function inlineEmbedding(array $excerpt) : ?array
     {
-        if (!($this->options['embeding'] ?? false)
+        if (!($this->options['embedding'] ?? false)
             || !(\str_starts_with($excerpt['text'], '[video') || \str_starts_with($excerpt['text'], '[audio'))
             || (!($video = (\preg_match('/\[video.*src="([^"]*)".*\]/', $excerpt['text'], $matches) === 1))
                 && !($audio = (\preg_match('/\[audio.*src="([^"]*)".*\]/', $excerpt['text'], $matches) === 1)))
@@ -1785,7 +1783,7 @@ class Markdown
 
         $state = $this->options['math'] ?? false;
         if (!$state
-            || ($state && !\preg_match('/^(?<!\\\\)(?<!\\\\\()\\\\\((.{2,}?)(?<!\\\\\()\\\\\)(?!\\\\\))/s', $excerpt['text']))
+            || !\preg_match('/^(?<!\\\\)(?<!\\\\\()\\\\\((.{2,}?)(?<!\\\\\()\\\\\)(?!\\\\\))/s', $excerpt['text'])
         ) {
             return [
                 'extent'  => 2,
@@ -1882,14 +1880,12 @@ class Markdown
             return null;
         }
 
-        $text = \substr($line['body'], 4);
-
         return [
             'element' => [
                 'name'    => 'pre',
                 'element' => [
                     'name' => 'code',
-                    'text' => $text,
+                    'text' => \substr($line['body'], 4),
                 ],
             ],
         ];
@@ -3176,22 +3172,19 @@ class Markdown
             $this->initBlacklist();
         }
 
-        $this->anchorDuplicates[$str] = isset($this->anchorDuplicates[$str]) ? ++$this->anchorDuplicates[$str] : 0;
+        do {
+            $this->anchorDuplicates[$str] = isset($this->anchorDuplicates[$str]) ? ++$this->anchorDuplicates[$str] : 0;
 
-        $newStr = $str;
+            $newStr = $str;
 
-        if (($count = $this->anchorDuplicates[$str]) === 0) {
-            return $newStr;
-        }
+            if (($count = $this->anchorDuplicates[$str]) === 0) {
+                return $newStr;
+            }
 
-        $newStr .= '-' . $count;
+            $newStr .= '-' . $count;
+        } while(isset($this->anchorDuplicates[$newStr]));
 
-        // increment until conversion doesn't produce new duplicates anymore
-        if (isset($this->anchorDuplicates[$newStr])) {
-            $newStr = $this->incrementAnchorId($str);
-        } else {
-            $this->anchorDuplicates[$newStr] = 0;
-        }
+        $this->anchorDuplicates[$newStr] = 0;
 
         return $newStr;
     }
@@ -4475,7 +4468,7 @@ class Markdown
     }
 
     /**
-     * Handle element recursiveley
+     * Handle element recursively
      *
      * @param string|\Closure $closure Closure for handling element
      * @param array           $element Element to handle
@@ -4500,7 +4493,7 @@ class Markdown
     }
 
     /**
-     * Handle element recursiveley
+     * Handle element recursively
      *
      * @param string|\Closure $closure Closure for handling element
      * @param array           $element Element to handle
@@ -4536,7 +4529,7 @@ class Markdown
     protected function element(array $element) : string
     {
         if ($this->safeMode) {
-            $element = $this->sanitiseElement($element);
+            $element = $this->sanitizeElement($element);
         }
 
         // identity map if element has no handler
@@ -4691,7 +4684,7 @@ class Markdown
      *
      * @since 1.0.0
      */
-    protected function sanitiseElement(array $element) : array
+    protected function sanitizeElement(array $element) : array
     {
         static $goodAttribute    = '/^[a-zA-Z0-9][a-zA-Z0-9-_]*+$/';
         static $safeUrlNameToAtt = [

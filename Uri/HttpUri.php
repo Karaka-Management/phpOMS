@@ -121,7 +121,7 @@ final class HttpUri implements UriInterface
     /**
      * Uri query.
      *
-     * @var array<string, string>
+     * @var array<int|string, null|string>
      * @since 1.0.0
      */
     private array $query = [];
@@ -386,14 +386,14 @@ final class HttpUri implements UriInterface
     /**
      * Add query parameter
      *
-     * @param string $key   Parameter key
-     * @param mixed  $value Value (null = omitted)
+     * @param string      $key   Parameter key
+     * @param null|string $value Value (null = omitted)
      *
      * @return void
      *
      * @since 1.0.0
      */
-    public function addQuery(string $key, mixed $value = null) : void
+    public function addQuery(string $key, ?string $value = null) : void
     {
         $key               = \strtolower($key);
         $this->query[$key] = $value;

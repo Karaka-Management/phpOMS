@@ -249,7 +249,7 @@ class BinarySearchTree
 
         $temp = null;
         if ($node->left === null) {
-            $temp = $node->right->root;
+            $temp = $node->right?->root;
             if ($temp === null) {
                 return;
             }
