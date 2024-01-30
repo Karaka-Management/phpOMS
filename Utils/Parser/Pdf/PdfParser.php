@@ -55,6 +55,20 @@ final class PdfParser
     }
 
     /**
+     * Html to string
+     *
+     * @param string $path Path
+     *
+     * @return string
+     *
+     * @since 1.0.0
+     */
+    public static function parsePdf(string $path, string $output = 'html') : string
+    {
+        return self::pdf2text($path);
+    }
+
+    /**
      * Pdf to text
      *
      * @param string $path Pdf path
@@ -73,6 +87,8 @@ final class PdfParser
             return '';
         }
 
+        // Try to read pdf directly
+        // Important: not all PDFs are searchable, some behave like an image
         if (\is_file(self::$pdftotext)) {
             try {
                 SystemUtils::runProc(
@@ -98,6 +114,7 @@ final class PdfParser
             return $text;
         }
 
+        // Couldn't read text from pdf -> transform to image and run OCR on image
         $out = \tempnam($tmpDir, 'oms_pdf_');
         if ($out === false) {
             return '';

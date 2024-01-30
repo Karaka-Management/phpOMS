@@ -58,6 +58,23 @@ final class DocumentParser
             $writer = new DocumentWriter($doc);
 
             return $writer->toPdfString();
+        } elseif ($output === 'txt') {
+            $writer = new HTML($doc);
+            $html   = $writer->getContent();
+
+            $doc  = new \DOMDocument();
+            $html = \preg_replace(
+                ['~<style.*?</style>~', '~<script.*?</script>~'],
+                ['', ''],
+                $html
+            );
+
+            $doc->loadHTMLFile($path);
+
+            $body = $doc->getElementsByTagName('body');
+            $node = $body->item(0);
+
+            return empty($node->textContent) ? '' : $node->textContent;
         }
 
         return '';

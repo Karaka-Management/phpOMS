@@ -77,6 +77,26 @@ final class SpreadsheetParser
             $writer = IOFactory::createWriter($spreadsheet, 'custom');
 
             return $writer->generateHtmlAll();
+        } elseif ($output === 'txt') {
+            IOFactory::registerWriter('custom', \phpOMS\Utils\Parser\Spreadsheet\SpreadsheetWriter::class);
+
+            /** @var \phpOMS\Utils\Parser\Spreadsheet\SpreadsheetWriter $writer */
+            $writer = IOFactory::createWriter($spreadsheet, 'custom');
+            $html   =  $writer->generateHtmlAll();
+
+            $doc  = new \DOMDocument();
+            $html = \preg_replace(
+                ['~<style.*?</style>~', '~<script.*?</script>~'],
+                ['', ''],
+                $html
+            );
+
+            $doc->loadHTMLFile($path);
+
+            $body = $doc->getElementsByTagName('body');
+            $node = $body->item(0);
+
+            return empty($node->textContent) ? '' : $node->textContent;
         }
 
         return '';

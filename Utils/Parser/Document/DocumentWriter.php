@@ -14,8 +14,6 @@ declare(strict_types=1);
 
 namespace phpOMS\Utils\Parser\Document;
 
-use PhpOffice\PhpWord\PhpWord;
-use PhpOffice\PhpWord\Settings;
 use PhpOffice\PhpWord\Writer\PDF\AbstractRenderer;
 use PhpOffice\PhpWord\Writer\WriterInterface;
 

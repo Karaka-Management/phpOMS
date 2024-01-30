@@ -55,6 +55,24 @@ final class PresentationParser
             $oTree = new PresentationWriter($presentation);
 
             return $oTree->renderHtml();
+        } elseif ($output === 'txt') {
+            $presentation = IOFactory::load($path);
+            $oTree        = new PresentationWriter($presentation);
+            $html         = $oTree->renderHtml();
+
+            $doc  = new \DOMDocument();
+            $html = \preg_replace(
+                ['~<style.*?</style>~', '~<script.*?</script>~'],
+                ['', ''],
+                $html
+            );
+
+            $doc->loadHTMLFile($path);
+
+            $body = $doc->getElementsByTagName('body');
+            $node = $body->item(0);
+
+            return empty($node->textContent) ? '' : $node->textContent;
         }
 
         return '';
