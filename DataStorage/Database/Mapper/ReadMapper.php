@@ -260,36 +260,28 @@ final class ReadMapper extends DataMapperAbstract
      */
     public function executeGet(?Builder $query = null) : mixed
     {
-        $primaryKeys          = [];
-        $memberOfPrimaryField = $this->mapper::COLUMNS[$this->mapper::PRIMARYFIELD]['internal'];
-
-        if (isset($this->where[$memberOfPrimaryField])) {
-            $keys        = $this->where[$memberOfPrimaryField][0]['value'];
-            $primaryKeys = \array_merge(\is_array($keys) ? $keys : [$keys], $primaryKeys);
-        }
-
         // Get initialized objects from memory cache.
         $objs = [];
         $indexed = [];
 
-        // Get remaining objects (not available in memory cache) or remaining where clauses.
-        //$dbData = $this->executeGetRaw($query);
+        $hasFactory = $this->mapper::hasFactory();
+        $baseClass  = $hasFactory ? null : $this->mapper::getBaseModelClass();
 
         foreach ($this->executeGetRawYield($query) as $row) {
             if ($row === []) {
                 continue;
             }
 
-            $value       = $row[$this->mapper::PRIMARYFIELD . '_d' . $this->depth];
-            $objs[$value] = $this->mapper::createBaseModel($row);
+            $value        = $row[$this->mapper::PRIMARYFIELD . '_d' . $this->depth . $this->joinAlias];
+            $objs[$value] = $hasFactory ? $this->mapper::createBaseModel($row) : new $baseClass();
             $objs[$value] = $this->populateAbstract($row, $objs[$value]);
 
-            if (!empty($this->indexedBy) && isset($row[$this->indexedBy . '_d' . $this->depth])) {
-                if (!isset($indexed[$row[$this->indexedBy . '_d' . $this->depth]])) {
-                    $indexed[$row[$this->indexedBy . '_d' . $this->depth]] = [];
+            if (!empty($this->indexedBy) && isset($row[$this->indexedBy . '_d' . $this->depth . $this->joinAlias])) {
+                if (!isset($indexed[$row[$this->indexedBy . '_d' . $this->depth . $this->joinAlias]])) {
+                    $indexed[$row[$this->indexedBy . '_d' . $this->depth . $this->joinAlias]] = [];
                 }
 
-                $indexed[$row[$this->indexedBy . '_d' . $this->depth]][] = $objs[$value];
+                $indexed[$row[$this->indexedBy . '_d' . $this->depth . $this->joinAlias]][] = $objs[$value];
             }
         }
 
@@ -322,14 +314,6 @@ final class ReadMapper extends DataMapperAbstract
      */
     public function executeGetYield(?Builder $query = null)
     {
-        $primaryKeys          = [];
-        $memberOfPrimaryField = $this->mapper::COLUMNS[$this->mapper::PRIMARYFIELD]['internal'];
-
-        if (isset($this->where[$memberOfPrimaryField])) {
-            $keys        = $this->where[$memberOfPrimaryField][0]['value'];
-            $primaryKeys = \array_merge(\is_array($keys) ? $keys : [$keys], $primaryKeys);
-        }
-
         foreach ($this->executeGetRawYield($query) as $row) {
             $obj = $this->mapper::createBaseModel($row);
             $obj = $this->populateAbstract($row, $obj);
@@ -545,31 +529,30 @@ final class ReadMapper extends DataMapperAbstract
         $query ??= $this->query ?? new Builder($this->db, true);
 
         if (empty($columns) && $this->type < MapperType::COUNT_MODELS) {
-            if (empty($this->columns)) {
-                $columns = $this->mapper::COLUMNS;
-            } else {
-                $columns = $this->columns;
-            }
+            $columns = empty($this->columns) ? $this->mapper::COLUMNS : $this->columns;
         }
 
         foreach ($columns as $key => $values) {
-            if (\is_string($values) || \is_int($values)) {
-                if (\is_int($key)) {
-                    $query->select($values);
-                } else {
-                    $query->selectAs($key, $values);
-                }
-            } elseif (($values['writeonly'] ?? false) === false || isset($this->with[$values['internal']])) {
+            if (\is_array($values)
+                && (($values['writeonly'] ?? false) === false || isset($this->with[$values['internal']]))
+            ) {
                 if (\is_int($key)) {
                     $query->select($key);
                 } else {
-                    $query->selectAs($this->mapper::TABLE . '_d' . $this->depth . '.' . $key, $key . '_d' . $this->depth);
+                    $query->selectAs(
+                        $this->mapper::TABLE . '_d' . $this->depth . $this->joinAlias . '.' . $key,
+                        $key . '_d' . $this->depth . $this->joinAlias
+                    );
                 }
+            } elseif (\is_int($values)) {
+                $query->select($values);
+            } elseif (\is_string($values)) {
+                $query->selectAs($key, $values);
             }
         }
 
         if (empty($query->from)) {
-            $query->fromAs($this->mapper::TABLE, $this->mapper::TABLE . '_d' . $this->depth);
+            $query->fromAs($this->mapper::TABLE, $this->mapper::TABLE . '_d' . $this->depth . $this->joinAlias);
         }
 
         // Join tables manually without using "with()" (NOT hasMany/owns one etc.)
@@ -592,29 +575,29 @@ final class ReadMapper extends DataMapperAbstract
                 if (isset($join['mapper']::HAS_MANY[$join['value']])) {
                     if (isset($join['mapper']::HAS_MANY[$join['value']]['external'])) {
                         // join with relation table
-                        $query->join($join['mapper']::HAS_MANY[$join['value']]['table'], $join['type'], $join['mapper']::HAS_MANY[$join['value']]['table'] . '_d' . ($this->depth + 1))
+                        $query->join($join['mapper']::HAS_MANY[$join['value']]['table'], $join['type'], $join['mapper']::HAS_MANY[$join['value']]['table'] . '_d' . ($this->depth + 1) . $this->joinAlias)
                             ->on(
-                                $this->mapper::TABLE . '_d' . $this->depth . '.' . $col,
+                                $this->mapper::TABLE . '_d' . $this->depth . $this->joinAlias . '.' . $col,
                                 '=',
-                                $join['mapper']::HAS_MANY[$join['value']]['table'] . '_d' . ($this->depth + 1) . '.' . $join['mapper']::HAS_MANY[$join['value']]['external'],
+                                $join['mapper']::HAS_MANY[$join['value']]['table'] . '_d' . ($this->depth + 1) . $this->joinAlias . '.' . $join['mapper']::HAS_MANY[$join['value']]['external'],
                                 'AND',
-                                $join['mapper']::HAS_MANY[$join['value']]['table'] . '_d' . ($this->depth + 1)
+                                $join['mapper']::HAS_MANY[$join['value']]['table'] . '_d' . ($this->depth + 1) . $this->joinAlias
                             );
 
                         // join with model table
-                        $query->join($join['mapper']::TABLE, $join['type'], $join['mapper']::TABLE . '_d' . ($this->depth + 1))
+                        $query->join($join['mapper']::TABLE, $join['type'], $join['mapper']::TABLE . '_d' . ($this->depth + 1) . $this->joinAlias)
                             ->on(
-                                $join['mapper']::HAS_MANY[$join['value']]['table'] . '_d' . ($this->depth + 1) . '.' . $join['mapper']::HAS_MANY[$join['value']]['self'],
+                                $join['mapper']::HAS_MANY[$join['value']]['table'] . '_d' . ($this->depth + 1) . $this->joinAlias . '.' . $join['mapper']::HAS_MANY[$join['value']]['self'],
                                 '=',
-                                $join['mapper']::TABLE . '_d' . ($this->depth + 1) . '.' . $join['mapper']::PRIMARYFIELD,
+                                $join['mapper']::TABLE . '_d' . ($this->depth + 1) . $this->joinAlias . '.' . $join['mapper']::PRIMARYFIELD,
                                 'AND',
-                                $join['mapper']::TABLE . '_d' . ($this->depth + 1)
+                                $join['mapper']::TABLE . '_d' . ($this->depth + 1) . $this->joinAlias
                             );
 
                         if (isset($this->on[$join['value']])) {
                             foreach ($this->on[$join['value']] as $on) {
                                 $query->where(
-                                    $join['mapper']::TABLE . '_d' . ($this->depth + 1) . '.' . $join['mapper']::getColumnByMember($on['member']),
+                                    $join['mapper']::TABLE . '_d' . ($this->depth + 1) . $this->joinAlias . '.' . $join['mapper']::getColumnByMember($on['member']),
                                     '=',
                                     $on['value'],
                                     'AND'
@@ -623,13 +606,13 @@ final class ReadMapper extends DataMapperAbstract
                         }
                     }
                 } else {
-                    $query->join($join['mapper']::TABLE, $join['type'], $join['mapper']::TABLE . '_d' . ($this->depth + 1))
+                    $query->join($join['mapper']::TABLE, $join['type'], $join['mapper']::TABLE . '_d' . ($this->depth + 1) . $this->joinAlias)
                         ->on(
-                            $this->mapper::TABLE . '_d' . $this->depth . '.' . $col,
+                            $this->mapper::TABLE . '_d' . $this->depth . $this->joinAlias . '.' . $col,
                             '=',
-                            $join['mapper']::TABLE . '_d' . ($this->depth + 1) . '.' . $join['mapper']::getColumnByMember($join['value']),
+                            $join['mapper']::TABLE . '_d' . ($this->depth + 1) . $this->joinAlias . '.' . $join['mapper']::getColumnByMember($join['value']),
                             'AND',
-                            $join['mapper']::TABLE . '_d' . ($this->depth + 1)
+                            $join['mapper']::TABLE . '_d' . ($this->depth + 1) . $this->joinAlias
                         );
                 }
             }
@@ -682,21 +665,21 @@ final class ReadMapper extends DataMapperAbstract
                             )
                     */
                     $where1 = new Where($this->db);
-                    $where1->where($this->mapper::TABLE . '_d' . $this->depth . '.' . $col, $comparison, $where['value'], 'and');
+                    $where1->where($this->mapper::TABLE . '_d' . $this->depth . $this->joinAlias . '.' . $col, $comparison, $where['value'], 'and');
 
                     $where2 = new Builder($this->db);
                     $where2->select(1)
-                        ->from($this->mapper::TABLE . '_d' . $this->depth)
-                        ->where($this->mapper::TABLE . '_d' . $this->depth . '.' . $col, 'in', $alt);
+                        ->from($this->mapper::TABLE . '_d' . $this->depth . $this->joinAlias)
+                        ->where($this->mapper::TABLE . '_d' . $this->depth . $this->joinAlias . '.' . $col, 'in', $alt);
 
-                    $where1->where($this->mapper::TABLE . '_d' . $this->depth . '.' . $col, 'not exists', $where2, 'and');
+                    $where1->where($this->mapper::TABLE . '_d' . $this->depth . $this->joinAlias . '.' . $col, 'not exists', $where2, 'and');
 
-                    $query->where($this->mapper::TABLE . '_d' . $this->depth . '.' . $col, $comparison, $where1, 'or');
+                    $query->where($this->mapper::TABLE . '_d' . $this->depth . $this->joinAlias . '.' . $col, $comparison, $where1, 'or');
 
                     $alt[] = $where['value'];
                 } else {
                     $previous = $where;
-                    $query->where($this->mapper::TABLE . '_d' . $this->depth . '.' . $col, $comparison, $where['value'], $where['comparison']);
+                    $query->where($this->mapper::TABLE . '_d' . $this->depth . $this->joinAlias . '.' . $col, $comparison, $where['value'], $where['comparison']);
                 }
             }
         }
@@ -707,7 +690,11 @@ final class ReadMapper extends DataMapperAbstract
             if ((isset($this->mapper::OWNS_ONE[$member]) || isset($this->mapper::BELONGS_TO[$member]))
                 || (!isset($this->mapper::HAS_MANY[$member]['external']) && isset($this->mapper::HAS_MANY[$member]['column']))
             ) {
-                $rel = $this->mapper::OWNS_ONE[$member] ?? ($this->mapper::BELONGS_TO[$member] ?? ($this->mapper::HAS_MANY[$member] ?? null));
+                $rel = $this->mapper::OWNS_ONE[$member] ?? (
+                        $this->mapper::BELONGS_TO[$member] ?? (
+                            $this->mapper::HAS_MANY[$member] ?? null
+                        )
+                    );
             } else {
                 continue;
             }
@@ -718,25 +705,27 @@ final class ReadMapper extends DataMapperAbstract
                 }
 
                 if (isset($this->mapper::OWNS_ONE[$member]) || isset($this->mapper::BELONGS_TO[$member])) {
-                    $query->leftJoin($rel['mapper']::TABLE, $rel['mapper']::TABLE . '_d' . ($this->depth + 1))
+                    $tableAlias = $rel['mapper']::TABLE . '_d' . ($this->depth + 1) . '_' . $member;
+                    $query->leftJoin($rel['mapper']::TABLE, $tableAlias)
                         ->on(
-                            $this->mapper::TABLE . '_d' . $this->depth . '.' . $rel['external'], '=',
-                            $rel['mapper']::TABLE . '_d' . ($this->depth + 1) . '.' . (
+                            $this->mapper::TABLE . '_d' . $this->depth . $this->joinAlias . '.' . $rel['external'], '=',
+                            $tableAlias . '.' . (
                                 isset($rel['by']) ? $rel['mapper']::getColumnByMember($rel['by']) : $rel['mapper']::PRIMARYFIELD
                             ), 'and',
-                            $rel['mapper']::TABLE . '_d' . ($this->depth + 1)
+                            $tableAlias
                         );
                 } elseif (!isset($this->mapper::HAS_MANY[$member]['external']) && isset($this->mapper::HAS_MANY[$member]['column'])) {
                     // get HasManyQuery (but only for elements which have a 'column' defined)
+                    $tableAlias = $rel['mapper']::TABLE . '_d' . ($this->depth + 1) . '_' . $member;
 
                     // @todo handle self and self === null
-                    $query->leftJoin($rel['mapper']::TABLE, $rel['mapper']::TABLE . '_d' . ($this->depth + 1))
+                    $query->leftJoin($rel['mapper']::TABLE, $tableAlias)
                         ->on(
-                            $this->mapper::TABLE . '_d' . $this->depth . '.' . ($rel['external'] ?? $this->mapper::PRIMARYFIELD), '=',
-                            $rel['mapper']::TABLE . '_d' . ($this->depth + 1) . '.' . (
+                            $this->mapper::TABLE . '_d' . $this->depth . $this->joinAlias . '.' . ($rel['external'] ?? $this->mapper::PRIMARYFIELD), '=',
+                            $tableAlias . '.' . (
                                 isset($rel['by']) ? $rel['mapper']::getColumnByMember($rel['by']) : $rel['self']
                             ), 'and',
-                            $rel['mapper']::TABLE . '_d' . ($this->depth + 1)
+                            $tableAlias
                         );
                 }
 
@@ -744,7 +733,9 @@ final class ReadMapper extends DataMapperAbstract
                 $relMapper        = $this->createRelationMapper($rel['mapper']::reader(db: $this->db), $member);
                 $relMapper->depth = $this->depth + 1;
                 $relMapper->type  = $this->type;
+                $relMapper->joinAlias = '_' . $member;
 
+                // Here we go further into the depth of the model (e.g. a hasMany/ownsOne can again have ownsOne...)
                 $query = $relMapper->getQuery(
                     $query,
                     isset($rel['column']) ? [$rel['mapper']::getColumnByMember($rel['column']) => []] : []
@@ -763,7 +754,7 @@ final class ReadMapper extends DataMapperAbstract
                     continue;
                 }
 
-                $query->orderBy($this->mapper::TABLE . '_d' . $this->depth . '.' . $column, $sort['order']);
+                $query->orderBy($this->mapper::TABLE . '_d' . $this->depth . $this->joinAlias . '.' . $column, $sort['order']);
 
                 break; // there is only one root element (one element with child === '')
                 // @todo Is this true? sort can have multiple sort components!!!
@@ -803,8 +794,7 @@ final class ReadMapper extends DataMapperAbstract
         $refClass = null;
 
         foreach ($this->mapper::COLUMNS as $column => $def) {
-            $alias = $column . '_d' . $this->depth;
-
+            $alias = $column . '_d' . $this->depth . $this->joinAlias;
             if (!\array_key_exists($alias, $result)) {
                 continue;
             }
@@ -925,7 +915,7 @@ final class ReadMapper extends DataMapperAbstract
             }
 
             $column = $def['mapper']::getColumnByMember($def['column'] ?? $member);
-            $alias  = $column . '_d' . ($this->depth + 1);
+            $alias  = $column . '_d' . ($this->depth + 1) . '_' . $member;
 
             if (!\array_key_exists($alias, $result)) {
                 continue;
@@ -1018,9 +1008,6 @@ final class ReadMapper extends DataMapperAbstract
      *
      * @return mixed
      *
-     * @todo in the future we could pass not only the $id ref but all of the data as a join!!! and save an additional select!!!
-     * @todo parent and child elements however must be loaded because they are not loaded
-     *
      * @since 1.0.0
      */
     public function populateOwnsOne(string $member, array $result, mixed $default = null) : mixed
@@ -1029,26 +1016,27 @@ final class ReadMapper extends DataMapperAbstract
         $mapper = $this->mapper::OWNS_ONE[$member]['mapper'];
 
         if (!isset($this->with[$member])) {
-            if (\array_key_exists($this->mapper::OWNS_ONE[$member]['external'] . '_d' . ($this->depth), $result)) {
+            if (\array_key_exists($this->mapper::OWNS_ONE[$member]['external'] . '_d' . $this->depth . $this->joinAlias, $result)) {
                 return isset($this->mapper::OWNS_ONE[$member]['column'])
-                    ? $result[$this->mapper::OWNS_ONE[$member]['external'] . '_d' . ($this->depth)]
-                    : $mapper::createNullModel($result[$this->mapper::OWNS_ONE[$member]['external'] . '_d' . ($this->depth)]);
+                    ? $result[$this->mapper::OWNS_ONE[$member]['external'] . '_d' . $this->depth . $this->joinAlias]
+                    : $mapper::createNullModel($result[$this->mapper::OWNS_ONE[$member]['external'] . '_d' . $this->depth . $this->joinAlias]);
             } else {
                 return $default;
             }
         }
 
         if (isset($this->mapper::OWNS_ONE[$member]['column'])) {
-            return $result[$mapper::getColumnByMember($this->mapper::OWNS_ONE[$member]['column']) . '_d' . $this->depth];
+            return $result[$mapper::getColumnByMember($this->mapper::OWNS_ONE[$member]['column']) . '_d' . $this->depth . '_' . $member];
         }
 
-        if (!isset($result[$mapper::PRIMARYFIELD . '_d' . ($this->depth + 1)])) {
+        if (!isset($result[$mapper::PRIMARYFIELD . '_d' . ($this->depth + 1) . '_' . $member])) {
             return $mapper::createNullModel();
         }
 
         /** @var self $ownsOneMapper */
-        $ownsOneMapper        = $this->createRelationMapper($mapper::get($this->db), $member);
-        $ownsOneMapper->depth = $this->depth + 1;
+        $ownsOneMapper            = $this->createRelationMapper($mapper::get($this->db), $member);
+        $ownsOneMapper->depth     = $this->depth + 1;
+        $ownsOneMapper->joinAlias = '_' . $member;
 
         return $ownsOneMapper->populateAbstract($result, $mapper::createBaseModel($result));
     }
@@ -1062,9 +1050,6 @@ final class ReadMapper extends DataMapperAbstract
      *
      * @return mixed
      *
-     * @todo in the future we could pass not only the $id ref but all of the data as a join!!! and save an additional select!!!
-     * @todo only the belongs to model gets populated the children of the belongsto model are always null models. either this function needs to call the get for the children, it should call get for the belongs to right away like the hasMany, or i find a way to recursevily load the data for all sub models and then populate that somehow recursively, probably too complex.
-     *
      * @since 1.0.0
      */
     public function populateBelongsTo(string $member, array $result, mixed $default = null) : mixed
@@ -1073,20 +1058,20 @@ final class ReadMapper extends DataMapperAbstract
         $mapper = $this->mapper::BELONGS_TO[$member]['mapper'];
 
         if (!isset($this->with[$member])) {
-            if (\array_key_exists($this->mapper::BELONGS_TO[$member]['external'] . '_d' . ($this->depth), $result)) {
+            if (\array_key_exists($this->mapper::BELONGS_TO[$member]['external'] . '_d' . $this->depth . '_' . $member, $result)) {
                 return isset($this->mapper::BELONGS_TO[$member]['column'])
-                    ? $result[$this->mapper::BELONGS_TO[$member]['external'] . '_d' . ($this->depth)]
-                    : $mapper::createNullModel($result[$this->mapper::BELONGS_TO[$member]['external'] . '_d' . ($this->depth)]);
+                    ? $result[$this->mapper::BELONGS_TO[$member]['external'] . '_d' . $this->depth . '_' . $member]
+                    : $mapper::createNullModel($result[$this->mapper::BELONGS_TO[$member]['external'] . '_d' . $this->depth . '_' . $member]);
             } else {
                 return $default;
             }
         }
 
         if (isset($this->mapper::BELONGS_TO[$member]['column'])) {
-            return $result[$mapper::getColumnByMember($this->mapper::BELONGS_TO[$member]['column']) . '_d' . $this->depth];
+            return $result[$mapper::getColumnByMember($this->mapper::BELONGS_TO[$member]['column']) . '_d' . $this->depth . '_' . $member];
         }
 
-        if (!isset($result[$mapper::PRIMARYFIELD . '_d' . ($this->depth + 1)])) {
+        if (!isset($result[$mapper::PRIMARYFIELD . '_d' . ($this->depth + 1) . '_' . $member])) {
             return $mapper::createNullModel();
         }
 
@@ -1098,9 +1083,11 @@ final class ReadMapper extends DataMapperAbstract
             /** @var self $belongsToMapper */
             $belongsToMapper        = $this->createRelationMapper($mapper::get($this->db), $member);
             $belongsToMapper->depth = $this->depth + 1;
+            $belongsToMapper->joinAlias = '_' . $member;
+
             $belongsToMapper->where(
                 $this->mapper::BELONGS_TO[$member]['by'],
-                $result[$mapper::getColumnByMember($this->mapper::BELONGS_TO[$member]['by']) . '_d' . ($this->depth + 1)],
+                $result[$mapper::getColumnByMember($this->mapper::BELONGS_TO[$member]['by']) . '_d' . ($this->depth + 1) . $this->joinAlias],
                 '='
             );
 
@@ -1108,8 +1095,9 @@ final class ReadMapper extends DataMapperAbstract
         }
 
         /** @var self $belongsToMapper */
-        $belongsToMapper        = $this->createRelationMapper($mapper::get($this->db), $member);
-        $belongsToMapper->depth = $this->depth + 1;
+        $belongsToMapper            = $this->createRelationMapper($mapper::get($this->db), $member);
+        $belongsToMapper->depth     = $this->depth + 1;
+        $belongsToMapper->joinAlias = '_' . $member;
 
         return $belongsToMapper->populateAbstract($result, $mapper::createBaseModel($result));
     }
@@ -1158,7 +1146,7 @@ final class ReadMapper extends DataMapperAbstract
                 } else {
                     $query = new Builder($this->db, true);
                     $query
-                        ->selectAs($many['table'] . '.' . $many['self'], $many['self'] . '_d' . $this->depth)
+                        ->selectAs($many['table'] . '.' . $many['self'], $many['self'] . '_d' . $this->depth . $this->joinAlias)
                         ->leftJoin($many['table'])
                         ->on($many['mapper']::TABLE . '_d1.' . $many['mapper']::PRIMARYFIELD, '=', $many['table'] . '.' . $many['external'])
                         ->where($many['table'] . '.' . $many['self'], 'IN', $primaryKeys);

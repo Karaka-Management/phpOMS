@@ -474,6 +474,25 @@ class DataMapperFactory
         return static::FACTORY::createWith($data);
     }
 
+    public static function hasFactory() : bool
+    {
+        return !empty(static::FACTORY);
+    }
+
+    /**
+     * Create the empty base model
+     *
+     * @param null|array $data Data to use for initialization
+     *
+     * @return string
+     *
+     * @since 1.0.0
+     */
+    public static function getBaseModelClass() : string
+    {
+        return empty(static::MODEL) ? \substr(static::class, 0, -6) : static::MODEL;
+    }
+
     /**
      * Get id of object
      *

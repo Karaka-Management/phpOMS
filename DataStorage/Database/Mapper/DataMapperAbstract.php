@@ -57,6 +57,21 @@ abstract class DataMapperAbstract
     protected int $depth = 1;
 
     /**
+     * Mapper join alias.
+     *
+     * Mappers may have relations to other models (e.g. belongsTo, ownsOne) which can have other relations, ...
+     * If a mapper relates to the same model multiple times e.g. createdBy and lastModifiedBy we need to create
+     * separate joins because both could have different relations. However $depth only differentiates for
+     * different relation depth, not when the same table is referenced on the same depth/level.
+     *
+     * With the join alias we can reference the same table multiple times in a join!
+     *
+     * @var int
+     * @since 1.0.0
+     */
+    protected string $joinAlias = '';
+
+    /**
      * Relations which should be loaded
      *
      * @var array
