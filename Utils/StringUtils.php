@@ -279,7 +279,7 @@ final class StringUtils
                 case 1:
                     $result .= ($previousMC === 1 ? '' : '<ins>')
                         . $diff['values'][$i]
-                        . ($nextMC === -1 ? '' : '</ins>')
+                        . ($nextMC === 1 ? '' : '</ins>')
                         . $delim;
 
                     break;
