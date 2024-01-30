@@ -260,8 +260,7 @@ final class ReadMapper extends DataMapperAbstract
      */
     public function executeGet(?Builder $query = null) : mixed
     {
-        // Get initialized objects from memory cache.
-        $objs = [];
+        $objs    = [];
         $indexed = [];
 
         $hasFactory = $this->mapper::hasFactory();
@@ -1206,6 +1205,8 @@ final class ReadMapper extends DataMapperAbstract
                 $relMapper = $this->createRelationMapper($relation['mapper']::reader($this->db), $member);
 
                 $isPrivate = $relation['private'] ?? false;
+                $tempObjs  = [];
+
                 if ($isPrivate) {
                     if ($refClass === null) {
                         $refClass = new \ReflectionClass($obj);
@@ -1213,20 +1214,16 @@ final class ReadMapper extends DataMapperAbstract
 
                     $refProp = $refClass->getProperty($member);
 
-                    $tempObjs = [];
                     foreach ($objs as $obj) {
                         $tempObjs[] = $refProp->getValue($obj);
                     }
-
-                    $relMapper->loadHasManyRelations($tempObjs);
                 } else {
-                    $tempObjs = [];
                     foreach ($objs as $obj) {
                         $tempObjs[] = $obj->{$member};
                     }
-
-                    $relMapper->loadHasManyRelations($tempObjs);
                 }
+
+                $relMapper->loadHasManyRelations($tempObjs);
             }
         }
     }
