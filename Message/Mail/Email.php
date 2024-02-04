@@ -119,6 +119,14 @@ class Email implements MessageInterface
     public string $mailer = SubmitType::MAIL;
 
     /**
+     * Template strings
+     *
+     * @var array<string, string>
+     * @since 1.0.0
+     */
+    public array $template = [];
+
+    /**
      * Mail from.
      *
      * @var array
@@ -615,6 +623,20 @@ class Email implements MessageInterface
         return $addresses;
     }
 
+    public function parseTemplate() : void
+    {
+        if (empty($this->template)) {
+            return;
+        }
+
+        $keys   = \array_keys($this->template);
+        $values = \array_values($this->template);
+
+        $this->subject = \str_replace($keys, $values, $this->subject);
+        $this->body    = \str_replace($keys, $values, $this->body);
+        $this->bodyAlt = \str_replace($keys, $values, $this->bodyAlt);
+    }
+
     /**
      * Pre-send preparations
      *
@@ -626,12 +648,20 @@ class Email implements MessageInterface
      */
     public function preSend(string $mailer) : bool
     {
+        if (empty($this->from)
+            || (empty($this->to) && empty($this->cc) && empty($this->bcc))
+        ) {
+            return false;
+        }
+
         $this->header = '';
         $this->mailer = $mailer;
 
-        if (empty($this->to) && empty($this->cc) && empty($this->bcc)) {
-            return false;
-        }
+        $tempSubject = $this->subject;
+        $tempBody    = $this->body;
+        $tempBodyAlt = $this->bodyAlt;
+
+        $this->parseTemplate();
 
         if (!empty($this->bodyAlt)) {
             $this->contentType = MimeType::M_ALT;
@@ -642,9 +672,9 @@ class Email implements MessageInterface
         $this->headerMime = '';
         $this->bodyMime   = $this->createBody();
 
-        $tempheaders      = $this->headerMime;
+        $tempHeaders      = $this->headerMime;
         $this->headerMime = $this->createHeader();
-        $this->headerMime .= $tempheaders;
+        $this->headerMime .= $tempHeaders;
 
         if ($this->mailer === SubmitType::MAIL) {
             $this->header .= empty($this->to)
@@ -673,6 +703,10 @@ class Email implements MessageInterface
             $this->headerMime = \rtrim($this->headerMime, " \r\n\t") . self::$LE .
                 self::normalizeBreaks($headerDkim, self::$LE) . self::$LE;
         }
+
+        $this->subject = $tempSubject;
+        $this->body    = $tempBody;
+        $this->bodyAlt = $tempBodyAlt;
 
         return true;
     }

@@ -65,9 +65,7 @@ final class File
      */
     public static function generateExtension(?array $source = null) : string
     {
-        if ($source === null) {
-            $source = self::$extensions;
-        }
+        $source ??= self::$extensions;
 
         $key = \array_rand($source, 1);
 

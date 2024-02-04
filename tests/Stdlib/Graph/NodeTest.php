@@ -143,7 +143,8 @@ final class NodeTest extends \PHPUnit\Framework\TestCase
      * @covers phpOMS\Stdlib\Graph\Node
      * @group framework
      *
-     * @todo is there bug where directed graphs return invalid neighbors?
+     * @bug Directed graphs may return invalid neighbors
+     *      https://github.com/Karaka-Management/phpOMS/issues/366
      */
     public function testNeighborsInputOutput() : void
     {

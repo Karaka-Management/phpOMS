@@ -78,10 +78,10 @@ final class DeleteMapper extends DataMapperAbstract
             return null;
         }
 
-        $this->deleteSingleRelation($obj, $this->mapper::BELONGS_TO, $refClass);
+        $this->deleteSingleRelation($obj, $this->mapper::OWNS_ONE, $refClass);
         $this->deleteHasMany($obj, $objId, $refClass);
         $this->deleteModel($objId);
-        $this->deleteSingleRelation($obj, $this->mapper::OWNS_ONE, $refClass);
+        $this->deleteSingleRelation($obj, $this->mapper::BELONGS_TO, $refClass);
 
         return $objId;
     }
@@ -141,9 +141,7 @@ final class DeleteMapper extends DataMapperAbstract
 
             $value = null;
             if ($isPrivate) {
-                if ($refClass === null) {
-                    $refClass = new \ReflectionClass($obj);
-                }
+                $refClass ??= new \ReflectionClass($obj);
 
                 $refProp = $refClass->getProperty($member);
                 $value   = $refProp->getValue($obj);
@@ -173,7 +171,6 @@ final class DeleteMapper extends DataMapperAbstract
         }
 
         foreach ($this->mapper::HAS_MANY as $member => $rel) {
-            // always
             if (!isset($this->with[$member]) && !isset($rel['external'])) {
                 continue;
             }
@@ -183,9 +180,7 @@ final class DeleteMapper extends DataMapperAbstract
 
             $values = null;
             if ($isPrivate) {
-                if ($refClass === null) {
-                    $refClass = new \ReflectionClass($obj);
-                }
+                $refClass ??= new \ReflectionClass($obj);
 
                 $refProp = $refClass->getProperty($member);
                 $values  = $refProp->getValue($obj);
@@ -252,7 +247,7 @@ final class DeleteMapper extends DataMapperAbstract
             ->where($this->mapper::HAS_MANY[$member]['table'] . '.' . $this->mapper::HAS_MANY[$member]['self'], '=', $objId);
 
         if ($objIds !== null) {
-            $relQuery->where($this->mapper::HAS_MANY[$member]['table'] . '.' . $this->mapper::HAS_MANY[$member]['external'], 'in', $objIds);
+            $relQuery->where($this->mapper::HAS_MANY[$member]['table'] . '.' . $this->mapper::HAS_MANY[$member]['external'], 'IN', $objIds);
         }
 
         $sth = $this->db->con->prepare($relQuery->toSql());

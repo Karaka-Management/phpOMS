@@ -61,7 +61,7 @@ final class Illinois
     public static function root(callable $func, float $a, float $b, int $maxIterations = 100) : float
     {
         if ($func($a) * $func($b) >= 0) {
-            throw new \Exception("Function values at endpoints must have opposite signs.");
+            throw new \Exception('Function values at endpoints must have opposite signs.');
         }
 
         $c         = $b;
@@ -76,9 +76,7 @@ final class Illinois
                 return $c;
             }
 
-            // @todo c might be wrong, could be that if and else must be switched
-            // @see https://en.wikipedia.org/wiki/Regula_falsi#The_Illinois_algorithm
-            if ($y * $fa < 0) {
+            if ($fa < 0) {
                 $c = $sign === (int) ($y >= 0)
                     ? (0.5 * $a * $fb - $b * $fa) / (0.5 * $fb - $fa)
                     : ($a * $fb - $b * $fa) / ($fb - $fa);

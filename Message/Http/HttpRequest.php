@@ -220,9 +220,7 @@ final class HttpRequest extends RequestAbstract
                 // @codeCoverageIgnoreStart
                 // Tested but coverage doesn't show up
                 if (\str_starts_with($lineRaw, '--')) {
-                    if ($boundary === null) {
-                        $boundary = \rtrim($lineRaw);
-                    }
+                    $boundary ??= \rtrim($lineRaw);
 
                     continue;
                 }

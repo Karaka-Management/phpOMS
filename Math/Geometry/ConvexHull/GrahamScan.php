@@ -69,7 +69,6 @@ final class GrahamScan
         /** @var array<int, array{x:int|float, y:int|float}> $subpoints */
         $subpoints = \array_slice($points, 2, $n);
         \usort($subpoints, function (array $a, array $b) use ($c) : int {
-            // @todo Might be wrong order of comparison
             return \atan2($a['y'] - $c['y'], $a['x'] - $c['x']) <=> \atan2($b['y'] - $c['y'],  $b['x'] - $c['x']);
         });
 

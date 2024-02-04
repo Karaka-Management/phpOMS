@@ -103,9 +103,7 @@ final class Text
             return '';
         }
 
-        if ($words === null) {
-            $words = self::LOREM_IPSUM;
-        }
+        $words ??= self::LOREM_IPSUM;
 
         $punctuation      = $this->generatePunctuation($length);
         $punctuationCount = \array_count_values(

@@ -78,8 +78,6 @@ final class Rest
                 break;
         }
 
-        // @todo how to implement GET request with $request->data (should it alter the uri or still get put into the body?)
-
         // handle none-get
         if ($request->getMethod() !== RequestMethod::GET && !empty($request->data)) {
             // handle different content types
@@ -92,11 +90,12 @@ final class Rest
             } elseif (\in_array(MimeType::M_MULT, $contentType)) {
                 $boundary = '----' . \uniqid();
 
-                /* @phpstan-ignore-next-line */
                 $data = self::createMultipartData($boundary, $request->data);
 
                 // @todo Replace boundary/ with the correct boundary= in the future.
-                //        Currently this cannot be done due to a bug. If we do it now the server cannot correctly populate php://input
+                //      Currently this cannot be done due to a bug.
+                //      If we do it now the server cannot correctly populate php://input
+                //      https://github.com/Karaka-Management/phpOMS/issues/345
                 $headers['Content-Type']   = 'Content-Type: multipart/form-data; boundary/' . $boundary;
                 $headers['content-length'] = 'Content-Length: ' . \strlen($data);
 

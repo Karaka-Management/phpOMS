@@ -275,9 +275,7 @@ abstract class RequestAbstract implements MessageInterface
         }
 
         $json = \json_decode($this->data[$key], true); /** @phpstan-ignore-line */
-        if ($json === null) {
-            $json = $this->data[$key];
-        }
+        $json ??= $this->data[$key];
 
         return \is_array($json) ? $json : [$json];
     }

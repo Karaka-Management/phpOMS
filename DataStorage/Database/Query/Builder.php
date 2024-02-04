@@ -841,10 +841,6 @@ class Builder extends BuilderAbstract
      */
     public function count(string $table = '*') : self
     {
-        /**
-         * @todo Don't do this as a string, create a new object $this->select(new Count($table)).
-         *  The parser should be able to handle this much better
-         */
         return $this->select('COUNT(' . $table . ')');
     }
 

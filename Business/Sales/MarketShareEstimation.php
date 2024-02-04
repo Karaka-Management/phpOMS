@@ -18,7 +18,7 @@ namespace phpOMS\Business\Sales;
  * Market share calculations (Zipf function)
  *
  * This class can be used to calculate the market share based on a rank or vice versa
- * the rank based on a marketshare in a Zipf distributed market.
+ * the rank based on a market share in a Zipf distributed market.
  *
  * @package phpOMS\Business\Sales
  * @license OMS License 2.0

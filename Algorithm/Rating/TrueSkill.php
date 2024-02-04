@@ -25,7 +25,8 @@ use phpOMS\Math\Stochastic\Distribution\NormalDistribution;
  * @since   1.0.0
  * @see     https://www.moserware.com/assets/computing-your-skill/The%20Math%20Behind%20TrueSkill.pdf
  *
- * @todo implement https://github.com/sublee/trueskill/blob/master/trueskill/__init__.py
+ * @todo Implement https://github.com/sublee/trueskill/blob/master/trueskill/__init__.py
+ *      https://github.com/Karaka-Management/phpOMS/issues/337
  */
 class TrueSkill
 {

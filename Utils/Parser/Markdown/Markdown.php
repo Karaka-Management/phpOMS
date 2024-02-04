@@ -33,7 +33,7 @@ use phpOMS\Uri\UriFactory;
  * @see        https://github.com/doowzs/parsedown-extreme
  * @since      1.0.0
  *
- * @todo Add
+ * @todo Add special markdown content
  *  1. Calendar (own widget)
  *  2. Event (own widget)
  *  3. Tasks (own widget)
@@ -49,6 +49,7 @@ use phpOMS\Uri\UriFactory;
  * 13. Checklist (own widget)
  * 14. Gallery
  * 15. Form (own widget)
+ * https://github.com/Karaka-Management/phpOMS/issues/290
  */
 class Markdown
 {
@@ -2560,39 +2561,18 @@ class Markdown
             return null;
         }
 
-        // @todo We are parsing the language here and further down. Shouldn't one time be enough?
-        // Both variations seem to result in the same result?!
         $language = \trim(\preg_replace('/^`{3}([^\s]+)(.+)?/s', '$1', $line['text']));
 
-        // Handle diagrams
         if (!($this->options['diagrams'] ?? true)
             || !\in_array($language, ['mermaid', 'chart'])
         ) {
-            $infostring = \trim(\substr($line['text'], $openerLength), "\t ");
-            if (\strpos($infostring, '`') !== false) {
-                return null;
-            }
-
+            // Is code block
             $element = [
                 'name' => 'code',
                 'text' => '',
             ];
 
-            if ($infostring !== '') {
-                /**
-                 * https://www.w3.org/TR/2011/WD-html5-20110525/elements.html#classes
-                 * Every HTML element may have a class attribute specified.
-                 * The attribute, if specified, must have a value that is a set
-                 * of space-separated tokens representing the various classes
-                 * that the element belongs to.
-                 * [...]
-                 * The space characters, for the purposes of this specification,
-                 * are U+0020 SPACE, U+0009 CHARACTER TABULATION (tab),
-                 * U+000A LINE FEED (LF), U+000C FORM FEED (FF), and
-                 * U+000D CARRIAGE RETURN (CR).
-                 */
-                $language = \substr($infostring, 0, \strcspn($infostring, " \t\n\f\r"));
-
+            if ($language !== '```' && !empty($language)) {
                 $element['attributes'] = ['class' => "language-{$language}"];
             }
 
@@ -2604,26 +2584,7 @@ class Markdown
                     'element' => $element,
                 ],
             ];
-        }
-
-        if (\strtolower($language) === 'mermaid') {
-            // Mermaid.js https://mermaidjs.github.io
-            $element = [
-                'text' => '',
-            ];
-
-            return [
-                'char'         => $marker,
-                'openerLength' => $openerLength,
-                'element'      => [
-                    'element'    => $element,
-                    'name'       => 'div',
-                    'attributes' => [
-                        'class' => 'mermaid',
-                    ],
-                ],
-            ];
-        } elseif (\strtolower($language) === 'chart') {
+        } elseif (\strtolower($language) === 'chartjs') {
             // Chart.js https://www.chartjs.org/
             $element = [
                 'text' => '',
@@ -2640,7 +2601,26 @@ class Markdown
                     ],
                 ],
             ];
+        } elseif (\in_array(\strtolower($language), ['mermaid', 'tuichart'])) {
+            // Mermaid.js https://mermaidjs.github.io
+            // TUI.chart https://github.com/nhn/tui.chart
+            $element = [
+                'text' => '',
+            ];
+
+            return [
+                'char'         => $marker,
+                'openerLength' => $openerLength,
+                'element'      => [
+                    'element'    => $element,
+                    'name'       => 'div',
+                    'attributes' => [
+                        'class' => \strtolower($language),
+                    ],
+                ],
+            ];
         }
+
 
         return null;
     }
@@ -2677,6 +2657,8 @@ class Markdown
             return null;
         }
 
+        // @performance Optimize away the child <span> element for spoilers (if reasonable)
+        //      https://github.com/Karaka-Management/phpOMS/issues/367
         return [
             'char'         => $marker,
             'openerLength' => $openerLength,
@@ -2690,7 +2672,7 @@ class Markdown
                             'text' => $summary,
                         ],
                         [
-                            'name' => 'span', // @todo check if without span possible
+                            'name' => 'span',
                             'text' => '',
                         ],
                     ],

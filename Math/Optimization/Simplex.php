@@ -370,8 +370,11 @@ final class Simplex
         $this->b = $b;
         $this->c = $c;
 
-        // @todo createSlackForm() required?
-        // @todo create minimize
+        // @question Consider to generate slack form. It this required?
+        //      https://github.com/Karaka-Management/phpOMS/issues/349
+
+        // @feature Handle minimize and maximize in Simplex
+        //      https://github.com/Karaka-Management/phpOMS/issues/368
 
         $this->m = \count($A);
         if ($this->m < 1) {

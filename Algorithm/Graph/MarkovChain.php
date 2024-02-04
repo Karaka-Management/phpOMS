@@ -144,9 +144,7 @@ final class MarkovChain
             }
 
             // Couldn't find possible key
-            if ($new === null) {
-                $new = $orderValues[\array_rand($orderValues)];
-            }
+            $new ??= $orderValues[\array_rand($orderValues)];
 
             $output[] = $new;
             $key[]    = $new;

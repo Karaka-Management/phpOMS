@@ -186,9 +186,7 @@ class FloatInt implements SerializableInterface
             throw new \Exception(); // @codeCoverageIgnore
         }
 
-        if ($decimals === null) {
-            $decimals = \strlen(\rtrim($right, '0'));
-        }
+        $decimals ??= \strlen(\rtrim($right, '0'));
 
         return $decimals > 0
             ? \number_format((float) $left, 0, $this->decimal, $this->thousands) . $this->decimal . \substr($right, 0, $decimals)
@@ -224,9 +222,7 @@ class FloatInt implements SerializableInterface
             throw new \Exception(); // @codeCoverageIgnore
         }
 
-        if ($decimals === null) {
-            $decimals = \strlen(\rtrim($right, '0'));
-        }
+        $decimals ??= \strlen(\rtrim($right, '0'));
 
         return $decimals > 0
             ? \number_format((float) $left, 0, $this->decimal, '') . $this->decimal . \substr($right, 0, $decimals)

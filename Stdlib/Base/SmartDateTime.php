@@ -365,13 +365,13 @@ class SmartDateTime extends \DateTime
      *
      * @param int $month Start of the year (i.e. fiscal year)
      *
-     * @return \DateTime
+     * @return SmartDateTime
      *
      * @since 1.0.0
      */
-    public static function startOfYear(int $month = 1) : \DateTime
+    public static function startOfYear(int $month = 1) : SmartDateTime
     {
-        return new \DateTime(\date('Y') . '-' . \sprintf('%02d', $month) . '-01');
+        return new SmartDateTime(\date('Y') . '-' . \sprintf('%02d', $month) . '-01');
     }
 
     /**
@@ -379,37 +379,37 @@ class SmartDateTime extends \DateTime
      *
      * @param int $month Start of the year (i.e. fiscal year)
      *
-     * @return \DateTime
+     * @return SmartDateTime
      *
      * @since 1.0.0
      */
-    public static function endOfYear(int $month = 1) : \DateTime
+    public static function endOfYear(int $month = 1) : SmartDateTime
     {
-        return new \DateTime(\date('Y') . '-' . self::calculateMonthIndex(13 - $month, $month) . '-31');
+        return new SmartDateTime(\date('Y') . '-' . self::calculateMonthIndex(13 - $month, $month) . '-31');
     }
 
     /**
      * Get the start of the month
      *
-     * @return \DateTime
+     * @return SmartDateTime
      *
      * @since 1.0.0
      */
-    public static function startOfMonth() : \DateTime
+    public static function startOfMonth() : SmartDateTime
     {
-        return new \DateTime(\date('Y-m') . '-01');
+        return new SmartDateTime(\date('Y-m') . '-01');
     }
 
     /**
      * Get the end of the month
      *
-     * @return \DateTime
+     * @return SmartDateTime
      *
      * @since 1.0.0
      */
-    public static function endOfMonth() : \DateTime
+    public static function endOfMonth() : SmartDateTime
     {
-        return new \DateTime(\date('Y-m-t'));
+        return new SmartDateTime(\date('Y-m-t'));
     }
 
     /**

@@ -56,9 +56,7 @@ final class Phone
         $numberString = $struct;
 
         if ($isInt) {
-            if ($countries === null) {
-                $countries = ['de' => 49, 'us' => 1];
-            }
+            $countries ??= ['de' => 49, 'us' => 1];
 
             $numberString = \str_replace(
                 '$1',

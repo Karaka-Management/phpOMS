@@ -657,10 +657,11 @@ final class ModuleManager
      * @return object|\phpOMS\Module\ModuleAbstract
      *
      * @todo Remove docblock type hint hack "object".
-     *          The return type object is only used to stop the annoying warning that a method doesn't exist
-     *          if you chain call the methods part of the returned ModuleAbstract implementation.
-     *          Remove it once alternative inline type hinting is possible for the specific returned implementation.
-     *          This also causes phpstan type inspection errors, which we have to live with or ignore in the settings
+     *      The return type object is only used to stop the annoying warning that a method doesn't exist
+     *      if you chain call the methods part of the returned ModuleAbstract implementation.
+     *      Remove it once alternative inline type hinting is possible for the specific returned implementation.
+     *      This also causes phpstan type inspection errors, which we have to live with or ignore in the settings
+     *      https://github.com/Karaka-Management/phpOMS/issues/300
      *
      * @since 1.0.0
      */

@@ -163,9 +163,7 @@ class Smtp
     protected function getSMTPConnection(string $host, int $port = 25, int $timeout = 30, array $options = []) : mixed
     {
         static $streamok;
-        if ($streamok === null) {
-            $streamok = \function_exists('stream_socket_client');
-        }
+        $streamok ??= \function_exists('stream_socket_client');
 
         $errno  = 0;
         $errstr = '';

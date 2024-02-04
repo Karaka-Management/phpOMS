@@ -509,9 +509,7 @@ class DataMapperFactory
         $propertyName = $member ?? static::COLUMNS[static::PRIMARYFIELD]['internal'];
 
         if (static::COLUMNS[static::PRIMARYFIELD]['private'] ?? false) {
-            if ($refClass === null) {
-                $refClass = new \ReflectionClass($obj);
-            }
+            $refClass ??= new \ReflectionClass($obj);
 
             $refProp = $refClass->getProperty($propertyName);
 
@@ -538,9 +536,7 @@ class DataMapperFactory
         \settype($objId, static::COLUMNS[static::PRIMARYFIELD]['type']);
 
         if (static::COLUMNS[static::PRIMARYFIELD]['private'] ?? false) {
-            if ($refClass === null) {
-                $refClass = new \ReflectionClass($obj);
-            }
+            $refClass ??= new \ReflectionClass($obj);
 
             $refProp = $refClass->getProperty($propertyName);
             $refProp->setValue($obj, $objId);

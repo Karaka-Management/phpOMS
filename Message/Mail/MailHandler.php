@@ -480,17 +480,13 @@ class MailHandler
      */
     public function smtpConnect(?array $options = null) : bool
     {
-        if ($this->smtp === null) {
-            $this->smtp = new Smtp();
-        }
+        $this->smtp ??= new Smtp();
 
         if ($this->smtp->isConnected()) {
             return true;
         }
 
-        if ($options === null) {
-            $options = $this->smtpOptions;
-        }
+        $options ??= $this->smtpOptions;
 
         $this->smtp->timeout = $this->timeout;
         $this->smtp->doVerp  = $this->useVerp;

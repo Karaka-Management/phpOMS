@@ -115,7 +115,10 @@ final class UpdateMapper extends DataMapperAbstract
                 ->where($this->mapper::TABLE . '.' . $this->mapper::PRIMARYFIELD, '=', $objId);
 
             foreach ($this->mapper::COLUMNS as $column) {
-                $propertyName = \stripos($column['internal'], '/') !== false ? \explode('/', $column['internal'])[0] : $column['internal'];
+                $propertyName = \stripos($column['internal'], '/') !== false
+                    ? \explode('/', $column['internal'])[0]
+                    : $column['internal'];
+
                 if (isset($this->mapper::HAS_MANY[$propertyName])
                     || $column['internal'] === $this->mapper::PRIMARYFIELD
                     || (($column['readonly'] ?? false) && !isset($this->with[$propertyName]))
@@ -129,9 +132,7 @@ final class UpdateMapper extends DataMapperAbstract
                 $tValue    = null;
 
                 if ($isPrivate) {
-                    if ($refClass === null) {
-                        $refClass = new \ReflectionClass($obj);
-                    }
+                    $refClass ??= new \ReflectionClass($obj);
 
                     $property = $refClass->getProperty($propertyName);
                     $tValue   = $property->getValue($obj);
@@ -273,9 +274,7 @@ final class UpdateMapper extends DataMapperAbstract
             $values    = null;
 
             if ($isPrivate) {
-                if ($refClass === null) {
-                    $refClass = new \ReflectionClass($obj);
-                }
+                $refClass ??= new \ReflectionClass($obj);
 
                 $property = $refClass->getProperty($propertyName);
                 $values   = $property->getValue($obj);

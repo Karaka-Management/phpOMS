@@ -14,6 +14,7 @@ declare(strict_types=1);
 
 namespace phpOMS\DataStorage\Database\Schema\Grammar;
 
+use phpOMS\DataStorage\Database\BuilderAbstract;
 use phpOMS\DataStorage\Database\Query\Builder;
 use phpOMS\DataStorage\Database\Schema\Builder as SchemaBuilder;
 
@@ -44,14 +45,7 @@ class SQLiteGrammar extends Grammar
     public string $systemIdentifierEnd = '`';
 
     /**
-     * Compile from.
-     *
-     * @param SchemaBuilder $query Builder
-     * @param array         $table Tables
-     *
-     * @return string
-     *
-     * @since 1.0.0
+     * {@inheritdoc}
      */
     protected function compileSelectTables(SchemaBuilder $query, array $table) : string
     {
@@ -64,14 +58,7 @@ class SQLiteGrammar extends Grammar
     }
 
     /**
-     * Compile from.
-     *
-     * @param SchemaBuilder $query Builder
-     * @param string        $table Tables
-     *
-     * @return string
-     *
-     * @since 1.0.0
+     * {@inheritdoc}
      */
     protected function compileSelectFields(SchemaBuilder $query, string $table) : string
     {
@@ -84,14 +71,47 @@ class SQLiteGrammar extends Grammar
     }
 
     /**
-     * Compile create table fields query.
+     * Parses the sql data types to the appropriate SQLite data types
      *
-     * @param SchemaBuilder $query  Query
-     * @param array         $fields Fields to create
+     * @param string $type Data type
      *
      * @return string
      *
      * @since 1.0.0
+     */
+    private function parseFieldType(string $type) : string
+    {
+        $type = \strtoupper($type);
+
+        if (\str_starts_with($type, 'INT')
+            || \str_starts_with($type, 'TINYINT')
+            || \str_starts_with($type, 'SMALLINT')
+            || \str_starts_with($type, 'BIGINT')
+        ) {
+            return 'INTEGER';
+        } elseif (\str_starts_with($type, 'VARCHAR')) {
+            return 'TEXT';
+        } elseif (\str_starts_with($type, 'DATETIME')) {
+            return 'TEXT';
+        } elseif (\str_starts_with($type, 'DECIMAL')) {
+            return 'REAL';
+        } elseif (\stripos($type, 'BINARY') !== false) {
+            return 'BLOB';
+        }
+
+        return $type;
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    protected function compileCreateTable(BuilderAbstract $query, string $table) : string
+    {
+        return 'CREATE TABLE ' . $this->expressionizeTableColumn([$table]);
+    }
+
+    /**
+     * {@inheritdoc}
      */
     protected function compileCreateFields(SchemaBuilder $query, array $fields) : string
     {
@@ -99,7 +119,7 @@ class SQLiteGrammar extends Grammar
         $keys       = '';
 
         foreach ($fields as $name => $field) {
-            $fieldQuery .= ' ' . $this->expressionizeTableColumn([$name]) . ' ' . $field['type'];
+            $fieldQuery .= ' ' . $this->expressionizeTableColumn([$name]) . ' ' . $this->parseFieldType($field['type']);
 
             if (isset($field['default']) || ($field['default'] === null && ($field['null'] ?? false))) {
                 $fieldQuery .= ' DEFAULT ' . $this->compileValue($query, $field['default']);
@@ -109,15 +129,15 @@ class SQLiteGrammar extends Grammar
                 $fieldQuery .= ' ' . ($field['null'] ? '' : 'NOT ') . 'NULL';
             }
 
+            if ($field['primary'] ?? false) {
+                $keys .= ' PRIMARY KEY';
+            }
+
             if ($field['autoincrement'] ?? false) {
-                $fieldQuery .= ' AUTO_INCREMENT';
+                $fieldQuery .= ' AUTOINCREMENT';
             }
 
             $fieldQuery .= ',';
-
-            if ($field['primary'] ?? false) {
-                $keys .= ' PRIMARY KEY (' .  $this->expressionizeTableColumn([$name]) . '),';
-            }
 
             if ($field['unique'] ?? false) {
                 $keys .= ' UNIQUE KEY (' .  $this->expressionizeTableColumn([$name]) . '),';

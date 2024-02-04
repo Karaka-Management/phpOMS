@@ -39,10 +39,6 @@ class Schedule extends TaskAbstract
      */
     public static function createWith(array $jobData) : TaskAbstract
     {
-        /**
-         * @todo Karaka/phpOMS#231
-         *  Use the interval for generating a schedule
-         */
         $job = new self($jobData[1], $jobData[8], $jobData[7]);
 
         $job->status = (int) $jobData[3];

@@ -124,7 +124,7 @@ final class Vector extends Matrix
     }
 
     /**
-     * Calculate the eucledian dot product
+     * Calculate the euclidean dot product
      *
      * @param self $vector Vector
      *
@@ -200,4 +200,25 @@ final class Vector extends Matrix
 
         return self::fromArray($crossArray);
     }
+
+    /*
+    public function cross(self $vector) : float
+    {
+        $mat = [];
+        for ($i = 0; $i < $this->n; ++$i) {
+            for ($j = 0; $j < $this->n; ++$j) {
+                $mat[$i][$j] = ($i === 0)
+                    ? $this->matrix[$j][0]
+                    : (($i === 1)
+                        ? $vector->matrix[$j][0]
+                        : 0
+                    );
+            }
+        }
+
+        $matrix = Matrix::fromArray($mat);
+
+        return $matrix->det();
+    }
+    */
 }

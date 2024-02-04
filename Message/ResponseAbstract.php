@@ -310,6 +310,25 @@ abstract class ResponseAbstract implements \JsonSerializable, MessageInterface
     }
 
     /**
+     * Add response.
+     *
+     * @param mixed $key       Response id
+     * @param mixed $response  Response to add
+     *
+     * @return void
+     *
+     * @since 1.0.0
+     */
+    public function add(mixed $key, mixed $response) : void
+    {
+        if (!isset($this->data[$key])) {
+            $this->data[$key] = [];
+        }
+
+        $this->data[$key][] = $response;
+    }
+
+    /**
      * {@inheritdoc}
      */
     public function jsonSerialize() : mixed

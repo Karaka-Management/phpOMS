@@ -459,9 +459,10 @@ class Grammar extends GrammarAbstract
             $expression .= '(' . \rtrim($this->compileWhereQuery($element['column']), ';') . ')';
         }
 
-        // @todo on doesn't allow string values as value (only table column names). This is bad and needs to be fixed!
-        //  Solution could be to use ColumnName as internal object and then pass it to compileValue in all cases
-        // Other types such as int etc. are kind of possible
+        // @bug The on part of a join doesn't allow string values because they conflict with column name
+        //      Other data types are possible because they don't conflict with the data type of columns (string)
+        //      Consider to create a ColumnName() class.
+        //      https://github.com/Karaka-Management/phpOMS/issues/369
         if (isset($element['value'])) {
             $expression .= ' ' . \strtoupper($element['operator']) . ' '
                 . (\is_string($element['value']) ? $this->compileSystem($element['value']) : $element['value']);

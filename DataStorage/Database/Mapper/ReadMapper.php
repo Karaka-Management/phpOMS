@@ -26,8 +26,9 @@ use phpOMS\Utils\ArrayUtils;
  * @link    https://jingga.app
  * @since   1.0.0
  *
- * @todo Add memory cache per read mapper parent call (These should be cached: attribute types, file types, etc.)
  * @todo Add getArray functions to get array instead of object
+ *      https://github.com/Karaka-Management/phpOMS/issues/350
+ *
  * @todo Allow to define columns in all functions instead of members?
  *
  * @template R
@@ -558,6 +559,9 @@ final class ReadMapper extends DataMapperAbstract
         // This is necessary for special cases, e.g. when joining in the other direction
         // Example: Show all profiles who have written a news article.
         //          "with()" only allows to go from articles to accounts but we want to go the other way
+        // @feature Create join functionality for mappers which supports joining and filtering based on other tables
+        //      Example: show all profiles which have written a news article
+        //      https://github.com/Karaka-Management/phpOMS/issues/253
         foreach ($this->join as $member => $values) {
             if (($col = $this->mapper::getColumnByMember($member)) === null) {
                 continue;
@@ -573,20 +577,22 @@ final class ReadMapper extends DataMapperAbstract
 
                 if (isset($join['mapper']::HAS_MANY[$join['value']])) {
                     if (isset($join['mapper']::HAS_MANY[$join['value']]['external'])) {
+                        $relJoinTable = $join['mapper']::HAS_MANY[$join['value']]['table'];
+
                         // join with relation table
-                        $query->join($join['mapper']::HAS_MANY[$join['value']]['table'], $join['type'], $join['mapper']::HAS_MANY[$join['value']]['table'] . '_d' . ($this->depth + 1) . $this->joinAlias)
+                        $query->join($relJoinTable, $join['type'], $relJoinTable . '_d' . ($this->depth + 1) . $this->joinAlias)
                             ->on(
                                 $this->mapper::TABLE . '_d' . $this->depth . $this->joinAlias . '.' . $col,
                                 '=',
-                                $join['mapper']::HAS_MANY[$join['value']]['table'] . '_d' . ($this->depth + 1) . $this->joinAlias . '.' . $join['mapper']::HAS_MANY[$join['value']]['external'],
+                                $relJoinTable . '_d' . ($this->depth + 1) . $this->joinAlias . '.' . $join['mapper']::HAS_MANY[$join['value']]['external'],
                                 'AND',
-                                $join['mapper']::HAS_MANY[$join['value']]['table'] . '_d' . ($this->depth + 1) . $this->joinAlias
+                                $relJoinTable . '_d' . ($this->depth + 1) . $this->joinAlias
                             );
 
                         // join with model table
                         $query->join($join['mapper']::TABLE, $join['type'], $join['mapper']::TABLE . '_d' . ($this->depth + 1) . $this->joinAlias)
                             ->on(
-                                $join['mapper']::HAS_MANY[$join['value']]['table'] . '_d' . ($this->depth + 1) . $this->joinAlias . '.' . $join['mapper']::HAS_MANY[$join['value']]['self'],
+                                $relJoinTable . '_d' . ($this->depth + 1) . $this->joinAlias . '.' . $join['mapper']::HAS_MANY[$join['value']]['self'],
                                 '=',
                                 $join['mapper']::TABLE . '_d' . ($this->depth + 1) . $this->joinAlias . '.' . $join['mapper']::PRIMARYFIELD,
                                 'AND',
@@ -755,8 +761,9 @@ final class ReadMapper extends DataMapperAbstract
 
                 $query->orderBy($this->mapper::TABLE . '_d' . $this->depth . $this->joinAlias . '.' . $column, $sort['order']);
 
+                // @bug It looks like that only one sort parameter is supported despite SQL supporting multiple
+                //      https://github.com/Karaka-Management/phpOMS/issues/364
                 break; // there is only one root element (one element with child === '')
-                // @todo Is this true? sort can have multiple sort components!!!
             }
         }
 
@@ -792,28 +799,28 @@ final class ReadMapper extends DataMapperAbstract
     {
         $refClass = null;
 
+        $aValue    = null;
+        $arrayPath = '';
+
         foreach ($this->mapper::COLUMNS as $column => $def) {
             $alias = $column . '_d' . $this->depth . $this->joinAlias;
             if (!\array_key_exists($alias, $result)) {
                 continue;
             }
 
-            $value = $result[$alias];
-
+            $value     = $result[$alias];
             $hasPath   = false;
-            $aValue    = [];
-            $arrayPath = '';
             $refProp   = null;
             $isPrivate = $def['private'] ?? false;
-            $member    = '';
+            $member    = $def['internal'];
 
             if ($isPrivate && $refClass === null) {
                 $refClass = new \ReflectionClass($obj);
             }
 
-            if (\stripos($def['internal'], '/') !== false) {
+            if (\stripos($member, '/') !== false) {
                 $hasPath = true;
-                $path    = \explode('/', \ltrim($def['internal'], '/'));
+                $path    = \explode('/', \ltrim($member, '/'));
                 $member  = $path[0];
 
                 if ($isPrivate) {
@@ -825,15 +832,12 @@ final class ReadMapper extends DataMapperAbstract
 
                 \array_shift($path);
                 $arrayPath = \implode('/', $path);
-            } else {
-                if ($isPrivate) {
-                    $refProp = $refClass->getProperty($def['internal']);
-                }
-
-                $member = $def['internal'];
+            } elseif ($isPrivate) {
+                $refProp = $refClass->getProperty($member);
             }
 
-            if (isset($this->mapper::OWNS_ONE[$def['internal']])) {
+            $type = $def['type'];
+            if (isset($this->mapper::OWNS_ONE[$member])) {
                 $default = null;
                 if (!isset($this->with[$member])
                     && ($isPrivate ? $refProp->isInitialized($obj) : isset($obj->{$member}))
@@ -841,15 +845,8 @@ final class ReadMapper extends DataMapperAbstract
                     $default = $isPrivate ? $refProp->getValue($obj) : $obj->{$member};
                 }
 
-                $value = $this->populateOwnsOne($def['internal'], $result, $default);
-
-                if (empty($value)) {
-                    // @todo find better solution. this was because of a bug with the sales billing list query depth = 4.
-                    // The address was set (from the client, referral or creator) but then somehow there was a second address element which was all null and null cannot be assigned to a string variable (e.g. country).
-                    // The problem with this solution is that if the model expects an initialization (e.g. at lest set the elements to null, '', 0 etc.) this is now not done.
-                    $value = $isPrivate ? $refProp->getValue($obj) : $obj->{$member};
-                }
-            } elseif (isset($this->mapper::BELONGS_TO[$def['internal']])) {
+                $value = $this->populateOwnsOne($member, $result, $default);
+            } elseif (isset($this->mapper::BELONGS_TO[$member])) {
                 $default = null;
                 if (!isset($this->with[$member])
                     && ($isPrivate ? $refProp->isInitialized($obj) : isset($obj->{$member}))
@@ -857,39 +854,39 @@ final class ReadMapper extends DataMapperAbstract
                     $default = $isPrivate ? $refProp->getValue($obj) : $obj->{$member};
                 }
 
-                $value = $this->populateBelongsTo($def['internal'], $result, $default);
-            } elseif (\in_array($def['type'], ['string', 'compress', 'int', 'float', 'bool'])) {
-                if ($value !== null && $def['type'] === 'compress') {
-                    $def['type'] = 'string';
-
+                $value = $this->populateBelongsTo($member, $result, $default);
+            } elseif (\in_array($type, ['string', 'compress', 'int', 'float', 'bool'])) {
+                if ($value !== null && $type === 'compress') {
+                    $type  = 'string';
                     $value = \gzinflate($value);
                 }
 
-                $mValue = $isPrivate ? $refProp->getValue($obj) : $obj->{$member};
-                if ($value !== null || $mValue !== null) {
-                    \settype($value, $def['type']);
+                if ($value !== null
+                    || ($isPrivate ? $refProp->getValue($obj) !== null : $obj->{$member} !== null)
+                ) {
+                    \settype($value, $type);
                 }
 
                 if ($hasPath) {
                     $value = ArrayUtils::setArray($arrayPath, $aValue, $value, '/', true);
                 }
-            } elseif ($def['type'] === 'DateTime') {
+            } elseif ($type === 'DateTime') {
                 $value = $value === null ? null : new \DateTime($value);
                 if ($hasPath) {
                     $value = ArrayUtils::setArray($arrayPath, $aValue, $value, '/', true);
                 }
-            } elseif ($def['type'] === 'DateTimeImmutable') {
+            } elseif ($type === 'DateTimeImmutable') {
                 $value = $value === null ? null : new \DateTimeImmutable($value);
                 if ($hasPath) {
                     $value = ArrayUtils::setArray($arrayPath, $aValue, $value, '/', true);
                 }
-            } elseif ($def['type'] === 'Json') {
+            } elseif ($type === 'Json') {
                 if ($hasPath) {
                     $value = ArrayUtils::setArray($arrayPath, $aValue, $value, '/', true);
                 }
 
                 $value = \json_decode($value, true);
-            } elseif ($def['type'] === 'Serializable') {
+            } elseif ($type === 'Serializable') {
                 $mObj = $isPrivate ? $refProp->getValue($obj) : $obj->{$member};
 
                 if ($mObj !== null && $value !== null) {
@@ -905,10 +902,19 @@ final class ReadMapper extends DataMapperAbstract
             }
         }
 
-        // @todo How is this allowed? at the bottom we set $obj->hasMany = value. A hasMany should be always an array?!
+        if (empty($this->with)) {
+            return $obj;
+        }
+
+        // This is only for hasMany elements where only one hasMany child object is loaded
+        // Example: A model usually only loads one l11n element despite having localizations for multiple languages
+        // @todo The code below is basically a copy of the foreach from above.
+        //       Maybe we can combine them in a smart way without adding much overhead
         foreach ($this->mapper::HAS_MANY as $member => $def) {
+            // Only if column is defined do we have a pseudo 1-to-1 relation
+            // The content of the column will be loaded directly in the member variable
             if (!isset($this->with[$member])
-                || !isset($def['column']) // @todo is this required? The code below indicates that this might be stupid
+                || !isset($def['column'])
             ) {
                 continue;
             }
@@ -922,8 +928,6 @@ final class ReadMapper extends DataMapperAbstract
 
             $value     = $result[$alias];
             $hasPath   = false;
-            $aValue    = null;
-            $arrayPath = '/';
             $refProp   = null;
             $isPrivate = $def['private'] ?? false;
 
@@ -933,16 +937,18 @@ final class ReadMapper extends DataMapperAbstract
 
             if (\stripos($member, '/') !== false) {
                 $hasPath = true;
-                $path    = \explode('/', $member);
+                $path    = \explode('/', \ltrim($member, '/'));
                 $member  = $path[0];
 
                 if ($isPrivate) {
                     $refProp = $refClass->getProperty($path[0]);
+                    $aValue  = $refProp->getValue($obj);
+                } else {
+                    $aValue = $obj->{$path[0]};
                 }
 
                 \array_shift($path);
                 $arrayPath = \implode('/', $path);
-                $aValue    = $isPrivate ? $refProp->getValue($obj) : $obj->{$path[0]};
             } elseif ($isPrivate) {
                 $refProp = $refClass->getProperty($member);
             }
@@ -964,12 +970,12 @@ final class ReadMapper extends DataMapperAbstract
                     $value = ArrayUtils::setArray($arrayPath, $aValue, $value, '/', true);
                 }
             } elseif ($type === 'DateTime') {
-                $value ??= new \DateTime($value);
+                $value = $value === null ? null : new \DateTime($value);
                 if ($hasPath) {
                     $value = ArrayUtils::setArray($arrayPath, $aValue, $value, '/', true);
                 }
             } elseif ($type === 'DateTimeImmutable') {
-                $value ??= new \DateTimeImmutable($value);
+                $value = $value === null ? null : new \DateTimeImmutable($value);
                 if ($hasPath) {
                     $value = ArrayUtils::setArray($arrayPath, $aValue, $value, '/', true);
                 }
@@ -1022,13 +1028,9 @@ final class ReadMapper extends DataMapperAbstract
             } else {
                 return $default;
             }
-        }
-
-        if (isset($this->mapper::OWNS_ONE[$member]['column'])) {
+        } elseif (isset($this->mapper::OWNS_ONE[$member]['column'])) {
             return $result[$mapper::getColumnByMember($this->mapper::OWNS_ONE[$member]['column']) . '_d' . $this->depth . '_' . $member];
-        }
-
-        if (!isset($result[$mapper::PRIMARYFIELD . '_d' . ($this->depth + 1) . '_' . $member])) {
+        } elseif (!isset($result[$mapper::PRIMARYFIELD . '_d' . ($this->depth + 1) . '_' . $member])) {
             return $mapper::createNullModel();
         }
 
@@ -1057,28 +1059,23 @@ final class ReadMapper extends DataMapperAbstract
         $mapper = $this->mapper::BELONGS_TO[$member]['mapper'];
 
         if (!isset($this->with[$member])) {
-            if (\array_key_exists($this->mapper::BELONGS_TO[$member]['external'] . '_d' . $this->depth . '_' . $member, $result)) {
+            if (\array_key_exists($this->mapper::BELONGS_TO[$member]['external'] . '_d' . $this->depth . $this->joinAlias, $result)) {
                 return isset($this->mapper::BELONGS_TO[$member]['column'])
-                    ? $result[$this->mapper::BELONGS_TO[$member]['external'] . '_d' . $this->depth . '_' . $member]
-                    : $mapper::createNullModel($result[$this->mapper::BELONGS_TO[$member]['external'] . '_d' . $this->depth . '_' . $member]);
+                    ? $result[$this->mapper::BELONGS_TO[$member]['external'] . '_d' . $this->depth . $this->joinAlias]
+                    : $mapper::createNullModel($result[$this->mapper::BELONGS_TO[$member]['external'] . '_d' . $this->depth . $this->joinAlias]);
             } else {
                 return $default;
             }
-        }
-
-        if (isset($this->mapper::BELONGS_TO[$member]['column'])) {
+        } elseif (isset($this->mapper::BELONGS_TO[$member]['column'])) {
             return $result[$mapper::getColumnByMember($this->mapper::BELONGS_TO[$member]['column']) . '_d' . $this->depth . '_' . $member];
-        }
-
-        if (!isset($result[$mapper::PRIMARYFIELD . '_d' . ($this->depth + 1) . '_' . $member])) {
+        } elseif (!isset($result[$mapper::PRIMARYFIELD . '_d' . ($this->depth + 1) . '_' . $member])) {
             return $mapper::createNullModel();
-        }
+        } elseif (isset($this->mapper::BELONGS_TO[$member]['by'])) {
+            // get the belongs to based on a different column (not primary key)
+            // this is often used if the value is actually a different model:
+            //      you want the profile but the account id is referenced
+            //      in this case you can get the profile by loading the profile based on the account reference column
 
-        // get the belongs to based on a different column (not primary key)
-        // this is often used if the value is actually a different model:
-        //      you want the profile but the account id is referenced
-        //      in this case you can get the profile by loading the profile based on the account reference column
-        if (isset($this->mapper::BELONGS_TO[$member]['by'])) {
             /** @var self $belongsToMapper */
             $belongsToMapper        = $this->createRelationMapper($mapper::get($this->db), $member);
             $belongsToMapper->depth = $this->depth + 1;
@@ -1086,7 +1083,7 @@ final class ReadMapper extends DataMapperAbstract
 
             $belongsToMapper->where(
                 $this->mapper::BELONGS_TO[$member]['by'],
-                $result[$mapper::getColumnByMember($this->mapper::BELONGS_TO[$member]['by']) . '_d' . ($this->depth + 1) . $this->joinAlias],
+                $result[$mapper::getColumnByMember($this->mapper::BELONGS_TO[$member]['by']) . '_d' . ($this->depth + 1) . '_' . $member],
                 '='
             );
 
@@ -1162,9 +1159,7 @@ final class ReadMapper extends DataMapperAbstract
                 }
 
                 if ($isPrivate) {
-                    if ($refClass === null) {
-                        $refClass = new \ReflectionClass($obj);
-                    }
+                    $refClass ??= new \ReflectionClass($obj);
 
                     foreach ($primaryKeys as $idx => $key) {
                         if (!isset($objects[$key])) {
@@ -1208,9 +1203,7 @@ final class ReadMapper extends DataMapperAbstract
                 $tempObjs  = [];
 
                 if ($isPrivate) {
-                    if ($refClass === null) {
-                        $refClass = new \ReflectionClass($obj);
-                    }
+                    $refClass ??= new \ReflectionClass($obj);
 
                     $refProp = $refClass->getProperty($member);
 
@@ -1250,8 +1243,9 @@ final class ReadMapper extends DataMapperAbstract
 
         $refClass = null;
 
-        // @todo check if there are more cases where the relation is already loaded with joins etc.
-        // there can be pseudo hasMany elements like localizations. They are hasMany but these are already loaded with joins!
+        // @performance Check if there are more cases where the relation is already loaded with joins etc.
+        //      There can be pseudo hasMany elements like localizations. They are hasMany but these are already loaded with joins!
+        //      Variation of https://github.com/Karaka-Management/phpOMS/issues/363
         foreach ($this->with as $member => $withData) {
             if (isset($this->mapper::HAS_MANY[$member])) {
                 $many = $this->mapper::HAS_MANY[$member];
@@ -1259,7 +1253,6 @@ final class ReadMapper extends DataMapperAbstract
                     continue;
                 }
 
-                // @todo withData doesn't store this directly, it is in [0]['private] ?!?!
                 $isPrivate = $many['private'] ?? false;
 
                 $objectMapper = $this->createRelationMapper($many['mapper']::exists(db: $this->db), $member);
@@ -1295,9 +1288,7 @@ final class ReadMapper extends DataMapperAbstract
 
                 $isPrivate = $relation['private'] ?? false;
                 if ($isPrivate) {
-                    if ($refClass === null) {
-                        $refClass = new \ReflectionClass($obj);
-                    }
+                    $refClass ??= new \ReflectionClass($obj);
 
                     $refProp = $refClass->getProperty($member);
                     return $relMapper->hasManyRelations($refProp->getValue($obj));

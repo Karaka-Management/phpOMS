@@ -901,11 +901,8 @@ abstract class ModuleAbstract
      *
      * @return void
      *
-     * @feature Implement softDelete functionality.
-     *          Models which have a soft delete cannot be used, read or modified unless a person has soft delete permissions
-     *          In addition to DELETE permissions we now need SOFTDELETE as well.
-     *          There also needs to be an undo function for this soft delete
-     *          In a backend environment a soft delete would be very helpful!!!
+     * @question Consider to implement softDelete functionality
+     *      https://github.com/Karaka-Management/Karaka/issues/276
      *
      * @since 1.0.0
      */
@@ -975,7 +972,7 @@ abstract class ModuleAbstract
      *
      * @param int    $account Account id
      * @param mixed  $rel1    Object relation1
-     * @param mixed  $rel2    Object relation2
+     * @param mixed  $rel2    Object relation2 (null = remove all related to $rel1)
      * @param string $mapper  Object mapper
      * @param string $field   Relation field
      * @param string $trigger Trigger for the event manager
@@ -990,7 +987,13 @@ abstract class ModuleAbstract
         $trigger = static::NAME . '-' . $trigger . '-relation-delete';
 
         $this->app->eventManager->triggerSimilar('PRE:Module:' . $trigger, '', $rel1);
-        $mapper::remover()->deleteRelationTable($field, \is_array($rel2) ? $rel2 : [$rel2], $rel1);
+        $mapper::remover()->deleteRelationTable(
+            $field,
+            $rel2 === null
+                ? null
+                : (\is_array($rel2) ? $rel2 : [$rel2]),
+            $rel1
+        );
 
         $data = [
             $account,

@@ -119,9 +119,7 @@ final class WriteMapper extends DataMapperAbstract
 
                 $tValue = null;
                 if ($column['private'] ?? false) {
-                    if ($refClass === null) {
-                        $refClass = new \ReflectionClass($obj);
-                    }
+                    $refClass ??= new \ReflectionClass($obj);
 
                     $property = $refClass->getProperty($propertyName);
                     $tValue   = $property->getValue($obj);
@@ -227,7 +225,6 @@ final class WriteMapper extends DataMapperAbstract
 
         if (isset($this->mapper::BELONGS_TO[$propertyName]['by'])) {
             // has by (obj is stored as a different model e.g. model = profile but reference/db is account)
-
             if ($this->mapper::BELONGS_TO[$propertyName]['private'] ?? false) {
                 $refClass = new \ReflectionClass($obj);
                 $refProp  = $refClass->getProperty($this->mapper::BELONGS_TO[$propertyName]['by']);
@@ -241,7 +238,8 @@ final class WriteMapper extends DataMapperAbstract
         $mapper     = $this->mapper::BELONGS_TO[$propertyName]['mapper'];
         $primaryKey = $mapper::getObjectId($obj);
 
-        // @todo the $mapper::create() might cause a problem if 'by' is set. because we don't want to create this obj but the child obj.
+        // @bug The $mapper::create() might cause a problem if 'by' is set.
+        //      This is because we don't want to create this obj but the child obj.
         return empty($primaryKey)
             ? $mapper::create(db: $this->db)->execute($obj)
             : $primaryKey;
@@ -272,9 +270,7 @@ final class WriteMapper extends DataMapperAbstract
             $values    = null;
 
             if ($isPrivate) {
-                if ($refClass === null) {
-                    $refClass = new \ReflectionClass($obj);
-                }
+                $refClass ??= new \ReflectionClass($obj);
 
                 $property = $refClass->getProperty($propertyName);
                 $values   = $property->getValue($obj);
@@ -285,13 +281,11 @@ final class WriteMapper extends DataMapperAbstract
             /** @var class-string<DataMapperFactory> $mapper */
             $mapper       = $this->mapper::HAS_MANY[$propertyName]['mapper'];
             $internalName = $mapper::COLUMNS[$this->mapper::HAS_MANY[$propertyName]['self']]['internal'] ?? 'ERROR-BAD-SELF';
-
-            // @todo this or $isRelPrivate is wrong, don't know which one.
-            $isInternalPrivate = $mapper::COLUMNS[$this->mapper::HAS_MANY[$propertyName]['self']]['private'] ?? false;
+            $isRelPrivate = $mapper::COLUMNS[$this->mapper::HAS_MANY[$propertyName]['self']]['private'] ?? false;
 
             if (\is_object($values)) {
                 // conditionals
-                if ($isInternalPrivate) {
+                if ($isRelPrivate) {
                     $relReflectionClass = new \ReflectionClass($values);
                     $relProperty        = $relReflectionClass->getProperty($internalName);
 
@@ -302,16 +296,13 @@ final class WriteMapper extends DataMapperAbstract
 
                 $mapper::create(db: $this->db)->execute($values);
                 continue;
-            }
-
-            if (!\is_array($values)) {
-                // @todo conditionals???
+            } elseif (!\is_array($values) || empty($values)) {
+                // @todo conditionals?
                 continue;
             }
 
             $objsIds            = [];
-            $isRelPrivate       = $mapper::COLUMNS[$this->mapper::HAS_MANY[$propertyName]['self']]['private'] ?? false;
-            $relReflectionClass = $isRelPrivate && !empty($values) ? new \ReflectionClass(\reset($values)) : null;
+            $relReflectionClass = $isRelPrivate ? new \ReflectionClass(\reset($values)) : null;
 
             foreach ($values as $key => $value) {
                 if (!\is_object($value)) {
@@ -337,7 +328,6 @@ final class WriteMapper extends DataMapperAbstract
                         $relProperty = $relReflectionClass->getProperty($internalName);
                     }
 
-                    // @todo maybe consider to just set the column type to object, and then check for that (might be faster)
                     if (isset($mapper::BELONGS_TO[$internalName])
                         || isset($mapper::OWNS_ONE[$internalName])
                     ) {
@@ -353,11 +343,12 @@ final class WriteMapper extends DataMapperAbstract
                     }
                 }
 
-                // @todo This inserts one element at a time. SQL allows to insert multiple rows.
-                // The problem with this is, that we then need to manually calculate the objIds
-                // since lastInsertId returns the first generated id.
-                // However, the current use case in Jingga only rarely has multiple hasMany during the creation
-                // since we are calling the API individually.
+                // @performance This inserts one element at a time. SQL allows to insert multiple rows.
+                //      The problem with this is, that we then need to manually calculate the objIds
+                //      since lastInsertId returns the first generated id.
+                //      However, the current use case in Jingga only rarely has multiple hasMany during the creation
+                //      since we are calling the API individually.
+                //      https://github.com/Karaka-Management/phpOMS/issues/370
                 $objsIds[$key] = $mapper::create(db: $this->db)->execute($value);
             }
 

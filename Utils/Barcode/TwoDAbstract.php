@@ -81,6 +81,7 @@ abstract class TwoDAbstract extends CodeAbstract
         $locationX = $this->margin;
 
         // @todo Allow manual dimensions
+        //      https://github.com/Karaka-Management/phpOMS/issues/346
         for ($posX = 0; $posX < $width; ++$posX) {
             $locationY = $this->margin;
 

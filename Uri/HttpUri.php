@@ -404,8 +404,11 @@ final class HttpUri implements UriInterface
 
         $this->queryString .= $toAdd;
 
-        // @todo handle existing string at the end of uri (e.g. #fragment)
-        $this->uri .= $toAdd;
+        if (empty($this->fragment)) {
+            $this->uri .= $toAdd;
+        } else {
+            $this->uri = \substr_replace($this->uri, $toAdd, \strrpos($this->uri, '#'), 0);
+        }
     }
 
     /**
