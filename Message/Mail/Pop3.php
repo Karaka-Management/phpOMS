@@ -21,6 +21,9 @@ namespace phpOMS\Message\Mail;
  * @license OMS License 2.0
  * @link    https://jingga.app
  * @since   1.0.0
+ *
+ * @todo Continue implementation of email sending and receiving
+ *      https://github.com/Karaka-Management/phpOMS/issues/258
  */
 class Pop3 implements MailBoxInterface
 {

@@ -75,6 +75,8 @@ class ISO4217SymbolEnum extends Enum
     public const _CLP = '$';
 
     public const _CNY = '¥';
+    public const _CNH = '¥';
+    public const _RMB = '¥';
 
     public const _COP = '$';
 
@@ -401,4 +403,6 @@ class ISO4217SymbolEnum extends Enum
     public const _ZMW = 'ZK';
 
     public const _KES = 'KSh';
+
+    use ISO4217Trait;
 }

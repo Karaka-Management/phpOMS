@@ -291,6 +291,8 @@ final class ReadMapper extends DataMapperAbstract
 
         if (!empty($this->indexedBy)) {
             return $indexed;
+        } elseif ($this->type === MapperType::GET_ALL) {
+            return $objs;
         }
 
         $countResults = \count($objs);
@@ -377,6 +379,16 @@ final class ReadMapper extends DataMapperAbstract
         $query ??= $this->getQuery();
 
         try {
+            /*
+            \phpOMS\Log\FileLogger::getInstance()->info(
+                \phpOMS\Log\FileLogger::MSG_FULL, [
+                    'message' => $query->toSql(),
+                    'line'    => __LINE__,
+                    'file'    => self::class,
+                ]
+            );
+            */
+
             $sth = $this->db->con->prepare($query->toSql());
             if ($sth === false) {
                 yield [];
@@ -559,6 +571,7 @@ final class ReadMapper extends DataMapperAbstract
         // This is necessary for special cases, e.g. when joining in the other direction
         // Example: Show all profiles who have written a news article.
         //          "with()" only allows to go from articles to accounts but we want to go the other way
+        //
         // @feature Create join functionality for mappers which supports joining and filtering based on other tables
         //      Example: show all profiles which have written a news article
         //      https://github.com/Karaka-Management/phpOMS/issues/253
@@ -1124,8 +1137,9 @@ final class ReadMapper extends DataMapperAbstract
 
         $refClass = null;
 
-        // @todo check if there are more cases where the relation is already loaded with joins etc.
-        // there can be pseudo hasMany elements like localizations. They are hasMany but these are already loaded with joins!
+        // @todo Check if there are more cases where the relation is already loaded with joins etc.
+        //      There can be pseudo hasMany elements like localizations.
+        //      They are hasMany but these are already loaded with joins!
         foreach ($this->with as $member => $withData) {
             if (isset($this->mapper::HAS_MANY[$member])) {
                 $many = $this->mapper::HAS_MANY[$member];

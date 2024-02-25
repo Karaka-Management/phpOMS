@@ -325,14 +325,14 @@ class View extends ViewAbstract
     /**
      * Print a percentage value
      *
-     * @param float       $percentage Percentage value to print
-     * @param null|string $format     Format type to use
+     * @param float|FloatInt $percentage Percentage value to print
+     * @param null|string    $format     Format type to use
      *
      * @return string
      *
      * @since 1.0.0
      */
-    public function getPercentage(float $percentage, ?string $format = null) : string
+    public function getPercentage(float | FloatInt $percentage, ?string $format = null) : string
     {
         return $this->l11nManager->getPercentage($this->l11n, $percentage, $format);
     }

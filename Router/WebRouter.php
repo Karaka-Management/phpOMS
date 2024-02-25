@@ -23,6 +23,13 @@ use phpOMS\Account\Account;
  * @license OMS License 2.0
  * @link    https://jingga.app
  * @since   1.0.0
+ *
+ * @todo Change the url format in most modules from query parameter to path
+ *      (e.g. `/module/profile?id=Admin` to `/module/Admin/profile`)
+ *      https://github.com/Karaka-Management/Karaka/issues/153
+ *
+ * @todo Instead of doing only regex matching, combine it with a tree search, this should be faster
+ *      https://github.com/Karaka-Management/phpOMS/issues/276
  */
 final class WebRouter implements RouterInterface
 {

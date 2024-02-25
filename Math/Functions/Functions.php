@@ -196,6 +196,11 @@ final class Functions
         return $a % $b;
     }
 
+    public static function modFloat(float $a, float $b) : float
+    {
+        return $a - ((int) ($a / $b)) * $b;
+    }
+
     /**
      * Check if value is odd.
      *

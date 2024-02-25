@@ -30,6 +30,14 @@ use phpOMS\Module\Exception\InvalidModuleException;
  * @license OMS License 2.0
  * @link    https://jingga.app
  * @since   1.0.0
+ *
+ * @todo Implement a strategy for managing optional modules (e.g., comment module within the news module).
+ *      Previously, modifications to the Mapper were made (e.g., comments were removed) when the comment module was installed.
+ *      However, this approach is no longer viable. One potential solution is to introduce a separate Mapper
+ *      that is dynamically replaced if the comment module is installed.
+ *      Instead of replacing the entire file, a differential approach should be adopted, where only the ADDED lines are merged.
+ *      Consideration must be given to uninstallation scenarios, as determining precisely what to remove is currently problematic.
+ *      https://github.com/Karaka-Management/Karaka/issues/155
  */
 final class ModuleManager
 {
@@ -253,7 +261,7 @@ final class ModuleManager
     {
         $name = '\\Modules\\' . $module . '\\Controller\\' . ($ctlName ?? $this->app->appName) . 'Controller';
 
-        return isset($this->running[$name]);
+        return isset($this->running[$module][$name]);
     }
 
     /**
@@ -647,6 +655,41 @@ final class ModuleManager
     }
 
     /**
+     * Initialize module.
+     *
+     * Also registers controller in the dispatcher
+     *
+     * @param string $module  Module
+     * @param string $ctlName Controller name (null = current app)
+     *
+     * @return void
+     *
+     * @since 1.0.0
+     */
+    private function initModuleController(string $module, ?string $ctlName = null) : void
+    {
+        $name = '\\Modules\\' . $module . '\\Controller\\' . ($ctlName ?? $this->app->appName) . 'Controller';
+        $ctrl = $this->get($module, $ctlName);
+
+        if ($this->app->dispatcher !== null) {
+            $this->app->dispatcher->set($ctrl, $name);
+        }
+
+        // Handle providing->receiving
+        foreach ($this->running as $mName => $controllers) {
+            $controller = \reset($controllers);
+
+            foreach ($controller::$providing as $providing) {
+                $ctrl = \reset($this->running[$providing]);
+
+                if (!\in_array($mName, $ctrl->receiving)) {
+                    $ctrl->receiving[] = $mName;
+                }
+            }
+        }
+    }
+
+    /**
      * Get module instance.
      *
      * This also returns inactive or uninstalled modules if they are still in the modules directory.
@@ -667,68 +710,30 @@ final class ModuleManager
      */
     public function get(string $module, ?string $ctlName = null) : ModuleAbstract
     {
-        $name = '\\Modules\\' . $module . '\\Controller\\' . ($ctlName ?? $this->app->appName) . 'Controller';
-        if (!isset($this->running[$name])) {
-            $this->initModuleController($module, $ctlName);
-        }
-
-        /* @phpstan-ignore-next-line */
-        return $this->running[$name] ?? new NullModule();
-    }
-
-    /**
-     * Initialize module.
-     *
-     * Also registers controller in the dispatcher
-     *
-     * @param string $module  Module
-     * @param string $ctlName Controller name (null = current app)
-     *
-     * @return void
-     *
-     * @since 1.0.0
-     */
-    private function initModuleController(string $module, ?string $ctlName = null) : void
-    {
-        $name                 = '\\Modules\\' . $module . '\\Controller\\' . ($ctlName ?? $this->app->appName) . 'Controller';
-        $this->running[$name] = $this->getModuleInstance($module, $ctlName);
-
-        if ($this->app->dispatcher !== null) {
-            $this->app->dispatcher->set($this->running[$name], $name);
-        }
-    }
-
-    /**
-     * Gets and initializes modules.
-     *
-     * @param string $module  Module ID
-     * @param string $ctlName Controller name (null = current app)
-     *
-     * @return ModuleAbstract
-     *
-     * @since 1.0.0
-     */
-    public function getModuleInstance(string $module, ?string $ctlName = null) : ModuleAbstract
-    {
         $class = '\\Modules\\' . $module . '\\Controller\\' . ($ctlName ?? $this->app->appName) . 'Controller';
-
-        if (!isset($this->running[$class])) {
-            if (Autoloader::exists($class)
-                || Autoloader::exists($class = '\\Modules\\' . $module . '\\Controller\\Controller')
-            ) {
-                try {
-                    /** @var ModuleAbstract $obj */
-                    $obj                   = new $class($this->app);
-                    $this->running[$class] = $obj;
-                } catch (\Throwable $_) {
-                    $this->running[$class] = new NullModule();
-                }
-            } else {
-                $this->running[$class] = new NullModule();
-            }
+        if (!isset($this->running[$module])) {
+            $this->running[$module] = [];
         }
 
-        return $this->running[$class];
+        if (isset($this->running[$module][$class])) {
+            return $this->running[$module][$class];
+        }
+
+        if (Autoloader::exists($class)
+            || Autoloader::exists($class = '\\Modules\\' . $module . '\\Controller\\Controller')
+        ) {
+            try {
+                /** @var ModuleAbstract $obj */
+                $obj                   = new $class($this->app);
+                $this->running[$module][$class] = $obj;
+            } catch (\Throwable $_) {
+                $this->running[$module][$class] = new NullModule();
+            }
+        } else {
+            $this->running[$module][$class] = new NullModule();
+        }
+
+        return $this->running[$module][$class];
     }
 
     /**

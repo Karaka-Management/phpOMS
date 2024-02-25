@@ -106,9 +106,9 @@ final class HttpSession implements SessionInterface
             \session_start();
             // @codeCoverageIgnoreEnd
         } else {
-            FileLogger::getInstance()->error(
+            FileLogger::getInstance()->warning(
                 FileLogger::MSG_FULL, [
-                    'message' => 'Bad application flow.',
+                    'message' => 'Headers already sent.',
                     'line'    => __LINE__,
                     'file'    => self::class,
                 ]

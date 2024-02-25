@@ -32,7 +32,7 @@ abstract class ViewAbstract implements RenderableInterface
      * @var string
      * @since 1.0.0
      */
-    protected const BASE_PATH = __DIR__ . '/../..';
+    public const BASE_PATH = __DIR__ . '/../..';
 
     /**
      * Output is buffered
@@ -230,7 +230,7 @@ abstract class ViewAbstract implements RenderableInterface
     }
 
     /**
-     * Arrayify view and it's subviews.
+     * Arrayify view and it's sub-views.
      *
      * @return array
      *

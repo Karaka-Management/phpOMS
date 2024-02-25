@@ -111,15 +111,18 @@ class SmartDateTime extends \DateTime
      */
     public function smartModify(int $y = 0, int $m = 0, int $d = 0, int $calendar = \CAL_GREGORIAN) : self
     {
-        $yearChange = (int) \floor(((int) $this->format('m') - 1 + $m) / 12);
-        $yearNew    = (int) $this->format('Y') + $y + $yearChange;
+        $year  = (int) $this->format('Y');
+        $month = (int) $this->format('m');
 
-        $monthNew = (int) $this->format('m') + $m;
-        $monthNew = $monthNew <= 0
-            ? 12 + ($monthNew - 1) % 12 + 1
-            : ($monthNew - 1) % 12 + 1;
+        $yearChange = (int) \floor(($month - 1 + $m) / 12);
+        $yearNew    = $year + $y + $yearChange;
 
-        $dayMonthOld = \cal_days_in_month($calendar, (int) $this->format('m'), (int) $this->format('Y'));
+        $monthNew = $month - 1 + $m;
+        $monthNew = $monthNew < 0
+            ? ($month - 1 + $m - 12 * $yearChange) % 12 + 1
+            : $monthNew % 12 + 1;
+
+        $dayMonthOld = \cal_days_in_month($calendar, $month, $year);
         $dayMonthNew = \cal_days_in_month($calendar, $monthNew, $yearNew);
         $dayOld      = (int) $this->format('d');
 

@@ -15,7 +15,7 @@ declare(strict_types=1);
 namespace phpOMS\Localization\LanguageDetection;
 
 /**
- * Langauge training class
+ * Language training class
  *
  * @package phpOMS\Localization\LanguageDetection
  * @license https://opensource.org/licenses/mit-license.html MIT

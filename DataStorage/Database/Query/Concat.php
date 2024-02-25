@@ -24,8 +24,12 @@ use phpOMS\DataStorage\Database\Connection\ConnectionAbstract;
  * @link    https://jingga.app
  * @since   1.0.0
  */
-class Where extends Builder
+class Concat extends Builder
 {
+    public string $delim = '';
+
+    public string $as = '';
+
     /**
      * Constructor.
      *
@@ -39,13 +43,20 @@ class Where extends Builder
         $this->type = QueryType::SELECT;
     }
 
+    public function columns(string $as, string $delim, ...$columns) : void
+    {
+        $this->delim = $delim;
+        $this->as = $as;
+
+        $this->select($columns);
+    }
+
     /**
      * {@inheritdoc}
      */
     public function toSql() : string
     {
-        $query = $this->grammar->compileWheres($this, $this->wheres);
-        $query = \str_starts_with($query, 'WHERE ') ? \substr($query, 6) : $query;
+        $query = $this->grammar->compileConcat($this, $this->selects);
 
         if (self::$log) {
             \phpOMS\Log\FileLogger::getInstance()->debug($query);

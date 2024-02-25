@@ -15,7 +15,7 @@ declare(strict_types=1);
 namespace phpOMS\Localization\LanguageDetection;
 
 /**
- * Langauge match result
+ * Language match result
  *
  * @package phpOMS\Localization\LanguageDetection
  * @license https://opensource.org/licenses/mit-license.html MIT
@@ -43,7 +43,7 @@ class LanguageResult implements \ArrayAccess, \IteratorAggregate, \JsonSerializa
     /**
      * Constructor.
      *
-     * @param array $result Langauge match results
+     * @param array $result Language match results
      *
      * @since 1.0.0
      */

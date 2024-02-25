@@ -4,7 +4,7 @@
  *
  * PHP Version 8.1
  *
- * @package   phpOMS\Utils\Parser\Html
+ * @package   phpOMS\Utils\Parser\Xml
  * @copyright Dennis Eichhorn
  * @license   OMS License 2.0
  * @version   1.0.0
@@ -12,17 +12,17 @@
  */
 declare(strict_types=1);
 
-namespace phpOMS\Utils\Parser\Html;
+namespace phpOMS\Utils\Parser\Xml;
 
 /**
- * Html parser class.
+ * Xml parser class.
  *
- * @package phpOMS\Utils\Parser\Html
+ * @package phpOMS\Utils\Parser\Xml
  * @license OMS License 2.0
  * @link    https://jingga.app
  * @since   1.0.0
  */
-final class HtmlParser
+final class XmlParser
 {
     /**
      * Constructor.
@@ -35,7 +35,7 @@ final class HtmlParser
     }
 
     /**
-     * Html to string
+     * Xml to string
      *
      * @param string $path Path
      *
@@ -43,24 +43,23 @@ final class HtmlParser
      *
      * @since 1.0.0
      */
-    public static function parseHtml(string $path, string $output = 'html', string $xpath = '') : string
+    public static function parseXml(string $path, string $output = 'xml', string $xpath = '') : string
     {
         $doc = new \DOMDocument();
+        $doc->preserveWhiteSpace = true;
+        $doc->formatOutput = true;
 
-        $html = \file_get_contents($path);
-        $html = \preg_replace(
+        $xml = \file_get_contents($path);
+        $xml = \preg_replace(
             ['~<style.*?</style>~', '~<script.*?</script>~'],
             ['', ''],
-            $html
+            $xml
         );
 
-        $doc->loadHTMLFile($path);
+        $doc->loadXML($path);
 
         if (empty($xpath)) {
-            $body = $doc->getElementsByTagName('body');
-            $node = $body->item(0);
-
-            return empty($node->textContent) ? '' : $node->textContent;
+            return $doc->loadXML($xml);
         }
 
         $content = '';

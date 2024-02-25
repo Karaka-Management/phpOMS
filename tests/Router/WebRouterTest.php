@@ -53,7 +53,7 @@ final class WebRouterTest extends \PHPUnit\Framework\TestCase
     {
         self::assertEmpty(
             $this->router->route(
-                (new HttpRequest(new HttpUri('')))->uri->getRoute()
+                (new HttpRequest())->uri->getRoute()
             )
         );
     }

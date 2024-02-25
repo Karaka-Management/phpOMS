@@ -119,7 +119,7 @@ class Iban implements SerializableInterface
         $country = $this->getCountry();
 
         /** @var string $iban */
-        $iban   = IbanEnum::getByName('C_' . $country);
+        $iban   = IbanEnum::getByName('_' . $country);
         $layout = \str_replace(' ', '', $iban);
         $start  = \stripos($layout, $sequence);
         $end    = \strrpos($layout, $sequence);

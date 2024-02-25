@@ -23,6 +23,9 @@ use phpOMS\Validation\Base\DateTime;
  * @license OMS License 2.0
  * @link    https://jingga.app
  * @since   1.0.0
+ *
+ * @todo Use `Interval` for scheduler instead of string etc.
+ *      https://github.com/Karaka-Management/phpOMS/issues/257
  */
 class Schedule extends TaskAbstract
 {

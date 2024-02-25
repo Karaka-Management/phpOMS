@@ -18,6 +18,7 @@ use phpOMS\Algorithm\Graph\DependencyResolver;
 use phpOMS\Contract\SerializableInterface;
 use phpOMS\DataStorage\Database\BuilderAbstract;
 use phpOMS\DataStorage\Database\Connection\ConnectionAbstract;
+use phpOMS\DataStorage\Database\Query\Grammar\Grammar;
 
 /**
  * Database query builder.
@@ -26,9 +27,22 @@ use phpOMS\DataStorage\Database\Connection\ConnectionAbstract;
  * @license OMS License 2.0
  * @link    https://jingga.app
  * @since   1.0.0
+ *
+ * @question Consider to delete the builder but create a Select, Insert, ... builder
+ *      Then directly call the compileSelect + compileFrom ... from the toSql
+ *      This way the object generated would be much slimmer since we don't need to initialize empty data for
+ *      Insert etc. We also wouldn't have to call compileComponents since this would happen directly in toSql().
  */
 class Builder extends BuilderAbstract
 {
+    /**
+     * Grammar.
+     *
+     * @var Grammar
+     * @since 1.0.0
+     */
+    protected Grammar $grammar;
+
     /**
      * Log queries.
      *
@@ -62,7 +76,9 @@ class Builder extends BuilderAbstract
     public array $updates = [];
 
     /**
-     * Stupid work around because value needs to be not null for it to work in Grammar.
+     * Deletes.
+     *
+     * @todo Find fix for stupid work around because value needs to be not null for it to work in Grammar.
      *
      * @var array
      * @since 1.0.0
@@ -354,7 +370,16 @@ class Builder extends BuilderAbstract
             $this->resolveJoinDependencies();
         }
 
-        $query = $this->grammar->compileQuery($this);
+        $components  = $this->grammar->compileComponents($this);
+        $queryString = '';
+
+        foreach ($components as $component) {
+            if ($component !== '') {
+                $queryString .= $component . ' ';
+            }
+        }
+
+        $query = \substr($queryString, 0, -1) . ';';
 
         if (self::$log) {
             \phpOMS\Log\FileLogger::getInstance()->debug($query);
@@ -399,7 +424,7 @@ class Builder extends BuilderAbstract
 
         $resolved = DependencyResolver::resolve($dependencies);
 
-        // cyclomatic dependencies
+        // cyclic dependencies
         if ($resolved === null) {
             return;
         }
@@ -816,76 +841,88 @@ class Builder extends BuilderAbstract
      */
     public function __toString()
     {
-        return $this->grammar->compileQuery($this);
-    }
+        $components  = $this->grammar->compileComponents($this);
+        $queryString = '';
 
-    /**
-     * Find query.
-     *
-     * @return void
-     *
-     * @since 1.0.0
-     */
-    public function find() : void
-    {
+        foreach ($components as $component) {
+            if ($component !== '') {
+                $queryString .= $component . ' ';
+            }
+        }
+
+        return \substr($queryString, 0, -1) . ';';
     }
 
     /**
      * Count results.
      *
-     * @param string $table Table to count the result set
+     * @param string $column Table to count the result set
      *
      * @return Builder
      *
      * @since 1.0.0
      */
-    public function count(string $table = '*') : self
+    public function count(string $column = '*', ?string $as = null) : self
     {
-        return $this->select('COUNT(' . $table . ')');
+        return $as === null
+            ? $this->select('COUNT(' . $column . ')')
+            : $this->selectAs('COUNT(' . $column . ')', $as);
     }
 
     /**
      * Select minimum.
      *
-     * @return void
+     * @return Builder
      *
      * @since 1.0.0
      */
-    public function min() : void
+    public function min(string $column = '*', ?string $as = null) : self
     {
+        return $as === null
+            ? $this->select('MIN(' . $column . ')')
+            : $this->selectAs('MIN(' . $column . ')', $as);
     }
 
     /**
      * Select maximum.
      *
-     * @return void
+     * @return Builder
      *
      * @since 1.0.0
      */
-    public function max() : void
+    public function max(string $column = '*', ?string $as = null) : self
     {
+        return $as === null
+            ? $this->select('MAX(' . $column . ')')
+            : $this->selectAs('MAX(' . $column . ')', $as);
     }
 
     /**
      * Select sum.
      *
-     * @return void
+     * @return Builder
      *
      * @since 1.0.0
      */
-    public function sum() : void
+    public function sum(string $column = '*', ?string $as = null) : self
     {
+        return $as === null
+            ? $this->select('SUM(' . $column . ')')
+            : $this->selectAs('SUM(' . $column . ')', $as);
     }
 
     /**
      * Select average.
      *
-     * @return void
+     * @return Builder
      *
      * @since 1.0.0
      */
-    public function avg() : void
+    public function avg(string $column = '*', ?string $as = null) : self
     {
+        return $as === null
+            ? $this->select('AVG(' . $column . ')')
+            : $this->selectAs('AVG(' . $column . ')', $as);
     }
 
     /**
@@ -1057,28 +1094,6 @@ class Builder extends BuilderAbstract
         $this->type = QueryType::DELETE;
 
         return $this;
-    }
-
-    /**
-     * Increment value.
-     *
-     * @return void
-     *
-     * @since 1.0.0
-     */
-    public function increment() : void
-    {
-    }
-
-    /**
-     * Decrement value.
-     *
-     * @return void
-     *
-     * @since 1.0.0
-     */
-    public function decrement() : void
-    {
     }
 
     /**
@@ -1282,7 +1297,7 @@ class Builder extends BuilderAbstract
      * @param string|array      $columns  Columns to join on
      * @param null|string|array $operator Comparison operator
      * @param null|string|array $values   Values to compare with
-     * @param string|array      $boolean  Concatonator
+     * @param string|array      $boolean  Concatenation
      * @param null|string       $table    Table this belongs to
      *
      * @return Builder
@@ -1355,28 +1370,15 @@ class Builder extends BuilderAbstract
     }
 
     /**
-     * Merging query.
-     *
-     * Merging query in order to remove database query volume
-     *
-     * @return Builder
-     *
-     * @since 1.0.0
-     */
-    public function merge() : self
-    {
-        return clone($this);
-    }
-
-    /**
      * {@inheritdoc}
      */
     public function execute() : ?\PDOStatement
     {
         $sth = null;
+        $sql = '';
 
         try {
-            $sth = $this->connection->con->prepare($this->toSql());
+            $sth = $this->connection->con->prepare($sql = $this->toSql());
             if ($sth === false) {
                 return null;
             }
@@ -1392,7 +1394,7 @@ class Builder extends BuilderAbstract
             // @codeCoverageIgnoreStart
             \phpOMS\Log\FileLogger::getInstance()->error(
                 \phpOMS\Log\FileLogger::MSG_FULL, [
-                    'message' => $t->getMessage() . ':' . $this->toSql(),
+                    'message' => $t->getMessage() . ':' . $sql,
                     'line'    => __LINE__,
                     'file'    => self::class,
                 ]
@@ -1442,8 +1444,6 @@ class Builder extends BuilderAbstract
     {
         if (\is_string($column)) {
             return $column;
-        } elseif ($column instanceof Column) {
-            return $column->getColumn();
         } elseif ($column instanceof SerializableInterface) {
             return $column->serialize();
         } elseif ($column instanceof self) {

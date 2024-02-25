@@ -235,18 +235,19 @@ final class L11nManager
     /**
      * Print a percentage value
      *
-     * @param Localization $l11n       Localization
-     * @param float        $percentage Percentage value to print
-     * @param null|string  $format     Format type to use
+     * @param Localization   $l11n       Localization
+     * @param float|FloatInt $percentage Percentage value to print
+     * @param null|string    $format     Format type to use
      *
      * @return string
      *
      * @since 1.0.0
      */
-    public function getPercentage(Localization $l11n, float $percentage, ?string $format = null) : string
+    public function getPercentage(Localization $l11n, float | FloatInt $percentage, ?string $format = null) : string
     {
         return \number_format(
-            $percentage, $l11n->getPrecision()[$format ?? 'medium'],
+            \is_float($percentage) ? $percentage : $percentage->value / (FloatInt::DIVISOR * 100),
+            $l11n->getPrecision()[$format ?? 'medium'],
             $l11n->getDecimal(),
             $l11n->getThousands()
         ) . '%';
@@ -277,7 +278,7 @@ final class L11nManager
         $symbol ??= $l11n->currency;
 
         if (\is_float($currency)) {
-            $currency = (int) ($currency * \pow(10, Money::MAX_DECIMALS));
+            $currency = (int) ($currency * FloatInt::DIVISOR);
         }
 
         if ($divide > 1 && !empty($symbol)) {

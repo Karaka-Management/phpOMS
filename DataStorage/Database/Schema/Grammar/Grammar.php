@@ -32,7 +32,7 @@ class Grammar extends GrammarAbstract
     /**
      * {@inheritdoc}
      */
-    protected function compileComponents(BuilderAbstract $query) : array
+    public function compileComponents(BuilderAbstract $query) : array
     {
         /** @var SchemaBuilder $query */
 

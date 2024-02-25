@@ -26,6 +26,9 @@ use phpOMS\Utils\ArrayUtils;
  * @license OMS License 2.0
  * @link    https://jingga.app
  * @since   1.0.0
+ *
+ * @todo Lock data for concurrency (e.g. table row lock or heartbeat)
+ *      https://github.com/Karaka-Management/Karaka/issues/152
  */
 final class WriteMapper extends DataMapperAbstract
 {

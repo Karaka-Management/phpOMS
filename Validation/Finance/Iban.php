@@ -42,7 +42,7 @@ final class Iban extends ValidatorAbstract
             return false; // @codeCoverageIgnore
         }
 
-        $enumName = 'C_' . \strtoupper($temp);
+        $enumName = '_' . \strtoupper($temp);
 
         if (!IbanEnum::isValidName($enumName)) {
             self::$error = IbanErrorType::INVALID_COUNTRY;

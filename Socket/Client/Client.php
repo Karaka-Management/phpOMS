@@ -26,6 +26,9 @@ use phpOMS\Socket\SocketAbstract;
  * @license OMS License 2.0
  * @link    https://jingga.app
  * @since   1.0.0
+ *
+ * @todo Implement
+ *      https://github.com/Karaka-Management/phpOMS/issues/277
  */
 class Client extends SocketAbstract
 {

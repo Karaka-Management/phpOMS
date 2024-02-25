@@ -30,6 +30,10 @@ use phpOMS\Utils\StringUtils;
  * @license OMS License 2.0
  * @link    https://jingga.app
  * @since   1.0.0
+ *
+ * @performance The modules use the module name for identification in many places
+ *      where the module id should be used for performance reasons
+ *      https://github.com/Karaka-Management/Karaka/issues/159
  */
 abstract class ModuleAbstract
 {
@@ -286,6 +290,39 @@ abstract class ModuleAbstract
             'status'   => NotificationLevel::OK,
             'title'    => '',
             'message'  => $this->app->l11nManager->getText($response->header->l11n->language, '0', '0', 'SuccessfulCreate'),
+            'response' => $obj,
+        ];
+    }
+
+    /**
+     * Create standard model background process response.
+     *
+     * The response object contains the following data:
+     *
+     *  * status = Response status
+     *  * title = Response title (e.g. for frontend reporting)
+     *  * message = Response message (e.g. for frontend reporting)
+     *  * response = Response object (e.g. for validation/frontend reporting/form validation)
+     *
+     * @param RequestAbstract  $request  Request
+     * @param ResponseAbstract $response Response
+     * @param mixed            $obj      Response object
+     *
+     * @return void
+     *
+     * @since 1.0.0
+     */
+    public function createStandardBackgroundResponse(
+        RequestAbstract $request,
+        ResponseAbstract $response,
+        mixed $obj
+    ) : void
+    {
+        $response->header->set('Content-Type', MimeType::M_JSON . '; charset=utf-8', true);
+        $response->data[$request->uri->__toString()] = [
+            'status'   => NotificationLevel::INFO,
+            'title'    => '',
+            'message'  => $this->app->l11nManager->getText($response->header->l11n->language, '0', '0', 'SuccessfulBackground'),
             'response' => $obj,
         ];
     }

@@ -16,6 +16,7 @@ namespace phpOMS\DataStorage\Database\Schema;
 
 use phpOMS\DataStorage\Database\BuilderAbstract;
 use phpOMS\DataStorage\Database\Connection\ConnectionAbstract;
+use phpOMS\DataStorage\Database\Schema\Grammar\Grammar;
 
 /**
  * Database query builder.
@@ -29,6 +30,14 @@ use phpOMS\DataStorage\Database\Connection\ConnectionAbstract;
  */
 class Builder extends BuilderAbstract
 {
+    /**
+     * Grammar.
+     *
+     * @var Grammar
+     * @since 1.0.0
+     */
+    protected Grammar $grammar;
+
     /**
      * Table to create.
      *
@@ -260,7 +269,7 @@ class Builder extends BuilderAbstract
      * @param bool   $isNullable    Can be null
      * @param bool   $isPrimary     Is a primary field
      * @param bool   $isUnique      Is a unique field
-     * @param bool   $autoincrement Autoincrements
+     * @param bool   $autoincrement Auto increments
      * @param string $foreignTable  Foreign table (in case of foreign key)
      * @param string $foreignKey    Foreign key
      * @param array  $meta          Meta data
@@ -335,9 +344,10 @@ class Builder extends BuilderAbstract
     public function execute() : ?\PDOStatement
     {
         $sth = null;
+        $sql = '';
 
         try {
-            $sth = $this->connection->con->prepare($this->toSql());
+            $sth = $this->connection->con->prepare($sql = $this->toSql());
             if ($sth === false) {
                 return null;
             }
@@ -347,14 +357,19 @@ class Builder extends BuilderAbstract
             if ($this->hasPostQuery) {
                 $sqls = $this->grammar->compilePostQueries($this);
 
-                foreach ($sqls as $sql) {
-                    $this->connection->con->exec($sql);
+                foreach ($sqls as $post) {
+                    $this->connection->con->exec($post);
                 }
             }
         } catch (\Throwable $t) {
             // @codeCoverageIgnoreStart
-            \var_dump($t->getMessage());
-            \var_dump($this->toSql());
+            \phpOMS\Log\FileLogger::getInstance()->error(
+                \phpOMS\Log\FileLogger::MSG_FULL, [
+                    'message' => $t->getMessage() . ':' . $sql,
+                    'line'    => __LINE__,
+                    'file'    => self::class,
+                ]
+            );
 
             $sth = null;
             // @codeCoverageIgnoreEnd
@@ -368,6 +383,15 @@ class Builder extends BuilderAbstract
      */
     public function toSql() : string
     {
-        return $this->grammar->compileQuery($this);
+        $components  = $this->grammar->compileComponents($this);
+        $queryString = '';
+
+        foreach ($components as $component) {
+            if ($component !== '') {
+                $queryString .= $component . ' ';
+            }
+        }
+
+        return \substr($queryString, 0, -1) . ';';
     }
 }

@@ -144,6 +144,7 @@ final class PdfParser
 
         foreach ($files as $file) {
             if (!StringUtils::endsWith($file, '.jpg')
+                && !StringUtils::endsWith($file, '.jpeg')
                 && !StringUtils::endsWith($file, '.png')
                 && !StringUtils::endsWith($file, '.gif')
             ) {
