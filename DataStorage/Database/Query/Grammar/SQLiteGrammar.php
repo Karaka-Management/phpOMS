@@ -62,4 +62,22 @@ class SQLiteGrammar extends Grammar
 
         return 'SELECT ' . $expression . ' ' . $this->compileFrom($query, $query->from) . ' ORDER BY RANDOM() ' . $this->compileLimit($query, $query->limit ?? 1);
     }
+
+    /**
+     * Create concat
+     *
+     * @param Concat $query   Builder
+     * @param array  $columns Columns
+     *
+     * @return string
+     *
+     * @since 1.0.0
+     */
+    public function compileConcat(\phpOMS\DataStorage\Database\Query\Concat $query, array $columns) : string
+    {
+        $sql = $this->expressionizeTableColumn($columns);
+        $sql = \str_replace(',', ' ||', $sql);
+
+        return $sql . ' AS ' . $query->as;
+    }
 }

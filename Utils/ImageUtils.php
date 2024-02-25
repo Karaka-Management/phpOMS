@@ -315,7 +315,7 @@ final class ImageUtils
                 //$color1 = \imagecolorat($src1, $i, $j);
                 $color2 = \imagecolorat($src2, $i, $j);
 
-                if (\abs($color1Avg - $color2Avg) / $color1Avg > 0.05 && $color1Avg > 0 && $color2Avg > 0) {
+                if ($color1Avg > 0 && \abs($color1Avg - $color2Avg) / $color1Avg > 0.05 && $color2Avg > 0) {
                     ++$difference;
 
                     if ($diff === 0) {

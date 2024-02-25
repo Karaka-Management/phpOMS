@@ -1,8 +1,7 @@
 <?php declare(strict_types=1);
 
 return [
-  'iu' =>
-  [
+  'iu' => [
     0   => 'ᑦ',
     1   => 'ᑦ_',
     2   => 'ᑎ',

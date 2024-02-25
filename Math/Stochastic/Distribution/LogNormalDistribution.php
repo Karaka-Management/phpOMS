@@ -27,6 +27,16 @@ use phpOMS\Math\Functions\Functions;
 final class LogNormalDistribution
 {
     /**
+     * Constructor.
+     *
+     * @since 1.0.0
+     * @codeCoverageIgnore
+     */
+    private function __construct()
+    {
+    }
+
+    /**
      * Get probability density function.
      *
      * @param float $x     Value x

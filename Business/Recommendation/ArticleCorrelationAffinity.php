@@ -37,7 +37,7 @@ final class ArticleCorrelationAffinity
     private array $affinity = [];
 
     /**
-     * Item order behaviour (when are which items ordered)
+     * Item order behavior (when are which items ordered)
      *
      * In tearms of the pearson correlation these are our random variables
      *

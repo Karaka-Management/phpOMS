@@ -73,7 +73,7 @@ final class AccountManagerTest extends \PHPUnit\Framework\TestCase
     public function testRetrieveAccount() : void
     {
         $this->manager->add($this->account);
-        self::assertEquals($this->account, $this->manager->get($this->account->getId()));
+        self::assertEquals($this->account, $this->manager->get($this->account->id));
     }
 
     /**
@@ -87,7 +87,7 @@ final class AccountManagerTest extends \PHPUnit\Framework\TestCase
         $added = $this->manager->add($this->account);
         self::assertFalse($added);
 
-        self::assertTrue($this->manager->remove($this->account->getId()));
+        self::assertTrue($this->manager->remove($this->account->id));
         self::assertFalse($this->manager->remove(-1));
         self::assertEquals(0, $this->manager->count());
     }
@@ -100,7 +100,7 @@ final class AccountManagerTest extends \PHPUnit\Framework\TestCase
     public function testRemoveAccount() : void
     {
         $this->manager->add($this->account);
-        self::assertTrue($this->manager->remove($this->account->getId()));
+        self::assertTrue($this->manager->remove($this->account->id));
         self::assertEquals(0, $this->manager->count());
         self::assertFalse($this->manager->remove(-1));
     }
@@ -115,7 +115,7 @@ final class AccountManagerTest extends \PHPUnit\Framework\TestCase
         $this->manager->add($this->account);
         self::assertFalse($this->manager->remove(-1));
         self::assertEquals(1, $this->manager->count());
-        self::assertTrue($this->manager->remove($this->account->getId()));
+        self::assertTrue($this->manager->remove($this->account->id));
         self::assertEquals(0, $this->manager->count());
     }
 }

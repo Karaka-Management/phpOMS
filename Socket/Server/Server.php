@@ -27,6 +27,9 @@ use phpOMS\Socket\SocketAbstract;
  * @license OMS License 2.0
  * @link    https://jingga.app
  * @since   1.0.0
+ *
+ * @todo Implement
+ *      https://github.com/Karaka-Management/phpOMS/issues/278
  */
 class Server extends SocketAbstract
 {
@@ -174,7 +177,7 @@ class Server extends SocketAbstract
         $upgrade   = "HTTP/1.1 101 Switching Protocols\r\n" .
             "Upgrade: websocket\r\n" .
             "Connection: Upgrade\r\n" .
-            "Sec-WebSocket-Accept: ${acceptKey}" .
+            "Sec-WebSocket-Accept: {$acceptKey}" .
             "\r\n\r\n";
         \socket_write($client->getSocket(), $upgrade);
         $client->setHandshake(true);
@@ -295,11 +298,11 @@ class Server extends SocketAbstract
         \socket_shutdown($client->getSocket(), 2);
         \socket_close($client->getSocket());
 
-        if (isset($this->conn[$client->getId()])) {
-            unset($this->conn[$client->getId()]);
+        if (isset($this->conn[$client->id])) {
+            unset($this->conn[$client->id]);
         }
 
-        $this->clientManager->remove($client->getId());
+        $this->clientManager->remove($client->id);
         $this->app->logger->debug('Disconnected client.');
     }
 

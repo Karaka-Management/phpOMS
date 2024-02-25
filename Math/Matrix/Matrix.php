@@ -82,9 +82,7 @@ class Matrix implements \ArrayAccess, \Iterator
         $this->n = $n;
         $this->m = $m;
 
-        for ($i = 0; $i < $m; ++$i) {
-            $this->matrix[$i] = \array_fill(0, $n, 0);
-        }
+        $this->matrix = \array_fill(0, $m, \array_fill(0, $n, 0));
     }
 
     /**
@@ -160,18 +158,6 @@ class Matrix implements \ArrayAccess, \Iterator
         $matrix->setMatrix(\array_map(null, ...$this->matrix));
 
         return $matrix;
-    }
-
-    /**
-     * Get matrix array.
-     *
-     * @return array<int, array<int, mixed>>
-     *
-     * @since 1.0.0
-     */
-    public function getMatrix() : array
-    {
-        return $this->matrix;
     }
 
     /**
@@ -298,6 +284,25 @@ class Matrix implements \ArrayAccess, \Iterator
     }
 
     /**
+     * Get matrix as 1D array.
+     *
+     * @return array<int, int|float>
+     *
+     * @since 1.0.0
+     */
+    public function toVectorArray() : array
+    {
+        $result = [];
+        for ($i = 0; $i < $this->m; ++$i) {
+            for ($j = 0; $j < $this->n; ++$j) {
+                $result[] = $this->matrix[$i][$j];
+            }
+        }
+
+        return $result;
+    }
+
+    /**
      * Is symmetric.
      *
      * @return bool
@@ -309,7 +314,7 @@ class Matrix implements \ArrayAccess, \Iterator
         $isSymmetric = true;
         for ($j = 0; ($j < $this->m) & $isSymmetric; ++$j) {
             for ($i = 0; ($i < $this->n) & $isSymmetric; ++$i) {
-                $isSymmetric = ($this->matrix[$i][$j] === $this->matrix[$j][$i]);
+                $isSymmetric = \abs($this->matrix[$i][$j] - $this->matrix[$j][$i]) < self::EPSILON;
             }
         }
 
@@ -432,7 +437,7 @@ class Matrix implements \ArrayAccess, \Iterator
             throw new InvalidDimensionException($matrix->getM() . 'x' . $matrix->getN());
         }
 
-        $matrixArr    = $matrix->getMatrix();
+        $matrixArr    = $matrix->toArray();
         $newMatrixArr = $this->matrix;
 
         foreach ($newMatrixArr as $i => $vector) {
@@ -485,7 +490,7 @@ class Matrix implements \ArrayAccess, \Iterator
         $newMatrixArr = $this->matrix;
 
         foreach ($newMatrixArr as $i => $vector) {
-            foreach ($vector as $j => $value) {
+            foreach ($vector as $j => $_) {
                 $newMatrixArr[$i][$j] += $scalar;
             }
         }
@@ -534,25 +539,45 @@ class Matrix implements \ArrayAccess, \Iterator
             throw new InvalidDimensionException($mDim . 'x' . $nDim);
         }
 
-        $matrixArr    = $matrix->getMatrix();
-        $newMatrix    = new self($this->m, $nDim);
-        $newMatrixArr = $newMatrix->getMatrix();
+        $matrixArr    = $matrix->toArray();
+        $newMatrixArr = \array_fill(0, $this->m, \array_fill(0, $nDim, 0));
 
-        for ($i = 0; $i < $this->m; ++$i) { // Row of $this
-            for ($c = 0; $c < $nDim; ++$c) { // Column of $matrix
-                $temp = 0;
-
-                for ($j = 0; $j < $mDim; ++$j) { // Row of $matrix
-                    $temp += ($this->matrix[$i][$j] ?? 0) * ($matrixArr[$j][$c] ?? 0);
+        if ($mDim > 10 || $nDim > 10) {
+            // Standard transposed for iteration over rows -> higher cache hit
+            $transposedMatrixArr = [];
+            for ($k = 0; $k < $mDim; ++$k) {
+                for ($j = 0; $j < $nDim; ++$j) {
+                    $transposedMatrixArr[$k][$j] = $matrixArr[$j][$k];
                 }
+            }
 
-                $newMatrixArr[$i][$c] = $temp;
+            for ($i = 0; $i < $this->m; ++$i) {
+                for ($j = 0; $j < $this->n; ++$j) {
+                    $temp = 0;
+
+                    for ($k = 0; $k < $mDim; ++$k) {
+                        $temp += $this->matrix[$i][$k] * $transposedMatrixArr[$i][$k];
+                    }
+
+                    $newMatrixArr[$i][$j] = $temp;
+                }
+            }
+        } else {
+            // Standard
+            for ($i = 0; $i < $this->m; ++$i) {
+                for ($j = 0; $j < $nDim; ++$j) {
+                    $temp = 0;
+
+                    for ($k = 0; $k < $mDim; ++$k) {
+                        $temp += $this->matrix[$i][$k] * $matrixArr[$k][$j];
+                    }
+
+                    $newMatrixArr[$i][$j] = $temp;
+                }
             }
         }
 
-        $newMatrix->setMatrix($newMatrixArr); /* @phpstan-ignore-line */
-
-        return $newMatrix;
+        return self::fromArray($newMatrixArr);
     }
 
     /**
@@ -569,7 +594,7 @@ class Matrix implements \ArrayAccess, \Iterator
         $newMatrixArr = $this->matrix;
 
         foreach ($newMatrixArr as $i => $vector) {
-            foreach ($vector as $j => $value) {
+            foreach ($vector as $j => $_) {
                 $newMatrixArr[$i][$j] *= $scalar;
             }
         }
@@ -693,80 +718,7 @@ class Matrix implements \ArrayAccess, \Iterator
     }
 
     /**
-     * Dot product
-     *
-     * @param self $B Matrix
-     *
-     * @return self
-     *
-     * @since 1.0.0
-     */
-    public function dot(self $B) : self
-    {
-        $value1 = $this->matrix;
-        $value2 = $B->getMatrix();
-
-        $m1 = \count($value1);
-        $n1 = ($isMatrix1 = \is_array($value1[0])) ? \count($value1[0]) : 1;
-
-        $m2 = \count($value2);
-        $n2 = ($isMatrix2 = \is_array($value2[0])) ? \count($value2[0]) : 1;
-
-        $result = null;
-
-        if ($isMatrix1 && $isMatrix2) {
-            if ($m2 !== $n1) {
-                throw new InvalidDimensionException($m2 . 'x' . $n2 . ' not compatible with ' . $m1 . 'x' . $n1);
-            }
-
-            $result = [[]];
-            for ($i = 0; $i < $m1; ++$i) { // Row of 1
-                for ($c = 0; $c < $n2; ++$c) { // Column of 2
-                    $temp = 0;
-
-                    for ($j = 0; $j < $m2; ++$j) { // Row of 2
-                        $temp += $value1[$i][$j] * $value2[$j][$c];
-                    }
-
-                    $result[$i][$c] = $temp;
-                }
-            }
-
-            return self::fromArray($result);
-        } elseif (!$isMatrix1 && !$isMatrix2) {
-            if ($m1 !== $m2) {
-                throw new InvalidDimensionException($m1 . 'x' . $m2);
-            }
-
-            $result = 0;
-            for ($i = 0; $i < $m1; ++$i) {
-                /** @var array $value1 */
-                /** @var array $value2 */
-                $result += $value1[$i] * $value2[$i];
-            }
-
-            return self::fromArray([[$result]]);
-        } elseif ($isMatrix1 && !$isMatrix2) {
-            $result = [];
-            for ($i = 0; $i < $m1; ++$i) { // Row of 1
-                $temp = 0;
-
-                for ($c = 0; $c < $m2; ++$c) { // Row of 2
-                    /** @var array $value2 */
-                    $temp += $value1[$i][$c] * $value2[$c];
-                }
-
-                $result[$i] = $temp;
-            }
-
-            return self::fromArray($result);
-        }
-
-        throw new \InvalidArgumentException();
-    }
-
-    /**
-     * Sum the elements in the matrix
+     * Sum the elements in the matrix.
      *
      * @param int $axis Axis (-1 -> all dimensions, 0 -> columns, 1 -> rows)
      *
@@ -796,14 +748,14 @@ class Matrix implements \ArrayAccess, \Iterator
                 }
             }
 
-            return self::fromArray($sum);
+            return Vector::fromArray($sum);
         } elseif ($axis === 1) {
             $sum = [];
             foreach ($this->matrix as $idx => $row) {
                 $sum[$idx] = \array_sum($row);
             }
 
-            return self::fromArray($sum);
+            return Vector::fromArray($sum);
         }
 
         return new self();
@@ -870,14 +822,24 @@ class Matrix implements \ArrayAccess, \Iterator
             }
 
             return $matrix;
-        } else {
-            // @todo: implement
-            throw new \Exception('Not yet implemented');
         }
+
+        $eig = new EigenvalueDecomposition($this);
+
+        $d = $eig->getD();
+        $m = $d->getM();
+
+        for ($i = 0; $i < $m; ++$i) {
+            $d->matrix[$i][$i] = \pow($d->matrix[$i][$i], $exponent);
+        }
+
+        return $eig->getV()->mult($d)->mult($eig->getV()->inverse());
     }
 
     /**
      * Calculate e^M
+     *
+     * The algorithm uses a taylor series.
      *
      * @param int $iterations Iterations for approximation
      *
@@ -891,22 +853,20 @@ class Matrix implements \ArrayAccess, \Iterator
             throw new InvalidDimensionException($this->m . 'x' . $this->n);
         }
 
-        $identity = new IdentityMatrix($this->m);
-        $matrix   = $identity;
+        $sum = new IdentityMatrix($this->m);
 
         $factorial = 1;
-        $pow       = $matrix;
+        $pow       = clone $sum;
 
         for ($i = 1; $i <= $iterations; ++$i) {
             $factorial *= $i;
-            $coeff      = 1 / $factorial;
+            $coeff = 1 / $factorial;
 
-            $term   = $pow->mult($coeff);
-            $matrix = $matrix->add($term);
-            $pow    = $pow->mult($matrix); // @todo: maybe wrong order?
+            $pow = $pow->mult($this);
+            $sum = $sum->add($pow->mult($coeff));
         }
 
-        return $matrix;
+        return $sum;
     }
 
     /**

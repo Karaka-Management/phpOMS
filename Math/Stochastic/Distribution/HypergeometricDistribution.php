@@ -27,6 +27,16 @@ use phpOMS\Math\Functions\Functions;
 final class HypergeometricDistribution
 {
     /**
+     * Constructor.
+     *
+     * @since 1.0.0
+     * @codeCoverageIgnore
+     */
+    private function __construct()
+    {
+    }
+
+    /**
      * Get probability mass function.
      *
      * @param int $K Successful states in the population

@@ -85,7 +85,7 @@ final class BuilderTest extends \PHPUnit\Framework\TestCase
         $datetime = new \DateTime('now');
         $sql      = 'SELECT [a].[test], [b].[test] FROM [a], [b] WHERE [a].[test] = \'' . $datetime->format('Y-m-d H:i:s')
         . '\';';
-        $sql      = \strtr($sql, '[]', $iS . $iE);
+        $sql = \strtr($sql, '[]', $iS . $iE);
         self::assertEquals($sql, $query->select('a.test', 'b.test')->from('a', 'b')->where('a.test', '=', $datetime)->toSql());
 
         $query = new Builder($con);
@@ -121,7 +121,7 @@ final class BuilderTest extends \PHPUnit\Framework\TestCase
         $iE = $con->getGrammar()->systemIdentifierEnd;
 
         $query = new Builder($con);
-        $sql   = 'SELECT [a].[test] FROM [a] as b WHERE [a].[test] = 1 ORDER BY \rand() LIMIT 1;';
+        $sql   = 'SELECT [a].[test] FROM [a] as b WHERE [a].[test] = 1 ORDER BY RAND() LIMIT 1;';
         $sql   = \strtr($sql, '[]', $iS . $iE);
         self::assertEquals($sql, $query->random('a.test')->fromAs('a', 'b')->where('a.test', '=', 1)->toSql());
     }
@@ -535,19 +535,19 @@ final class BuilderTest extends \PHPUnit\Framework\TestCase
         $iE = $con->getGrammar()->systemIdentifierEnd;
 
         $query = new Builder($con);
-        $sql   = 'UPDATE [a] SET [a].[test] = 1, [a].[test2] = 2 WHERE [a].[test] = 1;';
+        $sql   = 'UPDATE [a] SET [test] = 1, [test2] = 2 WHERE [a].[test] = 1;';
         $sql   = \strtr($sql, '[]', $iS . $iE);
-        self::assertEquals($sql, $query->update('a')->set(['a.test' => 1])->set(['a.test2' => 2])->where('a.test', '=', 1)->toSql());
+        self::assertEquals($sql, $query->update('a')->set(['test' => 1])->set(['test2' => 2])->where('a.test', '=', 1)->toSql());
 
         $query = new Builder($con);
-        $sql   = 'UPDATE [a] SET [a].[test] = 1, [a].[test2] = 2 WHERE [a].[test] = 1;';
+        $sql   = 'UPDATE [a] SET [test] = 1, [test2] = 2 WHERE [a].[test] = 1;';
         $sql   = \strtr($sql, '[]', $iS . $iE);
-        self::assertEquals($sql, $query->update('a')->sets('a.test', 1)->sets('a.test2', 2)->where('a.test', '=', 1)->toSql());
+        self::assertEquals($sql, $query->update('a')->sets('test', 1)->sets('test2', 2)->where('a.test', '=', 1)->toSql());
 
         $query = new Builder($con);
-        $sql   = 'UPDATE [a] SET [a].[test] = 1, [a].[test2] = :test2 WHERE [a].[test] = :test3;';
+        $sql   = 'UPDATE [a] SET [test] = 1, [test2] = :test2 WHERE [a].[test] = :test3;';
         $sql   = \strtr($sql, '[]', $iS . $iE);
-        self::assertEquals($sql, $query->update('a')->set(['a.test' => 1])->set(['a.test2' => new Parameter('test2')])->where('a.test', '=', new Parameter('test3'))->toSql());
+        self::assertEquals($sql, $query->update('a')->set(['test' => 1])->set(['test2' => new Parameter('test2')])->where('a.test', '=', new Parameter('test3'))->toSql());
     }
 
     /**
@@ -742,28 +742,6 @@ final class BuilderTest extends \PHPUnit\Framework\TestCase
 
         $query = new Builder($con, true);
         $query->delete();
-    }
-
-    /**
-     * @testdox Invalid select types throw a InvalidArgumentException
-     * @group framework
-     * @dataProvider dbConnectionProvider
-     */
-    public function testInvalidSelectParameter($con) : void
-    {
-        if (!$con->isInitialized()) {
-            self::markTestSkipped();
-
-            return;
-        }
-
-        $iS = $con->getGrammar()->systemIdentifierStart;
-        $iE = $con->getGrammar()->systemIdentifierEnd;
-
-        $this->expectException(\InvalidArgumentException::class);
-
-        $query = new Builder($con, true);
-        $query->select(false);
     }
 
     /**

@@ -21,7 +21,7 @@ use phpOMS\Dispatcher\DispatcherInterface;
  * EventManager class.
  *
  * The event manager allows to define events which can be triggered/executed in an application.
- * This implementation allows to create sub-conditions which need to be met (triggered in advance) bevore the actual
+ * This implementation allows to create sub-conditions which need to be met (triggered in advance) before the actual
  * callback is getting executed.
  *
  * What happens after triggering an event (removing the callback, resetting the sub-conditions etc.) depends on the setup.
@@ -64,7 +64,7 @@ final class EventManager implements \Countable
      *
      * @since 1.0.0
      */
-    public function __construct(Dispatcher $dispatcher = null)
+    public function __construct(?Dispatcher $dispatcher = null)
     {
         $this->dispatcher = $dispatcher ?? new class() implements DispatcherInterface {
             /**
@@ -90,7 +90,7 @@ final class EventManager implements \Countable
      * return [
      *      '{EVENT_ID}' => [
      *          'callback' => [
-     *              '{DESTINATION_NAMESPACE:method}', // can also be static by using :: between namespace and functio name
+     *              '{DESTINATION_NAMESPACE:method}', // can also be static by using :: between namespace and function name
      *              // more callbacks here
      *          ],
      *      ],
@@ -159,7 +159,7 @@ final class EventManager implements \Countable
     /**
      * Trigger event based on regex for group and/or id.
      *
-     * This tigger function allows the group to be a regex in either this function call or in the definition of the group.
+     * This trigger function allows the group to be a regex in either this function call or in the definition of the group.
      *
      * @param string $group Name of the event (can be regex)
      * @param string $id    Sub-requirement for event (can be regex)
@@ -257,7 +257,7 @@ final class EventManager implements \Countable
         foreach ($this->callbacks[$group]['callbacks'] as $func) {
             if (\is_array($data)) {
                 $data['@triggerGroup'] ??= $group;
-                $data['@triggerId']      = $id;
+                $data['@triggerId'] = $id;
             } else {
                 $data = [
                     $data,

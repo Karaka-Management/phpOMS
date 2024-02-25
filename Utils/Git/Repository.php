@@ -254,7 +254,7 @@ class Repository
      *
      * @since 1.0.0
      */
-    public function create(string $source = null) : void
+    public function create(?string $source = null) : void
     {
         if (!\is_dir($this->path) || \is_dir($this->path . '/.git')) {
             throw new \Exception('Already repository');
@@ -690,15 +690,10 @@ class Repository
      *
      * @since 1.0.0
      */
-    public function getContributors(\DateTime $start = null, \DateTime $end = null) : array
+    public function getContributors(?\DateTime $start = null, ?\DateTime $end = null) : array
     {
-        if ($start === null) {
-            $start = new \DateTime('1970-12-31');
-        }
-
-        if ($end === null) {
-            $end = new \DateTime('now');
-        }
+        $start ??= new \DateTime('1970-12-31');
+        $end   ??= new \DateTime('now');
 
         $lines        = $this->run('shortlog -s -n --since="' . $start->format('Y-m-d') . '" --before="' . $end->format('Y-m-d') . '" --all');
         $contributors = [];
@@ -730,15 +725,10 @@ class Repository
      *
      * @since 1.0.0
      */
-    public function getCommitsCount(\DateTime $start = null, \DateTime $end = null) : array
+    public function getCommitsCount(?\DateTime $start = null, ?\DateTime $end = null) : array
     {
-        if ($start === null) {
-            $start = new \DateTime('1970-12-31');
-        }
-
-        if ($end === null) {
-            $end = new \DateTime('now');
-        }
+        $start ??= new \DateTime('1970-12-31');
+        $end   ??= new \DateTime('now');
 
         $lines   = $this->run('shortlog -s -n --since="' . $start->format('Y-m-d') . '" --before="' . $end->format('Y-m-d') . '" --all');
         $commits = [];
@@ -766,15 +756,10 @@ class Repository
      *
      * @since 1.0.0
      */
-    public function getAdditionsRemovalsByContributor(Author $author, \DateTime $start = null, \DateTime $end = null) : array
+    public function getAdditionsRemovalsByContributor(Author $author, ?\DateTime $start = null, ?\DateTime $end = null) : array
     {
-        if ($start === null) {
-            $start = new \DateTime('1900-01-01');
-        }
-
-        if ($end === null) {
-            $end = new \DateTime('now');
-        }
+        $start ??= new \DateTime('1900-01-01');
+        $end   ??= new \DateTime('now');
 
         $addremove = ['added' => 0, 'removed' => 0];
         $lines     = $this->run(
@@ -817,15 +802,10 @@ class Repository
      *
      * @since 1.0.0
      */
-    public function getCommitsBy(\DateTime $start = null, \DateTime $end = null, Author $author = null) : array
+    public function getCommitsBy(?\DateTime $start = null, ?\DateTime $end = null, ?Author $author = null) : array
     {
-        if ($start === null) {
-            $start = new \DateTime('1970-12-31');
-        }
-
-        if ($end === null) {
-            $end = new \DateTime('now');
-        }
+        $start ??= new \DateTime('1970-12-31');
+        $end   ??= new \DateTime('now');
 
         $author = $author === null ? '' : ' --author=' . \escapeshellarg($author->name) . '';
 

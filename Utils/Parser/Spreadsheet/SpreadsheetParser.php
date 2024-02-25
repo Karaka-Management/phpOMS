@@ -25,8 +25,18 @@ use PhpOffice\PhpSpreadsheet\Worksheet\PageSetup;
  * @link    https://jingga.app
  * @since   1.0.0
  */
-class SpreadsheetParser
+final class SpreadsheetParser
 {
+    /**
+     * Constructor.
+     *
+     * @since 1.0.0
+     * @codeCoverageIgnore
+     */
+    private function __construct()
+    {
+    }
+
     /**
      * Spreadsheet to string
      *
@@ -38,9 +48,9 @@ class SpreadsheetParser
      */
     public static function parseSpreadsheet(string $path, string $output = 'json') : string
     {
-        if ($output === 'json') {
-            $spreadsheet = IOFactory::load($path);
+        $spreadsheet = IOFactory::load($path);
 
+        if ($output === 'json') {
             $sheetCount = $spreadsheet->getSheetCount();
             $csv        = [];
 
@@ -52,8 +62,6 @@ class SpreadsheetParser
 
             return $json === false ? '' : $json;
         } elseif ($output === 'pdf') {
-            $spreadsheet = IOFactory::load($path);
-
             $spreadsheet->getActiveSheet()->setShowGridLines(false);
             $spreadsheet->getActiveSheet()->getPageSetup()->setOrientation(PageSetup::ORIENTATION_LANDSCAPE);
 
@@ -64,13 +72,31 @@ class SpreadsheetParser
 
             return $writer->toPdfString();
         } elseif ($output === 'html') {
-            $spreadsheet = IOFactory::load($path);
-
             IOFactory::registerWriter('custom', \phpOMS\Utils\Parser\Spreadsheet\SpreadsheetWriter::class);
             /** @var \phpOMS\Utils\Parser\Spreadsheet\SpreadsheetWriter $writer */
             $writer = IOFactory::createWriter($spreadsheet, 'custom');
 
             return $writer->generateHtmlAll();
+        } elseif ($output === 'txt') {
+            IOFactory::registerWriter('custom', \phpOMS\Utils\Parser\Spreadsheet\SpreadsheetWriter::class);
+
+            /** @var \phpOMS\Utils\Parser\Spreadsheet\SpreadsheetWriter $writer */
+            $writer = IOFactory::createWriter($spreadsheet, 'custom');
+            $html   =  $writer->generateHtmlAll();
+
+            $doc  = new \DOMDocument();
+            $html = \preg_replace(
+                ['~<style.*?</style>~', '~<script.*?</script>~'],
+                ['', ''],
+                $html
+            );
+
+            $doc->loadHTMLFile($path);
+
+            $body = $doc->getElementsByTagName('body');
+            $node = $body->item(0);
+
+            return empty($node->textContent) ? '' : $node->textContent;
         }
 
         return '';

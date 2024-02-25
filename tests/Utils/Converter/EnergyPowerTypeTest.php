@@ -45,13 +45,13 @@ final class EnergyPowerTypeTest extends \PHPUnit\Framework\TestCase
      */
     public function testEnums() : void
     {
-        self::assertEquals('kWh', EnergyPowerType::KILOWATT_HOUERS);
-        self::assertEquals('MWh', EnergyPowerType::MEGAWATT_HOUERS);
+        self::assertEquals('kWh', EnergyPowerType::KILOWATT_HOURS);
+        self::assertEquals('MWh', EnergyPowerType::MEGAWATT_HOURS);
         self::assertEquals('kt', EnergyPowerType::KILOTONS);
-        self::assertEquals('J', EnergyPowerType::JOULS);
+        self::assertEquals('J', EnergyPowerType::JOULES);
         self::assertEquals('Cal', EnergyPowerType::CALORIES);
         self::assertEquals('BTU', EnergyPowerType::BTU);
-        self::assertEquals('kJ', EnergyPowerType::KILOJOULS);
+        self::assertEquals('kJ', EnergyPowerType::KILOJOULES);
         self::assertEquals('thmEC', EnergyPowerType::THERMEC);
         self::assertEquals('Nm', EnergyPowerType::NEWTON_METERS);
     }

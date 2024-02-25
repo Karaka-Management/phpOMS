@@ -33,7 +33,7 @@ final class LanguageTest extends \PHPUnit\Framework\TestCase
     public function testDefaults() : void
     {
         $obj = new Language();
-        self::assertEquals(0, $obj->getId());
+        self::assertEquals(0, $obj->id);
         self::assertEquals('', $obj->getName());
         self::assertEquals('', $obj->getNative());
         self::assertEquals('', $obj->getCode2());

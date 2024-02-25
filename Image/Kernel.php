@@ -26,54 +26,116 @@ use phpOMS\Utils\NumericUtils;
  */
 final class Kernel
 {
+    /**
+     * Kernel matrix for ridge
+     *
+     * @var array<int, int[]>
+     * @since 1.0.0
+     */
     public const KERNEL_RIDGE_1 = [
         [0, -1, 0],
         [-1, 4, -1],
         [0, -1, 0],
     ];
 
+    /**
+     * Kernel matrix for ridge
+     *
+     * @var array<int, int[]>
+     * @since 1.0.0
+     */
     public const KERNEL_RIDGE_2 = [
         [-1, -1, -1],
         [-1, 8, -1],
         [-1, -1, -1],
     ];
 
+    /**
+     * Kernel matrix for sharpening
+     *
+     * @var array<int, int[]>
+     * @since 1.0.0
+     */
     public const KERNEL_SHARPEN = [
         [0, -1, 0],
         [-1, 5, -1],
         [0, -1, 0],
     ];
 
+    /**
+     * Kernel matrix for blurring
+     *
+     * @var array<int, int[]>
+     * @since 1.0.0
+     */
     public const KERNEL_BOX_BLUR = [
         [1 / 9, 1 / 9, 1 / 9],
         [1 / 9, 1 / 9, 1 / 9],
         [1 / 9, 1 / 9, 1 / 9],
     ];
 
+    /**
+     * Kernel matrix for gaussian blurring
+     *
+     * @var array<int, int[]>
+     * @since 1.0.0
+     */
     public const KERNEL_GAUSSUAN_BLUR_3 = [
         [1 / 16, 2 / 16, 1 / 16],
         [2 / 16, 4 / 16, 2 / 16],
         [1 / 16, 2 / 16, 1 / 16],
     ];
 
+    /**
+     * Kernel matrix for embossing
+     *
+     * @var array<int, int[]>
+     * @since 1.0.0
+     */
     public const KERNEL_EMBOSS = [
         [-2, -1, 0],
         [-1, 1, 1],
         [0, 1, 2],
     ];
 
+    /**
+     * Kernel matrix for unsharpening
+     *
+     * @var array<int, int[]>
+     * @since 1.0.0
+     */
     public const KERNEL_UNSHARP_MASKING = [
-        [-1 / 256,  -4 / 256, -6 / 256, -4 / 256, -1 / 256],
-        [-4 / 256,  -16 / 256, -24 / 256, -16 / 256, -4 / 256],
-        [-6 / 256,  -24 / 256, 476 / 256, -24 / 256, -6 / 256],
-        [-4 / 256,  -16 / 256, -24 / 256, -16 / 256, -4 / 256],
-        [-1 / 256,  -4 / 256, -6 / 256, -4 / 256, -1 / 256],
+        [-1 / 256, -4 / 256, -6 / 256, -4 / 256, -1 / 256],
+        [-4 / 256, -16 / 256, -24 / 256, -16 / 256, -4 / 256],
+        [-6 / 256, -24 / 256, 476 / 256, -24 / 256, -6 / 256],
+        [-4 / 256, -16 / 256, -24 / 256, -16 / 256, -4 / 256],
+        [-1 / 256, -4 / 256, -6 / 256, -4 / 256, -1 / 256],
     ];
 
     /**
+     * Constructor.
+     *
+     * @since 1.0.0
+     * @codeCoverageIgnore
+     */
+    private function __construct()
+    {
+    }
+
+    /**
+     * Apply kernel matrix
+     *
+     * @param string $inPath  Image file path
+     * @param string $outPath Image output path
+     * @param array  $kernel  Kernel matrix
+     *
+     * @return void
+     *
      * @see https://en.wikipedia.org/wiki/Kernel_(image_processing)
      * @see https://towardsdatascience.com/image-processing-with-python-blurring-and-sharpening-for-beginners-3bcebec0583a
      * @see https://web.eecs.umich.edu/~jjcorso/t/598F14/files/lecture_0924_filtering.pdf
+     *
+     * @since 1.0.0
      */
     public static function convolve(string $inPath, string $outPath, array $kernel) : void
     {
@@ -107,7 +169,7 @@ final class Kernel
 
                     for ($ky = 0; $ky < $kDim[0]; ++$ky) {
                         for ($kx = 0; $kx < $kDim[1]; ++$kx) {
-                            $pixel =  \imagecolorat($im,
+                            $pixel = \imagecolorat($im,
                                 \min(\max($x + $kx - $kWidthRadius, 0), $dim[0] - 1),
                                 \min(\max($y + $ky - $kHeightRadius, 0), $dim[1] - 1)
                             );

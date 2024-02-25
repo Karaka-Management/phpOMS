@@ -15,7 +15,6 @@ declare(strict_types=1);
 namespace phpOMS\Account;
 
 use phpOMS\Localization\Localization;
-use phpOMS\Stdlib\Base\Exception\InvalidEnumValue;
 use phpOMS\Validation\Network\Email;
 
 /**
@@ -164,12 +163,12 @@ class Account implements \JsonSerializable
      */
     public function hasPermission(
         int $permission,
-        int $unit = null,
-        int $app = null,
-        string $module = null,
-        int $category = null,
-        int $element = null,
-        int $component = null
+        ?int $unit = null,
+        ?int $app = null,
+        ?string $module = null,
+        ?int $category = null,
+        ?int $element = null,
+        ?int $component = null
     ) : bool
     {
         foreach ($this->groups as $group) {
@@ -318,70 +317,6 @@ class Account implements \JsonSerializable
     }
 
     /**
-     * Get status.
-     *
-     * @return int Returns the status (AccountStatus)
-     *
-     * @since 1.0.0
-     */
-    public function getStatus() : int
-    {
-        return $this->status;
-    }
-
-    /**
-     * Get status.
-     *
-     * @param int $status Status
-     *
-     * @return void
-     *
-     * @throws InvalidEnumValue This exception is thrown if a invalid status is used
-     *
-     * @since 1.0.0
-     */
-    public function setStatus(int $status) : void
-    {
-        if (!AccountStatus::isValidValue($status)) {
-            throw new InvalidEnumValue($status);
-        }
-
-        $this->status = $status;
-    }
-
-    /**
-     * Get type.
-     *
-     * @return int Returns the type (AccountType)
-     *
-     * @since 1.0.0
-     */
-    public function getType() : int
-    {
-        return $this->type;
-    }
-
-    /**
-     * Get type.
-     *
-     * @param int $type Type
-     *
-     * @return void
-     *
-     * @throws InvalidEnumValue This exception is thrown if an invalid type is used
-     *
-     * @since 1.0.0
-     */
-    public function setType(int $type) : void
-    {
-        if (!AccountType::isValidValue($type)) {
-            throw new InvalidEnumValue($type);
-        }
-
-        $this->type = $type;
-    }
-
-    /**
      * Get last activity.
      *
      * @return \DateTimeInterface
@@ -445,8 +380,8 @@ class Account implements \JsonSerializable
     public function toArray() : array
     {
         return [
-            'id'          => $this->id,
-            'name'        => [
+            'id'   => $this->id,
+            'name' => [
                 $this->name1,
                 $this->name2,
                 $this->name3,

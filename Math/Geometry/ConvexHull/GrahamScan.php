@@ -45,17 +45,17 @@ final class GrahamScan
      */
     public static function createConvexHull(array $points) : array
     {
-        $count = \count($points);
-
-        if ($count < 3) {
-            return [];
+        if (($n = \count($points)) < 3) {
+            return $points;
         }
 
         $min    = 1;
         $points = \array_merge([null], $points);
 
-        for ($i = 2; $i < $count; ++$i) {
-            if ($points[$i]['y'] < $points[$min]['y'] || ($points[$i]['y'] == $points[$min]['y'] && $points[$i]['x'] < $points[$min]['x'])) {
+        for ($i = 2; $i < $n; ++$i) {
+            if ($points[$i]['y'] < $points[$min]['y']
+                || ($points[$i]['y'] === $points[$min]['y'] && $points[$i]['x'] < $points[$min]['x'])
+            ) {
                 $min = $i;
             }
         }
@@ -67,22 +67,21 @@ final class GrahamScan
         $c = $points[1];
 
         /** @var array<int, array{x:int|float, y:int|float}> $subpoints */
-        $subpoints = \array_slice($points, 2, $count);
+        $subpoints = \array_slice($points, 2, $n);
         \usort($subpoints, function (array $a, array $b) use ($c) : int {
-            // @todo: Might be wrong order of comparison
-            return \atan2($a['y'] - $c['y'], $a['x'] - $c['x']) <=> \atan2( $b['y'] -  $c['y'],  $b['x'] - $c['x']);
+            return \atan2($a['y'] - $c['y'], $a['x'] - $c['x']) <=> \atan2($b['y'] - $c['y'],  $b['x'] - $c['x']);
         });
 
         /** @var array<int, array{x:int|float, y:int|float}> $points */
         $points    = \array_merge([$points[0], $points[1]], $subpoints);
-        $points[0] = $points[$count];
+        $points[0] = $points[$n];
 
         $size = 1;
-        for ($i = 2; $i <= $count; ++$i) {
+        for ($i = 2; $i <= $n; ++$i) {
             while (self::ccw($points[$size - 1], $points[$size], $points[$i]) <= 0) {
                 if ($size > 1) {
                     --$size;
-                } elseif ($i === $count) {
+                } elseif ($i === $n) {
                     break;
                 } else {
                     ++$i;
@@ -106,9 +105,9 @@ final class GrahamScan
     /**
      * Counterclockwise rotation
      *
-     * @param array<x:int|float, y:int|float> $a Vector
-     * @param array<x:int|float, y:int|float> $b Vector
-     * @param array<x:int|float, y:int|float> $c Vector
+     * @param array{x:int|float, y:int|float} $a Vector
+     * @param array{x:int|float, y:int|float} $b Vector
+     * @param array{x:int|float, y:int|float} $c Vector
      *
      * @return int|float
      *

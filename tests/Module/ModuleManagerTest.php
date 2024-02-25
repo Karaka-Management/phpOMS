@@ -45,7 +45,7 @@ final class ModuleManagerTest extends \PHPUnit\Framework\TestCase
      */
     protected function setUp() : void
     {
-        $this->app                    = new class() extends ApplicationAbstract {
+        $this->app = new class() extends ApplicationAbstract {
             protected string $appName = 'Api';
         };
 
@@ -153,7 +153,7 @@ final class ModuleManagerTest extends \PHPUnit\Framework\TestCase
         self::assertTrue($this->moduleManager->activate('TestModule'));
 
         // this is normally done in the ApiController
-        $module->setStatus(ModuleStatus::ACTIVE);
+        $module->status = ModuleStatus::ACTIVE;
         ModuleMapper::update()->execute($module);
 
         $queryLoad = new Builder($this->app->dbPool->get('insert'));

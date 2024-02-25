@@ -562,7 +562,7 @@ final class FileTest extends \PHPUnit\Framework\TestCase
             \unlink($testFile);
         }
 
-        $newPath  = __DIR__ . '/test2.txt';
+        $newPath = __DIR__ . '/test2.txt';
         if (\is_file($newPath)) {
             \unlink($newPath);
         }

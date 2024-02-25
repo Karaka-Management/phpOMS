@@ -47,7 +47,7 @@ final class NumericUtils
     public static function uRightShift(int $a, int $b) : int
     {
         if ($b >= 32 || $b < -32) {
-            $m  = (int) ($b / 32);
+            $m = (int) ($b / 32);
             $b -= $m * 32;
         }
 
@@ -61,8 +61,8 @@ final class NumericUtils
 
         if ($a < 0) {
             $a >>= 1;
-            $a  &= 0x7fffffff;
-            $a  |= 0x40000000;
+            $a &= 0x7fffffff;
+            $a |= 0x40000000;
             $a >>= $b - 1;
         } else {
             $a >>= $b;

@@ -15,7 +15,7 @@ declare(strict_types=1);
 namespace phpOMS\DataStorage\Database;
 
 use phpOMS\Contract\SerializableInterface;
-use phpOMS\DataStorage\Database\Query\Column;
+use phpOMS\DataStorage\Database\Query\ColumnName;
 use phpOMS\DataStorage\Database\Query\Parameter;
 
 /**
@@ -61,22 +61,6 @@ abstract class GrammarAbstract
     public string $systemIdentifierEnd = '"';
 
     /**
-     * And operator.
-     *
-     * @var string
-     * @since 1.0.0
-     */
-    public string $and = 'AND';
-
-    /**
-     * Or operator.
-     *
-     * @var string
-     * @since 1.0.0
-     */
-    public string $or = 'OR';
-
-    /**
      * Special keywords.
      *
      * @var string[]
@@ -87,9 +71,6 @@ abstract class GrammarAbstract
         'MAX(',
         'MIN(',
         'SUM(',
-        'DATE(',
-        'YEAR(',
-        'MONTH(',
     ];
 
     /**
@@ -115,30 +96,7 @@ abstract class GrammarAbstract
     }
 
     /**
-     * Compile to query.
-     *
-     * @param BuilderAbstract $query Builder
-     *
-     * @return string
-     *
-     * @since 1.0.0
-     */
-    public function compileQuery(BuilderAbstract $query) : string
-    {
-        $components  = $this->compileComponents($query);
-        $queryString = '';
-
-        foreach ($components as $component) {
-            if ($component !== '') {
-                $queryString .= $component . ' ';
-            }
-        }
-
-        return \substr($queryString, 0, -1) . ';';
-    }
-
-    /**
-     * Compile post querys.
+     * Compile post queries.
      *
      * These are queries, which should be run after the main query (e.g. table alters, trigger definitions etc.)
      *
@@ -148,7 +106,7 @@ abstract class GrammarAbstract
      *
      * @since 1.0.0
      */
-    public function compilePostQuerys(BuilderAbstract $query) : array
+    public function compilePostQueries(BuilderAbstract $query) : array
     {
         return [];
     }
@@ -164,7 +122,7 @@ abstract class GrammarAbstract
      *
      * @since 1.0.0
      */
-    abstract protected function compileComponents(BuilderAbstract $query) : array;
+    abstract public function compileComponents(BuilderAbstract $query) : array;
 
     /**
      * Get date format.
@@ -190,20 +148,20 @@ abstract class GrammarAbstract
      *
      * @since 1.0.0
      */
-    protected function expressionizeTableColumn(array $elements, bool $column = true) : string
+    public function expressionizeTableColumn(array $elements, bool $column = true) : string
     {
         $expression = '';
 
         foreach ($elements as $key => $element) {
             if (\is_string($element)) {
-                $expression .= $this->compileSystem($element)
-                    . (\is_string($key) ? ' as ' . $key : '') . ', ';
-            } elseif ($element instanceof \Closure) {
-                $expression .= $element() . (\is_string($key) ? ' as ' . $key : '') . ', ';
-            } elseif ($element instanceof BuilderAbstract) {
-                $expression .= $element->toSql() . (\is_string($key) ? ' as ' . $key : '') . ', ';
+                $expression .= $this->compileSystem($element) . (\is_string($key) ? ' AS ' . $key : '') . ', ';
             } elseif (\is_int($element)) {
+                // example: select 1
                 $expression .= $element . ', ';
+            } elseif ($element instanceof BuilderAbstract) {
+                $expression .= $element->toSql() . (\is_string($key) ? ' AS ' . $key : '') . ', ';
+            } elseif ($element instanceof \Closure) {
+                $expression .= $element() . (\is_string($key) ? ' AS ' . $key : '') . ', ';
             } else {
                 throw new \InvalidArgumentException();
             }
@@ -237,9 +195,9 @@ abstract class GrammarAbstract
             $identifierEnd   = '';
         } elseif ((\stripos($system, '.')) !== false) {
             // This is actually slower than \explode(), despite knowing the first index
-            //$split = [\substr($system, 0, $pos), \substr($system, $pos + 1)];
+            // $split = [\substr($system, 0, $pos), \substr($system, $pos + 1)];
 
-            // Faster! But might requires more memory?
+            // Faster! But might require more memory?
             $split = \explode('.', $system);
 
             $identifierTwoStart = $identifierStart;
@@ -294,8 +252,8 @@ abstract class GrammarAbstract
             return (string) ((int) $value);
         } elseif (\is_float($value)) {
             return \rtrim(\rtrim(\number_format($value, 5, '.', ''), '0'), '.');
-        } elseif ($value instanceof Column) {
-            return '(' . \rtrim($this->compileColumnQuery($value), ';') . ')';
+        } elseif ($value instanceof ColumnName) {
+            return $this->compileSystem($value->name);
         } elseif ($value instanceof BuilderAbstract) {
             return '(' . \rtrim($value->toSql(), ';') . ')';
         } elseif ($value instanceof \JsonSerializable) {
@@ -309,19 +267,5 @@ abstract class GrammarAbstract
         } else {
             throw new \InvalidArgumentException(\gettype($value));
         }
-    }
-
-    /**
-     * Compile column query.
-     *
-     * @param Column $column Where query
-     *
-     * @return string
-     *
-     * @since 1.0.0
-     */
-    protected function compileColumnQuery(Column $column) : string
-    {
-        return $column->toSql();
     }
 }

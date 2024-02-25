@@ -25,8 +25,18 @@ use PhpOffice\PhpWord\Writer\HTML;
  * @link    https://jingga.app
  * @since   1.0.0
  */
-class DocumentParser
+final class DocumentParser
 {
+    /**
+     * Constructor.
+     *
+     * @since 1.0.0
+     * @codeCoverageIgnore
+     */
+    private function __construct()
+    {
+    }
+
     /**
      * Document to string
      *
@@ -38,18 +48,33 @@ class DocumentParser
      */
     public static function parseDocument(string $path, string $output = 'html') : string
     {
-        if ($output === 'html') {
-            $doc = IOFactory::load($path);
+        $doc = IOFactory::load($path);
 
+        if ($output === 'html') {
             $writer = new HTML($doc);
 
             return $writer->getContent();
         } elseif ($output === 'pdf') {
-            $doc = IOFactory::load($path);
-
             $writer = new DocumentWriter($doc);
 
             return $writer->toPdfString();
+        } elseif ($output === 'txt') {
+            $writer = new HTML($doc);
+            $html   = $writer->getContent();
+
+            $doc  = new \DOMDocument();
+            $html = \preg_replace(
+                ['~<style.*?</style>~', '~<script.*?</script>~'],
+                ['', ''],
+                $html
+            );
+
+            $doc->loadHTMLFile($path);
+
+            $body = $doc->getElementsByTagName('body');
+            $node = $body->item(0);
+
+            return empty($node->textContent) ? '' : $node->textContent;
         }
 
         return '';

@@ -66,9 +66,9 @@ final class FileCacheTest extends \PHPUnit\Framework\TestCase
         self::assertNull($this->cache->get('test'));
         self::assertEquals(
             [
-                'status'  => CacheStatus::OK,
-                'count'   => 0,
-                'size'    => 0,
+                'status' => CacheStatus::OK,
+                'count'  => 0,
+                'size'   => 0,
             ],
             $this->cache->stats()
         );
@@ -237,7 +237,7 @@ final class FileCacheTest extends \PHPUnit\Framework\TestCase
         self::assertEquals([], $this->cache->getLike('key\d'));
     }
 
-    public function testExpiredDelteLike() : void
+    public function testExpiredDeleteLike() : void
     {
         $this->cache->set('key1', 'testVal1', 2);
         $this->cache->set('key2', 'testVal2', 2);
@@ -339,9 +339,9 @@ final class FileCacheTest extends \PHPUnit\Framework\TestCase
 
         self::assertEquals(
             [
-                'status'  => CacheStatus::OK,
-                'count'   => 2,
-                'size'    => 17,
+                'status' => CacheStatus::OK,
+                'count'  => 2,
+                'size'   => 17,
             ],
             $this->cache->stats()
         );
@@ -365,9 +365,9 @@ final class FileCacheTest extends \PHPUnit\Framework\TestCase
 
         self::assertEquals(
             [
-                'status'  => CacheStatus::OK,
-                'count'   => 0,
-                'size'    => 0,
+                'status' => CacheStatus::OK,
+                'count'  => 0,
+                'size'   => 0,
             ],
             $this->cache->stats()
         );

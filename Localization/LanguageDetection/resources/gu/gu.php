@@ -1,8 +1,7 @@
 <?php declare(strict_types=1);
 
 return [
-  'gu' =>
-  [
+  'gu' => [
     0   => 'ન_',
     1   => '_ન_',
     2   => '_ક_',

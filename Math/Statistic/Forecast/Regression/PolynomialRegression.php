@@ -28,6 +28,16 @@ use phpOMS\Math\Statistic\Average;
 final class PolynomialRegression
 {
     /**
+     * Constructor.
+     *
+     * @since 1.0.0
+     * @codeCoverageIgnore
+     */
+    private function __construct()
+    {
+    }
+
+    /**
      * Get linear regression based on scatter plot.
      *
      * @param array<int|float> $x Obersved x values

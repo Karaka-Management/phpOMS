@@ -123,8 +123,8 @@ final class Beta
             }
 
             $frac *= $h * $c;
-            $d     = -($p + $m) * ($pqSum + $m) * $x / (($p + $m2) * ($pPlus + $m2));
-            $h     = 1.0 + $d * $h;
+            $d = -($p + $m) * ($pqSum + $m) * $x / (($p + $m2) * ($pPlus + $m2));
+            $h = 1.0 + $d * $h;
             if (\abs($h) < 1.18e-37) {
                 $h = 1.18e-37;
             }

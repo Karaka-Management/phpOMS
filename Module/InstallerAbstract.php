@@ -132,7 +132,7 @@ abstract class InstallerAbstract
      *
      * @since 1.0.0
      */
-    public static function reInit(ModuleInfo $info, ApplicationInfo $appInfo = null) : void
+    public static function reInit(ModuleInfo $info, ?ApplicationInfo $appInfo = null) : void
     {
         if (($path = \realpath(static::PATH)) === false) {
             return; // @codeCoverageIgnore

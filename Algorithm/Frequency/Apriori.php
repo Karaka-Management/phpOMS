@@ -4,7 +4,7 @@
  *
  * PHP Version 8.1
  *
- * @package   phpOMS\Algorithm\CoinMatching
+ * @package   phpOMS\Algorithm\Frequency
  * @copyright Dennis Eichhorn
  * @license   OMS License 2.0
  * @version   1.0.0
@@ -12,14 +12,14 @@
  */
 declare(strict_types=1);
 
-namespace phpOMS\Algorithm\CoinMatching;
+namespace phpOMS\Algorithm\Frequency;
 
 /**
  * Apriori algorithm.
  *
- * The algorithm cheks how often a set exists in a given set of sets.
+ * The algorithm checks how often a set exists in a given set of sets.
  *
- * @package phpOMS\Algorithm\CoinMatching
+ * @package phpOMS\Algorithm\Frequency
  * @license OMS License 2.0
  * @link    https://jingga.app
  * @since   1.0.0
@@ -39,7 +39,7 @@ final class Apriori
     /**
      * Generate all possible subsets
      *
-     * @param array $arr Array of eleements
+     * @param array $arr Array of elements
      *
      * @return array<array>
      *
@@ -70,13 +70,14 @@ final class Apriori
      *
      * The algorithm cheks how often a set exists in a given set of sets.
      *
-     * @param array<array> $sets Sets of a set (e.g. [[1,2,3,4], [1,2], [1]])
+     * @param array<string[]> $sets   Sets of a set (e.g. [[1,2,3,4], [1,2], [1]])
+     * @param string[]        $subset Subset to check for (empty array -> all subsets are checked)
      *
      * @return array
      *
      * @since 1.0.0
      */
-    public static function apriori(array $sets) : array
+    public static function apriori(array $sets, array $subset = []) : array
     {
         // Unique single items
         $totalSet = [];
@@ -90,6 +91,7 @@ final class Apriori
 
         $totalSet = \array_unique($totalSet);
         \sort($totalSet);
+        \sort($subset);
 
         // Combinations of items
         $combinations = self::generateSubsets($totalSet);
@@ -98,10 +100,18 @@ final class Apriori
         $table = [];
         foreach ($combinations as &$c) {
             \sort($c);
+            if (!empty($subset) && $c !== $subset) {
+                continue;
+            }
+
             $table[\implode(':', $c)] = 0;
         }
 
         foreach ($combinations as $combination) {
+            if (!empty($subset) && $combination !== $subset) {
+                continue;
+            }
+
             foreach ($sets as $set) {
                 foreach ($combination as $item) {
                     if (!\in_array($item, $set)) {

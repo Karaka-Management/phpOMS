@@ -1,8 +1,7 @@
 <?php declare(strict_types=1);
 
 return [
-  'wa' =>
-  [
+  'wa' => [
     0   => 's',
     1   => 'e',
     2   => 't',

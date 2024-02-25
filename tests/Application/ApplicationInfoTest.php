@@ -111,7 +111,7 @@ final class ApplicationInfoTest extends \PHPUnit\Framework\TestCase
         $info = new ApplicationInfo(__DIR__ . '/info-test.json');
         $info->load();
 
-        $testObj         = new class() {
+        $testObj = new class() {
             public $test = 1;
 
             public function test() : void

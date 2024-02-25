@@ -245,7 +245,7 @@ final class MeasurementTest extends \PHPUnit\Framework\TestCase
     }
 
     /**
-     * @testdox Filesizes can be converted
+     * @testdox File sizes can be converted
      * @covers phpOMS\Utils\Converter\Measurement
      * @group framework
      */
@@ -490,7 +490,7 @@ final class MeasurementTest extends \PHPUnit\Framework\TestCase
     {
         $this->expectException(\InvalidArgumentException::class);
 
-        Measurement::convertEnergy(1.1, 'invalid', EnergyPowerType::JOULS);
+        Measurement::convertEnergy(1.1, 'invalid', EnergyPowerType::JOULES);
     }
 
     /**
@@ -502,7 +502,7 @@ final class MeasurementTest extends \PHPUnit\Framework\TestCase
     {
         $this->expectException(\InvalidArgumentException::class);
 
-        Measurement::convertEnergy(1.1, EnergyPowerType::JOULS, 'invalid');
+        Measurement::convertEnergy(1.1, EnergyPowerType::JOULES, 'invalid');
     }
 
     /**

@@ -67,7 +67,7 @@ final class DependencyResolver
                 $unresolved[] = $dependency;
                 self::dependencyResolve($dependency, $items, $resolved, $unresolved);
             } else {
-                continue; // circular dependency
+                return; // circular dependency
             }
         }
 

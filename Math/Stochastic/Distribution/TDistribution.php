@@ -73,6 +73,16 @@ final class TDistribution
     ];
 
     /**
+     * Constructor.
+     *
+     * @since 1.0.0
+     * @codeCoverageIgnore
+     */
+    private function __construct()
+    {
+    }
+
+    /**
      * Get expected value.
      *
      * @return int
@@ -200,8 +210,8 @@ final class TDistribution
         $sum = $term;
         while ($i < $degrees) {
             $term *= $cos ** 2 * ($i - 1) / $i;
-            $sum  += $term;
-            $i    += 2;
+            $sum += $term;
+            $i   += 2;
         }
 
         $sum *= $sin;

@@ -15,13 +15,13 @@ declare(strict_types=1);
 use phpOMS\Router\RouteVerb;
 
 return [
-    '^.*/testapp.*$' => [
+    '^.*/testapp(\?.*$|$)' => [
         [
             'dest'       => '\phpOMS\tess\Application\Apps\Testapp\Controller\Controller:testEndpoint',
             'verb'       => RouteVerb::GET,
             'permission' => [
-                'type'   => 1,
-                'state'  => 2,
+                'type'  => 1,
+                'state' => 2,
             ],
         ],
     ],

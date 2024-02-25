@@ -125,7 +125,7 @@ class Node
      *
      * @since 1.0.0
      */
-    public function setNodeRelative(self $node, int $key = null, bool $isDirected = false) : Edge
+    public function setNodeRelative(self $node, ?int $key = null, bool $isDirected = false) : Edge
     {
         $edge = new Edge($this, $node, 0.0, $isDirected);
         $this->setEdge($edge, $key);
@@ -147,7 +147,7 @@ class Node
      *
      * @since 1.0.0
      */
-    public function setEdge(Edge $edge, int $key = null) : self
+    public function setEdge(Edge $edge, ?int $key = null) : self
     {
         if ($key === null) {
             $this->edges[] = $edge;

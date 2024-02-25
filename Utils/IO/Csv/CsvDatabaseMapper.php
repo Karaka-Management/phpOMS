@@ -26,7 +26,7 @@ use phpOMS\Utils\IO\IODatabaseMapper;
  * @link    https://jingga.app
  * @since   1.0.0
  */
-class CsvDatabaseMapper implements IODatabaseMapper
+final class CsvDatabaseMapper implements IODatabaseMapper
 {
     /**
      * Database connection

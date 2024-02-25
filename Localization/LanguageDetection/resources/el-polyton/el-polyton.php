@@ -1,8 +1,7 @@
 <?php declare(strict_types=1);
 
 return [
-  'el-polyton' =>
-  [
+  'el-polyton' => [
     0   => 'α',
     1   => 'τ',
     2   => 'ι',

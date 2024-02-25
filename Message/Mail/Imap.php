@@ -21,6 +21,9 @@ namespace phpOMS\Message\Mail;
  * @license OMS License 2.0
  * @link    https://jingga.app
  * @since   1.0.0
+ *
+ * @todo Continue implementation of email sending and receiving
+ *      https://github.com/Karaka-Management/phpOMS/issues/258
  */
 class Imap implements MailBoxInterface
 {
@@ -91,7 +94,7 @@ class Imap implements MailBoxInterface
         $this->password   = $pass;
         $this->port       = $port;
         $this->encryption = $encryption;
-        $this->flags     .= $this->encryption !== EncryptionType::NONE ? '/ssl' : '';
+        $this->flags .= $this->encryption !== EncryptionType::NONE ? '/ssl' : '';
     }
 
     /**
@@ -254,9 +257,9 @@ class Imap implements MailBoxInterface
         string $cc = '',
         string $from = '',
         string $bcc = '',
-        \DateTime $before = null,
-        \DateTime $since = null,
-        \DateTime $on = null,
+        ?\DateTime $before = null,
+        ?\DateTime $since = null,
+        ?\DateTime $on = null,
         bool $deleted = false,
         bool $flagged = false
     ) : array

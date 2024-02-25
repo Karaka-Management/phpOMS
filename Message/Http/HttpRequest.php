@@ -77,7 +77,7 @@ final class HttpRequest extends RequestAbstract
      *
      * @since 1.0.0
      */
-    public function __construct(UriInterface $uri = null, Localization $l11n = null)
+    public function __construct(?UriInterface $uri = null, ?Localization $l11n = null)
     {
         $this->header       = new HttpHeader();
         $this->header->l11n = $l11n ?? new Localization();
@@ -115,8 +115,8 @@ final class HttpRequest extends RequestAbstract
         $this->data  = $_POST + $_GET;
         $this->files = $_FILES;
         $this->header->initCurrentRequest();
-        $this->header->l11n->setLanguage($this->getRequestLanguage());
-        $this->header->l11n->setCountry($this->getRequestCountry());
+        $this->header->l11n->language = $this->getRequestLanguage();
+        $this->header->l11n->country  = $this->getRequestCountry();
 
         $this->initNonGetData();
     }
@@ -156,7 +156,7 @@ final class HttpRequest extends RequestAbstract
                 }
 
                 $input .= $lineRaw;
-                $size  += \strlen($lineRaw);
+                $size += \strlen($lineRaw);
             }
 
             \fclose($stream);
@@ -192,7 +192,7 @@ final class HttpRequest extends RequestAbstract
                 }
 
                 $content .= $lineRaw;
-                $size    += \strlen($lineRaw);
+                $size += \strlen($lineRaw);
             }
 
             \fclose($stream);
@@ -220,9 +220,7 @@ final class HttpRequest extends RequestAbstract
                 // @codeCoverageIgnoreStart
                 // Tested but coverage doesn't show up
                 if (\str_starts_with($lineRaw, '--')) {
-                    if ($boundary === null) {
-                        $boundary = \rtrim($lineRaw);
-                    }
+                    $boundary ??= \rtrim($lineRaw);
 
                     continue;
                 }
@@ -447,7 +445,7 @@ final class HttpRequest extends RequestAbstract
      */
     public static function createFromSuperglobals() : self
     {
-        $request =  new self();
+        $request = new self();
         $request->initRequest();
 
         return $request;
@@ -464,7 +462,7 @@ final class HttpRequest extends RequestAbstract
      */
     public function setUri(UriInterface $uri) : void
     {
-        $this->uri   = $uri;
+        $this->uri = $uri;
         $this->data += $uri->getQueryArray();
     }
 

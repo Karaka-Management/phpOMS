@@ -53,7 +53,7 @@ final class Vector extends Matrix
      */
     public function setV(int $m, int | float $value) : void
     {
-        parent::set($m , 0, $value);
+        $this->matrix[$m][0] = $value;
     }
 
     /**
@@ -67,7 +67,7 @@ final class Vector extends Matrix
      */
     public function getV(int $m) : int | float
     {
-        return parent::get($m, 0);
+        return $this->matrix[$m][0];
     }
 
     /**
@@ -82,7 +82,7 @@ final class Vector extends Matrix
     public function setMatrixV(array $vector) : self
     {
         foreach ($vector as $key => $value) {
-            $this->setV($key, $value);
+            $this->matrix[$key][0] = $value;
         }
 
         return $this;
@@ -124,6 +124,64 @@ final class Vector extends Matrix
     }
 
     /**
+     * Calculate the euclidean dot product
+     *
+     * @param self $vector Vector
+     *
+     * @return float
+     *
+     * @since 1.0.0
+     */
+    public function dot(self $vector) : float
+    {
+        $length = $this->m;
+        $m1     = 0;
+        $m2     = 0;
+        $prod   = 0;
+
+        for ($i = 0; $i < $length; ++$i) {
+            $m1   += $this->matrix[$i][0] * $this->matrix[$i][0];
+            $m2   += $vector->matrix[$i][0] * $vector->matrix[$i][0];
+            $prod += $this->matrix[$i][0] * $vector->matrix[$i][0];
+        }
+
+        $m1 = \sqrt($m1);
+        $m2 = \sqrt($m2);
+
+        $cos = $prod / ($m1 * $m2);
+
+        return $m1 * $m2 * $cos;
+    }
+
+    /**
+     * Calculate the angle between two vectors
+     *
+     * @param self $vector Vector
+     *
+     * @return float
+     *
+     * @since 1.0.0
+     */
+    public function angle(self $vector) : float
+    {
+        $length = $this->m;
+        $m1     = 0;
+        $m2     = 0;
+        $prod   = 0;
+
+        for ($i = 0; $i < $length; ++$i) {
+            $m1   += $this->matrix[$i][0] * $this->matrix[$i][0];
+            $m2   += $vector->matrix[$i][0] * $vector->matrix[$i][0];
+            $prod += $this->matrix[$i][0] * $vector->matrix[$i][0];
+        }
+
+        $m1 = \sqrt($m1);
+        $m2 = \sqrt($m2);
+
+        return \acos($prod / ($m1 * $m2));
+    }
+
+    /**
      * Calculate the cross product
      *
      * @param self $vector 3 Vector
@@ -135,11 +193,32 @@ final class Vector extends Matrix
     public function cross3(self $vector) : self
     {
         $crossArray = [
-            $this->getV(1) * $vector->getV(2) - $this->getV(2) * $vector->getV(1),
-            $this->getV(2) * $vector->getV(0) - $this->getV(0) * $vector->getV(2),
-            $this->getV(0) * $vector->getV(1) - $this->getV(1) * $vector->getV(0),
+            $this->matrix[1][0] * $vector->matrix[2][0] - $this->matrix[2][0] * $vector->matrix[1][0],
+            $this->matrix[2][0] * $vector->matrix[0][0] - $this->matrix[0][0] * $vector->matrix[2][0],
+            $this->matrix[0][0] * $vector->matrix[1][0] - $this->matrix[1][0] * $vector->matrix[0][0],
         ];
 
         return self::fromArray($crossArray);
     }
+
+    /*
+    public function cross(self $vector) : float
+    {
+        $mat = [];
+        for ($i = 0; $i < $this->n; ++$i) {
+            for ($j = 0; $j < $this->n; ++$j) {
+                $mat[$i][$j] = ($i === 0)
+                    ? $this->matrix[$j][0]
+                    : (($i === 1)
+                        ? $vector->matrix[$j][0]
+                        : 0
+                    );
+            }
+        }
+
+        $matrix = Matrix::fromArray($mat);
+
+        return $matrix->det();
+    }
+    */
 }

@@ -93,6 +93,8 @@ class ISO4217DecimalEnum extends Enum
     public const _CLP = 0;
 
     public const _CNY = 2;
+    public const _CNH = 2;
+    public const _RMB = 2;
 
     public const _COP = 2;
 

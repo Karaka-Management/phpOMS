@@ -196,6 +196,11 @@ final class Functions
         return $a % $b;
     }
 
+    public static function modFloat(float $a, float $b) : float
+    {
+        return $a - ((int) ($a / $b)) * $b;
+    }
+
     /**
      * Check if value is odd.
      *
@@ -348,7 +353,7 @@ final class Functions
 
         for ($j = 0; $j < 2; ++$j) {
             $err = self::getErfc($x) - $pp;
-            $x  += $err / (1.12837916709551257 * \exp(-($x * $x)) - $x * $err);
+            $x += $err / (1.12837916709551257 * \exp(-($x * $x)) - $x * $err);
         }
 
         return ($p < 1.0? $x : -$x);

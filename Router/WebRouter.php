@@ -23,6 +23,13 @@ use phpOMS\Account\Account;
  * @license OMS License 2.0
  * @link    https://jingga.app
  * @since   1.0.0
+ *
+ * @todo Change the url format in most modules from query parameter to path
+ *      (e.g. `/module/profile?id=Admin` to `/module/Admin/profile`)
+ *      https://github.com/Karaka-Management/Karaka/issues/153
+ *
+ * @todo Instead of doing only regex matching, combine it with a tree search, this should be faster
+ *      https://github.com/Karaka-Management/phpOMS/issues/276
  */
 final class WebRouter implements RouterInterface
 {
@@ -112,12 +119,12 @@ final class WebRouter implements RouterInterface
      */
     public function route(
         string $uri,
-        string $csrf = null,
+        ?string $csrf = null,
         int $verb = RouteVerb::GET,
-        int $app = null,
-        int $unitId = null,
-        Account $account = null,
-        array $data = null
+        ?int $app = null,
+        ?int $unitId = null,
+        ?Account $account = null,
+        ?array $data = null
     ) : array
     {
         $bound = [];
@@ -138,7 +145,7 @@ final class WebRouter implements RouterInterface
 
                     // if permission check is invalid
                     if (isset($d['permission']) && !empty($d['permission'])
-                        && ($account === null || $account->getId() === 0)
+                        && ($account === null || $account->id === 0)
                     ) {
                         return ['dest' => RouteStatus::NOT_LOGGED_IN];
                     } elseif (isset($d['permission']) && !empty($d['permission'])

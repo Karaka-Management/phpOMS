@@ -32,6 +32,16 @@ class RegionEnum extends Enum
 
     public const EURO = 'Euro';
 
+    public const OECD = 'OECD';
+
+    public const NATO = 'NATO';
+
+    public const SCHENGEN = 'Schengen';
+
+    public const P5 = 'P5';
+
+    public const G8 = 'G8';
+
     public const NORTH_EUROPE = 'North-Europe';
 
     public const SOUTH_EUROPE = 'South-Europe';
@@ -89,4 +99,10 @@ class RegionEnum extends Enum
     public const ANTARCTICA = 'Antarctica';
 
     public const CONTINENTS = 'Continents';
+
+    public const DOMESTIC = 'Domestic';
+
+    public const EXPORT = 'Export';
+
+    public const DACH = 'DACH';
 }

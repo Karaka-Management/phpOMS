@@ -39,7 +39,7 @@ final class BayesianPersonalizedRanking
 
     // num_factors determines the dimensionality of the latent factor space.
     // learning_rate controls the step size for updating the latent factors during optimization.
-    // regularization prevents overfitting by adding a penalty for large parameter values.
+    // regularization prevents over-fitting by adding a penalty for large parameter values.
     public function __construct(int $numFactors, float $learningRate, float $regularization)
     {
         $this->numFactors     = $numFactors;

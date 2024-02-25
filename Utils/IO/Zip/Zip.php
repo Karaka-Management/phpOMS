@@ -27,8 +27,18 @@ use phpOMS\System\File\Local\Directory;
  * @link    https://jingga.app
  * @since   1.0.0
  */
-class Zip implements ArchiveInterface
+final class Zip implements ArchiveInterface
 {
+    /**
+     * Constructor.
+     *
+     * @since 1.0.0
+     * @codeCoverageIgnore
+     */
+    private function __construct()
+    {
+    }
+
     /**
      * {@inheritdoc}
      */

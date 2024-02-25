@@ -25,22 +25,67 @@ use phpOMS\Math\Stochastic\Distribution\NormalDistribution;
  * @since   1.0.0
  * @see     https://www.moserware.com/assets/computing-your-skill/The%20Math%20Behind%20TrueSkill.pdf
  *
- * @todo implement https://github.com/sublee/trueskill/blob/master/trueskill/__init__.py
+ * @todo Implement https://github.com/sublee/trueskill/blob/master/trueskill/__init__.py
+ *      https://github.com/Karaka-Management/phpOMS/issues/337
  */
 class TrueSkill
 {
-    public int $DEFAULT_MU = 25;
+    public const DEFAULT_MU = 25;
 
-    public float $DEFAULT_SIGMA = 25 / 3;
+    public const DEFAULT_SIGMA = 25 / 3;
 
-    public float $DEFAULT_BETA = 25 / 3 / 2;
+    public const DEFAULT_BETA = 25 / 3 / 2;
 
-    public float $DEFAULT_TAU = 25 / 3 / 100;
+    public const DEFAULT_TAU = 25 / 3 / 100;
 
-    public float $DEFAULT_DRAW_PROBABILITY = 0.1;
+    public const DEFAULT_DRAW_PROBABILITY = 0.1;
 
-    public function __construct()
+    private float $mu = 0.0;
+
+    private float $sigma = 0.0;
+
+    private float $beta = 0.0;
+
+    private float $tau = 0.0;
+
+    private float $drawProbability = 0.0;
+
+    public function __construct(
+        ?float $mu = null,
+        ?float $sigma = null,
+        ?float $beta = null,
+        ?float $tau = null,
+        ?float $drawProbability = null)
     {
+        $this->mu              = $mu ?? self::DEFAULT_MU;
+        $this->sigma           = $sigma ?? self::DEFAULT_SIGMA;
+        $this->beta            = $beta ?? self::DEFAULT_BETA;
+        $this->tau             = $tau ?? self::DEFAULT_TAU;
+        $this->drawProbability = $drawProbability ?? self::DEFAULT_DRAW_PROBABILITY;
+    }
+
+    public function winProbability(array $team1, array $team2, float $drawMargin = 0.0)
+    {
+        $sigmaSum = 0.0;
+        $mu1      = 0.0;
+        foreach ($team1 as $player) {
+            $mu1      += $player->mu;
+            $sigmaSum += $player->sigma * $player->sigma;
+        }
+
+        $mu2 = 0.0;
+        foreach ($team2 as $player) {
+            $mu2      += $player->mu;
+            $sigmaSum += $player->sigma * $player->sigma;
+        }
+
+        $deltaMu = $mu1 - $mu2;
+
+        return NormalDistribution::getCdf(
+            ($deltaMu - $drawMargin) / \sqrt((\count($team1) + \count($team2)) * ($this->beta * $this->beta) + $sigmaSum),
+            0,
+            1
+        );
     }
 
     // Draw margin = epsilon

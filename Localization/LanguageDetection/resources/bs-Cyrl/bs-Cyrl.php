@@ -1,8 +1,7 @@
 <?php declare(strict_types=1);
 
 return [
-  'bs-Cyrl' =>
-  [
+  'bs-Cyrl' => [
     0   => 'а',
     1   => 'и',
     2   => 'о',

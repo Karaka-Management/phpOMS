@@ -27,6 +27,8 @@ class BaseModelMapper extends DataMapperFactory
     public const COLUMNS = [
         'test_base_id'                => ['name' => 'test_base_id',                'type' => 'int',      'internal' => 'id'],
         'test_base_string'            => ['name' => 'test_base_string',            'type' => 'string',   'internal' => 'string', 'autocomplete' => true],
+        'test_base_compress'          => ['name' => 'test_base_compress',            'type' => 'compress',   'internal' => 'compress',],
+        'test_base_pstring'           => ['name' => 'test_base_pstring',            'type' => 'pstring',   'internal' => 'pstring', 'private' => true],
         'test_base_int'               => ['name' => 'test_base_int',               'type' => 'int',      'internal' => 'int'],
         'test_base_bool'              => ['name' => 'test_base_bool',              'type' => 'bool',     'internal' => 'bool'],
         'test_base_null'              => ['name' => 'test_base_null',              'type' => 'int',      'internal' => 'null'],
@@ -38,6 +40,8 @@ class BaseModelMapper extends DataMapperFactory
         'test_base_datetime_null'     => ['name' => 'test_base_datetime_null',     'type' => 'DateTime', 'internal' => 'datetime_null'],
         'test_base_owns_one_self'     => ['name' => 'test_base_owns_one_self',     'type' => 'int',      'internal' => 'ownsOneSelf'],
         'test_base_belongs_to_one'    => ['name' => 'test_base_belongs_to_one',    'type' => 'int',      'internal' => 'belongsToOne'],
+        'test_base_owns_onep_self'    => ['name' => 'test_base_owns_onep_self',     'type' => 'int',      'internal' => 'ownsOneSelfPrivate', 'private' => true],
+        'test_base_belongs_top_one'   => ['name' => 'test_base_belongs_top_one',    'type' => 'int',      'internal' => 'belongsToOnePrivate', 'private' => true],
     ];
 
     /**
@@ -50,6 +54,12 @@ class BaseModelMapper extends DataMapperFactory
         'belongsToOne' => [
             'mapper'   => BelongsToModelMapper::class,
             'external' => 'test_base_belongs_to_one',
+            'private'  => true,
+        ],
+        'belongsToOnePrivate' => [
+            'mapper'   => BelongsToModelPrivateMapper::class,
+            'external' => 'test_base_belongs_top_one',
+            'private'  => true,
         ],
     ];
 
@@ -57,6 +67,10 @@ class BaseModelMapper extends DataMapperFactory
         'ownsOneSelf' => [
             'mapper'   => OwnsOneModelMapper::class,
             'external' => 'test_base_owns_one_self',
+        ],
+        'ownsOneSelfPrivate' => [
+            'mapper'   => OwnsOneModelPrivateMapper::class,
+            'external' => 'test_base_owns_onep_self',
         ],
     ];
 
@@ -85,6 +99,20 @@ class BaseModelMapper extends DataMapperFactory
             'self'     => 'test_conditional_base',
             'column'   => 'title',
             'external' => null,
+        ],
+        'hasManyDirectPrivate' => [
+            'mapper'   => ManyToManyDirectModelPrivateMapper::class,
+            'table'    => 'test_has_many_directp',
+            'self'     => 'test_has_many_directp_to',
+            'external' => null,
+            'private'  => true,
+        ],
+        'hasManyRelationsPrivate' => [
+            'mapper'   => ManyToManyRelModelPrivateMapper::class,
+            'table'    => 'test_has_many_rel_relationsp',
+            'external' => 'test_has_many_rel_relationsp_src',
+            'self'     => 'test_has_many_rel_relationsp_dest',
+            'private'  => true,
         ],
     ];
 

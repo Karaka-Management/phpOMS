@@ -33,8 +33,8 @@ final class CurrencyMapperTest extends \PHPUnit\Framework\TestCase
     public static function setUpBeforeClass() : void
     {
         self::$con = new SqliteConnection([
-            'db'         => 'sqlite',
-            'database'   => \realpath(__DIR__ . '/../../../Localization/Defaults/localization.sqlite'),
+            'db'       => 'sqlite',
+            'database' => \realpath(__DIR__ . '/../../../Localization/Defaults/localization.sqlite'),
         ]);
 
         self::$con->connect();

@@ -40,6 +40,16 @@ final class NormalDistribution
     ];
 
     /**
+     * Constructor.
+     *
+     * @since 1.0.0
+     * @codeCoverageIgnore
+     */
+    private function __construct()
+    {
+    }
+
+    /**
      * Calculate the sample size
      *
      * @param float $zScore               Z-Score

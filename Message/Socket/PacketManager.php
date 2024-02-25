@@ -72,12 +72,12 @@ class PacketManager
     public function handle(string $data, $client) : void
     {
         $request                  = new SocketRequest();
-        $request->header->account = $client->getAccount()->getId();
+        $request->header->account = $client->account->id;
 
         $response = new SocketResponse();
 
         $this->dispatcher->dispatch(
-            $this->router->route($data, null, RouteVerb::ANY, 2, 1, $client->getAccount()),
+            $this->router->route($data, null, RouteVerb::ANY, 2, 1, $client->account),
             $request,
             $response
         );

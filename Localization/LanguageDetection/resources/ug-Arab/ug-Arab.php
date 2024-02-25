@@ -1,8 +1,7 @@
 <?php declare(strict_types=1);
 
 return [
-  'ug-Arab' =>
-  [
+  'ug-Arab' => [
     0   => 'ى',
     1   => 'ا',
     2   => 'ە',

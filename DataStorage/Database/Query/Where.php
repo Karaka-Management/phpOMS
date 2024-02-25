@@ -38,4 +38,19 @@ class Where extends Builder
         parent::__construct($connection);
         $this->type = QueryType::SELECT;
     }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function toSql() : string
+    {
+        $query = $this->grammar->compileWheres($this, $this->wheres);
+        $query = \str_starts_with($query, 'WHERE ') ? \substr($query, 6) : $query;
+
+        if (self::$log) {
+            \phpOMS\Log\FileLogger::getInstance()->debug($query);
+        }
+
+        return $query;
+    }
 }

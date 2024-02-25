@@ -1,8 +1,7 @@
 <?php declare(strict_types=1);
 
 return [
-  'zh-Hans' =>
-  [
+  'zh-Hans' => [
     0   => '的',
     1   => '人',
     2   => '和',

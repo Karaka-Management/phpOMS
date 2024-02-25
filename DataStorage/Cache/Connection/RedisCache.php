@@ -66,7 +66,7 @@ final class RedisCache extends ConnectionAbstract
      *
      * @since 1.0.0
      */
-    public function connect(array $data = null) : void
+    public function connect(?array $data = null) : void
     {
         $this->dbdata = isset($data) ? $data : $this->dbdata;
 

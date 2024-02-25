@@ -41,6 +41,16 @@ class Caesar
     public const LIMIT_UPPER = 127;
 
     /**
+     * Constructor.
+     *
+     * @since 1.0.0
+     * @codeCoverageIgnore
+     */
+    private function __construct()
+    {
+    }
+
+    /**
      * Encode source text
      *
      * @param string $source Source to encode

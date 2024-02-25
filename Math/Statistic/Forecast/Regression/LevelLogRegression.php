@@ -27,6 +27,16 @@ use phpOMS\Math\Matrix\Exception\InvalidDimensionException;
 final class LevelLogRegression extends RegressionAbstract
 {
     /**
+     * Constructor.
+     *
+     * @since 1.0.0
+     * @codeCoverageIgnore
+     */
+    private function __construct()
+    {
+    }
+
+    /**
      * {@inheritdoc}
      *
      * @throws InvalidDimensionException

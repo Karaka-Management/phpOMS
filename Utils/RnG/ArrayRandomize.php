@@ -22,8 +22,18 @@ namespace phpOMS\Utils\RnG;
  * @link    https://jingga.app
  * @since   1.0.0
  */
-class ArrayRandomize
+final class ArrayRandomize
 {
+    /**
+     * Constructor.
+     *
+     * @since 1.0.0
+     * @codeCoverageIgnore
+     */
+    private function __construct()
+    {
+    }
+
     /**
      * Yates array shuffler.
      *

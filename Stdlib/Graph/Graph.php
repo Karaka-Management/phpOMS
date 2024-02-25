@@ -531,7 +531,7 @@ class Graph
      */
     private function pathBetweenNodesDfs(
         Node $node1,
-        Node $node2 = null,
+        ?Node $node2 = null,
         array &$visited,
         array &$path,
         array &$paths
@@ -675,7 +675,7 @@ class Graph
 
     /**
      * Get all paths between two nodes
-     * Inclides end node, but not start node in the paths
+     * Includes end node, but not start node in the paths
      *
      * @param int|string|Node $node1 Graph node
      * @param int|string|Node $node2 Graph node
@@ -916,7 +916,7 @@ class Graph
                 $current = \array_shift($stack);
 
                 foreach ($this->nodes as $j) {
-                    // Has neighbour
+                    // Has neighbor
                     if ($this->nodes[$current->getId()]->hasNeighbor($j)) {
                         if ($distances[$j->getId()] === \PHP_INT_MAX) {
                             $distances[$j->getId()] = $distances[$current->getId()] + 1;
@@ -1017,7 +1017,7 @@ class Graph
      *
      * @since 1.0.0
      */
-    public function isConnected(int | string | Node $node1 = null, int | string | Node $node2 = null) : bool
+    public function isConnected(int | string | Node|null $node1 = null, int | string | Node|null $node2 = null) : bool
     {
         if (empty($this->nodes)) {
             return true;

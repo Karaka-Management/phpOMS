@@ -48,7 +48,7 @@ final class CliResponse extends ResponseAbstract implements RenderableInterface
      *
      * @since 1.0.0
      */
-    public function __construct(Localization $l11n = null)
+    public function __construct(?Localization $l11n = null)
     {
         $this->header       = new CliHeader();
         $this->header->l11n = $l11n ?? new Localization();

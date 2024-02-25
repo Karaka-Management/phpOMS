@@ -18,6 +18,7 @@ use phpOMS\Algorithm\Graph\DependencyResolver;
 use phpOMS\Contract\SerializableInterface;
 use phpOMS\DataStorage\Database\BuilderAbstract;
 use phpOMS\DataStorage\Database\Connection\ConnectionAbstract;
+use phpOMS\DataStorage\Database\Query\Grammar\Grammar;
 
 /**
  * Database query builder.
@@ -26,9 +27,22 @@ use phpOMS\DataStorage\Database\Connection\ConnectionAbstract;
  * @license OMS License 2.0
  * @link    https://jingga.app
  * @since   1.0.0
+ *
+ * @question Consider to delete the builder but create a Select, Insert, ... builder
+ *      Then directly call the compileSelect + compileFrom ... from the toSql
+ *      This way the object generated would be much slimmer since we don't need to initialize empty data for
+ *      Insert etc. We also wouldn't have to call compileComponents since this would happen directly in toSql().
  */
 class Builder extends BuilderAbstract
 {
+    /**
+     * Grammar.
+     *
+     * @var Grammar
+     * @since 1.0.0
+     */
+    protected Grammar $grammar;
+
     /**
      * Log queries.
      *
@@ -62,7 +76,9 @@ class Builder extends BuilderAbstract
     public array $updates = [];
 
     /**
-     * Stupid work around because value needs to be not null for it to work in Grammar.
+     * Deletes.
+     *
+     * @todo Find fix for stupid work around because value needs to be not null for it to work in Grammar.
      *
      * @var array
      * @since 1.0.0
@@ -231,6 +247,8 @@ class Builder extends BuilderAbstract
         'similar to',
         'not similar to',
         'in',
+        'exists',
+        'not exists',
     ];
 
     /**
@@ -352,7 +370,16 @@ class Builder extends BuilderAbstract
             $this->resolveJoinDependencies();
         }
 
-        $query = $this->grammar->compileQuery($this);
+        $components  = $this->grammar->compileComponents($this);
+        $queryString = '';
+
+        foreach ($components as $component) {
+            if ($component !== '') {
+                $queryString .= $component . ' ';
+            }
+        }
+
+        $query = \substr($queryString, 0, -1) . ';';
 
         if (self::$log) {
             \phpOMS\Log\FileLogger::getInstance()->debug($query);
@@ -391,13 +418,13 @@ class Builder extends BuilderAbstract
         }
 
         // add from to existing dependencies
-        foreach ($this->from as $table => $from) {
+        foreach ($this->from as $table => $_) {
             $dependencies[$table] = [];
         }
 
         $resolved = DependencyResolver::resolve($dependencies);
 
-        // cyclomatic dependencies
+        // cyclic dependencies
         if ($resolved === null) {
             return;
         }
@@ -536,7 +563,7 @@ class Builder extends BuilderAbstract
      *
      * @since 1.0.0
      */
-    public function where(string | array | self $columns, string | array $operator = null, mixed $values = null, string | array $boolean = 'and') : self
+    public function where(string | array | self $columns, string | array|null $operator = null, mixed $values = null, string | array $boolean = 'and') : self
     {
         if (!\is_array($columns)) {
             $columns  = [$columns];
@@ -575,7 +602,7 @@ class Builder extends BuilderAbstract
      *
      * @since 1.0.0
      */
-    public function andWhere(string | array | Where $where, string | array $operator = null, mixed $values = null) : self
+    public function andWhere(string | array | Where $where, string | array|null $operator = null, mixed $values = null) : self
     {
         return $this->where($where, $operator, $values, 'and');
     }
@@ -591,7 +618,7 @@ class Builder extends BuilderAbstract
      *
      * @since 1.0.0
      */
-    public function orWhere(string | array | self $where, string | array $operator = null, mixed $values = null) : self
+    public function orWhere(string | array | self $where, string | array|null $operator = null, mixed $values = null) : self
     {
         return $this->where($where, $operator, $values, 'or');
     }
@@ -814,81 +841,88 @@ class Builder extends BuilderAbstract
      */
     public function __toString()
     {
-        return $this->grammar->compileQuery($this);
-    }
+        $components  = $this->grammar->compileComponents($this);
+        $queryString = '';
 
-    /**
-     * Find query.
-     *
-     * @return void
-     *
-     * @since 1.0.0
-     */
-    public function find() : void
-    {
+        foreach ($components as $component) {
+            if ($component !== '') {
+                $queryString .= $component . ' ';
+            }
+        }
+
+        return \substr($queryString, 0, -1) . ';';
     }
 
     /**
      * Count results.
      *
-     * @param string $table Table to count the result set
+     * @param string $column Table to count the result set
      *
      * @return Builder
      *
      * @since 1.0.0
      */
-    public function count(string $table = '*') : self
+    public function count(string $column = '*', ?string $as = null) : self
     {
-        /**
-         * @todo
-         *  Don't do this as a string, create a new object $this->select(new Count($table)).
-         *  The parser should be able to handle this much better
-         */
-        return $this->select('COUNT(' . $table . ')');
+        return $as === null
+            ? $this->select('COUNT(' . $column . ')')
+            : $this->selectAs('COUNT(' . $column . ')', $as);
     }
 
     /**
      * Select minimum.
      *
-     * @return void
+     * @return Builder
      *
      * @since 1.0.0
      */
-    public function min() : void
+    public function min(string $column = '*', ?string $as = null) : self
     {
+        return $as === null
+            ? $this->select('MIN(' . $column . ')')
+            : $this->selectAs('MIN(' . $column . ')', $as);
     }
 
     /**
      * Select maximum.
      *
-     * @return void
+     * @return Builder
      *
      * @since 1.0.0
      */
-    public function max() : void
+    public function max(string $column = '*', ?string $as = null) : self
     {
+        return $as === null
+            ? $this->select('MAX(' . $column . ')')
+            : $this->selectAs('MAX(' . $column . ')', $as);
     }
 
     /**
      * Select sum.
      *
-     * @return void
+     * @return Builder
      *
      * @since 1.0.0
      */
-    public function sum() : void
+    public function sum(string $column = '*', ?string $as = null) : self
     {
+        return $as === null
+            ? $this->select('SUM(' . $column . ')')
+            : $this->selectAs('SUM(' . $column . ')', $as);
     }
 
     /**
      * Select average.
      *
-     * @return void
+     * @return Builder
      *
      * @since 1.0.0
      */
-    public function avg() : void
+    public function avg(string $column = '*', ?string $as = null) : self
     {
+        return $as === null
+            ? $this->select('AVG(' . $column . ')')
+            : $this->selectAs('AVG(' . $column . ')', $as);
     }
 
     /**
@@ -974,7 +1008,7 @@ class Builder extends BuilderAbstract
     {
         \end($this->values);
 
-        $key   = \key($this->values);
+        $key = \key($this->values);
         $key ??= 0;
 
         if (\is_array($value)) {
@@ -1063,28 +1097,6 @@ class Builder extends BuilderAbstract
     }
 
     /**
-     * Increment value.
-     *
-     * @return void
-     *
-     * @since 1.0.0
-     */
-    public function increment() : void
-    {
-    }
-
-    /**
-     * Decrement value.
-     *
-     * @return void
-     *
-     * @since 1.0.0
-     */
-    public function decrement() : void
-    {
-    }
-
-    /**
      * Join.
      *
      * @param string|self $table Join query
@@ -1095,7 +1107,7 @@ class Builder extends BuilderAbstract
      *
      * @since 1.0.0
      */
-    public function join(string | self $table, string $type = JoinType::JOIN, string $alias = null) : self
+    public function join(string | self $table, string $type = JoinType::JOIN, ?string $alias = null) : self
     {
         $this->joins[$alias ?? $table] = ['type' => $type, 'table' => $table, 'alias' => $alias];
 
@@ -1112,7 +1124,7 @@ class Builder extends BuilderAbstract
      *
      * @since 1.0.0
      */
-    public function leftJoin(string | self $table, string $alias = null) : self
+    public function leftJoin(string | self $table, ?string $alias = null) : self
     {
         return $this->join($table, JoinType::LEFT_JOIN, $alias);
     }
@@ -1127,7 +1139,7 @@ class Builder extends BuilderAbstract
      *
      * @since 1.0.0
      */
-    public function leftOuterJoin(string | self $table, string $alias = null) : self
+    public function leftOuterJoin(string | self $table, ?string $alias = null) : self
     {
         return $this->join($table, JoinType::LEFT_OUTER_JOIN, $alias);
     }
@@ -1142,7 +1154,7 @@ class Builder extends BuilderAbstract
      *
      * @since 1.0.0
      */
-    public function leftInnerJoin(string | self $table, string $alias = null) : self
+    public function leftInnerJoin(string | self $table, ?string $alias = null) : self
     {
         return $this->join($table, JoinType::LEFT_INNER_JOIN, $alias);
     }
@@ -1157,7 +1169,7 @@ class Builder extends BuilderAbstract
      *
      * @since 1.0.0
      */
-    public function rightJoin(string | self $table, string $alias = null) : self
+    public function rightJoin(string | self $table, ?string $alias = null) : self
     {
         return $this->join($table, JoinType::RIGHT_JOIN, $alias);
     }
@@ -1172,7 +1184,7 @@ class Builder extends BuilderAbstract
      *
      * @since 1.0.0
      */
-    public function rightOuterJoin(string | self $table, string $alias = null) : self
+    public function rightOuterJoin(string | self $table, ?string $alias = null) : self
     {
         return $this->join($table, JoinType::RIGHT_OUTER_JOIN, $alias);
     }
@@ -1187,7 +1199,7 @@ class Builder extends BuilderAbstract
      *
      * @since 1.0.0
      */
-    public function rightInnerJoin(string | self $table, string $alias = null) : self
+    public function rightInnerJoin(string | self $table, ?string $alias = null) : self
     {
         return $this->join($table, JoinType::RIGHT_INNER_JOIN, $alias);
     }
@@ -1202,7 +1214,7 @@ class Builder extends BuilderAbstract
      *
      * @since 1.0.0
      */
-    public function outerJoin(string | self $table, string $alias = null) : self
+    public function outerJoin(string | self $table, ?string $alias = null) : self
     {
         return $this->join($table, JoinType::OUTER_JOIN, $alias);
     }
@@ -1217,7 +1229,7 @@ class Builder extends BuilderAbstract
      *
      * @since 1.0.0
      */
-    public function innerJoin(string | self $table, string $alias = null) : self
+    public function innerJoin(string | self $table, ?string $alias = null) : self
     {
         return $this->join($table, JoinType::INNER_JOIN, $alias);
     }
@@ -1232,7 +1244,7 @@ class Builder extends BuilderAbstract
      *
      * @since 1.0.0
      */
-    public function crossJoin(string | self $table, string $alias = null) : self
+    public function crossJoin(string | self $table, ?string $alias = null) : self
     {
         return $this->join($table, JoinType::CROSS_JOIN, $alias);
     }
@@ -1247,7 +1259,7 @@ class Builder extends BuilderAbstract
      *
      * @since 1.0.0
      */
-    public function fullJoin(string | self $table, string $alias = null) : self
+    public function fullJoin(string | self $table, ?string $alias = null) : self
     {
         return $this->join($table, JoinType::FULL_JOIN, $alias);
     }
@@ -1262,7 +1274,7 @@ class Builder extends BuilderAbstract
      *
      * @since 1.0.0
      */
-    public function fullOuterJoin(string | self $table, string $alias = null) : self
+    public function fullOuterJoin(string | self $table, ?string $alias = null) : self
     {
         return $this->join($table, JoinType::FULL_OUTER_JOIN, $alias);
     }
@@ -1285,7 +1297,7 @@ class Builder extends BuilderAbstract
      * @param string|array      $columns  Columns to join on
      * @param null|string|array $operator Comparison operator
      * @param null|string|array $values   Values to compare with
-     * @param string|array      $boolean  Concatonator
+     * @param string|array      $boolean  Concatenation
      * @param null|string       $table    Table this belongs to
      *
      * @return Builder
@@ -1294,7 +1306,7 @@ class Builder extends BuilderAbstract
      *
      * @since 1.0.0
      */
-    public function on(string | array $columns, string | array $operator = null, mixed $values = null, string | array $boolean = 'and', string $table = null) : self
+    public function on(string | array $columns, string | array|null $operator = null, mixed $values = null, string | array $boolean = 'and', ?string $table = null) : self
     {
         if (!\is_array($columns)) {
             $columns  = [$columns];
@@ -1305,7 +1317,7 @@ class Builder extends BuilderAbstract
 
         $joinCount = \count($this->joins) - 1;
         $i         = 0;
-        $table   ??= \array_keys($this->joins)[$joinCount];
+        $table ??= \array_keys($this->joins)[$joinCount];
 
         foreach ($columns as $column) {
             if (isset($operator[$i]) && !\in_array(\strtolower($operator[$i]), self::OPERATORS)) {
@@ -1336,7 +1348,7 @@ class Builder extends BuilderAbstract
      *
      * @since 1.0.0
      */
-    public function orOn(string | array $columns, string | array $operator = null, string | array $values = null) : self
+    public function orOn(string | array $columns, string | array|null $operator = null, string | array|null $values = null) : self
     {
         return $this->on($columns, $operator, $values, 'or');
     }
@@ -1352,23 +1364,9 @@ class Builder extends BuilderAbstract
      *
      * @since 1.0.0
      */
-    public function andOn(string | array $columns, string | array $operator = null, string | array $values = null) : self
+    public function andOn(string | array $columns, string | array|null $operator = null, string | array|null $values = null) : self
     {
         return $this->on($columns, $operator, $values, 'and');
-    }
-
-    /**
-     * Merging query.
-     *
-     * Merging query in order to remove database query volume
-     *
-     * @return Builder
-     *
-     * @since 1.0.0
-     */
-    public function merge() : self
-    {
-        return clone($this);
     }
 
     /**
@@ -1377,9 +1375,10 @@ class Builder extends BuilderAbstract
     public function execute() : ?\PDOStatement
     {
         $sth = null;
+        $sql = '';
 
         try {
-            $sth = $this->connection->con->prepare($this->toSql());
+            $sth = $this->connection->con->prepare($sql = $this->toSql());
             if ($sth === false) {
                 return null;
             }
@@ -1395,7 +1394,7 @@ class Builder extends BuilderAbstract
             // @codeCoverageIgnoreStart
             \phpOMS\Log\FileLogger::getInstance()->error(
                 \phpOMS\Log\FileLogger::MSG_FULL, [
-                    'message' => $t->getMessage() . ':' . $this->toSql(),
+                    'message' => $t->getMessage() . ':' . $sql,
                     'line'    => __LINE__,
                     'file'    => self::class,
                 ]
@@ -1445,8 +1444,6 @@ class Builder extends BuilderAbstract
     {
         if (\is_string($column)) {
             return $column;
-        } elseif ($column instanceof Column) {
-            return $column->getColumn();
         } elseif ($column instanceof SerializableInterface) {
             return $column->serialize();
         } elseif ($column instanceof self) {

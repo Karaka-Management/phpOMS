@@ -1,8 +1,7 @@
 <?php declare(strict_types=1);
 
 return [
-  'tt' =>
-  [
+  'tt' => [
     0   => 'а',
     1   => 'е',
     2   => 'ә',

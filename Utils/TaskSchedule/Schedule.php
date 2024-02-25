@@ -23,6 +23,9 @@ use phpOMS\Validation\Base\DateTime;
  * @license OMS License 2.0
  * @link    https://jingga.app
  * @since   1.0.0
+ *
+ * @todo Use `Interval` for scheduler instead of string etc.
+ *      https://github.com/Karaka-Management/phpOMS/issues/257
  */
 class Schedule extends TaskAbstract
 {
@@ -39,13 +42,9 @@ class Schedule extends TaskAbstract
      */
     public static function createWith(array $jobData) : TaskAbstract
     {
-        /**
-         * @todo Karaka/phpOMS#231
-         *  Use the interval for generating a schedule
-         */
         $job = new self($jobData[1], $jobData[8], $jobData[7]);
 
-        $job->setStatus((int) $jobData[3]);
+        $job->status = (int) $jobData[3];
 
         if (DateTime::isValid($jobData[2])) {
             $job->setNextRunTime(new \DateTime($jobData[2]));

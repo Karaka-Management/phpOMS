@@ -32,7 +32,7 @@ final class ZeroDivisionException extends \UnexpectedValueException
      *
      * @since 1.0.0
      */
-    public function __construct(int $code = 0, \Exception $previous = null)
+    public function __construct(int $code = 0, ?\Exception $previous = null)
     {
         parent::__construct('Division by zero is not defined.', $code, $previous);
     }

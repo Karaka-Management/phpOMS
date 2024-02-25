@@ -127,7 +127,7 @@ final class NetPromoterScore
     /**
      * Count promoters
      *
-     * Promotoers are all ratings larger 8
+     * Promoters are all ratings larger 8
      *
      * @return int Returns the amount of promoters (>= 0)
      *

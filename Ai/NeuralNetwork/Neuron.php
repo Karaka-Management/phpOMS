@@ -22,7 +22,7 @@ namespace phpOMS\Ai\NeuralNetwork;
  * @link    https://jingga.app
  * @since   1.0.0
  */
-class Neuron
+final class Neuron
 {
     /**
      * Neuron inputs

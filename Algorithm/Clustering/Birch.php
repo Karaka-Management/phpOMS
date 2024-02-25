@@ -25,6 +25,6 @@ namespace phpOMS\Algorithm\Clustering;
  *
  * @todo Implement
  */
-final class Birch
+final class Birch implements ClusteringInterface
 {
 }

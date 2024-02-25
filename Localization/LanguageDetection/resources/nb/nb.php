@@ -1,8 +1,7 @@
 <?php declare(strict_types=1);
 
 return [
-  'nb' =>
-  [
+  'nb' => [
     0   => 'e',
     1   => 'r',
     2   => 't',

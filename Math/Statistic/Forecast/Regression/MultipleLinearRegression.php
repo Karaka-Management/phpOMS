@@ -27,6 +27,16 @@ use phpOMS\Math\Matrix\Matrix;
 final class MultipleLinearRegression extends RegressionAbstract
 {
     /**
+     * Constructor.
+     *
+     * @since 1.0.0
+     * @codeCoverageIgnore
+     */
+    private function __construct()
+    {
+    }
+
+    /**
      * Get linear regression based on scatter plot.
      *
      * @latex y = b_{0} + b_{1} \cdot x
@@ -47,7 +57,7 @@ final class MultipleLinearRegression extends RegressionAbstract
         $Y = new Matrix(\count($y));
         $Y->setMatrix($y);
 
-        return $XT->mult($X)->inverse()->mult($XT)->mult($Y)->getMatrix();
+        return $XT->mult($X)->inverse()->mult($XT)->mult($Y)->toArray();
     }
 
     /**

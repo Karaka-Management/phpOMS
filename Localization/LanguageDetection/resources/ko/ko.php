@@ -1,8 +1,7 @@
 <?php declare(strict_types=1);
 
 return [
-  'ko' =>
-  [
+  'ko' => [
     0   => '의',
     1   => '한',
     2   => '의_',

@@ -85,11 +85,11 @@ interface RouterInterface
      */
     public function route(
         string $uri,
-        string $csrf = null,
+        ?string $csrf = null,
         int $verb = RouteVerb::GET,
-        int $app = null,
-        int $unitId = null,
-        Account $account = null,
-        array $data = null
+        ?int $app = null,
+        ?int $unitId = null,
+        ?Account $account = null,
+        ?array $data = null
     ) : array;
 }

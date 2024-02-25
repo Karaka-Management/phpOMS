@@ -33,7 +33,7 @@ final class InvalidMapperException extends \RuntimeException
      *
      * @since 1.0.0
      */
-    public function __construct(string $message = '', int $code = 0, \Exception $previous = null)
+    public function __construct(string $message = '', int $code = 0, ?\Exception $previous = null)
     {
         if ($message === '') {
             parent::__construct('Empty mapper.', $code, $previous);

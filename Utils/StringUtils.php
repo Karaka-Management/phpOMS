@@ -131,7 +131,7 @@ final class StringUtils
     }
 
     /**
-     * Count occurences of character at the beginning of a string.
+     * Count occurrences of character at the beginning of a string.
      *
      * @param string $string    string to analyze
      * @param string $character character to count at the beginning of the string
@@ -139,7 +139,7 @@ final class StringUtils
      * @example StringUtils::countCharacterFromStart('    Test string', ' '); // 4
      * @example StringUtils::countCharacterFromStart('    Test string', 's'); // 0
      *
-     * @return int the amount of repeating occurences at the beginning of the string
+     * @return int the amount of repeating occurrences at the beginning of the string
      *
      * @since 1.0.0
      */
@@ -178,7 +178,7 @@ final class StringUtils
 
         /** @var int $v */
         foreach ($countChars as $v) {
-            $p        = $v / $size;
+            $p = $v / $size;
             $entropy -= $p * \log($p) / \log(2);
         }
 
@@ -265,37 +265,30 @@ final class StringUtils
         for ($i = 0; $i < $n; ++$i) {
             $mc = $diff['mask'][$i];
 
-            if ($mc !== 0) {
-                switch ($mc) {
-                    case -1:
-                        $result .= '<del>' . $diff['values'][$i] . '</del>' . $delim;
-                        break;
-                    case 1:
-                        $result .= '<ins>' . $diff['values'][$i] . '</ins>' . $delim;
-                        break;
-                }
-            } else {
-                $result .= $diff['values'][$i] . $delim;
+            $previousMC = $diff['mask'][$i - 1] ?? 0;
+            $nextMC     = $diff['mask'][$i + 1] ?? 0;
+
+            switch ($mc) {
+                case -1:
+                    $result .= ($previousMC === -1 ? '' : '<del>')
+                        . $diff['values'][$i]
+                        . ($nextMC === -1 ? '' : '</del>')
+                        . $delim;
+
+                    break;
+                case 1:
+                    $result .= ($previousMC === 1 ? '' : '<ins>')
+                        . $diff['values'][$i]
+                        . ($nextMC === 1 ? '' : '</ins>')
+                        . $delim;
+
+                    break;
+                default:
+                    $result .= $diff['values'][$i] . $delim;
             }
         }
 
-        $result = \rtrim($result, $delim);
-
-        switch ($mc) {
-            case -1:
-                $result .= '</del>';
-                break;
-            case 1:
-                $result .= '</ins>';
-                break;
-        }
-
-        // @todo: This should not be necessary but the algorithm above allows for weird combinations.
-        return \str_replace(
-            ['</del></del>', '</ins></ins>', '<ins></ins>', '<del></del>', '</ins><ins>', '</del><del>', '</ins> <del>', '</del> <ins>'],
-            ['</del>', '</ins>', '', '', '', '', '</ins><del>', '</del><ins>'],
-            $result
-        );
+        return \rtrim($result, $delim);
     }
 
     /**
@@ -387,36 +380,6 @@ final class StringUtils
         }
 
         return (int) $res;
-    }
-
-    /**
-     * Fix CVE-2016-10033 and CVE-2016-10045 by disallowing potentially unsafe shell characters.
-     *
-     * @param string $string String to check
-     *
-     * @return bool
-     *
-     * @since 1.0.0
-     */
-    public static function isShellSafe(string $string) : bool
-    {
-        if (\escapeshellcmd($string) !== $string
-            || !\in_array(\escapeshellarg($string), ["'{$string}'", "\"{$string}\""])
-        ) {
-            return false;
-        }
-
-        $length = \strlen($string);
-
-        for ($i = 0; $i < $length; ++$i) {
-            $c = $string[$i];
-
-            if (!\ctype_alnum($c) && \strpos('@_-.', $c) === false) {
-                return false;
-            }
-        }
-
-        return true;
     }
 
     /**

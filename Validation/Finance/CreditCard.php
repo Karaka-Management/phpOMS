@@ -29,7 +29,7 @@ final class CreditCard extends ValidatorAbstract
     /**
      * {@inheritdoc}
      */
-    public static function isValid($value, array $constraints = null) : bool
+    public static function isValid($value, ?array $constraints = null) : bool
     {
         if (!\is_string($value)) {
             return false;

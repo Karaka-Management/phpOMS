@@ -14,7 +14,6 @@ declare(strict_types=1);
 
 namespace phpOMS\tests\Message\Http;
 
-use phpOMS\Localization\ISO639x1Enum;
 use phpOMS\Localization\Localization;
 use phpOMS\Message\Http\BrowserType;
 use phpOMS\Message\Http\HttpRequest;
@@ -151,21 +150,6 @@ final class HttpRequestTest extends \PHPUnit\Framework\TestCase
     }
 
     /**
-     * @testdox The request langauge can be returned
-     * @covers phpOMS\Message\Http\HttpRequest<extended>
-     * @group framework
-     */
-    public function testLangaugeOutput() : void
-    {
-        $request = new HttpRequest(new HttpUri('http://www.google.com/test/path'), $l11n = new Localization());
-
-        $request->header->l11n = new Localization();
-        $request->header->l11n->setLanguage(ISO639x1Enum::_DE);
-
-        self::assertEquals(ISO639x1Enum::_DE, $request->header->l11n->language);
-    }
-
-    /**
      * @testdox The url hashes for the different paths get correctly generated
      * @covers phpOMS\Message\Http\HttpRequest<extended>
      * @group framework
@@ -231,7 +215,7 @@ final class HttpRequestTest extends \PHPUnit\Framework\TestCase
      */
     public function testDataJsonRead() : void
     {
-        $request = new HttpRequest(new HttpUri(''));
+        $request = new HttpRequest();
 
         $data = [
             1, 2, 3,
@@ -250,7 +234,7 @@ final class HttpRequestTest extends \PHPUnit\Framework\TestCase
      */
     public function testEmptyDataJsonRead() : void
     {
-        $request = new HttpRequest(new HttpUri(''));
+        $request = new HttpRequest();
 
         self::assertEquals([], $request->getDataJson('def'));
     }
@@ -262,7 +246,7 @@ final class HttpRequestTest extends \PHPUnit\Framework\TestCase
      */
     public function testInvalidDataJsonRead() : void
     {
-        $request = new HttpRequest(new HttpUri(''));
+        $request = new HttpRequest();
 
         $data = [
             "0" => 1, "1" => 2, "2" => 3,
@@ -281,7 +265,7 @@ final class HttpRequestTest extends \PHPUnit\Framework\TestCase
      */
     public function testDataList() : void
     {
-        $request = new HttpRequest(new HttpUri(''));
+        $request = new HttpRequest();
 
         $data = [
             1, 2, 3,
@@ -299,7 +283,7 @@ final class HttpRequestTest extends \PHPUnit\Framework\TestCase
      */
     public function testEmptyDataList() : void
     {
-        $request = new HttpRequest(new HttpUri(''));
+        $request = new HttpRequest();
 
         self::assertEquals([], $request->getDataList('def'));
     }
@@ -311,7 +295,7 @@ final class HttpRequestTest extends \PHPUnit\Framework\TestCase
      */
     public function testDataLike() : void
     {
-        $request = new HttpRequest(new HttpUri(''));
+        $request = new HttpRequest();
 
         $data = 'this is a test';
 
@@ -327,7 +311,7 @@ final class HttpRequestTest extends \PHPUnit\Framework\TestCase
      */
     public function testInvalidDataLikeMatch() : void
     {
-        $request = new HttpRequest(new HttpUri(''));
+        $request = new HttpRequest();
 
         $data = 'this is a test';
 

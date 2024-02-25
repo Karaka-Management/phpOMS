@@ -118,9 +118,9 @@ final class LUDecomposition
                     $this->LU[$j][$k] = $t;
                 }
 
-                $k              = $this->piv[$p];
-                $this->piv[$p]  = $this->piv[$j];
-                $this->piv[$j]  = $k;
+                $k             = $this->piv[$p];
+                $this->piv[$p] = $this->piv[$j];
+                $this->piv[$j] = $k;
                 $this->pivSign *= -1;
             }
 

@@ -164,7 +164,7 @@ final class FileUtils
     }
 
     /**
-     * Converts a string permisseion (rwx) to octal
+     * Converts a string permission (rwx) to octal
      *
      * @param string $permission Permission string (e.g. rwx-w-r--)
      *
@@ -188,7 +188,7 @@ final class FileUtils
             }
 
             if (($i + 1) % 3 === 0) {
-                $perm          .= $tempPermission;
+                $perm .= $tempPermission;
                 $tempPermission = 0;
             }
         }
@@ -206,7 +206,7 @@ final class FileUtils
      *
      * @since 1.0.0
      */
-    public static function mb_pathinfo(string $path, int | string $options = null) : string | array
+    public static function mb_pathinfo(string $path, int | string|null $options = null) : string | array
     {
         $ret      = ['dirname' => '', 'basename' => '', 'extension' => '', 'filename' => ''];
         $pathinfo = [];

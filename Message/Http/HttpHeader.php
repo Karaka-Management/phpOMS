@@ -290,7 +290,7 @@ final class HttpHeader extends HeaderAbstract
     /**
      * {@inheritdoc}
      */
-    public function get(string $key = null) : array
+    public function get(?string $key = null) : array
     {
         return $key === null ? $this->header : ($this->header[\strtolower($key)] ?? []);
     }

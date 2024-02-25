@@ -22,7 +22,7 @@ namespace phpOMS\Utils\RnG;
  * @link    https://jingga.app
  * @since   1.0.0
  */
-class Text
+final class Text
 {
     /**
      * Vocabulary.
@@ -97,15 +97,13 @@ class Text
      *
      * @since 1.0.0
      */
-    public function generateText(int $length, array $words = null) : string
+    public function generateText(int $length, ?array $words = null) : string
     {
         if ($length === 0) {
             return '';
         }
 
-        if ($words === null) {
-            $words = self::LOREM_IPSUM;
-        }
+        $words ??= self::LOREM_IPSUM;
 
         $punctuation      = $this->generatePunctuation($length);
         $punctuationCount = \array_count_values(
@@ -249,7 +247,7 @@ class Text
                 $paragraphLength = $length - $i;
             }
 
-            $i          += $paragraphLength;
+            $i += $paragraphLength;
             $paragraph[] = $i;
         }
 

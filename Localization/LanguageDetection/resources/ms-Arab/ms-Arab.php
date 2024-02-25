@@ -1,8 +1,7 @@
 <?php declare(strict_types=1);
 
 return [
-  'ms-Arab' =>
-  [
+  'ms-Arab' => [
     0   => 'ا',
     1   => 'ن',
     2   => 'ي',

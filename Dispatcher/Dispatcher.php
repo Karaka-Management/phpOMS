@@ -53,7 +53,7 @@ final class Dispatcher implements DispatcherInterface
      *
      * @since 1.0.0
      */
-    public function __construct(ApplicationAbstract $app = null)
+    public function __construct(?ApplicationAbstract $app = null)
     {
         $this->app = $app;
     }
@@ -112,7 +112,7 @@ final class Dispatcher implements DispatcherInterface
      *
      * @since 1.0.0
      */
-    private function dispatchString(string $controller, array $data = null) : array
+    private function dispatchString(string $controller, ?array $data = null) : array
     {
         $views    = [];
         $dispatch = \explode(':', $controller);
@@ -152,7 +152,7 @@ final class Dispatcher implements DispatcherInterface
      *
      * @since 1.0.0
      */
-    private function dispatchArray(array $controller, array $data = null) : array
+    private function dispatchArray(array $controller, ?array $data = null) : array
     {
         $views = [];
         foreach ($controller as $controllerSingle) {
@@ -172,7 +172,7 @@ final class Dispatcher implements DispatcherInterface
      *
      * @since 1.0.0
      */
-    private function dispatchClosure(callable $controller, array $data = null) : mixed
+    private function dispatchClosure(callable $controller, ?array $data = null) : mixed
     {
         return $data === null ? $controller($this->app) : $controller($this->app, ...$data);
     }

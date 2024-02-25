@@ -46,7 +46,7 @@ final class WeightedTest extends \PHPUnit\Framework\TestCase
         $names = [];
 
         foreach ($filtered as $job) {
-            $value  += $job->getValue();
+            $value += $job->getValue();
             $names[] = $job->name;
         }
 

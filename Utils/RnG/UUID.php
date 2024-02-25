@@ -25,6 +25,16 @@ namespace phpOMS\Utils\RnG;
 final class UUID
 {
     /**
+     * Constructor.
+     *
+     * @since 1.0.0
+     * @codeCoverageIgnore
+     */
+    private function __construct()
+    {
+    }
+
+    /**
      * Get default random UUID
      *
      * @param int<8, max> $length Result length in bytes

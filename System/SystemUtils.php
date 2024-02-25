@@ -45,12 +45,12 @@ final class SystemUtils
     {
         $mem = 0;
 
-        if (\stristr(\PHP_OS, 'WIN')) {
+        if (\stripos(\PHP_OS, 'WIN')) {
             $memArr = [];
             \exec('wmic memorychip get capacity', $memArr);
 
             $mem = \array_sum($memArr) / 1024;
-        } elseif (\stristr(\PHP_OS, 'LINUX')) {
+        } elseif (\stripos(\PHP_OS, 'LINUX')) {
             $fh = \fopen('/proc/meminfo', 'r');
 
             if ($fh === false) {
@@ -82,7 +82,7 @@ final class SystemUtils
     {
         $memUsage = 0;
 
-        if (\stristr(\PHP_OS, 'LINUX')) {
+        if (\stripos(\PHP_OS, 'LINUX')) {
             $free = \shell_exec('free');
 
             if ($free === null || $free === false) {
@@ -110,11 +110,11 @@ final class SystemUtils
     {
         $cpuUsage = 0;
 
-        if (\stristr(\PHP_OS, 'WIN') !== false) {
+        if (\stripos(\PHP_OS, 'WIN') !== false) {
             $cpuUsage = null;
             \exec('wmic cpu get LoadPercentage', $cpuUsage);
             $cpuUsage = (int) ($cpuUsage[1] ?? -1);
-        } elseif (\stristr(\PHP_OS, 'LINUX') !== false) {
+        } elseif (\stripos(\PHP_OS, 'LINUX') !== false) {
             $loadavg = \sys_getloadavg();
 
             if ($loadavg === false) {
@@ -167,7 +167,7 @@ final class SystemUtils
      */
     public static function runProc(string $executable, string $cmd, bool $async = false) : array
     {
-        if (\strtolower((string) \substr(\PHP_OS, 0, 3)) === 'win') {
+        if (\stripos(\PHP_OS, 'WIN') !== false) {
             $cmd = 'cd ' . \escapeshellarg(\dirname($executable))
                 . ' && ' . \basename($executable)
                 . ' '
@@ -193,7 +193,6 @@ final class SystemUtils
         ];
 
         $resource = \proc_open($cmd, $desc, $pipes, null, null);
-
         if ($resource === false) {
             throw new \Exception();
         }
@@ -214,7 +213,6 @@ final class SystemUtils
         }
 
         $status = \proc_close($resource);
-
         if ($status == -1) {
             throw new \Exception((string) $stderr);
         }

@@ -135,7 +135,7 @@ final class L11nManager
      *
      * @since 1.0.0
      */
-    public function getModuleLanguage(string $language, string $module = null) : array
+    public function getModuleLanguage(string $language, ?string $module = null) : array
     {
         if ($module === null && isset($this->language[$language])) {
             return $this->language[$language];
@@ -213,7 +213,7 @@ final class L11nManager
      *
      * @since 1.0.0
      */
-    public function getNumeric(Localization $l11n, int | float | FloatInt $numeric, string $format = null) : string
+    public function getNumeric(Localization $l11n, int | float | FloatInt $numeric, ?string $format = null) : string
     {
         if (!($numeric instanceof FloatInt)) {
             return \number_format(
@@ -235,18 +235,19 @@ final class L11nManager
     /**
      * Print a percentage value
      *
-     * @param Localization $l11n       Localization
-     * @param float        $percentage Percentage value to print
-     * @param null|string  $format     Format type to use
+     * @param Localization   $l11n       Localization
+     * @param float|FloatInt $percentage Percentage value to print
+     * @param null|string    $format     Format type to use
      *
      * @return string
      *
      * @since 1.0.0
      */
-    public function getPercentage(Localization $l11n, float $percentage, string $format = null) : string
+    public function getPercentage(Localization $l11n, float | FloatInt $percentage, ?string $format = null) : string
     {
         return \number_format(
-            $percentage, $l11n->getPrecision()[$format ?? 'medium'],
+            \is_float($percentage) ? $percentage : $percentage->value / (FloatInt::DIVISOR * 100),
+            $l11n->getPrecision()[$format ?? 'medium'],
             $l11n->getDecimal(),
             $l11n->getThousands()
         ) . '%';
@@ -268,16 +269,16 @@ final class L11nManager
     public function getCurrency(
         Localization $l11n,
         int | float | Money | FloatInt $currency,
-        string $symbol = null,
-        string $format = null,
+        ?string $symbol = null,
+        ?string $format = null,
         int $divide = 1
     ) : string
     {
         $language = $l11n->language;
-        $symbol ??= $l11n->getCurrency();
+        $symbol ??= $l11n->currency;
 
         if (\is_float($currency)) {
-            $currency = (int) ($currency * \pow(10, Money::MAX_DECIMALS));
+            $currency = (int) ($currency * FloatInt::DIVISOR);
         }
 
         if ($divide > 1 && !empty($symbol)) {
@@ -320,7 +321,7 @@ final class L11nManager
      *
      * @since 1.0.0
      */
-    public function getDateTime(Localization $l11n, \DateTimeInterface $datetime = null, string $format = null) : string
+    public function getDateTime(Localization $l11n, ?\DateTimeInterface $datetime = null, ?string $format = null) : string
     {
         return $datetime === null
             ? ''

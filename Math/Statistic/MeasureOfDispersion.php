@@ -58,7 +58,7 @@ final class MeasureOfDispersion
     }
 
     /**
-     * Calculage empirical variation coefficient.
+     * Calculate empirical variation coefficient.
      *
      * Example: ([4, 5, 9, 1, 3])
      *
@@ -71,7 +71,7 @@ final class MeasureOfDispersion
      *
      * @since 1.0.0
      */
-    public static function empiricalVariationCoefficient(array $values, float $mean = null) : float
+    public static function empiricalVariationCoefficient(array $values, ?float $mean = null) : float
     {
         $mean = $mean !== null ? $mean : Average::arithmeticMean($values);
 
@@ -96,7 +96,7 @@ final class MeasureOfDispersion
      *
      * @since 1.0.0
      */
-    public static function standardDeviationSample(array $values, float $mean = null) : float
+    public static function standardDeviationSample(array $values, ?float $mean = null) : float
     {
         $mean = $mean !== null ? $mean : Average::arithmeticMean($values);
         $sum  = 0.0;
@@ -125,7 +125,7 @@ final class MeasureOfDispersion
      *
      * @since 1.0.0
      */
-    public static function standardDeviationPopulation(array $values, float $mean = null) : float
+    public static function standardDeviationPopulation(array $values, ?float $mean = null) : float
     {
         $mean = $mean !== null ? $mean : Average::arithmeticMean($values);
         $sum  = 0.0;
@@ -141,7 +141,7 @@ final class MeasureOfDispersion
     }
 
     /**
-     * Calculage sample variance.
+     * Calculate sample variance.
      *
      * Similar to `empiricalVariance`.
      *
@@ -158,7 +158,7 @@ final class MeasureOfDispersion
      *
      * @since 1.0.0
      */
-    public static function sampleVariance(array $values, float $mean = null) : float
+    public static function sampleVariance(array $values, ?float $mean = null) : float
     {
         $count = \count($values);
 
@@ -170,7 +170,7 @@ final class MeasureOfDispersion
     }
 
     /**
-     * Calculage empirical variance.
+     * Calculate empirical variance.
      *
      * Similar to `sampleVariance`.
      *
@@ -188,7 +188,7 @@ final class MeasureOfDispersion
      *
      * @since 1.0.0
      */
-    public static function empiricalVariance(array $values, array $probabilities = [], float $mean = null) : float
+    public static function empiricalVariance(array $values, array $probabilities = [], ?float $mean = null) : float
     {
         $count          = \count($values);
         $hasProbability = !empty($probabilities);
@@ -208,7 +208,7 @@ final class MeasureOfDispersion
     }
 
     /**
-     * Calculage empirical covariance.
+     * Calculate empirical covariance.
      *
      * Example: ([4, 5, 9, 1, 3], [4, 5, 9, 1, 3])
      *
@@ -226,7 +226,7 @@ final class MeasureOfDispersion
      *
      * @since 1.0.0
      */
-    public static function empiricalCovariance(array $x, array $y, float $meanX = null, float $meanY = null) : float
+    public static function empiricalCovariance(array $x, array $y, ?float $meanX = null, ?float $meanY = null) : float
     {
         $count = \count($x);
 
@@ -251,7 +251,7 @@ final class MeasureOfDispersion
     }
 
     /**
-     * Calculage empirical covariance on a sample
+     * Calculate empirical covariance on a sample
      *
      * Example: ([4, 5, 9, 1, 3], [4, 5, 9, 1, 3])
      *
@@ -268,7 +268,7 @@ final class MeasureOfDispersion
      *
      * @since 1.0.0
      */
-    public static function sampleCovariance(array $x, array $y, float $meanX = null, float $meanY = null) : float
+    public static function sampleCovariance(array $x, array $y, ?float $meanX = null, ?float $meanY = null) : float
     {
         $count = \count($x);
 
@@ -318,7 +318,7 @@ final class MeasureOfDispersion
      *
      * @since 1.0.0
      */
-    public static function meanDeviation(array $x, float $mean = null, int $offset = 0) : float
+    public static function meanDeviation(array $x, ?float $mean = null, int $offset = 0) : float
     {
         $mean = $mean !== null ? $mean : Average::arithmeticMean($x);
         $sum  = 0.0;
@@ -339,7 +339,7 @@ final class MeasureOfDispersion
      *
      * @since 1.0.0
      */
-    public static function meanDeviationArray(array $x, float $mean = null) : array
+    public static function meanDeviationArray(array $x, ?float $mean = null) : array
     {
         $mean = $mean !== null ? $mean : Average::arithmeticMean($x);
 
@@ -361,7 +361,7 @@ final class MeasureOfDispersion
      *
      * @since 1.0.0
      */
-    public static function meanAbsoluteDeviation(array $x, float $mean = null, int $offset = 0) : float
+    public static function meanAbsoluteDeviation(array $x, ?float $mean = null, int $offset = 0) : float
     {
         $mean = $mean !== null ? $mean : Average::arithmeticMean($x);
         $sum  = 0.0;
@@ -382,7 +382,7 @@ final class MeasureOfDispersion
      *
      * @since 1.0.0
      */
-    public static function meanAbsoluteDeviationArray(array $x, float $mean = null) : array
+    public static function meanAbsoluteDeviationArray(array $x, ?float $mean = null) : array
     {
         $mean = $mean !== null ? $mean : Average::arithmeticMean($x);
 
@@ -404,7 +404,7 @@ final class MeasureOfDispersion
      *
      * @since 1.0.0
      */
-    public static function squaredMeanDeviation(array $x, float $mean = null, int $offset = 0) : float
+    public static function squaredMeanDeviation(array $x, ?float $mean = null, int $offset = 0) : float
     {
         $mean = $mean !== null ? $mean : Average::arithmeticMean($x);
         $sum  = 0.0;
@@ -425,7 +425,7 @@ final class MeasureOfDispersion
      *
      * @since 1.0.0
      */
-    public static function squaredMeanDeviationArray(array $x, float $mean = null) : array
+    public static function squaredMeanDeviationArray(array $x, ?float $mean = null) : array
     {
         $mean = $mean !== null ? $mean : Average::arithmeticMean($x);
 

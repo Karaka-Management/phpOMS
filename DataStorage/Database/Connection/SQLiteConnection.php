@@ -66,7 +66,7 @@ final class SQLiteConnection extends ConnectionAbstract
      *
      * @since 1.0.0
      */
-    public function connect(array $dbdata = null) : void
+    public function connect(?array $dbdata = null) : void
     {
         if ($this->status === DatabaseStatus::OK) {
             return;

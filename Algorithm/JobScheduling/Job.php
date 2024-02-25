@@ -57,7 +57,7 @@ class Job implements JobInterface
     public string $name = '';
 
     /**
-     * Cosntructor.
+     * Constructor.
      *
      * @param float          $value Value of the job
      * @param \DateTime      $start Start time of the job

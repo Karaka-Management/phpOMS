@@ -109,14 +109,6 @@ class DataMapperFactory
     public const TABLE = '';
 
     /**
-     * Parent column.
-     *
-     * @var class-string
-     * @since 1.0.0
-     */
-    public const PARENT = '';
-
-    /**
      * Model to use by the mapper.
      *
      * @var class-string<T>
@@ -187,7 +179,7 @@ class DataMapperFactory
      *
      * @since 1.0.0
      */
-    public static function reader(ConnectionAbstract $db = null) : ReadMapper
+    public static function reader(?ConnectionAbstract $db = null) : ReadMapper
     {
         return new ReadMapper(new static(), $db ?? self::$db);
     }
@@ -201,7 +193,7 @@ class DataMapperFactory
      *
      * @since 1.0.0
      */
-    public static function get(ConnectionAbstract $db = null) : ReadMapper
+    public static function get(?ConnectionAbstract $db = null) : ReadMapper
     {
         /** @var ReadMapper<T> $reader */
         $reader = new ReadMapper(new static(), $db ?? self::$db);
@@ -218,7 +210,7 @@ class DataMapperFactory
      *
      * @since 1.0.0
      */
-    public static function yield(ConnectionAbstract $db = null) : ReadMapper
+    public static function yield(?ConnectionAbstract $db = null) : ReadMapper
     {
         /** @var ReadMapper<T> $reader */
         $reader = new ReadMapper(new static(), $db ?? self::$db);
@@ -235,7 +227,7 @@ class DataMapperFactory
      *
      * @since 1.0.0
      */
-    public static function getRaw(ConnectionAbstract $db = null) : ReadMapper
+    public static function getRaw(?ConnectionAbstract $db = null) : ReadMapper
     {
         /** @var ReadMapper<T> $reader */
         $reader = new ReadMapper(new static(), $db ?? self::$db);
@@ -252,7 +244,7 @@ class DataMapperFactory
      *
      * @since 1.0.0
      */
-    public static function getRandom(ConnectionAbstract $db = null) : ReadMapper
+    public static function getRandom(?ConnectionAbstract $db = null) : ReadMapper
     {
         return (new ReadMapper(new static(), $db ?? self::$db))->getRandom();
     }
@@ -266,7 +258,7 @@ class DataMapperFactory
      *
      * @since 1.0.0
      */
-    public static function count(ConnectionAbstract $db = null) : ReadMapper
+    public static function count(?ConnectionAbstract $db = null) : ReadMapper
     {
         return (new ReadMapper(new static(), $db ?? self::$db))->count();
     }
@@ -280,7 +272,7 @@ class DataMapperFactory
      *
      * @since 1.0.0
      */
-    public static function sum(ConnectionAbstract $db = null) : ReadMapper
+    public static function sum(?ConnectionAbstract $db = null) : ReadMapper
     {
         return (new ReadMapper(new static(), $db ?? self::$db))->sum();
     }
@@ -294,7 +286,7 @@ class DataMapperFactory
      *
      * @since 1.0.0
      */
-    public static function exists(ConnectionAbstract $db = null) : ReadMapper
+    public static function exists(?ConnectionAbstract $db = null) : ReadMapper
     {
         return (new ReadMapper(new static(), $db ?? self::$db))->exists();
     }
@@ -308,7 +300,7 @@ class DataMapperFactory
      *
      * @since 1.0.0
      */
-    public static function has(ConnectionAbstract $db = null) : ReadMapper
+    public static function has(?ConnectionAbstract $db = null) : ReadMapper
     {
         return (new ReadMapper(new static(), $db ?? self::$db))->has();
     }
@@ -322,7 +314,7 @@ class DataMapperFactory
      *
      * @since 1.0.0
      */
-    public static function getQuery(ConnectionAbstract $db = null) : Builder
+    public static function getQuery(?ConnectionAbstract $db = null) : Builder
     {
         return (new ReadMapper(new static(), $db ?? self::$db))->getQuery();
     }
@@ -336,7 +328,7 @@ class DataMapperFactory
      *
      * @since 1.0.0
      */
-    public static function getAll(ConnectionAbstract $db = null) : ReadMapper
+    public static function getAll(?ConnectionAbstract $db = null) : ReadMapper
     {
         /** @var ReadMapper<T> $reader */
         $reader = new ReadMapper(new static(), $db ?? self::$db);
@@ -353,7 +345,7 @@ class DataMapperFactory
      *
      * @since 1.0.0
      */
-    public static function writer(ConnectionAbstract $db = null) : WriteMapper
+    public static function writer(?ConnectionAbstract $db = null) : WriteMapper
     {
         return new WriteMapper(new static(), $db ?? self::$db);
     }
@@ -367,7 +359,7 @@ class DataMapperFactory
      *
      * @since 1.0.0
      */
-    public static function create(ConnectionAbstract $db = null) : WriteMapper
+    public static function create(?ConnectionAbstract $db = null) : WriteMapper
     {
         return (new WriteMapper(new static(), $db ?? self::$db))->create();
     }
@@ -381,7 +373,7 @@ class DataMapperFactory
      *
      * @since 1.0.0
      */
-    public static function updater(ConnectionAbstract $db = null) : UpdateMapper
+    public static function updater(?ConnectionAbstract $db = null) : UpdateMapper
     {
         return new UpdateMapper(new static(), $db ?? self::$db);
     }
@@ -395,7 +387,7 @@ class DataMapperFactory
      *
      * @since 1.0.0
      */
-    public static function update(ConnectionAbstract $db = null) : UpdateMapper
+    public static function update(?ConnectionAbstract $db = null) : UpdateMapper
     {
         return (new UpdateMapper(new static(), $db ?? self::$db))->update();
     }
@@ -409,7 +401,7 @@ class DataMapperFactory
      *
      * @since 1.0.0
      */
-    public static function remover(ConnectionAbstract $db = null) : DeleteMapper
+    public static function remover(?ConnectionAbstract $db = null) : DeleteMapper
     {
         return new DeleteMapper(new static(), $db ?? self::$db);
     }
@@ -423,7 +415,7 @@ class DataMapperFactory
      *
      * @since 1.0.0
      */
-    public static function delete(ConnectionAbstract $db = null) : DeleteMapper
+    public static function delete(?ConnectionAbstract $db = null) : DeleteMapper
     {
         return (new DeleteMapper(new static(), $db ?? self::$db))->delete();
     }
@@ -471,7 +463,7 @@ class DataMapperFactory
      *
      * @since 1.0.0
      */
-    public static function createBaseModel(array $data = null) : object
+    public static function createBaseModel(?array $data = null) : object
     {
         if (empty(static::FACTORY)) {
             $class = empty(static::MODEL) ? \substr(static::class, 0, -6) : static::MODEL;
@@ -480,6 +472,25 @@ class DataMapperFactory
         }
 
         return static::FACTORY::createWith($data);
+    }
+
+    public static function hasFactory() : bool
+    {
+        return !empty(static::FACTORY);
+    }
+
+    /**
+     * Create the empty base model
+     *
+     * @param null|array $data Data to use for initialization
+     *
+     * @return string
+     *
+     * @since 1.0.0
+     */
+    public static function getBaseModelClass() : string
+    {
+        return empty(static::MODEL) ? \substr(static::class, 0, -6) : static::MODEL;
     }
 
     /**
@@ -493,14 +504,12 @@ class DataMapperFactory
      *
      * @since 1.0.0
      */
-    public static function getObjectId(object $obj, string $member = null, \ReflectionClass &$refClass = null) : mixed
+    public static function getObjectId(object $obj, ?string $member = null, ?\ReflectionClass &$refClass = null) : mixed
     {
         $propertyName = $member ?? static::COLUMNS[static::PRIMARYFIELD]['internal'];
 
         if (static::COLUMNS[static::PRIMARYFIELD]['private'] ?? false) {
-            if ($refClass === null) {
-                $refClass = new \ReflectionClass($obj);
-            }
+            $refClass ??= new \ReflectionClass($obj);
 
             $refProp = $refClass->getProperty($propertyName);
 
@@ -521,15 +530,13 @@ class DataMapperFactory
      *
      * @since 1.0.0
      */
-    public static function setObjectId(object $obj, mixed $objId, \ReflectionClass &$refClass = null) : void
+    public static function setObjectId(object $obj, mixed $objId, ?\ReflectionClass &$refClass = null) : void
     {
         $propertyName = static::COLUMNS[static::PRIMARYFIELD]['internal'];
         \settype($objId, static::COLUMNS[static::PRIMARYFIELD]['type']);
 
         if (static::COLUMNS[static::PRIMARYFIELD]['private'] ?? false) {
-            if ($refClass === null) {
-                $refClass = new \ReflectionClass($obj);
-            }
+            $refClass ??= new \ReflectionClass($obj);
 
             $refProp = $refClass->getProperty($propertyName);
             $refProp->setValue($obj, $objId);
@@ -569,7 +576,7 @@ class DataMapperFactory
      * @param int                $pageLimit    Limit result set
      * @param string             $sortBy       Model member name to sort by
      * @param string             $sortOrder    Sort order
-     * @param array              $searchFields Fields to search in. ([] = all) @todo: maybe change to all which have autocomplete = true defined?
+     * @param array              $searchFields Fields to search in. ([] = all) @todo maybe change to all which have autocomplete = true defined?
      * @param array              $filters      Additional search filters applied ['type', 'value1', 'logic1', 'value2', 'logic2']
      *
      * @return array{hasPrevious:bool, hasNext:bool, data:object[]}
@@ -577,18 +584,18 @@ class DataMapperFactory
      * @since 1.0.0
      */
     public static function find(
-        string $search = null,
-        DataMapperAbstract $mapper = null,
+        ?string $search = null,
+        ?DataMapperAbstract $mapper = null,
         int $id = 0,
         string $secondaryId = '',
-        string $type = null,
+        ?string $type = null,
         int $pageLimit = 25,
-        string $sortBy = null,
+        ?string $sortBy = null,
         string $sortOrder = OrderType::DESC,
         array $searchFields = [],
         array $filters = []
     ) : array {
-        $mapper  ??= static::getAll();
+        $mapper ??= static::getAll();
         $sortOrder = \strtoupper($sortOrder);
 
         $data = [];
@@ -636,7 +643,7 @@ class DataMapperFactory
             }
         }
 
-        // @todo: how to handle columns which are NOT members (columns which are manipulated)
+        // @todo how to handle columns which are NOT members (columns which are manipulated)
         //          Maybe pass callback array which can handle these cases?
 
         if ($type === 'p') {
@@ -688,26 +695,15 @@ class DataMapperFactory
                     --$count;
                 }
             } else {
-                if (\reset($data)->getId() === $id) {
+                if (\reset($data)->id === $id) {
                     \array_shift($data);
                     $hasNext = true;
                     --$count;
                 }
 
                 if ($count > $pageLimit) {
-                    // @todo: can be maybe removed?
-                    /*
-                    if (!$hasNext) {
-                        \array_pop($data);
-                        $hasNext = true;
-                        --$count;
-                    }
-                    */
-
-                    if ($count > $pageLimit) {
-                        $hasPrevious = true;
-                        \array_pop($data);
-                    }
+                    $hasPrevious = true;
+                    \array_pop($data);
                 }
 
                 $data = \array_reverse($data);
@@ -742,7 +738,7 @@ class DataMapperFactory
                 ];
             }
 
-            if (\reset($data)->getId() === $id) {
+            if (\reset($data)->id === $id) {
                 \array_shift($data);
                 $hasPrevious = true;
                 --$count;

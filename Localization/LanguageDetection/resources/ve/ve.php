@@ -1,8 +1,7 @@
 <?php declare(strict_types=1);
 
 return [
-  've' =>
-  [
+  've' => [
     0   => 'a',
     1   => 'a_',
     2   => 'h',

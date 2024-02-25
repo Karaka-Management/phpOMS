@@ -69,9 +69,7 @@ abstract class NgramParser
      */
     private function tokenize(string $str) : array
     {
-        if ($this->tokenizer === null) {
-            $this->tokenizer = new WhitespaceTokenizer();
-        }
+        $this->tokenizer ??= new WhitespaceTokenizer();
 
         return $this->tokenizer->tokenize($str);
     }

@@ -251,7 +251,7 @@ final class ViewTest extends \PHPUnit\Framework\TestCase
      */
     public function testGetRequest() : void
     {
-        $view = new View($this->app->l11nManager, $request = new HttpRequest(new HttpUri('')), $response = new HttpResponse());
+        $view = new View($this->app->l11nManager, $request = new HttpRequest(), $response = new HttpResponse());
 
         self::assertEquals($request, $view->request);
         self::assertEquals($response, $view->response);
@@ -264,7 +264,7 @@ final class ViewTest extends \PHPUnit\Framework\TestCase
      */
     public function testGetResponse() : void
     {
-        $view = new View($this->app->l11nManager, new HttpRequest(new HttpUri('')), $response = new HttpResponse());
+        $view = new View($this->app->l11nManager, new HttpRequest(), $response = new HttpResponse());
 
         self::assertEquals($response, $view->response);
     }
@@ -276,7 +276,7 @@ final class ViewTest extends \PHPUnit\Framework\TestCase
      */
     public function testPrintHtml() : void
     {
-        $view = new View($this->app->l11nManager, $request = new HttpRequest(new HttpUri('')), $response = new HttpResponse());
+        $view = new View($this->app->l11nManager, $request = new HttpRequest(), $response = new HttpResponse());
 
         self::assertEquals('&lt;a href=&quot;test&quot;&gt;Test&lt;/a&gt;', $view->printHtml('<a href="test">Test</a>'));
         self::assertEquals('&lt;a href=&quot;test&quot;&gt;Test&lt;/a&gt;', ViewAbstract::html('<a href="test">Test</a>'));

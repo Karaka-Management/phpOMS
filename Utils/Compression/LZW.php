@@ -94,7 +94,7 @@ class LZW implements CompressionInterface
                 throw new \Exception('Wrong dictionary size!' . $k . '.' . $dictSize); // @codeCoverageIgnore
             }
 
-            $result                 .= $entry;
+            $result .= $entry;
             $dictionary[$dictSize++] = $w . $entry[0];
             $w                       = $entry;
         }

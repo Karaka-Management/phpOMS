@@ -119,6 +119,14 @@ class Email implements MessageInterface
     public string $mailer = SubmitType::MAIL;
 
     /**
+     * Template strings
+     *
+     * @var array<string, string>
+     * @since 1.0.0
+     */
+    public array $template = [];
+
+    /**
      * Mail from.
      *
      * @var array
@@ -615,6 +623,20 @@ class Email implements MessageInterface
         return $addresses;
     }
 
+    public function parseTemplate() : void
+    {
+        if (empty($this->template)) {
+            return;
+        }
+
+        $keys   = \array_keys($this->template);
+        $values = \array_values($this->template);
+
+        $this->subject = \str_replace($keys, $values, $this->subject);
+        $this->body    = \str_replace($keys, $values, $this->body);
+        $this->bodyAlt = \str_replace($keys, $values, $this->bodyAlt);
+    }
+
     /**
      * Pre-send preparations
      *
@@ -626,12 +648,20 @@ class Email implements MessageInterface
      */
     public function preSend(string $mailer) : bool
     {
+        if (empty($this->from)
+            || (empty($this->to) && empty($this->cc) && empty($this->bcc))
+        ) {
+            return false;
+        }
+
         $this->header = '';
         $this->mailer = $mailer;
 
-        if (empty($this->to) && empty($this->cc) && empty($this->bcc)) {
-            return false;
-        }
+        $tempSubject = $this->subject;
+        $tempBody    = $this->body;
+        $tempBodyAlt = $this->bodyAlt;
+
+        $this->parseTemplate();
 
         if (!empty($this->bodyAlt)) {
             $this->contentType = MimeType::M_ALT;
@@ -642,9 +672,9 @@ class Email implements MessageInterface
         $this->headerMime = '';
         $this->bodyMime   = $this->createBody();
 
-        $tempheaders       = $this->headerMime;
-        $this->headerMime  = $this->createHeader();
-        $this->headerMime .= $tempheaders;
+        $tempHeaders      = $this->headerMime;
+        $this->headerMime = $this->createHeader();
+        $this->headerMime .= $tempHeaders;
 
         if ($this->mailer === SubmitType::MAIL) {
             $this->header .= empty($this->to)
@@ -673,6 +703,10 @@ class Email implements MessageInterface
             $this->headerMime = \rtrim($this->headerMime, " \r\n\t") . self::$LE .
                 self::normalizeBreaks($headerDkim, self::$LE) . self::$LE;
         }
+
+        $this->subject = $tempSubject;
+        $this->body    = $tempBody;
+        $this->bodyAlt = $tempBodyAlt;
 
         return true;
     }
@@ -830,7 +864,7 @@ class Email implements MessageInterface
                 break;
             default:
                 // Catches case 'plain': and case '':
-                $result     .= 'Content-Type: ' . $this->contentType . '; charset=' . $this->charset . self::$LE;
+                $result .= 'Content-Type: ' . $this->contentType . '; charset=' . $this->charset . self::$LE;
                 $isMultipart = false;
                 break;
         }
@@ -1087,7 +1121,7 @@ class Email implements MessageInterface
             default:
                 // Catch case 'plain' and case '', applies to simple `text/plain` and `text/html` body content types
                 $this->encoding = $bodyEncoding;
-                $body          .= $this->encodeString($this->body, $this->encoding);
+                $body .= $this->encodeString($this->body, $this->encoding);
                 break;
         }
 
@@ -1129,9 +1163,9 @@ class Email implements MessageInterface
             \unlink($signed);
 
             //The message returned by openssl contains both headers and body, so need to split them up
-            $parts             = \explode("\n\n", $body, 2);
+            $parts = \explode("\n\n", $body, 2);
             $this->headerMime .= $parts[0] . self::$LE . self::$LE;
-            $body              = $parts[1];
+            $body = $parts[1];
         }
 
         return $body;
@@ -1510,8 +1544,8 @@ class Email implements MessageInterface
                                 $len -= 2;
                             }
 
-                            $part     = \substr($word, 0, $len);
-                            $word     = \substr($word, $len);
+                            $part = \substr($word, 0, $len);
+                            $word = \substr($word, $len);
                             $buf     .= ' ' . $part;
                             $message .= $buf . \sprintf('=%s', self::$LE);
                         } else {
@@ -1553,7 +1587,7 @@ class Email implements MessageInterface
                     $buf .= $word;
                     if ($bufO !== '' && \strlen($buf) > $length) {
                         $message .= $bufO . $softBreak;
-                        $buf      = $word;
+                        $buf = $word;
                     }
                 }
 
@@ -1959,7 +1993,7 @@ class Email implements MessageInterface
      *
      * @since 1.0.0
      */
-    public function addCustomHeader(string $name, string $value = null) : bool
+    public function addCustomHeader(string $name, ?string $value = null) : bool
     {
         $name  = \trim($name);
         $value = \trim($value);
@@ -2003,7 +2037,7 @@ class Email implements MessageInterface
      *
      * @since 1.0.0
      */
-    public function msgHTML(string $message, string $basedir = '', \Closure $advanced = null)
+    public function msgHTML(string $message, string $basedir = '', ?\Closure $advanced = null)
     {
         \preg_match_all('/(?<!-)(src|background)=["\'](.*)["\']/Ui', $message, $images);
 
@@ -2116,7 +2150,7 @@ class Email implements MessageInterface
      *
      * @since 1.0.0
      */
-    private function html2text(string $html, \Closure $advanced = null) : string
+    private function html2text(string $html, ?\Closure $advanced = null) : string
     {
         if ($advanced !== null) {
             return $advanced($html);
@@ -2164,7 +2198,7 @@ class Email implements MessageInterface
         $len  = \strlen($txt);
 
         for ($i = 0; $i < $len; ++$i) {
-            $ord   = \ord($txt[$i]);
+            $ord = \ord($txt[$i]);
             $line .= (($ord >= 0x21) && ($ord <= 0x3A)) || $ord === 0x3C || (($ord >= 0x3E) && ($ord <= 0x7E))
                 ? $txt[$i]
                 : '=' . \sprintf('%02X', $ord);

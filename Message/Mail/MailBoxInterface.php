@@ -76,7 +76,7 @@ interface MailBoxInterface
     public function countUnseen(string $box) : int;
 
     /**
-     * Get messages by search criterium
+     * Get messages by search criteria
      *
      * @param string    $box     Box to count the mail in
      * @param string    $subject Subject
@@ -86,7 +86,7 @@ interface MailBoxInterface
      * @param string    $from    From
      * @param string    $bcc     BCC
      * @param \DateTime $before  Message before
-     * @param \DateTime $sicne   Message since
+     * @param \DateTime $since   Message since
      * @param \DateTime $on      Message on date
      * @param bool      $deleted Message is deleted
      * @param bool      $flagged Message is flagged (false = any message)
@@ -103,9 +103,9 @@ interface MailBoxInterface
         string $cc = '',
         string $from = '',
         string $bcc = '',
-        \DateTime $before = null,
-        \DateTime $since = null,
-        \DateTime $on = null,
+        ?\DateTime $before = null,
+        ?\DateTime $since = null,
+        ?\DateTime $on = null,
         bool $deleted = false,
         bool $flagged = false
     ) : array;

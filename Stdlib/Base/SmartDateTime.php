@@ -52,7 +52,7 @@ class SmartDateTime extends \DateTime
      *
      * @since 1.0.0
      */
-    public function __construct(string $datetime = 'now', \DateTimeZone $timezone = null)
+    public function __construct(string $datetime = 'now', ?\DateTimeZone $timezone = null)
     {
         $parsed = \str_replace(
             ['Y', 'm', 'd'],
@@ -111,15 +111,18 @@ class SmartDateTime extends \DateTime
      */
     public function smartModify(int $y = 0, int $m = 0, int $d = 0, int $calendar = \CAL_GREGORIAN) : self
     {
-        $yearChange = (int) \floor(((int) $this->format('m') - 1 + $m) / 12);
-        $yearNew    = (int) $this->format('Y') + $y + $yearChange;
+        $year  = (int) $this->format('Y');
+        $month = (int) $this->format('m');
 
-        $monthNew = (int) $this->format('m') + $m;
+        $yearChange = (int) \floor(($month - 1 + $m) / 12);
+        $yearNew    = $year + $y + $yearChange;
+
+        $monthNew = $month - 1 + $m;
         $monthNew = $monthNew < 0
-            ? 12 + ($monthNew - 1) % 12 + 1
-            : ($monthNew - 1) % 12 + 1;
+            ? ($month - 1 + $m - 12 * $yearChange) % 12 + 1
+            : $monthNew % 12 + 1;
 
-        $dayMonthOld = \cal_days_in_month($calendar, (int) $this->format('m'), (int) $this->format('Y'));
+        $dayMonthOld = \cal_days_in_month($calendar, $month, $year);
         $dayMonthNew = \cal_days_in_month($calendar, $monthNew, $yearNew);
         $dayOld      = (int) $this->format('d');
 
@@ -365,13 +368,13 @@ class SmartDateTime extends \DateTime
      *
      * @param int $month Start of the year (i.e. fiscal year)
      *
-     * @return \DateTime
+     * @return SmartDateTime
      *
      * @since 1.0.0
      */
-    public static function startOfYear(int $month = 1) : \DateTime
+    public static function startOfYear(int $month = 1) : SmartDateTime
     {
-        return new \DateTime(\date('Y') . '-' . \sprintf('%02d', $month) . '-01');
+        return new SmartDateTime(\date('Y') . '-' . \sprintf('%02d', $month) . '-01');
     }
 
     /**
@@ -379,37 +382,37 @@ class SmartDateTime extends \DateTime
      *
      * @param int $month Start of the year (i.e. fiscal year)
      *
-     * @return \DateTime
+     * @return SmartDateTime
      *
      * @since 1.0.0
      */
-    public static function endOfYear(int $month = 1) : \DateTime
+    public static function endOfYear(int $month = 1) : SmartDateTime
     {
-        return new \DateTime(\date('Y') . '-' . self::calculateMonthIndex(13 - $month, $month) . '-31');
+        return new SmartDateTime(\date('Y') . '-' . self::calculateMonthIndex(13 - $month, $month) . '-31');
     }
 
     /**
      * Get the start of the month
      *
-     * @return \DateTime
+     * @return SmartDateTime
      *
      * @since 1.0.0
      */
-    public static function startOfMonth() : \DateTime
+    public static function startOfMonth() : SmartDateTime
     {
-        return new \DateTime(\date('Y-m') . '-01');
+        return new SmartDateTime(\date('Y-m') . '-01');
     }
 
     /**
      * Get the end of the month
      *
-     * @return \DateTime
+     * @return SmartDateTime
      *
      * @since 1.0.0
      */
-    public static function endOfMonth() : \DateTime
+    public static function endOfMonth() : SmartDateTime
     {
-        return new \DateTime(\date('Y-m-t'));
+        return new SmartDateTime(\date('Y-m-t'));
     }
 
     /**
@@ -444,5 +447,33 @@ class SmartDateTime extends \DateTime
         $mod = ($month - $start);
 
         return \abs(($mod < 0 ? 12 + $mod : $mod) % 12) + 1;
+    }
+
+    public static function formatDuration(int $duration) : string
+    {
+        $days    = \floor($duration / (24 * 3600));
+        $hours   = \floor(($duration % (24 * 3600)) / 3600);
+        $minutes = \floor(($duration % 3600) / 60);
+        $seconds = $duration % 60;
+
+        $result = '';
+
+        if ($days > 0) {
+            $result .= \sprintf('%02dd', $days);
+        }
+
+        if ($hours > 0) {
+            $result .= \sprintf('%02dh', $hours);
+        }
+
+        if ($minutes > 0) {
+            $result .= \sprintf('%02dm', $minutes);
+        }
+
+        if ($seconds > 0) {
+            $result .= \sprintf('%02ds', $seconds);
+        }
+
+        return \rtrim($result, ' ');
     }
 }

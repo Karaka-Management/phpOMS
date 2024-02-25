@@ -1,15 +1,7 @@
-___em strong___
+___em underline___
 
-___em strong_ strong__
+__*underline em*__
 
-__strong _em strong___
+***strong em***
 
-__strong _em strong_ strong__
-
-***em strong***
-
-***em strong* strong**
-
-**strong *em strong***
-
-**strong *em strong* strong**
+**_strong em_**

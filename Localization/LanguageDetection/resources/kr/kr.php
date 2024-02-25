@@ -1,8 +1,7 @@
 <?php declare(strict_types=1);
 
 return [
-  'kr' =>
-  [
+  'kr' => [
     0   => 'a',
     1   => 'n',
     2   => 'ə',

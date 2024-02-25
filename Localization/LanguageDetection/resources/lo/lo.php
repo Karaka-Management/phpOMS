@@ -1,8 +1,7 @@
 <?php declare(strict_types=1);
 
 return [
-  'lo' =>
-  [
+  'lo' => [
     0   => 'ນ',
     1   => 'າ',
     2   => 'ດ',

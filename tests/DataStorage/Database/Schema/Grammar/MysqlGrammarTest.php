@@ -78,7 +78,7 @@ final class MysqlGrammarTest extends \PHPUnit\Framework\TestCase
             );
         }
 
-        $delete  = new Builder($this->con);
+        $delete = new Builder($this->con);
         $delete->dropTable('test')
             ->dropTable('test_foreign')
             ->execute();
@@ -101,7 +101,7 @@ final class MysqlGrammarTest extends \PHPUnit\Framework\TestCase
         self::assertContains('test', $tables);
         self::assertContains('test_foreign', $tables);
 
-        $delete  = new Builder($this->con);
+        $delete = new Builder($this->con);
         $delete->dropTable('test')
             ->dropTable('test_foreign')
             ->execute();

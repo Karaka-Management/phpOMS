@@ -1,8 +1,7 @@
 <?php declare(strict_types=1);
 
 return [
-  'az-Cyrl' =>
-  [
+  'az-Cyrl' => [
     0   => 'ә',
     1   => 'а',
     2   => 'и',

@@ -32,7 +32,7 @@ final class InstallerAbstractTest extends \PHPUnit\Framework\TestCase
      */
     protected function setUp() : void
     {
-        $this->installer   = new class() extends InstallerAbstract {
+        $this->installer = new class() extends InstallerAbstract {
         	public const PATH = __DIR__ . '/Invalid';
         };
     }

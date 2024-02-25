@@ -48,7 +48,7 @@ class Directory extends FileAbstract implements DirectoryInterface
      * @var array<string, ContainerInterface>
      * @since 1.0.0
      */
-    private array $nodes = [];
+    public array $nodes = [];
 
     /**
      * Create ftp connection.
@@ -87,7 +87,7 @@ class Directory extends FileAbstract implements DirectoryInterface
      *
      * @since 1.0.0
      */
-    public function __construct(HttpUri $uri, bool $initialize = true, \FTP\Connection $con = null)
+    public function __construct(HttpUri $uri, bool $initialize = true, ?\FTP\Connection $con = null)
     {
         $this->uri = $uri;
         $this->con = $con ?? self::ftpConnect($uri);
@@ -123,7 +123,11 @@ class Directory extends FileAbstract implements DirectoryInterface
                 $uri = clone $this->uri;
                 $uri->setPath($filename);
 
-                $file = \ftp_size($this->con, $filename) === -1 ? new self($uri, false, $this->con) : new File($uri, $this->con);
+                $file = \ftp_size($this->con, $filename) === -1
+                    ? new self($uri, false, $this->con)
+                    : new File($uri, $this->con);
+
+                $file->parent = $this;
 
                 $this->addNode($file);
             }
@@ -676,8 +680,8 @@ class Directory extends FileAbstract implements DirectoryInterface
      */
     public function addNode(ContainerInterface $node) : self
     {
-        $this->count                      += $node->getCount();
-        $this->size                       += $node->getSize();
+        $this->count += $node->getCount();
+        $this->size  += $node->getSize();
         $this->nodes[$node->getBasename()] = $node;
 
         $node->createNode();
@@ -693,7 +697,7 @@ class Directory extends FileAbstract implements DirectoryInterface
         $uri = clone $this->uri;
         $uri->setPath(self::parent($this->path));
 
-        return new self($uri, true, $this->con);
+        return $this->parent ?? new self($uri, true, $this->con);
     }
 
     /**
@@ -705,7 +709,19 @@ class Directory extends FileAbstract implements DirectoryInterface
             return false;
         }
 
-        return self::copy($this->con, $this->path, $to, $overwrite);
+        $newParent = $this->findNode($to);
+
+        $state = self::copy($this->con, $this->path, $to, $overwrite);
+
+        /** @var null|Directory $newParent */
+        if ($newParent !== null) {
+            $uri = clone $this->uri;
+            $uri->setPath($to);
+
+            $newParent->addNode(new self($uri));
+        }
+
+        return $state;
     }
 
     /**
@@ -717,7 +733,9 @@ class Directory extends FileAbstract implements DirectoryInterface
             return false;
         }
 
-        return self::move($this->con, $this->path, $to, $overwrite);
+        $state = $this->copyNode($to, $overwrite);
+
+        return $state && $this->deleteNode();
     }
 
     /**
@@ -729,7 +747,9 @@ class Directory extends FileAbstract implements DirectoryInterface
             return false;
         }
 
-        // @todo: update parent
+        if (isset($this->parent)) {
+            unset($this->parent->nodes[$this->getBasename()]);
+        }
 
         return self::delete($this->con, $this->path);
     }
@@ -843,7 +863,7 @@ class Directory extends FileAbstract implements DirectoryInterface
      *
      * @since 1.0.0
      */
-    public function isExisting(string $name = null) : bool
+    public function isExisting(?string $name = null) : bool
     {
         if ($name === null) {
             return \is_dir($this->path);

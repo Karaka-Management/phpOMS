@@ -15,7 +15,7 @@ declare(strict_types=1);
 namespace phpOMS\Module\Exception;
 
 /**
- * Zero devision exception.
+ * Zero division exception.
  *
  * @package phpOMS\Module\Exception
  * @license OMS License 2.0
@@ -33,7 +33,7 @@ final class InvalidModuleException extends \UnexpectedValueException
      *
      * @since 1.0.0
      */
-    public function __construct(string $message, int $code = 0, \Exception $previous = null)
+    public function __construct(string $message, int $code = 0, ?\Exception $previous = null)
     {
         parent::__construct('Data for module "' . $message . '" could be found.', $code, $previous);
     }

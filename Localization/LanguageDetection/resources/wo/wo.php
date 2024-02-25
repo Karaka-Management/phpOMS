@@ -1,8 +1,7 @@
 <?php declare(strict_types=1);
 
 return [
-  'wo' =>
-  [
+  'wo' => [
     0   => 'a',
     1   => 'e',
     2   => 'u',

@@ -39,7 +39,7 @@ abstract class Email extends ValidatorAbstract
     /**
      * {@inheritdoc}
      */
-    public static function isValid(mixed $value, array $constraints = null) : bool
+    public static function isValid(mixed $value, ?array $constraints = null) : bool
     {
         if (\filter_var($value, \FILTER_VALIDATE_EMAIL) === false) {
             self::$msg   = 'Invalid Email by filter_var standards';

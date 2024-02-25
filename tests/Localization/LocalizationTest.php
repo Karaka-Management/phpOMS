@@ -48,11 +48,11 @@ final class LocalizationTest extends \PHPUnit\Framework\TestCase
      */
     public function testDefault() : void
     {
-        self::assertEquals(0, $this->localization->getId());
+        self::assertEquals(0, $this->localization->id);
         self::assertTrue(ISO3166TwoEnum::isValidValue($this->localization->country));
         self::assertTrue(TimeZoneEnumArray::isValidValue($this->localization->getTimezone()));
         self::assertTrue(ISO639x1Enum::isValidValue($this->localization->language));
-        self::assertTrue(ISO4217CharEnum::isValidValue($this->localization->getCurrency()));
+        self::assertTrue(ISO4217CharEnum::isValidValue($this->localization->currency));
         self::assertEquals('0', $this->localization->getCurrencyFormat());
         self::assertEquals('.', $this->localization->getDecimal());
         self::assertEquals(',', $this->localization->getThousands());
@@ -64,18 +64,6 @@ final class LocalizationTest extends \PHPUnit\Framework\TestCase
         self::assertEquals([], $this->localization->getLength());
         self::assertEquals([], $this->localization->getArea());
         self::assertEquals([], $this->localization->getVolume());
-    }
-
-    /**
-     * @testdox Setting a invalid language code throws InvalidEnumValue
-     * @covers phpOMS\Localization\Localization
-     * @group framework
-     */
-    public function testInvalidLanguage() : void
-    {
-        $this->expectException(\phpOMS\Stdlib\Base\Exception\InvalidEnumValue::class);
-
-        $this->localization->setLanguage('abc');
     }
 
     /**
@@ -100,18 +88,6 @@ final class LocalizationTest extends \PHPUnit\Framework\TestCase
         $this->expectException(\phpOMS\Stdlib\Base\Exception\InvalidEnumValue::class);
 
         $this->localization->setTimezone('abc');
-    }
-
-    /**
-     * @testdox Setting a invalid currency code throws InvalidEnumValue
-     * @covers phpOMS\Localization\Localization
-     * @group framework
-     */
-    public function testInvalidCurrency() : void
-    {
-        $this->expectException(\phpOMS\Stdlib\Base\Exception\InvalidEnumValue::class);
-
-        $this->localization->setCurrency('abc');
     }
 
     /**
@@ -158,28 +134,6 @@ final class LocalizationTest extends \PHPUnit\Framework\TestCase
     {
         $this->localization->setTimezone(TimeZoneEnumArray::get(315));
         self::assertEquals(TimeZoneEnumArray::get(315), $this->localization->getTimezone());
-    }
-
-    /**
-     * @testdox The language can be set and returned
-     * @covers phpOMS\Localization\Localization
-     * @group framework
-     */
-    public function testLanguageInputOutput() : void
-    {
-        $this->localization->setLanguage(ISO639x1Enum::_DE);
-        self::assertEquals(ISO639x1Enum::_DE, $this->localization->language);
-    }
-
-    /**
-     * @testdox The currency can be set and returned
-     * @covers phpOMS\Localization\Localization
-     * @group framework
-     */
-    public function testCurrencyInputOutput() : void
-    {
-        $this->localization->setCurrency(ISO4217CharEnum::_EUR);
-        self::assertEquals(ISO4217CharEnum::_EUR, $this->localization->getCurrency());
     }
 
     /**
@@ -322,7 +276,7 @@ final class LocalizationTest extends \PHPUnit\Framework\TestCase
     public function testLocalizationFromLanguageCode() : void
     {
         $l11n = Localization::fromLanguage(ISO639x1Enum::_DE);
-        self::assertEquals(ISO4217CharEnum::_EUR, $l11n->getCurrency());
+        self::assertEquals(ISO4217CharEnum::_EUR, $l11n->currency);
     }
 
     /**
@@ -333,7 +287,7 @@ final class LocalizationTest extends \PHPUnit\Framework\TestCase
     public function testLocalizationLoading() : void
     {
         $this->localization->loadFromLanguage(ISO639x1Enum::_DE);
-        self::assertEquals(ISO4217CharEnum::_EUR, $this->localization->getCurrency());
+        self::assertEquals(ISO4217CharEnum::_EUR, $this->localization->currency);
     }
 
     /**
@@ -360,7 +314,7 @@ final class LocalizationTest extends \PHPUnit\Framework\TestCase
     public function testInvalidCountryLocalizationLoading() : void
     {
         $this->localization->loadFromLanguage(ISO639x1Enum::_DE, 'ABC');
-        self::assertEquals(ISO4217CharEnum::_EUR, $this->localization->getCurrency());
+        self::assertEquals(ISO4217CharEnum::_EUR, $this->localization->currency);
     }
 
     /**
@@ -371,6 +325,6 @@ final class LocalizationTest extends \PHPUnit\Framework\TestCase
     public function testMissingLocalizationLoading() : void
     {
         $this->localization->loadFromLanguage(ISO639x1Enum::_AA);
-        self::assertEquals(ISO4217CharEnum::_USD, $this->localization->getCurrency());
+        self::assertEquals(ISO4217CharEnum::_USD, $this->localization->currency);
     }
 }

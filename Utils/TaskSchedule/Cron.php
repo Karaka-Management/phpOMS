@@ -206,8 +206,10 @@ class Cron extends SchedulerAbstract
                     $elements   = \array_merge($elements, $interval);
                     $elements[] = \trim(\substr($line, $len = (\strlen(\implode(' ', $interval)) + 1), $comment - $len - 1));
 
-                    $jobs[] = $job = CronJob::createWith($elements);
-                    $job->setStatus($line[0] === '#' ? TaskStatus::INACTIVE : TaskStatus::ACTIVE);
+                    $job         = CronJob::createWith($elements);
+                    $job->status = $line[0] === '#' ? TaskStatus::INACTIVE : TaskStatus::ACTIVE;
+
+                    $jobs[] = $job;
                 }
 
                 $line = \fgets($fp);

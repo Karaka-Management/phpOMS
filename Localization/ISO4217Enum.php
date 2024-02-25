@@ -75,6 +75,8 @@ class ISO4217Enum extends Enum
     public const _CLP = 'Pesos, Chile';
 
     public const _CNY = 'Yuan Renminbi, China';
+    public const _CNH = 'Yuan Renminbi, China';
+    public const _RMB = 'Yuan Renminbi, China';
 
     public const _COP = 'Pesos, Colombia';
 
@@ -403,4 +405,6 @@ class ISO4217Enum extends Enum
     public const _XUA = 'ADB Unit of Account';
 
     public const _ZMW = 'kwacha, Zambian';
+
+    use ISO4217Trait;
 }

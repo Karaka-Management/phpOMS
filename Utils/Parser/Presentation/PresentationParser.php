@@ -24,8 +24,18 @@ use PhpOffice\PhpPresentation\IOFactory;
  * @link    https://jingga.app
  * @since   1.0.0
  */
-class PresentationParser
+final class PresentationParser
 {
+    /**
+     * Constructor.
+     *
+     * @since 1.0.0
+     * @codeCoverageIgnore
+     */
+    private function __construct()
+    {
+    }
+
     /**
      * Presentation to string
      *
@@ -45,6 +55,24 @@ class PresentationParser
             $oTree = new PresentationWriter($presentation);
 
             return $oTree->renderHtml();
+        } elseif ($output === 'txt') {
+            $presentation = IOFactory::load($path);
+            $oTree        = new PresentationWriter($presentation);
+            $html         = $oTree->renderHtml();
+
+            $doc  = new \DOMDocument();
+            $html = \preg_replace(
+                ['~<style.*?</style>~', '~<script.*?</script>~'],
+                ['', ''],
+                $html
+            );
+
+            $doc->loadHTMLFile($path);
+
+            $body = $doc->getElementsByTagName('body');
+            $node = $body->item(0);
+
+            return empty($node->textContent) ? '' : $node->textContent;
         }
 
         return '';

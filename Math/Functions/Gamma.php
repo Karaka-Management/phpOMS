@@ -114,7 +114,7 @@ final class Gamma
         $c       = [\sqrt(2.0 * \M_PI)];
 
         for ($k = 1; $k < 12; ++$k) {
-            $c[$k]    = \exp(12 - $k) * \pow(12 - $k, $k - 0.5) / $k1_fact;
+            $c[$k] = \exp(12 - $k) * \pow(12 - $k, $k - 0.5) / $k1_fact;
             $k1_fact *= -$k;
         }
 
@@ -283,8 +283,8 @@ final class Gamma
         for ($i = 1; $i < 150 && \abs($del - 1.0) > 2.22e-16; ++$i) {
             $an = - $i * ($i - $a);
             $b += 2.0;
-            $d  = $an * $d + $b;
-            $c  = $b + $an / $c;
+            $d = $an * $d + $b;
+            $c = $b + $an / $c;
 
             if (\abs($c) < 1.18e-37) {
                 $c = 1.18e-37;
@@ -296,7 +296,7 @@ final class Gamma
 
             $d   = 1.0 / $d;
             $del = $d * $c;
-            $h  *= $del;
+            $h *= $del;
         }
 
         return \exp(-$x + $a * \log($x) - self::logGamma($a)) * $h;
