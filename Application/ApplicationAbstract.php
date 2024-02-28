@@ -196,6 +196,14 @@ class ApplicationAbstract
     protected EventManager $eventManager;
 
     /**
+     * Application version.
+     *
+     * @var string
+     * @since 1.0.0
+     */
+    public string $version = '1.0.0';
+
+    /**
      * Set values
      *
      * @param string $name  Variable name

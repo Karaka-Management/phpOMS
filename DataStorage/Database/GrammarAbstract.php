@@ -244,7 +244,7 @@ abstract class GrammarAbstract
             }
 
             return $values . $this->compileValue($query, $value[$count]) . ')';
-        } elseif ($value instanceof \DateTime) {
+        } elseif ($value instanceof \DateTime || $value instanceof \DateTimeImmutable) {
             return $query->quote($value->format($this->datetimeFormat));
         } elseif ($value === null) {
             return 'NULL';

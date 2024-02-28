@@ -352,6 +352,24 @@ abstract class RequestAbstract implements MessageInterface
     }
 
     /**
+     * Check if has data.
+     *
+     * The following empty values are considered as not set (null, '', 0)
+     *
+     * @param string $key Data key
+     *
+     * @return bool
+     *
+     * @since 1.0.0
+     */
+    public function hasKey(string $key) : bool
+    {
+        $key = \mb_strtolower($key);
+
+        return isset($this->data[$key]);
+    }
+
+    /**
      * Set request data.
      *
      * @param string $key       Data key
