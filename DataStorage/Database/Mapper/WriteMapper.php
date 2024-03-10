@@ -159,7 +159,25 @@ final class WriteMapper extends DataMapperAbstract
             }
 
             $sth = $this->db->con->prepare($query->toSql());
-            $sth->execute();
+            if ($sth === false) {
+                throw new \Exception();
+            }
+
+            $deadlock = 0;
+            do {
+                $repeat = false;
+                try {
+                    ++$deadlock;
+                    $sth->execute();
+                } catch (\Throwable $t) {
+                    if ($deadlock > 3 || $t->errorInfo[1] !== 1213) {
+                        throw $t;
+                    }
+
+                    \usleep(10000);
+                    $repeat = true;
+                }
+            } while($repeat);
 
             $objId = empty($id = $this->mapper::getObjectId($obj)) ? $this->db->con->lastInsertId() : $id;
             \settype($objId, $this->mapper::COLUMNS[$this->mapper::PRIMARYFIELD]['type']);
@@ -399,9 +417,25 @@ final class WriteMapper extends DataMapperAbstract
             }
 
             $sth = $this->db->con->prepare($relQuery->toSql());
-            if ($sth !== false) {
-                $sth->execute();
+            if ($sth === false) {
+                throw new \Exception();
             }
+
+            $deadlock = 0;
+            do {
+                $repeat = false;
+                try {
+                    ++$deadlock;
+                    $sth->execute();
+                } catch (\Throwable $t) {
+                    if ($deadlock > 3 || $t->errorInfo[1] !== 1213) {
+                        throw $t;
+                    }
+
+                    \usleep(10000);
+                    $repeat = true;
+                }
+            } while($repeat);
         } catch (\Throwable $t) {
             // @codeCoverageIgnoreStart
             \phpOMS\Log\FileLogger::getInstance()->error(
