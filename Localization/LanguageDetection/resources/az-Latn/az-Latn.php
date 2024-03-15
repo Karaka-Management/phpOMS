@@ -1,8 +1,7 @@
 <?php declare(strict_types=1);
 
 return [
-  'az-Latn' =>
-  [
+  'az-Latn' => [
     0   => 'ə',
     1   => 'a',
     2   => 'i',

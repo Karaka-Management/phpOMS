@@ -25,6 +25,16 @@ namespace phpOMS\Math\Geometry\Shape\D2;
 final class Quadrilateral implements D2ShapeInterface
 {
     /**
+     * Constructor.
+     *
+     * @since 1.0.0
+     * @codeCoverageIgnore
+     */
+    private function __construct()
+    {
+    }
+
+    /**
      * Calculate the surface area from the length of all sides and the angle between a and b
      *
      * @param float $a     Side a length (DA)

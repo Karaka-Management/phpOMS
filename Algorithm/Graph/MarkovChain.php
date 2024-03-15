@@ -117,7 +117,7 @@ final class MarkovChain
      *
      * @since 1.0.0
      */
-    public function generate(int $length, array $start = null) : array
+    public function generate(int $length, ?array $start = null) : array
     {
         $orderKeys   = \array_keys($this->data);
         $orderValues = \array_keys(\reset($this->data));
@@ -137,16 +137,14 @@ final class MarkovChain
                 $cProb += $p;
 
                 if ($prob <= $cProb) {
-                    $new   = $val;
+                    $new = $val;
 
                     break;
                 }
             }
 
             // Couldn't find possible key
-            if ($new === null) {
-                $new = $orderValues[\array_rand($orderValues)];
-            }
+            $new ??= $orderValues[\array_rand($orderValues)];
 
             $output[] = $new;
             $key[]    = $new;
@@ -177,7 +175,7 @@ final class MarkovChain
 
         $prob = 1.0;
         for ($i = $this->order; $i < $length; ++$i) {
-            $prob *= $this->data[\implode($key)][$path[$i]] ?? 0.0;
+            $prob *= $this->data[\implode(' ', $key)][$path[$i]] ?? 0.0;
 
             $key[] = $path[$i];
             \array_shift($key);

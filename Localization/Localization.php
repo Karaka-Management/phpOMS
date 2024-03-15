@@ -216,8 +216,8 @@ class Localization implements \JsonSerializable
         $l11n = new self();
         $l11n->setCountry($json['country']);
         $l11n->setTimezone($json['timezone'] ?? 'America/New_York');
-        $l11n->setLanguage($json['language']);
-        $l11n->setCurrency(\is_string($json['currency']) ? $json['currency'] : ($json['currency']['code'] ?? ISO4217Enum::_USD));
+        $l11n->language = $json['language'];
+        $l11n->currency = \is_string($json['currency']) ? $json['currency'] : ($json['currency']['code'] ?? ISO4217Enum::_USD);
         $l11n->setCurrencyFormat(isset($json['currencyformat']) && \is_string($json['currencyformat']) ? $json['currencyformat'] : ($json['currency']['format'] ?? '1'));
         $l11n->setDecimal($json['decimal']);
         $l11n->setThousands($json['thousand']);
@@ -322,7 +322,7 @@ class Localization implements \JsonSerializable
     /**
      * Load localization from locale
      *
-     * @param array{language?:string, country?:string, currency?:array{code?:string}, thousand?:string, angle?:string, temperatur?:string, weight?:array, speed?:array, length?:array, area?:array, volume?:array, precision?:array, timezone?:string, datetime?:array} $locale Locale data
+     * @param array{language?:string, country?:string, currency?:array{code?:string}, thousand?:string, angle?:string, temperature?:string, weight?:array, speed?:array, length?:array, area?:array, volume?:array, precision?:array, timezone?:string, datetime?:array} $locale Locale data
      *
      * @return void
      *
@@ -330,9 +330,9 @@ class Localization implements \JsonSerializable
      */
     public function importLocale(array $locale) : void
     {
-        $this->setLanguage($locale['language'] ?? 'en');
+        $this->language = $locale['language'] ?? 'en';
         $this->setCountry($locale['country'] ?? 'US');
-        $this->setCurrency($locale['currency']['code'] ?? ISO4217Enum::_USD);
+        $this->currency = $locale['currency']['code'] ?? ISO4217Enum::_USD;
         $this->setThousands($locale['thousand'] ?? ',');
         $this->setDecimal($locale['decimal'] ?? '.');
         $this->setAngle($locale['angle'] ?? AngleType::DEGREE);
@@ -350,7 +350,7 @@ class Localization implements \JsonSerializable
     /**
      * Set country name
      *
-     * @param string $country Contry name
+     * @param string $country Country name
      *
      * @return void
      *

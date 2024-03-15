@@ -27,11 +27,21 @@ use phpOMS\Math\Functions\Beta;
 final class FDistribution
 {
     /**
+     * Constructor.
+     *
+     * @since 1.0.0
+     * @codeCoverageIgnore
+     */
+    private function __construct()
+    {
+    }
+
+    /**
      * Get probability density function.
      *
      * @param float $x  Value x
-     * @param int   $d1 Degreegs of freedom
-     * @param int   $d2 Degreegs of freedom
+     * @param int   $d1 Degrees of freedom
+     * @param int   $d2 Degrees of freedom
      *
      * @return float
      *
@@ -47,8 +57,8 @@ final class FDistribution
      * Get cumulative density function.
      *
      * @param float $x  Value x
-     * @param int   $d1 Degreegs of freedom
-     * @param int   $d2 Degreegs of freedom
+     * @param int   $d1 Degrees of freedom
+     * @param int   $d2 Degrees of freedom
      *
      * @return float
      *

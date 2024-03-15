@@ -163,9 +163,7 @@ class Smtp
     protected function getSMTPConnection(string $host, int $port = 25, int $timeout = 30, array $options = []) : mixed
     {
         static $streamok;
-        if ($streamok === null) {
-            $streamok = \function_exists('stream_socket_client');
-        }
+        $streamok ??= \function_exists('stream_socket_client');
 
         $errno  = 0;
         $errstr = '';
@@ -460,9 +458,9 @@ class Smtp
             }
         }
 
-        $tmpTimeLimit     = $this->timeLimit;
+        $tmpTimeLimit = $this->timeLimit;
         $this->timeLimit *= 2;
-        $result           = $this->sendCommand('DATA END', '.', [250]);
+        $result = $this->sendCommand('DATA END', '.', [250]);
 
         $this->recordLastTransactionId();
 
@@ -833,7 +831,7 @@ class Smtp
                 }
             }
 
-            $str   = \fgets($this->con, self::MAX_REPLY_LENGTH);
+            $str = \fgets($this->con, self::MAX_REPLY_LENGTH);
             $data .= $str;
 
             // If response is only 3 chars (not valid, but RFC5321 S4.2 says it must be handled),

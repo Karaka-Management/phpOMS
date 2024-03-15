@@ -22,7 +22,7 @@ namespace phpOMS\Utils\RnG;
  * @link    https://jingga.app
  * @since   1.0.0
  */
-class LinearCongruentialGenerator
+final class LinearCongruentialGenerator
 {
     /**
      * BSD seed value.
@@ -39,6 +39,16 @@ class LinearCongruentialGenerator
      * @since 1.0.0
      */
     private static $msvcrtSeed = 0;
+
+    /**
+     * Constructor.
+     *
+     * @since 1.0.0
+     * @codeCoverageIgnore
+     */
+    private function __construct()
+    {
+    }
 
     /**
      * BSD random number

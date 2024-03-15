@@ -47,17 +47,17 @@ final class Basic
      */
     public static function frequency(array $values) : array
     {
-        $freaquency = [];
-        $sum        = 1;
+        $frequency = [];
+        $sum       = 1;
 
         if (!(\is_array(\reset($values)))) {
             $sum = \array_sum($values);
         }
 
         foreach ($values as $value) {
-            $freaquency[] = \is_array($value) ? self::frequency($value) : $value / $sum;
+            $frequency[] = \is_array($value) ? self::frequency($value) : $value / $sum;
         }
 
-        return $freaquency;
+        return $frequency;
     }
 }

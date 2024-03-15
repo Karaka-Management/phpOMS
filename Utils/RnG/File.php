@@ -22,7 +22,7 @@ namespace phpOMS\Utils\RnG;
  * @link    https://jingga.app
  * @since   1.0.0
  */
-class File
+final class File
 {
     /**
      * Extensions.
@@ -45,6 +45,16 @@ class File
     ];
 
     /**
+     * Constructor.
+     *
+     * @since 1.0.0
+     * @codeCoverageIgnore
+     */
+    private function __construct()
+    {
+    }
+
+    /**
      * Get a random file extension.
      *
      * @param array<string[]> $source Source array for possible extensions
@@ -53,11 +63,9 @@ class File
      *
      * @since 1.0.0
      */
-    public static function generateExtension(array $source = null) : string
+    public static function generateExtension(?array $source = null) : string
     {
-        if ($source === null) {
-            $source = self::$extensions;
-        }
+        $source ??= self::$extensions;
 
         $key = \array_rand($source, 1);
 

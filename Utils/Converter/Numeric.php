@@ -145,7 +145,7 @@ final class Numeric
         foreach (self::ROMANS as $key => $value) {
             while (\str_starts_with($roman, $key)) {
                 $result += $value;
-                $temp    = \substr($roman, \strlen($key));
+                $temp = \substr($roman, \strlen($key));
 
                 if ($temp !== false) {
                     $roman = $temp;
@@ -172,7 +172,7 @@ final class Numeric
         $alpha = '';
 
         for ($i = 1; $number >= 0 && $i < 10; ++$i) {
-            $alpha   = \chr(0x41 + (int) ($number % \pow(26, $i) / \pow(26, $i - 1))) . $alpha;
+            $alpha = \chr(0x41 + (int) ($number % \pow(26, $i) / \pow(26, $i - 1))) . $alpha;
             $number -= \pow(26, $i);
         }
 

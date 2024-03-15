@@ -54,7 +54,7 @@ final class TaskAbstractTest extends \PHPUnit\Framework\TestCase
     {
         self::assertEquals('', $this->class->getId());
         self::assertEquals('', $this->class->getCommand());
-        self::assertEquals(TaskStatus::ACTIVE, $this->class->getStatus());
+        self::assertEquals(TaskStatus::ACTIVE, $this->class->status);
         self::assertInstanceOf('\DateTime', $this->class->getNextRunTime());
         self::assertInstanceOf('\DateTime', $this->class->getLastRuntime());
         self::assertEquals('', $this->class->getComment());
@@ -81,17 +81,6 @@ final class TaskAbstractTest extends \PHPUnit\Framework\TestCase
     {
         $this->class->setInterval('Interval');
         self::assertEquals('Interval', $this->class->getInterval());
-    }
-
-    /**
-     * @testdox The status can be set and returned
-     * @covers phpOMS\Utils\TaskSchedule\TaskAbstract
-     * @group framework
-     */
-    public function testStatusInputOutput() : void
-    {
-        $this->class->setStatus(TaskStatus::FINISHED);
-        self::assertEquals(TaskStatus::FINISHED, $this->class->getStatus());
     }
 
     /**

@@ -45,7 +45,7 @@ final class Directory extends FileAbstract implements DirectoryInterface
      * @var array<string, ContainerInterface>
      * @since 1.0.0
      */
-    private array $nodes = [];
+    public array $nodes = [];
 
     /**
      * Constructor.
@@ -172,7 +172,11 @@ final class Directory extends FileAbstract implements DirectoryInterface
 
         foreach ($files as $filename) {
             if (!StringUtils::endsWith(\trim($filename), '.')) {
-                $file = \is_dir($filename) ? new self($filename, '*', false) : new File($filename);
+                $file = \is_dir($filename)
+                    ? new self($filename, '*', false)
+                    : new File($filename);
+
+                $file->parent = $this;
 
                 $this->addNode($file);
             }
@@ -184,8 +188,8 @@ final class Directory extends FileAbstract implements DirectoryInterface
      */
     public function addNode(ContainerInterface $node) : self
     {
-        $this->count                      += $node->getCount();
-        $this->size                       += $node->getSize();
+        $this->count += $node->getCount();
+        $this->size  += $node->getSize();
         $this->nodes[$node->getBasename()] = $node;
 
         $node->createNode();
@@ -461,7 +465,7 @@ final class Directory extends FileAbstract implements DirectoryInterface
      *
      * @since 1.0.0
      */
-    public function isExisting(string $name = null) : bool
+    public function isExisting(?string $name = null) : bool
     {
         if ($name === null) {
             return \is_dir($this->path);
@@ -630,7 +634,7 @@ final class Directory extends FileAbstract implements DirectoryInterface
      */
     public function getParent() : ContainerInterface
     {
-        return new self(self::parent($this->path));
+        return $this->parent ?? new self(self::parent($this->path));
     }
 
     /**
@@ -638,7 +642,16 @@ final class Directory extends FileAbstract implements DirectoryInterface
      */
     public function copyNode(string $to, bool $overwrite = false) : bool
     {
-        return self::copy($this->path, $to, $overwrite);
+        $newParent = $this->findNode($to);
+
+        $state = self::copy($this->path, $to, $overwrite);
+
+        /** @var null|Directory $newParent */
+        if ($newParent !== null) {
+            $newParent->addNode(new self($to));
+        }
+
+        return $state;
     }
 
     /**
@@ -646,7 +659,9 @@ final class Directory extends FileAbstract implements DirectoryInterface
      */
     public function moveNode(string $to, bool $overwrite = false) : bool
     {
-        return self::move($this->path, $to, $overwrite);
+        $state = $this->copyNode($to, $overwrite);
+
+        return $state && $this->deleteNode();
     }
 
     /**
@@ -654,7 +669,9 @@ final class Directory extends FileAbstract implements DirectoryInterface
      */
     public function deleteNode() : bool
     {
-        // @todo: update parent
+        if (isset($this->parent)) {
+            unset($this->parent->nodes[$this->getBasename()]);
+        }
 
         return self::delete($this->path);
     }

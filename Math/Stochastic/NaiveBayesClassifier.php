@@ -28,7 +28,7 @@ use phpOMS\Math\Statistic\MeasureOfDispersion;
 final class NaiveBayesClassifier
 {
     /**
-     * Dictionary of different criterias.
+     * Dictionary of different criteria.
      *
      * @var array
      * @since 1.0.0
@@ -70,15 +70,15 @@ final class NaiveBayesClassifier
             foreach ($dataset as $attr => $value) {
                 if (!isset($this->dict[$criteria][$attr])) {
                     $this->dict[$criteria][$attr] = [
-                        'type'  => \is_array($value) ? 1 : 2,
-                        'data'  => [],
+                        'type' => \is_array($value) ? 1 : 2,
+                        'data' => [],
                     ];
                 }
 
                 if (!isset($this->probabilities['attr'][$attr])) {
                     $this->probabilities['attr'][$attr] = [
-                        'count'    => 0,
-                        'data'     => [],
+                        'count' => 0,
+                        'data'  => [],
                     ];
                 }
 
@@ -117,7 +117,7 @@ final class NaiveBayesClassifier
      *
      * @param string $criteria Criteria to match against
      * @param array  $toMatch  Values to match
-     * @param int    $minimum  Minimum amount of ocurances for consideration
+     * @param int    $minimum  Minimum amount of occurrences for consideration
      *
      * @return float
      *

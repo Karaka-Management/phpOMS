@@ -65,7 +65,7 @@ final class ColorUtils
      */
     public static function rgbToInt(array $rgb) : int
     {
-        $i  = (255 & $rgb['r']) << 16;
+        $i = (255 & $rgb['r']) << 16;
         $i += (255 & $rgb['g']) << 8;
         $i += (255 & $rgb['b']);
 

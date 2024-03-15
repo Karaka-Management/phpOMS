@@ -37,14 +37,14 @@ final class Permutation
     /**
      * Create all permutations.
      *
-     * @param array $toPermute data to permutate
+     * @param array $toPermute data to permute
      * @param array $result    existing permutations
      *
      * @return array<array|string>
      *
      * @since 1.0.0
      */
-    public static function permut(array $toPermute, array $result = [], bool $concat = true) : array
+    public static function permuteAll(array $toPermute, array $result = [], bool $concat = true) : array
     {
         $permutations = [];
 
@@ -58,7 +58,7 @@ final class Permutation
 
                 unset($newArr[$key]);
 
-                $permutations = \array_merge($permutations, self::permut($newArr, $newres, $concat));
+                $permutations = \array_merge($permutations, self::permuteAll($newArr, $newres, $concat));
             }
         }
 
@@ -98,9 +98,9 @@ final class Permutation
     }
 
     /**
-     * Permutate based on transposition key.
+     * Permute based on transposition key.
      *
-     * @param array|string $toPermute To permutate
+     * @param array|string $toPermute To permute
      * @param int[]        $key       Permutation keys
      *
      * @return string|array
@@ -109,7 +109,7 @@ final class Permutation
      *
      * @since 1.0.0
      */
-    public static function permutate(string | array $toPermute, array $key) : string | array
+    public static function permuteByKey(string | array $toPermute, array $key) : string | array
     {
         $length = \is_array($toPermute) ? \count($toPermute) : \strlen($toPermute);
 

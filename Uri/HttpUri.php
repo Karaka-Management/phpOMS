@@ -121,7 +121,7 @@ final class HttpUri implements UriInterface
     /**
      * Uri query.
      *
-     * @var array<string, string>
+     * @var array<int|string, null|string>
      * @since 1.0.0
      */
     private array $query = [];
@@ -362,7 +362,7 @@ final class HttpUri implements UriInterface
     /**
      * {@inheritdoc}
      */
-    public function getQuery(string $key = null) : string
+    public function getQuery(?string $key = null) : string
     {
         if ($key !== null) {
             $key = \strtolower($key);
@@ -381,6 +381,38 @@ final class HttpUri implements UriInterface
         \parse_str($uri, $this->query);
 
         $this->query = \array_change_key_case($this->query, \CASE_LOWER);
+    }
+
+    /**
+     * Add query parameter
+     *
+     * @param string      $key   Parameter key
+     * @param null|string $value Value (null = omitted)
+     *
+     * @return void
+     *
+     * @since 1.0.0
+     */
+    public function addQuery(string $key, ?string $value = null) : void
+    {
+        $key               = \strtolower($key);
+        $this->query[$key] = $value;
+
+        $toAdd = (empty($this->queryString) ? '?' : '&')
+            . $key
+            . ($value === null ? '' : '=' . ((string) $value));
+
+        $this->queryString .= $toAdd;
+
+        if (empty($this->fragment)) {
+            $this->uri .= $toAdd;
+        } else {
+            $pos = \strrpos($this->uri, '#');
+
+            if ($pos !== false) {
+                $this->uri = \substr_replace($this->uri, $toAdd, $pos, 0);
+            }
+        }
     }
 
     /**

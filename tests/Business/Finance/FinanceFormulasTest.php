@@ -121,13 +121,13 @@ final class FinanceFormulasTest extends \PHPUnit\Framework\TestCase
      * @covers phpOMS\Business\Finance\FinanceFormulas
      * @group framework
      */
-    public function testAnnutiyPaymentFactorPV() : void
+    public function testAnnuityPaymentFactorPV() : void
     {
         $expected = 0.21216;
 
         $r = 0.02;
         $n = 5;
-        $p = FinanceFormulas::getAnnutiyPaymentFactorPV($r, $n);
+        $p = FinanceFormulas::getAnnuityPaymentFactorPV($r, $n);
 
         self::assertEqualsWithDelta(\round($expected, 5), \round($p, 5), 0.01);
         self::assertEqualsWithDelta($n, FinanceFormulas::getNumberOfAPFPV($p, $r), 0.01);
@@ -314,8 +314,8 @@ final class FinanceFormulasTest extends \PHPUnit\Framework\TestCase
         $C = \round(FinanceFormulas::getCompoundInterest($P, $r, $t), 2);
 
         self::assertEqualsWithDelta(\round($expected, 2), $C, 0.01);
-        self::assertEqualsWithDelta($P, FinanceFormulas::getPrincipalOfCompundInterest($C, $r, $t), 0.1);
-        self::assertEqualsWithDelta($t, (int) \round(FinanceFormulas::getPeriodsOfCompundInterest($P, $C, $r), 0), 0.01);
+        self::assertEqualsWithDelta($P, FinanceFormulas::getPrincipalOfCompoundInterest($C, $r, $t), 0.1);
+        self::assertEqualsWithDelta($t, (int) \round(FinanceFormulas::getPeriodsOfCompoundInterest($P, $C, $r), 0), 0.01);
     }
 
     /**

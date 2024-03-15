@@ -99,4 +99,20 @@ class Node
     {
         return $this->data <=> $data;
     }
+
+    /**
+     * To array
+     *
+     * @return array
+     *
+     * @since 1.0.0
+     */
+    public function toArray() : array
+    {
+        return [
+            'key' => $this->key,
+            0     => $this->left?->toArray(),
+            1     => $this->right?->toArray(),
+        ];
+    }
 }

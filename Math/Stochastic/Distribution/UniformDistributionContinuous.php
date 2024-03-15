@@ -25,6 +25,16 @@ namespace phpOMS\Math\Stochastic\Distribution;
 final class UniformDistributionContinuous
 {
     /**
+     * Constructor.
+     *
+     * @since 1.0.0
+     * @codeCoverageIgnore
+     */
+    private function __construct()
+    {
+    }
+
+    /**
      * Get mode.
      *
      * @param float $a Value a

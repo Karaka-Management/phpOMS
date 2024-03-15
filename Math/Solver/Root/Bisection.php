@@ -30,14 +30,24 @@ final class Bisection
      * @var float
      * @since 1.0.0
      */
-    public const EPSILON = 1e-6;
+    public const EPSILON = 4.88e-04;
+
+    /**
+     * Constructor.
+     *
+     * @since 1.0.0
+     * @codeCoverageIgnore
+     */
+    private function __construct()
+    {
+    }
 
     /**
      * Perform bisection to find the root of a function
      *
      * Iteratively searches for root between two points on the x-axis
      *
-     * @param Callable $func          Function defintion
+     * @param Callable $func          Function definition
      * @param float    $a             Start value
      * @param float    $b             End value
      * @param int      $maxIterations Maximum amount of iterations

@@ -49,7 +49,7 @@ final class ApplicationManagerTest extends \PHPUnit\Framework\TestCase
      */
     protected function setUp() : void
     {
-        $app                          = new class() extends ApplicationAbstract {
+        $app = new class() extends ApplicationAbstract {
             protected string $appName = 'Api';
         };
 
@@ -62,12 +62,12 @@ final class ApplicationManagerTest extends \PHPUnit\Framework\TestCase
 
             public function get(
                 mixed $ids = null,
-                string | array $names = null,
-                int $unit = null,
-                int $app = null,
-                string $module = null,
-                int $group = null,
-                int $account = null
+                string | array|null $names = null,
+                ?int $unit = null,
+                ?int $app = null,
+                ?string $module = null,
+                ?int $group = null,
+                ?int $account = null
             ) : mixed {
                 return '';
             }
@@ -172,7 +172,7 @@ final class ApplicationManagerTest extends \PHPUnit\Framework\TestCase
     }
 
     /**
-     * @testdox A invalid application path results in no uninstallation
+     * @testdox A invalid application path results in no uninstall
      * @covers phpOMS\Application\ApplicationManager
      * @group framework
      */
@@ -183,7 +183,7 @@ final class ApplicationManagerTest extends \PHPUnit\Framework\TestCase
     }
 
     /**
-     * @testdox A missing uninstallation file results in no uninstallation
+     * @testdox A missing uninstall file results in no uninstall
      * @covers phpOMS\Application\ApplicationManager
      * @group framework
      */

@@ -34,7 +34,7 @@ use phpOMS\Validation\Network\Email as EmailValidator;
  * @link    https://jingga.app
  * @since   1.0.0
  */
-class Email implements MessageInterface
+class Email
 {
     /**
      * Mailer name.
@@ -117,6 +117,14 @@ class Email implements MessageInterface
      * @since 1.0.0
      */
     public string $mailer = SubmitType::MAIL;
+
+    /**
+     * Template strings
+     *
+     * @var array<string, string>
+     * @since 1.0.0
+     */
+    public array $template = [];
 
     /**
      * Mail from.
@@ -454,11 +462,25 @@ class Email implements MessageInterface
         $this->contentType = $isHtml ? MimeType::M_HTML : MimeType::M_TEXT;
     }
 
+    /**
+     * Get content type
+     *
+     * @return string
+     *
+     * @since 1.0.0
+     */
     public function getContentType() : string
     {
         return $this->contentType;
     }
 
+    /**
+     * Is html content type?
+     *
+     * @return bool
+     *
+     * @since 1.0.0
+     */
     public function isHtml() : bool
     {
         return $this->contentType === MimeType::M_HTML;
@@ -560,10 +582,10 @@ class Email implements MessageInterface
      *
      * @since 1.0.0
      */
-    public static function parseAddresses(string $addrstr, bool $useimap = true, string $charset = CharsetType::ISO_8859_1) : array
+    public static function parseAddresses(string $addrstr, bool $useImap = true, string $charset = CharsetType::ISO_8859_1) : array
     {
         $addresses = [];
-        if ($useimap && \function_exists('imap_rfc822_parse_adrlist')) {
+        if ($useImap && \function_exists('imap_rfc822_parse_adrlist')) {
             $list = \imap_rfc822_parse_adrlist($addrstr, '');
             foreach ($list as $address) {
                 if (($address->host !== '.SYNTAX-ERROR.')
@@ -616,6 +638,29 @@ class Email implements MessageInterface
     }
 
     /**
+     * Parse email template.
+     *
+     * Replaces placeholders with content
+     *
+     * @return void
+     *
+     * @since 1.0.0
+     */
+    public function parseTemplate() : void
+    {
+        if (empty($this->template)) {
+            return;
+        }
+
+        $keys   = \array_keys($this->template);
+        $values = \array_values($this->template);
+
+        $this->subject = \str_replace($keys, $values, $this->subject);
+        $this->body    = \str_replace($keys, $values, $this->body);
+        $this->bodyAlt = \str_replace($keys, $values, $this->bodyAlt);
+    }
+
+    /**
      * Pre-send preparations
      *
      * @param string $mailer Mailer tool
@@ -626,12 +671,20 @@ class Email implements MessageInterface
      */
     public function preSend(string $mailer) : bool
     {
+        if (empty($this->from)
+            || (empty($this->to) && empty($this->cc) && empty($this->bcc))
+        ) {
+            return false;
+        }
+
         $this->header = '';
         $this->mailer = $mailer;
 
-        if (empty($this->to) && empty($this->cc) && empty($this->bcc)) {
-            return false;
-        }
+        $tempSubject = $this->subject;
+        $tempBody    = $this->body;
+        $tempBodyAlt = $this->bodyAlt;
+
+        $this->parseTemplate();
 
         if (!empty($this->bodyAlt)) {
             $this->contentType = MimeType::M_ALT;
@@ -642,9 +695,9 @@ class Email implements MessageInterface
         $this->headerMime = '';
         $this->bodyMime   = $this->createBody();
 
-        $tempheaders       = $this->headerMime;
-        $this->headerMime  = $this->createHeader();
-        $this->headerMime .= $tempheaders;
+        $tempHeaders      = $this->headerMime;
+        $this->headerMime = $this->createHeader();
+        $this->headerMime .= $tempHeaders;
 
         if ($this->mailer === SubmitType::MAIL) {
             $this->header .= empty($this->to)
@@ -673,6 +726,10 @@ class Email implements MessageInterface
             $this->headerMime = \rtrim($this->headerMime, " \r\n\t") . self::$LE .
                 self::normalizeBreaks($headerDkim, self::$LE) . self::$LE;
         }
+
+        $this->subject = $tempSubject;
+        $this->body    = $tempBody;
+        $this->bodyAlt = $tempBodyAlt;
 
         return true;
     }
@@ -744,7 +801,7 @@ class Email implements MessageInterface
         $result .= 'X-Mailer: ' . self::XMAILER . self::$LE;
 
         if ($this->confirmationAddress !== '') {
-            $result .= 'Disposition-Notification-To: ' . '<' . $this->confirmationAddress . '>' . self::$LE;
+            $result .= 'Disposition-Notification-To: <' . $this->confirmationAddress . '>' . self::$LE;
         }
 
         // Add custom headers
@@ -830,7 +887,7 @@ class Email implements MessageInterface
                 break;
             default:
                 // Catches case 'plain': and case '':
-                $result     .= 'Content-Type: ' . $this->contentType . '; charset=' . $this->charset . self::$LE;
+                $result .= 'Content-Type: ' . $this->contentType . '; charset=' . $this->charset . self::$LE;
                 $isMultipart = false;
                 break;
         }
@@ -1087,7 +1144,7 @@ class Email implements MessageInterface
             default:
                 // Catch case 'plain' and case '', applies to simple `text/plain` and `text/html` body content types
                 $this->encoding = $bodyEncoding;
-                $body          .= $this->encodeString($this->body, $this->encoding);
+                $body .= $this->encodeString($this->body, $this->encoding);
                 break;
         }
 
@@ -1129,9 +1186,9 @@ class Email implements MessageInterface
             \unlink($signed);
 
             //The message returned by openssl contains both headers and body, so need to split them up
-            $parts             = \explode("\n\n", $body, 2);
+            $parts = \explode("\n\n", $body, 2);
             $this->headerMime .= $parts[0] . self::$LE . self::$LE;
-            $body              = $parts[1];
+            $body = $parts[1];
         }
 
         return $body;
@@ -1249,10 +1306,10 @@ class Email implements MessageInterface
                     $mime[]  = empty($encodedName)
                         ? \sprintf('Content-Disposition: %s%s', $disposition, self::$LE . self::$LE)
                         : \sprintf('Content-Disposition: %s; filename=%s%s',
-                                $disposition,
-                                self::quotedString($encodedName),
-                                self::$LE . self::$LE
-            );
+                            $disposition,
+                            self::quotedString($encodedName),
+                            self::$LE . self::$LE
+                        );
             } else {
                 $mime[] = self::$LE;
             }
@@ -1437,7 +1494,7 @@ class Email implements MessageInterface
      *
      * @return void
      *
-     * @return 1.0.0
+     * @since 1.0.0
      */
     public function setWordWrap() : void
     {
@@ -1510,8 +1567,8 @@ class Email implements MessageInterface
                                 $len -= 2;
                             }
 
-                            $part     = \substr($word, 0, $len);
-                            $word     = \substr($word, $len);
+                            $part = \substr($word, 0, $len);
+                            $word = \substr($word, $len);
                             $buf     .= ' ' . $part;
                             $message .= $buf . \sprintf('=%s', self::$LE);
                         } else {
@@ -1553,7 +1610,7 @@ class Email implements MessageInterface
                     $buf .= $word;
                     if ($bufO !== '' && \strlen($buf) > $length) {
                         $message .= $bufO . $softBreak;
-                        $buf      = $word;
+                        $buf = $word;
                     }
                 }
 
@@ -1592,9 +1649,9 @@ class Email implements MessageInterface
 
                 $matchcount = \preg_match_all('/[^\040\041\043-\133\135-\176]/', $str, $matches);
                 break;
-            /* @noinspection PhpMissingBreakStatementInspection */
             case 'comment':
                 $matchcount = \preg_match_all('/[()"]/', $str, $matches);
+                // no break
             case 'text':
             default:
                 $matchcount += \preg_match_all('/[\000-\010\013\014\016-\037\177-\377]/', $str, $matches);
@@ -1669,6 +1726,7 @@ class Email implements MessageInterface
                 break;
             case 'comment':
                 $pattern = '\(\)"';
+                // no break
             case 'text':
             default:
                 // Replace every high ascii, control, =, ? and _ characters
@@ -1959,7 +2017,7 @@ class Email implements MessageInterface
      *
      * @since 1.0.0
      */
-    public function addCustomHeader(string $name, string $value = null) : bool
+    public function addCustomHeader(string $name, ?string $value = null) : bool
     {
         $name  = \trim($name);
         $value = \trim($value);
@@ -2003,7 +2061,7 @@ class Email implements MessageInterface
      *
      * @since 1.0.0
      */
-    public function msgHTML(string $message, string $basedir = '', \Closure $advanced = null)
+    public function msgHTML(string $message, string $basedir = '', ?\Closure $advanced = null)
     {
         \preg_match_all('/(?<!-)(src|background)=["\'](.*)["\']/Ui', $message, $images);
 
@@ -2088,7 +2146,7 @@ class Email implements MessageInterface
     /**
      * Normalize line breaks in a string.
      *
-     * @param string $text
+     * @param string $text      Text to normalize
      * @param string $breaktype What kind of line break to use; defaults to self::$LE
      *
      * @return string
@@ -2116,7 +2174,7 @@ class Email implements MessageInterface
      *
      * @since 1.0.0
      */
-    private function html2text(string $html, \Closure $advanced = null) : string
+    private function html2text(string $html, ?\Closure $advanced = null) : string
     {
         if ($advanced !== null) {
             return $advanced($html);
@@ -2164,7 +2222,7 @@ class Email implements MessageInterface
         $len  = \strlen($txt);
 
         for ($i = 0; $i < $len; ++$i) {
-            $ord   = \ord($txt[$i]);
+            $ord = \ord($txt[$i]);
             $line .= (($ord >= 0x21) && ($ord <= 0x3A)) || $ord === 0x3C || (($ord >= 0x3E) && ($ord <= 0x7E))
                 ? $txt[$i]
                 : '=' . \sprintf('%02X', $ord);
@@ -2176,7 +2234,7 @@ class Email implements MessageInterface
     /**
      * Generate a DKIM signature.
      *
-     * @param string $signHeader
+     * @param string $signHeader Sign header
      *
      * @return string The DKIM signature value
      *

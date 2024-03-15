@@ -1,4 +1,15 @@
 <?php
+/**
+ * Jingga
+ *
+ * PHP Version 8.1
+ *
+ * @package   phpOMS\tests
+ * @copyright Dennis Eichhorn
+ * @license   OMS License 2.0
+ * @version   1.0.0
+ * @link      https://jingga.app
+ */
 declare(strict_types=1);
 
 \ini_set('memory_limit', '2048M');
@@ -67,10 +78,10 @@ $GLOBALS['is_github'] = $IS_GITHUB;
 $tmp = FileLogger::getInstance(__DIR__ . '/../Logs');
 
 $CONFIG = [
-    'db'       => [
+    'db' => [
         'core' => [
             'masters' => [
-                'admin'  => [
+                'admin' => [
                     'db'             => 'mysql', /* db type */
                     'host'           => '127.0.0.1', /* db host address */
                     'port'           => '3306', /* db host port */
@@ -80,7 +91,7 @@ $CONFIG = [
                     'weight'         => 1000, /* db table prefix */
                     'datetimeformat' => 'Y-m-d H:i:s',
                 ],
-                'insert'  => [
+                'insert' => [
                     'db'             => 'mysql', /* db type */
                     'host'           => '127.0.0.1', /* db host address */
                     'port'           => '3306', /* db host port */
@@ -90,7 +101,7 @@ $CONFIG = [
                     'weight'         => 1000, /* db table prefix */
                     'datetimeformat' => 'Y-m-d H:i:s',
                 ],
-                'select'  => [
+                'select' => [
                     'db'             => 'mysql', /* db type */
                     'host'           => '127.0.0.1', /* db host address */
                     'port'           => '3306', /* db host port */
@@ -100,7 +111,7 @@ $CONFIG = [
                     'weight'         => 1000, /* db table prefix */
                     'datetimeformat' => 'Y-m-d H:i:s',
                 ],
-                'update'  => [
+                'update' => [
                     'db'             => 'mysql', /* db type */
                     'host'           => '127.0.0.1', /* db host address */
                     'port'           => '3306', /* db host port */
@@ -110,7 +121,7 @@ $CONFIG = [
                     'weight'         => 1000, /* db table prefix */
                     'datetimeformat' => 'Y-m-d H:i:s',
                 ],
-                'delete'  => [
+                'delete' => [
                     'db'             => 'mysql', /* db type */
                     'host'           => '127.0.0.1', /* db host address */
                     'port'           => '3306', /* db host port */
@@ -120,7 +131,7 @@ $CONFIG = [
                     'weight'         => 1000, /* db table prefix */
                     'datetimeformat' => 'Y-m-d H:i:s',
                 ],
-                'schema'  => [
+                'schema' => [
                     'db'             => 'mysql', /* db type */
                     'host'           => '127.0.0.1', /* db host address */
                     'port'           => '3306', /* db host port */
@@ -132,7 +143,7 @@ $CONFIG = [
                 ],
             ],
             'postgresql' => [
-                'admin'  => [
+                'admin' => [
                     'db'             => 'pgsql', /* db type */
                     'host'           => '127.0.0.1', /* db host address */
                     'port'           => '5432', /* db host port */
@@ -142,7 +153,7 @@ $CONFIG = [
                     'weight'         => 1000, /* db table prefix */
                     'datetimeformat' => 'Y-m-d H:i:s',
                 ],
-                'insert'  => [
+                'insert' => [
                     'db'             => 'pgsql', /* db type */
                     'host'           => '127.0.0.1', /* db host address */
                     'port'           => '5432', /* db host port */
@@ -152,7 +163,7 @@ $CONFIG = [
                     'weight'         => 1000, /* db table prefix */
                     'datetimeformat' => 'Y-m-d H:i:s',
                 ],
-                'select'  => [
+                'select' => [
                     'db'             => 'pgsql', /* db type */
                     'host'           => '127.0.0.1', /* db host address */
                     'port'           => '5432', /* db host port */
@@ -162,7 +173,7 @@ $CONFIG = [
                     'weight'         => 1000, /* db table prefix */
                     'datetimeformat' => 'Y-m-d H:i:s',
                 ],
-                'update'  => [
+                'update' => [
                     'db'             => 'pgsql', /* db type */
                     'host'           => '127.0.0.1', /* db host address */
                     'port'           => '5432', /* db host port */
@@ -172,7 +183,7 @@ $CONFIG = [
                     'weight'         => 1000, /* db table prefix */
                     'datetimeformat' => 'Y-m-d H:i:s',
                 ],
-                'delete'  => [
+                'delete' => [
                     'db'             => 'pgsql', /* db type */
                     'host'           => '127.0.0.1', /* db host address */
                     'port'           => '5432', /* db host port */
@@ -182,7 +193,7 @@ $CONFIG = [
                     'weight'         => 1000, /* db table prefix */
                     'datetimeformat' => 'Y-m-d H:i:s',
                 ],
-                'schema'  => [
+                'schema' => [
                     'db'             => 'pgsql', /* db type */
                     'host'           => '127.0.0.1', /* db host address */
                     'port'           => '5432', /* db host port */
@@ -194,37 +205,37 @@ $CONFIG = [
                 ],
             ],
             'sqlite' => [
-                'admin'  => [
+                'admin' => [
                     'db'             => 'sqlite', /* db type */
                     'database'       => __DIR__ . '/../Localization/Defaults/localization.sqlite', /* db name */
                     'weight'         => 1000, /* db table prefix */
                     'datetimeformat' => 'Y-m-d H:i:s',
                 ],
-                'insert'  => [
+                'insert' => [
                     'db'             => 'sqlite', /* db type */
                     'database'       => __DIR__ . '/../Localization/Defaults/localization.sqlite', /* db name */
                     'weight'         => 1000, /* db table prefix */
                     'datetimeformat' => 'Y-m-d H:i:s',
                 ],
-                'select'  => [
+                'select' => [
                     'db'             => 'sqlite', /* db type */
                     'database'       => __DIR__ . '/../Localization/Defaults/localization.sqlite', /* db name */
                     'weight'         => 1000, /* db table prefix */
                     'datetimeformat' => 'Y-m-d H:i:s',
                 ],
-                'update'  => [
+                'update' => [
                     'db'             => 'sqlite', /* db type */
                     'database'       => __DIR__ . '/../Localization/Defaults/localization.sqlite', /* db name */
                     'weight'         => 1000, /* db table prefix */
                     'datetimeformat' => 'Y-m-d H:i:s',
                 ],
-                'delete'  => [
+                'delete' => [
                     'db'             => 'sqlite', /* db type */
                     'database'       => __DIR__ . '/../Localization/Defaults/localization.sqlite', /* db name */
                     'weight'         => 1000, /* db table prefix */
                     'datetimeformat' => 'Y-m-d H:i:s',
                 ],
-                'schema'  => [
+                'schema' => [
                     'db'             => 'sqlite', /* db type */
                     'database'       => __DIR__ . '/../Localization/Defaults/localization.sqlite', /* db name */
                     'weight'         => 1000, /* db table prefix */
@@ -232,7 +243,7 @@ $CONFIG = [
                 ],
             ],
             'mssql' => [
-                'admin'  => [
+                'admin' => [
                     'db'             => 'mssql', /* db type */
                     'host'           => 'localhost', /* db host address */
                     'port'           => '1433', /* db host port */
@@ -242,7 +253,7 @@ $CONFIG = [
                     'weight'         => 1000, /* db table prefix */
                     'datetimeformat' => 'Y-m-d H:i:s',
                 ],
-                'insert'  => [
+                'insert' => [
                     'db'             => 'mssql', /* db type */
                     'host'           => 'localhost', /* db host address */
                     'port'           => '1433', /* db host port */
@@ -252,7 +263,7 @@ $CONFIG = [
                     'weight'         => 1000, /* db table prefix */
                     'datetimeformat' => 'Y-m-d H:i:s',
                 ],
-                'select'  => [
+                'select' => [
                     'db'             => 'mssql', /* db type */
                     'host'           => 'localhost', /* db host address */
                     'port'           => '1433', /* db host port */
@@ -262,7 +273,7 @@ $CONFIG = [
                     'weight'         => 1000, /* db table prefix */
                     'datetimeformat' => 'Y-m-d H:i:s',
                 ],
-                'update'  => [
+                'update' => [
                     'db'             => 'mssql', /* db type */
                     'host'           => 'localhost', /* db host address */
                     'port'           => '1433', /* db host port */
@@ -272,7 +283,7 @@ $CONFIG = [
                     'weight'         => 1000, /* db table prefix */
                     'datetimeformat' => 'Y-m-d H:i:s',
                 ],
-                'delete'  => [
+                'delete' => [
                     'db'             => 'mssql', /* db type */
                     'host'           => 'localhost', /* db host address */
                     'port'           => '1433', /* db host port */
@@ -282,7 +293,7 @@ $CONFIG = [
                     'weight'         => 1000, /* db table prefix */
                     'datetimeformat' => 'Y-m-d H:i:s',
                 ],
-                'schema'  => [
+                'schema' => [
                     'db'             => 'mssql', /* db type */
                     'host'           => 'localhost', /* db host address */
                     'port'           => '1433', /* db host port */
@@ -322,16 +333,16 @@ $CONFIG = [
             'password' => '123456',
         ],
     ],
-    'log'      => [
+    'log' => [
         'file' => [
             'path' => __DIR__ . '/Logs',
         ],
     ],
-    'page'     => [
+    'page' => [
         'root'  => '/',
         'https' => false,
     ],
-    'app'      => [
+    'app' => [
         'path'    => __DIR__,
         'default' => [
             'app'   => 'Backend',
@@ -350,7 +361,7 @@ $CONFIG = [
             ],
         ],
     ],
-    'socket'   => [
+    'socket' => [
         'master' => [
             'host'  => '127.0.0.1',
             'limit' => 300,
@@ -360,7 +371,7 @@ $CONFIG = [
     'language' => [
         'en',
     ],
-    'apis'     => [
+    'apis' => [
     ],
 ];
 

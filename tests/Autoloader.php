@@ -75,8 +75,8 @@ class Autoloader
      */
     public static function defaultAutoloader(string $class) : void
     {
-        $class  = \ltrim($class, '\\');
-        $class  = \strtr($class, '_\\', '//');
+        $class = \ltrim($class, '\\');
+        $class = \strtr($class, '_\\', '//');
 
         if (\stripos($class, 'Web/Backend') !== false || \stripos($class, 'Web/Api') !== false) {
             $class = \is_dir(__DIR__ . '/Web') ? $class : \str_replace('Web/', 'MainRepository/Web/', $class);

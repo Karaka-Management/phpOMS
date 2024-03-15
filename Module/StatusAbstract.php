@@ -69,9 +69,9 @@ abstract class StatusAbstract
      *
      * @since 1.0.0
      */
-    public static function activateRoutes(ModuleInfo $info, ApplicationInfo $appInfo = null) : void
+    public static function activateRoutes(ModuleInfo $info, ?ApplicationInfo $appInfo = null) : void
     {
-        self::activateRoutesHooks($info, $appInfo, 'Routes');
+        self::activateRoutesHooks($info, 'Routes', $appInfo);
     }
 
     /**
@@ -125,22 +125,23 @@ abstract class StatusAbstract
      *
      * @since 1.0.0
      */
-    public static function activateHooks(ModuleInfo $info, ApplicationInfo $appInfo = null) : void
+    public static function activateHooks(ModuleInfo $info, ?ApplicationInfo $appInfo = null) : void
     {
-        self::activateRoutesHooks($info, $appInfo, 'Hooks');
+        self::activateRoutesHooks($info, 'Hooks', $appInfo);
     }
 
     /**
      * Init routes and hooks.
      *
      * @param ModuleInfo           $info    Module info
+     * @param string               $type    Is 'Routes' or 'Hooks'
      * @param null|ApplicationInfo $appInfo Application info
      *
      * @return void
      *
      * @since 1.0.0
      */
-    public static function activateRoutesHooks(ModuleInfo $info, ApplicationInfo $appInfo = null, string $type) : void
+    public static function activateRoutesHooks(ModuleInfo $info, string $type, ?ApplicationInfo $appInfo = null) : void
     {
         $directories = new Directory(static::PATH . '/' . $type);
 
@@ -195,22 +196,23 @@ abstract class StatusAbstract
      *
      * @since 1.0.0
      */
-    public static function deactivateRoutes(ModuleInfo $info, ApplicationInfo $appInfo = null) : void
+    public static function deactivateRoutes(ModuleInfo $info, ?ApplicationInfo $appInfo = null) : void
     {
-        self::deactivateRoutesHooks($info, $appInfo, 'Routes');
+        self::deactivateRoutesHooks($info, 'Routes', $appInfo);
     }
 
     /**
      * Deactivate routes and hooks.
      *
      * @param ModuleInfo           $info    Module info
+     * @param string               $type    Is 'Routes' or 'Hooks'
      * @param null|ApplicationInfo $appInfo Application info
      *
      * @return void
      *
      * @since 1.0.0
      */
-    public static function deactivateRoutesHooks(ModuleInfo $info, ApplicationInfo $appInfo = null, string $type) : void
+    public static function deactivateRoutesHooks(ModuleInfo $info, string $type, ?ApplicationInfo $appInfo = null) : void
     {
         $directories = new Directory(static::PATH . '/'. $type);
 
@@ -283,8 +285,8 @@ abstract class StatusAbstract
      *
      * @since 1.0.0
      */
-    public static function deactivateHooks(ModuleInfo $info, ApplicationInfo $appInfo = null) : void
+    public static function deactivateHooks(ModuleInfo $info, ?ApplicationInfo $appInfo = null) : void
     {
-        self::deactivateRoutesHooks($info, $appInfo, 'Hooks');
+        self::deactivateRoutesHooks($info, 'Hooks', $appInfo);
     }
 }

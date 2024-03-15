@@ -29,7 +29,7 @@ final class UriFactory
     /**
      * Dynamic query elements.
      *
-     * @var string[]
+     * @var array<string, null|string>
      * @since 1.0.0
      */
     private static array $uri = [];
@@ -105,15 +105,15 @@ final class UriFactory
     /**
      * Set global query replacements.
      *
-     * @param string $key       Replacement key
-     * @param string $value     Replacement value
-     * @param bool   $overwrite Overwrite if already exists
+     * @param string      $key       Replacement key
+     * @param null|string $value     Replacement value
+     * @param bool        $overwrite Overwrite if already exists
      *
      * @return bool
      *
      * @since 1.0.0
      */
-    public static function setQuery(string $key, string $value, bool $overwrite = false) : bool
+    public static function setQuery(string $key, ?string $value, bool $overwrite = false) : bool
     {
         if ($overwrite || !isset(self::$uri[$key])) {
             self::$uri[$key] = $value;
@@ -257,8 +257,7 @@ final class UriFactory
             }
         }
 
-        $escaped =
-            (isset($urlStructure['scheme']) && !empty($urlStructure['scheme'])
+        $escaped = (isset($urlStructure['scheme']) && !empty($urlStructure['scheme'])
                 ? $urlStructure['scheme'] . '://' : '')
             . (isset($urlStructure['username'])
                 ? $urlStructure['username'] . ':' : '')

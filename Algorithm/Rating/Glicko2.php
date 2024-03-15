@@ -119,7 +119,7 @@ final class Glicko2
 
         // Step 0:
         $rdOld /= self::Q;
-        $elo    = ($elo - $this->DEFAULT_ELO) / self::Q;
+        $elo = ($elo - $this->DEFAULT_ELO) / self::Q;
 
         foreach ($oElo as $idx => $value) {
             $oElo[$idx] = ($value - $this->DEFAULT_ELO) / self::Q;

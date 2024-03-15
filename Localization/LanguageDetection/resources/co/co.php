@@ -1,8 +1,7 @@
 <?php declare(strict_types=1);
 
 return [
-  'co' =>
-  [
+  'co' => [
     0   => 'i',
     1   => 'a',
     2   => 'u',

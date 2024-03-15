@@ -26,8 +26,18 @@ use phpOMS\System\File\Local\File;
  * @link    https://jingga.app
  * @since   1.0.0
  */
-class TarGz implements ArchiveInterface
+final class TarGz implements ArchiveInterface
 {
+    /**
+     * Constructor.
+     *
+     * @since 1.0.0
+     * @codeCoverageIgnore
+     */
+    private function __construct()
+    {
+    }
+
     /**
      * {@inheritdoc}
      */

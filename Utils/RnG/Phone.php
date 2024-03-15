@@ -22,8 +22,18 @@ namespace phpOMS\Utils\RnG;
  * @link    https://jingga.app
  * @since   1.0.0
  */
-class Phone
+final class Phone
 {
+    /**
+     * Constructor.
+     *
+     * @since 1.0.0
+     * @codeCoverageIgnore
+     */
+    private function __construct()
+    {
+    }
+
     /**
      * Get a random phone number.
      *
@@ -40,15 +50,13 @@ class Phone
         bool $isInt = true,
         string $struct = '+$1 ($2) $3-$4',
         array $size = [null, [3, 4], [3, 5], [3, 8],],
-        array $countries = null
+        ?array $countries = null
     ) : string
     {
         $numberString = $struct;
 
         if ($isInt) {
-            if ($countries === null) {
-                $countries = ['de' => 49, 'us' => 1];
-            }
+            $countries ??= ['de' => 49, 'us' => 1];
 
             $numberString = \str_replace(
                 '$1',

@@ -65,7 +65,8 @@ final class LinearInterpolation implements InterpolationInterface
      *
      * @since 1.0.0
      */
-    public function __construct(array $points) {
+    public function __construct(array $points)
+    {
         $this->points = $points;
 
         $n = \count($this->points);

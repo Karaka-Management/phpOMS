@@ -25,8 +25,10 @@ use phpOMS\Math\Topology\MetricsND;
  * @link    https://jingga.app
  * @see     ./clustering_overview.png
  * @since   1.0.0
+ *
+ * @todo Implement noise points
  */
-final class MeanShift
+final class MeanShift implements ClusteringInterface
 {
     /**
      * Min distance for clustering
@@ -80,7 +82,7 @@ final class MeanShift
      * @var PointInterface[]
      * @since 1.0.0
      */
-    private $clusterCenters = [];
+    private array $clusterCenters = [];
 
     /**
      * Max distance to cluster to be still considered part of cluster
@@ -100,7 +102,7 @@ final class MeanShift
      *
      * @since 1.0.0
      */
-    public function __construct(\Closure $metric = null, \Closure $kernel = null)
+    public function __construct(?\Closure $metric = null, ?\Closure $kernel = null)
     {
         $this->metric = $metric ?? function (PointInterface $a, PointInterface $b) {
             $aCoordinates = $a->coordinates;
@@ -126,8 +128,9 @@ final class MeanShift
      */
     public function generateClusters(array $points, array $bandwidth) : void
     {
-        $shiftPoints = $points;
-        $maxMinDist  = 1;
+        $this->points = $points;
+        $shiftPoints  = $points;
+        $maxMinDist   = 1;
 
         $stillShifting = \array_fill(0, \count($points), true);
 
@@ -292,18 +295,36 @@ final class MeanShift
     }
 
     /**
-     * Find the cluster for a point
-     *
-     * @param PointInterface $point Point to find the cluster for
-     *
-     * @return null|PointInterface Cluster center point
-     *
-     * @since 1.0.0
+     * {@inheritdoc}
+     */
+    public function getCentroids() : array
+    {
+        return $this->clusterCenters;
+    }
+
+    /**
+     * {@inheritdoc}
      */
     public function cluster(PointInterface $point) : ?PointInterface
     {
         $clusterId = $this->findNearestGroup($point, $this->clusters);
 
         return $this->clusterCenters[$clusterId] ?? null;
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function getNoise() : array
+    {
+        return $this->noisePoints;
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function getClusters() : array
+    {
+        return $this->clusters;
     }
 }

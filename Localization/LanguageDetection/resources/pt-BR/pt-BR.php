@@ -1,8 +1,7 @@
 <?php declare(strict_types=1);
 
 return [
-  'pt-BR' =>
-  [
+  'pt-BR' => [
     0   => 'e',
     1   => 'o',
     2   => 'a',

@@ -18,7 +18,7 @@ namespace phpOMS\Security;
  * Php code security class.
  *
  * This can be used to ensure php code doesn't contain malicious functions and or characters.
- * Additionally this can also be used in order verify that the source code is not altered compared to some expected source code.
+ * Additionally, this can also be used in order verify that the source code is not altered compared to some expected source code.
  *
  * @package phpOMS\Security
  * @license OMS License 2.0
@@ -156,12 +156,12 @@ final class PhpCode
     }
 
     /**
-     * Validate file integrety
+     * Validate file integrity
      *
      * @param string $source Source code path
      * @param string $hash   Source hash (md5)
      *
-     * @return bool Returns true if filee matches expected signature otherwise false is returned
+     * @return bool Returns true if file matches expected signature otherwise false is returned
      *
      * @since 1.0.0
      */
@@ -171,7 +171,7 @@ final class PhpCode
     }
 
     /**
-     * Validate code integrety
+     * Validate code integrity
      *
      * @param string $source Source code
      * @param string $remote Remote code

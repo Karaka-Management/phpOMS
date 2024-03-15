@@ -40,7 +40,7 @@ class SimulatedAnnealing
         return $x;
     }
 
-    // can be many things, e.g. swapping parameters, increasing/decrising, random generation
+    // can be many things, e.g. swapping parameters, increasing/decreasing, random generation
     public static function neighbor(array $generation, $parameterCount)
     {
         $newGeneration = $generation;
@@ -57,17 +57,17 @@ class SimulatedAnnealing
     */
 
     // Simulated Annealing algorithm
-    // @todo allow to create a solution space (currently all soluctions need to be in space)
-    // @todo: currently only replacing generations, not altering them
+    // @todo allow to create a solution space (currently all solutions need to be in space)
+    // @todo currently only replacing generations, not altering them
     /**
      * Perform optimization
      *
      * @example See unit test for example use case
      *
-     * @param array    $space              List of all elements with ther parameters (i.e. list of "objects" as arrays).
+     * @param array    $space              List of all elements with their parameters (i.e. list of "objects" as arrays).
      *                                     The constraints are defined as array values.
      * @param int      $initialTemperature Starting temperature
-     * @param \Closure $costFunction       Fitness function calculates score/feasability of solution
+     * @param \Closure $costFunction       Fitness function calculates score/feasibility of solution
      * @param \Closure $neighbor           Neighbor function to find a new solution/neighbor
      * @param float    $coolingRate        Rate at which cooling takes place
      * @param int      $iterations         Number of iterations

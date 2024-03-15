@@ -5,7 +5,10 @@
  * PHP Version 8.1
  *
  * @package    phpOMS\Utils\Parser\Markdown
- * @license    Original license Emanuil Rusev, erusev.com (MIT)
+ * @copyright  Original & extra license Emanuil Rusev, erusev.com (MIT)
+ * @copyright  Extended license Benjamin Hoegh (MIT)
+ * @copyright  Extreme license doowzs (MIT)
+ * @license    This version: OMS License 2.0
  * @version    1.0.0
  * @link       https://jingga.app
  */
@@ -19,191 +22,619 @@ use phpOMS\Uri\UriFactory;
  * Markdown parser class.
  *
  * @package    phpOMS\Utils\Parser\Markdown
- * @license    Original & extra license Emanuil Rusev, erusev.com (MIT)
- * @license    Extended license Benjamin Hoegh (MIT)
+ * @copyright  Original & extra license Emanuil Rusev, erusev.com (MIT)
+ * @copyright  Extended license Benjamin Hoegh (MIT)
+ * @copyright  Extreme license doowzs (MIT)
+ * @license    This version: OMS License 2.0
  * @link       https://jingga.app
  * @see        https://github.com/erusev/parsedown
  * @see        https://github.com/erusev/parsedown-extra
  * @see        https://github.com/BenjaminHoegh/ParsedownExtended
+ * @see        https://github.com/doowzs/parsedown-extreme
  * @since      1.0.0
+ *
+ * @todo Add special markdown content
+ *  1. Calendar (own widget)
+ *  2. Event (own widget)
+ *  3. Tasks (own widget)
+ *  4. Vote/Survey (own widget)
+ *  5. Website link/embed widgets (facebook, linkedIn, twitter, ...)
+ *  6. User/Supplier/Client/Employee (own widget, should make use of schema)
+ *  7. Address (own widget, should make use of schema)
+ *  8. Contact (own widget, should make use of schema)
+ *  9. Item (own widget, should make use of schema)
+ * 10. Progress radial
+ * 11. Timeline horizontal/vertical/matrix
+ * 12. Tabs horizontal/vertical
+ * 13. Checklist (own widget)
+ * 14. Gallery
+ * 15. Form (own widget)
+ * https://github.com/Karaka-Management/phpOMS/issues/290
  */
 class Markdown
 {
-    # ~
+    /**
+     * Parsedown version
+     *
+     * @var string
+     * @since 1.0.0
+     */
+    public const VERSION = '2.0.0';
 
-    public const version = '1.8.0-beta-7';
+    /**
+     * Special markdown characters
+     *
+     * @var string[]
+     * @since 1.0.0
+     */
+    protected array $specialCharacters = [
+        '\\', '`', '*', '_', '{', '}', '[', ']', '(', ')', '>', '#', '+', '-', '.', '!', '|', '?', '"', "'", '<',
+    ];
 
+    /**
+     * Regexes for html strong
+     *
+     * @var array<string, string>
+     * @since 1.0.0
+     */
+    protected array $strongRegex = [
+        '*' => '/^[*]{2}((?:\\\\\*|[^*]|[*][^*]*+[*])+?)[*]{2}(?![*])/s',
+    ];
+
+    /**
+     * Regexes for html underline
+     *
+     * @var array<string, string>
+     * @since 1.0.0
+     */
+    protected array $underlineRegex = [
+        '_' => '/^[_]{2}((?:\\\\\_|[^_]|[_][^_]_+[_])+?)[_]{2}(?![_])/s',
+    ];
+
+    /**
+     * Regexes for html emphasizes
+     *
+     * @var array<string, string>
+     * @since 1.0.0
+     */
+    protected array $emRegex = [
+        '*' => '/^[*]((?:\\\\\*|[^*]|[*][*][^*]+?[*][*])+?)[*](?![*])/s',
+        '_' => '/^_((?:\\\\_|[^_]|__[^_]*__)+?)_(?!_)\b/us',
+    ];
+
+    /**
+     * Regex for html attributes
+     *
+     * @var string
+     * @since 1.0.0
+     */
+    protected string $regexHtmlAttribute = '[a-zA-Z_:][\w:.-]*+(?:\s*+=\s*+(?:[^"\'=<>`\s]+|"[^"]*+"|\'[^\']*+\'))?+';
+
+    /**
+     * Regex for for classes and ids
+     *
+     * @var string
+     * @since 1.0.0
+     */
+    protected string $regexAttribute = '(?:[#.][-\w]+[ ]*)';
+
+    /**
+     * Elements without closing
+     *
+     * @var string[]
+     * @since 1.0.0
+     */
+    protected array $voidElements = [
+        'area', 'base', 'br', 'col', 'command', 'embed', 'hr', 'img', 'input', 'link', 'meta', 'param', 'source',
+    ];
+
+    /**
+     * Text elements
+     *
+     * @var string[]
+     * @since 1.0.0
+     */
+    protected array $textLevelElements = [
+        'a', 'br', 'bdo', 'abbr', 'blink', 'nextid', 'acronym', 'basefont',
+        'b', 'em', 'big', 'cite', 'small', 'spacer', 'listing',
+        'i', 'rp', 'del', 'code',          'strike', 'marquee',
+        'q', 'rt', 'ins', 'font',          'strong',
+        's', 'tt', 'kbd', 'mark',
+        'u', 'xm', 'sub', 'nobr',
+                   'sup', 'ruby',
+                   'var', 'span',
+                   'wbr', 'time',
+    ];
+
+    /**
+     * Inline special characters (not block elements)
+     *
+     * @var array<string, string[]>
+     * @since 1.0.0
+     */
+    protected array $inlineTypes = [
+        '!'  => ['Image'],
+        '*'  => ['Emphasis'],
+        '_'  => ['Emphasis'],
+        '&'  => ['SpecialCharacter'],
+        '['  => ['FootnoteMarker', 'Link'],
+        ':'  => ['Url'],
+        '<'  => ['UrlTag', 'EmailTag', 'Markup'],
+        '`'  => ['Code'],
+        '~'  => ['Strikethrough'],
+        '\\' => ['EscapeSequence'],
+    ];
+
+    /**
+     * Inline special characters (not block elements) (see $inlineTypes)
+     *
+     * @var string
+     * @since 1.0.0
+     */
+    protected string $inlineMarkerList = '!*_&[:<`~';
+
+    /**
+     * Uses strict mode?
+     *
+     * Less forgiving with regards to formatting.
+     *
+     * @var bool
+     * @since 1.0.0
+     */
+    public bool $strictMode = false;
+
+    /**
+     * Uses safe mode (true -> no html allowed)?
+     *
+     * Important for parsing or sanitizing html.
+     *
+     * @var bool
+     * @since 1.0.0
+     */
+    public bool $safeMode = false;
+
+    /**
+     * Urls are always handled as links
+     *
+     * @var bool
+     * @since 1.0.0
+     */
+    public bool $urlsLinked = true;
+
+    /**
+     * Should html get escaped?
+     *
+     * @var bool
+     * @since 1.0.0
+     */
+    public bool $markupEscaped = false;
+
+    /**
+     * Replaces new lines with <br> in inline elements
+     *
+     * true  -> replaces new line with br
+     * false -> replaces double whitespace followed with new line with br
+     *
+     * @var bool
+     * @since 1.0.0
+     */
+    public bool $breaksEnabled = false;
+
+    /**
+     * Save link prefixes
+     *
+     * @var string[]
+     * @since 1.0.0
+     */
+    protected array $safeLinksWhitelist = [
+        'http://',
+        'https://',
+        'ftp://',
+        'ftps://',
+        'mailto:',
+        'tel:',
+        'data:image/png;base64,',
+        'data:image/gif;base64,',
+        'data:image/jpeg;base64,',
+        'irc:',
+        'ircs:',
+        'git:',
+        'ssh:',
+        'news:',
+        'steam:',
+    ];
+
+    /**
+     * Block special characters
+     *
+     * @var array<int|string, string[]>
+     * @since 1.0.0
+     */
+    protected array $blockTypes = [
+        '#' => ['Header'],
+        '*' => ['Rule', 'List', 'Abbreviation'],
+        '+' => ['List'],
+        '-' => ['SetextHeader', 'Table', 'Rule', 'List'],
+        '0' => ['List'],
+        '1' => ['List'],
+        '2' => ['List'],
+        '3' => ['List'],
+        '4' => ['List'],
+        '5' => ['List'],
+        '6' => ['List'],
+        '7' => ['List'],
+        '8' => ['List'],
+        '9' => ['List'],
+        ':' => ['Table', 'DefinitionList'],
+        '<' => ['Comment', 'Markup'],
+        '=' => ['SetextHeader'],
+        '>' => ['Quote'],
+        '[' => ['Footnote', 'Reference'],
+        '_' => ['Rule'],
+        '`' => ['FencedCode'],
+        '|' => ['Table'],
+        '~' => ['FencedCode'],
+    ];
+
+    /**
+     * Unmarked block types
+     *
+     * @var string[]
+     * @since 1.0.0
+     */
+    protected array $unmarkedBlockTypes = [
+        'Code',
+    ];
+
+    /**
+     * Is continuable
+     *
+     * @var string[]
+     * @since 1.0.0
+     */
+    private const CONTINUABLE = [
+        'Code', 'Comment', 'FencedCode', 'List', 'Quote', 'Table', 'Math', 'Spoiler', 'Checkbox', 'Footnote', 'DefinitionList', 'Markup',
+    ];
+
+    /**
+     * Is completable
+     *
+     * @var string[]
+     * @since 1.0.0
+     */
+    private const COMPLETABLE = [
+        'Math', 'Spoiler', 'Table', 'Checkbox', 'Footnote', 'Markup', 'Code', 'FencedCode', 'List',
+    ];
+
+    /**
+     * Parsing options
+     *
+     * @var array
+     * @since 1.0.0
+     */
     private array $options = [];
 
-    # ~
+    /**
+     * Definition data
+     *
+     * E.g. abbreviations, footnotes
+     *
+     * @var array
+     * @since 1.0.0
+     */
+    protected array $definitionData = [];
 
-    private string $idToc = '';
+    // TOC: start
+    /**
+     * Table of content id
+     *
+     * @var string
+     * @since 1.0.0
+     */
+    public string $idToc = 'toc';
 
+    /**
+     * TOC array after parsing headers
+     *
+     * @var array{}|array{text:string, id:string, level:string}
+     * @since 1.0.0
+     */
+    protected $contentsListArray = [];
+
+    /**
+     * TOC string after parsing headers
+     *
+     * @var string
+     * @since 1.0.0
+     */
+    protected $contentsListString = '';
+
+    /**
+     * First head level
+     *
+     * @var int
+     * @since 1.0.0
+     */
+    protected int $firstHeadLevel = 0;
+
+    /**
+     * Is header blacklist (for table of contents/TOC) initialized
+     *
+     * @var bool
+     * @since 1.0.0
+     */
+    protected $isBlacklistInitialized = false;
+
+    /**
+     * Header duplicates (same header text)
+     *
+     * @var array<string, int>
+     * @since 1.0.0
+     */
+    protected $anchorDuplicates = [];
+    // TOC: end
+
+    /**
+     * Footnote count
+     *
+     * @var int
+     * @since 1.0.0
+     */
+    private int $footnoteCount = 0;
+
+    /**
+     * Current abbreviation
+     *
+     * @var string
+     * @since 1.0.0
+     */
+    private string $currentAbreviation;
+
+    /**
+     * Current abbreviation meaning
+     *
+     * @var string
+     * @since 1.0.0
+     */
+    private string $currentMeaning;
+
+    /**
+     * Instances
+     *
+     * @var array<string, self>
+     * @since 1.0.0
+     */
+    private static $instances = [];
+
+    /**
+     * Clean up state
+     *
+     * @return void
+     *
+     * @since 1.0.0
+     */
+    public function clean() : void
+    {
+        $this->definitionData     = [];
+        $this->contentsListArray  = [];
+        $this->contentsListString = '';
+        $this->firstHeadLevel     = 0;
+        $this->anchorDuplicates   = [];
+        $this->footnoteCount      = 0;
+        $this->currentAbreviation = '';
+        $this->currentMeaning     = '';
+    }
+
+    /**
+     * Create instance for static use
+     *
+     * @param string $name Instance name
+     *
+     * @return self
+     *
+     * @since 1.0.0
+     */
+    public static function getInstance(string $name = 'default') : self
+    {
+        if (isset(self::$instances[$name])) {
+            $obj = self::$instances[$name];
+            $obj->clean();
+
+            return self::$instances[$name];
+        }
+
+        $instance = new self();
+
+        self::$instances[$name] = $instance;
+
+        return $instance;
+    }
+
+    /**
+     * Constructor.
+     *
+     * @param array $params Parameters
+     *
+     * @since 1.0.0
+     */
     public function __construct(array $params = [])
     {
-        $this->options = $params;
-
+        $this->options        = $params;
         $this->options['toc'] = $this->options['toc'] ?? false;
 
         // Marks
-        $state = $this->options['mark'] ?? true;
-        if ($state !== false) {
-            $this->InlineTypes['='][] = 'mark';
+        if ($this->options['mark'] ?? true) {
+            $this->inlineTypes['='][] = 'Mark';
             $this->inlineMarkerList .= '=';
         }
 
         // Keystrokes
-        $state = $this->options['keystrokes'] ?? true;
-        if ($state !== false) {
-            $this->InlineTypes['['][] = 'Keystrokes';
-            $this->inlineMarkerList .= '[';
+        if ($this->options['keystrokes'] ?? true) {
+            $this->inlineTypes['['][] = 'Keystrokes';
+        }
+
+        // Spoiler
+        if ($this->options['spoiler'] ?? false) {
+            $this->inlineTypes['>'][] = 'Spoiler';
+            $this->inlineMarkerList .= '>';
         }
 
         // Inline Math
-        $state = $this->options['math'] ?? false;
-        if ($state !== false) {
-            $this->InlineTypes['\\'][] = 'Math';
-            $this->inlineMarkerList .= '\\';
-            $this->InlineTypes['$'][] = 'Math';
+        if ($this->options['math'] ?? false) {
+            $this->inlineTypes['\\'][] = 'Math';
+            $this->inlineTypes['$'][]  = 'Math';
             $this->inlineMarkerList .= '$';
         }
 
         // Superscript
-        $state = $this->options['sup'] ?? false;
-        if ($state !== false) {
-            $this->InlineTypes['^'][] = 'Superscript';
+        if ($this->options['sup'] ?? false) {
+            $this->inlineTypes['^'][] = 'Superscript';
             $this->inlineMarkerList .= '^';
         }
 
         // Subscript
-        $state = $this->options['sub'] ?? false;
-        if ($state !== false) {
-            $this->InlineTypes['~'][] = 'Subscript';
+        if ($this->options['sub'] ?? false) {
+            $this->inlineTypes['~'][] = 'Subscript';
         }
 
         // Emojis
-        $state = $this->options['emojis'] ?? true;
-        if ($state !== false) {
-            $this->InlineTypes[':'][] = 'Emojis';
-            $this->inlineMarkerList .= ':';
+        if ($this->options['emojis'] ?? true) {
+            $this->inlineTypes[':'][] = 'Emojis';
         }
 
         // Typographer
-        $state = $this->options['typographer'] ?? false;
-        if ($state !== false) {
-            $this->InlineTypes['('][] = 'Typographer';
+        if ($this->options['typographer'] ?? false) {
+            $this->inlineTypes['('][] = 'Typographer';
             $this->inlineMarkerList .= '(';
-            $this->InlineTypes['.'][] = 'Typographer';
+            $this->inlineTypes['.'][] = 'Typographer';
             $this->inlineMarkerList .= '.';
-            $this->InlineTypes['+'][] = 'Typographer';
+            $this->inlineTypes['+'][] = 'Typographer';
             $this->inlineMarkerList .= '+';
-            $this->InlineTypes['!'][] = 'Typographer';
-            $this->inlineMarkerList .= '!';
-            $this->InlineTypes['?'][] = 'Typographer';
+            $this->inlineTypes['!'][] = 'Typographer';
+            $this->inlineTypes['?'][] = 'Typographer';
             $this->inlineMarkerList .= '?';
         }
 
-        // Smartypants
-        $state = $this->options['smarty'] ?? false;
-        if ($state !== false) {
-            $this->InlineTypes['<'][] = 'Smartypants';
-            $this->inlineMarkerList .= '<';
-            $this->InlineTypes['>'][] = 'Smartypants';
-            $this->inlineMarkerList .= '>';
-            $this->InlineTypes['-'][] = 'Smartypants';
-            $this->inlineMarkerList .= '-';
-            $this->InlineTypes['.'][] = 'Smartypants';
-            $this->inlineMarkerList .= '.';
-            $this->InlineTypes["'"][] = 'Smartypants';
-            $this->inlineMarkerList .= "'";
-            $this->InlineTypes['"'][] = 'Smartypants';
-            $this->inlineMarkerList .= '"';
-            $this->InlineTypes['`'][] = 'Smartypants';
-            $this->inlineMarkerList .= '`';
-        }
-
-        /*
-         * Blocks
-         * ------------------------------------------------------------------------
-         */
-
         // Block Math
-        $state = $this->options['math'] ?? false;
-        if ($state !== false) {
-            $this->BlockTypes['\\'][] = 'Math';
-            $this->BlockTypes['$'][]  = 'Math';
+        if ($this->options['math'] ?? false) {
+            $this->blockTypes['\\'][] = 'Math';
+            $this->blockTypes['$'][]  = 'Math';
         }
 
-        // Task
-        $state = $this->options['lists']['tasks'] ?? true;
-        if ($state !== false) {
-            $this->BlockTypes['['][] = 'Checkbox';
-        }
-    }
-
-    public function textParent($text)
-    {
-        $Elements = $this->textElements($text);
-
-        # convert to markup
-        $markup = $this->elements($Elements);
-
-        # trim line breaks
-        $markup = \trim($markup, "\n");
-
-        # merge consecutive dl elements
-
-        $markup = \preg_replace('/<\/dl>\s+<dl>\s+/', '', $markup);
-
-        # add footnotes
-
-        if (isset($this->DefinitionData['Footnote']))
-        {
-            $Element = $this->buildFootnoteElement();
-
-            $markup .= "\n" . $this->element($Element);
+        // Block Spoiler
+        if ($this->options['spoiler'] ?? false) {
+            $this->blockTypes['?'][] = 'Spoiler';
         }
 
-        return $markup;
+        // Checkbox
+        if ($this->options['lists']['checkbox'] ?? true) {
+            $this->blockTypes['['][] = 'Checkbox';
+        }
+
+        // Embedding
+        if ($this->options['embedding'] ?? false) {
+            $this->inlineTypes['['][] = 'Embedding';
+        }
+
+        // Map
+        if ($this->options['map'] ?? false) {
+            $this->inlineTypes['['][] = 'Map';
+        }
+
+        // Address
+        if ($this->options['address'] ?? false) {
+            $this->inlineTypes['['][] = 'Address';
+        }
+
+        // Contact
+        if ($this->options['contact'] ?? false) {
+            $this->inlineTypes['['][] = 'Contact';
+        }
+
+        // Progress
+        if ($this->options['progress'] ?? false) {
+            $this->inlineTypes['['][] = 'Progress';
+        }
+
+        // Escaping needs to happen at the end
+        $this->inlineMarkerList .= '\\';
     }
 
     /**
-     * Parses the given markdown string to an HTML string but it leaves the ToC
-     * tag as is. It's an alias of the parent method "\DynamicParent::text()".
+     * Parses the given markdown string to a HTML
+     *
+     * @param string $text Markdown text to parse
+     *
+     * @return string
+     *
+     * @since 1.0.0
      */
-    public function body($text) : string
+    public static function parse(string $text) : string
     {
-        $text = $this->encodeTagToHash($text);  // Escapes ToC tag temporary
-        $html = $this->textParent($text);     // Parses the markdown text
+        $parsedown = self::getInstance();
 
-        return $this->decodeTagFromHash($html); // Unescape the ToC tag
+        return $parsedown->text($text);
+    }
+
+    /**
+     * Parses the given markdown string to a HTML string but it ignores ToC
+     *
+     * @param string $text Markdown text to parse
+     *
+     * @return string
+     *
+     * @since 1.0.0
+     */
+    public function body(string $text) : string
+    {
+        $text = $this->encodeToCTagToHash($text);  // Escapes ToC tag temporary
+
+        $elements = $this->textElements($text);
+        $html     = $this->elements($elements);
+        $html     = \trim($html, "\n");
+
+        // Merge consecutive dl elements
+        $html = \preg_replace('/<\/dl>\s+<dl>\s+/', '', $html) ?? '';
+
+        // Add footnotes
+        if (isset($this->definitionData['Footnote'])) {
+            $element = $this->buildFootnoteElement();
+            $html .= "\n" . $this->element($element);
+        }
+
+        return $this->decodeToCTagFromHash($html); // Unescape the ToC tag
     }
 
     /**
      * Parses markdown string to HTML and also the "[toc]" tag as well.
-     * It overrides the parent method: \Parsedown::text().
+     *
+     * @param string $text Markdown text to parse
+     *
+     * @return string
+     *
+     * @since 1.0.0
      */
-    public function text($text)
+    public function text(string $text) : string
     {
         // Parses the markdown text except the ToC tag. This also searches
         // the list of contents and available to get from "contentsList()"
         // method.
         $html = $this->body($text);
 
-        if (isset($this->options['toc']) && $this->options['toc'] == false) {
+        if (isset($this->options['toc']) && $this->options['toc'] === false) {
             return $html;
         }
 
-        $tagOrigin = $this->getTagToC();
+        // Handle toc
+        $tagOrigin = $this->options['toc']['set_toc_tag'] ?? '[toc]';
 
         if (\strpos($text, $tagOrigin) === false) {
             return $html;
         }
 
         $tocData = $this->contentsList();
-        $tocId   = $this->getIdAttributeToC();
-        $needle  = '<p>'.$tagOrigin.'</p>';
-        $replace = "<div id=\"{$tocId}\">{$tocData}</div>";
+        $needle  = '<p>' . $tagOrigin . '</p>';
+        $replace = '<div id="' . $this->idToc . '">' . $tocData . '</div>';
 
         return \str_replace($needle, $replace, $html);
     }
@@ -214,132 +645,140 @@ class Markdown
      * @param string $typeReturn Type of the return format. "html" or "json".
      *
      * @return string HTML/JSON string of ToC
+     *
+     * @since 1.0.0
      */
-    public function contentsList($typeReturn = 'html')
+    public function contentsList($typeReturn = 'html') : string
     {
-        if (\strtolower($typeReturn) === 'html') {
-            $result = '';
-            if (!empty($this->contentsListString)) {
-                // Parses the ToC list in markdown to HTML
-                $result = $this->body($this->contentsListString);
-            }
-
-            return $result;
-        }
-
         if (\strtolower($typeReturn) === 'json') {
-            return \json_encode($this->contentsListArray);
+            $json = \json_encode($this->contentsListArray);
+
+            return $json === false ? '' : $json;
         }
 
-        // Forces to return ToC as "html"
-        \error_log(
-            'Unknown return type given while parsing ToC.'
-            .' At: '.__FUNCTION__.'() '
-            .' in Line:'.__LINE__.' (Using default type)'
-        );
+        $result = '';
+        if (!empty($this->contentsListString)) {
+            // Parses the ToC list in markdown to HTML
+            $result = $this->body($this->contentsListString);
+        }
 
-        return $this->contentsList('html');
+        return $result;
     }
 
     /**
-     * ------------------------------------------------------------------------
-     * Inline
-     * ------------------------------------------------------------------------.
+     * Handle inline code
+     *
+     * @param array{text:string, context:string, before:string} $excerpt Inline data
+     *
+     * @return null|array{extent:int, element:array}
+     *
+     * @since 1.0.0
      */
-
-    // inlineCode
-    protected function inlineCode($Excerpt)
+    protected function inlineCode(array $excerpt) : ?array
     {
-        $codeSnippets = $this->options['code']['inline'] ?? true;
-        $codeMain     = $this->options['code'] ?? true;
-
-        if ($codeSnippets !== true || $codeMain !== true) {
-            return;
+        if (!($this->options['code']['inline'] ?? true)
+            || !($this->options['code'] ?? true)
+        ) {
+            return null;
         }
 
-        $marker = $Excerpt['text'][0];
+        $marker = $excerpt['text'][0];
 
-        if (\preg_match('/^(['.$marker.']++)[ ]*+(.+?)[ ]*+(?<!['.$marker.'])\1(?!'.$marker.')/s', $Excerpt['text'], $matches))
-        {
-            $text = $matches[2];
-            $text = \preg_replace('/[ ]*+\n/', ' ', $text);
-
-            return [
-                'extent'  => \strlen($matches[0]),
-                'element' => [
-                    'name' => 'code',
-                    'text' => $text,
-                ],
-            ];
+        if (\preg_match(
+                '/^([' . $marker . ']++)[ ]*+(.+?)[ ]*+(?<![' . $marker . '])\1(?!' . $marker . ')/s',
+                $excerpt['text'], $matches
+            ) !== 1
+        ) {
+            return null;
         }
+
+        $text = $matches[2];
+        $text = \preg_replace('/[ ]*+\n/', ' ', $text);
+
+        return [
+            'extent'  => \strlen($matches[0]),
+            'element' => [
+                'name' => 'code',
+                'text' => $text,
+            ],
+        ];
     }
 
-    protected function inlineEmailTag($Excerpt)
+    /**
+     * Handle inline email
+     *
+     * @param array{text:string, context:string, before:string} $excerpt Inline data
+     *
+     * @return null|array{extent:int, element:array}
+     *
+     * @since 1.0.0
+     */
+    protected function inlineEmailTag(array $excerpt) : ?array
     {
-        $mainState = $this->options['links'] ?? true;
-        $state     = $this->options['links']['email_links'] ?? true;
-
-        if (!$mainState || !$state) {
-            return;
+        if (!($this->options['links'] ?? true)
+            || !($this->options['links']['email_links'] ?? true)
+        ) {
+            return null;
         }
 
-        $hostnameLabel = '[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?';
+        $hostnameLabel   = '[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?';
+        $commonMarkEmail = '[a-zA-Z0-9.!#$%&\'*+\/=?^_`{|}~-]++@' . $hostnameLabel . '(?:\.' . $hostnameLabel . ')*';
 
-        $commonMarkEmail = '[a-zA-Z0-9.!#$%&\'*+\/=?^_`{|}~-]++@'
-            . $hostnameLabel . '(?:\.' . $hostnameLabel . ')*';
+        if (\strpos($excerpt['text'], '>') === false
+            || \preg_match('/^<((mailto:)?' . $commonMarkEmail . ')>/i', $excerpt['text'], $matches) !== 1
+        ) {
+            return null;
+        }
 
-        if (\strpos($Excerpt['text'], '>') !== false
-            && \preg_match("/^<((mailto:)?{$commonMarkEmail})>/i", $Excerpt['text'], $matches)
-        ){
-            $url = UriFactory::build($matches[1]);
+        $url = UriFactory::build($matches[1]);
 
-            if (!isset($matches[2]))
-            {
-                $url = "mailto:{$url}";
-            }
+        if (!isset($matches[2])) {
+            $url = "mailto:{$url}";
+        }
 
-            return [
-                'extent'  => \strlen($matches[0]),
-                'element' => [
-                    'name'       => 'a',
-                    'text'       => $matches[1],
-                    'attributes' => [
-                        'href' => $url,
-                    ],
+        return [
+            'extent'  => \strlen($matches[0]),
+            'element' => [
+                'name'       => 'a',
+                'text'       => $matches[1],
+                'attributes' => [
+                    'href' => $url,
                 ],
-            ];
-        }
+            ],
+        ];
     }
 
-    protected function inlineEmphasis($Excerpt)
+    /**
+     * Inline emphasis
+     *
+     * @param array{text:string, context:string, before:string} $excerpt Inline data
+     *
+     * @return null|array{extent:int, element:array}
+     *
+     * @since 1.0.0
+     */
+    protected function inlineEmphasis(array $excerpt) : ?array
     {
-        $state = $this->options['emphasis'] ?? true;
-        if (!$state) {
-            return;
+        if (!($this->options['emphasis'] ?? true)
+            || !isset($excerpt['text'][1])
+        ) {
+            return null;
         }
 
-        if (!isset($Excerpt['text'][1]))
-        {
-            return;
-        }
+        $marker = $excerpt['text'][0];
 
-        $marker = $Excerpt['text'][0];
-
-        if ($Excerpt['text'][1] === $marker && isset($this->StrongRegex[$marker]) && \preg_match($this->StrongRegex[$marker], $Excerpt['text'], $matches))
-        {
+        if ($excerpt['text'][1] === $marker
+            && isset($this->strongRegex[$marker]) && \preg_match($this->strongRegex[$marker], $excerpt['text'], $matches)
+        ) {
             $emphasis = 'strong';
-        }
-        elseif ($Excerpt['text'][1] === $marker && isset($this->UnderlineRegex[$marker]) && \preg_match($this->UnderlineRegex[$marker], $Excerpt['text'], $matches))
-        {
+        } elseif ($excerpt['text'][1] === $marker
+            && isset($this->underlineRegex[$marker]) && \preg_match($this->underlineRegex[$marker], $excerpt['text'], $matches)
+        ) {
             $emphasis = 'u';
-        }
-        elseif (\preg_match($this->EmRegex[$marker], $Excerpt['text'], $matches))
-        {
+        } elseif (\preg_match($this->emRegex[$marker], $excerpt['text'], $matches)) {
             $emphasis = 'em';
-        }
-        else
-        {
-            return;
+        } else {
+            return null;
         }
 
         return [
@@ -355,189 +794,218 @@ class Markdown
         ];
     }
 
-    protected function inlineImage($Excerpt)
+    /**
+     * Handle image
+     *
+     * @param array{text:string, context:string, before:string} $excerpt Inline data
+     *
+     * @return null|array{extent:int, element:array}
+     *
+     * @since 1.0.0
+     */
+    protected function inlineImage(array $excerpt) : ?array
     {
-        $state = $this->options['images'] ?? true;
-        if (!$state) {
-            return;
+        if (!($this->options['images'] ?? true)
+            || !\str_starts_with($excerpt['text'], '![')
+        ) {
+            return null;
         }
 
-        if (!isset($Excerpt['text'][1]) || $Excerpt['text'][1] !== '[')
-        {
-            return;
+        $excerpt['text'] = \substr($excerpt['text'], 1);
+        $link            = $this->inlineLink($excerpt);
+
+        if ($link === null) {
+            return null;
         }
 
-        $Excerpt['text']= \substr($Excerpt['text'], 1);
-
-        $Link = $this->inlineLink($Excerpt);
-
-        if ($Link === null)
-        {
-            return;
-        }
-
-        $Inline = [
-            'extent'  => $Link['extent'] + 1,
+        $inline = [
+            'extent'  => $link['extent'] + 1,
             'element' => [
                 'name'       => 'img',
                 'attributes' => [
-                    'src' => $Link['element']['attributes']['href'],
-                    'alt' => $Link['element']['handler']['argument'],
+                    'src' => $link['element']['attributes']['href'],
+                    'alt' => $link['element']['handler']['argument'],
                 ],
                 'autobreak' => true,
             ],
         ];
 
-        $Inline['element']['attributes'] += $Link['element']['attributes'];
+        $inline['element']['attributes'] += $link['element']['attributes'];
 
-        unset($Inline['element']['attributes']['href']);
+        unset($inline['element']['attributes']['href']);
 
-        return $Inline;
+        return $inline;
     }
 
-    protected function inlineLink($Excerpt)
+    /**
+     * Handle link
+     *
+     * @param array{text:string, context:string, before:string} $excerpt Inline data
+     *
+     * @return null|array
+     *
+     * @since 1.0.0
+     */
+    protected function inlineLink(array $excerpt) : ?array
     {
-        $state = $this->options['links'] ?? true;
-        if (!$state) {
-            return;
+        if (!($this->options['links'] ?? true)) {
+            return null;
         }
 
-        $Link = $this->inlineLinkParent($Excerpt);
+        $link      = $this->inlineLinkParent($excerpt);
+        $remainder = $link !== null ? \substr($excerpt['text'], $link['extent']) : '';
 
-        $remainder = $Link !== null ? \substr($Excerpt['text'], $Link['extent']) : '';
-
-        if (\preg_match('/^[ ]*{('.$this->regexAttribute.'+)}/', $remainder, $matches))
-        {
-            $Link['element']['attributes'] += $this->parseAttributeData($matches[1]);
-
-            $Link['extent'] += \strlen($matches[0]);
+        if (\preg_match('/^[ ]*{(' . $this->regexAttribute . '+)}/', $remainder, $matches)) {
+            $link['extent']                += \strlen($matches[0]);
+            $link['element']['attributes'] += $this->parseAttributeData($matches[1]);
         }
 
-        return $Link;
+        return $link;
     }
 
-    protected function inlineMarkup($Excerpt)
+    /**
+     * Handle markup
+     *
+     * @param array{text:string, context:string, before:string} $excerpt Inline data
+     *
+     * @return null|array{extent:int, element:array}
+     *
+     * @since 1.0.0
+     */
+    protected function inlineMarkup(array $excerpt) : ?array
     {
-        $state = $this->options['markup'] ?? true;
-        if (!$state) {
-            return;
-        }
-
-        if ($this->markupEscaped || $this->safeMode || \strpos($Excerpt['text'], '>') === false)
-        {
-            return;
-        }
-
-        if ($Excerpt['text'][1] === '/' && \preg_match('/^<\/\w[\w-]*+[ ]*+>/s', $Excerpt['text'], $matches))
-        {
-            return [
-                'element' => ['rawHtml' => $matches[0]],
-                'extent'  => \strlen($matches[0]),
-            ];
-        }
-
-        if ($Excerpt['text'][1] === '!' && \preg_match('/^<!---?[^>-](?:-?+[^-])*-->/s', $Excerpt['text'], $matches))
-        {
-            return [
-                'element' => ['rawHtml' => $matches[0]],
-                'extent'  => \strlen($matches[0]),
-            ];
-        }
-
-        if ($Excerpt['text'][1] !== ' ' && \preg_match('/^<\w[\w-]*+(?:[ ]*+'.$this->regexHtmlAttribute.')*+[ ]*+\/?>/s', $Excerpt['text'], $matches))
-        {
-            return [
-                'element' => ['rawHtml' => $matches[0]],
-                'extent'  => \strlen($matches[0]),
-            ];
-        }
-    }
-
-    protected function inlineStrikethrough($Excerpt)
-    {
-        $state = $this->options['strikethroughs'] ?? true;
-        if (!$state) {
-            return;
-        }
-
-        if (!isset($Excerpt['text'][1]))
-        {
-            return;
-        }
-
-        if ($Excerpt['text'][1] === '~' && \preg_match('/^~~(?=\S)(.+?)(?<=\S)~~/', $Excerpt['text'], $matches))
-        {
-            return [
-                'extent'  => \strlen($matches[0]),
-                'element' => [
-                    'name'    => 'del',
-                    'handler' => [
-                        'function'    => 'lineElements',
-                        'argument'    => $matches[1],
-                        'destination' => 'elements',
-                    ],
-                ],
-            ];
-        }
-    }
-
-    protected function inlineUrl($Excerpt)
-    {
-        $state = $this->options['links'] ?? true;
-        if (!$state) {
-            return;
-        }
-
-        if ($this->urlsLinked !== true || !isset($Excerpt['text'][2]) || $Excerpt['text'][2] !== '/')
-        {
-            return;
-        }
-
-        if (\strpos($Excerpt['context'], 'http') !== false
-            && \preg_match('/\bhttps?+:[\/]{2}[^\s<]+\b\/*+/ui', $Excerpt['context'], $matches, \PREG_OFFSET_CAPTURE)
+        if (!($this->options['markup'] ?? true)
+            || $this->markupEscaped || $this->safeMode || \strpos($excerpt['text'], '>') === false
         ) {
-            $url = UriFactory::build($matches[0][0]);
-
-            return [
-                'extent'   => \strlen($matches[0][0]),
-                'position' => $matches[0][1],
-                'element'  => [
-                    'name'       => 'a',
-                    'text'       => $url,
-                    'attributes' => [
-                        'href' => $url,
-                    ],
-                ],
-            ];
-        }
-    }
-
-    protected function inlineUrlTag($Excerpt)
-    {
-        $state = $this->options['links'] ?? true;
-        if (!$state) {
-            return;
+            return null;
         }
 
-        if (\strpos($Excerpt['text'], '>') !== false && \preg_match('/^<(\w++:\/{2}[^ >]++)>/i', $Excerpt['text'], $matches))
-        {
-            $url = UriFactory::build($matches[1]);
-
+        $matches = [];
+        if (($excerpt['text'][1] === '/' && \preg_match('/^<\/\w[\w-]*+[ ]*+>/s', $excerpt['text'], $matches))
+            || ($excerpt['text'][1] === '!' && \preg_match('/^<!---?[^>-](?:-?+[^-])*-->/s', $excerpt['text'], $matches))
+            || ($excerpt['text'][1] !== ' ' && \preg_match('/^<\w[\w-]*+(?:[ ]*+' . $this->regexHtmlAttribute . ')*+[ ]*+\/?>/s', $excerpt['text'], $matches))
+        ) {
             return [
                 'extent'  => \strlen($matches[0]),
-                'element' => [
-                    'name'       => 'a',
-                    'text'       => $url,
-                    'attributes' => [
-                        'href' => $url,
-                    ],
-                ],
+                'element' => ['rawHtml' => $matches[0]],
             ];
         }
+
+        return null;
     }
 
-    protected function inlineEmojis($excerpt)
+    /**
+     * Handle striketrhough
+     *
+     * @param array{text:string, context:string, before:string} $excerpt Inline data
+     *
+     * @return null|array{extent:int, element:array}
+     *
+     * @since 1.0.0
+     */
+    protected function inlineStrikethrough(array $excerpt) : ?array
     {
+        if (!($this->options['strikethroughs'] ?? true)
+            || !\str_starts_with($excerpt['text'], '~~')
+            || \preg_match('/^~~(?=\S)(.+?)(?<=\S)~~/', $excerpt['text'], $matches) !== 1
+        ) {
+            return null;
+        }
+
+        return [
+            'extent'  => \strlen($matches[0]),
+            'element' => [
+                'name'    => 'del',
+                'handler' => [
+                    'function'    => 'lineElements',
+                    'argument'    => $matches[1],
+                    'destination' => 'elements',
+                ],
+            ],
+        ];
+    }
+
+    /**
+     * Handle url
+     *
+     * @param array{text:string, context:string, before:string} $excerpt Inline data
+     *
+     * @return null|array{extent:int, position:int, element:array}
+     *
+     * @since 1.0.0
+     */
+    protected function inlineUrl(array $excerpt) : ?array
+    {
+        if (!($this->options['links'] ?? true)
+            || !$this->urlsLinked || !\str_starts_with($excerpt['text'], '://')
+            || \strpos($excerpt['context'], 'http') === false
+            || \preg_match('/\bhttps?+:[\/]{2}[^\s<]+\b\/*+/ui', $excerpt['context'], $matches, \PREG_OFFSET_CAPTURE) !== 1
+        ) {
+            return null;
+        }
+
+        $url = UriFactory::build($matches[0][0]);
+
+        return [
+            'extent'   => \strlen($matches[0][0]),
+            'position' => $matches[0][1],
+            'element'  => [
+                'name'       => 'a',
+                'text'       => $url,
+                'attributes' => [
+                    'href' => $url,
+                ],
+            ],
+        ];
+    }
+
+    /**
+     * Handle url
+     *
+     * @param array{text:string, context:string, before:string} $excerpt Inline data
+     *
+     * @return null|array{extent:int, element:array}
+     *
+     * @since 1.0.0
+     */
+    protected function inlineUrlTag(array $excerpt) : ?array
+    {
+        if (!($this->options['links'] ?? true)
+            || \strpos($excerpt['text'], '>') === false
+            || \preg_match('/^<(\w++:\/{2}[^ >]++)>/i', $excerpt['text'], $matches) !== 1
+        ) {
+            return null;
+        }
+
+        $url = UriFactory::build($matches[1]);
+
+        return [
+            'extent'  => \strlen($matches[0]),
+            'element' => [
+                'name'       => 'a',
+                'text'       => $url,
+                'attributes' => [
+                    'href' => $url,
+                ],
+            ],
+        ];
+    }
+
+    /**
+     * Handle emojis
+     *
+     * @param array{text:string, context:string, before:string} $excerpt Inline data
+     *
+     * @return null|array{extent:int, element:array}
+     *
+     * @since 1.0.0
+     */
+    protected function inlineEmojis(array $excerpt) : ?array
+    {
+        if (\preg_match('/^(:)([^: ]*?)(:)/', $excerpt['text'], $matches) !== 1) {
+            return null;
+        }
+
         $emojiMap = [
             ':smile:'                           => '😄', ':laughing:' => '😆', ':blush:' => '😊', ':smiley:' => '😃',
             ':relaxed:'                         => '☺️', ':smirk:' => '😏', ':heart_eyes:' => '😍', ':kissing_heart:' => '😘',
@@ -756,82 +1224,501 @@ class Markdown
             ':white_large_square:'              => '⬜',
         ];
 
-        if (\preg_match('/^(:)([^: ]*?)(:)/', $excerpt['text'], $matches)) {
+        return [
+            'extent'  => \strlen($matches[0]),
+            'element' => [
+                'text' => \str_replace(\array_keys($emojiMap), $emojiMap, $matches[0]),
+            ],
+        ];
+    }
+
+    /**
+     * Handle marks
+     *
+     * @param array{text:string, context:string, before:string} $excerpt Inline data
+     *
+     * @return null|array{extent:int, element:array}
+     *
+     * @since 1.0.0
+     */
+    protected function inlineMark(array $excerpt) : ?array
+    {
+        if (!\str_starts_with($excerpt['text'], '==')
+            || \preg_match('/^(==)([^=]*?)(==)/', $excerpt['text'], $matches) !== 1
+        ) {
+            return null;
+        }
+
+        return [
+            'extent'  => \strlen($matches[0]),
+            'element' => [
+                'name' => 'mark',
+                'text' => $matches[2],
+            ],
+        ];
+    }
+
+    /**
+     * Handle marks
+     *
+     * @param array{text:string, context:string, before:string} $excerpt Inline data
+     *
+     * @return null|array{extent:int, element:array}
+     *
+     * @since 1.0.0
+     */
+    protected function inlineSpoiler(array $excerpt) : ?array
+    {
+        if (!\str_starts_with($excerpt['text'], '>!')
+            || \preg_match('/^>!(.*?)!</us', $excerpt['text'], $matches) !== 1
+        ) {
+            return null;
+        }
+
+        return [
+            'extent'  => \strlen($matches[0]),
+            'element' => [
+                'name'       => 'span',
+                'attributes' => [
+                    'class' => 'spoiler',
+                ],
+                'elements' => [
+                    [
+                        'name'       => 'input',
+                        'attributes' => [
+                            'type' => 'checkbox',
+                        ],
+                    ],
+                    [
+                        'name' => 'span',
+                        'text' => $matches[1],
+                    ],
+                ],
+            ],
+        ];
+    }
+
+    /**
+     * Handle keystrokes
+     *
+     * @param array{text:string, context:string, before:string} $excerpt Inline data
+     *
+     * @return null|array{extent:int, element:array}
+     *
+     * @since 1.0.0
+     */
+    protected function inlineKeystrokes(array $excerpt) : ?array
+    {
+        if (!\str_starts_with($excerpt['text'], '[[')
+            || \preg_match('/^(?<!\[)(?:\[\[([^\[\]]*|[\[\]])\]\])(?!\])/s', $excerpt['text'], $matches) !== 1
+        ) {
+            return null;
+        }
+
+        return [
+            'extent'  => \strlen($matches[0]),
+            'element' => [
+                'name' => 'kbd',
+                'text' => $matches[1],
+            ],
+        ];
+    }
+
+    /**
+     * Handle embedding
+     *
+     * @param array{text:string, context:string, before:string} $excerpt Inline data
+     *
+     * @return null|array{extent:int, element:array}
+     *
+     * @since 1.0.0
+     */
+    protected function inlineEmbedding(array $excerpt) : ?array
+    {
+        $video = false;
+        $audio = false;
+
+        if (!($this->options['embedding'] ?? false)
+            || (!\str_starts_with($excerpt['text'], '[video') && !\str_starts_with($excerpt['text'], '[audio'))
+            || (!($video = (\preg_match('/\[video.*src="([^"]*)".*\]/', $excerpt['text'], $matches) === 1))
+                && !($audio = (\preg_match('/\[audio.*src="([^"]*)".*\]/', $excerpt['text'], $matches) === 1)))
+        ) {
+            return null;
+        }
+
+        $url = $matches[1];
+        if ($video) {
+            $type = '';
+
+            $needles = ['youtube', 'vimeo', 'dailymotion'];
+            foreach ($needles as $needle) {
+                if (\strpos($url, $needle) !== false) {
+                    $type = $needle;
+                }
+            }
+
+            switch ($type) {
+                case 'youtube':
+                    $element    = 'iframe';
+                    $attributes = [
+                        'src'             => \preg_replace('/.*\?v=([^\&\]]*).*/', 'https://www.youtube.com/embed/$1', $url),
+                        'frameborder'     => '0',
+                        'allow'           => 'autoplay',
+                        'allowfullscreen' => '',
+                        'sandbox'         => 'allow-same-origin allow-scripts allow-forms',
+                    ];
+                    break;
+                case 'vimeo':
+                    $element    = 'iframe';
+                    $attributes = [
+                        'src'             => \preg_replace('/(?:https?:\/\/(?:[\w]{3}\.|player\.)*vimeo\.com(?:[\/\w:]*(?:\/videos)?)?\/([0-9]+)[^\s]*)/', 'https://player.vimeo.com/video/$1', $url),
+                        'frameborder'     => '0',
+                        'allow'           => 'autoplay',
+                        'allowfullscreen' => '',
+                        'sandbox'         => 'allow-same-origin allow-scripts allow-forms',
+                    ];
+                    break;
+                case 'dailymotion':
+                    $element    = 'iframe';
+                    $attributes = [
+                        'src'             => $url,
+                        'frameborder'     => '0',
+                        'allow'           => 'autoplay',
+                        'allowfullscreen' => '',
+                        'sandbox'         => 'allow-same-origin allow-scripts allow-forms',
+                    ];
+                    break;
+                default:
+                    $element    = 'video';
+                    $attributes = [
+                        'src'      => UriFactory::build($url),
+                        'controls' => '',
+                    ];
+            }
+
             return [
                 'extent'  => \strlen($matches[0]),
                 'element' => [
-                    'text' => \str_replace(\array_keys($emojiMap), $emojiMap, $matches[0]),
+                    'name'       => $element,
+                    'text'       => $matches[1],
+                    'attributes' => $attributes,
                 ],
             ];
-        }
-    }
-
-    // Inline Marks
-
-    protected function inlineMark($excerpt)
-    {
-        if (\preg_match('/^(==)([^=]*?)(==)/', $excerpt['text'], $matches)) {
+        } elseif ($audio) {
             return [
                 'extent'  => \strlen($matches[0]),
                 'element' => [
-                    'name' => 'mark',
-                    'text' => $matches[2],
+                    'name'       => 'audio',
+                    'text'       => $matches[1],
+                    'attributes' => [
+                        'src'      => UriFactory::build($url),
+                        'controls' => '',
+                    ],
                 ],
             ];
         }
+
+        return null;
     }
 
-    // Inline Keystrokes
-
-    protected function inlineKeystrokes($excerpt)
+    /**
+     * Handle map
+     *
+     * @param array{text:string, context:string, before:string} $excerpt Inline data
+     *
+     * @return null|array{extent:int, element:array}
+     *
+     * @since 1.0.0
+     */
+    protected function inlineMap(array $excerpt) : ?array
     {
-        if (\preg_match('/^(?<!\[)(?:\[\[([^\[\]]*|[\[\]])\]\])(?!\])/s', $excerpt['text'], $matches)) {
-            return [
-                'extent'  => \strlen($matches[0]),
-                'element' => [
-                    'name' => 'kbd',
-                    'text' => $matches[1],
-                ],
-            ];
+        if (!($this->options['map'] ?? false)
+            || !\str_starts_with($excerpt['text'], '[map')
+            || (\preg_match('/\[map(?:\s+(?:name="([^"]+)"|country="([^"]+)"|city="([^"]+)"|zip="([^"]+)"|address="([^"]+)"|lat="([^"]+)"|lon="([^"]+)")){0,7}\]/', $excerpt['text'], $matches) !== 1)
+        ) {
+            return null;
         }
-    }
 
-    // Inline Superscript
+        $name    = $matches[1];
+        $country = $matches[2];
+        $city    = $matches[3];
+        $zip     = $matches[4];
+        $address = $matches[5];
 
-    protected function inlineSuperscript($excerpt)
-    {
-        if (\preg_match('/(?:\^(?!\^)([^\^ ]*)\^(?!\^))/', $excerpt['text'], $matches)) {
-            return [
-                'extent'  => \strlen($matches[0]),
-                'element' => [
-                    'name'     => 'sup',
-                    'text'     => $matches[1],
-                    'function' => 'lineElements',
-                ],
-            ];
+        $lat = $matches[6];
+        $lon = $matches[7];
+
+        if ($lat === '' || $lon === '') {
+            [$lat, $lon] = \phpOMS\Api\Geocoding\Nominatim::geocoding($country, $city, $address, $zip);
         }
-    }
 
-    // Inline Subscript
-
-    protected function inlineSubscript($excerpt)
-    {
-        if (\preg_match('/(?:~(?!~)([^~ ]*)~(?!~))/', $excerpt['text'], $matches)) {
-            return [
-                'extent'  => \strlen($matches[0]),
-                'element' => [
-                    'name'     => 'sub',
-                    'text'     => $matches[1],
-                    'function' => 'lineElements',
+        return [
+            'extent'  => \strlen($matches[0]),
+            'element' => [
+                'name'       => 'div',
+                'text'       => '',
+                'attributes' => [
+                    'id'       => 'i' . \bin2hex(\random_bytes(4)),
+                    'class'    => 'map',
+                    'data-lat' => $lat,
+                    'data-lon' => $lon,
                 ],
-            ];
-        }
+            ],
+        ];
     }
 
-    // Inline typographer
-
-    protected function inlineTypographer($excerpt)
+    /**
+     * Handle address
+     *
+     * @param array{text:string, context:string, before:string} $excerpt Inline data
+     *
+     * @return null|array{extent:int, element:array}
+     *
+     * @since 1.0.0
+     */
+    protected function inlineAddress(array $excerpt) : ?array
     {
+        if (!($this->options['address'] ?? false)
+            || !\str_starts_with($excerpt['text'], '[addr')
+            || (\preg_match('/\[addr(?:\s+(?:name="([^"]+)"|country="([^"]+)"|city="([^"]+)"|zip="([^"]+)"|address="([^"]+)")){0,5}\]/', $excerpt['text'], $matches) !== 1)
+        ) {
+            return null;
+        }
+
+        $name    = $matches[1];
+        $country = $matches[2];
+        $city    = $matches[3];
+        $zip     = $matches[4];
+        $address = $matches[5];
+
+        return [
+            'extent'  => \strlen($matches[0]),
+            'element' => [
+                'name' => 'div',
+                //'text' => '',
+                'attributes' => [
+                    'class' => 'addressWidget',
+                ],
+                'elements' => [
+                    [
+                        'name'       => 'span',
+                        'text'       => $name,
+                        'attributes' => ['class' => 'addressWidget-name'],
+                    ],
+                    [
+                        'name'       => 'span',
+                        'text'       => $address,
+                        'attributes' => ['class' => 'addressWidget-address'],
+                    ],
+                    [
+                        'name'       => 'span',
+                        'text'       => $zip,
+                        'attributes' => ['class' => 'addressWidget-zip'],
+                    ],
+                    [
+                        'name'       => 'span',
+                        'text'       => $city,
+                        'attributes' => ['class' => 'addressWidget-city'],
+                    ],
+                    [
+                        'name'       => 'span',
+                        'text'       => $country,
+                        'attributes' => ['class' => 'addressWidget-country'],
+                    ],
+                ],
+            ],
+        ];
+    }
+
+    /**
+     * Handle contact
+     *
+     * @param array{text:string, context:string, before:string} $excerpt Inline data
+     *
+     * @return null|array{extent:int, element:array}
+     *
+     * @since 1.0.0
+     */
+    protected function inlineContact(array $excerpt) : ?array
+    {
+        if (!($this->options['contact'] ?? false)
+            || !\str_starts_with($excerpt['text'], '[contact')
+            || (\preg_match('/\[contact.*?([a-zA-Z]+)="(.*?)"\]/', $excerpt['text'], $matches) !== 1)
+        ) {
+            return null;
+        }
+
+        $src = '';
+        switch ($matches[1]) {
+            case 'email':
+                $src = 'Resources/icons/company/email.svg';
+                break;
+            case 'phone':
+                $src = 'Resources/icons/company/phone.svg';
+                break;
+            case 'twitter':
+                $src = 'Resources/icons/company/twitter.svg';
+                break;
+            case 'instagram':
+                $src = 'Resources/icons/company/instagram.svg';
+                break;
+            case 'discord':
+                $src = 'Resources/icons/company/discord.svg';
+                break;
+            case 'slack':
+                $src = 'Resources/icons/company/slack.svg';
+                break;
+            case 'teams':
+                $src = 'Resources/icons/company/teams.svg';
+                break;
+            case 'facebook':
+                $src = 'Resources/icons/company/facebook.svg';
+                break;
+            case 'youtube':
+                $src = 'Resources/icons/company/youtube.svg';
+                break;
+            case 'paypal':
+                $src = 'Resources/icons/company/paypal.svg';
+                break;
+            case 'linkedin':
+                $src = 'Resources/icons/company/linkedin.svg';
+                break;
+        }
+
+        return [
+            'extent'  => \strlen($matches[0]),
+            'element' => [
+                'name' => 'a',
+                //'text' => '',
+                'attributes' => [
+                    'class' => 'contactWidget',
+                    'href'  => '',
+                ],
+                'elements' => [
+                    [
+                        'name'       => 'img',
+                        'attributes' => [
+                            'class' => 'contactWidget-icon',
+                            'src'   => $src,
+                        ],
+                    ],
+                    [
+                        'name'       => 'span',
+                        'text'       => $matches[2],
+                        'attributes' => ['class' => 'contactWidget-contact'],
+                    ],
+                ],
+
+            ],
+        ];
+    }
+
+    /**
+     * Handle progress
+     *
+     * @param array{text:string, context:string, before:string} $excerpt Inline data
+     *
+     * @return null|array{extent:int, element:array}
+     *
+     * @since 1.0.0
+     */
+    protected function inlineProgress(array $excerpt) : ?array
+    {
+        if (!($this->options['progress'] ?? false)
+            || !\str_starts_with($excerpt['text'], '[progress')
+            || (\preg_match('/\[progress(?:\s+(?:type="([^"]+)"|percent="([^"]+)"|value="([^"]+)")){0,3}\]/', $excerpt['text'], $matches) !== 1)
+        ) {
+            return null;
+        }
+
+        // $type = empty($matches[1]) ? 'meter' : $matches[1];
+        $percent = empty($matches[2]) ? $matches[3] : $matches[2];
+        $value   = empty($matches[3]) ? $matches[2] : $matches[3];
+
+        if ($percent === ''
+            || $value === ''
+        ) {
+            return null;
+        }
+
+        return [
+            'extent'  => \strlen($matches[0]),
+            'element' => [
+                'name'       => 'progress',
+                'text'       => '',
+                'attributes' => [
+                    'value' => $value,
+                    'max'   => '100',
+                ],
+            ],
+        ];
+    }
+
+    /**
+     * Handle super script
+     *
+     * @param array{text:string, context:string, before:string} $excerpt Inline data
+     *
+     * @return null|array{extent:int, element:array}
+     *
+     * @since 1.0.0
+     */
+    protected function inlineSuperscript(array $excerpt) : ?array
+    {
+        if (\preg_match('/(?:\^(?!\^)([^\^ ]*)\^(?!\^))/', $excerpt['text'], $matches) !== 1) {
+            return null;
+        }
+
+        return [
+            'extent'  => \strlen($matches[0]),
+            'element' => [
+                'name'     => 'sup',
+                'text'     => $matches[1],
+                'function' => 'lineElements',
+            ],
+        ];
+    }
+
+    /**
+     * Handle sub script
+     *
+     * @param array{text:string, context:string, before:string} $excerpt Inline data
+     *
+     * @return null|array{extent:int, element:array}
+     *
+     * @since 1.0.0
+     */
+    protected function inlineSubscript(array $excerpt) : ?array
+    {
+        if (\preg_match('/(?:~(?!~)([^~ ]*)~(?!~))/', $excerpt['text'], $matches) !== 1) {
+            return null;
+        }
+
+        return [
+            'extent'  => \strlen($matches[0]),
+            'element' => [
+                'name'     => 'sub',
+                'text'     => $matches[1],
+                'function' => 'lineElements',
+            ],
+        ];
+    }
+
+    /**
+     * Handle typographer
+     *
+     * @param array{text:string, context:string, before:string} $excerpt Inline data
+     *
+     * @return null|array{extent:int, element:array}
+     *
+     * @since 1.0.0
+     */
+    protected function inlineTypographer(array $excerpt) : ?array
+    {
+        if (\preg_match('/\+-|\(p\)|\(tm\)|\(r\)|\(c\)|\.{2,}|\!\.{3,}|\?\.{3,}/i', $excerpt['text'], $matches) !== 1) {
+            return null;
+        }
+
         $substitutions = [
             '/\(c\)/i'        => '&copy;',
             '/\(r\)/i'        => '&reg;',
@@ -843,144 +1730,26 @@ class Markdown
             '/\?\.{3,}/i'     => '?..',
         ];
 
-        if (\preg_match('/\+-|\(p\)|\(tm\)|\(r\)|\(c\)|\.{2,}|\!\.{3,}|\?\.{3,}/i', $excerpt['text'], $matches)) {
-            return [
-                'extent'  => \strlen($matches[0]),
-                'element' => [
-                    'rawHtml' => \preg_replace(\array_keys($substitutions), \array_values($substitutions), $matches[0]),
-                ],
-            ];
-        }
+        return [
+            'extent'  => \strlen($matches[0]),
+            'element' => [
+                'rawHtml' => \preg_replace(\array_keys($substitutions), \array_values($substitutions), $matches[0]),
+            ],
+        ];
     }
 
-    // Inline Smartypants
-
-    protected function inlineSmartypants($excerpt)
-    {
-        // Substitutions
-        $backtickDoublequoteOpen  = $this->options['smarty']['substitutions']['left-double-quote'] ?? '&ldquo;';
-        $backtickDoublequoteClose = $this->options['smarty']['substitutions']['right-double-quote'] ?? '&rdquo;';
-
-        $smartDoublequoteOpen  = $this->options['smarty']['substitutions']['left-double-quote'] ?? '&ldquo;';
-        $smartDoublequoteClose = $this->options['smarty']['substitutions']['right-double-quote'] ?? '&rdquo;';
-        $smartSinglequoteOpen  = $this->options['smarty']['substitutions']['left-single-quote'] ?? '&lsquo;';
-        $smartSinglequoteClose = $this->options['smarty']['substitutions']['right-single-quote'] ?? '&rsquo;';
-
-        $leftAngleQuote  = $this->options['smarty']['substitutions']['left-angle-quote'] ?? '&laquo;';
-        $rightAngleQuote = $this->options['smarty']['substitutions']['right-angle-quote'] ?? '&raquo;';
-
-        if (\preg_match('/(``)(?!\s)([^"\'`]{1,})(\'\')|(\")(?!\s)([^\"]{1,})(\")|(\')(?!\s)([^\']{1,})(\')|(<{2})(?!\s)([^<>]{1,})(>{2})|(\.{3})|(-{3})|(-{2})/i', $excerpt['text'], $matches)) {
-            $matches = \array_values(\array_filter($matches));
-
-            // Smart backticks
-            $smartBackticks = $this->options['smarty']['smart_backticks'] ?? false;
-
-            if ($smartBackticks && $matches[1] === '``') {
-                $length = \strlen(\trim($excerpt['before']));
-                if ($length > 0) {
-                    return;
-                }
-                return [
-                    'extent'  => \strlen($matches[0]),
-                    'element' => [
-                        'text' => \html_entity_decode($backtickDoublequoteOpen).$matches[2].\html_entity_decode($backtickDoublequoteClose),
-                    ],
-                ];
-            }
-
-            // Smart quotes
-            $smartQuotes = $this->options['smarty']['smart_quotes'] ?? true;
-
-            if ($smartQuotes) {
-                if ($matches[1] === "'") {
-                    $length = \strlen(\trim($excerpt['before']));
-                    if ($length > 0) {
-                        return;
-                    }
-
-                    return [
-                        'extent'  => \strlen($matches[0]),
-                        'element' => [
-                            'text' => \html_entity_decode($smartSinglequoteOpen).$matches[2].\html_entity_decode($smartSinglequoteClose),
-                        ],
-                    ];
-                }
-
-                if ($matches[1] === '"') {
-                    $length = \strlen(\trim($excerpt['before']));
-                    if ($length > 0) {
-                        return;
-                    }
-
-                    return [
-                        'extent'  => \strlen($matches[0]),
-                        'element' => [
-                            'text' => \html_entity_decode($smartDoublequoteOpen).$matches[2].\html_entity_decode($smartDoublequoteClose),
-                        ],
-                    ];
-                }
-            }
-
-            // Smart angled quotes
-            $smartAngledQuotes = $this->options['smarty']['smart_angled_quotes'] ?? true;
-
-            if ($smartAngledQuotes && $matches[1] === '<<') {
-                $length = \strlen(\trim($excerpt['before']));
-                if ($length > 0) {
-                    return;
-                }
-
-                return [
-                    'extent'  => \strlen($matches[0]),
-                    'element' => [
-                        'text' => \html_entity_decode($leftAngleQuote).$matches[2].\html_entity_decode($rightAngleQuote),
-                    ],
-                ];
-            }
-
-            // Smart dashes
-            $smartDashes = $this->options['smarty']['smart_dashes'] ?? true;
-
-            if ($smartDashes) {
-                if ($matches[1] === '---') {
-                    return [
-                        'extent'  => \strlen($matches[0]),
-                        'element' => [
-                            'rawHtml' => $this->options['smarty']['substitutions']['mdash'] ?? '&mdash;',
-                        ],
-                    ];
-                }
-
-                if ($matches[1] === '--') {
-                    return [
-                        'extent'  => \strlen($matches[0]),
-                        'element' => [
-                            'rawHtml' => $this->options['smarty']['substitutions']['ndash'] ?? '&ndash;',
-                        ],
-                    ];
-                }
-            }
-
-            // Smart ellipses
-            $smartEllipses = $this->options['smarty']['smart_ellipses'] ?? true;
-
-            if ($smartEllipses && $matches[1] === '...') {
-                return [
-                    'extent'  => \strlen($matches[0]),
-                    'element' => [
-                        'rawHtml' => $this->options['smarty']['substitutions']['ellipses'] ?? '&hellip;',
-                    ],
-                ];
-            }
-        }
-    }
-
-    // Inline Math
-
-    protected function inlineMath($excerpt)
+    /**
+     * Handle math
+     *
+     * @param array{text:string, context:string, before:string} $excerpt Inline data
+     *
+     * @return null|array{extent:int, element:array}
+     *
+     * @since 1.0.0
+     */
+    protected function inlineMath(array $excerpt) : ?array
     {
         $matchSingleDollar = $this->options['math']['single_dollar'] ?? false;
-        // Inline Matches
         if ($matchSingleDollar) {
             // Match single dollar - experimental
             if (\preg_match('/^(?<!\\\\)((?<!\$)\$(?!\$)(.*?)(?<!\$)\$(?!\$)|(?<!\\\\\()\\\\\((.*?)(?<!\\\\\()\\\\\)(?!\\\\\)))/s', $excerpt['text'], $matches)) {
@@ -990,247 +1759,727 @@ class Markdown
             $mathMatch = $matches[0];
         }
 
-        if (isset($mathMatch)) {
-            return [
-                'extent'  => \strlen($mathMatch),
-                'element' => [
-                    'text' => $mathMatch,
-                ],
-            ];
+        if (!isset($mathMatch)) {
+            return null;
         }
-    }
 
-    protected function inlineEscapeSequence($excerpt)
-    {
-        $element = [
+        return [
+            'extent'  => \strlen($mathMatch),
             'element' => [
-                'rawHtml' => $excerpt['text'][1],
+                'text' => $mathMatch,
             ],
-            'extent' => 2,
         ];
-
-        $state = $this->options['math'] ?? false;
-
-        if ($state) {
-            if (isset($excerpt['text'][1]) && \in_array($excerpt['text'][1], $this->specialCharacters) && !\preg_match('/^(?<!\\\\)(?<!\\\\\()\\\\\((.{2,}?)(?<!\\\\\()\\\\\)(?!\\\\\))/s', $excerpt['text'])) {
-                return $element;
-            }
-        } elseif (isset($excerpt['text'][1]) && \in_array($excerpt['text'][1], $this->specialCharacters)) {
-            return $element;
-        }
     }
 
     /**
-     * ------------------------------------------------------------------------
-     *  Blocks.
-     * ------------------------------------------------------------------------
+     * Handle escape sequence
+     *
+     * @param array{text:string, context:string, before:string} $excerpt Inline data
+     *
+     * @return null|array{extent:int, element:array}
+     *
+     * @since 1.0.0
      */
-    protected function blockFootnote($line, array $_ = null)
+    protected function inlineEscapeSequence(array $excerpt) : ?array
     {
-        $state = $this->options['footnotes'] ?? true;
-        if ($state) {
-            return $this->blockFootnoteBase($line);
+        if (!isset($excerpt['text'][1])
+            || !\in_array($excerpt['text'][1], $this->specialCharacters)
+        ) {
+            return null;
         }
+
+        $state = $this->options['math'] ?? false;
+        if (!$state
+            || !\preg_match('/^(?<!\\\\)(?<!\\\\\()\\\\\((.{2,}?)(?<!\\\\\()\\\\\)(?!\\\\\))/s', $excerpt['text'])
+        ) {
+            return [
+                'extent'  => 2,
+                'element' => [
+                    'rawHtml' => $excerpt['text'][1],
+                ],
+            ];
+        }
+
+        return null;
     }
 
-    protected function blockDefinitionList($line, $block)
+    /**
+     * Handle block footnote
+     *
+     * @param array{body:string, indent:int, text:string} $line Line data
+     * @param null|array                                  $_    Current block (unused parameter)
+     *
+     * @return null|array
+     *
+     * @since 1.0.0
+     */
+    protected function blockFootnote(array $line, ?array $_ = null) : ?array
     {
-        $state = $this->options['definition_lists'] ?? true;
-        if ($state) {
-            return $this->blockDefinitionListBase($line, $block);
-        }
+        return ($this->options['footnotes'] ?? true)
+            && \preg_match('/^\[\^(.+?)\]:[ ]?(.*)$/', $line['text'], $matches) == 1
+            ? [
+                'label'  => $matches[1],
+                'text'   => $matches[2],
+                'hidden' => true,
+            ]
+            : null;
     }
 
-    protected function blockCode($line, $block = null)
+    /**
+     * Handle block definition list
+     *
+     * @param array{body:string, indent:int, text:string} $line  Line data
+     * @param null|array                                  $block Current block
+     *
+     * @return null|array
+     *
+     * @since 1.0.0
+     */
+    protected function blockDefinitionList(array $line, ?array $block = null) : ?array
     {
-        $codeBlock = $this->options['code']['blocks'] ?? true;
-        $codeMain  = $this->options['code'] ?? true;
-        if ($codeBlock === true && $codeMain === true) {
-            return $this->blockCodeBase($line, $block);
+        if (!($this->options['definition_lists'] ?? true)
+            || $block === null
+            || $block['type'] !== 'Paragraph'
+        ) {
+            return null;
         }
+
+        $element = [
+            'name'     => 'dl',
+            'elements' => [],
+        ];
+
+        $terms = \explode("\n", $block['element']['handler']['argument']);
+
+        foreach ($terms as $term) {
+            $element['elements'][] = [
+                'name'    => 'dt',
+                'handler' => [
+                    'function'    => 'lineElements',
+                    'argument'    => $term,
+                    'destination' => 'elements',
+                ],
+            ];
+        }
+
+        $block['element'] = $element;
+
+        return $this->addDdElement($line, $block);
     }
 
-    protected function blockComment($line, array $_ = null)
+    /**
+     * Handle block code
+     *
+     * @param array{body:string, indent:int, text:string} $line  Line data
+     * @param null|array                                  $block Current block
+     *
+     * @return null|array
+     *
+     * @since 1.0.0
+     */
+    protected function blockCode(array $line, ?array $block = null) : ?array
     {
-        $state = $this->options['comments'] ?? true;
-        if ($state) {
-            return $this->blockCommentBase($line);
+        if (!($this->options['code']['blocks'] ?? true)
+            || !($this->options['code'] ?? true)
+            || ($block !== null && $block['type'] === 'Paragraph' && !isset($block['interrupted']))
+            || $line['indent'] < 4
+        ) {
+            return null;
         }
+
+        return [
+            'element' => [
+                'name'    => 'pre',
+                'element' => [
+                    'name' => 'code',
+                    'text' => \substr($line['body'], 4),
+                ],
+            ],
+        ];
     }
 
-    protected function blockHeader($line, array $_ = null)
+    /**
+     * Handle block comment
+     *
+     * @param array{body:string, indent:int, text:string} $line Line data
+     * @param null|array                                  $_    Current block (unused parameter)
+     *
+     * @return null|array
+     *
+     * @since 1.0.0
+     */
+    protected function blockComment(array $line, ?array $_ = null) : ?array
     {
-        $state = $this->options['headings'] ?? true;
-        if (!$state) {
-            return;
+        if (!($this->options['comments'] ?? true)
+            || $this->markupEscaped || $this->safeMode
+            || !\str_starts_with($line['text'], '<!--')
+        ) {
+            return null;
         }
 
-        $block = $this->blockHeaderBase($line);
-        if (!empty($block)) {
-            // Get the text of the heading
-            if (isset($block['element']['handler']['argument'])) {
-                $text = $block['element']['handler']['argument'];
+        $block = [
+            'element' => [
+                'rawHtml'   => $line['body'],
+                'autobreak' => true,
+            ],
+        ];
+
+        if (\strpos($line['text'], '-->') !== false) {
+            $block['closed'] = true;
+        }
+
+        return $block;
+    }
+
+    /**
+     * Handle block comment
+     *
+     * @param array{body:string, indent:int, text:string} $line Line data
+     * @param null|array                                  $_    Current block (unused parameter)
+     *
+     * @return null|array
+     *
+     * @since 1.0.0
+     */
+    protected function blockHeader(array $line, ?array $_ = null) : ?array
+    {
+        if (!($this->options['headings'] ?? true)) {
+            return null;
+        }
+
+        $level = \strspn($line['text'], '#');
+        if ($level > 6) {
+            return null;
+        }
+
+        $text = \trim($line['text'], '#');
+        if ($this->strictMode && isset($text[0]) && $text[0] !== ' ') {
+            return null;
+        }
+
+        $text = \trim($text, ' ');
+
+        $block = [
+            'element' => [
+                'name'    => 'h' . $level,
+                'handler' => [
+                    'function'    => 'lineElements',
+                    'argument'    => $text,
+                    'destination' => 'elements',
+                ],
+            ],
+        ];
+
+        if (\preg_match('/[ #]*{(' . $this->regexAttribute . '+)}[ ]*$/', $block['element']['handler']['argument'], $matches, \PREG_OFFSET_CAPTURE)) {
+            $attributeString = $matches[1][0];
+
+            $block['element']['attributes']          = $this->parseAttributeData($attributeString);
+            $block['element']['handler']['argument'] = \substr($block['element']['handler']['argument'], 0, (int) $matches[0][1]);
+        }
+
+        // Get the text of the heading
+        if (isset($block['element']['handler']['argument'])) {
+            $text = $block['element']['handler']['argument'];
+        }
+
+        // Get the heading level. Levels are h1, h2, ..., h6
+        $level = $block['element']['name'];
+
+        $headersAllowed = $this->options['headings']['allowed'] ?? ['h1', 'h2', 'h3', 'h4', 'h5', 'h6'];
+        if (!\in_array($level, $headersAllowed)) {
+            return null;
+        }
+
+        // Checks if auto generated anchors is allowed
+        $autoAnchors = $this->options['headings']['auto_anchors'] ?? true;
+
+        $id = $block['element']['attributes']['id'] ?? ($autoAnchors ? $this->createAnchorID($text) : null);
+
+        // Set attributes to head tags
+        $block['element']['attributes']['id'] = $id;
+
+        $tocHeaders = $this->options['toc']['headings'] ?? ['h1', 'h2', 'h3', 'h4', 'h5', 'h6'];
+        // Check if level are defined as a heading
+        if (\in_array($level, $tocHeaders)) {
+            // Add/stores the heading element info to the ToC list
+            $this->setContentsList([
+                'text'  => $text,
+                'id'    => $id,
+                'level' => $level,
+            ]);
+        }
+
+        return $block;
+    }
+
+    /**
+     * Handle block list
+     *
+     * @param array{body:string, indent:int, text:string} $line    Line data
+     * @param null|array                                  $current Current block
+     *
+     * @return null|array
+     *
+     * @since 1.0.0
+     */
+    protected function blockList(array $line, ?array $current = null) : ?array
+    {
+        if (!($this->options['lists'] ?? true)) {
+            return null;
+        }
+
+        [$name, $pattern] = $line['text'][0] <= '-' ? ['ul', '[*+-]'] : ['ol', '[0-9]{1,9}+[.\)]'];
+
+        if (\preg_match('/^(' . $pattern . '([ ]++|$))(.*+)/', $line['text'], $matches) !== 1) {
+            return null;
+        }
+
+        $contentIndent = \strlen($matches[2]);
+        if ($contentIndent >= 5) {
+            --$contentIndent;
+
+            $matches[1] = \substr($matches[1], 0, -$contentIndent);
+            $matches[3] = \str_repeat(' ', $contentIndent) . $matches[3];
+        } elseif ($contentIndent === 0) {
+            $matches[1] .= ' ';
+        }
+
+        $markerWithoutWhitespace = \strstr($matches[1], ' ', true);
+        if ($markerWithoutWhitespace === false) {
+            $markerWithoutWhitespace = $matches[1];
+        }
+
+        if ($name === 'ul') {
+            $markerWithoutWhitespace = \substr($markerWithoutWhitespace, -1);
+
+            if ($markerWithoutWhitespace === false) {
+                $markerWithoutWhitespace = $matches[1];
+            }
+        }
+
+        $block = [
+            'indent'  => $line['indent'],
+            'pattern' => $pattern,
+            'data'    => [
+                'type'       => $name,
+                'marker'     => $matches[1],
+                'markerType' => $markerWithoutWhitespace,
+            ],
+            'element' => [
+                'name'     => $name,
+                'elements' => [],
+            ],
+        ];
+
+        $block['data']['markerTypeRegex'] = \preg_quote($block['data']['markerType'], '/');
+
+        if ($name === 'ol') {
+            $tmp = \strstr($matches[1], $block['data']['markerType'], true);
+            if ($tmp === false) {
+                $tmp = $matches[1];
             }
 
-            // Get the heading level. Levels are h1, h2, ..., h6
-            $level = $block['element']['name'];
+            $listStart = \ltrim($tmp, '0') ?: '0';
 
-            $headersAllowed = $this->options['headings']['allowed'] ?? ['h1', 'h2', 'h3', 'h4', 'h5', 'h6'];
-            if (!\in_array($level, $headersAllowed)) {
-                return;
+            if ($listStart !== '1') {
+                if (isset($current)
+                    && $current['type'] === 'Paragraph'
+                    && !isset($current['interrupted'])
+                ) {
+                    return null;
+                }
+
+                $block['element']['attributes'] = ['start' => $listStart];
+            }
+        }
+
+        $block['li'] = [
+            'name'    => 'li',
+            'handler' => [
+                'function'    => 'li',
+                'argument'    => empty($matches[3]) ? [] : [$matches[3]],
+                'destination' => 'elements',
+            ],
+        ];
+
+        $block['element']['elements'][] = &$block['li'];
+
+        return $block;
+    }
+
+    /**
+     * Handle block quote
+     *
+     * @param array{body:string, indent:int, text:string} $line Line data
+     * @param null|array                                  $_    Current block (unused parameter)
+     *
+     * @return null|array
+     *
+     * @since 1.0.0
+     */
+    protected function blockQuote(array $line, ?array $_ = null) : ?array
+    {
+        if (!($this->options['qoutes'] ?? true)
+            || \preg_match('/^>[ ]?+(.*+)/', $line['text'], $matches) !== 1
+        ) {
+            return null;
+        }
+
+        return [
+            'element' => [
+                'name'    => 'blockquote',
+                'handler' => [
+                    'function'    => 'linesElements',
+                    'argument'    => (array) $matches[1],
+                    'destination' => 'elements',
+                ],
+            ],
+        ];
+    }
+
+    /**
+     * Handle block rule
+     *
+     * @param array{body:string, indent:int, text:string} $line Line data
+     * @param null|array                                  $_    Current block (unused parameter)
+     *
+     * @return null|array
+     *
+     * @since 1.0.0
+     */
+    protected function blockRule(array $line, ?array $_ = null) : ?array
+    {
+        if (!($this->options['thematic_breaks'] ?? true)) {
+            return null;
+        }
+
+        $marker = $line['text'][0];
+        if (\substr_count($line['text'], $marker) >= 3 && \rtrim($line['text'], " {$marker}") === '') {
+            return [
+                'element' => [
+                    'name' => 'hr',
+                ],
+            ];
+        }
+
+        return null;
+    }
+
+    /**
+     * Handle block header
+     *
+     * @param array{body:string, indent:int, text:string} $line  Line data
+     * @param null|array                                  $block Current block
+     *
+     * @return null|array
+     *
+     * @since 1.0.0
+     */
+    protected function blockSetextHeader(array $line, ?array $block = null) : ?array
+    {
+        if (!($this->options['headings'] ?? true)
+            || $block === null
+            || $block['type'] !== 'Paragraph'
+            || isset($block['interrupted'])
+        ) {
+            return null;
+        }
+
+        if ($line['indent'] < 4 && \rtrim(\rtrim($line['text'], ' '), $line['text'][0]) === '') {
+            $block['element']['name'] = $line['text'][0] === '=' ? 'h1' : 'h2';
+        }
+
+        if (\preg_match('/[ ]*{(' . $this->regexAttribute . '+)}[ ]*$/', $block['element']['handler']['argument'], $matches, \PREG_OFFSET_CAPTURE)) {
+            $attributeString = $matches[1][0];
+
+            $block['element']['attributes']          = $this->parseAttributeData($attributeString);
+            $block['element']['handler']['argument'] = \substr($block['element']['handler']['argument'], 0, (int) $matches[0][1]);
+        }
+
+        // Get the text of the heading
+        $text = null;
+        if (isset($block['element']['handler']['argument'])) {
+            $text = $block['element']['handler']['argument'];
+        }
+
+        // Get the heading level. Levels are h1, h2, ..., h6
+        $level = $block['element']['name'];
+
+        $headersAllowed = $this->options['headings']['allowed'] ?? ['h1', 'h2', 'h3', 'h4', 'h5', 'h6'];
+        if (!\in_array($level, $headersAllowed)) {
+            return null;
+        }
+
+        // Checks if auto generated anchors is allowed
+        $autoAnchors = $this->options['headings']['auto_anchors'] ?? true;
+
+        $id = $block['element']['attributes']['id'] ?? ($autoAnchors ? $this->createAnchorID($text) : null);
+
+        // Set attributes to head tags
+        $block['element']['attributes']['id'] = $id;
+
+        $headersAllowed = $this->options['headings']['allowed'] ?? ['h1', 'h2', 'h3', 'h4', 'h5', 'h6'];
+
+        // Check if level are defined as a heading
+        if (\in_array($level, $headersAllowed)) {
+            // Add/stores the heading element info to the ToC list
+            $this->setContentsList([
+                'text'  => $text,
+                'id'    => $id,
+                'level' => $level,
+            ]);
+        }
+
+        return $block;
+    }
+
+    /**
+     * Handle block markup
+     *
+     * @param array{body:string, indent:int, text:string} $line Line data
+     * @param null|array                                  $_    Current block (unused parameter)
+     *
+     * @return null|array
+     *
+     * @since 1.0.0
+     */
+    protected function blockMarkup(array $line, ?array $_ = null) : ?array
+    {
+        if (!($this->options['markup'] ?? true)
+            || $this->markupEscaped || $this->safeMode
+            || \preg_match('/^<(\w[\w-]*)(?:[ ]*' . $this->regexHtmlAttribute . ')*[ ]*(\/)?>/', $line['text'], $matches) !== 1
+        ) {
+            return null;
+        }
+
+        $element = \strtolower($matches[1]);
+
+        if (\in_array($element, $this->textLevelElements)) {
+            return null;
+        }
+
+        $block = [
+            'name'    => $matches[1],
+            'depth'   => 0,
+            'element' => [
+                'rawHtml'   => $line['text'],
+                'autobreak' => true,
+            ],
+        ];
+
+        $length    = \strlen($matches[0]);
+        $remainder = \substr($line['text'], $length);
+
+        if (\trim($remainder) === '') {
+            if (isset($matches[2]) || \in_array($matches[1], $this->voidElements)) {
+                $block['closed'] = true;
+                $block['void']   = true;
+            }
+        } else {
+            if (isset($matches[2]) || \in_array($matches[1], $this->voidElements)) {
+                return null;
             }
 
-            // Checks if auto generated anchors is allowed
-            $autoAnchors = $this->options['headings']['auto_anchors'] ?? true;
+            if (\preg_match('/<\/' . $matches[1] . '>[ ]*$/i', $remainder)) {
+                $block['closed'] = true;
+            }
+        }
 
-            if ($autoAnchors) {
-                // Get the anchor of the heading to link from the ToC list
-                $id = $block['element']['attributes']['id'] ?? $this->createAnchorID($text);
-            } else {
-                // Get the anchor of the heading to link from the ToC list
-                $id = $block['element']['attributes']['id'] ?? null;
+        return $block;
+    }
+
+    /**
+     * Handle block reference
+     *
+     * @param array{body:string, indent:int, text:string} $line Line data
+     * @param null|array                                  $_    Current block (unused parameter)
+     *
+     * @return null|array
+     *
+     * @since 1.0.0
+     */
+    protected function blockReference(array $line, ?array $_ = null) : ?array
+    {
+        if (!($this->options['references'] ?? true)
+            || \strpos($line['text'], ']') === false
+            || \preg_match('/^\[(.+?)\]:[ ]*+<?(\S+?)>?(?:[ ]+["\'(](.+)["\')])?[ ]*+$/', $line['text'], $matches) !== 1
+
+        ) {
+            return null;
+        }
+
+        $id = \strtolower($matches[1]);
+
+        $this->definitionData['Reference'][$id] = [
+            'url'   => UriFactory::build($matches[2]),
+            'title' => isset($matches[3]) ? $matches[3] : null,
+        ];
+
+        return [
+            'element' => [],
+        ];
+    }
+
+    /**
+     * Handle block table
+     *
+     * @param array{body:string, indent:int, text:string} $line  Line data
+     * @param null|array                                  $block Current block
+     *
+     * @return null|array
+     *
+     * @since 1.0.0
+     */
+    protected function blockTable(array $line, ?array $block = null) : ?array
+    {
+        if (!($this->options['tables'] ?? true)
+            || $block === null || $block['type'] !== 'Paragraph' || isset($block['interrupted'])
+            || (\strpos($block['element']['handler']['argument'], '|') === false
+                && \strpos($line['text'], '|') === false
+                && \strpos($line['text'], ':') === false
+                || \strpos($block['element']['handler']['argument'], "\n") !== false)
+            || \rtrim($line['text'], ' -:|') !== ''
+        ) {
+            return null;
+        }
+
+        $alignments = [];
+
+        $divider = $line['text'];
+        $divider = \trim($divider);
+        $divider = \trim($divider, '|');
+
+        $dividerCells = \explode('|', $divider);
+
+        foreach ($dividerCells as $dividerCell) {
+            $dividerCell = \trim($dividerCell);
+
+            if ($dividerCell === '') {
+                return null;
             }
 
-            // Set attributes to head tags
-            $block['element']['attributes']['id'] = $id;
+            $alignment = null;
 
-            $tocHeaders = $this->options['toc']['headings'] ?? ['h1', 'h2', 'h3', 'h4', 'h5', 'h6'];
-            // Check if level are defined as a heading
-            if (\in_array($level, $tocHeaders)) {
-                // Add/stores the heading element info to the ToC list
-                $this->setContentsList([
-                    'text'  => $text,
-                    'id'    => $id,
-                    'level' => $level,
-                ]);
+            if ($dividerCell[0] === ':') {
+                $alignment = 'left';
             }
 
-            return $block;
-        }
-    }
-
-    protected function blockList($line, array $CurrentBlock = null)
-    {
-        $state = $this->options['lists'] ?? true;
-        if ($state) {
-            return $this->blockListBase($line, $CurrentBlock);
-        }
-    }
-
-    protected function blockQuote($line, array $_ = null)
-    {
-        $state = $this->options['qoutes'] ?? true;
-        if ($state) {
-            return $this->blockQuoteBase($line);
-        }
-    }
-
-    protected function blockRule($line, array $_ = null)
-    {
-        $state = $this->options['thematic_breaks'] ?? true;
-        if ($state) {
-            return $this->blockRuleBase($line);
-        }
-    }
-
-    protected function blockSetextHeader($line, $block = null)
-    {
-        $state = $this->options['headings'] ?? true;
-        if (!$state) {
-            return;
-        }
-        $block = $this->blockSetextHeaderBase($line, $block);
-        if (!empty($block)) {
-            // Get the text of the heading
-            if (isset($block['element']['handler']['argument'])) {
-                $text = $block['element']['handler']['argument'];
+            if (\substr($dividerCell, - 1) === ':') {
+                $alignment = $alignment === 'left' ? 'center' : 'right';
             }
 
-            // Get the heading level. Levels are h1, h2, ..., h6
-            $level = $block['element']['name'];
+            $alignments [] = $alignment;
+        }
 
-            $headersAllowed = $this->options['headings']['allowed'] ?? ['h1', 'h2', 'h3', 'h4', 'h5', 'h6'];
-            if (!\in_array($level, $headersAllowed)) {
-                return;
+        $headerElements = [];
+
+        $header = $block['element']['handler']['argument'];
+        $header = \trim($header);
+        $header = \trim($header, '|');
+
+        $headerCells = \explode('|', $header);
+
+        if (\count($headerCells) !== \count($alignments)) {
+            return null;
+        }
+
+        foreach ($headerCells as $index => $headerCell) {
+            $headerCell = \trim($headerCell);
+
+            $headerElement = [
+                'name'    => 'th',
+                'handler' => [
+                    'function'    => 'lineElements',
+                    'argument'    => $headerCell,
+                    'destination' => 'elements',
+                ],
+            ];
+
+            if (isset($alignments[$index])) {
+                $alignment = $alignments[$index];
+
+                $headerElement['attributes'] = [
+                    'style' => "text-align: {$alignment};",
+                ];
             }
 
-            // Checks if auto generated anchors is allowed
-            $autoAnchors = $this->options['headings']['auto_anchors'] ?? true;
-
-            if ($autoAnchors) {
-                // Get the anchor of the heading to link from the ToC list
-                $id = $block['element']['attributes']['id'] ?? $this->createAnchorID($text);
-            } else {
-                // Get the anchor of the heading to link from the ToC list
-                $id = $block['element']['attributes']['id'] ?? null;
-            }
-
-            // Set attributes to head tags
-            $block['element']['attributes']['id'] = $id;
-
-            $headersAllowed = $this->options['headings']['allowed'] ?? ['h1', 'h2', 'h3', 'h4', 'h5', 'h6'];
-
-            // Check if level are defined as a heading
-            if (\in_array($level, $headersAllowed)) {
-                // Add/stores the heading element info to the ToC list
-                $this->setContentsList([
-                    'text'  => $text,
-                    'id'    => $id,
-                    'level' => $level,
-                ]);
-            }
-
-            return $block;
+            $headerElements[] = $headerElement;
         }
+
+        $block = [
+            'alignments' => $alignments,
+            'identified' => true,
+            'element'    => [
+                'name'     => 'table',
+                'elements' => [],
+            ],
+        ];
+
+        $block['element']['elements'][] = [
+            'name' => 'thead',
+        ];
+
+        $block['element']['elements'][] = [
+            'name'     => 'tbody',
+            'elements' => [],
+        ];
+
+        $block['element']['elements'][0]['elements'][] = [
+            'name'     => 'tr',
+            'elements' => $headerElements,
+        ];
+
+        return $block;
     }
 
-    protected function blockMarkup($line, array $_ = null)
+    /**
+     * Handle block abbreviation
+     *
+     * @param array{body:string, indent:int, text:string} $line Line data
+     * @param null|array                                  $_    Current block (unused parameter)
+     *
+     * @return null|array
+     *
+     * @since 1.0.0
+     */
+    protected function blockAbbreviation(array $line, ?array $_ = null) : ?array
     {
-        $state = $this->options['markup'] ?? true;
-        if ($state) {
-            return $this->blockMarkupBase($line);
+        if (!($this->options['abbreviations'] ?? true)) {
+            return null;
         }
-    }
 
-    protected function blockReference($line, array $_ = null)
-    {
-        $state = $this->options['references'] ?? true;
-        if ($state) {
-            return $this->blockReferenceBase($line);
-        }
-    }
-
-    protected function blockTable($line, $block = null)
-    {
-        $state = $this->options['tables'] ?? true;
-        if ($state) {
-            return $this->blockTableBase($line, $block);
-        }
-    }
-
-    protected function blockAbbreviation($line, array $_ = null)
-    {
         $allowCustomAbbr = $this->options['abbreviations']['allow_custom_abbr'] ?? true;
 
-        $state = $this->options['abbreviations'] ?? true;
-        if ($state) {
-            if (isset($this->options['abbreviations']['predefine'])) {
-                foreach ($this->options['abbreviations']['predefine'] as $abbreviations => $description) {
-                    $this->DefinitionData['Abbreviation'][$abbreviations] = $description;
-                }
+        if (isset($this->options['abbreviations']['predefine'])) {
+            foreach ($this->options['abbreviations']['predefine'] as $abbreviations => $description) {
+                $this->definitionData['Abbreviation'][$abbreviations] = $description;
             }
-
-            if ($allowCustomAbbr == true) {
-                return $this->blockAbbreviationBase($line);
-            }
-
-            return;
         }
+
+        if (!$allowCustomAbbr
+            || \preg_match('/^\*\[(.+?)\]:[ ]*(.+?)[ ]*$/', $line['text'], $matches) !== 1
+        ) {
+            return null;
+        }
+
+        $this->definitionData['Abbreviation'][$matches[1]] = $matches[2];
+
+        return [
+            'hidden' => true,
+        ];
     }
 
-    // Block Math
-
-    protected function blockMath($line, array $_ = null)
+    /**
+     * Handle block math
+     *
+     * @param array{body:string, indent:int, text:string} $line Line data
+     * @param null|array                                  $_    Current block (unused parameter)
+     *
+     * @return null|array
+     *
+     * @since 1.0.0
+     */
+    protected function blockMath(array $line, ?array $_ = null) : ?array
     {
         $block = [
             'element' => [
@@ -1243,26 +2492,34 @@ class Markdown
 
             return $block;
         }
+
         if (\preg_match('/^(?<!\\\\)(\$\$)(?!.)$/', $line['text'])) {
             $block['end'] = '$$';
 
             return $block;
         }
+
+        return null;
     }
 
-    // ~
-
-    protected function blockMathContinue($line, $block)
+    /**
+     * Continue block math
+     *
+     * @param array{body:string, indent:int, text:string} $line  Line data
+     * @param array                                       $block Current block
+     *
+     * @return null|array
+     *
+     * @since 1.0.0
+     */
+    protected function blockMathContinue(array $line, array $block) : ?array
     {
         if (isset($block['complete'])) {
-            return;
+            return null;
         }
 
         if (isset($block['interrupted'])) {
-            $block['element']['text'] .= \str_repeat(
-                "\n",
-                $block['interrupted']
-            );
+            $block['element']['text'] .= \str_repeat("\n", $block['interrupted']);
 
             unset($block['interrupted']);
         }
@@ -1270,134 +2527,230 @@ class Markdown
         if (\preg_match('/^(?<!\\\\)(\\\\\])$/', $line['text']) && $block['end'] === '\]') {
             $block['complete']        = true;
             $block['math']            = true;
-            $block['element']['text'] =
-             '\\['.$block['element']['text'].'\\]';
+            $block['element']['text'] = '\\[' . $block['element']['text'] . '\\]';
 
             return $block;
         }
+
         if (\preg_match('/^(?<!\\\\)(\$\$)$/', $line['text']) && $block['end'] === '$$') {
             $block['complete']        = true;
             $block['math']            = true;
-            $block['element']['text'] = '$$'.$block['element']['text'].'$$';
+            $block['element']['text'] = '$$' . $block['element']['text'] . '$$';
 
             return $block;
         }
 
-        $block['element']['text'] .= "\n".$line['body'];
-
-        // ~
+        $block['element']['text'] .= "\n" . $line['body'];
 
         return $block;
     }
 
-    // ~
-
-    protected function blockMathComplete($block)
+    /**
+     * Complete block math
+     *
+     * @param array $block Current block
+     *
+     * @return array
+     *
+     * @since 1.0.0
+     */
+    protected function blockMathComplete(array $block) : array
     {
         return $block;
     }
 
-    // Block Fenced Code
-
-    protected function blockFencedCode($line, array $_ = null)
+    /**
+     * Continue block math
+     *
+     * @param array{body:string, indent:int, text:string} $line Line data
+     * @param null|array                                  $_    Current block (unused parameter)
+     *
+     * @return null|array
+     *
+     * @since 1.0.0
+     */
+    protected function blockFencedCode(array $line, ?array $_ = null) : ?array
     {
-        $codeBlock = $this->options['code']['blocks'] ?? true;
-        $codeMain  = $this->options['code'] ?? true;
-        if ($codeBlock === false || $codeMain === false) {
-            return;
-        }
-        $block = $this->blockFencedCodeBase($line);
-
-        $marker       = $line['text'][0];
-        $openerLength = \strspn($line['text'], $marker);
-        $language     = \trim(
-            \preg_replace('/^`{3}([^\s]+)(.+)?/s', '$1', $line['text'])
-        );
-
-        $state = $this->options['diagrams'] ?? true;
-        if ($state) {
-            // Mermaid.js https://mermaidjs.github.io
-            if (\strtolower($language) == 'mermaid') {
-                $element = [
-                    'text' => '',
-                ];
-
-                return [
-                    'char'         => $marker,
-                    'openerLength' => $openerLength,
-                    'element'      => [
-                        'element'    => $element,
-                        'name'       => 'div',
-                        'attributes' => [
-                            'class' => 'mermaid',
-                        ],
-                    ],
-                ];
-            }
-
-            // Chart.js https://www.chartjs.org/
-            if (\strtolower($language) == 'chart') {
-                $element = [
-                    'text' => '',
-                ];
-
-                return [
-                    'char'         => $marker,
-                    'openerLength' => $openerLength,
-                    'element'      => [
-                        'element'    => $element,
-                        'name'       => 'canvas',
-                        'attributes' => [
-                            'class' => 'chartjs',
-                        ],
-                    ],
-                ];
-            }
-        }
-
-        return $block;
-    }
-
-    // Parsedown Tablespan from @KENNYSOFT
-    protected function blockTableComplete(array $block)
-    {
-        $state = $this->options['tables']['tablespan'] ?? false;
-        if ($state === false) {
-            return $block;
-        }
-
-        if (!isset($block)) {
+        if (!($this->options['code']['blocks'] ?? true)
+            || !($this->options['code'] ?? true)
+        ) {
             return null;
         }
 
-        $HeaderElements = &$block['element']['elements'][0]['elements'][0]['elements'];
+        $marker       = $line['text'][0];
+        $openerLength = \strspn($line['text'], $marker);
 
-        for ($index = \count($HeaderElements) - 1; $index >= 0; --$index) {
+        if ($openerLength < 3) {
+            return null;
+        }
+
+        $language = \trim(\preg_replace('/^`{3}([^\s]+)(.+)?/s', '$1', $line['text']) ?? '');
+
+        if (!($this->options['diagrams'] ?? true)
+            || !\in_array($language, ['mermaid', 'chart'])
+        ) {
+            // Is code block
+            $element = [
+                'name' => 'code',
+                'text' => '',
+            ];
+
+            if ($language !== '```' && !empty($language)) {
+                $element['attributes'] = ['class' => "language-{$language}"];
+            }
+
+            return [
+                'char'         => $marker,
+                'openerLength' => $openerLength,
+                'element'      => [
+                    'name'    => 'pre',
+                    'element' => $element,
+                ],
+            ];
+        } elseif (\strtolower($language) === 'chartjs') {
+            // Chart.js https://www.chartjs.org/
+            $element = [
+                'text' => '',
+            ];
+
+            return [
+                'char'         => $marker,
+                'openerLength' => $openerLength,
+                'element'      => [
+                    'element'    => $element,
+                    'name'       => 'canvas',
+                    'attributes' => [
+                        'class' => 'chartjs',
+                    ],
+                ],
+            ];
+        } elseif (\in_array(\strtolower($language), ['mermaid', 'tuichart'])) {
+            // Mermaid.js https://mermaidjs.github.io
+            // TUI.chart https://github.com/nhn/tui.chart
+            $element = [
+                'text' => '',
+            ];
+
+            return [
+                'char'         => $marker,
+                'openerLength' => $openerLength,
+                'element'      => [
+                    'element'    => $element,
+                    'name'       => 'div',
+                    'attributes' => [
+                        'class' => \strtolower($language),
+                    ],
+                ],
+            ];
+        }
+
+        return null;
+    }
+
+    /**
+     * Continue block spoiler
+     *
+     * @param array{body:string, indent:int, text:string} $line Line data
+     * @param null|array                                  $_    Current block (unused parameter)
+     *
+     * @return null|array
+     *
+     * @since 1.0.0
+     */
+    protected function blockSpoiler(array $line, ?array $_ = null) : ?array
+    {
+        if (!($this->options['code']['blocks'] ?? true)
+            || !($this->options['code'] ?? true)
+        ) {
+            return null;
+        }
+
+        $marker       = $line['text'][0];
+        $openerLength = \strspn($line['text'], $marker);
+
+        if ($openerLength < 3) {
+            return null;
+        }
+
+        $summary = \trim(\preg_replace('/^\?{3}(.+)?/s', '$1', $line['text']) ?? '');
+
+        $infostring = \trim(\substr($line['text'], $openerLength), "\t ");
+        if (\strpos($infostring, '?') !== false) {
+            return null;
+        }
+
+        // @performance Optimize away the child <span> element for spoilers (if reasonable)
+        //      https://github.com/Karaka-Management/phpOMS/issues/367
+        return [
+            'char'         => $marker,
+            'openerLength' => $openerLength,
+            'element'      => [
+                'name'    => 'details',
+                'element' => [
+                    'text'     => '',
+                    'elements' => [
+                        [
+                            'name' => 'summary',
+                            'text' => $summary,
+                        ],
+                        [
+                            'name' => 'span',
+                            'text' => '',
+                        ],
+                    ],
+                ],
+            ],
+        ];
+    }
+
+    /**
+     * Complete block table
+     *
+     * @param array $block Current block
+     *
+     * @return null|array
+     *
+     * @since 1.0.0
+     */
+    protected function blockTableComplete(array $block) : ?array
+    {
+        if (!($this->options['tables']['tablespan'] ?? true)) {
+            return $block;
+        }
+
+        $headerElements      = &$block['element']['elements'][0]['elements'][0]['elements'];
+        $headerElementsCount = \count($headerElements);
+
+        for ($index = $headerElementsCount - 1; $index >= 0; --$index) {
             $colspan       = 1;
-            $HeaderElement = &$HeaderElements[$index];
+            $headerElement = &$headerElements[$index];
 
-            while ($index && $HeaderElements[$index - 1]['handler']['argument'] === '>') {
+            while ($index && $headerElements[$index - 1]['handler']['argument'] === '>') {
                 ++$colspan;
-                $PreviousHeaderElement           = &$HeaderElements[--$index];
-                $PreviousHeaderElement['merged'] = true;
-                if (isset($PreviousHeaderElement['attributes'])) {
-                    $HeaderElement['attributes'] = $PreviousHeaderElement['attributes'];
+                $previousHeaderElement           = &$headerElements[--$index];
+                $previousHeaderElement['merged'] = true;
+
+                if (isset($previousHeaderElement['attributes'])) {
+                    $headerElement['attributes'] = $previousHeaderElement['attributes'];
                 }
             }
 
             if ($colspan > 1) {
-                if (!isset($HeaderElement['attributes'])) {
-                    $HeaderElement['attributes'] = [];
+                if (!isset($headerElement['attributes'])) {
+                    $headerElement['attributes'] = [];
                 }
-                $HeaderElement['attributes']['colspan'] = $colspan;
+
+                $headerElement['attributes']['colspan'] = $colspan;
             }
         }
 
-        for ($index = \count($HeaderElements) - 1; $index >= 0; --$index) {
-            if (isset($HeaderElements[$index]['merged'])) {
-                \array_splice($HeaderElements, $index, 1);
+        for ($index = 0; $index < $headerElementsCount; ++$index) {
+            if (isset($headerElements[$index]['merged'])) {
+                unset($headerElements[$index]);
             }
         }
+
+        $headerElements = \array_values($headerElements);
 
         $rows = &$block['element']['elements'][1]['elements'];
 
@@ -1421,10 +2774,13 @@ class Markdown
                     if (!isset($element['attributes'])) {
                         $element['attributes'] = [];
                     }
+
                     $element['attributes']['colspan'] = $colspan;
                 }
             }
         }
+
+        $rowCount = \count($rows);
 
         foreach ($rows as $rowNo => &$row) {
             $elements = &$row['elements'];
@@ -1436,7 +2792,11 @@ class Markdown
                     continue;
                 }
 
-                while ($rowNo + $rowspan < \count($rows) && $index < \count($rows[$rowNo + $rowspan]['elements']) && $rows[$rowNo + $rowspan]['elements'][$index]['handler']['argument'] === '^' && (@$element['attributes']['colspan'] ?: null) === (@$rows[$rowNo + $rowspan]['elements'][$index]['attributes']['colspan'] ?: null)) {
+                while ($rowNo + $rowspan < $rowCount
+                    && $index < \count($rows[$rowNo + $rowspan]['elements'])
+                    && $rows[$rowNo + $rowspan]['elements'][$index]['handler']['argument'] === '^'
+                    && ($element['attributes']['colspan'] ?? null) === ($rows[$rowNo + $rowspan]['elements'][$index]['attributes']['colspan'] ?? null)
+                ) {
                     $rows[$rowNo + $rowspan]['elements'][$index]['merged'] = true;
                     ++$rowspan;
                 }
@@ -1445,6 +2805,7 @@ class Markdown
                     if (!isset($element['attributes'])) {
                         $element['attributes'] = [];
                     }
+
                     $element['attributes']['rowspan'] = $rowspan;
                 }
             }
@@ -1455,126 +2816,181 @@ class Markdown
 
             for ($index = \count($elements) - 1; $index >= 0; --$index) {
                 if (isset($elements[$index]['merged'])) {
-                    \array_splice($elements, $index, 1);
+                    unset($elements[$index]);
                 }
             }
+
+            $row['elements'] = \array_values($elements);
         }
 
         return $block;
     }
 
-    /*
-    * Checkbox
-    * -------------------------------------------------------------------------
-    */
-    protected function blockCheckbox($line)
+    /**
+     * Handle block checkbox
+     *
+     * @param array{body:string, indent:int, text:string} $line Line data
+     * @param null|array                                  $_    Current block (unused parameter)
+     *
+     * @return null|array
+     *
+     * @since 1.0.0
+     */
+    protected function blockCheckbox(array $line, ?array $_ = null) : ?array
     {
         $text      = \trim($line['text']);
         $beginLine = \substr($text, 0, 4);
+
         if ($beginLine === '[ ] ') {
             return [
-                'handler' => 'checkboxUnchecked',
+                'handler' => 'unchecked',
                 'text'    => \substr(\trim($text), 4),
             ];
-        }
-
-        if ($beginLine === '[x] ') {
+        } elseif ($beginLine === '[x] ') {
             return [
-                'handler' => 'checkboxChecked',
+                'handler' => 'checked',
                 'text'    => \substr(\trim($text), 4),
             ];
         }
+
+        return null;
     }
 
-    protected function blockCheckboxContinue(array $block) : void
+    /**
+     * Continue checkbox.
+     *
+     * This function doesn't do anything!
+     * However required as per the parsing workflow since it is automatically called.
+     *
+     * @param array{body:string, indent:int, text:string} $_  Line data
+     * @param array                                       $__ Current block
+     *
+     * @return null|array
+     *
+     * @since 1.0.0
+     */
+    protected function blockCheckboxContinue(array $_, array $__) : ?array
     {
-        // This is here because Parsedown require it.
+        return null;
     }
 
-    protected function blockCheckboxComplete(array $block)
+    /**
+     * Complete block checkbox
+     *
+     * @param array $block Current block
+     *
+     * @return array
+     *
+     * @since 1.0.0
+     */
+    protected function blockCheckboxComplete(array $block) : array
     {
+        $text = $block['text'];
+        if ($this->markupEscaped || $this->safeMode) {
+            $text = \htmlspecialchars($text, \ENT_QUOTES, 'UTF-8');
+        }
+
+        $html = $block['handler'] === 'unchecked'
+            ? '<input type="checkbox" disabled /> ' . $this->formatOnce($text)
+            : '<input type="checkbox" checked disabled /> ' . $this->formatOnce($text);
+
         $block['element'] = [
-            'rawHtml'                => $this->{$block['handler']}($block['text']),
+            'rawHtml'                => $html,
             'allowRawHtmlInSafeMode' => true,
         ];
 
         return $block;
     }
 
-    protected function checkboxUnchecked($text) : string
-    {
-        if ($this->markupEscaped || $this->safeMode) {
-            $text = self::escape($text);
-        }
-
-        return '<input type="checkbox" disabled /> '.$this->format($text);
-    }
-
-    protected function checkboxChecked($text) : string
-    {
-        if ($this->markupEscaped || $this->safeMode) {
-            $text = self::escape($text);
-        }
-
-        return '<input type="checkbox" checked disabled /> '.$this->format($text);
-    }
-
     /**
-     * ------------------------------------------------------------------------
-     *  Helpers.
-     * ------------------------------------------------------------------------.
+     * Formats text without double escaping
+     *
+     * @param string $text Text to format
+     *
+     * @return string
+     *
+     * @since 1.0.0
      */
-
-    /**
-     * Formats the checkbox label without double escaping.
-     */
-    protected function format($text)
+    protected function formatOnce(string $text) : string
     {
         // backup settings
         $markupEscaped = $this->markupEscaped;
         $safeMode      = $this->safeMode;
 
         // disable rules to prevent double escaping.
-        $this->setMarkupEscaped(false);
-        $this->setSafeMode(false);
+        $this->markupEscaped = false;
+        $this->safeMode      = false;
 
         // format line
-        $text = $this->line($text);
+        $text = $this->elements($this->lineElements($text));
 
         // reset old values
-        $this->setMarkupEscaped($markupEscaped);
-        $this->setSafeMode($safeMode);
+        $this->markupEscaped = $markupEscaped;
+        $this->safeMode      = $safeMode;
 
         return $text;
     }
 
-    protected function parseAttributeData($attributeString)
+    /**
+     * Parse attribute data
+     *
+     * @param string $attribute Attribute string
+     *
+     * @return array
+     *
+     * @since 1.0.0
+     */
+    protected function parseAttributeData(string $attribute) : array
     {
-        $state = $this->options['special_attributes'] ?? true;
-        if ($state) {
-            return $this->parseAttributeDataBase($attributeString);
+        if (!($this->options['special_attributes'] ?? true)) {
+            return [];
         }
 
-        return [];
+        $data       = [];
+        $attributes = \preg_split('/[ ]+/', $attribute, - 1, \PREG_SPLIT_NO_EMPTY);
+        $classes    = [];
+
+        if ($attributes === false) {
+            return [];
+        }
+
+        foreach ($attributes as $attribute) {
+            if ($attribute[0] === '#') {
+                $data['id'] = \substr($attribute, 1);
+            } else { // "."
+                $classes[] = \substr($attribute, 1);
+            }
+        }
+
+        if (!empty($classes)) {
+            $data['class'] = \implode(' ', $classes);
+        }
+
+        return $data;
     }
 
     /**
      * Encodes the ToC tag to a hashed tag and replace.
      *
      * This is used to avoid parsing user defined ToC tag which includes "_" in
-     * their tag such as "[[_toc_]]". Unless it will be parsed as:
-     *   "<p>[[<em>TOC</em>]]</p>"
+     * their tag such as "[[_toc_]]".
+     *
+     * @param string $text Tag text to encode
+     *
+     * @return string
+     *
+     * @since 1.0.0
      */
-    protected function encodeTagToHash($text)
+    protected function encodeToCTagToHash(string $text) : string
     {
-        $salt      = $this->getSalt();
-        $tagOrigin = $this->getTagToC();
+        $salt      = \bin2hex(\random_bytes(4));
+        $tagOrigin = $this->options['toc']['set_toc_tag'] ?? '[toc]';
 
         if (\strpos($text, $tagOrigin) === false) {
             return $text;
         }
 
-        $tagHashed = \hash('sha256', $salt.$tagOrigin);
+        $tagHashed = \hash('sha256', $salt . $tagOrigin);
 
         return \str_replace($tagOrigin, $tagHashed, $text);
     }
@@ -1583,14 +2999,19 @@ class Markdown
      * Decodes the hashed ToC tag to an original tag and replaces.
      *
      * This is used to avoid parsing user defined ToC tag which includes "_" in
-     * their tag such as "[[_toc_]]". Unless it will be parsed as:
-     *   "<p>[[<em>TOC</em>]]</p>"
+     * their tag such as "[[_toc_]]".
+     *
+     * @param string $text Tag text to encode
+     *
+     * @return string
+     *
+     * @since 1.0.0
      */
-    protected function decodeTagFromHash($text)
+    protected function decodeToCTagFromHash(string $text) : string
     {
-        $salt      = $this->getSalt();
-        $tagOrigin = $this->getTagToC();
-        $tagHashed = \hash('sha256', $salt.$tagOrigin);
+        $salt      = \bin2hex(\random_bytes(4));
+        $tagOrigin = $this->options['toc']['set_toc_tag'] ?? '[toc]';
+        $tagHashed = \hash('sha256', $salt . $tagOrigin);
 
         if (\strpos($text, $tagHashed) === false) {
             return $text;
@@ -1600,49 +3021,17 @@ class Markdown
     }
 
     /**
-     * Unique string to use as a salt value.
+     * Generates an anchor text that are link-able even if the heading is not in ASCII.
+     *
+     * @param string $str Header text
+     *
+     * @return string
+     *
+     * @since 1.0.0
      */
-    protected function getSalt()
+    protected function createAnchorID(string $str) : string
     {
-        static $salt;
-        if (isset($salt)) {
-            return $salt;
-        }
-
-        $salt = \hash('md5', (string) \time());
-
-        return $salt;
-    }
-
-    /**
-     * Gets the markdown tag for ToC.
-     */
-    protected function getTagToC()
-    {
-        return $this->options['toc']['set_toc_tag'] ?? '[toc]';
-    }
-
-    /**
-     * Gets the ID attribute of the ToC for HTML tags.
-     */
-    protected function getIdAttributeToC()
-    {
-        if (!empty($this->idToc)) {
-            return $this->idToc;
-        }
-
-        return self::ID_ATTRIBUTE_DEFAULT;
-    }
-
-    /**
-     * Generates an anchor text that are link-able even if the heading is not in
-     * ASCII.
-     */
-    protected function createAnchorID($str) : string
-    {
-        $optionUrlEncode = $this->options['toc']['urlencode'] ?? false;
-        if ($optionUrlEncode) {
-            // Check AnchorID is unique
+        if ($this->options['toc']['urlencode'] ?? false) {
             $str = $this->incrementAnchorId($str);
 
             return \urlencode($str);
@@ -1714,17 +3103,16 @@ class Markdown
         ];
 
         // Transliterate characters to ASCII
-        $optionTransliterate = $this->options['toc']['transliterate'] ?? false;
-        if ($optionTransliterate) {
+        if ($this->options['toc']['transliterate'] ?? false) {
             $str = \str_replace(\array_keys($charMap), $charMap, $str);
         }
 
         // Replace non-alphanumeric characters with our delimiter
         $optionDelimiter = $this->options['toc']['delimiter'] ?? '-';
-        $str             = \preg_replace('/[^\p{L}\p{Nd}]+/u', $optionDelimiter, $str);
+        $str             = \preg_replace('/[^\p{L}\p{Nd}]+/u', $optionDelimiter, $str) ?? '';
 
         // Remove duplicate delimiters
-        $str = \preg_replace('/('.\preg_quote($optionDelimiter, '/').'){2,}/', '$1', $str);
+        $str = \preg_replace('/(' . \preg_quote($optionDelimiter, '/') . '){2,}/', '$1', $str) ?? '';
 
         // Truncate slug to max. characters
         $optionLimit = $this->options['toc']['limit'] ?? \mb_strlen($str, 'UTF-8');
@@ -1740,50 +3128,25 @@ class Markdown
     }
 
     /**
-     * Get only the text from a markdown string.
-     * It parses to HTML once then trims the tags to get the text.
-     */
-    protected function fetchText($text) : string
-    {
-        return \trim(\strip_tags($this->line($text)));
-    }
-
-    /**
      * Set/stores the heading block to ToC list in a string and array format.
+     *
+     * @param array $content ToC content
+     *
+     * @return void
+     *
+     * @since 1.0.0
      */
-    protected function setContentsList(array $Content) : void
+    protected function setContentsList(array $content) : void
     {
-        // Stores as an array
-        $this->setContentsListAsArray($Content);
-        // Stores as string in markdown list format.
-        $this->setContentsListAsString($Content);
-    }
+        $this->contentsListArray[] = $content;
 
-    /**
-     * Sets/stores the heading block info as an array.
-     */
-    protected function setContentsListAsArray(array $Content) : void
-    {
-        $this->contentsListArray[] = $Content;
-    }
-
-    /**
-     * Sets/stores the heading block info as a list in markdown format.
-     */
-    protected function setContentsListAsString(array $Content) : void
-    {
-        $text  = $this->fetchText($Content['text']);
-        $id    = $Content['id'];
-        $level = (int) \trim($Content['level'], 'h');
-        $link  = "[{$text}](#{$id})";
+        $text  = \trim(\strip_tags($this->elements($this->lineElements($content['text']))));
+        $id    = $content['id'];
+        $level = (int) \trim($content['level'], 'h');
 
         if ($this->firstHeadLevel === 0) {
             $this->firstHeadLevel = $level;
         }
-        $cutIndent = $this->firstHeadLevel - 1;
-        $level     = $cutIndent > $level ? 1 : $level - $cutIndent;
-
-        $indent = \str_repeat('  ', $level);
 
         // Stores in markdown list format as below:
         // - [Header1](#Header1)
@@ -1791,40 +3154,55 @@ class Markdown
         //     - [Header3](#Header3)
         //   - [Header2-2](#Header2-2)
         // ...
-        $this->contentsListString .= "{$indent}- {$link}".\PHP_EOL;
+        $this->contentsListString .= \str_repeat(
+            '  ',
+            $this->firstHeadLevel - 1 > $level
+                ? 1
+                : $level - ($this->firstHeadLevel - 1)
+        ) . ' - [' . $text . '](#' . $id . ")\n";
     }
 
     /**
-     * Collect and count anchors in use to prevent duplicated ids. Return string
-     * with incremental, numeric suffix. Also init optional blacklist of ids.
+     * Collect and count anchors in use to prevent duplicated ids.
+     *
+     * Also init optional blacklist of ids.
+     *
+     * @param string $str Header anchor
+     *
+     * @return string Incremental, numeric suffix
+     *
+     * @since 1.0.0
      */
-    protected function incrementAnchorId($str)
+    protected function incrementAnchorId(string $str) : string
     {
         // add blacklist to list of used anchors
         if (!$this->isBlacklistInitialized) {
             $this->initBlacklist();
         }
 
-        $this->anchorDuplicates[$str] = isset($this->anchorDuplicates[$str]) ? ++$this->anchorDuplicates[$str] : 0;
+        do {
+            $this->anchorDuplicates[$str] = isset($this->anchorDuplicates[$str]) ? ++$this->anchorDuplicates[$str] : 0;
 
-        $newStr = $str;
+            $newStr = $str;
 
-        if ($count = $this->anchorDuplicates[$str]) {
-            $newStr .= "-{$count}";
-
-            // increment until conversion doesn't produce new duplicates anymore
-            if (isset($this->anchorDuplicates[$newStr])) {
-                $newStr = $this->incrementAnchorId($str);
-            } else {
-                $this->anchorDuplicates[$newStr] = 0;
+            if (($count = $this->anchorDuplicates[$str]) === 0) {
+                return $newStr;
             }
-        }
+
+            $newStr .= '-' . $count;
+        } while (isset($this->anchorDuplicates[$newStr]));
+
+        $this->anchorDuplicates[$newStr] = 0;
 
         return $newStr;
     }
 
     /**
      * Add blacklisted ids to anchor list.
+     *
+     * @return void
+     *
+     * @since 1.0.0
      */
     protected function initBlacklist() : void
     {
@@ -1834,494 +3212,388 @@ class Markdown
 
         if (!empty($this->options['headings']['blacklist']) && \is_array($this->options['headings']['blacklist'])) {
             foreach ($this->options['headings']['blacklist'] as $v) {
-                if (\is_string($v)) {
-                    $this->anchorDuplicates[$v] = 0;
-                }
+                $this->anchorDuplicates[(string) $v] = 0;
             }
         }
 
         $this->isBlacklistInitialized = true;
     }
 
-    protected function lineElements($text, $nonNestables = [])
+    /**
+     * Parse inline elements
+     *
+     * @param string $text         Text to parse
+     * @param array  $nonNestables Inline elements that are not allowed to be nested
+     *
+     * @return array
+     *
+     * @since 1.0.0
+     */
+    protected function lineElements(string $text, array $nonNestables = []) : array
     {
-        $Elements = [];
+        $elements = [];
 
-        $nonNestables = (
-            empty($nonNestables)
-            ? []
-            : \array_combine($nonNestables, $nonNestables)
-        );
+        if (!empty($nonNestables)) {
+            $nonNestables = \array_combine($nonNestables, $nonNestables);
+        }
 
-        // $excerpt is based on the first occurrence of a marker
-
-        while ($excerpt = \strpbrk($text, $this->inlineMarkerList)) {
-            $marker = $excerpt[0];
-
-            $markerPosition = \strlen($text) - \strlen($excerpt);
+        // $exc is based on the first occurrence of a marker
+        while (($exc = \strpbrk($text, $this->inlineMarkerList)) !== false) {
+            $marker         = $exc[0];
+            $markerPosition = \strlen($text) - \strlen($exc);
 
             // Get the first char before the marker
             $beforeMarkerPosition = $markerPosition - 1;
             $charBeforeMarker     = $beforeMarkerPosition >= 0 ? $text[$markerPosition - 1] : '';
 
-            $Excerpt = ['text' => $excerpt, 'context' => $text, 'before' => $charBeforeMarker];
+            $excerpt = ['text' => $exc, 'context' => $text, 'before' => $charBeforeMarker];
 
-            foreach ($this->InlineTypes[$marker] as $inlineType) {
+            foreach ($this->inlineTypes[$marker] as $inlineType) {
                 // check to see if the current inline type is nestable in the current context
-
                 if (isset($nonNestables[$inlineType])) {
                     continue;
                 }
 
-                $Inline = $this->{"inline{$inlineType}"}($Excerpt);
-
-                if (!isset($Inline)) {
+                $inline = $this->{"inline{$inlineType}"}($excerpt);
+                if ($inline === null) {
                     continue;
                 }
 
                 // makes sure that the inline belongs to "our" marker
-
-                if (isset($Inline['position']) && $Inline['position'] > $markerPosition) {
+                if (isset($inline['position']) && $inline['position'] > $markerPosition) {
                     continue;
                 }
 
                 // sets a default inline position
-
-                if (!isset($Inline['position'])) {
-                    $Inline['position'] = $markerPosition;
+                if (!isset($inline['position'])) {
+                    $inline['position'] = $markerPosition;
                 }
 
                 // cause the new element to 'inherit' our non nestables
-
-                $Inline['element']['nonNestables'] = isset($Inline['element']['nonNestables'])
-                    ? \array_merge($Inline['element']['nonNestables'], $nonNestables)
-                    : $nonNestables
-                ;
+                $inline['element']['nonNestables'] = isset($inline['element']['nonNestables'])
+                    ? \array_merge($inline['element']['nonNestables'], $nonNestables)
+                    : $nonNestables;
 
                 // the text that comes before the inline
-                $unmarkedText = \substr($text, 0, $Inline['position']);
+                $unmarkedText = \substr($text, 0, $inline['position']);
 
                 // compile the unmarked text
-                $InlineText = $this->inlineText($unmarkedText);
-                $Elements[] = $InlineText['element'];
+                $inlineText = $this->inlineText($unmarkedText);
+                $elements[] = $inlineText['element'];
 
                 // compile the inline
-                $Elements[] = $this->extractElement($Inline);
+                $elements[] = $this->extractElement($inline);
 
                 // remove the examined text
-                $text = \substr($text, $Inline['position'] + $Inline['extent']);
+                $text = \substr($text, $inline['position'] + $inline['extent']);
 
                 continue 2;
             }
 
             // the marker does not belong to an inline
-
             $unmarkedText = \substr($text, 0, $markerPosition + 1);
 
-            $InlineText = $this->inlineText($unmarkedText);
-            $Elements[] = $InlineText['element'];
+            $inlineText = $this->inlineText($unmarkedText);
+            $elements[] = $inlineText['element'];
 
             $text = \substr($text, $markerPosition + 1);
         }
 
-        $InlineText = $this->inlineText($text);
-        $Elements[] = $InlineText['element'];
+        $inlineText = $this->inlineText($text);
+        $elements[] = $inlineText['element'];
 
-        foreach ($Elements as &$Element) {
-            if (!isset($Element['autobreak'])) {
-                $Element['autobreak'] = false;
+        foreach ($elements as &$element) {
+            if (!isset($element['autobreak'])) {
+                $element['autobreak'] = false;
             }
         }
 
-        return $Elements;
+        return $elements;
     }
 
-    private function pregReplaceAssoc(array $replace, $subject)
+    /**
+     * Continue block footnote
+     *
+     * @param array{body:string, indent:int, text:string} $line  Line data
+     * @param array                                       $block Current block
+     *
+     * @return null|array
+     *
+     * @since 1.0.0
+     */
+    protected function blockFootnoteContinue(array $line, array $block) : ?array
     {
-        return \preg_replace(\array_keys($replace), \array_values($replace), $subject);
-    }
-
-    #
-    # Blocks
-    #
-
-    #
-    # Abbreviation
-
-    protected function blockAbbreviationBase($Line)
-    {
-        if (\preg_match('/^\*\[(.+?)\]:[ ]*(.+?)[ ]*$/', $Line['text'], $matches))
-        {
-            $this->DefinitionData['Abbreviation'][$matches[1]] = $matches[2];
-
-            return [
-                'hidden' => true,
-            ];
-        }
-    }
-
-    #
-    # Footnote
-
-    protected function blockFootnoteBase($Line)
-    {
-        if (\preg_match('/^\[\^(.+?)\]:[ ]?(.*)$/', $Line['text'], $matches))
-        {
-            return [
-                'label'  => $matches[1],
-                'text'   => $matches[2],
-                'hidden' => true,
-            ];
-        }
-    }
-
-    protected function blockFootnoteContinue($Line, $Block)
-    {
-        if ($Line['text'][0] === '[' && \preg_match('/^\[\^(.+?)\]:/', $Line['text']))
-        {
-            return;
+        if ($line['text'][0] === '['
+            && \preg_match('/^\[\^(.+?)\]:/', $line['text'])
+        ) {
+            return null;
         }
 
-        if (isset($Block['interrupted']))
-        {
-            if ($Line['indent'] >= 4)
-            {
-                $Block['text'] .= "\n\n" . $Line['text'];
+        if (isset($block['interrupted'])) {
+            if ($line['indent'] >= 4) {
+                $block['text'] .= "\n\n" . $line['text'];
 
-                return $Block;
+                return $block;
             }
-        }
-        else
-        {
-            $Block['text'] .= "\n" . $Line['text'];
+        } else {
+            $block['text'] .= "\n" . $line['text'];
 
-            return $Block;
+            return $block;
         }
+
+        return null;
     }
 
-    protected function blockFootnoteComplete($Block)
+    /**
+     * Complete block footnote
+     *
+     * @param array $block Current block
+     *
+     * @return array
+     *
+     * @since 1.0.0
+     */
+    protected function blockFootnoteComplete(array $block) : array
     {
-        $this->DefinitionData['Footnote'][$Block['label']] = [
-            'text'   => $Block['text'],
+        $this->definitionData['Footnote'][$block['label']] = [
+            'text'   => $block['text'],
             'count'  => null,
             'number' => null,
         ];
 
-        return $Block;
+        return $block;
     }
 
-    #
-    # Definition List
-
-    protected function blockDefinitionListBase($Line, $Block)
+    /**
+     * Continue block footnote
+     *
+     * @param array{body:string, indent:int, text:string} $line  Line data
+     * @param array                                       $block Current block
+     *
+     * @return null|array
+     *
+     * @since 1.0.0
+     */
+    protected function blockDefinitionListContinue(array $line, array $block) : ?array
     {
-        if (!isset($Block) || $Block['type'] !== 'Paragraph')
-        {
-            return;
+        if ($line['text'][0] === ':') {
+            return $this->addDdElement($line, $block);
         }
 
-        $Element = [
-            'name'     => 'dl',
-            'elements' => [],
-        ];
-
-        $terms = \explode("\n", $Block['element']['handler']['argument']);
-
-        foreach ($terms as $term)
-        {
-            $Element['elements'] []= [
-                'name'    => 'dt',
-                'handler' => [
-                    'function'    => 'lineElements',
-                    'argument'    => $term,
-                    'destination' => 'elements',
-                ],
-            ];
+        if (isset($block['interrupted']) && $line['indent'] === 0) {
+            return null;
         }
 
-        $Block['element'] = $Element;
+        if (isset($block['interrupted'])) {
+            $block['dd']['handler']['function'] = 'textElements';
+            $block['dd']['handler']['argument'] .= "\n\n";
 
-        return $this->addDdElement($Line, $Block);
+            $block['dd']['handler']['destination'] = 'elements';
+
+            unset($block['interrupted']);
+        }
+
+        $text = \substr($line['body'], \min($line['indent'], 4));
+
+        $block['dd']['handler']['argument'] .= "\n" . $text;
+
+        return $block;
     }
 
-    protected function blockDefinitionListContinue($Line, array $Block)
+    /**
+     * Continue block markup
+     *
+     * @param array{body:string, indent:int, text:string} $line  Line data
+     * @param array                                       $block Current block
+     *
+     * @return null|array
+     *
+     * @since 1.0.0
+     */
+    protected function blockMarkupContinue(array $line, array $block) : ?array
     {
-        if ($Line['text'][0] === ':')
-        {
-            return $this->addDdElement($Line, $Block);
+        if (isset($block['closed'])) {
+            return null;
         }
-        else
-        {
-            if (isset($Block['interrupted']) && $Line['indent'] === 0)
-            {
-                return;
-            }
 
-            if (isset($Block['interrupted']))
-            {
-                $Block['dd']['handler']['function'] = 'textElements';
-                $Block['dd']['handler']['argument'] .= "\n\n";
-
-                $Block['dd']['handler']['destination'] = 'elements';
-
-                unset($Block['interrupted']);
-            }
-
-            $text = \substr($Line['body'], \min($Line['indent'], 4));
-
-            $Block['dd']['handler']['argument'] .= "\n" . $text;
-
-            return $Block;
+        if (\preg_match('/^<' . $block['name'] . '(?:[ ]*' . $this->regexHtmlAttribute . ')*[ ]*>/i', $line['text'])) {
+            // open
+            ++$block['depth'];
         }
+
+        if (\preg_match('/(.*?)<\/' . $block['name'] . '>[ ]*$/i', $line['text'], $matches)) {
+            // close
+            if ($block['depth'] > 0) {
+                --$block['depth'];
+            } else {
+                $block['closed'] = true;
+            }
+        }
+
+        if (isset($block['interrupted'])) {
+            $block['element']['rawHtml'] .= "\n";
+            unset($block['interrupted']);
+        }
+
+        $block['element']['rawHtml'] .= "\n".$line['body'];
+
+        return $block;
     }
 
-    #
-    # Header
-
-    protected function blockHeaderBase($Line)
+    /**
+     * Complete block markup
+     *
+     * @param array $block Current block
+     *
+     * @return array
+     *
+     * @since 1.0.0
+     */
+    protected function blockMarkupComplete(array $block) : array
     {
-        $Block = $this->blockHeaderParent($Line);
-
-        if ($Block !== null && \preg_match('/[ #]*{('.$this->regexAttribute.'+)}[ ]*$/', $Block['element']['handler']['argument'], $matches, \PREG_OFFSET_CAPTURE))
-        {
-            $attributeString = $matches[1][0];
-
-            $Block['element']['attributes'] = $this->parseAttributeData($attributeString);
-
-            $Block['element']['handler']['argument'] = \substr($Block['element']['handler']['argument'], 0, $matches[0][1]);
+        if (!isset($block['void'])) {
+            $block['element']['rawHtml'] = $this->processTag($block['element']['rawHtml']);
         }
 
-        return $Block;
+        return $block;
     }
 
-    #
-    # Markup
-
-    protected function blockMarkupBase($Line)
+    /**
+     * Handle footnote marker
+     *
+     * @param array{text:string, context:string, before:string} $excerpt Inline data
+     *
+     * @return null|array{extent:int, element:array}
+     *
+     * @since 1.0.0
+     */
+    protected function inlineFootnoteMarker(array $excerpt) : ?array
     {
-        if ($this->markupEscaped || $this->safeMode)
-        {
-            return;
+        if (\preg_match('/^\[\^(.+?)\]/', $excerpt['text'], $matches) !== 1) {
+            return null;
         }
 
-        if (\preg_match('/^<(\w[\w-]*)(?:[ ]*'.$this->regexHtmlAttribute.')*[ ]*(\/)?>/', $Line['text'], $matches))
-        {
-            $element = \strtolower($matches[1]);
+        $name = $matches[1];
 
-            if (\in_array($element, $this->textLevelElements))
-            {
-                return;
-            }
-
-            $Block = [
-                'name'    => $matches[1],
-                'depth'   => 0,
-                'element' => [
-                    'rawHtml'   => $Line['text'],
-                    'autobreak' => true,
-                ],
-            ];
-
-            $length    = \strlen($matches[0]);
-            $remainder = \substr($Line['text'], $length);
-
-            if (\trim($remainder) === '')
-            {
-                if (isset($matches[2]) || \in_array($matches[1], $this->voidElements))
-                {
-                    $Block['closed'] = true;
-                    $Block['void']   = true;
-                }
-            }
-            else
-            {
-                if (isset($matches[2]) || \in_array($matches[1], $this->voidElements))
-                {
-                    return;
-                }
-                if (\preg_match('/<\/'.$matches[1].'>[ ]*$/i', $remainder))
-                {
-                    $Block['closed'] = true;
-                }
-            }
-
-            return $Block;
-        }
-    }
-
-    protected function blockMarkupContinue($Line, array $Block)
-    {
-        if (isset($Block['closed']))
-        {
-            return;
+        if (!isset($this->definitionData['Footnote'][$name])) {
+            return null;
         }
 
-        if (\preg_match('/^<'.$Block['name'].'(?:[ ]*'.$this->regexHtmlAttribute.')*[ ]*>/i', $Line['text'])) # open
-        {
-            ++$Block['depth'];
+        ++$this->definitionData['Footnote'][$name]['count'];
+
+        if (!isset($this->definitionData['Footnote'][$name]['number'])) {
+            $this->definitionData['Footnote'][$name]['number'] = ++ $this->footnoteCount; // » &
         }
 
-        if (\preg_match('/(.*?)<\/'.$Block['name'].'>[ ]*$/i', $Line['text'], $matches)) # close
-        {
-            if ($Block['depth'] > 0)
-            {
-                --$Block['depth'];
-            }
-            else
-            {
-                $Block['closed'] = true;
-            }
-        }
-
-        if (isset($Block['interrupted']))
-        {
-            $Block['element']['rawHtml'] .= "\n";
-            unset($Block['interrupted']);
-        }
-
-        $Block['element']['rawHtml'] .= "\n".$Line['body'];
-
-        return $Block;
-    }
-
-    protected function blockMarkupComplete($Block)
-    {
-        if (!isset($Block['void']))
-        {
-            $Block['element']['rawHtml'] = $this->processTag($Block['element']['rawHtml']);
-        }
-
-        return $Block;
-    }
-
-    #
-    # Setext
-
-    protected function blockSetextHeaderBase($Line, array $Block = null)
-    {
-        $Block = $this->blockSetextHeaderParent($Line, $Block);
-
-        if ($Block !== null && \preg_match('/[ ]*{('.$this->regexAttribute.'+)}[ ]*$/', $Block['element']['handler']['argument'], $matches, \PREG_OFFSET_CAPTURE))
-        {
-            $attributeString = $matches[1][0];
-
-            $Block['element']['attributes'] = $this->parseAttributeData($attributeString);
-
-            $Block['element']['handler']['argument'] = \substr($Block['element']['handler']['argument'], 0, $matches[0][1]);
-        }
-
-        return $Block;
-    }
-
-    #
-    # Inline Elements
-    #
-
-    #
-    # Footnote Marker
-
-    protected function inlineFootnoteMarker($Excerpt)
-    {
-        if (\preg_match('/^\[\^(.+?)\]/', $Excerpt['text'], $matches))
-        {
-            $name = $matches[1];
-
-            if (!isset($this->DefinitionData['Footnote'][$name]))
-            {
-                return;
-            }
-
-            ++$this->DefinitionData['Footnote'][$name]['count'];
-
-            if (!isset($this->DefinitionData['Footnote'][$name]['number']))
-            {
-                $this->DefinitionData['Footnote'][$name]['number'] = ++ $this->footnoteCount; # » &
-            }
-
-            $Element = [
+        return [
+            'extent'  => \strlen($matches[0]),
+            'element' => [
                 'name'       => 'sup',
-                'attributes' => ['id' => 'fnref'.$this->DefinitionData['Footnote'][$name]['count'].':'.$name],
+                'attributes' => ['id' => 'fnref' . $this->definitionData['Footnote'][$name]['count'] . ':' . $name],
                 'element'    => [
                     'name'       => 'a',
-                    'attributes' => ['href' => '#fn:'.$name, 'class' => 'footnote-ref'],
-                    'text'       => $this->DefinitionData['Footnote'][$name]['number'],
+                    'attributes' => ['href' => '#fn:' . $name, 'class' => 'footnote-ref'],
+                    'text'       => $this->definitionData['Footnote'][$name]['number'],
                 ],
-            ];
-
-            return [
-                'extent'  => \strlen($matches[0]),
-                'element' => $Element,
-            ];
-        }
+            ],
+        ];
     }
 
-    private $footnoteCount = 0;
-
-    #
-    # ~
-    #
-
-    private $currentAbreviation;
-
-    private $currentMeaning;
-
-    protected function insertAbreviation(array $Element)
+    /**
+     * Insert/replace text with abbreviation
+     *
+     * @param array $element Element to insert abbreviation into
+     *
+     * @return array
+     *
+     * @since 1.0.0
+     */
+    protected function insertAbreviation(array $element) : array
     {
-        if (isset($Element['text']))
-        {
-            $Element['elements'] = self::pregReplaceElements(
-                '/\b'.\preg_quote($this->currentAbreviation, '/').'\b/',
+        if (!isset($element['text'])) {
+            return $element;
+        }
+
+        $element['elements'] = self::pregReplaceElements(
+            '/\b' . \preg_quote($this->currentAbreviation, '/') . '\b/',
+            [
                 [
-                    [
-                        'name'       => 'abbr',
-                        'attributes' => [
-                            'title' => $this->currentMeaning,
-                        ],
-                        'text' => $this->currentAbreviation,
+                    'name'       => 'abbr',
+                    'attributes' => [
+                        'title' => $this->currentMeaning,
                     ],
+                    'text' => $this->currentAbreviation,
                 ],
-                $Element['text']
+            ],
+            $element['text']
+        );
+
+        unset($element['text']);
+
+        return $element;
+    }
+
+    /**
+     * Inline elements in text
+     *
+     * @param string $text Text to search for inlinable elements
+     *
+     * @return array
+     *
+     * @since 1.0.0
+     */
+    protected function inlineText(string $text) : array
+    {
+        $inline = [
+            'extent'  => \strlen($text),
+            'element' => [],
+        ];
+
+        $inline['element']['elements'] = self::pregReplaceElements(
+            $this->breaksEnabled ? '/[ ]*+\n/' : '/(?:[ ]*+\\\\|[ ]{2,}+)\n/',
+            [
+                ['name' => 'br'],
+                ['text' => "\n"],
+            ],
+            $text
+        );
+
+        // Handle abbreviations
+        if (!isset($this->definitionData['Abbreviation'])) {
+            return $inline;
+        }
+
+        foreach ($this->definitionData['Abbreviation'] as $abbreviation => $meaning) {
+            $this->currentAbreviation = $abbreviation;
+            $this->currentMeaning     = $meaning;
+
+            $inline['element'] = $this->elementApplyRecursiveDepthFirst(
+                'insertAbreviation',
+                $inline['element']
             );
-
-            unset($Element['text']);
         }
 
-        return $Element;
+        return $inline;
     }
 
-    protected function inlineText($text)
+    /**
+     * Handle block list
+     *
+     * @param array $line  Line data
+     * @param array $block Current block
+     *
+     * @return array
+     *
+     * @since 1.0.0
+     */
+    protected function addDdElement(array $line, array $block) : array
     {
-        $Inline = $this->inlineTextParent($text);
-
-        if (isset($this->DefinitionData['Abbreviation']))
-        {
-            foreach ($this->DefinitionData['Abbreviation'] as $abbreviation => $meaning)
-            {
-                $this->currentAbreviation = $abbreviation;
-                $this->currentMeaning     = $meaning;
-
-                $Inline['element'] = $this->elementApplyRecursiveDepthFirst(
-                    [$this, 'insertAbreviation'],
-                    $Inline['element']
-                );
-            }
-        }
-
-        return $Inline;
-    }
-
-    #
-    # Util Methods
-    #
-
-    protected function addDdElement(array $Line, array $Block)
-    {
-        $text = \substr($Line['text'], 1);
+        $text = \substr($line['text'], 1);
         $text = \trim($text);
 
-        unset($Block['dd']);
+        unset($block['dd']);
 
-        $Block['dd'] = [
+        $block['dd'] = [
             'name'    => 'dd',
             'handler' => [
                 'function'    => 'lineElements',
@@ -2330,21 +3602,27 @@ class Markdown
             ],
         ];
 
-        if (isset($Block['interrupted']))
-        {
-            $Block['dd']['handler']['function'] = 'textElements';
+        if (isset($block['interrupted'])) {
+            $block['dd']['handler']['function'] = 'textElements';
 
-            unset($Block['interrupted']);
+            unset($block['interrupted']);
         }
 
-        $Block['element']['elements'] []= & $Block['dd'];
+        $block['element']['elements'][] = &$block['dd'];
 
-        return $Block;
+        return $block;
     }
 
-    protected function buildFootnoteElement()
+    /**
+     * Create footnotes
+     *
+     * @return array
+     *
+     * @since 1.0.0
+     */
+    protected function buildFootnoteElement() : array
     {
-        $Element = [
+        $element = [
             'name'       => 'div',
             'attributes' => ['class' => 'footnotes'],
             'elements'   => [
@@ -2356,25 +3634,19 @@ class Markdown
             ],
         ];
 
-        \uasort($this->DefinitionData['Footnote'], 'self::sortFootnotes');
+        \uasort($this->definitionData['Footnote'], [self::class, 'sortFootnotes']);
 
-        foreach ($this->DefinitionData['Footnote'] as $definitionId => $DefinitionData)
-        {
-            if (!isset($DefinitionData['number']))
-            {
+        foreach ($this->definitionData['Footnote'] as $definitionId => $definitionData) {
+            if (!isset($definitionData['number'])) {
                 continue;
             }
 
-            $text = $DefinitionData['text'];
-
-            $textElements = $this->textElements($text);
-
-            $numbers = \range(1, $DefinitionData['count']);
-
+            $text             = $definitionData['text'];
+            $textElements     = $this->textElements($text);
+            $numbers          = \range(1, $definitionData['count']);
             $backLinkElements = [];
 
-            foreach ($numbers as $number)
-            {
+            foreach ($numbers as $number) {
                 $backLinkElements[] = ['text' => ' '];
                 $backLinkElements[] = [
                     'name'       => 'a',
@@ -2393,8 +3665,7 @@ class Markdown
 
             $n = \count($textElements) - 1;
 
-            if ($textElements[$n]['name'] === 'p')
-            {
+            if ($textElements[$n]['name'] === 'p') {
                 $backLinkElements = \array_merge(
                     [
                         [
@@ -2414,752 +3685,495 @@ class Markdown
                         $backLinkElements
                     ),
                 ];
-            }
-            else
-            {
+            } else {
                 $textElements[] = [
                     'name'     => 'p',
                     'elements' => $backLinkElements,
                 ];
             }
 
-            $Element['elements'][1]['elements'] []= [
+            $element['elements'][1]['elements'][] = [
                 'name'       => 'li',
-                'attributes' => ['id' => 'fn:'.$definitionId],
+                'attributes' => ['id' => 'fn:' . $definitionId],
                 'elements'   => \array_merge(
                     $textElements
                 ),
             ];
         }
 
-        return $Element;
+        return $element;
     }
 
-    # ~
-
-    protected function parseAttributeDataBase($attributeString)
+    /**
+     * Handle markup/html.
+     *
+     * Ensures that html is well formed.
+     *
+     * This function is called recursively
+     *
+     * @param string $elementMarkup Markup
+     *
+     * @return string
+     *
+     * @since 1.0.0
+     */
+    protected function processTag(string $elementMarkup) : string
     {
-        $Data = [];
-
-        $attributes = \preg_split('/[ ]+/', $attributeString, - 1, \PREG_SPLIT_NO_EMPTY);
-
-        foreach ($attributes as $attribute)
-        {
-            if ($attribute[0] === '#')
-            {
-                $Data['id'] = \substr($attribute, 1);
-            }
-            else # "."
-            {
-                $classes []= \substr($attribute, 1);
-            }
-        }
-
-        if (isset($classes))
-        {
-            $Data['class'] = \implode(' ', $classes);
-        }
-
-        return $Data;
-    }
-
-    # ~
-
-    protected function processTag($elementMarkup) # recursive
-    {
-        # http://stackoverflow.com/q/1148928/200145
+        // http://stackoverflow.com/q/1148928/200145
         \libxml_use_internal_errors(true);
 
-        $DOMDocument = new \DOMDocument();
+        $dom = new \DOMDocument();
 
-        # http://stackoverflow.com/q/11309194/200145
+        // http://stackoverflow.com/q/11309194/200145
         $elementMarkup = \mb_convert_encoding($elementMarkup, 'HTML-ENTITIES', 'UTF-8');
 
-        # http://stackoverflow.com/q/4879946/200145
-        $DOMDocument->loadHTML($elementMarkup);
-        $DOMDocument->removeChild($DOMDocument->doctype);
-        $DOMDocument->replaceChild($DOMDocument->firstChild->firstChild->firstChild, $DOMDocument->firstChild);
+        // http://stackoverflow.com/q/4879946/200145
+        $dom->loadHTML($elementMarkup);
+
+        if ($dom->documentElement === null) {
+            return '';
+        }
+
+        if ($dom->doctype !== null) {
+            $dom->removeChild($dom->doctype);
+        }
+
+        if ($dom->firstChild !== null && $dom->firstChild->firstChild?->firstChild !== null) {
+            $dom->replaceChild($dom->firstChild->firstChild->firstChild, $dom->firstChild);
+        }
 
         $elementText = '';
 
-        if ($DOMDocument->documentElement->getAttribute('markdown') === '1')
-        {
-            foreach ($DOMDocument->documentElement->childNodes as $Node)
-            {
-                $elementText .= $DOMDocument->saveHTML($Node);
+        if ($dom->documentElement->getAttribute('markdown') === '1') {
+            foreach ($dom->documentElement->childNodes as $node) {
+                $elementText .= $dom->saveHTML($node);
             }
 
-            $DOMDocument->documentElement->removeAttribute('markdown');
+            $dom->documentElement->removeAttribute('markdown');
 
-            $elementText = "\n".$this->text($elementText)."\n";
-        }
-        else
-        {
-            foreach ($DOMDocument->documentElement->childNodes as $Node)
-            {
-                $nodeMarkup = $DOMDocument->saveHTML($Node);
+            $elementText = "\n" . $this->text($elementText) . "\n";
+        } else {
+            foreach ($dom->documentElement->childNodes as $node) {
+                $nodeMarkup = $dom->saveHTML($node);
+                if ($nodeMarkup === false) {
+                    $nodeMarkup = '';
+                }
 
-                if ($Node instanceof \DOMElement && ! \in_array($Node->nodeName, $this->textLevelElements))
-                {
-                    $elementText .= $this->processTag($nodeMarkup);
-                }
-                else
-                {
-                    $elementText .= $nodeMarkup;
-                }
+                $elementText .= $node instanceof \DOMElement && !\in_array($node->nodeName, $this->textLevelElements)
+                    ? $this->processTag($nodeMarkup)
+                    : $nodeMarkup;
             }
         }
 
-        # because we don't want for markup to get encoded
-        $DOMDocument->documentElement->nodeValue = 'placeholder\x1A';
+        // because we don't want for markup to get encoded
+        $dom->documentElement->nodeValue = 'placeholder\x1A';
 
-        $markup = $DOMDocument->saveHTML($DOMDocument->documentElement);
+        $markup = $dom->saveHTML($dom->documentElement);
+        if ($markup === false) {
+            return '';
+        }
 
         return \str_replace('placeholder\x1A', $elementText, $markup);
     }
 
-    # ~
-
-    protected function sortFootnotes($A, $B) # callback
+    /**
+     * Footnote sort function
+     *
+     * @param array $a First element
+     * @param array $b Second element
+     *
+     * @return int
+     *
+     * @since 1.0.0
+     */
+    protected function sortFootnotes(array $a, array $b) : int
     {
-        return $A['number'] - $B['number'];
+        return $a['number'] <=> $b['number'];
     }
 
-    #
-    # Fields
-    #
-
-    protected $regexAttribute = '(?:[#.][-\w]+[ ]*)';
-
-    protected function textElements($text)
+    /**
+     * Parse text elements to lines and then handle lines.
+     *
+     * @param string $text Text to parse
+     *
+     * @return array
+     *
+     * @since 1.0.0
+     */
+    protected function textElements(string $text) : array
     {
-        # make sure no definitions are set
-        $this->DefinitionData = [];
+        // make sure no definitions are set
+        $this->definitionData = [];
 
-        # standardize line breaks
+        // standardize line breaks
         $text = \str_replace(["\r\n", "\r"], "\n", $text);
 
-        # remove surrounding line breaks
+        // remove surrounding line breaks
         $text = \trim($text, "\n");
 
-        # split text into lines
+        // split text into lines
         $lines = \explode("\n", $text);
 
-        # iterate through lines to identify blocks
+        // iterate through lines to identify blocks
         return $this->linesElements($lines);
     }
 
-    #
-    # Setters
-    #
-
-    public function setBreaksEnabled($breaksEnabled)
+    /**
+     * Handle lines of elements
+     *
+     * @param string[] $lines Lines to parse
+     *
+     * @return array
+     *
+     * @since 1.0.0
+     */
+    protected function linesElements(array $lines) : array
     {
-        $this->breaksEnabled = $breaksEnabled;
+        $elements     = [];
+        $currentBlock = null;
 
-        return $this;
-    }
-
-    protected $breaksEnabled;
-
-    public function setMarkupEscaped($markupEscaped)
-    {
-        $this->markupEscaped = $markupEscaped;
-
-        return $this;
-    }
-
-    protected $markupEscaped;
-
-    public function setUrlsLinked($urlsLinked)
-    {
-        $this->urlsLinked = $urlsLinked;
-
-        return $this;
-    }
-
-    protected $urlsLinked = true;
-
-    public function setSafeMode($safeMode)
-    {
-        $this->safeMode = (bool) $safeMode;
-
-        return $this;
-    }
-
-    protected $safeMode;
-
-    public function setStrictMode($strictMode)
-    {
-        $this->strictMode = (bool) $strictMode;
-
-        return $this;
-    }
-
-    protected $strictMode;
-
-    protected $safeLinksWhitelist = [
-        'http://',
-        'https://',
-        'ftp://',
-        'ftps://',
-        'mailto:',
-        'tel:',
-        'data:image/png;base64,',
-        'data:image/gif;base64,',
-        'data:image/jpeg;base64,',
-        'irc:',
-        'ircs:',
-        'git:',
-        'ssh:',
-        'news:',
-        'steam:',
-    ];
-
-    #
-    # Lines
-    #
-
-    protected $BlockTypes = [
-        '#' => ['Header'],
-        '*' => ['Rule', 'List', 'Abbreviation'],
-        '+' => ['List'],
-        '-' => ['SetextHeader', 'Table', 'Rule', 'List'],
-        '0' => ['List'],
-        '1' => ['List'],
-        '2' => ['List'],
-        '3' => ['List'],
-        '4' => ['List'],
-        '5' => ['List'],
-        '6' => ['List'],
-        '7' => ['List'],
-        '8' => ['List'],
-        '9' => ['List'],
-        ':' => ['Table', 'DefinitionList'],
-        '<' => ['Comment', 'Markup'],
-        '=' => ['SetextHeader'],
-        '>' => ['Quote'],
-        '[' => ['Footnote', 'Reference'],
-        '_' => ['Rule'],
-        '`' => ['FencedCode'],
-        '|' => ['Table'],
-        '~' => ['FencedCode'],
-    ];
-
-    # ~
-
-    protected $unmarkedBlockTypes = [
-        'Code',
-    ];
-
-    #
-    # Blocks
-    #
-
-    protected function lines(array $lines)
-    {
-        return $this->elements($this->linesElements($lines));
-    }
-
-    protected function linesElements(array $lines)
-    {
-        $Elements     = [];
-        $CurrentBlock = null;
-
-        foreach ($lines as $line)
-        {
-            if (\rtrim($line) === '')
-            {
-                if (isset($CurrentBlock))
-                {
-                    $CurrentBlock['interrupted'] = (isset($CurrentBlock['interrupted'])
-                        ? $CurrentBlock['interrupted'] + 1 : 1
+        foreach ($lines as $line) {
+            if (\rtrim($line) === '') {
+                if (isset($currentBlock)) {
+                    $currentBlock['interrupted'] = (isset($currentBlock['interrupted'])
+                        ? $currentBlock['interrupted'] + 1 : 1
                     );
                 }
 
                 continue;
             }
 
-            while (($beforeTab = \strstr($line, "\t", true)) !== false)
-            {
+            while (($beforeTab = \strstr($line, "\t", true)) !== false) {
                 $shortage = 4 - \mb_strlen($beforeTab, 'utf-8') % 4;
 
                 $line = $beforeTab
                     . \str_repeat(' ', $shortage)
-                    . \substr($line, \strlen($beforeTab) + 1)
-                ;
+                    . \substr($line, \strlen($beforeTab) + 1);
             }
 
             $indent = \strspn($line, ' ');
+            $text   = $indent > 0 ? \substr($line, $indent) : $line;
+            $line   = ['body' => $line, 'indent' => $indent, 'text' => $text];
 
-            $text = $indent > 0 ? \substr($line, $indent) : $line;
+            if (isset($currentBlock['continuable'])) {
+                $methodName = 'block' . $currentBlock['type'] . 'Continue';
+                $block      = $this->{$methodName}($line, $currentBlock);
 
-            # ~
-
-            $Line = ['body' => $line, 'indent' => $indent, 'text' => $text];
-
-            # ~
-
-            if (isset($CurrentBlock['continuable']))
-            {
-                $methodName = 'block' . $CurrentBlock['type'] . 'Continue';
-                $Block      = $this->{$methodName}($Line, $CurrentBlock);
-
-                if (isset($Block)) {
-                    $CurrentBlock = $Block;
+                if (isset($block)) {
+                    $currentBlock = $block;
                     continue;
-                } elseif ($this->isBlockCompletable($CurrentBlock['type'])) {
-                    $methodName   = 'block' . $CurrentBlock['type'] . 'Complete';
-                    $CurrentBlock = $this->{$methodName}($CurrentBlock);
+                } elseif (\in_array($currentBlock['type'], self::COMPLETABLE)) {
+                    $methodName   = 'block' . $currentBlock['type'] . 'Complete';
+                    $currentBlock = $this->{$methodName}($currentBlock);
                 }
             }
 
-            # ~
-
-            $marker = $text[0];
-
-            # ~
-
+            $marker     = $text[0];
             $blockTypes = $this->unmarkedBlockTypes;
 
-            if (isset($this->BlockTypes[$marker]))
-            {
-                foreach ($this->BlockTypes[$marker] as $blockType)
-                {
-                    $blockTypes []= $blockType;
+            if (isset($this->blockTypes[$marker])) {
+                foreach ($this->blockTypes[$marker] as $blockType) {
+                    $blockTypes [] = $blockType;
                 }
             }
 
-            #
-            # ~
+            foreach ($blockTypes as $blockType) {
+                $block = $this->{"block{$blockType}"}($line, $currentBlock);
 
-            foreach ($blockTypes as $blockType)
-            {
-                $Block = $this->{"block{$blockType}"}($Line, $CurrentBlock);
+                if (isset($block)) {
+                    $block['type'] = $blockType;
 
-                if (isset($Block))
-                {
-                    $Block['type'] = $blockType;
-
-                    if (!isset($Block['identified']))
-                    {
-                        if (isset($CurrentBlock))
-                        {
-                            $Elements[] = $this->extractElement($CurrentBlock);
+                    if (!isset($block['identified'])) {
+                        if (isset($currentBlock)) {
+                            $elements[] = $this->extractElement($currentBlock);
                         }
 
-                        $Block['identified'] = true;
+                        $block['identified'] = true;
                     }
 
-                    if ($this->isBlockContinuable($blockType))
-                    {
-                        $Block['continuable'] = true;
+                    if (\in_array($blockType, self::CONTINUABLE)) {
+                        $block['continuable'] = true;
                     }
 
-                    $CurrentBlock = $Block;
+                    $currentBlock = $block;
 
                     continue 2;
                 }
             }
 
-            # ~
-
-            if (isset($CurrentBlock) && $CurrentBlock['type'] === 'Paragraph')
-            {
-                $Block = $this->paragraphContinue($Line, $CurrentBlock);
+            if (isset($currentBlock) && $currentBlock['type'] === 'Paragraph') {
+                $block = $this->paragraphContinue($line, $currentBlock);
             }
 
-            if (isset($Block))
-            {
-                $CurrentBlock = $Block;
-            }
-            else
-            {
-                if (isset($CurrentBlock))
-                {
-                    $Elements[] = $this->extractElement($CurrentBlock);
+            if (isset($block)) {
+                $currentBlock = $block;
+            } else {
+                if (isset($currentBlock)) {
+                    $elements[] = $this->extractElement($currentBlock);
                 }
 
-                $CurrentBlock = $this->paragraph($Line);
-
-                $CurrentBlock['identified'] = true;
-            }
-        }
-
-        # ~
-
-        if (isset($CurrentBlock['continuable']) && $this->isBlockCompletable($CurrentBlock['type']))
-        {
-            $methodName   = 'block' . $CurrentBlock['type'] . 'Complete';
-            $CurrentBlock = $this->{$methodName}($CurrentBlock);
-        }
-
-        # ~
-
-        if (isset($CurrentBlock))
-        {
-            $Elements[] = $this->extractElement($CurrentBlock);
-        }
-
-        # ~
-
-        return $Elements;
-    }
-
-    protected function extractElement(array $Component)
-    {
-        if (!isset($Component['element']))
-        {
-            if (isset($Component['markup']))
-            {
-                $Component['element'] = ['rawHtml' => $Component['markup']];
-            }
-            elseif (isset($Component['hidden']))
-            {
-                $Component['element'] = [];
-            }
-        }
-
-        return $Component['element'];
-    }
-
-    protected function isBlockContinuable($Type) : bool
-    {
-        return \method_exists($this, 'block' . $Type . 'Continue');
-    }
-
-    protected function isBlockCompletable($Type) : bool
-    {
-        return \method_exists($this, 'block' . $Type . 'Complete');
-    }
-
-    #
-    # Code
-
-    protected function blockCodeBase($Line, $Block = null)
-    {
-        if (isset($Block) && $Block['type'] === 'Paragraph' && !isset($Block['interrupted']))
-        {
-            return;
-        }
-
-        if ($Line['indent'] >= 4)
-        {
-            $text = \substr($Line['body'], 4);
-
-            return [
-                'element' => [
-                    'name'    => 'pre',
+                $currentBlock = [
+                    'type'    => 'Paragraph',
                     'element' => [
-                        'name' => 'code',
-                        'text' => $text,
+                        'name'    => 'p',
+                        'handler' => [
+                            'function'    => 'lineElements',
+                            'argument'    => $line['text'],
+                            'destination' => 'elements',
+                        ],
                     ],
-                ],
-            ];
-        }
-    }
+                ];
 
-    protected function blockCodeContinue($Line, $Block)
-    {
-        if ($Line['indent'] >= 4)
-        {
-            if (isset($Block['interrupted']))
-            {
-                $Block['element']['element']['text'] .= \str_repeat("\n", $Block['interrupted']);
-
-                unset($Block['interrupted']);
+                $currentBlock['identified'] = true;
             }
-
-            $Block['element']['element']['text'] .= "\n";
-
-            $text = \substr($Line['body'], 4);
-
-            $Block['element']['element']['text'] .= $text;
-
-            return $Block;
-        }
-    }
-
-    protected function blockCodeComplete($Block)
-    {
-        return $Block;
-    }
-
-    #
-    # Comment
-
-    protected function blockCommentBase($Line)
-    {
-        if ($this->markupEscaped || $this->safeMode)
-        {
-            return;
         }
 
-        if (\str_starts_with($Line['text'], '<!--'))
-        {
-            $Block = [
-                'element' => [
-                    'rawHtml'   => $Line['body'],
-                    'autobreak' => true,
-                ],
-            ];
+        if (isset($currentBlock['continuable']) && \in_array($currentBlock['type'], self::COMPLETABLE)) {
+            $methodName   = 'block' . $currentBlock['type'] . 'Complete';
+            $currentBlock = $this->{$methodName}($currentBlock);
+        }
 
-            if (\strpos($Line['text'], '-->') !== false)
-            {
-                $Block['closed'] = true;
+        if (isset($currentBlock)) {
+            $elements[] = $this->extractElement($currentBlock);
+        }
+
+        return $elements;
+    }
+
+    /**
+     * Extract element from block
+     *
+     * @param array $block Block
+     *
+     * @return array
+     *
+     * @since 1.0.0
+     */
+    protected function extractElement(array $block) : array
+    {
+        if (!isset($block['element'])) {
+            if (isset($block['markup'])) {
+                $block['element'] = ['rawHtml' => $block['markup']];
+            } elseif (isset($block['hidden'])) {
+                $block['element'] = [];
             }
-
-            return $Block;
         }
+
+        return $block['element'];
     }
 
-    protected function blockCommentContinue($Line, array $Block)
+    /**
+     * Continue block code
+     *
+     * @param array{body:string, indent:int, text:string} $line  Line data
+     * @param array                                       $block Current block
+     *
+     * @return null|array
+     *
+     * @since 1.0.0
+     */
+    protected function blockCodeContinue(array $line, array $block) : ?array
     {
-        if (isset($Block['closed']))
-        {
-            return;
-        }
-
-        $Block['element']['rawHtml'] .= "\n" . $Line['body'];
-
-        if (\strpos($Line['text'], '-->') !== false)
-        {
-            $Block['closed'] = true;
-        }
-
-        return $Block;
-    }
-
-    #
-    # Fenced Code
-
-    protected function blockFencedCodeBase($Line)
-    {
-        $marker = $Line['text'][0];
-
-        $openerLength = \strspn($Line['text'], $marker);
-
-        if ($openerLength < 3)
-        {
-            return;
-        }
-
-        $infostring = \trim(\substr($Line['text'], $openerLength), "\t ");
-
-        if (\strpos($infostring, '`') !== false)
-        {
-            return;
-        }
-
-        $Element = [
-            'name' => 'code',
-            'text' => '',
-        ];
-
-        if ($infostring !== '')
-        {
-            /**
-             * https://www.w3.org/TR/2011/WD-html5-20110525/elements.html#classes
-             * Every HTML element may have a class attribute specified.
-             * The attribute, if specified, must have a value that is a set
-             * of space-separated tokens representing the various classes
-             * that the element belongs to.
-             * [...]
-             * The space characters, for the purposes of this specification,
-             * are U+0020 SPACE, U+0009 CHARACTER TABULATION (tab),
-             * U+000A LINE FEED (LF), U+000C FORM FEED (FF), and
-             * U+000D CARRIAGE RETURN (CR).
-             */
-            $language = \substr($infostring, 0, \strcspn($infostring, " \t\n\f\r"));
-
-            $Element['attributes'] = ['class' => "language-{$language}"];
-        }
-
-        return [
-            'char'         => $marker,
-            'openerLength' => $openerLength,
-            'element'      => [
-                'name'    => 'pre',
-                'element' => $Element,
-            ],
-        ];
-    }
-
-    protected function blockFencedCodeContinue($Line, $Block)
-    {
-        if (isset($Block['complete']))
-        {
-            return;
-        }
-
-        if (isset($Block['interrupted']))
-        {
-            $Block['element']['element']['text'] .= \str_repeat("\n", $Block['interrupted']);
-
-            unset($Block['interrupted']);
-        }
-
-        if (($len = \strspn($Line['text'], $Block['char'])) >= $Block['openerLength']
-            && \rtrim(\substr($Line['text'], $len), ' ') === ''
-        ) {
-            $Block['element']['element']['text'] = \substr($Block['element']['element']['text'], 1);
-
-            $Block['complete'] = true;
-
-            return $Block;
-        }
-
-        $Block['element']['element']['text'] .= "\n" . $Line['body'];
-
-        return $Block;
-    }
-
-    protected function blockFencedCodeComplete($Block)
-    {
-        return $Block;
-    }
-
-    #
-    # Header
-
-    protected function blockHeaderParent($Line)
-    {
-        $level = \strspn($Line['text'], '#');
-
-        if ($level > 6)
-        {
-            return;
-        }
-
-        $text = \trim($Line['text'], '#');
-
-        if ($this->strictMode && isset($text[0]) && $text[0] !== ' ')
-        {
-            return;
-        }
-
-        $text = \trim($text, ' ');
-
-        return [
-            'element' => [
-                'name'    => 'h' . $level,
-                'handler' => [
-                    'function'    => 'lineElements',
-                    'argument'    => $text,
-                    'destination' => 'elements',
-                ],
-            ],
-        ];
-    }
-
-    #
-    # List
-
-    protected function blockListBase($Line, array $CurrentBlock = null)
-    {
-        list($name, $pattern) = $Line['text'][0] <= '-' ? ['ul', '[*+-]'] : ['ol', '[0-9]{1,9}+[.\)]'];
-
-        if (\preg_match('/^('.$pattern.'([ ]++|$))(.*+)/', $Line['text'], $matches))
-        {
-            $contentIndent = \strlen($matches[2]);
-
-            if ($contentIndent >= 5)
-            {
-                --$contentIndent;
-                $matches[1] = \substr($matches[1], 0, -$contentIndent);
-                $matches[3] = \str_repeat(' ', $contentIndent) . $matches[3];
-            }
-            elseif ($contentIndent === 0)
-            {
-                $matches[1] .= ' ';
-            }
-
-            $markerWithoutWhitespace = \strstr($matches[1], ' ', true);
-
-            $Block = [
-                'indent'  => $Line['indent'],
-                'pattern' => $pattern,
-                'data'    => [
-                    'type'       => $name,
-                    'marker'     => $matches[1],
-                    'markerType' => ($name === 'ul' ? $markerWithoutWhitespace : \substr($markerWithoutWhitespace, -1)),
-                ],
-                'element' => [
-                    'name'     => $name,
-                    'elements' => [],
-                ],
-            ];
-            $Block['data']['markerTypeRegex'] = \preg_quote($Block['data']['markerType'], '/');
-
-            if ($name === 'ol')
-            {
-                $listStart = \ltrim(\strstr($matches[1], $Block['data']['markerType'], true), '0') ?: '0';
-
-                if ($listStart !== '1')
-                {
-                    if (
-                        isset($CurrentBlock)
-                        && $CurrentBlock['type'] === 'Paragraph'
-                        && !isset($CurrentBlock['interrupted'])
-                    ) {
-                        return;
-                    }
-
-                    $Block['element']['attributes'] = ['start' => $listStart];
-                }
-            }
-
-            $Block['li'] = [
-                'name'    => 'li',
-                'handler' => [
-                    'function'    => 'li',
-                    'argument'    => empty($matches[3]) ? [] : [$matches[3]],
-                    'destination' => 'elements',
-                ],
-            ];
-
-            $Block['element']['elements'] []= & $Block['li'];
-
-            return $Block;
-        }
-    }
-
-    protected function blockListContinue($Line, array $Block)
-    {
-        if (isset($Block['interrupted']) && empty($Block['li']['handler']['argument']))
-        {
+        if ($line['indent'] < 4) {
             return null;
         }
 
-        $requiredIndent = ($Block['indent'] + \strlen($Block['data']['marker']));
+        if (isset($block['interrupted'])) {
+            $block['element']['element']['text'] .= \str_repeat("\n", $block['interrupted']);
 
-        if ($Line['indent'] < $requiredIndent
-            && (
-                (
-                    $Block['data']['type'] === 'ol'
-                    && \preg_match('/^[0-9]++'.$Block['data']['markerTypeRegex'].'(?:[ ]++(.*)|$)/', $Line['text'], $matches)
-                ) || (
-                    $Block['data']['type'] === 'ul'
-                    && \preg_match('/^'.$Block['data']['markerTypeRegex'].'(?:[ ]++(.*)|$)/', $Line['text'], $matches)
-                )
-            )
+            unset($block['interrupted']);
+        }
+
+        $block['element']['element']['text'] .= "\n";
+
+        $text = \substr($line['body'], 4);
+
+        $block['element']['element']['text'] .= $text;
+
+        return $block;
+    }
+
+    /**
+     * Complete block code
+     *
+     * @param array $block Current block
+     *
+     * @return array
+     *
+     * @since 1.0.0
+     */
+    protected function blockCodeComplete(array $block) : array
+    {
+        return $block;
+    }
+
+    /**
+     * Continue block code
+     *
+     * @param array{body:string, indent:int, text:string} $line  Line data
+     * @param array                                       $block Current block
+     *
+     * @return null|array
+     *
+     * @since 1.0.0
+     */
+    protected function blockCommentContinue(array $line, array $block) : ?array
+    {
+        if (isset($block['closed'])) {
+            return null;
+        }
+
+        $block['element']['rawHtml'] .= "\n" . $line['body'];
+
+        if (\strpos($line['text'], '-->') !== false) {
+            $block['closed'] = true;
+        }
+
+        return $block;
+    }
+
+    /**
+     * Continue block fenced code
+     *
+     * @param array{body:string, indent:int, text:string} $line  Line data
+     * @param array                                       $block Current block
+     *
+     * @return null|array
+     *
+     * @since 1.0.0
+     */
+    protected function blockFencedCodeContinue(array $line, array $block) : ?array
+    {
+        if (isset($block['complete'])) {
+            return null;
+        }
+
+        if (isset($block['interrupted'])) {
+            $block['element']['element']['text'] .= \str_repeat("\n", $block['interrupted']);
+
+            unset($block['interrupted']);
+        }
+
+        if (($len = \strspn($line['text'], $block['char'])) >= $block['openerLength']
+            && \rtrim(\substr($line['text'], $len), ' ') === ''
         ) {
-            if (isset($Block['interrupted']))
-            {
-                $Block['li']['handler']['argument'] []= '';
+            $block['element']['element']['text'] = \substr($block['element']['element']['text'], 1);
 
-                $Block['loose'] = true;
+            $block['complete'] = true;
 
-                unset($Block['interrupted']);
+            return $block;
+        }
+
+        $block['element']['element']['text'] .= "\n" . $line['body'];
+
+        return $block;
+    }
+
+    /**
+     * Complete block fenced code
+     *
+     * @param array $block Current block
+     *
+     * @return array
+     *
+     * @since 1.0.0
+     */
+    protected function blockFencedCodeComplete(array $block) : array
+    {
+        return $block;
+    }
+
+    /**
+     * Continue block spoiler
+     *
+     * @param array{body:string, indent:int, text:string} $line  Line data
+     * @param array                                       $block Current block
+     *
+     * @return null|array
+     *
+     * @since 1.0.0
+     */
+    protected function blockSpoilerContinue(array $line, array $block) : ?array
+    {
+        if (isset($block['complete'])) {
+            return null;
+        }
+
+        if (isset($block['interrupted'])) {
+            $block['element']['element']['text'] .= \str_repeat("\n", $block['interrupted']);
+
+            unset($block['interrupted']);
+        }
+
+        if (($len = \strspn($line['text'], $block['char'])) >= $block['openerLength']
+            && \rtrim(\substr($line['text'], $len), ' ') === ''
+        ) {
+            $block['element']['element']['text'] = \substr($block['element']['element']['text'], 1);
+
+            $block['complete'] = true;
+
+            return $block;
+        }
+
+        $block['element']['element']['elements'][1]['text'] .= "\n" . $line['body'];
+
+        return $block;
+    }
+
+    /**
+     * Complete block spoiler
+     *
+     * @param array $block Current block
+     *
+     * @return array
+     *
+     * @since 1.0.0
+     */
+    protected function blockSpoilerComplete(array $block) : array
+    {
+        return $block;
+    }
+
+    /**
+     * Continue block list
+     *
+     * @param array{body:string, indent:int, text:string} $line  Line data
+     * @param array                                       $block Current block
+     *
+     * @return null|array
+     *
+     * @since 1.0.0
+     */
+    protected function blockListContinue(array $line, array $block) : ?array
+    {
+        if (isset($block['interrupted']) && empty($block['li']['handler']['argument'])) {
+            return null;
+        }
+
+        $requiredIndent = ($block['indent'] + \strlen($block['data']['marker']));
+
+        if ($line['indent'] < $requiredIndent
+            && (($block['data']['type'] === 'ol'
+                && \preg_match('/^[0-9]++' . $block['data']['markerTypeRegex'] . '(?:[ ]++(.*)|$)/', $line['text'], $matches)
+            ) || ($block['data']['type'] === 'ul'
+                && \preg_match('/^' . $block['data']['markerTypeRegex'] . '(?:[ ]++(.*)|$)/', $line['text'], $matches)
+            ))
+        ) {
+            if (isset($block['interrupted'])) {
+                $block['li']['handler']['argument'][] = '';
+
+                $block['loose'] = true;
+
+                unset($block['interrupted']);
             }
 
-            unset($Block['li']);
+            unset($block['li']);
 
-            $text = isset($matches[1]) ? $matches[1] : '';
+            $text = $matches[1] ?? '';
 
-            $Block['indent'] = $Line['indent'];
+            $block['indent'] = $line['indent'];
 
-            $Block['li'] = [
+            $block['li'] = [
                 'name'    => 'li',
                 'handler' => [
                     'function'    => 'li',
@@ -3168,533 +4182,192 @@ class Markdown
                 ],
             ];
 
-            $Block['element']['elements'] []= & $Block['li'];
+            $block['element']['elements'][] = &$block['li'];
 
-            return $Block;
-        }
-        elseif ($Line['indent'] < $requiredIndent && $this->blockList($Line))
-        {
+            return $block;
+        } elseif ($line['indent'] < $requiredIndent && $this->blockList($line)) {
             return null;
         }
 
-        if ($Line['text'][0] === '[' && $this->blockReference($Line))
-        {
-            return $Block;
+        if ($line['text'][0] === '[' && $this->blockReference($line)) {
+            return $block;
         }
 
-        if ($Line['indent'] >= $requiredIndent)
-        {
-            if (isset($Block['interrupted']))
-            {
-                $Block['li']['handler']['argument'] []= '';
+        if ($line['indent'] >= $requiredIndent) {
+            if (isset($block['interrupted'])) {
+                $block['li']['handler']['argument'][] = '';
 
-                $Block['loose'] = true;
+                $block['loose'] = true;
 
-                unset($Block['interrupted']);
+                unset($block['interrupted']);
             }
 
-            $text = \substr($Line['body'], $requiredIndent);
+            $text = \substr($line['body'], $requiredIndent);
 
-            $Block['li']['handler']['argument'] []= $text;
+            $block['li']['handler']['argument'][] = $text;
 
-            return $Block;
+            return $block;
         }
 
-        if (!isset($Block['interrupted']))
-        {
-            $text = \preg_replace('/^[ ]{0,'.$requiredIndent.'}+/', '', $Line['body']);
+        if (!isset($block['interrupted'])) {
+            $text = \preg_replace('/^[ ]{0,' . $requiredIndent . '}+/', '', $line['body']);
 
-            $Block['li']['handler']['argument'] []= $text;
+            $block['li']['handler']['argument'][] = $text;
 
-            return $Block;
+            return $block;
         }
+
+        return null;
     }
 
-    protected function blockListComplete(array $Block)
+    /**
+     * Complete block list
+     *
+     * @param array $block Current block
+     *
+     * @return array
+     *
+     * @since 1.0.0
+     */
+    protected function blockListComplete(array $block) : array
     {
-        if (isset($Block['loose']))
-        {
-            foreach ($Block['element']['elements'] as &$li)
-            {
-                if (\end($li['handler']['argument']) !== '')
-                {
-                    $li['handler']['argument'] []= '';
-                }
+        if (!isset($block['loose'])) {
+            return $block;
+        }
+
+        foreach ($block['element']['elements'] as &$li) {
+            if (\end($li['handler']['argument']) !== '') {
+                $li['handler']['argument'][] = '';
             }
         }
 
-        return $Block;
+        return $block;
     }
 
-    #
-    # Quote
-
-    protected function blockQuoteBase($Line)
+    /**
+     * Continue block quote
+     *
+     * @param array{body:string, indent:int, text:string} $line  Line data
+     * @param array                                       $block Current block
+     *
+     * @return null|array
+     *
+     * @since 1.0.0
+     */
+    protected function blockQuoteContinue(array $line, array $block) : ?array
     {
-        if (\preg_match('/^>[ ]?+(.*+)/', $Line['text'], $matches))
-        {
-            return [
-                'element' => [
-                    'name'    => 'blockquote',
-                    'handler' => [
-                        'function'    => 'linesElements',
-                        'argument'    => (array) $matches[1],
-                        'destination' => 'elements',
-                    ],
-                ],
-            ];
+        if (isset($block['interrupted'])) {
+            return null;
         }
+
+        if ($line['text'][0] === '>' && \preg_match('/^>[ ]?+(.*+)/', $line['text'], $matches)) {
+            $block['element']['handler']['argument'][] = $matches[1];
+
+            return $block;
+        }
+
+        if (!isset($block['interrupted'])) {
+            $block['element']['handler']['argument'][] = $line['text'];
+
+            return $block;
+        }
+
+        return null;
     }
 
-    protected function blockQuoteContinue($Line, array $Block)
+    /**
+     * Continue block table
+     *
+     * @param array{body:string, indent:int, text:string} $line  Line data
+     * @param array                                       $block Current block
+     *
+     * @return null|array
+     *
+     * @since 1.0.0
+     */
+    protected function blockTableContinue(array $line, array $block) : ?array
     {
-        if (isset($Block['interrupted']))
-        {
-            return;
-        }
-
-        if ($Line['text'][0] === '>' && \preg_match('/^>[ ]?+(.*+)/', $Line['text'], $matches))
-        {
-            $Block['element']['handler']['argument'] []= $matches[1];
-
-            return $Block;
-        }
-
-        if (!isset($Block['interrupted']))
-        {
-            $Block['element']['handler']['argument'] []= $Line['text'];
-
-            return $Block;
-        }
-    }
-
-    #
-    # Rule
-
-    protected function blockRuleBase($Line)
-    {
-        $marker = $Line['text'][0];
-
-        if (\substr_count($Line['text'], $marker) >= 3 && \rtrim($Line['text'], " {$marker}") === '')
-        {
-            return [
-                'element' => [
-                    'name' => 'hr',
-                ],
-            ];
-        }
-    }
-
-    #
-    # Setext
-
-    protected function blockSetextHeaderParent($Line, array $Block = null)
-    {
-        if (!isset($Block) || $Block['type'] !== 'Paragraph' || isset($Block['interrupted']))
-        {
-            return;
-        }
-
-        if ($Line['indent'] < 4 && \rtrim(\rtrim($Line['text'], ' '), $Line['text'][0]) === '')
-        {
-            $Block['element']['name'] = $Line['text'][0] === '=' ? 'h1' : 'h2';
-
-            return $Block;
-        }
-    }
-
-    #
-    # Reference
-
-    protected function blockReferenceBase($Line)
-    {
-        if (\strpos($Line['text'], ']') !== false
-            && \preg_match('/^\[(.+?)\]:[ ]*+<?(\S+?)>?(?:[ ]+["\'(](.+)["\')])?[ ]*+$/', $Line['text'], $matches)
+        if (isset($block['interrupted'])
+            || (\count($block['alignments']) !== 1 && $line['text'][0] !== '|' && \strpos($line['text'], '|') === false)
         ) {
-            $id = \strtolower($matches[1]);
-
-            $Data = [
-                'url'   => UriFactory::build($matches[2]),
-                'title' => isset($matches[3]) ? $matches[3] : null,
-            ];
-
-            $this->DefinitionData['Reference'][$id] = $Data;
-
-            return [
-                'element' => [],
-            ];
-        }
-    }
-
-    #
-    # Table
-
-    protected function blockTableBase($Line, array $Block = null)
-    {
-        if (!isset($Block) || $Block['type'] !== 'Paragraph' || isset($Block['interrupted']))
-        {
-            return;
+            return null;
         }
 
-        if (
-            \strpos($Block['element']['handler']['argument'], '|') === false
-            && \strpos($Line['text'], '|') === false
-            && \strpos($Line['text'], ':') === false
-            || \strpos($Block['element']['handler']['argument'], "\n") !== false
-        ) {
-            return;
-        }
+        $elements = [];
 
-        if (\rtrim($Line['text'], ' -:|') !== '')
-        {
-            return;
-        }
+        $row = $line['text'];
 
-        $alignments = [];
+        $row = \trim($row);
+        $row = \trim($row, '|');
 
-        $divider = $Line['text'];
+        \preg_match_all('/(?:(\\\\[|])|[^|`]|`[^`]++`|`)++/', $row, $matches);
 
-        $divider = \trim($divider);
-        $divider = \trim($divider, '|');
+        $cells = \array_slice($matches[0], 0, \count($block['alignments']));
 
-        $dividerCells = \explode('|', $divider);
+        foreach ($cells as $index => $cell) {
+            $cell = \trim($cell);
 
-        foreach ($dividerCells as $dividerCell)
-        {
-            $dividerCell = \trim($dividerCell);
-
-            if ($dividerCell === '')
-            {
-                return;
-            }
-
-            $alignment = null;
-
-            if ($dividerCell[0] === ':')
-            {
-                $alignment = 'left';
-            }
-
-            if (\substr($dividerCell, - 1) === ':')
-            {
-                $alignment = $alignment === 'left' ? 'center' : 'right';
-            }
-
-            $alignments []= $alignment;
-        }
-
-        # ~
-
-        $HeaderElements = [];
-
-        $header = $Block['element']['handler']['argument'];
-
-        $header = \trim($header);
-        $header = \trim($header, '|');
-
-        $headerCells = \explode('|', $header);
-
-        if (\count($headerCells) !== \count($alignments))
-        {
-            return;
-        }
-
-        foreach ($headerCells as $index => $headerCell)
-        {
-            $headerCell = \trim($headerCell);
-
-            $HeaderElement = [
-                'name'    => 'th',
+            $element = [
+                'name'    => 'td',
                 'handler' => [
                     'function'    => 'lineElements',
-                    'argument'    => $headerCell,
+                    'argument'    => $cell,
                     'destination' => 'elements',
                 ],
             ];
 
-            if (isset($alignments[$index]))
-            {
-                $alignment = $alignments[$index];
-
-                $HeaderElement['attributes'] = [
-                    'style' => "text-align: {$alignment};",
+            if (isset($block['alignments'][$index])) {
+                $element['attributes'] = [
+                    'style' => 'text-align: ' . $block['alignments'][$index] . ';',
                 ];
             }
 
-            $HeaderElements []= $HeaderElement;
+            $elements [] = $element;
         }
 
-        # ~
-
-        $Block = [
-            'alignments' => $alignments,
-            'identified' => true,
-            'element'    => [
-                'name'     => 'table',
-                'elements' => [],
-            ],
-        ];
-
-        $Block['element']['elements'] []= [
-            'name' => 'thead',
-        ];
-
-        $Block['element']['elements'] []= [
-            'name'     => 'tbody',
-            'elements' => [],
-        ];
-
-        $Block['element']['elements'][0]['elements'] []= [
+        $element = [
             'name'     => 'tr',
-            'elements' => $HeaderElements,
+            'elements' => $elements,
         ];
 
-        return $Block;
+        $block['element']['elements'][1]['elements'][] = $element;
+
+        return $block;
     }
 
-    protected function blockTableContinue($Line, array $Block)
+    /**
+     * Continue block paragraph
+     *
+     * @param array{body:string, indent:int, text:string} $line  Line data
+     * @param array                                       $block Current block
+     *
+     * @return null|array
+     *
+     * @since 1.0.0
+     */
+    protected function paragraphContinue(array $line, array $block) : ?array
     {
-        if (isset($Block['interrupted']))
-        {
-            return;
+        if (isset($block['interrupted'])) {
+            return null;
         }
 
-        if (\count($Block['alignments']) === 1 || $Line['text'][0] === '|' || \strpos($Line['text'], '|'))
-        {
-            $Elements = [];
+        $block['element']['handler']['argument'] .= "\n".$line['text'];
 
-            $row = $Line['text'];
-
-            $row = \trim($row);
-            $row = \trim($row, '|');
-
-            \preg_match_all('/(?:(\\\\[|])|[^|`]|`[^`]++`|`)++/', $row, $matches);
-
-            $cells = \array_slice($matches[0], 0, \count($Block['alignments']));
-
-            foreach ($cells as $index => $cell)
-            {
-                $cell = \trim($cell);
-
-                $Element = [
-                    'name'    => 'td',
-                    'handler' => [
-                        'function'    => 'lineElements',
-                        'argument'    => $cell,
-                        'destination' => 'elements',
-                    ],
-                ];
-
-                if (isset($Block['alignments'][$index]))
-                {
-                    $Element['attributes'] = [
-                        'style' => 'text-align: ' . $Block['alignments'][$index] . ';',
-                    ];
-                }
-
-                $Elements []= $Element;
-            }
-
-            $Element = [
-                'name'     => 'tr',
-                'elements' => $Elements,
-            ];
-
-            $Block['element']['elements'][1]['elements'] []= $Element;
-
-            return $Block;
-        }
+        return $block;
     }
 
-    #
-    # ~
-    #
-
-    protected function paragraph($Line)
+    /**
+     * Handle link
+     *
+     * @param array{text:string, context:string, before:string} $excerpt Inline data
+     *
+     * @return null|array
+     *
+     * @since 1.0.0
+     */
+    protected function inlineLinkParent(array $excerpt) : ?array
     {
-        return [
-            'type'    => 'Paragraph',
-            'element' => [
-                'name'    => 'p',
-                'handler' => [
-                    'function'    => 'lineElements',
-                    'argument'    => $Line['text'],
-                    'destination' => 'elements',
-                ],
-            ],
-        ];
-    }
-
-    protected function paragraphContinue($Line, array $Block)
-    {
-        if (isset($Block['interrupted']))
-        {
-            return;
-        }
-
-        $Block['element']['handler']['argument'] .= "\n".$Line['text'];
-
-        return $Block;
-    }
-
-    #
-    # Inline Elements
-    #
-
-    protected $InlineTypes = [
-        '!'  => ['Image'],
-        '&'  => ['SpecialCharacter'],
-        '*'  => ['Emphasis'],
-        ':'  => ['Url'],
-        '<'  => ['UrlTag', 'EmailTag', 'Markup'],
-        '['  => ['FootnoteMarker', 'Link'],
-        '_'  => ['Emphasis'],
-        '`'  => ['Code'],
-        '~'  => ['Strikethrough'],
-        '\\' => ['EscapeSequence'],
-    ];
-
-    # ~
-
-    protected $inlineMarkerList = '!*_&[:<`~\\';
-
-    #
-    # ~
-    #
-
-    public function line($text, $nonNestables = [])
-    {
-        return $this->elements($this->lineElements($text, $nonNestables));
-    }
-
-    /*
-    protected function lineElements($text, $nonNestables = array())
-    {
-        # standardize line breaks
-        $text = str_replace(array("\r\n", "\r"), "\n", $text);
-
-        $Elements = array();
-
-        $nonNestables = (empty($nonNestables)
-            ? array()
-            : array_combine($nonNestables, $nonNestables)
-        );
-
-        # $excerpt is based on the first occurrence of a marker
-
-        while ($excerpt = strpbrk($text, $this->inlineMarkerList))
-        {
-            $marker = $excerpt[0];
-
-            $markerPosition = strlen($text) - strlen($excerpt);
-
-            $Excerpt = array('text' => $excerpt, 'context' => $text);
-
-            foreach ($this->InlineTypes[$marker] as $inlineType)
-            {
-                # check to see if the current inline type is nestable in the current context
-
-                if (isset($nonNestables[$inlineType]))
-                {
-                    continue;
-                }
-
-                $Inline = $this->{"inline$inlineType"}($Excerpt);
-
-                if ( !isset($Inline))
-                {
-                    continue;
-                }
-
-                # makes sure that the inline belongs to "our" marker
-
-                if (isset($Inline['position']) and $Inline['position'] > $markerPosition)
-                {
-                    continue;
-                }
-
-                # sets a default inline position
-
-                if ( !isset($Inline['position']))
-                {
-                    $Inline['position'] = $markerPosition;
-                }
-
-                # cause the new element to 'inherit' our non nestables
-
-
-                $Inline['element']['nonNestables'] = isset($Inline['element']['nonNestables'])
-                    ? array_merge($Inline['element']['nonNestables'], $nonNestables)
-                    : $nonNestables
-                ;
-
-                # the text that comes before the inline
-                $unmarkedText = substr($text, 0, $Inline['position']);
-
-                # compile the unmarked text
-                $InlineText = $this->inlineText($unmarkedText);
-                $Elements[] = $InlineText['element'];
-
-                # compile the inline
-                $Elements[] = $this->extractElement($Inline);
-
-                # remove the examined text
-                $text = substr($text, $Inline['position'] + $Inline['extent']);
-
-                continue 2;
-            }
-
-            # the marker does not belong to an inline
-
-            $unmarkedText = substr($text, 0, $markerPosition + 1);
-
-            $InlineText = $this->inlineText($unmarkedText);
-            $Elements[] = $InlineText['element'];
-
-            $text = substr($text, $markerPosition + 1);
-        }
-
-        $InlineText = $this->inlineText($text);
-        $Elements[] = $InlineText['element'];
-
-        foreach ($Elements as &$Element)
-        {
-            if ( !isset($Element['autobreak']))
-            {
-                $Element['autobreak'] = false;
-            }
-        }
-
-        return $Elements;
-    }
-    */
-
-    #
-    # ~
-    #
-
-    protected function inlineTextParent($text)
-    {
-        $Inline = [
-            'extent'  => \strlen($text),
-            'element' => [],
-        ];
-
-        $Inline['element']['elements'] = self::pregReplaceElements(
-            $this->breaksEnabled ? '/[ ]*+\n/' : '/(?:[ ]*+\\\\|[ ]{2,}+)\n/',
-            [
-                ['name' => 'br'],
-                ['text' => "\n"],
-            ],
-            $text
-        );
-
-        return $Inline;
-    }
-
-    protected function inlineLinkParent($Excerpt)
-    {
-        $Element = [
+        $element = [
             'name'    => 'a',
             'handler' => [
                 'function'    => 'lineElements',
@@ -3708,329 +4381,316 @@ class Markdown
             ],
         ];
 
-        $extent = 0;
+        $extent    = 0;
+        $remainder = $excerpt['text'];
 
-        $remainder = $Excerpt['text'];
-
-        if (\preg_match('/\[((?:[^][]++|(?R))*+)\]/', $remainder, $matches))
-        {
-            $Element['handler']['argument'] = $matches[1];
+        if (\preg_match('/\[((?:[^][]++|(?R))*+)\]/', $remainder, $matches)) {
+            $element['handler']['argument'] = $matches[1];
 
             $extent += \strlen($matches[0]);
 
             $remainder = \substr($remainder, $extent);
-        }
-        else
-        {
-            return;
+        } else {
+            return null;
         }
 
-        if (\preg_match('/^[(]\s*+((?:[^ ()]++|[(][^ )]+[)])++)(?:[ ]+("[^"]*+"|\'[^\']*+\'))?\s*+[)]/', $remainder, $matches))
-        {
-            $Element['attributes']['href'] = UriFactory::build($matches[1]);
+        if (\preg_match('/^[(]\s*+((?:[^ ()]++|[(][^ )]+[)])++)(?:[ ]+("[^"]*+"|\'[^\']*+\'))?\s*+[)]/', $remainder, $matches)) {
+            $element['attributes']['href'] = UriFactory::build($matches[1]);
 
-            if (isset($matches[2]))
-            {
-                $Element['attributes']['title'] = \substr($matches[2], 1, - 1);
+            if (isset($matches[2])) {
+                $element['attributes']['title'] = \substr($matches[2], 1, - 1);
             }
 
             $extent += \strlen($matches[0]);
-        }
-        else
-        {
-            if (\preg_match('/^\s*\[(.*?)\]/', $remainder, $matches))
-            {
-                $definition = \strlen($matches[1]) !== 0 ? $matches[1] : $Element['handler']['argument'];
+        } else {
+            if (\preg_match('/^\s*\[(.*?)\]/', $remainder, $matches)) {
+                $definition = \strlen($matches[1]) !== 0 ? $matches[1] : $element['handler']['argument'];
                 $definition = \strtolower($definition);
 
                 $extent += \strlen($matches[0]);
-            }
-            else
-            {
-                $definition = \strtolower($Element['handler']['argument']);
+            } else {
+                $definition = \strtolower($element['handler']['argument']);
             }
 
-            if (!isset($this->DefinitionData['Reference'][$definition]))
-            {
-                return;
+            if (!isset($this->definitionData['Reference'][$definition])) {
+                return null;
             }
 
-            $Definition = $this->DefinitionData['Reference'][$definition];
+            $definition = $this->definitionData['Reference'][$definition];
 
-            $Element['attributes']['href']  = $Definition['url'];
-            $Element['attributes']['title'] = $Definition['title'];
+            $element['attributes']['href']  = $definition['url'];
+            $element['attributes']['title'] = $definition['title'];
         }
 
         return [
             'extent'  => $extent,
-            'element' => $Element,
+            'element' => $element,
         ];
     }
 
-    protected function inlineSpecialCharacter($Excerpt)
+    /**
+     * Handle special character
+     *
+     * @param array{text:string, context:string, before:string} $excerpt Inline data
+     *
+     * @return null|array
+     *
+     * @since 1.0.0
+     */
+    protected function inlineSpecialCharacter(array $excerpt) : ?array
     {
-        if (\substr($Excerpt['text'], 1, 1) !== ' ' && \strpos($Excerpt['text'], ';') !== false
-            && \preg_match('/^&(#?+[0-9a-zA-Z]++);/', $Excerpt['text'], $matches)
+        if (\substr($excerpt['text'], 1, 1) !== ' ' && \strpos($excerpt['text'], ';') !== false
+            && \preg_match('/^&(#?+[0-9a-zA-Z]++);/', $excerpt['text'], $matches)
         ) {
             return [
                 'element' => ['rawHtml' => '&' . $matches[1] . ';'],
                 'extent'  => \strlen($matches[0]),
             ];
         }
+
+        return null;
     }
 
-    # ~
-
-    protected function unmarkedText($text)
+    /**
+     * Handle "handler"
+     *
+     * @param array $element Element to handle
+     *
+     * @return array
+     *
+     * @since 1.0.0
+     */
+    protected function handle(array $element) : array
     {
-        $Inline = $this->inlineText($text);
-        return $this->element($Inline['element']);
+        if (!isset($element['handler'])) {
+            return $element;
+        }
+
+        if (!isset($element['nonNestables'])) {
+            $element['nonNestables'] = [];
+        }
+
+        if (\is_string($element['handler'])) {
+            $function = $element['handler'];
+            $argument = $element['text'];
+            unset($element['text']);
+            $destination = 'rawHtml';
+        } else {
+            $function    = $element['handler']['function'];
+            $argument    = $element['handler']['argument'];
+            $destination = $element['handler']['destination'];
+        }
+
+        $element[$destination] = $this->{$function}($argument, $element['nonNestables']);
+
+        if ($destination === 'handler') {
+            $element = $this->handle($element);
+        }
+
+        unset($element['handler']);
+
+        return $element;
     }
 
-    #
-    # Handlers
-    #
-
-    protected function handle(array $Element)
+    /**
+     * Handle element recursively
+     *
+     * @param string|\Closure $closure Closure for handling element
+     * @param array           $element Element to handle
+     *
+     * @return array
+     *
+     * @since 1.0.0
+     */
+    protected function elementApplyRecursive(string|\Closure $closure, array $element) : array
     {
-        if (isset($Element['handler']))
-        {
-            if (!isset($Element['nonNestables']))
-            {
-                $Element['nonNestables'] = [];
+        $element = \is_string($closure) ? $this->{$closure}($element) : $closure($element);
+
+        if (isset($element['elements'])) {
+            foreach ($element['elements'] as &$e) {
+                $e = $this->elementApplyRecursive($closure, $e);
             }
+        } elseif (isset($element['element'])) {
+            $element['element'] = $this->elementApplyRecursive($closure, $element['element']);
+        }
 
-            if (\is_string($Element['handler']))
-            {
-                $function = $Element['handler'];
-                $argument = $Element['text'];
-                unset($Element['text']);
-                $destination = 'rawHtml';
+        return $element;
+    }
+
+    /**
+     * Handle element recursively
+     *
+     * @param string|\Closure $closure Closure for handling element
+     * @param array           $element Element to handle
+     *
+     * @return array
+     *
+     * @since 1.0.0
+     */
+    protected function elementApplyRecursiveDepthFirst(string|\Closure $closure, array $element) : array
+    {
+        if (isset($element['elements'])) {
+            foreach ($element['elements'] as &$e) {
+                $e = $this->elementApplyRecursiveDepthFirst($closure, $e);
             }
-            else
-            {
-                $function    = $Element['handler']['function'];
-                $argument    = $Element['handler']['argument'];
-                $destination = $Element['handler']['destination'];
+        } elseif (isset($element['element'])) {
+            foreach ($element['element'] as &$e) {
+                $e = $this->elementApplyRecursiveDepthFirst($closure, $e);
             }
-
-            $Element[$destination] = $this->{$function}($argument, $Element['nonNestables']);
-
-            if ($destination === 'handler')
-            {
-                $Element = $this->handle($Element);
-            }
-
-            unset($Element['handler']);
         }
 
-        return $Element;
+        return \is_string($closure) ? $this->{$closure}($element) : $closure($element);
     }
 
-    protected function handleElementRecursive(array $Element)
+    /**
+     * Render element
+     *
+     * @param array $element Element to render
+     *
+     * @return string
+     *
+     * @since 1.0.0
+     */
+    protected function element(array $element) : string
     {
-        return $this->elementApplyRecursive([$this, 'handle'], $Element);
-    }
-
-    protected function handleElementsRecursive(array $Elements)
-    {
-        return $this->elementsApplyRecursive([$this, 'handle'], $Elements);
-    }
-
-    protected function elementApplyRecursive($closure, array $Element)
-    {
-        $Element = $closure($Element);
-
-        if (isset($Element['elements']))
-        {
-            $Element['elements'] = $this->elementsApplyRecursive($closure, $Element['elements']);
-        }
-        elseif (isset($Element['element']))
-        {
-            $Element['element'] = $this->elementApplyRecursive($closure, $Element['element']);
+        if ($this->safeMode) {
+            $element = $this->sanitizeElement($element);
         }
 
-        return $Element;
-    }
+        // identity map if element has no handler
+        $element = $this->handle($element);
+        $hasName = isset($element['name']);
+        $markup  = '';
 
-    protected function elementApplyRecursiveDepthFirst($closure, array $Element)
-    {
-        if (isset($Element['elements']))
-        {
-            $Element['elements'] = $this->elementsApplyRecursiveDepthFirst($closure, $Element['elements']);
-        }
-        elseif (isset($Element['element']))
-        {
-            $Element['element'] = $this->elementsApplyRecursiveDepthFirst($closure, $Element['element']);
-        }
+        if ($hasName) {
+            $markup .= '<' . $element['name'];
 
-        return $closure($Element);
-    }
-
-    protected function elementsApplyRecursive($closure, array $Elements)
-    {
-        foreach ($Elements as &$Element)
-        {
-            $Element = $this->elementApplyRecursive($closure, $Element);
-        }
-
-        return $Elements;
-    }
-
-    protected function elementsApplyRecursiveDepthFirst($closure, array $Elements)
-    {
-        foreach ($Elements as &$Element)
-        {
-            $Element = $this->elementApplyRecursiveDepthFirst($closure, $Element);
-        }
-
-        return $Elements;
-    }
-
-    protected function element(array $Element)
-    {
-        if ($this->safeMode)
-        {
-            $Element = $this->sanitiseElement($Element);
-        }
-
-        # identity map if element has no handler
-        $Element = $this->handle($Element);
-
-        $hasName = isset($Element['name']);
-
-        $markup = '';
-
-        if ($hasName)
-        {
-            $markup .= '<' . $Element['name'];
-
-            if (isset($Element['attributes']))
-            {
-                foreach ($Element['attributes'] as $name => $value)
-                {
-                    if ($value === null)
-                    {
+            if (isset($element['attributes'])) {
+                foreach ($element['attributes'] as $name => $value) {
+                    if ($value === null) {
                         continue;
                     }
 
-                    $markup .= " {$name}=\"".self::escape($value).'"';
+                    $markup .= ' ' . $name . '="' . \htmlspecialchars((string) $value, \ENT_QUOTES, 'UTF-8') . '"';
                 }
             }
         }
 
         $permitRawHtml = false;
+        $text = null;
 
-        if (isset($Element['text']))
-        {
-            $text = $Element['text'];
-        }
-        // very strongly consider an alternative if you're writing an
-        // extension
-        elseif (isset($Element['rawHtml']))
-        {
-            $text = $Element['rawHtml'];
+        if (isset($element['text'])) {
+            $text = $element['text'];
+        } elseif (isset($element['rawHtml'])) {
+            // very strongly consider an alternative if you're writing an extension
+            $text = $element['rawHtml'];
 
-            $allowRawHtmlInSafeMode = isset($Element['allowRawHtmlInSafeMode']) && $Element['allowRawHtmlInSafeMode'];
-            $permitRawHtml          = !$this->safeMode || $allowRawHtmlInSafeMode;
+            $permitRawHtml = !$this->safeMode || ($element['allowRawHtmlInSafeMode'] ?? false);
         }
 
-        $hasContent = isset($text) || isset($Element['element']) || isset($Element['elements']);
+        $hasContent = isset($text) || isset($element['element']) || isset($element['elements']);
 
-        if ($hasContent)
-        {
+        if ($hasContent) {
             $markup .= $hasName ? '>' : '';
 
-            if (isset($Element['elements']))
-            {
-                $markup .= $this->elements($Element['elements']);
-            }
-            elseif (isset($Element['element']))
-            {
-                $markup .= $this->element($Element['element']);
+            if (isset($element['elements'])) {
+                $markup .= $this->elements($element['elements']);
+            } elseif (isset($element['element'])) {
+                $markup .= $this->element($element['element']);
             } elseif (!$permitRawHtml) {
-                $markup .= self::escape((string) $text, true);
-            }
-            else
-            {
+                $markup .= \htmlspecialchars((string) $text, \ENT_NOQUOTES, 'UTF-8');
+            } else {
                 $markup .= $text;
             }
 
-            $markup .= $hasName ? '</' . $Element['name'] . '>' : '';
-        }
-        elseif ($hasName)
-        {
+            $markup .= $hasName ? '</' . $element['name'] . '>' : '';
+        } elseif ($hasName) {
             $markup .= ' />';
         }
 
         return $markup;
     }
 
-    protected function elements(array $Elements) : string
+    /**
+     * Render elements
+     *
+     * @param array $elements Elements to render
+     *
+     * @return string
+     *
+     * @since 1.0.0
+     */
+    protected function elements(array $elements) : string
     {
-        $markup = '';
-
+        $markup    = '';
         $autoBreak = true;
 
-        foreach ($Elements as $Element)
-        {
-            if (empty($Element))
-            {
+        foreach ($elements as $element) {
+            if (empty($element)) {
                 continue;
             }
 
-            $autoBreakNext = (isset($Element['autobreak'])
-                ? $Element['autobreak'] : isset($Element['name'])
+            $autoBreakNext = (isset($element['autobreak'])
+                ? $element['autobreak'] : isset($element['name'])
             );
+
             // (autobreak === false) covers both sides of an element
             $autoBreak = $autoBreak ? $autoBreakNext : $autoBreak;
 
-            $markup .= ($autoBreak ? "\n" : '') . $this->element($Element);
+            $markup .= ($autoBreak ? "\n" : '') . $this->element($element);
             $autoBreak = $autoBreakNext;
         }
 
         return $markup . ($autoBreak ? "\n" : '');
     }
 
-    # ~
-
-    protected function li($lines)
+    /**
+     * Handle list
+     *
+     * @param string[] $lines Lines
+     *
+     * @return array
+     *
+     * @since 1.0.0
+     */
+    protected function li(array $lines) : array
     {
-        $Elements = $this->linesElements($lines);
+        $elements = $this->linesElements($lines);
 
-        if (! \in_array('', $lines)
-            && isset($Elements[0], $Elements[0]['name'])
-            && $Elements[0]['name'] === 'p'
+        if (!\in_array('', $lines)
+            && isset($elements[0], $elements[0]['name'])
+            && $elements[0]['name'] === 'p'
         ) {
-            unset($Elements[0]['name']);
+            unset($elements[0]['name']);
         }
 
-        return $Elements;
+        return $elements;
     }
 
-    #
-    # AST Convenience
-    #
-
     /**
-     * Replace occurrences $regexp with $Elements in $text. Return an array of
-     * elements representing the replacement.
+     * Replace occurrences $regexp with $elements in $text.
+     *
+     * @param string $regexp   Regex
+     * @param array  $elements Elements to replace
+     * @param string $text     Text to match against regex
+     *
+     * @return array
+     *
+     * @since 1.0.0
      */
-    protected static function pregReplaceElements($regexp, $Elements, $text)
+    protected static function pregReplaceElements(string $regexp, array $elements, string $text) : array
     {
         $newElements = [];
 
-        while (\preg_match($regexp, $text, $matches, \PREG_OFFSET_CAPTURE))
-        {
-            $offset = $matches[0][1];
+        while (\preg_match($regexp, $text, $matches, \PREG_OFFSET_CAPTURE)) {
+            $offset = (int) $matches[0][1];
             $before = \substr($text, 0, $offset);
             $after  = \substr($text, $offset + \strlen($matches[0][0]));
 
             $newElements[] = ['text' => $before];
 
-            foreach ($Elements as $Element)
-            {
-                $newElements[] = $Element;
+            foreach ($elements as $element) {
+                $newElements[] = $element;
             }
 
             $text = $after;
@@ -4041,165 +4701,68 @@ class Markdown
         return $newElements;
     }
 
-    #
-    # Deprecated Methods
-    #
-
-    public static function parse($text)
+    /**
+     * Sanitize element
+     *
+     * @param array $element Element to sanitize
+     *
+     * @return array
+     *
+     * @since 1.0.0
+     */
+    protected function sanitizeElement(array $element) : array
     {
-        $parsedown = new self();
-
-        return $parsedown->text($text);
-    }
-
-    protected function sanitiseElement(array $Element)
-    {
-        static $goodAttribute     = '/^[a-zA-Z0-9][a-zA-Z0-9-_]*+$/';
-        static $safeUrlNameToAtt  = [
+        static $goodAttribute    = '/^[a-zA-Z0-9][a-zA-Z0-9-_]*+$/';
+        static $safeUrlNameToAtt = [
             'a'   => 'href',
             'img' => 'src',
         ];
 
-        if (!isset($Element['name']))
-        {
-            unset($Element['attributes']);
-            return $Element;
+        if (!isset($element['name'])) {
+            unset($element['attributes']);
+
+            return $element;
         }
 
-        if (isset($safeUrlNameToAtt[$Element['name']]))
-        {
-            $Element = $this->filterUnsafeUrlInAttribute($Element, $safeUrlNameToAtt[$Element['name']]);
+        if (isset($safeUrlNameToAtt[$element['name']])) {
+            $element = $this->filterUnsafeUrlInAttribute($element, $safeUrlNameToAtt[$element['name']]);
         }
 
-        if (! empty($Element['attributes']))
-        {
-            foreach ($Element['attributes'] as $att => $val)
-            {
-                # filter out badly parsed attribute
-                if (! \preg_match($goodAttribute, $att))
-                {
-                    unset($Element['attributes'][$att]);
-                }
-                # dump onevent attribute
-                elseif (self::striAtStart($att, 'on'))
-                {
-                    unset($Element['attributes'][$att]);
+        if (!empty($element['attributes'])) {
+            foreach ($element['attributes'] as $att => $_) {
+                if (!\preg_match($goodAttribute, $att)) {
+                    // filter out badly parsed attribute
+                    unset($element['attributes'][$att]);
+                } elseif (\str_starts_with($att, 'on')) {
+                    // dump onevent attribute
+                    unset($element['attributes'][$att]);
                 }
             }
         }
 
-        return $Element;
+        return $element;
     }
 
-    protected function filterUnsafeUrlInAttribute(array $Element, $attribute)
+    /**
+     * Sanitize url in attribute
+     *
+     * @param array  $element   Element to sanitize
+     * @param string $attribute Attribute to sanitize
+     *
+     * @return array
+     *
+     * @since 1.0.0
+     */
+    protected function filterUnsafeUrlInAttribute(array $element, string $attribute) : array
     {
-        foreach ($this->safeLinksWhitelist as $scheme)
-        {
-            if (self::striAtStart($Element['attributes'][$attribute], $scheme))
-            {
-                return $Element;
+        foreach ($this->safeLinksWhitelist as $scheme) {
+            if (\str_starts_with($element['attributes'][$attribute], $scheme)) {
+                return $element;
             }
         }
 
-        $Element['attributes'][$attribute] = \str_replace(':', '%3A', $Element['attributes'][$attribute]);
+        $element['attributes'][$attribute] = \str_replace(':', '%3A', $element['attributes'][$attribute]);
 
-        return $Element;
+        return $element;
     }
-
-    #
-    # Static Methods
-    #
-
-    protected static function escape(string $text, bool $allowQuotes = false) : string
-    {
-        return \htmlspecialchars($text, $allowQuotes ? \ENT_NOQUOTES : \ENT_QUOTES, 'UTF-8');
-    }
-
-    protected static function striAtStart($string, $needle)
-    {
-        $len = \strlen($needle);
-
-        if ($len > \strlen($string))
-        {
-            return false;
-        }
-        else
-        {
-            return \strtolower(\substr($string, 0, $len)) === \strtolower($needle);
-        }
-    }
-
-    public static function instance($name = 'default')
-    {
-        if (isset(self::$instances[$name]))
-        {
-            return self::$instances[$name];
-        }
-
-        $instance = new static();
-
-        self::$instances[$name] = $instance;
-
-        return $instance;
-    }
-
-    private static $instances = [];
-
-    #
-    # Fields
-    #
-
-    protected $DefinitionData;
-
-    public const ID_ATTRIBUTE_DEFAULT = 'toc';
-
-    protected $tagToc = '[toc]';
-
-    protected $contentsListArray = [];
-
-    protected $contentsListString = '';
-
-    protected $firstHeadLevel = 0;
-
-    protected $isBlacklistInitialized = false;
-
-    protected $anchorDuplicates = [];
-
-    #
-    # Read-Only
-
-    protected $specialCharacters = [
-        '\\', '`', '*', '_', '{', '}', '[', ']', '(', ')', '>', '#', '+', '-', '.', '!', '|', '?', '"', "'", '<',
-    ];
-
-    protected $StrongRegex = [
-        '*' => '/^[*]{2}((?:\\\\\*|[^*]|[*][^*]*+[*])+?)[*]{2}(?![*])/s',
-    ];
-
-    protected $UnderlineRegex = [
-        '_' => '/^__((?:\\\\_|[^_]|_[^_]*+_)+?)__(?!_)/us',
-    ];
-
-    protected $EmRegex = [
-        '*' => '/^[*]((?:\\\\\*|[^*]|[*][*][^*]+?[*][*])+?)[*](?![*])/s',
-        '_' => '/^_((?:\\\\_|[^_]|__[^_]*__)+?)_(?!_)\b/us',
-    ];
-
-    protected $regexHtmlAttribute = '[a-zA-Z_:][\w:.-]*+(?:\s*+=\s*+(?:[^"\'=<>`\s]+|"[^"]*+"|\'[^\']*+\'))?+';
-
-    protected $voidElements = [
-        'area', 'base', 'br', 'col', 'command', 'embed', 'hr', 'img', 'input', 'link', 'meta', 'param', 'source',
-    ];
-
-    protected $textLevelElements = [
-        'a', 'br', 'bdo', 'abbr', 'blink', 'nextid', 'acronym', 'basefont',
-        'b', 'em', 'big', 'cite', 'small', 'spacer', 'listing',
-        'i', 'rp', 'del', 'code',          'strike', 'marquee',
-        'q', 'rt', 'ins', 'font',          'strong',
-        's', 'tt', 'kbd', 'mark',
-        'u', 'xm', 'sub', 'nobr',
-                   'sup', 'ruby',
-                   'var', 'span',
-                   'wbr', 'time',
-    ];
 }

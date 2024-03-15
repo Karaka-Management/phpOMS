@@ -1,8 +1,7 @@
 <?php declare(strict_types=1);
 
 return [
-  'ar' =>
-  [
+  'ar' => [
     0   => 'ا',
     1   => 'ل',
     2   => 'ال',

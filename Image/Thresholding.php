@@ -27,6 +27,16 @@ use phpOMS\Utils\ImageUtils;
 final class Thresholding
 {
     /**
+     * Constructor.
+     *
+     * @since 1.0.0
+     * @codeCoverageIgnore
+     */
+    private function __construct()
+    {
+    }
+
+    /**
      * Perform integral thresholding
      *
      * @param string $inPath  Image path to process

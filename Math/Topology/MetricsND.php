@@ -106,13 +106,13 @@ final class MetricsND
      */
     public static function cosine(array $a, array $b) : float
     {
-        if (($length = \count($a)) !== \count($b)) {
+        if (\count($a) !== \count($b)) {
             throw new InvalidDimensionException(\count($a) . 'x' . \count($b));
         }
 
         $dotProduct = 0;
-        for ($i = 0; $i < $length; ++$i) {
-            $dotProduct += $a[$i] * $b[$i];
+        foreach ($a as $id => $_) {
+            $dotProduct += $a[$id] * $b[$id];
         }
 
         $sumOfSquares = 0;

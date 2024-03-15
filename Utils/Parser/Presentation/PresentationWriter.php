@@ -121,20 +121,20 @@ class PresentationWriter
      */
     protected function displayPhpPresentation(PhpPresentation $oPHPPpt) : void
     {
-        $this->append('<li><span><i class="fa fa-folder-open"></i> PhpPresentation</span>');
+        $this->append('<li><span><i class="g-icon">folder_open</i> PhpPresentation</span>');
         $this->append('<ul>');
-        $this->append('<li><span class="shape" id="divPhpPresentation"><i class="fa fa-info-circle"></i> Info "PhpPresentation"</span></li>');
+        $this->append('<li><span class="shape" id="divPhpPresentation"><i class="g-icon">info</i> Info "PhpPresentation"</span></li>');
 
         foreach ($oPHPPpt->getAllSlides() as $oSlide) {
-            $this->append('<li><span><i class="fa fa-minus-square"></i> Slide</span>');
+            $this->append('<li><span><i class="g-icon">indeterminate_check_box</i> Slide</span>');
             $this->append('<ul>');
-            $this->append('<li><span class="shape" id="div' . $oSlide->getHashCode() . '"><i class="fa fa-info-circle"></i> Info "Slide"</span></li>');
+            $this->append('<li><span class="shape" id="div' . $oSlide->getHashCode() . '"><i class="g-icon">info</i> Info "Slide"</span></li>');
 
             foreach ($oSlide->getShapeCollection() as $oShape) {
                 if ($oShape instanceof Group) {
-                    $this->append('<li><span><i class="fa fa-minus-square"></i> Shape "Group"</span>');
+                    $this->append('<li><span><i class="g-icon">indeterminate_check_box</i> Shape "Group"</span>');
                     $this->append('<ul>');
-                    // $this->append('<li><span class="shape" id="div'.$oShape->getHashCode().'"><i class="fa fa-info-circle"></i> Info "Group"</span></li>');
+                    // $this->append('<li><span class="shape" id="div'.$oShape->getHashCode().'"><i class="g-icon">info</i> Info "Group"</span></li>');
                     foreach ($oShape->getShapeCollection() as $oShapeChild) {
                         $this->displayShape($oShapeChild);
                     }

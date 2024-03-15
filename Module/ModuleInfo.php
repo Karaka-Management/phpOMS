@@ -40,7 +40,7 @@ final class ModuleInfo
     /**
      * Info data.
      *
-     * @var array{name:array{id:int, internal:string, external:string}, category:string, vision:string, requirements:array, creator:array{name:string, website:string}, description:string, directory:string, dependencies:array<string, string>, providing:array<string, string>, load:array<int, array{pid:string[], type:int, for:string, file:string, from:string}>}|array
+     * @var array{name:array{id:int, internal:string, external:string}, category:string, vision:string, requirements:array, creator:array{name:string, website:string}, directory:string, dependencies:array<string, string>, providing:array<string, string>, load:array<int, array{pid:string[], type:int, for:string, file:string, from:string}>}|array
      * @since 1.0.0
      */
     private array $info = [];
@@ -86,7 +86,7 @@ final class ModuleInfo
 
         $contents = \file_get_contents($this->path);
 
-        /** @var array{name:array{id:int, internal:string, external:string}, category:string, vision:string, requirements:array, creator:array{name:string, website:string}, description:string, directory:string, dependencies:array<string, string>, providing:array<string, string>, load:array<int, array{pid:string[], type:int, for:string, file:string, from:string}>} $info */
+        /** @var array{name:array{id:int, internal:string, external:string}, category:string, vision:string, requirements:array, creator:array{name:string, website:string}, directory:string, dependencies:array<string, string>, providing:array<string, string>, load:array<int, array{pid:string[], type:int, for:string, file:string, from:string}>} $info */
         $info       = \json_decode($contents === false ? '[]' : $contents, true);
         $this->info = $info === false ? [] : $info;
     }
@@ -134,7 +134,7 @@ final class ModuleInfo
     /**
      * Get info data.
      *
-     * @return array{name:array{id:int, internal:string, external:string}, category:string, vision:string, requirements:array, creator:array{name:string, website:string}, description:string, directory:string, dependencies:array<string, string>, providing:array<string, string>, load:array<int, array{pid:string[], type:int, for:string, file:string, from:string}>}|array
+     * @return array{name:array{id:int, internal:string, external:string}, category:string, vision:string, requirements:array, creator:array{name:string, website:string}, directory:string, dependencies:array<string, string>, providing:array<string, string>, load:array<int, array{pid:string[], type:int, for:string, file:string, from:string}>}|array
      *
      * @since 1.0.0
      */

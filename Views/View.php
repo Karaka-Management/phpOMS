@@ -98,7 +98,7 @@ class View extends ViewAbstract
      *
      * @since 1.0.0
      */
-    public function __construct(L11nManager $l11n = null, RequestAbstract $request = null, ResponseAbstract $response = null)
+    public function __construct(?L11nManager $l11n = null, ?RequestAbstract $request = null, ?ResponseAbstract $response = null)
     {
         $this->l11nManager = $l11n ?? new L11nManager();
         $this->request     = $request;
@@ -201,7 +201,7 @@ class View extends ViewAbstract
      *
      * @since 1.0.0
      */
-    public function getText(string $translation, string $module = null, string $theme = null) : string
+    public function getText(string $translation, ?string $module = null, ?string $theme = null) : string
     {
         if ($module === null && $this->module === null) {
             $this->setModuleDynamically();
@@ -302,7 +302,7 @@ class View extends ViewAbstract
      *
      * @since 1.0.0
      */
-    public function getHtml(string $translation, string $module = null, string $theme = null) : string
+    public function getHtml(string $translation, ?string $module = null, ?string $theme = null) : string
     {
         return \htmlspecialchars($this->getText($translation, $module, $theme));
     }
@@ -317,7 +317,7 @@ class View extends ViewAbstract
      *
      * @since 1.0.0
      */
-    public function getNumeric(int | float | FloatInt $numeric, string $format = null) : string
+    public function getNumeric(int | float | FloatInt $numeric, ?string $format = null) : string
     {
         return $this->l11nManager->getNumeric($this->l11n, $numeric, $format);
     }
@@ -325,14 +325,14 @@ class View extends ViewAbstract
     /**
      * Print a percentage value
      *
-     * @param float       $percentage Percentage value to print
-     * @param null|string $format     Format type to use
+     * @param float|FloatInt $percentage Percentage value to print
+     * @param null|string    $format     Format type to use
      *
      * @return string
      *
      * @since 1.0.0
      */
-    public function getPercentage(float $percentage, string $format = null) : string
+    public function getPercentage(float | FloatInt $percentage, ?string $format = null) : string
     {
         return $this->l11nManager->getPercentage($this->l11n, $percentage, $format);
     }
@@ -351,8 +351,8 @@ class View extends ViewAbstract
      */
     public function getCurrency(
         int | float | Money | FloatInt $currency,
-        string $symbol = null,
-        string $format = null,
+        ?string $symbol = null,
+        ?string $format = null,
         int $divide = 1
     ) : string
     {
@@ -369,7 +369,7 @@ class View extends ViewAbstract
      *
      * @since 1.0.0
      */
-    public function getDateTime(\DateTimeInterface $datetime = null, string $format = null) : string
+    public function getDateTime(?\DateTimeInterface $datetime = null, ?string $format = null) : string
     {
         return $this->l11nManager->getDateTime($this->l11n, $datetime, $format);
     }

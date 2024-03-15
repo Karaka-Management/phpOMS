@@ -36,8 +36,8 @@ final class PermutationTest extends \PHPUnit\Framework\TestCase
         $permutations  = ['abc', 'acb', 'bac', 'bca', 'cab', 'cba'];
         $permutations2 = [['a', 'b', 'c'], ['a', 'c', 'b'], ['b', 'a', 'c'], ['b', 'c', 'a'], ['c', 'a', 'b'], ['c', 'b', 'a']];
 
-        self::assertEquals($permutations, Permutation::permut($arr));
-        self::assertEquals($permutations2, Permutation::permut($arr, [], false));
+        self::assertEquals($permutations, Permutation::permuteAll($arr));
+        self::assertEquals($permutations2, Permutation::permuteAll($arr, [], false));
     }
 
     /**
@@ -68,9 +68,9 @@ final class PermutationTest extends \PHPUnit\Framework\TestCase
      * @covers phpOMS\Utils\Permutation
      * @group framework
      */
-    public function testPermutate() : void
+    public function testPermute() : void
     {
-        self::assertEquals(['c', 'b', 'a'], Permutation::permutate(['a', 'b', 'c'], [2, 1, 1]));
+        self::assertEquals(['c', 'b', 'a'], Permutation::permuteByKey(['a', 'b', 'c'], [2, 1, 1]));
     }
 
     /**
@@ -82,6 +82,6 @@ final class PermutationTest extends \PHPUnit\Framework\TestCase
     {
         $this->expectException(\OutOfBoundsException::class);
 
-        Permutation::permutate('abc', [2, 1, 1, 6]);
+        Permutation::permuteByKey('abc', [2, 1, 1, 6]);
     }
 }

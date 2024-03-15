@@ -92,7 +92,7 @@ abstract class RequestAbstract implements MessageInterface
      *
      * @since 1.0.0
      */
-    public function getData(string $key = null, string $type = null) : mixed
+    public function getData(?string $key = null, ?string $type = null) : mixed
     {
         if ($key === null) {
             return $this->data;
@@ -220,6 +220,49 @@ abstract class RequestAbstract implements MessageInterface
      *
      * @param string $key Data key
      *
+     * @return null|\DateTime
+     *
+     * @since 1.0.0
+     */
+    public function getDataDateTimeFromTimestamp(string $key) : ?\DateTime
+    {
+        $key = \mb_strtolower($key);
+
+        if (empty($this->data[$key] ?? null)) {
+            return null;
+        }
+
+        $dt = new \DateTime();
+        $dt->setTimestamp((int) $this->data[$key]);
+
+        return $dt;
+    }
+
+    /**
+     * Get data.
+     *
+     * @param string $key Data key
+     *
+     * @return null|int
+     *
+     * @since 1.0.0
+     */
+    public function getDataTimestampFromDateTime(string $key) : ?int
+    {
+        $key = \mb_strtolower($key);
+
+        $timestamp = empty($this->data[$key] ?? null)
+            ? null
+            : (int) \strtotime((string) $this->data[$key]);
+
+        return $timestamp === false ? null : $timestamp;
+    }
+
+    /**
+     * Get data.
+     *
+     * @param string $key Data key
+     *
      * @return array
      *
      * @since 1.0.0
@@ -232,9 +275,7 @@ abstract class RequestAbstract implements MessageInterface
         }
 
         $json = \json_decode($this->data[$key], true); /** @phpstan-ignore-line */
-        if ($json === null) {
-            $json = $this->data[$key];
-        }
+        $json ??= $this->data[$key];
 
         return \is_array($json) ? $json : [$json];
     }
@@ -308,6 +349,24 @@ abstract class RequestAbstract implements MessageInterface
         return isset($this->data[$key])
             && $this->data[$key] !== ''
             && $this->data[$key] !== null;
+    }
+
+    /**
+     * Check if has data.
+     *
+     * The following empty values are considered as not set (null, '', 0)
+     *
+     * @param string $key Data key
+     *
+     * @return bool
+     *
+     * @since 1.0.0
+     */
+    public function hasKey(string $key) : bool
+    {
+        $key = \mb_strtolower($key);
+
+        return isset($this->data[$key]);
     }
 
     /**

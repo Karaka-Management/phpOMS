@@ -80,9 +80,9 @@ class GeneticOptimization
      *
      * @example See unit test for example use case
      *
-     * @param array<array> $population   List of all elements with ther parameters (i.e. list of "objects" as arrays).
+     * @param array<array> $population   List of all elements with their parameters (i.e. list of "objects" as arrays).
      *                                   The constraints are defined as array values.
-     * @param \Closure     $fitness      Fitness function calculates score/feasability of solution
+     * @param \Closure     $fitness      Fitness function calculates score/feasibility of solution
      * @param \Closure     $mutate       Mutation function to change the parameters of an "object"
      * @param \Closure     $crossover    Crossover function to exchange parameter values between "objects".
      *                                   Sometimes single parameters can be exchanged but sometimes interdependencies exist between parameters which is why this function is required.

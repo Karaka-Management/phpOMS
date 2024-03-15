@@ -25,6 +25,16 @@ namespace phpOMS\Math\Parser;
 final class Evaluator
 {
     /**
+     * Constructor.
+     *
+     * @since 1.0.0
+     * @codeCoverageIgnore
+     */
+    private function __construct()
+    {
+    }
+
+    /**
      * Evaluate function.
      *
      * @param string $equation Formula to evaluate
@@ -105,7 +115,7 @@ final class Evaluator
             '+' => ['precedence' => 2, 'order' => -1],
             '-' => ['precedence' => 2, 'order' => -1],
         ];
-        $output    = [];
+        $output = [];
 
         $equation = \str_replace(' ', '', $equation);
         $equation = \preg_split('/([\+\-\*\/\^\(\)])/', $equation, -1, \PREG_SPLIT_NO_EMPTY | \PREG_SPLIT_DELIM_CAPTURE);
@@ -118,7 +128,7 @@ final class Evaluator
             return $n !== '';
         });
 
-        foreach ($equation as $i => $token) {
+        foreach ($equation as $token) {
             if (\is_numeric($token)) {
                 $output[] = $token;
             } elseif (\strpbrk($token, '^*/+-') !== false) {
@@ -130,7 +140,7 @@ final class Evaluator
                         /*|| ($operators[$o1]['order'] === 1 && $operators[$o1]['precedence'] < $operators[$o2]['precedence'])*/)
                 ) {
                     // The commented part above is always FALSE because this equation always compares 4 < 2|3|4.
-                    // Only uncomment if the opperators array changes.
+                    // Only uncomment if the operators array changes.
                     $output[] = \array_pop($stack);
                     $o2       = \end($stack);
                 }

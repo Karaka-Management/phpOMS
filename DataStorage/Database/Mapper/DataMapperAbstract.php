@@ -57,12 +57,27 @@ abstract class DataMapperAbstract
     protected int $depth = 1;
 
     /**
+     * Mapper join alias.
+     *
+     * Mappers may have relations to other models (e.g. belongsTo, ownsOne) which can have other relations, ...
+     * If a mapper relates to the same model multiple times e.g. createdBy and lastModifiedBy we need to create
+     * separate joins because both could have different relations. However $depth only differentiates for
+     * different relation depth, not when the same table is referenced on the same depth/level.
+     *
+     * With the join alias we can reference the same table multiple times in a join!
+     *
+     * @var int
+     * @since 1.0.0
+     */
+    protected string $joinAlias = '';
+
+    /**
      * Relations which should be loaded
      *
      * @var array
      * @since 1.0.0
      */
-    protected array $with = [];
+    public array $with = [];
 
     /**
      * Sort order
@@ -144,6 +159,30 @@ abstract class DataMapperAbstract
     }
 
     /**
+     * Column name of the index
+     *
+     * @var string
+     * @since 1.0.0
+     */
+    protected string $indexedBy = '';
+
+    /**
+     * Set column name where the id is defined
+     *
+     * @param string $index Column name of the index
+     *
+     * @return self
+     *
+     * @since 1.0.0
+     */
+    public function indexedBy(string $index) : self
+    {
+        $this->indexedBy = $index;
+
+        return $this;
+    }
+
+    /**
      * Define a query which is merged with the internal query generation.
      *
      * @param Builder $query Query
@@ -152,7 +191,7 @@ abstract class DataMapperAbstract
      *
      * @since 1.0.0
      */
-    public function query(Builder $query = null) : self
+    public function query(?Builder $query = null) : self
     {
         $this->query = $query;
 

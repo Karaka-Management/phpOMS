@@ -74,4 +74,37 @@ final class Elo
             'elo' => (int) \max($eloNew, $this->MIN_ELO),
         ];
     }
+
+    /**
+     * Calculate an approximated win probability based on elo points.
+     *
+     * @param int  $elo1    Elo of the player we want to calculate the win probability for
+     * @param int  $elo2    Opponent elo
+     * @param bool $canDraw Is a draw possible?
+     *
+     * @return float
+     *
+     * @since 1.0.0
+     */
+    public function winProbability(int $elo1, int $elo2, bool $canDraw = false) : float
+    {
+        return $canDraw
+            ? -1.0 // @todo implement
+            : 1 / (1 + \pow(10, ($elo2 - $elo1) / 400));
+    }
+
+    /**
+     * Calculate an approximated draw probability based on elo points.
+     *
+     * @param int $elo1 Elo of the player we want to calculate the win probability for
+     * @param int $elo2 Opponent elo
+     *
+     * @return float
+     *
+     * @since 1.0.0
+     */
+    public function drawProbability(int $elo1, int $elo2) : float
+    {
+        return -1.0; // @todo implement
+    }
 }

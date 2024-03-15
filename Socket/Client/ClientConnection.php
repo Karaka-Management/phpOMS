@@ -48,7 +48,7 @@ class ClientConnection
      */
     public function __construct(Account $account, $socket)
     {
-        $this->id      = $account->getId();
+        $this->id      = $account->id;
         $this->account = $account;
         $this->socket  = $socket;
     }
@@ -108,7 +108,7 @@ class ClientConnection
      *
      * @return mixed
      *
-     * @sicne 1.0.0
+     * @since 1.0.0
      */
     public function getHandshake()
     {

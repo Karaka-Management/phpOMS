@@ -30,6 +30,10 @@ use phpOMS\Utils\StringUtils;
  * @license OMS License 2.0
  * @link    https://jingga.app
  * @since   1.0.0
+ *
+ * @performance The modules use the module name for identification in many places
+ *      where the module id should be used for performance reasons
+ *      https://github.com/Karaka-Management/Karaka/issues/159
  */
 abstract class ModuleAbstract
 {
@@ -108,7 +112,7 @@ abstract class ModuleAbstract
     /**
      * Auditor for logging.
      *
-     * @var null|ModuleAbstract
+     * @var null|\Modules\Auditor\Controller\ApiController
      * @since 1.0.0
      */
     public static ?ModuleAbstract $auditor = null;
@@ -120,13 +124,14 @@ abstract class ModuleAbstract
      *
      * @since 1.0.0
      */
-    public function __construct(ApplicationAbstract $app = null)
+    public function __construct(?ApplicationAbstract $app = null)
     {
         $this->app = $app ?? new class() extends ApplicationAbstract {};
 
         if (self::$auditor === null && static::ID !== 1006200000) {
             /** @phpstan-ignore-next-line */
             self::$auditor = $this->app->moduleManager?->get('Auditor', 'Api');
+            /** @phpstan-ignore-next-line */
             self::$auditor = self::$auditor === null || self::$auditor::ID === 0 ? null : self::$auditor;
         }
     }
@@ -286,6 +291,39 @@ abstract class ModuleAbstract
             'status'   => NotificationLevel::OK,
             'title'    => '',
             'message'  => $this->app->l11nManager->getText($response->header->l11n->language, '0', '0', 'SuccessfulCreate'),
+            'response' => $obj,
+        ];
+    }
+
+    /**
+     * Create standard model background process response.
+     *
+     * The response object contains the following data:
+     *
+     *  * status = Response status
+     *  * title = Response title (e.g. for frontend reporting)
+     *  * message = Response message (e.g. for frontend reporting)
+     *  * response = Response object (e.g. for validation/frontend reporting/form validation)
+     *
+     * @param RequestAbstract  $request  Request
+     * @param ResponseAbstract $response Response
+     * @param mixed            $obj      Response object
+     *
+     * @return void
+     *
+     * @since 1.0.0
+     */
+    public function createStandardBackgroundResponse(
+        RequestAbstract $request,
+        ResponseAbstract $response,
+        mixed $obj
+    ) : void
+    {
+        $response->header->set('Content-Type', MimeType::M_JSON . '; charset=utf-8', true);
+        $response->data[$request->uri->__toString()] = [
+            'status'   => NotificationLevel::INFO,
+            'title'    => '',
+            'message'  => $this->app->l11nManager->getText($response->header->l11n->language, '0', '0', 'SuccessfulBackground'),
             'response' => $obj,
         ];
     }
@@ -887,6 +925,30 @@ abstract class ModuleAbstract
     }
 
     /**
+     * Soft delete a model (only marks model as deleted)
+     *
+     *  1. Execute pre DB interaction event
+     *  2. Set model status to deleted in DB
+     *  3. Execute post DB interaction event (e.g. generates an audit log)
+     *
+     * @param int               $account Account id
+     * @param mixed             $obj     Response object
+     * @param string | \Closure $mapper  Object mapper
+     * @param string            $trigger Trigger for the event manager
+     * @param string            $ip      Ip
+     *
+     * @return void
+     *
+     * @question Consider to implement softDelete functionality
+     *      https://github.com/Karaka-Management/Karaka/issues/276
+     *
+     * @since 1.0.0
+     */
+    protected function softDeleteModel(int $account, mixed $obj, string | \Closure $mapper, string $trigger, string $ip) : void
+    {
+    }
+
+    /**
      * Create a model relation
      *
      *  1. Execute pre DB interaction event
@@ -915,6 +977,10 @@ abstract class ModuleAbstract
         string $ip
     ) : void
     {
+        if (empty($rel1) || empty($rel2)) {
+            return;
+        }
+
         $trigger = static::NAME . '-' . $trigger . '-relation-create';
 
         $this->app->eventManager->triggerSimilar('PRE:Module:' . $trigger, '', $rel1);
@@ -944,7 +1010,7 @@ abstract class ModuleAbstract
      *
      * @param int    $account Account id
      * @param mixed  $rel1    Object relation1
-     * @param mixed  $rel2    Object relation2
+     * @param mixed  $rel2    Object relation2 (null = remove all related to $rel1)
      * @param string $mapper  Object mapper
      * @param string $field   Relation field
      * @param string $trigger Trigger for the event manager
@@ -959,7 +1025,13 @@ abstract class ModuleAbstract
         $trigger = static::NAME . '-' . $trigger . '-relation-delete';
 
         $this->app->eventManager->triggerSimilar('PRE:Module:' . $trigger, '', $rel1);
-        $mapper::remover()->deleteRelationTable($field, \is_array($rel2) ? $rel2 : [$rel2], $rel1);
+        $mapper::remover()->deleteRelationTable(
+            $field,
+            $rel2 === null
+                ? null
+                : (\is_array($rel2) ? $rel2 : [$rel2]),
+            $rel1
+        );
 
         $data = [
             $account,

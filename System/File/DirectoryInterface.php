@@ -32,7 +32,7 @@ interface DirectoryInterface extends \ArrayAccess, \Iterator, ContainerInterface
     /**
      * Get node by name.
      *
-     * @param string $name File/direcotry name
+     * @param string $name File/directory name
      *
      * @return null|ContainerInterface
      *

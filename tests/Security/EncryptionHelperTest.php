@@ -49,8 +49,8 @@ final class EncryptionHelperTest extends \PHPUnit\Framework\TestCase
 
     public function testFileEncryption() : void
     {
-        if (\is_file(__DIR__ . '/encrytped.txt')) {
-            \unlink(__DIR__ . '/encrytped.txt');
+        if (\is_file(__DIR__ . '/encrypted.txt')) {
+            \unlink(__DIR__ . '/encrypted.txt');
         }
 
         if (\is_file(__DIR__ . '/decrypted.txt')) {
@@ -58,22 +58,22 @@ final class EncryptionHelperTest extends \PHPUnit\Framework\TestCase
         }
 
         $key = EncryptionHelper::createSharedKey();
-        self::assertTrue(EncryptionHelper::encryptFile(__DIR__ . '/plain.txt', __DIR__ . '/encrytped.txt', $key));
+        self::assertTrue(EncryptionHelper::encryptFile(__DIR__ . '/plain.txt', __DIR__ . '/encrypted.txt', $key));
 
         self::assertNotEquals(
             \file_get_contents(__DIR__ . '/plain.txt'),
-            \file_get_contents(__DIR__ . '/encrytped.txt')
+            \file_get_contents(__DIR__ . '/encrypted.txt')
         );
 
-        self::assertTrue(EncryptionHelper::decryptFile(__DIR__ . '/encrytped.txt', __DIR__ . '/decrypted.txt', $key));
+        self::assertTrue(EncryptionHelper::decryptFile(__DIR__ . '/encrypted.txt', __DIR__ . '/decrypted.txt', $key));
 
         self::assertEquals(
             \file_get_contents(__DIR__ . '/plain.txt'),
             \file_get_contents(__DIR__ . '/decrypted.txt')
         );
 
-        if (\is_file(__DIR__ . '/encrytped.txt')) {
-            \unlink(__DIR__ . '/encrytped.txt');
+        if (\is_file(__DIR__ . '/encrypted.txt')) {
+            \unlink(__DIR__ . '/encrypted.txt');
         }
 
         if (\is_file(__DIR__ . '/decrypted.txt')) {

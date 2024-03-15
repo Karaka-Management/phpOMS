@@ -36,14 +36,6 @@ abstract class BuilderAbstract
     protected bool $isReadOnly = false;
 
     /**
-     * Grammar.
-     *
-     * @var GrammarAbstract
-     * @since 1.0.0
-     */
-    protected GrammarAbstract $grammar;
-
-    /**
      * Database connection.
      *
      * @var ConnectionAbstract

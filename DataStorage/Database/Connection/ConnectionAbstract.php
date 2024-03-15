@@ -161,7 +161,7 @@ abstract class ConnectionAbstract implements ConnectionInterface
      *
      * @since 1.0.0
      */
-    abstract public function connect(array $dbdata = null) : void;
+    abstract public function connect(?array $dbdata = null) : void;
 
     /**
      * Object destructor.

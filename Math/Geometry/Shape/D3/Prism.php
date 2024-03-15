@@ -27,6 +27,16 @@ use phpOMS\Math\Geometry\Shape\D2\Polygon;
 final class Prism implements D3ShapeInterface
 {
     /**
+     * Constructor.
+     *
+     * @since 1.0.0
+     * @codeCoverageIgnore
+     */
+    private function __construct()
+    {
+    }
+
+    /**
      * Get volume of regular polygon prism by side length
      *
      * @param float $length Side length

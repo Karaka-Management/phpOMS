@@ -36,7 +36,7 @@ final class Head implements RenderableInterface
      * @var string
      * @since 1.0.0
      */
-    private string $language = ISO639x1Enum::_EN;
+    public string $language = ISO639x1Enum::_EN;
 
     /**
      * Page title.
@@ -167,7 +167,7 @@ final class Head implements RenderableInterface
      */
     public function render(mixed ...$data) : string
     {
-        $head  = '';
+        $head = '';
         $head .= $this->meta->render();
         $head .= $this->renderAssets();
         $head .= empty($this->style) ? '' : '<style>' . $this->renderStyle() . '</style>';

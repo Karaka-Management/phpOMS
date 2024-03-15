@@ -87,7 +87,7 @@ final class MemoryCF
      *
      * @since 1.0.0
      */
-    public function euclideanDistance(array $ranking, array $rankings) : array
+    private function euclideanDistance(array $ranking, array $rankings) : array
     {
         $distances = [];
         foreach ($rankings as $idx => $r) {
@@ -107,7 +107,7 @@ final class MemoryCF
      *
      * @since 1.0.0
      */
-    public function cosineDistance(array $ranking, array $rankings) : array
+    private function cosineDistance(array $ranking, array $rankings) : array
     {
         $distances = [];
         foreach ($rankings as $idx => $r) {
@@ -189,11 +189,9 @@ final class MemoryCF
         $anglePointer    = \array_keys($cosine);
 
         // Inspect items of the top n comparable users
-        for ($i = 1; $i <= $size; ++$i) {
-            $index = (int) ($i / 2) - 1;
-
-            $uId       = $i % 2 === 1 ? $distancePointer[$index] : $anglePointer[$index];
-            $distances = $i % 2 === 1 ? $euclidean : $cosine;
+        for ($i = 0; $i < $size; ++$i) {
+            $uId       = $i % 2 === 0 ? $distancePointer[$i] : $anglePointer[$i];
+            $distances = $i % 2 === 0 ? $euclidean : $cosine;
 
             foreach ($this->rankings[$uId] as $iId => $_) {
                 // Item is not already in dataset and not in historic dataset (we are only interested in new)

@@ -168,12 +168,12 @@ interface UriInterface
      *
      * @since 1.0.0
      */
-    public function getQuery(string $key = null) : string;
+    public function getQuery(?string $key = null) : string;
 
     /**
      * Get query array.
      *
-     * @return string[]
+     * @return array<int|string, null|string>
      *
      * @since 1.0.0
      */

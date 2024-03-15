@@ -17,7 +17,7 @@ namespace phpOMS\Module;
 use phpOMS\Log\FileLogger;
 
 /**
- * Module abstraction class.
+ * Mull module class.
  *
  * @package phpOMS\Module
  * @license OMS License 2.0

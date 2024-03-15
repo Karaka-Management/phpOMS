@@ -35,7 +35,7 @@ final class Correlation
     }
 
     /**
-     * Calculage bravais person correlation coefficient.
+     * Calculate bravais person correlation coefficient.
      *
      * Example: ([4, 5, 9, 1, 3], [4, 5, 9, 1, 3])
      *
@@ -54,7 +54,7 @@ final class Correlation
     }
 
     /**
-     * Calculage bravais person correlation coefficient.
+     * Calculate bravais person correlation coefficient.
      *
      * Example: ([4, 5, 9, 1, 3], [4, 5, 9, 1, 3])
      *

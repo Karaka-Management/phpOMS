@@ -1,0 +1,23 @@
+[
+    {
+        "uid": "c7614cff-3549-4a00-9152-d25cc1fe077d",
+        "status": "CONFIRMED",
+        "start": "20080212",
+        "end": "20080213",
+        "organizer": null,
+        "summary": "Abraham Lincoln",
+        "description": "Born February 12\\, 1809\\nSixteenth President (1861-1865)\\n\\n\\n\\nhttp://AmericanHistoryCalendar.com",
+        "location": "Hodgenville\\, Kentucky",
+        "geo": {
+            "lat": 37.5739497,
+            "lon": -85.7399606
+        },
+        "url": "http://americanhistorycalendar.com/peoplecalendar/1,328-abraham-lincoln",
+        "freq": "YEARLY",
+        "bymonth": "2",
+        "bymonthday": null,
+        "interval": "1",
+        "count": null,
+        "until": null
+    }
+]

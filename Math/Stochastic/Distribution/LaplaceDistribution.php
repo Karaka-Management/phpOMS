@@ -25,6 +25,16 @@ namespace phpOMS\Math\Stochastic\Distribution;
 final class LaplaceDistribution
 {
     /**
+     * Constructor.
+     *
+     * @since 1.0.0
+     * @codeCoverageIgnore
+     */
+    private function __construct()
+    {
+    }
+
+    /**
      * Get probability density function.
      *
      * @param float $x  Value x
@@ -129,7 +139,7 @@ final class LaplaceDistribution
     /**
      * Get moment generating function.
      *
-     * @param float $t  Valute t
+     * @param float $t  Value t
      * @param float $mu Mean
      * @param float $b  Value b
      *

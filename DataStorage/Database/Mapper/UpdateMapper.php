@@ -102,7 +102,7 @@ final class UpdateMapper extends DataMapperAbstract
      *
      * @since 1.0.0
      */
-    private function updateModel(object $obj, mixed $objId, \ReflectionClass &$refClass = null) : void
+    private function updateModel(object $obj, mixed $objId, ?\ReflectionClass &$refClass = null) : void
     {
         try {
             // Model doesn't have anything to update
@@ -115,7 +115,10 @@ final class UpdateMapper extends DataMapperAbstract
                 ->where($this->mapper::TABLE . '.' . $this->mapper::PRIMARYFIELD, '=', $objId);
 
             foreach ($this->mapper::COLUMNS as $column) {
-                $propertyName = \stripos($column['internal'], '/') !== false ? \explode('/', $column['internal'])[0] : $column['internal'];
+                $propertyName = \stripos($column['internal'], '/') !== false
+                    ? \explode('/', $column['internal'])[0]
+                    : $column['internal'];
+
                 if (isset($this->mapper::HAS_MANY[$propertyName])
                     || $column['internal'] === $this->mapper::PRIMARYFIELD
                     || (($column['readonly'] ?? false) && !isset($this->with[$propertyName]))
@@ -129,9 +132,7 @@ final class UpdateMapper extends DataMapperAbstract
                 $tValue    = null;
 
                 if ($isPrivate) {
-                    if ($refClass === null) {
-                        $refClass = new \ReflectionClass($obj);
-                    }
+                    $refClass ??= new \ReflectionClass($obj);
 
                     $property = $refClass->getProperty($propertyName);
                     $tValue   = $property->getValue($obj);
@@ -161,13 +162,26 @@ final class UpdateMapper extends DataMapperAbstract
                 }
             }
 
-            // @todo:
-            // @bug: Sqlite doesn't allow table_name.column_name in set queries for whatver reason.
-
             $sth = $this->db->con->prepare($query->toSql());
-            if ($sth !== false) {
-                $sth->execute();
+            if ($sth === false) {
+                throw new \Exception();
             }
+
+            $deadlock = 0;
+            do {
+                $repeat = false;
+                try {
+                    ++$deadlock;
+                    $sth->execute();
+                } catch (\Throwable $t) {
+                    if ($deadlock > 3 || $t->errorInfo[1] !== 1213) {
+                        throw $t;
+                    }
+
+                    \usleep(10000);
+                    $repeat = true;
+                }
+            } while ($repeat);
         } catch (\Throwable $t) {
             // @codeCoverageIgnoreStart
             \phpOMS\Log\FileLogger::getInstance()->error(
@@ -196,11 +210,48 @@ final class UpdateMapper extends DataMapperAbstract
         /** @var class-string<DataMapperFactory> $mapper */
         $mapper = $this->mapper::BELONGS_TO[$propertyName]['mapper'];
 
-        /** @var self $relMapper */
-        $relMapper        = $this->createRelationMapper($mapper::update(db: $this->db), $propertyName);
-        $relMapper->depth = $this->depth + 1;
+        if (isset($this->with[$propertyName])) {
+            /** @var self $relMapper */
+            $relMapper        = $this->createRelationMapper($mapper::update(db: $this->db), $propertyName);
+            $relMapper->depth = $this->depth + 1;
 
-        return $relMapper->execute($obj);
+            $id = $relMapper->execute($obj);
+
+            if (!isset($this->mapper::OWNS_ONE[$propertyName]['by'])) {
+                return $id;
+            }
+
+            if ($this->mapper::OWNS_ONE[$propertyName]['private'] ?? false) {
+                $refClass = new \ReflectionClass($obj);
+                $refProp  = $refClass->getProperty($this->mapper::OWNS_ONE[$propertyName]['by']);
+                $value    = $refProp->getValue($obj);
+            } else {
+                $value = $obj->{$this->mapper::OWNS_ONE[$propertyName]['by']};
+            }
+
+            return $value;
+        }
+
+        if (isset($this->mapper::BELONGS_TO[$propertyName]['by'])) {
+            // has by (obj is stored as a different model e.g. model = profile but reference/db is account)
+            if ($this->mapper::BELONGS_TO[$propertyName]['private'] ?? false) {
+                $refClass = new \ReflectionClass($obj);
+                $refProp  = $refClass->getProperty($this->mapper::BELONGS_TO[$propertyName]['by']);
+                $obj      = $refProp->getValue($obj);
+            } else {
+                $obj = $obj->{$this->mapper::BELONGS_TO[$propertyName]['by']};
+            }
+
+            if (!\is_object($obj)) {
+                return $obj;
+            }
+        }
+
+        $id = $mapper::getObjectId($obj);
+
+        return empty($id) && $mapper::isNullModel($obj)
+            ? null
+            : $id;
     }
 
     /**
@@ -218,11 +269,48 @@ final class UpdateMapper extends DataMapperAbstract
         /** @var class-string<DataMapperFactory> $mapper */
         $mapper = $this->mapper::OWNS_ONE[$propertyName]['mapper'];
 
-        /** @var self $relMapper */
-        $relMapper        = $this->createRelationMapper($mapper::update(db: $this->db), $propertyName);
-        $relMapper->depth = $this->depth + 1;
+        if (isset($this->with[$propertyName])) {
+            /** @var self $relMapper */
+            $relMapper        = $this->createRelationMapper($mapper::update(db: $this->db), $propertyName);
+            $relMapper->depth = $this->depth + 1;
 
-        return $relMapper->execute($obj);
+            $id = $relMapper->execute($obj);
+
+            if (!isset($this->mapper::OWNS_ONE[$propertyName]['by'])) {
+                return $id;
+            }
+
+            if ($this->mapper::OWNS_ONE[$propertyName]['private'] ?? false) {
+                $refClass = new \ReflectionClass($obj);
+                $refProp  = $refClass->getProperty($this->mapper::OWNS_ONE[$propertyName]['by']);
+                $value    = $refProp->getValue($obj);
+            } else {
+                $value = $obj->{$this->mapper::OWNS_ONE[$propertyName]['by']};
+            }
+
+            return $value;
+        }
+
+        if (isset($this->mapper::OWNS_ONE[$propertyName]['by'])) {
+            // has by (obj is stored as a different model e.g. model = profile but reference/db is account)
+            if ($this->mapper::OWNS_ONE[$propertyName]['private'] ?? false) {
+                $refClass = new \ReflectionClass($obj);
+                $refProp  = $refClass->getProperty($this->mapper::OWNS_ONE[$propertyName]['by']);
+                $obj      = $refProp->getValue($obj);
+            } else {
+                $obj = $obj->{$this->mapper::OWNS_ONE[$propertyName]['by']};
+            }
+
+            if (!\is_object($obj)) {
+                return $obj;
+            }
+        }
+
+        $id = $mapper::getObjectId($obj);
+
+        return empty($id) && $mapper::isNullModel($obj)
+            ? null
+            : $id;
     }
 
     /**
@@ -238,7 +326,7 @@ final class UpdateMapper extends DataMapperAbstract
      *
      * @since 1.0.0
      */
-    private function updateHasMany(object $obj, mixed $objId, \ReflectionClass &$refClass = null) : void
+    private function updateHasMany(object $obj, mixed $objId, ?\ReflectionClass &$refClass = null) : void
     {
         if (empty($this->with) || empty($this->mapper::HAS_MANY)) {
             return;
@@ -260,9 +348,7 @@ final class UpdateMapper extends DataMapperAbstract
             $values    = null;
 
             if ($isPrivate) {
-                if ($refClass === null) {
-                    $refClass = new \ReflectionClass($obj);
-                }
+                $refClass ??= new \ReflectionClass($obj);
 
                 $property = $refClass->getProperty($propertyName);
                 $values   = $property->getValue($obj);
@@ -346,7 +432,7 @@ final class UpdateMapper extends DataMapperAbstract
             $query = new Builder($this->db);
             $src   = $many['external'] ?? $many['mapper']::PRIMARYFIELD;
 
-            // @todo: what if a specific column name is defined instead of primaryField for the join? Fix, it should be stored in 'column'
+            // @todo what if a specific column name is defined instead of primaryField for the join? Fix, it should be stored in 'column'
             $query->select($many['table'] . '.' . $src)
                 ->from($many['table'])
                 ->where($many['table'] . '.' . $many['self'], '=', $objId);
@@ -375,7 +461,7 @@ final class UpdateMapper extends DataMapperAbstract
                 $this->mapper::remover(db: $this->db)->deleteRelationTable($member, $removes, $objId);
             }
 
-            if (!empty($adds)) {
+            if (!empty($adds) && isset($this->mapper::HAS_MANY[$member]['external'])) {
                 $this->mapper::writer(db: $this->db)->createRelationTable($member, $adds, $objId);
             }
         }

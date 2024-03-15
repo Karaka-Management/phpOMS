@@ -30,14 +30,24 @@ final class Illinois
      * @var float
      * @since 1.0.0
      */
-    public const EPSILON = 1e-6;
+    public const EPSILON = 4.88e-04;
+
+    /**
+     * Constructor.
+     *
+     * @since 1.0.0
+     * @codeCoverageIgnore
+     */
+    private function __construct()
+    {
+    }
 
     /**
      * Perform bisection to find the root of a function
      *
      * Iteratively searches for root between two points on the x-axis
      *
-     * @param Callable $func          Function defintion
+     * @param Callable $func          Function definition
      * @param float    $a             Start value
      * @param float    $b             End value
      * @param int      $maxIterations Maximum amount of iterations
@@ -51,7 +61,7 @@ final class Illinois
     public static function root(callable $func, float $a, float $b, int $maxIterations = 100) : float
     {
         if ($func($a) * $func($b) >= 0) {
-            throw new \Exception("Function values at endpoints must have opposite signs.");
+            throw new \Exception('Function values at endpoints must have opposite signs.');
         }
 
         $c         = $b;
@@ -66,9 +76,7 @@ final class Illinois
                 return $c;
             }
 
-            // @todo: c might be wrong, could be that if and else must be switched
-            // @see https://en.wikipedia.org/wiki/Regula_falsi#The_Illinois_algorithm
-            if ($y * $fa < 0) {
+            if ($fa < 0) {
                 $c = $sign === (int) ($y >= 0)
                     ? (0.5 * $a * $fb - $b * $fa) / (0.5 * $fb - $fa)
                     : ($a * $fb - $b * $fa) / ($fb - $fa);
@@ -87,6 +95,6 @@ final class Illinois
             ++$iteration;
         }
 
-        return ($a + $b) / 2;
+        return $c;
     }
 }

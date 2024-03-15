@@ -44,7 +44,7 @@ class File extends FileAbstract implements FileInterface
      *
      * @since 1.0.0
      */
-    public function __construct(HttpUri $uri, \FTP\Connection $con = null)
+    public function __construct(HttpUri $uri, ?\FTP\Connection $con = null)
     {
         $this->uri = $uri;
         $this->con = $con ?? self::ftpConnect($this->uri);
@@ -482,7 +482,7 @@ class File extends FileAbstract implements FileInterface
         $uri = clone $this->uri;
         $uri->setPath(self::parent($this->path));
 
-        return new Directory($uri, true, $this->con);
+        return $this->parent ?? new Directory($uri, true, $this->con);
     }
 
     /**
@@ -517,7 +517,19 @@ class File extends FileAbstract implements FileInterface
             return false;
         }
 
-        return self::copy($this->con, $this->path, $to, $overwrite);
+        $newParent = $this->findNode($to);
+
+        $state = self::copy($this->con, $this->path, $to, $overwrite);
+
+        /** @var null|Directory $newParent */
+        if ($newParent !== null) {
+            $uri = clone $this->uri;
+            $uri->setPath($to);
+
+            $newParent->addNode(new self($uri));
+        }
+
+        return $state;
     }
 
     /**
@@ -536,7 +548,9 @@ class File extends FileAbstract implements FileInterface
             return false;
         }
 
-        return self::move($this->con, $this->path, $to, $overwrite);
+        $state = $this->copyNode($to, $overwrite);
+
+        return $state && $this->deleteNode();
     }
 
     /**
@@ -550,6 +564,10 @@ class File extends FileAbstract implements FileInterface
     {
         if ($this->con === null) {
             return false;
+        }
+
+        if (isset($this->parent)) {
+            unset($this->parent->nodes[$this->getBasename()]);
         }
 
         return self::delete($this->con, $this->path);
@@ -692,6 +710,6 @@ class File extends FileAbstract implements FileInterface
         $uri = clone $this->uri;
         $uri->setPath(self::dirpath($this->path));
 
-        return new Directory($uri, true, $this->con);
+        return $this->parent ?? new Directory($uri, true, $this->con);
     }
 }

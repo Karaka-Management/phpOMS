@@ -22,8 +22,18 @@ namespace phpOMS\Utils\Formatter;
  * @link    https://jingga.app
  * @since   1.0.0
  */
-class HtmlFormatter
+final class HtmlFormatter
 {
+    /**
+     * Constructor.
+     *
+     * @since 1.0.0
+     * @codeCoverageIgnore
+     */
+    private function __construct()
+    {
+    }
+
     /**
      * Format html code
      *

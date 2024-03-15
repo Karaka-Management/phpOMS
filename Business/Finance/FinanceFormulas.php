@@ -278,7 +278,7 @@ final class FinanceFormulas
      *
      * @since 1.0.0
      */
-    public static function getAnnutiyPaymentFactorPV(float $r, int $n) : float
+    public static function getAnnuityPaymentFactorPV(float $r, int $n) : float
     {
         return $r / (1 - \pow(1 + $r, -$n));
     }
@@ -561,7 +561,7 @@ final class FinanceFormulas
      *
      * @since 1.0.0
      */
-    public static function getPrincipalOfCompundInterest(float $C, float $r, int $n) : float
+    public static function getPrincipalOfCompoundInterest(float $C, float $r, int $n) : float
     {
         return $C / (\pow(1 + $r, $n) - 1);
     }
@@ -577,7 +577,7 @@ final class FinanceFormulas
      *
      * @since 1.0.0
      */
-    public static function getPeriodsOfCompundInterest(float $P, float $C, float $r) : float
+    public static function getPeriodsOfCompoundInterest(float $P, float $C, float $r) : float
     {
         return \log($C / $P + 1) / \log(1 + $r);
     }

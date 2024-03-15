@@ -24,8 +24,18 @@ namespace phpOMS\Utils\IO\Zip;
  * @link    https://jingga.app
  * @since   1.0.0
  */
-class Gz implements ArchiveInterface
+final class Gz implements ArchiveInterface
 {
+    /**
+     * Constructor.
+     *
+     * @since 1.0.0
+     * @codeCoverageIgnore
+     */
+    private function __construct()
+    {
+    }
+
     /**
      * {@inheritdoc}
      */

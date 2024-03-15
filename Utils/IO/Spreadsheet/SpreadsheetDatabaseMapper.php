@@ -27,7 +27,7 @@ use phpOMS\Utils\StringUtils;
  * @link    https://jingga.app
  * @since   1.0.0
  */
-class SpreadsheetDatabaseMapper implements IODatabaseMapper
+final class SpreadsheetDatabaseMapper implements IODatabaseMapper
 {
     /**
      * Database connection
@@ -123,8 +123,8 @@ class SpreadsheetDatabaseMapper implements IODatabaseMapper
     {
         $sheet = new \PhpOffice\PhpSpreadsheet\Spreadsheet();
         $sheet->getProperties()
-            ->setCreator('Karaka')
-            ->setLastModifiedBy('Karaka')
+            ->setCreator('Jingga')
+            ->setLastModifiedBy('Jingga')
             ->setTitle('Database export')
             ->setSubject('Database export')
             ->setDescription('This document is automatically generated from a database export.');

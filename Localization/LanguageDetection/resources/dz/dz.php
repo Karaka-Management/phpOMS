@@ -1,8 +1,7 @@
 <?php declare(strict_types=1);
 
 return [
-  'dz' =>
-  [
+  'dz' => [
     0   => 'ས_',
     1   => '_ད',
     2   => '_ག',

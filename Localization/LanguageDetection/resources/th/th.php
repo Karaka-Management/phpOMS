@@ -1,8 +1,7 @@
 <?php declare(strict_types=1);
 
 return [
-  'th' =>
-  [
+  'th' => [
     0   => 'า',
     1   => 'ร',
     2   => 'น',

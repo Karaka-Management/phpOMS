@@ -25,6 +25,16 @@ namespace phpOMS\Math\Statistic\Forecast;
 final class Forecasts
 {
     /**
+     * Constructor.
+     *
+     * @since 1.0.0
+     * @codeCoverageIgnore
+     */
+    private function __construct()
+    {
+    }
+
+    /**
      * Get forecast/prediction interval.
      *
      * @param float $forecast          Forecast value
@@ -61,7 +71,7 @@ final class Forecasts
             $variance += \pow($sale - $avg, 2);
         }
 
-        $variance    /= $size;
+        $variance /= $size;
         $stdDeviation = \sqrt($variance);
 
         // Calculate the seasonal index for each period

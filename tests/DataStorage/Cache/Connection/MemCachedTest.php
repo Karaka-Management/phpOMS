@@ -63,9 +63,9 @@ final class MemCachedTest extends \PHPUnit\Framework\TestCase
         self::assertEquals(11211, $this->cache->getPort());
         self::assertEquals(
             [
-                'status'  => CacheStatus::OK,
-                'count'   => 0,
-                'size'    => 0,
+                'status' => CacheStatus::OK,
+                'count'  => 0,
+                'size'   => 0,
             ],
             $this->cache->stats()
         );
@@ -321,7 +321,7 @@ final class MemCachedTest extends \PHPUnit\Framework\TestCase
         self::assertTrue($this->cache->flushAll());
         self::assertNull($this->cache->get('key5'));
 
-        // Carefull memcached is dumb and keeps expired elements which were not acessed after flushing in stat
+        // Careful memcached is dumb and keeps expired elements which were not acessed after flushing in stat
         self::assertGreaterThanOrEqual(0, $this->cache->stats()['count']);
         self::assertGreaterThanOrEqual(0, $this->cache->stats()['size']);
     }

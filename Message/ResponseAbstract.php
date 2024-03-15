@@ -51,7 +51,7 @@ abstract class ResponseAbstract implements \JsonSerializable, MessageInterface
      *
      * @since 1.0.0
      */
-    public function getData(mixed $key, string $type = null) : mixed
+    public function getData(mixed $key = null, ?string $type = null) : mixed
     {
         if ($key === null) {
             return $this->data;
@@ -307,6 +307,25 @@ abstract class ResponseAbstract implements \JsonSerializable, MessageInterface
     public function set(mixed $key, mixed $response, bool $overwrite = false) : void
     {
         $this->data[$key] = $response;
+    }
+
+    /**
+     * Add response.
+     *
+     * @param mixed $key      Response id
+     * @param mixed $response Response to add
+     *
+     * @return void
+     *
+     * @since 1.0.0
+     */
+    public function add(mixed $key, mixed $response) : void
+    {
+        if (!isset($this->data[$key])) {
+            $this->data[$key] = [];
+        }
+
+        $this->data[$key][] = $response;
     }
 
     /**

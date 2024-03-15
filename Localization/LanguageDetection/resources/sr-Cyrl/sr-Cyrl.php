@@ -1,8 +1,7 @@
 <?php declare(strict_types=1);
 
 return [
-  'sr-Cyrl' =>
-  [
+  'sr-Cyrl' => [
     0   => 'а',
     1   => 'о',
     2   => 'и',

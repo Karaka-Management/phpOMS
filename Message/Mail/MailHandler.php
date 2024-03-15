@@ -18,8 +18,8 @@ declare(strict_types=1);
 
 namespace phpOMS\Message\Mail;
 
+use phpOMS\Security\Guard;
 use phpOMS\System\SystemUtils;
-use phpOMS\Utils\StringUtils;
 use phpOMS\Validation\Network\Email as EmailValidator;
 use phpOMS\Validation\Network\Hostname;
 
@@ -322,7 +322,7 @@ class MailHandler
         $header = \rtrim($mail->headerMime, " \r\n\t") . self::$LE . self::$LE;
 
         // CVE-2016-10033, CVE-2016-10045: Don't pass -f if characters will be escaped.
-        if (!empty($mail->sender) && StringUtils::isShellSafe($mail->sender)) {
+        if (!empty($mail->sender) && Guard::isShellSafe($mail->sender)) {
             $mailerToolFmt = $this->mailer === SubmitType::QMAIL
                 ? '%s -f%s'
                 : '%s -oi -f%s -t';
@@ -372,7 +372,7 @@ class MailHandler
         $params = null;
         if (!empty($mail->sender)
             && EmailValidator::isValid($mail->sender)
-            && StringUtils::isShellSafe($mail->sender)
+            && Guard::isShellSafe($mail->sender)
         ) {
             $params = \sprintf('-f%s', $mail->sender);
         }
@@ -397,7 +397,6 @@ class MailHandler
      *
      * @param string      $to     To
      * @param Email       $mail   Mail
-     * @param string      $body   Message Body
      * @param string      $header Additional Header(s)
      * @param null|string $params Params
      *
@@ -405,7 +404,7 @@ class MailHandler
      *
      * @since 1.0.0
      */
-    private function mailPassthru(string $to, Email $mail, string $header, string $params = null) : bool
+    private function mailPassthru(string $to, Email $mail, string $header, ?string $params = null) : bool
     {
         $subject = $mail->encodeHeader(\trim(\str_replace(["\r", "\n"], '', $mail->subject)));
 
@@ -477,19 +476,15 @@ class MailHandler
      *
      * @since 1.0.0
      */
-    public function smtpConnect(array $options = null) : bool
+    public function smtpConnect(?array $options = null) : bool
     {
-        if ($this->smtp === null) {
-            $this->smtp = new Smtp();
-        }
+        $this->smtp ??= new Smtp();
 
         if ($this->smtp->isConnected()) {
             return true;
         }
 
-        if ($options === null) {
-            $options = $this->smtpOptions;
-        }
+        $options ??= $this->smtpOptions;
 
         $this->smtp->timeout = $this->timeout;
         $this->smtp->doVerp  = $this->useVerp;

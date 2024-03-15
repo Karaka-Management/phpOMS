@@ -43,7 +43,7 @@ final class HeadTest extends \PHPUnit\Framework\TestCase
     {
         self::assertInstanceOf('\phpOMS\Model\Html\Meta', $this->head->meta);
         self::assertEquals('', $this->head->title);
-        self::assertEquals('en', $this->head->getLanguage());
+        self::assertEquals('en', $this->head->language);
         self::assertEquals([], $this->head->getStyleAll());
         self::assertEquals([], $this->head->getScriptAll());
         self::assertEquals('', $this->head->renderStyle());
@@ -84,17 +84,6 @@ final class HeadTest extends \PHPUnit\Framework\TestCase
     {
         $this->head->setScript('key', 'console.log("msg");');
         self::assertEquals(['key' => 'console.log("msg");'], $this->head->getScriptAll());
-    }
-
-    /**
-     * @testdox The language can be set and returned
-     * @covers phpOMS\Model\Html\Head
-     * @group framework
-     */
-    public function testLanguageInputOutput() : void
-    {
-        $this->head->setLanguage('en');
-        self::assertEquals('en', $this->head->getLanguage());
     }
 
     /**

@@ -54,7 +54,7 @@ abstract class TaskAbstract
      * @var int
      * @since 1.0.0
      */
-    protected int $status = TaskStatus::ACTIVE;
+    public int $status = TaskStatus::ACTIVE;
 
     /**
      * Next runtime
@@ -168,32 +168,6 @@ abstract class TaskAbstract
     public function setInterval(string $interval) : void
     {
         $this->interval = $interval;
-    }
-
-    /**
-     * Get status.
-     *
-     * @return int
-     *
-     * @since 1.0.0
-     */
-    public function getStatus() : int
-    {
-        return $this->status;
-    }
-
-    /**
-     * Set status.
-     *
-     * @param int $status Status
-     *
-     * @return void
-     *
-     * @since 1.0.0
-     */
-    public function setStatus(int $status) : void
-    {
-        $this->status = $status;
     }
 
     /**

@@ -1425,17 +1425,17 @@ final class Measurement
      *
      * @since 1.0.0
      */
-    public static function convertEnergy(float $value, string $from = EnergyPowerType::JOULS, string $to = EnergyPowerType::KILOWATT_HOUERS) : float
+    public static function convertEnergy(float $value, string $from = EnergyPowerType::JOULES, string $to = EnergyPowerType::KILOWATT_HOURS) : float
     {
         $value = self::normalizeEnergy($value, $from);
 
         switch ($to) {
-            case EnergyPowerType::JOULS:
+            case EnergyPowerType::JOULES:
                 break;
-            case EnergyPowerType::KILOWATT_HOUERS:
+            case EnergyPowerType::KILOWATT_HOURS:
                 $value *= 0.00000027778;
                 break;
-            case EnergyPowerType::MEGAWATT_HOUERS:
+            case EnergyPowerType::MEGAWATT_HOURS:
                 $value *= 0.00000000027778;
                 break;
             case EnergyPowerType::KILOTONS:
@@ -1447,7 +1447,7 @@ final class Measurement
             case EnergyPowerType::BTU:
                 $value *= 0.00094782;
                 break;
-            case EnergyPowerType::KILOJOULS:
+            case EnergyPowerType::KILOJOULES:
                 $value *= 0.0010000;
                 break;
             case EnergyPowerType::THERMEC:
@@ -1477,12 +1477,12 @@ final class Measurement
     private static function normalizeEnergy(float $value, string $from) : float
     {
         switch ($from) {
-            case EnergyPowerType::JOULS:
+            case EnergyPowerType::JOULES:
                 break;
-            case EnergyPowerType::KILOWATT_HOUERS:
+            case EnergyPowerType::KILOWATT_HOURS:
                 $value /= 0.00000027778;
                 break;
-            case EnergyPowerType::MEGAWATT_HOUERS:
+            case EnergyPowerType::MEGAWATT_HOURS:
                 $value /= 0.00000000027778;
                 break;
             case EnergyPowerType::KILOTONS:
@@ -1494,7 +1494,7 @@ final class Measurement
             case EnergyPowerType::BTU:
                 $value /= 0.00094782;
                 break;
-            case EnergyPowerType::KILOJOULS:
+            case EnergyPowerType::KILOJOULES:
                 $value /= 0.0010000;
                 break;
             case EnergyPowerType::THERMEC:

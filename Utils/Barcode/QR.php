@@ -613,7 +613,7 @@ class QR extends TwoDAbstract
             for ($j = 0; $j < 8; ++$j) {
                 $addr                                = $this->getNextPosition();
                 $this->frame[$addr['y']][$addr['x']] = 0x02 | (($bit & $code) !== 0);
-                $bit                               >>= 1;
+                $bit >>= 1;
             }
         }
 
@@ -685,8 +685,8 @@ class QR extends TwoDAbstract
 
             if ($this->dir < 0) {
                 if ($y < 0) {
-                    $y         = 0;
-                    $x        -= 2;
+                    $y = 0;
+                    $x -= 2;
                     $this->dir = 1;
 
                     if ($x === 6) {
@@ -695,8 +695,8 @@ class QR extends TwoDAbstract
                     }
                 }
             } elseif ($y === $w) {
-                $y         = $w - 1;
-                $x        -= 2;
+                $y = $w - 1;
+                $x -= 2;
                 $this->dir = -1;
 
                 if ($x === 6) {
@@ -746,8 +746,8 @@ class QR extends TwoDAbstract
             $ecc                                    = $this->encode_rs_char($rs, $this->rsblocks[$blockNo]['data'], $ecc);
             $this->rsblocks[$blockNo]['ecc']        = $ecc;
             $this->ecccode                          = \array_merge(\array_slice($this->ecccode, 0, $eccPos), $ecc);
-            $dataPos                               += $dl;
-            $eccPos                                += $el;
+            $dataPos += $dl;
+            $eccPos  += $el;
 
             ++$blockNo;
         }
@@ -773,8 +773,8 @@ class QR extends TwoDAbstract
             $ecc                                    = $this->encode_rs_char($rs, $this->rsblocks[$blockNo]['data'], $ecc);
             $this->rsblocks[$blockNo]['ecc']        = $ecc;
             $this->ecccode                          = \array_merge(\array_slice($this->ecccode, 0, $eccPos), $ecc);
-            $dataPos                               += $dl;
-            $eccPos                                += $el;
+            $dataPos += $dl;
+            $eccPos  += $el;
 
             ++$blockNo;
         }
@@ -830,7 +830,7 @@ class QR extends TwoDAbstract
         for ($i = 0; $i < 8; ++$i) {
             if (($format & 1) !== 0) {
                 $blacks += 2;
-                $v       = 0x85;
+                $v = 0x85;
             } else {
                 $v = 0x84;
             }
@@ -848,7 +848,7 @@ class QR extends TwoDAbstract
         for ($i = 0; $i < 7; ++$i) {
             if (($format & 1) !== 0) {
                 $blacks += 2;
-                $v       = 0x85;
+                $v = 0x85;
             } else {
                 $v = 0x84;
             }
@@ -1090,7 +1090,7 @@ class QR extends TwoDAbstract
         if (self::QR_FIND_FROM_RANDOM !== false) {
             $howManuOut = 8 - (self::QR_FIND_FROM_RANDOM % 9);
             for ($i = 0; $i < $howManuOut; ++$i) {
-                // @note: This is why the same content can result in different QR codes
+                // @note This is why the same content can result in different QR codes
                 $remPos = \array_rand($checked_masks, 1);
                 unset($checked_masks[$remPos]);
                 $checked_masks = \array_values($checked_masks);
@@ -1099,13 +1099,13 @@ class QR extends TwoDAbstract
 
         $bestMask = $frame;
         foreach ($checked_masks as $i) {
-            $mask     = \array_fill(0, $width, \str_repeat("\0", $width));
-            $demerit  = 0;
-            $blacks   = 0;
-            $blacks   = $this->makeMaskNo($i, $width, $frame, $mask);
-            $blacks  += $this->writeFormatInformation($width, $mask, $i, $level);
-            $blacks   = (int) (100 * $blacks / ($width * $width));
-            $demerit  = (int) ((int) (\abs($blacks - 50) / 5) * self::N4);
+            $mask    = \array_fill(0, $width, \str_repeat("\0", $width));
+            $demerit = 0;
+            $blacks  = 0;
+            $blacks  = $this->makeMaskNo($i, $width, $frame, $mask);
+            $blacks += $this->writeFormatInformation($width, $mask, $i, $level);
+            $blacks  = (int) (100 * $blacks / ($width * $width));
+            $demerit = (int) ((int) (\abs($blacks - 50) / 5) * self::N4);
             $demerit += $this->evaluateSymbol($width, $mask);
 
             if ($demerit < $minDemerit) {
@@ -1473,7 +1473,7 @@ class QR extends TwoDAbstract
         $ord0 = \ord('0');
 
         for ($i = 0; $i < $words; ++$i) {
-            $val  = (\ord($inputitem['data'][$i * 3  ]) - $ord0) * 100;
+            $val = (\ord($inputitem['data'][$i * 3  ]) - $ord0) * 100;
             $val += (\ord($inputitem['data'][$i * 3 + 1]) - $ord0) * 10;
             $val += (\ord($inputitem['data'][$i * 3 + 2]) - $ord0);
 
@@ -1484,7 +1484,7 @@ class QR extends TwoDAbstract
             $val                  = \ord($inputitem['data'][$words * 3]) - $ord0;
             $inputitem['bstream'] = $this->appendNum($inputitem['bstream'], 4, $val);
         } elseif (($inputitem['size'] - ($words * 3)) === 2) {
-            $val  = (\ord($inputitem['data'][$words * 3  ]) - $ord0) * 10;
+            $val = (\ord($inputitem['data'][$words * 3  ]) - $ord0) * 10;
             $val += (\ord($inputitem['data'][$words * 3 + 1]) - $ord0);
 
             $inputitem['bstream'] = $this->appendNum($inputitem['bstream'], 7, $val);
@@ -1509,7 +1509,7 @@ class QR extends TwoDAbstract
         $inputitem['bstream'] = $this->appendNum($inputitem['bstream'], $this->lengthIndicator(self::QR_MODE_AN, $version), $inputitem['size']);
 
         for ($i = 0; $i < $words; ++$i) {
-            $val  = $this->lookAnTable(\ord($inputitem['data'][$i * 2])) * 45;
+            $val = $this->lookAnTable(\ord($inputitem['data'][$i * 2])) * 45;
             $val += $this->lookAnTable(\ord($inputitem['data'][($i * 2) + 1]));
 
             $inputitem['bstream'] = $this->appendNum($inputitem['bstream'], 11, $val);
@@ -1537,7 +1537,7 @@ class QR extends TwoDAbstract
         $inputitem['bstream'] = $this->appendNum($inputitem['bstream'], 4, 0x4);
         $inputitem['bstream'] = $this->appendNum($inputitem['bstream'], $this->lengthIndicator(self::QR_MODE_8B, $version), $inputitem['size']);
 
-        for ($i=0; $i < $inputitem['size']; ++$i) {
+        for ($i = 0; $i < $inputitem['size']; ++$i) {
             $inputitem['bstream'] = $this->appendNum($inputitem['bstream'], 8, \ord($inputitem['data'][$i]));
         }
 
@@ -1900,9 +1900,9 @@ class QR extends TwoDAbstract
                     return 0;
             }
 
-            $l     = $this->lengthIndicator($item['mode'], $version);
-            $m     = 1 << $l;
-            $num   = (int) (($item['size'] + $m - 1) / $m);
+            $l   = $this->lengthIndicator($item['mode'], $version);
+            $m   = 1 << $l;
+            $num = (int) (($item['size'] + $m - 1) / $m);
             $bits += $num * (4 + $l);
         }
 
@@ -2006,7 +2006,7 @@ class QR extends TwoDAbstract
         foreach ($items as $key => $item) {
             $items[$key] = $this->encodeBitStream($item, $this->version);
             $bits        = \count($items[$key]['bstream']);
-            $total      += $bits;
+            $total += $bits;
         }
 
         return [$items, $total];
@@ -2073,7 +2073,7 @@ class QR extends TwoDAbstract
             return $this->appendNum($bstream, $maxbits - $bits, 0);
         }
 
-        $bits   += 4;
+        $bits += 4;
         $words   = (int) (($bits + 7) / 8);
         $padding = [];
         $padding = $this->appendNum($padding, $words * 8 - $bits + 4, 0);
@@ -2168,7 +2168,7 @@ class QR extends TwoDAbstract
 
         for ($i = 0; $i < $bits; ++$i) {
             $bstream[$i] = (($num & $mask) !== 0) ? 1 : 0;
-            $mask      >>= 1;
+            $mask >>= 1;
         }
 
         return $bstream;
@@ -2279,7 +2279,7 @@ class QR extends TwoDAbstract
 
             for ($j = 0; $j < 8; ++$j) {
                 $v <<= 1;
-                $v  |= $bstream[$p];
+                $v |= $bstream[$p];
                 ++$p;
             }
 
@@ -2291,7 +2291,7 @@ class QR extends TwoDAbstract
 
             for ($j = 0; $j < ($size & 7); ++$j) {
                 $v <<= 1;
-                $v  |= $bstream[$p];
+                $v |= $bstream[$p];
                 ++$p;
             }
 
@@ -2580,7 +2580,7 @@ class QR extends TwoDAbstract
             for ($x = 0; $x < 6; ++$x) {
                 for ($y = 0; $y < 3; ++$y) {
                     $frame[($width - 11) + $y][$x] = \chr(0x88 | ($v & 1));
-                    $v                           >>= 1;
+                    $v >>= 1;
                 }
             }
 
@@ -2588,7 +2588,7 @@ class QR extends TwoDAbstract
             for ($y = 0; $y < 6; ++$y) {
                 for ($x = 0; $x < 3; ++$x) {
                     $frame[$y][$x + ($width - 11)] = \chr(0x88 | ($v & 1));
-                    $v                           >>= 1;
+                    $v >>= 1;
                 }
             }
         }
@@ -2659,7 +2659,7 @@ class QR extends TwoDAbstract
     {
         while ($x >= $rs['nn']) {
             $x -= $rs['nn'];
-            $x  = ($x >> $rs['mm']) + ($x & $rs['nn']);
+            $x = ($x >> $rs['mm']) + ($x & $rs['nn']);
         }
 
         return $x;
@@ -2693,8 +2693,8 @@ class QR extends TwoDAbstract
         $rs['index_of'] = \array_fill(0, ($rs['nn'] + 1), 0);
 
         // PHP style macro replacement ;)
-        $NN =& $rs['nn'];
-        $A0 =& $NN;
+        $NN = & $rs['nn'];
+        $A0 = & $NN;
 
         // Generate Galois field lookup tables
         $rs['index_of'][0]   = $A0; // log(zero) = -inf
@@ -2704,7 +2704,7 @@ class QR extends TwoDAbstract
         for ($i = 0; $i < $rs['nn']; ++$i) {
             $rs['index_of'][$sr] = $i;
             $rs['alpha_to'][$i]  = $sr;
-            $sr                <<= 1;
+            $sr <<= 1;
 
             if (($sr & (1 << $symsize)) !== 0) {
                 $sr ^= $gfpoly;
@@ -2767,17 +2767,17 @@ class QR extends TwoDAbstract
      */
     protected function encode_rs_char(array $rs, array $data, array $parity) : array
     {
-        $MM       =& $rs['mm']; // bits per symbol
-        $NN       =& $rs['nn']; // the total number of symbols in a RS block
-        $ALPHA_TO =& $rs['alpha_to']; // the address of an array of NN elements to convert Galois field elements in index (log) form to polynomial form
-        $INDEX_OF =& $rs['index_of']; // the address of an array of NN elements to convert Galois field elements in polynomial form to index (log) form
-        $GENPOLY  =& $rs['genpoly']; // an array of NROOTS+1 elements containing the generator polynomial in index form
-        $NROOTS   =& $rs['nroots']; // the number of roots in the RS code generator polynomial, which is the same as the number of parity symbols in a block
-        $FCR      =& $rs['fcr']; // first consecutive root, index form
-        $PRIM     =& $rs['prim']; // primitive element, index form
-        $IPRIM    =& $rs['iprim']; // prim-th root of 1, index form
-        $PAD      =& $rs['pad']; // the number of pad symbols in a block
-        $A0       =& $NN;
+        $MM       = & $rs['mm']; // bits per symbol
+        $NN       = & $rs['nn']; // the total number of symbols in a RS block
+        $ALPHA_TO = & $rs['alpha_to']; // the address of an array of NN elements to convert Galois field elements in index (log) form to polynomial form
+        $INDEX_OF = & $rs['index_of']; // the address of an array of NN elements to convert Galois field elements in polynomial form to index (log) form
+        $GENPOLY  = & $rs['genpoly']; // an array of NROOTS+1 elements containing the generator polynomial in index form
+        $NROOTS   = & $rs['nroots']; // the number of roots in the RS code generator polynomial, which is the same as the number of parity symbols in a block
+        $FCR      = & $rs['fcr']; // first consecutive root, index form
+        $PRIM     = & $rs['prim']; // primitive element, index form
+        $IPRIM    = & $rs['iprim']; // prim-th root of 1, index form
+        $PAD      = & $rs['pad']; // the number of pad symbols in a block
+        $A0       = & $NN;
         $parity   = \array_fill(0, $NROOTS, 0);
 
         for ($i = 0; $i < $NN - $NROOTS - $PAD; ++$i) {

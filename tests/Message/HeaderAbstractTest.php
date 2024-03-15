@@ -48,7 +48,7 @@ final class HeaderAbstractTest extends \PHPUnit\Framework\TestCase
                 return true;
             }
 
-            public function get(string $key = null) : array
+            public function get(?string $key = null) : array
             {
                 return [];
             }

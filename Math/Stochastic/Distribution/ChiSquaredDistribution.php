@@ -75,7 +75,17 @@ final class ChiSquaredDistribution
     ];
 
     /**
-     * Test hypthesis.
+     * Constructor.
+     *
+     * @since 1.0.0
+     * @codeCoverageIgnore
+     */
+    private function __construct()
+    {
+    }
+
+    /**
+     * Test hypothesis.
      *
      * Goodness of fit test.
      *
@@ -151,7 +161,7 @@ final class ChiSquaredDistribution
      * Get probability density function.
      *
      * @param float $x  Value x
-     * @param int   $df Degreegs of freedom
+     * @param int   $df Degrees of freedom
      *
      * @return float
      *
@@ -172,7 +182,7 @@ final class ChiSquaredDistribution
      * Get cumulative density function.
      *
      * @param float $x  Value x
-     * @param int   $df Degreegs of freedom
+     * @param int   $df Degrees of freedom
      *
      * @return float
      *

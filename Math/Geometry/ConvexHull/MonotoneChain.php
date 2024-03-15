@@ -45,7 +45,7 @@ final class MonotoneChain
      */
     public static function createConvexHull(array $points) : array
     {
-        if (($n = \count($points)) < 2) {
+        if (($n = \count($points)) < 3) {
             return $points;
         }
 

@@ -49,7 +49,7 @@ class Item implements ItemInterface
     public string $name = '';
 
     /**
-     * Cosntructor.
+     * Constructor.
      *
      * @param float $value Value of the item
      * @param float $cost  Cost of the item

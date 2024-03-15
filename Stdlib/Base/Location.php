@@ -68,6 +68,16 @@ class Location implements \JsonSerializable, SerializableInterface
     public string $address = '';
 
     /**
+     * Address addition.
+     *
+     * e.g. 2nd floor
+     *
+     * @var string
+     * @since 1.0.0
+     */
+    public string $addressAddition = '';
+
+    /**
      * Address type
      *
      * @var int
@@ -97,32 +107,6 @@ class Location implements \JsonSerializable, SerializableInterface
     public function getId() : int
     {
         return $this->id;
-    }
-
-    /**
-     * Get location type
-     *
-     * @return int
-     *
-     * @since 1.0.0
-     */
-    public function getType() : int
-    {
-        return $this->type;
-    }
-
-    /**
-     * Set location type
-     *
-     * @param int $type Location type
-     *
-     * @return void
-     *
-     * @since 1.0.0
-     */
-    public function setType(int $type) : void
-    {
-        $this->type = $type;
     }
 
     /**

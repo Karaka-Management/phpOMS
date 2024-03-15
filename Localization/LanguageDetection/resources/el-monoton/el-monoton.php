@@ -1,8 +1,7 @@
 <?php declare(strict_types=1);
 
 return [
-  'el-monoton' =>
-  [
+  'el-monoton' => [
     0   => 'α',
     1   => 'ι',
     2   => 'ε',

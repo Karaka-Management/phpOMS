@@ -1,8 +1,7 @@
 <?php declare(strict_types=1);
 
 return [
-  'en' =>
-  [
+  'en' => [
     0   => 'e',
     1   => 't',
     2   => 'n',

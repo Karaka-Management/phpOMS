@@ -22,8 +22,18 @@ namespace phpOMS\Utils\Parser\Calendar;
  * @link    https://jingga.app
  * @since   1.0.0
  */
-class ICalParser
+final class ICalParser
 {
+    /**
+     * Constructor.
+     *
+     * @since 1.0.0
+     * @codeCoverageIgnore
+     */
+    private function __construct()
+    {
+    }
+
     /**
      * Parse iCal data
      *
@@ -42,32 +52,42 @@ class ICalParser
         foreach ($matches as $match) {
             $event = [];
 
-            \preg_match('/UID:(.*?)\r\n/', $match[1], $uidMatch);
-            $event['uid'] = \DateTime::createFromFormat('Ymd\THis', $uidMatch[1]);
+            \preg_match('/UID:(.*?)\n/', $match[1], $uidMatch);
+            $event['uid'] = $uidMatch[1] ?? null;
 
-            \preg_match('/STATUS:(.*?)\r\n/', $match[1], $statusMatch);
-            $event['status'] = \DateTime::createFromFormat('Ymd\THis', $statusMatch[1]);
+            \preg_match('/STATUS:(.*?)\n/', $match[1], $statusMatch);
+            $event['status'] = $statusMatch[1] ?? null;
 
-            \preg_match('/DTSTART:(.*?)\r\n/', $match[1], $startMatch);
-            $event['start'] = \DateTime::createFromFormat('Ymd\THis', $startMatch[1]);
+            \preg_match('/DTSTART:(.*?)\n/', $match[1], $startMatch);
+            $event['start'] = $startMatch[1] ?? null;
 
-            \preg_match('/DTEND:(.*?)\r\n/', $match[1], $endMatch);
-            $event['end'] = \DateTime::createFromFormat('Ymd\THis', $endMatch[1]);
+            \preg_match('/DTEND:(.*?)\n/', $match[1], $endMatch);
+            $event['end'] = $endMatch[1] ?? null;
 
-            \preg_match('/ORGANIZER:(.*?)\r\n/', $match[1], $organizerMatch);
-            $event['organizer'] = \DateTime::createFromFormat('Ymd\THis', $organizerMatch[1]);
+            \preg_match('/ORGANIZER:(.*?)\n/', $match[1], $organizerMatch);
+            $event['organizer'] = $organizerMatch[1] ?? null;
 
-            \preg_match('/SUMMARY:(.*?)\r\n/', $match[1], $summaryMatch);
-            $event['summary'] = $summaryMatch[1];
+            \preg_match('/SUMMARY:(.*?)\n/', $match[1], $summaryMatch);
+            $event['summary'] = $summaryMatch[1] ?? null;
 
-            \preg_match('/DESCRIPTION:(.*?)\r\n/', $match[1], $descriptionMatch);
-            $event['description'] = $descriptionMatch[1];
+            \preg_match('/DESCRIPTION:(.*?)\n/', $match[1], $descriptionMatch);
+            $event['description'] = $descriptionMatch[1] ?? null;
 
-            \preg_match('/LOCATION:(.*?)\r\n/', $match[1], $locationMatch);
-            $event['location'] = $locationMatch[1];
+            \preg_match('/LOCATION:(.*?)\n/', $match[1], $locationMatch);
+            $event['location'] = $locationMatch[1] ?? null;
+
+            \preg_match('/GEO:(.*?)\n/', $match[1], $geo);
+            $temp         = \explode(';', $geo[1]);
+            $event['geo'] = [
+                'lat' => (float) \trim($temp[0] ?? '0'),
+                'lon' => (float) \trim($temp[1] ?? '0'),
+            ];
+
+            \preg_match('/URL:(.*?)\n/', $match[1], $url);
+            $event['url'] = $url[1] ?? null;
 
             // Check if this event is recurring
-            if (\preg_match('/RRULE:(.*?)\r\n/', $match[1], $rruleMatch)) {
+            if (\preg_match('/RRULE:(.*?)\n/', $match[1], $rruleMatch)) {
                 $rrule = self::parseRRule($rruleMatch[1]);
                 $event = \array_merge($event, $rrule);
             }
@@ -92,18 +112,24 @@ class ICalParser
         $rrule = [];
 
         \preg_match('/FREQ=(.*?);/', $rruleString, $freqMatch);
-        $rrule['freq'] = $freqMatch[1];
+        $rrule['freq'] = $freqMatch[1] ?? null;
 
         \preg_match('/INTERVAL=(.*?);/', $rruleString, $intervalMatch);
-        $rrule['interval'] = (int) $intervalMatch[1];
+        $rrule['interval'] = $intervalMatch[1] ?? null;
 
-        if (\preg_match('/COUNT=(.*?);/', $rruleString, $countMatch)) {
-            $rrule['count'] = (int) $countMatch[1];
-        }
+        \preg_match('/BYMONTH=(.*?);/', $rruleString, $monthMatch);
+        $rrule['bymonth'] = $monthMatch[1] ?? null;
 
-        if (\preg_match('/UNTIL=(.*?);/', $rruleString, $untilMatch)) {
-            $rrule['until'] = \DateTime::createFromFormat('Ymd\THis', $untilMatch[1]);
-        }
+        \preg_match('/BYMONTHDAY=(.*?);/', $rruleString, $monthdayMatch);
+        $rrule['bymonthday'] = $monthdayMatch[1] ?? null;
+
+        $rrule['count'] = \preg_match('/COUNT=(.*?);/', $rruleString, $countMatch)
+            ? (int) ($countMatch[1] ?? 0)
+            : null;
+
+        $rrule['until'] = \preg_match('/UNTIL=(.*?);/', $rruleString, $untilMatch)
+            ? $untilMatch[1] ?? null
+            : null;
 
         return $rrule;
     }

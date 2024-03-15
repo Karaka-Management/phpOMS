@@ -23,6 +23,8 @@ use phpOMS\Contract\SerializableInterface;
  * @license OMS License 2.0
  * @link    https://jingga.app
  * @since   1.0.0
+ *
+ * @todo The naming of functions in this class is atrocious (getInt, getFloat, getNormalized, ...).
  */
 class FloatInt implements SerializableInterface
 {
@@ -33,6 +35,14 @@ class FloatInt implements SerializableInterface
      * @since 1.0.0
      */
     public const MAX_DECIMALS = 4;
+
+    /**
+     * Divisor to get original value.
+     *
+     * @var int
+     * @since 1.0.0
+     */
+    public const DIVISOR = 10000;
 
     /**
      * Thousands separator.
@@ -69,9 +79,9 @@ class FloatInt implements SerializableInterface
      */
     public function __construct(int | float | string $value = 0, string $thousands = ',', string $decimal = '.')
     {
-        $this->value     = \is_int($value) ? $value : self::toInt((string) $value);
         $this->thousands = $thousands;
         $this->decimal   = $decimal;
+        $this->value     = \is_int($value) ? $value : self::toInt((string) $value, $thousands, $decimal);
     }
 
     /**
@@ -89,26 +99,19 @@ class FloatInt implements SerializableInterface
      */
     public static function toInt(string $value, string $thousands = ',', string $decimal = '.') : int
     {
-        $split = \explode($decimal, $value);
+        $newValue = $value;
+        $len      = \strlen($value);
 
-        if ($split === false) {
-            throw new \Exception('Internal explode error.'); // @codeCoverageIgnore
+        $decimalPos = \strrpos($value, $decimal);
+        if ($decimalPos === false) {
+            $decimalPos = $len - 1;
         }
 
-        $left  = $split[0];
-        $left  = \str_replace($thousands, '', $left);
-        $right = '';
+        $newValue = \str_pad($newValue, 4 - (- $decimalPos - 1), '0');
+        $newValue = \str_replace([$thousands, $decimal], ['', ''], $newValue);
+        $newValue = \ltrim($newValue, '0');
 
-        if (\count($split) > 1) {
-            $right = $split[1];
-        }
-
-        $right = \substr($right, 0, self::MAX_DECIMALS);
-        if ($right === false) {
-            throw new \Exception('Internal substr error.'); // @codeCoverageIgnore
-        }
-
-        return ((int) $left) * 10 ** self::MAX_DECIMALS + (int) \str_pad($right, self::MAX_DECIMALS, '0');
+        return (int) $newValue;
     }
 
     /**
@@ -146,6 +149,18 @@ class FloatInt implements SerializableInterface
     }
 
     /**
+     * Returns the value as float
+     *
+     * @return float
+     *
+     * @since 1.0.0
+     */
+    public function getNormalizedValue() : float
+    {
+        return $this->value / self::DIVISOR;
+    }
+
+    /**
      * Get money.
      *
      * @param null|int $decimals Precision (null = auto decimals)
@@ -172,9 +187,7 @@ class FloatInt implements SerializableInterface
             throw new \Exception(); // @codeCoverageIgnore
         }
 
-        if ($decimals === null) {
-            $decimals = \strlen(\rtrim($right, '0'));
-        }
+        $decimals ??= \strlen(\rtrim($right, '0'));
 
         return $decimals > 0
             ? \number_format((float) $left, 0, $this->decimal, $this->thousands) . $this->decimal . \substr($right, 0, $decimals)
@@ -194,25 +207,21 @@ class FloatInt implements SerializableInterface
      */
     public function getFloat(?int $decimals = 2) : string
     {
-        $isNegative = $this->value < 0 ? 1 : 0;
-
         $value = $this->value === 0
             ? \str_repeat('0', self::MAX_DECIMALS)
             : (string) \round($this->value, -self::MAX_DECIMALS + $decimals);
 
-        $left = \substr($value, 0, -self::MAX_DECIMALS + $isNegative);
+        $left = \substr($value, 0, -self::MAX_DECIMALS);
 
         /** @var string $left */
         $left  = $left === false ? '0' : $left;
-        $right = \substr($value, -self::MAX_DECIMALS + $isNegative);
+        $right = \substr($value, -self::MAX_DECIMALS);
 
         if ($right === false) {
             throw new \Exception(); // @codeCoverageIgnore
         }
 
-        if ($decimals === null) {
-            $decimals = \strlen(\rtrim($right, '0'));
-        }
+        $decimals ??= \strlen(\rtrim($right, '0'));
 
         return $decimals > 0
             ? \number_format((float) $left, 0, $this->decimal, '') . $this->decimal . \substr($right, 0, $decimals)
@@ -377,5 +386,39 @@ class FloatInt implements SerializableInterface
         $this->value = $value;
 
         return $this;
+    }
+
+    /**
+     * Identify the numeric format of a string
+     *
+     * @param string $str String representation
+     *
+     * @return null|array
+     *
+     * @since 1.0.0
+     */
+    public static function identifyNumericFormat(string $str) : ?array
+    {
+        $commaPos  = \strrpos($str, ',');
+        $periodPos = \strrpos($str, '.');
+
+        if ($commaPos !== false && $periodPos !== false) {
+            return [
+                'thousands' => $commaPos < $periodPos ? ',' : '.',
+                'decimal'   => $commaPos < $periodPos ? '.' : ',',
+            ];
+        } elseif ($commaPos === false && $periodPos === false) {
+            return null;
+        }
+
+        // Back to normal cases
+        $isComma = $commaPos !== false
+            ? $commaPos + 3 === \strlen($str)
+            : $periodPos + 3 !== \strlen($str);
+
+        return [
+            'thousands' => $isComma ? '.' : ',',
+            'decimal'   => $isComma ? ',' : '.',
+        ];
     }
 }

@@ -15,7 +15,7 @@ declare(strict_types=1);
 namespace phpOMS\Localization\LanguageDetection;
 
 /**
- * Langauge match result
+ * Language match result
  *
  * @package phpOMS\Localization\LanguageDetection
  * @license https://opensource.org/licenses/mit-license.html MIT
@@ -36,14 +36,14 @@ class LanguageResult implements \ArrayAccess, \IteratorAggregate, \JsonSerializa
      * Match values per language
      *
      * @var array<int|float, int|float>
-     * @sicne 1.0.0
+     * @since 1.0.0
      */
     private array $result = [];
 
     /**
      * Constructor.
      *
-     * @param array $result Langauge match results
+     * @param array $result Language match results
      *
      * @since 1.0.0
      */
@@ -188,7 +188,7 @@ class LanguageResult implements \ArrayAccess, \IteratorAggregate, \JsonSerializa
      *
      * @since 1.0.0
      */
-    public function limit(int $offset, int $length = null) : self
+    public function limit(int $offset, ?int $length = null) : self
     {
         return new self(\array_slice($this->result, $offset, $length));
     }

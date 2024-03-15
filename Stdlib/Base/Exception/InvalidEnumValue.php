@@ -35,7 +35,7 @@ class InvalidEnumValue extends \UnexpectedValueException
      *
      * @since 1.0.0
      */
-    public function __construct($message, int $code = 0, \Exception $previous = null)
+    public function __construct($message, int $code = 0, ?\Exception $previous = null)
     {
         parent::__construct('The enum value "' . $message . '" is not valid.', $code, $previous);
     }

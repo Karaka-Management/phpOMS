@@ -16,11 +16,11 @@ namespace phpOMS\tests\Utils;
 
 class TestUtilsClass
 {
-    private $a   = 1;
+    private $a = 1;
 
     protected $b = 2;
 
-    public $c    = 3;
+    public $c = 3;
 
-    public $d    = '4';
+    public $d = '4';
 }

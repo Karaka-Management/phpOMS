@@ -487,7 +487,7 @@ class Datamatrix extends TwoDAbstract
             if ($this->isCharMode($chr, self::ENC_ASCII_NUM)) {
                 $numch[self::ENC_ASCII] += (1 / 2);
             } elseif ($this->isCharMode($chr, self::ENC_ASCII_EXT)) {
-                $numch[self::ENC_ASCII]  = \ceil($numch[self::ENC_ASCII]);
+                $numch[self::ENC_ASCII] = \ceil($numch[self::ENC_ASCII]);
                 $numch[self::ENC_ASCII] += 2;
             } else {
                 $numch[self::ENC_ASCII] = \ceil($numch[self::ENC_ASCII]);
@@ -711,8 +711,8 @@ class Datamatrix extends TwoDAbstract
 
                             if ($this->isCharMode($chr, self::ENC_ASCII_EXT)) {
                                 // 3. If the next data character is extended ASCII (greater than 127) encode it in ASCII mode first using the Upper Shift (value 235) character.
-                                $cw[]    = 235;
-                                $cw[]    = ($chr - 127);
+                                $cw[] = 235;
+                                $cw[] = ($chr - 127);
                                 $cw_num += 2;
                             } else {
                                 // 4. Otherwise process the next data character in ASCII encodation.
@@ -747,10 +747,10 @@ class Datamatrix extends TwoDAbstract
                                 return [];
                             }
 
-                            $chr      &= 0x7f;
+                            $chr &= 0x7f;
                             $temp_cw[] = 1; // shift 2
                             $temp_cw[] = 30; // upper shift
-                            $p        += 2;
+                            $p += 2;
                         }
 
                         if (isset($charset[$chr])) {
@@ -774,19 +774,19 @@ class Datamatrix extends TwoDAbstract
                             }
 
                             $temp_cw[] = $shiftset[$chr];
-                            $p        += 2;
+                            $p += 2;
                         }
 
                         if ($p >= 3) {
-                            $c1      = \array_shift($temp_cw);
-                            $c2      = \array_shift($temp_cw);
-                            $c3      = \array_shift($temp_cw);
-                            $p      -= 3;
-                            $tmp     = ((1600 * $c1) + (40 * $c2) + $c3 + 1);
-                            $cw[]    = ($tmp >> 8);
-                            $cw[]    = ($tmp % 256);
+                            $c1 = \array_shift($temp_cw);
+                            $c2 = \array_shift($temp_cw);
+                            $c3 = \array_shift($temp_cw);
+                            $p -= 3;
+                            $tmp  = ((1600 * $c1) + (40 * $c2) + $c3 + 1);
+                            $cw[] = ($tmp >> 8);
+                            $cw[] = ($tmp % 256);
                             $cw_num += 2;
-                            $pos     = $epos;
+                            $pos = $epos;
 
                             // 1. If the C40 encoding is at the point of starting a new double symbol character and if the look-ahead test (starting at step J) indicates another mode, switch to that mode.
                             $newenc = $this->lookAheadTest($data, $pos, $enc);
@@ -802,7 +802,7 @@ class Datamatrix extends TwoDAbstract
 
                                 $cw[] = $this->getSwitchEncodingCodeword($enc);
                                 $pos -= $p;
-                                $p    = 0;
+                                $p = 0;
 
                                 break;
                             }
@@ -828,22 +828,22 @@ class Datamatrix extends TwoDAbstract
                             // c. If two symbol characters remain and only one C40 value (data character) remains to be encoded
                             --$p;
 
-                            $c1             = \array_shift($temp_cw);
-                            $cw[]           = 254;
-                            $cw[]           = ($chr + 1);
-                            $cw_num        += 2;
+                            $c1   = \array_shift($temp_cw);
+                            $cw[] = 254;
+                            $cw[] = ($chr + 1);
+                            $cw_num += 2;
                             $pos            = $epos;
                             $enc            = self::ENC_ASCII;
                             $this->encoding = $enc;
                         } elseif (($cwr === 2) && ($p === 2)) {
                             // b. If two symbol characters remain and two C40 values remain to be encoded
-                            $c1             = \array_shift($temp_cw);
-                            $c2             = \array_shift($temp_cw);
-                            $p             -= 2;
-                            $tmp            = ((1600 * $c1) + (40 * $c2) + 1);
-                            $cw[]           = ($tmp >> 8);
-                            $cw[]           = ($tmp % 256);
-                            $cw_num        += 2;
+                            $c1 = \array_shift($temp_cw);
+                            $c2 = \array_shift($temp_cw);
+                            $p -= 2;
+                            $tmp  = ((1600 * $c1) + (40 * $c2) + 1);
+                            $cw[] = ($tmp >> 8);
+                            $cw[] = ($tmp % 256);
+                            $cw_num += 2;
                             $pos            = $epos;
                             $enc            = self::ENC_ASCII;
                             $this->encoding = $enc;
@@ -962,8 +962,8 @@ class Datamatrix extends TwoDAbstract
                         $cw[] = $this->get255StateCodeword($field_length, ($cw_num + 1));
                         ++$cw_num;
                     } else {
-                        $cw[]    = $this->get255StateCodeword((int) (\floor($field_length / 250) + 249), ($cw_num + 1));
-                        $cw[]    = $this->get255StateCodeword(($field_length % 250), ($cw_num + 2));
+                        $cw[] = $this->get255StateCodeword((int) (\floor($field_length / 250) + 249), ($cw_num + 1));
+                        $cw[] = $this->get255StateCodeword(($field_length % 250), ($cw_num + 2));
                         $cw_num += 2;
                     }
 

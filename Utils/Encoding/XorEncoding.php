@@ -25,6 +25,16 @@ namespace phpOMS\Utils\Encoding;
 final class XorEncoding
 {
     /**
+     * Constructor.
+     *
+     * @since 1.0.0
+     * @codeCoverageIgnore
+     */
+    private function __construct()
+    {
+    }
+
+    /**
      * Decode text
      *
      * @param string $raw Source to encode
@@ -60,7 +70,7 @@ final class XorEncoding
                 $j = 0;
             }
 
-            $ascii   = \ord($source[$i]) ^ \ord($key[$j]);
+            $ascii = \ord($source[$i]) ^ \ord($key[$j]);
             $result .= \chr($ascii);
         }
 

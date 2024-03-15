@@ -9,6 +9,7 @@
  * @license   OMS License 2.0
  * @version   1.0.0
  * @link      https://jingga.app
+ * @link      https://github.com/PetarV-/Algorithms/blob/master/Data%20Structures/Binary%20Search%20Tree.cpp
  */
 declare(strict_types=1);
 
@@ -39,7 +40,7 @@ class BinarySearchTree
      *
      * @since 1.0.0
      */
-    public function __construct(Node $root = null)
+    public function __construct(?Node $root = null)
     {
         $this->root = $root;
     }
@@ -180,36 +181,40 @@ class BinarySearchTree
         }
 
         $current = $this->root;
-        while (true) {
+        while ($current !== null) {
             $comparison = $node->compare($current->data);
 
             if ($comparison < 0) {
                 if ($current->left === null) {
-                    $BST         = new BinarySearchTree();
+                    $BST         = new self();
                     $new         = new Node($node->key, $node->data);
                     $new->parent = $current;
                     $new->tree   = $BST;
 
                     $BST->root     = $new;
                     $current->left = $BST;
+
+                    return;
                 } else {
                     $current = $current->left->root;
                 }
             } elseif ($comparison > 0) {
                 if ($current->right === null) {
-                    $BST         = new BinarySearchTree();
+                    $BST         = new self();
                     $new         = new Node($node->key, $node->data);
                     $new->parent = $current;
                     $new->tree   = $BST;
 
                     $BST->root      = $new;
                     $current->right = $BST;
+
+                    return;
                 } else {
                     $current = $current->right->root;
                 }
+            } else {
+                return;
             }
-
-            return;
         }
     }
 
@@ -222,61 +227,92 @@ class BinarySearchTree
      *
      * @since 1.0.0
      */
-    public function delete(Node &$node) : void
+    public function delete(Node $node) : void
     {
         if ($node->left === null && $node->right === null) {
-            if ($node->parent !== null) {
-                if ($node->parent->left !== null && $node->parent->left->root->compare($node->data) === 0) {
-                    $node->parent->left = null;
-                } elseif ($node->parent->right !== null && $node->parent->right->root->compare($node) === 0) {
-                    $node->parent->right = null;
-                }
+            if ($node->parent === null) {
+                return;
             }
 
-            $node = null;
+            if ($node->parent->left !== null
+                && $node->parent->left->root?->compare($node->data) === 0
+            ) {
+                $node->parent->left = null;
+            } elseif ($node->parent->right !== null
+                && $node->parent->right->root?->compare($node->data) === 0
+            ) {
+                $node->parent->right = null;
+            }
 
             return;
         }
 
         $temp = null;
         if ($node->left === null) {
-            $temp = $node->right->root;
+            $temp = $node->right?->root;
+            if ($temp === null) {
+                return;
+            }
+
             if ($node->parent !== null) {
-                if ($node->parent->left !== null && $node->parent->left->root->compare($node->data) === 0) {
+                if ($node->parent->left !== null
+                    && $node->parent->left->root?->compare($node->data) === 0
+                ) {
                     $node->parent->left = $temp->tree;
-                } elseif ($node->parent->right !== null && $node->parent->right->root->compare($node->data) === 0) {
+                } elseif ($node->parent->right !== null
+                    && $node->parent->right->root?->compare($node->data) === 0
+                ) {
                     $node->parent->right = $temp->tree;
                 }
             }
 
             $temp->parent = $node->parent;
 
-            $node = null;
+            //$node = null;
 
             return;
         }
 
         if ($node->right === null) {
             $temp = $node->left->root;
+            if ($temp === null) {
+                return;
+            }
+
             if ($node->parent !== null) {
-                if ($node->parent->left !== null && $node->parent->left->root->compare($node->data) === 0) {
+                if ($node->parent->left !== null
+                    && $node->parent->left->root?->compare($node->data) === 0
+                ) {
                     $node->parent->left = $temp->tree;
-                } elseif ($node->parent->right !== null && $node->parent->right->root->compare($node->data) === 0) {
+                } elseif ($node->parent->right !== null
+                    && $node->parent->right->root?->compare($node->data) === 0
+                ) {
                     $node->parent->right = $temp->tree;
                 }
             }
 
             $temp->parent = $node->parent;
 
-            $node = null;
+            //$node = null;
 
             return;
-        } else {
-            $temp       = $this->successor($node);
+        } elseif (($temp = $this->successor($node)) !== null) {
             $node->key  = $temp->key;
             $node->data = $temp->data;
 
             $this->delete($temp);
         }
+    }
+
+    /**
+     * To array
+     *
+     * @return null|array
+     *
+     * @since 1.0.0
+     */
+    public function toArray() : ?array
+    {
+        return $this->root?->toArray() ?? null;
     }
 }

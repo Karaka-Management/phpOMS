@@ -197,6 +197,21 @@ final class Functions
     }
 
     /**
+     * Modular implementation for float values
+     *
+     * @param float $a a
+     * @param float $b b
+     *
+     * @return float
+     *
+     * @since 1.0.0
+     */
+    public static function modFloat(float $a, float $b) : float
+    {
+        return $a - ((int) ($a / $b)) * $b;
+    }
+
+    /**
      * Check if value is odd.
      *
      * @param int $a Value to test
@@ -348,7 +363,7 @@ final class Functions
 
         for ($j = 0; $j < 2; ++$j) {
             $err = self::getErfc($x) - $pp;
-            $x  += $err / (1.12837916709551257 * \exp(-($x * $x)) - $x * $err);
+            $x += $err / (1.12837916709551257 * \exp(-($x * $x)) - $x * $err);
         }
 
         return ($p < 1.0? $x : -$x);

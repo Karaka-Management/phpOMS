@@ -18,12 +18,13 @@ use phpOMS\System\File\FileUtils;
 use phpOMS\System\File\Local\Directory;
 
 /**
- * Zip class for handling zip files.
+ * Tar class for handling zip files.
  *
  * Providing basic zip support
  *
  * IMPORTANT:
- * PharData seems to cache created files, which means even if the previously created file is deleted, it cannot create a new file with the same destination.
+ * PharData seems to cache created files, which means even if the previously created file is deleted,
+ * it cannot create a new file with the same destination.
  * bug? https://bugs.php.net/bug.php?id=75101
  *
  * @package phpOMS\Utils\IO\Zip
@@ -31,8 +32,18 @@ use phpOMS\System\File\Local\Directory;
  * @link    https://jingga.app
  * @since   1.0.0
  */
-class Tar implements ArchiveInterface
+final class Tar implements ArchiveInterface
 {
+    /**
+     * Constructor.
+     *
+     * @since 1.0.0
+     * @codeCoverageIgnore
+     */
+    private function __construct()
+    {
+    }
+
     /**
      * {@inheritdoc}
      */

@@ -85,14 +85,34 @@ final class TesseractOcr
      *
      * @since 1.0.0
      */
-    public function parseImage(string $image, array $languages = ['eng'], int $psm = 3, int $oem = 3) : string
+    public function parseImage(string $image, array $languages = ['eng', 'deu'], int $psm = 3, int $oem = 3) : string
     {
         $temp = \tempnam(\sys_get_temp_dir(), 'oms_ocr_');
         if ($temp === false) {
             return '';
         }
 
+        $extension = 'png';
         try {
+            // Tesseract needs higher dpi to work properly (identify + adjust if necessary)
+            $dpi = (int) \trim(\implode('', SystemUtils::runProc(
+                'identify',
+                '-quiet -format "%x" ' . $image
+            )));
+
+            if ($dpi < 300) {
+                $split     = \explode('.', $image);
+                $extension = \end($split);
+
+                SystemUtils::runProc(
+                    'convert',
+                    '-units PixelsPerInch ' . $image . ' -resample 300 ' . $temp . '.' . $extension
+                );
+
+                $image = $temp . '.' . $extension;
+            }
+
+            // Do actual parsing
             SystemUtils::runProc(
                 self::$bin,
                 $image . ' '
@@ -100,10 +120,18 @@ final class TesseractOcr
                 . ' -c preserve_interword_spaces=1'
                 . ' --psm ' . $psm
                 . ' --oem ' . $oem
-                . ' -l ' . \implode('+', $languages)
+                . (empty($languages) ? '' : ' -l ' . \implode('+', $languages))
             );
         } catch (\Throwable $_) {
+            if (\is_file($temp . '.' . $extension)) {
+                \unlink($temp . '.' . $extension);
+            }
+
             return '';
+        }
+
+        if (\is_file($temp . '.' . $extension)) {
+            \unlink($temp . '.' . $extension);
         }
 
         $filepath = \is_file($temp . '.txt')
@@ -120,11 +148,7 @@ final class TesseractOcr
 
         $parsed = \file_get_contents($filepath);
         if ($parsed === false) {
-            // @codeCoverageIgnoreStart
-            \unlink($temp);
-
-            return '';
-            // @codeCoverageIgnoreEnd
+            $parsed = '';
         }
 
         \unlink($filepath);

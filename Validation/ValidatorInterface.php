@@ -34,7 +34,7 @@ interface ValidatorInterface
      *
      * @since 1.0.0
      */
-    public static function isValid(mixed $value, array $constraints = null) : bool;
+    public static function isValid(mixed $value, ?array $constraints = null) : bool;
 
     /**
      * Get most recent error string.

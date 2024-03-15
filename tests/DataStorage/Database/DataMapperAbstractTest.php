@@ -14,6 +14,8 @@ declare(strict_types=1);
 
 namespace phpOMS\tests\DataStorage\Database;
 
+include_once __DIR__ . '/../../Autoloader.php';
+
 use phpOMS\DataStorage\Database\Query\OrderType;
 use phpOMS\tests\DataStorage\Database\TestModel\BaseModel;
 use phpOMS\tests\DataStorage\Database\TestModel\BaseModelMapper;
@@ -42,21 +44,27 @@ final class DataMapperAbstractTest extends \PHPUnit\Framework\TestCase
     {
         $this->model = new BaseModel();
 
+        \phpOMS\Log\FileLogger::getInstance()->verbose = true;
+
         $GLOBALS['dbpool']->get()->con->prepare(
             'CREATE TABLE `test_base` (
                 `test_base_id` int(11) NOT NULL AUTO_INCREMENT,
                 `test_base_string` varchar(254) NOT NULL,
+                `test_base_compress` BLOB NOT NULL,
+                `test_base_pstring` varchar(254) NOT NULL,
                 `test_base_int` int(11) NOT NULL,
                 `test_base_bool` tinyint(1) DEFAULT NULL,
                 `test_base_null` int(11) DEFAULT NULL,
                 `test_base_float` decimal(5, 4) DEFAULT NULL,
                 `test_base_belongs_to_one` int(11) DEFAULT NULL,
+                `test_base_belongs_top_one` int(11) DEFAULT NULL,
                 `test_base_owns_one_self` int(11) DEFAULT NULL,
+                `test_base_owns_onep_self` int(11) DEFAULT NULL,
                 `test_base_json` varchar(254) DEFAULT NULL,
                 `test_base_json_serializable` varchar(254) DEFAULT NULL,
                 `test_base_serializable` varchar(254) DEFAULT NULL,
                 `test_base_datetime` datetime DEFAULT NULL,
-                `test_base_datetime_null` datetime DEFAULT NULL, /* There was a bug where it returned the current date because new \DateTime(null) === current date which is wrong, we want null as value! */
+                `test_base_datetime_null` datetime DEFAULT NULL,
                 PRIMARY KEY (`test_base_id`)
             )ENGINE=InnoDB  DEFAULT CHARSET=utf8mb4 AUTO_INCREMENT=1;'
         )->execute();
@@ -112,6 +120,49 @@ final class DataMapperAbstractTest extends \PHPUnit\Framework\TestCase
                 PRIMARY KEY (`test_has_many_rel_relations_id`)
             )ENGINE=InnoDB  DEFAULT CHARSET=utf8mb4 AUTO_INCREMENT=1;'
         )->execute();
+
+        // private
+        $GLOBALS['dbpool']->get()->con->prepare(
+            'CREATE TABLE `test_has_many_directp` (
+                `test_has_many_directp_id` int(11) NOT NULL AUTO_INCREMENT,
+                `test_has_many_directp_string` varchar(254) NOT NULL,
+                `test_has_many_directp_to` int(11) NOT NULL,
+                PRIMARY KEY (`test_has_many_directp_id`)
+            )ENGINE=InnoDB  DEFAULT CHARSET=utf8mb4 AUTO_INCREMENT=1;'
+        )->execute();
+
+        $GLOBALS['dbpool']->get()->con->prepare(
+            'CREATE TABLE `test_has_many_relp` (
+                `test_has_many_relp_id` int(11) NOT NULL AUTO_INCREMENT,
+                `test_has_many_relp_string` varchar(254) NOT NULL,
+                PRIMARY KEY (`test_has_many_relp_id`)
+            )ENGINE=InnoDB  DEFAULT CHARSET=utf8mb4 AUTO_INCREMENT=1;'
+        )->execute();
+
+        $GLOBALS['dbpool']->get()->con->prepare(
+            'CREATE TABLE `test_has_many_rel_relationsp` (
+                `test_has_many_rel_relationsp_id` int(11) NOT NULL AUTO_INCREMENT,
+                `test_has_many_rel_relationsp_src` int(11) NOT NULL,
+                `test_has_many_rel_relationsp_dest` int(11) NOT NULL,
+                PRIMARY KEY (`test_has_many_rel_relationsp_id`)
+            )ENGINE=InnoDB  DEFAULT CHARSET=utf8mb4 AUTO_INCREMENT=1;'
+        )->execute();
+
+        $GLOBALS['dbpool']->get()->con->prepare(
+            'CREATE TABLE `test_belongs_to_onep` (
+                `test_belongs_to_onep_id` int(11) NOT NULL AUTO_INCREMENT,
+                `test_belongs_to_onep_string` varchar(254) NOT NULL,
+                PRIMARY KEY (`test_belongs_to_onep_id`)
+            )ENGINE=InnoDB  DEFAULT CHARSET=utf8mb4 AUTO_INCREMENT=1;'
+        )->execute();
+
+        $GLOBALS['dbpool']->get()->con->prepare(
+            'CREATE TABLE `test_owns_onep` (
+                `test_owns_onep_id` int(11) NOT NULL AUTO_INCREMENT,
+                `test_owns_onep_string` varchar(254) NOT NULL,
+                PRIMARY KEY (`test_owns_onep_id`)
+            )ENGINE=InnoDB  DEFAULT CHARSET=utf8mb4 AUTO_INCREMENT=1;'
+        )->execute();
     }
 
     protected function tearDown() : void
@@ -123,6 +174,14 @@ final class DataMapperAbstractTest extends \PHPUnit\Framework\TestCase
         $GLOBALS['dbpool']->get()->con->prepare('DROP TABLE test_has_many_direct')->execute();
         $GLOBALS['dbpool']->get()->con->prepare('DROP TABLE test_has_many_rel')->execute();
         $GLOBALS['dbpool']->get()->con->prepare('DROP TABLE test_has_many_rel_relations')->execute();
+
+        $GLOBALS['dbpool']->get()->con->prepare('DROP TABLE test_has_many_directp')->execute();
+        $GLOBALS['dbpool']->get()->con->prepare('DROP TABLE test_has_many_relp')->execute();
+        $GLOBALS['dbpool']->get()->con->prepare('DROP TABLE test_has_many_rel_relationsp')->execute();
+        $GLOBALS['dbpool']->get()->con->prepare('DROP TABLE test_belongs_to_onep')->execute();
+        $GLOBALS['dbpool']->get()->con->prepare('DROP TABLE test_owns_onep')->execute();
+
+        \phpOMS\Log\FileLogger::getInstance()->verbose = false;
     }
 
     /**
@@ -138,7 +197,7 @@ final class DataMapperAbstractTest extends \PHPUnit\Framework\TestCase
     public function testCreate() : void
     {
         self::assertGreaterThan(0, BaseModelMapper::create()->execute($this->model));
-        self::assertGreaterThan(0, $this->model->getId());
+        self::assertGreaterThan(0, $this->model->id);
     }
 
     public function testCreateNullModel() : void
@@ -153,9 +212,9 @@ final class DataMapperAbstractTest extends \PHPUnit\Framework\TestCase
     public function testCreateAlreadyCreatedModel() : void
     {
         self::assertGreaterThan(0, $id = BaseModelMapper::create()->execute($this->model));
-        self::assertGreaterThan(0, $this->model->getId());
+        self::assertGreaterThan(0, $this->model->id);
         self::assertEquals($id, BaseModelMapper::create()->execute($this->model));
-        self::assertEquals($id, $this->model->getId());
+        self::assertEquals($id, $this->model->id);
     }
 
     public function testCreateHasManyRelation() : void
@@ -197,8 +256,10 @@ final class DataMapperAbstractTest extends \PHPUnit\Framework\TestCase
             ->where('id', $id)
             ->execute();
 
-        self::assertEquals($this->model->getId(), $modelR->getId());
+        self::assertEquals($this->model->id, $modelR->id);
         self::assertEquals($this->model->string, $modelR->string);
+        self::assertEquals($this->model->compress, $modelR->compress);
+        self::assertEquals($this->model->getPString(), $modelR->getPString());
         self::assertEquals($this->model->int, $modelR->int);
         self::assertEquals($this->model->bool, $modelR->bool);
         self::assertEquals($this->model->float, $modelR->float);
@@ -218,10 +279,36 @@ final class DataMapperAbstractTest extends \PHPUnit\Framework\TestCase
         self::assertEquals($this->model->belongsToOne->string, $modelR->belongsToOne->string);
     }
 
+    public function testGetRaw() : void
+    {
+        $id = BaseModelMapper::create()->execute($this->model);
+
+        /** @var BaseModel $modelR */
+        $modelR = BaseModelMapper::getRaw()
+            ->with('belongsToOne')
+            ->with('ownsOneSelf')
+            ->with('hasManyDirect')
+            ->with('hasMnayRelations')
+            ->with('conditional')
+            ->where('id', $id)
+            ->execute();
+
+        self::assertTrue(\is_array($modelR));
+    }
+
     public function testGetAll() : void
     {
         BaseModelMapper::create()->execute($this->model);
         self::assertCount(1, BaseModelMapper::getAll()->execute());
+    }
+
+    public function testGetYield() : void
+    {
+        BaseModelMapper::create()->execute($this->model);
+
+        foreach (BaseModelMapper::yield()->execute() as $model) {
+            self::assertGreaterThan(0, $model->id);
+        }
     }
 
     public function testGetFor() : void
@@ -247,7 +334,7 @@ final class DataMapperAbstractTest extends \PHPUnit\Framework\TestCase
         $id2 = BaseModelMapper::create()->execute($model2);
 
         $by = BaseModelMapper::get()->where('string', '456')->execute();
-        self::assertEquals($model2->getId(), $by->getId());
+        self::assertEquals($model2->id, $by->id);
     }
 
     public function testGetNewest() : void
@@ -255,18 +342,51 @@ final class DataMapperAbstractTest extends \PHPUnit\Framework\TestCase
         $model1           = new BaseModel();
         $model1->datetime = new \DateTime('now');
         $id1              = BaseModelMapper::create()->execute($model1);
+
         \sleep(1);
         $model2           = new BaseModel();
         $model2->datetime = new \DateTime('now');
         $id2              = BaseModelMapper::create()->execute($model2);
 
         $newest = BaseModelMapper::getAll()->sort('id', OrderType::DESC)->limit(1)->execute();
-        self::assertEquals($id2, \reset($newest)->getId());
+        self::assertEquals($id2, \reset($newest)->id);
     }
 
     public function testGetNullModel() : void
     {
         self::assertEquals(NullBaseModel::class, \get_class(BaseModelMapper::get()->where('id', 99)->execute()));
+    }
+
+    public function testCount() : void
+    {
+        BaseModelMapper::create()->execute($this->model);
+        self::assertEquals(1, BaseModelMapper::count()->execute());
+    }
+
+    public function testSum() : void
+    {
+        BaseModelMapper::create()->execute($this->model);
+        self::assertEquals(11, BaseModelMapper::sum()->columns(['test_base_int'])->execute());
+    }
+
+    public function testExists() : void
+    {
+        $id = BaseModelMapper::create()->execute($this->model);
+        self::assertTrue(BaseModelMApper::exists()->where('id', $id)->execute());
+        self::assertFalse(BaseModelMApper::exists()->where('id', $id + 1)->execute());
+    }
+
+    public function testHas() : void
+    {
+        $id = BaseModelMapper::create()->execute($this->model);
+        self::assertTrue(BaseModelMApper::has()->with('hasManyRelations')->where('id', $id)->execute());
+        self::assertTrue(BaseModelMApper::has()->with('hasManyDirect')->where('id', $id)->execute());
+    }
+
+    public function testRandom() : void
+    {
+        $id = BaseModelMapper::create()->execute($this->model);
+        self::assertEquals($id, BaseModelMApper::getRandom()->limit(1)->execute()->id);
     }
 
     /**

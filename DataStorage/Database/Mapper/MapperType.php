@@ -38,6 +38,13 @@ abstract class MapperType extends Enum
 
     public const GET_RANDOM = 11;
 
+    // @IMPORTANT All read operations which use column names must have an ID < 12
+    // In the read mapper exists a line which checks for < COUNT_MODELS to decide if columns should be selected.
+    // The reason for this is that **pure** count, sum, ... don't want to select additional column names.
+    // By doing this we avoid loading all the unwanted columns coming from the `with()` relation.
+
+    // -------------------------------------------- //
+
     public const COUNT_MODELS = 12;
 
     public const SUM_MODELS = 13;

@@ -62,7 +62,7 @@ final class Weighted
     }
 
     /**
-     * Search for a none-conflicting job that comes befor a defined job
+     * Search for a none-conflicting job that comes before a defined job
      *
      * @param JobInterface[] $jobs  List of jobs
      * @param int            $pivot Job to find the previous job to
@@ -130,7 +130,7 @@ final class Weighted
 
             if ($l != -1) {
                 $value += $valueTable[$l];
-                $jList  = \array_merge($resultTable[$l], $jList);
+                $jList = \array_merge($resultTable[$l], $jList);
             }
 
             if ($value > $valueTable[$i - 1]) {

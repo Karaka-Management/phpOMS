@@ -47,7 +47,7 @@ final class Storage
     }
 
     /**
-     * Get registred env instance.
+     * Get registered env instance.
      *
      * @param string $env Environment name
      *

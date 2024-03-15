@@ -26,7 +26,7 @@ use phpOMS\Utils\StringUtils;
  * @link    https://jingga.app
  * @since   1.0.0
  */
-class PdfParser
+final class PdfParser
 {
     /**
      * PDFToText path.
@@ -43,6 +43,30 @@ class PdfParser
      * @var 1.0.0
      */
     public static string $pdftoppm = '/usr/bin/pdftoppm';
+
+    /**
+     * Constructor.
+     *
+     * @since 1.0.0
+     * @codeCoverageIgnore
+     */
+    private function __construct()
+    {
+    }
+
+    /**
+     * Html to string
+     *
+     * @param string $path Path
+     *
+     * @return string
+     *
+     * @since 1.0.0
+     */
+    public static function parsePdf(string $path, string $output = 'html') : string
+    {
+        return self::pdf2text($path);
+    }
 
     /**
      * Pdf to text
@@ -63,6 +87,8 @@ class PdfParser
             return '';
         }
 
+        // Try to read pdf directly
+        // Important: not all PDFs are searchable, some behave like an image
         if (\is_file(self::$pdftotext)) {
             try {
                 SystemUtils::runProc(
@@ -88,6 +114,7 @@ class PdfParser
             return $text;
         }
 
+        // Couldn't read text from pdf -> transform to image and run OCR on image
         $out = \tempnam($tmpDir, 'oms_pdf_');
         if ($out === false) {
             return '';
@@ -117,6 +144,7 @@ class PdfParser
 
         foreach ($files as $file) {
             if (!StringUtils::endsWith($file, '.jpg')
+                && !StringUtils::endsWith($file, '.jpeg')
                 && !StringUtils::endsWith($file, '.png')
                 && !StringUtils::endsWith($file, '.gif')
             ) {

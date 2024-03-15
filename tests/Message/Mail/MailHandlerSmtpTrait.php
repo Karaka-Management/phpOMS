@@ -391,10 +391,10 @@ trait MailHandlerSmtpTrait
         $mail->confirmationAddress = 'test1@jingga.app';
         $mail->setFrom('test1@jingga.app', 'Dennis Eichhorn');
         $mail->addTo('test@jingga.app', 'Dennis Eichhorn');
-        $mail->subject    = 'testSendICalAltWithSmtp';
-        $mail->body       = 'Ical test';
-        $mail->bodyAlt    = 'Ical test';
-        $mail->ical       = 'BEGIN:VCALENDAR'
+        $mail->subject = 'testSendICalAltWithSmtp';
+        $mail->body    = 'Ical test';
+        $mail->bodyAlt = 'Ical test';
+        $mail->ical    = 'BEGIN:VCALENDAR'
             . "\r\nVERSION:2.0"
             . "\r\nPRODID:-//phpOMS//Karaka Calendar//EN"
             . $methodLine
@@ -456,10 +456,10 @@ trait MailHandlerSmtpTrait
         $mail->setFrom('test1@jingga.app', 'Dennis Eichhorn');
         $mail->addTo('test@jingga.app', 'Dennis Eichhorn');
         $mail->addAttachment(__DIR__ . '/files/logo.png', 'logo');
-        $mail->subject    = 'testSendICalAltAttachmentWithSmtp';
-        $mail->body       = 'Ical test';
-        $mail->bodyAlt    = 'Ical test';
-        $mail->ical       = 'BEGIN:VCALENDAR'
+        $mail->subject = 'testSendICalAltAttachmentWithSmtp';
+        $mail->body    = 'Ical test';
+        $mail->bodyAlt = 'Ical test';
+        $mail->ical    = 'BEGIN:VCALENDAR'
             . "\r\nVERSION:2.0"
             . "\r\nPRODID:-//phpOMS//Karaka Calendar//EN"
             . $methodLine

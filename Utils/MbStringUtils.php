@@ -242,7 +242,7 @@ final class MbStringUtils
         $countChars = self::mb_count_chars($value);
 
         foreach ($countChars as $v) {
-            $p        = $v / $size;
+            $p = $v / $size;
             $entropy -= $p * \log($p) / \log(2);
         }
 
