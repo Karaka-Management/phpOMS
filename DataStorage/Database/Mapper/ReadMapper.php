@@ -226,7 +226,7 @@ final class ReadMapper extends DataMapperAbstract
                 return $this->executeGet(...$options);
             case MapperType::GET_YIELD:
                 /** @var null|Builder ...$options */
-                return $this->executeGetYield(...$options);
+                return $this->executeYield(...$options);
             case MapperType::GET_RAW:
                 /** @var null|Builder ...$options */
                 return $this->executeGetRaw(...$options);
@@ -312,9 +312,11 @@ final class ReadMapper extends DataMapperAbstract
      *                            Careful, this doesn't merge with the internal query.
      *                            If you want to merge it use ->query() instead
      *
+     * @return \Generator<R>
+     *
      * @since 1.0.0
      */
-    public function executeGetYield(?Builder $query = null)
+    public function executeYield(?Builder $query = null) : \Generator
     {
         foreach ($this->executeGetRawYield($query) as $row) {
             $obj = $this->mapper::createBaseModel($row);
@@ -421,7 +423,7 @@ final class ReadMapper extends DataMapperAbstract
      *                            Careful, this doesn't merge with the internal query.
      *                            If you want to merge it use ->query() instead
      *
-     * @return array
+     * @return R[]
      *
      * @since 1.0.0
      */

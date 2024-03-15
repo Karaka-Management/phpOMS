@@ -131,6 +131,7 @@ abstract class ModuleAbstract
         if (self::$auditor === null && static::ID !== 1006200000) {
             /** @phpstan-ignore-next-line */
             self::$auditor = $this->app->moduleManager?->get('Auditor', 'Api');
+            /** @phpstan-ignore-next-line */
             self::$auditor = self::$auditor === null || self::$auditor::ID === 0 ? null : self::$auditor;
         }
     }

@@ -247,7 +247,7 @@ class Markdown
     /**
      * Block special characters
      *
-     * @var array<string, string[]>
+     * @var array<int|string, string[]>
      * @since 1.0.0
      */
     protected array $blockTypes = [
@@ -3634,7 +3634,7 @@ class Markdown
             ],
         ];
 
-        \uasort($this->definitionData['Footnote'], ['self', 'sortFootnotes']);
+        \uasort($this->definitionData['Footnote'], [self::class, 'sortFootnotes']);
 
         foreach ($this->definitionData['Footnote'] as $definitionId => $definitionData) {
             if (!isset($definitionData['number'])) {

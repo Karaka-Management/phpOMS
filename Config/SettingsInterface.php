@@ -56,8 +56,8 @@ interface SettingsInterface extends OptionsInterface
     /**
      * Set option by key.
      *
-     * @param array<int, array{id?:?int, name?:?string, content:string, module?:?string, group?:?int, account?:?int}> $options Column values for filtering
-     * @param bool                                                                                                    $store   Save this Setting immediately to database
+     * @param array<int, mixed> $options Column values for filtering
+     * @param bool              $store   Save this Setting immediately to database
      *
      * @return void
      *
@@ -68,7 +68,7 @@ interface SettingsInterface extends OptionsInterface
     /**
      * Save options.
      *
-     * @param array<int, array{id?:?int, name?:?string, content:string, module?:?string, group?:?int, account?:?int}> $options Options to save
+     * @param array<int, mixed> $options Options to save
      *
      * @return void
      *

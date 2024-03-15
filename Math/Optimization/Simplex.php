@@ -381,7 +381,12 @@ final class Simplex
             return [];
         }
 
-        $this->n = \count(\reset($A));
+        $first = \reset($A);
+        if ($first === false) {
+            return [];
+        }
+
+        $this->n = \count($first);
 
         if ($this->initialize() === -1) {
             return [\array_fill(0, $this->m + $this->n, -2), \INF];
