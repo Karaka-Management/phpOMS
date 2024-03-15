@@ -24,8 +24,21 @@ namespace phpOMS\DataStorage\Database\Query;
  */
 final class ColumnName
 {
+    /**
+     * Column name
+     *
+     * @var string
+     * @since 1.0.0
+     */
     public string $name = '';
 
+    /**
+     * Constructor.
+     *
+     * @param string $name Column name
+     *
+     * @since 1.0.0
+     */
     public function __construct(string $name)
     {
         $this->name = $name;

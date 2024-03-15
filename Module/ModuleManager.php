@@ -44,7 +44,7 @@ final class ModuleManager
     /**
      * All modules that are running on this uri.
      *
-     * @var \phpOMS\Module\ModuleAbstract[]
+     * @var array<string, array<string, \phpOMS\Module\ModuleAbstract>>
      * @since 1.0.0
      */
     private array $running = [];
@@ -678,9 +678,15 @@ final class ModuleManager
         // Handle providing->receiving
         foreach ($this->running as $mName => $controllers) {
             $controller = \reset($controllers);
+            if ($controller === false) {
+                continue;
+            }
 
             foreach ($controller::$providing as $providing) {
                 $ctrl = \reset($this->running[$providing]);
+                if ($ctrl === false) {
+                    continue;
+                }
 
                 if (!\in_array($mName, $ctrl->receiving)) {
                     $ctrl->receiving[] = $mName;
@@ -724,7 +730,7 @@ final class ModuleManager
         ) {
             try {
                 /** @var ModuleAbstract $obj */
-                $obj                   = new $class($this->app);
+                $obj                            = new $class($this->app);
                 $this->running[$module][$class] = $obj;
             } catch (\Throwable $_) {
                 $this->running[$module][$class] = new NullModule();

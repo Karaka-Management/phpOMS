@@ -48,6 +48,10 @@ final class HtmlParser
         $doc = new \DOMDocument();
 
         $html = \file_get_contents($path);
+        if ($html === false) {
+            return '';
+        }
+
         $html = \preg_replace(
             ['~<style.*?</style>~', '~<script.*?</script>~'],
             ['', ''],
@@ -63,8 +67,8 @@ final class HtmlParser
             return empty($node->textContent) ? '' : $node->textContent;
         }
 
-        $content = '';
-        $xNode = new \DOMXpath($doc);
+        $content  = '';
+        $xNode    = new \DOMXpath($doc);
         $elements = $xNode->query($xpath);
 
         if ($elements === false) {

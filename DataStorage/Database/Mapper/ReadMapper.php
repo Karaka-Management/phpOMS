@@ -748,9 +748,9 @@ final class ReadMapper extends DataMapperAbstract
                 }
 
                 /** @var self $relMapper */
-                $relMapper        = $this->createRelationMapper($rel['mapper']::reader(db: $this->db), $member);
-                $relMapper->depth = $this->depth + 1;
-                $relMapper->type  = $this->type;
+                $relMapper            = $this->createRelationMapper($rel['mapper']::reader(db: $this->db), $member);
+                $relMapper->depth     = $this->depth + 1;
+                $relMapper->type      = $this->type;
                 $relMapper->joinAlias = '_' . $member;
 
                 // Here we go further into the depth of the model (e.g. a hasMany/ownsOne can again have ownsOne...)
@@ -1090,8 +1090,8 @@ final class ReadMapper extends DataMapperAbstract
             //      in this case you can get the profile by loading the profile based on the account reference column
 
             /** @var self $belongsToMapper */
-            $belongsToMapper        = $this->createRelationMapper($mapper::get($this->db), $member);
-            $belongsToMapper->depth = $this->depth + 1;
+            $belongsToMapper            = $this->createRelationMapper($mapper::get($this->db), $member);
+            $belongsToMapper->depth     = $this->depth + 1;
             $belongsToMapper->joinAlias = '_' . $member;
 
             $belongsToMapper->where(

@@ -101,7 +101,7 @@ final class TesseractOcr
             )));
 
             if ($dpi < 300) {
-                $split = \explode('.', $image);
+                $split     = \explode('.', $image);
                 $extension = \end($split);
 
                 SystemUtils::runProc(

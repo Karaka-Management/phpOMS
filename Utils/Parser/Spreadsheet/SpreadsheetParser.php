@@ -82,7 +82,7 @@ final class SpreadsheetParser
 
             /** @var \phpOMS\Utils\Parser\Spreadsheet\SpreadsheetWriter $writer */
             $writer = IOFactory::createWriter($spreadsheet, 'custom');
-            $html   =  $writer->generateHtmlAll();
+            $html   = $writer->generateHtmlAll();
 
             $doc  = new \DOMDocument();
             $html = \preg_replace(

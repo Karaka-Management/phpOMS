@@ -42,6 +42,8 @@ class ISO4217Enum extends Enum
 
     public const _AZN = 'New Manats, Azerbaijan';
 
+    public const _AZM = 'Manats, Azerbaijan';
+
     public const _AOA = 'Kwanza, Angolan';
 
     public const _BSD = 'Dollars, Bahamas';
@@ -75,7 +77,9 @@ class ISO4217Enum extends Enum
     public const _CLP = 'Pesos, Chile';
 
     public const _CNY = 'Yuan Renminbi, China';
+
     public const _CNH = 'Yuan Renminbi, China';
+
     public const _RMB = 'Yuan Renminbi, China';
 
     public const _COP = 'Pesos, Colombia';

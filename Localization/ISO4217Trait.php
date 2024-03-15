@@ -29,7 +29,7 @@ trait ISO4217Trait
      *
      * @param string $country Country 2 code
      *
-     * @return array
+     * @return string
      *
      * @since 1.0.0
      */
@@ -65,7 +65,7 @@ trait ISO4217Trait
             case ISO3166TwoEnum::_AUT:
                 return self::_EUR;
             case ISO3166TwoEnum::_AZE:
-                return self::_AZM;
+                return self::_AZN;
             case ISO3166TwoEnum::_PRT:
                 return self::_EUR;
             case ISO3166TwoEnum::_BHS:
@@ -235,7 +235,7 @@ trait ISO4217Trait
             case ISO3166TwoEnum::_IDN:
                 return self::_IDR;
             case ISO3166TwoEnum::_IRQ:
-                return self::_NID;
+                return self::_IQD;
             case ISO3166TwoEnum::_IRL:
                 return self::_EUR;
             case ISO3166TwoEnum::_ISR:
@@ -325,7 +325,7 @@ trait ISO4217Trait
             case ISO3166TwoEnum::_MAR:
                 return self::_MAD;
             case ISO3166TwoEnum::_MOZ:
-                return self::_MZM;
+                return self::_MZN;
             case ISO3166TwoEnum::_NAM:
                 return self::_NAD;
             case ISO3166TwoEnum::_NPL:
@@ -371,7 +371,7 @@ trait ISO4217Trait
             case ISO3166TwoEnum::_REU:
                 return self::_EUR;
             case ISO3166TwoEnum::_ROU:
-                return self::_ROL;
+                return self::_RON;
             case ISO3166TwoEnum::_RUS:
                 return self::_RUB;
             case ISO3166TwoEnum::_RWA:
@@ -417,7 +417,7 @@ trait ISO4217Trait
             case ISO3166TwoEnum::_VCT:
                 return self::_XCD;
             case ISO3166TwoEnum::_SUR:
-                return self::_SRG;
+                return self::_SRD;
             case ISO3166TwoEnum::_SWZ:
                 return self::_SZL;
             case ISO3166TwoEnum::_SWE:
@@ -465,7 +465,7 @@ trait ISO4217Trait
             case ISO3166TwoEnum::_VAT:
                 return self::_EUR;
             case ISO3166TwoEnum::_VEN:
-                return self::_VEB;
+                return self::_VEF;
             case ISO3166TwoEnum::_VNM:
                 return self::_VND;
             case ISO3166TwoEnum::_WLF:

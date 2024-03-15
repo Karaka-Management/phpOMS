@@ -22,7 +22,6 @@ use phpOMS\Localization\L11nManager;
 use phpOMS\Localization\Localization;
 use phpOMS\Message\Http\HttpRequest;
 use phpOMS\Message\Http\HttpResponse;
-use phpOMS\Uri\HttpUri;
 use phpOMS\Views\View;
 use phpOMS\Views\ViewAbstract;
 

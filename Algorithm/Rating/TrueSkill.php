@@ -22,8 +22,8 @@ use phpOMS\Math\Stochastic\Distribution\NormalDistribution;
  * @package phpOMS\Algorithm\Rating
  * @license OMS License 2.0
  * @link    https://jingga.app
- * @since   1.0.0
  * @see     https://www.moserware.com/assets/computing-your-skill/The%20Math%20Behind%20TrueSkill.pdf
+ * @since   1.0.0
  *
  * @todo Implement https://github.com/sublee/trueskill/blob/master/trueskill/__init__.py
  *      https://github.com/Karaka-Management/phpOMS/issues/337
@@ -50,6 +50,17 @@ class TrueSkill
 
     private float $drawProbability = 0.0;
 
+    /**
+     * Constructor.
+     *
+     * @param null|float $mu              Mu
+     * @param null|float $sigma           Sigma
+     * @param null|float $beta            Beta
+     * @param null|float $tau             Tau
+     * @param null|float $drawProbability Draw probability
+     *
+     * @since 1.0.0
+     */
     public function __construct(
         ?float $mu = null,
         ?float $sigma = null,
@@ -64,7 +75,18 @@ class TrueSkill
         $this->drawProbability = $drawProbability ?? self::DEFAULT_DRAW_PROBABILITY;
     }
 
-    public function winProbability(array $team1, array $team2, float $drawMargin = 0.0)
+    /**
+     * Calculate win probability
+     *
+     * @param array $team1      Team 1
+     * @param array $team2      Team 2
+     * @param float $drawMargin Draw margin
+     *
+     * @return float
+     *
+     * @since 1.0.0
+     */
+    public function winProbability(array $team1, array $team2, float $drawMargin = 0.0) : float
     {
         $sigmaSum = 0.0;
         $mu1      = 0.0;
@@ -204,22 +226,37 @@ class TrueSkill
                 / (NormalDistribution::getCdf($epsilon - $tAbs, 0.0, 1.0) - NormalDistribution::getCdf(-$epsilon - $tAbs, 0.0, 1.0));
     }
 
+    /**
+     *
+     */
     private function buildRatingLayer() : void
     {
     }
 
+    /**
+     *
+     */
     private function buildPerformanceLayer() : void
     {
     }
 
+    /**
+     *
+     */
     private function buildTeamPerformanceLayer() : void
     {
     }
 
+    /**
+     *
+     */
     private function buildTruncLayer() : void
     {
     }
 
+    /**
+     *
+     */
     private function factorGraphBuilders()
     {
         // Rating layer
@@ -238,6 +275,9 @@ class TrueSkill
         ];
     }
 
+    /**
+     *
+     */
     public function rating() : void
     {
         // Start values

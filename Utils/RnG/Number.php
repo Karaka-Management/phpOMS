@@ -24,6 +24,16 @@ namespace phpOMS\Utils\RnG;
  */
 final class Number
 {
+    /**
+     * Generate normal distributed random number
+     *
+     * @param int $min Min value
+     * @param int $max Max value
+     *
+     * @return int
+     *
+     * @since 1.0.0
+     */
     public static function normalDistributedRand(int $min, int $max) : int
     {
         $u1 = \mt_rand(1, 100) / 100;
@@ -36,7 +46,17 @@ final class Number
     }
 
     /**
+     * Generate exponentially distributed random number
+     *
      * For values [0; 100] a lambda of around 0.2 is recommended
+     *
+     * @param int   $min    Min value
+     * @param int   $max    Max value
+     * @param float $lambda Lambda
+     *
+     * @return int
+     *
+     * @since 1.0.0
      */
     public static function exponentialDistributedRand(int $min, int $max, float $lambda) : int
     {

@@ -17,7 +17,7 @@ namespace phpOMS\Localization;
 use phpOMS\Stdlib\Base\Enum;
 
 /**
- * Country symbols ISO list.
+ * Currency symbols ISO list.
  *
  * @package phpOMS\Localization
  * @license OMS License 2.0
@@ -41,6 +41,8 @@ class ISO4217SymbolEnum extends Enum
     public const _AUD = '$';
 
     public const _AZN = 'ман';
+
+    public const _AZM = '₼';
 
     public const _AOA = 'Kz';
 
@@ -75,7 +77,9 @@ class ISO4217SymbolEnum extends Enum
     public const _CLP = '$';
 
     public const _CNY = '¥';
+
     public const _CNH = '¥';
+
     public const _RMB = '¥';
 
     public const _COP = '$';
@@ -107,6 +111,8 @@ class ISO4217SymbolEnum extends Enum
     public const _GHS = '¢';
 
     public const _GIP = '£';
+
+    public const _GMD = 'GMD';
 
     public const _GTQ = 'Q';
 
@@ -302,7 +308,7 @@ class ISO4217SymbolEnum extends Enum
 
     public const _HTG = 'HTG';
 
-    public const _IQD = 'IQD';
+    public const _IQD = 'ع';
 
     public const _JOD = 'JOD';
 

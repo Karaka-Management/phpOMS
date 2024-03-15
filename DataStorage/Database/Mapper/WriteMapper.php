@@ -177,7 +177,7 @@ final class WriteMapper extends DataMapperAbstract
                     \usleep(10000);
                     $repeat = true;
                 }
-            } while($repeat);
+            } while ($repeat);
 
             $objId = empty($id = $this->mapper::getObjectId($obj)) ? $this->db->con->lastInsertId() : $id;
             \settype($objId, $this->mapper::COLUMNS[$this->mapper::PRIMARYFIELD]['type']);
@@ -210,19 +210,35 @@ final class WriteMapper extends DataMapperAbstract
      */
     private function createOwnsOne(string $propertyName, object $obj) : mixed
     {
-        if (!\is_object($obj)) {
-            return $obj;
+        // @question This code prevents us from EVER creating an object with a 'by' reference since we always assume
+        //      that it already exists -> only return the custom reference id
+        //      See bug below.
+
+        // @todo We might also have to handle 'column'
+        if (isset($this->mapper::OWNS_ONE[$propertyName]['by'])) {
+            // has by (obj is stored as a different model e.g. model = profile but reference/db is account)
+            if ($this->mapper::OWNS_ONE[$propertyName]['private'] ?? false) {
+                $refClass = new \ReflectionClass($obj);
+                $refProp  = $refClass->getProperty($this->mapper::OWNS_ONE[$propertyName]['by']);
+                $obj      = $refProp->getValue($obj);
+            } else {
+                $obj = $obj->{$this->mapper::OWNS_ONE[$propertyName]['by']};
+            }
+
+            if (!\is_object($obj)) {
+                return $obj;
+            }
         }
 
         /** @var class-string<DataMapperFactory> $mapper */
         $mapper     = $this->mapper::OWNS_ONE[$propertyName]['mapper'];
         $primaryKey = $mapper::getObjectId($obj);
 
-        if (empty($primaryKey)) {
-            return $mapper::create(db: $this->db)->execute($obj);
-        }
-
-        return $primaryKey;
+        // @bug The $mapper::create() might cause a problem if 'by' is set.
+        //      This is because we don't want to create this obj but the child obj.
+        return empty($primaryKey)
+            ? $mapper::create(db: $this->db)->execute($obj)
+            : $primaryKey;
     }
 
     /**
@@ -237,13 +253,11 @@ final class WriteMapper extends DataMapperAbstract
      */
     private function createBelongsTo(string $propertyName, object $obj) : mixed
     {
-        if (!\is_object($obj)) {
-            return $obj;
-        }
+        // @question This code prevents us from EVER creating an object with a 'by' reference since we always assume
+        //      that it already exists -> only return the custom reference id
+        //      See bug below.
 
-        $mapper     = '';
-        $primaryKey = 0;
-
+        // @todo We might also have to handle 'column'
         if (isset($this->mapper::BELONGS_TO[$propertyName]['by'])) {
             // has by (obj is stored as a different model e.g. model = profile but reference/db is account)
             if ($this->mapper::BELONGS_TO[$propertyName]['private'] ?? false) {
@@ -252,6 +266,10 @@ final class WriteMapper extends DataMapperAbstract
                 $obj      = $refProp->getValue($obj);
             } else {
                 $obj = $obj->{$this->mapper::BELONGS_TO[$propertyName]['by']};
+            }
+
+            if (!\is_object($obj)) {
+                return $obj;
             }
         }
 
@@ -435,7 +453,7 @@ final class WriteMapper extends DataMapperAbstract
                     \usleep(10000);
                     $repeat = true;
                 }
-            } while($repeat);
+            } while ($repeat);
         } catch (\Throwable $t) {
             // @codeCoverageIgnoreStart
             \phpOMS\Log\FileLogger::getInstance()->error(

@@ -37,9 +37,15 @@ final class BayesianPersonalizedRanking
 
     private array $itemFactors = [];
 
-    // num_factors determines the dimensionality of the latent factor space.
-    // learning_rate controls the step size for updating the latent factors during optimization.
-    // regularization prevents over-fitting by adding a penalty for large parameter values.
+    /**
+     * Constructor.
+     *
+     * @param int   $numFactors     Determines the dimensionality of the latent factor space.
+     * @param float $learningRate   Controls the step size for updating the latent factors during optimization.
+     * @param float $regularization Prevents over-fitting by adding a penalty for large parameter values.
+     *
+     * @since 1.0.0
+    */
     public function __construct(int $numFactors, float $learningRate, float $regularization)
     {
         $this->numFactors     = $numFactors;
@@ -47,7 +53,14 @@ final class BayesianPersonalizedRanking
         $this->regularization = $regularization;
     }
 
-    private function generateRandomFactors()
+    /**
+     * Calculate random factors
+     *
+     * @return array
+     *
+     * @since 1.0.0
+     */
+    private function generateRandomFactors() : array
     {
         $factors = [];
         for ($i = 0; $i < $this->numFactors; ++$i) {
@@ -57,6 +70,9 @@ final class BayesianPersonalizedRanking
         return $factors;
     }
 
+    /**
+     * @todo implement
+     */
     public function predict($userId, $itemId) {
         $userFactor = $this->userFactors[$userId];
         $itemFactor = $this->itemFactors[$itemId];
@@ -69,6 +85,9 @@ final class BayesianPersonalizedRanking
         return $score;
     }
 
+    /**
+     * @todo implement
+     */
     public function updateFactors($userId, $posItemId, $negItemId) : void
     {
         if (!isset($this->userFactors[$userId])) {

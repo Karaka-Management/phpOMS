@@ -5,9 +5,9 @@
  * PHP Version 8.1
  *
  * @package    phpOMS\Utils\Parser\Markdown
- * @license    Original & extra license Emanuil Rusev, erusev.com (MIT)
- * @license    Extended license Benjamin Hoegh (MIT)
- * @license    Extreme license doowzs (MIT)
+ * @copyright  Original & extra license Emanuil Rusev, erusev.com (MIT)
+ * @copyright  Extended license Benjamin Hoegh (MIT)
+ * @copyright  Extreme license doowzs (MIT)
  * @license    This version: OMS License 2.0
  * @version    1.0.0
  * @link       https://jingga.app
@@ -22,9 +22,9 @@ use phpOMS\Uri\UriFactory;
  * Markdown parser class.
  *
  * @package    phpOMS\Utils\Parser\Markdown
- * @license    Original & extra license Emanuil Rusev, erusev.com (MIT)
- * @license    Extended license Benjamin Hoegh (MIT)
- * @license    Extreme license doowzs (MIT)
+ * @copyright  Original & extra license Emanuil Rusev, erusev.com (MIT)
+ * @copyright  Extended license Benjamin Hoegh (MIT)
+ * @copyright  Extreme license doowzs (MIT)
  * @license    This version: OMS License 2.0
  * @link       https://jingga.app
  * @see        https://github.com/erusev/parsedown
@@ -336,7 +336,7 @@ class Markdown
     /**
      * TOC array after parsing headers
      *
-     * @var array{text:string, id:string, level:string}
+     * @var array{}|array{text:string, id:string, level:string}
      * @since 1.0.0
      */
     protected $contentsListArray = [];
@@ -443,7 +443,7 @@ class Markdown
             return self::$instances[$name];
         }
 
-        $instance = new static();
+        $instance = new self();
 
         self::$instances[$name] = $instance;
 
@@ -594,7 +594,7 @@ class Markdown
         $html     = \trim($html, "\n");
 
         // Merge consecutive dl elements
-        $html = \preg_replace('/<\/dl>\s+<dl>\s+/', '', $html);
+        $html = \preg_replace('/<\/dl>\s+<dl>\s+/', '', $html) ?? '';
 
         // Add footnotes
         if (isset($this->definitionData['Footnote'])) {
@@ -651,7 +651,9 @@ class Markdown
     public function contentsList($typeReturn = 'html') : string
     {
         if (\strtolower($typeReturn) === 'json') {
-            return \json_encode($this->contentsListArray);
+            $json = \json_encode($this->contentsListArray);
+
+            return $json === false ? '' : $json;
         }
 
         $result = '';
@@ -878,6 +880,7 @@ class Markdown
             return null;
         }
 
+        $matches = [];
         if (($excerpt['text'][1] === '/' && \preg_match('/^<\/\w[\w-]*+[ ]*+>/s', $excerpt['text'], $matches))
             || ($excerpt['text'][1] === '!' && \preg_match('/^<!---?[^>-](?:-?+[^-])*-->/s', $excerpt['text'], $matches))
             || ($excerpt['text'][1] !== ' ' && \preg_match('/^<\w[\w-]*+(?:[ ]*+' . $this->regexHtmlAttribute . ')*+[ ]*+\/?>/s', $excerpt['text'], $matches))
@@ -1332,8 +1335,11 @@ class Markdown
      */
     protected function inlineEmbedding(array $excerpt) : ?array
     {
+        $video = false;
+        $audio = false;
+
         if (!($this->options['embedding'] ?? false)
-            || !(\str_starts_with($excerpt['text'], '[video') || \str_starts_with($excerpt['text'], '[audio'))
+            || (!\str_starts_with($excerpt['text'], '[video') && !\str_starts_with($excerpt['text'], '[audio'))
             || (!($video = (\preg_match('/\[video.*src="([^"]*)".*\]/', $excerpt['text'], $matches) === 1))
                 && !($audio = (\preg_match('/\[audio.*src="([^"]*)".*\]/', $excerpt['text'], $matches) === 1)))
         ) {
@@ -2009,14 +2015,14 @@ class Markdown
     /**
      * Handle block list
      *
-     * @param array{body:string, indent:int, text:string} $line  Line data
-     * @param null|array                                  $block Current block
+     * @param array{body:string, indent:int, text:string} $line    Line data
+     * @param null|array                                  $current Current block
      *
      * @return null|array
      *
      * @since 1.0.0
      */
-    protected function blockList(array $line, ?array $block = null) : ?array
+    protected function blockList(array $line, ?array $current = null) : ?array
     {
         if (!($this->options['lists'] ?? true)) {
             return null;
@@ -2039,6 +2045,17 @@ class Markdown
         }
 
         $markerWithoutWhitespace = \strstr($matches[1], ' ', true);
+        if ($markerWithoutWhitespace === false) {
+            $markerWithoutWhitespace = $matches[1];
+        }
+
+        if ($name === 'ul') {
+            $markerWithoutWhitespace = \substr($markerWithoutWhitespace, -1);
+
+            if ($markerWithoutWhitespace === false) {
+                $markerWithoutWhitespace = $matches[1];
+            }
+        }
 
         $block = [
             'indent'  => $line['indent'],
@@ -2046,7 +2063,7 @@ class Markdown
             'data'    => [
                 'type'       => $name,
                 'marker'     => $matches[1],
-                'markerType' => ($name === 'ul' ? $markerWithoutWhitespace : \substr($markerWithoutWhitespace, -1)),
+                'markerType' => $markerWithoutWhitespace,
             ],
             'element' => [
                 'name'     => $name,
@@ -2057,12 +2074,17 @@ class Markdown
         $block['data']['markerTypeRegex'] = \preg_quote($block['data']['markerType'], '/');
 
         if ($name === 'ol') {
-            $listStart = \ltrim(\strstr($matches[1], $block['data']['markerType'], true), '0') ?: '0';
+            $tmp = \strstr($matches[1], $block['data']['markerType'], true);
+            if ($tmp === false) {
+                $tmp = $matches[1];
+            }
+
+            $listStart = \ltrim($tmp, '0') ?: '0';
 
             if ($listStart !== '1') {
-                if (isset($currentBlock)
-                    && $currentBlock['type'] === 'Paragraph'
-                    && !isset($currentBlock['interrupted'])
+                if (isset($current)
+                    && $current['type'] === 'Paragraph'
+                    && !isset($current['interrupted'])
                 ) {
                     return null;
                 }
@@ -2175,6 +2197,7 @@ class Markdown
         }
 
         // Get the text of the heading
+        $text = null;
         if (isset($block['element']['handler']['argument'])) {
             $text = $block['element']['handler']['argument'];
         }
@@ -2561,7 +2584,7 @@ class Markdown
             return null;
         }
 
-        $language = \trim(\preg_replace('/^`{3}([^\s]+)(.+)?/s', '$1', $line['text']));
+        $language = \trim(\preg_replace('/^`{3}([^\s]+)(.+)?/s', '$1', $line['text']) ?? '');
 
         if (!($this->options['diagrams'] ?? true)
             || !\in_array($language, ['mermaid', 'chart'])
@@ -2621,7 +2644,6 @@ class Markdown
             ];
         }
 
-
         return null;
     }
 
@@ -2650,7 +2672,7 @@ class Markdown
             return null;
         }
 
-        $summary = \trim(\preg_replace('/^\?{3}(.+)?/s', '$1', $line['text']));
+        $summary = \trim(\preg_replace('/^\?{3}(.+)?/s', '$1', $line['text']) ?? '');
 
         $infostring = \trim(\substr($line['text'], $openerLength), "\t ");
         if (\strpos($infostring, '?') !== false) {
@@ -2928,6 +2950,10 @@ class Markdown
         $attributes = \preg_split('/[ ]+/', $attribute, - 1, \PREG_SPLIT_NO_EMPTY);
         $classes    = [];
 
+        if ($attributes === false) {
+            return [];
+        }
+
         foreach ($attributes as $attribute) {
             if ($attribute[0] === '#') {
                 $data['id'] = \substr($attribute, 1);
@@ -3083,10 +3109,10 @@ class Markdown
 
         // Replace non-alphanumeric characters with our delimiter
         $optionDelimiter = $this->options['toc']['delimiter'] ?? '-';
-        $str             = \preg_replace('/[^\p{L}\p{Nd}]+/u', $optionDelimiter, $str);
+        $str             = \preg_replace('/[^\p{L}\p{Nd}]+/u', $optionDelimiter, $str) ?? '';
 
         // Remove duplicate delimiters
-        $str = \preg_replace('/(' . \preg_quote($optionDelimiter, '/') . '){2,}/', '$1', $str);
+        $str = \preg_replace('/(' . \preg_quote($optionDelimiter, '/') . '){2,}/', '$1', $str) ?? '';
 
         // Truncate slug to max. characters
         $optionLimit = $this->options['toc']['limit'] ?? \mb_strlen($str, 'UTF-8');
@@ -3164,7 +3190,7 @@ class Markdown
             }
 
             $newStr .= '-' . $count;
-        } while(isset($this->anchorDuplicates[$newStr]));
+        } while (isset($this->anchorDuplicates[$newStr]));
 
         $this->anchorDuplicates[$newStr] = 0;
 
@@ -3186,7 +3212,7 @@ class Markdown
 
         if (!empty($this->options['headings']['blacklist']) && \is_array($this->options['headings']['blacklist'])) {
             foreach ($this->options['headings']['blacklist'] as $v) {
-                $this->anchorDuplicates[$v] = 0;
+                $this->anchorDuplicates[(string) $v] = 0;
             }
         }
 
@@ -3608,7 +3634,7 @@ class Markdown
             ],
         ];
 
-        \uasort($this->definitionData['Footnote'], 'self::sortFootnotes');
+        \uasort($this->definitionData['Footnote'], ['self', 'sortFootnotes']);
 
         foreach ($this->definitionData['Footnote'] as $definitionId => $definitionData) {
             if (!isset($definitionData['number'])) {
@@ -3703,8 +3729,18 @@ class Markdown
 
         // http://stackoverflow.com/q/4879946/200145
         $dom->loadHTML($elementMarkup);
-        $dom->removeChild($dom->doctype);
-        $dom->replaceChild($dom->firstChild->firstChild->firstChild, $dom->firstChild);
+
+        if ($dom->documentElement === null) {
+            return '';
+        }
+
+        if ($dom->doctype !== null) {
+            $dom->removeChild($dom->doctype);
+        }
+
+        if ($dom->firstChild !== null && $dom->firstChild->firstChild?->firstChild !== null) {
+            $dom->replaceChild($dom->firstChild->firstChild->firstChild, $dom->firstChild);
+        }
 
         $elementText = '';
 
@@ -3719,6 +3755,10 @@ class Markdown
         } else {
             foreach ($dom->documentElement->childNodes as $node) {
                 $nodeMarkup = $dom->saveHTML($node);
+                if ($nodeMarkup === false) {
+                    $nodeMarkup = '';
+                }
+
                 $elementText .= $node instanceof \DOMElement && !\in_array($node->nodeName, $this->textLevelElements)
                     ? $this->processTag($nodeMarkup)
                     : $nodeMarkup;
@@ -3729,6 +3769,9 @@ class Markdown
         $dom->documentElement->nodeValue = 'placeholder\x1A';
 
         $markup = $dom->saveHTML($dom->documentElement);
+        if ($markup === false) {
+            return '';
+        }
 
         return \str_replace('placeholder\x1A', $elementText, $markup);
     }
@@ -4504,7 +4547,7 @@ class Markdown
      *
      * @param array $element Element to render
      *
-     * @return : string
+     * @return string
      *
      * @since 1.0.0
      */
@@ -4534,6 +4577,7 @@ class Markdown
         }
 
         $permitRawHtml = false;
+        $text = null;
 
         if (isset($element['text'])) {
             $text = $element['text'];

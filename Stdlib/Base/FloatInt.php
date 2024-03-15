@@ -23,6 +23,8 @@ use phpOMS\Contract\SerializableInterface;
  * @license OMS License 2.0
  * @link    https://jingga.app
  * @since   1.0.0
+ *
+ * @todo The naming of functions in this class is atrocious (getInt, getFloat, getNormalized, ...).
  */
 class FloatInt implements SerializableInterface
 {
@@ -34,6 +36,12 @@ class FloatInt implements SerializableInterface
      */
     public const MAX_DECIMALS = 4;
 
+    /**
+     * Divisor to get original value.
+     *
+     * @var int
+     * @since 1.0.0
+     */
     public const DIVISOR = 10000;
 
     /**
@@ -92,7 +100,7 @@ class FloatInt implements SerializableInterface
     public static function toInt(string $value, string $thousands = ',', string $decimal = '.') : int
     {
         $newValue = $value;
-        $len = \strlen($value);
+        $len      = \strlen($value);
 
         $decimalPos = \strrpos($value, $decimal);
         if ($decimalPos === false) {
@@ -140,18 +148,16 @@ class FloatInt implements SerializableInterface
         return $this;
     }
 
+    /**
+     * Returns the value as float
+     *
+     * @return float
+     *
+     * @since 1.0.0
+     */
     public function getNormalizedValue() : float
     {
         return $this->value / self::DIVISOR;
-    }
-
-    public function guessScalarValue() : int|float
-    {
-        $divider = self::DIVISOR;
-
-        return $this->value % $divider === 0
-            ? (int) ($this->value / $divider)
-            : (float) ($this->value / $divider);
     }
 
     /**
@@ -382,15 +388,24 @@ class FloatInt implements SerializableInterface
         return $this;
     }
 
+    /**
+     * Identify the numeric format of a string
+     *
+     * @param string $str String representation
+     *
+     * @return null|array
+     *
+     * @since 1.0.0
+     */
     public static function identifyNumericFormat(string $str) : ?array
     {
-        $commaPos = \strrpos($str, ',');
+        $commaPos  = \strrpos($str, ',');
         $periodPos = \strrpos($str, '.');
 
         if ($commaPos !== false && $periodPos !== false) {
             return [
                 'thousands' => $commaPos < $periodPos ? ',' : '.',
-                'decimal' => $commaPos < $periodPos ? '.' : ',',
+                'decimal'   => $commaPos < $periodPos ? '.' : ',',
             ];
         } elseif ($commaPos === false && $periodPos === false) {
             return null;
@@ -403,7 +418,7 @@ class FloatInt implements SerializableInterface
 
         return [
             'thousands' => $isComma ? '.' : ',',
-            'decimal' => $isComma ? ',' : '.'
+            'decimal'   => $isComma ? ',' : '.',
         ];
     }
 }

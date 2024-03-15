@@ -295,7 +295,7 @@ class Grammar extends GrammarAbstract
     protected function compileWhereElement(array $element, Builder $query, bool $first = true) : string
     {
         $expression = '';
-        $prefix = '';
+        $prefix     = '';
 
         if (!$first) {
             $prefix = ' ' . \strtoupper($element['boolean']) . ' ';
@@ -319,7 +319,7 @@ class Grammar extends GrammarAbstract
 
             if (empty($element['value'])) {
                 $element['operator'] = '=';
-                $element['value'] = null;
+                $element['value']    = null;
             }
         }
 

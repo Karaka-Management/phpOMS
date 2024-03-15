@@ -474,15 +474,20 @@ class DataMapperFactory
         return static::FACTORY::createWith($data);
     }
 
+    /**
+     * Mapper uses a factory
+     *
+     * @return bool
+     *
+     * @since 1.0.0
+     */
     public static function hasFactory() : bool
     {
         return !empty(static::FACTORY);
     }
 
     /**
-     * Create the empty base model
-     *
-     * @param null|array $data Data to use for initialization
+     * Get base model class name
      *
      * @return string
      *

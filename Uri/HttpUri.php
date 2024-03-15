@@ -407,7 +407,11 @@ final class HttpUri implements UriInterface
         if (empty($this->fragment)) {
             $this->uri .= $toAdd;
         } else {
-            $this->uri = \substr_replace($this->uri, $toAdd, \strrpos($this->uri, '#'), 0);
+            $pos = \strrpos($this->uri, '#');
+
+            if ($pos !== false) {
+                $this->uri = \substr_replace($this->uri, $toAdd, $pos, 0);
+            }
         }
     }
 

@@ -44,6 +44,8 @@ class ISO4217CharEnum extends Enum
 
     public const _AZN = 'AZN';
 
+    public const _AZM = 'AZM';
+
     public const _BSD = 'BSD';
 
     public const _BBD = 'BBD';
@@ -75,7 +77,9 @@ class ISO4217CharEnum extends Enum
     public const _CLP = 'CLP';
 
     public const _CNY = 'CNY';
+
     public const _CNH = 'CNH';
+
     public const _RMB = 'RMB';
 
     public const _COP = 'COP';

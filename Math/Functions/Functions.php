@@ -196,6 +196,16 @@ final class Functions
         return $a % $b;
     }
 
+    /**
+     * Modular implementation for float values
+     *
+     * @param float $a a
+     * @param float $b b
+     *
+     * @return float
+     *
+     * @since 1.0.0
+     */
     public static function modFloat(float $a, float $b) : float
     {
         return $a - ((int) ($a / $b)) * $b;

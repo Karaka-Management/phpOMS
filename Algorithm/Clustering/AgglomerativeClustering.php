@@ -119,4 +119,36 @@ final class AgglomerativeClustering implements ClusteringInterface
 
         return $distance / \count($setA) / \count($setB);
     }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function getCentroids() : array
+    {
+        return [];
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function getClusters() : array
+    {
+        return [];
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function cluster(PointInterface $point) : ?PointInterface
+    {
+        return null;
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function getNoise() : array
+    {
+        return [];
+    }
 }

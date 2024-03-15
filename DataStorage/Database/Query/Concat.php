@@ -43,10 +43,21 @@ class Concat extends Builder
         $this->type = QueryType::SELECT;
     }
 
+    /**
+     * Columns to concat
+     *
+     * @param string $as         Alias
+     * @param string $delim      Delimiter
+     * @param string ...$columns Columns to concat
+     *
+     * @return void
+     *
+     * @since 1.0.0
+     */
     public function columns(string $as, string $delim, ...$columns) : void
     {
         $this->delim = $delim;
-        $this->as = $as;
+        $this->as    = $as;
 
         $this->select($columns);
     }

@@ -20,7 +20,6 @@ namespace phpOMS\Message\Mail;
 
 use phpOMS\Security\Guard;
 use phpOMS\System\SystemUtils;
-use phpOMS\Utils\StringUtils;
 use phpOMS\Validation\Network\Email as EmailValidator;
 use phpOMS\Validation\Network\Hostname;
 
@@ -398,7 +397,6 @@ class MailHandler
      *
      * @param string      $to     To
      * @param Email       $mail   Mail
-     * @param string      $body   Message Body
      * @param string      $header Additional Header(s)
      * @param null|string $params Params
      *

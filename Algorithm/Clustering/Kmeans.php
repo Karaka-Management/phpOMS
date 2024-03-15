@@ -269,8 +269,8 @@ final class Kmeans implements ClusteringInterface
         }
 
         foreach ($this->points as $point) {
-            $c                  = $this->cluster($point);
-            $this->clusters[$c] = $point;
+            $c                         = $this->cluster($point);
+            $this->clusters[$c?->name] = $point;
         }
 
         return $this->clusters;

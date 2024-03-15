@@ -372,9 +372,9 @@ class SmartDateTime extends \DateTime
      *
      * @since 1.0.0
      */
-    public static function startOfYear(int $month = 1) : SmartDateTime
+    public static function startOfYear(int $month = 1) : self
     {
-        return new SmartDateTime(\date('Y') . '-' . \sprintf('%02d', $month) . '-01');
+        return new self(\date('Y') . '-' . \sprintf('%02d', $month) . '-01');
     }
 
     /**
@@ -386,9 +386,9 @@ class SmartDateTime extends \DateTime
      *
      * @since 1.0.0
      */
-    public static function endOfYear(int $month = 1) : SmartDateTime
+    public static function endOfYear(int $month = 1) : self
     {
-        return new SmartDateTime(\date('Y') . '-' . self::calculateMonthIndex(13 - $month, $month) . '-31');
+        return new self(\date('Y') . '-' . self::calculateMonthIndex(13 - $month, $month) . '-31');
     }
 
     /**
@@ -398,9 +398,9 @@ class SmartDateTime extends \DateTime
      *
      * @since 1.0.0
      */
-    public static function startOfMonth() : SmartDateTime
+    public static function startOfMonth() : self
     {
-        return new SmartDateTime(\date('Y-m') . '-01');
+        return new self(\date('Y-m') . '-01');
     }
 
     /**
@@ -410,9 +410,9 @@ class SmartDateTime extends \DateTime
      *
      * @since 1.0.0
      */
-    public static function endOfMonth() : SmartDateTime
+    public static function endOfMonth() : self
     {
-        return new SmartDateTime(\date('Y-m-t'));
+        return new self(\date('Y-m-t'));
     }
 
     /**
@@ -449,6 +449,15 @@ class SmartDateTime extends \DateTime
         return \abs(($mod < 0 ? 12 + $mod : $mod) % 12) + 1;
     }
 
+    /**
+     * Format duration in seconds as d:h:m:s
+     *
+     * @param int $duration Duration in seconds
+     *
+     * @return string
+     *
+     * @since 1.0.0
+     */
     public static function formatDuration(int $duration) : string
     {
         $days    = \floor($duration / (24 * 3600));

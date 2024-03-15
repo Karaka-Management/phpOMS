@@ -46,6 +46,8 @@ class ISO4217NumEnum extends Enum
 
     public const _AZN = '944';
 
+    public const _AZM = '944';
+
     public const _BAM = '977';
 
     public const _BBD = '052';
@@ -93,7 +95,9 @@ class ISO4217NumEnum extends Enum
     public const _CLP = '152';
 
     public const _CNY = '156';
+
     public const _CNH = '156';
+
     public const _RMB = '156';
 
     public const _COP = '170';
@@ -395,6 +399,8 @@ class ISO4217NumEnum extends Enum
     public const _ZMK = '894';
 
     public const _ZWL = '932';
+
+    public const _ZWD = '716';
 
     use ISO4217Trait;
 }

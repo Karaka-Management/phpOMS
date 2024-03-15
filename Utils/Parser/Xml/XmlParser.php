@@ -45,25 +45,38 @@ final class XmlParser
      */
     public static function parseXml(string $path, string $output = 'xml', string $xpath = '') : string
     {
-        $doc = new \DOMDocument();
+        $doc                     = new \DOMDocument();
         $doc->preserveWhiteSpace = true;
-        $doc->formatOutput = true;
+        $doc->formatOutput       = true;
 
         $xml = \file_get_contents($path);
+        if ($xml === false || $xml === null) {
+            return '';
+        }
+
         $xml = \preg_replace(
             ['~<style.*?</style>~', '~<script.*?</script>~'],
             ['', ''],
             $xml
         );
 
-        $doc->loadXML($path);
-
-        if (empty($xpath)) {
-            return $doc->loadXML($xml);
+        if ($xml === null) {
+            return '';
         }
 
-        $content = '';
-        $xNode = new \DOMXpath($doc);
+        $result = $doc->loadXML($xml);
+        if ($result === false) {
+            return '';
+        }
+
+        if (empty($xpath)) {
+            $result = $doc->saveHTML();
+
+            return $result === false ? '' : $result;
+        }
+
+        $content  = '';
+        $xNode    = new \DOMXpath($doc);
         $elements = $xNode->query($xpath);
 
         if ($elements === false) {

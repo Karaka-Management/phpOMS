@@ -34,7 +34,7 @@ use phpOMS\Validation\Network\Email as EmailValidator;
  * @link    https://jingga.app
  * @since   1.0.0
  */
-class Email implements MessageInterface
+class Email
 {
     /**
      * Mailer name.
@@ -462,11 +462,25 @@ class Email implements MessageInterface
         $this->contentType = $isHtml ? MimeType::M_HTML : MimeType::M_TEXT;
     }
 
+    /**
+     * Get content type
+     *
+     * @return string
+     *
+     * @since 1.0.0
+     */
     public function getContentType() : string
     {
         return $this->contentType;
     }
 
+    /**
+     * Is html content type?
+     *
+     * @return bool
+     *
+     * @since 1.0.0
+     */
     public function isHtml() : bool
     {
         return $this->contentType === MimeType::M_HTML;
@@ -568,10 +582,10 @@ class Email implements MessageInterface
      *
      * @since 1.0.0
      */
-    public static function parseAddresses(string $addrstr, bool $useimap = true, string $charset = CharsetType::ISO_8859_1) : array
+    public static function parseAddresses(string $addrstr, bool $useImap = true, string $charset = CharsetType::ISO_8859_1) : array
     {
         $addresses = [];
-        if ($useimap && \function_exists('imap_rfc822_parse_adrlist')) {
+        if ($useImap && \function_exists('imap_rfc822_parse_adrlist')) {
             $list = \imap_rfc822_parse_adrlist($addrstr, '');
             foreach ($list as $address) {
                 if (($address->host !== '.SYNTAX-ERROR.')
@@ -623,6 +637,15 @@ class Email implements MessageInterface
         return $addresses;
     }
 
+    /**
+     * Parse email template.
+     *
+     * Replaces placeholders with content
+     *
+     * @return void
+     *
+     * @since 1.0.0
+     */
     public function parseTemplate() : void
     {
         if (empty($this->template)) {
@@ -778,7 +801,7 @@ class Email implements MessageInterface
         $result .= 'X-Mailer: ' . self::XMAILER . self::$LE;
 
         if ($this->confirmationAddress !== '') {
-            $result .= 'Disposition-Notification-To: ' . '<' . $this->confirmationAddress . '>' . self::$LE;
+            $result .= 'Disposition-Notification-To: <' . $this->confirmationAddress . '>' . self::$LE;
         }
 
         // Add custom headers
@@ -1283,10 +1306,10 @@ class Email implements MessageInterface
                     $mime[]  = empty($encodedName)
                         ? \sprintf('Content-Disposition: %s%s', $disposition, self::$LE . self::$LE)
                         : \sprintf('Content-Disposition: %s; filename=%s%s',
-                                $disposition,
-                                self::quotedString($encodedName),
-                                self::$LE . self::$LE
-            );
+                            $disposition,
+                            self::quotedString($encodedName),
+                            self::$LE . self::$LE
+                        );
             } else {
                 $mime[] = self::$LE;
             }
@@ -1471,7 +1494,7 @@ class Email implements MessageInterface
      *
      * @return void
      *
-     * @return 1.0.0
+     * @since 1.0.0
      */
     public function setWordWrap() : void
     {
@@ -1626,9 +1649,9 @@ class Email implements MessageInterface
 
                 $matchcount = \preg_match_all('/[^\040\041\043-\133\135-\176]/', $str, $matches);
                 break;
-            /* @noinspection PhpMissingBreakStatementInspection */
             case 'comment':
                 $matchcount = \preg_match_all('/[()"]/', $str, $matches);
+                // no break
             case 'text':
             default:
                 $matchcount += \preg_match_all('/[\000-\010\013\014\016-\037\177-\377]/', $str, $matches);
@@ -1703,6 +1726,7 @@ class Email implements MessageInterface
                 break;
             case 'comment':
                 $pattern = '\(\)"';
+                // no break
             case 'text':
             default:
                 // Replace every high ascii, control, =, ? and _ characters
@@ -2122,7 +2146,7 @@ class Email implements MessageInterface
     /**
      * Normalize line breaks in a string.
      *
-     * @param string $text
+     * @param string $text      Text to normalize
      * @param string $breaktype What kind of line break to use; defaults to self::$LE
      *
      * @return string
@@ -2210,7 +2234,7 @@ class Email implements MessageInterface
     /**
      * Generate a DKIM signature.
      *
-     * @param string $signHeader
+     * @param string $signHeader Sign header
      *
      * @return string The DKIM signature value
      *

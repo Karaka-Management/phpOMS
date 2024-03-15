@@ -24,8 +24,24 @@ namespace phpOMS\Scheduling;
  */
 final class ScheduleQueue
 {
+    /**
+     * Queue
+     *
+     * @var Job[]
+     * @since 1.0.0
+     */
     public array $queue = [];
 
+    /**
+     * Get element from queue
+     *
+     * @param int $size Amount of elements to return
+     * @param int $type Priority type to use for return
+     *
+     * @return Job[]
+     *
+     * @since 1.0.0
+     */
     public function get(int $size = 1, int $type = PriorityMode::FIFO) : array
     {
         $jobs = [];
@@ -103,11 +119,33 @@ final class ScheduleQueue
         return $jobs;
     }
 
+    /**
+     * Insert new element into queue
+     *
+     * @param int $id  Element id
+     * @param Job $job Element to add
+     *
+     * @return void
+     *
+     * @since 1.0.0
+     */
     public function insert(int $id, Job $job) : void
     {
         $this->queue[$id] = $job;
     }
 
+    /**
+     * Pop elements from the queue.
+     *
+     * This also removes the elements from the queue
+     *
+     * @param int $size Amount of elements to return
+     * @param int $type Priority type to use for return
+     *
+     * @return Job[]
+     *
+     * @since 1.0.0
+     */
     public function pop(int $size = 1, int $type = PriorityMode::FIFO) : array
     {
         $jobs = $this->get($size, $type);
@@ -118,6 +156,15 @@ final class ScheduleQueue
         return $jobs;
     }
 
+    /**
+     * Increases the hold counter of an element
+     *
+     * @param int $id Id of the element (0 = all elements)
+     *
+     * @return void
+     *
+     * @since 1.0.0
+     */
     public function bumpHold(int $id = 0) : void
     {
         if ($id === 0) {
@@ -129,6 +176,16 @@ final class ScheduleQueue
         }
     }
 
+    /**
+     * Change the priority of an element
+     *
+     * @param int   $id       Id of the element (0 = all elements)
+     * @param float $priority Priority to increase by
+     *
+     * @return void
+     *
+     * @since 1.0.0
+     */
     public function adjustPriority(int $id = 0, float $priority = 0.1) : void
     {
         if ($id === 0) {
@@ -140,7 +197,16 @@ final class ScheduleQueue
         }
     }
 
-    public function remove(string $id) : void
+    /**
+     * Remove an element from the queue
+     *
+     * @param int $id Id of the element
+     *
+     * @return void
+     *
+     * @since 1.0.0
+     */
+    public function remove(int $id) : void
     {
         unset($this->queue[$id]);
     }

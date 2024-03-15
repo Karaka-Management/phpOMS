@@ -312,8 +312,8 @@ abstract class ResponseAbstract implements \JsonSerializable, MessageInterface
     /**
      * Add response.
      *
-     * @param mixed $key       Response id
-     * @param mixed $response  Response to add
+     * @param mixed $key      Response id
+     * @param mixed $response Response to add
      *
      * @return void
      *

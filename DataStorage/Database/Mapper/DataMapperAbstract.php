@@ -158,8 +158,23 @@ abstract class DataMapperAbstract
         $this->db     = $db;
     }
 
+    /**
+     * Column name of the index
+     *
+     * @var string
+     * @since 1.0.0
+     */
     protected string $indexedBy = '';
 
+    /**
+     * Set column name where the id is defined
+     *
+     * @param string $index Column name of the index
+     *
+     * @return self
+     *
+     * @since 1.0.0
+     */
     public function indexedBy(string $index) : self
     {
         $this->indexedBy = $index;

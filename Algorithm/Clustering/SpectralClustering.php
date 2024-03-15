@@ -27,4 +27,35 @@ namespace phpOMS\Algorithm\Clustering;
  */
 final class SpectralClustering implements ClusteringInterface
 {
+    /**
+     * {@inheritdoc}
+     */
+    public function getCentroids() : array
+    {
+        return [];
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function getClusters() : array
+    {
+        return [];
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function cluster(PointInterface $point) : ?PointInterface
+    {
+        return null;
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function getNoise() : array
+    {
+        return [];
+    }
 }

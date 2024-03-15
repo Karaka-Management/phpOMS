@@ -50,9 +50,11 @@ abstract class Enum
      *
      * Checking if a given value is part of this enum
      *
-     * @param mixed $value Value to check
+     * @template T
      *
-     * @return mixed
+     * @param T $value Value to check
+     *
+     * @return null|T
      *
      * @since 1.0.0
      */

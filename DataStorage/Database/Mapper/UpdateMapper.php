@@ -181,7 +181,7 @@ final class UpdateMapper extends DataMapperAbstract
                     \usleep(10000);
                     $repeat = true;
                 }
-            } while($repeat);
+            } while ($repeat);
         } catch (\Throwable $t) {
             // @codeCoverageIgnoreStart
             \phpOMS\Log\FileLogger::getInstance()->error(
@@ -210,19 +210,48 @@ final class UpdateMapper extends DataMapperAbstract
         /** @var class-string<DataMapperFactory> $mapper */
         $mapper = $this->mapper::BELONGS_TO[$propertyName]['mapper'];
 
-        if (!isset($this->with[$propertyName])) {
-            $id = $mapper::getObjectId($obj);
+        if (isset($this->with[$propertyName])) {
+            /** @var self $relMapper */
+            $relMapper        = $this->createRelationMapper($mapper::update(db: $this->db), $propertyName);
+            $relMapper->depth = $this->depth + 1;
 
-            return empty($id) && $mapper::isNullModel($obj)
-                ? null
-                : $id;
+            $id = $relMapper->execute($obj);
+
+            if (!isset($this->mapper::OWNS_ONE[$propertyName]['by'])) {
+                return $id;
+            }
+
+            if ($this->mapper::OWNS_ONE[$propertyName]['private'] ?? false) {
+                $refClass = new \ReflectionClass($obj);
+                $refProp  = $refClass->getProperty($this->mapper::OWNS_ONE[$propertyName]['by']);
+                $value    = $refProp->getValue($obj);
+            } else {
+                $value = $obj->{$this->mapper::OWNS_ONE[$propertyName]['by']};
+            }
+
+            return $value;
         }
 
-        /** @var self $relMapper */
-        $relMapper        = $this->createRelationMapper($mapper::update(db: $this->db), $propertyName);
-        $relMapper->depth = $this->depth + 1;
+        if (isset($this->mapper::BELONGS_TO[$propertyName]['by'])) {
+            // has by (obj is stored as a different model e.g. model = profile but reference/db is account)
+            if ($this->mapper::BELONGS_TO[$propertyName]['private'] ?? false) {
+                $refClass = new \ReflectionClass($obj);
+                $refProp  = $refClass->getProperty($this->mapper::BELONGS_TO[$propertyName]['by']);
+                $obj      = $refProp->getValue($obj);
+            } else {
+                $obj = $obj->{$this->mapper::BELONGS_TO[$propertyName]['by']};
+            }
 
-        return $relMapper->execute($obj);
+            if (!\is_object($obj)) {
+                return $obj;
+            }
+        }
+
+        $id = $mapper::getObjectId($obj);
+
+        return empty($id) && $mapper::isNullModel($obj)
+            ? null
+            : $id;
     }
 
     /**
@@ -240,19 +269,48 @@ final class UpdateMapper extends DataMapperAbstract
         /** @var class-string<DataMapperFactory> $mapper */
         $mapper = $this->mapper::OWNS_ONE[$propertyName]['mapper'];
 
-        if (!isset($this->with[$propertyName])) {
-            $id = $mapper::getObjectId($obj);
+        if (isset($this->with[$propertyName])) {
+            /** @var self $relMapper */
+            $relMapper        = $this->createRelationMapper($mapper::update(db: $this->db), $propertyName);
+            $relMapper->depth = $this->depth + 1;
 
-            return empty($id) && $mapper::isNullModel($obj)
-                ? null
-                : $id;
+            $id = $relMapper->execute($obj);
+
+            if (!isset($this->mapper::OWNS_ONE[$propertyName]['by'])) {
+                return $id;
+            }
+
+            if ($this->mapper::OWNS_ONE[$propertyName]['private'] ?? false) {
+                $refClass = new \ReflectionClass($obj);
+                $refProp  = $refClass->getProperty($this->mapper::OWNS_ONE[$propertyName]['by']);
+                $value    = $refProp->getValue($obj);
+            } else {
+                $value = $obj->{$this->mapper::OWNS_ONE[$propertyName]['by']};
+            }
+
+            return $value;
         }
 
-        /** @var self $relMapper */
-        $relMapper        = $this->createRelationMapper($mapper::update(db: $this->db), $propertyName);
-        $relMapper->depth = $this->depth + 1;
+        if (isset($this->mapper::OWNS_ONE[$propertyName]['by'])) {
+            // has by (obj is stored as a different model e.g. model = profile but reference/db is account)
+            if ($this->mapper::OWNS_ONE[$propertyName]['private'] ?? false) {
+                $refClass = new \ReflectionClass($obj);
+                $refProp  = $refClass->getProperty($this->mapper::OWNS_ONE[$propertyName]['by']);
+                $obj      = $refProp->getValue($obj);
+            } else {
+                $obj = $obj->{$this->mapper::OWNS_ONE[$propertyName]['by']};
+            }
 
-        return $relMapper->execute($obj);
+            if (!\is_object($obj)) {
+                return $obj;
+            }
+        }
+
+        $id = $mapper::getObjectId($obj);
+
+        return empty($id) && $mapper::isNullModel($obj)
+            ? null
+            : $id;
     }
 
     /**

@@ -1296,7 +1296,7 @@ class Builder extends BuilderAbstract
      *
      * @param string|array      $columns  Columns to join on
      * @param null|string|array $operator Comparison operator
-     * @param null|string|array $values   Values to compare with
+     * @param mixed             $values   Values to compare with
      * @param string|array      $boolean  Concatenation
      * @param null|string       $table    Table this belongs to
      *

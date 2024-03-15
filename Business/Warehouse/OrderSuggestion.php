@@ -25,16 +25,6 @@ namespace phpOMS\Business\Sales;
 final class OrderSuggestion
 {
     /**
-     * Constructor
-     *
-     * @since 1.0.0
-     * @codeCoverageIgnore
-     */
-    private function __construct()
-    {
-    }
-
-    /**
      * Calculate the optimal order quantity using the Andler formula
      */
     public static function andler(float $annualQuantity, float $orderCosts, float $unitPrice, float $warehousingCostRatio) : float

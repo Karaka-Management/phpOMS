@@ -83,7 +83,9 @@ class ISO4217SubUnitEnum extends Enum
     public const _CLP = 100;
 
     public const _CNY = 100;
+
     public const _CNH = 100;
+
     public const _RMB = 100;
 
     public const _COP = 100;
@@ -401,6 +403,8 @@ class ISO4217SubUnitEnum extends Enum
     public const _ZMW = 100;
 
     public const _AZN = 100;
+
+    public const _AZM = 100;
 
     public const _CRC = 100;
 

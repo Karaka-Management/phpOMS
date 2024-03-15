@@ -39,7 +39,7 @@ final class ShippingFactory
     {
         switch ($type) {
             case ShippingType::DHL:
-                return new \phpOMS\Api\Shipping\DHL\DHLShipping();
+                return new \phpOMS\Api\Shipping\DHL\DHLInternationalShipping();
             case ShippingType::DPD:
                 return new \phpOMS\Api\Shipping\DPD\DPDShipping();
             case ShippingType::FEDEX:

@@ -134,6 +134,7 @@ abstract class StatusAbstract
      * Init routes and hooks.
      *
      * @param ModuleInfo           $info    Module info
+     * @param string               $type    Is 'Routes' or 'Hooks'
      * @param null|ApplicationInfo $appInfo Application info
      *
      * @return void
@@ -204,6 +205,7 @@ abstract class StatusAbstract
      * Deactivate routes and hooks.
      *
      * @param ModuleInfo           $info    Module info
+     * @param string               $type    Is 'Routes' or 'Hooks'
      * @param null|ApplicationInfo $appInfo Application info
      *
      * @return void
