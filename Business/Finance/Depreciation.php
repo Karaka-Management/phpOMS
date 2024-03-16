@@ -35,7 +35,7 @@ final class Depreciation
     }
 
     /**
-     * Calculate linear depretiation rate
+     * Calculate linear depreciation rate
      *
      * @param float $start    Value to depreciate
      * @param int   $duration Useful life time

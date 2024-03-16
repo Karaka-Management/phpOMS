@@ -127,7 +127,7 @@ final class FinanceFormulas
     /**
      * Annuity - Future Value w/ Continuous Compounding
      *
-     * @param float $cf Cach flow
+     * @param float $cf Cashflow
      * @param float $r  Rate
      * @param int   $t  Time
      *
@@ -143,7 +143,7 @@ final class FinanceFormulas
     /**
      * Annuity - Future Value w/ Continuous Compounding
      *
-     * @param float $fvacc Future value annuity continuous compoinding
+     * @param float $fvacc Future value annuity continuous compounding
      * @param float $r     Rate
      * @param int   $t     Time
      *
@@ -159,8 +159,8 @@ final class FinanceFormulas
     /**
      * Annuity - Future Value w/ Continuous Compounding
      *
-     * @param float $fvacc Future value annuity continuous compoinding
-     * @param float $cf    Cach flow
+     * @param float $fvacc Future value annuity continuous compounding
+     * @param float $cf    Cashflow
      * @param float $r     Rate
      *
      * @return int
@@ -766,7 +766,7 @@ final class FinanceFormulas
     }
 
     /**
-     * Get rate to dobule
+     * Get rate to double
      *
      * @param float $t Time in which to double investment
      *
@@ -859,7 +859,7 @@ final class FinanceFormulas
      * Free Cash Flow to Equity (FCFE = FCFF - dept payments)
      *
      * @param float $income    Net income
-     * @param float $depamo    Depreciation & amortisation
+     * @param float $depamo    Depreciation & amortization
      * @param float $capital   Capital expenses
      * @param float $wc        Change in working capital
      * @param float $borrowing Net Borrowing
@@ -878,7 +878,7 @@ final class FinanceFormulas
      *
      * @param float $ebit    EBIT
      * @param float $t       Tax rate
-     * @param float $depamo  Depreciation & amortisation
+     * @param float $depamo  Depreciation & amortization
      * @param float $capital Capital expenses
      * @param float $wc      Change in working capital
      *

@@ -49,7 +49,7 @@ final class Dispatcher implements DispatcherInterface
     /**
      * Constructor.
      *
-     * @param ApplicationAbstract $app Appliaction
+     * @param ApplicationAbstract $app Application
      *
      * @since 1.0.0
      */
@@ -78,7 +78,7 @@ final class Dispatcher implements DispatcherInterface
         }
 
         // Php void functions always return null.
-        // In a different language the Api functions would reguire a return type
+        // In a different language the Api functions would require a return type
         // If null is returned (i.e. void functions) these get ignored later in the response renderer as null is not "rendered"
         if (\is_string($controller)) {
             $views += $this->dispatchString($controller, $data);

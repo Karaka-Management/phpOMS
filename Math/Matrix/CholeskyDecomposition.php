@@ -20,7 +20,7 @@ use phpOMS\Math\Matrix\Exception\InvalidDimensionException;
 /**
  * Cholesky decomposition
  *
- * A is syymetric, positive definite then A = L*L'
+ * A is symmetric, positive definite then A = L*L'
  *
  * @package phpOMS\Math\Matrix
  * @license OMS License 2.0
@@ -46,7 +46,7 @@ final class CholeskyDecomposition
     private int $m = 0;
 
     /**
-     * Is symmetric positiv definite
+     * Is symmetric positive definite
      *
      * @var bool
      * @since 1.0.0
@@ -89,7 +89,7 @@ final class CholeskyDecomposition
     }
 
     /**
-     * Is matrix symmetric positiv definite.
+     * Is matrix symmetric positive definite.
      *
      * @return bool
      *

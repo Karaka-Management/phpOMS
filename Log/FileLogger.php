@@ -369,7 +369,7 @@ final class FileLogger implements LoggerInterface
     }
 
     /**
-     * Analyse logging file.
+     * Analyze logging file.
      *
      * @return array
      *
@@ -414,9 +414,9 @@ final class FileLogger implements LoggerInterface
     }
 
     /**
-     * Find cricitcal connections.
+     * Find critical connections.
      *
-     * @param int $limit Amout of perpetrators
+     * @param int $limit Amount of perpetrators
      *
      * @return array
      *
@@ -464,7 +464,7 @@ final class FileLogger implements LoggerInterface
     /**
      * Get logging messages from file.
      *
-     * @param int $limit  Amout of logs
+     * @param int $limit  Amount of logs
      * @param int $offset Offset
      *
      * @return array

@@ -28,7 +28,7 @@ abstract class DepreciationType extends Enum
 {
     public const NONE = 1;
 
-    public const STAIGHT_LINE = 2;
+    public const STRAIGHT_LINE = 2;
 
     public const DECLINING_BALANCE = 3;
 

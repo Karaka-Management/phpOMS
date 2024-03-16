@@ -47,7 +47,7 @@ final class ModelCF
      * the item matrix contains in every row a score for how much it belongs to a certain attribute. Each column represents an item.
      * example: users columns define how much a user likes a certain movie genre and the item rows define how much this movie belongs to a certain genre.
      * the multiplication gives a score of how much the user may like that movie.
-     * A segnificant amount of attributes are required to calculate a good match
+     * A significant amount of attributes are required to calculate a good match
      *
      * @param array<int|string, array<int|float>> $users A mxa matrix where each "m" defines how much the user likes a certain attribute type and "a" defines different users
      * @param array<int|string, array<int|float>> $items A bxm matrix where each "b" defines a item and "m" defines how much it belongs to a certain attribute type

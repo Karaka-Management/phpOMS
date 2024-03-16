@@ -30,7 +30,7 @@ final class PermutationTest extends \PHPUnit\Framework\TestCase
      * @covers phpOMS\Utils\Permutation
      * @group framework
      */
-    public function testPermute() : void
+    public function testPermuteAll() : void
     {
         $arr           = ['a', 'b', 'c'];
         $permutations  = ['abc', 'acb', 'bac', 'bca', 'cab', 'cba'];
@@ -68,7 +68,7 @@ final class PermutationTest extends \PHPUnit\Framework\TestCase
      * @covers phpOMS\Utils\Permutation
      * @group framework
      */
-    public function testPermute() : void
+    public function testPermuteBy() : void
     {
         self::assertEquals(['c', 'b', 'a'], Permutation::permuteByKey(['a', 'b', 'c'], [2, 1, 1]));
     }

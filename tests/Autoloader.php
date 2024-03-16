@@ -78,7 +78,9 @@ class Autoloader
         $class = \ltrim($class, '\\');
         $class = \strtr($class, '_\\', '//');
 
-        if (\stripos($class, 'Web/Backend') !== false || \stripos($class, 'Web/Api') !== false) {
+        if (\stripos($class, 'Web/Backend') !== false
+            || \stripos($class, 'Web/Api') !== false
+        ) {
             $class = \is_dir(__DIR__ . '/Web') ? $class : \str_replace('Web/', 'MainRepository/Web/', $class);
         }
 
@@ -97,7 +99,9 @@ class Autoloader
         }
 
         foreach (self::$paths as $path) {
-            if (($file = \realpath($path . $class2 . '.php')) !== false && \stripos($file, $class3) !== false) {
+            if (($file = \realpath($path . $class2 . '.php')) !== false
+                && \stripos($file, $class3) !== false
+            ) {
                 include_once $file;
 
                 return;

@@ -39,7 +39,7 @@ final class ArticleCorrelationAffinity
     /**
      * Item order behavior (when are which items ordered)
      *
-     * In tearms of the pearson correlation these are our random variables
+     * In terms of the pearson correlation these are our random variables
      *
      * @var array
      * @since 1.0.0
