@@ -224,15 +224,15 @@ final class DeleteMapper extends DataMapperAbstract
     /**
      * Delete has many relations if the relation is handled in a relation table
      *
-     * @param string $member Property which contains the has many models
-     * @param array  $objIds Objects which are related to the parent object
-     * @param mixed  $objId  Parent object id
+     * @param string     $member Property which contains the has many models
+     * @param null|array $objIds Objects which are related to the parent object
+     * @param mixed      $objId  Parent object id
      *
      * @return void
      *
      * @since 1.0.0
      */
-    public function deleteRelationTable(string $member, ?array $objIds = null, mixed $objId) : void
+    public function deleteRelationTable(string $member, ?array $objIds, mixed $objId) : void
     {
         if ((empty($objIds) && $objIds !== null)
             || $this->mapper::HAS_MANY[$member]['table'] === $this->mapper::TABLE
