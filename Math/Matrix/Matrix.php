@@ -853,20 +853,17 @@ class Matrix implements \ArrayAccess, \Iterator
             throw new InvalidDimensionException($this->m . 'x' . $this->n);
         }
 
-        $sum = new IdentityMatrix($this->m);
+        $eig = new EigenvalueDecomposition($this);
+        $v = $eig->getV();
+        $d = $eig->getD();
 
-        $factorial = 1;
-        $pow       = clone $sum;
+        $vInv = $v->inverse();
 
-        for ($i = 1; $i <= $iterations; ++$i) {
-            $factorial *= $i;
-            $coeff = 1 / $factorial;
-
-            $pow = $pow->mult($this);
-            $sum = $sum->add($pow->mult($coeff));
+        for ($i = 0; $d->m; ++$i) {
+            $d->matrix[$i][$i] = \exp($d->matrix[$i][$i]);
         }
 
-        return $sum;
+        return $v->mult($d)->mult($vInv);
     }
 
     /**

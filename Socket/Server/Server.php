@@ -108,9 +108,9 @@ class Server extends SocketAbstract
      */
     public function create(string $ip, int $port) : void
     {
-        $this->app->logger->info('Creating socket...');
+        $this->app->logger?->info('Creating socket...');
         parent::create($ip, $port);
-        $this->app->logger->info('Binding socket...');
+        $this->app->logger?->info('Binding socket...');
         \socket_bind($this->sock, $this->ip, $this->port);
     }
 
@@ -190,12 +190,12 @@ class Server extends SocketAbstract
      */
     public function run() : void
     {
-        $this->app->logger->info('Start listening...');
+        $this->app->logger?->info('Start listening...');
         @\socket_listen($this->sock);
         @\socket_set_nonblock($this->sock);
         $this->conn[] = $this->sock;
 
-        $this->app->logger->info('Is running...');
+        $this->app->logger?->info('Is running...');
         while ($this->run) {
             $read = $this->conn;
 
@@ -225,12 +225,12 @@ class Server extends SocketAbstract
                     $data = \is_string($data) ? \trim($data) : '';
 
                     if (!$client->getHandshake()) {
-                        $this->app->logger->debug('Doing handshake...');
+                        $this->app->logger?->debug('Doing handshake...');
                         if ($this->handshake($client, $data)) {
                             $client->setHandshake(true);
-                            $this->app->logger->debug('Handshake succeeded.');
+                            $this->app->logger?->debug('Handshake succeeded.');
                         } else {
-                            $this->app->logger->debug('Handshake failed.');
+                            $this->app->logger?->debug('Handshake failed.');
                             $this->disconnectClient($client);
                         }
                     } else {
@@ -239,7 +239,7 @@ class Server extends SocketAbstract
                 }
             }
         }
-        $this->app->logger->info('Is shutdown...');
+        $this->app->logger?->info('Is shutdown...');
 
         $this->close();
     }
@@ -272,13 +272,13 @@ class Server extends SocketAbstract
      */
     public function connectClient($socket) : void
     {
-        $this->app->logger->debug('Connecting client...');
+        $this->app->logger?->debug('Connecting client...');
         $this->app->accountManager->add(new NullAccount(1));
         $this->clientManager->add($client = new ClientConnection(new NullAccount(1), $socket));
 
         $this->conn[$client->getId()] = $socket;
 
-        $this->app->logger->debug('Connected client.');
+        $this->app->logger?->debug('Connected client.');
     }
 
     /**
@@ -292,7 +292,7 @@ class Server extends SocketAbstract
      */
     public function disconnectClient($client) : void
     {
-        $this->app->logger->debug('Disconnecting client...');
+        $this->app->logger?->debug('Disconnecting client...');
         $client->setConnected(false);
         $client->setHandshake(false);
         \socket_shutdown($client->getSocket(), 2);
@@ -303,7 +303,7 @@ class Server extends SocketAbstract
         }
 
         $this->clientManager->remove($client->id);
-        $this->app->logger->debug('Disconnected client.');
+        $this->app->logger?->debug('Disconnected client.');
     }
 
     /**

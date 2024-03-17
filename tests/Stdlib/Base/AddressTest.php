@@ -42,22 +42,19 @@ final class AddressTest extends \PHPUnit\Framework\TestCase
     public function testDefault() : void
     {
         $expected = [
-            'recipient' => '',
             'fao'       => '',
-            'location'  => [
-                'postal'  => '',
-                'city'    => '',
-                'country' => 'XX',
-                'address' => '',
-                'state'   => '',
-                'lat'     => 0.0,
-                'lon'     => 0.0,
-            ],
+            'name'       => '',
+            'postal'  => '',
+            'city'    => '',
+            'country' => 'XX',
+            'address' => '',
+            'state'   => '',
+            'lat'     => 0.0,
+            'lon'     => 0.0,
         ];
 
-        self::assertEquals('', $this->address->recipient);
         self::assertEquals('', $this->address->fao);
-        self::assertInstanceOf('\phpOMS\Stdlib\Base\Location', $this->address->location);
+        self::assertInstanceOf('\phpOMS\Stdlib\Base\Location', $this->address);
         self::assertEquals($expected, $this->address->toArray());
         self::assertEquals($expected, $this->address->jsonSerialize());
     }
@@ -74,29 +71,6 @@ final class AddressTest extends \PHPUnit\Framework\TestCase
     }
 
     /**
-     * @testdox The recipient can be set and returned
-     * @covers phpOMS\Stdlib\Base\Address
-     * @group framework
-     */
-    public function testRecipientInputOutput() : void
-    {
-        $this->address->recipient = 'recipient';
-        self::assertEquals('recipient', $this->address->recipient);
-    }
-
-    /**
-     * @testdox The location can be set and returned
-     * @covers phpOMS\Stdlib\Base\Address
-     * @group framework
-     */
-    public function testLocationInputOutput() : void
-    {
-        $this->address->location = new Location();
-
-        self::assertInstanceOf('\phpOMS\Stdlib\Base\Location', $this->address->location);
-    }
-
-    /**
      * @testdox The address can be turned into array data
      * @covers phpOMS\Stdlib\Base\Address
      * @group framework
@@ -104,22 +78,18 @@ final class AddressTest extends \PHPUnit\Framework\TestCase
     public function testArray() : void
     {
         $expected = [
-            'recipient' => 'recipient',
             'fao'       => 'fao',
-            'location'  => [
-                'postal'  => '',
-                'city'    => '',
-                'country' => 'XX',
-                'address' => '',
-                'state'   => '',
-                'lat'     => 0.0,
-                'lon'     => 0.0,
-            ],
+            'name'  => '',
+            'postal'  => '',
+            'city'    => '',
+            'country' => 'XX',
+            'address' => '',
+            'state'   => '',
+            'lat'     => 0.0,
+            'lon'     => 0.0,
         ];
 
         $this->address->fao       = 'fao';
-        $this->address->recipient = 'recipient';
-        $this->address->location  = new Location();
 
         self::assertEquals($expected, $this->address->toArray());
     }
@@ -132,22 +102,18 @@ final class AddressTest extends \PHPUnit\Framework\TestCase
     public function testJsonSerialize() : void
     {
         $expected = [
-            'recipient' => 'recipient',
             'fao'       => 'fao',
-            'location'  => [
-                'postal'  => '',
-                'city'    => '',
-                'country' => 'XX',
-                'address' => '',
-                'state'   => '',
-                'lat'     => 0.0,
-                'lon'     => 0.0,
-            ],
+            'name'  => '',
+            'postal'  => '',
+            'city'    => '',
+            'country' => 'XX',
+            'address' => '',
+            'state'   => '',
+            'lat'     => 0.0,
+            'lon'     => 0.0,
         ];
 
         $this->address->fao       = 'fao';
-        $this->address->recipient = 'recipient';
-        $this->address->location  = new Location();
 
         self::assertEquals($expected, $this->address->jsonSerialize());
     }

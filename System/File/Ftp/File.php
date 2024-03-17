@@ -517,7 +517,7 @@ class File extends FileAbstract implements FileInterface
             return false;
         }
 
-        $newParent = $this->findNode($to);
+        $newParent = $this->findNode(\dirname($to));
 
         $state = self::copy($this->con, $this->path, $to, $overwrite);
 

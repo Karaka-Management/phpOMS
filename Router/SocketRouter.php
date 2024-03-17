@@ -120,7 +120,7 @@ final class SocketRouter implements RouterInterface
     {
         $bound = [];
         foreach ($this->routes as $route => $destination) {
-            if (!((bool) \preg_match('~^' . $route . '$~', $uri))) {
+            if (!((bool) \preg_match('~' . $route . '~', $uri))) {
                 continue;
             }
 

@@ -180,7 +180,7 @@ final class BuilderTest extends \PHPUnit\Framework\TestCase
         } elseif ($con instanceof SqlServerConnection) {
             $sql = 'CREATE TABLE IF NOT EXISTS [user_roles] ([user_id] INT AUTO_INCREMENT, [role_id] VARCHAR(10) DEFAULT \'1\' NULL, PRIMARY KEY ([user_id]), FOREIGN KEY ([user_id]) REFERENCES [users] ([ext1_id]), FOREIGN KEY ([role_id]) REFERENCES [roles] ([ext2_id]));';
         } elseif ($con instanceof SQLiteConnection) {
-            $sql = 'CREATE TABLE [user_roles] ([user_id] INTEGER PRIMARY KEY AUTOINCREMENT, [role_id] TEXT DEFAULT \'1\' NULL, PRIMARY KEY ([user_id]), FOREIGN KEY ([user_id]) REFERENCES [users] ([ext1_id]), FOREIGN KEY ([role_id]) REFERENCES [roles] ([ext2_id]));';
+            $sql = 'CREATE TABLE [user_roles] ([user_id] INTEGER AUTOINCREMENT PRIMARY KEY, [role_id] TEXT DEFAULT \'1\' NULL, FOREIGN KEY ([user_id]) REFERENCES [users] ([ext1_id]), FOREIGN KEY ([role_id]) REFERENCES [roles] ([ext2_id]));';
         }
 
         $sql = \strtr($sql, '[]', $iS . $iE);

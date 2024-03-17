@@ -491,7 +491,7 @@ final class File extends FileAbstract implements FileInterface
      */
     public function copyNode(string $to, bool $overwrite = false) : bool
     {
-        $newParent = $this->findNode($to);
+        $newParent = $this->findNode(\dirname($to));
 
         $state = self::copy($this->path, $to, $overwrite);
 

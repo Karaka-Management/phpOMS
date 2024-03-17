@@ -269,11 +269,11 @@ abstract class FileAbstract implements LocalContainerInterface
      *
      * @param string $path Path of the node
      *
-     * @return null|Directory
+     * @return null|Directory|File
      *
      * @since 1.0.0
      */
-    public function findNode(string $path) : ?Directory
+    public function findNode(string $path) : null|Directory|File
     {
         // Change parent element
         $currentPath = \explode('/', \trim($this->path, '/'));

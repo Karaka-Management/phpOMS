@@ -72,7 +72,7 @@ final class TesseractOcrTest extends \PHPUnit\Framework\TestCase
     {
         $this->expectException(PathException::class);
 
-        $ocr = new TesseractOcr('/invalid/path');
+        TesseractOcr::setBin('/invalid/path');
     }
 
     /**

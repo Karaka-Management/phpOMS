@@ -67,7 +67,7 @@ final class BuilderTest extends \PHPUnit\Framework\TestCase
         self::assertEquals($sql, $query->select('a.test')->from('a')->where('a.test', '=', 1)->toSql());
 
         $query = new Builder($con);
-        $sql   = 'SELECT [a].[test] as t FROM [a] as b WHERE [a].[test] = 1;';
+        $sql   = 'SELECT [a].[test] AS t FROM [a] AS b WHERE [a].[test] = 1;';
         $sql   = \strtr($sql, '[]', $iS . $iE);
         self::assertEquals($sql, $query->selectAs('a.test', 't')->fromAs('a', 'b')->where('a.test', '=', 1)->toSql());
 
@@ -121,7 +121,7 @@ final class BuilderTest extends \PHPUnit\Framework\TestCase
         $iE = $con->getGrammar()->systemIdentifierEnd;
 
         $query = new Builder($con);
-        $sql   = 'SELECT [a].[test] FROM [a] as b WHERE [a].[test] = 1 ORDER BY RAND() LIMIT 1;';
+        $sql   = 'SELECT [a].[test] FROM [a] AS b WHERE [a].[test] = 1 ORDER BY RAND() LIMIT 1;';
         $sql   = \strtr($sql, '[]', $iS . $iE);
         self::assertEquals($sql, $query->random('a.test')->fromAs('a', 'b')->where('a.test', '=', 1)->toSql());
     }
@@ -134,7 +134,7 @@ final class BuilderTest extends \PHPUnit\Framework\TestCase
         $iE = $con->getGrammar()->systemIdentifierEnd;
 
         $query = new Builder($con);
-        $sql   = 'SELECT [a].[test] FROM [a] as b ORDER BY RANDOM() LIMIT 1;';
+        $sql   = 'SELECT [a].[test] FROM [a] AS b ORDER BY RANDOM() LIMIT 1;';
         $sql   = \strtr($sql, '[]', $iS . $iE);
         self::assertEquals($sql, $query->random('a.test')->fromAs('a', 'b')->where('a.test', '=', 1)->toSql());
     }
@@ -147,7 +147,7 @@ final class BuilderTest extends \PHPUnit\Framework\TestCase
         $iE = $con->getGrammar()->systemIdentifierEnd;
 
         $query = new Builder($con);
-        $sql   = 'SELECT [a].[test] FROM [a] as b ORDER BY RANDOM() LIMIT 1;';
+        $sql   = 'SELECT [a].[test] FROM [a] AS b ORDER BY RANDOM() LIMIT 1;';
         $sql   = \strtr($sql, '[]', $iS . $iE);
         self::assertEquals($sql, $query->random('a.test')->fromAs('a', 'b')->where('a.test', '=', 1)->toSql());
     }
@@ -160,7 +160,7 @@ final class BuilderTest extends \PHPUnit\Framework\TestCase
         $iE = $con->getGrammar()->systemIdentifierEnd;
 
         $query = new Builder($con);
-        $sql   = 'SELECT TOP 1 [a].[test] FROM [a] as b ORDER BY IDX FETCH FIRST 1 ROWS ONLY;';
+        $sql   = 'SELECT TOP 1 [a].[test] FROM [a] AS b ORDER BY IDX FETCH FIRST 1 ROWS ONLY;';
         $sql   = \strtr($sql, '[]', $iS . $iE);
         self::assertEquals($sql, $query->random('a.test')->fromAs('a', 'b')->where('a.test', '=', 1)->toSql());
     }

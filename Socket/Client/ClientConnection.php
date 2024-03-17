@@ -36,7 +36,7 @@ class ClientConnection
 
     private $connected = true;
 
-    private Account $account;
+    public Account $account;
 
     /**
      * Constructor.
