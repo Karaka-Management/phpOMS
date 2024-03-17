@@ -859,7 +859,7 @@ class Matrix implements \ArrayAccess, \Iterator
 
         $vInv = $v->inverse();
 
-        for ($i = 0; $d->m; ++$i) {
+        for ($i = 0; $i < $this->m; ++$i) {
             $d->matrix[$i][$i] = \exp($d->matrix[$i][$i]);
         }
 
