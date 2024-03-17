@@ -95,7 +95,7 @@ final class PageRank
     }
 
     /**
-     * Calcualte the rank based on a start rank for the different elements
+     * Calculate the rank based on a start rank for the different elements
      *
      * A different start rank for different elements might make sense if the elements are not uniform from the very beginning
      *

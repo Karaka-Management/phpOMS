@@ -91,7 +91,7 @@ final class Glicko2
     public int $MIN_RD = 50;
 
     /**
-     * Calcualte the glicko-2 elo
+     * Calculate the glicko-2 elo
      *
      * @example $glicko->elo(1500, 200, 0.06, [1,0,0], [1400,1550,1700], [30,100,300]) // 1464, 151, 0.059
      *

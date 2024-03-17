@@ -193,7 +193,7 @@ final class StringUtilsTest extends \PHPUnit\Framework\TestCase
         );
 
         self::assertEquals(
-            'This is a <del>test</del><ins>new</ins> string.',
+            'This is a <del>test</del> <ins>new</ins> string.',
             StringUtils::createDiffMarkup($original, $new, ' ')
         );
 

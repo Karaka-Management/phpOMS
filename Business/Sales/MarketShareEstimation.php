@@ -42,7 +42,7 @@ final class MarketShareEstimation
      *
      * @latex  r = \sqrt[s]{\frac{1}{m \times \sum_{n=1}^N{\frac{1}{n^{s}}}}}
      *
-     * @param int   $participants The amount of existing participants in the market or compentitors (N)
+     * @param int   $participants The amount of existing participants in the market or competitors (N)
      * @param float $marketShare  The absolute own market share (m)
      * @param float $modifier     Distribution modifier (s)
      *
@@ -65,7 +65,7 @@ final class MarketShareEstimation
      *
      * @latex  m = \frac{\frac{1}{r^{s}}}{\sum_{n=1}^N{\frac{1}{n^{s}}}}
      *
-     * @param int   $participants The amount of existing participants in the market or compentitors (N)
+     * @param int   $participants The amount of existing participants in the market or competitors (N)
      * @param int   $rank         The absolute own rank in the market (r)
      * @param float $modifier     Distribution modifier (s)
      *

@@ -43,6 +43,10 @@ final class ImageUtilsTest extends \PHPUnit\Framework\TestCase
         self::assertTrue(\is_file(__DIR__ . '/img/logo_resized.png'));
     }
 
+    /**
+     * @covers phpOMS\Utils\ImageUtils
+     * @group slow
+     */
     public function testDifference() : void
     {
         foreach (['png', 'gif'] as $type) {

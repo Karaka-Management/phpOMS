@@ -59,7 +59,7 @@ final class Metrics
     }
 
     /**
-     * Calcualte the coefficient of retention
+     * Calculate the coefficient of retention
      *
      * @param float $retentionRate Observed retention rate (optionally use the average)
      * @param float $rc            Retention rate ceiling
@@ -109,13 +109,13 @@ final class Metrics
     /**
      * Calculate the customer profits
      *
-     * @param int   $customers      Amount of customers acquired
-     * @param float $acquistionCost Acquisition cost per customer
-     * @param float $revenue        Revenues per period per customer
-     * @param float $cogs           COGS per period per customer
-     * @param float $marketingCosts Ongoing marketing costs per period per customer
-     * @param float $discountRate   Discount rate
-     * @param float $retentionRate  Retention rate (how many customers remain)
+     * @param int   $customers       Amount of customers acquired
+     * @param float $acquisitionCost Acquisition cost per customer
+     * @param float $revenue         Revenues per period per customer
+     * @param float $cogs            COGS per period per customer
+     * @param float $marketingCosts  Ongoing marketing costs per period per customer
+     * @param float $discountRate    Discount rate
+     * @param float $retentionRate   Retention rate (how many customers remain)
      *
      * @return float
      *
@@ -123,7 +123,7 @@ final class Metrics
      */
     public static function getBerrysCustomerProfits(
         int $customers,
-        float $acquistionCost,
+        float $acquisitionCost,
         float $revenue,
         float $cogs,
         float $marketingCosts,
@@ -133,7 +133,7 @@ final class Metrics
     {
         return $customers * ($revenue - $cogs) * ((1 + $discountRate) / (1 + $discountRate - $retentionRate))
             - $customers * $marketingCosts * ((1 + $discountRate) / (1 + $discountRate - $retentionRate))
-            - $customers * $acquistionCost;
+            - $customers * $acquisitionCost;
     }
 
     /**

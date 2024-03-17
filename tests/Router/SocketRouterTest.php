@@ -108,7 +108,7 @@ final class SocketRouterTest extends \PHPUnit\Framework\TestCase
      */
     public function testDynamicRouteAdding() : void
     {
-        $this->router->add('^.*backends_admin -settings=general(\?.*$|$)', 'Controller:test');
+        $this->router->add('^.*backends_admin -settings=general( \-.*$|$)', 'Controller:test');
         self::assertEquals(
             [['dest' => 'Controller:test']],
             $this->router->route('backends_admin -settings=general -t 123')
@@ -219,7 +219,7 @@ final class SocketRouterTest extends \PHPUnit\Framework\TestCase
     public function testDataValidation() : void
     {
         $this->router->add(
-            '^.*backends_admin -settings=general(\?.*$|$)',
+            '^.*backends_admin -settings=general( \-.*$|$)',
             'Controller:test',
             validation: ['test_pattern' => '/^[a-z]*$/']
         );
@@ -238,7 +238,7 @@ final class SocketRouterTest extends \PHPUnit\Framework\TestCase
     public function testInvalidDataValidation() : void
     {
         $this->router->add(
-            '^.*backends_admin -settings=general(\?.*$|$)',
+            '^.*backends_admin -settings=general( \-.*$|$)',
             'Controller:test',
             validation: ['test_pattern' => '/^[a-z]*$/']
         );
@@ -257,7 +257,7 @@ final class SocketRouterTest extends \PHPUnit\Framework\TestCase
     public function testDataFromPattern() : void
     {
         $this->router->add(
-            '^.*-settings=general(\?.*$|$)',
+            '^.*-settings=general( \-.*$|$)',
             'Controller:test',
             dataPattern: '/^.*?(settings)=([a-z]*).*?$/'
         );

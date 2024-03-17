@@ -57,7 +57,7 @@ final class NetPromoterScore
      *
      * @latex NPS = Promoters - Detractors
      *
-     * @return int Retunrs the NPS
+     * @return int NPS
      *
      * @since 1.0.0
      */

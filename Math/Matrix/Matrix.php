@@ -841,32 +841,27 @@ class Matrix implements \ArrayAccess, \Iterator
      *
      * The algorithm uses a taylor series.
      *
-     * @param int $iterations Iterations for approximation
-     *
      * @return self
      *
      * @since 1.0.0
      */
-    public function exp(int $iterations = 10) : self
+    public function exp() : self
     {
         if ($this->m !== $this->n) {
             throw new InvalidDimensionException($this->m . 'x' . $this->n);
         }
 
-        $sum = new IdentityMatrix($this->m);
+        $eig = new EigenvalueDecomposition($this);
+        $v = $eig->getV();
+        $d = $eig->getD();
 
-        $factorial = 1;
-        $pow       = clone $sum;
+        $vInv = $v->inverse();
 
-        for ($i = 1; $i <= $iterations; ++$i) {
-            $factorial *= $i;
-            $coeff = 1 / $factorial;
-
-            $pow = $pow->mult($this);
-            $sum = $sum->add($pow->mult($coeff));
+        for ($i = 0; $i < $this->m; ++$i) {
+            $d->matrix[$i][$i] = \exp($d->matrix[$i][$i]);
         }
 
-        return $sum;
+        return $v->mult($d)->mult($vInv);
     }
 
     /**

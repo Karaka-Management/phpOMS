@@ -531,7 +531,7 @@ class Graph
      */
     private function pathBetweenNodesDfs(
         Node $node1,
-        ?Node $node2 = null,
+        Node $node2,
         array &$visited,
         array &$path,
         array &$paths

@@ -13,7 +13,6 @@
         "name": ".+",
         "website": ".*"
     },
-    "description": ".+",
     "directory": "[a-zA-Z0-9]+",
     "dependencies": {
         ".*": ".*"

@@ -135,7 +135,7 @@ final class MarkdownTest extends \PHPUnit\Framework\TestCase
     public function testEmbed() : void
     {
         $parser = new Markdown([
-            'embeding' => true,
+            'embedding' => true,
         ]);
 
         self::assertEquals(

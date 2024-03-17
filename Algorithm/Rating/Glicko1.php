@@ -102,7 +102,7 @@ final class Glicko1
     }
 
     /**
-     * Calcualte the glicko-1 elo
+     * Calculate the glicko-1 elo
      *
      * @param int     $elo           Current player "elo"
      * @param int     $rdOld         Current player deviation (RD)

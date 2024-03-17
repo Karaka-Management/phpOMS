@@ -134,7 +134,6 @@ final class Autoloader
      */
     public static function findPaths(string $class) : array
     {
-        $found = [];
         $class = \ltrim($class, '\\');
         $class = \strtr($class, '_\\', '//');
 
@@ -143,12 +142,11 @@ final class Autoloader
             $subclass  = $nspacePos === false ? '' : \substr($class, 0, $nspacePos);
 
             if (isset(self::$classmap[$subclass])) {
-                $found[] = self::$classmap[$subclass] . $class . '.php';
-
-                return $found;
+                return [self::$classmap[$subclass] . $class . '.php'];
             }
         }
 
+        $found = [];
         foreach (self::$paths as $path) {
             if (\is_file($file = $path . $class . '.php')) {
                 $found[] = $file;
