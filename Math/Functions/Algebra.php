@@ -59,7 +59,7 @@ final class Algebra
 
         if (!$isMatrix1 && $isMatrix2) {
             $temp   = $value1;
-            $value1 = $value1;
+            $value1 = $value2;
             $value2 = $temp;
 
             $m1 = \count($value1);

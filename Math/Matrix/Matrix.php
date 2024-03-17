@@ -841,13 +841,11 @@ class Matrix implements \ArrayAccess, \Iterator
      *
      * The algorithm uses a taylor series.
      *
-     * @param int $iterations Iterations for approximation
-     *
      * @return self
      *
      * @since 1.0.0
      */
-    public function exp(int $iterations = 10) : self
+    public function exp() : self
     {
         if ($this->m !== $this->n) {
             throw new InvalidDimensionException($this->m . 'x' . $this->n);

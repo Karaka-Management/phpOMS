@@ -2587,7 +2587,7 @@ class Markdown
         $language = \trim(\preg_replace('/^`{3}([^\s]+)(.+)?/s', '$1', $line['text']) ?? '');
 
         if (!($this->options['diagrams'] ?? true)
-            || !\in_array($language, ['mermaid', 'chart'])
+            || !\in_array($language, ['mermaid', 'chartjs', 'tuichart'])
         ) {
             // Is code block
             $element = [
