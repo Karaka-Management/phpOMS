@@ -158,7 +158,9 @@ final class ModuleManager
             $query = new Builder($this->app->dbPool->get('select'));
             $sth   = $query->select('module_load.module_load_type', 'module_load.*')
                 ->from('module_load')
-                ->innerJoin('module')->on('module_load.module_load_from', '=', 'module.module_id')->orOn('module_load.module_load_for', '=', 'module.module_id')
+                ->innerJoin('module')
+                    ->on('module_load.module_load_from', '=', 'module.module_id')
+                    ->orOn('module_load.module_load_for', '=', 'module.module_id')
                 ->whereIn('module_load.module_load_pid', $uriHash)
                 ->andWhere('module.module_status', '=', ModuleStatus::ACTIVE)
                 ->execute();

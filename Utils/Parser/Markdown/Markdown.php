@@ -273,7 +273,6 @@ class Markdown
         '_' => ['Rule'],
         '`' => ['FencedCode'],
         '|' => ['Table'],
-        '~' => ['FencedCode'],
     ];
 
     /**
@@ -895,7 +894,7 @@ class Markdown
     }
 
     /**
-     * Handle striketrhough
+     * Handle strikethrough
      *
      * @param array{text:string, context:string, before:string} $excerpt Inline data
      *
@@ -2049,7 +2048,7 @@ class Markdown
             $markerWithoutWhitespace = $matches[1];
         }
 
-        if ($name === 'ul') {
+        if ($name !== 'ul') {
             $markerWithoutWhitespace = \substr($markerWithoutWhitespace, -1);
 
             if ($markerWithoutWhitespace === false) {
@@ -2081,7 +2080,7 @@ class Markdown
 
             $listStart = \ltrim($tmp, '0') ?: '0';
 
-            if ($listStart !== '1') {
+            if ($listStart !== '0') {
                 if (isset($current)
                     && $current['type'] === 'Paragraph'
                     && !isset($current['interrupted'])
@@ -4150,7 +4149,7 @@ class Markdown
             return null;
         }
 
-        $requiredIndent = ($block['indent'] + \strlen($block['data']['marker']));
+        $requiredIndent = $block['indent'] + \strlen($block['data']['marker']);
 
         if ($line['indent'] < $requiredIndent
             && (($block['data']['type'] === 'ol'

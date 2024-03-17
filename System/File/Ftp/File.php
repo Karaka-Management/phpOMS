@@ -137,7 +137,7 @@ class File extends FileAbstract implements FileInterface
             || (!$exists && ContentPutMode::hasFlag($mode, ContentPutMode::CREATE))
         ) {
             if (ContentPutMode::hasFlag($mode, ContentPutMode::APPEND) && $exists) {
-                $content .= self::get($con, $path);
+                $content = self::get($con, $path) . $content;
             } elseif (ContentPutMode::hasFlag($mode, ContentPutMode::PREPEND) && $exists) {
                 $content .= self::get($con, $path);
             } elseif (!Directory::exists($con, \dirname($path))) {

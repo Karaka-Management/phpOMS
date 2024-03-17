@@ -54,6 +54,8 @@ final class FileTest extends \PHPUnit\Framework\TestCase
             \ftp_delete(self::$con, __DIR__ . '/0x00');
 
             if (!$mkdir || !$put) {
+                self::$con = null;
+
                 throw new \Exception();
             }
         } catch (\Throwable $_) {
