@@ -67,7 +67,7 @@ final class HeaderAbstractTest extends \PHPUnit\Framework\TestCase
 
     /**
      * @testdox The the status code can be set and returned
-     * @covers phpOMS\Message\HeaderAbstract
+     * @covers \phpOMS\Message\HeaderAbstract
      * @group framework
      */
     public function testStatusCodeInputOutput() : void

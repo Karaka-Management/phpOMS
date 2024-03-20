@@ -26,7 +26,7 @@ final class EdgeTest extends \PHPUnit\Framework\TestCase
 {
     /**
      * @testdox The edge has the expected default values after initialization
-     * @covers phpOMS\Stdlib\Graph\Edge
+     * @covers \phpOMS\Stdlib\Graph\Edge
      * @group framework
      */
     public function testDefault() : void
@@ -41,7 +41,7 @@ final class EdgeTest extends \PHPUnit\Framework\TestCase
 
     /**
      * @testdox An edge can be directed
-     * @covers phpOMS\Stdlib\Graph\Edge
+     * @covers \phpOMS\Stdlib\Graph\Edge
      * @group framework
      */
     public function testDirected() : void
@@ -52,7 +52,7 @@ final class EdgeTest extends \PHPUnit\Framework\TestCase
 
     /**
      * @testdox An edge weight can be set and returned
-     * @covers phpOMS\Stdlib\Graph\Edge
+     * @covers \phpOMS\Stdlib\Graph\Edge
      * @group framework
      */
     public function testWeightInputOutput() : void
@@ -67,7 +67,7 @@ final class EdgeTest extends \PHPUnit\Framework\TestCase
 
     /**
      * @testdox Two edge weights can be compared
-     * @covers phpOMS\Stdlib\Graph\Edge
+     * @covers \phpOMS\Stdlib\Graph\Edge
      * @group framework
      */
     public function testWeightComparison() : void

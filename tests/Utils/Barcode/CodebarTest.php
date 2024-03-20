@@ -32,7 +32,7 @@ final class CodebarTest extends \PHPUnit\Framework\TestCase
     }
 
     /**
-     * @covers phpOMS\Utils\Barcode\Codebar<extended>
+     * @covers \phpOMS\Utils\Barcode\Codebar<extended>
      * @group framework
      */
     public function testImagePng() : void
@@ -49,7 +49,7 @@ final class CodebarTest extends \PHPUnit\Framework\TestCase
     }
 
     /**
-     * @covers phpOMS\Utils\Barcode\Codebar<extended>
+     * @covers \phpOMS\Utils\Barcode\Codebar<extended>
      * @group framework
      */
     public function testImageJpg() : void
@@ -66,7 +66,7 @@ final class CodebarTest extends \PHPUnit\Framework\TestCase
     }
 
     /**
-     * @covers phpOMS\Utils\Barcode\Codebar<extended>
+     * @covers \phpOMS\Utils\Barcode\Codebar<extended>
      * @group framework
      */
     public function testOrientationAndMargin() : void
@@ -84,7 +84,7 @@ final class CodebarTest extends \PHPUnit\Framework\TestCase
     }
 
     /**
-     * @covers phpOMS\Utils\Barcode\Codebar<extended>
+     * @covers \phpOMS\Utils\Barcode\Codebar<extended>
      * @group framework
      */
     public function testValidString() : void

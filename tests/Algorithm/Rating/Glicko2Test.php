@@ -27,7 +27,7 @@ final class Glicko2Test extends \PHPUnit\Framework\TestCase
 {
     /**
      * @testdox 1v1 rating test
-     * @covers phpOMS\Algorithm\Rating\Glicko2
+     * @covers \phpOMS\Algorithm\Rating\Glicko2
      * @group framework
      */
     public function testSoloRating() : void
@@ -142,7 +142,7 @@ final class Glicko2Test extends \PHPUnit\Framework\TestCase
 
     /**
      * @testdox group rating test
-     * @covers phpOMS\Algorithm\Rating\Glicko2
+     * @covers \phpOMS\Algorithm\Rating\Glicko2
      * @group framework
      */
     public function testGroupRating() : void

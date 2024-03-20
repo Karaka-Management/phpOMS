@@ -25,7 +25,7 @@ final class LagrangeInterpolationTest extends \PHPUnit\Framework\TestCase
 {
     /**
      * @testdox The lagrange interpolation is correct
-     * @covers phpOMS\Math\Numerics\Interpolation\LagrangeInterpolation
+     * @covers \phpOMS\Math\Numerics\Interpolation\LagrangeInterpolation
      * @group framework
      */
     public function testInterpolation() : void

@@ -56,7 +56,7 @@ final class CurrencyTest extends \PHPUnit\Framework\TestCase
 
     /**
      * @testdox A currency can be converted from euro to another currency
-     * @covers phpOMS\Utils\Converter\Currency
+     * @covers \phpOMS\Utils\Converter\Currency
      * @group framework
      */
     public function testCurrencyFromEur() : void
@@ -66,7 +66,7 @@ final class CurrencyTest extends \PHPUnit\Framework\TestCase
 
     /**
      * @testdox A currency can be converted to euro from another currency
-     * @covers phpOMS\Utils\Converter\Currency
+     * @covers \phpOMS\Utils\Converter\Currency
      * @group framework
      */
     public function testCurrencyToEur() : void
@@ -76,7 +76,7 @@ final class CurrencyTest extends \PHPUnit\Framework\TestCase
 
     /**
      * @testdox A currency can be converted from one currency to another currency
-     * @covers phpOMS\Utils\Converter\Currency
+     * @covers \phpOMS\Utils\Converter\Currency
      * @group framework
      */
     public function testCurrency() : void
@@ -87,7 +87,7 @@ final class CurrencyTest extends \PHPUnit\Framework\TestCase
 
     /**
      * @testdox A currency conversion from eur to a invalid currency throws a InvalidArgumentException
-     * @covers phpOMS\Utils\Converter\Currency
+     * @covers \phpOMS\Utils\Converter\Currency
      * @group framework
      */
     public function testInvalidFromEur() : void
@@ -97,7 +97,7 @@ final class CurrencyTest extends \PHPUnit\Framework\TestCase
 
     /**
      * @testdox A currency conversion from a invalid currency to eur throws a InvalidArgumentException
-     * @covers phpOMS\Utils\Converter\Currency
+     * @covers \phpOMS\Utils\Converter\Currency
      * @group framework
      */
     public function testInvalidToEur() : void
@@ -107,7 +107,7 @@ final class CurrencyTest extends \PHPUnit\Framework\TestCase
 
     /**
      * @testdox A currency conversion from a invalid currency to a invalid currency throws a InvalidArgumentException
-     * @covers phpOMS\Utils\Converter\Currency
+     * @covers \phpOMS\Utils\Converter\Currency
      * @group framework
      */
     public function testInvalidConvert() : void

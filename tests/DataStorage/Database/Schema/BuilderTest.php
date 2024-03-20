@@ -220,7 +220,7 @@ final class BuilderTest extends \PHPUnit\Framework\TestCase
 
     /**
      * @testdox The grammar correctly deletes a table
-     * @covers phpOMS\DataStorage\Database\Schema\Grammar\MysqlGrammar<extended>
+     * @covers \phpOMS\DataStorage\Database\Schema\Grammar\MysqlGrammar<extended>
      * @group framework
      * @dataProvider dbConnectionProvider
      */

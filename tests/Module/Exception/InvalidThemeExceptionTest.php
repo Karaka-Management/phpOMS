@@ -22,7 +22,7 @@ use phpOMS\Module\Exception\InvalidThemeException;
 final class InvalidThemeExceptionTest extends \PHPUnit\Framework\TestCase
 {
     /**
-     * @covers phpOMS\Module\Exception\InvalidThemeException
+     * @covers \phpOMS\Module\Exception\InvalidThemeException
      * @group framework
      */
     public function testException() : void

@@ -43,7 +43,7 @@ final class LocalizationTest extends \PHPUnit\Framework\TestCase
 
     /**
      * @testdox The localization has the expected default values after initialization
-     * @covers phpOMS\Localization\Localization
+     * @covers \phpOMS\Localization\Localization
      * @group framework
      */
     public function testDefault() : void
@@ -68,7 +68,7 @@ final class LocalizationTest extends \PHPUnit\Framework\TestCase
 
     /**
      * @testdox Setting a invalid country code throws InvalidEnumValue
-     * @covers phpOMS\Localization\Localization
+     * @covers \phpOMS\Localization\Localization
      * @group framework
      */
     public function testInvalidCountry() : void
@@ -80,7 +80,7 @@ final class LocalizationTest extends \PHPUnit\Framework\TestCase
 
     /**
      * @testdox Setting a invalid timezone code throws InvalidEnumValue
-     * @covers phpOMS\Localization\Localization
+     * @covers \phpOMS\Localization\Localization
      * @group framework
      */
     public function testInvalidTimezone() : void
@@ -92,7 +92,7 @@ final class LocalizationTest extends \PHPUnit\Framework\TestCase
 
     /**
      * @testdox Setting a invalid angle throws InvalidEnumValue
-     * @covers phpOMS\Localization\Localization
+     * @covers \phpOMS\Localization\Localization
      * @group framework
      */
     public function testInvalidAngle() : void
@@ -104,7 +104,7 @@ final class LocalizationTest extends \PHPUnit\Framework\TestCase
 
     /**
      * @testdox Setting a invalid temperature throws InvalidEnumValue
-     * @covers phpOMS\Localization\Localization
+     * @covers \phpOMS\Localization\Localization
      * @group framework
      */
     public function testInvalidTemperature() : void
@@ -116,7 +116,7 @@ final class LocalizationTest extends \PHPUnit\Framework\TestCase
 
     /**
      * @testdox The country can be set and returned
-     * @covers phpOMS\Localization\Localization
+     * @covers \phpOMS\Localization\Localization
      * @group framework
      */
     public function testCountryInputOutput() : void
@@ -127,7 +127,7 @@ final class LocalizationTest extends \PHPUnit\Framework\TestCase
 
     /**
      * @testdox The timezone can be set and returned
-     * @covers phpOMS\Localization\Localization
+     * @covers \phpOMS\Localization\Localization
      * @group framework
      */
     public function testTimezoneInputOutput() : void
@@ -138,7 +138,7 @@ final class LocalizationTest extends \PHPUnit\Framework\TestCase
 
     /**
      * @testdox The datetime can be set and returned
-     * @covers phpOMS\Localization\Localization
+     * @covers \phpOMS\Localization\Localization
      * @group framework
      */
     public function testDatetimeInputOutput() : void
@@ -149,7 +149,7 @@ final class LocalizationTest extends \PHPUnit\Framework\TestCase
 
     /**
      * @testdox The decimal can be set and returned
-     * @covers phpOMS\Localization\Localization
+     * @covers \phpOMS\Localization\Localization
      * @group framework
      */
     public function testDecimalInputOutput() : void
@@ -160,7 +160,7 @@ final class LocalizationTest extends \PHPUnit\Framework\TestCase
 
     /**
      * @testdox The thousands can be set and returned
-     * @covers phpOMS\Localization\Localization
+     * @covers \phpOMS\Localization\Localization
      * @group framework
      */
     public function testThousandsInputOutput() : void
@@ -171,7 +171,7 @@ final class LocalizationTest extends \PHPUnit\Framework\TestCase
 
     /**
      * @testdox The angle can be set and returned
-     * @covers phpOMS\Localization\Localization
+     * @covers \phpOMS\Localization\Localization
      * @group framework
      */
     public function testAngleInputOutput() : void
@@ -182,7 +182,7 @@ final class LocalizationTest extends \PHPUnit\Framework\TestCase
 
     /**
      * @testdox The temperature can be set and returned
-     * @covers phpOMS\Localization\Localization
+     * @covers \phpOMS\Localization\Localization
      * @group framework
      */
     public function testTemperatureInputOutput() : void
@@ -193,7 +193,7 @@ final class LocalizationTest extends \PHPUnit\Framework\TestCase
 
     /**
      * @testdox The weight can be set and returned
-     * @covers phpOMS\Localization\Localization
+     * @covers \phpOMS\Localization\Localization
      * @group framework
      */
     public function testWeightInputOutput() : void
@@ -204,7 +204,7 @@ final class LocalizationTest extends \PHPUnit\Framework\TestCase
 
     /**
      * @testdox The currency format can be set and returned
-     * @covers phpOMS\Localization\Localization
+     * @covers \phpOMS\Localization\Localization
      * @group framework
      */
     public function testCurrencyFormatInputOutput() : void
@@ -215,7 +215,7 @@ final class LocalizationTest extends \PHPUnit\Framework\TestCase
 
     /**
      * @testdox The precision can be set and returned
-     * @covers phpOMS\Localization\Localization
+     * @covers \phpOMS\Localization\Localization
      * @group framework
      */
     public function testPrecisionInputOutput() : void
@@ -226,7 +226,7 @@ final class LocalizationTest extends \PHPUnit\Framework\TestCase
 
     /**
      * @testdox The length can be set and returned
-     * @covers phpOMS\Localization\Localization
+     * @covers \phpOMS\Localization\Localization
      * @group framework
      */
     public function testLengthInputOutput() : void
@@ -237,7 +237,7 @@ final class LocalizationTest extends \PHPUnit\Framework\TestCase
 
     /**
      * @testdox The area can be set and returned
-     * @covers phpOMS\Localization\Localization
+     * @covers \phpOMS\Localization\Localization
      * @group framework
      */
     public function testAreaInputOutput() : void
@@ -248,7 +248,7 @@ final class LocalizationTest extends \PHPUnit\Framework\TestCase
 
     /**
      * @testdox The volume can be set and returned
-     * @covers phpOMS\Localization\Localization
+     * @covers \phpOMS\Localization\Localization
      * @group framework
      */
     public function testVolumeInputOutput() : void
@@ -259,7 +259,7 @@ final class LocalizationTest extends \PHPUnit\Framework\TestCase
 
     /**
      * @testdox The speed can be set and returned
-     * @covers phpOMS\Localization\Localization
+     * @covers \phpOMS\Localization\Localization
      * @group framework
      */
     public function testSpeedInputOutput() : void
@@ -270,7 +270,7 @@ final class LocalizationTest extends \PHPUnit\Framework\TestCase
 
     /**
      * @testdox Localization data can be loaded from a locale file
-     * @covers phpOMS\Localization\Localization
+     * @covers \phpOMS\Localization\Localization
      * @group framework
      */
     public function testLocalizationFromLanguageCode() : void
@@ -281,7 +281,7 @@ final class LocalizationTest extends \PHPUnit\Framework\TestCase
 
     /**
      * @testdox Localization data can be loaded from a locale file
-     * @covers phpOMS\Localization\Localization
+     * @covers \phpOMS\Localization\Localization
      * @group framework
      */
     public function testLocalizationLoading() : void
@@ -292,7 +292,7 @@ final class LocalizationTest extends \PHPUnit\Framework\TestCase
 
     /**
      * @testdox Localization data can be serialized and unserialized
-     * @covers phpOMS\Localization\Localization
+     * @covers \phpOMS\Localization\Localization
      * @group framework
      */
     public function testLocalizationSerialize() : void
@@ -308,7 +308,7 @@ final class LocalizationTest extends \PHPUnit\Framework\TestCase
 
     /**
      * @testdox If no locale file for a specified country exists or a wild card country is used the first match of a locale file based on the defined language is loaded
-     * @covers phpOMS\Localization\Localization
+     * @covers \phpOMS\Localization\Localization
      * @group framework
      */
     public function testInvalidCountryLocalizationLoading() : void
@@ -319,7 +319,7 @@ final class LocalizationTest extends \PHPUnit\Framework\TestCase
 
     /**
      * @testdox By default the english locale file will be loaded if no other locale file can be found
-     * @covers phpOMS\Localization\Localization
+     * @covers \phpOMS\Localization\Localization
      * @group framework
      */
     public function testMissingLocalizationLoading() : void

@@ -25,7 +25,7 @@ final class IpTest extends \PHPUnit\Framework\TestCase
 {
     /**
      * @testdox An ip can be converted to a float
-     * @covers phpOMS\Utils\Converter\Ip
+     * @covers \phpOMS\Utils\Converter\Ip
      * @group framework
      */
     public function testIp() : void

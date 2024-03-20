@@ -25,7 +25,7 @@ final class EvaluatorTest extends \PHPUnit\Framework\TestCase
 {
     /**
      * @testdox Basic formulas using +, -, *, /, () and ^ can be evaluated
-     * @covers phpOMS\Math\Parser\Evaluator
+     * @covers \phpOMS\Math\Parser\Evaluator
      * @group framework
      */
     public function testBasicEvaluation() : void
@@ -36,7 +36,7 @@ final class EvaluatorTest extends \PHPUnit\Framework\TestCase
 
     /**
      * @testdox Badly formed formulas return null as result
-     * @covers phpOMS\Math\Parser\Evaluator
+     * @covers \phpOMS\Math\Parser\Evaluator
      * @group framework
      */
     public function testInvalidEvaluation() : void

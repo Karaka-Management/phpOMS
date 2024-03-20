@@ -22,7 +22,7 @@ use phpOMS\Math\Stochastic\Distribution\BinomialDistribution;
 final class BinomialDistributionTest extends \PHPUnit\Framework\TestCase
 {
     /**
-     * @covers phpOMS\Math\Stochastic\Distribution\BinomialDistribution
+     * @covers \phpOMS\Math\Stochastic\Distribution\BinomialDistribution
      * @group framework
      */
     public function testPmf() : void
@@ -35,7 +35,7 @@ final class BinomialDistributionTest extends \PHPUnit\Framework\TestCase
     }
 
     /**
-     * @covers phpOMS\Math\Stochastic\Distribution\BinomialDistribution
+     * @covers \phpOMS\Math\Stochastic\Distribution\BinomialDistribution
      * @group framework
      */
     public function testCdf() : void
@@ -48,7 +48,7 @@ final class BinomialDistributionTest extends \PHPUnit\Framework\TestCase
     }
 
     /**
-     * @covers phpOMS\Math\Stochastic\Distribution\BinomialDistribution
+     * @covers \phpOMS\Math\Stochastic\Distribution\BinomialDistribution
      * @group framework
      */
     public function testMean() : void
@@ -60,7 +60,7 @@ final class BinomialDistributionTest extends \PHPUnit\Framework\TestCase
     }
 
     /**
-     * @covers phpOMS\Math\Stochastic\Distribution\BinomialDistribution
+     * @covers \phpOMS\Math\Stochastic\Distribution\BinomialDistribution
      * @group framework
      */
     public function testMedian() : void
@@ -72,7 +72,7 @@ final class BinomialDistributionTest extends \PHPUnit\Framework\TestCase
     }
 
     /**
-     * @covers phpOMS\Math\Stochastic\Distribution\BinomialDistribution
+     * @covers \phpOMS\Math\Stochastic\Distribution\BinomialDistribution
      * @group framework
      */
     public function testMode() : void
@@ -84,7 +84,7 @@ final class BinomialDistributionTest extends \PHPUnit\Framework\TestCase
     }
 
     /**
-     * @covers phpOMS\Math\Stochastic\Distribution\BinomialDistribution
+     * @covers \phpOMS\Math\Stochastic\Distribution\BinomialDistribution
      * @group framework
      */
     public function testVariance() : void
@@ -96,7 +96,7 @@ final class BinomialDistributionTest extends \PHPUnit\Framework\TestCase
     }
 
     /**
-     * @covers phpOMS\Math\Stochastic\Distribution\BinomialDistribution
+     * @covers \phpOMS\Math\Stochastic\Distribution\BinomialDistribution
      * @group framework
      */
     public function testStandardDeviation() : void
@@ -108,7 +108,7 @@ final class BinomialDistributionTest extends \PHPUnit\Framework\TestCase
     }
 
     /**
-     * @covers phpOMS\Math\Stochastic\Distribution\BinomialDistribution
+     * @covers \phpOMS\Math\Stochastic\Distribution\BinomialDistribution
      * @group framework
      */
     public function testSkewness() : void
@@ -120,7 +120,7 @@ final class BinomialDistributionTest extends \PHPUnit\Framework\TestCase
     }
 
     /**
-     * @covers phpOMS\Math\Stochastic\Distribution\BinomialDistribution
+     * @covers \phpOMS\Math\Stochastic\Distribution\BinomialDistribution
      * @group framework
      */
     public function testExKurtosis() : void
@@ -132,7 +132,7 @@ final class BinomialDistributionTest extends \PHPUnit\Framework\TestCase
     }
 
     /**
-     * @covers phpOMS\Math\Stochastic\Distribution\BinomialDistribution
+     * @covers \phpOMS\Math\Stochastic\Distribution\BinomialDistribution
      * @group framework
      */
     public function testMgf() : void
@@ -145,7 +145,7 @@ final class BinomialDistributionTest extends \PHPUnit\Framework\TestCase
     }
 
     /**
-     * @covers phpOMS\Math\Stochastic\Distribution\BinomialDistribution
+     * @covers \phpOMS\Math\Stochastic\Distribution\BinomialDistribution
      * @group framework
      */
     public function testFisherInformation() : void

@@ -168,7 +168,7 @@ final class ModuleAbstractTest extends \PHPUnit\Framework\TestCase
 
     /**
      * @testdox The constant values of the abstract module are overwritten by the extension
-     * @covers phpOMS\Module\ModuleAbstract<extended>
+     * @covers \phpOMS\Module\ModuleAbstract<extended>
      * @group framework
      */
     public function testConstants() : void
@@ -179,7 +179,7 @@ final class ModuleAbstractTest extends \PHPUnit\Framework\TestCase
 
     /**
      * @testdox The name of the module can be returned
-     * @covers phpOMS\Module\ModuleAbstract<extended>
+     * @covers \phpOMS\Module\ModuleAbstract<extended>
      * @group framework
      */
     public function testName() : void
@@ -189,7 +189,7 @@ final class ModuleAbstractTest extends \PHPUnit\Framework\TestCase
 
     /**
      * @testdox The dependencies of the module can be returned
-     * @covers phpOMS\Module\ModuleAbstract<extended>
+     * @covers \phpOMS\Module\ModuleAbstract<extended>
      * @group framework
      */
     public function testDependencies() : void
@@ -199,7 +199,7 @@ final class ModuleAbstractTest extends \PHPUnit\Framework\TestCase
 
     /**
      * @testdox The providings of the module can be returned
-     * @covers phpOMS\Module\ModuleAbstract<extended>
+     * @covers \phpOMS\Module\ModuleAbstract<extended>
      * @group framework
      */
     public function testProviding() : void
@@ -209,7 +209,7 @@ final class ModuleAbstractTest extends \PHPUnit\Framework\TestCase
 
     /**
      * @testdox A module can receive information and functionality from another module
-     * @covers phpOMS\Module\ModuleAbstract<extended>
+     * @covers \phpOMS\Module\ModuleAbstract<extended>
      * @group framework
      */
     public function testReceiving() : void
@@ -220,7 +220,7 @@ final class ModuleAbstractTest extends \PHPUnit\Framework\TestCase
 
     /**
      * @testdox A module can load its own localization/language dataset
-     * @covers phpOMS\Module\ModuleAbstract<extended>
+     * @covers \phpOMS\Module\ModuleAbstract<extended>
      * @group framework
      */
     public function testLocalization() : void
@@ -230,7 +230,7 @@ final class ModuleAbstractTest extends \PHPUnit\Framework\TestCase
 
     /**
      * @testdox A invalid language or theme returns in an empty localization/language dataset
-     * @covers phpOMS\Module\ModuleAbstract<extended>
+     * @covers \phpOMS\Module\ModuleAbstract<extended>
      * @group framework
      */
     public function testInvalidLocalization() : void
@@ -240,7 +240,7 @@ final class ModuleAbstractTest extends \PHPUnit\Framework\TestCase
 
     /**
      * @testdox The module can automatically generate a json response based on provided data for the frontend
-     * @covers phpOMS\Module\ModuleAbstract<extended>
+     * @covers \phpOMS\Module\ModuleAbstract<extended>
      * @group framework
      */
     public function testFillJson() : void
@@ -263,7 +263,7 @@ final class ModuleAbstractTest extends \PHPUnit\Framework\TestCase
 
     /**
      * @testdox The module can automatically generate a json response based on provided data
-     * @covers phpOMS\Module\ModuleAbstract<extended>
+     * @covers \phpOMS\Module\ModuleAbstract<extended>
      * @group framework
      */
     public function testFillJsonRaw() : void
@@ -429,7 +429,7 @@ final class ModuleAbstractTest extends \PHPUnit\Framework\TestCase
 
     /**
      * @testdox A model can be created
-     * @covers phpOMS\Module\ModuleAbstract<extended>
+     * @covers \phpOMS\Module\ModuleAbstract<extended>
      * @group framework
      */
     public function testModelCreate() : void
@@ -444,7 +444,7 @@ final class ModuleAbstractTest extends \PHPUnit\Framework\TestCase
 
     /**
      * @testdox Multiple models can be generated
-     * @covers phpOMS\Module\ModuleAbstract<extended>
+     * @covers \phpOMS\Module\ModuleAbstract<extended>
      * @group framework
      */
     public function testModelsCreate() : void
@@ -459,7 +459,7 @@ final class ModuleAbstractTest extends \PHPUnit\Framework\TestCase
 
     /**
      * @testdox A model can be updated
-     * @covers phpOMS\Module\ModuleAbstract<extended>
+     * @covers \phpOMS\Module\ModuleAbstract<extended>
      * @group framework
      */
     public function testModelUpdate() : void
@@ -476,7 +476,7 @@ final class ModuleAbstractTest extends \PHPUnit\Framework\TestCase
 
     /**
      * @testdox A model can be deleted
-     * @covers phpOMS\Module\ModuleAbstract<extended>
+     * @covers \phpOMS\Module\ModuleAbstract<extended>
      * @group framework
      */
     public function testModelDelete() : void
@@ -493,7 +493,7 @@ final class ModuleAbstractTest extends \PHPUnit\Framework\TestCase
 
     /**
      * @testdox A model relation can be created
-     * @covers phpOMS\Module\ModuleAbstract<extended>
+     * @covers \phpOMS\Module\ModuleAbstract<extended>
      * @group framework
      */
     public function testModelRelation() : void
@@ -519,7 +519,7 @@ final class ModuleAbstractTest extends \PHPUnit\Framework\TestCase
 
     /**
      * @testdox The model CRUD functions can be called with a closure
-     * @covers phpOMS\Module\ModuleAbstract<extended>
+     * @covers \phpOMS\Module\ModuleAbstract<extended>
      * @group framework
      */
     public function testModelFunctionsWithClosure() : void

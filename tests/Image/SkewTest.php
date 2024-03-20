@@ -28,7 +28,7 @@ final class SkewTest extends \PHPUnit\Framework\TestCase
      * @testdox A image can be automatically unskewed
      * @group framework
      * @group slow
-     * @covers phpOMS\Image\Skew
+     * @covers \phpOMS\Image\Skew
      */
     public function testSkew() : void
     {

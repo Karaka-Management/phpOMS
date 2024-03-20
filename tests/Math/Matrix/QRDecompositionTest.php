@@ -27,7 +27,7 @@ final class QRDecompositionTest extends \PHPUnit\Framework\TestCase
 {
     /**
      * @testdox A matrix can be checked if it has a full rank
-     * @covers phpOMS\Math\Matrix\QRDecomposition
+     * @covers \phpOMS\Math\Matrix\QRDecomposition
      * @group framework
      */
     public function testRank() : void
@@ -46,7 +46,7 @@ final class QRDecompositionTest extends \PHPUnit\Framework\TestCase
 
     /**
      * @testdox The Q matrix of the decomposition can be calculated
-     * @covers phpOMS\Math\Matrix\QRDecomposition
+     * @covers \phpOMS\Math\Matrix\QRDecomposition
      * @group framework
      */
     public function testQ() : void
@@ -69,7 +69,7 @@ final class QRDecompositionTest extends \PHPUnit\Framework\TestCase
 
     /**
      * @testdox The R matrix of the decomposition can be calculated
-     * @covers phpOMS\Math\Matrix\QRDecomposition
+     * @covers \phpOMS\Math\Matrix\QRDecomposition
      * @group framework
      */
     public function testR() : void
@@ -92,7 +92,7 @@ final class QRDecompositionTest extends \PHPUnit\Framework\TestCase
 
     /**
      * @testdox The decomposition can be created and the original matrix can be computed
-     * @covers phpOMS\Math\Matrix\QRDecomposition
+     * @covers \phpOMS\Math\Matrix\QRDecomposition
      * @group framework
      */
     public function testComposition() : void
@@ -117,7 +117,7 @@ final class QRDecompositionTest extends \PHPUnit\Framework\TestCase
 
     /**
      * @testdox The equation Ax = b can be solved
-     * @covers phpOMS\Math\Matrix\QRDecomposition
+     * @covers \phpOMS\Math\Matrix\QRDecomposition
      * @group framework
      */
     public function testSolve() : void

@@ -43,7 +43,7 @@ final class InstallerAbstractTest extends \PHPUnit\Framework\TestCase
 
     /**
      * @testdox Invalid or missing module status file throws exception during installation
-     * @covers phpOMS\Module\InstallerAbstract
+     * @covers \phpOMS\Module\InstallerAbstract
      * @group framework
      */
     public function testInvalidModuleInstall() : void

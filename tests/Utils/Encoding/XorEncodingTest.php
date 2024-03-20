@@ -25,7 +25,7 @@ final class XorEncodingTest extends \PHPUnit\Framework\TestCase
 {
     /**
      * @testdox Text can be encoded and decoded with the xor encoding
-     * @covers phpOMS\Utils\Encoding\XorEncoding
+     * @covers \phpOMS\Utils\Encoding\XorEncoding
      * @group framework
      */
     public function testEncoding() : void

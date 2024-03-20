@@ -25,7 +25,7 @@ final class AutoloaderTest extends \PHPUnit\Framework\TestCase
 {
     /**
      * @testdox Classes can be checked for existence
-     * @covers phpOMS\Autoloader
+     * @covers \phpOMS\Autoloader
      * @group framework
      */
     public function testAutoloader() : void
@@ -35,7 +35,7 @@ final class AutoloaderTest extends \PHPUnit\Framework\TestCase
     }
 
     /**
-     * @covers phpOMS\Autoloader
+     * @covers \phpOMS\Autoloader
      * @group framework
      */
     public function testLoading() : void
@@ -47,7 +47,7 @@ final class AutoloaderTest extends \PHPUnit\Framework\TestCase
     }
 
     /**
-     * @covers phpOMS\Autoloader
+     * @covers \phpOMS\Autoloader
      * @group framework
      */
     public function testManualPathLoading() : void
@@ -66,7 +66,7 @@ final class AutoloaderTest extends \PHPUnit\Framework\TestCase
     }
 
     /**
-     * @covers phpOMS\Autoloader
+     * @covers \phpOMS\Autoloader
      * @group framework
      */
     public function testOpcodeCacheInvalidation() : void
@@ -89,7 +89,7 @@ final class AutoloaderTest extends \PHPUnit\Framework\TestCase
     }
 
     /**
-     * @covers phpOMS\Autoloader
+     * @covers \phpOMS\Autoloader
      * @group framework
      */
     public function testUncachedInvalidation() : void

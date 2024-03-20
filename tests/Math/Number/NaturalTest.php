@@ -25,7 +25,7 @@ final class NaturalTest extends \PHPUnit\Framework\TestCase
 {
     /**
      * @testdox A number can be checked to be natural
-     * @covers phpOMS\Math\Number\Natural
+     * @covers \phpOMS\Math\Number\Natural
      * @group framework
      */
     public function testIsNatural() : void

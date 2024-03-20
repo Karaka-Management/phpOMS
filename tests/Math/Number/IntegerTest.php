@@ -25,7 +25,7 @@ final class IntegerTest extends \PHPUnit\Framework\TestCase
 {
     /**
      * @testdox A value can be checked to be an integer
-     * @covers phpOMS\Math\Number\Integer
+     * @covers \phpOMS\Math\Number\Integer
      * @group framework
      */
     public function testIsInteger() : void
@@ -37,7 +37,7 @@ final class IntegerTest extends \PHPUnit\Framework\TestCase
 
     /**
      * @testdox An integer can be factorized
-     * @covers phpOMS\Math\Number\Integer
+     * @covers \phpOMS\Math\Number\Integer
      * @group framework
      */
     public function testFactorization() : void
@@ -69,7 +69,7 @@ final class IntegerTest extends \PHPUnit\Framework\TestCase
 
     /**
      * @testdox The Pollard's Roh algorithm calculates a factor of an integer
-     * @covers phpOMS\Math\Number\Integer
+     * @covers \phpOMS\Math\Number\Integer
      * @group framework
      */
     public function testPollardsRho() : void
@@ -79,7 +79,7 @@ final class IntegerTest extends \PHPUnit\Framework\TestCase
 
     /**
      * @testdox The Fermat factorization calculates a factor of an integer
-     * @covers phpOMS\Math\Number\Integer
+     * @covers \phpOMS\Math\Number\Integer
      * @group framework
      */
     public function testFermatFactor() : void
@@ -89,7 +89,7 @@ final class IntegerTest extends \PHPUnit\Framework\TestCase
 
     /**
      * @testdox A even number for the fermat factorization throws a InvalidArgumentException
-     * @covers phpOMS\Math\Number\Integer
+     * @covers \phpOMS\Math\Number\Integer
      * @group framework
      */
     public function testInvalidFermatParameter() : void
@@ -101,7 +101,7 @@ final class IntegerTest extends \PHPUnit\Framework\TestCase
 
     /**
      * @testdox The greatest common divisor can be calculated
-     * @covers phpOMS\Math\Number\Integer
+     * @covers \phpOMS\Math\Number\Integer
      * @group framework
      */
     public function testGCD() : void

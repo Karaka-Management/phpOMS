@@ -22,7 +22,7 @@ use phpOMS\Module\Exception\InvalidModuleException;
 final class InvalidModuleExceptionTest extends \PHPUnit\Framework\TestCase
 {
     /**
-     * @covers phpOMS\Module\Exception\InvalidModuleException
+     * @covers \phpOMS\Module\Exception\InvalidModuleException
      * @group framework
      */
     public function testException() : void

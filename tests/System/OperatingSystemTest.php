@@ -27,7 +27,7 @@ final class OperatingSystemTest extends \PHPUnit\Framework\TestCase
 {
     /**
      * @testdox The current operating system can be returned
-     * @covers phpOMS\System\OperatingSystem
+     * @covers \phpOMS\System\OperatingSystem
      * @group framework
      */
     public function testSystem() : void

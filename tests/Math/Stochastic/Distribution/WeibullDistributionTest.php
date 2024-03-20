@@ -22,7 +22,7 @@ use phpOMS\Math\Stochastic\Distribution\WeibullDistribution;
 final class WeibullDistributionTest extends \PHPUnit\Framework\TestCase
 {
     /**
-     * @covers phpOMS\Math\Stochastic\Distribution\WeibullDistribution
+     * @covers \phpOMS\Math\Stochastic\Distribution\WeibullDistribution
      * @group framework
      */
     public function testPdf() : void
@@ -32,7 +32,7 @@ final class WeibullDistributionTest extends \PHPUnit\Framework\TestCase
     }
 
     /**
-     * @covers phpOMS\Math\Stochastic\Distribution\WeibullDistribution
+     * @covers \phpOMS\Math\Stochastic\Distribution\WeibullDistribution
      * @group framework
      */
     public function testCdf() : void
@@ -42,7 +42,7 @@ final class WeibullDistributionTest extends \PHPUnit\Framework\TestCase
     }
 
     /**
-     * @covers phpOMS\Math\Stochastic\Distribution\WeibullDistribution
+     * @covers \phpOMS\Math\Stochastic\Distribution\WeibullDistribution
      * @group framework
      */
     public function testMean() : void
@@ -51,7 +51,7 @@ final class WeibullDistributionTest extends \PHPUnit\Framework\TestCase
     }
 
     /**
-     * @covers phpOMS\Math\Stochastic\Distribution\WeibullDistribution
+     * @covers \phpOMS\Math\Stochastic\Distribution\WeibullDistribution
      * @group framework
      */
     public function testMedian() : void
@@ -60,7 +60,7 @@ final class WeibullDistributionTest extends \PHPUnit\Framework\TestCase
     }
 
     /**
-     * @covers phpOMS\Math\Stochastic\Distribution\WeibullDistribution
+     * @covers \phpOMS\Math\Stochastic\Distribution\WeibullDistribution
      * @group framework
      */
     public function testMode() : void
@@ -69,7 +69,7 @@ final class WeibullDistributionTest extends \PHPUnit\Framework\TestCase
     }
 
     /**
-     * @covers phpOMS\Math\Stochastic\Distribution\WeibullDistribution
+     * @covers \phpOMS\Math\Stochastic\Distribution\WeibullDistribution
      * @group framework
      */
     public function testVariance() : void
@@ -78,7 +78,7 @@ final class WeibullDistributionTest extends \PHPUnit\Framework\TestCase
     }
 
     /**
-     * @covers phpOMS\Math\Stochastic\Distribution\WeibullDistribution
+     * @covers \phpOMS\Math\Stochastic\Distribution\WeibullDistribution
      * @group framework
      */
     public function testStandardDeviation() : void
@@ -87,7 +87,7 @@ final class WeibullDistributionTest extends \PHPUnit\Framework\TestCase
     }
 
     /**
-     * @covers phpOMS\Math\Stochastic\Distribution\WeibullDistribution
+     * @covers \phpOMS\Math\Stochastic\Distribution\WeibullDistribution
      * @group framework
      */
     public function testEntropy() : void
@@ -96,7 +96,7 @@ final class WeibullDistributionTest extends \PHPUnit\Framework\TestCase
     }
 
     /**
-     * @covers phpOMS\Math\Stochastic\Distribution\WeibullDistribution
+     * @covers \phpOMS\Math\Stochastic\Distribution\WeibullDistribution
      * @group framework
      */
     public function testSkewness() : void

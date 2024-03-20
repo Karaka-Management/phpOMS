@@ -81,7 +81,7 @@ final class PackageManagerTest extends \PHPUnit\Framework\TestCase
 
     /**
      * @testdox A package can be installed
-     * @covers phpOMS\Module\PackageManager
+     * @covers \phpOMS\Module\PackageManager
      * @group framework
      */
     public function testPackageValidInstall() : void
@@ -145,7 +145,7 @@ final class PackageManagerTest extends \PHPUnit\Framework\TestCase
 
     /**
      * @testdox A package which didn't get extracted cannot be loaded and throws a PathException
-     * @covers phpOMS\Module\PackageManager
+     * @covers \phpOMS\Module\PackageManager
      * @group framework
      */
     public function testNotExtractedLoad() : void
@@ -163,7 +163,7 @@ final class PackageManagerTest extends \PHPUnit\Framework\TestCase
 
     /**
      * @testdox A invalid package cannot be installed and throws a Exception
-     * @covers phpOMS\Module\PackageManager
+     * @covers \phpOMS\Module\PackageManager
      * @group framework
      */
     public function testInvalidInstall() : void
@@ -181,7 +181,7 @@ final class PackageManagerTest extends \PHPUnit\Framework\TestCase
 
     /**
      * @testdox A invalid package key doesn't validate the package
-     * @covers phpOMS\Module\PackageManager
+     * @covers \phpOMS\Module\PackageManager
      * @group framework
      */
     public function testPackageInvalidKey() : void
@@ -199,7 +199,7 @@ final class PackageManagerTest extends \PHPUnit\Framework\TestCase
 
     /**
      * @testdox A invalid package content doesn't validate the package
-     * @covers phpOMS\Module\PackageManager
+     * @covers \phpOMS\Module\PackageManager
      * @group framework
      */
     public function testPackageInvalidContent() : void
@@ -218,7 +218,7 @@ final class PackageManagerTest extends \PHPUnit\Framework\TestCase
 
     /**
      * @testdox The temporarily extracted package can be cleaned up
-     * @covers phpOMS\Module\PackageManager
+     * @covers \phpOMS\Module\PackageManager
      * @group framework
      */
     public function testCleanup() : void

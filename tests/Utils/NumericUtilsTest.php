@@ -27,7 +27,7 @@ final class NumericUtilsTest extends \PHPUnit\Framework\TestCase
 {
     /**
      * @testdox Integers can be unsigned right shifted
-     * @covers phpOMS\Utils\NumericUtils
+     * @covers \phpOMS\Utils\NumericUtils
      * @group framework
      */
     public function testShift() : void

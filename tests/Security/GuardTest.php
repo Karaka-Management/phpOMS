@@ -59,7 +59,7 @@ final class GuardTest extends \PHPUnit\Framework\TestCase
 
     /**
      * @testdox A string can be validated for shell safety
-     * @covers phpOMS\Security\Guard
+     * @covers \phpOMS\Security\Guard
      * @group framework
      */
     public function testIsShellSafe() : void

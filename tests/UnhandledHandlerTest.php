@@ -22,8 +22,10 @@ use phpOMS\UnhandledHandler;
 final class UnhandledHandlerTest extends \PHPUnit\Framework\TestCase
 {
     /**
-     * @covers phpOMS\UnhandledHandler
+     * @covers \phpOMS\UnhandledHandler
      */
+    /*
+    @bug This is no longer possible with PHPUnit >= 8.0 as it stops the tests
     public function testErrorHandling() : void
     {
         \set_exception_handler(['\phpOMS\UnhandledHandler', 'exceptionHandler']);
@@ -36,4 +38,5 @@ final class UnhandledHandlerTest extends \PHPUnit\Framework\TestCase
 
         self::assertFalse(UnhandledHandler::errorHandler(0, '', '', 0));
     }
+    */
 }

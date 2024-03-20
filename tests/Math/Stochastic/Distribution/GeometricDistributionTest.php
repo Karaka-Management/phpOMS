@@ -22,7 +22,7 @@ use phpOMS\Math\Stochastic\Distribution\GeometricDistribution;
 final class GeometricDistributionTest extends \PHPUnit\Framework\TestCase
 {
     /**
-     * @covers phpOMS\Math\Stochastic\Distribution\GeometricDistribution
+     * @covers \phpOMS\Math\Stochastic\Distribution\GeometricDistribution
      * @group framework
      */
     public function testPmf() : void
@@ -34,7 +34,7 @@ final class GeometricDistributionTest extends \PHPUnit\Framework\TestCase
     }
 
     /**
-     * @covers phpOMS\Math\Stochastic\Distribution\GeometricDistribution
+     * @covers \phpOMS\Math\Stochastic\Distribution\GeometricDistribution
      * @group framework
      */
     public function testCdf() : void
@@ -47,7 +47,7 @@ final class GeometricDistributionTest extends \PHPUnit\Framework\TestCase
     }
 
     /**
-     * @covers phpOMS\Math\Stochastic\Distribution\GeometricDistribution
+     * @covers \phpOMS\Math\Stochastic\Distribution\GeometricDistribution
      * @group framework
      */
     public function testMode() : void
@@ -56,7 +56,7 @@ final class GeometricDistributionTest extends \PHPUnit\Framework\TestCase
     }
 
     /**
-     * @covers phpOMS\Math\Stochastic\Distribution\GeometricDistribution
+     * @covers \phpOMS\Math\Stochastic\Distribution\GeometricDistribution
      * @group framework
      */
     public function testMean() : void
@@ -66,7 +66,7 @@ final class GeometricDistributionTest extends \PHPUnit\Framework\TestCase
     }
 
     /**
-     * @covers phpOMS\Math\Stochastic\Distribution\GeometricDistribution
+     * @covers \phpOMS\Math\Stochastic\Distribution\GeometricDistribution
      * @group framework
      */
     public function testVariance() : void
@@ -77,7 +77,7 @@ final class GeometricDistributionTest extends \PHPUnit\Framework\TestCase
     }
 
     /**
-     * @covers phpOMS\Math\Stochastic\Distribution\GeometricDistribution
+     * @covers \phpOMS\Math\Stochastic\Distribution\GeometricDistribution
      * @group framework
      */
     public function testgetStandardDeviation() : void
@@ -88,7 +88,7 @@ final class GeometricDistributionTest extends \PHPUnit\Framework\TestCase
     }
 
     /**
-     * @covers phpOMS\Math\Stochastic\Distribution\GeometricDistribution
+     * @covers \phpOMS\Math\Stochastic\Distribution\GeometricDistribution
      * @group framework
      */
     public function testSkewness() : void
@@ -99,7 +99,7 @@ final class GeometricDistributionTest extends \PHPUnit\Framework\TestCase
     }
 
     /**
-     * @covers phpOMS\Math\Stochastic\Distribution\GeometricDistribution
+     * @covers \phpOMS\Math\Stochastic\Distribution\GeometricDistribution
      * @group framework
      */
     public function testExKurtosis() : void
@@ -110,7 +110,7 @@ final class GeometricDistributionTest extends \PHPUnit\Framework\TestCase
     }
 
     /**
-     * @covers phpOMS\Math\Stochastic\Distribution\GeometricDistribution
+     * @covers \phpOMS\Math\Stochastic\Distribution\GeometricDistribution
      * @group framework
      */
     public function testMedian() : void
@@ -121,7 +121,7 @@ final class GeometricDistributionTest extends \PHPUnit\Framework\TestCase
     }
 
     /**
-     * @covers phpOMS\Math\Stochastic\Distribution\GeometricDistribution
+     * @covers \phpOMS\Math\Stochastic\Distribution\GeometricDistribution
      * @group framework
      */
     public function testMgf() : void

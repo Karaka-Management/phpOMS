@@ -25,7 +25,7 @@ final class PrismTest extends \PHPUnit\Framework\TestCase
 {
     /**
      * @testdox The volume can be calculated with the length
-     * @covers phpOMS\Math\Geometry\Shape\D3\Prism
+     * @covers \phpOMS\Math\Geometry\Shape\D3\Prism
      * @group framework
      */
     public function testVolumeByLength() : void
@@ -35,7 +35,7 @@ final class PrismTest extends \PHPUnit\Framework\TestCase
 
     /**
      * @testdox The volume can be calculated with the radius
-     * @covers phpOMS\Math\Geometry\Shape\D3\Prism
+     * @covers \phpOMS\Math\Geometry\Shape\D3\Prism
      * @group framework
      */
     public function testVolumeByRadius() : void
@@ -45,7 +45,7 @@ final class PrismTest extends \PHPUnit\Framework\TestCase
 
     /**
      * @testdox The surface can be calculated
-     * @covers phpOMS\Math\Geometry\Shape\D3\Prism
+     * @covers \phpOMS\Math\Geometry\Shape\D3\Prism
      * @group framework
      */
     public function testSurface() : void

@@ -25,7 +25,7 @@ final class CronJobTest extends \PHPUnit\Framework\TestCase
 {
     /**
      * @testdox The cron job has the expected default values after initialization
-     * @covers phpOMS\Utils\TaskSchedule\CronJob
+     * @covers \phpOMS\Utils\TaskSchedule\CronJob
      * @group framework
      */
     public function testDefault() : void
@@ -37,7 +37,7 @@ final class CronJobTest extends \PHPUnit\Framework\TestCase
 
     /**
      * @testdox A cron job can be created from an array and rendered
-     * @covers phpOMS\Utils\TaskSchedule\CronJob
+     * @covers \phpOMS\Utils\TaskSchedule\CronJob
      * @group framework
      */
     public function testCreateJobWithData() : void

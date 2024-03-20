@@ -40,7 +40,7 @@ final class StatusAbstractTest extends \PHPUnit\Framework\TestCase
 
     /**
      * @testdox A invalid application path cannot be activated
-     * @covers phpOMS\Application\StatusAbstract
+     * @covers \phpOMS\Application\StatusAbstract
      * @group framework
      */
     public function testInvalidAppPathActivation() : void

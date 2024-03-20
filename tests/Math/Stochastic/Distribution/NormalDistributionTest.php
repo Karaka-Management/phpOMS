@@ -24,7 +24,7 @@ use phpOMS\Math\Stochastic\Distribution\NormalDistribution;
 final class NormalDistributionTest extends \PHPUnit\Framework\TestCase
 {
     /**
-     * @covers phpOMS\Math\Stochastic\Distribution\NormalDistribution
+     * @covers \phpOMS\Math\Stochastic\Distribution\NormalDistribution
      * @group framework
      */
     public function testPdf() : void
@@ -37,7 +37,7 @@ final class NormalDistributionTest extends \PHPUnit\Framework\TestCase
     }
 
     /**
-     * @covers phpOMS\Math\Stochastic\Distribution\NormalDistribution
+     * @covers \phpOMS\Math\Stochastic\Distribution\NormalDistribution
      * @group framework
      */
     public function testCdf() : void
@@ -50,7 +50,7 @@ final class NormalDistributionTest extends \PHPUnit\Framework\TestCase
     }
 
     /**
-     * @covers phpOMS\Math\Stochastic\Distribution\NormalDistribution
+     * @covers \phpOMS\Math\Stochastic\Distribution\NormalDistribution
      * @group framework
      */
     public function testMean() : void
@@ -61,7 +61,7 @@ final class NormalDistributionTest extends \PHPUnit\Framework\TestCase
     }
 
     /**
-     * @covers phpOMS\Math\Stochastic\Distribution\NormalDistribution
+     * @covers \phpOMS\Math\Stochastic\Distribution\NormalDistribution
      * @group framework
      */
     public function testMedian() : void
@@ -72,7 +72,7 @@ final class NormalDistributionTest extends \PHPUnit\Framework\TestCase
     }
 
     /**
-     * @covers phpOMS\Math\Stochastic\Distribution\NormalDistribution
+     * @covers \phpOMS\Math\Stochastic\Distribution\NormalDistribution
      * @group framework
      */
     public function testMode() : void
@@ -83,7 +83,7 @@ final class NormalDistributionTest extends \PHPUnit\Framework\TestCase
     }
 
     /**
-     * @covers phpOMS\Math\Stochastic\Distribution\NormalDistribution
+     * @covers \phpOMS\Math\Stochastic\Distribution\NormalDistribution
      * @group framework
      */
     public function testSkewness() : void
@@ -92,7 +92,7 @@ final class NormalDistributionTest extends \PHPUnit\Framework\TestCase
     }
 
     /**
-     * @covers phpOMS\Math\Stochastic\Distribution\NormalDistribution
+     * @covers \phpOMS\Math\Stochastic\Distribution\NormalDistribution
      * @group framework
      */
     public function testExKurtosis() : void
@@ -101,7 +101,7 @@ final class NormalDistributionTest extends \PHPUnit\Framework\TestCase
     }
 
     /**
-     * @covers phpOMS\Math\Stochastic\Distribution\NormalDistribution
+     * @covers \phpOMS\Math\Stochastic\Distribution\NormalDistribution
      * @group framework
      */
     public function testVariance() : void
@@ -112,7 +112,7 @@ final class NormalDistributionTest extends \PHPUnit\Framework\TestCase
     }
 
     /**
-     * @covers phpOMS\Math\Stochastic\Distribution\NormalDistribution
+     * @covers \phpOMS\Math\Stochastic\Distribution\NormalDistribution
      * @group framework
      */
     public function testStandardDeviation() : void
@@ -123,7 +123,7 @@ final class NormalDistributionTest extends \PHPUnit\Framework\TestCase
     }
 
     /**
-     * @covers phpOMS\Math\Stochastic\Distribution\NormalDistribution
+     * @covers \phpOMS\Math\Stochastic\Distribution\NormalDistribution
      * @group framework
      */
     public function testSampleSizeCalculation() : void
@@ -132,7 +132,7 @@ final class NormalDistributionTest extends \PHPUnit\Framework\TestCase
     }
 
     /**
-     * @covers phpOMS\Math\Stochastic\Distribution\NormalDistribution
+     * @covers \phpOMS\Math\Stochastic\Distribution\NormalDistribution
      * @group framework
      */
     public function testSampleSizeInfiniteCalculation() : void
@@ -141,7 +141,7 @@ final class NormalDistributionTest extends \PHPUnit\Framework\TestCase
     }
 
     /**
-     * @covers phpOMS\Math\Stochastic\Distribution\NormalDistribution
+     * @covers \phpOMS\Math\Stochastic\Distribution\NormalDistribution
      * @group framework
      */
     public function testMgf() : void
@@ -157,7 +157,7 @@ final class NormalDistributionTest extends \PHPUnit\Framework\TestCase
     }
 
     /**
-     * @covers phpOMS\Math\Stochastic\Distribution\NormalDistribution
+     * @covers \phpOMS\Math\Stochastic\Distribution\NormalDistribution
      * @group framework
      */
     public function testFisherInformation() : void

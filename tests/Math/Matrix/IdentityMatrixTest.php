@@ -25,7 +25,7 @@ final class IdentityMatrixTest extends \PHPUnit\Framework\TestCase
 {
     /**
      * @testdox The identity matrix is the identity
-     * @covers phpOMS\Math\Matrix\IdentityMatrix
+     * @covers \phpOMS\Math\Matrix\IdentityMatrix
      * @group framework
      */
     public function testIdentity() : void

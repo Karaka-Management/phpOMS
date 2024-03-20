@@ -27,7 +27,7 @@ final class CityTest extends \PHPUnit\Framework\TestCase
 {
     /**
      * @testdox The model has the expected member variables and default values
-     * @covers phpOMS\Localization\Defaults\City
+     * @covers \phpOMS\Localization\Defaults\City
      * @group framework
      */
     public function testDefaults() : void

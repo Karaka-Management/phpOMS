@@ -25,7 +25,7 @@ final class MonotoneChainTest extends \PHPUnit\Framework\TestCase
 {
     /**
      * @testdox A convex hull can be formed from multiple points on a plane
-     * @covers phpOMS\Math\Geometry\ConvexHull\MonotoneChain
+     * @covers \phpOMS\Math\Geometry\ConvexHull\MonotoneChain
      * @group framework
      */
     public function testMonotoneChain() : void

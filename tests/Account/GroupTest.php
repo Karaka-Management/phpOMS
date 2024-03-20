@@ -30,7 +30,7 @@ final class GroupTest extends \PHPUnit\Framework\TestCase
 {
     /**
      * @testdox The group has the expected default values after initialization
-     * @covers phpOMS\Account\Group<extended>
+     * @covers \phpOMS\Account\Group<extended>
      * @group framework
      */
     public function testDefault() : void
@@ -59,7 +59,7 @@ final class GroupTest extends \PHPUnit\Framework\TestCase
 
     /**
      * @testdox The group name and description can be set and retrieved correctly
-     * @covers phpOMS\Account\Group<extended>
+     * @covers \phpOMS\Account\Group<extended>
      * @group framework
      */
     public function testSetAndGetGroupNameDescription() : void
@@ -75,7 +75,7 @@ final class GroupTest extends \PHPUnit\Framework\TestCase
 
     /**
      * @testdox Group permissions can be added
-     * @covers phpOMS\Account\Group<extended>
+     * @covers \phpOMS\Account\Group<extended>
      * @group framework
      */
     public function testPermissionAdd() : void
@@ -106,7 +106,7 @@ final class GroupTest extends \PHPUnit\Framework\TestCase
 
     /**
      * @testdox Group permissions can be checked for existence
-     * @covers phpOMS\Account\Group<extended>
+     * @covers \phpOMS\Account\Group<extended>
      * @group framework
      */
     public function testPermissionExists() : void
@@ -122,7 +122,7 @@ final class GroupTest extends \PHPUnit\Framework\TestCase
 
     /**
      * @testdox Group permissions can be removed
-     * @covers phpOMS\Account\Group<extended>
+     * @covers \phpOMS\Account\Group<extended>
      * @group framework
      */
     public function testPermissionRemove() : void

@@ -48,7 +48,7 @@ final class ResponseAbstractTest extends \PHPUnit\Framework\TestCase
 
     /**
      * @testdox The response has the expected default values after initialization
-     * @covers phpOMS\Message\ResponseAbstract
+     * @covers \phpOMS\Message\ResponseAbstract
      * @group framework
      */
     public function testDefault() : void
@@ -59,7 +59,7 @@ final class ResponseAbstractTest extends \PHPUnit\Framework\TestCase
 
     /**
      * @testdox The response can be json serialized
-     * @covers phpOMS\Message\ResponseAbstract
+     * @covers \phpOMS\Message\ResponseAbstract
      * @group framework
      */
     public function testJsonSerialize() : void
@@ -75,7 +75,7 @@ final class ResponseAbstractTest extends \PHPUnit\Framework\TestCase
 
     /**
      * @testdox Data can be set and returned for the response
-     * @covers phpOMS\Message\ResponseAbstract
+     * @covers \phpOMS\Message\ResponseAbstract
      * @group framework
      */
     public function testDataInputOutput() : void
@@ -86,7 +86,7 @@ final class ResponseAbstractTest extends \PHPUnit\Framework\TestCase
 
     /**
      * @testdox Data can be set and returned for the response
-     * @covers phpOMS\Message\ResponseAbstract
+     * @covers \phpOMS\Message\ResponseAbstract
      * @group framework
      */
     public function testDataStringInputOutput() : void
@@ -98,7 +98,7 @@ final class ResponseAbstractTest extends \PHPUnit\Framework\TestCase
 
     /**
      * @testdox Data can be set and returned for the response
-     * @covers phpOMS\Message\ResponseAbstract
+     * @covers \phpOMS\Message\ResponseAbstract
      * @group framework
      */
     public function testDataBoolInputOutput() : void
@@ -110,7 +110,7 @@ final class ResponseAbstractTest extends \PHPUnit\Framework\TestCase
 
     /**
      * @testdox Data can be set and returned for the response
-     * @covers phpOMS\Message\ResponseAbstract
+     * @covers \phpOMS\Message\ResponseAbstract
      * @group framework
      */
     public function testDataFloatInputOutput() : void
@@ -131,7 +131,7 @@ final class ResponseAbstractTest extends \PHPUnit\Framework\TestCase
 
     /**
      * @testdox Data can be set and returned for the response
-     * @covers phpOMS\Message\ResponseAbstract
+     * @covers \phpOMS\Message\ResponseAbstract
      * @group framework
      */
     public function testDataDateTimeInputOutput() : void
@@ -149,7 +149,7 @@ final class ResponseAbstractTest extends \PHPUnit\Framework\TestCase
 
     /**
      * @testdox Data can be set and returned for the response
-     * @covers phpOMS\Message\ResponseAbstract
+     * @covers \phpOMS\Message\ResponseAbstract
      * @group framework
      */
     public function testInvalidDataTypeInputOutput() : void

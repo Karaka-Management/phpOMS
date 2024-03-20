@@ -27,7 +27,7 @@ final class ContinuousTest extends \PHPUnit\Framework\TestCase
 {
     /**
      * @testdox The optimal item selection in a backpack is calculated in order to optimize the value/profit while considering the available capacity/cost limit [discrete quantities]
-     * @covers phpOMS\Algorithm\Knapsack\Continuous
+     * @covers \phpOMS\Algorithm\Knapsack\Continuous
      * @group framework
      */
     public function testBackpacking() : void
@@ -69,7 +69,7 @@ final class ContinuousTest extends \PHPUnit\Framework\TestCase
 
     /**
      * @testdox The optimal item selection in a backpack is calculated in order to optimize the value/profit while considering the available capacity/cost limit [continuous quantities]
-     * @covers phpOMS\Algorithm\Knapsack\Continuous
+     * @covers \phpOMS\Algorithm\Knapsack\Continuous
      * @group framework
      */
     public function testBackpackingAlternative() : void

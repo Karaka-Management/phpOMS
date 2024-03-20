@@ -27,7 +27,7 @@ final class EloTest extends \PHPUnit\Framework\TestCase
 {
     /**
      * @testdox 1v1 rating test
-     * @covers phpOMS\Algorithm\Rating\Elo
+     * @covers \phpOMS\Algorithm\Rating\Elo
      * @group framework
      */
     public function testSoloRating() : void
@@ -81,7 +81,7 @@ final class EloTest extends \PHPUnit\Framework\TestCase
 
     /**
      * @testdox group rating test
-     * @covers phpOMS\Algorithm\Rating\Elo
+     * @covers \phpOMS\Algorithm\Rating\Elo
      * @group framework
      */
     public function testGroupRating() : void

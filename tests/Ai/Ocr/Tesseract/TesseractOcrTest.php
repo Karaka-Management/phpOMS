@@ -50,7 +50,7 @@ final class TesseractOcrTest extends \PHPUnit\Framework\TestCase
     }
 
     /**
-     * @covers phpOMS\Ai\Ocr\Tesseract\TesseractOcr
+     * @covers \phpOMS\Ai\Ocr\Tesseract\TesseractOcr
      * @group framework
      */
     public function testOcrBasic() : void
@@ -76,7 +76,7 @@ final class TesseractOcrTest extends \PHPUnit\Framework\TestCase
     }
 
     /**
-     * @covers phpOMS\Ai\Ocr\Tesseract\TesseractOcr
+     * @covers \phpOMS\Ai\Ocr\Tesseract\TesseractOcr
      * @group framework
      */
     public function testOcrWithThresholding() : void
@@ -99,7 +99,7 @@ final class TesseractOcrTest extends \PHPUnit\Framework\TestCase
     }
 
     /**
-     * @covers phpOMS\Ai\Ocr\Tesseract\TesseractOcr
+     * @covers \phpOMS\Ai\Ocr\Tesseract\TesseractOcr
      * @group framework
      */
     /*
@@ -135,7 +135,7 @@ final class TesseractOcrTest extends \PHPUnit\Framework\TestCase
     */
 
     /**
-     * @covers phpOMS\Ai\Ocr\Tesseract\TesseractOcr
+     * @covers \phpOMS\Ai\Ocr\Tesseract\TesseractOcr
      * @group framework
      */
     /*

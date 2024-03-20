@@ -36,7 +36,7 @@ final class HttpResponseTest extends \PHPUnit\Framework\TestCase
 
     /**
      * @testdox The response has the expected default values after initialization
-     * @covers phpOMS\Message\Http\HttpResponse<extended>
+     * @covers \phpOMS\Message\Http\HttpResponse<extended>
      * @group framework
      */
     public function testDefault() : void
@@ -50,7 +50,7 @@ final class HttpResponseTest extends \PHPUnit\Framework\TestCase
 
     /**
      * @testdox Response data can be set and returned
-     * @covers phpOMS\Message\Http\HttpResponse<extended>
+     * @covers \phpOMS\Message\Http\HttpResponse<extended>
      * @group framework
      */
     public function testResponseInputOutput() : void
@@ -61,7 +61,7 @@ final class HttpResponseTest extends \PHPUnit\Framework\TestCase
 
     /**
      * @testdox Response data can be removed
-     * @covers phpOMS\Message\Http\HttpResponse<extended>
+     * @covers \phpOMS\Message\Http\HttpResponse<extended>
      * @group framework
      */
     public function testRemove() : void
@@ -72,7 +72,7 @@ final class HttpResponseTest extends \PHPUnit\Framework\TestCase
 
     /**
      * @testdox None-existing response data cannot be removed
-     * @covers phpOMS\Message\Http\HttpResponse<extended>
+     * @covers \phpOMS\Message\Http\HttpResponse<extended>
      * @group framework
      */
     public function testInvalidRemove() : void
@@ -85,7 +85,7 @@ final class HttpResponseTest extends \PHPUnit\Framework\TestCase
 
     /**
      * @testdox Test disabling output buffering
-     * @covers phpOMS\Message\Http\HttpResponse
+     * @covers \phpOMS\Message\Http\HttpResponse
      * @group framework
      */
     public function testEndAllOutputBuffering() : void
@@ -105,7 +105,7 @@ final class HttpResponseTest extends \PHPUnit\Framework\TestCase
 
     /**
      * @testdox Response data can be turned into an array
-     * @covers phpOMS\Message\Http\HttpResponse<extended>
+     * @covers \phpOMS\Message\Http\HttpResponse<extended>
      * @group framework
      */
     public function testToArray() : void
@@ -144,7 +144,7 @@ final class HttpResponseTest extends \PHPUnit\Framework\TestCase
 
     /**
      * @testdox A response with json as content-type is automatically rendered as json data
-     * @covers phpOMS\Message\Http\HttpResponse<extended>
+     * @covers \phpOMS\Message\Http\HttpResponse<extended>
      * @group framework
      */
     public function testJsonRender() : void
@@ -184,7 +184,7 @@ final class HttpResponseTest extends \PHPUnit\Framework\TestCase
 
     /**
      * @testdox Json data can be decoded from the response data
-     * @covers phpOMS\Message\Http\HttpResponse<extended>
+     * @covers \phpOMS\Message\Http\HttpResponse<extended>
      * @group framework
      */
     public function testJsonDataDecode() : void
@@ -197,7 +197,7 @@ final class HttpResponseTest extends \PHPUnit\Framework\TestCase
 
     /**
      * @testdox A html response can be forced to minimize the content by removing newlines and whitespaces
-     * @covers phpOMS\Message\Http\HttpResponse<extended>
+     * @covers \phpOMS\Message\Http\HttpResponse<extended>
      * @group framework
      */
     public function testMinimizedRender() : void
@@ -215,7 +215,7 @@ final class HttpResponseTest extends \PHPUnit\Framework\TestCase
 
     /**
      * @testdox None-html responses cannot be forced to minimize the content by removing newlines and whitespaces
-     * @covers phpOMS\Message\Http\HttpResponse<extended>
+     * @covers \phpOMS\Message\Http\HttpResponse<extended>
      * @group framework
      */
     public function testInvalidMinimizedRender() : void
@@ -233,7 +233,7 @@ final class HttpResponseTest extends \PHPUnit\Framework\TestCase
 
     /**
      * @testdox Invalid response data results in an empty array
-     * @covers phpOMS\Message\Http\HttpResponse<extended>
+     * @covers \phpOMS\Message\Http\HttpResponse<extended>
      * @group framework
      */
     public function testInvalidResponseDataToArray() : void
@@ -244,7 +244,7 @@ final class HttpResponseTest extends \PHPUnit\Framework\TestCase
 
     /**
      * @testdox Invalid response data results in an empty render
-     * @covers phpOMS\Message\Http\HttpResponse<extended>
+     * @covers \phpOMS\Message\Http\HttpResponse<extended>
      * @group framework
      */
     public function testInvalidResponseDataRender() : void

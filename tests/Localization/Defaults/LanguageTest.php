@@ -27,7 +27,7 @@ final class LanguageTest extends \PHPUnit\Framework\TestCase
 {
     /**
      * @testdox The model has the expected member variables and default values
-     * @covers phpOMS\Localization\Defaults\Language
+     * @covers \phpOMS\Localization\Defaults\Language
      * @group framework
      */
     public function testDefaults() : void

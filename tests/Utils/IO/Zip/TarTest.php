@@ -38,7 +38,7 @@ final class TarTest extends \PHPUnit\Framework\TestCase
 
     /**
      * @testdox Data can be tar packed and unpacked
-     * @covers phpOMS\Utils\IO\Zip\Tar
+     * @covers \phpOMS\Utils\IO\Zip\Tar
      * @group framework
      */
     public function testTar() : void
@@ -113,7 +113,7 @@ final class TarTest extends \PHPUnit\Framework\TestCase
 
     /**
      * @testdox Extracting invalid tar files fail
-     * @covers phpOMS\Utils\IO\Zip\Tar
+     * @covers \phpOMS\Utils\IO\Zip\Tar
      * @group framework
      */
     public function testInvalidTarUnpack() : void
@@ -131,7 +131,7 @@ final class TarTest extends \PHPUnit\Framework\TestCase
 
     /**
      * @testdox A tar archive cannot be overwritten by default
-     * @covers phpOMS\Utils\IO\Zip\Tar
+     * @covers \phpOMS\Utils\IO\Zip\Tar
      * @group framework
      */
     public function testInvalidTar() : void
@@ -159,7 +159,7 @@ final class TarTest extends \PHPUnit\Framework\TestCase
 
     /**
      * @testdox A none-existing source cannot be unpacked
-     * @covers phpOMS\Utils\IO\Zip\Tar
+     * @covers \phpOMS\Utils\IO\Zip\Tar
      * @group framework
      */
     public function testInvalidUnpackSource() : void
@@ -169,7 +169,7 @@ final class TarTest extends \PHPUnit\Framework\TestCase
 
     /**
      * @testdox A destination cannot be overwritten
-     * @covers phpOMS\Utils\IO\Zip\Tar
+     * @covers \phpOMS\Utils\IO\Zip\Tar
      * @group framework
      */
     public function testInvalidUnpackDestination() : void

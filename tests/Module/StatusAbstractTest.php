@@ -41,7 +41,7 @@ final class StatusAbstractTest extends \PHPUnit\Framework\TestCase
 
     /**
      * A invalid module path cannot be activated
-     * @covers phpOMS\Module\StatusAbstract
+     * @covers \phpOMS\Module\StatusAbstract
      * @group framework
      */
     public function testInvalidModulePathActivation() : void

@@ -25,7 +25,7 @@ final class CsvSettingsTest extends \PHPUnit\Framework\TestCase
 {
     /**
      * @testdox The delimiter in a csv file can be guessed
-     * @covers phpOMS\Utils\IO\Csv\CsvSettings
+     * @covers \phpOMS\Utils\IO\Csv\CsvSettings
      * @group framework
      */
     public function testFileDelimiter() : void
@@ -38,7 +38,7 @@ final class CsvSettingsTest extends \PHPUnit\Framework\TestCase
 
     /**
      * @testdox The delimiter in a csv string can be guessed
-     * @covers phpOMS\Utils\IO\Csv\CsvSettings
+     * @covers \phpOMS\Utils\IO\Csv\CsvSettings
      * @group framework
      */
     public function testStringDelimiter() : void

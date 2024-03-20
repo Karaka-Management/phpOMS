@@ -25,7 +25,7 @@ final class JsonTest extends \PHPUnit\Framework\TestCase
 {
     /**
      * @testdox A json string can be validated
-     * @covers phpOMS\Validation\Base\Json
+     * @covers \phpOMS\Validation\Base\Json
      * @group framework
      */
     public function testJson() : void
@@ -36,7 +36,7 @@ final class JsonTest extends \PHPUnit\Framework\TestCase
 
     /**
      * @testdox A json string can be validated against a template definition
-     * @covers phpOMS\Validation\Base\Json
+     * @covers \phpOMS\Validation\Base\Json
      * @group framework
      */
     public function testJsonTemplate() : void
@@ -50,7 +50,7 @@ final class JsonTest extends \PHPUnit\Framework\TestCase
 
     /**
      * @testdox A json string can be validated against a template definition with additional data
-     * @covers phpOMS\Validation\Base\Json
+     * @covers \phpOMS\Validation\Base\Json
      * @group framework
      */
     public function testJsonTemplateAdditional() : void
@@ -63,7 +63,7 @@ final class JsonTest extends \PHPUnit\Framework\TestCase
 
     /**
      * @testdox A json string cannot be validated against a template definition with additional data if an exact match is enforced
-     * @covers phpOMS\Validation\Base\Json
+     * @covers \phpOMS\Validation\Base\Json
      * @group framework
      */
     public function testJsonTemplateInvalidAdditional() : void
@@ -76,7 +76,7 @@ final class JsonTest extends \PHPUnit\Framework\TestCase
 
     /**
      * @testdox A json string cannot be validated against a template definition with missing data if an exact match is enforced
-     * @covers phpOMS\Validation\Base\Json
+     * @covers \phpOMS\Validation\Base\Json
      * @group framework
      */
     public function testJsonTemplateInvalidMissing() : void
@@ -89,7 +89,7 @@ final class JsonTest extends \PHPUnit\Framework\TestCase
 
     /**
      * @testdox A json string cannot be validated against a template definition if it doesn't match the template
-     * @covers phpOMS\Validation\Base\Json
+     * @covers \phpOMS\Validation\Base\Json
      * @group framework
      */
     public function testInvalidJsonTemplate() : void

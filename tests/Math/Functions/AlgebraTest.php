@@ -59,8 +59,9 @@ final class AlgebraTest extends \PHPUnit\Framework\TestCase
             Algebra::mult(
                 [3, 4],
                 [
-                    [1, 5, 7],
-                    [2, 6, 8],
+                    [1, 2],
+                    [5, 6],
+                    [7, 8],
                 ]
             )
         );

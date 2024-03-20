@@ -45,7 +45,7 @@ final class SqlServerConnectionTest extends \PHPUnit\Framework\TestCase
 
     /**
      * @testdox Valid sqlserver connection data result in a valid database connection
-     * @covers phpOMS\DataStorage\Database\Connection\SqlServerConnection<extended>
+     * @covers \phpOMS\DataStorage\Database\Connection\SqlServerConnection<extended>
      * @group framework
      */
     public function testConnect() : void
@@ -63,7 +63,7 @@ final class SqlServerConnectionTest extends \PHPUnit\Framework\TestCase
 
     /**
      * @testdox A missing database type returns a failure
-     * @covers phpOMS\DataStorage\Database\Connection\SqlServerConnection
+     * @covers \phpOMS\DataStorage\Database\Connection\SqlServerConnection
      * @group framework
      */
     public function testInvalidDatabaseType() : void
@@ -78,7 +78,7 @@ final class SqlServerConnectionTest extends \PHPUnit\Framework\TestCase
 
     /**
      * @testdox A missing database host returns a failure
-     * @covers phpOMS\DataStorage\Database\Connection\SqlServerConnection
+     * @covers \phpOMS\DataStorage\Database\Connection\SqlServerConnection
      * @group framework
      */
     public function testInvalidHost() : void
@@ -93,7 +93,7 @@ final class SqlServerConnectionTest extends \PHPUnit\Framework\TestCase
 
     /**
      * @testdox A missing database port returns a failure
-     * @covers phpOMS\DataStorage\Database\Connection\SqlServerConnection
+     * @covers \phpOMS\DataStorage\Database\Connection\SqlServerConnection
      * @group framework
      */
     public function testInvalidPort() : void
@@ -108,7 +108,7 @@ final class SqlServerConnectionTest extends \PHPUnit\Framework\TestCase
 
     /**
      * @testdox A missing database returns a failure
-     * @covers phpOMS\DataStorage\Database\Connection\SqlServerConnection
+     * @covers \phpOMS\DataStorage\Database\Connection\SqlServerConnection
      * @group framework
      */
     public function testInvalidDatabase() : void
@@ -123,7 +123,7 @@ final class SqlServerConnectionTest extends \PHPUnit\Framework\TestCase
 
     /**
      * @testdox A missing database login returns a failure
-     * @covers phpOMS\DataStorage\Database\Connection\SqlServerConnection
+     * @covers \phpOMS\DataStorage\Database\Connection\SqlServerConnection
      * @group framework
      */
     public function testInvalidLogin() : void
@@ -138,7 +138,7 @@ final class SqlServerConnectionTest extends \PHPUnit\Framework\TestCase
 
     /**
      * @testdox A missing database password returns a failure
-     * @covers phpOMS\DataStorage\Database\Connection\SqlServerConnection
+     * @covers \phpOMS\DataStorage\Database\Connection\SqlServerConnection
      * @group framework
      */
     public function testInvalidPassword() : void
@@ -153,7 +153,7 @@ final class SqlServerConnectionTest extends \PHPUnit\Framework\TestCase
 
     /**
      * @testdox A invalid database type returns a failure
-     * @covers phpOMS\DataStorage\Database\Connection\SqlServerConnection
+     * @covers \phpOMS\DataStorage\Database\Connection\SqlServerConnection
      * @group framework
      */
     public function testInvalidDatabaseTypeName() : void
@@ -168,7 +168,7 @@ final class SqlServerConnectionTest extends \PHPUnit\Framework\TestCase
 
     /**
      * @testdox A invalid database returns a failure
-     * @covers phpOMS\DataStorage\Database\Connection\SqlServerConnection
+     * @covers \phpOMS\DataStorage\Database\Connection\SqlServerConnection
      * @group framework
      */
     public function testInvalidDatabaseName() : void

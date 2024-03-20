@@ -49,7 +49,7 @@ final class MemCachedTest extends \PHPUnit\Framework\TestCase
 
     /**
      * @testdox The memcached connection has the expected default values after initialization
-     * @covers phpOMS\DataStorage\Cache\Connection\MemCached<extended>
+     * @covers \phpOMS\DataStorage\Cache\Connection\MemCached<extended>
      * @group framework
      */
     public function testDefault() : void
@@ -73,7 +73,7 @@ final class MemCachedTest extends \PHPUnit\Framework\TestCase
 
     /**
      * @testdox The connection to a cache can be established (none-existing directories get created)
-     * @covers phpOMS\DataStorage\Cache\Connection\MemCached<extended>
+     * @covers \phpOMS\DataStorage\Cache\Connection\MemCached<extended>
      * @group framework
      */
     public function testConnect() : void
@@ -87,7 +87,7 @@ final class MemCachedTest extends \PHPUnit\Framework\TestCase
 
     /**
      * @testdox Different cache data (types) can be set and returned
-     * @covers phpOMS\DataStorage\Cache\Connection\MemCached<extended>
+     * @covers \phpOMS\DataStorage\Cache\Connection\MemCached<extended>
      * @group framework
      */
     public function testSetInputOutput() : void
@@ -122,7 +122,7 @@ final class MemCachedTest extends \PHPUnit\Framework\TestCase
 
     /**
      * @testdox Cache data can bet added and returned
-     * @covers phpOMS\DataStorage\Cache\Connection\MemCached<extended>
+     * @covers \phpOMS\DataStorage\Cache\Connection\MemCached<extended>
      * @group framework
      */
     public function testAddInputOutput() : void
@@ -219,7 +219,7 @@ final class MemCachedTest extends \PHPUnit\Framework\TestCase
 
     /**
      * @testdox Cache data cannot be added if it already exists
-     * @covers phpOMS\DataStorage\Cache\Connection\MemCached<extended>
+     * @covers \phpOMS\DataStorage\Cache\Connection\MemCached<extended>
      * @group framework
      */
     public function testInvalidOverwrite() : void
@@ -231,7 +231,7 @@ final class MemCachedTest extends \PHPUnit\Framework\TestCase
 
     /**
      * @testdox Existing cache data can be replaced
-     * @covers phpOMS\DataStorage\Cache\Connection\MemCached<extended>
+     * @covers \phpOMS\DataStorage\Cache\Connection\MemCached<extended>
      * @group framework
      */
     public function testReplace() : void
@@ -245,7 +245,7 @@ final class MemCachedTest extends \PHPUnit\Framework\TestCase
 
     /**
      * @testdox None-existing cache data cannot be replaced
-     * @covers phpOMS\DataStorage\Cache\Connection\MemCached<extended>
+     * @covers \phpOMS\DataStorage\Cache\Connection\MemCached<extended>
      * @group framework
      */
     public function testInvalidReplace() : void
@@ -255,7 +255,7 @@ final class MemCachedTest extends \PHPUnit\Framework\TestCase
 
     /**
      * @testdox Existing cache data can be deleted
-     * @covers phpOMS\DataStorage\Cache\Connection\MemCached<extended>
+     * @covers \phpOMS\DataStorage\Cache\Connection\MemCached<extended>
      * @group framework
      */
     public function testDelete() : void
@@ -280,7 +280,7 @@ final class MemCachedTest extends \PHPUnit\Framework\TestCase
 
     /**
      * @testdox The cache correctly handles general cache information
-     * @covers phpOMS\DataStorage\Cache\Connection\MemCached<extended>
+     * @covers \phpOMS\DataStorage\Cache\Connection\MemCached<extended>
      * @group framework
      */
     public function testStats() : void
@@ -307,7 +307,7 @@ final class MemCachedTest extends \PHPUnit\Framework\TestCase
 
     /**
      * @testdox The cache can be flushed
-     * @covers phpOMS\DataStorage\Cache\Connection\MemCached<extended>
+     * @covers \phpOMS\DataStorage\Cache\Connection\MemCached<extended>
      * @group framework
      */
     public function testFlush() : void
@@ -328,7 +328,7 @@ final class MemCachedTest extends \PHPUnit\Framework\TestCase
 
     /**
      * @testdox Cache data can be set and returned with expiration limits
-     * @covers phpOMS\DataStorage\Cache\Connection\MemCached<extended>
+     * @covers \phpOMS\DataStorage\Cache\Connection\MemCached<extended>
      * @group framework
      */
     public function testUnexpiredInputOutput() : void
@@ -339,7 +339,7 @@ final class MemCachedTest extends \PHPUnit\Framework\TestCase
 
     /**
      * @testdox Expired cache data cannot be returned
-     * @covers phpOMS\DataStorage\Cache\Connection\MemCached<extended>
+     * @covers \phpOMS\DataStorage\Cache\Connection\MemCached<extended>
      * @group framework
      */
     public function testExpiredInputOutput() : void
@@ -352,7 +352,7 @@ final class MemCachedTest extends \PHPUnit\Framework\TestCase
 
     /**
      * @testdox Cache data can be flushed by expiration date
-     * @covers phpOMS\DataStorage\Cache\Connection\MemCached<extended>
+     * @covers \phpOMS\DataStorage\Cache\Connection\MemCached<extended>
      * @group framework
      */
     public function testFlushExpired() : void
@@ -366,7 +366,7 @@ final class MemCachedTest extends \PHPUnit\Framework\TestCase
 
     /**
      * @testdox A bad cache status will prevent all cache actions
-     * @covers phpOMS\DataStorage\Cache\Connection\MemCached<extended>
+     * @covers \phpOMS\DataStorage\Cache\Connection\MemCached<extended>
      * @group framework
      */
     public function testBadCacheStatus() : void
@@ -385,7 +385,7 @@ final class MemCachedTest extends \PHPUnit\Framework\TestCase
 
     /**
      * @testdox Adding a invalid data type will throw an InvalidArgumentException
-     * @covers phpOMS\DataStorage\Cache\Connection\MemCached<extended>
+     * @covers \phpOMS\DataStorage\Cache\Connection\MemCached<extended>
      * @group framework
      */
     public function testInvalidDataTypeAdd() : void
@@ -397,7 +397,7 @@ final class MemCachedTest extends \PHPUnit\Framework\TestCase
 
     /**
      * @testdox Setting a invalid data type will throw an InvalidArgumentException
-     * @covers phpOMS\DataStorage\Cache\Connection\MemCached<extended>
+     * @covers \phpOMS\DataStorage\Cache\Connection\MemCached<extended>
      * @group framework
      */
     public function testInvalidDataTypeSet() : void
@@ -409,7 +409,7 @@ final class MemCachedTest extends \PHPUnit\Framework\TestCase
 
     /**
      * @testdox A invalid host throws a InvalidConnectionConfigException
-     * @covers phpOMS\DataStorage\Cache\Connection\MemCached<extended>
+     * @covers \phpOMS\DataStorage\Cache\Connection\MemCached<extended>
      * @group framework
      */
     public function testInvalidCacheHost() : void
@@ -424,7 +424,7 @@ final class MemCachedTest extends \PHPUnit\Framework\TestCase
 
     /**
      * @testdox A invalid port throws a InvalidConnectionConfigException
-     * @covers phpOMS\DataStorage\Cache\Connection\MemCached<extended>
+     * @covers \phpOMS\DataStorage\Cache\Connection\MemCached<extended>
      * @group framework
      */
     public function testInvalidCachePort() : void

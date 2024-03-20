@@ -26,7 +26,7 @@ final class LockExceptionTest extends \PHPUnit\Framework\TestCase
 {
     /**
      * @testdox The lock exception is an instance of the runtime exception
-     * @covers phpOMS\DataStorage\LockException
+     * @covers \phpOMS\DataStorage\LockException
      * @group framework
      */
     public function testException() : void

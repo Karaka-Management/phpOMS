@@ -29,7 +29,7 @@ final class CommitTest extends \PHPUnit\Framework\TestCase
 {
     /**
      * @testdox The commit has the expected default values after initialization
-     * @covers phpOMS\Utils\Git\Commit
+     * @covers \phpOMS\Utils\Git\Commit
      * @group framework
      */
     public function testDefault() : void
@@ -47,7 +47,7 @@ final class CommitTest extends \PHPUnit\Framework\TestCase
 
     /**
      * @testdox A file can be added and returned
-     * @covers phpOMS\Utils\Git\Commit
+     * @covers \phpOMS\Utils\Git\Commit
      * @group framework
      */
     public function testFileInputOutput() : void
@@ -64,7 +64,7 @@ final class CommitTest extends \PHPUnit\Framework\TestCase
 
     /**
      * @testdox A file can only be added one time
-     * @covers phpOMS\Utils\Git\Commit
+     * @covers \phpOMS\Utils\Git\Commit
      * @group framework
      */
     public function testInvalidOverwrite() : void
@@ -77,7 +77,7 @@ final class CommitTest extends \PHPUnit\Framework\TestCase
 
     /**
      * @testdox A file can be removed
-     * @covers phpOMS\Utils\Git\Commit
+     * @covers \phpOMS\Utils\Git\Commit
      * @group framework
      */
     public function testRemoveFile() : void
@@ -95,7 +95,7 @@ final class CommitTest extends \PHPUnit\Framework\TestCase
 
     /**
      * @testdox A none-existing file cannot be removed
-     * @covers phpOMS\Utils\Git\Commit
+     * @covers \phpOMS\Utils\Git\Commit
      * @group framework
      */
     public function testInvalidRemoveFile() : void
@@ -107,7 +107,7 @@ final class CommitTest extends \PHPUnit\Framework\TestCase
 
     /**
      * @testdox A change can be added and returned
-     * @covers phpOMS\Utils\Git\Commit
+     * @covers \phpOMS\Utils\Git\Commit
      * @group framework
      */
     public function testChangeInputOutput() : void
@@ -128,7 +128,7 @@ final class CommitTest extends \PHPUnit\Framework\TestCase
 
     /**
      * @testdox Adding the same change throws a Exception
-     * @covers phpOMS\Utils\Git\Commit
+     * @covers \phpOMS\Utils\Git\Commit
      * @group framework
      */
     public function testDuplicateLineChange() : void
@@ -142,7 +142,7 @@ final class CommitTest extends \PHPUnit\Framework\TestCase
 
     /**
      * @testdox A commit message can be set and returned
-     * @covers phpOMS\Utils\Git\Commit
+     * @covers \phpOMS\Utils\Git\Commit
      * @group framework
      */
     public function testMessageInputOutput() : void
@@ -155,7 +155,7 @@ final class CommitTest extends \PHPUnit\Framework\TestCase
 
     /**
      * @testdox The author can be set and returned
-     * @covers phpOMS\Utils\Git\Commit
+     * @covers \phpOMS\Utils\Git\Commit
      * @group framework
      */
     public function testAuthorInputOutput() : void
@@ -168,7 +168,7 @@ final class CommitTest extends \PHPUnit\Framework\TestCase
 
     /**
      * @testdox The branch can be set and returned
-     * @covers phpOMS\Utils\Git\Commit
+     * @covers \phpOMS\Utils\Git\Commit
      * @group framework
      */
     public function testBranchInputOutput() : void
@@ -181,7 +181,7 @@ final class CommitTest extends \PHPUnit\Framework\TestCase
 
     /**
      * @testdox The tag can be set and returned
-     * @covers phpOMS\Utils\Git\Commit
+     * @covers \phpOMS\Utils\Git\Commit
      * @group framework
      */
     public function testTagInputOutput() : void
@@ -194,7 +194,7 @@ final class CommitTest extends \PHPUnit\Framework\TestCase
 
     /**
      * @testdox The date can be set and returned
-     * @covers phpOMS\Utils\Git\Commit
+     * @covers \phpOMS\Utils\Git\Commit
      * @group framework
      */
     public function testDateInputOutput() : void
@@ -207,7 +207,7 @@ final class CommitTest extends \PHPUnit\Framework\TestCase
 
     /**
      * @testdox The repository can be set and returned
-     * @covers phpOMS\Utils\Git\Commit
+     * @covers \phpOMS\Utils\Git\Commit
      * @group framework
      */
     public function testRepositoryInputOutput() : void

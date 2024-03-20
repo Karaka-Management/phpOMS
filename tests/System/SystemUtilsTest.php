@@ -27,7 +27,7 @@ final class SystemUtilsTest extends \PHPUnit\Framework\TestCase
 {
     /**
      * @testdox Test if it is possible to get information about the available RAM and usage
-     * @covers phpOMS\System\SystemUtils
+     * @covers \phpOMS\System\SystemUtils
      * @group framework
      */
     public function testRAM() : void
@@ -45,7 +45,7 @@ final class SystemUtilsTest extends \PHPUnit\Framework\TestCase
 
     /**
      * @testdox Test if it is possible to get information about the CPU usage
-     * @covers phpOMS\System\SystemUtils
+     * @covers \phpOMS\System\SystemUtils
      * @group framework
      */
     public function testCPUUsage() : void

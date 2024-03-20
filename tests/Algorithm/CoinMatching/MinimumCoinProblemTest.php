@@ -27,7 +27,7 @@ final class MinimumCoinProblemTest extends \PHPUnit\Framework\TestCase
 {
     /**
      * @testdox A value is matched with the minimum quantity of available coins.
-     * @covers phpOMS\Algorithm\CoinMatching\MinimumCoinProblem
+     * @covers \phpOMS\Algorithm\CoinMatching\MinimumCoinProblem
      * @group framework
      */
     public function testMinimumCoins() : void

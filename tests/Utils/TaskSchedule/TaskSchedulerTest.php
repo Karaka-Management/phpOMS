@@ -42,7 +42,7 @@ final class TaskSchedulerTest extends \PHPUnit\Framework\TestCase
 
     /**
      * @testdox The task handler has the expected default values after initialization
-     * @covers phpOMS\Utils\TaskSchedule\TaskScheduler<extended>
+     * @covers \phpOMS\Utils\TaskSchedule\TaskScheduler<extended>
      * @group framework
      */
     public function testDefault() : void
@@ -52,7 +52,7 @@ final class TaskSchedulerTest extends \PHPUnit\Framework\TestCase
 
     /**
      * @testdox The task binary location path can be guessed
-     * @covers phpOMS\Utils\TaskSchedule\TaskScheduler<extended>
+     * @covers \phpOMS\Utils\TaskSchedule\TaskScheduler<extended>
      * @group framework
      */
     public function testGuessBinary() : void
@@ -62,7 +62,7 @@ final class TaskSchedulerTest extends \PHPUnit\Framework\TestCase
 
     /**
      * @testdox A task can be created and returned
-     * @covers phpOMS\Utils\TaskSchedule\TaskScheduler<extended>
+     * @covers \phpOMS\Utils\TaskSchedule\TaskScheduler<extended>
      * @group framework
      */
     public function testTaskScheduleInputOutput() : void
@@ -81,7 +81,7 @@ final class TaskSchedulerTest extends \PHPUnit\Framework\TestCase
 
     /**
      * @testdox A none-existing task name cannot be returned
-     * @covers phpOMS\Utils\TaskSchedule\TaskScheduler<extended>
+     * @covers \phpOMS\Utils\TaskSchedule\TaskScheduler<extended>
      * @group framework
      */
     public function testInvalidTaskScheduleName() : void
@@ -92,7 +92,7 @@ final class TaskSchedulerTest extends \PHPUnit\Framework\TestCase
 
     /**
      * @testdox A task can be updated
-     * @covers phpOMS\Utils\TaskSchedule\TaskScheduler<extended>
+     * @covers \phpOMS\Utils\TaskSchedule\TaskScheduler<extended>
      * @group framework
      */
     public function testTaskScheduleUpdate() : void
@@ -114,7 +114,7 @@ final class TaskSchedulerTest extends \PHPUnit\Framework\TestCase
 
     /**
      * @testdox A task can be deleted
-     * @covers phpOMS\Utils\TaskSchedule\TaskScheduler<extended>
+     * @covers \phpOMS\Utils\TaskSchedule\TaskScheduler<extended>
      * @group framework
      */
     public function testDelete() : void

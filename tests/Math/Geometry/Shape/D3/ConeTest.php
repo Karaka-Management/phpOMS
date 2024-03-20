@@ -25,7 +25,7 @@ final class ConeTest extends \PHPUnit\Framework\TestCase
 {
     /**
      * @testdox The volume can be calculated
-     * @covers phpOMS\Math\Geometry\Shape\D3\Cone
+     * @covers \phpOMS\Math\Geometry\Shape\D3\Cone
      * @group framework
      */
     public function testVolume() : void
@@ -35,7 +35,7 @@ final class ConeTest extends \PHPUnit\Framework\TestCase
 
     /**
      * @testdox The surface can be calculated
-     * @covers phpOMS\Math\Geometry\Shape\D3\Cone
+     * @covers \phpOMS\Math\Geometry\Shape\D3\Cone
      * @group framework
      */
     public function testSurface() : void
@@ -45,7 +45,7 @@ final class ConeTest extends \PHPUnit\Framework\TestCase
 
     /**
      * @testdox The slant height can be calculated
-     * @covers phpOMS\Math\Geometry\Shape\D3\Cone
+     * @covers \phpOMS\Math\Geometry\Shape\D3\Cone
      * @group framework
      */
     public function testSlantHeight() : void
@@ -55,7 +55,7 @@ final class ConeTest extends \PHPUnit\Framework\TestCase
 
     /**
      * @testdox The height can be calculated with the volume
-     * @covers phpOMS\Math\Geometry\Shape\D3\Cone
+     * @covers \phpOMS\Math\Geometry\Shape\D3\Cone
      * @group framework
      */
     public function testHeightFromVolume() : void

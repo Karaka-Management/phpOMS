@@ -26,7 +26,7 @@ final class NullAccountTest extends \PHPUnit\Framework\TestCase
 {
     /**
      * @testdox The null account is an instance of the account class
-     * @covers phpOMS\Account\NullAccount
+     * @covers \phpOMS\Account\NullAccount
      * @group framework
      */
     public function testNull() : void
@@ -36,7 +36,7 @@ final class NullAccountTest extends \PHPUnit\Framework\TestCase
 
     /**
      * @testdox The null account can get initialized with an id
-     * @covers phpOMS\Account\NullAccount
+     * @covers \phpOMS\Account\NullAccount
      * @group framework
      */
     public function testId() : void

@@ -25,7 +25,7 @@ final class HeapTest extends \PHPUnit\Framework\TestCase
 {
     /**
      * @testdox A list of elements can be turned into a heap
-     * @covers phpOMS\Stdlib\Base\Heap
+     * @covers \phpOMS\Stdlib\Base\Heap
      * @group framework
      */
     public function testHeapify() : void
@@ -52,7 +52,7 @@ final class HeapTest extends \PHPUnit\Framework\TestCase
 
     /**
      * @testdox Elements get correctly pushed to the heap
-     * @covers phpOMS\Stdlib\Base\Heap
+     * @covers \phpOMS\Stdlib\Base\Heap
      * @group framework
      */
     public function testSize() : void
@@ -67,7 +67,7 @@ final class HeapTest extends \PHPUnit\Framework\TestCase
 
     /**
      * @testdox A element can be added to a heap at the correct position
-     * @covers phpOMS\Stdlib\Base\Heap
+     * @covers \phpOMS\Stdlib\Base\Heap
      * @group framework
      */
     public function testInsort() : void
@@ -94,7 +94,7 @@ final class HeapTest extends \PHPUnit\Framework\TestCase
 
     /**
      * @testdox Heap elements get returned in the correct order
-     * @covers phpOMS\Stdlib\Base\Heap
+     * @covers \phpOMS\Stdlib\Base\Heap
      * @group framework
      */
     public function testPushAndPop() : void
@@ -117,7 +117,7 @@ final class HeapTest extends \PHPUnit\Framework\TestCase
 
     /**
      * @testdox Heap elements get returned in the correct order by using a custom comparator
-     * @covers phpOMS\Stdlib\Base\Heap
+     * @covers \phpOMS\Stdlib\Base\Heap
      * @group framework
      */
     public function testPushAndPopCustomComparator() : void
@@ -140,7 +140,7 @@ final class HeapTest extends \PHPUnit\Framework\TestCase
 
     /**
      * @testdox The heap can be turned into an array
-     * @covers phpOMS\Stdlib\Base\Heap
+     * @covers \phpOMS\Stdlib\Base\Heap
      * @group framework
      */
     public function testArray() : void
@@ -164,7 +164,7 @@ final class HeapTest extends \PHPUnit\Framework\TestCase
 
     /**
      * @testdox Heap elements can be replaced
-     * @covers phpOMS\Stdlib\Base\Heap
+     * @covers \phpOMS\Stdlib\Base\Heap
      * @group framework
      */
     public function testReplace() : void
@@ -189,7 +189,7 @@ final class HeapTest extends \PHPUnit\Framework\TestCase
 
     /**
      * @testdox A heap element can be returned while adding a new one
-     * @covers phpOMS\Stdlib\Base\Heap
+     * @covers \phpOMS\Stdlib\Base\Heap
      * @group framework
      */
     public function testPushPop() : void
@@ -217,7 +217,7 @@ final class HeapTest extends \PHPUnit\Framework\TestCase
 
     /**
      * @testdox The heap can be checked if it contains certain elements
-     * @covers phpOMS\Stdlib\Base\Heap
+     * @covers \phpOMS\Stdlib\Base\Heap
      * @group framework
      */
     public function testContains() : void
@@ -238,7 +238,7 @@ final class HeapTest extends \PHPUnit\Framework\TestCase
 
     /**
      * @testdox The heap can be checked if it contains certain custom elements
-     * @covers phpOMS\Stdlib\Base\Heap
+     * @covers \phpOMS\Stdlib\Base\Heap
      * @group framework
      */
     public function testContainsItem() : void
@@ -259,7 +259,7 @@ final class HeapTest extends \PHPUnit\Framework\TestCase
 
     /**
      * @testdox A heap item can be updated if it exists while maintaining the correct order
-     * @covers phpOMS\Stdlib\Base\Heap
+     * @covers \phpOMS\Stdlib\Base\Heap
      * @group framework
      */
     public function testUpdate() : void
@@ -288,7 +288,7 @@ final class HeapTest extends \PHPUnit\Framework\TestCase
 
     /**
      * @testdox The first heap element can be returned without removing it
-     * @covers phpOMS\Stdlib\Base\Heap
+     * @covers \phpOMS\Stdlib\Base\Heap
      * @group framework
      */
     public function testPeek() : void
@@ -307,7 +307,7 @@ final class HeapTest extends \PHPUnit\Framework\TestCase
 
     /**
      * @testdox The n smallest elements can be returned from the heap
-     * @covers phpOMS\Stdlib\Base\Heap
+     * @covers \phpOMS\Stdlib\Base\Heap
      * @group framework
      */
     public function testNSmallest() : void
@@ -323,7 +323,7 @@ final class HeapTest extends \PHPUnit\Framework\TestCase
 
     /**
      * @testdox The n largest elements can be returned from the heap
-     * @covers phpOMS\Stdlib\Base\Heap
+     * @covers \phpOMS\Stdlib\Base\Heap
      * @group framework
      */
     public function testNLargest() : void
@@ -340,7 +340,7 @@ final class HeapTest extends \PHPUnit\Framework\TestCase
 
     /**
      * @testdox The heap can be cleared of all elements
-     * @covers phpOMS\Stdlib\Base\Heap
+     * @covers \phpOMS\Stdlib\Base\Heap
      * @group framework
      */
     public function testClear() : void
@@ -356,7 +356,7 @@ final class HeapTest extends \PHPUnit\Framework\TestCase
 
     /**
      * @testdox The heap can be checked if it has elements
-     * @covers phpOMS\Stdlib\Base\Heap
+     * @covers \phpOMS\Stdlib\Base\Heap
      * @group framework
      */
     public function testEmpty() : void

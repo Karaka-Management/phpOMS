@@ -22,7 +22,7 @@ use phpOMS\Utils\IO\Json\InvalidJsonException;
 final class InvalidJsonExceptionTest extends \PHPUnit\Framework\TestCase
 {
     /**
-     * @covers phpOMS\Utils\IO\Json\InvalidJsonException
+     * @covers \phpOMS\Utils\IO\Json\InvalidJsonException
      * @group framework
      */
     public function testException() : void

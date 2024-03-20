@@ -22,7 +22,7 @@ use phpOMS\Math\Stochastic\Distribution\LaplaceDistribution;
 final class LaplaceDistributionTest extends \PHPUnit\Framework\TestCase
 {
     /**
-     * @covers phpOMS\Math\Stochastic\Distribution\LaplaceDistribution
+     * @covers \phpOMS\Math\Stochastic\Distribution\LaplaceDistribution
      * @group framework
      */
     public function testPdf() : void
@@ -35,7 +35,7 @@ final class LaplaceDistributionTest extends \PHPUnit\Framework\TestCase
     }
 
     /**
-     * @covers phpOMS\Math\Stochastic\Distribution\LaplaceDistribution
+     * @covers \phpOMS\Math\Stochastic\Distribution\LaplaceDistribution
      * @group framework
      */
     public function testCdf() : void
@@ -48,7 +48,7 @@ final class LaplaceDistributionTest extends \PHPUnit\Framework\TestCase
     }
 
     /**
-     * @covers phpOMS\Math\Stochastic\Distribution\LaplaceDistribution
+     * @covers \phpOMS\Math\Stochastic\Distribution\LaplaceDistribution
      * @group framework
      */
     public function testMode() : void
@@ -57,7 +57,7 @@ final class LaplaceDistributionTest extends \PHPUnit\Framework\TestCase
     }
 
     /**
-     * @covers phpOMS\Math\Stochastic\Distribution\LaplaceDistribution
+     * @covers \phpOMS\Math\Stochastic\Distribution\LaplaceDistribution
      * @group framework
      */
     public function testMean() : void
@@ -66,7 +66,7 @@ final class LaplaceDistributionTest extends \PHPUnit\Framework\TestCase
     }
 
     /**
-     * @covers phpOMS\Math\Stochastic\Distribution\LaplaceDistribution
+     * @covers \phpOMS\Math\Stochastic\Distribution\LaplaceDistribution
      * @group framework
      */
     public function testMedian() : void
@@ -75,7 +75,7 @@ final class LaplaceDistributionTest extends \PHPUnit\Framework\TestCase
     }
 
     /**
-     * @covers phpOMS\Math\Stochastic\Distribution\LaplaceDistribution
+     * @covers \phpOMS\Math\Stochastic\Distribution\LaplaceDistribution
      * @group framework
      */
     public function testExKurtosis() : void
@@ -84,7 +84,7 @@ final class LaplaceDistributionTest extends \PHPUnit\Framework\TestCase
     }
 
     /**
-     * @covers phpOMS\Math\Stochastic\Distribution\LaplaceDistribution
+     * @covers \phpOMS\Math\Stochastic\Distribution\LaplaceDistribution
      * @group framework
      */
     public function testSkewness() : void
@@ -93,7 +93,7 @@ final class LaplaceDistributionTest extends \PHPUnit\Framework\TestCase
     }
 
     /**
-     * @covers phpOMS\Math\Stochastic\Distribution\LaplaceDistribution
+     * @covers \phpOMS\Math\Stochastic\Distribution\LaplaceDistribution
      * @group framework
      */
     public function testVariance() : void
@@ -104,7 +104,7 @@ final class LaplaceDistributionTest extends \PHPUnit\Framework\TestCase
     }
 
     /**
-     * @covers phpOMS\Math\Stochastic\Distribution\LaplaceDistribution
+     * @covers \phpOMS\Math\Stochastic\Distribution\LaplaceDistribution
      * @group framework
      */
     public function testStandardDeviation() : void
@@ -115,7 +115,7 @@ final class LaplaceDistributionTest extends \PHPUnit\Framework\TestCase
     }
 
     /**
-     * @covers phpOMS\Math\Stochastic\Distribution\LaplaceDistribution
+     * @covers \phpOMS\Math\Stochastic\Distribution\LaplaceDistribution
      * @group framework
      */
     public function testMgf() : void
@@ -128,7 +128,7 @@ final class LaplaceDistributionTest extends \PHPUnit\Framework\TestCase
     }
 
     /**
-     * @covers phpOMS\Math\Stochastic\Distribution\LaplaceDistribution
+     * @covers \phpOMS\Math\Stochastic\Distribution\LaplaceDistribution
      * @group framework
      */
     public function testMgfException() : void

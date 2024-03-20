@@ -27,7 +27,7 @@ final class MbStringUtilsTest extends \PHPUnit\Framework\TestCase
 {
     /**
      * @testdox The entropy of a string can be calculated
-     * @covers phpOMS\Utils\MbStringUtils
+     * @covers \phpOMS\Utils\MbStringUtils
      * @group framework
      */
     public function testEntropy() : void
@@ -37,7 +37,7 @@ final class MbStringUtilsTest extends \PHPUnit\Framework\TestCase
 
     /**
      * @testdox A string can be checked for multi-byte characters
-     * @covers phpOMS\Utils\MbStringUtils
+     * @covers \phpOMS\Utils\MbStringUtils
      * @group framework
      */
     public function testHasMultiBytes() : void
@@ -48,7 +48,7 @@ final class MbStringUtilsTest extends \PHPUnit\Framework\TestCase
 
     /**
      * @testdox A multi-byte string can be checked if it starts with a defined string
-     * @covers phpOMS\Utils\MbStringUtils
+     * @covers \phpOMS\Utils\MbStringUtils
      * @group framework
      */
     public function testStartsMb() : void
@@ -60,7 +60,7 @@ final class MbStringUtilsTest extends \PHPUnit\Framework\TestCase
 
     /**
      * @testdox A multi-byte string can be checked if it ends with a defined string
-     * @covers phpOMS\Utils\MbStringUtils
+     * @covers \phpOMS\Utils\MbStringUtils
      * @group framework
      */
     public function testEndsMb() : void
@@ -72,7 +72,7 @@ final class MbStringUtilsTest extends \PHPUnit\Framework\TestCase
 
     /**
      * @testdox The first character of a multi-byte string can be turned into upper case
-     * @covers phpOMS\Utils\MbStringUtils
+     * @covers \phpOMS\Utils\MbStringUtils
      * @group framework
      */
     public function testTransformUpperCase() : void
@@ -83,7 +83,7 @@ final class MbStringUtilsTest extends \PHPUnit\Framework\TestCase
 
     /**
      * @testdox The first character of a multi-byte string can be turned into lower case
-     * @covers phpOMS\Utils\MbStringUtils
+     * @covers \phpOMS\Utils\MbStringUtils
      * @group framework
      */
     public function testTransformLowerCase() : void
@@ -94,7 +94,7 @@ final class MbStringUtilsTest extends \PHPUnit\Framework\TestCase
 
     /**
      * @testdox A multi-byte string can be trimmed
-     * @covers phpOMS\Utils\MbStringUtils
+     * @covers \phpOMS\Utils\MbStringUtils
      * @group framework
      */
     public function testTrim() : void
@@ -109,7 +109,7 @@ final class MbStringUtilsTest extends \PHPUnit\Framework\TestCase
 
     /**
      * @testdox A multi-byte string can be right-trimmed
-     * @covers phpOMS\Utils\MbStringUtils
+     * @covers \phpOMS\Utils\MbStringUtils
      * @group framework
      */
     public function testRTrim() : void
@@ -120,7 +120,7 @@ final class MbStringUtilsTest extends \PHPUnit\Framework\TestCase
 
     /**
      * @testdox A multi-byte string can be left-trimmed
-     * @covers phpOMS\Utils\MbStringUtils
+     * @covers \phpOMS\Utils\MbStringUtils
      * @group framework
      */
     public function testLTrim() : void
@@ -131,7 +131,7 @@ final class MbStringUtilsTest extends \PHPUnit\Framework\TestCase
 
     /**
      * @testdox A multi-byte string can be checked if it contains at least one defined string element
-     * @covers phpOMS\Utils\MbStringUtils
+     * @covers \phpOMS\Utils\MbStringUtils
      * @group framework
      */
     public function testContainsMb() : void
@@ -144,7 +144,7 @@ final class MbStringUtilsTest extends \PHPUnit\Framework\TestCase
 
     /**
      * @testdox The characters of a multi-byte string can be counted
-     * @covers phpOMS\Utils\MbStringUtils
+     * @covers \phpOMS\Utils\MbStringUtils
      * @group framework
      */
     public function testCountMb() : void
@@ -154,7 +154,7 @@ final class MbStringUtilsTest extends \PHPUnit\Framework\TestCase
 
     /**
      * @testdox The previous boundary of a utf-8 encoded quoted printable is identified correctly
-     * @covers phpOMS\Utils\MbStringUtils
+     * @covers \phpOMS\Utils\MbStringUtils
      * @group framework
      */
     public function testUtf8CharBoundary() : void

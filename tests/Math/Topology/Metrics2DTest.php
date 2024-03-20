@@ -25,7 +25,7 @@ final class Metrics2DTest extends \PHPUnit\Framework\TestCase
 {
     /**
      * @testdox The manhattan distance can be calculated
-     * @covers phpOMS\Math\Topology\Metrics2D
+     * @covers \phpOMS\Math\Topology\Metrics2D
      * @group framework
      */
     public function testManhattan() : void
@@ -38,7 +38,7 @@ final class Metrics2DTest extends \PHPUnit\Framework\TestCase
 
     /**
      * @testdox The euclidean distance can be calculated
-     * @covers phpOMS\Math\Topology\Metrics2D
+     * @covers \phpOMS\Math\Topology\Metrics2D
      * @group framework
      */
     public function testEuclidean() : void
@@ -52,7 +52,7 @@ final class Metrics2DTest extends \PHPUnit\Framework\TestCase
 
     /**
      * @testdox The chebyshev distance can be calculated
-     * @covers phpOMS\Math\Topology\Metrics2D
+     * @covers \phpOMS\Math\Topology\Metrics2D
      * @group framework
      */
     public function testChebyshev() : void
@@ -65,7 +65,7 @@ final class Metrics2DTest extends \PHPUnit\Framework\TestCase
 
     /**
      * @testdox The octile distance can be calculated
-     * @covers phpOMS\Math\Topology\Metrics2D
+     * @covers \phpOMS\Math\Topology\Metrics2D
      * @group framework
      */
     public function testOctile() : void
@@ -79,7 +79,7 @@ final class Metrics2DTest extends \PHPUnit\Framework\TestCase
 
     /**
      * @testdox The minkowski distance can be calculated
-     * @covers phpOMS\Math\Topology\Metrics2D
+     * @covers \phpOMS\Math\Topology\Metrics2D
      * @group framework
      */
     public function testMinkowski() : void
@@ -93,7 +93,7 @@ final class Metrics2DTest extends \PHPUnit\Framework\TestCase
 
     /**
      * @testdox The canberra distance can be calculated
-     * @covers phpOMS\Math\Topology\Metrics2D
+     * @covers \phpOMS\Math\Topology\Metrics2D
      * @group framework
      */
     public function testCanberra() : void
@@ -107,7 +107,7 @@ final class Metrics2DTest extends \PHPUnit\Framework\TestCase
 
     /**
      * @testdox The bray-curtis distance can be calculated
-     * @covers phpOMS\Math\Topology\Metrics2D
+     * @covers \phpOMS\Math\Topology\Metrics2D
      * @group framework
      */
     public function testBrayCurtis() : void
@@ -121,7 +121,7 @@ final class Metrics2DTest extends \PHPUnit\Framework\TestCase
 
     /**
      * @testdox The angular distance can be calculated
-     * @covers phpOMS\Math\Topology\Metrics2D
+     * @covers \phpOMS\Math\Topology\Metrics2D
      * @group framework
      */
     public function testAngularSeparation() : void
@@ -135,7 +135,7 @@ final class Metrics2DTest extends \PHPUnit\Framework\TestCase
 
     /**
      * @testdox The hamming distance can be calculated
-     * @covers phpOMS\Math\Topology\Metrics2D
+     * @covers \phpOMS\Math\Topology\Metrics2D
      * @group framework
      */
     public function testHammingDistance() : void
@@ -148,7 +148,7 @@ final class Metrics2DTest extends \PHPUnit\Framework\TestCase
 
     /**
      * @testdox The ulam distance can be calculated
-     * @covers phpOMS\Math\Topology\Metrics2D
+     * @covers \phpOMS\Math\Topology\Metrics2D
      * @group framework
      */
     public function testUlam() : void
@@ -161,7 +161,7 @@ final class Metrics2DTest extends \PHPUnit\Framework\TestCase
 
     /**
      * @testdox Different dimension sizes for the coordinates in the hamming metric throw a InvalidDimensionException
-     * @covers phpOMS\Math\Topology\Metrics2D
+     * @covers \phpOMS\Math\Topology\Metrics2D
      * @group framework
      */
     public function testInvalidHammingDimension() : void
@@ -173,7 +173,7 @@ final class Metrics2DTest extends \PHPUnit\Framework\TestCase
 
     /**
      * @testdox Different dimension sizes for the coordinates in the ulam metric throw a InvalidDimensionException
-     * @covers phpOMS\Math\Topology\Metrics2D
+     * @covers \phpOMS\Math\Topology\Metrics2D
      * @group framework
      */
     public function testInvalidUlamDimension() : void

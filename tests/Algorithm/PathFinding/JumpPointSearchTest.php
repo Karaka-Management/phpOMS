@@ -77,7 +77,7 @@ final class JumpPointSearchTest extends \PHPUnit\Framework\TestCase
 
     /**
      * @testdox The correct path is found for diagonal movement
-     * @covers phpOMS\Algorithm\PathFinding\JumpPointSearch
+     * @covers \phpOMS\Algorithm\PathFinding\JumpPointSearch
      * @group framework
      */
     public function testPathFindingDiagonal() : void
@@ -121,7 +121,7 @@ final class JumpPointSearchTest extends \PHPUnit\Framework\TestCase
 
     /**
      * @testdox The correct path is found for straight movement
-     * @covers phpOMS\Algorithm\PathFinding\JumpPointSearch
+     * @covers \phpOMS\Algorithm\PathFinding\JumpPointSearch
      * @group framework
      */
     public function testPathFindingStraight() : void
@@ -165,7 +165,7 @@ final class JumpPointSearchTest extends \PHPUnit\Framework\TestCase
 
     /**
      * @testdox The correct path is found for diagonal movement [one obstacle]
-     * @covers phpOMS\Algorithm\PathFinding\JumpPointSearch
+     * @covers \phpOMS\Algorithm\PathFinding\JumpPointSearch
      * @group framework
      */
     public function testPathFindingDiagonalOneObstacle() : void
@@ -209,7 +209,7 @@ final class JumpPointSearchTest extends \PHPUnit\Framework\TestCase
 
     /**
      * @testdox The correct path is found for diagonal movement [no obstacle]
-     * @covers phpOMS\Algorithm\PathFinding\JumpPointSearch
+     * @covers \phpOMS\Algorithm\PathFinding\JumpPointSearch
      * @group framework
      */
     public function testPathFindingDiagonalNoObstacle() : void
@@ -253,7 +253,7 @@ final class JumpPointSearchTest extends \PHPUnit\Framework\TestCase
 
     /**
      * @testdox A invalid start or end node returns the grid
-     * @covers phpOMS\Algorithm\PathFinding\JumpPointSearch
+     * @covers \phpOMS\Algorithm\PathFinding\JumpPointSearch
      * @group framework
      */
     public function testInvalidStartEndNode() : void

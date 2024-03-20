@@ -25,7 +25,7 @@ final class PointTest extends \PHPUnit\Framework\TestCase
 {
     /**
      * @testdox The point has the expected default values after initialization
-     * @covers phpOMS\Algorithm\Clustering\Point
+     * @covers \phpOMS\Algorithm\Clustering\Point
      * @group framework
      */
     public function testDefault() : void
@@ -41,7 +41,7 @@ final class PointTest extends \PHPUnit\Framework\TestCase
 
     /**
      * @testdox Coordinates of a point can be set and returned
-     * @covers phpOMS\Algorithm\Clustering\Point
+     * @covers \phpOMS\Algorithm\Clustering\Point
      * @group framework
      */
     public function testCoordinateInputOutput() : void
@@ -58,7 +58,7 @@ final class PointTest extends \PHPUnit\Framework\TestCase
 
     /**
      * @testdox The group/cluster of a point can be set and returned
-     * @covers phpOMS\Algorithm\Clustering\Point
+     * @covers \phpOMS\Algorithm\Clustering\Point
      * @group framework
      */
     public function testGroupInputOutput() : void
@@ -71,7 +71,7 @@ final class PointTest extends \PHPUnit\Framework\TestCase
 
     /**
      * @testdox The name of a point can be set and returned
-     * @covers phpOMS\Algorithm\Clustering\Point
+     * @covers \phpOMS\Algorithm\Clustering\Point
      * @group framework
      */
     public function testNameInputOutput() : void

@@ -25,7 +25,7 @@ final class RectangularPyramidTest extends \PHPUnit\Framework\TestCase
 {
     /**
      * @testdox The volume can be calculated
-     * @covers phpOMS\Math\Geometry\Shape\D3\RectangularPyramid
+     * @covers \phpOMS\Math\Geometry\Shape\D3\RectangularPyramid
      * @group framework
      */
     public function testVolume() : void
@@ -35,7 +35,7 @@ final class RectangularPyramidTest extends \PHPUnit\Framework\TestCase
 
     /**
      * @testdox The surface can be calculated
-     * @covers phpOMS\Math\Geometry\Shape\D3\RectangularPyramid
+     * @covers \phpOMS\Math\Geometry\Shape\D3\RectangularPyramid
      * @group framework
      */
     public function testSurface() : void
@@ -45,7 +45,7 @@ final class RectangularPyramidTest extends \PHPUnit\Framework\TestCase
 
     /**
      * @testdox The lateral surface can be calculated
-     * @covers phpOMS\Math\Geometry\Shape\D3\RectangularPyramid
+     * @covers \phpOMS\Math\Geometry\Shape\D3\RectangularPyramid
      * @group framework
      */
     public function testLateralSurface() : void

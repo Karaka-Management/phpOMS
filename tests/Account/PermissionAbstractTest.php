@@ -28,7 +28,7 @@ final class PermissionAbstractTest extends \PHPUnit\Framework\TestCase
 {
     /**
      * @testdox The permission has the expected default values after initialization
-     * @covers phpOMS\Account\PermissionAbstract
+     * @covers \phpOMS\Account\PermissionAbstract
      * @group framework
      */
     public function testAbstractDefault() : void
@@ -66,7 +66,7 @@ final class PermissionAbstractTest extends \PHPUnit\Framework\TestCase
 
     /**
      * @testdox The permission can be set and returned correctly
-     * @covers phpOMS\Account\PermissionAbstract
+     * @covers \phpOMS\Account\PermissionAbstract
      * @group framework
      */
     public function testPermissionInputOutput() : void
@@ -79,7 +79,7 @@ final class PermissionAbstractTest extends \PHPUnit\Framework\TestCase
 
     /**
      * @testdox Two permissions can be checked for equality
-     * @covers phpOMS\Account\PermissionAbstract
+     * @covers \phpOMS\Account\PermissionAbstract
      * @group framework
      */
     public function testEqualPermissions() : void
@@ -119,7 +119,7 @@ final class PermissionAbstractTest extends \PHPUnit\Framework\TestCase
 
     /**
      * @testdox Correct permissions are validated
-     * @covers phpOMS\Account\PermissionAbstract
+     * @covers \phpOMS\Account\PermissionAbstract
      * @group framework
      */
     public function testValidPermission() : void
@@ -134,7 +134,7 @@ final class PermissionAbstractTest extends \PHPUnit\Framework\TestCase
 
     /**
      * @testdox Invalid permissions are not validated
-     * @covers phpOMS\Account\PermissionAbstract
+     * @covers \phpOMS\Account\PermissionAbstract
      * @group framework
      */
     public function testInvalidPermission() : void
@@ -148,7 +148,7 @@ final class PermissionAbstractTest extends \PHPUnit\Framework\TestCase
 
     /**
      * @testdox Correct permission flags are validated
-     * @covers phpOMS\Account\PermissionAbstract
+     * @covers \phpOMS\Account\PermissionAbstract
      * @group framework
      */
     public function testValidPermissionFlag() : void
@@ -163,7 +163,7 @@ final class PermissionAbstractTest extends \PHPUnit\Framework\TestCase
 
     /**
      * @testdox Invalid permission flags are not validated
-     * @covers phpOMS\Account\PermissionAbstract
+     * @covers \phpOMS\Account\PermissionAbstract
      * @group framework
      */
     public function testInvalidPermissionFlag() : void

@@ -26,7 +26,7 @@ final class NullGroupTest extends \PHPUnit\Framework\TestCase
 {
     /**
      * @testdox The null group is an instance of the group class
-     * @covers phpOMS\Account\NullGroup
+     * @covers \phpOMS\Account\NullGroup
      * @group framework
      */
     public function testNull() : void
@@ -36,7 +36,7 @@ final class NullGroupTest extends \PHPUnit\Framework\TestCase
 
     /**
      * @testdox The null group can get initialized with an id
-     * @covers phpOMS\Account\NullGroup
+     * @covers \phpOMS\Account\NullGroup
      * @group framework
      */
     public function testId() : void

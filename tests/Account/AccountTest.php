@@ -45,7 +45,7 @@ final class AccountTest extends \PHPUnit\Framework\TestCase
 
     /**
      * @testdox The account has the expected default values after initialization
-     * @covers phpOMS\Account\Account<extended>
+     * @covers \phpOMS\Account\Account<extended>
      * @group framework
      */
     public function testDefault() : void
@@ -95,7 +95,7 @@ final class AccountTest extends \PHPUnit\Framework\TestCase
 
     /**
      * @testdox The account names can be set and retrieved correctly
-     * @covers phpOMS\Account\Account<extended>
+     * @covers \phpOMS\Account\Account<extended>
      * @group framework
      */
     public function testSetAndGetAccountNames() : void
@@ -118,7 +118,7 @@ final class AccountTest extends \PHPUnit\Framework\TestCase
 
     /**
      * @testdox Groups can be added to an account
-     * @covers phpOMS\Account\Account<extended>
+     * @covers \phpOMS\Account\Account<extended>
      * @group framework
      */
     public function testAddAndGetGroup() : void
@@ -133,7 +133,7 @@ final class AccountTest extends \PHPUnit\Framework\TestCase
 
     /**
      * @testdox An account can have a valid email address
-     * @covers phpOMS\Account\Account<extended>
+     * @covers \phpOMS\Account\Account<extended>
      * @group framework
      */
     public function testSetAndGetAccountEmail() : void
@@ -147,7 +147,7 @@ final class AccountTest extends \PHPUnit\Framework\TestCase
 
     /**
      * @testdox Account permissions can be added
-     * @covers phpOMS\Account\Account<extended>
+     * @covers \phpOMS\Account\Account<extended>
      * @group framework
      */
     public function testPermissionAdd() : void
@@ -179,7 +179,7 @@ final class AccountTest extends \PHPUnit\Framework\TestCase
 
     /**
      * @testdox Account permissions can be checked for existence
-     * @covers phpOMS\Account\Account<extended>
+     * @covers \phpOMS\Account\Account<extended>
      * @group framework
      */
     public function testPermissionExists() : void
@@ -208,7 +208,7 @@ final class AccountTest extends \PHPUnit\Framework\TestCase
 
     /**
      * @testdox Account permissions can be removed
-     * @covers phpOMS\Account\Account<extended>
+     * @covers \phpOMS\Account\Account<extended>
      * @group framework
      */
     public function testPermissionRemove() : void
@@ -228,7 +228,7 @@ final class AccountTest extends \PHPUnit\Framework\TestCase
 
     /**
      * @testdox An account can have it's own localization
-     * @covers phpOMS\Account\Account<extended>
+     * @covers \phpOMS\Account\Account<extended>
      * @group framework
      */
     public function testLocalization() : void

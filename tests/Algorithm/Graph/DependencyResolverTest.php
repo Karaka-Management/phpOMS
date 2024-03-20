@@ -26,7 +26,7 @@ require_once __DIR__ . '/../../Autoloader.php';
 final class DependencyResolverTest extends \PHPUnit\Framework\TestCase
 {
     /**
-     * @covers phpOMS\Algorithm\Graph\DependencyResolver
+     * @covers \phpOMS\Algorithm\Graph\DependencyResolver
      * @group framework
      */
     public function testResolveCircular() : void
@@ -37,7 +37,7 @@ final class DependencyResolverTest extends \PHPUnit\Framework\TestCase
     }
 
     /**
-     * @covers phpOMS\Algorithm\Graph\DependencyResolver
+     * @covers \phpOMS\Algorithm\Graph\DependencyResolver
      * @group framework
      */
     public function testResolve() : void

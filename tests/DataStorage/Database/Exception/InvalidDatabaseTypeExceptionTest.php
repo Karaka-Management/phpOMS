@@ -22,7 +22,7 @@ use phpOMS\DataStorage\Database\Exception\InvalidDatabaseTypeException;
 final class InvalidDatabaseTypeExceptionTest extends \PHPUnit\Framework\TestCase
 {
     /**
-     * @covers phpOMS\DataStorage\Database\Exception\InvalidDatabaseTypeException
+     * @covers \phpOMS\DataStorage\Database\Exception\InvalidDatabaseTypeException
      * @group framework
      */
     public function testException() : void

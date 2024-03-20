@@ -29,7 +29,7 @@ final class StringUtilsTest extends \PHPUnit\Framework\TestCase
 {
     /**
      * @testdox The entropy of a string can be calculated
-     * @covers phpOMS\Utils\StringUtils
+     * @covers \phpOMS\Utils\StringUtils
      * @group framework
      */
     public function testEntropy() : void
@@ -39,7 +39,7 @@ final class StringUtilsTest extends \PHPUnit\Framework\TestCase
 
     /**
      * @testdox A string can be checked if it starts with a defined string
-     * @covers phpOMS\Utils\StringUtils
+     * @covers \phpOMS\Utils\StringUtils
      * @group framework
      */
     public function testStarts() : void
@@ -51,7 +51,7 @@ final class StringUtilsTest extends \PHPUnit\Framework\TestCase
 
     /**
      * @testdox A string can be checked if it ends with a defined string
-     * @covers phpOMS\Utils\StringUtils
+     * @covers \phpOMS\Utils\StringUtils
      * @group framework
      */
     public function testEnds() : void
@@ -63,7 +63,7 @@ final class StringUtilsTest extends \PHPUnit\Framework\TestCase
 
     /**
      * @testdox A string can be checked if it contains at least one defined string element
-     * @covers phpOMS\Utils\StringUtils
+     * @covers \phpOMS\Utils\StringUtils
      * @group framework
      */
     public function testContains() : void
@@ -76,7 +76,7 @@ final class StringUtilsTest extends \PHPUnit\Framework\TestCase
 
     /**
      * @testdox The amount of a defined characters in the beginning of a string can be counted
-     * @covers phpOMS\Utils\StringUtils
+     * @covers \phpOMS\Utils\StringUtils
      * @group framework
      */
     public function testCountBeginning() : void
@@ -87,7 +87,7 @@ final class StringUtilsTest extends \PHPUnit\Framework\TestCase
 
     /**
      * @testdox A string creates a integer hash
-     * @covers phpOMS\Utils\StringUtils
+     * @covers \phpOMS\Utils\StringUtils
      * @group framework
      */
     public function testIntHash() : void
@@ -97,7 +97,7 @@ final class StringUtilsTest extends \PHPUnit\Framework\TestCase
 
     /**
      * @testdox The same string creates the same hash
-     * @covers phpOMS\Utils\StringUtils
+     * @covers \phpOMS\Utils\StringUtils
      * @group framework
      */
     public function testSameHash() : void
@@ -107,7 +107,7 @@ final class StringUtilsTest extends \PHPUnit\Framework\TestCase
 
     /**
      * @testdox Different strings create different hashes
-     * @covers phpOMS\Utils\StringUtils
+     * @covers \phpOMS\Utils\StringUtils
      * @group framework
      */
     public function testDifferentHash() : void
@@ -117,7 +117,7 @@ final class StringUtilsTest extends \PHPUnit\Framework\TestCase
 
     /**
      * @testdox Various data types can be stringified
-     * @covers phpOMS\Utils\StringUtils
+     * @covers \phpOMS\Utils\StringUtils
      * @group framework
      */
     public function testStringify() : void
@@ -169,7 +169,7 @@ final class StringUtilsTest extends \PHPUnit\Framework\TestCase
 
     /**
      * @testdox Stringify/rendering a unknown data type returns null
-     * @covers phpOMS\Utils\StringUtils
+     * @covers \phpOMS\Utils\StringUtils
      * @group framework
      */
     public function testInvalidStringify() : void
@@ -179,7 +179,7 @@ final class StringUtilsTest extends \PHPUnit\Framework\TestCase
 
     /**
      * @testdox The difference between two strings can be evaluated
-     * @covers phpOMS\Utils\StringUtils
+     * @covers \phpOMS\Utils\StringUtils
      * @group framework
      */
     public function testStringDiffHtml() : void

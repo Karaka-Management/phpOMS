@@ -23,7 +23,7 @@ final class EnumTest extends \PHPUnit\Framework\TestCase
 {
     /**
      * @testdox A valid enum name can be validated
-     * @covers phpOMS\Stdlib\Base\Enum<extended>
+     * @covers \phpOMS\Stdlib\Base\Enum<extended>
      * @group framework
      */
     public function testValidateEnumName() : void
@@ -33,7 +33,7 @@ final class EnumTest extends \PHPUnit\Framework\TestCase
 
     /**
      * @testdox A invalid enum name doesn't validate
-     * @covers phpOMS\Stdlib\Base\Enum<extended>
+     * @covers \phpOMS\Stdlib\Base\Enum<extended>
      * @group framework
      */
     public function testInvalidEnumNameValidation() : void
@@ -43,7 +43,7 @@ final class EnumTest extends \PHPUnit\Framework\TestCase
 
     /**
      * @testdox All enum name/value pairs can be returned
-     * @covers phpOMS\Stdlib\Base\Enum<extended>
+     * @covers \phpOMS\Stdlib\Base\Enum<extended>
      * @group framework
      */
     public function testOutputValues() : void
@@ -53,7 +53,7 @@ final class EnumTest extends \PHPUnit\Framework\TestCase
 
     /**
      * @testdox A valid enum value can be checked for existence
-     * @covers phpOMS\Stdlib\Base\Enum<extended>
+     * @covers \phpOMS\Stdlib\Base\Enum<extended>
      * @group framework
      */
     public function testValidateEnumValue() : void
@@ -64,7 +64,7 @@ final class EnumTest extends \PHPUnit\Framework\TestCase
 
     /**
      * @testdox A invalid enum value doesn't validate
-     * @covers phpOMS\Stdlib\Base\Enum<extended>
+     * @covers \phpOMS\Stdlib\Base\Enum<extended>
      * @group framework
      */
     public function testInvalidEnumValueValidation() : void
@@ -74,7 +74,7 @@ final class EnumTest extends \PHPUnit\Framework\TestCase
 
     /**
      * @testdox A random enum value can be returned
-     * @covers phpOMS\Stdlib\Base\Enum<extended>
+     * @covers \phpOMS\Stdlib\Base\Enum<extended>
      * @group framework
      */
     public function testRandomValue() : void
@@ -84,7 +84,7 @@ final class EnumTest extends \PHPUnit\Framework\TestCase
 
     /**
      * @testdox A valid enum name returns the enum value
-     * @covers phpOMS\Stdlib\Base\Enum<extended>
+     * @covers \phpOMS\Stdlib\Base\Enum<extended>
      * @group framework
      */
     public function testValueOutput() : void
@@ -95,7 +95,7 @@ final class EnumTest extends \PHPUnit\Framework\TestCase
 
     /**
      * @testdox The amount of enum values can be returned
-     * @covers phpOMS\Stdlib\Base\Enum<extended>
+     * @covers \phpOMS\Stdlib\Base\Enum<extended>
      * @group framework
      */
     public function testCount() : void
@@ -105,7 +105,7 @@ final class EnumTest extends \PHPUnit\Framework\TestCase
 
     /**
      * @testdox A valid enum value returns the enum name
-     * @covers phpOMS\Stdlib\Base\Enum<extended>
+     * @covers \phpOMS\Stdlib\Base\Enum<extended>
      * @group framework
      */
     public function testNameOutput() : void
@@ -116,7 +116,7 @@ final class EnumTest extends \PHPUnit\Framework\TestCase
 
     /**
      * @testdox Binary flags validate if they are set
-     * @covers phpOMS\Stdlib\Base\Enum<extended>
+     * @covers \phpOMS\Stdlib\Base\Enum<extended>
      * @group framework
      */
     public function testFlags() : void
@@ -128,7 +128,7 @@ final class EnumTest extends \PHPUnit\Framework\TestCase
 
     /**
      * @testdox Binary flags don't validate if they are not set
-     * @covers phpOMS\Stdlib\Base\Enum<extended>
+     * @covers \phpOMS\Stdlib\Base\Enum<extended>
      * @group framework
      */
     public function testInvalidFlags() : void
@@ -139,7 +139,7 @@ final class EnumTest extends \PHPUnit\Framework\TestCase
 
     /**
      * @testdox A invalid enum name returns null
-     * @covers phpOMS\Stdlib\Base\Enum<extended>
+     * @covers \phpOMS\Stdlib\Base\Enum<extended>
      * @group framework
      */
     public function testInvalidConstantException() : void

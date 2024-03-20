@@ -31,7 +31,7 @@ final class DatamatrixTest extends \PHPUnit\Framework\TestCase
     }
 
     /**
-     * @covers phpOMS\Utils\Barcode\Datamatrix<extended>
+     * @covers \phpOMS\Utils\Barcode\Datamatrix<extended>
      * @group framework
      */
     public function testImagePng() : void
@@ -48,7 +48,7 @@ final class DatamatrixTest extends \PHPUnit\Framework\TestCase
     }
 
     /**
-     * @covers phpOMS\Utils\Barcode\Datamatrix<extended>
+     * @covers \phpOMS\Utils\Barcode\Datamatrix<extended>
      * @group framework
      */
     public function testImageJpg() : void

@@ -28,7 +28,7 @@ final class ZTestingTest extends \PHPUnit\Framework\TestCase
     // http://sphweb.bumc.bu.edu/otlt/MPH-Modules/BS/BS704_HypothesisTesting-ChiSquare/BS704_HypothesisTesting-ChiSquare_print.html
 
     /**
-     * @covers phpOMS\Math\Stochastic\Distribution\ZTesting
+     * @covers \phpOMS\Math\Stochastic\Distribution\ZTesting
      * @group framework
      */
     public function testHypothesisFalse() : void
@@ -44,7 +44,7 @@ final class ZTestingTest extends \PHPUnit\Framework\TestCase
     // https://support.microsoft.com/en-us/office/z-test-function-d633d5a3-2031-4614-a016-92180ad82bee?ui=en-us&rs=en-us&ad=us
 
     /**
-     * @covers phpOMS\Math\Stochastic\Distribution\ZTesting
+     * @covers \phpOMS\Math\Stochastic\Distribution\ZTesting
      * @group framework
      */
     public function testZTest() : void
@@ -53,7 +53,7 @@ final class ZTestingTest extends \PHPUnit\Framework\TestCase
     }
 
     /**
-     * @covers phpOMS\Math\Stochastic\Distribution\ZTesting
+     * @covers \phpOMS\Math\Stochastic\Distribution\ZTesting
      * @group framework
      */
     public function testZTestValues() : void

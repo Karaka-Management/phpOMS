@@ -25,7 +25,7 @@ final class NumbersTest extends \PHPUnit\Framework\TestCase
 {
     /**
      * @testdox A number can be checked to be perfect
-     * @covers phpOMS\Math\Number\Numbers
+     * @covers \phpOMS\Math\Number\Numbers
      * @group framework
      */
     public function testPerfect() : void
@@ -38,7 +38,7 @@ final class NumbersTest extends \PHPUnit\Framework\TestCase
 
     /**
      * @testdox A number can be checked to be self-describing
-     * @covers phpOMS\Math\Number\Numbers
+     * @covers \phpOMS\Math\Number\Numbers
      * @group framework
      */
     public function testSelfdescribing() : void
@@ -50,7 +50,7 @@ final class NumbersTest extends \PHPUnit\Framework\TestCase
 
     /**
      * @testdox A number can be checked to be squared
-     * @covers phpOMS\Math\Number\Numbers
+     * @covers \phpOMS\Math\Number\Numbers
      * @group framework
      */
     public function testSquare() : void
@@ -62,7 +62,7 @@ final class NumbersTest extends \PHPUnit\Framework\TestCase
 
     /**
      * @testdox The amount of trailing zeros can be counted
-     * @covers phpOMS\Math\Number\Numbers
+     * @covers \phpOMS\Math\Number\Numbers
      * @group framework
      */
     public function testZeroCounting() : void

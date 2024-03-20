@@ -25,7 +25,7 @@ final class DateTimeTest extends \PHPUnit\Framework\TestCase
 {
     /**
      * @testdox A random date time can be generated
-     * @covers phpOMS\Utils\RnG\DateTime
+     * @covers \phpOMS\Utils\RnG\DateTime
      * @group framework
      */
     public function testRnG() : void

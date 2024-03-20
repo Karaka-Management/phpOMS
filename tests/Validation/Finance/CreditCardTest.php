@@ -25,7 +25,7 @@ final class CreditCardTest extends \PHPUnit\Framework\TestCase
 {
     /**
      * @testdox A credit card can be validated
-     * @covers phpOMS\Validation\Finance\CreditCard
+     * @covers \phpOMS\Validation\Finance\CreditCard
      * @group framework
      */
     public function testCreditCard() : void
@@ -37,7 +37,7 @@ final class CreditCardTest extends \PHPUnit\Framework\TestCase
 
     /**
      * @testdox A invalid type cannot be validated
-     * @covers phpOMS\Validation\Finance\CreditCard
+     * @covers \phpOMS\Validation\Finance\CreditCard
      * @group framework
      */
     public function testInvalidCreditCardType() : void

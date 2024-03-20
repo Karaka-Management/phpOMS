@@ -22,7 +22,7 @@ use phpOMS\Model\Message\Redirect;
 final class RedirectTest extends \PHPUnit\Framework\TestCase
 {
     /**
-     * @covers phpOMS\Model\Message\Redirect
+     * @covers \phpOMS\Model\Message\Redirect
      * @group framework
      */
     public function testDefault() : void
@@ -36,7 +36,7 @@ final class RedirectTest extends \PHPUnit\Framework\TestCase
     }
 
     /**
-     * @covers phpOMS\Model\Message\Redirect
+     * @covers \phpOMS\Model\Message\Redirect
      * @group framework
      */
     public function testSetGet() : void

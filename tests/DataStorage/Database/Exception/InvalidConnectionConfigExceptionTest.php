@@ -22,7 +22,7 @@ use phpOMS\DataStorage\Database\Exception\InvalidConnectionConfigException;
 final class InvalidConnectionConfigExceptionTest extends \PHPUnit\Framework\TestCase
 {
     /**
-     * @covers phpOMS\DataStorage\Database\Exception\InvalidConnectionConfigException
+     * @covers \phpOMS\DataStorage\Database\Exception\InvalidConnectionConfigException
      * @group framework
      */
     public function testException() : void

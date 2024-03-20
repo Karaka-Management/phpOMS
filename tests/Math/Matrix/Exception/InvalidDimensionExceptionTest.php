@@ -22,7 +22,7 @@ use phpOMS\Math\Matrix\Exception\InvalidDimensionException;
 final class InvalidDimensionExceptionTest extends \PHPUnit\Framework\TestCase
 {
     /**
-     * @covers phpOMS\Math\Matrix\Exception\InvalidDimensionException
+     * @covers \phpOMS\Math\Matrix\Exception\InvalidDimensionException
      * @group framework
      */
     public function testException() : void

@@ -25,7 +25,7 @@ final class TriangleTest extends \PHPUnit\Framework\TestCase
 {
     /**
      * @testdox The surface can be calculated
-     * @covers phpOMS\Math\Geometry\Shape\D2\Triangle
+     * @covers \phpOMS\Math\Geometry\Shape\D2\Triangle
      * @group framework
      */
     public function testSurface() : void
@@ -35,7 +35,7 @@ final class TriangleTest extends \PHPUnit\Framework\TestCase
 
     /**
      * @testdox The perimeter can be calculated
-     * @covers phpOMS\Math\Geometry\Shape\D2\Triangle
+     * @covers \phpOMS\Math\Geometry\Shape\D2\Triangle
      * @group framework
      */
     public function testPerimeter() : void
@@ -45,7 +45,7 @@ final class TriangleTest extends \PHPUnit\Framework\TestCase
 
     /**
      * @testdox The height can be calculated
-     * @covers phpOMS\Math\Geometry\Shape\D2\Triangle
+     * @covers \phpOMS\Math\Geometry\Shape\D2\Triangle
      * @group framework
      */
     public function testHeight() : void
@@ -55,7 +55,7 @@ final class TriangleTest extends \PHPUnit\Framework\TestCase
 
     /**
      * @testdox The hypotenuse can be calculated
-     * @covers phpOMS\Math\Geometry\Shape\D2\Triangle
+     * @covers \phpOMS\Math\Geometry\Shape\D2\Triangle
      * @group framework
      */
     public function testHypot() : void

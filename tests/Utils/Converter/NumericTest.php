@@ -25,7 +25,7 @@ final class NumericTest extends \PHPUnit\Framework\TestCase
 {
     /**
      * @testdox Arabic numbers can be converted to roman numbers
-     * @covers phpOMS\Utils\Converter\Numeric
+     * @covers \phpOMS\Utils\Converter\Numeric
      * @group framework
      */
     public function testArabicToRoman() : void
@@ -41,7 +41,7 @@ final class NumericTest extends \PHPUnit\Framework\TestCase
 
     /**
      * @testdox Roman numbers can be converted to arabic numbers
-     * @covers phpOMS\Utils\Converter\Numeric
+     * @covers \phpOMS\Utils\Converter\Numeric
      * @group framework
      */
     public function testRomanToArabic() : void
@@ -54,7 +54,7 @@ final class NumericTest extends \PHPUnit\Framework\TestCase
 
     /**
      * @testdox Letters can be converted to numbers
-     * @covers phpOMS\Utils\Converter\Numeric
+     * @covers \phpOMS\Utils\Converter\Numeric
      * @group framework
      */
     public function testAlphaToNumeric() : void
@@ -66,7 +66,7 @@ final class NumericTest extends \PHPUnit\Framework\TestCase
 
     /**
      * @testdox Numbers can be converted to letters
-     * @covers phpOMS\Utils\Converter\Numeric
+     * @covers \phpOMS\Utils\Converter\Numeric
      * @group framework
      */
     public function testNumericToAlpha() : void
@@ -78,7 +78,7 @@ final class NumericTest extends \PHPUnit\Framework\TestCase
 
     /**
      * @testdox Numbers can be converted between bases
-     * @covers phpOMS\Utils\Converter\Numeric
+     * @covers \phpOMS\Utils\Converter\Numeric
      * @group framework
      */
     public function testBase() : void

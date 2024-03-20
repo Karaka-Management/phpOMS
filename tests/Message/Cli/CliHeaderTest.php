@@ -34,7 +34,7 @@ final class CliHeaderTest extends \PHPUnit\Framework\TestCase
     }
 
     /**
-     * @covers phpOMS\Message\Cli\CliHeader
+     * @covers \phpOMS\Message\Cli\CliHeader
      * @group framework
      */
     public function testDefaults() : void
@@ -51,7 +51,7 @@ final class CliHeaderTest extends \PHPUnit\Framework\TestCase
     }
 
     /**
-     * @covers phpOMS\Message\Cli\CliHeader
+     * @covers \phpOMS\Message\Cli\CliHeader
      * @group framework
      */
     public function testValueInputOutput() : void
@@ -61,7 +61,7 @@ final class CliHeaderTest extends \PHPUnit\Framework\TestCase
     }
 
     /**
-     * @covers phpOMS\Message\Cli\CliHeader
+     * @covers \phpOMS\Message\Cli\CliHeader
      * @group framework
      */
     public function testHasKey() : void
@@ -71,7 +71,7 @@ final class CliHeaderTest extends \PHPUnit\Framework\TestCase
     }
 
     /**
-     * @covers phpOMS\Message\Cli\CliHeader
+     * @covers \phpOMS\Message\Cli\CliHeader
      * @group framework
      */
     public function testInvalidOverwrite() : void
@@ -82,7 +82,7 @@ final class CliHeaderTest extends \PHPUnit\Framework\TestCase
     }
 
     /**
-     * @covers phpOMS\Message\Cli\CliHeader
+     * @covers \phpOMS\Message\Cli\CliHeader
      * @group framework
      */
     public function testOverwrite() : void
@@ -93,7 +93,7 @@ final class CliHeaderTest extends \PHPUnit\Framework\TestCase
     }
 
     /**
-     * @covers phpOMS\Message\Cli\CliHeader
+     * @covers \phpOMS\Message\Cli\CliHeader
      * @group framework
      */
     public function testRemove() : void
@@ -106,7 +106,7 @@ final class CliHeaderTest extends \PHPUnit\Framework\TestCase
 
     /**
      * @testdox The header can generate default http headers based on status codes
-     * @covers phpOMS\Message\Cli\CliHeader<extended>
+     * @covers \phpOMS\Message\Cli\CliHeader<extended>
      * @group framework
      */
     public function testHeaderGeneration() : void
@@ -116,7 +116,7 @@ final class CliHeaderTest extends \PHPUnit\Framework\TestCase
     }
 
     /**
-     * @covers phpOMS\Message\Cli\CliHeader
+     * @covers \phpOMS\Message\Cli\CliHeader
      * @group framework
      */
     public function testAccount() : void
@@ -126,7 +126,7 @@ final class CliHeaderTest extends \PHPUnit\Framework\TestCase
     }
 
     /**
-     * @covers phpOMS\Message\Cli\CliHeader
+     * @covers \phpOMS\Message\Cli\CliHeader
      * @group framework
      */
     public function testLockedHeaderSet() : void
@@ -137,7 +137,7 @@ final class CliHeaderTest extends \PHPUnit\Framework\TestCase
     }
 
     /**
-     * @covers phpOMS\Message\Cli\CliHeader
+     * @covers \phpOMS\Message\Cli\CliHeader
      * @group framework
      */
     public function testLockedHeaderRemove() : void

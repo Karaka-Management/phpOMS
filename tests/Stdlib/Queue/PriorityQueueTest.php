@@ -26,7 +26,7 @@ final class PriorityQueueTest extends \PHPUnit\Framework\TestCase
 {
     /**
      * @testdox The queue has the expected default values and functionality after initialization
-     * @covers phpOMS\Stdlib\Queue\PriorityQueue
+     * @covers \phpOMS\Stdlib\Queue\PriorityQueue
      * @group framework
      */
     public function testDefault() : void
@@ -41,7 +41,7 @@ final class PriorityQueueTest extends \PHPUnit\Framework\TestCase
 
     /**
      * @testdox Queue elements can be added with the default value of 1.0 and returned
-     * @covers phpOMS\Stdlib\Queue\PriorityQueue
+     * @covers \phpOMS\Stdlib\Queue\PriorityQueue
      * @group framework
      */
     public function testInputOutput() : void
@@ -54,7 +54,7 @@ final class PriorityQueueTest extends \PHPUnit\Framework\TestCase
 
     /**
      * @testdox Queue elements can be added with a priority
-     * @covers phpOMS\Stdlib\Queue\PriorityQueue
+     * @covers \phpOMS\Stdlib\Queue\PriorityQueue
      * @group framework
      */
     public function testAddWithPriority() : void
@@ -70,7 +70,7 @@ final class PriorityQueueTest extends \PHPUnit\Framework\TestCase
 
     /**
      * @testdox The priority queue returns the correct amount of elements it holds
-     * @covers phpOMS\Stdlib\Queue\PriorityQueue
+     * @covers \phpOMS\Stdlib\Queue\PriorityQueue
      * @group framework
      */
     public function testCount() : void
@@ -85,7 +85,7 @@ final class PriorityQueueTest extends \PHPUnit\Framework\TestCase
 
     /**
      * @testdox A queue element can be removed
-     * @covers phpOMS\Stdlib\Queue\PriorityQueue
+     * @covers \phpOMS\Stdlib\Queue\PriorityQueue
      * @group framework
      */
     public function testRemove() : void
@@ -102,7 +102,7 @@ final class PriorityQueueTest extends \PHPUnit\Framework\TestCase
 
     /**
      * @testdox A none-existing queue element id cannot be removed
-     * @covers phpOMS\Stdlib\Queue\PriorityQueue
+     * @covers \phpOMS\Stdlib\Queue\PriorityQueue
      * @group framework
      */
     public function testInvalidRemove() : void
@@ -120,7 +120,7 @@ final class PriorityQueueTest extends \PHPUnit\Framework\TestCase
 
     /**
      * @testdox A removed or none-existing queue element returns a empty data
-     * @covers phpOMS\Stdlib\Queue\PriorityQueue
+     * @covers \phpOMS\Stdlib\Queue\PriorityQueue
      * @group framework
      */
     public function testInvalidGet() : void
@@ -135,7 +135,7 @@ final class PriorityQueueTest extends \PHPUnit\Framework\TestCase
 
     /**
      * @testdox The priority of all queue elements can be uniformly increased
-     * @covers phpOMS\Stdlib\Queue\PriorityQueue
+     * @covers \phpOMS\Stdlib\Queue\PriorityQueue
      * @group framework
      */
     public function testPriorityIncreaseAll() : void
@@ -157,7 +157,7 @@ final class PriorityQueueTest extends \PHPUnit\Framework\TestCase
 
     /**
      * @testdox The priority or a queue element can be changed
-     * @covers phpOMS\Stdlib\Queue\PriorityQueue
+     * @covers \phpOMS\Stdlib\Queue\PriorityQueue
      * @group framework
      */
     public function testPriorityChange() : void
@@ -175,7 +175,7 @@ final class PriorityQueueTest extends \PHPUnit\Framework\TestCase
 
     /**
      * @testdox The queue can be serialized and unserialized
-     * @covers phpOMS\Stdlib\Queue\PriorityQueue
+     * @covers \phpOMS\Stdlib\Queue\PriorityQueue
      * @group framework
      */
     public function testSerialize() : void
@@ -194,7 +194,7 @@ final class PriorityQueueTest extends \PHPUnit\Framework\TestCase
 
     /**
      * @testdox A queue element can be popped from the que which also removes it from the queue
-     * @covers phpOMS\Stdlib\Queue\PriorityQueue
+     * @covers \phpOMS\Stdlib\Queue\PriorityQueue
      * @group framework
      */
     public function testPop() : void
@@ -210,7 +210,7 @@ final class PriorityQueueTest extends \PHPUnit\Framework\TestCase
 
     /**
      * @testdox A FIFO queue returns the elements in FIFO order
-     * @covers phpOMS\Stdlib\Queue\PriorityQueue
+     * @covers \phpOMS\Stdlib\Queue\PriorityQueue
      * @group framework
      */
     public function testFIFO() : void
@@ -228,7 +228,7 @@ final class PriorityQueueTest extends \PHPUnit\Framework\TestCase
 
     /**
      * @testdox A LIFO queue returns the elements in LIFO order
-     * @covers phpOMS\Stdlib\Queue\PriorityQueue
+     * @covers \phpOMS\Stdlib\Queue\PriorityQueue
      * @group framework
      */
     public function testLIFO() : void
@@ -246,7 +246,7 @@ final class PriorityQueueTest extends \PHPUnit\Framework\TestCase
 
     /**
      * @testdox A highest queue returns the elements in highest priority order
-     * @covers phpOMS\Stdlib\Queue\PriorityQueue
+     * @covers \phpOMS\Stdlib\Queue\PriorityQueue
      * @group framework
      */
     public function testHighest() : void
@@ -264,7 +264,7 @@ final class PriorityQueueTest extends \PHPUnit\Framework\TestCase
 
     /**
      * @testdox A lowest queue returns the elements in lowest priority order
-     * @covers phpOMS\Stdlib\Queue\PriorityQueue
+     * @covers \phpOMS\Stdlib\Queue\PriorityQueue
      * @group framework
      */
     public function testLowest() : void
@@ -282,7 +282,7 @@ final class PriorityQueueTest extends \PHPUnit\Framework\TestCase
 
     /**
      * @testdox A invalid priority queue type throws a InvalidEnumValue
-     * @covers phpOMS\Stdlib\Queue\PriorityQueue
+     * @covers \phpOMS\Stdlib\Queue\PriorityQueue
      * @group framework
      */
     public function testInvalidPriority() : void

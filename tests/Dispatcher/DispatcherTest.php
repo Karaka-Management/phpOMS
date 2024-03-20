@@ -49,7 +49,7 @@ final class DispatcherTest extends \PHPUnit\Framework\TestCase
 
     /**
      * @testdox A route can be added and dispatched
-     * @covers phpOMS\Dispatcher\Dispatcher
+     * @covers \phpOMS\Dispatcher\Dispatcher
      * @group framework
      */
     public function testControllerInputOutput() : void
@@ -75,7 +75,7 @@ final class DispatcherTest extends \PHPUnit\Framework\TestCase
 
     /**
      * @testdox The dispatcher can dispatch a function/closure
-     * @covers phpOMS\Dispatcher\Dispatcher
+     * @covers \phpOMS\Dispatcher\Dispatcher
      * @group framework
      */
     public function testClosure() : void
@@ -103,7 +103,7 @@ final class DispatcherTest extends \PHPUnit\Framework\TestCase
 
     /**
      * @testdox The dispatcher can dispatch a method as string representation of a controller
-     * @covers phpOMS\Dispatcher\Dispatcher
+     * @covers \phpOMS\Dispatcher\Dispatcher
      * @group framework
      */
     public function testPathMethod() : void
@@ -123,7 +123,7 @@ final class DispatcherTest extends \PHPUnit\Framework\TestCase
 
     /**
      * @testdox The dispatcher can dispatch a method as array representation of a controller
-     * @covers phpOMS\Dispatcher\Dispatcher
+     * @covers \phpOMS\Dispatcher\Dispatcher
      * @group framework
      */
     public function testPathMethodInArray() : void
@@ -151,7 +151,7 @@ final class DispatcherTest extends \PHPUnit\Framework\TestCase
 
     /**
      * @testdox The dispatcher can dispatch a static method as string representation
-     * @covers phpOMS\Dispatcher\Dispatcher
+     * @covers \phpOMS\Dispatcher\Dispatcher
      * @group framework
      */
     public function testPathStatic() : void
@@ -171,7 +171,7 @@ final class DispatcherTest extends \PHPUnit\Framework\TestCase
 
     /**
      * @testdox The dispatcher can dispatch multiple destinations after another
-     * @covers phpOMS\Dispatcher\Dispatcher
+     * @covers \phpOMS\Dispatcher\Dispatcher
      * @group framework
      */
     public function testArray() : void
@@ -195,7 +195,7 @@ final class DispatcherTest extends \PHPUnit\Framework\TestCase
 
     /**
      * @testdox The dispatcher can pass additional data to the destination
-     * @covers phpOMS\Dispatcher\Dispatcher
+     * @covers \phpOMS\Dispatcher\Dispatcher
      * @group framework
      */
     public function testArrayWithData() : void
@@ -216,7 +216,7 @@ final class DispatcherTest extends \PHPUnit\Framework\TestCase
 
     /**
      * @testdox A invalid controller path throws a PathException
-     * @covers phpOMS\Dispatcher\Dispatcher
+     * @covers \phpOMS\Dispatcher\Dispatcher
      * @group framework
      */
     public function testInvalidControllerPath() : void
@@ -228,7 +228,7 @@ final class DispatcherTest extends \PHPUnit\Framework\TestCase
 
     /**
      * @testdox A invalid function path throws a Exception
-     * @covers phpOMS\Dispatcher\Dispatcher
+     * @covers \phpOMS\Dispatcher\Dispatcher
      * @group framework
      */
     public function testInvalidControllerFunction() : void
@@ -240,7 +240,7 @@ final class DispatcherTest extends \PHPUnit\Framework\TestCase
 
     /**
      * @testdox A malformed dispatch path throws UnexpectedValueException
-     * @covers phpOMS\Dispatcher\Dispatcher
+     * @covers \phpOMS\Dispatcher\Dispatcher
      * @group framework
      */
     public function testInvalidControllerString() : void

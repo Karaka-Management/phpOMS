@@ -44,7 +44,7 @@ final class CountryMapperTest extends \PHPUnit\Framework\TestCase
 
     /**
      * @testdox The model can be read from the database
-     * @covers phpOMS\Localization\Defaults\CountryMapper
+     * @covers \phpOMS\Localization\Defaults\CountryMapper
      * @group framework
      */
     public function testR() : void

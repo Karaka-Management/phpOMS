@@ -26,7 +26,7 @@ final class EigenvalueDecompositionTest extends \PHPUnit\Framework\TestCase
 {
     /**
      * @testdox A matrix can be checked for symmetry
-     * @covers phpOMS\Math\Matrix\EigenvalueDecomposition
+     * @covers \phpOMS\Math\Matrix\EigenvalueDecomposition
      * @group framework
      */
     public function testSymmetricSymmetryMatrix() : void
@@ -56,7 +56,7 @@ final class EigenvalueDecompositionTest extends \PHPUnit\Framework\TestCase
 
     /**
      * @testdox The eigenvalues can be calculated for a symmetric matrix
-     * @covers phpOMS\Math\Matrix\EigenvalueDecomposition
+     * @covers \phpOMS\Math\Matrix\EigenvalueDecomposition
      * @group framework
      */
     public function testSymmetricMatrixEigenvalues() : void
@@ -76,7 +76,7 @@ final class EigenvalueDecompositionTest extends \PHPUnit\Framework\TestCase
 
     /**
      * @testdox The V matrix of the decomposition can be calculated for a symmetric matrix
-     * @covers phpOMS\Math\Matrix\EigenvalueDecomposition
+     * @covers \phpOMS\Math\Matrix\EigenvalueDecomposition
      * @group framework
      */
     public function testSymmetricMatrixV() : void
@@ -99,7 +99,7 @@ final class EigenvalueDecompositionTest extends \PHPUnit\Framework\TestCase
 
     /**
      * @testdox The D matrix of the decomposition can be calculated for a symmetric matrix
-     * @covers phpOMS\Math\Matrix\EigenvalueDecomposition
+     * @covers \phpOMS\Math\Matrix\EigenvalueDecomposition
      * @group framework
      */
     public function testSymmetricMatrixD() : void
@@ -122,7 +122,7 @@ final class EigenvalueDecompositionTest extends \PHPUnit\Framework\TestCase
 
     /**
      * @testdox The eigenvalues can be calculated for a none-symmetric matrix
-     * @covers phpOMS\Math\Matrix\EigenvalueDecomposition
+     * @covers \phpOMS\Math\Matrix\EigenvalueDecomposition
      * @group framework
      */
     public function testNonSymmetricMatrixEigenvalues() : void
@@ -142,7 +142,7 @@ final class EigenvalueDecompositionTest extends \PHPUnit\Framework\TestCase
 
     /**
      * @testdox The V matrix of the decomposition can be calculated for a none-symmetric matrix
-     * @covers phpOMS\Math\Matrix\EigenvalueDecomposition
+     * @covers \phpOMS\Math\Matrix\EigenvalueDecomposition
      * @group framework
      */
     /*
@@ -169,7 +169,7 @@ final class EigenvalueDecompositionTest extends \PHPUnit\Framework\TestCase
 
     /**
      * @testdox The D matrix of the decomposition can be calculated for a none-symmetric matrix
-     * @covers phpOMS\Math\Matrix\EigenvalueDecomposition
+     * @covers \phpOMS\Math\Matrix\EigenvalueDecomposition
      * @group framework
      */
     public function testNonSymmetricMatrixD() : void
@@ -192,7 +192,7 @@ final class EigenvalueDecompositionTest extends \PHPUnit\Framework\TestCase
 
     /**
      * @testdox The decomposition can be created and the original matrix can be computed for a symmetric matrix
-     * @covers phpOMS\Math\Matrix\EigenvalueDecomposition
+     * @covers \phpOMS\Math\Matrix\EigenvalueDecomposition
      * @group framework
      */
     public function testCompositeSymmetric() : void
@@ -217,7 +217,7 @@ final class EigenvalueDecompositionTest extends \PHPUnit\Framework\TestCase
 
     /**
      * @testdox The decomposition can be created and the original matrix can be computed for a none-symmetric matrix
-     * @covers phpOMS\Math\Matrix\EigenvalueDecomposition
+     * @covers \phpOMS\Math\Matrix\EigenvalueDecomposition
      * @group framework
      */
     public function testCompositeNonSymmetric() : void
@@ -242,7 +242,7 @@ final class EigenvalueDecompositionTest extends \PHPUnit\Framework\TestCase
     }
 
     /**
-     * @covers phpOMS\Math\Matrix\EigenvalueDecomposition
+     * @covers \phpOMS\Math\Matrix\EigenvalueDecomposition
      * @group framework
      */
     public function testComplexEigenvalueDecomposition() : void
@@ -264,7 +264,7 @@ final class EigenvalueDecompositionTest extends \PHPUnit\Framework\TestCase
     }
 
     /**
-     * @covers phpOMS\Math\Matrix\EigenvalueDecomposition
+     * @covers \phpOMS\Math\Matrix\EigenvalueDecomposition
      * @group framework
      */
     public function testComplexDivision() : void
@@ -288,7 +288,7 @@ final class EigenvalueDecompositionTest extends \PHPUnit\Framework\TestCase
     }
 
     /**
-     * @covers phpOMS\Math\Matrix\EigenvalueDecomposition
+     * @covers \phpOMS\Math\Matrix\EigenvalueDecomposition
      * @group framework
      */
     public function testComplexDivision2() : void
@@ -312,7 +312,7 @@ final class EigenvalueDecompositionTest extends \PHPUnit\Framework\TestCase
     }
 
     /**
-     * @covers phpOMS\Math\Matrix\EigenvalueDecomposition
+     * @covers \phpOMS\Math\Matrix\EigenvalueDecomposition
      * @group framework
      */
     public function testComplexDivision3() : void
@@ -339,7 +339,7 @@ final class EigenvalueDecompositionTest extends \PHPUnit\Framework\TestCase
     }
 
     /**
-     * @covers phpOMS\Math\Matrix\EigenvalueDecomposition
+     * @covers \phpOMS\Math\Matrix\EigenvalueDecomposition
      * @group framework
      */
     public function testComplexDivision4() : void

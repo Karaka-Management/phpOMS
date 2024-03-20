@@ -25,7 +25,7 @@ final class PrimeTest extends \PHPUnit\Framework\TestCase
 {
     /**
      * @testdox A number can be checked to be a prime number
-     * @covers phpOMS\Math\Number\Prime
+     * @covers \phpOMS\Math\Number\Prime
      * @group framework
      */
     public function testPrime() : void
@@ -37,7 +37,7 @@ final class PrimeTest extends \PHPUnit\Framework\TestCase
 
     /**
      * @testdox A prime number can be generated with the sieve of erathosthenes
-     * @covers phpOMS\Math\Number\Prime
+     * @covers \phpOMS\Math\Number\Prime
      * @group framework
      */
     public function testSieve() : void
@@ -48,7 +48,7 @@ final class PrimeTest extends \PHPUnit\Framework\TestCase
 
     /**
      * @testdox A number can be checked to be prime with the rabin test
-     * @covers phpOMS\Math\Number\Prime
+     * @covers \phpOMS\Math\Number\Prime
      * @group framework
      */
     public function testRabin() : void
@@ -62,7 +62,7 @@ final class PrimeTest extends \PHPUnit\Framework\TestCase
 
     /**
      * @testdox Mersenne numbers can be calculated
-     * @covers phpOMS\Math\Number\Prime
+     * @covers \phpOMS\Math\Number\Prime
      * @group framework
      */
     public function testMersenne() : void
@@ -74,7 +74,7 @@ final class PrimeTest extends \PHPUnit\Framework\TestCase
 
     /**
      * @testdox A number can be checked to be a mersenne number
-     * @covers phpOMS\Math\Number\Prime
+     * @covers \phpOMS\Math\Number\Prime
      * @group framework
      */
     public function testIsMersenne() : void

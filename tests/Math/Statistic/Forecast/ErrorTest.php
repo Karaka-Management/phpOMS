@@ -24,7 +24,7 @@ use phpOMS\Utils\ArrayUtils;
 final class ErrorTest extends \PHPUnit\Framework\TestCase
 {
     /**
-     * @covers phpOMS\Math\Statistic\Forecast\Error
+     * @covers \phpOMS\Math\Statistic\Forecast\Error
      * @group framework
      */
     public function testForecastError() : void
@@ -47,7 +47,7 @@ final class ErrorTest extends \PHPUnit\Framework\TestCase
     }
 
     /**
-     * @covers phpOMS\Math\Statistic\Forecast\Error
+     * @covers \phpOMS\Math\Statistic\Forecast\Error
      * @group framework
      */
     public function testErrorPercentage() : void
@@ -71,7 +71,7 @@ final class ErrorTest extends \PHPUnit\Framework\TestCase
     }
 
     /**
-     * @covers phpOMS\Math\Statistic\Forecast\Error
+     * @covers \phpOMS\Math\Statistic\Forecast\Error
      * @group framework
      */
     public function testMeanErrors() : void
@@ -89,7 +89,7 @@ final class ErrorTest extends \PHPUnit\Framework\TestCase
     }
 
     /**
-     * @covers phpOMS\Math\Statistic\Forecast\Error
+     * @covers \phpOMS\Math\Statistic\Forecast\Error
      * @group framework
      */
     public function testMASE() : void
@@ -111,7 +111,7 @@ final class ErrorTest extends \PHPUnit\Framework\TestCase
     }
 
     /**
-     * @covers phpOMS\Math\Statistic\Forecast\Error
+     * @covers \phpOMS\Math\Statistic\Forecast\Error
      * @group framework
      */
     public function testMSSE() : void
@@ -136,7 +136,7 @@ final class ErrorTest extends \PHPUnit\Framework\TestCase
     }
 
     /**
-     * @covers phpOMS\Math\Statistic\Forecast\Error
+     * @covers \phpOMS\Math\Statistic\Forecast\Error
      * @group framework
      */
     public function testScaledError() : void
@@ -148,7 +148,7 @@ final class ErrorTest extends \PHPUnit\Framework\TestCase
     }
 
     /**
-     * @covers phpOMS\Math\Statistic\Forecast\Error
+     * @covers \phpOMS\Math\Statistic\Forecast\Error
      * @group framework
      */
     public function testSSE() : void
@@ -159,7 +159,7 @@ final class ErrorTest extends \PHPUnit\Framework\TestCase
     }
 
     /**
-     * @covers phpOMS\Math\Statistic\Forecast\Error
+     * @covers \phpOMS\Math\Statistic\Forecast\Error
      * @group framework
      */
     public function testCoefficientOfDetermination() : void
@@ -173,7 +173,7 @@ final class ErrorTest extends \PHPUnit\Framework\TestCase
     }
 
     /**
-     * @covers phpOMS\Math\Statistic\Forecast\Error
+     * @covers \phpOMS\Math\Statistic\Forecast\Error
      * @group framework
      */
     public function testMAPE() : void
@@ -185,7 +185,7 @@ final class ErrorTest extends \PHPUnit\Framework\TestCase
     }
 
     /**
-     * @covers phpOMS\Math\Statistic\Forecast\Error
+     * @covers \phpOMS\Math\Statistic\Forecast\Error
      * @group framework
      */
     public function testSMAPE() : void
@@ -197,7 +197,7 @@ final class ErrorTest extends \PHPUnit\Framework\TestCase
     }
 
     /**
-     * @covers phpOMS\Math\Statistic\Forecast\Error
+     * @covers \phpOMS\Math\Statistic\Forecast\Error
      * @group framework
      */
     public function testMAD() : void

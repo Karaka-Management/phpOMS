@@ -35,7 +35,7 @@ final class MetaTest extends \PHPUnit\Framework\TestCase
 
     /**
      * @testdox The meta data has the expected default values after initialization
-     * @covers phpOMS\Model\Html\Meta
+     * @covers \phpOMS\Model\Html\Meta
      * @group framework
      */
     public function testDefault() : void
@@ -52,7 +52,7 @@ final class MetaTest extends \PHPUnit\Framework\TestCase
 
     /**
      * @testdox A keyword can be added and returned
-     * @covers phpOMS\Model\Html\Meta
+     * @covers \phpOMS\Model\Html\Meta
      * @group framework
      */
     public function testKeywordInputOutput() : void
@@ -63,7 +63,7 @@ final class MetaTest extends \PHPUnit\Framework\TestCase
 
     /**
      * @testdox The author can be set and returned
-     * @covers phpOMS\Model\Html\Meta
+     * @covers \phpOMS\Model\Html\Meta
      * @group framework
      */
     public function testAuthorInputOutput() : void
@@ -74,7 +74,7 @@ final class MetaTest extends \PHPUnit\Framework\TestCase
 
     /**
      * @testdox The charset can be set and returned
-     * @covers phpOMS\Model\Html\Meta
+     * @covers \phpOMS\Model\Html\Meta
      * @group framework
      */
     public function testCharsetInputOutput() : void
@@ -85,7 +85,7 @@ final class MetaTest extends \PHPUnit\Framework\TestCase
 
     /**
      * @testdox The description can be set and returned
-     * @covers phpOMS\Model\Html\Meta
+     * @covers \phpOMS\Model\Html\Meta
      * @group framework
      */
     public function testDescriptionInputOutput() : void
@@ -96,7 +96,7 @@ final class MetaTest extends \PHPUnit\Framework\TestCase
 
     /**
      * @testdox A property can be set and returned
-     * @covers phpOMS\Model\Html\Meta
+     * @covers \phpOMS\Model\Html\Meta
      * @group framework
      */
     public function testPropertyInputOutput() : void
@@ -107,7 +107,7 @@ final class MetaTest extends \PHPUnit\Framework\TestCase
 
     /**
      * @testdox A itemprop can be set and returned
-     * @covers phpOMS\Model\Html\Meta
+     * @covers \phpOMS\Model\Html\Meta
      * @group framework
      */
     public function testItempropInputOutput() : void
@@ -118,7 +118,7 @@ final class MetaTest extends \PHPUnit\Framework\TestCase
 
     /**
      * @testdox A name can be set and returned
-     * @covers phpOMS\Model\Html\Meta
+     * @covers \phpOMS\Model\Html\Meta
      * @group framework
      */
     public function testNameInputOutput() : void
@@ -129,7 +129,7 @@ final class MetaTest extends \PHPUnit\Framework\TestCase
 
     /**
      * @testdox The meta data can be rendered
-     * @covers phpOMS\Model\Html\Meta
+     * @covers \phpOMS\Model\Html\Meta
      * @group framework
      */
     public function testRender() : void

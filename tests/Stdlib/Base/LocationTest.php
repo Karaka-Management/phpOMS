@@ -36,7 +36,7 @@ final class LocationTest extends \PHPUnit\Framework\TestCase
 
     /**
      * @testdox The location has the expected default values after initialization
-     * @covers phpOMS\Stdlib\Base\Location
+     * @covers \phpOMS\Stdlib\Base\Location
      * @group framework
      */
     public function testDefault() : void
@@ -64,7 +64,7 @@ final class LocationTest extends \PHPUnit\Framework\TestCase
 
     /**
      * @testdox The postal can be set and returned
-     * @covers phpOMS\Stdlib\Base\Location
+     * @covers \phpOMS\Stdlib\Base\Location
      * @group framework
      */
     public function testPostalInputOutput() : void
@@ -75,7 +75,7 @@ final class LocationTest extends \PHPUnit\Framework\TestCase
 
     /**
      * @testdox The city can be set and returned
-     * @covers phpOMS\Stdlib\Base\Location
+     * @covers \phpOMS\Stdlib\Base\Location
      * @group framework
      */
     public function testCityInputOutput() : void
@@ -86,7 +86,7 @@ final class LocationTest extends \PHPUnit\Framework\TestCase
 
     /**
      * @testdox The country can be set and returned
-     * @covers phpOMS\Stdlib\Base\Location
+     * @covers \phpOMS\Stdlib\Base\Location
      * @group framework
      */
     public function testCountryInputOutput() : void
@@ -97,7 +97,7 @@ final class LocationTest extends \PHPUnit\Framework\TestCase
 
     /**
      * @testdox The address can be set and returned
-     * @covers phpOMS\Stdlib\Base\Location
+     * @covers \phpOMS\Stdlib\Base\Location
      * @group framework
      */
     public function testAddressInputOutput() : void
@@ -108,7 +108,7 @@ final class LocationTest extends \PHPUnit\Framework\TestCase
 
     /**
      * @testdox The state can be set and returned
-     * @covers phpOMS\Stdlib\Base\Location
+     * @covers \phpOMS\Stdlib\Base\Location
      * @group framework
      */
     public function testStateInputOutput() : void
@@ -119,7 +119,7 @@ final class LocationTest extends \PHPUnit\Framework\TestCase
 
     /**
      * @testdox The location can be turned into an array
-     * @covers phpOMS\Stdlib\Base\Location
+     * @covers \phpOMS\Stdlib\Base\Location
      * @group framework
      */
     public function testArray() : void
@@ -148,7 +148,7 @@ final class LocationTest extends \PHPUnit\Framework\TestCase
 
     /**
      * @testdox The location can be json serialized
-     * @covers phpOMS\Stdlib\Base\Location
+     * @covers \phpOMS\Stdlib\Base\Location
      * @group framework
      */
     public function testJsonSerialize() : void
@@ -178,7 +178,7 @@ final class LocationTest extends \PHPUnit\Framework\TestCase
 
     /**
      * @testdox The location can unserialized
-     * @covers phpOMS\Stdlib\Base\Location
+     * @covers \phpOMS\Stdlib\Base\Location
      * @group framework
      */
     public function testUnserialize() : void

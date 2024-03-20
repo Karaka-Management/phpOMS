@@ -22,7 +22,7 @@ use phpOMS\Math\Stochastic\Distribution\LogDistribution;
 final class LogDistributionTest extends \PHPUnit\Framework\TestCase
 {
     /**
-     * @covers phpOMS\Math\Stochastic\Distribution\LogDistribution
+     * @covers \phpOMS\Math\Stochastic\Distribution\LogDistribution
      * @group framework
      */
     public function testPmf() : void
@@ -37,7 +37,7 @@ final class LogDistributionTest extends \PHPUnit\Framework\TestCase
     }
 
     /**
-     * @covers phpOMS\Math\Stochastic\Distribution\LogDistribution
+     * @covers \phpOMS\Math\Stochastic\Distribution\LogDistribution
      * @group framework
      */
     public function testCdf() : void
@@ -52,7 +52,7 @@ final class LogDistributionTest extends \PHPUnit\Framework\TestCase
     }
 
     /**
-     * @covers phpOMS\Math\Stochastic\Distribution\LogDistribution
+     * @covers \phpOMS\Math\Stochastic\Distribution\LogDistribution
      * @group framework
      */
     public function testMean() : void
@@ -63,7 +63,7 @@ final class LogDistributionTest extends \PHPUnit\Framework\TestCase
     }
 
     /**
-     * @covers phpOMS\Math\Stochastic\Distribution\LogDistribution
+     * @covers \phpOMS\Math\Stochastic\Distribution\LogDistribution
      * @group framework
      */
     public function testMode() : void
@@ -72,7 +72,7 @@ final class LogDistributionTest extends \PHPUnit\Framework\TestCase
     }
 
     /**
-     * @covers phpOMS\Math\Stochastic\Distribution\LogDistribution
+     * @covers \phpOMS\Math\Stochastic\Distribution\LogDistribution
      * @group framework
      */
     public function testVariance() : void
@@ -86,7 +86,7 @@ final class LogDistributionTest extends \PHPUnit\Framework\TestCase
     }
 
     /**
-     * @covers phpOMS\Math\Stochastic\Distribution\LogDistribution
+     * @covers \phpOMS\Math\Stochastic\Distribution\LogDistribution
      * @group framework
      */
     public function testStandardDeviation() : void
@@ -100,7 +100,7 @@ final class LogDistributionTest extends \PHPUnit\Framework\TestCase
     }
 
     /**
-     * @covers phpOMS\Math\Stochastic\Distribution\LogDistribution
+     * @covers \phpOMS\Math\Stochastic\Distribution\LogDistribution
      * @group framework
      */
     public function testMgf() : void

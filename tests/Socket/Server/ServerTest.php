@@ -80,7 +80,7 @@ final class ServerTest extends \PHPUnit\Framework\TestCase
     }
 
     /**
-     * @covers phpOMS\Socket\Server\Server
+     * @covers \phpOMS\Socket\Server\Server
      * @group framework
      */
     public function testSetupTCPSocket() : void

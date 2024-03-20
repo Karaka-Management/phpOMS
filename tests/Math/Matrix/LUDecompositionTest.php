@@ -27,7 +27,7 @@ final class LUDecompositionTest extends \PHPUnit\Framework\TestCase
 {
     /**
      * @testdox The L matrix of the decomposition can be calculated
-     * @covers phpOMS\Math\Matrix\LUDecomposition
+     * @covers \phpOMS\Math\Matrix\LUDecomposition
      * @group framework
      */
     public function testL() : void
@@ -50,7 +50,7 @@ final class LUDecompositionTest extends \PHPUnit\Framework\TestCase
 
     /**
      * @testdox The U matrix of the decomposition can be calculated
-     * @covers phpOMS\Math\Matrix\LUDecomposition
+     * @covers \phpOMS\Math\Matrix\LUDecomposition
      * @group framework
      */
     public function testU() : void
@@ -73,7 +73,7 @@ final class LUDecompositionTest extends \PHPUnit\Framework\TestCase
 
     /**
      * @testdox The matrix can be checked for singularity
-     * @covers phpOMS\Math\Matrix\LUDecomposition
+     * @covers \phpOMS\Math\Matrix\LUDecomposition
      * @group framework
      */
     public function testSingularity() : void
@@ -103,7 +103,7 @@ final class LUDecompositionTest extends \PHPUnit\Framework\TestCase
 
     /**
      * @testdox The equation Ax = b can be solved for a none-singular matrix
-     * @covers phpOMS\Math\Matrix\LUDecomposition
+     * @covers \phpOMS\Math\Matrix\LUDecomposition
      * @group framework
      */
     public function testSolve() : void
@@ -124,7 +124,7 @@ final class LUDecompositionTest extends \PHPUnit\Framework\TestCase
 
     /**
      * @testdox The pivots of the decomposition can be calculated
-     * @covers phpOMS\Math\Matrix\LUDecomposition
+     * @covers \phpOMS\Math\Matrix\LUDecomposition
      * @group framework
      */
     public function testPivot() : void
@@ -143,7 +143,7 @@ final class LUDecompositionTest extends \PHPUnit\Framework\TestCase
 
     /**
      * @testdox The equation Ax = b can be solved for a singular matrix
-     * @covers phpOMS\Math\Matrix\LUDecomposition
+     * @covers \phpOMS\Math\Matrix\LUDecomposition
      * @group framework
      */
     public function testSolveOfSingularMatrix() : void
@@ -167,7 +167,7 @@ final class LUDecompositionTest extends \PHPUnit\Framework\TestCase
 
     /**
      * @testdox The decomposition can be created and the original matrix can be computed
-     * @covers phpOMS\Math\Matrix\LUDecomposition
+     * @covers \phpOMS\Math\Matrix\LUDecomposition
      * @group framework
      */
     public function testComposition() : void
@@ -192,7 +192,7 @@ final class LUDecompositionTest extends \PHPUnit\Framework\TestCase
 
     /**
      * @testdox The determinat can be calculated
-     * @covers phpOMS\Math\Matrix\LUDecomposition
+     * @covers \phpOMS\Math\Matrix\LUDecomposition
      * @group framework
      */
     public function testDet() : void
@@ -210,7 +210,7 @@ final class LUDecompositionTest extends \PHPUnit\Framework\TestCase
 
     /**
      * @testdox A invalid vector throws a InvalidDimensionException
-     * @covers phpOMS\Math\Matrix\LUDecomposition
+     * @covers \phpOMS\Math\Matrix\LUDecomposition
      * @group framework
      */
     public function testInvalidDimension() : void

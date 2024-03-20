@@ -22,7 +22,7 @@ use phpOMS\Math\Stochastic\Distribution\TDistribution;
 final class TDistributionTest extends \PHPUnit\Framework\TestCase
 {
     /**
-     * @covers phpOMS\Math\Stochastic\Distribution\TDistribution
+     * @covers \phpOMS\Math\Stochastic\Distribution\TDistribution
      * @group framework
      */
     public function testMean() : void
@@ -31,7 +31,7 @@ final class TDistributionTest extends \PHPUnit\Framework\TestCase
     }
 
     /**
-     * @covers phpOMS\Math\Stochastic\Distribution\TDistribution
+     * @covers \phpOMS\Math\Stochastic\Distribution\TDistribution
      * @group framework
      */
     public function testMedian() : void
@@ -40,7 +40,7 @@ final class TDistributionTest extends \PHPUnit\Framework\TestCase
     }
 
     /**
-     * @covers phpOMS\Math\Stochastic\Distribution\TDistribution
+     * @covers \phpOMS\Math\Stochastic\Distribution\TDistribution
      * @group framework
      */
     public function testMode() : void
@@ -49,7 +49,7 @@ final class TDistributionTest extends \PHPUnit\Framework\TestCase
     }
 
     /**
-     * @covers phpOMS\Math\Stochastic\Distribution\TDistribution
+     * @covers \phpOMS\Math\Stochastic\Distribution\TDistribution
      * @group framework
      */
     public function testVariance() : void
@@ -59,7 +59,7 @@ final class TDistributionTest extends \PHPUnit\Framework\TestCase
     }
 
     /**
-     * @covers phpOMS\Math\Stochastic\Distribution\TDistribution
+     * @covers \phpOMS\Math\Stochastic\Distribution\TDistribution
      * @group framework
      */
     public function testStandardDeviation() : void
@@ -69,7 +69,7 @@ final class TDistributionTest extends \PHPUnit\Framework\TestCase
     }
 
     /**
-     * @covers phpOMS\Math\Stochastic\Distribution\TDistribution
+     * @covers \phpOMS\Math\Stochastic\Distribution\TDistribution
      * @group framework
      */
     public function testExKurtosis() : void
@@ -79,7 +79,7 @@ final class TDistributionTest extends \PHPUnit\Framework\TestCase
     }
 
     /**
-     * @covers phpOMS\Math\Stochastic\Distribution\TDistribution
+     * @covers \phpOMS\Math\Stochastic\Distribution\TDistribution
      * @group framework
      */
     public function testSkewness() : void
@@ -88,7 +88,7 @@ final class TDistributionTest extends \PHPUnit\Framework\TestCase
     }
 
     /**
-     * @covers phpOMS\Math\Stochastic\Distribution\TDistribution
+     * @covers \phpOMS\Math\Stochastic\Distribution\TDistribution
      * @group framework
      */
     public function testCdf() : void

@@ -25,7 +25,7 @@ final class SphereTest extends \PHPUnit\Framework\TestCase
 {
     /**
      * @testdox The volume can be calculated
-     * @covers phpOMS\Math\Geometry\Shape\D3\Sphere
+     * @covers \phpOMS\Math\Geometry\Shape\D3\Sphere
      * @group framework
      */
     public function testVolume() : void
@@ -36,7 +36,7 @@ final class SphereTest extends \PHPUnit\Framework\TestCase
 
     /**
      * @testdox The surface can be calculated
-     * @covers phpOMS\Math\Geometry\Shape\D3\Sphere
+     * @covers \phpOMS\Math\Geometry\Shape\D3\Sphere
      * @group framework
      */
     public function testSurface() : void
@@ -47,7 +47,7 @@ final class SphereTest extends \PHPUnit\Framework\TestCase
 
     /**
      * @testdox The distance on a sphere can be calculated
-     * @covers phpOMS\Math\Geometry\Shape\D3\Sphere
+     * @covers \phpOMS\Math\Geometry\Shape\D3\Sphere
      * @group framework
      */
     public function testDistanceOnSphere() : void
@@ -57,7 +57,7 @@ final class SphereTest extends \PHPUnit\Framework\TestCase
 
     /**
      * @testdox The sphere can be created by its radius
-     * @covers phpOMS\Math\Geometry\Shape\D3\Sphere
+     * @covers \phpOMS\Math\Geometry\Shape\D3\Sphere
      * @group framework
      */
     public function testGetSphereByRadius() : void
@@ -68,7 +68,7 @@ final class SphereTest extends \PHPUnit\Framework\TestCase
 
     /**
      * @testdox The sphere can be created by its volume
-     * @covers phpOMS\Math\Geometry\Shape\D3\Sphere
+     * @covers \phpOMS\Math\Geometry\Shape\D3\Sphere
      * @group framework
      */
     public function testGetSphereByVolume() : void
@@ -79,7 +79,7 @@ final class SphereTest extends \PHPUnit\Framework\TestCase
 
     /**
      * @testdox The sphere can be created by its surface
-     * @covers phpOMS\Math\Geometry\Shape\D3\Sphere
+     * @covers \phpOMS\Math\Geometry\Shape\D3\Sphere
      * @group framework
      */
     public function testGetSphereBySurface() : void

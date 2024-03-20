@@ -32,7 +32,7 @@ final class C25Test extends \PHPUnit\Framework\TestCase
     }
 
     /**
-     * @covers phpOMS\Utils\Barcode\C25<extended>
+     * @covers \phpOMS\Utils\Barcode\C25<extended>
      * @group framework
      */
     public function testImagePng() : void
@@ -49,7 +49,7 @@ final class C25Test extends \PHPUnit\Framework\TestCase
     }
 
     /**
-     * @covers phpOMS\Utils\Barcode\C25<extended>
+     * @covers \phpOMS\Utils\Barcode\C25<extended>
      * @group framework
      */
     public function testImageJpg() : void
@@ -66,7 +66,7 @@ final class C25Test extends \PHPUnit\Framework\TestCase
     }
 
     /**
-     * @covers phpOMS\Utils\Barcode\C25<extended>
+     * @covers \phpOMS\Utils\Barcode\C25<extended>
      * @group framework
      */
     public function testOrientationAndMargin() : void
@@ -84,7 +84,7 @@ final class C25Test extends \PHPUnit\Framework\TestCase
     }
 
     /**
-     * @covers phpOMS\Utils\Barcode\C25<extended>
+     * @covers \phpOMS\Utils\Barcode\C25<extended>
      * @group framework
      */
     public function testValidString() : void
@@ -94,7 +94,7 @@ final class C25Test extends \PHPUnit\Framework\TestCase
     }
 
     /**
-     * @covers phpOMS\Utils\Barcode\C25<extended>
+     * @covers \phpOMS\Utils\Barcode\C25<extended>
      * @group framework
      */
     public function testInvalidOrientation() : void

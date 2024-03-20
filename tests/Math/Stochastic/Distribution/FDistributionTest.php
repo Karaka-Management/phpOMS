@@ -22,7 +22,7 @@ use phpOMS\Math\Stochastic\Distribution\FDistribution;
 final class FDistributionTest extends \PHPUnit\Framework\TestCase
 {
     /**
-     * @covers phpOMS\Math\Stochastic\Distribution\FDistribution
+     * @covers \phpOMS\Math\Stochastic\Distribution\FDistribution
      * @group framework
      */
     public function testMean() : void
@@ -32,7 +32,7 @@ final class FDistributionTest extends \PHPUnit\Framework\TestCase
     }
 
     /**
-     * @covers phpOMS\Math\Stochastic\Distribution\FDistribution
+     * @covers \phpOMS\Math\Stochastic\Distribution\FDistribution
      * @group framework
      */
     public function testMode() : void
@@ -43,7 +43,7 @@ final class FDistributionTest extends \PHPUnit\Framework\TestCase
     }
 
     /**
-     * @covers phpOMS\Math\Stochastic\Distribution\FDistribution
+     * @covers \phpOMS\Math\Stochastic\Distribution\FDistribution
      * @group framework
      */
     public function testVariance() : void
@@ -54,7 +54,7 @@ final class FDistributionTest extends \PHPUnit\Framework\TestCase
     }
 
     /**
-     * @covers phpOMS\Math\Stochastic\Distribution\FDistribution
+     * @covers \phpOMS\Math\Stochastic\Distribution\FDistribution
      * @group framework
      */
     public function testStandardDeviation() : void
@@ -65,7 +65,7 @@ final class FDistributionTest extends \PHPUnit\Framework\TestCase
     }
 
     /**
-     * @covers phpOMS\Math\Stochastic\Distribution\FDistribution
+     * @covers \phpOMS\Math\Stochastic\Distribution\FDistribution
      * @group framework
      */
     public function testSkewness() : void
@@ -75,7 +75,7 @@ final class FDistributionTest extends \PHPUnit\Framework\TestCase
     }
 
     /**
-     * @covers phpOMS\Math\Stochastic\Distribution\FDistribution
+     * @covers \phpOMS\Math\Stochastic\Distribution\FDistribution
      * @group framework
      */
     public function testPdf() : void
@@ -84,7 +84,7 @@ final class FDistributionTest extends \PHPUnit\Framework\TestCase
     }
 
     /**
-     * @covers phpOMS\Math\Stochastic\Distribution\FDistribution
+     * @covers \phpOMS\Math\Stochastic\Distribution\FDistribution
      * @group framework
      */
     public function testCdf() : void

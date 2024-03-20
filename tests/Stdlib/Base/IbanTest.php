@@ -26,7 +26,7 @@ final class IbanTest extends \PHPUnit\Framework\TestCase
 {
     /**
      * @testdox A iban can be correctly parsed into its different components
-     * @covers phpOMS\Stdlib\Base\Iban
+     * @covers \phpOMS\Stdlib\Base\Iban
      * @group framework
      */
     public function testInputOutput() : void
@@ -51,7 +51,7 @@ final class IbanTest extends \PHPUnit\Framework\TestCase
 
     /**
      * @testdox A iban can be serialized and unserialized
-     * @covers phpOMS\Stdlib\Base\Iban
+     * @covers \phpOMS\Stdlib\Base\Iban
      * @group framework
      */
     public function testSearialization() : void
@@ -68,7 +68,7 @@ final class IbanTest extends \PHPUnit\Framework\TestCase
 
     /**
      * @testdox A invalid iban country code throws a InvalidArgumentException
-     * @covers phpOMS\Stdlib\Base\Iban
+     * @covers \phpOMS\Stdlib\Base\Iban
      * @group framework
      */
     public function testInvalidIbanCountry() : void
@@ -80,7 +80,7 @@ final class IbanTest extends \PHPUnit\Framework\TestCase
 
     /**
      * @testdox A invalid iban length throws a InvalidArgumentException
-     * @covers phpOMS\Stdlib\Base\Iban
+     * @covers \phpOMS\Stdlib\Base\Iban
      * @group framework
      */
     public function testInvalidIbanLength() : void
@@ -92,7 +92,7 @@ final class IbanTest extends \PHPUnit\Framework\TestCase
 
     /**
      * @testdox A invalid iban checksum throws a InvalidArgumentException
-     * @covers phpOMS\Stdlib\Base\Iban
+     * @covers \phpOMS\Stdlib\Base\Iban
      * @group framework
      */
     public function testInvalidIbanChecksum() : void

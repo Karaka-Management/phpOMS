@@ -51,7 +51,7 @@ final class FileCacheTest extends \PHPUnit\Framework\TestCase
 
     /**
      * @testdox The file cache connection has the expected default values after initialization
-     * @covers phpOMS\DataStorage\Cache\Connection\FileCache<extended>
+     * @covers \phpOMS\DataStorage\Cache\Connection\FileCache<extended>
      * @group framework
      */
     public function testDefault() : void
@@ -76,7 +76,7 @@ final class FileCacheTest extends \PHPUnit\Framework\TestCase
 
     /**
      * @testdox The connection to a dedicated cache directory can be established (none-existing directories get created)
-     * @covers phpOMS\DataStorage\Cache\Connection\FileCache<extended>
+     * @covers \phpOMS\DataStorage\Cache\Connection\FileCache<extended>
      * @group framework
      */
     public function testConnect() : void
@@ -86,7 +86,7 @@ final class FileCacheTest extends \PHPUnit\Framework\TestCase
 
     /**
      * @testdox Different cache data (types) can be set and returned
-     * @covers phpOMS\DataStorage\Cache\Connection\FileCache<extended>
+     * @covers \phpOMS\DataStorage\Cache\Connection\FileCache<extended>
      * @group framework
      */
     public function testSetInputOutput() : void
@@ -118,7 +118,7 @@ final class FileCacheTest extends \PHPUnit\Framework\TestCase
 
     /**
      * @testdox Cache data can bet added and returned
-     * @covers phpOMS\DataStorage\Cache\Connection\FileCache<extended>
+     * @covers \phpOMS\DataStorage\Cache\Connection\FileCache<extended>
      * @group framework
      */
     public function testAddInputOutput() : void
@@ -271,7 +271,7 @@ final class FileCacheTest extends \PHPUnit\Framework\TestCase
 
     /**
      * @testdox Cache data cannot be added if it already exists
-     * @covers phpOMS\DataStorage\Cache\Connection\FileCache<extended>
+     * @covers \phpOMS\DataStorage\Cache\Connection\FileCache<extended>
      * @group framework
      */
     public function testInvalidOverwrite() : void
@@ -283,7 +283,7 @@ final class FileCacheTest extends \PHPUnit\Framework\TestCase
 
     /**
      * @testdox Existing cache data can be replaced
-     * @covers phpOMS\DataStorage\Cache\Connection\FileCache<extended>
+     * @covers \phpOMS\DataStorage\Cache\Connection\FileCache<extended>
      * @group framework
      */
     public function testReplace() : void
@@ -297,7 +297,7 @@ final class FileCacheTest extends \PHPUnit\Framework\TestCase
 
     /**
      * @testdox None-existing cache data cannot be replaced
-     * @covers phpOMS\DataStorage\Cache\Connection\FileCache<extended>
+     * @covers \phpOMS\DataStorage\Cache\Connection\FileCache<extended>
      * @group framework
      */
     public function testInvalidReplace() : void
@@ -307,7 +307,7 @@ final class FileCacheTest extends \PHPUnit\Framework\TestCase
 
     /**
      * @testdox Existing cache data can be deleted
-     * @covers phpOMS\DataStorage\Cache\Connection\FileCache<extended>
+     * @covers \phpOMS\DataStorage\Cache\Connection\FileCache<extended>
      * @group framework
      */
     public function testDelete() : void
@@ -326,7 +326,7 @@ final class FileCacheTest extends \PHPUnit\Framework\TestCase
 
     /**
      * @testdox The cache correctly handles general cache information
-     * @covers phpOMS\DataStorage\Cache\Connection\FileCache<extended>
+     * @covers \phpOMS\DataStorage\Cache\Connection\FileCache<extended>
      * @group framework
      */
     public function testStats() : void
@@ -349,7 +349,7 @@ final class FileCacheTest extends \PHPUnit\Framework\TestCase
 
     /**
      * @testdox The cache can be flushed
-     * @covers phpOMS\DataStorage\Cache\Connection\FileCache<extended>
+     * @covers \phpOMS\DataStorage\Cache\Connection\FileCache<extended>
      * @group framework
      */
     public function testFlush() : void
@@ -375,7 +375,7 @@ final class FileCacheTest extends \PHPUnit\Framework\TestCase
 
     /**
      * @testdox Cache data can be set and returned with expiration limits
-     * @covers phpOMS\DataStorage\Cache\Connection\FileCache<extended>
+     * @covers \phpOMS\DataStorage\Cache\Connection\FileCache<extended>
      * @group framework
      */
     public function testUnexpiredInputOutput() : void
@@ -386,7 +386,7 @@ final class FileCacheTest extends \PHPUnit\Framework\TestCase
 
     /**
      * @testdox Expired cache data cannot be returned
-     * @covers phpOMS\DataStorage\Cache\Connection\FileCache<extended>
+     * @covers \phpOMS\DataStorage\Cache\Connection\FileCache<extended>
      * @group framework
      */
     public function testExpiredInputOutput() : void
@@ -400,7 +400,7 @@ final class FileCacheTest extends \PHPUnit\Framework\TestCase
 
     /**
      * @testdox Expired cache data can be forced to return
-     * @covers phpOMS\DataStorage\Cache\Connection\FileCache<extended>
+     * @covers \phpOMS\DataStorage\Cache\Connection\FileCache<extended>
      * @group framework
      */
     public function testForceExpiredInputOutput() : void
@@ -412,7 +412,7 @@ final class FileCacheTest extends \PHPUnit\Framework\TestCase
 
     /**
      * @testdox Unexpired cache data cannot be delete if lower expiration is defined
-     * @covers phpOMS\DataStorage\Cache\Connection\FileCache<extended>
+     * @covers \phpOMS\DataStorage\Cache\Connection\FileCache<extended>
      * @group framework
      */
     public function testInvalidDeleteUnexpired() : void
@@ -423,7 +423,7 @@ final class FileCacheTest extends \PHPUnit\Framework\TestCase
 
     /**
      * @testdox Expired cache data can be deleted if equal expiration is defined
-     * @covers phpOMS\DataStorage\Cache\Connection\FileCache<extended>
+     * @covers \phpOMS\DataStorage\Cache\Connection\FileCache<extended>
      * @group framework
      */
     public function testDeleteExpired() : void
@@ -435,7 +435,7 @@ final class FileCacheTest extends \PHPUnit\Framework\TestCase
 
     /**
      * @testdox Unexpired data can be force deleted with lower expiration date
-     * @covers phpOMS\DataStorage\Cache\Connection\FileCache<extended>
+     * @covers \phpOMS\DataStorage\Cache\Connection\FileCache<extended>
      * @group framework
      */
     public function testForceDeleteUnexpired() : void
@@ -448,7 +448,7 @@ final class FileCacheTest extends \PHPUnit\Framework\TestCase
 
     /**
      * @testdox Cache data can be flushed by expiration date
-     * @covers phpOMS\DataStorage\Cache\Connection\FileCache<extended>
+     * @covers \phpOMS\DataStorage\Cache\Connection\FileCache<extended>
      * @group framework
      */
     public function testFlushExpired() : void
@@ -462,7 +462,7 @@ final class FileCacheTest extends \PHPUnit\Framework\TestCase
 
     /**
      * @testdox A bad cache status will prevent all cache actions
-     * @covers phpOMS\DataStorage\Cache\Connection\FileCache<extended>
+     * @covers \phpOMS\DataStorage\Cache\Connection\FileCache<extended>
      * @group framework
      */
     public function testBadCacheStatus() : void
@@ -481,7 +481,7 @@ final class FileCacheTest extends \PHPUnit\Framework\TestCase
 
     /**
      * @testdox A invalid cache connection will throw an InvalidConnectionConfigException
-     * @covers phpOMS\DataStorage\Cache\Connection\FileCache<extended>
+     * @covers \phpOMS\DataStorage\Cache\Connection\FileCache<extended>
      * @group framework
      */
     public function testInvalidCachePath() : void
@@ -493,7 +493,7 @@ final class FileCacheTest extends \PHPUnit\Framework\TestCase
 
     /**
      * @testdox Adding a invalid data type will throw an InvalidArgumentException
-     * @covers phpOMS\DataStorage\Cache\Connection\FileCache<extended>
+     * @covers \phpOMS\DataStorage\Cache\Connection\FileCache<extended>
      * @group framework
      */
     public function testInvalidDataTypeAdd() : void
@@ -505,7 +505,7 @@ final class FileCacheTest extends \PHPUnit\Framework\TestCase
 
     /**
      * @testdox Setting a invalid data type will throw an InvalidArgumentException
-     * @covers phpOMS\DataStorage\Cache\Connection\FileCache<extended>
+     * @covers \phpOMS\DataStorage\Cache\Connection\FileCache<extended>
      * @group framework
      */
     public function testInvalidDataTypeSet() : void

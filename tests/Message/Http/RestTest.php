@@ -30,7 +30,7 @@ final class RestTest extends \PHPUnit\Framework\TestCase
 {
     /**
      * @testdox A get request successfully returns the expected result
-     * @covers phpOMS\Message\Http\Rest
+     * @covers \phpOMS\Message\Http\Rest
      * @group framework
      */
     public function testRequest() : void
@@ -46,7 +46,7 @@ final class RestTest extends \PHPUnit\Framework\TestCase
 
     /**
      * @testdox A post request with data successfully returns the expected result
-     * @covers phpOMS\Message\Http\Rest
+     * @covers \phpOMS\Message\Http\Rest
      * @group framework
      */
     public function testPost() : void
@@ -59,7 +59,7 @@ final class RestTest extends \PHPUnit\Framework\TestCase
 
     /**
      * @testdox A put request with data successfully returns the expected result
-     * @covers phpOMS\Message\Http\Rest
+     * @covers \phpOMS\Message\Http\Rest
      * @group framework
      */
     public function testPut() : void
@@ -72,7 +72,7 @@ final class RestTest extends \PHPUnit\Framework\TestCase
 
     /**
      * @testdox A delete request with data successfully returns the expected result
-     * @covers phpOMS\Message\Http\Rest
+     * @covers \phpOMS\Message\Http\Rest
      * @group framework
      */
     public function testDelete() : void
@@ -85,7 +85,7 @@ final class RestTest extends \PHPUnit\Framework\TestCase
 
     /**
      * @testdox A get request with data successfully returns the expected result
-     * @covers phpOMS\Message\Http\Rest
+     * @covers \phpOMS\Message\Http\Rest
      * @group framework
      */
     public function testGet() : void
@@ -97,7 +97,7 @@ final class RestTest extends \PHPUnit\Framework\TestCase
     }
 
     /**
-     * @covers phpOMS\Message\Http\Rest
+     * @covers \phpOMS\Message\Http\Rest
      * @group framework
      */
     public function testJsonRequest() : void
@@ -106,7 +106,7 @@ final class RestTest extends \PHPUnit\Framework\TestCase
     }
 
     /**
-     * @covers phpOMS\Message\Http\Rest
+     * @covers \phpOMS\Message\Http\Rest
      * @group framework
      */
     public function testMultiRequest() : void

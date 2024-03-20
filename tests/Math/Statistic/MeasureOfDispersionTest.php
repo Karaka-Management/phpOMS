@@ -25,7 +25,7 @@ final class MeasureOfDispersionTest extends \PHPUnit\Framework\TestCase
 {
     /**
      * @testdox The range of a dataset is correctly calculated
-     * @covers phpOMS\Math\Statistic\MeasureOfDispersion
+     * @covers \phpOMS\Math\Statistic\MeasureOfDispersion
      * @group framework
      */
     public function testRange() : void
@@ -35,7 +35,7 @@ final class MeasureOfDispersionTest extends \PHPUnit\Framework\TestCase
 
     /**
      * @testdox The standard deviation is correctly calculated
-     * @covers phpOMS\Math\Statistic\MeasureOfDispersion
+     * @covers \phpOMS\Math\Statistic\MeasureOfDispersion
      * @group framework
      */
     public function testStandardDeviationSample() : void
@@ -45,7 +45,7 @@ final class MeasureOfDispersionTest extends \PHPUnit\Framework\TestCase
 
     /**
      * @testdox The empirical covariance is correctly calculated
-     * @covers phpOMS\Math\Statistic\MeasureOfDispersion
+     * @covers \phpOMS\Math\Statistic\MeasureOfDispersion
      * @group framework
      */
     public function testEmpiricalCovariance() : void
@@ -61,7 +61,7 @@ final class MeasureOfDispersionTest extends \PHPUnit\Framework\TestCase
 
     /**
      * @testdox The empirical covariance on a sample is correctly calculated
-     * @covers phpOMS\Math\Statistic\MeasureOfDispersion
+     * @covers \phpOMS\Math\Statistic\MeasureOfDispersion
      * @group framework
      */
     public function testSampleCovariance() : void
@@ -77,7 +77,7 @@ final class MeasureOfDispersionTest extends \PHPUnit\Framework\TestCase
 
     /**
      * @testdox The sample variance is correctly calculated
-     * @covers phpOMS\Math\Statistic\MeasureOfDispersion
+     * @covers \phpOMS\Math\Statistic\MeasureOfDispersion
      * @group framework
      */
     public function testVarianceSample() : void
@@ -87,7 +87,7 @@ final class MeasureOfDispersionTest extends \PHPUnit\Framework\TestCase
 
     /**
      * @testdox The population/empirical variance is correctly calculated
-     * @covers phpOMS\Math\Statistic\MeasureOfDispersion
+     * @covers \phpOMS\Math\Statistic\MeasureOfDispersion
      * @group framework
      */
     public function testVariancePopulation() : void
@@ -97,7 +97,7 @@ final class MeasureOfDispersionTest extends \PHPUnit\Framework\TestCase
 
     /**
      * @testdox The mean deviations are correctly calculated
-     * @covers phpOMS\Math\Statistic\MeasureOfDispersion
+     * @covers \phpOMS\Math\Statistic\MeasureOfDispersion
      * @group framework
      */
     public function testDeviation() : void
@@ -109,7 +109,7 @@ final class MeasureOfDispersionTest extends \PHPUnit\Framework\TestCase
 
     /**
      * @testdox The mean deviations for every dataset element is correctly calculated
-     * @covers phpOMS\Math\Statistic\MeasureOfDispersion
+     * @covers \phpOMS\Math\Statistic\MeasureOfDispersion
      * @group framework
      */
     public function testDeviationArray() : void
@@ -135,7 +135,7 @@ final class MeasureOfDispersionTest extends \PHPUnit\Framework\TestCase
 
     /**
      * @testdox The empirical variation coefficient is correctly calculated
-     * @covers phpOMS\Math\Statistic\MeasureOfDispersion
+     * @covers \phpOMS\Math\Statistic\MeasureOfDispersion
      * @group framework
      */
     public function testEmpiricalVariationCoefficient() : void
@@ -145,7 +145,7 @@ final class MeasureOfDispersionTest extends \PHPUnit\Framework\TestCase
 
     /**
      * @testdox The interquartile range is correctly calculated
-     * @covers phpOMS\Math\Statistic\MeasureOfDispersion
+     * @covers \phpOMS\Math\Statistic\MeasureOfDispersion
      * @group framework
      */
     public function testIQR() : void
@@ -156,7 +156,7 @@ final class MeasureOfDispersionTest extends \PHPUnit\Framework\TestCase
 
     /**
      * @testdox The empirical variation coefficient with a mean of 0 throws a ZeroDivisionException
-     * @covers phpOMS\Math\Statistic\MeasureOfDispersion
+     * @covers \phpOMS\Math\Statistic\MeasureOfDispersion
      * @group framework
      */
     public function testInvalidEmpiricalVariationCoefficient() : void
@@ -168,7 +168,7 @@ final class MeasureOfDispersionTest extends \PHPUnit\Framework\TestCase
 
     /**
      * @testdox An empty dataset in the empirical covariance throws a ZeroDivisionException
-     * @covers phpOMS\Math\Statistic\MeasureOfDispersion
+     * @covers \phpOMS\Math\Statistic\MeasureOfDispersion
      * @group framework
      */
     public function testInvalidEmpiricalCovariance() : void
@@ -180,7 +180,7 @@ final class MeasureOfDispersionTest extends \PHPUnit\Framework\TestCase
 
     /**
      * @testdox Different dataset sizes in the empirical covariance throw a InvalidDimensionException
-     * @covers phpOMS\Math\Statistic\MeasureOfDispersion
+     * @covers \phpOMS\Math\Statistic\MeasureOfDispersion
      * @group framework
      */
     public function testInvalidEmpiricalCovarianceDimension() : void
@@ -192,7 +192,7 @@ final class MeasureOfDispersionTest extends \PHPUnit\Framework\TestCase
 
     /**
      * @testdox An empty dataset in the sample variance throws a ZeroDivisionException
-     * @covers phpOMS\Math\Statistic\MeasureOfDispersion
+     * @covers \phpOMS\Math\Statistic\MeasureOfDispersion
      * @group framework
      */
     public function testInvalidSampleVariance() : void
@@ -204,7 +204,7 @@ final class MeasureOfDispersionTest extends \PHPUnit\Framework\TestCase
 
     /**
      * @testdox An empty dataset in the empirical/population variance throws a ZeroDivisionException
-     * @covers phpOMS\Math\Statistic\MeasureOfDispersion
+     * @covers \phpOMS\Math\Statistic\MeasureOfDispersion
      * @group framework
      */
     public function testInvalidEmpiricalVariance() : void
@@ -215,7 +215,7 @@ final class MeasureOfDispersionTest extends \PHPUnit\Framework\TestCase
     }
 
     /**
-     * @covers phpOMS\Math\Statistic\MeasureOfDispersion
+     * @covers \phpOMS\Math\Statistic\MeasureOfDispersion
      * @group framework
      */
     public function testInvalidSampleCovarianceDimension() : void

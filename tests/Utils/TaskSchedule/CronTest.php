@@ -53,7 +53,7 @@ final class CronTest extends \PHPUnit\Framework\TestCase
 
     /**
      * @testdox The cron handler has the expected default values after initialization
-     * @covers phpOMS\Utils\TaskSchedule\Cron<extended>
+     * @covers \phpOMS\Utils\TaskSchedule\Cron<extended>
      * @group framework
      */
     public function testDefault() : void
@@ -63,7 +63,7 @@ final class CronTest extends \PHPUnit\Framework\TestCase
 
     /**
      * @testdox The cron binary location path can be guessed
-     * @covers phpOMS\Utils\TaskSchedule\Cron<extended>
+     * @covers \phpOMS\Utils\TaskSchedule\Cron<extended>
      * @group framework
      */
     public function testGuessBinary() : void
@@ -73,7 +73,7 @@ final class CronTest extends \PHPUnit\Framework\TestCase
 
     /**
      * @testdox A cron job can be created and returned
-     * @covers phpOMS\Utils\TaskSchedule\Cron<extended>
+     * @covers \phpOMS\Utils\TaskSchedule\Cron<extended>
      * @group framework
      */
     public function testCronJobInputOutput() : void
@@ -92,7 +92,7 @@ final class CronTest extends \PHPUnit\Framework\TestCase
 
     /**
      * @testdox A none-existing cron name cannot be returned
-     * @covers phpOMS\Utils\TaskSchedule\Cron<extended>
+     * @covers \phpOMS\Utils\TaskSchedule\Cron<extended>
      * @group framework
      */
     public function testInvalidCronJobName() : void
@@ -103,7 +103,7 @@ final class CronTest extends \PHPUnit\Framework\TestCase
 
     /**
      * @testdox A cron job can be updated
-     * @covers phpOMS\Utils\TaskSchedule\Cron<extended>
+     * @covers \phpOMS\Utils\TaskSchedule\Cron<extended>
      * @group framework
      */
     public function testCronJobUpdate() : void
@@ -125,7 +125,7 @@ final class CronTest extends \PHPUnit\Framework\TestCase
 
     /**
      * @testdox A cron job can be deleted
-     * @covers phpOMS\Utils\TaskSchedule\Cron<extended>
+     * @covers \phpOMS\Utils\TaskSchedule\Cron<extended>
      * @group framework
      */
     public function testDelete() : void

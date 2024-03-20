@@ -23,7 +23,7 @@ use phpOMS\Model\Message\DomAction;
 final class DomTest extends \PHPUnit\Framework\TestCase
 {
     /**
-     * @covers phpOMS\Model\Message\Dom
+     * @covers \phpOMS\Model\Message\Dom
      * @group framework
      */
     public function testDefault() : void
@@ -38,7 +38,7 @@ final class DomTest extends \PHPUnit\Framework\TestCase
     }
 
     /**
-     * @covers phpOMS\Model\Message\Dom
+     * @covers \phpOMS\Model\Message\Dom
      * @group framework
      */
     public function testSetGet() : void

@@ -22,7 +22,7 @@ use phpOMS\DataStorage\Database\Query\Grammar\PostgresGrammar;
 final class PostgresGrammarTest extends \PHPUnit\Framework\TestCase
 {
     /**
-     * @covers phpOMS\DataStorage\Database\Query\Grammar\PostgresGrammar
+     * @covers \phpOMS\DataStorage\Database\Query\Grammar\PostgresGrammar
      * @group framework
      */
     public function testDefault() : void

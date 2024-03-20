@@ -28,7 +28,7 @@ final class KernelTest extends \PHPUnit\Framework\TestCase
      * @testdox The kernel can be applied to an image which is then stored in a new file
      * @group framework
      * @group slow
-     * @covers phpOMS\Image\Kernel
+     * @covers \phpOMS\Image\Kernel
      */
     public function testKernel() : void
     {

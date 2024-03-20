@@ -22,7 +22,7 @@ use phpOMS\Math\Stochastic\Distribution\LogisticDistribution;
 final class LogisticDistributionTest extends \PHPUnit\Framework\TestCase
 {
     /**
-     * @covers phpOMS\Math\Stochastic\Distribution\LogisticDistribution
+     * @covers \phpOMS\Math\Stochastic\Distribution\LogisticDistribution
      * @group framework
      */
     public function testPdf() : void
@@ -38,7 +38,7 @@ final class LogisticDistributionTest extends \PHPUnit\Framework\TestCase
     }
 
     /**
-     * @covers phpOMS\Math\Stochastic\Distribution\LogisticDistribution
+     * @covers \phpOMS\Math\Stochastic\Distribution\LogisticDistribution
      * @group framework
      */
     public function testCdf() : void
@@ -54,7 +54,7 @@ final class LogisticDistributionTest extends \PHPUnit\Framework\TestCase
     }
 
     /**
-     * @covers phpOMS\Math\Stochastic\Distribution\LogisticDistribution
+     * @covers \phpOMS\Math\Stochastic\Distribution\LogisticDistribution
      * @group framework
      */
     public function testMode() : void
@@ -63,7 +63,7 @@ final class LogisticDistributionTest extends \PHPUnit\Framework\TestCase
     }
 
     /**
-     * @covers phpOMS\Math\Stochastic\Distribution\LogisticDistribution
+     * @covers \phpOMS\Math\Stochastic\Distribution\LogisticDistribution
      * @group framework
      */
     public function testMean() : void
@@ -72,7 +72,7 @@ final class LogisticDistributionTest extends \PHPUnit\Framework\TestCase
     }
 
     /**
-     * @covers phpOMS\Math\Stochastic\Distribution\LogisticDistribution
+     * @covers \phpOMS\Math\Stochastic\Distribution\LogisticDistribution
      * @group framework
      */
     public function testMedian() : void
@@ -81,7 +81,7 @@ final class LogisticDistributionTest extends \PHPUnit\Framework\TestCase
     }
 
     /**
-     * @covers phpOMS\Math\Stochastic\Distribution\LogisticDistribution
+     * @covers \phpOMS\Math\Stochastic\Distribution\LogisticDistribution
      * @group framework
      */
     public function testVariance() : void
@@ -94,7 +94,7 @@ final class LogisticDistributionTest extends \PHPUnit\Framework\TestCase
     }
 
     /**
-     * @covers phpOMS\Math\Stochastic\Distribution\LogisticDistribution
+     * @covers \phpOMS\Math\Stochastic\Distribution\LogisticDistribution
      * @group framework
      */
     public function testStandardDeviation() : void
@@ -107,7 +107,7 @@ final class LogisticDistributionTest extends \PHPUnit\Framework\TestCase
     }
 
     /**
-     * @covers phpOMS\Math\Stochastic\Distribution\LogisticDistribution
+     * @covers \phpOMS\Math\Stochastic\Distribution\LogisticDistribution
      * @group framework
      */
     public function testSkewness() : void
@@ -116,7 +116,7 @@ final class LogisticDistributionTest extends \PHPUnit\Framework\TestCase
     }
 
     /**
-     * @covers phpOMS\Math\Stochastic\Distribution\LogisticDistribution
+     * @covers \phpOMS\Math\Stochastic\Distribution\LogisticDistribution
      * @group framework
      */
     public function testExKurtosis() : void
@@ -125,7 +125,7 @@ final class LogisticDistributionTest extends \PHPUnit\Framework\TestCase
     }
 
     /**
-     * @covers phpOMS\Math\Stochastic\Distribution\LogisticDistribution
+     * @covers \phpOMS\Math\Stochastic\Distribution\LogisticDistribution
      * @group framework
      */
     public function testEntropy() : void

@@ -25,7 +25,7 @@ final class AverageTest extends \PHPUnit\Framework\TestCase
 {
     /**
      * @testdox The average change of a dataset is correctly calculated
-     * @covers phpOMS\Math\Statistic\Average
+     * @covers \phpOMS\Math\Statistic\Average
      * @group framework
      */
     public function testAverage() : void
@@ -35,7 +35,7 @@ final class AverageTest extends \PHPUnit\Framework\TestCase
 
     /**
      * @testdox The average mean of angles is calculated correctly
-     * @covers phpOMS\Math\Statistic\Average
+     * @covers \phpOMS\Math\Statistic\Average
      * @group framework
      */
     public function testAngleMean() : void
@@ -51,7 +51,7 @@ final class AverageTest extends \PHPUnit\Framework\TestCase
 
     /**
      * @testdox The arithmetic mean is correctly calculated
-     * @covers phpOMS\Math\Statistic\Average
+     * @covers \phpOMS\Math\Statistic\Average
      * @group framework
      */
     public function testArithmeticMean() : void
@@ -62,7 +62,7 @@ final class AverageTest extends \PHPUnit\Framework\TestCase
 
     /**
      * @testdox The weighted mean is correctly calculated
-     * @covers phpOMS\Math\Statistic\Average
+     * @covers \phpOMS\Math\Statistic\Average
      * @group framework
      */
     public function testWeightedAverage() : void
@@ -75,7 +75,7 @@ final class AverageTest extends \PHPUnit\Framework\TestCase
 
     /**
      * @testdox The geometric mean is correctly calculated
-     * @covers phpOMS\Math\Statistic\Average
+     * @covers \phpOMS\Math\Statistic\Average
      * @group framework
      */
     public function testGeometricMean() : void
@@ -86,7 +86,7 @@ final class AverageTest extends \PHPUnit\Framework\TestCase
 
     /**
      * @testdox The harmonic mean is correctly calculated
-     * @covers phpOMS\Math\Statistic\Average
+     * @covers \phpOMS\Math\Statistic\Average
      * @group framework
      */
     public function testHarmonicMean() : void
@@ -97,7 +97,7 @@ final class AverageTest extends \PHPUnit\Framework\TestCase
 
     /**
      * @testdox The moving average is correctly calculated
-     * @covers phpOMS\Math\Statistic\Average
+     * @covers \phpOMS\Math\Statistic\Average
      * @group framework
      */
     public function testMovingAverage() : void
@@ -116,7 +116,7 @@ final class AverageTest extends \PHPUnit\Framework\TestCase
 
     /**
      * @testdox The weighted moving average is correctly calculated
-     * @covers phpOMS\Math\Statistic\Average
+     * @covers \phpOMS\Math\Statistic\Average
      * @group framework
      */
     public function testWeightedMovingAverage() : void
@@ -130,7 +130,7 @@ final class AverageTest extends \PHPUnit\Framework\TestCase
 
     /**
      * @testdox Different weight and dataset dimensions throw a InvalidDimensionException
-     * @covers phpOMS\Math\Statistic\Average
+     * @covers \phpOMS\Math\Statistic\Average
      * @group framework
      */
     public function testInvalidWeightedAverageDimension() : void
@@ -142,7 +142,7 @@ final class AverageTest extends \PHPUnit\Framework\TestCase
 
     /**
      * @testdox An empty dataset for the arithmetic mean throws a ZeroDivisionException
-     * @covers phpOMS\Math\Statistic\Average
+     * @covers \phpOMS\Math\Statistic\Average
      * @group framework
      */
     public function testInvalidArithmeticMeanZeroDivision() : void
@@ -154,7 +154,7 @@ final class AverageTest extends \PHPUnit\Framework\TestCase
 
     /**
      * @testdox An empty dataset for the moving average throws a Exception
-     * @covers phpOMS\Math\Statistic\Average
+     * @covers \phpOMS\Math\Statistic\Average
      * @group framework
      */
     public function testInvalidMovingAverageZeroDivision() : void
@@ -166,7 +166,7 @@ final class AverageTest extends \PHPUnit\Framework\TestCase
 
     /**
      * @testdox An empty dataset for the harmonic mean throws a ZeroDivisionException
-     * @covers phpOMS\Math\Statistic\Average
+     * @covers \phpOMS\Math\Statistic\Average
      * @group framework
      */
     public function testInvalidHarmonicMeanZeroDivision() : void
@@ -178,7 +178,7 @@ final class AverageTest extends \PHPUnit\Framework\TestCase
 
     /**
      * @testdox An empty dataset for the geometric mean throws a ZeroDivisionException
-     * @covers phpOMS\Math\Statistic\Average
+     * @covers \phpOMS\Math\Statistic\Average
      * @group framework
      */
     public function testInvalidGeometricMean() : void
@@ -189,7 +189,7 @@ final class AverageTest extends \PHPUnit\Framework\TestCase
     }
 
     /**
-     * @covers phpOMS\Math\Statistic\Average
+     * @covers \phpOMS\Math\Statistic\Average
      * @group framework
      */
     public function testInvalidAngleMean() : void
@@ -200,7 +200,7 @@ final class AverageTest extends \PHPUnit\Framework\TestCase
     }
 
     /**
-     * @covers phpOMS\Math\Statistic\Average
+     * @covers \phpOMS\Math\Statistic\Average
      * @group framework
      */
     public function testInvalidAngleMean2() : void
@@ -212,7 +212,7 @@ final class AverageTest extends \PHPUnit\Framework\TestCase
 
     /**
      * @testdox A dataset with a 0 element throws a ZeroDivisionException
-     * @covers phpOMS\Math\Statistic\Average
+     * @covers \phpOMS\Math\Statistic\Average
      * @group framework
      */
     public function testInvalidHarmonicMean() : void
@@ -224,7 +224,7 @@ final class AverageTest extends \PHPUnit\Framework\TestCase
 
     /**
      * @testdox The mode is correctly calculated
-     * @covers phpOMS\Math\Statistic\Average
+     * @covers \phpOMS\Math\Statistic\Average
      * @group framework
      */
     public function testMode() : void
@@ -235,7 +235,7 @@ final class AverageTest extends \PHPUnit\Framework\TestCase
 
     /**
      * @testdox The median is correctly calculated
-     * @covers phpOMS\Math\Statistic\Average
+     * @covers \phpOMS\Math\Statistic\Average
      * @group framework
      */
     public function testMedian() : void

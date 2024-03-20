@@ -22,7 +22,7 @@ use phpOMS\DataStorage\Database\Schema\Grammar\SqlServerGrammar;
 final class SqlServerGrammarTest extends \PHPUnit\Framework\TestCase
 {
     /**
-     * @covers phpOMS\DataStorage\Database\Schema\Grammar\SqlServerGrammar
+     * @covers \phpOMS\DataStorage\Database\Schema\Grammar\SqlServerGrammar
      * @group framework
      */
     public function testDefault() : void

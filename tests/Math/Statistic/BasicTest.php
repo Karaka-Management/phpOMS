@@ -22,7 +22,7 @@ use phpOMS\Math\Statistic\Basic;
 final class BasicTest extends \PHPUnit\Framework\TestCase
 {
     /**
-     * @covers phpOMS\Math\Statistic\Basic
+     * @covers \phpOMS\Math\Statistic\Basic
      * @group framework
      */
     public function testFrequency() : void

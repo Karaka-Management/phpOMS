@@ -39,7 +39,7 @@ final class InstallerAbstractTest extends \PHPUnit\Framework\TestCase
 
     /**
      * @testdox An invalid theme cannot be installed
-     * @covers phpOMS\Application\InstallerAbstract
+     * @covers \phpOMS\Application\InstallerAbstract
      * @group framework
      */
     public function testInvalidTheme() : void

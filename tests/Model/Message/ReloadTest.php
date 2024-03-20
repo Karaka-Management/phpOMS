@@ -22,7 +22,7 @@ use phpOMS\Model\Message\Reload;
 final class ReloadTest extends \PHPUnit\Framework\TestCase
 {
     /**
-     * @covers phpOMS\Model\Message\Reload
+     * @covers \phpOMS\Model\Message\Reload
      * @group framework
      */
     public function testDefault() : void
@@ -34,7 +34,7 @@ final class ReloadTest extends \PHPUnit\Framework\TestCase
     }
 
     /**
-     * @covers phpOMS\Model\Message\Reload
+     * @covers \phpOMS\Model\Message\Reload
      * @group framework
      */
     public function testSetGet() : void

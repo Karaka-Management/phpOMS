@@ -25,7 +25,7 @@ final class FibonacciTest extends \PHPUnit\Framework\TestCase
 {
     /**
      * @testdox A number can be checked if it is a fibonacci number
-     * @covers phpOMS\Math\Functions\Fibonacci
+     * @covers \phpOMS\Math\Functions\Fibonacci
      * @group framework
      */
     public function testFibonacci() : void
@@ -39,7 +39,7 @@ final class FibonacciTest extends \PHPUnit\Framework\TestCase
 
     /**
      * @testdox A fibonacci number can be returned by index
-     * @covers phpOMS\Math\Functions\Fibonacci
+     * @covers \phpOMS\Math\Functions\Fibonacci
      * @group framework
      */
     public function testFibonacciByKey() : void
@@ -49,7 +49,7 @@ final class FibonacciTest extends \PHPUnit\Framework\TestCase
 
     /**
      * @testdox The binet formula returns fibonacci numbers
-     * @covers phpOMS\Math\Functions\Fibonacci
+     * @covers \phpOMS\Math\Functions\Fibonacci
      * @group framework
      */
     public function testBinet() : void
@@ -60,7 +60,7 @@ final class FibonacciTest extends \PHPUnit\Framework\TestCase
 
     /**
      * @testdox The binet formula and the fibonacci formula return the same results
-     * @covers phpOMS\Math\Functions\Fibonacci
+     * @covers \phpOMS\Math\Functions\Fibonacci
      * @group framework
      */
     public function testBinetFib() : void

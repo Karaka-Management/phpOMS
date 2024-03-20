@@ -22,7 +22,7 @@ use phpOMS\Math\Exception\ZeroDivisionException;
 final class ZeroDivisionExceptionTest extends \PHPUnit\Framework\TestCase
 {
     /**
-     * @covers phpOMS\Math\Exception\ZeroDivisionException
+     * @covers \phpOMS\Math\Exception\ZeroDivisionException
      * @group framework
      */
     public function testException() : void

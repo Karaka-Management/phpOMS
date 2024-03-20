@@ -54,7 +54,7 @@ final class StringCompareTest extends \PHPUnit\Framework\TestCase
 
     /**
      * @testdox A string can be matched with a dictionary entry
-     * @covers phpOMS\Utils\StringCompare
+     * @covers \phpOMS\Utils\StringCompare
      * @group framework
      */
     public function testDictionaryMatch() : void
@@ -65,7 +65,7 @@ final class StringCompareTest extends \PHPUnit\Framework\TestCase
 
     /**
      * @testdox A string doesn't match a dictionary entry if it is very different
-     * @covers phpOMS\Utils\StringCompare
+     * @covers \phpOMS\Utils\StringCompare
      * @group framework
      */
     public function testInvalidDictionary() : void
@@ -75,7 +75,7 @@ final class StringCompareTest extends \PHPUnit\Framework\TestCase
 
     /**
      * @testdox A new dictionary entry can be created and returned
-     * @covers phpOMS\Utils\StringCompare
+     * @covers \phpOMS\Utils\StringCompare
      * @group framework
      */
     public function testDictionaryAdd() : void
@@ -86,7 +86,7 @@ final class StringCompareTest extends \PHPUnit\Framework\TestCase
 
     /**
      * @testdox Two texts can be compared on a per word basis for similarity
-     * @covers phpOMS\Utils\StringCompare
+     * @covers \phpOMS\Utils\StringCompare
      * @group framework
      */
     public function testValueWords() : void
@@ -99,7 +99,7 @@ final class StringCompareTest extends \PHPUnit\Framework\TestCase
     }
 
     /**
-     * @covers phpOMS\Utils\StringCompare
+     * @covers \phpOMS\Utils\StringCompare
      * @group framework
      */
     public function testJaro() : void
@@ -110,7 +110,7 @@ final class StringCompareTest extends \PHPUnit\Framework\TestCase
     }
 
     /**
-     * @covers phpOMS\Utils\StringCompare
+     * @covers \phpOMS\Utils\StringCompare
      * @group framework
      */
     public function testJaroEmpty() : void

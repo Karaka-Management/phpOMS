@@ -25,7 +25,7 @@ use phpOMS\Utils\Parser\Markdown\Markdown;
 final class MarkdownTest extends \PHPUnit\Framework\TestCase
 {
     /**
-     * @covers phpOMS\Utils\Parser\Markdown\Markdown
+     * @covers \phpOMS\Utils\Parser\Markdown\Markdown
      * @group framework
      */
     public function testParsing() : void

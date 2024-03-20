@@ -27,7 +27,7 @@ final class ArrayUtilsTest extends \PHPUnit\Framework\TestCase
 {
     /**
      * @testdox Array values can be set and returned with a path
-     * @covers phpOMS\Utils\ArrayUtils
+     * @covers \phpOMS\Utils\ArrayUtils
      * @group framework
      */
     public function testArrayInputOutput() : void
@@ -63,7 +63,7 @@ final class ArrayUtilsTest extends \PHPUnit\Framework\TestCase
 
     /**
      * @testdox A invalid array path returns null
-     * @covers phpOMS\Utils\ArrayUtils
+     * @covers \phpOMS\Utils\ArrayUtils
      * @group framework
      */
     public function testArrayInvalidArrayPath() : void
@@ -89,7 +89,7 @@ final class ArrayUtilsTest extends \PHPUnit\Framework\TestCase
 
     /**
      * @testdox Test recursively if a value is in an array
-     * @covers phpOMS\Utils\ArrayUtils
+     * @covers \phpOMS\Utils\ArrayUtils
      * @group framework
      */
     public function testArrayInRecursive() : void
@@ -113,7 +113,7 @@ final class ArrayUtilsTest extends \PHPUnit\Framework\TestCase
 
     /**
      * @testdox An array element can be removed by its path
-     * @covers phpOMS\Utils\ArrayUtils
+     * @covers \phpOMS\Utils\ArrayUtils
      * @group framework
      */
     public function testArrayDelete() : void
@@ -134,7 +134,7 @@ final class ArrayUtilsTest extends \PHPUnit\Framework\TestCase
 
     /**
      * @testdox Deleting an invalid array path returns the original array
-     * @covers phpOMS\Utils\ArrayUtils
+     * @covers \phpOMS\Utils\ArrayUtils
      * @group framework
      */
     public function testInvalidArrayDelete() : void
@@ -155,7 +155,7 @@ final class ArrayUtilsTest extends \PHPUnit\Framework\TestCase
 
     /**
      * @testdox The recursive sum of all values in an array can be calculated
-     * @covers phpOMS\Utils\ArrayUtils
+     * @covers \phpOMS\Utils\ArrayUtils
      * @group framework
      */
     public function testArrayRecursiveSum() : void
@@ -166,7 +166,7 @@ final class ArrayUtilsTest extends \PHPUnit\Framework\TestCase
 
     /**
      * @testdox A multi-dimensional array can be flatten to a one-dimensional array
-     * @covers phpOMS\Utils\ArrayUtils
+     * @covers \phpOMS\Utils\ArrayUtils
      * @group framework
      */
     public function testArrayFlatten() : void
@@ -178,7 +178,7 @@ final class ArrayUtilsTest extends \PHPUnit\Framework\TestCase
 
     /**
      * @testdox The sum of an array can be calculated
-     * @covers phpOMS\Utils\ArrayUtils
+     * @covers \phpOMS\Utils\ArrayUtils
      * @group framework
      */
     public function testArraySum() : void
@@ -191,7 +191,7 @@ final class ArrayUtilsTest extends \PHPUnit\Framework\TestCase
 
     /**
      * @testdox An array can be checked if it contains multiple defined elements
-     * @covers phpOMS\Utils\ArrayUtils
+     * @covers \phpOMS\Utils\ArrayUtils
      * @group framework
      */
     public function testArrayAllIn() : void
@@ -205,7 +205,7 @@ final class ArrayUtilsTest extends \PHPUnit\Framework\TestCase
 
     /**
      * @testdox An array can be checked if it contains any of the defined elements
-     * @covers phpOMS\Utils\ArrayUtils
+     * @covers \phpOMS\Utils\ArrayUtils
      * @group framework
      */
     public function testArrayAnyIn() : void
@@ -217,7 +217,7 @@ final class ArrayUtilsTest extends \PHPUnit\Framework\TestCase
 
     /**
      * @testdox An array can be turned into a csv string
-     * @covers phpOMS\Utils\ArrayUtils
+     * @covers \phpOMS\Utils\ArrayUtils
      * @group framework
      */
     public function testArrayToCsv() : void
@@ -237,7 +237,7 @@ final class ArrayUtilsTest extends \PHPUnit\Framework\TestCase
 
     /**
      * @testdox An array can be checked if it has an element and returns its index
-     * @covers phpOMS\Utils\ArrayUtils
+     * @covers \phpOMS\Utils\ArrayUtils
      * @group framework
      */
     public function testArgHas() : void
@@ -249,7 +249,7 @@ final class ArrayUtilsTest extends \PHPUnit\Framework\TestCase
 
     /**
      * @testdox A none-existing argument in an array returns a negative value
-     * @covers phpOMS\Utils\ArrayUtils
+     * @covers \phpOMS\Utils\ArrayUtils
      * @group framework
      */
     public function testInvalidArgHas() : void
@@ -259,7 +259,7 @@ final class ArrayUtilsTest extends \PHPUnit\Framework\TestCase
 
     /**
      * @testdox The argument value in an array can be returned
-     * @covers phpOMS\Utils\ArrayUtils
+     * @covers \phpOMS\Utils\ArrayUtils
      * @group framework
      */
     public function testArgGet() : void
@@ -271,7 +271,7 @@ final class ArrayUtilsTest extends \PHPUnit\Framework\TestCase
 
     /**
      * @testdox A none-existing argument in an array returns null
-     * @covers phpOMS\Utils\ArrayUtils
+     * @covers \phpOMS\Utils\ArrayUtils
      * @group framework
      */
     public function testInvalidArgGet() : void
@@ -281,7 +281,7 @@ final class ArrayUtilsTest extends \PHPUnit\Framework\TestCase
 
     /**
      * @testdox All array values in an array can be potentiated by a numeric value
-     * @covers phpOMS\Utils\ArrayUtils
+     * @covers \phpOMS\Utils\ArrayUtils
      *
      * @group framework
      */
@@ -296,7 +296,7 @@ final class ArrayUtilsTest extends \PHPUnit\Framework\TestCase
 
     /**
      * @testdox All array values in an array can be square rooted
-     * @covers phpOMS\Utils\ArrayUtils
+     * @covers \phpOMS\Utils\ArrayUtils
      * @group framework
      */
     public function testSqrt() : void
@@ -306,7 +306,7 @@ final class ArrayUtilsTest extends \PHPUnit\Framework\TestCase
 
     /**
      * @testdox All array values in an array can be turned into their absolute value
-     * @covers phpOMS\Utils\ArrayUtils
+     * @covers \phpOMS\Utils\ArrayUtils
      * @group framework
      */
     public function testAbs() : void
@@ -316,7 +316,7 @@ final class ArrayUtilsTest extends \PHPUnit\Framework\TestCase
 
     /**
      * @testdox The difference of two arrays can be evaluated recursively
-     * @covers phpOMS\Utils\ArrayUtils
+     * @covers \phpOMS\Utils\ArrayUtils
      * @group framework
      */
     public function testArrayDiffAssocResursive() : void

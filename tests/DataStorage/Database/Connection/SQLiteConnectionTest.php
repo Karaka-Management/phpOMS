@@ -36,7 +36,7 @@ final class SQLiteConnectionTest extends \PHPUnit\Framework\TestCase
 
     /**
      * @testdox Valid sqlite connection data result in a valid database connection
-     * @covers phpOMS\DataStorage\Database\Connection\SQLiteConnection<extended>
+     * @covers \phpOMS\DataStorage\Database\Connection\SQLiteConnection<extended>
      * @group framework
      */
     public function testConnect() : void
@@ -52,7 +52,7 @@ final class SQLiteConnectionTest extends \PHPUnit\Framework\TestCase
 
     /**
      * @testdox A missing database type returns a failure
-     * @covers phpOMS\DataStorage\Database\Connection\SQLiteConnection
+     * @covers \phpOMS\DataStorage\Database\Connection\SQLiteConnection
      * @group framework
      */
     public function testInvalidDatabaseType() : void
@@ -67,7 +67,7 @@ final class SQLiteConnectionTest extends \PHPUnit\Framework\TestCase
 
     /**
      * @testdox Valid sqlite connection data result in a valid database connection
-     * @covers phpOMS\DataStorage\Database\Connection\SQLiteConnection<extended>
+     * @covers \phpOMS\DataStorage\Database\Connection\SQLiteConnection<extended>
      * @group framework
      */
     public function testInvalidDatabasePath() : void
@@ -83,7 +83,7 @@ final class SQLiteConnectionTest extends \PHPUnit\Framework\TestCase
 
     /**
      * @testdox A missing database returns a failure
-     * @covers phpOMS\DataStorage\Database\Connection\SQLiteConnection
+     * @covers \phpOMS\DataStorage\Database\Connection\SQLiteConnection
      * @group framework
      */
     public function testInvalidDatabase() : void
@@ -98,7 +98,7 @@ final class SQLiteConnectionTest extends \PHPUnit\Framework\TestCase
 
     /**
      * @testdox A invalid database returns a failure
-     * @covers phpOMS\DataStorage\Database\Connection\SQLiteConnection
+     * @covers \phpOMS\DataStorage\Database\Connection\SQLiteConnection
      * @group framework
      */
     public function testInvalidDatabaseName() : void

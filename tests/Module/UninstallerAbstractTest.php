@@ -42,7 +42,7 @@ final class UninstallerAbstractTest extends \PHPUnit\Framework\TestCase
 
     /**
      * @testdox A missing database schema will not perform any database operations
-     * @covers phpOMS\Module\UninstallerAbstract
+     * @covers \phpOMS\Module\UninstallerAbstract
      * @group framework
      */
     public function testMissingDbFileUninstall() : void

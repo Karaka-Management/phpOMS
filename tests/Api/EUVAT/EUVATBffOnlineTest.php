@@ -25,7 +25,7 @@ final class EUVATBffOnlineTest extends \PHPUnit\Framework\TestCase
 {
     /**
      * @testdox The BFF Online service can validate a valid VAT ID
-     * @covers phpOMS\Api\EUVAT\EUVATBffOnline
+     * @covers \phpOMS\Api\EUVAT\EUVATBffOnline
      * @group framework
      */
     public function testValidateInvalidId() : void

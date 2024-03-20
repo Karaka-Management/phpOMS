@@ -25,7 +25,7 @@ final class TrapezoidTest extends \PHPUnit\Framework\TestCase
 {
     /**
      * @testdox The surface can be calculated
-     * @covers phpOMS\Math\Geometry\Shape\D2\Trapezoid
+     * @covers \phpOMS\Math\Geometry\Shape\D2\Trapezoid
      * @group framework
      */
     public function testSurface() : void
@@ -35,7 +35,7 @@ final class TrapezoidTest extends \PHPUnit\Framework\TestCase
 
     /**
      * @testdox The perimeter can be calculated
-     * @covers phpOMS\Math\Geometry\Shape\D2\Trapezoid
+     * @covers \phpOMS\Math\Geometry\Shape\D2\Trapezoid
      * @group framework
      */
     public function testPerimeter() : void
@@ -45,7 +45,7 @@ final class TrapezoidTest extends \PHPUnit\Framework\TestCase
 
     /**
      * @testdox The height can be calculated
-     * @covers phpOMS\Math\Geometry\Shape\D2\Trapezoid
+     * @covers \phpOMS\Math\Geometry\Shape\D2\Trapezoid
      * @group framework
      */
     public function testHeight() : void
@@ -55,7 +55,7 @@ final class TrapezoidTest extends \PHPUnit\Framework\TestCase
 
     /**
      * @testdox The side lengths can be calculated
-     * @covers phpOMS\Math\Geometry\Shape\D2\Trapezoid
+     * @covers \phpOMS\Math\Geometry\Shape\D2\Trapezoid
      * @group framework
      */
     public function testSideLength() : void

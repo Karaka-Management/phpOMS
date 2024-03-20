@@ -22,7 +22,7 @@ use phpOMS\Math\Stochastic\Distribution\HypergeometricDistribution;
 final class HypergeometricDistributionTest extends \PHPUnit\Framework\TestCase
 {
     /**
-     * @covers phpOMS\Math\Stochastic\Distribution\HypergeometricDistribution
+     * @covers \phpOMS\Math\Stochastic\Distribution\HypergeometricDistribution
      * @group framework
      */
     public function testMean() : void
@@ -31,7 +31,7 @@ final class HypergeometricDistributionTest extends \PHPUnit\Framework\TestCase
     }
 
     /**
-     * @covers phpOMS\Math\Stochastic\Distribution\HypergeometricDistribution
+     * @covers \phpOMS\Math\Stochastic\Distribution\HypergeometricDistribution
      * @group framework
      */
     public function testVariance() : void
@@ -40,7 +40,7 @@ final class HypergeometricDistributionTest extends \PHPUnit\Framework\TestCase
     }
 
     /**
-     * @covers phpOMS\Math\Stochastic\Distribution\HypergeometricDistribution
+     * @covers \phpOMS\Math\Stochastic\Distribution\HypergeometricDistribution
      * @group framework
      */
     public function testStandardDeviation() : void
@@ -49,7 +49,7 @@ final class HypergeometricDistributionTest extends \PHPUnit\Framework\TestCase
     }
 
     /**
-     * @covers phpOMS\Math\Stochastic\Distribution\HypergeometricDistribution
+     * @covers \phpOMS\Math\Stochastic\Distribution\HypergeometricDistribution
      * @group framework
      */
     public function testSkewness() : void
@@ -58,7 +58,7 @@ final class HypergeometricDistributionTest extends \PHPUnit\Framework\TestCase
     }
 
     /**
-     * @covers phpOMS\Math\Stochastic\Distribution\HypergeometricDistribution
+     * @covers \phpOMS\Math\Stochastic\Distribution\HypergeometricDistribution
      * @group framework
      */
     public function testExKurtosis() : void
@@ -67,7 +67,7 @@ final class HypergeometricDistributionTest extends \PHPUnit\Framework\TestCase
     }
 
     /**
-     * @covers phpOMS\Math\Stochastic\Distribution\HypergeometricDistribution
+     * @covers \phpOMS\Math\Stochastic\Distribution\HypergeometricDistribution
      * @group framework
      */
     public function testMode() : void
@@ -80,7 +80,7 @@ final class HypergeometricDistributionTest extends \PHPUnit\Framework\TestCase
     }
 
     /**
-     * @covers phpOMS\Math\Stochastic\Distribution\HypergeometricDistribution
+     * @covers \phpOMS\Math\Stochastic\Distribution\HypergeometricDistribution
      * @group framework
      */
     public function testPmf() : void
@@ -89,7 +89,7 @@ final class HypergeometricDistributionTest extends \PHPUnit\Framework\TestCase
     }
 
     /**
-     * @covers phpOMS\Math\Stochastic\Distribution\HypergeometricDistribution
+     * @covers \phpOMS\Math\Stochastic\Distribution\HypergeometricDistribution
      * @group framework
      */
     public function testCdf() : void

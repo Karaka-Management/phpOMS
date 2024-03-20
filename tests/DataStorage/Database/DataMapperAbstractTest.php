@@ -186,12 +186,12 @@ final class DataMapperAbstractTest extends \PHPUnit\Framework\TestCase
 
     /**
      * @testdox The datamapper successfully creates a database entry of a model
-     * @covers phpOMS\DataStorage\Database\Mapper\DataMapperAbstract
-     * @covers phpOMS\DataStorage\Database\Mapper\DataMapperFactory
-     * @covers phpOMS\DataStorage\Database\Mapper\ReadMapper
-     * @covers phpOMS\DataStorage\Database\Mapper\WriteMapper
-     * @covers phpOMS\DataStorage\Database\Mapper\UpdateMapper
-     * @covers phpOMS\DataStorage\Database\Mapper\DeleteMapper
+     * @covers \phpOMS\DataStorage\Database\Mapper\DataMapperAbstract
+     * @covers \phpOMS\DataStorage\Database\Mapper\DataMapperFactory
+     * @covers \phpOMS\DataStorage\Database\Mapper\ReadMapper
+     * @covers \phpOMS\DataStorage\Database\Mapper\WriteMapper
+     * @covers \phpOMS\DataStorage\Database\Mapper\UpdateMapper
+     * @covers \phpOMS\DataStorage\Database\Mapper\DeleteMapper
      * @group framework
      */
     public function testCreate() : void
@@ -234,12 +234,12 @@ final class DataMapperAbstractTest extends \PHPUnit\Framework\TestCase
 
     /**
      * @testdox The datamapper successfully returns a database entry as model
-     * @covers phpOMS\DataStorage\Database\Mapper\DataMapperAbstract
-     * @covers phpOMS\DataStorage\Database\Mapper\DataMapperFactory
-     * @covers phpOMS\DataStorage\Database\Mapper\ReadMapper
-     * @covers phpOMS\DataStorage\Database\Mapper\WriteMapper
-     * @covers phpOMS\DataStorage\Database\Mapper\UpdateMapper
-     * @covers phpOMS\DataStorage\Database\Mapper\DeleteMapper
+     * @covers \phpOMS\DataStorage\Database\Mapper\DataMapperAbstract
+     * @covers \phpOMS\DataStorage\Database\Mapper\DataMapperFactory
+     * @covers \phpOMS\DataStorage\Database\Mapper\ReadMapper
+     * @covers \phpOMS\DataStorage\Database\Mapper\WriteMapper
+     * @covers \phpOMS\DataStorage\Database\Mapper\UpdateMapper
+     * @covers \phpOMS\DataStorage\Database\Mapper\DeleteMapper
      * @group framework
      */
     public function testRead() : void
@@ -390,12 +390,12 @@ final class DataMapperAbstractTest extends \PHPUnit\Framework\TestCase
     }
 
     /**
-     * @covers phpOMS\DataStorage\Database\Mapper\DataMapperAbstract
-     * @covers phpOMS\DataStorage\Database\Mapper\DataMapperFactory
-     * @covers phpOMS\DataStorage\Database\Mapper\ReadMapper
-     * @covers phpOMS\DataStorage\Database\Mapper\WriteMapper
-     * @covers phpOMS\DataStorage\Database\Mapper\UpdateMapper
-     * @covers phpOMS\DataStorage\Database\Mapper\DeleteMapper
+     * @covers \phpOMS\DataStorage\Database\Mapper\DataMapperAbstract
+     * @covers \phpOMS\DataStorage\Database\Mapper\DataMapperFactory
+     * @covers \phpOMS\DataStorage\Database\Mapper\ReadMapper
+     * @covers \phpOMS\DataStorage\Database\Mapper\WriteMapper
+     * @covers \phpOMS\DataStorage\Database\Mapper\UpdateMapper
+     * @covers \phpOMS\DataStorage\Database\Mapper\DeleteMapper
      * @group framework
      */
     public function testFind() : void
@@ -442,12 +442,12 @@ final class DataMapperAbstractTest extends \PHPUnit\Framework\TestCase
     }
 
     /**
-     * @covers phpOMS\DataStorage\Database\Mapper\DataMapperAbstract
-     * @covers phpOMS\DataStorage\Database\Mapper\DataMapperFactory
-     * @covers phpOMS\DataStorage\Database\Mapper\ReadMapper
-     * @covers phpOMS\DataStorage\Database\Mapper\WriteMapper
-     * @covers phpOMS\DataStorage\Database\Mapper\UpdateMapper
-     * @covers phpOMS\DataStorage\Database\Mapper\DeleteMapper
+     * @covers \phpOMS\DataStorage\Database\Mapper\DataMapperAbstract
+     * @covers \phpOMS\DataStorage\Database\Mapper\DataMapperFactory
+     * @covers \phpOMS\DataStorage\Database\Mapper\ReadMapper
+     * @covers \phpOMS\DataStorage\Database\Mapper\WriteMapper
+     * @covers \phpOMS\DataStorage\Database\Mapper\UpdateMapper
+     * @covers \phpOMS\DataStorage\Database\Mapper\DeleteMapper
      * @group framework
      */
     public function testWithConditional() : void
@@ -492,12 +492,12 @@ final class DataMapperAbstractTest extends \PHPUnit\Framework\TestCase
 
     /**
      * @testdox The datamapper successfully updates a database entry from a model
-     * @covers phpOMS\DataStorage\Database\Mapper\DataMapperAbstract
-     * @covers phpOMS\DataStorage\Database\Mapper\DataMapperFactory
-     * @covers phpOMS\DataStorage\Database\Mapper\ReadMapper
-     * @covers phpOMS\DataStorage\Database\Mapper\WriteMapper
-     * @covers phpOMS\DataStorage\Database\Mapper\UpdateMapper
-     * @covers phpOMS\DataStorage\Database\Mapper\DeleteMapper
+     * @covers \phpOMS\DataStorage\Database\Mapper\DataMapperAbstract
+     * @covers \phpOMS\DataStorage\Database\Mapper\DataMapperFactory
+     * @covers \phpOMS\DataStorage\Database\Mapper\ReadMapper
+     * @covers \phpOMS\DataStorage\Database\Mapper\WriteMapper
+     * @covers \phpOMS\DataStorage\Database\Mapper\UpdateMapper
+     * @covers \phpOMS\DataStorage\Database\Mapper\DeleteMapper
      * @group framework
      */
     public function testUpdate() : void
@@ -527,12 +527,12 @@ final class DataMapperAbstractTest extends \PHPUnit\Framework\TestCase
 
     /**
      * @testdox The datamapper successfully deletes a database entry from a model
-     * @covers phpOMS\DataStorage\Database\Mapper\DataMapperAbstract
-     * @covers phpOMS\DataStorage\Database\Mapper\DataMapperFactory
-     * @covers phpOMS\DataStorage\Database\Mapper\ReadMapper
-     * @covers phpOMS\DataStorage\Database\Mapper\WriteMapper
-     * @covers phpOMS\DataStorage\Database\Mapper\UpdateMapper
-     * @covers phpOMS\DataStorage\Database\Mapper\DeleteMapper
+     * @covers \phpOMS\DataStorage\Database\Mapper\DataMapperAbstract
+     * @covers \phpOMS\DataStorage\Database\Mapper\DataMapperFactory
+     * @covers \phpOMS\DataStorage\Database\Mapper\ReadMapper
+     * @covers \phpOMS\DataStorage\Database\Mapper\WriteMapper
+     * @covers \phpOMS\DataStorage\Database\Mapper\UpdateMapper
+     * @covers \phpOMS\DataStorage\Database\Mapper\DeleteMapper
      * @group framework
      */
     public function testDelete() : void

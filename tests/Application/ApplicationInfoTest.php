@@ -27,7 +27,7 @@ final class ApplicationInfoTest extends \PHPUnit\Framework\TestCase
 {
     /**
      * @testdox An application info file can be correctly loaded
-     * @covers phpOMS\Application\ApplicationInfo
+     * @covers \phpOMS\Application\ApplicationInfo
      * @group framework
      */
     public function testLoad() : void
@@ -51,7 +51,7 @@ final class ApplicationInfoTest extends \PHPUnit\Framework\TestCase
 
     /**
      * @testdox A info file can be modified
-     * @covers phpOMS\Application\ApplicationInfo
+     * @covers \phpOMS\Application\ApplicationInfo
      * @group framework
      */
     public function testChange() : void
@@ -75,7 +75,7 @@ final class ApplicationInfoTest extends \PHPUnit\Framework\TestCase
 
     /**
      * @testdox A invalid info file path load throws a PathException
-     * @covers phpOMS\Application\ApplicationInfo
+     * @covers \phpOMS\Application\ApplicationInfo
      * @group framework
      */
     public function testInvalidPathLoad() : void
@@ -88,7 +88,7 @@ final class ApplicationInfoTest extends \PHPUnit\Framework\TestCase
 
     /**
      * @testdox A invalid info file path update throws a PathException
-     * @covers phpOMS\Application\ApplicationInfo
+     * @covers \phpOMS\Application\ApplicationInfo
      * @group framework
      */
     public function testInvalidPathUpdate() : void
@@ -101,7 +101,7 @@ final class ApplicationInfoTest extends \PHPUnit\Framework\TestCase
 
     /**
      * @testdox A invalid change data throws a InvalidArgumentException
-     * @covers phpOMS\Application\ApplicationInfo
+     * @covers \phpOMS\Application\ApplicationInfo
      * @group framework
      */
     public function testInvalidDataSet() : void

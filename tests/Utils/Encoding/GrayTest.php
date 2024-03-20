@@ -25,7 +25,7 @@ final class GrayTest extends \PHPUnit\Framework\TestCase
 {
     /**
      * @testdox Text can be encoded and decoded with the gray encoding
-     * @covers phpOMS\Utils\Encoding\Gray
+     * @covers \phpOMS\Utils\Encoding\Gray
      * @group framework
      */
     public function testEncoding() : void

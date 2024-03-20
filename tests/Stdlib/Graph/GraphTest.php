@@ -38,7 +38,7 @@ final class GraphTest extends \PHPUnit\Framework\TestCase
 
     /**
      * @testdox The graph has the expected default values after initialization
-     * @covers phpOMS\Stdlib\Graph\Graph
+     * @covers \phpOMS\Stdlib\Graph\Graph
      * @group framework
      */
     public function testDefault() : void
@@ -71,7 +71,7 @@ final class GraphTest extends \PHPUnit\Framework\TestCase
 
     /**
      * @testdox A graph can ge set as directed
-     * @covers phpOMS\Stdlib\Graph\Graph
+     * @covers \phpOMS\Stdlib\Graph\Graph
      * @group framework
      */
     public function testDirectedOutput() : void
@@ -90,7 +90,7 @@ final class GraphTest extends \PHPUnit\Framework\TestCase
 
     /**
      * @testdox A node can be add to a graph and returned
-     * @covers phpOMS\Stdlib\Graph\Graph
+     * @covers \phpOMS\Stdlib\Graph\Graph
      * @group framework
      */
     public function testNodeInputOutput() : void
@@ -103,7 +103,7 @@ final class GraphTest extends \PHPUnit\Framework\TestCase
 
     /**
      * @testdox The existence of a node in a graph can be checked
-     * @covers phpOMS\Stdlib\Graph\Graph
+     * @covers \phpOMS\Stdlib\Graph\Graph
      * @group framework
      */
     public function testNodeExists() : void
@@ -117,7 +117,7 @@ final class GraphTest extends \PHPUnit\Framework\TestCase
 
     /**
      * @testdox A graph can be checked for bridges
-     * @covers phpOMS\Stdlib\Graph\Graph
+     * @covers \phpOMS\Stdlib\Graph\Graph
      * @group framework
      */
     public function testGraphWithBridge() : void
@@ -155,7 +155,7 @@ final class GraphTest extends \PHPUnit\Framework\TestCase
 
     /**
      * @testdox Multiple bridges are correctly identified in a graph
-     * @covers phpOMS\Stdlib\Graph\Graph
+     * @covers \phpOMS\Stdlib\Graph\Graph
      * @group framework
      */
     public function testGraphWithBridges() : void
@@ -180,7 +180,7 @@ final class GraphTest extends \PHPUnit\Framework\TestCase
 
     /**
      * @testdox A graph without bridges is correctly classified
-     * @covers phpOMS\Stdlib\Graph\Graph
+     * @covers \phpOMS\Stdlib\Graph\Graph
      * @group framework
      */
     public function testGraphWithoutBridges() : void
@@ -203,7 +203,7 @@ final class GraphTest extends \PHPUnit\Framework\TestCase
 
     /**
      * @testdox Edges can be add and returned from a graph
-     * @covers phpOMS\Stdlib\Graph\Graph
+     * @covers \phpOMS\Stdlib\Graph\Graph
      * @group framework
      */
     public function testEdgesInputOutput() : void
@@ -239,7 +239,7 @@ final class GraphTest extends \PHPUnit\Framework\TestCase
 
     /**
      * @testdox An edge can be found by two edge ids
-     * @covers phpOMS\Stdlib\Graph\Graph
+     * @covers \phpOMS\Stdlib\Graph\Graph
      * @group framework
      */
     public function testEdgeInputOutput() : void
@@ -284,7 +284,7 @@ final class GraphTest extends \PHPUnit\Framework\TestCase
 
     /**
      * @testdox The existence of cycles in undirected graphs can be checked
-     * @covers phpOMS\Stdlib\Graph\Graph
+     * @covers \phpOMS\Stdlib\Graph\Graph
      * @group framework
      */
     public function testUndirectedCycle() : void
@@ -311,7 +311,7 @@ final class GraphTest extends \PHPUnit\Framework\TestCase
 
     /**
      * @testdox The existence of cycles in directed graphs can be checked
-     * @covers phpOMS\Stdlib\Graph\Graph
+     * @covers \phpOMS\Stdlib\Graph\Graph
      * @group framework
      */
     public function testDirectedCycle() : void
@@ -341,7 +341,7 @@ final class GraphTest extends \PHPUnit\Framework\TestCase
 
     /**
      * @testdox The cost of a graph can be calculated
-     * @covers phpOMS\Stdlib\Graph\Graph
+     * @covers \phpOMS\Stdlib\Graph\Graph
      * @group framework
      */
     public function testCost() : void
@@ -364,7 +364,7 @@ final class GraphTest extends \PHPUnit\Framework\TestCase
 
     /**
      * @testdox The Kruskal minimal spanning tree can be created
-     * @covers phpOMS\Stdlib\Graph\Graph
+     * @covers \phpOMS\Stdlib\Graph\Graph
      * @group framework
      */
     public function testKruskalMinimalSpanningTree() : void
@@ -410,7 +410,7 @@ final class GraphTest extends \PHPUnit\Framework\TestCase
      *   \ |  \ /
      *     2   4   6
      *
-     * @covers phpOMS\Stdlib\Graph\Graph
+     * @covers \phpOMS\Stdlib\Graph\Graph
      * @group framework
      */
     public function testFindAllReachableNodesDFS() : void
@@ -450,7 +450,7 @@ final class GraphTest extends \PHPUnit\Framework\TestCase
      *   \ |  \ /
      *     2   4   6
      *
-     * @covers phpOMS\Stdlib\Graph\Graph
+     * @covers \phpOMS\Stdlib\Graph\Graph
      * @group framework
      */
     public function testGetAllPathsBetweenNodes() : void
@@ -490,7 +490,7 @@ final class GraphTest extends \PHPUnit\Framework\TestCase
      *   \ |  \ /
      *     2   4   6
      *
-     * @covers phpOMS\Stdlib\Graph\Graph
+     * @covers \phpOMS\Stdlib\Graph\Graph
      * @group framework
      */
     public function testCountAllPathsBetweenNodes() : void
@@ -529,7 +529,7 @@ final class GraphTest extends \PHPUnit\Framework\TestCase
      *   \ |  \ /
      *     2   4   6
      *
-     * @covers phpOMS\Stdlib\Graph\Graph
+     * @covers \phpOMS\Stdlib\Graph\Graph
      * @group framework
      */
     public function testLongestPathBetweenNodes() : void
@@ -572,7 +572,7 @@ final class GraphTest extends \PHPUnit\Framework\TestCase
      *   \ |  \ /
      *     2   4   6
      *
-     * @covers phpOMS\Stdlib\Graph\Graph
+     * @covers \phpOMS\Stdlib\Graph\Graph
      * @group framework
      */
     public function testShortestPathBetweenNodes() : void
@@ -612,7 +612,7 @@ final class GraphTest extends \PHPUnit\Framework\TestCase
      *   \ |  \ /
      *     2   4   6
      *
-     * @covers phpOMS\Stdlib\Graph\Graph
+     * @covers \phpOMS\Stdlib\Graph\Graph
      * @group framework
      */
     public function testShortestPathFloydWarshall() : void
@@ -652,7 +652,7 @@ final class GraphTest extends \PHPUnit\Framework\TestCase
      *   \ |  \ /
      *     2   4   6
      *
-     * @covers phpOMS\Stdlib\Graph\Graph
+     * @covers \phpOMS\Stdlib\Graph\Graph
      * @group framework
      */
     public function testLongestPathsDfs() : void
@@ -692,7 +692,7 @@ final class GraphTest extends \PHPUnit\Framework\TestCase
      *   \ |  \ /
      *     2   4   6
      *
-     * @covers phpOMS\Stdlib\Graph\Graph
+     * @covers \phpOMS\Stdlib\Graph\Graph
      * @group framework
      */
     public function testUnconnectedGraph() : void
@@ -731,7 +731,7 @@ final class GraphTest extends \PHPUnit\Framework\TestCase
      *   \ |  \ /
      *     2   4
      *
-     * @covers phpOMS\Stdlib\Graph\Graph
+     * @covers \phpOMS\Stdlib\Graph\Graph
      * @group framework
      */
     public function testConnectedGraph() : void
@@ -768,7 +768,7 @@ final class GraphTest extends \PHPUnit\Framework\TestCase
      *   \ |  \ /
      *     2   4
      *
-     * @covers phpOMS\Stdlib\Graph\Graph
+     * @covers \phpOMS\Stdlib\Graph\Graph
      * @group framework
      */
     public function testDiameter() : void
@@ -805,7 +805,7 @@ final class GraphTest extends \PHPUnit\Framework\TestCase
      *   \ |  \ /
      *     2   4
      *
-     * @covers phpOMS\Stdlib\Graph\Graph
+     * @covers \phpOMS\Stdlib\Graph\Graph
      * @group framework
      */
     public function testGirth() : void
@@ -842,7 +842,7 @@ final class GraphTest extends \PHPUnit\Framework\TestCase
      *   \ |  \ /
      *     2   4
      *
-     * @covers phpOMS\Stdlib\Graph\Graph
+     * @covers \phpOMS\Stdlib\Graph\Graph
      * @group framework
      */
     public function testCircuitRank() : void
@@ -879,7 +879,7 @@ final class GraphTest extends \PHPUnit\Framework\TestCase
      *   \ | /
      *     2
      *
-     * @covers phpOMS\Stdlib\Graph\Graph
+     * @covers \phpOMS\Stdlib\Graph\Graph
      * @group framework
      */
     public function testStronglyConnected() : void
@@ -907,7 +907,7 @@ final class GraphTest extends \PHPUnit\Framework\TestCase
     /**
      *     0 - 1 - 2
      *
-     * @covers phpOMS\Stdlib\Graph\Graph
+     * @covers \phpOMS\Stdlib\Graph\Graph
      * @group framework
      */
     public function testInvalidStronglyConnected() : void
@@ -933,7 +933,7 @@ final class GraphTest extends \PHPUnit\Framework\TestCase
      *   \ |  \ /
      *     2   4
      *
-     * @covers phpOMS\Stdlib\Graph\Graph
+     * @covers \phpOMS\Stdlib\Graph\Graph
      * @group framework
      */
     public function testBipartite() : void
@@ -970,7 +970,7 @@ final class GraphTest extends \PHPUnit\Framework\TestCase
      *   \ |  \ /
      *     2   4
      *
-     * @covers phpOMS\Stdlib\Graph\Graph
+     * @covers \phpOMS\Stdlib\Graph\Graph
      * @group framework
      */
     public function testTriangles() : void

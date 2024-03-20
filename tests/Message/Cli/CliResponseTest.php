@@ -34,7 +34,7 @@ final class CliResponseTest extends \PHPUnit\Framework\TestCase
     }
 
     /**
-     * @covers phpOMS\Message\Cli\CliResponse
+     * @covers \phpOMS\Message\Cli\CliResponse
      * @group framework
      */
     public function testDefault() : void
@@ -48,7 +48,7 @@ final class CliResponseTest extends \PHPUnit\Framework\TestCase
     }
 
     /**
-     * @covers phpOMS\Message\Cli\CliResponse
+     * @covers \phpOMS\Message\Cli\CliResponse
      * @group framework
      */
     public function testSetGet() : void
@@ -62,7 +62,7 @@ final class CliResponseTest extends \PHPUnit\Framework\TestCase
 
     /**
      * @testdox Response data can be turned into an array
-     * @covers phpOMS\Message\Cli\CliResponse<extended>
+     * @covers \phpOMS\Message\Cli\CliResponse<extended>
      * @group framework
      */
     public function testToArray() : void
@@ -101,7 +101,7 @@ final class CliResponseTest extends \PHPUnit\Framework\TestCase
 
     /**
      * @testdox A response with json as content-type is automatically rendered as json data
-     * @covers phpOMS\Message\Cli\CliResponse<extended>
+     * @covers \phpOMS\Message\Cli\CliResponse<extended>
      * @group framework
      */
     public function testJsonRender() : void
@@ -141,7 +141,7 @@ final class CliResponseTest extends \PHPUnit\Framework\TestCase
 
     /**
      * @testdox Invalid response data results in an empty array
-     * @covers phpOMS\Message\Cli\CliResponse<extended>
+     * @covers \phpOMS\Message\Cli\CliResponse<extended>
      * @group framework
      */
     public function testInvalidResponseDataToArray() : void
@@ -152,7 +152,7 @@ final class CliResponseTest extends \PHPUnit\Framework\TestCase
 
     /**
      * @testdox Invalid response data results in an empty render
-     * @covers phpOMS\Message\Cli\CliResponse<extended>
+     * @covers \phpOMS\Message\Cli\CliResponse<extended>
      * @group framework
      */
     public function testInvalidResponseDataRender() : void

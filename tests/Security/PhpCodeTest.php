@@ -27,7 +27,7 @@ final class PhpCodeTest extends \PHPUnit\Framework\TestCase
 {
     /**
      * @testdox A file with unicode characters gets correctly identified
-     * @covers phpOMS\Security\PhpCode
+     * @covers \phpOMS\Security\PhpCode
      * @group framework
      */
     public function testHasUnicode() : void
@@ -43,7 +43,7 @@ final class PhpCodeTest extends \PHPUnit\Framework\TestCase
 
     /**
      * @testdox A file with no unicode characters gets correctly identified
-     * @covers phpOMS\Security\PhpCode
+     * @covers \phpOMS\Security\PhpCode
      * @group framework
      */
     public function testHasNoUnicode() : void
@@ -59,7 +59,7 @@ final class PhpCodeTest extends \PHPUnit\Framework\TestCase
 
     /**
      * @testdox A file with no disabled functions gets correctly identified
-     * @covers phpOMS\Security\PhpCode
+     * @covers \phpOMS\Security\PhpCode
      * @group framework
      */
     public function testDisabledFunctions() : void
@@ -70,7 +70,7 @@ final class PhpCodeTest extends \PHPUnit\Framework\TestCase
 
     /**
      * @testdox A file with deprecated functions gets correctly identified
-     * @covers phpOMS\Security\PhpCode
+     * @covers \phpOMS\Security\PhpCode
      * @group framework
      */
     public function testHasDeprecatedFunction() : void
@@ -86,7 +86,7 @@ final class PhpCodeTest extends \PHPUnit\Framework\TestCase
 
     /**
      * @testdox A file with no deprecated functions gets correctly identified
-     * @covers phpOMS\Security\PhpCode
+     * @covers \phpOMS\Security\PhpCode
      * @group framework
      */
     public function testHasNoDeprecatedFunction() : void
@@ -102,7 +102,7 @@ final class PhpCodeTest extends \PHPUnit\Framework\TestCase
 
     /**
      * @testdox A file hash comparison is successful if the file generates the same hash
-     * @covers phpOMS\Security\PhpCode
+     * @covers \phpOMS\Security\PhpCode
      * @group framework
      */
     public function testFileIntegrity() : void
@@ -112,7 +112,7 @@ final class PhpCodeTest extends \PHPUnit\Framework\TestCase
 
     /**
      * @testdox A file hash comparison is unsuccessful if the file generates a different hash
-     * @covers phpOMS\Security\PhpCode
+     * @covers \phpOMS\Security\PhpCode
      * @group framework
      */
     public function testFileInvalidIntegrity() : void
@@ -122,7 +122,7 @@ final class PhpCodeTest extends \PHPUnit\Framework\TestCase
 
     /**
      * @testdox Two equal strings validate as the same
-     * @covers phpOMS\Security\PhpCode
+     * @covers \phpOMS\Security\PhpCode
      * @group framework
      */
     public function testStringIntegrity() : void
@@ -132,7 +132,7 @@ final class PhpCodeTest extends \PHPUnit\Framework\TestCase
 
     /**
      * @testdox Two different strings don't validate as the same
-     * @covers phpOMS\Security\PhpCode
+     * @covers \phpOMS\Security\PhpCode
      * @group framework
      */
     public function testStringInvalidIntegrity() : void

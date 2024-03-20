@@ -36,7 +36,7 @@ final class HeadTest extends \PHPUnit\Framework\TestCase
 
     /**
      * @testdox The head has the expected default values after initialization
-     * @covers phpOMS\Model\Html\Head
+     * @covers \phpOMS\Model\Html\Head
      * @group framework
      */
     public function testDefault() : void
@@ -55,7 +55,7 @@ final class HeadTest extends \PHPUnit\Framework\TestCase
 
     /**
      * @testdox The title can be set and returned
-     * @covers phpOMS\Model\Html\Head
+     * @covers \phpOMS\Model\Html\Head
      * @group framework
      */
     public function testTitleInputOutput() : void
@@ -66,7 +66,7 @@ final class HeadTest extends \PHPUnit\Framework\TestCase
 
     /**
      * @testdox The style can be set and returned
-     * @covers phpOMS\Model\Html\Head
+     * @covers \phpOMS\Model\Html\Head
      * @group framework
      */
     public function testStyleInputOutput() : void
@@ -77,7 +77,7 @@ final class HeadTest extends \PHPUnit\Framework\TestCase
 
     /**
      * @testdox The script can be set and returned
-     * @covers phpOMS\Model\Html\Head
+     * @covers \phpOMS\Model\Html\Head
      * @group framework
      */
     public function testScriptInputOutput() : void
@@ -88,7 +88,7 @@ final class HeadTest extends \PHPUnit\Framework\TestCase
 
     /**
      * @testdox The assets can be set and rendered
-     * @covers phpOMS\Model\Html\Head
+     * @covers \phpOMS\Model\Html\Head
      * @group framework
      */
     public function testAssetRender() : void
@@ -111,7 +111,7 @@ final class HeadTest extends \PHPUnit\Framework\TestCase
 
     /**
      * @testdox The assets can be set and rendered at the end of the document
-     * @covers phpOMS\Model\Html\Head
+     * @covers \phpOMS\Model\Html\Head
      * @group framework
      */
     public function testAssetLateRender() : void
@@ -122,7 +122,7 @@ final class HeadTest extends \PHPUnit\Framework\TestCase
 
     /**
      * @testdox The assets can be set and rendered with attributes
-     * @covers phpOMS\Model\Html\Head
+     * @covers \phpOMS\Model\Html\Head
      * @group framework
      */
     public function testAssetRenderWithAttribute() : void
@@ -133,7 +133,7 @@ final class HeadTest extends \PHPUnit\Framework\TestCase
 
     /**
      * @testdox The assets can be set and rendered at the end of the document with attributes
-     * @covers phpOMS\Model\Html\Head
+     * @covers \phpOMS\Model\Html\Head
      * @group framework
      */
     public function testAssetLateRenderWithAttribute() : void

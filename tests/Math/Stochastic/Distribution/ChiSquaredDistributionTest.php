@@ -22,7 +22,7 @@ use phpOMS\Math\Stochastic\Distribution\ChiSquaredDistribution;
 final class ChiSquaredDistributionTest extends \PHPUnit\Framework\TestCase
 {
     /**
-     * @covers phpOMS\Math\Stochastic\Distribution\ChiSquaredDistribution
+     * @covers \phpOMS\Math\Stochastic\Distribution\ChiSquaredDistribution
      * @group framework
      */
     public function testHypothesisFalse() : void
@@ -43,7 +43,7 @@ final class ChiSquaredDistributionTest extends \PHPUnit\Framework\TestCase
     }
 
     /**
-     * @covers phpOMS\Math\Stochastic\Distribution\ChiSquaredDistribution
+     * @covers \phpOMS\Math\Stochastic\Distribution\ChiSquaredDistribution
      * @group framework
      */
     public function testDegreesOfFreedom() : void
@@ -57,7 +57,7 @@ final class ChiSquaredDistributionTest extends \PHPUnit\Framework\TestCase
     }
 
     /**
-     * @covers phpOMS\Math\Stochastic\Distribution\ChiSquaredDistribution
+     * @covers \phpOMS\Math\Stochastic\Distribution\ChiSquaredDistribution
      * @group framework
      */
     public function testMode() : void
@@ -66,7 +66,7 @@ final class ChiSquaredDistributionTest extends \PHPUnit\Framework\TestCase
     }
 
     /**
-     * @covers phpOMS\Math\Stochastic\Distribution\ChiSquaredDistribution
+     * @covers \phpOMS\Math\Stochastic\Distribution\ChiSquaredDistribution
      * @group framework
      */
     public function testMean() : void
@@ -77,7 +77,7 @@ final class ChiSquaredDistributionTest extends \PHPUnit\Framework\TestCase
     }
 
     /**
-     * @covers phpOMS\Math\Stochastic\Distribution\ChiSquaredDistribution
+     * @covers \phpOMS\Math\Stochastic\Distribution\ChiSquaredDistribution
      * @group framework
      */
     public function testVariance() : void
@@ -88,7 +88,7 @@ final class ChiSquaredDistributionTest extends \PHPUnit\Framework\TestCase
     }
 
     /**
-     * @covers phpOMS\Math\Stochastic\Distribution\ChiSquaredDistribution
+     * @covers \phpOMS\Math\Stochastic\Distribution\ChiSquaredDistribution
      * @group framework
      */
     public function testStandardDeviation() : void
@@ -99,7 +99,7 @@ final class ChiSquaredDistributionTest extends \PHPUnit\Framework\TestCase
     }
 
     /**
-     * @covers phpOMS\Math\Stochastic\Distribution\ChiSquaredDistribution
+     * @covers \phpOMS\Math\Stochastic\Distribution\ChiSquaredDistribution
      * @group framework
      */
     public function testMedian() : void
@@ -110,7 +110,7 @@ final class ChiSquaredDistributionTest extends \PHPUnit\Framework\TestCase
     }
 
     /**
-     * @covers phpOMS\Math\Stochastic\Distribution\ChiSquaredDistribution
+     * @covers \phpOMS\Math\Stochastic\Distribution\ChiSquaredDistribution
      * @group framework
      */
     public function testSkewness() : void
@@ -121,7 +121,7 @@ final class ChiSquaredDistributionTest extends \PHPUnit\Framework\TestCase
     }
 
     /**
-     * @covers phpOMS\Math\Stochastic\Distribution\ChiSquaredDistribution
+     * @covers \phpOMS\Math\Stochastic\Distribution\ChiSquaredDistribution
      * @group framework
      */
     public function testExKurtosis() : void
@@ -132,7 +132,7 @@ final class ChiSquaredDistributionTest extends \PHPUnit\Framework\TestCase
     }
 
     /**
-     * @covers phpOMS\Math\Stochastic\Distribution\ChiSquaredDistribution
+     * @covers \phpOMS\Math\Stochastic\Distribution\ChiSquaredDistribution
      * @group framework
      */
     public function testMgdf() : void
@@ -144,7 +144,7 @@ final class ChiSquaredDistributionTest extends \PHPUnit\Framework\TestCase
     }
 
     /**
-     * @covers phpOMS\Math\Stochastic\Distribution\ChiSquaredDistribution
+     * @covers \phpOMS\Math\Stochastic\Distribution\ChiSquaredDistribution
      * @group framework
      */
     public function testPdf() : void
@@ -153,7 +153,7 @@ final class ChiSquaredDistributionTest extends \PHPUnit\Framework\TestCase
     }
 
     /**
-     * @covers phpOMS\Math\Stochastic\Distribution\ChiSquaredDistribution
+     * @covers \phpOMS\Math\Stochastic\Distribution\ChiSquaredDistribution
      * @group framework
      */
     public function testCdf() : void
@@ -162,7 +162,7 @@ final class ChiSquaredDistributionTest extends \PHPUnit\Framework\TestCase
     }
 
     /**
-     * @covers phpOMS\Math\Stochastic\Distribution\ChiSquaredDistribution
+     * @covers \phpOMS\Math\Stochastic\Distribution\ChiSquaredDistribution
      * @group framework
      */
     public function testHypothesisSizeException() : void
@@ -173,7 +173,7 @@ final class ChiSquaredDistributionTest extends \PHPUnit\Framework\TestCase
     }
 
     /**
-     * @covers phpOMS\Math\Stochastic\Distribution\ChiSquaredDistribution
+     * @covers \phpOMS\Math\Stochastic\Distribution\ChiSquaredDistribution
      * @group framework
      */
     public function testHypothesisDegreesOfFreedomException() : void
@@ -184,7 +184,7 @@ final class ChiSquaredDistributionTest extends \PHPUnit\Framework\TestCase
     }
 
     /**
-     * @covers phpOMS\Math\Stochastic\Distribution\ChiSquaredDistribution
+     * @covers \phpOMS\Math\Stochastic\Distribution\ChiSquaredDistribution
      * @group framework
      */
     public function testPdfOutOfBoundsException() : void
@@ -195,7 +195,7 @@ final class ChiSquaredDistributionTest extends \PHPUnit\Framework\TestCase
     }
 
     /**
-     * @covers phpOMS\Math\Stochastic\Distribution\ChiSquaredDistribution
+     * @covers \phpOMS\Math\Stochastic\Distribution\ChiSquaredDistribution
      * @group framework
      */
     public function testMgfOutOfBoundsException() : void

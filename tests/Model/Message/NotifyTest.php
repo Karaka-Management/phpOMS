@@ -23,7 +23,7 @@ use phpOMS\Model\Message\Notify;
 final class NotifyTest extends \PHPUnit\Framework\TestCase
 {
     /**
-     * @covers phpOMS\Model\Message\Notify
+     * @covers \phpOMS\Model\Message\Notify
      * @group framework
      */
     public function testDefault() : void
@@ -39,7 +39,7 @@ final class NotifyTest extends \PHPUnit\Framework\TestCase
     }
 
     /**
-     * @covers phpOMS\Model\Message\Notify
+     * @covers \phpOMS\Model\Message\Notify
      * @group framework
      */
     public function testSetGet() : void

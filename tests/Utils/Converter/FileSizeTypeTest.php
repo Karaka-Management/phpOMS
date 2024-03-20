@@ -61,7 +61,7 @@ final class FileSizeTypeTest extends \PHPUnit\Framework\TestCase
 
     /**
      * @testdox File sizes can get automatically formatted according to their size
-     * @covers phpOMS\Utils\Converter\FileSizeType
+     * @covers \phpOMS\Utils\Converter\FileSizeType
      * @group framework
      */
     public function testAutoFormat() : void

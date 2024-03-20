@@ -26,7 +26,7 @@ final class FileUtilsTest extends \PHPUnit\Framework\TestCase
 {
     /**
      * @testdox File extensions can be categorized
-     * @covers phpOMS\System\File\FileUtils
+     * @covers \phpOMS\System\File\FileUtils
      * @group framework
      */
     public function testExtension() : void
@@ -49,7 +49,7 @@ final class FileUtilsTest extends \PHPUnit\Framework\TestCase
 
     /**
      * @testdox A relative path can be turned into an absolute path
-     * @covers phpOMS\System\File\FileUtils
+     * @covers \phpOMS\System\File\FileUtils
      * @group framework
      */
     public function testAbsolute() : void
@@ -60,7 +60,7 @@ final class FileUtilsTest extends \PHPUnit\Framework\TestCase
 
     /**
      * @testdox Permissions can be turned into octal values
-     * @covers phpOMS\System\File\FileUtils
+     * @covers \phpOMS\System\File\FileUtils
      * @group framework
      */
     public function testPermissionToOctal() : void
@@ -70,7 +70,7 @@ final class FileUtilsTest extends \PHPUnit\Framework\TestCase
 
     /**
      * @testdox The encoding of a file can be changed
-     * @covers phpOMS\System\File\FileUtils
+     * @covers \phpOMS\System\File\FileUtils
      * @group framework
      */
     public function testChangeFileEncoding() : void
@@ -92,7 +92,7 @@ final class FileUtilsTest extends \PHPUnit\Framework\TestCase
 
     /**
      * @testdox The file information can be resolved from a path
-     * @covers phpOMS\System\File\FileUtils
+     * @covers \phpOMS\System\File\FileUtils
      * @group framework
      */
     public function testPathInfo() : void

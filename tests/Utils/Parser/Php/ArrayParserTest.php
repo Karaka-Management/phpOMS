@@ -26,7 +26,7 @@ final class ArrayParserTest extends \PHPUnit\Framework\TestCase
 {
     /**
      * @testdox An array can be encoded and decoded as php code
-     * @covers phpOMS\Utils\Parser\Php\ArrayParser
+     * @covers \phpOMS\Utils\Parser\Php\ArrayParser
      * @group framework
      */
     public function testParser() : void
@@ -74,7 +74,7 @@ final class ArrayParserTest extends \PHPUnit\Framework\TestCase
 
     /**
      * @testdox A value can be encoded and decoded into php code
-     * @covers phpOMS\Utils\Parser\Php\ArrayParser
+     * @covers \phpOMS\Utils\Parser\Php\ArrayParser
      * @group framework
      */
     public function testInvalidValueType() : void

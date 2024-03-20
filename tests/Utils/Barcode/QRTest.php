@@ -31,7 +31,7 @@ final class QRTest extends \PHPUnit\Framework\TestCase
     }
 
     /**
-     * @covers phpOMS\Utils\Barcode\QR<extended>
+     * @covers \phpOMS\Utils\Barcode\QR<extended>
      * @group framework
      */
     public function testImagePng() : void
@@ -48,7 +48,7 @@ final class QRTest extends \PHPUnit\Framework\TestCase
     }
 
     /**
-     * @covers phpOMS\Utils\Barcode\QR<extended>
+     * @covers \phpOMS\Utils\Barcode\QR<extended>
      * @group framework
      */
     public function testImageJpg() : void

@@ -25,7 +25,7 @@ final class GrahamScanTest extends \PHPUnit\Framework\TestCase
 {
     /**
      * @testdox A convex hull can be formed from multiple points on a plane
-     * @covers phpOMS\Math\Geometry\ConvexHull\GrahamScan
+     * @covers \phpOMS\Math\Geometry\ConvexHull\GrahamScan
      * @group framework
      */
     public function testGrahamScan() : void

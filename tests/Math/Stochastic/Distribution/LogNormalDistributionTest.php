@@ -22,7 +22,7 @@ use phpOMS\Math\Stochastic\Distribution\LogNormalDistribution;
 final class LogNormalDistributionTest extends \PHPUnit\Framework\TestCase
 {
     /**
-     * @covers phpOMS\Math\Stochastic\Distribution\LogNormalDistribution
+     * @covers \phpOMS\Math\Stochastic\Distribution\LogNormalDistribution
      * @group framework
      */
     public function testPdf() : void
@@ -31,7 +31,7 @@ final class LogNormalDistributionTest extends \PHPUnit\Framework\TestCase
     }
 
     /**
-     * @covers phpOMS\Math\Stochastic\Distribution\LogNormalDistribution
+     * @covers \phpOMS\Math\Stochastic\Distribution\LogNormalDistribution
      * @group framework
      */
     public function testCdf() : void
@@ -40,7 +40,7 @@ final class LogNormalDistributionTest extends \PHPUnit\Framework\TestCase
     }
 
     /**
-     * @covers phpOMS\Math\Stochastic\Distribution\LogNormalDistribution
+     * @covers \phpOMS\Math\Stochastic\Distribution\LogNormalDistribution
      * @group framework
      */
     public function testMean() : void
@@ -49,7 +49,7 @@ final class LogNormalDistributionTest extends \PHPUnit\Framework\TestCase
     }
 
     /**
-     * @covers phpOMS\Math\Stochastic\Distribution\LogNormalDistribution
+     * @covers \phpOMS\Math\Stochastic\Distribution\LogNormalDistribution
      * @group framework
      */
     public function testVariance() : void
@@ -61,7 +61,7 @@ final class LogNormalDistributionTest extends \PHPUnit\Framework\TestCase
     }
 
     /**
-     * @covers phpOMS\Math\Stochastic\Distribution\LogNormalDistribution
+     * @covers \phpOMS\Math\Stochastic\Distribution\LogNormalDistribution
      * @group framework
      */
     public function testStandardDeviation() : void
@@ -78,7 +78,7 @@ final class LogNormalDistributionTest extends \PHPUnit\Framework\TestCase
     }
 
     /**
-     * @covers phpOMS\Math\Stochastic\Distribution\LogNormalDistribution
+     * @covers \phpOMS\Math\Stochastic\Distribution\LogNormalDistribution
      * @group framework
      */
     public function testSkewness() : void
@@ -90,7 +90,7 @@ final class LogNormalDistributionTest extends \PHPUnit\Framework\TestCase
     }
 
     /**
-     * @covers phpOMS\Math\Stochastic\Distribution\LogNormalDistribution
+     * @covers \phpOMS\Math\Stochastic\Distribution\LogNormalDistribution
      * @group framework
      */
     public function testExKurtosis() : void
@@ -102,7 +102,7 @@ final class LogNormalDistributionTest extends \PHPUnit\Framework\TestCase
     }
 
     /**
-     * @covers phpOMS\Math\Stochastic\Distribution\LogNormalDistribution
+     * @covers \phpOMS\Math\Stochastic\Distribution\LogNormalDistribution
      * @group framework
      */
     public function testMedian() : void
@@ -111,7 +111,7 @@ final class LogNormalDistributionTest extends \PHPUnit\Framework\TestCase
     }
 
     /**
-     * @covers phpOMS\Math\Stochastic\Distribution\LogNormalDistribution
+     * @covers \phpOMS\Math\Stochastic\Distribution\LogNormalDistribution
      * @group framework
      */
     public function testMode() : void
@@ -120,7 +120,7 @@ final class LogNormalDistributionTest extends \PHPUnit\Framework\TestCase
     }
 
     /**
-     * @covers phpOMS\Math\Stochastic\Distribution\LogNormalDistribution
+     * @covers \phpOMS\Math\Stochastic\Distribution\LogNormalDistribution
      * @group framework
      */
     public function testEntropy() : void
@@ -132,7 +132,7 @@ final class LogNormalDistributionTest extends \PHPUnit\Framework\TestCase
     }
 
     /**
-     * @covers phpOMS\Math\Stochastic\Distribution\LogNormalDistribution
+     * @covers \phpOMS\Math\Stochastic\Distribution\LogNormalDistribution
      * @group framework
      */
     public function testFisherInformation() : void

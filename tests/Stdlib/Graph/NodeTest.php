@@ -26,7 +26,7 @@ final class NodeTest extends \PHPUnit\Framework\TestCase
 {
     /**
      * @testdox The node has the expected default values after initialization
-     * @covers phpOMS\Stdlib\Graph\Node
+     * @covers \phpOMS\Stdlib\Graph\Node
      * @group framework
      */
     public function testDefault() : void
@@ -41,7 +41,7 @@ final class NodeTest extends \PHPUnit\Framework\TestCase
 
     /**
      * @testdox The node data can be set and returned
-     * @covers phpOMS\Stdlib\Graph\Node
+     * @covers \phpOMS\Stdlib\Graph\Node
      * @group framework
      */
     public function testDataInputOutput() : void
@@ -55,7 +55,7 @@ final class NodeTest extends \PHPUnit\Framework\TestCase
 
     /**
      * @testdox Two equal nodes are equal
-     * @covers phpOMS\Stdlib\Graph\Node
+     * @covers \phpOMS\Stdlib\Graph\Node
      * @group framework
      */
     public function testNodesEqual() : void
@@ -66,7 +66,7 @@ final class NodeTest extends \PHPUnit\Framework\TestCase
 
     /**
      * @testdox Two different nodes are not equal
-     * @covers phpOMS\Stdlib\Graph\Node
+     * @covers \phpOMS\Stdlib\Graph\Node
      * @group framework
      */
     public function testNodesNotEqual() : void
@@ -84,7 +84,7 @@ final class NodeTest extends \PHPUnit\Framework\TestCase
 
     /**
      * @testdox An edge for a node can be defined
-     * @covers phpOMS\Stdlib\Graph\Node
+     * @covers \phpOMS\Stdlib\Graph\Node
      * @group framework
      */
     public function testEdgeInputOutput() : void
@@ -97,7 +97,7 @@ final class NodeTest extends \PHPUnit\Framework\TestCase
 
     /**
      * @testdox Edges can be removed from a node
-     * @covers phpOMS\Stdlib\Graph\Node
+     * @covers \phpOMS\Stdlib\Graph\Node
      * @group framework
      */
     public function testEdgeRemove() : void
@@ -111,7 +111,7 @@ final class NodeTest extends \PHPUnit\Framework\TestCase
 
     /**
      * @testdox An edge for a node can be defined by key
-     * @covers phpOMS\Stdlib\Graph\Node
+     * @covers \phpOMS\Stdlib\Graph\Node
      * @group framework
      */
     public function testEdgeKeyInputOutput() : void
@@ -125,7 +125,7 @@ final class NodeTest extends \PHPUnit\Framework\TestCase
 
     /**
      * @testdox A node relationship can be defined
-     * @covers phpOMS\Stdlib\Graph\Node
+     * @covers \phpOMS\Stdlib\Graph\Node
      * @group framework
      */
     public function testNodeRelation() : void
@@ -140,7 +140,7 @@ final class NodeTest extends \PHPUnit\Framework\TestCase
 
     /**
      * @testdox All neighbors of a node can be returned
-     * @covers phpOMS\Stdlib\Graph\Node
+     * @covers \phpOMS\Stdlib\Graph\Node
      * @group framework
      *
      * @bug Directed graphs may return invalid neighbors

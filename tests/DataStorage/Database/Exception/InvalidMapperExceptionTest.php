@@ -22,7 +22,7 @@ use phpOMS\DataStorage\Database\Exception\InvalidMapperException;
 final class InvalidMapperExceptionTest extends \PHPUnit\Framework\TestCase
 {
     /**
-     * @covers phpOMS\DataStorage\Database\Exception\InvalidMapperException
+     * @covers \phpOMS\DataStorage\Database\Exception\InvalidMapperException
      * @group framework
      */
     public function testException() : void

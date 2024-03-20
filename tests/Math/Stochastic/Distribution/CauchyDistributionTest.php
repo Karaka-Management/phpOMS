@@ -22,7 +22,7 @@ use phpOMS\Math\Stochastic\Distribution\CauchyDistribution;
 final class CauchyDistributionTest extends \PHPUnit\Framework\TestCase
 {
     /**
-     * @covers phpOMS\Math\Stochastic\Distribution\CauchyDistribution
+     * @covers \phpOMS\Math\Stochastic\Distribution\CauchyDistribution
      * @group framework
      */
     public function testMedianMode() : void
@@ -32,7 +32,7 @@ final class CauchyDistributionTest extends \PHPUnit\Framework\TestCase
     }
 
     /**
-     * @covers phpOMS\Math\Stochastic\Distribution\CauchyDistribution
+     * @covers \phpOMS\Math\Stochastic\Distribution\CauchyDistribution
      * @group framework
      */
     public function testPdf() : void
@@ -45,7 +45,7 @@ final class CauchyDistributionTest extends \PHPUnit\Framework\TestCase
     }
 
     /**
-     * @covers phpOMS\Math\Stochastic\Distribution\CauchyDistribution
+     * @covers \phpOMS\Math\Stochastic\Distribution\CauchyDistribution
      * @group framework
      */
     public function testCdf() : void
@@ -58,7 +58,7 @@ final class CauchyDistributionTest extends \PHPUnit\Framework\TestCase
     }
 
     /**
-     * @covers phpOMS\Math\Stochastic\Distribution\CauchyDistribution
+     * @covers \phpOMS\Math\Stochastic\Distribution\CauchyDistribution
      * @group framework
      */
     public function testEntropy() : void

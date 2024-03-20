@@ -27,7 +27,7 @@ final class ModuleInfoTest extends \PHPUnit\Framework\TestCase
 {
     /**
      * @testdox A info file can be correctly loaded
-     * @covers phpOMS\Module\ModuleInfo
+     * @covers \phpOMS\Module\ModuleInfo
      * @group framework
      */
     public function testLoad() : void
@@ -52,7 +52,7 @@ final class ModuleInfoTest extends \PHPUnit\Framework\TestCase
 
     /**
      * @testdox A info file can be modified
-     * @covers phpOMS\Module\ModuleInfo
+     * @covers \phpOMS\Module\ModuleInfo
      * @group framework
      */
     public function testChange() : void
@@ -76,7 +76,7 @@ final class ModuleInfoTest extends \PHPUnit\Framework\TestCase
 
     /**
      * @testdox A invalid info file path load throws a PathException
-     * @covers phpOMS\Module\ModuleInfo
+     * @covers \phpOMS\Module\ModuleInfo
      * @group framework
      */
     public function testInvalidPathLoad() : void
@@ -89,7 +89,7 @@ final class ModuleInfoTest extends \PHPUnit\Framework\TestCase
 
     /**
      * @testdox A invalid info file path update throws a PathException
-     * @covers phpOMS\Module\ModuleInfo
+     * @covers \phpOMS\Module\ModuleInfo
      * @group framework
      */
     public function testInvalidPathUpdate() : void
@@ -102,7 +102,7 @@ final class ModuleInfoTest extends \PHPUnit\Framework\TestCase
 
     /**
      * @testdox A invalid change data throws a InvalidArgumentException
-     * @covers phpOMS\Module\ModuleInfo
+     * @covers \phpOMS\Module\ModuleInfo
      * @group framework
      */
     public function testInvalidDataSet() : void

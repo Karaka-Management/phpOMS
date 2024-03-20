@@ -27,7 +27,7 @@ final class ThresholdingTest extends \PHPUnit\Framework\TestCase
     /**
      * @testdox The thresholding is correctly applied to the image
      * @group framework
-     * @covers phpOMS\Image\Thresholding
+     * @covers \phpOMS\Image\Thresholding
      */
     public function testThresholding() : void
     {

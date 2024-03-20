@@ -29,7 +29,7 @@ final class GridTest extends \PHPUnit\Framework\TestCase
 {
     /**
      * @testdox By default a grid is empty
-     * @covers phpOMS\Algorithm\PathFinding\Grid
+     * @covers \phpOMS\Algorithm\PathFinding\Grid
      * @group framework
      */
     public function testDefault() : void
@@ -40,7 +40,7 @@ final class GridTest extends \PHPUnit\Framework\TestCase
 
     /**
      * @testdox A grid can be created from an array
-     * @covers phpOMS\Algorithm\PathFinding\Grid
+     * @covers \phpOMS\Algorithm\PathFinding\Grid
      * @group framework
      */
     public function testGridFromArray() : void
@@ -66,7 +66,7 @@ final class GridTest extends \PHPUnit\Framework\TestCase
 
     /**
      * @testdox A node can be set and returned from the grid
-     * @covers phpOMS\Algorithm\PathFinding\Grid
+     * @covers \phpOMS\Algorithm\PathFinding\Grid
      * @group framework
      */
     public function testNodeInputOutput() : void
@@ -84,7 +84,7 @@ final class GridTest extends \PHPUnit\Framework\TestCase
 
     /**
      * @testdox Out of bounds nodes cannot be returned
-     * @covers phpOMS\Algorithm\PathFinding\Grid::getNode
+     * @covers \phpOMS\Algorithm\PathFinding\Grid::getNode
      * @group framework
      */
     public function testOutOfBoundsNode() : void
@@ -103,7 +103,7 @@ final class GridTest extends \PHPUnit\Framework\TestCase
 
     /**
      * @testdox All horizontal neighbors can be found correctly
-     * @covers phpOMS\Algorithm\PathFinding\Grid::getNeighbors
+     * @covers \phpOMS\Algorithm\PathFinding\Grid::getNeighbors
      * @group framework
      */
     public function testStraightHorizontalNeighbors() : void
@@ -124,7 +124,7 @@ final class GridTest extends \PHPUnit\Framework\TestCase
 
     /**
      * @testdox All vertical neighbors can be found correctly
-     * @covers phpOMS\Algorithm\PathFinding\Grid::getNeighbors
+     * @covers \phpOMS\Algorithm\PathFinding\Grid::getNeighbors
      * @group framework
      */
     public function testStraightVerticalNeighbors() : void
@@ -145,7 +145,7 @@ final class GridTest extends \PHPUnit\Framework\TestCase
 
     /**
      * @testdox No straight neighbors are found if no straight neighbors exist
-     * @covers phpOMS\Algorithm\PathFinding\Grid::getNeighbors
+     * @covers \phpOMS\Algorithm\PathFinding\Grid::getNeighbors
      * @group framework
      */
     public function testStraightNoneNeighbors() : void
@@ -164,7 +164,7 @@ final class GridTest extends \PHPUnit\Framework\TestCase
 
     /**
      * @testdox All straight neighbors can be found correctly
-     * @covers phpOMS\Algorithm\PathFinding\Grid::getNeighbors
+     * @covers \phpOMS\Algorithm\PathFinding\Grid::getNeighbors
      * @group framework
      */
     public function testStraightAllNeighbors() : void
@@ -187,7 +187,7 @@ final class GridTest extends \PHPUnit\Framework\TestCase
 
     /**
      * @testdox All neighbors except blocked diagonal neighbors can be found correctly
-     * @covers phpOMS\Algorithm\PathFinding\Grid::getNeighbors
+     * @covers \phpOMS\Algorithm\PathFinding\Grid::getNeighbors
      * @group framework
      */
     public function testDiagonalLRNeighbors() : void
@@ -212,7 +212,7 @@ final class GridTest extends \PHPUnit\Framework\TestCase
 
     /**
      * @testdox All neighbors except blocked diagonal neighbors can be found correctly
-     * @covers phpOMS\Algorithm\PathFinding\Grid::getNeighbors
+     * @covers \phpOMS\Algorithm\PathFinding\Grid::getNeighbors
      * @group framework
      */
     public function testDiagonalURNeighbors() : void
@@ -237,7 +237,7 @@ final class GridTest extends \PHPUnit\Framework\TestCase
 
     /**
      * @testdox No diagonal neighbors are found if no neighbors exist
-     * @covers phpOMS\Algorithm\PathFinding\Grid::getNeighbors
+     * @covers \phpOMS\Algorithm\PathFinding\Grid::getNeighbors
      * @group framework
      */
     public function testDiagonalNoneNeighbors() : void
@@ -256,7 +256,7 @@ final class GridTest extends \PHPUnit\Framework\TestCase
 
     /**
      * @testdox All diagonal neighbors can be found correctly
-     * @covers phpOMS\Algorithm\PathFinding\Grid::getNeighbors
+     * @covers \phpOMS\Algorithm\PathFinding\Grid::getNeighbors
      * @group framework
      */
     public function testDiagonalOnlyNeighbors() : void
@@ -279,7 +279,7 @@ final class GridTest extends \PHPUnit\Framework\TestCase
 
     /**
      * @testdox All neighbors can be found correctly
-     * @covers phpOMS\Algorithm\PathFinding\Grid::getNeighbors
+     * @covers \phpOMS\Algorithm\PathFinding\Grid::getNeighbors
      * @group framework
      */
     public function testDiagonalAllNeighbors() : void
@@ -306,7 +306,7 @@ final class GridTest extends \PHPUnit\Framework\TestCase
 
     /**
      * @testdox All neighbors can be found correctly even if one obstacle exists
-     * @covers phpOMS\Algorithm\PathFinding\Grid::getNeighbors
+     * @covers \phpOMS\Algorithm\PathFinding\Grid::getNeighbors
      * @group framework
      */
     public function testDiagonalOneObstacleNoBlockNeighbors() : void
@@ -332,7 +332,7 @@ final class GridTest extends \PHPUnit\Framework\TestCase
 
     /**
      * @testdox No diagonal neighbors are found if they are blocked on two sides
-     * @covers phpOMS\Algorithm\PathFinding\Grid::getNeighbors
+     * @covers \phpOMS\Algorithm\PathFinding\Grid::getNeighbors
      * @group framework
      */
     public function testDiagonalOneObstacleBlockNeighbors() : void
@@ -356,7 +356,7 @@ final class GridTest extends \PHPUnit\Framework\TestCase
 
     /**
      * @testdox All neighbors can be found correctly if no obstacles exists
-     * @covers phpOMS\Algorithm\PathFinding\Grid::getNeighbors
+     * @covers \phpOMS\Algorithm\PathFinding\Grid::getNeighbors
      * @group framework
      */
     public function testDiagonalOneObstacleAllNeighbors() : void
@@ -383,7 +383,7 @@ final class GridTest extends \PHPUnit\Framework\TestCase
 
     /**
      * @testdox No diagonal neighbors are found if one obstacle exists
-     * @covers phpOMS\Algorithm\PathFinding\Grid::getNeighbors
+     * @covers \phpOMS\Algorithm\PathFinding\Grid::getNeighbors
      * @group framework
      */
     public function testDiagonalNoObstacleBlockNeighbors() : void
@@ -407,7 +407,7 @@ final class GridTest extends \PHPUnit\Framework\TestCase
 
     /**
      * @testdox All neighbors can be found correctly if no obstacles exist
-     * @covers phpOMS\Algorithm\PathFinding\Grid::getNeighbors
+     * @covers \phpOMS\Algorithm\PathFinding\Grid::getNeighbors
      * @group framework
      */
     public function testDiagonalNoObstacleAllNeighbors() : void

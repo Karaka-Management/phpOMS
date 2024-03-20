@@ -59,7 +59,7 @@ final class ModuleManagerTest extends \PHPUnit\Framework\TestCase
 
     /**
      * @testdox Unknown modules return a null module
-     * @covers phpOMS\Module\ModuleManager
+     * @covers \phpOMS\Module\ModuleManager
      * @group framework
      */
     public function testUnknownModuleGet() : void
@@ -69,7 +69,7 @@ final class ModuleManagerTest extends \PHPUnit\Framework\TestCase
 
     /**
      * @testdox Unknown modules cannot get activated, deactivated
-     * @covers phpOMS\Module\ModuleManager
+     * @covers \phpOMS\Module\ModuleManager
      * @group framework
      */
     public function testUnknwonModuleStatusChange() : void
@@ -80,7 +80,7 @@ final class ModuleManagerTest extends \PHPUnit\Framework\TestCase
 
     /**
      * @testdox Active modules can be returned
-     * @covers phpOMS\Module\ModuleManager
+     * @covers \phpOMS\Module\ModuleManager
      * @group framework
      */
     public function testAllActiveModules() : void
@@ -92,7 +92,7 @@ final class ModuleManagerTest extends \PHPUnit\Framework\TestCase
 
     /**
      * @testdox Modules can be checked to be active
-     * @covers phpOMS\Module\ModuleManager
+     * @covers \phpOMS\Module\ModuleManager
      * @group framework
      */
     public function testActiveModule() : void
@@ -108,7 +108,7 @@ final class ModuleManagerTest extends \PHPUnit\Framework\TestCase
 
     /**
      * @testdox Modules can be checked to be running
-     * @covers phpOMS\Module\ModuleManager
+     * @covers \phpOMS\Module\ModuleManager
      * @group framework
      */
     public function testRunningModule() : void
@@ -120,7 +120,7 @@ final class ModuleManagerTest extends \PHPUnit\Framework\TestCase
 
     /**
      * @testdox All available modules can be returned
-     * @covers phpOMS\Module\ModuleManager
+     * @covers \phpOMS\Module\ModuleManager
      * @group framework
      */
     public function testAllModules() : void
@@ -132,9 +132,9 @@ final class ModuleManagerTest extends \PHPUnit\Framework\TestCase
 
     /**
      * @testdox A module can be installed and its status can be changed
-     * @covers phpOMS\Module\InstallerAbstract
-     * @covers phpOMS\Module\ModuleManager
-     * @covers phpOMS\Module\StatusAbstract
+     * @covers \phpOMS\Module\InstallerAbstract
+     * @covers \phpOMS\Module\ModuleManager
+     * @covers \phpOMS\Module\StatusAbstract
      * @group framework
      */
     public function testStatus() : void
@@ -184,7 +184,7 @@ final class ModuleManagerTest extends \PHPUnit\Framework\TestCase
 
     /**
      * @testdox A none-existing module cannot be re-initialized
-     * @covers phpOMS\Module\ModuleManager
+     * @covers \phpOMS\Module\ModuleManager
      * @group framework
      */
     public function testInvalidModuleReInit() : void
@@ -195,9 +195,9 @@ final class ModuleManagerTest extends \PHPUnit\Framework\TestCase
 
     /**
      * @testdox A module can be re-initialized
-     * @covers phpOMS\Module\InstallerAbstract
-     * @covers phpOMS\Module\ModuleManager
-     * @covers phpOMS\Module\StatusAbstract
+     * @covers \phpOMS\Module\InstallerAbstract
+     * @covers \phpOMS\Module\ModuleManager
+     * @covers \phpOMS\Module\StatusAbstract
      * @group framework
      */
     public function testReInit() : void
@@ -208,7 +208,7 @@ final class ModuleManagerTest extends \PHPUnit\Framework\TestCase
 
     /**
      * @testdox A module is automatically loaded for its URIs
-     * @covers phpOMS\Module\ModuleManager
+     * @covers \phpOMS\Module\ModuleManager
      * @group framework
      */
     public function testRequestLoad() : void
@@ -237,7 +237,7 @@ final class ModuleManagerTest extends \PHPUnit\Framework\TestCase
 
     /**
      * @testdox Getting language files for an invalid module returns an empty array
-     * @covers phpOMS\Module\ModuleManager
+     * @covers \phpOMS\Module\ModuleManager
      * @group framework
      */
     public function testGetLanguageForInvalidRequest() : void
@@ -252,7 +252,7 @@ final class ModuleManagerTest extends \PHPUnit\Framework\TestCase
 
     /**
      * @testdox Installed modules can be returned
-     * @covers phpOMS\Module\ModuleManager
+     * @covers \phpOMS\Module\ModuleManager
      * @group framework
      */
     public function testInstalledModules() : void
@@ -264,7 +264,7 @@ final class ModuleManagerTest extends \PHPUnit\Framework\TestCase
 
     /**
      * @testdox A module can be checked if it is installed
-     * @covers phpOMS\Module\ModuleManager
+     * @covers \phpOMS\Module\ModuleManager
      * @group framework
      */
     public function testIsInstalled() : void
@@ -274,7 +274,7 @@ final class ModuleManagerTest extends \PHPUnit\Framework\TestCase
 
     /**
      * @testdox Installing an already installed module doesn't perform anything
-     * @covers phpOMS\Module\ModuleManager
+     * @covers \phpOMS\Module\ModuleManager
      * @group framework
      */
     public function testInstallingAlreadyInstalledModule() : void
@@ -284,7 +284,7 @@ final class ModuleManagerTest extends \PHPUnit\Framework\TestCase
 
     /**
      * @testdox The valid module can be returned
-     * @covers phpOMS\Module\ModuleManager
+     * @covers \phpOMS\Module\ModuleManager
      * @group framework
      */
     public function testAdminModule() : void
@@ -295,8 +295,8 @@ final class ModuleManagerTest extends \PHPUnit\Framework\TestCase
 
     /**
      * @testdox A module can be uninstalled
-     * @covers phpOMS\Module\ModuleManager
-     * @covers phpOMS\Module\UninstallerAbstract
+     * @covers \phpOMS\Module\ModuleManager
+     * @covers \phpOMS\Module\UninstallerAbstract
      * @group framework
      */
     public function testUninstall() : void
@@ -314,7 +314,7 @@ final class ModuleManagerTest extends \PHPUnit\Framework\TestCase
 
     /**
      * @testdox A empty or invalid module path returns an empty array on module getter functions.
-     * @covers phpOMS\Module\ModuleManager
+     * @covers \phpOMS\Module\ModuleManager
      * @group framework
      */
     public function testInvalidModulePath() : void
@@ -328,7 +328,7 @@ final class ModuleManagerTest extends \PHPUnit\Framework\TestCase
 
     /**
      * @testdox A invalid module name cannot be installed
-     * @covers phpOMS\Module\ModuleManager
+     * @covers \phpOMS\Module\ModuleManager
      * @group framework
      */
     public function testInvalidModuleInstall() : void
@@ -338,7 +338,7 @@ final class ModuleManagerTest extends \PHPUnit\Framework\TestCase
 
     /**
      * @testdox A invalid module name cannot be uninstalled
-     * @covers phpOMS\Module\ModuleManager
+     * @covers \phpOMS\Module\ModuleManager
      * @group framework
      */
     public function testInvalidModuleUninstall() : void

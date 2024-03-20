@@ -36,7 +36,7 @@ final class CliRequestTest extends \PHPUnit\Framework\TestCase
     }
 
     /**
-     * @covers phpOMS\Message\Cli\CliRequest
+     * @covers \phpOMS\Message\Cli\CliRequest
      * @group framework
      */
     public function testDefault() : void
@@ -53,7 +53,7 @@ final class CliRequestTest extends \PHPUnit\Framework\TestCase
     }
 
     /**
-     * @covers phpOMS\Message\Cli\CliRequest
+     * @covers \phpOMS\Message\Cli\CliRequest
      * @group framework
      */
     public function testOSInputOutput() : void
@@ -63,7 +63,7 @@ final class CliRequestTest extends \PHPUnit\Framework\TestCase
     }
 
     /**
-     * @covers phpOMS\Message\Cli\CliRequest
+     * @covers \phpOMS\Message\Cli\CliRequest
      * @group framework
      */
     public function testMethodInputOutput() : void
@@ -73,7 +73,7 @@ final class CliRequestTest extends \PHPUnit\Framework\TestCase
     }
 
     /**
-     * @covers phpOMS\Message\Cli\CliRequest
+     * @covers \phpOMS\Message\Cli\CliRequest
      * @group framework
      */
     public function testInputOutputUriString() : void
@@ -83,7 +83,7 @@ final class CliRequestTest extends \PHPUnit\Framework\TestCase
 
     /**
      * @testdox The url hashes for the different paths get correctly generated
-     * @covers phpOMS\Message\Cli\CliRequest
+     * @covers \phpOMS\Message\Cli\CliRequest
      * @group framework
      */
     public function testHashingInputOutput() : void
@@ -100,7 +100,7 @@ final class CliRequestTest extends \PHPUnit\Framework\TestCase
     }
 
     /**
-     * @covers phpOMS\Message\Cli\CliRequest
+     * @covers \phpOMS\Message\Cli\CliRequest
      * @group framework
      */
     public function testInputOutputL11n() : void
@@ -110,7 +110,7 @@ final class CliRequestTest extends \PHPUnit\Framework\TestCase
     }
 
     /**
-     * @covers phpOMS\Message\Cli\CliRequest
+     * @covers \phpOMS\Message\Cli\CliRequest
      * @group framework
      */
     public function testDataInputOutput() : void
@@ -121,7 +121,7 @@ final class CliRequestTest extends \PHPUnit\Framework\TestCase
     }
 
     /**
-     * @covers phpOMS\Message\Cli\CliRequest
+     * @covers \phpOMS\Message\Cli\CliRequest
      * @group framework
      */
     public function testHasData() : void
@@ -131,7 +131,7 @@ final class CliRequestTest extends \PHPUnit\Framework\TestCase
     }
 
     /**
-     * @covers phpOMS\Message\Cli\CliRequest
+     * @covers \phpOMS\Message\Cli\CliRequest
      * @group framework
      */
     public function testInvalidOverwrite() : void
@@ -142,7 +142,7 @@ final class CliRequestTest extends \PHPUnit\Framework\TestCase
     }
 
     /**
-     * @covers phpOMS\Message\Cli\CliRequest
+     * @covers \phpOMS\Message\Cli\CliRequest
      * @group framework
      */
     public function testOverwrite() : void
@@ -154,7 +154,7 @@ final class CliRequestTest extends \PHPUnit\Framework\TestCase
     }
 
     /**
-     * @covers phpOMS\Message\Cli\CliRequest
+     * @covers \phpOMS\Message\Cli\CliRequest
      * @group framework
      */
     public function testToString() : void

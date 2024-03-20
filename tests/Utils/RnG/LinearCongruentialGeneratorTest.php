@@ -25,7 +25,7 @@ final class LinearCongruentialGeneratorTest extends \PHPUnit\Framework\TestCase
 {
     /**
      * @testdox The bsd random number generator starts with the correct sequence
-     * @covers phpOMS\Utils\RnG\LinearCongruentialGenerator
+     * @covers \phpOMS\Utils\RnG\LinearCongruentialGenerator
      * @group framework
      */
     public function testBsdRng() : void
@@ -35,7 +35,7 @@ final class LinearCongruentialGeneratorTest extends \PHPUnit\Framework\TestCase
 
     /**
      * @testdox The same bsd seed generates the same random number
-     * @covers phpOMS\Utils\RnG\LinearCongruentialGenerator
+     * @covers \phpOMS\Utils\RnG\LinearCongruentialGenerator
      * @group framework
      */
     public function testBsdRngEqual() : void
@@ -45,7 +45,7 @@ final class LinearCongruentialGeneratorTest extends \PHPUnit\Framework\TestCase
 
     /**
      * @testdox Different bsd seeds generate different random numbers
-     * @covers phpOMS\Utils\RnG\LinearCongruentialGenerator
+     * @covers \phpOMS\Utils\RnG\LinearCongruentialGenerator
      * @group framework
      */
     public function testBsdRngNotEqual() : void
@@ -55,7 +55,7 @@ final class LinearCongruentialGeneratorTest extends \PHPUnit\Framework\TestCase
 
     /**
      * @testdox The msvcrt random number generator starts with the correct sequence
-     * @covers phpOMS\Utils\RnG\LinearCongruentialGenerator
+     * @covers \phpOMS\Utils\RnG\LinearCongruentialGenerator
      * @group framework
      */
     public function testMsRng() : void
@@ -66,7 +66,7 @@ final class LinearCongruentialGeneratorTest extends \PHPUnit\Framework\TestCase
 
     /**
      * @testdox The same msvcrt seed generates the same random number
-     * @covers phpOMS\Utils\RnG\LinearCongruentialGenerator
+     * @covers \phpOMS\Utils\RnG\LinearCongruentialGenerator
      * @group framework
      */
     public function testMsRngEqual() : void
@@ -76,7 +76,7 @@ final class LinearCongruentialGeneratorTest extends \PHPUnit\Framework\TestCase
 
     /**
      * @testdox Different msvcrt seeds generate different random numbers
-     * @covers phpOMS\Utils\RnG\LinearCongruentialGenerator
+     * @covers \phpOMS\Utils\RnG\LinearCongruentialGenerator
      * @group framework
      */
     public function testMsRngNotEqual() : void

@@ -25,7 +25,7 @@ final class RepositoryTest extends \PHPUnit\Framework\TestCase
 {
     /**
      * @testdox The repository has the expected default values after initialization
-     * @covers phpOMS\Utils\Git\Repository
+     * @covers \phpOMS\Utils\Git\Repository
      * @group framework
      */
     public function testDefault() : void

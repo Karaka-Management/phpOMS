@@ -27,7 +27,7 @@ final class HttpUriTest extends \PHPUnit\Framework\TestCase
 {
     /**
      * @testdox A url can be validated
-     * @covers phpOMS\Uri\HttpUri
+     * @covers \phpOMS\Uri\HttpUri
      * @group framework
      */
     public function testValidator() : void
@@ -40,7 +40,7 @@ final class HttpUriTest extends \PHPUnit\Framework\TestCase
 
     /**
      * @testdox The http url has the expected default values after initialization
-     * @covers phpOMS\Uri\HttpUri
+     * @covers \phpOMS\Uri\HttpUri
      * @group framework
      */
     public function testDefault() : void
@@ -57,7 +57,7 @@ final class HttpUriTest extends \PHPUnit\Framework\TestCase
 
     /**
      * @testdox The url schema can be parsed correctly from a url and overwritten
-     * @covers phpOMS\Uri\HttpUri
+     * @covers \phpOMS\Uri\HttpUri
      * @group framework
      */
     public function testSchemeInputOutput() : void
@@ -72,7 +72,7 @@ final class HttpUriTest extends \PHPUnit\Framework\TestCase
 
     /**
      * @testdox The port can be parsed correctly from a url and overwritten
-     * @covers phpOMS\Uri\HttpUri
+     * @covers \phpOMS\Uri\HttpUri
      * @group framework
      */
     public function testPortInputOutput() : void
@@ -87,7 +87,7 @@ final class HttpUriTest extends \PHPUnit\Framework\TestCase
 
     /**
      * @testdox The host can be parsed correctly from a url
-     * @covers phpOMS\Uri\HttpUri
+     * @covers \phpOMS\Uri\HttpUri
      * @group framework
      */
     public function testHostInputOutput() : void
@@ -102,7 +102,7 @@ final class HttpUriTest extends \PHPUnit\Framework\TestCase
 
     /**
      * @testdox The username can be parsed correctly from a url
-     * @covers phpOMS\Uri\HttpUri
+     * @covers \phpOMS\Uri\HttpUri
      * @group framework
      */
     public function testUsernameInputOutput() : void
@@ -117,7 +117,7 @@ final class HttpUriTest extends \PHPUnit\Framework\TestCase
 
     /**
      * @testdox The password can be parsed correctly from a url
-     * @covers phpOMS\Uri\HttpUri
+     * @covers \phpOMS\Uri\HttpUri
      * @group framework
      */
     public function testPasswordInputOutput() : void
@@ -132,7 +132,7 @@ final class HttpUriTest extends \PHPUnit\Framework\TestCase
 
     /**
      * @testdox The base can be parsed correctly from a url
-     * @covers phpOMS\Uri\HttpUri
+     * @covers \phpOMS\Uri\HttpUri
      * @group framework
      */
     public function testBaseInputOutput() : void
@@ -144,7 +144,7 @@ final class HttpUriTest extends \PHPUnit\Framework\TestCase
 
     /**
      * @testdox The url can be turned into a string
-     * @covers phpOMS\Uri\HttpUri
+     * @covers \phpOMS\Uri\HttpUri
      * @group framework
      */
     public function testStringify() : void
@@ -156,7 +156,7 @@ final class HttpUriTest extends \PHPUnit\Framework\TestCase
 
     /**
      * @testdox The authority can be parsed correctly from a url
-     * @covers phpOMS\Uri\HttpUri
+     * @covers \phpOMS\Uri\HttpUri
      * @group framework
      */
     public function testAuthorityInputOutput() : void
@@ -168,7 +168,7 @@ final class HttpUriTest extends \PHPUnit\Framework\TestCase
 
     /**
      * @testdox The user info can be parsed correctly from a url
-     * @covers phpOMS\Uri\HttpUri
+     * @covers \phpOMS\Uri\HttpUri
      * @group framework
      */
     public function testUserinfoInputOutput() : void
@@ -180,7 +180,7 @@ final class HttpUriTest extends \PHPUnit\Framework\TestCase
 
     /**
      * @testdox The root path can be set and returned
-     * @covers phpOMS\Uri\HttpUri
+     * @covers \phpOMS\Uri\HttpUri
      * @group framework
      */
     public function testRootPathInputOutput() : void
@@ -193,7 +193,7 @@ final class HttpUriTest extends \PHPUnit\Framework\TestCase
 
     /**
      * @testdox A path can be overwritten
-     * @covers phpOMS\Uri\HttpUri
+     * @covers \phpOMS\Uri\HttpUri
      * @group framework
      */
     public function testPathInputOutput() : void
@@ -206,7 +206,7 @@ final class HttpUriTest extends \PHPUnit\Framework\TestCase
 
     /**
      * @testdox The path elements can be parsed from a url and overwritten
-     * @covers phpOMS\Uri\HttpUri
+     * @covers \phpOMS\Uri\HttpUri
      * @group framework
      */
     public function testPathElementInputOutput() : void
@@ -221,7 +221,7 @@ final class HttpUriTest extends \PHPUnit\Framework\TestCase
 
     /**
      * @testdox The path offset can be set and returned
-     * @covers phpOMS\Uri\HttpUri
+     * @covers \phpOMS\Uri\HttpUri
      * @group framework
      */
     public function testPathOffsetInputOutput() : void
@@ -234,7 +234,7 @@ final class HttpUriTest extends \PHPUnit\Framework\TestCase
 
     /**
      * @testdox The subdomain can be parsed correctly from a url
-     * @covers phpOMS\Uri\HttpUri
+     * @covers \phpOMS\Uri\HttpUri
      * @group framework
      */
     public function testSubdmonain() : void
@@ -251,7 +251,7 @@ final class HttpUriTest extends \PHPUnit\Framework\TestCase
 
     /**
      * @testdox The query data can be parsed correctly from a url
-     * @covers phpOMS\Uri\HttpUri
+     * @covers \phpOMS\Uri\HttpUri
      * @group framework
      */
     public function testQueryData() : void
@@ -264,7 +264,7 @@ final class HttpUriTest extends \PHPUnit\Framework\TestCase
 
     /**
      * @testdox The fragment data can be parsed correctly from a url
-     * @covers phpOMS\Uri\HttpUri
+     * @covers \phpOMS\Uri\HttpUri
      * @group framework
      */
     public function testFragment() : void
@@ -278,7 +278,7 @@ final class HttpUriTest extends \PHPUnit\Framework\TestCase
 
     /**
      * @testdox The path data can be parsed correctly from a url
-     * @covers phpOMS\Uri\HttpUri
+     * @covers \phpOMS\Uri\HttpUri
      * @group framework
      */
     public function testPathData() : void
@@ -291,7 +291,7 @@ final class HttpUriTest extends \PHPUnit\Framework\TestCase
 
     /**
      * @testdox The route can be parsed correctly from a url
-     * @covers phpOMS\Uri\HttpUri
+     * @covers \phpOMS\Uri\HttpUri
      * @group framework
      */
     public function testRouteInputOutput() : void
@@ -302,7 +302,7 @@ final class HttpUriTest extends \PHPUnit\Framework\TestCase
 
     /**
      * @testdox A invalid uri cannot get parsed
-     * @covers phpOMS\Uri\HttpUri
+     * @covers \phpOMS\Uri\HttpUri
      * @group framework
      */
     public function testInvalidUri() : void

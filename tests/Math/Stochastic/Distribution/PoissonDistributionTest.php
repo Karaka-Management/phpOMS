@@ -22,7 +22,7 @@ use phpOMS\Math\Stochastic\Distribution\PoissonDistribution;
 final class PoissonDistributionTest extends \PHPUnit\Framework\TestCase
 {
     /**
-     * @covers phpOMS\Math\Stochastic\Distribution\PoissonDistribution
+     * @covers \phpOMS\Math\Stochastic\Distribution\PoissonDistribution
      * @group framework
      */
     public function testPmf() : void
@@ -34,7 +34,7 @@ final class PoissonDistributionTest extends \PHPUnit\Framework\TestCase
     }
 
     /**
-     * @covers phpOMS\Math\Stochastic\Distribution\PoissonDistribution
+     * @covers \phpOMS\Math\Stochastic\Distribution\PoissonDistribution
      * @group framework
      */
     public function testCdf() : void
@@ -46,7 +46,7 @@ final class PoissonDistributionTest extends \PHPUnit\Framework\TestCase
     }
 
     /**
-     * @covers phpOMS\Math\Stochastic\Distribution\PoissonDistribution
+     * @covers \phpOMS\Math\Stochastic\Distribution\PoissonDistribution
      * @group framework
      */
     public function testMode() : void
@@ -57,7 +57,7 @@ final class PoissonDistributionTest extends \PHPUnit\Framework\TestCase
     }
 
     /**
-     * @covers phpOMS\Math\Stochastic\Distribution\PoissonDistribution
+     * @covers \phpOMS\Math\Stochastic\Distribution\PoissonDistribution
      * @group framework
      */
     public function testMean() : void
@@ -68,7 +68,7 @@ final class PoissonDistributionTest extends \PHPUnit\Framework\TestCase
     }
 
     /**
-     * @covers phpOMS\Math\Stochastic\Distribution\PoissonDistribution
+     * @covers \phpOMS\Math\Stochastic\Distribution\PoissonDistribution
      * @group framework
      */
     public function testVariance() : void
@@ -79,7 +79,7 @@ final class PoissonDistributionTest extends \PHPUnit\Framework\TestCase
     }
 
     /**
-     * @covers phpOMS\Math\Stochastic\Distribution\PoissonDistribution
+     * @covers \phpOMS\Math\Stochastic\Distribution\PoissonDistribution
      * @group framework
      */
     public function testStandardDeviation() : void
@@ -90,7 +90,7 @@ final class PoissonDistributionTest extends \PHPUnit\Framework\TestCase
     }
 
     /**
-     * @covers phpOMS\Math\Stochastic\Distribution\PoissonDistribution
+     * @covers \phpOMS\Math\Stochastic\Distribution\PoissonDistribution
      * @group framework
      */
     public function testSkewness() : void
@@ -101,7 +101,7 @@ final class PoissonDistributionTest extends \PHPUnit\Framework\TestCase
     }
 
     /**
-     * @covers phpOMS\Math\Stochastic\Distribution\PoissonDistribution
+     * @covers \phpOMS\Math\Stochastic\Distribution\PoissonDistribution
      * @group framework
      */
     public function testExKurtosis() : void
@@ -112,7 +112,7 @@ final class PoissonDistributionTest extends \PHPUnit\Framework\TestCase
     }
 
     /**
-     * @covers phpOMS\Math\Stochastic\Distribution\PoissonDistribution
+     * @covers \phpOMS\Math\Stochastic\Distribution\PoissonDistribution
      * @group framework
      */
     public function testMedian() : void
@@ -123,7 +123,7 @@ final class PoissonDistributionTest extends \PHPUnit\Framework\TestCase
     }
 
     /**
-     * @covers phpOMS\Math\Stochastic\Distribution\PoissonDistribution
+     * @covers \phpOMS\Math\Stochastic\Distribution\PoissonDistribution
      * @group framework
      */
     public function testFisherInformation() : void
@@ -134,7 +134,7 @@ final class PoissonDistributionTest extends \PHPUnit\Framework\TestCase
     }
 
     /**
-     * @covers phpOMS\Math\Stochastic\Distribution\PoissonDistribution
+     * @covers \phpOMS\Math\Stochastic\Distribution\PoissonDistribution
      * @group framework
      */
     public function testMgf() : void

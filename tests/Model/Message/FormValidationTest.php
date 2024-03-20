@@ -22,7 +22,7 @@ use phpOMS\Model\Message\FormValidation;
 final class FormValidationTest extends \PHPUnit\Framework\TestCase
 {
     /**
-     * @covers phpOMS\Model\Message\FormValidation
+     * @covers \phpOMS\Model\Message\FormValidation
      * @group framework
      */
     public function testDefault() : void
@@ -34,7 +34,7 @@ final class FormValidationTest extends \PHPUnit\Framework\TestCase
     }
 
     /**
-     * @covers phpOMS\Model\Message\FormValidation
+     * @covers \phpOMS\Model\Message\FormValidation
      * @group framework
      */
     public function testSetGet() : void

@@ -22,7 +22,7 @@ use phpOMS\Math\Stochastic\Distribution\BernoulliDistribution;
 final class BernoulliDistributionTest extends \PHPUnit\Framework\TestCase
 {
     /**
-     * @covers phpOMS\Math\Stochastic\Distribution\BernoulliDistribution
+     * @covers \phpOMS\Math\Stochastic\Distribution\BernoulliDistribution
      * @group framework
      */
     public function testPmf() : void
@@ -32,7 +32,7 @@ final class BernoulliDistributionTest extends \PHPUnit\Framework\TestCase
     }
 
     /**
-     * @covers phpOMS\Math\Stochastic\Distribution\BernoulliDistribution
+     * @covers \phpOMS\Math\Stochastic\Distribution\BernoulliDistribution
      * @group framework
      */
     public function testMode() : void
@@ -43,7 +43,7 @@ final class BernoulliDistributionTest extends \PHPUnit\Framework\TestCase
     }
 
     /**
-     * @covers phpOMS\Math\Stochastic\Distribution\BernoulliDistribution
+     * @covers \phpOMS\Math\Stochastic\Distribution\BernoulliDistribution
      * @group framework
      */
     public function testMean() : void
@@ -52,7 +52,7 @@ final class BernoulliDistributionTest extends \PHPUnit\Framework\TestCase
     }
 
     /**
-     * @covers phpOMS\Math\Stochastic\Distribution\BernoulliDistribution
+     * @covers \phpOMS\Math\Stochastic\Distribution\BernoulliDistribution
      * @group framework
      */
     public function testCdf() : void
@@ -63,7 +63,7 @@ final class BernoulliDistributionTest extends \PHPUnit\Framework\TestCase
     }
 
     /**
-     * @covers phpOMS\Math\Stochastic\Distribution\BernoulliDistribution
+     * @covers \phpOMS\Math\Stochastic\Distribution\BernoulliDistribution
      * @group framework
      */
     public function testMedian() : void
@@ -74,7 +74,7 @@ final class BernoulliDistributionTest extends \PHPUnit\Framework\TestCase
     }
 
     /**
-     * @covers phpOMS\Math\Stochastic\Distribution\BernoulliDistribution
+     * @covers \phpOMS\Math\Stochastic\Distribution\BernoulliDistribution
      * @group framework
      */
     public function testVariance() : void
@@ -86,7 +86,7 @@ final class BernoulliDistributionTest extends \PHPUnit\Framework\TestCase
     }
 
     /**
-     * @covers phpOMS\Math\Stochastic\Distribution\BernoulliDistribution
+     * @covers \phpOMS\Math\Stochastic\Distribution\BernoulliDistribution
      * @group framework
      */
     public function testStandardDeviation() : void
@@ -98,7 +98,7 @@ final class BernoulliDistributionTest extends \PHPUnit\Framework\TestCase
     }
 
     /**
-     * @covers phpOMS\Math\Stochastic\Distribution\BernoulliDistribution
+     * @covers \phpOMS\Math\Stochastic\Distribution\BernoulliDistribution
      * @group framework
      */
     public function testSkewness() : void
@@ -110,7 +110,7 @@ final class BernoulliDistributionTest extends \PHPUnit\Framework\TestCase
     }
 
     /**
-     * @covers phpOMS\Math\Stochastic\Distribution\BernoulliDistribution
+     * @covers \phpOMS\Math\Stochastic\Distribution\BernoulliDistribution
      * @group framework
      */
     public function testExKurtosis() : void
@@ -122,7 +122,7 @@ final class BernoulliDistributionTest extends \PHPUnit\Framework\TestCase
     }
 
     /**
-     * @covers phpOMS\Math\Stochastic\Distribution\BernoulliDistribution
+     * @covers \phpOMS\Math\Stochastic\Distribution\BernoulliDistribution
      * @group framework
      */
     public function testEntropy() : void
@@ -134,7 +134,7 @@ final class BernoulliDistributionTest extends \PHPUnit\Framework\TestCase
     }
 
     /**
-     * @covers phpOMS\Math\Stochastic\Distribution\BernoulliDistribution
+     * @covers \phpOMS\Math\Stochastic\Distribution\BernoulliDistribution
      * @group framework
      */
     public function testMgf() : void
@@ -147,7 +147,7 @@ final class BernoulliDistributionTest extends \PHPUnit\Framework\TestCase
     }
 
     /**
-     * @covers phpOMS\Math\Stochastic\Distribution\BernoulliDistribution
+     * @covers \phpOMS\Math\Stochastic\Distribution\BernoulliDistribution
      * @group framework
      */
     public function testFisherInformation() : void
@@ -159,7 +159,7 @@ final class BernoulliDistributionTest extends \PHPUnit\Framework\TestCase
     }
 
     /**
-     * @covers phpOMS\Math\Stochastic\Distribution\BernoulliDistribution
+     * @covers \phpOMS\Math\Stochastic\Distribution\BernoulliDistribution
      * @group framework
      */
     public function testInvalidPmfParameter() : void

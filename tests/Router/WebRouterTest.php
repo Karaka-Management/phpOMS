@@ -46,7 +46,7 @@ final class WebRouterTest extends \PHPUnit\Framework\TestCase
 
     /**
      * @testdox The route result for an empty request is empty
-     * @covers phpOMS\Router\WebRouter
+     * @covers \phpOMS\Router\WebRouter
      * @group framework
      */
     public function testDefault() : void
@@ -60,7 +60,7 @@ final class WebRouterTest extends \PHPUnit\Framework\TestCase
 
     /**
      * @testdox A none-existing routing file cannot be imported
-     * @covers phpOMS\Router\WebRouter
+     * @covers \phpOMS\Router\WebRouter
      * @group framework
      */
     public function testInvalidRoutingFile() : void
@@ -70,7 +70,7 @@ final class WebRouterTest extends \PHPUnit\Framework\TestCase
 
     /**
      * @testdox A existing routing file can be imported
-     * @covers phpOMS\Router\WebRouter
+     * @covers \phpOMS\Router\WebRouter
      * @group framework
      */
     public function testLoadingRoutesFromFile() : void
@@ -80,7 +80,7 @@ final class WebRouterTest extends \PHPUnit\Framework\TestCase
 
     /**
      * @testdox A matching route returns the destinations
-     * @covers phpOMS\Router\WebRouter
+     * @covers \phpOMS\Router\WebRouter
      * @group framework
      */
     public function testRouteMatching() : void
@@ -99,7 +99,7 @@ final class WebRouterTest extends \PHPUnit\Framework\TestCase
 
     /**
      * @testdox The routes can be removed from the router
-     * @covers phpOMS\Router\WebRouter
+     * @covers \phpOMS\Router\WebRouter
      * @group framework
      */
     public function testRouteClearing() : void
@@ -119,7 +119,7 @@ final class WebRouterTest extends \PHPUnit\Framework\TestCase
 
     /**
      * @testdox Invalid routing verbs don't match even if the route matches
-     * @covers phpOMS\Router\WebRouter
+     * @covers \phpOMS\Router\WebRouter
      * @group framework
      */
     public function testRouteMissMatchingForInvalidVerbs() : void
@@ -137,7 +137,7 @@ final class WebRouterTest extends \PHPUnit\Framework\TestCase
 
     /**
      * @testdox Routes can be added dynamically
-     * @covers phpOMS\Router\WebRouter
+     * @covers \phpOMS\Router\WebRouter
      * @group framework
      */
     public function testDynamicRouteAdding() : void
@@ -169,7 +169,7 @@ final class WebRouterTest extends \PHPUnit\Framework\TestCase
 
     /**
      * @testdox Routes which require a CSRF token can only match with a CSRF token
-     * @covers phpOMS\Router\WebRouter
+     * @covers \phpOMS\Router\WebRouter
      * @group framework
      */
     public function testWithCSRF() : void
@@ -189,7 +189,7 @@ final class WebRouterTest extends \PHPUnit\Framework\TestCase
 
     /**
      * @testdox Routes which require a CSRF token don't match without a CSRF token
-     * @covers phpOMS\Router\WebRouter
+     * @covers \phpOMS\Router\WebRouter
      * @group framework
      */
     public function testWithoutCSRF() : void
@@ -208,7 +208,7 @@ final class WebRouterTest extends \PHPUnit\Framework\TestCase
 
     /**
      * @testdox Routes only match if the permissions match
-     * @covers phpOMS\Router\WebRouter
+     * @covers \phpOMS\Router\WebRouter
      * @group framework
      */
     public function testWithValidPermissions() : void
@@ -248,7 +248,7 @@ final class WebRouterTest extends \PHPUnit\Framework\TestCase
 
     /**
      * @testdox Routes don't match if the permissions don't match
-     * @covers phpOMS\Router\WebRouter
+     * @covers \phpOMS\Router\WebRouter
      * @group framework
      */
     public function testWithInvalidPermissions() : void
@@ -312,7 +312,7 @@ final class WebRouterTest extends \PHPUnit\Framework\TestCase
 
     /**
      * @testdox A data validation pattern validates matches correctly
-     * @covers phpOMS\Router\WebRouter
+     * @covers \phpOMS\Router\WebRouter
      * @group framework
      */
     public function testDataValidation() : void
@@ -336,7 +336,7 @@ final class WebRouterTest extends \PHPUnit\Framework\TestCase
 
     /**
      * @testdox A data validation pattern invalidates miss-matches
-     * @covers phpOMS\Router\WebRouter
+     * @covers \phpOMS\Router\WebRouter
      * @group framework
      */
     public function testInvalidDataValidation() : void
@@ -360,7 +360,7 @@ final class WebRouterTest extends \PHPUnit\Framework\TestCase
 
     /**
      * @testdox A uri can be used for data population
-     * @covers phpOMS\Router\WebRouter
+     * @covers \phpOMS\Router\WebRouter
      * @group framework
      */
     public function testDataFromPattern() : void

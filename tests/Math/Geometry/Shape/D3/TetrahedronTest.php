@@ -25,7 +25,7 @@ final class TetrahedronTest extends \PHPUnit\Framework\TestCase
 {
     /**
      * @testdox The volume can be calculated
-     * @covers phpOMS\Math\Geometry\Shape\D3\Tetrahedron
+     * @covers \phpOMS\Math\Geometry\Shape\D3\Tetrahedron
      * @group framework
      */
     public function testVolume() : void
@@ -35,7 +35,7 @@ final class TetrahedronTest extends \PHPUnit\Framework\TestCase
 
     /**
      * @testdox The surface can be calculated
-     * @covers phpOMS\Math\Geometry\Shape\D3\Tetrahedron
+     * @covers \phpOMS\Math\Geometry\Shape\D3\Tetrahedron
      * @group framework
      */
     public function testSurface() : void
@@ -45,7 +45,7 @@ final class TetrahedronTest extends \PHPUnit\Framework\TestCase
 
     /**
      * @testdox The face area can be calculated
-     * @covers phpOMS\Math\Geometry\Shape\D3\Tetrahedron
+     * @covers \phpOMS\Math\Geometry\Shape\D3\Tetrahedron
      * @group framework
      */
     public function testFaceArea() : void

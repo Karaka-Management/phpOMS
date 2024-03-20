@@ -25,7 +25,7 @@ final class ComplexTest extends \PHPUnit\Framework\TestCase
 {
     /**
      * @testdox The complex number has the expected default values after initialization
-     * @covers phpOMS\Math\Number\Complex
+     * @covers \phpOMS\Math\Number\Complex
      * @group framework
      */
     public function testDefault() : void
@@ -38,7 +38,7 @@ final class ComplexTest extends \PHPUnit\Framework\TestCase
 
     /**
      * @testdox The real and imaginary part can be set during initialization and returned
-     * @covers phpOMS\Math\Number\Complex
+     * @covers \phpOMS\Math\Number\Complex
      * @group framework
      */
     public function testConstructorInputOutput() : void
@@ -50,7 +50,7 @@ final class ComplexTest extends \PHPUnit\Framework\TestCase
 
     /**
      * @testdox A complex number can be added to a complex number
-     * @covers phpOMS\Math\Number\Complex
+     * @covers \phpOMS\Math\Number\Complex
      * @group framework
      */
     public function testAddComplex() : void
@@ -63,7 +63,7 @@ final class ComplexTest extends \PHPUnit\Framework\TestCase
 
     /**
      * @testdox A real number can be added to a complex number
-     * @covers phpOMS\Math\Number\Complex
+     * @covers \phpOMS\Math\Number\Complex
      * @group framework
      */
     public function testAddReal() : void
@@ -74,7 +74,7 @@ final class ComplexTest extends \PHPUnit\Framework\TestCase
 
     /**
      * @testdox A complex number can be subtracted from a complex number
-     * @covers phpOMS\Math\Number\Complex
+     * @covers \phpOMS\Math\Number\Complex
      * @group framework
      */
     public function testSubComplex() : void
@@ -87,7 +87,7 @@ final class ComplexTest extends \PHPUnit\Framework\TestCase
 
     /**
      * @testdox A real number can be subtracted from a complex number
-     * @covers phpOMS\Math\Number\Complex
+     * @covers \phpOMS\Math\Number\Complex
      * @group framework
      */
     public function testSubReal() : void
@@ -98,7 +98,7 @@ final class ComplexTest extends \PHPUnit\Framework\TestCase
 
     /**
      * @testdox A complex number can be multiplied with a complex number
-     * @covers phpOMS\Math\Number\Complex
+     * @covers \phpOMS\Math\Number\Complex
      * @group framework
      */
     public function testMultComplex() : void
@@ -111,7 +111,7 @@ final class ComplexTest extends \PHPUnit\Framework\TestCase
 
     /**
      * @testdox A real number can be multiplied with a complex number
-     * @covers phpOMS\Math\Number\Complex
+     * @covers \phpOMS\Math\Number\Complex
      * @group framework
      */
     public function testMultReal() : void
@@ -122,7 +122,7 @@ final class ComplexTest extends \PHPUnit\Framework\TestCase
 
     /**
      * @testdox A complex number can be divided by a complex number number
-     * @covers phpOMS\Math\Number\Complex
+     * @covers \phpOMS\Math\Number\Complex
      * @group framework
      */
     public function testDivComplex() : void
@@ -135,7 +135,7 @@ final class ComplexTest extends \PHPUnit\Framework\TestCase
 
     /**
      * @testdox A complex number can be divided by a real number
-     * @covers phpOMS\Math\Number\Complex
+     * @covers \phpOMS\Math\Number\Complex
      * @group framework
      */
     public function testDivReal() : void
@@ -146,7 +146,7 @@ final class ComplexTest extends \PHPUnit\Framework\TestCase
 
     /**
      * @testdox A complex number can be conjugated
-     * @covers phpOMS\Math\Number\Complex
+     * @covers \phpOMS\Math\Number\Complex
      * @group framework
      */
     public function testConjugate() : void
@@ -158,7 +158,7 @@ final class ComplexTest extends \PHPUnit\Framework\TestCase
 
     /**
      * @testdox The reciprocal of a complex number can be calculated
-     * @covers phpOMS\Math\Number\Complex
+     * @covers \phpOMS\Math\Number\Complex
      * @group framework
      */
     public function testReciprocal() : void
@@ -170,7 +170,7 @@ final class ComplexTest extends \PHPUnit\Framework\TestCase
 
     /**
      * @testdox A complex number can be squared
-     * @covers phpOMS\Math\Number\Complex
+     * @covers \phpOMS\Math\Number\Complex
      * @group framework
      */
     public function testSquare() : void
@@ -182,7 +182,7 @@ final class ComplexTest extends \PHPUnit\Framework\TestCase
 
     /**
      * @testdox The real power of a complex number can be calculated
-     * @covers phpOMS\Math\Number\Complex
+     * @covers \phpOMS\Math\Number\Complex
      * @group framework
      */
     public function testPower() : void
@@ -196,7 +196,7 @@ final class ComplexTest extends \PHPUnit\Framework\TestCase
 
     /**
      * @testdox The absolute value of a complex number can be calculated
-     * @covers phpOMS\Math\Number\Complex
+     * @covers \phpOMS\Math\Number\Complex
      * @group framework
      */
     public function testAbs() : void
@@ -208,7 +208,7 @@ final class ComplexTest extends \PHPUnit\Framework\TestCase
 
     /**
      * @testdox The square root of a complex number can be calculated
-     * @covers phpOMS\Math\Number\Complex
+     * @covers \phpOMS\Math\Number\Complex
      * @group framework
      */
     public function testSqrt() : void

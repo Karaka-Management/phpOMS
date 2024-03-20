@@ -25,7 +25,7 @@ final class EllipseTest extends \PHPUnit\Framework\TestCase
 {
     /**
      * @testdox The surface can be calculated
-     * @covers phpOMS\Math\Geometry\Shape\D2\Ellipse
+     * @covers \phpOMS\Math\Geometry\Shape\D2\Ellipse
      * @group framework
      */
     public function testSurface() : void
@@ -35,7 +35,7 @@ final class EllipseTest extends \PHPUnit\Framework\TestCase
 
     /**
      * @testdox The perimeter can be calculated
-     * @covers phpOMS\Math\Geometry\Shape\D2\Ellipse
+     * @covers \phpOMS\Math\Geometry\Shape\D2\Ellipse
      * @group framework
      */
     public function testPerimeter() : void

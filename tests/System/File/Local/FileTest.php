@@ -26,7 +26,7 @@ final class FileTest extends \PHPUnit\Framework\TestCase
 {
     /**
      * @testdox A file without content can be created
-     * @covers phpOMS\System\File\Local\File<extended>
+     * @covers \phpOMS\System\File\Local\File<extended>
      * @group framework
      */
     public function testStaticCreate() : void
@@ -50,7 +50,7 @@ final class FileTest extends \PHPUnit\Framework\TestCase
 
     /**
      * @testdox A file cannot be created if it already exists
-     * @covers phpOMS\System\File\Local\File<extended>
+     * @covers \phpOMS\System\File\Local\File<extended>
      * @group framework
      */
     public function testInvalidStaticCreate() : void
@@ -69,7 +69,7 @@ final class FileTest extends \PHPUnit\Framework\TestCase
 
     /**
      * @testdox A file with content can be created
-     * @covers phpOMS\System\File\Local\File<extended>
+     * @covers \phpOMS\System\File\Local\File<extended>
      * @group framework
      */
     public function testStaticPut() : void
@@ -93,7 +93,7 @@ final class FileTest extends \PHPUnit\Framework\TestCase
 
     /**
      * @testdox A file cannot be replaced if it doesn't exists
-     * @covers phpOMS\System\File\Local\File<extended>
+     * @covers \phpOMS\System\File\Local\File<extended>
      * @group framework
      */
     public function testInvalidStaticCreateReplace() : void
@@ -109,7 +109,7 @@ final class FileTest extends \PHPUnit\Framework\TestCase
 
     /**
      * @testdox A file cannot be appended if it doesn't exists
-     * @covers phpOMS\System\File\Local\File<extended>
+     * @covers \phpOMS\System\File\Local\File<extended>
      * @group framework
      */
     public function testInvalidStaticCreateAppend() : void
@@ -125,7 +125,7 @@ final class FileTest extends \PHPUnit\Framework\TestCase
 
     /**
      * @testdox A file cannot be prepended if it doesn't exists
-     * @covers phpOMS\System\File\Local\File<extended>
+     * @covers \phpOMS\System\File\Local\File<extended>
      * @group framework
      */
     public function testInvalidStaticCreatePrepend() : void
@@ -141,7 +141,7 @@ final class FileTest extends \PHPUnit\Framework\TestCase
 
     /**
      * @testdox A file can be checked for existence
-     * @covers phpOMS\System\File\Local\File<extended>
+     * @covers \phpOMS\System\File\Local\File<extended>
      * @group framework
      */
     public function testStaticExists() : void
@@ -152,7 +152,7 @@ final class FileTest extends \PHPUnit\Framework\TestCase
 
     /**
      * @testdox A file can be replaced with a new one
-     * @covers phpOMS\System\File\Local\File<extended>
+     * @covers \phpOMS\System\File\Local\File<extended>
      * @group framework
      */
     public function testStaticReplace() : void
@@ -172,7 +172,7 @@ final class FileTest extends \PHPUnit\Framework\TestCase
 
     /**
      * @testdox The set alias works like the replace flag
-     * @covers phpOMS\System\File\Local\File<extended>
+     * @covers \phpOMS\System\File\Local\File<extended>
      * @group framework
      */
     public function testStaticSetAlias() : void
@@ -192,7 +192,7 @@ final class FileTest extends \PHPUnit\Framework\TestCase
 
     /**
      * @testdox A file can be appended with additional content
-     * @covers phpOMS\System\File\Local\File<extended>
+     * @covers \phpOMS\System\File\Local\File<extended>
      * @group framework
      */
     public function testStaticAppend() : void
@@ -212,7 +212,7 @@ final class FileTest extends \PHPUnit\Framework\TestCase
 
     /**
      * @testdox The append alias works like the append flag
-     * @covers phpOMS\System\File\Local\File<extended>
+     * @covers \phpOMS\System\File\Local\File<extended>
      * @group framework
      */
     public function testStaticAppendAlias() : void
@@ -232,7 +232,7 @@ final class FileTest extends \PHPUnit\Framework\TestCase
 
     /**
      * @testdox A file can be prepended with additional content
-     * @covers phpOMS\System\File\Local\File<extended>
+     * @covers \phpOMS\System\File\Local\File<extended>
      * @group framework
      */
     public function testStaticPrepend() : void
@@ -252,7 +252,7 @@ final class FileTest extends \PHPUnit\Framework\TestCase
 
     /**
      * @testdox The prepend alias works like the prepend flag
-     * @covers phpOMS\System\File\Local\File<extended>
+     * @covers \phpOMS\System\File\Local\File<extended>
      * @group framework
      */
     public function testStaticPrependAlias() : void
@@ -272,7 +272,7 @@ final class FileTest extends \PHPUnit\Framework\TestCase
 
     /**
      * @testdox The content of a file can be read
-     * @covers phpOMS\System\File\Local\File<extended>
+     * @covers \phpOMS\System\File\Local\File<extended>
      * @group framework
      */
     public function testStaticGet() : void
@@ -290,7 +290,7 @@ final class FileTest extends \PHPUnit\Framework\TestCase
 
     /**
      * @testdox The parent directory of a file can be returned
-     * @covers phpOMS\System\File\Local\File<extended>
+     * @covers \phpOMS\System\File\Local\File<extended>
      * @group framework
      */
     public function testStaticParent() : void
@@ -302,7 +302,7 @@ final class FileTest extends \PHPUnit\Framework\TestCase
 
     /**
      * @testdox The extension of a file can be returned
-     * @covers phpOMS\System\File\Local\File<extended>
+     * @covers \phpOMS\System\File\Local\File<extended>
      * @group framework
      */
     public function testStaticExtension() : void
@@ -314,7 +314,7 @@ final class FileTest extends \PHPUnit\Framework\TestCase
 
     /**
      * @testdox The name of a file can be returned
-     * @covers phpOMS\System\File\Local\File<extended>
+     * @covers \phpOMS\System\File\Local\File<extended>
      * @group framework
      */
     public function testStaticName() : void
@@ -326,7 +326,7 @@ final class FileTest extends \PHPUnit\Framework\TestCase
 
     /**
      * @testdox The basename of a file can be returned
-     * @covers phpOMS\System\File\Local\File<extended>
+     * @covers \phpOMS\System\File\Local\File<extended>
      * @group framework
      */
     public function testStaticBaseName() : void
@@ -338,7 +338,7 @@ final class FileTest extends \PHPUnit\Framework\TestCase
 
     /**
      * @testdox The file name of a file can be returned
-     * @covers phpOMS\System\File\Local\File<extended>
+     * @covers \phpOMS\System\File\Local\File<extended>
      * @group framework
      */
     public function testStaticDirname() : void
@@ -350,7 +350,7 @@ final class FileTest extends \PHPUnit\Framework\TestCase
 
     /**
      * @testdox The file path of a file can be returned
-     * @covers phpOMS\System\File\Local\File<extended>
+     * @covers \phpOMS\System\File\Local\File<extended>
      * @group framework
      */
     public function testStaticDirectoryPath() : void
@@ -362,7 +362,7 @@ final class FileTest extends \PHPUnit\Framework\TestCase
 
     /**
      * @testdox The count of a file is always 1
-     * @covers phpOMS\System\File\Local\File<extended>
+     * @covers \phpOMS\System\File\Local\File<extended>
      * @group framework
      */
     public function testStaticCount() : void
@@ -374,7 +374,7 @@ final class FileTest extends \PHPUnit\Framework\TestCase
 
     /**
      * @testdox The directories creation date can be returned
-     * @covers phpOMS\System\File\Local\File<extended>
+     * @covers \phpOMS\System\File\Local\File<extended>
      * @group framework
      */
     public function testStaticCreatedAt() : void
@@ -390,7 +390,7 @@ final class FileTest extends \PHPUnit\Framework\TestCase
 
     /**
      * @testdox The directories last change date can be returned
-     * @covers phpOMS\System\File\Local\File<extended>
+     * @covers \phpOMS\System\File\Local\File<extended>
      * @group framework
      */
     public function testStaticChangedAt() : void
@@ -406,7 +406,7 @@ final class FileTest extends \PHPUnit\Framework\TestCase
 
     /**
      * @testdox A file can be deleted
-     * @covers phpOMS\System\File\Local\File<extended>
+     * @covers \phpOMS\System\File\Local\File<extended>
      * @group framework
      */
     public function testStaticDelete() : void
@@ -420,7 +420,7 @@ final class FileTest extends \PHPUnit\Framework\TestCase
 
     /**
      * @testdox A none-existing file cannot be deleted
-     * @covers phpOMS\System\File\Local\File<extended>
+     * @covers \phpOMS\System\File\Local\File<extended>
      * @group framework
      */
     public function testInvalidStaticDelete() : void
@@ -432,7 +432,7 @@ final class FileTest extends \PHPUnit\Framework\TestCase
 
     /**
      * @testdox The size of a file can be returned
-     * @covers phpOMS\System\File\Local\File<extended>
+     * @covers \phpOMS\System\File\Local\File<extended>
      * @group framework
      */
     public function testStaticSize() : void
@@ -451,7 +451,7 @@ final class FileTest extends \PHPUnit\Framework\TestCase
 
     /**
      * @testdox The permission of a file can be returned
-     * @covers phpOMS\System\File\Local\File<extended>
+     * @covers \phpOMS\System\File\Local\File<extended>
      * @group framework
      */
     public function testStaticPermission() : void
@@ -470,7 +470,7 @@ final class FileTest extends \PHPUnit\Framework\TestCase
 
     /**
      * @testdox The permission of a none-existing file is negative
-     * @covers phpOMS\System\File\Local\File<extended>
+     * @covers \phpOMS\System\File\Local\File<extended>
      * @group framework
      */
     public function testInvalidStaticPermission() : void
@@ -480,7 +480,7 @@ final class FileTest extends \PHPUnit\Framework\TestCase
     }
 
     /**
-     * @covers phpOMS\System\File\Local\File<extended>
+     * @covers \phpOMS\System\File\Local\File<extended>
      * @group framework
      */
     public function testPathInfo() : void
@@ -498,7 +498,7 @@ final class FileTest extends \PHPUnit\Framework\TestCase
 
     /**
      * @testdox A file can be copied to a different location
-     * @covers phpOMS\System\File\Local\File<extended>
+     * @covers \phpOMS\System\File\Local\File<extended>
      * @group framework
      */
     public function testStaticCopy() : void
@@ -525,7 +525,7 @@ final class FileTest extends \PHPUnit\Framework\TestCase
 
     /**
      * @testdox A file cannot be copied to a different location if the destination already exists
-     * @covers phpOMS\System\File\Local\File<extended>
+     * @covers \phpOMS\System\File\Local\File<extended>
      * @group framework
      */
     public function testInvalidStaticCopy() : void
@@ -552,7 +552,7 @@ final class FileTest extends \PHPUnit\Framework\TestCase
 
     /**
      * @testdox A file can be forced to be copied to a different location even if the destination already exists
-     * @covers phpOMS\System\File\Local\File<extended>
+     * @covers \phpOMS\System\File\Local\File<extended>
      * @group framework
      */
     public function testStaticCopyOverwrite() : void
@@ -579,7 +579,7 @@ final class FileTest extends \PHPUnit\Framework\TestCase
 
     /**
      * @testdox A file can be moved to a different location
-     * @covers phpOMS\System\File\Local\File<extended>
+     * @covers \phpOMS\System\File\Local\File<extended>
      * @group framework
      */
     public function testStaticMove() : void
@@ -605,7 +605,7 @@ final class FileTest extends \PHPUnit\Framework\TestCase
 
     /**
      * @testdox A file cannot be moved to a different location if the destination already exists
-     * @covers phpOMS\System\File\Local\File<extended>
+     * @covers \phpOMS\System\File\Local\File<extended>
      * @group framework
      */
     public function testInvalidStaticMove() : void
@@ -630,7 +630,7 @@ final class FileTest extends \PHPUnit\Framework\TestCase
 
     /**
      * @testdox A file can be forced to be moved to a different location even if the destination already exists
-     * @covers phpOMS\System\File\Local\File<extended>
+     * @covers \phpOMS\System\File\Local\File<extended>
      * @group framework
      */
     public function testStaticMoveOverwrite() : void
@@ -653,7 +653,7 @@ final class FileTest extends \PHPUnit\Framework\TestCase
     }
 
     /**
-     * @covers phpOMS\System\File\Local\File<extended>
+     * @covers \phpOMS\System\File\Local\File<extended>
      * @group framework
      */
     public function testStaticOwner() : void
@@ -663,7 +663,7 @@ final class FileTest extends \PHPUnit\Framework\TestCase
     }
 
     /**
-     * @covers phpOMS\System\File\Local\File<extended>
+     * @covers \phpOMS\System\File\Local\File<extended>
      * @group framework
      */
     public function testFileNameSanitizing() : void
@@ -673,7 +673,7 @@ final class FileTest extends \PHPUnit\Framework\TestCase
 
     /**
      * @testdox The size of a none-existing file is negative
-     * @covers phpOMS\System\File\Local\File<extended>
+     * @covers \phpOMS\System\File\Local\File<extended>
      * @group framework
      */
     public function testInvalidSizePath() : void
@@ -683,7 +683,7 @@ final class FileTest extends \PHPUnit\Framework\TestCase
 
     /**
      * @testdox A none-existing file cannot be copied
-     * @covers phpOMS\System\File\Local\File<extended>
+     * @covers \phpOMS\System\File\Local\File<extended>
      * @group framework
      */
     public function testInvalidCopyPath() : void
@@ -693,7 +693,7 @@ final class FileTest extends \PHPUnit\Framework\TestCase
 
     /**
      * @testdox A none-existing file cannot be moved
-     * @covers phpOMS\System\File\Local\File<extended>
+     * @covers \phpOMS\System\File\Local\File<extended>
      * @group framework
      */
     public function testInvalidMovePath() : void
@@ -703,7 +703,7 @@ final class FileTest extends \PHPUnit\Framework\TestCase
 
     /**
      * @testdox Reading the content of a none-existing file throws a PathException
-     * @covers phpOMS\System\File\Local\File<extended>
+     * @covers \phpOMS\System\File\Local\File<extended>
      * @group framework
      */
     public function testInvalidGetPath() : void
@@ -715,7 +715,7 @@ final class FileTest extends \PHPUnit\Framework\TestCase
 
     /**
      * @testdox Reading the created date of a none-existing file throws a PathException
-     * @covers phpOMS\System\File\Local\File<extended>
+     * @covers \phpOMS\System\File\Local\File<extended>
      * @group framework
      */
     public function testInvalidCreatedPath() : void
@@ -727,7 +727,7 @@ final class FileTest extends \PHPUnit\Framework\TestCase
 
     /**
      * @testdox Reading the last change date of a none-existing file throws a PathException
-     * @covers phpOMS\System\File\Local\File<extended>
+     * @covers \phpOMS\System\File\Local\File<extended>
      * @group framework
      */
     public function testInvalidChangedPath() : void
@@ -739,7 +739,7 @@ final class FileTest extends \PHPUnit\Framework\TestCase
 
     /**
      * @testdox Reading the owner of a none-existing file throws a PathException
-     * @covers phpOMS\System\File\Local\File<extended>
+     * @covers \phpOMS\System\File\Local\File<extended>
      * @group framework
      */
     public function testInvalidOwnerPath() : void
@@ -750,7 +750,7 @@ final class FileTest extends \PHPUnit\Framework\TestCase
     }
 
     /**
-     * @covers phpOMS\System\File\Local\File<extended>
+     * @covers \phpOMS\System\File\Local\File<extended>
      * @group framework
      */
     public function testNodeInputOutput() : void
@@ -768,7 +768,7 @@ final class FileTest extends \PHPUnit\Framework\TestCase
     }
 
     /**
-     * @covers phpOMS\System\File\Local\File<extended>
+     * @covers \phpOMS\System\File\Local\File<extended>
      * @group framework
      */
     public function testNodeReplace() : void
@@ -787,7 +787,7 @@ final class FileTest extends \PHPUnit\Framework\TestCase
     }
 
     /**
-     * @covers phpOMS\System\File\Local\File<extended>
+     * @covers \phpOMS\System\File\Local\File<extended>
      * @group framework
      */
     public function testNodeAppend() : void
@@ -806,7 +806,7 @@ final class FileTest extends \PHPUnit\Framework\TestCase
     }
 
     /**
-     * @covers phpOMS\System\File\Local\File<extended>
+     * @covers \phpOMS\System\File\Local\File<extended>
      * @group framework
      */
     public function testNodePrepend() : void
@@ -825,7 +825,7 @@ final class FileTest extends \PHPUnit\Framework\TestCase
     }
 
     /**
-     * @covers phpOMS\System\File\Local\File<extended>
+     * @covers \phpOMS\System\File\Local\File<extended>
      * @group framework
      */
     public function testNodeExtension() : void
@@ -837,7 +837,7 @@ final class FileTest extends \PHPUnit\Framework\TestCase
     }
 
     /**
-     * @covers phpOMS\System\File\Local\File<extended>
+     * @covers \phpOMS\System\File\Local\File<extended>
      * @group framework
      */
     public function testNodeCreatedAt() : void
@@ -858,7 +858,7 @@ final class FileTest extends \PHPUnit\Framework\TestCase
     }
 
     /**
-     * @covers phpOMS\System\File\Local\File<extended>
+     * @covers \phpOMS\System\File\Local\File<extended>
      * @group framework
      */
     public function testNodeChangedAt() : void
@@ -879,7 +879,7 @@ final class FileTest extends \PHPUnit\Framework\TestCase
     }
 
     /**
-     * @covers phpOMS\System\File\Local\File<extended>
+     * @covers \phpOMS\System\File\Local\File<extended>
      * @group framework
      */
     public function testNodeOwner() : void
@@ -891,7 +891,7 @@ final class FileTest extends \PHPUnit\Framework\TestCase
     }
 
     /**
-     * @covers phpOMS\System\File\Local\File<extended>
+     * @covers \phpOMS\System\File\Local\File<extended>
      * @group framework
      */
     public function testNodePermission() : void
@@ -903,7 +903,7 @@ final class FileTest extends \PHPUnit\Framework\TestCase
     }
 
     /**
-     * @covers phpOMS\System\File\Local\File<extended>
+     * @covers \phpOMS\System\File\Local\File<extended>
      * @group framework
      */
     public function testDirname() : void
@@ -915,7 +915,7 @@ final class FileTest extends \PHPUnit\Framework\TestCase
     }
 
     /**
-     * @covers phpOMS\System\File\Local\File<extended>
+     * @covers \phpOMS\System\File\Local\File<extended>
      * @group framework
      */
     public function testName() : void
@@ -927,7 +927,7 @@ final class FileTest extends \PHPUnit\Framework\TestCase
     }
 
     /**
-     * @covers phpOMS\System\File\Local\File<extended>
+     * @covers \phpOMS\System\File\Local\File<extended>
      * @group framework
      */
     public function testBaseame() : void
@@ -939,7 +939,7 @@ final class FileTest extends \PHPUnit\Framework\TestCase
     }
 
     /**
-     * @covers phpOMS\System\File\Local\File<extended>
+     * @covers \phpOMS\System\File\Local\File<extended>
      * @group framework
      */
     public function testDirpath() : void
@@ -951,7 +951,7 @@ final class FileTest extends \PHPUnit\Framework\TestCase
     }
 
     /**
-     * @covers phpOMS\System\File\Local\File<extended>
+     * @covers \phpOMS\System\File\Local\File<extended>
      * @group framework
      */
     public function testParentOutput() : void
@@ -963,7 +963,7 @@ final class FileTest extends \PHPUnit\Framework\TestCase
     }
 
     /**
-     * @covers phpOMS\System\File\Local\File<extended>
+     * @covers \phpOMS\System\File\Local\File<extended>
      * @group framework
      */
     public function testNodeCreate() : void
@@ -982,7 +982,7 @@ final class FileTest extends \PHPUnit\Framework\TestCase
     }
 
     /**
-     * @covers phpOMS\System\File\Local\File<extended>
+     * @covers \phpOMS\System\File\Local\File<extended>
      * @group framework
      */
     public function testNodeDelete() : void
@@ -1001,7 +1001,7 @@ final class FileTest extends \PHPUnit\Framework\TestCase
     }
 
     /**
-     * @covers phpOMS\System\File\Local\File<extended>
+     * @covers \phpOMS\System\File\Local\File<extended>
      * @group framework
      */
     public function testNodeCopy() : void
@@ -1023,7 +1023,7 @@ final class FileTest extends \PHPUnit\Framework\TestCase
     }
 
     /**
-     * @covers phpOMS\System\File\Local\File<extended>
+     * @covers \phpOMS\System\File\Local\File<extended>
      * @group framework
      */
     public function testNodeMove() : void
@@ -1044,7 +1044,7 @@ final class FileTest extends \PHPUnit\Framework\TestCase
     }
 
     /**
-     * @covers phpOMS\System\File\Local\File<extended>
+     * @covers \phpOMS\System\File\Local\File<extended>
      * @group framework
      */
     public function testNodeExists() : void
@@ -1057,7 +1057,7 @@ final class FileTest extends \PHPUnit\Framework\TestCase
     }
 
     /**
-     * @covers phpOMS\System\File\Local\File<extended>
+     * @covers \phpOMS\System\File\Local\File<extended>
      * @group framework
      */
     public function testNodeParent() : void
@@ -1068,7 +1068,7 @@ final class FileTest extends \PHPUnit\Framework\TestCase
     }
 
     /**
-     * @covers phpOMS\System\File\Local\File<extended>
+     * @covers \phpOMS\System\File\Local\File<extended>
      * @group framework
      */
     public function testNodeDirectory() : void

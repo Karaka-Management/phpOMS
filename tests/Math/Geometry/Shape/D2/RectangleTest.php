@@ -25,7 +25,7 @@ final class RectangleTest extends \PHPUnit\Framework\TestCase
 {
     /**
      * @testdox The surface can be calculated
-     * @covers phpOMS\Math\Geometry\Shape\D2\Rectangle
+     * @covers \phpOMS\Math\Geometry\Shape\D2\Rectangle
      * @group framework
      */
     public function testSurface() : void
@@ -35,7 +35,7 @@ final class RectangleTest extends \PHPUnit\Framework\TestCase
 
     /**
      * @testdox The perimeter can be calculated
-     * @covers phpOMS\Math\Geometry\Shape\D2\Rectangle
+     * @covers \phpOMS\Math\Geometry\Shape\D2\Rectangle
      * @group framework
      */
     public function testPerimeter() : void
@@ -45,7 +45,7 @@ final class RectangleTest extends \PHPUnit\Framework\TestCase
 
     /**
      * @testdox The diagonal can be calculated
-     * @covers phpOMS\Math\Geometry\Shape\D2\Rectangle
+     * @covers \phpOMS\Math\Geometry\Shape\D2\Rectangle
      * @group framework
      */
     public function testDiagonal() : void

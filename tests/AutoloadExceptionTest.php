@@ -22,7 +22,7 @@ use phpOMS\AutoloadException;
 final class AutoloadExceptionTest extends \PHPUnit\Framework\TestCase
 {
     /**
-     * @covers phpOMS\AutoloadException
+     * @covers \phpOMS\AutoloadException
      * @group framework
      */
     public function testException() : void

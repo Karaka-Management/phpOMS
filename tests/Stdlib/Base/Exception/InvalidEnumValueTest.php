@@ -22,7 +22,7 @@ use phpOMS\Stdlib\Base\Exception\InvalidEnumValue;
 final class InvalidEnumValueTest extends \PHPUnit\Framework\TestCase
 {
     /**
-     * @covers phpOMS\Stdlib\Base\Exception\InvalidEnumValue
+     * @covers \phpOMS\Stdlib\Base\Exception\InvalidEnumValue
      * @group framework
      */
     public function testException() : void

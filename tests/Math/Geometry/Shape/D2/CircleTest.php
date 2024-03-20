@@ -25,7 +25,7 @@ final class CircleTest extends \PHPUnit\Framework\TestCase
 {
     /**
      * @testdox The surface can be calculated
-     * @covers phpOMS\Math\Geometry\Shape\D2\Circle
+     * @covers \phpOMS\Math\Geometry\Shape\D2\Circle
      * @group framework
      */
     public function testSurface() : void
@@ -35,7 +35,7 @@ final class CircleTest extends \PHPUnit\Framework\TestCase
 
     /**
      * @testdox The perimeter can be calculated
-     * @covers phpOMS\Math\Geometry\Shape\D2\Circle
+     * @covers \phpOMS\Math\Geometry\Shape\D2\Circle
      * @group framework
      */
     public function testPerimeter() : void
@@ -45,7 +45,7 @@ final class CircleTest extends \PHPUnit\Framework\TestCase
 
     /**
      * @testdox The radius can be calculated with the surface
-     * @covers phpOMS\Math\Geometry\Shape\D2\Circle
+     * @covers \phpOMS\Math\Geometry\Shape\D2\Circle
      * @group framework
      */
     public function testRadiusBySurface() : void
@@ -55,7 +55,7 @@ final class CircleTest extends \PHPUnit\Framework\TestCase
 
     /**
      * @testdox The radius can be calculated with the perimeter
-     * @covers phpOMS\Math\Geometry\Shape\D2\Circle
+     * @covers \phpOMS\Math\Geometry\Shape\D2\Circle
      * @group framework
      */
     public function testRadiusByPerimeter() : void

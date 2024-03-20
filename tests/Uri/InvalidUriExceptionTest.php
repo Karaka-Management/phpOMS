@@ -26,7 +26,7 @@ final class InvalidUriExceptionTest extends \PHPUnit\Framework\TestCase
 {
     /**
      * @testdox The invalid uri exception is an unexpected value exception
-     * @covers phpOMS\Uri\InvalidUriException
+     * @covers \phpOMS\Uri\InvalidUriException
      * @group framework
      */
     public function testException() : void

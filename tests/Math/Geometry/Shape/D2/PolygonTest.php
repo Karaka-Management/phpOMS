@@ -25,7 +25,7 @@ final class PolygonTest extends \PHPUnit\Framework\TestCase
 {
     /**
      * @testdox The location of a point can be checked relative to a polygon
-     * @covers phpOMS\Math\Geometry\Shape\D2\Polygon
+     * @covers \phpOMS\Math\Geometry\Shape\D2\Polygon
      * @group framework
      */
     public function testPoint() : void
@@ -51,7 +51,7 @@ final class PolygonTest extends \PHPUnit\Framework\TestCase
 
     /**
      * @testdox The interior angle can be calculated
-     * @covers phpOMS\Math\Geometry\Shape\D2\Polygon
+     * @covers \phpOMS\Math\Geometry\Shape\D2\Polygon
      * @group framework
      */
     public function testInteriorAngle() : void
@@ -77,7 +77,7 @@ final class PolygonTest extends \PHPUnit\Framework\TestCase
 
     /**
      * @testdox The exterior angle can be calculated
-     * @covers phpOMS\Math\Geometry\Shape\D2\Polygon
+     * @covers \phpOMS\Math\Geometry\Shape\D2\Polygon
      * @group framework
      */
     public function testExteriorAngle() : void
@@ -88,7 +88,7 @@ final class PolygonTest extends \PHPUnit\Framework\TestCase
 
     /**
      * @testdox The perimeter can be calculated
-     * @covers phpOMS\Math\Geometry\Shape\D2\Polygon
+     * @covers \phpOMS\Math\Geometry\Shape\D2\Polygon
      * @group framework
      */
     public function testPerimeter() : void
@@ -108,7 +108,7 @@ final class PolygonTest extends \PHPUnit\Framework\TestCase
 
     /**
      * @testdox The area can be calculated
-     * @covers phpOMS\Math\Geometry\Shape\D2\Polygon
+     * @covers \phpOMS\Math\Geometry\Shape\D2\Polygon
      * @group framework
      */
     public function testArea() : void
@@ -128,7 +128,7 @@ final class PolygonTest extends \PHPUnit\Framework\TestCase
 
     /**
      * @testdox The barycenter can be calculated
-     * @covers phpOMS\Math\Geometry\Shape\D2\Polygon
+     * @covers \phpOMS\Math\Geometry\Shape\D2\Polygon
      * @group framework
      */
     public function testBarycenter() : void
@@ -148,7 +148,7 @@ final class PolygonTest extends \PHPUnit\Framework\TestCase
 
     /**
      * @testdox The regular area can be calculated with the side length
-     * @covers phpOMS\Math\Geometry\Shape\D2\Polygon
+     * @covers \phpOMS\Math\Geometry\Shape\D2\Polygon
      * @group framework
      */
     public function testRegularAreaByLength() : void
@@ -158,7 +158,7 @@ final class PolygonTest extends \PHPUnit\Framework\TestCase
 
     /**
      * @testdox The regular area can be calculated with the radius
-     * @covers phpOMS\Math\Geometry\Shape\D2\Polygon
+     * @covers \phpOMS\Math\Geometry\Shape\D2\Polygon
      * @group framework
      */
     public function testRegularAreaByRadius() : void

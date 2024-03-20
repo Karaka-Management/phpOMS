@@ -53,7 +53,7 @@ final class MatrixTest extends \PHPUnit\Framework\TestCase
 
     /**
      * @testdox A matrix can return its dimension
-     * @covers phpOMS\Math\Matrix\Matrix
+     * @covers \phpOMS\Math\Matrix\Matrix
      * @group framework
      */
     public function testBase() : void
@@ -64,7 +64,7 @@ final class MatrixTest extends \PHPUnit\Framework\TestCase
 
     /**
      * @testdox A matrix can be right-hand multiplied with a matrix
-     * @covers phpOMS\Math\Matrix\Matrix
+     * @covers \phpOMS\Math\Matrix\Matrix
      * @group framework
      */
     public function testMultMatrix() : void
@@ -74,7 +74,7 @@ final class MatrixTest extends \PHPUnit\Framework\TestCase
 
     /**
      * @testdox A matrix can be right-hand multiplied with a scalar
-     * @covers phpOMS\Math\Matrix\Matrix
+     * @covers \phpOMS\Math\Matrix\Matrix
      * @group framework
      */
     public function testMultMatrixScalar() : void
@@ -84,7 +84,7 @@ final class MatrixTest extends \PHPUnit\Framework\TestCase
 
     /**
      * @testdox A scalar can be added to every matrix element
-     * @covers phpOMS\Math\Matrix\Matrix
+     * @covers \phpOMS\Math\Matrix\Matrix
      * @group framework
      */
     public function testAddScalar() : void
@@ -97,7 +97,7 @@ final class MatrixTest extends \PHPUnit\Framework\TestCase
 
     /**
      * @testdox A scalar can be subtracted from every matrix element
-     * @covers phpOMS\Math\Matrix\Matrix
+     * @covers \phpOMS\Math\Matrix\Matrix
      * @group framework
      */
     public function testSubScalar() : void
@@ -110,7 +110,7 @@ final class MatrixTest extends \PHPUnit\Framework\TestCase
 
     /**
      * @testdox Two matrices can be added to each other
-     * @covers phpOMS\Math\Matrix\Matrix
+     * @covers \phpOMS\Math\Matrix\Matrix
      * @group framework
      */
     public function testAddMatrix() : void
@@ -126,7 +126,7 @@ final class MatrixTest extends \PHPUnit\Framework\TestCase
 
     /**
      * @testdox Two matrices can be subtracted from each other
-     * @covers phpOMS\Math\Matrix\Matrix
+     * @covers \phpOMS\Math\Matrix\Matrix
      * @group framework
      */
     public function testSubMatrix() : void
@@ -142,7 +142,7 @@ final class MatrixTest extends \PHPUnit\Framework\TestCase
 
     /**
      * @testdox The determinant of a matrix can be calculated
-     * @covers phpOMS\Math\Matrix\Matrix
+     * @covers \phpOMS\Math\Matrix\Matrix
      * @group framework
      */
     public function testDet() : void
@@ -159,7 +159,7 @@ final class MatrixTest extends \PHPUnit\Framework\TestCase
 
     /**
      * @testdox A symmetric matrix can be validated for symmetry
-     * @covers phpOMS\Math\Matrix\Matrix
+     * @covers \phpOMS\Math\Matrix\Matrix
      * @group framework
      */
     public function testSymmetry() : void
@@ -176,7 +176,7 @@ final class MatrixTest extends \PHPUnit\Framework\TestCase
 
     /**
      * @testdox A none-symmetric matrix cannot be validated for symmetry
-     * @covers phpOMS\Math\Matrix\Matrix
+     * @covers \phpOMS\Math\Matrix\Matrix
      * @group framework
      */
     public function testInvalidSymmetry() : void
@@ -193,7 +193,7 @@ final class MatrixTest extends \PHPUnit\Framework\TestCase
 
     /**
      * @testdox A matrix can be transposed
-     * @covers phpOMS\Math\Matrix\Matrix
+     * @covers \phpOMS\Math\Matrix\Matrix
      * @group framework
      */
     public function testTranspose() : void
@@ -209,7 +209,7 @@ final class MatrixTest extends \PHPUnit\Framework\TestCase
 
     /**
      * @testdox A matrix equation Ax = b can be solved for x
-     * @covers phpOMS\Math\Matrix\Matrix
+     * @covers \phpOMS\Math\Matrix\Matrix
      * @group framework
      */
     public function testSolve() : void
@@ -229,7 +229,7 @@ final class MatrixTest extends \PHPUnit\Framework\TestCase
 
     /**
      * @testdox The rank of a matrix can be calculated
-     * @covers phpOMS\Math\Matrix\Matrix
+     * @covers \phpOMS\Math\Matrix\Matrix
      * @group framework
      */
     public function testRank() : void
@@ -265,7 +265,7 @@ final class MatrixTest extends \PHPUnit\Framework\TestCase
     }
 
     /**
-     * @covers phpOMS\Math\Matrix\Matrix
+     * @covers \phpOMS\Math\Matrix\Matrix
      * @group framework
      */
     public function testInverse() : void
@@ -286,7 +286,7 @@ final class MatrixTest extends \PHPUnit\Framework\TestCase
 
     /**
      * @testdox The upper triangular matrix can be calculated
-     * @covers phpOMS\Math\Matrix\Matrix
+     * @covers \phpOMS\Math\Matrix\Matrix
      * @group framework
      */
     public function testUpperTriangular() : void
@@ -295,7 +295,7 @@ final class MatrixTest extends \PHPUnit\Framework\TestCase
     }
 
     /**
-     * @covers phpOMS\Math\Matrix\Matrix
+     * @covers \phpOMS\Math\Matrix\Matrix
      * @group framework
      */
     public function testLowerTriangular() : void
@@ -307,7 +307,7 @@ final class MatrixTest extends \PHPUnit\Framework\TestCase
 
     /**
      * @testdox The matrix elements can be set and returned
-     * @covers phpOMS\Math\Matrix\Matrix
+     * @covers \phpOMS\Math\Matrix\Matrix
      * @group framework
      */
     public function testMatrixInputOutput() : void
@@ -340,7 +340,7 @@ final class MatrixTest extends \PHPUnit\Framework\TestCase
 
     /**
      * @testdox A matrix can be accessed like a 1-dimensional array
-     * @covers phpOMS\Math\Matrix\Matrix
+     * @covers \phpOMS\Math\Matrix\Matrix
      * @group framework
      */
     public function testArrayAccess() : void
@@ -371,7 +371,7 @@ final class MatrixTest extends \PHPUnit\Framework\TestCase
 
     /**
      * @testdox Sub matrices can be extracted from a matrix
-     * @covers phpOMS\Math\Matrix\Matrix
+     * @covers \phpOMS\Math\Matrix\Matrix
      * @group framework
      */
     public function testMatrixExtract() : void
@@ -407,7 +407,7 @@ final class MatrixTest extends \PHPUnit\Framework\TestCase
 
     /**
      * @testdox Setting a matrix element outside of the dimensions throws a InvalidDimensionException
-     * @covers phpOMS\Math\Matrix\Matrix
+     * @covers \phpOMS\Math\Matrix\Matrix
      * @group framework
      */
     public function testInvalidSetIndexException() : void
@@ -424,7 +424,7 @@ final class MatrixTest extends \PHPUnit\Framework\TestCase
 
     /**
      * @testdox Returning a matrix element outside of the dimensions throws a InvalidDimensionException
-     * @covers phpOMS\Math\Matrix\Matrix
+     * @covers \phpOMS\Math\Matrix\Matrix
      * @group framework
      */
     public function testInvalidGetIndexException() : void
@@ -441,7 +441,7 @@ final class MatrixTest extends \PHPUnit\Framework\TestCase
 
     /**
      * @testdox Adding a matrix with a different dimension to a matrix throws a InvalidDimensionException
-     * @covers phpOMS\Math\Matrix\Matrix
+     * @covers \phpOMS\Math\Matrix\Matrix
      * @group framework
      */
     public function testInvalidDimensionAdd() : void
@@ -459,7 +459,7 @@ final class MatrixTest extends \PHPUnit\Framework\TestCase
 
     /**
      * @testdox Subtracting a matrix from a different dimension to a matrix throws a InvalidDimensionException
-     * @covers phpOMS\Math\Matrix\Matrix
+     * @covers \phpOMS\Math\Matrix\Matrix
      * @group framework
      */
     public function testInvalidDimensionSub() : void
@@ -477,7 +477,7 @@ final class MatrixTest extends \PHPUnit\Framework\TestCase
 
     /**
      * @testdox Multiplying a matrix with a different n x m dimension to a matrix throws a InvalidDimensionException
-     * @covers phpOMS\Math\Matrix\Matrix
+     * @covers \phpOMS\Math\Matrix\Matrix
      * @group framework
      */
     public function testInvalidDimensionMult() : void

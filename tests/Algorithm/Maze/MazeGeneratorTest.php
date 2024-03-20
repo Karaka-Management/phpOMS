@@ -27,7 +27,7 @@ final class MazeGeneratorTest extends \PHPUnit\Framework\TestCase
 {
     /**
      * @testdox A random maze can be generated
-     * @covers phpOMS\Algorithm\Maze\MazeGenerator
+     * @covers \phpOMS\Algorithm\Maze\MazeGenerator
      * @group framework
      */
     public function testMazeGeneration() : void
@@ -61,7 +61,7 @@ final class MazeGeneratorTest extends \PHPUnit\Framework\TestCase
 
     /**
      * @testdox A random maze can be rendered
-     * @covers phpOMS\Algorithm\Maze\MazeGenerator
+     * @covers \phpOMS\Algorithm\Maze\MazeGenerator
      * @group framework
      */
     public function testMazeRender() : void

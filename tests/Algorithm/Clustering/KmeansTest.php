@@ -28,7 +28,7 @@ final class KmeansTest extends \PHPUnit\Framework\TestCase
 {
     /**
      * @testdox The clustering of points and dynamic check of new points works as expected
-     * @covers phpOMS\Algorithm\Clustering\Kmeans
+     * @covers \phpOMS\Algorithm\Clustering\Kmeans
      * @group framework
      */
     public function testKmeans() : void

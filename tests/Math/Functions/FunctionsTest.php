@@ -25,7 +25,7 @@ final class FunctionsTest extends \PHPUnit\Framework\TestCase
 {
     /**
      * @testdox The factorial of a number can be calculated
-     * @covers phpOMS\Math\Functions\Functions
+     * @covers \phpOMS\Math\Functions\Functions
      * @group framework
      */
     public function testFactorial() : void
@@ -36,7 +36,7 @@ final class FunctionsTest extends \PHPUnit\Framework\TestCase
 
     /**
      * @testdox The binomial coefficient can be calculated
-     * @covers phpOMS\Math\Functions\Functions
+     * @covers \phpOMS\Math\Functions\Functions
      * @group framework
      */
     public function testBinomialCoefficient() : void
@@ -48,7 +48,7 @@ final class FunctionsTest extends \PHPUnit\Framework\TestCase
 
     /**
      * @testdox The ackerman function can be calculated
-     * @covers phpOMS\Math\Functions\Functions
+     * @covers \phpOMS\Math\Functions\Functions
      * @group framework
      */
     public function testAckermann() : void
@@ -61,7 +61,7 @@ final class FunctionsTest extends \PHPUnit\Framework\TestCase
 
     /**
      * @testdox The multiplicative inverse module can be calculated
-     * @covers phpOMS\Math\Functions\Functions
+     * @covers \phpOMS\Math\Functions\Functions
      * @group framework
      */
     public function testMultiplicativeInverseModulo() : void
@@ -73,7 +73,7 @@ final class FunctionsTest extends \PHPUnit\Framework\TestCase
 
     /**
      * @testdox A number can be checked if it is odd
-     * @covers phpOMS\Math\Functions\Functions
+     * @covers \phpOMS\Math\Functions\Functions
      * @group framework
      */
     public function testOdd() : void
@@ -86,7 +86,7 @@ final class FunctionsTest extends \PHPUnit\Framework\TestCase
 
     /**
      * @testdox A number can be checked if it is even
-     * @covers phpOMS\Math\Functions\Functions
+     * @covers \phpOMS\Math\Functions\Functions
      * @group framework
      */
     public function testEven() : void
@@ -99,7 +99,7 @@ final class FunctionsTest extends \PHPUnit\Framework\TestCase
 
     /**
      * @testdox The relative number can be calculated on a circular number system (e.g. month in a diverging business year)
-     * @covers phpOMS\Math\Functions\Functions
+     * @covers \phpOMS\Math\Functions\Functions
      * @group framework
      */
     public function testCircularPosition() : void
@@ -111,7 +111,7 @@ final class FunctionsTest extends \PHPUnit\Framework\TestCase
 
     /**
      * @testdox The error function can be correctly approximated
-     * @covers phpOMS\Math\Functions\Functions
+     * @covers \phpOMS\Math\Functions\Functions
      * @group framework
      */
     public function testErf() : void
@@ -124,7 +124,7 @@ final class FunctionsTest extends \PHPUnit\Framework\TestCase
 
     /**
      * @testdox The complementary error function can be correctly approximated
-     * @covers phpOMS\Math\Functions\Functions
+     * @covers \phpOMS\Math\Functions\Functions
      * @group framework
      */
     public function testErfc() : void
@@ -137,7 +137,7 @@ final class FunctionsTest extends \PHPUnit\Framework\TestCase
 
     /**
      * @testdox The generalized hypergeometric function can be correctly calculated
-     * @covers phpOMS\Math\Functions\Functions
+     * @covers \phpOMS\Math\Functions\Functions
      * @group framework
      */
     public function testGeneralizedHypergeometricFunction() : void

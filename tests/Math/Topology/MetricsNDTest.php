@@ -26,7 +26,7 @@ final class MetricsNDTest extends \PHPUnit\Framework\TestCase
 {
     /**
      * @testdox The manhattan distance can be calculated
-     * @covers phpOMS\Math\Topology\MetricsND
+     * @covers \phpOMS\Math\Topology\MetricsND
      * @group framework
      */
     public function testManhattan() : void
@@ -39,7 +39,7 @@ final class MetricsNDTest extends \PHPUnit\Framework\TestCase
 
     /**
      * @testdox The euclidean distance can be calculated
-     * @covers phpOMS\Math\Topology\MetricsND
+     * @covers \phpOMS\Math\Topology\MetricsND
      * @group framework
      */
     public function testEuclidean() : void
@@ -53,7 +53,7 @@ final class MetricsNDTest extends \PHPUnit\Framework\TestCase
 
     /**
      * @testdox The chebyshev distance can be calculated
-     * @covers phpOMS\Math\Topology\MetricsND
+     * @covers \phpOMS\Math\Topology\MetricsND
      * @group framework
      */
     public function testChebyshev() : void
@@ -66,7 +66,7 @@ final class MetricsNDTest extends \PHPUnit\Framework\TestCase
 
     /**
      * @testdox The minkowski distance can be calculated
-     * @covers phpOMS\Math\Topology\MetricsND
+     * @covers \phpOMS\Math\Topology\MetricsND
      * @group framework
      */
     public function testMinkowski() : void
@@ -80,7 +80,7 @@ final class MetricsNDTest extends \PHPUnit\Framework\TestCase
 
     /**
      * @testdox The canberra distance can be calculated
-     * @covers phpOMS\Math\Topology\MetricsND
+     * @covers \phpOMS\Math\Topology\MetricsND
      * @group framework
      */
     public function testCanberra() : void
@@ -94,7 +94,7 @@ final class MetricsNDTest extends \PHPUnit\Framework\TestCase
 
     /**
      * @testdox The cosine distance can be calculated
-     * @covers phpOMS\Math\Topology\MetricsND
+     * @covers \phpOMS\Math\Topology\MetricsND
      * @group framework
      */
     public function testCosine() : void
@@ -108,7 +108,7 @@ final class MetricsNDTest extends \PHPUnit\Framework\TestCase
 
     /**
      * @testdox The bray-curtis distance can be calculated
-     * @covers phpOMS\Math\Topology\MetricsND
+     * @covers \phpOMS\Math\Topology\MetricsND
      * @group framework
      */
     public function testBrayCurtis() : void
@@ -122,7 +122,7 @@ final class MetricsNDTest extends \PHPUnit\Framework\TestCase
 
     /**
      * @testdox The angular distance can be calculated
-     * @covers phpOMS\Math\Topology\MetricsND
+     * @covers \phpOMS\Math\Topology\MetricsND
      * @group framework
      */
     public function testAngularSeparation() : void
@@ -136,7 +136,7 @@ final class MetricsNDTest extends \PHPUnit\Framework\TestCase
 
     /**
      * @testdox The hamming distance can be calculated
-     * @covers phpOMS\Math\Topology\MetricsND
+     * @covers \phpOMS\Math\Topology\MetricsND
      * @group framework
      */
     public function testHammingDistance() : void
@@ -149,7 +149,7 @@ final class MetricsNDTest extends \PHPUnit\Framework\TestCase
 
     /**
      * @testdox Different dimension sizes for the coordinates in the manhattan metric throw a InvalidDimensionException
-     * @covers phpOMS\Math\Topology\MetricsND
+     * @covers \phpOMS\Math\Topology\MetricsND
      * @group framework
      */
     public function testInvalidManhattanDimension() : void
@@ -161,7 +161,7 @@ final class MetricsNDTest extends \PHPUnit\Framework\TestCase
 
     /**
      * @testdox Different dimension sizes for the coordinates in the euclidean metric throw a InvalidDimensionException
-     * @covers phpOMS\Math\Topology\MetricsND
+     * @covers \phpOMS\Math\Topology\MetricsND
      * @group framework
      */
     public function testInvalidEuclideanDimension() : void
@@ -173,7 +173,7 @@ final class MetricsNDTest extends \PHPUnit\Framework\TestCase
 
     /**
      * @testdox Different dimension sizes for the coordinates in the chebyshev metric throw a InvalidDimensionException
-     * @covers phpOMS\Math\Topology\MetricsND
+     * @covers \phpOMS\Math\Topology\MetricsND
      * @group framework
      */
     public function testInvalidChebyshevDimension() : void
@@ -185,7 +185,7 @@ final class MetricsNDTest extends \PHPUnit\Framework\TestCase
 
     /**
      * @testdox Different dimension sizes for the coordinates in the minkowski metric throw a InvalidDimensionException
-     * @covers phpOMS\Math\Topology\MetricsND
+     * @covers \phpOMS\Math\Topology\MetricsND
      * @group framework
      */
     public function testInvalidMinkowskiDimension() : void
@@ -197,7 +197,7 @@ final class MetricsNDTest extends \PHPUnit\Framework\TestCase
 
     /**
      * @testdox Different dimension sizes for the coordinates in the canberra metric throw a InvalidDimensionException
-     * @covers phpOMS\Math\Topology\MetricsND
+     * @covers \phpOMS\Math\Topology\MetricsND
      * @group framework
      */
     public function testInvalidCanberraDimension() : void
@@ -209,7 +209,7 @@ final class MetricsNDTest extends \PHPUnit\Framework\TestCase
 
     /**
      * @testdox Different dimension sizes for the coordinates in the cosine metric throw a InvalidDimensionException
-     * @covers phpOMS\Math\Topology\MetricsND
+     * @covers \phpOMS\Math\Topology\MetricsND
      * @group framework
      */
     public function testInvalidCosineDimension() : void
@@ -221,7 +221,7 @@ final class MetricsNDTest extends \PHPUnit\Framework\TestCase
 
     /**
      * @testdox Different dimension sizes for the coordinates in the Bray Curtis metric throw a InvalidDimensionException
-     * @covers phpOMS\Math\Topology\MetricsND
+     * @covers \phpOMS\Math\Topology\MetricsND
      * @group framework
      */
     public function testInvalidBrayCurtisDimension() : void
@@ -233,7 +233,7 @@ final class MetricsNDTest extends \PHPUnit\Framework\TestCase
 
     /**
      * @testdox Different dimension sizes for the coordinates in the angular separation metric throw a InvalidDimensionException
-     * @covers phpOMS\Math\Topology\MetricsND
+     * @covers \phpOMS\Math\Topology\MetricsND
      * @group framework
      */
     public function testInvalidAngularSeparationDimension() : void
@@ -245,7 +245,7 @@ final class MetricsNDTest extends \PHPUnit\Framework\TestCase
 
     /**
      * @testdox Different dimension sizes for the coordinates in the hamming metric throw a InvalidDimensionException
-     * @covers phpOMS\Math\Topology\MetricsND
+     * @covers \phpOMS\Math\Topology\MetricsND
      * @group framework
      */
     public function testInvalidHammingDimension() : void

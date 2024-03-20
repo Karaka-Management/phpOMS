@@ -22,7 +22,7 @@ use phpOMS\Math\Stochastic\Distribution\UniformDistributionDiscrete;
 final class UniformDistributionDiscreteTest extends \PHPUnit\Framework\TestCase
 {
     /**
-     * @covers phpOMS\Math\Stochastic\Distribution\UniformDistributionDiscrete
+     * @covers \phpOMS\Math\Stochastic\Distribution\UniformDistributionDiscrete
      * @group framework
      */
     public function testPmf() : void
@@ -34,7 +34,7 @@ final class UniformDistributionDiscreteTest extends \PHPUnit\Framework\TestCase
     }
 
     /**
-     * @covers phpOMS\Math\Stochastic\Distribution\UniformDistributionDiscrete
+     * @covers \phpOMS\Math\Stochastic\Distribution\UniformDistributionDiscrete
      * @group framework
      */
     public function testCdf() : void
@@ -47,7 +47,7 @@ final class UniformDistributionDiscreteTest extends \PHPUnit\Framework\TestCase
     }
 
     /**
-     * @covers phpOMS\Math\Stochastic\Distribution\UniformDistributionDiscrete
+     * @covers \phpOMS\Math\Stochastic\Distribution\UniformDistributionDiscrete
      * @group framework
      */
     public function testSkewness() : void
@@ -56,7 +56,7 @@ final class UniformDistributionDiscreteTest extends \PHPUnit\Framework\TestCase
     }
 
     /**
-     * @covers phpOMS\Math\Stochastic\Distribution\UniformDistributionDiscrete
+     * @covers \phpOMS\Math\Stochastic\Distribution\UniformDistributionDiscrete
      * @group framework
      */
     public function testMean() : void
@@ -68,7 +68,7 @@ final class UniformDistributionDiscreteTest extends \PHPUnit\Framework\TestCase
     }
 
     /**
-     * @covers phpOMS\Math\Stochastic\Distribution\UniformDistributionDiscrete
+     * @covers \phpOMS\Math\Stochastic\Distribution\UniformDistributionDiscrete
      * @group framework
      */
     public function testMedian() : void
@@ -80,7 +80,7 @@ final class UniformDistributionDiscreteTest extends \PHPUnit\Framework\TestCase
     }
 
     /**
-     * @covers phpOMS\Math\Stochastic\Distribution\UniformDistributionDiscrete
+     * @covers \phpOMS\Math\Stochastic\Distribution\UniformDistributionDiscrete
      * @group framework
      */
     public function testVariance() : void
@@ -92,7 +92,7 @@ final class UniformDistributionDiscreteTest extends \PHPUnit\Framework\TestCase
     }
 
     /**
-     * @covers phpOMS\Math\Stochastic\Distribution\UniformDistributionDiscrete
+     * @covers \phpOMS\Math\Stochastic\Distribution\UniformDistributionDiscrete
      * @group framework
      */
     public function testStandardDeviation() : void
@@ -104,7 +104,7 @@ final class UniformDistributionDiscreteTest extends \PHPUnit\Framework\TestCase
     }
 
     /**
-     * @covers phpOMS\Math\Stochastic\Distribution\UniformDistributionDiscrete
+     * @covers \phpOMS\Math\Stochastic\Distribution\UniformDistributionDiscrete
      * @group framework
      */
     public function testExKurtosis() : void
@@ -120,7 +120,7 @@ final class UniformDistributionDiscreteTest extends \PHPUnit\Framework\TestCase
     }
 
     /**
-     * @covers phpOMS\Math\Stochastic\Distribution\UniformDistributionDiscrete
+     * @covers \phpOMS\Math\Stochastic\Distribution\UniformDistributionDiscrete
      * @group framework
      */
     public function testMgf() : void
@@ -132,7 +132,7 @@ final class UniformDistributionDiscreteTest extends \PHPUnit\Framework\TestCase
     }
 
     /**
-     * @covers phpOMS\Math\Stochastic\Distribution\UniformDistributionDiscrete
+     * @covers \phpOMS\Math\Stochastic\Distribution\UniformDistributionDiscrete
      * @group framework
      */
     public function testCdfExceptionUpper() : void
@@ -143,7 +143,7 @@ final class UniformDistributionDiscreteTest extends \PHPUnit\Framework\TestCase
     }
 
     /**
-     * @covers phpOMS\Math\Stochastic\Distribution\UniformDistributionDiscrete
+     * @covers \phpOMS\Math\Stochastic\Distribution\UniformDistributionDiscrete
      * @group framework
      */
     public function testCdfExceptionLower() : void

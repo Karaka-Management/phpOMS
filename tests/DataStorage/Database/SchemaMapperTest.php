@@ -61,7 +61,7 @@ final class SchemaMapperTest extends \PHPUnit\Framework\TestCase
 
     /**
      * @testdox The tables can be returned
-     * @covers phpOMS\DataStorage\Database\SchemaMapper
+     * @covers \phpOMS\DataStorage\Database\SchemaMapper
      * @group framework
      */
     public function testTables() : void
@@ -74,7 +74,7 @@ final class SchemaMapperTest extends \PHPUnit\Framework\TestCase
 
     /**
      * @testdox The fields of a table can be returned
-     * @covers phpOMS\DataStorage\Database\SchemaMapper
+     * @covers \phpOMS\DataStorage\Database\SchemaMapper
      * @group framework
      */
     public function testFields() : void

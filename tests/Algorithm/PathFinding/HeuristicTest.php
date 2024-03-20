@@ -28,7 +28,7 @@ final class HeuristicTest extends \PHPUnit\Framework\TestCase
 {
     /**
      * @testdox The heuristics return the correct metric results
-     * @covers phpOMS\Algorithm\PathFinding\Heuristic
+     * @covers \phpOMS\Algorithm\PathFinding\Heuristic
      * @group framework
      */
     public function testHeuristics() : void

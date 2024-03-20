@@ -25,7 +25,7 @@ final class FileTest extends \PHPUnit\Framework\TestCase
 {
     /**
      * @testdox A byte number can be converted to a string representation
-     * @covers phpOMS\Utils\Converter\File
+     * @covers \phpOMS\Utils\Converter\File
      * @group framework
      */
     public function testByteSizeToString() : void
@@ -38,7 +38,7 @@ final class FileTest extends \PHPUnit\Framework\TestCase
 
     /**
      * @testdox A kilobyte number can be converted to a string representation
-     * @covers phpOMS\Utils\Converter\File
+     * @covers \phpOMS\Utils\Converter\File
      * @group framework
      */
     public function testKilobyteSizeToString() : void

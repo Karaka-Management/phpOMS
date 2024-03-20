@@ -25,7 +25,7 @@ final class PhoneTest extends \PHPUnit\Framework\TestCase
 {
     /**
      * @testdox Random phone numbers can be generated
-     * @covers phpOMS\Utils\RnG\Phone
+     * @covers \phpOMS\Utils\RnG\Phone
      * @group framework
      */
     public function testRnG() : void

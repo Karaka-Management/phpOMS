@@ -26,7 +26,7 @@ final class GammaTest extends \PHPUnit\Framework\TestCase
 {
     /**
      * @testdox The gamma function can be approximated
-     * @covers phpOMS\Math\Functions\Gamma
+     * @covers \phpOMS\Math\Functions\Gamma
      * @group framework
      */
     public function testGamma() : void
@@ -37,7 +37,7 @@ final class GammaTest extends \PHPUnit\Framework\TestCase
 
     /**
      * @testdox The gamma function can be calculated for integers
-     * @covers phpOMS\Math\Functions\Gamma
+     * @covers \phpOMS\Math\Functions\Gamma
      * @group framework
      */
     public function testFactorial() : void
@@ -47,7 +47,7 @@ final class GammaTest extends \PHPUnit\Framework\TestCase
 
     /**
      * @testdox The gamma function can be approximated with the spouge formula
-     * @covers phpOMS\Math\Functions\Gamma
+     * @covers \phpOMS\Math\Functions\Gamma
      * @group framework
      */
     public function testApproximationSpouge() : void
@@ -67,7 +67,7 @@ final class GammaTest extends \PHPUnit\Framework\TestCase
 
     /**
      * @testdox The gamma function can be approximated with the stirling formula
-     * @covers phpOMS\Math\Functions\Gamma
+     * @covers \phpOMS\Math\Functions\Gamma
      * @group framework
      */
     public function testApproximationStirling() : void
@@ -87,7 +87,7 @@ final class GammaTest extends \PHPUnit\Framework\TestCase
 
     /**
      * @testdox The gamma function can be approximated with the lanzos formula
-     * @covers phpOMS\Math\Functions\Gamma
+     * @covers \phpOMS\Math\Functions\Gamma
      * @group framework
      */
     public function testApproximationLanzos() : void
@@ -107,7 +107,7 @@ final class GammaTest extends \PHPUnit\Framework\TestCase
 
     /**
      * @testdox The log gamma function can be approximated
-     * @covers phpOMS\Math\Functions\Gamma
+     * @covers \phpOMS\Math\Functions\Gamma
      * @group framework
      */
     public function testLogGamma() : void
@@ -127,7 +127,7 @@ final class GammaTest extends \PHPUnit\Framework\TestCase
 
     /**
      * @testdox The first incomplete gamma function can be approximated
-     * @covers phpOMS\Math\Functions\Gamma
+     * @covers \phpOMS\Math\Functions\Gamma
      * @group framework
      */
     public function testFirstIncompleteGamma() : void
@@ -139,7 +139,7 @@ final class GammaTest extends \PHPUnit\Framework\TestCase
 
     /**
      * @testdox The second incomplete gamma function can be approximated
-     * @covers phpOMS\Math\Functions\Gamma
+     * @covers \phpOMS\Math\Functions\Gamma
      * @group framework
      */
     public function testSecondIncompleteGamma() : void
@@ -151,7 +151,7 @@ final class GammaTest extends \PHPUnit\Framework\TestCase
 
     /**
      * @testdox The regularized incomplete gamma function can be approximated
-     * @covers phpOMS\Math\Functions\Gamma
+     * @covers \phpOMS\Math\Functions\Gamma
      * @group framework
      */
     public function testRegularizedGamma() : void

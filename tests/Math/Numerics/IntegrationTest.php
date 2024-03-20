@@ -28,7 +28,7 @@ final class IntegrationTest extends \PHPUnit\Framework\TestCase
 {
     /**
      * @testdox Integration by summing up rectangle areas from the left side
-     * @covers phpOMS\Math\Numerics\Integration
+     * @covers \phpOMS\Math\Numerics\Integration
      * @group framework
      */
     public function testLRect() : void
@@ -41,7 +41,7 @@ final class IntegrationTest extends \PHPUnit\Framework\TestCase
 
     /**
      * @testdox Integration by summing up rectangle areas from the right side
-     * @covers phpOMS\Math\Numerics\Integration
+     * @covers \phpOMS\Math\Numerics\Integration
      * @group framework
      */
     public function testRRect() : void
@@ -54,7 +54,7 @@ final class IntegrationTest extends \PHPUnit\Framework\TestCase
 
     /**
      * @testdox Integration by summing up rectangle areas from the middle
-     * @covers phpOMS\Math\Numerics\Integration
+     * @covers \phpOMS\Math\Numerics\Integration
      * @group framework
      */
     public function testMRect() : void
@@ -67,7 +67,7 @@ final class IntegrationTest extends \PHPUnit\Framework\TestCase
 
     /**
      * @testdox Integration by summing up trapezoid areas
-     * @covers phpOMS\Math\Numerics\Integration
+     * @covers \phpOMS\Math\Numerics\Integration
      * @group framework
      */
     public function testTrapeze() : void
@@ -80,7 +80,7 @@ final class IntegrationTest extends \PHPUnit\Framework\TestCase
 
     /**
      * @testdox Integration by using the simpson formula
-     * @covers phpOMS\Math\Numerics\Integration
+     * @covers \phpOMS\Math\Numerics\Integration
      * @group framework
      */
     public function testSimpson() : void

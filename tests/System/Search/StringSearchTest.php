@@ -24,7 +24,7 @@ use phpOMS\System\Search\StringSearch;
 final class StringSearchTest extends \PHPUnit\Framework\TestCase
 {
     /**
-     * @covers phpOMS\System\Search\StringSearch
+     * @covers \phpOMS\System\Search\StringSearch
      * @group framework
      */
     public function testKnutMorrisPrattSearch() : void
@@ -33,7 +33,7 @@ final class StringSearchTest extends \PHPUnit\Framework\TestCase
     }
 
     /**
-     * @covers phpOMS\System\Search\StringSearch
+     * @covers \phpOMS\System\Search\StringSearch
      * @group framework
      */
     public function testInvalidKnutMorrisPrattSearch() : void
@@ -42,7 +42,7 @@ final class StringSearchTest extends \PHPUnit\Framework\TestCase
     }
 
     /**
-     * @covers phpOMS\System\Search\StringSearch
+     * @covers \phpOMS\System\Search\StringSearch
      * @group framework
      */
     public function testBoyerMooreHorspoolSimpleSearch() : void
@@ -51,7 +51,7 @@ final class StringSearchTest extends \PHPUnit\Framework\TestCase
     }
 
     /**
-     * @covers phpOMS\System\Search\StringSearch
+     * @covers \phpOMS\System\Search\StringSearch
      * @group framework
      */
     public function testInvalidBoyerMooreHorspoolSimpleSearch() : void
@@ -60,7 +60,7 @@ final class StringSearchTest extends \PHPUnit\Framework\TestCase
     }
 
     /**
-     * @covers phpOMS\System\Search\StringSearch
+     * @covers \phpOMS\System\Search\StringSearch
      * @group framework
      */
     public function testBoyerMooreHorspoolSearch() : void
@@ -69,7 +69,7 @@ final class StringSearchTest extends \PHPUnit\Framework\TestCase
     }
 
     /**
-     * @covers phpOMS\System\Search\StringSearch
+     * @covers \phpOMS\System\Search\StringSearch
      * @group framework
      */
     public function testInvalidBoyerMooreHorspoolSearch() : void

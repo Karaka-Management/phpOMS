@@ -25,7 +25,7 @@ final class VectorTest extends \PHPUnit\Framework\TestCase
 {
     /**
      * @testdox The vector has the expected default values after initialization
-     * @covers phpOMS\Math\Matrix\Vector
+     * @covers \phpOMS\Math\Matrix\Vector
      * @group framework
      */
     public function testDefault() : void
@@ -39,7 +39,7 @@ final class VectorTest extends \PHPUnit\Framework\TestCase
 
     /**
      * @testdox The vector values can be set and returned
-     * @covers phpOMS\Math\Matrix\Vector
+     * @covers \phpOMS\Math\Matrix\Vector
      * @group framework
      */
     public function testValueInputOutput() : void
@@ -55,7 +55,7 @@ final class VectorTest extends \PHPUnit\Framework\TestCase
 
     /**
      * @testdox The vector dimension can be returned
-     * @covers phpOMS\Math\Matrix\Vector
+     * @covers \phpOMS\Math\Matrix\Vector
      * @group framework
      */
     public function testDim() : void

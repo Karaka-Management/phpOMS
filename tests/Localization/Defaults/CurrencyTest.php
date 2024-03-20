@@ -27,7 +27,7 @@ final class CurrencyTest extends \PHPUnit\Framework\TestCase
 {
     /**
      * @testdox The model has the expected member variables and default values
-     * @covers phpOMS\Localization\Defaults\Currency
+     * @covers \phpOMS\Localization\Defaults\Currency
      * @group framework
      */
     public function testDefaults() : void

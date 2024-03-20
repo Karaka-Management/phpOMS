@@ -22,7 +22,7 @@ use phpOMS\DataStorage\Database\Query\Where;
 final class WhereTest extends \PHPUnit\Framework\TestCase
 {
     /**
-     * @covers phpOMS\DataStorage\Database\Query\Where
+     * @covers \phpOMS\DataStorage\Database\Query\Where
      * @group framework
      */
     public function testDefault() : void

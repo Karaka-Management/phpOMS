@@ -27,7 +27,7 @@ final class CholeskyDecompositionTest extends \PHPUnit\Framework\TestCase
 {
     /**
      * @testdox The decomposition can be created and the original matrix can be computed
-     * @covers phpOMS\Math\Matrix\CholeskyDecomposition
+     * @covers \phpOMS\Math\Matrix\CholeskyDecomposition
      * @group framework
      */
     public function testDecomposition() : void
@@ -52,7 +52,7 @@ final class CholeskyDecompositionTest extends \PHPUnit\Framework\TestCase
 
     /**
      * @testdox The decomposition matrix has the expected values
-     * @covers phpOMS\Math\Matrix\CholeskyDecomposition
+     * @covers \phpOMS\Math\Matrix\CholeskyDecomposition
      * @group framework
      */
     public function testL() : void
@@ -75,7 +75,7 @@ final class CholeskyDecompositionTest extends \PHPUnit\Framework\TestCase
 
     /**
      * @testdox A matrix can be checked for symmetric positivity
-     * @covers phpOMS\Math\Matrix\CholeskyDecomposition
+     * @covers \phpOMS\Math\Matrix\CholeskyDecomposition
      * @group framework
      */
     public function testSymmetricPositive() : void
@@ -105,7 +105,7 @@ final class CholeskyDecompositionTest extends \PHPUnit\Framework\TestCase
 
     /**
      * @testdox The equation Ax = b can be solved
-     * @covers phpOMS\Math\Matrix\CholeskyDecomposition
+     * @covers \phpOMS\Math\Matrix\CholeskyDecomposition
      * @group framework
      */
     public function testSolve() : void
@@ -126,7 +126,7 @@ final class CholeskyDecompositionTest extends \PHPUnit\Framework\TestCase
 
     /**
      * @testdox A invalid vector throws a InvalidDimensionException
-     * @covers phpOMS\Math\Matrix\CholeskyDecomposition
+     * @covers \phpOMS\Math\Matrix\CholeskyDecomposition
      * @group framework
      */
     public function testInvalidDimension() : void

@@ -47,7 +47,7 @@ final class TaskAbstractTest extends \PHPUnit\Framework\TestCase
 
     /**
      * @testdox The task abstraction has the expected default values after initialization
-     * @covers phpOMS\Utils\TaskSchedule\TaskAbstract
+     * @covers \phpOMS\Utils\TaskSchedule\TaskAbstract
      * @group framework
      */
     public function testDefault() : void
@@ -63,7 +63,7 @@ final class TaskAbstractTest extends \PHPUnit\Framework\TestCase
 
     /**
      * @testdox The command can be set and returned
-     * @covers phpOMS\Utils\TaskSchedule\TaskAbstract
+     * @covers \phpOMS\Utils\TaskSchedule\TaskAbstract
      * @group framework
      */
     public function testCommandInputOutput() : void
@@ -74,7 +74,7 @@ final class TaskAbstractTest extends \PHPUnit\Framework\TestCase
 
     /**
      * @testdox The interval can be set and returned
-     * @covers phpOMS\Utils\TaskSchedule\TaskAbstract
+     * @covers \phpOMS\Utils\TaskSchedule\TaskAbstract
      * @group framework
      */
     public function testIntervalInputOutput() : void
@@ -85,7 +85,7 @@ final class TaskAbstractTest extends \PHPUnit\Framework\TestCase
 
     /**
      * @testdox The comment can be set and returned
-     * @covers phpOMS\Utils\TaskSchedule\TaskAbstract
+     * @covers \phpOMS\Utils\TaskSchedule\TaskAbstract
      * @group framework
      */
     public function testCommentInputOutput() : void
@@ -96,7 +96,7 @@ final class TaskAbstractTest extends \PHPUnit\Framework\TestCase
 
     /**
      * @testdox The last runtime can be set and returned
-     * @covers phpOMS\Utils\TaskSchedule\TaskAbstract
+     * @covers \phpOMS\Utils\TaskSchedule\TaskAbstract
      * @group framework
      */
     public function testLastRuntimeInputOutput() : void
@@ -108,7 +108,7 @@ final class TaskAbstractTest extends \PHPUnit\Framework\TestCase
 
     /**
      * @testdox The next runtime can be set and returned
-     * @covers phpOMS\Utils\TaskSchedule\TaskAbstract
+     * @covers \phpOMS\Utils\TaskSchedule\TaskAbstract
      * @group framework
      */
     public function testNextRuntimeInputOutput() : void

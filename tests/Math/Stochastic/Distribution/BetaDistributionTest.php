@@ -22,7 +22,7 @@ use phpOMS\Math\Stochastic\Distribution\BetaDistribution;
 final class BetaDistributionTest extends \PHPUnit\Framework\TestCase
 {
     /**
-     * @covers phpOMS\Math\Stochastic\Distribution\BetaDistribution
+     * @covers \phpOMS\Math\Stochastic\Distribution\BetaDistribution
      * @group framework
      */
     public function testMean() : void
@@ -31,7 +31,7 @@ final class BetaDistributionTest extends \PHPUnit\Framework\TestCase
     }
 
     /**
-     * @covers phpOMS\Math\Stochastic\Distribution\BetaDistribution
+     * @covers \phpOMS\Math\Stochastic\Distribution\BetaDistribution
      * @group framework
      */
     public function testMode() : void
@@ -43,7 +43,7 @@ final class BetaDistributionTest extends \PHPUnit\Framework\TestCase
     }
 
     /**
-     * @covers phpOMS\Math\Stochastic\Distribution\BetaDistribution
+     * @covers \phpOMS\Math\Stochastic\Distribution\BetaDistribution
      * @group framework
      */
     public function testVariance() : void
@@ -52,7 +52,7 @@ final class BetaDistributionTest extends \PHPUnit\Framework\TestCase
     }
 
     /**
-     * @covers phpOMS\Math\Stochastic\Distribution\BetaDistribution
+     * @covers \phpOMS\Math\Stochastic\Distribution\BetaDistribution
      * @group framework
      */
     public function testStandardDeviation() : void
@@ -61,7 +61,7 @@ final class BetaDistributionTest extends \PHPUnit\Framework\TestCase
     }
 
     /**
-     * @covers phpOMS\Math\Stochastic\Distribution\BetaDistribution
+     * @covers \phpOMS\Math\Stochastic\Distribution\BetaDistribution
      * @group framework
      */
     public function testSkewness() : void
@@ -72,7 +72,7 @@ final class BetaDistributionTest extends \PHPUnit\Framework\TestCase
     }
 
     /**
-     * @covers phpOMS\Math\Stochastic\Distribution\BetaDistribution
+     * @covers \phpOMS\Math\Stochastic\Distribution\BetaDistribution
      * @group framework
      */
     public function testExKurtosis() : void
@@ -81,7 +81,7 @@ final class BetaDistributionTest extends \PHPUnit\Framework\TestCase
     }
 
     /**
-     * @covers phpOMS\Math\Stochastic\Distribution\BetaDistribution
+     * @covers \phpOMS\Math\Stochastic\Distribution\BetaDistribution
      * @group framework
      */
     public function testPdf() : void
@@ -90,7 +90,7 @@ final class BetaDistributionTest extends \PHPUnit\Framework\TestCase
     }
 
     /**
-     * @covers phpOMS\Math\Stochastic\Distribution\BetaDistribution
+     * @covers \phpOMS\Math\Stochastic\Distribution\BetaDistribution
      * @group framework
      */
     public function testCdf() : void
@@ -99,7 +99,7 @@ final class BetaDistributionTest extends \PHPUnit\Framework\TestCase
     }
 
     /**
-     * @covers phpOMS\Math\Stochastic\Distribution\BetaDistribution
+     * @covers \phpOMS\Math\Stochastic\Distribution\BetaDistribution
      * @group framework
      */
     public function testMgf() : void

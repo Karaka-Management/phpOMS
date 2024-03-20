@@ -22,7 +22,7 @@ use phpOMS\Math\Stochastic\Distribution\UniformDistributionContinuous;
 final class UniformDistributionContinuousTest extends \PHPUnit\Framework\TestCase
 {
     /**
-     * @covers phpOMS\Math\Stochastic\Distribution\UniformDistributionContinuous
+     * @covers \phpOMS\Math\Stochastic\Distribution\UniformDistributionContinuous
      * @group framework
      */
     public function testPdf() : void
@@ -36,7 +36,7 @@ final class UniformDistributionContinuousTest extends \PHPUnit\Framework\TestCas
     }
 
     /**
-     * @covers phpOMS\Math\Stochastic\Distribution\UniformDistributionContinuous
+     * @covers \phpOMS\Math\Stochastic\Distribution\UniformDistributionContinuous
      * @group framework
      */
     public function testCdf() : void
@@ -51,7 +51,7 @@ final class UniformDistributionContinuousTest extends \PHPUnit\Framework\TestCas
     }
 
     /**
-     * @covers phpOMS\Math\Stochastic\Distribution\UniformDistributionContinuous
+     * @covers \phpOMS\Math\Stochastic\Distribution\UniformDistributionContinuous
      * @group framework
      */
     public function testMode() : void
@@ -69,7 +69,7 @@ final class UniformDistributionContinuousTest extends \PHPUnit\Framework\TestCas
     }
 
     /**
-     * @covers phpOMS\Math\Stochastic\Distribution\UniformDistributionContinuous
+     * @covers \phpOMS\Math\Stochastic\Distribution\UniformDistributionContinuous
      * @group framework
      */
     public function testMean() : void
@@ -81,7 +81,7 @@ final class UniformDistributionContinuousTest extends \PHPUnit\Framework\TestCas
     }
 
     /**
-     * @covers phpOMS\Math\Stochastic\Distribution\UniformDistributionContinuous
+     * @covers \phpOMS\Math\Stochastic\Distribution\UniformDistributionContinuous
      * @group framework
      */
     public function testMedian() : void
@@ -93,7 +93,7 @@ final class UniformDistributionContinuousTest extends \PHPUnit\Framework\TestCas
     }
 
     /**
-     * @covers phpOMS\Math\Stochastic\Distribution\UniformDistributionContinuous
+     * @covers \phpOMS\Math\Stochastic\Distribution\UniformDistributionContinuous
      * @group framework
      */
     public function testVariance() : void
@@ -105,7 +105,7 @@ final class UniformDistributionContinuousTest extends \PHPUnit\Framework\TestCas
     }
 
     /**
-     * @covers phpOMS\Math\Stochastic\Distribution\UniformDistributionContinuous
+     * @covers \phpOMS\Math\Stochastic\Distribution\UniformDistributionContinuous
      * @group framework
      */
     public function testStandardDeviation() : void
@@ -117,7 +117,7 @@ final class UniformDistributionContinuousTest extends \PHPUnit\Framework\TestCas
     }
 
     /**
-     * @covers phpOMS\Math\Stochastic\Distribution\UniformDistributionContinuous
+     * @covers \phpOMS\Math\Stochastic\Distribution\UniformDistributionContinuous
      * @group framework
      */
     public function testSkewness() : void
@@ -126,7 +126,7 @@ final class UniformDistributionContinuousTest extends \PHPUnit\Framework\TestCas
     }
 
     /**
-     * @covers phpOMS\Math\Stochastic\Distribution\UniformDistributionContinuous
+     * @covers \phpOMS\Math\Stochastic\Distribution\UniformDistributionContinuous
      * @group framework
      */
     public function testExKurtosis() : void
@@ -135,7 +135,7 @@ final class UniformDistributionContinuousTest extends \PHPUnit\Framework\TestCas
     }
 
     /**
-     * @covers phpOMS\Math\Stochastic\Distribution\UniformDistributionContinuous
+     * @covers \phpOMS\Math\Stochastic\Distribution\UniformDistributionContinuous
      * @group framework
      */
     public function testMgf() : void

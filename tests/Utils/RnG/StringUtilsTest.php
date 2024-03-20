@@ -25,7 +25,7 @@ final class StringUtilsTest extends \PHPUnit\Framework\TestCase
 {
     /**
      * @testdox Random strings can be generated
-     * @covers phpOMS\Utils\RnG\StringUtils
+     * @covers \phpOMS\Utils\RnG\StringUtils
      * @slowThreshold 1500
      * @group framework
      */

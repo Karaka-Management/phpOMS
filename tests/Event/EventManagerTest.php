@@ -37,7 +37,7 @@ final class EventManagerTest extends \PHPUnit\Framework\TestCase
 
     /**
      * @testdox The event manager has the expected default values after initialization
-     * @covers phpOMS\Event\EventManager
+     * @covers \phpOMS\Event\EventManager
      * @group framework
      */
     public function testDefault() : void
@@ -47,7 +47,7 @@ final class EventManagerTest extends \PHPUnit\Framework\TestCase
 
     /**
      * @testdox New events can be added
-     * @covers phpOMS\Event\EventManager
+     * @covers \phpOMS\Event\EventManager
      * @group framework
      */
     public function testAdd() : void
@@ -58,7 +58,7 @@ final class EventManagerTest extends \PHPUnit\Framework\TestCase
 
     /**
      * @testdox Events can be cleared
-     * @covers phpOMS\Event\EventManager
+     * @covers \phpOMS\Event\EventManager
      * @group framework
      */
     public function testClear() : void
@@ -72,7 +72,7 @@ final class EventManagerTest extends \PHPUnit\Framework\TestCase
 
     /**
      * @testdox Multiple callbacks can be added to an event
-     * @covers phpOMS\Event\EventManager
+     * @covers \phpOMS\Event\EventManager
      * @group framework
      */
     public function testAddMultiple() : void
@@ -84,7 +84,7 @@ final class EventManagerTest extends \PHPUnit\Framework\TestCase
 
     /**
      * @testdox An event gets executed if all conditions and sub conditions are met
-     * @covers phpOMS\Event\EventManager
+     * @covers \phpOMS\Event\EventManager
      * @group framework
      */
     public function testDispatchAfterAllConditions() : void
@@ -99,7 +99,7 @@ final class EventManagerTest extends \PHPUnit\Framework\TestCase
 
     /**
      * @testdox An event doesn't get executed if not all conditions and sub conditions are met
-     * @covers phpOMS\Event\EventManager
+     * @covers \phpOMS\Event\EventManager
      * @group framework
      */
     public function testDispatchAfterSomeConditionsInvalid() : void
@@ -113,7 +113,7 @@ final class EventManagerTest extends \PHPUnit\Framework\TestCase
 
     /**
      * @testdox None-existing events cannot be executed/triggered
-     * @covers phpOMS\Event\EventManager
+     * @covers \phpOMS\Event\EventManager
      * @group framework
      */
     public function testInvalidEventTrigger() : void
@@ -123,7 +123,7 @@ final class EventManagerTest extends \PHPUnit\Framework\TestCase
 
     /**
      * @testdox An event can be triggered with group and id regex matches
-     * @covers phpOMS\Event\EventManager
+     * @covers \phpOMS\Event\EventManager
      * @group framework
      */
     public function testDispatchSimilarGroupAndId() : void
@@ -137,7 +137,7 @@ final class EventManagerTest extends \PHPUnit\Framework\TestCase
 
     /**
      * @testdox An event can be triggered with a fixed group definition and id regex matches
-     * @covers phpOMS\Event\EventManager
+     * @covers \phpOMS\Event\EventManager
      * @group framework
      */
     public function testDispatchSimilarId() : void
@@ -151,7 +151,7 @@ final class EventManagerTest extends \PHPUnit\Framework\TestCase
 
     /**
      * @testdox An event can be triggered with regex group matches and fixed id definition
-     * @covers phpOMS\Event\EventManager
+     * @covers \phpOMS\Event\EventManager
      * @group framework
      */
     public function testDispatchSimilarGroup() : void
@@ -166,7 +166,7 @@ final class EventManagerTest extends \PHPUnit\Framework\TestCase
 
     /**
      * @testdox A invalid regex match will not triggered an event
-     * @covers phpOMS\Event\EventManager
+     * @covers \phpOMS\Event\EventManager
      * @group framework
      */
     public function testDispatchSimilarInvalid() : void
@@ -180,7 +180,7 @@ final class EventManagerTest extends \PHPUnit\Framework\TestCase
 
     /**
      * @testdox An event can be defined to reset after all conditions and subconditions are met. Then all conditions and sub conditions must be met again before it gets triggered again.
-     * @covers phpOMS\Event\EventManager
+     * @covers \phpOMS\Event\EventManager
      * @group framework
      */
     public function testReset() : void
@@ -196,7 +196,7 @@ final class EventManagerTest extends \PHPUnit\Framework\TestCase
 
     /**
      * @testdox An event can be defined to not reset after all conditions and subconditions are met. Then an event can be triggered any time.
-     * @covers phpOMS\Event\EventManager
+     * @covers \phpOMS\Event\EventManager
      * @group framework
      */
     public function testNoReset() : void
@@ -212,7 +212,7 @@ final class EventManagerTest extends \PHPUnit\Framework\TestCase
 
     /**
      * @testdox An event can be manually removed/detached
-     * @covers phpOMS\Event\EventManager
+     * @covers \phpOMS\Event\EventManager
      * @group framework
      */
     public function testDetach() : void
@@ -229,7 +229,7 @@ final class EventManagerTest extends \PHPUnit\Framework\TestCase
 
     /**
      * @testdox None-existing events cannot be manually removed/detached
-     * @covers phpOMS\Event\EventManager
+     * @covers \phpOMS\Event\EventManager
      * @group framework
      */
     public function testInvalidDetach() : void
@@ -244,7 +244,7 @@ final class EventManagerTest extends \PHPUnit\Framework\TestCase
 
     /**
      * @testdox An event can be defined to automatically remove itself after all conditions and subconditions are met and it is executed
-     * @covers phpOMS\Event\EventManager
+     * @covers \phpOMS\Event\EventManager
      * @group framework
      */
     public function testRemove() : void
@@ -259,7 +259,7 @@ final class EventManagerTest extends \PHPUnit\Framework\TestCase
 
     /**
      * @testdox Events can be imported from a file
-     * @covers phpOMS\Event\EventManager
+     * @covers \phpOMS\Event\EventManager
      * @group framework
      */
     public function testImportEvents() : void
@@ -273,7 +273,7 @@ final class EventManagerTest extends \PHPUnit\Framework\TestCase
 
     /**
      * @testdox Invalid event files cannot be imported and return a failure
-     * @covers phpOMS\Event\EventManager
+     * @covers \phpOMS\Event\EventManager
      * @group framework
      */
     public function testInvalidImportEvents() : void

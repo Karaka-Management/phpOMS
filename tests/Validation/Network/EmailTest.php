@@ -25,7 +25,7 @@ final class EmailTest extends \PHPUnit\Framework\TestCase
 {
     /**
      * @testdox A email can be validated
-     * @covers phpOMS\Validation\Network\Email
+     * @covers \phpOMS\Validation\Network\Email
      * @group framework
      */
     public function testValidation() : void

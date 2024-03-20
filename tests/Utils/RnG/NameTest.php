@@ -25,7 +25,7 @@ final class NameTest extends \PHPUnit\Framework\TestCase
 {
     /**
      * @testdox Random female and male names can be generated
-     * @covers phpOMS\Utils\RnG\Name
+     * @covers \phpOMS\Utils\RnG\Name
      * @group framework
      */
     public function testRandom() : void

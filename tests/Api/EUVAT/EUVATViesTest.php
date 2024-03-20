@@ -25,7 +25,7 @@ final class EUVATViesTest extends \PHPUnit\Framework\TestCase
 {
     /**
      * @testdox The VIES service can validate a valid VAT ID
-     * @covers phpOMS\Api\EUVAT\EUVATVies
+     * @covers \phpOMS\Api\EUVAT\EUVATVies
      * @group framework
      */
     public function testValidateInvalidId() : void

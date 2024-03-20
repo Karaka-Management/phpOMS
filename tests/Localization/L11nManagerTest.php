@@ -40,7 +40,7 @@ final class L11nManagerTest extends \PHPUnit\Framework\TestCase
 
     /**
      * @testdox The localization manager has the expected default values after initialization
-     * @covers phpOMS\Localization\L11nManager
+     * @covers \phpOMS\Localization\L11nManager
      * @group framework
      */
     public function testDefault() : void
@@ -54,7 +54,7 @@ final class L11nManagerTest extends \PHPUnit\Framework\TestCase
 
     /**
      * @testdox Language data can be loaded and output as plain text or html
-     * @covers phpOMS\Localization\L11nManager
+     * @covers \phpOMS\Localization\L11nManager
      * @group framework
      */
     public function testLanguageInputOutput() : void
@@ -85,7 +85,7 @@ final class L11nManagerTest extends \PHPUnit\Framework\TestCase
 
     /**
      * @testdox An invalid localization source returns an error string
-     * @covers phpOMS\Localization\L11nManager
+     * @covers \phpOMS\Localization\L11nManager
      * @group framework
      */
     public function testInvalidControllerSource() : void
@@ -95,7 +95,7 @@ final class L11nManagerTest extends \PHPUnit\Framework\TestCase
 
     /**
      * @testdox Language data can be loaded from a file
-     * @covers phpOMS\Localization\L11nManager
+     * @covers \phpOMS\Localization\L11nManager
      * @group framework
      */
     public function testLanguageFromLanguageFile() : void
@@ -111,7 +111,7 @@ final class L11nManagerTest extends \PHPUnit\Framework\TestCase
 
     /**
      * @testdox Multiple languages can be loaded from a file
-     * @covers phpOMS\Localization\L11nManager
+     * @covers \phpOMS\Localization\L11nManager
      * @group framework
      */
     public function testLanguageMultipleLanguagesFromSingleFile() : void
@@ -125,7 +125,7 @@ final class L11nManagerTest extends \PHPUnit\Framework\TestCase
 
     /**
      * @testdox The numeric value can be printed based on the localization
-     * @covers phpOMS\Localization\L11nManager
+     * @covers \phpOMS\Localization\L11nManager
      * @group framework
      */
     public function testGetNumeric() : void
@@ -138,7 +138,7 @@ final class L11nManagerTest extends \PHPUnit\Framework\TestCase
 
     /**
      * @testdox The percentage value can be printed based on the localization
-     * @covers phpOMS\Localization\L11nManager
+     * @covers \phpOMS\Localization\L11nManager
      * @group framework
      */
     public function testGetPercentage() : void
@@ -150,7 +150,7 @@ final class L11nManagerTest extends \PHPUnit\Framework\TestCase
 
     /**
      * @testdox The currency value can be printed based on the localization
-     * @covers phpOMS\Localization\L11nManager
+     * @covers \phpOMS\Localization\L11nManager
      * @group framework
      */
     public function testGetCurrency() : void
@@ -170,7 +170,7 @@ final class L11nManagerTest extends \PHPUnit\Framework\TestCase
 
     /**
      * @testdox The datetime value can be printed based on the localization
-     * @covers phpOMS\Localization\L11nManager
+     * @covers \phpOMS\Localization\L11nManager
      * @group framework
      */
     public function testGetDateTime() : void

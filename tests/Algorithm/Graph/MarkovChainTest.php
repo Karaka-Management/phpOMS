@@ -26,7 +26,7 @@ require_once __DIR__ . '/../../Autoloader.php';
 final class MarkovChainTest extends \PHPUnit\Framework\TestCase
 {
     /**
-     * @covers phpOMS\Algorithm\Graph\MarkovChain
+     * @covers \phpOMS\Algorithm\Graph\MarkovChain
      * @group framework
      */
     public function testGenerate() : void
@@ -44,7 +44,7 @@ final class MarkovChainTest extends \PHPUnit\Framework\TestCase
     }
 
     /**
-     * @covers phpOMS\Algorithm\Graph\MarkovChain
+     * @covers \phpOMS\Algorithm\Graph\MarkovChain
      * @group framework
      */
     public function testTrainingGenerate() : void
@@ -56,7 +56,7 @@ final class MarkovChainTest extends \PHPUnit\Framework\TestCase
     }
 
     /**
-     * @covers phpOMS\Algorithm\Graph\MarkovChain
+     * @covers \phpOMS\Algorithm\Graph\MarkovChain
      * @group framework
      */
     public function testStepProbability() : void
@@ -80,7 +80,7 @@ final class MarkovChainTest extends \PHPUnit\Framework\TestCase
     }
 
     /**
-     * @covers phpOMS\Algorithm\Graph\MarkovChain
+     * @covers \phpOMS\Algorithm\Graph\MarkovChain
      * @group framework
      */
     public function testPathProbability() : void

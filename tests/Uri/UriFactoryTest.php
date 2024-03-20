@@ -28,7 +28,7 @@ final class UriFactoryTest extends \PHPUnit\Framework\TestCase
 {
     /**
      * @testdox The http url factory has the expected default values after initialization
-     * @covers phpOMS\Uri\UriFactory
+     * @covers \phpOMS\Uri\UriFactory
      * @group framework
      */
     public function testDefault() : void
@@ -39,7 +39,7 @@ final class UriFactoryTest extends \PHPUnit\Framework\TestCase
 
     /**
      * @testdox Data can be set to the factory and returned
-     * @covers phpOMS\Uri\UriFactory
+     * @covers \phpOMS\Uri\UriFactory
      * @group framework
      */
     public function testQueryInputOutput() : void
@@ -50,7 +50,7 @@ final class UriFactoryTest extends \PHPUnit\Framework\TestCase
 
     /**
      * @testdox Data can be forcefully overwritten
-     * @covers phpOMS\Uri\UriFactory
+     * @covers \phpOMS\Uri\UriFactory
      * @group framework
      */
     public function testOverwrite() : void
@@ -62,7 +62,7 @@ final class UriFactoryTest extends \PHPUnit\Framework\TestCase
 
     /**
      * @testdox By default data is not overwritten in the factory
-     * @covers phpOMS\Uri\UriFactory
+     * @covers \phpOMS\Uri\UriFactory
      * @group framework
      */
     public function testInvalidOverwrite() : void
@@ -74,7 +74,7 @@ final class UriFactoryTest extends \PHPUnit\Framework\TestCase
 
     /**
      * @testdox Data can be removed/cleared from the factory
-     * @covers phpOMS\Uri\UriFactory
+     * @covers \phpOMS\Uri\UriFactory
      * @group framework
      */
     public function testClearing() : void
@@ -86,7 +86,7 @@ final class UriFactoryTest extends \PHPUnit\Framework\TestCase
 
     /**
      * @testdox None-existing data cannot be cleared from the factory
-     * @covers phpOMS\Uri\UriFactory
+     * @covers \phpOMS\Uri\UriFactory
      * @group framework
      */
     public function testInvalidClearing() : void
@@ -98,7 +98,7 @@ final class UriFactoryTest extends \PHPUnit\Framework\TestCase
 
     /**
      * @testdox Data can be removed from the factory by category
-     * @covers phpOMS\Uri\UriFactory
+     * @covers \phpOMS\Uri\UriFactory
      * @group framework
      */
     public function testClean() : void
@@ -112,7 +112,7 @@ final class UriFactoryTest extends \PHPUnit\Framework\TestCase
 
     /**
      * @testdox All data can be removed from the factory with a wildcard
-     * @covers phpOMS\Uri\UriFactory
+     * @covers \phpOMS\Uri\UriFactory
      * @group framework
      */
     public function testCleanWildcard() : void
@@ -126,7 +126,7 @@ final class UriFactoryTest extends \PHPUnit\Framework\TestCase
 
     /**
      * @testdox Data can be removed from the factory with regular expression matches
-     * @covers phpOMS\Uri\UriFactory
+     * @covers \phpOMS\Uri\UriFactory
      * @group framework
      */
     public function testClearingLike() : void
@@ -143,7 +143,7 @@ final class UriFactoryTest extends \PHPUnit\Framework\TestCase
 
     /**
      * @testdox Data which doesn't match the regular expression is not removed
-     * @covers phpOMS\Uri\UriFactory
+     * @covers \phpOMS\Uri\UriFactory
      * @group framework
      */
     public function testInvalidClearingLike() : void
@@ -156,7 +156,7 @@ final class UriFactoryTest extends \PHPUnit\Framework\TestCase
 
     /**
      * @testdox A url can be build with the defined factory data and/or build specific data
-     * @covers phpOMS\Uri\UriFactory
+     * @covers \phpOMS\Uri\UriFactory
      * @group framework
      */
     public function testBuilder() : void
@@ -179,7 +179,7 @@ final class UriFactoryTest extends \PHPUnit\Framework\TestCase
 
     /**
      * @testdox The uri factory can be set up with default values from a url and build with these default values
-     * @covers phpOMS\Uri\UriFactory
+     * @covers \phpOMS\Uri\UriFactory
      * @group framework
      */
     public function testSetupBuild() : void
@@ -196,7 +196,7 @@ final class UriFactoryTest extends \PHPUnit\Framework\TestCase
 
     /**
      * @testdox In case of duplicated query elements the last element is used
-     * @covers phpOMS\Uri\UriFactory
+     * @covers \phpOMS\Uri\UriFactory
      * @group framework
      */
     public function testDuplicatedQueryElements() : void
@@ -211,7 +211,7 @@ final class UriFactoryTest extends \PHPUnit\Framework\TestCase
 
     /**
      * @testdox The uri variables can be unescaped
-     * @covers phpOMS\Uri\UriFactory
+     * @covers \phpOMS\Uri\UriFactory
      * @group framework
      */
     public function testVariableUnescape() : void
@@ -227,7 +227,7 @@ final class UriFactoryTest extends \PHPUnit\Framework\TestCase
 
     /**
      * @testdox In case of missing ? for  query the builder automatically fixes it
-     * @covers phpOMS\Uri\UriFactory
+     * @covers \phpOMS\Uri\UriFactory
      * @group framework
      */
     public function testMissingQueryIdentifier() : void
@@ -241,7 +241,7 @@ final class UriFactoryTest extends \PHPUnit\Framework\TestCase
 
     /**
      * @testdox A normal url will not be changed
-     * @covers phpOMS\Uri\UriFactory
+     * @covers \phpOMS\Uri\UriFactory
      * @group framework
      */
     public function testNormalUrlParsing() : void

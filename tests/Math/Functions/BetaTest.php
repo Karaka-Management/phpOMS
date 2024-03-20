@@ -25,7 +25,7 @@ final class BetaTest extends \PHPUnit\Framework\TestCase
 {
     /**
      * @testdox The beta function can be approximated
-     * @covers phpOMS\Math\Functions\Beta
+     * @covers \phpOMS\Math\Functions\Beta
      * @group framework
      */
     public function testBeta() : void
@@ -37,7 +37,7 @@ final class BetaTest extends \PHPUnit\Framework\TestCase
 
     /**
      * @testdox The log beta function can be approximated
-     * @covers phpOMS\Math\Functions\Beta
+     * @covers \phpOMS\Math\Functions\Beta
      * @group framework
      */
     public function testLogBeta() : void
@@ -49,7 +49,7 @@ final class BetaTest extends \PHPUnit\Framework\TestCase
 
     /**
      * @testdox The incomplete beta function can be approximated
-     * @covers phpOMS\Math\Functions\Beta
+     * @covers \phpOMS\Math\Functions\Beta
      * @group framework
      */
     public function testIncompleteBeta() : void
@@ -63,7 +63,7 @@ final class BetaTest extends \PHPUnit\Framework\TestCase
 
     /**
      * @testdox The regularized beta function can be approximated
-     * @covers phpOMS\Math\Functions\Beta
+     * @covers \phpOMS\Math\Functions\Beta
      * @group framework
      */
     public function testRegularizedBeta() : void

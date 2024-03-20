@@ -37,7 +37,7 @@ final class NullCacheTest extends \PHPUnit\Framework\TestCase
 
     /**
      * @testdox The default cache has the expected default values after initialization
-     * @covers phpOMS\DataStorage\Cache\Connection\NullCache<extended>
+     * @covers \phpOMS\DataStorage\Cache\Connection\NullCache<extended>
      * @group framework
      */
     public function testDefault() : void

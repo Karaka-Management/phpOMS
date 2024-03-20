@@ -56,7 +56,7 @@ final class ViewTest extends \PHPUnit\Framework\TestCase
 
     /**
      * @testdox The view has the expected default values after initialization
-     * @covers phpOMS\Views\View<extended>
+     * @covers \phpOMS\Views\View<extended>
      * @group framework
      */
     public function testDefault() : void
@@ -76,7 +76,7 @@ final class ViewTest extends \PHPUnit\Framework\TestCase
 
     /**
      * @testdox The view data can be checked for existence
-     * @covers phpOMS\Views\View<extended>
+     * @covers \phpOMS\Views\View<extended>
      * @group framework
      */
     public function testHasData() : void
@@ -90,7 +90,7 @@ final class ViewTest extends \PHPUnit\Framework\TestCase
 
     /**
      * @testdox The view can output text from the localization manager
-     * @covers phpOMS\Views\View<extended>
+     * @covers \phpOMS\Views\View<extended>
      * @group framework
      */
     public function testGetText() : void
@@ -114,7 +114,7 @@ final class ViewTest extends \PHPUnit\Framework\TestCase
 
     /**
      * @testdox The view can output html escaped text from the localization manager
-     * @covers phpOMS\Views\View<extended>
+     * @covers \phpOMS\Views\View<extended>
      * @group framework
      */
     public function testGetHtml() : void
@@ -138,7 +138,7 @@ final class ViewTest extends \PHPUnit\Framework\TestCase
 
     /**
      * @testdox The numeric value can be printed based on the localization
-     * @covers phpOMS\Views\View<extended>
+     * @covers \phpOMS\Views\View<extended>
      * @group framework
      */
     public function testGetNumeric() : void
@@ -151,7 +151,7 @@ final class ViewTest extends \PHPUnit\Framework\TestCase
 
     /**
      * @testdox The percentage value can be printed based on the localization
-     * @covers phpOMS\Views\View<extended>
+     * @covers \phpOMS\Views\View<extended>
      * @group framework
      */
     public function testGetPercentage() : void
@@ -163,7 +163,7 @@ final class ViewTest extends \PHPUnit\Framework\TestCase
 
     /**
      * @testdox The currency value can be printed based on the localization
-     * @covers phpOMS\Views\View<extended>
+     * @covers \phpOMS\Views\View<extended>
      * @group framework
      */
     public function testGetCurrency() : void
@@ -179,7 +179,7 @@ final class ViewTest extends \PHPUnit\Framework\TestCase
 
     /**
      * @testdox The datetime value can be printed based on the localization
-     * @covers phpOMS\Views\View<extended>
+     * @covers \phpOMS\Views\View<extended>
      * @group framework
      */
     public function testGetDateTime() : void
@@ -193,7 +193,7 @@ final class ViewTest extends \PHPUnit\Framework\TestCase
 
     /**
      * @testdox View data can be set and returned
-     * @covers phpOMS\Views\View<extended>
+     * @covers \phpOMS\Views\View<extended>
      * @group framework
      */
     public function testDataInputOutput() : void
@@ -206,7 +206,7 @@ final class ViewTest extends \PHPUnit\Framework\TestCase
 
     /**
      * @testdox View data can be added and returned
-     * @covers phpOMS\Views\View<extended>
+     * @covers \phpOMS\Views\View<extended>
      * @group framework
      */
     public function testDataAdd() : void
@@ -219,7 +219,7 @@ final class ViewTest extends \PHPUnit\Framework\TestCase
 
     /**
      * @testdox View data can be removed
-     * @covers phpOMS\Views\View<extended>
+     * @covers \phpOMS\Views\View<extended>
      * @group framework
      */
     public function testRemove() : void
@@ -233,7 +233,7 @@ final class ViewTest extends \PHPUnit\Framework\TestCase
 
     /**
      * @testdox None-existing view data cannot be removed
-     * @covers phpOMS\Views\View<extended>
+     * @covers \phpOMS\Views\View<extended>
      * @group framework
      */
     public function testInvalidDataRemove() : void
@@ -245,7 +245,7 @@ final class ViewTest extends \PHPUnit\Framework\TestCase
 
     /**
      * @testdox The request can be returned
-     * @covers phpOMS\Views\View<extended>
+     * @covers \phpOMS\Views\View<extended>
      * @group framework
      */
     public function testGetRequest() : void
@@ -258,7 +258,7 @@ final class ViewTest extends \PHPUnit\Framework\TestCase
 
     /**
      * @testdox The response can be returned
-     * @covers phpOMS\Views\View<extended>
+     * @covers \phpOMS\Views\View<extended>
      * @group framework
      */
     public function testGetResponse() : void
@@ -270,7 +270,7 @@ final class ViewTest extends \PHPUnit\Framework\TestCase
 
     /**
      * @testdox Text can be html escaped
-     * @covers phpOMS\Views\View<extended>
+     * @covers \phpOMS\Views\View<extended>
      * @group framework
      */
     public function testPrintHtml() : void
@@ -283,7 +283,7 @@ final class ViewTest extends \PHPUnit\Framework\TestCase
 
     /**
      * @testdox Views can be added and returned from a view
-     * @covers phpOMS\Views\View<extended>
+     * @covers \phpOMS\Views\View<extended>
      * @group framework
      */
     public function testViewInputOutput() : void
@@ -298,7 +298,7 @@ final class ViewTest extends \PHPUnit\Framework\TestCase
 
     /**
      * @testdox None-existing views cannot be returned
-     * @covers phpOMS\Views\View<extended>
+     * @covers \phpOMS\Views\View<extended>
      * @group framework
      */
     public function testInvalidViewGet() : void
@@ -310,7 +310,7 @@ final class ViewTest extends \PHPUnit\Framework\TestCase
 
     /**
      * @testdox Views can be removed
-     * @covers phpOMS\Views\View<extended>
+     * @covers \phpOMS\Views\View<extended>
      * @group framework
      */
     public function testViewRemove() : void
@@ -324,7 +324,7 @@ final class ViewTest extends \PHPUnit\Framework\TestCase
 
     /**
      * @testdox None-existing views cannot be removed
-     * @covers phpOMS\Views\View<extended>
+     * @covers \phpOMS\Views\View<extended>
      * @group framework
      */
     public function testInvalidViewRemove() : void
@@ -336,7 +336,7 @@ final class ViewTest extends \PHPUnit\Framework\TestCase
 
     /**
      * @testdox A view can be forcefully overwritten
-     * @covers phpOMS\Views\View<extended>
+     * @covers \phpOMS\Views\View<extended>
      * @group framework
      */
     public function testOverwritingView() : void
@@ -350,7 +350,7 @@ final class ViewTest extends \PHPUnit\Framework\TestCase
 
     /**
      * @testdox By default a view is not overwritten
-     * @covers phpOMS\Views\View<extended>
+     * @covers \phpOMS\Views\View<extended>
      * @group framework
      */
     public function testInvalidOverwritingView() : void
@@ -364,7 +364,7 @@ final class ViewTest extends \PHPUnit\Framework\TestCase
 
     /**
      * @testdox A view template can be rendered
-     * @covers phpOMS\Views\View<extended>
+     * @covers \phpOMS\Views\View<extended>
      * @group framework
      */
     public function testRender() : void
@@ -377,7 +377,7 @@ final class ViewTest extends \PHPUnit\Framework\TestCase
 
     /**
      * @testdox A view template can be build
-     * @covers phpOMS\Views\View<extended>
+     * @covers \phpOMS\Views\View<extended>
      * @group framework
      */
     public function testBuild() : void
@@ -390,7 +390,7 @@ final class ViewTest extends \PHPUnit\Framework\TestCase
 
     /**
      * @testdox A view template can be serialized
-     * @covers phpOMS\Views\View<extended>
+     * @covers \phpOMS\Views\View<extended>
      * @group framework
      */
     public function testSerialize() : void
@@ -404,7 +404,7 @@ final class ViewTest extends \PHPUnit\Framework\TestCase
 
     /**
      * @testdox A view can be turned into an array containing the rendered templates
-     * @covers phpOMS\Views\View<extended>
+     * @covers \phpOMS\Views\View<extended>
      * @group framework
      */
     public function testArray() : void
@@ -428,7 +428,7 @@ final class ViewTest extends \PHPUnit\Framework\TestCase
 
     /**
      * @testdox Rendering a invalid template throws a PathException
-     * @covers phpOMS\Views\View<extended>
+     * @covers \phpOMS\Views\View<extended>
      * @group framework
      */
     public function testRenderException() : void
@@ -441,7 +441,7 @@ final class ViewTest extends \PHPUnit\Framework\TestCase
 
     /**
      * @testdox Building a invalid template throws a PathException
-     * @covers phpOMS\Views\View<extended>
+     * @covers \phpOMS\Views\View<extended>
      * @group framework
      */
     public function testBuildException() : void
@@ -454,7 +454,7 @@ final class ViewTest extends \PHPUnit\Framework\TestCase
 
     /**
      * @testdox Serializing a invalid template throws a PathException
-     * @covers phpOMS\Views\View<extended>
+     * @covers \phpOMS\Views\View<extended>
      * @group framework
      */
     public function testSerializeException() : void
@@ -467,7 +467,7 @@ final class ViewTest extends \PHPUnit\Framework\TestCase
 
     /**
      * @testdox Getting the text without defining a module throws a InvalidModuleException exception
-     * @covers phpOMS\Views\View<extended>
+     * @covers \phpOMS\Views\View<extended>
      * @group framework
      */
     public function testTextWithoutModuleAndTemplate() : void
@@ -480,7 +480,7 @@ final class ViewTest extends \PHPUnit\Framework\TestCase
 
     /**
      * @testdox Getting the text with an invalid template path throws a InvalidModuleException exception
-     * @covers phpOMS\Views\View<extended>
+     * @covers \phpOMS\Views\View<extended>
      * @group framework
      */
     public function testTextFromInvalidTemplatePath() : void
@@ -494,7 +494,7 @@ final class ViewTest extends \PHPUnit\Framework\TestCase
 
     /**
      * @testdox Getting the text without defining a template throws a InvalidThemeException exception
-     * @covers phpOMS\Views\View<extended>
+     * @covers \phpOMS\Views\View<extended>
      * @group framework
      */
     public function testTextInvalidTemplate() : void

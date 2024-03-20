@@ -25,7 +25,7 @@ final class QuadrilateralTest extends \PHPUnit\Framework\TestCase
 {
     /**
      * @testdox The area can be calculated
-     * @covers phpOMS\Math\Geometry\Shape\D2\Quadrilateral
+     * @covers \phpOMS\Math\Geometry\Shape\D2\Quadrilateral
      * @group framework
      */
     public function testArea() : void

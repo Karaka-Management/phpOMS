@@ -22,7 +22,7 @@ use phpOMS\System\File\PermissionException;
 final class PermissionExceptionTest extends \PHPUnit\Framework\TestCase
 {
     /**
-     * @covers phpOMS\System\File\PermissionException
+     * @covers \phpOMS\System\File\PermissionException
      * @group framework
      */
     public function testConstructor() : void

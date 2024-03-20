@@ -22,7 +22,7 @@ use phpOMS\Math\Stochastic\Distribution\ExponentialDistribution;
 final class ExponentialDistributionTest extends \PHPUnit\Framework\TestCase
 {
     /**
-     * @covers phpOMS\Math\Stochastic\Distribution\ExponentialDistribution
+     * @covers \phpOMS\Math\Stochastic\Distribution\ExponentialDistribution
      * @group framework
      */
     public function testPdf() : void
@@ -34,7 +34,7 @@ final class ExponentialDistributionTest extends \PHPUnit\Framework\TestCase
     }
 
     /**
-     * @covers phpOMS\Math\Stochastic\Distribution\ExponentialDistribution
+     * @covers \phpOMS\Math\Stochastic\Distribution\ExponentialDistribution
      * @group framework
      */
     public function testCdf() : void
@@ -46,7 +46,7 @@ final class ExponentialDistributionTest extends \PHPUnit\Framework\TestCase
     }
 
     /**
-     * @covers phpOMS\Math\Stochastic\Distribution\ExponentialDistribution
+     * @covers \phpOMS\Math\Stochastic\Distribution\ExponentialDistribution
      * @group framework
      */
     public function testMean() : void
@@ -55,7 +55,7 @@ final class ExponentialDistributionTest extends \PHPUnit\Framework\TestCase
     }
 
     /**
-     * @covers phpOMS\Math\Stochastic\Distribution\ExponentialDistribution
+     * @covers \phpOMS\Math\Stochastic\Distribution\ExponentialDistribution
      * @group framework
      */
     public function testMode() : void
@@ -64,7 +64,7 @@ final class ExponentialDistributionTest extends \PHPUnit\Framework\TestCase
     }
 
     /**
-     * @covers phpOMS\Math\Stochastic\Distribution\ExponentialDistribution
+     * @covers \phpOMS\Math\Stochastic\Distribution\ExponentialDistribution
      * @group framework
      */
     public function testMedian() : void
@@ -73,7 +73,7 @@ final class ExponentialDistributionTest extends \PHPUnit\Framework\TestCase
     }
 
     /**
-     * @covers phpOMS\Math\Stochastic\Distribution\ExponentialDistribution
+     * @covers \phpOMS\Math\Stochastic\Distribution\ExponentialDistribution
      * @group framework
      */
     public function testMgf() : void
@@ -85,7 +85,7 @@ final class ExponentialDistributionTest extends \PHPUnit\Framework\TestCase
     }
 
     /**
-     * @covers phpOMS\Math\Stochastic\Distribution\ExponentialDistribution
+     * @covers \phpOMS\Math\Stochastic\Distribution\ExponentialDistribution
      * @group framework
      */
     public function testVariance() : void
@@ -94,7 +94,7 @@ final class ExponentialDistributionTest extends \PHPUnit\Framework\TestCase
     }
 
     /**
-     * @covers phpOMS\Math\Stochastic\Distribution\ExponentialDistribution
+     * @covers \phpOMS\Math\Stochastic\Distribution\ExponentialDistribution
      * @group framework
      */
     public function testStandardDeviation() : void
@@ -103,7 +103,7 @@ final class ExponentialDistributionTest extends \PHPUnit\Framework\TestCase
     }
 
     /**
-     * @covers phpOMS\Math\Stochastic\Distribution\ExponentialDistribution
+     * @covers \phpOMS\Math\Stochastic\Distribution\ExponentialDistribution
      * @group framework
      */
     public function testExKurtosis() : void
@@ -112,7 +112,7 @@ final class ExponentialDistributionTest extends \PHPUnit\Framework\TestCase
     }
 
     /**
-     * @covers phpOMS\Math\Stochastic\Distribution\ExponentialDistribution
+     * @covers \phpOMS\Math\Stochastic\Distribution\ExponentialDistribution
      * @group framework
      */
     public function testSkewness() : void
@@ -121,7 +121,7 @@ final class ExponentialDistributionTest extends \PHPUnit\Framework\TestCase
     }
 
     /**
-     * @covers phpOMS\Math\Stochastic\Distribution\ExponentialDistribution
+     * @covers \phpOMS\Math\Stochastic\Distribution\ExponentialDistribution
      * @group framework
      */
     public function testMgfException() : void

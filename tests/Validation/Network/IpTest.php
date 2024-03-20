@@ -25,7 +25,7 @@ final class IpTest extends \PHPUnit\Framework\TestCase
 {
     /**
      * @testdox A ip can be validated
-     * @covers phpOMS\Validation\Network\Ip
+     * @covers \phpOMS\Validation\Network\Ip
      * @group framework
      */
     public function testValid() : void
@@ -38,7 +38,7 @@ final class IpTest extends \PHPUnit\Framework\TestCase
 
     /**
      * @testdox A ip4 can be validated
-     * @covers phpOMS\Validation\Network\Ip
+     * @covers \phpOMS\Validation\Network\Ip
      * @group framework
      */
     public function testValidIp4() : void
@@ -49,7 +49,7 @@ final class IpTest extends \PHPUnit\Framework\TestCase
 
     /**
      * @testdox A ip6 can be validated
-     * @covers phpOMS\Validation\Network\Ip
+     * @covers \phpOMS\Validation\Network\Ip
      * @group framework
      */
     public function testValidIp6() : void

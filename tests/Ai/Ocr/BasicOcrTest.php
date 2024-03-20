@@ -22,7 +22,7 @@ use phpOMS\Ai\Ocr\BasicOcr;
 final class BasicOcrTest extends \PHPUnit\Framework\TestCase
 {
     /**
-     * @covers phpOMS\Ai\Ocr\BasicOcr
+     * @covers \phpOMS\Ai\Ocr\BasicOcr
      * @group framework
      */
     public function testOcr() : void
@@ -64,7 +64,7 @@ final class BasicOcrTest extends \PHPUnit\Framework\TestCase
     }
 
     /**
-     * @covers phpOMS\Ai\Ocr\BasicOcr
+     * @covers \phpOMS\Ai\Ocr\BasicOcr
      * @group framework
      */
     public function testInvalidImagePath() : void
@@ -75,7 +75,7 @@ final class BasicOcrTest extends \PHPUnit\Framework\TestCase
     }
 
     /**
-     * @covers phpOMS\Ai\Ocr\BasicOcr
+     * @covers \phpOMS\Ai\Ocr\BasicOcr
      * @group framework
      */
     public function testInvalidLabelPath() : void

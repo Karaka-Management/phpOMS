@@ -44,7 +44,7 @@ final class MimeTypeTest extends \PHPUnit\Framework\TestCase
 
     /**
      * @testdox The mime type enum vales can be retreived by extension
-     * @covers phpOMS\System\MimeType
+     * @covers \phpOMS\System\MimeType
      * @group framework
      */
     public function testExtensionToMime() : void
@@ -54,7 +54,7 @@ final class MimeTypeTest extends \PHPUnit\Framework\TestCase
 
     /**
      * @testdox A unknown extension returns application/octet-stream
-     * @covers phpOMS\System\MimeType
+     * @covers \phpOMS\System\MimeType
      * @group framework
      */
     public function testInvalidExtensionToMime() : void

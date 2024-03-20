@@ -27,7 +27,7 @@ final class DateTimeTest extends \PHPUnit\Framework\TestCase
 {
     /**
      * @testdox A date time string can be validated
-     * @covers phpOMS\Validation\Base\DateTime
+     * @covers \phpOMS\Validation\Base\DateTime
      * @group framework
      */
     public function testDateTime() : void

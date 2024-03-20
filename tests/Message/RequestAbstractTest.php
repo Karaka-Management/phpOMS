@@ -53,7 +53,7 @@ final class RequestAbstractTest extends \PHPUnit\Framework\TestCase
 
     /**
      * @testdox Request data can be set and returned
-     * @covers phpOMS\Message\RequestAbstract
+     * @covers \phpOMS\Message\RequestAbstract
      * @group framework
      */
     public function testDataInputOutput() : void
@@ -66,7 +66,7 @@ final class RequestAbstractTest extends \PHPUnit\Framework\TestCase
 
     /**
      * @testdox A invalid data key returns null
-     * @covers phpOMS\Message\RequestAbstract
+     * @covers \phpOMS\Message\RequestAbstract
      * @group framework
      */
     public function testInvalidDataKeyOutput() : void
@@ -76,7 +76,7 @@ final class RequestAbstractTest extends \PHPUnit\Framework\TestCase
 
     /**
      * @testdox Request data can be set and returned with correct types
-     * @covers phpOMS\Message\RequestAbstract
+     * @covers \phpOMS\Message\RequestAbstract
      * @group framework
      */
     public function testDataTypeInputOutput() : void

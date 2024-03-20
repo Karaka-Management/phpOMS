@@ -37,7 +37,7 @@ final class JumpPointNodeTest extends \PHPUnit\Framework\TestCase
 
     /**
      * @testdox The node has the expected values after initialization
-     * @covers phpOMS\Algorithm\PathFinding\JumpPointNode
+     * @covers \phpOMS\Algorithm\PathFinding\JumpPointNode
      * @group framework
      */
     public function testDefault() : void
@@ -52,7 +52,7 @@ final class JumpPointNodeTest extends \PHPUnit\Framework\TestCase
 
     /**
      * @testdox The node can be set closed and checked
-     * @covers phpOMS\Algorithm\PathFinding\JumpPointNode
+     * @covers \phpOMS\Algorithm\PathFinding\JumpPointNode
      * @group framework
      */
     public function testClosedInputOutput() : void
@@ -63,7 +63,7 @@ final class JumpPointNodeTest extends \PHPUnit\Framework\TestCase
 
     /**
      * @testdox The node can be set opened and checked
-     * @covers phpOMS\Algorithm\PathFinding\JumpPointNode
+     * @covers \phpOMS\Algorithm\PathFinding\JumpPointNode
      * @group framework
      */
     public function testOpenedInputOutput() : void
@@ -74,7 +74,7 @@ final class JumpPointNodeTest extends \PHPUnit\Framework\TestCase
 
     /**
      * @testdox The node can be set tested and checked
-     * @covers phpOMS\Algorithm\PathFinding\JumpPointNode
+     * @covers \phpOMS\Algorithm\PathFinding\JumpPointNode
      * @group framework
      */
     public function testTestedInputOutput() : void
@@ -85,7 +85,7 @@ final class JumpPointNodeTest extends \PHPUnit\Framework\TestCase
 
     /**
      * @testdox The g value cen be set and returned
-     * @covers phpOMS\Algorithm\PathFinding\JumpPointNode
+     * @covers \phpOMS\Algorithm\PathFinding\JumpPointNode
      * @group framework
      */
     public function testGInputOutput() : void
@@ -96,7 +96,7 @@ final class JumpPointNodeTest extends \PHPUnit\Framework\TestCase
 
     /**
      * @testdox The h value cen be set and returned
-     * @covers phpOMS\Algorithm\PathFinding\JumpPointNode
+     * @covers \phpOMS\Algorithm\PathFinding\JumpPointNode
      * @group framework
      */
     public function testHInputOutput() : void
@@ -107,7 +107,7 @@ final class JumpPointNodeTest extends \PHPUnit\Framework\TestCase
 
     /**
      * @testdox The f value cen be set and returned
-     * @covers phpOMS\Algorithm\PathFinding\JumpPointNode
+     * @covers \phpOMS\Algorithm\PathFinding\JumpPointNode
      * @group framework
      */
     public function testFInputOutput() : void

@@ -22,7 +22,7 @@ use phpOMS\DataStorage\Database\Query\Grammar\OracleGrammar;
 final class OracleGrammarTest extends \PHPUnit\Framework\TestCase
 {
     /**
-     * @covers phpOMS\DataStorage\Database\Query\Grammar\OracleGrammar
+     * @covers \phpOMS\DataStorage\Database\Query\Grammar\OracleGrammar
      * @group framework
      */
     public function testDefault() : void

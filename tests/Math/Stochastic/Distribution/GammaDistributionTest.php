@@ -22,7 +22,7 @@ use phpOMS\Math\Stochastic\Distribution\GammaDistribution;
 final class GammaDistributionTest extends \PHPUnit\Framework\TestCase
 {
     /**
-     * @covers phpOMS\Math\Stochastic\Distribution\GammaDistribution
+     * @covers \phpOMS\Math\Stochastic\Distribution\GammaDistribution
      * @group framework
      */
     public function testPdfScale() : void
@@ -31,7 +31,7 @@ final class GammaDistributionTest extends \PHPUnit\Framework\TestCase
     }
 
     /**
-     * @covers phpOMS\Math\Stochastic\Distribution\GammaDistribution
+     * @covers \phpOMS\Math\Stochastic\Distribution\GammaDistribution
      * @group framework
      */
     public function testPdfAlphaBete() : void
@@ -40,7 +40,7 @@ final class GammaDistributionTest extends \PHPUnit\Framework\TestCase
     }
 
     /**
-     * @covers phpOMS\Math\Stochastic\Distribution\GammaDistribution
+     * @covers \phpOMS\Math\Stochastic\Distribution\GammaDistribution
      * @group framework
      */
     public function testCdfScale() : void
@@ -49,7 +49,7 @@ final class GammaDistributionTest extends \PHPUnit\Framework\TestCase
     }
 
     /**
-     * @covers phpOMS\Math\Stochastic\Distribution\GammaDistribution
+     * @covers \phpOMS\Math\Stochastic\Distribution\GammaDistribution
      * @group framework
      */
     public function testCdfAlphaBete() : void
@@ -58,7 +58,7 @@ final class GammaDistributionTest extends \PHPUnit\Framework\TestCase
     }
 
     /**
-     * @covers phpOMS\Math\Stochastic\Distribution\GammaDistribution
+     * @covers \phpOMS\Math\Stochastic\Distribution\GammaDistribution
      * @group framework
      */
     public function testPdfIntegerScale() : void
@@ -68,7 +68,7 @@ final class GammaDistributionTest extends \PHPUnit\Framework\TestCase
     }
 
     /**
-     * @covers phpOMS\Math\Stochastic\Distribution\GammaDistribution
+     * @covers \phpOMS\Math\Stochastic\Distribution\GammaDistribution
      * @group framework
      */
     public function testPdfIntegerRate() : void
@@ -77,7 +77,7 @@ final class GammaDistributionTest extends \PHPUnit\Framework\TestCase
     }
 
     /**
-     * @covers phpOMS\Math\Stochastic\Distribution\GammaDistribution
+     * @covers \phpOMS\Math\Stochastic\Distribution\GammaDistribution
      * @group framework
      */
     public function testMeanScale() : void
@@ -86,7 +86,7 @@ final class GammaDistributionTest extends \PHPUnit\Framework\TestCase
     }
 
     /**
-     * @covers phpOMS\Math\Stochastic\Distribution\GammaDistribution
+     * @covers \phpOMS\Math\Stochastic\Distribution\GammaDistribution
      * @group framework
      */
     public function testMeanRate() : void
@@ -97,7 +97,7 @@ final class GammaDistributionTest extends \PHPUnit\Framework\TestCase
     }
 
     /**
-     * @covers phpOMS\Math\Stochastic\Distribution\GammaDistribution
+     * @covers \phpOMS\Math\Stochastic\Distribution\GammaDistribution
      * @group framework
      */
     public function testVarianceScale() : void
@@ -106,7 +106,7 @@ final class GammaDistributionTest extends \PHPUnit\Framework\TestCase
     }
 
     /**
-     * @covers phpOMS\Math\Stochastic\Distribution\GammaDistribution
+     * @covers \phpOMS\Math\Stochastic\Distribution\GammaDistribution
      * @group framework
      */
     public function testVarianceRate() : void
@@ -117,7 +117,7 @@ final class GammaDistributionTest extends \PHPUnit\Framework\TestCase
     }
 
     /**
-     * @covers phpOMS\Math\Stochastic\Distribution\GammaDistribution
+     * @covers \phpOMS\Math\Stochastic\Distribution\GammaDistribution
      * @group framework
      */
     public function testStandardDeviationScale() : void
@@ -126,7 +126,7 @@ final class GammaDistributionTest extends \PHPUnit\Framework\TestCase
     }
 
     /**
-     * @covers phpOMS\Math\Stochastic\Distribution\GammaDistribution
+     * @covers \phpOMS\Math\Stochastic\Distribution\GammaDistribution
      * @group framework
      */
     public function testStandardDeviationRate() : void
@@ -137,7 +137,7 @@ final class GammaDistributionTest extends \PHPUnit\Framework\TestCase
     }
 
     /**
-     * @covers phpOMS\Math\Stochastic\Distribution\GammaDistribution
+     * @covers \phpOMS\Math\Stochastic\Distribution\GammaDistribution
      * @group framework
      */
     public function testExKurtosis() : void
@@ -146,7 +146,7 @@ final class GammaDistributionTest extends \PHPUnit\Framework\TestCase
     }
 
     /**
-     * @covers phpOMS\Math\Stochastic\Distribution\GammaDistribution
+     * @covers \phpOMS\Math\Stochastic\Distribution\GammaDistribution
      * @group framework
      */
     public function testSkewness() : void
@@ -155,7 +155,7 @@ final class GammaDistributionTest extends \PHPUnit\Framework\TestCase
     }
 
     /**
-     * @covers phpOMS\Math\Stochastic\Distribution\GammaDistribution
+     * @covers \phpOMS\Math\Stochastic\Distribution\GammaDistribution
      * @group framework
      */
     public function testMgfScale() : void
@@ -167,7 +167,7 @@ final class GammaDistributionTest extends \PHPUnit\Framework\TestCase
     }
 
     /**
-     * @covers phpOMS\Math\Stochastic\Distribution\GammaDistribution
+     * @covers \phpOMS\Math\Stochastic\Distribution\GammaDistribution
      * @group framework
      */
     public function testMgfRate() : void
@@ -179,7 +179,7 @@ final class GammaDistributionTest extends \PHPUnit\Framework\TestCase
     }
 
     /**
-     * @covers phpOMS\Math\Stochastic\Distribution\GammaDistribution
+     * @covers \phpOMS\Math\Stochastic\Distribution\GammaDistribution
      * @group framework
      */
     public function testModeScale() : void
@@ -188,7 +188,7 @@ final class GammaDistributionTest extends \PHPUnit\Framework\TestCase
     }
 
     /**
-     * @covers phpOMS\Math\Stochastic\Distribution\GammaDistribution
+     * @covers \phpOMS\Math\Stochastic\Distribution\GammaDistribution
      * @group framework
      */
     public function testModeRate() : void
