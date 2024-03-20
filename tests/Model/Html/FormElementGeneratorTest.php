@@ -17,17 +17,14 @@ namespace phpOMS\tests\Model\Html;
 use phpOMS\Model\Html\FormElementGenerator;
 
 /**
- * @testdox phpOMS\tests\Model\Html\FormElementGeneratorTest: Form element generator
- *
  * @internal
  */
+#[\PHPUnit\Framework\Attributes\CoversClass(\phpOMS\Model\Html\FormElementGenerator::class)]
+#[\PHPUnit\Framework\Attributes\TestDox('phpOMS\tests\Model\Html\FormElementGeneratorTest: Form element generator')]
 final class FormElementGeneratorTest extends \PHPUnit\Framework\TestCase
 {
-    /**
-     * @testdox A text input element can be generated
-     * @covers \phpOMS\Model\Html\FormElementGenerator
-     * @group framework
-     */
+    #[\PHPUnit\Framework\Attributes\Group('framework')]
+    #[\PHPUnit\Framework\Attributes\TestDox('A text input element can be generated')]
     public function testGenerateTextInput() : void
     {
         $element = [
@@ -49,11 +46,8 @@ final class FormElementGeneratorTest extends \PHPUnit\Framework\TestCase
         );
     }
 
-    /**
-     * @testdox A text input element can be generated with a custom value
-     * @covers \phpOMS\Model\Html\FormElementGenerator
-     * @group framework
-     */
+    #[\PHPUnit\Framework\Attributes\Group('framework')]
+    #[\PHPUnit\Framework\Attributes\TestDox('A text input element can be generated with a custom value')]
     public function testGenerateTextInputWithValue() : void
     {
         $element = [
@@ -75,11 +69,8 @@ final class FormElementGeneratorTest extends \PHPUnit\Framework\TestCase
         );
     }
 
-    /**
-     * @testdox A datetime input element can be generated with custom formatting
-     * @covers \phpOMS\Model\Html\FormElementGenerator
-     * @group framework
-     */
+    #[\PHPUnit\Framework\Attributes\Group('framework')]
+    #[\PHPUnit\Framework\Attributes\TestDox('A datetime input element can be generated with custom formatting')]
     public function testGenerateDateTimeInput() : void
     {
         $element = [
@@ -102,11 +93,8 @@ final class FormElementGeneratorTest extends \PHPUnit\Framework\TestCase
         );
     }
 
-    /**
-     * @testdox A checkbox element can be generated
-     * @covers \phpOMS\Model\Html\FormElementGenerator
-     * @group framework
-     */
+    #[\PHPUnit\Framework\Attributes\Group('framework')]
+    #[\PHPUnit\Framework\Attributes\TestDox('A checkbox element can be generated')]
     public function testGenerateCheckboxInput() : void
     {
         $element = [
@@ -130,11 +118,8 @@ final class FormElementGeneratorTest extends \PHPUnit\Framework\TestCase
         );
     }
 
-    /**
-     * @testdox A checkbox element can be generated with a localized label element
-     * @covers \phpOMS\Model\Html\FormElementGenerator
-     * @group framework
-     */
+    #[\PHPUnit\Framework\Attributes\Group('framework')]
+    #[\PHPUnit\Framework\Attributes\TestDox('A checkbox element can be generated with a localized label element')]
     public function testGenerateCheckboxWithLanguageInput() : void
     {
         $element = [
@@ -158,11 +143,8 @@ final class FormElementGeneratorTest extends \PHPUnit\Framework\TestCase
         );
     }
 
-    /**
-     * @testdox A radio element can be generated
-     * @covers \phpOMS\Model\Html\FormElementGenerator
-     * @group framework
-     */
+    #[\PHPUnit\Framework\Attributes\Group('framework')]
+    #[\PHPUnit\Framework\Attributes\TestDox('A radio element can be generated')]
     public function testGenerateRadioInput() : void
     {
         $element = [
@@ -186,11 +168,8 @@ final class FormElementGeneratorTest extends \PHPUnit\Framework\TestCase
         );
     }
 
-    /**
-     * @testdox A radio element can be generated with a localized label element
-     * @covers \phpOMS\Model\Html\FormElementGenerator
-     * @group framework
-     */
+    #[\PHPUnit\Framework\Attributes\Group('framework')]
+    #[\PHPUnit\Framework\Attributes\TestDox('A radio element can be generated with a localized label element')]
     public function testGenerateRadioWithLanguageInput() : void
     {
         $element = [
@@ -214,11 +193,8 @@ final class FormElementGeneratorTest extends \PHPUnit\Framework\TestCase
         );
     }
 
-    /**
-     * @testdox A label element can be generated
-     * @covers \phpOMS\Model\Html\FormElementGenerator
-     * @group framework
-     */
+    #[\PHPUnit\Framework\Attributes\Group('framework')]
+    #[\PHPUnit\Framework\Attributes\TestDox('A label element can be generated')]
     public function testGenerateLabel() : void
     {
         $element = [
@@ -237,11 +213,8 @@ final class FormElementGeneratorTest extends \PHPUnit\Framework\TestCase
         );
     }
 
-    /**
-     * @testdox A localized label element can be generated
-     * @covers \phpOMS\Model\Html\FormElementGenerator
-     * @group framework
-     */
+    #[\PHPUnit\Framework\Attributes\Group('framework')]
+    #[\PHPUnit\Framework\Attributes\TestDox('A localized label element can be generated')]
     public function testGenerateWithLanguageLabel() : void
     {
         $element = [
@@ -260,11 +233,8 @@ final class FormElementGeneratorTest extends \PHPUnit\Framework\TestCase
         );
     }
 
-    /**
-     * @testdox A textarea element can be generated
-     * @covers \phpOMS\Model\Html\FormElementGenerator
-     * @group framework
-     */
+    #[\PHPUnit\Framework\Attributes\Group('framework')]
+    #[\PHPUnit\Framework\Attributes\TestDox('A textarea element can be generated')]
     public function testGenerateTextarea() : void
     {
         $element = [
@@ -284,11 +254,8 @@ final class FormElementGeneratorTest extends \PHPUnit\Framework\TestCase
         );
     }
 
-    /**
-     * @testdox A textarea element can be generated with a custom value
-     * @covers \phpOMS\Model\Html\FormElementGenerator
-     * @group framework
-     */
+    #[\PHPUnit\Framework\Attributes\Group('framework')]
+    #[\PHPUnit\Framework\Attributes\TestDox('A textarea element can be generated with a custom value')]
     public function testGenerateWithValueTextarea() : void
     {
         $element = [
@@ -308,11 +275,8 @@ final class FormElementGeneratorTest extends \PHPUnit\Framework\TestCase
         );
     }
 
-    /**
-     * @testdox A select element can be generated
-     * @covers \phpOMS\Model\Html\FormElementGenerator
-     * @group framework
-     */
+    #[\PHPUnit\Framework\Attributes\Group('framework')]
+    #[\PHPUnit\Framework\Attributes\TestDox('A select element can be generated')]
     public function testGenerateSelect() : void
     {
         $element = [
@@ -337,11 +301,8 @@ final class FormElementGeneratorTest extends \PHPUnit\Framework\TestCase
         );
     }
 
-    /**
-     * @testdox A localized select element can be generated
-     * @covers \phpOMS\Model\Html\FormElementGenerator
-     * @group framework
-     */
+    #[\PHPUnit\Framework\Attributes\Group('framework')]
+    #[\PHPUnit\Framework\Attributes\TestDox('A localized select element can be generated')]
     public function testGenerateWithLanguageSelect() : void
     {
         $element = [
@@ -366,11 +327,8 @@ final class FormElementGeneratorTest extends \PHPUnit\Framework\TestCase
         );
     }
 
-    /**
-     * @testdox A missing or invalid element type generates a INVALID output
-     * @covers \phpOMS\Model\Html\FormElementGenerator
-     * @group framework
-     */
+    #[\PHPUnit\Framework\Attributes\Group('framework')]
+    #[\PHPUnit\Framework\Attributes\TestDox('A missing or invalid element type generates a INVALID output')]
     public function testInvalidElementType() : void
     {
         self::assertEquals(

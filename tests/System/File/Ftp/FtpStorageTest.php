@@ -21,10 +21,10 @@ use phpOMS\System\File\Ftp\FtpStorage;
 use phpOMS\Uri\HttpUri;
 
 /**
- * @testdox phpOMS\tests\System\File\Ftp\FtpStorageTest: Directory & File handler for local file system
- *
  * @internal
  */
+#[\PHPUnit\Framework\Attributes\CoversClass(\phpOMS\System\File\Ftp\FtpStorage::class)]
+#[\PHPUnit\Framework\Attributes\TestDox('phpOMS\tests\System\File\Ftp\FtpStorageTest: Directory & File handler for local file system')]
 final class FtpStorageTest extends \PHPUnit\Framework\TestCase
 {
     public const BASE = 'ftp://test:123456@127.0.0.1:21';
@@ -80,11 +80,8 @@ final class FtpStorageTest extends \PHPUnit\Framework\TestCase
         }
     }
 
-    /**
-     * @testdox A directory can be created
-     * @covers \phpOMS\System\File\Ftp\FtpStorage<extended>
-     * @group framework
-     */
+    #[\PHPUnit\Framework\Attributes\Group('framework')]
+    #[\PHPUnit\Framework\Attributes\TestDox('A directory can be created')]
     public function testStaticCreateDirectory() : void
     {
         $dirPath = __DIR__ . '/test';
@@ -94,22 +91,16 @@ final class FtpStorageTest extends \PHPUnit\Framework\TestCase
         Directory::delete(self::$con, $dirPath);
     }
 
-    /**
-     * @testdox A directory can be checked for existence
-     * @covers \phpOMS\System\File\Ftp\FtpStorage<extended>
-     * @group framework
-     */
+    #[\PHPUnit\Framework\Attributes\Group('framework')]
+    #[\PHPUnit\Framework\Attributes\TestDox('A directory can be checked for existence')]
     public function testStaticExistsDirectory() : void
     {
         self::assertTrue(FtpStorage::exists(__DIR__));
         self::assertFalse(FtpStorage::exists(__DIR__ . '/invalid/path/here'));
     }
 
-    /**
-     * @testdox An existing directory cannot be overwritten
-     * @covers \phpOMS\System\File\Ftp\FtpStorage<extended>
-     * @group framework
-     */
+    #[\PHPUnit\Framework\Attributes\Group('framework')]
+    #[\PHPUnit\Framework\Attributes\TestDox('An existing directory cannot be overwritten')]
     public function testInvalidStaticOverwriteDirectory() : void
     {
         $dirPath = __DIR__ . '/test';
@@ -119,11 +110,8 @@ final class FtpStorageTest extends \PHPUnit\Framework\TestCase
         Directory::delete(self::$con, $dirPath);
     }
 
-    /**
-     * @testdox A directory can be forced to be created recursively
-     * @covers \phpOMS\System\File\Ftp\FtpStorage<extended>
-     * @group framework
-     */
+    #[\PHPUnit\Framework\Attributes\Group('framework')]
+    #[\PHPUnit\Framework\Attributes\TestDox('A directory can be forced to be created recursively')]
     public function testStaticSubdirDirectory() : void
     {
         $dirPath = __DIR__ . '/test/sub/path';
@@ -135,11 +123,8 @@ final class FtpStorageTest extends \PHPUnit\Framework\TestCase
         Directory::delete(self::$con, __DIR__ . '/test');
     }
 
-    /**
-     * @testdox The name of a directory is just its name without its path
-     * @covers \phpOMS\System\File\Ftp\FtpStorage<extended>
-     * @group framework
-     */
+    #[\PHPUnit\Framework\Attributes\Group('framework')]
+    #[\PHPUnit\Framework\Attributes\TestDox('The name of a directory is just its name without its path')]
     public function testStaticNameDirectory() : void
     {
         $dirPath = __DIR__ . '/test';
@@ -147,11 +132,8 @@ final class FtpStorageTest extends \PHPUnit\Framework\TestCase
         self::assertEquals('test', FtpStorage::name($dirPath));
     }
 
-    /**
-     * @testdox The basename is the same as the name of the directory
-     * @covers \phpOMS\System\File\Ftp\FtpStorage<extended>
-     * @group framework
-     */
+    #[\PHPUnit\Framework\Attributes\Group('framework')]
+    #[\PHPUnit\Framework\Attributes\TestDox('The basename is the same as the name of the directory')]
     public function testStaticBasenameDirectory() : void
     {
         $dirPath = __DIR__ . '/test';
@@ -159,11 +141,8 @@ final class FtpStorageTest extends \PHPUnit\Framework\TestCase
         self::assertEquals('test', FtpStorage::basename($dirPath));
     }
 
-    /**
-     * @testdox The dirname is the same as the name of the directory
-     * @covers \phpOMS\System\File\Ftp\FtpStorage<extended>
-     * @group framework
-     */
+    #[\PHPUnit\Framework\Attributes\Group('framework')]
+    #[\PHPUnit\Framework\Attributes\TestDox('The dirname is the same as the name of the directory')]
     public function testStaticDirnameDirectory() : void
     {
         $dirPath = __DIR__ . '/test';
@@ -171,11 +150,8 @@ final class FtpStorageTest extends \PHPUnit\Framework\TestCase
         self::assertEquals('test', FtpStorage::dirname($dirPath));
     }
 
-    /**
-     * @testdox The parent of a directory can be returned
-     * @covers \phpOMS\System\File\Ftp\FtpStorage<extended>
-     * @group framework
-     */
+    #[\PHPUnit\Framework\Attributes\Group('framework')]
+    #[\PHPUnit\Framework\Attributes\TestDox('The parent of a directory can be returned')]
     public function testStaticParentDirectory() : void
     {
         $dirPath = __DIR__ . '/test';
@@ -183,11 +159,8 @@ final class FtpStorageTest extends \PHPUnit\Framework\TestCase
         self::assertEquals(\strtr(\realpath(__DIR__), '\\', '/'), FtpStorage::parent($dirPath));
     }
 
-    /**
-     * @testdox The full absolute path of a directory can be returned
-     * @covers \phpOMS\System\File\Ftp\FtpStorage<extended>
-     * @group framework
-     */
+    #[\PHPUnit\Framework\Attributes\Group('framework')]
+    #[\PHPUnit\Framework\Attributes\TestDox('The full absolute path of a directory can be returned')]
     public function testStaticDirectoryPathDirectory() : void
     {
         $dirPath = __DIR__ . '/test';
@@ -195,11 +168,8 @@ final class FtpStorageTest extends \PHPUnit\Framework\TestCase
         self::assertEquals($dirPath, FtpStorage::dirpath($dirPath));
     }
 
-    /**
-     * @testdox The directories creation date can be returned
-     * @covers \phpOMS\System\File\Ftp\FtpStorage<extended>
-     * @group framework
-     */
+    #[\PHPUnit\Framework\Attributes\Group('framework')]
+    #[\PHPUnit\Framework\Attributes\TestDox('The directories creation date can be returned')]
     public function testStaticCreatedAtDirectory() : void
     {
         $dirPath = __DIR__ . '/test';
@@ -214,11 +184,8 @@ final class FtpStorageTest extends \PHPUnit\Framework\TestCase
         Directory::delete(self::$con, $dirPath);
     }
 
-    /**
-     * @testdox The directories last change date can be returned
-     * @covers \phpOMS\System\File\Ftp\FtpStorage<extended>
-     * @group framework
-     */
+    #[\PHPUnit\Framework\Attributes\Group('framework')]
+    #[\PHPUnit\Framework\Attributes\TestDox('The directories last change date can be returned')]
     public function testStaticChangedAtDirectory() : void
     {
         $dirPath = __DIR__ . '/test';
@@ -233,11 +200,8 @@ final class FtpStorageTest extends \PHPUnit\Framework\TestCase
         Directory::delete(self::$con, $dirPath);
     }
 
-    /**
-     * @testdox A directory can be deleted
-     * @covers \phpOMS\System\File\Ftp\FtpStorage<extended>
-     * @group framework
-     */
+    #[\PHPUnit\Framework\Attributes\Group('framework')]
+    #[\PHPUnit\Framework\Attributes\TestDox('A directory can be deleted')]
     public function testStaticDeleteDirectory() : void
     {
         $dirPath = __DIR__ . '/test';
@@ -247,11 +211,8 @@ final class FtpStorageTest extends \PHPUnit\Framework\TestCase
         self::assertFalse(FtpStorage::exists($dirPath));
     }
 
-    /**
-     * @testdox A none-existing directory cannot be deleted
-     * @covers \phpOMS\System\File\Ftp\FtpStorage<extended>
-     * @group framework
-     */
+    #[\PHPUnit\Framework\Attributes\Group('framework')]
+    #[\PHPUnit\Framework\Attributes\TestDox('A none-existing directory cannot be deleted')]
     public function testInvalidStaticDeleteDirectory() : void
     {
         $dirPath = __DIR__ . '/test';
@@ -259,66 +220,48 @@ final class FtpStorageTest extends \PHPUnit\Framework\TestCase
         self::assertFalse(FtpStorage::delete($dirPath));
     }
 
-    /**
-     * @testdox The size of a directory can be returned
-     * @covers \phpOMS\System\File\Ftp\FtpStorage<extended>
-     * @group framework
-     */
+    #[\PHPUnit\Framework\Attributes\Group('framework')]
+    #[\PHPUnit\Framework\Attributes\TestDox('The size of a directory can be returned')]
     public function testStaticSizeRecursiveDirectory() : void
     {
         $dirTestPath = __DIR__ . '/dirtest';
         self::assertGreaterThan(0, FtpStorage::size($dirTestPath));
     }
 
-    /**
-     * @testdox The size of a none-existing directory is negative
-     * @covers \phpOMS\System\File\Ftp\FtpStorage<extended>
-     * @group framework
-     */
+    #[\PHPUnit\Framework\Attributes\Group('framework')]
+    #[\PHPUnit\Framework\Attributes\TestDox('The size of a none-existing directory is negative')]
     public function testInvalidStaticSizeRecursiveDirectory() : void
     {
         $dirTestPath = __DIR__ . '/invalid/test/here';
         self::assertEquals(-1, FtpStorage::size($dirTestPath));
     }
 
-    /**
-     * @testdox The recursive size of a directory is equals or greater than the size of the same directory none-recursive
-     * @covers \phpOMS\System\File\Ftp\FtpStorage<extended>
-     * @group framework
-     */
+    #[\PHPUnit\Framework\Attributes\Group('framework')]
+    #[\PHPUnit\Framework\Attributes\TestDox('The recursive size of a directory is equals or greater than the size of the same directory none-recursive')]
     public function testStaticSizeDirectory() : void
     {
         $dirTestPath = __DIR__ . '/dirtest';
         self::assertGreaterThan(FtpStorage::size($dirTestPath, false), FtpStorage::size($dirTestPath));
     }
 
-    /**
-     * @testdox The permission of a directory can be returned
-     * @covers \phpOMS\System\File\Ftp\FtpStorage<extended>
-     * @group framework
-     */
+    #[\PHPUnit\Framework\Attributes\Group('framework')]
+    #[\PHPUnit\Framework\Attributes\TestDox('The permission of a directory can be returned')]
     public function testStaticPermissionDirectory() : void
     {
         $dirTestPath = __DIR__ . '/dirtest';
         self::assertGreaterThan(0, FtpStorage::permission($dirTestPath));
     }
 
-    /**
-     * @testdox The permission of a none-existing directory is negative
-     * @covers \phpOMS\System\File\Ftp\FtpStorage<extended>
-     * @group framework
-     */
+    #[\PHPUnit\Framework\Attributes\Group('framework')]
+    #[\PHPUnit\Framework\Attributes\TestDox('The permission of a none-existing directory is negative')]
     public function testInvalidStaticPermissionDirectory() : void
     {
         $dirTestPath = __DIR__ . '/invalid/test/here';
         self::assertEquals(-1, FtpStorage::permission($dirTestPath));
     }
 
-    /**
-     * @testdox A directory can be copied recursively
-     * @covers \phpOMS\System\File\Ftp\FtpStorage<extended>
-     * @group framework
-     */
+    #[\PHPUnit\Framework\Attributes\Group('framework')]
+    #[\PHPUnit\Framework\Attributes\TestDox('A directory can be copied recursively')]
     public function testStaticCopyDirectory() : void
     {
         $dirTestPath = __DIR__ . '/dirtest';
@@ -328,11 +271,8 @@ final class FtpStorageTest extends \PHPUnit\Framework\TestCase
         FtpStorage::delete(__DIR__ . '/newdirtest');
     }
 
-    /**
-     * @testdox A directory can be moved/renamed to a different path
-     * @covers \phpOMS\System\File\Ftp\FtpStorage<extended>
-     * @group framework
-     */
+    #[\PHPUnit\Framework\Attributes\Group('framework')]
+    #[\PHPUnit\Framework\Attributes\TestDox('A directory can be moved/renamed to a different path')]
     public function testStaticMoveDirectory() : void
     {
         $dirTestPath = __DIR__ . '/dirtest';
@@ -343,85 +283,61 @@ final class FtpStorageTest extends \PHPUnit\Framework\TestCase
         FtpStorage::move(__DIR__ . '/newdirtest', $dirTestPath);
     }
 
-    /**
-     * @testdox The amount of files in a directory can be returned recursively
-     * @covers \phpOMS\System\File\Ftp\FtpStorage<extended>
-     * @group framework
-     */
+    #[\PHPUnit\Framework\Attributes\Group('framework')]
+    #[\PHPUnit\Framework\Attributes\TestDox('The amount of files in a directory can be returned recursively')]
     public function testStaticCountRecursiveDirectory() : void
     {
         $dirTestPath = __DIR__ . '/dirtest';
         self::assertEquals(4, FtpStorage::count($dirTestPath));
     }
 
-    /**
-     * @testdox The amount of files in a directory can be returned none-recursively
-     * @covers \phpOMS\System\File\Ftp\FtpStorage<extended>
-     * @group framework
-     */
+    #[\PHPUnit\Framework\Attributes\Group('framework')]
+    #[\PHPUnit\Framework\Attributes\TestDox('The amount of files in a directory can be returned none-recursively')]
     public function testStaticCountDirectory() : void
     {
         $dirTestPath = __DIR__ . '/dirtest';
         self::assertEquals(1, FtpStorage::count($dirTestPath, false));
     }
 
-    /**
-     * @testdox The amount of files of a none-existing directory is negative
-     * @covers \phpOMS\System\File\Ftp\FtpStorage<extended>
-     * @group framework
-     */
+    #[\PHPUnit\Framework\Attributes\Group('framework')]
+    #[\PHPUnit\Framework\Attributes\TestDox('The amount of files of a none-existing directory is negative')]
     public function testInvalidStaticCountDirectory() : void
     {
         $dirTestPath = __DIR__ . '/invalid/path/here';
         self::assertEquals(-1, FtpStorage::count($dirTestPath, false));
     }
 
-    /**
-     * @testdox All files and sub-directories of a directory can be listed
-     * @covers \phpOMS\System\File\Ftp\FtpStorage<extended>
-     * @group framework
-     */
+    #[\PHPUnit\Framework\Attributes\Group('framework')]
+    #[\PHPUnit\Framework\Attributes\TestDox('All files and sub-directories of a directory can be listed')]
     public function testStaticListFilesDirectory() : void
     {
         $dirTestPath = __DIR__ . '/dirtest';
         self::assertCount(6, FtpStorage::list($dirTestPath, '*', true));
     }
 
-    /**
-     * @testdox A none-existing directory returns a empty list of files and sub-directories
-     * @covers \phpOMS\System\File\Ftp\FtpStorage<extended>
-     * @group framework
-     */
+    #[\PHPUnit\Framework\Attributes\Group('framework')]
+    #[\PHPUnit\Framework\Attributes\TestDox('A none-existing directory returns a empty list of files and sub-directories')]
     public function testInvalidListPathDirectory() : void
     {
         self::assertEquals([], FtpStorage::list(__DIR__ . '/invalid/path/here'));
     }
 
-    /**
-     * @testdox A invalid directory cannot be copied to a new destination
-     * @covers \phpOMS\System\File\Ftp\FtpStorage<extended>
-     * @group framework
-     */
+    #[\PHPUnit\Framework\Attributes\Group('framework')]
+    #[\PHPUnit\Framework\Attributes\TestDox('A invalid directory cannot be copied to a new destination')]
     public function testInvalidCopyPathDirectory() : void
     {
         self::assertFalse(FtpStorage::copy(__DIR__ . '/invalid', __DIR__ . '/invalid2'));
     }
 
-    /**
-     * @testdox A invalid directory cannot be moved to a new destination
-     * @covers \phpOMS\System\File\Ftp\FtpStorage<extended>
-     * @group framework
-     */
+    #[\PHPUnit\Framework\Attributes\Group('framework')]
+    #[\PHPUnit\Framework\Attributes\TestDox('A invalid directory cannot be moved to a new destination')]
     public function testInvalidMovePathDirectory() : void
     {
         self::assertFalse(FtpStorage::move(__DIR__ . '/invalid', __DIR__ . '/invalid2'));
     }
 
-    /**
-     * @testdox Reading the creation date of a none-existing directory throws a PathException
-     * @covers \phpOMS\System\File\Ftp\FtpStorage<extended>
-     * @group framework
-     */
+    #[\PHPUnit\Framework\Attributes\Group('framework')]
+    #[\PHPUnit\Framework\Attributes\TestDox('Reading the creation date of a none-existing directory throws a PathException')]
     public function testInvalidCreatedPathDirectory() : void
     {
         $this->expectException(\phpOMS\System\File\PathException::class);
@@ -429,11 +345,8 @@ final class FtpStorageTest extends \PHPUnit\Framework\TestCase
         FtpStorage::created(__DIR__ . '/invalid');
     }
 
-    /**
-     * @testdox Reading the last change date of a none-existing directory throws a PathException
-     * @covers \phpOMS\System\File\Ftp\FtpStorage<extended>
-     * @group framework
-     */
+    #[\PHPUnit\Framework\Attributes\Group('framework')]
+    #[\PHPUnit\Framework\Attributes\TestDox('Reading the last change date of a none-existing directory throws a PathException')]
     public function testInvalidChangedPathDirectory() : void
     {
         $this->expectException(\phpOMS\System\File\PathException::class);
@@ -441,11 +354,8 @@ final class FtpStorageTest extends \PHPUnit\Framework\TestCase
         FtpStorage::changed(__DIR__ . '/invalid');
     }
 
-    /**
-     * @testdox Reading the owner of a none-existing directory throws a PathException
-     * @covers \phpOMS\System\File\Ftp\FtpStorage<extended>
-     * @group framework
-     */
+    #[\PHPUnit\Framework\Attributes\Group('framework')]
+    #[\PHPUnit\Framework\Attributes\TestDox('Reading the owner of a none-existing directory throws a PathException')]
     public function testInvalidOwnerPathDirectory() : void
     {
         $this->expectException(\phpOMS\System\File\PathException::class);
@@ -453,11 +363,8 @@ final class FtpStorageTest extends \PHPUnit\Framework\TestCase
         FtpStorage::owner(__DIR__ . '/invalid');
     }
 
-    /**
-     * @testdox A file without content can be created
-     * @covers \phpOMS\System\File\Ftp\FtpStorage<extended>
-     * @group framework
-     */
+    #[\PHPUnit\Framework\Attributes\Group('framework')]
+    #[\PHPUnit\Framework\Attributes\TestDox('A file without content can be created')]
     public function testStaticCreateFile() : void
     {
         $testFile = __DIR__ . '/test.txt';
@@ -468,11 +375,8 @@ final class FtpStorageTest extends \PHPUnit\Framework\TestCase
         \unlink($testFile);
     }
 
-    /**
-     * @testdox A file cannot be created if it already exists
-     * @covers \phpOMS\System\File\Ftp\FtpStorage<extended>
-     * @group framework
-     */
+    #[\PHPUnit\Framework\Attributes\Group('framework')]
+    #[\PHPUnit\Framework\Attributes\TestDox('A file cannot be created if it already exists')]
     public function testInvalidStaticCreateFile() : void
     {
         $testFile = __DIR__ . '/test.txt';
@@ -483,11 +387,8 @@ final class FtpStorageTest extends \PHPUnit\Framework\TestCase
         \unlink($testFile);
     }
 
-    /**
-     * @testdox A file with content can be created
-     * @covers \phpOMS\System\File\Ftp\FtpStorage<extended>
-     * @group framework
-     */
+    #[\PHPUnit\Framework\Attributes\Group('framework')]
+    #[\PHPUnit\Framework\Attributes\TestDox('A file with content can be created')]
     public function testStaticPutFile() : void
     {
         $testFile = __DIR__ . '/test.txt';
@@ -498,11 +399,8 @@ final class FtpStorageTest extends \PHPUnit\Framework\TestCase
         \unlink($testFile);
     }
 
-    /**
-     * @testdox A file cannot be replaced if it doesn't exists
-     * @covers \phpOMS\System\File\Ftp\FtpStorage<extended>
-     * @group framework
-     */
+    #[\PHPUnit\Framework\Attributes\Group('framework')]
+    #[\PHPUnit\Framework\Attributes\TestDox("A file cannot be replaced if it doesn't exists")]
     public function testInvalidStaticCreateReplaceFile() : void
     {
         $testFile = __DIR__ . '/test.txt';
@@ -510,11 +408,8 @@ final class FtpStorageTest extends \PHPUnit\Framework\TestCase
         self::assertfalse(\is_file($testFile));
     }
 
-    /**
-     * @testdox A file cannot be appended if it doesn't exists
-     * @covers \phpOMS\System\File\Ftp\FtpStorage<extended>
-     * @group framework
-     */
+    #[\PHPUnit\Framework\Attributes\Group('framework')]
+    #[\PHPUnit\Framework\Attributes\TestDox("A file cannot be appended if it doesn't exists")]
     public function testInvalidStaticCreateAppendFile() : void
     {
         $testFile = __DIR__ . '/test.txt';
@@ -522,11 +417,8 @@ final class FtpStorageTest extends \PHPUnit\Framework\TestCase
         self::assertfalse(\is_file($testFile));
     }
 
-    /**
-     * @testdox A file cannot be prepended if it doesn't exists
-     * @covers \phpOMS\System\File\Ftp\FtpStorage<extended>
-     * @group framework
-     */
+    #[\PHPUnit\Framework\Attributes\Group('framework')]
+    #[\PHPUnit\Framework\Attributes\TestDox("A file cannot be prepended if it doesn't exists")]
     public function testInvalidStaticCreatePrependFile() : void
     {
         $testFile = __DIR__ . '/test.txt';
@@ -534,22 +426,16 @@ final class FtpStorageTest extends \PHPUnit\Framework\TestCase
         self::assertfalse(\is_file($testFile));
     }
 
-    /**
-     * @testdox A file can be checked for existence
-     * @covers \phpOMS\System\File\Ftp\FtpStorage<extended>
-     * @group framework
-     */
+    #[\PHPUnit\Framework\Attributes\Group('framework')]
+    #[\PHPUnit\Framework\Attributes\TestDox('A file can be checked for existence')]
     public function testStaticExistsFile() : void
     {
         self::assertTrue(FtpStorage::exists(__DIR__ . '/FileTest.php'));
         self::assertFalse(FtpStorage::exists(__DIR__ . '/invalid/file.txt'));
     }
 
-    /**
-     * @testdox A file can be replaced with a new one
-     * @covers \phpOMS\System\File\Ftp\FtpStorage<extended>
-     * @group framework
-     */
+    #[\PHPUnit\Framework\Attributes\Group('framework')]
+    #[\PHPUnit\Framework\Attributes\TestDox('A file can be replaced with a new one')]
     public function testStaticReplaceFile() : void
     {
         $testFile = __DIR__ . '/test.txt';
@@ -561,11 +447,8 @@ final class FtpStorageTest extends \PHPUnit\Framework\TestCase
         \unlink($testFile);
     }
 
-    /**
-     * @testdox The set alias works like the replace flag
-     * @covers \phpOMS\System\File\Ftp\FtpStorage<extended>
-     * @group framework
-     */
+    #[\PHPUnit\Framework\Attributes\Group('framework')]
+    #[\PHPUnit\Framework\Attributes\TestDox('The set alias works like the replace flag')]
     public function testStaticSetAliasFile() : void
     {
         $testFile = __DIR__ . '/test.txt';
@@ -577,11 +460,8 @@ final class FtpStorageTest extends \PHPUnit\Framework\TestCase
         \unlink($testFile);
     }
 
-    /**
-     * @testdox A file can be appended with additional content
-     * @covers \phpOMS\System\File\Ftp\FtpStorage<extended>
-     * @group framework
-     */
+    #[\PHPUnit\Framework\Attributes\Group('framework')]
+    #[\PHPUnit\Framework\Attributes\TestDox('A file can be appended with additional content')]
     public function testStaticAppendFile() : void
     {
         $testFile = __DIR__ . '/test.txt';
@@ -593,11 +473,8 @@ final class FtpStorageTest extends \PHPUnit\Framework\TestCase
         \unlink($testFile);
     }
 
-    /**
-     * @testdox The append alias works like the append flag
-     * @covers \phpOMS\System\File\Ftp\FtpStorage<extended>
-     * @group framework
-     */
+    #[\PHPUnit\Framework\Attributes\Group('framework')]
+    #[\PHPUnit\Framework\Attributes\TestDox('The append alias works like the append flag')]
     public function testStaticAppendAliasFile() : void
     {
         $testFile = __DIR__ . '/test.txt';
@@ -609,11 +486,8 @@ final class FtpStorageTest extends \PHPUnit\Framework\TestCase
         \unlink($testFile);
     }
 
-    /**
-     * @testdox A file can be prepended with additional content
-     * @covers \phpOMS\System\File\Ftp\FtpStorage<extended>
-     * @group framework
-     */
+    #[\PHPUnit\Framework\Attributes\Group('framework')]
+    #[\PHPUnit\Framework\Attributes\TestDox('A file can be prepended with additional content')]
     public function testStaticPrependFile() : void
     {
         $testFile = __DIR__ . '/test.txt';
@@ -625,11 +499,8 @@ final class FtpStorageTest extends \PHPUnit\Framework\TestCase
         \unlink($testFile);
     }
 
-    /**
-     * @testdox The prepend alias works like the prepend flag
-     * @covers \phpOMS\System\File\Ftp\FtpStorage<extended>
-     * @group framework
-     */
+    #[\PHPUnit\Framework\Attributes\Group('framework')]
+    #[\PHPUnit\Framework\Attributes\TestDox('The prepend alias works like the prepend flag')]
     public function testStaticPrependAliasFile() : void
     {
         $testFile = __DIR__ . '/test.txt';
@@ -641,11 +512,8 @@ final class FtpStorageTest extends \PHPUnit\Framework\TestCase
         \unlink($testFile);
     }
 
-    /**
-     * @testdox The content of a file can be read
-     * @covers \phpOMS\System\File\Ftp\FtpStorage<extended>
-     * @group framework
-     */
+    #[\PHPUnit\Framework\Attributes\Group('framework')]
+    #[\PHPUnit\Framework\Attributes\TestDox('The content of a file can be read')]
     public function testStaticGetFile() : void
     {
         $testFile = __DIR__ . '/test.txt';
@@ -655,11 +523,8 @@ final class FtpStorageTest extends \PHPUnit\Framework\TestCase
         \unlink($testFile);
     }
 
-    /**
-     * @testdox The parent directory of a file can be returned
-     * @covers \phpOMS\System\File\Ftp\FtpStorage<extended>
-     * @group framework
-     */
+    #[\PHPUnit\Framework\Attributes\Group('framework')]
+    #[\PHPUnit\Framework\Attributes\TestDox('The parent directory of a file can be returned')]
     public function testStaticParentFile() : void
     {
         $testFile = __DIR__ . '/test.txt';
@@ -667,11 +532,8 @@ final class FtpStorageTest extends \PHPUnit\Framework\TestCase
         self::assertEquals(\strtr(\realpath(__DIR__ . '/../'), '\\', '/'), FtpStorage::parent($testFile));
     }
 
-    /**
-     * @testdox The extension of a file can be returned
-     * @covers \phpOMS\System\File\Ftp\FtpStorage<extended>
-     * @group framework
-     */
+    #[\PHPUnit\Framework\Attributes\Group('framework')]
+    #[\PHPUnit\Framework\Attributes\TestDox('The extension of a file can be returned')]
     public function testStaticExtensionFile() : void
     {
         $testFile = __DIR__ . '/test.txt';
@@ -679,11 +541,8 @@ final class FtpStorageTest extends \PHPUnit\Framework\TestCase
         self::assertEquals('txt', FtpStorage::extension($testFile));
     }
 
-    /**
-     * @testdox The name of a file can be returned
-     * @covers \phpOMS\System\File\Ftp\FtpStorage<extended>
-     * @group framework
-     */
+    #[\PHPUnit\Framework\Attributes\Group('framework')]
+    #[\PHPUnit\Framework\Attributes\TestDox('The name of a file can be returned')]
     public function testStaticNameFile() : void
     {
         $testFile = __DIR__ . '/test.txt';
@@ -691,11 +550,8 @@ final class FtpStorageTest extends \PHPUnit\Framework\TestCase
         self::assertEquals('test', FtpStorage::name($testFile));
     }
 
-    /**
-     * @testdox The basename of a file can be returned
-     * @covers \phpOMS\System\File\Ftp\FtpStorage<extended>
-     * @group framework
-     */
+    #[\PHPUnit\Framework\Attributes\Group('framework')]
+    #[\PHPUnit\Framework\Attributes\TestDox('The basename of a file can be returned')]
     public function testStaticBaseNameFile() : void
     {
         $testFile = __DIR__ . '/test.txt';
@@ -703,11 +559,8 @@ final class FtpStorageTest extends \PHPUnit\Framework\TestCase
         self::assertEquals('test.txt', FtpStorage::basename($testFile));
     }
 
-    /**
-     * @testdox The file name of a file can be returned
-     * @covers \phpOMS\System\File\Ftp\FtpStorage<extended>
-     * @group framework
-     */
+    #[\PHPUnit\Framework\Attributes\Group('framework')]
+    #[\PHPUnit\Framework\Attributes\TestDox('The file name of a file can be returned')]
     public function testStaticDirnameFile() : void
     {
         $testFile = __DIR__ . '/test.txt';
@@ -715,11 +568,8 @@ final class FtpStorageTest extends \PHPUnit\Framework\TestCase
         self::assertEquals(\basename(\realpath(__DIR__)), FtpStorage::dirname($testFile));
     }
 
-    /**
-     * @testdox The file path of a file can be returned
-     * @covers \phpOMS\System\File\Ftp\FtpStorage<extended>
-     * @group framework
-     */
+    #[\PHPUnit\Framework\Attributes\Group('framework')]
+    #[\PHPUnit\Framework\Attributes\TestDox('The file path of a file can be returned')]
     public function testStaticDirectoryPathFile() : void
     {
         $testFile = __DIR__ . '/test.txt';
@@ -727,11 +577,8 @@ final class FtpStorageTest extends \PHPUnit\Framework\TestCase
         self::assertEquals(\realpath(__DIR__), FtpStorage::dirpath($testFile));
     }
 
-    /**
-     * @testdox The count of a file is always 1
-     * @covers \phpOMS\System\File\Ftp\FtpStorage<extended>
-     * @group framework
-     */
+    #[\PHPUnit\Framework\Attributes\Group('framework')]
+    #[\PHPUnit\Framework\Attributes\TestDox('The count of a file is always 1')]
     public function testStaticCountFile() : void
     {
         $testFile = __DIR__ . '/test.txt';
@@ -739,11 +586,8 @@ final class FtpStorageTest extends \PHPUnit\Framework\TestCase
         self::assertEquals(1, FtpStorage::count($testFile));
     }
 
-    /**
-     * @testdox The directories creation date can be returned
-     * @covers \phpOMS\System\File\Ftp\FtpStorage<extended>
-     * @group framework
-     */
+    #[\PHPUnit\Framework\Attributes\Group('framework')]
+    #[\PHPUnit\Framework\Attributes\TestDox('The directories creation date can be returned')]
     public function testStaticCreatedAtFile() : void
     {
         $testFile = __DIR__ . '/test.txt';
@@ -755,11 +599,8 @@ final class FtpStorageTest extends \PHPUnit\Framework\TestCase
         \unlink($testFile);
     }
 
-    /**
-     * @testdox The directories last change date can be returned
-     * @covers \phpOMS\System\File\Ftp\FtpStorage<extended>
-     * @group framework
-     */
+    #[\PHPUnit\Framework\Attributes\Group('framework')]
+    #[\PHPUnit\Framework\Attributes\TestDox('The directories last change date can be returned')]
     public function testStaticChangedAtFile() : void
     {
         $testFile = __DIR__ . '/test.txt';
@@ -771,11 +612,8 @@ final class FtpStorageTest extends \PHPUnit\Framework\TestCase
         \unlink($testFile);
     }
 
-    /**
-     * @testdox A file can be deleted
-     * @covers \phpOMS\System\File\Ftp\FtpStorage<extended>
-     * @group framework
-     */
+    #[\PHPUnit\Framework\Attributes\Group('framework')]
+    #[\PHPUnit\Framework\Attributes\TestDox('A file can be deleted')]
     public function testStaticDeleteFile() : void
     {
         $testFile = __DIR__ . '/test.txt';
@@ -785,11 +623,8 @@ final class FtpStorageTest extends \PHPUnit\Framework\TestCase
         self::assertFalse(FtpStorage::exists($testFile));
     }
 
-    /**
-     * @testdox A none-existing file cannot be deleted
-     * @covers \phpOMS\System\File\Ftp\FtpStorage<extended>
-     * @group framework
-     */
+    #[\PHPUnit\Framework\Attributes\Group('framework')]
+    #[\PHPUnit\Framework\Attributes\TestDox('A none-existing file cannot be deleted')]
     public function testInvalidStaticDeleteFile() : void
     {
         $testFile = __DIR__ . '/test.txt';
@@ -797,11 +632,8 @@ final class FtpStorageTest extends \PHPUnit\Framework\TestCase
         self::assertFalse(FtpStorage::delete($testFile));
     }
 
-    /**
-     * @testdox The size of a file can be returned
-     * @covers \phpOMS\System\File\Ftp\FtpStorage<extended>
-     * @group framework
-     */
+    #[\PHPUnit\Framework\Attributes\Group('framework')]
+    #[\PHPUnit\Framework\Attributes\TestDox('The size of a file can be returned')]
     public function testStaticSizeFile() : void
     {
         $testFile = __DIR__ . '/test.txt';
@@ -812,11 +644,8 @@ final class FtpStorageTest extends \PHPUnit\Framework\TestCase
         \unlink($testFile);
     }
 
-    /**
-     * @testdox The permission of a file can be returned
-     * @covers \phpOMS\System\File\Ftp\FtpStorage<extended>
-     * @group framework
-     */
+    #[\PHPUnit\Framework\Attributes\Group('framework')]
+    #[\PHPUnit\Framework\Attributes\TestDox('The permission of a file can be returned')]
     public function testStaticPermissionFile() : void
     {
         $testFile = __DIR__ . '/test.txt';
@@ -827,22 +656,16 @@ final class FtpStorageTest extends \PHPUnit\Framework\TestCase
         \unlink($testFile);
     }
 
-    /**
-     * @testdox The permission of a none-existing file is negative
-     * @covers \phpOMS\System\File\Ftp\FtpStorage<extended>
-     * @group framework
-     */
+    #[\PHPUnit\Framework\Attributes\Group('framework')]
+    #[\PHPUnit\Framework\Attributes\TestDox('The permission of a none-existing file is negative')]
     public function testInvalidStaticPermissionFile() : void
     {
         $testFile = __DIR__ . '/test.txt';
         self::assertEquals(-1, FtpStorage::permission($testFile));
     }
 
-    /**
-     * @testdox A file can be copied to a different location
-     * @covers \phpOMS\System\File\Ftp\FtpStorage<extended>
-     * @group framework
-     */
+    #[\PHPUnit\Framework\Attributes\Group('framework')]
+    #[\PHPUnit\Framework\Attributes\TestDox('A file can be copied to a different location')]
     public function testStaticCopyFile() : void
     {
         $testFile = __DIR__ . '/test.txt';
@@ -861,11 +684,8 @@ final class FtpStorageTest extends \PHPUnit\Framework\TestCase
         File::delete(self::$con, $testFile);
     }
 
-    /**
-     * @testdox A file cannot be copied to a different location if the destination already exists
-     * @covers \phpOMS\System\File\Ftp\FtpStorage<extended>
-     * @group framework
-     */
+    #[\PHPUnit\Framework\Attributes\Group('framework')]
+    #[\PHPUnit\Framework\Attributes\TestDox('A file cannot be copied to a different location if the destination already exists')]
     public function testInvalidStaticCopyFile() : void
     {
         $testFile = __DIR__ . '/test.txt';
@@ -881,11 +701,8 @@ final class FtpStorageTest extends \PHPUnit\Framework\TestCase
         File::delete(self::$con, $testFile);
     }
 
-    /**
-     * @testdox A file can be forced to be copied to a different location even if the destination already exists
-     * @covers \phpOMS\System\File\Ftp\FtpStorage<extended>
-     * @group framework
-     */
+    #[\PHPUnit\Framework\Attributes\Group('framework')]
+    #[\PHPUnit\Framework\Attributes\TestDox('A file can be forced to be copied to a different location even if the destination already exists')]
     public function testStaticCopyOverwriteFile() : void
     {
         $testFile = __DIR__ . '/test.txt';
@@ -901,11 +718,8 @@ final class FtpStorageTest extends \PHPUnit\Framework\TestCase
         File::delete(self::$con, $testFile);
     }
 
-    /**
-     * @testdox A file can be moved to a different location
-     * @covers \phpOMS\System\File\Ftp\FtpStorage<extended>
-     * @group framework
-     */
+    #[\PHPUnit\Framework\Attributes\Group('framework')]
+    #[\PHPUnit\Framework\Attributes\TestDox('A file can be moved to a different location')]
     public function testStaticMoveFile() : void
     {
         $testFile = __DIR__ . '/test.txt';
@@ -923,11 +737,8 @@ final class FtpStorageTest extends \PHPUnit\Framework\TestCase
         Directory::delete(self::$con, __DIR__ . '/sub/');
     }
 
-    /**
-     * @testdox A file cannot be moved to a different location if the destination already exists
-     * @covers \phpOMS\System\File\Ftp\FtpStorage<extended>
-     * @group framework
-     */
+    #[\PHPUnit\Framework\Attributes\Group('framework')]
+    #[\PHPUnit\Framework\Attributes\TestDox('A file cannot be moved to a different location if the destination already exists')]
     public function testInvalidStaticMoveFile() : void
     {
         $testFile = __DIR__ . '/test.txt';
@@ -944,11 +755,8 @@ final class FtpStorageTest extends \PHPUnit\Framework\TestCase
         File::delete(self::$con, $testFile);
     }
 
-    /**
-     * @testdox A file can be forced to be moved to a different location even if the destination already exists
-     * @covers \phpOMS\System\File\Ftp\FtpStorage<extended>
-     * @group framework
-     */
+    #[\PHPUnit\Framework\Attributes\Group('framework')]
+    #[\PHPUnit\Framework\Attributes\TestDox('A file can be forced to be moved to a different location even if the destination already exists')]
     public function testStaticMoveOverwriteFile() : void
     {
         $testFile = __DIR__ . '/test.txt';
@@ -965,60 +773,42 @@ final class FtpStorageTest extends \PHPUnit\Framework\TestCase
         File::delete(self::$con, $newPath);
     }
 
-    /**
-     * @covers \phpOMS\System\File\Ftp\FtpStorage<extended>
-     * @group framework
-     */
+    #[\PHPUnit\Framework\Attributes\Group('framework')]
     public function testSanitize() : void
     {
         self::assertEquals(':/some/test/[path', FtpStorage::sanitize(':#&^$/some%/test/[path!'));
     }
 
-    /**
-     * @testdox The size of a none-existing file is negative
-     * @covers \phpOMS\System\File\Ftp\FtpStorage<extended>
-     * @group framework
-     */
+    #[\PHPUnit\Framework\Attributes\Group('framework')]
+    #[\PHPUnit\Framework\Attributes\TestDox('The size of a none-existing file is negative')]
     public function testInvalidSizePathFile() : void
     {
         self::assertEquals(-1, FtpStorage::size(__DIR__ . '/invalid.txt'));
     }
 
-    /**
-     * @testdox A none-existing file cannot be copied
-     * @covers \phpOMS\System\File\Ftp\FtpStorage<extended>
-     * @group framework
-     */
+    #[\PHPUnit\Framework\Attributes\Group('framework')]
+    #[\PHPUnit\Framework\Attributes\TestDox('A none-existing file cannot be copied')]
     public function testInvalidCopyPathFile() : void
     {
         self::assertFalse(FtpStorage::copy(__DIR__ . '/invalid.txt', __DIR__ . '/invalid2.txt'));
     }
 
-    /**
-     * @testdox A none-existing file cannot be moved
-     * @covers \phpOMS\System\File\Ftp\FtpStorage<extended>
-     * @group framework
-     */
+    #[\PHPUnit\Framework\Attributes\Group('framework')]
+    #[\PHPUnit\Framework\Attributes\TestDox('A none-existing file cannot be moved')]
     public function testInvalidMovePathFile() : void
     {
         self::assertFalse(FtpStorage::move(__DIR__ . '/invalid.txt', __DIR__ . '/invalid2.txt'));
     }
 
-    /**
-     * @testdox Reading the content of a none-existing file returns an empty result
-     * @covers \phpOMS\System\File\Ftp\FtpStorage<extended>
-     * @group framework
-     */
+    #[\PHPUnit\Framework\Attributes\Group('framework')]
+    #[\PHPUnit\Framework\Attributes\TestDox('Reading the content of a none-existing file returns an empty result')]
     public function testInvalidGetPathFile() : void
     {
         self::assertEquals('', FtpStorage::get(__DIR__ . '/invalid.txt'));
     }
 
-    /**
-     * @testdox Reading the created date of a none-existing file throws a PathException
-     * @covers \phpOMS\System\File\Ftp\FtpStorage<extended>
-     * @group framework
-     */
+    #[\PHPUnit\Framework\Attributes\Group('framework')]
+    #[\PHPUnit\Framework\Attributes\TestDox('Reading the created date of a none-existing file throws a PathException')]
     public function testInvalidCreatedPathFile() : void
     {
         $this->expectException(\phpOMS\System\File\PathException::class);
@@ -1026,11 +816,8 @@ final class FtpStorageTest extends \PHPUnit\Framework\TestCase
         FtpStorage::created(__DIR__ . '/invalid.txt');
     }
 
-    /**
-     * @testdox Reading the last change date of a none-existing file throws a PathException
-     * @covers \phpOMS\System\File\Ftp\FtpStorage<extended>
-     * @group framework
-     */
+    #[\PHPUnit\Framework\Attributes\Group('framework')]
+    #[\PHPUnit\Framework\Attributes\TestDox('Reading the last change date of a none-existing file throws a PathException')]
     public function testInvalidChangedPathFile() : void
     {
         $this->expectException(\phpOMS\System\File\PathException::class);
@@ -1038,11 +825,8 @@ final class FtpStorageTest extends \PHPUnit\Framework\TestCase
         FtpStorage::changed(__DIR__ . '/invalid.txt');
     }
 
-    /**
-     * @testdox Reading the owner of a none-existing file throws a PathException
-     * @covers \phpOMS\System\File\Ftp\FtpStorage<extended>
-     * @group framework
-     */
+    #[\PHPUnit\Framework\Attributes\Group('framework')]
+    #[\PHPUnit\Framework\Attributes\TestDox('Reading the owner of a none-existing file throws a PathException')]
     public function testInvalidOwnerPathFile() : void
     {
         $this->expectException(\phpOMS\System\File\PathException::class);
@@ -1050,11 +834,8 @@ final class FtpStorageTest extends \PHPUnit\Framework\TestCase
         FtpStorage::owner(__DIR__ . '/invalid.txt');
     }
 
-    /**
-     * @testdox Writing data to a destination which looks like a directory throws a PathException
-     * @covers \phpOMS\System\File\Ftp\FtpStorage<extended>
-     * @group framework
-     */
+    #[\PHPUnit\Framework\Attributes\Group('framework')]
+    #[\PHPUnit\Framework\Attributes\TestDox('Writing data to a destination which looks like a directory throws a PathException')]
     public function testInvalidPutPath() : void
     {
         $this->expectException(\phpOMS\System\File\PathException::class);
@@ -1062,11 +843,8 @@ final class FtpStorageTest extends \PHPUnit\Framework\TestCase
         FtpStorage::put(__DIR__, 'Test');
     }
 
-    /**
-     * @testdox Reading data from a directory throws a PathException
-     * @covers \phpOMS\System\File\Ftp\FtpStorage<extended>
-     * @group framework
-     */
+    #[\PHPUnit\Framework\Attributes\Group('framework')]
+    #[\PHPUnit\Framework\Attributes\TestDox('Reading data from a directory throws a PathException')]
     public function testInvalidGetPath() : void
     {
         $this->expectException(\phpOMS\System\File\PathException::class);
@@ -1074,11 +852,8 @@ final class FtpStorageTest extends \PHPUnit\Framework\TestCase
         FtpStorage::get(__DIR__);
     }
 
-    /**
-     * @testdox Trying to run list on a file throws a PathException
-     * @covers \phpOMS\System\File\Ftp\FtpStorage<extended>
-     * @group framework
-     */
+    #[\PHPUnit\Framework\Attributes\Group('framework')]
+    #[\PHPUnit\Framework\Attributes\TestDox('Trying to run list on a file throws a PathException')]
     public function testInvalidListPath() : void
     {
         $this->expectException(\phpOMS\System\File\PathException::class);
@@ -1086,11 +861,8 @@ final class FtpStorageTest extends \PHPUnit\Framework\TestCase
         FtpStorage::list(__DIR__ . '/FtpStorageTest.php');
     }
 
-    /**
-     * @testdox Setting data to a destination which looks like a directory throws a PathException
-     * @covers \phpOMS\System\File\Ftp\FtpStorage<extended>
-     * @group framework
-     */
+    #[\PHPUnit\Framework\Attributes\Group('framework')]
+    #[\PHPUnit\Framework\Attributes\TestDox('Setting data to a destination which looks like a directory throws a PathException')]
     public function testInvalidSetPath() : void
     {
         $this->expectException(\phpOMS\System\File\PathException::class);
@@ -1098,11 +870,8 @@ final class FtpStorageTest extends \PHPUnit\Framework\TestCase
         FtpStorage::set(__DIR__, 'Test');
     }
 
-    /**
-     * @testdox Appending data to a destination which looks like a directory throws a PathException
-     * @covers \phpOMS\System\File\Ftp\FtpStorage<extended>
-     * @group framework
-     */
+    #[\PHPUnit\Framework\Attributes\Group('framework')]
+    #[\PHPUnit\Framework\Attributes\TestDox('Appending data to a destination which looks like a directory throws a PathException')]
     public function testInvalidAppendPath() : void
     {
         $this->expectException(\phpOMS\System\File\PathException::class);
@@ -1110,11 +879,8 @@ final class FtpStorageTest extends \PHPUnit\Framework\TestCase
         FtpStorage::append(__DIR__, 'Test');
     }
 
-    /**
-     * @testdox Prepending data to a destination which looks like a directory throws a PathException
-     * @covers \phpOMS\System\File\Ftp\FtpStorage<extended>
-     * @group framework
-     */
+    #[\PHPUnit\Framework\Attributes\Group('framework')]
+    #[\PHPUnit\Framework\Attributes\TestDox('Prepending data to a destination which looks like a directory throws a PathException')]
     public function testInvalidPrependPath() : void
     {
         $this->expectException(\phpOMS\System\File\PathException::class);
@@ -1122,11 +888,8 @@ final class FtpStorageTest extends \PHPUnit\Framework\TestCase
         FtpStorage::prepend(__DIR__, 'Test');
     }
 
-    /**
-     * @testdox Reading the extension of a destination which looks like a directory throws a PathException
-     * @covers \phpOMS\System\File\Ftp\FtpStorage<extended>
-     * @group framework
-     */
+    #[\PHPUnit\Framework\Attributes\Group('framework')]
+    #[\PHPUnit\Framework\Attributes\TestDox('Reading the extension of a destination which looks like a directory throws a PathException')]
     public function testInvalidExtensionPath() : void
     {
         $this->expectException(\phpOMS\System\File\PathException::class);

@@ -17,34 +17,28 @@ namespace phpOMS\tests\Utils\Converter;
 use phpOMS\Utils\Converter\FileSizeType;
 
 /**
- * @testdox phpOMS\tests\Utils\Converter\FileSizeTypeTest: File size types
- *
  * @internal
  */
+#[\PHPUnit\Framework\Attributes\CoversClass(\phpOMS\Utils\Converter\FileSizeType::class)]
+#[\PHPUnit\Framework\Attributes\TestDox('phpOMS\tests\Utils\Converter\FileSizeTypeTest: File size types')]
 final class FileSizeTypeTest extends \PHPUnit\Framework\TestCase
 {
-    /**
-     * @group framework
-     * @coversNothing
-     */
+    #[\PHPUnit\Framework\Attributes\Group('framework')]
+    #[\PHPUnit\Framework\Attributes\CoversNothing]
     public function testEnumCount() : void
     {
         self::assertCount(10, FileSizeType::getConstants());
     }
 
-    /**
-     * @group framework
-     * @coversNothing
-     */
+    #[\PHPUnit\Framework\Attributes\Group('framework')]
+    #[\PHPUnit\Framework\Attributes\CoversNothing]
     public function testUnique() : void
     {
         self::assertEquals(FileSizeType::getConstants(), \array_unique(FileSizeType::getConstants()));
     }
 
-    /**
-     * @group framework
-     * @coversNothing
-     */
+    #[\PHPUnit\Framework\Attributes\Group('framework')]
+    #[\PHPUnit\Framework\Attributes\CoversNothing]
     public function testEnums() : void
     {
         self::assertEquals('TB', FileSizeType::TERRABYTE);
@@ -59,11 +53,8 @@ final class FileSizeTypeTest extends \PHPUnit\Framework\TestCase
         self::assertEquals('bit', FileSizeType::BIT);
     }
 
-    /**
-     * @testdox File sizes can get automatically formatted according to their size
-     * @covers \phpOMS\Utils\Converter\FileSizeType
-     * @group framework
-     */
+    #[\PHPUnit\Framework\Attributes\Group('framework')]
+    #[\PHPUnit\Framework\Attributes\TestDox('File sizes can get automatically formatted according to their size')]
     public function testAutoFormat() : void
     {
         self::assertEquals(

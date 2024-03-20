@@ -19,10 +19,9 @@ use phpOMS\Algorithm\Frequency\Apriori;
 require_once __DIR__ . '/../../Autoloader.php';
 
 /**
- * @testdox phpOMS\tests\Algorithm\Frequency\AprioriTest:
- *
  * @internal
  */
+#[\PHPUnit\Framework\Attributes\TestDox('phpOMS\tests\Algorithm\Frequency\AprioriTest:')]
 final class AprioriTest extends \PHPUnit\Framework\TestCase
 {
     public function testApriori() : void

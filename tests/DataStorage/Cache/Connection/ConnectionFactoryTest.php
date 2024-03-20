@@ -18,16 +18,13 @@ use phpOMS\DataStorage\Cache\CacheType;
 use phpOMS\DataStorage\Cache\Connection\ConnectionFactory;
 
 /**
- * @testdox phpOMS\tests\DataStorage\Cache\Connection\ConnectionFactoryTest: Factory for generating cache connections
- *
  * @internal
  */
+#[\PHPUnit\Framework\Attributes\TestDox('phpOMS\tests\DataStorage\Cache\Connection\ConnectionFactoryTest: Factory for generating cache connections')]
 final class ConnectionFactoryTest extends \PHPUnit\Framework\TestCase
 {
-    /**
-     * @testdox The file cache can be created
-     * @group framework
-     */
+    #[\PHPUnit\Framework\Attributes\Group('framework')]
+    #[\PHPUnit\Framework\Attributes\TestDox('The file cache can be created')]
     public function testCreateFileCache() : void
     {
         self::assertInstanceOf(
@@ -36,10 +33,8 @@ final class ConnectionFactoryTest extends \PHPUnit\Framework\TestCase
         );
     }
 
-    /**
-     * @testdox The memcached cache can be created
-     * @group framework
-     */
+    #[\PHPUnit\Framework\Attributes\Group('framework')]
+    #[\PHPUnit\Framework\Attributes\TestDox('The memcached cache can be created')]
     public function testCreateMemCached() : void
     {
         if (!\extension_loaded('memcached')) {
@@ -54,10 +49,8 @@ final class ConnectionFactoryTest extends \PHPUnit\Framework\TestCase
         );
     }
 
-    /**
-     * @testdox The redis cache can be created
-     * @group framework
-     */
+    #[\PHPUnit\Framework\Attributes\Group('framework')]
+    #[\PHPUnit\Framework\Attributes\TestDox('The redis cache can be created')]
     public function testCreateRedisCache() : void
     {
         if (!\extension_loaded('redis')) {
@@ -72,10 +65,8 @@ final class ConnectionFactoryTest extends \PHPUnit\Framework\TestCase
         );
     }
 
-    /**
-     * @testdox A invalid cache type results in an exception
-     * @group framework
-     */
+    #[\PHPUnit\Framework\Attributes\Group('framework')]
+    #[\PHPUnit\Framework\Attributes\TestDox('A invalid cache type results in an exception')]
     public function testInvalidCacheType() : void
     {
         $this->expectException(\InvalidArgumentException::class);

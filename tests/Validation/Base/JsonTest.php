@@ -17,28 +17,22 @@ namespace phpOMS\tests\Validation\Base;
 use phpOMS\Validation\Base\Json;
 
 /**
- * @testdox phpOMS\tests\Validation\Base\JsonTest: Json validator
- *
  * @internal
  */
+#[\PHPUnit\Framework\Attributes\CoversClass(\phpOMS\Validation\Base\Json::class)]
+#[\PHPUnit\Framework\Attributes\TestDox('phpOMS\tests\Validation\Base\JsonTest: Json validator')]
 final class JsonTest extends \PHPUnit\Framework\TestCase
 {
-    /**
-     * @testdox A json string can be validated
-     * @covers \phpOMS\Validation\Base\Json
-     * @group framework
-     */
+    #[\PHPUnit\Framework\Attributes\Group('framework')]
+    #[\PHPUnit\Framework\Attributes\TestDox('A json string can be validated')]
     public function testJson() : void
     {
         self::assertTrue(Json::isValid('{}'));
         self::assertFalse(Json::isValid('{'));
     }
 
-    /**
-     * @testdox A json string can be validated against a template definition
-     * @covers \phpOMS\Validation\Base\Json
-     * @group framework
-     */
+    #[\PHPUnit\Framework\Attributes\Group('framework')]
+    #[\PHPUnit\Framework\Attributes\TestDox('A json string can be validated against a template definition')]
     public function testJsonTemplate() : void
     {
         $template = \json_decode(\file_get_contents(__DIR__ . '/json/template.json'), true);
@@ -48,11 +42,8 @@ final class JsonTest extends \PHPUnit\Framework\TestCase
         self::assertTrue(Json::validateTemplate($template, $valid, true));
     }
 
-    /**
-     * @testdox A json string can be validated against a template definition with additional data
-     * @covers \phpOMS\Validation\Base\Json
-     * @group framework
-     */
+    #[\PHPUnit\Framework\Attributes\Group('framework')]
+    #[\PHPUnit\Framework\Attributes\TestDox('A json string can be validated against a template definition with additional data')]
     public function testJsonTemplateAdditional() : void
     {
         $template = \json_decode(\file_get_contents(__DIR__ . '/json/template.json'), true);
@@ -61,11 +52,8 @@ final class JsonTest extends \PHPUnit\Framework\TestCase
         self::assertTrue(Json::validateTemplate($template, $additional));
     }
 
-    /**
-     * @testdox A json string cannot be validated against a template definition with additional data if an exact match is enforced
-     * @covers \phpOMS\Validation\Base\Json
-     * @group framework
-     */
+    #[\PHPUnit\Framework\Attributes\Group('framework')]
+    #[\PHPUnit\Framework\Attributes\TestDox('A json string cannot be validated against a template definition with additional data if an exact match is enforced')]
     public function testJsonTemplateInvalidAdditional() : void
     {
         $template = \json_decode(\file_get_contents(__DIR__ . '/json/template.json'), true);
@@ -74,11 +62,8 @@ final class JsonTest extends \PHPUnit\Framework\TestCase
         self::assertFalse(Json::validateTemplate($template, $additional, true));
     }
 
-    /**
-     * @testdox A json string cannot be validated against a template definition with missing data if an exact match is enforced
-     * @covers \phpOMS\Validation\Base\Json
-     * @group framework
-     */
+    #[\PHPUnit\Framework\Attributes\Group('framework')]
+    #[\PHPUnit\Framework\Attributes\TestDox('A json string cannot be validated against a template definition with missing data if an exact match is enforced')]
     public function testJsonTemplateInvalidMissing() : void
     {
         $template = \json_decode(\file_get_contents(__DIR__ . '/json/template.json'), true);
@@ -87,11 +72,8 @@ final class JsonTest extends \PHPUnit\Framework\TestCase
         self::assertFalse(Json::validateTemplate($template, $incomplete));
     }
 
-    /**
-     * @testdox A json string cannot be validated against a template definition if it doesn't match the template
-     * @covers \phpOMS\Validation\Base\Json
-     * @group framework
-     */
+    #[\PHPUnit\Framework\Attributes\Group('framework')]
+    #[\PHPUnit\Framework\Attributes\TestDox("A json string cannot be validated against a template definition if it doesn't match the template")]
     public function testInvalidJsonTemplate() : void
     {
         $template = \json_decode(\file_get_contents(__DIR__ . '/json/template.json'), true);

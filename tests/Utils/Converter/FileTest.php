@@ -17,17 +17,14 @@ namespace phpOMS\tests\Utils\Converter;
 use phpOMS\Utils\Converter\File;
 
 /**
- * @testdox phpOMS\tests\Utils\Converter\FileTest: File size converter
- *
  * @internal
  */
+#[\PHPUnit\Framework\Attributes\CoversClass(\phpOMS\Utils\Converter\File::class)]
+#[\PHPUnit\Framework\Attributes\TestDox('phpOMS\tests\Utils\Converter\FileTest: File size converter')]
 final class FileTest extends \PHPUnit\Framework\TestCase
 {
-    /**
-     * @testdox A byte number can be converted to a string representation
-     * @covers \phpOMS\Utils\Converter\File
-     * @group framework
-     */
+    #[\PHPUnit\Framework\Attributes\Group('framework')]
+    #[\PHPUnit\Framework\Attributes\TestDox('A byte number can be converted to a string representation')]
     public function testByteSizeToString() : void
     {
         self::assertEquals('400b', File::byteSizeToString(400));
@@ -36,11 +33,8 @@ final class FileTest extends \PHPUnit\Framework\TestCase
         self::assertEquals('1.5gb', File::byteSizeToString(1500000000));
     }
 
-    /**
-     * @testdox A kilobyte number can be converted to a string representation
-     * @covers \phpOMS\Utils\Converter\File
-     * @group framework
-     */
+    #[\PHPUnit\Framework\Attributes\Group('framework')]
+    #[\PHPUnit\Framework\Attributes\TestDox('A kilobyte number can be converted to a string representation')]
     public function testKilobyteSizeToString() : void
     {
         self::assertEquals('500kb', File::kilobyteSizeToString(500));

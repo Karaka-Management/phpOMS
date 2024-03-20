@@ -20,6 +20,7 @@ use phpOMS\Utils\Barcode\OrientationType;
 /**
  * @internal
  */
+#[\PHPUnit\Framework\Attributes\CoversClass(\phpOMS\Utils\Barcode\C128b::class)]
 final class C128bTest extends \PHPUnit\Framework\TestCase
 {
     protected function setUp() : void
@@ -31,10 +32,7 @@ final class C128bTest extends \PHPUnit\Framework\TestCase
         }
     }
 
-    /**
-     * @covers \phpOMS\Utils\Barcode\C128b<extended>
-     * @group framework
-     */
+    #[\PHPUnit\Framework\Attributes\Group('framework')]
     public function testImagePng() : void
     {
         $path = __DIR__ . '/c128b.png';
@@ -48,10 +46,7 @@ final class C128bTest extends \PHPUnit\Framework\TestCase
         self::assertFileExists($path);
     }
 
-    /**
-     * @covers \phpOMS\Utils\Barcode\C128b<extended>
-     * @group framework
-     */
+    #[\PHPUnit\Framework\Attributes\Group('framework')]
     public function testImageJpg() : void
     {
         $path = __DIR__ . '/c128b.jpg';
@@ -65,10 +60,7 @@ final class C128bTest extends \PHPUnit\Framework\TestCase
         self::assertFileExists($path);
     }
 
-    /**
-     * @covers \phpOMS\Utils\Barcode\C128b<extended>
-     * @group framework
-     */
+    #[\PHPUnit\Framework\Attributes\Group('framework')]
     public function testOrientationAndMargin() : void
     {
         $path = __DIR__ . '/c128b_vertical.png';
@@ -83,10 +75,7 @@ final class C128bTest extends \PHPUnit\Framework\TestCase
         self::assertFileExists($path);
     }
 
-    /**
-     * @covers \phpOMS\Utils\Barcode\C128b<extended>
-     * @group framework
-     */
+    #[\PHPUnit\Framework\Attributes\Group('framework')]
     public function testValidString() : void
     {
         self::assertTrue(C128b::isValidString('ABCDE~FG0123+-'));

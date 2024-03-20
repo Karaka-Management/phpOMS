@@ -19,10 +19,10 @@ require_once __DIR__ . '/../Autoloader.php';
 use phpOMS\Application\StatusAbstract;
 
 /**
- * @testdox phpOMS\tests\Application\StatusAbstractTest: Abstract application status
- *
  * @internal
  */
+#[\PHPUnit\Framework\Attributes\CoversClass(\phpOMS\Application\StatusAbstract::class)]
+#[\PHPUnit\Framework\Attributes\TestDox('phpOMS\tests\Application\StatusAbstractTest: Abstract application status')]
 final class StatusAbstractTest extends \PHPUnit\Framework\TestCase
 {
 	protected StatusAbstract $status;
@@ -38,11 +38,8 @@ final class StatusAbstractTest extends \PHPUnit\Framework\TestCase
         };
     }
 
-    /**
-     * @testdox A invalid application path cannot be activated
-     * @covers \phpOMS\Application\StatusAbstract
-     * @group framework
-     */
+    #[\PHPUnit\Framework\Attributes\Group('framework')]
+    #[\PHPUnit\Framework\Attributes\TestDox('A invalid application path cannot be activated')]
     public function testInvalidAppPathActivation() : void
     {
     	$this->status::activateRoutes();

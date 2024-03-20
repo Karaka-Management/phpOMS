@@ -19,36 +19,30 @@ require_once __DIR__ . '/../Autoloader.php';
 use phpOMS\Asset\AssetType;
 
 /**
- * @testdox phpOMS\tests\Asset\AssetType: Asset type
  * @internal
  */
+#[\PHPUnit\Framework\Attributes\TestDox('phpOMS\tests\Asset\AssetType: Asset type')]
 final class AssetTypeTest extends \PHPUnit\Framework\TestCase
 {
-    /**
-     * @testdox The asset type enum has the correct number of status codes
-     * @group framework
-     * @coversNothing
-     */
+    #[\PHPUnit\Framework\Attributes\Group('framework')]
+    #[\PHPUnit\Framework\Attributes\TestDox('The asset type enum has the correct number of status codes')]
+    #[\PHPUnit\Framework\Attributes\CoversNothing]
     public function testEnumCount() : void
     {
         self::assertCount(3, AssetType::getConstants());
     }
 
-    /**
-     * @testdox The asset type enum has only unique values
-     * @group framework
-     * @coversNothing
-     */
+    #[\PHPUnit\Framework\Attributes\Group('framework')]
+    #[\PHPUnit\Framework\Attributes\TestDox('The asset type enum has only unique values')]
+    #[\PHPUnit\Framework\Attributes\CoversNothing]
     public function testUnique() : void
     {
         self::assertEquals(AssetType::getConstants(), \array_unique(AssetType::getConstants()));
     }
 
-    /**
-     * @testdox The asset type enum has the correct values
-     * @group framework
-     * @coversNothing
-     */
+    #[\PHPUnit\Framework\Attributes\Group('framework')]
+    #[\PHPUnit\Framework\Attributes\TestDox('The asset type enum has the correct values')]
+    #[\PHPUnit\Framework\Attributes\CoversNothing]
     public function testEnums() : void
     {
         self::assertEquals(0, AssetType::CSS);

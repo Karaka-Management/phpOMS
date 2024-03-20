@@ -17,17 +17,14 @@ namespace phpOMS\tests\Math\Number;
 use phpOMS\Math\Number\Integer;
 
 /**
- * @testdox phpOMS\tests\Math\Number\IntegerTest: Integer operations
- *
  * @internal
  */
+#[\PHPUnit\Framework\Attributes\CoversClass(\phpOMS\Math\Number\Integer::class)]
+#[\PHPUnit\Framework\Attributes\TestDox('phpOMS\tests\Math\Number\IntegerTest: Integer operations')]
 final class IntegerTest extends \PHPUnit\Framework\TestCase
 {
-    /**
-     * @testdox A value can be checked to be an integer
-     * @covers \phpOMS\Math\Number\Integer
-     * @group framework
-     */
+    #[\PHPUnit\Framework\Attributes\Group('framework')]
+    #[\PHPUnit\Framework\Attributes\TestDox('A value can be checked to be an integer')]
     public function testIsInteger() : void
     {
         self::assertTrue(Integer::isInteger(4));
@@ -35,11 +32,8 @@ final class IntegerTest extends \PHPUnit\Framework\TestCase
         self::assertFalse(Integer::isInteger('3'));
     }
 
-    /**
-     * @testdox An integer can be factorized
-     * @covers \phpOMS\Math\Number\Integer
-     * @group framework
-     */
+    #[\PHPUnit\Framework\Attributes\Group('framework')]
+    #[\PHPUnit\Framework\Attributes\TestDox('An integer can be factorized')]
     public function testFactorization() : void
     {
         $arr      = [2, 2, 5, 5];
@@ -67,31 +61,22 @@ final class IntegerTest extends \PHPUnit\Framework\TestCase
         self::assertEquals([], Integer::trialFactorization(1));
     }
 
-    /**
-     * @testdox The Pollard's Roh algorithm calculates a factor of an integer
-     * @covers \phpOMS\Math\Number\Integer
-     * @group framework
-     */
+    #[\PHPUnit\Framework\Attributes\Group('framework')]
+    #[\PHPUnit\Framework\Attributes\TestDox("The Pollard's Roh algorithm calculates a factor of an integer")]
     public function testPollardsRho() : void
     {
         self::assertEquals(101, Integer::pollardsRho(10403, 2, 1, 2, 2));
     }
 
-    /**
-     * @testdox The Fermat factorization calculates a factor of an integer
-     * @covers \phpOMS\Math\Number\Integer
-     * @group framework
-     */
+    #[\PHPUnit\Framework\Attributes\Group('framework')]
+    #[\PHPUnit\Framework\Attributes\TestDox('The Fermat factorization calculates a factor of an integer')]
     public function testFermatFactor() : void
     {
         self::assertEquals([59, 101], Integer::fermatFactor(5959));
     }
 
-    /**
-     * @testdox A even number for the fermat factorization throws a InvalidArgumentException
-     * @covers \phpOMS\Math\Number\Integer
-     * @group framework
-     */
+    #[\PHPUnit\Framework\Attributes\Group('framework')]
+    #[\PHPUnit\Framework\Attributes\TestDox('A even number for the fermat factorization throws a InvalidArgumentException')]
     public function testInvalidFermatParameter() : void
     {
         $this->expectException(\InvalidArgumentException::class);
@@ -99,11 +84,8 @@ final class IntegerTest extends \PHPUnit\Framework\TestCase
         Integer::fermatFactor(8);
     }
 
-    /**
-     * @testdox The greatest common divisor can be calculated
-     * @covers \phpOMS\Math\Number\Integer
-     * @group framework
-     */
+    #[\PHPUnit\Framework\Attributes\Group('framework')]
+    #[\PHPUnit\Framework\Attributes\TestDox('The greatest common divisor can be calculated')]
     public function testGCD() : void
     {
         self::assertEquals(4, Integer::greatestCommonDivisor(4, 4));

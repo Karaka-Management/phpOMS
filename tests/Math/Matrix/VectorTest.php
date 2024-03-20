@@ -17,17 +17,14 @@ namespace phpOMS\tests\Math\Matrix;
 use phpOMS\Math\Matrix\Vector;
 
 /**
- * @testdox phpOMS\tests\Math\Matrix\VectorTest: Vector operations
- *
  * @internal
  */
+#[\PHPUnit\Framework\Attributes\CoversClass(\phpOMS\Math\Matrix\Vector::class)]
+#[\PHPUnit\Framework\Attributes\TestDox('phpOMS\tests\Math\Matrix\VectorTest: Vector operations')]
 final class VectorTest extends \PHPUnit\Framework\TestCase
 {
-    /**
-     * @testdox The vector has the expected default values after initialization
-     * @covers \phpOMS\Math\Matrix\Vector
-     * @group framework
-     */
+    #[\PHPUnit\Framework\Attributes\Group('framework')]
+    #[\PHPUnit\Framework\Attributes\TestDox('The vector has the expected default values after initialization')]
     public function testDefault() : void
     {
         self::assertInstanceOf('\phpOMS\Math\Matrix\Vector', new Vector());
@@ -37,11 +34,8 @@ final class VectorTest extends \PHPUnit\Framework\TestCase
         self::assertCount(5, $vec->toArray());
     }
 
-    /**
-     * @testdox The vector values can be set and returned
-     * @covers \phpOMS\Math\Matrix\Vector
-     * @group framework
-     */
+    #[\PHPUnit\Framework\Attributes\Group('framework')]
+    #[\PHPUnit\Framework\Attributes\TestDox('The vector values can be set and returned')]
     public function testValueInputOutput() : void
     {
         $vec = new Vector(5);
@@ -53,11 +47,8 @@ final class VectorTest extends \PHPUnit\Framework\TestCase
         self::assertEquals(9, $vec->getV(3));
     }
 
-    /**
-     * @testdox The vector dimension can be returned
-     * @covers \phpOMS\Math\Matrix\Vector
-     * @group framework
-     */
+    #[\PHPUnit\Framework\Attributes\Group('framework')]
+    #[\PHPUnit\Framework\Attributes\TestDox('The vector dimension can be returned')]
     public function testDim() : void
     {
         $vec = new Vector(5);

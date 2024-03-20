@@ -21,6 +21,8 @@ use phpOMS\Message\Http\RequestStatusCode;
 /**
  * @internal
  */
+#[\PHPUnit\Framework\Attributes\CoversClass(\phpOMS\Message\Cli\CliHeader::class)]
+#[\PHPUnit\Framework\Attributes\CoversClass(\phpOMS\Message\Cli\CliHeader::class)]
 final class CliHeaderTest extends \PHPUnit\Framework\TestCase
 {
     private CliHeader $header;
@@ -33,10 +35,7 @@ final class CliHeaderTest extends \PHPUnit\Framework\TestCase
         $this->header = new CliHeader();
     }
 
-    /**
-     * @covers \phpOMS\Message\Cli\CliHeader
-     * @group framework
-     */
+    #[\PHPUnit\Framework\Attributes\Group('framework')]
     public function testDefaults() : void
     {
         self::assertFalse($this->header->isLocked());
@@ -50,30 +49,21 @@ final class CliHeaderTest extends \PHPUnit\Framework\TestCase
         self::assertEquals(0, $this->header->account);
     }
 
-    /**
-     * @covers \phpOMS\Message\Cli\CliHeader
-     * @group framework
-     */
+    #[\PHPUnit\Framework\Attributes\Group('framework')]
     public function testValueInputOutput() : void
     {
         self::assertTrue($this->header->set('key', 'header'));
         self::assertEquals(['header'], $this->header->get('key'));
     }
 
-    /**
-     * @covers \phpOMS\Message\Cli\CliHeader
-     * @group framework
-     */
+    #[\PHPUnit\Framework\Attributes\Group('framework')]
     public function testHasKey() : void
     {
         self::assertTrue($this->header->set('key', 'header'));
         self::assertTrue($this->header->has('key'));
     }
 
-    /**
-     * @covers \phpOMS\Message\Cli\CliHeader
-     * @group framework
-     */
+    #[\PHPUnit\Framework\Attributes\Group('framework')]
     public function testInvalidOverwrite() : void
     {
         self::assertTrue($this->header->set('key', 'header'));
@@ -81,10 +71,7 @@ final class CliHeaderTest extends \PHPUnit\Framework\TestCase
         self::assertEquals(['header'], $this->header->get('key'));
     }
 
-    /**
-     * @covers \phpOMS\Message\Cli\CliHeader
-     * @group framework
-     */
+    #[\PHPUnit\Framework\Attributes\Group('framework')]
     public function testOverwrite() : void
     {
         self::assertTrue($this->header->set('key', 'header'));
@@ -92,10 +79,7 @@ final class CliHeaderTest extends \PHPUnit\Framework\TestCase
         self::assertEquals(['header3'], $this->header->get('key'));
     }
 
-    /**
-     * @covers \phpOMS\Message\Cli\CliHeader
-     * @group framework
-     */
+    #[\PHPUnit\Framework\Attributes\Group('framework')]
     public function testRemove() : void
     {
         self::assertTrue($this->header->set('key', 'header'));
@@ -104,31 +88,22 @@ final class CliHeaderTest extends \PHPUnit\Framework\TestCase
         self::assertFalse($this->header->remove('key'));
     }
 
-    /**
-     * @testdox The header can generate default http headers based on status codes
-     * @covers \phpOMS\Message\Cli\CliHeader<extended>
-     * @group framework
-     */
+    #[\PHPUnit\Framework\Attributes\Group('framework')]
+    #[\PHPUnit\Framework\Attributes\TestDox('The header can generate default http headers based on status codes')]
     public function testHeaderGeneration() : void
     {
         self::markTestIncomplete();
         $this->header->generate(RequestStatusCode::R_500);
     }
 
-    /**
-     * @covers \phpOMS\Message\Cli\CliHeader
-     * @group framework
-     */
+    #[\PHPUnit\Framework\Attributes\Group('framework')]
     public function testAccount() : void
     {
         $this->header->account = 2;
         self::assertEquals(2, $this->header->account);
     }
 
-    /**
-     * @covers \phpOMS\Message\Cli\CliHeader
-     * @group framework
-     */
+    #[\PHPUnit\Framework\Attributes\Group('framework')]
     public function testLockedHeaderSet() : void
     {
         $this->header->lock();
@@ -136,10 +111,7 @@ final class CliHeaderTest extends \PHPUnit\Framework\TestCase
         self::assertFalse($this->header->set('key', 'value'));
     }
 
-    /**
-     * @covers \phpOMS\Message\Cli\CliHeader
-     * @group framework
-     */
+    #[\PHPUnit\Framework\Attributes\Group('framework')]
     public function testLockedHeaderRemove() : void
     {
         $this->header->lock();

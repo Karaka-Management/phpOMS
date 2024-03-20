@@ -17,17 +17,14 @@ namespace phpOMS\tests\Utils\Converter;
 use phpOMS\Utils\Converter\Ip;
 
 /**
- * @testdox phpOMS\tests\Utils\Converter\IpTest: IP converter
- *
  * @internal
  */
+#[\PHPUnit\Framework\Attributes\CoversClass(\phpOMS\Utils\Converter\Ip::class)]
+#[\PHPUnit\Framework\Attributes\TestDox('phpOMS\tests\Utils\Converter\IpTest: IP converter')]
 final class IpTest extends \PHPUnit\Framework\TestCase
 {
-    /**
-     * @testdox An ip can be converted to a float
-     * @covers \phpOMS\Utils\Converter\Ip
-     * @group framework
-     */
+    #[\PHPUnit\Framework\Attributes\Group('framework')]
+    #[\PHPUnit\Framework\Attributes\TestDox('An ip can be converted to a float')]
     public function testIp() : void
     {
         self::assertTrue(\abs(1527532998.0 - Ip::ip2Float('91.12.77.198')) < 1);

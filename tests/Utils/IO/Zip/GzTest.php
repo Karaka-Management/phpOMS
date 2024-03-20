@@ -17,17 +17,14 @@ namespace phpOMS\tests\Utils\IO\Zip;
 use phpOMS\Utils\IO\Zip\Gz;
 
 /**
- * @testdox phpOMS\tests\Utils\IO\Zip\GzTest: Gz archive
- *
  * @internal
  */
+#[\PHPUnit\Framework\Attributes\CoversClass(\phpOMS\Utils\IO\Zip\Gz::class)]
+#[\PHPUnit\Framework\Attributes\TestDox('phpOMS\tests\Utils\IO\Zip\GzTest: Gz archive')]
 final class GzTest extends \PHPUnit\Framework\TestCase
 {
-    /**
-     * @testdox Data can be gz packed and unpacked
-     * @covers \phpOMS\Utils\IO\Zip\Gz
-     * @group framework
-     */
+    #[\PHPUnit\Framework\Attributes\Group('framework')]
+    #[\PHPUnit\Framework\Attributes\TestDox('Data can be gz packed and unpacked')]
     public function testGz() : void
     {
         self::assertTrue(Gz::pack(
@@ -49,11 +46,8 @@ final class GzTest extends \PHPUnit\Framework\TestCase
         \unlink(__DIR__ . '/test.gz');
     }
 
-    /**
-     * @testdox A gz archive cannot be overwritten by default
-     * @covers \phpOMS\Utils\IO\Zip\Gz
-     * @group framework
-     */
+    #[\PHPUnit\Framework\Attributes\Group('framework')]
+    #[\PHPUnit\Framework\Attributes\TestDox('A gz archive cannot be overwritten by default')]
     public function testInvalidGz() : void
     {
         Gz::pack(
@@ -69,21 +63,15 @@ final class GzTest extends \PHPUnit\Framework\TestCase
         \unlink(__DIR__ . '/test.gz');
     }
 
-    /**
-     * @testdox A none-existing source cannot be unpacked
-     * @covers \phpOMS\Utils\IO\Zip\Gz
-     * @group framework
-     */
+    #[\PHPUnit\Framework\Attributes\Group('framework')]
+    #[\PHPUnit\Framework\Attributes\TestDox('A none-existing source cannot be unpacked')]
     public function testInvalidUnpackSource() : void
     {
         self::assertFalse(Gz::unpack(__DIR__ . '/test.gz', __DIR__ . '/test c.txt'));
     }
 
-    /**
-     * @testdox A destination cannot be overwritten
-     * @covers \phpOMS\Utils\IO\Zip\Gz
-     * @group framework
-     */
+    #[\PHPUnit\Framework\Attributes\Group('framework')]
+    #[\PHPUnit\Framework\Attributes\TestDox('A destination cannot be overwritten')]
     public function testInvalidUnpackDestination() : void
     {
         self::assertTrue(Gz::pack(

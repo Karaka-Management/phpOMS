@@ -22,10 +22,10 @@ use phpOMS\Module\NullModule;
 use phpOMS\Utils\TestUtils;
 
 /**
- * @testdox phpOMS\tests\Module\NullModuleTest: Basic module functionality
- *
  * @internal
  */
+#[\PHPUnit\Framework\Attributes\CoversClass(\phpOMS\Module\NullModule::class)]
+#[\PHPUnit\Framework\Attributes\TestDox('phpOMS\tests\Module\NullModuleTest: Basic module functionality')]
 final class NullModuleTest extends \PHPUnit\Framework\TestCase
 {
     protected NullModule $module;
@@ -42,21 +42,15 @@ final class NullModuleTest extends \PHPUnit\Framework\TestCase
         $this->module = new NullModule($app);
     }
 
-    /**
-     * @testdox The null module is an instance of the module abstract
-     * @covers \phpOMS\Module\NullModule
-     * @group framework
-     */
+    #[\PHPUnit\Framework\Attributes\Group('framework')]
+    #[\PHPUnit\Framework\Attributes\TestDox('The null module is an instance of the module abstract')]
     public function testModule() : void
     {
         self::assertInstanceOf('\phpOMS\Module\ModuleAbstract', $this->module);
     }
 
-    /**
-     * @testdox A invalid module method call will create an error log
-     * @covers \phpOMS\Module\NullModule
-     * @group framework
-     */
+    #[\PHPUnit\Framework\Attributes\Group('framework')]
+    #[\PHPUnit\Framework\Attributes\TestDox('A invalid module method call will create an error log')]
     public function testInvalidModuleMethodCalls() : void
     {
         $this->module->invalidMethodCall();

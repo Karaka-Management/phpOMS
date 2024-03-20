@@ -19,10 +19,9 @@ use phpOMS\DataStorage\Database\DatabasePool;
 use phpOMS\DataStorage\Database\DatabaseStatus;
 
 /**
- * @testdox phpOMS\tests\DataStorage\Database\DatabasePool: Pool for database connections
- *
  * @internal
  */
+#[\PHPUnit\Framework\Attributes\TestDox('phpOMS\tests\DataStorage\Database\DatabasePool: Pool for database connections')]
 final class DatabasePoolTest extends \PHPUnit\Framework\TestCase
 {
     protected DatabasePool $dbPool;
@@ -35,19 +34,15 @@ final class DatabasePoolTest extends \PHPUnit\Framework\TestCase
         $this->dbPool = new DatabasePool();
     }
 
-    /**
-     * @testdox The pool has the expected default values after initialization
-     * @group framework
-     */
+    #[\PHPUnit\Framework\Attributes\Group('framework')]
+    #[\PHPUnit\Framework\Attributes\TestDox('The pool has the expected default values after initialization')]
     public function testDefault() : void
     {
         self::assertInstanceOf('\phpOMS\DataStorage\Database\Connection\NullConnection', $this->dbPool->get());
     }
 
-    /**
-     * @testdox A database connection can be created by the pool
-     * @group framework
-     */
+    #[\PHPUnit\Framework\Attributes\Group('framework')]
+    #[\PHPUnit\Framework\Attributes\TestDox('A database connection can be created by the pool')]
     public function testCreateConnection() : void
     {
         /** @var array $CONFIG */
@@ -55,10 +50,8 @@ final class DatabasePoolTest extends \PHPUnit\Framework\TestCase
         self::assertEquals($this->dbPool->get()->getStatus(), DatabaseStatus::OK);
     }
 
-    /**
-     * @testdox Database connections cannot be overwritten
-     * @group framework
-     */
+    #[\PHPUnit\Framework\Attributes\Group('framework')]
+    #[\PHPUnit\Framework\Attributes\TestDox('Database connections cannot be overwritten')]
     public function testInvalidOverwrite() : void
     {
         /** @var array $CONFIG */
@@ -67,10 +60,8 @@ final class DatabasePoolTest extends \PHPUnit\Framework\TestCase
         self::assertFalse($this->dbPool->add('core', new MysqlConnection($GLOBALS['CONFIG']['db']['core']['masters']['admin'])));
     }
 
-    /**
-     * @testdox Existing database connections can be added to the pool
-     * @group framework
-     */
+    #[\PHPUnit\Framework\Attributes\Group('framework')]
+    #[\PHPUnit\Framework\Attributes\TestDox('Existing database connections can be added to the pool')]
     public function testAddConnections() : void
     {
         /** @var array $CONFIG */
@@ -78,10 +69,8 @@ final class DatabasePoolTest extends \PHPUnit\Framework\TestCase
         self::assertInstanceOf('\phpOMS\DataStorage\Database\Connection\ConnectionAbstract', $this->dbPool->get());
     }
 
-    /**
-     * @testdox Database connections can be removed from the pool
-     * @group framework
-     */
+    #[\PHPUnit\Framework\Attributes\Group('framework')]
+    #[\PHPUnit\Framework\Attributes\TestDox('Database connections can be removed from the pool')]
     public function testRemoveConnections() : void
     {
         /** @var array $CONFIG */
@@ -90,10 +79,8 @@ final class DatabasePoolTest extends \PHPUnit\Framework\TestCase
         self::assertInstanceOf('\phpOMS\DataStorage\Database\Connection\NullConnection', $this->dbPool->get());
     }
 
-    /**
-     * @testdox Invalid database connections cannot be removed
-     * @group framework
-     */
+    #[\PHPUnit\Framework\Attributes\Group('framework')]
+    #[\PHPUnit\Framework\Attributes\TestDox('Invalid database connections cannot be removed')]
     public function testInvalidRemove() : void
     {
         /** @var array $CONFIG */
@@ -101,10 +88,8 @@ final class DatabasePoolTest extends \PHPUnit\Framework\TestCase
         self::assertFalse($this->dbPool->remove('cores'));
     }
 
-    /**
-     * @testdox The first connection added to the pool is the default connection
-     * @group framework
-     */
+    #[\PHPUnit\Framework\Attributes\Group('framework')]
+    #[\PHPUnit\Framework\Attributes\TestDox('The first connection added to the pool is the default connection')]
     public function testDefaultConnection() : void
     {
         /** @var array $CONFIG */

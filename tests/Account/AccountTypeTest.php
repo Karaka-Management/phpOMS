@@ -19,36 +19,30 @@ require_once __DIR__ . '/../Autoloader.php';
 use phpOMS\Account\AccountType;
 
 /**
- * @testdox phpOMS\tests\Account\AccountType: Account type
  * @internal
  */
+#[\PHPUnit\Framework\Attributes\TestDox('phpOMS\tests\Account\AccountType: Account type')]
 final class AccountTypeTest extends \PHPUnit\Framework\TestCase
 {
-    /**
-     * @testdox The account type enum has the correct number of type codes
-     * @group framework
-     * @coversNothing
-     */
+    #[\PHPUnit\Framework\Attributes\Group('framework')]
+    #[\PHPUnit\Framework\Attributes\TestDox('The account type enum has the correct number of type codes')]
+    #[\PHPUnit\Framework\Attributes\CoversNothing]
     public function testEnumCount() : void
     {
         self::assertCount(2, AccountType::getConstants());
     }
 
-    /**
-     * @testdox The account type enum has only unique values
-     * @group framework
-     * @coversNothing
-     */
+    #[\PHPUnit\Framework\Attributes\Group('framework')]
+    #[\PHPUnit\Framework\Attributes\TestDox('The account type enum has only unique values')]
+    #[\PHPUnit\Framework\Attributes\CoversNothing]
     public function testUnique() : void
     {
         self::assertEquals(AccountType::getConstants(), \array_unique(AccountType::getConstants()));
     }
 
-    /**
-     * @testdox The account type enum has the correct values
-     * @group framework
-     * @coversNothing
-     */
+    #[\PHPUnit\Framework\Attributes\Group('framework')]
+    #[\PHPUnit\Framework\Attributes\TestDox('The account type enum has the correct values')]
+    #[\PHPUnit\Framework\Attributes\CoversNothing]
     public function testEnums() : void
     {
         self::assertEquals(0, AccountType::USER);

@@ -21,13 +21,13 @@ use phpOMS\DataStorage\Database\Connection\SqlServerConnection;
 use phpOMS\DataStorage\Database\Schema\Builder;
 
 /**
- * @testdox phpOMS\tests\DataStorage\Database\Schema\BuilderTest: Query builder for sql schemas
- *
  * @internal
  */
+#[\PHPUnit\Framework\Attributes\CoversClass(\phpOMS\DataStorage\Database\Schema\Grammar\MysqlGrammar::class)]
+#[\PHPUnit\Framework\Attributes\TestDox('phpOMS\tests\DataStorage\Database\Schema\BuilderTest: Query builder for sql schemas')]
 final class BuilderTest extends \PHPUnit\Framework\TestCase
 {
-    public function dbConnectionProvider() : array
+    public static function dbConnectionProvider() : array
     {
         $cons = [
             [new MysqlConnection($GLOBALS['CONFIG']['db']['core']['masters']['admin'])],
@@ -44,11 +44,9 @@ final class BuilderTest extends \PHPUnit\Framework\TestCase
         return $cons;
     }
 
-    /**
-     * @testdox Mysql database drop forms a valid query
-     * @group framework
-     * @dataProvider dbConnectionProvider
-     */
+    #[\PHPUnit\Framework\Attributes\DataProvider('dbConnectionProvider')]
+    #[\PHPUnit\Framework\Attributes\Group('framework')]
+    #[\PHPUnit\Framework\Attributes\TestDox('Mysql database drop forms a valid query')]
     public function testDrop($con) : void
     {
         if (!$con->isInitialized()) {
@@ -66,11 +64,9 @@ final class BuilderTest extends \PHPUnit\Framework\TestCase
         self::assertEquals($sql, $query->dropDatabase('test')->toSql());
     }
 
-    /**
-     * @testdox Mysql table drop forms a valid query
-     * @group framework
-     * @dataProvider dbConnectionProvider
-     */
+    #[\PHPUnit\Framework\Attributes\DataProvider('dbConnectionProvider')]
+    #[\PHPUnit\Framework\Attributes\Group('framework')]
+    #[\PHPUnit\Framework\Attributes\TestDox('Mysql table drop forms a valid query')]
     public function testDropTable($con) : void
     {
         if (!$con->isInitialized()) {
@@ -88,11 +84,9 @@ final class BuilderTest extends \PHPUnit\Framework\TestCase
         self::assertEquals($sql, $query->dropTable('test')->toSql());
     }
 
-    /**
-     * @testdox Mysql show tables form a valid query
-     * @group framework
-     * @dataProvider dbConnectionProvider
-     */
+    #[\PHPUnit\Framework\Attributes\DataProvider('dbConnectionProvider')]
+    #[\PHPUnit\Framework\Attributes\Group('framework')]
+    #[\PHPUnit\Framework\Attributes\TestDox('Mysql show tables form a valid query')]
     public function testShowTables($con) : void
     {
         if (!$con->isInitialized()) {
@@ -121,11 +115,9 @@ final class BuilderTest extends \PHPUnit\Framework\TestCase
         self::assertEquals($sql, $query->selectTables()->toSql());
     }
 
-    /**
-     * @testdox Mysql show fields form a valid query
-     * @group framework
-     * @dataProvider dbConnectionProvider
-     */
+    #[\PHPUnit\Framework\Attributes\DataProvider('dbConnectionProvider')]
+    #[\PHPUnit\Framework\Attributes\Group('framework')]
+    #[\PHPUnit\Framework\Attributes\TestDox('Mysql show fields form a valid query')]
     public function testShowFields($con) : void
     {
         if (!$con->isInitialized()) {
@@ -154,11 +146,9 @@ final class BuilderTest extends \PHPUnit\Framework\TestCase
         self::assertEquals($sql, $query->selectFields('test')->toSql());
     }
 
-    /**
-     * @testdox Mysql create tables form a valid query
-     * @group framework
-     * @dataProvider dbConnectionProvider
-     */
+    #[\PHPUnit\Framework\Attributes\DataProvider('dbConnectionProvider')]
+    #[\PHPUnit\Framework\Attributes\Group('framework')]
+    #[\PHPUnit\Framework\Attributes\TestDox('Mysql create tables form a valid query')]
     public function testCreateTable($con) : void
     {
         if (!$con->isInitialized()) {
@@ -217,13 +207,9 @@ final class BuilderTest extends \PHPUnit\Framework\TestCase
         );
     }
     */
-
-    /**
-     * @testdox The grammar correctly deletes a table
-     * @covers \phpOMS\DataStorage\Database\Schema\Grammar\MysqlGrammar<extended>
-     * @group framework
-     * @dataProvider dbConnectionProvider
-     */
+    #[\PHPUnit\Framework\Attributes\DataProvider('dbConnectionProvider')]
+    #[\PHPUnit\Framework\Attributes\Group('framework')]
+    #[\PHPUnit\Framework\Attributes\TestDox('The grammar correctly deletes a table')]
     public function testCreateFromSchema($con) : void
     {
         if (!$con->isInitialized()) {

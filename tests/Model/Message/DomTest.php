@@ -20,12 +20,10 @@ use phpOMS\Model\Message\DomAction;
 /**
  * @internal
  */
+#[\PHPUnit\Framework\Attributes\CoversClass(\phpOMS\Model\Message\Dom::class)]
 final class DomTest extends \PHPUnit\Framework\TestCase
 {
-    /**
-     * @covers \phpOMS\Model\Message\Dom
-     * @group framework
-     */
+    #[\PHPUnit\Framework\Attributes\Group('framework')]
     public function testDefault() : void
     {
         $obj = new Dom();
@@ -37,10 +35,7 @@ final class DomTest extends \PHPUnit\Framework\TestCase
         self::assertEquals(DomAction::MODIFY, $obj->toArray()['action']);
     }
 
-    /**
-     * @covers \phpOMS\Model\Message\Dom
-     * @group framework
-     */
+    #[\PHPUnit\Framework\Attributes\Group('framework')]
     public function testSetGet() : void
     {
         $obj = new Dom();

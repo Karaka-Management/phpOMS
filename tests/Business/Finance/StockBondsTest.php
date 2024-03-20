@@ -17,16 +17,13 @@ namespace phpOMS\tests\Business\Finance;
 use phpOMS\Business\Finance\StockBonds;
 
 /**
- * @testdox phpOMS\tests\Business\Finance\StockBondsTest: Stock & bond related  formulas
- *
  * @internal
  */
+#[\PHPUnit\Framework\Attributes\TestDox('phpOMS\tests\Business\Finance\StockBondsTest: Stock & bond related  formulas')]
 final class StockBondsTest extends \PHPUnit\Framework\TestCase
 {
-    /**
-     * @testdox The calculation of various stock/bond related ratios/yields is correct
-     * @group framework
-     */
+    #[\PHPUnit\Framework\Attributes\Group('framework')]
+    #[\PHPUnit\Framework\Attributes\TestDox('The calculation of various stock/bond related ratios/yields is correct')]
     public function testRatios() : void
     {
         self::assertEquals(100 / 50, StockBonds::getBookValuePerShare(100, 50));
@@ -41,46 +38,36 @@ final class StockBondsTest extends \PHPUnit\Framework\TestCase
         self::assertEquals(100 / 50, StockBonds::getPriceToSalesRatio(100, 50));
     }
 
-    /**
-     * @testdox The calculation of the bond yield based on face value and price is correct
-     * @group framework
-     */
+    #[\PHPUnit\Framework\Attributes\Group('framework')]
+    #[\PHPUnit\Framework\Attributes\TestDox('The calculation of the bond yield based on face value and price is correct')]
     public function testBondEquivalentYield() : void
     {
         self::assertEqualsWithDelta(0.40556, StockBonds::getBondEquivalentYield(100, 90, 100), 0.01);
     }
 
-    /**
-     * @testdox The calculation of the return of the capital asset pricing model is correct
-     * @group framework
-     */
+    #[\PHPUnit\Framework\Attributes\Group('framework')]
+    #[\PHPUnit\Framework\Attributes\TestDox('The calculation of the return of the capital asset pricing model is correct')]
     public function testExpectedReturnCAPM() : void
     {
         self::assertEqualsWithDelta(7, StockBonds::getExpectedReturnCAPM(3, 2, 5), 0.01);
     }
 
-    /**
-     * @testdox The capital gains yield calculation is correct
-     * @group framework
-     */
+    #[\PHPUnit\Framework\Attributes\Group('framework')]
+    #[\PHPUnit\Framework\Attributes\TestDox('The capital gains yield calculation is correct')]
     public function testCapitalGainsYield() : void
     {
         self::assertEqualsWithDelta(0.1, StockBonds::getCapitalGainsYield(100, 110), 0.01);
     }
 
-    /**
-     * @testdox The diluted earnings per share calculation is correct
-     * @group framework
-     */
+    #[\PHPUnit\Framework\Attributes\Group('framework')]
+    #[\PHPUnit\Framework\Attributes\TestDox('The diluted earnings per share calculation is correct')]
     public function testDilutedEarningsPerShare() : void
     {
         self::assertEqualsWithDelta(9.09, StockBonds::getDilutedEarningsPerShare(1000, 100, 10), 0.1);
     }
 
-    /**
-     * @testdox The calculation of the absolute return for multiple holding periods is correct
-     * @group framework
-     */
+    #[\PHPUnit\Framework\Attributes\Group('framework')]
+    #[\PHPUnit\Framework\Attributes\TestDox('The calculation of the absolute return for multiple holding periods is correct')]
     public function testHoldingPeriodReturn() : void
     {
         $r = [0.01, 0.02, 0.03, 0.04];
@@ -88,10 +75,8 @@ final class StockBondsTest extends \PHPUnit\Framework\TestCase
         self::assertEqualsWithDelta(0.10355, StockBonds::getHoldingPeriodReturn($r), 0.01);
     }
 
-    /**
-     * @testdox The tax equivalent yield is calculated correctly
-     * @group framework
-     */
+    #[\PHPUnit\Framework\Attributes\Group('framework')]
+    #[\PHPUnit\Framework\Attributes\TestDox('The tax equivalent yield is calculated correctly')]
     public function testTaxEquivalentYield() : void
     {
         $free = 0.15;
@@ -100,10 +85,8 @@ final class StockBondsTest extends \PHPUnit\Framework\TestCase
         self::assertEqualsWithDelta(0.15789, StockBonds::getTaxEquivalentYield($free, $rate), 0.01);
     }
 
-    /**
-     * @testdox The net asset value is calculated correctly
-     * @group framework
-     */
+    #[\PHPUnit\Framework\Attributes\Group('framework')]
+    #[\PHPUnit\Framework\Attributes\TestDox('The net asset value is calculated correctly')]
     public function testNetAssetValue() : void
     {
         $assets      = 1000;
@@ -113,10 +96,8 @@ final class StockBondsTest extends \PHPUnit\Framework\TestCase
         self::assertEqualsWithDelta(1.75, StockBonds::getNetAssetValue($assets, $liabilities, $shares), 0.01);
     }
 
-    /**
-     * @testdox The calculation of the present value of a stock with constant growth rate is correct
-     * @group framework
-     */
+    #[\PHPUnit\Framework\Attributes\Group('framework')]
+    #[\PHPUnit\Framework\Attributes\TestDox('The calculation of the present value of a stock with constant growth rate is correct')]
     public function testPresentValueOfStockConstantGrowth() : void
     {
         $div = 500;
@@ -126,10 +107,8 @@ final class StockBondsTest extends \PHPUnit\Framework\TestCase
         self::assertEqualsWithDelta(5000, StockBonds::getPresentValueOfStockConstantGrowth($div, $r, $g), 0.01);
     }
 
-    /**
-     * @testdox The total stock return including dividends and sales price is correct
-     * @group framework
-     */
+    #[\PHPUnit\Framework\Attributes\Group('framework')]
+    #[\PHPUnit\Framework\Attributes\TestDox('The total stock return including dividends and sales price is correct')]
     public function testTotalStockReturn() : void
     {
         $p0 = 1000;
@@ -139,10 +118,8 @@ final class StockBondsTest extends \PHPUnit\Framework\TestCase
         self::assertEqualsWithDelta(0.3, StockBonds::getTotalStockReturn($p0, $p1, $d), 0.01);
     }
 
-    /**
-     * @testdox The calculation of the yield of a bond is correct
-     * @group framework
-     */
+    #[\PHPUnit\Framework\Attributes\Group('framework')]
+    #[\PHPUnit\Framework\Attributes\TestDox('The calculation of the yield of a bond is correct')]
     public function testYieldToMaturity() : void
     {
         $c = 100;
@@ -153,10 +130,8 @@ final class StockBondsTest extends \PHPUnit\Framework\TestCase
         self::assertEqualsWithDelta(0.1138, StockBonds::getYieldToMaturity($c, $f, $p, $n), 0.01);
     }
 
-    /**
-     * @testdox The calculation of value of the zero coupon bond is correct
-     * @group framework
-     */
+    #[\PHPUnit\Framework\Attributes\Group('framework')]
+    #[\PHPUnit\Framework\Attributes\TestDox('The calculation of value of the zero coupon bond is correct')]
     public function testZeroCouponBondValue() : void
     {
         $f = 100;
@@ -166,10 +141,8 @@ final class StockBondsTest extends \PHPUnit\Framework\TestCase
         self::assertEqualsWithDelta(74.73, StockBonds::getZeroCouponBondValue($f, $r, $t), 0.01);
     }
 
-    /**
-     * @testdox The calculation of the yield of a zero coupon bond is correct
-     * @group framework
-     */
+    #[\PHPUnit\Framework\Attributes\Group('framework')]
+    #[\PHPUnit\Framework\Attributes\TestDox('The calculation of the yield of a zero coupon bond is correct')]
     public function testZeroCouponBondEffectiveYield() : void
     {
         $f  = 100;

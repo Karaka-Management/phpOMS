@@ -18,16 +18,14 @@ use phpOMS\Utils\Encoding\Caesar;
 use phpOMS\Utils\RnG\StringUtils;
 
 /**
- * @testdox phpOMS\tests\Utils\Encoding\CaesarTest: Caesar text encoding/decoding
  * @internal
  */
+#[\PHPUnit\Framework\Attributes\CoversClass(\phpOMS\Utils\Encoding\Caesar::class)]
+#[\PHPUnit\Framework\Attributes\TestDox('phpOMS\tests\Utils\Encoding\CaesarTest: Caesar text encoding/decoding')]
 final class CaesarTest extends \PHPUnit\Framework\TestCase
 {
-    /**
-     * @testdox Text can be encoded and decoded with the ceasar encoding
-     * @covers \phpOMS\Utils\Encoding\Caesar
-     * @group framework
-     */
+    #[\PHPUnit\Framework\Attributes\Group('framework')]
+    #[\PHPUnit\Framework\Attributes\TestDox('Text can be encoded and decoded with the ceasar encoding')]
     public function testEncoding() : void
     {
         $raw = StringUtils::generateString(11, 100);

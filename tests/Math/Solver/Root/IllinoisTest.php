@@ -17,10 +17,9 @@ namespace phpOMS\tests\Math\Solver\Root;
 use phpOMS\Math\Solver\Root\Illinois;
 
 /**
- * @testdox phpOMS\tests\Math\Solver\Root\IllinoisTest: Various math functions
- *
  * @internal
  */
+#[\PHPUnit\Framework\Attributes\TestDox('phpOMS\tests\Math\Solver\Root\IllinoisTest: Various math functions')]
 final class IllinoisTest extends \PHPUnit\Framework\TestCase
 {
     public function testRoot() : void

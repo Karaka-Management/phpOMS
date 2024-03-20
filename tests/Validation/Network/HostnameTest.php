@@ -17,17 +17,14 @@ namespace phpOMS\tests\Validation\Network;
 use phpOMS\Validation\Network\Hostname;
 
 /**
- * @testdox phpOMS\tests\Validation\Network\HostnameTest: Hostname validator
- *
  * @internal
  */
+#[\PHPUnit\Framework\Attributes\CoversClass(\phpOMS\Validation\Network\Hostname::class)]
+#[\PHPUnit\Framework\Attributes\TestDox('phpOMS\tests\Validation\Network\HostnameTest: Hostname validator')]
 final class HostnameTest extends \PHPUnit\Framework\TestCase
 {
-    /**
-     * @testdox A hostname can be validated
-     * @covers \phpOMS\Validation\Network\Hostname
-     * @group framework
-     */
+    #[\PHPUnit\Framework\Attributes\Group('framework')]
+    #[\PHPUnit\Framework\Attributes\TestDox('A hostname can be validated')]
     public function testHostnameDomain() : void
     {
         self::assertTrue(Hostname::isValid('test.com'));
@@ -36,11 +33,8 @@ final class HostnameTest extends \PHPUnit\Framework\TestCase
         self::assertFalse(Hostname::isValid('//somethign/wrong'));
     }
 
-    /**
-     * @testdox A IP can be validated as hostname
-     * @covers \phpOMS\Validation\Network\Hostname
-     * @group framework
-     */
+    #[\PHPUnit\Framework\Attributes\Group('framework')]
+    #[\PHPUnit\Framework\Attributes\TestDox('A IP can be validated as hostname')]
     public function testHostnameIp() : void
     {
         self::assertTrue(Hostname::isValid('127.0.0.1'));

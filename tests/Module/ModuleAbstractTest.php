@@ -28,10 +28,10 @@ use phpOMS\tests\DataStorage\Database\TestModel\ManyToManyRelModel;
 use phpOMS\tests\DataStorage\Database\TestModel\ManyToManyRelModelMapper;
 
 /**
- * @testdox phpOMS\tests\Module\ModuleAbstractTest: Abstract module
- *
  * @internal
  */
+#[\PHPUnit\Framework\Attributes\CoversClass(\phpOMS\Module\ModuleAbstract::class)]
+#[\PHPUnit\Framework\Attributes\TestDox('phpOMS\tests\Module\ModuleAbstractTest: Abstract module')]
 final class ModuleAbstractTest extends \PHPUnit\Framework\TestCase
 {
     protected $module = null;
@@ -166,83 +166,59 @@ final class ModuleAbstractTest extends \PHPUnit\Framework\TestCase
         };
     }
 
-    /**
-     * @testdox The constant values of the abstract module are overwritten by the extension
-     * @covers \phpOMS\Module\ModuleAbstract<extended>
-     * @group framework
-     */
+    #[\PHPUnit\Framework\Attributes\Group('framework')]
+    #[\PHPUnit\Framework\Attributes\TestDox('The constant values of the abstract module are overwritten by the extension')]
     public function testConstants() : void
     {
         self::assertEquals(2, $this->module::ID);
         self::assertEquals('1.2.3', $this->module::VERSION);
     }
 
-    /**
-     * @testdox The name of the module can be returned
-     * @covers \phpOMS\Module\ModuleAbstract<extended>
-     * @group framework
-     */
+    #[\PHPUnit\Framework\Attributes\Group('framework')]
+    #[\PHPUnit\Framework\Attributes\TestDox('The name of the module can be returned')]
     public function testName() : void
     {
         self::assertEquals('Test', $this->module->getName());
     }
 
-    /**
-     * @testdox The dependencies of the module can be returned
-     * @covers \phpOMS\Module\ModuleAbstract<extended>
-     * @group framework
-     */
+    #[\PHPUnit\Framework\Attributes\Group('framework')]
+    #[\PHPUnit\Framework\Attributes\TestDox('The dependencies of the module can be returned')]
     public function testDependencies() : void
     {
         self::assertEquals([1, 2], $this->module->getDependencies());
     }
 
-    /**
-     * @testdox The providings of the module can be returned
-     * @covers \phpOMS\Module\ModuleAbstract<extended>
-     * @group framework
-     */
+    #[\PHPUnit\Framework\Attributes\Group('framework')]
+    #[\PHPUnit\Framework\Attributes\TestDox('The providings of the module can be returned')]
     public function testProviding() : void
     {
         self::assertEquals([], $this->module->getProviding());
     }
 
-    /**
-     * @testdox A module can receive information and functionality from another module
-     * @covers \phpOMS\Module\ModuleAbstract<extended>
-     * @group framework
-     */
+    #[\PHPUnit\Framework\Attributes\Group('framework')]
+    #[\PHPUnit\Framework\Attributes\TestDox('A module can receive information and functionality from another module')]
     public function testReceiving() : void
     {
         $this->module->addReceiving('Test2');
         self::assertTrue(\in_array('Test2', $this->module->getReceiving()));
     }
 
-    /**
-     * @testdox A module can load its own localization/language dataset
-     * @covers \phpOMS\Module\ModuleAbstract<extended>
-     * @group framework
-     */
+    #[\PHPUnit\Framework\Attributes\Group('framework')]
+    #[\PHPUnit\Framework\Attributes\TestDox('A module can load its own localization/language dataset')]
     public function testLocalization() : void
     {
         self::assertEquals(['Test' => ['Key' => 'Value']], $this->module::getLocalization('en', 'Mytheme'));
     }
 
-    /**
-     * @testdox A invalid language or theme returns in an empty localization/language dataset
-     * @covers \phpOMS\Module\ModuleAbstract<extended>
-     * @group framework
-     */
+    #[\PHPUnit\Framework\Attributes\Group('framework')]
+    #[\PHPUnit\Framework\Attributes\TestDox('A invalid language or theme returns in an empty localization/language dataset')]
     public function testInvalidLocalization() : void
     {
         self::assertEquals([], $this->module::getLocalization('invalid', 'invalid'));
     }
 
-    /**
-     * @testdox The module can automatically generate a json response based on provided data for the frontend
-     * @covers \phpOMS\Module\ModuleAbstract<extended>
-     * @group framework
-     */
+    #[\PHPUnit\Framework\Attributes\Group('framework')]
+    #[\PHPUnit\Framework\Attributes\TestDox('The module can automatically generate a json response based on provided data for the frontend')]
     public function testFillJson() : void
     {
         $request  = new HttpRequest();
@@ -261,11 +237,8 @@ final class ModuleAbstractTest extends \PHPUnit\Framework\TestCase
         );
     }
 
-    /**
-     * @testdox The module can automatically generate a json response based on provided data
-     * @covers \phpOMS\Module\ModuleAbstract<extended>
-     * @group framework
-     */
+    #[\PHPUnit\Framework\Attributes\Group('framework')]
+    #[\PHPUnit\Framework\Attributes\TestDox('The module can automatically generate a json response based on provided data')]
     public function testFillJsonRaw() : void
     {
         $request  = new HttpRequest();
@@ -427,11 +400,8 @@ final class ModuleAbstractTest extends \PHPUnit\Framework\TestCase
         \phpOMS\Log\FileLogger::getInstance()->verbose = false;
     }
 
-    /**
-     * @testdox A model can be created
-     * @covers \phpOMS\Module\ModuleAbstract<extended>
-     * @group framework
-     */
+    #[\PHPUnit\Framework\Attributes\Group('framework')]
+    #[\PHPUnit\Framework\Attributes\TestDox('A model can be created')]
     public function testModelCreate() : void
     {
         $this->dbSetup();
@@ -442,11 +412,8 @@ final class ModuleAbstractTest extends \PHPUnit\Framework\TestCase
         $this->dbTeardown();
     }
 
-    /**
-     * @testdox Multiple models can be generated
-     * @covers \phpOMS\Module\ModuleAbstract<extended>
-     * @group framework
-     */
+    #[\PHPUnit\Framework\Attributes\Group('framework')]
+    #[\PHPUnit\Framework\Attributes\TestDox('Multiple models can be generated')]
     public function testModelsCreate() : void
     {
         $this->dbSetup();
@@ -457,11 +424,8 @@ final class ModuleAbstractTest extends \PHPUnit\Framework\TestCase
         $this->dbTeardown();
     }
 
-    /**
-     * @testdox A model can be updated
-     * @covers \phpOMS\Module\ModuleAbstract<extended>
-     * @group framework
-     */
+    #[\PHPUnit\Framework\Attributes\Group('framework')]
+    #[\PHPUnit\Framework\Attributes\TestDox('A model can be updated')]
     public function testModelUpdate() : void
     {
         $this->dbSetup();
@@ -474,11 +438,8 @@ final class ModuleAbstractTest extends \PHPUnit\Framework\TestCase
         $this->dbTeardown();
     }
 
-    /**
-     * @testdox A model can be deleted
-     * @covers \phpOMS\Module\ModuleAbstract<extended>
-     * @group framework
-     */
+    #[\PHPUnit\Framework\Attributes\Group('framework')]
+    #[\PHPUnit\Framework\Attributes\TestDox('A model can be deleted')]
     public function testModelDelete() : void
     {
         $this->dbSetup();
@@ -491,11 +452,8 @@ final class ModuleAbstractTest extends \PHPUnit\Framework\TestCase
         $this->dbTeardown();
     }
 
-    /**
-     * @testdox A model relation can be created
-     * @covers \phpOMS\Module\ModuleAbstract<extended>
-     * @group framework
-     */
+    #[\PHPUnit\Framework\Attributes\Group('framework')]
+    #[\PHPUnit\Framework\Attributes\TestDox('A model relation can be created')]
     public function testModelRelation() : void
     {
         $this->dbSetup();
@@ -517,11 +475,8 @@ final class ModuleAbstractTest extends \PHPUnit\Framework\TestCase
         $this->dbTeardown();
     }
 
-    /**
-     * @testdox The model CRUD functions can be called with a closure
-     * @covers \phpOMS\Module\ModuleAbstract<extended>
-     * @group framework
-     */
+    #[\PHPUnit\Framework\Attributes\Group('framework')]
+    #[\PHPUnit\Framework\Attributes\TestDox('The model CRUD functions can be called with a closure')]
     public function testModelFunctionsWithClosure() : void
     {
         $output = $this->module->createWithCallable();

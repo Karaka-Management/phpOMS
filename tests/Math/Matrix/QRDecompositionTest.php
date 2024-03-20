@@ -19,17 +19,14 @@ use phpOMS\Math\Matrix\QRDecomposition;
 use phpOMS\Math\Matrix\Vector;
 
 /**
- * @testdox phpOMS\tests\Math\Matrix\QRDecompositionTest: QR decomposition
- *
  * @internal
  */
+#[\PHPUnit\Framework\Attributes\CoversClass(\phpOMS\Math\Matrix\QRDecomposition::class)]
+#[\PHPUnit\Framework\Attributes\TestDox('phpOMS\tests\Math\Matrix\QRDecompositionTest: QR decomposition')]
 final class QRDecompositionTest extends \PHPUnit\Framework\TestCase
 {
-    /**
-     * @testdox A matrix can be checked if it has a full rank
-     * @covers \phpOMS\Math\Matrix\QRDecomposition
-     * @group framework
-     */
+    #[\PHPUnit\Framework\Attributes\Group('framework')]
+    #[\PHPUnit\Framework\Attributes\TestDox('A matrix can be checked if it has a full rank')]
     public function testRank() : void
     {
         $A = new Matrix();
@@ -44,11 +41,8 @@ final class QRDecompositionTest extends \PHPUnit\Framework\TestCase
         self::assertTrue($QR->isFullRank());
     }
 
-    /**
-     * @testdox The Q matrix of the decomposition can be calculated
-     * @covers \phpOMS\Math\Matrix\QRDecomposition
-     * @group framework
-     */
+    #[\PHPUnit\Framework\Attributes\Group('framework')]
+    #[\PHPUnit\Framework\Attributes\TestDox('The Q matrix of the decomposition can be calculated')]
     public function testQ() : void
     {
         $A = new Matrix();
@@ -67,11 +61,8 @@ final class QRDecompositionTest extends \PHPUnit\Framework\TestCase
         ], $QR->getQ()->toArray(), 0.2);
     }
 
-    /**
-     * @testdox The R matrix of the decomposition can be calculated
-     * @covers \phpOMS\Math\Matrix\QRDecomposition
-     * @group framework
-     */
+    #[\PHPUnit\Framework\Attributes\Group('framework')]
+    #[\PHPUnit\Framework\Attributes\TestDox('The R matrix of the decomposition can be calculated')]
     public function testR() : void
     {
         $A = new Matrix();
@@ -90,11 +81,8 @@ final class QRDecompositionTest extends \PHPUnit\Framework\TestCase
         ], $QR->getR()->toArray(), 0.2);
     }
 
-    /**
-     * @testdox The decomposition can be created and the original matrix can be computed
-     * @covers \phpOMS\Math\Matrix\QRDecomposition
-     * @group framework
-     */
+    #[\PHPUnit\Framework\Attributes\Group('framework')]
+    #[\PHPUnit\Framework\Attributes\TestDox('The decomposition can be created and the original matrix can be computed')]
     public function testComposition() : void
     {
         $A = new Matrix();
@@ -115,11 +103,8 @@ final class QRDecompositionTest extends \PHPUnit\Framework\TestCase
         );
     }
 
-    /**
-     * @testdox The equation Ax = b can be solved
-     * @covers \phpOMS\Math\Matrix\QRDecomposition
-     * @group framework
-     */
+    #[\PHPUnit\Framework\Attributes\Group('framework')]
+    #[\PHPUnit\Framework\Attributes\TestDox('The equation Ax = b can be solved')]
     public function testSolve() : void
     {
         $A = new Matrix();

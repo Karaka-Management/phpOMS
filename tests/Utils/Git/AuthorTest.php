@@ -17,17 +17,14 @@ namespace phpOMS\tests\Utils\Git;
 use phpOMS\Utils\Git\Author;
 
 /**
- * @testdox phpOMS\tests\Utils\Git\AuthorTest: Git author
- *
  * @internal
  */
+#[\PHPUnit\Framework\Attributes\CoversClass(\phpOMS\Utils\Git\Author::class)]
+#[\PHPUnit\Framework\Attributes\TestDox('phpOMS\tests\Utils\Git\AuthorTest: Git author')]
 final class AuthorTest extends \PHPUnit\Framework\TestCase
 {
-    /**
-     * @testdox The author has the expected default values after initialization
-     * @covers \phpOMS\Utils\Git\Author
-     * @group framework
-     */
+    #[\PHPUnit\Framework\Attributes\Group('framework')]
+    #[\PHPUnit\Framework\Attributes\TestDox('The author has the expected default values after initialization')]
     public function testDefault() : void
     {
         $author = new Author();
@@ -38,11 +35,8 @@ final class AuthorTest extends \PHPUnit\Framework\TestCase
         self::assertEquals(0, $author->getRemovalCount());
     }
 
-    /**
-     * @testdox The author name and email can be set during initialization and returned
-     * @covers \phpOMS\Utils\Git\Author
-     * @group framework
-     */
+    #[\PHPUnit\Framework\Attributes\Group('framework')]
+    #[\PHPUnit\Framework\Attributes\TestDox('The author name and email can be set during initialization and returned')]
     public function testConstructInputOutput() : void
     {
         $author = new Author('test', 'email');
@@ -50,11 +44,8 @@ final class AuthorTest extends \PHPUnit\Framework\TestCase
         self::assertEquals('email', $author->getEmail());
     }
 
-    /**
-     * @testdox The commit count can be set and returned
-     * @covers \phpOMS\Utils\Git\Author
-     * @group framework
-     */
+    #[\PHPUnit\Framework\Attributes\Group('framework')]
+    #[\PHPUnit\Framework\Attributes\TestDox('The commit count can be set and returned')]
     public function testCommitCountInputOutput() : void
     {
         $author = new Author('test', 'email');
@@ -63,11 +54,8 @@ final class AuthorTest extends \PHPUnit\Framework\TestCase
         self::assertEquals(1, $author->getCommitCount());
     }
 
-    /**
-     * @testdox The addition count can be set and returned
-     * @covers \phpOMS\Utils\Git\Author
-     * @group framework
-     */
+    #[\PHPUnit\Framework\Attributes\Group('framework')]
+    #[\PHPUnit\Framework\Attributes\TestDox('The addition count can be set and returned')]
     public function testAdditionCountInputOutput() : void
     {
         $author = new Author('test', 'email');
@@ -76,11 +64,8 @@ final class AuthorTest extends \PHPUnit\Framework\TestCase
         self::assertEquals(2, $author->getAdditionCount());
     }
 
-    /**
-     * @testdox The removal count can be set and returned
-     * @covers \phpOMS\Utils\Git\Author
-     * @group framework
-     */
+    #[\PHPUnit\Framework\Attributes\Group('framework')]
+    #[\PHPUnit\Framework\Attributes\TestDox('The removal count can be set and returned')]
     public function testRemovalCountInputOutput() : void
     {
         $author = new Author('test', 'email');

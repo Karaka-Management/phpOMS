@@ -17,16 +17,13 @@ namespace phpOMS\tests\Business\Finance;
 use phpOMS\Business\Finance\Depreciation;
 
 /**
- * @testdox phpOMS\tests\Business\Finance\DepreciationTest: Depreciation calculations
- *
  * @internal
  */
+#[\PHPUnit\Framework\Attributes\TestDox('phpOMS\tests\Business\Finance\DepreciationTest: Depreciation calculations')]
 final class DepreciationTest extends \PHPUnit\Framework\TestCase
 {
-    /**
-     * @testdox The straight line depreciation and reverse value calculations are correct
-     * @group framework
-     */
+    #[\PHPUnit\Framework\Attributes\Group('framework')]
+    #[\PHPUnit\Framework\Attributes\TestDox('The straight line depreciation and reverse value calculations are correct')]
     public function testStraightLine() : void
     {
         $start    = 23280;
@@ -37,10 +34,8 @@ final class DepreciationTest extends \PHPUnit\Framework\TestCase
         self::assertEqualsWithDelta(23280 - 3880 * $t, Depreciation::getStraightLineResidualInT($start, $duration, $t), 5);
     }
 
-    /**
-     * @testdox The arithmetic degressive depreciation and reverse value calculations are correct
-     * @group framework
-     */
+    #[\PHPUnit\Framework\Attributes\Group('framework')]
+    #[\PHPUnit\Framework\Attributes\TestDox('The arithmetic degressive depreciation and reverse value calculations are correct')]
     public function testArithmeticDegressiveDepreciation() : void
     {
         $start    = 150000;
@@ -53,10 +48,8 @@ final class DepreciationTest extends \PHPUnit\Framework\TestCase
         self::assertEqualsWithDelta(70800, Depreciation::getArithmeticDegressiveDepreciationResidualInT($start, $residual, $duration, $t), 5);
     }
 
-    /**
-     * @testdox The arithmetic progressive depreciation and reverse value calculations are correct
-     * @group framework
-     */
+    #[\PHPUnit\Framework\Attributes\Group('framework')]
+    #[\PHPUnit\Framework\Attributes\TestDox('The arithmetic progressive depreciation and reverse value calculations are correct')]
     public function testArithmeticProgressiveDepreciation() : void
     {
         $start    = 40000;
@@ -69,10 +62,8 @@ final class DepreciationTest extends \PHPUnit\Framework\TestCase
         self::assertEqualsWithDelta(29410, Depreciation::getArithmeticProgressiveDepreciationResidualInT($start, $residual, $duration, $t), 5);
     }
 
-    /**
-     * @testdox The geometric progressive depreciation and reverse value calculations are correct
-     * @group framework
-     */
+    #[\PHPUnit\Framework\Attributes\Group('framework')]
+    #[\PHPUnit\Framework\Attributes\TestDox('The geometric progressive depreciation and reverse value calculations are correct')]
     public function testGeometricProgressiveDepreciation() : void
     {
         $start    = 150000;
@@ -85,10 +76,8 @@ final class DepreciationTest extends \PHPUnit\Framework\TestCase
         self::assertEqualsWithDelta(125965, Depreciation::getGeometicProgressiveDepreciationResidualInT($start, $residual, $duration, $t), 5);
     }
 
-    /**
-     * @testdox The geometric degressive depreciation and reverse value calculations are correct
-     * @group framework
-     */
+    #[\PHPUnit\Framework\Attributes\Group('framework')]
+    #[\PHPUnit\Framework\Attributes\TestDox('The geometric degressive depreciation and reverse value calculations are correct')]
     public function testGeometricDegressiveDepreciation() : void
     {
         $start    = 150000;

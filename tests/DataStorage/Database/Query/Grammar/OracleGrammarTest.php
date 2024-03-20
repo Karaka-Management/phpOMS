@@ -19,12 +19,10 @@ use phpOMS\DataStorage\Database\Query\Grammar\OracleGrammar;
 /**
  * @internal
  */
+#[\PHPUnit\Framework\Attributes\CoversClass(\phpOMS\DataStorage\Database\Query\Grammar\OracleGrammar::class)]
 final class OracleGrammarTest extends \PHPUnit\Framework\TestCase
 {
-    /**
-     * @covers \phpOMS\DataStorage\Database\Query\Grammar\OracleGrammar
-     * @group framework
-     */
+    #[\PHPUnit\Framework\Attributes\Group('framework')]
     public function testDefault() : void
     {
         self::assertInstanceOf('\phpOMS\DataStorage\Database\Query\Grammar\Grammar', new OracleGrammar());

@@ -19,36 +19,30 @@ require_once __DIR__ . '/../Autoloader.php';
 use phpOMS\Account\PermissionType;
 
 /**
- * @testdox phpOMS\tests\Account\PermissionType: Permission type
  * @internal
  */
+#[\PHPUnit\Framework\Attributes\TestDox('phpOMS\tests\Account\PermissionType: Permission type')]
 final class PermissionTypeTest extends \PHPUnit\Framework\TestCase
 {
-    /**
-     * @testdox The permission type enum has the correct number of type codes
-     * @group framework
-     * @coversNothing
-     */
+    #[\PHPUnit\Framework\Attributes\Group('framework')]
+    #[\PHPUnit\Framework\Attributes\TestDox('The permission type enum has the correct number of type codes')]
+    #[\PHPUnit\Framework\Attributes\CoversNothing]
     public function testEnumCount() : void
     {
         self::assertCount(6, PermissionType::getConstants());
     }
 
-    /**
-     * @testdox The permission type enum has only unique values
-     * @group framework
-     * @coversNothing
-     */
+    #[\PHPUnit\Framework\Attributes\Group('framework')]
+    #[\PHPUnit\Framework\Attributes\TestDox('The permission type enum has only unique values')]
+    #[\PHPUnit\Framework\Attributes\CoversNothing]
     public function testUnique() : void
     {
         self::assertEquals(PermissionType::getConstants(), \array_unique(PermissionType::getConstants()));
     }
 
-    /**
-     * @testdox The permission type enum has the correct values
-     * @group framework
-     * @coversNothing
-     */
+    #[\PHPUnit\Framework\Attributes\Group('framework')]
+    #[\PHPUnit\Framework\Attributes\TestDox('The permission type enum has the correct values')]
+    #[\PHPUnit\Framework\Attributes\CoversNothing]
     public function testEnums() : void
     {
         self::assertEquals(1, PermissionType::NONE);

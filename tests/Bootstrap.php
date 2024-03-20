@@ -421,6 +421,8 @@ if (\extension_loaded('pdo_sqlsrv')) {
     }
 }
 
+$GLOBALS['CONFIG'] = $CONFIG;
+
 $httpSession        = new HttpSession();
 $GLOBALS['session'] = $httpSession;
 

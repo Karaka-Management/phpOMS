@@ -20,10 +20,10 @@ use phpOMS\DataStorage\Cache\Connection\FileCache;
 use phpOMS\Utils\TestUtils;
 
 /**
- * @testdox phpOMS\tests\DataStorage\Cache\Connection\FileCacheTest: File cache connection
- *
  * @internal
  */
+#[\PHPUnit\Framework\Attributes\CoversClass(\phpOMS\DataStorage\Cache\Connection\FileCache::class)]
+#[\PHPUnit\Framework\Attributes\TestDox('phpOMS\tests\DataStorage\Cache\Connection\FileCacheTest: File cache connection')]
 final class FileCacheTest extends \PHPUnit\Framework\TestCase
 {
     protected FileCache $cache;
@@ -49,11 +49,8 @@ final class FileCacheTest extends \PHPUnit\Framework\TestCase
         }
     }
 
-    /**
-     * @testdox The file cache connection has the expected default values after initialization
-     * @covers \phpOMS\DataStorage\Cache\Connection\FileCache<extended>
-     * @group framework
-     */
+    #[\PHPUnit\Framework\Attributes\Group('framework')]
+    #[\PHPUnit\Framework\Attributes\TestDox('The file cache connection has the expected default values after initialization')]
     public function testDefault() : void
     {
         self::assertEquals(CacheType::FILE, $this->cache->getType());
@@ -74,21 +71,15 @@ final class FileCacheTest extends \PHPUnit\Framework\TestCase
         );
     }
 
-    /**
-     * @testdox The connection to a dedicated cache directory can be established (none-existing directories get created)
-     * @covers \phpOMS\DataStorage\Cache\Connection\FileCache<extended>
-     * @group framework
-     */
+    #[\PHPUnit\Framework\Attributes\Group('framework')]
+    #[\PHPUnit\Framework\Attributes\TestDox('The connection to a dedicated cache directory can be established (none-existing directories get created)')]
     public function testConnect() : void
     {
         self::assertEquals(CacheStatus::OK, $this->cache->getStatus());
     }
 
-    /**
-     * @testdox Different cache data (types) can be set and returned
-     * @covers \phpOMS\DataStorage\Cache\Connection\FileCache<extended>
-     * @group framework
-     */
+    #[\PHPUnit\Framework\Attributes\Group('framework')]
+    #[\PHPUnit\Framework\Attributes\TestDox('Different cache data (types) can be set and returned')]
     public function testSetInputOutput() : void
     {
         $this->cache->set('key1', 'testVal');
@@ -116,11 +107,8 @@ final class FileCacheTest extends \PHPUnit\Framework\TestCase
         self::assertEquals('asdf', $this->cache->get('key8')->val);
     }
 
-    /**
-     * @testdox Cache data can bet added and returned
-     * @covers \phpOMS\DataStorage\Cache\Connection\FileCache<extended>
-     * @group framework
-     */
+    #[\PHPUnit\Framework\Attributes\Group('framework')]
+    #[\PHPUnit\Framework\Attributes\TestDox('Cache data can bet added and returned')]
     public function testAddInputOutput() : void
     {
         self::assertTrue($this->cache->add('addKey', 'testValAdd'));
@@ -269,11 +257,8 @@ final class FileCacheTest extends \PHPUnit\Framework\TestCase
         self::assertFalse($this->cache->updateExpire('invalid', 2));
     }
 
-    /**
-     * @testdox Cache data cannot be added if it already exists
-     * @covers \phpOMS\DataStorage\Cache\Connection\FileCache<extended>
-     * @group framework
-     */
+    #[\PHPUnit\Framework\Attributes\Group('framework')]
+    #[\PHPUnit\Framework\Attributes\TestDox('Cache data cannot be added if it already exists')]
     public function testInvalidOverwrite() : void
     {
         self::assertTrue($this->cache->add('addKey', 'testValAdd'));
@@ -281,11 +266,8 @@ final class FileCacheTest extends \PHPUnit\Framework\TestCase
         self::assertEquals('testValAdd', $this->cache->get('addKey'));
     }
 
-    /**
-     * @testdox Existing cache data can be replaced
-     * @covers \phpOMS\DataStorage\Cache\Connection\FileCache<extended>
-     * @group framework
-     */
+    #[\PHPUnit\Framework\Attributes\Group('framework')]
+    #[\PHPUnit\Framework\Attributes\TestDox('Existing cache data can be replaced')]
     public function testReplace() : void
     {
         $this->cache->set('key4', 4);
@@ -295,21 +277,15 @@ final class FileCacheTest extends \PHPUnit\Framework\TestCase
         self::assertEquals(5, $this->cache->get('key4'));
     }
 
-    /**
-     * @testdox None-existing cache data cannot be replaced
-     * @covers \phpOMS\DataStorage\Cache\Connection\FileCache<extended>
-     * @group framework
-     */
+    #[\PHPUnit\Framework\Attributes\Group('framework')]
+    #[\PHPUnit\Framework\Attributes\TestDox('None-existing cache data cannot be replaced')]
     public function testInvalidReplace() : void
     {
         self::assertFalse($this->cache->replace('keyInvalid', 5));
     }
 
-    /**
-     * @testdox Existing cache data can be deleted
-     * @covers \phpOMS\DataStorage\Cache\Connection\FileCache<extended>
-     * @group framework
-     */
+    #[\PHPUnit\Framework\Attributes\Group('framework')]
+    #[\PHPUnit\Framework\Attributes\TestDox('Existing cache data can be deleted')]
     public function testDelete() : void
     {
         $this->cache->set('key4', 4);
@@ -324,11 +300,8 @@ final class FileCacheTest extends \PHPUnit\Framework\TestCase
         self::assertTrue($this->cache->delete('invalid'));
     }
 
-    /**
-     * @testdox The cache correctly handles general cache information
-     * @covers \phpOMS\DataStorage\Cache\Connection\FileCache<extended>
-     * @group framework
-     */
+    #[\PHPUnit\Framework\Attributes\Group('framework')]
+    #[\PHPUnit\Framework\Attributes\TestDox('The cache correctly handles general cache information')]
     public function testStats() : void
     {
         $this->cache->set('key1', 'testVal');
@@ -347,11 +320,8 @@ final class FileCacheTest extends \PHPUnit\Framework\TestCase
         );
     }
 
-    /**
-     * @testdox The cache can be flushed
-     * @covers \phpOMS\DataStorage\Cache\Connection\FileCache<extended>
-     * @group framework
-     */
+    #[\PHPUnit\Framework\Attributes\Group('framework')]
+    #[\PHPUnit\Framework\Attributes\TestDox('The cache can be flushed')]
     public function testFlush() : void
     {
         $this->cache->set('key1', 'testVal');
@@ -373,22 +343,16 @@ final class FileCacheTest extends \PHPUnit\Framework\TestCase
         );
     }
 
-    /**
-     * @testdox Cache data can be set and returned with expiration limits
-     * @covers \phpOMS\DataStorage\Cache\Connection\FileCache<extended>
-     * @group framework
-     */
+    #[\PHPUnit\Framework\Attributes\Group('framework')]
+    #[\PHPUnit\Framework\Attributes\TestDox('Cache data can be set and returned with expiration limits')]
     public function testUnexpiredInputOutput() : void
     {
         $this->cache->set('key1', 'testVal', 1);
         self::assertEquals('testVal', $this->cache->get('key1'));
     }
 
-    /**
-     * @testdox Expired cache data cannot be returned
-     * @covers \phpOMS\DataStorage\Cache\Connection\FileCache<extended>
-     * @group framework
-     */
+    #[\PHPUnit\Framework\Attributes\Group('framework')]
+    #[\PHPUnit\Framework\Attributes\TestDox('Expired cache data cannot be returned')]
     public function testExpiredInputOutput() : void
     {
         $this->cache->set('key2', 'testVal2', 1);
@@ -398,11 +362,8 @@ final class FileCacheTest extends \PHPUnit\Framework\TestCase
         self::assertNull($this->cache->get('key2')); // this causes a side effect of deleting the outdated cache element!!!
     }
 
-    /**
-     * @testdox Expired cache data can be forced to return
-     * @covers \phpOMS\DataStorage\Cache\Connection\FileCache<extended>
-     * @group framework
-     */
+    #[\PHPUnit\Framework\Attributes\Group('framework')]
+    #[\PHPUnit\Framework\Attributes\TestDox('Expired cache data can be forced to return')]
     public function testForceExpiredInputOutput() : void
     {
         $this->cache->set('key2', 'testVal2', 1);
@@ -410,22 +371,16 @@ final class FileCacheTest extends \PHPUnit\Framework\TestCase
         self::assertEquals('testVal2', $this->cache->get('key2', 10));
     }
 
-    /**
-     * @testdox Unexpired cache data cannot be delete if lower expiration is defined
-     * @covers \phpOMS\DataStorage\Cache\Connection\FileCache<extended>
-     * @group framework
-     */
+    #[\PHPUnit\Framework\Attributes\Group('framework')]
+    #[\PHPUnit\Framework\Attributes\TestDox('Unexpired cache data cannot be delete if lower expiration is defined')]
     public function testInvalidDeleteUnexpired() : void
     {
         $this->cache->set('key4', 'testVal4', 60);
         self::assertFalse($this->cache->delete('key4', 0));
     }
 
-    /**
-     * @testdox Expired cache data can be deleted if equal expiration is defined
-     * @covers \phpOMS\DataStorage\Cache\Connection\FileCache<extended>
-     * @group framework
-     */
+    #[\PHPUnit\Framework\Attributes\Group('framework')]
+    #[\PHPUnit\Framework\Attributes\TestDox('Expired cache data can be deleted if equal expiration is defined')]
     public function testDeleteExpired() : void
     {
         $this->cache->set('key4', 'testVal4', 1);
@@ -433,11 +388,8 @@ final class FileCacheTest extends \PHPUnit\Framework\TestCase
         self::assertTrue($this->cache->delete('key4', 1));
     }
 
-    /**
-     * @testdox Unexpired data can be force deleted with lower expiration date
-     * @covers \phpOMS\DataStorage\Cache\Connection\FileCache<extended>
-     * @group framework
-     */
+    #[\PHPUnit\Framework\Attributes\Group('framework')]
+    #[\PHPUnit\Framework\Attributes\TestDox('Unexpired data can be force deleted with lower expiration date')]
     public function testForceDeleteUnexpired() : void
     {
         $this->cache->set('key5', 'testVal5', 10000);
@@ -446,11 +398,8 @@ final class FileCacheTest extends \PHPUnit\Framework\TestCase
         self::assertTrue($this->cache->delete('key5', 1));
     }
 
-    /**
-     * @testdox Cache data can be flushed by expiration date
-     * @covers \phpOMS\DataStorage\Cache\Connection\FileCache<extended>
-     * @group framework
-     */
+    #[\PHPUnit\Framework\Attributes\Group('framework')]
+    #[\PHPUnit\Framework\Attributes\TestDox('Cache data can be flushed by expiration date')]
     public function testFlushExpired() : void
     {
         $this->cache->set('key6', 'testVal6', 1);
@@ -460,11 +409,8 @@ final class FileCacheTest extends \PHPUnit\Framework\TestCase
         self::assertNull($this->cache->get('key6', 0));
     }
 
-    /**
-     * @testdox A bad cache status will prevent all cache actions
-     * @covers \phpOMS\DataStorage\Cache\Connection\FileCache<extended>
-     * @group framework
-     */
+    #[\PHPUnit\Framework\Attributes\Group('framework')]
+    #[\PHPUnit\Framework\Attributes\TestDox('A bad cache status will prevent all cache actions')]
     public function testBadCacheStatus() : void
     {
         TestUtils::setMember($this->cache, 'status', CacheStatus::FAILURE);
@@ -479,11 +425,8 @@ final class FileCacheTest extends \PHPUnit\Framework\TestCase
         self::assertEquals([], $this->cache->stats());
     }
 
-    /**
-     * @testdox A invalid cache connection will throw an InvalidConnectionConfigException
-     * @covers \phpOMS\DataStorage\Cache\Connection\FileCache<extended>
-     * @group framework
-     */
+    #[\PHPUnit\Framework\Attributes\Group('framework')]
+    #[\PHPUnit\Framework\Attributes\TestDox('A invalid cache connection will throw an InvalidConnectionConfigException')]
     public function testInvalidCachePath() : void
     {
         $this->expectException(\phpOMS\DataStorage\Cache\Exception\InvalidConnectionConfigException::class);
@@ -491,11 +434,8 @@ final class FileCacheTest extends \PHPUnit\Framework\TestCase
         $this->cache = new FileCache("/root/etc/invalidPathOrPermission^$:?><");
     }
 
-    /**
-     * @testdox Adding a invalid data type will throw an InvalidArgumentException
-     * @covers \phpOMS\DataStorage\Cache\Connection\FileCache<extended>
-     * @group framework
-     */
+    #[\PHPUnit\Framework\Attributes\Group('framework')]
+    #[\PHPUnit\Framework\Attributes\TestDox('Adding a invalid data type will throw an InvalidArgumentException')]
     public function testInvalidDataTypeAdd() : void
     {
         $this->expectException(\InvalidArgumentException::class);
@@ -503,11 +443,8 @@ final class FileCacheTest extends \PHPUnit\Framework\TestCase
         $this->cache->add('invalid', $this->cache);
     }
 
-    /**
-     * @testdox Setting a invalid data type will throw an InvalidArgumentException
-     * @covers \phpOMS\DataStorage\Cache\Connection\FileCache<extended>
-     * @group framework
-     */
+    #[\PHPUnit\Framework\Attributes\Group('framework')]
+    #[\PHPUnit\Framework\Attributes\TestDox('Setting a invalid data type will throw an InvalidArgumentException')]
     public function testInvalidDataTypeSet() : void
     {
         $this->expectException(\InvalidArgumentException::class);

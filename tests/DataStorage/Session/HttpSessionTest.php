@@ -17,10 +17,9 @@ namespace phpOMS\tests\DataStorage\Session;
 use phpOMS\DataStorage\Session\HttpSession;
 
 /**
- * @testdox phpOMS\tests\DataStorage\Session\HttpSessionTest: Session data handler for http sessions
- *
  * @internal
  */
+#[\PHPUnit\Framework\Attributes\TestDox('phpOMS\tests\DataStorage\Session\HttpSessionTest: Session data handler for http sessions')]
 final class HttpSessionTest extends \PHPUnit\Framework\TestCase
 {
     protected HttpSession $session;
@@ -33,10 +32,8 @@ final class HttpSessionTest extends \PHPUnit\Framework\TestCase
         $this->session = new HttpSession(1, '', 1);
     }
 
-    /**
-     * @testdox The session has the expected default values after initialization
-     * @group framework
-     */
+    #[\PHPUnit\Framework\Attributes\Group('framework')]
+    #[\PHPUnit\Framework\Attributes\TestDox('The session has the expected default values after initialization')]
     public function testDefault() : void
     {
         $session = new HttpSession();
@@ -44,20 +41,16 @@ final class HttpSessionTest extends \PHPUnit\Framework\TestCase
         self::assertFalse($session->isLocked());
     }
 
-    /**
-     * @testdox Session data can be set and returned
-     * @group framework
-     */
+    #[\PHPUnit\Framework\Attributes\Group('framework')]
+    #[\PHPUnit\Framework\Attributes\TestDox('Session data can be set and returned')]
     public function testInputOutput() : void
     {
         self::assertTrue($this->session->set('test', 'value'));
         self::assertEquals('value', $this->session->get('test'));
     }
 
-    /**
-     * @testdox Session data cannot be overwritten
-     * @group framework
-     */
+    #[\PHPUnit\Framework\Attributes\Group('framework')]
+    #[\PHPUnit\Framework\Attributes\TestDox('Session data cannot be overwritten')]
     public function testInvalidOverwrite() : void
     {
         $this->session->set('test', 'value');
@@ -65,10 +58,8 @@ final class HttpSessionTest extends \PHPUnit\Framework\TestCase
         self::assertEquals('value', $this->session->get('test'));
     }
 
-    /**
-     * @testdox Session data can be forced to overwrite
-     * @group framework
-     */
+    #[\PHPUnit\Framework\Attributes\Group('framework')]
+    #[\PHPUnit\Framework\Attributes\TestDox('Session data can be forced to overwrite')]
     public function testOverwrite() : void
     {
         $this->session->set('test', 'value');
@@ -76,20 +67,16 @@ final class HttpSessionTest extends \PHPUnit\Framework\TestCase
         self::assertEquals('value2', $this->session->get('test'));
     }
 
-    /**
-     * @testdox Session data can be removed
-     * @group framework
-     */
+    #[\PHPUnit\Framework\Attributes\Group('framework')]
+    #[\PHPUnit\Framework\Attributes\TestDox('Session data can be removed')]
     public function testRemove() : void
     {
         $this->session->set('test', 'value');
         self::assertTrue($this->session->remove('test'));
     }
 
-    /**
-     * @testdox None-existing session data cannot be removed
-     * @group framework
-     */
+    #[\PHPUnit\Framework\Attributes\Group('framework')]
+    #[\PHPUnit\Framework\Attributes\TestDox('None-existing session data cannot be removed')]
     public function testInvalidRemove() : void
     {
         $this->session->set('test', 'value');
@@ -98,50 +85,40 @@ final class HttpSessionTest extends \PHPUnit\Framework\TestCase
         self::assertFalse($this->session->remove('test'));
     }
 
-    /**
-     * @testdox A session id can be set and returned
-     * @group framework
-     */
+    #[\PHPUnit\Framework\Attributes\Group('framework')]
+    #[\PHPUnit\Framework\Attributes\TestDox('A session id can be set and returned')]
     public function testSessionIdInputOutput() : void
     {
         $this->session->setSID('abc');
         self::assertEquals('abc', $this->session->getSID());
     }
 
-    /**
-     * @testdox A session can be locked
-     * @group framework
-     */
+    #[\PHPUnit\Framework\Attributes\Group('framework')]
+    #[\PHPUnit\Framework\Attributes\TestDox('A session can be locked')]
     public function testLockInputOutput() : void
     {
         $this->session->lock();
         self::assertTrue($this->session->isLocked());
     }
 
-    /**
-     * @testdox Locked sessions cannot be saved
-     * @group framework
-     */
+    #[\PHPUnit\Framework\Attributes\Group('framework')]
+    #[\PHPUnit\Framework\Attributes\TestDox('Locked sessions cannot be saved')]
     public function testInvalidLockSave() : void
     {
         $this->session->lock();
         self::assertFalse($this->session->save());
     }
 
-    /**
-     * @testdox A locked session cannot add or change data
-     * @group framework
-     */
+    #[\PHPUnit\Framework\Attributes\Group('framework')]
+    #[\PHPUnit\Framework\Attributes\TestDox('A locked session cannot add or change data')]
     public function testLockInvalidSet() : void
     {
         $this->session->lock();
         self::assertFalse($this->session->set('test', 'value'));
     }
 
-    /**
-     * @testdox A locked session cannot remove data
-     * @group framework
-     */
+    #[\PHPUnit\Framework\Attributes\Group('framework')]
+    #[\PHPUnit\Framework\Attributes\TestDox('A locked session cannot remove data')]
     public function testLockInvalidRemove() : void
     {
         self::assertTrue($this->session->set('test', 'value'));

@@ -21,17 +21,14 @@ use phpOMS\Utils\Git\Repository;
 use phpOMS\Utils\Git\Tag;
 
 /**
- * @testdox phpOMS\tests\Utils\Git\CommitTest: Git commit
- *
  * @internal
  */
+#[\PHPUnit\Framework\Attributes\CoversClass(\phpOMS\Utils\Git\Commit::class)]
+#[\PHPUnit\Framework\Attributes\TestDox('phpOMS\tests\Utils\Git\CommitTest: Git commit')]
 final class CommitTest extends \PHPUnit\Framework\TestCase
 {
-    /**
-     * @testdox The commit has the expected default values after initialization
-     * @covers \phpOMS\Utils\Git\Commit
-     * @group framework
-     */
+    #[\PHPUnit\Framework\Attributes\Group('framework')]
+    #[\PHPUnit\Framework\Attributes\TestDox('The commit has the expected default values after initialization')]
     public function testDefault() : void
     {
         $commit = new Commit();
@@ -45,11 +42,8 @@ final class CommitTest extends \PHPUnit\Framework\TestCase
         self::assertInstanceOf('\DateTime', $commit->getDate());
     }
 
-    /**
-     * @testdox A file can be added and returned
-     * @covers \phpOMS\Utils\Git\Commit
-     * @group framework
-     */
+    #[\PHPUnit\Framework\Attributes\Group('framework')]
+    #[\PHPUnit\Framework\Attributes\TestDox('A file can be added and returned')]
     public function testFileInputOutput() : void
     {
         $commit = new Commit();
@@ -62,11 +56,8 @@ final class CommitTest extends \PHPUnit\Framework\TestCase
         ], $commit->getFiles());
     }
 
-    /**
-     * @testdox A file can only be added one time
-     * @covers \phpOMS\Utils\Git\Commit
-     * @group framework
-     */
+    #[\PHPUnit\Framework\Attributes\Group('framework')]
+    #[\PHPUnit\Framework\Attributes\TestDox('A file can only be added one time')]
     public function testInvalidOverwrite() : void
     {
         $commit = new Commit();
@@ -75,11 +66,8 @@ final class CommitTest extends \PHPUnit\Framework\TestCase
         self::assertFalse($commit->addFile('/some/file/path'));
     }
 
-    /**
-     * @testdox A file can be removed
-     * @covers \phpOMS\Utils\Git\Commit
-     * @group framework
-     */
+    #[\PHPUnit\Framework\Attributes\Group('framework')]
+    #[\PHPUnit\Framework\Attributes\TestDox('A file can be removed')]
     public function testRemoveFile() : void
     {
         $commit = new Commit();
@@ -93,11 +81,8 @@ final class CommitTest extends \PHPUnit\Framework\TestCase
         ], $commit->getFiles());
     }
 
-    /**
-     * @testdox A none-existing file cannot be removed
-     * @covers \phpOMS\Utils\Git\Commit
-     * @group framework
-     */
+    #[\PHPUnit\Framework\Attributes\Group('framework')]
+    #[\PHPUnit\Framework\Attributes\TestDox('A none-existing file cannot be removed')]
     public function testInvalidRemoveFile() : void
     {
         $commit = new Commit();
@@ -105,11 +90,8 @@ final class CommitTest extends \PHPUnit\Framework\TestCase
         self::assertFalse($commit->removeFile('/some/file/path3'));
     }
 
-    /**
-     * @testdox A change can be added and returned
-     * @covers \phpOMS\Utils\Git\Commit
-     * @group framework
-     */
+    #[\PHPUnit\Framework\Attributes\Group('framework')]
+    #[\PHPUnit\Framework\Attributes\TestDox('A change can be added and returned')]
     public function testChangeInputOutput() : void
     {
         $commit = new Commit();
@@ -126,11 +108,8 @@ final class CommitTest extends \PHPUnit\Framework\TestCase
             ], $commit->getFiles());
     }
 
-    /**
-     * @testdox Adding the same change throws a Exception
-     * @covers \phpOMS\Utils\Git\Commit
-     * @group framework
-     */
+    #[\PHPUnit\Framework\Attributes\Group('framework')]
+    #[\PHPUnit\Framework\Attributes\TestDox('Adding the same change throws a Exception')]
     public function testDuplicateLineChange() : void
     {
         $this->expectException(\Exception::class);
@@ -140,11 +119,8 @@ final class CommitTest extends \PHPUnit\Framework\TestCase
         $commit->addChanges(__DIR__ . '/CommitTest.php', 1, '<?php', 'test');
     }
 
-    /**
-     * @testdox A commit message can be set and returned
-     * @covers \phpOMS\Utils\Git\Commit
-     * @group framework
-     */
+    #[\PHPUnit\Framework\Attributes\Group('framework')]
+    #[\PHPUnit\Framework\Attributes\TestDox('A commit message can be set and returned')]
     public function testMessageInputOutput() : void
     {
         $commit = new Commit();
@@ -153,11 +129,8 @@ final class CommitTest extends \PHPUnit\Framework\TestCase
         self::assertEquals('My Message', $commit->getMessage());
     }
 
-    /**
-     * @testdox The author can be set and returned
-     * @covers \phpOMS\Utils\Git\Commit
-     * @group framework
-     */
+    #[\PHPUnit\Framework\Attributes\Group('framework')]
+    #[\PHPUnit\Framework\Attributes\TestDox('The author can be set and returned')]
     public function testAuthorInputOutput() : void
     {
         $commit = new Commit();
@@ -166,11 +139,8 @@ final class CommitTest extends \PHPUnit\Framework\TestCase
         self::assertEquals('Orange', $commit->getAuthor()->name);
     }
 
-    /**
-     * @testdox The branch can be set and returned
-     * @covers \phpOMS\Utils\Git\Commit
-     * @group framework
-     */
+    #[\PHPUnit\Framework\Attributes\Group('framework')]
+    #[\PHPUnit\Framework\Attributes\TestDox('The branch can be set and returned')]
     public function testBranchInputOutput() : void
     {
         $commit = new Commit();
@@ -179,11 +149,8 @@ final class CommitTest extends \PHPUnit\Framework\TestCase
         self::assertEquals('develop', $commit->getBranch()->name);
     }
 
-    /**
-     * @testdox The tag can be set and returned
-     * @covers \phpOMS\Utils\Git\Commit
-     * @group framework
-     */
+    #[\PHPUnit\Framework\Attributes\Group('framework')]
+    #[\PHPUnit\Framework\Attributes\TestDox('The tag can be set and returned')]
     public function testTagInputOutput() : void
     {
         $commit = new Commit();
@@ -192,11 +159,8 @@ final class CommitTest extends \PHPUnit\Framework\TestCase
         self::assertEquals('1.0.0', $commit->getTag()->name);
     }
 
-    /**
-     * @testdox The date can be set and returned
-     * @covers \phpOMS\Utils\Git\Commit
-     * @group framework
-     */
+    #[\PHPUnit\Framework\Attributes\Group('framework')]
+    #[\PHPUnit\Framework\Attributes\TestDox('The date can be set and returned')]
     public function testDateInputOutput() : void
     {
         $commit = new Commit();
@@ -205,11 +169,8 @@ final class CommitTest extends \PHPUnit\Framework\TestCase
         self::assertEquals($date->format('Y-m-d'), $commit->getDate()->format('Y-m-d'));
     }
 
-    /**
-     * @testdox The repository can be set and returned
-     * @covers \phpOMS\Utils\Git\Commit
-     * @group framework
-     */
+    #[\PHPUnit\Framework\Attributes\Group('framework')]
+    #[\PHPUnit\Framework\Attributes\TestDox('The repository can be set and returned')]
     public function testRepositoryInputOutput() : void
     {
         $commit = new Commit();

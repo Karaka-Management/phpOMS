@@ -19,17 +19,14 @@ use phpOMS\Algorithm\Knapsack\Bounded;
 use phpOMS\Algorithm\Knapsack\Item;
 
 /**
- * @testdox phpOMS\tests\Algorithm\Knapsack\BoundedTest: A Knapsack implementation for discrete quantities, values and costs and bounded item quantities
- *
  * @internal
  */
+#[\PHPUnit\Framework\Attributes\CoversClass(\phpOMS\Algorithm\Knapsack\Bounded::class)]
+#[\PHPUnit\Framework\Attributes\TestDox('phpOMS\tests\Algorithm\Knapsack\BoundedTest: A Knapsack implementation for discrete quantities, values and costs and bounded item quantities')]
 final class BoundedTest extends \PHPUnit\Framework\TestCase
 {
-    /**
-     * @testdox The optimal item selection in a backpack is calculated in order to optimize the value/profit while considering the available capacity/cost limit
-     * @covers \phpOMS\Algorithm\Knapsack\Bounded
-     * @group framework
-     */
+    #[\PHPUnit\Framework\Attributes\Group('framework')]
+    #[\PHPUnit\Framework\Attributes\TestDox('The optimal item selection in a backpack is calculated in order to optimize the value/profit while considering the available capacity/cost limit')]
     public function testBackpacking() : void
     {
         $items = [

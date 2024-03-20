@@ -19,16 +19,14 @@ require_once __DIR__ . '/../Autoloader.php';
 use phpOMS\Image\Thresholding;
 
 /**
- * @testdox phpOMS\tests\Image\ThresholdingTest: Image thresholding
  * @internal
  */
+#[\PHPUnit\Framework\Attributes\CoversClass(\phpOMS\Image\Thresholding::class)]
+#[\PHPUnit\Framework\Attributes\TestDox('phpOMS\tests\Image\ThresholdingTest: Image thresholding')]
 final class ThresholdingTest extends \PHPUnit\Framework\TestCase
 {
-    /**
-     * @testdox The thresholding is correctly applied to the image
-     * @group framework
-     * @covers \phpOMS\Image\Thresholding
-     */
+    #[\PHPUnit\Framework\Attributes\Group('framework')]
+    #[\PHPUnit\Framework\Attributes\TestDox('The thresholding is correctly applied to the image')]
     public function testThresholding() : void
     {
         Thresholding::integralThresholding(__DIR__ . '/img1.png', __DIR__ . '/test_img1_integral_thresholding.png');

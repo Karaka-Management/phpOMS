@@ -19,17 +19,14 @@ use phpOMS\Algorithm\CoinMatching\MinimumCoinProblem;
 require_once __DIR__ . '/../../Autoloader.php';
 
 /**
- * @testdox phpOMS\tests\Algorithm\CoinMatching\MinimumCoinProblemTest: Match a value by using the minimum quantity of available sub values (Minimum Coin Problem)
- *
  * @internal
  */
+#[\PHPUnit\Framework\Attributes\CoversClass(\phpOMS\Algorithm\CoinMatching\MinimumCoinProblem::class)]
+#[\PHPUnit\Framework\Attributes\TestDox('phpOMS\tests\Algorithm\CoinMatching\MinimumCoinProblemTest: Match a value by using the minimum quantity of available sub values (Minimum Coin Problem)')]
 final class MinimumCoinProblemTest extends \PHPUnit\Framework\TestCase
 {
-    /**
-     * @testdox A value is matched with the minimum quantity of available coins.
-     * @covers \phpOMS\Algorithm\CoinMatching\MinimumCoinProblem
-     * @group framework
-     */
+    #[\PHPUnit\Framework\Attributes\Group('framework')]
+    #[\PHPUnit\Framework\Attributes\TestDox('A value is matched with the minimum quantity of available coins.')]
     public function testMinimumCoins() : void
     {
         self::assertEquals(

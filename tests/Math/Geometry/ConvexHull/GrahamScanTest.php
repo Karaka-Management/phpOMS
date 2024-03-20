@@ -17,17 +17,14 @@ namespace phpOMS\tests\Math\Geometry\ConvexHull;
 use phpOMS\Math\Geometry\ConvexHull\GrahamScan;
 
 /**
- * @testdox phpOMS\tests\Math\Geometry\ConvexHull\GrahamScanTest: Monotone chain
- *
  * @internal
  */
+#[\PHPUnit\Framework\Attributes\CoversClass(\phpOMS\Math\Geometry\ConvexHull\GrahamScan::class)]
+#[\PHPUnit\Framework\Attributes\TestDox('phpOMS\tests\Math\Geometry\ConvexHull\GrahamScanTest: Monotone chain')]
 final class GrahamScanTest extends \PHPUnit\Framework\TestCase
 {
-    /**
-     * @testdox A convex hull can be formed from multiple points on a plane
-     * @covers \phpOMS\Math\Geometry\ConvexHull\GrahamScan
-     * @group framework
-     */
+    #[\PHPUnit\Framework\Attributes\Group('framework')]
+    #[\PHPUnit\Framework\Attributes\TestDox('A convex hull can be formed from multiple points on a plane')]
     public function testGrahamScan() : void
     {
         self::assertEquals([['x' => 9, 'y' => 0]], GrahamScan::createConvexHull([['x' => 9, 'y' => 0]]));

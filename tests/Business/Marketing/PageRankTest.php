@@ -17,16 +17,13 @@ namespace phpOMS\tests\Business\Marketing;
 use phpOMS\Business\Marketing\PageRank;
 
 /**
- * @testdox phpOMS\tests\Business\Marketing\PageRankTest: Page rank algorithm
- *
  * @internal
  */
+#[\PHPUnit\Framework\Attributes\TestDox('phpOMS\tests\Business\Marketing\PageRankTest: Page rank algorithm')]
 final class PageRankTest extends \PHPUnit\Framework\TestCase
 {
-    /**
-     * @testdox Test the correctness of the page rank algorithm
-     * @group framework
-     */
+    #[\PHPUnit\Framework\Attributes\Group('framework')]
+    #[\PHPUnit\Framework\Attributes\TestDox('Test the correctness of the page rank algorithm')]
     public function testPageRank() : void
     {
         $relations = [
@@ -50,10 +47,8 @@ final class PageRankTest extends \PHPUnit\Framework\TestCase
         );
     }
 
-    /**
-     * @testdox Test the correctness of the page rank algorithm with custom damping and starting values
-     * @group framework
-     */
+    #[\PHPUnit\Framework\Attributes\Group('framework')]
+    #[\PHPUnit\Framework\Attributes\TestDox('Test the correctness of the page rank algorithm with custom damping and starting values')]
     public function testPageRankCustomDampingAndStart() : void
     {
         $relations = [

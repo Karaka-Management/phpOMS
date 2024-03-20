@@ -18,16 +18,13 @@ use phpOMS\DataStorage\Database\Schema\Grammar\SQLiteGrammar;
 use phpOMS\Utils\TestUtils;
 
 /**
- * @testdox phpOMS\tests\DataStorage\Database\Schema\Grammar\SQLiteGrammarTest: SQLite sql schema grammar
- *
  * @internal
  */
+#[\PHPUnit\Framework\Attributes\TestDox('phpOMS\tests\DataStorage\Database\Schema\Grammar\SQLiteGrammarTest: SQLite sql schema grammar')]
 final class SQLiteGrammarTest extends \PHPUnit\Framework\TestCase
 {
-    /**
-     * @testdox The grammar has the expected default values after initialization
-     * @group framework
-     */
+    #[\PHPUnit\Framework\Attributes\Group('framework')]
+    #[\PHPUnit\Framework\Attributes\TestDox('The grammar has the expected default values after initialization')]
     public function testDefault() : void
     {
         self::assertInstanceOf('\phpOMS\DataStorage\Database\Schema\Grammar\Grammar', new SQLiteGrammar());

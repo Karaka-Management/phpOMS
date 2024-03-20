@@ -17,16 +17,13 @@ namespace phpOMS\tests;
 use phpOMS\Preloader;
 
 /**
- * @testdox phpOMS\tests\PreloaderTest: Class preloader
- *
  * @internal
  */
+#[\PHPUnit\Framework\Attributes\CoversClass(\phpOMS\Preloader::class)]
+#[\PHPUnit\Framework\Attributes\TestDox('phpOMS\tests\PreloaderTest: Class preloader')]
 final class PreloaderTest extends \PHPUnit\Framework\TestCase
 {
-    /**
-     * @covers \phpOMS\Preloader
-     * @group framework
-     */
+    #[\PHPUnit\Framework\Attributes\Group('framework')]
     public function testPreloading() : void
     {
         $includes = \get_included_files();

@@ -18,10 +18,10 @@ use phpOMS\Stdlib\Base\AddressType;
 use phpOMS\Stdlib\Base\Location;
 
 /**
- * @testdox phpOMS\tests\Stdlib\Base\LocationTest: Location type
- *
  * @internal
  */
+#[\PHPUnit\Framework\Attributes\CoversClass(\phpOMS\Stdlib\Base\Location::class)]
+#[\PHPUnit\Framework\Attributes\TestDox('phpOMS\tests\Stdlib\Base\LocationTest: Location type')]
 final class LocationTest extends \PHPUnit\Framework\TestCase
 {
     protected Location $location;
@@ -34,11 +34,8 @@ final class LocationTest extends \PHPUnit\Framework\TestCase
         $this->location = new Location();
     }
 
-    /**
-     * @testdox The location has the expected default values after initialization
-     * @covers \phpOMS\Stdlib\Base\Location
-     * @group framework
-     */
+    #[\PHPUnit\Framework\Attributes\Group('framework')]
+    #[\PHPUnit\Framework\Attributes\TestDox('The location has the expected default values after initialization')]
     public function testDefault() : void
     {
         $expected = [
@@ -62,66 +59,48 @@ final class LocationTest extends \PHPUnit\Framework\TestCase
         self::assertEquals($expected, $this->location->jsonSerialize());
     }
 
-    /**
-     * @testdox The postal can be set and returned
-     * @covers \phpOMS\Stdlib\Base\Location
-     * @group framework
-     */
+    #[\PHPUnit\Framework\Attributes\Group('framework')]
+    #[\PHPUnit\Framework\Attributes\TestDox('The postal can be set and returned')]
     public function testPostalInputOutput() : void
     {
         $this->location->postal = '0123456789';
         self::assertEquals('0123456789', $this->location->postal);
     }
 
-    /**
-     * @testdox The city can be set and returned
-     * @covers \phpOMS\Stdlib\Base\Location
-     * @group framework
-     */
+    #[\PHPUnit\Framework\Attributes\Group('framework')]
+    #[\PHPUnit\Framework\Attributes\TestDox('The city can be set and returned')]
     public function testCityInputOutput() : void
     {
         $this->location->city = 'city';
         self::assertEquals('city', $this->location->city);
     }
 
-    /**
-     * @testdox The country can be set and returned
-     * @covers \phpOMS\Stdlib\Base\Location
-     * @group framework
-     */
+    #[\PHPUnit\Framework\Attributes\Group('framework')]
+    #[\PHPUnit\Framework\Attributes\TestDox('The country can be set and returned')]
     public function testCountryInputOutput() : void
     {
         $this->location->setCountry('Country');
         self::assertEquals('Country', $this->location->country);
     }
 
-    /**
-     * @testdox The address can be set and returned
-     * @covers \phpOMS\Stdlib\Base\Location
-     * @group framework
-     */
+    #[\PHPUnit\Framework\Attributes\Group('framework')]
+    #[\PHPUnit\Framework\Attributes\TestDox('The address can be set and returned')]
     public function testAddressInputOutput() : void
     {
         $this->location->address = 'Some address here';
         self::assertEquals('Some address here', $this->location->address);
     }
 
-    /**
-     * @testdox The state can be set and returned
-     * @covers \phpOMS\Stdlib\Base\Location
-     * @group framework
-     */
+    #[\PHPUnit\Framework\Attributes\Group('framework')]
+    #[\PHPUnit\Framework\Attributes\TestDox('The state can be set and returned')]
     public function testStateInputOutput() : void
     {
         $this->location->state = 'This is a state 123';
         self::assertEquals('This is a state 123', $this->location->state);
     }
 
-    /**
-     * @testdox The location can be turned into an array
-     * @covers \phpOMS\Stdlib\Base\Location
-     * @group framework
-     */
+    #[\PHPUnit\Framework\Attributes\Group('framework')]
+    #[\PHPUnit\Framework\Attributes\TestDox('The location can be turned into an array')]
     public function testArray() : void
     {
         $expected = [
@@ -146,11 +125,8 @@ final class LocationTest extends \PHPUnit\Framework\TestCase
         self::assertEquals($expected, $this->location->toArray());
     }
 
-    /**
-     * @testdox The location can be json serialized
-     * @covers \phpOMS\Stdlib\Base\Location
-     * @group framework
-     */
+    #[\PHPUnit\Framework\Attributes\Group('framework')]
+    #[\PHPUnit\Framework\Attributes\TestDox('The location can be json serialized')]
     public function testJsonSerialize() : void
     {
         $expected = [
@@ -176,11 +152,8 @@ final class LocationTest extends \PHPUnit\Framework\TestCase
         self::assertEquals(\json_encode($this->location->jsonSerialize()), $this->location->serialize());
     }
 
-    /**
-     * @testdox The location can unserialized
-     * @covers \phpOMS\Stdlib\Base\Location
-     * @group framework
-     */
+    #[\PHPUnit\Framework\Attributes\Group('framework')]
+    #[\PHPUnit\Framework\Attributes\TestDox('The location can unserialized')]
     public function testUnserialize() : void
     {
         $expected = [

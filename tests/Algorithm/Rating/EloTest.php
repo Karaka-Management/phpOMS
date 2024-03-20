@@ -19,17 +19,14 @@ use phpOMS\Algorithm\Rating\Elo;
 require_once __DIR__ . '/../../Autoloader.php';
 
 /**
- * @testdox phpOMS\tests\Algorithm\Rating\EloTest: Rating generation
- *
  * @internal
  */
+#[\PHPUnit\Framework\Attributes\CoversClass(\phpOMS\Algorithm\Rating\Elo::class)]
+#[\PHPUnit\Framework\Attributes\TestDox('phpOMS\tests\Algorithm\Rating\EloTest: Rating generation')]
 final class EloTest extends \PHPUnit\Framework\TestCase
 {
-    /**
-     * @testdox 1v1 rating test
-     * @covers \phpOMS\Algorithm\Rating\Elo
-     * @group framework
-     */
+    #[\PHPUnit\Framework\Attributes\Group('framework')]
+    #[\PHPUnit\Framework\Attributes\TestDox('1v1 rating test')]
     public function testSoloRating() : void
     {
         $rating = new Elo();
@@ -79,11 +76,8 @@ final class EloTest extends \PHPUnit\Framework\TestCase
         );
     }
 
-    /**
-     * @testdox group rating test
-     * @covers \phpOMS\Algorithm\Rating\Elo
-     * @group framework
-     */
+    #[\PHPUnit\Framework\Attributes\Group('framework')]
+    #[\PHPUnit\Framework\Attributes\TestDox('group rating test')]
     public function testGroupRating() : void
     {
         $rating = new Elo();

@@ -17,17 +17,14 @@ namespace phpOMS\tests\Utils\Encoding\Huffman;
 use phpOMS\Utils\Encoding\Huffman\Dictionary;
 
 /**
- * @testdox phpOMS\tests\Utils\Encoding\Huffman\DictionaryTest: Dictionary for the huffman encoding
- *
  * @internal
  */
+#[\PHPUnit\Framework\Attributes\CoversClass(\phpOMS\Utils\Encoding\Huffman\Dictionary::class)]
+#[\PHPUnit\Framework\Attributes\TestDox('phpOMS\tests\Utils\Encoding\Huffman\DictionaryTest: Dictionary for the huffman encoding')]
 final class DictionaryTest extends \PHPUnit\Framework\TestCase
 {
-    /**
-     * @testdox Only single characters can be returned from the dictionary. Multiple characters throw a InvalidArgumentException
-     * @covers \phpOMS\Utils\Encoding\Huffman\Dictionary
-     * @group framework
-     */
+    #[\PHPUnit\Framework\Attributes\Group('framework')]
+    #[\PHPUnit\Framework\Attributes\TestDox('Only single characters can be returned from the dictionary. Multiple characters throw a InvalidArgumentException')]
     public function testInvalidGetCharacter() : void
     {
         $this->expectException(\InvalidArgumentException::class);
@@ -36,11 +33,8 @@ final class DictionaryTest extends \PHPUnit\Framework\TestCase
         $dict->get('as');
     }
 
-    /**
-     * @testdox A none-existing character throws a InvalidArgumentException
-     * @covers \phpOMS\Utils\Encoding\Huffman\Dictionary
-     * @group framework
-     */
+    #[\PHPUnit\Framework\Attributes\Group('framework')]
+    #[\PHPUnit\Framework\Attributes\TestDox('A none-existing character throws a InvalidArgumentException')]
     public function testNotExistingGetCharacter() : void
     {
         $this->expectException(\InvalidArgumentException::class);
@@ -49,11 +43,8 @@ final class DictionaryTest extends \PHPUnit\Framework\TestCase
         $dict->get('a');
     }
 
-    /**
-     * @testdox Only single characters can be set in the dictionary. Multiple characters throw a InvalidArgumentException
-     * @covers \phpOMS\Utils\Encoding\Huffman\Dictionary
-     * @group framework
-     */
+    #[\PHPUnit\Framework\Attributes\Group('framework')]
+    #[\PHPUnit\Framework\Attributes\TestDox('Only single characters can be set in the dictionary. Multiple characters throw a InvalidArgumentException')]
     public function testInvalidSetCharacter() : void
     {
         $this->expectException(\InvalidArgumentException::class);
@@ -62,11 +53,8 @@ final class DictionaryTest extends \PHPUnit\Framework\TestCase
         $dict->set('as', 'test');
     }
 
-    /**
-     * @testdox Dictionary elements cannot be overwritten and throw a InvalidArgumentException
-     * @covers \phpOMS\Utils\Encoding\Huffman\Dictionary
-     * @group framework
-     */
+    #[\PHPUnit\Framework\Attributes\Group('framework')]
+    #[\PHPUnit\Framework\Attributes\TestDox('Dictionary elements cannot be overwritten and throw a InvalidArgumentException')]
     public function testInvalidSetDuplicateCharacter() : void
     {
         $this->expectException(\InvalidArgumentException::class);
@@ -76,11 +64,8 @@ final class DictionaryTest extends \PHPUnit\Framework\TestCase
         $dict->set('a', '1');
     }
 
-    /**
-     * @testdox Invalid dictionary values throw a InvalidArgumentException
-     * @covers \phpOMS\Utils\Encoding\Huffman\Dictionary
-     * @group framework
-     */
+    #[\PHPUnit\Framework\Attributes\Group('framework')]
+    #[\PHPUnit\Framework\Attributes\TestDox('Invalid dictionary values throw a InvalidArgumentException')]
     public function testInvalidFormattedValue() : void
     {
         $this->expectException(\InvalidArgumentException::class);

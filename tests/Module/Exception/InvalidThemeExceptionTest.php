@@ -19,12 +19,10 @@ use phpOMS\Module\Exception\InvalidThemeException;
 /**
  * @internal
  */
+#[\PHPUnit\Framework\Attributes\CoversClass(\phpOMS\Module\Exception\InvalidThemeException::class)]
 final class InvalidThemeExceptionTest extends \PHPUnit\Framework\TestCase
 {
-    /**
-     * @covers \phpOMS\Module\Exception\InvalidThemeException
-     * @group framework
-     */
+    #[\PHPUnit\Framework\Attributes\Group('framework')]
     public function testException() : void
     {
         self::assertInstanceOf(\UnexpectedValueException::class, new InvalidThemeException(''));

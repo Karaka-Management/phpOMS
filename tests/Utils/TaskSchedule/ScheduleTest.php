@@ -17,17 +17,14 @@ namespace phpOMS\tests\Utils\TaskSchedule;
 use phpOMS\Utils\TaskSchedule\Schedule;
 
 /**
- * @testdox phpOMS\tests\Utils\TaskSchedule\ScheduleTest: Schedule/task
- *
  * @internal
  */
+#[\PHPUnit\Framework\Attributes\CoversClass(\phpOMS\Utils\TaskSchedule\Schedule::class)]
+#[\PHPUnit\Framework\Attributes\TestDox('phpOMS\tests\Utils\TaskSchedule\ScheduleTest: Schedule/task')]
 final class ScheduleTest extends \PHPUnit\Framework\TestCase
 {
-    /**
-     * @testdox The task has the expected default values after initialization
-     * @covers \phpOMS\Utils\TaskSchedule\Schedule
-     * @group framework
-     */
+    #[\PHPUnit\Framework\Attributes\Group('framework')]
+    #[\PHPUnit\Framework\Attributes\TestDox('The task has the expected default values after initialization')]
     public function testDefault() : void
     {
         $job = new Schedule('');
@@ -35,12 +32,9 @@ final class ScheduleTest extends \PHPUnit\Framework\TestCase
         self::assertInstanceOf('\phpOMS\Utils\TaskSchedule\TaskAbstract', $job);
     }
 
-    /**
-     * @testdox A task can be created from an array and rendered
-     * @covers \phpOMS\Utils\TaskSchedule\Schedule
-     *
-     * @group framework
-     */
+    
+    #[\PHPUnit\Framework\Attributes\Group('framework')]
+    #[\PHPUnit\Framework\Attributes\TestDox('A task can be created from an array and rendered')]
     public function testCreateJobWithData() : void
     {
         $job = Schedule::createWith(['hostname', 'testname', '2018-06-02', 'Ready', 'Background', 'N/A', '1', 'INTERVAL', 'testcmd', '/var/usr', 'comment']);

@@ -19,17 +19,14 @@ use phpOMS\Utils\ArrayUtils;
 require_once __DIR__ . '/../Autoloader.php';
 
 /**
- * @testdox phpOMS\tests\Utils\ArrayUtilsTest: Array utilities
- *
  * @internal
  */
+#[\PHPUnit\Framework\Attributes\CoversClass(\phpOMS\Utils\ArrayUtils::class)]
+#[\PHPUnit\Framework\Attributes\TestDox('phpOMS\tests\Utils\ArrayUtilsTest: Array utilities')]
 final class ArrayUtilsTest extends \PHPUnit\Framework\TestCase
 {
-    /**
-     * @testdox Array values can be set and returned with a path
-     * @covers \phpOMS\Utils\ArrayUtils
-     * @group framework
-     */
+    #[\PHPUnit\Framework\Attributes\Group('framework')]
+    #[\PHPUnit\Framework\Attributes\TestDox('Array values can be set and returned with a path')]
     public function testArrayInputOutput() : void
     {
         $expected = [
@@ -61,11 +58,8 @@ final class ArrayUtilsTest extends \PHPUnit\Framework\TestCase
         self::assertEquals('ab0', ArrayUtils::getArray('a/ab/1', $expected));
     }
 
-    /**
-     * @testdox A invalid array path returns null
-     * @covers \phpOMS\Utils\ArrayUtils
-     * @group framework
-     */
+    #[\PHPUnit\Framework\Attributes\Group('framework')]
+    #[\PHPUnit\Framework\Attributes\TestDox('A invalid array path returns null')]
     public function testArrayInvalidArrayPath() : void
     {
         $expected = [
@@ -87,11 +81,8 @@ final class ArrayUtilsTest extends \PHPUnit\Framework\TestCase
         self::assertNull(ArrayUtils::getArray('a/zzz/1', $expected));
     }
 
-    /**
-     * @testdox Test recursively if a value is in an array
-     * @covers \phpOMS\Utils\ArrayUtils
-     * @group framework
-     */
+    #[\PHPUnit\Framework\Attributes\Group('framework')]
+    #[\PHPUnit\Framework\Attributes\TestDox('Test recursively if a value is in an array')]
     public function testArrayInRecursive() : void
     {
         $expected = [
@@ -111,11 +102,8 @@ final class ArrayUtilsTest extends \PHPUnit\Framework\TestCase
         self::assertFalse(ArrayUtils::inArrayRecursive('2a', $expected, 3));
     }
 
-    /**
-     * @testdox An array element can be removed by its path
-     * @covers \phpOMS\Utils\ArrayUtils
-     * @group framework
-     */
+    #[\PHPUnit\Framework\Attributes\Group('framework')]
+    #[\PHPUnit\Framework\Attributes\TestDox('An array element can be removed by its path')]
     public function testArrayDelete() : void
     {
         $expected = [
@@ -132,11 +120,8 @@ final class ArrayUtilsTest extends \PHPUnit\Framework\TestCase
         self::assertFalse(ArrayUtils::inArrayRecursive('aba', ArrayUtils::unsetArray('a/ab', $expected, '/')));
     }
 
-    /**
-     * @testdox Deleting an invalid array path returns the original array
-     * @covers \phpOMS\Utils\ArrayUtils
-     * @group framework
-     */
+    #[\PHPUnit\Framework\Attributes\Group('framework')]
+    #[\PHPUnit\Framework\Attributes\TestDox('Deleting an invalid array path returns the original array')]
     public function testInvalidArrayDelete() : void
     {
         $expected = [
@@ -153,22 +138,16 @@ final class ArrayUtilsTest extends \PHPUnit\Framework\TestCase
         self::assertEquals($expected, ArrayUtils::unsetArray('a/zzz', $expected, '/'));
     }
 
-    /**
-     * @testdox The recursive sum of all values in an array can be calculated
-     * @covers \phpOMS\Utils\ArrayUtils
-     * @group framework
-     */
+    #[\PHPUnit\Framework\Attributes\Group('framework')]
+    #[\PHPUnit\Framework\Attributes\TestDox('The recursive sum of all values in an array can be calculated')]
     public function testArrayRecursiveSum() : void
     {
         $numArrRec = [1, [2, [3, 4]]];
         self::assertEquals(10, ArrayUtils::arraySumRecursive($numArrRec));
     }
 
-    /**
-     * @testdox A multi-dimensional array can be flatten to a one-dimensional array
-     * @covers \phpOMS\Utils\ArrayUtils
-     * @group framework
-     */
+    #[\PHPUnit\Framework\Attributes\Group('framework')]
+    #[\PHPUnit\Framework\Attributes\TestDox('A multi-dimensional array can be flatten to a one-dimensional array')]
     public function testArrayFlatten() : void
     {
         $numArr    = [1, 2, 3, 4];
@@ -176,11 +155,8 @@ final class ArrayUtilsTest extends \PHPUnit\Framework\TestCase
         self::assertEquals($numArr, ArrayUtils::arrayFlatten($numArrRec));
     }
 
-    /**
-     * @testdox The sum of an array can be calculated
-     * @covers \phpOMS\Utils\ArrayUtils
-     * @group framework
-     */
+    #[\PHPUnit\Framework\Attributes\Group('framework')]
+    #[\PHPUnit\Framework\Attributes\TestDox('The sum of an array can be calculated')]
     public function testArraySum() : void
     {
         $numArr = [1, 2, 3, 4];
@@ -189,11 +165,8 @@ final class ArrayUtilsTest extends \PHPUnit\Framework\TestCase
         self::assertEquals(5, ArrayUtils::arraySum($numArr, 1, 2));
     }
 
-    /**
-     * @testdox An array can be checked if it contains multiple defined elements
-     * @covers \phpOMS\Utils\ArrayUtils
-     * @group framework
-     */
+    #[\PHPUnit\Framework\Attributes\Group('framework')]
+    #[\PHPUnit\Framework\Attributes\TestDox('An array can be checked if it contains multiple defined elements')]
     public function testArrayAllIn() : void
     {
         $numArr = [1, 2, 3, 4];
@@ -203,11 +176,8 @@ final class ArrayUtilsTest extends \PHPUnit\Framework\TestCase
         self::assertFalse(ArrayUtils::allInArray([1, 5, 3], $numArr));
     }
 
-    /**
-     * @testdox An array can be checked if it contains any of the defined elements
-     * @covers \phpOMS\Utils\ArrayUtils
-     * @group framework
-     */
+    #[\PHPUnit\Framework\Attributes\Group('framework')]
+    #[\PHPUnit\Framework\Attributes\TestDox('An array can be checked if it contains any of the defined elements')]
     public function testArrayAnyIn() : void
     {
         $numArr = [1, 2, 3, 4];
@@ -215,11 +185,8 @@ final class ArrayUtilsTest extends \PHPUnit\Framework\TestCase
         self::assertFalse(ArrayUtils::anyInArray($numArr, [10, 22]));
     }
 
-    /**
-     * @testdox An array can be turned into a csv string
-     * @covers \phpOMS\Utils\ArrayUtils
-     * @group framework
-     */
+    #[\PHPUnit\Framework\Attributes\Group('framework')]
+    #[\PHPUnit\Framework\Attributes\TestDox('An array can be turned into a csv string')]
     public function testArrayToCsv() : void
     {
         $csvArr = [
@@ -235,11 +202,8 @@ final class ArrayUtilsTest extends \PHPUnit\Framework\TestCase
             ArrayUtils::arrayToCsv($csvArr));
     }
 
-    /**
-     * @testdox An array can be checked if it has an element and returns its index
-     * @covers \phpOMS\Utils\ArrayUtils
-     * @group framework
-     */
+    #[\PHPUnit\Framework\Attributes\Group('framework')]
+    #[\PHPUnit\Framework\Attributes\TestDox('An array can be checked if it has an element and returns its index')]
     public function testArgHas() : void
     {
         if (ArrayUtils::getArg('--configuration', $_SERVER['argv'] ?? []) !== null) {
@@ -247,21 +211,15 @@ final class ArrayUtilsTest extends \PHPUnit\Framework\TestCase
         }
     }
 
-    /**
-     * @testdox A none-existing argument in an array returns a negative value
-     * @covers \phpOMS\Utils\ArrayUtils
-     * @group framework
-     */
+    #[\PHPUnit\Framework\Attributes\Group('framework')]
+    #[\PHPUnit\Framework\Attributes\TestDox('A none-existing argument in an array returns a negative value')]
     public function testInvalidArgHas() : void
     {
         self::assertEquals(-1, ArrayUtils::hasArg('--testNull', $_SERVER['argv'] ?? []));
     }
 
-    /**
-     * @testdox The argument value in an array can be returned
-     * @covers \phpOMS\Utils\ArrayUtils
-     * @group framework
-     */
+    #[\PHPUnit\Framework\Attributes\Group('framework')]
+    #[\PHPUnit\Framework\Attributes\TestDox('The argument value in an array can be returned')]
     public function testArgGet() : void
     {
         if (ArrayUtils::getArg('--configuration', $_SERVER['argv'] ?? []) !== null) {
@@ -269,22 +227,16 @@ final class ArrayUtilsTest extends \PHPUnit\Framework\TestCase
         }
     }
 
-    /**
-     * @testdox A none-existing argument in an array returns null
-     * @covers \phpOMS\Utils\ArrayUtils
-     * @group framework
-     */
+    #[\PHPUnit\Framework\Attributes\Group('framework')]
+    #[\PHPUnit\Framework\Attributes\TestDox('A none-existing argument in an array returns null')]
     public function testInvalidArgGet() : void
     {
         self::assertNull(ArrayUtils::getArg('--testNull', $_SERVER['argv'] ?? []));
     }
 
-    /**
-     * @testdox All array values in an array can be potentiated by a numeric value
-     * @covers \phpOMS\Utils\ArrayUtils
-     *
-     * @group framework
-     */
+    
+    #[\PHPUnit\Framework\Attributes\Group('framework')]
+    #[\PHPUnit\Framework\Attributes\TestDox('All array values in an array can be potentiated by a numeric value')]
     public function test() : void
     {
         self::assertEquals([4, 9, 16], ArrayUtils::power([2, 3, 4], 2));
@@ -294,31 +246,22 @@ final class ArrayUtilsTest extends \PHPUnit\Framework\TestCase
         self::assertEqualsWithDelta([2.0, 3.0, 4.0], ArrayUtils::power([8, 27, 64], 1 / 3), 0.01);
     }
 
-    /**
-     * @testdox All array values in an array can be square rooted
-     * @covers \phpOMS\Utils\ArrayUtils
-     * @group framework
-     */
+    #[\PHPUnit\Framework\Attributes\Group('framework')]
+    #[\PHPUnit\Framework\Attributes\TestDox('All array values in an array can be square rooted')]
     public function testSqrt() : void
     {
         self::assertEqualsWithDelta([2, 3, 4], ArrayUtils::sqrt([4, 9, 16]), 0.01);
     }
 
-    /**
-     * @testdox All array values in an array can be turned into their absolute value
-     * @covers \phpOMS\Utils\ArrayUtils
-     * @group framework
-     */
+    #[\PHPUnit\Framework\Attributes\Group('framework')]
+    #[\PHPUnit\Framework\Attributes\TestDox('All array values in an array can be turned into their absolute value')]
     public function testAbs() : void
     {
         self::assertEquals([1, 3, 4], ArrayUtils::abs([-1, 3, -4]));
     }
 
-    /**
-     * @testdox The difference of two arrays can be evaluated recursively
-     * @covers \phpOMS\Utils\ArrayUtils
-     * @group framework
-     */
+    #[\PHPUnit\Framework\Attributes\Group('framework')]
+    #[\PHPUnit\Framework\Attributes\TestDox('The difference of two arrays can be evaluated recursively')]
     public function testArrayDiffAssocResursive() : void
     {
         self::assertEquals(

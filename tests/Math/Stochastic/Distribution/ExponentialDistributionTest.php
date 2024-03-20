@@ -19,12 +19,10 @@ use phpOMS\Math\Stochastic\Distribution\ExponentialDistribution;
 /**
  * @internal
  */
+#[\PHPUnit\Framework\Attributes\CoversClass(\phpOMS\Math\Stochastic\Distribution\ExponentialDistribution::class)]
 final class ExponentialDistributionTest extends \PHPUnit\Framework\TestCase
 {
-    /**
-     * @covers \phpOMS\Math\Stochastic\Distribution\ExponentialDistribution
-     * @group framework
-     */
+    #[\PHPUnit\Framework\Attributes\Group('framework')]
     public function testPdf() : void
     {
         $lambda = 0.1;
@@ -33,10 +31,7 @@ final class ExponentialDistributionTest extends \PHPUnit\Framework\TestCase
         self::assertEqualsWithDelta(0.049659, ExponentialDistribution::getPdf($x, $lambda), 0.01);
     }
 
-    /**
-     * @covers \phpOMS\Math\Stochastic\Distribution\ExponentialDistribution
-     * @group framework
-     */
+    #[\PHPUnit\Framework\Attributes\Group('framework')]
     public function testCdf() : void
     {
         $lambda = 0.1;
@@ -45,37 +40,25 @@ final class ExponentialDistributionTest extends \PHPUnit\Framework\TestCase
         self::assertEqualsWithDelta(0.5034, ExponentialDistribution::getCdf($x, $lambda), 0.01);
     }
 
-    /**
-     * @covers \phpOMS\Math\Stochastic\Distribution\ExponentialDistribution
-     * @group framework
-     */
+    #[\PHPUnit\Framework\Attributes\Group('framework')]
     public function testMean() : void
     {
         self::assertEquals(1 / 3, ExponentialDistribution::getMean(3));
     }
 
-    /**
-     * @covers \phpOMS\Math\Stochastic\Distribution\ExponentialDistribution
-     * @group framework
-     */
+    #[\PHPUnit\Framework\Attributes\Group('framework')]
     public function testMode() : void
     {
         self::assertEquals(0, ExponentialDistribution::getMode());
     }
 
-    /**
-     * @covers \phpOMS\Math\Stochastic\Distribution\ExponentialDistribution
-     * @group framework
-     */
+    #[\PHPUnit\Framework\Attributes\Group('framework')]
     public function testMedian() : void
     {
         self::assertEquals(1 / 3 * \log(2), ExponentialDistribution::getMedian(3));
     }
 
-    /**
-     * @covers \phpOMS\Math\Stochastic\Distribution\ExponentialDistribution
-     * @group framework
-     */
+    #[\PHPUnit\Framework\Attributes\Group('framework')]
     public function testMgf() : void
     {
         $lambda = 3;
@@ -84,46 +67,31 @@ final class ExponentialDistributionTest extends \PHPUnit\Framework\TestCase
         self::assertEquals($lambda / ($lambda - $t), ExponentialDistribution::getMgf($t, $lambda));
     }
 
-    /**
-     * @covers \phpOMS\Math\Stochastic\Distribution\ExponentialDistribution
-     * @group framework
-     */
+    #[\PHPUnit\Framework\Attributes\Group('framework')]
     public function testVariance() : void
     {
         self::assertEquals(1 / (3 ** 2), ExponentialDistribution::getVariance(3));
     }
 
-    /**
-     * @covers \phpOMS\Math\Stochastic\Distribution\ExponentialDistribution
-     * @group framework
-     */
+    #[\PHPUnit\Framework\Attributes\Group('framework')]
     public function testStandardDeviation() : void
     {
         self::assertEquals(\sqrt(1 / (3 ** 2)), ExponentialDistribution::getStandardDeviation(3));
     }
 
-    /**
-     * @covers \phpOMS\Math\Stochastic\Distribution\ExponentialDistribution
-     * @group framework
-     */
+    #[\PHPUnit\Framework\Attributes\Group('framework')]
     public function testExKurtosis() : void
     {
         self::assertEquals(6, ExponentialDistribution::getExKurtosis());
     }
 
-    /**
-     * @covers \phpOMS\Math\Stochastic\Distribution\ExponentialDistribution
-     * @group framework
-     */
+    #[\PHPUnit\Framework\Attributes\Group('framework')]
     public function testSkewness() : void
     {
         self::assertEquals(2, ExponentialDistribution::getSkewness());
     }
 
-    /**
-     * @covers \phpOMS\Math\Stochastic\Distribution\ExponentialDistribution
-     * @group framework
-     */
+    #[\PHPUnit\Framework\Attributes\Group('framework')]
     public function testMgfException() : void
     {
         $this->expectException(\OutOfBoundsException::class);

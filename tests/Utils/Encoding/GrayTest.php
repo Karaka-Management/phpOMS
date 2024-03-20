@@ -17,17 +17,14 @@ namespace phpOMS\tests\Utils\Encoding;
 use phpOMS\Utils\Encoding\Gray;
 
 /**
- * @testdox phpOMS\tests\Utils\Encoding\GrayTest: Gray text encoding/decoding
- *
  * @internal
  */
+#[\PHPUnit\Framework\Attributes\CoversClass(\phpOMS\Utils\Encoding\Gray::class)]
+#[\PHPUnit\Framework\Attributes\TestDox('phpOMS\tests\Utils\Encoding\GrayTest: Gray text encoding/decoding')]
 final class GrayTest extends \PHPUnit\Framework\TestCase
 {
-    /**
-     * @testdox Text can be encoded and decoded with the gray encoding
-     * @covers \phpOMS\Utils\Encoding\Gray
-     * @group framework
-     */
+    #[\PHPUnit\Framework\Attributes\Group('framework')]
+    #[\PHPUnit\Framework\Attributes\TestDox('Text can be encoded and decoded with the gray encoding')]
     public function testEncoding() : void
     {
         self::assertEquals(55, Gray::encode(37));

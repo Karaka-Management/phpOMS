@@ -22,10 +22,10 @@ use phpOMS\Localization\Defaults\Language;
 use phpOMS\Localization\Defaults\LanguageMapper;
 
 /**
- * @testdox phpOMS\tests\Localization\Defaults\LanguageMapperTest: Language database mapper
- *
  * @internal
  */
+#[\PHPUnit\Framework\Attributes\CoversClass(\phpOMS\Localization\Defaults\LanguageMapper::class)]
+#[\PHPUnit\Framework\Attributes\TestDox('phpOMS\tests\Localization\Defaults\LanguageMapperTest: Language database mapper')]
 final class LanguageMapperTest extends \PHPUnit\Framework\TestCase
 {
     private static SQLiteConnection $con;
@@ -42,11 +42,8 @@ final class LanguageMapperTest extends \PHPUnit\Framework\TestCase
         DataMapperFactory::db(self::$con);
     }
 
-    /**
-     * @testdox The model can be read from the database
-     * @covers \phpOMS\Localization\Defaults\LanguageMapper
-     * @group framework
-     */
+    #[\PHPUnit\Framework\Attributes\Group('framework')]
+    #[\PHPUnit\Framework\Attributes\TestDox('The model can be read from the database')]
     public function testR() : void
     {
         /** @var Language $obj */

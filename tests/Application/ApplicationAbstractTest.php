@@ -17,17 +17,14 @@ namespace phpOMS\tests\Application;
 use phpOMS\Application\ApplicationAbstract;
 
 /**
- * @testdox phpOMS\tests\Application\ApplicationAbstractTest: Application abstraction
- *
  * @internal
  */
+#[\PHPUnit\Framework\Attributes\CoversClass(\phpOMS\Application\ApplicationAbstract::class)]
+#[\PHPUnit\Framework\Attributes\TestDox('phpOMS\tests\Application\ApplicationAbstractTest: Application abstraction')]
 final class ApplicationAbstractTest extends \PHPUnit\Framework\TestCase
 {
-    /**
-     * @testdox Application values can be set and returned
-     * @covers \phpOMS\Application\ApplicationAbstract<extended>
-     * @group framework
-     */
+    #[\PHPUnit\Framework\Attributes\Group('framework')]
+    #[\PHPUnit\Framework\Attributes\TestDox('Application values can be set and returned')]
     public function testInputOutput() : void
     {
         $obj = new class() extends ApplicationAbstract {};
@@ -36,11 +33,8 @@ final class ApplicationAbstractTest extends \PHPUnit\Framework\TestCase
         self::assertEquals('Test', $obj->appName);
     }
 
-    /**
-     * @testdox Application values cannot be overwritten
-     * @covers \phpOMS\Application\ApplicationAbstract<extended>
-     * @group framework
-     */
+    #[\PHPUnit\Framework\Attributes\Group('framework')]
+    #[\PHPUnit\Framework\Attributes\TestDox('Application values cannot be overwritten')]
     public function testInvalidInputOutput() : void
     {
         $obj = new class() extends ApplicationAbstract {};

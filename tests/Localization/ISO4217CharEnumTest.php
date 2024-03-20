@@ -19,16 +19,14 @@ require_once __DIR__ . '/../Autoloader.php';
 use phpOMS\Localization\ISO4217CharEnum;
 
 /**
- * @testdox phpOMS\tests\Localization\ISO4217CharEnumTest: ISO 4217 currency codes
  * @internal
  */
+#[\PHPUnit\Framework\Attributes\TestDox('phpOMS\tests\Localization\ISO4217CharEnumTest: ISO 4217 currency codes')]
 final class ISO4217CharEnumTest extends \PHPUnit\Framework\TestCase
 {
-    /**
-     * @testdox The ISO 4217 currency code enum has the correct format of currency codes
-     * @group framework
-     * @coversNothing
-     */
+    #[\PHPUnit\Framework\Attributes\Group('framework')]
+    #[\PHPUnit\Framework\Attributes\TestDox('The ISO 4217 currency code enum has the correct format of currency codes')]
+    #[\PHPUnit\Framework\Attributes\CoversNothing]
     public function testEnums() : void
     {
         $ok = true;
@@ -45,11 +43,9 @@ final class ISO4217CharEnumTest extends \PHPUnit\Framework\TestCase
         self::assertTrue($ok);
     }
 
-    /**
-     * @testdox The ISO 4217 enum has only unique values
-     * @group framework
-     * @coversNothing
-     */
+    #[\PHPUnit\Framework\Attributes\Group('framework')]
+    #[\PHPUnit\Framework\Attributes\TestDox('The ISO 4217 enum has only unique values')]
+    #[\PHPUnit\Framework\Attributes\CoversNothing]
     public function testUnique() : void
     {
         self::assertEquals(ISO4217CharEnum::getConstants(), \array_unique(ISO4217CharEnum::getConstants()));

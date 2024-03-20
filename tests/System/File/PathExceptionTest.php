@@ -19,12 +19,10 @@ use phpOMS\System\File\PathException;
 /**
  * @internal
  */
+#[\PHPUnit\Framework\Attributes\CoversClass(\phpOMS\System\File\PathException::class)]
 final class PathExceptionTest extends \PHPUnit\Framework\TestCase
 {
-    /**
-     * @covers \phpOMS\System\File\PathException
-     * @group framework
-     */
+    #[\PHPUnit\Framework\Attributes\Group('framework')]
     public function testConstructor() : void
     {
         $e = new PathException('test.file');

@@ -22,13 +22,12 @@ use phpOMS\DataStorage\Database\Query\Builder;
 use phpOMS\DataStorage\Database\Query\Parameter;
 
 /**
- * @testdox phpOMS\tests\DataStorage\Database\Query\BuilderTest: Query builder for sql queries
- *
  * @internal
  */
+#[\PHPUnit\Framework\Attributes\TestDox('phpOMS\tests\DataStorage\Database\Query\BuilderTest: Query builder for sql queries')]
 final class BuilderTest extends \PHPUnit\Framework\TestCase
 {
-    public function dbConnectionProvider() : array
+    public static function dbConnectionProvider() : array
     {
         $cons = [
             [new MysqlConnection($GLOBALS['CONFIG']['db']['core']['masters']['admin'])],
@@ -45,11 +44,9 @@ final class BuilderTest extends \PHPUnit\Framework\TestCase
         return $cons;
     }
 
-    /**
-     * @testdox Mysql selects form a valid query
-     * @group framework
-     * @dataProvider dbConnectionProvider
-     */
+    #[\PHPUnit\Framework\Attributes\DataProvider('dbConnectionProvider')]
+    #[\PHPUnit\Framework\Attributes\Group('framework')]
+    #[\PHPUnit\Framework\Attributes\TestDox('Mysql selects form a valid query')]
     public function testSelect($con) : void
     {
         if (!$con->isInitialized()) {
@@ -165,11 +162,9 @@ final class BuilderTest extends \PHPUnit\Framework\TestCase
         self::assertEquals($sql, $query->random('a.test')->fromAs('a', 'b')->where('a.test', '=', 1)->toSql());
     }
 
-    /**
-     * @testdox Mysql orders form a valid query
-     * @group framework
-     * @dataProvider dbConnectionProvider
-     */
+    #[\PHPUnit\Framework\Attributes\DataProvider('dbConnectionProvider')]
+    #[\PHPUnit\Framework\Attributes\Group('framework')]
+    #[\PHPUnit\Framework\Attributes\TestDox('Mysql orders form a valid query')]
     public function testOrder($con) : void
     {
         if (!$con->isInitialized()) {
@@ -212,11 +207,9 @@ final class BuilderTest extends \PHPUnit\Framework\TestCase
         self::assertEquals($sql, $query->select('a.test')->from('a')->where('a.test', '=', 1)->orderBy(['a.test', 'a.test2'], 'ASC')->toSql());
     }
 
-    /**
-     * @testdox Mysql offsets and limits form a valid query
-     * @group framework
-     * @dataProvider dbConnectionProvider
-     */
+    #[\PHPUnit\Framework\Attributes\DataProvider('dbConnectionProvider')]
+    #[\PHPUnit\Framework\Attributes\Group('framework')]
+    #[\PHPUnit\Framework\Attributes\TestDox('Mysql offsets and limits form a valid query')]
     public function testOffsetLimit($con) : void
     {
         if (!$con->isInitialized()) {
@@ -239,11 +232,9 @@ final class BuilderTest extends \PHPUnit\Framework\TestCase
         self::assertEquals($sql, $query->select('a.test')->from('a')->where('a.test', '=', 1)->offset(3)->toSql());
     }
 
-    /**
-     * @testdox Mysql groupings form a valid query
-     * @group framework
-     * @dataProvider dbConnectionProvider
-     */
+    #[\PHPUnit\Framework\Attributes\DataProvider('dbConnectionProvider')]
+    #[\PHPUnit\Framework\Attributes\Group('framework')]
+    #[\PHPUnit\Framework\Attributes\TestDox('Mysql groupings form a valid query')]
     public function testGroup($con) : void
     {
         if (!$con->isInitialized()) {
@@ -274,11 +265,9 @@ final class BuilderTest extends \PHPUnit\Framework\TestCase
         self::assertEquals($sql, $query->select('a.test')->from('a')->where('a.test', '=', new Parameter('test'))->groupBy('a', 'b')->toSql());
     }
 
-    /**
-     * @testdox Mysql wheres form a valid query
-     * @group framework
-     * @dataProvider dbConnectionProvider
-     */
+    #[\PHPUnit\Framework\Attributes\DataProvider('dbConnectionProvider')]
+    #[\PHPUnit\Framework\Attributes\Group('framework')]
+    #[\PHPUnit\Framework\Attributes\TestDox('Mysql wheres form a valid query')]
     public function testWheres($con) : void
     {
         if (!$con->isInitialized()) {
@@ -361,11 +350,9 @@ final class BuilderTest extends \PHPUnit\Framework\TestCase
         self::assertEquals($sql, $query->select('a.test')->from('a')->where('a.test', '=', new Parameter('testWhere'))->whereIn('a.test2', ['a', new Parameter('bValue'), 'c'], 'or')->toSql());
     }
 
-    /**
-     * @testdox Mysql joins form a valid query
-     * @group framework
-     * @dataProvider dbConnectionProvider
-     */
+    #[\PHPUnit\Framework\Attributes\DataProvider('dbConnectionProvider')]
+    #[\PHPUnit\Framework\Attributes\Group('framework')]
+    #[\PHPUnit\Framework\Attributes\TestDox('Mysql joins form a valid query')]
     public function testJoins($con) : void
     {
         if (!$con->isInitialized()) {
@@ -448,11 +435,9 @@ final class BuilderTest extends \PHPUnit\Framework\TestCase
         self::assertEquals($sql, $query->select('a.test')->from('a')->fullOuterJoin('b')->on('a.id', '=', 'b.id')->where('a.test', '=', 1)->toSql());
     }
 
-    /**
-     * @testdox Mysql inserts form a valid query
-     * @group framework
-     * @dataProvider dbConnectionProvider
-     */
+    #[\PHPUnit\Framework\Attributes\DataProvider('dbConnectionProvider')]
+    #[\PHPUnit\Framework\Attributes\Group('framework')]
+    #[\PHPUnit\Framework\Attributes\TestDox('Mysql inserts form a valid query')]
     public function testInsert($con) : void
     {
         if (!$con->isInitialized()) {
@@ -491,11 +476,9 @@ final class BuilderTest extends \PHPUnit\Framework\TestCase
         self::assertEquals($sql, $query->insert('test', 'test2')->into('a')->values(new Parameter('test'), new Parameter('test2'))->toSql());
     }
 
-    /**
-     * @testdox Mysql deletes form a valid query
-     * @group framework
-     * @dataProvider dbConnectionProvider
-     */
+    #[\PHPUnit\Framework\Attributes\DataProvider('dbConnectionProvider')]
+    #[\PHPUnit\Framework\Attributes\Group('framework')]
+    #[\PHPUnit\Framework\Attributes\TestDox('Mysql deletes form a valid query')]
     public function testDelete($con) : void
     {
         if (!$con->isInitialized()) {
@@ -518,11 +501,9 @@ final class BuilderTest extends \PHPUnit\Framework\TestCase
         self::assertEquals($sql, $query->delete()->from('a')->where('a.test', '=', new Parameter('testVal'))->toSql());
     }
 
-    /**
-     * @testdox Mysql updates form a valid query
-     * @group framework
-     * @dataProvider dbConnectionProvider
-     */
+    #[\PHPUnit\Framework\Attributes\DataProvider('dbConnectionProvider')]
+    #[\PHPUnit\Framework\Attributes\Group('framework')]
+    #[\PHPUnit\Framework\Attributes\TestDox('Mysql updates form a valid query')]
     public function testUpdate($con) : void
     {
         if (!$con->isInitialized()) {
@@ -550,11 +531,9 @@ final class BuilderTest extends \PHPUnit\Framework\TestCase
         self::assertEquals($sql, $query->update('a')->set(['test' => 1])->set(['test2' => new Parameter('test2')])->where('a.test', '=', new Parameter('test3'))->toSql());
     }
 
-    /**
-     * @testdox Raw queries get output as defined
-     * @group framework
-     * @dataProvider dbConnectionProvider
-     */
+    #[\PHPUnit\Framework\Attributes\DataProvider('dbConnectionProvider')]
+    #[\PHPUnit\Framework\Attributes\Group('framework')]
+    #[\PHPUnit\Framework\Attributes\TestDox('Raw queries get output as defined')]
     public function testRawInputOutput($con) : void
     {
         if (!$con->isInitialized()) {
@@ -570,11 +549,9 @@ final class BuilderTest extends \PHPUnit\Framework\TestCase
         self::assertEquals('SELECT test.val FROM test;', $query->raw('SELECT test.val FROM test;')->toSql());
     }
 
-    /**
-     * @testdox Read only queries allow selects
-     * @group framework
-     * @dataProvider dbConnectionProvider
-     */
+    #[\PHPUnit\Framework\Attributes\DataProvider('dbConnectionProvider')]
+    #[\PHPUnit\Framework\Attributes\Group('framework')]
+    #[\PHPUnit\Framework\Attributes\TestDox('Read only queries allow selects')]
     public function testReadOnlyRawSelect($con) : void
     {
         if (!$con->isInitialized()) {
@@ -590,11 +567,9 @@ final class BuilderTest extends \PHPUnit\Framework\TestCase
         self::assertInstanceOf(Builder::class, $query->raw('SELECT * from oms;'));
     }
 
-    /**
-     * @testdox Read only queries don't allow drops
-     * @group framework
-     * @dataProvider dbConnectionProvider
-     */
+    #[\PHPUnit\Framework\Attributes\DataProvider('dbConnectionProvider')]
+    #[\PHPUnit\Framework\Attributes\Group('framework')]
+    #[\PHPUnit\Framework\Attributes\TestDox("Read only queries don't allow drops")]
     public function testReadOnlyRawDrop($con) : void
     {
         if (!$con->isInitialized()) {
@@ -612,11 +587,9 @@ final class BuilderTest extends \PHPUnit\Framework\TestCase
         $query->raw('DROP DATABASE oms;');
     }
 
-    /**
-     * @testdox Read only queries don't allow deletes
-     * @group framework
-     * @dataProvider dbConnectionProvider
-     */
+    #[\PHPUnit\Framework\Attributes\DataProvider('dbConnectionProvider')]
+    #[\PHPUnit\Framework\Attributes\Group('framework')]
+    #[\PHPUnit\Framework\Attributes\TestDox("Read only queries don't allow deletes")]
     public function testReadOnlyRawDelete($con) : void
     {
         if (!$con->isInitialized()) {
@@ -634,11 +607,9 @@ final class BuilderTest extends \PHPUnit\Framework\TestCase
         $query->raw('DELETE oms;');
     }
 
-    /**
-     * @testdox Read only queries don't allow creates
-     * @group framework
-     * @dataProvider dbConnectionProvider
-     */
+    #[\PHPUnit\Framework\Attributes\DataProvider('dbConnectionProvider')]
+    #[\PHPUnit\Framework\Attributes\Group('framework')]
+    #[\PHPUnit\Framework\Attributes\TestDox("Read only queries don't allow creates")]
     public function testReadOnlyRawCreate($con) : void
     {
         if (!$con->isInitialized()) {
@@ -656,11 +627,9 @@ final class BuilderTest extends \PHPUnit\Framework\TestCase
         $query->raw('CREATE oms;');
     }
 
-    /**
-     * @testdox Read only queries don't allow modifications
-     * @group framework
-     * @dataProvider dbConnectionProvider
-     */
+    #[\PHPUnit\Framework\Attributes\DataProvider('dbConnectionProvider')]
+    #[\PHPUnit\Framework\Attributes\Group('framework')]
+    #[\PHPUnit\Framework\Attributes\TestDox("Read only queries don't allow modifications")]
     public function testReadOnlyRawAlter($con) : void
     {
         if (!$con->isInitialized()) {
@@ -678,11 +647,9 @@ final class BuilderTest extends \PHPUnit\Framework\TestCase
         $query->raw('ALTER oms;');
     }
 
-    /**
-     * @testdox Read only queries don't allow inserts
-     * @group framework
-     * @dataProvider dbConnectionProvider
-     */
+    #[\PHPUnit\Framework\Attributes\DataProvider('dbConnectionProvider')]
+    #[\PHPUnit\Framework\Attributes\Group('framework')]
+    #[\PHPUnit\Framework\Attributes\TestDox("Read only queries don't allow inserts")]
     public function testReadOnlyInsert($con) : void
     {
         if (!$con->isInitialized()) {
@@ -700,11 +667,9 @@ final class BuilderTest extends \PHPUnit\Framework\TestCase
         $query->insert('test');
     }
 
-    /**
-     * @testdox Read only queries don't allow updates
-     * @group framework
-     * @dataProvider dbConnectionProvider
-     */
+    #[\PHPUnit\Framework\Attributes\DataProvider('dbConnectionProvider')]
+    #[\PHPUnit\Framework\Attributes\Group('framework')]
+    #[\PHPUnit\Framework\Attributes\TestDox("Read only queries don't allow updates")]
     public function testReadOnlyUpdate($con) : void
     {
         if (!$con->isInitialized()) {
@@ -722,11 +687,9 @@ final class BuilderTest extends \PHPUnit\Framework\TestCase
         $query->update('table');
     }
 
-    /**
-     * @testdox Read only queries don't allow deletes
-     * @group framework
-     * @dataProvider dbConnectionProvider
-     */
+    #[\PHPUnit\Framework\Attributes\DataProvider('dbConnectionProvider')]
+    #[\PHPUnit\Framework\Attributes\Group('framework')]
+    #[\PHPUnit\Framework\Attributes\TestDox("Read only queries don't allow deletes")]
     public function testReadOnlyDelete($con) : void
     {
         if (!$con->isInitialized()) {
@@ -744,11 +707,9 @@ final class BuilderTest extends \PHPUnit\Framework\TestCase
         $query->delete();
     }
 
-    /**
-     * @testdox Invalid from types throw a InvalidArgumentException
-     * @group framework
-     * @dataProvider dbConnectionProvider
-     */
+    #[\PHPUnit\Framework\Attributes\DataProvider('dbConnectionProvider')]
+    #[\PHPUnit\Framework\Attributes\Group('framework')]
+    #[\PHPUnit\Framework\Attributes\TestDox('Invalid from types throw a InvalidArgumentException')]
     public function testInvalidFromParameter($con) : void
     {
         if (!$con->isInitialized()) {
@@ -766,11 +727,9 @@ final class BuilderTest extends \PHPUnit\Framework\TestCase
         $query->from(false);
     }
 
-    /**
-     * @testdox Invalid group types throw a InvalidArgumentException
-     * @group framework
-     * @dataProvider dbConnectionProvider
-     */
+    #[\PHPUnit\Framework\Attributes\DataProvider('dbConnectionProvider')]
+    #[\PHPUnit\Framework\Attributes\Group('framework')]
+    #[\PHPUnit\Framework\Attributes\TestDox('Invalid group types throw a InvalidArgumentException')]
     public function testInvalidGroupByParameter($con) : void
     {
         if (!$con->isInitialized()) {
@@ -788,11 +747,9 @@ final class BuilderTest extends \PHPUnit\Framework\TestCase
         $query->groupBy(false);
     }
 
-    /**
-     * @testdox Invalid where operators throw a InvalidArgumentException
-     * @group framework
-     * @dataProvider dbConnectionProvider
-     */
+    #[\PHPUnit\Framework\Attributes\DataProvider('dbConnectionProvider')]
+    #[\PHPUnit\Framework\Attributes\Group('framework')]
+    #[\PHPUnit\Framework\Attributes\TestDox('Invalid where operators throw a InvalidArgumentException')]
     public function testInvalidWhereOperator($con) : void
     {
         if (!$con->isInitialized()) {
@@ -810,11 +767,9 @@ final class BuilderTest extends \PHPUnit\Framework\TestCase
         $query->where('a', 'invalid', 'b');
     }
 
-    /**
-     * @testdox Invalid join operators throw a InvalidArgumentException
-     * @group framework
-     * @dataProvider dbConnectionProvider
-     */
+    #[\PHPUnit\Framework\Attributes\DataProvider('dbConnectionProvider')]
+    #[\PHPUnit\Framework\Attributes\Group('framework')]
+    #[\PHPUnit\Framework\Attributes\TestDox('Invalid join operators throw a InvalidArgumentException')]
     public function testInvalidJoinOperator($con) : void
     {
         if (!$con->isInitialized()) {

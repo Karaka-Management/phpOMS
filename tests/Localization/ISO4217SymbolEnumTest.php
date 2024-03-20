@@ -19,16 +19,14 @@ require_once __DIR__ . '/../Autoloader.php';
 use phpOMS\Localization\ISO4217SymbolEnum;
 
 /**
- * @testdox phpOMS\tests\Localization\ISO4217SymbolEnumTest: ISO 4217 currency codes
  * @internal
  */
+#[\PHPUnit\Framework\Attributes\TestDox('phpOMS\tests\Localization\ISO4217SymbolEnumTest: ISO 4217 currency codes')]
 final class ISO4217SymbolEnumTest extends \PHPUnit\Framework\TestCase
 {
-    /**
-     * @testdox The ISO 4217 currency code enum has the correct number of currency symbols
-     * @group framework
-     * @coversNothing
-     */
+    #[\PHPUnit\Framework\Attributes\Group('framework')]
+    #[\PHPUnit\Framework\Attributes\TestDox('The ISO 4217 currency code enum has the correct number of currency symbols')]
+    #[\PHPUnit\Framework\Attributes\CoversNothing]
     public function testEnums() : void
     {
         $enum = ISO4217SymbolEnum::getConstants();

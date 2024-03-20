@@ -17,10 +17,9 @@ namespace phpOMS\tests\Math\Functions;
 use phpOMS\Math\Functions\Algebra;
 
 /**
- * @testdox phpOMS\tests\Math\Functions\AlgebraTest: Various math functions
- *
  * @internal
  */
+#[\PHPUnit\Framework\Attributes\TestDox('phpOMS\tests\Math\Functions\AlgebraTest: Various math functions')]
 final class AlgebraTest extends \PHPUnit\Framework\TestCase
 {
     public function testMultVectors() : void

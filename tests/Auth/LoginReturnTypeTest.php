@@ -19,36 +19,30 @@ require_once __DIR__ . '/../Autoloader.php';
 use phpOMS\Auth\LoginReturnType;
 
 /**
- * @testdox phpOMS\tests\Auth\LoginReturnType: Login return type
  * @internal
  */
+#[\PHPUnit\Framework\Attributes\TestDox('phpOMS\tests\Auth\LoginReturnType: Login return type')]
 final class LoginReturnTypeTest extends \PHPUnit\Framework\TestCase
 {
-    /**
-     * @testdox The login return type enum has the correct number of type codes
-     * @group framework
-     * @coversNothing
-     */
+    #[\PHPUnit\Framework\Attributes\Group('framework')]
+    #[\PHPUnit\Framework\Attributes\TestDox('The login return type enum has the correct number of type codes')]
+    #[\PHPUnit\Framework\Attributes\CoversNothing]
     public function testEnumCount() : void
     {
         self::assertCount(11, LoginReturnType::getConstants());
     }
 
-    /**
-     * @testdox The login return type enum has only unique values
-     * @group framework
-     * @coversNothing
-     */
+    #[\PHPUnit\Framework\Attributes\Group('framework')]
+    #[\PHPUnit\Framework\Attributes\TestDox('The login return type enum has only unique values')]
+    #[\PHPUnit\Framework\Attributes\CoversNothing]
     public function testUnique() : void
     {
         self::assertEquals(LoginReturnType::getConstants(), \array_unique(LoginReturnType::getConstants()));
     }
 
-    /**
-     * @testdox The login return type enum has the correct values
-     * @group framework
-     * @coversNothing
-     */
+    #[\PHPUnit\Framework\Attributes\Group('framework')]
+    #[\PHPUnit\Framework\Attributes\TestDox('The login return type enum has the correct values')]
+    #[\PHPUnit\Framework\Attributes\CoversNothing]
     public function testEnums() : void
     {
         self::assertEquals(0, LoginReturnType::OK);

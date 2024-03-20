@@ -17,16 +17,13 @@ namespace phpOMS\tests\Business\Finance;
 use phpOMS\Business\Finance\Lorenzkurve;
 
 /**
- * @testdox phpOMS\tests\Business\Finance\LorenzkurveTest: Lorenz kurve
- *
  * @internal
  */
+#[\PHPUnit\Framework\Attributes\TestDox('phpOMS\tests\Business\Finance\LorenzkurveTest: Lorenz kurve')]
 final class LorenzkurveTest extends \PHPUnit\Framework\TestCase
 {
-    /**
-     * @testdox The gini coefficient calculation is correct
-     * @group framework
-     */
+    #[\PHPUnit\Framework\Attributes\Group('framework')]
+    #[\PHPUnit\Framework\Attributes\TestDox('The gini coefficient calculation is correct')]
     public function testGiniCoefficient() : void
     {
         $arr = [1, 1, 1, 1, 1, 1, 1, 10, 33, 50];

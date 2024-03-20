@@ -17,10 +17,9 @@ namespace phpOMS\tests\Business\Recommendation;
 use phpOMS\Business\Recommendation\MemoryCF;
 
 /**
- * @testdox phpOMS\tests\Business\Recommendation\MemoryCFTest: Article affinity/correlation
- *
  * @internal
  */
+#[\PHPUnit\Framework\Attributes\TestDox('phpOMS\tests\Business\Recommendation\MemoryCFTest: Article affinity/correlation')]
 final class MemoryCFTest extends \PHPUnit\Framework\TestCase
 {
     public function testBestMatch() : void

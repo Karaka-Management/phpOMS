@@ -19,12 +19,10 @@ use phpOMS\DataStorage\Database\Query\Grammar\SqlServerGrammar;
 /**
  * @internal
  */
+#[\PHPUnit\Framework\Attributes\CoversClass(\phpOMS\DataStorage\Database\Query\Grammar\SqlServerGrammar::class)]
 final class SqlServerGrammarTest extends \PHPUnit\Framework\TestCase
 {
-    /**
-     * @covers \phpOMS\DataStorage\Database\Query\Grammar\SqlServerGrammar
-     * @group framework
-     */
+    #[\PHPUnit\Framework\Attributes\Group('framework')]
     public function testDefault() : void
     {
         self::assertInstanceOf('\phpOMS\DataStorage\Database\Query\Grammar\Grammar', new SqlServerGrammar());

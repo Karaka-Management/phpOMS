@@ -21,17 +21,14 @@ use phpOMS\DataStorage\Database\Connection\SQLiteConnection;
 use phpOMS\DataStorage\Database\Connection\SqlServerConnection;
 
 /**
- * @testdox phpOMS\tests\DataStorage\Database\Connection\ConnectionFactory: Database connection factory
- *
  * @internal
  */
+#[\PHPUnit\Framework\Attributes\CoversClass(\phpOMS\DataStorage\Database\Connection\ConnectionFactory::class)]
+#[\PHPUnit\Framework\Attributes\TestDox('phpOMS\tests\DataStorage\Database\Connection\ConnectionFactory: Database connection factory')]
 final class ConnectionFactoryTest extends \PHPUnit\Framework\TestCase
 {
-    /**
-     * @testdox The mysql connection can be successfully created
-     * @covers \phpOMS\DataStorage\Database\Connection\ConnectionFactory
-     * @group framework
-     */
+    #[\PHPUnit\Framework\Attributes\Group('framework')]
+    #[\PHPUnit\Framework\Attributes\TestDox('The mysql connection can be successfully created')]
     public function testCreateMysql() : void
     {
         if (!\extension_loaded('pdo_mysql')) {
@@ -48,11 +45,8 @@ final class ConnectionFactoryTest extends \PHPUnit\Framework\TestCase
         );
     }
 
-    /**
-     * @testdox The postgresql connection can be successfully created
-     * @covers \phpOMS\DataStorage\Database\Connection\ConnectionFactory
-     * @group framework
-     */
+    #[\PHPUnit\Framework\Attributes\Group('framework')]
+    #[\PHPUnit\Framework\Attributes\TestDox('The postgresql connection can be successfully created')]
     public function testCreatePostgres() : void
     {
         if (!\extension_loaded('pdo_pgsql')) {
@@ -69,11 +63,8 @@ final class ConnectionFactoryTest extends \PHPUnit\Framework\TestCase
         );
     }
 
-    /**
-     * @testdox The sqlserver connection can be successfully created
-     * @covers \phpOMS\DataStorage\Database\Connection\ConnectionFactory
-     * @group framework
-     */
+    #[\PHPUnit\Framework\Attributes\Group('framework')]
+    #[\PHPUnit\Framework\Attributes\TestDox('The sqlserver connection can be successfully created')]
     public function testCreateSqlsrv() : void
     {
         if (!\extension_loaded('pdo_sqlsrv')) {
@@ -90,11 +81,8 @@ final class ConnectionFactoryTest extends \PHPUnit\Framework\TestCase
         );
     }
 
-    /**
-     * @testdox The sqlite connection can be successfully created
-     * @covers \phpOMS\DataStorage\Database\Connection\ConnectionFactory
-     * @group framework
-     */
+    #[\PHPUnit\Framework\Attributes\Group('framework')]
+    #[\PHPUnit\Framework\Attributes\TestDox('The sqlite connection can be successfully created')]
     public function testCreateSqlite() : void
     {
         if (!\extension_loaded('pdo_sqlite')) {
@@ -111,11 +99,8 @@ final class ConnectionFactoryTest extends \PHPUnit\Framework\TestCase
         );
     }
 
-    /**
-     * @testdox A invalid database type throws a InvalidArgumentException
-     * @covers \phpOMS\DataStorage\Database\Connection\ConnectionFactory
-     * @group framework
-     */
+    #[\PHPUnit\Framework\Attributes\Group('framework')]
+    #[\PHPUnit\Framework\Attributes\TestDox('A invalid database type throws a InvalidArgumentException')]
     public function testInvalidDatabaseType() : void
     {
         $this->expectException(\InvalidArgumentException::class);

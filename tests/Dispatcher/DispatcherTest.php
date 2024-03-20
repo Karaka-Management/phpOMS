@@ -26,10 +26,10 @@ use phpOMS\Uri\HttpUri;
 require_once __DIR__ . '/../Autoloader.php';
 
 /**
- * @testdox phpOMS\tests\Dispatcher\DispatcherTest: Dispatcher for executing request endpoints
- *
  * @internal
  */
+#[\PHPUnit\Framework\Attributes\CoversClass(\phpOMS\Dispatcher\Dispatcher::class)]
+#[\PHPUnit\Framework\Attributes\TestDox('phpOMS\tests\Dispatcher\DispatcherTest: Dispatcher for executing request endpoints')]
 final class DispatcherTest extends \PHPUnit\Framework\TestCase
 {
     protected ApplicationAbstract $app;
@@ -47,11 +47,8 @@ final class DispatcherTest extends \PHPUnit\Framework\TestCase
         $this->app->dispatcher = new Dispatcher($this->app);
     }
 
-    /**
-     * @testdox A route can be added and dispatched
-     * @covers \phpOMS\Dispatcher\Dispatcher
-     * @group framework
-     */
+    #[\PHPUnit\Framework\Attributes\Group('framework')]
+    #[\PHPUnit\Framework\Attributes\TestDox('A route can be added and dispatched')]
     public function testControllerInputOutput() : void
     {
         $this->app->dispatcher->set(new class() extends ModuleAbstract {
@@ -73,11 +70,8 @@ final class DispatcherTest extends \PHPUnit\Framework\TestCase
         );
     }
 
-    /**
-     * @testdox The dispatcher can dispatch a function/closure
-     * @covers \phpOMS\Dispatcher\Dispatcher
-     * @group framework
-     */
+    #[\PHPUnit\Framework\Attributes\Group('framework')]
+    #[\PHPUnit\Framework\Attributes\TestDox('The dispatcher can dispatch a function/closure')]
     public function testClosure() : void
     {
         $localization = new Localization();
@@ -101,11 +95,8 @@ final class DispatcherTest extends \PHPUnit\Framework\TestCase
         );
     }
 
-    /**
-     * @testdox The dispatcher can dispatch a method as string representation of a controller
-     * @covers \phpOMS\Dispatcher\Dispatcher
-     * @group framework
-     */
+    #[\PHPUnit\Framework\Attributes\Group('framework')]
+    #[\PHPUnit\Framework\Attributes\TestDox('The dispatcher can dispatch a method as string representation of a controller')]
     public function testPathMethod() : void
     {
         $localization = new Localization();
@@ -121,11 +112,8 @@ final class DispatcherTest extends \PHPUnit\Framework\TestCase
         );
     }
 
-    /**
-     * @testdox The dispatcher can dispatch a method as array representation of a controller
-     * @covers \phpOMS\Dispatcher\Dispatcher
-     * @group framework
-     */
+    #[\PHPUnit\Framework\Attributes\Group('framework')]
+    #[\PHPUnit\Framework\Attributes\TestDox('The dispatcher can dispatch a method as array representation of a controller')]
     public function testPathMethodInArray() : void
     {
         $localization = new Localization();
@@ -149,11 +137,8 @@ final class DispatcherTest extends \PHPUnit\Framework\TestCase
         );
     }
 
-    /**
-     * @testdox The dispatcher can dispatch a static method as string representation
-     * @covers \phpOMS\Dispatcher\Dispatcher
-     * @group framework
-     */
+    #[\PHPUnit\Framework\Attributes\Group('framework')]
+    #[\PHPUnit\Framework\Attributes\TestDox('The dispatcher can dispatch a static method as string representation')]
     public function testPathStatic() : void
     {
         $localization = new Localization();
@@ -169,11 +154,8 @@ final class DispatcherTest extends \PHPUnit\Framework\TestCase
         );
     }
 
-    /**
-     * @testdox The dispatcher can dispatch multiple destinations after another
-     * @covers \phpOMS\Dispatcher\Dispatcher
-     * @group framework
-     */
+    #[\PHPUnit\Framework\Attributes\Group('framework')]
+    #[\PHPUnit\Framework\Attributes\TestDox('The dispatcher can dispatch multiple destinations after another')]
     public function testArray() : void
     {
         $localization = new Localization();
@@ -193,11 +175,8 @@ final class DispatcherTest extends \PHPUnit\Framework\TestCase
         );
     }
 
-    /**
-     * @testdox The dispatcher can pass additional data to the destination
-     * @covers \phpOMS\Dispatcher\Dispatcher
-     * @group framework
-     */
+    #[\PHPUnit\Framework\Attributes\Group('framework')]
+    #[\PHPUnit\Framework\Attributes\TestDox('The dispatcher can pass additional data to the destination')]
     public function testArrayWithData() : void
     {
         $localization = new Localization();
@@ -214,11 +193,8 @@ final class DispatcherTest extends \PHPUnit\Framework\TestCase
         );
     }
 
-    /**
-     * @testdox A invalid controller path throws a PathException
-     * @covers \phpOMS\Dispatcher\Dispatcher
-     * @group framework
-     */
+    #[\PHPUnit\Framework\Attributes\Group('framework')]
+    #[\PHPUnit\Framework\Attributes\TestDox('A invalid controller path throws a PathException')]
     public function testInvalidControllerPath() : void
     {
         $this->expectException(\phpOMS\System\File\PathException::class);
@@ -226,11 +202,8 @@ final class DispatcherTest extends \PHPUnit\Framework\TestCase
         $this->app->dispatcher->dispatch('phpOMS\tests\Dispatcher\TestControllers::testFunctionStatic');
     }
 
-    /**
-     * @testdox A invalid function path throws a Exception
-     * @covers \phpOMS\Dispatcher\Dispatcher
-     * @group framework
-     */
+    #[\PHPUnit\Framework\Attributes\Group('framework')]
+    #[\PHPUnit\Framework\Attributes\TestDox('A invalid function path throws a Exception')]
     public function testInvalidControllerFunction() : void
     {
         $this->expectException(\Exception::class);
@@ -238,11 +211,8 @@ final class DispatcherTest extends \PHPUnit\Framework\TestCase
         $this->app->dispatcher->dispatch('phpOMS\tests\Dispatcher\TestController::testFunctionStaticINVALID');
     }
 
-    /**
-     * @testdox A malformed dispatch path throws UnexpectedValueException
-     * @covers \phpOMS\Dispatcher\Dispatcher
-     * @group framework
-     */
+    #[\PHPUnit\Framework\Attributes\Group('framework')]
+    #[\PHPUnit\Framework\Attributes\TestDox('A malformed dispatch path throws UnexpectedValueException')]
     public function testInvalidControllerString() : void
     {
         $this->expectException(\UnexpectedValueException::class);

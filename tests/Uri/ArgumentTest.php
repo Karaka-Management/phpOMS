@@ -19,17 +19,14 @@ require_once __DIR__ . '/../Autoloader.php';
 use phpOMS\Uri\Argument;
 
 /**
- * @testdox phpOMS\tests\Uri\ArgumentTest: Argument uri / uri
- *
  * @internal
  */
+#[\PHPUnit\Framework\Attributes\CoversClass(\phpOMS\Uri\Argument::class)]
+#[\PHPUnit\Framework\Attributes\TestDox('phpOMS\tests\Uri\ArgumentTest: Argument uri / uri')]
 final class ArgumentTest extends \PHPUnit\Framework\TestCase
 {
-    /**
-     * @testdox A uri can be validated
-     * @covers \phpOMS\Uri\Argument
-     * @group framework
-     */
+    #[\PHPUnit\Framework\Attributes\Group('framework')]
+    #[\PHPUnit\Framework\Attributes\TestDox('A uri can be validated')]
     public function testValidator() : void
     {
         self::assertTrue(Argument::isValid('http://www.google.de'));
@@ -39,11 +36,8 @@ final class ArgumentTest extends \PHPUnit\Framework\TestCase
         self::assertTrue(Argument::isValid('https:/google.de'));
     }
 
-    /**
-     * @testdox The argument uri has the expected default values after initialization
-     * @covers \phpOMS\Uri\Argument
-     * @group framework
-     */
+    #[\PHPUnit\Framework\Attributes\Group('framework')]
+    #[\PHPUnit\Framework\Attributes\TestDox('The argument uri has the expected default values after initialization')]
     public function testDefault() : void
     {
         $obj = new Argument(':modules/admin/test/path.php ?para1=abc ?para2=2 #frag');
@@ -60,11 +54,8 @@ final class ArgumentTest extends \PHPUnit\Framework\TestCase
         self::assertEquals('', $obj->getBase());
     }
 
-    /**
-     * @testdox The path can be parsed correctly from a uri
-     * @covers \phpOMS\Uri\Argument
-     * @group framework
-     */
+    #[\PHPUnit\Framework\Attributes\Group('framework')]
+    #[\PHPUnit\Framework\Attributes\TestDox('The path can be parsed correctly from a uri')]
     public function testParsePathInputOutput() : void
     {
         $obj = new Argument(':modules/admin/test/path.php ?para1=abc ?para2=2 #frag');
@@ -77,11 +68,8 @@ final class ArgumentTest extends \PHPUnit\Framework\TestCase
         );
     }
 
-    /**
-     * @testdox The path can be set and returned
-     * @covers \phpOMS\Uri\Argument
-     * @group framework
-     */
+    #[\PHPUnit\Framework\Attributes\Group('framework')]
+    #[\PHPUnit\Framework\Attributes\TestDox('The path can be set and returned')]
     public function testPathInputOutput() : void
     {
         $obj = new Argument(':modules/admin/test/path.php ?para1=abc ?para2=2 #frag');
@@ -90,11 +78,8 @@ final class ArgumentTest extends \PHPUnit\Framework\TestCase
         self::assertEquals('modules/admin/new/path', $obj->getPath());
     }
 
-    /**
-     * @testdox The path offset can be set and returned
-     * @covers \phpOMS\Uri\Argument
-     * @group framework
-     */
+    #[\PHPUnit\Framework\Attributes\Group('framework')]
+    #[\PHPUnit\Framework\Attributes\TestDox('The path offset can be set and returned')]
     public function testPathOffsetInputOutput() : void
     {
         $obj = new Argument();
@@ -103,11 +88,8 @@ final class ArgumentTest extends \PHPUnit\Framework\TestCase
         self::assertEquals(2, $obj->getPathOffset());
     }
 
-    /**
-     * @testdox The route can be parsed correctly from a uri
-     * @covers \phpOMS\Uri\Argument
-     * @group framework
-     */
+    #[\PHPUnit\Framework\Attributes\Group('framework')]
+    #[\PHPUnit\Framework\Attributes\TestDox('The route can be parsed correctly from a uri')]
     public function testRouteInputOutput() : void
     {
         $obj = new Argument(':modules/admin/test/path.php ?para1=abc ?para2=2 #frag');
@@ -115,11 +97,8 @@ final class ArgumentTest extends \PHPUnit\Framework\TestCase
         self::assertEquals('/:modules/admin/test/path.php ?para1=abc ?para2=2 #frag', $obj->getRoute());
     }
 
-    /**
-     * @testdox The query data can be parsed correctly from a uri
-     * @covers \phpOMS\Uri\Argument
-     * @group framework
-     */
+    #[\PHPUnit\Framework\Attributes\Group('framework')]
+    #[\PHPUnit\Framework\Attributes\TestDox('The query data can be parsed correctly from a uri')]
     public function testQueryInputOutput() : void
     {
         $obj = new Argument(':modules/admin/test/path.php ?para1=abc ?para2=2 #frag');
@@ -129,11 +108,8 @@ final class ArgumentTest extends \PHPUnit\Framework\TestCase
         self::assertEquals('?para2=2', $obj->getQuery('1'));
     }
 
-    /**
-     * @testdox The fragment can be parsed correctly from a uri
-     * @covers \phpOMS\Uri\Argument
-     * @group framework
-     */
+    #[\PHPUnit\Framework\Attributes\Group('framework')]
+    #[\PHPUnit\Framework\Attributes\TestDox('The fragment can be parsed correctly from a uri')]
     public function testFragmentInputOutput() : void
     {
         $obj = new Argument(':modules/admin/test/path.php ?para1=abc ?para2=2 #frag');
@@ -144,11 +120,8 @@ final class ArgumentTest extends \PHPUnit\Framework\TestCase
         self::assertEquals('frag2', $obj->fragment);
     }
 
-    /**
-     * @testdox The uri can be turned into a string
-     * @covers \phpOMS\Uri\Argument
-     * @group framework
-     */
+    #[\PHPUnit\Framework\Attributes\Group('framework')]
+    #[\PHPUnit\Framework\Attributes\TestDox('The uri can be turned into a string')]
     public function testStringify() : void
     {
         $obj = new Argument($uri = ':modules/admin/test/path.php ?para1=abc ?para2=2 #frag');
@@ -156,11 +129,8 @@ final class ArgumentTest extends \PHPUnit\Framework\TestCase
         self::assertEquals($uri, $obj->__toString());
     }
 
-    /**
-     * @testdox The root path can be set and returned
-     * @covers \phpOMS\Uri\Argument
-     * @group framework
-     */
+    #[\PHPUnit\Framework\Attributes\Group('framework')]
+    #[\PHPUnit\Framework\Attributes\TestDox('The root path can be set and returned')]
     public function testRootPathInputOutput() : void
     {
         $obj = new Argument(':modules/admin/test/path.php ?para1=abc ?para2=2 #frag');

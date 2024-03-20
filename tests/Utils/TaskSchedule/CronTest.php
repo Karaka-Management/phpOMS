@@ -19,10 +19,10 @@ use phpOMS\Utils\TaskSchedule\CronJob;
 use phpOMS\Utils\TaskSchedule\SchedulerAbstract;
 
 /**
- * @testdox phpOMS\tests\Utils\TaskSchedule\CronTest: Cron handler
- *
  * @internal
  */
+#[\PHPUnit\Framework\Attributes\CoversClass(\phpOMS\Utils\TaskSchedule\Cron::class)]
+#[\PHPUnit\Framework\Attributes\TestDox('phpOMS\tests\Utils\TaskSchedule\CronTest: Cron handler')]
 final class CronTest extends \PHPUnit\Framework\TestCase
 {
     protected function setUp() : void
@@ -50,32 +50,22 @@ final class CronTest extends \PHPUnit\Framework\TestCase
     }
 
     // * * * * * echo "test" > __DIR__ . '/cronjob.log' // evaluate dir
-
-    /**
-     * @testdox The cron handler has the expected default values after initialization
-     * @covers \phpOMS\Utils\TaskSchedule\Cron<extended>
-     * @group framework
-     */
+    #[\PHPUnit\Framework\Attributes\Group('framework')]
+    #[\PHPUnit\Framework\Attributes\TestDox('The cron handler has the expected default values after initialization')]
     public function testDefault() : void
     {
         self::assertInstanceOf('\phpOMS\Utils\TaskSchedule\SchedulerAbstract', new Cron());
     }
 
-    /**
-     * @testdox The cron binary location path can be guessed
-     * @covers \phpOMS\Utils\TaskSchedule\Cron<extended>
-     * @group framework
-     */
+    #[\PHPUnit\Framework\Attributes\Group('framework')]
+    #[\PHPUnit\Framework\Attributes\TestDox('The cron binary location path can be guessed')]
     public function testGuessBinary() : void
     {
         self::assertTrue(Cron::guessBin());
     }
 
-    /**
-     * @testdox A cron job can be created and returned
-     * @covers \phpOMS\Utils\TaskSchedule\Cron<extended>
-     * @group framework
-     */
+    #[\PHPUnit\Framework\Attributes\Group('framework')]
+    #[\PHPUnit\Framework\Attributes\TestDox('A cron job can be created and returned')]
     public function testCronJobInputOutput() : void
     {
         $cron = new Cron();
@@ -90,22 +80,16 @@ final class CronTest extends \PHPUnit\Framework\TestCase
         $cron->delete($job);
     }
 
-    /**
-     * @testdox A none-existing cron name cannot be returned
-     * @covers \phpOMS\Utils\TaskSchedule\Cron<extended>
-     * @group framework
-     */
+    #[\PHPUnit\Framework\Attributes\Group('framework')]
+    #[\PHPUnit\Framework\Attributes\TestDox('A none-existing cron name cannot be returned')]
     public function testInvalidCronJobName() : void
     {
         $cron = new Cron();
         self::assertEquals([], $cron->getAllByName('testCronJob', false));
     }
 
-    /**
-     * @testdox A cron job can be updated
-     * @covers \phpOMS\Utils\TaskSchedule\Cron<extended>
-     * @group framework
-     */
+    #[\PHPUnit\Framework\Attributes\Group('framework')]
+    #[\PHPUnit\Framework\Attributes\TestDox('A cron job can be updated')]
     public function testCronJobUpdate() : void
     {
         $cron = new Cron();
@@ -123,11 +107,8 @@ final class CronTest extends \PHPUnit\Framework\TestCase
         $cron->delete($job);
     }
 
-    /**
-     * @testdox A cron job can be deleted
-     * @covers \phpOMS\Utils\TaskSchedule\Cron<extended>
-     * @group framework
-     */
+    #[\PHPUnit\Framework\Attributes\Group('framework')]
+    #[\PHPUnit\Framework\Attributes\TestDox('A cron job can be deleted')]
     public function testDelete() : void
     {
         $cron = new Cron();

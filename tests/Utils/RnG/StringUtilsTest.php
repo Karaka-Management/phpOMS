@@ -17,18 +17,17 @@ namespace phpOMS\tests\Utils\RnG;
 use phpOMS\Utils\RnG\StringUtils;
 
 /**
- * @testdox phpOMS\tests\Utils\RnG\StringUtilsTest: Random string generator
- *
  * @internal
  */
+#[\PHPUnit\Framework\Attributes\CoversClass(\phpOMS\Utils\RnG\StringUtils::class)]
+#[\PHPUnit\Framework\Attributes\TestDox('phpOMS\tests\Utils\RnG\StringUtilsTest: Random string generator')]
 final class StringUtilsTest extends \PHPUnit\Framework\TestCase
 {
     /**
-     * @testdox Random strings can be generated
-     * @covers \phpOMS\Utils\RnG\StringUtils
      * @slowThreshold 1500
-     * @group framework
      */
+    #[\PHPUnit\Framework\Attributes\Group('framework')]
+    #[\PHPUnit\Framework\Attributes\TestDox('Random strings can be generated')]
     public function testStrings() : void
     {
         $haystack    = [];

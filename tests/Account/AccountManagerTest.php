@@ -20,10 +20,10 @@ use phpOMS\Account\NullAccount;
 require_once __DIR__ . '/../Autoloader.php';
 
 /**
- * @testdox phpOMS\tests\Account\AccountManager: Account/user manager to handle/access loaded accounts
- *
  * @internal
  */
+#[\PHPUnit\Framework\Attributes\CoversClass(\phpOMS\Account\AccountManager::class)]
+#[\PHPUnit\Framework\Attributes\TestDox('phpOMS\tests\Account\AccountManager: Account/user manager to handle/access loaded accounts')]
 final class AccountManagerTest extends \PHPUnit\Framework\TestCase
 {
     protected $manager = null;
@@ -35,17 +35,14 @@ final class AccountManagerTest extends \PHPUnit\Framework\TestCase
      */
     protected function setUp() : void
     {
-        $this->manager = new AccountManager($GLOBALS['httpSession']);
+        $this->manager = new AccountManager($GLOBALS['session']);
 
         $this->account = new NullAccount(3);
         $this->account->generatePassword('abcd');
     }
 
-    /**
-     * @testdox The manager has the expected default values after initialization
-     * @covers \phpOMS\Account\AccountManager<extended>
-     * @group framework
-     */
+    #[\PHPUnit\Framework\Attributes\Group('framework')]
+    #[\PHPUnit\Framework\Attributes\TestDox('The manager has the expected default values after initialization')]
     public function testDefault() : void
     {
         self::assertEquals(0, $this->manager->count());
@@ -53,11 +50,8 @@ final class AccountManagerTest extends \PHPUnit\Framework\TestCase
         self::assertInstanceOf('\phpOMS\Account\NullAccount', $this->manager->get(-1));
     }
 
-    /**
-     * @testdox An account can be added to the manager
-     * @covers \phpOMS\Account\AccountManager<extended>
-     * @group framework
-     */
+    #[\PHPUnit\Framework\Attributes\Group('framework')]
+    #[\PHPUnit\Framework\Attributes\TestDox('An account can be added to the manager')]
     public function testAddAccount() : void
     {
         $added = $this->manager->add($this->account);
@@ -65,22 +59,16 @@ final class AccountManagerTest extends \PHPUnit\Framework\TestCase
         self::assertEquals(1, $this->manager->count());
     }
 
-    /**
-     * @testdox An account can be retrieved from the manager
-     * @covers \phpOMS\Account\AccountManager<extended>
-     * @group framework
-     */
+    #[\PHPUnit\Framework\Attributes\Group('framework')]
+    #[\PHPUnit\Framework\Attributes\TestDox('An account can be retrieved from the manager')]
     public function testRetrieveAccount() : void
     {
         $this->manager->add($this->account);
         self::assertEquals($this->account, $this->manager->get($this->account->id));
     }
 
-    /**
-     * @testdox An account can only be added once to the account manager (no duplication)
-     * @covers \phpOMS\Account\AccountManager<extended>
-     * @group framework
-     */
+    #[\PHPUnit\Framework\Attributes\Group('framework')]
+    #[\PHPUnit\Framework\Attributes\TestDox('An account can only be added once to the account manager (no duplication)')]
     public function testNoAccountDuplication() : void
     {
         $this->manager->add($this->account);
@@ -92,11 +80,8 @@ final class AccountManagerTest extends \PHPUnit\Framework\TestCase
         self::assertEquals(0, $this->manager->count());
     }
 
-    /**
-     * @testdox An account can be removed from the account manager
-     * @covers \phpOMS\Account\AccountManager<extended>
-     * @group framework
-     */
+    #[\PHPUnit\Framework\Attributes\Group('framework')]
+    #[\PHPUnit\Framework\Attributes\TestDox('An account can be removed from the account manager')]
     public function testRemoveAccount() : void
     {
         $this->manager->add($this->account);
@@ -105,11 +90,8 @@ final class AccountManagerTest extends \PHPUnit\Framework\TestCase
         self::assertFalse($this->manager->remove(-1));
     }
 
-    /**
-     * @testdox Only a valid account can be removed from the manager
-     * @covers \phpOMS\Account\AccountManager<extended>
-     * @group framework
-     */
+    #[\PHPUnit\Framework\Attributes\Group('framework')]
+    #[\PHPUnit\Framework\Attributes\TestDox('Only a valid account can be removed from the manager')]
     public function testRemoveOnlyValidAccount() : void
     {
         $this->manager->add($this->account);

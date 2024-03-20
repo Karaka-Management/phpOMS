@@ -18,10 +18,10 @@ use phpOMS\Stdlib\Base\Address;
 use phpOMS\Stdlib\Base\Location;
 
 /**
- * @testdox phpOMS\tests\Stdlib\Base\AddressTest: Address type
- *
  * @internal
  */
+#[\PHPUnit\Framework\Attributes\CoversClass(\phpOMS\Stdlib\Base\Address::class)]
+#[\PHPUnit\Framework\Attributes\TestDox('phpOMS\tests\Stdlib\Base\AddressTest: Address type')]
 final class AddressTest extends \PHPUnit\Framework\TestCase
 {
     protected Address $address;
@@ -34,11 +34,8 @@ final class AddressTest extends \PHPUnit\Framework\TestCase
         $this->address = new Address();
     }
 
-    /**
-     * @testdox The address has the expected default values after initialization
-     * @covers \phpOMS\Stdlib\Base\Address
-     * @group framework
-     */
+    #[\PHPUnit\Framework\Attributes\Group('framework')]
+    #[\PHPUnit\Framework\Attributes\TestDox('The address has the expected default values after initialization')]
     public function testDefault() : void
     {
         $expected = [
@@ -59,22 +56,16 @@ final class AddressTest extends \PHPUnit\Framework\TestCase
         self::assertEquals($expected, $this->address->jsonSerialize());
     }
 
-    /**
-     * @testdox The fao can be set and returned
-     * @covers \phpOMS\Stdlib\Base\Address
-     * @group framework
-     */
+    #[\PHPUnit\Framework\Attributes\Group('framework')]
+    #[\PHPUnit\Framework\Attributes\TestDox('The fao can be set and returned')]
     public function testFAOInputOutput() : void
     {
         $this->address->fao = 'fao';
         self::assertEquals('fao', $this->address->fao);
     }
 
-    /**
-     * @testdox The address can be turned into array data
-     * @covers \phpOMS\Stdlib\Base\Address
-     * @group framework
-     */
+    #[\PHPUnit\Framework\Attributes\Group('framework')]
+    #[\PHPUnit\Framework\Attributes\TestDox('The address can be turned into array data')]
     public function testArray() : void
     {
         $expected = [
@@ -94,11 +85,8 @@ final class AddressTest extends \PHPUnit\Framework\TestCase
         self::assertEquals($expected, $this->address->toArray());
     }
 
-    /**
-     * @testdox The address can be json serialized
-     * @covers \phpOMS\Stdlib\Base\Address
-     * @group framework
-     */
+    #[\PHPUnit\Framework\Attributes\Group('framework')]
+    #[\PHPUnit\Framework\Attributes\TestDox('The address can be json serialized')]
     public function testJsonSerialize() : void
     {
         $expected = [

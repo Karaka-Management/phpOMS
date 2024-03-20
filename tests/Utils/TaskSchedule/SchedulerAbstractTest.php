@@ -17,27 +17,21 @@ namespace phpOMS\tests\Utils\TaskSchedule;
 use phpOMS\Utils\TaskSchedule\SchedulerAbstract;
 
 /**
- * @testdox phpOMS\tests\Utils\TaskSchedule\SchedulerAbstractTest: Scheduler abstraction
- *
  * @internal
  */
+#[\PHPUnit\Framework\Attributes\CoversClass(\phpOMS\Utils\TaskSchedule\SchedulerAbstract::class)]
+#[\PHPUnit\Framework\Attributes\TestDox('phpOMS\tests\Utils\TaskSchedule\SchedulerAbstractTest: Scheduler abstraction')]
 final class SchedulerAbstractTest extends \PHPUnit\Framework\TestCase
 {
-    /**
-     * @testdox The scheduler has the expected default values after initialization
-     * @covers \phpOMS\Utils\TaskSchedule\SchedulerAbstract
-     * @group framework
-     */
+    #[\PHPUnit\Framework\Attributes\Group('framework')]
+    #[\PHPUnit\Framework\Attributes\TestDox('The scheduler has the expected default values after initialization')]
     public function testDefault() : void
     {
         self::assertTrue(SchedulerAbstract::getBin() === '' || \is_file(SchedulerAbstract::getBin()));
     }
 
-    /**
-     * @testdox The scheduler binary location path can be guessed
-     * @covers \phpOMS\Utils\TaskSchedule\SchedulerAbstract
-     * @group framework
-     */
+    #[\PHPUnit\Framework\Attributes\Group('framework')]
+    #[\PHPUnit\Framework\Attributes\TestDox('The scheduler binary location path can be guessed')]
     public function testGuessBinary() : void
     {
         self::assertTrue(SchedulerAbstract::guessBin());

@@ -19,16 +19,14 @@ require_once __DIR__ . '/../Autoloader.php';
 use phpOMS\Uri\InvalidUriException;
 
 /**
- * @testdox phpOMS\tests\Uri\InvalidUriExceptionTest: Invalid uri exception
  * @internal
  */
+#[\PHPUnit\Framework\Attributes\CoversClass(\phpOMS\Uri\InvalidUriException::class)]
+#[\PHPUnit\Framework\Attributes\TestDox('phpOMS\tests\Uri\InvalidUriExceptionTest: Invalid uri exception')]
 final class InvalidUriExceptionTest extends \PHPUnit\Framework\TestCase
 {
-    /**
-     * @testdox The invalid uri exception is an unexpected value exception
-     * @covers \phpOMS\Uri\InvalidUriException
-     * @group framework
-     */
+    #[\PHPUnit\Framework\Attributes\Group('framework')]
+    #[\PHPUnit\Framework\Attributes\TestDox('The invalid uri exception is an unexpected value exception')]
     public function testException() : void
     {
         self::assertInstanceOf(\UnexpectedValueException::class, new InvalidUriException(''));

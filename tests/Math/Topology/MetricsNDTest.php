@@ -18,17 +18,14 @@ use phpOMS\Math\Topology\Metrics2D;
 use phpOMS\Math\Topology\MetricsND;
 
 /**
- * @testdox phpOMS\tests\Math\Topology\MetricsNDTest: Metric/distance calculations
- *
  * @internal
  */
+#[\PHPUnit\Framework\Attributes\CoversClass(\phpOMS\Math\Topology\MetricsND::class)]
+#[\PHPUnit\Framework\Attributes\TestDox('phpOMS\tests\Math\Topology\MetricsNDTest: Metric/distance calculations')]
 final class MetricsNDTest extends \PHPUnit\Framework\TestCase
 {
-    /**
-     * @testdox The manhattan distance can be calculated
-     * @covers \phpOMS\Math\Topology\MetricsND
-     * @group framework
-     */
+    #[\PHPUnit\Framework\Attributes\Group('framework')]
+    #[\PHPUnit\Framework\Attributes\TestDox('The manhattan distance can be calculated')]
     public function testManhattan() : void
     {
         self::assertEquals(
@@ -37,11 +34,8 @@ final class MetricsNDTest extends \PHPUnit\Framework\TestCase
         );
     }
 
-    /**
-     * @testdox The euclidean distance can be calculated
-     * @covers \phpOMS\Math\Topology\MetricsND
-     * @group framework
-     */
+    #[\PHPUnit\Framework\Attributes\Group('framework')]
+    #[\PHPUnit\Framework\Attributes\TestDox('The euclidean distance can be calculated')]
     public function testEuclidean() : void
     {
         self::assertEqualsWithDelta(
@@ -51,11 +45,8 @@ final class MetricsNDTest extends \PHPUnit\Framework\TestCase
         );
     }
 
-    /**
-     * @testdox The chebyshev distance can be calculated
-     * @covers \phpOMS\Math\Topology\MetricsND
-     * @group framework
-     */
+    #[\PHPUnit\Framework\Attributes\Group('framework')]
+    #[\PHPUnit\Framework\Attributes\TestDox('The chebyshev distance can be calculated')]
     public function testChebyshev() : void
     {
         self::assertEquals(
@@ -64,11 +55,8 @@ final class MetricsNDTest extends \PHPUnit\Framework\TestCase
         );
     }
 
-    /**
-     * @testdox The minkowski distance can be calculated
-     * @covers \phpOMS\Math\Topology\MetricsND
-     * @group framework
-     */
+    #[\PHPUnit\Framework\Attributes\Group('framework')]
+    #[\PHPUnit\Framework\Attributes\TestDox('The minkowski distance can be calculated')]
     public function testMinkowski() : void
     {
         self::assertEqualsWithDelta(
@@ -78,11 +66,8 @@ final class MetricsNDTest extends \PHPUnit\Framework\TestCase
         );
     }
 
-    /**
-     * @testdox The canberra distance can be calculated
-     * @covers \phpOMS\Math\Topology\MetricsND
-     * @group framework
-     */
+    #[\PHPUnit\Framework\Attributes\Group('framework')]
+    #[\PHPUnit\Framework\Attributes\TestDox('The canberra distance can be calculated')]
     public function testCanberra() : void
     {
         self::assertEqualsWithDelta(
@@ -92,11 +77,8 @@ final class MetricsNDTest extends \PHPUnit\Framework\TestCase
         );
     }
 
-    /**
-     * @testdox The cosine distance can be calculated
-     * @covers \phpOMS\Math\Topology\MetricsND
-     * @group framework
-     */
+    #[\PHPUnit\Framework\Attributes\Group('framework')]
+    #[\PHPUnit\Framework\Attributes\TestDox('The cosine distance can be calculated')]
     public function testCosine() : void
     {
         self::assertEqualsWithDelta(
@@ -106,11 +88,8 @@ final class MetricsNDTest extends \PHPUnit\Framework\TestCase
         );
     }
 
-    /**
-     * @testdox The bray-curtis distance can be calculated
-     * @covers \phpOMS\Math\Topology\MetricsND
-     * @group framework
-     */
+    #[\PHPUnit\Framework\Attributes\Group('framework')]
+    #[\PHPUnit\Framework\Attributes\TestDox('The bray-curtis distance can be calculated')]
     public function testBrayCurtis() : void
     {
         self::assertEqualsWithDelta(
@@ -120,11 +99,8 @@ final class MetricsNDTest extends \PHPUnit\Framework\TestCase
         );
     }
 
-    /**
-     * @testdox The angular distance can be calculated
-     * @covers \phpOMS\Math\Topology\MetricsND
-     * @group framework
-     */
+    #[\PHPUnit\Framework\Attributes\Group('framework')]
+    #[\PHPUnit\Framework\Attributes\TestDox('The angular distance can be calculated')]
     public function testAngularSeparation() : void
     {
         self::assertEqualsWithDelta(
@@ -134,11 +110,8 @@ final class MetricsNDTest extends \PHPUnit\Framework\TestCase
         );
     }
 
-    /**
-     * @testdox The hamming distance can be calculated
-     * @covers \phpOMS\Math\Topology\MetricsND
-     * @group framework
-     */
+    #[\PHPUnit\Framework\Attributes\Group('framework')]
+    #[\PHPUnit\Framework\Attributes\TestDox('The hamming distance can be calculated')]
     public function testHammingDistance() : void
     {
         self::assertEquals(
@@ -147,11 +120,8 @@ final class MetricsNDTest extends \PHPUnit\Framework\TestCase
         );
     }
 
-    /**
-     * @testdox Different dimension sizes for the coordinates in the manhattan metric throw a InvalidDimensionException
-     * @covers \phpOMS\Math\Topology\MetricsND
-     * @group framework
-     */
+    #[\PHPUnit\Framework\Attributes\Group('framework')]
+    #[\PHPUnit\Framework\Attributes\TestDox('Different dimension sizes for the coordinates in the manhattan metric throw a InvalidDimensionException')]
     public function testInvalidManhattanDimension() : void
     {
         $this->expectException(\phpOMS\Math\Matrix\Exception\InvalidDimensionException::class);
@@ -159,11 +129,8 @@ final class MetricsNDTest extends \PHPUnit\Framework\TestCase
         MetricsND::manhattan([3, 6, 4], [4, 6, 8, 3]);
     }
 
-    /**
-     * @testdox Different dimension sizes for the coordinates in the euclidean metric throw a InvalidDimensionException
-     * @covers \phpOMS\Math\Topology\MetricsND
-     * @group framework
-     */
+    #[\PHPUnit\Framework\Attributes\Group('framework')]
+    #[\PHPUnit\Framework\Attributes\TestDox('Different dimension sizes for the coordinates in the euclidean metric throw a InvalidDimensionException')]
     public function testInvalidEuclideanDimension() : void
     {
         $this->expectException(\phpOMS\Math\Matrix\Exception\InvalidDimensionException::class);
@@ -171,11 +138,8 @@ final class MetricsNDTest extends \PHPUnit\Framework\TestCase
         MetricsND::euclidean([3, 6, 4], [4, 6, 8, 3]);
     }
 
-    /**
-     * @testdox Different dimension sizes for the coordinates in the chebyshev metric throw a InvalidDimensionException
-     * @covers \phpOMS\Math\Topology\MetricsND
-     * @group framework
-     */
+    #[\PHPUnit\Framework\Attributes\Group('framework')]
+    #[\PHPUnit\Framework\Attributes\TestDox('Different dimension sizes for the coordinates in the chebyshev metric throw a InvalidDimensionException')]
     public function testInvalidChebyshevDimension() : void
     {
         $this->expectException(\phpOMS\Math\Matrix\Exception\InvalidDimensionException::class);
@@ -183,11 +147,8 @@ final class MetricsNDTest extends \PHPUnit\Framework\TestCase
         MetricsND::chebyshev([3, 6, 4], [4, 6, 8, 3]);
     }
 
-    /**
-     * @testdox Different dimension sizes for the coordinates in the minkowski metric throw a InvalidDimensionException
-     * @covers \phpOMS\Math\Topology\MetricsND
-     * @group framework
-     */
+    #[\PHPUnit\Framework\Attributes\Group('framework')]
+    #[\PHPUnit\Framework\Attributes\TestDox('Different dimension sizes for the coordinates in the minkowski metric throw a InvalidDimensionException')]
     public function testInvalidMinkowskiDimension() : void
     {
         $this->expectException(\phpOMS\Math\Matrix\Exception\InvalidDimensionException::class);
@@ -195,11 +156,8 @@ final class MetricsNDTest extends \PHPUnit\Framework\TestCase
         MetricsND::minkowski([3, 6, 4], [4, 6, 8, 3], 2);
     }
 
-    /**
-     * @testdox Different dimension sizes for the coordinates in the canberra metric throw a InvalidDimensionException
-     * @covers \phpOMS\Math\Topology\MetricsND
-     * @group framework
-     */
+    #[\PHPUnit\Framework\Attributes\Group('framework')]
+    #[\PHPUnit\Framework\Attributes\TestDox('Different dimension sizes for the coordinates in the canberra metric throw a InvalidDimensionException')]
     public function testInvalidCanberraDimension() : void
     {
         $this->expectException(\phpOMS\Math\Matrix\Exception\InvalidDimensionException::class);
@@ -207,11 +165,8 @@ final class MetricsNDTest extends \PHPUnit\Framework\TestCase
         MetricsND::canberra([3, 6, 4], [4, 6, 8, 3]);
     }
 
-    /**
-     * @testdox Different dimension sizes for the coordinates in the cosine metric throw a InvalidDimensionException
-     * @covers \phpOMS\Math\Topology\MetricsND
-     * @group framework
-     */
+    #[\PHPUnit\Framework\Attributes\Group('framework')]
+    #[\PHPUnit\Framework\Attributes\TestDox('Different dimension sizes for the coordinates in the cosine metric throw a InvalidDimensionException')]
     public function testInvalidCosineDimension() : void
     {
         $this->expectException(\phpOMS\Math\Matrix\Exception\InvalidDimensionException::class);
@@ -219,11 +174,8 @@ final class MetricsNDTest extends \PHPUnit\Framework\TestCase
         MetricsND::cosine([3, 6, 4], [4, 6, 8, 3]);
     }
 
-    /**
-     * @testdox Different dimension sizes for the coordinates in the Bray Curtis metric throw a InvalidDimensionException
-     * @covers \phpOMS\Math\Topology\MetricsND
-     * @group framework
-     */
+    #[\PHPUnit\Framework\Attributes\Group('framework')]
+    #[\PHPUnit\Framework\Attributes\TestDox('Different dimension sizes for the coordinates in the Bray Curtis metric throw a InvalidDimensionException')]
     public function testInvalidBrayCurtisDimension() : void
     {
         $this->expectException(\phpOMS\Math\Matrix\Exception\InvalidDimensionException::class);
@@ -231,11 +183,8 @@ final class MetricsNDTest extends \PHPUnit\Framework\TestCase
         MetricsND::brayCurtis([3, 6, 4], [4, 6, 8, 3]);
     }
 
-    /**
-     * @testdox Different dimension sizes for the coordinates in the angular separation metric throw a InvalidDimensionException
-     * @covers \phpOMS\Math\Topology\MetricsND
-     * @group framework
-     */
+    #[\PHPUnit\Framework\Attributes\Group('framework')]
+    #[\PHPUnit\Framework\Attributes\TestDox('Different dimension sizes for the coordinates in the angular separation metric throw a InvalidDimensionException')]
     public function testInvalidAngularSeparationDimension() : void
     {
         $this->expectException(\phpOMS\Math\Matrix\Exception\InvalidDimensionException::class);
@@ -243,11 +192,8 @@ final class MetricsNDTest extends \PHPUnit\Framework\TestCase
         MetricsND::angularSeparation([3, 6, 4], [4, 6, 8, 3]);
     }
 
-    /**
-     * @testdox Different dimension sizes for the coordinates in the hamming metric throw a InvalidDimensionException
-     * @covers \phpOMS\Math\Topology\MetricsND
-     * @group framework
-     */
+    #[\PHPUnit\Framework\Attributes\Group('framework')]
+    #[\PHPUnit\Framework\Attributes\TestDox('Different dimension sizes for the coordinates in the hamming metric throw a InvalidDimensionException')]
     public function testInvalidHammingDimension() : void
     {
         $this->expectException(\phpOMS\Math\Matrix\Exception\InvalidDimensionException::class);

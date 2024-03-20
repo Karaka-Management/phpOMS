@@ -27,10 +27,13 @@ use phpOMS\Router\WebRouter;
 use phpOMS\System\File\Local\Directory;
 
 /**
- * @testdox phpOMS\tests\Application\ApplicationManagerTest: Application manager
- *
  * @internal
  */
+#[\PHPUnit\Framework\Attributes\CoversClass(\phpOMS\Application\ApplicationManager::class)]
+#[\PHPUnit\Framework\Attributes\CoversClass(\phpOMS\Application\InstallerAbstract::class)]
+#[\PHPUnit\Framework\Attributes\CoversClass(\phpOMS\Application\StatusAbstract::class)]
+#[\PHPUnit\Framework\Attributes\CoversClass(\phpOMS\Application\UninstallerAbstract::class)]
+#[\PHPUnit\Framework\Attributes\TestDox('phpOMS\tests\Application\ApplicationManagerTest: Application manager')]
 final class ApplicationManagerTest extends \PHPUnit\Framework\TestCase
 {
     protected ApplicationManager $appManager;
@@ -84,14 +87,8 @@ final class ApplicationManagerTest extends \PHPUnit\Framework\TestCase
         $this->appManager = new ApplicationManager($app);
     }
 
-    /**
-     * @testdox An application can be installed and uninstalled
-     * @covers \phpOMS\Application\ApplicationManager
-     * @covers \phpOMS\Application\InstallerAbstract
-     * @covers \phpOMS\Application\StatusAbstract
-     * @covers \phpOMS\Application\UninstallerAbstract
-     * @group framework
-     */
+    #[\PHPUnit\Framework\Attributes\Group('framework')]
+    #[\PHPUnit\Framework\Attributes\TestDox('An application can be installed and uninstalled')]
     public function testInstallUninstall() : void
     {
         self::assertTrue($this->appManager->install(__DIR__ . '/Testapp', __DIR__ . '/Apps/Testapp'));
@@ -110,14 +107,8 @@ final class ApplicationManagerTest extends \PHPUnit\Framework\TestCase
         self::assertFalse(\is_dir(__DIR__ . '/Apps/Testapp'));
     }
 
-    /**
-     * @testdox An application can be re-initialized
-     * @testdox A module can be re-initialized
-     * @covers \phpOMS\Application\ApplicationManager
-     * @covers \phpOMS\Application\InstallerAbstract
-     * @covers \phpOMS\Application\StatusAbstract
-     * @group framework
-     */
+    #[\PHPUnit\Framework\Attributes\Group('framework')]
+    #[\PHPUnit\Framework\Attributes\TestDox('An application can be re-initialized')]
     public function testReInit() : void
     {
         Directory::delete(__DIR__ . '/Apps/Testapp');
@@ -140,53 +131,38 @@ final class ApplicationManagerTest extends \PHPUnit\Framework\TestCase
         Directory::delete(__DIR__ . '/Apps/Testapp');
     }
 
-    /**
-     * @testdox A invalid application path results in no installation
-     * @covers \phpOMS\Application\ApplicationManager
-     * @group framework
-     */
+    #[\PHPUnit\Framework\Attributes\Group('framework')]
+    #[\PHPUnit\Framework\Attributes\TestDox('A invalid application path results in no installation')]
     public function testInvalidSourceDestinationInstallPath() : void
     {
         self::assertFalse($this->appManager->install(__DIR__ . '/invalid', __DIR__));
         self::assertFalse($this->appManager->install(__DIR__, __DIR__));
     }
 
-    /**
-     * @testdox A missing installation file results in no installation
-     * @covers \phpOMS\Application\ApplicationManager
-     * @group framework
-     */
+    #[\PHPUnit\Framework\Attributes\Group('framework')]
+    #[\PHPUnit\Framework\Attributes\TestDox('A missing installation file results in no installation')]
     public function testMissingInstallerPath() : void
     {
         self::assertFalse($this->appManager->install(__DIR__ . '/MissingInstaller', __DIR__ . '/Apps/MissingInstaller'));
     }
 
-    /**
-     * @testdox A missing info file results in no installation
-     * @covers \phpOMS\Application\ApplicationManager
-     * @group framework
-     */
+    #[\PHPUnit\Framework\Attributes\Group('framework')]
+    #[\PHPUnit\Framework\Attributes\TestDox('A missing info file results in no installation')]
     public function testMissingApplicationInfoFile() : void
     {
         self::assertFalse($this->appManager->install(__DIR__ . '/MissingInfo', __DIR__ . '/Apps/MissingInfo'));
     }
 
-    /**
-     * @testdox A invalid application path results in no uninstall
-     * @covers \phpOMS\Application\ApplicationManager
-     * @group framework
-     */
+    #[\PHPUnit\Framework\Attributes\Group('framework')]
+    #[\PHPUnit\Framework\Attributes\TestDox('A invalid application path results in no uninstall')]
     public function testInvalidSourceUninstallPath() : void
     {
         self::assertFalse($this->appManager->uninstall(__DIR__ . '/invalid'));
         self::assertFalse($this->appManager->uninstall(__DIR__));
     }
 
-    /**
-     * @testdox A missing uninstall file results in no uninstall
-     * @covers \phpOMS\Application\ApplicationManager
-     * @group framework
-     */
+    #[\PHPUnit\Framework\Attributes\Group('framework')]
+    #[\PHPUnit\Framework\Attributes\TestDox('A missing uninstall file results in no uninstall')]
     public function testMissingUninstallerPath() : void
     {
         self::assertFalse($this->appManager->uninstall(__DIR__ . '/Apps/MissingInstaller'));

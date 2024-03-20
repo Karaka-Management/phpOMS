@@ -1,32 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<phpunit xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" bootstrap="Bootstrap.php" colors="true" columns="120" stopOnError="true" stopOnFailure="false" stopOnIncomplete="false" stopOnSkipped="false" beStrictAboutTestsThatDoNotTestAnything="false" xsi:noNamespaceSchemaLocation="https://schema.phpunit.de/9.3/phpunit.xsd">
-  <coverage includeUncoveredFiles="true" processUncoveredFiles="false">
-    <include>
-      <directory suffix=".php">../</directory>
-    </include>
-    <exclude>
-      <directory>../vendor*</directory>
-      <directory>../MainRepository*</directory>
-      <directory>../Karaka*</directory>
-      <directory>../Admin/Install/Application*</directory>
-      <directory>../phpOMS*</directory>
-      <directory>../tests*</directory>
-      <directory>../*/tests*</directory>
-      <directory>../**/tests*</directory>
-      <directory>*/tests*</directory>
-      <directory suffix="tpl.php">../*</directory>
-      <directory suffix="lang.php">../*</directory>
-      <directory suffix="Test.php">../*</directory>
-      <directory suffix="Routes.php">../*</directory>
-      <directory suffix="Hooks.php">../*</directory>
-      <directory>../**/test*</directory>
-      <directory>../**/Theme*</directory>
-      <directory>../**/Admin/Routes*</directory>
-      <directory>../**/Admin/Hooks*</directory>
-      <directory>../**/Admin/Install*</directory>
-      <directory>../Media/Files*</directory>
-      <directory>../Localization/LanguageDetection/resources</directory>
-    </exclude>
+<phpunit xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" bootstrap="Bootstrap.php" colors="true" columns="120" stopOnError="true" stopOnFailure="false" stopOnIncomplete="false" stopOnSkipped="false" beStrictAboutTestsThatDoNotTestAnything="false" xsi:noNamespaceSchemaLocation="https://schema.phpunit.de/11.0/phpunit.xsd" cacheDirectory=".phpunit.cache">
+  <coverage includeUncoveredFiles="true">
     <report>
       <clover outputFile="coverage.xml"/>
       <html outputDirectory="../tests" lowUpperBound="75" highLowerBound="95"/>
@@ -60,4 +34,32 @@
     <const name="WEB_SERVER_PORT" value="1234"/>
     <const name="WEB_SERVER_DOCROOT" value="./"/>
   </php>
+  <source>
+    <include>
+      <directory suffix=".php">../</directory>
+    </include>
+    <exclude>
+      <directory>../vendor*</directory>
+      <directory>../MainRepository*</directory>
+      <directory>../Karaka*</directory>
+      <directory>../Admin/Install/Application*</directory>
+      <directory>../phpOMS*</directory>
+      <directory>../tests*</directory>
+      <directory>../*/tests*</directory>
+      <directory>../**/tests*</directory>
+      <directory>*/tests*</directory>
+      <directory suffix="tpl.php">../*</directory>
+      <directory suffix="lang.php">../*</directory>
+      <directory suffix="Test.php">../*</directory>
+      <directory suffix="Routes.php">../*</directory>
+      <directory suffix="Hooks.php">../*</directory>
+      <directory>../**/test*</directory>
+      <directory>../**/Theme*</directory>
+      <directory>../**/Admin/Routes*</directory>
+      <directory>../**/Admin/Hooks*</directory>
+      <directory>../**/Admin/Install*</directory>
+      <directory>../Media/Files*</directory>
+      <directory>../Localization/LanguageDetection/resources</directory>
+    </exclude>
+  </source>
 </phpunit>

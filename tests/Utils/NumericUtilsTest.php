@@ -19,17 +19,14 @@ use phpOMS\Utils\NumericUtils;
 require_once __DIR__ . '/../Autoloader.php';
 
 /**
- * @testdox phpOMS\tests\Utils\NumericUtilsTest: Numeric utilities
- *
  * @internal
  */
+#[\PHPUnit\Framework\Attributes\CoversClass(\phpOMS\Utils\NumericUtils::class)]
+#[\PHPUnit\Framework\Attributes\TestDox('phpOMS\tests\Utils\NumericUtilsTest: Numeric utilities')]
 final class NumericUtilsTest extends \PHPUnit\Framework\TestCase
 {
-    /**
-     * @testdox Integers can be unsigned right shifted
-     * @covers \phpOMS\Utils\NumericUtils
-     * @group framework
-     */
+    #[\PHPUnit\Framework\Attributes\Group('framework')]
+    #[\PHPUnit\Framework\Attributes\TestDox('Integers can be unsigned right shifted')]
     public function testShift() : void
     {
         self::assertEquals(10, NumericUtils::uRightShift(10, 0));

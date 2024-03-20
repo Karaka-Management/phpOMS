@@ -15,10 +15,9 @@ declare(strict_types=1);
 namespace phpOMS\tests\Business\Recommendation;
 
 /**
- * @testdox phpOMS\tests\Business\Recommendation\BayesianPersonalizedRankingTest: Article affinity/correlation
- *
  * @internal
  */
+#[\PHPUnit\Framework\Attributes\TestDox('phpOMS\tests\Business\Recommendation\BayesianPersonalizedRankingTest: Article affinity/correlation')]
 final class BayesianPersonalizedRankingTest extends \PHPUnit\Framework\TestCase
 {
 }

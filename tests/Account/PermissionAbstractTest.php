@@ -20,17 +20,14 @@ use phpOMS\Account\PermissionAbstract;
 use phpOMS\Account\PermissionType;
 
 /**
- * @testdox phpOMS\tests\Account\PermissionAbstractTest: Base permission representation
- *
  * @internal
  */
+#[\PHPUnit\Framework\Attributes\CoversClass(\phpOMS\Account\PermissionAbstract::class)]
+#[\PHPUnit\Framework\Attributes\TestDox('phpOMS\tests\Account\PermissionAbstractTest: Base permission representation')]
 final class PermissionAbstractTest extends \PHPUnit\Framework\TestCase
 {
-    /**
-     * @testdox The permission has the expected default values after initialization
-     * @covers \phpOMS\Account\PermissionAbstract
-     * @group framework
-     */
+    #[\PHPUnit\Framework\Attributes\Group('framework')]
+    #[\PHPUnit\Framework\Attributes\TestDox('The permission has the expected default values after initialization')]
     public function testAbstractDefault() : void
     {
         $perm = new class() extends PermissionAbstract {};
@@ -64,11 +61,8 @@ final class PermissionAbstractTest extends \PHPUnit\Framework\TestCase
         );
     }
 
-    /**
-     * @testdox The permission can be set and returned correctly
-     * @covers \phpOMS\Account\PermissionAbstract
-     * @group framework
-     */
+    #[\PHPUnit\Framework\Attributes\Group('framework')]
+    #[\PHPUnit\Framework\Attributes\TestDox('The permission can be set and returned correctly')]
     public function testPermissionInputOutput() : void
     {
         $perm = new class() extends PermissionAbstract {};
@@ -77,11 +71,8 @@ final class PermissionAbstractTest extends \PHPUnit\Framework\TestCase
         self::assertEquals(PermissionType::READ, $perm->getPermission());
     }
 
-    /**
-     * @testdox Two permissions can be checked for equality
-     * @covers \phpOMS\Account\PermissionAbstract
-     * @group framework
-     */
+    #[\PHPUnit\Framework\Attributes\Group('framework')]
+    #[\PHPUnit\Framework\Attributes\TestDox('Two permissions can be checked for equality')]
     public function testEqualPermissions() : void
     {
         $perm1       = new class() extends PermissionAbstract {};
@@ -117,11 +108,8 @@ final class PermissionAbstractTest extends \PHPUnit\Framework\TestCase
         );
     }
 
-    /**
-     * @testdox Correct permissions are validated
-     * @covers \phpOMS\Account\PermissionAbstract
-     * @group framework
-     */
+    #[\PHPUnit\Framework\Attributes\Group('framework')]
+    #[\PHPUnit\Framework\Attributes\TestDox('Correct permissions are validated')]
     public function testValidPermission() : void
     {
         $perm = new class() extends PermissionAbstract {};
@@ -132,11 +120,8 @@ final class PermissionAbstractTest extends \PHPUnit\Framework\TestCase
         self::assertTrue($perm->hasPermission(PermissionType::READ));
     }
 
-    /**
-     * @testdox Invalid permissions are not validated
-     * @covers \phpOMS\Account\PermissionAbstract
-     * @group framework
-     */
+    #[\PHPUnit\Framework\Attributes\Group('framework')]
+    #[\PHPUnit\Framework\Attributes\TestDox('Invalid permissions are not validated')]
     public function testInvalidPermission() : void
     {
         $perm = new class() extends PermissionAbstract {};
@@ -146,11 +131,8 @@ final class PermissionAbstractTest extends \PHPUnit\Framework\TestCase
         self::assertFalse($perm->hasPermission(PermissionType::MODIFY));
     }
 
-    /**
-     * @testdox Correct permission flags are validated
-     * @covers \phpOMS\Account\PermissionAbstract
-     * @group framework
-     */
+    #[\PHPUnit\Framework\Attributes\Group('framework')]
+    #[\PHPUnit\Framework\Attributes\TestDox('Correct permission flags are validated')]
     public function testValidPermissionFlag() : void
     {
         $perm = new class() extends PermissionAbstract {};
@@ -161,11 +143,8 @@ final class PermissionAbstractTest extends \PHPUnit\Framework\TestCase
         self::assertTrue($perm->hasPermissionFlags(PermissionType::READ | PermissionType::CREATE));
     }
 
-    /**
-     * @testdox Invalid permission flags are not validated
-     * @covers \phpOMS\Account\PermissionAbstract
-     * @group framework
-     */
+    #[\PHPUnit\Framework\Attributes\Group('framework')]
+    #[\PHPUnit\Framework\Attributes\TestDox('Invalid permission flags are not validated')]
     public function testInvalidPermissionFlag() : void
     {
         $perm = new class() extends PermissionAbstract {};

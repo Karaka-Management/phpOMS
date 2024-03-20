@@ -17,28 +17,22 @@ namespace phpOMS\tests\Utils\Git;
 use phpOMS\Utils\Git\Branch;
 
 /**
- * @testdox phpOMS\tests\Utils\Git\BranchTest: Git branch
- *
  * @internal
  */
+#[\PHPUnit\Framework\Attributes\CoversClass(\phpOMS\Utils\Git\Branch::class)]
+#[\PHPUnit\Framework\Attributes\TestDox('phpOMS\tests\Utils\Git\BranchTest: Git branch')]
 final class BranchTest extends \PHPUnit\Framework\TestCase
 {
-    /**
-     * @testdox The branch has the expected default values after initialization
-     * @covers \phpOMS\Utils\Git\Branch
-     * @group framework
-     */
+    #[\PHPUnit\Framework\Attributes\Group('framework')]
+    #[\PHPUnit\Framework\Attributes\TestDox('The branch has the expected default values after initialization')]
     public function testDefault() : void
     {
         $branch = new Branch();
         self::assertEquals('', $branch->name);
     }
 
-    /**
-     * @testdox The branch name can be set during initialization and returned
-     * @covers \phpOMS\Utils\Git\Branch
-     * @group framework
-     */
+    #[\PHPUnit\Framework\Attributes\Group('framework')]
+    #[\PHPUnit\Framework\Attributes\TestDox('The branch name can be set during initialization and returned')]
     public function testConstructInputOutput() : void
     {
         $branch = new Branch('test');

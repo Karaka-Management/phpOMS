@@ -19,12 +19,10 @@ use phpOMS\AutoloadException;
 /**
  * @internal
  */
+#[\PHPUnit\Framework\Attributes\CoversClass(\phpOMS\AutoloadException::class)]
 final class AutoloadExceptionTest extends \PHPUnit\Framework\TestCase
 {
-    /**
-     * @covers \phpOMS\AutoloadException
-     * @group framework
-     */
+    #[\PHPUnit\Framework\Attributes\Group('framework')]
     public function testException() : void
     {
         self::assertInstanceOf(\RuntimeException::class, new AutoloadException(''));

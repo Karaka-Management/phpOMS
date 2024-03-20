@@ -17,17 +17,14 @@ namespace phpOMS\tests\Validation\Finance;
 use phpOMS\Validation\Finance\BIC;
 
 /**
- * @testdox phpOMS\tests\Validation\Finance\BICTest: BIC validator
- *
  * @internal
  */
+#[\PHPUnit\Framework\Attributes\CoversClass(\phpOMS\Validation\Finance\BIC::class)]
+#[\PHPUnit\Framework\Attributes\TestDox('phpOMS\tests\Validation\Finance\BICTest: BIC validator')]
 final class BICTest extends \PHPUnit\Framework\TestCase
 {
-    /**
-     * @testdox A BIC can be validated
-     * @covers \phpOMS\Validation\Finance\BIC
-     * @group framework
-     */
+    #[\PHPUnit\Framework\Attributes\Group('framework')]
+    #[\PHPUnit\Framework\Attributes\TestDox('A BIC can be validated')]
     public function testBic() : void
     {
         self::assertTrue(BIC::isValid('ASPKAT2LXXX'));

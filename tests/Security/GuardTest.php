@@ -19,10 +19,10 @@ require_once __DIR__ . '/../Autoloader.php';
 use phpOMS\Security\Guard;
 
 /**
- * @testdox phpOMS\tests\Security\GuardTest: Basic php source code security inspection
- *
  * @internal
  */
+#[\PHPUnit\Framework\Attributes\CoversClass(\phpOMS\Security\Guard::class)]
+#[\PHPUnit\Framework\Attributes\TestDox('phpOMS\tests\Security\GuardTest: Basic php source code security inspection')]
 final class GuardTest extends \PHPUnit\Framework\TestCase
 {
     public function testSafePath() : void
@@ -57,11 +57,8 @@ final class GuardTest extends \PHPUnit\Framework\TestCase
         );
     }
 
-    /**
-     * @testdox A string can be validated for shell safety
-     * @covers \phpOMS\Security\Guard
-     * @group framework
-     */
+    #[\PHPUnit\Framework\Attributes\Group('framework')]
+    #[\PHPUnit\Framework\Attributes\TestDox('A string can be validated for shell safety')]
     public function testIsShellSafe() : void
     {
         self::assertTrue(Guard::isShellSafe('asdf'));

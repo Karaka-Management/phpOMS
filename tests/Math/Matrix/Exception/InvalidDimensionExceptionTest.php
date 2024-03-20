@@ -19,12 +19,10 @@ use phpOMS\Math\Matrix\Exception\InvalidDimensionException;
 /**
  * @internal
  */
+#[\PHPUnit\Framework\Attributes\CoversClass(\phpOMS\Math\Matrix\Exception\InvalidDimensionException::class)]
 final class InvalidDimensionExceptionTest extends \PHPUnit\Framework\TestCase
 {
-    /**
-     * @covers \phpOMS\Math\Matrix\Exception\InvalidDimensionException
-     * @group framework
-     */
+    #[\PHPUnit\Framework\Attributes\Group('framework')]
     public function testException() : void
     {
         self::assertInstanceOf(\UnexpectedValueException::class, new InvalidDimensionException(''));

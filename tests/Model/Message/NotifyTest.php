@@ -20,12 +20,10 @@ use phpOMS\Model\Message\Notify;
 /**
  * @internal
  */
+#[\PHPUnit\Framework\Attributes\CoversClass(\phpOMS\Model\Message\Notify::class)]
 final class NotifyTest extends \PHPUnit\Framework\TestCase
 {
-    /**
-     * @covers \phpOMS\Model\Message\Notify
-     * @group framework
-     */
+    #[\PHPUnit\Framework\Attributes\Group('framework')]
     public function testDefault() : void
     {
         $obj = new Notify();
@@ -38,10 +36,7 @@ final class NotifyTest extends \PHPUnit\Framework\TestCase
         self::assertEquals(NotificationLevel::INFO, $obj->toArray()['level']);
     }
 
-    /**
-     * @covers \phpOMS\Model\Message\Notify
-     * @group framework
-     */
+    #[\PHPUnit\Framework\Attributes\Group('framework')]
     public function testSetGet() : void
     {
         $obj          = new Notify('message', NotificationLevel::WARNING);

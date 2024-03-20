@@ -17,10 +17,10 @@ namespace phpOMS\tests\Utils\IO\Zip;
 use phpOMS\Utils\IO\Zip\Zip;
 
 /**
- * @testdox phpOMS\tests\Utils\IO\Zip\ZipTest: Zip archive
- *
  * @internal
  */
+#[\PHPUnit\Framework\Attributes\CoversClass(\phpOMS\Utils\IO\Zip\Zip::class)]
+#[\PHPUnit\Framework\Attributes\TestDox('phpOMS\tests\Utils\IO\Zip\ZipTest: Zip archive')]
 final class ZipTest extends \PHPUnit\Framework\TestCase
 {
     protected function setUp() : void
@@ -36,11 +36,8 @@ final class ZipTest extends \PHPUnit\Framework\TestCase
         }
     }
 
-    /**
-     * @testdox Data can be zip packed and unpacked
-     * @covers \phpOMS\Utils\IO\Zip\Zip
-     * @group framework
-     */
+    #[\PHPUnit\Framework\Attributes\Group('framework')]
+    #[\PHPUnit\Framework\Attributes\TestDox('Data can be zip packed and unpacked')]
     public function testZip() : void
     {
         self::assertTrue(Zip::pack(
@@ -107,11 +104,8 @@ final class ZipTest extends \PHPUnit\Framework\TestCase
         \unlink(__DIR__ . '/test.zip');
     }
 
-    /**
-     * @testdox The output of the zip archive needs to be properly defined
-     * @covers \phpOMS\Utils\IO\Zip\Zip
-     * @group framework
-     */
+    #[\PHPUnit\Framework\Attributes\Group('framework')]
+    #[\PHPUnit\Framework\Attributes\TestDox('The output of the zip archive needs to be properly defined')]
     public function testInvalidZipDestination() : void
     {
         self::assertFalse(Zip::pack(
@@ -124,11 +118,8 @@ final class ZipTest extends \PHPUnit\Framework\TestCase
         ));
     }
 
-    /**
-     * @testdox Extracting invalid zip files fail
-     * @covers \phpOMS\Utils\IO\Zip\Zip
-     * @group framework
-     */
+    #[\PHPUnit\Framework\Attributes\Group('framework')]
+    #[\PHPUnit\Framework\Attributes\TestDox('Extracting invalid zip files fail')]
     public function testInvalidZipUnpack() : void
     {
         self::assertFalse(Zip::unpack(
@@ -142,11 +133,8 @@ final class ZipTest extends \PHPUnit\Framework\TestCase
         ));
     }
 
-    /**
-     * @testdox A zip archive cannot be overwritten by default
-     * @covers \phpOMS\Utils\IO\Zip\Zip
-     * @group framework
-     */
+    #[\PHPUnit\Framework\Attributes\Group('framework')]
+    #[\PHPUnit\Framework\Attributes\TestDox('A zip archive cannot be overwritten by default')]
     public function testInvalidZip() : void
     {
         Zip::pack(
@@ -175,21 +163,15 @@ final class ZipTest extends \PHPUnit\Framework\TestCase
         self::assertFalse(Zip::unpack(__DIR__ . '/malformed.zip', __DIR__));
     }
 
-    /**
-     * @testdox A none-existing source cannot be unpacked
-     * @covers \phpOMS\Utils\IO\Zip\Zip
-     * @group framework
-     */
+    #[\PHPUnit\Framework\Attributes\Group('framework')]
+    #[\PHPUnit\Framework\Attributes\TestDox('A none-existing source cannot be unpacked')]
     public function testInvalidUnpackSource() : void
     {
         self::assertFalse(Zip::unpack(__DIR__ . '/test.zip', __DIR__));
     }
 
-    /**
-     * @testdox A destination cannot be overwritten
-     * @covers \phpOMS\Utils\IO\Zip\Zip
-     * @group framework
-     */
+    #[\PHPUnit\Framework\Attributes\Group('framework')]
+    #[\PHPUnit\Framework\Attributes\TestDox('A destination cannot be overwritten')]
     public function testInvalidUnpackDestination() : void
     {
         self::assertTrue(Zip::pack(

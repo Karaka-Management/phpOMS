@@ -17,10 +17,9 @@ namespace phpOMS\tests\Business\Recommendation;
 use phpOMS\Business\Recommendation\ModelCF;
 
 /**
- * @testdox phpOMS\tests\Business\Recommendation\ModelCFTest: Article affinity/correlation
- *
  * @internal
  */
+#[\PHPUnit\Framework\Attributes\TestDox('phpOMS\tests\Business\Recommendation\ModelCFTest: Article affinity/correlation')]
 final class ModelCFTest extends \PHPUnit\Framework\TestCase
 {
     public function testScore() : void

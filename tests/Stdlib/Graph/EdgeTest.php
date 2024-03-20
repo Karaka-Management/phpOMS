@@ -18,17 +18,14 @@ use phpOMS\Stdlib\Graph\Edge;
 use phpOMS\Stdlib\Graph\Node;
 
 /**
- * @testdox phpOMS\tests\Stdlib\Graph\EdgeTest: Edge between nodes
- *
  * @internal
  */
+#[\PHPUnit\Framework\Attributes\CoversClass(\phpOMS\Stdlib\Graph\Edge::class)]
+#[\PHPUnit\Framework\Attributes\TestDox('phpOMS\tests\Stdlib\Graph\EdgeTest: Edge between nodes')]
 final class EdgeTest extends \PHPUnit\Framework\TestCase
 {
-    /**
-     * @testdox The edge has the expected default values after initialization
-     * @covers \phpOMS\Stdlib\Graph\Edge
-     * @group framework
-     */
+    #[\PHPUnit\Framework\Attributes\Group('framework')]
+    #[\PHPUnit\Framework\Attributes\TestDox('The edge has the expected default values after initialization')]
     public function testDefault() : void
     {
         $edge = new Edge(new Node('1'), new Node('2'));
@@ -39,22 +36,16 @@ final class EdgeTest extends \PHPUnit\Framework\TestCase
         self::assertFalse($edge->isDirected);
     }
 
-    /**
-     * @testdox An edge can be directed
-     * @covers \phpOMS\Stdlib\Graph\Edge
-     * @group framework
-     */
+    #[\PHPUnit\Framework\Attributes\Group('framework')]
+    #[\PHPUnit\Framework\Attributes\TestDox('An edge can be directed')]
     public function testDirected() : void
     {
         $edge = new Edge(new Node('7'), new Node('8'), 1.0, true);
         self::assertTrue($edge->isDirected);
     }
 
-    /**
-     * @testdox An edge weight can be set and returned
-     * @covers \phpOMS\Stdlib\Graph\Edge
-     * @group framework
-     */
+    #[\PHPUnit\Framework\Attributes\Group('framework')]
+    #[\PHPUnit\Framework\Attributes\TestDox('An edge weight can be set and returned')]
     public function testWeightInputOutput() : void
     {
         $edge = new Edge(new Node('7'), new Node('8'), 2.0, true);
@@ -65,11 +56,8 @@ final class EdgeTest extends \PHPUnit\Framework\TestCase
         self::assertEquals(3.0, $edge->weight);
     }
 
-    /**
-     * @testdox Two edge weights can be compared
-     * @covers \phpOMS\Stdlib\Graph\Edge
-     * @group framework
-     */
+    #[\PHPUnit\Framework\Attributes\Group('framework')]
+    #[\PHPUnit\Framework\Attributes\TestDox('Two edge weights can be compared')]
     public function testWeightComparison() : void
     {
         $edge1 = new Edge(new Node('7'), new Node('8'), 1.0, true);

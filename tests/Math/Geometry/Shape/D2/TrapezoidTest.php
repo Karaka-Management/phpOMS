@@ -17,47 +17,35 @@ namespace phpOMS\tests\Math\Geometry\Shape\D2;
 use phpOMS\Math\Geometry\Shape\D2\Trapezoid;
 
 /**
- * @testdox phpOMS\tests\Math\Geometry\Shape\D2\TrapezoidTest: Trapezoid shape
- *
  * @internal
  */
+#[\PHPUnit\Framework\Attributes\CoversClass(\phpOMS\Math\Geometry\Shape\D2\Trapezoid::class)]
+#[\PHPUnit\Framework\Attributes\TestDox('phpOMS\tests\Math\Geometry\Shape\D2\TrapezoidTest: Trapezoid shape')]
 final class TrapezoidTest extends \PHPUnit\Framework\TestCase
 {
-    /**
-     * @testdox The surface can be calculated
-     * @covers \phpOMS\Math\Geometry\Shape\D2\Trapezoid
-     * @group framework
-     */
+    #[\PHPUnit\Framework\Attributes\Group('framework')]
+    #[\PHPUnit\Framework\Attributes\TestDox('The surface can be calculated')]
     public function testSurface() : void
     {
         self::assertEqualsWithDelta(10, Trapezoid::getSurface(2, 3, 4), 0.001);
     }
 
-    /**
-     * @testdox The perimeter can be calculated
-     * @covers \phpOMS\Math\Geometry\Shape\D2\Trapezoid
-     * @group framework
-     */
+    #[\PHPUnit\Framework\Attributes\Group('framework')]
+    #[\PHPUnit\Framework\Attributes\TestDox('The perimeter can be calculated')]
     public function testPerimeter() : void
     {
         self::assertEqualsWithDelta(14, Trapezoid::getPerimeter(2, 3, 4, 5), 0.001);
     }
 
-    /**
-     * @testdox The height can be calculated
-     * @covers \phpOMS\Math\Geometry\Shape\D2\Trapezoid
-     * @group framework
-     */
+    #[\PHPUnit\Framework\Attributes\Group('framework')]
+    #[\PHPUnit\Framework\Attributes\TestDox('The height can be calculated')]
     public function testHeight() : void
     {
         self::assertEqualsWithDelta(4, Trapezoid::getHeight(10, 2, 3), 0.001);
     }
 
-    /**
-     * @testdox The side lengths can be calculated
-     * @covers \phpOMS\Math\Geometry\Shape\D2\Trapezoid
-     * @group framework
-     */
+    #[\PHPUnit\Framework\Attributes\Group('framework')]
+    #[\PHPUnit\Framework\Attributes\TestDox('The side lengths can be calculated')]
     public function testSideLength() : void
     {
         self::assertEqualsWithDelta(2, Trapezoid::getA(10, 4, 3), 0.001);

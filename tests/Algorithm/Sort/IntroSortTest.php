@@ -20,10 +20,9 @@ use phpOMS\Algorithm\Sort\SortOrder;
 require_once __DIR__ . '/../../Autoloader.php';
 
 /**
- * @testdox phpOMS\tests\Algorithm\Sort\IntroSortTest: Intro sort
- *
  * @internal
  */
+#[\PHPUnit\Framework\Attributes\TestDox('phpOMS\tests\Algorithm\Sort\IntroSortTest: Intro sort')]
 final class IntroSortTest extends \PHPUnit\Framework\TestCase
 {
     protected $list = [];
@@ -42,10 +41,8 @@ final class IntroSortTest extends \PHPUnit\Framework\TestCase
         ];
     }
 
-    /**
-     * @testdox A list with one element returns the list with the element itself
-     * @group framework
-     */
+    #[\PHPUnit\Framework\Attributes\Group('framework')]
+    #[\PHPUnit\Framework\Attributes\TestDox('A list with one element returns the list with the element itself')]
     public function testSmallList() : void
     {
         $smallList = [new NumericElement(3)];
@@ -54,10 +51,8 @@ final class IntroSortTest extends \PHPUnit\Framework\TestCase
         self::assertEquals($smallList, $newList);
     }
 
-    /**
-     * @testdox A list ot elements can be sorted in ASC order
-     * @group framework
-     */
+    #[\PHPUnit\Framework\Attributes\Group('framework')]
+    #[\PHPUnit\Framework\Attributes\TestDox('A list ot elements can be sorted in ASC order')]
     public function testSortASC() : void
     {
         $newList = IntroSort::sort($this->list);
@@ -99,10 +94,8 @@ final class IntroSortTest extends \PHPUnit\Framework\TestCase
         );
     }
 
-    /**
-     * @testdox A list ot elements can be sorted in DESC order
-     * @group framework
-     */
+    #[\PHPUnit\Framework\Attributes\Group('framework')]
+    #[\PHPUnit\Framework\Attributes\TestDox('A list ot elements can be sorted in DESC order')]
     public function testSortDESC() : void
     {
         $newList = IntroSort::sort($this->list, SortOrder::DESC);

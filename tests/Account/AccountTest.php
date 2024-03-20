@@ -27,10 +27,10 @@ use phpOMS\Localization\Localization;
 require_once __DIR__ . '/../Autoloader.php';
 
 /**
- * @testdox phpOMS\tests\Account\Account: Base account/user representation
- *
  * @internal
  */
+#[\PHPUnit\Framework\Attributes\CoversClass(\phpOMS\Account\Account::class)]
+#[\PHPUnit\Framework\Attributes\TestDox('phpOMS\tests\Account\Account: Base account/user representation')]
 final class AccountTest extends \PHPUnit\Framework\TestCase
 {
     protected $l11nManager = null;
@@ -44,10 +44,9 @@ final class AccountTest extends \PHPUnit\Framework\TestCase
     }
 
     /**
-     * @testdox The account has the expected default values after initialization
-     * @covers \phpOMS\Account\Account<extended>
      * @group framework
      */
+    #[\PHPUnit\Framework\Attributes\TestDox('The account has the expected default values after initialization')]
     public function testDefault() : void
     {
         $account = new Account();
@@ -94,10 +93,9 @@ final class AccountTest extends \PHPUnit\Framework\TestCase
     }
 
     /**
-     * @testdox The account names can be set and retrieved correctly
-     * @covers \phpOMS\Account\Account<extended>
      * @group framework
      */
+    #[\PHPUnit\Framework\Attributes\TestDox('The account names can be set and retrieved correctly')]
     public function testSetAndGetAccountNames() : void
     {
         $account = new Account();
@@ -117,10 +115,9 @@ final class AccountTest extends \PHPUnit\Framework\TestCase
     }
 
     /**
-     * @testdox Groups can be added to an account
-     * @covers \phpOMS\Account\Account<extended>
      * @group framework
      */
+    #[\PHPUnit\Framework\Attributes\TestDox('Groups can be added to an account')]
     public function testAddAndGetGroup() : void
     {
         $account = new Account();
@@ -132,10 +129,9 @@ final class AccountTest extends \PHPUnit\Framework\TestCase
     }
 
     /**
-     * @testdox An account can have a valid email address
-     * @covers \phpOMS\Account\Account<extended>
      * @group framework
      */
+    #[\PHPUnit\Framework\Attributes\TestDox('An account can have a valid email address')]
     public function testSetAndGetAccountEmail() : void
     {
         $account = new Account();
@@ -146,10 +142,9 @@ final class AccountTest extends \PHPUnit\Framework\TestCase
     }
 
     /**
-     * @testdox Account permissions can be added
-     * @covers \phpOMS\Account\Account<extended>
      * @group framework
      */
+    #[\PHPUnit\Framework\Attributes\TestDox('Account permissions can be added')]
     public function testPermissionAdd() : void
     {
         $account = new Account();
@@ -178,10 +173,9 @@ final class AccountTest extends \PHPUnit\Framework\TestCase
     }
 
     /**
-     * @testdox Account permissions can be checked for existence
-     * @covers \phpOMS\Account\Account<extended>
      * @group framework
      */
+    #[\PHPUnit\Framework\Attributes\TestDox('Account permissions can be checked for existence')]
     public function testPermissionExists() : void
     {
         $account = new Account();
@@ -207,10 +201,9 @@ final class AccountTest extends \PHPUnit\Framework\TestCase
     }
 
     /**
-     * @testdox Account permissions can be removed
-     * @covers \phpOMS\Account\Account<extended>
      * @group framework
      */
+    #[\PHPUnit\Framework\Attributes\TestDox('Account permissions can be removed')]
     public function testPermissionRemove() : void
     {
         $account = new Account();
@@ -227,10 +220,9 @@ final class AccountTest extends \PHPUnit\Framework\TestCase
     }
 
     /**
-     * @testdox An account can have it's own localization
-     * @covers \phpOMS\Account\Account<extended>
      * @group framework
      */
+    #[\PHPUnit\Framework\Attributes\TestDox("An account can have it's own localization")]
     public function testLocalization() : void
     {
         $account = new Account();
@@ -241,9 +233,9 @@ final class AccountTest extends \PHPUnit\Framework\TestCase
     }
 
     /**
-     * @testdox An account 'last activity' timestamp can be updated and retrieved
      * @group framework
      */
+    #[\PHPUnit\Framework\Attributes\TestDox("An account 'last activity' timestamp can be updated and retrieved")]
     public function testLastChange() : void
     {
         $account = new Account();
@@ -255,9 +247,9 @@ final class AccountTest extends \PHPUnit\Framework\TestCase
     }
 
     /**
-     * @testdox An account can only have a valid email
      * @group framework
      */
+    #[\PHPUnit\Framework\Attributes\TestDox('An account can only have a valid email')]
     public function testEmailException() : void
     {
         $this->expectException(\InvalidArgumentException::class);

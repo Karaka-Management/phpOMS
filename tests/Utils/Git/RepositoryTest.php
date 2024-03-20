@@ -17,17 +17,14 @@ namespace phpOMS\tests\Utils\Git;
 use phpOMS\Utils\Git\Repository;
 
 /**
- * @testdox phpOMS\tests\Utils\Git\RepositoryTest: Git repository
- *
  * @internal
  */
+#[\PHPUnit\Framework\Attributes\CoversClass(\phpOMS\Utils\Git\Repository::class)]
+#[\PHPUnit\Framework\Attributes\TestDox('phpOMS\tests\Utils\Git\RepositoryTest: Git repository')]
 final class RepositoryTest extends \PHPUnit\Framework\TestCase
 {
-    /**
-     * @testdox The repository has the expected default values after initialization
-     * @covers \phpOMS\Utils\Git\Repository
-     * @group framework
-     */
+    #[\PHPUnit\Framework\Attributes\Group('framework')]
+    #[\PHPUnit\Framework\Attributes\TestDox('The repository has the expected default values after initialization')]
     public function testDefault() : void
     {
         $repo = new Repository(\realpath(__DIR__ . '/../../../'));

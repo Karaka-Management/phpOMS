@@ -19,10 +19,10 @@ use phpOMS\Utils\TaskSchedule\SchedulerAbstract;
 use phpOMS\Utils\TaskSchedule\TaskScheduler;
 
 /**
- * @testdox phpOMS\tests\Utils\TaskSchedule\TaskSchedulerTest: Task schedule handler
- *
  * @internal
  */
+#[\PHPUnit\Framework\Attributes\CoversClass(\phpOMS\Utils\TaskSchedule\TaskScheduler::class)]
+#[\PHPUnit\Framework\Attributes\TestDox('phpOMS\tests\Utils\TaskSchedule\TaskSchedulerTest: Task schedule handler')]
 final class TaskSchedulerTest extends \PHPUnit\Framework\TestCase
 {
     protected function setUp() : void
@@ -40,31 +40,22 @@ final class TaskSchedulerTest extends \PHPUnit\Framework\TestCase
         }
     }
 
-    /**
-     * @testdox The task handler has the expected default values after initialization
-     * @covers \phpOMS\Utils\TaskSchedule\TaskScheduler<extended>
-     * @group framework
-     */
+    #[\PHPUnit\Framework\Attributes\Group('framework')]
+    #[\PHPUnit\Framework\Attributes\TestDox('The task handler has the expected default values after initialization')]
     public function testDefault() : void
     {
         self::assertInstanceOf('\phpOMS\Utils\TaskSchedule\SchedulerAbstract', new TaskScheduler());
     }
 
-    /**
-     * @testdox The task binary location path can be guessed
-     * @covers \phpOMS\Utils\TaskSchedule\TaskScheduler<extended>
-     * @group framework
-     */
+    #[\PHPUnit\Framework\Attributes\Group('framework')]
+    #[\PHPUnit\Framework\Attributes\TestDox('The task binary location path can be guessed')]
     public function testGuessBinary() : void
     {
         self::assertTrue(TaskScheduler::guessBin());
     }
 
-    /**
-     * @testdox A task can be created and returned
-     * @covers \phpOMS\Utils\TaskSchedule\TaskScheduler<extended>
-     * @group framework
-     */
+    #[\PHPUnit\Framework\Attributes\Group('framework')]
+    #[\PHPUnit\Framework\Attributes\TestDox('A task can be created and returned')]
     public function testTaskScheduleInputOutput() : void
     {
         $task = new TaskScheduler();
@@ -79,22 +70,16 @@ final class TaskSchedulerTest extends \PHPUnit\Framework\TestCase
         $task->delete($job);
     }
 
-    /**
-     * @testdox A none-existing task name cannot be returned
-     * @covers \phpOMS\Utils\TaskSchedule\TaskScheduler<extended>
-     * @group framework
-     */
+    #[\PHPUnit\Framework\Attributes\Group('framework')]
+    #[\PHPUnit\Framework\Attributes\TestDox('A none-existing task name cannot be returned')]
     public function testInvalidTaskScheduleName() : void
     {
         $task = new TaskScheduler();
         self::assertEquals([], $task->getAllByName('testTaskSchedule', false));
     }
 
-    /**
-     * @testdox A task can be updated
-     * @covers \phpOMS\Utils\TaskSchedule\TaskScheduler<extended>
-     * @group framework
-     */
+    #[\PHPUnit\Framework\Attributes\Group('framework')]
+    #[\PHPUnit\Framework\Attributes\TestDox('A task can be updated')]
     public function testTaskScheduleUpdate() : void
     {
         $task = new TaskScheduler();
@@ -112,11 +97,8 @@ final class TaskSchedulerTest extends \PHPUnit\Framework\TestCase
         $task->delete($job);
     }
 
-    /**
-     * @testdox A task can be deleted
-     * @covers \phpOMS\Utils\TaskSchedule\TaskScheduler<extended>
-     * @group framework
-     */
+    #[\PHPUnit\Framework\Attributes\Group('framework')]
+    #[\PHPUnit\Framework\Attributes\TestDox('A task can be deleted')]
     public function testDelete() : void
     {
         $task = new TaskScheduler();

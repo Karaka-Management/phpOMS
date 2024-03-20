@@ -18,38 +18,29 @@ use phpOMS\Math\Functions\Functions;
 use phpOMS\Math\Functions\Gamma;
 
 /**
- * @testdox phpOMS\tests\Math\Functions\GammaTest: Gamma function
- *
  * @internal
  */
+#[\PHPUnit\Framework\Attributes\CoversClass(\phpOMS\Math\Functions\Gamma::class)]
+#[\PHPUnit\Framework\Attributes\TestDox('phpOMS\tests\Math\Functions\GammaTest: Gamma function')]
 final class GammaTest extends \PHPUnit\Framework\TestCase
 {
-    /**
-     * @testdox The gamma function can be approximated
-     * @covers \phpOMS\Math\Functions\Gamma
-     * @group framework
-     */
+    #[\PHPUnit\Framework\Attributes\Group('framework')]
+    #[\PHPUnit\Framework\Attributes\TestDox('The gamma function can be approximated')]
     public function testGamma() : void
     {
         self::assertEqualsWithDelta(2.0, Gamma::gamma(3.0), 0.001);
         self::assertEqualsWithDelta(11.631728, Gamma::gamma(4.5), 0.001);
     }
 
-    /**
-     * @testdox The gamma function can be calculated for integers
-     * @covers \phpOMS\Math\Functions\Gamma
-     * @group framework
-     */
+    #[\PHPUnit\Framework\Attributes\Group('framework')]
+    #[\PHPUnit\Framework\Attributes\TestDox('The gamma function can be calculated for integers')]
     public function testFactorial() : void
     {
         self::assertEquals(Functions::fact(4), Gamma::getGammaInteger(5));
     }
 
-    /**
-     * @testdox The gamma function can be approximated with the spouge formula
-     * @covers \phpOMS\Math\Functions\Gamma
-     * @group framework
-     */
+    #[\PHPUnit\Framework\Attributes\Group('framework')]
+    #[\PHPUnit\Framework\Attributes\TestDox('The gamma function can be approximated with the spouge formula')]
     public function testApproximationSpouge() : void
     {
         $spouge = [
@@ -65,11 +56,8 @@ final class GammaTest extends \PHPUnit\Framework\TestCase
         self::assertTrue(true);
     }
 
-    /**
-     * @testdox The gamma function can be approximated with the stirling formula
-     * @covers \phpOMS\Math\Functions\Gamma
-     * @group framework
-     */
+    #[\PHPUnit\Framework\Attributes\Group('framework')]
+    #[\PHPUnit\Framework\Attributes\TestDox('The gamma function can be approximated with the stirling formula')]
     public function testApproximationStirling() : void
     {
         $stirling = [
@@ -85,11 +73,8 @@ final class GammaTest extends \PHPUnit\Framework\TestCase
         self::assertTrue(true);
     }
 
-    /**
-     * @testdox The gamma function can be approximated with the lanzos formula
-     * @covers \phpOMS\Math\Functions\Gamma
-     * @group framework
-     */
+    #[\PHPUnit\Framework\Attributes\Group('framework')]
+    #[\PHPUnit\Framework\Attributes\TestDox('The gamma function can be approximated with the lanzos formula')]
     public function testApproximationLanzos() : void
     {
         $gsl = [
@@ -105,11 +90,8 @@ final class GammaTest extends \PHPUnit\Framework\TestCase
         self::assertTrue(true);
     }
 
-    /**
-     * @testdox The log gamma function can be approximated
-     * @covers \phpOMS\Math\Functions\Gamma
-     * @group framework
-     */
+    #[\PHPUnit\Framework\Attributes\Group('framework')]
+    #[\PHPUnit\Framework\Attributes\TestDox('The log gamma function can be approximated')]
     public function testLogGamma() : void
     {
         $gsl = [
@@ -125,11 +107,8 @@ final class GammaTest extends \PHPUnit\Framework\TestCase
         self::assertTrue(true);
     }
 
-    /**
-     * @testdox The first incomplete gamma function can be approximated
-     * @covers \phpOMS\Math\Functions\Gamma
-     * @group framework
-     */
+    #[\PHPUnit\Framework\Attributes\Group('framework')]
+    #[\PHPUnit\Framework\Attributes\TestDox('The first incomplete gamma function can be approximated')]
     public function testFirstIncompleteGamma() : void
     {
         self::assertEqualsWithDelta(0.0, Gamma::incompleteGammaFirst(3.0, 0.0), 0.001);
@@ -137,11 +116,8 @@ final class GammaTest extends \PHPUnit\Framework\TestCase
         self::assertEqualsWithDelta(2.116608, Gamma::incompleteGammaFirst(4.0, 3.0), 0.001);
     }
 
-    /**
-     * @testdox The second incomplete gamma function can be approximated
-     * @covers \phpOMS\Math\Functions\Gamma
-     * @group framework
-     */
+    #[\PHPUnit\Framework\Attributes\Group('framework')]
+    #[\PHPUnit\Framework\Attributes\TestDox('The second incomplete gamma function can be approximated')]
     public function testSecondIncompleteGamma() : void
     {
         self::assertEqualsWithDelta(2.0, Gamma::incompleteGammaSecond(3.0, 0.0), 0.001);
@@ -149,11 +125,8 @@ final class GammaTest extends \PHPUnit\Framework\TestCase
         self::assertEqualsWithDelta(3.883391, Gamma::incompleteGammaSecond(4.0, 3.0), 0.001);
     }
 
-    /**
-     * @testdox The regularized incomplete gamma function can be approximated
-     * @covers \phpOMS\Math\Functions\Gamma
-     * @group framework
-     */
+    #[\PHPUnit\Framework\Attributes\Group('framework')]
+    #[\PHPUnit\Framework\Attributes\TestDox('The regularized incomplete gamma function can be approximated')]
     public function testRegularizedGamma() : void
     {
         self::assertEqualsWithDelta(0.0, Gamma::regularizedGamma(3.0, 0.0), 0.001);

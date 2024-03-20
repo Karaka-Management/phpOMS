@@ -19,16 +19,13 @@ use phpOMS\Config\OptionsTrait;
 require_once __DIR__ . '/../Autoloader.php';
 
 /**
- * @testdox phpOMS\tests\Config\OptionsTrait: Helper for managing options
- *
  * @internal
  */
+#[\PHPUnit\Framework\Attributes\TestDox('phpOMS\tests\Config\OptionsTrait: Helper for managing options')]
 final class OptionsTraitTest extends \PHPUnit\Framework\TestCase
 {
-    /**
-     * @testdox The option helper has the expected default values after initialization
-     * @group framework
-     */
+    #[\PHPUnit\Framework\Attributes\Group('framework')]
+    #[\PHPUnit\Framework\Attributes\TestDox('The option helper has the expected default values after initialization')]
     public function testDefault() : void
     {
         $class = new class() {
@@ -39,10 +36,8 @@ final class OptionsTraitTest extends \PHPUnit\Framework\TestCase
         self::assertNull($class->getOption('someKey'));
     }
 
-    /**
-     * @testdox Options can be added to the helper
-     * @group framework
-     */
+    #[\PHPUnit\Framework\Attributes\Group('framework')]
+    #[\PHPUnit\Framework\Attributes\TestDox('Options can be added to the helper')]
     public function testAdd() : void
     {
         $class = new class() {
@@ -54,10 +49,8 @@ final class OptionsTraitTest extends \PHPUnit\Framework\TestCase
         self::assertEquals('value1', $class->getOption('a'));
     }
 
-    /**
-     * @testdox Options can be overwritten/changed
-     * @group framework
-     */
+    #[\PHPUnit\Framework\Attributes\Group('framework')]
+    #[\PHPUnit\Framework\Attributes\TestDox('Options can be overwritten/changed')]
     public function testOverwrite() : void
     {
         $class = new class() {
@@ -81,10 +74,8 @@ final class OptionsTraitTest extends \PHPUnit\Framework\TestCase
         self::assertEquals('value3', $class->getOption('a'));
     }
 
-    /**
-     * @testdox Multiple options can be added to the helper in one go
-     * @group framework
-     */
+    #[\PHPUnit\Framework\Attributes\Group('framework')]
+    #[\PHPUnit\Framework\Attributes\TestDox('Multiple options can be added to the helper in one go')]
     public function testAddMultiple() : void
     {
         $class = new class() {
@@ -106,10 +97,8 @@ final class OptionsTraitTest extends \PHPUnit\Framework\TestCase
         self::assertEquals(3, $class->getOption('c'));
     }
 
-    /**
-     * @testdox Multiple options can be retrieved
-     * @group framework
-     */
+    #[\PHPUnit\Framework\Attributes\Group('framework')]
+    #[\PHPUnit\Framework\Attributes\TestDox('Multiple options can be retrieved')]
     public function testGetMultiple() : void
     {
         $class = new class() {

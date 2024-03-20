@@ -17,17 +17,14 @@ namespace phpOMS\tests\Math\Number;
 use phpOMS\Math\Number\Numbers;
 
 /**
- * @testdox phpOMS\tests\Math\Number\NumbersTest: General number utilities
- *
  * @internal
  */
+#[\PHPUnit\Framework\Attributes\CoversClass(\phpOMS\Math\Number\Numbers::class)]
+#[\PHPUnit\Framework\Attributes\TestDox('phpOMS\tests\Math\Number\NumbersTest: General number utilities')]
 final class NumbersTest extends \PHPUnit\Framework\TestCase
 {
-    /**
-     * @testdox A number can be checked to be perfect
-     * @covers \phpOMS\Math\Number\Numbers
-     * @group framework
-     */
+    #[\PHPUnit\Framework\Attributes\Group('framework')]
+    #[\PHPUnit\Framework\Attributes\TestDox('A number can be checked to be perfect')]
     public function testPerfect() : void
     {
         self::assertTrue(Numbers::isPerfect(496));
@@ -36,11 +33,8 @@ final class NumbersTest extends \PHPUnit\Framework\TestCase
         self::assertFalse(Numbers::isPerfect(100));
     }
 
-    /**
-     * @testdox A number can be checked to be self-describing
-     * @covers \phpOMS\Math\Number\Numbers
-     * @group framework
-     */
+    #[\PHPUnit\Framework\Attributes\Group('framework')]
+    #[\PHPUnit\Framework\Attributes\TestDox('A number can be checked to be self-describing')]
     public function testSelfdescribing() : void
     {
         self::assertFalse(Numbers::isSelfdescribing(2029));
@@ -48,11 +42,8 @@ final class NumbersTest extends \PHPUnit\Framework\TestCase
         self::assertTrue(Numbers::isSelfdescribing(3211000));
     }
 
-    /**
-     * @testdox A number can be checked to be squared
-     * @covers \phpOMS\Math\Number\Numbers
-     * @group framework
-     */
+    #[\PHPUnit\Framework\Attributes\Group('framework')]
+    #[\PHPUnit\Framework\Attributes\TestDox('A number can be checked to be squared')]
     public function testSquare() : void
     {
         self::assertTrue(Numbers::isSquare(81));
@@ -60,11 +51,8 @@ final class NumbersTest extends \PHPUnit\Framework\TestCase
         self::assertFalse(Numbers::isSquare(5545348));
     }
 
-    /**
-     * @testdox The amount of trailing zeros can be counted
-     * @covers \phpOMS\Math\Number\Numbers
-     * @group framework
-     */
+    #[\PHPUnit\Framework\Attributes\Group('framework')]
+    #[\PHPUnit\Framework\Attributes\TestDox('The amount of trailing zeros can be counted')]
     public function testZeroCounting() : void
     {
         self::assertEquals(3, Numbers::countTrailingZeros(1000));

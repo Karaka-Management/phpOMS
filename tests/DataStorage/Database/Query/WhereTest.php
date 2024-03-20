@@ -19,12 +19,10 @@ use phpOMS\DataStorage\Database\Query\Where;
 /**
  * @internal
  */
+#[\PHPUnit\Framework\Attributes\CoversClass(\phpOMS\DataStorage\Database\Query\Where::class)]
 final class WhereTest extends \PHPUnit\Framework\TestCase
 {
-    /**
-     * @covers \phpOMS\DataStorage\Database\Query\Where
-     * @group framework
-     */
+    #[\PHPUnit\Framework\Attributes\Group('framework')]
     public function testDefault() : void
     {
         self::assertInstanceOf('\phpOMS\DataStorage\Database\Query\Builder', new Where($GLOBALS['dbpool']->get()));

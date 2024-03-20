@@ -20,10 +20,10 @@ use phpOMS\Stdlib\Graph\Graph;
 use phpOMS\Stdlib\Graph\Node;
 
 /**
- * @testdox hpOMS\tests\Stdlib\Graph\Graph: Graph
- *
  * @internal
  */
+#[\PHPUnit\Framework\Attributes\CoversClass(\phpOMS\Stdlib\Graph\Graph::class)]
+#[\PHPUnit\Framework\Attributes\TestDox('hpOMS\tests\Stdlib\Graph\Graph: Graph')]
 final class GraphTest extends \PHPUnit\Framework\TestCase
 {
     protected Graph $graph;
@@ -36,11 +36,8 @@ final class GraphTest extends \PHPUnit\Framework\TestCase
         $this->graph = new Graph();
     }
 
-    /**
-     * @testdox The graph has the expected default values after initialization
-     * @covers \phpOMS\Stdlib\Graph\Graph
-     * @group framework
-     */
+    #[\PHPUnit\Framework\Attributes\Group('framework')]
+    #[\PHPUnit\Framework\Attributes\TestDox('The graph has the expected default values after initialization')]
     public function testDefault() : void
     {
         self::assertNull($this->graph->getNode('invalid'));
@@ -69,11 +66,8 @@ final class GraphTest extends \PHPUnit\Framework\TestCase
         self::assertEquals($this->graph, $this->graph->getKruskalMinimalSpanningTree());
     }
 
-    /**
-     * @testdox A graph can ge set as directed
-     * @covers \phpOMS\Stdlib\Graph\Graph
-     * @group framework
-     */
+    #[\PHPUnit\Framework\Attributes\Group('framework')]
+    #[\PHPUnit\Framework\Attributes\TestDox('A graph can ge set as directed')]
     public function testDirectedOutput() : void
     {
         $node0 = new Node('0');
@@ -88,11 +82,8 @@ final class GraphTest extends \PHPUnit\Framework\TestCase
         self::assertTrue($this->graph->isDirected());
     }
 
-    /**
-     * @testdox A node can be add to a graph and returned
-     * @covers \phpOMS\Stdlib\Graph\Graph
-     * @group framework
-     */
+    #[\PHPUnit\Framework\Attributes\Group('framework')]
+    #[\PHPUnit\Framework\Attributes\TestDox('A node can be add to a graph and returned')]
     public function testNodeInputOutput() : void
     {
         $node0 = new Node('0');
@@ -101,11 +92,8 @@ final class GraphTest extends \PHPUnit\Framework\TestCase
         self::assertEquals($node0, $this->graph->getNode('0'));
     }
 
-    /**
-     * @testdox The existence of a node in a graph can be checked
-     * @covers \phpOMS\Stdlib\Graph\Graph
-     * @group framework
-     */
+    #[\PHPUnit\Framework\Attributes\Group('framework')]
+    #[\PHPUnit\Framework\Attributes\TestDox('The existence of a node in a graph can be checked')]
     public function testNodeExists() : void
     {
         $node0 = new Node('0');
@@ -115,11 +103,8 @@ final class GraphTest extends \PHPUnit\Framework\TestCase
         self::assertFalse($this->graph->hasNode('1'));
     }
 
-    /**
-     * @testdox A graph can be checked for bridges
-     * @covers \phpOMS\Stdlib\Graph\Graph
-     * @group framework
-     */
+    #[\PHPUnit\Framework\Attributes\Group('framework')]
+    #[\PHPUnit\Framework\Attributes\TestDox('A graph can be checked for bridges')]
     public function testGraphWithBridge() : void
     {
         $node0 = new Node('0');
@@ -153,11 +138,8 @@ final class GraphTest extends \PHPUnit\Framework\TestCase
         self::assertEquals('6', $bridges[0]->node2->getId());
     }
 
-    /**
-     * @testdox Multiple bridges are correctly identified in a graph
-     * @covers \phpOMS\Stdlib\Graph\Graph
-     * @group framework
-     */
+    #[\PHPUnit\Framework\Attributes\Group('framework')]
+    #[\PHPUnit\Framework\Attributes\TestDox('Multiple bridges are correctly identified in a graph')]
     public function testGraphWithBridges() : void
     {
         $node0 = new Node('0');
@@ -178,11 +160,8 @@ final class GraphTest extends \PHPUnit\Framework\TestCase
         self::assertCount(3, $bridges);
     }
 
-    /**
-     * @testdox A graph without bridges is correctly classified
-     * @covers \phpOMS\Stdlib\Graph\Graph
-     * @group framework
-     */
+    #[\PHPUnit\Framework\Attributes\Group('framework')]
+    #[\PHPUnit\Framework\Attributes\TestDox('A graph without bridges is correctly classified')]
     public function testGraphWithoutBridges() : void
     {
         $node0 = new Node('0');
@@ -201,11 +180,8 @@ final class GraphTest extends \PHPUnit\Framework\TestCase
         self::assertCount(0, $bridges);
     }
 
-    /**
-     * @testdox Edges can be add and returned from a graph
-     * @covers \phpOMS\Stdlib\Graph\Graph
-     * @group framework
-     */
+    #[\PHPUnit\Framework\Attributes\Group('framework')]
+    #[\PHPUnit\Framework\Attributes\TestDox('Edges can be add and returned from a graph')]
     public function testEdgesInputOutput() : void
     {
         $node0 = new Node('0');
@@ -237,11 +213,8 @@ final class GraphTest extends \PHPUnit\Framework\TestCase
         self::assertCount(8, $edges);
     }
 
-    /**
-     * @testdox An edge can be found by two edge ids
-     * @covers \phpOMS\Stdlib\Graph\Graph
-     * @group framework
-     */
+    #[\PHPUnit\Framework\Attributes\Group('framework')]
+    #[\PHPUnit\Framework\Attributes\TestDox('An edge can be found by two edge ids')]
     public function testEdgeInputOutput() : void
     {
         $node0 = new Node('0');
@@ -282,11 +255,8 @@ final class GraphTest extends \PHPUnit\Framework\TestCase
         self::assertNull($this->graph->getEdge('invalid1', 'invalid2'));
     }
 
-    /**
-     * @testdox The existence of cycles in undirected graphs can be checked
-     * @covers \phpOMS\Stdlib\Graph\Graph
-     * @group framework
-     */
+    #[\PHPUnit\Framework\Attributes\Group('framework')]
+    #[\PHPUnit\Framework\Attributes\TestDox('The existence of cycles in undirected graphs can be checked')]
     public function testUndirectedCycle() : void
     {
         $node0 = new Node('0');
@@ -309,11 +279,8 @@ final class GraphTest extends \PHPUnit\Framework\TestCase
         self::assertTrue($this->graph->hasCycle());
     }
 
-    /**
-     * @testdox The existence of cycles in directed graphs can be checked
-     * @covers \phpOMS\Stdlib\Graph\Graph
-     * @group framework
-     */
+    #[\PHPUnit\Framework\Attributes\Group('framework')]
+    #[\PHPUnit\Framework\Attributes\TestDox('The existence of cycles in directed graphs can be checked')]
     public function testDirectedCycle() : void
     {
         $node0 = new Node('0');
@@ -339,11 +306,8 @@ final class GraphTest extends \PHPUnit\Framework\TestCase
         self::assertTrue($this->graph->hasCycle());
     }
 
-    /**
-     * @testdox The cost of a graph can be calculated
-     * @covers \phpOMS\Stdlib\Graph\Graph
-     * @group framework
-     */
+    #[\PHPUnit\Framework\Attributes\Group('framework')]
+    #[\PHPUnit\Framework\Attributes\TestDox('The cost of a graph can be calculated')]
     public function testCost() : void
     {
         $node0 = new Node('0');
@@ -362,11 +326,8 @@ final class GraphTest extends \PHPUnit\Framework\TestCase
         self::assertEquals(5.0, $this->graph->getCost());
     }
 
-    /**
-     * @testdox The Kruskal minimal spanning tree can be created
-     * @covers \phpOMS\Stdlib\Graph\Graph
-     * @group framework
-     */
+    #[\PHPUnit\Framework\Attributes\Group('framework')]
+    #[\PHPUnit\Framework\Attributes\TestDox('The Kruskal minimal spanning tree can be created')]
     public function testKruskalMinimalSpanningTree() : void
     {
         $node1 = new Node('1');
@@ -409,10 +370,8 @@ final class GraphTest extends \PHPUnit\Framework\TestCase
      * 0   | \   /
      *   \ |  \ /
      *     2   4   6
-     *
-     * @covers \phpOMS\Stdlib\Graph\Graph
-     * @group framework
      */
+    #[\PHPUnit\Framework\Attributes\Group('framework')]
     public function testFindAllReachableNodesDFS() : void
     {
         $node0 = new Node('0');
@@ -449,10 +408,8 @@ final class GraphTest extends \PHPUnit\Framework\TestCase
      * 0   | \   /
      *   \ |  \ /
      *     2   4   6
-     *
-     * @covers \phpOMS\Stdlib\Graph\Graph
-     * @group framework
      */
+    #[\PHPUnit\Framework\Attributes\Group('framework')]
     public function testGetAllPathsBetweenNodes() : void
     {
         $node0 = new Node('0');
@@ -489,10 +446,8 @@ final class GraphTest extends \PHPUnit\Framework\TestCase
      * 0   | \   /
      *   \ |  \ /
      *     2   4   6
-     *
-     * @covers \phpOMS\Stdlib\Graph\Graph
-     * @group framework
      */
+    #[\PHPUnit\Framework\Attributes\Group('framework')]
     public function testCountAllPathsBetweenNodes() : void
     {
         $node0 = new Node('0');
@@ -528,10 +483,8 @@ final class GraphTest extends \PHPUnit\Framework\TestCase
      * 0   | \   /
      *   \ |  \ /
      *     2   4   6
-     *
-     * @covers \phpOMS\Stdlib\Graph\Graph
-     * @group framework
      */
+    #[\PHPUnit\Framework\Attributes\Group('framework')]
     public function testLongestPathBetweenNodes() : void
     {
         $node0 = new Node('0');
@@ -571,10 +524,8 @@ final class GraphTest extends \PHPUnit\Framework\TestCase
      * 0   | \   /
      *   \ |  \ /
      *     2   4   6
-     *
-     * @covers \phpOMS\Stdlib\Graph\Graph
-     * @group framework
      */
+    #[\PHPUnit\Framework\Attributes\Group('framework')]
     public function testShortestPathBetweenNodes() : void
     {
         $node0 = new Node('0');
@@ -611,10 +562,8 @@ final class GraphTest extends \PHPUnit\Framework\TestCase
      * 0   | \   /
      *   \ |  \ /
      *     2   4   6
-     *
-     * @covers \phpOMS\Stdlib\Graph\Graph
-     * @group framework
      */
+    #[\PHPUnit\Framework\Attributes\Group('framework')]
     public function testShortestPathFloydWarshall() : void
     {
         $node0 = new Node('0');
@@ -651,10 +600,8 @@ final class GraphTest extends \PHPUnit\Framework\TestCase
      * 0   | \   /
      *   \ |  \ /
      *     2   4   6
-     *
-     * @covers \phpOMS\Stdlib\Graph\Graph
-     * @group framework
      */
+    #[\PHPUnit\Framework\Attributes\Group('framework')]
     public function testLongestPathsDfs() : void
     {
         $node0 = new Node('0');
@@ -691,10 +638,8 @@ final class GraphTest extends \PHPUnit\Framework\TestCase
      * 0   | \   /
      *   \ |  \ /
      *     2   4   6
-     *
-     * @covers \phpOMS\Stdlib\Graph\Graph
-     * @group framework
      */
+    #[\PHPUnit\Framework\Attributes\Group('framework')]
     public function testUnconnectedGraph() : void
     {
         $node0 = new Node('0');
@@ -730,10 +675,8 @@ final class GraphTest extends \PHPUnit\Framework\TestCase
      * 0   | \   /
      *   \ |  \ /
      *     2   4
-     *
-     * @covers \phpOMS\Stdlib\Graph\Graph
-     * @group framework
      */
+    #[\PHPUnit\Framework\Attributes\Group('framework')]
     public function testConnectedGraph() : void
     {
         $node0 = new Node('0');
@@ -767,10 +710,8 @@ final class GraphTest extends \PHPUnit\Framework\TestCase
      * 0   | \   /
      *   \ |  \ /
      *     2   4
-     *
-     * @covers \phpOMS\Stdlib\Graph\Graph
-     * @group framework
      */
+    #[\PHPUnit\Framework\Attributes\Group('framework')]
     public function testDiameter() : void
     {
         $node0 = new Node('0');
@@ -804,10 +745,8 @@ final class GraphTest extends \PHPUnit\Framework\TestCase
      * 0   | \   /
      *   \ |  \ /
      *     2   4
-     *
-     * @covers \phpOMS\Stdlib\Graph\Graph
-     * @group framework
      */
+    #[\PHPUnit\Framework\Attributes\Group('framework')]
     public function testGirth() : void
     {
         $node0 = new Node('0');
@@ -841,10 +780,8 @@ final class GraphTest extends \PHPUnit\Framework\TestCase
      * 0   | \   /
      *   \ |  \ /
      *     2   4
-     *
-     * @covers \phpOMS\Stdlib\Graph\Graph
-     * @group framework
      */
+    #[\PHPUnit\Framework\Attributes\Group('framework')]
     public function testCircuitRank() : void
     {
         $node0 = new Node('0');
@@ -878,10 +815,8 @@ final class GraphTest extends \PHPUnit\Framework\TestCase
      * 0---|---3
      *   \ | /
      *     2
-     *
-     * @covers \phpOMS\Stdlib\Graph\Graph
-     * @group framework
      */
+    #[\PHPUnit\Framework\Attributes\Group('framework')]
     public function testStronglyConnected() : void
     {
         $node0 = new Node('0');
@@ -906,10 +841,8 @@ final class GraphTest extends \PHPUnit\Framework\TestCase
 
     /**
      *     0 - 1 - 2
-     *
-     * @covers \phpOMS\Stdlib\Graph\Graph
-     * @group framework
      */
+    #[\PHPUnit\Framework\Attributes\Group('framework')]
     public function testInvalidStronglyConnected() : void
     {
         $node0 = new Node('0');
@@ -932,10 +865,8 @@ final class GraphTest extends \PHPUnit\Framework\TestCase
      * 0   | \   /
      *   \ |  \ /
      *     2   4
-     *
-     * @covers \phpOMS\Stdlib\Graph\Graph
-     * @group framework
      */
+    #[\PHPUnit\Framework\Attributes\Group('framework')]
     public function testBipartite() : void
     {
         $node0 = new Node('0');
@@ -969,10 +900,8 @@ final class GraphTest extends \PHPUnit\Framework\TestCase
      * 0   | \   /
      *   \ |  \ /
      *     2   4
-     *
-     * @covers \phpOMS\Stdlib\Graph\Graph
-     * @group framework
      */
+    #[\PHPUnit\Framework\Attributes\Group('framework')]
     public function testTriangles() : void
     {
         $node0 = new Node('0');

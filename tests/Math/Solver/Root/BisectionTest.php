@@ -17,10 +17,9 @@ namespace phpOMS\tests\Math\Solver\Root;
 use phpOMS\Math\Solver\Root\Bisection;
 
 /**
- * @testdox phpOMS\tests\Math\Solver\Root\BisectionTest: Various math functions
- *
  * @internal
  */
+#[\PHPUnit\Framework\Attributes\TestDox('phpOMS\tests\Math\Solver\Root\BisectionTest: Various math functions')]
 final class BisectionTest extends \PHPUnit\Framework\TestCase
 {
     public function testRoot() : void

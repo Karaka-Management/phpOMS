@@ -22,10 +22,10 @@ use phpOMS\Localization\Defaults\Iban;
 use phpOMS\Localization\Defaults\IbanMapper;
 
 /**
- * @testdox phpOMS\tests\Localization\Defaults\IbanMapperTest: Iban database mapper
- *
  * @internal
  */
+#[\PHPUnit\Framework\Attributes\CoversClass(\phpOMS\Localization\Defaults\IbanMapper::class)]
+#[\PHPUnit\Framework\Attributes\TestDox('phpOMS\tests\Localization\Defaults\IbanMapperTest: Iban database mapper')]
 final class IbanMapperTest extends \PHPUnit\Framework\TestCase
 {
     private static SQLiteConnection $con;
@@ -42,11 +42,8 @@ final class IbanMapperTest extends \PHPUnit\Framework\TestCase
         DataMapperFactory::db(self::$con);
     }
 
-    /**
-     * @testdox The model can be read from the database
-     * @covers \phpOMS\Localization\Defaults\IbanMapper
-     * @group framework
-     */
+    #[\PHPUnit\Framework\Attributes\Group('framework')]
+    #[\PHPUnit\Framework\Attributes\TestDox('The model can be read from the database')]
     public function testR() : void
     {
         /** @var Iban $obj */

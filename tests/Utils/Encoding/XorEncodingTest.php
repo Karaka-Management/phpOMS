@@ -17,17 +17,14 @@ namespace phpOMS\tests\Utils\Encoding;
 use phpOMS\Utils\Encoding\XorEncoding;
 
 /**
- * @testdox phpOMS\tests\Utils\Encoding\XorEncodingTest: XOR text encoding/decoding
- *
  * @internal
  */
+#[\PHPUnit\Framework\Attributes\CoversClass(\phpOMS\Utils\Encoding\XorEncoding::class)]
+#[\PHPUnit\Framework\Attributes\TestDox('phpOMS\tests\Utils\Encoding\XorEncodingTest: XOR text encoding/decoding')]
 final class XorEncodingTest extends \PHPUnit\Framework\TestCase
 {
-    /**
-     * @testdox Text can be encoded and decoded with the xor encoding
-     * @covers \phpOMS\Utils\Encoding\XorEncoding
-     * @group framework
-     */
+    #[\PHPUnit\Framework\Attributes\Group('framework')]
+    #[\PHPUnit\Framework\Attributes\TestDox('Text can be encoded and decoded with the xor encoding')]
     public function testEncoding() : void
     {
         $test = XorEncoding::encode('This is a test.', 'abcd');

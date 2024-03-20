@@ -19,17 +19,14 @@ require_once __DIR__ . '/../../Autoloader.php';
 use phpOMS\Validation\Base\DateTime;
 
 /**
- * @testdox phpOMS\tests\Validation\Base\DateTimeTest: Datetime validator
- *
  * @internal
  */
+#[\PHPUnit\Framework\Attributes\CoversClass(\phpOMS\Validation\Base\DateTime::class)]
+#[\PHPUnit\Framework\Attributes\TestDox('phpOMS\tests\Validation\Base\DateTimeTest: Datetime validator')]
 final class DateTimeTest extends \PHPUnit\Framework\TestCase
 {
-    /**
-     * @testdox A date time string can be validated
-     * @covers \phpOMS\Validation\Base\DateTime
-     * @group framework
-     */
+    #[\PHPUnit\Framework\Attributes\Group('framework')]
+    #[\PHPUnit\Framework\Attributes\TestDox('A date time string can be validated')]
     public function testDateTime() : void
     {
         self::assertTrue(DateTime::isValid('now'));

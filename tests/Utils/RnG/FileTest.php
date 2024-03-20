@@ -17,17 +17,14 @@ namespace phpOMS\tests\Utils\RnG;
 use phpOMS\Utils\RnG\File;
 
 /**
- * @testdox phpOMS\tests\Utils\RnG\FileTest: File extension randomizer
- *
  * @internal
  */
+#[\PHPUnit\Framework\Attributes\CoversClass(\phpOMS\Utils\RnG\File::class)]
+#[\PHPUnit\Framework\Attributes\TestDox('phpOMS\tests\Utils\RnG\FileTest: File extension randomizer')]
 final class FileTest extends \PHPUnit\Framework\TestCase
 {
-    /**
-     * @testdox A random file extension can be generated
-     * @covers \phpOMS\Utils\RnG\File
-     * @group framework
-     */
+    #[\PHPUnit\Framework\Attributes\Group('framework')]
+    #[\PHPUnit\Framework\Attributes\TestDox('A random file extension can be generated')]
     public function testRnGExtension() : void
     {
         self::assertMatchesRegularExpression('/^[a-z0-9]{1,5}$/', File::generateExtension());

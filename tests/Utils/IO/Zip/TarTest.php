@@ -17,10 +17,10 @@ namespace phpOMS\tests\Utils\IO\Zip;
 use phpOMS\Utils\IO\Zip\Tar;
 
 /**
- * @testdox phpOMS\tests\Utils\IO\Zip\TarTest: Tar archive
- *
  * @internal
  */
+#[\PHPUnit\Framework\Attributes\CoversClass(\phpOMS\Utils\IO\Zip\Tar::class)]
+#[\PHPUnit\Framework\Attributes\TestDox('phpOMS\tests\Utils\IO\Zip\TarTest: Tar archive')]
 final class TarTest extends \PHPUnit\Framework\TestCase
 {
     protected function setUp() : void
@@ -36,11 +36,8 @@ final class TarTest extends \PHPUnit\Framework\TestCase
         }
     }
 
-    /**
-     * @testdox Data can be tar packed and unpacked
-     * @covers \phpOMS\Utils\IO\Zip\Tar
-     * @group framework
-     */
+    #[\PHPUnit\Framework\Attributes\Group('framework')]
+    #[\PHPUnit\Framework\Attributes\TestDox('Data can be tar packed and unpacked')]
     public function testTar() : void
     {
         self::assertTrue(Tar::pack(
@@ -111,11 +108,8 @@ final class TarTest extends \PHPUnit\Framework\TestCase
         self::assertFalse(Tar::unpack(__DIR__ . '/malformed.tar', __DIR__));
     }
 
-    /**
-     * @testdox Extracting invalid tar files fail
-     * @covers \phpOMS\Utils\IO\Zip\Tar
-     * @group framework
-     */
+    #[\PHPUnit\Framework\Attributes\Group('framework')]
+    #[\PHPUnit\Framework\Attributes\TestDox('Extracting invalid tar files fail')]
     public function testInvalidTarUnpack() : void
     {
         self::assertFalse(Tar::unpack(
@@ -129,11 +123,8 @@ final class TarTest extends \PHPUnit\Framework\TestCase
         ));
     }
 
-    /**
-     * @testdox A tar archive cannot be overwritten by default
-     * @covers \phpOMS\Utils\IO\Zip\Tar
-     * @group framework
-     */
+    #[\PHPUnit\Framework\Attributes\Group('framework')]
+    #[\PHPUnit\Framework\Attributes\TestDox('A tar archive cannot be overwritten by default')]
     public function testInvalidTar() : void
     {
         Tar::pack(
@@ -157,21 +148,15 @@ final class TarTest extends \PHPUnit\Framework\TestCase
         \unlink(__DIR__ . '/test3.tar');
     }
 
-    /**
-     * @testdox A none-existing source cannot be unpacked
-     * @covers \phpOMS\Utils\IO\Zip\Tar
-     * @group framework
-     */
+    #[\PHPUnit\Framework\Attributes\Group('framework')]
+    #[\PHPUnit\Framework\Attributes\TestDox('A none-existing source cannot be unpacked')]
     public function testInvalidUnpackSource() : void
     {
         self::assertFalse(Tar::unpack(__DIR__ . '/test.tar', __DIR__));
     }
 
-    /**
-     * @testdox A destination cannot be overwritten
-     * @covers \phpOMS\Utils\IO\Zip\Tar
-     * @group framework
-     */
+    #[\PHPUnit\Framework\Attributes\Group('framework')]
+    #[\PHPUnit\Framework\Attributes\TestDox('A destination cannot be overwritten')]
     public function testInvalidUnpackDestination() : void
     {
         self::assertTrue(Tar::pack(

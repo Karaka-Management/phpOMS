@@ -17,17 +17,14 @@ namespace phpOMS\tests\Utils\RnG;
 use phpOMS\Utils\RnG\Name;
 
 /**
- * @testdox phpOMS\tests\Utils\RnG\NameTest: Random name generator
- *
  * @internal
  */
+#[\PHPUnit\Framework\Attributes\CoversClass(\phpOMS\Utils\RnG\Name::class)]
+#[\PHPUnit\Framework\Attributes\TestDox('phpOMS\tests\Utils\RnG\NameTest: Random name generator')]
 final class NameTest extends \PHPUnit\Framework\TestCase
 {
-    /**
-     * @testdox Random female and male names can be generated
-     * @covers \phpOMS\Utils\RnG\Name
-     * @group framework
-     */
+    #[\PHPUnit\Framework\Attributes\Group('framework')]
+    #[\PHPUnit\Framework\Attributes\TestDox('Random female and male names can be generated')]
     public function testRandom() : void
     {
         self::assertNotEquals(Name::generateName(['female']), Name::generateName(['male']));

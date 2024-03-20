@@ -22,17 +22,14 @@ use phpOMS\Message\Http\Rest;
 use phpOMS\Uri\HttpUri;
 
 /**
- * @testdox phpOMS\tests\Message\Http\RestTest: Rest request wrapper
- *
  * @internal
  */
+#[\PHPUnit\Framework\Attributes\CoversClass(\phpOMS\Message\Http\Rest::class)]
+#[\PHPUnit\Framework\Attributes\TestDox('phpOMS\tests\Message\Http\RestTest: Rest request wrapper')]
 final class RestTest extends \PHPUnit\Framework\TestCase
 {
-    /**
-     * @testdox A get request successfully returns the expected result
-     * @covers \phpOMS\Message\Http\Rest
-     * @group framework
-     */
+    #[\PHPUnit\Framework\Attributes\Group('framework')]
+    #[\PHPUnit\Framework\Attributes\TestDox('A get request successfully returns the expected result')]
     public function testRequest() : void
     {
         $request = new HttpRequest(new HttpUri('https://raw.githubusercontent.com/Karaka-Management/Karaka/develop/LICENSE.txt'));
@@ -44,11 +41,8 @@ final class RestTest extends \PHPUnit\Framework\TestCase
         );
     }
 
-    /**
-     * @testdox A post request with data successfully returns the expected result
-     * @covers \phpOMS\Message\Http\Rest
-     * @group framework
-     */
+    #[\PHPUnit\Framework\Attributes\Group('framework')]
+    #[\PHPUnit\Framework\Attributes\TestDox('A post request with data successfully returns the expected result')]
     public function testPost() : void
     {
         $request = new HttpRequest(new HttpUri('https://httpbin.org/post'));
@@ -57,11 +51,8 @@ final class RestTest extends \PHPUnit\Framework\TestCase
         self::assertEquals('abc', REST::request($request)->getData('form')['pdata'] ?? '');
     }
 
-    /**
-     * @testdox A put request with data successfully returns the expected result
-     * @covers \phpOMS\Message\Http\Rest
-     * @group framework
-     */
+    #[\PHPUnit\Framework\Attributes\Group('framework')]
+    #[\PHPUnit\Framework\Attributes\TestDox('A put request with data successfully returns the expected result')]
     public function testPut() : void
     {
         $request = new HttpRequest(new HttpUri('https://httpbin.org/put'));
@@ -70,11 +61,8 @@ final class RestTest extends \PHPUnit\Framework\TestCase
         self::assertEquals('abc', REST::request($request)->getData('form')['pdata'] ?? '');
     }
 
-    /**
-     * @testdox A delete request with data successfully returns the expected result
-     * @covers \phpOMS\Message\Http\Rest
-     * @group framework
-     */
+    #[\PHPUnit\Framework\Attributes\Group('framework')]
+    #[\PHPUnit\Framework\Attributes\TestDox('A delete request with data successfully returns the expected result')]
     public function testDelete() : void
     {
         $request = new HttpRequest(new HttpUri('https://httpbin.org/delete'));
@@ -83,11 +71,8 @@ final class RestTest extends \PHPUnit\Framework\TestCase
         self::assertEquals('abc', REST::request($request)->getData('form')['ddata'] ?? '');
     }
 
-    /**
-     * @testdox A get request with data successfully returns the expected result
-     * @covers \phpOMS\Message\Http\Rest
-     * @group framework
-     */
+    #[\PHPUnit\Framework\Attributes\Group('framework')]
+    #[\PHPUnit\Framework\Attributes\TestDox('A get request with data successfully returns the expected result')]
     public function testGet() : void
     {
         $request = new HttpRequest(new HttpUri('https://httpbin.org/get'));
@@ -96,19 +81,13 @@ final class RestTest extends \PHPUnit\Framework\TestCase
         self::assertEquals('abc', REST::request($request)->getData('args')['gdata'] ?? '');
     }
 
-    /**
-     * @covers \phpOMS\Message\Http\Rest
-     * @group framework
-     */
+    #[\PHPUnit\Framework\Attributes\Group('framework')]
     public function testJsonRequest() : void
     {
         self::markTestIncomplete();
     }
 
-    /**
-     * @covers \phpOMS\Message\Http\Rest
-     * @group framework
-     */
+    #[\PHPUnit\Framework\Attributes\Group('framework')]
     public function testMultiRequest() : void
     {
         self::markTestIncomplete();

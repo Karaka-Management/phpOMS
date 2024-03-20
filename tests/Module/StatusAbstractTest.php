@@ -20,10 +20,10 @@ use phpOMS\Module\ModuleInfo;
 use phpOMS\Module\StatusAbstract;
 
 /**
- * @testdox phpOMS\tests\Module\StatusAbstractTest: Abstract module status
- *
  * @internal
  */
+#[\PHPUnit\Framework\Attributes\CoversClass(\phpOMS\Module\StatusAbstract::class)]
+#[\PHPUnit\Framework\Attributes\TestDox('phpOMS\tests\Module\StatusAbstractTest: Abstract module status')]
 final class StatusAbstractTest extends \PHPUnit\Framework\TestCase
 {
 	protected StatusAbstract $status;
@@ -41,9 +41,8 @@ final class StatusAbstractTest extends \PHPUnit\Framework\TestCase
 
     /**
      * A invalid module path cannot be activated
-     * @covers \phpOMS\Module\StatusAbstract
-     * @group framework
      */
+    #[\PHPUnit\Framework\Attributes\Group('framework')]
     public function testInvalidModulePathActivation() : void
     {
         $moduleInfo = new ModuleInfo(__DIR__ . '/info.json');

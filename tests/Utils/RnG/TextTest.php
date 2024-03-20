@@ -17,17 +17,14 @@ namespace phpOMS\tests\Utils\RnG;
 use phpOMS\Utils\RnG\Text;
 
 /**
- * @testdox phpOMS\tests\Utils\RnG\TextTest: Random text generator
- *
  * @internal
  */
+#[\PHPUnit\Framework\Attributes\CoversClass(\phpOMS\Utils\RnG\Text::class)]
+#[\PHPUnit\Framework\Attributes\TestDox('phpOMS\tests\Utils\RnG\TextTest: Random text generator')]
 final class TextTest extends \PHPUnit\Framework\TestCase
 {
-    /**
-     * @testdox Random text can be generated
-     * @covers \phpOMS\Utils\RnG\Text
-     * @group framework
-     */
+    #[\PHPUnit\Framework\Attributes\Group('framework')]
+    #[\PHPUnit\Framework\Attributes\TestDox('Random text can be generated')]
     public function testRnG() : void
     {
         $text = new Text(true, true);

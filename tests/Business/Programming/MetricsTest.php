@@ -17,25 +17,20 @@ namespace phpOMS\tests\Business\Programming;
 use phpOMS\Business\Programming\Metrics;
 
 /**
- * @testdox phpOMS\tests\Business\Programming\MetricsTest: General programming metrics
- *
  * @internal
  */
+#[\PHPUnit\Framework\Attributes\TestDox('phpOMS\tests\Business\Programming\MetricsTest: General programming metrics')]
 final class MetricsTest extends \PHPUnit\Framework\TestCase
 {
-    /**
-     * @testdox Test correctness of the ABC calculation
-     * @group framework
-     */
+    #[\PHPUnit\Framework\Attributes\Group('framework')]
+    #[\PHPUnit\Framework\Attributes\TestDox('Test correctness of the ABC calculation')]
     public function testABCMetric() : void
     {
         self::assertEquals((int) \sqrt(5 * 5 + 11 * 11 + 9 * 9), Metrics::abcScore(5, 11, 9));
     }
 
-    /**
-     * @testdox Test correctness of CRAP score
-     * @group framework
-     */
+    #[\PHPUnit\Framework\Attributes\Group('framework')]
+    #[\PHPUnit\Framework\Attributes\TestDox('Test correctness of CRAP score')]
     public function testCRAPMetric() : void
     {
         self::assertEquals(1, Metrics::CRAP(1, 1.0));

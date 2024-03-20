@@ -19,17 +19,15 @@ require_once __DIR__ . '/../Autoloader.php';
 use phpOMS\Image\Skew;
 
 /**
- * @testdox phpOMS\tests\Image\SkewTest: Image skew
  * @internal
  */
+#[\PHPUnit\Framework\Attributes\CoversClass(\phpOMS\Image\Skew::class)]
+#[\PHPUnit\Framework\Attributes\TestDox('phpOMS\tests\Image\SkewTest: Image skew')]
 final class SkewTest extends \PHPUnit\Framework\TestCase
 {
-    /**
-     * @testdox A image can be automatically unskewed
-     * @group framework
-     * @group slow
-     * @covers \phpOMS\Image\Skew
-     */
+    #[\PHPUnit\Framework\Attributes\Group('framework')]
+    #[\PHPUnit\Framework\Attributes\Group('slow')]
+    #[\PHPUnit\Framework\Attributes\TestDox('A image can be automatically unskewed')]
     public function testSkew() : void
     {
         Skew::autoRotate(

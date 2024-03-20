@@ -19,12 +19,10 @@ use phpOMS\Math\Stochastic\Distribution\UniformDistributionDiscrete;
 /**
  * @internal
  */
+#[\PHPUnit\Framework\Attributes\CoversClass(\phpOMS\Math\Stochastic\Distribution\UniformDistributionDiscrete::class)]
 final class UniformDistributionDiscreteTest extends \PHPUnit\Framework\TestCase
 {
-    /**
-     * @covers \phpOMS\Math\Stochastic\Distribution\UniformDistributionDiscrete
-     * @group framework
-     */
+    #[\PHPUnit\Framework\Attributes\Group('framework')]
     public function testPmf() : void
     {
         $a = 1;
@@ -33,10 +31,7 @@ final class UniformDistributionDiscreteTest extends \PHPUnit\Framework\TestCase
         self::assertEquals(1 / ($b - $a + 1), UniformDistributionDiscrete::getPmf($a, $b));
     }
 
-    /**
-     * @covers \phpOMS\Math\Stochastic\Distribution\UniformDistributionDiscrete
-     * @group framework
-     */
+    #[\PHPUnit\Framework\Attributes\Group('framework')]
     public function testCdf() : void
     {
         $a = 1;
@@ -46,19 +41,13 @@ final class UniformDistributionDiscreteTest extends \PHPUnit\Framework\TestCase
         self::assertEquals(($k - $a + 1) / ($b - $a + 1), UniformDistributionDiscrete::getCdf($k, $a, $b));
     }
 
-    /**
-     * @covers \phpOMS\Math\Stochastic\Distribution\UniformDistributionDiscrete
-     * @group framework
-     */
+    #[\PHPUnit\Framework\Attributes\Group('framework')]
     public function testSkewness() : void
     {
         self::assertEquals(0, UniformDistributionDiscrete::getSkewness());
     }
 
-    /**
-     * @covers \phpOMS\Math\Stochastic\Distribution\UniformDistributionDiscrete
-     * @group framework
-     */
+    #[\PHPUnit\Framework\Attributes\Group('framework')]
     public function testMean() : void
     {
         $a = 1;
@@ -67,10 +56,7 @@ final class UniformDistributionDiscreteTest extends \PHPUnit\Framework\TestCase
         self::assertEquals(1 / 2 * ($a + $b), UniformDistributionDiscrete::getMean($a, $b));
     }
 
-    /**
-     * @covers \phpOMS\Math\Stochastic\Distribution\UniformDistributionDiscrete
-     * @group framework
-     */
+    #[\PHPUnit\Framework\Attributes\Group('framework')]
     public function testMedian() : void
     {
         $a = 1;
@@ -79,10 +65,7 @@ final class UniformDistributionDiscreteTest extends \PHPUnit\Framework\TestCase
         self::assertEquals(1 / 2 * ($a + $b), UniformDistributionDiscrete::getMedian($a, $b));
     }
 
-    /**
-     * @covers \phpOMS\Math\Stochastic\Distribution\UniformDistributionDiscrete
-     * @group framework
-     */
+    #[\PHPUnit\Framework\Attributes\Group('framework')]
     public function testVariance() : void
     {
         $a = 1;
@@ -91,10 +74,7 @@ final class UniformDistributionDiscreteTest extends \PHPUnit\Framework\TestCase
         self::assertEquals((($b - $a + 1) ** 2 - 1) / 12, UniformDistributionDiscrete::getVariance($a, $b));
     }
 
-    /**
-     * @covers \phpOMS\Math\Stochastic\Distribution\UniformDistributionDiscrete
-     * @group framework
-     */
+    #[\PHPUnit\Framework\Attributes\Group('framework')]
     public function testStandardDeviation() : void
     {
         $a = 1;
@@ -103,10 +83,7 @@ final class UniformDistributionDiscreteTest extends \PHPUnit\Framework\TestCase
         self::assertEquals(\sqrt((($b - $a + 1) ** 2 - 1) / 12), UniformDistributionDiscrete::getStandardDeviation($a, $b));
     }
 
-    /**
-     * @covers \phpOMS\Math\Stochastic\Distribution\UniformDistributionDiscrete
-     * @group framework
-     */
+    #[\PHPUnit\Framework\Attributes\Group('framework')]
     public function testExKurtosis() : void
     {
         $a = 1;
@@ -119,10 +96,7 @@ final class UniformDistributionDiscreteTest extends \PHPUnit\Framework\TestCase
         );
     }
 
-    /**
-     * @covers \phpOMS\Math\Stochastic\Distribution\UniformDistributionDiscrete
-     * @group framework
-     */
+    #[\PHPUnit\Framework\Attributes\Group('framework')]
     public function testMgf() : void
     {
         self::assertEquals(
@@ -131,10 +105,7 @@ final class UniformDistributionDiscreteTest extends \PHPUnit\Framework\TestCase
         );
     }
 
-    /**
-     * @covers \phpOMS\Math\Stochastic\Distribution\UniformDistributionDiscrete
-     * @group framework
-     */
+    #[\PHPUnit\Framework\Attributes\Group('framework')]
     public function testCdfExceptionUpper() : void
     {
         $this->expectException(\OutOfBoundsException::class);
@@ -142,10 +113,7 @@ final class UniformDistributionDiscreteTest extends \PHPUnit\Framework\TestCase
         UniformDistributionDiscrete::getCdf(5, 2, 4);
     }
 
-    /**
-     * @covers \phpOMS\Math\Stochastic\Distribution\UniformDistributionDiscrete
-     * @group framework
-     */
+    #[\PHPUnit\Framework\Attributes\Group('framework')]
     public function testCdfExceptionLower() : void
     {
         $this->expectException(\OutOfBoundsException::class);

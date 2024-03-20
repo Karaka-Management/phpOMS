@@ -22,10 +22,10 @@ use phpOMS\Localization\Defaults\City;
 use phpOMS\Localization\Defaults\CityMapper;
 
 /**
- * @testdox phpOMS\tests\Localization\Defaults\CityMapperTest: City database mapper
- *
  * @internal
  */
+#[\PHPUnit\Framework\Attributes\CoversClass(\phpOMS\Localization\Defaults\CityMapper::class)]
+#[\PHPUnit\Framework\Attributes\TestDox('phpOMS\tests\Localization\Defaults\CityMapperTest: City database mapper')]
 final class CityMapperTest extends \PHPUnit\Framework\TestCase
 {
     private static SQLiteConnection $con;
@@ -42,11 +42,8 @@ final class CityMapperTest extends \PHPUnit\Framework\TestCase
         DataMapperFactory::db(self::$con);
     }
 
-    /**
-     * @testdox The model can be read from the database
-     * @covers \phpOMS\Localization\Defaults\CityMapper
-     * @group framework
-     */
+    #[\PHPUnit\Framework\Attributes\Group('framework')]
+    #[\PHPUnit\Framework\Attributes\TestDox('The model can be read from the database')]
     public function testR() : void
     {
         /** @var City $obj */

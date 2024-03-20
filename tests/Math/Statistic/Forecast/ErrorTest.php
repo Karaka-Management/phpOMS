@@ -21,12 +21,10 @@ use phpOMS\Utils\ArrayUtils;
 /**
  * @internal
  */
+#[\PHPUnit\Framework\Attributes\CoversClass(\phpOMS\Math\Statistic\Forecast\Error::class)]
 final class ErrorTest extends \PHPUnit\Framework\TestCase
 {
-    /**
-     * @covers \phpOMS\Math\Statistic\Forecast\Error
-     * @group framework
-     */
+    #[\PHPUnit\Framework\Attributes\Group('framework')]
     public function testForecastError() : void
     {
         self::assertEquals(1000 - 700, Error::getForecastError(1000, 700));
@@ -46,10 +44,7 @@ final class ErrorTest extends \PHPUnit\Framework\TestCase
         self::assertEquals([Error::getForecastError(1000, 700)], Error::getForecastErrorArray([1000], [700]));
     }
 
-    /**
-     * @covers \phpOMS\Math\Statistic\Forecast\Error
-     * @group framework
-     */
+    #[\PHPUnit\Framework\Attributes\Group('framework')]
     public function testErrorPercentage() : void
     {
         self::assertEqualsWithDelta(300 / 1000, Error::getPercentageError(300, 1000), 0.01);
@@ -70,10 +65,7 @@ final class ErrorTest extends \PHPUnit\Framework\TestCase
         );
     }
 
-    /**
-     * @covers \phpOMS\Math\Statistic\Forecast\Error
-     * @group framework
-     */
+    #[\PHPUnit\Framework\Attributes\Group('framework')]
     public function testMeanErrors() : void
     {
         $errors = [
@@ -88,10 +80,7 @@ final class ErrorTest extends \PHPUnit\Framework\TestCase
         self::assertEqualsWithDelta(406.2019, Error::getRootMeanSquaredError($errors), 0.01);
     }
 
-    /**
-     * @covers \phpOMS\Math\Statistic\Forecast\Error
-     * @group framework
-     */
+    #[\PHPUnit\Framework\Attributes\Group('framework')]
     public function testMASE() : void
     {
         $observed = [
@@ -110,10 +99,7 @@ final class ErrorTest extends \PHPUnit\Framework\TestCase
         self::assertEqualsWithDelta(0.0983, Error::getMeanAbsoluteScaledError($scaledErrors), 0.01);
     }
 
-    /**
-     * @covers \phpOMS\Math\Statistic\Forecast\Error
-     * @group framework
-     */
+    #[\PHPUnit\Framework\Attributes\Group('framework')]
     public function testMSSE() : void
     {
         $observed = [
@@ -135,10 +121,7 @@ final class ErrorTest extends \PHPUnit\Framework\TestCase
         );
     }
 
-    /**
-     * @covers \phpOMS\Math\Statistic\Forecast\Error
-     * @group framework
-     */
+    #[\PHPUnit\Framework\Attributes\Group('framework')]
     public function testScaledError() : void
     {
         self::assertEquals(
@@ -147,10 +130,7 @@ final class ErrorTest extends \PHPUnit\Framework\TestCase
         );
     }
 
-    /**
-     * @covers \phpOMS\Math\Statistic\Forecast\Error
-     * @group framework
-     */
+    #[\PHPUnit\Framework\Attributes\Group('framework')]
     public function testSSE() : void
     {
         $errors = MeasureOfDispersion::meanDeviationArray([99.0, 98.6, 98.5, 101.1, 98.3, 98.6, 97.9, 98.4, 99.2, 99.1]);
@@ -158,10 +138,7 @@ final class ErrorTest extends \PHPUnit\Framework\TestCase
         self::assertEqualsWithDelta(6.921, Error::getSumSquaredError($errors), 0.001);
     }
 
-    /**
-     * @covers \phpOMS\Math\Statistic\Forecast\Error
-     * @group framework
-     */
+    #[\PHPUnit\Framework\Attributes\Group('framework')]
     public function testCoefficientOfDetermination() : void
     {
         self::assertEqualsWithDelta(0.9729, Error::getCoefficientOfDetermination(
@@ -172,10 +149,7 @@ final class ErrorTest extends \PHPUnit\Framework\TestCase
         self::assertEqualsWithDelta(0.922085138, Error::getAdjustedCoefficientOfDetermination(0.944346527, 8, 2), 0.001);
     }
 
-    /**
-     * @covers \phpOMS\Math\Statistic\Forecast\Error
-     * @group framework
-     */
+    #[\PHPUnit\Framework\Attributes\Group('framework')]
     public function testMAPE() : void
     {
         self::assertEqualsWithDelta(0.17551, Error::getMeanAbsolutePercentageError(
@@ -184,10 +158,7 @@ final class ErrorTest extends \PHPUnit\Framework\TestCase
         ), 0.001);
     }
 
-    /**
-     * @covers \phpOMS\Math\Statistic\Forecast\Error
-     * @group framework
-     */
+    #[\PHPUnit\Framework\Attributes\Group('framework')]
     public function testSMAPE() : void
     {
         self::assertEqualsWithDelta(0.049338, Error::getSymmetricMeanAbsolutePercentageError(
@@ -196,10 +167,7 @@ final class ErrorTest extends \PHPUnit\Framework\TestCase
         ), 0.001);
     }
 
-    /**
-     * @covers \phpOMS\Math\Statistic\Forecast\Error
-     * @group framework
-     */
+    #[\PHPUnit\Framework\Attributes\Group('framework')]
     public function testMAD() : void
     {
         self::assertEqualsWithDelta(22.075, Error::getMeanAbsoulteDeviation(

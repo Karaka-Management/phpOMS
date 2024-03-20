@@ -19,12 +19,10 @@ use phpOMS\Math\Stochastic\Distribution\LogDistribution;
 /**
  * @internal
  */
+#[\PHPUnit\Framework\Attributes\CoversClass(\phpOMS\Math\Stochastic\Distribution\LogDistribution::class)]
 final class LogDistributionTest extends \PHPUnit\Framework\TestCase
 {
-    /**
-     * @covers \phpOMS\Math\Stochastic\Distribution\LogDistribution
-     * @group framework
-     */
+    #[\PHPUnit\Framework\Attributes\Group('framework')]
     public function testPmf() : void
     {
         $p = 0.3;
@@ -36,10 +34,7 @@ final class LogDistributionTest extends \PHPUnit\Framework\TestCase
         );
     }
 
-    /**
-     * @covers \phpOMS\Math\Stochastic\Distribution\LogDistribution
-     * @group framework
-     */
+    #[\PHPUnit\Framework\Attributes\Group('framework')]
     public function testCdf() : void
     {
         $p = 6 / 9;
@@ -51,10 +46,7 @@ final class LogDistributionTest extends \PHPUnit\Framework\TestCase
         );
     }
 
-    /**
-     * @covers \phpOMS\Math\Stochastic\Distribution\LogDistribution
-     * @group framework
-     */
+    #[\PHPUnit\Framework\Attributes\Group('framework')]
     public function testMean() : void
     {
         $p = 0.3;
@@ -62,19 +54,13 @@ final class LogDistributionTest extends \PHPUnit\Framework\TestCase
         self::assertEquals(-1 / \log(1 - $p) * $p / (1 - $p), LogDistribution::getMean($p));
     }
 
-    /**
-     * @covers \phpOMS\Math\Stochastic\Distribution\LogDistribution
-     * @group framework
-     */
+    #[\PHPUnit\Framework\Attributes\Group('framework')]
     public function testMode() : void
     {
         self::assertEquals(1, LogDistribution::getMode());
     }
 
-    /**
-     * @covers \phpOMS\Math\Stochastic\Distribution\LogDistribution
-     * @group framework
-     */
+    #[\PHPUnit\Framework\Attributes\Group('framework')]
     public function testVariance() : void
     {
         $p = 0.3;
@@ -85,10 +71,7 @@ final class LogDistributionTest extends \PHPUnit\Framework\TestCase
         );
     }
 
-    /**
-     * @covers \phpOMS\Math\Stochastic\Distribution\LogDistribution
-     * @group framework
-     */
+    #[\PHPUnit\Framework\Attributes\Group('framework')]
     public function testStandardDeviation() : void
     {
         $p = 0.3;
@@ -99,10 +82,7 @@ final class LogDistributionTest extends \PHPUnit\Framework\TestCase
         );
     }
 
-    /**
-     * @covers \phpOMS\Math\Stochastic\Distribution\LogDistribution
-     * @group framework
-     */
+    #[\PHPUnit\Framework\Attributes\Group('framework')]
     public function testMgf() : void
     {
         $p = 0.3;

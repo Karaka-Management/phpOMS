@@ -20,6 +20,7 @@ use phpOMS\Utils\Barcode\OrientationType;
 /**
  * @internal
  */
+#[\PHPUnit\Framework\Attributes\CoversClass(\phpOMS\Utils\Barcode\C25::class)]
 final class C25Test extends \PHPUnit\Framework\TestCase
 {
     protected function setUp() : void
@@ -31,10 +32,7 @@ final class C25Test extends \PHPUnit\Framework\TestCase
         }
     }
 
-    /**
-     * @covers \phpOMS\Utils\Barcode\C25<extended>
-     * @group framework
-     */
+    #[\PHPUnit\Framework\Attributes\Group('framework')]
     public function testImagePng() : void
     {
         $path = __DIR__ . '/c25.png';
@@ -48,10 +46,7 @@ final class C25Test extends \PHPUnit\Framework\TestCase
         self::assertFileExists($path);
     }
 
-    /**
-     * @covers \phpOMS\Utils\Barcode\C25<extended>
-     * @group framework
-     */
+    #[\PHPUnit\Framework\Attributes\Group('framework')]
     public function testImageJpg() : void
     {
         $path = __DIR__ . '/c25.jpg';
@@ -65,10 +60,7 @@ final class C25Test extends \PHPUnit\Framework\TestCase
         self::assertFileExists($path);
     }
 
-    /**
-     * @covers \phpOMS\Utils\Barcode\C25<extended>
-     * @group framework
-     */
+    #[\PHPUnit\Framework\Attributes\Group('framework')]
     public function testOrientationAndMargin() : void
     {
         $path = __DIR__ . '/c25_vertical.png';
@@ -83,20 +75,14 @@ final class C25Test extends \PHPUnit\Framework\TestCase
         self::assertFileExists($path);
     }
 
-    /**
-     * @covers \phpOMS\Utils\Barcode\C25<extended>
-     * @group framework
-     */
+    #[\PHPUnit\Framework\Attributes\Group('framework')]
     public function testValidString() : void
     {
         self::assertTrue(C25::isValidString('1234567890'));
         self::assertFalse(C25::isValidString('1234567A890'));
     }
 
-    /**
-     * @covers \phpOMS\Utils\Barcode\C25<extended>
-     * @group framework
-     */
+    #[\PHPUnit\Framework\Attributes\Group('framework')]
     public function testInvalidOrientation() : void
     {
         $this->expectException(\InvalidArgumentException::class);

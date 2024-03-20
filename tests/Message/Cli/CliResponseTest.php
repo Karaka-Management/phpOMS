@@ -21,6 +21,8 @@ use phpOMS\System\MimeType;
 /**
  * @internal
  */
+#[\PHPUnit\Framework\Attributes\CoversClass(\phpOMS\Message\Cli\CliResponse::class)]
+#[\PHPUnit\Framework\Attributes\CoversClass(\phpOMS\Message\Cli\CliResponse::class)]
 final class CliResponseTest extends \PHPUnit\Framework\TestCase
 {
     protected CliResponse $response;
@@ -33,10 +35,7 @@ final class CliResponseTest extends \PHPUnit\Framework\TestCase
         $this->response = new CliResponse();
     }
 
-    /**
-     * @covers \phpOMS\Message\Cli\CliResponse
-     * @group framework
-     */
+    #[\PHPUnit\Framework\Attributes\Group('framework')]
     public function testDefault() : void
     {
         $this->response = new CliResponse(new Localization());
@@ -47,10 +46,7 @@ final class CliResponseTest extends \PHPUnit\Framework\TestCase
         self::assertInstanceOf('\phpOMS\Message\Cli\CliHeader', $this->response->header);
     }
 
-    /**
-     * @covers \phpOMS\Message\Cli\CliResponse
-     * @group framework
-     */
+    #[\PHPUnit\Framework\Attributes\Group('framework')]
     public function testSetGet() : void
     {
         $this->response = new CliResponse(new Localization());
@@ -60,11 +56,8 @@ final class CliResponseTest extends \PHPUnit\Framework\TestCase
         self::assertFalse($this->response->remove('a'));
     }
 
-    /**
-     * @testdox Response data can be turned into an array
-     * @covers \phpOMS\Message\Cli\CliResponse<extended>
-     * @group framework
-     */
+    #[\PHPUnit\Framework\Attributes\Group('framework')]
+    #[\PHPUnit\Framework\Attributes\TestDox('Response data can be turned into an array')]
     public function testToArray() : void
     {
         $data = [
@@ -99,11 +92,8 @@ final class CliResponseTest extends \PHPUnit\Framework\TestCase
         self::assertEquals($data, $this->response->toArray());
     }
 
-    /**
-     * @testdox A response with json as content-type is automatically rendered as json data
-     * @covers \phpOMS\Message\Cli\CliResponse<extended>
-     * @group framework
-     */
+    #[\PHPUnit\Framework\Attributes\Group('framework')]
+    #[\PHPUnit\Framework\Attributes\TestDox('A response with json as content-type is automatically rendered as json data')]
     public function testJsonRender() : void
     {
         $data = [
@@ -139,22 +129,16 @@ final class CliResponseTest extends \PHPUnit\Framework\TestCase
         self::assertEquals(\json_encode($data), $this->response->render());
     }
 
-    /**
-     * @testdox Invalid response data results in an empty array
-     * @covers \phpOMS\Message\Cli\CliResponse<extended>
-     * @group framework
-     */
+    #[\PHPUnit\Framework\Attributes\Group('framework')]
+    #[\PHPUnit\Framework\Attributes\TestDox('Invalid response data results in an empty array')]
     public function testInvalidResponseDataToArray() : void
     {
         $this->response->set('invalid', new class() {});
         self::assertEquals([], $this->response->toArray());
     }
 
-    /**
-     * @testdox Invalid response data results in an empty render
-     * @covers \phpOMS\Message\Cli\CliResponse<extended>
-     * @group framework
-     */
+    #[\PHPUnit\Framework\Attributes\Group('framework')]
+    #[\PHPUnit\Framework\Attributes\TestDox('Invalid response data results in an empty render')]
     public function testInvalidResponseDataRender() : void
     {
         $this->response->set('invalid', new class() {});

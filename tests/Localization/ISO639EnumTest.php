@@ -20,16 +20,14 @@ use phpOMS\Localization\ISO3166TwoEnum;
 use phpOMS\Localization\ISO639Enum;
 
 /**
- * @testdox phpOMS\tests\Localization\ISO639EnumTest: ISO 639 language codes
  * @internal
  */
+#[\PHPUnit\Framework\Attributes\TestDox('phpOMS\tests\Localization\ISO639EnumTest: ISO 639 language codes')]
 final class ISO639EnumTest extends \PHPUnit\Framework\TestCase
 {
-    /**
-     * @testdox The ISO 639 language code enum has only unique values
-     * @group framework
-     * @coversNothing
-     */
+    #[\PHPUnit\Framework\Attributes\Group('framework')]
+    #[\PHPUnit\Framework\Attributes\TestDox('The ISO 639 language code enum has only unique values')]
+    #[\PHPUnit\Framework\Attributes\CoversNothing]
     public function testUnique() : void
     {
         $enum = ISO639Enum::getConstants();

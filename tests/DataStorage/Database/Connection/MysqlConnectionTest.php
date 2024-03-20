@@ -19,10 +19,11 @@ use phpOMS\DataStorage\Database\DatabaseStatus;
 use phpOMS\DataStorage\Database\DatabaseType;
 
 /**
- * @testdox phpOMS\tests\DataStorage\Database\Connection\MysqlConnectionTest: Mysql connection
- *
  * @internal
  */
+#[\PHPUnit\Framework\Attributes\CoversClass(\phpOMS\DataStorage\Database\Connection\MysqlConnection::class)]
+#[\PHPUnit\Framework\Attributes\CoversClass(\phpOMS\DataStorage\Database\Connection\MysqlConnection::class)]
+#[\PHPUnit\Framework\Attributes\TestDox('phpOMS\tests\DataStorage\Database\Connection\MysqlConnectionTest: Mysql connection')]
 final class MysqlConnectionTest extends \PHPUnit\Framework\TestCase
 {
     protected function setUp() : void
@@ -34,11 +35,8 @@ final class MysqlConnectionTest extends \PHPUnit\Framework\TestCase
         }
     }
 
-    /**
-     * @testdox Valid mysql connection data result in a valid database connection
-     * @covers \phpOMS\DataStorage\Database\Connection\MysqlConnection<extended>
-     * @group framework
-     */
+    #[\PHPUnit\Framework\Attributes\Group('framework')]
+    #[\PHPUnit\Framework\Attributes\TestDox('Valid mysql connection data result in a valid database connection')]
     public function testConnect() : void
     {
         $mysql = new MysqlConnection($GLOBALS['CONFIG']['db']['core']['masters']['admin']);
@@ -53,11 +51,8 @@ final class MysqlConnectionTest extends \PHPUnit\Framework\TestCase
         $mysql->close();
     }
 
-    /**
-     * @testdox A missing database type returns a failure
-     * @covers \phpOMS\DataStorage\Database\Connection\MysqlConnection
-     * @group framework
-     */
+    #[\PHPUnit\Framework\Attributes\Group('framework')]
+    #[\PHPUnit\Framework\Attributes\TestDox('A missing database type returns a failure')]
     public function testInvalidDatabaseType() : void
     {
         $db = $GLOBALS['CONFIG']['db']['core']['masters']['admin'];
@@ -69,11 +64,8 @@ final class MysqlConnectionTest extends \PHPUnit\Framework\TestCase
         $mysql->close();
     }
 
-    /**
-     * @testdox A missing database host returns a failure
-     * @covers \phpOMS\DataStorage\Database\Connection\MysqlConnection
-     * @group framework
-     */
+    #[\PHPUnit\Framework\Attributes\Group('framework')]
+    #[\PHPUnit\Framework\Attributes\TestDox('A missing database host returns a failure')]
     public function testInvalidHost() : void
     {
         $db = $GLOBALS['CONFIG']['db']['core']['masters']['admin'];
@@ -85,11 +77,8 @@ final class MysqlConnectionTest extends \PHPUnit\Framework\TestCase
         $mysql->close();
     }
 
-    /**
-     * @testdox A missing database port returns a failure
-     * @covers \phpOMS\DataStorage\Database\Connection\MysqlConnection
-     * @group framework
-     */
+    #[\PHPUnit\Framework\Attributes\Group('framework')]
+    #[\PHPUnit\Framework\Attributes\TestDox('A missing database port returns a failure')]
     public function testInvalidPort() : void
     {
         $db = $GLOBALS['CONFIG']['db']['core']['masters']['admin'];
@@ -101,11 +90,8 @@ final class MysqlConnectionTest extends \PHPUnit\Framework\TestCase
         $mysql->close();
     }
 
-    /**
-     * @testdox A missing database returns a failure
-     * @covers \phpOMS\DataStorage\Database\Connection\MysqlConnection
-     * @group framework
-     */
+    #[\PHPUnit\Framework\Attributes\Group('framework')]
+    #[\PHPUnit\Framework\Attributes\TestDox('A missing database returns a failure')]
     public function testInvalidDatabase() : void
     {
         $db = $GLOBALS['CONFIG']['db']['core']['masters']['admin'];
@@ -117,11 +103,8 @@ final class MysqlConnectionTest extends \PHPUnit\Framework\TestCase
         $mysql->close();
     }
 
-    /**
-     * @testdox A missing database login returns a failure
-     * @covers \phpOMS\DataStorage\Database\Connection\MysqlConnection
-     * @group framework
-     */
+    #[\PHPUnit\Framework\Attributes\Group('framework')]
+    #[\PHPUnit\Framework\Attributes\TestDox('A missing database login returns a failure')]
     public function testInvalidLogin() : void
     {
         $db = $GLOBALS['CONFIG']['db']['core']['masters']['admin'];
@@ -133,11 +116,8 @@ final class MysqlConnectionTest extends \PHPUnit\Framework\TestCase
         $mysql->close();
     }
 
-    /**
-     * @testdox A missing database password returns a failure
-     * @covers \phpOMS\DataStorage\Database\Connection\MysqlConnection
-     * @group framework
-     */
+    #[\PHPUnit\Framework\Attributes\Group('framework')]
+    #[\PHPUnit\Framework\Attributes\TestDox('A missing database password returns a failure')]
     public function testInvalidPassword() : void
     {
         $db = $GLOBALS['CONFIG']['db']['core']['masters']['admin'];
@@ -149,11 +129,8 @@ final class MysqlConnectionTest extends \PHPUnit\Framework\TestCase
         $mysql->close();
     }
 
-    /**
-     * @testdox A invalid database type returns a failure
-     * @covers \phpOMS\DataStorage\Database\Connection\MysqlConnection
-     * @group framework
-     */
+    #[\PHPUnit\Framework\Attributes\Group('framework')]
+    #[\PHPUnit\Framework\Attributes\TestDox('A invalid database type returns a failure')]
     public function testInvalidDatabaseTypeName() : void
     {
         $db       = $GLOBALS['CONFIG']['db']['core']['masters']['admin'];
@@ -165,11 +142,8 @@ final class MysqlConnectionTest extends \PHPUnit\Framework\TestCase
         $mysql->close();
     }
 
-    /**
-     * @testdox A invalid database returns a failure
-     * @covers \phpOMS\DataStorage\Database\Connection\MysqlConnection
-     * @group framework
-     */
+    #[\PHPUnit\Framework\Attributes\Group('framework')]
+    #[\PHPUnit\Framework\Attributes\TestDox('A invalid database returns a failure')]
     public function testInvalidDatabaseName() : void
     {
         $db             = $GLOBALS['CONFIG']['db']['core']['masters']['admin'];

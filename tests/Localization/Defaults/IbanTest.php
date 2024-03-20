@@ -19,17 +19,14 @@ require_once __DIR__ . '/../../Autoloader.php';
 use phpOMS\Localization\Defaults\Iban;
 
 /**
- * @testdox phpOMS\tests\Localization\Defaults\IbanTest: Iban database model
- *
  * @internal
  */
+#[\PHPUnit\Framework\Attributes\CoversClass(\phpOMS\Localization\Defaults\Iban::class)]
+#[\PHPUnit\Framework\Attributes\TestDox('phpOMS\tests\Localization\Defaults\IbanTest: Iban database model')]
 final class IbanTest extends \PHPUnit\Framework\TestCase
 {
-    /**
-     * @testdox The model has the expected member variables and default values
-     * @covers \phpOMS\Localization\Defaults\Iban
-     * @group framework
-     */
+    #[\PHPUnit\Framework\Attributes\Group('framework')]
+    #[\PHPUnit\Framework\Attributes\TestDox('The model has the expected member variables and default values')]
     public function testDefaults() : void
     {
         $obj = new Iban();

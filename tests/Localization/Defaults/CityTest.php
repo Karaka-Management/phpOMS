@@ -19,17 +19,14 @@ require_once __DIR__ . '/../../Autoloader.php';
 use phpOMS\Localization\Defaults\City;
 
 /**
- * @testdox phpOMS\tests\Localization\Defaults\CityTest: City database model
- *
  * @internal
  */
+#[\PHPUnit\Framework\Attributes\CoversClass(\phpOMS\Localization\Defaults\City::class)]
+#[\PHPUnit\Framework\Attributes\TestDox('phpOMS\tests\Localization\Defaults\CityTest: City database model')]
 final class CityTest extends \PHPUnit\Framework\TestCase
 {
-    /**
-     * @testdox The model has the expected member variables and default values
-     * @covers \phpOMS\Localization\Defaults\City
-     * @group framework
-     */
+    #[\PHPUnit\Framework\Attributes\Group('framework')]
+    #[\PHPUnit\Framework\Attributes\TestDox('The model has the expected member variables and default values')]
     public function testDefaults() : void
     {
         $obj = new City();

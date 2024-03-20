@@ -17,17 +17,14 @@ namespace phpOMS\tests\Api\EUVAT;
 use phpOMS\Api\EUVAT\EUVATVies;
 
 /**
- * @testdox phpOMS\tests\Api\EUVAT\EUVATViesTest: EU VAT Vies validation
- *
  * @internal
  */
+#[\PHPUnit\Framework\Attributes\CoversClass(\phpOMS\Api\EUVAT\EUVATVies::class)]
+#[\PHPUnit\Framework\Attributes\TestDox('phpOMS\tests\Api\EUVAT\EUVATViesTest: EU VAT Vies validation')]
 final class EUVATViesTest extends \PHPUnit\Framework\TestCase
 {
-    /**
-     * @testdox The VIES service can validate a valid VAT ID
-     * @covers \phpOMS\Api\EUVAT\EUVATVies
-     * @group framework
-     */
+    #[\PHPUnit\Framework\Attributes\Group('framework')]
+    #[\PHPUnit\Framework\Attributes\TestDox('The VIES service can validate a valid VAT ID')]
     public function testValidateInvalidId() : void
     {
         $status = EUVATVies::validate('DE123456789');

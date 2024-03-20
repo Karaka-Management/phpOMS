@@ -19,36 +19,30 @@ require_once __DIR__ . '/../Autoloader.php';
 use phpOMS\System\SystemType;
 
 /**
- * @testdox phpOMS\tests\System\SystemTypeTest: System type
  * @internal
  */
+#[\PHPUnit\Framework\Attributes\TestDox('phpOMS\tests\System\SystemTypeTest: System type')]
 final class SystemTypeTest extends \PHPUnit\Framework\TestCase
 {
-    /**
-     * @testdox The system type enum has the correct amount of values
-     * @group framework
-     * @coversNothing
-     */
+    #[\PHPUnit\Framework\Attributes\Group('framework')]
+    #[\PHPUnit\Framework\Attributes\TestDox('The system type enum has the correct amount of values')]
+    #[\PHPUnit\Framework\Attributes\CoversNothing]
     public function testEnumCount() : void
     {
         self::assertCount(4, SystemType::getConstants());
     }
 
-    /**
-     * @testdox The system type enum has only unique values
-     * @group framework
-     * @coversNothing
-     */
+    #[\PHPUnit\Framework\Attributes\Group('framework')]
+    #[\PHPUnit\Framework\Attributes\TestDox('The system type enum has only unique values')]
+    #[\PHPUnit\Framework\Attributes\CoversNothing]
     public function testUnique() : void
     {
         self::assertEquals(SystemType::getConstants(), \array_unique(SystemType::getConstants()));
     }
 
-    /**
-     * @testdox The system type enum has the correct values
-     * @group framework
-     * @coversNothing
-     */
+    #[\PHPUnit\Framework\Attributes\Group('framework')]
+    #[\PHPUnit\Framework\Attributes\TestDox('The system type enum has the correct values')]
+    #[\PHPUnit\Framework\Attributes\CoversNothing]
     public function testEnums() : void
     {
         self::assertEquals(1, SystemType::UNKNOWN);

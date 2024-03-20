@@ -19,17 +19,14 @@ require_once __DIR__ . '/../../Autoloader.php';
 use phpOMS\Localization\Defaults\Currency;
 
 /**
- * @testdox phpOMS\tests\Localization\Defaults\CurrencyTest: Currency database model
- *
  * @internal
  */
+#[\PHPUnit\Framework\Attributes\CoversClass(\phpOMS\Localization\Defaults\Currency::class)]
+#[\PHPUnit\Framework\Attributes\TestDox('phpOMS\tests\Localization\Defaults\CurrencyTest: Currency database model')]
 final class CurrencyTest extends \PHPUnit\Framework\TestCase
 {
-    /**
-     * @testdox The model has the expected member variables and default values
-     * @covers \phpOMS\Localization\Defaults\Currency
-     * @group framework
-     */
+    #[\PHPUnit\Framework\Attributes\Group('framework')]
+    #[\PHPUnit\Framework\Attributes\TestDox('The model has the expected member variables and default values')]
     public function testDefaults() : void
     {
         $obj = new Currency();

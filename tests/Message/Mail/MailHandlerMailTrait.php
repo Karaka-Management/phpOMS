@@ -290,9 +290,7 @@ trait MailHandlerMailTrait
         self::assertTrue($this->handler->send($mail));
     }
 
-    /**
-     * @dataProvider dataICalMethodMail
-     */
+    #[\PHPUnit\Framework\Attributes\DataProvider('dataICalMethodMail')]
     public function testSendICalAltWithMail(string $methodLine, string $expected) : void
     {
         $this->handler->setMailer(SubmitType::MAIL);
@@ -347,9 +345,7 @@ trait MailHandlerMailTrait
         );
     }
 
-    /**
-     * @dataProvider dataICalMethodMail
-     */
+    #[\PHPUnit\Framework\Attributes\DataProvider('dataICalMethodMail')]
     public function testSendICalAltAttachmentWithMail(string $methodLine, string $expected) : void
     {
         $this->handler->setMailer(SubmitType::MAIL);
@@ -405,7 +401,7 @@ trait MailHandlerMailTrait
         );
     }
 
-    public function dataICalMethodMail()
+    public static function dataICalMethodMail() : array
     {
         return [
             'Valid method: request (default)' => [

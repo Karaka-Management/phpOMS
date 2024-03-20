@@ -17,17 +17,14 @@ namespace phpOMS\tests\Math\Numerics\Interpolation;
 use phpOMS\Math\Numerics\Interpolation\LagrangeInterpolation;
 
 /**
- * @testdox phpOMS\tests\Math\Numerics\Interpolation\LagrangeInterpolationTest: Lagrange interpolation
- *
  * @internal
  */
+#[\PHPUnit\Framework\Attributes\CoversClass(\phpOMS\Math\Numerics\Interpolation\LagrangeInterpolation::class)]
+#[\PHPUnit\Framework\Attributes\TestDox('phpOMS\tests\Math\Numerics\Interpolation\LagrangeInterpolationTest: Lagrange interpolation')]
 final class LagrangeInterpolationTest extends \PHPUnit\Framework\TestCase
 {
-    /**
-     * @testdox The lagrange interpolation is correct
-     * @covers \phpOMS\Math\Numerics\Interpolation\LagrangeInterpolation
-     * @group framework
-     */
+    #[\PHPUnit\Framework\Attributes\Group('framework')]
+    #[\PHPUnit\Framework\Attributes\TestDox('The lagrange interpolation is correct')]
     public function testInterpolation() : void
     {
         $interpolation = new LagrangeInterpolation([

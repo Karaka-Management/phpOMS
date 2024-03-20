@@ -19,16 +19,14 @@ require_once __DIR__ . '/../Autoloader.php';
 use phpOMS\Localization\ISO3166CharEnum;
 
 /**
- * @testdox phpOMS\tests\Localization\ISO3166CharEnumTest: ISO 3166 country codes
  * @internal
  */
+#[\PHPUnit\Framework\Attributes\TestDox('phpOMS\tests\Localization\ISO3166CharEnumTest: ISO 3166 country codes')]
 final class ISO3166CharEnumTest extends \PHPUnit\Framework\TestCase
 {
-    /**
-     * @testdox The ISO 3166 country code enum has the correct format of country codes
-     * @group framework
-     * @coversNothing
-     */
+    #[\PHPUnit\Framework\Attributes\Group('framework')]
+    #[\PHPUnit\Framework\Attributes\TestDox('The ISO 3166 country code enum has the correct format of country codes')]
+    #[\PHPUnit\Framework\Attributes\CoversNothing]
     public function testEnums() : void
     {
         $ok = true;
@@ -45,11 +43,9 @@ final class ISO3166CharEnumTest extends \PHPUnit\Framework\TestCase
         self::assertTrue($ok);
     }
 
-    /**
-     * @testdox The ISO 3166 enum has only unique values
-     * @group framework
-     * @coversNothing
-     */
+    #[\PHPUnit\Framework\Attributes\Group('framework')]
+    #[\PHPUnit\Framework\Attributes\TestDox('The ISO 3166 enum has only unique values')]
+    #[\PHPUnit\Framework\Attributes\CoversNothing]
     public function testUnique() : void
     {
         self::assertEquals(ISO3166CharEnum::getConstants(), \array_unique(ISO3166CharEnum::getConstants()));

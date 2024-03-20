@@ -20,6 +20,7 @@ use phpOMS\Utils\Barcode\OrientationType;
 /**
  * @internal
  */
+#[\PHPUnit\Framework\Attributes\CoversClass(\phpOMS\Utils\Barcode\C128c::class)]
 final class C128cTest extends \PHPUnit\Framework\TestCase
 {
     protected function setUp() : void
@@ -31,10 +32,7 @@ final class C128cTest extends \PHPUnit\Framework\TestCase
         }
     }
 
-    /**
-     * @covers \phpOMS\Utils\Barcode\C128c<extended>
-     * @group framework
-     */
+    #[\PHPUnit\Framework\Attributes\Group('framework')]
     public function testImagePng() : void
     {
         $path = __DIR__ . '/c128c.png';
@@ -48,10 +46,7 @@ final class C128cTest extends \PHPUnit\Framework\TestCase
         self::assertFileExists($path);
     }
 
-    /**
-     * @covers \phpOMS\Utils\Barcode\C128c<extended>
-     * @group framework
-     */
+    #[\PHPUnit\Framework\Attributes\Group('framework')]
     public function testImageJpg() : void
     {
         $path = __DIR__ . '/c128c.jpg';
@@ -65,10 +60,7 @@ final class C128cTest extends \PHPUnit\Framework\TestCase
         self::assertFileExists($path);
     }
 
-    /**
-     * @covers \phpOMS\Utils\Barcode\C128c<extended>
-     * @group framework
-     */
+    #[\PHPUnit\Framework\Attributes\Group('framework')]
     public function testOrientationAndMargin() : void
     {
         $path = __DIR__ . '/c128c_vertical.png';

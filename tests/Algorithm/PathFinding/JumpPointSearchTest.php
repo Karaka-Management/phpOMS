@@ -24,10 +24,10 @@ use phpOMS\Algorithm\PathFinding\Path;
 require_once __DIR__ . '/../../Autoloader.php';
 
 /**
- * @testdox phpOMS\tests\Algorithm\PathFinding\JumpPointSearchTest: JumpPoint path finding
- *
  * @internal
  */
+#[\PHPUnit\Framework\Attributes\CoversClass(\phpOMS\Algorithm\PathFinding\JumpPointSearch::class)]
+#[\PHPUnit\Framework\Attributes\TestDox('phpOMS\tests\Algorithm\PathFinding\JumpPointSearchTest: JumpPoint path finding')]
 final class JumpPointSearchTest extends \PHPUnit\Framework\TestCase
 {
     private array $gridArray = [
@@ -75,11 +75,8 @@ final class JumpPointSearchTest extends \PHPUnit\Framework\TestCase
         }
     }
 
-    /**
-     * @testdox The correct path is found for diagonal movement
-     * @covers \phpOMS\Algorithm\PathFinding\JumpPointSearch
-     * @group framework
-     */
+    #[\PHPUnit\Framework\Attributes\Group('framework')]
+    #[\PHPUnit\Framework\Attributes\TestDox('The correct path is found for diagonal movement')]
     public function testPathFindingDiagonal() : void
     {
         $grid = Grid::createGridFromArray($this->gridArray, JumpPointNode::class);
@@ -119,11 +116,8 @@ final class JumpPointSearchTest extends \PHPUnit\Framework\TestCase
         ], $this->gridArray);
     }
 
-    /**
-     * @testdox The correct path is found for straight movement
-     * @covers \phpOMS\Algorithm\PathFinding\JumpPointSearch
-     * @group framework
-     */
+    #[\PHPUnit\Framework\Attributes\Group('framework')]
+    #[\PHPUnit\Framework\Attributes\TestDox('The correct path is found for straight movement')]
     public function testPathFindingStraight() : void
     {
         $grid = Grid::createGridFromArray($this->gridArray, JumpPointNode::class);
@@ -163,11 +157,8 @@ final class JumpPointSearchTest extends \PHPUnit\Framework\TestCase
         ], $this->gridArray);
     }
 
-    /**
-     * @testdox The correct path is found for diagonal movement [one obstacle]
-     * @covers \phpOMS\Algorithm\PathFinding\JumpPointSearch
-     * @group framework
-     */
+    #[\PHPUnit\Framework\Attributes\Group('framework')]
+    #[\PHPUnit\Framework\Attributes\TestDox('The correct path is found for diagonal movement [one obstacle]')]
     public function testPathFindingDiagonalOneObstacle() : void
     {
         $grid = Grid::createGridFromArray($this->gridArray, JumpPointNode::class);
@@ -207,11 +198,8 @@ final class JumpPointSearchTest extends \PHPUnit\Framework\TestCase
         ], $this->gridArray);
     }
 
-    /**
-     * @testdox The correct path is found for diagonal movement [no obstacle]
-     * @covers \phpOMS\Algorithm\PathFinding\JumpPointSearch
-     * @group framework
-     */
+    #[\PHPUnit\Framework\Attributes\Group('framework')]
+    #[\PHPUnit\Framework\Attributes\TestDox('The correct path is found for diagonal movement [no obstacle]')]
     public function testPathFindingDiagonalNoObstacle() : void
     {
         $grid = Grid::createGridFromArray($this->gridArray, JumpPointNode::class);
@@ -251,11 +239,8 @@ final class JumpPointSearchTest extends \PHPUnit\Framework\TestCase
         ], $this->gridArray);
     }
 
-    /**
-     * @testdox A invalid start or end node returns the grid
-     * @covers \phpOMS\Algorithm\PathFinding\JumpPointSearch
-     * @group framework
-     */
+    #[\PHPUnit\Framework\Attributes\Group('framework')]
+    #[\PHPUnit\Framework\Attributes\TestDox('A invalid start or end node returns the grid')]
     public function testInvalidStartEndNode() : void
     {
         $grid = Grid::createGridFromArray($this->gridArray, JumpPointNode::class);

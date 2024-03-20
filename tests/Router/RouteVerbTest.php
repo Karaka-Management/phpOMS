@@ -19,16 +19,14 @@ require_once __DIR__ . '/../Autoloader.php';
 use phpOMS\Router\RouteVerb;
 
 /**
- * @testdox phpOMS\tests\WebRouter\RouteVerbTest: Route verb enum
  * @internal
  */
+#[\PHPUnit\Framework\Attributes\TestDox('phpOMS\tests\WebRouter\RouteVerbTest: Route verb enum')]
 final class RouteVerbTest extends \PHPUnit\Framework\TestCase
 {
-    /**
-     * @testdox The route verb enum has the correct values
-     * @group framework
-     * @coversNothing
-     */
+    #[\PHPUnit\Framework\Attributes\Group('framework')]
+    #[\PHPUnit\Framework\Attributes\TestDox('The route verb enum has the correct values')]
+    #[\PHPUnit\Framework\Attributes\CoversNothing]
     public function testEnums() : void
     {
         self::assertTrue(\defined('phpOMS\Router\RouteVerb::GET'));
@@ -38,11 +36,9 @@ final class RouteVerbTest extends \PHPUnit\Framework\TestCase
         self::assertTrue(\defined('phpOMS\Router\RouteVerb::ANY'));
     }
 
-    /**
-     * @testdox The route verb enum has only unique values
-     * @group framework
-     * @coversNothing
-     */
+    #[\PHPUnit\Framework\Attributes\Group('framework')]
+    #[\PHPUnit\Framework\Attributes\TestDox('The route verb enum has only unique values')]
+    #[\PHPUnit\Framework\Attributes\CoversNothing]
     public function testUnique() : void
     {
         $values = RouteVerb::getConstants();
