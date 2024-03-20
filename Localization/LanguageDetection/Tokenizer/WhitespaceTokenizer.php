@@ -2,7 +2,7 @@
 /**
  * Jingga
  *
- * PHP Version 8.1
+ * PHP Version 8.2
  *
  * @package   phpOMS\Localization\LanguageDetection\Tokenizer
  * @author    Patrick Schur <patrick_schur@outlook.de>

@@ -2,7 +2,7 @@
 /**
  * Jingga
  *
- * PHP Version 8.1
+ * PHP Version 8.2
  *
  * @package   phpOMS\Utils\Barcode
  * @author    Nicola Asuni - Tecnick.com LTD - www.tecnick.com <info@tecnick.com>
