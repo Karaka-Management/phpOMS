@@ -285,7 +285,7 @@ class FloatInt implements SerializableInterface
     }
 
     /**
-     * Mult.
+     * Multiply.
      *
      * @param int|float $value Value to multiply with
      *
@@ -347,7 +347,7 @@ class FloatInt implements SerializableInterface
     }
 
     /**
-     * Searialze.
+     * Serialize.
      *
      * @return string
      *

@@ -1,29 +1,29 @@
-t Is Image Filtering in the Spatial Domain?
+What Is Image Filtering in the Spatial Domain?
 
-What Is Ima
+a a ee om               o-beme- ee
 
-Filtering is a technique for modifying or enhancing an image. For example, you can filter an image to emphasize certain
+Filtering Is a technique for modifying or enhancing an image. For example, you can filter an image to emphasize certain
 features or remove other features. Image processing operations implemented with filtering include smoothing, sharpening,
 
-and edge enhancement.
+_ and edge enhancement.
+
 Filtering is a neighborhood operation, in which the value of any given pixel in the output image is determined by applying
-some algorithm to the values of the pixels in the neighborhood of the corresponding input pixel. A pixel’s neighborhood is
+some algorithm to the values of the pixels in the neighborhood of the corresponding input pixel. A pixel'’s neighborhocd is
 some set of pixels, defined by their locations relative to that pixel. (SeeNeighborhood or Block Processing: An Overview for
-a general discussion of neighborhood Operations.) Linear filtering is filtering in which the value of an output pixel is a linear
+a general discussion of neighborhood operations.) Linear filtering is filtering in which the value ofan output pixel is a linear
 
 combination of the values of the pixels in the input pixel's neighborhood.
 
 Convolution
-Linear filtering of an image is accomplished through an operation called convolution. Convolution is a neightornood
+Linear filtering of an image is accomplished through an operation called convolution. Convolution is aneightornood
 
-Operation in which each output pixel is the weighted sum of neighboring input pixels. The matrix of weights is called the
+operation in which each output pixel is the weighted sum of neighboring input pixels. The matrix of weights is called the
+convolution kemel, also known as the filter. A convolution kernel is a correlation kernel that has been rotated 1 20 cearses.
 
 For example, suppose the image is
 
-A=[17 24 1 8 15
-2305 7 14 16
-4 6 13 26 22
-1@ 12 19 21 3
-
- 
+A=[17 24 1 8g 45
+23 5 7 14 146
+4 6 13 20 22
+1@ 12 19 23 3
 

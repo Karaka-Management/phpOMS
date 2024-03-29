@@ -211,11 +211,11 @@ final class EUVATVies implements EUVATInterface
         $result['vat']  = $json['isValid'] ? 'A' : 'B';
         $result['name'] = $json['isValid'];
 
-        $result['city'] = \stripos($json['address'], "\n") !== false
+        $result['city'] = \stripos($json['address'] ?? '', "\n") !== false
             ? \substr($json['address'], \stripos($json['address'], "\n") + 1)
             : '';
 
-        $result['postal'] = \stripos($json['address'], "\n") !== false
+        $result['postal'] = \stripos($json['address'] ?? '', "\n") !== false
             ? \substr(
                 $json['address'],
                 \stripos($json['address'], "\n") + 1,
@@ -223,9 +223,9 @@ final class EUVATVies implements EUVATInterface
             )
             : '';
 
-        $result['address'] = \stripos($json['address'], "\n") !== false
+        $result['address'] = \stripos($json['address'] ?? '', "\n") !== false
             ? \substr($json['address'], 0, \stripos($json['address'], "\n") - 1)
-            : $json['address'];
+            : ($json['address'] ?? '');
 
         $result['name']    = $result['name'] === '---' ? '' : $result['name'];
         $result['city']    = $result['city'] === '---' ? '' : $result['city'];

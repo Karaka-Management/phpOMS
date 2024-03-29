@@ -1,16 +1,66 @@
-, you Can filter an image to emphasize certain
-inted with filtering include smoothing, sharpening,
+ee rrr
 
-pixel in the output image is determined by applying
-€ corresponding input pixel. A pixel's neighborhood is
-eeNeighborhood or Block Processing: An Overview for
+nain?
 
-§ filtering in which the value of an output pixel is a linear
-od.
+AP tne e va  eo
 
-alled convolution. Convolution is a neighborhood
-boring input pixels. The matrix of weights is called the
-‘4 Correlation kernel that has been rotated 12
+  
+    
+ 
+  
+ 
+  
 
  
+
+em
+
+mple, you can filter an image to emphasize certain
+mented with filtering include smoothing, sharpening,
+
+  
+
+ive   pixel in the output image is determined by applying
+a comesponding input pixel. A pixel’s neighborhood is
+. (SeeNeighborhood or Block Processing: An Overview for
+tering in which the value of an output pixel is a linear
+
+ E ‘
+}
+ane
+
+-   —_
+J
+
+    
+ 
+  
+ 
+ 
+ 
+  
+
+.    _
+
+Called convolution. Convolution is 2 neighborhood
+
+Nb: nboring input pixels. The matrix of weights is called th
+sa Correlation kernel that has been rotated 120 c
+
+~~
+rn    —
+,              ~
+
+-
+
+a
+“=
+4
+
+()
+
+(D
+
+Sec
+—
 

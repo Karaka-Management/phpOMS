@@ -44,6 +44,10 @@ final class MemCachedTest extends \PHPUnit\Framework\TestCase
 
     protected function tearDown() : void
     {
+        if (!isset($this->cache)) {
+            return;
+        }
+
         $this->cache->flushAll();
     }
 

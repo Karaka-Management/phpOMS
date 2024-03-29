@@ -349,7 +349,7 @@ final class DataMapperAbstractTest extends \PHPUnit\Framework\TestCase
     public function testCount() : void
     {
         BaseModelMapper::create()->execute($this->model);
-        self::assertEquals(1, BaseModelMapper::count()->execute());
+        self::assertEquals(1, BaseModelMapper::count()->executeCount());
     }
 
     public function testSum() : void

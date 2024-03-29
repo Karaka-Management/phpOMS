@@ -72,7 +72,7 @@ final class ImageUtils
     }
 
     /**
-     * Calculate lightess from rgb values
+     * Calculate lightness from rgb values
      *
      * @param int $r Red
      * @param int $g Green
@@ -365,7 +365,7 @@ final class ImageUtils
      *
      * @since 1.0.0
      */
-    private static function getAverageColor($src, $x, $y, $width, $height, $area = 10) : int
+    private static function getAverageColor(\GdImage $src, int $x, int $y, int $width, int $height, int $area = 10) : int
     {
         $colors = [];
 
@@ -386,5 +386,27 @@ final class ImageUtils
         }
 
         return (int) (\array_sum($colors) / \count($colors));
+    }
+
+    /**
+     * Calculate the average color based on random probes
+     *
+     * @param \GdImage $src    Image resource
+     * @param int      $probes Count of random color probes/samples
+     *
+     * @return int
+     *
+     * @since 1.0.0
+     */
+    public static function averageColorRandom(\GdImage $src, int $probes = 25) : int
+    {
+        $dim = [\imagesx($src), \imagesy($src)];
+
+        $color = 0;
+        for ($i = 0; $i < $probes; ++$i) {
+            $color += \imagecolorat($src, \mt_rand(0, $dim[0]), \mt_rand(0, $dim[1]));
+        }
+
+        return $color / $probes;
     }
 }

@@ -493,6 +493,10 @@ final class HttpRequest extends RequestAbstract
                 $paths[] = $pathArray[$j];
             }
 
+            // @bug Since we are hashing the path elements without delimiter /test/path/here is the same as /testpath/here
+            //      The reason for doing this without delimiter was probably because of different environments (web vs socket vs console)
+            //      However, we could literally choose any delimiter INTERNALLY as long as it is the same across all Request classes.
+            //      If this ever gets changed remember to also change the Navigation/ApiController.php file
             $this->hash[] = \sha1(\implode('', $paths));
         }
     }
