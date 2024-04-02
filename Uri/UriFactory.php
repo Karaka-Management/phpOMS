@@ -228,6 +228,12 @@ final class UriFactory
             );
         */
 
+        // @feature Implement whitelisting/blacklisting for {?}
+        //      Currently it copies all parameters
+        //      Ideally you could use
+        //          {?+para1,para2} for whitelisting
+        //          {?-para1,para2} for blacklisting
+
         if (\stripos($url, '?') === false && ($pos = \stripos($url, '&')) !== false) {
             $url = \substr_replace($url, '?', $pos, 1);
         }

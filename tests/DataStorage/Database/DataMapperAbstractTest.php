@@ -288,7 +288,7 @@ final class DataMapperAbstractTest extends \PHPUnit\Framework\TestCase
     public function testGetAll() : void
     {
         BaseModelMapper::create()->execute($this->model);
-        self::assertCount(1, BaseModelMapper::getAll()->execute());
+        self::assertCount(1, BaseModelMapper::getAll()->executeGetArray());
     }
 
     public function testGetYield() : void
@@ -303,7 +303,7 @@ final class DataMapperAbstractTest extends \PHPUnit\Framework\TestCase
     public function testGetFor() : void
     {
         $id  = BaseModelMapper::create()->execute($this->model);
-        $for = ManyToManyDirectModelMapper::getAll()->where('to', $id)->execute();
+        $for = ManyToManyDirectModelMapper::getAll()->where('to', $id)->executeGetArray();
 
         self::assertEquals(
             \reset($this->model->hasManyDirect)->string,
@@ -337,7 +337,7 @@ final class DataMapperAbstractTest extends \PHPUnit\Framework\TestCase
         $model2->datetime = new \DateTime('now');
         $id2              = BaseModelMapper::create()->execute($model2);
 
-        $newest = BaseModelMapper::getAll()->sort('id', OrderType::DESC)->limit(1)->execute();
+        $newest = BaseModelMapper::getAll()->sort('id', OrderType::DESC)->limit(1)->executeGetArray();
         self::assertEquals($id2, \reset($newest)->id);
     }
 
@@ -393,7 +393,7 @@ final class DataMapperAbstractTest extends \PHPUnit\Framework\TestCase
         BaseModelMapper::create()->execute($model2);
         BaseModelMapper::create()->execute($model3);
 
-        $found = BaseModelMapper::getAll()->where('string', '%sir%' , 'LIKE')->execute();
+        $found = BaseModelMapper::getAll()->where('string', '%sir%' , 'LIKE')->executeGetArray();
         self::assertCount(2, $found);
         self::assertEquals($model2->string, \reset($found)->string);
         self::assertEquals($model3->string, \end($found)->string);
@@ -455,7 +455,7 @@ final class DataMapperAbstractTest extends \PHPUnit\Framework\TestCase
         $cond3->base     = $id2;
         ConditionalMapper::create()->execute($cond3);
 
-        $found = BaseModelMapper::getAll()->with('conditional')->where('conditional/language', 'de')->execute();
+        $found = BaseModelMapper::getAll()->with('conditional')->where('conditional/language', 'de')->executeGetArray();
         self::assertCount(2, $found);
         self::assertEquals($model1->string, \reset($found)->string);
         self::assertEquals($model2->string, \end($found)->string);

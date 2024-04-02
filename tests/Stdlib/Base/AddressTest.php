@@ -15,7 +15,6 @@ declare(strict_types=1);
 namespace phpOMS\tests\Stdlib\Base;
 
 use phpOMS\Stdlib\Base\Address;
-use phpOMS\Stdlib\Base\Location;
 
 /**
  * @internal
@@ -39,8 +38,8 @@ final class AddressTest extends \PHPUnit\Framework\TestCase
     public function testDefault() : void
     {
         $expected = [
-            'fao'       => '',
-            'name'       => '',
+            'fao'     => '',
+            'name'    => '',
             'postal'  => '',
             'city'    => '',
             'country' => 'XX',
@@ -69,8 +68,8 @@ final class AddressTest extends \PHPUnit\Framework\TestCase
     public function testArray() : void
     {
         $expected = [
-            'fao'       => 'fao',
-            'name'  => '',
+            'fao'     => 'fao',
+            'name'    => '',
             'postal'  => '',
             'city'    => '',
             'country' => 'XX',
@@ -80,7 +79,7 @@ final class AddressTest extends \PHPUnit\Framework\TestCase
             'lon'     => 0.0,
         ];
 
-        $this->address->fao       = 'fao';
+        $this->address->fao = 'fao';
 
         self::assertEquals($expected, $this->address->toArray());
     }
@@ -90,8 +89,8 @@ final class AddressTest extends \PHPUnit\Framework\TestCase
     public function testJsonSerialize() : void
     {
         $expected = [
-            'fao'       => 'fao',
-            'name'  => '',
+            'fao'     => 'fao',
+            'name'    => '',
             'postal'  => '',
             'city'    => '',
             'country' => 'XX',
@@ -101,7 +100,7 @@ final class AddressTest extends \PHPUnit\Framework\TestCase
             'lon'     => 0.0,
         ];
 
-        $this->address->fao       = 'fao';
+        $this->address->fao = 'fao';
 
         self::assertEquals($expected, $this->address->jsonSerialize());
     }

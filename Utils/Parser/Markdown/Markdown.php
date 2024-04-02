@@ -4576,7 +4576,7 @@ class Markdown
         }
 
         $permitRawHtml = false;
-        $text = null;
+        $text          = null;
 
         if (isset($element['text'])) {
             $text = $element['text'];

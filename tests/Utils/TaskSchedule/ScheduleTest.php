@@ -32,7 +32,6 @@ final class ScheduleTest extends \PHPUnit\Framework\TestCase
         self::assertInstanceOf('\phpOMS\Utils\TaskSchedule\TaskAbstract', $job);
     }
 
-
     #[\PHPUnit\Framework\Attributes\Group('framework')]
     #[\PHPUnit\Framework\Attributes\TestDox('A task can be created from an array and rendered')]
     public function testCreateJobWithData() : void

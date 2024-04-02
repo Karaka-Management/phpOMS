@@ -234,7 +234,6 @@ final class ArrayUtilsTest extends \PHPUnit\Framework\TestCase
         self::assertNull(ArrayUtils::getArg('--testNull', $_SERVER['argv'] ?? []));
     }
 
-
     #[\PHPUnit\Framework\Attributes\Group('framework')]
     #[\PHPUnit\Framework\Attributes\TestDox('All array values in an array can be potentiated by a numeric value')]
     public function test() : void

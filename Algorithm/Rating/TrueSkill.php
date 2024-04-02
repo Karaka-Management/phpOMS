@@ -226,37 +226,22 @@ class TrueSkill
                 / (NormalDistribution::getCdf($epsilon - $tAbs, 0.0, 1.0) - NormalDistribution::getCdf(-$epsilon - $tAbs, 0.0, 1.0));
     }
 
-    /**
-     *
-     */
     private function buildRatingLayer() : void
     {
     }
 
-    /**
-     *
-     */
     private function buildPerformanceLayer() : void
     {
     }
 
-    /**
-     *
-     */
     private function buildTeamPerformanceLayer() : void
     {
     }
 
-    /**
-     *
-     */
     private function buildTruncLayer() : void
     {
     }
 
-    /**
-     *
-     */
     private function factorGraphBuilders()
     {
         // Rating layer
@@ -275,9 +260,6 @@ class TrueSkill
         ];
     }
 
-    /**
-     *
-     */
     public function rating() : void
     {
         // Start values

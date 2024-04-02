@@ -852,8 +852,8 @@ class Matrix implements \ArrayAccess, \Iterator
         }
 
         $eig = new EigenvalueDecomposition($this);
-        $v = $eig->getV();
-        $d = $eig->getD();
+        $v   = $eig->getV();
+        $d   = $eig->getD();
 
         $vInv = $v->inverse();
 

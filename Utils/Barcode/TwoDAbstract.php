@@ -57,6 +57,10 @@ abstract class TwoDAbstract extends CodeAbstract
      */
     protected function createImage(array $codeArray) : mixed
     {
+        if (empty($codeArray)) {
+            return null;
+        }
+
         $dimensions = $this->calculateDimensions($codeArray);
         $image      = \imagecreate($dimensions['width'], $dimensions['height']);
 
@@ -115,6 +119,13 @@ abstract class TwoDAbstract extends CodeAbstract
      */
     private function calculateDimensions(array $codeArray) : array
     {
+        if (empty($codeArray)) {
+            return [
+                'width'  => 0,
+                'height' => 0,
+            ];
+        }
+
         $matrixDimension = \max(\count($codeArray), \count(\reset($codeArray)));
         $imageDimension  = \max($this->dimension['width'], $this->dimension['width']);
 

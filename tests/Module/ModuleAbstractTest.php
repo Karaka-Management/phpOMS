@@ -407,7 +407,7 @@ final class ModuleAbstractTest extends \PHPUnit\Framework\TestCase
         $this->dbSetup();
 
         $this->module->create();
-        self::assertCount(1, BaseModelMapper::getAll()->execute());
+        self::assertCount(1, BaseModelMapper::getAll()->executeGetArray());
 
         $this->dbTeardown();
     }
@@ -419,7 +419,7 @@ final class ModuleAbstractTest extends \PHPUnit\Framework\TestCase
         $this->dbSetup();
 
         $this->module->createMultiple();
-        self::assertCount(2, BaseModelMapper::getAll()->execute());
+        self::assertCount(2, BaseModelMapper::getAll()->executeGetArray());
 
         $this->dbTeardown();
     }
@@ -447,7 +447,7 @@ final class ModuleAbstractTest extends \PHPUnit\Framework\TestCase
         $this->module->create();
         self::assertCount(1, BaseModelMapper::getAll()->execute());
         $this->module->delete();
-        self::assertCount(0, BaseModelMapper::getAll()->execute());
+        self::assertCount(0, BaseModelMapper::getAll()->executeGetArray());
 
         $this->dbTeardown();
     }

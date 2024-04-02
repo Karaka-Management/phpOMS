@@ -115,7 +115,6 @@ final class NodeTest extends \PHPUnit\Framework\TestCase
     }
 
     /**
-     *
      * @bug Directed graphs may return invalid neighbors
      *      https://github.com/Karaka-Management/phpOMS/issues/366
      */

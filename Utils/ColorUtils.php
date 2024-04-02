@@ -110,9 +110,9 @@ final class ColorUtils
     public static function approximateColorDistance(array $rgb1, array $rgb2) : float
     {
         $rMean = (int) (($rgb1['r'] + $rgb2['r']) / 2);
-        $r = ($rgb2['r'] - $rgb1['r']);
-        $g = ($rgb2['g'] - $rgb1['g']);
-        $b = ($rgb2['b'] - $rgb1['b']);
+        $r     = ($rgb2['r'] - $rgb1['r']);
+        $g     = ($rgb2['g'] - $rgb1['g']);
+        $b     = ($rgb2['b'] - $rgb1['b']);
 
         return \sqrt(
             (((512 + $rMean) * $r * $r) >> 8)
