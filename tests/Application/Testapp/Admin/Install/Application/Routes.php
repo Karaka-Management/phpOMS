@@ -19,6 +19,7 @@ return [
         [
             'dest'       => '\phpOMS\tess\Application\Apps\Testapp\Controller\Controller:testEndpoint',
             'verb'       => RouteVerb::GET,
+            'active' => true,
             'permission' => [
                 'type'  => 1,
                 'state' => 2,

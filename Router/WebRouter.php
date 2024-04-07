@@ -30,6 +30,10 @@ use phpOMS\Account\Account;
  *
  * @todo Instead of doing only regex matching, combine it with a tree search, this should be faster
  *      https://github.com/Karaka-Management/phpOMS/issues/276
+ *
+ * @question Consider to build Routes.php files from class Attributes.
+ *      This way we would have the advantage of both worlds.
+ *      Of course the update and install function would be a bit more complicated
  */
 final class WebRouter implements RouterInterface
 {
@@ -134,6 +138,10 @@ final class WebRouter implements RouterInterface
             }
 
             foreach ($destination as $d) {
+                if (!$d['active']) {
+                    continue;
+                }
+
                 if ($d['verb'] === RouteVerb::ANY
                     || $verb === RouteVerb::ANY
                     || ($verb & $d['verb']) === $verb

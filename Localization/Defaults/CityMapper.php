@@ -17,7 +17,7 @@ namespace phpOMS\Localization\Defaults;
 use phpOMS\DataStorage\Database\Mapper\DataMapperFactory;
 
 /**
- * Mapper class.
+ * City mapper class.
  *
  * @package phpOMS\Localization\Defaults
  * @license OMS License 2.0

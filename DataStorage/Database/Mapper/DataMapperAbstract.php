@@ -400,7 +400,7 @@ abstract class DataMapperAbstract
      * @param string $logic     Comparison logic (e.g. =, in, ...)
      * @param string $connector Filter connector (e.g. AND, OR, ...)
      *
-     * @return self
+     * @return static
      *
      * @since 1.0.0
      */
