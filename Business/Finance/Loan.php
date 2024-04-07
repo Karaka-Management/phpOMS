@@ -162,23 +162,23 @@ final class Loan
 
         while ($previous['loan'] > 0.0) {
             $new = [
-                'loan' => 0.0,
-                'total' => 0.0,
-                'interest' => 0.0,
+                'loan'      => 0.0,
+                'total'     => 0.0,
+                'interest'  => 0.0,
                 'principal' => 0.0,
             ];
 
-            $new['total'] = \round(self::getAmortizationLoanPayment($previous['loan'], $r, $duration, $interval), 2);
-            $new['interest'] = \round(self::getAmortizationLoanInterest($previous['loan'], $r, $interval), 2);
+            $new['total']     = \round(self::getAmortizationLoanPayment($previous['loan'], $r, $duration, $interval), 2);
+            $new['interest']  = \round(self::getAmortizationLoanInterest($previous['loan'], $r, $interval), 2);
             $new['principal'] = \round($new['total'] - $new['interest'], 2);
-            $new['loan'] = \max(0, \round($previous['loan'] - $new['principal'], 2));
+            $new['loan']      = \max(0, \round($previous['loan'] - $new['principal'], 2));
 
             if ($new['loan'] < 0.01) {
                 $new['loan'] = 0.0;
             }
 
             $schedule[] = $new;
-            $previous = $new;
+            $previous   = $new;
         }
 
         return $schedule;
