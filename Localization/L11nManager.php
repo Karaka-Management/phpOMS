@@ -15,7 +15,6 @@ declare(strict_types=1);
 namespace phpOMS\Localization;
 
 use phpOMS\Autoloader;
-use phpOMS\Log\FileLogger;
 use phpOMS\Module\ModuleAbstract;
 use phpOMS\Stdlib\Base\FloatInt;
 
@@ -176,7 +175,7 @@ final class L11nManager
             $this->loadLanguage($code, $module, $class::getLocalization($code, $theme));
         } catch (\Throwable $_) {
             // @codeCoverageIgnoreStart
-            FileLogger::getInstance()->warning(FileLogger::MSG_FULL, [
+            \phpOMS\Log\FileLogger::getInstance()->warning(\phpOMS\Log\FileLogger::MSG_FULL, [
                 'message' => 'Undefined translation for \'' . $code . '/' . $module . '/' . $translation . '\'.',
             ]);
             // @codeCoverageIgnoreEnd

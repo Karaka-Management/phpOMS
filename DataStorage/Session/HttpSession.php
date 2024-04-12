@@ -14,7 +14,6 @@ declare(strict_types=1);
 
 namespace phpOMS\DataStorage\Session;
 
-use phpOMS\Log\FileLogger;
 use phpOMS\Message\RequestAbstract;
 use phpOMS\Session\JWT;
 use phpOMS\Uri\UriFactory;
@@ -106,8 +105,8 @@ final class HttpSession implements SessionInterface
             \session_start();
             // @codeCoverageIgnoreEnd
         } else {
-            FileLogger::getInstance()->warning(
-                FileLogger::MSG_FULL, [
+            \phpOMS\Log\FileLogger::getInstance()->warning(
+                \phpOMS\Log\FileLogger::MSG_FULL, [
                     'message' => 'Headers already sent.',
                     'line'    => __LINE__,
                     'file'    => self::class,

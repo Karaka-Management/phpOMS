@@ -16,7 +16,6 @@ namespace phpOMS\Message\Cli;
 
 use phpOMS\Contract\RenderableInterface;
 use phpOMS\Localization\Localization;
-use phpOMS\Log\FileLogger;
 use phpOMS\Message\Http\RequestStatusCode;
 use phpOMS\Message\ResponseAbstract;
 use phpOMS\System\MimeType;
@@ -158,9 +157,9 @@ final class CliResponse extends ResponseAbstract implements RenderableInterface
             } elseif ($response === null) {
                 continue;
             } else {
-                FileLogger::getInstance()
+                \phpOMS\Log\FileLogger::getInstance()
                     ->error(
-                        FileLogger::MSG_FULL, [
+                        \phpOMS\Log\FileLogger::MSG_FULL, [
                             'message' => 'Unknown type.',
                             'line'    => __LINE__,
                             'file'    => self::class,

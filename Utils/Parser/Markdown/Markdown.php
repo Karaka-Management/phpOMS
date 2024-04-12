@@ -729,7 +729,7 @@ class Markdown
             return null;
         }
 
-        $url = UriFactory::build($matches[1]);
+        $url = UriFactory::build(\str_replace('{$CSRF}', 'ERROR', $matches[1]));
 
         if (!isset($matches[2])) {
             $url = "mailto:{$url}";
@@ -943,7 +943,7 @@ class Markdown
             return null;
         }
 
-        $url = UriFactory::build($matches[0][0]);
+        $url = UriFactory::build(\str_replace('{$CSRF}', 'ERROR', $matches[0][0]));
 
         return [
             'extent'   => \strlen($matches[0][0]),
@@ -976,7 +976,7 @@ class Markdown
             return null;
         }
 
-        $url = UriFactory::build($matches[1]);
+        $url = UriFactory::build(\str_replace('{$CSRF}', 'ERROR', $matches[1]));
 
         return [
             'extent'  => \strlen($matches[0]),
@@ -1390,7 +1390,7 @@ class Markdown
                 default:
                     $element    = 'video';
                     $attributes = [
-                        'src'      => UriFactory::build($url),
+                        'src'      => UriFactory::build(\str_replace('{$CSRF}', 'ERROR', $url)),
                         'controls' => '',
                     ];
             }
@@ -1410,7 +1410,7 @@ class Markdown
                     'name'       => 'audio',
                     'text'       => $matches[1],
                     'attributes' => [
-                        'src'      => UriFactory::build($url),
+                        'src'      => UriFactory::build(\str_replace('{$CSRF}', 'ERROR', $url)),
                         'controls' => '',
                     ],
                 ],
@@ -2310,7 +2310,7 @@ class Markdown
         $id = \strtolower($matches[1]);
 
         $this->definitionData['Reference'][$id] = [
-            'url'   => UriFactory::build($matches[2]),
+            'url'   => UriFactory::build(\str_replace('{$CSRF}', 'ERROR', $matches[2])),
             'title' => isset($matches[3]) ? $matches[3] : null,
         ];
 
@@ -4394,7 +4394,7 @@ class Markdown
         }
 
         if (\preg_match('/^[(]\s*+((?:[^ ()]++|[(][^ )]+[)])++)(?:[ ]+("[^"]*+"|\'[^\']*+\'))?\s*+[)]/', $remainder, $matches)) {
-            $element['attributes']['href'] = UriFactory::build($matches[1]);
+            $element['attributes']['href'] = UriFactory::build(\str_replace('{$CSRF}', 'ERROR', $matches[1]));
 
             if (isset($matches[2])) {
                 $element['attributes']['title'] = \substr($matches[2], 1, - 1);

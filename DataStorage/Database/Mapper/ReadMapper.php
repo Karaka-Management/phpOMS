@@ -381,16 +381,6 @@ final class ReadMapper extends DataMapperAbstract
         $query ??= $this->getQuery();
 
         try {
-            /*
-            \phpOMS\Log\FileLogger::getInstance()->info(
-                \phpOMS\Log\FileLogger::MSG_FULL, [
-                    'message' => $query->toSql(),
-                    'line'    => __LINE__,
-                    'file'    => self::class,
-                ]
-            );
-            */
-
             $sth = $this->db->con->prepare($query->toSql());
             if ($sth === false) {
                 yield [];
