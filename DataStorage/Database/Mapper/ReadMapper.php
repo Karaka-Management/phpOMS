@@ -1327,7 +1327,7 @@ final class ReadMapper extends DataMapperAbstract
         }
     }
 
-    public function paginate(string $member, string $ptype, mixed $offset) : self
+    public function paginate(string $member, ?string $ptype, mixed $offset) : self
     {
         if ($ptype === 'p') {
             $this->where($member, $offset ?? 0, '<');

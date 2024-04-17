@@ -308,6 +308,22 @@ class View extends ViewAbstract
     }
 
     /**
+     * Print html output.
+     *
+     * @param ?string $text Text
+     *
+     * @return string
+     *
+     * @since 1.0.0
+     */
+    public function printTextarea(?string $text) : string
+    {
+        return $text === null
+            ? ''
+            : \trim(\str_replace(["\r\n", "\n"], ['&#10;', '&#10;'], \htmlspecialchars($text)));
+    }
+
+    /**
      * Print a numeric value
      *
      * @param int|float|FloatInt $numeric Numeric value to print

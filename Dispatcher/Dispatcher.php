@@ -15,7 +15,6 @@ declare(strict_types=1);
 namespace phpOMS\Dispatcher;
 
 use phpOMS\Application\ApplicationAbstract;
-use phpOMS\Autoloader;
 use phpOMS\System\File\PathException;
 
 /**
@@ -81,100 +80,32 @@ final class Dispatcher implements DispatcherInterface
         // In a different language the Api functions would require a return type
         // If null is returned (i.e. void functions) these get ignored later in the response renderer as null is not "rendered"
         if (\is_string($controller)) {
-            $views += $this->dispatchString($controller, $data);
-        } elseif (\is_array($controller)) {
-            $views += $this->dispatchArray($controller, $data);
-        } else {
-            $views[] = $this->dispatchClosure($controller, $data);
-        }
+            $dispatch = \explode(':', $controller);
 
-        return $views;
-    }
+            if (($c = \count($dispatch)) === 3) {
+                /* Handling static functions */
+                $function = $dispatch[0] . '::' . $dispatch[2];
 
-    /**
-     * Dispatch string.
-     *
-     * The dispatcher can dispatch static functions.
-     * String: `some/namespace/path::myStaticFunction`
-     *
-     * Additionally it's also possible to dispatch functions of modules.
-     * Modules are classes which can get instantiated with `new Class(ApplicationAbstract $app)`
-     * String: `some/namespace/path:myMethod`
-     *
-     * @param string     $controller Controller string
-     * @param null|array $data       Data
-     *
-     * @return array
-     *
-     * @throws PathException             this exception is thrown if the function cannot be autoloaded
-     * @throws \Exception                this exception is thrown if the function is not callable
-     * @throws \UnexpectedValueException this exception is thrown if the controller string is malformed
-     *
-     * @since 1.0.0
-     */
-    private function dispatchString(string $controller, ?array $data = null) : array
-    {
-        $views    = [];
-        $dispatch = \explode(':', $controller);
-
-        if (!Autoloader::exists($dispatch[0]) && !isset($this->controllers[$dispatch[0]])) {
-            throw new PathException($dispatch[0]);
-        }
-
-        if (($c = \count($dispatch)) === 3) {
-            /* Handling static functions */
-            $function = $dispatch[0] . '::' . $dispatch[2];
-
-            if (!\is_callable($function)) {
-                throw new \Exception('Endpoint "'. $function .'" is not callable!');
+                $views[$controller] = $data === null ? $function() : $function(...$data);
+            } elseif ($c === 2) {
+                $obj                = $this->getController($dispatch[0]);
+                $views[$controller] = $data === null
+                    ? $obj->{$dispatch[1]}()
+                    : $obj->{$dispatch[1]}(...$data);
             }
-
-            $views[$controller] = $data === null ? $function() : $function(...$data);
-        } elseif ($c === 2) {
-            $obj                = $this->getController($dispatch[0]);
-            $views[$controller] = $data === null
-                ? $obj->{$dispatch[1]}()
-                : $obj->{$dispatch[1]}(...$data);
+        } elseif (\is_array($controller)) {
+            foreach ($controller as $controllerSingle) {
+                $views += $data === null
+                    ? $this->dispatch($controllerSingle)
+                    : $this->dispatch($controllerSingle, ...$data);
+            }
         } else {
-            throw new \UnexpectedValueException('Unexpected function.');
+            $views[] = $data === null
+                ? $controller($this->app)
+                : $controller($this->app, ...$data);
         }
 
         return $views;
-    }
-
-    /**
-     * Dispatch array.
-     *
-     * @param array      $controller Controller string
-     * @param null|array $data       Data
-     *
-     * @return array
-     *
-     * @since 1.0.0
-     */
-    private function dispatchArray(array $controller, ?array $data = null) : array
-    {
-        $views = [];
-        foreach ($controller as $controllerSingle) {
-            $views += $data === null ? $this->dispatch($controllerSingle) : $this->dispatch($controllerSingle, ...$data);
-        }
-
-        return $views;
-    }
-
-    /**
-     * Dispatch closure.
-     *
-     * @param Callable   $controller Controller string
-     * @param null|array $data       Data
-     *
-     * @return mixed
-     *
-     * @since 1.0.0
-     */
-    private function dispatchClosure(callable $controller, ?array $data = null) : mixed
-    {
-        return $data === null ? $controller($this->app) : $controller($this->app, ...$data);
     }
 
     /**
