@@ -40,10 +40,10 @@ final class Dispatcher implements DispatcherInterface
      *
      * Set in the module manager on module initialization.
      *
-     * @var array
+     * @var array<string, object>
      * @since 1.0.0
      */
-    private array $controllers = [];
+    public array $controllers = [];
 
     /**
      * Constructor.
@@ -126,20 +126,5 @@ final class Dispatcher implements DispatcherInterface
         }
 
         return $this->controllers[$controller];
-    }
-
-    /**
-     * Set controller by alias.
-     *
-     * @param object $controller Controller
-     * @param string $name       Controller string
-     *
-     * @return void
-     *
-     * @since 1.0.0
-     */
-    public function set(object $controller, string $name) : void
-    {
-        $this->controllers[$name] = $controller;
     }
 }

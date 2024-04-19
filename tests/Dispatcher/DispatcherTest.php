@@ -51,11 +51,11 @@ final class DispatcherTest extends \PHPUnit\Framework\TestCase
     #[\PHPUnit\Framework\Attributes\TestDox('A route can be added and dispatched')]
     public function testControllerInputOutput() : void
     {
-        $this->app->dispatcher->set(new class() extends ModuleAbstract {
+        $this->app->dispatcher->controllers['test'] = new class() extends ModuleAbstract {
             public string $name = 'test';
 
             public function testFunction() { return $this->name; }
-        }, 'test');
+        };
 
         $localization = new Localization();
 

@@ -29,7 +29,7 @@ final class SocketRouter implements RouterInterface
     /**
      * Routes.
      *
-     * @var array<string, array>
+     * @var array<string, array<int, array{dest:string, verb:int, csrf?:bool, active?:bool, permission:array{module:string, type:int, category:int}, validation?:array{}, pattern?:string}>>
      * @since 1.0.0
      */
     private array $routes = [];
@@ -40,15 +40,19 @@ final class SocketRouter implements RouterInterface
      * Files need to return a php array of the following structure (see PermissionHandlingTrait):
      * return [
      *      '{REGEX_PATH}' => [
-     *          'dest' => '{DESTINATION_NAMESPACE:method}', // use :: for static functions
-     *          'permission' => [ // optional
-     *              'module' => '{NAME}',
-     *              'type' => PermissionType::{TYPE},
-     *              'category' => PermissionCategory::{STATE},
+     *          [
+     *              'dest' => '{DESTINATION_NAMESPACE:method}', // use :: for static functions
+     *              'verb' => RouteVerb::{VERB},
+     *              'csrf' => true,
+     *              'permission' => [ // optional
+     *                  'module' => '{NAME}',
+     *                  'type' => PermissionType::{TYPE},
+     *                  'category' => PermissionCategory::{STATE},
+     *              ],
      *          ],
      *          // define different destination for different verb
-     *      ],
-     *      // define another regex path, destination, permission here
+     *      ]
+     *      // define another regex path here
      * ];
      *
      * @param string $path Route file path
