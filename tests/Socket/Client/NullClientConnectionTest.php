@@ -2,7 +2,7 @@
 /**
  * Jingga
  *
- * PHP Version 8.1
+ * PHP Version 8.2
  *
  * @package   tests
  * @copyright Dennis Eichhorn
@@ -21,12 +21,10 @@ use phpOMS\Socket\Client\NullClientConnection;
 /**
  * @internal
  */
+#[\PHPUnit\Framework\Attributes\CoversClass(\phpOMS\Socket\Client\NullClientConnection::class)]
 final class NullClientConnectionTest extends \PHPUnit\Framework\TestCase
 {
-    /**
-     * @covers phpOMS\Socket\Client\NullClientConnection
-     * @group framework
-     */
+    #[\PHPUnit\Framework\Attributes\Group('framework')]
     public function testDefault() : void
     {
         self::assertInstanceOf(ClientConnection::class, new NullClientConnection(new Account(), null));

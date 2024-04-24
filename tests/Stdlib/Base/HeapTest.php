@@ -2,7 +2,7 @@
 /**
  * Jingga
  *
- * PHP Version 8.1
+ * PHP Version 8.2
  *
  * @package   tests
  * @copyright Dennis Eichhorn
@@ -17,17 +17,14 @@ namespace phpOMS\tests\Stdlib\Base;
 use phpOMS\Stdlib\Base\Heap;
 
 /**
- * @testdox phpOMS\tests\Stdlib\Base\HeapTest: Heap
- *
  * @internal
  */
+#[\PHPUnit\Framework\Attributes\CoversClass(\phpOMS\Stdlib\Base\Heap::class)]
+#[\PHPUnit\Framework\Attributes\TestDox('phpOMS\tests\Stdlib\Base\HeapTest: Heap')]
 final class HeapTest extends \PHPUnit\Framework\TestCase
 {
-    /**
-     * @testdox A list of elements can be turned into a heap
-     * @covers phpOMS\Stdlib\Base\Heap
-     * @group framework
-     */
+    #[\PHPUnit\Framework\Attributes\Group('framework')]
+    #[\PHPUnit\Framework\Attributes\TestDox('A list of elements can be turned into a heap')]
     public function testHeapify() : void
     {
         $heap = new Heap();
@@ -50,11 +47,8 @@ final class HeapTest extends \PHPUnit\Framework\TestCase
         self::assertEquals(6, $heap->pop()->getValue());
     }
 
-    /**
-     * @testdox Elements get correctly pushed to the heap
-     * @covers phpOMS\Stdlib\Base\Heap
-     * @group framework
-     */
+    #[\PHPUnit\Framework\Attributes\Group('framework')]
+    #[\PHPUnit\Framework\Attributes\TestDox('Elements get correctly pushed to the heap')]
     public function testSize() : void
     {
         $heap = new Heap();
@@ -65,11 +59,8 @@ final class HeapTest extends \PHPUnit\Framework\TestCase
         self::assertEquals(5, $heap->size());
     }
 
-    /**
-     * @testdox A element can be added to a heap at the correct position
-     * @covers phpOMS\Stdlib\Base\Heap
-     * @group framework
-     */
+    #[\PHPUnit\Framework\Attributes\Group('framework')]
+    #[\PHPUnit\Framework\Attributes\TestDox('A element can be added to a heap at the correct position')]
     public function testInsort() : void
     {
         $heap = new Heap();
@@ -92,11 +83,8 @@ final class HeapTest extends \PHPUnit\Framework\TestCase
         self::assertEquals(6, $heap->pop()->getValue());
     }
 
-    /**
-     * @testdox Heap elements get returned in the correct order
-     * @covers phpOMS\Stdlib\Base\Heap
-     * @group framework
-     */
+    #[\PHPUnit\Framework\Attributes\Group('framework')]
+    #[\PHPUnit\Framework\Attributes\TestDox('Heap elements get returned in the correct order')]
     public function testPushAndPop() : void
     {
         $heap = new Heap();
@@ -115,11 +103,8 @@ final class HeapTest extends \PHPUnit\Framework\TestCase
         self::assertEquals($sortedFunction, $sorted);
     }
 
-    /**
-     * @testdox Heap elements get returned in the correct order by using a custom comparator
-     * @covers phpOMS\Stdlib\Base\Heap
-     * @group framework
-     */
+    #[\PHPUnit\Framework\Attributes\Group('framework')]
+    #[\PHPUnit\Framework\Attributes\TestDox('Heap elements get returned in the correct order by using a custom comparator')]
     public function testPushAndPopCustomComparator() : void
     {
         $heap = new Heap(function($a, $b) { return ($a <=> $b) * -1; });
@@ -138,11 +123,8 @@ final class HeapTest extends \PHPUnit\Framework\TestCase
         self::assertEquals(\array_reverse($sortedFunction), $sorted);
     }
 
-    /**
-     * @testdox The heap can be turned into an array
-     * @covers phpOMS\Stdlib\Base\Heap
-     * @group framework
-     */
+    #[\PHPUnit\Framework\Attributes\Group('framework')]
+    #[\PHPUnit\Framework\Attributes\TestDox('The heap can be turned into an array')]
     public function testArray() : void
     {
         $heap = new Heap();
@@ -162,11 +144,8 @@ final class HeapTest extends \PHPUnit\Framework\TestCase
         );
     }
 
-    /**
-     * @testdox Heap elements can be replaced
-     * @covers phpOMS\Stdlib\Base\Heap
-     * @group framework
-     */
+    #[\PHPUnit\Framework\Attributes\Group('framework')]
+    #[\PHPUnit\Framework\Attributes\TestDox('Heap elements can be replaced')]
     public function testReplace() : void
     {
         $heap = new Heap();
@@ -187,11 +166,8 @@ final class HeapTest extends \PHPUnit\Framework\TestCase
         );
     }
 
-    /**
-     * @testdox A heap element can be returned while adding a new one
-     * @covers phpOMS\Stdlib\Base\Heap
-     * @group framework
-     */
+    #[\PHPUnit\Framework\Attributes\Group('framework')]
+    #[\PHPUnit\Framework\Attributes\TestDox('A heap element can be returned while adding a new one')]
     public function testPushPop() : void
     {
         $heap = new Heap();
@@ -215,11 +191,8 @@ final class HeapTest extends \PHPUnit\Framework\TestCase
         );
     }
 
-    /**
-     * @testdox The heap can be checked if it contains certain elements
-     * @covers phpOMS\Stdlib\Base\Heap
-     * @group framework
-     */
+    #[\PHPUnit\Framework\Attributes\Group('framework')]
+    #[\PHPUnit\Framework\Attributes\TestDox('The heap can be checked if it contains certain elements')]
     public function testContains() : void
     {
         $heap = new Heap();
@@ -236,11 +209,8 @@ final class HeapTest extends \PHPUnit\Framework\TestCase
         self::assertFalse($heap->contains(new HeapItem(6)));
     }
 
-    /**
-     * @testdox The heap can be checked if it contains certain custom elements
-     * @covers phpOMS\Stdlib\Base\Heap
-     * @group framework
-     */
+    #[\PHPUnit\Framework\Attributes\Group('framework')]
+    #[\PHPUnit\Framework\Attributes\TestDox('The heap can be checked if it contains certain custom elements')]
     public function testContainsItem() : void
     {
         $heap = new Heap();
@@ -257,11 +227,8 @@ final class HeapTest extends \PHPUnit\Framework\TestCase
         self::assertFalse($heap->contains(new HeapItem(6)));
     }
 
-    /**
-     * @testdox A heap item can be updated if it exists while maintaining the correct order
-     * @covers phpOMS\Stdlib\Base\Heap
-     * @group framework
-     */
+    #[\PHPUnit\Framework\Attributes\Group('framework')]
+    #[\PHPUnit\Framework\Attributes\TestDox('A heap item can be updated if it exists while maintaining the correct order')]
     public function testUpdate() : void
     {
         $heap  = new Heap();
@@ -286,11 +253,8 @@ final class HeapTest extends \PHPUnit\Framework\TestCase
         self::assertFalse($heap->update(new HeapItem(999)));
     }
 
-    /**
-     * @testdox The first heap element can be returned without removing it
-     * @covers phpOMS\Stdlib\Base\Heap
-     * @group framework
-     */
+    #[\PHPUnit\Framework\Attributes\Group('framework')]
+    #[\PHPUnit\Framework\Attributes\TestDox('The first heap element can be returned without removing it')]
     public function testPeek() : void
     {
         $heap = new Heap();
@@ -305,11 +269,8 @@ final class HeapTest extends \PHPUnit\Framework\TestCase
         self::assertEquals($b, $heap->peek());
     }
 
-    /**
-     * @testdox The n smallest elements can be returned from the heap
-     * @covers phpOMS\Stdlib\Base\Heap
-     * @group framework
-     */
+    #[\PHPUnit\Framework\Attributes\Group('framework')]
+    #[\PHPUnit\Framework\Attributes\TestDox('The n smallest elements can be returned from the heap')]
     public function testNSmallest() : void
     {
         $heap = new Heap();
@@ -321,11 +282,8 @@ final class HeapTest extends \PHPUnit\Framework\TestCase
         self::assertEquals([new HeapItem(1), new HeapItem(1), new HeapItem(3)], $heap->getNSmallest(3));
     }
 
-    /**
-     * @testdox The n largest elements can be returned from the heap
-     * @covers phpOMS\Stdlib\Base\Heap
-     * @group framework
-     */
+    #[\PHPUnit\Framework\Attributes\Group('framework')]
+    #[\PHPUnit\Framework\Attributes\TestDox('The n largest elements can be returned from the heap')]
     public function testNLargest() : void
     {
         $heap = new Heap();
@@ -338,11 +296,8 @@ final class HeapTest extends \PHPUnit\Framework\TestCase
         self::assertEquals([new HeapItem(4), new HeapItem(4), new HeapItem(3)], $heap->getNLargest(3));
     }
 
-    /**
-     * @testdox The heap can be cleared of all elements
-     * @covers phpOMS\Stdlib\Base\Heap
-     * @group framework
-     */
+    #[\PHPUnit\Framework\Attributes\Group('framework')]
+    #[\PHPUnit\Framework\Attributes\TestDox('The heap can be cleared of all elements')]
     public function testClear() : void
     {
         $heap = new Heap();
@@ -354,11 +309,8 @@ final class HeapTest extends \PHPUnit\Framework\TestCase
         self::assertEquals(0, $heap->size());
     }
 
-    /**
-     * @testdox The heap can be checked if it has elements
-     * @covers phpOMS\Stdlib\Base\Heap
-     * @group framework
-     */
+    #[\PHPUnit\Framework\Attributes\Group('framework')]
+    #[\PHPUnit\Framework\Attributes\TestDox('The heap can be checked if it has elements')]
     public function testEmpty() : void
     {
         $heap = new Heap();

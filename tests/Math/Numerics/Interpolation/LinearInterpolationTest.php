@@ -2,7 +2,7 @@
 /**
  * Jingga
  *
- * PHP Version 8.1
+ * PHP Version 8.2
  *
  * @package   tests
  * @copyright Dennis Eichhorn
@@ -17,17 +17,14 @@ namespace phpOMS\tests\Math\Numerics\Interpolation;
 use phpOMS\Math\Numerics\Interpolation\LinearInterpolation;
 
 /**
- * @testdox phpOMS\tests\Math\Numerics\Interpolation\LinearInterpolationTest: Linear interpolation
- *
  * @internal
  */
+#[\PHPUnit\Framework\Attributes\CoversClass(\phpOMS\Math\Numerics\Interpolation\LinearInterpolation::class)]
+#[\PHPUnit\Framework\Attributes\TestDox('phpOMS\tests\Math\Numerics\Interpolation\LinearInterpolationTest: Linear interpolation')]
 final class LinearInterpolationTest extends \PHPUnit\Framework\TestCase
 {
-    /**
-     * @testdox The linear interpolation is correct
-     * @covers phpOMS\Math\Numerics\Interpolation\LinearInterpolation
-     * @group framework
-     */
+    #[\PHPUnit\Framework\Attributes\Group('framework')]
+    #[\PHPUnit\Framework\Attributes\TestDox('The linear interpolation is correct')]
     public function testInterpolation() : void
     {
         $interpolation = new LinearInterpolation([

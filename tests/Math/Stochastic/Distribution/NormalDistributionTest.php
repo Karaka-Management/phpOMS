@@ -2,7 +2,7 @@
 /**
  * Jingga
  *
- * PHP Version 8.1
+ * PHP Version 8.2
  *
  * @package   tests
  * @copyright Dennis Eichhorn
@@ -21,12 +21,10 @@ use phpOMS\Math\Stochastic\Distribution\NormalDistribution;
 /**
  * @internal
  */
+#[\PHPUnit\Framework\Attributes\CoversClass(\phpOMS\Math\Stochastic\Distribution\NormalDistribution::class)]
 final class NormalDistributionTest extends \PHPUnit\Framework\TestCase
 {
-    /**
-     * @covers phpOMS\Math\Stochastic\Distribution\NormalDistribution
-     * @group framework
-     */
+    #[\PHPUnit\Framework\Attributes\Group('framework')]
     public function testPdf() : void
     {
         $mean = 2;
@@ -36,10 +34,7 @@ final class NormalDistributionTest extends \PHPUnit\Framework\TestCase
         self::assertEqualsWithDelta(0.24197, NormalDistribution::getPdf($x, $mean, $sig), 0.01);
     }
 
-    /**
-     * @covers phpOMS\Math\Stochastic\Distribution\NormalDistribution
-     * @group framework
-     */
+    #[\PHPUnit\Framework\Attributes\Group('framework')]
     public function testCdf() : void
     {
         $mean = 2;
@@ -49,10 +44,7 @@ final class NormalDistributionTest extends \PHPUnit\Framework\TestCase
         self::assertEqualsWithDelta(0.84134, NormalDistribution::getCdf($x, $mean, $sig), 0.01);
     }
 
-    /**
-     * @covers phpOMS\Math\Stochastic\Distribution\NormalDistribution
-     * @group framework
-     */
+    #[\PHPUnit\Framework\Attributes\Group('framework')]
     public function testMean() : void
     {
         $mu = 4;
@@ -60,10 +52,7 @@ final class NormalDistributionTest extends \PHPUnit\Framework\TestCase
         self::assertEquals($mu, NormalDistribution::getMean($mu));
     }
 
-    /**
-     * @covers phpOMS\Math\Stochastic\Distribution\NormalDistribution
-     * @group framework
-     */
+    #[\PHPUnit\Framework\Attributes\Group('framework')]
     public function testMedian() : void
     {
         $mu = 4;
@@ -71,10 +60,7 @@ final class NormalDistributionTest extends \PHPUnit\Framework\TestCase
         self::assertEquals($mu, NormalDistribution::getMedian($mu));
     }
 
-    /**
-     * @covers phpOMS\Math\Stochastic\Distribution\NormalDistribution
-     * @group framework
-     */
+    #[\PHPUnit\Framework\Attributes\Group('framework')]
     public function testMode() : void
     {
         $mu = 4;
@@ -82,28 +68,19 @@ final class NormalDistributionTest extends \PHPUnit\Framework\TestCase
         self::assertEquals($mu, NormalDistribution::getMode($mu));
     }
 
-    /**
-     * @covers phpOMS\Math\Stochastic\Distribution\NormalDistribution
-     * @group framework
-     */
+    #[\PHPUnit\Framework\Attributes\Group('framework')]
     public function testSkewness() : void
     {
         self::assertEquals(0, NormalDistribution::getSkewness());
     }
 
-    /**
-     * @covers phpOMS\Math\Stochastic\Distribution\NormalDistribution
-     * @group framework
-     */
+    #[\PHPUnit\Framework\Attributes\Group('framework')]
     public function testExKurtosis() : void
     {
         self::assertEquals(0, NormalDistribution::getExKurtosis());
     }
 
-    /**
-     * @covers phpOMS\Math\Stochastic\Distribution\NormalDistribution
-     * @group framework
-     */
+    #[\PHPUnit\Framework\Attributes\Group('framework')]
     public function testVariance() : void
     {
         $sig = 0.8;
@@ -111,10 +88,7 @@ final class NormalDistributionTest extends \PHPUnit\Framework\TestCase
         self::assertEquals($sig ** 2, NormalDistribution::getVariance($sig));
     }
 
-    /**
-     * @covers phpOMS\Math\Stochastic\Distribution\NormalDistribution
-     * @group framework
-     */
+    #[\PHPUnit\Framework\Attributes\Group('framework')]
     public function testStandardDeviation() : void
     {
         $sig = 0.8;
@@ -122,28 +96,19 @@ final class NormalDistributionTest extends \PHPUnit\Framework\TestCase
         self::assertEquals($sig, NormalDistribution::getStandardDeviation($sig));
     }
 
-    /**
-     * @covers phpOMS\Math\Stochastic\Distribution\NormalDistribution
-     * @group framework
-     */
+    #[\PHPUnit\Framework\Attributes\Group('framework')]
     public function testSampleSizeCalculation() : void
     {
         self::assertEqualsWithDelta(277.54, NormalDistribution::getSampleSizeFromPopulation(NormalDistribution::TABLE['0.95'], 0.05, 1000, 0.5), 0.01);
     }
 
-    /**
-     * @covers phpOMS\Math\Stochastic\Distribution\NormalDistribution
-     * @group framework
-     */
+    #[\PHPUnit\Framework\Attributes\Group('framework')]
     public function testSampleSizeInfiniteCalculation() : void
     {
         self::assertEqualsWithDelta(384.16, NormalDistribution::getSampleSizeFromInfinitePopulation(NormalDistribution::TABLE['0.95'], 0.05, 0.5), 0.01);
     }
 
-    /**
-     * @covers phpOMS\Math\Stochastic\Distribution\NormalDistribution
-     * @group framework
-     */
+    #[\PHPUnit\Framework\Attributes\Group('framework')]
     public function testMgf() : void
     {
         $t     = 3;
@@ -156,10 +121,7 @@ final class NormalDistributionTest extends \PHPUnit\Framework\TestCase
         );
     }
 
-    /**
-     * @covers phpOMS\Math\Stochastic\Distribution\NormalDistribution
-     * @group framework
-     */
+    #[\PHPUnit\Framework\Attributes\Group('framework')]
     public function testFisherInformation() : void
     {
         self::assertEquals(

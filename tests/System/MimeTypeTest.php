@@ -2,7 +2,7 @@
 /**
  * Jingga
  *
- * PHP Version 8.1
+ * PHP Version 8.2
  *
  * @package   tests
  * @copyright Dennis Eichhorn
@@ -19,16 +19,15 @@ require_once __DIR__ . '/../Autoloader.php';
 use phpOMS\System\MimeType;
 
 /**
- * @testdox phpOMS\tests\System\MimeTypeTest: MimeType
  * @internal
  */
+#[\PHPUnit\Framework\Attributes\CoversClass(\phpOMS\System\MimeType::class)]
+#[\PHPUnit\Framework\Attributes\TestDox('phpOMS\tests\System\MimeTypeTest: MimeType')]
 final class MimeTypeTest extends \PHPUnit\Framework\TestCase
 {
-    /**
-     * @testdox The mime type enum vales have the correct format
-     * @group framework
-     * @coversNothing
-     */
+    #[\PHPUnit\Framework\Attributes\Group('framework')]
+    #[\PHPUnit\Framework\Attributes\TestDox('The mime type enum vales have the correct format')]
+    #[\PHPUnit\Framework\Attributes\CoversNothing]
     public function testEnums() : void
     {
         $enums = MimeType::getConstants();
@@ -42,21 +41,15 @@ final class MimeTypeTest extends \PHPUnit\Framework\TestCase
         self::assertTrue(true);
     }
 
-    /**
-     * @testdox The mime type enum vales can be retreived by extension
-     * @covers phpOMS\System\MimeType
-     * @group framework
-     */
+    #[\PHPUnit\Framework\Attributes\Group('framework')]
+    #[\PHPUnit\Framework\Attributes\TestDox('The mime type enum vales can be retreived by extension')]
     public function testExtensionToMime() : void
     {
         self::assertEquals('application/pdf', MimeType::extensionToMime('pdf'));
     }
 
-    /**
-     * @testdox A unknown extension returns application/octet-stream
-     * @covers phpOMS\System\MimeType
-     * @group framework
-     */
+    #[\PHPUnit\Framework\Attributes\Group('framework')]
+    #[\PHPUnit\Framework\Attributes\TestDox('A unknown extension returns application/octet-stream')]
     public function testInvalidExtensionToMime() : void
     {
         self::assertEquals('application/octet-stream', MimeType::extensionToMime('INVALID'));

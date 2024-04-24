@@ -2,7 +2,7 @@
 /**
  * Jingga
  *
- * PHP Version 8.1
+ * PHP Version 8.2
  *
  * @package   phpOMS\Uri
  * @copyright Dennis Eichhorn
@@ -127,13 +127,13 @@ final class UriFactory
     /**
      * Setup uri builder based on current request
      *
-     * @param UriInterface $uri Uri
+     * @param HttpUri $uri Uri
      *
      * @return void
      *
      * @since 1.0.0
      */
-    public static function setupUriBuilder(UriInterface $uri) : void
+    public static function setupUriBuilder(HttpUri $uri) : void
     {
         self::setQuery('/scheme', $uri->scheme);
         self::setQuery('/host', $uri->host);
@@ -227,6 +227,12 @@ final class UriFactory
                 $url
             );
         */
+
+        // @feature Implement whitelisting/blacklisting for {?}
+        //      Currently it copies all parameters
+        //      Ideally you could use
+        //          {?+para1,para2} for whitelisting
+        //          {?-para1,para2} for blacklisting
 
         if (\stripos($url, '?') === false && ($pos = \stripos($url, '&')) !== false) {
             $url = \substr_replace($url, '?', $pos, 1);

@@ -2,7 +2,7 @@
 /**
  * Jingga
  *
- * PHP Version 8.1
+ * PHP Version 8.2
  *
  * @package   phpOMS\Algorithm\Rating
  * @copyright Microsoft
@@ -28,6 +28,7 @@ use phpOMS\Math\Stochastic\Distribution\NormalDistribution;
  * @todo Implement https://github.com/sublee/trueskill/blob/master/trueskill/__init__.py
  *      https://github.com/Karaka-Management/phpOMS/issues/337
  */
+// phpcs:ignoreFile
 class TrueSkill
 {
     public const DEFAULT_MU = 25;
@@ -226,37 +227,22 @@ class TrueSkill
                 / (NormalDistribution::getCdf($epsilon - $tAbs, 0.0, 1.0) - NormalDistribution::getCdf(-$epsilon - $tAbs, 0.0, 1.0));
     }
 
-    /**
-     *
-     */
     private function buildRatingLayer() : void
     {
     }
 
-    /**
-     *
-     */
     private function buildPerformanceLayer() : void
     {
     }
 
-    /**
-     *
-     */
     private function buildTeamPerformanceLayer() : void
     {
     }
 
-    /**
-     *
-     */
     private function buildTruncLayer() : void
     {
     }
 
-    /**
-     *
-     */
     private function factorGraphBuilders()
     {
         // Rating layer
@@ -275,9 +261,6 @@ class TrueSkill
         ];
     }
 
-    /**
-     *
-     */
     public function rating() : void
     {
         // Start values

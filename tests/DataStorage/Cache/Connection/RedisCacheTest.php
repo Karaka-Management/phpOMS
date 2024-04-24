@@ -2,7 +2,7 @@
 /**
  * Jingga
  *
- * PHP Version 8.1
+ * PHP Version 8.2
  *
  * @package   tests
  * @copyright Dennis Eichhorn
@@ -20,10 +20,11 @@ use phpOMS\DataStorage\Cache\Connection\RedisCache;
 use phpOMS\Utils\TestUtils;
 
 /**
- * @testdox phpOMS\tests\DataStorage\Cache\Connection\RedisCache: Redis cache connection
- *
  * @internal
  */
+#[\PHPUnit\Framework\Attributes\CoversClass(\phpOMS\DataStorage\Cache\Connection\RedisCache::class)]
+#[\PHPUnit\Framework\Attributes\CoversClass(\phpOMS\DataStorage\Cache\Connection\MemCached::class)]
+#[\PHPUnit\Framework\Attributes\TestDox('phpOMS\tests\DataStorage\Cache\Connection\RedisCache: Redis cache connection')]
 final class RedisCacheTest extends \PHPUnit\Framework\TestCase
 {
     protected RedisCache $cache;
@@ -44,14 +45,15 @@ final class RedisCacheTest extends \PHPUnit\Framework\TestCase
 
     protected function tearDown() : void
     {
+        if (!isset($this->cache)) {
+            return;
+        }
+
         $this->cache->flushAll();
     }
 
-    /**
-     * @testdox The redis cache connection has the expected default values after initialization
-     * @covers phpOMS\DataStorage\Cache\Connection\RedisCache<extended>
-     * @group framework
-     */
+    #[\PHPUnit\Framework\Attributes\Group('framework')]
+    #[\PHPUnit\Framework\Attributes\TestDox('The redis cache connection has the expected default values after initialization')]
     public function testDefault() : void
     {
         self::assertEquals(CacheType::REDIS, $this->cache->getType());
@@ -66,11 +68,8 @@ final class RedisCacheTest extends \PHPUnit\Framework\TestCase
         self::assertEquals(6379, $this->cache->getPort());
     }
 
-    /**
-     * @testdox The connection to a cache can be established (none-existing directories get created)
-     * @covers phpOMS\DataStorage\Cache\Connection\RedisCache<extended>
-     * @group framework
-     */
+    #[\PHPUnit\Framework\Attributes\Group('framework')]
+    #[\PHPUnit\Framework\Attributes\TestDox('The connection to a cache can be established (none-existing directories get created)')]
     public function testConnect() : void
     {
         $cache = new RedisCache($GLOBALS['CONFIG']['cache']['redis']);
@@ -81,11 +80,8 @@ final class RedisCacheTest extends \PHPUnit\Framework\TestCase
         self::assertEquals((int) $GLOBALS['CONFIG']['cache']['redis']['port'], $cache->getPort());
     }
 
-    /**
-     * @testdox Different cache data (types) can be set and returned
-     * @covers phpOMS\DataStorage\Cache\Connection\RedisCache<extended>
-     * @group framework
-     */
+    #[\PHPUnit\Framework\Attributes\Group('framework')]
+    #[\PHPUnit\Framework\Attributes\TestDox('Different cache data (types) can be set and returned')]
     public function testSetInputOutput() : void
     {
         $this->cache->set('key1', 'testVal');
@@ -113,11 +109,8 @@ final class RedisCacheTest extends \PHPUnit\Framework\TestCase
         self::assertEquals('asdf', $this->cache->get('key8')->val);
     }
 
-    /**
-     * @testdox Cache data can bet added and returned
-     * @covers phpOMS\DataStorage\Cache\Connection\RedisCache<extended>
-     * @group framework
-     */
+    #[\PHPUnit\Framework\Attributes\Group('framework')]
+    #[\PHPUnit\Framework\Attributes\TestDox('Cache data can bet added and returned')]
     public function testAddInputOutput() : void
     {
         self::assertTrue($this->cache->add('addKey', 'testValAdd'));
@@ -252,11 +245,8 @@ final class RedisCacheTest extends \PHPUnit\Framework\TestCase
         self::assertFalse($this->cache->updateExpire('invalid', 2));
     }
 
-    /**
-     * @testdox Cache data cannot be added if it already exists
-     * @covers phpOMS\DataStorage\Cache\Connection\RedisCache<extended>
-     * @group framework
-     */
+    #[\PHPUnit\Framework\Attributes\Group('framework')]
+    #[\PHPUnit\Framework\Attributes\TestDox('Cache data cannot be added if it already exists')]
     public function testInvalidOverwrite() : void
     {
         self::assertTrue($this->cache->add('addKey', 'testValAdd'));
@@ -264,11 +254,8 @@ final class RedisCacheTest extends \PHPUnit\Framework\TestCase
         self::assertEquals('testValAdd', $this->cache->get('addKey'));
     }
 
-    /**
-     * @testdox Existing cache data can be replaced
-     * @covers phpOMS\DataStorage\Cache\Connection\RedisCache<extended>
-     * @group framework
-     */
+    #[\PHPUnit\Framework\Attributes\Group('framework')]
+    #[\PHPUnit\Framework\Attributes\TestDox('Existing cache data can be replaced')]
     public function testReplace() : void
     {
         $this->cache->set('key4', 4);
@@ -278,21 +265,15 @@ final class RedisCacheTest extends \PHPUnit\Framework\TestCase
         self::assertEquals(5, $this->cache->get('key4'));
     }
 
-    /**
-     * @testdox None-existing cache data cannot be replaced
-     * @covers phpOMS\DataStorage\Cache\Connection\RedisCache<extended>
-     * @group framework
-     */
+    #[\PHPUnit\Framework\Attributes\Group('framework')]
+    #[\PHPUnit\Framework\Attributes\TestDox('None-existing cache data cannot be replaced')]
     public function testInvalidReplace() : void
     {
         self::assertFalse($this->cache->replace('keyInvalid', 5));
     }
 
-    /**
-     * @testdox Existing cache data can be deleted
-     * @covers phpOMS\DataStorage\Cache\Connection\RedisCache<extended>
-     * @group framework
-     */
+    #[\PHPUnit\Framework\Attributes\Group('framework')]
+    #[\PHPUnit\Framework\Attributes\TestDox('Existing cache data can be deleted')]
     public function testDelete() : void
     {
         $this->cache->set('key4', 4);
@@ -313,11 +294,8 @@ final class RedisCacheTest extends \PHPUnit\Framework\TestCase
         self::assertTrue($this->cache->delete('invalid'));
     }
 
-    /**
-     * @testdox The cache correctly handles general cache information
-     * @covers phpOMS\DataStorage\Cache\Connection\RedisCache<extended>
-     * @group framework
-     */
+    #[\PHPUnit\Framework\Attributes\Group('framework')]
+    #[\PHPUnit\Framework\Attributes\TestDox('The cache correctly handles general cache information')]
     public function testStats() : void
     {
         $this->cache->set('key1', 'testVal');
@@ -330,11 +308,8 @@ final class RedisCacheTest extends \PHPUnit\Framework\TestCase
         self::assertGreaterThan(0, $this->cache->stats()['size']);
     }
 
-    /**
-     * @testdox The cache can be flushed
-     * @covers phpOMS\DataStorage\Cache\Connection\RedisCache<extended>
-     * @group framework
-     */
+    #[\PHPUnit\Framework\Attributes\Group('framework')]
+    #[\PHPUnit\Framework\Attributes\TestDox('The cache can be flushed')]
     public function testFlush() : void
     {
         $this->cache->set('key1', 'testVal');
@@ -351,22 +326,16 @@ final class RedisCacheTest extends \PHPUnit\Framework\TestCase
         self::assertGreaterThanOrEqual(0, $this->cache->stats()['size']);
     }
 
-    /**
-     * @testdox Cache data can be set and returned with expiration limits
-     * @covers phpOMS\DataStorage\Cache\Connection\RedisCache<extended>
-     * @group framework
-     */
+    #[\PHPUnit\Framework\Attributes\Group('framework')]
+    #[\PHPUnit\Framework\Attributes\TestDox('Cache data can be set and returned with expiration limits')]
     public function testUnexpiredInputOutput() : void
     {
         $this->cache->set('key1', 'testVal', 1);
         self::assertEquals('testVal', $this->cache->get('key1'));
     }
 
-    /**
-     * @testdox Expired cache data cannot be returned
-     * @covers phpOMS\DataStorage\Cache\Connection\RedisCache<extended>
-     * @group framework
-     */
+    #[\PHPUnit\Framework\Attributes\Group('framework')]
+    #[\PHPUnit\Framework\Attributes\TestDox('Expired cache data cannot be returned')]
     public function testExpiredInputOutput() : void
     {
         $this->cache->set('key2', 'testVal2', 1);
@@ -375,11 +344,8 @@ final class RedisCacheTest extends \PHPUnit\Framework\TestCase
         self::assertNull($this->cache->get('key2', 1));
     }
 
-    /**
-     * @testdox A bad cache status will prevent all cache actions
-     * @covers phpOMS\DataStorage\Cache\Connection\RedisCache<extended>
-     * @group framework
-     */
+    #[\PHPUnit\Framework\Attributes\Group('framework')]
+    #[\PHPUnit\Framework\Attributes\TestDox('A bad cache status will prevent all cache actions')]
     public function testBadCacheStatus() : void
     {
         TestUtils::setMember($this->cache, 'status', CacheStatus::FAILURE);
@@ -394,11 +360,8 @@ final class RedisCacheTest extends \PHPUnit\Framework\TestCase
         self::assertEquals([], $this->cache->stats());
     }
 
-    /**
-     * @testdox Adding a invalid data type will throw an InvalidArgumentException
-     * @covers phpOMS\DataStorage\Cache\Connection\MemCached<extended>
-     * @group framework
-     */
+    #[\PHPUnit\Framework\Attributes\Group('framework')]
+    #[\PHPUnit\Framework\Attributes\TestDox('Adding a invalid data type will throw an InvalidArgumentException')]
     public function testInvalidDataTypeAdd() : void
     {
         $this->expectException(\InvalidArgumentException::class);
@@ -406,11 +369,8 @@ final class RedisCacheTest extends \PHPUnit\Framework\TestCase
         $this->cache->add('invalid', $this->cache);
     }
 
-    /**
-     * @testdox Setting a invalid data type will throw an InvalidArgumentException
-     * @covers phpOMS\DataStorage\Cache\Connection\MemCached<extended>
-     * @group framework
-     */
+    #[\PHPUnit\Framework\Attributes\Group('framework')]
+    #[\PHPUnit\Framework\Attributes\TestDox('Setting a invalid data type will throw an InvalidArgumentException')]
     public function testInvalidDataTypeSet() : void
     {
         $this->expectException(\InvalidArgumentException::class);
@@ -418,11 +378,8 @@ final class RedisCacheTest extends \PHPUnit\Framework\TestCase
         $this->cache->set('invalid', $this->cache);
     }
 
-    /**
-     * @testdox A invalid host throws a InvalidConnectionConfigException
-     * @covers phpOMS\DataStorage\Cache\Connection\RedisCache<extended>
-     * @group framework
-     */
+    #[\PHPUnit\Framework\Attributes\Group('framework')]
+    #[\PHPUnit\Framework\Attributes\TestDox('A invalid host throws a InvalidConnectionConfigException')]
     public function testInvalidCacheHost() : void
     {
         $this->expectException(\phpOMS\DataStorage\Cache\Exception\InvalidConnectionConfigException::class);
@@ -433,11 +390,8 @@ final class RedisCacheTest extends \PHPUnit\Framework\TestCase
         $cache = new RedisCache($db);
     }
 
-    /**
-     * @testdox A invalid port throws a InvalidConnectionConfigException
-     * @covers phpOMS\DataStorage\Cache\Connection\RedisCache<extended>
-     * @group framework
-     */
+    #[\PHPUnit\Framework\Attributes\Group('framework')]
+    #[\PHPUnit\Framework\Attributes\TestDox('A invalid port throws a InvalidConnectionConfigException')]
     public function testInvalidCachePort() : void
     {
         $this->expectException(\phpOMS\DataStorage\Cache\Exception\InvalidConnectionConfigException::class);
@@ -448,11 +402,8 @@ final class RedisCacheTest extends \PHPUnit\Framework\TestCase
         $cache = new RedisCache($db);
     }
 
-    /**
-     * @testdox A invalid database throws a InvalidConnectionConfigException
-     * @covers phpOMS\DataStorage\Cache\Connection\RedisCache<extended>
-     * @group framework
-     */
+    #[\PHPUnit\Framework\Attributes\Group('framework')]
+    #[\PHPUnit\Framework\Attributes\TestDox('A invalid database throws a InvalidConnectionConfigException')]
     public function testInvalidCacheDatabase() : void
     {
         $this->expectException(\phpOMS\DataStorage\Cache\Exception\InvalidConnectionConfigException::class);

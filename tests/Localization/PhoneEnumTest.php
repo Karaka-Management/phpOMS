@@ -2,7 +2,7 @@
 /**
  * Jingga
  *
- * PHP Version 8.1
+ * PHP Version 8.2
  *
  * @package   tests
  * @copyright Dennis Eichhorn
@@ -19,16 +19,14 @@ require_once __DIR__ . '/../Autoloader.php';
 use phpOMS\Localization\PhoneEnum;
 
 /**
- * @testdox phpOMS\tests\Localization\PhoneEnumTest: Country phone codes
  * @internal
  */
+#[\PHPUnit\Framework\Attributes\TestDox('phpOMS\tests\Localization\PhoneEnumTest: Country phone codes')]
 final class PhoneEnumTest extends \PHPUnit\Framework\TestCase
 {
-    /**
-     * @testdox The phone enum has the correct format of country phone numbers
-     * @group framework
-     * @coversNothing
-     */
+    #[\PHPUnit\Framework\Attributes\Group('framework')]
+    #[\PHPUnit\Framework\Attributes\TestDox('The phone enum has the correct format of country phone numbers')]
+    #[\PHPUnit\Framework\Attributes\CoversNothing]
     public function testEnums() : void
     {
         $ok = true;

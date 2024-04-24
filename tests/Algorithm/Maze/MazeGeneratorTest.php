@@ -2,7 +2,7 @@
 /**
  * Jingga
  *
- * PHP Version 8.1
+ * PHP Version 8.2
  *
  * @package   tests
  * @copyright Dennis Eichhorn
@@ -19,17 +19,14 @@ use phpOMS\Algorithm\Maze\MazeGenerator;
 require_once __DIR__ . '/../../Autoloader.php';
 
 /**
- * @testdox phpOMS\tests\Algorithm\Maze\MazeGeneratorTest: Maze generation
- *
  * @internal
  */
+#[\PHPUnit\Framework\Attributes\CoversClass(\phpOMS\Algorithm\Maze\MazeGenerator::class)]
+#[\PHPUnit\Framework\Attributes\TestDox('phpOMS\tests\Algorithm\Maze\MazeGeneratorTest: Maze generation')]
 final class MazeGeneratorTest extends \PHPUnit\Framework\TestCase
 {
-    /**
-     * @testdox A random maze can be generated
-     * @covers phpOMS\Algorithm\Maze\MazeGenerator
-     * @group framework
-     */
+    #[\PHPUnit\Framework\Attributes\Group('framework')]
+    #[\PHPUnit\Framework\Attributes\TestDox('A random maze can be generated')]
     public function testMazeGeneration() : void
     {
         $maze = MazeGenerator::random(10, 7);
@@ -59,11 +56,8 @@ final class MazeGeneratorTest extends \PHPUnit\Framework\TestCase
         );
     }
 
-    /**
-     * @testdox A random maze can be rendered
-     * @covers phpOMS\Algorithm\Maze\MazeGenerator
-     * @group framework
-     */
+    #[\PHPUnit\Framework\Attributes\Group('framework')]
+    #[\PHPUnit\Framework\Attributes\TestDox('A random maze can be rendered')]
     public function testMazeRender() : void
     {
         $ob   = MazeGenerator::render(MazeGenerator::random(10, 7));

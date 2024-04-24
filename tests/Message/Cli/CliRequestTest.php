@@ -2,7 +2,7 @@
 /**
  * Jingga
  *
- * PHP Version 8.1
+ * PHP Version 8.2
  *
  * @package   tests
  * @copyright Dennis Eichhorn
@@ -23,6 +23,7 @@ use phpOMS\Uri\Argument;
 /**
  * @internal
  */
+#[\PHPUnit\Framework\Attributes\CoversClass(\phpOMS\Message\Cli\CliRequest::class)]
 final class CliRequestTest extends \PHPUnit\Framework\TestCase
 {
     private CliRequest $request;
@@ -35,10 +36,7 @@ final class CliRequestTest extends \PHPUnit\Framework\TestCase
         $this->request = new CliRequest(new Argument('get:some/test/path'), $l11n = new Localization());
     }
 
-    /**
-     * @covers phpOMS\Message\Cli\CliRequest
-     * @group framework
-     */
+    #[\PHPUnit\Framework\Attributes\Group('framework')]
     public function testDefault() : void
     {
         $request = new CliRequest();
@@ -52,40 +50,28 @@ final class CliRequestTest extends \PHPUnit\Framework\TestCase
         self::assertNull($request->getData('key'));
     }
 
-    /**
-     * @covers phpOMS\Message\Cli\CliRequest
-     * @group framework
-     */
+    #[\PHPUnit\Framework\Attributes\Group('framework')]
     public function testOSInputOutput() : void
     {
         $this->request->setOS(OSType::WINDOWS_XP);
         self::assertEquals(OSType::WINDOWS_XP, $this->request->getOS());
     }
 
-    /**
-     * @covers phpOMS\Message\Cli\CliRequest
-     * @group framework
-     */
+    #[\PHPUnit\Framework\Attributes\Group('framework')]
     public function testMethodInputOutput() : void
     {
         $this->request->setMethod(RequestMethod::POST);
         self::assertEquals(RequestMethod::POST, $this->request->getMethod());
     }
 
-    /**
-     * @covers phpOMS\Message\Cli\CliRequest
-     * @group framework
-     */
+    #[\PHPUnit\Framework\Attributes\Group('framework')]
     public function testInputOutputUriString() : void
     {
         self::assertEquals('get:some/test/path', $this->request->uri->__toString());
     }
 
-    /**
-     * @testdox The url hashes for the different paths get correctly generated
-     * @covers phpOMS\Message\Cli\CliRequest
-     * @group framework
-     */
+    #[\PHPUnit\Framework\Attributes\Group('framework')]
+    #[\PHPUnit\Framework\Attributes\TestDox('The url hashes for the different paths get correctly generated')]
     public function testHashingInputOutput() : void
     {
         $request = new CliRequest(new Argument(':test/path ?para1=abc ?para2=2 #frag'), $l11n = new Localization());
@@ -99,20 +85,14 @@ final class CliRequestTest extends \PHPUnit\Framework\TestCase
         self::assertEquals($l11n, $request->header->l11n);
     }
 
-    /**
-     * @covers phpOMS\Message\Cli\CliRequest
-     * @group framework
-     */
+    #[\PHPUnit\Framework\Attributes\Group('framework')]
     public function testInputOutputL11n() : void
     {
         $l11n = new Localization();
         self::assertEquals($l11n, $this->request->header->l11n);
     }
 
-    /**
-     * @covers phpOMS\Message\Cli\CliRequest
-     * @group framework
-     */
+    #[\PHPUnit\Framework\Attributes\Group('framework')]
     public function testDataInputOutput() : void
     {
         self::assertTrue($this->request->setData('key', 'value'));
@@ -120,20 +100,14 @@ final class CliRequestTest extends \PHPUnit\Framework\TestCase
         self::assertEquals(['key', 'value'], $this->request->getData());
     }
 
-    /**
-     * @covers phpOMS\Message\Cli\CliRequest
-     * @group framework
-     */
+    #[\PHPUnit\Framework\Attributes\Group('framework')]
     public function testHasData() : void
     {
         self::assertTrue($this->request->setData('key', 'value'));
         self::assertTrue($this->request->hasData('key'));
     }
 
-    /**
-     * @covers phpOMS\Message\Cli\CliRequest
-     * @group framework
-     */
+    #[\PHPUnit\Framework\Attributes\Group('framework')]
     public function testInvalidOverwrite() : void
     {
         self::assertTrue($this->request->setData('key', 'value'));
@@ -141,10 +115,7 @@ final class CliRequestTest extends \PHPUnit\Framework\TestCase
         self::assertEquals('value', $this->request->getData('key'));
     }
 
-    /**
-     * @covers phpOMS\Message\Cli\CliRequest
-     * @group framework
-     */
+    #[\PHPUnit\Framework\Attributes\Group('framework')]
     public function testOverwrite() : void
     {
         self::assertTrue($this->request->setData('key', 'value'));
@@ -153,10 +124,7 @@ final class CliRequestTest extends \PHPUnit\Framework\TestCase
         self::assertEquals(['key', 'value2'], $this->request->getData());
     }
 
-    /**
-     * @covers phpOMS\Message\Cli\CliRequest
-     * @group framework
-     */
+    #[\PHPUnit\Framework\Attributes\Group('framework')]
     public function testToString() : void
     {
         $request = new CliRequest(new Argument('get:some/test/path'));

@@ -2,7 +2,7 @@
 /**
  * Jingga
  *
- * PHP Version 8.1
+ * PHP Version 8.2
  *
  * @package   tests
  * @copyright Dennis Eichhorn
@@ -18,17 +18,14 @@ use phpOMS\Stdlib\Queue\PriorityMode;
 use phpOMS\Stdlib\Queue\PriorityQueue;
 
 /**
- * @testdox phpOMS\tests\Stdlib\Queue\PriorityQueueTest: Priority queue
- *
  * @internal
  */
+#[\PHPUnit\Framework\Attributes\CoversClass(\phpOMS\Stdlib\Queue\PriorityQueue::class)]
+#[\PHPUnit\Framework\Attributes\TestDox('phpOMS\tests\Stdlib\Queue\PriorityQueueTest: Priority queue')]
 final class PriorityQueueTest extends \PHPUnit\Framework\TestCase
 {
-    /**
-     * @testdox The queue has the expected default values and functionality after initialization
-     * @covers phpOMS\Stdlib\Queue\PriorityQueue
-     * @group framework
-     */
+    #[\PHPUnit\Framework\Attributes\Group('framework')]
+    #[\PHPUnit\Framework\Attributes\TestDox('The queue has the expected default values and functionality after initialization')]
     public function testDefault() : void
     {
         $queue = new PriorityQueue();
@@ -39,11 +36,8 @@ final class PriorityQueueTest extends \PHPUnit\Framework\TestCase
         self::assertEquals(PriorityMode::FIFO, $queue->getType());
     }
 
-    /**
-     * @testdox Queue elements can be added with the default value of 1.0 and returned
-     * @covers phpOMS\Stdlib\Queue\PriorityQueue
-     * @group framework
-     */
+    #[\PHPUnit\Framework\Attributes\Group('framework')]
+    #[\PHPUnit\Framework\Attributes\TestDox('Queue elements can be added with the default value of 1.0 and returned')]
     public function testInputOutput() : void
     {
         $queue = new PriorityQueue();
@@ -52,11 +46,8 @@ final class PriorityQueueTest extends \PHPUnit\Framework\TestCase
         self::assertEquals(['data' => 'a', 'priority' => 1.0], $queue->get($id));
     }
 
-    /**
-     * @testdox Queue elements can be added with a priority
-     * @covers phpOMS\Stdlib\Queue\PriorityQueue
-     * @group framework
-     */
+    #[\PHPUnit\Framework\Attributes\Group('framework')]
+    #[\PHPUnit\Framework\Attributes\TestDox('Queue elements can be added with a priority')]
     public function testAddWithPriority() : void
     {
         $queue = new PriorityQueue();
@@ -68,11 +59,8 @@ final class PriorityQueueTest extends \PHPUnit\Framework\TestCase
         self::assertEquals(-1, $queue->get($id)['priority']);
     }
 
-    /**
-     * @testdox The priority queue returns the correct amount of elements it holds
-     * @covers phpOMS\Stdlib\Queue\PriorityQueue
-     * @group framework
-     */
+    #[\PHPUnit\Framework\Attributes\Group('framework')]
+    #[\PHPUnit\Framework\Attributes\TestDox('The priority queue returns the correct amount of elements it holds')]
     public function testCount() : void
     {
         $queue = new PriorityQueue();
@@ -83,11 +71,8 @@ final class PriorityQueueTest extends \PHPUnit\Framework\TestCase
         self::assertEquals(3, $queue->count());
     }
 
-    /**
-     * @testdox A queue element can be removed
-     * @covers phpOMS\Stdlib\Queue\PriorityQueue
-     * @group framework
-     */
+    #[\PHPUnit\Framework\Attributes\Group('framework')]
+    #[\PHPUnit\Framework\Attributes\TestDox('A queue element can be removed')]
     public function testRemove() : void
     {
         $queue = new PriorityQueue();
@@ -100,11 +85,8 @@ final class PriorityQueueTest extends \PHPUnit\Framework\TestCase
         self::assertEquals(2, $queue->count());
     }
 
-    /**
-     * @testdox A none-existing queue element id cannot be removed
-     * @covers phpOMS\Stdlib\Queue\PriorityQueue
-     * @group framework
-     */
+    #[\PHPUnit\Framework\Attributes\Group('framework')]
+    #[\PHPUnit\Framework\Attributes\TestDox('A none-existing queue element id cannot be removed')]
     public function testInvalidRemove() : void
     {
         $queue = new PriorityQueue();
@@ -118,11 +100,8 @@ final class PriorityQueueTest extends \PHPUnit\Framework\TestCase
         self::assertEquals(2, $queue->count());
     }
 
-    /**
-     * @testdox A removed or none-existing queue element returns a empty data
-     * @covers phpOMS\Stdlib\Queue\PriorityQueue
-     * @group framework
-     */
+    #[\PHPUnit\Framework\Attributes\Group('framework')]
+    #[\PHPUnit\Framework\Attributes\TestDox('A removed or none-existing queue element returns a empty data')]
     public function testInvalidGet() : void
     {
         $queue = new PriorityQueue();
@@ -133,11 +112,8 @@ final class PriorityQueueTest extends \PHPUnit\Framework\TestCase
         self::assertEquals([], $queue->get($id));
     }
 
-    /**
-     * @testdox The priority of all queue elements can be uniformly increased
-     * @covers phpOMS\Stdlib\Queue\PriorityQueue
-     * @group framework
-     */
+    #[\PHPUnit\Framework\Attributes\Group('framework')]
+    #[\PHPUnit\Framework\Attributes\TestDox('The priority of all queue elements can be uniformly increased')]
     public function testPriorityIncreaseAll() : void
     {
         $queue = new PriorityQueue();
@@ -155,11 +131,8 @@ final class PriorityQueueTest extends \PHPUnit\Framework\TestCase
         );
     }
 
-    /**
-     * @testdox The priority or a queue element can be changed
-     * @covers phpOMS\Stdlib\Queue\PriorityQueue
-     * @group framework
-     */
+    #[\PHPUnit\Framework\Attributes\Group('framework')]
+    #[\PHPUnit\Framework\Attributes\TestDox('The priority or a queue element can be changed')]
     public function testPriorityChange() : void
     {
         $queue = new PriorityQueue();
@@ -173,11 +146,8 @@ final class PriorityQueueTest extends \PHPUnit\Framework\TestCase
         self::assertEquals(3, $queue->get($id1)['priority']);
     }
 
-    /**
-     * @testdox The queue can be serialized and unserialized
-     * @covers phpOMS\Stdlib\Queue\PriorityQueue
-     * @group framework
-     */
+    #[\PHPUnit\Framework\Attributes\Group('framework')]
+    #[\PHPUnit\Framework\Attributes\TestDox('The queue can be serialized and unserialized')]
     public function testSerialize() : void
     {
         $queue = new PriorityQueue();
@@ -192,11 +162,8 @@ final class PriorityQueueTest extends \PHPUnit\Framework\TestCase
         self::assertEquals($queue->serialize(), $queue2->serialize());
     }
 
-    /**
-     * @testdox A queue element can be popped from the que which also removes it from the queue
-     * @covers phpOMS\Stdlib\Queue\PriorityQueue
-     * @group framework
-     */
+    #[\PHPUnit\Framework\Attributes\Group('framework')]
+    #[\PHPUnit\Framework\Attributes\TestDox('A queue element can be popped from the que which also removes it from the queue')]
     public function testPop() : void
     {
         $queue = new PriorityQueue();
@@ -208,11 +175,8 @@ final class PriorityQueueTest extends \PHPUnit\Framework\TestCase
         self::assertEquals(0, $queue->count());
     }
 
-    /**
-     * @testdox A FIFO queue returns the elements in FIFO order
-     * @covers phpOMS\Stdlib\Queue\PriorityQueue
-     * @group framework
-     */
+    #[\PHPUnit\Framework\Attributes\Group('framework')]
+    #[\PHPUnit\Framework\Attributes\TestDox('A FIFO queue returns the elements in FIFO order')]
     public function testFIFO() : void
     {
         $queue = new PriorityQueue(PriorityMode::FIFO);
@@ -226,11 +190,8 @@ final class PriorityQueueTest extends \PHPUnit\Framework\TestCase
         self::assertEquals(['data' => 'c', 'priority' => -1], $queue->pop());
     }
 
-    /**
-     * @testdox A LIFO queue returns the elements in LIFO order
-     * @covers phpOMS\Stdlib\Queue\PriorityQueue
-     * @group framework
-     */
+    #[\PHPUnit\Framework\Attributes\Group('framework')]
+    #[\PHPUnit\Framework\Attributes\TestDox('A LIFO queue returns the elements in LIFO order')]
     public function testLIFO() : void
     {
         $queue = new PriorityQueue(PriorityMode::LIFO);
@@ -244,11 +205,8 @@ final class PriorityQueueTest extends \PHPUnit\Framework\TestCase
         self::assertEquals(['data' => 'a', 'priority' => -2], $queue->pop());
     }
 
-    /**
-     * @testdox A highest queue returns the elements in highest priority order
-     * @covers phpOMS\Stdlib\Queue\PriorityQueue
-     * @group framework
-     */
+    #[\PHPUnit\Framework\Attributes\Group('framework')]
+    #[\PHPUnit\Framework\Attributes\TestDox('A highest queue returns the elements in highest priority order')]
     public function testHighest() : void
     {
         $queue = new PriorityQueue(PriorityMode::HIGHEST);
@@ -262,11 +220,8 @@ final class PriorityQueueTest extends \PHPUnit\Framework\TestCase
         self::assertEquals(['data' => 'a', 'priority' => -2], $queue->pop());
     }
 
-    /**
-     * @testdox A lowest queue returns the elements in lowest priority order
-     * @covers phpOMS\Stdlib\Queue\PriorityQueue
-     * @group framework
-     */
+    #[\PHPUnit\Framework\Attributes\Group('framework')]
+    #[\PHPUnit\Framework\Attributes\TestDox('A lowest queue returns the elements in lowest priority order')]
     public function testLowest() : void
     {
         $queue = new PriorityQueue(PriorityMode::LOWEST);
@@ -280,11 +235,8 @@ final class PriorityQueueTest extends \PHPUnit\Framework\TestCase
         self::assertEquals(['data' => 'b', 'priority' => 2], $queue->pop());
     }
 
-    /**
-     * @testdox A invalid priority queue type throws a InvalidEnumValue
-     * @covers phpOMS\Stdlib\Queue\PriorityQueue
-     * @group framework
-     */
+    #[\PHPUnit\Framework\Attributes\Group('framework')]
+    #[\PHPUnit\Framework\Attributes\TestDox('A invalid priority queue type throws a InvalidEnumValue')]
     public function testInvalidPriority() : void
     {
         $this->expectException(\phpOMS\Stdlib\Base\Exception\InvalidEnumValue::class);

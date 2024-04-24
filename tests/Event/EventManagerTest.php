@@ -2,7 +2,7 @@
 /**
  * Jingga
  *
- * PHP Version 8.1
+ * PHP Version 8.2
  *
  * @package   tests
  * @copyright Dennis Eichhorn
@@ -19,10 +19,10 @@ require_once __DIR__ . '/../Autoloader.php';
 use phpOMS\Event\EventManager;
 
 /**
- * @testdox phpOMS\tests\Event\EventManager: Event manager for managing and executing events
- *
  * @internal
  */
+#[\PHPUnit\Framework\Attributes\CoversClass(\phpOMS\Event\EventManager::class)]
+#[\PHPUnit\Framework\Attributes\TestDox('phpOMS\tests\Event\EventManager: Event manager for managing and executing events')]
 final class EventManagerTest extends \PHPUnit\Framework\TestCase
 {
     protected EventManager $event;
@@ -35,32 +35,23 @@ final class EventManagerTest extends \PHPUnit\Framework\TestCase
         $this->event = new EventManager();
     }
 
-    /**
-     * @testdox The event manager has the expected default values after initialization
-     * @covers phpOMS\Event\EventManager
-     * @group framework
-     */
+    #[\PHPUnit\Framework\Attributes\Group('framework')]
+    #[\PHPUnit\Framework\Attributes\TestDox('The event manager has the expected default values after initialization')]
     public function testDefault() : void
     {
         self::assertEquals(0, $this->event->count());
     }
 
-    /**
-     * @testdox New events can be added
-     * @covers phpOMS\Event\EventManager
-     * @group framework
-     */
+    #[\PHPUnit\Framework\Attributes\Group('framework')]
+    #[\PHPUnit\Framework\Attributes\TestDox('New events can be added')]
     public function testAdd() : void
     {
         self::assertTrue($this->event->attach('group', function() : bool { return true; }, false, false));
         self::assertEquals(1, $this->event->count());
     }
 
-    /**
-     * @testdox Events can be cleared
-     * @covers phpOMS\Event\EventManager
-     * @group framework
-     */
+    #[\PHPUnit\Framework\Attributes\Group('framework')]
+    #[\PHPUnit\Framework\Attributes\TestDox('Events can be cleared')]
     public function testClear() : void
     {
         self::assertTrue($this->event->attach('group', function() : bool { return true; }, false, false));
@@ -70,11 +61,8 @@ final class EventManagerTest extends \PHPUnit\Framework\TestCase
         self::assertEquals(0, $this->event->count());
     }
 
-    /**
-     * @testdox Multiple callbacks can be added to an event
-     * @covers phpOMS\Event\EventManager
-     * @group framework
-     */
+    #[\PHPUnit\Framework\Attributes\Group('framework')]
+    #[\PHPUnit\Framework\Attributes\TestDox('Multiple callbacks can be added to an event')]
     public function testAddMultiple() : void
     {
         self::assertTrue($this->event->attach('group', function() : bool { return true; }, false, false));
@@ -82,11 +70,8 @@ final class EventManagerTest extends \PHPUnit\Framework\TestCase
         self::assertEquals(1, $this->event->count());
     }
 
-    /**
-     * @testdox An event gets executed if all conditions and sub conditions are met
-     * @covers phpOMS\Event\EventManager
-     * @group framework
-     */
+    #[\PHPUnit\Framework\Attributes\Group('framework')]
+    #[\PHPUnit\Framework\Attributes\TestDox('An event gets executed if all conditions and sub conditions are met')]
     public function testDispatchAfterAllConditions() : void
     {
         $this->event->attach('group', 'path_to_execute', false, true);
@@ -97,11 +82,8 @@ final class EventManagerTest extends \PHPUnit\Framework\TestCase
         self::assertTrue($this->event->trigger('group', 'id2'));
     }
 
-    /**
-     * @testdox An event doesn't get executed if not all conditions and sub conditions are met
-     * @covers phpOMS\Event\EventManager
-     * @group framework
-     */
+    #[\PHPUnit\Framework\Attributes\Group('framework')]
+    #[\PHPUnit\Framework\Attributes\TestDox("An event doesn't get executed if not all conditions and sub conditions are met")]
     public function testDispatchAfterSomeConditionsInvalid() : void
     {
         $this->event->attach('group', 'path_to_execute', false, true);
@@ -111,21 +93,15 @@ final class EventManagerTest extends \PHPUnit\Framework\TestCase
         self::assertFalse($this->event->trigger('group', 'id1'));
     }
 
-    /**
-     * @testdox None-existing events cannot be executed/triggered
-     * @covers phpOMS\Event\EventManager
-     * @group framework
-     */
+    #[\PHPUnit\Framework\Attributes\Group('framework')]
+    #[\PHPUnit\Framework\Attributes\TestDox('None-existing events cannot be executed/triggered')]
     public function testInvalidEventTrigger() : void
     {
         self::assertFalse($this->event->trigger('invalid'));
     }
 
-    /**
-     * @testdox An event can be triggered with group and id regex matches
-     * @covers phpOMS\Event\EventManager
-     * @group framework
-     */
+    #[\PHPUnit\Framework\Attributes\Group('framework')]
+    #[\PHPUnit\Framework\Attributes\TestDox('An event can be triggered with group and id regex matches')]
     public function testDispatchSimilarGroupAndId() : void
     {
         $this->event->attach('group', 'path_to_execute', false, true);
@@ -135,11 +111,8 @@ final class EventManagerTest extends \PHPUnit\Framework\TestCase
         self::assertTrue($this->event->triggerSimilar('/[a-z]+/', '/id\\d/'));
     }
 
-    /**
-     * @testdox An event can be triggered with a fixed group definition and id regex matches
-     * @covers phpOMS\Event\EventManager
-     * @group framework
-     */
+    #[\PHPUnit\Framework\Attributes\Group('framework')]
+    #[\PHPUnit\Framework\Attributes\TestDox('An event can be triggered with a fixed group definition and id regex matches')]
     public function testDispatchSimilarId() : void
     {
         $this->event->attach('group', 'path_to_execute', false, true);
@@ -149,11 +122,8 @@ final class EventManagerTest extends \PHPUnit\Framework\TestCase
         self::assertTrue($this->event->triggerSimilar('group', '/id\\d/'));
     }
 
-    /**
-     * @testdox An event can be triggered with regex group matches and fixed id definition
-     * @covers phpOMS\Event\EventManager
-     * @group framework
-     */
+    #[\PHPUnit\Framework\Attributes\Group('framework')]
+    #[\PHPUnit\Framework\Attributes\TestDox('An event can be triggered with regex group matches and fixed id definition')]
     public function testDispatchSimilarGroup() : void
     {
         $this->event->attach('group', 'path_to_execute', false, true);
@@ -164,11 +134,8 @@ final class EventManagerTest extends \PHPUnit\Framework\TestCase
         self::assertTrue($this->event->triggerSimilar('group', 'id2'));
     }
 
-    /**
-     * @testdox A invalid regex match will not triggered an event
-     * @covers phpOMS\Event\EventManager
-     * @group framework
-     */
+    #[\PHPUnit\Framework\Attributes\Group('framework')]
+    #[\PHPUnit\Framework\Attributes\TestDox('A invalid regex match will not triggered an event')]
     public function testDispatchSimilarInvalid() : void
     {
         $this->event->attach('group', 'path_to_execute', false, true);
@@ -178,11 +145,8 @@ final class EventManagerTest extends \PHPUnit\Framework\TestCase
         self::assertFalse($this->event->triggerSimilar('group', '/id\\d0/'));
     }
 
-    /**
-     * @testdox An event can be defined to reset after all conditions and subconditions are met. Then all conditions and sub conditions must be met again before it gets triggered again.
-     * @covers phpOMS\Event\EventManager
-     * @group framework
-     */
+    #[\PHPUnit\Framework\Attributes\Group('framework')]
+    #[\PHPUnit\Framework\Attributes\TestDox('An event can be defined to reset after all conditions and subconditions are met. Then all conditions and sub conditions must be met again before it gets triggered again.')]
     public function testReset() : void
     {
         self::assertTrue($this->event->attach('group', function() : bool { return true; }, false, true));
@@ -194,11 +158,8 @@ final class EventManagerTest extends \PHPUnit\Framework\TestCase
         self::assertFalse($this->event->trigger('group', 'id2'));
     }
 
-    /**
-     * @testdox An event can be defined to not reset after all conditions and subconditions are met. Then an event can be triggered any time.
-     * @covers phpOMS\Event\EventManager
-     * @group framework
-     */
+    #[\PHPUnit\Framework\Attributes\Group('framework')]
+    #[\PHPUnit\Framework\Attributes\TestDox('An event can be defined to not reset after all conditions and subconditions are met. Then an event can be triggered any time.')]
     public function testNoReset() : void
     {
         self::assertTrue($this->event->attach('group', function() : bool { return true; }, false, false));
@@ -210,11 +171,8 @@ final class EventManagerTest extends \PHPUnit\Framework\TestCase
         self::assertTrue($this->event->trigger('group', 'id2'));
     }
 
-    /**
-     * @testdox An event can be manually removed/detached
-     * @covers phpOMS\Event\EventManager
-     * @group framework
-     */
+    #[\PHPUnit\Framework\Attributes\Group('framework')]
+    #[\PHPUnit\Framework\Attributes\TestDox('An event can be manually removed/detached')]
     public function testDetach() : void
     {
         $this->event->attach('group', function() : bool { return true; }, false, true);
@@ -227,11 +185,8 @@ final class EventManagerTest extends \PHPUnit\Framework\TestCase
         self::assertFalse($this->event->trigger('group'));
     }
 
-    /**
-     * @testdox None-existing events cannot be manually removed/detached
-     * @covers phpOMS\Event\EventManager
-     * @group framework
-     */
+    #[\PHPUnit\Framework\Attributes\Group('framework')]
+    #[\PHPUnit\Framework\Attributes\TestDox('None-existing events cannot be manually removed/detached')]
     public function testInvalidDetach() : void
     {
         $this->event->attach('group', function() : bool { return true; }, false, true);
@@ -242,11 +197,8 @@ final class EventManagerTest extends \PHPUnit\Framework\TestCase
         self::assertFalse($this->event->detach('group'));
     }
 
-    /**
-     * @testdox An event can be defined to automatically remove itself after all conditions and subconditions are met and it is executed
-     * @covers phpOMS\Event\EventManager
-     * @group framework
-     */
+    #[\PHPUnit\Framework\Attributes\Group('framework')]
+    #[\PHPUnit\Framework\Attributes\TestDox('An event can be defined to automatically remove itself after all conditions and subconditions are met and it is executed')]
     public function testRemove() : void
     {
         self::assertTrue($this->event->attach('group1', function() : bool { return true; }, true, false));
@@ -257,11 +209,8 @@ final class EventManagerTest extends \PHPUnit\Framework\TestCase
         self::assertEquals(1, $this->event->count());
     }
 
-    /**
-     * @testdox Events can be imported from a file
-     * @covers phpOMS\Event\EventManager
-     * @group framework
-     */
+    #[\PHPUnit\Framework\Attributes\Group('framework')]
+    #[\PHPUnit\Framework\Attributes\TestDox('Events can be imported from a file')]
     public function testImportEvents() : void
     {
         self::assertTrue($this->event->importFromFile(__DIR__ . '/events.php'));
@@ -271,11 +220,8 @@ final class EventManagerTest extends \PHPUnit\Framework\TestCase
         self::assertTrue($this->event->trigger('SomeName2', '', 4));
     }
 
-    /**
-     * @testdox Invalid event files cannot be imported and return a failure
-     * @covers phpOMS\Event\EventManager
-     * @group framework
-     */
+    #[\PHPUnit\Framework\Attributes\Group('framework')]
+    #[\PHPUnit\Framework\Attributes\TestDox('Invalid event files cannot be imported and return a failure')]
     public function testInvalidImportEvents() : void
     {
         self::assertFalse($this->event->importFromFile(__DIR__ . '/invalid.php'));

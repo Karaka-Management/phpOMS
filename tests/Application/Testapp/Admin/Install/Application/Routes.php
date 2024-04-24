@@ -2,7 +2,7 @@
 /**
  * Jingga
  *
- * PHP Version 8.1
+ * PHP Version 8.2
  *
  * @package   Modules
  * @copyright Dennis Eichhorn
@@ -19,6 +19,7 @@ return [
         [
             'dest'       => '\phpOMS\tess\Application\Apps\Testapp\Controller\Controller:testEndpoint',
             'verb'       => RouteVerb::GET,
+            'active'     => true,
             'permission' => [
                 'type'  => 1,
                 'state' => 2,

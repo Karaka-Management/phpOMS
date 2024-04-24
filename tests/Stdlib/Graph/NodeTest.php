@@ -2,7 +2,7 @@
 /**
  * Jingga
  *
- * PHP Version 8.1
+ * PHP Version 8.2
  *
  * @package   tests
  * @copyright Dennis Eichhorn
@@ -18,17 +18,14 @@ use phpOMS\Stdlib\Graph\Edge;
 use phpOMS\Stdlib\Graph\Node;
 
 /**
- * @testdox phpOMS\tests\Stdlib\Graph\NodeTest: Node in a graph
- *
  * @internal
  */
+#[\PHPUnit\Framework\Attributes\CoversClass(\phpOMS\Stdlib\Graph\Node::class)]
+#[\PHPUnit\Framework\Attributes\TestDox('phpOMS\tests\Stdlib\Graph\NodeTest: Node in a graph')]
 final class NodeTest extends \PHPUnit\Framework\TestCase
 {
-    /**
-     * @testdox The node has the expected default values after initialization
-     * @covers phpOMS\Stdlib\Graph\Node
-     * @group framework
-     */
+    #[\PHPUnit\Framework\Attributes\Group('framework')]
+    #[\PHPUnit\Framework\Attributes\TestDox('The node has the expected default values after initialization')]
     public function testDefault() : void
     {
         $node = new Node('A');
@@ -39,11 +36,8 @@ final class NodeTest extends \PHPUnit\Framework\TestCase
         self::assertEquals([], $node->getNeighbors());
     }
 
-    /**
-     * @testdox The node data can be set and returned
-     * @covers phpOMS\Stdlib\Graph\Node
-     * @group framework
-     */
+    #[\PHPUnit\Framework\Attributes\Group('framework')]
+    #[\PHPUnit\Framework\Attributes\TestDox('The node data can be set and returned')]
     public function testDataInputOutput() : void
     {
         $node = new Node('B', 1);
@@ -53,22 +47,16 @@ final class NodeTest extends \PHPUnit\Framework\TestCase
         self::assertFalse($node->getData());
     }
 
-    /**
-     * @testdox Two equal nodes are equal
-     * @covers phpOMS\Stdlib\Graph\Node
-     * @group framework
-     */
+    #[\PHPUnit\Framework\Attributes\Group('framework')]
+    #[\PHPUnit\Framework\Attributes\TestDox('Two equal nodes are equal')]
     public function testNodesEqual() : void
     {
         $node = new Node('B', 1);
         self::assertTrue($node->isEqual($node));
     }
 
-    /**
-     * @testdox Two different nodes are not equal
-     * @covers phpOMS\Stdlib\Graph\Node
-     * @group framework
-     */
+    #[\PHPUnit\Framework\Attributes\Group('framework')]
+    #[\PHPUnit\Framework\Attributes\TestDox('Two different nodes are not equal')]
     public function testNodesNotEqual() : void
     {
         $node  = new Node('A', 1);
@@ -82,11 +70,8 @@ final class NodeTest extends \PHPUnit\Framework\TestCase
         self::assertFalse($node->isEqual($node2));
     }
 
-    /**
-     * @testdox An edge for a node can be defined
-     * @covers phpOMS\Stdlib\Graph\Node
-     * @group framework
-     */
+    #[\PHPUnit\Framework\Attributes\Group('framework')]
+    #[\PHPUnit\Framework\Attributes\TestDox('An edge for a node can be defined')]
     public function testEdgeInputOutput() : void
     {
         $node = new Node('A', 1);
@@ -95,11 +80,8 @@ final class NodeTest extends \PHPUnit\Framework\TestCase
         self::assertCount(1, $node->getEdges());
     }
 
-    /**
-     * @testdox Edges can be removed from a node
-     * @covers phpOMS\Stdlib\Graph\Node
-     * @group framework
-     */
+    #[\PHPUnit\Framework\Attributes\Group('framework')]
+    #[\PHPUnit\Framework\Attributes\TestDox('Edges can be removed from a node')]
     public function testEdgeRemove() : void
     {
         $node = new Node('A', 1);
@@ -109,11 +91,8 @@ final class NodeTest extends \PHPUnit\Framework\TestCase
         self::assertCount(0, $node->getEdges());
     }
 
-    /**
-     * @testdox An edge for a node can be defined by key
-     * @covers phpOMS\Stdlib\Graph\Node
-     * @group framework
-     */
+    #[\PHPUnit\Framework\Attributes\Group('framework')]
+    #[\PHPUnit\Framework\Attributes\TestDox('An edge for a node can be defined by key')]
     public function testEdgeKeyInputOutput() : void
     {
         $node = new Node('A', 1);
@@ -123,11 +102,8 @@ final class NodeTest extends \PHPUnit\Framework\TestCase
         self::assertInstanceOf(Edge::class, $node->getEdge(3));
     }
 
-    /**
-     * @testdox A node relationship can be defined
-     * @covers phpOMS\Stdlib\Graph\Node
-     * @group framework
-     */
+    #[\PHPUnit\Framework\Attributes\Group('framework')]
+    #[\PHPUnit\Framework\Attributes\TestDox('A node relationship can be defined')]
     public function testNodeRelation() : void
     {
         $node1 = new Node('A');
@@ -139,13 +115,11 @@ final class NodeTest extends \PHPUnit\Framework\TestCase
     }
 
     /**
-     * @testdox All neighbors of a node can be returned
-     * @covers phpOMS\Stdlib\Graph\Node
-     * @group framework
-     *
      * @bug Directed graphs may return invalid neighbors
      *      https://github.com/Karaka-Management/phpOMS/issues/366
      */
+    #[\PHPUnit\Framework\Attributes\Group('framework')]
+    #[\PHPUnit\Framework\Attributes\TestDox('All neighbors of a node can be returned')]
     public function testNeighborsInputOutput() : void
     {
         $node1 = new Node('A');

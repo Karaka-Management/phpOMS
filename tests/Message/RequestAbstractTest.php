@@ -2,7 +2,7 @@
 /**
  * Jingga
  *
- * PHP Version 8.1
+ * PHP Version 8.2
  *
  * @package   tests
  * @copyright Dennis Eichhorn
@@ -19,10 +19,10 @@ require_once __DIR__ . '/../Autoloader.php';
 use phpOMS\Message\RequestAbstract;
 
 /**
- * @testdox phpOMS\tests\Message\RequestAbstractTest: Abstract request
- *
  * @internal
  */
+#[\PHPUnit\Framework\Attributes\CoversClass(\phpOMS\Message\RequestAbstract::class)]
+#[\PHPUnit\Framework\Attributes\TestDox('phpOMS\tests\Message\RequestAbstractTest: Abstract request')]
 final class RequestAbstractTest extends \PHPUnit\Framework\TestCase
 {
     protected $request = null;
@@ -51,11 +51,8 @@ final class RequestAbstractTest extends \PHPUnit\Framework\TestCase
         };
     }
 
-    /**
-     * @testdox Request data can be set and returned
-     * @covers phpOMS\Message\RequestAbstract
-     * @group framework
-     */
+    #[\PHPUnit\Framework\Attributes\Group('framework')]
+    #[\PHPUnit\Framework\Attributes\TestDox('Request data can be set and returned')]
     public function testDataInputOutput() : void
     {
         self::assertTrue($this->request->setData('key', 'value'));
@@ -64,21 +61,15 @@ final class RequestAbstractTest extends \PHPUnit\Framework\TestCase
         self::assertEquals(['key' => 'value'], $this->request->getData());
     }
 
-    /**
-     * @testdox A invalid data key returns null
-     * @covers phpOMS\Message\RequestAbstract
-     * @group framework
-     */
+    #[\PHPUnit\Framework\Attributes\Group('framework')]
+    #[\PHPUnit\Framework\Attributes\TestDox('A invalid data key returns null')]
     public function testInvalidDataKeyOutput() : void
     {
         self::assertNull($this->request->getData('invalid'));
     }
 
-    /**
-     * @testdox Request data can be set and returned with correct types
-     * @covers phpOMS\Message\RequestAbstract
-     * @group framework
-     */
+    #[\PHPUnit\Framework\Attributes\Group('framework')]
+    #[\PHPUnit\Framework\Attributes\TestDox('Request data can be set and returned with correct types')]
     public function testDataTypeInputOutput() : void
     {
         $this->request->setData('key1', 1);
@@ -103,18 +94,14 @@ final class RequestAbstractTest extends \PHPUnit\Framework\TestCase
         self::assertEquals(['asdf' => false], $this->request->getData());
     }
 
-    /**
-     * @group framework
-     */
+    #[\PHPUnit\Framework\Attributes\Group('framework')]
     public function testDataJsonInputOutput() : void
     {
         $this->request->setData('asdf', '[1,2,3]');
         self::assertEquals([1,2,3], $this->request->getDataJson('asdf'));
     }
 
-    /**
-     * @group framework
-     */
+    #[\PHPUnit\Framework\Attributes\Group('framework')]
     public function testDataStringInputOutput() : void
     {
         $this->request->setData('asdf', 1);
@@ -122,9 +109,7 @@ final class RequestAbstractTest extends \PHPUnit\Framework\TestCase
         self::assertEquals('1', $this->request->getData('asdf', 'string'));
     }
 
-    /**
-     * @group framework
-     */
+    #[\PHPUnit\Framework\Attributes\Group('framework')]
     public function testDataBoolInputOutput() : void
     {
         $this->request->setData('asdf', 1);
@@ -132,9 +117,7 @@ final class RequestAbstractTest extends \PHPUnit\Framework\TestCase
         self::assertTrue($this->request->getData('asdf', 'bool'));
     }
 
-    /**
-     * @group framework
-     */
+    #[\PHPUnit\Framework\Attributes\Group('framework')]
     public function testDataFloatInputOutput() : void
     {
         $this->request->setData('asdf', 1);
@@ -142,9 +125,7 @@ final class RequestAbstractTest extends \PHPUnit\Framework\TestCase
         self::assertEquals(1.0, $this->request->getData('asdf', 'float'));
     }
 
-    /**
-     * @group framework
-     */
+    #[\PHPUnit\Framework\Attributes\Group('framework')]
     public function testDataDateTimeInputOutput() : void
     {
         $this->request->setData('asdf', '2023-01-01');
@@ -158,9 +139,7 @@ final class RequestAbstractTest extends \PHPUnit\Framework\TestCase
         self::assertEquals(1, $this->request->getData('asdf', 'invalid'));
     }
 
-    /**
-     * @group framework
-     */
+    #[\PHPUnit\Framework\Attributes\Group('framework')]
     public function testInvalidDataTypeInputOutput() : void
     {
         self::assertNull($this->request->getDataString('a'));

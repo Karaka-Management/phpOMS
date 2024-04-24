@@ -2,7 +2,7 @@
 /**
  * Jingga
  *
- * PHP Version 8.1
+ * PHP Version 8.2
  *
  * @package   tests
  * @copyright Dennis Eichhorn
@@ -17,37 +17,28 @@ namespace phpOMS\tests\Math\Geometry\Shape\D3;
 use phpOMS\Math\Geometry\Shape\D3\Tetrahedron;
 
 /**
- * @testdox phpOMS\tests\Math\Geometry\Shape\D3\TetrahedronTest: Tetrahedron shape
- *
  * @internal
  */
+#[\PHPUnit\Framework\Attributes\CoversClass(\phpOMS\Math\Geometry\Shape\D3\Tetrahedron::class)]
+#[\PHPUnit\Framework\Attributes\TestDox('phpOMS\tests\Math\Geometry\Shape\D3\TetrahedronTest: Tetrahedron shape')]
 final class TetrahedronTest extends \PHPUnit\Framework\TestCase
 {
-    /**
-     * @testdox The volume can be calculated
-     * @covers phpOMS\Math\Geometry\Shape\D3\Tetrahedron
-     * @group framework
-     */
+    #[\PHPUnit\Framework\Attributes\Group('framework')]
+    #[\PHPUnit\Framework\Attributes\TestDox('The volume can be calculated')]
     public function testVolume() : void
     {
         self::assertEqualsWithDelta(3.18, Tetrahedron::getVolume(3), 0.01);
     }
 
-    /**
-     * @testdox The surface can be calculated
-     * @covers phpOMS\Math\Geometry\Shape\D3\Tetrahedron
-     * @group framework
-     */
+    #[\PHPUnit\Framework\Attributes\Group('framework')]
+    #[\PHPUnit\Framework\Attributes\TestDox('The surface can be calculated')]
     public function testSurface() : void
     {
         self::assertEqualsWithDelta(15.59, Tetrahedron::getSurface(3), 0.01);
     }
 
-    /**
-     * @testdox The face area can be calculated
-     * @covers phpOMS\Math\Geometry\Shape\D3\Tetrahedron
-     * @group framework
-     */
+    #[\PHPUnit\Framework\Attributes\Group('framework')]
+    #[\PHPUnit\Framework\Attributes\TestDox('The face area can be calculated')]
     public function testFaceArea() : void
     {
         self::assertEqualsWithDelta(3.9, Tetrahedron::getFaceArea(3), 0.01);

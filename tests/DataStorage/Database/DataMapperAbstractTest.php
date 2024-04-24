@@ -2,7 +2,7 @@
 /**
  * Jingga
  *
- * PHP Version 8.1
+ * PHP Version 8.2
  *
  * @package   tests
  * @copyright Dennis Eichhorn
@@ -27,10 +27,15 @@ use phpOMS\tests\DataStorage\Database\TestModel\ManyToManyRelModelMapper;
 use phpOMS\tests\DataStorage\Database\TestModel\NullBaseModel;
 
 /**
- * @testdox phpOMS\tests\DataStorage\Database\Mapper\DataMapperAbstractTest: Datamapper for database models
- *
  * @internal
  */
+#[\PHPUnit\Framework\Attributes\CoversClass(\phpOMS\DataStorage\Database\Mapper\DataMapperAbstract::class)]
+#[\PHPUnit\Framework\Attributes\CoversClass(\phpOMS\DataStorage\Database\Mapper\DataMapperFactory::class)]
+#[\PHPUnit\Framework\Attributes\CoversClass(\phpOMS\DataStorage\Database\Mapper\ReadMapper::class)]
+#[\PHPUnit\Framework\Attributes\CoversClass(\phpOMS\DataStorage\Database\Mapper\WriteMapper::class)]
+#[\PHPUnit\Framework\Attributes\CoversClass(\phpOMS\DataStorage\Database\Mapper\UpdateMapper::class)]
+#[\PHPUnit\Framework\Attributes\CoversClass(\phpOMS\DataStorage\Database\Mapper\DeleteMapper::class)]
+#[\PHPUnit\Framework\Attributes\TestDox('phpOMS\tests\DataStorage\Database\Mapper\DataMapperAbstractTest: Datamapper for database models')]
 final class DataMapperAbstractTest extends \PHPUnit\Framework\TestCase
 {
     protected BaseModel $model;
@@ -184,16 +189,8 @@ final class DataMapperAbstractTest extends \PHPUnit\Framework\TestCase
         \phpOMS\Log\FileLogger::getInstance()->verbose = false;
     }
 
-    /**
-     * @testdox The datamapper successfully creates a database entry of a model
-     * @covers phpOMS\DataStorage\Database\Mapper\DataMapperAbstract
-     * @covers phpOMS\DataStorage\Database\Mapper\DataMapperFactory
-     * @covers phpOMS\DataStorage\Database\Mapper\ReadMapper
-     * @covers phpOMS\DataStorage\Database\Mapper\WriteMapper
-     * @covers phpOMS\DataStorage\Database\Mapper\UpdateMapper
-     * @covers phpOMS\DataStorage\Database\Mapper\DeleteMapper
-     * @group framework
-     */
+    #[\PHPUnit\Framework\Attributes\Group('framework')]
+    #[\PHPUnit\Framework\Attributes\TestDox('The datamapper successfully creates a database entry of a model')]
     public function testCreate() : void
     {
         self::assertGreaterThan(0, BaseModelMapper::create()->execute($this->model));
@@ -232,16 +229,8 @@ final class DataMapperAbstractTest extends \PHPUnit\Framework\TestCase
         self::assertCount($count1 + 1, $base->hasManyRelations);
     }
 
-    /**
-     * @testdox The datamapper successfully returns a database entry as model
-     * @covers phpOMS\DataStorage\Database\Mapper\DataMapperAbstract
-     * @covers phpOMS\DataStorage\Database\Mapper\DataMapperFactory
-     * @covers phpOMS\DataStorage\Database\Mapper\ReadMapper
-     * @covers phpOMS\DataStorage\Database\Mapper\WriteMapper
-     * @covers phpOMS\DataStorage\Database\Mapper\UpdateMapper
-     * @covers phpOMS\DataStorage\Database\Mapper\DeleteMapper
-     * @group framework
-     */
+    #[\PHPUnit\Framework\Attributes\Group('framework')]
+    #[\PHPUnit\Framework\Attributes\TestDox('The datamapper successfully returns a database entry as model')]
     public function testRead() : void
     {
         $id = BaseModelMapper::create()->execute($this->model);
@@ -299,7 +288,7 @@ final class DataMapperAbstractTest extends \PHPUnit\Framework\TestCase
     public function testGetAll() : void
     {
         BaseModelMapper::create()->execute($this->model);
-        self::assertCount(1, BaseModelMapper::getAll()->execute());
+        self::assertCount(1, BaseModelMapper::getAll()->executeGetArray());
     }
 
     public function testGetYield() : void
@@ -314,7 +303,7 @@ final class DataMapperAbstractTest extends \PHPUnit\Framework\TestCase
     public function testGetFor() : void
     {
         $id  = BaseModelMapper::create()->execute($this->model);
-        $for = ManyToManyDirectModelMapper::getAll()->where('to', $id)->execute();
+        $for = ManyToManyDirectModelMapper::getAll()->where('to', $id)->executeGetArray();
 
         self::assertEquals(
             \reset($this->model->hasManyDirect)->string,
@@ -348,7 +337,7 @@ final class DataMapperAbstractTest extends \PHPUnit\Framework\TestCase
         $model2->datetime = new \DateTime('now');
         $id2              = BaseModelMapper::create()->execute($model2);
 
-        $newest = BaseModelMapper::getAll()->sort('id', OrderType::DESC)->limit(1)->execute();
+        $newest = BaseModelMapper::getAll()->sort('id', OrderType::DESC)->limit(1)->executeGetArray();
         self::assertEquals($id2, \reset($newest)->id);
     }
 
@@ -360,7 +349,7 @@ final class DataMapperAbstractTest extends \PHPUnit\Framework\TestCase
     public function testCount() : void
     {
         BaseModelMapper::create()->execute($this->model);
-        self::assertEquals(1, BaseModelMapper::count()->execute());
+        self::assertEquals(1, BaseModelMapper::count()->executeCount());
     }
 
     public function testSum() : void
@@ -389,15 +378,7 @@ final class DataMapperAbstractTest extends \PHPUnit\Framework\TestCase
         self::assertEquals($id, BaseModelMApper::getRandom()->limit(1)->execute()->id);
     }
 
-    /**
-     * @covers phpOMS\DataStorage\Database\Mapper\DataMapperAbstract
-     * @covers phpOMS\DataStorage\Database\Mapper\DataMapperFactory
-     * @covers phpOMS\DataStorage\Database\Mapper\ReadMapper
-     * @covers phpOMS\DataStorage\Database\Mapper\WriteMapper
-     * @covers phpOMS\DataStorage\Database\Mapper\UpdateMapper
-     * @covers phpOMS\DataStorage\Database\Mapper\DeleteMapper
-     * @group framework
-     */
+    #[\PHPUnit\Framework\Attributes\Group('framework')]
     public function testFind() : void
     {
         $model1 = clone $this->model;
@@ -412,7 +393,7 @@ final class DataMapperAbstractTest extends \PHPUnit\Framework\TestCase
         BaseModelMapper::create()->execute($model2);
         BaseModelMapper::create()->execute($model3);
 
-        $found = BaseModelMapper::getAll()->where('string', '%sir%' , 'LIKE')->execute();
+        $found = BaseModelMapper::getAll()->where('string', '%sir%' , 'LIKE')->executeGetArray();
         self::assertCount(2, $found);
         self::assertEquals($model2->string, \reset($found)->string);
         self::assertEquals($model3->string, \end($found)->string);
@@ -441,15 +422,7 @@ final class DataMapperAbstractTest extends \PHPUnit\Framework\TestCase
         self::assertEquals(2, \count($list['data']));
     }
 
-    /**
-     * @covers phpOMS\DataStorage\Database\Mapper\DataMapperAbstract
-     * @covers phpOMS\DataStorage\Database\Mapper\DataMapperFactory
-     * @covers phpOMS\DataStorage\Database\Mapper\ReadMapper
-     * @covers phpOMS\DataStorage\Database\Mapper\WriteMapper
-     * @covers phpOMS\DataStorage\Database\Mapper\UpdateMapper
-     * @covers phpOMS\DataStorage\Database\Mapper\DeleteMapper
-     * @group framework
-     */
+    #[\PHPUnit\Framework\Attributes\Group('framework')]
     public function testWithConditional() : void
     {
         $model1 = clone $this->model;
@@ -482,7 +455,7 @@ final class DataMapperAbstractTest extends \PHPUnit\Framework\TestCase
         $cond3->base     = $id2;
         ConditionalMapper::create()->execute($cond3);
 
-        $found = BaseModelMapper::getAll()->with('conditional')->where('conditional/language', 'de')->execute();
+        $found = BaseModelMapper::getAll()->with('conditional')->where('conditional/language', 'de')->executeGetArray();
         self::assertCount(2, $found);
         self::assertEquals($model1->string, \reset($found)->string);
         self::assertEquals($model2->string, \end($found)->string);
@@ -490,16 +463,8 @@ final class DataMapperAbstractTest extends \PHPUnit\Framework\TestCase
         self::assertEquals('cond2_de', \end($found)->conditional);
     }
 
-    /**
-     * @testdox The datamapper successfully updates a database entry from a model
-     * @covers phpOMS\DataStorage\Database\Mapper\DataMapperAbstract
-     * @covers phpOMS\DataStorage\Database\Mapper\DataMapperFactory
-     * @covers phpOMS\DataStorage\Database\Mapper\ReadMapper
-     * @covers phpOMS\DataStorage\Database\Mapper\WriteMapper
-     * @covers phpOMS\DataStorage\Database\Mapper\UpdateMapper
-     * @covers phpOMS\DataStorage\Database\Mapper\DeleteMapper
-     * @group framework
-     */
+    #[\PHPUnit\Framework\Attributes\Group('framework')]
+    #[\PHPUnit\Framework\Attributes\TestDox('The datamapper successfully updates a database entry from a model')]
     public function testUpdate() : void
     {
         $id     = BaseModelMapper::create()->execute($this->model);
@@ -525,16 +490,8 @@ final class DataMapperAbstractTest extends \PHPUnit\Framework\TestCase
         self::assertNull($modelR2->datetime_null);
     }
 
-    /**
-     * @testdox The datamapper successfully deletes a database entry from a model
-     * @covers phpOMS\DataStorage\Database\Mapper\DataMapperAbstract
-     * @covers phpOMS\DataStorage\Database\Mapper\DataMapperFactory
-     * @covers phpOMS\DataStorage\Database\Mapper\ReadMapper
-     * @covers phpOMS\DataStorage\Database\Mapper\WriteMapper
-     * @covers phpOMS\DataStorage\Database\Mapper\UpdateMapper
-     * @covers phpOMS\DataStorage\Database\Mapper\DeleteMapper
-     * @group framework
-     */
+    #[\PHPUnit\Framework\Attributes\Group('framework')]
+    #[\PHPUnit\Framework\Attributes\TestDox('The datamapper successfully deletes a database entry from a model')]
     public function testDelete() : void
     {
         $id = BaseModelMapper::create()->execute($this->model);

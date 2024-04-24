@@ -2,7 +2,7 @@
 /**
  * Jingga
  *
- * PHP Version 8.1
+ * PHP Version 8.2
  *
  * @package   tests
  * @copyright Dennis Eichhorn
@@ -19,12 +19,10 @@ use phpOMS\Module\Exception\InvalidModuleException;
 /**
  * @internal
  */
+#[\PHPUnit\Framework\Attributes\CoversClass(\phpOMS\Module\Exception\InvalidModuleException::class)]
 final class InvalidModuleExceptionTest extends \PHPUnit\Framework\TestCase
 {
-    /**
-     * @covers phpOMS\Module\Exception\InvalidModuleException
-     * @group framework
-     */
+    #[\PHPUnit\Framework\Attributes\Group('framework')]
     public function testException() : void
     {
         self::assertInstanceOf(\UnexpectedValueException::class, new InvalidModuleException(''));

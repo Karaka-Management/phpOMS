@@ -2,7 +2,7 @@
 /**
  * Jingga
  *
- * PHP Version 8.1
+ * PHP Version 8.2
  *
  * @package   tests
  * @copyright Dennis Eichhorn
@@ -18,10 +18,11 @@ use phpOMS\Message\Http\HttpResponse;
 use phpOMS\System\MimeType;
 
 /**
- * @testdox phpOMS\tests\Message\Http\ResponseTest: HttpResponse wrapper for http responses
- *
  * @internal
  */
+#[\PHPUnit\Framework\Attributes\CoversClass(\phpOMS\Message\Http\HttpResponse::class)]
+#[\PHPUnit\Framework\Attributes\CoversClass(\phpOMS\Message\Http\HttpResponse::class)]
+#[\PHPUnit\Framework\Attributes\TestDox('phpOMS\tests\Message\Http\ResponseTest: HttpResponse wrapper for http responses')]
 final class HttpResponseTest extends \PHPUnit\Framework\TestCase
 {
     protected HttpResponse $response;
@@ -34,11 +35,8 @@ final class HttpResponseTest extends \PHPUnit\Framework\TestCase
         $this->response = new HttpResponse();
     }
 
-    /**
-     * @testdox The response has the expected default values after initialization
-     * @covers phpOMS\Message\Http\HttpResponse<extended>
-     * @group framework
-     */
+    #[\PHPUnit\Framework\Attributes\Group('framework')]
+    #[\PHPUnit\Framework\Attributes\TestDox('The response has the expected default values after initialization')]
     public function testDefault() : void
     {
         self::assertEquals('', $this->response->getBody());
@@ -48,33 +46,24 @@ final class HttpResponseTest extends \PHPUnit\Framework\TestCase
         self::assertInstanceOf('\phpOMS\Message\Http\HttpHeader', $this->response->header);
     }
 
-    /**
-     * @testdox Response data can be set and returned
-     * @covers phpOMS\Message\Http\HttpResponse<extended>
-     * @group framework
-     */
+    #[\PHPUnit\Framework\Attributes\Group('framework')]
+    #[\PHPUnit\Framework\Attributes\TestDox('Response data can be set and returned')]
     public function testResponseInputOutput() : void
     {
         $this->response->setResponse(['a' => 1]);
         self::assertEquals(1, $this->response->getData('a'));
     }
 
-    /**
-     * @testdox Response data can be removed
-     * @covers phpOMS\Message\Http\HttpResponse<extended>
-     * @group framework
-     */
+    #[\PHPUnit\Framework\Attributes\Group('framework')]
+    #[\PHPUnit\Framework\Attributes\TestDox('Response data can be removed')]
     public function testRemove() : void
     {
         $this->response->setResponse(['a' => 1]);
         self::assertTrue($this->response->remove('a'));
     }
 
-    /**
-     * @testdox None-existing response data cannot be removed
-     * @covers phpOMS\Message\Http\HttpResponse<extended>
-     * @group framework
-     */
+    #[\PHPUnit\Framework\Attributes\Group('framework')]
+    #[\PHPUnit\Framework\Attributes\TestDox('None-existing response data cannot be removed')]
     public function testInvalidRemove() : void
     {
         $this->response->setResponse(['a' => 1]);
@@ -83,11 +72,8 @@ final class HttpResponseTest extends \PHPUnit\Framework\TestCase
         self::assertFalse($this->response->remove('a'));
     }
 
-    /**
-     * @testdox Test disabling output buffering
-     * @covers phpOMS\Message\Http\HttpResponse
-     * @group framework
-     */
+    #[\PHPUnit\Framework\Attributes\Group('framework')]
+    #[\PHPUnit\Framework\Attributes\TestDox('Test disabling output buffering')]
     public function testEndAllOutputBuffering() : void
     {
         if (\headers_sent()) {
@@ -103,11 +89,8 @@ final class HttpResponseTest extends \PHPUnit\Framework\TestCase
         self::assertEquals($start, \ob_get_level());
     }
 
-    /**
-     * @testdox Response data can be turned into an array
-     * @covers phpOMS\Message\Http\HttpResponse<extended>
-     * @group framework
-     */
+    #[\PHPUnit\Framework\Attributes\Group('framework')]
+    #[\PHPUnit\Framework\Attributes\TestDox('Response data can be turned into an array')]
     public function testToArray() : void
     {
         $data = [
@@ -142,11 +125,8 @@ final class HttpResponseTest extends \PHPUnit\Framework\TestCase
         self::assertEquals($data, $this->response->toArray());
     }
 
-    /**
-     * @testdox A response with json as content-type is automatically rendered as json data
-     * @covers phpOMS\Message\Http\HttpResponse<extended>
-     * @group framework
-     */
+    #[\PHPUnit\Framework\Attributes\Group('framework')]
+    #[\PHPUnit\Framework\Attributes\TestDox('A response with json as content-type is automatically rendered as json data')]
     public function testJsonRender() : void
     {
         $data = [
@@ -182,11 +162,8 @@ final class HttpResponseTest extends \PHPUnit\Framework\TestCase
         self::assertEquals(\json_encode($data), $this->response->render());
     }
 
-    /**
-     * @testdox Json data can be decoded from the response data
-     * @covers phpOMS\Message\Http\HttpResponse<extended>
-     * @group framework
-     */
+    #[\PHPUnit\Framework\Attributes\Group('framework')]
+    #[\PHPUnit\Framework\Attributes\TestDox('Json data can be decoded from the response data')]
     public function testJsonDataDecode() : void
     {
         $array = [1, 'abc' => 'def'];
@@ -195,11 +172,8 @@ final class HttpResponseTest extends \PHPUnit\Framework\TestCase
         self::assertEquals($array, $this->response->getJsonData());
     }
 
-    /**
-     * @testdox A html response can be forced to minimize the content by removing newlines and whitespaces
-     * @covers phpOMS\Message\Http\HttpResponse<extended>
-     * @group framework
-     */
+    #[\PHPUnit\Framework\Attributes\Group('framework')]
+    #[\PHPUnit\Framework\Attributes\TestDox('A html response can be forced to minimize the content by removing newlines and whitespaces')]
     public function testMinimizedRender() : void
     {
         $this->response->set('view', new class() extends \phpOMS\Views\View {
@@ -213,11 +187,8 @@ final class HttpResponseTest extends \PHPUnit\Framework\TestCase
         self::assertEquals('view_string with <div> text</div> that has whitespaces and new lines', $this->response->render(true));
     }
 
-    /**
-     * @testdox None-html responses cannot be forced to minimize the content by removing newlines and whitespaces
-     * @covers phpOMS\Message\Http\HttpResponse<extended>
-     * @group framework
-     */
+    #[\PHPUnit\Framework\Attributes\Group('framework')]
+    #[\PHPUnit\Framework\Attributes\TestDox('None-html responses cannot be forced to minimize the content by removing newlines and whitespaces')]
     public function testInvalidMinimizedRender() : void
     {
         $this->response->set('view', new class() extends \phpOMS\Views\View {
@@ -231,22 +202,16 @@ final class HttpResponseTest extends \PHPUnit\Framework\TestCase
         self::assertEquals(" view_string  with <div> text</div>  that has \n whitespaces and \n\nnew lines\n ", $this->response->render(true));
     }
 
-    /**
-     * @testdox Invalid response data results in an empty array
-     * @covers phpOMS\Message\Http\HttpResponse<extended>
-     * @group framework
-     */
+    #[\PHPUnit\Framework\Attributes\Group('framework')]
+    #[\PHPUnit\Framework\Attributes\TestDox('Invalid response data results in an empty array')]
     public function testInvalidResponseDataToArray() : void
     {
         $this->response->set('invalid', new class() {});
         self::assertEquals([], $this->response->toArray());
     }
 
-    /**
-     * @testdox Invalid response data results in an empty render
-     * @covers phpOMS\Message\Http\HttpResponse<extended>
-     * @group framework
-     */
+    #[\PHPUnit\Framework\Attributes\Group('framework')]
+    #[\PHPUnit\Framework\Attributes\TestDox('Invalid response data results in an empty render')]
     public function testInvalidResponseDataRender() : void
     {
         $this->response->set('invalid', new class() {});

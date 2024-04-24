@@ -2,7 +2,7 @@
 /**
  * Jingga
  *
- * PHP Version 8.1
+ * PHP Version 8.2
  *
  * @package   tests
  * @copyright Dennis Eichhorn
@@ -19,10 +19,10 @@ require_once __DIR__ . '/../Autoloader.php';
 use phpOMS\Application\InstallerAbstract;
 
 /**
- * @testdox phpOMS\tests\Application\InstallerAbstractTest: Abstract application installer
- *
  * @internal
  */
+#[\PHPUnit\Framework\Attributes\CoversClass(\phpOMS\Application\InstallerAbstract::class)]
+#[\PHPUnit\Framework\Attributes\TestDox('phpOMS\tests\Application\InstallerAbstractTest: Abstract application installer')]
 final class InstallerAbstractTest extends \PHPUnit\Framework\TestCase
 {
 	protected InstallerAbstract $installer;
@@ -37,11 +37,8 @@ final class InstallerAbstractTest extends \PHPUnit\Framework\TestCase
         };
     }
 
-    /**
-     * @testdox An invalid theme cannot be installed
-     * @covers phpOMS\Application\InstallerAbstract
-     * @group framework
-     */
+    #[\PHPUnit\Framework\Attributes\Group('framework')]
+    #[\PHPUnit\Framework\Attributes\TestDox('An invalid theme cannot be installed')]
     public function testInvalidTheme() : void
     {
     	$this->installer::installTheme(__DIR__, 'Invalid');

@@ -2,7 +2,7 @@
 /**
  * Jingga
  *
- * PHP Version 8.1
+ * PHP Version 8.2
  *
  * @package   tests
  * @copyright Dennis Eichhorn
@@ -17,10 +17,9 @@ namespace phpOMS\tests\Math\Solver\Root;
 use phpOMS\Math\Solver\Root\RegulaFalsi;
 
 /**
- * @testdox phpOMS\tests\Math\Solver\Root\RegulaFalsiTest: Various math functions
- *
  * @internal
  */
+#[\PHPUnit\Framework\Attributes\TestDox('phpOMS\tests\Math\Solver\Root\RegulaFalsiTest: Various math functions')]
 final class RegulaFalsiTest extends \PHPUnit\Framework\TestCase
 {
     public function testRoot() : void

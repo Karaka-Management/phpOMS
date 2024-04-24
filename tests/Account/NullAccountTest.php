@@ -2,7 +2,7 @@
 /**
  * Jingga
  *
- * PHP Version 8.1
+ * PHP Version 8.2
  *
  * @package   tests
  * @copyright Dennis Eichhorn
@@ -19,26 +19,21 @@ require_once __DIR__ . '/../Autoloader.php';
 use phpOMS\Account\NullAccount;
 
 /**
- * @testdox phpOMS\tests\Account\NullAccount: Null account
  * @internal
  */
+#[\PHPUnit\Framework\Attributes\CoversClass(\phpOMS\Account\NullAccount::class)]
+#[\PHPUnit\Framework\Attributes\TestDox('phpOMS\tests\Account\NullAccount: Null account')]
 final class NullAccountTest extends \PHPUnit\Framework\TestCase
 {
-    /**
-     * @testdox The null account is an instance of the account class
-     * @covers phpOMS\Account\NullAccount
-     * @group framework
-     */
+    #[\PHPUnit\Framework\Attributes\Group('framework')]
+    #[\PHPUnit\Framework\Attributes\TestDox('The null account is an instance of the account class')]
     public function testNull() : void
     {
         self::assertInstanceOf('\phpOMS\Account\Account', new NullAccount());
     }
 
-    /**
-     * @testdox The null account can get initialized with an id
-     * @covers phpOMS\Account\NullAccount
-     * @group framework
-     */
+    #[\PHPUnit\Framework\Attributes\Group('framework')]
+    #[\PHPUnit\Framework\Attributes\TestDox('The null account can get initialized with an id')]
     public function testId() : void
     {
         $null = new NullAccount(2);

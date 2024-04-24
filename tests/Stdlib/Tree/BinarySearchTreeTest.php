@@ -2,7 +2,7 @@
 /**
  * Jingga
  *
- * PHP Version 8.1
+ * PHP Version 8.2
  *
  * @package   tests
  * @copyright Dennis Eichhorn
@@ -20,10 +20,9 @@ use phpOMS\Stdlib\Tree\BinarySearchTree;
 use phpOMS\Stdlib\Tree\Node;
 
 /**
- * @testdox phpOMS\tests\Stdlib\Tree\BinarySearchTreeTest: Priority queue
- *
  * @internal
  */
+#[\PHPUnit\Framework\Attributes\TestDox('phpOMS\tests\Stdlib\Tree\BinarySearchTreeTest: Priority queue')]
 final class BinarySearchTreeTest extends \PHPUnit\Framework\TestCase
 {
     public function testInsert() : void

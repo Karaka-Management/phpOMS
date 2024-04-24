@@ -2,7 +2,7 @@
 /**
  * Jingga
  *
- * PHP Version 8.1
+ * PHP Version 8.2
  *
  * @package   tests
  * @copyright Dennis Eichhorn
@@ -18,17 +18,14 @@ use phpOMS\Localization\ISO3166TwoEnum;
 use phpOMS\Stdlib\Base\Iban;
 
 /**
- * @testdox phpOMS\tests\Stdlib\Base\IbanTest: Iban type
- *
  * @internal
  */
+#[\PHPUnit\Framework\Attributes\CoversClass(\phpOMS\Stdlib\Base\Iban::class)]
+#[\PHPUnit\Framework\Attributes\TestDox('phpOMS\tests\Stdlib\Base\IbanTest: Iban type')]
 final class IbanTest extends \PHPUnit\Framework\TestCase
 {
-    /**
-     * @testdox A iban can be correctly parsed into its different components
-     * @covers phpOMS\Stdlib\Base\Iban
-     * @group framework
-     */
+    #[\PHPUnit\Framework\Attributes\Group('framework')]
+    #[\PHPUnit\Framework\Attributes\TestDox('A iban can be correctly parsed into its different components')]
     public function testInputOutput() : void
     {
         $strRepresentation = 'DE22 6008 0000 0960 0280 00';
@@ -49,11 +46,8 @@ final class IbanTest extends \PHPUnit\Framework\TestCase
         self::assertEquals(22, $iban->getLength());
     }
 
-    /**
-     * @testdox A iban can be serialized and unserialized
-     * @covers phpOMS\Stdlib\Base\Iban
-     * @group framework
-     */
+    #[\PHPUnit\Framework\Attributes\Group('framework')]
+    #[\PHPUnit\Framework\Attributes\TestDox('A iban can be serialized and unserialized')]
     public function testSearialization() : void
     {
         $strRepresentation = 'DE22 6008 0000 0960 0280 00';
@@ -66,11 +60,8 @@ final class IbanTest extends \PHPUnit\Framework\TestCase
         self::assertEquals('DE22 6008 0000 0960 0280 00', $iban->serialize());
     }
 
-    /**
-     * @testdox A invalid iban country code throws a InvalidArgumentException
-     * @covers phpOMS\Stdlib\Base\Iban
-     * @group framework
-     */
+    #[\PHPUnit\Framework\Attributes\Group('framework')]
+    #[\PHPUnit\Framework\Attributes\TestDox('A invalid iban country code throws a InvalidArgumentException')]
     public function testInvalidIbanCountry() : void
     {
         $this->expectException(\InvalidArgumentException::class);
@@ -78,11 +69,8 @@ final class IbanTest extends \PHPUnit\Framework\TestCase
         $iban = new Iban('ZZ22 6008 0000 0960 0280 00');
     }
 
-    /**
-     * @testdox A invalid iban length throws a InvalidArgumentException
-     * @covers phpOMS\Stdlib\Base\Iban
-     * @group framework
-     */
+    #[\PHPUnit\Framework\Attributes\Group('framework')]
+    #[\PHPUnit\Framework\Attributes\TestDox('A invalid iban length throws a InvalidArgumentException')]
     public function testInvalidIbanLength() : void
     {
         $this->expectException(\InvalidArgumentException::class);
@@ -90,11 +78,8 @@ final class IbanTest extends \PHPUnit\Framework\TestCase
         $iban = new Iban('DE22 6008 0000 0960 0280 0');
     }
 
-    /**
-     * @testdox A invalid iban checksum throws a InvalidArgumentException
-     * @covers phpOMS\Stdlib\Base\Iban
-     * @group framework
-     */
+    #[\PHPUnit\Framework\Attributes\Group('framework')]
+    #[\PHPUnit\Framework\Attributes\TestDox('A invalid iban checksum throws a InvalidArgumentException')]
     public function testInvalidIbanChecksum() : void
     {
         $this->expectException(\InvalidArgumentException::class);

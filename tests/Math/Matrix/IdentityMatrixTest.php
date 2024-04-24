@@ -2,7 +2,7 @@
 /**
  * Jingga
  *
- * PHP Version 8.1
+ * PHP Version 8.2
  *
  * @package   tests
  * @copyright Dennis Eichhorn
@@ -17,17 +17,14 @@ namespace phpOMS\tests\Math\Matrix;
 use phpOMS\Math\Matrix\IdentityMatrix;
 
 /**
- * @testdox phpOMS\tests\Math\Matrix\IdentityMatrixTest: Identity matrix
- *
  * @internal
  */
+#[\PHPUnit\Framework\Attributes\CoversClass(\phpOMS\Math\Matrix\IdentityMatrix::class)]
+#[\PHPUnit\Framework\Attributes\TestDox('phpOMS\tests\Math\Matrix\IdentityMatrixTest: Identity matrix')]
 final class IdentityMatrixTest extends \PHPUnit\Framework\TestCase
 {
-    /**
-     * @testdox The identity matrix is the identity
-     * @covers phpOMS\Math\Matrix\IdentityMatrix
-     * @group framework
-     */
+    #[\PHPUnit\Framework\Attributes\Group('framework')]
+    #[\PHPUnit\Framework\Attributes\TestDox('The identity matrix is the identity')]
     public function testIdentity() : void
     {
         $id = new IdentityMatrix(5);

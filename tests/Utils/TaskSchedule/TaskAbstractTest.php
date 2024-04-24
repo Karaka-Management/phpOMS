@@ -2,7 +2,7 @@
 /**
  * Jingga
  *
- * PHP Version 8.1
+ * PHP Version 8.2
  *
  * @package   tests
  * @copyright Dennis Eichhorn
@@ -19,10 +19,10 @@ use phpOMS\Utils\TaskSchedule\TaskFactory;
 use phpOMS\Utils\TaskSchedule\TaskStatus;
 
 /**
- * @testdox phpOMS\tests\Utils\TaskSchedule\TaskAbstractTest: Job/task abstraction
- *
  * @internal
  */
+#[\PHPUnit\Framework\Attributes\CoversClass(\phpOMS\Utils\TaskSchedule\TaskAbstract::class)]
+#[\PHPUnit\Framework\Attributes\TestDox('phpOMS\tests\Utils\TaskSchedule\TaskAbstractTest: Job/task abstraction')]
 final class TaskAbstractTest extends \PHPUnit\Framework\TestCase
 {
     private TaskAbstract $class;
@@ -45,11 +45,8 @@ final class TaskAbstractTest extends \PHPUnit\Framework\TestCase
         };
     }
 
-    /**
-     * @testdox The task abstraction has the expected default values after initialization
-     * @covers phpOMS\Utils\TaskSchedule\TaskAbstract
-     * @group framework
-     */
+    #[\PHPUnit\Framework\Attributes\Group('framework')]
+    #[\PHPUnit\Framework\Attributes\TestDox('The task abstraction has the expected default values after initialization')]
     public function testDefault() : void
     {
         self::assertEquals('', $this->class->getId());
@@ -61,44 +58,32 @@ final class TaskAbstractTest extends \PHPUnit\Framework\TestCase
         self::assertEquals('', $this->class->getInterval());
     }
 
-    /**
-     * @testdox The command can be set and returned
-     * @covers phpOMS\Utils\TaskSchedule\TaskAbstract
-     * @group framework
-     */
+    #[\PHPUnit\Framework\Attributes\Group('framework')]
+    #[\PHPUnit\Framework\Attributes\TestDox('The command can be set and returned')]
     public function testCommandInputOutput() : void
     {
         $this->class->setCommand('Command');
         self::assertEquals('Command', $this->class->getCommand());
     }
 
-    /**
-     * @testdox The interval can be set and returned
-     * @covers phpOMS\Utils\TaskSchedule\TaskAbstract
-     * @group framework
-     */
+    #[\PHPUnit\Framework\Attributes\Group('framework')]
+    #[\PHPUnit\Framework\Attributes\TestDox('The interval can be set and returned')]
     public function testIntervalInputOutput() : void
     {
         $this->class->setInterval('Interval');
         self::assertEquals('Interval', $this->class->getInterval());
     }
 
-    /**
-     * @testdox The comment can be set and returned
-     * @covers phpOMS\Utils\TaskSchedule\TaskAbstract
-     * @group framework
-     */
+    #[\PHPUnit\Framework\Attributes\Group('framework')]
+    #[\PHPUnit\Framework\Attributes\TestDox('The comment can be set and returned')]
     public function testCommentInputOutput() : void
     {
         $this->class->setComment('Comment');
         self::assertEquals('Comment', $this->class->getComment());
     }
 
-    /**
-     * @testdox The last runtime can be set and returned
-     * @covers phpOMS\Utils\TaskSchedule\TaskAbstract
-     * @group framework
-     */
+    #[\PHPUnit\Framework\Attributes\Group('framework')]
+    #[\PHPUnit\Framework\Attributes\TestDox('The last runtime can be set and returned')]
     public function testLastRuntimeInputOutput() : void
     {
         $date = new \DateTime('now');
@@ -106,11 +91,8 @@ final class TaskAbstractTest extends \PHPUnit\Framework\TestCase
         self::assertEquals($date->format('Y-m-d'), $this->class->getLastRuntime()->format('Y-m-d'));
     }
 
-    /**
-     * @testdox The next runtime can be set and returned
-     * @covers phpOMS\Utils\TaskSchedule\TaskAbstract
-     * @group framework
-     */
+    #[\PHPUnit\Framework\Attributes\Group('framework')]
+    #[\PHPUnit\Framework\Attributes\TestDox('The next runtime can be set and returned')]
     public function testNextRuntimeInputOutput() : void
     {
         $date = new \DateTime('now');

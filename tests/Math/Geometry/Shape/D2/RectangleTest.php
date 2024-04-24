@@ -2,7 +2,7 @@
 /**
  * Jingga
  *
- * PHP Version 8.1
+ * PHP Version 8.2
  *
  * @package   tests
  * @copyright Dennis Eichhorn
@@ -17,37 +17,28 @@ namespace phpOMS\tests\Math\Geometry\Shape\D2;
 use phpOMS\Math\Geometry\Shape\D2\Rectangle;
 
 /**
- * @testdox phpOMS\tests\Math\Geometry\Shape\D2\RectangleTest: Rectangle shape
- *
  * @internal
  */
+#[\PHPUnit\Framework\Attributes\CoversClass(\phpOMS\Math\Geometry\Shape\D2\Rectangle::class)]
+#[\PHPUnit\Framework\Attributes\TestDox('phpOMS\tests\Math\Geometry\Shape\D2\RectangleTest: Rectangle shape')]
 final class RectangleTest extends \PHPUnit\Framework\TestCase
 {
-    /**
-     * @testdox The surface can be calculated
-     * @covers phpOMS\Math\Geometry\Shape\D2\Rectangle
-     * @group framework
-     */
+    #[\PHPUnit\Framework\Attributes\Group('framework')]
+    #[\PHPUnit\Framework\Attributes\TestDox('The surface can be calculated')]
     public function testSurface() : void
     {
         self::assertEqualsWithDelta(10, Rectangle::getSurface(5, 2), 0.001);
     }
 
-    /**
-     * @testdox The perimeter can be calculated
-     * @covers phpOMS\Math\Geometry\Shape\D2\Rectangle
-     * @group framework
-     */
+    #[\PHPUnit\Framework\Attributes\Group('framework')]
+    #[\PHPUnit\Framework\Attributes\TestDox('The perimeter can be calculated')]
     public function testPerimeter() : void
     {
         self::assertEqualsWithDelta(10, Rectangle::getPerimeter(2, 3), 0.001);
     }
 
-    /**
-     * @testdox The diagonal can be calculated
-     * @covers phpOMS\Math\Geometry\Shape\D2\Rectangle
-     * @group framework
-     */
+    #[\PHPUnit\Framework\Attributes\Group('framework')]
+    #[\PHPUnit\Framework\Attributes\TestDox('The diagonal can be calculated')]
     public function testDiagonal() : void
     {
         self::assertEqualsWithDelta(32.7, Rectangle::getDiagonal(30, 13), 0.01);

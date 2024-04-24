@@ -2,7 +2,7 @@
 /**
  * Jingga
  *
- * PHP Version 8.1
+ * PHP Version 8.2
  *
  * @package   phpOMS\Message\Http
  * @copyright Dennis Eichhorn
@@ -16,7 +16,6 @@ namespace phpOMS\Message\Http;
 
 use phpOMS\Contract\RenderableInterface;
 use phpOMS\Localization\Localization;
-use phpOMS\Log\FileLogger;
 use phpOMS\Message\ResponseAbstract;
 use phpOMS\System\MimeType;
 use phpOMS\Utils\ArrayUtils;
@@ -190,9 +189,9 @@ final class HttpResponse extends ResponseAbstract implements RenderableInterface
             } elseif ($response === null) {
                 continue;
             } else {
-                FileLogger::getInstance()
+                \phpOMS\Log\FileLogger::getInstance()
                     ->error(
-                        FileLogger::MSG_FULL, [
+                        \phpOMS\Log\FileLogger::MSG_FULL, [
                             'message' => 'Unknown type.',
                             'line'    => __LINE__,
                             'file'    => self::class,

@@ -2,7 +2,7 @@
 /**
  * Jingga
  *
- * PHP Version 8.1
+ * PHP Version 8.2
  *
  * @package   tests
  * @copyright Dennis Eichhorn
@@ -17,28 +17,22 @@ namespace phpOMS\tests\Math\Functions;
 use phpOMS\Math\Functions\Functions;
 
 /**
- * @testdox phpOMS\tests\Math\Functions\FunctionsTest: Various math functions
- *
  * @internal
  */
+#[\PHPUnit\Framework\Attributes\CoversClass(\phpOMS\Math\Functions\Functions::class)]
+#[\PHPUnit\Framework\Attributes\TestDox('phpOMS\tests\Math\Functions\FunctionsTest: Various math functions')]
 final class FunctionsTest extends \PHPUnit\Framework\TestCase
 {
-    /**
-     * @testdox The factorial of a number can be calculated
-     * @covers phpOMS\Math\Functions\Functions
-     * @group framework
-     */
+    #[\PHPUnit\Framework\Attributes\Group('framework')]
+    #[\PHPUnit\Framework\Attributes\TestDox('The factorial of a number can be calculated')]
     public function testFactorial() : void
     {
         self::assertEquals(120, Functions::fact(5));
         self::assertEquals(39916800, Functions::fact(11));
     }
 
-    /**
-     * @testdox The binomial coefficient can be calculated
-     * @covers phpOMS\Math\Functions\Functions
-     * @group framework
-     */
+    #[\PHPUnit\Framework\Attributes\Group('framework')]
+    #[\PHPUnit\Framework\Attributes\TestDox('The binomial coefficient can be calculated')]
     public function testBinomialCoefficient() : void
     {
         self::assertEquals(21, Functions::binomialCoefficient(7, 2));
@@ -46,11 +40,8 @@ final class FunctionsTest extends \PHPUnit\Framework\TestCase
         self::assertEquals(13983816, Functions::binomialCoefficient(49, 6));
     }
 
-    /**
-     * @testdox The ackerman function can be calculated
-     * @covers phpOMS\Math\Functions\Functions
-     * @group framework
-     */
+    #[\PHPUnit\Framework\Attributes\Group('framework')]
+    #[\PHPUnit\Framework\Attributes\TestDox('The ackerman function can be calculated')]
     public function testAckermann() : void
     {
         self::assertEquals(5, Functions::ackermann(2, 1));
@@ -59,11 +50,8 @@ final class FunctionsTest extends \PHPUnit\Framework\TestCase
         self::assertEquals(13, Functions::ackermann(4, 0));
     }
 
-    /**
-     * @testdox The multiplicative inverse module can be calculated
-     * @covers phpOMS\Math\Functions\Functions
-     * @group framework
-     */
+    #[\PHPUnit\Framework\Attributes\Group('framework')]
+    #[\PHPUnit\Framework\Attributes\TestDox('The multiplicative inverse module can be calculated')]
     public function testMultiplicativeInverseModulo() : void
     {
         self::assertEquals(4, Functions::invMod(3, -11));
@@ -71,11 +59,8 @@ final class FunctionsTest extends \PHPUnit\Framework\TestCase
         self::assertEquals(5, Functions::invMod(-10, 17));
     }
 
-    /**
-     * @testdox A number can be checked if it is odd
-     * @covers phpOMS\Math\Functions\Functions
-     * @group framework
-     */
+    #[\PHPUnit\Framework\Attributes\Group('framework')]
+    #[\PHPUnit\Framework\Attributes\TestDox('A number can be checked if it is odd')]
     public function testOdd() : void
     {
         self::assertTrue(Functions::isOdd(3));
@@ -84,11 +69,8 @@ final class FunctionsTest extends \PHPUnit\Framework\TestCase
         self::assertFalse(Functions::isOdd(-4));
     }
 
-    /**
-     * @testdox A number can be checked if it is even
-     * @covers phpOMS\Math\Functions\Functions
-     * @group framework
-     */
+    #[\PHPUnit\Framework\Attributes\Group('framework')]
+    #[\PHPUnit\Framework\Attributes\TestDox('A number can be checked if it is even')]
     public function testEven() : void
     {
         self::assertTrue(Functions::isEven(4));
@@ -97,11 +79,8 @@ final class FunctionsTest extends \PHPUnit\Framework\TestCase
         self::assertFalse(Functions::isEven(-3));
     }
 
-    /**
-     * @testdox The relative number can be calculated on a circular number system (e.g. month in a diverging business year)
-     * @covers phpOMS\Math\Functions\Functions
-     * @group framework
-     */
+    #[\PHPUnit\Framework\Attributes\Group('framework')]
+    #[\PHPUnit\Framework\Attributes\TestDox('The relative number can be calculated on a circular number system (e.g. month in a diverging business year)')]
     public function testCircularPosition() : void
     {
         self::assertEquals(0, Functions::getRelativeDegree(7, 12, 7));
@@ -109,11 +88,8 @@ final class FunctionsTest extends \PHPUnit\Framework\TestCase
         self::assertEquals(11, Functions::getRelativeDegree(6, 12, 7));
     }
 
-    /**
-     * @testdox The error function can be correctly approximated
-     * @covers phpOMS\Math\Functions\Functions
-     * @group framework
-     */
+    #[\PHPUnit\Framework\Attributes\Group('framework')]
+    #[\PHPUnit\Framework\Attributes\TestDox('The error function can be correctly approximated')]
     public function testErf() : void
     {
         self::assertEqualsWithDelta(-0.8427, Functions::getErf(-1), 0.001);
@@ -122,11 +98,8 @@ final class FunctionsTest extends \PHPUnit\Framework\TestCase
         self::assertEqualsWithDelta(0.9988, Functions::getErf(2.3), 0.001);
     }
 
-    /**
-     * @testdox The complementary error function can be correctly approximated
-     * @covers phpOMS\Math\Functions\Functions
-     * @group framework
-     */
+    #[\PHPUnit\Framework\Attributes\Group('framework')]
+    #[\PHPUnit\Framework\Attributes\TestDox('The complementary error function can be correctly approximated')]
     public function testErfc() : void
     {
         self::assertEqualsWithDelta(1.8427, Functions::getErfc(-1), 0.001);
@@ -135,11 +108,8 @@ final class FunctionsTest extends \PHPUnit\Framework\TestCase
         self::assertEqualsWithDelta(2.0, Functions::getErfc(-5), 0.001);
     }
 
-    /**
-     * @testdox The generalized hypergeometric function can be correctly calculated
-     * @covers phpOMS\Math\Functions\Functions
-     * @group framework
-     */
+    #[\PHPUnit\Framework\Attributes\Group('framework')]
+    #[\PHPUnit\Framework\Attributes\TestDox('The generalized hypergeometric function can be correctly calculated')]
     public function testGeneralizedHypergeometricFunction() : void
     {
         self::assertEqualsWithDelta(2.7289353, Functions::generalizedHypergeometricFunction([2, 3], [4], 0.5), 0.001);

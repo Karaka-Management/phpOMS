@@ -2,7 +2,7 @@
 /**
  * Jingga
  *
- * PHP Version 8.1
+ * PHP Version 8.2
  *
  * @package   tests
  * @copyright Dennis Eichhorn
@@ -24,6 +24,20 @@ use phpOMS\Utils\Parser\Spreadsheet\SpreadsheetWriter;
  */
 final class SpreadsheetWriterTest extends \PHPUnit\Framework\TestCase
 {
+    protected function setUp() : void
+    {
+        if (\is_file(__DIR__ . '/data/ExcelMpdf.pdf')) {
+            \unlink(__DIR__ . '/data/ExcelMpdf.pdf');
+        }
+    }
+
+    protected function tearDown() : void
+    {
+        if (\is_file(__DIR__ . '/data/ExcelMpdf.pdf')) {
+            \unlink(__DIR__ . '/data/ExcelMpdf.pdf');
+        }
+    }
+
     public function testParsing() : void
     {
         $sheet  = IOFactory::load(__DIR__ . '/data/Excel.xlsx');

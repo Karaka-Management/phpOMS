@@ -2,7 +2,7 @@
 /**
  * Jingga
  *
- * PHP Version 8.1
+ * PHP Version 8.2
  *
  * @package   tests
  * @copyright Dennis Eichhorn
@@ -19,36 +19,30 @@ require_once __DIR__ . '/../Autoloader.php';
 use phpOMS\Log\LogLevel;
 
 /**
- * @testdox phpOMS\tests\Log\LogLevelTest: Log level enum
  * @internal
  */
+#[\PHPUnit\Framework\Attributes\TestDox('phpOMS\tests\Log\LogLevelTest: Log level enum')]
 final class LogLevelTest extends \PHPUnit\Framework\TestCase
 {
-    /**
-     * @testdox The log level enum has the correct number of log levels
-     * @group framework
-     * @coversNothing
-     */
+    #[\PHPUnit\Framework\Attributes\Group('framework')]
+    #[\PHPUnit\Framework\Attributes\TestDox('The log level enum has the correct number of log levels')]
+    #[\PHPUnit\Framework\Attributes\CoversNothing]
     public function testEnumCount() : void
     {
         self::assertCount(8, LogLevel::getConstants());
     }
 
-    /**
-     * @testdox The log level enum has only unique values
-     * @group framework
-     * @coversNothing
-     */
+    #[\PHPUnit\Framework\Attributes\Group('framework')]
+    #[\PHPUnit\Framework\Attributes\TestDox('The log level enum has only unique values')]
+    #[\PHPUnit\Framework\Attributes\CoversNothing]
     public function testUnique() : void
     {
         self::assertEquals(LogLevel::getConstants(), \array_unique(LogLevel::getConstants()));
     }
 
-    /**
-     * @testdox The log level enum has the correct values
-     * @group framework
-     * @coversNothing
-     */
+    #[\PHPUnit\Framework\Attributes\Group('framework')]
+    #[\PHPUnit\Framework\Attributes\TestDox('The log level enum has the correct values')]
+    #[\PHPUnit\Framework\Attributes\CoversNothing]
     public function testEnums() : void
     {
         self::assertEquals('emergency', LogLevel::EMERGENCY);

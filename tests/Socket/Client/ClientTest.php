@@ -2,7 +2,7 @@
 /**
  * Jingga
  *
- * PHP Version 8.1
+ * PHP Version 8.2
  *
  * @package   tests
  * @copyright Dennis Eichhorn
@@ -30,6 +30,7 @@ use phpOMS\Socket\Client\Client;
 /**
  * @internal
  */
+#[\PHPUnit\Framework\Attributes\CoversClass(\phpOMS\Socket\Client\Client::class)]
 final class ClientTest extends \PHPUnit\Framework\TestCase
 {
     protected $app;
@@ -79,10 +80,7 @@ final class ClientTest extends \PHPUnit\Framework\TestCase
         \unlink(__DIR__ . '/server.log');
     }
 
-    /**
-     * @covers phpOMS\Socket\Client\Client
-     * @group framework
-     */
+    #[\PHPUnit\Framework\Attributes\Group('framework')]
     public function testSetupTCPSocket() : void
     {
         self::markTestIncomplete();

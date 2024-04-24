@@ -2,7 +2,7 @@
 /**
  * Jingga
  *
- * PHP Version 8.1
+ * PHP Version 8.2
  *
  * @package   tests
  * @copyright Dennis Eichhorn
@@ -19,10 +19,10 @@ require_once __DIR__ . '/../Autoloader.php';
 use phpOMS\Message\ResponseAbstract;
 
 /**
- * @testdox phpOMS\tests\Message\ResponseAbstractTest: Abstract response
- *
  * @internal
  */
+#[\PHPUnit\Framework\Attributes\CoversClass(\phpOMS\Message\ResponseAbstract::class)]
+#[\PHPUnit\Framework\Attributes\TestDox('phpOMS\tests\Message\ResponseAbstractTest: Abstract response')]
 final class ResponseAbstractTest extends \PHPUnit\Framework\TestCase
 {
     protected $response = null;
@@ -46,22 +46,16 @@ final class ResponseAbstractTest extends \PHPUnit\Framework\TestCase
         };
     }
 
-    /**
-     * @testdox The response has the expected default values after initialization
-     * @covers phpOMS\Message\ResponseAbstract
-     * @group framework
-     */
+    #[\PHPUnit\Framework\Attributes\Group('framework')]
+    #[\PHPUnit\Framework\Attributes\TestDox('The response has the expected default values after initialization')]
     public function testDefault() : void
     {
         self::assertNull($this->response->getData('asdf'));
         self::assertEquals('', $this->response->getBody());
     }
 
-    /**
-     * @testdox The response can be json serialized
-     * @covers phpOMS\Message\ResponseAbstract
-     * @group framework
-     */
+    #[\PHPUnit\Framework\Attributes\Group('framework')]
+    #[\PHPUnit\Framework\Attributes\TestDox('The response can be json serialized')]
     public function testJsonSerialize() : void
     {
         self::assertEquals([1], $this->response->jsonSerialize());
@@ -73,22 +67,16 @@ final class ResponseAbstractTest extends \PHPUnit\Framework\TestCase
         self::assertEquals(['asdf' => false], $this->response->getData());
     }
 
-    /**
-     * @testdox Data can be set and returned for the response
-     * @covers phpOMS\Message\ResponseAbstract
-     * @group framework
-     */
+    #[\PHPUnit\Framework\Attributes\Group('framework')]
+    #[\PHPUnit\Framework\Attributes\TestDox('Data can be set and returned for the response')]
     public function testDataInputOutput() : void
     {
         $this->response->set('asdf', false);
         self::assertFalse($this->response->getData('asdf'));
     }
 
-    /**
-     * @testdox Data can be set and returned for the response
-     * @covers phpOMS\Message\ResponseAbstract
-     * @group framework
-     */
+    #[\PHPUnit\Framework\Attributes\Group('framework')]
+    #[\PHPUnit\Framework\Attributes\TestDox('Data can be set and returned for the response')]
     public function testDataStringInputOutput() : void
     {
         $this->response->set('asdf', 1);
@@ -96,11 +84,8 @@ final class ResponseAbstractTest extends \PHPUnit\Framework\TestCase
         self::assertEquals('1', $this->response->getData('asdf', 'string'));
     }
 
-    /**
-     * @testdox Data can be set and returned for the response
-     * @covers phpOMS\Message\ResponseAbstract
-     * @group framework
-     */
+    #[\PHPUnit\Framework\Attributes\Group('framework')]
+    #[\PHPUnit\Framework\Attributes\TestDox('Data can be set and returned for the response')]
     public function testDataBoolInputOutput() : void
     {
         $this->response->set('asdf', 1);
@@ -108,11 +93,8 @@ final class ResponseAbstractTest extends \PHPUnit\Framework\TestCase
         self::assertTrue($this->response->getData('asdf', 'bool'));
     }
 
-    /**
-     * @testdox Data can be set and returned for the response
-     * @covers phpOMS\Message\ResponseAbstract
-     * @group framework
-     */
+    #[\PHPUnit\Framework\Attributes\Group('framework')]
+    #[\PHPUnit\Framework\Attributes\TestDox('Data can be set and returned for the response')]
     public function testDataFloatInputOutput() : void
     {
         $this->response->set('asdf', 1);
@@ -120,20 +102,15 @@ final class ResponseAbstractTest extends \PHPUnit\Framework\TestCase
         self::assertEquals(1.0, $this->response->getData('asdf', 'float'));
     }
 
-    /**
-     * @group framework
-     */
+    #[\PHPUnit\Framework\Attributes\Group('framework')]
     public function testDataJsonInputOutput() : void
     {
         $this->response->set('asdf', '[1,2,3]');
         self::assertEquals([1,2,3], $this->response->getDataJson('asdf'));
     }
 
-    /**
-     * @testdox Data can be set and returned for the response
-     * @covers phpOMS\Message\ResponseAbstract
-     * @group framework
-     */
+    #[\PHPUnit\Framework\Attributes\Group('framework')]
+    #[\PHPUnit\Framework\Attributes\TestDox('Data can be set and returned for the response')]
     public function testDataDateTimeInputOutput() : void
     {
         $this->response->set('asdf', '2023-01-01');
@@ -147,11 +124,8 @@ final class ResponseAbstractTest extends \PHPUnit\Framework\TestCase
         self::assertEquals(1, $this->response->getData('asdf', 'invalid'));
     }
 
-    /**
-     * @testdox Data can be set and returned for the response
-     * @covers phpOMS\Message\ResponseAbstract
-     * @group framework
-     */
+    #[\PHPUnit\Framework\Attributes\Group('framework')]
+    #[\PHPUnit\Framework\Attributes\TestDox('Data can be set and returned for the response')]
     public function testInvalidDataTypeInputOutput() : void
     {
         self::assertNull($this->response->getDataString('a'));

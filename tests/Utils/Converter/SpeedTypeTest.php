@@ -2,7 +2,7 @@
 /**
  * Jingga
  *
- * PHP Version 8.1
+ * PHP Version 8.2
  *
  * @package   tests
  * @copyright Dennis Eichhorn
@@ -21,28 +21,22 @@ use phpOMS\Utils\Converter\SpeedType;
  */
 final class SpeedTypeTest extends \PHPUnit\Framework\TestCase
 {
-    /**
-     * @group framework
-     * @coversNothing
-     */
+    #[\PHPUnit\Framework\Attributes\Group('framework')]
+    #[\PHPUnit\Framework\Attributes\CoversNothing]
     public function testEnumCount() : void
     {
         self::assertCount(34, SpeedType::getConstants());
     }
 
-    /**
-     * @group framework
-     * @coversNothing
-     */
+    #[\PHPUnit\Framework\Attributes\Group('framework')]
+    #[\PHPUnit\Framework\Attributes\CoversNothing]
     public function testUnique() : void
     {
         self::assertEquals(SpeedType::getConstants(), \array_unique(SpeedType::getConstants()));
     }
 
-    /**
-     * @group framework
-     * @coversNothing
-     */
+    #[\PHPUnit\Framework\Attributes\Group('framework')]
+    #[\PHPUnit\Framework\Attributes\CoversNothing]
     public function testEnums() : void
     {
         self::assertEquals('mpd', SpeedType::MILES_PER_DAY);

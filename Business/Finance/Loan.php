@@ -2,7 +2,7 @@
 /**
  * Jingga
  *
- * PHP Version 8.1
+ * PHP Version 8.2
  *
  * @package   phpOMS\Business\Finance
  * @copyright Dennis Eichhorn
@@ -132,5 +132,90 @@ final class Loan
     public static function getLoanToValueRatio(float $loan, float $collateral) : float
     {
         return $loan / $collateral;
+    }
+
+    /**
+     * Calculate the payment for amortization loans (interest + principal)
+     *
+     * @param float $loan     Loan amount
+     * @param float $r        Rate
+     * @param int   $duration Loan duration
+     * @param int   $interval Payment interval
+     *
+     * @return float
+     *
+     * @since 1.0.0
+     */
+    public static function getAmortizationLoanPayment(float $loan, float $r, int $duration, int $interval) : float
+    {
+        return $loan * (($r / $interval * (1.0 + $r / $interval) / $duration) / ((1.0 + $r / $interval) / $duration) - 1);
+    }
+
+    /**
+     * Calculate the interest for amortization loans
+     *
+     * @param float $loan     Loan amount
+     * @param float $r        Rate
+     * @param int   $interval Payment interval
+     *
+     * @return float
+     *
+     * @since 1.0.0
+     */
+    public static function getAmortizationLoanInterest(float $loan, float $r, int $interval) : float
+    {
+        return $loan * $r / $interval;
+    }
+
+    /**
+     * Calculate the principal for amortization loans
+     *
+     * @param float $payment  Total payment
+     * @param float $interest Interest payment
+     *
+     * @return float
+     *
+     * @since 1.0.0
+     */
+    public static function getAmortizationPrincipalPayment(float $payment, float $interest) : float
+    {
+        return $payment - $interest;
+    }
+
+    /**
+     * Calculate schedule for amortization loan
+     *
+     * @param float $loan     Loan amount
+     * @param float $r        Borrowing rate (annual)
+     * @param int   $duration Loan duration in months
+     * @param int   $interval Payment interval (usually 12 = every month)
+     */
+    public static function getAmortizationSchedule(float $loan, float $r, int $duration, int $interval) : array
+    {
+        $schedule = [0 => ['loan' => $loan, 'total' => 0.0, 'interest' => 0.0, 'principal' => 0.0]];
+        $previous = \reset($schedule);
+
+        while ($previous['loan'] > 0.0) {
+            $new = [
+                'loan'      => 0.0,
+                'total'     => 0.0,
+                'interest'  => 0.0,
+                'principal' => 0.0,
+            ];
+
+            $new['total']     = \round(self::getAmortizationLoanPayment($previous['loan'], $r, $duration, $interval), 2);
+            $new['interest']  = \round(self::getAmortizationLoanInterest($previous['loan'], $r, $interval), 2);
+            $new['principal'] = \round($new['total'] - $new['interest'], 2);
+            $new['loan']      = \max(0, \round($previous['loan'] - $new['principal'], 2));
+
+            if ($new['loan'] < 0.01) {
+                $new['loan'] = 0.0;
+            }
+
+            $schedule[] = $new;
+            $previous   = $new;
+        }
+
+        return $schedule;
     }
 }

@@ -2,7 +2,7 @@
 /**
  * Jingga
  *
- * PHP Version 8.1
+ * PHP Version 8.2
  *
  * @package   tests
  * @copyright Dennis Eichhorn
@@ -20,17 +20,14 @@ use phpOMS\Algorithm\PathFinding\HeuristicType;
 require_once __DIR__ . '/../../Autoloader.php';
 
 /**
- * @testdox phpOMS\tests\Algorithm\PathFinding\HeuristicTest: Heuristic for path finding
- *
  * @internal
  */
+#[\PHPUnit\Framework\Attributes\CoversClass(\phpOMS\Algorithm\PathFinding\Heuristic::class)]
+#[\PHPUnit\Framework\Attributes\TestDox('phpOMS\tests\Algorithm\PathFinding\HeuristicTest: Heuristic for path finding')]
 final class HeuristicTest extends \PHPUnit\Framework\TestCase
 {
-    /**
-     * @testdox The heuristics return the correct metric results
-     * @covers phpOMS\Algorithm\PathFinding\Heuristic
-     * @group framework
-     */
+    #[\PHPUnit\Framework\Attributes\Group('framework')]
+    #[\PHPUnit\Framework\Attributes\TestDox('The heuristics return the correct metric results')]
     public function testHeuristics() : void
     {
         self::assertEquals(

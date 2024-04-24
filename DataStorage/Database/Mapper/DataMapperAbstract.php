@@ -2,7 +2,7 @@
 /**
  * Jingga
  *
- * PHP Version 8.1
+ * PHP Version 8.2
  *
  * @package   phpOMS\DataStorage\Database\Mapper
  * @copyright Dennis Eichhorn
@@ -400,7 +400,7 @@ abstract class DataMapperAbstract
      * @param string $logic     Comparison logic (e.g. =, in, ...)
      * @param string $connector Filter connector (e.g. AND, OR, ...)
      *
-     * @return self
+     * @return static
      *
      * @since 1.0.0
      */

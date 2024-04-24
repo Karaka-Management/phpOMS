@@ -2,7 +2,7 @@
 /**
  * Jingga
  *
- * PHP Version 8.1
+ * PHP Version 8.2
  *
  * @package   tests
  * @copyright Dennis Eichhorn
@@ -17,17 +17,14 @@ namespace phpOMS\tests\Algorithm\JobScheduling;
 use phpOMS\Algorithm\JobScheduling\Job;
 
 /**
- * @testdox phpOMS\tests\Algorithm\JobScheduling\JobTest: Default job for the job scheduling
- *
  * @internal
  */
+#[\PHPUnit\Framework\Attributes\CoversClass(\phpOMS\Algorithm\JobScheduling\Job::class)]
+#[\PHPUnit\Framework\Attributes\TestDox('phpOMS\tests\Algorithm\JobScheduling\JobTest: Default job for the job scheduling')]
 final class JobTest extends \PHPUnit\Framework\TestCase
 {
-    /**
-     * @testdox The job has the expected values after initialization
-     * @covers phpOMS\Algorithm\JobScheduling\Job
-     * @group framework
-     */
+    #[\PHPUnit\Framework\Attributes\Group('framework')]
+    #[\PHPUnit\Framework\Attributes\TestDox('The job has the expected values after initialization')]
     public function testDefault() : void
     {
         $item = new Job(3.0, new \DateTime('now'), null, 'abc');

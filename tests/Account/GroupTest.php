@@ -2,7 +2,7 @@
 /**
  * Jingga
  *
- * PHP Version 8.1
+ * PHP Version 8.2
  *
  * @package   tests
  * @copyright Dennis Eichhorn
@@ -22,17 +22,16 @@ use phpOMS\Account\PermissionType;
 require_once __DIR__ . '/../Autoloader.php';
 
 /**
- * @testdox phpOMS\tests\Account\Group: Base group representation
- *
  * @internal
  */
+#[\PHPUnit\Framework\Attributes\CoversClass(\phpOMS\Account\Group::class)]
+#[\PHPUnit\Framework\Attributes\TestDox('phpOMS\tests\Account\Group: Base group representation')]
 final class GroupTest extends \PHPUnit\Framework\TestCase
 {
     /**
-     * @testdox The group has the expected default values after initialization
-     * @covers phpOMS\Account\Group<extended>
      * @group framework
      */
+    #[\PHPUnit\Framework\Attributes\TestDox('The group has the expected default values after initialization')]
     public function testDefault() : void
     {
         $group = new Group();
@@ -58,10 +57,9 @@ final class GroupTest extends \PHPUnit\Framework\TestCase
     }
 
     /**
-     * @testdox The group name and description can be set and retrieved correctly
-     * @covers phpOMS\Account\Group<extended>
      * @group framework
      */
+    #[\PHPUnit\Framework\Attributes\TestDox('The group name and description can be set and retrieved correctly')]
     public function testSetAndGetGroupNameDescription() : void
     {
         $group = new Group();
@@ -74,10 +72,9 @@ final class GroupTest extends \PHPUnit\Framework\TestCase
     }
 
     /**
-     * @testdox Group permissions can be added
-     * @covers phpOMS\Account\Group<extended>
      * @group framework
      */
+    #[\PHPUnit\Framework\Attributes\TestDox('Group permissions can be added')]
     public function testPermissionAdd() : void
     {
         $group = new Group();
@@ -105,10 +102,9 @@ final class GroupTest extends \PHPUnit\Framework\TestCase
     }
 
     /**
-     * @testdox Group permissions can be checked for existence
-     * @covers phpOMS\Account\Group<extended>
      * @group framework
      */
+    #[\PHPUnit\Framework\Attributes\TestDox('Group permissions can be checked for existence')]
     public function testPermissionExists() : void
     {
         $group = new Group();
@@ -121,10 +117,9 @@ final class GroupTest extends \PHPUnit\Framework\TestCase
     }
 
     /**
-     * @testdox Group permissions can be removed
-     * @covers phpOMS\Account\Group<extended>
      * @group framework
      */
+    #[\PHPUnit\Framework\Attributes\TestDox('Group permissions can be removed')]
     public function testPermissionRemove() : void
     {
         $group = new Group();

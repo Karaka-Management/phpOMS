@@ -2,7 +2,7 @@
 /**
  * Jingga
  *
- * PHP Version 8.1
+ * PHP Version 8.2
  *
  * @package   tests
  * @copyright Dennis Eichhorn
@@ -19,26 +19,21 @@ require_once __DIR__ . '/../Autoloader.php';
 use phpOMS\Account\NullGroup;
 
 /**
- * @testdox phpOMS\tests\Account\NullGroup: Null group
  * @internal
  */
+#[\PHPUnit\Framework\Attributes\CoversClass(\phpOMS\Account\NullGroup::class)]
+#[\PHPUnit\Framework\Attributes\TestDox('phpOMS\tests\Account\NullGroup: Null group')]
 final class NullGroupTest extends \PHPUnit\Framework\TestCase
 {
-    /**
-     * @testdox The null group is an instance of the group class
-     * @covers phpOMS\Account\NullGroup
-     * @group framework
-     */
+    #[\PHPUnit\Framework\Attributes\Group('framework')]
+    #[\PHPUnit\Framework\Attributes\TestDox('The null group is an instance of the group class')]
     public function testNull() : void
     {
         self::assertInstanceOf('\phpOMS\Account\Group', new NullGroup());
     }
 
-    /**
-     * @testdox The null group can get initialized with an id
-     * @covers phpOMS\Account\NullGroup
-     * @group framework
-     */
+    #[\PHPUnit\Framework\Attributes\Group('framework')]
+    #[\PHPUnit\Framework\Attributes\TestDox('The null group can get initialized with an id')]
     public function testId() : void
     {
         $null = new NullGroup(2);

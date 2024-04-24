@@ -2,7 +2,7 @@
 /**
  * Jingga
  *
- * PHP Version 8.1
+ * PHP Version 8.2
  *
  * @package   tests
  * @copyright Dennis Eichhorn
@@ -19,12 +19,10 @@ use phpOMS\Stdlib\Base\Exception\InvalidEnumName;
 /**
  * @internal
  */
+#[\PHPUnit\Framework\Attributes\CoversClass(\phpOMS\Stdlib\Base\Exception\InvalidEnumName::class)]
 final class InvalidEnumNameTest extends \PHPUnit\Framework\TestCase
 {
-    /**
-     * @covers phpOMS\Stdlib\Base\Exception\InvalidEnumName
-     * @group framework
-     */
+    #[\PHPUnit\Framework\Attributes\Group('framework')]
     public function testException() : void
     {
         self::assertInstanceOf(\UnexpectedValueException::class, new InvalidEnumName(''));

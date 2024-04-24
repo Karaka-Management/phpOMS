@@ -2,7 +2,7 @@
 /**
  * Jingga
  *
- * PHP Version 8.1
+ * PHP Version 8.2
  *
  * @package   phpOMS\Utils
  * @copyright Dennis Eichhorn
@@ -70,5 +70,54 @@ final class ColorUtils
         $i += (255 & $rgb['b']);
 
         return $i;
+    }
+
+    /**
+     * Calculate the color distance
+     *
+     * Important: This is not how humans perceive color differences
+     *
+     * @param array $rgb1 RGB 1
+     * @param array $rgb2 RGB 2
+     *
+     * @return float
+     *
+     * @see approximateColorDistance
+     *
+     * @since 1.0.0
+     */
+    public static function colorDistance(array $rgb1, array $rgb2) : float
+    {
+        $r = ($rgb2['r'] - $rgb1['r']);
+        $g = ($rgb2['g'] - $rgb1['g']);
+        $b = ($rgb2['b'] - $rgb1['b']);
+
+        return \sqrt($r * $r + $g * $g + $b * $b);
+    }
+
+    /**
+     * Approximate the perceived color distance
+     *
+     * @param array $rgb1 RGB 1
+     * @param array $rgb2 RGB 2
+     *
+     * @return float
+     *
+     * @see https://www.compuphase.com/cmetric.htm
+     *
+     * @since 1.0.0
+     */
+    public static function approximateColorDistance(array $rgb1, array $rgb2) : float
+    {
+        $rMean = (int) (($rgb1['r'] + $rgb2['r']) / 2);
+        $r     = ($rgb2['r'] - $rgb1['r']);
+        $g     = ($rgb2['g'] - $rgb1['g']);
+        $b     = ($rgb2['b'] - $rgb1['b']);
+
+        return \sqrt(
+            (((512 + $rMean) * $r * $r) >> 8)
+            + 4 * $g * $g
+            + (((767 - $rMean) * $b * $b) >> 8)
+        );
     }
 }

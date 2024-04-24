@@ -2,7 +2,7 @@
 /**
  * Jingga
  *
- * PHP Version 8.1
+ * PHP Version 8.2
  *
  * @package   tests
  * @copyright Dennis Eichhorn
@@ -19,16 +19,13 @@ use phpOMS\Algorithm\Graph\DependencyResolver;
 require_once __DIR__ . '/../../Autoloader.php';
 
 /**
- * @testdox phpOMS\tests\Algorithm\Graph\DependencyResolverTest:
- *
  * @internal
  */
+#[\PHPUnit\Framework\Attributes\CoversClass(\phpOMS\Algorithm\Graph\DependencyResolver::class)]
+#[\PHPUnit\Framework\Attributes\TestDox('phpOMS\tests\Algorithm\Graph\DependencyResolverTest:')]
 final class DependencyResolverTest extends \PHPUnit\Framework\TestCase
 {
-    /**
-     * @covers phpOMS\Algorithm\Graph\DependencyResolver
-     * @group framework
-     */
+    #[\PHPUnit\Framework\Attributes\Group('framework')]
     public function testResolveCircular() : void
     {
         self::assertNull(
@@ -36,10 +33,7 @@ final class DependencyResolverTest extends \PHPUnit\Framework\TestCase
         );
     }
 
-    /**
-     * @covers phpOMS\Algorithm\Graph\DependencyResolver
-     * @group framework
-     */
+    #[\PHPUnit\Framework\Attributes\Group('framework')]
     public function testResolve() : void
     {
         self::assertEquals(

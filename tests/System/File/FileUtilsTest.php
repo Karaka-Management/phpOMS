@@ -2,7 +2,7 @@
 /**
  * Jingga
  *
- * PHP Version 8.1
+ * PHP Version 8.2
  *
  * @package   tests
  * @copyright Dennis Eichhorn
@@ -18,17 +18,14 @@ use phpOMS\System\File\ExtensionType;
 use phpOMS\System\File\FileUtils;
 
 /**
- * @testdox phpOMS\tests\System\File\FileUtilsTest: File utilities
- *
  * @internal
  */
+#[\PHPUnit\Framework\Attributes\CoversClass(\phpOMS\System\File\FileUtils::class)]
+#[\PHPUnit\Framework\Attributes\TestDox('phpOMS\tests\System\File\FileUtilsTest: File utilities')]
 final class FileUtilsTest extends \PHPUnit\Framework\TestCase
 {
-    /**
-     * @testdox File extensions can be categorized
-     * @covers phpOMS\System\File\FileUtils
-     * @group framework
-     */
+    #[\PHPUnit\Framework\Attributes\Group('framework')]
+    #[\PHPUnit\Framework\Attributes\TestDox('File extensions can be categorized')]
     public function testExtension() : void
     {
         self::assertEquals(ExtensionType::UNKNOWN, FileUtils::getExtensionType('test'));
@@ -47,32 +44,23 @@ final class FileUtilsTest extends \PHPUnit\Framework\TestCase
         self::assertEquals(ExtensionType::DIRECTORY, FileUtils::getExtensionType('/'));
     }
 
-    /**
-     * @testdox A relative path can be turned into an absolute path
-     * @covers phpOMS\System\File\FileUtils
-     * @group framework
-     */
+    #[\PHPUnit\Framework\Attributes\Group('framework')]
+    #[\PHPUnit\Framework\Attributes\TestDox('A relative path can be turned into an absolute path')]
     public function testAbsolute() : void
     {
         self::assertEquals(\realpath(__DIR__ . '/..'), FileUtils::absolute(__DIR__ . '/..'));
         self::assertEquals('/test/ative', FileUtils::absolute('/test/path/for/../rel/../../ative'));
     }
 
-    /**
-     * @testdox Permissions can be turned into octal values
-     * @covers phpOMS\System\File\FileUtils
-     * @group framework
-     */
+    #[\PHPUnit\Framework\Attributes\Group('framework')]
+    #[\PHPUnit\Framework\Attributes\TestDox('Permissions can be turned into octal values')]
     public function testPermissionToOctal() : void
     {
         self::assertEquals(0742, FileUtils::permissionToOctal('rwxr---w-'));
     }
 
-    /**
-     * @testdox The encoding of a file can be changed
-     * @covers phpOMS\System\File\FileUtils
-     * @group framework
-     */
+    #[\PHPUnit\Framework\Attributes\Group('framework')]
+    #[\PHPUnit\Framework\Attributes\TestDox('The encoding of a file can be changed')]
     public function testChangeFileEncoding() : void
     {
         if (\is_file(__DIR__ . '/UTF-8.txt')) {
@@ -90,11 +78,8 @@ final class FileUtilsTest extends \PHPUnit\Framework\TestCase
         }
     }
 
-    /**
-     * @testdox The file information can be resolved from a path
-     * @covers phpOMS\System\File\FileUtils
-     * @group framework
-     */
+    #[\PHPUnit\Framework\Attributes\Group('framework')]
+    #[\PHPUnit\Framework\Attributes\TestDox('The file information can be resolved from a path')]
     public function testPathInfo() : void
     {
         self::assertEquals(__DIR__, FileUtils::mb_pathinfo(__DIR__ . '/FileUtilsTest.php', \PATHINFO_DIRNAME));

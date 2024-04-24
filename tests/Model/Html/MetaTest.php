@@ -2,7 +2,7 @@
 /**
  * Jingga
  *
- * PHP Version 8.1
+ * PHP Version 8.2
  *
  * @package   tests
  * @copyright Dennis Eichhorn
@@ -17,10 +17,10 @@ namespace phpOMS\tests\Model\Html;
 use phpOMS\Model\Html\Meta;
 
 /**
- * @testdox phpOMS\tests\Model\Html\MetaTest: Html meta data
- *
  * @internal
  */
+#[\PHPUnit\Framework\Attributes\CoversClass(\phpOMS\Model\Html\Meta::class)]
+#[\PHPUnit\Framework\Attributes\TestDox('phpOMS\tests\Model\Html\MetaTest: Html meta data')]
 final class MetaTest extends \PHPUnit\Framework\TestCase
 {
     protected Meta $meta;
@@ -33,11 +33,8 @@ final class MetaTest extends \PHPUnit\Framework\TestCase
         $this->meta = new Meta();
     }
 
-    /**
-     * @testdox The meta data has the expected default values after initialization
-     * @covers phpOMS\Model\Html\Meta
-     * @group framework
-     */
+    #[\PHPUnit\Framework\Attributes\Group('framework')]
+    #[\PHPUnit\Framework\Attributes\TestDox('The meta data has the expected default values after initialization')]
     public function testDefault() : void
     {
         self::assertEquals('', $this->meta->description);
@@ -50,88 +47,64 @@ final class MetaTest extends \PHPUnit\Framework\TestCase
         self::assertEquals('<meta name="generator" content="Karaka">', $this->meta->render());
     }
 
-    /**
-     * @testdox A keyword can be added and returned
-     * @covers phpOMS\Model\Html\Meta
-     * @group framework
-     */
+    #[\PHPUnit\Framework\Attributes\Group('framework')]
+    #[\PHPUnit\Framework\Attributes\TestDox('A keyword can be added and returned')]
     public function testKeywordInputOutput() : void
     {
         $this->meta->addKeyword('orange');
         self::assertEquals(['orange'], $this->meta->getKeywords());
     }
 
-    /**
-     * @testdox The author can be set and returned
-     * @covers phpOMS\Model\Html\Meta
-     * @group framework
-     */
+    #[\PHPUnit\Framework\Attributes\Group('framework')]
+    #[\PHPUnit\Framework\Attributes\TestDox('The author can be set and returned')]
     public function testAuthorInputOutput() : void
     {
         $this->meta->author = 'oms';
         self::assertEquals('oms', $this->meta->author);
     }
 
-    /**
-     * @testdox The charset can be set and returned
-     * @covers phpOMS\Model\Html\Meta
-     * @group framework
-     */
+    #[\PHPUnit\Framework\Attributes\Group('framework')]
+    #[\PHPUnit\Framework\Attributes\TestDox('The charset can be set and returned')]
     public function testCharsetInputOutput() : void
     {
         $this->meta->setCharset('utf-8');
         self::assertEquals('utf-8', $this->meta->getCharset());
     }
 
-    /**
-     * @testdox The description can be set and returned
-     * @covers phpOMS\Model\Html\Meta
-     * @group framework
-     */
+    #[\PHPUnit\Framework\Attributes\Group('framework')]
+    #[\PHPUnit\Framework\Attributes\TestDox('The description can be set and returned')]
     public function testDescriptionInputOutput() : void
     {
         $this->meta->description = 'some description';
         self::assertEquals('some description', $this->meta->description);
     }
 
-    /**
-     * @testdox A property can be set and returned
-     * @covers phpOMS\Model\Html\Meta
-     * @group framework
-     */
+    #[\PHPUnit\Framework\Attributes\Group('framework')]
+    #[\PHPUnit\Framework\Attributes\TestDox('A property can be set and returned')]
     public function testPropertyInputOutput() : void
     {
         $this->meta->setProperty('property', 'test property');
         self::assertEquals('test property', $this->meta->getProperty('property'));
     }
 
-    /**
-     * @testdox A itemprop can be set and returned
-     * @covers phpOMS\Model\Html\Meta
-     * @group framework
-     */
+    #[\PHPUnit\Framework\Attributes\Group('framework')]
+    #[\PHPUnit\Framework\Attributes\TestDox('A itemprop can be set and returned')]
     public function testItempropInputOutput() : void
     {
         $this->meta->setItemprop('itemprop', 'test itemprop');
         self::assertEquals('test itemprop', $this->meta->getItemprop('itemprop'));
     }
 
-    /**
-     * @testdox A name can be set and returned
-     * @covers phpOMS\Model\Html\Meta
-     * @group framework
-     */
+    #[\PHPUnit\Framework\Attributes\Group('framework')]
+    #[\PHPUnit\Framework\Attributes\TestDox('A name can be set and returned')]
     public function testNameInputOutput() : void
     {
         $this->meta->setName('title', 'test title');
         self::assertEquals('test title', $this->meta->getName('title'));
     }
 
-    /**
-     * @testdox The meta data can be rendered
-     * @covers phpOMS\Model\Html\Meta
-     * @group framework
-     */
+    #[\PHPUnit\Framework\Attributes\Group('framework')]
+    #[\PHPUnit\Framework\Attributes\TestDox('The meta data can be rendered')]
     public function testRender() : void
     {
         $this->meta->addKeyword('orange');

@@ -2,7 +2,7 @@
 /**
  * Jingga
  *
- * PHP Version 8.1
+ * PHP Version 8.2
  *
  * @package   phpOMS\Algorithm\Clustering
  * @copyright Dennis Eichhorn
@@ -46,7 +46,7 @@ final class Birch implements ClusteringInterface
     /**
      * {@inheritdoc}
      */
-    public function cluster(PointInterface $point) : ?PointInterface
+    public function cluster(Point $point) : ?Point
     {
         return null;
     }

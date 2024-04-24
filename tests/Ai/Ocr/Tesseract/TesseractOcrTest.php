@@ -2,7 +2,7 @@
 /**
  * Jingga
  *
- * PHP Version 8.1
+ * PHP Version 8.2
  *
  * @package   tests
  * @copyright Dennis Eichhorn
@@ -23,6 +23,7 @@ use phpOMS\System\File\PathException;
 /**
  * @internal
  */
+#[\PHPUnit\Framework\Attributes\CoversClass(\phpOMS\Ai\Ocr\Tesseract\TesseractOcr::class)]
 final class TesseractOcrTest extends \PHPUnit\Framework\TestCase
 {
     /**
@@ -49,10 +50,7 @@ final class TesseractOcrTest extends \PHPUnit\Framework\TestCase
         echo 'Match2: ' . $m2 . " \n";
     }
 
-    /**
-     * @covers phpOMS\Ai\Ocr\Tesseract\TesseractOcr
-     * @group framework
-     */
+    #[\PHPUnit\Framework\Attributes\Group('framework')]
     public function testOcrBasic() : void
     {
         $ocr = new TesseractOcr();
@@ -75,10 +73,7 @@ final class TesseractOcrTest extends \PHPUnit\Framework\TestCase
         TesseractOcr::setBin('/invalid/path');
     }
 
-    /**
-     * @covers phpOMS\Ai\Ocr\Tesseract\TesseractOcr
-     * @group framework
-     */
+    #[\PHPUnit\Framework\Attributes\Group('framework')]
     public function testOcrWithThresholding() : void
     {
         $ocr = new TesseractOcr();
@@ -99,7 +94,7 @@ final class TesseractOcrTest extends \PHPUnit\Framework\TestCase
     }
 
     /**
-     * @covers phpOMS\Ai\Ocr\Tesseract\TesseractOcr
+     * @covers \phpOMS\Ai\Ocr\Tesseract\TesseractOcr
      * @group framework
      */
     /*
@@ -135,7 +130,7 @@ final class TesseractOcrTest extends \PHPUnit\Framework\TestCase
     */
 
     /**
-     * @covers phpOMS\Ai\Ocr\Tesseract\TesseractOcr
+     * @covers \phpOMS\Ai\Ocr\Tesseract\TesseractOcr
      * @group framework
      */
     /*

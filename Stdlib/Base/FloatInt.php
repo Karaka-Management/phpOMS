@@ -2,7 +2,7 @@
 /**
  * Jingga
  *
- * PHP Version 8.1
+ * PHP Version 8.2
  *
  * @package   phpOMS\Stdlib
  * @copyright Dennis Eichhorn
@@ -285,7 +285,7 @@ class FloatInt implements SerializableInterface
     }
 
     /**
-     * Mult.
+     * Multiply.
      *
      * @param int|float $value Value to multiply with
      *
@@ -347,7 +347,7 @@ class FloatInt implements SerializableInterface
     }
 
     /**
-     * Searialze.
+     * Serialize.
      *
      * @return string
      *

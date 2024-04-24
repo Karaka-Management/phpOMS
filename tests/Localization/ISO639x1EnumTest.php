@@ -2,7 +2,7 @@
 /**
  * Jingga
  *
- * PHP Version 8.1
+ * PHP Version 8.2
  *
  * @package   tests
  * @copyright Dennis Eichhorn
@@ -20,16 +20,14 @@ use phpOMS\Localization\ISO3166TwoEnum;
 use phpOMS\Localization\ISO639x1Enum;
 
 /**
- * @testdox phpOMS\tests\Localization\ISO639x1EnumTest: ISO 639-1 language codes
  * @internal
  */
+#[\PHPUnit\Framework\Attributes\TestDox('phpOMS\tests\Localization\ISO639x1EnumTest: ISO 639-1 language codes')]
 final class ISO639x1EnumTest extends \PHPUnit\Framework\TestCase
 {
-    /**
-     * @testdox The ISO 639-1 language code enum has the correct format of language codes
-     * @group framework
-     * @coversNothing
-     */
+    #[\PHPUnit\Framework\Attributes\Group('framework')]
+    #[\PHPUnit\Framework\Attributes\TestDox('The ISO 639-1 language code enum has the correct format of language codes')]
+    #[\PHPUnit\Framework\Attributes\CoversNothing]
     public function testEnums() : void
     {
         $ok = true;
@@ -46,11 +44,9 @@ final class ISO639x1EnumTest extends \PHPUnit\Framework\TestCase
         self::assertTrue($ok, 'Failed for ' . $code);
     }
 
-    /**
-     * @testdox The ISO 639-1 enum has only unique values
-     * @group framework
-     * @coversNothing
-     */
+    #[\PHPUnit\Framework\Attributes\Group('framework')]
+    #[\PHPUnit\Framework\Attributes\TestDox('The ISO 639-1 enum has only unique values')]
+    #[\PHPUnit\Framework\Attributes\CoversNothing]
     public function testUnique() : void
     {
         self::assertEquals(ISO639x1Enum::getConstants(), \array_unique(ISO639x1Enum::getConstants()));

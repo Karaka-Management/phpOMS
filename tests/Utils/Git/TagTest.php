@@ -2,7 +2,7 @@
 /**
  * Jingga
  *
- * PHP Version 8.1
+ * PHP Version 8.2
  *
  * @package   tests
  * @copyright Dennis Eichhorn
@@ -17,17 +17,14 @@ namespace phpOMS\tests\Utils\Git;
 use phpOMS\Utils\Git\Tag;
 
 /**
- * @testdox phpOMS\tests\Utils\Git\TagTest: Git tag
- *
  * @internal
  */
+#[\PHPUnit\Framework\Attributes\CoversClass(\phpOMS\Utils\Git\Tag::class)]
+#[\PHPUnit\Framework\Attributes\TestDox('phpOMS\tests\Utils\Git\TagTest: Git tag')]
 final class TagTest extends \PHPUnit\Framework\TestCase
 {
-    /**
-     * @testdox The tag has the expected default values after initialization
-     * @covers phpOMS\Utils\Git\Tag
-     * @group framework
-     */
+    #[\PHPUnit\Framework\Attributes\Group('framework')]
+    #[\PHPUnit\Framework\Attributes\TestDox('The tag has the expected default values after initialization')]
     public function testDefault() : void
     {
         $tag = new Tag();
@@ -35,22 +32,16 @@ final class TagTest extends \PHPUnit\Framework\TestCase
         self::assertEquals('', $tag->getName());
     }
 
-    /**
-     * @testdox The tag name can be set during initialization and returned
-     * @covers phpOMS\Utils\Git\Tag
-     * @group framework
-     */
+    #[\PHPUnit\Framework\Attributes\Group('framework')]
+    #[\PHPUnit\Framework\Attributes\TestDox('The tag name can be set during initialization and returned')]
     public function testConstructorInputOutput() : void
     {
         $tag = new Tag('test');
         self::assertEquals('test', $tag->getName());
     }
 
-    /**
-     * @testdox The message can be set and returned
-     * @covers phpOMS\Utils\Git\Tag
-     * @group framework
-     */
+    #[\PHPUnit\Framework\Attributes\Group('framework')]
+    #[\PHPUnit\Framework\Attributes\TestDox('The message can be set and returned')]
     public function testMessageInputOutput() : void
     {
         $tag = new Tag('test');

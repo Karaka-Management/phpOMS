@@ -2,7 +2,7 @@
 /**
  * Jingga
  *
- * PHP Version 8.1
+ * PHP Version 8.2
  *
  * @package   tests
  * @copyright Dennis Eichhorn
@@ -20,10 +20,10 @@ use phpOMS\Localization\Localization;
 require_once __DIR__ . '/../Autoloader.php';
 
 /**
- * @testdox phpOMS\tests\Localization\L11nManagerTest: Localization manager for view templates
- *
  * @internal
  */
+#[\PHPUnit\Framework\Attributes\CoversClass(\phpOMS\Localization\L11nManager::class)]
+#[\PHPUnit\Framework\Attributes\TestDox('phpOMS\tests\Localization\L11nManagerTest: Localization manager for view templates')]
 final class L11nManagerTest extends \PHPUnit\Framework\TestCase
 {
     protected L11nManager $l11nManager;
@@ -38,11 +38,8 @@ final class L11nManagerTest extends \PHPUnit\Framework\TestCase
         $this->l11nManager = new L11nManager('Api');
     }
 
-    /**
-     * @testdox The localization manager has the expected default values after initialization
-     * @covers phpOMS\Localization\L11nManager
-     * @group framework
-     */
+    #[\PHPUnit\Framework\Attributes\Group('framework')]
+    #[\PHPUnit\Framework\Attributes\TestDox('The localization manager has the expected default values after initialization')]
     public function testDefault() : void
     {
         self::assertFalse($this->l11nManager->isLanguageLoaded('en'));
@@ -52,11 +49,8 @@ final class L11nManagerTest extends \PHPUnit\Framework\TestCase
         self::assertEquals('ERROR-Test2', $this->l11nManager->getText('en', 'Admin', 'Backend', 'Test2'));
     }
 
-    /**
-     * @testdox Language data can be loaded and output as plain text or html
-     * @covers phpOMS\Localization\L11nManager
-     * @group framework
-     */
+    #[\PHPUnit\Framework\Attributes\Group('framework')]
+    #[\PHPUnit\Framework\Attributes\TestDox('Language data can be loaded and output as plain text or html')]
     public function testLanguageInputOutput() : void
     {
         $expected = [
@@ -83,21 +77,15 @@ final class L11nManagerTest extends \PHPUnit\Framework\TestCase
         self::assertEquals('Test strin&amp;g2', $this->l11nManager->getHtml('en', 'Admin', 'RandomThemeDoesNotMatterAlreadyLoaded', 'Test2'));
     }
 
-    /**
-     * @testdox An invalid localization source returns an error string
-     * @covers phpOMS\Localization\L11nManager
-     * @group framework
-     */
+    #[\PHPUnit\Framework\Attributes\Group('framework')]
+    #[\PHPUnit\Framework\Attributes\TestDox('An invalid localization source returns an error string')]
     public function testInvalidControllerSource() : void
     {
         self::assertEquals('ERROR-Key', $this->l11nManager->getText('en', 'InvalidSource', 'RandomThemeDoesNotMatterAlreadyLoaded', 'Key'));
     }
 
-    /**
-     * @testdox Language data can be loaded from a file
-     * @covers phpOMS\Localization\L11nManager
-     * @group framework
-     */
+    #[\PHPUnit\Framework\Attributes\Group('framework')]
+    #[\PHPUnit\Framework\Attributes\TestDox('Language data can be loaded from a file')]
     public function testLanguageFromLanguageFile() : void
     {
         $this->l11nManager2 = new L11nManager('Api');
@@ -109,11 +97,8 @@ final class L11nManagerTest extends \PHPUnit\Framework\TestCase
         self::assertEquals(['key' => 'value'], $this->l11nManager2->getModuleLanguage('en', 'Test'));
     }
 
-    /**
-     * @testdox Multiple languages can be loaded from a file
-     * @covers phpOMS\Localization\L11nManager
-     * @group framework
-     */
+    #[\PHPUnit\Framework\Attributes\Group('framework')]
+    #[\PHPUnit\Framework\Attributes\TestDox('Multiple languages can be loaded from a file')]
     public function testLanguageMultipleLanguagesFromSingleFile() : void
     {
         $this->l11nManager2 = new L11nManager('Api');
@@ -123,11 +108,8 @@ final class L11nManagerTest extends \PHPUnit\Framework\TestCase
         self::assertEquals('Test_DE', $this->l11nManager2->getHtml('de', 'Test', 'RandomThemeDoesNotMatterAlreadyLoaded', 'key'));
     }
 
-    /**
-     * @testdox The numeric value can be printed based on the localization
-     * @covers phpOMS\Localization\L11nManager
-     * @group framework
-     */
+    #[\PHPUnit\Framework\Attributes\Group('framework')]
+    #[\PHPUnit\Framework\Attributes\TestDox('The numeric value can be printed based on the localization')]
     public function testGetNumeric() : void
     {
         $l11n = Localization::fromLanguage('en');
@@ -136,11 +118,8 @@ final class L11nManagerTest extends \PHPUnit\Framework\TestCase
         self::assertEquals('1,234.235', $this->l11nManager->getNumeric($l11n, 1234.2345, 'long'));
     }
 
-    /**
-     * @testdox The percentage value can be printed based on the localization
-     * @covers phpOMS\Localization\L11nManager
-     * @group framework
-     */
+    #[\PHPUnit\Framework\Attributes\Group('framework')]
+    #[\PHPUnit\Framework\Attributes\TestDox('The percentage value can be printed based on the localization')]
     public function testGetPercentage() : void
     {
         $l11n = Localization::fromLanguage('en');
@@ -148,11 +127,8 @@ final class L11nManagerTest extends \PHPUnit\Framework\TestCase
         self::assertEquals('1.235%', $this->l11nManager->getPercentage($l11n, 1.2345, 'long'));
     }
 
-    /**
-     * @testdox The currency value can be printed based on the localization
-     * @covers phpOMS\Localization\L11nManager
-     * @group framework
-     */
+    #[\PHPUnit\Framework\Attributes\Group('framework')]
+    #[\PHPUnit\Framework\Attributes\TestDox('The currency value can be printed based on the localization')]
     public function testGetCurrency() : void
     {
         $l11n = Localization::fromLanguage('en');
@@ -168,11 +144,8 @@ final class L11nManagerTest extends \PHPUnit\Framework\TestCase
         self::assertEquals('B$ 1.2', $this->l11nManager->getCurrency($l11n, 1234567890.0, '$', 'short', 1000000000));
     }
 
-    /**
-     * @testdox The datetime value can be printed based on the localization
-     * @covers phpOMS\Localization\L11nManager
-     * @group framework
-     */
+    #[\PHPUnit\Framework\Attributes\Group('framework')]
+    #[\PHPUnit\Framework\Attributes\TestDox('The datetime value can be printed based on the localization')]
     public function testGetDateTime() : void
     {
         $l11n = Localization::fromLanguage('en');

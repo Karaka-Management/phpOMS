@@ -2,7 +2,7 @@
 /**
  * Jingga
  *
- * PHP Version 8.1
+ * PHP Version 8.2
  *
  * @package   tests
  * @copyright Dennis Eichhorn
@@ -19,17 +19,14 @@ use phpOMS\Utils\TaskSchedule\SchedulerFactory;
 use phpOMS\Utils\TaskSchedule\TaskScheduler;
 
 /**
- * @testdox phpOMS\tests\Utils\TaskSchedule\SchedulerFactoryTest: Scheduler factory for creating cron/task handlers
- *
  * @internal
  */
+#[\PHPUnit\Framework\Attributes\CoversClass(\phpOMS\Utils\TaskSchedule\SchedulerFactory::class)]
+#[\PHPUnit\Framework\Attributes\TestDox('phpOMS\tests\Utils\TaskSchedule\SchedulerFactoryTest: Scheduler factory for creating cron/task handlers')]
 final class SchedulerFactoryTest extends \PHPUnit\Framework\TestCase
 {
-    /**
-     * @testdox The correct scheduler is crated depending on the operating system
-     * @covers phpOMS\Utils\TaskSchedule\SchedulerFactory
-     * @group framework
-     */
+    #[\PHPUnit\Framework\Attributes\Group('framework')]
+    #[\PHPUnit\Framework\Attributes\TestDox('The correct scheduler is crated depending on the operating system')]
     public function testCreate() : void
     {
         self::assertTrue((SchedulerFactory::create() instanceof Cron) || (SchedulerFactory::create() instanceof TaskScheduler));

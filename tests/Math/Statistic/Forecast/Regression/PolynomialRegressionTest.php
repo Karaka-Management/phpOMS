@@ -2,7 +2,7 @@
 /**
  * Jingga
  *
- * PHP Version 8.1
+ * PHP Version 8.2
  *
  * @package   tests
  * @copyright Dennis Eichhorn
@@ -17,10 +17,9 @@ namespace phpOMS\tests\Math\Statistic\Forecast\Regression;
 use phpOMS\Math\Statistic\Forecast\Regression\PolynomialRegression;
 
 /**
- * @testdox phpOMS\tests\Math\Statistic\Forecast\Regression\PolynomialRegressionTest: Polynomial regression
- *
  * @internal
  */
+#[\PHPUnit\Framework\Attributes\TestDox('phpOMS\tests\Math\Statistic\Forecast\Regression\PolynomialRegressionTest: Polynomial regression')]
 final class PolynomialRegressionTest extends \PHPUnit\Framework\TestCase
 {
     protected $reg = null;
@@ -37,19 +36,15 @@ final class PolynomialRegressionTest extends \PHPUnit\Framework\TestCase
         $this->reg = PolynomialRegression::getRegression($x, $y);
     }
 
-    /**
-     * @testdox The regression parameters are calculated correctly
-     * @group framework
-     */
+    #[\PHPUnit\Framework\Attributes\Group('framework')]
+    #[\PHPUnit\Framework\Attributes\TestDox('The regression parameters are calculated correctly')]
     public function testRegression() : void
     {
         self::assertEqualsWithDelta(['a' => 1, 'b' => 2, 'c' => 3], $this->reg, 0.2);
     }
 
-    /**
-     * @testdox Different dimension sizes for x and y coordinates throw a InvalidDimensionException
-     * @group framework
-     */
+    #[\PHPUnit\Framework\Attributes\Group('framework')]
+    #[\PHPUnit\Framework\Attributes\TestDox('Different dimension sizes for x and y coordinates throw a InvalidDimensionException')]
     public function testInvalidDimension() : void
     {
         $this->expectException(\phpOMS\Math\Matrix\Exception\InvalidDimensionException::class);

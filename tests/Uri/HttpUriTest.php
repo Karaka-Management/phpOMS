@@ -2,7 +2,7 @@
 /**
  * Jingga
  *
- * PHP Version 8.1
+ * PHP Version 8.2
  *
  * @package   tests
  * @copyright Dennis Eichhorn
@@ -19,17 +19,14 @@ require_once __DIR__ . '/../Autoloader.php';
 use phpOMS\Uri\HttpUri;
 
 /**
- * @testdox phpOMS\tests\Uri\HttpUriTest: Http uri / url
- *
  * @internal
  */
+#[\PHPUnit\Framework\Attributes\CoversClass(\phpOMS\Uri\HttpUri::class)]
+#[\PHPUnit\Framework\Attributes\TestDox('phpOMS\tests\Uri\HttpUriTest: Http uri / url')]
 final class HttpUriTest extends \PHPUnit\Framework\TestCase
 {
-    /**
-     * @testdox A url can be validated
-     * @covers phpOMS\Uri\HttpUri
-     * @group framework
-     */
+    #[\PHPUnit\Framework\Attributes\Group('framework')]
+    #[\PHPUnit\Framework\Attributes\TestDox('A url can be validated')]
     public function testValidator() : void
     {
         self::assertTrue(HttpUri::isValid('http://www.google.de'));
@@ -38,11 +35,8 @@ final class HttpUriTest extends \PHPUnit\Framework\TestCase
         self::assertFalse(HttpUri::isValid('https:/google.de'));
     }
 
-    /**
-     * @testdox The http url has the expected default values after initialization
-     * @covers phpOMS\Uri\HttpUri
-     * @group framework
-     */
+    #[\PHPUnit\Framework\Attributes\Group('framework')]
+    #[\PHPUnit\Framework\Attributes\TestDox('The http url has the expected default values after initialization')]
     public function testDefault() : void
     {
         $obj = new HttpUri('https://www.google.com/test/path.php?para1=abc&para2=2#frag');
@@ -55,11 +49,8 @@ final class HttpUriTest extends \PHPUnit\Framework\TestCase
         self::assertEquals(0, $obj->getPathOffset());
     }
 
-    /**
-     * @testdox The url schema can be parsed correctly from a url and overwritten
-     * @covers phpOMS\Uri\HttpUri
-     * @group framework
-     */
+    #[\PHPUnit\Framework\Attributes\Group('framework')]
+    #[\PHPUnit\Framework\Attributes\TestDox('The url schema can be parsed correctly from a url and overwritten')]
     public function testSchemeInputOutput() : void
     {
         $obj = new HttpUri('https://www.google.com/test/path.php?para1=abc&para2=2#frag');
@@ -70,11 +61,8 @@ final class HttpUriTest extends \PHPUnit\Framework\TestCase
         self::assertEquals('ftp', $obj->scheme);
     }
 
-    /**
-     * @testdox The port can be parsed correctly from a url and overwritten
-     * @covers phpOMS\Uri\HttpUri
-     * @group framework
-     */
+    #[\PHPUnit\Framework\Attributes\Group('framework')]
+    #[\PHPUnit\Framework\Attributes\TestDox('The port can be parsed correctly from a url and overwritten')]
     public function testPortInputOutput() : void
     {
         $obj = new HttpUri('https://www.google.com:21/test/path.php?para1=abc&para2=2#frag');
@@ -85,11 +73,8 @@ final class HttpUriTest extends \PHPUnit\Framework\TestCase
         self::assertEquals(123, $obj->port);
     }
 
-    /**
-     * @testdox The host can be parsed correctly from a url
-     * @covers phpOMS\Uri\HttpUri
-     * @group framework
-     */
+    #[\PHPUnit\Framework\Attributes\Group('framework')]
+    #[\PHPUnit\Framework\Attributes\TestDox('The host can be parsed correctly from a url')]
     public function testHostInputOutput() : void
     {
         $obj = new HttpUri('https://www.google.com/test/path.php?para1=abc&para2=2#frag');
@@ -100,11 +85,8 @@ final class HttpUriTest extends \PHPUnit\Framework\TestCase
         self::assertEquals('127.0.0.1', $obj->host);
     }
 
-    /**
-     * @testdox The username can be parsed correctly from a url
-     * @covers phpOMS\Uri\HttpUri
-     * @group framework
-     */
+    #[\PHPUnit\Framework\Attributes\Group('framework')]
+    #[\PHPUnit\Framework\Attributes\TestDox('The username can be parsed correctly from a url')]
     public function testUsernameInputOutput() : void
     {
         $obj = new HttpUri('https://username:password@google.com/test/path.php?para1=abc&para2=2#frag');
@@ -115,11 +97,8 @@ final class HttpUriTest extends \PHPUnit\Framework\TestCase
         self::assertEquals('user', $obj->user);
     }
 
-    /**
-     * @testdox The password can be parsed correctly from a url
-     * @covers phpOMS\Uri\HttpUri
-     * @group framework
-     */
+    #[\PHPUnit\Framework\Attributes\Group('framework')]
+    #[\PHPUnit\Framework\Attributes\TestDox('The password can be parsed correctly from a url')]
     public function testPasswordInputOutput() : void
     {
         $obj = new HttpUri('https://username:password@google.com/test/path.php?para1=abc&para2=2#frag');
@@ -130,11 +109,8 @@ final class HttpUriTest extends \PHPUnit\Framework\TestCase
         self::assertEquals('pass', $obj->pass);
     }
 
-    /**
-     * @testdox The base can be parsed correctly from a url
-     * @covers phpOMS\Uri\HttpUri
-     * @group framework
-     */
+    #[\PHPUnit\Framework\Attributes\Group('framework')]
+    #[\PHPUnit\Framework\Attributes\TestDox('The base can be parsed correctly from a url')]
     public function testBaseInputOutput() : void
     {
         $obj = new HttpUri('https://www.google.com/test/path.php?para1=abc&para2=2#frag');
@@ -142,11 +118,8 @@ final class HttpUriTest extends \PHPUnit\Framework\TestCase
         self::assertEquals('https://www.google.com', $obj->getBase());
     }
 
-    /**
-     * @testdox The url can be turned into a string
-     * @covers phpOMS\Uri\HttpUri
-     * @group framework
-     */
+    #[\PHPUnit\Framework\Attributes\Group('framework')]
+    #[\PHPUnit\Framework\Attributes\TestDox('The url can be turned into a string')]
     public function testStringify() : void
     {
         $obj = new HttpUri($uri = 'https://www.google.com/test/path.php?para1=abc&para2=2#frag');
@@ -154,11 +127,8 @@ final class HttpUriTest extends \PHPUnit\Framework\TestCase
         self::assertEquals($uri, $obj->__toString());
     }
 
-    /**
-     * @testdox The authority can be parsed correctly from a url
-     * @covers phpOMS\Uri\HttpUri
-     * @group framework
-     */
+    #[\PHPUnit\Framework\Attributes\Group('framework')]
+    #[\PHPUnit\Framework\Attributes\TestDox('The authority can be parsed correctly from a url')]
     public function testAuthorityInputOutput() : void
     {
         $obj = new HttpUri('https://www.google.com/test/path.php?para1=abc&para2=2#frag');
@@ -166,11 +136,8 @@ final class HttpUriTest extends \PHPUnit\Framework\TestCase
         self::assertEquals('www.google.com:80', $obj->getAuthority());
     }
 
-    /**
-     * @testdox The user info can be parsed correctly from a url
-     * @covers phpOMS\Uri\HttpUri
-     * @group framework
-     */
+    #[\PHPUnit\Framework\Attributes\Group('framework')]
+    #[\PHPUnit\Framework\Attributes\TestDox('The user info can be parsed correctly from a url')]
     public function testUserinfoInputOutput() : void
     {
         $obj = new HttpUri('https://username:password@google.com/test/path.php?para1=abc&para2=2#frag');
@@ -178,11 +145,8 @@ final class HttpUriTest extends \PHPUnit\Framework\TestCase
         self::assertEquals('username:password', $obj->getUserInfo());
     }
 
-    /**
-     * @testdox The root path can be set and returned
-     * @covers phpOMS\Uri\HttpUri
-     * @group framework
-     */
+    #[\PHPUnit\Framework\Attributes\Group('framework')]
+    #[\PHPUnit\Framework\Attributes\TestDox('The root path can be set and returned')]
     public function testRootPathInputOutput() : void
     {
         $obj = new HttpUri('https://www.google.com/test/path.php?para1=abc&para2=2#frag');
@@ -191,11 +155,8 @@ final class HttpUriTest extends \PHPUnit\Framework\TestCase
         self::assertEquals('a', $obj->getRootPath());
     }
 
-    /**
-     * @testdox A path can be overwritten
-     * @covers phpOMS\Uri\HttpUri
-     * @group framework
-     */
+    #[\PHPUnit\Framework\Attributes\Group('framework')]
+    #[\PHPUnit\Framework\Attributes\TestDox('A path can be overwritten')]
     public function testPathInputOutput() : void
     {
         $obj = new HttpUri('https://www.google.com/test/path.php?para1=abc&para2=2#frag');
@@ -204,11 +165,8 @@ final class HttpUriTest extends \PHPUnit\Framework\TestCase
         self::assertEquals('new', $obj->getPath());
     }
 
-    /**
-     * @testdox The path elements can be parsed from a url and overwritten
-     * @covers phpOMS\Uri\HttpUri
-     * @group framework
-     */
+    #[\PHPUnit\Framework\Attributes\Group('framework')]
+    #[\PHPUnit\Framework\Attributes\TestDox('The path elements can be parsed from a url and overwritten')]
     public function testPathElementInputOutput() : void
     {
         $obj = new HttpUri('https://www.google.com/test/second/path.php?para1=abc&para2=2#frag');
@@ -219,11 +177,8 @@ final class HttpUriTest extends \PHPUnit\Framework\TestCase
         self::assertEquals(['new', 'test'], $obj->getPathElements());
     }
 
-    /**
-     * @testdox The path offset can be set and returned
-     * @covers phpOMS\Uri\HttpUri
-     * @group framework
-     */
+    #[\PHPUnit\Framework\Attributes\Group('framework')]
+    #[\PHPUnit\Framework\Attributes\TestDox('The path offset can be set and returned')]
     public function testPathOffsetInputOutput() : void
     {
         $obj = new HttpUri('https://www.google.com/test/path.php?para1=abc&para2=2#frag');
@@ -232,11 +187,8 @@ final class HttpUriTest extends \PHPUnit\Framework\TestCase
         self::assertEquals(2, $obj->getPathOffset());
     }
 
-    /**
-     * @testdox The subdomain can be parsed correctly from a url
-     * @covers phpOMS\Uri\HttpUri
-     * @group framework
-     */
+    #[\PHPUnit\Framework\Attributes\Group('framework')]
+    #[\PHPUnit\Framework\Attributes\TestDox('The subdomain can be parsed correctly from a url')]
     public function testSubdmonain() : void
     {
         $obj = new HttpUri('https://www.google.com/test/path.php?para1=abc&para2=2#frag');
@@ -249,11 +201,8 @@ final class HttpUriTest extends \PHPUnit\Framework\TestCase
         self::assertEquals('test.www', $obj->getSubdomain());
     }
 
-    /**
-     * @testdox The query data can be parsed correctly from a url
-     * @covers phpOMS\Uri\HttpUri
-     * @group framework
-     */
+    #[\PHPUnit\Framework\Attributes\Group('framework')]
+    #[\PHPUnit\Framework\Attributes\TestDox('The query data can be parsed correctly from a url')]
     public function testQueryData() : void
     {
         $obj = new HttpUri('https://www.google.com/test/path.php?para1=abc&para2=2#frag');
@@ -262,11 +211,8 @@ final class HttpUriTest extends \PHPUnit\Framework\TestCase
         self::assertEquals('2', $obj->getQuery('para2'));
     }
 
-    /**
-     * @testdox The fragment data can be parsed correctly from a url
-     * @covers phpOMS\Uri\HttpUri
-     * @group framework
-     */
+    #[\PHPUnit\Framework\Attributes\Group('framework')]
+    #[\PHPUnit\Framework\Attributes\TestDox('The fragment data can be parsed correctly from a url')]
     public function testFragment() : void
     {
         $obj = new HttpUri('https://www.google.com/test/path.php?para1=abc&para2=2#frag');
@@ -276,11 +222,8 @@ final class HttpUriTest extends \PHPUnit\Framework\TestCase
         self::assertEquals('frag2', $obj->fragment);
     }
 
-    /**
-     * @testdox The path data can be parsed correctly from a url
-     * @covers phpOMS\Uri\HttpUri
-     * @group framework
-     */
+    #[\PHPUnit\Framework\Attributes\Group('framework')]
+    #[\PHPUnit\Framework\Attributes\TestDox('The path data can be parsed correctly from a url')]
     public function testPathData() : void
     {
         $obj = new HttpUri('https://www.google.com/test/path.php?para1=abc&para2=2#frag');
@@ -289,22 +232,16 @@ final class HttpUriTest extends \PHPUnit\Framework\TestCase
         self::assertEquals('test', $obj->getPathElement(0));
     }
 
-    /**
-     * @testdox The route can be parsed correctly from a url
-     * @covers phpOMS\Uri\HttpUri
-     * @group framework
-     */
+    #[\PHPUnit\Framework\Attributes\Group('framework')]
+    #[\PHPUnit\Framework\Attributes\TestDox('The route can be parsed correctly from a url')]
     public function testRouteInputOutput() : void
     {
         $obj = new HttpUri('https://www.google.com/test/path.php?para1=abc&para2=2#frag');
         self::assertEquals('/test/path?para1=abc&para2=2', $obj->getRoute());
     }
 
-    /**
-     * @testdox A invalid uri cannot get parsed
-     * @covers phpOMS\Uri\HttpUri
-     * @group framework
-     */
+    #[\PHPUnit\Framework\Attributes\Group('framework')]
+    #[\PHPUnit\Framework\Attributes\TestDox('A invalid uri cannot get parsed')]
     public function testInvalidUri() : void
     {
         $obj = new HttpUri('http:///03*l.2/test?abc=d');

@@ -2,7 +2,7 @@
 /**
  * Jingga
  *
- * PHP Version 8.1
+ * PHP Version 8.2
  *
  * @package   tests
  * @copyright Dennis Eichhorn
@@ -17,17 +17,14 @@ namespace phpOMS\tests\Utils\IO\Csv;
 use phpOMS\Utils\IO\Csv\CsvSettings;
 
 /**
- * @testdox phpOMS\tests\Utils\IO\Csv\CsvSettingsTest: Csv file settings
- *
  * @internal
  */
+#[\PHPUnit\Framework\Attributes\CoversClass(\phpOMS\Utils\IO\Csv\CsvSettings::class)]
+#[\PHPUnit\Framework\Attributes\TestDox('phpOMS\tests\Utils\IO\Csv\CsvSettingsTest: Csv file settings')]
 final class CsvSettingsTest extends \PHPUnit\Framework\TestCase
 {
-    /**
-     * @testdox The delimiter in a csv file can be guessed
-     * @covers phpOMS\Utils\IO\Csv\CsvSettings
-     * @group framework
-     */
+    #[\PHPUnit\Framework\Attributes\Group('framework')]
+    #[\PHPUnit\Framework\Attributes\TestDox('The delimiter in a csv file can be guessed')]
     public function testFileDelimiter() : void
     {
         self::assertEquals(':', CsvSettings::getFileDelimiter(\fopen(__DIR__ . '/colon.csv', 'r')));
@@ -36,11 +33,8 @@ final class CsvSettingsTest extends \PHPUnit\Framework\TestCase
         self::assertEquals(';', CsvSettings::getFileDelimiter(\fopen(__DIR__ . '/semicolon.csv', 'r')));
     }
 
-    /**
-     * @testdox The delimiter in a csv string can be guessed
-     * @covers phpOMS\Utils\IO\Csv\CsvSettings
-     * @group framework
-     */
+    #[\PHPUnit\Framework\Attributes\Group('framework')]
+    #[\PHPUnit\Framework\Attributes\TestDox('The delimiter in a csv string can be guessed')]
     public function testStringDelimiter() : void
     {
         self::assertEquals(':', CsvSettings::getStringDelimiter(\file_get_contents(__DIR__ . '/colon.csv')));

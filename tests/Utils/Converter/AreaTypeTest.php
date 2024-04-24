@@ -2,7 +2,7 @@
 /**
  * Jingga
  *
- * PHP Version 8.1
+ * PHP Version 8.2
  *
  * @package   tests
  * @copyright Dennis Eichhorn
@@ -21,28 +21,22 @@ use phpOMS\Utils\Converter\AreaType;
  */
 final class AreaTypeTest extends \PHPUnit\Framework\TestCase
 {
-    /**
-     * @group framework
-     * @coversNothing
-     */
+    #[\PHPUnit\Framework\Attributes\Group('framework')]
+    #[\PHPUnit\Framework\Attributes\CoversNothing]
     public function testEnumCount() : void
     {
         self::assertCount(13, AreaType::getConstants());
     }
 
-    /**
-     * @group framework
-     * @coversNothing
-     */
+    #[\PHPUnit\Framework\Attributes\Group('framework')]
+    #[\PHPUnit\Framework\Attributes\CoversNothing]
     public function testUnique() : void
     {
         self::assertEquals(AreaType::getConstants(), \array_unique(AreaType::getConstants()));
     }
 
-    /**
-     * @group framework
-     * @coversNothing
-     */
+    #[\PHPUnit\Framework\Attributes\Group('framework')]
+    #[\PHPUnit\Framework\Attributes\CoversNothing]
     public function testEnums() : void
     {
         self::assertEquals('ft', AreaType::SQUARE_FEET);

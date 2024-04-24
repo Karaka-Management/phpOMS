@@ -2,7 +2,7 @@
 /**
  * Jingga
  *
- * PHP Version 8.1
+ * PHP Version 8.2
  *
  * @package   tests
  * @copyright Dennis Eichhorn
@@ -21,28 +21,22 @@ use phpOMS\Message\Http\BrowserType;
  */
 final class BrowserTypeTest extends \PHPUnit\Framework\TestCase
 {
-    /**
-     * @group framework
-     * @coversNothing
-     */
+    #[\PHPUnit\Framework\Attributes\Group('framework')]
+    #[\PHPUnit\Framework\Attributes\CoversNothing]
     public function testEnumCount() : void
     {
         self::assertCount(12, BrowserType::getConstants());
     }
 
-    /**
-     * @group framework
-     * @coversNothing
-     */
+    #[\PHPUnit\Framework\Attributes\Group('framework')]
+    #[\PHPUnit\Framework\Attributes\CoversNothing]
     public function testUnique() : void
     {
         self::assertEquals(BrowserType::getConstants(), \array_unique(BrowserType::getConstants()));
     }
 
-    /**
-     * @group framework
-     * @coversNothing
-     */
+    #[\PHPUnit\Framework\Attributes\Group('framework')]
+    #[\PHPUnit\Framework\Attributes\CoversNothing]
     public function testEnums() : void
     {
         self::assertEquals('msie', BrowserType::IE);

@@ -2,7 +2,7 @@
 /**
  * Jingga
  *
- * PHP Version 8.1
+ * PHP Version 8.2
  *
  * @package    tests
  * @copyright  2013 Dennis Eichhorn
@@ -19,12 +19,10 @@ use phpOMS\Model\Message\FormValidation;
 /**
  * @internal
  */
+#[\PHPUnit\Framework\Attributes\CoversClass(\phpOMS\Model\Message\FormValidation::class)]
 final class FormValidationTest extends \PHPUnit\Framework\TestCase
 {
-    /**
-     * @covers phpOMS\Model\Message\FormValidation
-     * @group framework
-     */
+    #[\PHPUnit\Framework\Attributes\Group('framework')]
     public function testDefault() : void
     {
         $obj = new FormValidation([]);
@@ -33,10 +31,7 @@ final class FormValidationTest extends \PHPUnit\Framework\TestCase
         self::assertEmpty($obj->toArray()['validation']);
     }
 
-    /**
-     * @covers phpOMS\Model\Message\FormValidation
-     * @group framework
-     */
+    #[\PHPUnit\Framework\Attributes\Group('framework')]
     public function testSetGet() : void
     {
         $arr = ['a' => true, 'b' => false];

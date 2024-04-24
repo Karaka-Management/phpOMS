@@ -2,7 +2,7 @@
 /**
  * Jingga
  *
- * PHP Version 8.1
+ * PHP Version 8.2
  *
  * @package   phpOMS\Algorithm\Clustering
  * @copyright Dennis Eichhorn
@@ -25,6 +25,10 @@ namespace phpOMS\Algorithm\Clustering;
  * @license OMS License 2.0
  * @link    https://jingga.app
  * @since   1.0.0
+ *
+ * @property array<int, int|float> $coordinates
+ * @property string $name
+ * @property int $group
  */
 interface PointInterface
 {
@@ -63,11 +67,11 @@ interface PointInterface
     /**
      * Check if two points are equal
      *
-     * @param self $point Point to compare with
+     * @param Point $point Point to compare with
      *
      * @return bool
      *
      * @since 1.0.0
      */
-    public function isEquals(self $point) : bool;
+    public function isEquals(Point $point) : bool;
 }

@@ -2,7 +2,7 @@
 /**
  * Jingga
  *
- * PHP Version 8.1
+ * PHP Version 8.2
  *
  * @package   tests
  * @copyright Dennis Eichhorn
@@ -19,12 +19,10 @@ use phpOMS\DataStorage\Database\Schema\Grammar\PostgresGrammar;
 /**
  * @internal
  */
+#[\PHPUnit\Framework\Attributes\CoversClass(\phpOMS\DataStorage\Database\Schema\Grammar\PostgresGrammar::class)]
 final class PostgresGrammarTest extends \PHPUnit\Framework\TestCase
 {
-    /**
-     * @covers phpOMS\DataStorage\Database\Schema\Grammar\PostgresGrammar
-     * @group framework
-     */
+    #[\PHPUnit\Framework\Attributes\Group('framework')]
     public function testDefault() : void
     {
         self::assertInstanceOf('\phpOMS\DataStorage\Database\Schema\Grammar\Grammar', new PostgresGrammar());

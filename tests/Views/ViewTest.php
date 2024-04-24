@@ -2,7 +2,7 @@
 /**
  * Jingga
  *
- * PHP Version 8.1
+ * PHP Version 8.2
  *
  * @package   tests
  * @copyright Dennis Eichhorn
@@ -26,10 +26,10 @@ use phpOMS\Views\View;
 use phpOMS\Views\ViewAbstract;
 
 /**
- * @testdox phpOMS\tests\Views\ViewTest: View for response rendering
- *
  * @internal
  */
+#[\PHPUnit\Framework\Attributes\CoversClass(\phpOMS\Views\View::class)]
+#[\PHPUnit\Framework\Attributes\TestDox('phpOMS\tests\Views\ViewTest: View for response rendering')]
 final class ViewTest extends \PHPUnit\Framework\TestCase
 {
     protected DatabasePool $dbPool;
@@ -54,11 +54,8 @@ final class ViewTest extends \PHPUnit\Framework\TestCase
         $this->app->dbPool      = $this->dbPool;
     }
 
-    /**
-     * @testdox The view has the expected default values after initialization
-     * @covers phpOMS\Views\View<extended>
-     * @group framework
-     */
+    #[\PHPUnit\Framework\Attributes\Group('framework')]
+    #[\PHPUnit\Framework\Attributes\TestDox('The view has the expected default values after initialization')]
     public function testDefault() : void
     {
         $view = new View($this->app->l11nManager);
@@ -74,11 +71,8 @@ final class ViewTest extends \PHPUnit\Framework\TestCase
         self::assertEmpty($view->toArray());
     }
 
-    /**
-     * @testdox The view data can be checked for existence
-     * @covers phpOMS\Views\View<extended>
-     * @group framework
-     */
+    #[\PHPUnit\Framework\Attributes\Group('framework')]
+    #[\PHPUnit\Framework\Attributes\TestDox('The view data can be checked for existence')]
     public function testHasData() : void
     {
         $view            = new View($this->app->l11nManager);
@@ -88,11 +82,8 @@ final class ViewTest extends \PHPUnit\Framework\TestCase
         self::assertFalse($view->hasData('b'));
     }
 
-    /**
-     * @testdox The view can output text from the localization manager
-     * @covers phpOMS\Views\View<extended>
-     * @group framework
-     */
+    #[\PHPUnit\Framework\Attributes\Group('framework')]
+    #[\PHPUnit\Framework\Attributes\TestDox('The view can output text from the localization manager')]
     public function testGetText() : void
     {
         $view = new View($this->app->l11nManager);
@@ -112,11 +103,8 @@ final class ViewTest extends \PHPUnit\Framework\TestCase
         self::assertEquals('<a href="test">Test</a>', $view->getText('Test'));
     }
 
-    /**
-     * @testdox The view can output html escaped text from the localization manager
-     * @covers phpOMS\Views\View<extended>
-     * @group framework
-     */
+    #[\PHPUnit\Framework\Attributes\Group('framework')]
+    #[\PHPUnit\Framework\Attributes\TestDox('The view can output html escaped text from the localization manager')]
     public function testGetHtml() : void
     {
         $view = new View($this->app->l11nManager);
@@ -136,11 +124,8 @@ final class ViewTest extends \PHPUnit\Framework\TestCase
         self::assertEquals('&lt;a href=&quot;test&quot;&gt;Test&lt;/a&gt;', $view->getHtml('Test'));
     }
 
-    /**
-     * @testdox The numeric value can be printed based on the localization
-     * @covers phpOMS\Views\View<extended>
-     * @group framework
-     */
+    #[\PHPUnit\Framework\Attributes\Group('framework')]
+    #[\PHPUnit\Framework\Attributes\TestDox('The numeric value can be printed based on the localization')]
     public function testGetNumeric() : void
     {
         $view = new View($this->app->l11nManager, null, new HttpResponse(Localization::fromLanguage('en')));
@@ -149,11 +134,8 @@ final class ViewTest extends \PHPUnit\Framework\TestCase
         self::assertEquals('1,234.235', $view->getNumeric(1234.2345, 'long'));
     }
 
-    /**
-     * @testdox The percentage value can be printed based on the localization
-     * @covers phpOMS\Views\View<extended>
-     * @group framework
-     */
+    #[\PHPUnit\Framework\Attributes\Group('framework')]
+    #[\PHPUnit\Framework\Attributes\TestDox('The percentage value can be printed based on the localization')]
     public function testGetPercentage() : void
     {
         $view = new View($this->app->l11nManager, null, new HttpResponse(Localization::fromLanguage('en')));
@@ -161,11 +143,8 @@ final class ViewTest extends \PHPUnit\Framework\TestCase
         self::assertEquals('1.235%', $view->getPercentage(1.2345, 'long'));
     }
 
-    /**
-     * @testdox The currency value can be printed based on the localization
-     * @covers phpOMS\Views\View<extended>
-     * @group framework
-     */
+    #[\PHPUnit\Framework\Attributes\Group('framework')]
+    #[\PHPUnit\Framework\Attributes\TestDox('The currency value can be printed based on the localization')]
     public function testGetCurrency() : void
     {
         $view = new View($this->app->l11nManager, null, new HttpResponse(Localization::fromLanguage('en')));
@@ -177,11 +156,8 @@ final class ViewTest extends \PHPUnit\Framework\TestCase
         self::assertEquals('KUSD 12.345', $view->getCurrency(12345.0, null, 'long', 1000));
     }
 
-    /**
-     * @testdox The datetime value can be printed based on the localization
-     * @covers phpOMS\Views\View<extended>
-     * @group framework
-     */
+    #[\PHPUnit\Framework\Attributes\Group('framework')]
+    #[\PHPUnit\Framework\Attributes\TestDox('The datetime value can be printed based on the localization')]
     public function testGetDateTime() : void
     {
         $view = new View($this->app->l11nManager, null, new HttpResponse(Localization::fromLanguage('en')));
@@ -191,11 +167,8 @@ final class ViewTest extends \PHPUnit\Framework\TestCase
         self::assertEquals('2020.01.01 01:45', $view->getDateTime($date, 'long'));
     }
 
-    /**
-     * @testdox View data can be set and returned
-     * @covers phpOMS\Views\View<extended>
-     * @group framework
-     */
+    #[\PHPUnit\Framework\Attributes\Group('framework')]
+    #[\PHPUnit\Framework\Attributes\TestDox('View data can be set and returned')]
     public function testDataInputOutput() : void
     {
         $view = new View($this->app->l11nManager);
@@ -204,11 +177,8 @@ final class ViewTest extends \PHPUnit\Framework\TestCase
         self::assertEquals('value', $view->getData('key'));
     }
 
-    /**
-     * @testdox View data can be added and returned
-     * @covers phpOMS\Views\View<extended>
-     * @group framework
-     */
+    #[\PHPUnit\Framework\Attributes\Group('framework')]
+    #[\PHPUnit\Framework\Attributes\TestDox('View data can be added and returned')]
     public function testDataAdd() : void
     {
         $view = new View($this->app->l11nManager);
@@ -217,11 +187,8 @@ final class ViewTest extends \PHPUnit\Framework\TestCase
         self::assertEquals('valu2', $view->getData('key2'));
     }
 
-    /**
-     * @testdox View data can be removed
-     * @covers phpOMS\Views\View<extended>
-     * @group framework
-     */
+    #[\PHPUnit\Framework\Attributes\Group('framework')]
+    #[\PHPUnit\Framework\Attributes\TestDox('View data can be removed')]
     public function testRemove() : void
     {
         $view = new View($this->app->l11nManager);
@@ -231,11 +198,8 @@ final class ViewTest extends \PHPUnit\Framework\TestCase
         self::assertNull($view->getData('key2'));
     }
 
-    /**
-     * @testdox None-existing view data cannot be removed
-     * @covers phpOMS\Views\View<extended>
-     * @group framework
-     */
+    #[\PHPUnit\Framework\Attributes\Group('framework')]
+    #[\PHPUnit\Framework\Attributes\TestDox('None-existing view data cannot be removed')]
     public function testInvalidDataRemove() : void
     {
         $view = new View($this->app->l11nManager);
@@ -243,11 +207,8 @@ final class ViewTest extends \PHPUnit\Framework\TestCase
         self::assertFalse($view->removeData('key3'));
     }
 
-    /**
-     * @testdox The request can be returned
-     * @covers phpOMS\Views\View<extended>
-     * @group framework
-     */
+    #[\PHPUnit\Framework\Attributes\Group('framework')]
+    #[\PHPUnit\Framework\Attributes\TestDox('The request can be returned')]
     public function testGetRequest() : void
     {
         $view = new View($this->app->l11nManager, $request = new HttpRequest(), $response = new HttpResponse());
@@ -256,11 +217,8 @@ final class ViewTest extends \PHPUnit\Framework\TestCase
         self::assertEquals($response, $view->response);
     }
 
-    /**
-     * @testdox The response can be returned
-     * @covers phpOMS\Views\View<extended>
-     * @group framework
-     */
+    #[\PHPUnit\Framework\Attributes\Group('framework')]
+    #[\PHPUnit\Framework\Attributes\TestDox('The response can be returned')]
     public function testGetResponse() : void
     {
         $view = new View($this->app->l11nManager, new HttpRequest(), $response = new HttpResponse());
@@ -268,11 +226,8 @@ final class ViewTest extends \PHPUnit\Framework\TestCase
         self::assertEquals($response, $view->response);
     }
 
-    /**
-     * @testdox Text can be html escaped
-     * @covers phpOMS\Views\View<extended>
-     * @group framework
-     */
+    #[\PHPUnit\Framework\Attributes\Group('framework')]
+    #[\PHPUnit\Framework\Attributes\TestDox('Text can be html escaped')]
     public function testPrintHtml() : void
     {
         $view = new View($this->app->l11nManager, $request = new HttpRequest(), $response = new HttpResponse());
@@ -281,11 +236,8 @@ final class ViewTest extends \PHPUnit\Framework\TestCase
         self::assertEquals('&lt;a href=&quot;test&quot;&gt;Test&lt;/a&gt;', ViewAbstract::html('<a href="test">Test</a>'));
     }
 
-    /**
-     * @testdox Views can be added and returned from a view
-     * @covers phpOMS\Views\View<extended>
-     * @group framework
-     */
+    #[\PHPUnit\Framework\Attributes\Group('framework')]
+    #[\PHPUnit\Framework\Attributes\TestDox('Views can be added and returned from a view')]
     public function testViewInputOutput() : void
     {
         $view = new View($this->app->l11nManager);
@@ -296,11 +248,8 @@ final class ViewTest extends \PHPUnit\Framework\TestCase
         self::assertCount(1, $view->getViews());
     }
 
-    /**
-     * @testdox None-existing views cannot be returned
-     * @covers phpOMS\Views\View<extended>
-     * @group framework
-     */
+    #[\PHPUnit\Framework\Attributes\Group('framework')]
+    #[\PHPUnit\Framework\Attributes\TestDox('None-existing views cannot be returned')]
     public function testInvalidViewGet() : void
     {
         $view = new View($this->app->l11nManager);
@@ -308,11 +257,8 @@ final class ViewTest extends \PHPUnit\Framework\TestCase
         self::assertFalse($view->getView('test'));
     }
 
-    /**
-     * @testdox Views can be removed
-     * @covers phpOMS\Views\View<extended>
-     * @group framework
-     */
+    #[\PHPUnit\Framework\Attributes\Group('framework')]
+    #[\PHPUnit\Framework\Attributes\TestDox('Views can be removed')]
     public function testViewRemove() : void
     {
         $view = new View($this->app->l11nManager);
@@ -322,11 +268,8 @@ final class ViewTest extends \PHPUnit\Framework\TestCase
         self::assertTrue($view->removeView('test'));
     }
 
-    /**
-     * @testdox None-existing views cannot be removed
-     * @covers phpOMS\Views\View<extended>
-     * @group framework
-     */
+    #[\PHPUnit\Framework\Attributes\Group('framework')]
+    #[\PHPUnit\Framework\Attributes\TestDox('None-existing views cannot be removed')]
     public function testInvalidViewRemove() : void
     {
         $view = new View($this->app->l11nManager);
@@ -334,11 +277,8 @@ final class ViewTest extends \PHPUnit\Framework\TestCase
         self::assertFalse($view->removeView('test'));
     }
 
-    /**
-     * @testdox A view can be forcefully overwritten
-     * @covers phpOMS\Views\View<extended>
-     * @group framework
-     */
+    #[\PHPUnit\Framework\Attributes\Group('framework')]
+    #[\PHPUnit\Framework\Attributes\TestDox('A view can be forcefully overwritten')]
     public function testOverwritingView() : void
     {
         $view  = new View();
@@ -348,11 +288,8 @@ final class ViewTest extends \PHPUnit\Framework\TestCase
         self::assertTrue($view->addView('test', $tView, true));
     }
 
-    /**
-     * @testdox By default a view is not overwritten
-     * @covers phpOMS\Views\View<extended>
-     * @group framework
-     */
+    #[\PHPUnit\Framework\Attributes\Group('framework')]
+    #[\PHPUnit\Framework\Attributes\TestDox('By default a view is not overwritten')]
     public function testInvalidOverwritingView() : void
     {
         $view  = new View();
@@ -362,11 +299,8 @@ final class ViewTest extends \PHPUnit\Framework\TestCase
         self::assertFalse($view->addView('test', $tView));
     }
 
-    /**
-     * @testdox A view template can be rendered
-     * @covers phpOMS\Views\View<extended>
-     * @group framework
-     */
+    #[\PHPUnit\Framework\Attributes\Group('framework')]
+    #[\PHPUnit\Framework\Attributes\TestDox('A view template can be rendered')]
     public function testRender() : void
     {
         $view = new View();
@@ -375,11 +309,8 @@ final class ViewTest extends \PHPUnit\Framework\TestCase
         self::assertEquals('<strong>Test</strong>', $view->render());
     }
 
-    /**
-     * @testdox A view template can be build
-     * @covers phpOMS\Views\View<extended>
-     * @group framework
-     */
+    #[\PHPUnit\Framework\Attributes\Group('framework')]
+    #[\PHPUnit\Framework\Attributes\TestDox('A view template can be build')]
     public function testBuild() : void
     {
         $view = new View();
@@ -388,11 +319,8 @@ final class ViewTest extends \PHPUnit\Framework\TestCase
         self::assertEquals('<strong>Test</strong>', $view->build());
     }
 
-    /**
-     * @testdox A view template can be serialized
-     * @covers phpOMS\Views\View<extended>
-     * @group framework
-     */
+    #[\PHPUnit\Framework\Attributes\Group('framework')]
+    #[\PHPUnit\Framework\Attributes\TestDox('A view template can be serialized')]
     public function testSerialize() : void
     {
         $view = new View();
@@ -402,11 +330,8 @@ final class ViewTest extends \PHPUnit\Framework\TestCase
         self::assertEquals('<strong>Test</strong>', $view->serialize());
     }
 
-    /**
-     * @testdox A view can be turned into an array containing the rendered templates
-     * @covers phpOMS\Views\View<extended>
-     * @group framework
-     */
+    #[\PHPUnit\Framework\Attributes\Group('framework')]
+    #[\PHPUnit\Framework\Attributes\TestDox('A view can be turned into an array containing the rendered templates')]
     public function testArray() : void
     {
         $view = new View();
@@ -426,11 +351,8 @@ final class ViewTest extends \PHPUnit\Framework\TestCase
         );
     }
 
-    /**
-     * @testdox Rendering a invalid template throws a PathException
-     * @covers phpOMS\Views\View<extended>
-     * @group framework
-     */
+    #[\PHPUnit\Framework\Attributes\Group('framework')]
+    #[\PHPUnit\Framework\Attributes\TestDox('Rendering a invalid template throws a PathException')]
     public function testRenderException() : void
     {
         $view = new View($this->app->l11nManager);
@@ -439,11 +361,8 @@ final class ViewTest extends \PHPUnit\Framework\TestCase
         self::assertEquals('', $view->render());
     }
 
-    /**
-     * @testdox Building a invalid template throws a PathException
-     * @covers phpOMS\Views\View<extended>
-     * @group framework
-     */
+    #[\PHPUnit\Framework\Attributes\Group('framework')]
+    #[\PHPUnit\Framework\Attributes\TestDox('Building a invalid template throws a PathException')]
     public function testBuildException() : void
     {
         $view = new View($this->app->l11nManager);
@@ -452,11 +371,8 @@ final class ViewTest extends \PHPUnit\Framework\TestCase
         self::assertEquals('', $view->build());
     }
 
-    /**
-     * @testdox Serializing a invalid template throws a PathException
-     * @covers phpOMS\Views\View<extended>
-     * @group framework
-     */
+    #[\PHPUnit\Framework\Attributes\Group('framework')]
+    #[\PHPUnit\Framework\Attributes\TestDox('Serializing a invalid template throws a PathException')]
     public function testSerializeException() : void
     {
         $view = new View($this->app->l11nManager);
@@ -465,11 +381,8 @@ final class ViewTest extends \PHPUnit\Framework\TestCase
         self::assertEquals('', $view->serialize());
     }
 
-    /**
-     * @testdox Getting the text without defining a module throws a InvalidModuleException exception
-     * @covers phpOMS\Views\View<extended>
-     * @group framework
-     */
+    #[\PHPUnit\Framework\Attributes\Group('framework')]
+    #[\PHPUnit\Framework\Attributes\TestDox('Getting the text without defining a module throws a InvalidModuleException exception')]
     public function testTextWithoutModuleAndTemplate() : void
     {
         $this->expectException(\phpOMS\Module\Exception\InvalidModuleException::class);
@@ -478,11 +391,8 @@ final class ViewTest extends \PHPUnit\Framework\TestCase
         $view->getText('InvalidText');
     }
 
-    /**
-     * @testdox Getting the text with an invalid template path throws a InvalidModuleException exception
-     * @covers phpOMS\Views\View<extended>
-     * @group framework
-     */
+    #[\PHPUnit\Framework\Attributes\Group('framework')]
+    #[\PHPUnit\Framework\Attributes\TestDox('Getting the text with an invalid template path throws a InvalidModuleException exception')]
     public function testTextFromInvalidTemplatePath() : void
     {
         $this->expectException(\phpOMS\Module\Exception\InvalidModuleException::class);
@@ -492,11 +402,8 @@ final class ViewTest extends \PHPUnit\Framework\TestCase
         $view->getText('InvalidText');
     }
 
-    /**
-     * @testdox Getting the text without defining a template throws a InvalidThemeException exception
-     * @covers phpOMS\Views\View<extended>
-     * @group framework
-     */
+    #[\PHPUnit\Framework\Attributes\Group('framework')]
+    #[\PHPUnit\Framework\Attributes\TestDox('Getting the text without defining a template throws a InvalidThemeException exception')]
     public function testTextInvalidTemplate() : void
     {
         $this->expectException(\phpOMS\Module\Exception\InvalidThemeException::class);

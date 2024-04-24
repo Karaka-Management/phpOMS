@@ -2,7 +2,7 @@
 /**
  * Jingga
  *
- * PHP Version 8.1
+ * PHP Version 8.2
  *
  * @package   tests
  * @copyright Dennis Eichhorn
@@ -19,10 +19,10 @@ require_once __DIR__ . '/../Autoloader.php';
 use phpOMS\Utils\StringCompare;
 
 /**
- * @testdox phpOMS\tests\Utils\StringCompareTest: String comparison / dictionary
- *
  * @internal
  */
+#[\PHPUnit\Framework\Attributes\CoversClass(\phpOMS\Utils\StringCompare::class)]
+#[\PHPUnit\Framework\Attributes\TestDox('phpOMS\tests\Utils\StringCompareTest: String comparison / dictionary')]
 final class StringCompareTest extends \PHPUnit\Framework\TestCase
 {
     private StringCompare $dict;
@@ -52,43 +52,31 @@ final class StringCompareTest extends \PHPUnit\Framework\TestCase
         );
     }
 
-    /**
-     * @testdox A string can be matched with a dictionary entry
-     * @covers phpOMS\Utils\StringCompare
-     * @group framework
-     */
+    #[\PHPUnit\Framework\Attributes\Group('framework')]
+    #[\PHPUnit\Framework\Attributes\TestDox('A string can be matched with a dictionary entry')]
     public function testDictionaryMatch() : void
     {
         self::assertEquals('Cartoon', $this->dict->matchDictionary('Carton'));
         self::assertEquals('Bathtub Sidewalk Table', $this->dict->matchDictionary('Sidewalk Table'));
     }
 
-    /**
-     * @testdox A string doesn't match a dictionary entry if it is very different
-     * @covers phpOMS\Utils\StringCompare
-     * @group framework
-     */
+    #[\PHPUnit\Framework\Attributes\Group('framework')]
+    #[\PHPUnit\Framework\Attributes\TestDox("A string doesn't match a dictionary entry if it is very different")]
     public function testInvalidDictionary() : void
     {
         self::assertNotEquals('Snowflake Bathtub Snowflake Toothbrush Sidewalk', $this->dict->matchDictionary('Toothbrush'));
     }
 
-    /**
-     * @testdox A new dictionary entry can be created and returned
-     * @covers phpOMS\Utils\StringCompare
-     * @group framework
-     */
+    #[\PHPUnit\Framework\Attributes\Group('framework')]
+    #[\PHPUnit\Framework\Attributes\TestDox('A new dictionary entry can be created and returned')]
     public function testDictionaryAdd() : void
     {
         $this->dict->add('Carton');
         self::assertEquals('Carton', $this->dict->matchDictionary('carton'));
     }
 
-    /**
-     * @testdox Two texts can be compared on a per word basis for similarity
-     * @covers phpOMS\Utils\StringCompare
-     * @group framework
-     */
+    #[\PHPUnit\Framework\Attributes\Group('framework')]
+    #[\PHPUnit\Framework\Attributes\TestDox('Two texts can be compared on a per word basis for similarity')]
     public function testValueWords() : void
     {
         // every word in s1 is found in s2, therefore a "perfect" match
@@ -98,10 +86,7 @@ final class StringCompareTest extends \PHPUnit\Framework\TestCase
         self::assertEquals(2, StringCompare::valueWords('This is a test', 'This is not test'));
     }
 
-    /**
-     * @covers phpOMS\Utils\StringCompare
-     * @group framework
-     */
+    #[\PHPUnit\Framework\Attributes\Group('framework')]
     public function testJaro() : void
     {
         self::assertEqualsWithDelta(0.944444, StringCompare::jaro('MARTHA', 'MARHTA'), 0.01);
@@ -109,10 +94,7 @@ final class StringCompareTest extends \PHPUnit\Framework\TestCase
         self::assertEqualsWithDelta(0.896296, StringCompare::jaro('JELLYFISH', 'SMELLYFISH'), 0.01);
     }
 
-    /**
-     * @covers phpOMS\Utils\StringCompare
-     * @group framework
-     */
+    #[\PHPUnit\Framework\Attributes\Group('framework')]
     public function testJaroEmpty() : void
     {
         self::assertEquals(1.0, StringCompare::jaro('', ''));

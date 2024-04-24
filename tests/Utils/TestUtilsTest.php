@@ -2,7 +2,7 @@
 /**
  * Jingga
  *
- * PHP Version 8.1
+ * PHP Version 8.2
  *
  * @package   tests
  * @copyright Dennis Eichhorn
@@ -19,17 +19,14 @@ require_once __DIR__ . '/../Autoloader.php';
 use phpOMS\Utils\TestUtils;
 
 /**
- * @testdox phpOMS\tests\Utils\TestUtilsTest: Test utilities
- *
  * @internal
  */
+#[\PHPUnit\Framework\Attributes\CoversClass(\phpOMS\Utils\TestUtils::class)]
+#[\PHPUnit\Framework\Attributes\TestDox('phpOMS\tests\Utils\TestUtilsTest: Test utilities')]
 final class TestUtilsTest extends \PHPUnit\Framework\TestCase
 {
-    /**
-     * @testdox A member value can be returned
-     * @covers phpOMS\Utils\TestUtils
-     * @group framework
-     */
+    #[\PHPUnit\Framework\Attributes\Group('framework')]
+    #[\PHPUnit\Framework\Attributes\TestDox('A member value can be returned')]
     public function testGet() : void
     {
         $class = new TestUtilsClass();
@@ -40,11 +37,8 @@ final class TestUtilsTest extends \PHPUnit\Framework\TestCase
         self::assertEquals('4', TestUtils::getMember($class, 'd'));
     }
 
-    /**
-     * @testdox Invalid member variable returns null
-     * @covers phpOMS\Utils\TestUtils
-     * @group framework
-     */
+    #[\PHPUnit\Framework\Attributes\Group('framework')]
+    #[\PHPUnit\Framework\Attributes\TestDox('Invalid member variable returns null')]
     public function testInvalidGet() : void
     {
         $class = new TestUtilsClass();
@@ -52,11 +46,8 @@ final class TestUtilsTest extends \PHPUnit\Framework\TestCase
         self::assertNull(TestUtils::getMember($class, 'e'));
     }
 
-    /**
-     * @testdox A member value can be set and returned
-     * @covers phpOMS\Utils\TestUtils
-     * @group framework
-     */
+    #[\PHPUnit\Framework\Attributes\Group('framework')]
+    #[\PHPUnit\Framework\Attributes\TestDox('A member value can be set and returned')]
     public function testInputOutput() : void
     {
         $class = new TestUtilsClass();
@@ -72,11 +63,8 @@ final class TestUtilsTest extends \PHPUnit\Framework\TestCase
         self::assertEquals('7', TestUtils::getMember($class, 'd'));
     }
 
-    /**
-     * @testdox A none-existing member variable cannot be set
-     * @covers phpOMS\Utils\TestUtils
-     * @group framework
-     */
+    #[\PHPUnit\Framework\Attributes\Group('framework')]
+    #[\PHPUnit\Framework\Attributes\TestDox('A none-existing member variable cannot be set')]
     public function testInputInputOutput() : void
     {
         $class = new TestUtilsClass();

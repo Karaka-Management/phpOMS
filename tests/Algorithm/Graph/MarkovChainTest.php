@@ -2,7 +2,7 @@
 /**
  * Jingga
  *
- * PHP Version 8.1
+ * PHP Version 8.2
  *
  * @package   tests
  * @copyright Dennis Eichhorn
@@ -19,16 +19,13 @@ use phpOMS\Algorithm\Graph\MarkovChain;
 require_once __DIR__ . '/../../Autoloader.php';
 
 /**
- * @testdox phpOMS\tests\Algorithm\Graph\MarkovChainTest:
- *
  * @internal
  */
+#[\PHPUnit\Framework\Attributes\CoversClass(\phpOMS\Algorithm\Graph\MarkovChain::class)]
+#[\PHPUnit\Framework\Attributes\TestDox('phpOMS\tests\Algorithm\Graph\MarkovChainTest:')]
 final class MarkovChainTest extends \PHPUnit\Framework\TestCase
 {
-    /**
-     * @covers phpOMS\Algorithm\Graph\MarkovChain
-     * @group framework
-     */
+    #[\PHPUnit\Framework\Attributes\Group('framework')]
     public function testGenerate() : void
     {
         $markov = new MarkovChain();
@@ -43,10 +40,7 @@ final class MarkovChainTest extends \PHPUnit\Framework\TestCase
         self::assertEquals(3, \count($markov->generate(3, ['A'])));
     }
 
-    /**
-     * @covers phpOMS\Algorithm\Graph\MarkovChain
-     * @group framework
-     */
+    #[\PHPUnit\Framework\Attributes\Group('framework')]
     public function testTrainingGenerate() : void
     {
         $markov = new MarkovChain();
@@ -55,10 +49,7 @@ final class MarkovChainTest extends \PHPUnit\Framework\TestCase
         self::assertEquals(5, \count($markov->generate(5, ['A'])));
     }
 
-    /**
-     * @covers phpOMS\Algorithm\Graph\MarkovChain
-     * @group framework
-     */
+    #[\PHPUnit\Framework\Attributes\Group('framework')]
     public function testStepProbability() : void
     {
         $markov = new MarkovChain(2);
@@ -79,10 +70,7 @@ final class MarkovChainTest extends \PHPUnit\Framework\TestCase
         self::assertEquals(0.1, $markov->stepProbability(['D', 'G'], 'D'));
     }
 
-    /**
-     * @covers phpOMS\Algorithm\Graph\MarkovChain
-     * @group framework
-     */
+    #[\PHPUnit\Framework\Attributes\Group('framework')]
     public function testPathProbability() : void
     {
         $markov = new MarkovChain(2);

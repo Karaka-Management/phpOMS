@@ -2,7 +2,7 @@
 /**
  * Jingga
  *
- * PHP Version 8.1
+ * PHP Version 8.2
  *
  * @package    phpOMS\Utils\Parser\Markdown
  * @copyright  Original & extra license Emanuil Rusev, erusev.com (MIT)
@@ -338,7 +338,7 @@ class Markdown
      * @var array{}|array{text:string, id:string, level:string}
      * @since 1.0.0
      */
-    protected $contentsListArray = [];
+    protected array $contentsListArray = [];
 
     /**
      * TOC string after parsing headers
@@ -346,7 +346,7 @@ class Markdown
      * @var string
      * @since 1.0.0
      */
-    protected $contentsListString = '';
+    protected string $contentsListString = '';
 
     /**
      * First head level
@@ -362,7 +362,7 @@ class Markdown
      * @var bool
      * @since 1.0.0
      */
-    protected $isBlacklistInitialized = false;
+    protected bool $isBlacklistInitialized = false;
 
     /**
      * Header duplicates (same header text)
@@ -370,7 +370,7 @@ class Markdown
      * @var array<string, int>
      * @since 1.0.0
      */
-    protected $anchorDuplicates = [];
+    protected array $anchorDuplicates = [];
     // TOC: end
 
     /**
@@ -387,7 +387,7 @@ class Markdown
      * @var string
      * @since 1.0.0
      */
-    private string $currentAbreviation;
+    private string $currentAbbreviation;
 
     /**
      * Current abbreviation meaning
@@ -420,7 +420,7 @@ class Markdown
         $this->firstHeadLevel     = 0;
         $this->anchorDuplicates   = [];
         $this->footnoteCount      = 0;
-        $this->currentAbreviation = '';
+        $this->currentAbbreviation = '';
         $this->currentMeaning     = '';
     }
 
@@ -729,7 +729,7 @@ class Markdown
             return null;
         }
 
-        $url = UriFactory::build($matches[1]);
+        $url = UriFactory::build(\str_replace('{$CSRF}', 'ERROR', $matches[1]));
 
         if (!isset($matches[2])) {
             $url = "mailto:{$url}";
@@ -943,7 +943,7 @@ class Markdown
             return null;
         }
 
-        $url = UriFactory::build($matches[0][0]);
+        $url = UriFactory::build(\str_replace('{$CSRF}', 'ERROR', $matches[0][0]));
 
         return [
             'extent'   => \strlen($matches[0][0]),
@@ -976,7 +976,7 @@ class Markdown
             return null;
         }
 
-        $url = UriFactory::build($matches[1]);
+        $url = UriFactory::build(\str_replace('{$CSRF}', 'ERROR', $matches[1]));
 
         return [
             'extent'  => \strlen($matches[0]),
@@ -1390,7 +1390,7 @@ class Markdown
                 default:
                     $element    = 'video';
                     $attributes = [
-                        'src'      => UriFactory::build($url),
+                        'src'      => UriFactory::build(\str_replace('{$CSRF}', 'ERROR', $url)),
                         'controls' => '',
                     ];
             }
@@ -1410,7 +1410,7 @@ class Markdown
                     'name'       => 'audio',
                     'text'       => $matches[1],
                     'attributes' => [
-                        'src'      => UriFactory::build($url),
+                        'src'      => UriFactory::build(\str_replace('{$CSRF}', 'ERROR', $url)),
                         'controls' => '',
                     ],
                 ],
@@ -2310,7 +2310,7 @@ class Markdown
         $id = \strtolower($matches[1]);
 
         $this->definitionData['Reference'][$id] = [
-            'url'   => UriFactory::build($matches[2]),
+            'url'   => UriFactory::build(\str_replace('{$CSRF}', 'ERROR', $matches[2])),
             'title' => isset($matches[3]) ? $matches[3] : null,
         ];
 
@@ -3514,14 +3514,14 @@ class Markdown
         }
 
         $element['elements'] = self::pregReplaceElements(
-            '/\b' . \preg_quote($this->currentAbreviation, '/') . '\b/',
+            '/\b' . \preg_quote($this->currentAbbreviation, '/') . '\b/',
             [
                 [
                     'name'       => 'abbr',
                     'attributes' => [
                         'title' => $this->currentMeaning,
                     ],
-                    'text' => $this->currentAbreviation,
+                    'text' => $this->currentAbbreviation,
                 ],
             ],
             $element['text']
@@ -3563,7 +3563,7 @@ class Markdown
         }
 
         foreach ($this->definitionData['Abbreviation'] as $abbreviation => $meaning) {
-            $this->currentAbreviation = $abbreviation;
+            $this->currentAbbreviation = $abbreviation;
             $this->currentMeaning     = $meaning;
 
             $inline['element'] = $this->elementApplyRecursiveDepthFirst(
@@ -4394,7 +4394,7 @@ class Markdown
         }
 
         if (\preg_match('/^[(]\s*+((?:[^ ()]++|[(][^ )]+[)])++)(?:[ ]+("[^"]*+"|\'[^\']*+\'))?\s*+[)]/', $remainder, $matches)) {
-            $element['attributes']['href'] = UriFactory::build($matches[1]);
+            $element['attributes']['href'] = UriFactory::build(\str_replace('{$CSRF}', 'ERROR', $matches[1]));
 
             if (isset($matches[2])) {
                 $element['attributes']['title'] = \substr($matches[2], 1, - 1);
@@ -4576,7 +4576,7 @@ class Markdown
         }
 
         $permitRawHtml = false;
-        $text = null;
+        $text          = null;
 
         if (isset($element['text'])) {
             $text = $element['text'];

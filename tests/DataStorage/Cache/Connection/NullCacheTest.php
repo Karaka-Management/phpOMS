@@ -2,7 +2,7 @@
 /**
  * Jingga
  *
- * PHP Version 8.1
+ * PHP Version 8.2
  *
  * @package   tests
  * @copyright Dennis Eichhorn
@@ -19,10 +19,10 @@ use phpOMS\DataStorage\Cache\CacheType;
 use phpOMS\DataStorage\Cache\Connection\NullCache;
 
 /**
- * @testdox phpOMS\tests\DataStorage\Cache\Connection\NullCacheTest: Null cache connection if no cache is available
- *
  * @internal
  */
+#[\PHPUnit\Framework\Attributes\CoversClass(\phpOMS\DataStorage\Cache\Connection\NullCache::class)]
+#[\PHPUnit\Framework\Attributes\TestDox('phpOMS\tests\DataStorage\Cache\Connection\NullCacheTest: Null cache connection if no cache is available')]
 final class NullCacheTest extends \PHPUnit\Framework\TestCase
 {
     protected NullCache $cache;
@@ -35,11 +35,8 @@ final class NullCacheTest extends \PHPUnit\Framework\TestCase
         $this->cache = new NullCache([]);
     }
 
-    /**
-     * @testdox The default cache has the expected default values after initialization
-     * @covers phpOMS\DataStorage\Cache\Connection\NullCache<extended>
-     * @group framework
-     */
+    #[\PHPUnit\Framework\Attributes\Group('framework')]
+    #[\PHPUnit\Framework\Attributes\TestDox('The default cache has the expected default values after initialization')]
     public function testDefault() : void
     {
         self::assertEquals(CacheType::UNDEFINED, $this->cache->getType());

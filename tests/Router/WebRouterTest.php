@@ -2,7 +2,7 @@
 /**
  * Jingga
  *
- * PHP Version 8.1
+ * PHP Version 8.2
  *
  * @package   tests
  * @copyright Dennis Eichhorn
@@ -28,10 +28,10 @@ use phpOMS\Uri\HttpUri;
 require_once __DIR__ . '/../Autoloader.php';
 
 /**
- * @testdox phpOMS\tests\Router\WebRouterTest: Router for web requests
- *
  * @internal
  */
+#[\PHPUnit\Framework\Attributes\CoversClass(\phpOMS\Router\WebRouter::class)]
+#[\PHPUnit\Framework\Attributes\TestDox('phpOMS\tests\Router\WebRouterTest: Router for web requests')]
 final class WebRouterTest extends \PHPUnit\Framework\TestCase
 {
     protected WebRouter $router;
@@ -44,11 +44,8 @@ final class WebRouterTest extends \PHPUnit\Framework\TestCase
         $this->router = new WebRouter();
     }
 
-    /**
-     * @testdox The route result for an empty request is empty
-     * @covers phpOMS\Router\WebRouter
-     * @group framework
-     */
+    #[\PHPUnit\Framework\Attributes\Group('framework')]
+    #[\PHPUnit\Framework\Attributes\TestDox('The route result for an empty request is empty')]
     public function testDefault() : void
     {
         self::assertEmpty(
@@ -58,31 +55,22 @@ final class WebRouterTest extends \PHPUnit\Framework\TestCase
         );
     }
 
-    /**
-     * @testdox A none-existing routing file cannot be imported
-     * @covers phpOMS\Router\WebRouter
-     * @group framework
-     */
+    #[\PHPUnit\Framework\Attributes\Group('framework')]
+    #[\PHPUnit\Framework\Attributes\TestDox('A none-existing routing file cannot be imported')]
     public function testInvalidRoutingFile() : void
     {
         self::assertFalse($this->router->importFromFile(__DIR__ . '/invalidFile.php'));
     }
 
-    /**
-     * @testdox A existing routing file can be imported
-     * @covers phpOMS\Router\WebRouter
-     * @group framework
-     */
+    #[\PHPUnit\Framework\Attributes\Group('framework')]
+    #[\PHPUnit\Framework\Attributes\TestDox('A existing routing file can be imported')]
     public function testLoadingRoutesFromFile() : void
     {
         self::assertTrue($this->router->importFromFile(__DIR__ . '/webRouterTestFile.php'));
     }
 
-    /**
-     * @testdox A matching route returns the destinations
-     * @covers phpOMS\Router\WebRouter
-     * @group framework
-     */
+    #[\PHPUnit\Framework\Attributes\Group('framework')]
+    #[\PHPUnit\Framework\Attributes\TestDox('A matching route returns the destinations')]
     public function testRouteMatching() : void
     {
         self::assertTrue($this->router->importFromFile(__DIR__ . '/webRouterTestFile.php'));
@@ -97,11 +85,8 @@ final class WebRouterTest extends \PHPUnit\Framework\TestCase
         );
     }
 
-    /**
-     * @testdox The routes can be removed from the router
-     * @covers phpOMS\Router\WebRouter
-     * @group framework
-     */
+    #[\PHPUnit\Framework\Attributes\Group('framework')]
+    #[\PHPUnit\Framework\Attributes\TestDox('The routes can be removed from the router')]
     public function testRouteClearing() : void
     {
         self::assertTrue($this->router->importFromFile(__DIR__ . '/webRouterTestFile.php'));
@@ -117,11 +102,8 @@ final class WebRouterTest extends \PHPUnit\Framework\TestCase
         );
     }
 
-    /**
-     * @testdox Invalid routing verbs don't match even if the route matches
-     * @covers phpOMS\Router\WebRouter
-     * @group framework
-     */
+    #[\PHPUnit\Framework\Attributes\Group('framework')]
+    #[\PHPUnit\Framework\Attributes\TestDox("Invalid routing verbs don't match even if the route matches")]
     public function testRouteMissMatchingForInvalidVerbs() : void
     {
         self::assertTrue($this->router->importFromFile(__DIR__ . '/webRouterTestFile.php'));
@@ -135,11 +117,8 @@ final class WebRouterTest extends \PHPUnit\Framework\TestCase
         );
     }
 
-    /**
-     * @testdox Routes can be added dynamically
-     * @covers phpOMS\Router\WebRouter
-     * @group framework
-     */
+    #[\PHPUnit\Framework\Attributes\Group('framework')]
+    #[\PHPUnit\Framework\Attributes\TestDox('Routes can be added dynamically')]
     public function testDynamicRouteAdding() : void
     {
         $this->router->add('^.*/backends/admin/settings/general(\?.*$|$)', 'Controller:test', RouteVerb::GET | RouteVerb::SET);
@@ -167,11 +146,8 @@ final class WebRouterTest extends \PHPUnit\Framework\TestCase
         );
     }
 
-    /**
-     * @testdox Routes which require a CSRF token can only match with a CSRF token
-     * @covers phpOMS\Router\WebRouter
-     * @group framework
-     */
+    #[\PHPUnit\Framework\Attributes\Group('framework')]
+    #[\PHPUnit\Framework\Attributes\TestDox('Routes which require a CSRF token can only match with a CSRF token')]
     public function testWithCSRF() : void
     {
         self::assertTrue($this->router->importFromFile(__DIR__ . '/webRouteTestCsrf.php'));
@@ -180,18 +156,15 @@ final class WebRouterTest extends \PHPUnit\Framework\TestCase
             [['dest' => '\Modules\Admin\Controller:viewCsrf']],
             $this->router->route(
                 (new HttpRequest(
-                    new HttpUri('http://test.com/backend/admin/settings/csrf/something?test')
+                    new HttpUri('http://test.com/backend/admin/settings/csrf?test')
                 ))->uri->getRoute(),
                 'csrf_string'
             )
         );
     }
 
-    /**
-     * @testdox Routes which require a CSRF token don't match without a CSRF token
-     * @covers phpOMS\Router\WebRouter
-     * @group framework
-     */
+    #[\PHPUnit\Framework\Attributes\Group('framework')]
+    #[\PHPUnit\Framework\Attributes\TestDox("Routes which require a CSRF token don't match without a CSRF token")]
     public function testWithoutCSRF() : void
     {
         self::assertTrue($this->router->importFromFile(__DIR__ . '/webRouteTestCsrf.php'));
@@ -200,17 +173,14 @@ final class WebRouterTest extends \PHPUnit\Framework\TestCase
             ['dest' => RouteStatus::INVALID_CSRF],
             $this->router->route(
                 (new HttpRequest(
-                    new HttpUri('http://test.com/backend/admin/settings/csrf/something?test')
+                    new HttpUri('http://test.com/backend/admin/settings/csrf?test')
                 ))->uri->getRoute()
             )
         );
     }
 
-    /**
-     * @testdox Routes only match if the permissions match
-     * @covers phpOMS\Router\WebRouter
-     * @group framework
-     */
+    #[\PHPUnit\Framework\Attributes\Group('framework')]
+    #[\PHPUnit\Framework\Attributes\TestDox('Routes only match if the permissions match')]
     public function testWithValidPermissions() : void
     {
         if (!Autoloader::exists('\Modules\Admin\Controller\Controller')) {
@@ -246,11 +216,8 @@ final class WebRouterTest extends \PHPUnit\Framework\TestCase
         );
     }
 
-    /**
-     * @testdox Routes don't match if the permissions don't match
-     * @covers phpOMS\Router\WebRouter
-     * @group framework
-     */
+    #[\PHPUnit\Framework\Attributes\Group('framework')]
+    #[\PHPUnit\Framework\Attributes\TestDox("Routes don't match if the permissions don't match")]
     public function testWithInvalidPermissions() : void
     {
         if (!Autoloader::exists('\Modules\Admin\Controller\Controller')) {
@@ -310,11 +277,8 @@ final class WebRouterTest extends \PHPUnit\Framework\TestCase
         );
     }
 
-    /**
-     * @testdox A data validation pattern validates matches correctly
-     * @covers phpOMS\Router\WebRouter
-     * @group framework
-     */
+    #[\PHPUnit\Framework\Attributes\Group('framework')]
+    #[\PHPUnit\Framework\Attributes\TestDox('A data validation pattern validates matches correctly')]
     public function testDataValidation() : void
     {
         $this->router->add(
@@ -334,11 +298,8 @@ final class WebRouterTest extends \PHPUnit\Framework\TestCase
         );
     }
 
-    /**
-     * @testdox A data validation pattern invalidates miss-matches
-     * @covers phpOMS\Router\WebRouter
-     * @group framework
-     */
+    #[\PHPUnit\Framework\Attributes\Group('framework')]
+    #[\PHPUnit\Framework\Attributes\TestDox('A data validation pattern invalidates miss-matches')]
     public function testInvalidDataValidation() : void
     {
         $this->router->add(
@@ -358,11 +319,8 @@ final class WebRouterTest extends \PHPUnit\Framework\TestCase
         );
     }
 
-    /**
-     * @testdox A uri can be used for data population
-     * @covers phpOMS\Router\WebRouter
-     * @group framework
-     */
+    #[\PHPUnit\Framework\Attributes\Group('framework')]
+    #[\PHPUnit\Framework\Attributes\TestDox('A uri can be used for data population')]
     public function testDataFromPattern() : void
     {
         $this->router->add(

@@ -2,7 +2,7 @@
 /**
  * Jingga
  *
- * PHP Version 8.1
+ * PHP Version 8.2
  *
  * @package   tests
  * @copyright Dennis Eichhorn
@@ -30,10 +30,13 @@ use phpOMS\Utils\TestUtils;
 require_once __DIR__ . '/../Autoloader.php';
 
 /**
- * @testdox phpOMS\tests\Module\ModuleManagerTest: Manager for the module system
- *
  * @internal
  */
+#[\PHPUnit\Framework\Attributes\CoversClass(\phpOMS\Module\ModuleManager::class)]
+#[\PHPUnit\Framework\Attributes\CoversClass(\phpOMS\Module\InstallerAbstract::class)]
+#[\PHPUnit\Framework\Attributes\CoversClass(\phpOMS\Module\StatusAbstract::class)]
+#[\PHPUnit\Framework\Attributes\CoversClass(\phpOMS\Module\UninstallerAbstract::class)]
+#[\PHPUnit\Framework\Attributes\TestDox('phpOMS\tests\Module\ModuleManagerTest: Manager for the module system')]
 final class ModuleManagerTest extends \PHPUnit\Framework\TestCase
 {
     protected ApplicationAbstract $app;
@@ -57,32 +60,23 @@ final class ModuleManagerTest extends \PHPUnit\Framework\TestCase
         $this->moduleManager    = new ModuleManager($this->app, __DIR__ . '/../../../Modules/');
     }
 
-    /**
-     * @testdox Unknown modules return a null module
-     * @covers phpOMS\Module\ModuleManager
-     * @group framework
-     */
+    #[\PHPUnit\Framework\Attributes\Group('framework')]
+    #[\PHPUnit\Framework\Attributes\TestDox('Unknown modules return a null module')]
     public function testUnknownModuleGet() : void
     {
         self::assertInstanceOf('\phpOMS\Module\NullModule', $this->moduleManager->get('doesNotExist2'));
     }
 
-    /**
-     * @testdox Unknown modules cannot get activated, deactivated
-     * @covers phpOMS\Module\ModuleManager
-     * @group framework
-     */
+    #[\PHPUnit\Framework\Attributes\Group('framework')]
+    #[\PHPUnit\Framework\Attributes\TestDox('Unknown modules cannot get activated, deactivated')]
     public function testUnknwonModuleStatusChange() : void
     {
         self::assertFalse($this->moduleManager->activate('randomErrorTest1'));
         self::assertFalse($this->moduleManager->deactivate('randomErrorTest1'));
     }
 
-    /**
-     * @testdox Active modules can be returned
-     * @covers phpOMS\Module\ModuleManager
-     * @group framework
-     */
+    #[\PHPUnit\Framework\Attributes\Group('framework')]
+    #[\PHPUnit\Framework\Attributes\TestDox('Active modules can be returned')]
     public function testAllActiveModules() : void
     {
         $active = $this->moduleManager->getActiveModules();
@@ -90,11 +84,8 @@ final class ModuleManagerTest extends \PHPUnit\Framework\TestCase
         self::assertNotEmpty($active);
     }
 
-    /**
-     * @testdox Modules can be checked to be active
-     * @covers phpOMS\Module\ModuleManager
-     * @group framework
-     */
+    #[\PHPUnit\Framework\Attributes\Group('framework')]
+    #[\PHPUnit\Framework\Attributes\TestDox('Modules can be checked to be active')]
     public function testActiveModule() : void
     {
         $active = $this->moduleManager->getActiveModules();
@@ -106,11 +97,8 @@ final class ModuleManagerTest extends \PHPUnit\Framework\TestCase
         self::assertFalse($this->moduleManager->isActive('Invalid'));
     }
 
-    /**
-     * @testdox Modules can be checked to be running
-     * @covers phpOMS\Module\ModuleManager
-     * @group framework
-     */
+    #[\PHPUnit\Framework\Attributes\Group('framework')]
+    #[\PHPUnit\Framework\Attributes\TestDox('Modules can be checked to be running')]
     public function testRunningModule() : void
     {
         $module = $this->moduleManager->get('TestModule');
@@ -118,11 +106,8 @@ final class ModuleManagerTest extends \PHPUnit\Framework\TestCase
         self::assertFalse($this->moduleManager->isRunning('Invalid'));
     }
 
-    /**
-     * @testdox All available modules can be returned
-     * @covers phpOMS\Module\ModuleManager
-     * @group framework
-     */
+    #[\PHPUnit\Framework\Attributes\Group('framework')]
+    #[\PHPUnit\Framework\Attributes\TestDox('All available modules can be returned')]
     public function testAllModules() : void
     {
         $all = $this->moduleManager->getAllModules();
@@ -130,13 +115,8 @@ final class ModuleManagerTest extends \PHPUnit\Framework\TestCase
         self::assertNotEmpty($all);
     }
 
-    /**
-     * @testdox A module can be installed and its status can be changed
-     * @covers phpOMS\Module\InstallerAbstract
-     * @covers phpOMS\Module\ModuleManager
-     * @covers phpOMS\Module\StatusAbstract
-     * @group framework
-     */
+    #[\PHPUnit\Framework\Attributes\Group('framework')]
+    #[\PHPUnit\Framework\Attributes\TestDox('A module can be installed and its status can be changed')]
     public function testStatus() : void
     {
         $this->moduleManager->install('TestModule');
@@ -182,35 +162,24 @@ final class ModuleManagerTest extends \PHPUnit\Framework\TestCase
         self::assertTrue($this->moduleManager->isActive('TestModule'));
     }
 
-    /**
-     * @testdox A none-existing module cannot be re-initialized
-     * @covers phpOMS\Module\ModuleManager
-     * @group framework
-     */
+    #[\PHPUnit\Framework\Attributes\Group('framework')]
+    #[\PHPUnit\Framework\Attributes\TestDox('A none-existing module cannot be re-initialized')]
     public function testInvalidModuleReInit() : void
     {
         $this->moduleManager->reInit('Invalid');
         self::assertFalse($this->moduleManager->isActive('Invalid'));
     }
 
-    /**
-     * @testdox A module can be re-initialized
-     * @covers phpOMS\Module\InstallerAbstract
-     * @covers phpOMS\Module\ModuleManager
-     * @covers phpOMS\Module\StatusAbstract
-     * @group framework
-     */
+    #[\PHPUnit\Framework\Attributes\Group('framework')]
+    #[\PHPUnit\Framework\Attributes\TestDox('A module can be re-initialized')]
     public function testReInit() : void
     {
         $this->moduleManager->reInit('TestModule');
         self::assertTrue($this->moduleManager->isActive('TestModule'));
     }
 
-    /**
-     * @testdox A module is automatically loaded for its URIs
-     * @covers phpOMS\Module\ModuleManager
-     * @group framework
-     */
+    #[\PHPUnit\Framework\Attributes\Group('framework')]
+    #[\PHPUnit\Framework\Attributes\TestDox('A module is automatically loaded for its URIs')]
     public function testRequestLoad() : void
     {
         $request = new HttpRequest(new HttpUri('http://127.0.0.1/en/backend/testmodule'));
@@ -235,11 +204,8 @@ final class ModuleManagerTest extends \PHPUnit\Framework\TestCase
         self::assertTrue($this->moduleManager->isRunning('TestModule'));
     }
 
-    /**
-     * @testdox Getting language files for an invalid module returns an empty array
-     * @covers phpOMS\Module\ModuleManager
-     * @group framework
-     */
+    #[\PHPUnit\Framework\Attributes\Group('framework')]
+    #[\PHPUnit\Framework\Attributes\TestDox('Getting language files for an invalid module returns an empty array')]
     public function testGetLanguageForInvalidRequest() : void
     {
         $request = new HttpRequest(new HttpUri('http://127.0.0.1/en/error/invalid'));
@@ -250,11 +216,8 @@ final class ModuleManagerTest extends \PHPUnit\Framework\TestCase
         self::assertEquals([], $this->moduleManager->getLanguageFiles($request));
     }
 
-    /**
-     * @testdox Installed modules can be returned
-     * @covers phpOMS\Module\ModuleManager
-     * @group framework
-     */
+    #[\PHPUnit\Framework\Attributes\Group('framework')]
+    #[\PHPUnit\Framework\Attributes\TestDox('Installed modules can be returned')]
     public function testInstalledModules() : void
     {
         $installed = $this->moduleManager->getInstalledModules();
@@ -262,43 +225,30 @@ final class ModuleManagerTest extends \PHPUnit\Framework\TestCase
         self::assertNotEmpty($installed);
     }
 
-    /**
-     * @testdox A module can be checked if it is installed
-     * @covers phpOMS\Module\ModuleManager
-     * @group framework
-     */
+    #[\PHPUnit\Framework\Attributes\Group('framework')]
+    #[\PHPUnit\Framework\Attributes\TestDox('A module can be checked if it is installed')]
     public function testIsInstalled() : void
     {
         self::assertTrue($this->moduleManager->isInstalled('TestModule'));
     }
 
-    /**
-     * @testdox Installing an already installed module doesn't perform anything
-     * @covers phpOMS\Module\ModuleManager
-     * @group framework
-     */
+    #[\PHPUnit\Framework\Attributes\Group('framework')]
+    #[\PHPUnit\Framework\Attributes\TestDox("Installing an already installed module doesn't perform anything")]
     public function testInstallingAlreadyInstalledModule() : void
     {
         self::assertTrue($this->moduleManager->install('TestModule'));
     }
 
-    /**
-     * @testdox The valid module can be returned
-     * @covers phpOMS\Module\ModuleManager
-     * @group framework
-     */
+    #[\PHPUnit\Framework\Attributes\Group('framework')]
+    #[\PHPUnit\Framework\Attributes\TestDox('The valid module can be returned')]
     public function testAdminModule() : void
     {
         self::assertInstanceOf('\phpOMS\Module\ModuleAbstract', $this->moduleManager->get('Admin'));
         self::assertInstanceOf('\Modules\Admin\Controller\ApiController', $this->moduleManager->get('Admin'));
     }
 
-    /**
-     * @testdox A module can be uninstalled
-     * @covers phpOMS\Module\ModuleManager
-     * @covers phpOMS\Module\UninstallerAbstract
-     * @group framework
-     */
+    #[\PHPUnit\Framework\Attributes\Group('framework')]
+    #[\PHPUnit\Framework\Attributes\TestDox('A module can be uninstalled')]
     public function testUninstall() : void
     {
         $this->moduleManager->uninstall('TestModule');
@@ -312,11 +262,8 @@ final class ModuleManagerTest extends \PHPUnit\Framework\TestCase
         self::assertFalse($this->moduleManager->isRunning('TestModule'));
     }
 
-    /**
-     * @testdox A empty or invalid module path returns an empty array on module getter functions.
-     * @covers phpOMS\Module\ModuleManager
-     * @group framework
-     */
+    #[\PHPUnit\Framework\Attributes\Group('framework')]
+    #[\PHPUnit\Framework\Attributes\TestDox('A empty or invalid module path returns an empty array on module getter functions.')]
     public function testInvalidModulePath() : void
     {
         $moduleManager = new ModuleManager($this->app, __DIR__ . '/Testmodule/');
@@ -326,21 +273,15 @@ final class ModuleManagerTest extends \PHPUnit\Framework\TestCase
         self::assertEquals([], $moduleManager->getActiveModules(false));
     }
 
-    /**
-     * @testdox A invalid module name cannot be installed
-     * @covers phpOMS\Module\ModuleManager
-     * @group framework
-     */
+    #[\PHPUnit\Framework\Attributes\Group('framework')]
+    #[\PHPUnit\Framework\Attributes\TestDox('A invalid module name cannot be installed')]
     public function testInvalidModuleInstall() : void
     {
         self::assertFalse($this->moduleManager->install('Invalid'));
     }
 
-    /**
-     * @testdox A invalid module name cannot be uninstalled
-     * @covers phpOMS\Module\ModuleManager
-     * @group framework
-     */
+    #[\PHPUnit\Framework\Attributes\Group('framework')]
+    #[\PHPUnit\Framework\Attributes\TestDox('A invalid module name cannot be uninstalled')]
     public function testInvalidModuleUninstall() : void
     {
         self::assertFalse($this->moduleManager->uninstall('Invalid'));

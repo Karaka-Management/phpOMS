@@ -2,7 +2,7 @@
 /**
  * Jingga
  *
- * PHP Version 8.1
+ * PHP Version 8.2
  *
  * @package   tests
  * @copyright Dennis Eichhorn
@@ -19,12 +19,10 @@ use phpOMS\Stdlib\Base\NullLocation;
 /**
  * @internal
  */
+#[\PHPUnit\Framework\Attributes\CoversClass(\phpOMS\Stdlib\Base\NullLocation::class)]
 final class NullLocationTest extends \PHPUnit\Framework\TestCase
 {
-    /**
-     * @covers phpOMS\Stdlib\Base\NullLocation
-     * @group framework
-     */
+    #[\PHPUnit\Framework\Attributes\Group('framework')]
     public function testNullLocation() : void
     {
         self::assertInstanceOf('\phpOMS\Stdlib\Base\Location', new NullLocation());

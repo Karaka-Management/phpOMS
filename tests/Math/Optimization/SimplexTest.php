@@ -3,7 +3,7 @@
 /**
  * Jingga
  *
- * PHP Version 8.1
+ * PHP Version 8.2
  *
  * @package   tests
  * @copyright Dennis Eichhorn
@@ -18,12 +18,11 @@ namespace phpOMS\tests\Math\Optimization;
 use phpOMS\Math\Optimization\Simplex;
 
 /**
- * @testdox phpOMS\tests\Math\Optimization\SimplexTest: Numeric integration
- *
  * @internal
  *
  * Commented out assertions which take a long time with xdebug. without xdebug these are fine!
  */
+#[\PHPUnit\Framework\Attributes\TestDox('phpOMS\tests\Math\Optimization\SimplexTest: Numeric integration')]
 final class SimplexTest extends \PHPUnit\Framework\TestCase
 {
     public function testSimplexBasicInfeasible() : void

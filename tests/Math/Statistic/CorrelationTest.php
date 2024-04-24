@@ -2,7 +2,7 @@
 /**
  * Jingga
  *
- * PHP Version 8.1
+ * PHP Version 8.2
  *
  * @package   tests
  * @copyright Dennis Eichhorn
@@ -17,16 +17,13 @@ namespace phpOMS\tests\Math\Statistic;
 use phpOMS\Math\Statistic\Correlation;
 
 /**
- * @testdox phpOMS\tests\Math\Statistic\CorrelationTest: Correlations
- *
  * @internal
  */
+#[\PHPUnit\Framework\Attributes\TestDox('phpOMS\tests\Math\Statistic\CorrelationTest: Correlations')]
 final class CorrelationTest extends \PHPUnit\Framework\TestCase
 {
-    /**
-     * @testdox The correlation coefficient (Bravis Person) is calculated correctly
-     * @group framework
-     */
+    #[\PHPUnit\Framework\Attributes\Group('framework')]
+    #[\PHPUnit\Framework\Attributes\TestDox('The correlation coefficient (Bravis Person) is calculated correctly')]
     public function testBravisPersonCorrelationCoefficientPopulation() : void
     {
         self::assertEqualsWithDelta(
@@ -38,10 +35,8 @@ final class CorrelationTest extends \PHPUnit\Framework\TestCase
         );
     }
 
-    /**
-     * @testdox The correlation coefficient (Bravis Person) is calculated correctly on a sample
-     * @group framework
-     */
+    #[\PHPUnit\Framework\Attributes\Group('framework')]
+    #[\PHPUnit\Framework\Attributes\TestDox('The correlation coefficient (Bravis Person) is calculated correctly on a sample')]
     public function testBravisPersonCorrelationCoefficientSample() : void
     {
         self::assertEqualsWithDelta(
@@ -53,10 +48,8 @@ final class CorrelationTest extends \PHPUnit\Framework\TestCase
         );
     }
 
-    /**
-     * @testdox The autocorrelation coefficient is calculated correctly
-     * @group framework
-     */
+    #[\PHPUnit\Framework\Attributes\Group('framework')]
+    #[\PHPUnit\Framework\Attributes\TestDox('The autocorrelation coefficient is calculated correctly')]
     public function testAutocorrelationCoefficient() : void
     {
         $data = [
@@ -70,10 +63,8 @@ final class CorrelationTest extends \PHPUnit\Framework\TestCase
         self::assertEqualsWithDelta(0.098, Correlation::autocorrelationCoefficient($data, 2), 0.01);
     }
 
-    /**
-     * @testdox The portmanteau test (Box Pierce) is correct
-     * @group framework
-     */
+    #[\PHPUnit\Framework\Attributes\Group('framework')]
+    #[\PHPUnit\Framework\Attributes\TestDox('The portmanteau test (Box Pierce) is correct')]
     public function testPortmanteauTestBoxPierce() : void
     {
         $data = [
@@ -91,10 +82,8 @@ final class CorrelationTest extends \PHPUnit\Framework\TestCase
         self::assertEqualsWithDelta(16.46, Correlation::boxPierceTest($correlations, 24, 48), 0.01);
     }
 
-    /**
-     * @testdox The portmanteau test (Ljung Box) is correct
-     * @group framework
-     */
+    #[\PHPUnit\Framework\Attributes\Group('framework')]
+    #[\PHPUnit\Framework\Attributes\TestDox('The portmanteau test (Ljung Box) is correct')]
     public function testPortmanteauTestLjungBox() : void
     {
         $data = [

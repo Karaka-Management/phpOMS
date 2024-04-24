@@ -2,7 +2,7 @@
 /**
  * Jingga
  *
- * PHP Version 8.1
+ * PHP Version 8.2
  *
  * @package   tests
  * @copyright Dennis Eichhorn
@@ -17,17 +17,14 @@ namespace phpOMS\tests\Api\EUVAT;
 use phpOMS\Api\EUVAT\EUVATBffOnline;
 
 /**
- * @testdox phpOMS\tests\Api\EUVAT\EUVATBffOnlineTest: EU VAT German BFF Online validation
- *
  * @internal
  */
+#[\PHPUnit\Framework\Attributes\CoversClass(\phpOMS\Api\EUVAT\EUVATBffOnline::class)]
+#[\PHPUnit\Framework\Attributes\TestDox('phpOMS\tests\Api\EUVAT\EUVATBffOnlineTest: EU VAT German BFF Online validation')]
 final class EUVATBffOnlineTest extends \PHPUnit\Framework\TestCase
 {
-    /**
-     * @testdox The BFF Online service can validate a valid VAT ID
-     * @covers phpOMS\Api\EUVAT\EUVATBffOnline
-     * @group framework
-     */
+    #[\PHPUnit\Framework\Attributes\Group('framework')]
+    #[\PHPUnit\Framework\Attributes\TestDox('The BFF Online service can validate a valid VAT ID')]
     public function testValidateInvalidId() : void
     {
         $status = EUVATBffOnline::validate('DE123456789', 'DE123456789');

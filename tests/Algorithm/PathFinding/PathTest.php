@@ -2,7 +2,7 @@
 /**
  * Jingga
  *
- * PHP Version 8.1
+ * PHP Version 8.2
  *
  * @package   tests
  * @copyright Dennis Eichhorn
@@ -21,17 +21,14 @@ use phpOMS\Algorithm\PathFinding\Path;
 require_once __DIR__ . '/../../Autoloader.php';
 
 /**
- * @testdox phpOMS\tests\Algorithm\PathFinding\PathTest: Path on grid
- *
  * @internal
  */
+#[\PHPUnit\Framework\Attributes\CoversClass(\phpOMS\Algorithm\PathFinding\Path::class)]
+#[\PHPUnit\Framework\Attributes\TestDox('phpOMS\tests\Algorithm\PathFinding\PathTest: Path on grid')]
 final class PathTest extends \PHPUnit\Framework\TestCase
 {
-    /**
-     * @testdox The path has the expected values after initialization
-     * @covers phpOMS\Algorithm\PathFinding\Path
-     * @group framework
-     */
+    #[\PHPUnit\Framework\Attributes\Group('framework')]
+    #[\PHPUnit\Framework\Attributes\TestDox('The path has the expected values after initialization')]
     public function testDefault() : void
     {
         $path = new Path(new Grid());
@@ -40,11 +37,8 @@ final class PathTest extends \PHPUnit\Framework\TestCase
         self::assertEquals([], $path->expandPath());
     }
 
-    /**
-     * @testdox The diagonal euclidean path length is calculated correctly
-     * @covers phpOMS\Algorithm\PathFinding\Path
-     * @group framework
-     */
+    #[\PHPUnit\Framework\Attributes\Group('framework')]
+    #[\PHPUnit\Framework\Attributes\TestDox('The diagonal euclidean path length is calculated correctly')]
     public function testDiagonalPathLength() : void
     {
         $grid = Grid::createGridFromArray([
@@ -64,11 +58,8 @@ final class PathTest extends \PHPUnit\Framework\TestCase
         self::assertEqualsWithDelta(4.2426, $path->getLength(), 0.001);
     }
 
-    /**
-     * @testdox The straight euclidean path length is calculated correctly
-     * @covers phpOMS\Algorithm\PathFinding\Path
-     * @group framework
-     */
+    #[\PHPUnit\Framework\Attributes\Group('framework')]
+    #[\PHPUnit\Framework\Attributes\TestDox('The straight euclidean path length is calculated correctly')]
     public function testStraightPathLength() : void
     {
         $grid = Grid::createGridFromArray([
@@ -88,11 +79,8 @@ final class PathTest extends \PHPUnit\Framework\TestCase
         self::assertEqualsWithDelta(4.0, $path->getLength(), 0.001);
     }
 
-    /**
-     * @testdox The path is correctly expanded in case only jump points are defined
-     * @covers phpOMS\Algorithm\PathFinding\Path
-     * @group framework
-     */
+    #[\PHPUnit\Framework\Attributes\Group('framework')]
+    #[\PHPUnit\Framework\Attributes\TestDox('The path is correctly expanded in case only jump points are defined')]
     public function testPathExpansion() : void
     {
         $grid = Grid::createGridFromArray([

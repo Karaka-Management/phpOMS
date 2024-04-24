@@ -2,7 +2,7 @@
 /**
  * Jingga
  *
- * PHP Version 8.1
+ * PHP Version 8.2
  *
  * @package   tests
  * @copyright Dennis Eichhorn
@@ -24,10 +24,10 @@ use phpOMS\Router\SocketRouter;
 require_once __DIR__ . '/../Autoloader.php';
 
 /**
- * @testdox phpOMS\tests\Router\SocketRouterTest: Router for socket requests
- *
  * @internal
  */
+#[\PHPUnit\Framework\Attributes\CoversClass(\phpOMS\Router\SocketRouter::class)]
+#[\PHPUnit\Framework\Attributes\TestDox('phpOMS\tests\Router\SocketRouterTest: Router for socket requests')]
 final class SocketRouterTest extends \PHPUnit\Framework\TestCase
 {
     protected SocketRouter $router;
@@ -40,41 +40,29 @@ final class SocketRouterTest extends \PHPUnit\Framework\TestCase
         $this->router = new SocketRouter();
     }
 
-    /**
-     * @testdox The route result for an empty request is empty
-     * @covers phpOMS\Router\SocketRouter
-     * @group framework
-     */
+    #[\PHPUnit\Framework\Attributes\Group('framework')]
+    #[\PHPUnit\Framework\Attributes\TestDox('The route result for an empty request is empty')]
     public function testDefault() : void
     {
         self::assertEmpty($this->router->route('some_test route'));
     }
 
-    /**
-     * @testdox A none-existing routing file cannot be imported
-     * @covers phpOMS\Router\SocketRouter
-     * @group framework
-     */
+    #[\PHPUnit\Framework\Attributes\Group('framework')]
+    #[\PHPUnit\Framework\Attributes\TestDox('A none-existing routing file cannot be imported')]
     public function testInvalidRoutingFile() : void
     {
         self::assertFalse($this->router->importFromFile(__DIR__ . '/invalidFile.php'));
     }
 
-    /**
-     * @testdox A existing routing file can be imported
-     * @covers phpOMS\Router\SocketRouter
-     * @group framework
-     */
+    #[\PHPUnit\Framework\Attributes\Group('framework')]
+    #[\PHPUnit\Framework\Attributes\TestDox('A existing routing file can be imported')]
     public function testLoadingRoutesFromFile() : void
     {
         self::assertTrue($this->router->importFromFile(__DIR__ . '/socketRouterTestFile.php'));
     }
 
-    /**
-     * @testdox A matching route returns the destinations
-     * @covers phpOMS\Router\SocketRouter
-     * @group framework
-     */
+    #[\PHPUnit\Framework\Attributes\Group('framework')]
+    #[\PHPUnit\Framework\Attributes\TestDox('A matching route returns the destinations')]
     public function testRouteMatching() : void
     {
         self::assertTrue($this->router->importFromFile(__DIR__ . '/socketRouterTestFile.php'));
@@ -85,11 +73,8 @@ final class SocketRouterTest extends \PHPUnit\Framework\TestCase
         );
     }
 
-    /**
-     * @testdox The routes can be removed from the router
-     * @covers phpOMS\Router\SocketRouter
-     * @group framework
-     */
+    #[\PHPUnit\Framework\Attributes\Group('framework')]
+    #[\PHPUnit\Framework\Attributes\TestDox('The routes can be removed from the router')]
     public function testRouteClearing() : void
     {
         self::assertTrue($this->router->importFromFile(__DIR__ . '/socketRouterTestFile.php'));
@@ -101,11 +86,8 @@ final class SocketRouterTest extends \PHPUnit\Framework\TestCase
         );
     }
 
-    /**
-     * @testdox Routes can be added dynamically
-     * @covers phpOMS\Router\SocketRouter
-     * @group framework
-     */
+    #[\PHPUnit\Framework\Attributes\Group('framework')]
+    #[\PHPUnit\Framework\Attributes\TestDox('Routes can be added dynamically')]
     public function testDynamicRouteAdding() : void
     {
         $this->router->add('^.*backends_admin -settings=general( \-.*$|$)', 'Controller:test');
@@ -115,11 +97,8 @@ final class SocketRouterTest extends \PHPUnit\Framework\TestCase
         );
     }
 
-    /**
-     * @testdox Routes only match if the permissions match
-     * @covers phpOMS\Router\SocketRouter
-     * @group framework
-     */
+    #[\PHPUnit\Framework\Attributes\Group('framework')]
+    #[\PHPUnit\Framework\Attributes\TestDox('Routes only match if the permissions match')]
     public function testWithValidPermissions() : void
     {
         self::assertTrue($this->router->importFromFile(__DIR__ . '/socketRouterTestFilePermission.php'));
@@ -151,11 +130,8 @@ final class SocketRouterTest extends \PHPUnit\Framework\TestCase
         );
     }
 
-    /**
-     * @testdox Routes don't match if the permissions don't match
-     * @covers phpOMS\Router\SocketRouter
-     * @group framework
-     */
+    #[\PHPUnit\Framework\Attributes\Group('framework')]
+    #[\PHPUnit\Framework\Attributes\TestDox("Routes don't match if the permissions don't match")]
     public function testWithInvalidPermissions() : void
     {
         self::assertTrue($this->router->importFromFile(__DIR__ . '/socketRouterTestFilePermission.php'));
@@ -211,11 +187,8 @@ final class SocketRouterTest extends \PHPUnit\Framework\TestCase
         );
     }
 
-    /**
-     * @testdox A data validation pattern validates matches correctly
-     * @covers phpOMS\Router\SocketRouter
-     * @group framework
-     */
+    #[\PHPUnit\Framework\Attributes\Group('framework')]
+    #[\PHPUnit\Framework\Attributes\TestDox('A data validation pattern validates matches correctly')]
     public function testDataValidation() : void
     {
         $this->router->add(
@@ -230,11 +203,8 @@ final class SocketRouterTest extends \PHPUnit\Framework\TestCase
         );
     }
 
-    /**
-     * @testdox A data validation pattern invalidates missmatches
-     * @covers phpOMS\Router\SocketRouter
-     * @group framework
-     */
+    #[\PHPUnit\Framework\Attributes\Group('framework')]
+    #[\PHPUnit\Framework\Attributes\TestDox('A data validation pattern invalidates missmatches')]
     public function testInvalidDataValidation() : void
     {
         $this->router->add(
@@ -249,11 +219,8 @@ final class SocketRouterTest extends \PHPUnit\Framework\TestCase
         );
     }
 
-    /**
-     * @testdox A uri can be used for data population
-     * @covers phpOMS\Router\SocketRouter
-     * @group framework
-     */
+    #[\PHPUnit\Framework\Attributes\Group('framework')]
+    #[\PHPUnit\Framework\Attributes\TestDox('A uri can be used for data population')]
     public function testDataFromPattern() : void
     {
         $this->router->add(

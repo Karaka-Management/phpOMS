@@ -2,7 +2,7 @@
 /**
  * Jingga
  *
- * PHP Version 8.1
+ * PHP Version 8.2
  *
  * @package   tests
  * @copyright Dennis Eichhorn
@@ -18,17 +18,14 @@ use phpOMS\DataStorage\Database\Connection\NullConnection;
 use phpOMS\DataStorage\Database\DatabaseType;
 
 /**
- * @testdox phpOMS\tests\DataStorage\Database\Connection\NullConnectionTest: Null connection
- *
  * @internal
  */
+#[\PHPUnit\Framework\Attributes\CoversClass(\phpOMS\DataStorage\Database\Connection\NullConnection::class)]
+#[\PHPUnit\Framework\Attributes\TestDox('phpOMS\tests\DataStorage\Database\Connection\NullConnectionTest: Null connection')]
 final class NullConnectionTest extends \PHPUnit\Framework\TestCase
 {
-    /**
-     * @testdox A null connection can be created as placeholder
-     * @covers phpOMS\DataStorage\Database\Connection\NullConnection<extended>
-     * @group framework
-     */
+    #[\PHPUnit\Framework\Attributes\Group('framework')]
+    #[\PHPUnit\Framework\Attributes\TestDox('A null connection can be created as placeholder')]
     public function testConnect() : void
     {
         $null = new NullConnection([]);

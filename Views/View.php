@@ -2,7 +2,7 @@
 /**
  * Jingga
  *
- * PHP Version 8.1
+ * PHP Version 8.2
  *
  * @package   phpOMS\Views
  * @copyright Dennis Eichhorn
@@ -305,6 +305,22 @@ class View extends ViewAbstract
     public function getHtml(string $translation, ?string $module = null, ?string $theme = null) : string
     {
         return \htmlspecialchars($this->getText($translation, $module, $theme));
+    }
+
+    /**
+     * Print html output.
+     *
+     * @param ?string $text Text
+     *
+     * @return string
+     *
+     * @since 1.0.0
+     */
+    public function printTextarea(?string $text) : string
+    {
+        return $text === null
+            ? ''
+            : \trim(\str_replace(["\r\n", "\n"], ['&#10;', '&#10;'], \htmlspecialchars($text)));
     }
 
     /**

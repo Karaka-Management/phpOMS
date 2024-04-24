@@ -2,7 +2,7 @@
 /**
  * Jingga
  *
- * PHP Version 8.1
+ * PHP Version 8.2
  *
  * @package   tests
  * @copyright Dennis Eichhorn
@@ -19,16 +19,13 @@ require_once __DIR__ . '/../Autoloader.php';
 use phpOMS\Localization\Money;
 
 /**
- * @testdox phpOMS\Localization\Money: Money datatype for internal representation of money
- *
  * @internal
  */
+#[\PHPUnit\Framework\Attributes\TestDox('phpOMS\Localization\Money: Money datatype for internal representation of money')]
 final class MoneyTest extends \PHPUnit\Framework\TestCase
 {
-    /**
-     * @testdox The datatype has the expected member variables and default values
-     * @group framework
-     */
+    #[\PHPUnit\Framework\Attributes\Group('framework')]
+    #[\PHPUnit\Framework\Attributes\TestDox('The datatype has the expected member variables and default values')]
     public function testDefaultMemberVariables() : void
     {
         $money = new Money(0);
@@ -36,20 +33,16 @@ final class MoneyTest extends \PHPUnit\Framework\TestCase
         self::assertEquals(0, $money->getInt());
     }
 
-    /**
-     * @testdox The datatype returns the correct default string representation (#,###.##)
-     * @group framework
-     */
+    #[\PHPUnit\Framework\Attributes\Group('framework')]
+    #[\PHPUnit\Framework\Attributes\TestDox('The datatype returns the correct default string representation (#,###.##)')]
     public function testMoneyDefaultStringRepresentation() : void
     {
         $money = new Money(12345678);
         self::assertEquals('1,234.57', $money->getAmount());
     }
 
-    /**
-     * @testdox The datatype returns up to 4 decimal places if requested (#,###.####)
-     * @group framework
-     */
+    #[\PHPUnit\Framework\Attributes\Group('framework')]
+    #[\PHPUnit\Framework\Attributes\TestDox('The datatype returns up to 4 decimal places if requested (#,###.####)')]
     public function testMoneyDecimalPlaces() : void
     {
         $money = new Money(12345678);
@@ -57,10 +50,8 @@ final class MoneyTest extends \PHPUnit\Framework\TestCase
         self::assertEquals('1,234.5678', $money->getAmount(7));
     }
 
-    /**
-     * @testdox The datatype returns the correct integer representation of a string with up to 4 decimal places also considering differences in decimal and thousands characters if requested for different localizations
-     * @group framework
-     */
+    #[\PHPUnit\Framework\Attributes\Group('framework')]
+    #[\PHPUnit\Framework\Attributes\TestDox('The datatype returns the correct integer representation of a string with up to 4 decimal places also considering differences in decimal and thousands characters if requested for different localizations')]
     public function testMoneyStringToIntConversion() : void
     {
         self::assertEquals(12345678, Money::toInt('1234.5678'));
@@ -68,10 +59,8 @@ final class MoneyTest extends \PHPUnit\Framework\TestCase
         self::assertEquals(12345600, Money::toInt('1234,56', '.', ','));
     }
 
-    /**
-     * @testdox The datatype allows to modify the value by overwriting it with new string characters or integers correctly
-     * @group framework
-     */
+    #[\PHPUnit\Framework\Attributes\Group('framework')]
+    #[\PHPUnit\Framework\Attributes\TestDox('The datatype allows to modify the value by overwriting it with new string characters or integers correctly')]
     public function testCorrectValueChange() : void
     {
         $money = new Money(12345678);
@@ -79,30 +68,24 @@ final class MoneyTest extends \PHPUnit\Framework\TestCase
         self::assertEquals('999.23', $money->setInt(9992300)->getAmount());
     }
 
-    /**
-     * @testdox The datatype can print out money with different thousands, decimals and currency symbols as per definition by the user
-     * @group framework
-     */
+    #[\PHPUnit\Framework\Attributes\Group('framework')]
+    #[\PHPUnit\Framework\Attributes\TestDox('The datatype can print out money with different thousands, decimals and currency symbols as per definition by the user')]
     public function testMoneyLocalization() : void
     {
         $money = new Money(12345678);
         self::assertEquals('€ 9.992,30', $money->setInt(99923000)->setLocalization('.', ',')->getCurrency(symbol: '€'));
     }
 
-    /**
-     * @testdox The string character input is correctly serialized to the numeric representation
-     * @group framework
-     */
+    #[\PHPUnit\Framework\Attributes\Group('framework')]
+    #[\PHPUnit\Framework\Attributes\TestDox('The string character input is correctly serialized to the numeric representation')]
     public function testMoneySerialization() : void
     {
         $money = new Money('999.23');
         self::assertEquals(9992300, $money->serialize());
     }
 
-    /**
-     * @testdox The string character input is correctly unserialized from a numeric representation
-     * @group framework
-     */
+    #[\PHPUnit\Framework\Attributes\Group('framework')]
+    #[\PHPUnit\Framework\Attributes\TestDox('The string character input is correctly unserialized from a numeric representation')]
     public function testMoneyUnserialization() : void
     {
         $money = new Money('999.23');
@@ -110,10 +93,8 @@ final class MoneyTest extends \PHPUnit\Framework\TestCase
         self::assertEquals('333.12', $money->getAmount());
     }
 
-    /**
-     * @testdox The datatype correctly adds and subtracts the different money representations in string, numeric or Money type
-     * @group framework
-     */
+    #[\PHPUnit\Framework\Attributes\Group('framework')]
+    #[\PHPUnit\Framework\Attributes\TestDox('The datatype correctly adds and subtracts the different money representations in string, numeric or Money type')]
     public function testMoneyAddSub() : void
     {
         $money = new Money(10000);
@@ -130,10 +111,8 @@ final class MoneyTest extends \PHPUnit\Framework\TestCase
         self::assertEquals('1.0000', $money->sub(new Money(10000))->getAmount(4));
     }
 
-    /**
-     * @testdox The datatype correctly multiplies and divides the money with numerics
-     * @group framework
-     */
+    #[\PHPUnit\Framework\Attributes\Group('framework')]
+    #[\PHPUnit\Framework\Attributes\TestDox('The datatype correctly multiplies and divides the money with numerics')]
     public function testMoneyMultDiv() : void
     {
         $money = new Money(19100);
@@ -141,20 +120,16 @@ final class MoneyTest extends \PHPUnit\Framework\TestCase
         self::assertEquals('1.9100', $money->div(2.0)->getAmount(4));
     }
 
-    /**
-     * @testdox The datatype correctly handles the absolute value
-     * @group framework
-     */
+    #[\PHPUnit\Framework\Attributes\Group('framework')]
+    #[\PHPUnit\Framework\Attributes\TestDox('The datatype correctly handles the absolute value')]
     public function testMoneyAbsoluteValue() : void
     {
         $money = new Money(-38200);
         self::assertEquals('3.8200', $money->mult(-1)->abs()->getAmount(4));
     }
 
-    /**
-     * @testdox The datatype correctly handles the power operator
-     * @group framework
-     */
+    #[\PHPUnit\Framework\Attributes\Group('framework')]
+    #[\PHPUnit\Framework\Attributes\TestDox('The datatype correctly handles the power operator')]
     public function testMoneyPower() : void
     {
         $money = new Money(-38200);

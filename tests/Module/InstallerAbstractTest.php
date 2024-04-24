@@ -2,7 +2,7 @@
 /**
  * Jingga
  *
- * PHP Version 8.1
+ * PHP Version 8.2
  *
  * @package   tests
  * @copyright Dennis Eichhorn
@@ -23,10 +23,10 @@ use phpOMS\Module\InstallerAbstract;
 use phpOMS\Module\ModuleInfo;
 
 /**
- * @testdox phpOMS\tests\Module\InstallerAbstractTest: Abstract module installer
- *
  * @internal
  */
+#[\PHPUnit\Framework\Attributes\CoversClass(\phpOMS\Module\InstallerAbstract::class)]
+#[\PHPUnit\Framework\Attributes\TestDox('phpOMS\tests\Module\InstallerAbstractTest: Abstract module installer')]
 final class InstallerAbstractTest extends \PHPUnit\Framework\TestCase
 {
 	protected InstallerAbstract $installer;
@@ -41,11 +41,8 @@ final class InstallerAbstractTest extends \PHPUnit\Framework\TestCase
         };
     }
 
-    /**
-     * @testdox Invalid or missing module status file throws exception during installation
-     * @covers phpOMS\Module\InstallerAbstract
-     * @group framework
-     */
+    #[\PHPUnit\Framework\Attributes\Group('framework')]
+    #[\PHPUnit\Framework\Attributes\TestDox('Invalid or missing module status file throws exception during installation')]
     public function testInvalidModuleInstall() : void
     {
         $this->expectException(\UnexpectedValueException::class);

@@ -2,7 +2,7 @@
 /**
  * Jingga
  *
- * PHP Version 8.1
+ * PHP Version 8.2
  *
  * @package   tests
  * @copyright Dennis Eichhorn
@@ -19,10 +19,9 @@ require_once __DIR__ . '/../Autoloader.php';
 use phpOMS\Security\EncryptionHelper;
 
 /**
- * @testdox phpOMS\tests\Security\EncryptionHelperTest: Basic php source code security inspection
- *
  * @internal
  */
+#[\PHPUnit\Framework\Attributes\TestDox('phpOMS\tests\Security\EncryptionHelperTest: Basic php source code security inspection')]
 final class EncryptionHelperTest extends \PHPUnit\Framework\TestCase
 {
     public function testSharedKey() : void

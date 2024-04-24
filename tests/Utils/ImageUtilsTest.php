@@ -2,7 +2,7 @@
 /**
  * Jingga
  *
- * PHP Version 8.1
+ * PHP Version 8.2
  *
  * @package   tests
  * @copyright Dennis Eichhorn
@@ -19,10 +19,10 @@ require_once __DIR__ . '/../Autoloader.php';
 use phpOMS\Utils\ImageUtils;
 
 /**
- * @testdox phpOMS\tests\Utils\ImageUtilsTest: Image utilities
- *
  * @internal
  */
+#[\PHPUnit\Framework\Attributes\CoversClass(\phpOMS\Utils\ImageUtils::class)]
+#[\PHPUnit\Framework\Attributes\TestDox('phpOMS\tests\Utils\ImageUtilsTest: Image utilities')]
 final class ImageUtilsTest extends \PHPUnit\Framework\TestCase
 {
     public function testLightness() : void
@@ -43,10 +43,7 @@ final class ImageUtilsTest extends \PHPUnit\Framework\TestCase
         self::assertTrue(\is_file(__DIR__ . '/img/logo_resized.png'));
     }
 
-    /**
-     * @covers phpOMS\Utils\ImageUtils
-     * @group slow
-     */
+    #[\PHPUnit\Framework\Attributes\Group('slow')]
     public function testDifference() : void
     {
         foreach (['png', 'gif'] as $type) {
@@ -57,11 +54,8 @@ final class ImageUtilsTest extends \PHPUnit\Framework\TestCase
         }
     }
 
-    /**
-     * @testdox Base64 image data can be decoded to an image
-     * @covers phpOMS\Utils\ImageUtils
-     * @group framework
-     */
+    #[\PHPUnit\Framework\Attributes\Group('framework')]
+    #[\PHPUnit\Framework\Attributes\TestDox('Base64 image data can be decoded to an image')]
     public function testImage() : void
     {
         self::assertEquals(

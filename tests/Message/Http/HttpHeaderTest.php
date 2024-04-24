@@ -2,7 +2,7 @@
 /**
  * Jingga
  *
- * PHP Version 8.1
+ * PHP Version 8.2
  *
  * @package   tests
  * @copyright Dennis Eichhorn
@@ -22,10 +22,10 @@ use phpOMS\Message\Http\RequestStatusCode;
 use phpOMS\System\MimeType;
 
 /**
- * @testdox phpOMS\tests\Message\Http\HttpHeaderTest: Header for http requests/responses
- *
  * @internal
  */
+#[\PHPUnit\Framework\Attributes\CoversClass(\phpOMS\Message\Http\HttpHeader::class)]
+#[\PHPUnit\Framework\Attributes\TestDox('phpOMS\tests\Message\Http\HttpHeaderTest: Header for http requests/responses')]
 final class HttpHeaderTest extends \PHPUnit\Framework\TestCase
 {
     protected HttpHeader $header;
@@ -38,11 +38,8 @@ final class HttpHeaderTest extends \PHPUnit\Framework\TestCase
         $this->header = new HttpHeader();
     }
 
-    /**
-     * @testdox The header has the expected default values after initialization
-     * @covers phpOMS\Message\Http\HttpHeader<extended>
-     * @group framework
-     */
+    #[\PHPUnit\Framework\Attributes\Group('framework')]
+    #[\PHPUnit\Framework\Attributes\TestDox('The header has the expected default values after initialization')]
     public function testDefaults() : void
     {
         self::assertFalse($this->header->isLocked());
@@ -57,11 +54,8 @@ final class HttpHeaderTest extends \PHPUnit\Framework\TestCase
         self::assertEquals(0, $this->header->account);
     }
 
-    /**
-     * @testdox Security policy headers get correctly identified
-     * @covers phpOMS\Message\Http\HttpHeader<extended>
-     * @group framework
-     */
+    #[\PHPUnit\Framework\Attributes\Group('framework')]
+    #[\PHPUnit\Framework\Attributes\TestDox('Security policy headers get correctly identified')]
     public function testSecurityHeader() : void
     {
         self::assertTrue(HttpHeader::isSecurityHeader('content-security-policy'));
@@ -71,11 +65,8 @@ final class HttpHeaderTest extends \PHPUnit\Framework\TestCase
         self::assertFalse(HttpHeader::isSecurityHeader('x-frame-optionss'));
     }
 
-    /**
-     * @testdox Header data can be set, checked for existence and returned
-     * @covers phpOMS\Message\Http\HttpHeader<extended>
-     * @group framework
-     */
+    #[\PHPUnit\Framework\Attributes\Group('framework')]
+    #[\PHPUnit\Framework\Attributes\TestDox('Header data can be set, checked for existence and returned')]
     public function testDataInputOutput() : void
     {
         self::assertTrue($this->header->set('key', 'header'));
@@ -83,11 +74,8 @@ final class HttpHeaderTest extends \PHPUnit\Framework\TestCase
         self::assertTrue($this->header->has('key'));
     }
 
-    /**
-     * @testdox Header data can be forced to get overwritten
-     * @covers phpOMS\Message\Http\HttpHeader<extended>
-     * @group framework
-     */
+    #[\PHPUnit\Framework\Attributes\Group('framework')]
+    #[\PHPUnit\Framework\Attributes\TestDox('Header data can be forced to get overwritten')]
     public function testOverwrite() : void
     {
         self::assertTrue($this->header->set('key', 'header'));
@@ -95,11 +83,8 @@ final class HttpHeaderTest extends \PHPUnit\Framework\TestCase
         self::assertEquals(['header3'], $this->header->get('key'));
     }
 
-    /**
-     * @testdox By default header data doesn't get overwritten
-     * @covers phpOMS\Message\Http\HttpHeader<extended>
-     * @group framework
-     */
+    #[\PHPUnit\Framework\Attributes\Group('framework')]
+    #[\PHPUnit\Framework\Attributes\TestDox("By default header data doesn't get overwritten")]
     public function testInvalidOverwrite() : void
     {
         self::assertTrue($this->header->set('key', 'header'));
@@ -107,11 +92,8 @@ final class HttpHeaderTest extends \PHPUnit\Framework\TestCase
         self::assertEquals(['header', 'header2'], $this->header->get('key'));
     }
 
-    /**
-     * @testdox Header data can be removed
-     * @covers phpOMS\Message\Http\HttpHeader<extended>
-     * @group framework
-     */
+    #[\PHPUnit\Framework\Attributes\Group('framework')]
+    #[\PHPUnit\Framework\Attributes\TestDox('Header data can be removed')]
     public function testRemove() : void
     {
         self::assertTrue($this->header->set('key', 'header'));
@@ -119,76 +101,55 @@ final class HttpHeaderTest extends \PHPUnit\Framework\TestCase
         self::assertFalse($this->header->has('key'));
     }
 
-    /**
-     * @testdox None-existing header data cannot be removed
-     * @covers phpOMS\Message\Http\HttpHeader<extended>
-     * @group framework
-     */
+    #[\PHPUnit\Framework\Attributes\Group('framework')]
+    #[\PHPUnit\Framework\Attributes\TestDox('None-existing header data cannot be removed')]
     public function testInvalidRemove() : void
     {
         self::assertFalse($this->header->remove('key'));
     }
 
-    /**
-     * @testdox Account data can be set and returned
-     * @covers phpOMS\Message\Http\HttpHeader<extended>
-     * @group framework
-     */
+    #[\PHPUnit\Framework\Attributes\Group('framework')]
+    #[\PHPUnit\Framework\Attributes\TestDox('Account data can be set and returned')]
     public function testAccountInputOutput() : void
     {
         $this->header->account = 2;
         self::assertEquals(2, $this->header->account);
     }
 
-    /**
-     * @testdox Data can be defined as downloadable
-     * @covers phpOMS\Message\Http\HttpHeader<extended>
-     * @group framework
-     */
+    #[\PHPUnit\Framework\Attributes\Group('framework')]
+    #[\PHPUnit\Framework\Attributes\TestDox('Data can be defined as downloadable')]
     public function testDownloadable() : void
     {
         $this->header->setDownloadable('testname', 'mp3');
         self::assertEquals(MimeType::M_BIN, $this->header->get('Content-Type')[0]);
     }
 
-    /**
-     * @testdox A header can be locked
-     * @covers phpOMS\Message\Http\HttpHeader<extended>
-     * @group framework
-     */
+    #[\PHPUnit\Framework\Attributes\Group('framework')]
+    #[\PHPUnit\Framework\Attributes\TestDox('A header can be locked')]
     public function testLockInputOutput() : void
     {
         $this->header->lock();
         self::assertTrue($this->header->isLocked());
     }
 
-    /**
-     * @testdox A locked header cannot add new data
-     * @covers phpOMS\Message\Http\HttpHeader<extended>
-     * @group framework
-     */
+    #[\PHPUnit\Framework\Attributes\Group('framework')]
+    #[\PHPUnit\Framework\Attributes\TestDox('A locked header cannot add new data')]
     public function testLockInvalidSet() : void
     {
         $this->header->lock();
         self::assertFalse($this->header->set('key', 'value'));
     }
 
-    /**
-     * @testdox A locked header cannot remove data
-     * @covers phpOMS\Message\Http\HttpHeader<extended>
-     * @group framework
-     */
+    #[\PHPUnit\Framework\Attributes\Group('framework')]
+    #[\PHPUnit\Framework\Attributes\TestDox('A locked header cannot remove data')]
     public function testLockInvalidRemove() : void
     {
         $this->header->lock();
         self::assertFalse($this->header->remove('key'));
     }
 
-    /**
-     * @testdox The header can generate default http headers based on status codes
-     * @covers phpOMS\Message\Http\HttpHeader<extended>
-     * @group framework
-     */
+    #[\PHPUnit\Framework\Attributes\Group('framework')]
+    #[\PHPUnit\Framework\Attributes\TestDox('The header can generate default http headers based on status codes')]
     public function testHeaderGeneration() : void
     {
         $consts = RequestStatusCode::getConstants();
@@ -215,12 +176,8 @@ final class HttpHeaderTest extends \PHPUnit\Framework\TestCase
         $_SERVER = $tmp;
     }
     */
-
-    /**
-     * @testdox Security header data cannot be changed once defined
-     * @covers phpOMS\Message\Http\HttpHeader<extended>
-     * @group framework
-     */
+    #[\PHPUnit\Framework\Attributes\Group('framework')]
+    #[\PHPUnit\Framework\Attributes\TestDox('Security header data cannot be changed once defined')]
     public function testInvalidOverwriteSecurityHeader() : void
     {
         self::assertTrue($this->header->set('content-security-policy', 'header'));

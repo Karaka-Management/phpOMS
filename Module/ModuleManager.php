@@ -2,7 +2,7 @@
 /**
  * Jingga
  *
- * PHP Version 8.1
+ * PHP Version 8.2
  *
  * @package   phpOMS\Module
  * @copyright Dennis Eichhorn
@@ -674,7 +674,7 @@ final class ModuleManager
         $ctrl = $this->get($module, $ctlName);
 
         if ($this->app->dispatcher !== null) {
-            $this->app->dispatcher->set($ctrl, $name);
+            $this->app->dispatcher->controllers[$name] = $ctrl;
         }
 
         // Handle providing->receiving

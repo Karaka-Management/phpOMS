@@ -2,7 +2,7 @@
 /**
  * Jingga
  *
- * PHP Version 8.1
+ * PHP Version 8.2
  *
  * @package   tests
  * @copyright Dennis Eichhorn
@@ -17,17 +17,14 @@ namespace phpOMS\tests\Validation\Finance;
 use phpOMS\Validation\Finance\Iban;
 
 /**
- * @testdox phpOMS\tests\Validation\Finance\IbanTest: Iban validator
- *
  * @internal
  */
+#[\PHPUnit\Framework\Attributes\CoversClass(\phpOMS\Validation\Finance\Iban::class)]
+#[\PHPUnit\Framework\Attributes\TestDox('phpOMS\tests\Validation\Finance\IbanTest: Iban validator')]
 final class IbanTest extends \PHPUnit\Framework\TestCase
 {
-    /**
-     * @testdox A iban can be validated
-     * @covers phpOMS\Validation\Finance\Iban
-     * @group framework
-     */
+    #[\PHPUnit\Framework\Attributes\Group('framework')]
+    #[\PHPUnit\Framework\Attributes\TestDox('A iban can be validated')]
     public function testValidation() : void
     {
         self::assertTrue(Iban::isValid('DE22 6008 0000 0960 0280 00'));

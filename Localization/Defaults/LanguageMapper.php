@@ -2,7 +2,7 @@
 /**
  * Jingga
  *
- * PHP Version 8.1
+ * PHP Version 8.2
  *
  * @package   phpOMS\Localization\Defaults
  * @copyright Dennis Eichhorn
@@ -17,7 +17,7 @@ namespace phpOMS\Localization\Defaults;
 use phpOMS\DataStorage\Database\Mapper\DataMapperFactory;
 
 /**
- * Mapper class.
+ * Language mapper class.
  *
  * @package phpOMS\Localization\Defaults
  * @license OMS License 2.0

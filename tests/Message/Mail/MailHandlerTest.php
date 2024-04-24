@@ -2,7 +2,7 @@
 /**
  * Jingga
  *
- * PHP Version 8.1
+ * PHP Version 8.2
  *
  * @package   tests
  * @copyright Dennis Eichhorn
@@ -19,10 +19,9 @@ require_once __DIR__ . '/../../Autoloader.php';
 use phpOMS\Message\Mail\MailHandler;
 
 /**
- * @testdox phpOMS\tests\Message\MailHandlerTest: Abstract mail handler
- *
  * @internal
  */
+#[\PHPUnit\Framework\Attributes\TestDox('phpOMS\tests\Message\MailHandlerTest: Abstract mail handler')]
 final class MailHandlerTest extends \PHPUnit\Framework\TestCase
 {
     protected MailHandler $handler;

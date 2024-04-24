@@ -2,7 +2,7 @@
 /**
  * Jingga
  *
- * PHP Version 8.1
+ * PHP Version 8.2
  *
  * @package   tests
  * @copyright Dennis Eichhorn
@@ -19,12 +19,10 @@ use phpOMS\Math\Stochastic\Distribution\GeometricDistribution;
 /**
  * @internal
  */
+#[\PHPUnit\Framework\Attributes\CoversClass(\phpOMS\Math\Stochastic\Distribution\GeometricDistribution::class)]
 final class GeometricDistributionTest extends \PHPUnit\Framework\TestCase
 {
-    /**
-     * @covers phpOMS\Math\Stochastic\Distribution\GeometricDistribution
-     * @group framework
-     */
+    #[\PHPUnit\Framework\Attributes\Group('framework')]
     public function testPmf() : void
     {
         $p = 0.2;
@@ -33,10 +31,7 @@ final class GeometricDistributionTest extends \PHPUnit\Framework\TestCase
         self::assertEqualsWithDelta(0.1024, GeometricDistribution::getPmf($p, $k), 0.01);
     }
 
-    /**
-     * @covers phpOMS\Math\Stochastic\Distribution\GeometricDistribution
-     * @group framework
-     */
+    #[\PHPUnit\Framework\Attributes\Group('framework')]
     public function testCdf() : void
     {
         $p = 0.2;
@@ -46,29 +41,20 @@ final class GeometricDistributionTest extends \PHPUnit\Framework\TestCase
         self::assertEqualsWithDelta(0.262, 1 - GeometricDistribution::getCdf($p, $k), 0.01);
     }
 
-    /**
-     * @covers phpOMS\Math\Stochastic\Distribution\GeometricDistribution
-     * @group framework
-     */
+    #[\PHPUnit\Framework\Attributes\Group('framework')]
     public function testMode() : void
     {
         self::assertEquals(1, GeometricDistribution::getMode());
     }
 
-    /**
-     * @covers phpOMS\Math\Stochastic\Distribution\GeometricDistribution
-     * @group framework
-     */
+    #[\PHPUnit\Framework\Attributes\Group('framework')]
     public function testMean() : void
     {
         $p = 0.3;
         self::assertEquals(1 / $p, GeometricDistribution::getMean($p));
     }
 
-    /**
-     * @covers phpOMS\Math\Stochastic\Distribution\GeometricDistribution
-     * @group framework
-     */
+    #[\PHPUnit\Framework\Attributes\Group('framework')]
     public function testVariance() : void
     {
         $p = 0.3;
@@ -76,10 +62,7 @@ final class GeometricDistributionTest extends \PHPUnit\Framework\TestCase
         self::assertEquals((1 - $p) / $p ** 2, GeometricDistribution::getVariance($p));
     }
 
-    /**
-     * @covers phpOMS\Math\Stochastic\Distribution\GeometricDistribution
-     * @group framework
-     */
+    #[\PHPUnit\Framework\Attributes\Group('framework')]
     public function testgetStandardDeviation() : void
     {
         $p = 0.3;
@@ -87,10 +70,7 @@ final class GeometricDistributionTest extends \PHPUnit\Framework\TestCase
         self::assertEquals(\sqrt((1 - $p) / $p ** 2), GeometricDistribution::getStandardDeviation($p));
     }
 
-    /**
-     * @covers phpOMS\Math\Stochastic\Distribution\GeometricDistribution
-     * @group framework
-     */
+    #[\PHPUnit\Framework\Attributes\Group('framework')]
     public function testSkewness() : void
     {
         $p = 0.3;
@@ -98,10 +78,7 @@ final class GeometricDistributionTest extends \PHPUnit\Framework\TestCase
         self::assertEquals((2 - $p) / \sqrt(1 - $p), GeometricDistribution::getSkewness($p));
     }
 
-    /**
-     * @covers phpOMS\Math\Stochastic\Distribution\GeometricDistribution
-     * @group framework
-     */
+    #[\PHPUnit\Framework\Attributes\Group('framework')]
     public function testExKurtosis() : void
     {
         $p = 0.3;
@@ -109,10 +86,7 @@ final class GeometricDistributionTest extends \PHPUnit\Framework\TestCase
         self::assertEquals(6 + ($p ** 2) / (1 - $p), GeometricDistribution::getExKurtosis($p));
     }
 
-    /**
-     * @covers phpOMS\Math\Stochastic\Distribution\GeometricDistribution
-     * @group framework
-     */
+    #[\PHPUnit\Framework\Attributes\Group('framework')]
     public function testMedian() : void
     {
         $p = 0.3;
@@ -120,10 +94,7 @@ final class GeometricDistributionTest extends \PHPUnit\Framework\TestCase
         self::assertEquals(\ceil(-1 / \log(1 - $p, 2)), GeometricDistribution::getMedian($p));
     }
 
-    /**
-     * @covers phpOMS\Math\Stochastic\Distribution\GeometricDistribution
-     * @group framework
-     */
+    #[\PHPUnit\Framework\Attributes\Group('framework')]
     public function testMgf() : void
     {
         $p  = 0.3;

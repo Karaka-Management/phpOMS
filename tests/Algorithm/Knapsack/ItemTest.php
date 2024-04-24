@@ -2,7 +2,7 @@
 /**
  * Jingga
  *
- * PHP Version 8.1
+ * PHP Version 8.2
  *
  * @package   tests
  * @copyright Dennis Eichhorn
@@ -17,17 +17,14 @@ namespace phpOMS\tests\Algorithm\Knapsack;
 use phpOMS\Algorithm\Knapsack\Item;
 
 /**
- * @testdox phpOMS\tests\Algorithm\Knapsack\ItemTest: The default item to be added to the backpack or basket
- *
  * @internal
  */
+#[\PHPUnit\Framework\Attributes\CoversClass(\phpOMS\Algorithm\Knapsack\Item::class)]
+#[\PHPUnit\Framework\Attributes\TestDox('phpOMS\tests\Algorithm\Knapsack\ItemTest: The default item to be added to the backpack or basket')]
 final class ItemTest extends \PHPUnit\Framework\TestCase
 {
-    /**
-     * @testdox The item has the expected values after initialization
-     * @covers phpOMS\Algorithm\Knapsack\Item
-     * @group framework
-     */
+    #[\PHPUnit\Framework\Attributes\Group('framework')]
+    #[\PHPUnit\Framework\Attributes\TestDox('The item has the expected values after initialization')]
     public function testDefault() : void
     {
         $item = new Item(3.0, 2.0, 'abc');

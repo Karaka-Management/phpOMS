@@ -2,7 +2,7 @@
 /**
  * Jingga
  *
- * PHP Version 8.1
+ * PHP Version 8.2
  *
  * @package   tests
  * @copyright Dennis Eichhorn
@@ -30,6 +30,7 @@ use phpOMS\Socket\Server\Server;
 /**
  * @internal
  */
+#[\PHPUnit\Framework\Attributes\CoversClass(\phpOMS\Socket\Server\Server::class)]
 final class ServerTest extends \PHPUnit\Framework\TestCase
 {
     protected $app;
@@ -79,10 +80,7 @@ final class ServerTest extends \PHPUnit\Framework\TestCase
         \unlink(__DIR__ . '/server.log');
     }
 
-    /**
-     * @covers phpOMS\Socket\Server\Server
-     * @group framework
-     */
+    #[\PHPUnit\Framework\Attributes\Group('framework')]
     public function testSetupTCPSocket() : void
     {
         $pipes   = [];

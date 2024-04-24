@@ -2,7 +2,7 @@
 /**
  * Jingga
  *
- * PHP Version 8.1
+ * PHP Version 8.2
  *
  * @package   tests
  * @copyright Dennis Eichhorn
@@ -28,17 +28,14 @@ use phpOMS\Utils\Converter\VolumeType;
 use phpOMS\Utils\Converter\WeightType;
 
 /**
- * @testdox phpOMS\tests\Utils\Converter\MeasurementTest: Measurement converter
- *
  * @internal
  */
+#[\PHPUnit\Framework\Attributes\CoversClass(\phpOMS\Utils\Converter\Measurement::class)]
+#[\PHPUnit\Framework\Attributes\TestDox('phpOMS\tests\Utils\Converter\MeasurementTest: Measurement converter')]
 final class MeasurementTest extends \PHPUnit\Framework\TestCase
 {
-    /**
-     * @testdox Temperatures can be converted
-     * @covers phpOMS\Utils\Converter\Measurement
-     * @group framework
-     */
+    #[\PHPUnit\Framework\Attributes\Group('framework')]
+    #[\PHPUnit\Framework\Attributes\TestDox('Temperatures can be converted')]
     public function testTemperature() : void
     {
         $temps = TemperatureType::getConstants();
@@ -55,11 +52,8 @@ final class MeasurementTest extends \PHPUnit\Framework\TestCase
         self::assertTrue(true);
     }
 
-    /**
-     * @testdox Weights can be converted
-     * @covers phpOMS\Utils\Converter\Measurement
-     * @group framework
-     */
+    #[\PHPUnit\Framework\Attributes\Group('framework')]
+    #[\PHPUnit\Framework\Attributes\TestDox('Weights can be converted')]
     public function testWeight() : void
     {
         $weights = WeightType::getConstants();
@@ -76,11 +70,8 @@ final class MeasurementTest extends \PHPUnit\Framework\TestCase
         self::assertTrue(true);
     }
 
-    /**
-     * @testdox Lengths can be converted
-     * @covers phpOMS\Utils\Converter\Measurement
-     * @group framework
-     */
+    #[\PHPUnit\Framework\Attributes\Group('framework')]
+    #[\PHPUnit\Framework\Attributes\TestDox('Lengths can be converted')]
     public function testLength() : void
     {
         $lengths = LengthType::getConstants();
@@ -97,11 +88,8 @@ final class MeasurementTest extends \PHPUnit\Framework\TestCase
         self::assertTrue(true);
     }
 
-    /**
-     * @testdox Areas can be converted
-     * @covers phpOMS\Utils\Converter\Measurement
-     * @group framework
-     */
+    #[\PHPUnit\Framework\Attributes\Group('framework')]
+    #[\PHPUnit\Framework\Attributes\TestDox('Areas can be converted')]
     public function testArea() : void
     {
         $areas = AreaType::getConstants();
@@ -118,11 +106,8 @@ final class MeasurementTest extends \PHPUnit\Framework\TestCase
         self::assertTrue(true);
     }
 
-    /**
-     * @testdox Volumes can be converted
-     * @covers phpOMS\Utils\Converter\Measurement
-     * @group framework
-     */
+    #[\PHPUnit\Framework\Attributes\Group('framework')]
+    #[\PHPUnit\Framework\Attributes\TestDox('Volumes can be converted')]
     public function testVolume() : void
     {
         $volumes = VolumeType::getConstants();
@@ -139,11 +124,8 @@ final class MeasurementTest extends \PHPUnit\Framework\TestCase
         self::assertTrue(true);
     }
 
-    /**
-     * @testdox Speeds can be converted
-     * @covers phpOMS\Utils\Converter\Measurement
-     * @group framework
-     */
+    #[\PHPUnit\Framework\Attributes\Group('framework')]
+    #[\PHPUnit\Framework\Attributes\TestDox('Speeds can be converted')]
     public function testSpeed() : void
     {
         $speeds = SpeedType::getConstants();
@@ -160,11 +142,8 @@ final class MeasurementTest extends \PHPUnit\Framework\TestCase
         self::assertTrue(true);
     }
 
-    /**
-     * @testdox Times can be converted
-     * @covers phpOMS\Utils\Converter\Measurement
-     * @group framework
-     */
+    #[\PHPUnit\Framework\Attributes\Group('framework')]
+    #[\PHPUnit\Framework\Attributes\TestDox('Times can be converted')]
     public function testTime() : void
     {
         $times = TimeType::getConstants();
@@ -181,11 +160,8 @@ final class MeasurementTest extends \PHPUnit\Framework\TestCase
         self::assertTrue(true);
     }
 
-    /**
-     * @testdox Angles can be converted
-     * @covers phpOMS\Utils\Converter\Measurement
-     * @group framework
-     */
+    #[\PHPUnit\Framework\Attributes\Group('framework')]
+    #[\PHPUnit\Framework\Attributes\TestDox('Angles can be converted')]
     public function testAngle() : void
     {
         $angles = AngleType::getConstants();
@@ -202,11 +178,8 @@ final class MeasurementTest extends \PHPUnit\Framework\TestCase
         self::assertTrue(true);
     }
 
-    /**
-     * @testdox Pressures can be converted
-     * @covers phpOMS\Utils\Converter\Measurement
-     * @group framework
-     */
+    #[\PHPUnit\Framework\Attributes\Group('framework')]
+    #[\PHPUnit\Framework\Attributes\TestDox('Pressures can be converted')]
     public function testPressure() : void
     {
         $pressures = PressureType::getConstants();
@@ -223,11 +196,8 @@ final class MeasurementTest extends \PHPUnit\Framework\TestCase
         self::assertTrue(true);
     }
 
-    /**
-     * @testdox Energies can be converted
-     * @covers phpOMS\Utils\Converter\Measurement
-     * @group framework
-     */
+    #[\PHPUnit\Framework\Attributes\Group('framework')]
+    #[\PHPUnit\Framework\Attributes\TestDox('Energies can be converted')]
     public function testEnergy() : void
     {
         $energies = EnergyPowerType::getConstants();
@@ -244,11 +214,8 @@ final class MeasurementTest extends \PHPUnit\Framework\TestCase
         self::assertTrue(true);
     }
 
-    /**
-     * @testdox File sizes can be converted
-     * @covers phpOMS\Utils\Converter\Measurement
-     * @group framework
-     */
+    #[\PHPUnit\Framework\Attributes\Group('framework')]
+    #[\PHPUnit\Framework\Attributes\TestDox('File sizes can be converted')]
     public function testFileSize() : void
     {
         $fileSizes = FileSizeType::getConstants();
@@ -265,11 +232,8 @@ final class MeasurementTest extends \PHPUnit\Framework\TestCase
         self::assertTrue(true);
     }
 
-    /**
-     * @testdox Invalid conversion from unknown temperature throws a InvalidArgumentException
-     * @covers phpOMS\Utils\Converter\Measurement
-     * @group framework
-     */
+    #[\PHPUnit\Framework\Attributes\Group('framework')]
+    #[\PHPUnit\Framework\Attributes\TestDox('Invalid conversion from unknown temperature throws a InvalidArgumentException')]
     public function testInvalidTemperatureFrom() : void
     {
         $this->expectException(\InvalidArgumentException::class);
@@ -277,11 +241,8 @@ final class MeasurementTest extends \PHPUnit\Framework\TestCase
         Measurement::convertTemperature(1.1, 'invalid', TemperatureType::CELSIUS);
     }
 
-    /**
-     * @testdox Invalid conversion to unknown temperature throws a InvalidArgumentException
-     * @covers phpOMS\Utils\Converter\Measurement
-     * @group framework
-     */
+    #[\PHPUnit\Framework\Attributes\Group('framework')]
+    #[\PHPUnit\Framework\Attributes\TestDox('Invalid conversion to unknown temperature throws a InvalidArgumentException')]
     public function testInvalidTemperatureTo() : void
     {
         $this->expectException(\InvalidArgumentException::class);
@@ -289,11 +250,8 @@ final class MeasurementTest extends \PHPUnit\Framework\TestCase
         Measurement::convertTemperature(1.1, TemperatureType::CELSIUS, 'invalid');
     }
 
-    /**
-     * @testdox Invalid conversion from unknown weight throws a InvalidArgumentException
-     * @covers phpOMS\Utils\Converter\Measurement
-     * @group framework
-     */
+    #[\PHPUnit\Framework\Attributes\Group('framework')]
+    #[\PHPUnit\Framework\Attributes\TestDox('Invalid conversion from unknown weight throws a InvalidArgumentException')]
     public function testInvalidWeightFrom() : void
     {
         $this->expectException(\InvalidArgumentException::class);
@@ -301,11 +259,8 @@ final class MeasurementTest extends \PHPUnit\Framework\TestCase
         Measurement::convertWeight(1.1, 'invalid', WeightType::KILOGRAM);
     }
 
-    /**
-     * @testdox Invalid conversion to unknown weight throws a InvalidArgumentException
-     * @covers phpOMS\Utils\Converter\Measurement
-     * @group framework
-     */
+    #[\PHPUnit\Framework\Attributes\Group('framework')]
+    #[\PHPUnit\Framework\Attributes\TestDox('Invalid conversion to unknown weight throws a InvalidArgumentException')]
     public function testInvalidWeightTo() : void
     {
         $this->expectException(\InvalidArgumentException::class);
@@ -313,11 +268,8 @@ final class MeasurementTest extends \PHPUnit\Framework\TestCase
         Measurement::convertWeight(1.1, WeightType::KILOGRAM, 'invalid');
     }
 
-    /**
-     * @testdox Invalid conversion from unknown length throws a InvalidArgumentException
-     * @covers phpOMS\Utils\Converter\Measurement
-     * @group framework
-     */
+    #[\PHPUnit\Framework\Attributes\Group('framework')]
+    #[\PHPUnit\Framework\Attributes\TestDox('Invalid conversion from unknown length throws a InvalidArgumentException')]
     public function testInvalidLengthFrom() : void
     {
         $this->expectException(\InvalidArgumentException::class);
@@ -325,11 +277,8 @@ final class MeasurementTest extends \PHPUnit\Framework\TestCase
         Measurement::convertLength(1.1, 'invalid', LengthType::METERS);
     }
 
-    /**
-     * @testdox Invalid conversion to unknown length throws a InvalidArgumentException
-     * @covers phpOMS\Utils\Converter\Measurement
-     * @group framework
-     */
+    #[\PHPUnit\Framework\Attributes\Group('framework')]
+    #[\PHPUnit\Framework\Attributes\TestDox('Invalid conversion to unknown length throws a InvalidArgumentException')]
     public function testInvalidLengthTo() : void
     {
         $this->expectException(\InvalidArgumentException::class);
@@ -337,11 +286,8 @@ final class MeasurementTest extends \PHPUnit\Framework\TestCase
         Measurement::convertLength(1.1, LengthType::METERS, 'invalid');
     }
 
-    /**
-     * @testdox Invalid conversion from unknown area throws a InvalidArgumentException
-     * @covers phpOMS\Utils\Converter\Measurement
-     * @group framework
-     */
+    #[\PHPUnit\Framework\Attributes\Group('framework')]
+    #[\PHPUnit\Framework\Attributes\TestDox('Invalid conversion from unknown area throws a InvalidArgumentException')]
     public function testInvalidAreaFrom() : void
     {
         $this->expectException(\InvalidArgumentException::class);
@@ -349,11 +295,8 @@ final class MeasurementTest extends \PHPUnit\Framework\TestCase
         Measurement::convertArea(1.1, 'invalid', AreaType::SQUARE_METERS);
     }
 
-    /**
-     * @testdox Invalid conversion to unknown area throws a InvalidArgumentException
-     * @covers phpOMS\Utils\Converter\Measurement
-     * @group framework
-     */
+    #[\PHPUnit\Framework\Attributes\Group('framework')]
+    #[\PHPUnit\Framework\Attributes\TestDox('Invalid conversion to unknown area throws a InvalidArgumentException')]
     public function testInvalidAreaTo() : void
     {
         $this->expectException(\InvalidArgumentException::class);
@@ -361,11 +304,8 @@ final class MeasurementTest extends \PHPUnit\Framework\TestCase
         Measurement::convertArea(1.1, AreaType::SQUARE_METERS, 'invalid');
     }
 
-    /**
-     * @testdox Invalid conversion from unknown volume throws a InvalidArgumentException
-     * @covers phpOMS\Utils\Converter\Measurement
-     * @group framework
-     */
+    #[\PHPUnit\Framework\Attributes\Group('framework')]
+    #[\PHPUnit\Framework\Attributes\TestDox('Invalid conversion from unknown volume throws a InvalidArgumentException')]
     public function testInvalidVolumeFrom() : void
     {
         $this->expectException(\InvalidArgumentException::class);
@@ -373,11 +313,8 @@ final class MeasurementTest extends \PHPUnit\Framework\TestCase
         Measurement::convertVolume(1.1, 'invalid', VolumeType::LITER);
     }
 
-    /**
-     * @testdox Invalid conversion to unknown volume throws a InvalidArgumentException
-     * @covers phpOMS\Utils\Converter\Measurement
-     * @group framework
-     */
+    #[\PHPUnit\Framework\Attributes\Group('framework')]
+    #[\PHPUnit\Framework\Attributes\TestDox('Invalid conversion to unknown volume throws a InvalidArgumentException')]
     public function testInvalidVolumeTo() : void
     {
         $this->expectException(\InvalidArgumentException::class);
@@ -385,11 +322,8 @@ final class MeasurementTest extends \PHPUnit\Framework\TestCase
         Measurement::convertVolume(1.1, VolumeType::LITER, 'invalid');
     }
 
-    /**
-     * @testdox Invalid conversion from unknown speed throws a InvalidArgumentException
-     * @covers phpOMS\Utils\Converter\Measurement
-     * @group framework
-     */
+    #[\PHPUnit\Framework\Attributes\Group('framework')]
+    #[\PHPUnit\Framework\Attributes\TestDox('Invalid conversion from unknown speed throws a InvalidArgumentException')]
     public function testInvalidSpeedFrom() : void
     {
         $this->expectException(\InvalidArgumentException::class);
@@ -397,11 +331,8 @@ final class MeasurementTest extends \PHPUnit\Framework\TestCase
         Measurement::convertSpeed(1.1, 'invalid', SpeedType::KILOMETERS_PER_HOUR);
     }
 
-    /**
-     * @testdox Invalid conversion to unknown speed throws a InvalidArgumentException
-     * @covers phpOMS\Utils\Converter\Measurement
-     * @group framework
-     */
+    #[\PHPUnit\Framework\Attributes\Group('framework')]
+    #[\PHPUnit\Framework\Attributes\TestDox('Invalid conversion to unknown speed throws a InvalidArgumentException')]
     public function testInvalidSpeedTo() : void
     {
         $this->expectException(\InvalidArgumentException::class);
@@ -409,11 +340,8 @@ final class MeasurementTest extends \PHPUnit\Framework\TestCase
         Measurement::convertSpeed(1.1, SpeedType::KILOMETERS_PER_HOUR, 'invalid');
     }
 
-    /**
-     * @testdox Invalid conversion from unknown time throws a InvalidArgumentException
-     * @covers phpOMS\Utils\Converter\Measurement
-     * @group framework
-     */
+    #[\PHPUnit\Framework\Attributes\Group('framework')]
+    #[\PHPUnit\Framework\Attributes\TestDox('Invalid conversion from unknown time throws a InvalidArgumentException')]
     public function testInvalidTimeFrom() : void
     {
         $this->expectException(\InvalidArgumentException::class);
@@ -421,11 +349,8 @@ final class MeasurementTest extends \PHPUnit\Framework\TestCase
         Measurement::convertTime(1.1, 'invalid', TimeType::HOURS);
     }
 
-    /**
-     * @testdox Invalid conversion to unknown time throws a InvalidArgumentException
-     * @covers phpOMS\Utils\Converter\Measurement
-     * @group framework
-     */
+    #[\PHPUnit\Framework\Attributes\Group('framework')]
+    #[\PHPUnit\Framework\Attributes\TestDox('Invalid conversion to unknown time throws a InvalidArgumentException')]
     public function testInvalidTimeTo() : void
     {
         $this->expectException(\InvalidArgumentException::class);
@@ -433,11 +358,8 @@ final class MeasurementTest extends \PHPUnit\Framework\TestCase
         Measurement::convertTime(1.1, TimeType::HOURS, 'invalid');
     }
 
-    /**
-     * @testdox Invalid conversion from unknown angle throws a InvalidArgumentException
-     * @covers phpOMS\Utils\Converter\Measurement
-     * @group framework
-     */
+    #[\PHPUnit\Framework\Attributes\Group('framework')]
+    #[\PHPUnit\Framework\Attributes\TestDox('Invalid conversion from unknown angle throws a InvalidArgumentException')]
     public function testInvalidAngleFrom() : void
     {
         $this->expectException(\InvalidArgumentException::class);
@@ -445,11 +367,8 @@ final class MeasurementTest extends \PHPUnit\Framework\TestCase
         Measurement::convertAngle(1.1, 'invalid', AngleType::RADIAN);
     }
 
-    /**
-     * @testdox Invalid conversion to unknown angle throws a InvalidArgumentException
-     * @covers phpOMS\Utils\Converter\Measurement
-     * @group framework
-     */
+    #[\PHPUnit\Framework\Attributes\Group('framework')]
+    #[\PHPUnit\Framework\Attributes\TestDox('Invalid conversion to unknown angle throws a InvalidArgumentException')]
     public function testInvalidAngleTo() : void
     {
         $this->expectException(\InvalidArgumentException::class);
@@ -457,11 +376,8 @@ final class MeasurementTest extends \PHPUnit\Framework\TestCase
         Measurement::convertAngle(1.1, AngleType::RADIAN, 'invalid');
     }
 
-    /**
-     * @testdox Invalid conversion from unknown pressure throws a InvalidArgumentException
-     * @covers phpOMS\Utils\Converter\Measurement
-     * @group framework
-     */
+    #[\PHPUnit\Framework\Attributes\Group('framework')]
+    #[\PHPUnit\Framework\Attributes\TestDox('Invalid conversion from unknown pressure throws a InvalidArgumentException')]
     public function testInvalidPressureFrom() : void
     {
         $this->expectException(\InvalidArgumentException::class);
@@ -469,11 +385,8 @@ final class MeasurementTest extends \PHPUnit\Framework\TestCase
         Measurement::convertPressure(1.1, 'invalid', PressureType::BAR);
     }
 
-    /**
-     * @testdox Invalid conversion to unknown pressure throws a InvalidArgumentException
-     * @covers phpOMS\Utils\Converter\Measurement
-     * @group framework
-     */
+    #[\PHPUnit\Framework\Attributes\Group('framework')]
+    #[\PHPUnit\Framework\Attributes\TestDox('Invalid conversion to unknown pressure throws a InvalidArgumentException')]
     public function testInvalidPressureTo() : void
     {
         $this->expectException(\InvalidArgumentException::class);
@@ -481,11 +394,8 @@ final class MeasurementTest extends \PHPUnit\Framework\TestCase
         Measurement::convertPressure(1.1, PressureType::BAR, 'invalid');
     }
 
-    /**
-     * @testdox Invalid conversion from unknown energy throws a InvalidArgumentException
-     * @covers phpOMS\Utils\Converter\Measurement
-     * @group framework
-     */
+    #[\PHPUnit\Framework\Attributes\Group('framework')]
+    #[\PHPUnit\Framework\Attributes\TestDox('Invalid conversion from unknown energy throws a InvalidArgumentException')]
     public function testInvalidEnergyPowerFrom() : void
     {
         $this->expectException(\InvalidArgumentException::class);
@@ -493,11 +403,8 @@ final class MeasurementTest extends \PHPUnit\Framework\TestCase
         Measurement::convertEnergy(1.1, 'invalid', EnergyPowerType::JOULES);
     }
 
-    /**
-     * @testdox Invalid conversion to unknown energy throws a InvalidArgumentException
-     * @covers phpOMS\Utils\Converter\Measurement
-     * @group framework
-     */
+    #[\PHPUnit\Framework\Attributes\Group('framework')]
+    #[\PHPUnit\Framework\Attributes\TestDox('Invalid conversion to unknown energy throws a InvalidArgumentException')]
     public function testInvalidEnergyPowerTo() : void
     {
         $this->expectException(\InvalidArgumentException::class);
@@ -505,11 +412,8 @@ final class MeasurementTest extends \PHPUnit\Framework\TestCase
         Measurement::convertEnergy(1.1, EnergyPowerType::JOULES, 'invalid');
     }
 
-    /**
-     * @testdox Invalid conversion from unknown filesize throws a InvalidArgumentException
-     * @covers phpOMS\Utils\Converter\Measurement
-     * @group framework
-     */
+    #[\PHPUnit\Framework\Attributes\Group('framework')]
+    #[\PHPUnit\Framework\Attributes\TestDox('Invalid conversion from unknown filesize throws a InvalidArgumentException')]
     public function testInvalidFileSizeFrom() : void
     {
         $this->expectException(\InvalidArgumentException::class);
@@ -517,11 +421,8 @@ final class MeasurementTest extends \PHPUnit\Framework\TestCase
         Measurement::convertFileSize(1.1, 'invalid', FileSizeType::KILOBYTE);
     }
 
-    /**
-     * @testdox Invalid conversion to unknown filesize throws a InvalidArgumentException
-     * @covers phpOMS\Utils\Converter\Measurement
-     * @group framework
-     */
+    #[\PHPUnit\Framework\Attributes\Group('framework')]
+    #[\PHPUnit\Framework\Attributes\TestDox('Invalid conversion to unknown filesize throws a InvalidArgumentException')]
     public function testInvalidFileSizeTo() : void
     {
         $this->expectException(\InvalidArgumentException::class);

@@ -2,7 +2,7 @@
 /**
  * Jingga
  *
- * PHP Version 8.1
+ * PHP Version 8.2
  *
  * @package   tests
  * @copyright Dennis Eichhorn
@@ -17,10 +17,10 @@ namespace phpOMS\tests\DataStorage\Database;
 use phpOMS\DataStorage\Database\SchemaMapper;
 
 /**
- * @testdox phpOMS\tests\DataStorage\Database\SchemaMapperTest: Mapper for the database schema
- *
  * @internal
  */
+#[\PHPUnit\Framework\Attributes\CoversClass(\phpOMS\DataStorage\Database\SchemaMapper::class)]
+#[\PHPUnit\Framework\Attributes\TestDox('phpOMS\tests\DataStorage\Database\SchemaMapperTest: Mapper for the database schema')]
 final class SchemaMapperTest extends \PHPUnit\Framework\TestCase
 {
     protected function setUp() : void
@@ -59,11 +59,8 @@ final class SchemaMapperTest extends \PHPUnit\Framework\TestCase
         $GLOBALS['dbpool']->get()->con->prepare('DROP TABLE test_belongs_to_one')->execute();
     }
 
-    /**
-     * @testdox The tables can be returned
-     * @covers phpOMS\DataStorage\Database\SchemaMapper
-     * @group framework
-     */
+    #[\PHPUnit\Framework\Attributes\Group('framework')]
+    #[\PHPUnit\Framework\Attributes\TestDox('The tables can be returned')]
     public function testTables() : void
     {
         $schema = new SchemaMapper($GLOBALS['dbpool']->get());
@@ -72,11 +69,8 @@ final class SchemaMapperTest extends \PHPUnit\Framework\TestCase
         self::assertTrue(\in_array('test_belongs_to_one', $schema->getTables()));
     }
 
-    /**
-     * @testdox The fields of a table can be returned
-     * @covers phpOMS\DataStorage\Database\SchemaMapper
-     * @group framework
-     */
+    #[\PHPUnit\Framework\Attributes\Group('framework')]
+    #[\PHPUnit\Framework\Attributes\TestDox('The fields of a table can be returned')]
     public function testFields() : void
     {
         $schema = new SchemaMapper($GLOBALS['dbpool']->get());

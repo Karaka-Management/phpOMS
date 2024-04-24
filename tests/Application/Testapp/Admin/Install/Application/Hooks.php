@@ -2,7 +2,7 @@
 /**
  * Jingga
  *
- * PHP Version 8.1
+ * PHP Version 8.2
  *
  * @package   \phpOMS\tess\Application\Apps\Testapp
  * @copyright Dennis Eichhorn

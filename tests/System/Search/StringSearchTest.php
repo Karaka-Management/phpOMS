@@ -2,7 +2,7 @@
 /**
  * Jingga
  *
- * PHP Version 8.1
+ * PHP Version 8.2
  *
  * @package   tests
  * @copyright Dennis Eichhorn
@@ -17,61 +17,43 @@ namespace phpOMS\tests\System\Search;
 use phpOMS\System\Search\StringSearch;
 
 /**
- * @testdox phpOMS\tests\System\Search\StringSearchTest: Search utilities
- *
  * @internal
  */
+#[\PHPUnit\Framework\Attributes\CoversClass(\phpOMS\System\Search\StringSearch::class)]
+#[\PHPUnit\Framework\Attributes\TestDox('phpOMS\tests\System\Search\StringSearchTest: Search utilities')]
 final class StringSearchTest extends \PHPUnit\Framework\TestCase
 {
-    /**
-     * @covers phpOMS\System\Search\StringSearch
-     * @group framework
-     */
+    #[\PHPUnit\Framework\Attributes\Group('framework')]
     public function testKnutMorrisPrattSearch() : void
     {
         self::assertEquals(15, StringSearch::knuthMorrisPrattSearch('ABCDABD', 'ABC ABCDAB ABCDABCDABDE'));
     }
 
-    /**
-     * @covers phpOMS\System\Search\StringSearch
-     * @group framework
-     */
+    #[\PHPUnit\Framework\Attributes\Group('framework')]
     public function testInvalidKnutMorrisPrattSearch() : void
     {
         self::assertEquals(-1, StringSearch::knuthMorrisPrattSearch('ABCDABDZ', 'ABC ABCDAB ABCDABCDABDE'));
     }
 
-    /**
-     * @covers phpOMS\System\Search\StringSearch
-     * @group framework
-     */
+    #[\PHPUnit\Framework\Attributes\Group('framework')]
     public function testBoyerMooreHorspoolSimpleSearch() : void
     {
         self::assertEquals(15, StringSearch::boyerMooreHorspoolSimpleSearch('ABCDABD', 'ABC ABCDAB ABCDABCDABDE'));
     }
 
-    /**
-     * @covers phpOMS\System\Search\StringSearch
-     * @group framework
-     */
+    #[\PHPUnit\Framework\Attributes\Group('framework')]
     public function testInvalidBoyerMooreHorspoolSimpleSearch() : void
     {
         self::assertEquals(-1, StringSearch::boyerMooreHorspoolSimpleSearch('ABCDABDZ', 'ABC ABCDAB ABCDABCDABDE'));
     }
 
-    /**
-     * @covers phpOMS\System\Search\StringSearch
-     * @group framework
-     */
+    #[\PHPUnit\Framework\Attributes\Group('framework')]
     public function testBoyerMooreHorspoolSearch() : void
     {
         self::assertEquals(15, StringSearch::boyerMooreHorspoolSearch('ABCDABD', 'ABC ABCDAB ABCDABCDABDE'));
     }
 
-    /**
-     * @covers phpOMS\System\Search\StringSearch
-     * @group framework
-     */
+    #[\PHPUnit\Framework\Attributes\Group('framework')]
     public function testInvalidBoyerMooreHorspoolSearch() : void
     {
         self::assertEquals(-1, StringSearch::boyerMooreHorspoolSearch('ABCDABDZ', 'ABC ABCDAB ABCDABCDABDE'));

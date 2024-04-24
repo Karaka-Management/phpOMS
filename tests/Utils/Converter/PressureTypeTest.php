@@ -2,7 +2,7 @@
 /**
  * Jingga
  *
- * PHP Version 8.1
+ * PHP Version 8.2
  *
  * @package   tests
  * @copyright Dennis Eichhorn
@@ -21,28 +21,22 @@ use phpOMS\Utils\Converter\PressureType;
  */
 final class PressureTypeTest extends \PHPUnit\Framework\TestCase
 {
-    /**
-     * @group framework
-     * @coversNothing
-     */
+    #[\PHPUnit\Framework\Attributes\Group('framework')]
+    #[\PHPUnit\Framework\Attributes\CoversNothing]
     public function testEnumCount() : void
     {
         self::assertCount(13, PressureType::getConstants());
     }
 
-    /**
-     * @group framework
-     * @coversNothing
-     */
+    #[\PHPUnit\Framework\Attributes\Group('framework')]
+    #[\PHPUnit\Framework\Attributes\CoversNothing]
     public function testUnique() : void
     {
         self::assertEquals(PressureType::getConstants(), \array_unique(PressureType::getConstants()));
     }
 
-    /**
-     * @group framework
-     * @coversNothing
-     */
+    #[\PHPUnit\Framework\Attributes\Group('framework')]
+    #[\PHPUnit\Framework\Attributes\CoversNothing]
     public function testEnums() : void
     {
         self::assertEquals('Pa', PressureType::PASCALS);

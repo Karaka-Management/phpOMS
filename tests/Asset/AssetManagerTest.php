@@ -2,7 +2,7 @@
 /**
  * Jingga
  *
- * PHP Version 8.1
+ * PHP Version 8.2
  *
  * @package   tests
  * @copyright Dennis Eichhorn
@@ -19,10 +19,9 @@ use phpOMS\Asset\AssetManager;
 require_once __DIR__ . '/../Autoloader.php';
 
 /**
- * @testdox phpOMS\tests\Asset\AssetManagerTest: Asset manager to handle/access assets
- *
  * @internal
  */
+#[\PHPUnit\Framework\Attributes\TestDox('phpOMS\tests\Asset\AssetManagerTest: Asset manager to handle/access assets')]
 final class AssetManagerTest extends \PHPUnit\Framework\TestCase
 {
     protected $manager = null;
@@ -35,20 +34,16 @@ final class AssetManagerTest extends \PHPUnit\Framework\TestCase
         $this->manager = new AssetManager();
     }
 
-    /**
-     * @testdox The manager has the expected default values after initialization
-     * @group framework
-     */
+    #[\PHPUnit\Framework\Attributes\Group('framework')]
+    #[\PHPUnit\Framework\Attributes\TestDox('The manager has the expected default values after initialization')]
     public function testDefault() : void
     {
         self::assertNull($this->manager->get('myAsset'));
         self::assertEquals(0, $this->manager->count());
     }
 
-    /**
-     * @testdox An asset can be added to the manager
-     * @group framework
-     */
+    #[\PHPUnit\Framework\Attributes\Group('framework')]
+    #[\PHPUnit\Framework\Attributes\TestDox('An asset can be added to the manager')]
     public function testAddAsset() : void
     {
         $this->manager->set('first', 'FirstUri');
@@ -58,20 +53,16 @@ final class AssetManagerTest extends \PHPUnit\Framework\TestCase
         self::assertEquals(2, $this->manager->count());
     }
 
-    /**
-     * @testdox An asset can be retrieved from the manager
-     * @group framework
-     */
+    #[\PHPUnit\Framework\Attributes\Group('framework')]
+    #[\PHPUnit\Framework\Attributes\TestDox('An asset can be retrieved from the manager')]
     public function testRetrieveAsset() : void
     {
         $this->manager->set('myAsset', 'AssetUri');
         self::assertEquals('AssetUri', $this->manager->get('myAsset'));
     }
 
-    /**
-     * @testdox An asset can only be added once to the manager (no duplication unless overwritten)
-     * @group framework
-     */
+    #[\PHPUnit\Framework\Attributes\Group('framework')]
+    #[\PHPUnit\Framework\Attributes\TestDox('An asset can only be added once to the manager (no duplication unless overwritten)')]
     public function testInvalidAssetReplacement() : void
     {
         $this->manager->set('myAsset', 'AssetUri');
@@ -82,10 +73,8 @@ final class AssetManagerTest extends \PHPUnit\Framework\TestCase
         self::assertEquals(1, $this->manager->count());
     }
 
-    /**
-     * @testdox An asset can be replaced upon request
-     * @group framework
-     */
+    #[\PHPUnit\Framework\Attributes\Group('framework')]
+    #[\PHPUnit\Framework\Attributes\TestDox('An asset can be replaced upon request')]
     public function testAssetReplacement() : void
     {
         $this->manager->set('myAsset', 'AssetUri');
@@ -101,10 +90,8 @@ final class AssetManagerTest extends \PHPUnit\Framework\TestCase
         self::assertEquals(1, $this->manager->count());
     }
 
-    /**
-     * @testdox An asset can be removed from the manager
-     * @group framework
-     */
+    #[\PHPUnit\Framework\Attributes\Group('framework')]
+    #[\PHPUnit\Framework\Attributes\TestDox('An asset can be removed from the manager')]
     public function testAssetRemove() : void
     {
         $this->manager->set('myAsset', 'AssetUri');

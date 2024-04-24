@@ -2,7 +2,7 @@
 /**
  * Jingga
  *
- * PHP Version 8.1
+ * PHP Version 8.2
  *
  * @package   tests
  * @copyright Dennis Eichhorn
@@ -17,17 +17,14 @@ namespace phpOMS\tests\Utils\RnG;
 use phpOMS\Utils\RnG\ArrayRandomize;
 
 /**
- * @testdox phpOMS\tests\Utils\RnG\ArrayRandomizeTest: Array randomizer
- *
  * @internal
  */
+#[\PHPUnit\Framework\Attributes\CoversClass(\phpOMS\Utils\RnG\ArrayRandomize::class)]
+#[\PHPUnit\Framework\Attributes\TestDox('phpOMS\tests\Utils\RnG\ArrayRandomizeTest: Array randomizer')]
 final class ArrayRandomizeTest extends \PHPUnit\Framework\TestCase
 {
-    /**
-     * @testdox An array can be randomized using the yates algorithm
-     * @covers phpOMS\Utils\RnG\ArrayRandomize
-     * @group framework
-     */
+    #[\PHPUnit\Framework\Attributes\Group('framework')]
+    #[\PHPUnit\Framework\Attributes\TestDox('An array can be randomized using the yates algorithm')]
     public function testYates() : void
     {
         $orig = [1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20];
@@ -42,11 +39,8 @@ final class ArrayRandomizeTest extends \PHPUnit\Framework\TestCase
         self::assertTrue(false);
     }
 
-    /**
-     * @testdox An array can be randomized using the knuth algorithm
-     * @covers phpOMS\Utils\RnG\ArrayRandomize
-     * @group framework
-     */
+    #[\PHPUnit\Framework\Attributes\Group('framework')]
+    #[\PHPUnit\Framework\Attributes\TestDox('An array can be randomized using the knuth algorithm')]
     public function testKnuth() : void
     {
         $orig = [1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20];

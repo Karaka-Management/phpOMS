@@ -2,7 +2,7 @@
 /**
  * Jingga
  *
- * PHP Version 8.1
+ * PHP Version 8.2
  *
  * @package   phpOMS\Api\EUVAT
  * @copyright Dennis Eichhorn
@@ -211,21 +211,23 @@ final class EUVATVies implements EUVATInterface
         $result['vat']  = $json['isValid'] ? 'A' : 'B';
         $result['name'] = $json['isValid'];
 
-        $result['city'] = \stripos($json['address'], "\n") !== false
-            ? \substr($json['address'], \stripos($json['address'], "\n") + 1)
+        $newLinePos = \stripos($json['address'] ?? '', "\n");
+
+        $result['city'] = $newLinePos !== false
+            ? \substr($json['address'], $newLinePos + 1)
             : '';
 
-        $result['postal'] = \stripos($json['address'], "\n") !== false
+        $result['postal'] = $newLinePos !== false
             ? \substr(
                 $json['address'],
-                \stripos($json['address'], "\n") + 1,
-                \stripos($json['address'], ' ', \stripos($json['address'], "\n")) - \stripos($json['address'], "\n") - 1
+                $newLinePos + 1,
+                \stripos($json['address'], ' ', $newLinePos) - $newLinePos - 1
             )
             : '';
 
-        $result['address'] = \stripos($json['address'], "\n") !== false
-            ? \substr($json['address'], 0, \stripos($json['address'], "\n") - 1)
-            : $json['address'];
+        $result['address'] = $newLinePos !== false
+            ? \substr($json['address'], 0, $newLinePos - 1)
+            : ($json['address'] ?? '');
 
         $result['name']    = $result['name'] === '---' ? '' : $result['name'];
         $result['city']    = $result['city'] === '---' ? '' : $result['city'];

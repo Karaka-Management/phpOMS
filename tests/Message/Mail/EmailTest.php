@@ -2,7 +2,7 @@
 /**
  * Jingga
  *
- * PHP Version 8.1
+ * PHP Version 8.2
  *
  * @package   tests
  * @copyright Dennis Eichhorn
@@ -21,11 +21,10 @@ use phpOMS\System\CharsetType;
 use phpOMS\System\MimeType;
 
 /**
- * @testdox phpOMS\tests\Message\MailHandlerTest: Abstract mail handler
- *
  * @internal
  */
-final class EmailTestTest extends \PHPUnit\Framework\TestCase
+#[\PHPUnit\Framework\Attributes\TestDox('phpOMS\tests\Message\MailHandlerTest: Abstract mail handler')]
+final class EmailTest extends \PHPUnit\Framework\TestCase
 {
     protected Email $mail;
 

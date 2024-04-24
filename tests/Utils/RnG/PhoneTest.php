@@ -2,7 +2,7 @@
 /**
  * Jingga
  *
- * PHP Version 8.1
+ * PHP Version 8.2
  *
  * @package   tests
  * @copyright Dennis Eichhorn
@@ -17,17 +17,14 @@ namespace phpOMS\tests\Utils\RnG;
 use phpOMS\Utils\RnG\Phone;
 
 /**
- * @testdox phpOMS\tests\Utils\RnG\PhoneTest: Random phone number generator
- *
  * @internal
  */
+#[\PHPUnit\Framework\Attributes\CoversClass(\phpOMS\Utils\RnG\Phone::class)]
+#[\PHPUnit\Framework\Attributes\TestDox('phpOMS\tests\Utils\RnG\PhoneTest: Random phone number generator')]
 final class PhoneTest extends \PHPUnit\Framework\TestCase
 {
-    /**
-     * @testdox Random phone numbers can be generated
-     * @covers phpOMS\Utils\RnG\Phone
-     * @group framework
-     */
+    #[\PHPUnit\Framework\Attributes\Group('framework')]
+    #[\PHPUnit\Framework\Attributes\TestDox('Random phone numbers can be generated')]
     public function testRnG() : void
     {
         self::assertMatchesRegularExpression('/^\+\d{1,2} \(\d{3,4}\) \d{3,5}\-\d{3,8}$/', Phone::generatePhone());

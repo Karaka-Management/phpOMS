@@ -2,7 +2,7 @@
 /**
  * Jingga
  *
- * PHP Version 8.1
+ * PHP Version 8.2
  *
  * @package   tests
  * @copyright Dennis Eichhorn
@@ -19,17 +19,14 @@ use phpOMS\Algorithm\Knapsack\Continuous;
 use phpOMS\Algorithm\Knapsack\Item;
 
 /**
- * @testdox phpOMS\tests\Algorithm\Knapsack\ContinuousTest: A Knapsack implementation for continuous quantities, values and costs
- *
  * @internal
  */
+#[\PHPUnit\Framework\Attributes\CoversClass(\phpOMS\Algorithm\Knapsack\Continuous::class)]
+#[\PHPUnit\Framework\Attributes\TestDox('phpOMS\tests\Algorithm\Knapsack\ContinuousTest: A Knapsack implementation for continuous quantities, values and costs')]
 final class ContinuousTest extends \PHPUnit\Framework\TestCase
 {
-    /**
-     * @testdox The optimal item selection in a backpack is calculated in order to optimize the value/profit while considering the available capacity/cost limit [discrete quantities]
-     * @covers phpOMS\Algorithm\Knapsack\Continuous
-     * @group framework
-     */
+    #[\PHPUnit\Framework\Attributes\Group('framework')]
+    #[\PHPUnit\Framework\Attributes\TestDox('The optimal item selection in a backpack is calculated in order to optimize the value/profit while considering the available capacity/cost limit [discrete quantities]')]
     public function testBackpacking() : void
     {
         $items = [
@@ -67,11 +64,8 @@ final class ContinuousTest extends \PHPUnit\Framework\TestCase
         );
     }
 
-    /**
-     * @testdox The optimal item selection in a backpack is calculated in order to optimize the value/profit while considering the available capacity/cost limit [continuous quantities]
-     * @covers phpOMS\Algorithm\Knapsack\Continuous
-     * @group framework
-     */
+    #[\PHPUnit\Framework\Attributes\Group('framework')]
+    #[\PHPUnit\Framework\Attributes\TestDox('The optimal item selection in a backpack is calculated in order to optimize the value/profit while considering the available capacity/cost limit [continuous quantities]')]
     public function testBackpackingAlternative() : void
     {
         $items = [

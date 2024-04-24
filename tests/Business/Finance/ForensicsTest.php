@@ -2,7 +2,7 @@
 /**
  * Jingga
  *
- * PHP Version 8.1
+ * PHP Version 8.2
  *
  * @package   tests
  * @copyright Dennis Eichhorn
@@ -17,10 +17,9 @@ namespace phpOMS\tests\Business\Finance;
 use phpOMS\Business\Finance\Forensics;
 
 /**
- * @testdox phpOMS\tests\Business\Finance\ForensicsTest: Forensics formulas
- *
  * @internal
  */
+#[\PHPUnit\Framework\Attributes\TestDox('phpOMS\tests\Business\Finance\ForensicsTest: Forensics formulas')]
 final class ForensicsTest extends \PHPUnit\Framework\TestCase
 {
     public function testBenfordAnalysis() : void

@@ -2,7 +2,7 @@
 /**
  * Jingga
  *
- * PHP Version 8.1
+ * PHP Version 8.2
  *
  * @package   tests
  * @copyright Dennis Eichhorn
@@ -19,10 +19,10 @@ use phpOMS\Algorithm\PathFinding\JumpPointNode;
 require_once __DIR__ . '/../../Autoloader.php';
 
 /**
- * @testdox phpOMS\tests\Algorithm\PathFinding\JumpPointNode: JumpPointNode on grid for path finding
- *
  * @internal
  */
+#[\PHPUnit\Framework\Attributes\CoversClass(\phpOMS\Algorithm\PathFinding\JumpPointNode::class)]
+#[\PHPUnit\Framework\Attributes\TestDox('phpOMS\tests\Algorithm\PathFinding\JumpPointNode: JumpPointNode on grid for path finding')]
 final class JumpPointNodeTest extends \PHPUnit\Framework\TestCase
 {
     protected $node;
@@ -35,11 +35,8 @@ final class JumpPointNodeTest extends \PHPUnit\Framework\TestCase
         $this->node = new JumpPointNode(1, 2, 3.0, false);
     }
 
-    /**
-     * @testdox The node has the expected values after initialization
-     * @covers phpOMS\Algorithm\PathFinding\JumpPointNode
-     * @group framework
-     */
+    #[\PHPUnit\Framework\Attributes\Group('framework')]
+    #[\PHPUnit\Framework\Attributes\TestDox('The node has the expected values after initialization')]
     public function testDefault() : void
     {
         self::assertFalse($this->node->isClosed());
@@ -50,66 +47,48 @@ final class JumpPointNodeTest extends \PHPUnit\Framework\TestCase
         self::assertEquals(0.0, $this->node->getF());
     }
 
-    /**
-     * @testdox The node can be set closed and checked
-     * @covers phpOMS\Algorithm\PathFinding\JumpPointNode
-     * @group framework
-     */
+    #[\PHPUnit\Framework\Attributes\Group('framework')]
+    #[\PHPUnit\Framework\Attributes\TestDox('The node can be set closed and checked')]
     public function testClosedInputOutput() : void
     {
         $this->node->setClosed(true);
         self::assertTrue($this->node->isClosed());
     }
 
-    /**
-     * @testdox The node can be set opened and checked
-     * @covers phpOMS\Algorithm\PathFinding\JumpPointNode
-     * @group framework
-     */
+    #[\PHPUnit\Framework\Attributes\Group('framework')]
+    #[\PHPUnit\Framework\Attributes\TestDox('The node can be set opened and checked')]
     public function testOpenedInputOutput() : void
     {
         $this->node->setOpened(true);
         self::assertTrue($this->node->isOpened());
     }
 
-    /**
-     * @testdox The node can be set tested and checked
-     * @covers phpOMS\Algorithm\PathFinding\JumpPointNode
-     * @group framework
-     */
+    #[\PHPUnit\Framework\Attributes\Group('framework')]
+    #[\PHPUnit\Framework\Attributes\TestDox('The node can be set tested and checked')]
     public function testTestedInputOutput() : void
     {
         $this->node->setTested(true);
         self::assertTrue($this->node->isTested());
     }
 
-    /**
-     * @testdox The g value cen be set and returned
-     * @covers phpOMS\Algorithm\PathFinding\JumpPointNode
-     * @group framework
-     */
+    #[\PHPUnit\Framework\Attributes\Group('framework')]
+    #[\PHPUnit\Framework\Attributes\TestDox('The g value cen be set and returned')]
     public function testGInputOutput() : void
     {
         $this->node->setG(2.0);
         self::assertEquals(2.0, $this->node->getG());
     }
 
-    /**
-     * @testdox The h value cen be set and returned
-     * @covers phpOMS\Algorithm\PathFinding\JumpPointNode
-     * @group framework
-     */
+    #[\PHPUnit\Framework\Attributes\Group('framework')]
+    #[\PHPUnit\Framework\Attributes\TestDox('The h value cen be set and returned')]
     public function testHInputOutput() : void
     {
         $this->node->setH(2.0);
         self::assertEquals(2.0, $this->node->getH());
     }
 
-    /**
-     * @testdox The f value cen be set and returned
-     * @covers phpOMS\Algorithm\PathFinding\JumpPointNode
-     * @group framework
-     */
+    #[\PHPUnit\Framework\Attributes\Group('framework')]
+    #[\PHPUnit\Framework\Attributes\TestDox('The f value cen be set and returned')]
     public function testFInputOutput() : void
     {
         $this->node->setF(2.0);

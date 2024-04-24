@@ -2,7 +2,7 @@
 /**
  * Jingga
  *
- * PHP Version 8.1
+ * PHP Version 8.2
  *
  * @package    tests
  * @copyright  2013 Dennis Eichhorn
@@ -19,12 +19,10 @@ use phpOMS\Model\Message\Reload;
 /**
  * @internal
  */
+#[\PHPUnit\Framework\Attributes\CoversClass(\phpOMS\Model\Message\Reload::class)]
 final class ReloadTest extends \PHPUnit\Framework\TestCase
 {
-    /**
-     * @covers phpOMS\Model\Message\Reload
-     * @group framework
-     */
+    #[\PHPUnit\Framework\Attributes\Group('framework')]
     public function testDefault() : void
     {
         $obj = new Reload();
@@ -33,10 +31,7 @@ final class ReloadTest extends \PHPUnit\Framework\TestCase
         self::assertEquals(0, $obj->toArray()['time']);
     }
 
-    /**
-     * @covers phpOMS\Model\Message\Reload
-     * @group framework
-     */
+    #[\PHPUnit\Framework\Attributes\Group('framework')]
     public function testSetGet() : void
     {
         $obj = new Reload(5);

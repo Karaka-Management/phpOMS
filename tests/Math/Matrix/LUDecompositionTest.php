@@ -2,7 +2,7 @@
 /**
  * Jingga
  *
- * PHP Version 8.1
+ * PHP Version 8.2
  *
  * @package   tests
  * @copyright Dennis Eichhorn
@@ -19,17 +19,14 @@ use phpOMS\Math\Matrix\Matrix;
 use phpOMS\Math\Matrix\Vector;
 
 /**
- * @testdox phpOMS\tests\Math\Matrix\LUDecompositionTest: LU decomposition
- *
  * @internal
  */
+#[\PHPUnit\Framework\Attributes\CoversClass(\phpOMS\Math\Matrix\LUDecomposition::class)]
+#[\PHPUnit\Framework\Attributes\TestDox('phpOMS\tests\Math\Matrix\LUDecompositionTest: LU decomposition')]
 final class LUDecompositionTest extends \PHPUnit\Framework\TestCase
 {
-    /**
-     * @testdox The L matrix of the decomposition can be calculated
-     * @covers phpOMS\Math\Matrix\LUDecomposition
-     * @group framework
-     */
+    #[\PHPUnit\Framework\Attributes\Group('framework')]
+    #[\PHPUnit\Framework\Attributes\TestDox('The L matrix of the decomposition can be calculated')]
     public function testL() : void
     {
         $B = new Matrix();
@@ -48,11 +45,8 @@ final class LUDecompositionTest extends \PHPUnit\Framework\TestCase
         ], $lu->getL()->toArray(), 0.2);
     }
 
-    /**
-     * @testdox The U matrix of the decomposition can be calculated
-     * @covers phpOMS\Math\Matrix\LUDecomposition
-     * @group framework
-     */
+    #[\PHPUnit\Framework\Attributes\Group('framework')]
+    #[\PHPUnit\Framework\Attributes\TestDox('The U matrix of the decomposition can be calculated')]
     public function testU() : void
     {
         $B = new Matrix();
@@ -71,11 +65,8 @@ final class LUDecompositionTest extends \PHPUnit\Framework\TestCase
         ], $lu->getU()->toArray(), 0.2);
     }
 
-    /**
-     * @testdox The matrix can be checked for singularity
-     * @covers phpOMS\Math\Matrix\LUDecomposition
-     * @group framework
-     */
+    #[\PHPUnit\Framework\Attributes\Group('framework')]
+    #[\PHPUnit\Framework\Attributes\TestDox('The matrix can be checked for singularity')]
     public function testSingularity() : void
     {
         $A = new Matrix();
@@ -101,11 +92,8 @@ final class LUDecompositionTest extends \PHPUnit\Framework\TestCase
         self::assertFalse($luB->isNonSingular());
     }
 
-    /**
-     * @testdox The equation Ax = b can be solved for a none-singular matrix
-     * @covers phpOMS\Math\Matrix\LUDecomposition
-     * @group framework
-     */
+    #[\PHPUnit\Framework\Attributes\Group('framework')]
+    #[\PHPUnit\Framework\Attributes\TestDox('The equation Ax = b can be solved for a none-singular matrix')]
     public function testSolve() : void
     {
         $B = new Matrix();
@@ -122,11 +110,8 @@ final class LUDecompositionTest extends \PHPUnit\Framework\TestCase
         self::assertEqualsWithDelta([[1], [2], [3]], $lu->solve($vec)->toArray(), 0.2);
     }
 
-    /**
-     * @testdox The pivots of the decomposition can be calculated
-     * @covers phpOMS\Math\Matrix\LUDecomposition
-     * @group framework
-     */
+    #[\PHPUnit\Framework\Attributes\Group('framework')]
+    #[\PHPUnit\Framework\Attributes\TestDox('The pivots of the decomposition can be calculated')]
     public function testPivot() : void
     {
         $B = new Matrix();
@@ -141,11 +126,8 @@ final class LUDecompositionTest extends \PHPUnit\Framework\TestCase
         self::assertEquals([0, 1, 2], $lu->getPivot());
     }
 
-    /**
-     * @testdox The equation Ax = b can be solved for a singular matrix
-     * @covers phpOMS\Math\Matrix\LUDecomposition
-     * @group framework
-     */
+    #[\PHPUnit\Framework\Attributes\Group('framework')]
+    #[\PHPUnit\Framework\Attributes\TestDox('The equation Ax = b can be solved for a singular matrix')]
     public function testSolveOfSingularMatrix() : void
     {
         $this->expectException(\Exception::class);
@@ -165,11 +147,8 @@ final class LUDecompositionTest extends \PHPUnit\Framework\TestCase
         $lu->solve($vec);
     }
 
-    /**
-     * @testdox The decomposition can be created and the original matrix can be computed
-     * @covers phpOMS\Math\Matrix\LUDecomposition
-     * @group framework
-     */
+    #[\PHPUnit\Framework\Attributes\Group('framework')]
+    #[\PHPUnit\Framework\Attributes\TestDox('The decomposition can be created and the original matrix can be computed')]
     public function testComposition() : void
     {
         $A = new Matrix();
@@ -190,11 +169,8 @@ final class LUDecompositionTest extends \PHPUnit\Framework\TestCase
         );
     }
 
-    /**
-     * @testdox The determinat can be calculated
-     * @covers phpOMS\Math\Matrix\LUDecomposition
-     * @group framework
-     */
+    #[\PHPUnit\Framework\Attributes\Group('framework')]
+    #[\PHPUnit\Framework\Attributes\TestDox('The determinat can be calculated')]
     public function testDet() : void
     {
         $B = new Matrix();
@@ -208,11 +184,8 @@ final class LUDecompositionTest extends \PHPUnit\Framework\TestCase
         self::assertEqualsWithDelta(1775.0, $lu->det(), 0.1);
     }
 
-    /**
-     * @testdox A invalid vector throws a InvalidDimensionException
-     * @covers phpOMS\Math\Matrix\LUDecomposition
-     * @group framework
-     */
+    #[\PHPUnit\Framework\Attributes\Group('framework')]
+    #[\PHPUnit\Framework\Attributes\TestDox('A invalid vector throws a InvalidDimensionException')]
     public function testInvalidDimension() : void
     {
         $this->expectException(\phpOMS\Math\Matrix\Exception\InvalidDimensionException::class);

@@ -2,7 +2,7 @@
 /**
  * Jingga
  *
- * PHP Version 8.1
+ * PHP Version 8.2
  *
  * @package   phpOMS\Model\Html
  * @copyright Dennis Eichhorn
@@ -74,7 +74,7 @@ final class FormElementGenerator
             $element .= ' ' . $attribute . '="' . $val .  '"';
         }
 
-        $value ??= $json['default']['value'] ?? '';
+        $value ??= $json['default']['value'] ?? null;
 
         $element .= (isset($json['default']) || $value !== null ? ' value="' . ($json['subtype'] === 'datetime' ? (new SmartDateTime($value))->format($json['default']['format']) : $value) .  '"' : '');
 

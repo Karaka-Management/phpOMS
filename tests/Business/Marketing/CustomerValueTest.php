@@ -2,7 +2,7 @@
 /**
  * Jingga
  *
- * PHP Version 8.1
+ * PHP Version 8.2
  *
  * @package   tests
  * @copyright Dennis Eichhorn
@@ -17,16 +17,13 @@ namespace phpOMS\tests\Business\Marketing;
 use phpOMS\Business\Marketing\CustomerValue;
 
 /**
- * @testdox phpOMS\tests\Business\Marketing\CustomerValueTest: Customer value
- *
  * @internal
  */
+#[\PHPUnit\Framework\Attributes\TestDox('phpOMS\tests\Business\Marketing\CustomerValueTest: Customer value')]
 final class CustomerValueTest extends \PHPUnit\Framework\TestCase
 {
-    /**
-     * @testdox The simple customer life time value is correctly calculated
-     * @group framework
-     */
+    #[\PHPUnit\Framework\Attributes\Group('framework')]
+    #[\PHPUnit\Framework\Attributes\TestDox('The simple customer life time value is correctly calculated')]
     public function testSimpleCLV() : void
     {
         $margin    = 3000;
@@ -35,10 +32,8 @@ final class CustomerValueTest extends \PHPUnit\Framework\TestCase
         self::assertEqualsWithDelta(30000, CustomerValue::getSimpleCLV($margin, $retention, 0.0), 0.1);
     }
 
-    /**
-     * @testdox The monthly recurring revenue (MRR) is correctly calculated
-     * @group framework
-     */
+    #[\PHPUnit\Framework\Attributes\Group('framework')]
+    #[\PHPUnit\Framework\Attributes\TestDox('The monthly recurring revenue (MRR) is correctly calculated')]
     public function testMRR() : void
     {
         $revenues = [

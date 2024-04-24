@@ -2,7 +2,7 @@
 /**
  * Jingga
  *
- * PHP Version 8.1
+ * PHP Version 8.2
  *
  * @package   tests
  * @copyright Dennis Eichhorn
@@ -19,12 +19,10 @@ use phpOMS\System\File\PermissionException;
 /**
  * @internal
  */
+#[\PHPUnit\Framework\Attributes\CoversClass(\phpOMS\System\File\PermissionException::class)]
 final class PermissionExceptionTest extends \PHPUnit\Framework\TestCase
 {
-    /**
-     * @covers phpOMS\System\File\PermissionException
-     * @group framework
-     */
+    #[\PHPUnit\Framework\Attributes\Group('framework')]
     public function testConstructor() : void
     {
         $e = new PermissionException('test.file');

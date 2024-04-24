@@ -2,7 +2,7 @@
 /**
  * Jingga
  *
- * PHP Version 8.1
+ * PHP Version 8.2
  *
  * @package   tests
  * @copyright Dennis Eichhorn
@@ -19,12 +19,10 @@ use phpOMS\Math\Exception\ZeroDivisionException;
 /**
  * @internal
  */
+#[\PHPUnit\Framework\Attributes\CoversClass(\phpOMS\Math\Exception\ZeroDivisionException::class)]
 final class ZeroDivisionExceptionTest extends \PHPUnit\Framework\TestCase
 {
-    /**
-     * @covers phpOMS\Math\Exception\ZeroDivisionException
-     * @group framework
-     */
+    #[\PHPUnit\Framework\Attributes\Group('framework')]
     public function testException() : void
     {
         self::assertInstanceOf(\UnexpectedValueException::class, new ZeroDivisionException());

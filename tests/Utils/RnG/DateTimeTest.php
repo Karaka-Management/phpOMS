@@ -2,7 +2,7 @@
 /**
  * Jingga
  *
- * PHP Version 8.1
+ * PHP Version 8.2
  *
  * @package   tests
  * @copyright Dennis Eichhorn
@@ -17,17 +17,14 @@ namespace phpOMS\tests\Utils\RnG;
 use phpOMS\Utils\RnG\DateTime;
 
 /**
- * @testdox phpOMS\tests\Utils\RnG\DateTimeTest: Date time randomizer
- *
  * @internal
  */
+#[\PHPUnit\Framework\Attributes\CoversClass(\phpOMS\Utils\RnG\DateTime::class)]
+#[\PHPUnit\Framework\Attributes\TestDox('phpOMS\tests\Utils\RnG\DateTimeTest: Date time randomizer')]
 final class DateTimeTest extends \PHPUnit\Framework\TestCase
 {
-    /**
-     * @testdox A random date time can be generated
-     * @covers phpOMS\Utils\RnG\DateTime
-     * @group framework
-     */
+    #[\PHPUnit\Framework\Attributes\Group('framework')]
+    #[\PHPUnit\Framework\Attributes\TestDox('A random date time can be generated')]
     public function testRnG() : void
     {
         for ($i = 0; $i < 100; ++$i) {

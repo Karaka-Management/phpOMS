@@ -2,7 +2,7 @@
 /**
  * Jingga
  *
- * PHP Version 8.1
+ * PHP Version 8.2
  *
  * @package   tests
  * @copyright Dennis Eichhorn
@@ -20,17 +20,14 @@ use phpOMS\Algorithm\Clustering\Point;
 include_once __DIR__ . '/../../Autoloader.php';
 
 /**
- * @testdox phpOMS\tests\Algorithm\Clustering\KmeansTest: Clustering points/elements with the K-means algorithm
- *
  * @internal
  */
+#[\PHPUnit\Framework\Attributes\CoversClass(\phpOMS\Algorithm\Clustering\Kmeans::class)]
+#[\PHPUnit\Framework\Attributes\TestDox('phpOMS\tests\Algorithm\Clustering\KmeansTest: Clustering points/elements with the K-means algorithm')]
 final class KmeansTest extends \PHPUnit\Framework\TestCase
 {
-    /**
-     * @testdox The clustering of points and dynamic check of new points works as expected
-     * @covers phpOMS\Algorithm\Clustering\Kmeans
-     * @group framework
-     */
+    #[\PHPUnit\Framework\Attributes\Group('framework')]
+    #[\PHPUnit\Framework\Attributes\TestDox('The clustering of points and dynamic check of new points works as expected')]
     public function testKmeans() : void
     {
         $seed = \mt_rand(\PHP_INT_MIN, \PHP_INT_MAX);

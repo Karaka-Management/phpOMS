@@ -3,7 +3,7 @@ name: CI
 on: [push, pull_request]
 
 jobs:
-  general_module_workflow:
+  general_module_workflow_php:
     uses: Karaka-Management/Karaka/.github/workflows/php_template.yml@develop
     secrets:
       GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}

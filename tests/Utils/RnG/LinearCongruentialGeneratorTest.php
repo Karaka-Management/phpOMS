@@ -2,7 +2,7 @@
 /**
  * Jingga
  *
- * PHP Version 8.1
+ * PHP Version 8.2
  *
  * @package   tests
  * @copyright Dennis Eichhorn
@@ -17,68 +17,50 @@ namespace phpOMS\tests\Utils\RnG;
 use phpOMS\Utils\RnG\LinearCongruentialGenerator;
 
 /**
- * @testdox phpOMS\tests\Utils\RnG\LinearCongruentialGeneratorTest: Random number generator
- *
  * @internal
  */
+#[\PHPUnit\Framework\Attributes\CoversClass(\phpOMS\Utils\RnG\LinearCongruentialGenerator::class)]
+#[\PHPUnit\Framework\Attributes\TestDox('phpOMS\tests\Utils\RnG\LinearCongruentialGeneratorTest: Random number generator')]
 final class LinearCongruentialGeneratorTest extends \PHPUnit\Framework\TestCase
 {
-    /**
-     * @testdox The bsd random number generator starts with the correct sequence
-     * @covers phpOMS\Utils\RnG\LinearCongruentialGenerator
-     * @group framework
-     */
+    #[\PHPUnit\Framework\Attributes\Group('framework')]
+    #[\PHPUnit\Framework\Attributes\TestDox('The bsd random number generator starts with the correct sequence')]
     public function testBsdRng() : void
     {
         self::assertEquals(12345, LinearCongruentialGenerator::bsd());
     }
 
-    /**
-     * @testdox The same bsd seed generates the same random number
-     * @covers phpOMS\Utils\RnG\LinearCongruentialGenerator
-     * @group framework
-     */
+    #[\PHPUnit\Framework\Attributes\Group('framework')]
+    #[\PHPUnit\Framework\Attributes\TestDox('The same bsd seed generates the same random number')]
     public function testBsdRngEqual() : void
     {
         self::assertEquals(LinearCongruentialGenerator::bsd(1), LinearCongruentialGenerator::bsd(1));
     }
 
-    /**
-     * @testdox Different bsd seeds generate different random numbers
-     * @covers phpOMS\Utils\RnG\LinearCongruentialGenerator
-     * @group framework
-     */
+    #[\PHPUnit\Framework\Attributes\Group('framework')]
+    #[\PHPUnit\Framework\Attributes\TestDox('Different bsd seeds generate different random numbers')]
     public function testBsdRngNotEqual() : void
     {
         self::assertNotEquals(LinearCongruentialGenerator::bsd(0), LinearCongruentialGenerator::bsd(1));
     }
 
-    /**
-     * @testdox The msvcrt random number generator starts with the correct sequence
-     * @covers phpOMS\Utils\RnG\LinearCongruentialGenerator
-     * @group framework
-     */
+    #[\PHPUnit\Framework\Attributes\Group('framework')]
+    #[\PHPUnit\Framework\Attributes\TestDox('The msvcrt random number generator starts with the correct sequence')]
     public function testMsRng() : void
     {
         self::assertEquals(38, LinearCongruentialGenerator::msvcrt());
         self::assertEquals(7719, LinearCongruentialGenerator::msvcrt());
     }
 
-    /**
-     * @testdox The same msvcrt seed generates the same random number
-     * @covers phpOMS\Utils\RnG\LinearCongruentialGenerator
-     * @group framework
-     */
+    #[\PHPUnit\Framework\Attributes\Group('framework')]
+    #[\PHPUnit\Framework\Attributes\TestDox('The same msvcrt seed generates the same random number')]
     public function testMsRngEqual() : void
     {
         self::assertEquals(LinearCongruentialGenerator::msvcrt(1), LinearCongruentialGenerator::msvcrt(1));
     }
 
-    /**
-     * @testdox Different msvcrt seeds generate different random numbers
-     * @covers phpOMS\Utils\RnG\LinearCongruentialGenerator
-     * @group framework
-     */
+    #[\PHPUnit\Framework\Attributes\Group('framework')]
+    #[\PHPUnit\Framework\Attributes\TestDox('Different msvcrt seeds generate different random numbers')]
     public function testMsRngNotEqual() : void
     {
         self::assertNotEquals(LinearCongruentialGenerator::msvcrt(0), LinearCongruentialGenerator::msvcrt(1));

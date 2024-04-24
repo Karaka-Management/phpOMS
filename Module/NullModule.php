@@ -2,7 +2,7 @@
 /**
  * Jingga
  *
- * PHP Version 8.1
+ * PHP Version 8.2
  *
  * @package   phpOMS\Module
  * @copyright Dennis Eichhorn
@@ -13,8 +13,6 @@
 declare(strict_types=1);
 
 namespace phpOMS\Module;
-
-use phpOMS\Log\FileLogger;
 
 /**
  * Mull module class.
@@ -35,9 +33,9 @@ final class NullModule extends ModuleAbstract
     /** {@inheritdoc} */
     public static function __callStatic(string $name, array $arguments) : void
     {
-        FileLogger::getInstance()
+        \phpOMS\Log\FileLogger::getInstance()
             ->error(
-                FileLogger::MSG_FULL, [
+                \phpOMS\Log\FileLogger::MSG_FULL, [
                     'message' => 'Expected module/controller but got NullModule.',
                     'line'    => __LINE__,
                     'file'    => self::class,

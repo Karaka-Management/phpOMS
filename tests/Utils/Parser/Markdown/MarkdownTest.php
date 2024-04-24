@@ -2,7 +2,7 @@
 /**
  * Jingga
  *
- * PHP Version 8.1
+ * PHP Version 8.2
  *
  * @package   tests
  * @copyright Dennis Eichhorn
@@ -22,12 +22,10 @@ use phpOMS\Utils\Parser\Markdown\Markdown;
 /**
  * @internal
  */
+#[\PHPUnit\Framework\Attributes\CoversClass(\phpOMS\Utils\Parser\Markdown\Markdown::class)]
 final class MarkdownTest extends \PHPUnit\Framework\TestCase
 {
-    /**
-     * @covers phpOMS\Utils\Parser\Markdown\Markdown
-     * @group framework
-     */
+    #[\PHPUnit\Framework\Attributes\Group('framework')]
     public function testParsing() : void
     {
         $files = Directory::list(__DIR__ . '/data');

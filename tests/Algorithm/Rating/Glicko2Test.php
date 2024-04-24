@@ -2,7 +2,7 @@
 /**
  * Jingga
  *
- * PHP Version 8.1
+ * PHP Version 8.2
  *
  * @package   tests
  * @copyright Dennis Eichhorn
@@ -19,17 +19,14 @@ use phpOMS\Algorithm\Rating\Glicko2;
 require_once __DIR__ . '/../../Autoloader.php';
 
 /**
- * @testdox phpOMS\tests\Algorithm\Rating\Glicko2Test: Rating generation
- *
  * @internal
  */
+#[\PHPUnit\Framework\Attributes\CoversClass(\phpOMS\Algorithm\Rating\Glicko2::class)]
+#[\PHPUnit\Framework\Attributes\TestDox('phpOMS\tests\Algorithm\Rating\Glicko2Test: Rating generation')]
 final class Glicko2Test extends \PHPUnit\Framework\TestCase
 {
-    /**
-     * @testdox 1v1 rating test
-     * @covers phpOMS\Algorithm\Rating\Glicko2
-     * @group framework
-     */
+    #[\PHPUnit\Framework\Attributes\Group('framework')]
+    #[\PHPUnit\Framework\Attributes\TestDox('1v1 rating test')]
     public function testSoloRating() : void
     {
         $rating = new Glicko2();
@@ -140,11 +137,8 @@ final class Glicko2Test extends \PHPUnit\Framework\TestCase
         );
     }
 
-    /**
-     * @testdox group rating test
-     * @covers phpOMS\Algorithm\Rating\Glicko2
-     * @group framework
-     */
+    #[\PHPUnit\Framework\Attributes\Group('framework')]
+    #[\PHPUnit\Framework\Attributes\TestDox('group rating test')]
     public function testGroupRating() : void
     {
         $rating = new Glicko2();

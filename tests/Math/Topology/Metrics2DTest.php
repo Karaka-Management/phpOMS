@@ -2,7 +2,7 @@
 /**
  * Jingga
  *
- * PHP Version 8.1
+ * PHP Version 8.2
  *
  * @package   tests
  * @copyright Dennis Eichhorn
@@ -17,17 +17,14 @@ namespace phpOMS\tests\Math\Topology;
 use phpOMS\Math\Topology\Metrics2D;
 
 /**
- * @testdox phpOMS\tests\Math\Topology\Metrics2DTest: Metric/distance calculations
- *
  * @internal
  */
+#[\PHPUnit\Framework\Attributes\CoversClass(\phpOMS\Math\Topology\Metrics2D::class)]
+#[\PHPUnit\Framework\Attributes\TestDox('phpOMS\tests\Math\Topology\Metrics2DTest: Metric/distance calculations')]
 final class Metrics2DTest extends \PHPUnit\Framework\TestCase
 {
-    /**
-     * @testdox The manhattan distance can be calculated
-     * @covers phpOMS\Math\Topology\Metrics2D
-     * @group framework
-     */
+    #[\PHPUnit\Framework\Attributes\Group('framework')]
+    #[\PHPUnit\Framework\Attributes\TestDox('The manhattan distance can be calculated')]
     public function testManhattan() : void
     {
         self::assertEquals(
@@ -36,11 +33,8 @@ final class Metrics2DTest extends \PHPUnit\Framework\TestCase
         );
     }
 
-    /**
-     * @testdox The euclidean distance can be calculated
-     * @covers phpOMS\Math\Topology\Metrics2D
-     * @group framework
-     */
+    #[\PHPUnit\Framework\Attributes\Group('framework')]
+    #[\PHPUnit\Framework\Attributes\TestDox('The euclidean distance can be calculated')]
     public function testEuclidean() : void
     {
         self::assertEqualsWithDelta(
@@ -50,11 +44,8 @@ final class Metrics2DTest extends \PHPUnit\Framework\TestCase
         );
     }
 
-    /**
-     * @testdox The chebyshev distance can be calculated
-     * @covers phpOMS\Math\Topology\Metrics2D
-     * @group framework
-     */
+    #[\PHPUnit\Framework\Attributes\Group('framework')]
+    #[\PHPUnit\Framework\Attributes\TestDox('The chebyshev distance can be calculated')]
     public function testChebyshev() : void
     {
         self::assertEquals(
@@ -63,11 +54,8 @@ final class Metrics2DTest extends \PHPUnit\Framework\TestCase
         );
     }
 
-    /**
-     * @testdox The octile distance can be calculated
-     * @covers phpOMS\Math\Topology\Metrics2D
-     * @group framework
-     */
+    #[\PHPUnit\Framework\Attributes\Group('framework')]
+    #[\PHPUnit\Framework\Attributes\TestDox('The octile distance can be calculated')]
     public function testOctile() : void
     {
         self::assertEqualsWithDelta(
@@ -77,11 +65,8 @@ final class Metrics2DTest extends \PHPUnit\Framework\TestCase
         );
     }
 
-    /**
-     * @testdox The minkowski distance can be calculated
-     * @covers phpOMS\Math\Topology\Metrics2D
-     * @group framework
-     */
+    #[\PHPUnit\Framework\Attributes\Group('framework')]
+    #[\PHPUnit\Framework\Attributes\TestDox('The minkowski distance can be calculated')]
     public function testMinkowski() : void
     {
         self::assertEqualsWithDelta(
@@ -91,11 +76,8 @@ final class Metrics2DTest extends \PHPUnit\Framework\TestCase
         );
     }
 
-    /**
-     * @testdox The canberra distance can be calculated
-     * @covers phpOMS\Math\Topology\Metrics2D
-     * @group framework
-     */
+    #[\PHPUnit\Framework\Attributes\Group('framework')]
+    #[\PHPUnit\Framework\Attributes\TestDox('The canberra distance can be calculated')]
     public function testCanberra() : void
     {
         self::assertEqualsWithDelta(
@@ -105,11 +87,8 @@ final class Metrics2DTest extends \PHPUnit\Framework\TestCase
         );
     }
 
-    /**
-     * @testdox The bray-curtis distance can be calculated
-     * @covers phpOMS\Math\Topology\Metrics2D
-     * @group framework
-     */
+    #[\PHPUnit\Framework\Attributes\Group('framework')]
+    #[\PHPUnit\Framework\Attributes\TestDox('The bray-curtis distance can be calculated')]
     public function testBrayCurtis() : void
     {
         self::assertEqualsWithDelta(
@@ -119,11 +98,8 @@ final class Metrics2DTest extends \PHPUnit\Framework\TestCase
         );
     }
 
-    /**
-     * @testdox The angular distance can be calculated
-     * @covers phpOMS\Math\Topology\Metrics2D
-     * @group framework
-     */
+    #[\PHPUnit\Framework\Attributes\Group('framework')]
+    #[\PHPUnit\Framework\Attributes\TestDox('The angular distance can be calculated')]
     public function testAngularSeparation() : void
     {
         self::assertEqualsWithDelta(
@@ -133,11 +109,8 @@ final class Metrics2DTest extends \PHPUnit\Framework\TestCase
         );
     }
 
-    /**
-     * @testdox The hamming distance can be calculated
-     * @covers phpOMS\Math\Topology\Metrics2D
-     * @group framework
-     */
+    #[\PHPUnit\Framework\Attributes\Group('framework')]
+    #[\PHPUnit\Framework\Attributes\TestDox('The hamming distance can be calculated')]
     public function testHammingDistance() : void
     {
         self::assertEquals(
@@ -146,11 +119,8 @@ final class Metrics2DTest extends \PHPUnit\Framework\TestCase
         );
     }
 
-    /**
-     * @testdox The ulam distance can be calculated
-     * @covers phpOMS\Math\Topology\Metrics2D
-     * @group framework
-     */
+    #[\PHPUnit\Framework\Attributes\Group('framework')]
+    #[\PHPUnit\Framework\Attributes\TestDox('The ulam distance can be calculated')]
     public function testUlam() : void
     {
         self::assertEquals(
@@ -159,11 +129,8 @@ final class Metrics2DTest extends \PHPUnit\Framework\TestCase
         );
     }
 
-    /**
-     * @testdox Different dimension sizes for the coordinates in the hamming metric throw a InvalidDimensionException
-     * @covers phpOMS\Math\Topology\Metrics2D
-     * @group framework
-     */
+    #[\PHPUnit\Framework\Attributes\Group('framework')]
+    #[\PHPUnit\Framework\Attributes\TestDox('Different dimension sizes for the coordinates in the hamming metric throw a InvalidDimensionException')]
     public function testInvalidHammingDimension() : void
     {
         $this->expectException(\phpOMS\Math\Matrix\Exception\InvalidDimensionException::class);
@@ -171,11 +138,8 @@ final class Metrics2DTest extends \PHPUnit\Framework\TestCase
         Metrics2D::hamming([1, 1, 1, 1], [0, 1, 0]);
     }
 
-    /**
-     * @testdox Different dimension sizes for the coordinates in the ulam metric throw a InvalidDimensionException
-     * @covers phpOMS\Math\Topology\Metrics2D
-     * @group framework
-     */
+    #[\PHPUnit\Framework\Attributes\Group('framework')]
+    #[\PHPUnit\Framework\Attributes\TestDox('Different dimension sizes for the coordinates in the ulam metric throw a InvalidDimensionException')]
     public function testInvalidUlamDimension() : void
     {
         $this->expectException(\phpOMS\Math\Matrix\Exception\InvalidDimensionException::class);

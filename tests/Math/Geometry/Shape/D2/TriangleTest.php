@@ -2,7 +2,7 @@
 /**
  * Jingga
  *
- * PHP Version 8.1
+ * PHP Version 8.2
  *
  * @package   tests
  * @copyright Dennis Eichhorn
@@ -17,47 +17,35 @@ namespace phpOMS\tests\Math\Geometry\Shape\D2;
 use phpOMS\Math\Geometry\Shape\D2\Triangle;
 
 /**
- * @testdox phpOMS\tests\Math\Geometry\Shape\D2\TriangleTest: Triangle shape
- *
  * @internal
  */
+#[\PHPUnit\Framework\Attributes\CoversClass(\phpOMS\Math\Geometry\Shape\D2\Triangle::class)]
+#[\PHPUnit\Framework\Attributes\TestDox('phpOMS\tests\Math\Geometry\Shape\D2\TriangleTest: Triangle shape')]
 final class TriangleTest extends \PHPUnit\Framework\TestCase
 {
-    /**
-     * @testdox The surface can be calculated
-     * @covers phpOMS\Math\Geometry\Shape\D2\Triangle
-     * @group framework
-     */
+    #[\PHPUnit\Framework\Attributes\Group('framework')]
+    #[\PHPUnit\Framework\Attributes\TestDox('The surface can be calculated')]
     public function testSurface() : void
     {
         self::assertEqualsWithDelta(3, Triangle::getSurface(2, 3), 0.001);
     }
 
-    /**
-     * @testdox The perimeter can be calculated
-     * @covers phpOMS\Math\Geometry\Shape\D2\Triangle
-     * @group framework
-     */
+    #[\PHPUnit\Framework\Attributes\Group('framework')]
+    #[\PHPUnit\Framework\Attributes\TestDox('The perimeter can be calculated')]
     public function testPerimeter() : void
     {
         self::assertEqualsWithDelta(9, Triangle::getPerimeter(2, 3, 4), 0.001);
     }
 
-    /**
-     * @testdox The height can be calculated
-     * @covers phpOMS\Math\Geometry\Shape\D2\Triangle
-     * @group framework
-     */
+    #[\PHPUnit\Framework\Attributes\Group('framework')]
+    #[\PHPUnit\Framework\Attributes\TestDox('The height can be calculated')]
     public function testHeight() : void
     {
         self::assertEqualsWithDelta(3, Triangle::getHeight(3, 2), 0.001);
     }
 
-    /**
-     * @testdox The hypotenuse can be calculated
-     * @covers phpOMS\Math\Geometry\Shape\D2\Triangle
-     * @group framework
-     */
+    #[\PHPUnit\Framework\Attributes\Group('framework')]
+    #[\PHPUnit\Framework\Attributes\TestDox('The hypotenuse can be calculated')]
     public function testHypot() : void
     {
         self::assertEqualsWithDelta(5, Triangle::getHypot(4, 3), 0.001);

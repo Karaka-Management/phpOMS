@@ -2,7 +2,7 @@
 /**
  * Jingga
  *
- * PHP Version 8.1
+ * PHP Version 8.2
  *
  * @package   tests
  * @copyright Dennis Eichhorn
@@ -21,10 +21,10 @@ use phpOMS\Utils\IO\Spreadsheet\SpreadsheetDatabaseMapper;
 use phpOMS\Utils\StringUtils;
 
 /**
- * @testdox phpOMS\tests\Utils\IO\Spreadsheet\SpreadsheetDatabaseMapperTest: Spreadsheet database mapper
- *
  * @internal
  */
+#[\PHPUnit\Framework\Attributes\CoversClass(\phpOMS\Utils\IO\Spreadsheet\SpreadsheetDatabaseMapper::class)]
+#[\PHPUnit\Framework\Attributes\TestDox('phpOMS\tests\Utils\IO\Spreadsheet\SpreadsheetDatabaseMapperTest: Spreadsheet database mapper')]
 final class SpreadsheetDatabaseMapperTest extends \PHPUnit\Framework\TestCase
 {
     protected $sqlite;
@@ -68,11 +68,8 @@ final class SpreadsheetDatabaseMapperTest extends \PHPUnit\Framework\TestCase
         $this->sqlite->close();
     }
 
-    /**
-     * @testdox Data can be inserted into a database from an ods files
-     * @covers phpOMS\Utils\IO\Spreadsheet\SpreadsheetDatabaseMapper
-     * @group framework
-     */
+    #[\PHPUnit\Framework\Attributes\Group('framework')]
+    #[\PHPUnit\Framework\Attributes\TestDox('Data can be inserted into a database from an ods files')]
     public function testInsertOds() : void
     {
         $mapper = new SpreadsheetDatabaseMapper($this->sqlite, __DIR__ . '/insert.ods');
@@ -103,11 +100,8 @@ final class SpreadsheetDatabaseMapperTest extends \PHPUnit\Framework\TestCase
         );
     }
 
-    /**
-     * @testdox Data can be inserted into a database from a xls files
-     * @covers phpOMS\Utils\IO\Spreadsheet\SpreadsheetDatabaseMapper::insert
-     * @group framework
-     */
+    #[\PHPUnit\Framework\Attributes\Group('framework')]
+    #[\PHPUnit\Framework\Attributes\TestDox('Data can be inserted into a database from a xls files')]
     public function testInsertXls() : void
     {
         $mapper = new SpreadsheetDatabaseMapper($this->sqlite, __DIR__ . '/insert.xls');
@@ -138,11 +132,8 @@ final class SpreadsheetDatabaseMapperTest extends \PHPUnit\Framework\TestCase
         );
     }
 
-    /**
-     * @testdox Data can be inserted into a database from a xlsx files
-     * @covers phpOMS\Utils\IO\Spreadsheet\SpreadsheetDatabaseMapper::insert
-     * @group framework
-     */
+    #[\PHPUnit\Framework\Attributes\Group('framework')]
+    #[\PHPUnit\Framework\Attributes\TestDox('Data can be inserted into a database from a xlsx files')]
     public function testInsertXlsx() : void
     {
         $mapper = new SpreadsheetDatabaseMapper($this->sqlite, __DIR__ . '/insert.xlsx');
@@ -173,11 +164,8 @@ final class SpreadsheetDatabaseMapperTest extends \PHPUnit\Framework\TestCase
         );
     }
 
-    /**
-     * @testdox Data can be updated in a database from an ods files
-     * @covers phpOMS\Utils\IO\Spreadsheet\SpreadsheetDatabaseMapper::update
-     * @group framework
-     */
+    #[\PHPUnit\Framework\Attributes\Group('framework')]
+    #[\PHPUnit\Framework\Attributes\TestDox('Data can be updated in a database from an ods files')]
     public function testUpdateOds() : void
     {
         $mapper = new SpreadsheetDatabaseMapper($this->sqlite, __DIR__ . '/insert.ods');
@@ -235,11 +223,8 @@ final class SpreadsheetDatabaseMapperTest extends \PHPUnit\Framework\TestCase
         );
     }
 
-    /**
-     * @testdox Data can be updated in a database from a xls files
-     * @covers phpOMS\Utils\IO\Spreadsheet\SpreadsheetDatabaseMapper::update
-     * @group framework
-     */
+    #[\PHPUnit\Framework\Attributes\Group('framework')]
+    #[\PHPUnit\Framework\Attributes\TestDox('Data can be updated in a database from a xls files')]
     public function testUpdateXls() : void
     {
         $mapper = new SpreadsheetDatabaseMapper($this->sqlite, __DIR__ . '/insert.xls');
@@ -297,11 +282,8 @@ final class SpreadsheetDatabaseMapperTest extends \PHPUnit\Framework\TestCase
         );
     }
 
-    /**
-     * @testdox Data can be updated in a database from a xlsx files
-     * @covers phpOMS\Utils\IO\Spreadsheet\SpreadsheetDatabaseMapper::update
-     * @group framework
-     */
+    #[\PHPUnit\Framework\Attributes\Group('framework')]
+    #[\PHPUnit\Framework\Attributes\TestDox('Data can be updated in a database from a xlsx files')]
     public function testUpdateXlsx() : void
     {
         $mapper = new SpreadsheetDatabaseMapper($this->sqlite, __DIR__ . '/insert.xlsx');
@@ -359,11 +341,8 @@ final class SpreadsheetDatabaseMapperTest extends \PHPUnit\Framework\TestCase
         );
     }
 
-    /**
-     * @testdox Data can be inserted into an ods files from a database
-     * @covers phpOMS\Utils\IO\Spreadsheet\SpreadsheetDatabaseMapper::select
-     * @group framework
-     */
+    #[\PHPUnit\Framework\Attributes\Group('framework')]
+    #[\PHPUnit\Framework\Attributes\TestDox('Data can be inserted into an ods files from a database')]
     public function testSelectOds() : void
     {
         if (\is_file(__DIR__ . '/select.ods')) {
@@ -411,11 +390,8 @@ final class SpreadsheetDatabaseMapperTest extends \PHPUnit\Framework\TestCase
         }
     }
 
-    /**
-     * @testdox Data can be inserted into a xls files from a database
-     * @covers phpOMS\Utils\IO\Spreadsheet\SpreadsheetDatabaseMapper::select
-     * @group framework
-     */
+    #[\PHPUnit\Framework\Attributes\Group('framework')]
+    #[\PHPUnit\Framework\Attributes\TestDox('Data can be inserted into a xls files from a database')]
     public function testSelectXls() : void
     {
         if (\is_file(__DIR__ . '/select.xls')) {
@@ -463,11 +439,8 @@ final class SpreadsheetDatabaseMapperTest extends \PHPUnit\Framework\TestCase
         }
     }
 
-    /**
-     * @testdox Data can be inserted into a xlsx files from a database
-     * @covers phpOMS\Utils\IO\Spreadsheet\SpreadsheetDatabaseMapper::select
-     * @group framework
-     */
+    #[\PHPUnit\Framework\Attributes\Group('framework')]
+    #[\PHPUnit\Framework\Attributes\TestDox('Data can be inserted into a xlsx files from a database')]
     public function testSelectXlsx() : void
     {
         if (\is_file(__DIR__ . '/select.xlsx')) {
@@ -515,9 +488,7 @@ final class SpreadsheetDatabaseMapperTest extends \PHPUnit\Framework\TestCase
         }
     }
 
-    /**
-     * @coversNothing
-     */
+    #[\PHPUnit\Framework\Attributes\CoversNothing]
     private function compareSelectInsertSheet(string $pathSelect, string $pathInsert) : bool
     {
         $reader1 = null;

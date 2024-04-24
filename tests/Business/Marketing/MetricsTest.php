@@ -2,7 +2,7 @@
 /**
  * Jingga
  *
- * PHP Version 8.1
+ * PHP Version 8.2
  *
  * @package   tests
  * @copyright Dennis Eichhorn
@@ -17,25 +17,20 @@ namespace phpOMS\tests\Business\Marketing;
 use phpOMS\Business\Marketing\Metrics;
 
 /**
- * @testdox phpOMS\tests\Business\Marketing\MetricsTest: General marketing metrics
- *
  * @internal
  */
+#[\PHPUnit\Framework\Attributes\TestDox('phpOMS\tests\Business\Marketing\MetricsTest: General marketing metrics')]
 final class MetricsTest extends \PHPUnit\Framework\TestCase
 {
-    /**
-     * @testdox Test the correctness of the customer retention calculation
-     * @group framework
-     */
+    #[\PHPUnit\Framework\Attributes\Group('framework')]
+    #[\PHPUnit\Framework\Attributes\TestDox('Test the correctness of the customer retention calculation')]
     public function testCustomerRetention() : void
     {
         self::assertEqualsWithDelta(0.85, Metrics::getCustomerRetention(105, 20, 100), 0.01);
     }
 
-    /**
-     * @testdox The profit according to Berry can be correctly calculated
-     * @group framework
-     */
+    #[\PHPUnit\Framework\Attributes\Group('framework')]
+    #[\PHPUnit\Framework\Attributes\TestDox('The profit according to Berry can be correctly calculated')]
     public function testBerrysCustomerProfits() : void
     {
         $acquisitionCost          = 30.0;
@@ -52,10 +47,8 @@ final class MetricsTest extends \PHPUnit\Framework\TestCase
         );
     }
 
-    /**
-     * @testdox The purchase probability of customers can be calculated based on historic information using the migration model
-     * @group framework
-     */
+    #[\PHPUnit\Framework\Attributes\Group('framework')]
+    #[\PHPUnit\Framework\Attributes\TestDox('The purchase probability of customers can be calculated based on historic information using the migration model')]
     public function testMigrationModelPurchaseMatrix() : void
     {
         // Basis:
@@ -82,10 +75,8 @@ final class MetricsTest extends \PHPUnit\Framework\TestCase
         );
     }
 
-    /**
-     * @testdox The CLTV can be calculated using the migration model
-     * @group framework
-     */
+    #[\PHPUnit\Framework\Attributes\Group('framework')]
+    #[\PHPUnit\Framework\Attributes\TestDox('The CLTV can be calculated using the migration model')]
     public function testMigrationModel() : void
     {
         // The first element in the migration model result is the CLTV
@@ -100,10 +91,8 @@ final class MetricsTest extends \PHPUnit\Framework\TestCase
         );
     }
 
-    /**
-     * @testdox The migration model can be used in order to determin which buying/none-buying customer group should receive a mailing
-     * @group framework
-     */
+    #[\PHPUnit\Framework\Attributes\Group('framework')]
+    #[\PHPUnit\Framework\Attributes\TestDox('The migration model can be used in order to determin which buying/none-buying customer group should receive a mailing')]
     public function testMailingSuccessEstimation() : void
     {
         self::assertEqualsWithDelta(
@@ -117,10 +106,8 @@ final class MetricsTest extends \PHPUnit\Framework\TestCase
         );
     }
 
-    /**
-     * @testdox The probability of a customer buying can be calculated based on his previous purchase behavior
-     * @group framework
-     */
+    #[\PHPUnit\Framework\Attributes\Group('framework')]
+    #[\PHPUnit\Framework\Attributes\TestDox('The probability of a customer buying can be calculated based on his previous purchase behavior')]
     public function testCustomerActiveProbability() : void
     {
         $purchases = 10;

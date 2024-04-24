@@ -2,7 +2,7 @@
 /**
  * Jingga
  *
- * PHP Version 8.1
+ * PHP Version 8.2
  *
  * @package   tests
  * @copyright Dennis Eichhorn
@@ -19,9 +19,9 @@ require_once __DIR__ . '/../../Autoloader.php';
 use phpOMS\Localization\LanguageDetection\Language;
 
 /**
- * @testdox phpOMS\tests\Localization\LanguageDetection\LanguageTest: Language detection
  * @internal
  */
+#[\PHPUnit\Framework\Attributes\TestDox('phpOMS\tests\Localization\LanguageDetection\LanguageTest: Language detection')]
 final class LanguageTest extends \PHPUnit\Framework\TestCase
 {
     public function testDetection() : void

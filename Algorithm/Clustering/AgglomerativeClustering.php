@@ -2,7 +2,7 @@
 /**
  * Jingga
  *
- * PHP Version 8.1
+ * PHP Version 8.2
  *
  * @package   phpOMS\Algorithm\Clustering
  * @copyright Dennis Eichhorn
@@ -42,7 +42,7 @@ final class AgglomerativeClustering implements ClusteringInterface
      * @var \Closure
      * @since 1.0.0
      */
-    private \Closure $metric;
+    public \Closure $metric;
 
     /**
      * Metric to calculate the distance between two points
@@ -50,7 +50,7 @@ final class AgglomerativeClustering implements ClusteringInterface
      * @var \Closure
      * @since 1.0.0
      */
-    private \Closure $linkage;
+    public \Closure $linkage;
 
     /**
      * Constructor
@@ -61,7 +61,7 @@ final class AgglomerativeClustering implements ClusteringInterface
      */
     public function __construct(?\Closure $metric = null, ?\Closure $linkage = null)
     {
-        $this->metric = $metric ?? function (PointInterface $a, PointInterface $b) {
+        $this->metric = $metric ?? function (Point $a, Point $b) {
             $aCoordinates = $a->coordinates;
             $bCoordinates = $b->coordinates;
 
@@ -139,7 +139,7 @@ final class AgglomerativeClustering implements ClusteringInterface
     /**
      * {@inheritdoc}
      */
-    public function cluster(PointInterface $point) : ?PointInterface
+    public function cluster(Point $point) : ?Point
     {
         return null;
     }

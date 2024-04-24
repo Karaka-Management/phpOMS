@@ -2,7 +2,7 @@
 /**
  * Jingga
  *
- * PHP Version 8.1
+ * PHP Version 8.2
  *
  * @package   phpOMS\Utils\Barcode
  * @author    Nicola Asuni - Tecnick.com LTD - www.tecnick.com <info@tecnick.com>
@@ -28,7 +28,7 @@ abstract class TwoDAbstract extends CodeAbstract
     /**
      * {@inheritdoc}
      */
-    public function get() : mixed
+    public function get() : ?\GdImage
     {
         $codeArray = $this->generateCodeArray();
 
@@ -49,14 +49,18 @@ abstract class TwoDAbstract extends CodeAbstract
      *
      * @param array $codeArray Code array to render
      *
-     * @return \GdImage
+     * @return null|\GdImage
      *
      * @throws \Exception
      *
      * @since 1.0.0
      */
-    protected function createImage(array $codeArray) : mixed
+    protected function createImage(array $codeArray) : ?\GdImage
     {
+        if (empty($codeArray)) {
+            return null;
+        }
+
         $dimensions = $this->calculateDimensions($codeArray);
         $image      = \imagecreate($dimensions['width'], $dimensions['height']);
 
@@ -115,6 +119,13 @@ abstract class TwoDAbstract extends CodeAbstract
      */
     private function calculateDimensions(array $codeArray) : array
     {
+        if (empty($codeArray)) {
+            return [
+                'width'  => 0,
+                'height' => 0,
+            ];
+        }
+
         $matrixDimension = \max(\count($codeArray), \count(\reset($codeArray)));
         $imageDimension  = \max($this->dimension['width'], $this->dimension['width']);
 

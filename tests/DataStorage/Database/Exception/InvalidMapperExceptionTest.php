@@ -2,7 +2,7 @@
 /**
  * Jingga
  *
- * PHP Version 8.1
+ * PHP Version 8.2
  *
  * @package   tests
  * @copyright Dennis Eichhorn
@@ -19,12 +19,10 @@ use phpOMS\DataStorage\Database\Exception\InvalidMapperException;
 /**
  * @internal
  */
+#[\PHPUnit\Framework\Attributes\CoversClass(\phpOMS\DataStorage\Database\Exception\InvalidMapperException::class)]
 final class InvalidMapperExceptionTest extends \PHPUnit\Framework\TestCase
 {
-    /**
-     * @covers phpOMS\DataStorage\Database\Exception\InvalidMapperException
-     * @group framework
-     */
+    #[\PHPUnit\Framework\Attributes\Group('framework')]
     public function testException() : void
     {
         self::assertInstanceOf(\RuntimeException::class, new InvalidMapperException(''));

@@ -2,7 +2,7 @@
 /**
  * Jingga
  *
- * PHP Version 8.1
+ * PHP Version 8.2
  *
  * @package   phpOMS\Business\Recommendation
  * @copyright Dennis Eichhorn
@@ -40,12 +40,12 @@ final class BayesianPersonalizedRanking
     /**
      * Constructor.
      *
-     * @param int   $numFactors     Determines the dimensionality of the latent factor space.
-     * @param float $learningRate   Controls the step size for updating the latent factors during optimization.
-     * @param float $regularization Prevents over-fitting by adding a penalty for large parameter values.
+     * @param int   $numFactors     determines the dimensionality of the latent factor space
+     * @param float $learningRate   controls the step size for updating the latent factors during optimization
+     * @param float $regularization prevents over-fitting by adding a penalty for large parameter values
      *
      * @since 1.0.0
-    */
+     */
     public function __construct(int $numFactors, float $learningRate, float $regularization)
     {
         $this->numFactors     = $numFactors;

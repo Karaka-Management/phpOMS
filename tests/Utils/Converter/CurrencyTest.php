@@ -2,7 +2,7 @@
 /**
  * Jingga
  *
- * PHP Version 8.1
+ * PHP Version 8.2
  *
  * @package   tests
  * @copyright Dennis Eichhorn
@@ -22,10 +22,10 @@ use phpOMS\Uri\HttpUri;
 use phpOMS\Utils\Converter\Currency;
 
 /**
- * @testdox phpOMS\tests\Utils\Converter\CurrencyTest: Currency converter
- *
  * @internal
  */
+#[\PHPUnit\Framework\Attributes\CoversClass(\phpOMS\Utils\Converter\Currency::class)]
+#[\PHPUnit\Framework\Attributes\TestDox('phpOMS\tests\Utils\Converter\CurrencyTest: Currency converter')]
 final class CurrencyTest extends \PHPUnit\Framework\TestCase
 {
     private static $reachable;
@@ -54,62 +54,44 @@ final class CurrencyTest extends \PHPUnit\Framework\TestCase
         }
     }
 
-    /**
-     * @testdox A currency can be converted from euro to another currency
-     * @covers phpOMS\Utils\Converter\Currency
-     * @group framework
-     */
+    #[\PHPUnit\Framework\Attributes\Group('framework')]
+    #[\PHPUnit\Framework\Attributes\TestDox('A currency can be converted from euro to another currency')]
     public function testCurrencyFromEur() : void
     {
         self::assertGreaterThan(0, Currency::fromEurTo(1, ISO4217CharEnum::_USD));
     }
 
-    /**
-     * @testdox A currency can be converted to euro from another currency
-     * @covers phpOMS\Utils\Converter\Currency
-     * @group framework
-     */
+    #[\PHPUnit\Framework\Attributes\Group('framework')]
+    #[\PHPUnit\Framework\Attributes\TestDox('A currency can be converted to euro from another currency')]
     public function testCurrencyToEur() : void
     {
         self::assertGreaterThan(0, Currency::fromToEur(1, ISO4217CharEnum::_USD));
     }
 
-    /**
-     * @testdox A currency can be converted from one currency to another currency
-     * @covers phpOMS\Utils\Converter\Currency
-     * @group framework
-     */
+    #[\PHPUnit\Framework\Attributes\Group('framework')]
+    #[\PHPUnit\Framework\Attributes\TestDox('A currency can be converted from one currency to another currency')]
     public function testCurrency() : void
     {
         Currency::resetCurrencies();
         self::assertGreaterThan(0, Currency::convertCurrency(1, ISO4217CharEnum::_USD, ISO4217CharEnum::_GBP));
     }
 
-    /**
-     * @testdox A currency conversion from eur to a invalid currency throws a InvalidArgumentException
-     * @covers phpOMS\Utils\Converter\Currency
-     * @group framework
-     */
+    #[\PHPUnit\Framework\Attributes\Group('framework')]
+    #[\PHPUnit\Framework\Attributes\TestDox('A currency conversion from eur to a invalid currency throws a InvalidArgumentException')]
     public function testInvalidFromEur() : void
     {
         self::assertLessThan(0,  Currency::fromEurTo(1, 'ERROR'));
     }
 
-    /**
-     * @testdox A currency conversion from a invalid currency to eur throws a InvalidArgumentException
-     * @covers phpOMS\Utils\Converter\Currency
-     * @group framework
-     */
+    #[\PHPUnit\Framework\Attributes\Group('framework')]
+    #[\PHPUnit\Framework\Attributes\TestDox('A currency conversion from a invalid currency to eur throws a InvalidArgumentException')]
     public function testInvalidToEur() : void
     {
         self::assertLessThan(0, Currency::fromToEur(1, 'ERROR'));
     }
 
-    /**
-     * @testdox A currency conversion from a invalid currency to a invalid currency throws a InvalidArgumentException
-     * @covers phpOMS\Utils\Converter\Currency
-     * @group framework
-     */
+    #[\PHPUnit\Framework\Attributes\Group('framework')]
+    #[\PHPUnit\Framework\Attributes\TestDox('A currency conversion from a invalid currency to a invalid currency throws a InvalidArgumentException')]
     public function testInvalidConvert() : void
     {
         self::assertLessThan(0, Currency::convertCurrency(1, 'ERROR', 'TEST'));

@@ -2,7 +2,7 @@
 /**
  * Jingga
  *
- * PHP Version 8.1
+ * PHP Version 8.2
  *
  * @package   tests
  * @copyright Dennis Eichhorn
@@ -19,16 +19,14 @@ require_once __DIR__ . '/../Autoloader.php';
 use phpOMS\DataStorage\LockException;
 
 /**
- * @testdox phpOMS\tests\DataStorage\LockExceptionTest: Lock exception
  * @internal
  */
+#[\PHPUnit\Framework\Attributes\CoversClass(\phpOMS\DataStorage\LockException::class)]
+#[\PHPUnit\Framework\Attributes\TestDox('phpOMS\tests\DataStorage\LockExceptionTest: Lock exception')]
 final class LockExceptionTest extends \PHPUnit\Framework\TestCase
 {
-    /**
-     * @testdox The lock exception is an instance of the runtime exception
-     * @covers phpOMS\DataStorage\LockException
-     * @group framework
-     */
+    #[\PHPUnit\Framework\Attributes\Group('framework')]
+    #[\PHPUnit\Framework\Attributes\TestDox('The lock exception is an instance of the runtime exception')]
     public function testException() : void
     {
         self::assertInstanceOf(\RuntimeException::class, new LockException(''));

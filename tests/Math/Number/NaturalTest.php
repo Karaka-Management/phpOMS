@@ -2,7 +2,7 @@
 /**
  * Jingga
  *
- * PHP Version 8.1
+ * PHP Version 8.2
  *
  * @package   tests
  * @copyright Dennis Eichhorn
@@ -17,17 +17,14 @@ namespace phpOMS\tests\Math\Number;
 use phpOMS\Math\Number\Natural;
 
 /**
- * @testdox phpOMS\tests\Math\Number\NaturalTest: Natural number operations
- *
  * @internal
  */
+#[\PHPUnit\Framework\Attributes\CoversClass(\phpOMS\Math\Number\Natural::class)]
+#[\PHPUnit\Framework\Attributes\TestDox('phpOMS\tests\Math\Number\NaturalTest: Natural number operations')]
 final class NaturalTest extends \PHPUnit\Framework\TestCase
 {
-    /**
-     * @testdox A number can be checked to be natural
-     * @covers phpOMS\Math\Number\Natural
-     * @group framework
-     */
+    #[\PHPUnit\Framework\Attributes\Group('framework')]
+    #[\PHPUnit\Framework\Attributes\TestDox('A number can be checked to be natural')]
     public function testIsNatural() : void
     {
         self::assertTrue(Natural::isNatural(1235));

@@ -2,7 +2,7 @@
 /**
  * Jingga
  *
- * PHP Version 8.1
+ * PHP Version 8.2
  *
  * @package   tests
  * @copyright Dennis Eichhorn
@@ -19,10 +19,10 @@ require_once __DIR__ . '/../Autoloader.php';
 use phpOMS\Message\HeaderAbstract;
 
 /**
- * @testdox phpOMS\tests\Message\HeaderAbstractTest: Abstract header for requests/responses
- *
  * @internal
  */
+#[\PHPUnit\Framework\Attributes\CoversClass(\phpOMS\Message\HeaderAbstract::class)]
+#[\PHPUnit\Framework\Attributes\TestDox('phpOMS\tests\Message\HeaderAbstractTest: Abstract header for requests/responses')]
 final class HeaderAbstractTest extends \PHPUnit\Framework\TestCase
 {
     protected $header = null;
@@ -65,11 +65,8 @@ final class HeaderAbstractTest extends \PHPUnit\Framework\TestCase
         };
     }
 
-    /**
-     * @testdox The the status code can be set and returned
-     * @covers phpOMS\Message\HeaderAbstract
-     * @group framework
-     */
+    #[\PHPUnit\Framework\Attributes\Group('framework')]
+    #[\PHPUnit\Framework\Attributes\TestDox('The the status code can be set and returned')]
     public function testStatusCodeInputOutput() : void
     {
         $this->header->status = 2;

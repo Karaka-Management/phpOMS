@@ -2,7 +2,7 @@
 /**
  * Jingga
  *
- * PHP Version 8.1
+ * PHP Version 8.2
  *
  * @package   tests
  * @copyright Dennis Eichhorn
@@ -25,10 +25,10 @@ use phpOMS\Utils\Converter\TemperatureType;
 require_once __DIR__ . '/../Autoloader.php';
 
 /**
- * @testdox phpOMS\tests\Localization\LocalizationTest: Localization for information such as language, currency, location, language specific formatting etc.
- *
  * @internal
  */
+#[\PHPUnit\Framework\Attributes\CoversClass(\phpOMS\Localization\Localization::class)]
+#[\PHPUnit\Framework\Attributes\TestDox('phpOMS\tests\Localization\LocalizationTest: Localization for information such as language, currency, location, language specific formatting etc.')]
 final class LocalizationTest extends \PHPUnit\Framework\TestCase
 {
     protected Localization $localization;
@@ -41,11 +41,8 @@ final class LocalizationTest extends \PHPUnit\Framework\TestCase
         $this->localization = new Localization();
     }
 
-    /**
-     * @testdox The localization has the expected default values after initialization
-     * @covers phpOMS\Localization\Localization
-     * @group framework
-     */
+    #[\PHPUnit\Framework\Attributes\Group('framework')]
+    #[\PHPUnit\Framework\Attributes\TestDox('The localization has the expected default values after initialization')]
     public function testDefault() : void
     {
         self::assertEquals(0, $this->localization->id);
@@ -66,11 +63,8 @@ final class LocalizationTest extends \PHPUnit\Framework\TestCase
         self::assertEquals([], $this->localization->getVolume());
     }
 
-    /**
-     * @testdox Setting a invalid country code throws InvalidEnumValue
-     * @covers phpOMS\Localization\Localization
-     * @group framework
-     */
+    #[\PHPUnit\Framework\Attributes\Group('framework')]
+    #[\PHPUnit\Framework\Attributes\TestDox('Setting a invalid country code throws InvalidEnumValue')]
     public function testInvalidCountry() : void
     {
         $this->expectException(\phpOMS\Stdlib\Base\Exception\InvalidEnumValue::class);
@@ -78,11 +72,8 @@ final class LocalizationTest extends \PHPUnit\Framework\TestCase
         $this->localization->setCountry('abc');
     }
 
-    /**
-     * @testdox Setting a invalid timezone code throws InvalidEnumValue
-     * @covers phpOMS\Localization\Localization
-     * @group framework
-     */
+    #[\PHPUnit\Framework\Attributes\Group('framework')]
+    #[\PHPUnit\Framework\Attributes\TestDox('Setting a invalid timezone code throws InvalidEnumValue')]
     public function testInvalidTimezone() : void
     {
         $this->expectException(\phpOMS\Stdlib\Base\Exception\InvalidEnumValue::class);
@@ -90,11 +81,8 @@ final class LocalizationTest extends \PHPUnit\Framework\TestCase
         $this->localization->setTimezone('abc');
     }
 
-    /**
-     * @testdox Setting a invalid angle throws InvalidEnumValue
-     * @covers phpOMS\Localization\Localization
-     * @group framework
-     */
+    #[\PHPUnit\Framework\Attributes\Group('framework')]
+    #[\PHPUnit\Framework\Attributes\TestDox('Setting a invalid angle throws InvalidEnumValue')]
     public function testInvalidAngle() : void
     {
         $this->expectException(\phpOMS\Stdlib\Base\Exception\InvalidEnumValue::class);
@@ -102,11 +90,8 @@ final class LocalizationTest extends \PHPUnit\Framework\TestCase
         $this->localization->setAngle('abc');
     }
 
-    /**
-     * @testdox Setting a invalid temperature throws InvalidEnumValue
-     * @covers phpOMS\Localization\Localization
-     * @group framework
-     */
+    #[\PHPUnit\Framework\Attributes\Group('framework')]
+    #[\PHPUnit\Framework\Attributes\TestDox('Setting a invalid temperature throws InvalidEnumValue')]
     public function testInvalidTemperature() : void
     {
         $this->expectException(\phpOMS\Stdlib\Base\Exception\InvalidEnumValue::class);
@@ -114,187 +99,136 @@ final class LocalizationTest extends \PHPUnit\Framework\TestCase
         $this->localization->setTemperature('abc');
     }
 
-    /**
-     * @testdox The country can be set and returned
-     * @covers phpOMS\Localization\Localization
-     * @group framework
-     */
+    #[\PHPUnit\Framework\Attributes\Group('framework')]
+    #[\PHPUnit\Framework\Attributes\TestDox('The country can be set and returned')]
     public function testCountryInputOutput() : void
     {
         $this->localization->setCountry(ISO3166TwoEnum::_USA);
         self::assertEquals(ISO3166TwoEnum::_USA, $this->localization->country);
     }
 
-    /**
-     * @testdox The timezone can be set and returned
-     * @covers phpOMS\Localization\Localization
-     * @group framework
-     */
+    #[\PHPUnit\Framework\Attributes\Group('framework')]
+    #[\PHPUnit\Framework\Attributes\TestDox('The timezone can be set and returned')]
     public function testTimezoneInputOutput() : void
     {
         $this->localization->setTimezone(TimeZoneEnumArray::get(315));
         self::assertEquals(TimeZoneEnumArray::get(315), $this->localization->getTimezone());
     }
 
-    /**
-     * @testdox The datetime can be set and returned
-     * @covers phpOMS\Localization\Localization
-     * @group framework
-     */
+    #[\PHPUnit\Framework\Attributes\Group('framework')]
+    #[\PHPUnit\Framework\Attributes\TestDox('The datetime can be set and returned')]
     public function testDatetimeInputOutput() : void
     {
         $this->localization->setDatetime(['Y-m-d H:i:s']);
         self::assertEquals(['Y-m-d H:i:s'], $this->localization->getDatetime());
     }
 
-    /**
-     * @testdox The decimal can be set and returned
-     * @covers phpOMS\Localization\Localization
-     * @group framework
-     */
+    #[\PHPUnit\Framework\Attributes\Group('framework')]
+    #[\PHPUnit\Framework\Attributes\TestDox('The decimal can be set and returned')]
     public function testDecimalInputOutput() : void
     {
         $this->localization->setDecimal(',');
         self::assertEquals(',', $this->localization->getDecimal());
     }
 
-    /**
-     * @testdox The thousands can be set and returned
-     * @covers phpOMS\Localization\Localization
-     * @group framework
-     */
+    #[\PHPUnit\Framework\Attributes\Group('framework')]
+    #[\PHPUnit\Framework\Attributes\TestDox('The thousands can be set and returned')]
     public function testThousandsInputOutput() : void
     {
         $this->localization->setThousands('.');
         self::assertEquals('.', $this->localization->getThousands());
     }
 
-    /**
-     * @testdox The angle can be set and returned
-     * @covers phpOMS\Localization\Localization
-     * @group framework
-     */
+    #[\PHPUnit\Framework\Attributes\Group('framework')]
+    #[\PHPUnit\Framework\Attributes\TestDox('The angle can be set and returned')]
     public function testAngleInputOutput() : void
     {
         $this->localization->setAngle(AngleType::CENTRAD);
         self::assertEquals(AngleType::CENTRAD, $this->localization->getAngle());
     }
 
-    /**
-     * @testdox The temperature can be set and returned
-     * @covers phpOMS\Localization\Localization
-     * @group framework
-     */
+    #[\PHPUnit\Framework\Attributes\Group('framework')]
+    #[\PHPUnit\Framework\Attributes\TestDox('The temperature can be set and returned')]
     public function testTemperatureInputOutput() : void
     {
         $this->localization->setTemperature(TemperatureType::FAHRENHEIT);
         self::assertEquals(TemperatureType::FAHRENHEIT, $this->localization->getTemperature());
     }
 
-    /**
-     * @testdox The weight can be set and returned
-     * @covers phpOMS\Localization\Localization
-     * @group framework
-     */
+    #[\PHPUnit\Framework\Attributes\Group('framework')]
+    #[\PHPUnit\Framework\Attributes\TestDox('The weight can be set and returned')]
     public function testWeightInputOutput() : void
     {
         $this->localization->setWeight([1]);
         self::assertEquals([1], $this->localization->getWeight());
     }
 
-    /**
-     * @testdox The currency format can be set and returned
-     * @covers phpOMS\Localization\Localization
-     * @group framework
-     */
+    #[\PHPUnit\Framework\Attributes\Group('framework')]
+    #[\PHPUnit\Framework\Attributes\TestDox('The currency format can be set and returned')]
     public function testCurrencyFormatInputOutput() : void
     {
         $this->localization->setCurrencyFormat('1');
         self::assertEquals('1', $this->localization->getCurrencyFormat());
     }
 
-    /**
-     * @testdox The precision can be set and returned
-     * @covers phpOMS\Localization\Localization
-     * @group framework
-     */
+    #[\PHPUnit\Framework\Attributes\Group('framework')]
+    #[\PHPUnit\Framework\Attributes\TestDox('The precision can be set and returned')]
     public function testPrecisionInputOutput() : void
     {
         $this->localization->setPrecision([1]);
         self::assertEquals([1], $this->localization->getPrecision());
     }
 
-    /**
-     * @testdox The length can be set and returned
-     * @covers phpOMS\Localization\Localization
-     * @group framework
-     */
+    #[\PHPUnit\Framework\Attributes\Group('framework')]
+    #[\PHPUnit\Framework\Attributes\TestDox('The length can be set and returned')]
     public function testLengthInputOutput() : void
     {
         $this->localization->setLength([1]);
         self::assertEquals([1], $this->localization->getLength());
     }
 
-    /**
-     * @testdox The area can be set and returned
-     * @covers phpOMS\Localization\Localization
-     * @group framework
-     */
+    #[\PHPUnit\Framework\Attributes\Group('framework')]
+    #[\PHPUnit\Framework\Attributes\TestDox('The area can be set and returned')]
     public function testAreaInputOutput() : void
     {
         $this->localization->setArea([1]);
         self::assertEquals([1], $this->localization->getArea());
     }
 
-    /**
-     * @testdox The volume can be set and returned
-     * @covers phpOMS\Localization\Localization
-     * @group framework
-     */
+    #[\PHPUnit\Framework\Attributes\Group('framework')]
+    #[\PHPUnit\Framework\Attributes\TestDox('The volume can be set and returned')]
     public function testVolumeInputOutput() : void
     {
         $this->localization->setVolume([1]);
         self::assertEquals([1], $this->localization->getVolume());
     }
 
-    /**
-     * @testdox The speed can be set and returned
-     * @covers phpOMS\Localization\Localization
-     * @group framework
-     */
+    #[\PHPUnit\Framework\Attributes\Group('framework')]
+    #[\PHPUnit\Framework\Attributes\TestDox('The speed can be set and returned')]
     public function testSpeedInputOutput() : void
     {
         $this->localization->setSpeed([1]);
         self::assertEquals([1], $this->localization->getSpeed());
     }
 
-    /**
-     * @testdox Localization data can be loaded from a locale file
-     * @covers phpOMS\Localization\Localization
-     * @group framework
-     */
+    #[\PHPUnit\Framework\Attributes\Group('framework')]
+    #[\PHPUnit\Framework\Attributes\TestDox('Localization data can be loaded from a locale file')]
     public function testLocalizationFromLanguageCode() : void
     {
         $l11n = Localization::fromLanguage(ISO639x1Enum::_DE);
         self::assertEquals(ISO4217CharEnum::_EUR, $l11n->currency);
     }
 
-    /**
-     * @testdox Localization data can be loaded from a locale file
-     * @covers phpOMS\Localization\Localization
-     * @group framework
-     */
+    #[\PHPUnit\Framework\Attributes\Group('framework')]
+    #[\PHPUnit\Framework\Attributes\TestDox('Localization data can be loaded from a locale file')]
     public function testLocalizationLoading() : void
     {
         $this->localization->loadFromLanguage(ISO639x1Enum::_DE);
         self::assertEquals(ISO4217CharEnum::_EUR, $this->localization->currency);
     }
 
-    /**
-     * @testdox Localization data can be serialized and unserialized
-     * @covers phpOMS\Localization\Localization
-     * @group framework
-     */
+    #[\PHPUnit\Framework\Attributes\Group('framework')]
+    #[\PHPUnit\Framework\Attributes\TestDox('Localization data can be serialized and unserialized')]
     public function testLocalizationSerialize() : void
     {
         $this->localization->loadFromLanguage(ISO639x1Enum::_DE);
@@ -306,22 +240,16 @@ final class LocalizationTest extends \PHPUnit\Framework\TestCase
         self::assertEquals($l11n1, $l11n2);
     }
 
-    /**
-     * @testdox If no locale file for a specified country exists or a wild card country is used the first match of a locale file based on the defined language is loaded
-     * @covers phpOMS\Localization\Localization
-     * @group framework
-     */
+    #[\PHPUnit\Framework\Attributes\Group('framework')]
+    #[\PHPUnit\Framework\Attributes\TestDox('If no locale file for a specified country exists or a wild card country is used the first match of a locale file based on the defined language is loaded')]
     public function testInvalidCountryLocalizationLoading() : void
     {
         $this->localization->loadFromLanguage(ISO639x1Enum::_DE, 'ABC');
         self::assertEquals(ISO4217CharEnum::_EUR, $this->localization->currency);
     }
 
-    /**
-     * @testdox By default the english locale file will be loaded if no other locale file can be found
-     * @covers phpOMS\Localization\Localization
-     * @group framework
-     */
+    #[\PHPUnit\Framework\Attributes\Group('framework')]
+    #[\PHPUnit\Framework\Attributes\TestDox('By default the english locale file will be loaded if no other locale file can be found')]
     public function testMissingLocalizationLoading() : void
     {
         $this->localization->loadFromLanguage(ISO639x1Enum::_AA);

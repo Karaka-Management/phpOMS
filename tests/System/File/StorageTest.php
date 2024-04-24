@@ -2,7 +2,7 @@
 /**
  * Jingga
  *
- * PHP Version 8.1
+ * PHP Version 8.2
  *
  * @package   tests
  * @copyright Dennis Eichhorn
@@ -18,38 +18,29 @@ use phpOMS\System\File\Local\LocalStorage;
 use phpOMS\System\File\Storage;
 
 /**
- * @testdox phpOMS\tests\System\File\StorageTest: Storage handler for the different storage handler types
- *
  * @internal
  */
+#[\PHPUnit\Framework\Attributes\CoversClass(\phpOMS\System\File\Storage::class)]
+#[\PHPUnit\Framework\Attributes\TestDox('phpOMS\tests\System\File\StorageTest: Storage handler for the different storage handler types')]
 final class StorageTest extends \PHPUnit\Framework\TestCase
 {
-    /**
-     * @testdox By default the local storage handler is returned
-     * @covers phpOMS\System\File\Storage
-     * @group framework
-     */
+    #[\PHPUnit\Framework\Attributes\Group('framework')]
+    #[\PHPUnit\Framework\Attributes\TestDox('By default the local storage handler is returned')]
     public function testStorageDefault() : void
     {
         self::assertInstanceOf('\phpOMS\System\File\Local\LocalStorage', Storage::env());
     }
 
-    /**
-     * @testdox The pre-defined storage handlers can be returned by their name
-     * @covers phpOMS\System\File\Storage
-     * @group framework
-     */
+    #[\PHPUnit\Framework\Attributes\Group('framework')]
+    #[\PHPUnit\Framework\Attributes\TestDox('The pre-defined storage handlers can be returned by their name')]
     public function testStoragePreDefined() : void
     {
         self::assertInstanceOf('\phpOMS\System\File\Local\LocalStorage', Storage::env('local'));
         self::assertInstanceOf('\phpOMS\System\File\Ftp\FtpStorage', Storage::env('ftp'));
     }
 
-    /**
-     * @testdox Storages can be registered and returned
-     * @covers phpOMS\System\File\Storage
-     * @group framework
-     */
+    #[\PHPUnit\Framework\Attributes\Group('framework')]
+    #[\PHPUnit\Framework\Attributes\TestDox('Storages can be registered and returned')]
     public function testInputOutput() : void
     {
         self::assertTrue(Storage::register('ftps', '\phpOMS\System\File\Ftp\FtpStorage'));
@@ -58,22 +49,16 @@ final class StorageTest extends \PHPUnit\Framework\TestCase
         self::assertInstanceOf('\phpOMS\System\File\Local\LocalStorage', Storage::env('test'));
     }
 
-    /**
-     * @testdox Registered storage handlers cannot be overwritten
-     * @covers phpOMS\System\File\Storage
-     * @group framework
-     */
+    #[\PHPUnit\Framework\Attributes\Group('framework')]
+    #[\PHPUnit\Framework\Attributes\TestDox('Registered storage handlers cannot be overwritten')]
     public function testInvalidRegister() : void
     {
         self::assertTrue(Storage::register('test2', new LocalStorage()));
         self::assertFalse(Storage::register('test2', new LocalStorage()));
     }
 
-    /**
-     * @testdox A invalid or none-existing storage throws a Exception
-     * @covers phpOMS\System\File\Storage
-     * @group framework
-     */
+    #[\PHPUnit\Framework\Attributes\Group('framework')]
+    #[\PHPUnit\Framework\Attributes\TestDox('A invalid or none-existing storage throws a Exception')]
     public function testInvalidStorage() : void
     {
         $this->expectException(\Exception::class);

@@ -2,7 +2,7 @@
 /**
  * Jingga
  *
- * PHP Version 8.1
+ * PHP Version 8.2
  *
  * @package   phpOMS\Router
  * @copyright Dennis Eichhorn
@@ -30,13 +30,17 @@ use phpOMS\Account\Account;
  *
  * @todo Instead of doing only regex matching, combine it with a tree search, this should be faster
  *      https://github.com/Karaka-Management/phpOMS/issues/276
+ *
+ * @question Consider to build Routes.php files from class Attributes.
+ *      This way we would have the advantage of both worlds.
+ *      Of course the update and install function would be a bit more complicated
  */
 final class WebRouter implements RouterInterface
 {
     /**
      * Routes.
      *
-     * @var array<string, array>
+     * @var array<string, array<int, array{dest:mixed, verb:int, csrf?:bool, active?:bool, permission?:array{module:string, type:int, category:int}, validation?:?array, pattern?:?string}>>
      * @since 1.0.0
      */
     private array $routes = [];
@@ -47,17 +51,19 @@ final class WebRouter implements RouterInterface
      * Files need to return a php array of the following structure (see PermissionHandlingTrait):
      * return [
      *      '{REGEX_PATH}' => [
-     *          'dest' => '{DESTINATION_NAMESPACE:method}', // use :: for static functions
-     *          'verb' => RouteVerb::{VERB},
-     *          'csrf' => true,
-     *          'permission' => [ // optional
-     *              'module' => '{NAME}',
-     *              'type' => PermissionType::{TYPE},
-     *              'category' => PermissionCategory::{STATE},
+     *          [
+     *              'dest' => '{DESTINATION_NAMESPACE:method}', // use :: for static functions
+     *              'verb' => RouteVerb::{VERB},
+     *              'csrf' => true,
+     *              'permission' => [ // optional
+     *                  'module' => '{NAME}',
+     *                  'type' => PermissionType::{TYPE},
+     *                  'category' => PermissionCategory::{STATE},
+     *              ],
      *          ],
      *          // define different destination for different verb
-     *      ],
-     *      // define another regex path, destination, permission here
+     *      ]
+     *      // define another regex path here
      * ];
      *
      * @param string $path Route file path
@@ -109,6 +115,7 @@ final class WebRouter implements RouterInterface
             'dest'       => $destination,
             'verb'       => $verb,
             'csrf'       => $csrf,
+            'active'     => true,
             'validation' => empty($validation) ? null : $validation,
             'pattern'    => empty($dataPattern) ? null : $dataPattern,
         ];
@@ -134,21 +141,25 @@ final class WebRouter implements RouterInterface
             }
 
             foreach ($destination as $d) {
+                if (!($d['active'] ?? true)) {
+                    continue;
+                }
+
                 if ($d['verb'] === RouteVerb::ANY
                     || $verb === RouteVerb::ANY
                     || ($verb & $d['verb']) === $verb
                 ) {
                     // if csrf is required but not set
-                    if (isset($d['csrf']) && $d['csrf'] && $csrf === null) {
+                    if (($d['csrf'] ?? false) && $csrf === null) {
                         return ['dest' => RouteStatus::INVALID_CSRF];
                     }
 
                     // if permission check is invalid
-                    if (isset($d['permission']) && !empty($d['permission'])
+                    if (!empty($d['permission'] ?? null)
                         && ($account === null || $account->id === 0)
                     ) {
                         return ['dest' => RouteStatus::NOT_LOGGED_IN];
-                    } elseif (isset($d['permission']) && !empty($d['permission'])
+                    } elseif (!empty($d['permission'] ?? null)
                         && !($account?->hasPermission(
                                 $d['permission']['type'] ?? 0,
                                 $d['permission']['unit'] ?? $unitId,

@@ -2,7 +2,7 @@
 /**
  * Jingga
  *
- * PHP Version 8.1
+ * PHP Version 8.2
  *
  * @package   phpOMS\tests
  * @copyright Dennis Eichhorn
@@ -420,6 +420,8 @@ if (\extension_loaded('pdo_sqlsrv')) {
         echo "\nCouldn't connect to MSSQL DB\n";
     }
 }
+
+$GLOBALS['CONFIG'] = $CONFIG;
 
 $httpSession        = new HttpSession();
 $GLOBALS['session'] = $httpSession;

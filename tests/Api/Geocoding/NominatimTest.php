@@ -2,7 +2,7 @@
 /**
  * Jingga
  *
- * PHP Version 8.1
+ * PHP Version 8.2
  *
  * @package   tests
  * @copyright Dennis Eichhorn
@@ -17,10 +17,9 @@ namespace phpOMS\tests\Api\Geocoding;
 use phpOMS\Api\Geocoding\Nominatim;
 
 /**
- * @testdox phpOMS\tests\Api\Geocoding\NominatimTest: EU VAT Vies validation
- *
  * @internal
  */
+#[\PHPUnit\Framework\Attributes\TestDox('phpOMS\tests\Api\Geocoding\NominatimTest: EU VAT Vies validation')]
 final class NominatimTest extends \PHPUnit\Framework\TestCase
 {
     public function testGeocoding() : void

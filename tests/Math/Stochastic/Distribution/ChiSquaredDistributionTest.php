@@ -2,7 +2,7 @@
 /**
  * Jingga
  *
- * PHP Version 8.1
+ * PHP Version 8.2
  *
  * @package   tests
  * @copyright Dennis Eichhorn
@@ -19,12 +19,10 @@ use phpOMS\Math\Stochastic\Distribution\ChiSquaredDistribution;
 /**
  * @internal
  */
+#[\PHPUnit\Framework\Attributes\CoversClass(\phpOMS\Math\Stochastic\Distribution\ChiSquaredDistribution::class)]
 final class ChiSquaredDistributionTest extends \PHPUnit\Framework\TestCase
 {
-    /**
-     * @covers phpOMS\Math\Stochastic\Distribution\ChiSquaredDistribution
-     * @group framework
-     */
+    #[\PHPUnit\Framework\Attributes\Group('framework')]
     public function testHypothesisFalse() : void
     {
         $p = [0.6, 0.25, 0.15];
@@ -42,10 +40,7 @@ final class ChiSquaredDistributionTest extends \PHPUnit\Framework\TestCase
         self::assertEquals(2, $test['df']);
     }
 
-    /**
-     * @covers phpOMS\Math\Stochastic\Distribution\ChiSquaredDistribution
-     * @group framework
-     */
+    #[\PHPUnit\Framework\Attributes\Group('framework')]
     public function testDegreesOfFreedom() : void
     {
         self::assertEquals(2, ChiSquaredDistribution::getDegreesOfFreedom([1, 2, 3]));
@@ -56,19 +51,13 @@ final class ChiSquaredDistributionTest extends \PHPUnit\Framework\TestCase
         ]));
     }
 
-    /**
-     * @covers phpOMS\Math\Stochastic\Distribution\ChiSquaredDistribution
-     * @group framework
-     */
+    #[\PHPUnit\Framework\Attributes\Group('framework')]
     public function testMode() : void
     {
         self::assertEquals(\max(5 - 2, 0), ChiSquaredDistribution::getMode(5));
     }
 
-    /**
-     * @covers phpOMS\Math\Stochastic\Distribution\ChiSquaredDistribution
-     * @group framework
-     */
+    #[\PHPUnit\Framework\Attributes\Group('framework')]
     public function testMean() : void
     {
         $df = 5;
@@ -76,10 +65,7 @@ final class ChiSquaredDistributionTest extends \PHPUnit\Framework\TestCase
         self::assertEquals($df, ChiSquaredDistribution::getMean($df));
     }
 
-    /**
-     * @covers phpOMS\Math\Stochastic\Distribution\ChiSquaredDistribution
-     * @group framework
-     */
+    #[\PHPUnit\Framework\Attributes\Group('framework')]
     public function testVariance() : void
     {
         $df = 5;
@@ -87,10 +73,7 @@ final class ChiSquaredDistributionTest extends \PHPUnit\Framework\TestCase
         self::assertEquals(2 * $df, ChiSquaredDistribution::getVariance($df));
     }
 
-    /**
-     * @covers phpOMS\Math\Stochastic\Distribution\ChiSquaredDistribution
-     * @group framework
-     */
+    #[\PHPUnit\Framework\Attributes\Group('framework')]
     public function testStandardDeviation() : void
     {
         $df = 5;
@@ -98,10 +81,7 @@ final class ChiSquaredDistributionTest extends \PHPUnit\Framework\TestCase
         self::assertEquals(\sqrt(2 * $df), ChiSquaredDistribution::getStandardDeviation($df));
     }
 
-    /**
-     * @covers phpOMS\Math\Stochastic\Distribution\ChiSquaredDistribution
-     * @group framework
-     */
+    #[\PHPUnit\Framework\Attributes\Group('framework')]
     public function testMedian() : void
     {
         $df = 5;
@@ -109,10 +89,7 @@ final class ChiSquaredDistributionTest extends \PHPUnit\Framework\TestCase
         self::assertEquals($df * (1 - 2 / (9 * $df)) ** 3, ChiSquaredDistribution::getMedian($df));
     }
 
-    /**
-     * @covers phpOMS\Math\Stochastic\Distribution\ChiSquaredDistribution
-     * @group framework
-     */
+    #[\PHPUnit\Framework\Attributes\Group('framework')]
     public function testSkewness() : void
     {
         $df = 5;
@@ -120,10 +97,7 @@ final class ChiSquaredDistributionTest extends \PHPUnit\Framework\TestCase
         self::assertEquals(\sqrt(8 / $df), ChiSquaredDistribution::getSkewness($df));
     }
 
-    /**
-     * @covers phpOMS\Math\Stochastic\Distribution\ChiSquaredDistribution
-     * @group framework
-     */
+    #[\PHPUnit\Framework\Attributes\Group('framework')]
     public function testExKurtosis() : void
     {
         $df = 5;
@@ -131,10 +105,7 @@ final class ChiSquaredDistributionTest extends \PHPUnit\Framework\TestCase
         self::assertEquals(12 / $df, ChiSquaredDistribution::getExKurtosis($df));
     }
 
-    /**
-     * @covers phpOMS\Math\Stochastic\Distribution\ChiSquaredDistribution
-     * @group framework
-     */
+    #[\PHPUnit\Framework\Attributes\Group('framework')]
     public function testMgdf() : void
     {
         $df = 5;
@@ -143,28 +114,19 @@ final class ChiSquaredDistributionTest extends \PHPUnit\Framework\TestCase
         self::assertEquals((1 - 2 * $t) ** (-$df / 2), ChiSquaredDistribution::getMgf($df, $t));
     }
 
-    /**
-     * @covers phpOMS\Math\Stochastic\Distribution\ChiSquaredDistribution
-     * @group framework
-     */
+    #[\PHPUnit\Framework\Attributes\Group('framework')]
     public function testPdf() : void
     {
         self::assertEqualsWithDelta(0.20755, ChiSquaredDistribution::getPdf(2, 3), 0.001);
     }
 
-    /**
-     * @covers phpOMS\Math\Stochastic\Distribution\ChiSquaredDistribution
-     * @group framework
-     */
+    #[\PHPUnit\Framework\Attributes\Group('framework')]
     public function testCdf() : void
     {
         self::assertEqualsWithDelta(0.42759, ChiSquaredDistribution::getCdf(2, 3), 0.001);
     }
 
-    /**
-     * @covers phpOMS\Math\Stochastic\Distribution\ChiSquaredDistribution
-     * @group framework
-     */
+    #[\PHPUnit\Framework\Attributes\Group('framework')]
     public function testHypothesisSizeException() : void
     {
         $this->expectException(\Exception::class);
@@ -172,10 +134,7 @@ final class ChiSquaredDistributionTest extends \PHPUnit\Framework\TestCase
         ChiSquaredDistribution::testHypothesis([1, 2], [2]);
     }
 
-    /**
-     * @covers phpOMS\Math\Stochastic\Distribution\ChiSquaredDistribution
-     * @group framework
-     */
+    #[\PHPUnit\Framework\Attributes\Group('framework')]
     public function testHypothesisDegreesOfFreedomException() : void
     {
         $this->expectException(\Exception::class);
@@ -183,10 +142,7 @@ final class ChiSquaredDistributionTest extends \PHPUnit\Framework\TestCase
         ChiSquaredDistribution::testHypothesis([], []);
     }
 
-    /**
-     * @covers phpOMS\Math\Stochastic\Distribution\ChiSquaredDistribution
-     * @group framework
-     */
+    #[\PHPUnit\Framework\Attributes\Group('framework')]
     public function testPdfOutOfBoundsException() : void
     {
         $this->expectException(\OutOfBoundsException::class);
@@ -194,10 +150,7 @@ final class ChiSquaredDistributionTest extends \PHPUnit\Framework\TestCase
         ChiSquaredDistribution::getPdf(-1, 0);
     }
 
-    /**
-     * @covers phpOMS\Math\Stochastic\Distribution\ChiSquaredDistribution
-     * @group framework
-     */
+    #[\PHPUnit\Framework\Attributes\Group('framework')]
     public function testMgfOutOfBoundsException() : void
     {
         $this->expectException(\OutOfBoundsException::class);

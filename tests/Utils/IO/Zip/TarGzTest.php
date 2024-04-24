@@ -2,7 +2,7 @@
 /**
  * Jingga
  *
- * PHP Version 8.1
+ * PHP Version 8.2
  *
  * @package   tests
  * @copyright Dennis Eichhorn
@@ -17,10 +17,10 @@ namespace phpOMS\tests\Utils\IO\Zip;
 use phpOMS\Utils\IO\Zip\TarGz;
 
 /**
- * @testdox phpOMS\tests\Utils\IO\Zip\TarGzTest: TarGz archive
- *
  * @internal
  */
+#[\PHPUnit\Framework\Attributes\CoversClass(\phpOMS\Utils\IO\Zip\TarGz::class)]
+#[\PHPUnit\Framework\Attributes\TestDox('phpOMS\tests\Utils\IO\Zip\TarGzTest: TarGz archive')]
 final class TarGzTest extends \PHPUnit\Framework\TestCase
 {
     protected function setUp() : void
@@ -32,11 +32,8 @@ final class TarGzTest extends \PHPUnit\Framework\TestCase
         }
     }
 
-    /**
-     * @testdox Data can be tar gz packed and unpacked
-     * @covers phpOMS\Utils\IO\Zip\TarGz
-     * @group framework
-     */
+    #[\PHPUnit\Framework\Attributes\Group('framework')]
+    #[\PHPUnit\Framework\Attributes\TestDox('Data can be tar gz packed and unpacked')]
     public function testTarGz() : void
     {
         self::assertTrue(TarGz::pack(
@@ -83,11 +80,8 @@ final class TarGzTest extends \PHPUnit\Framework\TestCase
         \unlink(__DIR__ . '/test.tar.gz');
     }
 
-    /**
-     * @testdox A tar gz archive cannot be overwritten by default
-     * @covers phpOMS\Utils\IO\Zip\TarGz
-     * @group framework
-     */
+    #[\PHPUnit\Framework\Attributes\Group('framework')]
+    #[\PHPUnit\Framework\Attributes\TestDox('A tar gz archive cannot be overwritten by default')]
     public function testInvalidTarGz() : void
     {
         TarGz::pack(
@@ -120,21 +114,15 @@ final class TarGzTest extends \PHPUnit\Framework\TestCase
         ));
     }
 
-    /**
-     * @testdox A none-existing source cannot be unpacked
-     * @covers phpOMS\Utils\IO\Zip\TarGz
-     * @group framework
-     */
+    #[\PHPUnit\Framework\Attributes\Group('framework')]
+    #[\PHPUnit\Framework\Attributes\TestDox('A none-existing source cannot be unpacked')]
     public function testInvalidUnpackSource() : void
     {
         self::assertFalse(TarGz::unpack(__DIR__ . '/test.tar.gz', __DIR__));
     }
 
-    /**
-     * @testdox A destination cannot be overwritten
-     * @covers phpOMS\Utils\IO\Zip\TarGz
-     * @group framework
-     */
+    #[\PHPUnit\Framework\Attributes\Group('framework')]
+    #[\PHPUnit\Framework\Attributes\TestDox('A destination cannot be overwritten')]
     public function testInvalidUnpackDestination() : void
     {
         self::assertTrue(TarGz::pack(

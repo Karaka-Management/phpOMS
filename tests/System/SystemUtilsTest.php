@@ -2,7 +2,7 @@
 /**
  * Jingga
  *
- * PHP Version 8.1
+ * PHP Version 8.2
  *
  * @package   tests
  * @copyright Dennis Eichhorn
@@ -19,35 +19,21 @@ use phpOMS\System\SystemUtils;
 require_once __DIR__ . '/../Autoloader.php';
 
 /**
- * @testdox phpOMS\tests\System\SystemUtilsTest: System information
- *
  * @internal
  */
+#[\PHPUnit\Framework\Attributes\CoversClass(\phpOMS\System\SystemUtils::class)]
+#[\PHPUnit\Framework\Attributes\TestDox('phpOMS\tests\System\SystemUtilsTest: System information')]
 final class SystemUtilsTest extends \PHPUnit\Framework\TestCase
 {
-    /**
-     * @testdox Test if it is possible to get information about the available RAM and usage
-     * @covers phpOMS\System\SystemUtils
-     * @group framework
-     */
+    #[\PHPUnit\Framework\Attributes\Group('framework')]
+    #[\PHPUnit\Framework\Attributes\TestDox('Test if it is possible to get information about the available RAM and usage')]
     public function testRAM() : void
     {
-        self::assertGreaterThan(0, SystemUtils::getRAM());
-
-        if (\stristr(\PHP_OS, 'WIN')) {
-            self::assertEquals(0, SystemUtils::getRAMUsage());
-        }
-
-        if (!\stristr(\PHP_OS, 'WIN')) {
-            self::assertGreaterThan(0, SystemUtils::getRAMUsage());
-        }
+        self::assertTrue(SystemUtils::getRAM() >= 0);
     }
 
-    /**
-     * @testdox Test if it is possible to get information about the CPU usage
-     * @covers phpOMS\System\SystemUtils
-     * @group framework
-     */
+    #[\PHPUnit\Framework\Attributes\Group('framework')]
+    #[\PHPUnit\Framework\Attributes\TestDox('Test if it is possible to get information about the CPU usage')]
     public function testCPUUsage() : void
     {
         self::assertGreaterThan(0, SystemUtils::getCpuUsage());

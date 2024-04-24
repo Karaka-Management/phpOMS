@@ -2,7 +2,7 @@
 /**
  * Jingga
  *
- * PHP Version 8.1
+ * PHP Version 8.2
  *
  * @package   tests
  * @copyright Dennis Eichhorn
@@ -20,10 +20,9 @@ use phpOMS\Message\Mail\MailBoxInterface;
 use phpOMS\Message\Mail\Pop3;
 
 /**
- * @testdox phpOMS\tests\Message\MailHandlerTest: Abstract mail handler
- *
  * @internal
  */
+#[\PHPUnit\Framework\Attributes\TestDox('phpOMS\tests\Message\MailHandlerTest: Abstract mail handler')]
 final class Pop3Test extends \PHPUnit\Framework\TestCase
 {
     protected MailBoxInterface $handler;

@@ -2,7 +2,7 @@
 /**
  * Jingga
  *
- * PHP Version 8.1
+ * PHP Version 8.2
  *
  * @package   tests
  * @copyright Dennis Eichhorn
@@ -17,10 +17,9 @@ namespace phpOMS\tests\DataStorage\Cookie;
 use phpOMS\DataStorage\Cookie\CookieJar;
 
 /**
- * @testdox phpOMS\tests\DataStorage\Cookie\CookieJar: CookieJar to handle http cookies
- *
  * @internal
  */
+#[\PHPUnit\Framework\Attributes\TestDox('phpOMS\tests\DataStorage\Cookie\CookieJar: CookieJar to handle http cookies')]
 final class CookieJarTest extends \PHPUnit\Framework\TestCase
 {
     protected CookieJar $jar;
@@ -33,10 +32,8 @@ final class CookieJarTest extends \PHPUnit\Framework\TestCase
         $this->jar = new CookieJar();
     }
 
-    /**
-     * @testdox The cookie jar has the expected default values and functionality after initialization
-     * @group framework
-     */
+    #[\PHPUnit\Framework\Attributes\Group('framework')]
+    #[\PHPUnit\Framework\Attributes\TestDox('The cookie jar has the expected default values and functionality after initialization')]
     public function testDefault() : void
     {
         self::assertFalse(CookieJar::isLocked());
@@ -44,10 +41,8 @@ final class CookieJarTest extends \PHPUnit\Framework\TestCase
         self::assertFalse($this->jar->delete('abc'));
     }
 
-    /**
-     * @testdox Cookie values can be set and returned
-     * @group framework
-     */
+    #[\PHPUnit\Framework\Attributes\Group('framework')]
+    #[\PHPUnit\Framework\Attributes\TestDox('Cookie values can be set and returned')]
     public function testCookieInputOutput() : void
     {
         self::assertTrue($this->jar->set('test', 'value'));
@@ -57,40 +52,32 @@ final class CookieJarTest extends \PHPUnit\Framework\TestCase
         self::assertEquals('value2', $this->jar->get('test2')['value']);
     }
 
-    /**
-     * @testdox Cookie values cannot be overwritten
-     * @group framework
-     */
+    #[\PHPUnit\Framework\Attributes\Group('framework')]
+    #[\PHPUnit\Framework\Attributes\TestDox('Cookie values cannot be overwritten')]
     public function testInvalidOverwrite() : void
     {
         self::assertTrue($this->jar->set('test', 'value'));
         self::assertFalse($this->jar->set('test', 'value', 86400, '/', null, false, true, false));
     }
 
-    /**
-     * @testdox Cookie values can be forced to overwrite
-     * @group framework
-     */
+    #[\PHPUnit\Framework\Attributes\Group('framework')]
+    #[\PHPUnit\Framework\Attributes\TestDox('Cookie values can be forced to overwrite')]
     public function testOverwrite() : void
     {
         self::assertTrue($this->jar->set('test', 'value'));
         self::assertTrue($this->jar->set('test', 'value2', 86400, '/', null, false, true, true));
     }
 
-    /**
-     * @testdox Cookie values can be removed
-     * @group framework
-     */
+    #[\PHPUnit\Framework\Attributes\Group('framework')]
+    #[\PHPUnit\Framework\Attributes\TestDox('Cookie values can be removed')]
     public function testRemove() : void
     {
         self::assertTrue($this->jar->set('test', 'value'));
         self::assertTrue($this->jar->remove('test'));
     }
 
-    /**
-     * @testdox None-existing cookie values cannot be removed
-     * @group framework
-     */
+    #[\PHPUnit\Framework\Attributes\Group('framework')]
+    #[\PHPUnit\Framework\Attributes\TestDox('None-existing cookie values cannot be removed')]
     public function testInvalidRemove() : void
     {
         self::assertTrue($this->jar->set('test', 'value'));
@@ -98,10 +85,8 @@ final class CookieJarTest extends \PHPUnit\Framework\TestCase
         self::assertFalse($this->jar->remove('test'));
     }
 
-    /**
-     * @testdox Values cannot be removed from a locked cookie and throws a LockException
-     * @group framework
-     */
+    #[\PHPUnit\Framework\Attributes\Group('framework')]
+    #[\PHPUnit\Framework\Attributes\TestDox('Values cannot be removed from a locked cookie and throws a LockException')]
     public function testDeleteLocked() : void
     {
         $this->expectException(\phpOMS\DataStorage\LockException::class);
@@ -112,10 +97,8 @@ final class CookieJarTest extends \PHPUnit\Framework\TestCase
         $this->jar->delete('test');
     }
 
-    /**
-     * @testdox A locked cookie cannot be saved and throws a LockException
-     * @group framework
-     */
+    #[\PHPUnit\Framework\Attributes\Group('framework')]
+    #[\PHPUnit\Framework\Attributes\TestDox('A locked cookie cannot be saved and throws a LockException')]
     public function testSaveLocked() : void
     {
         $this->expectException(\phpOMS\DataStorage\LockException::class);

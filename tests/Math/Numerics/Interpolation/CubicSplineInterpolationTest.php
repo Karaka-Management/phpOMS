@@ -2,7 +2,7 @@
 /**
  * Jingga
  *
- * PHP Version 8.1
+ * PHP Version 8.2
  *
  * @package   tests
  * @copyright Dennis Eichhorn
@@ -18,17 +18,14 @@ use phpOMS\Math\Numerics\Interpolation\CubicSplineInterpolation;
 use phpOMS\Math\Numerics\Interpolation\DerivativeType;
 
 /**
- * @testdox phpOMS\tests\Math\Numerics\Interpolation\CubicSplineInterpolationTest: Cubic spline interpolation
- *
  * @internal
  */
+#[\PHPUnit\Framework\Attributes\CoversClass(\phpOMS\Math\Numerics\Interpolation\CubicSplineInterpolation::class)]
+#[\PHPUnit\Framework\Attributes\TestDox('phpOMS\tests\Math\Numerics\Interpolation\CubicSplineInterpolationTest: Cubic spline interpolation')]
 final class CubicSplineInterpolationTest extends \PHPUnit\Framework\TestCase
 {
-    /**
-     * @testdox The spline interpolation using the first derivative is correct
-     * @covers phpOMS\Math\Numerics\Interpolation\CubicSplineInterpolation
-     * @group framework
-     */
+    #[\PHPUnit\Framework\Attributes\Group('framework')]
+    #[\PHPUnit\Framework\Attributes\TestDox('The spline interpolation using the first derivative is correct')]
     public function testInterpolationFirstDerivative() : void
     {
         $interpolation = new CubicSplineInterpolation([
@@ -45,11 +42,8 @@ final class CubicSplineInterpolationTest extends \PHPUnit\Framework\TestCase
         self::assertEqualsWithDelta(0.947888, $interpolation->interpolate(1.5), 0.1);
     }
 
-    /**
-     * @testdox The spline interpolation using the second derivative is correct
-     * @covers phpOMS\Math\Numerics\Interpolation\CubicSplineInterpolation
-     * @group framework
-     */
+    #[\PHPUnit\Framework\Attributes\Group('framework')]
+    #[\PHPUnit\Framework\Attributes\TestDox('The spline interpolation using the second derivative is correct')]
     public function testInterpolationSecondDerivative() : void
     {
         $interpolation = new CubicSplineInterpolation([
@@ -66,11 +60,8 @@ final class CubicSplineInterpolationTest extends \PHPUnit\Framework\TestCase
         self::assertEqualsWithDelta(0.915345, $interpolation->interpolate(1.5), 0.1);
     }
 
-    /**
-     * @testdox The spline interpolation for out of bounds values uses linear extrapolation
-     * @covers phpOMS\Math\Numerics\Interpolation\CubicSplineInterpolation
-     * @group framework
-     */
+    #[\PHPUnit\Framework\Attributes\Group('framework')]
+    #[\PHPUnit\Framework\Attributes\TestDox('The spline interpolation for out of bounds values uses linear extrapolation')]
     public function testInterpolationUnderOverflow() : void
     {
         $interpolation = new CubicSplineInterpolation([

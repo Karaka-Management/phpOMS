@@ -2,7 +2,7 @@
 /**
  * Jingga
  *
- * PHP Version 8.1
+ * PHP Version 8.2
  *
  * @package    tests
  * @copyright  2013 Dennis Eichhorn
@@ -19,12 +19,10 @@ use phpOMS\Model\Message\Redirect;
 /**
  * @internal
  */
+#[\PHPUnit\Framework\Attributes\CoversClass(\phpOMS\Model\Message\Redirect::class)]
 final class RedirectTest extends \PHPUnit\Framework\TestCase
 {
-    /**
-     * @covers phpOMS\Model\Message\Redirect
-     * @group framework
-     */
+    #[\PHPUnit\Framework\Attributes\Group('framework')]
     public function testDefault() : void
     {
         $obj = new Redirect('');
@@ -35,10 +33,7 @@ final class RedirectTest extends \PHPUnit\Framework\TestCase
         self::assertFalse($obj->toArray()['new']);
     }
 
-    /**
-     * @covers phpOMS\Model\Message\Redirect
-     * @group framework
-     */
+    #[\PHPUnit\Framework\Attributes\Group('framework')]
     public function testSetGet() : void
     {
         $obj = new Redirect('url', true);

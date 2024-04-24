@@ -2,7 +2,7 @@
 /**
  * Jingga
  *
- * PHP Version 8.1
+ * PHP Version 8.2
  *
  * @package   tests
  * @copyright Dennis Eichhorn
@@ -21,10 +21,10 @@ use phpOMS\Utils\TestUtils;
 require_once __DIR__ . '/../Autoloader.php';
 
 /**
- * @testdox phpOMS\tests\Log\FileLoggerTest: File logger for saving log information in a local file
- *
  * @internal
  */
+#[\PHPUnit\Framework\Attributes\CoversClass(\phpOMS\Log\FileLogger::class)]
+#[\PHPUnit\Framework\Attributes\TestDox('phpOMS\tests\Log\FileLoggerTest: File logger for saving log information in a local file')]
 final class FileLoggerTest extends \PHPUnit\Framework\TestCase
 {
     protected FileLogger $log;
@@ -56,11 +56,8 @@ final class FileLoggerTest extends \PHPUnit\Framework\TestCase
         }
     }
 
-    /**
-     * @testdox The logger has the expected default values after initialization
-     * @covers phpOMS\Log\FileLogger
-     * @group framework
-     */
+    #[\PHPUnit\Framework\Attributes\Group('framework')]
+    #[\PHPUnit\Framework\Attributes\TestDox('The logger has the expected default values after initialization')]
     public function testDefault() : void
     {
         self::assertEquals([], $this->log->countLogs());
@@ -69,11 +66,8 @@ final class FileLoggerTest extends \PHPUnit\Framework\TestCase
         self::assertEquals([], $this->log->getByLine());
     }
 
-    /**
-     * @testdox The file logger can automatically create a new instance if none exists
-     * @covers phpOMS\Log\FileLogger
-     * @group framework
-     */
+    #[\PHPUnit\Framework\Attributes\Group('framework')]
+    #[\PHPUnit\Framework\Attributes\TestDox('The file logger can automatically create a new instance if none exists')]
     public function testFileLoggerInstance() : void
     {
         if (\is_file(__DIR__ . '/named.log')) {
@@ -93,11 +87,8 @@ final class FileLoggerTest extends \PHPUnit\Framework\TestCase
         }
     }
 
-    /**
-     * @testdox A log file for the output can be specified for the file logger
-     * @covers phpOMS\Log\FileLogger
-     * @group framework
-     */
+    #[\PHPUnit\Framework\Attributes\Group('framework')]
+    #[\PHPUnit\Framework\Attributes\TestDox('A log file for the output can be specified for the file logger')]
     public function testNamedLogFile() : void
     {
         if (\is_file(__DIR__ . '/named.log')) {
@@ -114,11 +105,8 @@ final class FileLoggerTest extends \PHPUnit\Framework\TestCase
         }
     }
 
-    /**
-     * @testdox If no log file name is specified a log file per date is created
-     * @covers phpOMS\Log\FileLogger
-     * @group framework
-     */
+    #[\PHPUnit\Framework\Attributes\Group('framework')]
+    #[\PHPUnit\Framework\Attributes\TestDox('If no log file name is specified a log file per date is created')]
     public function testUnnamedLogFile() : void
     {
         $log = new FileLogger(__DIR__, false);
@@ -127,11 +115,8 @@ final class FileLoggerTest extends \PHPUnit\Framework\TestCase
         self::assertTrue(\is_file(__DIR__ . '/' . \date('Y-m-d') . '.log'));
     }
 
-    /**
-     * @testdox If no logs are performed no log file will be created
-     * @covers phpOMS\Log\FileLogger
-     * @group framework
-     */
+    #[\PHPUnit\Framework\Attributes\Group('framework')]
+    #[\PHPUnit\Framework\Attributes\TestDox('If no logs are performed no log file will be created')]
     public function testNoFileIfNoLog() : void
     {
         $log = new FileLogger(__DIR__, false);
@@ -139,11 +124,8 @@ final class FileLoggerTest extends \PHPUnit\Framework\TestCase
         self::assertFalse(\is_file(__DIR__ . '/' . \date('Y-m-d') . '.log'));
     }
 
-    /**
-     * @testdox Logs with different levels get correctly stored in the log file
-     * @covers phpOMS\Log\FileLogger
-     * @group framework
-     */
+    #[\PHPUnit\Framework\Attributes\Group('framework')]
+    #[\PHPUnit\Framework\Attributes\TestDox('Logs with different levels get correctly stored in the log file')]
     public function testLogInputOutput() : void
     {
         $this->log->emergency(FileLogger::MSG_FULL, [
@@ -229,11 +211,8 @@ final class FileLoggerTest extends \PHPUnit\Framework\TestCase
         self::assertEquals(2, $this->log->countLogs()['debug'] ?? 0);
     }
 
-    /**
-     * @testdox Log files can be analyzed for the highest perpetrator (IP address)
-     * @covers phpOMS\Log\FileLogger
-     * @group framework
-     */
+    #[\PHPUnit\Framework\Attributes\Group('framework')]
+    #[\PHPUnit\Framework\Attributes\TestDox('Log files can be analyzed for the highest perpetrator (IP address)')]
     public function testPerpetrator() : void
     {
         $this->log->emergency(FileLogger::MSG_FULL, [
@@ -245,11 +224,8 @@ final class FileLoggerTest extends \PHPUnit\Framework\TestCase
         self::assertEquals(['0.0.0.0' => 1], $this->log->getHighestPerpetrator());
     }
 
-    /**
-     * @testdox Logs can be read from the log file
-     * @covers phpOMS\Log\FileLogger
-     * @group framework
-     */
+    #[\PHPUnit\Framework\Attributes\Group('framework')]
+    #[\PHPUnit\Framework\Attributes\TestDox('Logs can be read from the log file')]
     public function testReadLogs() : void
     {
         $this->log->emergency(FileLogger::MSG_FULL, [
@@ -283,11 +259,8 @@ final class FileLoggerTest extends \PHPUnit\Framework\TestCase
         self::assertEquals('error3', $logs[3][7]);
     }
 
-    /**
-     * @testdox Invalid log reads return empty log data
-     * @covers phpOMS\Log\FileLogger
-     * @group framework
-     */
+    #[\PHPUnit\Framework\Attributes\Group('framework')]
+    #[\PHPUnit\Framework\Attributes\TestDox('Invalid log reads return empty log data')]
     public function testInvalidReadLogs() : void
     {
         $this->log->emergency(FileLogger::MSG_FULL, [
@@ -301,11 +274,8 @@ final class FileLoggerTest extends \PHPUnit\Framework\TestCase
         self::assertEquals([], $logs);
     }
 
-    /**
-     * @testdox A line can be read from a log file
-     * @covers phpOMS\Log\FileLogger
-     * @group framework
-     */
+    #[\PHPUnit\Framework\Attributes\Group('framework')]
+    #[\PHPUnit\Framework\Attributes\TestDox('A line can be read from a log file')]
     public function testReadLine() : void
     {
         $this->log->alert(FileLogger::MSG_FULL, [
@@ -317,11 +287,8 @@ final class FileLoggerTest extends \PHPUnit\Framework\TestCase
         self::assertEquals('alert', $this->log->getByLine(1)[1]);
     }
 
-    /**
-     * @testdox None-existing lines return on read empty log data
-     * @covers phpOMS\Log\FileLogger
-     * @group framework
-     */
+    #[\PHPUnit\Framework\Attributes\Group('framework')]
+    #[\PHPUnit\Framework\Attributes\TestDox('None-existing lines return on read empty log data')]
     public function testInvalidReadLine() : void
     {
         $this->log->emergency(FileLogger::MSG_FULL, [
@@ -333,11 +300,8 @@ final class FileLoggerTest extends \PHPUnit\Framework\TestCase
         self::assertEquals([], $this->log->getByLine(2));
     }
 
-    /**
-     * @testdox A verbose file logger automatically outputs log data
-     * @covers phpOMS\Log\FileLogger
-     * @group framework
-     */
+    #[\PHPUnit\Framework\Attributes\Group('framework')]
+    #[\PHPUnit\Framework\Attributes\TestDox('A verbose file logger automatically outputs log data')]
     public function testVerboseLogger() : void
     {
         $this->log = new FileLogger(__DIR__, true);
@@ -350,11 +314,8 @@ final class FileLoggerTest extends \PHPUnit\Framework\TestCase
         self::assertEquals('my log message' . "\n", $ob);
     }
 
-    /**
-     * @testdox A verbose console log outputs log data
-     * @covers phpOMS\Log\FileLogger
-     * @group framework
-     */
+    #[\PHPUnit\Framework\Attributes\Group('framework')]
+    #[\PHPUnit\Framework\Attributes\TestDox('A verbose console log outputs log data')]
     public function testVerboseLog() : void
     {
         $this->log = new FileLogger(__DIR__, false);
@@ -367,11 +328,8 @@ final class FileLoggerTest extends \PHPUnit\Framework\TestCase
         self::assertTrue(\stripos($ob, 'my log message') !== false);
     }
 
-    /**
-     * @testdox A invalid log type throws a InvalidEnumValue
-     * @covers phpOMS\Log\FileLogger
-     * @group framework
-     */
+    #[\PHPUnit\Framework\Attributes\Group('framework')]
+    #[\PHPUnit\Framework\Attributes\TestDox('A invalid log type throws a InvalidEnumValue')]
     public function testLogException() : void
     {
         $this->expectException(\phpOMS\Stdlib\Base\Exception\InvalidEnumValue::class);
@@ -384,11 +342,8 @@ final class FileLoggerTest extends \PHPUnit\Framework\TestCase
         ]);
     }
 
-    /**
-     * @testdox The logger can perform timings for internal duration logging
-     * @covers phpOMS\Log\FileLogger
-     * @group framework
-     */
+    #[\PHPUnit\Framework\Attributes\Group('framework')]
+    #[\PHPUnit\Framework\Attributes\TestDox('The logger can perform timings for internal duration logging')]
     public function testTiming() : void
     {
         self::assertTrue(FileLogger::startTimeLog('test'));

@@ -2,7 +2,7 @@
 /**
  * Jingga
  *
- * PHP Version 8.1
+ * PHP Version 8.2
  *
  * @package   tests
  * @copyright Dennis Eichhorn
@@ -22,10 +22,10 @@ use phpOMS\Localization\Defaults\Country;
 use phpOMS\Localization\Defaults\CountryMapper;
 
 /**
- * @testdox phpOMS\tests\Localization\Defaults\CountryMapperTest: Country database mapper
- *
  * @internal
  */
+#[\PHPUnit\Framework\Attributes\CoversClass(\phpOMS\Localization\Defaults\CountryMapper::class)]
+#[\PHPUnit\Framework\Attributes\TestDox('phpOMS\tests\Localization\Defaults\CountryMapperTest: Country database mapper')]
 final class CountryMapperTest extends \PHPUnit\Framework\TestCase
 {
     private static SQLiteConnection $con;
@@ -42,11 +42,8 @@ final class CountryMapperTest extends \PHPUnit\Framework\TestCase
         DataMapperFactory::db(self::$con);
     }
 
-    /**
-     * @testdox The model can be read from the database
-     * @covers phpOMS\Localization\Defaults\CountryMapper
-     * @group framework
-     */
+    #[\PHPUnit\Framework\Attributes\Group('framework')]
+    #[\PHPUnit\Framework\Attributes\TestDox('The model can be read from the database')]
     public function testR() : void
     {
         /** @var Country $obj */

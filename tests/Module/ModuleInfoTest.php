@@ -2,7 +2,7 @@
 /**
  * Jingga
  *
- * PHP Version 8.1
+ * PHP Version 8.2
  *
  * @package   tests
  * @copyright Dennis Eichhorn
@@ -19,17 +19,14 @@ require_once __DIR__ . '/../Autoloader.php';
 use phpOMS\Module\ModuleInfo;
 
 /**
- * @testdox phpOMS\tests\Module\ModuleInfoTest: Module info file manager
- *
  * @internal
  */
+#[\PHPUnit\Framework\Attributes\CoversClass(\phpOMS\Module\ModuleInfo::class)]
+#[\PHPUnit\Framework\Attributes\TestDox('phpOMS\tests\Module\ModuleInfoTest: Module info file manager')]
 final class ModuleInfoTest extends \PHPUnit\Framework\TestCase
 {
-    /**
-     * @testdox A info file can be correctly loaded
-     * @covers phpOMS\Module\ModuleInfo
-     * @group framework
-     */
+    #[\PHPUnit\Framework\Attributes\Group('framework')]
+    #[\PHPUnit\Framework\Attributes\TestDox('A info file can be correctly loaded')]
     public function testLoad() : void
     {
         $info = new ModuleInfo(__DIR__ . '/info-test.json');
@@ -50,11 +47,8 @@ final class ModuleInfoTest extends \PHPUnit\Framework\TestCase
         self::assertEquals(__DIR__ . '/info-test.json', $info->getPath());
     }
 
-    /**
-     * @testdox A info file can be modified
-     * @covers phpOMS\Module\ModuleInfo
-     * @group framework
-     */
+    #[\PHPUnit\Framework\Attributes\Group('framework')]
+    #[\PHPUnit\Framework\Attributes\TestDox('A info file can be modified')]
     public function testChange() : void
     {
         $jarray = \json_decode(\file_get_contents(__DIR__ . '/info-test.json'), true);
@@ -74,11 +68,8 @@ final class ModuleInfoTest extends \PHPUnit\Framework\TestCase
         $info->update();
     }
 
-    /**
-     * @testdox A invalid info file path load throws a PathException
-     * @covers phpOMS\Module\ModuleInfo
-     * @group framework
-     */
+    #[\PHPUnit\Framework\Attributes\Group('framework')]
+    #[\PHPUnit\Framework\Attributes\TestDox('A invalid info file path load throws a PathException')]
     public function testInvalidPathLoad() : void
     {
         $this->expectException(\phpOMS\System\File\PathException::class);
@@ -87,11 +78,8 @@ final class ModuleInfoTest extends \PHPUnit\Framework\TestCase
         $info->load();
     }
 
-    /**
-     * @testdox A invalid info file path update throws a PathException
-     * @covers phpOMS\Module\ModuleInfo
-     * @group framework
-     */
+    #[\PHPUnit\Framework\Attributes\Group('framework')]
+    #[\PHPUnit\Framework\Attributes\TestDox('A invalid info file path update throws a PathException')]
     public function testInvalidPathUpdate() : void
     {
         $this->expectException(\phpOMS\System\File\PathException::class);
@@ -100,11 +88,8 @@ final class ModuleInfoTest extends \PHPUnit\Framework\TestCase
         $info->update();
     }
 
-    /**
-     * @testdox A invalid change data throws a InvalidArgumentException
-     * @covers phpOMS\Module\ModuleInfo
-     * @group framework
-     */
+    #[\PHPUnit\Framework\Attributes\Group('framework')]
+    #[\PHPUnit\Framework\Attributes\TestDox('A invalid change data throws a InvalidArgumentException')]
     public function testInvalidDataSet() : void
     {
         $this->expectException(\InvalidArgumentException::class);

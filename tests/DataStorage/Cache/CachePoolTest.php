@@ -2,7 +2,7 @@
 /**
  * Jingga
  *
- * PHP Version 8.1
+ * PHP Version 8.2
  *
  * @package   tests
  * @copyright Dennis Eichhorn
@@ -18,16 +18,13 @@ use phpOMS\DataStorage\Cache\CachePool;
 use phpOMS\DataStorage\Cache\Connection\FileCache;
 
 /**
- * @testdox phpOMS\tests\DataStorage\Cache\CachePoolTest: Pool for caches
- *
  * @internal
  */
+#[\PHPUnit\Framework\Attributes\TestDox('phpOMS\tests\DataStorage\Cache\CachePoolTest: Pool for caches')]
 final class CachePoolTest extends \PHPUnit\Framework\TestCase
 {
-    /**
-     * @testdox The pool has the expected default values after initialization
-     * @group framework
-     */
+    #[\PHPUnit\Framework\Attributes\Group('framework')]
+    #[\PHPUnit\Framework\Attributes\TestDox('The pool has the expected default values after initialization')]
     public function testDefault() : void
     {
         $pool = new CachePool();
@@ -36,10 +33,8 @@ final class CachePoolTest extends \PHPUnit\Framework\TestCase
         self::assertInstanceOf('\phpOMS\DataStorage\Cache\Connection\NullCache', $pool->get());
     }
 
-    /**
-     * @testdox New cache connections can be added to the pool
-     * @group framework
-     */
+    #[\PHPUnit\Framework\Attributes\Group('framework')]
+    #[\PHPUnit\Framework\Attributes\TestDox('New cache connections can be added to the pool')]
     public function testAdd() : void
     {
         $pool = new CachePool();
@@ -47,10 +42,8 @@ final class CachePoolTest extends \PHPUnit\Framework\TestCase
         self::assertTrue($pool->add('test', new FileCache(__DIR__)));
     }
 
-    /**
-     * @testdox Cache connections cannot be overwritten with a different cache connection
-     * @group framework
-     */
+    #[\PHPUnit\Framework\Attributes\Group('framework')]
+    #[\PHPUnit\Framework\Attributes\TestDox('Cache connections cannot be overwritten with a different cache connection')]
     public function testOverwrite() : void
     {
         $pool = new CachePool();
@@ -59,10 +52,8 @@ final class CachePoolTest extends \PHPUnit\Framework\TestCase
         self::assertFalse($pool->add('test', new FileCache(__DIR__)));
     }
 
-    /**
-     * @testdox Cache connections can be accessed with an identifier
-     * @group framework
-     */
+    #[\PHPUnit\Framework\Attributes\Group('framework')]
+    #[\PHPUnit\Framework\Attributes\TestDox('Cache connections can be accessed with an identifier')]
     public function testGet() : void
     {
         $pool = new CachePool();
@@ -72,10 +63,8 @@ final class CachePoolTest extends \PHPUnit\Framework\TestCase
         self::assertInstanceOf('\phpOMS\DataStorage\Cache\Connection\ConnectionInterface', $pool->get());
     }
 
-    /**
-     * @testdox By default a null cache is returned if no cache connection exists for the identifier
-     * @group framework
-     */
+    #[\PHPUnit\Framework\Attributes\Group('framework')]
+    #[\PHPUnit\Framework\Attributes\TestDox('By default a null cache is returned if no cache connection exists for the identifier')]
     public function testGetDefault() : void
     {
         $pool = new CachePool();
@@ -83,10 +72,8 @@ final class CachePoolTest extends \PHPUnit\Framework\TestCase
         self::assertInstanceOf('\phpOMS\DataStorage\Cache\Connection\NullCache', $pool->get('abc'));
     }
 
-    /**
-     * @testdox Cache connections can created by the pool and automatically get added but not overwritten
-     * @group framework
-     */
+    #[\PHPUnit\Framework\Attributes\Group('framework')]
+    #[\PHPUnit\Framework\Attributes\TestDox('Cache connections can created by the pool and automatically get added but not overwritten')]
     public function testCreate() : void
     {
         $pool = new CachePool();
@@ -96,10 +83,8 @@ final class CachePoolTest extends \PHPUnit\Framework\TestCase
         self::assertInstanceOf('\phpOMS\DataStorage\Cache\Connection\ConnectionInterface', $pool->get('abc'));
     }
 
-    /**
-     * @testdox Cache connections can be removed from the pool
-     * @group framework
-     */
+    #[\PHPUnit\Framework\Attributes\Group('framework')]
+    #[\PHPUnit\Framework\Attributes\TestDox('Cache connections can be removed from the pool')]
     public function testRemove() : void
     {
         $pool = new CachePool();
@@ -111,10 +96,8 @@ final class CachePoolTest extends \PHPUnit\Framework\TestCase
         self::assertInstanceOf('\phpOMS\DataStorage\Cache\Connection\ConnectionInterface', $pool->get('test'));
     }
 
-    /**
-     * @testdox Removing a cache with an invalid identifier will result in no actions
-     * @group framework
-     */
+    #[\PHPUnit\Framework\Attributes\Group('framework')]
+    #[\PHPUnit\Framework\Attributes\TestDox('Removing a cache with an invalid identifier will result in no actions')]
     public function testRemoveInvalid() : void
     {
         $pool = new CachePool();

@@ -2,7 +2,7 @@
 /**
  * Jingga
  *
- * PHP Version 8.1
+ * PHP Version 8.2
  *
  * @package   tests
  * @copyright Dennis Eichhorn
@@ -20,6 +20,7 @@ use phpOMS\Utils\Barcode\OrientationType;
 /**
  * @internal
  */
+#[\PHPUnit\Framework\Attributes\CoversClass(\phpOMS\Utils\Barcode\C128a::class)]
 final class C128aTest extends \PHPUnit\Framework\TestCase
 {
     protected function setUp() : void
@@ -31,10 +32,7 @@ final class C128aTest extends \PHPUnit\Framework\TestCase
         }
     }
 
-    /**
-     * @covers phpOMS\Utils\Barcode\C128a<extended>
-     * @group framework
-     */
+    #[\PHPUnit\Framework\Attributes\Group('framework')]
     public function testImagePng() : void
     {
         $path = __DIR__ . '/c128a.png';
@@ -48,10 +46,7 @@ final class C128aTest extends \PHPUnit\Framework\TestCase
         self::assertFileExists($path);
     }
 
-    /**
-     * @covers phpOMS\Utils\Barcode\C128a<extended>
-     * @group framework
-     */
+    #[\PHPUnit\Framework\Attributes\Group('framework')]
     public function testImageJpg() : void
     {
         $path = __DIR__ . '/c128a.jpg';
@@ -65,10 +60,7 @@ final class C128aTest extends \PHPUnit\Framework\TestCase
         self::assertFileExists($path);
     }
 
-    /**
-     * @covers phpOMS\Utils\Barcode\C128a<extended>
-     * @group framework
-     */
+    #[\PHPUnit\Framework\Attributes\Group('framework')]
     public function testOrientationAndMargin() : void
     {
         $path = __DIR__ . '/c128a_vertical.png';
@@ -83,10 +75,7 @@ final class C128aTest extends \PHPUnit\Framework\TestCase
         self::assertFileExists($path);
     }
 
-    /**
-     * @covers phpOMS\Utils\Barcode\C128a<extended>
-     * @group framework
-     */
+    #[\PHPUnit\Framework\Attributes\Group('framework')]
     public function testValidString() : void
     {
         self::assertTrue(C128a::isValidString('ABCDEFG0123+-'));

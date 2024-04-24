@@ -2,7 +2,7 @@
 /**
  * Jingga
  *
- * PHP Version 8.1
+ * PHP Version 8.2
  *
  * @package   tests
  * @copyright Dennis Eichhorn
@@ -19,10 +19,11 @@ use phpOMS\DataStorage\Database\DatabaseStatus;
 use phpOMS\DataStorage\Database\DatabaseType;
 
 /**
- * @testdox phpOMS\tests\DataStorage\Database\Connection\SQLiteConnectionTest: SQLite connection
- *
  * @internal
  */
+#[\PHPUnit\Framework\Attributes\CoversClass(\phpOMS\DataStorage\Database\Connection\SQLiteConnection::class)]
+#[\PHPUnit\Framework\Attributes\CoversClass(\phpOMS\DataStorage\Database\Connection\SQLiteConnection::class)]
+#[\PHPUnit\Framework\Attributes\TestDox('phpOMS\tests\DataStorage\Database\Connection\SQLiteConnectionTest: SQLite connection')]
 final class SQLiteConnectionTest extends \PHPUnit\Framework\TestCase
 {
     protected function setUp() : void
@@ -34,11 +35,8 @@ final class SQLiteConnectionTest extends \PHPUnit\Framework\TestCase
         }
     }
 
-    /**
-     * @testdox Valid sqlite connection data result in a valid database connection
-     * @covers phpOMS\DataStorage\Database\Connection\SQLiteConnection<extended>
-     * @group framework
-     */
+    #[\PHPUnit\Framework\Attributes\Group('framework')]
+    #[\PHPUnit\Framework\Attributes\TestDox('Valid sqlite connection data result in a valid database connection')]
     public function testConnect() : void
     {
         $sqlite = new SQLiteConnection($GLOBALS['CONFIG']['db']['core']['sqlite']['admin']);
@@ -50,11 +48,8 @@ final class SQLiteConnectionTest extends \PHPUnit\Framework\TestCase
         $sqlite->close();
     }
 
-    /**
-     * @testdox A missing database type returns a failure
-     * @covers phpOMS\DataStorage\Database\Connection\SQLiteConnection
-     * @group framework
-     */
+    #[\PHPUnit\Framework\Attributes\Group('framework')]
+    #[\PHPUnit\Framework\Attributes\TestDox('A missing database type returns a failure')]
     public function testInvalidDatabaseType() : void
     {
         $db = $GLOBALS['CONFIG']['db']['core']['sqlite']['admin'];
@@ -65,11 +60,8 @@ final class SQLiteConnectionTest extends \PHPUnit\Framework\TestCase
         $sqlite->close();
     }
 
-    /**
-     * @testdox Valid sqlite connection data result in a valid database connection
-     * @covers phpOMS\DataStorage\Database\Connection\SQLiteConnection<extended>
-     * @group framework
-     */
+    #[\PHPUnit\Framework\Attributes\Group('framework')]
+    #[\PHPUnit\Framework\Attributes\TestDox('Valid sqlite connection data result in a valid database connection')]
     public function testInvalidDatabasePath() : void
     {
         $db             = $GLOBALS['CONFIG']['db']['core']['masters']['admin'];
@@ -81,11 +73,8 @@ final class SQLiteConnectionTest extends \PHPUnit\Framework\TestCase
         $sqlite->close();
     }
 
-    /**
-     * @testdox A missing database returns a failure
-     * @covers phpOMS\DataStorage\Database\Connection\SQLiteConnection
-     * @group framework
-     */
+    #[\PHPUnit\Framework\Attributes\Group('framework')]
+    #[\PHPUnit\Framework\Attributes\TestDox('A missing database returns a failure')]
     public function testInvalidDatabase() : void
     {
         $db = $GLOBALS['CONFIG']['db']['core']['sqlite']['admin'];
@@ -96,11 +85,8 @@ final class SQLiteConnectionTest extends \PHPUnit\Framework\TestCase
         $sqlite->close();
     }
 
-    /**
-     * @testdox A invalid database returns a failure
-     * @covers phpOMS\DataStorage\Database\Connection\SQLiteConnection
-     * @group framework
-     */
+    #[\PHPUnit\Framework\Attributes\Group('framework')]
+    #[\PHPUnit\Framework\Attributes\TestDox('A invalid database returns a failure')]
     public function testInvalidDatabaseName() : void
     {
         $db             = $GLOBALS['CONFIG']['db']['core']['masters']['admin'];

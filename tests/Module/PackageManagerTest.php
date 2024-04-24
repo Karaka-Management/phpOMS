@@ -2,7 +2,7 @@
 /**
  * Jingga
  *
- * PHP Version 8.1
+ * PHP Version 8.2
  *
  * @package   tests
  * @copyright Dennis Eichhorn
@@ -21,10 +21,10 @@ use phpOMS\System\File\Local\Directory;
 use phpOMS\Utils\IO\Zip\Zip;
 
 /**
- * @testdox phpOMS\tests\Module\PackageManagerTest: Manager for install/update packages
- *
  * @internal
  */
+#[\PHPUnit\Framework\Attributes\CoversClass(\phpOMS\Module\PackageManager::class)]
+#[\PHPUnit\Framework\Attributes\TestDox('phpOMS\tests\Module\PackageManagerTest: Manager for install/update packages')]
 final class PackageManagerTest extends \PHPUnit\Framework\TestCase
 {
     public static function setUpBeforeClass() : void
@@ -79,11 +79,8 @@ final class PackageManagerTest extends \PHPUnit\Framework\TestCase
         );
     }
 
-    /**
-     * @testdox A package can be installed
-     * @covers phpOMS\Module\PackageManager
-     * @group framework
-     */
+    #[\PHPUnit\Framework\Attributes\Group('framework')]
+    #[\PHPUnit\Framework\Attributes\TestDox('A package can be installed')]
     public function testPackageValidInstall() : void
     {
         if (\is_dir(__DIR__ . '/dummyModule')) {
@@ -143,11 +140,8 @@ final class PackageManagerTest extends \PHPUnit\Framework\TestCase
         }
     }
 
-    /**
-     * @testdox A package which didn't get extracted cannot be loaded and throws a PathException
-     * @covers phpOMS\Module\PackageManager
-     * @group framework
-     */
+    #[\PHPUnit\Framework\Attributes\Group('framework')]
+    #[\PHPUnit\Framework\Attributes\TestDox("A package which didn't get extracted cannot be loaded and throws a PathException")]
     public function testNotExtractedLoad() : void
     {
         $this->expectException(\phpOMS\System\File\PathException::class);
@@ -161,11 +155,8 @@ final class PackageManagerTest extends \PHPUnit\Framework\TestCase
         $package->load();
     }
 
-    /**
-     * @testdox A invalid package cannot be installed and throws a Exception
-     * @covers phpOMS\Module\PackageManager
-     * @group framework
-     */
+    #[\PHPUnit\Framework\Attributes\Group('framework')]
+    #[\PHPUnit\Framework\Attributes\TestDox('A invalid package cannot be installed and throws a Exception')]
     public function testInvalidInstall() : void
     {
         $this->expectException(\Exception::class);
@@ -179,11 +170,8 @@ final class PackageManagerTest extends \PHPUnit\Framework\TestCase
         $package->install();
     }
 
-    /**
-     * @testdox A invalid package key doesn't validate the package
-     * @covers phpOMS\Module\PackageManager
-     * @group framework
-     */
+    #[\PHPUnit\Framework\Attributes\Group('framework')]
+    #[\PHPUnit\Framework\Attributes\TestDox("A invalid package key doesn't validate the package")]
     public function testPackageInvalidKey() : void
     {
         $package = new PackageManager(
@@ -197,11 +185,8 @@ final class PackageManagerTest extends \PHPUnit\Framework\TestCase
         self::assertFalse($package->isValid());
     }
 
-    /**
-     * @testdox A invalid package content doesn't validate the package
-     * @covers phpOMS\Module\PackageManager
-     * @group framework
-     */
+    #[\PHPUnit\Framework\Attributes\Group('framework')]
+    #[\PHPUnit\Framework\Attributes\TestDox("A invalid package content doesn't validate the package")]
     public function testPackageInvalidContent() : void
     {
         $package = new PackageManager(
@@ -216,11 +201,8 @@ final class PackageManagerTest extends \PHPUnit\Framework\TestCase
         self::assertFalse($package->isValid());
     }
 
-    /**
-     * @testdox The temporarily extracted package can be cleaned up
-     * @covers phpOMS\Module\PackageManager
-     * @group framework
-     */
+    #[\PHPUnit\Framework\Attributes\Group('framework')]
+    #[\PHPUnit\Framework\Attributes\TestDox('The temporarily extracted package can be cleaned up')]
     public function testCleanup() : void
     {
         $package = new PackageManager(

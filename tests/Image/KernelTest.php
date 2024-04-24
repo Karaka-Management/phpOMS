@@ -2,7 +2,7 @@
 /**
  * Jingga
  *
- * PHP Version 8.1
+ * PHP Version 8.2
  *
  * @package   tests
  * @copyright Dennis Eichhorn
@@ -19,17 +19,15 @@ require_once __DIR__ . '/../Autoloader.php';
 use phpOMS\Image\Kernel;
 
 /**
- * @testdox phpOMS\tests\Image\KernelTest: Image kernel
  * @internal
  */
+#[\PHPUnit\Framework\Attributes\CoversClass(\phpOMS\Image\Kernel::class)]
+#[\PHPUnit\Framework\Attributes\TestDox('phpOMS\tests\Image\KernelTest: Image kernel')]
 final class KernelTest extends \PHPUnit\Framework\TestCase
 {
-    /**
-     * @testdox The kernel can be applied to an image which is then stored in a new file
-     * @group framework
-     * @group slow
-     * @covers phpOMS\Image\Kernel
-     */
+    #[\PHPUnit\Framework\Attributes\Group('framework')]
+    #[\PHPUnit\Framework\Attributes\Group('slow')]
+    #[\PHPUnit\Framework\Attributes\TestDox('The kernel can be applied to an image which is then stored in a new file')]
     public function testKernel() : void
     {
         Kernel::convolve(__DIR__ . '/img1.png', __DIR__ . '/test_img1_sharpen.png', Kernel::KERNEL_SHARPEN);

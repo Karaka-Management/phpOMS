@@ -2,7 +2,7 @@
 /**
  * Jingga
  *
- * PHP Version 8.1
+ * PHP Version 8.2
  *
  * @package   tests
  * @copyright Dennis Eichhorn
@@ -19,12 +19,10 @@ use phpOMS\Math\Statistic\Basic;
 /**
  * @internal
  */
+#[\PHPUnit\Framework\Attributes\CoversClass(\phpOMS\Math\Statistic\Basic::class)]
 final class BasicTest extends \PHPUnit\Framework\TestCase
 {
-    /**
-     * @covers phpOMS\Math\Statistic\Basic
-     * @group framework
-     */
+    #[\PHPUnit\Framework\Attributes\Group('framework')]
     public function testFrequency() : void
     {
         self::assertEquals(

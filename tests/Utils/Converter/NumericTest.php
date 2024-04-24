@@ -2,7 +2,7 @@
 /**
  * Jingga
  *
- * PHP Version 8.1
+ * PHP Version 8.2
  *
  * @package   tests
  * @copyright Dennis Eichhorn
@@ -17,17 +17,14 @@ namespace phpOMS\tests\Utils\Converter;
 use phpOMS\Utils\Converter\Numeric;
 
 /**
- * @testdox phpOMS\tests\Utils\Converter\NumericTest: Numeric converter
- *
  * @internal
  */
+#[\PHPUnit\Framework\Attributes\CoversClass(\phpOMS\Utils\Converter\Numeric::class)]
+#[\PHPUnit\Framework\Attributes\TestDox('phpOMS\tests\Utils\Converter\NumericTest: Numeric converter')]
 final class NumericTest extends \PHPUnit\Framework\TestCase
 {
-    /**
-     * @testdox Arabic numbers can be converted to roman numbers
-     * @covers phpOMS\Utils\Converter\Numeric
-     * @group framework
-     */
+    #[\PHPUnit\Framework\Attributes\Group('framework')]
+    #[\PHPUnit\Framework\Attributes\TestDox('Arabic numbers can be converted to roman numbers')]
     public function testArabicToRoman() : void
     {
         $rand = \mt_rand(1, 9999);
@@ -39,11 +36,8 @@ final class NumericTest extends \PHPUnit\Framework\TestCase
         self::assertEquals('XI', Numeric::arabicToRoman(11));
     }
 
-    /**
-     * @testdox Roman numbers can be converted to arabic numbers
-     * @covers phpOMS\Utils\Converter\Numeric
-     * @group framework
-     */
+    #[\PHPUnit\Framework\Attributes\Group('framework')]
+    #[\PHPUnit\Framework\Attributes\TestDox('Roman numbers can be converted to arabic numbers')]
     public function testRomanToArabic() : void
     {
         self::assertEquals(8, Numeric::romanToArabic('VIII'));
@@ -52,11 +46,8 @@ final class NumericTest extends \PHPUnit\Framework\TestCase
         self::assertEquals(11, Numeric::romanToArabic('XI'));
     }
 
-    /**
-     * @testdox Letters can be converted to numbers
-     * @covers phpOMS\Utils\Converter\Numeric
-     * @group framework
-     */
+    #[\PHPUnit\Framework\Attributes\Group('framework')]
+    #[\PHPUnit\Framework\Attributes\TestDox('Letters can be converted to numbers')]
     public function testAlphaToNumeric() : void
     {
         self::assertEquals(0, Numeric::alphaToNumeric('A'));
@@ -64,11 +55,8 @@ final class NumericTest extends \PHPUnit\Framework\TestCase
         self::assertEquals(53, Numeric::alphaToNumeric('BB'));
     }
 
-    /**
-     * @testdox Numbers can be converted to letters
-     * @covers phpOMS\Utils\Converter\Numeric
-     * @group framework
-     */
+    #[\PHPUnit\Framework\Attributes\Group('framework')]
+    #[\PHPUnit\Framework\Attributes\TestDox('Numbers can be converted to letters')]
     public function testNumericToAlpha() : void
     {
         self::assertEquals('A', Numeric::numericToAlpha(0));
@@ -76,11 +64,8 @@ final class NumericTest extends \PHPUnit\Framework\TestCase
         self::assertEquals('BB', Numeric::numericToAlpha(53));
     }
 
-    /**
-     * @testdox Numbers can be converted between bases
-     * @covers phpOMS\Utils\Converter\Numeric
-     * @group framework
-     */
+    #[\PHPUnit\Framework\Attributes\Group('framework')]
+    #[\PHPUnit\Framework\Attributes\TestDox('Numbers can be converted between bases')]
     public function testBase() : void
     {
         self::assertEquals('443', Numeric::convertBase('123', '0123456789', '01234'));

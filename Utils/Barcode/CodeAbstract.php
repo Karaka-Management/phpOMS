@@ -2,7 +2,7 @@
 /**
  * Jingga
  *
- * PHP Version 8.1
+ * PHP Version 8.2
  *
  * @package   phpOMS\Utils\Barcode
  * @copyright Dennis Eichhorn
@@ -217,6 +217,9 @@ abstract class CodeAbstract
     public function saveToPngFile(string $file) : void
     {
         $res = $this->get();
+        if ($res === null) {
+            return;
+        }
 
         \imagepng($res, $file);
         \imagedestroy($res);
@@ -234,6 +237,9 @@ abstract class CodeAbstract
     public function saveToJpgFile(string $file) : void
     {
         $res = $this->get();
+        if ($res === null) {
+            return;
+        }
 
         \imagejpeg($res, $file);
         \imagedestroy($res);
@@ -242,9 +248,9 @@ abstract class CodeAbstract
     /**
      * Get image reference
      *
-     * @return \GdImage
+     * @return null|\GdImage
      *
      * @since 1.0.0
      */
-    abstract public function get() : mixed;
+    abstract public function get() : ?\GdImage;
 }

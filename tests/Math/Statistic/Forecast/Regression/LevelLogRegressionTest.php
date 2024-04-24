@@ -2,7 +2,7 @@
 /**
  * Jingga
  *
- * PHP Version 8.1
+ * PHP Version 8.2
  *
  * @package   tests
  * @copyright Dennis Eichhorn
@@ -17,10 +17,9 @@ namespace phpOMS\tests\Math\Statistic\Forecast\Regression;
 use phpOMS\Math\Statistic\Forecast\Regression\LevelLogRegression;
 
 /**
- * @testdox phpOMS\tests\Math\Statistic\Forecast\Regression\LevelLogRegressionTest: Level log regression
- *
  * @internal
  */
+#[\PHPUnit\Framework\Attributes\TestDox('phpOMS\tests\Math\Statistic\Forecast\Regression\LevelLogRegressionTest: Level log regression')]
 final class LevelLogRegressionTest extends \PHPUnit\Framework\TestCase
 {
     protected $reg = null;
@@ -37,39 +36,31 @@ final class LevelLogRegressionTest extends \PHPUnit\Framework\TestCase
         $this->reg = LevelLogRegression::getRegression($x, $y);
     }
 
-    /**
-     * @testdox The regression parameters are calculated correctly
-     * @group framework
-     */
+    #[\PHPUnit\Framework\Attributes\Group('framework')]
+    #[\PHPUnit\Framework\Attributes\TestDox('The regression parameters are calculated correctly')]
     public function testRegression() : void
     {
         self::assertEqualsWithDelta(['b0' => 1, 'b1' => 1], $this->reg, 0.2);
     }
 
-    /**
-     * @testdox The slope is calculated correctly
-     * @group framework
-     */
+    #[\PHPUnit\Framework\Attributes\Group('framework')]
+    #[\PHPUnit\Framework\Attributes\TestDox('The slope is calculated correctly')]
     public function testSlope() : void
     {
         $x = 2;
         self::assertEqualsWithDelta($this->reg['b1'] / $x, LevelLogRegression::getSlope($this->reg['b1'], 0, $x), 0.2);
     }
 
-    /**
-     * @testdox The elasticity is calculated correctly
-     * @group framework
-     */
+    #[\PHPUnit\Framework\Attributes\Group('framework')]
+    #[\PHPUnit\Framework\Attributes\TestDox('The elasticity is calculated correctly')]
     public function testElasticity() : void
     {
         $y = 3;
         self::assertEqualsWithDelta($this->reg['b1'] / $y, LevelLogRegression::getElasticity($this->reg['b1'], $y, 0), 0.2);
     }
 
-    /**
-     * @testdox Different dimension sizes for x and y coordinates throw a InvalidDimensionException
-     * @group framework
-     */
+    #[\PHPUnit\Framework\Attributes\Group('framework')]
+    #[\PHPUnit\Framework\Attributes\TestDox('Different dimension sizes for x and y coordinates throw a InvalidDimensionException')]
     public function testInvalidDimension() : void
     {
         $this->expectException(\phpOMS\Math\Matrix\Exception\InvalidDimensionException::class);

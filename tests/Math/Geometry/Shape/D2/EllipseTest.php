@@ -2,7 +2,7 @@
 /**
  * Jingga
  *
- * PHP Version 8.1
+ * PHP Version 8.2
  *
  * @package   tests
  * @copyright Dennis Eichhorn
@@ -17,27 +17,21 @@ namespace phpOMS\tests\Math\Geometry\Shape\D2;
 use phpOMS\Math\Geometry\Shape\D2\Ellipse;
 
 /**
- * @testdox phpOMS\tests\Math\Geometry\Shape\D2\EllipseTest: Ellipse shape
- *
  * @internal
  */
+#[\PHPUnit\Framework\Attributes\CoversClass(\phpOMS\Math\Geometry\Shape\D2\Ellipse::class)]
+#[\PHPUnit\Framework\Attributes\TestDox('phpOMS\tests\Math\Geometry\Shape\D2\EllipseTest: Ellipse shape')]
 final class EllipseTest extends \PHPUnit\Framework\TestCase
 {
-    /**
-     * @testdox The surface can be calculated
-     * @covers phpOMS\Math\Geometry\Shape\D2\Ellipse
-     * @group framework
-     */
+    #[\PHPUnit\Framework\Attributes\Group('framework')]
+    #[\PHPUnit\Framework\Attributes\TestDox('The surface can be calculated')]
     public function testSurface() : void
     {
         self::assertEqualsWithDelta(6.28, Ellipse::getSurface(2, 1), 0.01);
     }
 
-    /**
-     * @testdox The perimeter can be calculated
-     * @covers phpOMS\Math\Geometry\Shape\D2\Ellipse
-     * @group framework
-     */
+    #[\PHPUnit\Framework\Attributes\Group('framework')]
+    #[\PHPUnit\Framework\Attributes\TestDox('The perimeter can be calculated')]
     public function testPerimeter() : void
     {
         self::assertEqualsWithDelta(9.69, Ellipse::getPerimeter(2, 1), 0.01);

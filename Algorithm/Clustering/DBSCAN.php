@@ -2,7 +2,7 @@
 /**
  * Jingga
  *
- * PHP Version 8.1
+ * PHP Version 8.2
  *
  * @package   phpOMS\Algorithm\Clustering
  * @copyright Dennis Eichhorn
@@ -50,7 +50,7 @@ final class DBSCAN implements ClusteringInterface
     /**
      * Points outside of any cluster
      *
-     * @var PointInterface[]
+     * @var Point[]
      * @since 1.0.0
      */
     private array $noisePoints = [];
@@ -58,7 +58,7 @@ final class DBSCAN implements ClusteringInterface
     /**
      * All points
      *
-     * @var PointInterface[]
+     * @var Point[]
      * @since 1.0.0
      */
     private array $points = [];
@@ -66,7 +66,7 @@ final class DBSCAN implements ClusteringInterface
     /**
      * Points of the cluster centers
      *
-     * @var PointInterface[]
+     * @var Point[]
      * @since 1.0.0
      */
     private array $clusterCenters = [];
@@ -76,7 +76,7 @@ final class DBSCAN implements ClusteringInterface
      *
      * Array of points assigned to a cluster
      *
-     * @var array<int, PointInterface[]>
+     * @var array<int, Point[]>
      * @since 1.0.0
      */
     private array $clusters = [];
@@ -118,7 +118,7 @@ final class DBSCAN implements ClusteringInterface
      */
     public function __construct(?\Closure $metric = null)
     {
-        $this->metric = $metric ?? function (PointInterface $a, PointInterface $b) {
+        $this->metric = $metric ?? function (Point $a, Point $b) {
             $aCoordinates = $a->coordinates;
             $bCoordinates = $b->coordinates;
 
@@ -129,18 +129,18 @@ final class DBSCAN implements ClusteringInterface
     /**
      * Expand cluster with additional point and potential neighbors.
      *
-     * @param PointInterface $point     Point to add to a cluster
-     * @param array          $neighbors Neighbors of point
-     * @param int            $c         Cluster id
-     * @param float          $epsilon   Max distance
-     * @param int            $minPoints Min amount of points required for a cluster
+     * @param Point $point     Point to add to a cluster
+     * @param array $neighbors Neighbors of point
+     * @param int   $c         Cluster id
+     * @param float $epsilon   Max distance
+     * @param int   $minPoints Min amount of points required for a cluster
      *
      * @return void
      *
      * @since 1.0.0
      */
     private function expandCluster(
-        PointInterface $point,
+        Point $point,
         array $neighbors,
         int $c,
         float $epsilon,
@@ -174,14 +174,14 @@ final class DBSCAN implements ClusteringInterface
     /**
      * Find neighbors of a point
      *
-     * @param PointInterface $point   Base point for potential neighbors
-     * @param float          $epsilon Max distance to neighbor
+     * @param Point $point   Base point for potential neighbors
+     * @param float $epsilon Max distance to neighbor
      *
      * @return array
      *
      * @since 1.0.0
      */
-    private function findNeighbors(PointInterface $point, float $epsilon) : array
+    private function findNeighbors(Point $point, float $epsilon) : array
     {
         $neighbors = [];
         foreach ($this->points as $point2) {
@@ -225,7 +225,7 @@ final class DBSCAN implements ClusteringInterface
     /**
      * {@inheritdoc}
      */
-    public function cluster(PointInterface $point) : ?PointInterface
+    public function cluster(Point $point) : ?Point
     {
         if ($this->convexHulls === []) {
             foreach ($this->clusters as $c => $cluster) {
@@ -251,9 +251,9 @@ final class DBSCAN implements ClusteringInterface
     /**
      * Generate the clusters of the points
      *
-     * @param PointInterface[] $points    Points to cluster
-     * @param float            $epsilon   Max distance
-     * @param int              $minPoints Min amount of points required for a cluster
+     * @param Point[] $points    Points to cluster
+     * @param float   $epsilon   Max distance
+     * @param int     $minPoints Min amount of points required for a cluster
      *
      * @return void
      *

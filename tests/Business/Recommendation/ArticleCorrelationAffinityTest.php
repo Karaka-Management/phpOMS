@@ -2,7 +2,7 @@
 /**
  * Jingga
  *
- * PHP Version 8.1
+ * PHP Version 8.2
  *
  * @package   tests
  * @copyright Dennis Eichhorn
@@ -17,16 +17,13 @@ namespace phpOMS\tests\Business\Recommendation;
 use phpOMS\Business\Recommendation\ArticleCorrelationAffinity;
 
 /**
- * @testdox phpOMS\tests\Business\Recommendation\ArticleCorrelationAffinityTest: Article affinity/correlation
- *
  * @internal
  */
+#[\PHPUnit\Framework\Attributes\TestDox('phpOMS\tests\Business\Recommendation\ArticleCorrelationAffinityTest: Article affinity/correlation')]
 final class ArticleCorrelationAffinityTest extends \PHPUnit\Framework\TestCase
 {
-    /**
-     * @testdox The highest affinities between articles purchased are calculated correctly
-     * @group framework
-     */
+    #[\PHPUnit\Framework\Attributes\Group('framework')]
+    #[\PHPUnit\Framework\Attributes\TestDox('The highest affinities between articles purchased are calculated correctly')]
     public function testAffinity() : void
     {
         $orders = [
@@ -69,10 +66,8 @@ final class ArticleCorrelationAffinityTest extends \PHPUnit\Framework\TestCase
         );
     }
 
-    /**
-     * @testdox The affinity of a new article is empty
-     * @group framework
-     */
+    #[\PHPUnit\Framework\Attributes\Group('framework')]
+    #[\PHPUnit\Framework\Attributes\TestDox('The affinity of a new article is empty')]
     public function testInvalidItemAffinity() : void
     {
         $orders = [

@@ -2,7 +2,7 @@
 /**
  * Jingga
  *
- * PHP Version 8.1
+ * PHP Version 8.2
  *
  * @package   tests
  * @copyright Dennis Eichhorn
@@ -18,17 +18,14 @@ use phpOMS\Contract\SerializableInterface;
 use phpOMS\Utils\Parser\Php\ArrayParser;
 
 /**
- * @testdox phpOMS\tests\Utils\Parser\Php\ArrayParserTest: Array data serializer as code
- *
  * @internal
  */
+#[\PHPUnit\Framework\Attributes\CoversClass(\phpOMS\Utils\Parser\Php\ArrayParser::class)]
+#[\PHPUnit\Framework\Attributes\TestDox('phpOMS\tests\Utils\Parser\Php\ArrayParserTest: Array data serializer as code')]
 final class ArrayParserTest extends \PHPUnit\Framework\TestCase
 {
-    /**
-     * @testdox An array can be encoded and decoded as php code
-     * @covers phpOMS\Utils\Parser\Php\ArrayParser
-     * @group framework
-     */
+    #[\PHPUnit\Framework\Attributes\Group('framework')]
+    #[\PHPUnit\Framework\Attributes\TestDox('An array can be encoded and decoded as php code')]
     public function testParser() : void
     {
         $serializable = new class() implements SerializableInterface {
@@ -72,11 +69,8 @@ final class ArrayParserTest extends \PHPUnit\Framework\TestCase
         self::assertEquals($expected, eval('return '. ArrayParser::serializeArray($array) . ';'));
     }
 
-    /**
-     * @testdox A value can be encoded and decoded into php code
-     * @covers phpOMS\Utils\Parser\Php\ArrayParser
-     * @group framework
-     */
+    #[\PHPUnit\Framework\Attributes\Group('framework')]
+    #[\PHPUnit\Framework\Attributes\TestDox('A value can be encoded and decoded into php code')]
     public function testInvalidValueType() : void
     {
         $this->expectException(\UnexpectedValueException::class);

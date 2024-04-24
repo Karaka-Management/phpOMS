@@ -2,7 +2,7 @@
 /**
  * Jingga
  *
- * PHP Version 8.1
+ * PHP Version 8.2
  *
  * @package   phpOMS\Algorithm\Clustering
  * @copyright Dennis Eichhorn
@@ -46,7 +46,7 @@ final class Kmeans implements ClusteringInterface
     /**
      * Points of the cluster centers
      *
-     * @var PointInterface[]
+     * @var Point[]
      * @since 1.0.0
      */
     private array $clusterCenters = [];
@@ -54,7 +54,7 @@ final class Kmeans implements ClusteringInterface
     /**
      * Points of the clusters
      *
-     * @var PointInterface[]
+     * @var Point[]
      * @since 1.0.0
      */
     private array $clusters = [];
@@ -62,7 +62,7 @@ final class Kmeans implements ClusteringInterface
     /**
      * Points
      *
-     * @var PointInterface[]
+     * @var Point[]
      * @since 1.0.0
      */
     private array $points = [];
@@ -76,7 +76,7 @@ final class Kmeans implements ClusteringInterface
      */
     public function __construct(?\Closure $metric = null)
     {
-        $this->metric = $metric ?? function (PointInterface $a, PointInterface $b) {
+        $this->metric = $metric ?? function (Point $a, Point $b) {
             $aCoordinates = $a->coordinates;
             $bCoordinates = $b->coordinates;
 
@@ -87,7 +87,7 @@ final class Kmeans implements ClusteringInterface
     /**
      * {@inheritdoc}
      */
-    public function cluster(PointInterface $point) : ?PointInterface
+    public function cluster(Point $point) : ?Point
     {
         $bestCluster  = null;
         $bestDistance = \PHP_FLOAT_MAX;
@@ -121,8 +121,8 @@ final class Kmeans implements ClusteringInterface
     /**
      * Generate the clusters of the points
      *
-     * @param PointInterface[] $points   Points to cluster
-     * @param int<1, max>      $clusters Amount of clusters
+     * @param Point[]     $points   Points to cluster
+     * @param int<1, max> $clusters Amount of clusters
      *
      * @return void
      *
@@ -183,14 +183,14 @@ final class Kmeans implements ClusteringInterface
     /**
      * Get the index and distance to the nearest cluster center
      *
-     * @param PointInterface   $point          Point to get the cluster for
-     * @param PointInterface[] $clusterCenters All cluster centers
+     * @param Point   $point          Point to get the cluster for
+     * @param Point[] $clusterCenters All cluster centers
      *
      * @return array [index, distance]
      *
      * @since 1.0.0
      */
-    private function nearestClusterCenter(PointInterface $point, array $clusterCenters) : array
+    private function nearestClusterCenter(Point $point, array $clusterCenters) : array
     {
         $index = $point->group;
         $dist  = \PHP_FLOAT_MAX;
@@ -208,12 +208,12 @@ final class Kmeans implements ClusteringInterface
     }
 
     /**
-     * Initializae cluster centers
+     * Initialize cluster centers
      *
-     * @param PointInterface[] $points Points to use for the cluster center initialization
-     * @param int<0, max>      $n      Amount of clusters to use
+     * @param Point[]     $points Points to use for the cluster center initialization
+     * @param int<0, max> $n      Amount of clusters to use
      *
-     * @return PointInterface[]
+     * @return Point[]
      *
      * @since 1.0.0
      */

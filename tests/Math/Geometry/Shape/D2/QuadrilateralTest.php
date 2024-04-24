@@ -2,7 +2,7 @@
 /**
  * Jingga
  *
- * PHP Version 8.1
+ * PHP Version 8.2
  *
  * @package   tests
  * @copyright Dennis Eichhorn
@@ -17,17 +17,14 @@ namespace phpOMS\tests\Math\Geometry\Shape\D2;
 use phpOMS\Math\Geometry\Shape\D2\Quadrilateral;
 
 /**
- * @testdox phpOMS\tests\Math\Geometry\Shape\D2\QuadrilateralTest: Quadrilateral shape
- *
  * @internal
  */
+#[\PHPUnit\Framework\Attributes\CoversClass(\phpOMS\Math\Geometry\Shape\D2\Quadrilateral::class)]
+#[\PHPUnit\Framework\Attributes\TestDox('phpOMS\tests\Math\Geometry\Shape\D2\QuadrilateralTest: Quadrilateral shape')]
 final class QuadrilateralTest extends \PHPUnit\Framework\TestCase
 {
-    /**
-     * @testdox The area can be calculated
-     * @covers phpOMS\Math\Geometry\Shape\D2\Quadrilateral
-     * @group framework
-     */
+    #[\PHPUnit\Framework\Attributes\Group('framework')]
+    #[\PHPUnit\Framework\Attributes\TestDox('The area can be calculated')]
     public function testArea() : void
     {
         self::assertEqualsWithDelta(10.78, Quadrilateral::getSurfaceFromSidesAndAngle(4.0, 2.0, 4.0, 3.5, 106.56), 0.01);

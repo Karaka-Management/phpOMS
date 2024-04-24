@@ -2,7 +2,7 @@
 /**
  * Jingga
  *
- * PHP Version 8.1
+ * PHP Version 8.2
  *
  * @package   tests
  * @copyright Dennis Eichhorn
@@ -17,10 +17,9 @@ namespace phpOMS\tests\Math\Functions;
 use phpOMS\Math\Functions\Algebra;
 
 /**
- * @testdox phpOMS\tests\Math\Functions\AlgebraTest: Various math functions
- *
  * @internal
  */
+#[\PHPUnit\Framework\Attributes\TestDox('phpOMS\tests\Math\Functions\AlgebraTest: Various math functions')]
 final class AlgebraTest extends \PHPUnit\Framework\TestCase
 {
     public function testMultVectors() : void
@@ -59,8 +58,9 @@ final class AlgebraTest extends \PHPUnit\Framework\TestCase
             Algebra::mult(
                 [3, 4],
                 [
-                    [1, 5, 7],
-                    [2, 6, 8],
+                    [1, 2],
+                    [5, 6],
+                    [7, 8],
                 ]
             )
         );

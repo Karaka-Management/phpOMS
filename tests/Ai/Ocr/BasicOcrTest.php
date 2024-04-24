@@ -2,7 +2,7 @@
 /**
  * Jingga
  *
- * PHP Version 8.1
+ * PHP Version 8.2
  *
  * @package   tests
  * @copyright Dennis Eichhorn
@@ -19,12 +19,10 @@ use phpOMS\Ai\Ocr\BasicOcr;
 /**
  * @internal
  */
+#[\PHPUnit\Framework\Attributes\CoversClass(\phpOMS\Ai\Ocr\BasicOcr::class)]
 final class BasicOcrTest extends \PHPUnit\Framework\TestCase
 {
-    /**
-     * @covers phpOMS\Ai\Ocr\BasicOcr
-     * @group framework
-     */
+    #[\PHPUnit\Framework\Attributes\Group('framework')]
     public function testOcr() : void
     {
         $ocr = new BasicOcr();
@@ -63,10 +61,7 @@ final class BasicOcrTest extends \PHPUnit\Framework\TestCase
         }
     }
 
-    /**
-     * @covers phpOMS\Ai\Ocr\BasicOcr
-     * @group framework
-     */
+    #[\PHPUnit\Framework\Attributes\Group('framework')]
     public function testInvalidImagePath() : void
     {
         $this->expectException(\phpOMS\System\File\PathException::class);
@@ -74,10 +69,7 @@ final class BasicOcrTest extends \PHPUnit\Framework\TestCase
         $ocr->trainWith(__DIR__ . '/invalid', __DIR__ . '/train-labels-idx1-ubyte', 1);
     }
 
-    /**
-     * @covers phpOMS\Ai\Ocr\BasicOcr
-     * @group framework
-     */
+    #[\PHPUnit\Framework\Attributes\Group('framework')]
     public function testInvalidLabelPath() : void
     {
         $this->expectException(\phpOMS\System\File\PathException::class);

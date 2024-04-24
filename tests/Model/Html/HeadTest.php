@@ -2,7 +2,7 @@
 /**
  * Jingga
  *
- * PHP Version 8.1
+ * PHP Version 8.2
  *
  * @package   tests
  * @copyright Dennis Eichhorn
@@ -18,10 +18,10 @@ use phpOMS\Asset\AssetType;
 use phpOMS\Model\Html\Head;
 
 /**
- * @testdox phpOMS\tests\Model\Html\HeadTest: Html head
- *
  * @internal
  */
+#[\PHPUnit\Framework\Attributes\CoversClass(\phpOMS\Model\Html\Head::class)]
+#[\PHPUnit\Framework\Attributes\TestDox('phpOMS\tests\Model\Html\HeadTest: Html head')]
 final class HeadTest extends \PHPUnit\Framework\TestCase
 {
     protected Head $head;
@@ -34,11 +34,8 @@ final class HeadTest extends \PHPUnit\Framework\TestCase
         $this->head = new Head();
     }
 
-    /**
-     * @testdox The head has the expected default values after initialization
-     * @covers phpOMS\Model\Html\Head
-     * @group framework
-     */
+    #[\PHPUnit\Framework\Attributes\Group('framework')]
+    #[\PHPUnit\Framework\Attributes\TestDox('The head has the expected default values after initialization')]
     public function testDefault() : void
     {
         self::assertInstanceOf('\phpOMS\Model\Html\Meta', $this->head->meta);
@@ -53,44 +50,32 @@ final class HeadTest extends \PHPUnit\Framework\TestCase
         self::assertEquals('<meta name="generator" content="Karaka">', $this->head->render());
     }
 
-    /**
-     * @testdox The title can be set and returned
-     * @covers phpOMS\Model\Html\Head
-     * @group framework
-     */
+    #[\PHPUnit\Framework\Attributes\Group('framework')]
+    #[\PHPUnit\Framework\Attributes\TestDox('The title can be set and returned')]
     public function testTitleInputOutput() : void
     {
         $this->head->title = 'my title';
         self::assertEquals('my title', $this->head->title);
     }
 
-    /**
-     * @testdox The style can be set and returned
-     * @covers phpOMS\Model\Html\Head
-     * @group framework
-     */
+    #[\PHPUnit\Framework\Attributes\Group('framework')]
+    #[\PHPUnit\Framework\Attributes\TestDox('The style can be set and returned')]
     public function testStyleInputOutput() : void
     {
         $this->head->setStyle('base', '#test .class { color: #000; }');
         self::assertEquals(['base' => '#test .class { color: #000; }'], $this->head->getStyleAll());
     }
 
-    /**
-     * @testdox The script can be set and returned
-     * @covers phpOMS\Model\Html\Head
-     * @group framework
-     */
+    #[\PHPUnit\Framework\Attributes\Group('framework')]
+    #[\PHPUnit\Framework\Attributes\TestDox('The script can be set and returned')]
     public function testScriptInputOutput() : void
     {
         $this->head->setScript('key', 'console.log("msg");');
         self::assertEquals(['key' => 'console.log("msg");'], $this->head->getScriptAll());
     }
 
-    /**
-     * @testdox The assets can be set and rendered
-     * @covers phpOMS\Model\Html\Head
-     * @group framework
-     */
+    #[\PHPUnit\Framework\Attributes\Group('framework')]
+    #[\PHPUnit\Framework\Attributes\TestDox('The assets can be set and rendered')]
     public function testAssetRender() : void
     {
         $this->head->addAsset(AssetType::CSS, '/path/styles.css');
@@ -109,33 +94,24 @@ final class HeadTest extends \PHPUnit\Framework\TestCase
         );
     }
 
-    /**
-     * @testdox The assets can be set and rendered at the end of the document
-     * @covers phpOMS\Model\Html\Head
-     * @group framework
-     */
+    #[\PHPUnit\Framework\Attributes\Group('framework')]
+    #[\PHPUnit\Framework\Attributes\TestDox('The assets can be set and rendered at the end of the document')]
     public function testAssetLateRender() : void
     {
         $this->head->addAsset(AssetType::JSLATE, '/path/late.js');
         self::assertEquals('<script src="/path/late.js"></script>', $this->head->renderAssetsLate());
     }
 
-    /**
-     * @testdox The assets can be set and rendered with attributes
-     * @covers phpOMS\Model\Html\Head
-     * @group framework
-     */
+    #[\PHPUnit\Framework\Attributes\Group('framework')]
+    #[\PHPUnit\Framework\Attributes\TestDox('The assets can be set and rendered with attributes')]
     public function testAssetRenderWithAttribute() : void
     {
         $this->head->addAsset(AssetType::JS, '/path/late.js', ['testkey' => 'testvalue']);
         self::assertEquals('<script src="/path/late.js" testkey="testvalue"></script>', $this->head->renderAssets());
     }
 
-    /**
-     * @testdox The assets can be set and rendered at the end of the document with attributes
-     * @covers phpOMS\Model\Html\Head
-     * @group framework
-     */
+    #[\PHPUnit\Framework\Attributes\Group('framework')]
+    #[\PHPUnit\Framework\Attributes\TestDox('The assets can be set and rendered at the end of the document with attributes')]
     public function testAssetLateRenderWithAttribute() : void
     {
         $this->head->addAsset(AssetType::JSLATE, '/path/late.js', ['testkey' => 'testvalue']);

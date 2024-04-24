@@ -2,7 +2,7 @@
 /**
  * Jingga
  *
- * PHP Version 8.1
+ * PHP Version 8.2
  *
  * @package   tests
  * @copyright Dennis Eichhorn
@@ -19,36 +19,30 @@ require_once __DIR__ . '/../Autoloader.php';
 use phpOMS\System\CharsetType;
 
 /**
- * @testdox phpOMS\tests\System\CharsetTypeTest: Character set type enum
  * @internal
  */
+#[\PHPUnit\Framework\Attributes\TestDox('phpOMS\tests\System\CharsetTypeTest: Character set type enum')]
 final class CharsetTypeTest extends \PHPUnit\Framework\TestCase
 {
-    /**
-     * @testdox The character set type enum has the correct amount of values
-     * @group framework
-     * @coversNothing
-     */
+    #[\PHPUnit\Framework\Attributes\Group('framework')]
+    #[\PHPUnit\Framework\Attributes\TestDox('The character set type enum has the correct amount of values')]
+    #[\PHPUnit\Framework\Attributes\CoversNothing]
     public function testEnumCount() : void
     {
         self::assertCount(3, CharsetType::getConstants());
     }
 
-    /**
-     * @testdox The character set type enum has only unique values
-     * @group framework
-     * @coversNothing
-     */
+    #[\PHPUnit\Framework\Attributes\Group('framework')]
+    #[\PHPUnit\Framework\Attributes\TestDox('The character set type enum has only unique values')]
+    #[\PHPUnit\Framework\Attributes\CoversNothing]
     public function testUnique() : void
     {
         self::assertEquals(CharsetType::getConstants(), \array_unique(CharsetType::getConstants()));
     }
 
-    /**
-     * @testdox The character set type enum has the correct values
-     * @group framework
-     * @coversNothing
-     */
+    #[\PHPUnit\Framework\Attributes\Group('framework')]
+    #[\PHPUnit\Framework\Attributes\TestDox('The character set type enum has the correct values')]
+    #[\PHPUnit\Framework\Attributes\CoversNothing]
     public function testEnums() : void
     {
         self::assertEquals('us-ascii', CharsetType::ASCII);

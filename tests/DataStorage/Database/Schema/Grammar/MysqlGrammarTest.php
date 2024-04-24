@@ -2,7 +2,7 @@
 /**
  * Jingga
  *
- * PHP Version 8.1
+ * PHP Version 8.2
  *
  * @package   tests
  * @copyright Dennis Eichhorn
@@ -21,10 +21,11 @@ use phpOMS\Utils\ArrayUtils;
 use phpOMS\Utils\TestUtils;
 
 /**
- * @testdox phpOMS\tests\DataStorage\Database\Schema\Grammar\MysqlGrammarTest: Mysql sql schema grammar
- *
  * @internal
  */
+#[\PHPUnit\Framework\Attributes\CoversClass(\phpOMS\DataStorage\Database\Schema\Grammar\MysqlGrammar::class)]
+#[\PHPUnit\Framework\Attributes\CoversClass(\phpOMS\DataStorage\Database\Schema\Builder::class)]
+#[\PHPUnit\Framework\Attributes\TestDox('phpOMS\tests\DataStorage\Database\Schema\Grammar\MysqlGrammarTest: Mysql sql schema grammar')]
 final class MysqlGrammarTest extends \PHPUnit\Framework\TestCase
 {
     protected MysqlConnection $con;
@@ -38,11 +39,8 @@ final class MysqlGrammarTest extends \PHPUnit\Framework\TestCase
         $this->con->connect();
     }
 
-    /**
-     * @testdox The grammar has the expected default values after initialization
-     * @covers phpOMS\DataStorage\Database\Schema\Grammar\MysqlGrammar<extended>
-     * @group framework
-     */
+    #[\PHPUnit\Framework\Attributes\Group('framework')]
+    #[\PHPUnit\Framework\Attributes\TestDox('The grammar has the expected default values after initialization')]
     public function testDefault() : void
     {
         self::assertInstanceOf('\phpOMS\DataStorage\Database\Schema\Grammar\Grammar', new MysqlGrammar());
@@ -50,12 +48,8 @@ final class MysqlGrammarTest extends \PHPUnit\Framework\TestCase
         self::assertEquals('`', TestUtils::getMember(new MysqlGrammar(), 'systemIdentifierEnd'));
     }
 
-    /**
-     * @testdox The the grammar correctly creates and returns a database table
-     * @covers phpOMS\DataStorage\Database\Schema\Builder
-     * @covers phpOMS\DataStorage\Database\Schema\Grammar\MysqlGrammar<extended>
-     * @group framework
-     */
+    #[\PHPUnit\Framework\Attributes\Group('framework')]
+    #[\PHPUnit\Framework\Attributes\TestDox('The the grammar correctly creates and returns a database table')]
     public function testSchemaInputOutput() : void
     {
         $definitions = \json_decode(\file_get_contents(__DIR__ . '/testSchema.json'), true);
@@ -84,11 +78,8 @@ final class MysqlGrammarTest extends \PHPUnit\Framework\TestCase
             ->execute();
     }
 
-    /**
-     * @testdox The grammar correctly deletes a table
-     * @covers phpOMS\DataStorage\Database\Schema\Grammar\MysqlGrammar<extended>
-     * @group framework
-     */
+    #[\PHPUnit\Framework\Attributes\Group('framework')]
+    #[\PHPUnit\Framework\Attributes\TestDox('The grammar correctly deletes a table')]
     public function testDelete() : void
     {
         $definitions = \json_decode(\file_get_contents(__DIR__ . '/testSchema.json'), true);

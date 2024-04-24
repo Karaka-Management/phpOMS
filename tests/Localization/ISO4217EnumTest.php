@@ -2,7 +2,7 @@
 /**
  * Jingga
  *
- * PHP Version 8.1
+ * PHP Version 8.2
  *
  * @package   tests
  * @copyright Dennis Eichhorn
@@ -19,16 +19,14 @@ require_once __DIR__ . '/../Autoloader.php';
 use phpOMS\Localization\ISO4217Enum;
 
 /**
- * @testdox phpOMS\tests\Localization\ISO4217EnumTest: ISO 4217 currency codes
  * @internal
  */
+#[\PHPUnit\Framework\Attributes\TestDox('phpOMS\tests\Localization\ISO4217EnumTest: ISO 4217 currency codes')]
 final class ISO4217EnumTest extends \PHPUnit\Framework\TestCase
 {
-    /**
-     * @testdox The ISO 4217 currency code enum has only unique values
-     * @group framework
-     * @coversNothing
-     */
+    #[\PHPUnit\Framework\Attributes\Group('framework')]
+    #[\PHPUnit\Framework\Attributes\TestDox('The ISO 4217 currency code enum has only unique values')]
+    #[\PHPUnit\Framework\Attributes\CoversNothing]
     public function testUnique() : void
     {
         $enum = ISO4217Enum::getConstants();

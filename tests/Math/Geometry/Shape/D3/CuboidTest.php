@@ -2,7 +2,7 @@
 /**
  * Jingga
  *
- * PHP Version 8.1
+ * PHP Version 8.2
  *
  * @package   tests
  * @copyright Dennis Eichhorn
@@ -17,27 +17,21 @@ namespace phpOMS\tests\Math\Geometry\Shape\D3;
 use phpOMS\Math\Geometry\Shape\D3\Cuboid;
 
 /**
- * @testdox phpOMS\tests\Math\Geometry\Shape\D3\CuboidTest: Cuboid shape
- *
  * @internal
  */
+#[\PHPUnit\Framework\Attributes\CoversClass(\phpOMS\Math\Geometry\Shape\D3\Cuboid::class)]
+#[\PHPUnit\Framework\Attributes\TestDox('phpOMS\tests\Math\Geometry\Shape\D3\CuboidTest: Cuboid shape')]
 final class CuboidTest extends \PHPUnit\Framework\TestCase
 {
-    /**
-     * @testdox The volume can be calculated
-     * @covers phpOMS\Math\Geometry\Shape\D3\Cuboid
-     * @group framework
-     */
+    #[\PHPUnit\Framework\Attributes\Group('framework')]
+    #[\PHPUnit\Framework\Attributes\TestDox('The volume can be calculated')]
     public function testVolume() : void
     {
         self::assertEqualsWithDelta(200, Cuboid::getVolume(10, 5, 4), 0.001);
     }
 
-    /**
-     * @testdox The surface can be calculated
-     * @covers phpOMS\Math\Geometry\Shape\D3\Cuboid
-     * @group framework
-     */
+    #[\PHPUnit\Framework\Attributes\Group('framework')]
+    #[\PHPUnit\Framework\Attributes\TestDox('The surface can be calculated')]
     public function testSurface() : void
     {
         self::assertEqualsWithDelta(220, Cuboid::getSurface(10, 5, 4), 0.001);

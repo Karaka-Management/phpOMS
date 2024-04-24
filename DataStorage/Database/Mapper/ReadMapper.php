@@ -2,7 +2,7 @@
 /**
  * Jingga
  *
- * PHP Version 8.1
+ * PHP Version 8.2
  *
  * @package   phpOMS\DataStorage\Database\Mapper
  * @copyright Dennis Eichhorn
@@ -232,7 +232,7 @@ final class ReadMapper extends DataMapperAbstract
                 return $this->executeGetRaw(...$options);
             case MapperType::GET_ALL:
                 /** @var null|Builder ...$options */
-                return $this->executeGetAll(...$options);
+                return $this->executeGetArray(...$options);
             case MapperType::GET_RANDOM:
                 return $this->executeRandom();
             case MapperType::COUNT_MODELS:
@@ -381,16 +381,6 @@ final class ReadMapper extends DataMapperAbstract
         $query ??= $this->getQuery();
 
         try {
-            /*
-            \phpOMS\Log\FileLogger::getInstance()->info(
-                \phpOMS\Log\FileLogger::MSG_FULL, [
-                    'message' => $query->toSql(),
-                    'line'    => __LINE__,
-                    'file'    => self::class,
-                ]
-            );
-            */
-
             $sth = $this->db->con->prepare($query->toSql());
             if ($sth === false) {
                 yield [];
@@ -427,8 +417,10 @@ final class ReadMapper extends DataMapperAbstract
      *
      * @since 1.0.0
      */
-    public function executeGetAll(?Builder $query = null) : array
+    public function executeGetArray(?Builder $query = null) : array
     {
+        $this->getAll();
+
         $result = $this->executeGet($query);
 
         if (\is_object($result)
@@ -449,6 +441,8 @@ final class ReadMapper extends DataMapperAbstract
      */
     public function executeCount() : int
     {
+        $this->count();
+
         $query = $this->getQuery(
             null,
             [
@@ -468,6 +462,8 @@ final class ReadMapper extends DataMapperAbstract
      */
     public function executeSum() : int|float
     {
+        $this->sum();
+
         $query = $this->getQuery(
             null,
             [
@@ -492,6 +488,8 @@ final class ReadMapper extends DataMapperAbstract
      */
     public function executeExists() : bool
     {
+        $this->exists();
+
         $query = $this->getQuery(null, [1]);
 
         return ($query->execute()?->fetchColumn() ?? 0) > 0;
@@ -1039,7 +1037,10 @@ final class ReadMapper extends DataMapperAbstract
             if (\array_key_exists($this->mapper::OWNS_ONE[$member]['external'] . '_d' . $this->depth . $this->joinAlias, $result)) {
                 return isset($this->mapper::OWNS_ONE[$member]['column'])
                     ? $result[$this->mapper::OWNS_ONE[$member]['external'] . '_d' . $this->depth . $this->joinAlias]
-                    : $mapper::createNullModel($result[$this->mapper::OWNS_ONE[$member]['external'] . '_d' . $this->depth . $this->joinAlias]);
+                    : $mapper::createNullModel(
+                        $result[$this->mapper::OWNS_ONE[$member]['external'] . '_d' . $this->depth . $this->joinAlias],
+                        $this->mapper::OWNS_ONE[$member]['by'] ?? null
+                    );
             } else {
                 return $default;
             }
@@ -1077,7 +1078,10 @@ final class ReadMapper extends DataMapperAbstract
             if (\array_key_exists($this->mapper::BELONGS_TO[$member]['external'] . '_d' . $this->depth . $this->joinAlias, $result)) {
                 return isset($this->mapper::BELONGS_TO[$member]['column'])
                     ? $result[$this->mapper::BELONGS_TO[$member]['external'] . '_d' . $this->depth . $this->joinAlias]
-                    : $mapper::createNullModel($result[$this->mapper::BELONGS_TO[$member]['external'] . '_d' . $this->depth . $this->joinAlias]);
+                    : $mapper::createNullModel(
+                        $result[$this->mapper::BELONGS_TO[$member]['external'] . '_d' . $this->depth . $this->joinAlias],
+                        $this->mapper::BELONGS_TO[$member]['by'] ?? null
+                    );
             } else {
                 return $default;
             }
@@ -1182,6 +1186,10 @@ final class ReadMapper extends DataMapperAbstract
                             continue;
                         }
 
+                        if (($many['conditional'] ?? false) && \is_array($objects[$key])) {
+                            $objects[$key] = \reset($objects[$key]);
+                        }
+
                         $refProp = $refClass->getProperty($member);
                         $refProp->setValue($objs[$idx], !\is_array($objects[$key]) && ($many['conditional'] ?? false) === false
                             ? [$many['mapper']::getObjectId($objects[$key]) => $objects[$key]]
@@ -1192,6 +1200,10 @@ final class ReadMapper extends DataMapperAbstract
                     foreach ($primaryKeys as $idx => $key) {
                         if (!isset($objects[$key])) {
                             continue;
+                        }
+
+                        if (($many['conditional'] ?? false) && \is_array($objects[$key])) {
+                            $objects[$key] = \reset($objects[$key]);
                         }
 
                         $objs[$idx]->{$member} = !\is_array($objects[$key]) && ($many['conditional'] ?? false) === false
@@ -1313,5 +1325,29 @@ final class ReadMapper extends DataMapperAbstract
                 }
             }
         }
+    }
+
+    /**
+     * Paginate results
+     *
+     * @param string      $member Member to use for pagination
+     * @param null|string $ptype  Pagination type (previous/next)
+     * @param mixed       $offset Offset
+     *
+     * @return self
+     *
+     * @since 1.0.0
+     */
+    public function paginate(string $member, ?string $ptype, mixed $offset) : self
+    {
+        if ($ptype === 'p') {
+            $this->where($member, $offset ?? 0, '<');
+        } elseif ($ptype === 'n') {
+            $this->where($member, $offset ?? 0, '>');
+        } else {
+            $this->where($member, 0, '>');
+        }
+
+        return $this;
     }
 }

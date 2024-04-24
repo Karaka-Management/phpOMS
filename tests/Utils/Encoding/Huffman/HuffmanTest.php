@@ -2,7 +2,7 @@
 /**
  * Jingga
  *
- * PHP Version 8.1
+ * PHP Version 8.2
  *
  * @package   tests
  * @copyright Dennis Eichhorn
@@ -17,16 +17,13 @@ namespace phpOMS\tests\Utils\Encoding\Huffman;
 use phpOMS\Utils\Encoding\Huffman\Huffman;
 
 /**
- * @testdox phpOMS\tests\Utils\Encoding\Huffman\HuffmanTest: Data can be encoded with huffman
- *
  * @internal
  */
+#[\PHPUnit\Framework\Attributes\TestDox('phpOMS\tests\Utils\Encoding\Huffman\HuffmanTest: Data can be encoded with huffman')]
 final class HuffmanTest extends \PHPUnit\Framework\TestCase
 {
-    /**
-     * @testdox Encoding and decoding empty data results in an empty output
-     * @group framework
-     */
+    #[\PHPUnit\Framework\Attributes\Group('framework')]
+    #[\PHPUnit\Framework\Attributes\TestDox('Encoding and decoding empty data results in an empty output')]
     public function testEmpty() : void
     {
         $huff = new Huffman();
@@ -34,10 +31,8 @@ final class HuffmanTest extends \PHPUnit\Framework\TestCase
         self::assertEquals('', $huff->decode(''));
     }
 
-    /**
-     * @testdox Data can be huffman encoded and decoded
-     * @group framework
-     */
+    #[\PHPUnit\Framework\Attributes\Group('framework')]
+    #[\PHPUnit\Framework\Attributes\TestDox('Data can be huffman encoded and decoded')]
     public function testHuffman() : void
     {
         $huff = new Huffman();

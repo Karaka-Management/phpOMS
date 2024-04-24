@@ -2,7 +2,7 @@
 /**
  * Jingga
  *
- * PHP Version 8.1
+ * PHP Version 8.2
  *
  * @package   tests
  * @copyright Dennis Eichhorn
@@ -25,17 +25,14 @@ use phpOMS\System\MimeType;
 use phpOMS\Uri\HttpUri;
 
 /**
- * @testdox phpOMS\tests\Message\Http\HttpRequestTest: HttpRequest wrapper for http requests
- *
  * @internal
  */
+#[\PHPUnit\Framework\Attributes\CoversClass(\phpOMS\Message\Http\HttpRequest::class)]
+#[\PHPUnit\Framework\Attributes\TestDox('phpOMS\tests\Message\Http\HttpRequestTest: HttpRequest wrapper for http requests')]
 final class HttpRequestTest extends \PHPUnit\Framework\TestCase
 {
-    /**
-     * @testdox The request has the expected default values after initialization
-     * @covers phpOMS\Message\Http\HttpRequest<extended>
-     * @group framework
-     */
+    #[\PHPUnit\Framework\Attributes\Group('framework')]
+    #[\PHPUnit\Framework\Attributes\TestDox('The request has the expected default values after initialization')]
     public function testDefault() : void
     {
         $request = new HttpRequest();
@@ -62,11 +59,8 @@ final class HttpRequestTest extends \PHPUnit\Framework\TestCase
         self::assertEquals('en_US', $request->getLocale());
     }
 
-    /**
-     * @testdox The OS can be set and returned
-     * @covers phpOMS\Message\Http\HttpRequest<extended>
-     * @group framework
-     */
+    #[\PHPUnit\Framework\Attributes\Group('framework')]
+    #[\PHPUnit\Framework\Attributes\TestDox('The OS can be set and returned')]
     public function testOSInputOutput() : void
     {
         $request = new HttpRequest(new HttpUri('http://www.google.com/test/path'), $l11n = new Localization());
@@ -75,11 +69,8 @@ final class HttpRequestTest extends \PHPUnit\Framework\TestCase
         self::assertEquals(OSType::WINDOWS_XP, $request->getOS());
     }
 
-    /**
-     * @testdox The browser can be set and returned
-     * @covers phpOMS\Message\Http\HttpRequest<extended>
-     * @group framework
-     */
+    #[\PHPUnit\Framework\Attributes\Group('framework')]
+    #[\PHPUnit\Framework\Attributes\TestDox('The browser can be set and returned')]
     public function testBrowserTypeInputOutput() : void
     {
         $request = new HttpRequest(new HttpUri('http://www.google.com/test/path'), $l11n = new Localization());
@@ -92,11 +83,8 @@ final class HttpRequestTest extends \PHPUnit\Framework\TestCase
         self::assertEquals(['browser' => BrowserType::EDGE, 'os' => OSType::WINDOWS_XP], $request->getRequestInfo());
     }
 
-    /**
-     * @testdox The request method can be set and returned
-     * @covers phpOMS\Message\Http\HttpRequest<extended>
-     * @group framework
-     */
+    #[\PHPUnit\Framework\Attributes\Group('framework')]
+    #[\PHPUnit\Framework\Attributes\TestDox('The request method can be set and returned')]
     public function testRequestMethodInputOutput() : void
     {
         $request = new HttpRequest(new HttpUri('http://www.google.com/test/path'), $l11n = new Localization());
@@ -106,11 +94,8 @@ final class HttpRequestTest extends \PHPUnit\Framework\TestCase
         self::assertEquals(RouteVerb::PUT, $request->getRouteVerb());
     }
 
-    /**
-     * @testdox The request referer can be returned
-     * @covers phpOMS\Message\Http\HttpRequest<extended>
-     * @group framework
-     */
+    #[\PHPUnit\Framework\Attributes\Group('framework')]
+    #[\PHPUnit\Framework\Attributes\TestDox('The request referer can be returned')]
     public function testRequestRefererOutput() : void
     {
         $request = new HttpRequest(new HttpUri(''), $l11n = new Localization());
@@ -118,11 +103,8 @@ final class HttpRequestTest extends \PHPUnit\Framework\TestCase
         self::assertEquals('', $request->getReferer());
     }
 
-    /**
-     * @testdox The route verb gets correctly inferred from the request method
-     * @covers phpOMS\Message\Http\HttpRequest<extended>
-     * @group framework
-     */
+    #[\PHPUnit\Framework\Attributes\Group('framework')]
+    #[\PHPUnit\Framework\Attributes\TestDox('The route verb gets correctly inferred from the request method')]
     public function testRequestMethodToRouteVerb() : void
     {
         $request = new HttpRequest(new HttpUri('http://www.google.com/test/path'), $l11n = new Localization());
@@ -137,11 +119,8 @@ final class HttpRequestTest extends \PHPUnit\Framework\TestCase
         self::assertEquals(RouteVerb::SET, $request->getRouteVerb());
     }
 
-    /**
-     * @testdox The request is correctly constructed
-     * @covers phpOMS\Message\Http\HttpRequest<extended>
-     * @group framework
-     */
+    #[\PHPUnit\Framework\Attributes\Group('framework')]
+    #[\PHPUnit\Framework\Attributes\TestDox('The request is correctly constructed')]
     public function testConstructInputOutput() : void
     {
         $request = new HttpRequest(new HttpUri('http://www.google.com/test/path'), $l11n = new Localization());
@@ -149,11 +128,8 @@ final class HttpRequestTest extends \PHPUnit\Framework\TestCase
         self::assertEquals('http://www.google.com/test/path', $request->__toString());
     }
 
-    /**
-     * @testdox The url hashes for the different paths get correctly generated
-     * @covers phpOMS\Message\Http\HttpRequest<extended>
-     * @group framework
-     */
+    #[\PHPUnit\Framework\Attributes\Group('framework')]
+    #[\PHPUnit\Framework\Attributes\TestDox('The url hashes for the different paths get correctly generated')]
     public function testHashingInputOutput() : void
     {
         $request = new HttpRequest(new HttpUri('http://www.google.com/test/path'), $l11n = new Localization());
@@ -167,11 +143,8 @@ final class HttpRequestTest extends \PHPUnit\Framework\TestCase
         self::assertEquals($l11n, $request->header->l11n);
     }
 
-    /**
-     * @testdox Request data can be forcefully overwritten
-     * @covers phpOMS\Message\Http\HttpRequest<extended>
-     * @group framework
-     */
+    #[\PHPUnit\Framework\Attributes\Group('framework')]
+    #[\PHPUnit\Framework\Attributes\TestDox('Request data can be forcefully overwritten')]
     public function testOverwrite() : void
     {
         $request = new HttpRequest(new HttpUri('http://www.google.com/test/path'), $l11n = new Localization());
@@ -181,11 +154,8 @@ final class HttpRequestTest extends \PHPUnit\Framework\TestCase
         self::assertEquals('value2', $request->getData('key'));
     }
 
-    /**
-     * @testdox Request data is not overwritten by default
-     * @covers phpOMS\Message\Http\HttpRequest<extended>
-     * @group framework
-     */
+    #[\PHPUnit\Framework\Attributes\Group('framework')]
+    #[\PHPUnit\Framework\Attributes\TestDox('Request data is not overwritten by default')]
     public function testInvalidOverwrite() : void
     {
         $request = new HttpRequest(new HttpUri('http://www.google.com/test/path'), $l11n = new Localization());
@@ -195,11 +165,8 @@ final class HttpRequestTest extends \PHPUnit\Framework\TestCase
         self::assertEquals('value', $request->getData('key'));
     }
 
-    /**
-     * @testdox The uri can be changed and returned
-     * @covers phpOMS\Message\Http\HttpRequest<extended>
-     * @group framework
-     */
+    #[\PHPUnit\Framework\Attributes\Group('framework')]
+    #[\PHPUnit\Framework\Attributes\TestDox('The uri can be changed and returned')]
     public function testUriInputOutput() : void
     {
         $request = new HttpRequest(new HttpUri('http://www.google.com/test/path'), $l11n = new Localization());
@@ -208,11 +175,8 @@ final class HttpRequestTest extends \PHPUnit\Framework\TestCase
         self::assertEquals('http://www.google.com/test/path2', $request->__toString());
     }
 
-    /**
-     * @testdox Json data can be read from the request
-     * @covers phpOMS\Message\Http\HttpRequest<extended>
-     * @group framework
-     */
+    #[\PHPUnit\Framework\Attributes\Group('framework')]
+    #[\PHPUnit\Framework\Attributes\TestDox('Json data can be read from the request')]
     public function testDataJsonRead() : void
     {
         $request = new HttpRequest();
@@ -227,11 +191,8 @@ final class HttpRequestTest extends \PHPUnit\Framework\TestCase
         self::assertEquals($data, $request->getDataJson('abc'));
     }
 
-    /**
-     * @testdox None-existing json data reads return empty data
-     * @covers phpOMS\Message\Http\HttpRequest<extended>
-     * @group framework
-     */
+    #[\PHPUnit\Framework\Attributes\Group('framework')]
+    #[\PHPUnit\Framework\Attributes\TestDox('None-existing json data reads return empty data')]
     public function testEmptyDataJsonRead() : void
     {
         $request = new HttpRequest();
@@ -239,11 +200,8 @@ final class HttpRequestTest extends \PHPUnit\Framework\TestCase
         self::assertEquals([], $request->getDataJson('def'));
     }
 
-    /**
-     * @testdox Invalid json data returns empty data
-     * @covers phpOMS\Message\Http\HttpRequest<extended>
-     * @group framework
-     */
+    #[\PHPUnit\Framework\Attributes\Group('framework')]
+    #[\PHPUnit\Framework\Attributes\TestDox('Invalid json data returns empty data')]
     public function testInvalidDataJsonRead() : void
     {
         $request = new HttpRequest();
@@ -258,11 +216,8 @@ final class HttpRequestTest extends \PHPUnit\Framework\TestCase
         self::assertEquals($data, $request->getDataJson('abc'));
     }
 
-    /**
-     * @testdox List data can be read from the request
-     * @covers phpOMS\Message\Http\HttpRequest<extended>
-     * @group framework
-     */
+    #[\PHPUnit\Framework\Attributes\Group('framework')]
+    #[\PHPUnit\Framework\Attributes\TestDox('List data can be read from the request')]
     public function testDataList() : void
     {
         $request = new HttpRequest();
@@ -276,11 +231,8 @@ final class HttpRequestTest extends \PHPUnit\Framework\TestCase
         self::assertEquals($data, $request->getDataList('abc'));
     }
 
-    /**
-     * @testdox None-existing list data reads return empty data
-     * @covers phpOMS\Message\Http\HttpRequest<extended>
-     * @group framework
-     */
+    #[\PHPUnit\Framework\Attributes\Group('framework')]
+    #[\PHPUnit\Framework\Attributes\TestDox('None-existing list data reads return empty data')]
     public function testEmptyDataList() : void
     {
         $request = new HttpRequest();
@@ -288,11 +240,8 @@ final class HttpRequestTest extends \PHPUnit\Framework\TestCase
         self::assertEquals([], $request->getDataList('def'));
     }
 
-    /**
-     * @testdox Request data can be read with pattern matching
-     * @covers phpOMS\Message\Http\HttpRequest<extended>
-     * @group framework
-     */
+    #[\PHPUnit\Framework\Attributes\Group('framework')]
+    #[\PHPUnit\Framework\Attributes\TestDox('Request data can be read with pattern matching')]
     public function testDataLike() : void
     {
         $request = new HttpRequest();
@@ -304,11 +253,8 @@ final class HttpRequestTest extends \PHPUnit\Framework\TestCase
         self::assertEquals(['abcde' => $data], $request->getLike('[a-z]*'));
     }
 
-    /**
-     * @testdox In case of no pattern matches empty data is returned
-     * @covers phpOMS\Message\Http\HttpRequest<extended>
-     * @group framework
-     */
+    #[\PHPUnit\Framework\Attributes\Group('framework')]
+    #[\PHPUnit\Framework\Attributes\TestDox('In case of no pattern matches empty data is returned')]
     public function testInvalidDataLikeMatch() : void
     {
         $request = new HttpRequest();
@@ -320,22 +266,16 @@ final class HttpRequestTest extends \PHPUnit\Framework\TestCase
         self::assertEquals([], $request->getLike('abcdef'));
     }
 
-    /**
-     * @testdox A request with a path can be correctly casted to a string
-     * @covers phpOMS\Message\Http\HttpRequest<extended>
-     * @group framework
-     */
+    #[\PHPUnit\Framework\Attributes\Group('framework')]
+    #[\PHPUnit\Framework\Attributes\TestDox('A request with a path can be correctly casted to a string')]
     public function testToString() : void
     {
         $request = new HttpRequest(new HttpUri('http://www.google.com/test/path'));
         self::assertEquals('http://www.google.com/test/path', $request->__toString());
     }
 
-    /**
-     * @testdox A request with a path and manually added data can be correctly casted to a string
-     * @covers phpOMS\Message\Http\HttpRequest<extended>
-     * @group framework
-     */
+    #[\PHPUnit\Framework\Attributes\Group('framework')]
+    #[\PHPUnit\Framework\Attributes\TestDox('A request with a path and manually added data can be correctly casted to a string')]
     public function testToStringData() : void
     {
         $request = new HttpRequest(new HttpUri('http://www.google.com/test/path'));
@@ -345,11 +285,8 @@ final class HttpRequestTest extends \PHPUnit\Framework\TestCase
         self::assertEquals('http://www.google.com/test/path?test=data&test2=3', $request->__toString());
     }
 
-    /**
-     * @testdox A request with a path, query parameters and manually added data can be correctly casted to a string
-     * @covers phpOMS\Message\Http\HttpRequest<extended>
-     * @group framework
-     */
+    #[\PHPUnit\Framework\Attributes\Group('framework')]
+    #[\PHPUnit\Framework\Attributes\TestDox('A request with a path, query parameters and manually added data can be correctly casted to a string')]
     public function testToStringGetData() : void
     {
         $request = new HttpRequest(new HttpUri('http://www.google.com/test/path?test=var'));
@@ -360,11 +297,8 @@ final class HttpRequestTest extends \PHPUnit\Framework\TestCase
         self::assertEquals('http://www.google.com/test/path?test=var&test=data&test2=3', $request->__toString());
     }
 
-    /**
-     * @testdox A rest request can be made from a request and the result can be read
-     * @covers phpOMS\Message\Http\HttpRequest<extended>
-     * @group framework
-     */
+    #[\PHPUnit\Framework\Attributes\Group('framework')]
+    #[\PHPUnit\Framework\Attributes\TestDox('A rest request can be made from a request and the result can be read')]
     public function testRestRequest() : void
     {
         $request = new HttpRequest(new HttpUri('https://raw.githubusercontent.com/Karaka-Management/Karaka/develop/LICENSE.txt'));
@@ -376,11 +310,8 @@ final class HttpRequestTest extends \PHPUnit\Framework\TestCase
         );
     }
 
-    /**
-     * @testdox A request can be made with post data
-     * @covers phpOMS\Message\Http\HttpRequest<extended>
-     * @group framework
-     */
+    #[\PHPUnit\Framework\Attributes\Group('framework')]
+    #[\PHPUnit\Framework\Attributes\TestDox('A request can be made with post data')]
     public function testPostData() : void
     {
         $request = new HttpRequest(new HttpUri('http://localhost:1234' . $GLOBALS['frameworkpath'] . 'tests/Message/Http/HttpRequestPost.php'));
@@ -394,11 +325,8 @@ final class HttpRequestTest extends \PHPUnit\Framework\TestCase
         );
     }
 
-    /**
-     * @testdox A request can be made with json data
-     * @covers phpOMS\Message\Http\HttpRequest<extended>
-     * @group framework
-     */
+    #[\PHPUnit\Framework\Attributes\Group('framework')]
+    #[\PHPUnit\Framework\Attributes\TestDox('A request can be made with json data')]
     public function testJsonData() : void
     {
         $request = new HttpRequest(new HttpUri('http://localhost:1234' . $GLOBALS['frameworkpath'] . 'tests/Message/Http/HttpRequestPost.php'));
@@ -412,11 +340,8 @@ final class HttpRequestTest extends \PHPUnit\Framework\TestCase
         );
     }
 
-    /**
-     * @testdox A request can be made with multipart data
-     * @covers phpOMS\Message\Http\HttpRequest<extended>
-     * @group framework
-     */
+    #[\PHPUnit\Framework\Attributes\Group('framework')]
+    #[\PHPUnit\Framework\Attributes\TestDox('A request can be made with multipart data')]
     public function testMultipartData() : void
     {
         $request = new HttpRequest(new HttpUri('http://localhost:1234' . $GLOBALS['frameworkpath'] . 'tests/Message/Http/HttpRequestPost.php'));
@@ -430,11 +355,8 @@ final class HttpRequestTest extends \PHPUnit\Framework\TestCase
         );
     }
 
-    /**
-     * @testdox If no language can be identified en is returned
-     * @covers phpOMS\Message\Http\HttpRequest<extended>
-     * @group framework
-     */
+    #[\PHPUnit\Framework\Attributes\Group('framework')]
+    #[\PHPUnit\Framework\Attributes\TestDox('If no language can be identified en is returned')]
     public function testLanguage() : void
     {
         $request = new HttpRequest(new HttpUri('http://localhost:1234' . $GLOBALS['frameworkpath'] . 'tests/Message/Http/HttpRequestLanguage.php'));
@@ -446,11 +368,8 @@ final class HttpRequestTest extends \PHPUnit\Framework\TestCase
         );
     }
 
-    /**
-     * @testdox If no locale can be identified en_US is returned
-     * @covers phpOMS\Message\Http\HttpRequest<extended>
-     * @group framework
-     */
+    #[\PHPUnit\Framework\Attributes\Group('framework')]
+    #[\PHPUnit\Framework\Attributes\TestDox('If no locale can be identified en_US is returned')]
     public function testLocale() : void
     {
         $request = new HttpRequest(new HttpUri('http://localhost:1234' . $GLOBALS['frameworkpath'] . 'tests/Message/Http/HttpRequestLocale.php'));
@@ -462,11 +381,8 @@ final class HttpRequestTest extends \PHPUnit\Framework\TestCase
         );
     }
 
-    /**
-     * @testdox A none-mobile request is recognized as none-mobile
-     * @covers phpOMS\Message\Http\HttpRequest<extended>
-     * @group framework
-     */
+    #[\PHPUnit\Framework\Attributes\Group('framework')]
+    #[\PHPUnit\Framework\Attributes\TestDox('A none-mobile request is recognized as none-mobile')]
     public function testMobile() : void
     {
         $request = new HttpRequest(new HttpUri('http://localhost:1234' . $GLOBALS['frameworkpath'] . 'tests/Message/Http/HttpRequestMobile.php'));
@@ -478,11 +394,8 @@ final class HttpRequestTest extends \PHPUnit\Framework\TestCase
         );
     }
 
-    /**
-     * @testdox If the OS type is unknown a unknwon OS type is returned
-     * @covers phpOMS\Message\Http\HttpRequest<extended>
-     * @group framework
-     */
+    #[\PHPUnit\Framework\Attributes\Group('framework')]
+    #[\PHPUnit\Framework\Attributes\TestDox('If the OS type is unknown a unknwon OS type is returned')]
     public function testOS() : void
     {
         $request = new HttpRequest(new HttpUri('http://localhost:1234' . $GLOBALS['frameworkpath'] . 'tests/Message/Http/HttpRequestOS.php'));
@@ -494,11 +407,8 @@ final class HttpRequestTest extends \PHPUnit\Framework\TestCase
         );
     }
 
-    /**
-     * @testdox If the browser type is unknown a unknwon browser type is returned
-     * @covers phpOMS\Message\Http\HttpRequest<extended>
-     * @group framework
-     */
+    #[\PHPUnit\Framework\Attributes\Group('framework')]
+    #[\PHPUnit\Framework\Attributes\TestDox('If the browser type is unknown a unknwon browser type is returned')]
     public function testBrowser() : void
     {
         $request = new HttpRequest(new HttpUri('http://localhost:1234' . $GLOBALS['frameworkpath'] . 'tests/Message/Http/HttpRequestBrowser.php'));
@@ -510,11 +420,8 @@ final class HttpRequestTest extends \PHPUnit\Framework\TestCase
         );
     }
 
-    /**
-     * @testdox A invalid https port throws a OutOfRangeException
-     * @covers phpOMS\Message\Http\HttpRequest<extended>
-     * @group framework
-     */
+    #[\PHPUnit\Framework\Attributes\Group('framework')]
+    #[\PHPUnit\Framework\Attributes\TestDox('A invalid https port throws a OutOfRangeException')]
     public function testInvalidHttpsPort() : void
     {
         $this->expectException(\OutOfRangeException::class);
@@ -523,11 +430,8 @@ final class HttpRequestTest extends \PHPUnit\Framework\TestCase
         $request->isHttps(-1);
     }
 
-    /**
-     * @testdox A Invalid route verb throws a Exception
-     * @covers phpOMS\Message\Http\HttpRequest<extended>
-     * @group framework
-     */
+    #[\PHPUnit\Framework\Attributes\Group('framework')]
+    #[\PHPUnit\Framework\Attributes\TestDox('A Invalid route verb throws a Exception')]
     public function testInvalidRouteVerb() : void
     {
         $this->expectException(\Exception::class);

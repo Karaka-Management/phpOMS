@@ -2,7 +2,7 @@
 /**
  * Jingga
  *
- * PHP Version 8.1
+ * PHP Version 8.2
  *
  * @package   tests
  * @copyright Dennis Eichhorn
@@ -19,17 +19,14 @@ use phpOMS\Math\Matrix\Matrix;
 use phpOMS\Math\Matrix\Vector;
 
 /**
- * @testdox phpOMS\tests\Math\Matrix\CholeskyDecompositionTest: Cholesky decomposition
- *
  * @internal
  */
+#[\PHPUnit\Framework\Attributes\CoversClass(\phpOMS\Math\Matrix\CholeskyDecomposition::class)]
+#[\PHPUnit\Framework\Attributes\TestDox('phpOMS\tests\Math\Matrix\CholeskyDecompositionTest: Cholesky decomposition')]
 final class CholeskyDecompositionTest extends \PHPUnit\Framework\TestCase
 {
-    /**
-     * @testdox The decomposition can be created and the original matrix can be computed
-     * @covers phpOMS\Math\Matrix\CholeskyDecomposition
-     * @group framework
-     */
+    #[\PHPUnit\Framework\Attributes\Group('framework')]
+    #[\PHPUnit\Framework\Attributes\TestDox('The decomposition can be created and the original matrix can be computed')]
     public function testDecomposition() : void
     {
         $A = new Matrix();
@@ -50,11 +47,8 @@ final class CholeskyDecompositionTest extends \PHPUnit\Framework\TestCase
         );
     }
 
-    /**
-     * @testdox The decomposition matrix has the expected values
-     * @covers phpOMS\Math\Matrix\CholeskyDecomposition
-     * @group framework
-     */
+    #[\PHPUnit\Framework\Attributes\Group('framework')]
+    #[\PHPUnit\Framework\Attributes\TestDox('The decomposition matrix has the expected values')]
     public function testL() : void
     {
         $A = new Matrix();
@@ -73,11 +67,8 @@ final class CholeskyDecompositionTest extends \PHPUnit\Framework\TestCase
         ], $cholesky->getL()->toArray(), 0.2);
     }
 
-    /**
-     * @testdox A matrix can be checked for symmetric positivity
-     * @covers phpOMS\Math\Matrix\CholeskyDecomposition
-     * @group framework
-     */
+    #[\PHPUnit\Framework\Attributes\Group('framework')]
+    #[\PHPUnit\Framework\Attributes\TestDox('A matrix can be checked for symmetric positivity')]
     public function testSymmetricPositive() : void
     {
         $A = new Matrix();
@@ -103,11 +94,8 @@ final class CholeskyDecompositionTest extends \PHPUnit\Framework\TestCase
         self::assertTrue($choleskyB->isSpd());
     }
 
-    /**
-     * @testdox The equation Ax = b can be solved
-     * @covers phpOMS\Math\Matrix\CholeskyDecomposition
-     * @group framework
-     */
+    #[\PHPUnit\Framework\Attributes\Group('framework')]
+    #[\PHPUnit\Framework\Attributes\TestDox('The equation Ax = b can be solved')]
     public function testSolve() : void
     {
         $A = new Matrix();
@@ -124,11 +112,8 @@ final class CholeskyDecompositionTest extends \PHPUnit\Framework\TestCase
         self::assertEqualsWithDelta([[1], [2], [3]], $cholesky->solve($vec)->toArray(), 0.2);
     }
 
-    /**
-     * @testdox A invalid vector throws a InvalidDimensionException
-     * @covers phpOMS\Math\Matrix\CholeskyDecomposition
-     * @group framework
-     */
+    #[\PHPUnit\Framework\Attributes\Group('framework')]
+    #[\PHPUnit\Framework\Attributes\TestDox('A invalid vector throws a InvalidDimensionException')]
     public function testInvalidDimension() : void
     {
         $this->expectException(\phpOMS\Math\Matrix\Exception\InvalidDimensionException::class);

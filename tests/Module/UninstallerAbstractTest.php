@@ -2,7 +2,7 @@
 /**
  * Jingga
  *
- * PHP Version 8.1
+ * PHP Version 8.2
  *
  * @package   tests
  * @copyright Dennis Eichhorn
@@ -21,10 +21,10 @@ use phpOMS\Module\ModuleInfo;
 use phpOMS\Module\UninstallerAbstract;
 
 /**
- * @testdox phpOMS\tests\Module\UninstallerAbstractTest: Abstract module uninstaller
- *
  * @internal
  */
+#[\PHPUnit\Framework\Attributes\CoversClass(\phpOMS\Module\UninstallerAbstract::class)]
+#[\PHPUnit\Framework\Attributes\TestDox('phpOMS\tests\Module\UninstallerAbstractTest: Abstract module uninstaller')]
 final class UninstallerAbstractTest extends \PHPUnit\Framework\TestCase
 {
 	protected UninstallerAbstract $uninstaller;
@@ -40,11 +40,8 @@ final class UninstallerAbstractTest extends \PHPUnit\Framework\TestCase
     	};
     }
 
-    /**
-     * @testdox A missing database schema will not perform any database operations
-     * @covers phpOMS\Module\UninstallerAbstract
-     * @group framework
-     */
+    #[\PHPUnit\Framework\Attributes\Group('framework')]
+    #[\PHPUnit\Framework\Attributes\TestDox('A missing database schema will not perform any database operations')]
     public function testMissingDbFileUninstall() : void
     {
         $this->uninstaller::dropTables(

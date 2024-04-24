@@ -2,7 +2,7 @@
 /**
  * Jingga
  *
- * PHP Version 8.1
+ * PHP Version 8.2
  *
  * @package   tests
  * @copyright Dennis Eichhorn
@@ -17,10 +17,9 @@ namespace phpOMS\tests\Math\Topology;
 use phpOMS\Math\Topology\Kernel2D;
 
 /**
- * @testdox phpOMS\tests\Math\Topology\Kernel2DTest: Metric/distance calculations
- *
  * @internal
  */
+#[\PHPUnit\Framework\Attributes\TestDox('phpOMS\tests\Math\Topology\Kernel2DTest: Metric/distance calculations')]
 final class Kernel2DTest extends \PHPUnit\Framework\TestCase
 {
     public function testUniform() : void

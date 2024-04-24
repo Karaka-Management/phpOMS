@@ -2,7 +2,7 @@
 /**
  * Jingga
  *
- * PHP Version 8.1
+ * PHP Version 8.2
  *
  * @package   tests
  * @copyright Dennis Eichhorn
@@ -19,17 +19,14 @@ require_once __DIR__ . '/../Autoloader.php';
 use phpOMS\Views\PaginationView;
 
 /**
- * @testdox phpOMS\tests\Views\PaginationViewTest: View for pagination
- *
  * @internal
  */
+#[\PHPUnit\Framework\Attributes\CoversClass(\phpOMS\Views\PaginationView::class)]
+#[\PHPUnit\Framework\Attributes\TestDox('phpOMS\tests\Views\PaginationViewTest: View for pagination')]
 final class PaginationViewTest extends \PHPUnit\Framework\TestCase
 {
-    /**
-     * @testdox The pagination view has the expected default values after initialization
-     * @covers phpOMS\Views\PaginationView
-     * @group framework
-     */
+    #[\PHPUnit\Framework\Attributes\Group('framework')]
+    #[\PHPUnit\Framework\Attributes\TestDox('The pagination view has the expected default values after initialization')]
     public function testDefault() : void
     {
         $view = new PaginationView();
@@ -39,11 +36,8 @@ final class PaginationViewTest extends \PHPUnit\Framework\TestCase
         self::assertEquals(0, $view->getResults());
     }
 
-    /**
-     * @testdox The max pages can be set and returned
-     * @covers phpOMS\Views\PaginationView
-     * @group framework
-     */
+    #[\PHPUnit\Framework\Attributes\Group('framework')]
+    #[\PHPUnit\Framework\Attributes\TestDox('The max pages can be set and returned')]
     public function testMaxPagesInputOutput() : void
     {
         $view = new PaginationView();
@@ -52,11 +46,8 @@ final class PaginationViewTest extends \PHPUnit\Framework\TestCase
         self::assertEquals(9, $view->getMaxPages());
     }
 
-    /**
-     * @testdox The pages can be set and returned
-     * @covers phpOMS\Views\PaginationView
-     * @group framework
-     */
+    #[\PHPUnit\Framework\Attributes\Group('framework')]
+    #[\PHPUnit\Framework\Attributes\TestDox('The pages can be set and returned')]
     public function testPagesInputOutput() : void
     {
         $view = new PaginationView();
@@ -65,11 +56,8 @@ final class PaginationViewTest extends \PHPUnit\Framework\TestCase
         self::assertEquals(2, $view->getPages());
     }
 
-    /**
-     * @testdox The page can be set and returned
-     * @covers phpOMS\Views\PaginationView
-     * @group framework
-     */
+    #[\PHPUnit\Framework\Attributes\Group('framework')]
+    #[\PHPUnit\Framework\Attributes\TestDox('The page can be set and returned')]
     public function testPageInputOutput() : void
     {
         $view = new PaginationView();
@@ -78,11 +66,8 @@ final class PaginationViewTest extends \PHPUnit\Framework\TestCase
         self::assertEquals(3, $view->getPage());
     }
 
-    /**
-     * @testdox The results can be set and returned
-     * @covers phpOMS\Views\PaginationView
-     * @group framework
-     */
+    #[\PHPUnit\Framework\Attributes\Group('framework')]
+    #[\PHPUnit\Framework\Attributes\TestDox('The results can be set and returned')]
     public function testResultsInputOutput() : void
     {
         $view = new PaginationView();

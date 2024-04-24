@@ -2,7 +2,7 @@
 /**
  * Jingga
  *
- * PHP Version 8.1
+ * PHP Version 8.2
  *
  * @package   phpOMS\Router
  * @copyright Dennis Eichhorn
@@ -29,7 +29,7 @@ final class SocketRouter implements RouterInterface
     /**
      * Routes.
      *
-     * @var array<string, array>
+     * @var array<string, array<int, array{dest:mixed, verb:int, csrf?:bool, active?:bool, permission?:array{module:string, type:int, category:int}, validation?:?array, pattern?:?string}>>
      * @since 1.0.0
      */
     private array $routes = [];
@@ -40,15 +40,19 @@ final class SocketRouter implements RouterInterface
      * Files need to return a php array of the following structure (see PermissionHandlingTrait):
      * return [
      *      '{REGEX_PATH}' => [
-     *          'dest' => '{DESTINATION_NAMESPACE:method}', // use :: for static functions
-     *          'permission' => [ // optional
-     *              'module' => '{NAME}',
-     *              'type' => PermissionType::{TYPE},
-     *              'category' => PermissionCategory::{STATE},
+     *          [
+     *              'dest' => '{DESTINATION_NAMESPACE:method}', // use :: for static functions
+     *              'verb' => RouteVerb::{VERB},
+     *              'csrf' => true,
+     *              'permission' => [ // optional
+     *                  'module' => '{NAME}',
+     *                  'type' => PermissionType::{TYPE},
+     *                  'category' => PermissionCategory::{STATE},
+     *              ],
      *          ],
      *          // define different destination for different verb
-     *      ],
-     *      // define another regex path, destination, permission here
+     *      ]
+     *      // define another regex path here
      * ];
      *
      * @param string $path Route file path
@@ -125,21 +129,25 @@ final class SocketRouter implements RouterInterface
             }
 
             foreach ($destination as $d) {
+                if (!($d['active'] ?? true)) {
+                    continue;
+                }
+
                 if ((!isset($d['verb']) || $d['verb'] === RouteVerb::ANY)
                     || $verb === RouteVerb::ANY
                     || ($verb & $d['verb']) === $verb
                 ) {
                     // if csrf is required but not set
-                    if (isset($d['csrf']) && $d['csrf'] && $csrf === null) {
+                    if (($d['csrf'] ?? false) && $csrf === null) {
                         return ['dest' => RouteStatus::INVALID_CSRF];
                     }
 
                     // if permission check is invalid
-                    if (isset($d['permission']) && !empty($d['permission'])
+                    if (!empty($d['permission'] ?? null)
                         && ($account === null || $account->id === 0)
                     ) {
                         return ['dest' => RouteStatus::NOT_LOGGED_IN];
-                    } elseif (isset($d['permission']) && !empty($d['permission'])
+                    } elseif (!empty($d['permission'] ?? null)
                         && !($account?->hasPermission(
                                 $d['permission']['type'] ?? 0,
                                 $d['permission']['unit'] ?? $unitId,

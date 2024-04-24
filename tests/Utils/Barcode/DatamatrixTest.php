@@ -2,7 +2,7 @@
 /**
  * Jingga
  *
- * PHP Version 8.1
+ * PHP Version 8.2
  *
  * @package   tests
  * @copyright Dennis Eichhorn
@@ -19,6 +19,7 @@ use phpOMS\Utils\Barcode\Datamatrix;
 /**
  * @internal
  */
+#[\PHPUnit\Framework\Attributes\CoversClass(\phpOMS\Utils\Barcode\Datamatrix::class)]
 final class DatamatrixTest extends \PHPUnit\Framework\TestCase
 {
     protected function setUp() : void
@@ -30,10 +31,7 @@ final class DatamatrixTest extends \PHPUnit\Framework\TestCase
         }
     }
 
-    /**
-     * @covers phpOMS\Utils\Barcode\Datamatrix<extended>
-     * @group framework
-     */
+    #[\PHPUnit\Framework\Attributes\Group('framework')]
     public function testImagePng() : void
     {
         $path = __DIR__ . '/datamatrix.png';
@@ -47,10 +45,7 @@ final class DatamatrixTest extends \PHPUnit\Framework\TestCase
         self::assertFileExists($path);
     }
 
-    /**
-     * @covers phpOMS\Utils\Barcode\Datamatrix<extended>
-     * @group framework
-     */
+    #[\PHPUnit\Framework\Attributes\Group('framework')]
     public function testImageJpg() : void
     {
         $path = __DIR__ . '/datamatrix.jpg';

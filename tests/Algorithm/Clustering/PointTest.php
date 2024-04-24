@@ -2,7 +2,7 @@
 /**
  * Jingga
  *
- * PHP Version 8.1
+ * PHP Version 8.2
  *
  * @package   tests
  * @copyright Dennis Eichhorn
@@ -17,17 +17,14 @@ namespace phpOMS\tests\Algorithm\Clustering;
 use phpOMS\Algorithm\Clustering\Point;
 
 /**
- * @testdox phpOMS\tests\Algorithm\Clustering\PointTest: Default point in a cluster
- *
  * @internal
  */
+#[\PHPUnit\Framework\Attributes\CoversClass(\phpOMS\Algorithm\Clustering\Point::class)]
+#[\PHPUnit\Framework\Attributes\TestDox('phpOMS\tests\Algorithm\Clustering\PointTest: Default point in a cluster')]
 final class PointTest extends \PHPUnit\Framework\TestCase
 {
-    /**
-     * @testdox The point has the expected default values after initialization
-     * @covers phpOMS\Algorithm\Clustering\Point
-     * @group framework
-     */
+    #[\PHPUnit\Framework\Attributes\Group('framework')]
+    #[\PHPUnit\Framework\Attributes\TestDox('The point has the expected default values after initialization')]
     public function testDefault() : void
     {
         $point = new Point([3.0, 2.0], 'abc');
@@ -39,11 +36,8 @@ final class PointTest extends \PHPUnit\Framework\TestCase
         self::assertEquals('abc', $point->name);
     }
 
-    /**
-     * @testdox Coordinates of a point can be set and returned
-     * @covers phpOMS\Algorithm\Clustering\Point
-     * @group framework
-     */
+    #[\PHPUnit\Framework\Attributes\Group('framework')]
+    #[\PHPUnit\Framework\Attributes\TestDox('Coordinates of a point can be set and returned')]
     public function testCoordinateInputOutput() : void
     {
         $point = new Point([3.0, 2.0], 'abc');
@@ -56,11 +50,8 @@ final class PointTest extends \PHPUnit\Framework\TestCase
         self::assertEquals(1.0, $point->getCoordinate(1));
     }
 
-    /**
-     * @testdox The group/cluster of a point can be set and returned
-     * @covers phpOMS\Algorithm\Clustering\Point
-     * @group framework
-     */
+    #[\PHPUnit\Framework\Attributes\Group('framework')]
+    #[\PHPUnit\Framework\Attributes\TestDox('The group/cluster of a point can be set and returned')]
     public function testGroupInputOutput() : void
     {
         $point = new Point([3.0, 2.0], 'abc');
@@ -69,11 +60,8 @@ final class PointTest extends \PHPUnit\Framework\TestCase
         self::assertEquals(2, $point->group);
     }
 
-    /**
-     * @testdox The name of a point can be set and returned
-     * @covers phpOMS\Algorithm\Clustering\Point
-     * @group framework
-     */
+    #[\PHPUnit\Framework\Attributes\Group('framework')]
+    #[\PHPUnit\Framework\Attributes\TestDox('The name of a point can be set and returned')]
     public function testNameInputOutput() : void
     {
         $point = new Point([3.0, 2.0], 'abc');

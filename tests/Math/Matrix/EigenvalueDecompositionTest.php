@@ -2,7 +2,7 @@
 /**
  * Jingga
  *
- * PHP Version 8.1
+ * PHP Version 8.2
  *
  * @package   tests
  * @copyright Dennis Eichhorn
@@ -18,17 +18,14 @@ use phpOMS\Math\Matrix\EigenvalueDecomposition;
 use phpOMS\Math\Matrix\Matrix;
 
 /**
- * @testdox phpOMS\tests\Math\Matrix\EigenvalueDecompositionTest: Eigenvalue decomposition
- *
  * @internal
  */
+#[\PHPUnit\Framework\Attributes\CoversClass(\phpOMS\Math\Matrix\EigenvalueDecomposition::class)]
+#[\PHPUnit\Framework\Attributes\TestDox('phpOMS\tests\Math\Matrix\EigenvalueDecompositionTest: Eigenvalue decomposition')]
 final class EigenvalueDecompositionTest extends \PHPUnit\Framework\TestCase
 {
-    /**
-     * @testdox A matrix can be checked for symmetry
-     * @covers phpOMS\Math\Matrix\EigenvalueDecomposition
-     * @group framework
-     */
+    #[\PHPUnit\Framework\Attributes\Group('framework')]
+    #[\PHPUnit\Framework\Attributes\TestDox('A matrix can be checked for symmetry')]
     public function testSymmetricSymmetryMatrix() : void
     {
         $A = new Matrix();
@@ -54,11 +51,8 @@ final class EigenvalueDecompositionTest extends \PHPUnit\Framework\TestCase
         self::assertFalse($eigB->isSymmetric());
     }
 
-    /**
-     * @testdox The eigenvalues can be calculated for a symmetric matrix
-     * @covers phpOMS\Math\Matrix\EigenvalueDecomposition
-     * @group framework
-     */
+    #[\PHPUnit\Framework\Attributes\Group('framework')]
+    #[\PHPUnit\Framework\Attributes\TestDox('The eigenvalues can be calculated for a symmetric matrix')]
     public function testSymmetricMatrixEigenvalues() : void
     {
         $A = new Matrix();
@@ -74,11 +68,8 @@ final class EigenvalueDecompositionTest extends \PHPUnit\Framework\TestCase
         self::assertEqualsWithDelta([0, 0, 0], $eig->getImagEigenvalues()->toArray(), 0.1);
     }
 
-    /**
-     * @testdox The V matrix of the decomposition can be calculated for a symmetric matrix
-     * @covers phpOMS\Math\Matrix\EigenvalueDecomposition
-     * @group framework
-     */
+    #[\PHPUnit\Framework\Attributes\Group('framework')]
+    #[\PHPUnit\Framework\Attributes\TestDox('The V matrix of the decomposition can be calculated for a symmetric matrix')]
     public function testSymmetricMatrixV() : void
     {
         $A = new Matrix();
@@ -97,11 +88,8 @@ final class EigenvalueDecompositionTest extends \PHPUnit\Framework\TestCase
         ], $eig->getV()->toArray(), 0.2);
     }
 
-    /**
-     * @testdox The D matrix of the decomposition can be calculated for a symmetric matrix
-     * @covers phpOMS\Math\Matrix\EigenvalueDecomposition
-     * @group framework
-     */
+    #[\PHPUnit\Framework\Attributes\Group('framework')]
+    #[\PHPUnit\Framework\Attributes\TestDox('The D matrix of the decomposition can be calculated for a symmetric matrix')]
     public function testSymmetricMatrixD() : void
     {
         $A = new Matrix();
@@ -120,11 +108,8 @@ final class EigenvalueDecompositionTest extends \PHPUnit\Framework\TestCase
         ], $eig->getD()->toArray(), 0.2);
     }
 
-    /**
-     * @testdox The eigenvalues can be calculated for a none-symmetric matrix
-     * @covers phpOMS\Math\Matrix\EigenvalueDecomposition
-     * @group framework
-     */
+    #[\PHPUnit\Framework\Attributes\Group('framework')]
+    #[\PHPUnit\Framework\Attributes\TestDox('The eigenvalues can be calculated for a none-symmetric matrix')]
     public function testNonSymmetricMatrixEigenvalues() : void
     {
         $A = new Matrix();
@@ -140,11 +125,6 @@ final class EigenvalueDecompositionTest extends \PHPUnit\Framework\TestCase
         self::assertEqualsWithDelta([0, 0, 0], $eig->getImagEigenvalues()->toArray(), 0.1);
     }
 
-    /**
-     * @testdox The V matrix of the decomposition can be calculated for a none-symmetric matrix
-     * @covers phpOMS\Math\Matrix\EigenvalueDecomposition
-     * @group framework
-     */
     /*
     Testing for this makes little sense, since this can change depending on the algorithm, precision etc.
     It's much more important to check the identity A = VDV' which is done in the test "testCompositeNonSymmetric"
@@ -166,12 +146,8 @@ final class EigenvalueDecompositionTest extends \PHPUnit\Framework\TestCase
         ], $eig->getV()->toArray(), 0.2);
     }
     */
-
-    /**
-     * @testdox The D matrix of the decomposition can be calculated for a none-symmetric matrix
-     * @covers phpOMS\Math\Matrix\EigenvalueDecomposition
-     * @group framework
-     */
+    #[\PHPUnit\Framework\Attributes\Group('framework')]
+    #[\PHPUnit\Framework\Attributes\TestDox('The D matrix of the decomposition can be calculated for a none-symmetric matrix')]
     public function testNonSymmetricMatrixD() : void
     {
         $A = new Matrix();
@@ -190,11 +166,8 @@ final class EigenvalueDecompositionTest extends \PHPUnit\Framework\TestCase
         ], $eig->getD()->toArray(), 0.2);
     }
 
-    /**
-     * @testdox The decomposition can be created and the original matrix can be computed for a symmetric matrix
-     * @covers phpOMS\Math\Matrix\EigenvalueDecomposition
-     * @group framework
-     */
+    #[\PHPUnit\Framework\Attributes\Group('framework')]
+    #[\PHPUnit\Framework\Attributes\TestDox('The decomposition can be created and the original matrix can be computed for a symmetric matrix')]
     public function testCompositeSymmetric() : void
     {
         $A = new Matrix();
@@ -215,11 +188,8 @@ final class EigenvalueDecompositionTest extends \PHPUnit\Framework\TestCase
         , 0.2);
     }
 
-    /**
-     * @testdox The decomposition can be created and the original matrix can be computed for a none-symmetric matrix
-     * @covers phpOMS\Math\Matrix\EigenvalueDecomposition
-     * @group framework
-     */
+    #[\PHPUnit\Framework\Attributes\Group('framework')]
+    #[\PHPUnit\Framework\Attributes\TestDox('The decomposition can be created and the original matrix can be computed for a none-symmetric matrix')]
     public function testCompositeNonSymmetric() : void
     {
         $A = new Matrix();
@@ -241,10 +211,7 @@ final class EigenvalueDecompositionTest extends \PHPUnit\Framework\TestCase
         );
     }
 
-    /**
-     * @covers phpOMS\Math\Matrix\EigenvalueDecomposition
-     * @group framework
-     */
+    #[\PHPUnit\Framework\Attributes\Group('framework')]
     public function testComplexEigenvalueDecomposition() : void
     {
         $A = new Matrix();
@@ -263,10 +230,7 @@ final class EigenvalueDecompositionTest extends \PHPUnit\Framework\TestCase
         self::assertEqualsWithDelta([2, -2], $eig->getImagEigenvalues()->toArray(), 0.1);
     }
 
-    /**
-     * @covers phpOMS\Math\Matrix\EigenvalueDecomposition
-     * @group framework
-     */
+    #[\PHPUnit\Framework\Attributes\Group('framework')]
     public function testComplexDivision() : void
     {
         $A = new Matrix();
@@ -287,10 +251,7 @@ final class EigenvalueDecompositionTest extends \PHPUnit\Framework\TestCase
         self::assertEqualsWithDelta([4.49865, -4.49865, 0.0], $eig->getImagEigenvalues()->toArray(), 0.1);
     }
 
-    /**
-     * @covers phpOMS\Math\Matrix\EigenvalueDecomposition
-     * @group framework
-     */
+    #[\PHPUnit\Framework\Attributes\Group('framework')]
     public function testComplexDivision2() : void
     {
         $A = new Matrix();
@@ -311,10 +272,7 @@ final class EigenvalueDecompositionTest extends \PHPUnit\Framework\TestCase
         self::assertEqualsWithDelta([0.0, 4.7940, -4.7940], $eig->getImagEigenvalues()->toArray(), 0.1);
     }
 
-    /**
-     * @covers phpOMS\Math\Matrix\EigenvalueDecomposition
-     * @group framework
-     */
+    #[\PHPUnit\Framework\Attributes\Group('framework')]
     public function testComplexDivision3() : void
     {
         $A = new Matrix();
@@ -338,10 +296,7 @@ final class EigenvalueDecompositionTest extends \PHPUnit\Framework\TestCase
         self::assertEqualsWithDelta([14.8641, -14.8641, 5.6595, -5.6595], $eig->getImagEigenvalues()->toArray(), 0.1);
     }
 
-    /**
-     * @covers phpOMS\Math\Matrix\EigenvalueDecomposition
-     * @group framework
-     */
+    #[\PHPUnit\Framework\Attributes\Group('framework')]
     public function testComplexDivision4() : void
     {
         $A = new Matrix();

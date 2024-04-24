@@ -2,7 +2,7 @@
 /**
  * Jingga
  *
- * PHP Version 8.1
+ * PHP Version 8.2
  *
  * @package   tests
  * @copyright Dennis Eichhorn
@@ -17,17 +17,14 @@ namespace phpOMS\tests\Math\Geometry\Shape\D2;
 use phpOMS\Math\Geometry\Shape\D2\Polygon;
 
 /**
- * @testdox phpOMS\tests\Math\Geometry\Shape\D2\PolygonTest: Polygon shape
- *
  * @internal
  */
+#[\PHPUnit\Framework\Attributes\CoversClass(\phpOMS\Math\Geometry\Shape\D2\Polygon::class)]
+#[\PHPUnit\Framework\Attributes\TestDox('phpOMS\tests\Math\Geometry\Shape\D2\PolygonTest: Polygon shape')]
 final class PolygonTest extends \PHPUnit\Framework\TestCase
 {
-    /**
-     * @testdox The location of a point can be checked relative to a polygon
-     * @covers phpOMS\Math\Geometry\Shape\D2\Polygon
-     * @group framework
-     */
+    #[\PHPUnit\Framework\Attributes\Group('framework')]
+    #[\PHPUnit\Framework\Attributes\TestDox('The location of a point can be checked relative to a polygon')]
     public function testPoint() : void
     {
         $polyArray = [
@@ -49,11 +46,8 @@ final class PolygonTest extends \PHPUnit\Framework\TestCase
         self::assertEquals(-1, Polygon::isPointInPolygon(['x' => 1.8, 'y' => 1.1], $polyArray));
     }
 
-    /**
-     * @testdox The interior angle can be calculated
-     * @covers phpOMS\Math\Geometry\Shape\D2\Polygon
-     * @group framework
-     */
+    #[\PHPUnit\Framework\Attributes\Group('framework')]
+    #[\PHPUnit\Framework\Attributes\TestDox('The interior angle can be calculated')]
     public function testInteriorAngle() : void
     {
         $polygon = new Polygon([[1, 2], [2, 3], [3, 4]]);
@@ -75,22 +69,16 @@ final class PolygonTest extends \PHPUnit\Framework\TestCase
         self::assertEquals(1080, $polygon->getInteriorAngleSum());
     }
 
-    /**
-     * @testdox The exterior angle can be calculated
-     * @covers phpOMS\Math\Geometry\Shape\D2\Polygon
-     * @group framework
-     */
+    #[\PHPUnit\Framework\Attributes\Group('framework')]
+    #[\PHPUnit\Framework\Attributes\TestDox('The exterior angle can be calculated')]
     public function testExteriorAngle() : void
     {
         $polygon = new Polygon([[1, 2], [2, 3], [3, 4]]);
         self::assertEquals(360, $polygon->getExteriorAngleSum());
     }
 
-    /**
-     * @testdox The perimeter can be calculated
-     * @covers phpOMS\Math\Geometry\Shape\D2\Polygon
-     * @group framework
-     */
+    #[\PHPUnit\Framework\Attributes\Group('framework')]
+    #[\PHPUnit\Framework\Attributes\TestDox('The perimeter can be calculated')]
     public function testPerimeter() : void
     {
         $polygon = new Polygon([
@@ -106,11 +94,8 @@ final class PolygonTest extends \PHPUnit\Framework\TestCase
         self::assertEqualsWithDelta(9.6568, $polygon->getPerimeter(), 0.1);
     }
 
-    /**
-     * @testdox The area can be calculated
-     * @covers phpOMS\Math\Geometry\Shape\D2\Polygon
-     * @group framework
-     */
+    #[\PHPUnit\Framework\Attributes\Group('framework')]
+    #[\PHPUnit\Framework\Attributes\TestDox('The area can be calculated')]
     public function testArea() : void
     {
         $polygon = new Polygon([
@@ -126,11 +111,8 @@ final class PolygonTest extends \PHPUnit\Framework\TestCase
         self::assertEquals(7, $polygon->getSurface());
     }
 
-    /**
-     * @testdox The barycenter can be calculated
-     * @covers phpOMS\Math\Geometry\Shape\D2\Polygon
-     * @group framework
-     */
+    #[\PHPUnit\Framework\Attributes\Group('framework')]
+    #[\PHPUnit\Framework\Attributes\TestDox('The barycenter can be calculated')]
     public function testBarycenter() : void
     {
         $polygon = new Polygon([
@@ -146,21 +128,15 @@ final class PolygonTest extends \PHPUnit\Framework\TestCase
         self::assertEqualsWithDelta(['x' => 3.5, 'y' => 1.5], $polygon->getBarycenter(), 0.5);
     }
 
-    /**
-     * @testdox The regular area can be calculated with the side length
-     * @covers phpOMS\Math\Geometry\Shape\D2\Polygon
-     * @group framework
-     */
+    #[\PHPUnit\Framework\Attributes\Group('framework')]
+    #[\PHPUnit\Framework\Attributes\TestDox('The regular area can be calculated with the side length')]
     public function testRegularAreaByLength() : void
     {
         self::assertEqualsWithDelta(3 * 3, Polygon::getRegularAreaByLength(3.0, 4), 0.01);
     }
 
-    /**
-     * @testdox The regular area can be calculated with the radius
-     * @covers phpOMS\Math\Geometry\Shape\D2\Polygon
-     * @group framework
-     */
+    #[\PHPUnit\Framework\Attributes\Group('framework')]
+    #[\PHPUnit\Framework\Attributes\TestDox('The regular area can be calculated with the radius')]
     public function testRegularAreaByRadius() : void
     {
         self::assertEqualsWithDelta(3 * 3 , Polygon::getRegularAreaByRadius(1.5, 4), 0.01);

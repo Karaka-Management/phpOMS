@@ -2,7 +2,7 @@
 /**
  * Jingga
  *
- * PHP Version 8.1
+ * PHP Version 8.2
  *
  * @package   tests
  * @copyright Dennis Eichhorn
@@ -19,16 +19,14 @@ require_once __DIR__ . '/../Autoloader.php';
 use phpOMS\Localization\TimeZoneEnumArray;
 
 /**
- * @testdox phpOMS\tests\Localization\TimeZoneEnumArrayTest: Time zone enum array
  * @internal
  */
+#[\PHPUnit\Framework\Attributes\TestDox('phpOMS\tests\Localization\TimeZoneEnumArrayTest: Time zone enum array')]
 final class TimeZoneEnumArrayTest extends \PHPUnit\Framework\TestCase
 {
-    /**
-     * @testdox The time zone enum array has only unique values
-     * @group framework
-     * @coversNothing
-     */
+    #[\PHPUnit\Framework\Attributes\Group('framework')]
+    #[\PHPUnit\Framework\Attributes\TestDox('The time zone enum array has only unique values')]
+    #[\PHPUnit\Framework\Attributes\CoversNothing]
     public function testUnique() : void
     {
         self::assertEquals(\count(TimeZoneEnumArray::getConstants()), \count(\array_unique(TimeZoneEnumArray::getConstants())));

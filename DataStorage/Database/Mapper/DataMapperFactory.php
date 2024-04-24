@@ -2,7 +2,7 @@
 /**
  * Jingga
  *
- * PHP Version 8.1
+ * PHP Version 8.2
  *
  * @package   phpOMS\DataStorage\Database\Mapper
  * @copyright Dennis Eichhorn
@@ -443,7 +443,7 @@ class DataMapperFactory
      *
      * @since 1.0.0
      */
-    public static function createNullModel(mixed $id = null) : mixed
+    public static function createNullModel(mixed $id = null, ?string $member = null) : mixed
     {
         $class     = empty(static::MODEL) ? \substr(static::class, 0, -6) : static::MODEL;
         $parts     = \explode('\\', $class);
@@ -451,7 +451,18 @@ class DataMapperFactory
         $parts[$c] = 'Null' . $name;
         $class     = \implode('\\', $parts);
 
-        return $id !== null ? new $class($id) : new $class();
+        $model = $member === null && $id !== null ? new $class($id) : new $class();
+
+        if ($member !== null) {
+            // @bug This is just a quick fix, we don't know if "id" is the primary key in case of obj.
+            if (\is_object($model->{$member})) {
+                $model->{$member}->id = $id;
+            } else {
+                $model->{$member} = $id;
+            }
+        }
+
+        return $model;
     }
 
     /**

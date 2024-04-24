@@ -2,7 +2,7 @@
 /**
  * Jingga
  *
- * PHP Version 8.1
+ * PHP Version 8.2
  *
  * @package   tests
  * @copyright Dennis Eichhorn
@@ -19,36 +19,30 @@ require_once __DIR__ . '/../Autoloader.php';
 use phpOMS\Account\GroupStatus;
 
 /**
- * @testdox phpOMS\tests\Account\GroupStatus: Group status
  * @internal
  */
+#[\PHPUnit\Framework\Attributes\TestDox('phpOMS\tests\Account\GroupStatus: Group status')]
 final class GroupStatusTest extends \PHPUnit\Framework\TestCase
 {
-    /**
-     * @testdox The group status enum has the correct number of status codes
-     * @group framework
-     * @coversNothing
-     */
+    #[\PHPUnit\Framework\Attributes\Group('framework')]
+    #[\PHPUnit\Framework\Attributes\TestDox('The group status enum has the correct number of status codes')]
+    #[\PHPUnit\Framework\Attributes\CoversNothing]
     public function testEnumCount() : void
     {
         self::assertCount(3, GroupStatus::getConstants());
     }
 
-    /**
-     * @testdox The group status enum has only unique values
-     * @group framework
-     * @coversNothing
-     */
+    #[\PHPUnit\Framework\Attributes\Group('framework')]
+    #[\PHPUnit\Framework\Attributes\TestDox('The group status enum has only unique values')]
+    #[\PHPUnit\Framework\Attributes\CoversNothing]
     public function testUnique() : void
     {
         self::assertEquals(GroupStatus::getConstants(), \array_unique(GroupStatus::getConstants()));
     }
 
-    /**
-     * @testdox The group status enum has the correct values
-     * @group framework
-     * @coversNothing
-     */
+    #[\PHPUnit\Framework\Attributes\Group('framework')]
+    #[\PHPUnit\Framework\Attributes\TestDox('The group status enum has the correct values')]
+    #[\PHPUnit\Framework\Attributes\CoversNothing]
     public function testEnums() : void
     {
         self::assertEquals(1, GroupStatus::ACTIVE);

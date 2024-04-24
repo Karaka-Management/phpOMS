@@ -2,7 +2,7 @@
 /**
  * Jingga
  *
- * PHP Version 8.1
+ * PHP Version 8.2
  *
  * @package   tests
  * @copyright Dennis Eichhorn
@@ -21,27 +21,21 @@ use phpOMS\Utils\StringUtils;
 require_once __DIR__ . '/../Autoloader.php';
 
 /**
- * @testdox phpOMS\tests\Utils\StringUtilsTest: String utilities
- *
  * @internal
  */
+#[\PHPUnit\Framework\Attributes\CoversClass(\phpOMS\Utils\StringUtils::class)]
+#[\PHPUnit\Framework\Attributes\TestDox('phpOMS\tests\Utils\StringUtilsTest: String utilities')]
 final class StringUtilsTest extends \PHPUnit\Framework\TestCase
 {
-    /**
-     * @testdox The entropy of a string can be calculated
-     * @covers phpOMS\Utils\StringUtils
-     * @group framework
-     */
+    #[\PHPUnit\Framework\Attributes\Group('framework')]
+    #[\PHPUnit\Framework\Attributes\TestDox('The entropy of a string can be calculated')]
     public function testEntropy() : void
     {
         self::assertEqualsWithDelta(2.5, StringUtils::entropy('akj@!0aj'), 0.1);
     }
 
-    /**
-     * @testdox A string can be checked if it starts with a defined string
-     * @covers phpOMS\Utils\StringUtils
-     * @group framework
-     */
+    #[\PHPUnit\Framework\Attributes\Group('framework')]
+    #[\PHPUnit\Framework\Attributes\TestDox('A string can be checked if it starts with a defined string')]
     public function testStarts() : void
     {
         $string = 'This is a test string.';
@@ -49,11 +43,8 @@ final class StringUtilsTest extends \PHPUnit\Framework\TestCase
         self::assertFalse(StringUtils::startsWith($string, 'Thss '));
     }
 
-    /**
-     * @testdox A string can be checked if it ends with a defined string
-     * @covers phpOMS\Utils\StringUtils
-     * @group framework
-     */
+    #[\PHPUnit\Framework\Attributes\Group('framework')]
+    #[\PHPUnit\Framework\Attributes\TestDox('A string can be checked if it ends with a defined string')]
     public function testEnds() : void
     {
         $string = 'This is a test string.';
@@ -61,11 +52,8 @@ final class StringUtilsTest extends \PHPUnit\Framework\TestCase
         self::assertFalse(StringUtils::endsWith($string, 'strng.'));
     }
 
-    /**
-     * @testdox A string can be checked if it contains at least one defined string element
-     * @covers phpOMS\Utils\StringUtils
-     * @group framework
-     */
+    #[\PHPUnit\Framework\Attributes\Group('framework')]
+    #[\PHPUnit\Framework\Attributes\TestDox('A string can be checked if it contains at least one defined string element')]
     public function testContains() : void
     {
         $string = 'This is a test string.';
@@ -74,52 +62,37 @@ final class StringUtilsTest extends \PHPUnit\Framework\TestCase
         self::assertFalse(StringUtils::contains($string, ['iss', 'nothing', 'false']));
     }
 
-    /**
-     * @testdox The amount of a defined characters in the beginning of a string can be counted
-     * @covers phpOMS\Utils\StringUtils
-     * @group framework
-     */
+    #[\PHPUnit\Framework\Attributes\Group('framework')]
+    #[\PHPUnit\Framework\Attributes\TestDox('The amount of a defined characters in the beginning of a string can be counted')]
     public function testCountBeginning() : void
     {
         self::assertEquals(4, StringUtils::countCharacterFromStart('    Test string', ' '));
         self::assertEquals(0, StringUtils::countCharacterFromStart('    Test string', 's'));
     }
 
-    /**
-     * @testdox A string creates a integer hash
-     * @covers phpOMS\Utils\StringUtils
-     * @group framework
-     */
+    #[\PHPUnit\Framework\Attributes\Group('framework')]
+    #[\PHPUnit\Framework\Attributes\TestDox('A string creates a integer hash')]
     public function testIntHash() : void
     {
         self::assertGreaterThan(0, StringUtils::intHash('test'));
     }
 
-    /**
-     * @testdox The same string creates the same hash
-     * @covers phpOMS\Utils\StringUtils
-     * @group framework
-     */
+    #[\PHPUnit\Framework\Attributes\Group('framework')]
+    #[\PHPUnit\Framework\Attributes\TestDox('The same string creates the same hash')]
     public function testSameHash() : void
     {
         self::assertEquals(StringUtils::intHash('test'), StringUtils::intHash('test'));
     }
 
-    /**
-     * @testdox Different strings create different hashes
-     * @covers phpOMS\Utils\StringUtils
-     * @group framework
-     */
+    #[\PHPUnit\Framework\Attributes\Group('framework')]
+    #[\PHPUnit\Framework\Attributes\TestDox('Different strings create different hashes')]
     public function testDifferentHash() : void
     {
         self::assertNotEquals(StringUtils::intHash('test1'), StringUtils::intHash('test2'));
     }
 
-    /**
-     * @testdox Various data types can be stringified
-     * @covers phpOMS\Utils\StringUtils
-     * @group framework
-     */
+    #[\PHPUnit\Framework\Attributes\Group('framework')]
+    #[\PHPUnit\Framework\Attributes\TestDox('Various data types can be stringified')]
     public function testStringify() : void
     {
         self::assertEquals('"abc"', StringUtils::stringify(new class() implements \JsonSerializable {
@@ -167,21 +140,15 @@ final class StringUtilsTest extends \PHPUnit\Framework\TestCase
         }));
     }
 
-    /**
-     * @testdox Stringify/rendering a unknown data type returns null
-     * @covers phpOMS\Utils\StringUtils
-     * @group framework
-     */
+    #[\PHPUnit\Framework\Attributes\Group('framework')]
+    #[\PHPUnit\Framework\Attributes\TestDox('Stringify/rendering a unknown data type returns null')]
     public function testInvalidStringify() : void
     {
         self::assertNull(StringUtils::stringify(new class() {}));
     }
 
-    /**
-     * @testdox The difference between two strings can be evaluated
-     * @covers phpOMS\Utils\StringUtils
-     * @group framework
-     */
+    #[\PHPUnit\Framework\Attributes\Group('framework')]
+    #[\PHPUnit\Framework\Attributes\TestDox('The difference between two strings can be evaluated')]
     public function testStringDiffHtml() : void
     {
         $original = 'This is a test string.';

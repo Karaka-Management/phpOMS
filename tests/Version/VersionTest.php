@@ -2,7 +2,7 @@
 /**
  * Jingga
  *
- * PHP Version 8.1
+ * PHP Version 8.2
  *
  * @package   tests
  * @copyright Dennis Eichhorn
@@ -19,17 +19,14 @@ use phpOMS\Version\Version;
 require_once __DIR__ . '/../Autoloader.php';
 
 /**
- * @testdox phpOMS\tests\Version\VersionTest: Version handler
- *
  * @internal
  */
+#[\PHPUnit\Framework\Attributes\CoversClass(\phpOMS\Version\Version::class)]
+#[\PHPUnit\Framework\Attributes\TestDox('phpOMS\tests\Version\VersionTest: Version handler')]
 final class VersionTest extends \PHPUnit\Framework\TestCase
 {
-    /**
-     * @testdox Versions can be compared with each other
-     * @covers phpOMS\Version\Version
-     * @group framework
-     */
+    #[\PHPUnit\Framework\Attributes\Group('framework')]
+    #[\PHPUnit\Framework\Attributes\TestDox('Versions can be compared with each other')]
     public function testVersionCompare() : void
     {
         $version1 = '1.23.456';

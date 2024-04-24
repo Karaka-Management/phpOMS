@@ -2,7 +2,7 @@
 /**
  * Jingga
  *
- * PHP Version 8.1
+ * PHP Version 8.2
  *
  * @package   phpOMS\Math\Topology
  * @copyright Dennis Eichhorn
@@ -52,7 +52,7 @@ final class MetricsND
      */
     public static function manhattan(array $a, array $b) : float
     {
-        if (\count($a) !== \count($b)) {
+        if (\count($a) > \count($b)) {
             throw new InvalidDimensionException(\count($a) . 'x' . \count($b));
         }
 
@@ -74,13 +74,11 @@ final class MetricsND
      *
      * @return float
      *
-     * @throws InvalidDimensionException
-     *
      * @since 1.0.0
      */
     public static function euclidean(array $a, array $b) : float
     {
-        if (\count($a) !== \count($b)) {
+        if (\count($a) > \count($b)) {
             throw new InvalidDimensionException(\count($a) . 'x' . \count($b));
         }
 
@@ -106,7 +104,7 @@ final class MetricsND
      */
     public static function cosine(array $a, array $b) : float
     {
-        if (\count($a) !== \count($b)) {
+        if (\count($a) > \count($b)) {
             throw new InvalidDimensionException(\count($a) . 'x' . \count($b));
         }
 
@@ -150,7 +148,7 @@ final class MetricsND
      */
     public static function chebyshev(array $a, array $b) : float
     {
-        if (\count($a) !== \count($b)) {
+        if (\count($a) > \count($b)) {
             throw new InvalidDimensionException(\count($a) . 'x' . \count($b));
         }
 
@@ -179,7 +177,7 @@ final class MetricsND
      */
     public static function minkowski(array $a, array $b, int $lambda) : float
     {
-        if (\count($a) !== \count($b)) {
+        if (\count($a) > \count($b)) {
             throw new InvalidDimensionException(\count($a) . 'x' . \count($b));
         }
 
@@ -207,7 +205,7 @@ final class MetricsND
      */
     public static function canberra(array $a, array $b) : float
     {
-        if (\count($a) !== \count($b)) {
+        if (\count($a) > \count($b)) {
             throw new InvalidDimensionException(\count($a) . 'x' . \count($b));
         }
 
@@ -235,7 +233,7 @@ final class MetricsND
      */
     public static function brayCurtis(array $a, array $b) : float
     {
-        if (\count($a) !== \count($b)) {
+        if (\count($a) > \count($b)) {
             throw new InvalidDimensionException(\count($a) . 'x' . \count($b));
         }
 
@@ -265,7 +263,7 @@ final class MetricsND
      */
     public static function angularSeparation(array $a, array $b) : float
     {
-        if (\count($a) !== \count($b)) {
+        if (\count($a) > \count($b)) {
             throw new InvalidDimensionException(\count($a) . 'x' . \count($b));
         }
 

@@ -2,7 +2,7 @@
 /**
  * Jingga
  *
- * PHP Version 8.1
+ * PHP Version 8.2
  *
  * @package   tests
  * @copyright Dennis Eichhorn
@@ -18,17 +18,14 @@ use phpOMS\Algorithm\Knapsack\Backpack;
 use phpOMS\Algorithm\Knapsack\Item;
 
 /**
- * @testdox phpOMS\tests\Algorithm\Knapsack\BackpackTest: The default backpack or basket which holds all items for the Knapsack algorithm
- *
  * @internal
  */
+#[\PHPUnit\Framework\Attributes\CoversClass(\phpOMS\Algorithm\Knapsack\Backpack::class)]
+#[\PHPUnit\Framework\Attributes\TestDox('phpOMS\tests\Algorithm\Knapsack\BackpackTest: The default backpack or basket which holds all items for the Knapsack algorithm')]
 final class BackpackTest extends \PHPUnit\Framework\TestCase
 {
-    /**
-     * @testdox The backpack has the expected values after initialization
-     * @covers phpOMS\Algorithm\Knapsack\Backpack
-     * @group framework
-     */
+    #[\PHPUnit\Framework\Attributes\Group('framework')]
+    #[\PHPUnit\Framework\Attributes\TestDox('The backpack has the expected values after initialization')]
     public function testDefault() : void
     {
         $backpack = new Backpack(3.0);
@@ -39,11 +36,8 @@ final class BackpackTest extends \PHPUnit\Framework\TestCase
         self::assertEquals([], $backpack->getItems());
     }
 
-    /**
-     * @testdox Items can be added to the backpack and automatically change the value and cost the backpack contains
-     * @covers phpOMS\Algorithm\Knapsack\Backpack
-     * @group framework
-     */
+    #[\PHPUnit\Framework\Attributes\Group('framework')]
+    #[\PHPUnit\Framework\Attributes\TestDox('Items can be added to the backpack and automatically change the value and cost the backpack contains')]
     public function testAddItems() : void
     {
         $backpack = new Backpack(3.0);

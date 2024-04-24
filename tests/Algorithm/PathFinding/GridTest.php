@@ -2,7 +2,7 @@
 /**
  * Jingga
  *
- * PHP Version 8.1
+ * PHP Version 8.2
  *
  * @package   tests
  * @copyright Dennis Eichhorn
@@ -21,28 +21,22 @@ use phpOMS\Algorithm\PathFinding\Node;
 require_once __DIR__ . '/../../Autoloader.php';
 
 /**
- * @testdox phpOMS\tests\Algorithm\PathFinding\GridTest: Grid for path finding
- *
  * @internal
  */
+#[\PHPUnit\Framework\Attributes\CoversClass(\phpOMS\Algorithm\PathFinding\Grid::class)]
+#[\PHPUnit\Framework\Attributes\TestDox('phpOMS\tests\Algorithm\PathFinding\GridTest: Grid for path finding')]
 final class GridTest extends \PHPUnit\Framework\TestCase
 {
-    /**
-     * @testdox By default a grid is empty
-     * @covers phpOMS\Algorithm\PathFinding\Grid
-     * @group framework
-     */
+    #[\PHPUnit\Framework\Attributes\Group('framework')]
+    #[\PHPUnit\Framework\Attributes\TestDox('By default a grid is empty')]
     public function testDefault() : void
     {
         $grid = new Grid();
         self::assertNull($grid->getNode(0, 0));
     }
 
-    /**
-     * @testdox A grid can be created from an array
-     * @covers phpOMS\Algorithm\PathFinding\Grid
-     * @group framework
-     */
+    #[\PHPUnit\Framework\Attributes\Group('framework')]
+    #[\PHPUnit\Framework\Attributes\TestDox('A grid can be created from an array')]
     public function testGridFromArray() : void
     {
         $grid = Grid::createGridFromArray([
@@ -64,11 +58,8 @@ final class GridTest extends \PHPUnit\Framework\TestCase
         self::assertTrue($grid->isWalkable(2, 2));
     }
 
-    /**
-     * @testdox A node can be set and returned from the grid
-     * @covers phpOMS\Algorithm\PathFinding\Grid
-     * @group framework
-     */
+    #[\PHPUnit\Framework\Attributes\Group('framework')]
+    #[\PHPUnit\Framework\Attributes\TestDox('A node can be set and returned from the grid')]
     public function testNodeInputOutput() : void
     {
         $grid = Grid::createGridFromArray([
@@ -82,11 +73,8 @@ final class GridTest extends \PHPUnit\Framework\TestCase
         self::assertFalse($grid->isWalkable(0, 0));
     }
 
-    /**
-     * @testdox Out of bounds nodes cannot be returned
-     * @covers phpOMS\Algorithm\PathFinding\Grid::getNode
-     * @group framework
-     */
+    #[\PHPUnit\Framework\Attributes\Group('framework')]
+    #[\PHPUnit\Framework\Attributes\TestDox('Out of bounds nodes cannot be returned')]
     public function testOutOfBoundsNode() : void
     {
         $grid = Grid::createGridFromArray([
@@ -101,11 +89,8 @@ final class GridTest extends \PHPUnit\Framework\TestCase
         self::assertNull($grid->getNode(0, 3));
     }
 
-    /**
-     * @testdox All horizontal neighbors can be found correctly
-     * @covers phpOMS\Algorithm\PathFinding\Grid::getNeighbors
-     * @group framework
-     */
+    #[\PHPUnit\Framework\Attributes\Group('framework')]
+    #[\PHPUnit\Framework\Attributes\TestDox('All horizontal neighbors can be found correctly')]
     public function testStraightHorizontalNeighbors() : void
     {
         $grid = Grid::createGridFromArray([
@@ -122,11 +107,8 @@ final class GridTest extends \PHPUnit\Framework\TestCase
         self::assertTrue($grid->getNode(2, 1)->isEqual($neighbors[0]));
     }
 
-    /**
-     * @testdox All vertical neighbors can be found correctly
-     * @covers phpOMS\Algorithm\PathFinding\Grid::getNeighbors
-     * @group framework
-     */
+    #[\PHPUnit\Framework\Attributes\Group('framework')]
+    #[\PHPUnit\Framework\Attributes\TestDox('All vertical neighbors can be found correctly')]
     public function testStraightVerticalNeighbors() : void
     {
         $grid = Grid::createGridFromArray([
@@ -143,11 +125,8 @@ final class GridTest extends \PHPUnit\Framework\TestCase
         self::assertTrue($grid->getNode(1, 2)->isEqual($neighbors[1]));
     }
 
-    /**
-     * @testdox No straight neighbors are found if no straight neighbors exist
-     * @covers phpOMS\Algorithm\PathFinding\Grid::getNeighbors
-     * @group framework
-     */
+    #[\PHPUnit\Framework\Attributes\Group('framework')]
+    #[\PHPUnit\Framework\Attributes\TestDox('No straight neighbors are found if no straight neighbors exist')]
     public function testStraightNoneNeighbors() : void
     {
         $grid = Grid::createGridFromArray([
@@ -162,11 +141,8 @@ final class GridTest extends \PHPUnit\Framework\TestCase
         self::assertEquals(0, \count($neighbors));
     }
 
-    /**
-     * @testdox All straight neighbors can be found correctly
-     * @covers phpOMS\Algorithm\PathFinding\Grid::getNeighbors
-     * @group framework
-     */
+    #[\PHPUnit\Framework\Attributes\Group('framework')]
+    #[\PHPUnit\Framework\Attributes\TestDox('All straight neighbors can be found correctly')]
     public function testStraightAllNeighbors() : void
     {
         $grid = Grid::createGridFromArray([
@@ -185,11 +161,8 @@ final class GridTest extends \PHPUnit\Framework\TestCase
         self::assertTrue($grid->getNode(1, 2)->isEqual($neighbors[2]));
     }
 
-    /**
-     * @testdox All neighbors except blocked diagonal neighbors can be found correctly
-     * @covers phpOMS\Algorithm\PathFinding\Grid::getNeighbors
-     * @group framework
-     */
+    #[\PHPUnit\Framework\Attributes\Group('framework')]
+    #[\PHPUnit\Framework\Attributes\TestDox('All neighbors except blocked diagonal neighbors can be found correctly')]
     public function testDiagonalLRNeighbors() : void
     {
         $grid = Grid::createGridFromArray([
@@ -210,11 +183,8 @@ final class GridTest extends \PHPUnit\Framework\TestCase
         self::assertTrue($grid->getNode(2, 2)->isEqual($neighbors[5]));
     }
 
-    /**
-     * @testdox All neighbors except blocked diagonal neighbors can be found correctly
-     * @covers phpOMS\Algorithm\PathFinding\Grid::getNeighbors
-     * @group framework
-     */
+    #[\PHPUnit\Framework\Attributes\Group('framework')]
+    #[\PHPUnit\Framework\Attributes\TestDox('All neighbors except blocked diagonal neighbors can be found correctly')]
     public function testDiagonalURNeighbors() : void
     {
         $grid = Grid::createGridFromArray([
@@ -235,11 +205,8 @@ final class GridTest extends \PHPUnit\Framework\TestCase
         self::assertTrue($grid->getNode(0, 2)->isEqual($neighbors[5]));
     }
 
-    /**
-     * @testdox No diagonal neighbors are found if no neighbors exist
-     * @covers phpOMS\Algorithm\PathFinding\Grid::getNeighbors
-     * @group framework
-     */
+    #[\PHPUnit\Framework\Attributes\Group('framework')]
+    #[\PHPUnit\Framework\Attributes\TestDox('No diagonal neighbors are found if no neighbors exist')]
     public function testDiagonalNoneNeighbors() : void
     {
         $grid = Grid::createGridFromArray([
@@ -254,11 +221,8 @@ final class GridTest extends \PHPUnit\Framework\TestCase
         self::assertEquals(0, \count($neighbors));
     }
 
-    /**
-     * @testdox All diagonal neighbors can be found correctly
-     * @covers phpOMS\Algorithm\PathFinding\Grid::getNeighbors
-     * @group framework
-     */
+    #[\PHPUnit\Framework\Attributes\Group('framework')]
+    #[\PHPUnit\Framework\Attributes\TestDox('All diagonal neighbors can be found correctly')]
     public function testDiagonalOnlyNeighbors() : void
     {
         $grid = Grid::createGridFromArray([
@@ -277,11 +241,8 @@ final class GridTest extends \PHPUnit\Framework\TestCase
         self::assertTrue($grid->getNode(2, 2)->isEqual($neighbors[2]));
     }
 
-    /**
-     * @testdox All neighbors can be found correctly
-     * @covers phpOMS\Algorithm\PathFinding\Grid::getNeighbors
-     * @group framework
-     */
+    #[\PHPUnit\Framework\Attributes\Group('framework')]
+    #[\PHPUnit\Framework\Attributes\TestDox('All neighbors can be found correctly')]
     public function testDiagonalAllNeighbors() : void
     {
         $grid = Grid::createGridFromArray([
@@ -304,11 +265,8 @@ final class GridTest extends \PHPUnit\Framework\TestCase
         self::assertTrue($grid->getNode(2, 2)->isEqual($neighbors[6]));
     }
 
-    /**
-     * @testdox All neighbors can be found correctly even if one obstacle exists
-     * @covers phpOMS\Algorithm\PathFinding\Grid::getNeighbors
-     * @group framework
-     */
+    #[\PHPUnit\Framework\Attributes\Group('framework')]
+    #[\PHPUnit\Framework\Attributes\TestDox('All neighbors can be found correctly even if one obstacle exists')]
     public function testDiagonalOneObstacleNoBlockNeighbors() : void
     {
         $grid = Grid::createGridFromArray([
@@ -330,11 +288,8 @@ final class GridTest extends \PHPUnit\Framework\TestCase
         self::assertTrue($grid->getNode(2, 2)->isEqual($neighbors[5]));
     }
 
-    /**
-     * @testdox No diagonal neighbors are found if they are blocked on two sides
-     * @covers phpOMS\Algorithm\PathFinding\Grid::getNeighbors
-     * @group framework
-     */
+    #[\PHPUnit\Framework\Attributes\Group('framework')]
+    #[\PHPUnit\Framework\Attributes\TestDox('No diagonal neighbors are found if they are blocked on two sides')]
     public function testDiagonalOneObstacleBlockNeighbors() : void
     {
         $grid = Grid::createGridFromArray([
@@ -354,11 +309,8 @@ final class GridTest extends \PHPUnit\Framework\TestCase
         self::assertTrue($grid->getNode(2, 2)->isEqual($neighbors[3]));
     }
 
-    /**
-     * @testdox All neighbors can be found correctly if no obstacles exists
-     * @covers phpOMS\Algorithm\PathFinding\Grid::getNeighbors
-     * @group framework
-     */
+    #[\PHPUnit\Framework\Attributes\Group('framework')]
+    #[\PHPUnit\Framework\Attributes\TestDox('All neighbors can be found correctly if no obstacles exists')]
     public function testDiagonalOneObstacleAllNeighbors() : void
     {
         $grid = Grid::createGridFromArray([
@@ -381,11 +333,8 @@ final class GridTest extends \PHPUnit\Framework\TestCase
         self::assertTrue($grid->getNode(2, 2)->isEqual($neighbors[6]));
     }
 
-    /**
-     * @testdox No diagonal neighbors are found if one obstacle exists
-     * @covers phpOMS\Algorithm\PathFinding\Grid::getNeighbors
-     * @group framework
-     */
+    #[\PHPUnit\Framework\Attributes\Group('framework')]
+    #[\PHPUnit\Framework\Attributes\TestDox('No diagonal neighbors are found if one obstacle exists')]
     public function testDiagonalNoObstacleBlockNeighbors() : void
     {
         $grid = Grid::createGridFromArray([
@@ -405,11 +354,8 @@ final class GridTest extends \PHPUnit\Framework\TestCase
         self::assertTrue($grid->getNode(2, 2)->isEqual($neighbors[3]));
     }
 
-    /**
-     * @testdox All neighbors can be found correctly if no obstacles exist
-     * @covers phpOMS\Algorithm\PathFinding\Grid::getNeighbors
-     * @group framework
-     */
+    #[\PHPUnit\Framework\Attributes\Group('framework')]
+    #[\PHPUnit\Framework\Attributes\TestDox('All neighbors can be found correctly if no obstacles exist')]
     public function testDiagonalNoObstacleAllNeighbors() : void
     {
         $grid = Grid::createGridFromArray([

@@ -2,7 +2,7 @@
 /**
  * Jingga
  *
- * PHP Version 8.1
+ * PHP Version 8.2
  *
  * @package   tests
  * @copyright Dennis Eichhorn
@@ -17,17 +17,14 @@ namespace phpOMS\tests\Math\Functions;
 use phpOMS\Math\Functions\Fibonacci;
 
 /**
- * @testdox phpOMS\tests\Math\Functions\FibonacciTest: Fibonacci functions
- *
  * @internal
  */
+#[\PHPUnit\Framework\Attributes\CoversClass(\phpOMS\Math\Functions\Fibonacci::class)]
+#[\PHPUnit\Framework\Attributes\TestDox('phpOMS\tests\Math\Functions\FibonacciTest: Fibonacci functions')]
 final class FibonacciTest extends \PHPUnit\Framework\TestCase
 {
-    /**
-     * @testdox A number can be checked if it is a fibonacci number
-     * @covers phpOMS\Math\Functions\Fibonacci
-     * @group framework
-     */
+    #[\PHPUnit\Framework\Attributes\Group('framework')]
+    #[\PHPUnit\Framework\Attributes\TestDox('A number can be checked if it is a fibonacci number')]
     public function testFibonacci() : void
     {
         self::assertTrue(Fibonacci::isFibonacci(13));
@@ -37,32 +34,23 @@ final class FibonacciTest extends \PHPUnit\Framework\TestCase
         self::assertFalse(Fibonacci::isFibonacci(87));
     }
 
-    /**
-     * @testdox A fibonacci number can be returned by index
-     * @covers phpOMS\Math\Functions\Fibonacci
-     * @group framework
-     */
+    #[\PHPUnit\Framework\Attributes\Group('framework')]
+    #[\PHPUnit\Framework\Attributes\TestDox('A fibonacci number can be returned by index')]
     public function testFibonacciByKey() : void
     {
         self::assertEquals(1, Fibonacci::fib(1));
     }
 
-    /**
-     * @testdox The binet formula returns fibonacci numbers
-     * @covers phpOMS\Math\Functions\Fibonacci
-     * @group framework
-     */
+    #[\PHPUnit\Framework\Attributes\Group('framework')]
+    #[\PHPUnit\Framework\Attributes\TestDox('The binet formula returns fibonacci numbers')]
     public function testBinet() : void
     {
         self::assertTrue(Fibonacci::isFibonacci(Fibonacci::binet(3)));
         self::assertTrue(Fibonacci::isFibonacci(Fibonacci::binet(6)));
     }
 
-    /**
-     * @testdox The binet formula and the fibonacci formula return the same results
-     * @covers phpOMS\Math\Functions\Fibonacci
-     * @group framework
-     */
+    #[\PHPUnit\Framework\Attributes\Group('framework')]
+    #[\PHPUnit\Framework\Attributes\TestDox('The binet formula and the fibonacci formula return the same results')]
     public function testBinetFib() : void
     {
         self::assertEquals(Fibonacci::binet(6), Fibonacci::fib(6));

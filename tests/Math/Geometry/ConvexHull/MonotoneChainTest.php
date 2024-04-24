@@ -2,7 +2,7 @@
 /**
  * Jingga
  *
- * PHP Version 8.1
+ * PHP Version 8.2
  *
  * @package   tests
  * @copyright Dennis Eichhorn
@@ -17,17 +17,14 @@ namespace phpOMS\tests\Math\Geometry\ConvexHull;
 use phpOMS\Math\Geometry\ConvexHull\MonotoneChain;
 
 /**
- * @testdox phpOMS\tests\Math\Geometry\ConvexHull\MonotoneChainTest: Monotone chain
- *
  * @internal
  */
+#[\PHPUnit\Framework\Attributes\CoversClass(\phpOMS\Math\Geometry\ConvexHull\MonotoneChain::class)]
+#[\PHPUnit\Framework\Attributes\TestDox('phpOMS\tests\Math\Geometry\ConvexHull\MonotoneChainTest: Monotone chain')]
 final class MonotoneChainTest extends \PHPUnit\Framework\TestCase
 {
-    /**
-     * @testdox A convex hull can be formed from multiple points on a plane
-     * @covers phpOMS\Math\Geometry\ConvexHull\MonotoneChain
-     * @group framework
-     */
+    #[\PHPUnit\Framework\Attributes\Group('framework')]
+    #[\PHPUnit\Framework\Attributes\TestDox('A convex hull can be formed from multiple points on a plane')]
     public function testMonotoneChain() : void
     {
         self::assertEquals([['x' => 9, 'y' => 0]], MonotoneChain::createConvexHull([['x' => 9, 'y' => 0]]));

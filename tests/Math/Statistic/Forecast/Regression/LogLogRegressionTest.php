@@ -2,7 +2,7 @@
 /**
  * Jingga
  *
- * PHP Version 8.1
+ * PHP Version 8.2
  *
  * @package   tests
  * @copyright Dennis Eichhorn
@@ -17,10 +17,9 @@ namespace phpOMS\tests\Math\Statistic\Forecast\Regression;
 use phpOMS\Math\Statistic\Forecast\Regression\LogLogRegression;
 
 /**
- * @testdox phpOMS\tests\Math\Statistic\Forecast\Regression\LogLogRegressionTest: Log log regression
- *
  * @internal
  */
+#[\PHPUnit\Framework\Attributes\TestDox('phpOMS\tests\Math\Statistic\Forecast\Regression\LogLogRegressionTest: Log log regression')]
 final class LogLogRegressionTest extends \PHPUnit\Framework\TestCase
 {
     protected $reg = null;
@@ -37,19 +36,15 @@ final class LogLogRegressionTest extends \PHPUnit\Framework\TestCase
         $this->reg = LogLogRegression::getRegression($x, $y);
     }
 
-    /**
-     * @testdox The regression parameters are calculated correctly
-     * @group framework
-     */
+    #[\PHPUnit\Framework\Attributes\Group('framework')]
+    #[\PHPUnit\Framework\Attributes\TestDox('The regression parameters are calculated correctly')]
     public function testRegression() : void
     {
         self::assertEqualsWithDelta(['b0' => 2, 'b1' => 3], $this->reg, 0.2);
     }
 
-    /**
-     * @testdox The slope is calculated correctly
-     * @group framework
-     */
+    #[\PHPUnit\Framework\Attributes\Group('framework')]
+    #[\PHPUnit\Framework\Attributes\TestDox('The slope is calculated correctly')]
     public function testSlope() : void
     {
         $y = 3;
@@ -57,19 +52,15 @@ final class LogLogRegressionTest extends \PHPUnit\Framework\TestCase
         self::assertEqualsWithDelta($this->reg['b1'] * $y / $x, LogLogRegression::getSlope($this->reg['b1'], $y, $x), 0.2);
     }
 
-    /**
-     * @testdox The elasticity is calculated correctly
-     * @group framework
-     */
+    #[\PHPUnit\Framework\Attributes\Group('framework')]
+    #[\PHPUnit\Framework\Attributes\TestDox('The elasticity is calculated correctly')]
     public function testElasticity() : void
     {
         self::assertEqualsWithDelta($this->reg['b1'], LogLogRegression::getElasticity($this->reg['b1'], 0, 0), 0.2);
     }
 
-    /**
-     * @testdox Different dimension sizes for x and y coordinates throw a InvalidDimensionException
-     * @group framework
-     */
+    #[\PHPUnit\Framework\Attributes\Group('framework')]
+    #[\PHPUnit\Framework\Attributes\TestDox('Different dimension sizes for x and y coordinates throw a InvalidDimensionException')]
     public function testInvalidDimension() : void
     {
         $this->expectException(\phpOMS\Math\Matrix\Exception\InvalidDimensionException::class);
