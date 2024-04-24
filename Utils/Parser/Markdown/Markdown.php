@@ -338,7 +338,7 @@ class Markdown
      * @var array{}|array{text:string, id:string, level:string}
      * @since 1.0.0
      */
-    protected $contentsListArray = [];
+    protected array $contentsListArray = [];
 
     /**
      * TOC string after parsing headers
@@ -346,7 +346,7 @@ class Markdown
      * @var string
      * @since 1.0.0
      */
-    protected $contentsListString = '';
+    protected string $contentsListString = '';
 
     /**
      * First head level
@@ -362,7 +362,7 @@ class Markdown
      * @var bool
      * @since 1.0.0
      */
-    protected $isBlacklistInitialized = false;
+    protected bool $isBlacklistInitialized = false;
 
     /**
      * Header duplicates (same header text)
@@ -370,7 +370,7 @@ class Markdown
      * @var array<string, int>
      * @since 1.0.0
      */
-    protected $anchorDuplicates = [];
+    protected array $anchorDuplicates = [];
     // TOC: end
 
     /**
@@ -387,7 +387,7 @@ class Markdown
      * @var string
      * @since 1.0.0
      */
-    private string $currentAbreviation;
+    private string $currentAbbreviation;
 
     /**
      * Current abbreviation meaning
@@ -420,7 +420,7 @@ class Markdown
         $this->firstHeadLevel     = 0;
         $this->anchorDuplicates   = [];
         $this->footnoteCount      = 0;
-        $this->currentAbreviation = '';
+        $this->currentAbbreviation = '';
         $this->currentMeaning     = '';
     }
 
@@ -3514,14 +3514,14 @@ class Markdown
         }
 
         $element['elements'] = self::pregReplaceElements(
-            '/\b' . \preg_quote($this->currentAbreviation, '/') . '\b/',
+            '/\b' . \preg_quote($this->currentAbbreviation, '/') . '\b/',
             [
                 [
                     'name'       => 'abbr',
                     'attributes' => [
                         'title' => $this->currentMeaning,
                     ],
-                    'text' => $this->currentAbreviation,
+                    'text' => $this->currentAbbreviation,
                 ],
             ],
             $element['text']
@@ -3563,7 +3563,7 @@ class Markdown
         }
 
         foreach ($this->definitionData['Abbreviation'] as $abbreviation => $meaning) {
-            $this->currentAbreviation = $abbreviation;
+            $this->currentAbbreviation = $abbreviation;
             $this->currentMeaning     = $meaning;
 
             $inline['element'] = $this->elementApplyRecursiveDepthFirst(

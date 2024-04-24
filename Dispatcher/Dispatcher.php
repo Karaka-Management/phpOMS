@@ -84,6 +84,7 @@ final class Dispatcher implements DispatcherInterface
 
             if (($c = \count($dispatch)) === 3) {
                 /* Handling static functions */
+                /** @var \Closure $function */
                 $function = $dispatch[0] . '::' . $dispatch[2];
 
                 $views[$controller] = $data === null ? $function() : $function(...$data);

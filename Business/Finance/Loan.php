@@ -134,7 +134,7 @@ final class Loan
         return $loan / $collateral;
     }
 
-    public static function getAmortizationLoanPayment(float $loan, float $r, int $duration, int $interval)
+    public static function getAmortizationLoanPayment(float $loan, float $r, int $duration, int $interval) : float
     {
         return $loan * (($r / $interval * (1.0 + $r / $interval) / $duration) / ((1.0 + $r / $interval) / $duration) - 1);
     }
@@ -144,7 +144,7 @@ final class Loan
         return $loan * $r / $interval;
     }
 
-    public static function getAmortizationPrincipalPayment(float $payment, float $interest)
+    public static function getAmortizationPrincipalPayment(float $payment, float $interest) : float
     {
         return $payment - $interest;
     }

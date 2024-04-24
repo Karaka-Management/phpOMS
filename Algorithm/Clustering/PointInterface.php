@@ -25,6 +25,10 @@ namespace phpOMS\Algorithm\Clustering;
  * @license OMS License 2.0
  * @link    https://jingga.app
  * @since   1.0.0
+ *
+ * @property array<int, int|float> $coordinates
+ * @property string $name
+ * @property int $group
  */
 interface PointInterface
 {

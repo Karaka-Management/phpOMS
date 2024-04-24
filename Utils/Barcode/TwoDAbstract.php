@@ -49,13 +49,13 @@ abstract class TwoDAbstract extends CodeAbstract
      *
      * @param array $codeArray Code array to render
      *
-     * @return \GdImage
+     * @return null|\GdImage
      *
      * @throws \Exception
      *
      * @since 1.0.0
      */
-    protected function createImage(array $codeArray) : mixed
+    protected function createImage(array $codeArray) : ?\GdImage
     {
         if (empty($codeArray)) {
             return null;

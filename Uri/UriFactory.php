@@ -127,13 +127,13 @@ final class UriFactory
     /**
      * Setup uri builder based on current request
      *
-     * @param UriInterface $uri Uri
+     * @param HttpUri $uri Uri
      *
      * @return void
      *
      * @since 1.0.0
      */
-    public static function setupUriBuilder(UriInterface $uri) : void
+    public static function setupUriBuilder(HttpUri $uri) : void
     {
         self::setQuery('/scheme', $uri->scheme);
         self::setQuery('/host', $uri->host);

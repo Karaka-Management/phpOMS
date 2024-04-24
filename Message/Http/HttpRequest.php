@@ -34,6 +34,7 @@ use phpOMS\Uri\UriInterface;
  * @SuppressWarnings(PHPMD.Superglobals)
  *
  * @property HttpHeader $header
+ * @property HttpUri $uri
  */
 final class HttpRequest extends RequestAbstract
 {
