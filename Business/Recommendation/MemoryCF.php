@@ -150,20 +150,8 @@ final class MemoryCF
     }
 
     /**
-     * Find potential items/users which are a good match for a user/item.
+     * Find similar users
      *
-     * The algorithm uses the ratings of a a user and tries to find other users who have similar rating behavior and then searches for high rated items that the user doesn't have yet.
-     *
-     * This can be used to find items for a specific user (aka might be interested in) or to find users who might be interested in this item
-     *
-     * option 1 - find items
-     *      ranking[itemId] = itemRank (how much does specific user like item)
-     *      rankings[userId][itemId] = itemRank
-     *
-     * option 2 - find user
-     *      ranking[userId] = itemRank (how much does user like specific item)
-     *      rankings[itemId][userId] = itemRank
-     * option 1 searches for items, option 2 searches for users
      *
      * @param array $ranking Array of item ratings (e.g. products, movies, ...)
      *
@@ -171,7 +159,46 @@ final class MemoryCF
      *
      * @since 1.0.0
      */
-    public function bestMatch(array $ranking, int $size = 10) : array
+    public function bestMatchUser(array $ranking, int $size = 10) : array
+    {
+        $ranking = $this->normalizeRanking([$ranking]);
+        $ranking = $ranking[0];
+
+        $euclidean = $this->euclideanDistance($ranking, $this->rankings);
+        // $cosine    = $this->cosineDistance($ranking, $this->rankings);
+
+        \asort($euclidean);
+        // \asort($cosine);
+
+        $size    = \min($size, \count($this->rankings));
+        $matches = [];
+
+        $distancePointer = \array_keys($euclidean);
+        // $anglePointer    = \array_keys($cosine);
+
+        // Inspect items of the top n comparable users
+        for ($i = 0; $i < $size; ++$i) {
+            // $uId = $i % 2 === 0 ? $distancePointer[$i] : $anglePointer[$i];
+            $uId = $distancePointer[$i];
+
+            if (!\in_array($uId, $matches)) {
+                $matches[] = $uId;
+            }
+        }
+
+        return $matches;
+    }
+
+    /**
+     * Find potential users which are a good match for a user.
+     *
+     * @param array $ranking Array of item ratings (e.g. products, movies, ...)
+     *
+     * @return array
+     *
+     * @since 1.0.0
+     */
+    public function bestMatchItem(array $ranking, int $size = 10) : array
     {
         $ranking = $this->normalizeRanking([$ranking]);
         $ranking = $ranking[0];
@@ -194,13 +221,13 @@ final class MemoryCF
             $distances = $i % 2 === 0 ? $euclidean : $cosine;
 
             foreach ($this->rankings[$uId] as $iId => $_) {
-                // Item is not already in dataset and not in historic dataset (we are only interested in new)
+                // Item is already in dataset or in historic dataset (we are only interested in new)
                 if (isset($matches[$iId]) || isset($ranking[$iId])) {
                     continue;
                 }
 
                 // Calculate the expected rating the user would give based on what the best comparable users did
-                $matches[$iId] = $this->weightedItemRank($iId, $distances, $this->rankings, $size);
+                $matches[$iId] = $this->weightedItemRank((string) $iId, $distances, $this->rankings, $size);
             }
         }
 

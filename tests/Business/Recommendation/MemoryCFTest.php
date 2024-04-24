@@ -22,7 +22,7 @@ use phpOMS\Business\Recommendation\MemoryCF;
 #[\PHPUnit\Framework\Attributes\TestDox('phpOMS\tests\Business\Recommendation\MemoryCFTest: Article affinity/correlation')]
 final class MemoryCFTest extends \PHPUnit\Framework\TestCase
 {
-    public function testBestMatch() : void
+    public function testBestMatchUser() : void
     {
         $memory = new MemoryCF([
             'A' => [1.0, 2.0],
@@ -33,7 +33,22 @@ final class MemoryCFTest extends \PHPUnit\Framework\TestCase
 
         self::assertEquals(
             ['B', 'C'],
-            $memory->bestMatch([2.2, 4.1], 2)
+            $memory->bestMatchUser([2.2, 4.1], 2)
+        );
+    }
+
+    public function testBestMatchItem() : void
+    {
+        $memory = new MemoryCF([
+            'A' => [1.0, 2.0],
+            'B' => [2.0, 4.0],
+            'C' => [2.5, 4.0],
+            'D' => [4.5, 5.0],
+        ]);
+
+        self::assertEquals(
+            [1 => 0.0],
+            $memory->bestMatchItem([2.2], 2)
         );
     }
 }

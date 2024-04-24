@@ -150,16 +150,16 @@ final class WebRouter implements RouterInterface
                     || ($verb & $d['verb']) === $verb
                 ) {
                     // if csrf is required but not set
-                    if (isset($d['csrf']) && $d['csrf'] && $csrf === null) {
+                    if (($d['csrf'] ?? false) && $csrf === null) {
                         return ['dest' => RouteStatus::INVALID_CSRF];
                     }
 
                     // if permission check is invalid
-                    if (isset($d['permission']) && !empty($d['permission'])
+                    if (!empty($d['permission'] ?? null)
                         && ($account === null || $account->id === 0)
                     ) {
                         return ['dest' => RouteStatus::NOT_LOGGED_IN];
-                    } elseif (isset($d['permission']) && !empty($d['permission'])
+                    } elseif (!empty($d['permission'] ?? null)
                         && !($account?->hasPermission(
                                 $d['permission']['type'] ?? 0,
                                 $d['permission']['unit'] ?? $unitId,

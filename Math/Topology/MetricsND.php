@@ -74,16 +74,10 @@ final class MetricsND
      *
      * @return float
      *
-     * @throws InvalidDimensionException
-     *
      * @since 1.0.0
      */
     public static function euclidean(array $a, array $b) : float
     {
-        if (\count($a) !== \count($b)) {
-            throw new InvalidDimensionException(\count($a) . 'x' . \count($b));
-        }
-
         $dist = 0.0;
         foreach ($a as $key => $e) {
             $dist += \abs($e - $b[$key]) ** 2;
@@ -100,16 +94,10 @@ final class MetricsND
      *
      * @return float
      *
-     * @throws InvalidDimensionException
-     *
      * @since 1.0.0
      */
     public static function cosine(array $a, array $b) : float
     {
-        if (\count($a) !== \count($b)) {
-            throw new InvalidDimensionException(\count($a) . 'x' . \count($b));
-        }
-
         $dotProduct = 0;
         foreach ($a as $id => $_) {
             $dotProduct += $a[$id] * $b[$id];
