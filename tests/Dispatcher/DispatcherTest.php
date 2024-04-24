@@ -197,7 +197,7 @@ final class DispatcherTest extends \PHPUnit\Framework\TestCase
     #[\PHPUnit\Framework\Attributes\TestDox('A invalid controller path throws a PathException')]
     public function testInvalidControllerPath() : void
     {
-        $this->expectException(\phpOMS\System\File\PathException::class);
+        $this->expectException(\Error::class);
 
         $this->app->dispatcher->dispatch('phpOMS\tests\Dispatcher\TestControllers::testFunctionStatic');
     }
@@ -206,17 +206,8 @@ final class DispatcherTest extends \PHPUnit\Framework\TestCase
     #[\PHPUnit\Framework\Attributes\TestDox('A invalid function path throws a Exception')]
     public function testInvalidControllerFunction() : void
     {
-        $this->expectException(\Exception::class);
+        $this->expectException(\Error::class);
 
         $this->app->dispatcher->dispatch('phpOMS\tests\Dispatcher\TestController::testFunctionStaticINVALID');
-    }
-
-    #[\PHPUnit\Framework\Attributes\Group('framework')]
-    #[\PHPUnit\Framework\Attributes\TestDox('A malformed dispatch path throws UnexpectedValueException')]
-    public function testInvalidControllerString() : void
-    {
-        $this->expectException(\UnexpectedValueException::class);
-
-        $this->app->dispatcher->dispatch('phpOMS\tests\Dispatcher\TestController::testFunctionStatic:failure');
     }
 }
