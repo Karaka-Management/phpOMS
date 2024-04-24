@@ -126,7 +126,7 @@ final class MetricsNDTest extends \PHPUnit\Framework\TestCase
     {
         $this->expectException(\phpOMS\Math\Matrix\Exception\InvalidDimensionException::class);
 
-        MetricsND::manhattan([3, 6, 4], [4, 6, 8, 3]);
+        MetricsND::manhattan([4, 6, 8, 3], [3, 6, 4]);
     }
 
     #[\PHPUnit\Framework\Attributes\Group('framework')]
@@ -135,7 +135,7 @@ final class MetricsNDTest extends \PHPUnit\Framework\TestCase
     {
         $this->expectException(\phpOMS\Math\Matrix\Exception\InvalidDimensionException::class);
 
-        MetricsND::euclidean([3, 6, 4], [4, 6, 8, 3]);
+        MetricsND::euclidean([4, 6, 8, 3], [3, 6, 4]);
     }
 
     #[\PHPUnit\Framework\Attributes\Group('framework')]
@@ -144,7 +144,7 @@ final class MetricsNDTest extends \PHPUnit\Framework\TestCase
     {
         $this->expectException(\phpOMS\Math\Matrix\Exception\InvalidDimensionException::class);
 
-        MetricsND::chebyshev([3, 6, 4], [4, 6, 8, 3]);
+        MetricsND::chebyshev([4, 6, 8, 3], [3, 6, 4]);
     }
 
     #[\PHPUnit\Framework\Attributes\Group('framework')]
@@ -153,7 +153,7 @@ final class MetricsNDTest extends \PHPUnit\Framework\TestCase
     {
         $this->expectException(\phpOMS\Math\Matrix\Exception\InvalidDimensionException::class);
 
-        MetricsND::minkowski([3, 6, 4], [4, 6, 8, 3], 2);
+        MetricsND::minkowski([4, 6, 8, 3], [3, 6, 4], 2);
     }
 
     #[\PHPUnit\Framework\Attributes\Group('framework')]
@@ -162,7 +162,7 @@ final class MetricsNDTest extends \PHPUnit\Framework\TestCase
     {
         $this->expectException(\phpOMS\Math\Matrix\Exception\InvalidDimensionException::class);
 
-        MetricsND::canberra([3, 6, 4], [4, 6, 8, 3]);
+        MetricsND::canberra([4, 6, 8, 3], [3, 6, 4]);
     }
 
     #[\PHPUnit\Framework\Attributes\Group('framework')]
@@ -171,7 +171,7 @@ final class MetricsNDTest extends \PHPUnit\Framework\TestCase
     {
         $this->expectException(\phpOMS\Math\Matrix\Exception\InvalidDimensionException::class);
 
-        MetricsND::cosine([3, 6, 4], [4, 6, 8, 3]);
+        MetricsND::cosine([4, 6, 8, 3], [3, 6, 4]);
     }
 
     #[\PHPUnit\Framework\Attributes\Group('framework')]
@@ -180,7 +180,7 @@ final class MetricsNDTest extends \PHPUnit\Framework\TestCase
     {
         $this->expectException(\phpOMS\Math\Matrix\Exception\InvalidDimensionException::class);
 
-        MetricsND::brayCurtis([3, 6, 4], [4, 6, 8, 3]);
+        MetricsND::brayCurtis([4, 6, 8, 3], [3, 6, 4]);
     }
 
     #[\PHPUnit\Framework\Attributes\Group('framework')]
@@ -189,7 +189,7 @@ final class MetricsNDTest extends \PHPUnit\Framework\TestCase
     {
         $this->expectException(\phpOMS\Math\Matrix\Exception\InvalidDimensionException::class);
 
-        MetricsND::angularSeparation([3, 6, 4], [4, 6, 8, 3]);
+        MetricsND::angularSeparation([4, 6, 8, 3], [3, 6, 4]);
     }
 
     #[\PHPUnit\Framework\Attributes\Group('framework')]
@@ -198,6 +198,6 @@ final class MetricsNDTest extends \PHPUnit\Framework\TestCase
     {
         $this->expectException(\phpOMS\Math\Matrix\Exception\InvalidDimensionException::class);
 
-        MetricsND::hamming([3, 6, 4], [4, 6, 8, 3]);
+        MetricsND::hamming([4, 6, 8, 3], [3, 6, 4]);
     }
 }
