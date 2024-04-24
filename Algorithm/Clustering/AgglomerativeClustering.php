@@ -42,7 +42,7 @@ final class AgglomerativeClustering implements ClusteringInterface
      * @var \Closure
      * @since 1.0.0
      */
-    private \Closure $metric;
+    public \Closure $metric;
 
     /**
      * Metric to calculate the distance between two points
@@ -50,7 +50,7 @@ final class AgglomerativeClustering implements ClusteringInterface
      * @var \Closure
      * @since 1.0.0
      */
-    private \Closure $linkage;
+    public \Closure $linkage;
 
     /**
      * Constructor

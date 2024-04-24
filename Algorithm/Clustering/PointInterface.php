@@ -67,11 +67,11 @@ interface PointInterface
     /**
      * Check if two points are equal
      *
-     * @param self $point Point to compare with
+     * @param Point $point Point to compare with
      *
      * @return bool
      *
      * @since 1.0.0
      */
-    public function isEquals(self $point) : bool;
+    public function isEquals(Point $point) : bool;
 }

@@ -119,7 +119,7 @@ final class MeanShift implements ClusteringInterface
     /**
      * Generate the clusters of the points
      *
-     * @param Point[] $points    Points to cluster
+     * @param Point[]          $points    Points to cluster
      * @param array<int|float> $bandwidth Bandwidth(s)
      *
      * @return void
@@ -170,8 +170,8 @@ final class MeanShift implements ClusteringInterface
     /**
      * Perform shift on a point
      *
-     * @param Point   $point     Point to shift
-     * @param Point   $points    Array of all points
+     * @param Point            $point     Point to shift
+     * @param Point            $points    Array of all points
      * @param array<int|float> $bandwidth Bandwidth(s)
      *
      * @return Point

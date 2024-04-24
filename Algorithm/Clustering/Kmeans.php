@@ -121,8 +121,8 @@ final class Kmeans implements ClusteringInterface
     /**
      * Generate the clusters of the points
      *
-     * @param Point[] $points   Points to cluster
-     * @param int<1, max>      $clusters Amount of clusters
+     * @param Point[]     $points   Points to cluster
+     * @param int<1, max> $clusters Amount of clusters
      *
      * @return void
      *
@@ -210,8 +210,8 @@ final class Kmeans implements ClusteringInterface
     /**
      * Initialize cluster centers
      *
-     * @param Point[] $points Points to use for the cluster center initialization
-     * @param int<0, max>      $n      Amount of clusters to use
+     * @param Point[]     $points Points to use for the cluster center initialization
+     * @param int<0, max> $n      Amount of clusters to use
      *
      * @return Point[]
      *

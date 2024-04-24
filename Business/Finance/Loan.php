@@ -139,8 +139,8 @@ final class Loan
      *
      * @param float $loan     Loan amount
      * @param float $r        Rate
-     * @param float $duration Loan duration
-     * @param float $interval Payment interval
+     * @param int   $duration Loan duration
+     * @param int   $interval Payment interval
      *
      * @return float
      *
@@ -156,7 +156,7 @@ final class Loan
      *
      * @param float $loan     Loan amount
      * @param float $r        Rate
-     * @param float $interval Payment interval
+     * @param int   $interval Payment interval
      *
      * @return float
      *
@@ -171,7 +171,7 @@ final class Loan
      * Calculate the principal for amortization loans
      *
      * @param float $payment  Total payment
-     * @param float $interval Payment interval
+     * @param float $interest Interest payment
      *
      * @return float
      *
@@ -183,6 +183,8 @@ final class Loan
     }
 
     /**
+     * Calculate schedule for amortization loan
+     *
      * @param float $loan     Loan amount
      * @param float $r        Borrowing rate (annual)
      * @param int   $duration Loan duration in months

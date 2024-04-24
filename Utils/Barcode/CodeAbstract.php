@@ -217,6 +217,9 @@ abstract class CodeAbstract
     public function saveToPngFile(string $file) : void
     {
         $res = $this->get();
+        if ($res === null) {
+            return;
+        }
 
         \imagepng($res, $file);
         \imagedestroy($res);
@@ -234,6 +237,9 @@ abstract class CodeAbstract
     public function saveToJpgFile(string $file) : void
     {
         $res = $this->get();
+        if ($res === null) {
+            return;
+        }
 
         \imagejpeg($res, $file);
         \imagedestroy($res);

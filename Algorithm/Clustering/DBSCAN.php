@@ -130,10 +130,10 @@ final class DBSCAN implements ClusteringInterface
      * Expand cluster with additional point and potential neighbors.
      *
      * @param Point $point     Point to add to a cluster
-     * @param array          $neighbors Neighbors of point
-     * @param int            $c         Cluster id
-     * @param float          $epsilon   Max distance
-     * @param int            $minPoints Min amount of points required for a cluster
+     * @param array $neighbors Neighbors of point
+     * @param int   $c         Cluster id
+     * @param float $epsilon   Max distance
+     * @param int   $minPoints Min amount of points required for a cluster
      *
      * @return void
      *
@@ -175,7 +175,7 @@ final class DBSCAN implements ClusteringInterface
      * Find neighbors of a point
      *
      * @param Point $point   Base point for potential neighbors
-     * @param float          $epsilon Max distance to neighbor
+     * @param float $epsilon Max distance to neighbor
      *
      * @return array
      *
@@ -252,8 +252,8 @@ final class DBSCAN implements ClusteringInterface
      * Generate the clusters of the points
      *
      * @param Point[] $points    Points to cluster
-     * @param float            $epsilon   Max distance
-     * @param int              $minPoints Min amount of points required for a cluster
+     * @param float   $epsilon   Max distance
+     * @param int     $minPoints Min amount of points required for a cluster
      *
      * @return void
      *

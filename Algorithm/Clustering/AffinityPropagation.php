@@ -104,7 +104,7 @@ final class AffinityPropagation implements ClusteringInterface
      * Generate clusters for points
      *
      * @param Point[] $points     Points to cluster
-     * @param int              $iterations Iterations for cluster generation
+     * @param int     $iterations Iterations for cluster generation
      *
      * @return void
      *
@@ -188,8 +188,8 @@ final class AffinityPropagation implements ClusteringInterface
     /**
      * Find the nearest group for a point
      *
-     * @param array<int, array<int, int|float>> $similarityMatrix Similarity matrix
-     * @param int                               $point            Point id in the similarity matrix to compare
+     * @param array<int, Point> $similarityMatrix Similarity matrix
+     * @param int               $point            Point id in the similarity matrix to compare
      *
      * @return int
      *
