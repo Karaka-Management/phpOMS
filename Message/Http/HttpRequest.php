@@ -21,7 +21,6 @@ use phpOMS\Message\RequestAbstract;
 use phpOMS\Router\RouteVerb;
 use phpOMS\Security\Guard;
 use phpOMS\Uri\HttpUri;
-use phpOMS\Uri\UriInterface;
 
 /**
  * Request class.
@@ -73,12 +72,12 @@ final class HttpRequest extends RequestAbstract
     /**
      * Constructor.
      *
-     * @param UriInterface $uri  Uri
+     * @param HttpUri      $uri  Uri
      * @param Localization $l11n Localization
      *
      * @since 1.0.0
      */
-    public function __construct(?UriInterface $uri = null, ?Localization $l11n = null)
+    public function __construct(?HttpUri $uri = null, ?Localization $l11n = null)
     {
         $this->header       = new HttpHeader();
         $this->header->l11n = $l11n ?? new Localization();
@@ -455,13 +454,13 @@ final class HttpRequest extends RequestAbstract
     /**
      * Set request uri.
      *
-     * @param UriInterface $uri Uri
+     * @param HttpUri $uri Uri
      *
      * @return void
      *
      * @since 1.0.0
      */
-    public function setUri(UriInterface $uri) : void
+    public function setUri(HttpUri $uri) : void
     {
         $this->uri = $uri;
         $this->data += $uri->getQueryArray();

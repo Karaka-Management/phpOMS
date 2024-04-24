@@ -28,7 +28,7 @@ abstract class TwoDAbstract extends CodeAbstract
     /**
      * {@inheritdoc}
      */
-    public function get() : mixed
+    public function get() : ?\GdImage
     {
         $codeArray = $this->generateCodeArray();
 

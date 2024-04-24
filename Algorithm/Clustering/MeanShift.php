@@ -61,7 +61,7 @@ final class MeanShift implements ClusteringInterface
     /**
      * Points outside of any cluster
      *
-     * @var PointInterface[]
+     * @var Point[]
      * @since 1.0.0
      */
     private array $noisePoints = [];
@@ -79,7 +79,7 @@ final class MeanShift implements ClusteringInterface
     /**
      * Points of the cluster centers
      *
-     * @var PointInterface[]
+     * @var Point[]
      * @since 1.0.0
      */
     private array $clusterCenters = [];
@@ -104,7 +104,7 @@ final class MeanShift implements ClusteringInterface
      */
     public function __construct(?\Closure $metric = null, ?\Closure $kernel = null)
     {
-        $this->metric = $metric ?? function (PointInterface $a, PointInterface $b) {
+        $this->metric = $metric ?? function (Point $a, Point $b) {
             $aCoordinates = $a->coordinates;
             $bCoordinates = $b->coordinates;
 
@@ -119,7 +119,7 @@ final class MeanShift implements ClusteringInterface
     /**
      * Generate the clusters of the points
      *
-     * @param PointInterface[] $points    Points to cluster
+     * @param Point[] $points    Points to cluster
      * @param array<int|float> $bandwidth Bandwidth(s)
      *
      * @return void
@@ -170,15 +170,15 @@ final class MeanShift implements ClusteringInterface
     /**
      * Perform shift on a point
      *
-     * @param PointInterface   $point     Point to shift
-     * @param PointInterface   $points    Array of all points
+     * @param Point   $point     Point to shift
+     * @param Point   $points    Array of all points
      * @param array<int|float> $bandwidth Bandwidth(s)
      *
-     * @return PointInterface
+     * @return Point
      *
      * @since 1.0.0
      */
-    private function shiftPoint(PointInterface $point, array $points, array $bandwidth) : PointInterface
+    private function shiftPoint(Point $point, array $points, array $bandwidth) : Point
     {
         $scaleFactor = 0.0;
 
@@ -209,7 +209,7 @@ final class MeanShift implements ClusteringInterface
     /**
      * Group points together into clusters
      *
-     * @param PointInterface[] $points Array of points to assign to groups
+     * @param Point[] $points Array of points to assign to groups
      *
      * @return array
      *
@@ -242,14 +242,14 @@ final class MeanShift implements ClusteringInterface
     /**
      * Find the closest cluster/group of a point
      *
-     * @param PointInterface          $point  Point to find the cluster for
-     * @param array<PointInterface[]> $groups Clusters
+     * @param Point          $point  Point to find the cluster for
+     * @param array<Point[]> $groups Clusters
      *
      * @return int
      *
      * @since 1.0.0
      */
-    private function findNearestGroup(PointInterface $point, array $groups) : int
+    private function findNearestGroup(Point $point, array $groups) : int
     {
         $nearestGroupIndex = -1;
         $index             = 0;
@@ -272,14 +272,14 @@ final class MeanShift implements ClusteringInterface
     /**
      * Find distance of point to best cluster/group
      *
-     * @param PointInterface   $point Point to find the cluster for
-     * @param PointInterface[] $group Clusters
+     * @param Point   $point Point to find the cluster for
+     * @param Point[] $group Clusters
      *
      * @return float Distance
      *
      * @since 1.0.0
      */
-    private function distanceToGroup(PointInterface $point, array $group) : float
+    private function distanceToGroup(Point $point, array $group) : float
     {
         $minDistance = \PHP_FLOAT_MAX;
 
@@ -305,7 +305,7 @@ final class MeanShift implements ClusteringInterface
     /**
      * {@inheritdoc}
      */
-    public function cluster(PointInterface $point) : ?PointInterface
+    public function cluster(Point $point) : ?Point
     {
         $clusterId = $this->findNearestGroup($point, $this->clusters);
 

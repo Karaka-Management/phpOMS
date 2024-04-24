@@ -28,7 +28,7 @@ final class AffinityPropagation implements ClusteringInterface
     /**
      * Points of the cluster centers
      *
-     * @var PointInterface[]
+     * @var Point[]
      * @since 1.0.0
      */
     private array $clusterCenters = [];
@@ -52,7 +52,7 @@ final class AffinityPropagation implements ClusteringInterface
     /**
      * Original points used for clusters
      *
-     * @var PointInterface[]
+     * @var Point[]
      * @since 1.0.0
      */
     private array $points = [];
@@ -60,7 +60,7 @@ final class AffinityPropagation implements ClusteringInterface
     /**
      * Create similarity matrix from points
      *
-     * @param PointInterface[] $points Points to create the similarity matrix for
+     * @param Point[] $points Points to create the similarity matrix for
      *
      * @return array<int, array<int, int|float>>
      *
@@ -103,7 +103,7 @@ final class AffinityPropagation implements ClusteringInterface
     /**
      * Generate clusters for points
      *
-     * @param PointInterface[] $points     Points to cluster
+     * @param Point[] $points     Points to cluster
      * @param int              $iterations Iterations for cluster generation
      *
      * @return void
@@ -213,7 +213,7 @@ final class AffinityPropagation implements ClusteringInterface
     /**
      * {@inheritdoc}
      */
-    public function cluster(PointInterface $point) : ?PointInterface
+    public function cluster(Point $point) : ?Point
     {
         $points   = $this->points;
         $points[] = $point;

@@ -28,6 +28,7 @@ use phpOMS\Math\Stochastic\Distribution\NormalDistribution;
  * @todo Implement https://github.com/sublee/trueskill/blob/master/trueskill/__init__.py
  *      https://github.com/Karaka-Management/phpOMS/issues/337
  */
+// phpcs:ignoreFile
 class TrueSkill
 {
     public const DEFAULT_MU = 25;

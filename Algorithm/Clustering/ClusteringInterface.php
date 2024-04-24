@@ -27,7 +27,7 @@ interface ClusteringInterface
     /**
      * Get cluster centroids
      *
-     * @return PointInterface[]
+     * @return Point[]
      *
      * @since 1.0.0
      */
@@ -36,7 +36,7 @@ interface ClusteringInterface
     /**
      * Get cluster assignments of the training data
      *
-     * @return PointInterface[]
+     * @return Point[]
      *
      * @since 1.0.0
      */
@@ -47,20 +47,20 @@ interface ClusteringInterface
      *
      * This point doesn't have to be in the training data.
      *
-     * @param PointInterface $point Point to cluster
+     * @param Point $point Point to cluster
      *
-     * @return null|PointInterface
+     * @return null|Point
      *
      * @since 1.0.0
      */
-    public function cluster(PointInterface $point) : ?PointInterface;
+    public function cluster(Point $point) : ?Point;
 
     /**
      * Get noise data.
      *
      * Data points from the training data that are not part of a cluster.
      *
-     * @return PointInterface[]
+     * @return Point[]
      *
      * @since 1.0.0
      */

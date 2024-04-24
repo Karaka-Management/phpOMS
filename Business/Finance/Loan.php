@@ -134,16 +134,49 @@ final class Loan
         return $loan / $collateral;
     }
 
+    /**
+     * Calculate the payment for amortization loans (interest + principal)
+     *
+     * @param float $loan     Loan amount
+     * @param float $r        Rate
+     * @param float $duration Loan duration
+     * @param float $interval Payment interval
+     *
+     * @return float
+     *
+     * @since 1.0.0
+     */
     public static function getAmortizationLoanPayment(float $loan, float $r, int $duration, int $interval) : float
     {
         return $loan * (($r / $interval * (1.0 + $r / $interval) / $duration) / ((1.0 + $r / $interval) / $duration) - 1);
     }
 
+    /**
+     * Calculate the interest for amortization loans
+     *
+     * @param float $loan     Loan amount
+     * @param float $r        Rate
+     * @param float $interval Payment interval
+     *
+     * @return float
+     *
+     * @since 1.0.0
+     */
     public static function getAmortizationLoanInterest(float $loan, float $r, int $interval) : float
     {
         return $loan * $r / $interval;
     }
 
+    /**
+     * Calculate the principal for amortization loans
+     *
+     * @param float $payment  Total payment
+     * @param float $interval Payment interval
+     *
+     * @return float
+     *
+     * @since 1.0.0
+     */
     public static function getAmortizationPrincipalPayment(float $payment, float $interest) : float
     {
         return $payment - $interest;

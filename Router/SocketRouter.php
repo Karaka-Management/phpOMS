@@ -29,7 +29,7 @@ final class SocketRouter implements RouterInterface
     /**
      * Routes.
      *
-     * @var array<string, array<int, array{dest:string, verb:int, csrf?:bool, active?:bool, permission:array{module:string, type:int, category:int}, validation?:array, pattern?:string}>>
+     * @var array<string, array<int, array{dest:mixed, verb:int, csrf?:bool, active?:bool, permission?:array{module:string, type:int, category:int}, validation?:?array, pattern?:?string}>>
      * @since 1.0.0
      */
     private array $routes = [];

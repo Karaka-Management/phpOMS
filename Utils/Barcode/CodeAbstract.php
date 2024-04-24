@@ -242,9 +242,9 @@ abstract class CodeAbstract
     /**
      * Get image reference
      *
-     * @return \GdImage
+     * @return null|\GdImage
      *
      * @since 1.0.0
      */
-    abstract public function get() : mixed;
+    abstract public function get() : ?\GdImage;
 }

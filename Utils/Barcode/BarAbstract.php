@@ -70,7 +70,7 @@ abstract class BarAbstract extends CodeAbstract
     /**
      * {@inheritdoc}
      */
-    public function get() : mixed
+    public function get() : ?\GdImage
     {
         $codeString = static::$CODE_START . $this->generateCodeString() . static::$CODE_END;
 
@@ -137,7 +137,7 @@ abstract class BarAbstract extends CodeAbstract
      *
      * @since 1.0.0
      */
-    protected function createImage(string $codeString) : mixed
+    protected function createImage(string $codeString) : \GdImage
     {
         $dimensions = $this->calculateDimensions($codeString);
         $image      = \imagecreate($dimensions['width'], $dimensions['height']);

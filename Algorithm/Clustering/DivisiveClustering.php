@@ -50,7 +50,7 @@ final class DivisiveClustering implements ClusteringInterface
     /**
      * {@inheritdoc}
      */
-    public function cluster(PointInterface $point) : ?PointInterface
+    public function cluster(Point $point) : ?Point
     {
         return null;
     }

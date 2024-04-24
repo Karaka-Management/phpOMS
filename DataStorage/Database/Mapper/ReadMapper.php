@@ -1327,6 +1327,17 @@ final class ReadMapper extends DataMapperAbstract
         }
     }
 
+    /**
+     * Paginate results
+     *
+     * @param string      $member Member to use for pagination
+     * @param null|string $ptype  Pagination type (previous/next)
+     * @param mixed       $offset Offset
+     *
+     * @return self
+     *
+     * @since 1.0.0
+     */
     public function paginate(string $member, ?string $ptype, mixed $offset) : self
     {
         if ($ptype === 'p') {

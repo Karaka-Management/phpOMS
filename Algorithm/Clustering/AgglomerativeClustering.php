@@ -61,7 +61,7 @@ final class AgglomerativeClustering implements ClusteringInterface
      */
     public function __construct(?\Closure $metric = null, ?\Closure $linkage = null)
     {
-        $this->metric = $metric ?? function (PointInterface $a, PointInterface $b) {
+        $this->metric = $metric ?? function (Point $a, Point $b) {
             $aCoordinates = $a->coordinates;
             $bCoordinates = $b->coordinates;
 
@@ -139,7 +139,7 @@ final class AgglomerativeClustering implements ClusteringInterface
     /**
      * {@inheritdoc}
      */
-    public function cluster(PointInterface $point) : ?PointInterface
+    public function cluster(Point $point) : ?Point
     {
         return null;
     }
