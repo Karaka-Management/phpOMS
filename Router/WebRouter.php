@@ -141,7 +141,7 @@ final class WebRouter implements RouterInterface
             }
 
             foreach ($destination as $d) {
-                if (!$d['active']) {
+                if (!($d['active'] ?? true)) {
                     continue;
                 }
 

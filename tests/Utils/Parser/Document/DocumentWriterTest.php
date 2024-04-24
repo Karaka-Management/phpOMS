@@ -24,6 +24,20 @@ use phpOMS\Utils\Parser\Document\DocumentWriter;
  */
 final class DocumentWriterTest extends \PHPUnit\Framework\TestCase
 {
+    protected function setUp() : void
+    {
+        if (\is_file(__DIR__ . '/data/WordMpdf.pdf')) {
+            \unlink(__DIR__ . '/data/WordMpdf.pdf');
+        }
+    }
+
+    protected function tearDown() : void
+    {
+        if (\is_file(__DIR__ . '/data/WordMpdf.pdf')) {
+            \unlink(__DIR__ . '/data/WordMpdf.pdf');
+        }
+    }
+
     public function testParsing() : void
     {
         $doc    = IOFactory::load(__DIR__ . '/data/Word.docx');

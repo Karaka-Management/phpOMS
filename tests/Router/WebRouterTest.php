@@ -156,7 +156,7 @@ final class WebRouterTest extends \PHPUnit\Framework\TestCase
             [['dest' => '\Modules\Admin\Controller:viewCsrf']],
             $this->router->route(
                 (new HttpRequest(
-                    new HttpUri('http://test.com/backend/admin/settings/csrf/something?test')
+                    new HttpUri('http://test.com/backend/admin/settings/csrf?test')
                 ))->uri->getRoute(),
                 'csrf_string'
             )
@@ -173,7 +173,7 @@ final class WebRouterTest extends \PHPUnit\Framework\TestCase
             ['dest' => RouteStatus::INVALID_CSRF],
             $this->router->route(
                 (new HttpRequest(
-                    new HttpUri('http://test.com/backend/admin/settings/csrf/something?test')
+                    new HttpUri('http://test.com/backend/admin/settings/csrf?test')
                 ))->uri->getRoute()
             )
         );
