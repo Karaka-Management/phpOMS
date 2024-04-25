@@ -19,7 +19,6 @@ use phpOMS\Message\Http\RequestMethod;
 use phpOMS\Message\RequestAbstract;
 use phpOMS\Router\RouteVerb;
 use phpOMS\Uri\Argument;
-use phpOMS\Uri\UriInterface;
 use phpOMS\Utils\ArrayUtils;
 
 /**
@@ -37,10 +36,10 @@ final class CliRequest extends RequestAbstract
     /**
      * Uri.
      *
-     * @var UriInterface
+     * @var Argument
      * @since 1.0.0
      */
-    public UriInterface $uri;
+    public Argument $uri;
 
     /**
      * Request method.
@@ -61,12 +60,12 @@ final class CliRequest extends RequestAbstract
     /**
      * Constructor.
      *
-     * @param UriInterface $uri  Uri
+     * @param Argument     $uri  Uri
      * @param Localization $l11n Localization
      *
      * @since 1.0.0
      */
-    public function __construct(?UriInterface $uri = null, ?Localization $l11n = null)
+    public function __construct(?Argument $uri = null, ?Localization $l11n = null)
     {
         $this->header       = new CliHeader();
         $this->header->l11n = $l11n ?? new Localization();
