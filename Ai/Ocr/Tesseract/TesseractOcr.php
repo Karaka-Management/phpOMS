@@ -151,10 +151,6 @@ final class TesseractOcr
             $parsed = '';
         }
 
-        if (\is_file($filepath)) {
-            \unlink($filepath);
-        }
-
         if (\is_file($temp)) {
             \unlink($temp);
         }
