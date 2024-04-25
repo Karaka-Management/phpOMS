@@ -30,6 +30,8 @@ use phpOMS\Utils\ArrayUtils;
  * @since   1.0.0
  *
  * @SuppressWarnings(PHPMD.Superglobals)
+ *
+ * @property Argument $uri
  */
 final class CliRequest extends RequestAbstract
 {
