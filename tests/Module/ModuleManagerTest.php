@@ -102,7 +102,7 @@ final class ModuleManagerTest extends \PHPUnit\Framework\TestCase
     public function testRunningModule() : void
     {
         $module = $this->moduleManager->get('TestModule');
-        self::assertTrue($this->moduleManager->isRunning('TestModule', ''));
+        self::assertTrue($this->moduleManager->isRunning('TestModule'));
         self::assertFalse($this->moduleManager->isRunning('Invalid'));
     }
 
