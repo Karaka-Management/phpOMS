@@ -34,14 +34,6 @@ use phpOMS\Utils\ArrayUtils;
 final class CliRequest extends RequestAbstract
 {
     /**
-     * Uri.
-     *
-     * @var Argument
-     * @since 1.0.0
-     */
-    public Argument $uri;
-
-    /**
      * Request method.
      *
      * @var string
