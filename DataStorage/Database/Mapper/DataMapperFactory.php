@@ -175,7 +175,7 @@ class DataMapperFactory
      *
      * @param ConnectionAbstract $db Database connection
      *
-     * @return ReadMapper
+     * @return ReadMapper<T>
      *
      * @since 1.0.0
      */
@@ -223,7 +223,7 @@ class DataMapperFactory
      *
      * @param ConnectionAbstract $db Database connection
      *
-     * @return ReadMapper
+     * @return ReadMapper<T>
      *
      * @since 1.0.0
      */
@@ -240,7 +240,7 @@ class DataMapperFactory
      *
      * @param ConnectionAbstract $db Database connection
      *
-     * @return ReadMapper
+     * @return ReadMapper<T>
      *
      * @since 1.0.0
      */
@@ -254,7 +254,7 @@ class DataMapperFactory
      *
      * @param ConnectionAbstract $db Database connection
      *
-     * @return ReadMapper
+     * @return ReadMapper<T>
      *
      * @since 1.0.0
      */
@@ -268,7 +268,7 @@ class DataMapperFactory
      *
      * @param ConnectionAbstract $db Database connection
      *
-     * @return ReadMapper
+     * @return ReadMapper<T>
      *
      * @since 1.0.0
      */
@@ -282,7 +282,7 @@ class DataMapperFactory
      *
      * @param ConnectionAbstract $db Database connection
      *
-     * @return ReadMapper
+     * @return ReadMapper<T>
      *
      * @since 1.0.0
      */
@@ -296,7 +296,7 @@ class DataMapperFactory
      *
      * @param ConnectionAbstract $db Database connection
      *
-     * @return ReadMapper
+     * @return ReadMapper<T>
      *
      * @since 1.0.0
      */
@@ -324,7 +324,7 @@ class DataMapperFactory
      *
      * @param ConnectionAbstract $db Database connection
      *
-     * @return ReadMapper
+     * @return ReadMapper<T>
      *
      * @since 1.0.0
      */
