@@ -281,8 +281,8 @@ final class UriFactory
                 ? '#' . \str_replace('\#', '#', $urlStructure['fragment']) : '');
 
         return \str_replace(
-                ['%5C%7B', '%5C%7D', '%5C%3F', '%5C%23'],
-                ['{', '}', '?', '#'],
+                ['%5C%7B', '%5C%7D', '%5C%3F', '%5C%23', '%C2%B0'],
+                ['{', '}', '?', '#', '°'],
                 $escaped
             );
     }

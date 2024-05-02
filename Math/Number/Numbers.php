@@ -124,4 +124,46 @@ final class Numbers
 
         return $count;
     }
+
+    /**
+     * Remap numbers between 0 and X to 0 and 100
+     *
+     * @param int   $number Number to remap
+     * @param int   $max    Max possible number
+     * @param float $exp    Exponential modifier
+     *
+     * @return float
+     *
+     * @since 1.0.0
+     */
+    public static function remapRangeExponentially(int $number, int $max, float $exp = 1.0) : float
+    {
+        if ($number > $max) {
+            $number = $max;
+        }
+
+        $exponent = ($number / $max) * $exp;
+        $mapped = (exp($exponent) - 1) / (exp($exp) - 1) * 100;
+
+        return $mapped;
+    }
+
+    /**
+     * Remap numbers between 0 and X to 0 and 100
+     *
+     * @param int   $number Number to remap
+     * @param int   $max    Max possible number
+     *
+     * @return float
+     *
+     * @since 1.0.0
+     */
+    public static function remapRangeLog(int $number, int $max) : float
+    {
+        if ($number > $max) {
+            $number = $max;
+        }
+
+        return (log($number + 1) / log($max + 1)) * 100;
+    }
 }

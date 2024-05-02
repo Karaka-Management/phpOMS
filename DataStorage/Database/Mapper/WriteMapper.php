@@ -29,6 +29,10 @@ use phpOMS\Utils\ArrayUtils;
  *
  * @todo Lock data for concurrency (e.g. table row lock or heartbeat)
  *      https://github.com/Karaka-Management/Karaka/issues/152
+ *
+ * @performance Database inserts happen one at a time.
+ *      Try to find a way to optimize this with multiple inserts in one go.
+ *      https://github.com/Karaka-Management/phpOMS/issues/370
  */
 final class WriteMapper extends DataMapperAbstract
 {

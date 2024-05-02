@@ -114,4 +114,81 @@ final class Guard
 
         return true;
     }
+
+    public static function isSafeFile(string $path) : bool
+    {
+        $tmp = \strtolower($path);
+        if (\str_ends_with($tmp, '.csv')) {
+            return self::isSafeXml($path);
+        } elseif (\str_ends_with($tmp, '.xml')) {
+            return self::isSafeCsv($path);
+        }
+
+        return true;
+    }
+
+    public static function isSafeXml(string $path) : bool
+    {
+        $maxEntityDepth = 7;
+        $xml = \file_get_contents($path);
+
+        // Detect injections
+        $injectionPatterns = [
+            '/<!ENTITY\s+%(\w+)\s+"(.+)">/',
+            '/<!ENTITY\s+%(\w+)\s+SYSTEM\s+"(.+)">/',
+            '/<!ENTITY\s+(\w+)\s+"(.+)">/',
+            '/<!DOCTYPE\s+(.+)\s+SYSTEM\s+"(.+)">/'
+        ];
+
+        foreach ($injectionPatterns as $pattern) {
+            if (\preg_match($pattern, $xml) !== false) {
+                return false;
+            }
+        }
+
+        $reader = new \XMLReader();
+
+        $reader->XML($xml);
+        $reader->setParserProperty(\XMLReader::SUBST_ENTITIES, true);
+
+        $foundBillionLaughsAttack = false;
+        $entityCount = 0;
+
+        while ($reader->read()) {
+            if ($reader->nodeType === \XMLReader::ENTITY_REF) {
+                ++$entityCount;
+
+                if ($entityCount > $maxEntityDepth) {
+                    $foundBillionLaughsAttack = true;
+                    break;
+                }
+            }
+        }
+
+        return !$foundBillionLaughsAttack;
+    }
+
+    public static function isSafeCsv(string $path) : bool
+    {
+        $input = \fopen($path, 'r');
+        if (!$input) {
+            return true;
+        }
+
+        while (($row = \fgetcsv($input)) !== false) {
+            foreach ($row as &$cell) {
+                if (\preg_match('/^[\x00-\x08\x0B\x0C\x0E-\x1F]+/', $cell) !== false) {
+                    return false;
+                }
+
+                if (\in_array($cell[0] ?? '', ['=', '+', '-', '@'])) {
+                    return false;
+                }
+            }
+        }
+
+        \fclose($input);
+
+        return true;
+    }
 }

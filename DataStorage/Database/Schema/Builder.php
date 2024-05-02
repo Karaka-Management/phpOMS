@@ -159,6 +159,10 @@ class Builder extends BuilderAbstract
      *
      * @return self
      *
+     * @todo Allow to create db indices in json files
+     *      e.g. "index": {"idx1": ["col1"], "idx2": ["col1", "col2"] }
+     *      https://github.com/Karaka-Management/phpOMS/issues/355
+     *
      * @since 1.0.0
      */
     public static function createFromSchema(array $definition, ConnectionAbstract $connection) : self

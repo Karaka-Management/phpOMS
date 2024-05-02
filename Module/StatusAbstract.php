@@ -44,6 +44,18 @@ abstract class StatusAbstract
     public const PATH = '';
 
     /**
+     * Routes.
+     *
+     * Include consideres the state of the file during script execution.
+     * This means setting it to empty has no effect if it was not empty before.
+     * There are also other merging bugs that can happen.
+     *
+     * @var array<string, array>
+     * @since 1.0.0
+     */
+    private static array $routes = [];
+
+    /**
      * Deactivate module.
      *
      * @param ApplicationAbstract $app  Application
@@ -105,14 +117,17 @@ abstract class StatusAbstract
             throw new PermissionException($destRoutePath); // @codeCoverageIgnore
         }
 
-        /** @noinspection PhpIncludeInspection */
-        $appRoutes = include $destRoutePath;
+        if (!isset(self::$routes[$destRoutePath])) {
+            /** @noinspection PhpIncludeInspection */
+            self::$routes[$destRoutePath] = include $destRoutePath;
+        }
+
         /** @noinspection PhpIncludeInspection */
         $moduleRoutes = include $srcRoutePath;
 
-        $appRoutes = \array_merge_recursive($appRoutes, $moduleRoutes);
+        self::$routes[$destRoutePath] = \array_merge_recursive(self::$routes[$destRoutePath], $moduleRoutes);
 
-        \file_put_contents($destRoutePath, '<?php return ' . ArrayParser::serializeArray($appRoutes) . ';', \LOCK_EX);
+        \file_put_contents($destRoutePath, '<?php return ' . ArrayParser::serializeArray(self::$routes[$destRoutePath]) . ';', \LOCK_EX);
     }
 
     /**
@@ -150,22 +165,31 @@ abstract class StatusAbstract
             if ($child instanceof Directory) {
                 /** @var File $file */
                 foreach ($child as $file) {
-                    if (!\is_dir(__DIR__ . '/../../' . $child->getName() . '/' . \basename($file->getName(), '.php'))
-                        || ($appInfo !== null && \basename($file->getName(), '.php') !== $appInfo->getInternalName())
+                    $appName = \basename($file->getName(), '.php');
+
+                    if (!\is_dir(__DIR__ . '/../../' . $child->getName() . '/' . $appName)
+                        || ($appInfo !== null && $appName !== $appInfo->getInternalName())
                     ) {
                         continue;
                     }
 
-                    self::installRoutesHooks(__DIR__ . '/../../' . $child->getName() . '/' . \basename($file->getName(), '.php') . '/' . $type . '.php', $file->getPath());
+                    self::installRoutesHooks(
+                        __DIR__ . '/../../' . $child->getName() . '/' . $appName . '/' . $type . '.php',
+                        $file->getPath()
+                    );
                 }
             } elseif ($child instanceof File) {
+                $appName = \basename($child->getName(), '.php');
                 if (!\is_dir(__DIR__ . '/../../' . $child->getName())
-                    || ($appInfo !== null && \basename($child->getName(), '.php') !== $appInfo->getInternalName())
+                    || ($appInfo !== null && $appName !== $appInfo->getInternalName())
                 ) {
                     continue;
                 }
 
-                self::installRoutesHooks(__DIR__ . '/../../' . $child->getName() . '/' . $type . '.php', $child->getPath());
+                self::installRoutesHooks(
+                    __DIR__ . '/../../' . $child->getName() . '/' . $type . '.php',
+                    $child->getPath()
+                );
             }
         }
     }
@@ -227,7 +251,10 @@ abstract class StatusAbstract
                         continue;
                     }
 
-                    self::uninstallRoutesHooks(__DIR__ . '/../../' . $child->getName() . '/' . \basename($file->getName(), '.php') . '/'. $type . '.php', $file->getPath());
+                    self::uninstallRoutesHooks(
+                        __DIR__ . '/../../' . $child->getName() . '/' . \basename($file->getName(), '.php') . '/'. $type . '.php',
+                        $file->getPath()
+                    );
                 }
             } elseif ($child instanceof File) {
                 if (!\is_dir(__DIR__ . '/../../' . $child->getName())
@@ -236,7 +263,10 @@ abstract class StatusAbstract
                     continue;
                 }
 
-                self::uninstallRoutesHooks(__DIR__ . '/../../' . $child->getName() . '/'. $type . '.php', $child->getPath());
+                self::uninstallRoutesHooks(
+                    __DIR__ . '/../../' . $child->getName() . '/'. $type . '.php',
+                    $child->getPath()
+                );
             }
         }
     }

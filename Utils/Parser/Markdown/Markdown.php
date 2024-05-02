@@ -1274,6 +1274,9 @@ class Markdown
             return null;
         }
 
+        // @todo Optimize away the child <span> element for spoilers (if reasonable)
+        //      If possible don't forget to adjust scss
+        //      https://github.com/Karaka-Management/phpOMS/issues/367
         return [
             'extent'  => \strlen($matches[0]),
             'element' => [

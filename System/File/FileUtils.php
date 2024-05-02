@@ -67,6 +67,8 @@ final class FileUtils
      *
      * @return int Extension type
      *
+     * @question Consider to move directly to ExtensionType enum and create ::fromExtension()
+     *
      * @since 1.0.0
      */
     public static function getExtensionType(string $extension) : int

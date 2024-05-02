@@ -47,6 +47,8 @@ final class Sphere implements D3ShapeInterface
     /**
      * Calculating the distance between two points on a sphere
      *
+     * Geocoding
+     *
      * @param float $latStart  Latitude of start point in deg
      * @param float $longStart Longitude of start point in deg
      * @param float $latEnd    Latitude of target point in deg
@@ -75,6 +77,27 @@ final class Sphere implements D3ShapeInterface
         // $angle = 2 * asin(\sqrt(\pow(\sin($latDelta / 2), 2) + \cos($latFrom) * \cos($latTo) * \pow(\sin($lonDelta / 2), 2)));
 
         return $angle * $radius;
+    }
+
+    /**
+     * Get a bounding box around a lat/lon defined by a distance in meter
+     *
+     * @param float $lat      Latitude
+     * @param float $lon      Longitude
+     * @param float $distance Radius in meter
+     *
+     * @return array {a:array{lat:float, lon:float}, b:array{lat:float, lon:float}, c:array{lat:float, lon:float}, d:array{lat:float, lon:float}}
+     *
+     * @since 1.0.0
+     */
+    public static function boundingBox(float $lat, float $lon, float $distance) : array
+    {
+        return [
+            'a' => ['lat' => $lat + (1 / 111133.0 / 2 * $distance), 'lon' => $lon - (1 / 111320.0 * \cos(\deg2rad($lat - (1 / 111133.0 / 2 * $distance))) * $distance)],
+            'b' => ['lat' => $lat + (1 / 111133.0 / 2 * $distance), 'lon' => $lon + (1 / 111320.0 * \cos(\deg2rad($lat - (1 / 111133.0 / 2 * $distance))) * $distance)],
+            'c' => ['lat' => $lat - (1 / 111133.0 / 2 * $distance), 'lon' => $lon - (1 / 111320.0 * \cos(\deg2rad($lat - (1 / 111133.0 / 2 * $distance))) * $distance)],
+            'd' => ['lat' => $lat - (1 / 111133.0 / 2 * $distance), 'lon' => $lon + (1 / 111320.0 * \cos(\deg2rad($lat - (1 / 111133.0 / 2 * $distance))) * $distance)],
+        ];
     }
 
     /**

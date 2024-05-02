@@ -126,7 +126,10 @@ final class Zip implements ArchiveInterface
 
         try {
             $zip = new \ZipArchive();
-            if (!$zip->open($source)) {
+            if (!$zip->open($source)
+                || $zip->numFiles > 10000
+                || (($zip->statIndex(0)['size'] ?? 0) + ($zip->statIndex(1)['size'] ?? 0)) > 2e+9
+            ) {
                 return false; // @codeCoverageIgnore
             }
 
