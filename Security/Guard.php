@@ -117,11 +117,15 @@ final class Guard
 
     public static function isSafeFile(string $path) : bool
     {
+        if (!\str_ends_with($path, '.exe') && !self::isSafeNoneExecutable($path)) {
+            return false;
+        }
+
         $tmp = \strtolower($path);
         if (\str_ends_with($tmp, '.csv')) {
-            return self::isSafeXml($path);
-        } elseif (\str_ends_with($tmp, '.xml')) {
             return self::isSafeCsv($path);
+        } elseif (\str_ends_with($tmp, '.xml')) {
+            return self::isSafeXml($path);
         }
 
         return true;
@@ -175,19 +179,49 @@ final class Guard
             return true;
         }
 
+        static $specialChars = ['=', '+', '-', '@'];
+
         while (($row = \fgetcsv($input)) !== false) {
             foreach ($row as &$cell) {
-                if (\preg_match('/^[\x00-\x08\x0B\x0C\x0E-\x1F]+/', $cell) !== false) {
+                if (\preg_match('/^[\x00-\x08\x0B\x0C\x0E-\x1F]+/', $cell) === 1) {
                     return false;
                 }
 
-                if (\in_array($cell[0] ?? '', ['=', '+', '-', '@'])) {
+                if (\in_array($cell[0] ?? '', $specialChars)) {
                     return false;
                 }
             }
         }
 
         \fclose($input);
+
+        return true;
+    }
+
+    public static function isSafeNoneExecutable(string $path) : bool
+    {
+        $input = \fopen($path, 'r');
+        if (!$input) {
+            return true;
+        }
+
+        static $specialSignatures = [
+            "\x4D\x5A",
+            "\x7F\x45\x4C\x46",
+        ];
+
+        $line = \fgets($input, 256);
+        \fclose($input);
+
+        if ($line === false) {
+            return true;
+        }
+
+        foreach ($specialSignatures as $sig) {
+            if (\mb_stripos($line, $sig) !== false) {
+                return false;
+            }
+        }
 
         return true;
     }

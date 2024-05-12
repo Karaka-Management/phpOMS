@@ -102,10 +102,7 @@ final class DeleteMapper extends DataMapperAbstract
             ->from($this->mapper::TABLE)
             ->where($this->mapper::TABLE . '.' . $this->mapper::PRIMARYFIELD, '=', $objId);
 
-        $sth = $this->db->con->prepare($query->toSql());
-        if ($sth !== false) {
-            $sth->execute();
-        }
+        $query->execute();
     }
 
     /**
@@ -250,9 +247,6 @@ final class DeleteMapper extends DataMapperAbstract
             $relQuery->where($this->mapper::HAS_MANY[$member]['table'] . '.' . $this->mapper::HAS_MANY[$member]['external'], 'IN', $objIds);
         }
 
-        $sth = $this->db->con->prepare($relQuery->toSql());
-        if ($sth !== false) {
-            $sth->execute();
-        }
+        $relQuery->execute();
     }
 }

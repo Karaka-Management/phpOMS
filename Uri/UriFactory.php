@@ -196,7 +196,7 @@ final class UriFactory
     {
         $success = false;
 
-        foreach (self::$uri as $key => $value) {
+        foreach (self::$uri as $key => $_) {
             if (((bool) \preg_match('~^' . $pattern . '$~', $key))) {
                 unset(self::$uri[$key]);
                 $success = true;

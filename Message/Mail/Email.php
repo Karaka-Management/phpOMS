@@ -1783,7 +1783,7 @@ class Email
             $lookBack = 0;
 
             do {
-                $offset = $avgLength - $lookBack;
+                $offset = (int) ($avgLength - $lookBack);
                 $chunk  = \mb_substr($str, $i, $offset, $this->charset);
                 $chunk  = \base64_encode($chunk);
                 ++$lookBack;

@@ -16,6 +16,7 @@ namespace phpOMS\Utils\IO\Csv;
 
 use phpOMS\DataStorage\Database\Connection\ConnectionAbstract;
 use phpOMS\DataStorage\Database\Query\Builder;
+use phpOMS\DataStorage\Database\Schema\Builder as SchemaBuilder;
 use phpOMS\Utils\IO\IODatabaseMapper;
 
 /**
@@ -37,57 +38,59 @@ final class CsvDatabaseMapper implements IODatabaseMapper
     private ConnectionAbstract $con;
 
     /**
-     * Path to source or destination
-     *
-     * @var string
-     * @since 1.0.0
-     */
-    private string $path = '';
-
-    /**
      * Constructor.
      *
      * @param ConnectionAbstract $con  Database connection
-     * @param string             $path File path
      *
      * @since 1.0.0
      */
-    public function __construct(ConnectionAbstract $con, string $path)
+    public function __construct(ConnectionAbstract $con)
     {
-        $this->con  = $con;
-        $this->path = $path;
+        $this->con = $con;
     }
 
     /**
      * {@inheritdoc}
      */
-    public function insert() : void
+    public function createSchema(string $path, string $table = '') : void
     {
-        $fp = \fopen($this->path, 'r');
+        $fp = \fopen($path, 'r');
         if ($fp === false) {
             return;
         }
 
-        $table  = \basename($this->path, '.csv');
+        $table  = \strtr(empty($table) ? \basename($path, '.csv') : $table, ' ', '_');
         $titles = [];
 
+        $delim = CsvSettings::getFileDelimiter($fp, 2);
+
         // get column titles
-        $titles = \fgetcsv($fp, 4096);
+        $titles = \fgetcsv($fp, 4096, $delim);
         if ($titles === false) {
+            \fclose($fp);
             return;
         }
 
-        $columns = \count($titles);
-        if ($columns === 0) {
+        $titles = \array_map(function(string $title) : string {
+            $title = \strtr(\trim($title), ' ', '_');
+            $title = \preg_replace('/[^a-zA-Z0-9_]/', '', $title);
+
+            return \strtr($title, ' ', '_');
+        }, $titles);
+
+        $cells = \fgetcsv($fp, null, $delim);
+        if ($cells === false) {
+            \fclose($fp);
             return;
         }
 
-        // insert data
-        $query = new Builder($this->con);
-        $query->insert(...$titles)->into($table);
+        $query = new SchemaBuilder($this->con);
+        $query->createTable($table);
 
-        while (($cells = \fgetcsv($fp)) !== false) {
-            $query->values(...$cells);
+        foreach ($cells as $idx => $cell) {
+            $datatype = SchemaBuilder::getTypeFromVariable($cell);
+
+            $query->field($titles[$idx], $datatype);
         }
 
         $query->execute();
@@ -98,9 +101,78 @@ final class CsvDatabaseMapper implements IODatabaseMapper
     /**
      * {@inheritdoc}
      */
-    public function select(array $queries) : void
+    public function import(string $path, string $table = '', ?\Closure $transform = null) : void
     {
-        $fp = \fopen($this->path, 'r+');
+        $fp = \fopen($path, 'r');
+        if ($fp === false) {
+            return;
+        }
+
+        $table  = \strtr(empty($table) ? \basename($path, '.csv') : $table, ' ', '_');
+        $titles = [];
+
+        $delim = CsvSettings::getFileDelimiter($fp, 2);
+
+        // get column titles
+        $titles = \fgetcsv($fp, 4096, $delim);
+        if ($titles === false) {
+            \fclose($fp);
+            return;
+        }
+
+        $columns = \count($titles);
+        if ($columns === 0) {
+            \fclose($fp);
+            return;
+        }
+
+        $titles = \array_map(function(string $title) : string {
+            $title = \strtr(\trim($title), ' ', '_');
+            $title = \preg_replace('/[^a-zA-Z0-9_]/', '', $title);
+
+            return \strtr($title, ' ', '_');
+        }, $titles);
+
+        $titleCount = \count($titles);
+
+        do {
+            $counter = 0;
+
+            // insert data
+            $query = new Builder($this->con);
+            $query->insert(...$titles)->into($table);
+
+            while (($cells = \fgetcsv($fp, null, $delim)) !== false) {
+                if (\count($cells) !== $titleCount) {
+                    continue;
+                }
+
+                if ($transform !== null) {
+                    foreach ($cells as $idx => $cell) {
+                        $cells[$idx] = $transform($titles[$idx], $cell);
+                    }
+                }
+
+                $query->values(...$cells);
+                ++$counter;
+
+                if ($counter > 250) {
+                    break;
+                }
+            }
+
+            $query->execute();
+        } while ($cells !== false);
+
+        \fclose($fp);
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function export(string $path, array $queries) : void
+    {
+        $fp = \fopen($path, 'r+');
         if ($fp === false) {
             return;
         }
@@ -112,6 +184,7 @@ final class CsvDatabaseMapper implements IODatabaseMapper
             }
 
             if ($key > 0) {
+                \fclose($fp);
                 return;
             }
 
@@ -140,26 +213,35 @@ final class CsvDatabaseMapper implements IODatabaseMapper
     /**
      * {@inheritdoc}
      */
-    public function update() : void
+    public function update(string $path, string $table = '') : void
     {
-        $fp = \fopen($this->path, 'r+');
+        $fp = \fopen($path, 'r+');
         if ($fp === false) {
             return;
         }
 
-        $table  = \basename($this->path, '.csv');
+        $table  = \strtr(empty($table) ? \basename($path, '.csv') : $table, ' ', '_');
         $titles = [];
 
         // get column titles
         $titles = \fgetcsv($fp, 4096);
         if ($titles === false) {
+            \fclose($fp);
             return;
         }
 
         $columns = \count($titles);
         if ($columns === 0) {
+            \fclose($fp);
             return;
         }
+
+        $titles = \array_map(function(string $title) : string {
+            $title = \strtr(\trim($title), ' ', '_');
+            $title = \preg_replace('/[^a-zA-Z0-9_]/', '', $title);
+
+            return \strtr($title, ' ', '_');
+        }, $titles);
 
         $idCol = (string) \array_shift($titles);
 

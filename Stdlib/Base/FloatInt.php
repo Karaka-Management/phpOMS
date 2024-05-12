@@ -373,6 +373,19 @@ class FloatInt implements SerializableInterface
     }
 
     /**
+     * {@inheritdoc}
+     */
+    public function jsonSerialize() : mixed
+    {
+        return \json_encode($this->getInt());
+    }
+
+    public static function fromJson(string $json) : self
+    {
+        return new self((int) $json);
+    }
+
+    /**
      * Set money value.
      *
      * @param int $value Value

@@ -392,7 +392,30 @@ class Account implements \JsonSerializable
             'permissions' => $this->permissions,
             'type'        => $this->type,
             'status'      => $this->status,
+            'l11n'        => $this->l11n,
         ];
+    }
+
+    public function from (array $account) : void
+    {
+        $this->id = $account['id'];
+        $this->name1 = $account['name'][0];
+        $this->name2 = $account['name'][1];
+        $this->name3 = $account['name'][2];
+        $this->email = $account['email'];
+        $this->login = $account['login'];
+        $this->type = $account['type'];
+        $this->status = $account['status'];
+
+        $this->l11n = Localization::fromJson($account['l11n']);
+
+        foreach (($account['groups'] ?? []) as $group) {
+            $this->groups[] = Group::fromJson($group);
+        }
+
+        foreach (($account['permissions'] ?? []) as $permission) {
+            $this->permissions[] = PermissionAbstract::fromJson($permission);
+        }
     }
 
     /**

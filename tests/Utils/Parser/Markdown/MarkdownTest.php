@@ -34,7 +34,7 @@ final class MarkdownTest extends \PHPUnit\Framework\TestCase
             $data = \explode('.', $file);
 
             if ($data[1] === 'md'
-                && (\file_get_contents(__DIR__ . '/data/' . $data[0] . '.html') !== ($parsed = Markdown::parse(\file_get_contents(__DIR__ . '/data/' . $data[0] . '.md'))))
+                && (($expected = \file_get_contents(__DIR__ . '/data/' . $data[0] . '.html')) !== ($parsed = Markdown::parse(\file_get_contents(__DIR__ . '/data/' . $data[0] . '.md'))))
             ) {
                 self::assertTrue(false, $file . "\n\n" . $parsed);
             }

@@ -190,14 +190,6 @@ class Builder extends BuilderAbstract
     public ?int $offset = null;
 
     /**
-     * Binds.
-     *
-     * @var array
-     * @since 1.0.0
-     */
-    private array $binds = [];
-
-    /**
      * Union.
      *
      * @var array
@@ -337,26 +329,6 @@ class Builder extends BuilderAbstract
 
         $this->type   = QueryType::RANDOM;
         $this->random = &$this->selects;
-
-        return $this;
-    }
-
-    /**
-     * Bind parameter.
-     *
-     * @param string|array $binds Binds
-     *
-     * @return Builder
-     *
-     * @since 1.0.0
-     */
-    public function bind(string | array $binds) : self
-    {
-        if (\is_array($binds)) {
-            $this->binds += $binds;
-        } else {
-            $this->binds[] = $binds;
-        }
 
         return $this;
     }
@@ -1375,6 +1347,42 @@ class Builder extends BuilderAbstract
     public function execute() : ?\PDOStatement
     {
         $sth = null;
+        try {
+            $sth = $this->prepare();
+            if ($sth !== null) {
+                $sth->execute();
+            }
+        } catch (\Throwable $t) {
+            // @codeCoverageIgnoreStart
+            \phpOMS\Log\FileLogger::getInstance()->error(
+                \phpOMS\Log\FileLogger::MSG_FULL, [
+                    'message' => $t->getMessage() . ':' . $this->toSql(),
+                    'line'    => __LINE__,
+                    'file'    => self::class,
+                ]
+            );
+
+            \phpOMS\Log\FileLogger::getInstance()->error(
+                \phpOMS\Log\FileLogger::MSG_FULL, [
+                    'message' => \json_encode($this->binds),
+                    'line'    => __LINE__,
+                    'file'    => self::class,
+                ]
+            );
+
+            $sth = null;
+            // @codeCoverageIgnoreEnd
+        }
+
+        return $sth;
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function prepare() : ?\PDOStatement
+    {
+        $sth = null;
         $sql = '';
 
         try {
@@ -1384,17 +1392,25 @@ class Builder extends BuilderAbstract
             }
 
             foreach ($this->binds as $key => $bind) {
-                $type = self::getBindParamType($bind);
+                if (!isset($bind['type'])) {
+                    $bind['type'] = self::getBindParamType($bind['value']);
+                }
 
-                $sth->bindParam($key, $bind, $type);
+                $sth->bindParam(\is_int($key) ? $key + 1 : $key, $bind['value'], $bind['type']);
             }
-
-            $sth->execute();
         } catch (\Throwable $t) {
             // @codeCoverageIgnoreStart
             \phpOMS\Log\FileLogger::getInstance()->error(
                 \phpOMS\Log\FileLogger::MSG_FULL, [
                     'message' => $t->getMessage() . ':' . $sql,
+                    'line'    => __LINE__,
+                    'file'    => self::class,
+                ]
+            );
+
+            \phpOMS\Log\FileLogger::getInstance()->error(
+                \phpOMS\Log\FileLogger::MSG_FULL, [
+                    'message' => \json_encode($this->binds),
                     'line'    => __LINE__,
                     'file'    => self::class,
                 ]
@@ -1447,7 +1463,12 @@ class Builder extends BuilderAbstract
         } elseif ($column instanceof SerializableInterface) {
             return $column->serialize();
         } elseif ($column instanceof self) {
-            return \md5($column->toSql());
+            $tmp = $column->usePreparedStmt;
+            $column->usePreparedStmt = false;
+            $hash = \md5($column->toSql());
+            $column->usePreparedStmt = $tmp;
+
+            return $hash;
         }
 
         throw new \Exception();

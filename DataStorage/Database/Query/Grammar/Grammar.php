@@ -156,7 +156,7 @@ class Grammar extends GrammarAbstract
      */
     protected function compileSelects(Builder $query, array $columns) : string
     {
-        $expression = $this->expressionizeTableColumn($columns, false);
+        $expression = $this->expressionizeTableColumn($columns, $query, false);
 
         if ($expression === '') {
             $expression = '*';
@@ -207,7 +207,7 @@ class Grammar extends GrammarAbstract
      */
     protected function compileUpdates(Builder $query, array $table) : string
     {
-        $expression = $this->expressionizeTableColumn($table);
+        $expression = $this->expressionizeTableColumn($table, $query);
 
         if ($expression === '') {
             return '';
@@ -243,7 +243,7 @@ class Grammar extends GrammarAbstract
      */
     protected function compileFrom(Builder $query, array $table) : string
     {
-        $expression = $this->expressionizeTableColumn($table);
+        $expression = $this->expressionizeTableColumn($table, $query);
 
         if ($expression === '') {
             return '';
@@ -265,76 +265,73 @@ class Grammar extends GrammarAbstract
      */
     public function compileWheres(Builder $query, array $wheres, bool $first = true) : string
     {
-        $expression = '';
+        $outer = '';
 
         foreach ($wheres as $where) {
             foreach ($where as $element) {
-                $expression .= $this->compileWhereElement($element, $query, $first);
-                $first = false;
+                $expression = '';
+                $prefix = '';
+
+                if (!$first) {
+                    $prefix = ' ' . \strtoupper($element['boolean']) . ' ';
+                }
+
+                if (\is_string($element['column'])) {
+                    $expression .= $this->compileSystem($element['column']);
+                } elseif ($element['column'] instanceof Builder) {
+                    $expression .= '(' . \rtrim($element['column']->toSql(), ';') . ')';
+
+                    if ($query->usePreparedStmt && $element['column']->usePreparedStmt) {
+                        // If we have a subquery, we need to copy the binds over
+                        // BUT we are only allowed to do this once per wheres builder
+                        foreach ($element['column']->binds as $bind) {
+                            $query->bind($bind);
+                        };
+                    }
+                } elseif ($element['column'] instanceof \Closure) {
+                    $expression .= $element['column']();
+                }
+
+                // Handle null for IN (...)
+                // This is not allowed and must be written as (IN (...) OR IS NULL)
+                $isArray = \is_array($element['value']);
+                $hasNull = false;
+                if ($isArray && ($key = \array_search(null, $element['value'], true)) !== false) {
+                    $hasNull = true;
+                    unset($element['value'][$key]);
+
+                    if (empty($element['value'])) {
+                        $element['operator'] = '=';
+                        $element['value']    = null;
+                    }
+                }
+
+                if (isset($element['value']) && (!empty($element['value']) || !$isArray)) {
+                    if ($isArray && \count($element['value']) === 1) {
+                        $element['value'] = \reset($element['value']);
+                        $element['operator'] = '=';
+                    }
+
+                    $expression .= ' ' . \strtoupper($element['operator']) . ' ' . $this->compileValue($query, $element['value']);
+
+                    if ($hasNull) {
+                        $expression = '(' . $expression . ' OR ' . $this->compileSystem($element['column']) . ' IS NULL)';
+                    }
+                } elseif ($element['value'] === null && !($element['column'] instanceof Builder)) {
+                    $operator = $element['operator'] === '=' ? 'IS' : 'IS NOT';
+                    $expression .= ' ' . $operator . ' ' . $this->compileValue($query, $element['value']);
+                }
+
+                $outer .= $prefix . $expression;
+                $first  = false;
             }
         }
 
-        if ($expression === '') {
+        if ($outer === '') {
             return '';
         }
 
-        return 'WHERE ' . $expression;
-    }
-
-    /**
-     * Compile where element.
-     *
-     * @param array   $element Element data
-     * @param Builder $query   Query builder
-     * @param bool    $first   Is first element (useful for nesting)
-     *
-     * @return string
-     *
-     * @since 1.0.0
-     */
-    protected function compileWhereElement(array $element, Builder $query, bool $first = true) : string
-    {
-        $expression = '';
-        $prefix     = '';
-
-        if (!$first) {
-            $prefix = ' ' . \strtoupper($element['boolean']) . ' ';
-        }
-
-        if (\is_string($element['column'])) {
-            $expression .= $this->compileSystem($element['column']);
-        } elseif ($element['column'] instanceof Builder) {
-            $expression .= '(' . \rtrim($element['column']->toSql(), ';') . ')';
-        } elseif ($element['column'] instanceof \Closure) {
-            $expression .= $element['column']();
-        }
-
-        // Handle null for IN (...)
-        // This is not allowed and must be written as (IN (...) OR IS NULL)
-        $isArray = \is_array($element['value']);
-        $hasNull = false;
-        if ($isArray && ($key = \array_search(null, $element['value'], true)) !== false) {
-            $hasNull = true;
-            unset($element['value'][$key]);
-
-            if (empty($element['value'])) {
-                $element['operator'] = '=';
-                $element['value']    = null;
-            }
-        }
-
-        if (isset($element['value']) && (!empty($element['value']) || !$isArray)) {
-            $expression .= ' ' . \strtoupper($element['operator']) . ' ' . $this->compileValue($query, $element['value']);
-
-            if ($hasNull) {
-                $expression = '(' . $expression . ' OR ' . $this->compileSystem($element['column']) . ' IS NULL)';
-            }
-        } elseif ($element['value'] === null && !($element['column'] instanceof Builder)) {
-            $operator = $element['operator'] === '=' ? 'IS' : 'IS NOT';
-            $expression .= ' ' . $operator . ' ' . $this->compileValue($query, $element['value']);
-        }
-
-        return $prefix . $expression;
+        return 'WHERE ' . $outer;
     }
 
     /**
@@ -349,6 +346,16 @@ class Grammar extends GrammarAbstract
      */
     protected function compileLimit(Builder $query, int $limit) : string
     {
+        if ($query->usePreparedStmt) {
+
+            $query->bind([
+                'value' => $limit,
+                'type' => \PDO::PARAM_INT,
+            ]);
+
+            $limit = '?';
+        }
+
         return 'LIMIT ' . $limit;
     }
 
@@ -364,6 +371,16 @@ class Grammar extends GrammarAbstract
      */
     protected function compileOffset(Builder $query, int $offset) : string
     {
+        if ($query->usePreparedStmt) {
+
+            $query->bind([
+                'value' => $offset,
+                'type' => \PDO::PARAM_INT,
+            ]);
+
+            $offset = '?';
+        }
+
         return 'OFFSET ' . $offset;
     }
 
@@ -390,6 +407,13 @@ class Grammar extends GrammarAbstract
                 $expression .= $join['table']() . (\is_string($join['alias']) ? ' as ' . $join['alias'] : '');
             } elseif ($join['table'] instanceof Builder) {
                 $expression .= '(' . \rtrim($join['table']->toSql(), ';') . ')' . (\is_string($join['alias']) ? ' as ' . $join['alias'] : '');
+
+                if ($query->usePreparedStmt && $join['table']->usePreparedStmt) {
+                    // If we have a subquery, we need to copy the binds over
+                    foreach ($join['table']->binds as $bind) {
+                        $query->bind($bind);
+                    };
+                }
             }
 
             $expression .= $this->compileOn($query, $query->ons[$join['alias'] ?? $table]) . ' ';
@@ -453,13 +477,20 @@ class Grammar extends GrammarAbstract
             $expression .= $this->compileSystem($element['column']);
         } elseif ($element['column'] instanceof Builder) {
             $expression .= '(' . $element['column']->toSql() . ')';
+
+            if ($query->usePreparedStmt && $element['column']->usePreparedStmt) {
+                // If we have a subquery, we need to copy the binds over
+                foreach ($element['column']->binds as $bind) {
+                    $query->bind($bind);
+                };
+            }
         } elseif ($element['column'] instanceof \Closure) {
             $expression .= $element['column']();
         }
 
         // @bug The on part of a join doesn't allow string values because they conflict with column name
         //      Other data types are possible because they don't conflict with the data type of columns (string)
-        //      Consider to create a ColumnName() class.
+        //      Consider to create a ColumnName() class or maybe StringValue() since we use string values less often.
         //      https://github.com/Karaka-Management/phpOMS/issues/369
         if (isset($element['value'])) {
             $expression .= ' ' . \strtoupper($element['operator']) . ' '
@@ -628,7 +659,7 @@ class Grammar extends GrammarAbstract
         $vals = '';
 
         foreach ($values as $column => $value) {
-            $expression = $this->expressionizeTableColumn([$column], false);
+            $expression = $this->expressionizeTableColumn([$column], $query, false);
 
             $vals .= $expression . ' = ' . $this->compileValue($query, $value) . ', ';
         }

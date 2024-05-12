@@ -162,8 +162,8 @@ final class WriteMapper extends DataMapperAbstract
                 $query->insert($this->mapper::PRIMARYFIELD)->value(0);
             }
 
-            $sth = $this->db->con->prepare($query->toSql());
-            if ($sth === false) {
+            $sth = $query->prepare();
+            if ($sth === null) {
                 throw new \Exception();
             }
 
@@ -438,8 +438,8 @@ final class WriteMapper extends DataMapperAbstract
                 $relQuery->values($src, $objId);
             }
 
-            $sth = $this->db->con->prepare($relQuery->toSql());
-            if ($sth === false) {
+            $sth = $relQuery->prepare();
+            if ($sth === null) {
                 throw new \Exception();
             }
 

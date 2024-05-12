@@ -129,12 +129,12 @@ class SQLiteGrammar extends Grammar
                 $fieldQuery .= ' ' . ($field['null'] ? '' : 'NOT ') . 'NULL';
             }
 
-            if ($field['autoincrement'] ?? false) {
-                $fieldQuery .= ' AUTOINCREMENT';
-            }
-
             if ($field['primary'] ?? false) {
                 $fieldQuery .= ' PRIMARY KEY';
+            }
+
+            if ($field['autoincrement'] ?? false) {
+                $fieldQuery .= ' AUTOINCREMENT';
             }
 
             $fieldQuery .= ',';

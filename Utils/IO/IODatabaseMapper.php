@@ -27,29 +27,49 @@ interface IODatabaseMapper
     /**
      * Insert data from excel sheet into database
      *
+     * @param string        $path      File path
+     * @param string        $table     Table name (empty = sheet name)
+     * @param null|\Closure $transform Transform data before import
+     *
      * @return void
      *
      * @since 1.0.0
      */
-    public function insert() : void;
+    public function import(string $path, string $table = '', ?\Closure $transform = null) : void;
 
     /**
      * Select data from database and store in excel sheet
      *
+     * @param string                                       $path    Output path
      * @param \phpOMS\DataStorage\Database\Query\Builder[] $queries Queries to execute
      *
      * @return void
      *
      * @since 1.0.0
      */
-    public function select(array $queries) : void;
+    public function export(string $path, array $queries) : void;
 
     /**
      * Update data from excel sheet into database
+     *
+     * @param string $path  File path
+     * @param string $table Table name (empty = sheet name)
      *
      * @return void
      *
      * @since 1.0.0
      */
-    public function update() : void;
+    public function update(string $path, string $table = '') : void;
+
+    /**
+     * Create database schema
+     *
+     * @param string $path  File path
+     * @param string $table Table name (empty = sheet name)
+     *
+     * @return void
+     *
+     * @since 1.0.0
+     */
+    public function createSchema(string $path, string $table = '') : void;
 }

@@ -36,6 +36,14 @@ abstract class BuilderAbstract
     protected bool $isReadOnly = false;
 
     /**
+     * Use prepared statement.
+     *
+     * @var bool
+     * @since 1.0.0
+     */
+    public bool $usePreparedStmt = true;
+
+    /**
      * Database connection.
      *
      * @var ConnectionAbstract
@@ -58,6 +66,14 @@ abstract class BuilderAbstract
      * @since 1.0.0
      */
     public string $raw = '';
+
+    /**
+     * Binds.
+     *
+     * @var array
+     * @since 1.0.0
+     */
+    public array $binds = [];
 
     /**
      * Get connection
@@ -83,6 +99,27 @@ abstract class BuilderAbstract
     public function quote(string $value) : string
     {
         return $this->connection->con->quote($value);
+    }
+
+    /**
+     * Bind parameter.
+     *
+     * @param array   $binds Binds
+     * @param ?string $key   Key
+     *
+     * @return Builder
+     *
+     * @since 1.0.0
+     */
+    public function bind(array $binds, ?string $key = null) : self
+    {
+        if ($key === null) {
+            $this->binds[] = $binds;
+        } else {
+            $this->binds[$key] = $binds;
+        }
+
+        return $this;
     }
 
     /**

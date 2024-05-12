@@ -347,9 +347,8 @@ final class ReadMapper extends DataMapperAbstract
         $results = false;
 
         try {
-            $sth = $this->db->con->prepare($query->toSql());
-            if ($sth !== false) {
-                $sth->execute();
+            $sth = $query->execute();
+            if ($sth !== null) {
                 $results = $sth->fetchAll(\PDO::FETCH_ASSOC);
             }
         } catch (\Throwable $t) {
@@ -381,14 +380,12 @@ final class ReadMapper extends DataMapperAbstract
         $query ??= $this->getQuery();
 
         try {
-            $sth = $this->db->con->prepare($query->toSql());
-            if ($sth === false) {
+            $sth = $query->execute();
+            if ($sth === null) {
                 yield [];
 
                 return;
             }
-
-            $sth->execute();
 
             while ($row = $sth->fetch(\PDO::FETCH_ASSOC)) {
                 yield $row;

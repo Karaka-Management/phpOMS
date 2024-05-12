@@ -109,6 +109,8 @@ class Group implements \JsonSerializable
             'description' => $this->description,
             'permissions' => $this->permissions,
             'members'     => $this->members,
+            'parents'     => $this->parents,
+            'status'     => $this->status,
         ];
     }
 
@@ -126,5 +128,23 @@ class Group implements \JsonSerializable
     public function jsonSerialize() : mixed
     {
         return $this->toArray();
+    }
+
+    public static function fromJson(array $group) : self
+    {
+        $new = new self();
+
+        $new->id = $group['id'];
+        $new->name = $group['name'];
+        $new->description = $group['description'];
+        $new->members = $group['members'];
+        $new->parents = $group['parents'];
+        $new->status = $group['status'];
+
+        foreach (($group['permissions'] ?? []) as $permission) {
+            $new->permissions[] = PermissionAbstract::fromJson($permission);
+        }
+
+        return $new;
     }
 }

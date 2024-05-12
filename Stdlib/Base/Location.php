@@ -157,6 +157,8 @@ class Location implements \JsonSerializable, SerializableInterface
     public function toArray() : array
     {
         return [
+            'id'  => $this->id,
+            'type'  => $this->type,
             'postal'  => $this->postal,
             'city'    => $this->city,
             'country' => $this->country,
@@ -165,6 +167,19 @@ class Location implements \JsonSerializable, SerializableInterface
             'lat'     => $this->lat,
             'lon'     => $this->lon,
         ];
+    }
+
+    public function from(array $location) : void
+    {
+        $this->id = $location['id'];
+        $this->type = $location['type'];
+        $this->postal = $location['postal'];
+        $this->city = $location['city'];
+        $this->country = $location['country'];
+        $this->address = $location['address'];
+        $this->state = $location['state'];
+        $this->lat = $location['lat'];
+        $this->lon = $location['lon'];
     }
 
     /**

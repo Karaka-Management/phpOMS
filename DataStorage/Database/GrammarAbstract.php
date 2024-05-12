@@ -139,8 +139,9 @@ abstract class GrammarAbstract
     /**
      * Expressionize elements.
      *
-     * @param array $elements Elements
-     * @param bool  $column   Is column?
+     * @param array           $elements Elements
+     * @param BuilderAbstract $query    Builder
+     * @param bool            $column   Is column?
      *
      * @return string
      *
@@ -148,7 +149,7 @@ abstract class GrammarAbstract
      *
      * @since 1.0.0
      */
-    public function expressionizeTableColumn(array $elements, bool $column = true) : string
+    public function expressionizeTableColumn(array $elements, BuilderAbstract $query = null, bool $column = true) : string
     {
         $expression = '';
 
@@ -160,6 +161,13 @@ abstract class GrammarAbstract
                 $expression .= $element . ', ';
             } elseif ($element instanceof BuilderAbstract) {
                 $expression .= $element->toSql() . (\is_string($key) ? ' AS ' . $key : '') . ', ';
+
+                if ($query->usePreparedStmt && $element->usePreparedStmt && $query !== null) {
+                    // If we have a subquery, we need to copy the binds over
+                    foreach ($element->binds as $bind) {
+                        $query->bind($bind);
+                    };
+                }
             } elseif ($element instanceof \Closure) {
                 $expression .= $element() . (\is_string($key) ? ' AS ' . $key : '') . ', ';
             } else {
@@ -219,6 +227,10 @@ abstract class GrammarAbstract
     /**
      * Compile value.
      *
+     * If the query builder uses prepared statements it will use these prepared statements + data binds.
+     * If the query builder doesn't use prepared statements but the setting usePreparedStmt is set to true
+     * this function will try and convert every value that can be prepared to a prepared statement
+     *
      * @param BuilderAbstract $query Query builder
      * @param mixed           $value Value
      *
@@ -230,10 +242,23 @@ abstract class GrammarAbstract
      */
     protected function compileValue(BuilderAbstract $query, mixed $value) : string
     {
+        $compiled = '';
+        $type = -1;
+
         if (\is_string($value)) {
-            return $query->quote($value);
+            if ($query->usePreparedStmt) {
+                $type = \PDO::PARAM_STR;
+                $compiled = $value;
+            } else {
+                $compiled = $query->quote($value);
+            }
         } elseif (\is_int($value)) {
-            return (string) $value;
+            if ($query->usePreparedStmt) {
+                $type = \PDO::PARAM_INT;
+                $compiled = $value;
+            } else {
+                $compiled = (string) $value;
+            }
         } elseif (\is_array($value)) {
             $value  = \array_values($value);
             $count  = \count($value) - 1;
@@ -243,29 +268,65 @@ abstract class GrammarAbstract
                 $values .= $this->compileValue($query, $value[$i]) . ', ';
             }
 
-            return $values . $this->compileValue($query, $value[$count]) . ')';
-        } elseif ($value instanceof \DateTime || $value instanceof \DateTimeImmutable) {
-            return $query->quote($value->format($this->datetimeFormat));
+            $compiled = $values . $this->compileValue($query, $value[$count]) . ')';
+        } elseif ($value instanceof \DateTimeInterface) {
+            if ($query->usePreparedStmt) {
+                $type = \PDO::PARAM_STR;
+                $compiled = $value->format($this->datetimeFormat);
+            } else {
+                $compiled = $query->quote($value->format($this->datetimeFormat));
+            }
         } elseif ($value === null) {
-            return 'NULL';
+                $compiled = 'NULL';
         } elseif (\is_bool($value)) {
-            return (string) ((int) $value);
+            if ($query->usePreparedStmt) {
+                $type = \PDO::PARAM_BOOL;
+                $compiled = $value;
+            } else {
+                $compiled = (string) ((int) $value);
+            }
         } elseif (\is_float($value)) {
-            return \rtrim(\rtrim(\number_format($value, 5, '.', ''), '0'), '.');
+            $compiled = \rtrim(\rtrim(\number_format($value, 5, '.', ''), '0'), '.');
         } elseif ($value instanceof ColumnName) {
-            return $this->compileSystem($value->name);
+            $compiled = $this->compileSystem($value->name);
         } elseif ($value instanceof BuilderAbstract) {
-            return '(' . \rtrim($value->toSql(), ';') . ')';
+            $compiled = '(' . \rtrim($value->toSql(), ';') . ')';
+            if ($query->usePreparedStmt && $value->usePreparedStmt) {
+                $type = -2;
+            }
         } elseif ($value instanceof \JsonSerializable) {
             $encoded = \json_encode($value);
 
-            return $encoded ? $encoded : 'NULL';
+            if ($query->usePreparedStmt) {
+                $type = $encoded ? \PDO::PARAM_STR : \PDO::PARAM_STR;
+                $compiled = $encoded ? $value : null;
+            } else {
+                $compiled = $encoded ? $query->quote($encoded) : 'NULL';
+            }
         } elseif ($value instanceof SerializableInterface) {
-            return $value->serialize();
+            $compiled = $value->serialize();
         } elseif ($value instanceof Parameter) {
-            return $value->__toString();
+            $compiled = $value->__toString();
         } else {
             throw new \InvalidArgumentException(\gettype($value));
         }
+
+        if ($query->usePreparedStmt && $type !== -1) {
+            if ($type === -2) {
+                // If we have a subquery, we need to copy the binds over
+                foreach ($value->binds as $bind) {
+                    $query->bind($bind);
+                }
+            } else {
+                $query->bind([
+                    'value' => $compiled,
+                    'type' => $type,
+                ]);
+
+                $compiled = '?';
+            }
+        }
+
+        return $compiled;
     }
 }

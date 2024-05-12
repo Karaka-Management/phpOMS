@@ -527,6 +527,39 @@ abstract class ModuleAbstract
     }
 
     /**
+     * Create duplicate model create response.
+     *
+     * The response object contains the following data:
+     *
+     *  * status = Response status
+     *  * title = Response title (e.g. for frontend reporting)
+     *  * message = Response message (e.g. for frontend reporting)
+     *  * response = Response object (e.g. for validation/frontend reporting/form validation)
+     *
+     * @param RequestAbstract  $request  Request
+     * @param ResponseAbstract $response Response
+     * @param mixed            $obj      Response object
+     *
+     * @return void
+     *
+     * @since 1.0.0
+     */
+    public function createDuplicateCreateResponse(
+        RequestAbstract $request,
+        ResponseAbstract $response,
+        mixed $obj
+    ) : void
+    {
+        $response->header->set('Content-Type', MimeType::M_JSON . '; charset=utf-8', true);
+        $response->data[$request->uri->__toString()] = [
+            'status'   => NotificationLevel::WARNING,
+            'title'    => '',
+            'message'  => $this->app->l11nManager->getText($response->header->l11n->language, '0', '0', 'DuplicateCreate'),
+            'response' => $obj,
+        ];
+    }
+
+    /**
      * Create invalid model update response.
      *
      * The response object contains the following data:

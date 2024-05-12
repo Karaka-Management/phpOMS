@@ -16,6 +16,7 @@ namespace phpOMS\Utils\IO\Spreadsheet;
 
 use phpOMS\DataStorage\Database\Connection\ConnectionAbstract;
 use phpOMS\DataStorage\Database\Query\Builder;
+use phpOMS\DataStorage\Database\Schema\Builder as SchemaBuilder;
 use phpOMS\Utils\IO\IODatabaseMapper;
 use phpOMS\Utils\StringUtils;
 
@@ -38,56 +39,49 @@ final class SpreadsheetDatabaseMapper implements IODatabaseMapper
     private ConnectionAbstract $con;
 
     /**
-     * Path to source or destination
-     *
-     * @var string
-     * @since 1.0.0
-     */
-    private string $path = '';
-
-    /**
      * Constructor.
      *
      * @param ConnectionAbstract $con  Database connection
-     * @param string             $path File path
      *
      * @since 1.0.0
      */
-    public function __construct(ConnectionAbstract $con, string $path)
+    public function __construct(ConnectionAbstract $con)
     {
         $this->con  = $con;
-        $this->path = $path;
     }
 
     /**
      * {@inheritdoc}
      */
-    public function insert() : void
+    public function createSchema(string $path, string $table = '') : void
     {
         $reader = null;
-        if (StringUtils::endsWith($this->path, '.xlsx')) {
+        if (StringUtils::endsWith($path, '.xlsx')) {
             $reader = new \PhpOffice\PhpSpreadsheet\Reader\Xlsx();
-        } elseif (StringUtils::endsWith($this->path, '.ods')) {
+        } elseif (StringUtils::endsWith($path, '.ods')) {
             $reader = new \PhpOffice\PhpSpreadsheet\Reader\Ods();
         } else {
             $reader = new \PhpOffice\PhpSpreadsheet\Reader\Xls();
         }
 
         $reader->setReadDataOnly(true);
-        $sheet = $reader->load($this->path);
+        $sheet = $reader->load($path);
 
         $tables = $sheet->getSheetCount();
         for ($i = 0; $i < $tables; ++$i) {
             $sheet->setActiveSheetIndex($i);
 
             $workSheet = $sheet->getSheet($i);
-            $table     = $workSheet->getTitle();
+            $table     = \strtr(empty($table) ? $workSheet->getTitle() : $table, ' ', '_');
             $titles    = [];
 
             // get column titles
             $column = 1;
             while (!empty($value = $workSheet->getCell(StringUtils::intToAlphabet($column) . 1)->getCalculatedValue())) {
+                $value = \strtr(\trim($value), ' ', '_');
+                $value = \preg_replace('/[^a-zA-Z0-9_]/', '', $value);
                 $titles[] = $value;
+
                 ++$column;
             }
 
@@ -96,20 +90,22 @@ final class SpreadsheetDatabaseMapper implements IODatabaseMapper
                 continue;
             }
 
-            // insert data
-            $query = new Builder($this->con);
-            $query->insert(...$titles)->into($table);
+            $query = new SchemaBuilder($this->con);
+            $query->createTable($table);
 
             $line = 2;
-            while (!empty($workSheet->getCell('A' . $line)->getCalculatedValue())) {
-                $cells = [];
-                for ($j = 1; $j <= $columns; ++$j) {
-                    $cells[] = $workSheet->getCell(StringUtils::intToAlphabet($j) . $line)->getCalculatedValue();
-                }
+            if (empty($workSheet->getCell('A' . $line)->getCalculatedValue())) {
+                continue;
+            }
 
-                ++$line;
+            for ($j = 1; $j <= $columns; ++$j) {
+                $cells[] = $workSheet->getCell(StringUtils::intToAlphabet($j) . $line)->getCalculatedValue();
+            }
 
-                $query->values(...$cells);
+            foreach ($cells as $idx => $cell) {
+                $datatype = SchemaBuilder::getTypeFromVariable($cell);
+
+                $query->field($titles[$idx], $datatype);
             }
 
             $query->execute();
@@ -119,7 +115,83 @@ final class SpreadsheetDatabaseMapper implements IODatabaseMapper
     /**
      * {@inheritdoc}
      */
-    public function select(array $queries) : void
+    public function import(string $path, string $table = '', ?\Closure $transform = null) : void
+    {
+        $reader = null;
+        if (StringUtils::endsWith($path, '.xlsx')) {
+            $reader = new \PhpOffice\PhpSpreadsheet\Reader\Xlsx();
+        } elseif (StringUtils::endsWith($path, '.ods')) {
+            $reader = new \PhpOffice\PhpSpreadsheet\Reader\Ods();
+        } else {
+            $reader = new \PhpOffice\PhpSpreadsheet\Reader\Xls();
+        }
+
+        $reader->setReadDataOnly(true);
+        $sheet = $reader->load($path);
+
+        $tables = $sheet->getSheetCount();
+        for ($i = 0; $i < $tables; ++$i) {
+            $sheet->setActiveSheetIndex($i);
+
+            $workSheet = $sheet->getSheet($i);
+            $table     = \strtr(empty($table) ? $workSheet->getTitle() : $table, ' ', '_');
+            $titles    = [];
+
+            // get column titles
+            $column = 1;
+            while (!empty($value = $workSheet->getCell(StringUtils::intToAlphabet($column) . 1)->getCalculatedValue())) {
+                $value = \strtr(\trim($value), ' ', '_');
+                $value = \preg_replace('/[^a-zA-Z0-9_]/', '', $value);
+                $titles[] = $value;
+
+                ++$column;
+            }
+
+            $columns = \count($titles);
+            if ($columns === 0) {
+                continue;
+            }
+
+            $line = 2;
+
+            do {
+                $counter = 0;
+
+                // insert data
+                $query = new Builder($this->con);
+                $query->insert(...$titles)->into($table);
+
+                while ($hasData = !empty($workSheet->getCell('A' . $line)->getCalculatedValue())) {
+                    $cells = [];
+                    for ($j = 1; $j <= $columns; ++$j) {
+                        $cells[] = $workSheet->getCell(StringUtils::intToAlphabet($j) . $line)->getCalculatedValue();
+                    }
+
+                    if ($transform !== null) {
+                        foreach ($cells as $idx => $cell) {
+                            $cells[$idx] = $transform($titles[$idx], $cell);
+                        }
+                    }
+
+                    ++$line;
+
+                    $query->values(...$cells);
+                    ++$counter;
+
+                    if ($counter > 250) {
+                        break;
+                    }
+                }
+
+                $query->execute();
+            } while ($hasData);
+        }
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function export(string $path, array $queries) : void
     {
         $sheet = new \PhpOffice\PhpSpreadsheet\Spreadsheet();
         $sheet->getProperties()
@@ -169,44 +241,47 @@ final class SpreadsheetDatabaseMapper implements IODatabaseMapper
             }
         }
 
-        if (StringUtils::endsWith($this->path, '.xlsx')) {
-            (new \PhpOffice\PhpSpreadsheet\Writer\Xlsx($sheet))->save($this->path);
-        } elseif (StringUtils::endsWith($this->path, '.ods')) {
-            (new \PhpOffice\PhpSpreadsheet\Writer\Ods($sheet))->save($this->path);
+        if (StringUtils::endsWith($path, '.xlsx')) {
+            (new \PhpOffice\PhpSpreadsheet\Writer\Xlsx($sheet))->save($path);
+        } elseif (StringUtils::endsWith($path, '.ods')) {
+            (new \PhpOffice\PhpSpreadsheet\Writer\Ods($sheet))->save($path);
         } else {
-            (new \PhpOffice\PhpSpreadsheet\Writer\Xls($sheet))->save($this->path);
+            (new \PhpOffice\PhpSpreadsheet\Writer\Xls($sheet))->save($path);
         }
     }
 
     /**
      * {@inheritdoc}
      */
-    public function update() : void
+    public function update(string $path, string $table = '') : void
     {
         $reader = null;
-        if (StringUtils::endsWith($this->path, '.xlsx')) {
+        if (StringUtils::endsWith($path, '.xlsx')) {
             $reader = new \PhpOffice\PhpSpreadsheet\Reader\Xlsx();
-        } elseif (StringUtils::endsWith($this->path, '.ods')) {
+        } elseif (StringUtils::endsWith($path, '.ods')) {
             $reader = new \PhpOffice\PhpSpreadsheet\Reader\Ods();
         } else {
             $reader = new \PhpOffice\PhpSpreadsheet\Reader\Xls();
         }
 
         $reader->setReadDataOnly(true);
-        $sheet = $reader->load($this->path);
+        $sheet = $reader->load($path);
 
         $tables = $sheet->getSheetCount();
         for ($i = 0; $i < $tables; ++$i) {
             $sheet->setActiveSheetIndex($i);
 
             $workSheet = $sheet->getSheet($i);
-            $table     = $workSheet->getTitle();
+            $table     = \strtr(empty($table) ? $workSheet->getTitle() : $table, ' ', '_');
             $titles    = [];
 
             // get column titles
             $column = 1;
             while (!empty($value = $workSheet->getCell(StringUtils::intToAlphabet($column) . 1)->getCalculatedValue())) {
+                $value = \strtr(\trim($value), ' ', '_');
+                $value = \preg_replace('/[^a-zA-Z0-9_]/', '', $value);
                 $titles[] = $value;
+
                 ++$column;
             }
 

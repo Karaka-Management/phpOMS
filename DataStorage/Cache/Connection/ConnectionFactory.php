@@ -53,9 +53,9 @@ class ConnectionFactory
             case CacheType::FILE:
                 return new FileCache($cacheData['path'] ?? '');
             case CacheType::REDIS:
-                return new RedisCache($cacheData['data'] ?? []);
+                return new RedisCache($cacheData ?? []);
             case CacheType::MEMCACHED:
-                return new MemCached($cacheData['data'] ?? []);
+                return new MemCached($cacheData ?? []);
             default:
                 throw new \InvalidArgumentException('Cache "' . ($cacheData['type'] ?? '') . '" is not supported.');
         }

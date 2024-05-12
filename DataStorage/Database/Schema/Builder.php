@@ -120,6 +120,12 @@ class Builder extends BuilderAbstract
      */
     public array $alterAdd = [];
 
+    /**
+     * Has post query to run.
+     *
+     * @var bool
+     * @since 1.0.0
+     */
     public bool $hasPostQuery = false;
 
     /**
@@ -152,6 +158,32 @@ class Builder extends BuilderAbstract
     }
 
     /**
+     * Get the column type from a variable value.
+     *
+     * @param mixed $value Variable value
+     *
+     * @return string
+     *
+     * @since 1.0.0
+     */
+    public static function getTypeFromVariable(mixed $value) : string
+    {
+        if (\is_string($value)) {
+            return 'TEXT';
+        } elseif (\is_int($value)) {
+            return 'INT';
+        } elseif (\is_bool($value)) {
+            return 'TINYINT(1)';
+        } elseif (\is_float($value)) {
+            return 'DECIMAL(10,6)';
+        } elseif ($value instanceof \DateTimeInterface) {
+            return 'DATETIME';
+        }
+
+        return 'TEXT';
+    }
+
+    /**
      * Create schema builder from schema definition.
      *
      * @param array              $definition Database schema definition
@@ -168,6 +200,7 @@ class Builder extends BuilderAbstract
     public static function createFromSchema(array $definition, ConnectionAbstract $connection) : self
     {
         $builder = new self($connection);
+        $builder->usePreparedStmt = false;
         $builder->createTable($definition['name'] ?? '');
 
         foreach ($definition['fields'] as $name => $def) {

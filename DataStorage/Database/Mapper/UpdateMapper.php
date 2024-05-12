@@ -162,8 +162,8 @@ final class UpdateMapper extends DataMapperAbstract
                 }
             }
 
-            $sth = $this->db->con->prepare($query->toSql());
-            if ($sth === false) {
+            $sth = $query->prepare();
+            if ($sth === null) {
                 throw new \Exception();
             }
 
@@ -442,12 +442,11 @@ final class UpdateMapper extends DataMapperAbstract
                     ->on($many['table'] . '.' . $src, '=', $many['mapper']::TABLE . '.' . $many['mapper']::PRIMARYFIELD);
             }
 
-            $sth = $this->db->con->prepare($query->toSql());
-            if ($sth === false) {
+            $sth = $query->execute();
+            if ($sth === null) {
                 continue;
             }
 
-            $sth->execute();
             $result = $sth->fetchAll(\PDO::FETCH_COLUMN);
 
             if ($result === false) {

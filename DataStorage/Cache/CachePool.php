@@ -14,6 +14,7 @@ declare(strict_types=1);
 
 namespace phpOMS\DataStorage\Cache;
 
+use phpOMS\DataStorage\Cache\Connection\ConnectionAbstract;
 use phpOMS\DataStorage\Cache\Connection\ConnectionFactory;
 use phpOMS\DataStorage\Cache\Connection\NullCache;
 use phpOMS\DataStorage\DataStorageConnectionInterface;
@@ -85,11 +86,11 @@ final class CachePool implements DataStoragePoolInterface
      *
      * @param string $key Cache to request
      *
-     * @return DataStorageConnectionInterface
+     * @return ConnectionAbstract
      *
      * @since 1.0.0
      */
-    public function get(string $key = '') : DataStorageConnectionInterface
+    public function get(string $key = '') : ConnectionAbstract
     {
         if ((!empty($key) && !isset($this->pool[$key])) || empty($this->pool)) {
             return new NullCache();

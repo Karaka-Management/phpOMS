@@ -113,7 +113,7 @@ final class RedisCache extends ConnectionAbstract
         }
 
         if ($expire > 0) {
-            $this->con->setEx((string) $key, $expire, $this->build($value));
+            $this->con->set((string) $key, $expire, $this->build($value));
 
             return;
         }
@@ -131,10 +131,10 @@ final class RedisCache extends ConnectionAbstract
         }
 
         if ($expire > 0) {
-            return $this->con->setNx((string) $key, $this->build($value), $expire);
+            return $this->con->set((string) $key, $this->build($value), $expire);
         }
 
-        return $this->con->setNx((string) $key, $this->build($value));
+        return $this->con->set((string) $key, $this->build($value));
     }
 
     /**

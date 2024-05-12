@@ -3510,7 +3510,7 @@ class Markdown
      *
      * @since 1.0.0
      */
-    protected function insertAbreviation(array $element) : array
+    protected function insertAbbreviation(array $element) : array
     {
         if (!isset($element['text'])) {
             return $element;
@@ -3570,7 +3570,7 @@ class Markdown
             $this->currentMeaning     = $meaning;
 
             $inline['element'] = $this->elementApplyRecursiveDepthFirst(
-                'insertAbreviation',
+                'insertAbbreviation',
                 $inline['element']
             );
         }
@@ -3727,7 +3727,8 @@ class Markdown
         $dom = new \DOMDocument();
 
         // http://stackoverflow.com/q/11309194/200145
-        $elementMarkup = \mb_convert_encoding($elementMarkup, 'HTML-ENTITIES', 'UTF-8');
+        // $elementMarkup = \mb_convert_encoding($elementMarkup, 'HTML-ENTITIES', 'UTF-8'); // Deprecated
+        $elementMarkup = \mb_encode_numericentity($elementMarkup, [0x80, 0x10FFFF, 0, ~0], 'UTF-8' );
 
         // http://stackoverflow.com/q/4879946/200145
         $dom->loadHTML($elementMarkup);
@@ -4490,31 +4491,6 @@ class Markdown
         }
 
         unset($element['handler']);
-
-        return $element;
-    }
-
-    /**
-     * Handle element recursively
-     *
-     * @param string|\Closure $closure Closure for handling element
-     * @param array           $element Element to handle
-     *
-     * @return array
-     *
-     * @since 1.0.0
-     */
-    protected function elementApplyRecursive(string|\Closure $closure, array $element) : array
-    {
-        $element = \is_string($closure) ? $this->{$closure}($element) : $closure($element);
-
-        if (isset($element['elements'])) {
-            foreach ($element['elements'] as &$e) {
-                $e = $this->elementApplyRecursive($closure, $e);
-            }
-        } elseif (isset($element['element'])) {
-            $element['element'] = $this->elementApplyRecursive($closure, $element['element']);
-        }
 
         return $element;
     }

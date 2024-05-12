@@ -14,6 +14,8 @@ declare(strict_types=1);
 
 namespace phpOMS\tests\DataStorage\Database\Query;
 
+include_once __DIR__ . '/../../../Autoloader.php';
+
 use phpOMS\DataStorage\Database\Connection\MysqlConnection;
 use phpOMS\DataStorage\Database\Connection\PostgresConnection;
 use phpOMS\DataStorage\Database\Connection\SQLiteConnection;
@@ -29,6 +31,10 @@ final class BuilderTest extends \PHPUnit\Framework\TestCase
 {
     public static function dbConnectionProvider() : array
     {
+        if (!isset($GLOBALS['CONFIG'])) {
+            $GLOBALS['CONFIG'] = include __DIR__ . '/../../../config.php';
+        }
+
         $cons = [
             [new MysqlConnection($GLOBALS['CONFIG']['db']['core']['masters']['admin'])],
             [new PostgresConnection($GLOBALS['CONFIG']['db']['core']['postgresql']['admin'])],
@@ -59,26 +65,31 @@ final class BuilderTest extends \PHPUnit\Framework\TestCase
         $iE = $con->getGrammar()->systemIdentifierEnd;
 
         $query = new Builder($con);
+        $query->usePreparedStmt = false;
         $sql   = 'SELECT [a].[test] FROM [a] WHERE [a].[test] = 1;';
         $sql   = \strtr($sql, '[]', $iS . $iE);
         self::assertEquals($sql, $query->select('a.test')->from('a')->where('a.test', '=', 1)->toSql());
 
         $query = new Builder($con);
+        $query->usePreparedStmt = false;
         $sql   = 'SELECT [a].[test] AS t FROM [a] AS b WHERE [a].[test] = 1;';
         $sql   = \strtr($sql, '[]', $iS . $iE);
         self::assertEquals($sql, $query->selectAs('a.test', 't')->fromAs('a', 'b')->where('a.test', '=', 1)->toSql());
 
         $query = new Builder($con);
+        $query->usePreparedStmt = false;
         $sql   = 'SELECT DISTINCT [a].[test] FROM [a] WHERE [a].[test] = 1;';
         $sql   = \strtr($sql, '[]', $iS . $iE);
         self::assertEquals($sql, $query->select('a.test')->distinct()->from('a')->where('a.test', '=', 1)->toSql());
 
         $query = new Builder($con);
+        $query->usePreparedStmt = false;
         $sql   = 'SELECT [a].[test], [b].[test] FROM [a], [b] WHERE [a].[test] = \'abc\';';
         $sql   = \strtr($sql, '[]', $iS . $iE);
         self::assertEquals($sql, $query->select('a.test', 'b.test')->from('a', 'b')->where('a.test', '=', 'abc')->toSql());
 
         $query    = new Builder($con);
+        $query->usePreparedStmt = false;
         $datetime = new \DateTime('now');
         $sql      = 'SELECT [a].[test], [b].[test] FROM [a], [b] WHERE [a].[test] = \'' . $datetime->format('Y-m-d H:i:s')
         . '\';';
@@ -86,6 +97,7 @@ final class BuilderTest extends \PHPUnit\Framework\TestCase
         self::assertEquals($sql, $query->select('a.test', 'b.test')->from('a', 'b')->where('a.test', '=', $datetime)->toSql());
 
         $query = new Builder($con);
+        $query->usePreparedStmt = false;
         $sql   = 'SELECT [a].[test], [b].[test] FROM [a], [b] WHERE [a].[test] = \'abc\' ORDER BY [a].[test] ASC, [b].[test] DESC;';
         $sql   = \strtr($sql, '[]', $iS . $iE);
         self::assertEquals($sql,
@@ -97,6 +109,7 @@ final class BuilderTest extends \PHPUnit\Framework\TestCase
         );
 
         $query = new Builder($con);
+        $query->usePreparedStmt = false;
         $sql   = 'SELECT [a].[test], [b].[test] FROM [a], [b] WHERE [a].[test] = :abcValue ORDER BY [a].[test] ASC, [b].[test] DESC;';
         $sql   = \strtr($sql, '[]', $iS . $iE);
         self::assertEquals($sql,
@@ -118,6 +131,7 @@ final class BuilderTest extends \PHPUnit\Framework\TestCase
         $iE = $con->getGrammar()->systemIdentifierEnd;
 
         $query = new Builder($con);
+        $query->usePreparedStmt = false;
         $sql   = 'SELECT [a].[test] FROM [a] AS b WHERE [a].[test] = 1 ORDER BY RAND() LIMIT 1;';
         $sql   = \strtr($sql, '[]', $iS . $iE);
         self::assertEquals($sql, $query->random('a.test')->fromAs('a', 'b')->where('a.test', '=', 1)->toSql());
@@ -131,6 +145,7 @@ final class BuilderTest extends \PHPUnit\Framework\TestCase
         $iE = $con->getGrammar()->systemIdentifierEnd;
 
         $query = new Builder($con);
+        $query->usePreparedStmt = false;
         $sql   = 'SELECT [a].[test] FROM [a] AS b ORDER BY RANDOM() LIMIT 1;';
         $sql   = \strtr($sql, '[]', $iS . $iE);
         self::assertEquals($sql, $query->random('a.test')->fromAs('a', 'b')->where('a.test', '=', 1)->toSql());
@@ -144,6 +159,7 @@ final class BuilderTest extends \PHPUnit\Framework\TestCase
         $iE = $con->getGrammar()->systemIdentifierEnd;
 
         $query = new Builder($con);
+        $query->usePreparedStmt = false;
         $sql   = 'SELECT [a].[test] FROM [a] AS b ORDER BY RANDOM() LIMIT 1;';
         $sql   = \strtr($sql, '[]', $iS . $iE);
         self::assertEquals($sql, $query->random('a.test')->fromAs('a', 'b')->where('a.test', '=', 1)->toSql());
@@ -157,6 +173,7 @@ final class BuilderTest extends \PHPUnit\Framework\TestCase
         $iE = $con->getGrammar()->systemIdentifierEnd;
 
         $query = new Builder($con);
+        $query->usePreparedStmt = false;
         $sql   = 'SELECT TOP 1 [a].[test] FROM [a] AS b ORDER BY IDX FETCH FIRST 1 ROWS ONLY;';
         $sql   = \strtr($sql, '[]', $iS . $iE);
         self::assertEquals($sql, $query->random('a.test')->fromAs('a', 'b')->where('a.test', '=', 1)->toSql());
@@ -177,31 +194,37 @@ final class BuilderTest extends \PHPUnit\Framework\TestCase
         $iE = $con->getGrammar()->systemIdentifierEnd;
 
         $query = new Builder($con);
+        $query->usePreparedStmt = false;
         $sql   = 'SELECT [a].[test] FROM [a] WHERE [a].[test] = 1 ORDER BY [a].[test] DESC;';
         $sql   = \strtr($sql, '[]', $iS . $iE);
         self::assertEquals($sql, $query->select('a.test')->from('a')->where('a.test', '=', 1)->newest('a.test')->toSql());
 
         $query = new Builder($con);
+        $query->usePreparedStmt = false;
         $sql   = 'SELECT [a].[test] FROM [a] WHERE [a].[test] = 1 ORDER BY [a].[test] ASC;';
         $sql   = \strtr($sql, '[]', $iS . $iE);
         self::assertEquals($sql, $query->select('a.test')->from('a')->where('a.test', '=', 1)->oldest('a.test')->toSql());
 
         $query = new Builder($con);
+        $query->usePreparedStmt = false;
         $sql   = 'SELECT [a].[test] FROM [a] WHERE [a].[test] = 1 ORDER BY [a].[test] DESC;';
         $sql   = \strtr($sql, '[]', $iS . $iE);
         self::assertEquals($sql, $query->select('a.test')->from('a')->where('a.test', '=', 1)->orderBy('a.test', 'DESC')->toSql());
 
         $query = new Builder($con);
+        $query->usePreparedStmt = false;
         $sql   = 'SELECT [a].[test] FROM [a] WHERE [a].[test] = 1 ORDER BY [a].[test] ASC;';
         $sql   = \strtr($sql, '[]', $iS . $iE);
         self::assertEquals($sql, $query->select('a.test')->from('a')->where('a.test', '=', 1)->orderBy('a.test', 'ASC')->toSql());
 
         $query = new Builder($con);
+        $query->usePreparedStmt = false;
         $sql   = 'SELECT [a].[test] FROM [a] WHERE [a].[test] = 1 ORDER BY [a].[test] DESC, [a].[test2] DESC;';
         $sql   = \strtr($sql, '[]', $iS . $iE);
         self::assertEquals($sql, $query->select('a.test')->from('a')->where('a.test', '=', 1)->orderBy(['a.test', 'a.test2'], ['DESC', 'DESC'])->toSql());
 
         $query = new Builder($con);
+        $query->usePreparedStmt = false;
         $sql   = 'SELECT [a].[test] FROM [a] WHERE [a].[test] = 1 ORDER BY [a].[test] ASC, [a].[test2] ASC;';
         $sql   = \strtr($sql, '[]', $iS . $iE);
         self::assertEquals($sql, $query->select('a.test')->from('a')->where('a.test', '=', 1)->orderBy(['a.test', 'a.test2'], 'ASC')->toSql());
@@ -222,11 +245,13 @@ final class BuilderTest extends \PHPUnit\Framework\TestCase
         $iE = $con->getGrammar()->systemIdentifierEnd;
 
         $query = new Builder($con);
+        $query->usePreparedStmt = false;
         $sql   = 'SELECT [a].[test] FROM [a] WHERE [a].[test] = 1 LIMIT 3;';
         $sql   = \strtr($sql, '[]', $iS . $iE);
         self::assertEquals($sql, $query->select('a.test')->from('a')->where('a.test', '=', 1)->limit(3)->toSql());
 
         $query = new Builder($con);
+        $query->usePreparedStmt = false;
         $sql   = 'SELECT [a].[test] FROM [a] WHERE [a].[test] = 1 OFFSET 3;';
         $sql   = \strtr($sql, '[]', $iS . $iE);
         self::assertEquals($sql, $query->select('a.test')->from('a')->where('a.test', '=', 1)->offset(3)->toSql());
@@ -247,19 +272,23 @@ final class BuilderTest extends \PHPUnit\Framework\TestCase
         $iE = $con->getGrammar()->systemIdentifierEnd;
 
         $query = new Builder($con);
+        $query->usePreparedStmt = false;
         $sql   = 'SELECT [a].[test] FROM [a] WHERE [a].[test] = 1 GROUP BY [a];';
         $sql   = \strtr($sql, '[]', $iS . $iE);
         self::assertEquals($sql, $query->select('a.test')->from('a')->where('a.test', '=', 1)->groupBy('a')->toSql());
 
         $query = new Builder($con);
+        $query->usePreparedStmt = false;
         $sql   = 'SELECT [a].[test] FROM [a] WHERE [a].[test] = 1 GROUP BY [a], [b];';
         $sql   = \strtr($sql, '[]', $iS . $iE);
         self::assertEquals($sql, $query->select('a.test')->from('a')->where('a.test', '=', 1)->groupBy('a')->groupBy('b')->toSql());
 
         $query = new Builder($con);
+        $query->usePreparedStmt = false;
         self::assertEquals($sql, $query->select('a.test')->from('a')->where('a.test', '=', 1)->groupBy('a', 'b')->toSql());
 
         $query = new Builder($con);
+        $query->usePreparedStmt = false;
         $sql   = 'SELECT [a].[test] FROM [a] WHERE [a].[test] = :test GROUP BY [a], [b];';
         $sql   = \strtr($sql, '[]', $iS . $iE);
         self::assertEquals($sql, $query->select('a.test')->from('a')->where('a.test', '=', new Parameter('test'))->groupBy('a', 'b')->toSql());
@@ -280,71 +309,85 @@ final class BuilderTest extends \PHPUnit\Framework\TestCase
         $iE = $con->getGrammar()->systemIdentifierEnd;
 
         $query = new Builder($con);
+        $query->usePreparedStmt = false;
         $sql   = 'SELECT [a].[test] FROM [a] WHERE [a].[test] = 1;';
         $sql   = \strtr($sql, '[]', $iS . $iE);
         self::assertEquals($sql, $query->select('a.test')->from('a')->where('a.test', '=', 1)->toSql());
 
         $query = new Builder($con);
+        $query->usePreparedStmt = false;
         $sql   = 'SELECT [a].[test] FROM [a] WHERE [a].[test] = 0;';
         $sql   = \strtr($sql, '[]', $iS . $iE);
         self::assertEquals($sql, $query->select('a.test')->from('a')->where('a.test', '=', false)->toSql());
 
         $query = new Builder($con);
+        $query->usePreparedStmt = false;
         $sql   = 'SELECT [a].[test] FROM [a] WHERE [a].[test] = 1;';
         $sql   = \strtr($sql, '[]', $iS . $iE);
         self::assertEquals($sql, $query->select('a.test')->from('a')->where('a.test', '=', true)->toSql());
 
         $query = new Builder($con);
+        $query->usePreparedStmt = false;
         $sql   = 'SELECT [a].[test] FROM [a] WHERE [a].[test] = \'string\';';
         $sql   = \strtr($sql, '[]', $iS . $iE);
         self::assertEquals($sql, $query->select('a.test')->from('a')->where('a.test', '=', 'string')->toSql());
 
         $query = new Builder($con);
+        $query->usePreparedStmt = false;
         $sql   = 'SELECT [a].[test] FROM [a] WHERE [a].[test] = 1.23;';
         $sql   = \strtr($sql, '[]', $iS . $iE);
         self::assertEquals($sql, $query->select('a.test')->from('a')->where('a.test', '=', 1.23)->toSql());
 
         $query = new Builder($con);
+        $query->usePreparedStmt = false;
         $sql   = 'SELECT [a].[test] FROM [a] WHERE [a].[test] = 1 AND [a].[test2] = 2;';
         $sql   = \strtr($sql, '[]', $iS . $iE);
         self::assertEquals($sql, $query->select('a.test')->from('a')->where('a.test', '=', 1)->where('a.test2', '=', 2, 'and')->toSql());
 
         $query = new Builder($con);
+        $query->usePreparedStmt = false;
         $sql   = 'SELECT [a].[test] FROM [a] WHERE [a].[test] = 1 AND [a].[test2] = 2;';
         $sql   = \strtr($sql, '[]', $iS . $iE);
         self::assertEquals($sql, $query->select('a.test')->from('a')->where('a.test', '=', 1)->andWhere('a.test2', '=', 2)->toSql());
 
         $query = new Builder($con);
+        $query->usePreparedStmt = false;
         $sql   = 'SELECT [a].[test] FROM [a] WHERE [a].[test] = 1 OR [a].[test2] = 2;';
         $sql   = \strtr($sql, '[]', $iS . $iE);
         self::assertEquals($sql, $query->select('a.test')->from('a')->where('a.test', '=', 1)->where('a.test2', '=', 2, 'or')->toSql());
 
         $query = new Builder($con);
+        $query->usePreparedStmt = false;
         $sql   = 'SELECT [a].[test] FROM [a] WHERE [a].[test] = 1 OR [a].[test2] = 2;';
         $sql   = \strtr($sql, '[]', $iS . $iE);
         self::assertEquals($sql, $query->select('a.test')->from('a')->where('a.test', '=', 1)->orWhere('a.test2', '=', 2)->toSql());
 
         $query = new Builder($con);
+        $query->usePreparedStmt = false;
         $sql   = 'SELECT [a].[test] FROM [a] WHERE [a].[test] = 1 OR [a].[test2] IS NULL;';
         $sql   = \strtr($sql, '[]', $iS . $iE);
         self::assertEquals($sql, $query->select('a.test')->from('a')->where('a.test', '=', 1)->whereNull('a.test2', 'or')->toSql());
 
         $query = new Builder($con);
+        $query->usePreparedStmt = false;
         $sql   = 'SELECT [a].[test] FROM [a] WHERE [a].[test] = 1 OR [a].[test2] IS NOT NULL;';
         $sql   = \strtr($sql, '[]', $iS . $iE);
         self::assertEquals($sql, $query->select('a.test')->from('a')->where('a.test', '=', 1)->whereNotNull('a.test2', 'or')->toSql());
 
         $query = new Builder($con);
+        $query->usePreparedStmt = false;
         $sql   = 'SELECT [a].[test] FROM [a] WHERE [a].[test] = 1 OR [a].[test2] IN (1, 2, 3);';
         $sql   = \strtr($sql, '[]', $iS . $iE);
         self::assertEquals($sql, $query->select('a.test')->from('a')->where('a.test', '=', 1)->whereIn('a.test2', [1, 2, 3], 'or')->toSql());
 
         $query = new Builder($con);
+        $query->usePreparedStmt = false;
         $sql   = 'SELECT [a].[test] FROM [a] WHERE [a].[test] = 1 OR [a].[test2] IN (\'a\', \'b\', \'c\');';
         $sql   = \strtr($sql, '[]', $iS . $iE);
         self::assertEquals($sql, $query->select('a.test')->from('a')->where('a.test', '=', 1)->whereIn('a.test2', ['a', 'b', 'c'], 'or')->toSql());
 
         $query = new Builder($con);
+        $query->usePreparedStmt = false;
         $sql   = 'SELECT [a].[test] FROM [a] WHERE [a].[test] = :testWhere OR [a].[test2] IN (\'a\', :bValue, \'c\');';
         $sql   = \strtr($sql, '[]', $iS . $iE);
         self::assertEquals($sql, $query->select('a.test')->from('a')->where('a.test', '=', new Parameter('testWhere'))->whereIn('a.test2', ['a', new Parameter('bValue'), 'c'], 'or')->toSql());
@@ -365,71 +408,85 @@ final class BuilderTest extends \PHPUnit\Framework\TestCase
         $iE = $con->getGrammar()->systemIdentifierEnd;
 
         $query = new Builder($con);
+        $query->usePreparedStmt = false;
         $sql   = 'SELECT [a].[test] FROM [a] JOIN [b] ON [a].[id] = [b].[id] WHERE [a].[test] = 1;';
         $sql   = \strtr($sql, '[]', $iS . $iE);
         self::assertEquals($sql, $query->select('a.test')->from('a')->join('b')->on('a.id', '=', 'b.id')->where('a.test', '=', 1)->toSql());
 
         $query = new Builder($con);
+        $query->usePreparedStmt = false;
         $sql   = 'SELECT [a].[test] FROM [a] JOIN [b] ON [a].[id] = [b].[id] OR [a].[id2] = [b].[id2] WHERE [a].[test] = 1;';
         $sql   = \strtr($sql, '[]', $iS . $iE);
         self::assertEquals($sql, $query->select('a.test')->from('a')->join('b')->on('a.id', '=', 'b.id')->orOn('a.id2', '=', 'b.id2')->where('a.test', '=', 1)->toSql());
 
         $query = new Builder($con);
+        $query->usePreparedStmt = false;
         $sql   = 'SELECT [a].[test] FROM [a] JOIN [b] ON [a].[id] = [b].[id] AND [a].[id2] = [b].[id2] WHERE [a].[test] = 1;';
         $sql   = \strtr($sql, '[]', $iS . $iE);
         self::assertEquals($sql, $query->select('a.test')->from('a')->join('b')->on('a.id', '=', 'b.id')->andOn('a.id2', '=', 'b.id2')->where('a.test', '=', 1)->toSql());
 
         $query = new Builder($con);
+        $query->usePreparedStmt = false;
         $sql   = 'SELECT [a].[test] FROM [a] LEFT JOIN [b] ON [a].[id] = [b].[id] WHERE [a].[test] = 1;';
         $sql   = \strtr($sql, '[]', $iS . $iE);
         self::assertEquals($sql, $query->select('a.test')->from('a')->leftJoin('b')->on('a.id', '=', 'b.id')->where('a.test', '=', 1)->toSql());
 
         $query = new Builder($con);
+        $query->usePreparedStmt = false;
         $sql   = 'SELECT [a].[test] FROM [a] LEFT OUTER JOIN [b] ON [a].[id] = [b].[id] WHERE [a].[test] = 1;';
         $sql   = \strtr($sql, '[]', $iS . $iE);
         self::assertEquals($sql, $query->select('a.test')->from('a')->leftOuterJoin('b')->on('a.id', '=', 'b.id')->where('a.test', '=', 1)->toSql());
 
         $query = new Builder($con);
+        $query->usePreparedStmt = false;
         $sql   = 'SELECT [a].[test] FROM [a] LEFT INNER JOIN [b] ON [a].[id] = [b].[id] WHERE [a].[test] = 1;';
         $sql   = \strtr($sql, '[]', $iS . $iE);
         self::assertEquals($sql, $query->select('a.test')->from('a')->leftInnerJoin('b')->on('a.id', '=', 'b.id')->where('a.test', '=', 1)->toSql());
 
         $query = new Builder($con);
+        $query->usePreparedStmt = false;
         $sql   = 'SELECT [a].[test] FROM [a] RIGHT JOIN [b] ON [a].[id] = [b].[id] WHERE [a].[test] = 1;';
         $sql   = \strtr($sql, '[]', $iS . $iE);
         self::assertEquals($sql, $query->select('a.test')->from('a')->rightJoin('b')->on('a.id', '=', 'b.id')->where('a.test', '=', 1)->toSql());
 
         $query = new Builder($con);
+        $query->usePreparedStmt = false;
         $sql   = 'SELECT [a].[test] FROM [a] RIGHT OUTER JOIN [b] ON [a].[id] = [b].[id] WHERE [a].[test] = 1;';
         $sql   = \strtr($sql, '[]', $iS . $iE);
         self::assertEquals($sql, $query->select('a.test')->from('a')->rightOuterJoin('b')->on('a.id', '=', 'b.id')->where('a.test', '=', 1)->toSql());
 
         $query = new Builder($con);
+        $query->usePreparedStmt = false;
         $sql   = 'SELECT [a].[test] FROM [a] RIGHT INNER JOIN [b] ON [a].[id] = [b].[id] WHERE [a].[test] = 1;';
         $sql   = \strtr($sql, '[]', $iS . $iE);
         self::assertEquals($sql, $query->select('a.test')->from('a')->rightInnerJoin('b')->on('a.id', '=', 'b.id')->where('a.test', '=', 1)->toSql());
 
         $query = new Builder($con);
+        $query->usePreparedStmt = false;
         $sql   = 'SELECT [a].[test] FROM [a] OUTER JOIN [b] ON [a].[id] = [b].[id] WHERE [a].[test] = 1;';
         $sql   = \strtr($sql, '[]', $iS . $iE);
         self::assertEquals($sql, $query->select('a.test')->from('a')->outerJoin('b')->on('a.id', '=', 'b.id')->where('a.test', '=', 1)->toSql());
 
         $query = new Builder($con);
+        $query->usePreparedStmt = false;
         $sql   = 'SELECT [a].[test] FROM [a] INNER JOIN [b] ON [a].[id] = [b].[id] WHERE [a].[test] = 1;';
         $sql   = \strtr($sql, '[]', $iS . $iE);
         self::assertEquals($sql, $query->select('a.test')->from('a')->innerJoin('b')->on('a.id', '=', 'b.id')->where('a.test', '=', 1)->toSql());
 
         $query = new Builder($con);
+        $query->usePreparedStmt = false;
         $sql   = 'SELECT [a].[test] FROM [a] CROSS JOIN [b] ON [a].[id] = [b].[id] WHERE [a].[test] = 1;';
         $sql   = \strtr($sql, '[]', $iS . $iE);
         self::assertEquals($sql, $query->select('a.test')->from('a')->crossJoin('b')->on('a.id', '=', 'b.id')->where('a.test', '=', 1)->toSql());
 
         $query = new Builder($con);
+        $query->usePreparedStmt = false;
         $sql   = 'SELECT [a].[test] FROM [a] FULL JOIN [b] ON [a].[id] = [b].[id] WHERE [a].[test] = 1;';
         $sql   = \strtr($sql, '[]', $iS . $iE);
         self::assertEquals($sql, $query->select('a.test')->from('a')->fullJoin('b')->on('a.id', '=', 'b.id')->where('a.test', '=', 1)->toSql());
 
         $query = new Builder($con);
+        $query->usePreparedStmt = false;
         $sql   = 'SELECT [a].[test] FROM [a] FULL OUTER JOIN [b] ON [a].[id] = [b].[id] WHERE [a].[test] = 1;';
         $sql   = \strtr($sql, '[]', $iS . $iE);
         self::assertEquals($sql, $query->select('a.test')->from('a')->fullOuterJoin('b')->on('a.id', '=', 'b.id')->where('a.test', '=', 1)->toSql());
@@ -450,27 +507,32 @@ final class BuilderTest extends \PHPUnit\Framework\TestCase
         $iE = $con->getGrammar()->systemIdentifierEnd;
 
         $query = new Builder($con);
+        $query->usePreparedStmt = false;
         $sql   = 'INSERT INTO [a] VALUES (1, \'test\');';
         $sql   = \strtr($sql, '[]', $iS . $iE);
         self::assertEquals($sql, $query->insert()->into('a')->values(1, 'test')->toSql());
 
         $query = new Builder($con);
+        $query->usePreparedStmt = false;
         $sql   = 'INSERT INTO [a] VALUES (1, \'test\');';
         $sql   = \strtr($sql, '[]', $iS . $iE);
         self::assertEquals($sql, $query->insert()->into('a')->value([1, 'test'])->toSql());
 
         $query = new Builder($con);
+        $query->usePreparedStmt = false;
         $sql   = 'INSERT INTO [a] ([test], [test2]) VALUES (1, \'test\');';
         $sql   = \strtr($sql, '[]', $iS . $iE);
         self::assertEquals($sql, $query->insert('test', 'test2')->into('a')->values(1, 'test')->toSql());
         self::assertEquals([[1, 'test']], $query->getValues());
 
         $query = new Builder($con);
+        $query->usePreparedStmt = false;
         $sql   = 'INSERT INTO [a] ([test], [test2]) VALUES (1, \'test\'), (2, \'test2\');';
         $sql   = \strtr($sql, '[]', $iS . $iE);
         self::assertEquals($sql, $query->insert('test', 'test2')->into('a')->values(1, 'test')->values(2, 'test2')->toSql());
 
         $query = new Builder($con);
+        $query->usePreparedStmt = false;
         $sql   = 'INSERT INTO [a] ([test], [test2]) VALUES (:test, :test2);';
         $sql   = \strtr($sql, '[]', $iS . $iE);
         self::assertEquals($sql, $query->insert('test', 'test2')->into('a')->values(new Parameter('test'), new Parameter('test2'))->toSql());
@@ -491,11 +553,13 @@ final class BuilderTest extends \PHPUnit\Framework\TestCase
         $iE = $con->getGrammar()->systemIdentifierEnd;
 
         $query = new Builder($con);
+        $query->usePreparedStmt = false;
         $sql   = 'DELETE FROM [a] WHERE [a].[test] = 1;';
         $sql   = \strtr($sql, '[]', $iS . $iE);
         self::assertEquals($sql, $query->delete()->from('a')->where('a.test', '=', 1)->toSql());
 
         $query = new Builder($con);
+        $query->usePreparedStmt = false;
         $sql   = 'DELETE FROM [a] WHERE [a].[test] = :testVal;';
         $sql   = \strtr($sql, '[]', $iS . $iE);
         self::assertEquals($sql, $query->delete()->from('a')->where('a.test', '=', new Parameter('testVal'))->toSql());
@@ -516,17 +580,567 @@ final class BuilderTest extends \PHPUnit\Framework\TestCase
         $iE = $con->getGrammar()->systemIdentifierEnd;
 
         $query = new Builder($con);
+        $query->usePreparedStmt = false;
         $sql   = 'UPDATE [a] SET [test] = 1, [test2] = 2 WHERE [a].[test] = 1;';
         $sql   = \strtr($sql, '[]', $iS . $iE);
         self::assertEquals($sql, $query->update('a')->set(['test' => 1])->set(['test2' => 2])->where('a.test', '=', 1)->toSql());
 
         $query = new Builder($con);
+        $query->usePreparedStmt = false;
         $sql   = 'UPDATE [a] SET [test] = 1, [test2] = 2 WHERE [a].[test] = 1;';
         $sql   = \strtr($sql, '[]', $iS . $iE);
         self::assertEquals($sql, $query->update('a')->sets('test', 1)->sets('test2', 2)->where('a.test', '=', 1)->toSql());
 
         $query = new Builder($con);
+        $query->usePreparedStmt = false;
         $sql   = 'UPDATE [a] SET [test] = 1, [test2] = :test2 WHERE [a].[test] = :test3;';
+        $sql   = \strtr($sql, '[]', $iS . $iE);
+        self::assertEquals($sql, $query->update('a')->set(['test' => 1])->set(['test2' => new Parameter('test2')])->where('a.test', '=', new Parameter('test3'))->toSql());
+    }
+
+    #[\PHPUnit\Framework\Attributes\DataProvider('dbConnectionProvider')]
+    #[\PHPUnit\Framework\Attributes\Group('framework')]
+    #[\PHPUnit\Framework\Attributes\TestDox('Mysql selects form a valid query')]
+    public function testSelectPrepared($con) : void
+    {
+        if (!$con->isInitialized()) {
+            self::markTestSkipped();
+
+            return;
+        }
+
+        $iS = $con->getGrammar()->systemIdentifierStart;
+        $iE = $con->getGrammar()->systemIdentifierEnd;
+
+        $query = new Builder($con);
+        $query->usePreparedStmt = true;
+        $sql   = 'SELECT [a].[test] FROM [a] WHERE [a].[test] = ?;';
+        $sql   = \strtr($sql, '[]', $iS . $iE);
+        self::assertEquals($sql, $query->select('a.test')->from('a')->where('a.test', '=', 1)->toSql());
+
+        $query = new Builder($con);
+        $query->usePreparedStmt = true;
+        $sql   = 'SELECT [a].[test] AS t FROM [a] AS b WHERE [a].[test] = ?;';
+        $sql   = \strtr($sql, '[]', $iS . $iE);
+        self::assertEquals($sql, $query->selectAs('a.test', 't')->fromAs('a', 'b')->where('a.test', '=', 1)->toSql());
+
+        $query = new Builder($con);
+        $query->usePreparedStmt = true;
+        $sql   = 'SELECT DISTINCT [a].[test] FROM [a] WHERE [a].[test] = ?;';
+        $sql   = \strtr($sql, '[]', $iS . $iE);
+        self::assertEquals($sql, $query->select('a.test')->distinct()->from('a')->where('a.test', '=', 1)->toSql());
+
+        $query = new Builder($con);
+        $query->usePreparedStmt = true;
+        $sql   = 'SELECT [a].[test], [b].[test] FROM [a], [b] WHERE [a].[test] = ?;';
+        $sql   = \strtr($sql, '[]', $iS . $iE);
+        self::assertEquals($sql, $query->select('a.test', 'b.test')->from('a', 'b')->where('a.test', '=', 'abc')->toSql());
+
+        $query    = new Builder($con);
+        $query->usePreparedStmt = true;
+        $datetime = new \DateTime('now');
+        $sql      = 'SELECT [a].[test], [b].[test] FROM [a], [b] WHERE [a].[test] = ?;';
+        $sql = \strtr($sql, '[]', $iS . $iE);
+        self::assertEquals($sql, $query->select('a.test', 'b.test')->from('a', 'b')->where('a.test', '=', $datetime)->toSql());
+
+        $query = new Builder($con);
+        $query->usePreparedStmt = true;
+        $sql   = 'SELECT [a].[test], [b].[test] FROM [a], [b] WHERE [a].[test] = ? ORDER BY [a].[test] ASC, [b].[test] DESC;';
+        $sql   = \strtr($sql, '[]', $iS . $iE);
+        self::assertEquals($sql,
+            $query->select('a.test', 'b.test')
+                ->from('a', 'b')
+                ->where('a.test', '=', 'abc')
+                ->orderBy(['a.test', 'b.test', ], ['ASC', 'DESC', ])
+                ->toSql()
+        );
+
+        $query = new Builder($con);
+        $query->usePreparedStmt = true;
+        $sql   = 'SELECT [a].[test], [b].[test] FROM [a], [b] WHERE [a].[test] = :abcValue ORDER BY [a].[test] ASC, [b].[test] DESC;';
+        $sql   = \strtr($sql, '[]', $iS . $iE);
+        self::assertEquals($sql,
+            $query->select('a.test', 'b.test')
+                ->from('a', 'b')
+                ->where('a.test', '=', new Parameter('abcValue'))
+                ->orderBy(['a.test', 'b.test', ], ['ASC', 'DESC', ])
+                ->toSql()
+        );
+
+        self::assertEquals($query->toSql(), $query->__toString());
+    }
+
+    public function testRandomMysqlPrepared() : void
+    {
+        $con = new MysqlConnection($GLOBALS['CONFIG']['db']['core']['masters']['admin']);
+
+        $iS = $con->getGrammar()->systemIdentifierStart;
+        $iE = $con->getGrammar()->systemIdentifierEnd;
+
+        $query = new Builder($con);
+        $query->usePreparedStmt = true;
+        $sql   = 'SELECT [a].[test] FROM [a] AS b WHERE [a].[test] = ? ORDER BY RAND() LIMIT ?;';
+        $sql   = \strtr($sql, '[]', $iS . $iE);
+        self::assertEquals($sql, $query->random('a.test')->fromAs('a', 'b')->where('a.test', '=', 1)->toSql());
+    }
+
+    public function testRandomPostgresqlPrepared() : void
+    {
+        $con = new PostgresConnection($GLOBALS['CONFIG']['db']['core']['postgresql']['admin']);
+
+        $iS = $con->getGrammar()->systemIdentifierStart;
+        $iE = $con->getGrammar()->systemIdentifierEnd;
+
+        $query = new Builder($con);
+        $query->usePreparedStmt = true;
+        $sql   = 'SELECT [a].[test] FROM [a] AS b ORDER BY RANDOM() LIMIT ?;';
+        $sql   = \strtr($sql, '[]', $iS . $iE);
+        self::assertEquals($sql, $query->random('a.test')->fromAs('a', 'b')->where('a.test', '=', 1)->toSql());
+    }
+
+    public function testRandomSQLitePrepared() : void
+    {
+        $con = new SQLiteConnection($GLOBALS['CONFIG']['db']['core']['sqlite']['admin']);
+
+        $iS = $con->getGrammar()->systemIdentifierStart;
+        $iE = $con->getGrammar()->systemIdentifierEnd;
+
+        $query = new Builder($con);
+        $query->usePreparedStmt = true;
+        $sql   = 'SELECT [a].[test] FROM [a] AS b ORDER BY RANDOM() LIMIT ?;';
+        $sql   = \strtr($sql, '[]', $iS . $iE);
+        self::assertEquals($sql, $query->random('a.test')->fromAs('a', 'b')->where('a.test', '=', 1)->toSql());
+    }
+
+    public function testRandomSqlServerPrepared() : void
+    {
+        $con = new SqlServerConnection($GLOBALS['CONFIG']['db']['core']['mssql']['admin']);
+
+        $iS = $con->getGrammar()->systemIdentifierStart;
+        $iE = $con->getGrammar()->systemIdentifierEnd;
+
+        $query = new Builder($con);
+        $query->usePreparedStmt = true;
+        $sql   = 'SELECT TOP 1 [a].[test] FROM [a] AS b ORDER BY IDX FETCH FIRST 1 ROWS ONLY;';
+        $sql   = \strtr($sql, '[]', $iS . $iE);
+        self::assertEquals($sql, $query->random('a.test')->fromAs('a', 'b')->where('a.test', '=', 1)->toSql());
+    }
+
+    #[\PHPUnit\Framework\Attributes\DataProvider('dbConnectionProvider')]
+    #[\PHPUnit\Framework\Attributes\Group('framework')]
+    #[\PHPUnit\Framework\Attributes\TestDox('Mysql orders form a valid query')]
+    public function testOrderPrepared($con) : void
+    {
+        if (!$con->isInitialized()) {
+            self::markTestSkipped();
+
+            return;
+        }
+
+        $iS = $con->getGrammar()->systemIdentifierStart;
+        $iE = $con->getGrammar()->systemIdentifierEnd;
+
+        $query = new Builder($con);
+        $query->usePreparedStmt = true;
+        $sql   = 'SELECT [a].[test] FROM [a] WHERE [a].[test] = ? ORDER BY [a].[test] DESC;';
+        $sql   = \strtr($sql, '[]', $iS . $iE);
+        self::assertEquals($sql, $query->select('a.test')->from('a')->where('a.test', '=', 1)->newest('a.test')->toSql());
+
+        $query = new Builder($con);
+        $query->usePreparedStmt = true;
+        $sql   = 'SELECT [a].[test] FROM [a] WHERE [a].[test] = ? ORDER BY [a].[test] ASC;';
+        $sql   = \strtr($sql, '[]', $iS . $iE);
+        self::assertEquals($sql, $query->select('a.test')->from('a')->where('a.test', '=', 1)->oldest('a.test')->toSql());
+
+        $query = new Builder($con);
+        $query->usePreparedStmt = true;
+        $sql   = 'SELECT [a].[test] FROM [a] WHERE [a].[test] = ? ORDER BY [a].[test] DESC;';
+        $sql   = \strtr($sql, '[]', $iS . $iE);
+        self::assertEquals($sql, $query->select('a.test')->from('a')->where('a.test', '=', 1)->orderBy('a.test', 'DESC')->toSql());
+
+        $query = new Builder($con);
+        $query->usePreparedStmt = true;
+        $sql   = 'SELECT [a].[test] FROM [a] WHERE [a].[test] = ? ORDER BY [a].[test] ASC;';
+        $sql   = \strtr($sql, '[]', $iS . $iE);
+        self::assertEquals($sql, $query->select('a.test')->from('a')->where('a.test', '=', 1)->orderBy('a.test', 'ASC')->toSql());
+
+        $query = new Builder($con);
+        $query->usePreparedStmt = true;
+        $sql   = 'SELECT [a].[test] FROM [a] WHERE [a].[test] = ? ORDER BY [a].[test] DESC, [a].[test2] DESC;';
+        $sql   = \strtr($sql, '[]', $iS . $iE);
+        self::assertEquals($sql, $query->select('a.test')->from('a')->where('a.test', '=', 1)->orderBy(['a.test', 'a.test2'], ['DESC', 'DESC'])->toSql());
+
+        $query = new Builder($con);
+        $query->usePreparedStmt = true;
+        $sql   = 'SELECT [a].[test] FROM [a] WHERE [a].[test] = ? ORDER BY [a].[test] ASC, [a].[test2] ASC;';
+        $sql   = \strtr($sql, '[]', $iS . $iE);
+        self::assertEquals($sql, $query->select('a.test')->from('a')->where('a.test', '=', 1)->orderBy(['a.test', 'a.test2'], 'ASC')->toSql());
+    }
+
+    #[\PHPUnit\Framework\Attributes\DataProvider('dbConnectionProvider')]
+    #[\PHPUnit\Framework\Attributes\Group('framework')]
+    #[\PHPUnit\Framework\Attributes\TestDox('Mysql offsets and limits form a valid query')]
+    public function testOffsetLimitPrepared($con) : void
+    {
+        if (!$con->isInitialized()) {
+            self::markTestSkipped();
+
+            return;
+        }
+
+        $iS = $con->getGrammar()->systemIdentifierStart;
+        $iE = $con->getGrammar()->systemIdentifierEnd;
+
+        $query = new Builder($con);
+        $query->usePreparedStmt = true;
+        $sql   = 'SELECT [a].[test] FROM [a] WHERE [a].[test] = ? LIMIT ?;';
+        $sql   = \strtr($sql, '[]', $iS . $iE);
+        self::assertEquals($sql, $query->select('a.test')->from('a')->where('a.test', '=', 1)->limit(3)->toSql());
+
+        $query = new Builder($con);
+        $query->usePreparedStmt = true;
+        $sql   = 'SELECT [a].[test] FROM [a] WHERE [a].[test] = ? OFFSET ?;';
+        $sql   = \strtr($sql, '[]', $iS . $iE);
+        self::assertEquals($sql, $query->select('a.test')->from('a')->where('a.test', '=', 1)->offset(3)->toSql());
+    }
+
+    #[\PHPUnit\Framework\Attributes\DataProvider('dbConnectionProvider')]
+    #[\PHPUnit\Framework\Attributes\Group('framework')]
+    #[\PHPUnit\Framework\Attributes\TestDox('Mysql groupings form a valid query')]
+    public function testGroupPrepared($con) : void
+    {
+        if (!$con->isInitialized()) {
+            self::markTestSkipped();
+
+            return;
+        }
+
+        $iS = $con->getGrammar()->systemIdentifierStart;
+        $iE = $con->getGrammar()->systemIdentifierEnd;
+
+        $query = new Builder($con);
+        $query->usePreparedStmt = true;
+        $sql   = 'SELECT [a].[test] FROM [a] WHERE [a].[test] = ? GROUP BY [a];';
+        $sql   = \strtr($sql, '[]', $iS . $iE);
+        self::assertEquals($sql, $query->select('a.test')->from('a')->where('a.test', '=', 1)->groupBy('a')->toSql());
+
+        $query = new Builder($con);
+        $query->usePreparedStmt = true;
+        $sql   = 'SELECT [a].[test] FROM [a] WHERE [a].[test] = ? GROUP BY [a], [b];';
+        $sql   = \strtr($sql, '[]', $iS . $iE);
+        self::assertEquals($sql, $query->select('a.test')->from('a')->where('a.test', '=', 1)->groupBy('a')->groupBy('b')->toSql());
+
+        $query = new Builder($con);
+        $query->usePreparedStmt = true;
+        self::assertEquals($sql, $query->select('a.test')->from('a')->where('a.test', '=', 1)->groupBy('a', 'b')->toSql());
+
+        $query = new Builder($con);
+        $query->usePreparedStmt = true;
+        $sql   = 'SELECT [a].[test] FROM [a] WHERE [a].[test] = :test GROUP BY [a], [b];';
+        $sql   = \strtr($sql, '[]', $iS . $iE);
+        self::assertEquals($sql, $query->select('a.test')->from('a')->where('a.test', '=', new Parameter('test'))->groupBy('a', 'b')->toSql());
+    }
+
+    #[\PHPUnit\Framework\Attributes\DataProvider('dbConnectionProvider')]
+    #[\PHPUnit\Framework\Attributes\Group('framework')]
+    #[\PHPUnit\Framework\Attributes\TestDox('Mysql wheres form a valid query')]
+    public function testWheresPrepared($con) : void
+    {
+        if (!$con->isInitialized()) {
+            self::markTestSkipped();
+
+            return;
+        }
+
+        $iS = $con->getGrammar()->systemIdentifierStart;
+        $iE = $con->getGrammar()->systemIdentifierEnd;
+
+        $query = new Builder($con);
+        $query->usePreparedStmt = true;
+        $sql   = 'SELECT [a].[test] FROM [a] WHERE [a].[test] = ?;';
+        $sql   = \strtr($sql, '[]', $iS . $iE);
+        self::assertEquals($sql, $query->select('a.test')->from('a')->where('a.test', '=', 1)->toSql());
+
+        $query = new Builder($con);
+        $query->usePreparedStmt = true;
+        $sql   = 'SELECT [a].[test] FROM [a] WHERE [a].[test] = ?;';
+        $sql   = \strtr($sql, '[]', $iS . $iE);
+        self::assertEquals($sql, $query->select('a.test')->from('a')->where('a.test', '=', false)->toSql());
+
+        $query = new Builder($con);
+        $query->usePreparedStmt = true;
+        $sql   = 'SELECT [a].[test] FROM [a] WHERE [a].[test] = ?;';
+        $sql   = \strtr($sql, '[]', $iS . $iE);
+        self::assertEquals($sql, $query->select('a.test')->from('a')->where('a.test', '=', true)->toSql());
+
+        $query = new Builder($con);
+        $query->usePreparedStmt = true;
+        $sql   = 'SELECT [a].[test] FROM [a] WHERE [a].[test] = ?;';
+        $sql   = \strtr($sql, '[]', $iS . $iE);
+        self::assertEquals($sql, $query->select('a.test')->from('a')->where('a.test', '=', 'string')->toSql());
+
+        $query = new Builder($con);
+        $query->usePreparedStmt = true;
+        $sql   = 'SELECT [a].[test] FROM [a] WHERE [a].[test] = 1.23;';
+        $sql   = \strtr($sql, '[]', $iS . $iE);
+        self::assertEquals($sql, $query->select('a.test')->from('a')->where('a.test', '=', 1.23)->toSql());
+
+        $query = new Builder($con);
+        $query->usePreparedStmt = true;
+        $sql   = 'SELECT [a].[test] FROM [a] WHERE [a].[test] = ? AND [a].[test2] = ?;';
+        $sql   = \strtr($sql, '[]', $iS . $iE);
+        self::assertEquals($sql, $query->select('a.test')->from('a')->where('a.test', '=', 1)->where('a.test2', '=', 2, 'and')->toSql());
+
+        $query = new Builder($con);
+        $query->usePreparedStmt = true;
+        $sql   = 'SELECT [a].[test] FROM [a] WHERE [a].[test] = ? AND [a].[test2] = ?;';
+        $sql   = \strtr($sql, '[]', $iS . $iE);
+        self::assertEquals($sql, $query->select('a.test')->from('a')->where('a.test', '=', 1)->andWhere('a.test2', '=', 2)->toSql());
+
+        $query = new Builder($con);
+        $query->usePreparedStmt = true;
+        $sql   = 'SELECT [a].[test] FROM [a] WHERE [a].[test] = ? OR [a].[test2] = ?;';
+        $sql   = \strtr($sql, '[]', $iS . $iE);
+        self::assertEquals($sql, $query->select('a.test')->from('a')->where('a.test', '=', 1)->where('a.test2', '=', 2, 'or')->toSql());
+
+        $query = new Builder($con);
+        $query->usePreparedStmt = true;
+        $sql   = 'SELECT [a].[test] FROM [a] WHERE [a].[test] = ? OR [a].[test2] = ?;';
+        $sql   = \strtr($sql, '[]', $iS . $iE);
+        self::assertEquals($sql, $query->select('a.test')->from('a')->where('a.test', '=', 1)->orWhere('a.test2', '=', 2)->toSql());
+
+        $query = new Builder($con);
+        $query->usePreparedStmt = true;
+        $sql   = 'SELECT [a].[test] FROM [a] WHERE [a].[test] = ? OR [a].[test2] IS NULL;';
+        $sql   = \strtr($sql, '[]', $iS . $iE);
+        self::assertEquals($sql, $query->select('a.test')->from('a')->where('a.test', '=', 1)->whereNull('a.test2', 'or')->toSql());
+
+        $query = new Builder($con);
+        $query->usePreparedStmt = true;
+        $sql   = 'SELECT [a].[test] FROM [a] WHERE [a].[test] = ? OR [a].[test2] IS NOT NULL;';
+        $sql   = \strtr($sql, '[]', $iS . $iE);
+        self::assertEquals($sql, $query->select('a.test')->from('a')->where('a.test', '=', 1)->whereNotNull('a.test2', 'or')->toSql());
+
+        $query = new Builder($con);
+        $query->usePreparedStmt = true;
+        $sql   = 'SELECT [a].[test] FROM [a] WHERE [a].[test] = ? OR [a].[test2] IN (?, ?, ?);';
+        $sql   = \strtr($sql, '[]', $iS . $iE);
+        self::assertEquals($sql, $query->select('a.test')->from('a')->where('a.test', '=', 1)->whereIn('a.test2', [1, 2, 3], 'or')->toSql());
+
+        $query = new Builder($con);
+        $query->usePreparedStmt = true;
+        $sql   = 'SELECT [a].[test] FROM [a] WHERE [a].[test] = ? OR [a].[test2] IN (?, ?, ?);';
+        $sql   = \strtr($sql, '[]', $iS . $iE);
+        self::assertEquals($sql, $query->select('a.test')->from('a')->where('a.test', '=', 1)->whereIn('a.test2', ['a', 'b', 'c'], 'or')->toSql());
+
+        $query = new Builder($con);
+        $query->usePreparedStmt = true;
+        $sql   = 'SELECT [a].[test] FROM [a] WHERE [a].[test] = :testWhere OR [a].[test2] IN (?, :bValue, ?);';
+        $sql   = \strtr($sql, '[]', $iS . $iE);
+        self::assertEquals($sql, $query->select('a.test')->from('a')->where('a.test', '=', new Parameter('testWhere'))->whereIn('a.test2', ['a', new Parameter('bValue'), 'c'], 'or')->toSql());
+    }
+
+    #[\PHPUnit\Framework\Attributes\DataProvider('dbConnectionProvider')]
+    #[\PHPUnit\Framework\Attributes\Group('framework')]
+    #[\PHPUnit\Framework\Attributes\TestDox('Mysql joins form a valid query')]
+    public function testJoinsPrepared($con) : void
+    {
+        if (!$con->isInitialized()) {
+            self::markTestSkipped();
+
+            return;
+        }
+
+        $iS = $con->getGrammar()->systemIdentifierStart;
+        $iE = $con->getGrammar()->systemIdentifierEnd;
+
+        $query = new Builder($con);
+        $query->usePreparedStmt = true;
+        $sql   = 'SELECT [a].[test] FROM [a] JOIN [b] ON [a].[id] = [b].[id] WHERE [a].[test] = ?;';
+        $sql   = \strtr($sql, '[]', $iS . $iE);
+        self::assertEquals($sql, $query->select('a.test')->from('a')->join('b')->on('a.id', '=', 'b.id')->where('a.test', '=', 1)->toSql());
+
+        $query = new Builder($con);
+        $query->usePreparedStmt = true;
+        $sql   = 'SELECT [a].[test] FROM [a] JOIN [b] ON [a].[id] = [b].[id] OR [a].[id2] = [b].[id2] WHERE [a].[test] = ?;';
+        $sql   = \strtr($sql, '[]', $iS . $iE);
+        self::assertEquals($sql, $query->select('a.test')->from('a')->join('b')->on('a.id', '=', 'b.id')->orOn('a.id2', '=', 'b.id2')->where('a.test', '=', 1)->toSql());
+
+        $query = new Builder($con);
+        $query->usePreparedStmt = true;
+        $sql   = 'SELECT [a].[test] FROM [a] JOIN [b] ON [a].[id] = [b].[id] AND [a].[id2] = [b].[id2] WHERE [a].[test] = ?;';
+        $sql   = \strtr($sql, '[]', $iS . $iE);
+        self::assertEquals($sql, $query->select('a.test')->from('a')->join('b')->on('a.id', '=', 'b.id')->andOn('a.id2', '=', 'b.id2')->where('a.test', '=', 1)->toSql());
+
+        $query = new Builder($con);
+        $query->usePreparedStmt = true;
+        $sql   = 'SELECT [a].[test] FROM [a] LEFT JOIN [b] ON [a].[id] = [b].[id] WHERE [a].[test] = ?;';
+        $sql   = \strtr($sql, '[]', $iS . $iE);
+        self::assertEquals($sql, $query->select('a.test')->from('a')->leftJoin('b')->on('a.id', '=', 'b.id')->where('a.test', '=', 1)->toSql());
+
+        $query = new Builder($con);
+        $query->usePreparedStmt = true;
+        $sql   = 'SELECT [a].[test] FROM [a] LEFT OUTER JOIN [b] ON [a].[id] = [b].[id] WHERE [a].[test] = ?;';
+        $sql   = \strtr($sql, '[]', $iS . $iE);
+        self::assertEquals($sql, $query->select('a.test')->from('a')->leftOuterJoin('b')->on('a.id', '=', 'b.id')->where('a.test', '=', 1)->toSql());
+
+        $query = new Builder($con);
+        $query->usePreparedStmt = true;
+        $sql   = 'SELECT [a].[test] FROM [a] LEFT INNER JOIN [b] ON [a].[id] = [b].[id] WHERE [a].[test] = ?;';
+        $sql   = \strtr($sql, '[]', $iS . $iE);
+        self::assertEquals($sql, $query->select('a.test')->from('a')->leftInnerJoin('b')->on('a.id', '=', 'b.id')->where('a.test', '=', 1)->toSql());
+
+        $query = new Builder($con);
+        $query->usePreparedStmt = true;
+        $sql   = 'SELECT [a].[test] FROM [a] RIGHT JOIN [b] ON [a].[id] = [b].[id] WHERE [a].[test] = ?;';
+        $sql   = \strtr($sql, '[]', $iS . $iE);
+        self::assertEquals($sql, $query->select('a.test')->from('a')->rightJoin('b')->on('a.id', '=', 'b.id')->where('a.test', '=', 1)->toSql());
+
+        $query = new Builder($con);
+        $query->usePreparedStmt = true;
+        $sql   = 'SELECT [a].[test] FROM [a] RIGHT OUTER JOIN [b] ON [a].[id] = [b].[id] WHERE [a].[test] = ?;';
+        $sql   = \strtr($sql, '[]', $iS . $iE);
+        self::assertEquals($sql, $query->select('a.test')->from('a')->rightOuterJoin('b')->on('a.id', '=', 'b.id')->where('a.test', '=', 1)->toSql());
+
+        $query = new Builder($con);
+        $query->usePreparedStmt = true;
+        $sql   = 'SELECT [a].[test] FROM [a] RIGHT INNER JOIN [b] ON [a].[id] = [b].[id] WHERE [a].[test] = ?;';
+        $sql   = \strtr($sql, '[]', $iS . $iE);
+        self::assertEquals($sql, $query->select('a.test')->from('a')->rightInnerJoin('b')->on('a.id', '=', 'b.id')->where('a.test', '=', 1)->toSql());
+
+        $query = new Builder($con);
+        $query->usePreparedStmt = true;
+        $sql   = 'SELECT [a].[test] FROM [a] OUTER JOIN [b] ON [a].[id] = [b].[id] WHERE [a].[test] = ?;';
+        $sql   = \strtr($sql, '[]', $iS . $iE);
+        self::assertEquals($sql, $query->select('a.test')->from('a')->outerJoin('b')->on('a.id', '=', 'b.id')->where('a.test', '=', 1)->toSql());
+
+        $query = new Builder($con);
+        $query->usePreparedStmt = true;
+        $sql   = 'SELECT [a].[test] FROM [a] INNER JOIN [b] ON [a].[id] = [b].[id] WHERE [a].[test] = ?;';
+        $sql   = \strtr($sql, '[]', $iS . $iE);
+        self::assertEquals($sql, $query->select('a.test')->from('a')->innerJoin('b')->on('a.id', '=', 'b.id')->where('a.test', '=', 1)->toSql());
+
+        $query = new Builder($con);
+        $query->usePreparedStmt = true;
+        $sql   = 'SELECT [a].[test] FROM [a] CROSS JOIN [b] ON [a].[id] = [b].[id] WHERE [a].[test] = ?;';
+        $sql   = \strtr($sql, '[]', $iS . $iE);
+        self::assertEquals($sql, $query->select('a.test')->from('a')->crossJoin('b')->on('a.id', '=', 'b.id')->where('a.test', '=', 1)->toSql());
+
+        $query = new Builder($con);
+        $query->usePreparedStmt = true;
+        $sql   = 'SELECT [a].[test] FROM [a] FULL JOIN [b] ON [a].[id] = [b].[id] WHERE [a].[test] = ?;';
+        $sql   = \strtr($sql, '[]', $iS . $iE);
+        self::assertEquals($sql, $query->select('a.test')->from('a')->fullJoin('b')->on('a.id', '=', 'b.id')->where('a.test', '=', 1)->toSql());
+
+        $query = new Builder($con);
+        $query->usePreparedStmt = true;
+        $sql   = 'SELECT [a].[test] FROM [a] FULL OUTER JOIN [b] ON [a].[id] = [b].[id] WHERE [a].[test] = ?;';
+        $sql   = \strtr($sql, '[]', $iS . $iE);
+        self::assertEquals($sql, $query->select('a.test')->from('a')->fullOuterJoin('b')->on('a.id', '=', 'b.id')->where('a.test', '=', 1)->toSql());
+    }
+
+    #[\PHPUnit\Framework\Attributes\DataProvider('dbConnectionProvider')]
+    #[\PHPUnit\Framework\Attributes\Group('framework')]
+    #[\PHPUnit\Framework\Attributes\TestDox('Mysql inserts form a valid query')]
+    public function testInsertPrepared($con) : void
+    {
+        if (!$con->isInitialized()) {
+            self::markTestSkipped();
+
+            return;
+        }
+
+        $iS = $con->getGrammar()->systemIdentifierStart;
+        $iE = $con->getGrammar()->systemIdentifierEnd;
+
+        $query = new Builder($con);
+        $query->usePreparedStmt = true;
+        $sql   = 'INSERT INTO [a] VALUES (?, ?);';
+        $sql   = \strtr($sql, '[]', $iS . $iE);
+        self::assertEquals($sql, $query->insert()->into('a')->values(1, 'test')->toSql());
+
+        $query = new Builder($con);
+        $query->usePreparedStmt = true;
+        $sql   = 'INSERT INTO [a] VALUES (?, ?);';
+        $sql   = \strtr($sql, '[]', $iS . $iE);
+        self::assertEquals($sql, $query->insert()->into('a')->value([1, 'test'])->toSql());
+
+        $query = new Builder($con);
+        $query->usePreparedStmt = true;
+        $sql   = 'INSERT INTO [a] ([test], [test2]) VALUES (?, ?);';
+        $sql   = \strtr($sql, '[]', $iS . $iE);
+        self::assertEquals($sql, $query->insert('test', 'test2')->into('a')->values(1, 'test')->toSql());
+        self::assertEquals([[1, 'test']], $query->getValues());
+
+        $query = new Builder($con);
+        $query->usePreparedStmt = true;
+        $sql   = 'INSERT INTO [a] ([test], [test2]) VALUES (?, ?), (?, ?);';
+        $sql   = \strtr($sql, '[]', $iS . $iE);
+        self::assertEquals($sql, $query->insert('test', 'test2')->into('a')->values(1, 'test')->values(2, 'test2')->toSql());
+
+        $query = new Builder($con);
+        $query->usePreparedStmt = true;
+        $sql   = 'INSERT INTO [a] ([test], [test2]) VALUES (:test, :test2);';
+        $sql   = \strtr($sql, '[]', $iS . $iE);
+        self::assertEquals($sql, $query->insert('test', 'test2')->into('a')->values(new Parameter('test'), new Parameter('test2'))->toSql());
+    }
+
+    #[\PHPUnit\Framework\Attributes\DataProvider('dbConnectionProvider')]
+    #[\PHPUnit\Framework\Attributes\Group('framework')]
+    #[\PHPUnit\Framework\Attributes\TestDox('Mysql deletes form a valid query')]
+    public function testDeletePrepared($con) : void
+    {
+        if (!$con->isInitialized()) {
+            self::markTestSkipped();
+
+            return;
+        }
+
+        $iS = $con->getGrammar()->systemIdentifierStart;
+        $iE = $con->getGrammar()->systemIdentifierEnd;
+
+        $query = new Builder($con);
+        $query->usePreparedStmt = true;
+        $sql   = 'DELETE FROM [a] WHERE [a].[test] = ?;';
+        $sql   = \strtr($sql, '[]', $iS . $iE);
+        self::assertEquals($sql, $query->delete()->from('a')->where('a.test', '=', 1)->toSql());
+
+        $query = new Builder($con);
+        $query->usePreparedStmt = true;
+        $sql   = 'DELETE FROM [a] WHERE [a].[test] = :testVal;';
+        $sql   = \strtr($sql, '[]', $iS . $iE);
+        self::assertEquals($sql, $query->delete()->from('a')->where('a.test', '=', new Parameter('testVal'))->toSql());
+    }
+
+    #[\PHPUnit\Framework\Attributes\DataProvider('dbConnectionProvider')]
+    #[\PHPUnit\Framework\Attributes\Group('framework')]
+    #[\PHPUnit\Framework\Attributes\TestDox('Mysql updates form a valid query')]
+    public function testUpdatePrepared($con) : void
+    {
+        if (!$con->isInitialized()) {
+            self::markTestSkipped();
+
+            return;
+        }
+
+        $iS = $con->getGrammar()->systemIdentifierStart;
+        $iE = $con->getGrammar()->systemIdentifierEnd;
+
+        $query = new Builder($con);
+        $query->usePreparedStmt = true;
+        $sql   = 'UPDATE [a] SET [test] = ?, [test2] = ? WHERE [a].[test] = ?;';
+        $sql   = \strtr($sql, '[]', $iS . $iE);
+        self::assertEquals($sql, $query->update('a')->set(['test' => 1])->set(['test2' => 2])->where('a.test', '=', 1)->toSql());
+
+        $query = new Builder($con);
+        $query->usePreparedStmt = true;
+        $sql   = 'UPDATE [a] SET [test] = ?, [test2] = ? WHERE [a].[test] = ?;';
+        $sql   = \strtr($sql, '[]', $iS . $iE);
+        self::assertEquals($sql, $query->update('a')->sets('test', 1)->sets('test2', 2)->where('a.test', '=', 1)->toSql());
+
+        $query = new Builder($con);
+        $query->usePreparedStmt = true;
+        $sql   = 'UPDATE [a] SET [test] = ?, [test2] = :test2 WHERE [a].[test] = :test3;';
         $sql   = \strtr($sql, '[]', $iS . $iE);
         self::assertEquals($sql, $query->update('a')->set(['test' => 1])->set(['test2' => new Parameter('test2')])->where('a.test', '=', new Parameter('test3'))->toSql());
     }
