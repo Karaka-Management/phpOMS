@@ -251,11 +251,9 @@ abstract class RequestAbstract implements MessageInterface
     {
         $key = \mb_strtolower($key);
 
-        $timestamp = empty($this->data[$key] ?? null)
+        return empty($this->data[$key] ?? null)
             ? null
             : (int) \strtotime((string) $this->data[$key]);
-
-        return $timestamp === false ? null : $timestamp;
     }
 
     /**
@@ -299,9 +297,6 @@ abstract class RequestAbstract implements MessageInterface
 
         /* @phpstan-ignore-next-line */
         $list = \explode($delim, (string) $this->data[$key]);
-        if ($list === false) {
-            return []; // @codeCoverageIgnore
-        }
 
         foreach ($list as $i => $e) {
             $list[$i] = \trim($e);

@@ -339,7 +339,7 @@ class Directory extends FileAbstract implements DirectoryInterface
         $changed = new \DateTime();
         $time    = \ftp_mdtm($con, $path);
 
-        $changed->setTimestamp($time === false ? 0 : $time);
+        $changed->setTimestamp($time);
 
         return $changed;
     }

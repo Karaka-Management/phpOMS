@@ -41,13 +41,13 @@ final class SpreadsheetDatabaseMapper implements IODatabaseMapper
     /**
      * Constructor.
      *
-     * @param ConnectionAbstract $con  Database connection
+     * @param ConnectionAbstract $con Database connection
      *
      * @since 1.0.0
      */
     public function __construct(ConnectionAbstract $con)
     {
-        $this->con  = $con;
+        $this->con = $con;
     }
 
     /**
@@ -78,8 +78,17 @@ final class SpreadsheetDatabaseMapper implements IODatabaseMapper
             // get column titles
             $column = 1;
             while (!empty($value = $workSheet->getCell(StringUtils::intToAlphabet($column) . 1)->getCalculatedValue())) {
+                if (!\is_string($value)) {
+                    continue;
+                }
+
                 $value = \strtr(\trim($value), ' ', '_');
                 $value = \preg_replace('/[^a-zA-Z0-9_]/', '', $value);
+
+                if ($value === null) {
+                    continue;
+                }
+
                 $titles[] = $value;
 
                 ++$column;
@@ -140,8 +149,12 @@ final class SpreadsheetDatabaseMapper implements IODatabaseMapper
             // get column titles
             $column = 1;
             while (!empty($value = $workSheet->getCell(StringUtils::intToAlphabet($column) . 1)->getCalculatedValue())) {
-                $value = \strtr(\trim($value), ' ', '_');
-                $value = \preg_replace('/[^a-zA-Z0-9_]/', '', $value);
+                if (!\is_string($value)) {
+                    continue;
+                }
+
+                $value    = \strtr(\trim($value), ' ', '_');
+                $value    = \preg_replace('/[^a-zA-Z0-9_]/', '', $value);
                 $titles[] = $value;
 
                 ++$column;
@@ -278,8 +291,12 @@ final class SpreadsheetDatabaseMapper implements IODatabaseMapper
             // get column titles
             $column = 1;
             while (!empty($value = $workSheet->getCell(StringUtils::intToAlphabet($column) . 1)->getCalculatedValue())) {
-                $value = \strtr(\trim($value), ' ', '_');
-                $value = \preg_replace('/[^a-zA-Z0-9_]/', '', $value);
+                if (!\is_string($value)) {
+                    continue;
+                }
+
+                $value    = \strtr(\trim($value), ' ', '_');
+                $value    = \preg_replace('/[^a-zA-Z0-9_]/', '', $value);
                 $titles[] = $value;
 
                 ++$column;

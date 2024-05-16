@@ -40,7 +40,7 @@ final class CsvDatabaseMapper implements IODatabaseMapper
     /**
      * Constructor.
      *
-     * @param ConnectionAbstract $con  Database connection
+     * @param ConnectionAbstract $con Database connection
      *
      * @since 1.0.0
      */
@@ -74,6 +74,10 @@ final class CsvDatabaseMapper implements IODatabaseMapper
         $titles = \array_map(function(string $title) : string {
             $title = \strtr(\trim($title), ' ', '_');
             $title = \preg_replace('/[^a-zA-Z0-9_]/', '', $title);
+
+            if ($title === null) {
+                return '';
+            }
 
             return \strtr($title, ' ', '_');
         }, $titles);
@@ -129,6 +133,10 @@ final class CsvDatabaseMapper implements IODatabaseMapper
         $titles = \array_map(function(string $title) : string {
             $title = \strtr(\trim($title), ' ', '_');
             $title = \preg_replace('/[^a-zA-Z0-9_]/', '', $title);
+
+            if ($title === null) {
+                return '';
+            }
 
             return \strtr($title, ' ', '_');
         }, $titles);
@@ -239,6 +247,10 @@ final class CsvDatabaseMapper implements IODatabaseMapper
         $titles = \array_map(function(string $title) : string {
             $title = \strtr(\trim($title), ' ', '_');
             $title = \preg_replace('/[^a-zA-Z0-9_]/', '', $title);
+
+            if ($title === null) {
+                return '';
+            }
 
             return \strtr($title, ' ', '_');
         }, $titles);

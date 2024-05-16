@@ -44,8 +44,6 @@ final class UnhandledHandler
             'line'    => $e->getLine(),
             'file'    => $e->getFile(),
         ]);
-
-        $_SERVER = [];
     }
 
     /**

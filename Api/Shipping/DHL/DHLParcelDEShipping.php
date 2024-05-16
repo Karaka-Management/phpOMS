@@ -617,10 +617,10 @@ final class DHLParcelDEShipping implements ShippingInterface
 
         return [
             'date'   => $response->getDataDateTime('manifestDate'),
-            'b64'    => $response->getDataArray('manifest')['b64'],
-            'zpl2'   => $response->getDataArray('manifest')['zpl2'],
-            'url'    => $response->getDataArray('manifest')['url'],
-            'format' => $response->getDataArray('manifest')['printFormat'],
+            'b64'    => $response->getDataArray('manifest')['b64'] ?? '',
+            'zpl2'   => $response->getDataArray('manifest')['zpl2'] ?? '',
+            'url'    => $response->getDataArray('manifest')['url'] ?? '',
+            'format' => $response->getDataArray('manifest')['printFormat'] ?? '',
         ];
     }
 

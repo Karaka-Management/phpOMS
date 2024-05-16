@@ -33,7 +33,7 @@ use phpOMS\Uri\HttpUri;
  * @SuppressWarnings(PHPMD.Superglobals)
  *
  * @property HttpHeader $header
- * @property HttpUri $uri
+ * @property HttpUri    $uri
  */
 final class HttpRequest extends RequestAbstract
 {

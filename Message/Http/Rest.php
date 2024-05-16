@@ -146,7 +146,7 @@ final class Rest
 
         \curl_close($curl);
 
-        $raw = \substr(\is_bool($result) ? '' : $result, $len === false ? 0 : $len);
+        $raw = \substr(\is_bool($result) ? '' : $result, $len);
         if (\stripos(\implode('', $response->header->get('Content-Type')), MimeType::M_JSON) !== false) {
             $temp = \json_decode($raw, true);
             if (!\is_array($temp)) {

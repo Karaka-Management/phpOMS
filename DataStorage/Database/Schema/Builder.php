@@ -199,7 +199,7 @@ class Builder extends BuilderAbstract
      */
     public static function createFromSchema(array $definition, ConnectionAbstract $connection) : self
     {
-        $builder = new self($connection);
+        $builder                  = new self($connection);
         $builder->usePreparedStmt = false;
         $builder->createTable($definition['name'] ?? '');
 

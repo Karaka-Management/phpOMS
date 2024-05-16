@@ -157,8 +157,8 @@ class Location implements \JsonSerializable, SerializableInterface
     public function toArray() : array
     {
         return [
-            'id'  => $this->id,
-            'type'  => $this->type,
+            'id'      => $this->id,
+            'type'    => $this->type,
             'postal'  => $this->postal,
             'city'    => $this->city,
             'country' => $this->country,
@@ -169,17 +169,26 @@ class Location implements \JsonSerializable, SerializableInterface
         ];
     }
 
+    /**
+     * Fill object from array
+     *
+     * @param array{id:int, type:int, postal:string, city:string, country:string, address:string, state:string, lat:float, lon:float} $location Location data
+     *
+     * @return void
+     *
+     * @since 1.0.0
+     */
     public function from(array $location) : void
     {
-        $this->id = $location['id'];
-        $this->type = $location['type'];
-        $this->postal = $location['postal'];
-        $this->city = $location['city'];
+        $this->id      = $location['id'];
+        $this->type    = $location['type'];
+        $this->postal  = $location['postal'];
+        $this->city    = $location['city'];
         $this->country = $location['country'];
         $this->address = $location['address'];
-        $this->state = $location['state'];
-        $this->lat = $location['lat'];
-        $this->lon = $location['lon'];
+        $this->state   = $location['state'];
+        $this->lat     = $location['lat'];
+        $this->lon     = $location['lon'];
     }
 
     /**

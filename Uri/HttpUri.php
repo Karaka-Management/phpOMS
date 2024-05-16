@@ -206,7 +206,7 @@ final class HttpUri implements UriInterface
         if (StringUtils::endsWith($this->path, '.php')) {
             $path = \substr($this->path, 0, -4);
 
-            if ($path === false) {
+            if ($path === '') {
                 throw new \Exception(); // @codeCoverageIgnore
             }
 

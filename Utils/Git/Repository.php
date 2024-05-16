@@ -702,7 +702,7 @@ class Repository
             \preg_match('/^[0-9]*/', $line, $matches);
 
             $author      = \substr($line, \strlen($matches[0]) + 1);
-            $contributor = new Author($author === false ? '' : $author);
+            $contributor = new Author($author);
             $contributor->setCommitCount($this->getCommitsCount($start, $end)[$contributor->name]);
 
             $addremove = $this->getAdditionsRemovalsByContributor($contributor, $start, $end);
@@ -863,9 +863,6 @@ class Repository
         $author = \count($author) < 2 ? ['none', 'none'] : \explode('<', \trim($author[1] ?? ''));
 
         $date = \substr($lines[2] ?? '', 6);
-        if ($date === false) {
-            $date = 'now';
-        }
 
         $commit = new Commit($matches[0]);
         $commit->setAuthor(new Author(\trim($author[0] ?? ''), \rtrim($author[1] ?? '', '>')));

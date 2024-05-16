@@ -270,7 +270,7 @@ class Grammar extends GrammarAbstract
         foreach ($wheres as $where) {
             foreach ($where as $element) {
                 $expression = '';
-                $prefix = '';
+                $prefix     = '';
 
                 if (!$first) {
                     $prefix = ' ' . \strtoupper($element['boolean']) . ' ';
@@ -286,7 +286,7 @@ class Grammar extends GrammarAbstract
                         // BUT we are only allowed to do this once per wheres builder
                         foreach ($element['column']->binds as $bind) {
                             $query->bind($bind);
-                        };
+                        }
                     }
                 } elseif ($element['column'] instanceof \Closure) {
                     $expression .= $element['column']();
@@ -308,7 +308,7 @@ class Grammar extends GrammarAbstract
 
                 if (isset($element['value']) && (!empty($element['value']) || !$isArray)) {
                     if ($isArray && \count($element['value']) === 1) {
-                        $element['value'] = \reset($element['value']);
+                        $element['value']    = \reset($element['value']);
                         $element['operator'] = '=';
                     }
 
@@ -323,7 +323,7 @@ class Grammar extends GrammarAbstract
                 }
 
                 $outer .= $prefix . $expression;
-                $first  = false;
+                $first = false;
             }
         }
 
@@ -347,10 +347,9 @@ class Grammar extends GrammarAbstract
     protected function compileLimit(Builder $query, int $limit) : string
     {
         if ($query->usePreparedStmt) {
-
             $query->bind([
                 'value' => $limit,
-                'type' => \PDO::PARAM_INT,
+                'type'  => \PDO::PARAM_INT,
             ]);
 
             $limit = '?';
@@ -372,10 +371,9 @@ class Grammar extends GrammarAbstract
     protected function compileOffset(Builder $query, int $offset) : string
     {
         if ($query->usePreparedStmt) {
-
             $query->bind([
                 'value' => $offset,
-                'type' => \PDO::PARAM_INT,
+                'type'  => \PDO::PARAM_INT,
             ]);
 
             $offset = '?';
@@ -412,7 +410,7 @@ class Grammar extends GrammarAbstract
                     // If we have a subquery, we need to copy the binds over
                     foreach ($join['table']->binds as $bind) {
                         $query->bind($bind);
-                    };
+                    }
                 }
             }
 
@@ -482,7 +480,7 @@ class Grammar extends GrammarAbstract
                 // If we have a subquery, we need to copy the binds over
                 foreach ($element['column']->binds as $bind) {
                     $query->bind($bind);
-                };
+                }
             }
         } elseif ($element['column'] instanceof \Closure) {
             $expression .= $element['column']();

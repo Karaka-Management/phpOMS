@@ -150,7 +150,7 @@ final class ImageUtils
 
         $dst = \imagecreatetruecolor($width, $height);
 
-        if ($src === null || $src === false || $dst === null || $dst === false) {
+        if ($src === false || $dst === false) {
             throw new \InvalidArgumentException();
         }
 
@@ -164,6 +164,12 @@ final class ImageUtils
 
             \imagefill($dst, 0, 0, $transparent);
             \imagesavealpha($dst, true);
+        }
+
+        if ($src === null) {
+            \imagedestroy($dst);
+
+            return;
         }
 
         \imagecopyresampled($dst, $src, 0, 0, 0, 0, $width, $height, $imageDim[0], $imageDim[1]);

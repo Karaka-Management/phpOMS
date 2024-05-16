@@ -1,7 +1,7 @@
 {
     ".*": {
         "name": "[a-z\\_]+",
-        ".*?description": ".*",
+        ".*?comment": ".*",
         "fields": {
             ".*": {
                 "name": "[a-z0-9\\_]+",
@@ -15,7 +15,7 @@
                 ".*?foreignTable": "[a-z0-9\\_]+",
                 ".*?foreignKey": "[a-z0-9\\_]+",
                 ".*?annotations": ".*",
-                ".*?description": ".*"
+                ".*?comment": ".*"
             }
         }
     }

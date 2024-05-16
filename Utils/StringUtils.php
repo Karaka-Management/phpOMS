@@ -242,15 +242,13 @@ final class StringUtils
         $splitOld = empty($delim) ? \str_split($old) : \explode($delim, $old);
         $splitNew = empty($delim) ? \str_split($new) : \explode($delim, $new);
 
-        if ($splitOld === false
-            || (empty($old) && !empty($new))
+        if ((empty($old) && !empty($new))
             || (!empty($delim) && \count($splitOld) === 1 && $splitOld[0] === '')
         ) {
             return '<ins>' . $new . '</ins>';
         }
 
-        if ($splitNew === false
-            || (!empty($old) && empty($new))
+        if ((!empty($old) && empty($new))
             || (!empty($delim) && \count($splitNew) === 1 && $splitNew[0] === '')
         ) {
             return '<del>' . $old . '</del>';

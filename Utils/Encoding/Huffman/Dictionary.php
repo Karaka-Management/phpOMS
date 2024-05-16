@@ -88,6 +88,11 @@ final class Dictionary
         while (\count($count) > 1) {
             $row1    = \array_shift($count);
             $row2    = \array_shift($count);
+
+            if ($row1 == null || $row2 === null) {
+                break;
+            }
+
             $count[] = [$row1[0] + $row2[0], [$row1, $row2]];
 
             \sort($count);

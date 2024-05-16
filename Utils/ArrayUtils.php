@@ -37,9 +37,9 @@ final class ArrayUtils
     /**
      * Check if needle exists in multidimensional array.
      *
-     * @param string $path  Path to element
-     * @param array  $data  Array
-     * @param string $delim Delimiter for path
+     * @param string           $path  Path to element
+     * @param array            $data  Array
+     * @param non-empty-string $delim Delimiter for path
      *
      * @return array
      *
@@ -53,10 +53,6 @@ final class ArrayUtils
         $prevEl = null;
         $el     = &$data;
         $node   = null;
-
-        if ($nodes === false) {
-            throw new \Exception(); // @codeCoverageIgnore
-        }
 
         foreach ($nodes as $node) {
             $prevEl = &$el;
@@ -92,11 +88,11 @@ final class ArrayUtils
     /**
      * Set element in array by path
      *
-     * @param string $path      Path to element
-     * @param array  $data      Array
-     * @param mixed  $value     Value to add
-     * @param string $delim     Delimiter for path
-     * @param bool   $overwrite Overwrite if existing
+     * @param string           $path      Path to element
+     * @param array            $data      Array
+     * @param mixed            $value     Value to add
+     * @param non-empty-string $delim     Delimiter for path
+     * @param bool             $overwrite Overwrite if existing
      *
      * @return array
      *
@@ -108,10 +104,6 @@ final class ArrayUtils
     {
         $pathParts = \explode($delim, \trim($path, $delim));
         $current   = &$data;
-
-        if ($pathParts === false) {
-            throw new \Exception(); // @codeCoverageIgnore
-        }
 
         foreach ($pathParts as $key) {
             $current = &$current[$key];
@@ -135,9 +127,9 @@ final class ArrayUtils
     /**
      * Get element of array by path
      *
-     * @param string $path  Path to element
-     * @param array  $data  Array
-     * @param string $delim Delimiter for path
+     * @param string           $path  Path to element
+     * @param array            $data  Array
+     * @param non-empty-string $delim Delimiter for path
      *
      * @return mixed
      *
@@ -149,10 +141,6 @@ final class ArrayUtils
     {
         $pathParts = \explode($delim, \trim($path, $delim));
         $current   = $data;
-
-        if ($pathParts === false) {
-            throw new \Exception(); // @codeCoverageIgnore
-        }
 
         foreach ($pathParts as $key) {
             if (!isset($current[$key])) {

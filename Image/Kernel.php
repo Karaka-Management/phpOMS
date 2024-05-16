@@ -65,7 +65,7 @@ final class Kernel
     /**
      * Kernel matrix for blurring
      *
-     * @var array<int, int[]>
+     * @var array<int, float[]>
      * @since 1.0.0
      */
     public const KERNEL_BOX_BLUR = [
@@ -77,7 +77,7 @@ final class Kernel
     /**
      * Kernel matrix for gaussian blurring
      *
-     * @var array<int, int[]>
+     * @var array<int, float[]>
      * @since 1.0.0
      */
     public const KERNEL_GAUSSUAN_BLUR_3 = [
@@ -101,7 +101,7 @@ final class Kernel
     /**
      * Kernel matrix for unsharpening
      *
-     * @var array<int, int[]>
+     * @var array<int, float[]>
      * @since 1.0.0
      */
     public const KERNEL_UNSHARP_MASKING = [

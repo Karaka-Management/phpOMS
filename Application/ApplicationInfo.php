@@ -112,9 +112,9 @@ final class ApplicationInfo
     /**
      * Set data
      *
-     * @param string $path  Value path
-     * @param mixed  $data  Scalar or array of data to set
-     * @param string $delim Delimiter of path
+     * @param string           $path  Value path
+     * @param mixed            $data  Scalar or array of data to set
+     * @param non-empty-string $delim Delimiter of path
      *
      * @return void
      *

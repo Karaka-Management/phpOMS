@@ -115,6 +115,15 @@ final class Guard
         return true;
     }
 
+    /**
+     * Checks if a file is "safe"
+     *
+     * @param string $path File path
+     *
+     * @return bool
+     *
+     * @since 1.0.0
+     */
     public static function isSafeFile(string $path) : bool
     {
         if (!\str_ends_with($path, '.exe') && !self::isSafeNoneExecutable($path)) {
@@ -131,21 +140,34 @@ final class Guard
         return true;
     }
 
+    /**
+     * Checks if a xml file is "safe"
+     *
+     * @param string $path File path
+     *
+     * @return bool
+     *
+     * @since 1.0.0
+     */
     public static function isSafeXml(string $path) : bool
     {
         $maxEntityDepth = 7;
-        $xml = \file_get_contents($path);
+        $xml            = \file_get_contents($path);
+
+        if ($xml === false) {
+            return true;
+        }
 
         // Detect injections
         $injectionPatterns = [
             '/<!ENTITY\s+%(\w+)\s+"(.+)">/',
             '/<!ENTITY\s+%(\w+)\s+SYSTEM\s+"(.+)">/',
             '/<!ENTITY\s+(\w+)\s+"(.+)">/',
-            '/<!DOCTYPE\s+(.+)\s+SYSTEM\s+"(.+)">/'
+            '/<!DOCTYPE\s+(.+)\s+SYSTEM\s+"(.+)">/',
         ];
 
         foreach ($injectionPatterns as $pattern) {
-            if (\preg_match($pattern, $xml) !== false) {
+            if (\preg_match($pattern, $xml) === 1) {
                 return false;
             }
         }
@@ -156,7 +178,7 @@ final class Guard
         $reader->setParserProperty(\XMLReader::SUBST_ENTITIES, true);
 
         $foundBillionLaughsAttack = false;
-        $entityCount = 0;
+        $entityCount              = 0;
 
         while ($reader->read()) {
             if ($reader->nodeType === \XMLReader::ENTITY_REF) {
@@ -172,6 +194,15 @@ final class Guard
         return !$foundBillionLaughsAttack;
     }
 
+    /**
+     * Checks if a CSV file is "safe"
+     *
+     * @param string $path File path
+     *
+     * @return bool
+     *
+     * @since 1.0.0
+     */
     public static function isSafeCsv(string $path) : bool
     {
         $input = \fopen($path, 'r');
@@ -198,6 +229,15 @@ final class Guard
         return true;
     }
 
+    /**
+     * Checks if a file that shouldn't be executable is not executable
+     *
+     * @param string $path File path
+     *
+     * @return bool
+     *
+     * @since 1.0.0
+     */
     public static function isSafeNoneExecutable(string $path) : bool
     {
         $input = \fopen($path, 'r');

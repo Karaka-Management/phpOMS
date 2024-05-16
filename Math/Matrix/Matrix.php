@@ -24,8 +24,8 @@ use phpOMS\Math\Matrix\Exception\InvalidDimensionException;
  * @link    https://jingga.app
  * @since   1.0.0
  *
- * @phpstan-implements \ArrayAccess<string, mixed>
- * @phpstan-implements \Iterator<string, mixed>
+ * @phpstan-implements \ArrayAccess<int, int|float>
+ * @phpstan-implements \Iterator<int, int|float>
  */
 class Matrix implements \ArrayAccess, \Iterator
 {
@@ -867,7 +867,7 @@ class Matrix implements \ArrayAccess, \Iterator
     /**
      * {@inheritdoc}
      */
-    public function current() : int
+    public function current() : int|float
     {
         $row = (int) ($this->position / $this->m);
 

@@ -139,7 +139,7 @@ final class PdfParser
         if ($files === false) {
             \unlink($out);
 
-            return $text === false ? '' : $text;
+            return $text;
         }
 
         foreach ($files as $file) {

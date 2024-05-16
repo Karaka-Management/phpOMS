@@ -224,8 +224,8 @@ abstract class FileAbstract implements FtpContainerInterface
         $mtime = \ftp_mdtm($this->con, $this->path);
         $ctime = \ftp_mdtm($this->con, $this->path);
 
-        $this->createdAt = (new \DateTimeImmutable())->setTimestamp($mtime === false ? 0 : $mtime);
-        $this->changedAt->setTimestamp($ctime === false ? 0 : $ctime);
+        $this->createdAt = (new \DateTimeImmutable())->setTimestamp($mtime);
+        $this->changedAt->setTimestamp($ctime);
 
         $this->owner      = '';
         $this->permission = 0;

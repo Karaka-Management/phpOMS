@@ -110,7 +110,7 @@ class Group implements \JsonSerializable
             'permissions' => $this->permissions,
             'members'     => $this->members,
             'parents'     => $this->parents,
-            'status'     => $this->status,
+            'status'      => $this->status,
         ];
     }
 
@@ -130,16 +130,25 @@ class Group implements \JsonSerializable
         return $this->toArray();
     }
 
+    /**
+     * Create object from array
+     *
+     * @param array{id:int, name:string, description:string, members:array, parents:array, status:int, permissions?:array} $group Group data
+     *
+     * @return self
+     *
+     * @since 1.0.0
+     */
     public static function fromJson(array $group) : self
     {
         $new = new self();
 
-        $new->id = $group['id'];
-        $new->name = $group['name'];
+        $new->id          = $group['id'];
+        $new->name        = $group['name'];
         $new->description = $group['description'];
-        $new->members = $group['members'];
-        $new->parents = $group['parents'];
-        $new->status = $group['status'];
+        $new->members     = $group['members'];
+        $new->parents     = $group['parents'];
+        $new->status      = $group['status'];
 
         foreach (($group['permissions'] ?? []) as $permission) {
             $new->permissions[] = PermissionAbstract::fromJson($permission);

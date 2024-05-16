@@ -193,12 +193,7 @@ final class Argument implements UriInterface
             return;
         }
 
-        $result = \explode(' ', $uri);
-        if ($result === false) {
-            return;
-        }
-
-        $this->query       = $result;
+        $this->query       = \explode(' ', $uri);
         $this->queryString = $uri;
     }
 

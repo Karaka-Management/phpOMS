@@ -85,10 +85,6 @@ final class Huffman
         $splittedBinaryString = \str_split('1' . $binary . '1', 8);
         $binary               = '';
 
-        if ($splittedBinaryString === false) {
-            return $binary; // @codeCoverageIgnore
-        }
-
         foreach ($splittedBinaryString as $i => $c) {
             while (\strlen($c) < 8) {
                 $c .= '0';
@@ -136,9 +132,6 @@ final class Huffman
                 }
 
                 $decbin = \substr($decbin, $pos + 1);
-                if ($decbin === false) {
-                    throw new \Exception(); // @codeCoverageIgnore
-                }
             }
 
             if ($i + 1 === $rawLength) {
@@ -149,9 +142,6 @@ final class Huffman
                 }
 
                 $decbin = \substr($decbin, 0, $pos);
-                if ($decbin === false) {
-                    throw new \Exception(); // @codeCoverageIgnore
-                }
             }
 
             $binary .= $decbin;

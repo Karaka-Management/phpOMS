@@ -74,10 +74,6 @@ final class Numbers
         $n     = (string) $n;
         $split = \str_split($n);
 
-        if ($split === false) {
-            return false; // @codeCoverageIgnore
-        }
-
         foreach ($split as $place => $value) {
             if (\substr_count($n, (string) $place) != $value) {
                 return false;
@@ -143,7 +139,7 @@ final class Numbers
         }
 
         $exponent = ($number / $max) * $exp;
-        $mapped = (exp($exponent) - 1) / (exp($exp) - 1) * 100;
+        $mapped   = (\exp($exponent) - 1) / (\exp($exp) - 1) * 100;
 
         return $mapped;
     }
@@ -151,8 +147,8 @@ final class Numbers
     /**
      * Remap numbers between 0 and X to 0 and 100
      *
-     * @param int   $number Number to remap
-     * @param int   $max    Max possible number
+     * @param int $number Number to remap
+     * @param int $max    Max possible number
      *
      * @return float
      *
@@ -164,6 +160,6 @@ final class Numbers
             $number = $max;
         }
 
-        return (log($number + 1) / log($max + 1)) * 100;
+        return (\log($number + 1) / \log($max + 1)) * 100;
     }
 }

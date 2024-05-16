@@ -1152,7 +1152,7 @@ class Graph
                     ? $edge->node2
                     : $edge->node1;
 
-                if ($colors[$adj->getId()] === -1) {
+                if ($colors[$adj->getId()] === 0) {
                     $colors[$adj->getId()] = 1 - $colors[$node->getId()];
                     $stack[]               = $adj;
                 } elseif ($colors[$adj->getId()] === $colors[$node->getId()]) {

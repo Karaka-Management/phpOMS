@@ -87,21 +87,21 @@ final class Dispatcher implements DispatcherInterface
                 /** @var \Closure $function */
                 $function = $dispatch[0] . '::' . $dispatch[2];
 
-                $views[$controller] = $data === null ? $function() : $function(...$data);
+                $views[$controller] = empty($data) ? $function() : $function(...$data);
             } elseif ($c === 2) {
                 $obj                = $this->getController($dispatch[0]);
-                $views[$controller] = $data === null
+                $views[$controller] = empty($data)
                     ? $obj->{$dispatch[1]}()
                     : $obj->{$dispatch[1]}(...$data);
             }
         } elseif (\is_array($controller)) {
             foreach ($controller as $controllerSingle) {
-                $views += $data === null
+                $views += empty($data)
                     ? $this->dispatch($controllerSingle)
                     : $this->dispatch($controllerSingle, ...$data);
             }
         } else {
-            $views[] = $data === null
+            $views[] = empty($data)
                 ? $controller($this->app)
                 : $controller($this->app, ...$data);
         }

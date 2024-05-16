@@ -64,21 +64,30 @@ class Address extends Location
         return \array_merge(
             parent::toArray(),
             [
-                'id' => $this->id,
+                'id'   => $this->id,
                 'name' => $this->name,
                 'fao'  => $this->fao,
             ]
         );
     }
 
+    /**
+     * Create object from array
+     *
+     * @param array{id:int, name:string, fao:string, type:int, postal:string, city:string, country:string, address:string, state:string, lat:float, lon:float} $address Address data
+     *
+     * @return self
+     *
+     * @since 1.0.0
+     */
     public static function fromJson(array $address) : self
     {
         $new = new self();
         $new->from($address);
 
-        $new->id = $address['id'];
+        $new->id   = $address['id'];
         $new->name = $address['name'];
-        $new->fao = $address['fao'];
+        $new->fao  = $address['fao'];
 
         return $new;
     }

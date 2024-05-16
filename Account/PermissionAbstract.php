@@ -352,42 +352,51 @@ class PermissionAbstract implements \JsonSerializable
     public function jsonSerialize() : mixed
     {
         return [
-            'id'         => $this->id,
-            'unit'       => $this->unit,
-            'app'        => $this->app,
-            'module'     => $this->module,
-            'from'       => $this->from,
-            'category'   => $this->category,
-            'element'    => $this->element,
-            'component'  => $this->component,
-            'hasRead'  => $this->hasRead,
-            'hasModify'  => $this->hasModify,
-            'hasCreate'  => $this->hasCreate,
-            'hasDelete'  => $this->hasDelete,
-            'defaultCPermissions'  => $this->defaultCPermissions,
-            'hasPermission'  => $this->hasPermission,
-            'defaultPPermissions'  => $this->defaultPPermissions,
+            'id'                  => $this->id,
+            'unit'                => $this->unit,
+            'app'                 => $this->app,
+            'module'              => $this->module,
+            'from'                => $this->from,
+            'category'            => $this->category,
+            'element'             => $this->element,
+            'component'           => $this->component,
+            'hasRead'             => $this->hasRead,
+            'hasModify'           => $this->hasModify,
+            'hasCreate'           => $this->hasCreate,
+            'hasDelete'           => $this->hasDelete,
+            'defaultCPermissions' => $this->defaultCPermissions,
+            'hasPermission'       => $this->hasPermission,
+            'defaultPPermissions' => $this->defaultPPermissions,
         ];
     }
 
+    /**
+     * Create object from json string
+     *
+     * @param array{id:int, unit:?int, app:?int, module:?string, from:?string, category:?int, element:?int, component:?int, hasRead:bool, hasModify:bool, hasCreate:bool, hasDelete:bool, defaultCPermissions:?string, hasPermission:bool, defaultPPermissions:?string} $permission Permission
+     *
+     * @return self
+     *
+     * @since 1.0.0
+     */
     public static function fromJson(array $permission) : self
     {
         $new = new self();
 
-        $new->id = $permission['id'];
-        $new->unit = $permission['unit'];
-        $new->app = $permission['app'];
-        $new->module = $permission['module'];
-        $new->from = $permission['from'];
-        $new->category = $permission['category'];
-        $new->element = $permission['element'];
-        $new->component = $permission['component'];
-        $new->hasRead = $permission['hasRead'];
-        $new->hasModify = $permission['hasModify'];
-        $new->hasCreate = $permission['hasCreate'];
-        $new->hasDelete = $permission['hasDelete'];
+        $new->id                  = $permission['id'];
+        $new->unit                = $permission['unit'];
+        $new->app                 = $permission['app'];
+        $new->module              = $permission['module'];
+        $new->from                = $permission['from'];
+        $new->category            = $permission['category'];
+        $new->element             = $permission['element'];
+        $new->component           = $permission['component'];
+        $new->hasRead             = $permission['hasRead'];
+        $new->hasModify           = $permission['hasModify'];
+        $new->hasCreate           = $permission['hasCreate'];
+        $new->hasDelete           = $permission['hasDelete'];
         $new->defaultCPermissions = $permission['defaultCPermissions'];
-        $new->hasPermission = $permission['hasPermission'];
+        $new->hasPermission       = $permission['hasPermission'];
         $new->defaultPPermissions = $permission['defaultPPermissions'];
 
         return $new;

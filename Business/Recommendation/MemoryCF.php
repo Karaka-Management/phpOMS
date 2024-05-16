@@ -152,7 +152,6 @@ final class MemoryCF
     /**
      * Find similar users
      *
-     *
      * @param array $ranking Array of item ratings (e.g. products, movies, ...)
      *
      * @return array

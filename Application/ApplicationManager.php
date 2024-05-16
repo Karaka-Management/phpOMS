@@ -173,10 +173,6 @@ final class ApplicationManager
     public function reInit(string $appPath) : void
     {
         $info = $this->loadInfo($appPath . '/info.json');
-        if ($info === null) {
-            return;
-        }
-
         if (($path = \realpath($appPath)) === false) {
             return; // @codeCoverageIgnore
         }

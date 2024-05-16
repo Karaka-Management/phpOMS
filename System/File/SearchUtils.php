@@ -24,6 +24,19 @@ namespace phpOMS\System\File;
  */
 final class SearchUtils
 {
+    /**
+     * Find text in file.
+     *
+     * All keywords must be found within a certain distance to the first and last find.
+     *
+     * @param string $path     File path
+     * @param array  $keywords Keywords to find
+     * @param int    $distance Distance
+     *
+     * @return array<int, array{start:int, end:int, distance:int}>
+     *
+     * @since 1.0.0
+     */
     public static function findInFile(string $path, array $keywords, int $distance = 500) : array
     {
         $fp = \fopen($path, "r");
@@ -35,14 +48,9 @@ final class SearchUtils
 
         $globalPos = 0;
 
-        while (!\feof($fp)) {
-            $line = \fgets($fp);
-
+        while (($line = \fgets($fp)) !== false) {
             foreach ($keywords as $keyword) {
                 $pos = \stripos($line, $keyword);
-                if ($pos === false) {
-                    continue;
-                }
 
                 while ($pos !== false) {
                     $positions[$keyword][] = $globalPos + $pos;
@@ -60,30 +68,22 @@ final class SearchUtils
             return [];
         }
 
-        $start = \reset($keywords);
+        $start     = \reset($keywords);
         $distances = [];
 
         foreach ($positions[$start] as $pos) {
-            if ($pos < 0) {
-                continue;
-            }
-
             $distance = [
-                'start' => $pos,
-                'end' => $pos,
+                'start'    => $pos,
+                'end'      => $pos,
                 'distance' => 0,
             ];
 
             foreach ($positions as $keyword => $found) {
                 $closestStart = null;
-                $closestEnd = null;
-                $inBetween = null;
+                $closestEnd   = null;
+                $inBetween    = null;
 
                 foreach ($found as $pos2) {
-                    if ($pos2 < 0) {
-                        continue 2;
-                    }
-
                     if ($pos2 >= $distance['start'] && $pos2 <= $distance['end']) {
                         $inBetween = $pos2;
 
@@ -110,18 +110,14 @@ final class SearchUtils
                     continue; // Perfect
                 } elseif ($closestStart < $distance['start']
                     && (\abs($closestStart - $distance['start']) <= \abs($closestEnd - $distance['end']) || $closestEnd > $distance['end'])) {
-                    $distance['start'] = \min($distance['start'], $closestStart);
+                    $distance['start'] = \min($distance['start'], $closestStart ?? 0);
                 } else {
-                    $distance['end'] = \max($distance['end'], $closestEnd);
+                    $distance['end'] = \max($distance['end'], $closestEnd ?? 0);
                 }
             }
 
             $distance['distance'] = $distance['end'] - $distance['start'];
-            $distances[] = $distance;
-        }
-
-        if (empty($distances)) {
-            return [];
+            $distances[]          = $distance;
         }
 
         \uasort($distances, function (array $a, array $b) {
@@ -131,11 +127,25 @@ final class SearchUtils
         return $distances;
     }
 
+    /**
+     * Create a text extract from a file from a position and a start and end needle
+     *
+     * This allows to return for example text extracts from a html file starting with <p> and ending with </p>
+     *
+     * @param string $path  File path
+     * @param int    $pos   Anchor point for the text extract (e.g. found through stripos or findInFile)
+     * @param string $start Start needle
+     * @param string $end   End needle
+     *
+     * @return string
+     *
+     * @since 1.0.0
+     */
     public static function getTextExtract(string $path, int $pos, string $start, string $end) : string
     {
         $fp = \fopen($path, "r");
         if ($fp === false) {
-            return [];
+            return '';
         }
 
         $startPos = -1;
@@ -155,7 +165,10 @@ final class SearchUtils
             }
         }
 
-        if ($startPos < 0 || $endPos < 0) {
+        if ($startPos === false || $endPos === false
+            || $startPos < 0 || $endPos < 0
+            || $startPos > $endPos
+        ) {
             \fclose($fp);
             return '';
         }
@@ -165,6 +178,6 @@ final class SearchUtils
 
         \fclose($fp);
 
-        return $extract;
+        return $extract === false ? '' : $extract;
     }
 }

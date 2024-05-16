@@ -341,13 +341,7 @@ class Account implements \JsonSerializable
      */
     public function generatePassword(string $password) : void
     {
-        $temp = \password_hash($password, \PASSWORD_BCRYPT);
-
-        if ($temp === false) {
-            throw new \Exception('Internal password_hash error.'); // @codeCoverageIgnore
-        }
-
-        $this->password = $temp;
+        $this->password = \password_hash($password, \PASSWORD_BCRYPT);
     }
 
     /**
@@ -396,15 +390,24 @@ class Account implements \JsonSerializable
         ];
     }
 
+    /**
+     * Fill object from array
+     *
+     * @param array{id:int, name:array{0:string, 1:string, 2:string}, email:string, login:string, type:int, status:int, groups:array, permissions:array, l11n:array} $account Account data
+     *
+     * @return void
+     *
+     * @since 1.0.0
+     */
     public function from (array $account) : void
     {
-        $this->id = $account['id'];
-        $this->name1 = $account['name'][0];
-        $this->name2 = $account['name'][1];
-        $this->name3 = $account['name'][2];
-        $this->email = $account['email'];
-        $this->login = $account['login'];
-        $this->type = $account['type'];
+        $this->id     = $account['id'];
+        $this->name1  = $account['name'][0];
+        $this->name2  = $account['name'][1];
+        $this->name3  = $account['name'][2];
+        $this->email  = $account['email'];
+        $this->login  = $account['login'];
+        $this->type   = $account['type'];
         $this->status = $account['status'];
 
         $this->l11n = Localization::fromJson($account['l11n']);

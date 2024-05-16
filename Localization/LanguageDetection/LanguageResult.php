@@ -27,7 +27,7 @@ class LanguageResult implements \ArrayAccess, \IteratorAggregate, \JsonSerializa
     /**
      * Match threshold
      *
-     * @var int
+     * @var float
      * @since 1.0.0
      */
     private const THRESHOLD = .025;

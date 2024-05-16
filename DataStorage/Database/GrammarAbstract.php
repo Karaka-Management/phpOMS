@@ -149,7 +149,7 @@ abstract class GrammarAbstract
      *
      * @since 1.0.0
      */
-    public function expressionizeTableColumn(array $elements, BuilderAbstract $query = null, bool $column = true) : string
+    public function expressionizeTableColumn(array $elements, ?BuilderAbstract $query = null, bool $column = true) : string
     {
         $expression = '';
 
@@ -166,7 +166,7 @@ abstract class GrammarAbstract
                     // If we have a subquery, we need to copy the binds over
                     foreach ($element->binds as $bind) {
                         $query->bind($bind);
-                    };
+                    }
                 }
             } elseif ($element instanceof \Closure) {
                 $expression .= $element() . (\is_string($key) ? ' AS ' . $key : '') . ', ';
@@ -243,18 +243,18 @@ abstract class GrammarAbstract
     protected function compileValue(BuilderAbstract $query, mixed $value) : string
     {
         $compiled = '';
-        $type = -1;
+        $type     = -1;
 
         if (\is_string($value)) {
             if ($query->usePreparedStmt) {
-                $type = \PDO::PARAM_STR;
+                $type     = \PDO::PARAM_STR;
                 $compiled = $value;
             } else {
                 $compiled = $query->quote($value);
             }
         } elseif (\is_int($value)) {
             if ($query->usePreparedStmt) {
-                $type = \PDO::PARAM_INT;
+                $type     = \PDO::PARAM_INT;
                 $compiled = $value;
             } else {
                 $compiled = (string) $value;
@@ -271,7 +271,7 @@ abstract class GrammarAbstract
             $compiled = $values . $this->compileValue($query, $value[$count]) . ')';
         } elseif ($value instanceof \DateTimeInterface) {
             if ($query->usePreparedStmt) {
-                $type = \PDO::PARAM_STR;
+                $type     = \PDO::PARAM_STR;
                 $compiled = $value->format($this->datetimeFormat);
             } else {
                 $compiled = $query->quote($value->format($this->datetimeFormat));
@@ -280,7 +280,7 @@ abstract class GrammarAbstract
                 $compiled = 'NULL';
         } elseif (\is_bool($value)) {
             if ($query->usePreparedStmt) {
-                $type = \PDO::PARAM_BOOL;
+                $type     = \PDO::PARAM_BOOL;
                 $compiled = $value;
             } else {
                 $compiled = (string) ((int) $value);
@@ -298,7 +298,7 @@ abstract class GrammarAbstract
             $encoded = \json_encode($value);
 
             if ($query->usePreparedStmt) {
-                $type = $encoded ? \PDO::PARAM_STR : \PDO::PARAM_STR;
+                $type     = $encoded ? \PDO::PARAM_STR : \PDO::PARAM_STR;
                 $compiled = $encoded ? $value : null;
             } else {
                 $compiled = $encoded ? $query->quote($encoded) : 'NULL';
@@ -320,7 +320,7 @@ abstract class GrammarAbstract
             } else {
                 $query->bind([
                     'value' => $compiled,
-                    'type' => $type,
+                    'type'  => $type,
                 ]);
 
                 $compiled = '?';

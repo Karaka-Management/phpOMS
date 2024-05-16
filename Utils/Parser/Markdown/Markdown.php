@@ -414,14 +414,14 @@ class Markdown
      */
     public function clean() : void
     {
-        $this->definitionData     = [];
-        $this->contentsListArray  = [];
-        $this->contentsListString = '';
-        $this->firstHeadLevel     = 0;
-        $this->anchorDuplicates   = [];
-        $this->footnoteCount      = 0;
+        $this->definitionData      = [];
+        $this->contentsListArray   = [];
+        $this->contentsListString  = '';
+        $this->firstHeadLevel      = 0;
+        $this->anchorDuplicates    = [];
+        $this->footnoteCount       = 0;
         $this->currentAbbreviation = '';
-        $this->currentMeaning     = '';
+        $this->currentMeaning      = '';
     }
 
     /**
@@ -851,8 +851,12 @@ class Markdown
             return null;
         }
 
-        $link      = $this->inlineLinkParent($excerpt);
-        $remainder = $link !== null ? \substr($excerpt['text'], $link['extent']) : '';
+        $link = $this->inlineLinkParent($excerpt);
+        if ($link === null) {
+            return null;
+        }
+
+        $remainder = \substr($excerpt['text'], $link['extent']);
 
         if (\preg_match('/^[ ]*{(' . $this->regexAttribute . '+)}/', $remainder, $matches)) {
             $link['extent']                += \strlen($matches[0]);
@@ -1980,9 +1984,12 @@ class Markdown
         }
 
         // Get the text of the heading
+        $text = $block['element']['handler']['argument'];
+        /*
         if (isset($block['element']['handler']['argument'])) {
             $text = $block['element']['handler']['argument'];
         }
+        */
 
         // Get the heading level. Levels are h1, h2, ..., h6
         $level = $block['element']['name'];
@@ -2054,9 +2061,11 @@ class Markdown
         if ($name !== 'ul') {
             $markerWithoutWhitespace = \substr($markerWithoutWhitespace, -1);
 
+            /*
             if ($markerWithoutWhitespace === false) {
                 $markerWithoutWhitespace = $matches[1];
             }
+            */
         }
 
         $block = [
@@ -3567,7 +3576,7 @@ class Markdown
 
         foreach ($this->definitionData['Abbreviation'] as $abbreviation => $meaning) {
             $this->currentAbbreviation = $abbreviation;
-            $this->currentMeaning     = $meaning;
+            $this->currentMeaning      = $meaning;
 
             $inline['element'] = $this->elementApplyRecursiveDepthFirst(
                 'insertAbbreviation',
@@ -3728,7 +3737,7 @@ class Markdown
 
         // http://stackoverflow.com/q/11309194/200145
         // $elementMarkup = \mb_convert_encoding($elementMarkup, 'HTML-ENTITIES', 'UTF-8'); // Deprecated
-        $elementMarkup = \mb_encode_numericentity($elementMarkup, [0x80, 0x10FFFF, 0, ~0], 'UTF-8' );
+        $elementMarkup = \mb_encode_numericentity($elementMarkup, [0x80, 0x10FFFF, 0, ~0], 'UTF-8');
 
         // http://stackoverflow.com/q/4879946/200145
         $dom->loadHTML($elementMarkup);

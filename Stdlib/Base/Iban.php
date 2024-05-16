@@ -128,9 +128,7 @@ class Iban implements SerializableInterface
             return '';
         }
 
-        $sequence = \substr($this->iban, $start, $end - $start + 1);
-
-        return $sequence === false ? '' : $sequence;
+        return \substr($this->iban, $start, $end - $start + 1);
     }
 
     /**
@@ -142,9 +140,7 @@ class Iban implements SerializableInterface
      */
     public function getCountry() : string
     {
-        $country = \substr($this->iban, 0, 2);
-
-        return $country === false ? '?' : $country;
+        return \substr($this->iban, 0, 2);
     }
 
     /**

@@ -42,8 +42,7 @@ final class Gz implements ArchiveInterface
     public static function pack(string | array $source, string $destination, bool $overwrite = false) : bool
     {
         $destination = \strtr($destination, '\\', '/');
-        if ($destination === false
-            || \is_array($source)
+        if (\is_array($source)
             || (!$overwrite && \is_file($destination))
             || !\is_file($source)
         ) {

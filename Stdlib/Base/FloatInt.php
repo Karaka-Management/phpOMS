@@ -179,11 +179,10 @@ class FloatInt implements SerializableInterface
 
         $left = \substr($value, 0, -self::MAX_DECIMALS);
 
-        /** @var string $left */
-        $left  = $left === false ? '0' : $left;
+        $left  = $left === '' ? '0' : $left;
         $right = \substr($value, -self::MAX_DECIMALS);
 
-        if ($right === false) {
+        if ($right === '') {
             throw new \Exception(); // @codeCoverageIgnore
         }
 
@@ -212,12 +211,10 @@ class FloatInt implements SerializableInterface
             : (string) \round($this->value, -self::MAX_DECIMALS + $decimals);
 
         $left = \substr($value, 0, -self::MAX_DECIMALS);
-
-        /** @var string $left */
-        $left  = $left === false ? '0' : $left;
+        $left  = $left === '' ? '0' : $left;
         $right = \substr($value, -self::MAX_DECIMALS);
 
-        if ($right === false) {
+        if ($right === '') {
             throw new \Exception(); // @codeCoverageIgnore
         }
 
@@ -380,6 +377,15 @@ class FloatInt implements SerializableInterface
         return \json_encode($this->getInt());
     }
 
+    /**
+     * Create object from string serialization
+     *
+     * @param string $json Json representation
+     *
+     * @return self
+     *
+     * @since 1.0.0
+     */
     public static function fromJson(string $json) : self
     {
         return new self((int) $json);

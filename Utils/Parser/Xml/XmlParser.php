@@ -50,7 +50,7 @@ final class XmlParser
         $doc->formatOutput       = true;
 
         $xml = \file_get_contents($path);
-        if ($xml === false || $xml === null) {
+        if ($xml === false) {
             return '';
         }
 

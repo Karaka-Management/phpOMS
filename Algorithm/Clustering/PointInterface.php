@@ -27,8 +27,8 @@ namespace phpOMS\Algorithm\Clustering;
  * @since   1.0.0
  *
  * @property array<int, int|float> $coordinates
- * @property string $name
- * @property int $group
+ * @property string                $name
+ * @property int                   $group
  */
 interface PointInterface
 {

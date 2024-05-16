@@ -241,10 +241,6 @@ abstract class ResponseAbstract implements \JsonSerializable, MessageInterface
         /* @phpstan-ignore-next-line */
         $list = \explode($delim, $this->data[$key]);
 
-        if ($list === false) {
-            return []; // @codeCoverageIgnore
-        }
-
         foreach ($list as $i => $e) {
             $list[$i] = \trim($e);
         }

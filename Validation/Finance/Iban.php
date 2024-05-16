@@ -35,13 +35,8 @@ final class Iban extends ValidatorAbstract
             return false;
         }
 
-        $value = \str_replace(' ', '', \strtolower($value));
-
-        $temp = \substr($value, 0, 2);
-        if ($temp === false) {
-            return false; // @codeCoverageIgnore
-        }
-
+        $value    = \str_replace(' ', '', \strtolower($value));
+        $temp     = \substr($value, 0, 2);
         $enumName = '_' . \strtoupper($temp);
 
         if (!IbanEnum::isValidName($enumName)) {

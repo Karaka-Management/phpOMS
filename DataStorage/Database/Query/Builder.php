@@ -1463,9 +1463,9 @@ class Builder extends BuilderAbstract
         } elseif ($column instanceof SerializableInterface) {
             return $column->serialize();
         } elseif ($column instanceof self) {
-            $tmp = $column->usePreparedStmt;
+            $tmp                     = $column->usePreparedStmt;
             $column->usePreparedStmt = false;
-            $hash = \md5($column->toSql());
+            $hash                    = \md5($column->toSql());
             $column->usePreparedStmt = $tmp;
 
             return $hash;
