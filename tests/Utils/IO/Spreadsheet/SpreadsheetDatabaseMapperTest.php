@@ -72,8 +72,8 @@ final class SpreadsheetDatabaseMapperTest extends \PHPUnit\Framework\TestCase
     #[\PHPUnit\Framework\Attributes\TestDox('Data can be inserted into a database from an ods files')]
     public function testInsertOds() : void
     {
-        $mapper = new SpreadsheetDatabaseMapper($this->sqlite, __DIR__ . '/insert.ods');
-        $mapper->insert();
+        $mapper = new SpreadsheetDatabaseMapper($this->sqlite);
+        $mapper->import(__DIR__ . '/insert.ods', 'insert_1');
 
         $builder = new Builder($this->sqlite, true);
         $data    = $builder->select('insert_1.*')->from('insert_1')->execute()?->fetchAll(\PDO::FETCH_ASSOC) ?? [];
@@ -104,8 +104,8 @@ final class SpreadsheetDatabaseMapperTest extends \PHPUnit\Framework\TestCase
     #[\PHPUnit\Framework\Attributes\TestDox('Data can be inserted into a database from a xls files')]
     public function testInsertXls() : void
     {
-        $mapper = new SpreadsheetDatabaseMapper($this->sqlite, __DIR__ . '/insert.xls');
-        $mapper->insert();
+        $mapper = new SpreadsheetDatabaseMapper($this->sqlite);
+        $mapper->import(__DIR__ . '/insert.xls', 'insert_1');
 
         $builder = new Builder($this->sqlite, true);
         $data    = $builder->select('insert_1.*')->from('insert_1')->execute()?->fetchAll(\PDO::FETCH_ASSOC) ?? [];
@@ -136,8 +136,8 @@ final class SpreadsheetDatabaseMapperTest extends \PHPUnit\Framework\TestCase
     #[\PHPUnit\Framework\Attributes\TestDox('Data can be inserted into a database from a xlsx files')]
     public function testInsertXlsx() : void
     {
-        $mapper = new SpreadsheetDatabaseMapper($this->sqlite, __DIR__ . '/insert.xlsx');
-        $mapper->insert();
+        $mapper = new SpreadsheetDatabaseMapper($this->sqlite);
+        $mapper->import(__DIR__ . '/insert.xlsx', 'insert_1');
 
         $builder = new Builder($this->sqlite, true);
         $data    = $builder->select('insert_1.*')->from('insert_1')->execute()?->fetchAll(\PDO::FETCH_ASSOC) ?? [];
@@ -168,8 +168,8 @@ final class SpreadsheetDatabaseMapperTest extends \PHPUnit\Framework\TestCase
     #[\PHPUnit\Framework\Attributes\TestDox('Data can be updated in a database from an ods files')]
     public function testUpdateOds() : void
     {
-        $mapper = new SpreadsheetDatabaseMapper($this->sqlite, __DIR__ . '/insert.ods');
-        $mapper->insert();
+        $mapper = new SpreadsheetDatabaseMapper($this->sqlite);
+        $mapper->import(__DIR__ . '/insert.ods', 'insert_1');
 
         $builder = new Builder($this->sqlite, true);
         $data    = $builder->select('insert_1.*')->from('insert_1')->execute()?->fetchAll(\PDO::FETCH_ASSOC) ?? [];
@@ -195,8 +195,8 @@ final class SpreadsheetDatabaseMapperTest extends \PHPUnit\Framework\TestCase
             $data
         );
 
-        $mapper = new SpreadsheetDatabaseMapper($this->sqlite, __DIR__ . '/update.ods');
-        $mapper->update();
+        $mapper = new SpreadsheetDatabaseMapper($this->sqlite);
+        $mapper->update(__DIR__ . '/update.ods', 'insert_1');
 
         $builder = new Builder($this->sqlite, true);
         $data    = $builder->select('insert_1.*')->from('insert_1')->execute()?->fetchAll(\PDO::FETCH_ASSOC) ?? [];
@@ -227,8 +227,8 @@ final class SpreadsheetDatabaseMapperTest extends \PHPUnit\Framework\TestCase
     #[\PHPUnit\Framework\Attributes\TestDox('Data can be updated in a database from a xls files')]
     public function testUpdateXls() : void
     {
-        $mapper = new SpreadsheetDatabaseMapper($this->sqlite, __DIR__ . '/insert.xls');
-        $mapper->insert();
+        $mapper = new SpreadsheetDatabaseMapper($this->sqlite);
+        $mapper->import(__DIR__ . '/insert.xls', 'insert_1');
 
         $builder = new Builder($this->sqlite, true);
         $data    = $builder->select('insert_1.*')->from('insert_1')->execute()?->fetchAll(\PDO::FETCH_ASSOC) ?? [];
@@ -254,8 +254,8 @@ final class SpreadsheetDatabaseMapperTest extends \PHPUnit\Framework\TestCase
             $data
         );
 
-        $mapper = new SpreadsheetDatabaseMapper($this->sqlite, __DIR__ . '/update.xls');
-        $mapper->update();
+        $mapper = new SpreadsheetDatabaseMapper($this->sqlite);
+        $mapper->update(__DIR__ . '/update.xls', 'insert_1');
 
         $builder = new Builder($this->sqlite, true);
         $data    = $builder->select('insert_1.*')->from('insert_1')->execute()?->fetchAll(\PDO::FETCH_ASSOC) ?? [];
@@ -286,8 +286,8 @@ final class SpreadsheetDatabaseMapperTest extends \PHPUnit\Framework\TestCase
     #[\PHPUnit\Framework\Attributes\TestDox('Data can be updated in a database from a xlsx files')]
     public function testUpdateXlsx() : void
     {
-        $mapper = new SpreadsheetDatabaseMapper($this->sqlite, __DIR__ . '/insert.xlsx');
-        $mapper->insert();
+        $mapper = new SpreadsheetDatabaseMapper($this->sqlite);
+        $mapper->import(__DIR__ . '/insert.xlsx', 'insert_1');
 
         $builder = new Builder($this->sqlite, true);
         $data    = $builder->select('insert_1.*')->from('insert_1')->execute()?->fetchAll(\PDO::FETCH_ASSOC) ?? [];
@@ -313,8 +313,8 @@ final class SpreadsheetDatabaseMapperTest extends \PHPUnit\Framework\TestCase
             $data
         );
 
-        $mapper = new SpreadsheetDatabaseMapper($this->sqlite, __DIR__ . '/update.xlsx');
-        $mapper->update();
+        $mapper = new SpreadsheetDatabaseMapper($this->sqlite);
+        $mapper->update(__DIR__ . '/update.xlsx', 'insert_1');
 
         $builder = new Builder($this->sqlite, true);
         $data    = $builder->select('insert_1.*')->from('insert_1')->execute()?->fetchAll(\PDO::FETCH_ASSOC) ?? [];
@@ -349,8 +349,8 @@ final class SpreadsheetDatabaseMapperTest extends \PHPUnit\Framework\TestCase
             \unlink(__DIR__ . '/select.ods');
         }
 
-        $mapper = new SpreadsheetDatabaseMapper($this->sqlite, __DIR__ . '/insert.ods');
-        $mapper->insert();
+        $mapper = new SpreadsheetDatabaseMapper($this->sqlite);
+        $mapper->import(__DIR__ . '/insert.ods', 'insert_1');
 
         $builder = new Builder($this->sqlite, true);
         $data    = $builder->select('insert_1.*')->from('insert_1')->execute()?->fetchAll(\PDO::FETCH_ASSOC) ?? [];
@@ -381,7 +381,7 @@ final class SpreadsheetDatabaseMapperTest extends \PHPUnit\Framework\TestCase
         $builder = new Builder($this->sqlite, true);
         $data    = $builder->select('int', 'decimal', 'bool', 'varchar', 'datetime')->from('insert_1');
 
-        $mapper->select([$builder]);
+        $mapper->export(__DIR__ . '/select.ods', [$builder]);
 
         self::assertTrue($this->compareSelectInsertSheet(__DIR__ . '/select.ods', __DIR__ . '/insert.ods'));
 
@@ -398,8 +398,8 @@ final class SpreadsheetDatabaseMapperTest extends \PHPUnit\Framework\TestCase
             \unlink(__DIR__ . '/select.xls');
         }
 
-        $mapper = new SpreadsheetDatabaseMapper($this->sqlite, __DIR__ . '/insert.xls');
-        $mapper->insert();
+        $mapper = new SpreadsheetDatabaseMapper($this->sqlite);
+        $mapper->import(__DIR__ . '/insert.xls', 'insert_1');
 
         $builder = new Builder($this->sqlite, true);
         $data    = $builder->select('insert_1.*')->from('insert_1')->execute()?->fetchAll(\PDO::FETCH_ASSOC) ?? [];
@@ -430,7 +430,7 @@ final class SpreadsheetDatabaseMapperTest extends \PHPUnit\Framework\TestCase
         $builder = new Builder($this->sqlite, true);
         $data    = $builder->select('int', 'decimal', 'bool', 'varchar', 'datetime')->from('insert_1');
 
-        $mapper->select([$builder]);
+        $mapper->export(__DIR__ . '/select.xls', [$builder]);
 
         self::assertTrue($this->compareSelectInsertSheet(__DIR__ . '/select.xls', __DIR__ . '/insert.xls'));
 
@@ -447,8 +447,8 @@ final class SpreadsheetDatabaseMapperTest extends \PHPUnit\Framework\TestCase
             \unlink(__DIR__ . '/select.xlsx');
         }
 
-        $mapper = new SpreadsheetDatabaseMapper($this->sqlite, __DIR__ . '/insert.xlsx');
-        $mapper->insert();
+        $mapper = new SpreadsheetDatabaseMapper($this->sqlite);
+        $mapper->import(__DIR__ . '/insert.xlsx', 'insert_1');
 
         $builder = new Builder($this->sqlite, true);
         $data    = $builder->select('insert_1.*')->from('insert_1')->execute()?->fetchAll(\PDO::FETCH_ASSOC) ?? [];
@@ -479,7 +479,7 @@ final class SpreadsheetDatabaseMapperTest extends \PHPUnit\Framework\TestCase
         $builder = new Builder($this->sqlite, true);
         $data    = $builder->select('int', 'decimal', 'bool', 'varchar', 'datetime')->from('insert_1');
 
-        $mapper->select([$builder]);
+        $mapper->export(__DIR__ . '/select.xlsx', [$builder]);
 
         self::assertTrue($this->compareSelectInsertSheet(__DIR__ . '/select.xlsx', __DIR__ . '/insert.xlsx'));
 

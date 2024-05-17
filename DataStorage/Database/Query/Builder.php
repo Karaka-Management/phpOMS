@@ -1424,28 +1424,6 @@ class Builder extends BuilderAbstract
     }
 
     /**
-     * Get bind parameter type.
-     *
-     * @param mixed $value Value to bind
-     *
-     * @return int
-     *
-     * @throws \Exception
-     *
-     * @since 1.0.0
-     */
-    public static function getBindParamType(mixed $value) : int
-    {
-        if (\is_int($value)) {
-            return \PDO::PARAM_INT;
-        } elseif (\is_string($value) || \is_float($value)) {
-            return \PDO::PARAM_STR;
-        }
-
-        throw new \Exception();
-    }
-
-    /**
      * Get column name
      *
      * @param mixed $column Column name

@@ -378,7 +378,7 @@ class Builder extends BuilderAbstract
     /**
      * {@inheritdoc}
      */
-    public function execute() : ?\PDOStatement
+    public function prepare() : ?\PDOStatement
     {
         $sth = null;
         $sql = '';
@@ -389,7 +389,49 @@ class Builder extends BuilderAbstract
                 return null;
             }
 
-            $sth->execute();
+            foreach ($this->binds as $key => $bind) {
+                if (!isset($bind['type'])) {
+                    $bind['type'] = self::getBindParamType($bind['value']);
+                }
+
+                $sth->bindParam(\is_int($key) ? $key + 1 : $key, $bind['value'], $bind['type']);
+            }
+        } catch (\Throwable $t) {
+            // @codeCoverageIgnoreStart
+            \phpOMS\Log\FileLogger::getInstance()->error(
+                \phpOMS\Log\FileLogger::MSG_FULL, [
+                    'message' => $t->getMessage() . ':' . $sql,
+                    'line'    => __LINE__,
+                    'file'    => self::class,
+                ]
+            );
+
+            \phpOMS\Log\FileLogger::getInstance()->error(
+                \phpOMS\Log\FileLogger::MSG_FULL, [
+                    'message' => \json_encode($this->binds),
+                    'line'    => __LINE__,
+                    'file'    => self::class,
+                ]
+            );
+
+            $sth = null;
+            // @codeCoverageIgnoreEnd
+        }
+
+        return $sth;
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function execute() : ?\PDOStatement
+    {
+        $sth = null;
+        try {
+            $sth = $this->prepare();
+            if ($sth !== null) {
+                $sth->execute();
+            }
 
             if ($this->hasPostQuery) {
                 $sqls = $this->grammar->compilePostQueries($this);
@@ -402,7 +444,15 @@ class Builder extends BuilderAbstract
             // @codeCoverageIgnoreStart
             \phpOMS\Log\FileLogger::getInstance()->error(
                 \phpOMS\Log\FileLogger::MSG_FULL, [
-                    'message' => $t->getMessage() . ':' . $sql,
+                    'message' => $t->getMessage() . ':' . $this->toSql(),
+                    'line'    => __LINE__,
+                    'file'    => self::class,
+                ]
+            );
+
+            \phpOMS\Log\FileLogger::getInstance()->error(
+                \phpOMS\Log\FileLogger::MSG_FULL, [
+                    'message' => \json_encode($this->binds),
                     'line'    => __LINE__,
                     'file'    => self::class,
                 ]
