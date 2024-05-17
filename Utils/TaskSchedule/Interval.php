@@ -57,7 +57,7 @@ class Interval implements SerializableInterface
     /**
      * Minute.
      *
-     * @var array
+     * @var array<int, array{start:?int, end:?int, step:?int}>
      * @since 1.0.0
      */
     private $minute = [];
@@ -65,7 +65,7 @@ class Interval implements SerializableInterface
     /**
      * Hour.
      *
-     * @var array
+     * @var array<int, array{start:?int, end:?int, step:?int}>
      * @since 1.0.0
      */
     private $hour = [];
@@ -73,7 +73,7 @@ class Interval implements SerializableInterface
     /**
      * Day of month.
      *
-     * @var array
+     * @var array<int, array{start:?int, end:?int, step:?int}>
      * @since 1.0.0
      */
     private $dayOfMonth = [];
@@ -81,7 +81,7 @@ class Interval implements SerializableInterface
     /**
      * Month.
      *
-     * @var array
+     * @var array<int, array{start:?int, end:?int, step:?int}>
      * @since 1.0.0
      */
     private $month = [];
@@ -89,7 +89,7 @@ class Interval implements SerializableInterface
     /**
      * Day of week.
      *
-     * @var array
+     * @var array<int, array{start:?int, end:?int, step:?int}>
      * @since 1.0.0
      */
     private $dayOfWeek = [];
@@ -97,7 +97,7 @@ class Interval implements SerializableInterface
     /**
      * Year.
      *
-     * @var array
+     * @var array<int, array{start:?int, end:?int, step:?int}>
      * @since 1.0.0
      */
     private $year = [];
@@ -204,7 +204,7 @@ class Interval implements SerializableInterface
     /**
      * Get minute.
      *
-     * @return array
+     * @return array<int, array{start:?int, end:?int, step:?int}>
      *
      * @since 1.0.0
      */
@@ -257,7 +257,7 @@ class Interval implements SerializableInterface
     /**
      * Get hour.
      *
-     * @return array
+     * @return array<int, array{start:?int, end:?int, step:?int}>
      *
      * @since 1.0.0
      */
@@ -310,7 +310,7 @@ class Interval implements SerializableInterface
     /**
      * Get day of month.
      *
-     * @return array
+     * @return array<int, array{start:?int, end:?int, step:?int}>
      *
      * @since 1.0.0
      */
@@ -363,7 +363,7 @@ class Interval implements SerializableInterface
     /**
      * Get day of week.
      *
-     * @return array
+     * @return array<int, array{start:?int, end:?int, step:?int}>
      *
      * @since 1.0.0
      */
@@ -416,7 +416,7 @@ class Interval implements SerializableInterface
     /**
      * Get month.
      *
-     * @return array
+     * @return array<int, array{start:?int, end:?int, step:?int}>
      *
      * @since 1.0.0
      */
@@ -469,7 +469,7 @@ class Interval implements SerializableInterface
     /**
      * Get year.
      *
-     * @return array
+     * @return array<int, array{start:?int, end:?int, step:?int}>
      *
      * @since 1.0.0
      */
@@ -553,7 +553,7 @@ class Interval implements SerializableInterface
      */
     public function unserialize(mixed $serialized) : void
     {
-        /** @var array $data */
+        /** @var array{start:string, end:?string, maxDuration:int, minute:array<int, array{start:?int, end:?int, step:?int}>, hour:array<int, array{start:?int, end:?int, step:?int}>, dayOfMonth:array<int, array{start:?int, end:?int, step:?int}>, dayOfWeek:array<int, array{start:?int, end:?int, step:?int}>, year:array<int, array{start:?int, end:?int, step:?int}>} $data */
         $data = \json_decode($serialized, true);
 
         $this->start       = new \DateTime($data['start']);

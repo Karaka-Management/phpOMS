@@ -27,16 +27,7 @@ use phpOMS\Utils\StringUtils;
 final class Validator extends ValidatorAbstract
 {
     /**
-     * Validate variable based on multiple factors.
-     *
-     * @param mixed $var         Variable to validate
-     * @param array $constraints Constraints for validation
-     *
-     * @return bool
-     *
-     * @throws \BadFunctionCallException this exception is thrown if the callback is not callable
-     *
-     * @since 1.0.0
+     * {@inheritdoc}
      */
     public static function isValid(mixed $var, ?array $constraints = null) : bool
     {
@@ -108,8 +99,8 @@ final class Validator extends ValidatorAbstract
     /**
      * Validate variable by substring.
      *
-     * @param string       $var    Variable to validate
-     * @param array|string $substr Substring
+     * @param string          $var    Variable to validate
+     * @param string|string[] $substr Substring
      *
      * @return bool
      *

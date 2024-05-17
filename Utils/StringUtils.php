@@ -74,8 +74,8 @@ final class StringUtils
      * The validation is done case sensitive. The function takes strings or an array of strings for the validation.
      * In case of an array the function will test if any of the needles is at the end of the haystack string.
      *
-     * @param string       $haystack Haystack
-     * @param array|string $needles  needles to check if they are at the end of the haystack
+     * @param string          $haystack Haystack
+     * @param string|string[] $needles  needles to check if they are at the end of the haystack
      *
      * @example StringUtils::endsWith('Test string', ['test1', 'string']); // true
      *
@@ -104,8 +104,8 @@ final class StringUtils
      * The validation is done case sensitive. The function takes strings or an array of strings for the validation.
      * In case of an array the function will test if any of the needles is at the beginning of the haystack string.
      *
-     * @param string       $haystack Haystack
-     * @param array|string $needles  needles to check if they are at the beginning of the haystack
+     * @param string          $haystack Haystack
+     * @param string|string[] $needles  needles to check if they are at the beginning of the haystack
      *
      * @example StringUtils::startsWith('Test string', ['Test', 'something']); // true
      * @example StringUtils::startsWith('Test string', 'string'); // false
@@ -173,7 +173,7 @@ final class StringUtils
         $entropy = 0.0;
         $size    = \strlen($value);
 
-        /** @var array $countChars */
+        /** @var int[] $countChars */
         $countChars = \count_chars($value, 1);
 
         /** @var int $v */
@@ -295,7 +295,7 @@ final class StringUtils
      * @param string[] $from From/old strings
      * @param string[] $to   To/new strings
      *
-     * @return array
+     * @return array{values:string[], mask:int[]}
      *
      * @throws \Exception This exception is thrown if one of the parameters is empty
      *

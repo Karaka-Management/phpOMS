@@ -115,7 +115,13 @@ final class EUVATBffOnline implements EUVATInterface
         }
 
         $request = new HttpRequest(new HttpUri(
-            'https://evatr.bff-online.de/evatrRPC?UstId_1=' . $ownVAT . '&UstId_2=' . $otherVAT . '&Firmenname=' . \urlencode($otherName) . '&Ort=' . \urlencode($otherCity) . '&PLZ=' . \urlencode($otherPostal) . '&Strasse=' . \urlencode($otherStreet))
+            'https://evatr.bff-online.de/evatrRPC?UstId_1=' . $ownVAT
+                . '&UstId_2=' . $otherVAT
+                . '&Firmenname=' . \urlencode($otherName)
+                . '&Ort=' . \urlencode($otherCity)
+                . '&PLZ=' . \urlencode($otherPostal)
+                . '&Strasse=' . \urlencode($otherStreet)
+            )
         );
         $request->setMethod(RequestMethod::GET);
 

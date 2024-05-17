@@ -24,6 +24,12 @@ namespace phpOMS\Utils\RnG;
  */
 final class Name
 {
+    /**
+     * Localized names
+     *
+     * @var array{western:array{female:string[], male:string[], family:string[]}, asian:array{female:string[], male:string[], family:string[]}}
+     * @since 1.0.0
+     */
     private static array $names = [
         'western' => [
             'female' => [

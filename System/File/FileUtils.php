@@ -24,7 +24,11 @@ namespace phpOMS\System\File;
  */
 final class FileUtils
 {
-    public const CODE_EXTENSION = ['cpp', 'c', 'h', 'hpp', 'cs', 'css', 'scss', 'htm', 'html', 'js', 'java', 'sh', 'vb', 'php', 'rb', 'rs', 'ts', 'swift', 'class', 'htaccess', 'sql', 'py', 'bat', 'xml'];
+    public const CODE_EXTENSION = [
+        'cpp', 'c', 'h', 'hpp', 'cs',
+        'css', 'scss', 'htm', 'html', 'js', 'ts',
+        'java', 'sh', 'vb', 'php', 'rb', 'rs', 'swift', 'class', 'htaccess', 'sql', 'py', 'bat', 'xml'
+    ];
 
     public const TEXT_EXTENSION = ['log', 'txt', 'md', 'csv', 'tex', 'latex', 'cfg', 'json', 'config', 'conf', 'ini', 'yaml', 'yml'];
 

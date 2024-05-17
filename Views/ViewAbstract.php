@@ -232,7 +232,7 @@ abstract class ViewAbstract implements RenderableInterface
     /**
      * Arrayify view and it's sub-views.
      *
-     * @return array
+     * @return array<int|string, string|array<mixed>>
      *
      * @since 1.0.0
      */

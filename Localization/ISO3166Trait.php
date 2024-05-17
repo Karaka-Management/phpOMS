@@ -78,11 +78,27 @@ trait ISO3166Trait
                 ];
             case ISO639x1Enum::_AR:
                 return [
-                    self::_DZA, self::_BHR, self::_TCD, self::_COM, self::_DJI, self::_EGY, self::_ERI, self::_ETH, self::_IRQ, self::_ISR, self::_JOR, self::_KWT, self::_LBN, self::_LBY, self::_MRT, self::_MAR, self::_OMN, self::_PSE, self::_QAT, self::_SAU, self::_SOM, self::_SDN, self::_SYR, self::_TUN, self::_ARE, self::_ESH, self::_YEM,
+                    self::_DZA, self::_BHR, self::_TCD, self::_COM, self::_DJI, self::_EGY, self::_ERI,
+                    self::_ETH, self::_IRQ, self::_ISR, self::_JOR, self::_KWT, self::_LBN, self::_LBY,
+                    self::_MRT, self::_MAR, self::_OMN, self::_PSE, self::_QAT, self::_SAU, self::_SOM,
+                    self::_SDN, self::_SYR, self::_TUN, self::_ARE, self::_ESH, self::_YEM,
                 ];
             case ISO639x1Enum::_EN:
                 return [
-                    self::_USA, self::_ASM, self::_AIA, self::_ATA, self::_ATG, self::_AUS, self::_BHS, self::_BRB, self::_BLZ, self::_BMU, self::_BES, self::_BWA, self::_IOT, self::_CMR, self::_CAN, self::_CYM, self::_CXR, self::_CCK, self::_COK, self::_CUW, self::_DMA, self::_ERI, self::_FLK, self::_FJI, self::_GMB, self::_GHA, self::_GIB, self::_GRD, self::_GUM, self::_GGY, self::_GUY, self::_HMD, self::_HKG, self::_IND, self::_IRL, self::_IMN, self::_JAM, self::_JEY, self::_KEN, self::_KIR, self::_LSO, self::_LBR, self::_MWI, self::_MLT, self::_MHL, self::_MUS, self::_FSM, self::_MSR, self::_NAM, self::_NRU, self::_NZL, self::_NGA, self::_NIU, self::_NFK, self::_MNP, self::_PAK, self::_PLW, self::_PNG, self::_PHL, self::_PCN, self::_PRI, self::_RWA, self::_SHN, self::_KNA, self::_LCA, self::_MAF, self::_VCT, self::_WSM, self::_SYC, self::_SLE, self::_SGP, self::_SXM, self::_SLB, self::_SOM, self::_ZAF, self::_SGS, self::_SSD, self::_LKA, self::_SDN, self::_SWZ, self::_TZA, self::_TKL, self::_TON, self::_TTO, self::_TCA, self::_TUV, self::_UGA, self::_GBR, self::_UMI, self::_VUT, self::_VGB, self::_VIR, self::_ZMB, self::_ZWE,
+                    self::_USA, self::_ASM, self::_AIA, self::_ATA, self::_ATG, self::_AUS, self::_BHS,
+                    self::_BRB, self::_BLZ, self::_BMU, self::_BES, self::_BWA, self::_IOT, self::_CMR,
+                    self::_CAN, self::_CYM, self::_CXR, self::_CCK, self::_COK, self::_CUW, self::_DMA,
+                    self::_ERI, self::_FLK, self::_FJI, self::_GMB, self::_GHA, self::_GIB, self::_GRD,
+                    self::_GUM, self::_GGY, self::_GUY, self::_HMD, self::_HKG, self::_IND, self::_IRL,
+                    self::_IMN, self::_JAM, self::_JEY, self::_KEN, self::_KIR, self::_LSO, self::_LBR,
+                    self::_MWI, self::_MLT, self::_MHL, self::_MUS, self::_FSM, self::_MSR, self::_NAM,
+                    self::_NRU, self::_NZL, self::_NGA, self::_NIU, self::_NFK, self::_MNP, self::_PAK,
+                    self::_PLW, self::_PNG, self::_PHL, self::_PCN, self::_PRI, self::_RWA, self::_SHN,
+                    self::_KNA, self::_LCA, self::_MAF, self::_VCT, self::_WSM, self::_SYC, self::_SLE,
+                    self::_SGP, self::_SXM, self::_SLB, self::_SOM, self::_ZAF, self::_SGS, self::_SSD,
+                    self::_LKA, self::_SDN, self::_SWZ, self::_TZA, self::_TKL, self::_TON, self::_TTO,
+                    self::_TCA, self::_TUV, self::_UGA, self::_GBR, self::_UMI, self::_VUT, self::_VGB,
+                    self::_VIR, self::_ZMB, self::_ZWE,
                 ];
             case ISO639x1Enum::_SM:
                 return [
@@ -94,15 +110,20 @@ trait ISO3166Trait
                 ];
             case ISO639x1Enum::_PT:
                 return [
-                    self::_AGO, self::_BRA, self::_CPV, self::_GNQ, self::_GNB, self::_MAC, self::_MOZ, self::_PRT, self::_STP, self::_TLS,
+                    self::_AGO, self::_BRA, self::_CPV, self::_GNQ, self::_GNB, self::_MAC, self::_MOZ,
+                    self::_PRT, self::_STP, self::_TLS,
                 ];
             case ISO639x1Enum::_RU:
                 return [
-                    self::_ATA, self::_ARM, self::_AZE, self::_BLR, self::_KAZ, self::_KGZ, self::_RUS, self::_TJK, self::_TKM, self::_UZB,
+                    self::_ATA, self::_ARM, self::_AZE, self::_BLR, self::_KAZ, self::_KGZ, self::_RUS,
+                    self::_TJK, self::_TKM, self::_UZB,
                 ];
             case ISO639x1Enum::_ES:
                 return [
-                    self::_ARG, self::_BOL, self::_CHL, self::_COL, self::_CRI, self::_CUB, self::_DOM, self::_ECU, self::_SLV, self::_GNQ, self::_GUM, self::_GTM, self::_HND, self::_MEX, self::_NIC, self::_PAN, self::_PRY, self::_PER, self::_PRI, self::_ESP, self::_USA, self::_URY, self::_VEN, self::_ESH,
+                    self::_ARG, self::_BOL, self::_CHL, self::_COL, self::_CRI, self::_CUB, self::_DOM,
+                    self::_ECU, self::_SLV, self::_GNQ, self::_GUM, self::_GTM, self::_HND, self::_MEX,
+                    self::_NIC, self::_PAN, self::_PRY, self::_PER, self::_PRI, self::_ESP, self::_USA,
+                    self::_URY, self::_VEN, self::_ESH,
                 ];
             case ISO639x1Enum::_GN:
                 return [
@@ -114,7 +135,8 @@ trait ISO3166Trait
                 ];
             case ISO639x1Enum::_NL:
                 return [
-                    self::_ABW, self::_BEL, self::_BES, self::_CUW, self::_NLD, self::_MAF, self::_SXM, self::_SUR,
+                    self::_ABW, self::_BEL, self::_BES, self::_CUW, self::_NLD, self::_MAF, self::_SXM,
+                    self::_SUR,
                 ];
             case ISO639x1Enum::_DE:
                 return [
@@ -134,7 +156,13 @@ trait ISO3166Trait
                 ];
             case ISO639x1Enum::_FR:
                 return [
-                    self::_BEL, self::_BEN, self::_BFA, self::_BDI, self::_CMR, self::_CAN, self::_CAF, self::_TCD, self::_COM, self::_COG, self::_COD, self::_CIV, self::_DJI, self::_GNQ, self::_FRA, self::_GUF, self::_PYF, self::_ATF, self::_GAB, self::_GLP, self::_GGY, self::_GIN, self::_HTI, self::_JEY, self::_LBN, self::_LUX, self::_MDG, self::_MLI, self::_MTQ, self::_MRT, self::_MUS, self::_MYT, self::_MCO, self::_NCL, self::_NER, self::_REU, self::_RWA, self::_BLM, self::_MAF, self::_SPM, self::_SEN, self::_SYC, self::_CHE, self::_TGO, self::_VUT, self::_WLF,
+                    self::_BEL, self::_BEN, self::_BFA, self::_BDI, self::_CMR, self::_CAN, self::_CAF,
+                    self::_TCD, self::_COM, self::_COG, self::_COD, self::_CIV, self::_DJI, self::_GNQ,
+                    self::_FRA, self::_GUF, self::_PYF, self::_ATF, self::_GAB, self::_GLP, self::_GGY,
+                    self::_GIN, self::_HTI, self::_JEY, self::_LBN, self::_LUX, self::_MDG, self::_MLI,
+                    self::_MTQ, self::_MRT, self::_MUS, self::_MYT, self::_MCO, self::_NCL, self::_NER,
+                    self::_REU, self::_RWA, self::_BLM, self::_MAF, self::_SPM, self::_SEN, self::_SYC,
+                    self::_CHE, self::_TGO, self::_VUT, self::_WLF,
                 ];
             case ISO639x1Enum::_DZ:
                 return [

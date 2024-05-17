@@ -205,12 +205,21 @@ abstract class SchedulerAbstract
     }
 
     /**
+     * Get all jobs/tasks
+     *
+     * @return TaskAbstract[]
+     *
+     * @since 1.0.0
+     */
+    abstract public function getAll() : array;
+
+    /**
      * Get all jobs/tasks by name
      *
      * @param string $name  Name of the job
      * @param bool   $exact Name has to be exact
      *
-     * @return array
+     * @return TaskAbstract[]
      *
      * @since 1.0.0
      */

@@ -44,9 +44,9 @@ abstract class Json extends ValidatorAbstract
     /**
      * Validate array against a template array.
      *
-     * @param array $template Template structure
-     * @param array $source   Source structure
-     * @param bool  $perfect  No additional elements in source allowed
+     * @param array<string, string> $template Template structure
+     * @param array<string, string> $source   Source structure
+     * @param bool                  $perfect  No additional elements in source allowed
      *
      * @return bool Returns true if the template validates the source otherwise false
      *
@@ -75,10 +75,10 @@ abstract class Json extends ValidatorAbstract
     /**
      * Create all viable paths and their values
      *
-     * @param array  $arr  Array
-     * @param string $path Current path
+     * @param array<string, string> $arr  Array
+     * @param string                $path Current path
      *
-     * @return array
+     * @return array<string, string>
      *
      * @since 1.0.0
      */
@@ -101,8 +101,8 @@ abstract class Json extends ValidatorAbstract
     /**
      * Check if source array has additional elements.
      *
-     * @param array $template Template structure
-     * @param array $source   Source structure
+     * @param array<string, string> $template Template structure
+     * @param array<string, string> $source   Source structure
      *
      * @return bool Returns false in case of undefined elements
      *
@@ -116,10 +116,10 @@ abstract class Json extends ValidatorAbstract
             $completePaths[$key] = $value;
         }
 
-        foreach ($source as $sPath => $sValue) {
+        foreach ($source as $sPath => $_) {
             $hasDefinition = false;
 
-            foreach ($completePaths as $tPath => $tValue) {
+            foreach ($completePaths as $tPath => $_2) {
                 if ($tPath === $sPath
                     || \preg_match('~' . \str_replace('/', '\\/', $tPath) . '~', $sPath) === 1
                 ) {
@@ -139,8 +139,8 @@ abstract class Json extends ValidatorAbstract
     /**
      * Check if source array is complete
      *
-     * @param array $template Template structure
-     * @param array $source   Source structure
+     * @param array<string, string> $template Template structure
+     * @param array<string, string> $source   Source structure
      *
      * @return bool Returns true if the source implements all required elements otherwise false is returned
      *
@@ -176,8 +176,8 @@ abstract class Json extends ValidatorAbstract
     /**
      * Check if source array is correct
      *
-     * @param array $template Template structure
-     * @param array $source   Source structure
+     * @param array<string, string> $template Template structure
+     * @param array<string, string> $source   Source structure
      *
      * @return bool Returns true if the source is correct in relation to the template otherwise false is returned
      *

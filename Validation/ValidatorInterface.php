@@ -27,8 +27,8 @@ interface ValidatorInterface
     /**
      * Check if value is valid.
      *
-     * @param mixed      $value       Value to validate
-     * @param null|array $constraints Constraints for validation
+     * @param mixed                       $value       Value to validate
+     * @param null|array<string, mixed[]> $constraints Constraints for validation
      *
      * @return bool
      *

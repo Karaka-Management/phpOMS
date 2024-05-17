@@ -385,8 +385,8 @@ class View extends ViewAbstract
     /**
      * Render user name based on format
      *
-     * @param string $format Format used in printf
-     * @param array  $names  Names to render according to the format
+     * @param string   $format Format used in printf
+     * @param string[] $names  Names to render according to the format
      *
      * @return string
      *

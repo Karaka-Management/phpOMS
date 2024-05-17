@@ -366,7 +366,7 @@ final class Functions
             $x += $err / (1.12837916709551257 * \exp(-($x * $x)) - $x * $err);
         }
 
-        return ($p < 1.0? $x : -$x);
+        return $p < 1.0 ? $x : -$x;
     }
 
     /**

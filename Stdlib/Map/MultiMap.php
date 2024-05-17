@@ -176,7 +176,7 @@ final class MultiMap implements \Countable
     /**
      * Get data.
      *
-     * @param int|string|array $key Key used to identify value
+     * @param int|string|array<int|string> $key Key used to identify value
      *
      * @return mixed
      *
@@ -208,7 +208,7 @@ final class MultiMap implements \Countable
     /**
      * Get data.
      *
-     * @param int|string|array $key Key used to identify value
+     * @param int|string|array<int|string> $key Key used to identify value
      *
      * @return mixed
      *
@@ -241,8 +241,8 @@ final class MultiMap implements \Countable
     /**
      * Set existing key with data.
      *
-     * @param int|string|array $key   Key used to identify value
-     * @param mixed            $value Value to store
+     * @param int|string|array<int|string> $key   Key used to identify value
+     * @param mixed                        $value Value to store
      *
      * @return bool
      *
@@ -260,8 +260,8 @@ final class MultiMap implements \Countable
     /**
      * Set existing key with data.
      *
-     * @param int|string|array $key   Key used to identify value
-     * @param mixed            $value Value to store
+     * @param int|string|array<int|string> $key   Key used to identify value
+     * @param mixed                        $value Value to store
      *
      * @return bool
      *
@@ -311,7 +311,7 @@ final class MultiMap implements \Countable
     /**
      * Remove value and all sibling keys based on key.
      *
-     * @param int|string|array $key Key used to identify value
+     * @param int|string|array<int|string> $key Key used to identify value
      *
      * @return bool
      *
@@ -329,7 +329,7 @@ final class MultiMap implements \Countable
     /**
      * Remove value and all sibling keys based on key.
      *
-     * @param int|string|array $key Key used to identify value
+     * @param int|string|array<int|string> $key Key used to identify value
      *
      * @return bool
      *
@@ -343,7 +343,7 @@ final class MultiMap implements \Countable
             return $this->removeSingle(\implode(':', $key));
         }
 
-        /** @var array $keys */
+        /** @var array<array<int|string>> $keys */
         $keys  = Permutation::permuteAll($key, [], false);
         $found = false;
 
@@ -460,7 +460,7 @@ final class MultiMap implements \Countable
      *
      * @param int|string|array $key Key to find siblings for
      *
-     * @return array
+     * @return array<int, mixed>
      *
      * @since 1.0.0
      */
@@ -478,19 +478,19 @@ final class MultiMap implements \Countable
      *
      * @param int|string|array $key Key to find siblings for
      *
-     * @return array
+     * @return array<int, mixed>
      *
      * @since 1.0.0
      */
     public function getSiblingsMultiple(int | string | array $key) : array
     {
-        if ($this->orderType === OrderType::LOOSE) {
-            $key = \is_array($key) ? $key : [$key];
-
-            return Permutation::permuteAll($key, [], false);
+        if ($this->orderType !== OrderType::LOOSE) {
+            return [];
         }
 
-        return [];
+        $key = \is_array($key) ? $key : [$key];
+
+        return Permutation::permuteAll($key, [], false);
     }
 
     /**
@@ -498,7 +498,7 @@ final class MultiMap implements \Countable
      *
      * @param int|string $key Key to find siblings for
      *
-     * @return array
+     * @return array<int, mixed>
      *
      * @since 1.0.0
      */

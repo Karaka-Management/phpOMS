@@ -77,8 +77,8 @@ final class ColorUtils
      *
      * Important: This is not how humans perceive color differences
      *
-     * @param array $rgb1 RGB 1
-     * @param array $rgb2 RGB 2
+     * @param array{r:int, g:int, b:int} $rgb1 RGB 1
+     * @param array{r:int, g:int, b:int} $rgb2 RGB 2
      *
      * @return float
      *
@@ -98,8 +98,8 @@ final class ColorUtils
     /**
      * Approximate the perceived color distance
      *
-     * @param array $rgb1 RGB 1
-     * @param array $rgb2 RGB 2
+     * @param array{r:int, g:int, b:int} $rgb1 RGB 1
+     * @param array{r:int, g:int, b:int} $rgb2 RGB 2
      *
      * @return float
      *

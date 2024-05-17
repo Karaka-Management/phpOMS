@@ -51,7 +51,7 @@ abstract class FileSizeType extends Enum
      *
      * @param float $size File size
      *
-     * @return array
+     * @return array{0:float, 1:string}
      *
      * @since 1.0.0
      */

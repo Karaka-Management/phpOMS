@@ -63,7 +63,10 @@ final class NormalDistribution
      */
     public static function getSampleSizeFromPopulation(float $zScore, float $errorMargin, int $populationSize, float $populationProportion) : float
     {
-        return self::getSampleSizeFromInfinitePopulation($zScore, $errorMargin, $populationProportion) / (1 + $zScore ** 2 * $populationProportion * (1 - $populationProportion) / ($errorMargin ** 2 * $populationSize));
+        return self::getSampleSizeFromInfinitePopulation($zScore, $errorMargin, $populationProportion)
+            / (1 + $zScore ** 2 * $populationProportion * (1 - $populationProportion)
+                / ($errorMargin ** 2 * $populationSize)
+            );
     }
 
     /**

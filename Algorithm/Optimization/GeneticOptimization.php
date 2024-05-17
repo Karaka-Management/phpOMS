@@ -85,7 +85,8 @@ class GeneticOptimization
      * @param \Closure     $fitness      Fitness function calculates score/feasibility of solution
      * @param \Closure     $mutate       Mutation function to change the parameters of an "object"
      * @param \Closure     $crossover    Crossover function to exchange parameter values between "objects".
-     *                                   Sometimes single parameters can be exchanged but sometimes interdependencies exist between parameters which is why this function is required.
+     *                                   Sometimes single parameters can be exchanged but sometimes interdependencies exist
+     *                                   between parameters which is why this function is required.
      * @param int          $generations  Number of generations to create
      * @param float        $mutationRate Rate at which parameters are changed.
      *                                   How this is used depends on the mutate function.

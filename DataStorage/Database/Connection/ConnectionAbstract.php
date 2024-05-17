@@ -155,7 +155,7 @@ abstract class ConnectionAbstract implements ConnectionInterface
     /**
      * Connect to database
      *
-     * @param null|array{db:string, database:string}|array{db:string, host:string, port:int, login:string, password:string, database:string} $dbdata the basic database information for establishing a connection
+     * @param null|array{db:string, database:string}|array{db:string, host:string, port:int, login:string, password:string, database:string} $dbdata The basic database information for establishing a connection
      *
      * @return void
      *
