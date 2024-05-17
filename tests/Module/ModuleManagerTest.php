@@ -56,7 +56,7 @@ final class ModuleManagerTest extends \PHPUnit\Framework\TestCase
         $this->app->dbPool      = $GLOBALS['dbpool'];
         $this->app->router      = new WebRouter();
         $this->app->dispatcher  = new Dispatcher($this->app);
-        $this->app->appSettings = new CoreSettings($this->app->dbPool->get('admin'));
+        $this->app->appSettings = new CoreSettings();
         $this->moduleManager    = new ModuleManager($this->app, __DIR__ . '/../../../Modules/');
     }
 
