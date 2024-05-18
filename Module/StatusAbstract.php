@@ -53,7 +53,11 @@ abstract class StatusAbstract
      * @var array<string, array>
      * @since 1.0.0
      */
-    private static array $routes = [];
+    public static array $routes = [];
+
+    public static array $hooks = [];
+
+    private static array $cache = [];
 
     /**
      * Deactivate module.
@@ -117,17 +121,17 @@ abstract class StatusAbstract
             throw new PermissionException($destRoutePath); // @codeCoverageIgnore
         }
 
-        if (!isset(self::$routes[$destRoutePath])) {
+        if (!isset(self::$cache[$destRoutePath])) {
             /** @noinspection PhpIncludeInspection */
-            self::$routes[$destRoutePath] = include $destRoutePath;
+            self::$cache[$destRoutePath] = include $destRoutePath;
         }
 
         /** @noinspection PhpIncludeInspection */
-        $moduleRoutes = include $srcRoutePath;
+        $moduleCache = include $srcRoutePath;
 
-        self::$routes[$destRoutePath] = \array_merge_recursive(self::$routes[$destRoutePath], $moduleRoutes);
+        self::$cache[$destRoutePath] = \array_merge_recursive(self::$cache[$destRoutePath], $moduleCache);
 
-        \file_put_contents($destRoutePath, '<?php return ' . ArrayParser::serializeArray(self::$routes[$destRoutePath]) . ';', \LOCK_EX);
+        \file_put_contents($destRoutePath, '<?php return ' . ArrayParser::serializeArray(self::$cache[$destRoutePath]) . ';', \LOCK_EX);
     }
 
     /**
@@ -158,7 +162,11 @@ abstract class StatusAbstract
      */
     public static function activateRoutesHooks(ModuleInfo $info, string $type, ?ApplicationInfo $appInfo = null) : void
     {
-        $directories = new Directory(static::PATH . '/' . $type);
+        self::$cache = $type === 'Routes'
+            ? self::$routes
+            : self::$hooks;
+
+            $directories = new Directory(static::PATH . '/' . $type);
 
         /** @var Directory|File $child */
         foreach ($directories as $child) {
@@ -191,6 +199,12 @@ abstract class StatusAbstract
                     $child->getPath()
                 );
             }
+        }
+
+        if ($type === 'Routes') {
+            self::$routes = self::$cache;
+        } else {
+            self::$hooks = self::$cache;
         }
     }
 

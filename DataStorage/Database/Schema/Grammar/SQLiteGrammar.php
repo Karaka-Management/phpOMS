@@ -54,7 +54,13 @@ class SQLiteGrammar extends Grammar
             ->from('sqlite_master')
             ->where('type', '=', 'table');
 
-        return \rtrim($builder->toSql(), ';');
+        $sql = $builder->toSql();
+
+        foreach ($builder->binds as $bind) {
+            $query->bind($bind);
+        }
+
+        return \rtrim($sql, ';');
     }
 
     /**
@@ -67,7 +73,13 @@ class SQLiteGrammar extends Grammar
             ->from('pragma_table_info(\'' . $table . '\')')
             ->where('pragma_table_info(\'' . $table . '\')', '=', $table);
 
-        return \rtrim($builder->toSql(), ';');
+        $sql = $builder->toSql();
+
+        foreach ($builder->binds as $bind) {
+            $query->bind($bind);
+        }
+
+        return \rtrim($sql, ';');
     }
 
     /**

@@ -82,7 +82,13 @@ class SqlServerGrammar extends Grammar
             ->where('table_schema', '=', $query->getConnection()->getDatabase())
             ->andWhere('table_name', '=', $table);
 
-        return \rtrim($builder->toSql(), ';');
+        $sql = $builder->toSql();
+
+        foreach ($builder->binds as $bind) {
+            $query->bind($bind);
+        }
+
+        return \rtrim($sql, ';');
     }
 
     /**

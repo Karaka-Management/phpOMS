@@ -139,7 +139,7 @@ final class BuilderTest extends \PHPUnit\Framework\TestCase
         } elseif ($con instanceof SqlServerConnection) {
             $sql = 'SELECT * FROM [information_schema].[columns] WHERE [table_schema] = ? AND [table_name] = ?;';
         } elseif ($con instanceof SQLiteConnection) {
-            $sql = 'SELECT * FROM pragma_table_info(?) WHERE pragma_table_info(\'test\') = ?;';
+            $sql = 'SELECT * FROM pragma_table_info(\'test\') WHERE pragma_table_info(\'test\') = ?;';
         }
 
         $sql = \strtr($sql, '[]', $iS . $iE);
