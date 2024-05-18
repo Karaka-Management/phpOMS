@@ -54,8 +54,14 @@ final class PermissionAbstractTest extends \PHPUnit\Framework\TestCase
                 'from'       => null,
                 'element'    => null,
                 'component'  => null,
-                'permission' => PermissionType::NONE,
                 'category'   => null,
+                'hasRead' => false,
+                'hasModify' => false,
+                'hasCreate' => false,
+                'hasDelete' => false,
+                'hasPermission' => false,
+                'defaultCPermissions' => null,
+                'defaultPPermissions' => null,
             ],
             $perm->jsonSerialize()
         );

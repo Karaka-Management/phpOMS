@@ -46,6 +46,8 @@ final class LocationTest extends \PHPUnit\Framework\TestCase
             'state'   => '',
             'lat'     => 0.0,
             'lon'     => 0.0,
+            'id' => 0,
+            'type' => 2,
         ];
 
         self::assertEquals('', $this->location->postal);
@@ -111,6 +113,8 @@ final class LocationTest extends \PHPUnit\Framework\TestCase
             'state'   => 'This is a state 123',
             'lat'     => 12.1,
             'lon'     => 11.2,
+            'id' => 0,
+            'type' => 2,
         ];
 
         $this->location->postal  = '0123456789';
@@ -137,6 +141,8 @@ final class LocationTest extends \PHPUnit\Framework\TestCase
             'state'   => 'This is a state 123',
             'lat'     => 12.1,
             'lon'     => 11.2,
+            'id' => 0,
+            'type' => 2,
         ];
 
         $this->location->postal  = '0123456789';
@@ -164,6 +170,8 @@ final class LocationTest extends \PHPUnit\Framework\TestCase
             'state'   => 'This is a state 123',
             'lat'     => 12.1,
             'lon'     => 11.2,
+            'id' => 0,
+            'type' => 2,
         ];
 
         $this->location->unserialize(\json_encode($expected));

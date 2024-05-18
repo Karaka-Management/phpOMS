@@ -102,9 +102,9 @@ final class BuilderTest extends \PHPUnit\Framework\TestCase
 
         $sql = '';
         if ($con instanceof MysqlConnection) {
-            $sql = 'SELECT [table_name] FROM [information_schema].[tables] WHERE [table_schema] = \'' . $GLOBALS['CONFIG']['db']['core']['masters']['admin']['database']. '\';';
+            $sql = 'SELECT [table_name] FROM [information_schema].[tables] WHERE [table_schema] = ?;';
         } elseif ($con instanceof PostgresConnection) {
-            $sql = 'SELECT [table_name] FROM [information_schema].[tables] WHERE [table_schema] = \'' . $GLOBALS['CONFIG']['db']['core']['masters']['admin']['database']. '\';';
+            $sql = 'SELECT [table_name] FROM [information_schema].[tables] WHERE [table_schema] = ?;';
         } elseif ($con instanceof SqlServerConnection) {
             $sql = 'SELECT [table_name] FROM [sys].[tables] INNER JOIN [sys].[schemas] ON [sys].[tables.schema_id] = [sys].[schemas.schema_id];';
         } elseif ($con instanceof SQLiteConnection) {
@@ -133,13 +133,13 @@ final class BuilderTest extends \PHPUnit\Framework\TestCase
 
         $sql = '';
         if ($con instanceof MysqlConnection) {
-            $sql = 'SELECT * FROM [information_schema].[columns] WHERE [table_schema] = \'' . $GLOBALS['CONFIG']['db']['core']['masters']['admin']['database']. '\' AND [table_name] = \'test\';';
+            $sql = 'SELECT * FROM [information_schema].[columns] WHERE [table_schema] = ? AND [table_name] = ?;';
         } elseif ($con instanceof PostgresConnection) {
-            $sql = 'SELECT * FROM [information_schema].[columns] WHERE [table_schema] = \'' . $GLOBALS['CONFIG']['db']['core']['masters']['admin']['database']. '\' AND [table_name] = \'test\';';
+            $sql = 'SELECT * FROM [information_schema].[columns] WHERE [table_schema] = ? AND [table_name] = ?;';
         } elseif ($con instanceof SqlServerConnection) {
-            $sql = 'SELECT * FROM [information_schema].[columns] WHERE [table_schema] = \'' . $GLOBALS['CONFIG']['db']['core']['masters']['admin']['database']. '\' AND [table_name] = \'test\';';
+            $sql = 'SELECT * FROM [information_schema].[columns] WHERE [table_schema] = ? AND [table_name] = ?;';
         } elseif ($con instanceof SQLiteConnection) {
-            $sql = 'SELECT * FROM pragma_table_info(\'test\') WHERE pragma_table_info(\'test\') = \'test\';';
+            $sql = 'SELECT * FROM pragma_table_info(?) WHERE pragma_table_info(?) = ?;';
         }
 
         $sql = \strtr($sql, '[]', $iS . $iE);
@@ -164,13 +164,13 @@ final class BuilderTest extends \PHPUnit\Framework\TestCase
 
         $sql = '';
         if ($con instanceof MysqlConnection) {
-            $sql = 'CREATE TABLE IF NOT EXISTS [user_roles] ([user_id] INT AUTO_INCREMENT, [role_id] VARCHAR(10) DEFAULT \'1\' NULL, PRIMARY KEY ([user_id]), FOREIGN KEY ([user_id]) REFERENCES [users] ([ext1_id]), FOREIGN KEY ([role_id]) REFERENCES [roles] ([ext2_id])) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 AUTO_INCREMENT=1;';
+            $sql = 'CREATE TABLE IF NOT EXISTS [user_roles] ([user_id] INT AUTO_INCREMENT, [role_id] VARCHAR(10) DEFAULT ? NULL, PRIMARY KEY ([user_id]), FOREIGN KEY ([user_id]) REFERENCES [users] ([ext1_id]), FOREIGN KEY ([role_id]) REFERENCES [roles] ([ext2_id])) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 AUTO_INCREMENT=1;';
         } elseif ($con instanceof PostgresConnection) {
-            $sql = 'CREATE TABLE IF NOT EXISTS [user_roles] ([user_id] INT AUTO_INCREMENT, [role_id] VARCHAR(10) DEFAULT \'1\' NULL, PRIMARY KEY ([user_id]), FOREIGN KEY ([user_id]) REFERENCES [users] ([ext1_id]), FOREIGN KEY ([role_id]) REFERENCES [roles] ([ext2_id]));';
+            $sql = 'CREATE TABLE IF NOT EXISTS [user_roles] ([user_id] INT AUTO_INCREMENT, [role_id] VARCHAR(10) DEFAULT ? NULL, PRIMARY KEY ([user_id]), FOREIGN KEY ([user_id]) REFERENCES [users] ([ext1_id]), FOREIGN KEY ([role_id]) REFERENCES [roles] ([ext2_id]));';
         } elseif ($con instanceof SqlServerConnection) {
-            $sql = 'CREATE TABLE IF NOT EXISTS [user_roles] ([user_id] INT AUTO_INCREMENT, [role_id] VARCHAR(10) DEFAULT \'1\' NULL, PRIMARY KEY ([user_id]), FOREIGN KEY ([user_id]) REFERENCES [users] ([ext1_id]), FOREIGN KEY ([role_id]) REFERENCES [roles] ([ext2_id]));';
+            $sql = 'CREATE TABLE IF NOT EXISTS [user_roles] ([user_id] INT AUTO_INCREMENT, [role_id] VARCHAR(10) DEFAULT ? NULL, PRIMARY KEY ([user_id]), FOREIGN KEY ([user_id]) REFERENCES [users] ([ext1_id]), FOREIGN KEY ([role_id]) REFERENCES [roles] ([ext2_id]));';
         } elseif ($con instanceof SQLiteConnection) {
-            $sql = 'CREATE TABLE [user_roles] ([user_id] INTEGER AUTOINCREMENT PRIMARY KEY, [role_id] TEXT DEFAULT \'1\' NULL, FOREIGN KEY ([user_id]) REFERENCES [users] ([ext1_id]), FOREIGN KEY ([role_id]) REFERENCES [roles] ([ext2_id]));';
+            $sql = 'CREATE TABLE [user_roles] ([user_id] INTEGER AUTOINCREMENT PRIMARY KEY, [role_id] TEXT DEFAULT ? NULL, FOREIGN KEY ([user_id]) REFERENCES [users] ([ext1_id]), FOREIGN KEY ([role_id]) REFERENCES [roles] ([ext2_id]));';
         }
 
         $sql = \strtr($sql, '[]', $iS . $iE);
@@ -196,7 +196,7 @@ final class BuilderTest extends \PHPUnit\Framework\TestCase
         $iE = $con->getGrammar()->systemIdentifierEnd;
 
         $query = new Builder($con);
-        $sql   = 'CREATE TABLE IF NOT EXISTS user_roles (user_id INT NOT NULL AUTO_INCREMENT, role_id VARCHAR(10) DEFAULT \'1\' NULL, PRIMARY KEY (user_id), FOREIGN KEY (user_id) REFERENCES users (ext1_id), FOREIGN KEY (role_id) REFERENCES roles (ext2_id)) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 AUTO_INCREMENT=1;';
+        $sql   = 'CREATE TABLE IF NOT EXISTS user_roles (user_id INT NOT NULL AUTO_INCREMENT, role_id VARCHAR(10) DEFAULT ? NULL, PRIMARY KEY (user_id), FOREIGN KEY (user_id) REFERENCES users (ext1_id), FOREIGN KEY (role_id) REFERENCES roles (ext2_id)) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 AUTO_INCREMENT=1;';
         $sql   = \strtr($sql, '[]', $iS . $iE);
         self::assertEquals(
             $sql,

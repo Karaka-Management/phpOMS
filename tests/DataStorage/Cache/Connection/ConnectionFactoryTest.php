@@ -45,7 +45,7 @@ final class ConnectionFactoryTest extends \PHPUnit\Framework\TestCase
 
         self::assertInstanceOf(
             \phpOMS\DataStorage\Cache\Connection\MemCached::class,
-            ConnectionFactory::create(['type' => CacheType::MEMCACHED, 'data' => $GLOBALS['CONFIG']['cache']['memcached']])
+            ConnectionFactory::create(\array_merge(['type' => CacheType::MEMCACHED], $GLOBALS['CONFIG']['cache']['memcached']))
         );
     }
 
@@ -61,7 +61,7 @@ final class ConnectionFactoryTest extends \PHPUnit\Framework\TestCase
 
         self::assertInstanceOf(
             \phpOMS\DataStorage\Cache\Connection\RedisCache::class,
-            ConnectionFactory::create(['type' => CacheType::REDIS, 'data' => $GLOBALS['CONFIG']['cache']['redis']])
+            ConnectionFactory::create(\array_merge(['type' => CacheType::REDIS], $GLOBALS['CONFIG']['cache']['redis']))
         );
     }
 
