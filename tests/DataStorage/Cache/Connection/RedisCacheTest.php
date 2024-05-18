@@ -156,7 +156,7 @@ final class RedisCacheTest extends \PHPUnit\Framework\TestCase
         $this->cache->set('key2', 'testVal2', 2);
         \sleep(1);
         self::assertEquals([], \array_diff(['testVal1', 'testVal2'], $this->cache->getLike('key\d')));
-        self::assertEquals([],  \array_diff(['testVal1', 'testVal2'], $this->cache->getLike('key\d', 0)));
+        self::assertEquals([], \array_diff(['testVal1', 'testVal2'], $this->cache->getLike('key\d', 0)));
         \sleep(3);
         self::assertEquals([], $this->cache->getLike('key\d'));
     }

@@ -113,7 +113,7 @@ final class RedisCache extends ConnectionAbstract
         }
 
         if ($expire > 0) {
-            $this->con->set((string) $key, $expire, $this->build($value));
+            $this->con->set((string) $key, $this->build($value), $expire);
 
             return;
         }
@@ -247,17 +247,19 @@ final class RedisCache extends ConnectionAbstract
         $values = [];
 
         foreach ($keys as $key) {
-            if (\preg_match('/' . $pattern . '/', $key) === 1) {
-                $result = $this->con->get((string) $key);
-                if (\is_string($result) && ($result[0] ?? null) === self::DELIM) {
-                    $result = \substr($result, 1);
-                    $type   = (int) $result[0];
-                    $start  = (int) \strpos($result, self::DELIM);
-                    $result = $this->reverseValue($type, $result, $start);
-                }
-
-                $values[] = $result;
+            if (\preg_match('/' . $pattern . '/', $key) !== 1) {
+                continue;
             }
+
+            $result = $this->con->get((string) $key);
+            if (\is_string($result) && ($result[0] ?? null) === self::DELIM) {
+                $result = \substr($result, 1);
+                $type   = (int) $result[0];
+                $start  = (int) \strpos($result, self::DELIM);
+                $result = $this->reverseValue($type, $result, $start);
+            }
+
+            $values[] = $result;
         }
 
         return $values;
