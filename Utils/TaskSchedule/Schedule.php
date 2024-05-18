@@ -42,21 +42,15 @@ class Schedule extends TaskAbstract
      */
     public static function createWith(array $jobData) : TaskAbstract
     {
-        if (!\is_string($jobData[1]) || !\is_string($jobData[8])
-            || !\is_string($jobData[7]) || !\is_string($jobData[10])
-        ) {
-            return new self('');
-        }
-
-        $job = new self($jobData[1], $jobData[8], $jobData[7]);
+        $job = new self($jobData[1] ?? '', $jobData[8] ?? '', $jobData[7] ?? '');
 
         $job->status = (int) $jobData[3];
 
-        if (DateTime::isValid($jobData[2])) {
+        if ($jobData[2] !== null && DateTime::isValid($jobData[2])) {
             $job->setNextRunTime(new \DateTime($jobData[2]));
         }
 
-        if (DateTime::isValid($jobData[5])) {
+        if ($jobData[5] !== null && DateTime::isValid($jobData[5])) {
             $job->setLastRuntime(new \DateTime($jobData[5]));
         }
 

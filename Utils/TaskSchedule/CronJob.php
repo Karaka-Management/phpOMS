@@ -39,12 +39,8 @@ class CronJob extends TaskAbstract
      */
     public static function createWith(array $jobData) : TaskAbstract
     {
-        if (!\is_string($jobData[0]) || !\is_string($jobData[1])) {
-            return new self('');
-        }
-
         $interval = \array_splice($jobData, 1, 5);
 
-        return new self($jobData[0], $jobData[1], \implode(' ', $interval));
+        return new self($jobData[0] ?? '', $jobData[1] ?? '', \implode(' ', $interval));
     }
 }
