@@ -15,7 +15,7 @@ declare(strict_types=1);
 namespace phpOMS\Account;
 
 use phpOMS\Auth\Auth;
-use phpOMS\DataStorage\Session\SessionInterface;
+use phpOMS\DataStorage\Session\SessionAbstract;
 
 /**
  * Account manager class.
@@ -40,19 +40,19 @@ final class AccountManager implements \Countable
     /**
      * Session.
      *
-     * @var SessionInterface
+     * @var SessionAbstract
      * @since 1.0.0
      */
-    private SessionInterface $session;
+    private SessionAbstract $session;
 
     /**
      * Constructor.
      *
-     * @param SessionInterface $session Session
+     * @param SessionAbstract $session Session
      *
      * @since 1.0.0
      */
-    public function __construct(SessionInterface $session)
+    public function __construct(SessionAbstract $session)
     {
         $this->session = $session;
     }

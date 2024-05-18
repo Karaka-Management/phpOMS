@@ -23,11 +23,17 @@ namespace phpOMS\DataStorage\Session;
  * @license OMS License 2.0
  * @link    https://jingga.app
  * @since   1.0.0
- *
- * @property array $data
  */
-interface SessionInterface
+abstract class SessionAbstract
 {
+    /**
+     * Raw session data.
+     *
+     * @var array<string, mixed>
+     * @since 1.0.0
+     */
+    public array $data = [];
+
     /**
      * Get session variable by key.
      *
@@ -37,7 +43,7 @@ interface SessionInterface
      *
      * @since 1.0.0
      */
-    public function get(string $key) : mixed;
+    public abstract function get(string $key) : mixed;
 
     /**
      * Store session value by key.
@@ -50,7 +56,7 @@ interface SessionInterface
      *
      * @since 1.0.0
      */
-    public function set(string $key, mixed $value, bool $overwrite = false) : bool;
+    public abstract function set(string $key, mixed $value, bool $overwrite = false) : bool;
 
     /**
      * Remove value from session by key.
@@ -61,7 +67,7 @@ interface SessionInterface
      *
      * @since 1.0.0
      */
-    public function remove(string $key) : bool;
+    public abstract function remove(string $key) : bool;
 
     /**
      * Save session.
@@ -70,14 +76,14 @@ interface SessionInterface
      *
      * @since 1.0.0
      */
-    public function save() : bool;
+    public abstract function save() : bool;
 
     /**
      * @return string
      *
      * @since 1.0.0
      */
-    public function getSID() : string;
+    public abstract function getSID() : string;
 
     /**
      * @param string $sid Session id
@@ -86,7 +92,7 @@ interface SessionInterface
      *
      * @since 1.0.0
      */
-    public function setSID(string $sid) : void;
+    public abstract function setSID(string $sid) : void;
 
     /**
      * Lock session from further adjustments.
@@ -95,5 +101,5 @@ interface SessionInterface
      *
      * @since 1.0.0
      */
-    public function lock() : void;
+    public abstract function lock() : void;
 }

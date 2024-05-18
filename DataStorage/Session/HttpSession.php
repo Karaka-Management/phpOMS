@@ -28,7 +28,7 @@ use phpOMS\Uri\UriFactory;
  *
  * @SuppressWarnings(PHPMD.Superglobals)
  */
-final class HttpSession implements SessionInterface
+final class HttpSession extends SessionAbstract
 {
     /**
      * Is session locked/already set.
@@ -37,14 +37,6 @@ final class HttpSession implements SessionInterface
      * @since 1.0.0
      */
     private bool $isLocked = false;
-
-    /**
-     * Raw session data.
-     *
-     * @var array<string, mixed>
-     * @since 1.0.0
-     */
-    public array $data = [];
 
     /**
      * Session ID.

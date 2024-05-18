@@ -14,7 +14,7 @@ declare(strict_types=1);
 
 namespace phpOMS\Auth;
 
-use phpOMS\DataStorage\Session\SessionInterface;
+use phpOMS\DataStorage\Session\SessionAbstract;
 
 /**
  * Auth class.
@@ -41,13 +41,13 @@ final class Auth
     /**
      * Authenticates user.
      *
-     * @param SessionInterface $session Session
+     * @param SessionAbstract $session Session
      *
      * @return int Returns the user id
      *
      * @since 1.0.0
      */
-    public static function authenticate(SessionInterface $session) : int
+    public static function authenticate(SessionAbstract $session) : int
     {
         $uid = $session->get('UID');
 
@@ -57,13 +57,13 @@ final class Auth
     /**
      * Logout the given user.
      *
-     * @param SessionInterface $session Session
+     * @param SessionAbstract $session Session
      *
      * @return void
      *
      * @since 1.0.0
      */
-    public static function logout(SessionInterface $session) : void
+    public static function logout(SessionAbstract $session) : void
     {
         $session->remove('UID');
     }

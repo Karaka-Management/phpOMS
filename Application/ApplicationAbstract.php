@@ -19,7 +19,7 @@ use phpOMS\Config\SettingsInterface;
 use phpOMS\DataStorage\Cache\CachePool;
 use phpOMS\DataStorage\Cookie\CookieJar;
 use phpOMS\DataStorage\Database\DatabasePool;
-use phpOMS\DataStorage\Session\SessionInterface;
+use phpOMS\DataStorage\Session\SessionAbstract;
 use phpOMS\Dispatcher\Dispatcher;
 use phpOMS\Event\EventManager;
 use phpOMS\Localization\L11nManager;
@@ -42,7 +42,7 @@ use phpOMS\Router\RouterInterface;
  * @property \phpOMS\Localization\L11nManager             $l11nManager
  * @property \phpOMS\Localization\Localization            $l11nServer
  * @property \phpOMS\Router\RouterInterface               $router
- * @property \phpOMS\DataStorage\Session\SessionInterface $sessionManager
+ * @property \phpOMS\DataStorage\Session\SessionAbstract $sessionManager
  * @property \phpOMS\DataStorage\Cookie\CookieJar         $cookieJar
  * @property \phpOMS\Module\ModuleManager                 $moduleManager
  * @property \phpOMS\Dispatcher\Dispatcher                $dispatcher
@@ -150,10 +150,10 @@ class ApplicationAbstract
     /**
      * Session instance.
      *
-     * @var SessionInterface
+     * @var SessionAbstract
      * @since 1.0.0
      */
-    protected SessionInterface $sessionManager;
+    protected SessionAbstract $sessionManager;
 
     /**
      * Cookie instance.

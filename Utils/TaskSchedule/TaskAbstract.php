@@ -251,7 +251,7 @@ abstract class TaskAbstract
     /**
      * Create task based on job data
      *
-     * @param array<int, mixed> $jobData Raw job data
+     * @param string[] $jobData Raw job data
      *
      * @return TaskAbstract
      *
