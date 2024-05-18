@@ -50,6 +50,7 @@ final class GrahamScan
         }
 
         $min = 1;
+        $points = \array_merge([['x' => 0.0, 'y' => 0.0]], $points);
 
         for ($i = 2; $i < $n; ++$i) {
             if ($points[$i]['y'] < $points[$min]['y']

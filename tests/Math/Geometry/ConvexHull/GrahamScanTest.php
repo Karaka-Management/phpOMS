@@ -14,6 +14,8 @@ declare(strict_types=1);
 
 namespace phpOMS\tests\Math\Geometry\ConvexHull;
 
+include_once __DIR__ . '/../../../Autoloader.php';
+
 use phpOMS\Math\Geometry\ConvexHull\GrahamScan;
 
 /**

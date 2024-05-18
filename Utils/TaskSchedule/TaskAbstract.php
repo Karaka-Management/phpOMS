@@ -83,7 +83,7 @@ abstract class TaskAbstract
     /**
      * Constructor
      *
-     * @param string $name Id/name of the task (on linux the same as the executable script)
+     * @param string $name Id/name of the task (on Linux the same as the executable script)
      * @param string $cmd  Command to create the task
      *
      * @since 1.0.0
@@ -251,7 +251,7 @@ abstract class TaskAbstract
     /**
      * Create task based on job data
      *
-     * @param string[] $jobData Raw job data
+     * @param array<string|null> $jobData Raw job data
      *
      * @return TaskAbstract
      *

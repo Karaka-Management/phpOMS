@@ -43,7 +43,7 @@ abstract class SessionAbstract
      *
      * @since 1.0.0
      */
-    public abstract function get(string $key) : mixed;
+    abstract public function get(string $key) : mixed;
 
     /**
      * Store session value by key.
@@ -56,7 +56,7 @@ abstract class SessionAbstract
      *
      * @since 1.0.0
      */
-    public abstract function set(string $key, mixed $value, bool $overwrite = false) : bool;
+    abstract public function set(string $key, mixed $value, bool $overwrite = false) : bool;
 
     /**
      * Remove value from session by key.
@@ -67,7 +67,7 @@ abstract class SessionAbstract
      *
      * @since 1.0.0
      */
-    public abstract function remove(string $key) : bool;
+    abstract public function remove(string $key) : bool;
 
     /**
      * Save session.
@@ -76,14 +76,14 @@ abstract class SessionAbstract
      *
      * @since 1.0.0
      */
-    public abstract function save() : bool;
+    abstract public function save() : bool;
 
     /**
      * @return string
      *
      * @since 1.0.0
      */
-    public abstract function getSID() : string;
+    abstract public function getSID() : string;
 
     /**
      * @param string $sid Session id
@@ -92,7 +92,7 @@ abstract class SessionAbstract
      *
      * @since 1.0.0
      */
-    public abstract function setSID(string $sid) : void;
+    abstract public function setSID(string $sid) : void;
 
     /**
      * Lock session from further adjustments.
@@ -101,5 +101,5 @@ abstract class SessionAbstract
      *
      * @since 1.0.0
      */
-    public abstract function lock() : void;
+    abstract public function lock() : void;
 }

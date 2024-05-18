@@ -14,6 +14,8 @@ declare(strict_types=1);
 
 namespace phpOMS\tests\Utils\IO\Spreadsheet;
 
+include_once __DIR__ . '/../../../Autoloader.php';
+
 use phpOMS\DataStorage\Database\Connection\SQLiteConnection;
 use phpOMS\DataStorage\Database\Query\Builder;
 use phpOMS\tests\Autoloader;
@@ -73,10 +75,11 @@ final class SpreadsheetDatabaseMapperTest extends \PHPUnit\Framework\TestCase
     public function testInsertOds() : void
     {
         $mapper = new SpreadsheetDatabaseMapper($this->sqlite);
-        $mapper->import(__DIR__ . '/insert.ods', 'insert_1');
+        $mapper->import(__DIR__ . '/insert.ods');
 
         $builder = new Builder($this->sqlite, true);
         $data    = $builder->select('insert_1.*')->from('insert_1')->execute()?->fetchAll(\PDO::FETCH_ASSOC) ?? [];
+
         self::assertEquals(
             [
                 ['id' => 1, 'int' => 2, 'decimal' => 2.0, 'bool' => 1, 'varchar' => 'Line 1', 'datetime' => '43631'],
@@ -105,7 +108,7 @@ final class SpreadsheetDatabaseMapperTest extends \PHPUnit\Framework\TestCase
     public function testInsertXls() : void
     {
         $mapper = new SpreadsheetDatabaseMapper($this->sqlite);
-        $mapper->import(__DIR__ . '/insert.xls', 'insert_1');
+        $mapper->import(__DIR__ . '/insert.xls');
 
         $builder = new Builder($this->sqlite, true);
         $data    = $builder->select('insert_1.*')->from('insert_1')->execute()?->fetchAll(\PDO::FETCH_ASSOC) ?? [];
@@ -137,7 +140,7 @@ final class SpreadsheetDatabaseMapperTest extends \PHPUnit\Framework\TestCase
     public function testInsertXlsx() : void
     {
         $mapper = new SpreadsheetDatabaseMapper($this->sqlite);
-        $mapper->import(__DIR__ . '/insert.xlsx', 'insert_1');
+        $mapper->import(__DIR__ . '/insert.xlsx');
 
         $builder = new Builder($this->sqlite, true);
         $data    = $builder->select('insert_1.*')->from('insert_1')->execute()?->fetchAll(\PDO::FETCH_ASSOC) ?? [];
@@ -169,7 +172,7 @@ final class SpreadsheetDatabaseMapperTest extends \PHPUnit\Framework\TestCase
     public function testUpdateOds() : void
     {
         $mapper = new SpreadsheetDatabaseMapper($this->sqlite);
-        $mapper->import(__DIR__ . '/insert.ods', 'insert_1');
+        $mapper->import(__DIR__ . '/insert.ods');
 
         $builder = new Builder($this->sqlite, true);
         $data    = $builder->select('insert_1.*')->from('insert_1')->execute()?->fetchAll(\PDO::FETCH_ASSOC) ?? [];
@@ -196,7 +199,7 @@ final class SpreadsheetDatabaseMapperTest extends \PHPUnit\Framework\TestCase
         );
 
         $mapper = new SpreadsheetDatabaseMapper($this->sqlite);
-        $mapper->update(__DIR__ . '/update.ods', 'insert_1');
+        $mapper->update(__DIR__ . '/update.ods');
 
         $builder = new Builder($this->sqlite, true);
         $data    = $builder->select('insert_1.*')->from('insert_1')->execute()?->fetchAll(\PDO::FETCH_ASSOC) ?? [];
@@ -228,7 +231,7 @@ final class SpreadsheetDatabaseMapperTest extends \PHPUnit\Framework\TestCase
     public function testUpdateXls() : void
     {
         $mapper = new SpreadsheetDatabaseMapper($this->sqlite);
-        $mapper->import(__DIR__ . '/insert.xls', 'insert_1');
+        $mapper->import(__DIR__ . '/insert.xls');
 
         $builder = new Builder($this->sqlite, true);
         $data    = $builder->select('insert_1.*')->from('insert_1')->execute()?->fetchAll(\PDO::FETCH_ASSOC) ?? [];
@@ -255,7 +258,7 @@ final class SpreadsheetDatabaseMapperTest extends \PHPUnit\Framework\TestCase
         );
 
         $mapper = new SpreadsheetDatabaseMapper($this->sqlite);
-        $mapper->update(__DIR__ . '/update.xls', 'insert_1');
+        $mapper->update(__DIR__ . '/update.xls');
 
         $builder = new Builder($this->sqlite, true);
         $data    = $builder->select('insert_1.*')->from('insert_1')->execute()?->fetchAll(\PDO::FETCH_ASSOC) ?? [];
@@ -287,7 +290,7 @@ final class SpreadsheetDatabaseMapperTest extends \PHPUnit\Framework\TestCase
     public function testUpdateXlsx() : void
     {
         $mapper = new SpreadsheetDatabaseMapper($this->sqlite);
-        $mapper->import(__DIR__ . '/insert.xlsx', 'insert_1');
+        $mapper->import(__DIR__ . '/insert.xlsx');
 
         $builder = new Builder($this->sqlite, true);
         $data    = $builder->select('insert_1.*')->from('insert_1')->execute()?->fetchAll(\PDO::FETCH_ASSOC) ?? [];
@@ -314,7 +317,7 @@ final class SpreadsheetDatabaseMapperTest extends \PHPUnit\Framework\TestCase
         );
 
         $mapper = new SpreadsheetDatabaseMapper($this->sqlite);
-        $mapper->update(__DIR__ . '/update.xlsx', 'insert_1');
+        $mapper->update(__DIR__ . '/update.xlsx');
 
         $builder = new Builder($this->sqlite, true);
         $data    = $builder->select('insert_1.*')->from('insert_1')->execute()?->fetchAll(\PDO::FETCH_ASSOC) ?? [];
@@ -350,7 +353,7 @@ final class SpreadsheetDatabaseMapperTest extends \PHPUnit\Framework\TestCase
         }
 
         $mapper = new SpreadsheetDatabaseMapper($this->sqlite);
-        $mapper->import(__DIR__ . '/insert.ods', 'insert_1');
+        $mapper->import(__DIR__ . '/insert.ods');
 
         $builder = new Builder($this->sqlite, true);
         $data    = $builder->select('insert_1.*')->from('insert_1')->execute()?->fetchAll(\PDO::FETCH_ASSOC) ?? [];
@@ -399,7 +402,7 @@ final class SpreadsheetDatabaseMapperTest extends \PHPUnit\Framework\TestCase
         }
 
         $mapper = new SpreadsheetDatabaseMapper($this->sqlite);
-        $mapper->import(__DIR__ . '/insert.xls', 'insert_1');
+        $mapper->import(__DIR__ . '/insert.xls');
 
         $builder = new Builder($this->sqlite, true);
         $data    = $builder->select('insert_1.*')->from('insert_1')->execute()?->fetchAll(\PDO::FETCH_ASSOC) ?? [];
@@ -448,7 +451,7 @@ final class SpreadsheetDatabaseMapperTest extends \PHPUnit\Framework\TestCase
         }
 
         $mapper = new SpreadsheetDatabaseMapper($this->sqlite);
-        $mapper->import(__DIR__ . '/insert.xlsx', 'insert_1');
+        $mapper->import(__DIR__ . '/insert.xlsx');
 
         $builder = new Builder($this->sqlite, true);
         $data    = $builder->select('insert_1.*')->from('insert_1')->execute()?->fetchAll(\PDO::FETCH_ASSOC) ?? [];

@@ -143,7 +143,7 @@ final class SpreadsheetDatabaseMapper implements IODatabaseMapper
             $sheet->setActiveSheetIndex($i);
 
             $workSheet = $sheet->getSheet($i);
-            $table     = \strtr(empty($table) ? $workSheet->getTitle() : $table, ' ', '_');
+            $tableName = \strtr(empty($table) ? $workSheet->getTitle() : $table, ' ', '_');
             $titles    = [];
 
             // get column titles
@@ -172,7 +172,7 @@ final class SpreadsheetDatabaseMapper implements IODatabaseMapper
 
                 // insert data
                 $query = new Builder($this->con);
-                $query->insert(...$titles)->into($table);
+                $query->insert(...$titles)->into($tableName);
 
                 while ($hasData = !empty($workSheet->getCell('A' . $line)->getCalculatedValue())) {
                     $cells = [];
@@ -285,7 +285,7 @@ final class SpreadsheetDatabaseMapper implements IODatabaseMapper
             $sheet->setActiveSheetIndex($i);
 
             $workSheet = $sheet->getSheet($i);
-            $table     = \strtr(empty($table) ? $workSheet->getTitle() : $table, ' ', '_');
+            $tableName = \strtr(empty($table) ? $workSheet->getTitle() : $table, ' ', '_');
             $titles    = [];
 
             // get column titles
@@ -313,7 +313,7 @@ final class SpreadsheetDatabaseMapper implements IODatabaseMapper
             $line = 2;
             while (!empty($workSheet->getCell('A' . $line)->getCalculatedValue())) {
                 $query = new Builder($this->con);
-                $query->update($table);
+                $query->update($tableName);
 
                 for ($j = 2; $j <= $columns; ++$j) {
                     $query->sets((string) $titles[$j - 2], $workSheet->getCell(StringUtils::intToAlphabet($j) . $line)->getCalculatedValue());
