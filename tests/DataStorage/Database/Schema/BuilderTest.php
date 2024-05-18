@@ -108,7 +108,7 @@ final class BuilderTest extends \PHPUnit\Framework\TestCase
         } elseif ($con instanceof SqlServerConnection) {
             $sql = 'SELECT [table_name] FROM [sys].[tables] INNER JOIN [sys].[schemas] ON [sys].[tables.schema_id] = [sys].[schemas.schema_id];';
         } elseif ($con instanceof SQLiteConnection) {
-            $sql = 'SELECT `name` FROM `sqlite_master` WHERE `type` = \'table\';';
+            $sql = 'SELECT `name` FROM `sqlite_master` WHERE `type` = ?;';
         }
 
         $sql = \strtr($sql, '[]', $iS . $iE);
@@ -139,7 +139,7 @@ final class BuilderTest extends \PHPUnit\Framework\TestCase
         } elseif ($con instanceof SqlServerConnection) {
             $sql = 'SELECT * FROM [information_schema].[columns] WHERE [table_schema] = ? AND [table_name] = ?;';
         } elseif ($con instanceof SQLiteConnection) {
-            $sql = 'SELECT * FROM pragma_table_info(?) WHERE pragma_table_info(?) = ?;';
+            $sql = 'SELECT * FROM pragma_table_info(?) WHERE pragma_table_info(\'test\') = ?;';
         }
 
         $sql = \strtr($sql, '[]', $iS . $iE);
@@ -170,7 +170,7 @@ final class BuilderTest extends \PHPUnit\Framework\TestCase
         } elseif ($con instanceof SqlServerConnection) {
             $sql = 'CREATE TABLE IF NOT EXISTS [user_roles] ([user_id] INT AUTO_INCREMENT, [role_id] VARCHAR(10) DEFAULT ? NULL, PRIMARY KEY ([user_id]), FOREIGN KEY ([user_id]) REFERENCES [users] ([ext1_id]), FOREIGN KEY ([role_id]) REFERENCES [roles] ([ext2_id]));';
         } elseif ($con instanceof SQLiteConnection) {
-            $sql = 'CREATE TABLE [user_roles] ([user_id] INTEGER AUTOINCREMENT PRIMARY KEY, [role_id] TEXT DEFAULT ? NULL, FOREIGN KEY ([user_id]) REFERENCES [users] ([ext1_id]), FOREIGN KEY ([role_id]) REFERENCES [roles] ([ext2_id]));';
+            $sql = 'CREATE TABLE [user_roles] ([user_id] INTEGER PRIMARY KEY AUTOINCREMENT, [role_id] TEXT DEFAULT ? NULL, FOREIGN KEY ([user_id]) REFERENCES [users] ([ext1_id]), FOREIGN KEY ([role_id]) REFERENCES [roles] ([ext2_id]));';
         }
 
         $sql = \strtr($sql, '[]', $iS . $iE);

@@ -44,14 +44,6 @@ class Builder extends BuilderAbstract
     protected Grammar $grammar;
 
     /**
-     * Log queries.
-     *
-     * @var bool
-     * @since 1.0.0
-     */
-    public static bool $log = false;
-
-    /**
      * Columns.
      *
      * @var array

@@ -47,6 +47,8 @@ final class AddressTest extends \PHPUnit\Framework\TestCase
             'state'   => '',
             'lat'     => 0.0,
             'lon'     => 0.0,
+            'id'     => 0,
+            'type'     => 1,
         ];
 
         self::assertEquals('', $this->address->fao);
@@ -77,6 +79,8 @@ final class AddressTest extends \PHPUnit\Framework\TestCase
             'state'   => '',
             'lat'     => 0.0,
             'lon'     => 0.0,
+            'id'     => 0,
+            'type'     => 1,
         ];
 
         $this->address->fao = 'fao';
@@ -98,6 +102,8 @@ final class AddressTest extends \PHPUnit\Framework\TestCase
             'state'   => '',
             'lat'     => 0.0,
             'lon'     => 0.0,
+            'id'     => 0,
+            'type'     => 1,
         ];
 
         $this->address->fao = 'fao';

@@ -479,6 +479,12 @@ class Builder extends BuilderAbstract
             }
         }
 
-        return \substr($queryString, 0, -1) . ';';
+        $query = \substr($queryString, 0, -1) . ';';
+
+        if (self::$log) {
+            \phpOMS\Log\FileLogger::getInstance()->debug($query);
+        }
+
+        return $query;
     }
 }

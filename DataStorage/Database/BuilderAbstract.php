@@ -28,6 +28,14 @@ use phpOMS\DataStorage\Database\Query\QueryType;
 abstract class BuilderAbstract
 {
     /**
+     * Log queries.
+     *
+     * @var bool
+     * @since 1.0.0
+     */
+    public static bool $log = false;
+
+    /**
      * Is read only.
      *
      * @var bool
