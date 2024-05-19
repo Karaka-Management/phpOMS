@@ -1135,7 +1135,7 @@ class Graph
         }
 
         foreach ($this->nodes as $node) {
-            $colors[$node->getId()] = 0;
+            $colors[$node->getId()] = -1;
         }
 
         $node1                   = \reset($this->nodes);
@@ -1152,7 +1152,7 @@ class Graph
                     ? $edge->node2
                     : $edge->node1;
 
-                if ($colors[$adj->getId()] === 0) {
+                if ($colors[$adj->getId()] === -1) {
                     $colors[$adj->getId()] = 1 - $colors[$node->getId()];
                     $stack[]               = $adj;
                 } elseif ($colors[$adj->getId()] === $colors[$node->getId()]) {
