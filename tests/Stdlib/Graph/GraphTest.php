@@ -861,7 +861,7 @@ final class GraphTest extends \PHPUnit\Framework\TestCase
 
     /**
      *     1 - 3 - 5
-     *   / |\     /
+     *     |\     /
      * 0   | \   /
      *   \ |  \ /
      *     2   4
@@ -883,7 +883,6 @@ final class GraphTest extends \PHPUnit\Framework\TestCase
         $this->graph->setNode($node4);
         $this->graph->setNode($node5);
 
-        $node0->setNodeRelative($node1);
         $node0->setNodeRelative($node2);
         $node1->setNodeRelative($node2);
         $node1->setNodeRelative($node3);

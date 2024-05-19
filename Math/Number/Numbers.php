@@ -139,9 +139,8 @@ final class Numbers
         }
 
         $exponent = ($number / $max) * $exp;
-        $mapped   = (\exp($exponent) - 1) / (\exp($exp) - 1) * 100;
-
-        return $mapped;
+        
+        return (\exp($exponent) - 1) / (\exp($exp) - 1) * 100;
     }
 
     /**
