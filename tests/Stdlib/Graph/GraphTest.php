@@ -891,6 +891,9 @@ final class GraphTest extends \PHPUnit\Framework\TestCase
         $node4->setNodeRelative($node5);
 
         self::assertTrue($this->graph->isBipartite());
+
+        $node0->setNodeRelative($node1);
+        self::assertFalse($this->graph->isBipartite());
     }
 
     /**
