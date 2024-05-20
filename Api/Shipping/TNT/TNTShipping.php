@@ -6,7 +6,7 @@
  *
  * @package   phpOMS\Api\Shipping\TNT
  * @copyright Dennis Eichhorn
- * @license   OMS License 2.0
+ * @license   OMS License 2.2
  * @version   1.0.0
  * @link      https://jingga.app
  */
@@ -22,7 +22,7 @@ use phpOMS\Message\Http\HttpRequest;
  * Shipment api.
  *
  * @package phpOMS\Api\Shipping\TNT
- * @license OMS License 2.0
+ * @license OMS License 2.2
  * @link    https://jingga.app
  * @see     https://express.tnt.com/expresswebservices-website/app/landing.html
  * @since   1.0.0

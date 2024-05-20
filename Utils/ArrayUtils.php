@@ -6,7 +6,7 @@
  *
  * @package   phpOMS\Utils
  * @copyright Dennis Eichhorn
- * @license   OMS License 2.0
+ * @license   OMS License 2.2
  * @version   1.0.0
  * @link      https://jingga.app
  */
@@ -18,7 +18,7 @@ namespace phpOMS\Utils;
  * Array utils.
  *
  * @package phpOMS\Utils
- * @license OMS License 2.0
+ * @license OMS License 2.2
  * @link    https://jingga.app
  * @since   1.0.0
  */

@@ -6,7 +6,7 @@
  *
  * @package   phpOMS\Security
  * @copyright Dennis Eichhorn
- * @license   OMS License 2.0
+ * @license   OMS License 2.2
  * @version   1.0.0
  * @link      https://jingga.app
  */
@@ -21,7 +21,7 @@ namespace phpOMS\Security;
  * Additionally, this can also be used in order verify that the source code is not altered compared to some expected source code.
  *
  * @package phpOMS\Security
- * @license OMS License 2.0
+ * @license OMS License 2.2
  * @link    https://jingga.app
  * @since   1.0.0
  */

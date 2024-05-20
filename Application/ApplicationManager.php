@@ -7,7 +7,7 @@
  *
  * @package   phpOMS\Application
  * @copyright Dennis Eichhorn
- * @license   OMS License 2.0
+ * @license   OMS License 2.2
  * @version   1.0.0
  * @link      https://jingga.app
  */
@@ -24,7 +24,7 @@ use phpOMS\System\File\PathException;
  * General application managing functionality.
  *
  * @package phpOMS\Application
- * @license OMS License 2.0
+ * @license OMS License 2.2
  * @link    https://jingga.app
  * @since   1.0.0
  */

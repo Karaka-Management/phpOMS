@@ -6,7 +6,7 @@
  *
  * @package   phpOMS\Algorithm\Rating
  * @copyright Dennis Eichhorn
- * @license   OMS License 2.0
+ * @license   OMS License 2.2
  * @version   1.0.0
  * @link      https://jingga.app
  */
@@ -18,7 +18,7 @@ namespace phpOMS\Algorithm\Rating;
  * Elo rating calculation using Elo rating
  *
  * @package phpOMS\Algorithm\Rating
- * @license OMS License 2.0
+ * @license OMS License 2.2
  * @link    https://jingga.app
  * @see     https://en.wikipedia.org/wiki/Elo_rating_system
  * @since   1.0.0

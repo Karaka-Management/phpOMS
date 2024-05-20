@@ -6,7 +6,7 @@
  *
  * @package   phpOMS\Dispatcher
  * @copyright Dennis Eichhorn
- * @license   OMS License 2.0
+ * @license   OMS License 2.2
  * @version   1.0.0
  * @link      https://jingga.app
  */
@@ -18,7 +18,7 @@ namespace phpOMS\Dispatcher;
  * Dispatcher interface
  *
  * @package phpOMS\Dispatcher
- * @license OMS License 2.0
+ * @license OMS License 2.2
  * @link    https://jingga.app
  * @since   1.0.0
  */

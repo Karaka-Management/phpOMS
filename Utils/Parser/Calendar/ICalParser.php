@@ -6,7 +6,7 @@
  *
  * @package   phpOMS\Utils\Parser\Calendar
  * @copyright Dennis Eichhorn
- * @license   OMS License 2.0
+ * @license   OMS License 2.2
  * @version   1.0.0
  * @link      https://jingga.app
  */
@@ -18,7 +18,7 @@ namespace phpOMS\Utils\Parser\Calendar;
  * iCal parser.
  *
  * @package phpOMS\Utils\Parser\Calendar
- * @license OMS License 2.0
+ * @license OMS License 2.2
  * @link    https://jingga.app
  * @since   1.0.0
  */

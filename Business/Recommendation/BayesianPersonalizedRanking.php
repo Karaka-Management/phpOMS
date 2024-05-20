@@ -6,7 +6,7 @@
  *
  * @package   phpOMS\Business\Recommendation
  * @copyright Dennis Eichhorn
- * @license   OMS License 2.0
+ * @license   OMS License 2.2
  * @version   1.0.0
  * @link      https://jingga.app
  */
@@ -18,7 +18,7 @@ namespace phpOMS\Business\Recommendation;
  * Bayesian Personalized Ranking (BPR)
  *
  * @package phpOMS\Business\Recommendation
- * @license OMS License 2.0
+ * @license OMS License 2.2
  * @link    https://jingga.app
  * @see     https://arxiv.org/ftp/arxiv/papers/1205/1205.2618.pdf
  * @since   1.0.0

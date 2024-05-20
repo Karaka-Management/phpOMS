@@ -6,7 +6,7 @@
  *
  * @package   phpOMS\Algorithm\Rating
  * @copyright Dennis Eichhorn
- * @license   OMS License 2.0
+ * @license   OMS License 2.2
  * @version   1.0.0
  * @link      https://jingga.app
  */
@@ -18,7 +18,7 @@ namespace phpOMS\Algorithm\Rating;
  * Calculate rating strength using the Bradley Terry model
  *
  * @package phpOMS\Algorithm\Rating
- * @license OMS License 2.0
+ * @license OMS License 2.2
  * @link    https://jingga.app
  * @see     https://en.wikipedia.org/wiki/Bradley%E2%80%93Terry_model
  * @since   1.0.0

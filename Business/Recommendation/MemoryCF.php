@@ -6,7 +6,7 @@
  *
  * @package   phpOMS\Business\Recommendation
  * @copyright Dennis Eichhorn
- * @license   OMS License 2.0
+ * @license   OMS License 2.2
  * @version   1.0.0
  * @link      https://jingga.app
  */
@@ -26,7 +26,7 @@ use phpOMS\Math\Topology\MetricsND;
  * Most likely a combination is required.
  *
  * @package phpOMS\Business\Recommendation
- * @license OMS License 2.0
+ * @license OMS License 2.2
  * @link    https://jingga.app
  * @see     https://realpython.com/build-recommendation-engine-collaborative-filtering/
  * @since   1.0.0

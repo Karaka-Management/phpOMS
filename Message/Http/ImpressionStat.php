@@ -6,7 +6,7 @@
  *
  * @package   phpOMS\Message\Statistic
  * @copyright Dennis Eichhorn
- * @license   OMS License 2.0
+ * @license   OMS License 2.2
  * @version   1.0.0
  * @link      https://jingga.app
  */
@@ -21,7 +21,7 @@ use phpOMS\Localization\ISO639x1Enum;
  * Request statistic class.
  *
  * @package phpOMS\Message\Statistic
- * @license OMS License 2.0
+ * @license OMS License 2.2
  * @link    https://jingga.app
  * @since   1.0.0
  */

@@ -6,7 +6,7 @@
  *
  * @package   phpOMS\Message\Mail
  * @copyright Dennis Eichhorn
- * @license   OMS License 2.0
+ * @license   OMS License 2.2
  * @version   1.0.0
  * @link      https://jingga.app
  */
@@ -20,7 +20,7 @@ use phpOMS\Stdlib\Base\Enum;
  * Transaction types enum.
  *
  * @package phpOMS\Message\Mail
- * @license OMS License 2.0
+ * @license OMS License 2.2
  * @link    https://jingga.app
  * @since   1.0.0
  */

@@ -6,7 +6,7 @@
  *
  * @package   phpOMS\Stdlib\Tree
  * @copyright Dennis Eichhorn
- * @license   OMS License 2.0
+ * @license   OMS License 2.2
  * @version   1.0.0
  * @link      https://jingga.app
  * @link      https://github.com/PetarV-/Algorithms/blob/master/Data%20Structures/Binary%20Search%20Tree.cpp
@@ -19,7 +19,7 @@ namespace phpOMS\Stdlib\Tree;
  * Binary search tree.
  *
  * @package phpOMS\Stdlib\Tree
- * @license OMS License 2.0
+ * @license OMS License 2.2
  * @link    https://jingga.app
  * @since   1.0.0
  */

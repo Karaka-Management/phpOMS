@@ -6,7 +6,7 @@
  *
  * @package   phpOMS\Utils\IO\Csv
  * @copyright Dennis Eichhorn
- * @license   OMS License 2.0
+ * @license   OMS License 2.2
  * @version   1.0.0
  * @link      https://jingga.app
  */
@@ -23,7 +23,7 @@ use phpOMS\Utils\IO\IODatabaseMapper;
  * Csv database mapper.
  *
  * @package phpOMS\Utils\IO\Csv
- * @license OMS License 2.0
+ * @license OMS License 2.2
  * @link    https://jingga.app
  * @since   1.0.0
  */

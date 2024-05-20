@@ -6,7 +6,7 @@
  *
  * @package   phpOMS\Api\Shipping\DHL
  * @copyright Dennis Eichhorn
- * @license   OMS License 2.0
+ * @license   OMS License 2.2
  * @version   1.0.0
  * @link      https://jingga.app
  */
@@ -28,7 +28,7 @@ use phpOMS\Uri\HttpUri;
  * Shipment API.
  *
  * @package phpOMS\Api\Shipping\DHL
- * @license OMS License 2.0
+ * @license OMS License 2.2
  * @link    https://jingga.app
  * @see     General: https://developer.dhl.com/
  * @see     Special: https://developer.dhl.com/api-reference/parcel-de-shipping-post-parcel-germany-v2#get-started-section/

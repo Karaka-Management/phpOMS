@@ -6,7 +6,7 @@
  *
  * @package   phpOMS\DataStorage\Database\Schema
  * @copyright Dennis Eichhorn
- * @license   OMS License 2.0
+ * @license   OMS License 2.2
  * @version   1.0.0
  * @link      https://jingga.app
  */
@@ -22,7 +22,7 @@ use phpOMS\DataStorage\Database\Query\QueryType as DefaultQueryType;
  * Types used by the schema grammar in order to build the correct query.
  *
  * @package phpOMS\DataStorage\Database\Schema
- * @license OMS License 2.0
+ * @license OMS License 2.2
  * @link    https://jingga.app
  * @since   1.0.0
  */

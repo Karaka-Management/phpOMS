@@ -6,7 +6,7 @@
  *
  * @package   phpOMS\Utils\TaskSchedule
  * @copyright Dennis Eichhorn
- * @license   OMS License 2.0
+ * @license   OMS License 2.2
  * @version   1.0.0
  * @link      https://jingga.app
  */
@@ -20,7 +20,7 @@ use phpOMS\System\SystemUtils;
  * Cron class.
  *
  * @package phpOMS\Utils\TaskSchedule
- * @license OMS License 2.0
+ * @license OMS License 2.2
  * @link    https://jingga.app
  * @since   1.0.0
  * @codeCoverageIgnore

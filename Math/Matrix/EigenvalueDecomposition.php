@@ -7,7 +7,7 @@
  * @package   phpOMS\Math\Matrix
  * @copyright Dennis Eichhorn
  * @copyright JAMA - https://math.nist.gov/javanumerics/jama/
- * @license   OMS License 2.0
+ * @license   OMS License 2.2
  * @version   1.0.0
  * @link      https://jingga.app
  */
@@ -24,7 +24,7 @@ use phpOMS\Math\Geometry\Shape\D2\Triangle;
  * A not symmetric then (potentially) A = V*D*inverse(V)
  *
  * @package phpOMS\Math\Matrix
- * @license OMS License 2.0
+ * @license OMS License 2.2
  * @link    https://jingga.app
  * @since   1.0.0
  */

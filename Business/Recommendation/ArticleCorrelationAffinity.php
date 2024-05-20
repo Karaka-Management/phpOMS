@@ -6,7 +6,7 @@
  *
  * @package   phpOMS\Business\Recommendation
  * @copyright Dennis Eichhorn
- * @license   OMS License 2.0
+ * @license   OMS License 2.2
  * @version   1.0.0
  * @link      https://jingga.app
  */
@@ -22,7 +22,7 @@ use phpOMS\Math\Statistic\Correlation;
  * You can consider this as a "purchased with" or "customers also purchased" algorithm
  *
  * @package phpOMS\Business\Recommendation
- * @license OMS License 2.0
+ * @license OMS License 2.2
  * @link    https://jingga.app
  * @since   1.0.0
  */

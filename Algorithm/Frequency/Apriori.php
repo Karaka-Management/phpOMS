@@ -6,7 +6,7 @@
  *
  * @package   phpOMS\Algorithm\Frequency
  * @copyright Dennis Eichhorn
- * @license   OMS License 2.0
+ * @license   OMS License 2.2
  * @version   1.0.0
  * @link      https://jingga.app
  */
@@ -20,7 +20,7 @@ namespace phpOMS\Algorithm\Frequency;
  * The algorithm checks how often a set exists in a given set of sets.
  *
  * @package phpOMS\Algorithm\Frequency
- * @license OMS License 2.0
+ * @license OMS License 2.2
  * @link    https://jingga.app
  * @since   1.0.0
  */

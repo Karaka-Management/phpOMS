@@ -6,7 +6,7 @@
  *
  * @package   phpOMS\Math\Topology
  * @copyright Dennis Eichhorn
- * @license   OMS License 2.0
+ * @license   OMS License 2.2
  * @version   1.0.0
  * @link      https://jingga.app
  */
@@ -20,7 +20,7 @@ namespace phpOMS\Math\Topology;
  * The bandwidth in the following functions is equivalent with 2 * sigma.
  *
  * @package phpOMS\Math\Topology
- * @license OMS License 2.0
+ * @license OMS License 2.2
  * @link    https://jingga.app
  * @since   1.0.0
  */

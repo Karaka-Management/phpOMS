@@ -6,7 +6,7 @@
  *
  * @package   phpOMS\Algorithm\Clustering
  * @copyright Dennis Eichhorn
- * @license   OMS License 2.0
+ * @license   OMS License 2.2
  * @version   1.0.0
  * @link      https://jingga.app
  */
@@ -23,7 +23,7 @@ use phpOMS\Math\Topology\MetricsND;
  *
  * @package phpOMS\Algorithm\Clustering
  * @license Base: MIT Copyright (c) 2020 Greene Laboratory
- * @license OMS License 2.0
+ * @license OMS License 2.2
  * @link    https://jingga.app
  * @see     ./DivisiveClustering.php
  * @see     ./clustering_overview.png

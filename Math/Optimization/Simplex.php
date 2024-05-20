@@ -6,7 +6,7 @@
  *
  * @package   phpOMS\Math\Optimization
  * @copyright Dennis Eichhorn
- * @license   OMS License 2.0
+ * @license   OMS License 2.2
  * @version   1.0.0
  * @link      https://jingga.app
  */
@@ -42,7 +42,7 @@ namespace phpOMS\Math\Optimization;
  *
  * @package phpOMS\Math\Optimization
  * @license Copyright (c) 2015 Petar Veličković
- * @license OMS License 2.0
+ * @license OMS License 2.2
  * @link    https://jingga.app
  * @link    https://github.com/PetarV-/Algorithms/blob/master/Mathematical%20Algorithms/Simplex%20Algorithm.cpp
  * @since   1.0.0

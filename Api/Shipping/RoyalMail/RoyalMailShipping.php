@@ -6,7 +6,7 @@
  *
  * @package   phpOMS\Api\Shipping\RoyalMail
  * @copyright Dennis Eichhorn
- * @license   OMS License 2.0
+ * @license   OMS License 2.2
  * @version   1.0.0
  * @link      https://jingga.app
  */
@@ -22,7 +22,7 @@ use phpOMS\Message\Http\HttpRequest;
  * Shipment api.
  *
  * @package phpOMS\Api\Shipping\RoyalMail
- * @license OMS License 2.0
+ * @license OMS License 2.2
  * @link    https://jingga.app
  * @see     https://developer.royalmail.net/
  * @since   1.0.0

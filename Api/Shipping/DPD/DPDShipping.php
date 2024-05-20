@@ -6,7 +6,7 @@
  *
  * @package   phpOMS\Api\Shipping\DPD
  * @copyright Dennis Eichhorn
- * @license   OMS License 2.0
+ * @license   OMS License 2.2
  * @version   1.0.0
  * @link      https://jingga.app
  */
@@ -22,7 +22,7 @@ use phpOMS\Message\Http\HttpRequest;
  * Shipment api.
  *
  * @package phpOMS\Api\Shipping\DPD
- * @license OMS License 2.0
+ * @license OMS License 2.2
  * @link    https://jingga.app
  * @see     https://api.dpd.ro/web-api.html#href-create-shipment-req
  * @see     https://www.dpd.com/de/en/entwickler-integration-in-ihre-versandloesung/

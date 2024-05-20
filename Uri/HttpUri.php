@@ -6,7 +6,7 @@
  *
  * @package   phpOMS\Uri
  * @copyright Dennis Eichhorn
- * @license   OMS License 2.0
+ * @license   OMS License 2.2
  * @version   1.0.0
  * @link      https://jingga.app
  */
@@ -22,7 +22,7 @@ use phpOMS\Utils\StringUtils;
  * Uri used for http requests (incoming & outgoing)
  *
  * @package phpOMS\Uri
- * @license OMS License 2.0
+ * @license OMS License 2.2
  * @link    https://jingga.app
  * @since   1.0.0
  *

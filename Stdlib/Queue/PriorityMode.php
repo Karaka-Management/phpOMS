@@ -6,7 +6,7 @@
  *
  * @package   phpOMS\Stdlib\Queue
  * @copyright Dennis Eichhorn
- * @license   OMS License 2.0
+ * @license   OMS License 2.2
  * @version   1.0.0
  * @link      https://jingga.app
  */
@@ -22,7 +22,7 @@ use phpOMS\Stdlib\Base\Enum;
  * Defines the different priorities in which elements from the queue can be extracted.
  *
  * @package phpOMS\Stdlib\Queue
- * @license OMS License 2.0
+ * @license OMS License 2.2
  * @link    https://jingga.app
  * @since   1.0.0
  */

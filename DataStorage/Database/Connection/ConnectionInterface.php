@@ -6,7 +6,7 @@
  *
  * @package   phpOMS\DataStorage\Database\Connection
  * @copyright Dennis Eichhorn
- * @license   OMS License 2.0
+ * @license   OMS License 2.2
  * @version   1.0.0
  * @link      https://jingga.app
  */
@@ -22,7 +22,7 @@ use phpOMS\DataStorage\DataStorageConnectionInterface;
  * Database connection interface.
  *
  * @package phpOMS\DataStorage\Database\Connection
- * @license OMS License 2.0
+ * @license OMS License 2.2
  * @link    https://jingga.app
  * @since   1.0.0
  */

@@ -6,7 +6,7 @@
  *
  * @package   phpOMS\Math\Stochastic\Distribution
  * @copyright Dennis Eichhorn
- * @license   OMS License 2.0
+ * @license   OMS License 2.2
  * @version   1.0.0
  * @link      https://jingga.app
  */
@@ -22,7 +22,7 @@ use phpOMS\Math\Functions\Gamma;
  * Test if two variables are similarly distributed (goodness fit, test dependency of variables)
  *
  * @package phpOMS\Math\Stochastic\Distribution
- * @license OMS License 2.0
+ * @license OMS License 2.2
  * @link    https://jingga.app
  * @since   1.0.0
  */

@@ -6,7 +6,7 @@
  *
  * @package   phpOMS\Api\EUVAT
  * @copyright Dennis Eichhorn
- * @license   OMS License 2.0
+ * @license   OMS License 2.2
  * @version   1.0.0
  * @link      https://jingga.app
  */
@@ -18,7 +18,7 @@ namespace phpOMS\Api\EUVAT;
  * EU VAT validation interface
  *
  * @package phpOMS\Api\EUVAT
- * @license OMS License 2.0
+ * @license OMS License 2.2
  * @link    https://jingga.app
  * @since   1.0.0
  */

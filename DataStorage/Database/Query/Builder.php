@@ -6,7 +6,7 @@
  *
  * @package   phpOMS\DataStorage\Database\Query
  * @copyright Dennis Eichhorn
- * @license   OMS License 2.0
+ * @license   OMS License 2.2
  * @version   1.0.0
  * @link      https://jingga.app
  */
@@ -24,7 +24,7 @@ use phpOMS\DataStorage\Database\Query\Grammar\Grammar;
  * Database query builder.
  *
  * @package phpOMS\DataStorage\Database\Query
- * @license OMS License 2.0
+ * @license OMS License 2.2
  * @link    https://jingga.app
  * @since   1.0.0
  *

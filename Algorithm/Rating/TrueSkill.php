@@ -20,7 +20,7 @@ use phpOMS\Math\Stochastic\Distribution\NormalDistribution;
  * Elo rating calculation using Elo rating
  *
  * @package phpOMS\Algorithm\Rating
- * @license OMS License 2.0
+ * @license OMS License 2.2
  * @link    https://jingga.app
  * @see     https://www.moserware.com/assets/computing-your-skill/The%20Math%20Behind%20TrueSkill.pdf
  * @since   1.0.0

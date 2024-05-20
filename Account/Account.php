@@ -6,7 +6,7 @@
  *
  * @package   phpOMS\Account
  * @copyright Dennis Eichhorn
- * @license   OMS License 2.0
+ * @license   OMS License 2.2
  * @version   1.0.0
  * @link      https://jingga.app
  */
@@ -24,7 +24,7 @@ use phpOMS\Validation\Network\Email;
  * information. This model is not comparable to a profile which contains much more information.
  *
  * @package phpOMS\Account
- * @license OMS License 2.0
+ * @license OMS License 2.2
  * @link    https://jingga.app
  * @since   1.0.0
  */

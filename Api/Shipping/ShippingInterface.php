@@ -6,7 +6,7 @@
  *
  * @package   phpOMS\Api\Shipping
  * @copyright Dennis Eichhorn
- * @license   OMS License 2.0
+ * @license   OMS License 2.2
  * @version   1.0.0
  * @link      https://jingga.app
  */
@@ -25,7 +25,7 @@ use phpOMS\Message\Http\HttpRequest;
  *  3. User interaction: Redirect to 3rd party login page. User performs manual login. 3rd party page redirects pack to own app after login incl. an access token
  *
  * @package phpOMS\Api\Shipping
- * @license OMS License 2.0
+ * @license OMS License 2.2
  * @link    https://jingga.app
  * @since   1.0.0
  *

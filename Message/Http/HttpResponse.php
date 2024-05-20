@@ -6,7 +6,7 @@
  *
  * @package   phpOMS\Message\Http
  * @copyright Dennis Eichhorn
- * @license   OMS License 2.0
+ * @license   OMS License 2.2
  * @version   1.0.0
  * @link      https://jingga.app
  */
@@ -28,7 +28,7 @@ use phpOMS\Views\View;
  * @property \phpOMS\Message\Http\HttpHeader $header Http header
  *
  * @package phpOMS\Message\Http
- * @license OMS License 2.0
+ * @license OMS License 2.2
  * @link    https://jingga.app
  * @since   1.0.0
  */

@@ -6,7 +6,7 @@
  *
  * @package   phpOMS\Math\Functions
  * @copyright Dennis Eichhorn
- * @license   OMS License 2.0
+ * @license   OMS License 2.2
  * @version   1.0.0
  * @link      https://jingga.app
  */
@@ -20,7 +20,7 @@ use phpOMS\Math\Number\Numbers;
  * Well known functions class.
  *
  * @package phpOMS\Math\Functions
- * @license OMS License 2.0
+ * @license OMS License 2.2
  * @link    https://jingga.app
  * @since   1.0.0
  */

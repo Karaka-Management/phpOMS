@@ -6,7 +6,7 @@
  *
  * @package   phpOMS\Algorithm\Knapsack
  * @copyright Dennis Eichhorn
- * @license   OMS License 2.0
+ * @license   OMS License 2.2
  * @version   1.0.0
  * @link      https://jingga.app
  */
@@ -20,7 +20,7 @@ namespace phpOMS\Algorithm\Knapsack;
  * This algorithm only works for integer cost, values and quantities!
  *
  * @package phpOMS\Algorithm\Knapsack
- * @license OMS License 2.0
+ * @license OMS License 2.2
  * @link    https://jingga.app
  * @since   1.0.0
  */

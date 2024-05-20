@@ -6,7 +6,7 @@
  *
  * @package   phpOMS\System\Search
  * @copyright Dennis Eichhorn
- * @license   OMS License 2.0
+ * @license   OMS License 2.2
  * @version   1.0.0
  * @link      https://jingga.app
  */
@@ -18,7 +18,7 @@ namespace phpOMS\System\Search;
  * Basic string search algorithms.
  *
  * @package phpOMS\System\Search
- * @license OMS License 2.0
+ * @license OMS License 2.2
  * @link    https://jingga.app
  * @since   1.0.0
  */

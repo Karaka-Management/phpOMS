@@ -8,7 +8,7 @@
  * @copyright  Original & extra license Emanuil Rusev, erusev.com (MIT)
  * @copyright  Extended license Benjamin Hoegh (MIT)
  * @copyright  Extreme license doowzs (MIT)
- * @license    This version: OMS License 2.0
+ * @license    This version: OMS License 2.2
  * @version    1.0.0
  * @link       https://jingga.app
  */
@@ -25,7 +25,7 @@ use phpOMS\Uri\UriFactory;
  * @copyright  Original & extra license Emanuil Rusev, erusev.com (MIT)
  * @copyright  Extended license Benjamin Hoegh (MIT)
  * @copyright  Extreme license doowzs (MIT)
- * @license    This version: OMS License 2.0
+ * @license    This version: OMS License 2.2
  * @link       https://jingga.app
  * @see        https://github.com/erusev/parsedown
  * @see        https://github.com/erusev/parsedown-extra

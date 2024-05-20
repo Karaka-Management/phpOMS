@@ -6,7 +6,7 @@
  *
  * @package   phpOMS\Algorithm\Clustering
  * @copyright Dennis Eichhorn
- * @license   OMS License 2.0
+ * @license   OMS License 2.2
  * @version   1.0.0
  * @link      https://jingga.app
  */
@@ -20,7 +20,7 @@ namespace phpOMS\Algorithm\Clustering;
  * The parent category of this clustering algorithm is hierarchical clustering.
  *
  * @package phpOMS\Algorithm\Clustering
- * @license OMS License 2.0
+ * @license OMS License 2.2
  * @link    https://jingga.app
  * @see     ./AgglomerativeClustering.php
  * @see     ./clustering_overview.png

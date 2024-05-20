@@ -6,7 +6,7 @@
  *
  * @package   phpOMS\Module\Exception
  * @copyright Dennis Eichhorn
- * @license   OMS License 2.0
+ * @license   OMS License 2.2
  * @version   1.0.0
  * @link      https://jingga.app
  */
@@ -18,7 +18,7 @@ namespace phpOMS\Module\Exception;
  * Zero devision exception.
  *
  * @package phpOMS\Module\Exception
- * @license OMS License 2.0
+ * @license OMS License 2.2
  * @link    https://jingga.app
  * @since   1.0.0
  */

@@ -6,7 +6,7 @@
  *
  * @package   phpOMS\Api\Shipping\UPS
  * @copyright Dennis Eichhorn
- * @license   OMS License 2.0
+ * @license   OMS License 2.2
  * @version   1.0.0
  * @link      https://jingga.app
  */
@@ -27,7 +27,7 @@ use phpOMS\Uri\HttpUri;
  * Shipment API.
  *
  * @package phpOMS\Api\Shipping\UPS
- * @license OMS License 2.0
+ * @license OMS License 2.2
  * @link    https://jingga.app
  * @see     https://developer.ups.com/api/reference/oauth/authorization-code?loc=en_US
  * @see     https://developer.ups.com/api/reference?loc=en_US
