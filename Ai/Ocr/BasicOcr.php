@@ -123,6 +123,12 @@ final class BasicOcr
         /** @var int<0, max> $numberOfColumns */
         $numberOfColumns = (int) $unpack[1];
 
+        if ($numberOfColumns === 0 || $numberOfRows === 0) {
+            \fclose($fp);
+
+            return [];
+        }
+
         $images = [];
         for ($i = 0; $i < $numberOfImages; ++$i) {
             if (($read = \fread($fp, $numberOfRows * $numberOfColumns)) === false
