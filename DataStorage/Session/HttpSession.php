@@ -120,8 +120,20 @@ final class HttpSession extends SessionAbstract
         $this->setCsrfProtection();
     }
 
+    public function sessionStart() : void
+    {
+        if (\session_status() !== \PHP_SESSION_ACTIVE) {
+            session_start();
+        }
+    }
+
+    public function sessionEnd() : void
+    {
+        session_write_close();
+    }
+
     /**
-     * Set Csrf protection for forms.
+     * Set CSRF protection for forms.
      *
      * @return void
      *
