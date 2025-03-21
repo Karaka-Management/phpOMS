@@ -107,34 +107,6 @@ class View extends ViewAbstract
     }
 
     /**
-     * Check if data exists
-     *
-     * @param string $id Data Id
-     *
-     * @return bool
-     *
-     * @since 1.0.0
-     */
-    public function hasData(string $id) : bool
-    {
-        return isset($this->data[$id]);
-    }
-
-    /**
-     * Get data attached to view
-     *
-     * @param string $id Data Id
-     *
-     * @return mixed
-     *
-     * @since 1.0.0
-     */
-    public function getData(string $id) : mixed
-    {
-        return $this->data[$id] ?? null;
-    }
-
-    /**
      * Set data of view
      *
      * @param string $id   Data ID

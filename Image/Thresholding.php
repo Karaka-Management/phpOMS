@@ -124,6 +124,8 @@ final class Thresholding
             \imagepng($out, $outPath);
         } elseif (\strripos($outPath, 'jpg') !== false || \strripos($outPath, 'jpeg') !== false) {
             \imagejpeg($out, $outPath);
+        } elseif (\strripos($outPath, 'webp') !== false) {
+            \imagewebp($im, $outPath);
         } else {
             \imagegif($out, $outPath);
         }

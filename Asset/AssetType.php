@@ -31,4 +31,6 @@ abstract class AssetType extends Enum
     public const JS = 1;
 
     public const JSLATE = 2;
+
+    public const LINK = 3;
 }

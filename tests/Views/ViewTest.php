@@ -63,10 +63,9 @@ final class ViewTest extends \PHPUnit\Framework\TestCase
         self::assertEmpty($view->getTemplate());
         self::assertEmpty($view->getViews());
         self::assertIsArray($view->getViews());
-        self::assertFalse($view->hasData('0'));
         self::assertFalse($view->getView('0'));
         self::assertFalse($view->removeView('0'));
-        self::assertNull($view->getData('0'));
+        self::assertNull($view->data['0']);
         self::assertFalse($view->removeData('0'));
         self::assertEmpty($view->toArray());
     }
@@ -174,7 +173,7 @@ final class ViewTest extends \PHPUnit\Framework\TestCase
         $view = new View($this->app->l11nManager);
 
         $view->data['key'] = 'value';
-        self::assertEquals('value', $view->getData('key'));
+        self::assertEquals('value', $view->data['key']);
     }
 
     #[\PHPUnit\Framework\Attributes\Group('framework')]
@@ -184,7 +183,7 @@ final class ViewTest extends \PHPUnit\Framework\TestCase
         $view = new View($this->app->l11nManager);
 
         $view->data['key2'] = 'valu2';
-        self::assertEquals('valu2', $view->getData('key2'));
+        self::assertEquals('valu2', $view->data['key2']);
     }
 
     #[\PHPUnit\Framework\Attributes\Group('framework')]
@@ -195,7 +194,7 @@ final class ViewTest extends \PHPUnit\Framework\TestCase
 
         $view->data['key2'] = 'valu2';
         self::assertTrue($view->removeData('key2'));
-        self::assertNull($view->getData('key2'));
+        self::assertNull($view->data['key2']);
     }
 
     #[\PHPUnit\Framework\Attributes\Group('framework')]

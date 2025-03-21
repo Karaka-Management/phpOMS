@@ -787,15 +787,29 @@ abstract class ModuleAbstract
      * @param string            $trigger Trigger for the event manager
      * @param string            $ip      Ip
      *
-     * @return void
+     * @return bool
      *
      * @since 1.0.0
      */
-    protected function createModel(int $account, mixed $obj, string | \Closure $mapper, string $trigger, string $ip) : void
+    protected function createModel(int $account, mixed $obj, string | \Closure $mapper, string $trigger, string $ip) : bool
     {
         $trigger = static::NAME . '-' . $trigger . '-create';
 
-        $this->app->eventManager->triggerSimilar('PRE:Module:' . $trigger, '', $obj);
+        $data = [
+            $account,
+            null, $obj,
+            StringUtils::intHash(\is_string($mapper) ? $mapper : \get_class($mapper)), $trigger,
+            static::NAME,
+            null,
+            null,
+            $ip,
+        ];
+
+        $eventResult = $this->app->eventManager->triggerSimilar('PRE:' . $trigger, '', $data);
+        if ($eventResult !== [] && \in_array(-1, $eventResult, true)) {
+            return false;
+        }
+
         $id = 0;
 
         if (\is_string($mapper)) {
@@ -804,19 +818,13 @@ abstract class ModuleAbstract
             $mapper();
         }
 
-        $data = [
-            $account,
-            null, $obj,
-            StringUtils::intHash(\is_string($mapper) ? $mapper : \get_class($mapper)), $trigger,
-            static::NAME,
-            (string) $id,
-            null,
-            $ip,
-        ];
+        $data[6] = (string) $id;
 
         /** @phpstan-ignore-next-line */
         self::$auditor?->eventLogCreate(...$data);
-        $this->app->eventManager->triggerSimilar('POST:Module:' . $trigger, '', $data);
+        $this->app->eventManager->triggerSimilar('POST:' . $trigger, '', $data);
+
+        return true;
     }
 
     /**
@@ -832,38 +840,45 @@ abstract class ModuleAbstract
      * @param string            $trigger Trigger for the event manager
      * @param string            $ip      Ip
      *
-     * @return void
+     * @return bool
      *
      * @since 1.0.0
      */
-    protected function createModels(int $account, array $objs, string | \Closure $mapper, string $trigger, string $ip) : void
+    protected function createModels(int $account, array $objs, string | \Closure $mapper, string $trigger, string $ip) : bool
     {
         $trigger = static::NAME . '-' . $trigger . '-create';
 
         foreach ($objs as $obj) {
-            $this->app->eventManager->triggerSimilar('PRE:Module:' . $trigger, '', $obj);
-            $id = 0;
+            $data = [
+                $account,
+                null, $obj,
+                StringUtils::intHash(\is_string($mapper) ? $mapper : \get_class($mapper)), $trigger,
+                static::NAME,
+                '',
+                null,
+                $ip,
+            ];
 
+            $eventResult = $this->app->eventManager->triggerSimilar('PRE:' . $trigger, '', $data);
+            if ($eventResult !== [] && \in_array(-1, $eventResult, true)) {
+                continue;
+            }
+
+            $id = 0;
             if (\is_string($mapper)) {
                 $id = $mapper::create()->execute($obj);
             } else {
                 $mapper();
             }
 
-            $data = [
-                $account,
-                null, $obj,
-                StringUtils::intHash(\is_string($mapper) ? $mapper : \get_class($mapper)), $trigger,
-                static::NAME,
-                (string) $id,
-                null,
-                $ip,
-            ];
+            $data[6] = (string) $id;
 
             /** @phpstan-ignore-next-line */
             self::$auditor?->eventLogCreate(...$data);
-            $this->app->eventManager->triggerSimilar('POST:Module:' . $trigger, '', $data);
+            $this->app->eventManager->triggerSimilar('POST:' . $trigger, '', $data);
         }
+
+        return true;
     }
 
     /**
@@ -880,36 +895,43 @@ abstract class ModuleAbstract
      * @param string            $trigger Trigger for the event manager
      * @param string            $ip      Ip
      *
-     * @return void
+     * @return bool
      *
      * @since 1.0.0
      */
-    protected function updateModel(int $account, mixed $old, mixed $new, string | \Closure $mapper, string $trigger, string $ip) : void
+    protected function updateModel(int $account, mixed $old, mixed $new, string | \Closure $mapper, string $trigger, string $ip) : bool
     {
         $trigger = static::NAME . '-' . $trigger . '-update';
-
-        $this->app->eventManager->triggerSimilar('PRE:Module:' . $trigger, '', $old);
-        $id = 0;
-
-        if (\is_string($mapper)) {
-            $id = $mapper::update()->execute($new);
-        } else {
-            $mapper();
-        }
 
         $data = [
             $account,
             $old, $new,
             StringUtils::intHash(\is_string($mapper) ? $mapper : \get_class($mapper)), $trigger,
             static::NAME,
-            (string) $id,
+            null,
             null,
             $ip,
         ];
 
+        $eventResult = $this->app->eventManager->triggerSimilar('PRE:' . $trigger, '', $data);
+        if ($eventResult !== [] && \in_array(-1, $eventResult, true)) {
+            return false;
+        }
+
+        $id = 0;
+        if (\is_string($mapper)) {
+            $id = $mapper::update()->execute($new);
+        } else {
+            $mapper();
+        }
+
+        $data[6] = (string) $id;
+
         /** @phpstan-ignore-next-line */
         self::$auditor?->eventLogUpdate(...$data);
-        $this->app->eventManager->triggerSimilar('POST:Module:' . $trigger, '', $data);
+        $this->app->eventManager->triggerSimilar('POST:' . $trigger, '', $data);
+
+        return true;
     }
 
     /**
@@ -925,36 +947,43 @@ abstract class ModuleAbstract
      * @param string            $trigger Trigger for the event manager
      * @param string            $ip      Ip
      *
-     * @return void
+     * @return bool
      *
      * @since 1.0.0
      */
-    protected function deleteModel(int $account, mixed $obj, string | \Closure $mapper, string $trigger, string $ip) : void
+    protected function deleteModel(int $account, mixed $obj, string | \Closure $mapper, string $trigger, string $ip) : bool
     {
         $trigger = static::NAME . '-' . $trigger . '-delete';
-
-        $this->app->eventManager->triggerSimilar('PRE:Module:' . $trigger, '', $obj);
-        $id = 0;
-
-        if (\is_string($mapper)) {
-            $id = $mapper::delete()->execute($obj);
-        } else {
-            $mapper();
-        }
 
         $data = [
             $account,
             $obj,  null,
             StringUtils::intHash(\is_string($mapper) ? $mapper : \get_class($mapper)), $trigger,
             static::NAME,
-            (string) $id,
+            '',
             null,
             $ip,
         ];
 
+        $eventResult = $this->app->eventManager->triggerSimilar('PRE:' . $trigger, '', $data);
+        if ($eventResult !== [] && \in_array(-1, $eventResult, true)) {
+            return false;
+        }
+
+        $id = 0;
+        if (\is_string($mapper)) {
+            $id = $mapper::delete()->execute($obj);
+        } else {
+            $mapper();
+        }
+
+        $data[6] = (string) $id;
+
         /** @phpstan-ignore-next-line */
         self::$auditor?->eventLogDelete(...$data);
-        $this->app->eventManager->triggerSimilar('POST:Module:' . $trigger, '', $data);
+        $this->app->eventManager->triggerSimilar('POST:' . $trigger, '', $data);
+
+        return true;
     }
 
     /**
@@ -996,7 +1025,7 @@ abstract class ModuleAbstract
      * @param string $trigger Trigger for the event manager
      * @param string $ip      Ip
      *
-     * @return void
+     * @return bool
      *
      * @since 1.0.0
      */
@@ -1008,16 +1037,13 @@ abstract class ModuleAbstract
         string $field,
         string $trigger,
         string $ip
-    ) : void
+    ) : bool
     {
         if (empty($rel1) || empty($rel2)) {
-            return;
+            return false;
         }
 
         $trigger = static::NAME . '-' . $trigger . '-relation-create';
-
-        $this->app->eventManager->triggerSimilar('PRE:Module:' . $trigger, '', $rel1);
-        $mapper::writer()->createRelationTable($field, \is_array($rel2) ? $rel2 : [$rel2], $rel1);
 
         $data = [
             $account,
@@ -1029,9 +1055,18 @@ abstract class ModuleAbstract
             $ip,
         ];
 
+        $eventResult = $this->app->eventManager->triggerSimilar('PRE:' . $trigger, '', $data);
+        if ($eventResult !== [] && \in_array(-1, $eventResult, true)) {
+            return false;
+        }
+
+        $mapper::writer()->createRelationTable($field, \is_array($rel2) ? $rel2 : [$rel2], $rel1);
+
         /** @phpstan-ignore-next-line */
         self::$auditor?->eventLogRelationCreate(...$data);
-        $this->app->eventManager->triggerSimilar('POST:Module:' . $trigger, '', $data);
+        $this->app->eventManager->triggerSimilar('POST:' . $trigger, '', $data);
+
+        return true;
     }
 
     /**
@@ -1049,22 +1084,13 @@ abstract class ModuleAbstract
      * @param string $trigger Trigger for the event manager
      * @param string $ip      Ip
      *
-     * @return void
+     * @return bool
      *
      * @since 1.0.0
      */
-    protected function deleteModelRelation(int $account, mixed $rel1, mixed $rel2, string $mapper, string $field, string $trigger, string $ip) : void
+    protected function deleteModelRelation(int $account, mixed $rel1, mixed $rel2, string $mapper, string $field, string $trigger, string $ip) : bool
     {
         $trigger = static::NAME . '-' . $trigger . '-relation-delete';
-
-        $this->app->eventManager->triggerSimilar('PRE:Module:' . $trigger, '', $rel1);
-        $mapper::remover()->deleteRelationTable(
-            $field,
-            $rel2 === null
-                ? null
-                : (\is_array($rel2) ? $rel2 : [$rel2]),
-            $rel1
-        );
 
         $data = [
             $account,
@@ -1076,8 +1102,23 @@ abstract class ModuleAbstract
             $ip,
         ];
 
+        $eventResult = $this->app->eventManager->triggerSimilar('PRE:' . $trigger, '', $data);
+        if ($eventResult !== [] && \in_array(-1, $eventResult, true)) {
+            return false;
+        }
+
+        $mapper::remover()->deleteRelationTable(
+            $field,
+            $rel2 === null
+                ? null
+                : (\is_array($rel2) ? $rel2 : [$rel2]),
+            $rel1
+        );
+
         /** @phpstan-ignore-next-line */
         self::$auditor?->eventLogRelationDelete(...$data);
-        $this->app->eventManager->triggerSimilar('POST:Module:' . $trigger, '', $data);
+        $this->app->eventManager->triggerSimilar('POST:' . $trigger, '', $data);
+
+        return true;
     }
 }

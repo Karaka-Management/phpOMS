@@ -111,7 +111,7 @@ final class Head implements RenderableInterface
      */
     public function addAsset(int $type, string $uri, array $attributes = []) : void
     {
-        $this->assets[$uri] = ['type' => $type, 'attributes' => $attributes];
+        $this->assets[] = ['uri' => $uri, 'type' => $type, 'attributes' => $attributes];
     }
 
     /**
@@ -279,9 +279,19 @@ final class Head implements RenderableInterface
     public function renderAssets() : string
     {
         $rendered = '';
-        foreach ($this->assets as $uri => $asset) {
+        foreach ($this->assets as $asset) {
             if ($asset['type'] === AssetType::CSS) {
-                $rendered .= '<link rel="stylesheet" type="text/css" href="' . $uri . '"';
+                $rendered .= '<link rel="stylesheet" type="text/css" href="' . $asset['uri'] . '"';
+
+                foreach ($asset['attributes'] as $key => $attribute) {
+                    $rendered .= \is_string($key)
+                        ? ' ' . $key . '="' . $attribute . '"'
+                        : ' ' . $attribute;
+                }
+
+                $rendered .= '>';
+            } elseif ($asset['type'] === AssetType::LINK) {
+                $rendered .= '<link href="' . $asset['uri'] . '"';
 
                 foreach ($asset['attributes'] as $key => $attribute) {
                     $rendered .= \is_string($key)
@@ -291,7 +301,7 @@ final class Head implements RenderableInterface
 
                 $rendered .= '>';
             } elseif ($asset['type'] === AssetType::JS) {
-                $rendered .= '<script src="' . $uri . '"';
+                $rendered .= '<script src="' . $asset['uri'] . '"';
 
                 foreach ($asset['attributes'] as $key => $attribute) {
                     $rendered .= \is_string($key)
@@ -316,9 +326,9 @@ final class Head implements RenderableInterface
     public function renderAssetsLate() : string
     {
         $rendered = '';
-        foreach ($this->assets as $uri => $asset) {
+        foreach ($this->assets as $asset) {
             if ($asset['type'] === AssetType::JSLATE) {
-                $rendered .= '<script src="' . $uri . '"';
+                $rendered .= '<script src="' . $asset['uri'] . '"';
 
                 foreach ($asset['attributes'] as $key => $attribute) {
                     $rendered .= ' ' . $key . '="' . $attribute . '"';

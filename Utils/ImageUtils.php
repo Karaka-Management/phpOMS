@@ -180,6 +180,8 @@ final class ImageUtils
             \imagepng($dst, $dstPath);
         } elseif (\stripos($srcPath, '.gif')) {
             \imagegif($dst, $dstPath);
+        } elseif (\stripos($srcPath, '.webp')) {
+            \imagewebp($dst, $dstPath);
         }
 
         \imagedestroy($src);
@@ -347,6 +349,8 @@ final class ImageUtils
                 \imagepng($dst, $out);
             } elseif (\stripos($out, '.gif')) {
                 \imagegif($dst, $out);
+            } elseif (\stripos($out, '.webp')) {
+                \imagewebp($dst, $out);
             }
 
             \imagedestroy($src1);
