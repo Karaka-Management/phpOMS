@@ -27,11 +27,21 @@ final class GeometricDistribution
     /**
      * Constructor.
      *
+     * Example: dice roll
+     *
      * @since 1.0.0
      * @codeCoverageIgnore
      */
     private function __construct()
     {
+    }
+
+    /**
+     * How often to roll to get a specific value with at least percent chance
+     */
+    public static function getHowOften(float $p, float $percent) : float
+    {
+        return log(1.0 - $percent) / log(1 - $p);
     }
 
     /**

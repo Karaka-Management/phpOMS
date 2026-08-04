@@ -88,9 +88,15 @@ final class Elo
      */
     public function winProbability(int $elo1, int $elo2, bool $canDraw = false) : float
     {
-        return $canDraw
-            ? -1.0 // @todo implement
-            : 1 / (1 + \pow(10, ($elo2 - $elo1) / 400));
+        $expectedWin = 1 / (1 + \pow(10, ($elo2 - $elo1) / 400));
+
+        if (!$canDraw) {
+            return $expectedWin;
+        }
+
+        $draw = $this->drawProbability($elo1, $elo2);
+
+        return (1.0 - $draw) * $expectedWin;
     }
 
     /**
@@ -105,6 +111,12 @@ final class Elo
      */
     public function drawProbability(int $elo1, int $elo2) : float
     {
-        return -1.0; // @todo implement
+        $diff = \abs($elo1 - $elo2);
+
+        // Approximate draw probability: highest when ratings are equal,
+        // decreasing smoothly as the rating difference increases.
+        $maxDraw = 0.30;
+
+        return $maxDraw * \exp(-($diff ** 2) / (2 * (200 ** 2)));
     }
 }

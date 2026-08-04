@@ -64,7 +64,7 @@ class Heap
      *
      * @since 1.0.0
      */
-    public function insort(HeapItemInterface $x, int $lo = 0) : void
+    public function insert(HeapItemInterface $x, int $lo = 0) : void
     {
         $hi = \count($this->nodes);
 
