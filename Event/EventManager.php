@@ -165,14 +165,14 @@ final class EventManager implements \Countable
      * @param string $id    Sub-requirement for event (can be regex)
      * @param mixed  $data  Data to pass to the callback
      *
-     * @return bool returns true on successfully triggering ANY event, false if NO event could be triggered which also includes sub-requirements missing
+     * @return array
      *
      * @since 1.0.0
      */
-    public function triggerSimilar(string $group, string $id = '', mixed $data = null) : bool
+    public function triggerSimilar(string $group, string $id = '', mixed $data = null) : array
     {
         if (empty($this->callbacks)) {
-            return false;
+            return [];
         }
 
         $groupIsRegex = \str_starts_with($group, '/');
@@ -219,14 +219,14 @@ final class EventManager implements \Countable
 
         $data['@triggerGroup'] ??= $group;
 
-        $triggerValue = false;
+        $result = [];
         foreach ($groups as $groupName => $ids) {
             foreach ($ids as $id) {
-                $triggerValue = $this->trigger($groupName, $id, $data) || $triggerValue;
+                \array_merge($result, $this->trigger($groupName, $id, $data));
             }
         }
 
-        return $triggerValue;
+        return $result;
     }
 
     /**
@@ -236,14 +236,14 @@ final class EventManager implements \Countable
      * @param string $id    Sub-requirement for event
      * @param mixed  $data  Data to pass to the callback
      *
-     * @return bool returns true on successfully triggering the event, false if the event couldn't be triggered which also includes sub-requirements missing
+     * @return array
      *
      * @since 1.0.0
      */
-    public function trigger(string $group, string $id = '', mixed $data = null) : bool
+    public function trigger(string $group, string $id = '', mixed $data = null) : array
     {
         if (!isset($this->callbacks[$group])) {
-            return false;
+            return [];
         }
 
         if (isset($this->groups[$group])) {
@@ -251,9 +251,10 @@ final class EventManager implements \Countable
         }
 
         if ($this->hasOutstanding($group)) {
-            return false;
+            return [];
         }
 
+        $result = [];
         foreach ($this->callbacks[$group]['callbacks'] as $func) {
             if (\is_array($data)) {
                 $data['@triggerGroup'] ??= $group;
@@ -267,7 +268,7 @@ final class EventManager implements \Countable
                 $data['@triggerId']    = $id;
             }
 
-            $this->dispatcher->dispatch($func, ...\array_values($data));
+            \array_merge($result, $this->dispatcher->dispatch($func, ...\array_values($data)));
         }
 
         if ($this->callbacks[$group]['remove']) {
@@ -276,7 +277,7 @@ final class EventManager implements \Countable
             $this->reset($group);
         }
 
-        return true;
+        return $result;
     }
 
     /**

@@ -234,6 +234,26 @@ abstract class CodeAbstract
      *
      * @since 1.0.0
      */
+    public function saveToWebpFile(string $file) : void
+    {
+        $res = $this->get();
+        if ($res === null) {
+            return;
+        }
+
+        \imagewebp($res, $file);
+        \imagedestroy($res);
+    }
+
+    /**
+     * Save to file
+     *
+     * @param string $file File path/name
+     *
+     * @return void
+     *
+     * @since 1.0.0
+     */
     public function saveToJpgFile(string $file) : void
     {
         $res = $this->get();

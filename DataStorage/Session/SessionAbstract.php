@@ -78,6 +78,10 @@ abstract class SessionAbstract
      */
     abstract public function save() : bool;
 
+    abstract function sessionStart() : void;
+
+    abstract function sessionEnd() : void;
+
     /**
      * @return string
      *

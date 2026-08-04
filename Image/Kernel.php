@@ -199,6 +199,8 @@ final class Kernel
             \imagepng($im, $outPath);
         } elseif (\strripos($outPath, 'jpg') !== false || \strripos($outPath, 'jpeg') !== false) {
             \imagejpeg($im, $outPath);
+        } elseif (\strripos($outPath, 'webp') !== false) {
+            \imagewebp($im, $outPath);
         } else {
             \imagegif($im, $outPath);
         }
